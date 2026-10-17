@@ -15,7 +15,11 @@ const W = 1920, H = 1080;
 // ---------- deterministic math ----------
 export const rng = (s0 = 1) => { let s = (s0 * 2654435761) >>> 0 || 1; return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; }; };
 export const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
-export const lin = (a, b, t) => clamp((t - a) / (b - a), 0, 1);
+export const lin = (a, b, t) => {
+  if (!Number.isFinite(a)) return a > 0 ? 0 : 1;   // edge at ±Infinity: never / always reached
+  if (!Number.isFinite(b) || b === a) return t >= a ? (Number.isFinite(b) ? 1 : 0) : 0;
+  return clamp((t - a) / (b - a), 0, 1);
+};
 export const smooth = (a, b, t) => { const x = lin(a, b, t); return x * x * (3 - 2 * x); };
 export const lerp = (a, b, k) => a + (b - a) * k;
 export const expoOut = (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
@@ -152,7 +156,7 @@ export const stage = (scene, pal, { floor = true, stars = 120, clouds = true, or
     const d = new THREE.Object3D(); for (let i = 0; i < stars; i++) { d.position.set(-160 + r() * 320, 28 + r() * 70, 0); d.scale.setScalar(0.5 + r() * 1.2); d.updateMatrix(); im.setMatrixAt(i, d.matrix); }
     starG = new THREE.Group(); starG.position.z = skyZ + 1; starG.add(im); scene.add(starG); out.stars = im; }
   const cl = [];
-  if (clouds) { const shape = (w, h) => { const s = new THREE.Shape(); s.moveTo(-w, 0); let x = -w; while (x < w) { const rr = h * (0.45 + r() * 0.55); s.absarc(x + rr, 0, rr, Math.PI, 0, true); x += rr * 2; } s.lineTo(x, -0.2); s.lineTo(-w, -0.2); return s; };
+  if (clouds) { const shape = (w, h) => { const s = new THREE.Shape(); let x = -w; while (x < w) { const rr = h * (0.45 + r() * 0.55); s.absarc(x + rr, 0, rr, Math.PI, 0, true); x += rr * 2; } s.lineTo(x, -0.2); s.lineTo(-w, -0.2); return s; };
     [[-30, 36, -50, 9, 2.6, 0.18], [24, 40, -54, 12, 3.2, 0.12], [-4, 29, -46, 7, 2.0, 0.24], [52, 27, -48, 8, 2.2, 0.2]].forEach(([x, y, z, w, h, v]) => {
       const m = extrude(shape(w, h), pal.layers[0], 0.18); m.position.set(x, y, z + (skyZ + 62)); m.receiveShadow = false; scene.add(m); cl.push({ m, x0: x, y0: y, v }); }); }
   if (orb) { const m = extrude(circleShape(orb.r || 3.6), orb.hex || "#e9dfc6"); m.material[0].emissive = new THREE.Color(orb.hex || "#e9dfc6"); m.material[0].emissiveIntensity = orb.glow ?? 0.35;
