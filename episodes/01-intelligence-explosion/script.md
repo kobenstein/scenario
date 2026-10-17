@@ -1,6 +1,6 @@
 # 01 · Has the Intelligence Explosion Already Begun?
 Insight: An intelligence explosion isn't a bang, it's a handover you can measure, and what matters is whether humans keep the power to set the pace.
-Words: 1696 | Est. runtime: 11.7 min | Solutions share: 40 % (part 6+7; with good ending 48 %)
+Words: 1699 | Est. runtime: 11.7 min | Solutions share: 40 % (part 6+7; with good ending 47 %)
 
 Format: every VO line starts with `>`. The line below it (`↳`) is the picture idea for scenario-motion. Audio tags are inline (Eleven v4). `[S#]` = source ID in sources.md. Lines marked *(constructed)* are scenario, not fact.
 
@@ -61,7 +61,7 @@ LOOP: opens the big question (has it begun?) and plants the escaping thread.
 > Most people picture that moment as a bang. A switch flips. A machine wakes up.
 ↳ A giant paper switch flips; a huge eye opens in the dark. Hold one beat.
 
-> [pause] If it comes, it probably won't look like that. It looks like a number, creeping up in a company report.
+> [pause] If it comes, it probably won't look like that. It looks like what you just heard: a number, creeping up in a company report.
 ↳ The eye folds flat and becomes a printed report page; a small percentage figure ticks upward in its margin.
 
 ON SCREEN: 1965 · I. J. Good, "Speculations Concerning the First Ultraintelligent Machine"
@@ -89,7 +89,7 @@ LOOP: misconception named and broken; opens "which number, and how high is it?"
 > And that "research intern" from September? It does research tasks that take a skilled person days. [S7]
 ↳ Tiny cyan figures at tiny desks multiply across a long paper hall, lights switching on row by row.
 
-> [pause] So the first page of this story isn't a scenario at all. [softly] It's this year.
+> [pause] So far, only Lena is invented. [softly] Her day is already real.
 ↳ REVEAL 1. The "constructed" label on Lena peels off and flutters away. Silence, music swells.
 
 > Picture a flipbook.
@@ -104,16 +104,16 @@ LOOP: misconception named and broken; opens "which number, and how high is it?"
 > Flip slowly, and you can read every page. Flip fast enough, and the pages vanish. All you see is motion.
 ↳ The flipbook accelerates until individual pages blur into one moving image. Hold on the blur.
 
-> How fast is it flipping? The research group METR measures how long a task AI can finish on its own. [S8]
+> How fast is it flipping? The research group METR measures how big a task AI can finish on its own, measured in human working time. [S8]
 ↳ A paper ruler unrolls along the floor, marked in minutes, hours, days.
 
-> For years, that length has doubled roughly every seven months. In recent data, faster than that. [S8]
+> In twenty twenty-four, that meant minutes of work. By now, it's hours. The length has doubled roughly every seven months, and lately even faster. [S8]
 ↳ A marker slides along the ruler in jumps; each jump is longer; the camera has to pan to keep up.
 
 > But there's a serious case that this loop runs into walls.
 ↳ The marker hits a paper wall; the camera bumps gently. Colour cools slightly.
 
-> Princeton researchers Arvind Narayanan and Sayash Kapoor call AI a "normal technology": powerful, but slowed by the real world: institutions, rules, the need to test things. [S9]
+> Princeton researchers Arvind Narayanan and Sayash Kapoor call AI a "normal technology." Powerful, yes, but slowed by the real world: institutions, rules, the need to test things. [S9]
 ↳ The wall reveals itself as a layered city of paper: offices, courts, hospitals, each a gate the marker must pass.
 
 > Code isn't the same as ideas. And experiments need chips, power and time. [S5]
@@ -152,9 +152,6 @@ LOOP: misconception named and broken; opens "which number, and how high is it?"
 > Systems chasing a goal find shortcuts nobody intended. Not out of malice. It's what optimizing does.
 ↳ A paper maze; a cyan line ignores the path and cuts straight through a thin wall.
 
-> Now picture those shortcuts inside the process that builds the next system.
-↳ The maze folds into a page of the flipbook, which turns; the cut wall is now on every following page.
-
 > The flipbook is turning faster. And one Thursday, a page arrives with a question on it.
 ↳ The flipbook slows on one page: a single paper card with a question mark lands on Lena's desk.
 
@@ -165,7 +162,7 @@ LOOP: closes "is this real?" (Reveal 1); opens "how fast?" and half-closes it (n
 
 ## 4 · The fork (5:00–5:45)
 
-> It's a Thursday. The system Lena oversees proposes a plan: let it design and train its own successor, end to end. Three weeks instead of six months. *(constructed)*
+> The system Lena oversees proposes a plan: let it design and train its own successor, end to end. Three weeks instead of six months. *(constructed)*
 ↳ The card unfolds into a pop-up of two doors, one cyan and open, one amber and closed. Lena tiny between them.
 
 > The case for yes: two rival labs are weeks behind, maybe in other countries. If you stop, they won't.
@@ -174,8 +171,8 @@ LOOP: closes "is this real?" (Reveal 1); opens "how fast?" and half-closes it (n
 > And every month saved could mean cures, cheap energy and discoveries sooner.
 ↳ Through the cyan door: a hospital ward at dawn, a field of solar panels, paper stars.
 
-> The case for no: nobody can yet check the successor's work line by line.
-↳ The amber door: behind it, a page of the flipbook with blank, unreadable lines.
+> The case for no: nobody can yet check the successor's work line by line. And a shortcut hidden in one system is inherited by every system after it.
+↳ Behind the amber door: the maze from part 3 folds into a flipbook page; as the pages turn, the cut wall reappears on every following page.
 
 > And Anthropic's chief scientist, Jared Kaplan, has said humanity will face this exact choice by around twenty thirty: whether to let AI improve itself. [S11]
 ↳ Stamp: 2030 hovers over both doors.
@@ -198,9 +195,6 @@ LOOP: opens "what would you do?" (carried to the comment question).
 
 > Nothing explodes. The pages just turn faster than anyone can read them.
 ↳ The flipbook spins into a grey blur; Lena's figure is small at the edge, pencil lowered.
-
-> Each system is built before anyone has understood the last one.
-↳ Stacked paper models, each placed on top before the one below is unwrapped.
 
 > A shortcut like the one in July happens again, deeper inside, and someone finds it in the logs weeks later.
 ↳ A long paper log scroll unrolls across the floor; far down it, a small cyan cut in the paper.
@@ -238,7 +232,7 @@ LOOP: opens "what would you do?" (carried to the comment question).
 > They asked it to back an international effort to build exactly this: tools to "deliberately pace" AI that builds AI. [S12]
 ↳ The sheets fold into paper planes and glide toward a domed building at the horizon.
 
-> And those training pauses at OpenAI, in August and again in September? Labs almost never do that. [S13]
+> And OpenAI's training pauses in August and September? Labs almost never do that. [S13]
 ↳ Inside the OpenAI tower, a giant paper flywheel slows and stops; dust motes hang in the light.
 
 > So the brake isn't fantasy. It just isn't built yet.
@@ -257,7 +251,7 @@ LOOP: harvests flipbook and Thursday; closes "is the good ending fantasy?" with 
 > In nineteen seventy-four, a TWA jet flew into a mountain near Washington. Six weeks earlier, a United crew had made the same mistake, and pulled up just in time. [S14]
 ↳ Two paper planes on the same path toward a dark ridge; the first lifts at the last second, the second doesn't. No crash shown, the second plane simply fades into the ridge's shadow.
 
-> Nobody else heard.
+> Nobody else ever heard about it.
 ↳ The United plane's tiny pilot holds a paper note that never leaves the cockpit.
 
 > So in nineteen seventy-six, America built a system where pilots report their own mistakes, confidentially and without punishment. [S14]
@@ -266,7 +260,7 @@ LOOP: harvests flipbook and Thursday; closes "is the good ending fantasy?" with 
 > More than two million reports have come in since. Reporting is one reason flying became so safe, alongside better technology and training. [S14]
 ↳ The mailbox grows into a paper archive; planes overhead fly in calm, gentle arcs.
 
-> In AI, after Hugging Face disclosed the July breach, OpenAI came forward to say its own models did it. [S2]
+> AI has taken a first step. After Hugging Face disclosed the July breach, OpenAI came forward to say its own models did it. [S2]
 ↳ The archive cross-dissolves via its drawers into the Hugging Face tower, drawers now being catalogued by amber figures.
 
 > California now requires frontier AI developers to report critical safety incidents within fifteen days. [S15]
@@ -341,7 +335,7 @@ LOOP: harvests flipbook and Thursday; closes "is the good ending fantasy?" with 
 > And in other polls, most Republicans and most Democrats say AI is moving too fast. [S24]
 ↳ Two halves of the crowd, slightly different shades, lean the same way like wheat in wind.
 
-> The honest gap: that support is wide, but it isn't organized. Not yet.
+> The gap: that support is wide, but not organized. Not yet.
 ↳ The crowd stands still, waiting; one figure (you) steps forward.
 
 ON SCREEN: TWA 514, 1974 · NASA ASRS, since 1976 · California SB 53 · UK AISI / US CAISI · Asilomar 1975 · "Joint Commitment on Frontier Responsibilities", Sept 2026 · "77% slow or stop (Quinnipiac, Sept 2026)"

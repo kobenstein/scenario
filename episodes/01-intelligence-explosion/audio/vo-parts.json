@@ -1,0 +1,15 @@
+{
+ "model": "fal-ai/elevenlabs/tts/eleven-v4",
+ "settings": {"voice": "George", "stability": 0.45, "similarity_boost": 0.75, "seed": 42, "language_code": "en"},
+ "assembly": "parts 0-6 = script sections 1-7; 0.9 s gaps, 3.2 s after the fork (part 3); loudnorm I=-16 for the review file",
+ "parts": [
+  "https://v3b.fal.media/files/b/0aaec43c/1PIizLSON94xBZUnSY3uD_output.mp3",
+  "https://v3b.fal.media/files/b/0aaec43c/VXalhsxPZSqOvJ-24gnBn_output.mp3",
+  "https://v3b.fal.media/files/b/0aaec43f/5xaATx4XmiTLbnbRG1j4F_output.mp3",
+  "https://v3b.fal.media/files/b/0aaec43c/aTx1R6kT4z-uSUAjrLzV0_output.mp3",
+  "https://v3b.fal.media/files/b/0aaec43d/UDf9k6FeGZXX4X9Cicgh-_output.mp3",
+  "https://v3b.fal.media/files/b/0aaec440/2vKXhIh5-1kXBBmnOdKVq_output.mp3",
+  "https://v3b.fal.media/files/b/0aaec43c/MIc8-Aja8WPAfHdP_utgv_output.mp3"
+ ],
+ "check": "ElevenLabs STT transcript matches the script word for word (only number formatting differs); no audio tags spoken aloud; whispers ~6 dB quieter"
+}

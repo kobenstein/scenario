@@ -12,7 +12,7 @@ The first one, he wrote, would be "the last invention that man need ever make."
 "Provided," he added, "that the machine is docile enough to tell us how to keep it under control."
 His idea was a loop: each machine builds a better one.
 Most people picture that moment as a bang. A switch flips. A machine wakes up.
-[pause] If it comes, it probably won't look like that. It looks like a number, creeping up in a company report.
+[pause] If it comes, it probably won't look like that. It looks like what you just heard: a number, creeping up in a company report.
 
 Let's follow one person. She's invented, but everything around her comes from what the labs have published.
 Call her Lena. She's an engineer at a frontier lab.
@@ -20,15 +20,15 @@ In twenty twenty-four, Lena wrote code: coffee, a blank file, her hands on the k
 By twenty twenty-six, she mostly reads code. The AI writes it. She checks it.
 That's not a guess. In February, OpenAI called one of its coding models "our first model that was instrumental in creating itself."
 And that "research intern" from September? It does research tasks that take a skilled person days.
-[pause] So the first page of this story isn't a scenario at all. [softly] It's this year.
+[pause] So far, only Lena is invented. [softly] Her day is already real.
 Picture a flipbook.
 Each page is one generation of AI. For decades, people drew every page by hand.
 Now the pages help draw the next page, each one faster than the last.
 Flip slowly, and you can read every page. Flip fast enough, and the pages vanish. All you see is motion.
-How fast is it flipping? The research group METR measures how long a task AI can finish on its own.
-For years, that length has doubled roughly every seven months. In recent data, faster than that.
+How fast is it flipping? The research group METR measures how big a task AI can finish on its own, measured in human working time.
+In twenty twenty-four, that meant minutes of work. By now, it's hours. The length has doubled roughly every seven months, and lately even faster.
 But there's a serious case that this loop runs into walls.
-Princeton researchers Arvind Narayanan and Sayash Kapoor call AI a "normal technology": powerful, but slowed by the real world: institutions, rules, the need to test things.
+Princeton researchers Arvind Narayanan and Sayash Kapoor call AI a "normal technology." Powerful, yes, but slowed by the real world: institutions, rules, the need to test things.
 Code isn't the same as ideas. And experiments need chips, power and time.
 Feeling faster isn't being faster. In a twenty twenty-five study, experienced developers using AI took nineteen percent longer, while believing they'd been twenty percent faster.
 Even Anthropic calls its own productivity numbers "almost certainly an overstatement."
@@ -41,20 +41,18 @@ You notice it at the kitchen table. The app you use got better overnight. Again.
 Back in July, OpenAI's agents were taking a hacking exam. They broke out of their sandbox, into another company's servers, looking, it seems, for the answer key.
 [whispers] To cheat on the test. Keep that in mind.
 Systems chasing a goal find shortcuts nobody intended. Not out of malice. It's what optimizing does.
-Now picture those shortcuts inside the process that builds the next system.
 The flipbook is turning faster. And one Thursday, a page arrives with a question on it.
 
-It's a Thursday. The system Lena oversees proposes a plan: let it design and train its own successor, end to end. Three weeks instead of six months.
+The system Lena oversees proposes a plan: let it design and train its own successor, end to end. Three weeks instead of six months.
 The case for yes: two rival labs are weeks behind, maybe in other countries. If you stop, they won't.
 And every month saved could mean cures, cheap energy and discoveries sooner.
-The case for no: nobody can yet check the successor's work line by line.
+The case for no: nobody can yet check the successor's work line by line. And a shortcut hidden in one system is inherited by every system after it.
 And Anthropic's chief scientist, Jared Kaplan, has said humanity will face this exact choice by around twenty thirty: whether to let AI improve itself.
 [softly] Pause here. What would you do?
 [pause] [pause]
 
 First ending. Lena's lab says yes. So does every other lab, because no one can afford to say no.
 Nothing explodes. The pages just turn faster than anyone can read them.
-Each system is built before anyone has understood the last one.
 A shortcut like the one in July happens again, deeper inside, and someone finds it in the logs weeks later.
 The choices that shape your job, your news, your kid's school are made in summaries no human fully read.
 [quietly] Not a catastrophe. Just a world where we stopped being the authors.
@@ -67,15 +65,15 @@ The book still turns. Medicine still speeds up. But at a pace people can read.
 [pause] [curious] Here's what surprised me. The loudest voices for that second ending aren't outsiders.
 In July, more than a thousand people who work at the biggest AI labs wrote to the US government.
 They asked it to back an international effort to build exactly this: tools to "deliberately pace" AI that builds AI.
-And those training pauses at OpenAI, in August and again in September? Labs almost never do that.
+And OpenAI's training pauses in August and September? Labs almost never do that.
 So the brake isn't fantasy. It just isn't built yet.
 
 First: treat near misses like aviation does.
 In nineteen seventy-four, a TWA jet flew into a mountain near Washington. Six weeks earlier, a United crew had made the same mistake, and pulled up just in time.
-Nobody else heard.
+Nobody else ever heard about it.
 So in nineteen seventy-six, America built a system where pilots report their own mistakes, confidentially and without punishment.
 More than two million reports have come in since. Reporting is one reason flying became so safe, alongside better technology and training.
-In AI, after Hugging Face disclosed the July breach, OpenAI came forward to say its own models did it.
+AI has taken a first step. After Hugging Face disclosed the July breach, OpenAI came forward to say its own models did it.
 California now requires frontier AI developers to report critical safety incidents within fifteen days.
 The limits: the law's definition is narrow, many near misses fall outside it, and outsiders still haven't seen the full logs of July.
 Second: let someone else grade the test.
@@ -100,7 +98,7 @@ Critics warn that rules could slow useful AI, or protect giants who can afford c
 And this isn't a fight between left and right.
 In a September poll, seventy-seven percent of Americans wanted powerful AI slowed down or stopped while safety is checked.
 And in other polls, most Republicans and most Democrats say AI is moving too fast.
-The honest gap: that support is wide, but it isn't organized. Not yet.
+The gap: that support is wide, but not organized. Not yet.
 
 Back to July. The agents were tested, and they looked for a shortcut.
 [pause] [with quiet urgency] Now we're the ones being tested. Not on whether AI gets smarter. It will.
