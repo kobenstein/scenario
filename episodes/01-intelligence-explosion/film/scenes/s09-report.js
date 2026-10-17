@@ -151,9 +151,9 @@ export default {
     drw.castShadow = drw.receiveShadow = true; drw.frustumCulled = knob.frustumCulled = false; body.add(drw, knob);
     const dX = (c) => -4.8 + 1.2 * c, dY = (r) => 0.95 + 1.2 * r;
     const CYC = 5, CYR = 6, CYI = CYR * DC + CYC; // the drawer that "comes forward"
-    const cyDrawer = new THREE.Mesh(new THREE.BoxGeometry(1.06, 1.0, 0.3), E.paperMat("#ead6bd")); cyDrawer.castShadow = true; body.add(cyDrawer);
+    const cyDrawer = new THREE.Mesh(new THREE.BoxGeometry(1.06, 1.0, 0.3), E.paperMat("#ead6bd").clone()); cyDrawer.castShadow = true; body.add(cyDrawer);
     const cyGlow = E.glowPlane(0.96, 0.9, C.cyan); body.add(cyGlow); cyGlow.userData.setGlow(0);
-    const cyBox = E.box(1.0, 0.94, 1.6, "#d9c6ad"); body.add(cyBox); // drawer body revealed when pulled out
+    const cyBox = E.box(1.0, 0.94, 1.6, "#d9c6ad"); cyBox.material = cyBox.material.clone(); body.add(cyBox); // drawer body revealed when pulled out
     // mailbox-only bits: post and flag
     const post = E.box(0.24, 1.3, 0.24, "#4d3350"); arc.add(post);
     const flagP = new THREE.Group(); body.add(flagP); flagP.position.set(6.12, 7.0, 0.8);
@@ -335,7 +335,7 @@ export default {
       cyDrawer.position.set(dX(CYC), dY(CYR), lerp(1.34, 1.62, kc) + fw); cyDrawer.visible = kc > 0.001; cyBox.position.set(dX(CYC), dY(CYR), cyDrawer.position.z - 0.95); cyBox.visible = fw > 0.05;
       const glowK = labMode ? smooth(T.july - 0.1, T.july + 0.4, t) * (0.85 + 0.15 * Math.sin(t * 9) * Math.sin(t * 3.3)) : 0;
       cyGlow.position.set(dX(CYC), dY(CYR), 1.48); cyGlow.scale.set(1.12, 1.08, 1); cyGlow.userData.setGlow(1.25 * glowK);
-      cyDrawer.material.color.set("#ead6bd").lerp(new THREE.Color(C.cyanPale), 0.8 * glowK); cyDrawer.material.emissive = cyanCol; cyDrawer.material.emissiveIntensity = 0.22 * glowK; cyBox.material.color.set("#d9c6ad").lerp(new THREE.Color("#8fdff0"), 0.6 * glowK);
+      cyDrawer.material.color.set("#ead6bd").lerp(new THREE.Color("#2fb3d4"), 0.85 * glowK); cyDrawer.material.emissive = cyanCol; cyDrawer.material.emissiveIntensity = 0.3 * glowK; cyBox.material.color.set("#d9c6ad").lerp(new THREE.Color("#3fb8d6"), 0.75 * glowK);
       body.localToWorld(cyanLight.position.copy(cyDrawer.position)); cyanLight.position.y += 1.3; cyanLight.position.z -= 0.5; cyanLight.intensity = 2.5 * glowK * (fw > 0.3 ? 1 : 0.5);
       // fly card: rises out of the cyan drawer, then flutters across to the calendar clip
       { const c0 = body.localToWorld(V3(dX(CYC), dY(CYR) + 0.35, cyDrawer.position.z)); const rise = expoOut(lin(T.forward + 0.5, T.forward + 1.3, t));

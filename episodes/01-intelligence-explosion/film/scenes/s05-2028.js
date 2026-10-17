@@ -378,7 +378,8 @@ export default {
     const PG = { w: 4, h: 2.25 }; // 16:9, placed so it overfills the frame at the start
     const pagePivot = new THREE.Group(); scene.add(pagePivot);
     const pageMesh = E.drawnCard({ w: PG.w, h: PG.h, px: 512, depth: 0.008, draw: (g, w, h) => { g.fillStyle = "rgba(120,110,90,0.05)"; for (let i = 0; i < 6; i++) g.fillRect(0, h * (0.12 + i * 0.15), w, 1); } });
-    pageMesh.position.x = PG.w / 2; pageMesh.castShadow = false; pagePivot.add(pageMesh); pageMesh.material[4].emissive = new THREE.Color(C.cream); pageMesh.material[4].emissiveIntensity = 0.62; pageMesh.material[4].color.set("#d8cfbd");
+    pageMesh.position.x = PG.w / 2; pageMesh.castShadow = false; pagePivot.add(pageMesh); // matches the s04 end page (tan-cream, tone-mapped ~ rgb 178,154,110): unlit paper face
+    pageMesh.material[4] = new THREE.MeshBasicMaterial({ color: "#aa9067", map: E.paperTex });
     const tPageTurn = tNow + 0.2; const pageQ = new THREE.Quaternion();
 
     // =====================================================================================

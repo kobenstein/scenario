@@ -175,11 +175,11 @@ export default {
       const stripe = E.box(2.2, 0.12, 1.32, "#7a3b17"); stripe.position.set(-0.3, 0.5, 0); carIn.add(stripe);
       const bump = E.box(0.14, 0.24, 1.36, "#4d3350"); bump.position.set(0.86, 0.38, 0); carFront.add(bump);
       [[-0.9, 0.66], [-0.9, -0.66], [0.45, 0.66], [0.45, -0.66]].forEach(([x, z], i) => { const w = E.extrude(E.circleShape(0.28), "#2a1d2e", 0.14); w.position.set(x, 0.28, z - 0.07); (i < 2 ? carIn : carFront).add(w); w.userData.wheel = true; }); }
-    const dummy = E.figure({ pose: "sit", hair: "short", hex: AMB, seed: 31 }); dummy.scale.setScalar(0.44); dummy.position.set(-0.32, 0.45, 0); dummy.userData.mat.side = THREE.DoubleSide; carIn.add(dummy);
+    const dummy = E.figure({ pose: "sit", hair: "short", hex: AMB, seed: 31 }); dummy.scale.setScalar(0.44); dummy.position.set(-0.32, 0.47, 0); dummy.userData.mat.side = THREE.DoubleSide; carIn.add(dummy);
     const dummyMark = new THREE.Mesh(new THREE.CircleGeometry(0.11, 20), new THREE.MeshBasicMaterial({ color: "#3a2232", side: THREE.DoubleSide })); dummyMark.position.set(0.08, 0.17, 0.01); dummy.userData.headG.add(dummyMark);
     // flash bulbs on stands + debris
     const bulbs = [[TRX - 2.5, WALLZ - 1.5], [TRX - 2.7, WALLZ - 4.6]].map(([x, z]) => { const g = new THREE.Group(); g.position.set(x, 0, z); world.add(g); const st = E.box(0.08, 2.6, 0.08, "#3a2740"); st.position.y = 1.3; g.add(st);
-      const dish = E.extrude(E.circleShape(0.32), "#efe6d2", 0.08); dish.position.set(0, 2.7, 0); dish.lookAt(TRX + 0.0, 0.8, WALLZ - 2.0); g.add(dish); const b = E.glowPlane(0.36, 0.36, "#fff3d8"); b.position.set(0, 2.7, 0); g.add(b); g.userData.b = b; b.userData.setGlow(0.3); return g; });
+      const dish = E.extrude(E.circleShape(0.32), "#efe6d2", 0.08); dish.position.set(0, 2.7, 0); dish.lookAt(TRX + 0.0, 0.8, WALLZ - 2.0); g.add(dish); const b = E.glowPlane(0.55, 0.55, "#fff3d8"); b.lookAt(TRX + 6, 1.8, WALLZ - 7); b.position.set(0, 2.7, 0); g.add(b); g.userData.b = b; b.userData.setGlow(0.3); return g; });
     const ND = 16; const debris = new THREE.InstancedMesh(new THREE.BoxGeometry(0.16, 0.12, 0.01), pm("#efe6d2"), ND); debris.frustumCulled = false; world.add(debris);
     const dr = rng(71); const DEB = [...Array(ND)].map(() => ({ vx: (dr() - 0.5) * 3, vy: 1.5 + dr() * 2.5, vz: -0.5 - dr() * 1.5, s: (dr() - 0.5) * 12 }));
     // the dark hand that ushers the inspectors out
@@ -226,8 +226,8 @@ export default {
       K(T.shelved + 0.1, [-13.2, 4.6, -35.5], [-20.2, 4.4, -47.5], inOut, 0.04),
       K(T.bar, [-13.6, 4.5, -36.2], [-20.4, 4.4, -47.5], sineInOut),
       K(T.testing, [TRX + 7.5, 2.6, WALLZ - 9], [TRX - 0.5, 1.0, WALLZ - 5], inOut, 0.04),
-      K(T.crash, [TRX + 5.2, 1.5, WALLZ - 5.6], [TRX - 0.2, 1.0, WALLZ - 1.6], sineInOut),
-      K(T.cars + 0.6, [TRX + 4.5, 1.4, WALLZ - 4.8], [TRX - 0.1, 1.0, WALLZ - 1.5], sineInOut),
+      K(T.crash, [TRX + 6.4, 1.45, WALLZ - 7.0], [TRX - 0.3, 1.0, WALLZ - 2.0], sineInOut),
+      K(T.cars + 0.6, [TRX + 5.4, 1.35, WALLZ - 6.0], [TRX - 0.2, 1.0, WALLZ - 1.8], sineInOut),
       K(T.voluntary + 0.7, [4.5, 3.3, -30.5], [3.0, 2.0, -45], inOut, 0.05),
       K(T.cut + 0.9, [5.2, 3.2, -31.0], [4.2, 2.0, -45], sineInOut),
       K(T.seventeen + 0.2, [3.6, 2.5, -42.2], [2.4, 1.55, -48.6], inOut, 0.03),
@@ -297,7 +297,7 @@ export default {
       const railPos = V3(-15.4, 2.15, GZ - 2.4), shelfPos = V3(-23.2, 5.95, GZ - 2.9);
       const mp = railPos.clone().lerp(shelfPos, lift); mp.y += Math.sin(Math.PI * lift) * 2.2; bigModel.position.copy(mp); bigModel.rotation.z = 0.55 * (1 - lift) + 0.05 * Math.sin(t * 1.1);
       bigModel.userData.ring.rotation.z = t * 0.6; bigModel.scale.setScalar(lerp(1, 0.7, lift)); bigModel.visible = t > T.september - 2;
-      giantHand.position.set(mp.x + 0.15, mp.y + 2.7 * bigModel.scale.x + 12 * (1 - gIn) + 12 * gOut, mp.z + 0.32); giantHand.rotation.set(Math.PI / 2, 0, -Math.PI / 2 + 0.06 * Math.sin(t * 1.4)); giantHand.visible = gIn > 0.001 && gOut < 0.999;
+      giantHand.position.set(mp.x + 0.15, mp.y + 2.3 * bigModel.scale.x + 12 * (1 - gIn) + 12 * gOut, mp.z - 0.45); giantHand.rotation.set(Math.PI / 2, 0, -Math.PI / 2 + 0.06 * Math.sin(t * 1.4)); giantHand.visible = gIn > 0.001 && gOut < 0.999;
       // crash test: car rolls out after "The lesson", real speed, then slow motion from just before "crash" through the impact
       const c0 = T.lesson + 0.2, tSlow = T.crash - 0.45, tImp = T.crash + 0.12, Q = 0.14;
       const tau = (x) => (x < tSlow ? x : tSlow + Q * (x - tSlow));
@@ -311,7 +311,7 @@ export default {
       dummy.userData.pose(t, { lean: 0.9 * jolt, lookUp: -0.3 * jolt + 0.25 * smooth(T.cars, T.cars + 0.6, t), reach: 0.3 + 0.5 * smooth(T.cars + 0.1, T.cars + 0.8, t), armUp: 0.6 * smooth(T.cars + 0.15, T.cars + 0.85, t) });
       const fl = after > 0 ? Math.exp(-after * 7) + 0.8 * Math.exp(-Math.max(0, after - 0.45) * 7) * (after > 0.45 ? 1 : 0) : 0;
       bulbs.forEach((b, i) => b.userData.b.userData.setGlow(0.35 + 3.2 * fl * (i ? 0.9 : 1)));
-      flash.position.set(TRX + 1.5, 2.8, WALLZ - 2.2); flash.intensity = 40 * fl;
+      flash.position.set(TRX + 1.5, 2.8, WALLZ - 2.2); flash.intensity = 110 * fl;
       for (let k = 0; k < ND; k++) { const D = DEB[k]; if (after <= 0 || aS > 1.4) { dmy.scale.setScalar(0.0001); } else { const u = aS; dmy.scale.setScalar(1);
           dmy.position.set(TRX + D.vx * u, Math.max(0.02, 0.9 + D.vy * u - 4.9 * u * u), WALLZ - 0.9 + D.vz * u); dmy.rotation.set(D.s * u, D.s * 0.7 * u, 0); } dmy.updateMatrix(); debris.setMatrixAt(k, dmy.matrix); }
       debris.instanceMatrix.needsUpdate = true;

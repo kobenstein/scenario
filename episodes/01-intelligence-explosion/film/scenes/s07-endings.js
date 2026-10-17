@@ -105,7 +105,7 @@ export default {
       const back = E.glowPlane(w - 0.8, h - dh - 1.4, "#ffffff"); back.position.set(0, dh + 0.8 + (h - dh - 1.4) / 2, -0.3); g.add(back);
       // door interior light + inner amber core (good ending)
       const dGlow = E.glowPlane(dw, dh, C.cyan); dGlow.position.set(0, dh / 2, -0.35); g.add(dGlow);
-      const dCore = new THREE.Mesh(new THREE.PlaneGeometry(dw * 1.1, dh * 1.0), new THREE.MeshBasicMaterial({ color: new THREE.Color("#ffc27a").multiplyScalar(1.5), map: haloTex, transparent: true, depthWrite: false, fog: false })); dCore.position.set(0, dh * 0.45, -0.3); dCore.material.opacity = 0; g.add(dCore);
+      const dCore = new THREE.Mesh(new THREE.PlaneGeometry(dw * 1.1, dh * 1.0), new THREE.MeshBasicMaterial({ color: new THREE.Color("#ff9a3c").multiplyScalar(1.3), map: haloTex, transparent: true, depthWrite: false, fog: false })); dCore.position.set(0, dh * 0.45, -0.3); dCore.material.opacity = 0; g.add(dCore);
       // door leaf hinged on its left edge, swings toward the camera
       const piv = new THREE.Group(); piv.position.set(dw / 2, 0, 0.5); g.add(piv);
       const leaf = E.extrude(E.rectShape(dw - 0.06, dh - 0.04, -(dw - 0.06) / 2 - 0.03, dh / 2), "#1d7f96", 0.12, { emissive: 0.15 }); leaf.position.z = -0.12; piv.add(leaf);
@@ -298,7 +298,7 @@ export default {
 
     // ---------- the note, and the clock with its threads ----------
     const notes = [1, 2, 3, 4, 5].map((ti) => { const n = E.drawnCard({ w: 1.5, h: 1.0, px: 128, draw: (g, w, h) => { g.fillStyle = "#b8a99a"; for (let k = 0; k < 3; k++) g.fillRect(14, 16 + k * 22, w - 28 - k * 18, 7); } }); n.visible = false; scene.add(n); return { n, ti }; });
-    const CLK = { x: 15, y: 35, z: -56, r: 7.5 };
+    const CLK = { x: 15, y: 35, z: -43, r: 7.5 };
     const clock = new THREE.Group(); clock.position.set(CLK.x, -12, CLK.z); scene.add(clock);
     { const face = ex(E.circleShape(CLK.r), "#efe6d2", "#fff1dc", 0.3, 0); face.material[0].emissive = new THREE.Color("#ffe6c4"); face.material[0].emissiveIntensity = 0.12; clock.add(face);
       const rim = ex(E.ringShape(CLK.r - 0.5, CLK.r + 0.2), "#c9a37a", "#ffb35c", 0.6, 0); clock.add(rim);
@@ -319,7 +319,7 @@ export default {
       { t: T.from + 0.7, p: [-0.9, 2.8, -11.4], l: [-0.6, 2.85, -24], ease: "sine" },
       { t: T.yes - 0.15, p: [-2.6, 3.6, 2.5], l: [0.3, 4.4, -14], ease: "inOut", arc: 0.05 },
       { t: T.every - 0.1, p: [-3.0, 3.9, 1.6], l: [0.3, 4.6, -14], ease: "sine" },
-      { t: T.nothing + 0.2, p: [5, 15.5, 42], l: [0, 8.5, -20], ease: "inOut", arc: 0.2 },
+      { t: T.nothing + 0.2, p: [5, 15.5, 42], l: [0, 8.5, -20], ease: "inOut", arc: -0.08 },
       { t: T.pages - 0.1, p: [4.6, 14.6, 39], l: [0, 8, -20], ease: "sine" },
       { t: T.faster + 0.7, p: [8.4, 4.9, 13.5], l: [9.4, 3.3, -6.5], ease: "inOut", arc: 0.15 },
       { t: T.shortcut + 0.1, p: [8.3, 4.7, 12.6], l: [9.6, 3.2, -6.5], ease: "sine" },
@@ -405,7 +405,7 @@ export default {
           tw.dGlow.userData.setGlow((0.08 + 1.5 * Math.min(1, o)) * flick);
           tw.spill.material.opacity = 0.75 * Math.min(1, o) * (i ? 0.8 : 1) * flick; tw.spill.visible = o > 0.01;
           tw.dCore.material.opacity = i === 0 ? smooth(T.withH - 0.5, T.withH + 0.3, t) : 0;
-          if (i === 0) tw.dGlow.material.color.lerp(GOLD, 0.55 * smooth(T.withH - 0.3, T.eyes, t) + 0.45 * smooth(T.to - 1.0, T.to - 0.3, t)); tw.dCore.visible = tw.dCore.material.opacity > 0.001;
+          if (i === 0) { tw.dGlow.material.color.multiplyScalar(1 - 0.4 * smooth(T.withH - 0.3, T.eyes, t)).lerp(GOLD, 0.3 * smooth(T.withH - 0.3, T.eyes, t) + 0.6 * smooth(T.to - 0.9, T.to - 0.3, t)); } tw.dCore.visible = tw.dCore.material.opacity > 0.001;
           // window backing: cold dim in grey, warm in dawn
           tw.back.material.color.setRGB(lerp(0.09, 0.55, dk), lerp(0.13, 0.32, dk), lerp(0.15, 0.22, dk)).multiplyScalar(1 + 0.05 * Math.sin(t * 0.7 + i));
           if (tw.deskGlow) { const land = notesLand[i] ?? 1e9; const lit = smooth(land, land + 0.5, t); const pulse = 1 + 0.6 * Math.exp(-Math.max(0, t - land) * 3) * (t > land ? 1 : 0);

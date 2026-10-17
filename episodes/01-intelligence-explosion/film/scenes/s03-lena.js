@@ -26,6 +26,8 @@ export default {
 
     // ---------------- stage ----------------
     const st = E.stage(scene, pal, { floor: true, stars: 170, clouds: true, seed: 33, skyZ: -235, skyY: 62 });
+    // engine stage clouds: one cloud shape can come out degenerate (a huge sheet); hide any oversized cloud
+    scene.children.forEach((c) => { if (c.geometry && c.geometry.type === "ExtrudeGeometry") { c.geometry.computeBoundingSphere(); if (c.geometry.boundingSphere.radius > 30 || !isFinite(c.geometry.boundingSphere.radius)) c.visible = false; } });
     st.floor.position.y = -0.14; st.floor.scale.set(1, 3, 1); st.floor.position.z = -70;
     st.sky.scale.set(2.2, 2.0, 1);
     scene.fog = new THREE.Fog(pal.fog, 60, 280);
@@ -199,7 +201,7 @@ export default {
     const seg1 = new THREE.Mesh(new THREE.BoxGeometry(0.17, 0.11, 0.95).translate(0, 0, 0.475), cyM()); ARM.add(seg1);
     const elbow = new THREE.Group(); elbow.position.z = 0.95; ARM.add(elbow);
     const seg2 = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.1, 0.8).translate(0, 0, 0.4), cyM()); elbow.add(seg2);
-    const wrist = new THREE.Group(); wrist.position.z = 0.8; elbow.add(wrist);
+    const wrist = new THREE.Group(); wrist.position.z = 0.8; wrist.scale.setScalar(1.6); elbow.add(wrist); seg1.scale.set(1.5, 1.5, 1); seg2.scale.set(1.5, 1.5, 1);
     { const s = new THREE.Shape(); s.moveTo(-0.13, 0); s.lineTo(0.13, 0); s.lineTo(0.15, 0.22);
       [[0.11, 0.42], [0.04, 0.46], [-0.03, 0.44], [-0.1, 0.38]].forEach(([x, y], i) => { const x0 = x + 0.03; s.lineTo(x0, 0.24); s.lineTo(x0, y); s.lineTo(x - 0.03, y); s.lineTo(x - 0.03, 0.25); });
       s.lineTo(-0.15, 0.22); s.lineTo(-0.22, 0.12); s.lineTo(-0.2, 0.08); s.lineTo(-0.13, 0.1); s.lineTo(-0.13, 0);
@@ -291,7 +293,7 @@ export default {
             _d.position.set(0, 3.1 * (1 - dn) + 0.05, ROWZ[j] + 0.1); _d.rotation.set(0, 0, 0); _d.scale.set(1, 1, 1); _d.updateMatrix(); h.lm.setMatrixAt(j, _d.matrix);
             _c.set(C.cyan).multiplyScalar((0.03 + 1.05 * on * flick) * (1 - 0.85 * dn)); h.lm.setColorAt(j, _c); if (on > 0.5) litFront = Math.max(litFront, h.k); });
           [h.dm, h.fm, h.sm, h.lm].forEach((m) => { m.instanceMatrix.needsUpdate = true; if (m.instanceColor) m.instanceColor.needsUpdate = true; });
-          const any = t > h.tr[0] - 0.1; h.fm.visible = h.sm.visible = h.dm.visible = any; });
+          const any = t > h.tr[0] - 0.1 && t < tFold0 + 0.12; h.fm.visible = h.sm.visible = h.dm.visible = any; h.lm.visible = t < tFold0 + 0.12; });
         hallLights.forEach((hl, i) => { const reach = smooth(tRow0 + i * 1.6, tRow0 + i * 1.6 + 1.2, t) * (1 - smooth(tFold0 - 0.2, tFold0 + 0.3, t)); hl.l.intensity = 40 * reach * (1 + 0.04 * Math.sin(t * 3 + i)); });
 
         // --- Lena ---

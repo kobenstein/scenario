@@ -24,6 +24,8 @@ export default {
 
     // ---------------- stage ----------------
     const st = E.stage(scene, pal, { floor: false, stars: 150, clouds: true, seed: 21 });
+    // engine stage clouds: one cloud shape can come out degenerate (a huge sheet); hide any oversized cloud
+    scene.children.forEach((c) => { if (c.geometry && c.geometry.type === "ExtrudeGeometry") { c.geometry.computeBoundingSphere(); if (c.geometry.boundingSphere.radius > 30 || !isFinite(c.geometry.boundingSphere.radius)) c.visible = false; } });
     scene.fog = new THREE.Fog(pal.fog, 60, 190);
     const desk = new THREE.Mesh(new THREE.PlaneGeometry(160, 90), E.paperMat("#2a2333"));
     desk.rotation.x = -Math.PI / 2; desk.position.set(0, 0, -10); desk.receiveShadow = true; scene.add(desk);

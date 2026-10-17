@@ -260,9 +260,9 @@ export default {
       { t: tWont + 0.3, p: [0.35, 3.2, 9.4], l: [0, 2.55, -2.0], e: "smooth" },
       { t: tCures - 0.1, p: [-1.82, 1.4, 1.5], l: [-1.9, 1.22, -2.0], e: "inOut", arc: 0.05 },
       { t: tSooner + 0.35, p: [-1.86, 1.36, 1.05], l: [-1.9, 1.22, -2.0], e: "smooth" },
-      { t: tNobody - 0.05, p: [2.6, 5.4, 0.9], l: [2.9, 0.2, -1.5], e: "inOut", arc: 0.06 },
-      { t: tShortcut + 0.4, p: [2.8, 4.5, 0.2], l: [3.0, 0.15, -1.52], e: "sine" },
-      { t: tAfter + 0.1, p: [2.4, 4.6, 0.25], l: [2.45, 0.15, -1.52], e: "smooth" },
+      { t: tNobody - 0.05, p: [2.95, 5.7, -0.5], l: [3.05, 0.2, -1.55], e: "inOut", arc: 0.06 },
+      { t: tShortcut + 0.4, p: [3.0, 4.9, -0.75], l: [3.05, 0.15, -1.55], e: "sine" },
+      { t: tAfter + 0.1, p: [2.45, 5.6, -0.6], l: [2.4, 0.15, -1.52], e: "smooth" },
       { t: tJared + 0.3, p: [0, 3.3, 11.4], l: [0, 2.4, -1.0], e: "inOut", arc: 0.05 },
       { t: tTT + 0.6, p: [0, 3.5, 10.6], l: [0, 2.85, -1.0], e: "sine" },
       { t: tPause - 0.3, p: orbP, l: orbL, e: "sine" },
@@ -306,7 +306,7 @@ export default {
       towers.forEach((g, i) => { const rise = spring(lin(tRival - 0.05 + i * 0.12, tRival + 1.0 + i * 0.12, t)); const close = smooth(tBehind - 0.2, tBehind + 1.2, t), wont = smooth(tWont - 0.3, tWont + 0.4, t);
         g.visible = rise > 0.001; g.scale.set(1, Math.max(0.001, rise), 1).multiplyScalar(lerp(0.78, 1.0, close)); g.position.z = lerp(-2.32, -2.12, close) + 0.004 * Math.sin(t + i); g.position.x = TX[i] * lerp(1, 0.97, close);
         const tw = g.children[0]; for (let f = 0; f < 8; f++) { const on = smooth(tLabs + f * 0.06 + i * 0.1, tLabs + 0.3 + f * 0.06 + i * 0.1, t); tw.userData.setFloor(f, on * (0.55 + 0.35 * wont + 0.06 * Math.sin(t * 2 + f + i)), C.cyan); }
-        towerHalo[i].material.opacity = rise * (0.18 + 0.25 * close + 0.25 * wont) * (1 - 0.5 * noK); towerHalo[i].position.y = 2.2 * rise; });
+        towerHalo[i].material.opacity = rise * (0.08 + 0.1 * close + 0.12 * wont) * (1 - 0.7 * noK); towerHalo[i].position.y = 2.2 * rise; });
       // inside the dawn box: ward on "cures", solar on "energy", paper stars on "discoveries"
       dawnPop.forEach(({ hg, at, i }) => { const up = spring(lin(at, at + 0.8, t)); hg.visible = t > at - 0.03; hg.rotation.x = -Math.PI / 2 * (1 - up) + 0.008 * Math.sin(t * 0.8 + i) * up; });
       solar.material.emissiveIntensity = 0.5 * smooth(tEnergy, tEnergy + 0.6, t) * (0.7 + 0.3 * Math.sin(t * 3.1));
@@ -328,8 +328,8 @@ export default {
       cutGlow.material.opacity = cg + 0.9 * glowPulse * (1 - smooth(tAnth, tAnth + 1, t)); cutGlow.scale.setScalar(1 + 0.6 * glowPulse);
       mazeLight.position.copy(UVW(...cutUV, 1.2)); mazeLight.intensity = 3 * cutGlow.material.opacity;
       // 2030 rises from behind the back panel and hovers over both doors
-      const r30 = spring(lin(tTT - 0.1, tTT + 0.9, t)); y2030.visible = t > tTT - 0.12; y2030.position.set(0, lerp(3.7, 4.55, r30) + 0.05 * Math.sin(t * 1.3), lerp(-2.75, -0.9, smooth(tTT - 0.1, tTT + 0.7, t)));
-      y2030.rotation.set(-0.12 + 0.03 * Math.sin(t * 0.9), 0.05 * Math.sin(t * 0.6), 0.02 * Math.sin(t * 0.8)); y2030glow.position.copy(y2030.position).add(V3(0, 0, -0.3)); y2030glow.material.opacity = 0.25 * r30 * (1 - 0.6 * pushK);
+      const r30 = spring(lin(tTT - 0.1, tTT + 0.9, t)); y2030.visible = t > tTT - 0.12; y2030.position.set(0.45, lerp(3.7, 4.55, r30) + 0.05 * Math.sin(t * 1.3), lerp(-2.75, -0.9, smooth(tTT - 0.1, tTT + 0.7, t)));
+      y2030.rotation.set(-0.12 + 0.03 * Math.sin(t * 0.9), 0.05 * Math.sin(t * 0.6), 0.02 * Math.sin(t * 0.8)); y2030glow.position.copy(y2030.position).add(V3(0, 0, -0.3)); y2030glow.material.opacity = 0.12 * r30 * (1 - 0.6 * pushK);
       // camera, overlays
       const c = camAt(t); E.applyCam(camera, c);
       cyanWall.updateMatrixWorld(true); vt.set(DOOR.w / 2 + 0.25, DOOR.h + 0.25, 0.1); cyanWall.localToWorld(vt); let sp = E.project(vt, camera); tag3.place(sp.x + 150, sp.y - 20);
