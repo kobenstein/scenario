@@ -154,7 +154,7 @@ export default {
     { const lower = E.box(6, RY0, 4, "#7a4f70"); lower.position.set(0, RY0 / 2, -2); lt.add(lower);
       const upper = E.box(6, 4, 4, "#7a4f70"); upper.position.set(0, RY1 + 2, -2); lt.add(upper);
       for (const sx of [-1, 1]) { const side = E.box(6 / 2 - RX, RY1 - RY0, 4, "#7a4f70"); side.position.set(sx * (RX + (3 - RX) / 2), (RY0 + RY1) / 2, -2); lt.add(side); }
-      const backW = E.box(RX * 2, RY1 - RY0, 0.1, "#d9b49a"); backW.position.set(0, (RY0 + RY1) / 2, -RD); lt.add(backW);
+      const backW = E.box(RX * 2, RY1 - RY0, 0.1, "#d9b49a"); backW.position.set(0, (RY0 + RY1) / 2, -RD); backW.name = "backW"; lt.add(backW);
       const win = E.glowPlane(1.1, 0.9, "#ffe3b8"); win.position.set(-1.1, RY0 + 1.6, -RD + 0.06); win.userData.setGlow(0.9); lt.add(win);
       for (let y = 1.5; y < RY0 - 0.5; y += 1.6) for (let x = -2.2; x <= 2.2; x += 1.1) { const w = E.glowPlane(0.5, 0.7, "#ffcf94"); w.position.set(x, y, 0.01); w.userData.setGlow(rnd() < 0.4 ? 0.9 : 0.15); lt.add(w); }
       const roofT = E.box(6.4, 0.3, 4.4, "#94627e"); roofT.position.set(0, RY1 + 4.15, -2); lt.add(roofT);
@@ -169,6 +169,7 @@ export default {
       for (let k = 0; k < 3; k++) { const pp = E.box(0.3, 0.008, 0.22, C.cream); const g = new THREE.Group(); g.position.set(-0.15 + k * 0.08, 0.79 + k * 0.009, 0.15); pp.rotation.y = k * 0.2; g.add(pp); ldesk.add(g); deskItems.push(g); } }
     const lena = fig({ pose: "sit", hair: "bun", coat: true, seed: 3 }); lena.position.set(-0.75, RY0, -1.2); lena.scale.setScalar(1.05); lt.add(lena);
     { const ch = E.box(0.4, 0.04, 0.4, "#3a2740"); ch.position.set(-0.75, RY0 + 0.5, -1.25); lt.add(ch); const cb = E.box(0.04, 0.55, 0.4, "#3a2740"); cb.position.set(-0.98, RY0 + 0.77, -1.25); lt.add(cb); }
+    lt.traverse((m) => { if (m.isMesh) m.castShadow = false; }); lena.traverse((m) => { if (m.isMesh) m.castShadow = true; }); city.layers.forEach((l) => l.g.traverse((m) => { if (m.isMesh) m.receiveShadow = false; }));
     const lcard = new THREE.Group(); lena.userData.forearm.add(lcard); lcard.position.set(0.42, 0.04, 0.01);
     { const c = E.box(0.34, 0.24, 0.006, C.cream); lcard.add(c); const q = E.cutoutText("?", { height: 0.19, hex: "#1f1d26" }); q.position.z = 0.004; lcard.add(q); }
     // "something new": a pop-up of new work on the emptied desk — people and a small machine disc, side by side
@@ -197,7 +198,7 @@ export default {
       { t: T.slow + 0.4, p: H(DESK.x + 0.4, 1.8, DESK.z + 1.85), l: H(DESK.x + 0.4, 1.1, DESK.z - 0.3), ease: "sine" },
       { t: T.work + 0.05, p: H(4.5, 1.3, 3.6), l: H(4.5, 0.6, -0.5) },
       { t: T.optionalE, p: H(4.45, 1.2, 3.1), l: H(4.5, 0.58, -0.5), ease: "sine" },
-      { t: T.pages + 0.3, p: H(DESK.x - 0.2, 1.75, DESK.z + 1.6), l: H(DESK.x + 0.1, 1.0, DESK.z - 0.3) },
+      { t: T.pages + 0.3, p: H(DESK.x + 0.45, 1.85, DESK.z + 2.2), l: H(DESK.x - 0.15, 1.05, DESK.z - 0.25) },
       { t: T.fastE + 0.2, p: H(1.5, 4.2, 9.5), l: H(-3.6, 6.0, -16) },
       { t: T.lena, p: LW(0.0, 10.2, 4.6), l: LW(-0.2, 9.95, -1.3) },
       { t: T.next, p: LW(0.0, 10.15, 4.2), l: LW(-0.2, 9.95, -1.3), ease: "sine" },
@@ -233,7 +234,7 @@ export default {
       youStand.position.set(lerp(0, 0.38, walk), -0.4 * down, lerp(0, -0.36, walk));
       youStand.userData.pose(t, { walk: walk > 0 && walk < 1 ? 1 : 0, lookUp: 0.15 * (1 - walk) * smooth(def.from, T.back + 1, t), lean: down });
       const reach = smooth(T.hand - 0.5, T.hand + 0.3, t);
-      youSit.userData.pose(t, { reach: 0.55 + 0.08 * reach, lean: 0.25, lookUp: -0.25 + 0.15 * smooth(T.pages, T.fastE, t) });
+      youSit.userData.pose(t, { reach: 0.42 + 0.06 * reach, lean: 0.25, lookUp: -0.25 + 0.15 * smooth(T.pages, T.fastE, t) });
 
       // box: glows softly, lid opens on "Now"
       const open = expoOut(lin(T.now - 0.1, T.now + 1.0, t)) - 0.04 * Math.sin(Math.PI * lin(T.now - 0.3, T.now - 0.05, t));

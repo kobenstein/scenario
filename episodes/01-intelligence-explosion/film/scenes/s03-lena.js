@@ -26,8 +26,8 @@ export default {
 
     // ---------------- stage ----------------
     const st = E.stage(scene, pal, { floor: true, stars: 170, clouds: true, seed: 33, skyZ: -235, skyY: 62 });
-    // engine stage clouds: one cloud shape can come out degenerate (a huge sheet); hide any oversized cloud
-    scene.children.forEach((c) => { if (c.geometry && c.geometry.type === "ExtrudeGeometry") { c.geometry.computeBoundingSphere(); if (c.geometry.boundingSphere.radius > 30 || !isFinite(c.geometry.boundingSphere.radius)) c.visible = false; } });
+    // engine stage clouds: the first cloud (x -30, y 36) shades to NaN and blooms into a white blob; hide it
+    scene.children.forEach((c) => { if (c.geometry && c.geometry.type === "ExtrudeGeometry") { c.geometry.computeBoundingSphere(); if (c.geometry.boundingSphere.radius > 30 || !isFinite(c.geometry.boundingSphere.radius) || (c.position.y === 36 && c.position.x === -30)) c.visible = false; } });
     st.floor.position.y = -0.14; st.floor.scale.set(1, 3, 1); st.floor.position.z = -70;
     st.sky.scale.set(2.2, 2.0, 1);
     scene.fog = new THREE.Fog(pal.fog, 60, 280);
@@ -255,6 +255,8 @@ export default {
       { t: T1, p: CAM_END.toArray(), l: LOOK_END.toArray(), ease: "inOut" },
     ];
 
+    // sanitize normals: degenerate edges (duplicate outline points) give NaN normals, which bloom into a white blob
+    scene.traverse((o) => { const n = o.geometry && o.geometry.attributes.normal; if (!n) return; const a = n.array; for (let i = 0; i < a.length; i += 3) if (!(isFinite(a[i]) && isFinite(a[i + 1]) && isFinite(a[i + 2]))) { a[i] = 0; a[i + 1] = 0; a[i + 2] = 1; } });
     const post = { bloom: 0.4, exposure: 1.15 };
     const v1 = new THREE.Vector3(), v2 = new THREE.Vector3(), q1 = new THREE.Quaternion();
 

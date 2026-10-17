@@ -24,8 +24,8 @@ export default {
 
     // ---------------- stage ----------------
     const st = E.stage(scene, pal, { floor: false, stars: 150, clouds: true, seed: 21 });
-    // engine stage clouds: one cloud shape can come out degenerate (a huge sheet); hide any oversized cloud
-    scene.children.forEach((c) => { if (c.geometry && c.geometry.type === "ExtrudeGeometry") { c.geometry.computeBoundingSphere(); if (c.geometry.boundingSphere.radius > 30 || !isFinite(c.geometry.boundingSphere.radius)) c.visible = false; } });
+    // engine stage clouds: the first cloud (x -30, y 36) shades to NaN and blooms into a white blob; hide it
+    scene.children.forEach((c) => { if (c.geometry && c.geometry.type === "ExtrudeGeometry") { c.geometry.computeBoundingSphere(); if (c.geometry.boundingSphere.radius > 30 || !isFinite(c.geometry.boundingSphere.radius) || (c.position.y === 36 && c.position.x === -30)) c.visible = false; } });
     scene.fog = new THREE.Fog(pal.fog, 60, 190);
     const desk = new THREE.Mesh(new THREE.PlaneGeometry(160, 90), E.paperMat("#2a2333"));
     desk.rotation.x = -Math.PI / 2; desk.position.set(0, 0, -10); desk.receiveShadow = true; scene.add(desk);
@@ -172,7 +172,7 @@ export default {
 
     // ---------------- the loop: gears cutting bigger gears ----------------
     const gearShape = (r, T, d, hole = 0.22) => { const s = new THREE.Shape(); const n = T * 10;
-      for (let i = 0; i <= n; i++) { const a = i / n * Math.PI * 2; const tooth = clamp((Math.cos(T * a) + 0.15) * 2.2, 0, 1); const rr = r - d + d * tooth;
+      for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2; const tooth = clamp((Math.cos(T * a) + 0.15) * 2.2, 0, 1); const rr = r - d + d * tooth;
         const x = Math.cos(a) * rr, y = Math.sin(a) * rr; i ? s.lineTo(x, y) : s.moveTo(x, y); }
       const h = new THREE.Path(); h.absarc(0, 0, r * hole, 0, Math.PI * 2, true); s.holes.push(h);
       if (r > 0.6) for (let k = 0; k < 5; k++) { const a = k / 5 * Math.PI * 2 + 0.3, hp = new THREE.Path(); hp.absarc(Math.cos(a) * r * 0.55, Math.sin(a) * r * 0.55, r * 0.15, 0, Math.PI * 2, true); s.holes.push(hp); }
@@ -202,8 +202,8 @@ export default {
     const eye = E.machineEye({ R: ER, A: ER * 0.77, B: ER * 0.4, mask: "#17223b", lidHex: "#1b2843" });
     const EG = new THREE.Group(); EG.position.set(GC[4].x, GC[4].y, GZ - 0.25); scene.add(EG); EG.add(eye);
     const teethG = new THREE.Group(); EG.add(teethG);
-    const ringS = gearShape(GR[4], 66, 0.7, 0); ringS.holes = []; { const h = new THREE.Path(); h.absarc(0, 0, ER - 0.25, 0, Math.PI * 2, true); ringS.holes.push(h); }
-    const ring = E.extrude(ringS, "#1b2843", 0.3); ring.position.z = 0.05; teethG.add(ring);
+    const ringS = gearShape(GR[4], 66, 0.7, 0); ringS.holes = []; { const h = new THREE.Path(); h.absarc(0, 0, ER - 1.0, 0, Math.PI * 2, true); ringS.holes.push(h); }
+    const ring = E.extrude(ringS, "#1b2843", 0.3); ring.material.forEach((m) => { m.bumpMap = null; m.map = null; }); ring.position.z = 0.05; teethG.add(ring);
     { const clip = mkClip(); const mats = []; EG.traverse((o) => { if (o.material) (Array.isArray(o.material) ? o.material : [o.material]).forEach((mt) => { mt.clippingPlanes = clip; mats.push(mt); }); });
       GEARS.push({ g: EG, r: GR[4], c: GC[4], clip, mats }); }
     // cutting spark (cyan): a small glow + light that runs around the rim while a gear is cut
@@ -283,7 +283,9 @@ export default {
     ];
     function tTuringEnd(E) { return E.end("why", "Turing"); }
 
-    const post = { bloom: 0.4, exposure: 1.15 }; window.__dbg = { scene };
+    // sanitize normals: degenerate edges (duplicate outline points) give NaN normals, which bloom into a white blob
+    scene.traverse((o) => { const n = o.geometry && o.geometry.attributes.normal; if (!n) return; const a = n.array; for (let i = 0; i < a.length; i += 3) if (!(isFinite(a[i]) && isFinite(a[i + 1]) && isFinite(a[i + 2]))) { a[i] = 0; a[i + 1] = 0; a[i + 2] = 1; } });
+    const post = { bloom: 0.4, exposure: 1.15 };
     let _wp = new THREE.Vector3();
 
     return {
