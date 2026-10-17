@@ -23,7 +23,7 @@ export default {
       thisTime: A("This time"), before: A("before anything"), runs: A("runs"), outside: A("outside team"), tests: A("tests"), inspectors: A("inspectors"), aircraft: A("aircraft"),
       every2: A("Every near miss"), near: A("near miss"), reported: A("reported"), days: A("days"), otherLabs: A("other labs learn"), learn: A("learn"), it: A("from it"),
       labsIn: A("Labs in different"), countries: A("countries"), shared: A("shared clock"), clock: A("clock"), each: A("each check"), check: A("check"),
-      book: A("The book still"), turns: A("turns"), medicine: A("Medicine"), pace: A("pace people"), read2: A("read", 2),
+      book: A("The book still"), turns: A("turns"), medicine: A("Medicine"), pace: A("pace people"), read2: A("read", 3),
       lena: A("Lena still"), yes2: A("yes", 2), three: A("three months"), months: A("months"), withH: A("with her eyes"), eyes: A("eyes"), open: A("open"),
     };
     const G = PAL.grey, D = PAL.dawn;
@@ -74,7 +74,7 @@ export default {
 
     // ---------- the sun (dawn) and the shared clock ----------
     const H = { x: 15, z: 16 }; // kitchen house
-    const WIN = V3(H.x + 1.4, 3.25, H.z - 2.5); // kitchen window centre (world)
+    const WX = 2.6; const WIN = V3(H.x + WX, 3.25, H.z - 2.5); // kitchen window centre (world)
     const turnCam = V3(H.x + 0.9, 2.35, H.z + 5.6);
     const SUN = V3(20, 12.5, -60);
     const sun = E.extrude(E.circleShape(4.2), "#ffd28a", 0.2, { cast: false }); sun.material[0].emissive = new THREE.Color("#ffc070"); sun.material[0].emissiveIntensity = 1.4;
@@ -88,7 +88,7 @@ export default {
       { x: 27, z: -28, w: 9, h: 31, dw: 2.4, dh: 4.0, li: 2, seed: 3, desk: [-1.4, 19] },
       { x: -45, z: -38, w: 9, h: 24, dw: 2.4, dh: 4.0, li: 1, seed: 4, desk: [1.5, 13] },
       { x: 47, z: -42, w: 9, h: 29, dw: 2.4, dh: 4.0, li: 1, seed: 5, desk: [-1.5, 17] },
-      { x: -10, z: -46, w: 8, h: 36, dw: 2.2, dh: 3.8, li: 0, seed: 6, desk: [1.0, 25] },
+      { x: -10, z: -46, w: 8, h: 30, dw: 2.2, dh: 3.8, li: 0, seed: 6, desk: [1.0, 25] },
     ];
     const towers = TW.map((o, idx) => {
       const g = new THREE.Group(); g.position.set(o.x, 0, o.z); scene.add(g);
@@ -105,7 +105,7 @@ export default {
       const back = E.glowPlane(w - 0.8, h - dh - 1.4, "#ffffff"); back.position.set(0, dh + 0.8 + (h - dh - 1.4) / 2, -0.3); g.add(back);
       // door interior light + inner amber core (good ending)
       const dGlow = E.glowPlane(dw, dh, C.cyan); dGlow.position.set(0, dh / 2, -0.35); g.add(dGlow);
-      const dCore = new THREE.Mesh(new THREE.PlaneGeometry(dw * 0.8, dh * 0.85), addMat("#ffb35c", haloTex)); dCore.position.set(0, dh * 0.45, -0.3); dCore.material.opacity = 0; g.add(dCore);
+      const dCore = new THREE.Mesh(new THREE.PlaneGeometry(dw * 1.1, dh * 1.0), new THREE.MeshBasicMaterial({ color: new THREE.Color("#ffc27a").multiplyScalar(1.5), map: haloTex, transparent: true, depthWrite: false, fog: false })); dCore.position.set(0, dh * 0.45, -0.3); dCore.material.opacity = 0; g.add(dCore);
       // door leaf hinged on its left edge, swings toward the camera
       const piv = new THREE.Group(); piv.position.set(dw / 2, 0, 0.5); g.add(piv);
       const leaf = E.extrude(E.rectShape(dw - 0.06, dh - 0.04, -(dw - 0.06) / 2 - 0.03, dh / 2), "#1d7f96", 0.12, { emissive: 0.15 }); leaf.position.z = -0.12; piv.add(leaf);
@@ -141,10 +141,10 @@ export default {
     const lampBulb = halo(0.9, C.amber); lampBulb.position.set(-0.78, 1.92, -0.2); desk.add(lampBulb);
     const lampLight = E.pointLight(C.amber, 8, 9); lampLight.position.set(-0.6, 1.9, 0.4); desk.add(lampLight);
     // the question card ("?") she ticks
-    const qCard = E.drawnCard({ w: 0.8, h: 0.56, px: 512, draw: (g, w, h, s) => { g.fillStyle = "#2a2018"; g.font = `400 ${h * 0.8}px "Instrument Serif"`; g.textAlign = "center"; g.fillText("?", w * 0.42, h * 0.78);
+    const qCard = E.drawnCard({ w: 1.1, h: 0.76, px: 512, draw: (g, w, h, s) => { g.fillStyle = "#2a2018"; g.font = `400 ${h * 0.8}px "Instrument Serif"`; g.textAlign = "center"; g.fillText("?", w * 0.42, h * 0.78);
       const k = s.tick || 0; if (k > 0) { g.strokeStyle = C.red; g.lineWidth = h * 0.08; g.lineCap = "round"; g.lineJoin = "round"; g.beginPath(); const p0 = [w * 0.58, h * 0.55], p1 = [w * 0.68, h * 0.75], p2 = [w * 0.92, h * 0.2];
         const k1 = clamp(k / 0.35, 0, 1), k2 = clamp((k - 0.35) / 0.65, 0, 1); g.moveTo(...p0); g.lineTo(lerp(p0[0], p1[0], k1), lerp(p0[1], p1[1], k1)); if (k2 > 0) g.lineTo(lerp(p1[0], p2[0], k2), lerp(p1[1], p2[1], k2)); g.stroke(); } } });
-    qCard.position.set(-0.05, 1.24, 0.25); qCard.rotation.x = -1.25; desk.add(qCard);
+    qCard.material[4].color.setScalar(0.72); qCard.position.set(-0.05, 1.24, 0.25); qCard.rotation.x = -1.25; desk.add(qCard);
     let qTick = -1;
     // calendar block: three pages flip on "three months"
     const calBase = bx(0.5, 0.36, 0.22, "#5a6a70", "#c7909a", 0.9); calBase.position.set(1.55, 1.4, 0.3); desk.add(calBase);
@@ -171,7 +171,8 @@ export default {
     const BK = { x: 10.6, y: 3.7, z: -7 };
     const book = E.flipbook({ w: 6.2, h: 4.4, pages: 18, cover: "#3a4a52", drawPage: motif, seed: 9 }); book.position.set(BK.x, BK.y, BK.z); book.rotation.x = -0.12; scene.add(book);
     tint(book.children[0].material, "#3a4a52", "#6a3f62", 0.6);
-    const fan = new THREE.Mesh(new THREE.CylinderGeometry(6.2, 6.2, 4.4, 40, 1, true, -Math.PI / 2, Math.PI), new THREE.MeshStandardMaterial({ color: "#c9c9c2", map: E.paperTex, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false, roughness: 0.95 }));
+    const streakTex = canvasTex(512, 16, (g, w, h) => { const r = E.rng(77); g.fillStyle = "#000"; g.fillRect(0, 0, w, h); for (let x = 0; x < w; x += 2) { const a = r(); const v = Math.floor(80 + 175 * a * a); g.fillStyle = `rgb(${v},${v},${v})`; g.fillRect(x, 0, 2, h); } }); streakTex.colorSpace = THREE.NoColorSpace;
+    const fan = new THREE.Mesh(new THREE.CylinderGeometry(6.2, 6.2, 4.4, 40, 1, true, -Math.PI / 2, Math.PI), new THREE.MeshStandardMaterial({ color: "#c9c9c2", map: streakTex, alphaMap: streakTex, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false, roughness: 0.95 }));
     book.add(fan);
     const easel = new THREE.Group(); easel.position.set(BK.x, 0, BK.z - 0.4); scene.add(easel);
     [[-0.6, 0.12], [5.6, -0.12]].forEach(([x, rz]) => { const l = bx(0.14, 3.6, 0.14, "#2a363c", "#4a3050", 0.6); l.position.set(x, 1.7, 0); l.rotation.z = rz; easel.add(l); });
@@ -212,10 +213,16 @@ export default {
     const house = new THREE.Group(); house.position.set(H.x, 0, H.z); scene.add(house);
     const kd = (x, y, z) => 0.1 + 0.07 * V3(H.x + x, y, H.z + z).distanceTo(WIN); // dawn delay by distance to the window
     const kFloor = bx(8.4, 0.3, 5.4, "#3a4a51", "#7a4f70", kd(0, 0, 0)); kFloor.position.set(0, 0.15, 0); house.add(kFloor);
-    { const s = E.rectShape(8.4, 4.8, 0, 2.4 + 0.3); const hp = new THREE.Path(); const wx = 1.4, wy = 3.25 - 0.85, ww = 2.4, wh = 1.7; hp.moveTo(wx - ww / 2, wy); hp.lineTo(wx + ww / 2, wy); hp.lineTo(wx + ww / 2, wy + wh); hp.lineTo(wx - ww / 2, wy + wh); hp.closePath(); s.holes.push(hp);
+    { const s = E.rectShape(8.4, 4.8, 0, 2.4 + 0.3); const hp = new THREE.Path(); const wx = WX, wy = 3.25 - 0.85, ww = 2.4, wh = 1.7; hp.moveTo(wx - ww / 2, wy); hp.lineTo(wx + ww / 2, wy); hp.lineTo(wx + ww / 2, wy + wh); hp.lineTo(wx - ww / 2, wy + wh); hp.closePath(); s.holes.push(hp);
       const bw = ex(s, "#4b5d64", "#c48a8c", 0.2, 0.05); bw.position.set(0, 0, -2.7); house.add(bw);
-      const mull = bx(0.08, 1.7, 0.1, "#2f3d43", "#5e3c58", 0.05); mull.position.set(1.4, 3.25, -2.55); house.add(mull);
-      const sill = bx(2.7, 0.1, 0.35, "#2f3d43", "#5e3c58", 0.1); sill.position.set(1.4, 2.35, -2.45); house.add(sill); }
+      const mull = bx(0.08, 1.7, 0.1, "#2f3d43", "#5e3c58", 0.05); mull.position.set(WX, 3.25, -2.55); house.add(mull);
+      const sill = bx(2.7, 0.1, 0.35, "#2f3d43", "#5e3c58", 0.1); sill.position.set(WX, 2.35, -2.45); house.add(sill);
+      const shelf = bx(2.0, 0.08, 0.4, "#2f3d43", "#5e3c58", 0.3); shelf.position.set(-2.4, 3.3, -2.3); house.add(shelf);
+      [[-3.0, 0.42, 0.3], [-2.5, 0.3, 0.26], [-1.95, 0.5, 0.22]].forEach(([x, h, w], k) => { const j = bx(w, h, w, ["#7b8489", "#5f6b70", "#8a9296"][k], ["#e7a77f", "#c98e98", "#ffd2a8"][k], 0.3); j.position.set(x, 3.34 + h / 2, -2.3); house.add(j); });
+      const frame = E.drawnCard({ w: 0.9, h: 0.7, px: 256, hex: "#cfd2cc", draw: (g, w, h) => { g.strokeStyle = "#3b3f3e"; g.lineWidth = 6; g.strokeRect(10, 10, w - 20, h - 20); g.beginPath(); g.moveTo(30, h - 40); g.lineTo(w * 0.4, h * 0.4); g.lineTo(w * 0.6, h * 0.65); g.lineTo(w * 0.75, h * 0.45); g.lineTo(w - 30, h - 40); g.stroke(); } });
+      frame.position.set(-0.4, 3.5, -2.45); house.add(frame); tint(frame.material[4], "#c9ccc8", "#ffe6d0", 0.3);
+      const pot = bx(0.3, 0.28, 0.25, "#5f6b70", "#c47a5a", 0.1); pot.position.set(WX + 0.9, 2.54, -2.4); house.add(pot);
+      const leaf1 = E.extrude(E.polyShape([[0, 0], [0.12, 0.35], [0.02, 0.6], [-0.1, 0.3]]), "#3c4a44", 0.03); leaf1.position.set(WX + 0.9, 2.66, -2.4); house.add(leaf1); tint(leaf1.material[0], "#3c4a44", "#6a8a5a", 0.1); }
     { // left wall with the door (cards slide in under it)
       const s = new THREE.Shape(); s.moveTo(-2.7, 0.3); s.lineTo(-0.3, 0.3); s.lineTo(-0.3, 2.7); s.lineTo(0.9, 2.7); s.lineTo(0.9, 0.3); s.lineTo(2.7, 0.3); s.lineTo(2.7, 5.1); s.lineTo(-2.7, 5.1); s.closePath();
       const lw = ex(s, "#435459", "#b07a8c", 0.2, kd(-4, 2, 0)); lw.rotation.y = Math.PI / 2; lw.position.set(-4.2, 0, 0); house.add(lw);
@@ -236,18 +243,18 @@ export default {
     // pendant lamp (cold in the grey world)
     const cord = bx(0.03, 1.2, 0.03, "#1f292e", "#3a2740", 0.3); cord.position.set(TB.x, 4.5, 0.2); house.add(cord);
     const shade = new THREE.Mesh(new THREE.ConeGeometry(0.45, 0.4, 24, 1, true), new THREE.MeshStandardMaterial({ color: "#26343a", side: THREE.DoubleSide, roughness: 0.9 })); shade.position.set(TB.x, 3.75, 0.2); house.add(shade);
-    const bulb = halo(1.3, "#bfe9f2"); bulb.position.set(TB.x, 3.52, 0.3); house.add(bulb);
+    const bulb = halo(0.7, "#bfe9f2"); bulb.position.set(TB.x, 3.5, 0.3); house.add(bulb);
     const pend = E.pointLight("#bfe0ea", 7, 9); pend.position.set(TB.x, 3.3, 0.6); house.add(pend);
     // window light (dawn): a warm beam and its glow
-    const winGlow = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.9), new THREE.MeshBasicMaterial({ color: new THREE.Color("#5d7480"), fog: false })); winGlow.position.set(1.4, 3.25, -2.95); house.add(winGlow);
+    const winGlow = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.9), new THREE.MeshBasicMaterial({ color: new THREE.Color("#5d7480"), fog: false })); winGlow.position.set(WX, 3.25, -2.95); house.add(winGlow);
     const winA = new THREE.Color("#4f6670"), winB = new THREE.Color("#ffb98a");
-    const miniSun = new THREE.Mesh(new THREE.CircleGeometry(0.42, 32), new THREE.MeshBasicMaterial({ color: new THREE.Color("#fff0c8").multiplyScalar(2.2), fog: false })); miniSun.position.set(1.95, 2.0, -2.85); house.add(miniSun);
-    const miniHalo = halo(3.2, "#ffc070"); miniHalo.position.set(1.95, 2.0, -2.8); house.add(miniHalo);
-    const hillsWin = new THREE.Mesh(new THREE.ShapeGeometry(E.polyShape([[-1.3, -1], [1.3, -1], [1.3, -0.45], [0.9, -0.3], [0.5, -0.5], [0.1, -0.2], [-0.5, -0.45], [-1.3, -0.25]])), new THREE.MeshBasicMaterial({ color: new THREE.Color("#2a353b"), fog: false })); hillsWin.position.set(1.4, 3.25, -2.82); house.add(hillsWin);
+    const miniSun = new THREE.Mesh(new THREE.CircleGeometry(0.42, 32), new THREE.MeshBasicMaterial({ color: new THREE.Color("#fff0c8").multiplyScalar(2.2), fog: false })); miniSun.position.set(WX + 0.55, 2.0, -2.85); house.add(miniSun);
+    const miniHalo = halo(3.2, "#ffc070"); miniHalo.position.set(WX + 0.55, 2.0, -2.8); house.add(miniHalo);
+    const hillsWin = new THREE.Mesh(new THREE.ShapeGeometry(E.polyShape([[-1.3, -1], [1.3, -1], [1.3, -0.45], [0.9, -0.3], [0.5, -0.5], [0.1, -0.2], [-0.5, -0.45], [-1.3, -0.25]])), new THREE.MeshBasicMaterial({ color: new THREE.Color("#2a353b"), fog: false })); hillsWin.position.set(WX, 3.25, -2.82); house.add(hillsWin);
     const hillA = new THREE.Color("#2a353b"), hillB = new THREE.Color("#6a3f62");
-    const winSpot = new THREE.SpotLight("#ffc48a", 0, 22, 0.75, 0.6, 1.2); winSpot.position.set(1.4, 3.6, -3.6); winSpot.target.position.set(0.4, 0.8, 2.2); house.add(winSpot, winSpot.target);
+    const winSpot = new THREE.SpotLight("#ffc48a", 0, 22, 0.75, 0.6, 1.2); winSpot.position.set(WX, 3.6, -3.6); winSpot.target.position.set(0.4, 0.8, 2.2); house.add(winSpot, winSpot.target);
     const beams = [0, 1].map((k) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 6.5), addMat("#ffcf96", spillTex)); m.material.opacity = 0; m.material.fog = true;
-      const phi = 0.35 + k * 0.12; m.rotation.x = -Math.PI / 2 + phi; m.position.set(1.4 + (k ? 0.25 : -0.25), 3.2 - 3.25 * Math.sin(phi), -2.5 + 3.25 * Math.cos(phi)); house.add(m); return m; });
+      const phi = 0.35 + k * 0.12; m.rotation.x = -Math.PI / 2 + phi; m.position.set(WX + (k ? 0.25 : -0.25), 3.2 - 3.25 * Math.sin(phi), -2.5 + 3.25 * Math.cos(phi)); house.add(m); return m; });
     // the page with the blank author line, and the pen
     const page = E.drawnCard({ w: 1.15, h: 1.45, px: 512, draw: (g, w, h) => { const r = E.rng(9); g.fillStyle = "#8f938f";
       for (let y = 70; y < h * 0.72; y += 30) { let x = 50; const end = w - 50 - (r() < 0.2 ? 120 : 0); while (x < end) { const ww = 20 + r() * 60; g.fillRect(x, y, Math.min(ww, end - x), 10); x += ww + 12; } }
@@ -281,17 +288,17 @@ export default {
     const plinth = bx(4.6, 1.9, 2.0, "#7c6f86", "#c9a3a8", 0); plinth.position.set(0, 0.95, -0.15); modelPop.add(plinth);
     const panels = [-1.45, 0, 1.45].map((x, i) => { const gl = E.glowPlane(1.0, 1.05, C.cyan); gl.position.set(x, 0.95, 0.86); gl.userData.setGlow(0.9); modelPop.add(gl);
       const piv = new THREE.Group(); piv.position.set(x, 1.5, 0.9); modelPop.add(piv); const fl = bx(1.12, 1.15, 0.06, "#e8d2c4", "#f2dccc", 0); fl.position.set(0, -0.575, 0.03); piv.add(fl); return piv; });
-    const ringsM = E.machineRings({ n: 4, r: 1.9, w: 0.2 }); ringsM.position.set(0, 4.1, 0); modelPop.add(ringsM);
+    const ringsM = E.machineRings({ n: 4, r: 1.5, w: 0.18 }); ringsM.position.set(0, 3.7, 0); modelPop.add(ringsM);
     const ringStand = bx(0.3, 1.0, 0.3, "#5a4a62", "#8a6a80", 0); ringStand.position.set(0, 2.3, -0.2); modelPop.add(ringStand);
     const inspectors = [0, 1, 2, 3].map((i) => { const f = E.figure({ pose: "stand", hair: i % 2 ? "short" : "bun", scale: 1.05, seed: 20 + i }); scene.add(f);
-      const lamp = halo(0.9, C.amber); lamp.position.set(0.36, -0.05, 0.05); f.userData.forearm.add(lamp);
+      const lamp = halo(1.1, C.amber); lamp.position.set(0.36, -0.05, 0.05); f.userData.forearm.add(lamp);
       const core = new THREE.Mesh(new THREE.CircleGeometry(0.07, 12), new THREE.MeshBasicMaterial({ color: new THREE.Color("#ffe2b0") })); core.position.set(0.38, -0.05, 0.06); f.userData.forearm.add(core);
       return f; });
     const insLight = E.pointLight(C.amber, 0, 12); scene.add(insLight);
 
     // ---------- the note, and the clock with its threads ----------
-    const notes = [1, 2, 3, 4, 5].map((ti) => { const n = E.drawnCard({ w: 0.7, h: 0.48, px: 128, draw: (g, w, h) => { g.fillStyle = "#b8a99a"; for (let k = 0; k < 3; k++) g.fillRect(14, 16 + k * 22, w - 28 - k * 18, 7); } }); n.visible = false; scene.add(n); return { n, ti }; });
-    const CLK = { x: -4, y: 25, z: -54, r: 8 };
+    const notes = [1, 2, 3, 4, 5].map((ti) => { const n = E.drawnCard({ w: 1.5, h: 1.0, px: 128, draw: (g, w, h) => { g.fillStyle = "#b8a99a"; for (let k = 0; k < 3; k++) g.fillRect(14, 16 + k * 22, w - 28 - k * 18, 7); } }); n.visible = false; scene.add(n); return { n, ti }; });
+    const CLK = { x: 15, y: 35, z: -56, r: 7.5 };
     const clock = new THREE.Group(); clock.position.set(CLK.x, -12, CLK.z); scene.add(clock);
     { const face = ex(E.circleShape(CLK.r), "#efe6d2", "#fff1dc", 0.3, 0); face.material[0].emissive = new THREE.Color("#ffe6c4"); face.material[0].emissiveIntensity = 0.12; clock.add(face);
       const rim = ex(E.ringShape(CLK.r - 0.5, CLK.r + 0.2), "#c9a37a", "#ffb35c", 0.6, 0); clock.add(rim);
@@ -316,6 +323,7 @@ export default {
       { t: T.pages - 0.1, p: [4.6, 14.6, 39], l: [0, 8, -20], ease: "sine" },
       { t: T.faster + 0.7, p: [8.4, 4.9, 13.5], l: [9.4, 3.3, -6.5], ease: "inOut", arc: 0.15 },
       { t: T.shortcut + 0.1, p: [8.3, 4.7, 12.6], l: [9.6, 3.2, -6.5], ease: "sine" },
+      { t: T.july + 1.0, p: [9.6, 5.6, 15.5], l: [11.6, 0.9, -0.5], ease: "inOut", arc: 0.05 },
     ];
     const KK = [ // kitchen and after
       { t: T.later + 0.6, p: [H.x + 1.0, 4.4, H.z + 13], l: [H.x - 0.6, 1.8, H.z], },
@@ -323,21 +331,21 @@ export default {
       { t: T.summaries, p: [H.x - 0.2, 3.0, H.z + 8.0], l: [H.x - 1.1, 1.3, H.z + 0.2], ease: "sine" },
       { t: T.notA + 0.7, p: [H.x + 1.35, 3.0, H.z + 3.6], l: [H.x + 1.2, 1.45, H.z + 0.3], ease: "inOut", arc: 0.05 },
       { t: T.authors + 0.1, p: [H.x + 1.5, 2.85, H.z + 3.4], l: [H.x + 1.6, 1.25, H.z + 0.3], ease: "sine" },
-      { t: T.second - 0.05, p: [turnCam.x, turnCam.y, turnCam.z], l: [H.x + 1.25, 2.3, H.z - 1.6], ease: "inOut", arc: 0.04 },
-      { t: T.sameLab + 0.1, p: [turnCam.x - 0.1, turnCam.y + 0.05, turnCam.z - 0.5], l: [H.x + 1.25, 2.35, H.z - 1.6], ease: "sine" },
+      { t: T.second - 0.05, p: [turnCam.x, turnCam.y, turnCam.z], l: [H.x + 1.7, 2.3, H.z - 1.6], ease: "inOut", arc: 0.04 },
+      { t: T.sameLab + 0.1, p: [turnCam.x - 0.1, turnCam.y + 0.05, turnCam.z - 0.5], l: [H.x + 1.75, 2.35, H.z - 1.6], ease: "sine" },
       { t: T.thursday + 0.5, p: [H.x - 3, 9.5, H.z + 15], l: [2, 3.5, -8], ease: "inOut", arc: 0.1 },
-      { t: T.plan + 0.2, p: [5.6, 2.8, 4.0], l: [3.5, 1.8, -3.6], ease: "inOut", arc: 0.08 },
-      { t: T.thisTime - 0.1, p: [5.3, 2.75, 3.4], l: [3.5, 1.85, -3.6], ease: "sine" },
+      { t: T.plan + 0.2, p: [5.0, 2.45, 1.2], l: [3.6, 1.85, -3.6], ease: "inOut", arc: 0.08 },
+      { t: T.thisTime - 0.1, p: [4.8, 2.45, 0.6], l: [3.6, 1.9, -3.6], ease: "sine" },
       { t: T.outside - 0.2, p: [-4.6, 4.4, 10.5], l: [-8.2, 2.2, -2.5], ease: "inOut", arc: 0.1 },
       { t: T.aircraft + 0.4, p: [-5.4, 3.9, 8.6], l: [-8.4, 2.0, -2.5], ease: "sine" },
       { t: T.days - 0.2, p: [3, 13, 36], l: [0, 11, -24], ease: "inOut", arc: 0.12 },
       { t: T.labsIn, p: [2.6, 12.6, 34], l: [0, 11.5, -24], ease: "sine" },
-      { t: T.clock + 0.2, p: [1, 9, 40], l: [-2, 15.5, -40], ease: "inOut", arc: 0.08 },
-      { t: T.book - 0.2, p: [0.6, 9.4, 38], l: [-2, 16, -40], ease: "sine" },
+      { t: T.clock + 0.2, p: [2, 8, 40], l: [4, 19, -40], ease: "inOut", arc: 0.08 },
+      { t: T.book - 0.2, p: [1.6, 8.4, 37.5], l: [4, 19.5, -40], ease: "sine" },
       { t: T.turns + 0.3, p: [11.6, 4.1, 7.8], l: [11.0, 3.6, -7], ease: "inOut", arc: 0.1 },
       { t: T.read2, p: [11.2, 4.0, 6.8], l: [10.9, 3.6, -7], ease: "sine" },
-      { t: T.lena + 0.5, p: [5.6, 2.6, 2.4], l: [3.1, 1.55, -3.6], ease: "inOut", arc: 0.06 },
-      { t: T.three, p: [5.3, 2.55, 1.8], l: [3.0, 1.6, -3.6], ease: "sine" },
+      { t: T.lena + 0.5, p: [4.6, 2.55, -0.4], l: [3.3, 1.35, -3.4], ease: "inOut", arc: 0.06 },
+      { t: T.three, p: [4.5, 2.5, -0.9], l: [3.3, 1.4, -3.4], ease: "sine" },
       { t: T.withH, p: [-0.3, 3.1, 0.6], l: [0, 2.9, -14], ease: "inOut", arc: 0.04 },
       { t: T.to, p: [0.05, 2.75, -13.25], l: [0, 2.7, -20], ease: "inOut", arc: 0 },
     ];
@@ -347,16 +355,17 @@ export default {
       const p = Rf.clone().addScaledVector(NRM, 6.5).addScaledVector(SDIR, 5.5).add(V3(0, 5.2, 0)); const l = Rf.clone().addScaledVector(SDIR, -1.5).add(V3(0, 0.4, 0));
       const w = smooth(T.deeper + 0.6, T.finds + 0.15, t); const pc = CUTW.clone().addScaledVector(NRM, 3.0).addScaledVector(SDIR, 2.4).add(V3(0, 3.0, 0));
       p.lerp(pc, w); l.lerp(CUTW.clone().add(V3(0, 0.1, 0)), w);
-      const w2 = smooth(T.finds + 0.6, T.later + 0.3, t); p.lerp(CUTW.clone().addScaledVector(NRM, 6).addScaledVector(SDIR, 4).add(V3(0, 7, 0)), w2); l.lerp(CUTW.clone().addScaledVector(SDIR, -4), w2 * 0.8);
+      const w2 = smooth(T.finds + 0.5, T.later + 0.6, t); p.lerp(V3(H.x - 7.5, 6.5, H.z + 11), w2); l.lerp(V3(H.x - 1.5, 1.8, H.z - 1), w2);
       const d = p.distanceTo(l) * 0.01; p.x += d * Math.sin(t * 0.37) * 0.9; p.y += d * Math.sin(t * 0.51 + 0.7) * 0.6; return { p, l }; };
     const mix = (a, b, k) => ({ p: a.p.clone().lerp(b.p, k), l: a.l.clone().lerp(b.l, k) });
     const camAt = (t) => {
-      if (t < T.shortcut + 0.6) { const a = E.camPath(K, t, { arc: 0.1, push: 0.3 }); if (t < T.shortcut - 0.1) return a; return mix(a, scrollCam(t), sineInOut(lin(T.shortcut - 0.1, T.shortcut + 0.6, t))); }
+      if (t < T.july + 1.0) { const a = E.camPath(K, t, { arc: 0.1, push: 0.3 }); if (t < T.shortcut + 0.7) return a; return mix(a, scrollCam(t), sineInOut(lin(T.shortcut + 0.7, T.july + 1.0, t))); }
       if (t < T.later + 0.6) return scrollCam(t);
       const b = E.camPath(KK, t, { arc: 0.08, push: 0.25, seed: 2 }); if (t > T.later + 1.6) return b; return mix(scrollCam(Math.min(t, T.later + 0.6)), b, sineInOut(lin(T.later + 0.6, T.later + 1.6, t)));
     };
 
     const post = { bloom: 0.45, exposure: 1.1 };
+    const GOLD = new THREE.Color("#ffd9a8");
     const tmp = V3(0, 0, 0);
     return {
       scene, camera, post,
@@ -395,7 +404,8 @@ export default {
           const flick = 1 + 0.04 * Math.sin(t * 9.1 + i * 2) * Math.sin(t * 3.3 + i);
           tw.dGlow.userData.setGlow((0.08 + 1.5 * Math.min(1, o)) * flick);
           tw.spill.material.opacity = 0.75 * Math.min(1, o) * (i ? 0.8 : 1) * flick; tw.spill.visible = o > 0.01;
-          tw.dCore.material.opacity = i === 0 ? 0.9 * smooth(T.withH, T.eyes + 0.6, t) : 0;
+          tw.dCore.material.opacity = i === 0 ? smooth(T.withH - 0.5, T.withH + 0.3, t) : 0;
+          if (i === 0) tw.dGlow.material.color.lerp(GOLD, 0.55 * smooth(T.withH - 0.3, T.eyes, t) + 0.45 * smooth(T.to - 1.0, T.to - 0.3, t)); tw.dCore.visible = tw.dCore.material.opacity > 0.001;
           // window backing: cold dim in grey, warm in dawn
           tw.back.material.color.setRGB(lerp(0.09, 0.55, dk), lerp(0.13, 0.32, dk), lerp(0.15, 0.22, dk)).multiplyScalar(1 + 0.05 * Math.sin(t * 0.7 + i));
           if (tw.deskGlow) { const land = notesLand[i] ?? 1e9; const lit = smooth(land, land + 0.5, t); const pulse = 1 + 0.6 * Math.exp(-Math.max(0, t - land) * 3) * (t > land ? 1 : 0);
@@ -412,13 +422,13 @@ export default {
         lena.userData.pose(t, { lean: 0.3 * pencilDown - 0.2 * reach, reach: 0.15 + 0.6 * reach + 0.25 * (1 - pencilDown) * (t < T.second ? 0 : 1) * smooth(T.plan, T.screen, t), armDown: 1.5 * pencilDown, lookUp: 0.35 * smooth(T.withH, T.eyes, t) - 0.25 * pencilDown + 0.1 * smooth(T.near, T.reported, t) });
         if (t > T.yes2 - 0.3) { const k = Math.round(clamp(tickK, 0, 1) * 20) / 20; if (k !== qTick) { qCard.userData.redraw({ tick: k }); qTick = k; } } else if (qTick !== 0) { qCard.userData.redraw({}); qTick = 0; }
         calPages.forEach((p, i) => { if (i > 2) { p.rotation.x = 0; return; } const k = inOut(lin(T.three + i * 0.22, T.three + i * 0.22 + 0.4, t)); p.rotation.x = -k * 2.9; });
-        lampLight.intensity = lerp(3, 10, dk) * (1 - 0.6 * pencilDown) * (1 + 0.03 * Math.sin(t * 5.3));
+        lampLight.intensity = lerp(3, 4.5, dk) * (1 - 0.6 * pencilDown) * (1 + 0.03 * Math.sin(t * 5.3));
         lampBulb.material.opacity = lerp(0.35, 1, dk) * (1 - 0.5 * pencilDown);
         scrLight.intensity = 5 + 1.5 * Math.sin(t * 2.3);
 
         // ---- flipbook ----
         const v = speedAt(t), blur = clamp((v - 2) / 22, 0, 1), spread = 1 + 8 * blur;
-        fan.material.opacity = 0.55 * blur * (0.9 + 0.1 * Math.sin(t * 23)); fan.visible = blur > 0.01; fan.rotation.y = 0.05 * Math.sin(t * 17);
+        fan.material.opacity = 0.8 * blur * (0.9 + 0.1 * Math.sin(t * 23)); fan.visible = blur > 0.01; fan.rotation.y = 0.05 * Math.sin(t * 17);
         book.userData.update(t, { flip: flipAt(t), spread, open: 1 });
         book.position.y = BK.y + 0.02 * Math.sin(t * 0.8);
 
@@ -445,20 +455,20 @@ export default {
         // ---- successor model, inspectors ----
         const pop = spring(lin(T.before - 0.1, T.before + 1.0, t)); modelPop.rotation.x = -Math.PI / 2 * (1 - pop) + 0.006 * Math.sin(t * 0.6); model.visible = t > T.before - 0.15;
         modelPop.scale.setScalar(pop > 0 ? 1 : 0.001);
-        ringsM.userData.update(t, { think: 0.15, glow: 0.35 + 0.5 * smooth(T.tests, T.inspectors, t) }); ringsM.rotation.y = 0.15 * Math.sin(t * 0.3);
+        ringsM.userData.update(t, { think: 0.15, glow: 0.12 + 0.25 * smooth(T.tests, T.inspectors, t) }); ringsM.rotation.y = 0.15 * Math.sin(t * 0.3);
         const panelOpen = [T.tests, T.inspectors, T.aircraft - 0.5];
         panels.forEach((pv, i) => { pv.rotation.x = -1.9 * spring(lin(panelOpen[i] - 0.1, panelOpen[i] + 0.7, t)); });
-        const insIn = (i) => lin(T.outside - 0.4 + i * 0.25, T.tests + 0.3 + i * 0.25, t);
+        const insIn = (i) => lin(T.outside - 0.6 + i * 0.2, T.tests + 0.1 + i * 0.2, t);
         let lx = 0, ly = 0, lz = 0;
         inspectors.forEach((f, i) => { const side = i % 2 ? 1 : -1; const k = sineInOut(insIn(i));
-          const xs = MD.x + side * (8.5 + i * 0.6), xe = MD.x + [-1.8, 2.6, 0.2, -3.0][i] + 0.25 * Math.sin(t * 0.5 + i);
-          const zz = MD.z + [1.6, 1.4, 2.4, -0.2][i];
+          const xs = MD.x + side * (6.5 + i * 0.5), xe = MD.x + [-1.6, 1.4, 3.3, -3.5][i] + 0.25 * Math.sin(t * 0.5 + i);
+          const zz = MD.z + [1.5, 1.6, 1.2, 0.5][i];
           const walking = Math.max(insIn(i) > 0 && insIn(i) < 1 ? 1 : 0, 0.15 * Math.abs(Math.sin(t * 0.5 + i)));
           f.position.set(lerp(xs, xe, k), 0, zz); f.visible = t > T.outside - 0.6 && t < T.withH + 1;
           const facing = side > 0 ? 1 : 0; const reachP = i < 3 ? smooth(panelOpen[i] - 0.5, panelOpen[i], t) * (1 - smooth(panelOpen[i] + 0.6, panelOpen[i] + 1.4, t)) : 0;
           f.userData.pose(t + i * 1.3, { walk: walking, turn: facing, reach: 0.35 + 0.5 * reachP, lookUp: 0.15 + 0.2 * reachP });
           lx += f.position.x; ly += 1.5; lz += f.position.z; });
-        insLight.position.set(lx / 4, 2.2, lz / 4 + 1.5); insLight.intensity = 14 * smooth(T.outside - 0.4, T.tests, t) * (1 + 0.05 * Math.sin(t * 6.1));
+        insLight.position.set(lx / 4, 2.2, lz / 4 + 1.5); insLight.intensity = 22 * smooth(T.outside - 0.4, T.tests, t) * (1 + 0.05 * Math.sin(t * 6.1));
 
         // ---- note: leaves Lena's desk, splits to every tower, lands at a desk window ----
         notes.forEach((nn, k) => { const tw = towers[nn.ti]; const tLaunch = T.near - 0.1, tSplit = T.reported + 0.15, tLand = notesLand[nn.ti];

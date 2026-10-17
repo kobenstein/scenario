@@ -51,6 +51,7 @@ export default {
     const cockpitLight = E.pointLight("#ffb35c", 0, 3.5); scene.add(cockpitLight);
     const slotLight = E.pointLight("#ffb35c", 0, 9); scene.add(slotLight);
     const cyanLight = E.pointLight(C.cyan, 0, 7); scene.add(cyanLight);
+    const pool = new THREE.SpotLight("#ffd29a", 0, 34, 0.42, 0.65, 1.3); pool.castShadow = true; pool.shadow.mapSize.set(1024, 1024); pool.shadow.bias = -0.0008; pool.shadow.radius = 3; scene.add(pool, pool.target);
 
     // ---------- airport set (visible until the drawer swap) ----------
     const air = new THREE.Group(); scene.add(air);
@@ -194,7 +195,7 @@ export default {
       g.fillStyle = "#3a2740"; g.font = `400 ${h * 0.5}px "Instrument Serif"`; g.fillText(String(k), w / 2, h * 0.6);
       if (k === 15) { g.strokeStyle = "#e8953f"; g.lineWidth = h * 0.022; g.beginPath(); g.ellipse(w / 2, h * 0.58, w * 0.33, h * 0.28, -0.08, 0.2, Math.PI * 2.05); g.stroke(); }
       g.strokeStyle = "rgba(58,39,64,0.25)"; g.lineWidth = 2; g.beginPath(); g.moveTo(w * 0.12, h * 0.9); g.lineTo(w * 0.88, h * 0.9); g.stroke(); };
-    for (let k = 0; k < NPG; k++) { const piv = new THREE.Group(); piv.position.set(0, 5.25, 0.06 + (NPG - k) * 0.012); cal.add(piv);
+    for (let k = 0; k < NPG; k++) { const piv = new THREE.Group(); piv.position.set(0, 5.25, 0.06 + (NPG - k) * 0.046); cal.add(piv);
       const pg = E.drawnCard({ w: 3.2, h: 3.8, px: 384, draw: drawPage(k) }); pg.position.y = -1.9; pg.castShadow = k < 2 || k > NPG - 3; piv.add(pg); pages.push({ piv, pg, home: piv.position.clone(), r: rng(300 + k) }); }
     const clip = E.box(1.6, 0.34, 0.3, "#3a2740"); clip.position.set(0, 5.25, 0.35); cal.add(clip);
 
@@ -206,10 +207,12 @@ export default {
         const h = new THREE.Path(); h.moveTo(x - hs, y - hs); h.lineTo(x - hs, y + hs); h.lineTo(x + hs, y + hs); h.lineTo(x + hs, y - hs); h.lineTo(x - hs, y - hs); s.holes.push(h); }
       const mesh = E.extrude(s, "#c58f8f", 0.05, { segments: 64 }); mesh.rotation.x = -Math.PI / 2; mesh.position.y = MESHY; sieve.add(mesh);
       const rim = E.extrude(E.ringShape(SR - 0.02, SR + 0.36), "#5a3c5c", 0.5, { segments: 64 }); rim.rotation.x = -Math.PI / 2; rim.position.y = MESHY - 0.22; sieve.add(rim);
+      const handle = E.box(3.4, 0.22, 0.42, "#5a3c5c"); handle.position.set(-(SR + 1.95), MESHY + 0.02, -0.4); handle.rotation.y = -0.12; sieve.add(handle);
+      const hook = E.extrude(E.ringShape(0.22, 0.4), "#5a3c5c", 0.2); hook.rotation.x = -Math.PI / 2; hook.position.set(-(SR + 3.75), MESHY - 0.08, -0.62); sieve.add(hook);
       [0, 2.1, 4.2].forEach((a) => { const lg = E.box(0.2, 2.9, 0.2, "#4d3350"); lg.position.set(Math.cos(a) * (SR + 0.1), 1.4, Math.sin(a) * (SR + 0.1)); lg.rotation.z = Math.cos(a) * 0.08; lg.rotation.x = -Math.sin(a) * 0.08; sieve.add(lg); }); }
     // small notes: fall through the holes and settle on the ground
     const NR = 64; const rain = new THREE.InstancedMesh(new THREE.BoxGeometry(0.27, 0.012, 0.2), new THREE.MeshStandardMaterial({ color: "#f6ead5", roughness: 0.9 }), NR); rain.castShadow = true; rain.receiveShadow = true; rain.frustumCulled = false; sieve.add(rain);
-    const rr = rng(55); const RAIN = [...Array(NR)].map((_, j) => { const h = holes[Math.floor(rr() * holes.length)]; return { x: h[0], z: h[1], t0: T.many - 0.55 + rr() * 2.3, y0: 13 + rr() * 4, gx: h[0] + (rr() - 0.5) * 0.6, gz: h[1] + (rr() - 0.5) * 0.6, ry: rr() * 6.3, sp: (rr() - 0.5) * 14 }; });
+    const rr = rng(55); const RAIN = [...Array(NR)].map((_, j) => { const h = holes[Math.floor(rr() * holes.length)]; return { x: h[0], z: h[1], t0: j < 12 ? T.limits + 0.5 + j * 0.22 + rr() * 0.1 : T.many - 0.55 + rr() * 2.3, y0: 13 + rr() * 4, gx: h[0] + (rr() - 0.5) * 0.6, gz: h[1] + (rr() - 0.5) * 0.6, ry: rr() * 6.3, sp: (rr() - 0.5) * 14 }; });
     // the big note that gets caught (it is the exam booklet cover in s10)
     const drawNote = (g, w, h) => { g.strokeStyle = "rgba(77,51,80,0.55)"; g.lineWidth = w * 0.006; g.strokeRect(w * 0.05, h * 0.065, w * 0.9, h * 0.87);
       g.fillStyle = "rgba(77,51,80,0.75)"; g.beginPath(); g.arc(w * 0.15, h * 0.2, h * 0.06, 0, 7); g.fill(); g.fillStyle = "#fbf3e3"; g.beginPath(); g.arc(w * 0.15, h * 0.2, h * 0.032, 0, 7); g.fill();
@@ -237,9 +240,9 @@ export default {
     const keys = [
       K(def.from, [0, 1.75, 14], [0.3, 6.0, -86]),
       K(T.y74 - 0.3, [0.4, 2.3, 13], [0.8, 5.9, -86], sineInOut),
-      K(T.twa - 0.1, [-2.0, 5.6, 7], [11, 4.2, -26], inOut, 0.05),
-      K(T.six, [-1.4, 5.9, 6], [11.5, 4.5, -26], sineInOut),
-      K(T.pulled + 0.3, [-0.6, 6.3, 5], [12.5, 5.2, -26], sineInOut),
+      K(T.twa - 0.1, [-1.0, 5.4, 4], [11.5, 4.4, -27], inOut, 0.05),
+      K(T.six, [-0.4, 5.7, 2.8], [12, 4.7, -27], sineInOut),
+      K(T.pulled + 0.3, [0.4, 6.1, 1.6], [13, 5.4, -27], sineInOut),
       K(T.pulled + 2.4, [15, 9, 6], [19, 8.5, -4], inOut, 0.02), // (the cockpit follow takes over here)
       K(T.y76 + 1.4, [15.4, 3.6, 12.2], [12, 2.3, -2], inOut, 0.03),
       K(T.report, [14.6, 3.9, 11.2], [12, 2.9, -2], sineInOut),
@@ -261,7 +264,7 @@ export default {
       l.x += d * Math.sin(t * 0.29 + 0.4) * 0.5; l.y += d * Math.sin(t * 0.43 + 1.9) * 0.35; };
 
     // ---------- helpers for update ----------
-    const dummy = new THREE.Object3D(); const tmp = V3(0, 0, 0), tmp2 = V3(0, 0, 0), tmp3 = V3(0, 0, 0);
+    const dummy = new THREE.Object3D(); const tmp = V3(0, 0, 0), tmp2 = V3(0, 0, 0), tmp3 = new THREE.Color();
     const ckLocal = V3(1.35, 0.1, 0); // cockpit in plane-inner units
     const growK = (t) => spring(lin(T.two, T.two + 2.0, t));
     const slotWorld = (t, out) => { const s = lerp(0.12, 1, growK(t)), sz = lerp(0.5, 1, growK(t)); return out.set(MB.x, body.position.y + 15.4 * s, MB.z + 1.55 * sz); };
@@ -280,13 +283,13 @@ export default {
       curveA.getPointAt(ua, tmp); twa.g.position.copy(tmp); curveA.getTangentAt(Math.min(ua + 0.002, 1), tmp2); orient(twa.g, tmp2, -0.25 * smooth(0.35, 0.8, ua));
       const shade = smooth(T.mountain - 0.25, T.mountain + 0.75, t), gone = smooth(T.mountain + 0.15, T.mountain + 1.6, t);
       twa.mats.forEach((m) => { m.color.copy(m.userData.c0).lerp(ridgeC0, shade); m.opacity = 1 - gone; m.depthWrite = gone < 0.5; });
-      twa.g.visible = gone < 0.999 && !labMode;
+      twa.g.visible = gone < 0.999 && !labMode; twa.inner.traverse((o) => { if (o.isMesh) o.castShadow = shade < 0.6; });
       // trail: dashes appear behind the TWA plane, glow again (rewind) on "Six weeks earlier", then fade as United climbs out
       const uTrail = Math.max(ua, 0); const rewind = lin(T.six, T.six + 1.4, t);
       for (let k = 0; k < ND; k++) { const uk = (k + 0.5) / ND; curveA.getPointAt(uk, tmp); curveA.getTangentAt(uk, tmp2);
         const on = uk < uTrail ? 1 : 0; const front = Math.exp(-Math.pow((uk - rewind) * 9, 2));
         dummy.position.copy(tmp); dummy.position.y -= 0.05; dummy.scale.setScalar(on ? 1 + 0.7 * front * (rewind > 0 && rewind < 1 ? 1 : 0) : 0.0001); orient(dummy, tmp2); dummy.updateMatrix(); trail.setMatrixAt(k, dummy.matrix);
-        const fade = 1 - smooth(T.pulled + 0.6, T.nobody + 1.5, t); trail.setColorAt(k, tmp3.set(1, 0.93, 0.82).multiplyScalar((0.55 + 1.4 * front * (rewind > 0 && rewind < 1 ? 1 : 0)) * fade + 0.0001)); }
+        const fade = 1 - smooth(T.pulled + 0.6, T.nobody + 1.5, t); trail.setColorAt(k, tmp3.setRGB(1, 0.93, 0.82).multiplyScalar((0.55 + 1.4 * front * (rewind > 0 && rewind < 1 ? 1 : 0)) * fade + 0.0001)); }
       trail.instanceMatrix.needsUpdate = true; trail.instanceColor.needsUpdate = true;
       // United: same path; pulls up at the ridge, swings back over the field
       const up = uParam(t); curveU.getPoint(up, tmp); uni.g.position.copy(tmp);
@@ -331,8 +334,9 @@ export default {
       const kc = spring(lin(T.two + 0.35 + CYR * 0.075 + 0.05, T.two + 0.95 + CYR * 0.075, t)); const fw = expoOut(lin(T.forward - 0.12, T.forward + 0.9, t)) * 1.7 - 0.06 * Math.sin(Math.PI * lin(T.forward - 0.35, T.forward - 0.12, t));
       cyDrawer.position.set(dX(CYC), dY(CYR), lerp(1.34, 1.62, kc) + fw); cyDrawer.visible = kc > 0.001; cyBox.position.set(dX(CYC), dY(CYR), cyDrawer.position.z - 0.95); cyBox.visible = fw > 0.05;
       const glowK = labMode ? smooth(T.july - 0.1, T.july + 0.4, t) * (0.85 + 0.15 * Math.sin(t * 9) * Math.sin(t * 3.3)) : 0;
-      cyGlow.position.set(dX(CYC), dY(CYR), cyDrawer.position.z - 0.12); cyGlow.userData.setGlow(0.9 * glowK); cyDrawer.material.emissive = cyanCol; cyDrawer.material.emissiveIntensity = 0.12 * glowK;
-      body.localToWorld(cyanLight.position.copy(cyDrawer.position)); cyanLight.position.z += 0.8; cyanLight.intensity = 3.5 * glowK;
+      cyGlow.position.set(dX(CYC), dY(CYR), 1.48); cyGlow.scale.set(1.12, 1.08, 1); cyGlow.userData.setGlow(1.25 * glowK);
+      cyDrawer.material.color.set("#ead6bd").lerp(new THREE.Color(C.cyanPale), 0.8 * glowK); cyDrawer.material.emissive = cyanCol; cyDrawer.material.emissiveIntensity = 0.22 * glowK; cyBox.material.color.set("#d9c6ad").lerp(new THREE.Color("#8fdff0"), 0.6 * glowK);
+      body.localToWorld(cyanLight.position.copy(cyDrawer.position)); cyanLight.position.y += 1.3; cyanLight.position.z -= 0.5; cyanLight.intensity = 2.5 * glowK * (fw > 0.3 ? 1 : 0.5);
       // fly card: rises out of the cyan drawer, then flutters across to the calendar clip
       { const c0 = body.localToWorld(V3(dX(CYC), dY(CYR) + 0.35, cyDrawer.position.z)); const rise = expoOut(lin(T.forward + 0.5, T.forward + 1.3, t));
         const c1 = c0.clone().add(V3(0.2, 0.9 * rise, 0.15)); const fl = lin(T.california - 0.05, T.california + 1.35, t); const e = inOut(fl);
@@ -382,10 +386,11 @@ export default {
       const look = l.clone(); key.target.position.copy(look); fill.target.position.copy(look);
       const kOff = labMode ? (t > T.limits - 0.5 ? V3(-12, 30, 10) : V3(-20, 26, 22)) : V3(-22, 24, 20);
       key.position.copy(look).add(kOff); fill.position.copy(camera.position).add(V3(-6, 4, 0));
-      key.intensity = 2.7; hemi.intensity = labMode ? 1.15 : 1.05;
+      const poolK = smooth(T.limits - 0.9, T.limits + 0.9, t); key.intensity = 2.7 - 1.5 * poolK; hemi.intensity = (labMode ? 1.15 : 1.05) - 0.25 * poolK;
+      pool.intensity = 210 * poolK * (1 - 0.68 * smooth(T.full - 1.2, T.full + 0.8, t)) * (1 + 0.03 * Math.sin(t * 2.3)); pool.position.set(SV.x - 2.5 + 0.3 * Math.sin(t * 0.4), 15, SV.z + 3.5); pool.target.position.set(SV.x, MESHY, SV.z); pool.visible = true; // never toggle light visibility: it changes shader programs and makes renders seek-order dependent
       // airport life
-      for (let k = 0; k < NL; k++) { const chase = Math.exp(-Math.pow(((k * 0.09 - t * 0.9) % 2.7 + 2.7) % 2.7 - 0.2, 2) * 18); const f = 0.85 + 0.15 * Math.sin(t * 7 + k * 2.3) + 1.4 * chase;
-        rLights.setColorAt(k * 2, tmp3.set(1, 0.52, 0.16).multiplyScalar(f)); rLights.setColorAt(k * 2 + 1, tmp3.set(1, 0.52, 0.16).multiplyScalar(f)); }
+      for (let k = 0; k < NL; k++) { const chase = Math.exp(-Math.pow(((k * 0.09 - t * 0.9) % 2.7 + 2.7) % 2.7 - 0.2, 2) * 18); const f = 0.55 + 0.1 * Math.sin(t * 7 + k * 2.3) + 0.9 * chase;
+        rLights.setColorAt(k * 2, tmp3.setRGB(1, 0.52, 0.16).multiplyScalar(f)); rLights.setColorAt(k * 2 + 1, tmp3.setRGB(1, 0.52, 0.16).multiplyScalar(f)); }
       rLights.instanceColor.needsUpdate = true;
       ctower.userData.win.userData.setGlow(1.15 + 0.08 * Math.sin(t * 2.7)); ctower.userData.bcn.userData.setGlow(Math.sin(t * 4) > 0.2 ? 2 : 0.3);
       hg1.userData.door.userData.setGlow(0.5 + 0.05 * Math.sin(t * 1.9)); hg2.userData.door.userData.setGlow(0.45 + 0.05 * Math.sin(t * 2.3 + 1));

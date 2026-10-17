@@ -158,9 +158,9 @@ export default {
       for (let j = F0 - 6; j <= F0 + 7; j++) { const s = slots[((j % NS) + NS) % NS];
         if (s.j !== j) { s.j = j; s.fr.key = ""; paintBack(s, j); }
         const fk = frontKey(j, t); if (fk !== s.fr.key) { s.fr.key = fk; paintFront(s, j, t); }
-        const k = clamp((F - j) / spread + 0.5, 0, 1); const e = sineInOut(k); const ang = -Math.PI * e; s.pivot.rotation.y = ang;
+        const k = clamp((F - j) / spread + 0.5, 0, 1); const e = lerp(sineInOut(k), k, clamp((spread - 1) / 3, 0, 1)); const ang = -Math.PI * e; s.pivot.rotation.y = ang;
         const d = F - j; s.pivot.position.z = k >= 1 ? 0.012 + Math.max(0, 7 - d) * PT : k <= 0 ? -Math.min(-d, 7) * PT : 0.11 + 0.02 * Math.sin(j);
-        s.pivot.visible = !(k <= 0 && -d > 6.6);
+        s.pivot.visible = !(k <= 0 && -d > 6.6) && (B || j >= 0);
         const a = s.geo.attributes.position; const curl = k > 0 && k < 1 ? 0.2 * (1 + 0.3 * (spread - 1)) : 0.015;
         for (let v = 0; v < a.count; v++) { const x = s.base[v * 3]; a.array[v * 3 + 2] = curl * Math.sin((x / BW) * Math.PI) * 0.5 * BW * Math.sin(-ang); }
         a.needsUpdate = true; s.geo.computeVertexNormals(); }
@@ -181,6 +181,12 @@ export default {
       const index = E.extrude(E.roundRectShape(0.46, 0.13, 0.06), AMB, 0.05, { mats }); index.position.set(0.3 + n.x * 0.06, 0.3 + n.y * 0.06, 0.11); index.rotation.z = Math.PI / 4; hand.add(index);
       const thumb = E.extrude(E.roundRectShape(0.36, 0.14, 0.06), AMB, 0.05, { mats }); thumb.position.set(0.36, 0.2, 0.12); thumb.rotation.z = 0.12; hand.add(thumb);
       const knuckle = E.extrude(E.roundRectShape(0.34, 0.12, 0.06), "#d98b45", 0.04, { mats: paper("#d98b45", { emissive: 0.2 }) }); knuckle.position.set(0.5, 0.62, 0.115); knuckle.rotation.z = 0.5; hand.add(knuckle); }
+    // motion-blur fan: translucent ghost pages sweeping round the spine while the book whirls
+    const NG = 22; const ghosts = []; { const gg = new THREE.PlaneGeometry(BW, BH); gg.translate(BW / 2, 0, 0);
+      for (let i = 0; i < NG; i++) { const m = new THREE.Mesh(gg, new THREE.MeshBasicMaterial({ color: i % 3 ? "#e8f6f4" : "#bdf1ff", transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide }));
+        m.position.z = 0.1; book.add(m); ghosts.push(m); } }
+    const updGhosts = (t, fast, F) => ghosts.forEach((m, i) => { const ph = ((i / NG + F * 0.0137) % 1 + 1) % 1; m.rotation.y = -Math.PI * ph; m.visible = fast > 0.02;
+      m.material.opacity = 0.11 * fast * Math.sin(Math.PI * ph) * (0.7 + 0.3 * Math.sin(i * 7.3 + t * 13)); });
     const lamp = E.pointLight("#ffb866", 0, 16, true); lamp.position.set(2.6, 5.2, 4.2); scene.add(lamp);
     const pageGlow = E.pointLight(C.cyan, 0, 14); scene.add(pageGlow);
     // machine "reach-over" beam: a dotted cyan line from the left page's disc to the pen point on the right page
@@ -308,7 +314,7 @@ export default {
     // queue of experiments at the single gate + the tiny figure
     const crates = []; for (let i = 0; i < 7; i++) { const g = new THREE.Group(); const b = E.box(0.62, 0.62, 0.62, "#2c3f63"); b.position.y = 0.31; g.add(b);
       const sl = glow(0.38, 0.07, C.cyan); sl.position.set(0, 0.42, 0.315); g.add(sl); g.userData.sl = sl; g.position.set(0, 0, -38.9 + i * 0.86); G2.add(g); crates.push(g); }
-    const fig = E.figure({ pose: "stand", hair: "short", seed: 4, scale: 0.95 }); fig.position.set(-1.9, 0, -35.2); G2.add(fig);
+    const fig = E.figure({ pose: "stand", hair: "short", seed: 4, scale: 0.95 }); fig.position.set(-0.8, 0, -39.3); G2.add(fig);
 
     // ================= the two clocks (on the plant hall) =================
     const CR = 1.4, CY = 11.5, CZ = 0.78; // relative to plant hinge (z -40)
@@ -339,7 +345,7 @@ export default {
     const fnote = E.drawnCard({ w: 0.62, h: 0.36, px: 256, draw: (g, w, h) => { g.fillStyle = "#1c1a24"; g.font = '120px "Instrument Serif"'; g.fillText("*", 18, 118); g.fillStyle = "rgba(28,26,36,0.55)"; [40, 62, 84].forEach((y, i) => g.fillRect(96, y, 130 - i * 26, 7)); } });
     fnote.position.set(0, -0.3, 0); tagPiv.add(fnote);
     const thread = new THREE.Mesh(new THREE.PlaneGeometry(0.012, 0.14), new THREE.MeshBasicMaterial({ color: "#24222c" })); thread.position.set(0, -0.06, 0.01); tagPiv.add(thread);
-    const bookLamp = E.pointLight("#ffe2b8", 0, 22); plantP.h.add(bookLamp);
+    const bookLamp = E.pointLight("#ffe2b8", 0, 10); plantP.h.add(bookLamp);
     const clockLamp = E.pointLight("#ffe2b8", 0, 20); clockLamp.position.set(0, 15.5, 6); plantP.h.add(clockLamp);
 
     // ================= DOM =================
@@ -372,8 +378,8 @@ export default {
       [tm.motion + 0.5, [5.6, 0.95, 10.0], [-2.2, 1.85, 0.6], "sine"],
       [tm.howFast + 0.3, [5.4, 1.2, 10.2], [-1.4, 1.6, 0.4]],
       [tm.howFast + 1.6, [5.0, 3.0, 10.5], [3.6, 0.5, ZR]],
-      [tm.research + 1.6, [11, 5.6, 15.5], [11, 0.0, ZR]],
-      [tm.human - 1.0, [8.0, 4.4, 13.0], [6.5, 0.2, ZR]],
+      [tm.research + 1.6, [5.5, 4.6, 12.5], [8.5, 0.5, ZR - 1]],
+      [tm.human - 1.0, [3.8, 3.6, 10.5], [5.5, 0.6, ZR - 1]],
       [tm.y2024 - 0.8, [2.6, 2.5, 8.6], [2.1, 0.4, ZR]],
       [tm.minutes + 0.3, follow(() => [0.4, 2.4, 8.0], () => [0, 0.1, 0], 0.45)],
       [tm.lately - 0.5, follow((t) => [lerp(0.4, -1.5, lin(tm.minutes, tm.lately, t)), lerp(2.4, 4.6, lin(tm.minutes, tm.lately, t)), lerp(8.0, 15, lin(tm.minutes, tm.lately, t))], () => [1.5, 0.1, 0], 0.5)],
@@ -391,8 +397,9 @@ export default {
       const p = m.clone().add(back).add(dirZ.clone().multiplyScalar(-5.6)); const l = m.clone().add(dirZ.clone().multiplyScalar(6)); l.y = 1.2; p.y = 1.5 + 0.25 * Math.sin(t * 0.7); return [p, l]; };
     K[K.length - 1] = [tm.inst + 0.3, tunnel];
     K.push([tm.test + 0.6, tunnel]);
-    K.push([tm.code + 2.4, Lw(7.5, 13.5, -10.5), Lw(0, 7.2, -40)]);
-    K.push([tm.time - 0.1, Lw(5.0, 11.2, -15.8), Lw(0, 7.6, -40)]);
+    K.push([tm.code + 0.9, Lw(1.5, 12.5, -7.2), Lw(0.5, 6.5, -32)]);
+    K.push([tm.code + 2.4, Lw(10, 24, -3), Lw(1.0, 7.0, -40)]);
+    K.push([tm.time - 0.1, Lw(8, 21, -8), Lw(0.8, 7.6, -40)]);
     K.push([tm.being + 0.4, plantW(0.4, CY + 0.15, CZ + 9.4), plantW(0, CY, CZ)]);
     K.push([tm.longer, plantW(-0.1, CY + 0.3, CZ + 8.6), plantW(0, CY + 0.05, CZ)]);
     K.push([tm.even - 0.3, plantW(-0.2, CY + 0.3, CZ + 8.4), plantW(0.1, CY + 0.05, CZ)]);
@@ -429,13 +436,13 @@ export default {
         const B = t >= 205; const want = B ? plantP.h : scene; if (book.parent !== want) want.add(book);
         if (B) { book.position.set(SPINE_B, BYB, BZB); book.rotation.set(0, 0, 0.003 * Math.sin(t * 0.7)); }
         else { book.position.set(-BW / 2, 1.65, 0); book.rotation.set(0, 0, 0.003 * Math.sin(t * 0.7)); }
-        const F = updBook(t); updHand(t); const beamOn = updBeam(t);
+        const F = updBook(t); updHand(t); updGhosts(t, B ? 0 : smooth(tm.vanish - 0.6, tm.all, t) * (1 - smooth(tm.howFast + 0.3, tm.howFast + 2.0, t)), F); const beamOn = updBeam(t);
         // ---- lights: lamp (human phase) → cyan page glow (machine phase) → wow
         const human = smooth(tm.decades - 0.8, tm.decades + 0.4, t) * (1 - smooth(tm.now, tm.now + 1.6, t));
         const fast = smooth(tm.flipFast, tm.all, t) * (1 - smooth(tm.howFast + 0.5, tm.howFast + 3.5, t));
         lamp.intensity = (B ? 0 : 1) * (4 + 7 * human) * (1 - 0.55 * smooth(tm.now, tm.flipSlow, t)) * (1 + 0.03 * Math.sin(t * 7.1) * Math.sin(t * 2.3)) * (1 - smooth(tm.howFast + 2, tm.howFast + 5, t));
         const machine = smooth(tm.now, tm.help, t);
-        pageGlow.position.set(-1.5 + 0.4 * Math.sin(t * 3), 2.2, 3.2 + 0.8 * fast); pageGlow.intensity = B ? 0 : (0.3 + 2.2 * beamOn + 1.2 * machine * (1 - fast) * (1 - smooth(tm.howFast, tm.howFast + 3, t)) + 5 * fast * (0.85 + 0.15 * Math.sin(t * 31)));
+        pageGlow.position.set(-1.5 + 0.4 * Math.sin(t * 3), 2.2, 3.2 + 0.8 * fast); pageGlow.intensity = B ? 0 : (0.3 + 2.2 * beamOn + 1.2 * machine * (1 - fast) * (1 - smooth(tm.howFast, tm.howFast + 3, t)) + 12 * fast * (0.85 + 0.15 * Math.sin(t * 31)));
         // ---- ruler + marker
         updRuler(t);
         const M = markerAt(t); marker.position.copy(M.pos); const sq = M.imp; marker.scale.set(M.s * (1 + 0.14 * sq), M.s * (1 - 0.2 * sq), M.s);
@@ -449,12 +456,12 @@ export default {
         const flick = (s) => 1 + 0.05 * Math.sin(t * 5.3 + s) * Math.sin(t * 2.1 + s * 2);
         const baseOn = smooth(tm.princeton + 1, tm.princeton + 2.5, t) * 0.32;
         const offOn = baseOn + 0.9 * expoOut(lin(tm.inst - 0.1, tm.inst + 0.6, t)); offGlow.forEach((g, i) => g.userData.setGlow(offOn * flick(i))); offGlowHi.userData.setGlow(offOn * 1.2 * flick(3));
-        const ctOn = baseOn * 0.6 + 1.1 * expoOut(lin(tm.rules - 0.1, tm.rules + 0.6, t)); courtGlowL.userData.setGlow(ctOn * flick(4)); courtGlowR.userData.setGlow(ctOn * flick(5)); courtWin.forEach((g, i) => g.userData.setGlow(baseOn * 0.8 * flick(6 + i)));
+        const ctOn = baseOn * 0.3 + 0.38 * expoOut(lin(tm.rules - 0.1, tm.rules + 0.6, t)); courtGlowL.userData.setGlow(ctOn * flick(4)); courtGlowR.userData.setGlow(ctOn * flick(5)); courtWin.forEach((g, i) => g.userData.setGlow(baseOn * 0.8 * flick(6 + i)));
         const hsOn = baseOn * 0.5 + 1.3 * expoOut(lin(tm.test - 0.1, tm.test + 0.6, t)); crossGlow.userData.setGlow(hsOn * flick(7)); hospWinGlow.userData.setGlow(0.3 * baseOn + 0.6 * hsOn); hospSide.forEach((g, i) => g.userData.setGlow(baseOn * 0.8 * flick(8 + i)));
         const dark = smooth(tm.idont, tm.spin, t);
         const powerOn = 0.25 * smooth(tm.princeton + 1.5, tm.princeton + 3, t) + 1.1 * expoOut(lin(tm.power - 0.05, tm.power + 0.7, t));
-        plantGlow.userData.setGlow(powerOn * flick(9) * (1 - 0.9 * dark)); gateGlow.userData.setGlow((0.6 + 1.6 * powerOn) * flick(10) * (1 - 0.95 * dark)); chimGlow.userData.setGlow(powerOn * 0.8 * flick(11) * (1 - dark));
-        plantLight.intensity = (8 + 40 * powerOn) * (1 - dark);
+        plantGlow.userData.setGlow(powerOn * flick(9) * (1 - dark)); gateGlow.userData.setGlow((0.45 + 0.6 * powerOn) * flick(10) * (1 - 0.95 * dark)); chimGlow.userData.setGlow(powerOn * 0.8 * flick(11) * (1 - dark));
+        plantLight.intensity = (6 + 16 * powerOn) * (1 - dark);
         steam.forEach((s, i) => { const u = ((t * s.sp + s.ph) % 1 + 1) % 1; s.m.position.set(s.x + u * 2.5 + 0.4 * Math.sin(t * 0.3 + i), 13.6 + u * 6.5, -0.4); s.m.scale.setScalar(0.5 + u * 0.9); s.m.visible = u < 0.92; });
         crates.forEach((g, i) => { const on = expoOut(lin(tm.chips - 0.1 + i * 0.07, tm.chips + 0.4 + i * 0.07, t)); g.userData.sl.userData.setGlow(0.25 + 1.6 * on);
           g.position.z = -38.9 + i * 0.86 - 0.08 * smooth(0, 1, (t * 0.4 + i * 0.13) % 1); g.position.y = 0.01 * Math.sin(t * 2 + i); });
@@ -478,9 +485,9 @@ export default {
         const fx = SPINE_B + BW * (0.1 + 0.8 * 0.8) + 0.12, fy = BYB + BH * 0.5 - 0.36;
         tagPiv.position.set(fx + 0.15, fy + 0.2, BZB + 0.06); const tIn = spring(lin(tm.numbers + 0.4, tm.numbers + 1.3, t));
         const flap = (0.12 + 0.45 * smooth(tm.over - 0.15, tm.over + 0.25, t) * (1 - 0.6 * smooth(tm.over + 1.2, tm.idont, t))) * Math.sin(t * 9.5) + 0.06 * Math.sin(t * 3.1);
-        tagPiv.rotation.set(-Math.PI * (1 - tIn) * 0.95 + flap * tIn, 0.25 * flap, 0.06 * Math.sin(t * 2.2)); tagPiv.visible = t > tm.numbers + 0.35 && t < tm.butIt + 0.5;
+        tagPiv.rotation.set(-Math.PI * (1 - tIn) * 0.95 + flap * tIn, 0.25 * flap, 0.06 * Math.sin(t * 2.2)); tagPiv.visible = t > tm.numbers + 0.35 && t < turnsB[0][0] + 0.3;
         const bookRight = smooth(tm.anthropic, tm.almost, t);
-        bookLamp.position.set(SPINE_B + 2.6, BYB + 3.2, BZB + 4.5); bookLamp.intensity = B ? (10 + 18 * bookRight + 10 * dark) * (1 + 0.025 * Math.sin(t * 3.3)) : 0;
+        bookLamp.position.set(SPINE_B + 2.6, BYB + 3.2, BZB + 4.5); bookLamp.intensity = B ? (10 + 18 * bookRight + 10 * dark + 14 * smooth(tm.started - 0.5, T1, t)) * (1 + 0.025 * Math.sin(t * 3.3)) : 0;
         clockLamp.intensity = (t > tm.code ? 1 : 0) * (16 * smooth(tm.time - 0.3, tm.feeling + 1, t)) * (1 - dark);
         // ---- global key light follows the shot; colour cools after the wall, the world goes dark at the end
         const cam = camAt(t); E.applyCam(camera, cam);

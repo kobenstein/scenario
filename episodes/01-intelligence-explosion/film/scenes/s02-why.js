@@ -65,7 +65,7 @@ export default {
       const plinth = E.box(6.0, 0.5, 1.5, "#141d33"); plinth.position.set(bx, 0.25, BZ); scene.add(plinth);
       for (let r = 0; r < 3; r++) for (let c = 0; c < 6; c++)
         drumPos.push({ x: bx + (c - 2.5) * 0.85, y: 1.95 + r * 1.05, z: BZ + 0.84, sp: (dr() < 0.5 ? -1 : 1) * (0.35 + dr() * 0.9), ph: dr() * 6.28, b, r, c }); });
-    const G0I = drumPos.findIndex((d) => d.b === 1 && d.r === 2 && d.c === 4); // this drum becomes the first gear
+    const G0I = drumPos.findIndex((d) => d.b === 2 && d.r === 2 && d.c === 3); // this drum becomes the first gear
     const integ = (t, a, b) => (t < a ? 0 : t < b ? (t - a) * (t - a) / (2 * (b - a)) : (b - a) / 2 + (t - b));
     const _o = new THREE.Object3D(), qx = new THREE.Quaternion().setFromAxisAngle(V(1, 0, 0), Math.PI / 2), qz = new THREE.Quaternion();
     const updDrums = (t) => { const boost = integ(t, tBroken, tBroken + 0.7) - integ(t, tImag + 0.6, tImag + 1.8);
@@ -221,7 +221,7 @@ export default {
 
     // ---------------- the switch + a tiny human (wow) ----------------
     const SWH = new THREE.Group(); SWH.position.set(6.6, 0, 4.2); scene.add(SWH);
-    const SW = new THREE.Group(); SWH.add(SW); SW.rotation.y = -0.18;
+    const SW = new THREE.Group(); SWH.add(SW); SW.rotation.y = -0.18; SW.scale.setScalar(1.2);
     { const plate = E.extrude(E.roundRectShape(4.4, 6.8, 0.4), "#d6ccb6", 0.32); plate.position.set(0, 3.4, 0); SW.add(plate);
       const slot = E.extrude(E.roundRectShape(0.9, 2.2, 0.3), "#0b0d16", 0.06); slot.position.set(0, 3.4, 0.31); SW.add(slot);
       [5.95, 0.85].forEach((y) => { const sc = E.extrude(E.circleShape(0.2), "#9c937f", 0.08); sc.position.set(0, y, 0.31); SW.add(sc); const sl = E.box(0.3, 0.05, 0.06, "#3a3630"); sl.position.set(0, y, 0.4); sl.rotation.z = 0.6; SW.add(sl); }); }
@@ -270,11 +270,11 @@ export default {
       { t: tDocile - 2.6, p: [tc1.x + 1.6, TP.y + 1.7, 6.6], l: [tc1.x - 0.2, TP.y + 0.75, -0.6], arc: 0.4 },
       { t: tControlEnd + 0.4, p: [tc2.x + 0.6, TP.y + 1.9, 6.4], l: [tc2.x, TP.y + 0.85, -0.6], ease: "sine" },
       { t: tHis + 0.3, p: [tc2.x + 0.5, TP.y + 1.95, 6.0], l: [tc2.x, TP.y + 0.9, -0.6], ease: "sine" },
-      { t: tLoop + 0.3, p: [3.8, 7.6, 6.0], l: [1.6, 5.0, BZ], arc: 0.3 },
-      { t: tBuilds + 0.2, p: [6.5, 8.5, 9.5], l: [1.5, 7.5, BZ], arc: 0.6 },
-      { t: tBetter + 1.0, p: [3, 9.5, 17], l: [-2, 11, BZ], arc: 0.4 },
-      { t: tSwitch - 0.4, p: [2.0, 2.4, 29], l: [-1.6, 10.8, -5], ease: "sine" },
-      { t: tIf, p: [1.6, 2.7, 27.0], l: [-1.7, 11.0, -5], ease: "sine" },
+      { t: tLoop + 0.3, p: [9.6, 8.2, 2.5], l: [GC[1].x, GC[1].y, BZ], arc: 0.3 },
+      { t: tBuilds + 0.2, p: [12.5, 10.5, 5.5], l: [GC[2].x + 0.5, GC[2].y + 0.8, BZ], arc: 0.5 },
+      { t: tBetter + 1.0, p: [8.5, 11, 18], l: [GC[3].x - 3, GC[3].y + 1.5, BZ], arc: 0.4 },
+      { t: tSwitch - 0.4, p: [5.6, 2.1, 26.5], l: [2.8, 10.9, -5], ease: "sine" },
+      { t: tIf, p: [5.2, 2.3, 24.5], l: [2.7, 11.2, -5], ease: "sine" },
       { t: tThatEnd + 0.3, p: [ey.x - 0.6, ey.y - 2.5, 14], l: [ey.x, ey.y - 0.4, GZ], ease: "sine" },
       { t: tReportEnd - 0.6, p: [PAGE_P.x + 0.3, PAGE_P.y + 0.15, PAGE_P.z + 1.4], l: PAGEC.toArray(), ease: "sine" },
       { t: T1, p: PAGE_P.toArray(), l: PAGEC.toArray(), ease: "smooth" },
@@ -293,7 +293,7 @@ export default {
 
         // --- typing ---
         const n = typedAt(t); const dim = smooth(tControlEnd + 0.05, tControlEnd + 0.75, t) * (1 - smooth(tLoop, tEach, t) * 0.0);
-        drawPaper(n, dim);
+        drawPaper(n, dim); paperMatF.emissiveIntensity = lerp(1.0, 0.55, smooth(T0 + 0.6, T0 + 4.5, t)) * (1 - 0.88 * smooth(tEach, tBetter + 1.2, t));
         const cs = carriage(t);
         CG.position.x = -Lx(cs.col);
         paper.position.y = -Ly(LINE0 + cs.line * LH + 12);

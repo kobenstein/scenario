@@ -68,14 +68,16 @@ export default {
       // pinned notes and a pin-board left of the window (paper detail, catches the lamp)
       const nr = E.rng(91); for (let i = 0; i < 9; i++) { const n = E.box(0.32 + nr() * 0.12, 0.4 + nr() * 0.1, 0.02, i % 4 === 0 ? "#d9cdb2" : C.cream); n.position.set(-5.4 + (i % 3) * 0.55 + nr() * 0.12, 2.0 + Math.floor(i / 3) * 0.62 + nr() * 0.1, 0.27); n.rotation.z = (nr() - 0.5) * 0.18; n.castShadow = false; backWall.add(n); }
       for (let i = 0; i < 5; i++) { const n = E.box(0.3, 0.38, 0.02, C.cream); n.position.set(5.3 + (i % 2) * 0.5, 2.3 + i * 0.45 + (i % 2) * 0.1, 0.27); n.rotation.z = (i % 2 ? 1 : -1) * 0.06; n.castShadow = false; backWall.add(n); } }
-    const leftWall = E.box(0.25, 7.6, 12, "#1d2c4d"); leftWall.position.y = 3.8; off.add(leftWall);
-    const rightWall = E.box(0.25, 7.6, 12, "#1d2c4d"); rightWall.position.y = 3.8; off.add(rightWall);
+    const leftWall = E.box(0.25, 7.6, 12, "#1d2c4d"); leftWall.position.y = 3.8; leftWall.castShadow = false; off.add(leftWall);
+    const rightWall = E.box(0.25, 7.6, 12, "#1d2c4d"); rightWall.position.y = 3.8; rightWall.castShadow = false; off.add(rightWall);
     // the two systems: one ring writes the summaries, another checks them (machine = rings, never a robot)
     const ringA = E.machineRings({ n: 4, r: 0.52 }), ringB = E.machineRings({ n: 4, r: 0.44 });
-    ringA.position.set(-3.6, 4.6, 0.28); ringB.position.set(-2.0, 4.3, 0.28); backWall.add(ringA, ringB);
+    ringA.position.set(-3.55, 3.55, 0.28); ringB.position.set(-2.15, 3.2, 0.28); backWall.add(ringA, ringB);
+    const stackSide = new THREE.MeshStandardMaterial({ roughness: 0.95, map: (() => { const c = document.createElement("canvas"); c.width = 64; c.height = 256; const g = c.getContext("2d"); g.fillStyle = C.cream; g.fillRect(0, 0, 64, 256);
+      const r = E.rng(3); for (let y = 0; y < 256; y += 3) { g.fillStyle = `rgba(90,80,60,${0.12 + r() * 0.2})`; g.fillRect(0, y, 64, 1); } const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })() });
     // paper stacks of code printouts (they fold down into the small summary cards)
     const stacks = [[-3.7, -1.5, 1.35], [-2.9, -1.75, 1.05], [-2.2, -1.35, 0.8]].map(([x, z, h], i) => { const g = new THREE.Group(); g.position.set(x, 0, z); off.add(g);
-      const b = E.box(0.7, 1, 0.5, i === 1 ? "#e4dac2" : C.cream); b.position.y = 0.5; g.add(b); g.userData.h = h; g.scale.y = h; return g; });
+      const b = new THREE.Mesh(new THREE.BoxGeometry(0.7, 1, 0.5), [stackSide, stackSide, E.paperMat(i === 1 ? "#e4dac2" : C.cream), stackSide, stackSide, stackSide]); b.castShadow = b.receiveShadow = true; b.position.y = 0.5; g.add(b); g.userData.h = h; g.scale.y = h; return g; });
     // desk, chair, Lena
     const DESK_HEX = "#34466e";
     { const top = E.box(3.4, 0.07, 1.75, DESK_HEX); top.position.set(1.95, DESK_Y - 0.035, 0.15); off.add(top);
@@ -135,7 +137,7 @@ export default {
     const tk = []; for (let i = 0; i < NC; i++) { const x = i / (NC - 1); tk.push(tApproves + 0.1 + (tLunch + 0.15 - tApproves - 0.1) * (x * (1.75 - 0.75 * x))); }
     const tOddIn = tLunch + 0.42, tOddHover = tUnderstands + 0.05, tOddTick = tThemE + 0.02;
     // flight of the summary cards: stack → ring A (written) → ring B (checked) → the desk pile
-    const flyPath = new THREE.CatmullRomCurve3([O(-2.9, 1.35, -1.6), O(-3.4, 3.2, -1.9), O(-3.6, 4.6, -2.0), O(-2.8, 4.9, -1.7), O(-2.0, 4.3, -1.9), O(-0.6, 3.4, -1.2), O(0.9, 1.9, -0.6), O(1.55, DESK_Y + 0.3, -0.32), O(1.55, DESK_Y + 0.004, -0.32)].map((v) => v.sub(off.position)));
+    const flyPath = new THREE.CatmullRomCurve3([O(-2.9, 1.35, -1.6), O(-3.3, 2.6, -1.95), O(-3.55, 3.55, -2.1), O(-2.85, 3.85, -1.9), O(-2.15, 3.2, -2.1), O(-0.9, 2.6, -1.3), O(0.8, 1.7, -0.6), O(1.55, DESK_Y + 0.3, -0.32), O(1.55, DESK_Y + 0.004, -0.32)].map((v) => v.sub(off.position)));
     const flyStart = (i) => tSummaries - 0.35 + i * ((tApproves - 0.6 - tSummaries) / (NF - 1)), FLYDUR = 1.55;
 
     // =====================================================================================
@@ -175,7 +177,7 @@ export default {
     const wins = new THREE.InstancedMesh(new THREE.PlaneGeometry(0.55, 0.8), new THREE.MeshBasicMaterial({ color: 0xffffff }), NW); wins.castShadow = false; wins.receiveShadow = false; cityG.add(wins);
     { const d = new THREE.Object3D(); winPos.forEach(([x, y, z], i) => { d.position.set(x, y, z); d.updateMatrix(); wins.setMatrixAt(i, d.matrix); }); wins.instanceMatrix.needsUpdate = true;
       wins.instanceColor = new THREE.InstancedBufferAttribute(new Float32Array(NW * 3), 3); }
-    const WARM = new THREE.Color("#ffc47a"), COOL = new THREE.Color("#8fe6ff"), _c = new THREE.Color();
+    const WARM = new THREE.Color("#ffc47a"), COOL = new THREE.Color("#4fd2ff"), _c = new THREE.Color();
     const cyanCenter = V3(0, 9, -24);
     // hero window interiors: amber room glow behind the cut hole, silhouettes, one cyan device each
     const room = (H, z, hex, k) => { const g = new THREE.Group(); g.position.set(H.x, H.y, z); cityG.add(g);
@@ -216,7 +218,7 @@ export default {
       const mul = E.box(0.06, HERO.kitchen.h, 0.08, "#141f36"); mul.position.set(0, 0, 0.32); rKit.add(mul); }
     const kBulb = new THREE.Mesh(new THREE.CircleGeometry(0.07, 16), new THREE.MeshBasicMaterial({ color: new THREE.Color(C.amber).multiplyScalar(2.5) })); kBulb.position.set(0.25, 0.24, -0.62); rKit.add(kBulb);
     const kHalo = haloPlane(1.6, C.amber); kHalo.position.set(0.25, 0.22, -0.6); rKit.add(kHalo);
-    const dYou = device(rKit, 0.07, 0.12, 0, 0, -0.5, 1.1);
+    const dYou = device(rKit, 0.07, 0.12, 0, 0, -0.5, 0.55);
     const kitLight = E.pointLight("#ffb062", 0, 9); kitLight.position.set(HERO.kitchen.x + 0.25, HERO.kitchen.y + 0.1, KZ + 1.2); scene.add(kitLight);
     const youLight = E.pointLight(C.cyan, 0, 5); scene.add(youLight);
 
@@ -250,7 +252,7 @@ export default {
     const tower = E.tower({ w: 7, h: 34, floors: 14, hex: "#2a3c62", roof: "spire" }); tower.position.copy(TW); scene.add(tower);
     const towerFront = TW.z + 0.5;
     const drawerY = 15.0;
-    const cabinet = new THREE.Group(); cabinet.position.set(TW.x, drawerY, towerFront); scene.add(cabinet);
+    const cabinet = new THREE.Group(); cabinet.position.set(TW.x, drawerY, towerFront); cabinet.scale.setScalar(1.5); scene.add(cabinet);
     { const shell = new THREE.Group(); cabinet.add(shell);
       const parts = [[2.5, 0.1, 1.3, 0, 0.62, 0.65], [2.5, 0.1, 1.3, 0, -0.62, 0.65], [0.1, 1.34, 1.3, -1.2, 0, 0.65], [0.1, 1.34, 1.3, 1.2, 0, 0.65]];
       parts.forEach(([w, h, d, x, y, z]) => { const b = E.box(w, h, d, "#33476d"); b.position.set(x, y, z); shell.add(b); }); }
@@ -308,9 +310,9 @@ export default {
       if (o.amber) line(polyAt(amberUV, o.amber), "#e2903c", 0.045, true);
       if (o.cyan) { line(polyAt(cyanUV, o.cyan), "rgba(111,227,255,0.35)", 0.16); line(polyAt(cyanUV, o.cyan), "#3ec8ef", 0.06); }
       const [gx, gy] = uvToPx(...cellUV(best.G), w); g.strokeStyle = o.cyan >= 1 ? "#3ec8ef" : "#1d2a48"; g.lineWidth = 0.035 * k; g.beginPath(); g.arc(gx, gy, 0.16 * k, 0, Math.PI * 2); g.stroke(); g.beginPath(); g.arc(gx, gy, 0.06 * k, 0, Math.PI * 2); g.stroke(); };
-    const sheet = E.drawnCard({ w: SW, h: SH, px: 1024, depth: 0.04, draw: (g, w, h, s) => drawMaze(g, w, h, s) }); sheet.rotation.x = -Math.PI / 2; sheet.position.copy(MC).add(V3(0, 0.02, 0)); scene.add(sheet);
+    const sheet = E.drawnCard({ w: SW, h: SH, px: 1024, depth: 0.04, draw: (g, w, h, s) => drawMaze(g, w, h, s) }); sheet.rotation.x = -Math.PI / 2; sheet.position.copy(MC).add(V3(0, 0.13, 0)); scene.add(sheet);
     let sheetState = "";
-    const UVW = (u, v, y = 0) => V3(MC.x + u, MC.y + 0.04 + y, MC.z - v);
+    const UVW = (u, v, y = 0) => V3(MC.x + u, MC.y + 0.15 + y, MC.z - v);
     const wallIM = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), E.paperMat("#2c3f63"), walls.length); wallIM.castShadow = true; wallIM.receiveShadow = true; scene.add(wallIM);
     const cutIdx = walls.findIndex((wl) => wl.kind === cutWall.kind && wl.r === cutWall.r && wl.c === cutWall.c);
     const cutDir = cutWall.kind === "H" ? (best.G[0] > best.A[0] ? 1 : -1) : (best.G[1] > best.A[1] ? 1 : -1); // fall in the line's travel direction
@@ -336,7 +338,7 @@ export default {
     const threadMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(C.cyan).multiplyScalar(1.8) });
     const thread = new THREE.Mesh(new THREE.BufferGeometry(), threadMat); scene.add(thread);
     const tip = haloPlane(1.6, C.cyan); scene.add(tip);
-    const DRW = V3(TW.x, drawerY + 0.15, towerFront + 1.3);
+    const DRW = V3(TW.x, drawerY + 0.22, towerFront + 1.95);
     const searchPts = [V3(TW.x - 4.5, 21.5, towerFront + 3.0), V3(TW.x + 2.5, 22.5, towerFront + 1.1), V3(TW.x - 2.6, 19.2, towerFront + 1.0), V3(TW.x + 2.6, 17.6, towerFront + 1.0), V3(TW.x - 1.2, drawerY + 1.4, towerFront + 2.0)];
     const threadCurve = (seam) => new THREE.CatmullRomCurve3([seam, seam.clone().add(V3(0.6, 1.4, -0.5)), seam.clone().add(V3(4, 4.2, -6)), V3(14, 18, -42), V3(24, 21, -62), ...searchPts, DRW, DRW.clone().add(V3(0, -0.15, -0.9))], false, "catmullrom", 0.4);
     const ENTW = UVW(...entUV, 0.035);
@@ -364,7 +366,7 @@ export default {
     const QW = 0.8, QD = 0.5; const CARD = O(1.6, DESK_Y, 0.55);
     const qcard = new THREE.Group(); scene.add(qcard);
     { const base = E.box(QW, 0.006, QD, C.cream); base.position.y = 0.003; qcard.add(base); const cover = E.box(QW - 0.004, 0.006, QD - 0.004, "#f1e9d6"); cover.position.y = 0.0095; qcard.add(cover);
-      const q = E.cutoutText("?", { height: 0.4, hex: "#1d2a48" }); q.rotation.x = -Math.PI / 2; q.position.set(0, 0.0135, 0.0); qcard.add(q); }
+      const q = E.cutoutText("?", { height: 0.4, hex: "#0b1020" }); q.rotation.x = -Math.PI / 2; q.position.set(0, 0.0135, 0.0); qcard.add(q); }
     const tCardOut = tArrives - 0.25, tCardLand = SE("question") + 0.05;
     const cardStart = V3(PAGEC.x + 0.05, PAGEC.y + 0.02, PAGEC.z + 0.02);
     const CUT = T1; // the cut to s06
@@ -376,7 +378,7 @@ export default {
     const PG = { w: 4, h: 2.25 }; // 16:9, placed so it overfills the frame at the start
     const pagePivot = new THREE.Group(); scene.add(pagePivot);
     const pageMesh = E.drawnCard({ w: PG.w, h: PG.h, px: 512, depth: 0.008, draw: (g, w, h) => { g.fillStyle = "rgba(120,110,90,0.05)"; for (let i = 0; i < 6; i++) g.fillRect(0, h * (0.12 + i * 0.15), w, 1); } });
-    pageMesh.position.x = PG.w / 2; pagePivot.add(pageMesh); pageMesh.material[4].emissive = new THREE.Color(C.cream); pageMesh.material[4].emissiveIntensity = 0.62; pageMesh.material[4].color.set("#d8cfbd");
+    pageMesh.position.x = PG.w / 2; pageMesh.castShadow = false; pagePivot.add(pageMesh); pageMesh.material[4].emissive = new THREE.Color(C.cream); pageMesh.material[4].emissiveIntensity = 0.62; pageMesh.material[4].color.set("#d8cfbd");
     const tPageTurn = tNow + 0.2; const pageQ = new THREE.Quaternion();
 
     // =====================================================================================
@@ -401,14 +403,14 @@ export default {
       { t: tSummaries + 0.4, p: [-0.4, OY + 2.8, 6.6], l: [-0.9, OY + 2.0, -1.2] },
       { t: tApproves - 0.15, p: [0.3, OY + 2.4, 5.2], l: [0.4, OY + 1.3, -0.3], e: "sine" },
       { t: tLunch - 0.2, p: [1.3, OY + 1.95, 3.0], l: [0.95, OY + 0.98, 0.0] },
-      { t: tOddHover + 0.1, p: [1.25, OY + 1.55, 1.85], l: [1.02, OY + 0.9, 0.22] },
-      { t: tThemE + 0.35, p: [1.22, OY + 1.48, 1.7], l: [1.02, OY + 0.88, 0.25], e: "smooth" },
+      { t: tOddHover + 0.1, p: [1.75, OY + 1.8, 2.45], l: [1.0, OY + 0.95, 0.2] },
+      { t: tThemE + 0.35, p: [1.7, OY + 1.72, 2.25], l: [1.0, OY + 0.93, 0.22], e: "smooth" },
       { t: tPhone - 0.45, p: [1.75, OY + 2.9, -0.9], l: [-6, 10.5, -24], e: "inOut", arc: 0.04 },
       { t: tPhone + 0.7, p: [-5.2, 11.6, -12.6], l: [-8.6, 9.6, -24], e: "out", arc: 0.04 },
       { t: tBank + 0.25, p: [-1.4, 12.0, -15.2], l: [-1.0, 10.6, -24] },
       { t: tTutor + 0.3, p: [5.6, 10.4, -15.6], l: [6.8, 8.8, -24] },
       { t: tMostly + 0.1, p: [5.2, 11.2, -14.0], l: [6.0, 8.6, -30] },
-      { t: tByAI + 0.5, p: [2.0, 24.5, -7.0], l: [5.0, 6.0, -60], e: "sine", arc: 0.05 },
+      { t: tByAI + 0.5, p: [4.0, 30, -6.0], l: [10.0, 4.0, -66], e: "sine", arc: 0.05 },
       { t: tKitchen + 0.75, p: [HERO.kitchen.x + 0.3, 6.55, -19.8], l: [HERO.kitchen.x, 6.0, rowZ], e: "inOut", arc: 0.05 },
       { t: tAgain - 0.2, p: [HERO.kitchen.x + 0.15, 6.35, -20.9], l: [HERO.kitchen.x + 0.05, 5.95, rowZ], e: "smooth" },
       { t: tBack + 0.1, p: [HERO.kitchen.x + 0.1, 6.33, -21.1], l: [HERO.kitchen.x + 0.05, 5.95, rowZ], e: "smooth" },
@@ -422,7 +424,7 @@ export default {
       { t: tSystems + 0.6, p: [MC.x - 1.6, MC.y + 5.0, MC.z + 7.0], l: [MC.x - 0.6, MC.y, MC.z], e: "inOut", arc: 0.05 },
       { t: tShortcuts + 0.3, p: [MC.x - 1.0, MC.y + 5.0, MC.z + 5.4], l: [MC.x, MC.y, MC.z - 0.1], e: "sine" },
       { t: tOptimizing + 0.5, p: [MC.x + 0.1, MC.y + 6.7, MC.z + 1.6], l: [MC.x, MC.y, MC.z], e: "sine" },
-      { t: tFlip - 0.08, p: fill(MC, 1), l: [MC.x, MC.y, MC.z], e: "inOut", arc: 0 },
+      { t: tFlip - 0.08, p: fill(MC.clone().add(V3(0, 0.15, 0)), 1), l: [MC.x, MC.y + 0.15, MC.z], e: "inOut", arc: 0 },
     ];
     // after the match cut: same framing relative to the flipbook page, then pull back to reveal the desk
     const deskKeys = [
@@ -464,11 +466,11 @@ export default {
       pageMesh.position.z = 0.004 * Math.sin(t * 2.3);
       const grow = spring(lin(tPageTurn + 0.45, tPageTurn + 2.0, t));
       backWall.position.z = lerp(-1.3, -2.55, grow); leftWall.position.set(lerp(-3.5, -6.6, grow), 3.8, 2.6); rightWall.position.set(lerp(6.6, 9.8, grow), 3.8, 2.6);
-      ringA.userData.update(t, { think: 0.6 + smooth(tAutomated - 0.2, tAutomated + 0.3, t), glow: 0.35 + 0.9 * smooth(tAutomated - 0.3, tAutomated + 0.2, t) + 0.9 * Math.exp(-Math.pow((t - tWritten - 0.15) / 0.35, 2)) });
-      ringB.userData.update(t + 0.4, { think: 0.6 + smooth(tAutomated - 0.1, tAutomated + 0.4, t), glow: 0.35 + 0.9 * smooth(tAutomated - 0.2, tAutomated + 0.3, t) + 0.9 * Math.exp(-Math.pow((t - tChecked - 0.15) / 0.35, 2)) });
+      ringA.userData.update(t, { think: 0.6 + smooth(tAutomated - 0.2, tAutomated + 0.3, t), glow: 0.3 + 0.45 * smooth(tAutomated - 0.3, tAutomated + 0.2, t) + 0.5 * Math.exp(-Math.pow((t - tWritten - 0.15) / 0.35, 2)) });
+      ringB.userData.update(t + 0.4, { think: 0.6 + smooth(tAutomated - 0.1, tAutomated + 0.4, t), glow: 0.3 + 0.45 * smooth(tAutomated - 0.2, tAutomated + 0.3, t) + 0.5 * Math.exp(-Math.pow((t - tChecked - 0.15) / 0.35, 2)) });
       // lamp + screen breathing (hero light never still)
       const fl = 1 + 0.025 * Math.sin(t * 6.1) * Math.sin(t * 2.3);
-      spot.intensity = 26 * fl; roomFill.intensity = (inOffice ? 3.2 : 0) * fl; monLight.intensity = inOffice ? 2.2 + 0.3 * Math.sin(t * 1.7) : 0;
+      spot.intensity = 15 * fl; roomFill.intensity = (inOffice ? 3.2 : 0) * fl; monLight.intensity = inOffice ? 2.2 + 0.3 * Math.sin(t * 1.7) : 0;
       lampHalo.material.opacity = 0.55 * fl; screen.userData.setGlow(1.15 + 0.08 * Math.sin(t * 1.9));
       // stacks shrink as their sheets fold into summary cards
       stacks.forEach((s, i) => { s.scale.y = s.userData.h * (1 - 0.45 * smooth(tSummaries - 0.4, tApproves - 0.4, t)) + 0.01 * Math.sin(t * 0.8 + i); });
@@ -522,7 +524,7 @@ export default {
       // ---- the city: windows breathe; on "mostly designed by AI" the cyan tint spreads through the windows (the WOW) ----
       const spreadK = smooth(tMostly - 0.3, tByAI + 0.6, t);
       for (let i = 0; i < NW; i++) { const [x, y, z, ri] = winPos[i]; const rr = winCol[i]; const on = rr > 0.12; const k = (on ? 0.22 + 0.42 * rr : 0.035) * (1 + 0.06 * Math.sin(t * (0.7 + rr) + i));
-        const dd = Math.hypot(x - cyanCenter.x, (z - cyanCenter.z) * 0.8); const reach = clamp(spreadK * 75 - dd, 0, 6) / 6; const cyan = rr > 0.3 ? reach * (0.55 + 0.35 * rr) : reach * 0.15;
+        const dd = Math.hypot(x - cyanCenter.x, (z - cyanCenter.z) * 0.8); const reach = clamp(spreadK * 75 - dd, 0, 6) / 6; const cyan = rr > 0.25 ? reach * (0.7 + 0.3 * rr) : reach * 0.3;
         _c.copy(WARM).lerp(COOL, cyan).multiplyScalar(on ? k * (1 + 0.5 * cyan) : k); wins.setColorAt(i, _c); }
       wins.instanceColor.needsUpdate = true;
       rowMeshes.forEach((m, i) => (m.position.x = 0.12 * Math.sin(t * (0.17 + i * 0.03) + i)));
@@ -531,7 +533,7 @@ export default {
       [[dPhone, tPhone], [dBank, tBank], [dChild, tTutor + 0.25]].forEach(([d, t0], i) => { const k = sw(t0) * (0.92 + 0.08 * Math.sin(t * 2.3 + i)); d.d.material.color.copy(COOL).multiplyScalar(0.12 + 1.6 * k); d.hl.material.opacity = 0.45 * k; d.hl.scale.setScalar(1 + 0.05 * Math.sin(t * 1.4 + i)); });
       const pop = t < tAgain ? 0 : Math.exp(-(t - tAgain) * 2.6) * Math.sin(Math.min(Math.PI / 2, (t - tAgain) * 14));
       const kOn = 0.55 + 0.45 * smooth(tYou - 0.5, tKitchen, t), kNow = kOn + 0.55 * smooth(tAgain, tAgain + 0.3, t);
-      dYou.d.material.color.copy(COOL).multiplyScalar(0.3 + 1.5 * kNow + 1.5 * pop); dYou.hl.material.opacity = 0.35 * kNow + 0.5 * pop; dYou.hl.scale.setScalar(1 + 0.6 * pop + 0.04 * Math.sin(t * 1.6));
+      dYou.d.material.color.copy(COOL).multiplyScalar(0.3 + 1.5 * kNow + 1.5 * pop); dYou.hl.material.opacity = 0.35 * kNow + 0.5 * pop; dYou.hl.scale.setScalar(1 + 0.35 * pop + 0.04 * Math.sin(t * 1.6));
       fYou.userData.pose(t, { reach: 0.62, lean: 0.25, lookUp: -0.25 + 0.1 * pop }); fYou.updateMatrixWorld(true); fYou.userData.hand.getWorldPosition(vtmp); rKit.worldToLocal(vtmp); dYou.d.position.set(vtmp.x + 0.03, vtmp.y + 0.07, -0.5); dYou.hl.position.set(vtmp.x + 0.03, vtmp.y + 0.07, -0.45);
       rKit.localToWorld(vtmp.set(dYou.d.position.x, dYou.d.position.y, 0.3)); youLight.position.copy(vtmp); youLight.intensity = (2 + 4 * pop) * kNow * (t > tAssistant ? 1 : 0);
       kitLight.intensity = t > tAssistant && t < tFlip ? 9 * (1 + 0.03 * Math.sin(t * 5.3)) : 0; kHalo.material.opacity = 0.6 * (1 + 0.03 * Math.sin(t * 5.3));
@@ -564,7 +566,7 @@ export default {
         threadMat.color.copy(COOL).multiplyScalar(1.8 * (t >= tKeep ? lerp(0.55, 1, fallK) : 1) * (1 - 0.6 * smooth(tFlip - 0.8, tFlip - 0.2, t))); }
       // tower floors light as the thread searches them ("servers")
       for (let i = 0; i < 14; i++) { const fy = 1.0 + i * tower.userData.fh + tower.userData.fh * 0.3; const ft = tServers + (14 - i) * 0.09 - 0.6; const k = smooth(ft, ft + 0.35, t) * (1 - 0.5 * smooth(tKeep, tKeep + 0.6, t));
-        tower.userData.setFloor(i, (0.05 + 0.5 * k) * (0.85 + 0.15 * Math.sin(t * 1.3 + i * 2.1)) + (Math.abs(fy - drawerY) < 2 ? 0.0 : 0), k > 0.05 ? C.cyan : "#ffc47a"); }
+        tower.userData.setFloor(i, (0.03 + 0.22 * k) * (0.85 + 0.15 * Math.sin(t * 1.3 + i * 2.1)) + (Math.abs(fy - drawerY) < 2 ? 0.0 : 0), k > 0.05 ? C.cyan : "#ffc47a"); }
       // the drawer: opens as the thread arrives ("answer key"), glows; slams shut on "Keep" (anticipation: a small extra pull first)
       const opn = spring(lin(tAnswer - 0.35, tAnswer + 0.45, t)); const ant = t < tKeep ? 0.08 * smooth(tKeep - 0.25, tKeep - 0.05, t) : 0; const shutK = t < tKeep ? 0 : expoOut(lin(tKeep, tKeep + 0.1, t));
       drawer.position.z = (0.78 * opn + ant) * (1 - shutK) + (t >= tKeep ? -0.03 * Math.exp(-(t - tKeep) * 9) * Math.sin((t - tKeep) * 40) : 0);

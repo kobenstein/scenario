@@ -36,7 +36,7 @@ export default {
     const lightAmb = E.pointLight(C.amber, 0, 12); scene.add(lightAmb);     // follows the bench focus
     const lightCyA = E.pointLight(C.cyan, 0, 14); scene.add(lightCyA);      // 2026 machine → tower 1 → tower 2 room
     const lightCyB = E.pointLight(C.cyan, 0, 18); scene.add(lightCyB);      // hall: the wheel's training light
-    const lightBox = E.pointLight(C.cyan, 0, 9); scene.add(lightBox);       // the test box seam (hero of the basement)
+    const lightBox = E.pointLight(C.cyan, 0, 14); scene.add(lightBox);       // the test box seam (hero of the basement)
 
     // ---------------- 1 · the bench ----------------
     // camera dolly x(t): calm, then accelerating, braking onto the 2026 machine
@@ -68,9 +68,9 @@ export default {
         for (const y of [0.72, 0.45]) { const k = E.box(0.09, 0.09, 0.06, C.cream); k.position.set(0.26, y, 0.36); g.add(k); }
         const ph = rnd() * 6; upd.push((t) => (nd.rotation.z = 0.9 * Math.sin(t * 1.3 + ph))); }
       else if (kind === "reels") { body(1.0, 1.25, 0.7, "#2f4371");
-        for (const x of [-0.24, 0.24]) { const r = E.extrude(E.ringShape(0.09, 0.21), C.cream, 0.03); r.position.set(x, 0.86, 0.35); g.add(r);
-          const sp = E.box(0.36, 0.03, 0.02, C.cream); sp.position.set(x, 0.86, 0.37); g.add(sp); upd.push((t) => { r.rotation.z = -t * 1.6; sp.rotation.z = -t * 1.6; }); }
-        const slot = E.box(0.7, 0.05, 0.02, C.ink); slot.position.set(0, 0.42, 0.36); g.add(slot); }
+        [[-0.2, 0.95, 0.2], [0.24, 0.72, 0.15]].forEach(([x, y, R]) => { const r = E.extrude(E.ringShape(R * 0.4, R), C.cream, 0.03); r.position.set(x, y, 0.35); g.add(r);
+          const sp = E.box(R * 1.7, 0.03, 0.02, C.cream); sp.position.set(x, y, 0.37); g.add(sp); upd.push((t) => { r.rotation.z = -t * 1.6; sp.rotation.z = -t * 1.6 * (0.2 / R); }); });
+        for (let k = 0; k < 4; k++) { const b = E.box(0.1, 0.07, 0.04, k % 2 ? C.cream : "#7d8db3"); b.position.set(-0.3 + k * 0.2, 0.32, 0.36); g.add(b); } }
       else if (kind === "lights") { body(1.2, 0.85, 0.7, "#30467a");
         const f = faceCard(1.0, 0.56, (c, w, h) => { const r = E.rng(kind.length * 7 + Math.round(s * 100)); for (let y = 0; y < 4; y++) for (let x = 0; x < 8; x++) { c.fillStyle = r() < 0.45 ? "#ffd9a8" : "#5d6f96"; c.beginPath(); c.arc(18 + x * 31, 20 + y * 30, 8, 0, 7); c.fill(); } });
         f.position.set(0, 0.45, 0.36); g.add(f); }
@@ -84,7 +84,7 @@ export default {
           P.flat().forEach(([x, y]) => { c.fillStyle = "#efe6d2"; c.beginPath(); c.arc(x, y, 7, 0, 7); c.fill(); }); });
         f.position.set(0, 0.58, 0.41); g.add(f); }
       else if (kind === "ring") { body(0.95, 1.55, 0.5, "#273a63");
-        const r = E.extrude(E.ringShape(0.3, 0.43), C.cyan, 0.04, { emissive: 0.25 }); r.position.set(0, 0.95, 0.26); g.add(r);
+        const r = E.extrude(E.ringShape(0.3, 0.43), "#3cc4e4", 0.04, { emissive: 0.25 }); r.position.set(0, 0.95, 0.26); g.add(r);
         const d = E.extrude(E.circleShape(0.3), "#0b1428", 0.03); d.position.set(0, 0.95, 0.255); g.add(d);
         g.userData.ring = r; }
       else if (kind === "self") { const b = body(1.4, 0.32, 0.9, "#1d2b4c"); H = 2.3;
@@ -92,7 +92,7 @@ export default {
         const rings = E.machineRings({ n: 4, r: 0.86, w: 0.07 }); rings.position.set(0, 1.32, 0.1); g.add(rings);
         const stem = E.box(0.24, 0.5, 0.2, "#1d2b4c"); stem.position.set(0, 0.5, 0); g.add(stem);
         // cyan shards that fly in and click onto the disc ("it assembles itself")
-        const shards = []; for (let i = 0; i < 7; i++) { const a = i / 7 * Math.PI * 2; const m = E.box(0.16, 0.05, 0.02, C.cyan); m.material.emissive = col(C.cyan); m.material.emissiveIntensity = 1.2; g.add(m); shards.push({ m, a }); }
+        const shards = []; for (let i = 0; i < 7; i++) { const a = i / 7 * Math.PI * 2; const m = E.box(0.16, 0.05, 0.02, C.cyan); m.material.emissive = col(C.cyan); m.material.emissiveIntensity = 0.6; g.add(m); shards.push({ m, a }); }
         g.userData.rings = rings; g.userData.shards = shards; g.userData.disc = disc; }
       machines.push({ g, upd, kind }); g.userData.H = H; return g;
     };
@@ -108,7 +108,7 @@ export default {
     ];
     KEYS.forEach((k) => (k.x = k.x ?? xc(k.t) + LOOK));
     const slots = []; const fillerKinds = ["reels", "lights", "dial", "reels", "lights", "grid", "ring", "grid", "ring"];
-    slots.push({ x: X0 - 3.4, kind: "reels", s: 0.8, hands: 2, born: 0 });
+    slots.push({ x: X0 - 1.9, kind: "reels", s: 0.8, hands: 2, born: 0 });
     KEYS.forEach((k, i) => { slots.push({ x: k.x, kind: k.kind, s: lerp(0.86, 1.25, i / 6), hands: k.hands ?? 2, key: k, retract: k.retract, born: i });
       const nx = KEYS[i + 1]; if (!nx) return; const gap = nx.x - k.x; const n = Math.max(0, Math.round(gap / 3.1) - 1);
       for (let j = 1; j <= n; j++) slots.push({ x: k.x + gap * j / (n + 1), kind: fillerKinds[Math.min(fillerKinds.length - 1, i + (j > n / 2 ? 1 : 0) + (i > 2 ? 2 : 0))], s: lerp(0.86, 1.25, (i + j / (n + 1)) / 6), hands: i >= 4 ? 0 : i === 3 ? 1 : 2, born: i + 0.5 }); });
@@ -190,7 +190,8 @@ export default {
       const volHi = E.box(9.6, 22 - ROOM.y1, 5, "#17223b"); volHi.position.set(0, ROOM.y1 + (22 - ROOM.y1) / 2, -3.2); tw2.add(volHi);
       const cap = E.box(10.4, 0.35, 5.6, "#2c3f63"); cap.position.set(0, 22.15, -2.5); tw2.add(cap);
       // the room behind the cut: back wall, ceiling, floor, sides, stepped rows
-      const wallB = E.box(8.2, ROOM.y1 - ROOM.y0 + 0.4, 0.3, "#1b2846"); wallB.position.set(0, (ROOM.y0 + ROOM.y1) / 2, -ROOM.d); tw2.add(wallB);
+      const wallB = E.box(8.2, ROOM.y1 - ROOM.y0 + 0.4, 0.3, "#22335a"); wallB.position.set(0, (ROOM.y0 + ROOM.y1) / 2, -ROOM.d); tw2.add(wallB);
+      const cab = E.glowPlane(0.05, ROOM.y1 - ROOM.y0, C.cyan); cab.position.set(0.25, (ROOM.y0 + ROOM.y1) / 2, -ROOM.d + 0.16); cab.userData.setGlow(1.2); tw2.add(cab);
       const ceil = E.box(8.2, 0.25, ROOM.d, "#141e35"); ceil.position.set(0, ROOM.y1 + 0.12, -ROOM.d / 2); tw2.add(ceil);
       const flo = E.box(8.2, 0.25, ROOM.d, "#1d2a48"); flo.position.set(0, ROOM.y0 - 0.12, -ROOM.d / 2); tw2.add(flo);
       for (const sx of [-4.1, 4.1]) { const sw = E.box(0.2, ROOM.y1 - ROOM.y0, ROOM.d, "#16213a"); sw.position.set(sx, (ROOM.y0 + ROOM.y1) / 2, -ROOM.d / 2); tw2.add(sw); } }
@@ -215,9 +216,10 @@ export default {
         figIM.setColorAt(i, col("#0a111f")); monIM.setColorAt(i, col("#0c1426")); } }
     [figIM, deskIM, legIM, monIM].forEach((m) => { m.castShadow = m !== monIM; m.receiveShadow = true; tw2.add(m); });
     const rowAt = [T.automated, T.automated + 0.42, T.research + 0.12, T.intern + 0.05];
-    const roof = new THREE.Group(); roof.position.set(0, 22.3, -2.4); tw2.add(roof);
-    { const b = E.box(6.4, 3.0, 4.2, "#1d2c4b"); b.position.y = 1.5; roof.add(b);
-      for (let k = 0; k < 2; k++) { const gp = E.glowPlane(5.2, 0.5, C.cyan); gp.position.set(0, 0.85 + k * 1.2, 2.12); gp.userData.setGlow(1.3); roof.add(gp); } }
+    const roof = new THREE.Group(); roof.position.set(0, 22.3, -0.9); tw2.add(roof);
+    { const b = E.box(6.4, 3.0, 1.6, "#3a5080"); b.position.y = 1.5; roof.add(b);
+      for (let k = 0; k < 2; k++) for (let j = 0; j < 6; j++) { const gp = E.glowPlane(0.55, 0.7, C.cyan); gp.position.set(-2.5 + j * 1.0, 0.9 + k * 1.2, 0.82); gp.userData.setGlow(0.9); roof.add(gp); }
+      const crane = E.box(0.12, 2.2, 0.12, "#2a3c62"); crane.position.set(2.6, 4.1, 0); roof.add(crane); const jib = E.box(2.6, 0.1, 0.1, "#2a3c62"); jib.position.set(1.5, 5.15, 0); roof.add(jib); }
 
     // ---------------- cyan threads (the carriers between the towers) ----------------
     const thread = (pts, r = 0.05, segs = 240) => { const curve = new THREE.CatmullRomCurve3(pts, false, "centripetal");
@@ -235,13 +237,14 @@ export default {
     const HX = 420; const hall = new THREE.Group(); hall.position.set(HX, 0, 0); scene.add(hall);
     const WALL = "#22335a";
     { const back = E.box(0.4, 23, 17.5, WALL); back.position.set(-9.2, 5.5, -1.25); hall.add(back);
+      const cab = E.glowPlane(0.05, 22, C.cyan); cab.rotation.y = Math.PI / 2; cab.position.set(-8.98, 5.5, 0.15); cab.userData.setGlow(1.2); hall.add(cab);
       const side = E.box(16.4, 23, 0.4, "#18233f"); side.position.set(-1, 5.5, -10.2); hall.add(side);
       const slab = E.box(16, 1.5, 17.5, "#22314f"); slab.position.set(-1, 0.75, -1.25); hall.add(slab);
       const slabEdge = E.box(0.04, 0.06, 17.5, C.cream); slabEdge.position.set(7.01, 1.47, -1.25); slabEdge.material.emissive = col(C.cream); slabEdge.material.emissiveIntensity = 0.1; hall.add(slabEdge);
-      const bfloor = E.box(16, 1, 17.5, "#141e35"); bfloor.position.set(-1, -5.5, -1.25); hall.add(bfloor);
+      const bfloor = E.box(16, 1, 17.5, "#1c2a48"); bfloor.position.set(-1, -5.5, -1.25); hall.add(bfloor);
       for (let z = -8; z <= 6; z += 3.5) { const rib = E.box(0.5, 23, 0.7, "#1f2d4d"); rib.position.set(-8.75, 5.5, z); hall.add(rib); }
       for (let x = -6.5; x <= 5; x += 3.6) { const rib = E.box(0.7, 23, 0.5, "#1c2945"); rib.position.set(x, 5.5, -9.75); hall.add(rib); }
-      const duct = E.box(0.9, 0.9, 17, "#26365a"); duct.position.set(-8.3, 14.2, -1.5); hall.add(duct);
+      const duct = E.box(0.9, 0.9, 17, "#26365a"); duct.position.set(-8.3, 14.2, -1.5); duct.castShadow = false; hall.add(duct);
       const tray = E.box(15, 0.12, 0.8, "#26365a"); tray.position.set(-1, 12.6, -9.4); hall.add(tray);
       // racks along the side wall, little LED faces
       for (let k = 0; k < 4; k++) { const rk = E.box(1.6, 3.4, 1.2, "#1a2744"); rk.position.set(-6.8 + k * 2.1, 1.5 + 1.7, -8.9); hall.add(rk);
@@ -249,7 +252,12 @@ export default {
         f.position.set(-6.8 + k * 2.1, 3.2, -8.28); hall.add(f); }
       // basement clutter
       for (let k = 0; k < 3; k++) { const bx = E.box(1.3, 0.9 + k * 0.3, 1.1, "#18233d"); bx.position.set(-6.5 + k * 1.5, -5 + (0.9 + k * 0.3) / 2, -7.8 + k * 0.4); hall.add(bx); }
-      const pipe = E.box(16, 0.22, 0.22, "#26365a"); pipe.position.set(-1, -0.45, -9.6); hall.add(pipe); }
+      const pipe = E.box(16, 0.22, 0.22, "#26365a"); pipe.position.set(-1, -0.45, -9.6); hall.add(pipe);
+      const pil = E.box(1.2, 24, 1.2, "#121a2e"); pil.position.set(7.6, 5, 8.6); pil.castShadow = false; hall.add(pil);
+      for (let x = -7; x <= 6; x += 4.3) { const bm = E.box(0.5, 0.7, 19, "#1a2643"); bm.position.set(x, 15.8, -0.5); bm.castShadow = false; hall.add(bm); }
+      const lampShade = new THREE.Mesh(new THREE.ConeGeometry(1.1, 0.8, 24, 1, true), E.paperMat("#1a2640")); lampShade.material.side = THREE.DoubleSide; lampShade.position.set(0, 14.2, 0); lampShade.castShadow = false; hall.add(lampShade);
+      const lampCord = E.box(0.03, 1.4, 0.03, "#0b1222"); lampCord.position.set(0, 15.2, 0); lampCord.castShadow = false; hall.add(lampCord);
+      const lampBulb = new THREE.Mesh(new THREE.CircleGeometry(0.42, 24), new THREE.MeshBasicMaterial({ color: col("#cfe6ff").multiplyScalar(1.3) })); lampBulb.rotation.x = -Math.PI / 2; lampBulb.position.set(0, 13.83, 0); hall.add(lampBulb); }
 
     // the wheel: blades = pages. Axle along x at height AX; blade i stands upright (facing +z) when rotor angle = i·Δ.
     const NB = 18, BW = 8, R0 = 0.3, R1 = 4.8, AX = 7, DA = Math.PI * 2 / NB;
@@ -263,7 +271,7 @@ export default {
       g.fillStyle = C.cream; g.fillRect(0, 0, pageW, pageH);
       // paper tooth
       const pr = E.rng(500 + i); g.globalAlpha = 0.05; for (let k = 0; k < 300; k++) { g.fillStyle = pr() < 0.5 ? "#000" : "#fff"; g.fillRect(pr() * pageW, pr() * pageH, 2, 2); } g.globalAlpha = 1;
-      if (i > 0) { const r = pageH * 0.034 * Math.pow(1.2, i); const cx = pageW / 2, cy = pageH / 2;
+      if (i > 0) { const r = pageH * 0.07 * Math.pow(1.16, i); const cx = pageW / 2, cy = pageH / 2;
         g.fillStyle = "#6fe3ff"; g.beginPath(); g.arc(cx, cy, r, 0, 7); g.fill();
         g.strokeStyle = "#0a6f8c"; g.lineWidth = Math.max(1.5, r * 0.08); g.beginPath(); g.arc(cx, cy, r * 0.7, 0, 7); g.stroke();
         g.beginPath(); g.arc(cx, cy, r * 0.38, 0, 7); g.stroke();
@@ -277,7 +285,7 @@ export default {
     const spokeDisc = () => { const s = E.circleShape(5.3); for (let k = 0; k < 6; k++) { const a0 = k / 6 * Math.PI * 2 + 0.16, a1 = (k + 1) / 6 * Math.PI * 2 - 0.16; const p = new THREE.Path();
         p.absarc(0, 0, 4.55, a0, a1, false); p.absarc(0, 0, 1.05, a1, a0, true); s.holes.push(p); } return s; };
     const ringMats = [];
-    for (const sx of [-1, 1]) { const d = E.extrude(spokeDisc(), "#24365c", 0.24); d.rotation.y = Math.PI / 2; d.position.x = sx * (BW / 2 + 0.2) - 0.12; rotor.add(d);
+    for (const sx of [-1, 1]) { const d = E.extrude(spokeDisc(), "#24365c", 0.24, { cast: false }); d.rotation.y = Math.PI / 2; d.position.x = sx * (BW / 2 + 0.2) - 0.12; rotor.add(d);
       const rg = E.extrude(E.ringShape(4.95, 5.12), C.cyan, 0.05, { emissive: 1 }); rg.rotation.y = Math.PI / 2; rg.position.x = sx * (BW / 2 + 0.2) + 0.14 * sx; rotor.add(rg); ringMats.push(rg.material[0]);
       const tick = E.box(0.06, 0.5, 0.5, C.cream); tick.position.set(sx * (BW / 2 + 0.36), 4.8, 0); rotor.add(tick); }
     const axle = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, BW + 3.6, 24), E.paperMat("#2c3f63")); axle.rotation.z = Math.PI / 2; axle.castShadow = true; wheel.add(axle);
@@ -290,8 +298,9 @@ export default {
     const smearGeo = (r) => { const g = new THREE.PlaneGeometry(BW, 1, 1, 40); const a = g.attributes.position;
       for (let k = 0; k < a.count; k++) { const v = a.getY(k) + 0.5, an = lerp(0.12, HANG0 - 0.1, v); a.setXYZ(k, a.getX(k), r * Math.cos(an), r * Math.sin(an)); } g.computeVertexNormals(); return g; };
     const blur = new THREE.Group(); wheel.add(blur);
-    [R1 - 0.02, R1 * 0.72, R1 * 0.45].forEach((r) => blur.add(new THREE.Mesh(smearGeo(r), blurMat)));
-    const blurIn = blur;
+    blur.add(new THREE.Mesh(smearGeo(R1 - 0.02), blurMat));
+    const ghosts = []; for (let k = 0; k < 9; k++) { const gm = new THREE.MeshStandardMaterial({ map: pageMats[(k * 5 + 3) % NB].map, transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide, emissive: 0xffffff, emissiveMap: pageMats[(k * 5 + 3) % NB].map, emissiveIntensity: 0.3, roughness: 0.9 });
+      const gh = new THREE.Mesh(pageGeo, gm); blur.add(gh); ghosts.push({ gh, gm, a: (k + 0.5) / 9 }); }
     // flipbook warp: x = (θ − iΔ) mod 2π → page angle. Upright at 0, a quick fall forward (one page per Δ),
     // the turned pages hang in front, travel round the back and queue as a fanned stack behind the top page.
     const warp = (x) => { if (x < DA) return HANG0 * sineInOut(x / DA);
@@ -303,22 +312,22 @@ export default {
     const fineTex = E.paperTex.clone(); fineTex.repeat.set(1.6, 1.6); fineTex.needsUpdate = true;
     const fineMat = (hex) => new THREE.MeshStandardMaterial({ color: hex, map: fineTex, bumpMap: fineTex, bumpScale: 0.4, roughness: 0.93 });
     const BOX = { x: 0, w: 2.6, d: 3.4, y0: -5, h: 2.0 };
-    const seamY = BOX.y0 + BOX.h + 0.02, FACE = BOX.w / 2;
-    { const body = new THREE.Mesh(new THREE.BoxGeometry(BOX.w, BOX.h, BOX.d), fineMat("#1f2d4d")); body.position.set(0, BOX.y0 + BOX.h / 2, 0); body.castShadow = body.receiveShadow = true; hall.add(body);
-      const lid = new THREE.Mesh(new THREE.BoxGeometry(BOX.w + 0.12, 0.5, BOX.d + 0.12), fineMat("#283a62")); lid.position.set(0, seamY + 0.02 + 0.25, 0); lid.castShadow = lid.receiveShadow = true; hall.add(lid);
-      const lidEdge = E.box(0.02, 0.03, BOX.d + 0.12, C.cream); lidEdge.position.set(FACE + 0.07, seamY + 0.52, 0); hall.add(lidEdge);
-      for (const z of [-0.62, 1.25]) { const tape = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.95, 0.26), fineMat(C.amber)); tape.material.emissive = AMBER.clone(); tape.material.emissiveIntensity = 0.32; tape.position.set(FACE + 0.075, seamY + 0.05, z); tape.castShadow = true; hall.add(tape);
+    const seamY = BOX.y0 + BOX.h + 0.008, FACE = BOX.w / 2;
+    { const body = new THREE.Mesh(new THREE.BoxGeometry(BOX.w, BOX.h, BOX.d), fineMat("#1a2745")); body.position.set(0, BOX.y0 + BOX.h / 2, 0); body.castShadow = body.receiveShadow = true; hall.add(body);
+      const lid = new THREE.Mesh(new THREE.BoxGeometry(BOX.w + 0.05, 0.5, BOX.d + 0.05), fineMat("#283a62")); lid.position.set(0, seamY + 0.008 + 0.25, 0); lid.castShadow = lid.receiveShadow = true; hall.add(lid);
+      const lidEdge = E.box(0.02, 0.03, BOX.d + 0.12, C.cream); lidEdge.position.set(FACE + 0.035, seamY + 0.505, 0); hall.add(lidEdge);
+      for (const z of [-0.62, 1.25]) { const tape = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.95, 0.26), fineMat(C.amber)); tape.material.emissive = AMBER.clone(); tape.material.emissiveIntensity = 0.32; tape.position.set(FACE + 0.04, seamY + 0.05, z); tape.castShadow = true; hall.add(tape);
         const tapeTop = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.02, 0.26), tape.material); tapeTop.position.set(FACE - 0.18, seamY + 0.53, z); hall.add(tapeTop); } }
-    const seam = E.glowPlane(BOX.d - 0.02, 0.07, C.cyan); seam.rotation.y = Math.PI / 2; seam.position.set(FACE - 0.04, seamY, 0); hall.add(seam);
+    const seam = E.glowPlane(BOX.d - 0.02, 0.05, C.cyan); seam.rotation.y = Math.PI / 2; seam.position.set(FACE - 0.04, seamY, 0); hall.add(seam);
     const seamS = E.glowPlane(BOX.w - 0.02, 0.07, C.cyan); seamS.position.set(0, seamY, BOX.d / 2 - 0.04); hall.add(seamS);
     // the escaping thread, from the seam across the basement and up to the wheel's hub
     const TP = [[FACE - 0.3, seamY, 0.25], [FACE + 0.05, seamY, 0.27], [FACE + 0.28, seamY - 0.12, 0.33], [FACE + 0.5, seamY - 0.6, 0.45], [FACE + 0.66, -4.55, 0.62], [FACE + 0.86, -4.97, 0.95],
       [FACE + 1.8, -4.97, 1.6], [4.3, -4.95, 2.3], [5.6, -4.9, 2.6], [6.35, -4.5, 2.7], [6.75, -2.4, 2.7], [7.08, 0.2, 2.6], [7.1, 1.56, 2.3], [6.5, 1.6, 1.6], [5.75, 2.6, 0.9], [5.5, 4.6, 0.4], [5.35, 6.3, 0.1], [5.18, AX, 0.0]];
-    const th3 = thread(TP.map((p) => V3(...p)), 0.02, 400); hall.add(th3.m, th3.tip);
+    const th3 = thread(TP.map((p) => V3(...p)), 0.011, 400); hall.add(th3.m, th3.tip);
     // "Again.": a second, finer filament feels its way out of the seam
-    const th4 = thread([[FACE - 0.2, seamY, -0.36], [FACE + 0.03, seamY + 0.004, -0.38], [FACE + 0.17, seamY + 0.03, -0.45], [FACE + 0.27, seamY + 0.1, -0.43], [FACE + 0.3, seamY + 0.18, -0.34], [FACE + 0.26, seamY + 0.22, -0.27]].map((q) => V3(...q)), 0.011, 120); hall.add(th4.m, th4.tip);
+    const th4 = thread([[FACE - 0.2, seamY, -0.36], [FACE + 0.03, seamY + 0.004, -0.38], [FACE + 0.17, seamY + 0.03, -0.45], [FACE + 0.27, seamY + 0.1, -0.43], [FACE + 0.3, seamY + 0.18, -0.34], [FACE + 0.26, seamY + 0.22, -0.27]].map((q) => V3(...q)), 0.008, 120); hall.add(th4.m, th4.tip);
     // dust in the seam light
-    const NM = 46, moteIM = new THREE.InstancedMesh(new THREE.SphereGeometry(0.006, 6, 4), new THREE.MeshBasicMaterial({ color: col(C.cyanPale).multiplyScalar(1.1) }), NM); hall.add(moteIM);
+    const NM = 46, moteIM = new THREE.InstancedMesh(new THREE.SphereGeometry(0.0032, 6, 4), new THREE.MeshBasicMaterial({ color: col(C.cyanPale).multiplyScalar(0.7) }), NM); hall.add(moteIM);
     const motes = Array.from({ length: NM }, () => ({ x: FACE + 0.05 + rnd() * 1.0, y: seamY - 0.45 + rnd() * 0.9, z: -0.9 + rnd() * 1.8, ph: rnd() * 6.28, s: 0.5 + rnd() }));
     const _o = new THREE.Object3D();
     const fracOf = (() => { const pts = TP.map((p) => V3(...p)); const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + pts[i].distanceTo(pts[i - 1])); return (i) => cum[i] / cum.at(-1); })();
@@ -344,7 +353,7 @@ export default {
 
     // ---------------- camera ----------------
     const benchCam = (t) => { const x = xc(t);
-      return { p: V3(x - 1.6 + 0.06 * wob(t, 1), 2.12 + 0.05 * wob(t, 2), 6.9 + 0.08 * wob(t, 3)), l: V3(x + LOOK, 1.78 + 0.03 * wob(t, 4), -0.3) }; };
+      return { p: V3(x - 1.6 + 0.06 * wob(t, 1), 2.12 + 0.05 * wob(t, 2), 6.9 + 0.08 * wob(t, 3)), l: V3(x + LOOK, 2.0 + 0.03 * wob(t, 4), -0.3) }; };
     const b0 = benchCam(9.25);
     const K1 = [
       { t: 9.25, p: b0.p.toArray(), l: b0.l.toArray() },
@@ -359,22 +368,22 @@ export default {
     const H = (x, y, z) => [HX + x, y, z];
     const K2 = [
       { t: 23.9, p: H(-7.6, 13.2, 0.4), l: H(-30, 13.2, 0.4) },
-      { t: 25.0, p: H(31, 4.6, 9.5), l: H(0, 3.3, 0), arc: 0.06 },
-      { t: 25.75, p: H(29.6, 4.3, 9.0), l: H(0, 3.1, 0), ease: "sine" },
+      { t: 25.0, p: H(27, 4.6, 7.0), l: H(0, 3.6, -1.6), arc: 0.06 },
+      { t: 25.75, p: H(26, 4.3, 6.7), l: H(0, 3.3, -1.5), ease: "sine" },
       { t: 26.85, p: H(8.6, -2.3, 3.6), l: H(0.8, -3.6, 0.2) },
-      { t: 28.0, p: H(30, 4.1, 8.0), l: H(0, 3.6, 0) },
-      { t: 28.92, p: H(29, 4.0, 7.6), l: H(0, 3.6, 0), ease: "sine" },
-      { t: T.again - 0.03, p: H(FACE + 0.95, seamY - 0.13, 0.98), l: H(FACE, seamY + 0.03, -0.1), arc: 0.03 },
-      { t: 31.0, p: H(FACE + 0.8, seamY - 0.1, 0.84), l: H(FACE, seamY + 0.03, -0.12), ease: "sine" },
-      { t: 33.35, p: H(29, 3.8, 9.5), l: H(0, 3.5, 0) },
-      { t: 36.4, p: H(27, 4.2, 10.5), l: H(0.5, 4.2, 0), ease: "sine" },
+      { t: 28.0, p: H(26, 5.2, 6.8), l: H(0, 5.0, -1.4) },
+      { t: 28.92, p: H(25, 5.0, 6.5), l: H(0, 4.8, -1.4), ease: "sine" },
+      { t: T.again - 0.03, p: H(FACE + 1.3, seamY - 0.09, 0.5), l: H(FACE, seamY + 0.01, -0.06), arc: 0.03 },
+      { t: 31.0, p: H(FACE + 1.12, seamY - 0.07, 0.42), l: H(FACE, seamY + 0.01, -0.08), ease: "sine" },
+      { t: 33.35, p: H(27, 4.6, 8.0), l: H(0, 4.4, -1.2) },
+      { t: 36.4, p: H(25, 4.8, 9.0), l: H(0.5, 4.8, -0.8), ease: "sine" },
       { t: 39.6, p: H(1.2, 9.9, 19.5), l: H(0, 8.6, 0), orbit: H(0, 0, 0) },
       { t: 41.5, p: H(0.3, 9.6, 12.8), l: H(0, 8.9, 0), ease: "sine" },
       { t: 42.8, p: H(0, 9.5, 24), l: H(0, 9.5, 0) },
-      { t: 44.6, p: H(0, 9.5, 22.6), l: H(0, 9.5, 0), ease: "sine" },
-      { t: def.to, p: H(0, 9.55, 6.0), l: H(0, 9.55, 0), arc: 0 },
+      { t: 44.75, p: H(0, 9.5, 22.4), l: H(0, 9.5, 0), ease: "sine" },
+      { t: def.to, p: H(0, 9.55, 6.0), l: H(0, 9.55, 0), arc: 0, ease: "sine2" },
     ];
-    const ease = (e, x) => (e === "smooth" ? x * x * (3 - 2 * x) : e === "sine" ? sineInOut(x) : e === "linear" ? x : inOut(x));
+    const ease = (e, x) => (e === "sine2" ? sineInOut(x) ** 2 : e === "smooth" ? x * x * (3 - 2 * x) : e === "sine" ? sineInOut(x) : e === "linear" ? x : inOut(x));
     const path = (keys, t, seed) => { let i = 0; while (i < keys.length - 2 && t > keys[i + 1].t) i++;
       const a = keys[i], b = keys[i + 1]; const k = ease(b.ease, lin(a.t, b.t, t));
       const pa = V3(...a.p), pb = V3(...b.p), la = V3(...a.l), lb = V3(...b.l); let p;
@@ -394,8 +403,8 @@ export default {
     const srcMay = E.srcDOM(layer, { big: "MAY 2026", small: "&gt;80% of merged code at Anthropic: Claude", inAt: T.may, outAt: 15.0 });
     const srcSept = E.srcDOM(layer, { big: "SEPT 2026", small: "OpenAI: “automated research intern”", inAt: T.sept + 0.1, outAt: T.two - 0.2 });
     const srcStop = E.srcDOM(layer, { big: "OpenAI", small: "training paused", inAt: T.stopped, outAt: T.again - 0.65 });
-    const title = E.titleDOM(layer, { text: "Has the Intelligence Explosion Already Begun?", inAt: T.begunE - 0.32, outAt: 45.05, size: 104 });
-    Object.assign(title.el.style, { padding: "0 300px", top: "19%" });
+    const title = E.titleDOM(layer, { text: "Has the Intelligence Explosion Already Begun?", inAt: T.begunE - 0.32, outAt: 44.95, size: 96 });
+    Object.assign(title.el.style, { padding: "0 340px", top: "17%" });
 
     // ---------------- update ----------------
     const tmpC = new THREE.Color();
@@ -433,9 +442,9 @@ export default {
       { const g = M26.g, k = expoOut(lin(T.change - 0.9, T.change, t)); const on = smooth(T.change - 0.05, T.change + 0.25, t);
         g.userData.shards.forEach((s, i) => { const a = s.a + t * 0.4; const r = lerp(2.4 + 0.3 * i, 0.98, expoOut(lin(T.change - 1.3 + i * 0.07, T.change - 0.05, t)));
           s.m.position.set(Math.cos(a) * r, 1.32 + Math.sin(a) * r, 0.14); s.m.rotation.z = a + Math.PI / 2; s.m.visible = t > T.single; });
-        g.userData.rings.userData.update(t, { think: 0.6 + on, glow: 0.12 + 0.75 * on }); g.userData.disc.rotation.z = t * 0.1;
-        lightCyA.position.set(M26.x, BY + 1.6, 1.5); lightCyA.intensity = t < 10.4 ? 14 * on * (1 + 0.05 * Math.sin(t * 5)) : 0; void k; }
-      machines.forEach((m) => { if (m.g.userData.ring) m.g.userData.ring.material[0].emissiveIntensity = 0.25 + 0.15 * Math.sin(t * 2 + m.g.position.x); });
+        g.userData.rings.userData.update(t, { think: 0.6 + on, glow: 0.1 + 0.42 * on }); g.userData.disc.rotation.z = t * 0.1;
+        lightCyA.position.set(M26.x, BY + 1.8, 2.6); lightCyA.intensity = t < 10.4 ? 6 * on * (1 + 0.05 * Math.sin(t * 5)) : 0; void k; }
+      machines.forEach((m) => { if (m.g.userData.ring) m.g.userData.ring.material[0].emissiveIntensity = 0.1 + 0.06 * Math.sin(t * 2 + m.g.position.x); });
 
       // ---- thread 1 + tower 1 gauge ----
       th1.set(inOut(lin(T.change + 0.35, 10.5, t)));
@@ -466,18 +475,19 @@ export default {
       ringMats.forEach((m) => (m.emissiveIntensity = 1.6 * train + 0.9 * selfOn));
       lightCyB.position.set(HX + 4, 4.5, 4); lightCyB.intensity = inHall ? 22 * train + 9 * selfOn : 0;
       const reach = smooth(T.themE - 0.2, T.themE + 0.4, t);
-      hubMat[0].emissiveIntensity = 2.2 * reach; hubs.forEach((h) => (h.rotation.x = th * 0.5));
+      hubMat[0].emissiveIntensity = 0.8 * reach; hubs.forEach((h) => (h.rotation.x = th * 0.5));
       const flip = smooth(36.8, 39.4, t);
-      pageMats.forEach((m) => (m.emissiveIntensity = 0.04 + 0.32 * flip + 0.25 * smooth(44.6, 45.8, t)));
-      pageBackMat.emissiveIntensity = 0.03 + 0.25 * flip;
+      pageMats.forEach((m) => (m.emissiveIntensity = 0.04 + 0.16 * flip - 0.06 * smooth(44.8, 45.9, t)));
+      pageBackMat.emissiveIntensity = 0.03 + 0.14 * flip;
       const w = omega(t); const bl = clamp((w - 6) / 9, 0, 1) * smooth(38, 40, t);
-      blurMat.opacity = 0.2 * bl; blurMat.emissiveIntensity = 0.25 + 0.25 * bl; blur.visible = bl > 0.01;
+      blurMat.opacity = 0.1 * bl; blurMat.emissiveIntensity = 0.25; blur.visible = bl > 0.01;
+      ghosts.forEach((g, k) => { const a = ((g.a + t * 2.7 + k * 0.137) % 1); g.gh.rotation.x = a * HANG0; g.gm.opacity = bl * 0.3 * Math.sin(Math.PI * a); });
       // box + seam (the basement hero light)
+      const ecu = smooth(28.95, T.again, t) * (1 - smooth(31.0, 32.6, t));
       const again = smooth(T.again - 0.1, T.againE + 0.4, t) * (1 - smooth(31.2, 32.5, t));
       const pulse = 1 + 0.06 * Math.sin(t * 2.3) + 0.03 * Math.sin(t * 7.9);
-      seam.userData.setGlow((1.05 + 0.55 * again) * pulse); seamS.userData.setGlow(0.9 * pulse);
-      const ecu = smooth(28.95, T.again, t) * (1 - smooth(31.0, 32.6, t));
-      lightBox.position.set(HX + FACE + lerp(0.9, 0.22, ecu), seamY + lerp(-0.1, 0.02, ecu), lerp(0.4, 0.1, ecu)); lightBox.distance = lerp(9, 2.4, ecu); lightBox.intensity = inHall ? lerp(7, 2.2, ecu) * (1 + 0.6 * again) * pulse : 0;
+      seam.userData.setGlow((1.05 - 0.45 * ecu + 0.35 * again) * pulse); seamS.userData.setGlow(0.9 * pulse);
+      lightBox.position.set(HX + FACE + lerp(0.9, 0.07, ecu), seamY + lerp(-0.1, 0.0, ecu), lerp(0.4, 0.05, ecu)); lightBox.distance = lerp(14, 1.8, ecu); lightBox.intensity = inHall ? lerp(12, 1.6, ecu) * (1 + 0.5 * again) * pulse : 0;
       th4.set(smooth(T.again - 0.05, T.againE + 1.5, t)); th4.tip.scale.setScalar(1 + 0.3 * Math.sin(t * 5));
       motes.forEach((m, i) => { _o.position.set(m.x + 0.05 * Math.sin(t * 0.3 * m.s + m.ph), m.y + 0.06 * Math.sin(t * 0.21 * m.s + m.ph * 2), m.z + 0.05 * Math.cos(t * 0.25 + m.ph)); _o.scale.setScalar(m.s); _o.updateMatrix(); moteIM.setMatrixAt(i, _o.matrix); });
       moteIM.instanceMatrix.needsUpdate = true; moteIM.visible = ecu > 0.01;
@@ -489,7 +499,7 @@ export default {
       th3.tip.scale.setScalar(1 + 0.25 * Math.sin(t * 6) + 0.6 * again);
 
       // post
-      post.bloom = inHall ? 0.55 + 0.1 * bl : 0.5;
+      post.bloom = inHall ? 0.55 + 0.1 * bl - 0.2 * ecu : 0.5;
       post.exposure = 1.15;
       // DOM
       stamp.update(t); srcMay.update(t); srcSept.update(t); srcStop.update(t); title.update(t);

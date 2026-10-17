@@ -78,12 +78,12 @@ export default {
     const sunCore = basic(new THREE.CircleGeometry(7, 64), "#fff1d6", { fog: false }); sunCore.material.color.multiplyScalar(1.6); sun.add(sunCore);
     [[9.5, "#ffd9a8", 0.55], [13, "#f7b98a", 0.32], [18, "#eb9e86", 0.18]].forEach(([r, h, o], i) => { const m = basic(new THREE.RingGeometry(r - (i ? 3.5 : 2.5), r, 64), h, { fog: false, opacity: o, depthWrite: false }); m.position.z = -0.5 - i * 0.2; sun.add(m); });
     // horizon clouds (vertical paper, lit pink from below) and high clouds for the tilt-up (faces down)
-    const clouds = [];
+    const clouds = []; const CR = rng(5150); // high clouds: own rng, mirrored in s12 so the sky rhymes across the cut
     const cloudMat = (hex) => new THREE.MeshBasicMaterial({ color: hex, map: E.paperTex, fog: false, side: THREE.DoubleSide });
     [[-70, 22, -200, 22, 4, "#d48a8a", 0.5], [60, 30, -210, 26, 5, "#c98094", 0.35], [-10, 38, -215, 18, 3.6, "#b97795", 0.42], [120, 18, -190, 20, 4, "#e09a8c", 0.3], [-130, 30, -200, 24, 4.4, "#c27f92", 0.38]]
       .forEach(([x, y, z, w, h, hex, v]) => { const m = new THREE.Mesh(new THREE.ShapeGeometry(cloudShape(w, h, R), 12), cloudMat(hex)); m.position.set(x, y, z); scene.add(m); clouds.push({ m, x0: x, y0: y, v, k: 0 }); });
     [[-18, 62, 6, 20, 5, "#e8a08e"], [22, 70, -12, 26, 6, "#d68e98"], [2, 56, 26, 16, 4, "#f0b394"], [-40, 74, -30, 22, 5, "#c88597"], [40, 60, 36, 18, 4.5, "#e7a796"], [-6, 80, -48, 30, 6, "#b9809a"], [30, 66, 60, 20, 5, "#f1b99a"], [-34, 58, 44, 16, 4, "#dc9a92"]]
-      .forEach(([x, y, z, w, h, hex], i) => { const m = new THREE.Mesh(new THREE.ShapeGeometry(puff(w, h, R), 12), cloudMat(hex)); m.rotation.x = Math.PI / 2; m.rotation.z = (R() - 0.5) * 0.6; m.position.set(x, y, z); scene.add(m); clouds.push({ m, x0: x, y0: y, v: 0.25 + 0.1 * (i % 3), k: 1 }); });
+      .forEach(([x, y, z, w, h, hex], i) => { const m = new THREE.Mesh(new THREE.ShapeGeometry(puff(w, h, CR), 12), cloudMat(hex)); m.rotation.x = Math.PI / 2; m.rotation.z = (CR() - 0.5) * 0.6; m.position.set(x, y, z); scene.add(m); clouds.push({ m, x0: x, y0: y, v: 0.25 + 0.1 * (i % 3), k: 1 }); });
     // paper birds crossing the sky (secondary motion)
     const birdShape = new THREE.Shape(); birdShape.moveTo(-0.9, 0.25); birdShape.quadraticCurveTo(-0.4, 0.15, 0, -0.1); birdShape.quadraticCurveTo(0.4, 0.15, 0.9, 0.25); birdShape.quadraticCurveTo(0.4, 0.02, 0, -0.25); birdShape.quadraticCurveTo(-0.4, 0.02, -0.9, 0.25);
     const birds = new THREE.InstancedMesh(new THREE.ShapeGeometry(birdShape), new THREE.MeshBasicMaterial({ color: "#3a2740", side: THREE.DoubleSide, fog: false }), 7); birds.frustumCulled = false; scene.add(birds);
@@ -325,12 +325,12 @@ export default {
     const ring = new THREE.Mesh(ringG, new THREE.MeshBasicMaterial({ color: new THREE.Color(C.cyan).multiplyScalar(1.3), transparent: true, opacity: 0.9, side: THREE.DoubleSide }));
     ring.position.set(LEV.x, 0.09, LEV.z); ring.scale.z = 0.95; ringG.setDrawRange(0, 0); scene.add(ring);
     // the shadow that spoofs one ping
-    const SPOOF = 4; const spoofB = BEA[SPOOF];
-    const shadow = new THREE.Group(); scene.add(shadow);
-    { const s = new THREE.Shape(); s.moveTo(-0.4, 0); s.lineTo(0.4, 0); s.quadraticCurveTo(0.42, 1.3, 0.2, 1.75); s.quadraticCurveTo(0, 2.05, -0.2, 1.75); s.quadraticCurveTo(-0.42, 1.3, -0.4, 0);
-      const m = new THREE.Mesh(new THREE.ShapeGeometry(s, 16), new THREE.MeshBasicMaterial({ color: "#1a1226", side: THREE.DoubleSide, transparent: true, opacity: 0.92 })); shadow.add(m);
-      const eye = new THREE.Mesh(new THREE.SphereGeometry(0.1, 12, 8), fakeMat); eye.position.y = 1.62; shadow.add(eye); shadow.userData.eye = eye; }
-    const SHPOS = spoofB.top.clone().lerp(GC, 0.38); SHPOS.y = 0; shadow.position.copy(SHPOS); shadow.visible = false;
+    const SPOOF = 1; const spoofB = BEA[SPOOF];
+    const shadow = new THREE.Group(); scene.add(shadow); const shadowInner = new THREE.Group(); shadow.add(shadowInner);
+    { const s = new THREE.Shape(); s.moveTo(-0.07, 0); s.lineTo(0.07, 0); s.lineTo(0.07, 1.4); s.absarc(0, 1.64, 0.28, -Math.PI / 2 + 0.25, Math.PI * 1.5 - 0.25, false); s.lineTo(-0.07, 0);
+      const m = new THREE.Mesh(new THREE.ShapeGeometry(s, 24), new THREE.MeshBasicMaterial({ color: "#1c1328", side: THREE.DoubleSide })); shadowInner.add(m);
+      const eye = new THREE.Mesh(new THREE.CircleGeometry(0.12, 16), fakeMat.clone()); eye.position.set(0, 1.64, 0.01); shadowInner.add(eye); shadow.userData.eye = eye; }
+    const SHDIR = V(0.447, 0, 0.894); const SHPOS = V(spoofB.top.x, 0, spoofB.top.z).addScaledVector(SHDIR, 0.95); shadow.position.copy(SHPOS); shadow.visible = false;
 
     // ---------- DOM ----------
     const chapter = E.chapterDOM(E.layer, { text: "BRAKE", inAt: tThird, outAt: tWeve + 1.2 });
@@ -345,7 +345,7 @@ export default {
     const P0 = V(0, 2.4, 40); const fovH = Math.tan((35 * Math.PI / 180) / 2);
     const pitch0 = Math.atan2(-P0.y, P0.z - HORIZ_Z) + Math.atan(0.1 * fovH);
     const L0 = V(0, P0.y + Math.tan(pitch0) * 16, P0.z - 16);
-    const up70 = (p, a = 72) => { const r = a * Math.PI / 180; return [p[0], p[1] + Math.sin(r) * 16, p[2] - Math.cos(r) * 16]; };
+    const up70 = (p, a = 62) => { const r = a * Math.PI / 180; return [p[0], p[1] + Math.sin(r) * 16, p[2] - Math.cos(r) * 16]; };
     const KEYS = [
       { t: T0, p: [P0.x, P0.y, P0.z], l: [L0.x, L0.y, L0.z] },
       { t: tStraight + 0.3, p: [1.6, 2.1, 30.2], l: [2.7, 1.75, 18], ease: "sine" },
@@ -482,7 +482,7 @@ export default {
         const lineOn = smooth(start, start + 0.4, t); p.line.material.opacity = 0.35 * lineOn * (i === SPOOF ? 1 - 0.7 * spoofed : 1);
         // outgoing ping: periodic
         let ph = t < start ? -1 : ((t - start) % per) / 0.75; const cyc = Math.floor((t - start) / per);
-        p.dot.visible = ph >= 0 && ph <= 1 && t < T1 - 0.2; if (p.dot.visible) { const pt = p.curve.getPoint(ph); if (i === SPOOF && spoofed > 0) pt.lerp(V(SHPOS.x, 1.62, SHPOS.z), ph); p.dot.position.copy(pt); p.dot.scale.setScalar(1 + 0.5 * Math.sin(ph * Math.PI)); }
+        p.dot.visible = ph >= 0 && ph <= 1 && t < T1 - 0.2; if (p.dot.visible) { const pt = p.curve.getPoint(ph); if (i === SPOOF && spoofed > 0) pt.lerp(V(SHPOS.x, 1.85, SHPOS.z), ph); p.dot.position.copy(pt); p.dot.scale.setScalar(1 + 0.5 * Math.sin(ph * Math.PI)); }
         p.dot.material = i === SPOOF && spoofed > 0.5 && ph > 0.6 ? fakeMat : pingMat;
         // arrival flash
         const arrive = ph > 0.85 && ph <= 1.4 ? 1 - (ph - 0.85) / 0.55 : 0; const proveFlash = proveK > 0 && proveK < 1 ? 1 : 0;
@@ -491,13 +491,12 @@ export default {
         // return pings at "prove where they are", and the fake return from the shadow
         const rb = lin(tProve, tProve + 0.8, t); p.back.visible = rb > 0 && rb < 1; if (p.back.visible) p.back.position.copy(p.curve.getPoint(1 - rb));
         p.back.material = pingMat;
-        if (i === SPOOF && t > tUntested + 0.25) { const fr = ((t - tUntested - 0.25) % 1.8) / 0.8; p.back.visible = fr <= 1 && t < T1 - 0.2; if (p.back.visible) { p.back.material = fakeMat; p.back.position.copy(V(SHPOS.x, 1.62, SHPOS.z).lerp(GC.clone().add(V(0, 0, 0.75)), fr)); p.back.position.y += Math.sin(fr * Math.PI) * 1.0; } } });
+        if (i === SPOOF && t > tUntested + 0.25) { const fr = ((t - tUntested - 0.25) % 1.8) / 0.8; p.back.visible = fr <= 1 && t < T1 - 0.2; if (p.back.visible) { p.back.material = fakeMat; p.back.position.copy(V(SHPOS.x, 1.85, SHPOS.z).lerp(GC.clone().add(V(0, 0, 0.75)), fr)); p.back.position.y += Math.sin(fr * Math.PI) * 1.0; } } });
       function up(b) { return clamp(lin(b.t0, b.t0 + 0.6, t), 0, 1); }
-      // the shadow slides in from behind the spoofed beacon
-      shadow.visible = t > tChipVer - 0.2; const sk = smooth(tChipVer - 0.2, tUntested - 0.1, t);
-      shadow.position.set(lerp(spoofB.top.x + 1.2, SHPOS.x, sk), 0, lerp(spoofB.top.z - 1.2, SHPOS.z, sk)); shadow.lookAt(camera.position.x, 0, camera.position.z);
-      shadow.scale.set(1.25 + 0.03 * Math.sin(t * 2), 1.25 + 0.05 * Math.sin(t * 1.3), 1); shadow.userData.eye.material.color.set(spoofed > 0 ? "#3a2a50" : "#1a1226");
-
+      // the spoofed beacon's own shadow stands up beside it and answers in its place
+      shadow.visible = t > tChipVer - 0.1; const sk = spring(lin(tChipVer + 0.1, tUntested - 0.15, t));
+      shadow.lookAt(camera.position.x, 0, camera.position.z); shadowInner.scale.set(1.15, Math.max(0.03, sk) * (1.15 + 0.03 * Math.sin(t * 2.2)), 1); shadowInner.rotation.z = 0.05 * Math.sin(t * 1.7);
+      shadow.userData.eye.material.color.set(spoofed > 0 ? "#4a3a66" : "#1c1328");
       doms.forEach((d) => d.update(t));
       // post: bloom swells with the garden and the chip
       post.bloom = 0.42 + 0.35 * bloomK * (1 - 0.6 * smooth(tForAI, tLabs, t)) + 0.15 * chipOn * (1 - smooth(tLimits, tSmall, t));
