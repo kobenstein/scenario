@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <!--
+      Style test C — "Line"
+      Motion DNA: calm + sharp, editorial. One ink line on warm paper, drawn live; the camera follows the pen tip.
+      Line boils on twos (hand-drawn life). Hatching arrives a beat after the outline.
+      Through-line: the line underlines "2031", runs on as the horizon, draws Vienna, frames one amber window.
+      When the window goes dark a cyan line leaves it, swoops into the sky and draws a closed eye; it opens on "see",
+      and cyan rays rake the city on "better than all of us". Wow moment: the eye opening.
+      Palette: paper #efe8da, ink #1d1f24, amber #e8902e (human), cyan #10a6c6 (machine).
+    -->
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Instrument Serif"; src: url(assets/InstrumentSerif.woff2) format("woff2"); font-display: block; }
+      @font-face { font-family: "Inter"; src: url(assets/Inter-400-normal.woff2) format("woff2"); font-weight: 100 900; font-display: block; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #efe8da; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #efe8da; }
+      #cv, #grain { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+      #vignette { position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(ellipse 80% 75% at 50% 50%, rgba(120,95,60,0) 60%, rgba(120,95,60,0.18) 100%); }
+      #year { position: absolute; left: 0; top: 0; font-family: "Instrument Serif", serif; color: #1d1f24;
+        font-size: 300px; line-height: 1; letter-spacing: -0.02em; display: flex; transform-origin: 0 0; }
+      .digit { height: 300px; overflow: hidden; }
+      .col { display: flex; flex-direction: column; }
+      .col span { height: 300px; display: block; }
+      #yearLabel { position: absolute; left: 96px; top: 182px; font-family: "Inter", sans-serif; font-size: 22px;
+        letter-spacing: 0.32em; text-transform: uppercase; color: #6d675c; overflow: hidden; }
+      #yearLabel span { display: inline-block; }
+      #tag { position: absolute; font-family: "Inter", sans-serif; color: #1d1f24; font-size: 22px; letter-spacing: 0.04em; white-space: nowrap; }
+      #tag .rule { position: absolute; left: -132px; top: 14px; width: 116px; height: 2px; background: #e8902e; transform-origin: 100% 50%; }
+      #tag .t { display: inline-block; overflow: hidden; }
+      #tag .t span { display: inline-block; }
+      #tag .sub { display: block; color: #6d675c; font-size: 17px; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 8px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="15" data-width="1920" data-height="1080">
+      <canvas id="cv" class="clip" data-start="0" data-duration="15" width="1920" height="1080"></canvas>
+      <div id="vignette" class="clip" data-start="0" data-duration="15"></div>
+      <div id="tag" class="clip" data-start="0" data-duration="15">
+        <div class="rule"></div>
+        <div class="t"><span>The last human radiologist</span></div>
+        <span class="sub"><span class="t"><span>Vienna General Hospital, 7th floor</span></span></span>
+      </div>
+      <div id="year" class="clip" data-start="0" data-duration="15">
+        <div class="digit"><div class="col"><span>2</span></div></div>
+        <div class="digit"><div class="col"><span>0</span></div></div>
+        <div class="digit"><div class="col" id="tens"><span>2</span><span>3</span></div></div>
+        <div class="digit"><div class="col" id="ones"><span>6</span><span>7</span><span>8</span><span>9</span><span>0</span><span>1</span></div></div>
+      </div>
+      <div id="yearLabel" class="clip" data-start="0" data-duration="15"><span>Scenario · Vienna</span></div>
+      <canvas id="grain" class="clip" data-start="0" data-duration="15" width="480" height="270"></canvas>
+    </div>
+
+    <script>
+      // ---------- helpers (deterministic) ----------
+      let seed = 777;
+      const rand = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+      const hash = (a, b) => { let h = (a * 374761393 + b * 668265263) >>> 0; h = ((h ^ (h >>> 13)) * 1274126177) >>> 0; return ((h ^ (h >>> 16)) >>> 0) / 4294967296 - 0.5; };
+      const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+      const lin = (a, b, t) => clamp((t - a) / (b - a), 0, 1);
+      const smooth = (a, b, t) => { const x = lin(a, b, t); return x * x * (3 - 2 * x); };
+      const expoOut = (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
+      const inOut = (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2);
+      const sineInOut = (x) => -(Math.cos(Math.PI * x) - 1) / 2;
+      const lerp = (a, b, t) => a + (b - a) * t;
+      const VO = 0.6;
+      const INK = "#1d1f24", AMBER = "#e8902e", CYAN = "#10a6c6", PAPER = "#efe8da";
+
+      // ---------- polylines ----------
+      const P = (x, y) => ({ x, y });
+      const densify = (pts, step = 6) => { const out = [pts[0]];
+        for (let i = 1; i < pts.length; i++) { const a = pts[i - 1], b = pts[i]; const n = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) / step));
+          for (let k = 1; k <= n; k++) out.push(P(lerp(a.x, b.x, k / n), lerp(a.y, b.y, k / n))); }
+        return out; };
+      const withLengths = (pts) => { const L = [0]; for (let i = 1; i < pts.length; i++) L.push(L[i - 1] + Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y)); return { pts, L, total: L[L.length - 1] }; };
+      const arc = (cx, cy, r, a0, a1, n = 48) => { const o = []; for (let i = 0; i <= n; i++) { const a = lerp(a0, a1, i / n); o.push(P(cx + Math.cos(a) * r, cy + Math.sin(a) * r)); } return o; };
+
+      // skyline walker: builds an outline walking +x from x0; landmarks keyed by position
+      const buildSide = (x0, x1, landmarks, s) => {
+        seed = s; const pts = [P(x0, 0)]; let x = x0, prevH = 0; const meta = {};
+        const roof = (x, w, h, type) => {
+          if (type === "pitch") return [P(x + w / 2, h + w * 0.35), P(x + w, h)];
+          if (type === "mansard") return [P(x + w * 0.12, h + 16), P(x + w * 0.88, h + 16), P(x + w, h)];
+          if (type === "chimney") return [P(x + w * 0.66, h), P(x + w * 0.66, h + 14), P(x + w * 0.76, h + 14), P(x + w * 0.76, h), P(x + w, h)];
+          return [P(x + w, h)];
+        };
+        while (x < x1) {
+          const lm = landmarks.find((l) => x >= l.at - 1);
+          if (lm) {
+            if (lm.kind === "park") { pts.push(P(x, 0)); x = lm.at + lm.w; pts.push(P(x, 0)); prevH = 0; landmarks = landmarks.filter((l) => l !== lm); continue; }
+            const out = lm.draw(x, lm); pts.push(P(x, prevH), ...out.pts); meta[lm.kind] = out.meta; x += lm.w; prevH = out.endH; landmarks = landmarks.filter((l) => l !== lm); continue;
+          }
+          const next = landmarks.reduce((m, l) => Math.min(m, l.at), Infinity);
+          let w = 50 + rand() * 70; const h = 60 + rand() * 90;
+          if (x + w > next - 30) w = next - x; const type = ["flat", "pitch", "mansard", "chimney", "flat"][Math.floor(rand() * 5)];
+          pts.push(P(x, prevH), P(x, h), ...roof(x, w, h, type)); x += w; prevH = h;
+        }
+        pts.push(P(x, prevH), P(x, 0), P(x + 200, 0));
+        return { pts, meta };
+      };
+      const karlskirche = (x, l) => { const h = 70, w = l.w; return { endH: h, pts: [
+        P(x, h), P(x + 14, h), P(x + 14, h + 120), P(x + 34, h + 120), P(x + 34, h), P(x + w / 2 - 46, h), P(x + w / 2 - 46, h + 30),
+        ...arc(x + w / 2, h + 30, 46, Math.PI, 0, 28),
+        P(x + w / 2 + 46, h), P(x + w - 34, h), P(x + w - 34, h + 120), P(x + w - 14, h + 120), P(x + w - 14, h), P(x + w, h)] }; };
+      const hospital = (x, l) => { const h = 260, w = l.w; return { endH: h, meta: { x, w, h }, pts: [P(x, h), P(x + 20, h), P(x + 20, h + 18), P(x + 46, h + 18), P(x + 46, h), P(x + w, h)] }; };
+      const stephansdom = (x, l) => { const h = 90, w = l.w; return { endH: h, pts: [
+        P(x, h), P(x + 30, h), P(x + 30, h + 120), P(x + 38, h + 150), P(x + 44, h + 240), P(x + 48, h + 330), P(x + 52, h + 240), P(x + 58, h + 150), P(x + 66, h + 120),
+        P(x + 66, h + 10), P(x + 80, h + 10), P(x + w * 0.62, h + 120), P(x + w - 10, h + 10), P(x + w - 10, h + 40), P(x + w, h + 50), P(x + w, h)] }; };
+      const riesenrad = (x, l) => { const c = x + l.w / 2, R = 120, cy = 160; return { endH: 0, pts: [
+        P(x, 0), P(c - 70, 0), P(c, cy), P(c, cy - R), ...arc(c, cy, R, -Math.PI / 2, Math.PI * 1.5, 72), P(c, cy), P(c + 70, 0), P(x + l.w, 0)] }; };
+
+      const right = buildSide(220, 1500, [
+        { at: 220, w: 70, kind: "park" }, { at: 290, w: 230, kind: "karls", draw: karlskirche },
+        { at: 700, w: 160, kind: "hospital", draw: hospital }], 21);
+      const leftRaw = buildSide(220, 1500, [
+        { at: 220, w: 60, kind: "park" }, { at: 560, w: 170, kind: "steph", draw: stephansdom },
+        { at: 980, w: 280, kind: "wheel", draw: riesenrad }], 34);
+      const left = leftRaw.pts.map((p) => P(-p.x, p.y));
+      const H = right.meta.hospital;
+      const underline = withLengths(densify([P(-220, 0), P(220, 0)]));
+      const rightPath = withLengths(densify(right.pts));
+      const leftPath = withLengths(densify(left));
+      const WIN = { x: H.x + 92, y: 196, w: 30, h: 24 };
+      const winPath = withLengths(densify([P(WIN.x, WIN.y), P(WIN.x + WIN.w, WIN.y), P(WIN.x + WIN.w, WIN.y + WIN.h), P(WIN.x, WIN.y + WIN.h), P(WIN.x, WIN.y)], 3));
+      // time the pens: constant writing speed
+      const PEN0 = VO + 1.45, PEN1 = VO + 4.5;
+      const fracAtX = (path, xTarget) => { for (let i = 0; i < path.pts.length; i++) if (path.pts[i].x >= xTarget) return path.L[i] / path.total; return 1; };
+      const tHospDone = lerp(PEN0, PEN1, fracAtX(rightPath, H.x + H.w));
+
+      // eye
+      const EYE = { x: 0, y: 610, A: 480, Bopen: 190, r: 150 };
+      const eyePts = (B) => { const up = [], dn = []; const n = 90;
+        for (let i = 0; i <= n; i++) { const x = -EYE.A + 2 * EYE.A * i / n; up.push(P(EYE.x + x, EYE.y + B * Math.pow(Math.max(0, 1 - (x / EYE.A) ** 2), 0.8))); }
+        for (let i = n; i >= 0; i--) { const x = -EYE.A + 2 * EYE.A * i / n; dn.push(P(EYE.x + x, EYE.y - B * Math.pow(Math.max(0, 1 - (x / EYE.A) ** 2), 0.8))); }
+        return { up, dn }; };
+      // the swoop: from the dark window up into the sky, arriving at the eye's left corner
+      const swoop = (() => { const o = []; const a = P(WIN.x + WIN.w / 2, WIN.y + WIN.h / 2), c1 = P(1150, 520), c2 = P(700, 860), b = P(-EYE.A, EYE.y);
+        const c3 = P(-200, 1000), n = 120;
+        for (let i = 0; i <= n; i++) { const u = i / n; // two cubic segments
+          let q; if (u < 0.5) { const s = u * 2; const m = P(250, 820);
+            q = P((1 - s) ** 3 * a.x + 3 * (1 - s) ** 2 * s * c1.x + 3 * (1 - s) * s * s * c2.x + s ** 3 * m.x, (1 - s) ** 3 * a.y + 3 * (1 - s) ** 2 * s * c1.y + 3 * (1 - s) * s * s * c2.y + s ** 3 * m.y); }
+          else { const s = (u - 0.5) * 2; const m = P(250, 820), d1 = P(-200, 760), d2 = P(-700, 700);
+            q = P((1 - s) ** 3 * m.x + 3 * (1 - s) ** 2 * s * d1.x + 3 * (1 - s) * s * s * d2.x + s ** 3 * b.x, (1 - s) ** 3 * m.y + 3 * (1 - s) ** 2 * s * d1.y + 3 * (1 - s) * s * s * d2.y + s ** 3 * b.y); }
+          o.push(q); }
+        return o; })();
+      // rays targets along the skyline
+      const rayTargets = []; seed = 99; for (let i = 0; i < 34; i++) { const x = lerp(-1350, 1350, i / 33) + (rand() - 0.5) * 40; rayTargets.push(P(x, 0)); }
+
+      // ---------- canvas ----------
+      const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+      let cam = { x: 0, y: 0, z: 1 };
+      const sx = (p) => (p.x - cam.x) * cam.z + 960, sy = (p) => -(p.y - cam.y) * cam.z + 540;
+      let boil = 0;
+      const jitter = (i, amp) => hash(boil, i) * amp;
+      // draw a polyline up to a fraction; returns the tip in world coords
+      const drawPath = (path, frac, color, width, salt = 0) => {
+        if (frac <= 0) return null; const target = path.total * clamp(frac, 0, 1);
+        ctx.strokeStyle = color; ctx.lineWidth = width; ctx.lineJoin = "round"; ctx.lineCap = "round";
+        ctx.beginPath(); let tip = path.pts[0];
+        for (let i = 0; i < path.pts.length; i++) {
+          let p = path.pts[i];
+          if (path.L[i] > target) { const a = path.pts[i - 1], f = (target - path.L[i - 1]) / (path.L[i] - path.L[i - 1]); p = P(lerp(a.x, p.x, f), lerp(a.y, p.y, f)); }
+          const j = 1.1; const X = sx(p) + jitter(i * 2 + salt, j), Y = sy(p) + jitter(i * 2 + 1 + salt, j);
+          if (i === 0) ctx.moveTo(X, Y); else ctx.lineTo(X, Y); tip = p;
+          if (path.L[i] > target) break;
+        }
+        ctx.stroke(); return tip;
+      };
+      const penDot = (tip, color, alpha = 1) => { if (!tip) return; ctx.globalAlpha = alpha; ctx.fillStyle = color; ctx.beginPath(); ctx.arc(sx(tip), sy(tip), 5, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1; };
+      // hatching under a drawn outline, revealed left→right (or right→left) up to xLimit
+      const hatch = (path, xFrom, xTo, alpha, color = INK) => {
+        if (alpha <= 0 || xFrom === xTo) return;
+        ctx.save(); ctx.beginPath();
+        path.pts.forEach((p, i) => (i ? ctx.lineTo(sx(p), sy(p)) : ctx.moveTo(sx(p), sy(p))));
+        ctx.lineTo(sx(path.pts[path.pts.length - 1]), sy(P(0, 0))); ctx.lineTo(sx(path.pts[0]), sy(P(0, 0))); ctx.closePath(); ctx.clip();
+        const a = Math.min(xFrom, xTo), b = Math.max(xFrom, xTo);
+        ctx.beginPath(); ctx.rect(sx(P(a, 0)), 0, (b - a) * cam.z, 1080); ctx.clip();
+        ctx.strokeStyle = color; ctx.globalAlpha = alpha; ctx.lineWidth = 1.2;
+        ctx.beginPath(); const sp = 11;
+        for (let k = -1200; k < 3200; k += sp) { ctx.moveTo(k + jitter(k, 1.5), 1080); ctx.lineTo(k + 700, 1080 - 700); }
+        ctx.stroke(); ctx.restore(); ctx.globalAlpha = 1;
+      };
+
+      // ---------- camera ----------
+      const camAt = (t) => {
+        const tipR = (tt) => { const f = sineInOut(lin(PEN0, PEN1, tt)); const target = rightPath.total * f; let i = 0; while (i < rightPath.L.length - 1 && rightPath.L[i] < target) i++; return rightPath.pts[i]; };
+        const A0 = { x: 0, y: 80, z: 1.0 };
+        if (t < PEN0) return { x: 0, y: 80 + 6 * smooth(0, PEN0, t), z: 1.0 + 0.03 * smooth(0, PEN0, t) };
+        const A1 = { x: 0, y: 86, z: 1.03 };
+        if (t < VO + 4.9) { // follow the right-hand pen (lagged), zooming out
+          const tip = tipR(t - 0.3); const k = smooth(PEN0, VO + 4.9, t);
+          return { x: lerp(A1.x, tip.x * 0.55, smooth(PEN0, PEN0 + 0.8, t)), y: lerp(A1.y, 150 + tip.y * 0.2, smooth(PEN0, PEN0 + 0.8, t)), z: lerp(A1.z, 0.62, k) }; }
+        const B = camAt(VO + 4.899);
+        const W = { x: WIN.x + 160, y: WIN.y + 10, z: 1.45 };
+        if (t < VO + 6.9) { const k = inOut(lin(VO + 4.9, VO + 6.9, t)); return { x: lerp(B.x, W.x, k), y: lerp(B.y, W.y, k), z: lerp(B.z, W.z, k) }; }
+        const W2 = { x: WIN.x + 120, y: WIN.y + 20, z: 1.28 };
+        if (t < VO + 9.3) { const k = smooth(VO + 6.9, VO + 9.3, t); return { x: lerp(W.x, W2.x, k), y: lerp(W.y, W2.y, k), z: lerp(W.z, W2.z, k) }; }
+        const E = { x: 0, y: 360, z: 0.54 };
+        if (t < VO + 11.3) { const k = inOut(lin(VO + 9.3, VO + 11.3, t)); return { x: lerp(W2.x, E.x, k), y: lerp(W2.y, E.y, k), z: lerp(W2.z, E.z, k) }; }
+        const k = lin(VO + 11.3, 15, t); return { x: 0, y: 360 + 10 * k, z: 0.54 + 0.035 * k };
+      };
+
+      // ---------- grain ----------
+      const gctx = document.getElementById("grain").getContext("2d");
+      const gimg = gctx.createImageData(480, 270);
+      const drawGrain = (frame) => { let s = (Math.floor(frame / 2) * 2654435761) >>> 0;
+        for (let i = 0; i < gimg.data.length; i += 4) { s = (s * 1664525 + 1013904223) >>> 0; const n = (s >>> 24) - 128; const v = n > 0 ? 255 : 60; gimg.data[i] = v; gimg.data[i + 1] = v * 0.95; gimg.data[i + 2] = v * 0.85; gimg.data[i + 3] = Math.abs(n) * 0.1; }
+        gctx.putImageData(gimg, 0, 0); };
+
+      // ---------- DOM ----------
+      const year = document.getElementById("year"), tens = document.getElementById("tens"), ones = document.getElementById("ones");
+      const yearLabel = document.querySelector("#yearLabel span");
+      const tag = document.getElementById("tag"), tagRule = tag.querySelector(".rule"), tagT = tag.querySelectorAll(".t > span");
+
+      const render = (t) => {
+        const frame = Math.round(t * 30); boil = Math.floor(frame / 2); // line boils on twos
+        cam = camAt(t);
+        ctx.fillStyle = PAPER; ctx.fillRect(0, 0, 1920, 1080);
+        const W = Math.max(2.2, 3.2 * Math.sqrt(cam.z)); // ink weight
+
+        // year: rolls to 2031, sits on the underline, then becomes the stamp
+        const roll = expoOut(smooth(0.15, VO + 0.75, t));
+        tens.style.transform = `translateY(${-300 * smooth(0.5, VO + 0.6, t)}px)`;
+        ones.style.transform = `translateY(${-300 * 5 * roll}px)`;
+        const shrink = inOut(smooth(VO + 1.3, VO + 2.5, t));
+        const yw = year.offsetWidth; const base = sy(P(0, 0));
+        const x = lerp(960 - yw / 2, 96, shrink), y = lerp(base - 262, 74, shrink);
+        year.style.transform = `translate(${x}px, ${y}px) scale(${lerp(1, 0.36, shrink)})`;
+        const lab = expoOut(smooth(VO + 2.2, VO + 3.0, t));
+        yearLabel.style.transform = `translateY(${(1 - lab) * 30}px)`; yearLabel.style.opacity = lab;
+
+        // underline (the line is born under the year), then two pens draw Vienna outward
+        const uTip = drawPath(underline, expoOut(lin(VO + 0.2, VO + 1.1, t)), INK, W, 0);
+        const pf = sineInOut(lin(PEN0, PEN1, t));
+        // hatching follows each pen a beat later
+        const hf = sineInOut(lin(PEN0 + 0.5, PEN1 + 0.6, t));
+        hatch(rightPath, 220, lerp(220, 1700, hf), 0.18);
+        hatch(leftPath, -220, lerp(-220, -1700, hf), 0.18);
+        const rTip = drawPath(rightPath, pf, INK, W, 1000);
+        const lTip = drawPath(leftPath, pf, INK, W, 5000);
+        if (t < VO + 1.2) penDot(uTip, INK, 1 - smooth(VO + 1.0, VO + 1.2, t));
+        if (pf > 0 && pf < 1) { penDot(rTip, INK); penDot(lTip, INK); }
+
+        // window: drawn right after the hospital, lit amber, flickers off on "screen"
+        const wf = lin(tHospDone + 0.05, tHospDone + 0.45, t);
+        const on = smooth(Math.max(VO + 3.3, tHospDone + 0.4), Math.max(VO + 3.3, tHospDone + 0.4) + 0.5, t);
+        const offT = VO + 6.62; let off = 0;
+        if (t > offT) { const k = t - offT; off = k < 0.06 ? 0.6 : k < 0.11 ? 0.15 : k < 0.16 ? 0.75 : clamp(0.75 + (k - 0.16) * 3, 0, 1); }
+        const lit = on * (1 - off);
+        if (lit > 0) { ctx.fillStyle = AMBER; ctx.globalAlpha = lit; ctx.fillRect(sx(P(WIN.x, WIN.y + WIN.h)), sy(P(WIN.x, WIN.y + WIN.h)), WIN.w * cam.z, WIN.h * cam.z);
+          // warm hatch spill around the window
+          ctx.strokeStyle = AMBER; ctx.lineWidth = 1.4; ctx.globalAlpha = lit * 0.55; ctx.beginPath();
+          for (let k = 0; k < 9; k++) { const r0 = 24 + k * 7; const cx = sx(P(WIN.x + WIN.w / 2, 0)), cy = sy(P(0, WIN.y + WIN.h / 2));
+            ctx.moveTo(cx - r0 * cam.z + jitter(k, 1), cy + 26 * cam.z); ctx.lineTo(cx - r0 * cam.z + 20 * cam.z, cy - 26 * cam.z); }
+          ctx.stroke(); ctx.globalAlpha = 1; }
+        drawPath(winPath, wf, INK, W * 0.8, 9000);
+
+        // label anchored to the window
+        const wx = sx(P(WIN.x + WIN.w, 0)), wy = sy(P(0, WIN.y + WIN.h / 2));
+        tag.style.left = `${wx + 150}px`; tag.style.top = `${wy - 16}px`;
+        const tagIn = expoOut(smooth(VO + 4.2, VO + 5.0, t)), tagOut = smooth(VO + 6.7, VO + 7.3, t);
+        tagRule.style.transform = `scaleX(${tagIn * (1 - tagOut)})`;
+        tagT.forEach((s, i) => { const k = expoOut(smooth(VO + 4.35 + i * 0.12, VO + 5.15 + i * 0.12, t)); s.style.transform = `translateY(${(1 - k) * 110 + tagOut * -110}%)`; });
+
+        // machine: a cyan line leaves the dark window, swoops up, draws a closed eye ("something learned to")
+        const open = expoOut(lin(VO + 10.85, VO + 11.7, t));
+        const B = lerp(5, EYE.Bopen, open);
+        const ep = eyePts(B);
+        const eyePath = withLengths(densify([...swoop, ...ep.up, ...ep.dn], 6));
+        const sw = sineInOut(lin(VO + 9.35, VO + 10.8, t));
+        // the swoop's tail fades once the eye exists
+        if (sw > 0) {
+          const tipE = drawPath(eyePath, sw, CYAN, W * 1.05, 20000);
+          if (sw < 1) penDot(tipE, CYAN);
+          const swoopLen = withLengths(densify(swoop, 6)).total;
+          const erase = smooth(VO + 11.0, VO + 12.0, t);
+          if (erase > 0) { // paint the swoop away from its start (paper over it)
+            const sp = withLengths(densify(swoop, 6));
+            ctx.save(); ctx.globalAlpha = 1; drawPath(sp, erase, PAPER, W * 3.2, 30000); ctx.restore();
+          }
+        }
+        // iris + pupil on "see"
+        if (open > 0) {
+          ctx.save(); ctx.beginPath(); ep.up.forEach((p, i) => (i ? ctx.lineTo(sx(p), sy(p)) : ctx.moveTo(sx(p), sy(p)))); ep.dn.forEach((p) => ctx.lineTo(sx(p), sy(p))); ctx.closePath(); ctx.clip();
+          const cx = sx(P(EYE.x, 0)), cy = sy(P(0, EYE.y)), R = EYE.r * cam.z;
+          const ir = expoOut(lin(VO + 10.95, VO + 11.6, t));
+          ctx.fillStyle = CYAN; ctx.globalAlpha = 0.18 * ir; ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
+          ctx.strokeStyle = CYAN; ctx.lineWidth = W * 1.05; ctx.beginPath(); ctx.arc(cx, cy, R, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * ir); ctx.stroke();
+          // iris fibres
+          const fib = lin(VO + 11.15, VO + 11.95, t); ctx.lineWidth = 1.5; ctx.beginPath();
+          for (let k = 0; k < 72; k++) { if (k / 72 > fib) break; const a = k / 72 * Math.PI * 2 + t * 0.04; const r0 = R * 0.42, r1 = R * (0.86 + 0.1 * hash(k, 3));
+            ctx.moveTo(cx + Math.cos(a) * r0, cy + Math.sin(a) * r0); ctx.lineTo(cx + Math.cos(a + 0.05) * r1 + jitter(k, 1), cy + Math.sin(a + 0.05) * r1); }
+          ctx.stroke();
+          const pr = R * 0.36 * expoOut(lin(VO + 11.25, VO + 11.85, t)) * (1 + 0.04 * Math.sin(t * 2.2));
+          ctx.fillStyle = INK; ctx.beginPath(); ctx.arc(cx, cy, pr, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = PAPER; ctx.beginPath(); ctx.arc(cx + R * 0.16, cy - R * 0.16, pr * 0.22, 0, Math.PI * 2); ctx.fill();
+          ctx.restore();
+        }
+        // rays rake the city on "better than all of us"
+        const rk = lin(VO + 11.9, VO + 13.3, t);
+        if (rk > 0) { ctx.strokeStyle = CYAN; ctx.lineWidth = 1.6; ctx.globalAlpha = 0.7; ctx.beginPath();
+          rayTargets.forEach((tp, i) => { const local = clamp((rk - i / rayTargets.length * 0.6) / 0.4, 0, 1); if (local <= 0) return; const e = expoOut(local);
+            const from = P(EYE.x + tp.x * 0.12, EYE.y - EYE.Bopen * 0.6); const to = P(lerp(from.x, tp.x, e), lerp(from.y, tp.y + 20, e));
+            ctx.moveTo(sx(from) + jitter(i, 1), sy(from)); ctx.lineTo(sx(to) + jitter(i + 50, 1), sy(to)); });
+          ctx.stroke(); ctx.globalAlpha = 1;
+          // the city's hatching turns cyan behind the rays
+          hatch(rightPath, 220, lerp(220, 1700, rk), 0.22 * smooth(VO + 12.0, VO + 13.0, t), CYAN);
+          hatch(leftPath, -220, lerp(-220, -1700, rk), 0.22 * smooth(VO + 12.0, VO + 13.0, t), CYAN);
+        }
+
+        drawGrain(frame);
+      };
+
+      document.fonts.load('300px "Instrument Serif"').then(() => render(window.__timelines.main.time()));
+      const clock = { _t: 0, get t() { return this._t; }, set t(v) { this._t = v; render(v); } };
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(clock, { t: 0 }, { t: 15, duration: 15, ease: "none" }, 0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      render(0);
+    </script>
+  </body>
+</html>
