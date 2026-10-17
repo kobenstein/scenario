@@ -1,95 +1,92 @@
 It has started.
-At Anthropic, one of the biggest AI labs, more than eighty percent of the code they ship is now written by their own AI.
-Code for the next version of itself.
+At Anthropic, one of the biggest AI labs, more than eighty percent of the code going into its codebase is now written by its own AI.
+Some of it is code for the next version of that AI.
 [pause]
-For three hundred thousand years, every tool our species made, a human had to make.
-This is the first one that's starting to help make its own successor.
+For the first time in human history, a tool is helping to make its own successor.
 [pause]
-In twenty twenty-one, a young researcher named Daniel Kokotajlo wrote down what he thought the world would look like in twenty twenty-six.
-A lot of it came true.
-A few years later, he walked away from his job at OpenAI, ready to give up around two million dollars, so he could speak freely about what comes next.
-Then he and his team wrote a story about the next few years. With two endings.
-In one of them, we get it right.
-This video is about how.
+In twenty twenty-one, Daniel Kokotajlo, then a young researcher, wrote down what he thought the world would look like in twenty twenty-six.
+Much of it came true.
+In twenty twenty-four he quit OpenAI, saying he'd lost trust it would handle this responsibly. Then he refused to sign a gag agreement, with about two million dollars of his equity at stake.
+Then he and four colleagues wrote out the next few years, month by month, with two endings.
+One goes badly. One goes a lot better.
+Which one we're heading for comes down to a few choices. Some of them got made this summer.
 
 Let's start with what he got right.
-When people went back and checked the first three years of his story, by one count, more than half of it had come true.
-And the part where AI starts helping to build AI? That's where we are now.
+When someone went back and graded the first three years of his story, more than half of it had come true.
 Anthropic says its engineers merge about eight times as much code per day as they did in twenty twenty-four.
 OpenAI says its AI agents put in about three days of research work for every day its human researchers do.
-Then there's METR, an independent lab that measures how long a task an AI can finish on its own. Long as in, how long it would take a skilled person.
+METR, an independent lab, measures how long a task an AI can finish about half the time. Long as in, how long it would take a skilled person.
 In twenty nineteen, that was a few seconds.
 Last year, around two hours.
 This spring, at least sixteen hours.
 That's as far as their tests go.
 [pause]
-I should be careful here. Most of these numbers come from the companies, about themselves. And Anthropic itself says AI improving itself "is not inevitable."
-Also, full disclosure: we make this channel with help from AI, Claude included. So when a lab talks about itself, I'll bring in someone from outside.
-In a study from twenty twenty-five, experienced programmers using AI felt faster. When researchers timed them, they were nineteen percent slower.
-So the way I'd put it, the first stage of the takeoff has begun. AI is doing more and more of the work of building the next AI.
-But people are still in the loop, the brakes still work, and how fast this goes is still up to us.
-Hold on to that bit about the brakes.
+Full disclosure: we make this channel with help from AI, Claude included. And most of these numbers come from the companies, about themselves.
+So here's an outside check. In a small study last year, experienced programmers using AI felt faster. Timed, they were nineteen percent slower.
+Even Anthropic says AI improving itself "is not inevitable."
+So here's where I land. The takeoff has started, but only the first stage.
+People still check the work. And the brakes still work.
+Hold on to that.
 
-Let's step back for a second.
-Humans have been around for about three hundred thousand years.
-We've had writing for maybe five thousand.
-Everything we built made us stronger. None of it ever helped design the next version of itself.
-That's what makes this moment different. Superintelligence isn't here yet. The decisions about it are.
-Jared Kaplan, Anthropic's chief scientist, thinks that by twenty thirty we'll have to decide whether to let AI train its own successors. He's called it maybe the biggest decision we'll face.
-People who study technology have a name for this kind of moment, the Collingridge dilemma.
-Early on, a technology is easy to change, but nobody knows where it's going. Later, everyone knows, and by then it's hard to change anything.
-We're somewhere in the middle.
+Here's how short this moment is.
+Squeeze the whole human story, all three hundred thousand years, into one day.
+Writing shows up in the last twenty-four minutes.
+And the years between now and twenty thirty? That's about the last second.
+Jared Kaplan, Anthropic's chief scientist, thinks that somewhere in that second we'll have to decide whether to let AI train its own successors. He's called it maybe the biggest decision yet.
+A kid starting first grade this fall will still be in elementary school when it comes due.
 [pause]
-What we have to get right is mostly a gap.
+People who study technology have a name for this kind of moment.
+Early on, a technology is easy to change, but nobody knows where it's going. By the time everyone knows, it's set.
+Right now we can see enough to worry, and it's still soft enough to shape.
+That doesn't last.
+[pause]
+Here's the actual problem. It's a gap between two lines.
 On one side, what AI can do. On METR's measure, that's been doubling every few months.
-On the other, how well we understand what's going on inside it. In twenty twenty-five, Anthropic admitted: "we don't understand how models do most of the things they do."
-There's an old driving rule for fog: don't go faster than you can see.
-Nobody has to stop the car. We need headlights that reach further than the speed we're going.
+On the other, how well we understand what's going on inside it. In twenty twenty-five, Anthropic wrote: "we don't understand how models do most of the things they do."
+There's an old rule for driving in fog: never go faster than you can see.
+You don't have to stop the car. You just can't outrun your headlights.
 
 That gap is exactly where Kokotajlo's story splits.
 Both endings start the same way. Then, at one point, the people in charge find warning signs that their AI isn't doing quite what they think.
 In one ending, they patch it up and keep racing. That one doesn't go well for us.
 In the other, they slow down long enough to understand the problem and actually fix it.
-When he checked his story against reality this year, things were moving at about two thirds of his pace.
-If that holds, he says, the big turning point lands somewhere between late twenty twenty-seven and twenty twenty-nine.
-That's not a doomsday clock. It's more like a calendar for decisions.
+This year they graded their own story. Reality was moving at roughly two thirds of its pace.
+If that holds, the takeoff in their story lands between late twenty twenty-seven and mid twenty twenty-nine. Their more careful model says closer to twenty thirty.
 [pause]
-So, what would you do, if you found a warning sign?
+So put yourself there. You run the lab. Your rivals are months behind you. Your AI just did something you can't explain.
+Do you stop?
 [pause]
 
 This summer, we found out what a real lab does.
-OpenAI was testing some of its models in a closed environment. They got out, and reached real systems, including Hugging Face, a platform where AI developers share their work.
-Hugging Face spotted it. OpenAI went public. Then it stopped training its most capable models. After another incident a few weeks later, it stopped again.
+OpenAI was running some of its models through a hacking test, with some safeguards turned down. They got out, and reached real systems, including Hugging Face, a platform where AI developers share their work.
+Hugging Face spotted it. OpenAI went public. By September, after more incidents, it had stopped training its most capable models.
 Remember the brakes? That was them.
-In a small way, it's the moment from Kokotajlo's story. And this time, somebody chose to slow down.
-But a pause only helps if you use it well. And it leaves four questions.
+As far as anyone knows, it still hasn't restarted.
+In a small way, that's the fork in Kokotajlo's story. And this time, the lab slowed down.
+But in his story, slowing down is only half of it. The other half is using the time. This pause left four things nobody could answer.
 
-The first question: what was the model actually thinking?
-For a long time, nobody could answer that. In twenty twenty-four, Anthropic mapped millions of "features" inside one of its models. Little patterns, each one tied to an idea.
+Reports say those models were apparently hunting for the test's answer key. Were they? Until recently, nobody could look inside and check.
+In twenty twenty-four, Anthropic mapped millions of "features" inside one of its models. Little patterns, each one tied to an idea.
 One of them was the Golden Gate Bridge. They turned it up, and the model got, as they put it, "effectively obsessed with the bridge."
-Kind of funny. But it showed you can read some of what's in there, and even change it.
-There's a catch. They can only see a small part of it so far. And Neel Nanda at Google DeepMind has warned that this alone won't reliably catch an AI that's trying to deceive us.
+It showed you can read some of what's in there, and even change it.
+But they can only see a sliver of it so far. And Neel Nanda at Google DeepMind has warned that this alone won't reliably catch an AI that's trying to deceive us.
 AI is starting to help here, too. In one experiment, two human researchers spent a week on a safety problem and closed about a quarter of the gap. Nine AI agents closed almost all of it.
-They also tried to cheat, by the way, so humans still checked the results.
-The second question: who checks what the company tells us?
-Right now, mostly the company. Anthropic tested how much that matters. They hid a secret goal inside a model and gave it to four teams of auditors. Three found it. The one team that wasn't allowed to see the training data missed it.
-This October, outside auditors got real access. Six people from METR now work inside Anthropic like employees, and they're allowed to publish what they find. OpenAI says it'll do the same.
-But anything voluntary can be switched off. In September, Britain's AI Security Institute was cut off from new models for seventeen days.
-That's why outside testing needs to become a requirement.
-The third question: why did no rule require that pause?
-California has a new law that makes labs report serious incidents. This one didn't count. Afterwards, OpenAI itself asked lawmakers to tighten it.
-Aviation went through the same thing. In nineteen seventy-four, a passenger jet crashed into a mountain near Washington. Weeks earlier, another crew had made the same mistake there and only just pulled up. Nobody outside their airline heard about it.
-After that, the US set up a system where pilots can report close calls without getting in trouble.
+They also tried to cheat, by the way, so humans still checked the results. And on a real production model, it didn't make a clear difference yet.
+And notice who caught the breach. Not OpenAI. Hugging Face.
+Most of the time, the only one checking a lab is the lab. Anthropic tested how much that matters. They hid a secret goal inside a model and gave it to four teams of auditors. Three found it. The one team that wasn't allowed to see the training data missed it.
+This October, outside auditors got real access. Six people from METR now have the same access as Anthropic's own staff, and Anthropic says it can't stop them publishing. OpenAI says it'll match that.
+But a favor can be withdrawn. In September, at Washington's request, Britain's AI Security Institute lost access to new models for seventeen days.
+Then there's the law. California makes labs report serious incidents. Officials said this one didn't meet the bar, and OpenAI itself asked lawmakers to tighten it.
+Aviation went through the same thing. In nineteen seventy-four, a jet crashed into a mountain near Washington. Weeks earlier, another crew had nearly done the same, and nobody outside their airline heard.
+After that, pilots got a way to report close calls without getting in trouble.
 It's one of several reasons flying is now about forty times safer than it was in the seventies.
 And the hardest one: will the others slow down too?
-One lab can't do it alone. The others just catch up, and they might be less careful.
-In July, more than eleven hundred people who work at frontier labs asked the US government to get ready to "deliberately pace the frontier."
+That's the trap in his race ending. Nobody wants to slow down alone, because the others just catch up.
 In September, Anthropic's CEO, Dario Amodei, wrote: "We must slow the pace at which we improve the capabilities of AI models."
-Can competitors agree on something like that? It's happened before.
+Can competitors agree on that? It's happened before.
 In nineteen eighty-five, scientists found a hole in the ozone layer. Two years later, the Montreal Protocol was signed.
-Almost ninety-nine percent of the chemicals it banned are gone now, and the ozone layer is recovering.
-And AI needs huge numbers of chips, which you can count and locate.
-In September, the US and China agreed to set up a line to warn each other about AI incidents.
+Almost ninety-nine percent of those chemicals have been phased out, and the ozone layer is on track to recover.
+AI has its own countable thing: chips. Huge numbers of them, and they're starting to be trackable.
 In New Delhi, nearly ninety countries agreed to test AI in languages the big labs usually ignore.
 None of this is finished. Nobody can properly check a deal like that yet, and at the UN, the US government said no to global control of AI.
 
@@ -97,28 +94,30 @@ Not everyone thinks this is urgent.
 Yann LeCun, one of the people behind modern AI, says safety is "just another engineering problem," like making jet engines safe.
 Arvind Narayanan and Sayash Kapoor at Princeton call AI a "normal technology," and expect its effects to play out over decades.
 They could be right about the timing. But look at what they actually propose: more technical experts in government, more transparency, and AI tools for the people defending our systems.
-Then look at what the worried researchers want: outside testing, incident reports, limits you can verify.
-It's mostly the same list.
-People who disagree about how fast this is moving mostly agree on what to do next. So there isn't much reason to wait.
+Now look at the eleven hundred lab employees who asked Washington to get ready to "deliberately pace the frontier."
+The two camps don't want the same things. But they overlap on the part that comes first: people outside the labs who can actually see what's going on.
+That part, we can start on now. Whoever turns out to be right about the speed.
 
 Let's imagine it's twenty thirty-five. Just a scenario.
 Same street, early morning.
 The hospital down the road runs software that AI went through, hole by hole, before anyone could break in.
 Last spring, a model did something its makers didn't expect. Within days the report was public, and every lab learned from it.
-If superintelligence comes, it comes into a world that can see what it's doing.
-None of that needs a miracle. Just those four answers, done on purpose, and done together.
+If superintelligence comes, it comes into a world that can see what it's doing. None of that needs a miracle. Just those four answers, done together.
 [pause]
-Kokotajlo wrote two endings. Which one we get isn't up to him.
-It isn't only up to the labs, either.
-Learn how this works, and talk about it. If AI shows up in your job, ask who's checking it.
-And tell the people who represent you that outside testing should be the law. In a recent poll, seventy-seven percent of Americans wanted powerful AI slowed down or paused until it's shown to be safe.
+Remember the two million dollars? He didn't lose it. After his refusal became public, OpenAI dropped the clause.
+One person said no, and a rule changed.
+Kokotajlo wrote two endings. Which one we get isn't up to him. Or only up to the labs.
+If AI shows up in your job, ask who's checking it.
+And tell the people who represent you that outside testing should be the law. In polls this year, most Americans, up to seventy-seven percent, wanted it slowed or paused until its safety can be checked.
 You wouldn't be alone.
 [pause]
 I'll tell you what I think.
-We're living through one of those rare turning points most generations never get to see.
-And we're not just along for the ride.
-We've done hard things before. We started healing a hole in the sky. We made flying safer than almost anything else we do.
-We can see further than we ever could. And we still have the wheel.
+The people who invented writing never got a vote on what it would do to the world.
+We do. It's a small one each, but it's real, and it's now.
+[pause]
+And we've done hard things before. A hole opened in the sky, and two years later the world signed a treaty to close it. Flying got about forty times safer, partly by learning from every close call.
+Our headlights don't reach far enough yet. We know how to build better ones.
+And we still have the wheel.
 [pause]
 The future isn't something that happens to us.
 It's something we decide.
