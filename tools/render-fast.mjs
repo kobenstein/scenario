@@ -46,7 +46,7 @@ const total = Math.round(duration * fps);
 const from = Number(arg("from", 0)), to = Math.min(Number(arg("to", total)), total);
 
 const ff = spawn("ffmpeg", ["-hide_banner", "-loglevel", "error", "-y", "-f", "image2pipe", "-vcodec", "mjpeg", "-framerate", String(fps), "-i", "-",
-  "-c:v", "libx264", "-crf", "16", "-preset", "medium", "-pix_fmt", "yuv420p", "-r", String(fps), out], { stdio: ["pipe", "inherit", "inherit"] });
+  "-c:v", "libx264", "-crf", "19", "-preset", "medium", "-pix_fmt", "yuv420p", "-r", String(fps), out], { stdio: ["pipe", "inherit", "inherit"] });
 const t0 = Date.now();
 for (let f = from; f < to; f++) {
   await page.evaluate(([c, t]) => { window.__timelines[c].seek(t, false); }, [comp, f / fps]);
