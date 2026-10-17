@@ -1,4 +1,5 @@
-{"model": "fal-ai/elevenlabs/music", "note": "Cue A 0-337.81 s (hook..fork), cue B 337.81-668.99 s (endings..solutions, its tail from 331 s is silent and unused), cue C 668.99-730.88 s (your part + end screen). Copies in /mnt/project-files/scenario/folge-01/audio/.",
- "a": "https://v3b.fal.media/files/b/0aaec55f/di3Y7_-Yo1ERyjeEHUhJR_music_generated.mp3",
- "b": "https://v3b.fal.media/files/b/0aaec55d/6gG9Q2JCnLa25dZ_jJ2KE_music_generated.mp3",
- "c": "https://v3b.fal.media/files/b/0aaec564/Rvk-i2ciuoos7NjBxOLyZ_music_generated.mp3"}
+{"model": "fal-ai/elevenlabs/music", "style": "mysterious, fascinating, something momentous is happening (Jakob, 2026-10-17)",
+ "note": "Cue A 0-337.81 s (hook..fork), cue B 337.81-668.99 s (endings..solutions), cue C 668.99-730.88 s (your part + end screen). Copies in /mnt/project-files/scenario/folge-01/audio/ (first warm version in v1-warm/).",
+ "a": "https://v3b.fal.media/files/b/0aaec5df/CAjQrxbEmEuLaaAwdqHyA_music_generated.mp3",
+ "b": "https://v3b.fal.media/files/b/0aaec5df/1TXNQrUHwFNjK5B8XuJQT_music_generated.mp3",
+ "c": "https://v3b.fal.media/files/b/0aaec5dc/V6HaFT-Snj1x2DVX9ew3u_music_generated.mp3"}
