@@ -22,7 +22,7 @@ This is the first one that's starting to help make its own successor.
 In twenty twenty-one, a young researcher named Daniel Kokotajlo wrote down what he thought the world would look like in twenty twenty-six. [S16]
 A lot of it came true.
 A few years later, he walked away from his job at OpenAI, ready to give up around two million dollars, so he could speak freely about what comes next. [S17]
-Then he wrote a story about the next few years. With two endings. [S19]
+Then he and his team wrote a story about the next few years. With two endings. [S19]
 In one of them, we get it right.
 This video is about how.
 ON SCREEN: >80% · code merged at Anthropic written by Claude · May 2026 / 2021 → 2026 / DANIEL KOKOTAJLO · forecaster, former OpenAI
@@ -32,7 +32,7 @@ LOOP: opens "Which ending do we get?" and "How do we get the good one?"
 ## 2 · What has started (0:50–2:35)
 VO:
 Let's start with what he got right.
-When people went back and checked the first three years of his story, more than half of it had come true. [S16]
+When people went back and checked the first three years of his story, by one count, more than half of it had come true. [S16]
 And the part where AI starts helping to build AI? That's where we are now.
 Anthropic says its engineers merge about eight times as much code per day as they did in twenty twenty-four. [S1]
 OpenAI says its AI agents put in about three days of research work for every day its human researchers do. [S2]

@@ -8,12 +8,12 @@ This is the first one that's starting to help make its own successor.
 In twenty twenty-one, a young researcher named Daniel Kokotajlo wrote down what he thought the world would look like in twenty twenty-six.
 A lot of it came true.
 A few years later, he walked away from his job at OpenAI, ready to give up around two million dollars, so he could speak freely about what comes next.
-Then he wrote a story about the next few years. With two endings.
+Then he and his team wrote a story about the next few years. With two endings.
 In one of them, we get it right.
 This video is about how.
 
 Let's start with what he got right.
-When people went back and checked the first three years of his story, more than half of it had come true.
+When people went back and checked the first three years of his story, by one count, more than half of it had come true.
 And the part where AI starts helping to build AI? That's where we are now.
 Anthropic says its engineers merge about eight times as much code per day as they did in twenty twenty-four.
 OpenAI says its AI agents put in about three days of research work for every day its human researchers do.
