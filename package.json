@@ -1,0 +1,11 @@
+{
+  "name": "scenario",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "render-fast": "node tools/render-fast.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "1.56.1"
+  }
+}
