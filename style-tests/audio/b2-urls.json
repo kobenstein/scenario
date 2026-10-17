@@ -1,0 +1,8 @@
+{
+ "music": "https://v3b.fal.media/files/b/0aaec0eb/evYejSnx-SK_gy8lXo8lt_music_generated.mp3",
+ "screen_off": ["https://v3b.fal.media/files/b/0aaec0ec/k_0iTW7Cj04YXrfoY_rQy_generated_audio_1.wav","https://v3b.fal.media/files/b/0aaec0ec/-JTcFsEfXkyNOph9nC9TN_generated_audio_2.wav","https://v3b.fal.media/files/b/0aaec0ec/3r-9hR04NkGFqN7fDwVi3_generated_audio_3.wav"],
+ "eye_open": ["https://v3b.fal.media/files/b/0aaec0ec/_8zK6FHHsjbbYqmlZdZOC_generated_audio_1.wav","https://v3b.fal.media/files/b/0aaec0ec/KwJRijUeJRqbW0bLCvI_l_generated_audio_2.wav","https://v3b.fal.media/files/b/0aaec0ec/u6exfZ7a4iPaKy_CrD_Ei_generated_audio_3.wav"],
+ "city_ambience": ["https://v3b.fal.media/files/b/0aaec0ec/GpUXPQb4nGRuyl3qGaVhI_generated_audio_1.wav","https://v3b.fal.media/files/b/0aaec0ec/h5x3m4mAyj4m5EIWuggaZ_generated_audio_2.wav"],
+ "paper_pop": ["https://v3b.fal.media/files/b/0aaec0eb/jbdG_WDNrgD4Lbe0xdoZa_generated_audio_1.wav","https://v3b.fal.media/files/b/0aaec0eb/XiBSVBcwkZZ6GnvzBTBsh_generated_audio_2.wav","https://v3b.fal.media/files/b/0aaec0eb/U0fzj3nYI2eEseqV-OrPi_generated_audio_3.wav"],
+ "timing_video_s": {"vo_offset": 0.6, "paper_pop": [0.7, 3.24], "screen_off": 7.22, "eye_slit": 10.6, "eye_open": 11.4, "music_sections_ms": [4000, 3200, 4200, 3600]}
+}

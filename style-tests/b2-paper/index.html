@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <!--
+      Style test B2 — "Paper Diorama" with the scenario-motion rules (perpetual motion, arcs, posed figure, 2x supersampling)
+      Motion DNA: calm + soft. Paper-theatre mechanics: layers hinge up like a pop-up book (spring, small overshoot),
+      the moon/eye slides up on a stage rod. Real light and real shadows between layers are the texture.
+      Through-line: the paper "2031" pops up, folds away as Vienna pops up behind it; one warm window goes dark;
+      a dark paper disc rises behind the skyline like a second moon, a cyan slit leaks light, the lids fold back on "see",
+      and its cyan light throws the city's shadows toward us on "better than all of us". Wow moment: that light swing.
+      Palette: night paper navy #0e1626 → #3a5078, cream edges #efe6d2, amber #ffb35c (human), cyan #6fe3ff (machine).
+    -->
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Instrument Serif"; src: url(assets/InstrumentSerif.woff2) format("woff2"); font-display: block; }
+      @font-face { font-family: "Inter"; src: url(assets/Inter-400-normal.woff2) format("woff2"); font-weight: 100 900; font-display: block; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #070b14; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #070b14; }
+      #gl, #grain { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+      #grain { pointer-events: none; }
+      #vignette { position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(ellipse 80% 75% at 50% 48%, rgba(0,0,0,0) 55%, rgba(3,5,10,0.7) 100%); }
+      #stamp { position: absolute; left: 96px; top: 70px; font-family: "Instrument Serif", serif; color: #efe6d2; font-size: 108px; line-height: 1; letter-spacing: -0.02em; }
+      #stampLabel { position: absolute; left: 98px; top: 182px; font-family: "Inter", sans-serif; font-size: 22px;
+        letter-spacing: 0.32em; text-transform: uppercase; color: #9aa5b8; overflow: hidden; }
+      #stamp span, #stampLabel span { display: inline-block; }
+      #stamp { overflow: hidden; padding-bottom: 8px; }
+      #tag { position: absolute; font-family: "Inter", sans-serif; color: #ffd9a8; font-size: 22px; letter-spacing: 0.04em; white-space: nowrap; }
+      #tag .rule { position: absolute; left: -132px; top: 14px; width: 116px; height: 1px; background: #ffb35c; transform-origin: 100% 50%; }
+      #tag .t { display: inline-block; overflow: hidden; }
+      #tag .t span { display: inline-block; }
+      #tag .sub { display: block; color: #9aa5b8; font-size: 17px; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 8px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="15" data-width="1920" data-height="1080">
+      <canvas id="gl" class="clip" data-start="0" data-duration="15" width="1920" height="1080"></canvas>
+      <div id="vignette" class="clip" data-start="0" data-duration="15"></div>
+      <div id="tag" class="clip" data-start="0" data-duration="15">
+        <div class="rule"></div>
+        <div class="t"><span>The last human radiologist</span></div>
+        <span class="sub"><span class="t"><span>Vienna General Hospital, 7th floor</span></span></span>
+      </div>
+      <div id="stamp" class="clip" data-start="0" data-duration="15"><span>2031</span></div>
+      <div id="stampLabel" class="clip" data-start="0" data-duration="15"><span>Scenario · Vienna</span></div>
+      <canvas id="grain" class="clip" data-start="0" data-duration="15" width="480" height="270"></canvas>
+    </div>
+
+    <script type="importmap">{ "imports": { "three": "./assets/three.module.min.js" } }</script>
+    <script type="module">
+      import * as THREE from "three";
+      import { EffectComposer } from "./assets/jsm/postprocessing/EffectComposer.js";
+      import { RenderPass } from "./assets/jsm/postprocessing/RenderPass.js";
+      import { UnrealBloomPass } from "./assets/jsm/postprocessing/UnrealBloomPass.js";
+      import { OutputPass } from "./assets/jsm/postprocessing/OutputPass.js";
+
+      // ---------- deterministic helpers ----------
+      let seed = 4242;
+      const rand = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+      const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+      const smooth = (a, b, t) => { const x = clamp((t - a) / (b - a), 0, 1); return x * x * (3 - 2 * x); };
+      const lin = (a, b, t) => clamp((t - a) / (b - a), 0, 1);
+      const expoOut = (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
+      const inOut = (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2);
+      // pop-up spring: fast rise, ~8% overshoot, settles (paper has little bounce)
+      const spring = (x) => (x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.exp(-6 * x) * Math.cos(8.5 * x));
+      const lerp = (a, b, t) => a + (b - a) * t;
+      const VO = 0.6;
+
+      // ---------- renderer ----------
+      const canvas = document.getElementById("gl");
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+      renderer.setPixelRatio(2); renderer.setSize(1920, 1080, false);
+      renderer.setClearColor(0x070b14, 1);
+      renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15;
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.Fog(0x0b1222, 70, 170);
+      const camera = new THREE.PerspectiveCamera(35, 1920 / 1080, 0.1, 500);
+      const composer = new EffectComposer(renderer);
+      composer.setPixelRatio(2); composer.setSize(1920, 1080);
+      composer.addPass(new RenderPass(scene, camera));
+      const bloom = new UnrealBloomPass(new THREE.Vector2(1920, 1080), 0.4, 0.55, 0.92);
+      composer.addPass(bloom);
+      composer.addPass(new OutputPass());
+
+      // ---------- paper texture (fibres + tooth), deterministic ----------
+      const paperTex = (() => {
+        const S = 512, c = document.createElement("canvas"); c.width = c.height = S; const g = c.getContext("2d");
+        const img = g.createImageData(S, S);
+        for (let i = 0; i < img.data.length; i += 4) { const v = 232 + (rand() - 0.5) * 34; img.data[i] = img.data[i + 1] = img.data[i + 2] = v; img.data[i + 3] = 255; }
+        g.putImageData(img, 0, 0);
+        g.globalAlpha = 0.08; g.strokeStyle = "#ffffff"; g.lineWidth = 1;
+        for (let k = 0; k < 900; k++) { const x = rand() * S, y = rand() * S, a = rand() * Math.PI, l = 6 + rand() * 22;
+          g.beginPath(); g.moveTo(x, y); g.quadraticCurveTo(x + Math.cos(a) * l * 0.5 + (rand() - 0.5) * 6, y + Math.sin(a) * l * 0.5, x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke(); }
+        g.globalAlpha = 0.06; g.strokeStyle = "#000000";
+        for (let k = 0; k < 500; k++) { const x = rand() * S, y = rand() * S, a = rand() * Math.PI, l = 4 + rand() * 14;
+          g.beginPath(); g.moveTo(x, y); g.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); g.stroke(); }
+        const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.colorSpace = THREE.SRGBColorSpace;
+        t.repeat.set(0.09, 0.09); t.anisotropy = 4; return t;
+      })();
+      const bumpTex = paperTex.clone(); bumpTex.colorSpace = THREE.NoColorSpace; bumpTex.needsUpdate = true;
+
+      const EDGE = new THREE.Color("#efe6d2");
+      const paperMats = (hex, rough = 0.92) => [
+        new THREE.MeshStandardMaterial({ color: hex, map: paperTex, bumpMap: bumpTex, bumpScale: 0.6, roughness: rough, metalness: 0 }),
+        new THREE.MeshStandardMaterial({ color: EDGE.clone().multiplyScalar(0.3), roughness: 0.9, metalness: 0 }),
+      ];
+      const extrude = (shape, hex, depth = 0.22) => {
+        const geo = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: false, curveSegments: 48 });
+        const m = new THREE.Mesh(geo, paperMats(hex)); m.castShadow = true; m.receiveShadow = true; return m;
+      };
+
+      // ---------- skyline builder: one paper sheet per layer, cut along the rooftops, with window holes ----------
+      const skylineShape = (x0, x1, pick, holeP = 0) => {
+        const s = new THREE.Shape(); s.moveTo(x0, -0.5);
+        let x = x0; const holes = [];
+        while (x < x1) {
+          const b = pick(x); const w = Math.min(b.w, x1 - x); const h = b.h;
+          s.lineTo(x, h);
+          if (b.roof === "pitch") { s.lineTo(x + w * 0.5, h + w * 0.38); s.lineTo(x + w, h); }
+          else if (b.roof === "dome") { s.lineTo(x + w * 0.2, h); s.absarc(x + w * 0.5, h, w * 0.3, Math.PI, 0, true); s.lineTo(x + w, h); }
+          else if (b.roof === "mansard") { s.lineTo(x + w * 0.12, h + 1.4); s.lineTo(x + w * 0.88, h + 1.4); s.lineTo(x + w, h); }
+          else if (b.roof === "chimney") { s.lineTo(x + w * 0.7, h); s.lineTo(x + w * 0.7, h + 1.2); s.lineTo(x + w * 0.8, h + 1.2); s.lineTo(x + w * 0.8, h); s.lineTo(x + w, h); }
+          else if (b.custom) { b.custom(s, x, w, h); }
+          else s.lineTo(x + w, h);
+          if (holeP > 0 && w > 3 && !b.custom) for (let wy = 1.6; wy < h - 1.2; wy += 2.0) for (let wx = x + 0.9; wx < x + w - 1.3; wx += 1.6) {
+            if (rand() < holeP) { const hp = new THREE.Path(); hp.moveTo(wx, wy); hp.lineTo(wx + 0.55, wy); hp.lineTo(wx + 0.55, wy + 0.8); hp.lineTo(wx, wy + 0.8); hp.lineTo(wx, wy); holes.push(hp); }
+          }
+          x += w;
+        }
+        s.lineTo(x1, -0.5); s.lineTo(x0, -0.5);
+        s.holes.push(...holes); return s;
+      };
+      const roofs = ["flat", "pitch", "mansard", "chimney", "flat", "pitch"];
+      const randomPick = (hMin, hMax, wMin = 3, wMax = 7) => () => ({ w: wMin + rand() * (wMax - wMin), h: hMin + rand() * (hMax - hMin), roof: roofs[Math.floor(rand() * roofs.length)] });
+
+      // landmarks
+      const stephansdom = (s, x, w, h) => { // steep roof + tall gothic spire on the left
+        s.lineTo(x + 1.0, h); s.lineTo(x + 1.0, h + 9); s.lineTo(x + 1.6, h + 10.5); s.lineTo(x + 2.1, h + 17); s.lineTo(x + 2.35, h + 25);
+        s.lineTo(x + 2.6, h + 17); s.lineTo(x + 3.1, h + 10.5); s.lineTo(x + 3.7, h + 9); s.lineTo(x + 3.7, h + 1);
+        s.lineTo(x + 4.6, h + 1); s.lineTo(x + w * 0.62, h + 8.5); s.lineTo(x + w - 0.6, h + 1); s.lineTo(x + w - 0.6, h + 3.4); s.lineTo(x + w - 0.1, h + 4.2); s.lineTo(x + w, h);
+      };
+      const karlskirche = (s, x, w, h) => { // two columns flanking a dome with a lantern
+        s.lineTo(x + 0.6, h); s.lineTo(x + 0.6, h + 8); s.lineTo(x + 2.0, h + 8); s.lineTo(x + 2.0, h);
+        s.lineTo(x + w * 0.5 - 3.2, h); s.lineTo(x + w * 0.5 - 3.2, h + 2.4);
+        s.absarc(x + w * 0.5, h + 2.4, 3.2, Math.PI, 0, true);
+        s.lineTo(x + w * 0.5 + 3.2, h); s.lineTo(x + w - 2.0, h); s.lineTo(x + w - 2.0, h + 8); s.lineTo(x + w - 0.6, h + 8); s.lineTo(x + w - 0.6, h); s.lineTo(x + w, h);
+      };
+
+      // hinge: every layer stands up from the stage floor around its bottom edge
+      const layers = [];
+      const addLayer = (z, hex, shape, popAt, extra) => {
+        const hinge = new THREE.Group(); hinge.position.set(0, 0, z); scene.add(hinge);
+        const mesh = extrude(shape, hex); mesh.position.z = -0.11; hinge.add(mesh);
+        if (extra) extra(hinge);
+        hinge.rotation.x = -Math.PI / 2; layers.push({ hinge, popAt }); return hinge;
+      };
+
+      const POP = VO + 2.64; // "Somewhere in Vienna"
+      // far hills (closes the horizon so the eye can hide behind it)
+      addLayer(-30, "#33476d", (() => { const s = new THREE.Shape(); s.moveTo(-90, -0.5);
+        for (let x = -90; x <= 90; x += 3) s.lineTo(x, 8.5 + Math.sin(x * 0.07) * 2.2 + Math.sin(x * 0.19 + 1) * 0.8); s.lineTo(90, -0.5); s.lineTo(-90, -0.5); return s; })(), POP + 0.56);
+
+      // L4: Riesenrad + low roofs
+      let riesenrad;
+      seed = 11;
+      addLayer(-22, "#2c3f63", skylineShape(-80, 80, randomPick(4, 7.5, 4, 8), 0), POP + 0.44, (g) => {
+        const R = 7.2, cx = -28, cy = 9.2;
+        const wheel = new THREE.Group(); wheel.position.set(cx, cy, 0.25); g.add(wheel);
+        const ring = new THREE.Shape(); ring.absarc(0, 0, R, 0, Math.PI * 2, false);
+        const hole = new THREE.Path(); hole.absarc(0, 0, R - 0.45, 0, Math.PI * 2, true); ring.holes.push(hole);
+        wheel.add(extrude(ring, "#2c3f63", 0.18));
+        for (let k = 0; k < 15; k++) { const a = k / 15 * Math.PI * 2;
+          const sp = new THREE.Mesh(new THREE.BoxGeometry(0.14, R * 2 - 0.4, 0.12), paperMats("#2c3f63")); sp.rotation.z = a; sp.castShadow = true; wheel.add(sp);
+          const gon = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.8, 0.2), paperMats("#2c3f63")); gon.position.set(Math.cos(a) * R, Math.sin(a) * R - 0.5, 0.05); gon.castShadow = true; wheel.add(gon); gon.userData.a = a; }
+        const legs = new THREE.Shape(); legs.moveTo(cx - 4.5, 0); legs.lineTo(cx, cy); legs.lineTo(cx + 4.5, 0); legs.lineTo(cx + 3.7, 0); legs.lineTo(cx, cy - 1.2); legs.lineTo(cx - 3.7, 0);
+        const lm = extrude(legs, "#2c3f63", 0.18); lm.position.z = 0.05; g.add(lm);
+        riesenrad = wheel;
+      });
+
+      // L3: Stephansdom + Karlskirche
+      seed = 23;
+      const pick3 = (() => { const base = randomPick(6, 11, 3.5, 7); return (x) => {
+        if (x > -20 && x < -16) return { w: 12, h: 9, custom: stephansdom };
+        if (x > 15 && x < 19.5) return { w: 14, h: 6.5, custom: karlskirche };
+        return base(); }; })();
+      addLayer(-14, "#22324f", skylineShape(-80, 80, pick3, 0.18), POP + 0.32);
+
+      // L2: hero hospital with the one lit window
+      seed = 37;
+      const HOSP = { x: 6, w: 10, h: 17 };
+      const pick2 = (() => { const base = randomPick(5, 10, 3.5, 6.5); return (x) => (x > HOSP.x - 4 && x < HOSP.x + 0.5 ? { w: HOSP.w, h: HOSP.h, custom: (sh, x, w, h) => sh.lineTo(x + w, h) } : base()); })();
+      const s2 = skylineShape(-80, 80, pick2, 0.12);
+      const WIN_L = { x: 0, y: 11.4, w: 3.6, h: 2.5 };
+      const L2 = addLayer(-6, "#19253d", s2, POP + 0.2, (g) => {
+        // find the hospital slab position the picker produced and cut its window there
+        g.userData.cut = true;
+      });
+      // locate hospital and add its window (hole + warm lamp behind)
+      {
+        // re-run the picker deterministically is fragile; instead scan the outline for the hospital height
+        const pts = s2.getPoints(); let hx = HOSP.x;
+        for (let i = 0; i < pts.length - 1; i++) if (Math.abs(pts[i].y - HOSP.h) < 1e-4 && Math.abs(pts[i + 1].y - HOSP.h) < 1e-4 && pts[i + 1].x - pts[i].x > 9) { hx = pts[i].x; break; }
+        WIN_L.x = hx + 5.2;
+      }
+      const winHole = new THREE.Path(); winHole.moveTo(WIN_L.x, WIN_L.y); winHole.lineTo(WIN_L.x + WIN_L.w, WIN_L.y); winHole.lineTo(WIN_L.x + WIN_L.w, WIN_L.y + WIN_L.h); winHole.lineTo(WIN_L.x, WIN_L.y + WIN_L.h); winHole.lineTo(WIN_L.x, WIN_L.y);
+      s2.holes.push(winHole);
+      L2.children[0].geometry.dispose(); L2.children[0].geometry = new THREE.ExtrudeGeometry(s2, { depth: 0.22, bevelEnabled: false, curveSegments: 48 });
+      const lampMat = new THREE.MeshBasicMaterial({ color: new THREE.Color(0, 0, 0) });
+      const lamp = new THREE.Mesh(new THREE.PlaneGeometry(WIN_L.w + 0.8, WIN_L.h + 0.8), lampMat);
+      lamp.position.set(WIN_L.x + WIN_L.w / 2, WIN_L.y + WIN_L.h / 2, -0.9); L2.add(lamp);
+      // the room: desk, screen, chair and her (posed, jointed silhouette; never a sign), cut from black paper
+      const INK = new THREE.MeshBasicMaterial({ color: 0x07060c });
+      const room = new THREE.Group(); room.position.set(WIN_L.x + 0.15, WIN_L.y - 0.02, -0.5); room.scale.setScalar(0.8); L2.add(room);
+      const desk = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 0.09), INK); desk.position.set(2.75, 0.78, 0); room.add(desk);
+      const deskLeg = new THREE.Mesh(new THREE.PlaneGeometry(0.08, 0.8), INK); deskLeg.position.set(3.9, 0.38, 0); room.add(deskLeg);
+      const screenM = new THREE.MeshBasicMaterial({ color: 0x000000 });
+      const screen = new THREE.Mesh(new THREE.PlaneGeometry(1.05, 0.68), screenM); screen.position.set(3.25, 1.32, -0.05); room.add(screen);
+      const stand = new THREE.Mesh(new THREE.PlaneGeometry(0.07, 0.22), INK); stand.position.set(3.25, 0.92, 0.01); room.add(stand);
+      { const ch = new THREE.Shape(); ch.moveTo(-0.05, 0); ch.lineTo(0.05, 0); ch.lineTo(0.05, 0.5); ch.lineTo(0.42, 0.5); ch.lineTo(0.42, 0.56); ch.lineTo(-0.02, 0.56); ch.lineTo(-0.12, 1.25); ch.lineTo(-0.2, 1.25); ch.lineTo(-0.08, 0.5); ch.lineTo(-0.05, 0.5);
+        const m = new THREE.Mesh(new THREE.ShapeGeometry(ch), INK); m.position.set(1.15, 0, 0.02); room.add(m); }
+      const her = new THREE.Group(); her.position.set(1.2, 0.56, 0.04); room.add(her);
+      const torso = new THREE.Group(); her.add(torso);
+      { const b = new THREE.Shape();
+        b.moveTo(-0.16, -0.02); b.lineTo(0.24, -0.02); b.quadraticCurveTo(0.34, 0.4, 0.3, 0.7); b.quadraticCurveTo(0.24, 0.82, 0.06, 0.84); b.quadraticCurveTo(-0.18, 0.82, -0.22, 0.66); b.quadraticCurveTo(-0.3, 0.3, -0.16, -0.02);
+        torso.add(new THREE.Mesh(new THREE.ShapeGeometry(b, 16), INK));
+        const legs = new THREE.Shape(); legs.moveTo(-0.14, 0.1); legs.quadraticCurveTo(0.3, 0.12, 0.64, 0.06); legs.lineTo(0.68, -0.52); legs.lineTo(0.8, -0.56); legs.lineTo(0.8, -0.6); legs.lineTo(0.54, -0.6); legs.lineTo(0.5, -0.1); legs.quadraticCurveTo(0.2, -0.08, -0.12, -0.08);
+        her.add(new THREE.Mesh(new THREE.ShapeGeometry(legs), INK)); }
+      const headG = new THREE.Group(); headG.position.set(0.1, 0.88, 0); torso.add(headG);
+      { const neck = new THREE.Mesh(new THREE.PlaneGeometry(0.08, 0.12), INK); headG.add(neck);
+        const head = new THREE.Mesh(new THREE.CircleGeometry(0.14, 32), INK); head.scale.set(0.92, 1.08, 1); head.position.set(0.02, 0.17, 0); headG.add(head);
+        const bun = new THREE.Mesh(new THREE.CircleGeometry(0.075, 24), INK); bun.position.set(-0.12, 0.25, 0); headG.add(bun); }
+      const armG = new THREE.Group(); armG.position.set(0.14, 0.72, 0.01); torso.add(armG);
+      const forearmG = new THREE.Group(); forearmG.position.set(0.38, 0, 0); armG.add(forearmG);
+      { const upper = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 0.13), INK); upper.position.set(0.18, 0, 0); armG.add(upper);
+        const fore = new THREE.Mesh(new THREE.PlaneGeometry(0.36, 0.11), INK); fore.position.set(0.17, 0, 0); forearmG.add(fore);
+        const hand = new THREE.Mesh(new THREE.CircleGeometry(0.05, 16), INK); hand.position.set(0.36, 0, 0); forearmG.add(hand); }
+      const winLight = new THREE.PointLight(0xffa64d, 0, 26, 1.6); winLight.position.set(WIN_L.x + WIN_L.w / 2, WIN_L.y + WIN_L.h / 2, 2.2); L2.add(winLight);
+      const WIN = new THREE.Vector3(); // world position, updated per frame
+
+      // L1 + L0 front rows
+      seed = 51; addLayer(0, "#16213a", skylineShape(-80, 80, randomPick(4, 8, 3, 6), 0.1), POP + 0.08);
+      seed = 63; addLayer(7, "#101a2d", skylineShape(-80, 80, randomPick(2.2, 4.5, 4, 9), 0.06), POP - 0.04);
+
+      // ---------- stage floor + sky backdrop + moon ----------
+      const floor = new THREE.Mesh(new THREE.PlaneGeometry(240, 110), [new THREE.MeshStandardMaterial({ color: "#0d1526", map: paperTex, bumpMap: bumpTex, bumpScale: 0.5, roughness: 0.95 })][0]);
+      floor.rotation.x = -Math.PI / 2; floor.position.set(0, 0, -5); floor.receiveShadow = true; scene.add(floor);
+      const skyTex = (() => { const c = document.createElement("canvas"); c.width = 8; c.height = 256; const g = c.getContext("2d");
+        const gr = g.createLinearGradient(0, 0, 0, 256); gr.addColorStop(0, "#070b16"); gr.addColorStop(0.55, "#16223c"); gr.addColorStop(1, "#33476f");
+        g.fillStyle = gr; g.fillRect(0, 0, 8, 256); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
+      const sky = new THREE.Mesh(new THREE.PlaneGeometry(320, 140), new THREE.MeshBasicMaterial({ map: skyTex, fog: false }));
+      sky.position.set(0, 50, -62); scene.add(sky);
+      const moonShape = new THREE.Shape(); moonShape.absarc(0, 0, 3.6, 0, Math.PI * 2, false);
+      const moon = extrude(moonShape, "#e9dfc6"); moon.material[0].emissive = new THREE.Color("#e9dfc6"); moon.material[0].emissiveIntensity = 0.35;
+      moon.position.set(42, 31, -58); scene.add(moon);
+      // stars: tiny cream paper dots on the sky, drifting; clouds: paper cut-outs on rods, drifting at their own speeds
+      seed = 77;
+      const stars = new THREE.InstancedMesh(new THREE.CircleGeometry(0.16, 10), new THREE.MeshBasicMaterial({ color: "#d9d2bd", fog: false }), 140);
+      { const d = new THREE.Object3D(); for (let i = 0; i < 140; i++) { d.position.set(-150 + rand() * 300, 28 + rand() * 70, 0); d.scale.setScalar(0.5 + rand() * 1.2); d.updateMatrix(); stars.setMatrixAt(i, d.matrix); } }
+      const starG = new THREE.Group(); starG.position.z = -61; starG.add(stars); scene.add(starG);
+      const cloudShape = (w, h) => { const s = new THREE.Shape(); s.moveTo(-w, 0); let x = -w;
+        while (x < w) { const r = h * (0.45 + rand() * 0.55); s.absarc(x + r, 0, r, Math.PI, 0, true); x += r * 2; } s.lineTo(x, -0.2); s.lineTo(-w, -0.2); return s; };
+      const clouds = [[-30, 36, -50, 9, 2.6, 0.18], [24, 40, -54, 12, 3.2, 0.12], [-4, 29, -46, 7, 2.0, 0.24], [52, 27, -48, 8, 2.2, 0.2]].map(([x, y, z, w, h, v]) => {
+        const m = extrude(cloudShape(w, h), "#34466e", 0.18); m.position.set(x, y, z); m.receiveShadow = false; scene.add(m); return { m, x0: x, y0: y, v }; });
+
+      // ---------- the "2031" paper cut-out (front, pops up first) ----------
+      await document.fonts.load('300px "Instrument Serif"');
+      const yearTex = (() => { const c = document.createElement("canvas"); c.width = 1024; c.height = 400; const g = c.getContext("2d");
+        g.fillStyle = "#fff"; g.font = '330px "Instrument Serif"'; g.textAlign = "center"; g.textBaseline = "alphabetic"; g.fillText("2031", 512, 330);
+        const t = new THREE.CanvasTexture(c); return t; })();
+      const yearMat = new THREE.MeshStandardMaterial({ color: "#efe6d2", map: paperTex, alphaMap: yearTex, alphaTest: 0.5, roughness: 0.9, side: THREE.DoubleSide });
+      const yearCard = new THREE.Mesh(new THREE.PlaneGeometry(10.24, 4.0), yearMat);
+      yearCard.castShadow = true; yearCard.customDepthMaterial = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking, alphaMap: yearTex, alphaTest: 0.5 });
+      const yearHinge = new THREE.Group(); yearHinge.position.set(0, 0, 15); yearCard.position.set(0, 2.0 - 0.7, 0); yearHinge.add(yearCard); scene.add(yearHinge);
+
+      // ---------- the eye: a dark paper disc that rises behind the skyline like a second moon ----------
+      const EYE = { x: -5, z: -40, R: 19, A: 14.5, B: 7.5 };
+      const eye = new THREE.Group(); eye.position.set(EYE.x, -30, EYE.z); scene.add(eye);
+      const almond = (A, B) => { const p = []; const n = 64;
+        for (let i = 0; i <= n; i++) { const x = -A + 2 * A * i / n; p.push(new THREE.Vector2(x, B * Math.pow(Math.max(0, 1 - (x / A) ** 2), 0.75))); }
+        for (let i = n - 1; i > 0; i--) { const x = -A + 2 * A * i / n; p.push(new THREE.Vector2(x, -B * Math.pow(Math.max(0, 1 - (x / A) ** 2), 0.75))); }
+        return p; };
+      const maskShape = new THREE.Shape(); maskShape.absarc(0, 0, EYE.R, 0, Math.PI * 2, false);
+      maskShape.holes.push(new THREE.Path(almond(EYE.A, EYE.B).reverse()));
+      const mask = extrude(maskShape, "#141f36", 0.4); eye.add(mask);
+      // sclera, iris layers, pupil — stacked paper behind the cut
+      const disc = (r, hex, z, emissive = 0) => { const s = new THREE.Shape(); s.absarc(0, 0, r, 0, Math.PI * 2, false);
+        const m = extrude(s, hex, 0.12); m.position.z = z; if (emissive) { m.material[0].emissive = new THREE.Color(hex); m.material[0].emissiveIntensity = emissive; } eye.add(m); return m; };
+      const sclera = (() => { const s = new THREE.Shape(almond(EYE.A + 0.6, EYE.B + 0.6)); const m = extrude(s, "#d9dccf", 0.12); m.position.z = -1.6; eye.add(m); return m; })();
+      const irisBack = disc(6.6, "#0b5466", -1.4, 0.0);
+      const irisRing = (() => { const s = new THREE.Shape(); s.absarc(0, 0, 6.6, 0, Math.PI * 2, false); const h = new THREE.Path(); h.absarc(0, 0, 5.7, 0, Math.PI * 2, true); s.holes.push(h);
+        const m = extrude(s, "#1aa9c8", 0.12); m.position.z = -1.25; eye.add(m); return m; })();
+      const petals = (() => { const s = new THREE.Shape(); const n = 22; s.moveTo(5.4, 0);
+        for (let i = 0; i < n; i++) { const a0 = i / n * Math.PI * 2, a1 = (i + 0.5) / n * Math.PI * 2, a2 = (i + 1) / n * Math.PI * 2;
+          s.lineTo(Math.cos(a1) * 2.6, Math.sin(a1) * 2.6); s.lineTo(Math.cos(a2) * 5.4, Math.sin(a2) * 5.4); }
+        const m = extrude(s, "#6fe3ff", 0.12); m.position.z = -1.1; eye.add(m); return m; })();
+      const pupil = disc(2.5, "#05070c", -0.95);
+      const glint = disc(0.75, "#f4fbff", -0.8, 0.6); glint.position.x = 1.6; glint.position.y = 1.5;
+      const irisMats = [irisBack, irisRing, petals].map((m) => m.material[0]);
+      irisMats.forEach((m) => { m.emissive = m.color.clone(); m.emissiveIntensity = 0; });
+      // a cyan slit of light behind the seam (anticipation before the lids open)
+      const slit = new THREE.Mesh(new THREE.PlaneGeometry(EYE.A * 2, 0.5), new THREE.MeshBasicMaterial({ color: new THREE.Color(0, 0, 0) }));
+      slit.position.z = -1.7; eye.add(slit);
+      // lids: two flaps hinged at the top and bottom of the cut; they fold back into the disc on "see"
+      const lid = (dir) => { const pivot = new THREE.Group(); pivot.position.set(0, dir * EYE.B, -0.35); eye.add(pivot);
+        const s = new THREE.Shape(); const W = EYE.A + 0.6; const gap = 0.06;
+        s.moveTo(-W, -dir * (EYE.B - gap)); s.lineTo(W, -dir * (EYE.B - gap)); s.lineTo(W, dir * 0.6); s.lineTo(-W, dir * 0.6); s.lineTo(-W, -dir * (EYE.B - gap));
+        const m = extrude(s, "#18243d", 0.14); m.position.z = -0.07; pivot.add(m); return pivot; };
+      const lidTop = lid(1), lidBot = lid(-1);
+
+      // ---------- lights ----------
+      const hemi = new THREE.HemisphereLight(0x6f86b8, 0x0a0f1a, 0.8); scene.add(hemi);
+      const moonLight = new THREE.DirectionalLight(0xbfd0ff, 2.4); moonLight.position.set(-30, 34, 40); moonLight.target.position.set(0, 0, -10);
+      moonLight.castShadow = true; moonLight.shadow.mapSize.set(4096, 4096); moonLight.shadow.radius = 6; moonLight.shadow.bias = -0.0006; moonLight.shadow.normalBias = 0.04;
+      Object.assign(moonLight.shadow.camera, { left: -70, right: 70, top: 50, bottom: -30, near: 1, far: 160 });
+      scene.add(moonLight, moonLight.target);
+      // the eye's light: from behind the city toward us — city shadows swing forward on "better than all of us"
+      const eyeLight = new THREE.SpotLight(0x6fe3ff, 0, 160, Math.PI / 3.2, 0.6, 1.0);
+      eyeLight.castShadow = true; eyeLight.shadow.mapSize.set(4096, 4096); eyeLight.shadow.radius = 5; eyeLight.shadow.bias = -0.0008; eyeLight.shadow.normalBias = 0.05;
+      eyeLight.shadow.camera.near = 2; eyeLight.shadow.camera.far = 160;
+      eyeLight.target.position.set(0, 0, 30); scene.add(eyeLight, eyeLight.target);
+
+      // ---------- grain ----------
+      const gctx = document.getElementById("grain").getContext("2d");
+      const gimg = gctx.createImageData(480, 270);
+      const drawGrain = (frame) => {
+        let s = (frame * 2654435761) >>> 0;
+        for (let i = 0; i < gimg.data.length; i += 4) { s = (s * 1664525 + 1013904223) >>> 0; const n = (s >>> 24) - 128; const v = n > 0 ? 255 : 0; gimg.data[i] = gimg.data[i + 1] = gimg.data[i + 2] = v; gimg.data[i + 3] = Math.abs(n) * 0.12; }
+        gctx.putImageData(gimg, 0, 0);
+      };
+
+      // ---------- camera ----------
+      const V = (x, y, z) => new THREE.Vector3(x, y, z);
+      const camAt = (t) => {
+        const w = V(WIN_L.x + WIN_L.w / 2, WIN_L.y + 0.5, -6);
+        const keys = [
+          { t: 0.0, p: V(0, 3.0, 31), l: V(0, 3.4, 15) },
+          { t: VO + 1.9, p: V(0, 3.3, 29), l: V(0, 3.6, 15) },        // tiny push on the card
+          { t: VO + 5.0, p: V(w.x + 9, 11, 50), l: V(w.x - 3, 9.5, -8) }, // pull back + up as Vienna pops
+          { t: VO + 7.4, p: V(w.x + 5, 12.5, 36), l: V(w.x - 1, 12, -8) }, // push toward the window
+          { t: VO + 9.6, p: V(w.x + 4, 12.2, 33), l: V(w.x - 1.5, 12.4, -8) }, // hold (breathing)
+          { t: VO + 12.6, p: V(-3, 11, 58), l: V(-3, 19, -22) },          // pull back + tilt up to the eye
+          { t: 15.0, p: V(-3, 11.4, 54), l: V(-3, 19.2, -22) },           // slow push
+        ];
+        let i = 0; while (i < keys.length - 2 && t > keys[i + 1].t) i++;
+        const a = keys[i], b = keys[i + 1]; const k = inOut(lin(a.t, b.t, t));
+        const kk = (i === 0 || i === 3 || i === 5) ? smooth(a.t, b.t, t) : k;
+        const p = a.p.clone().lerp(b.p, kk), l = a.l.clone().lerp(b.l, kk);
+        // arcs: every move bulges sideways/up instead of travelling on a straight line
+        const bulge = Math.sin(Math.PI * kk) * a.p.distanceTo(b.p) * 0.12;
+        p.x += bulge * (i % 2 ? -1 : 1); p.y += bulge * 0.5;
+        // perpetual drift: crooked frequencies, amplitude scales with distance to the look target
+        const d = p.distanceTo(l) * 0.01;
+        p.x += d * (Math.sin(t * 0.37) * 0.9 + Math.sin(t * 0.83 + 1.3) * 0.4);
+        p.y += d * (Math.sin(t * 0.51 + 0.7) * 0.6 + Math.sin(t * 1.13 + 2.1) * 0.2);
+        p.z -= d * 3 * t / 15; // a slow push that never ends
+        l.x += d * Math.sin(t * 0.29 + 0.4) * 0.5; l.y += d * Math.sin(t * 0.43 + 1.9) * 0.35;
+        return { p, l };
+      };
+
+      // ---------- DOM ----------
+      const stamp = document.querySelector("#stamp span"), stampLabel = document.querySelector("#stampLabel span");
+      const tag = document.getElementById("tag"), tagRule = tag.querySelector(".rule"), tagT = tag.querySelectorAll(".t > span");
+      const v3 = new THREE.Vector3();
+
+      const render = (t) => {
+        const frame = Math.round(t * 30);
+
+        // "2031" pops up on the spoken year, folds back down as the city rises behind it
+        const yUp = spring(lin(VO + 0.1, VO + 1.0, t));
+        const yDown = inOut(lin(VO + 2.2, VO + 2.9, t));
+        yearHinge.rotation.x = -Math.PI / 2 * (1 - yUp) + Math.PI / 2 * 0.98 * yDown;
+        yearHinge.visible = t >= VO + 0.08 && t < VO + 2.88;
+        yearHinge.rotation.y = 0.04 * Math.sin(t * 0.9) * yUp; yearCard.position.y = 1.3 + 0.03 * Math.sin(t * 1.7);
+
+        // pop-up wave, front to back
+        layers.forEach((L, i) => { L.hinge.visible = t >= L.popAt - 0.03; const up = spring(lin(L.popAt, L.popAt + 1.1, t));
+          // after landing each sheet keeps breathing on its hinge and drifts sideways at its own pace (parallax never stops)
+          L.hinge.rotation.x = -Math.PI / 2 * (1 - up) + 0.006 * Math.sin(t * (0.55 + i * 0.13) + i * 1.7) * up;
+          L.hinge.position.x = (0.18 + i * 0.05) * Math.sin(t * (0.21 + i * 0.04) + i); });
+        starG.position.x = t * 0.18; starG.position.y = Math.sin(t * 0.2) * 0.3;
+        clouds.forEach((c, i) => { c.m.position.x = c.x0 + t * c.v * 2.2; c.m.position.y = c.y0 + 0.25 * Math.sin(t * 0.3 + i); });
+        moon.position.x = 42 - t * 0.12; moon.position.y = 31 + 0.2 * Math.sin(t * 0.25);
+        riesenrad.rotation.z = -t * 0.06;
+        riesenrad.children.forEach((c) => { if (c.userData.a !== undefined) { const a = c.userData.a + (-t * 0.06); c.rotation.z = -riesenrad.rotation.z; } });
+
+        // stamp top-left hands over from the paper year
+        const st = expoOut(lin(VO + 2.6, VO + 3.4, t));
+        stamp.style.transform = `translateY(${(1 - st) * 105}%)`;
+        const lab = expoOut(lin(VO + 2.8, VO + 3.6, t));
+        stampLabel.style.transform = `translateY(${(1 - lab) * 30}px)`; stampLabel.style.opacity = lab;
+
+        // window: lights as the camera arrives, flickers off on "screen"
+        const on = smooth(VO + 3.3, VO + 4.1, t);
+        const offT = VO + 6.62;
+        let off = 0; if (t > offT) { const k = t - offT; off = k < 0.06 ? 0.6 : k < 0.11 ? 0.15 : k < 0.16 ? 0.75 : clamp(0.75 + (k - 0.16) * 3, 0, 1); }
+        const flick = 1 + 0.035 * Math.sin(t * 7.3) * Math.sin(t * 3.1);
+        const scr = on * (1 - off);
+        screenM.color.setRGB(1.4 * scr, 2.6 * scr, 3.0 * scr);
+        // the lamp stays (she is still there), it only sinks after the screen dies
+        const lit = on * (1 - 0.55 * smooth(offT + 0.2, offT + 1.6, t)) * flick;
+        lampMat.color.setRGB(lerp(0.035, 1.25, lit), lerp(0.04, 0.6, lit), lerp(0.07, 0.17, lit));
+        winLight.intensity = 38 * lit + 18 * scr;
+        winLight.color.setRGB(1, lerp(0.65, 0.85, scr * 0.5), lerp(0.3, 0.9, scr * 0.5));
+        // her: breathing, leaning toward the screen, reaching for the switch, leaning back, looking up at the eye
+        const breathe = Math.sin(t * 2.1) * 0.012;
+        const reachK = smooth(VO + 5.9, VO + 6.55, t) * (1 - smooth(VO + 6.8, VO + 7.6, t));
+        const leanBack = smooth(VO + 6.75, VO + 7.9, t);
+        torso.rotation.z = -0.16 + 0.05 * Math.sin(t * 0.6) - 0.06 * reachK + 0.22 * leanBack;
+        torso.scale.y = 1 + breathe;
+        armG.rotation.z = lerp(-0.35, 0.18, reachK) - 0.5 * leanBack; forearmG.rotation.z = lerp(-0.9, -0.2, reachK) - 0.4 * leanBack;
+        const lookUp = smooth(VO + 8.4, VO + 10.0, t);
+        headG.rotation.z = -0.08 + 0.04 * Math.sin(t * 0.8 + 1) + 0.55 * lookUp - 0.1 * leanBack;
+
+        // the eye rises behind the skyline ("something"), a cyan slit leaks ("learned"), lids fold back on "see"
+        const rise = inOut(lin(VO + 8.9, VO + 10.9, t));
+        eye.position.y = lerp(-26, 23, rise) + 0.35 * t / 15 + 0.12 * Math.sin(t * 0.4);
+        eye.scale.setScalar(1 + 0.006 * Math.sin(t * 1.1));
+        const leak = smooth(VO + 10.0, VO + 10.7, t);
+        const open = expoOut(lin(VO + 10.8, VO + 11.7, t));
+        slit.material.color.setRGB(0.5 * leak * (1 - open), 2.6 * leak * (1 - open), 3.2 * leak * (1 - open));
+        lidTop.rotation.x = open * Math.PI * 0.62; lidBot.rotation.x = -open * Math.PI * 0.62;
+        const glow = smooth(VO + 10.9, VO + 12.2, t);
+        irisMats.forEach((m, i) => (m.emissiveIntensity = glow * [0.9, 1.6, 2.4][i]));
+        // iris breathes: petals rotate slowly (moving hold)
+        petals.rotation.z = t * 0.05; irisRing.rotation.z = -t * 0.02;
+
+        // the swing: cyan light floods forward, moon fades, city shadows fall toward us
+        const swing = smooth(VO + 11.6, VO + 13.0, t);
+        eyeLight.position.set(eye.position.x, eye.position.y, EYE.z + 2);
+        eyeLight.intensity = 2600 * swing;
+        moonLight.intensity = 2.4 * (1 - 0.65 * swing);
+        hemi.intensity = 0.8 * (1 - 0.4 * swing);
+        bloom.strength = 0.4 + 0.3 * glow;
+
+        // camera
+        const cam = camAt(t); camera.position.copy(cam.p); camera.lookAt(cam.l); camera.updateMatrixWorld();
+
+        // label anchored to the window
+        L2.updateMatrixWorld(); WIN.set(WIN_L.x + WIN_L.w / 2, WIN_L.y + WIN_L.h / 2, 0.2).applyMatrix4(L2.matrixWorld);
+        v3.copy(WIN).project(camera);
+        const sx = (v3.x * 0.5 + 0.5) * 1920, sy = (-v3.y * 0.5 + 0.5) * 1080;
+        tag.style.left = `${sx + 190}px`; tag.style.top = `${sy - 16}px`;
+        const tagIn = expoOut(smooth(VO + 4.2, VO + 5.0, t)), tagOut = smooth(VO + 6.7, VO + 7.3, t);
+        tagRule.style.transform = `scaleX(${tagIn * (1 - tagOut)})`;
+        tagT.forEach((s, i) => { const k = expoOut(smooth(VO + 4.35 + i * 0.12, VO + 5.15 + i * 0.12, t)); s.style.transform = `translateY(${(1 - k) * 110 + tagOut * -110}%)`; });
+
+        composer.render();
+        drawGrain(frame);
+      };
+
+      const clock = { _t: 0, get t() { return this._t; }, set t(v) { this._t = v; render(v); } };
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(clock, { t: 0 }, { t: 15, duration: 15, ease: "none" }, 0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      render(0);
+    </script>
+  </body>
+</html>
