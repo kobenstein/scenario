@@ -1,0 +1,90 @@
+# Parallel render of one Scenario composition: the frame range is split across N runners,
+# each renders its chunk with tools/render-fast.mjs, a final job joins the chunks without re-encoding.
+name: render
+on:
+  workflow_dispatch:
+    inputs:
+      dir:
+        description: Composition folder (contains index.html)
+        required: true
+        default: style-tests/b3-fast
+      chunks:
+        description: Number of parallel runners (max 20 on the free plan)
+        required: true
+        default: "20"
+      fps:
+        description: Frames per second
+        required: true
+        default: "30"
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      total: ${{ steps.p.outputs.total }}
+      matrix: ${{ steps.p.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: p
+        run: |
+          dur=$(grep -o 'data-composition-id="main"[^>]*data-duration="[0-9.]*"' "${{ inputs.dir }}/index.html" | grep -o 'data-duration="[0-9.]*"' | grep -o '[0-9.]*')
+          total=$(python3 -c "print(round($dur * ${{ inputs.fps }}))")
+          echo "total=$total" >> "$GITHUB_OUTPUT"
+          echo "matrix=$(python3 -c "import json; print(json.dumps(list(range(${{ inputs.chunks }}))))")" >> "$GITHUB_OUTPUT"
+          echo "duration $dur s -> $total frames in ${{ inputs.chunks }} chunks"
+
+  chunk:
+    needs: plan
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        i: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --no-audit --no-fund
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+      - name: Render chunk
+        run: |
+          total=${{ needs.plan.outputs.total }}; n=${{ inputs.chunks }}; i=${{ matrix.i }}
+          from=$(( total * i / n )); to=$(( total * (i + 1) / n ))
+          node tools/render-fast.mjs --dir "${{ inputs.dir }}" --fps ${{ inputs.fps }} --from $from --to $to \
+            --out "chunk-$(printf %03d $i).mp4" --chrome "$(which google-chrome)"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: chunk-${{ matrix.i }}
+          path: chunk-*.mp4
+          retention-days: 3
+
+  join:
+    needs: chunk
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: chunk-*
+          merge-multiple: true
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+      - run: |
+          ls chunk-*.mp4 | sort | sed "s/.*/file '&'/" > list.txt
+          ffmpeg -hide_banner -loglevel error -f concat -safe 0 -i list.txt -c copy -movflags +faststart render.mp4
+          ffprobe -v error -show_entries format=duration -of csv=p=0 render.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: render
+          path: render.mp4
+          retention-days: 7
+      # Artifacts live on Azure blob storage, which the Claude sessions cannot reach;
+      # so the result is also force-pushed as a single-commit branch "render-output" (fetch with git).
+      - name: Publish to branch render-output
+        run: |
+          name=$(echo "${{ inputs.dir }}" | tr '/' '-')
+          mkdir out && mv render.mp4 "out/$name.mp4" && cd out
+          git init -q -b render-output && git add . 
+          git -c user.name=render-bot -c user.email=render-bot@users.noreply.github.com commit -qm "render ${{ inputs.dir }} (run ${{ github.run_id }})"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" render-output
