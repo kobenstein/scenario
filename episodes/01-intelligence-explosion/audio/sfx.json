@@ -2,37 +2,37 @@
  {
   "file": "hook-foley-2.wav",
   "t": 0.0,
-  "gain": 1.4,
+  "gain": 0.63,
   "bed": true
  },
  {
   "file": "acc-stamp.wav",
   "t": 12.49,
-  "gain": 0.617
+  "gain": 0.339
  },
  {
   "file": "acc-tear.wav",
   "t": 24.96,
-  "gain": 0.673
+  "gain": 0.37
  },
  {
   "file": "acc-powerdown.wav",
   "t": 27.67,
-  "gain": 0.617
+  "gain": 0.339
  },
  {
   "file": "acc-boom.wav",
   "t": 29.61,
-  "gain": 0.841
+  "gain": 0.463
  },
  {
   "file": "acc-swell.wav",
   "t": 38.93,
-  "gain": 0.673
+  "gain": 0.37
  },
  {
   "file": "acc-gong.wav",
   "t": 42.48,
-  "gain": 0.673
+  "gain": 0.37
  }
 ]
