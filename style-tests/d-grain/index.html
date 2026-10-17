@@ -92,7 +92,7 @@
         blending: opts.additive ? THREE.AdditiveBlending : THREE.NormalBlending,
         uniforms: {
           uC0: { value: C(c0) }, uC1: { value: C(c1) }, uY0: { value: y0 }, uY1: { value: y1 },
-          uDither: { value: opts.dither ?? 0.55 }, uGrain: { value: opts.grain ?? 0.22 }, uScale: { value: opts.scale ?? 40 },
+          uDither: { value: opts.dither ?? 0.3 }, uGrain: { value: opts.grain ?? 0.1 }, uScale: { value: opts.scale ?? 40 },
           uL1: { value: LIGHTS.moon.pos }, uL1c: { value: LIGHTS.moon.col }, uL1r: { value: LIGHTS.moon.r }, uL1i: { value: 0 },
           uL2: { value: LIGHTS.win.pos }, uL2c: { value: LIGHTS.win.col }, uL2r: { value: LIGHTS.win.r }, uL2i: { value: 0 },
           uLightAmt: { value: opts.lightAmt ?? 1 }, uAlpha: { value: 1 }, uRadial: { value: opts.radial ? 1 : 0 }, uCenter: { value: opts.center || new THREE.Vector2() }, uRad: { value: opts.rad || 1 },
@@ -110,7 +110,7 @@
             float d1 = distance(vW.xy, uL1.xy); float l1 = exp(-d1 * d1 / (uL1r * uL1r));
             float d2 = distance(vW.xy, uL2.xy) + abs(vW.z - uL2.z) * 0.6; float l2 = exp(-d2 * d2 / (uL2r * uL2r));
             float ln = h(vL * uScale + 17.0);
-            l1 = mix(l1, step(ln, l1), 0.6); l2 = mix(l2, step(ln, l2), 0.6);   // light falls off as grain, not as a smooth blur
+            l1 = mix(l1, step(ln, l1), 0.35); l2 = mix(l2, step(ln, l2), 0.35);   // light falls off as grain, not as a smooth blur
             col += uLightAmt * (uL1c * l1 * uL1i + uL2c * l2 * uL2i);
             gl_FragColor = vec4(col, uAlpha);
           }`,
@@ -119,7 +119,7 @@
       const M = (...a) => { const m = grainMat(...a); mats.push(m); return m; };
 
       // ---------- sky ----------
-      const sky = new THREE.Mesh(new THREE.PlaneGeometry(900, 400), M("#3b2f6e", "#090c24", -20, 160, { dither: 0.7, scale: 5, lightAmt: 0.55 }));
+      const sky = new THREE.Mesh(new THREE.PlaneGeometry(900, 400), M("#3b2f6e", "#090c24", -20, 160, { dither: 0.35, scale: 5, lightAmt: 0.55 }));
       sky.position.set(0, 90, -160); scene.add(sky);
       // stars: tiny grain specks
       { const g = new THREE.BufferGeometry(); const p = []; seed = 5;
@@ -133,7 +133,7 @@
       const disc = new THREE.Mesh(new THREE.CircleGeometry(R, 128), M("#cfd6e6", "#f6f2e6", -R, R, { radial: true, rad: R, dither: 0.5, scale: 3, lightAmt: 0 }));
       disc.material.uniforms.uY0.value = 0; EYE.add(disc);
       // halo: big soft grain disc behind
-      const halo = new THREE.Mesh(new THREE.CircleGeometry(R * 2.4, 128), M("#090c24", "#6fd3f5", 0, 1, { radial: true, rad: R * 2.4, dither: 0.75, scale: 2.4, transparent: true, additive: true, lightAmt: 0 }));
+      const halo = new THREE.Mesh(new THREE.CircleGeometry(R * 2.4, 128), M("#090c24", "#6fd3f5", 0, 1, { radial: true, rad: R * 2.4, dither: 0.45, scale: 6, transparent: true, additive: true, lightAmt: 0 }));
       halo.position.z = -0.5; EYE.add(halo);
       // rings (the machine's signature): thin rings that pulse inward before the eye opens
       const rings = [];
@@ -197,7 +197,7 @@
       // dim interiors behind the dark windows
       const backWall = new THREE.Mesh(new THREE.PlaneGeometry(HOSP.w, HOSP.h), M("#0a0b22", "#141434", 0, 30, { lightAmt: 0.15 })); backWall.position.set(HOSP.x + HOSP.w / 2, HOSP.h / 2, -1.2); scene.add(backWall);
       // the lit room
-      const room = new THREE.Mesh(new THREE.PlaneGeometry(WIN.w + 0.3, WIN.h + 0.3), M("#7a3b17", "#ffb35c", WIN.y - 0.5, WIN.y + WIN.h + 0.6, { dither: 0.6, scale: 26, lightAmt: 0 }));
+      const room = new THREE.Mesh(new THREE.PlaneGeometry(WIN.w + 0.3, WIN.h + 0.3), M("#7a3b17", "#ffb35c", WIN.y - 0.5, WIN.y + WIN.h + 0.6, { dither: 0.25, scale: 70, lightAmt: 0 }));
       room.position.set(WIN.x + WIN.w / 2, WIN.y + WIN.h / 2, -0.9); scene.add(room);
       // her screen (cyan-white) and her: a tiny faceless silhouette
       const screenM = new THREE.MeshBasicMaterial({ color: 0xd8f7ff });
@@ -218,7 +218,7 @@
         vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
         fragmentShader: `uniform float uA, uReach; varying vec2 vUv; float h(vec2 p){ return fract(sin(dot(floor(p), vec2(12.9898,78.233))) * 43758.5453); }
           void main(){ float edge = 1.0 - abs(vUv.x - 0.5) * 2.0; float a = pow(edge, 1.6) * smoothstep(1.0 - uReach, 1.0 - uReach + 0.08, vUv.y);
-            float n = h(gl_FragCoord.xy * 0.5); a = mix(a, step(n, a), 0.55);
+            float n = h(gl_FragCoord.xy * 0.5); a = mix(a, step(n, a), 0.3);
             gl_FragColor = vec4(vec3(0.62, 0.9, 1.0) * a * uA, 1.0); }` });
       const beam = new THREE.Mesh(beamGeo, beamMat); beam.frustumCulled = false; beam.renderOrder = 10; scene.add(beam);
 
@@ -226,7 +226,7 @@
       const gctx = document.getElementById("grain").getContext("2d");
       const gimg = gctx.createImageData(960, 540);
       const drawGrain = (frame) => { let s = (Math.floor(frame / 2) * 2654435761 + 1) >>> 0;
-        for (let i = 0; i < gimg.data.length; i += 4) { s = (s * 1664525 + 1013904223) >>> 0; const n = (s >>> 24) - 128; const v = n > 0 ? 255 : 0; gimg.data[i] = gimg.data[i + 1] = gimg.data[i + 2] = v; gimg.data[i + 3] = Math.abs(n) * 0.09; }
+        for (let i = 0; i < gimg.data.length; i += 4) { s = (s * 1664525 + 1013904223) >>> 0; const n = (s >>> 24) - 128; const v = n > 0 ? 255 : 0; gimg.data[i] = gimg.data[i + 1] = gimg.data[i + 2] = v; gimg.data[i + 3] = Math.abs(n) * 0.05; }
         gctx.putImageData(gimg, 0, 0); };
 
       // ---------- camera ----------
