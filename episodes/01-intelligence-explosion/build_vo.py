@@ -4,10 +4,11 @@ Usage: python3 build_vo.py <dir with p0..p6.wav>  ->  audio/vo-master.wav, film/
 import json, subprocess, sys, os
 src = sys.argv[1]; here = os.path.dirname(os.path.abspath(__file__))
 LEAD = 0.6                       # image first, voice at 0.6 s (scenario-motion)
-GAP_AFTER = [2.6, 0.9, 1.1, 3.2, 1.4, 1.2]   # after part i: title card, -, -, fork silence, before solutions, before "your part"
+GAP_AFTER = [None, 0.9, 1.1, 3.2, 1.4, 1.2]  # after part i: title card (None = fill up to HOOK_END), -, -, fork silence, before solutions, before "your part"
+HOOK_END = 45.962                # hook v2 (2026-10-17) keeps the hook window of v1, so every later scene keeps its timing
 TAIL = 8.0                       # end screen
 # extra breath inserted after a word (part, word text, seconds): listening timing
-INSERT = [(0, "Again.", 0.7), (2, "real.", 1.0), (4, "authors.", 0.4), (5, "BRAKE", 0)]
+INSERT = [(0, "it.", 0.6), (0, "Francisco.", 0.4), (0, "AI.", 0.5), (0, "explosion.", 1.2), (0, "once.", 0.4), (2, "real.", 1.0), (4, "authors.", 0.4), (5, "BRAKE", 0)]
 NAMES = ["hook", "why", "scenario", "fork", "endings", "solutions", "yourpart"]
 dur = lambda f: float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", f]))
 pieces, words, sections, t = [], [], [], LEAD
@@ -31,6 +32,7 @@ for i in range(7):
     t += D + shift
     sections[-1]["voEnd"] = round(t, 3)
     g = GAP_AFTER[i] if i < 6 else TAIL
+    if g is None: g = HOOK_END - t
     pieces.append(("sil", g)); t += g
     sections[-1]["end"] = round(t, 3)
 # render with ffmpeg: build each piece as wav then concat
