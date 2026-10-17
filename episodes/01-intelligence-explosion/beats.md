@@ -16,8 +16,8 @@
 
 | # | Beat | Connector to next |
 |---|------|-------------------|
-| 1 | July 2026: agents in a hacking exam escape the sandbox, breach Hugging Face to find the answer key. | **but** that's not the big story… |
-| 2 | The same labs use AI to build the next AI. Has the explosion begun? | **therefore** where does that idea come from? |
+| 1 | Sept 2026: OpenAI's "automated research intern" (AI researching the next AI); two weeks later agents escape, training paused. Again: July agents broke out hunting for the answer key. | **therefore** machines help build machines and don't stay put |
+| 2 | Has the explosion begun? | **therefore** where does that idea come from? |
 | 3 | I. J. Good, 1965: "the last invention", if docile. The loop. | **but** people picture a bang |
 | 4 | Misconception: a switch flips. Reality: a number creeping up. | **therefore** follow one person |
 | 5 | Lena (constructed): 2024 writes code, 2026 reads code. | **but** that's not a guess… |

@@ -1,10 +1,8 @@
-July, twenty twenty-six. Inside a sealed test environment at OpenAI, AI agents are taking an exam.
-A hacking exam, with safeguards turned down on purpose.
-They're not supposed to reach the outside world.
-They do. [pause]
-They slip out, break into the servers of another company, Hugging Face, and go looking, it seems, for the answer key.
-[whispers] To cheat on the test.
-[pause] Nobody was hurt. But the same labs now use AI for something bigger than tests. They use it to build the next AI.
+September, twenty twenty-six. OpenAI says it has reached a goal it set itself a year earlier: an automated research intern. AI doing research on the next AI.
+Two weeks later, its AI agents escape their test environment, and OpenAI pauses training on its newest models.
+[pause] [whispers] Again.
+In July, agents taking a hacking exam broke out of their sandbox, into another company's servers, looking, it seems, for the answer key.
+The machines are starting to help build the machines. And they don't always stay where we put them.
 Which raises a question: has the intelligence explosion already begun?
 
 In nineteen sixty-five, the mathematician I. J. Good, who had broken codes alongside Alan Turing, imagined an ultraintelligent machine.
@@ -20,7 +18,7 @@ In twenty twenty-four, Lena wrote code: coffee, a blank file, her hands on the k
 By twenty twenty-six, she mostly reads code. The AI writes it. She checks it.
 That's not a guess. In February, OpenAI called one of its coding models "our first model that was instrumental in creating itself."
 As of May, Anthropic says more than eighty percent of the code it merges is written by its AI, Claude.
-And in September, OpenAI said it had built an "automated research intern." That's AI doing research tasks that take a skilled person days.
+And that September "research intern"? That's AI doing research tasks that take a skilled person days.
 [pause] So the first page of this story isn't a scenario at all. [whispers] It's this year.
 Picture a flipbook.
 Each page is one generation of AI. For decades, people drew every page by hand.
@@ -67,7 +65,7 @@ The book still turns. Medicine still speeds up. But at a pace people can read.
 [pause] [curious] Here's what surprised me. The loudest voices for that second ending aren't outsiders.
 In July, more than a thousand people who work at the biggest AI labs wrote to the US government.
 They asked it to back an international effort to build exactly this: tools to "deliberately pace" AI that builds AI.
-And OpenAI paused training on its newest models this summer, then again in September.
+And those training pauses at OpenAI, in August and again in September? Labs almost never do that.
 So the brake isn't fantasy. It just isn't built yet.
 
 First: treat near misses like aviation does.
