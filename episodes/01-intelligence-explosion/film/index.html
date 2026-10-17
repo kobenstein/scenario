@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <!-- Scenario 01 · Has the Intelligence Explosion Already Begun? Full episode composition.
+         engine.js = shared renderer + paper kit; scenes/*.js = one module per beat; timing.json = cut VO word times. -->
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Instrument Serif"; src: url(assets/InstrumentSerif.woff2) format("woff2"); font-display: block; }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; src: url(assets/InstrumentSerif-400-italic.woff2) format("woff2"); font-display: block; }
+      @font-face { font-family: "Inter"; src: url(assets/Inter-400-normal.woff2) format("woff2"); font-weight: 100 900; font-display: block; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #070b14; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #070b14; }
+      #gl, #grain, #overlay { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+      #grain, #overlay { pointer-events: none; }
+      #vignette { position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(ellipse 80% 75% at 50% 48%, rgba(0,0,0,0) 55%, rgba(3,5,10,0.7) 100%); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="730.88" data-width="1920" data-height="1080">
+      <canvas id="gl" class="clip" data-start="0" data-duration="730.88" width="1920" height="1080"></canvas>
+      <div id="vignette" class="clip" data-start="0" data-duration="730.88"></div>
+      <div id="overlay" class="clip" data-start="0" data-duration="730.88"></div>
+      <canvas id="grain" class="clip" data-start="0" data-duration="730.88" width="480" height="270"></canvas>
+    </div>
+    <script type="importmap">{ "imports": { "three": "./assets/three.module.min.js" } }</script>
+    <script type="module">
+      import { start } from "./engine.js";
+      import { sceneList } from "./scenes/index.js";
+      const timing = await (await fetch("timing.json")).json();
+      const scenes = await sceneList(timing);
+      await start({ timing, scenes });
+    </script>
+  </body>
+</html>
