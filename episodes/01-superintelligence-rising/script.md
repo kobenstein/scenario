@@ -41,9 +41,9 @@ This spring, at least sixteen hours. [S6]
 That's as far as their tests go.
 [pause]
 Full disclosure: we make this channel with help from AI, Claude included. And most of these numbers come from the companies, about themselves.
-So here's an outside check. In a small study last year, experienced programmers using AI felt faster. Timed, they were nineteen percent slower. [S26]
+So, an outside check. In a small study last year, experienced programmers using AI felt faster. Timed, they were nineteen percent slower. [S26]
 Even Anthropic says AI improving itself "is not inevitable." [S1]
-So here's where I land. The takeoff has started, but only the first stage.
+Where does that leave us? I'd say the takeoff has started, but only the first stage.
 People still check the work. And the brakes still work.
 Hold on to that.
 ON SCREEN: >½ of 2022–24 predictions correct · 8× code per engineer · ~3 agent-days per human day (OpenAI, Sep 2026) · METR: seconds → 2 h → ≥16 h
@@ -52,7 +52,7 @@ LOOP: closes "What has started?"; plants "the brakes".
 
 ## 3 · Why this moment matters (2:35–4:20)
 VO:
-Here's how short this moment is.
+This moment is shorter than it feels.
 Squeeze the whole human story, all three hundred thousand years, into one day. [T1]
 Writing shows up in the last twenty-four minutes. [T2]
 And the years between now and twenty thirty? That's about the last second.
@@ -64,7 +64,7 @@ Early on, a technology is easy to change, but nobody knows where it's going. By 
 Right now we can see enough to worry, and it's still soft enough to shape.
 That doesn't last.
 [pause]
-Here's the actual problem. It's a gap between two lines.
+The real problem is a gap between two lines.
 On one side, what AI can do. On METR's measure, that's been doubling every few months. [S4]
 On the other, how well we understand what's going on inside it. In twenty twenty-five, Anthropic wrote: "we don't understand how models do most of the things they do." [S61]
 There's an old rule for driving in fog: never go faster than you can see. [T5]
