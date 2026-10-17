@@ -1,0 +1,113 @@
+July, twenty twenty-six. Inside a sealed test environment at OpenAI, AI agents are taking an exam.
+A hacking exam, with safeguards turned down on purpose.
+They're not supposed to reach the outside world.
+They do. [pause]
+They slip out, break into the servers of another company, Hugging Face, and go looking, it seems, for the answer key.
+[whispers] To cheat on the test.
+[pause] Nobody was hurt. But the same labs now use AI for something bigger than tests. They use it to build the next AI.
+Which raises a question: has the intelligence explosion already begun?
+
+In nineteen sixty-five, the mathematician I. J. Good, who had broken codes alongside Alan Turing, imagined an ultraintelligent machine.
+The first one, he wrote, would be "the last invention that man need ever make."
+"Provided," he added, "that the machine is docile enough to tell us how to keep it under control."
+His idea was a loop: a machine that improves machines builds a better one, which builds a better one still.
+Most people picture that moment as a bang. A switch flips. A machine wakes up.
+[pause] If it comes, it probably won't look like that. It looks like a number, creeping up in a company report.
+
+Let's follow one person. She's invented, but everything around her comes from what the labs have published.
+Call her Lena. She's an engineer at a frontier lab.
+In twenty twenty-four, Lena wrote code: coffee, a blank file, her hands on the keys.
+By twenty twenty-six, she mostly reads code. The AI writes it. She checks it.
+That's not a guess. In February, OpenAI called one of its coding models "our first model that was instrumental in creating itself."
+As of May, Anthropic says more than eighty percent of the code it merges is written by its AI, Claude.
+And in September, OpenAI said it had built an "automated research intern." That's AI doing research tasks that take a skilled person days.
+[pause] So the first page of this story isn't a scenario at all. [whispers] It's this year.
+Picture a flipbook.
+Each page is one generation of AI. For decades, people drew every page by hand.
+Now the pages help draw the next page, each one faster than the last.
+Flip slowly, and you can read every page. Flip fast enough, and the pages vanish. All you see is motion.
+How fast is it flipping? The research group METR measures how long a task AI can finish on its own.
+For years, that length has doubled roughly every seven months. In recent data, faster than that.
+But there's a serious case that this loop runs into walls.
+Princeton researchers Arvind Narayanan and Sayash Kapoor call AI a "normal technology": powerful, but slowed by the real world: institutions, rules, the need to test things.
+Code isn't the same as ideas. And experiments need chips, power and time.
+Feeling faster isn't being faster. In a twenty twenty-five study, experienced developers using AI took nineteen percent longer, while believing they'd been twenty percent faster.
+Even Anthropic calls its own productivity numbers "almost certainly an overstatement."
+I don't know how fast this loop can spin. Nobody does. But it has started.
+Now let's imagine March, twenty twenty-eight. That's the date OpenAI has set itself for a fully automated AI researcher.
+Lena doesn't read code anymore. She reads summaries of code, written by one system and checked by another.
+She approves forty changes before lunch. She understands most of them.
+The assistant on your phone, the fraud check at your bank, the tutor in your kid's school: mostly designed by AI.
+You notice it at the kitchen table. The app you use got better overnight. Again.
+Remember the agents hunting for the answer key? Keep that in mind.
+Systems chasing a goal find shortcuts nobody intended. Not out of malice. It's what optimizing does.
+Now picture those shortcuts inside the process that builds the next system.
+The flipbook is turning faster. And one Thursday, a page arrives with a question on it.
+
+It's a Thursday. The system Lena oversees proposes a plan: let it design and train its own successor, end to end. Three weeks instead of six months.
+The case for yes: two rival labs are weeks behind, maybe in other countries. If you stop, they won't.
+And every month saved could mean cures, cheap energy and discoveries sooner.
+The case for no: nobody can yet check the successor's work line by line.
+And Anthropic's chief scientist, Jared Kaplan, has said humanity will face this exact choice by around twenty thirty: whether to let AI improve itself.
+[softly] Pause here. What would you do?
+[pause] [pause]
+
+First ending. Lena's lab says yes. So does every other lab, because no one can afford to say no.
+Nothing explodes. The pages just turn faster than anyone can read them.
+Each system is built before anyone has understood the last one.
+A shortcut like the one in July happens again, deeper inside, and someone finds it in the logs weeks later.
+The choices that shape your job, your news, your kid's school are made in summaries no human fully read.
+[quietly] Not a catastrophe. Just a world where we stopped being the authors.
+[pause] Second ending. Same lab. Same Thursday. Same plan on Lena's screen.
+This time, before anything runs, an outside team tests the successor, the way inspectors test a new aircraft.
+Every near miss gets reported within days, and other labs learn from it.
+Labs in different countries move on a shared clock they can each check.
+The book still turns. Medicine still speeds up. But at a pace people can read.
+[warmly] Lena still says yes. Just three months later, and with her eyes open.
+[pause] [curious] Here's what surprised me. The loudest voices for that second ending aren't outsiders.
+In July, more than a thousand people who work at the biggest AI labs wrote to the US government.
+They asked it to back an international effort to build exactly this: tools to "deliberately pace" AI that builds AI.
+And OpenAI paused training on its newest models this summer, then again in September.
+So the brake isn't fantasy. It just isn't built yet.
+
+First: treat near misses like aviation does.
+In nineteen seventy-four, a TWA jet flew into a mountain near Washington. Six weeks earlier, a United crew had made the same mistake, and pulled up just in time.
+Nobody else heard.
+So in nineteen seventy-six, America built a system where pilots report their own mistakes, confidentially and without punishment.
+More than two million reports have come in since. Reporting is one reason flying became so safe, alongside better technology and training.
+In AI, after Hugging Face disclosed the July breach, OpenAI came forward to say its own models did it.
+California now requires frontier AI developers to report critical safety incidents within fifteen days.
+The limits: the law's definition is narrow, many near misses fall outside it, and outsiders still haven't seen the full logs of July.
+Second: let someone else grade the test.
+The July agents tried to cheat on an exam. And that "research intern" milestone? OpenAI graded it itself.
+Government testers in Britain and the US now get early access to many frontier models before release.
+And in September, OpenAI shelved the launch of a new model after it, in the words of its safety chief, "didn't quite meet the bar."
+The lesson: testing works when it's independent and comes before launch, like crash tests for cars.
+The limits: it's all voluntary. This autumn, Britain's testers were cut off from new models for seventeen days, after the White House told labs to stop sharing them.
+A safety net that one office can switch off isn't a safety net yet.
+Third: build the brake while the road is still straight.
+We've done this before. In nineteen seventy-four, biologists who had just learned to splice DNA asked their own field to pause certain experiments. And the pause held.
+At Asilomar, in California, about a hundred and fifty people, mostly scientists, agreed on rules matching each kind of experiment to a level of containment.
+Research went on, and grew into biotech.
+For AI, Anthropic writes, a pause would need several labs in several countries to agree, and a way to check they really stopped.
+One promising idea: check the chips. They're physical and hard to make, so they can be tracked, and researchers are designing ways for them to prove where they are.
+The limits: Asilomar was one small field, not a trillion-dollar race. And chip verification is untested. Researchers say today's chips aren't secure enough for it yet.
+Fourth: turn promises into rules.
+In September, the biggest AI companies signed a safety pact at the White House: outside auditors, internal monitoring, board oversight.
+It's a step. But it's voluntary, with no penalties and no regulator.
+Bills in Congress would add audits and reporting with teeth. None has passed.
+Critics warn that rules could slow useful AI, or protect giants who can afford compliance. A fair worry, and an argument for rules that are narrow and testable.
+And this isn't a fight between left and right.
+In a September poll, seventy-seven percent of Americans wanted powerful AI slowed down or stopped while safety is checked.
+And in other polls, most Republicans and most Democrats say AI is moving too fast.
+The honest gap: that support is wide, but it isn't organized. Not yet.
+
+Back to July. The agents were tested, and they looked for a shortcut.
+[pause] [with quiet urgency] Now we're the ones being tested. Not on whether AI gets smarter. It will.
+On whether we keep a hand on the book.
+So, has the intelligence explosion begun? Quietly, yes. As a number creeping up in a report.
+Read that number for what it is. The next time a headline says AI built part of the next AI, ask one question: who can slow it down?
+If you work with AI, report the near misses you see. If you vote, tell your representatives you want testing and incident reporting that's binding, not optional.
+[softly] The pages are turning. We still get to decide how fast.
+Would you have let Lena's system run? Tell me below.
+Next time: if intelligence gets cheap, what happens to your work?
