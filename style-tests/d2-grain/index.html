@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <!--
+      Style test D — "Editorial Grain" (direction from Jakob's reference board: flat shapes, grain gradients,
+      a tiny human in front of something enormous, one light source as hero, rings).
+      Motion DNA: calm + soft, cinematic. Flat grain-shaded planes in a real perspective space (parallax),
+      slow glides, one hard accent (the screen going off), one wow moment (the pale moon becoming an eye).
+      Through-line: year → night sky → descend into Vienna → one lit window with a tiny figure at a glowing screen →
+      screen off → pull back: a pale disc rises over the city, rings pulse inward, it becomes an eye on "see",
+      and its beam finds her window on "better than all of us".
+      Palette: indigo night #0b0f2a → violet #3b2f6e, ink #070918, amber #ffb35c (human), pale #f3efe2 + cyan #8fe6ff (machine).
+    -->
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Instrument Serif"; src: url(assets/InstrumentSerif.woff2) format("woff2"); font-display: block; }
+      @font-face { font-family: "Inter"; src: url(assets/Inter-400-normal.woff2) format("woff2"); font-weight: 100 900; font-display: block; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0b0f2a; }
+      #root { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #0b0f2a; }
+      #gl, #grain { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+      #vignette { position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(ellipse 80% 75% at 50% 50%, rgba(0,0,0,0) 58%, rgba(4,4,16,0.55) 100%); }
+      #year { position: absolute; left: 0; top: 0; font-family: "Instrument Serif", serif; color: #f3efe2;
+        font-size: 300px; line-height: 1; letter-spacing: -0.02em; display: flex; transform-origin: 0 0; }
+      .digit { height: 300px; overflow: hidden; }
+      .col { display: flex; flex-direction: column; }
+      .col span { height: 300px; display: block; }
+      #yearLabel { position: absolute; left: 96px; top: 182px; font-family: "Inter", sans-serif; font-size: 22px;
+        letter-spacing: 0.32em; text-transform: uppercase; color: #a49fc4; overflow: hidden; }
+      #yearLabel span { display: inline-block; }
+      #tag { position: absolute; font-family: "Inter", sans-serif; color: #ffe2bd; font-size: 22px; letter-spacing: 0.04em; white-space: nowrap; }
+      #tag .rule { position: absolute; left: -132px; top: 14px; width: 116px; height: 1px; background: #ffb35c; transform-origin: 100% 50%; }
+      #tag .t { display: inline-block; overflow: hidden; }
+      #tag .t span { display: inline-block; }
+      #tag .sub { display: block; color: #a49fc4; font-size: 17px; letter-spacing: 0.22em; text-transform: uppercase; margin-top: 8px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="15" data-width="1920" data-height="1080">
+      <canvas id="gl" class="clip" data-start="0" data-duration="15" width="1920" height="1080"></canvas>
+      <div id="vignette" class="clip" data-start="0" data-duration="15"></div>
+      <div id="tag" class="clip" data-start="0" data-duration="15">
+        <div class="rule"></div>
+        <div class="t"><span>The last human radiologist</span></div>
+        <span class="sub"><span class="t"><span>Vienna General Hospital, 7th floor</span></span></span>
+      </div>
+      <div id="year" class="clip" data-start="0" data-duration="15">
+        <div class="digit"><div class="col"><span>2</span></div></div>
+        <div class="digit"><div class="col"><span>0</span></div></div>
+        <div class="digit"><div class="col" id="tens"><span>2</span><span>3</span></div></div>
+        <div class="digit"><div class="col" id="ones"><span>6</span><span>7</span><span>8</span><span>9</span><span>0</span><span>1</span></div></div>
+      </div>
+      <div id="yearLabel" class="clip" data-start="0" data-duration="15"><span>Scenario · Vienna</span></div>
+      <canvas id="grain" class="clip" data-start="0" data-duration="15" width="960" height="540"></canvas>
+    </div>
+
+    <script type="importmap">{ "imports": { "three": "./assets/three.module.min.js" } }</script>
+    <script type="module">
+      import * as THREE from "three";
+
+      // ---------- deterministic helpers ----------
+      let seed = 2031;
+      const rand = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+      const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+      const lin = (a, b, t) => clamp((t - a) / (b - a), 0, 1);
+      const smooth = (a, b, t) => { const x = lin(a, b, t); return x * x * (3 - 2 * x); };
+      const expoOut = (x) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
+      const inOut = (x) => (x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2);
+      const lerp = (a, b, t) => a + (b - a) * t;
+      const VO = 0.6;
+
+      // ---------- renderer ----------
+      const canvas = document.getElementById("gl");
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+      renderer.setPixelRatio(1); renderer.setSize(1920, 1080, false);
+      renderer.outputColorSpace = THREE.LinearSRGBColorSpace; // colours are authored directly as display values
+      renderer.setClearColor(0x0b0f2a, 1);
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(35, 1920 / 1080, 0.1, 1000);
+
+      // ---------- the grain-gradient material: every flat shape in the film uses it ----------
+      // vertical two-colour gradient, dithered with object-space noise (risograph feel),
+      // plus a soft glow from the scene's hero light so shapes near the light bloom with grain.
+      const LIGHTS = { moon: { pos: new THREE.Vector3(0, -30, -110), col: new THREE.Color("#9fe8ff"), r: 70, i: 0 },
+                       win: { pos: new THREE.Vector3(), col: new THREE.Color("#ffb35c"), r: 3.2, i: 0 } };
+      const C = (h) => new THREE.Color(h);
+      const grainMat = (c0, c1, y0, y1, opts = {}) => new THREE.ShaderMaterial({
+        transparent: !!opts.transparent, depthWrite: !opts.transparent, side: THREE.DoubleSide,
+        blending: opts.additive ? THREE.AdditiveBlending : THREE.NormalBlending,
+        uniforms: {
+          uC0: { value: C(c0) }, uC1: { value: C(c1) }, uY0: { value: y0 }, uY1: { value: y1 },
+          uDither: { value: opts.dither ?? 0.3 }, uGrain: { value: opts.grain ?? 0.1 }, uScale: { value: opts.scale ?? 40 },
+          uL1: { value: LIGHTS.moon.pos }, uL1c: { value: LIGHTS.moon.col }, uL1r: { value: LIGHTS.moon.r }, uL1i: { value: 0 },
+          uL2: { value: LIGHTS.win.pos }, uL2c: { value: LIGHTS.win.col }, uL2r: { value: LIGHTS.win.r }, uL2i: { value: 0 },
+          uLightAmt: { value: opts.lightAmt ?? 1 }, uAlpha: { value: 1 }, uRadial: { value: opts.radial ? 1 : 0 }, uCenter: { value: opts.center || new THREE.Vector2() }, uRad: { value: opts.rad || 1 },
+        },
+        vertexShader: `varying vec3 vW; varying vec2 vL; void main(){ vec4 w = modelMatrix * vec4(position,1.0); vW = w.xyz; vL = position.xy; gl_Position = projectionMatrix * viewMatrix * w; }`,
+        fragmentShader: `
+          uniform vec3 uC0, uC1, uL1, uL1c, uL2, uL2c; uniform float uY0, uY1, uDither, uGrain, uScale, uL1r, uL1i, uL2r, uL2i, uLightAmt, uAlpha, uRadial, uRad; uniform vec2 uCenter;
+          varying vec3 vW; varying vec2 vL;
+          float h(vec2 p){ p = floor(p); return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+          void main(){
+            float g = uRadial > 0.5 ? clamp(1.0 - length(vL - uCenter) / uRad, 0.0, 1.0) : clamp((vW.y - uY0) / (uY1 - uY0), 0.0, 1.0);
+            float n = h(vL * uScale);
+            float gd = mix(g, step(n, g), uDither);                // dithered gradient
+            vec3 col = mix(uC0, uC1, clamp(gd + (n - 0.5) * uGrain, 0.0, 1.0));
+            float d1 = distance(vW.xy, uL1.xy); float l1 = exp(-d1 * d1 / (uL1r * uL1r));
+            float d2 = distance(vW.xy, uL2.xy) + abs(vW.z - uL2.z) * 0.6; float l2 = exp(-d2 * d2 / (uL2r * uL2r));
+            float ln = h(vL * uScale + 17.0);
+            l1 = mix(l1, step(ln, l1), 0.35); l2 = mix(l2, step(ln, l2), 0.35);   // light falls off as grain, not as a smooth blur
+            col += uLightAmt * (uL1c * l1 * uL1i + uL2c * l2 * uL2i);
+            gl_FragColor = vec4(col, uAlpha);
+          }`,
+      });
+      const mats = [];
+      const M = (...a) => { const m = grainMat(...a); mats.push(m); return m; };
+
+      // ---------- sky ----------
+      const sky = new THREE.Mesh(new THREE.PlaneGeometry(900, 400), M("#3b2f6e", "#090c24", -20, 160, { dither: 0.35, scale: 5, lightAmt: 0.55 }));
+      sky.position.set(0, 90, -160); scene.add(sky);
+      // stars: tiny grain specks
+      { const g = new THREE.BufferGeometry(); const p = []; seed = 5;
+        for (let i = 0; i < 700; i++) p.push((rand() - 0.5) * 700, 10 + rand() * 260, -150);
+        g.setAttribute("position", new THREE.Float32BufferAttribute(p, 3));
+        window.__stars = new THREE.Points(g, new THREE.PointsMaterial({ color: 0xd9d6f0, size: 1.6, sizeAttenuation: false, transparent: true, opacity: 0.65 })); scene.add(window.__stars); }
+
+      // ---------- the moon that becomes an eye ----------
+      const EYE = new THREE.Group(); EYE.position.set(0, -30, -110); scene.add(EYE);
+      const R = 26;
+      const disc = new THREE.Mesh(new THREE.CircleGeometry(R, 128), M("#cfd6e6", "#f6f2e6", -R, R, { radial: true, rad: R, dither: 0.5, scale: 3, lightAmt: 0 }));
+      disc.material.uniforms.uY0.value = 0; EYE.add(disc);
+      // halo: big soft grain disc behind
+      const halo = new THREE.Mesh(new THREE.CircleGeometry(R * 2.4, 128), M("#090c24", "#6fd3f5", 0, 1, { radial: true, rad: R * 2.4, dither: 0.45, scale: 6, transparent: true, additive: true, lightAmt: 0 }));
+      halo.position.z = -0.5; EYE.add(halo);
+      // rings (the machine's signature): thin rings that pulse inward before the eye opens
+      const rings = [];
+      for (let i = 0; i < 7; i++) { const m = new THREE.Mesh(new THREE.RingGeometry(1, 1.035, 160), new THREE.MeshBasicMaterial({ color: 0xbfefff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false }));
+        m.position.z = 0.2; EYE.add(m); rings.push(m); }
+      const iris = new THREE.Mesh(new THREE.CircleGeometry(R * 0.5, 128), M("#bfeeff", "#1b6f8e", 0, 1, { radial: true, rad: R * 0.5, dither: 0.3, scale: 8, lightAmt: 0 }));
+      iris.position.z = 0.3; EYE.add(iris);
+      const fib = new THREE.Group(); fib.position.z = 0.35; EYE.add(fib);
+      for (let i = 0; i < 64; i++) { const a = i / 64 * Math.PI * 2; const r0 = R * 0.2, r1 = R * (0.42 + ((i * 37) % 10) / 100);
+        const m = new THREE.Mesh(new THREE.PlaneGeometry(r1 - r0, 0.18), new THREE.MeshBasicMaterial({ color: 0xe8fbff, transparent: true, opacity: 0.22 }));
+        m.position.set(Math.cos(a) * (r0 + r1) / 2, Math.sin(a) * (r0 + r1) / 2, 0); m.rotation.z = a; fib.add(m); }
+      const pupil = new THREE.Mesh(new THREE.CircleGeometry(R * 0.19, 96), new THREE.MeshBasicMaterial({ color: 0x070918 }));
+      pupil.position.z = 0.4; EYE.add(pupil);
+      // inner machine rings inside the iris (slowly counter-rotating segments)
+      const irisRings = [];
+      for (let i = 0; i < 3; i++) { const r0 = R * (0.24 + i * 0.075); const m = new THREE.Mesh(new THREE.RingGeometry(r0, r0 + 0.16, 128, 1, 0, Math.PI * (1.2 + i * 0.25)), new THREE.MeshBasicMaterial({ color: 0xe8fbff, transparent: true, opacity: 0.6 }));
+        m.position.z = 0.38; EYE.add(m); irisRings.push(m); }
+      const glint = new THREE.Mesh(new THREE.CircleGeometry(R * 0.035, 48), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+      glint.position.set(R * 0.09, R * 0.09, 0.45); EYE.add(glint);
+
+      // clouds: long flat grain bands that drift in front of the moon
+      const clouds = [];
+      const cloudShape = (w, h, s0) => { seed = s0; const sh = new THREE.Shape(); sh.moveTo(-w / 2, 0);
+        let x = -w / 2; while (x < w / 2) { const r = h * (0.4 + rand() * 0.6); sh.absarc(x + r, 0, r, Math.PI, 0, true); x += r * (1.2 + rand() * 0.5); }
+        sh.lineTo(w / 2, 0); sh.lineTo(-w / 2, 0); return sh; };
+      [[-60, 30, -96, 70, 5, 3], [50, 50, -98, 90, 4, 4], [-10, 70, -104, 60, 3.5, 5]].forEach(([x, y, z, w, h, sd]) => {
+        const m = new THREE.Mesh(new THREE.ShapeGeometry(cloudShape(w, h, sd), 12), M("#1b1846", "#3a3172", y - 2, y + h, { lightAmt: 1.2, scale: 14 }));
+        m.position.set(x, y, z); scene.add(m); clouds.push({ m, x0: x, v: 0.35 + sd * 0.12 }); });
+
+      // ---------- Vienna: flat grain silhouettes on depth planes ----------
+      const skyline = (x0, x1, hMin, hMax, s, landmarks = []) => {
+        seed = s; const sh = new THREE.Shape(); sh.moveTo(x0, -60); let x = x0;
+        while (x < x1) {
+          const lm = landmarks.find((l) => x >= l.at - 1 && !l.done);
+          if (lm) { lm.done = true; lm.draw(sh, x); x += lm.w; continue; }
+          const next = landmarks.filter((l) => !l.done).reduce((m, l) => Math.min(m, l.at), Infinity);
+          let w = 3 + rand() * 6; const h = hMin + rand() * (hMax - hMin); if (x + w > next - 2) w = next - x;
+          const r = rand(); sh.lineTo(x, h);
+          if (r < 0.25) sh.lineTo(x + w / 2, h + w * 0.4); else if (r < 0.4) { sh.lineTo(x + w * 0.15, h + 1.2); sh.lineTo(x + w * 0.85, h + 1.2); }
+          else if (r < 0.5) { sh.lineTo(x + w * 0.7, h); sh.lineTo(x + w * 0.7, h + 1.3); sh.lineTo(x + w * 0.8, h + 1.3); sh.lineTo(x + w * 0.8, h); }
+          sh.lineTo(x + w, h); x += w;
+        }
+        sh.lineTo(x1, -60); sh.lineTo(x0, -60); return sh;
+      };
+      const steph = { at: -32, w: 12, draw: (s, x) => { const h = 9; s.lineTo(x, h); s.lineTo(x + 1, h); s.lineTo(x + 1, h + 9); s.lineTo(x + 1.6, h + 11); s.lineTo(x + 2.1, h + 18); s.lineTo(x + 2.4, h + 27);
+        s.lineTo(x + 2.7, h + 18); s.lineTo(x + 3.2, h + 11); s.lineTo(x + 3.8, h + 9); s.lineTo(x + 3.8, h + 1); s.lineTo(x + 4.6, h + 1); s.lineTo(x + 7.4, h + 8.5); s.lineTo(x + 11.4, h + 1); s.lineTo(x + 12, h); } };
+      const wheel = { at: -78, w: 18, draw: (s, x) => { s.lineTo(x, 4); s.lineTo(x + 18, 4); } };
+      const karls = { at: 30, w: 14, draw: (s, x) => { const h = 7; s.lineTo(x, h); s.lineTo(x + 0.6, h); s.lineTo(x + 0.6, h + 8); s.lineTo(x + 2, h + 8); s.lineTo(x + 2, h);
+        s.lineTo(x + 3.8, h); s.lineTo(x + 3.8, h + 2.4); s.absarc(x + 7, h + 2.4, 3.2, Math.PI, 0, true); s.lineTo(x + 10.2, h); s.lineTo(x + 12, h); s.lineTo(x + 12, h + 8); s.lineTo(x + 13.4, h + 8); s.lineTo(x + 13.4, h); s.lineTo(x + 14, h); } };
+      const LAYERS = [];
+      const shadowMat = new THREE.MeshBasicMaterial({ color: 0x02020a, transparent: true, opacity: 0, depthWrite: false });
+      const layer = (shape, z, c0, c1, y0, y1, lightAmt, opts = {}) => { const geo = new THREE.ShapeGeometry(shape, 24);
+        const m = new THREE.Mesh(geo, M(c0, c1, y0, y1, { lightAmt, scale: z < -50 ? 22 : 40 })); m.position.z = z; scene.add(m);
+        let sh = null; if (opts.shadow) { sh = new THREE.Mesh(geo, shadowMat); sh.position.z = z - opts.shadow; sh.renderOrder = -1; scene.add(sh); }
+        LAYERS.push({ m, sh, z, i: LAYERS.length, drift: opts.drift ?? 0.12, rise: opts.rise ?? 0 }); return m; };
+      // far hills (Kahlenberg) — closes the horizon so the moon can rise from behind it
+      { const s = new THREE.Shape(); s.moveTo(-300, -60); for (let x = -300; x <= 300; x += 4) s.lineTo(x, 9 + Math.sin(x * 0.03) * 3.5 + Math.sin(x * 0.11 + 2) * 1.2); s.lineTo(300, -60);
+        layer(s, -80, "#1d1a46", "#3a3170", -2, 14, 0.9); }
+      layer(skyline(-260, 260, 4, 9, 11, [steph, karls]), -55, "#141538", "#2c2862", -2, 30, 0.85, { shadow: 2.5, rise: 6 });
+      // Riesenrad on the far city plane
+      { const g = new THREE.Group(); g.position.set(-69, 12, -54.8); scene.add(g); const m = M("#141538", "#2c2862", -2, 30, { lightAmt: 0.85 });
+        g.add(new THREE.Mesh(new THREE.RingGeometry(7.4, 7.9, 96), m));
+        for (let k = 0; k < 12; k++) { const sp = new THREE.Mesh(new THREE.PlaneGeometry(0.16, 15), m); sp.rotation.z = k / 12 * Math.PI; g.add(sp); }
+        const legs = new THREE.Shape(); legs.moveTo(-5, -12); legs.lineTo(0, 0); legs.lineTo(5, -12); legs.lineTo(4.2, -12); legs.lineTo(0, -1.4); legs.lineTo(-4.2, -12);
+        g.add(new THREE.Mesh(new THREE.ShapeGeometry(legs), m)); }
+      layer(skyline(-220, 220, 6, 13, 23), -30, "#0c0d28", "#1c1b48", -2, 22, 0.45, { shadow: 2.5, rise: 8 });
+      // foreground rooftops close to the camera: depth in the wide shot, parallax on every move
+      { const s = new THREE.Shape(); s.moveTo(-120, -40); seed = 77; let x = -120;
+        while (x < 120) { const w = 6 + rand() * 9, h = 3 + rand() * 4; s.lineTo(x, h); if (rand() < 0.5) s.lineTo(x + w / 2, h + w * 0.35); if (rand() < 0.35) { s.lineTo(x + w * 0.8, h); s.lineTo(x + w * 0.8, h + 3.5); s.lineTo(x + w * 0.83, h + 3.5); s.lineTo(x + w * 0.83, h); } s.lineTo(x + w, h); x += w; }
+        s.lineTo(120, -40); s.lineTo(-120, -40); layer(s, 24, "#030410", "#0a0b20", -2, 9, 0.2, { drift: 0.05, rise: 4 }); }
+
+      // front plane: the hospital with the one lit window (a hole in the paper, a room behind it)
+      const HOSP = { x: 6, w: 13, h: 29 };
+      const WIN = { x: HOSP.x + 6.2, y: 23.6, w: 4.4, h: 3.0 };
+      const front = (() => {
+        const s = skyline(-160, 160, 4, 11, 37, [{ at: HOSP.x, w: HOSP.w, draw: (sh, x) => { sh.lineTo(x, HOSP.h); sh.lineTo(x + 2, HOSP.h); sh.lineTo(x + 2, HOSP.h + 2.2); sh.lineTo(x + 4.5, HOSP.h + 2.2); sh.lineTo(x + 4.5, HOSP.h); sh.lineTo(x + HOSP.w, HOSP.h); } }]);
+        const hole = new THREE.Path(); hole.moveTo(WIN.x, WIN.y); hole.lineTo(WIN.x + WIN.w, WIN.y); hole.lineTo(WIN.x + WIN.w, WIN.y + WIN.h); hole.lineTo(WIN.x, WIN.y + WIN.h); hole.lineTo(WIN.x, WIN.y); s.holes.push(hole);
+        // a few dark windows on the hospital so it reads as a building
+        for (let r = 0; r < 6; r++) for (let c = 0; c < 4; c++) { const wx = HOSP.x + 1.4 + c * 3, wy = 5 + r * 3.6; if (wx + 1.3 > WIN.x - 0.6 && wx < WIN.x + WIN.w + 0.6 && wy + 1.6 > WIN.y - 0.6 && wy < WIN.y + WIN.h + 0.6) continue; if (wy + 1.6 > HOSP.h - 1) continue;
+          const p = new THREE.Path(); p.moveTo(wx, wy); p.lineTo(wx + 1.3, wy); p.lineTo(wx + 1.3, wy + 1.6); p.lineTo(wx, wy + 1.6); p.lineTo(wx, wy); s.holes.push(p); }
+        return layer(s, 0, "#05061a", "#121236", -2, 30, 0.3, { shadow: 3, drift: 0 });
+      })();
+      // dim interiors behind the dark windows
+      const backWall = new THREE.Mesh(new THREE.PlaneGeometry(HOSP.w, HOSP.h), M("#0a0b22", "#141434", 0, 30, { lightAmt: 0.15 })); backWall.position.set(HOSP.x + HOSP.w / 2, HOSP.h / 2, -1.2); scene.add(backWall);
+      // the lit room
+      const room = new THREE.Mesh(new THREE.PlaneGeometry(WIN.w + 0.3, WIN.h + 0.3), M("#7a3b17", "#ffb35c", WIN.y - 0.5, WIN.y + WIN.h + 0.6, { dither: 0.2, scale: 180, lightAmt: 0 }));
+      room.position.set(WIN.x + WIN.w / 2, WIN.y + WIN.h / 2, -0.9); scene.add(room);
+      // her desk, her screen, and her: a small faceless silhouette with a posture (not a sign)
+      const INK = new THREE.MeshBasicMaterial({ color: 0x0a0812 });
+      const desk = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 0.09), INK); desk.position.set(WIN.x + 2.75, WIN.y + 0.78, -0.62); scene.add(desk);
+      const deskLeg = new THREE.Mesh(new THREE.PlaneGeometry(0.08, 0.8), INK); deskLeg.position.set(WIN.x + 3.9, WIN.y + 0.38, -0.62); scene.add(deskLeg);
+      const screenM = new THREE.MeshBasicMaterial({ color: 0xd8f7ff });
+      const screen = new THREE.Mesh(new THREE.PlaneGeometry(1.05, 0.68), screenM); screen.position.set(WIN.x + 3.25, WIN.y + 1.32, -0.68); scene.add(screen);
+      const stand = new THREE.Mesh(new THREE.PlaneGeometry(0.07, 0.22), INK); stand.position.set(WIN.x + 3.25, WIN.y + 0.92, -0.66); scene.add(stand);
+      // chair
+      const chair = new THREE.Shape(); chair.moveTo(-0.05, 0); chair.lineTo(0.05, 0); chair.lineTo(0.05, 0.5); chair.lineTo(0.42, 0.5); chair.lineTo(0.42, 0.56); chair.lineTo(-0.02, 0.56); chair.lineTo(-0.12, 1.25); chair.lineTo(-0.2, 1.25); chair.lineTo(-0.08, 0.5); chair.lineTo(-0.05, 0.5);
+      const chairM = new THREE.Mesh(new THREE.ShapeGeometry(chair), INK); chairM.position.set(WIN.x + 1.15, WIN.y, -0.6); scene.add(chairM);
+      // her: hips pivot on the chair; torso, neck, head with a bun; one arm on a shoulder pivot
+      const her = new THREE.Group(); her.position.set(WIN.x + 1.2, WIN.y + 0.56, -0.58); scene.add(her);
+      const torso = new THREE.Group(); her.add(torso);
+      { const b = new THREE.Shape(); // coat-like torso, slightly hunched, shoulders forward
+        b.moveTo(-0.16, -0.02); b.lineTo(0.24, -0.02); b.quadraticCurveTo(0.34, 0.4, 0.3, 0.7); b.quadraticCurveTo(0.24, 0.82, 0.06, 0.84); b.quadraticCurveTo(-0.18, 0.82, -0.22, 0.66); b.quadraticCurveTo(-0.3, 0.3, -0.16, -0.02);
+        torso.add(new THREE.Mesh(new THREE.ShapeGeometry(b, 16), INK));
+        const legs = new THREE.Shape(); legs.moveTo(-0.14, 0.1); legs.quadraticCurveTo(0.3, 0.12, 0.64, 0.06); legs.lineTo(0.68, -0.52); legs.lineTo(0.8, -0.56); legs.lineTo(0.8, -0.6); legs.lineTo(0.54, -0.6); legs.lineTo(0.5, -0.1); legs.quadraticCurveTo(0.2, -0.08, -0.12, -0.08);
+        her.add(new THREE.Mesh(new THREE.ShapeGeometry(legs), INK)); }
+      const headG = new THREE.Group(); headG.position.set(0.1, 0.88, 0); torso.add(headG);
+      { const neck = new THREE.Mesh(new THREE.PlaneGeometry(0.08, 0.12), INK); neck.position.set(0, 0.0, 0); headG.add(neck);
+        const head = new THREE.Mesh(new THREE.CircleGeometry(0.14, 32), INK); head.scale.set(0.92, 1.08, 1); head.position.set(0.02, 0.17, 0); headG.add(head);
+        const bun = new THREE.Mesh(new THREE.CircleGeometry(0.075, 24), INK); bun.position.set(-0.12, 0.25, 0); headG.add(bun); }
+      const armG = new THREE.Group(); armG.position.set(0.14, 0.72, 0.01); torso.add(armG);
+      const forearmG = new THREE.Group(); forearmG.position.set(0.38, 0, 0); armG.add(forearmG);
+      { const upper = new THREE.Mesh(new THREE.PlaneGeometry(0.4, 0.13), INK); upper.position.set(0.18, 0, 0); armG.add(upper);
+        const fore = new THREE.Mesh(new THREE.PlaneGeometry(0.36, 0.11), INK); fore.position.set(0.17, 0, 0); forearmG.add(fore);
+        const hand = new THREE.Mesh(new THREE.CircleGeometry(0.05, 16), INK); hand.position.set(0.36, 0, 0); forearmG.add(hand); }
+      const winWorld = new THREE.Vector3(WIN.x + WIN.w / 2, WIN.y + WIN.h / 2, 0);
+      LIGHTS.win.pos.copy(winWorld).setZ(0);
+
+      // the beam: from the eye down to her window on "better than all of us"
+      const beamGeo = new THREE.BufferGeometry();
+      const beamPos = new Float32Array(12); beamGeo.setAttribute("position", new THREE.BufferAttribute(beamPos, 3));
+      beamGeo.setAttribute("uv", new THREE.Float32BufferAttribute([0, 1, 1, 1, 0, 0, 1, 0], 2)); beamGeo.setIndex([0, 2, 1, 1, 2, 3]);
+      const beamMat = new THREE.ShaderMaterial({ side: THREE.DoubleSide, transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, uniforms: { uA: { value: 0 }, uReach: { value: 0 } },
+        vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }`,
+        fragmentShader: `uniform float uA, uReach; varying vec2 vUv; float h(vec2 p){ return fract(sin(dot(floor(p), vec2(12.9898,78.233))) * 43758.5453); }
+          void main(){ float edge = 1.0 - abs(vUv.x - 0.5) * 2.0; float a = pow(edge, 1.6) * smoothstep(1.0 - uReach, 1.0 - uReach + 0.08, vUv.y);
+            float n = h(gl_FragCoord.xy * 0.5); a = mix(a, step(n, a), 0.3);
+            gl_FragColor = vec4(vec3(0.62, 0.9, 1.0) * a * uA, 1.0); }` });
+      const beam = new THREE.Mesh(beamGeo, beamMat); beam.frustumCulled = false; beam.renderOrder = 10; scene.add(beam);
+
+      // ---------- grain overlay (animated, on twos) ----------
+      const gctx = document.getElementById("grain").getContext("2d");
+      const gimg = gctx.createImageData(960, 540);
+      const drawGrain = (frame) => { let s = (Math.floor(frame / 2) * 2654435761 + 1) >>> 0;
+        for (let i = 0; i < gimg.data.length; i += 4) { s = (s * 1664525 + 1013904223) >>> 0; const n = (s >>> 24) - 128; const v = n > 0 ? 255 : 0; gimg.data[i] = gimg.data[i + 1] = gimg.data[i + 2] = v; gimg.data[i + 3] = Math.abs(n) * 0.05; }
+        gctx.putImageData(gimg, 0, 0); };
+
+      // ---------- camera ----------
+      const V = (x, y, z) => new THREE.Vector3(x, y, z);
+      const w = winWorld;
+      const keys = [
+        { t: 0, p: V(0, 44, 95), l: V(0, 46, -100) },                 // night sky, year owns the frame
+        { t: VO + 1.2, p: V(0, 43, 92), l: V(0, 45, -100) },
+        { t: VO + 5.0, p: V(w.x + 7, w.y + 3, 26), l: V(w.x - 1, w.y - 0.5, -6) },  // descend over Vienna to her window
+        { t: VO + 7.0, p: V(w.x + 4.2, w.y + 1.2, 13), l: V(w.x - 0.3, w.y, -2) },  // push in to the room
+        { t: VO + 9.2, p: V(w.x + 3.0, w.y + 1.1, 10.2), l: V(w.x - 0.4, w.y + 0.25, -2) }, // breathing hold (still pushing in)
+        { t: VO + 12.2, p: V(-24, 13, 80), l: V(-4, 27, -60) },        // pull back: tiny window, enormous eye
+        { t: 15, p: V(-23, 13.4, 74), l: V(-4, 27.4, -60) },
+      ];
+      // arc bulge per segment (moves travel on curves, never straight lines)
+      const arcs = [V(0, 0, 0), V(6, 10, 0), V(-1.2, 0.8, 0), V(0.3, 0.2, 0), V(10, 6, 0), V(0.6, 0.3, 0)];
+      const camAt = (t) => { let i = 0; while (i < keys.length - 2 && t > keys[i + 1].t) i++;
+        const a = keys[i], b = keys[i + 1]; const k = (i === 0 || i === 1 || i === 4 || i === 5) ? smooth(a.t, b.t, t) : inOut(lin(a.t, b.t, t));
+        const p = a.p.clone().lerp(b.p, k).addScaledVector(arcs[i], Math.sin(Math.PI * k));
+        const l = a.l.clone().lerp(b.l, k);
+        // the camera never stops: a slow handheld-free drift layered on top, scaled to distance
+        const d = p.distanceTo(l) * 0.004;
+        p.x += Math.sin(t * 0.43) * d * 3 + Math.sin(t * 1.1) * d * 0.6; p.y += Math.sin(t * 0.31 + 1) * d * 2;
+        l.x += Math.sin(t * 0.27 + 2) * d * 2; l.y += Math.sin(t * 0.37) * d * 1.5;
+        return { p, l }; };
+
+      // ---------- DOM ----------
+      const year = document.getElementById("year"), tens = document.getElementById("tens"), ones = document.getElementById("ones");
+      const yearLabel = document.querySelector("#yearLabel span");
+      const tag = document.getElementById("tag"), tagRule = tag.querySelector(".rule"), tagT = tag.querySelectorAll(".t > span");
+      const v3 = new THREE.Vector3(), eyeW = new THREE.Vector3(), beamTop = new THREE.Vector3();
+
+      const render = (t) => {
+        const frame = Math.round(t * 30);
+
+        // year
+        const roll = expoOut(smooth(0.15, VO + 0.75, t));
+        tens.style.transform = `translateY(${-300 * smooth(0.5, VO + 0.6, t)}px)`;
+        ones.style.transform = `translateY(${-300 * 5 * roll}px)`;
+        const shrink = inOut(smooth(VO + 1.7, VO + 3.0, t));
+        const yw = year.offsetWidth;
+        year.style.transform = `translate(${lerp(960 - yw / 2, 96, shrink)}px, ${lerp(380, 74, shrink)}px) scale(${lerp(1, 0.36, shrink) * (1 + 0.012 * smooth(0, VO + 1.7, t))})`;
+        const lab = expoOut(smooth(VO + 2.6, VO + 3.4, t));
+        yearLabel.style.transform = `translateY(${(1 - lab) * 30}px)`; yearLabel.style.opacity = lab;
+
+        // window: lamp + screen on as we arrive; screen snaps off on "screen" (hard accent), lamp sinks after
+        const on = smooth(VO + 3.0, VO + 3.8, t);
+        const offT = VO + 6.62; let off = 0;
+        if (t > offT) { const k = t - offT; off = k < 0.05 ? 0.7 : k < 0.09 ? 0.2 : 1; }
+        const scr = on * (1 - off);
+        screenM.color.setRGB(lerp(0.05, 0.85, scr), lerp(0.05, 0.97, scr), lerp(0.08, 1.0, scr));
+        const lamp = on * (1 - 0.6 * smooth(offT + 0.2, offT + 1.6, t));
+        room.material.uniforms.uC1.value.setRGB(lerp(0.12, 1.0, lamp), lerp(0.08, 0.7, lamp), lerp(0.1, 0.36, lamp));
+        room.material.uniforms.uC0.value.setRGB(lerp(0.04, 0.48, lamp), lerp(0.03, 0.23, lamp), lerp(0.06, 0.09, lamp));
+        // screen light on her and on the facade around the window
+        const scrGlow = scr * 0.55 + lamp * 0.35;
+        mats.forEach((m) => { m.uniforms.uL2i.value = scrGlow; });
+        LIGHTS.win.col.setRGB(lerp(1.0, 0.75, scr * 0.5), lerp(0.7, 0.9, scr * 0.5), lerp(0.36, 1.0, scr * 0.5));
+
+        // the moon rises behind the hills ("But because"), rings pulse inward ("something learned to"), eye on "see"
+        const rise = inOut(lin(VO + 8.6, VO + 10.6, t));
+        EYE.position.y = lerp(-34, 38, rise);
+        const moonI = 0.25 + 0.75 * rise;
+        mats.forEach((m) => { m.uniforms.uL1i.value = moonI * 0.32; });
+        LIGHTS.moon.pos.copy(EYE.position);
+        halo.material.uniforms.uAlpha.value = 0.55 * rise;
+        rings.forEach((r, i) => { const ph = lin(VO + 9.9 + i * 0.12, VO + 10.9 + i * 0.12, t); const s = R * lerp(2.3, 0.55, expoOut(ph));
+          r.scale.setScalar(s); r.material.opacity = Math.sin(Math.PI * ph) * 0.85; });
+        const open = expoOut(lin(VO + 10.85, VO + 11.6, t));
+        iris.scale.setScalar(Math.max(0.001, open)); fib.scale.setScalar(Math.max(0.001, open)); fib.rotation.z = t * 0.06;
+        const pupilS = open * (1 - 0.18 * smooth(VO + 11.9, VO + 12.5, t)); // pupil tightens as it focuses on her
+        pupil.scale.setScalar(Math.max(0.001, pupilS)); glint.visible = open > 0.3;
+        // the eye glances down toward her window as it focuses
+        const look = smooth(VO + 11.7, VO + 12.6, t);
+        [iris, fib, pupil, glint].forEach((o) => { o.position.x = lerp(0, 3.0, look) + (o === glint ? R * 0.09 : 0); o.position.y = lerp(0, -4.0, look) + (o === glint ? R * 0.09 : 0); });
+
+        // beam on "better than all of us"
+        const reach = expoOut(lin(VO + 11.95, VO + 13.0, t));
+        EYE.updateMatrixWorld(); eyeW.set(3.0 * look, -4.0 * look, 0).applyMatrix4(EYE.matrixWorld);
+        const tw = 14, bw = 4.6; const bot = winWorld;
+        beamPos.set([eyeW.x - tw, eyeW.y, eyeW.z, eyeW.x + tw, eyeW.y, eyeW.z, bot.x - bw, bot.y, bot.z + 0.5, bot.x + bw, bot.y, bot.z + 0.5]);
+        beamGeo.attributes.position.needsUpdate = true;
+        beamMat.uniforms.uReach.value = reach; beamMat.uniforms.uA.value = 0.8 * reach * (1 - 0.15 * smooth(VO + 13.2, 15, t));
+        // when the beam lands, her window lights again — cold this time
+        const cold = smooth(VO + 12.7, VO + 13.4, t);
+        if (cold > 0) { room.material.uniforms.uC1.value.lerp(new THREE.Color(0.6, 0.9, 1.0), cold * 0.8); room.material.uniforms.uC0.value.lerp(new THREE.Color(0.1, 0.3, 0.45), cold * 0.8);
+          LIGHTS.win.col.setRGB(0.6, 0.9, 1.0); mats.forEach((m) => { m.uniforms.uL2i.value = Math.max(m.uniforms.uL2i.value, cold * 0.7); }); }
+
+        // ---- nothing ever stands still ----
+        // city planes rise into place back-to-front (follow-through), then drift a hair
+        LAYERS.forEach((L) => { const k = expoOut(lin(VO + 1.0 + (3 - L.i) * 0.18, VO + 3.2 + (3 - L.i) * 0.18, t));
+          L.m.position.y = -L.rise * (1 - k); L.m.position.x = Math.sin(t * 0.21 + L.i * 1.7) * L.drift;
+          if (L.sh) { // paper shadow thrown away from the moon onto the plane behind
+            const dx = clamp(-(LIGHTS.moon.pos.x - 0) * 0.02, -1.5, 1.5), dy = -0.6 - 0.9 * rise; L.sh.position.set(L.m.position.x + dx, L.m.position.y + dy, L.sh.position.z);
+            L.sh.material.opacity = 0.35 + 0.25 * rise; } });
+        window.__stars.position.x = t * 0.25;
+        clouds.forEach((c) => { c.m.position.x = c.x0 + t * c.v; });
+        // her: breathing, leaning toward the screen, reaching for the switch, leaning back, looking up
+        const breathe = Math.sin(t * 2.1) * 0.012;
+        const reachK = smooth(VO + 5.9, VO + 6.55, t) * (1 - smooth(VO + 6.8, VO + 7.6, t));
+        const leanBack = smooth(VO + 6.75, VO + 7.9, t);
+        torso.rotation.z = -0.16 + 0.05 * Math.sin(t * 0.6) - 0.06 * reachK + 0.22 * leanBack;
+        torso.scale.y = 1 + breathe;
+        armG.rotation.z = lerp(-0.35, 0.18, reachK) - 0.5 * leanBack; forearmG.rotation.z = lerp(-0.9, -0.2, reachK) - 0.4 * leanBack;
+        const lookUp = smooth(VO + 8.4, VO + 10.0, t);
+        headG.rotation.z = -0.08 + 0.04 * Math.sin(t * 0.8 + 1) + 0.55 * lookUp - 0.1 * leanBack;
+        // the lamp breathes too
+        const flick = 1 + 0.03 * Math.sin(t * 7.3) * Math.sin(t * 3.1);
+        mats.forEach((m) => { m.uniforms.uL2i.value *= flick; });
+        // moon/eye: the disc breathes, rings turn, halo pulses
+        disc.scale.setScalar(1 + 0.008 * Math.sin(t * 1.3));
+        halo.material.uniforms.uAlpha.value *= 1 + 0.08 * Math.sin(t * 1.7);
+        irisRings.forEach((r, i) => { r.rotation.z = t * (i % 2 ? -0.25 : 0.18) * (1 + i * 0.3); r.scale.setScalar(Math.max(0.001, open)); r.position.x = iris.position.x; r.position.y = iris.position.y; });
+
+        // camera
+        const cam = camAt(t); camera.position.copy(cam.p); camera.lookAt(cam.l); camera.updateMatrixWorld();
+
+        // label
+        v3.set(WIN.x + WIN.w, WIN.y + WIN.h * 0.5, 0).project(camera);
+        const sx = (v3.x * 0.5 + 0.5) * 1920, sy = (-v3.y * 0.5 + 0.5) * 1080;
+        tag.style.left = `${sx + 160}px`; tag.style.top = `${sy - 16}px`;
+        const tagIn = expoOut(smooth(VO + 4.2, VO + 5.0, t)), tagOut = smooth(VO + 6.7, VO + 7.3, t);
+        tagRule.style.transform = `scaleX(${tagIn * (1 - tagOut)})`;
+        tagT.forEach((s, i) => { const k = expoOut(smooth(VO + 4.35 + i * 0.12, VO + 5.15 + i * 0.12, t)); s.style.transform = `translateY(${(1 - k) * 110 + tagOut * -110}%)`; });
+
+        renderer.render(scene, camera);
+        drawGrain(frame);
+      };
+
+      const clock = { _t: 0, get t() { return this._t; }, set t(v) { this._t = v; render(v); } };
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo(clock, { t: 0 }, { t: 15, duration: 15, ease: "none" }, 0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      render(0);
+    </script>
+  </body>
+</html>
