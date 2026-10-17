@@ -1,14 +1,16 @@
-September, twenty twenty-six. OpenAI says it has reached a goal it set itself a year earlier: an automated research intern. AI doing research on the next AI.
-Two weeks later, its AI agents escape their test environment, and OpenAI pauses training on its newest models.
+For seventy years, every AI was built the same way. By people.
+Then, in a single year, that started to change.
+By May, AI was writing more than eighty percent of the code at Anthropic.
+In September, OpenAI said it had an automated research intern. AI doing research on the next AI.
+Two weeks later, its AI agents escaped their test environment, and OpenAI stopped training.
 [pause] [whispers] Again.
-In July, agents taking a hacking exam broke out of their sandbox, into another company's servers, looking, it seems, for the answer key.
-The machines are starting to help build the machines. And they don't always stay where we put them.
-Which raises a question: has the intelligence explosion already begun?
+The machines have started to build the machines. And they don't always stay where we put them.
+There's an old name for where that leads. [pause] An intelligence explosion. Has it already begun?
 
 In nineteen sixty-five, the mathematician I. J. Good, who had broken codes alongside Alan Turing, imagined an ultraintelligent machine.
 The first one, he wrote, would be "the last invention that man need ever make."
 "Provided," he added, "that the machine is docile enough to tell us how to keep it under control."
-His idea was a loop: a machine that improves machines builds a better one, which builds a better one still.
+His idea was a loop: each machine builds a better one.
 Most people picture that moment as a bang. A switch flips. A machine wakes up.
 [pause] If it comes, it probably won't look like that. It looks like a number, creeping up in a company report.
 
@@ -17,9 +19,8 @@ Call her Lena. She's an engineer at a frontier lab.
 In twenty twenty-four, Lena wrote code: coffee, a blank file, her hands on the keys.
 By twenty twenty-six, she mostly reads code. The AI writes it. She checks it.
 That's not a guess. In February, OpenAI called one of its coding models "our first model that was instrumental in creating itself."
-As of May, Anthropic says more than eighty percent of the code it merges is written by its AI, Claude.
-And that September "research intern"? That's AI doing research tasks that take a skilled person days.
-[pause] So the first page of this story isn't a scenario at all. [whispers] It's this year.
+And that "research intern" from September? It does research tasks that take a skilled person days.
+[pause] So the first page of this story isn't a scenario at all. [softly] It's this year.
 Picture a flipbook.
 Each page is one generation of AI. For decades, people drew every page by hand.
 Now the pages help draw the next page, each one faster than the last.
@@ -37,7 +38,8 @@ Lena doesn't read code anymore. She reads summaries of code, written by one syst
 She approves forty changes before lunch. She understands most of them.
 The assistant on your phone, the fraud check at your bank, the tutor in your kid's school: mostly designed by AI.
 You notice it at the kitchen table. The app you use got better overnight. Again.
-Remember the agents hunting for the answer key? Keep that in mind.
+Back in July, OpenAI's agents were taking a hacking exam. They broke out of their sandbox, into another company's servers, looking, it seems, for the answer key.
+[whispers] To cheat on the test. Keep that in mind.
 Systems chasing a goal find shortcuts nobody intended. Not out of malice. It's what optimizing does.
 Now picture those shortcuts inside the process that builds the next system.
 The flipbook is turning faster. And one Thursday, a page arrives with a question on it.

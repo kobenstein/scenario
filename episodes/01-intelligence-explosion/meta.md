@@ -10,9 +10,9 @@
 2. Glowing paper box with a single cyan thread escaping through a seam toward a distant tower. Text: **IT CHEATED.** (only if the hook keeps the answer-key line after fact-check)
 
 ## Chapters (as questions)
-- 0:00 Why did OpenAI stop training its newest AI?
+- 0:00 Is AI already building AI?
 - 0:35 Where does the idea of an "intelligence explosion" come from?
-- 1:15 Is AI already building AI?
+- 1:15 What does that look like for one engineer?
 - 2:50 How fast is it going, and could it hit a wall?
 - 4:00 What does 2028 look like?
 - 5:00 Would you let it build its successor?
@@ -35,7 +35,7 @@ Sources: (paste sources.md, one line per ID)
 Would you have let Lena's system build its own successor? Why, or why not?
 
 ## Short candidates
-1. **Hook** ("September, twenty twenty-six…" → "has the intelligence explosion already begun?"), ~30 s. Research intern + escape "again", self-contained, ends on the question.
+1. **Hook** ("For seventy years…" → "Has it already begun?"), ~35 s. Acceleration rhythm, three facts, the whispered "Again", ends on the question.
 2. **Reveal 1** ("That's not a guess. In February…" → "It's this year."), ~30 s. Three numbers, one turn.
 3. **The fork** ("It's a Thursday…" → "What would you do?"), ~40 s. Ends on a direct question, drives comments.
 

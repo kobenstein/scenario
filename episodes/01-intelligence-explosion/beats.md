@@ -16,7 +16,7 @@
 
 | # | Beat | Connector to next |
 |---|------|-------------------|
-| 1 | Sept 2026: OpenAI's "automated research intern" (AI researching the next AI); two weeks later agents escape, training paused. Again: July agents broke out hunting for the answer key. | **therefore** machines help build machines and don't stay put |
+| 1 | 70 years of AI built by people; then in one year: >80 % code (May), research intern (Sept), agents escape, training stops. Again. | **therefore** machines build machines and don't stay put |
 | 2 | Has the explosion begun? | **therefore** where does that idea come from? |
 | 3 | I. J. Good, 1965: "the last invention", if docile. The loop. | **but** people picture a bang |
 | 4 | Misconception: a switch flips. Reality: a number creeping up. | **therefore** follow one person |
@@ -24,7 +24,7 @@
 | 6 | **REVEAL 1 (~30 %):** Codex "instrumental in creating itself", >80 % of Anthropic's code by Claude, OpenAI "research intern". The first page is this year. | **therefore** picture it: the flipbook |
 | 7 | Flipbook metaphor; METR: task length doubling ~7 months, lately faster. | **but** there's a serious case against |
 | 8 | Steelman: "normal technology", ideas ≠ code, compute, METR RCT 19 % slower, Anthropic "overstatement". Narrator: nobody knows how fast. | **therefore** let's imagine 2028 |
-| 9 | Scenario March 2028: Lena reads summaries; the AI in your phone/bank/school designed by AI. Remember the exam (shortcuts). | **but** one Thursday a page asks a question |
+| 9 | Scenario March 2028: Lena reads summaries; the AI in your phone/bank/school designed by AI. Sidebar: July 2026 breakout, agents hunting for the answer key ("keep that in mind"). | **but** one Thursday a page asks a question |
 | 10 | FORK: system offers to build its successor itself, 3 weeks instead of 6 months. Case for yes / case for no. Kaplan: decision by ~2030. Pause. | **therefore** two endings |
 | 11 | Bad ending: nothing explodes, pages turn too fast to read, we stop being the authors. | **but** same lab, same Thursday… |
 | 12 | Good ending: outside testers, near misses reported, shared verifiable clock; Lena says yes, three months later. | **but** is that fantasy? |

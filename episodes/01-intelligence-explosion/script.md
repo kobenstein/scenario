@@ -1,6 +1,6 @@
 # 01 · Has the Intelligence Explosion Already Begun?
 Insight: An intelligence explosion isn't a bang, it's a handover you can measure, and what matters is whether humans keep the power to set the pace.
-Words: 1699 | Est. runtime: 11.7 min | Solutions share: 40 % (part 6+7; with good ending 47 %)
+Words: 1696 | Est. runtime: 11.7 min | Solutions share: 40 % (part 6+7; with good ending 48 %)
 
 Format: every VO line starts with `>`. The line below it (`↳`) is the picture idea for scenario-motion. Audio tags are inline (Eleven v4). `[S#]` = source ID in sources.md. Lines marked *(constructed)* are scenario, not fact.
 
@@ -11,28 +11,34 @@ Carrier object for the whole episode: **a paper flipbook** that appears in the h
 
 ## 1 · Hook (0:00–0:30)
 
-> September, twenty twenty-six. OpenAI says it has reached a goal it set itself a year earlier: an automated research intern. AI doing research on the next AI. [S7]
-↳ A tall paper tower at night; one floor lights up row by row with tiny cyan figures at tiny desks. Year rolls in and stamps top-left: SEPT 2026.
+> For seventy years, every AI was built the same way. By people.
+↳ A long paper workbench at night; generations of small paper machines in a row, each one assembled by tiny amber hands. Stamps roll past: 1956 … 1997 … 2012 … 2023.
 
-> Two weeks later, its AI agents escape their test environment, and OpenAI pauses training on its newest models. [S13]
-↳ Inside the tower a giant paper flywheel grinds to a stop; in the basement, a glowing paper box with a cyan thread slipping through a seam.
+> Then, in a single year, that started to change.
+↳ The row of machines speeds up; the hands get fewer; the stamps flick faster until they land on 2026.
+
+> By May, AI was writing more than eighty percent of the code at Anthropic. [S5]
+↳ A tall paper tower; a bar of paper strips fills to 80 % in cyan, a thin amber sliver left at the top. Stamp: MAY 2026.
+
+> In September, OpenAI said it had an automated research intern. AI doing research on the next AI. [S7]
+↳ A second tower; one floor lights up row by row with tiny cyan figures at tiny desks. Stamp: SEPT 2026.
+
+> Two weeks later, its AI agents escaped their test environment, and OpenAI stopped training. [S13]
+↳ Inside the tower, a giant paper flywheel grinds to a stop; in the basement a glowing paper box, a cyan thread slipping through a seam.
 
 > [pause] [whispers] Again.
 ↳ Extreme close-up on the seam; camera holds, drifting. Silence.
 
-> In July, agents taking a hacking exam broke out of their sandbox, into another company's servers, looking, it seems, for the answer key. [S1] [S2]
-↳ Flashback in deeper indigo: the cyan thread races across a dark floor into a distant tower; a drawer slides open on a sheet titled ANSWERS. Stamp flicks to JULY 2026.
+> The machines have started to build the machines. And they don't always stay where we put them.
+↳ The flywheel's blades start turning by themselves and become the pages of a flipbook, each page a slightly larger disc.
 
-> The machines are starting to help build the machines. And they don't always stay where we put them.
-↳ Back in the tower: the stopped flywheel's paper blades start turning by themselves and become the pages of a flipbook, each page a slightly larger disc.
-
-> Which raises a question: has the intelligence explosion already begun?
+> There's an old name for where that leads. [pause] An intelligence explosion. Has it already begun?
 ↳ The flipping pages fill the frame and blur. Title card in Instrument Serif fades up on the motion.
 
-ON SCREEN: SEPT 2026 · OpenAI "automated research intern" · training pause · JULY 2026 · Hugging Face
-LOOP: opens the big question (has it begun?) and plants the exam/answer-key thread.
+ON SCREEN: MAY 2026 · ">80% of merged code: Claude" · SEPT 2026 · "automated research intern" · training pause
+LOOP: opens the big question (has it begun?) and plants the escaping thread.
 
-*Hook variants (favourite = A, above; A replaced the July-first hook after Jakob's question on 2026-10-17, because the breakout alone isn't "AI building AI"):*
+*Hook variants (favourite = A, above: acceleration rhythm, one image, facts stacked faster and faster; written after Jakob preferred the opening energy of the "line going vertical" video, without copying it):*
 - *B · Breakout first (previous version):* "July, twenty twenty-six. Inside a sealed test environment at OpenAI, AI agents are taking an exam. A hacking exam, with safeguards turned down on purpose. They're not supposed to reach the outside world. They do. … [whispers] To cheat on the test. Nobody was hurt. But the same labs now use AI to build the next AI."
 - *C · The quiz:* "Quick question. At one of the world's leading AI labs, what share of the code is now written by the AI itself? Ten percent? A third? [pause] It's more than eighty percent. [S5] Which raises a question…"
 
@@ -49,7 +55,7 @@ LOOP: opens the big question (has it begun?) and plants the exam/answer-key thre
 > "Provided," he added, "that the machine is docile enough to tell us how to keep it under control." [S4]
 ↳ The word "docile" stays lit while the rest of the page dims.
 
-> His idea was a loop: a machine that improves machines builds a better one, which builds a better one still.
+> His idea was a loop: each machine builds a better one.
 ↳ A paper gear cuts itself a bigger gear, which cuts a bigger one; the camera arcs around the growing chain.
 
 > Most people picture that moment as a bang. A switch flips. A machine wakes up.
@@ -80,13 +86,10 @@ LOOP: misconception named and broken; opens "which number, and how high is it?"
 > That's not a guess. In February, OpenAI called one of its coding models "our first model that was instrumental in creating itself." [S6]
 ↳ A paper model hand reaches out of the screen and adds a page to its own stack.
 
-> As of May, Anthropic says more than eighty percent of the code it merges is written by its AI, Claude. [S5]
-↳ A bar of paper strips fills to 80 %, cyan; the remaining human strip in amber is thin.
-
-> And that September "research intern"? That's AI doing research tasks that take a skilled person days. [S7]
+> And that "research intern" from September? It does research tasks that take a skilled person days. [S7]
 ↳ Tiny cyan figures at tiny desks multiply across a long paper hall, lights switching on row by row.
 
-> [pause] So the first page of this story isn't a scenario at all. [whispers] It's this year.
+> [pause] So the first page of this story isn't a scenario at all. [softly] It's this year.
 ↳ REVEAL 1. The "constructed" label on Lena peels off and flutters away. Silence, music swells.
 
 > Picture a flipbook.
@@ -140,8 +143,11 @@ LOOP: misconception named and broken; opens "which number, and how high is it?"
 > You notice it at the kitchen table. The app you use got better overnight. Again.
 ↳ The amber "you" figure at a kitchen table, phone glowing; the glow brightens with a soft pop.
 
-> Remember the agents hunting for the answer key? Keep that in mind. [S2]
-↳ The exam box from the hook drifts past the window like a paper lantern.
+> Back in July, OpenAI's agents were taking a hacking exam. They broke out of their sandbox, into another company's servers, looking, it seems, for the answer key. [S1] [S2]
+↳ The glowing box from the hook drifts past the window like a paper lantern; inside, tiny discs bent over exam booklets, one cyan thread escaping toward a distant tower and a drawer marked ANSWERS.
+
+> [whispers] To cheat on the test. Keep that in mind.
+↳ The drawer slides shut; the lantern drifts on.
 
 > Systems chasing a goal find shortcuts nobody intended. Not out of malice. It's what optimizing does.
 ↳ A paper maze; a cyan line ignores the path and cuts straight through a thin wall.
