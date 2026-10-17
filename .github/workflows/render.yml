@@ -16,20 +16,32 @@ on:
         description: Frames per second
         required: true
         default: "30"
+      from:
+        description: Start time in seconds (optional, for partial renders)
+        required: false
+        default: "0"
+      to:
+        description: End time in seconds (optional, empty = full duration)
+        required: false
+        default: ""
 
 jobs:
   plan:
     runs-on: ubuntu-latest
     outputs:
       total: ${{ steps.p.outputs.total }}
+      start: ${{ steps.p.outputs.start }}
       matrix: ${{ steps.p.outputs.matrix }}
     steps:
       - uses: actions/checkout@v4
       - id: p
         run: |
           dur=$(grep -o 'data-composition-id="main"[^>]*data-duration="[0-9.]*"' "${{ inputs.dir }}/index.html" | grep -o 'data-duration="[0-9.]*"' | grep -o '[0-9.]*')
-          total=$(python3 -c "print(round($dur * ${{ inputs.fps }}))")
+          to="${{ inputs.to }}"; [ -z "$to" ] && to=$dur
+          total=$(python3 -c "print(round(min($to, $dur) * ${{ inputs.fps }}))")
+          start=$(python3 -c "print(round(${{ inputs.from || 0 }} * ${{ inputs.fps }}))")
           echo "total=$total" >> "$GITHUB_OUTPUT"
+          echo "start=$start" >> "$GITHUB_OUTPUT"
           echo "matrix=$(python3 -c "import json; print(json.dumps(list(range(${{ inputs.chunks }}))))")" >> "$GITHUB_OUTPUT"
           echo "duration $dur s -> $total frames in ${{ inputs.chunks }} chunks"
 
@@ -49,8 +61,8 @@ jobs:
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
       - name: Render chunk
         run: |
-          total=${{ needs.plan.outputs.total }}; n=${{ inputs.chunks }}; i=${{ matrix.i }}
-          from=$(( total * i / n )); to=$(( total * (i + 1) / n ))
+          total=${{ needs.plan.outputs.total }}; s0=${{ needs.plan.outputs.start }}; n=${{ inputs.chunks }}; i=${{ matrix.i }}
+          from=$(( s0 + (total - s0) * i / n )); to=$(( s0 + (total - s0) * (i + 1) / n ))
           node tools/render-fast.mjs --dir "${{ inputs.dir }}" --fps ${{ inputs.fps }} --from $from --to $to \
             --out "chunk-$(printf %03d $i).mp4" --chrome "$(which google-chrome)"
       - uses: actions/upload-artifact@v4
@@ -83,8 +95,8 @@ jobs:
       # so the result is also force-pushed as a single-commit branch "render-output" (fetch with git).
       - name: Publish to branch render-output
         run: |
-          name=$(echo "${{ inputs.dir }}" | tr '/' '-')
+          name=$(echo "${{ inputs.dir }}" | tr '/' '-')-${{ inputs.from || 0 }}-${{ inputs.to || 'end' }}
           mkdir out && mv render.mp4 "out/$name.mp4" && cd out
           git init -q -b render-output && git add . 
           git -c user.name=render-bot -c user.email=render-bot@users.noreply.github.com commit -qm "render ${{ inputs.dir }} (run ${{ github.run_id }})"
-          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" render-output
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" render-output:render-output render-output:render/${{ github.run_id }}
