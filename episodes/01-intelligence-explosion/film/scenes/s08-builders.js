@@ -60,7 +60,7 @@ export default {
       const body = bx(w - 0.1, h, d - 0.8, hex); body.position.set(0, h / 2, -0.4); g.add(body);
       const back = E.glowPlane(w - 0.6, h - 1.2, "#ffffff"); back.position.set(0, h / 2, d / 2 - 0.45); g.add(back);
       back.material.color.set("#ffb87a").multiplyScalar(0.55 + 0.25 * r());
-      let sw = null; if (startWin) { sw = E.glowPlane(startWin.w + 0.4, startWin.h + 0.4, "#ffd9a8"); sw.position.set(startWin.x, startWin.y, d / 2 - 0.4); sw.userData.setGlow(1.25); g.add(sw); }
+      let sw = null; if (startWin) { sw = E.glowPlane(startWin.w + 0.4, startWin.h + 0.4, "#ffd9a8"); sw.position.set(startWin.x, startWin.y, d / 2 - 0.4); sw.userData.setGlow(0.9); g.add(sw); }
       // roof hatch with a door that opens
       const hx = -w / 2 + 1.5, hz = -d / 2 + 1.6;
       const hut = bx(1.8, 2.0, 1.8, P.layers[Math.max(0, li - 1)]); hut.position.set(hx, h + 1.0, hz); g.add(hut);
@@ -234,7 +234,7 @@ export default {
         sunHalo.material.opacity = 0.75 + 0.06 * Math.sin(t * 0.9);
 
         // start window light (carrier) and window breathing
-        if (SW.sw) SW.sw.userData.setGlow(1.25 + 0.05 * Math.sin(t * 2.3));
+        if (SW.sw) SW.sw.userData.setGlow(0.9 + 0.04 * Math.sin(t * 2.3));
         towers.forEach((tw, i) => { const k = expoOut(lin(tw.open, tw.open + 0.7, t)); tw.piv.rotation.y = -k * 1.7 - 0.01 * Math.sin(t + i);
           tw.hutIn.userData.setGlow(0.05 + 1.2 * k); });
         { const k = expoOut(lin(T.inJuly + 0.6, T.inJuly + 1.3, t)); heroHut.piv.rotation.y = -k * 1.7; heroHut.inn.userData.setGlow(0.05 + 1.2 * k); }

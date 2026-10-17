@@ -47,6 +47,8 @@ export default {
     spillTex.colorSpace = THREE.NoColorSpace;
     const haloTex = canvasTex(256, 256, (g, w, h) => { const gr = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2); gr.addColorStop(0, "rgba(255,255,255,1)"); gr.addColorStop(0.25, "rgba(255,255,255,0.5)"); gr.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, h); });
     haloTex.colorSpace = THREE.NoColorSpace;
+    const softTex = canvasTex(256, 256, (g, w, h) => { const gr = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2); gr.addColorStop(0, "rgba(255,255,255,1)"); gr.addColorStop(0.5, "rgba(255,255,255,0.85)"); gr.addColorStop(1, "rgba(255,255,255,0)"); g.fillStyle = gr; g.fillRect(0, 0, w, h); });
+    softTex.colorSpace = THREE.NoColorSpace;
     const addMat = (hex, tex) => new THREE.MeshBasicMaterial({ color: new THREE.Color(hex), map: tex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, fog: false });
     const halo = (size, hex) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(size, size), addMat(hex, haloTex)); m.renderOrder = 5; return m; };
 
@@ -105,7 +107,7 @@ export default {
       const back = E.glowPlane(w - 0.8, h - dh - 1.4, "#ffffff"); back.position.set(0, dh + 0.8 + (h - dh - 1.4) / 2, -0.3); g.add(back);
       // door interior light + inner amber core (good ending)
       const dGlow = E.glowPlane(dw, dh, C.cyan); dGlow.position.set(0, dh / 2, -0.35); g.add(dGlow);
-      const dCore = new THREE.Mesh(new THREE.PlaneGeometry(dw * 1.1, dh * 1.0), new THREE.MeshBasicMaterial({ color: new THREE.Color("#ff9a3c").multiplyScalar(1.3), map: haloTex, transparent: true, depthWrite: false, fog: false })); dCore.position.set(0, dh * 0.45, -0.3); dCore.material.opacity = 0; g.add(dCore);
+      const dCore = new THREE.Mesh(new THREE.PlaneGeometry(dw * 1.3, dh * 1.15), new THREE.MeshBasicMaterial({ color: new THREE.Color("#ffa04a").multiplyScalar(1.15), map: softTex, transparent: true, depthWrite: false, fog: false })); dCore.position.set(0, dh * 0.45, -0.3); dCore.material.opacity = 0; g.add(dCore);
       // door leaf hinged on its left edge, swings toward the camera
       const piv = new THREE.Group(); piv.position.set(dw / 2, 0, 0.5); g.add(piv);
       const leaf = E.extrude(E.rectShape(dw - 0.06, dh - 0.04, -(dw - 0.06) / 2 - 0.03, dh / 2), "#1d7f96", 0.12, { emissive: 0.15 }); leaf.position.z = -0.12; piv.add(leaf);
@@ -405,7 +407,7 @@ export default {
           tw.dGlow.userData.setGlow((0.08 + 1.5 * Math.min(1, o)) * flick);
           tw.spill.material.opacity = 0.75 * Math.min(1, o) * (i ? 0.8 : 1) * flick; tw.spill.visible = o > 0.01;
           tw.dCore.material.opacity = i === 0 ? smooth(T.withH - 0.5, T.withH + 0.3, t) : 0;
-          if (i === 0) { tw.dGlow.material.color.multiplyScalar(1 - 0.4 * smooth(T.withH - 0.3, T.eyes, t)).lerp(GOLD, 0.3 * smooth(T.withH - 0.3, T.eyes, t) + 0.6 * smooth(T.to - 0.9, T.to - 0.3, t)); } tw.dCore.visible = tw.dCore.material.opacity > 0.001;
+          if (i === 0) { tw.dGlow.material.color.multiplyScalar(1 - 0.6 * smooth(T.withH - 0.3, T.eyes, t)).lerp(GOLD, 0.3 * smooth(T.withH - 0.3, T.eyes, t) + 0.6 * smooth(T.to - 0.9, T.to - 0.3, t)); } tw.dCore.visible = tw.dCore.material.opacity > 0.001;
           // window backing: cold dim in grey, warm in dawn
           tw.back.material.color.setRGB(lerp(0.09, 0.55, dk), lerp(0.13, 0.32, dk), lerp(0.15, 0.22, dk)).multiplyScalar(1 + 0.05 * Math.sin(t * 0.7 + i));
           if (tw.deskGlow) { const land = notesLand[i] ?? 1e9; const lit = smooth(land, land + 0.5, t); const pulse = 1 + 0.6 * Math.exp(-Math.max(0, t - land) * 3) * (t > land ? 1 : 0);

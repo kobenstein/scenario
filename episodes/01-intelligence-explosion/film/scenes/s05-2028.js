@@ -352,7 +352,7 @@ export default {
     // =====================================================================================
     const FBS = 0.2, PGW = 4.2 * FBS; // page 0.84 x 0.6
     const book = E.flipbook({ w: 4.2, h: 3, pages: 24, cover: "#2c3f63", seed: 9, drawPage: (g, w, h, i) => drawMaze(g, w, h, { folded: true, cut: true, cyan: i === 1 ? 1 : 0.35 + 0.65 * ((i * 5) % 9) / 8, amber: 1 }) });
-    book.scale.setScalar(FBS); book.rotation.x = -Math.PI / 2; const SPINE = O(2.22, DESK_Y + 0.0705, -0.3); book.position.copy(SPINE); scene.add(book);
+    book.userData.pages.forEach((p) => p.pivot.children.forEach((m) => m.material.color.multiplyScalar(0.72))); book.scale.setScalar(FBS); book.rotation.x = -Math.PI / 2; const SPINE = O(2.22, DESK_Y + 0.0705, -0.3); book.position.copy(SPINE); scene.add(book);
     const PAGEC = V3(SPINE.x + PGW / 2, SPINE.y, SPINE.z); // right page centre (world)
     const SCALE_MF = PGW / SW; // maze sheet → flipbook page
     // flip schedule: rest at 0.5 (page 1 = the maze on the right), accelerate on "turning faster", slow, stop on one page at "page"

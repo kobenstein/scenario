@@ -328,7 +328,7 @@ export default {
       cutGlow.material.opacity = cg + 0.9 * glowPulse * (1 - smooth(tAnth, tAnth + 1, t)); cutGlow.scale.setScalar(1 + 0.6 * glowPulse);
       mazeLight.position.copy(UVW(...cutUV, 1.2)); mazeLight.intensity = 3 * cutGlow.material.opacity;
       // 2030 rises from behind the back panel and hovers over both doors
-      const r30 = spring(lin(tTT - 0.1, tTT + 0.9, t)); y2030.visible = t > tTT - 0.12; y2030.position.set(0.45, lerp(3.7, 4.55, r30) + 0.05 * Math.sin(t * 1.3), lerp(-2.75, -0.9, smooth(tTT - 0.1, tTT + 0.7, t)));
+      const r30 = spring(lin(tTT - 0.1, tTT + 0.9, t)); y2030.visible = t > tTT - 0.12; y2030.position.set(0.45, lerp(3.7, 4.55, r30) - 0.75 * smooth(tPause + 0.5, tOrb1 - 1, t) + 0.05 * Math.sin(t * 1.3), lerp(-2.75, -0.9, smooth(tTT - 0.1, tTT + 0.7, t)));
       y2030.rotation.set(-0.12 + 0.03 * Math.sin(t * 0.9), 0.05 * Math.sin(t * 0.6), 0.02 * Math.sin(t * 0.8)); y2030glow.position.copy(y2030.position).add(V3(0, 0, -0.3)); y2030glow.material.opacity = 0.12 * r30 * (1 - 0.6 * pushK);
       // camera, overlays
       const c = camAt(t); E.applyCam(camera, c);

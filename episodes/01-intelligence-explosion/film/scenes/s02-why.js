@@ -283,7 +283,7 @@ export default {
     ];
     function tTuringEnd(E) { return E.end("why", "Turing"); }
 
-    const post = { bloom: 0.4, exposure: 1.15 };
+    const post = { bloom: 0.4, exposure: 1.15 }; window.__dbg = { scene };
     let _wp = new THREE.Vector3();
 
     return {
