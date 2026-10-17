@@ -42,17 +42,23 @@ fc = [
     f"[mab][mc]acrossfade=d={X}:c1=tri:c2=tri,loudnorm=I=-23:TP=-4,volume='{auto}':eval=frame[mus0]",
 ]
 # accents: each becomes its own stream; a copy of all accents also ducks the music (sidechain) so they cut through
-labels = []
+labels, keys = [], []   # beds (continuous foley) are mixed in but do not duck the music; accents do
 for k, s in enumerate(SFX):
     inputs += ["-i", os.path.join(AUD, "sfx", s["file"])]
     idx = 5 + k
     fc.append(f"[{idx}:a]aresample=48000,atrim=start={s.get('trim', 0)},asetpts=PTS-STARTPTS,volume={s.get('gain', 1.0)},"
               f"adelay={ms(s['t'])}:all=1,apad[s{k}]")
-    labels.append(f"[s{k}]")
+    (labels if s.get("bed") else keys).append(f"[s{k}]")
+if keys:   # accents: one copy into the mix, one as sidechain key
+    fc.append(f"{''.join(keys)}amix=inputs={len(keys)}:normalize=0,asplit=2[acc][fxkey]")
+    labels.append("[acc]")
 if labels:
-    fc.append(f"{''.join(labels)}amix=inputs={len(labels)}:normalize=0,asplit=2[fx][fxkey]")
-    fc.append("[mus0][vokey]sidechaincompress=threshold=0.03:ratio=6:attack=40:release=450[mus1]")
-    fc.append("[mus1][fxkey]sidechaincompress=threshold=0.05:ratio=4:attack=5:release=300[mus]")
+    fc.append(f"{''.join(labels)}amix=inputs={len(labels)}:normalize=0[fx]")
+    if keys:
+        fc.append("[mus0][vokey]sidechaincompress=threshold=0.03:ratio=6:attack=40:release=450[mus1]")
+        fc.append("[mus1][fxkey]sidechaincompress=threshold=0.05:ratio=4:attack=5:release=300[mus]")
+    else:
+        fc.append("[mus0][vokey]sidechaincompress=threshold=0.03:ratio=6:attack=40:release=450[mus]")
     fc.append(f"[vo][mus][fx]amix=inputs=3:duration=first:normalize=0,atrim=0:{dur},afade=t=out:st={dur - 1.5}:d=1.5[pre]")
 else:
     fc.append("[mus0][vokey]sidechaincompress=threshold=0.03:ratio=6:attack=40:release=450[mus]")
