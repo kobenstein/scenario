@@ -21,6 +21,6 @@ for (let i = 0; !(await page.evaluate(() => !!(window.__timelines && window.__ti
 console.log("ready");
 for (const t of times) { const t0 = Date.now(); await page.evaluate((t) => { window.__timelines.main.seek(t, false); }, t);
   const f = path.join(out, `t${t.toFixed(2).padStart(7, "0")}.jpg`);
-  fs.writeFileSync(f, await page.screenshot({ type: "jpeg", quality: 85, animations: "allow", caret: "initial" }));
+  fs.writeFileSync(f, await page.screenshot({ type: "jpeg", quality: 85, animations: "allow", caret: "initial", timeout: 180000 }));
   console.log(f, Date.now() - t0, "ms"); }
 await browser.close(); server.close();

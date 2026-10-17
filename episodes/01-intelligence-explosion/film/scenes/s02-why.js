@@ -296,7 +296,7 @@ export default {
         drawPaper(n, dim); paperMatF.emissiveIntensity = lerp(1.0, 0.55, smooth(T0 + 0.6, T0 + 4.5, t)) * (1 - 0.88 * smooth(tEach, tBetter + 1.2, t));
         const cs = carriage(t);
         CG.position.x = -Lx(cs.col);
-        paper.position.y = -Ly(LINE0 + cs.line * LH + 12);
+        paper.position.y = -Ly(LINE0 + cs.line * LH + 12) - 7.2 * inOut(lin(tBetter + 0.6, tMost + 1.2, t)); // the typewriter swallows the page
         // clip below the platen (world plane through TP, normal = paper up)
         paperClip.setFromNormalAndCoplanarPoint(U, TP.clone().addScaledVector(U, -0.02));
         let strike = 0; for (let k = Math.max(0, n - 1); k <= Math.min(CH.length - 1, n); k++) { const dt = t - CH[k].t; const s = dt < -0.04 ? 0 : dt < 0 ? 1 + dt / 0.04 : dt < 0.07 ? 1 - dt / 0.07 : 0; strike = Math.max(strike, s); }
@@ -338,7 +338,7 @@ export default {
         const glow = open * (0.85 + 0.15 * Math.sin(t * 2.3));
         eye.userData.update(t, { open, glow, leak: leak * (0.85 + 0.15 * Math.sin(t * 9)) });
         eye.scale.setScalar(1 + 0.012 * open * Math.sin(t * 1.7));
-        eyeSpot.intensity = 260 * open + 30 * leak * (1 - open); eyeFill.intensity = 30 * open + 4 * leak;
+        eyeSpot.intensity = 260 * open + 30 * leak * (1 - open); eyeFill.intensity = 30 * open + 14 * leak;
         post.bloom = 0.4 + 0.55 * open + 0.15 * leak * (1 - open);
 
         // --- switch + human ---

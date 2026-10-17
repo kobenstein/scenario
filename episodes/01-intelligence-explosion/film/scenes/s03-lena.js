@@ -232,6 +232,7 @@ export default {
     { const last = SEG[NSEG - 1].content; coverTop.position.set(0, 0.012, -SL / 2); last.add(coverTop); }
     fold(0); HALL.forEach((h) => { h.dm.visible = h.fm.visible = h.sm.visible = h.lm.visible = true; });
 
+    const tFold0 = tReal + 0.82;
     // ---------------- camera ----------------
     const camKeys = [
       { t: T0, p: PAGE_P.toArray(), l: PAGEC.toArray() },
@@ -254,7 +255,6 @@ export default {
 
     const post = { bloom: 0.4, exposure: 1.15 };
     const v1 = new THREE.Vector3(), v2 = new THREE.Vector3(), q1 = new THREE.Quaternion();
-    const tFold0 = tReal + 0.82;
 
     return {
       scene, camera, post,

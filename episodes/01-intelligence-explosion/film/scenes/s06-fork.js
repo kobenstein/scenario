@@ -58,13 +58,11 @@ export default {
       const stars = new THREE.InstancedMesh(new THREE.CircleGeometry(0.5, 8), new THREE.MeshBasicMaterial({ color: "#d9d2bd", fog: false }), 90);
       for (let i = 0; i < 90; i++) { d.position.set(-150 + r() * 300, 25 + r() * 70, -139); d.scale.setScalar(0.5 + r()); d.updateMatrix(); stars.setMatrixAt(i, d.matrix); } scene.add(stars);
       // giant desk things (s05 at 10x): the flipbook, the approved pile, the monitor glow, the lamp
-      const fb = E.box(16.8, 0.7, 6, "#efe6d2"); fb.position.set(6.2, 0.35, -8.5); scene.add(fb);
-      const pile = E.box(3.4, 2.5, 2.2, "#e4dac2"); pile.position.set(-8.8, 1.25, -9.1); scene.add(pile);
       const mon = new THREE.Group(); mon.position.set(16, 0, -9.7); mon.rotation.y = -0.42; scene.add(mon);
-      const fr = E.box(10.2, 6.6, 0.5, "#141d33"); fr.position.y = 5.8; mon.add(fr); const scr = new THREE.Mesh(new THREE.PlaneGeometry(9.4, 5.8), new THREE.MeshBasicMaterial({ color: new THREE.Color("#2a8fb0").multiplyScalar(1.0) })); scr.position.set(0, 5.8, 0.3); mon.add(scr);
+      const fr = E.box(10.2, 6.6, 0.5, "#141d33"); fr.position.y = 5.8; mon.add(fr); const scr = new THREE.Mesh(new THREE.PlaneGeometry(9.4, 5.8), new THREE.MeshBasicMaterial({ color: new THREE.Color("#2a8fb0").multiplyScalar(0.4) })); scr.position.set(0, 5.8, 0.3); mon.add(scr);
       const lampG = new THREE.Group(); lampG.position.set(18, 0, 0.7); scene.add(lampG);
       const a1 = E.box(0.35, 6.2, 0.35, "#1a2238"); a1.position.set(-0.6, 3, 0); a1.rotation.z = 0.22; lampG.add(a1); const a2 = E.box(0.35, 4.2, 0.35, "#1a2238"); a2.position.set(-2.4, 6.2, 0); a2.rotation.z = 1.1; lampG.add(a2);
-      const lh = haloPlane(14, C.amber); lh.position.set(-4.6, 5.0, 1); lh.material.opacity = 0.55; lampG.add(lh); }
+      const lh = haloPlane(14, C.amber); lh.position.set(-4.6, 5.0, 1); lh.material.opacity = 0.25; lampG.add(lh); }
 
     // ---------------- the card (closed: cover with the cut "?") ----------------
     const QW = 8, QD = 5;
@@ -108,17 +106,17 @@ export default {
     const rings = E.machineRings({ n: 4, r: 0.42 }); rings.position.set(0, WALL.h + 0.62, 0.0); cyanWall.add(rings);
     const succ = E.machineRings({ n: 5, r: 0.78, w: 0.09 }); succ.position.set(0, WALL.h + 0.62, -0.25); cyanWall.add(succ);
     const ringStem = E.box(0.05, 0.4, 0.05, "#22324f"); ringStem.position.set(0, WALL.h + 0.15, 0); cyanWall.add(ringStem);
-    pop(cyanWall, -DX, WZ, 0.15, 1);
+    pop(cyanWall, -DX, WZ, 0.5, 1);
     // amber wall + closed door, warm light leaking around it
     const amberWall = new THREE.Group(); amberWall.add(E.extrude(wallShape(), "#22324f", 0.12)); trim(amberWall, "#ffd9a8", 0.25);
     { const lf = E.box(DOOR.w - 0.06, DOOR.h - 0.08, 0.06, "#8a4a22"); lf.position.set(0, 0.07 + (DOOR.h - 0.08) / 2, 0.07); amberWall.add(lf); const kn = E.box(0.07, 0.07, 0.08, "#ffb35c", { emissive: 0.6 }); kn.position.set(-DOOR.w / 2 + 0.17, DOOR.h * 0.48, 0.12); amberWall.add(kn);
       for (let i = 0; i < 4; i++) { const pnl = E.box(0.36, 0.7, 0.02, "#7a3b17"); pnl.position.set(i % 2 ? 0.2 : -0.2, 0.55 + Math.floor(i / 2) * 0.9, 0.105); amberWall.add(pnl); } }
     const leak = new THREE.Mesh(new THREE.PlaneGeometry(DOOR.w + 0.06, DOOR.h + 0.02), new THREE.MeshBasicMaterial({ color: new THREE.Color(C.amber).multiplyScalar(2.2) })); leak.position.set(0, 0.07 + DOOR.h / 2, 0.035); amberWall.add(leak);
     const amGlow = haloPlane(2.6, C.amber); amGlow.position.set(0, 0.6, 0.3); amberWall.add(amGlow);
-    pop(amberWall, DX, WZ, 0.22, 2);
+    pop(amberWall, DX, WZ, 0.56, 2);
     // Lena, tiny, between them
     const lena = E.figure({ pose: "stand", hair: "bun", coat: true, scale: 0.55, seed: 3 }); const lenaG = new THREE.Group(); lenaG.add(lena); lena.position.set(-0.2, 0, 0);
-    const lenaShadowCatch = 0; pop(lenaG, 0, 0.75, 0.32, 3);
+    const lenaShadowCatch = 0; pop(lenaG, 0, 0.75, 0.64, 3);
     // the rival labs: two towers rising out of the printed horizon
     const towers = TX.map((x, i) => { const tw = E.tower({ w: 4.6, h: 18, floors: 8, hex: "#2c3f63", roof: "spire" }); tw.scale.setScalar(0.22); const g = new THREE.Group(); g.add(tw); g.position.set(x, 0.06, -2.3); scene.add(g); return g; });
     const towerHalo = TX.map((x) => { const h = haloPlane(3, C.cyan); h.position.set(x, 2.6, -2.15); scene.add(h); return h; });
@@ -262,9 +260,9 @@ export default {
       { t: tWont + 0.3, p: [0.35, 3.2, 9.4], l: [0, 2.55, -2.0], e: "smooth" },
       { t: tCures - 0.1, p: [-1.82, 1.4, 1.5], l: [-1.9, 1.22, -2.0], e: "inOut", arc: 0.05 },
       { t: tSooner + 0.35, p: [-1.86, 1.36, 1.05], l: [-1.9, 1.22, -2.0], e: "smooth" },
-      { t: tNobody - 0.05, p: [2.75, 4.6, -0.15], l: [3.0, 0.2, -1.5], e: "inOut", arc: 0.06 },
-      { t: tShortcut + 0.4, p: [3.0, 3.75, -0.5], l: [3.1, 0.15, -1.52], e: "sine" },
-      { t: tAfter + 0.1, p: [2.55, 4.0, -0.25], l: [2.45, 0.15, -1.52], e: "smooth" },
+      { t: tNobody - 0.05, p: [2.6, 5.4, 0.9], l: [2.9, 0.2, -1.5], e: "inOut", arc: 0.06 },
+      { t: tShortcut + 0.4, p: [2.8, 4.5, 0.2], l: [3.0, 0.15, -1.52], e: "sine" },
+      { t: tAfter + 0.1, p: [2.4, 4.6, 0.25], l: [2.45, 0.15, -1.52], e: "smooth" },
       { t: tJared + 0.3, p: [0, 3.3, 11.4], l: [0, 2.4, -1.0], e: "inOut", arc: 0.05 },
       { t: tTT + 0.6, p: [0, 3.5, 10.6], l: [0, 2.85, -1.0], e: "sine" },
       { t: tPause - 0.3, p: orbP, l: orbL, e: "sine" },
@@ -277,7 +275,7 @@ export default {
     const tOpen0 = CUT + 0.45, tOpen1 = tPlan - 0.2;
     const update = (t) => {
       const fl = 1 + 0.025 * Math.sin(t * 6.1) * Math.sin(t * 2.3);
-      spot.intensity = 26 * SC * fl; roomFill.intensity = 3.2 * SC * fl; monLight.intensity = (2.2 + 0.3 * Math.sin(t * 1.7)) * SC;
+      spot.intensity = 15 * SC * fl * (1 - 0.35 * smooth(CUT + 0.5, tPlan, t)); roomFill.intensity = 3.2 * SC * fl * (1 - 0.6 * smooth(CUT + 0.5, tPlan, t)); monLight.intensity = (2.2 + 0.3 * Math.sin(t * 1.7)) * SC;
       // the card opens: cover rises to become the back panel; the pieces stand up just behind it (pop-up spring)
       const op = inOut(lin(tOpen0, tOpen1, t)); coverPivot.rotation.x = -Math.PI / 2 * op + 0.004 * Math.sin(t * 0.9) * op;
       pops.forEach(({ hinge, delay, i }) => { const k = clamp((op - delay) / (1 - delay), 0, 1); const up = spring(k);
@@ -288,11 +286,12 @@ export default {
       cyanWall.scale.set(1 + 0.004 * br, 1 + 0.008 * br, 1); amberWall.scale.set(1 + 0.004 * br2, 1 + 0.008 * br2, 1);
       const yesK = smooth(tCaseYes, tCaseYes + 1, t) * (1 - smooth(tCaseNo - 0.3, tCaseNo + 0.6, t)); const noK = smooth(tCaseNo, tCaseNo + 1, t) * (1 - smooth(tAnth, tAnth + 1, t));
       const fillK = smooth(T1 - 0.42, T1 - 0.03, t), pushK = smooth(tOrb1, T1, t);
+      const nearK = smooth(tEvery - 0.4, tCures - 0.3, t) * (1 - smooth(tSooner, tNobody - 0.3, t));
       cyDoor.rotation.y = -lerp(0.0, 1.95, spring(lin(tOpen1 - 0.4, tOpen1 + 0.6, t))) - 0.03 * br;
-      cyHaze.material.opacity = (0.12 + 0.05 * br + 0.12 * yesK) * (1 - 0.55 * smooth(tCures - 0.6, tCures, t) * (1 - smooth(tSooner, tSooner + 0.8, t))) + 0.9 * pushK * pushK;
-      cyGlow.material.opacity = (0.35 + 0.08 * br + 0.2 * yesK) * op + 0.6 * pushK; cyGlow.scale.setScalar(1 + 0.04 * br + 1.5 * pushK);
-      cyTrim.forEach((b) => (b.material.emissiveIntensity = 0.6 + 0.15 * br + 0.4 * yesK + 3 * pushK));
-      cyLight.intensity = (3.2 + 0.4 * br + 2 * yesK) * op + 14 * pushK;
+      cyHaze.material.opacity = (0.08 + 0.03 * br + 0.06 * yesK) * (1 - 0.8 * nearK) + 0.9 * pushK * pushK;
+       cyGlow.material.opacity = (0.22 + 0.05 * br + 0.1 * yesK) * op * (1 - nearK) + 0.6 * pushK; cyGlow.scale.setScalar(1 + 0.04 * br + 1.5 * pushK);
+      cyTrim.forEach((b) => (b.material.emissiveIntensity = 0.3 + 0.08 * br + 0.2 * yesK + 3 * pushK));
+      cyLight.intensity = (2.2 + 0.3 * br + 1.2 * yesK) * op * (1 - 0.7 * nearK) + 14 * pushK;
       leak.material.color.set(C.amber).multiplyScalar((1.6 + 0.25 * br2 + 0.8 * noK) * op); amGlow.material.opacity = (0.3 + 0.06 * br2 + 0.2 * noK) * op; amLight.intensity = (2.0 + 0.3 * br2 + 1.2 * noK) * op;
       // the machine and its successor
       const sK = spring(lin(tSuccessor - 0.15, tSuccessor + 0.9, t)); const imp = smooth(tImprove - 0.2, tItself, t);

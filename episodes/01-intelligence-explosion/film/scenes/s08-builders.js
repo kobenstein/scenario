@@ -196,7 +196,7 @@ export default {
 
     // ---------- camera ----------
     const SW = towers[1]; const swP = V3(SW.x, 6.2, SW.z + SW.d / 2);
-    const HORIZ = 0.06; // tan(3.6°): bench edge sits at 60 % frame height
+    const HORIZ = 0.068; // tan(3.6°): bench edge sits at 60 % frame height
     const endP = V3(BN.x + 0.1, BN.y, BN.z + 5.4), endL = V3(BN.x + 0.1, BN.y + HORIZ * 6.0, BN.z - 0.6);
     const K = [
       { t: T.from, p: [swP.x, swP.y, swP.z + 0.7], l: [swP.x, swP.y, swP.z - 6] },
@@ -279,7 +279,7 @@ export default {
         const draft = 0.25 + 0.75 * spd;
         for (let i = 0; i < NM; i++) { const m = moteS[i]; const tt = t * m.s;
           dObj.position.set(m.x + 0.25 * Math.sin(tt * 0.7 + m.p) + draft * 0.3 * Math.sin(tt * 2.1 + m.p), m.y + 0.18 * Math.sin(tt * 0.5 + m.p * 2) - 0.02 * t % 1 * 0, m.z + 0.2 * Math.cos(tt * 0.6 + m.p));
-          dObj.quaternion.copy(camera.quaternion); dObj.scale.setScalar(0.7 + 0.5 * Math.sin(tt * 1.7 + m.p)); dObj.updateMatrix(); motes.setMatrixAt(i, dObj.matrix); }
+          dObj.quaternion.copy(camera.quaternion); dObj.scale.setScalar((0.7 + 0.5 * Math.sin(tt * 1.7 + m.p)) * smooth(1.8, 4.0, dObj.position.distanceTo(camera.position))); dObj.updateMatrix(); motes.setMatrixAt(i, dObj.matrix); }
         motes.instanceMatrix.needsUpdate = true; motes.material.opacity = 0.85 * inside;
         beams.forEach((b, k) => { b.material.opacity = (0.2 - k * 0.04) * (0.4 + 0.6 * inside) * (1 - 0.7 * smooth(T.so, T.fantasy + 0.6, t)) * (1 + 0.08 * Math.sin(t * 0.8 + k)); });
         benchLamp.intensity = 5 * (1 + 0.03 * Math.sin(t * 4.1));

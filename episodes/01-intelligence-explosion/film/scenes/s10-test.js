@@ -117,7 +117,7 @@ export default {
     { const d = new THREE.Object3D(); const im = new THREE.InstancedMesh(new THREE.BoxGeometry(1.4, 0.07, 0.16), pm("#efe6d2"), 26); for (let k = 0; k < 26; k++) { d.position.set(-38 + k * 3.4, 0.05, GZ); d.updateMatrix(); im.setMatrixAt(k, d.matrix); } world.add(im); }
     const labT1 = E.tower({ w: 9, h: 22, floors: 9, hex: "#6a4566" }); labT1.position.set(-25, 0, GZ - 8); world.add(labT1);
     const labT2 = E.tower({ w: 6, h: 15, floors: 6, hex: "#7a4f70", roof: "spire" }); labT2.position.set(-33, 0, GZ - 13); world.add(labT2);
-    const labDoor = E.glowPlane(2.0, 2.2, C.cyan); labDoor.position.set(-23.0, 1.1, GZ - 7.7); world.add(labDoor);
+    const labDoor = E.glowPlane(2.0, 2.2, C.cyan); labDoor.position.set(-23.0, 1.1, GZ - 7.44); world.add(labDoor);
     { const s1 = E.extrude(E.skylineShape(10, 70, E.randomPick(4, 10, 3, 6), 0, rng(41)), "#7a4f70", 0.4); s1.position.z = GZ - 9; world.add(s1);
       const s2 = E.extrude(E.skylineShape(-60, 120, E.randomPick(8, 15, 4, 9), 0, rng(42)), "#a8708a", 0.4); s2.position.z = GZ - 26; s2.castShadow = false; world.add(s2);
       const r = rng(43); const NW = 70; const wins = new THREE.InstancedMesh(new THREE.PlaneGeometry(0.5, 0.7), new THREE.MeshBasicMaterial({ color: "#ffffff" }), NW); const d = new THREE.Object3D();
@@ -157,7 +157,7 @@ export default {
     const shelf = E.box(4.2, 0.22, 1.3, "#603f5f"); shelf.position.set(-25, 4.6, GZ - 2.9); world.add(shelf);
     const shelved = [-26.4, -24.9].map((x) => { const m = mkModel(0.55); m.position.set(x, 4.71 + 0.6, GZ - 2.9); m.scale.setScalar(0.95); world.add(m); return m; });
     const bigModel = mkModel(1.0); world.add(bigModel);
-    const giantHand = mkHand(C.amber, "#7a3b17"); giantHand.scale.setScalar(1.9); world.add(giantHand);
+    const giantHand = mkHand(C.amber, "#7a3b17"); giantHand.scale.setScalar(1.9); giantHand.rotation.order = "ZYX"; world.add(giantHand);
     // crash test track running from the rail toward the camera
     const TRX = -16, WALLZ = -30.8;
     { const t1 = E.box(0.16, 0.08, 15, "#efe6d2"); t1.position.set(TRX - 0.7, 0.04, WALLZ - 7.4); world.add(t1); const t2 = t1.clone(); t2.position.x = TRX + 0.7; world.add(t2);
@@ -178,12 +178,12 @@ export default {
     const dummy = E.figure({ pose: "sit", hair: "short", hex: AMB, seed: 31 }); dummy.scale.setScalar(0.44); dummy.position.set(-0.32, 0.45, 0); dummy.userData.mat.side = THREE.DoubleSide; carIn.add(dummy);
     const dummyMark = new THREE.Mesh(new THREE.CircleGeometry(0.11, 20), new THREE.MeshBasicMaterial({ color: "#3a2232", side: THREE.DoubleSide })); dummyMark.position.set(0.08, 0.17, 0.01); dummy.userData.headG.add(dummyMark);
     // flash bulbs on stands + debris
-    const bulbs = [[TRX + 2.6, WALLZ - 1.4], [TRX - 2.6, WALLZ - 2.4]].map(([x, z]) => { const g = new THREE.Group(); g.position.set(x, 0, z); world.add(g); const st = E.box(0.08, 2.6, 0.08, "#3a2740"); st.position.y = 1.3; g.add(st);
-      const dish = E.extrude(E.circleShape(0.32), "#efe6d2", 0.08); dish.position.set(0, 2.7, 0); dish.lookAt(TRX, 1, WALLZ - 3); g.add(dish); const b = E.glowPlane(0.36, 0.36, "#fff3d8"); b.position.set(0, 2.7, 0); g.add(b); g.userData.b = b; b.userData.setGlow(0.3); return g; });
+    const bulbs = [[TRX - 2.5, WALLZ - 1.5], [TRX - 2.7, WALLZ - 4.6]].map(([x, z]) => { const g = new THREE.Group(); g.position.set(x, 0, z); world.add(g); const st = E.box(0.08, 2.6, 0.08, "#3a2740"); st.position.y = 1.3; g.add(st);
+      const dish = E.extrude(E.circleShape(0.32), "#efe6d2", 0.08); dish.position.set(0, 2.7, 0); dish.lookAt(TRX + 0.0, 0.8, WALLZ - 2.0); g.add(dish); const b = E.glowPlane(0.36, 0.36, "#fff3d8"); b.position.set(0, 2.7, 0); g.add(b); g.userData.b = b; b.userData.setGlow(0.3); return g; });
     const ND = 16; const debris = new THREE.InstancedMesh(new THREE.BoxGeometry(0.16, 0.12, 0.01), pm("#efe6d2"), ND); debris.frustumCulled = false; world.add(debris);
     const dr = rng(71); const DEB = [...Array(ND)].map(() => ({ vx: (dr() - 0.5) * 3, vy: 1.5 + dr() * 2.5, vz: -0.5 - dr() * 1.5, s: (dr() - 0.5) * 12 }));
     // the dark hand that ushers the inspectors out
-    const officeHand = mkHand("#3c3a4a", "#252330"); officeHand.scale.setScalar(1.6); world.add(officeHand);
+    const officeHand = mkHand("#9a93a6", "#4a4658"); officeHand.scale.setScalar(1.8); officeHand.rotation.order = "ZYX"; world.add(officeHand);
     // the safety net (pops up from the ground), top rope to a single peg
     const NETZ = -36, NX0 = -9, NX1 = 14, NH = 3.2;
     const netC = document.createElement("canvas"); netC.width = netC.height = 128; { const g = netC.getContext("2d"); g.strokeStyle = "#f3e6cc"; g.lineWidth = 6; g.beginPath(); g.moveTo(0, 0); g.lineTo(128, 128); g.moveTo(128, 0); g.lineTo(0, 128); g.stroke(); }
@@ -219,19 +219,20 @@ export default {
       K(T.julyAgents, [-0.25, 9.2, 1.9], [-0.3, 0, 0.05], sineInOut),
       K(T.graded - 0.1, [0.3, 8.2, 1.5], [0.4, 0, 0.1], sineInOut),
       K(T.itself + 0.5, [0.4, 7.9, 1.45], [0.5, 0, 0.1], sineInOut),
-      K(T.government + 1.9, [0.4, 6.2, 5.5], [0, 2.6, -40], inOut, 0.04),
-      K(T.release - 0.3, [0.6, 6.6, -26.5], [0, 2.0, -46], inOut, 0.05),
-      K(T.september, [1.0, 6.3, -27.5], [0.4, 2.0, -46], sineInOut),
-      K(T.shelved + 0.1, [-12.6, 6.4, -31.5], [-19.5, 3.4, -48], inOut, 0.05),
-      K(T.lesson, [-13.0, 6.1, -32.5], [-19.8, 3.4, -48], sineInOut),
-      K(T.testing + 0.6, [-10.6, 2.3, -29.0], [-16.4, 1.2, -36.5], inOut, 0.05),
-      K(T.crash, [-11.3, 1.5, -30.4], [-16.2, 1.05, -32.6], sineInOut),
-      K(T.cars + 0.8, [-11.0, 1.7, -29.8], [-16.1, 1.1, -32.2], sineInOut),
-      K(T.voluntary + 0.6, [2.4, 7.4, -27.0], [0.2, 2.0, -46], inOut, 0.06),
-      K(T.cut + 0.6, [1.8, 6.6, -29.5], [0.6, 2.0, -46], sineInOut),
+      K(T.government + 0.9, [0.5, 5.0, -12], [0.2, 2.8, -45], inOut, 0),
+      K(T.government + 2.4, [2.6, 2.2, -35.0], [-0.6, 2.6, -45], inOut, 0.03),
+      K(T.release, [2.9, 2.25, -35.6], [-0.9, 2.6, -45], sineInOut),
+      K(T.september + 0.4, [3.2, 2.3, -36.0], [-1.2, 2.6, -45], sineInOut),
+      K(T.shelved + 0.1, [-13.2, 4.6, -35.5], [-20.2, 4.4, -47.5], inOut, 0.04),
+      K(T.bar, [-13.6, 4.5, -36.2], [-20.4, 4.4, -47.5], sineInOut),
+      K(T.testing, [TRX + 7.5, 2.6, WALLZ - 9], [TRX - 0.5, 1.0, WALLZ - 5], inOut, 0.04),
+      K(T.crash, [TRX + 5.2, 1.5, WALLZ - 5.6], [TRX - 0.2, 1.0, WALLZ - 1.6], sineInOut),
+      K(T.cars + 0.6, [TRX + 4.5, 1.4, WALLZ - 4.8], [TRX - 0.1, 1.0, WALLZ - 1.5], sineInOut),
+      K(T.voluntary + 0.7, [4.5, 3.3, -30.5], [3.0, 2.0, -45], inOut, 0.05),
+      K(T.cut + 0.9, [5.2, 3.2, -31.0], [4.2, 2.0, -45], sineInOut),
       K(T.seventeen + 0.2, [3.6, 2.5, -42.2], [2.4, 1.55, -48.6], inOut, 0.03),
       K(T.days + 1.0, [3.5, 2.45, -42.6], [2.3, 1.55, -48.6], sineInOut),
-      K(T.stop - 0.2, [1.4, 5.6, -31.5], [0.6, 2.0, -46], inOut, 0.04),
+      K(T.stop - 0.1, [4.6, 3.2, -31.0], [3.0, 2.0, -45], inOut, 0.03),
       K(T.net + 0.5, [9.4, 1.5, -29.6], [12.6, 2.3, -37], inOut, 0.05),
       K(T.switchOff + 0.6, [9.0, 1.55, -29.9], [12.3, 2.35, -37], sineInOut),
       { t: def.to, p: V3(RX, NH, NETZ + ROPE_D), l: V3(RX, NH + ROPE_D * PITCH, NETZ), e: inOut, arc: 0 },
@@ -282,33 +283,40 @@ export default {
         f.visible = f.position.x < 22; });
       const lampOn = 1 - 0.85 * away; lamp.userData.setGlow((1.6 + 0.2 * Math.sin(t * 3)) * lampOn); booth.userData.win.userData.setGlow((1.0 + 0.06 * Math.sin(t * 2.3)) * (0.25 + 0.75 * lampOn));
       boothLight.position.set(2.6, 3.2, GZ - 1.6); boothLight.intensity = 9 * lampOn * smooth(T.government, T.government + 1.5, t);
-      const uh = smooth(T.cut - 0.5, T.cut + 0.2, t) * (1 - smooth(T.cut + 1.4, T.cut + 2.2, t)); officeHand.visible = uh > 0.001;
-      officeHand.position.set(-2 + 9 * smooth(T.cut - 0.2, T.cut + 1.8, t), 2.6 + 9 * (1 - uh), GZ + 1.2); officeHand.rotation.set(Math.PI / 2 - 0.2, 0, -Math.PI / 2 + 0.3 * Math.sin(t * 3));
+      const uh = smooth(T.cut - 0.6, T.cut + 0.1, t) * (1 - smooth(T.cut + 1.5, T.cut + 2.3, t)), sw = inOut(lin(T.cut - 0.1, T.cut + 2.0, t));
+      const hf = smooth(T.switchOff - 0.8, T.switchOff - 0.05, t) * (1 - smooth(T.switchOff + 0.7, T.yet - 0.2, t));
+      officeHand.visible = uh > 0.001 || hf > 0.001;
+      if (hf > 0.001) { const flick = t > T.switchOff - 0.05 ? Math.exp(-(t - T.switchOff) * 4) * Math.sin(Math.min(t - T.switchOff + 0.05, 0.6) * 9) : 0;
+        officeHand.position.set(NX1 + 0.9 + 0.5 * flick, NH + 3.4 + 7 * (1 - hf), NETZ + 0.5); officeHand.rotation.set(Math.PI / 2, 0, -Math.PI / 2 + 0.35 + 0.5 * flick); }
+      else { officeHand.position.set(-1.5 + 12 * sw, 0.5 + 7 * (1 - uh), GZ + 3.0); officeHand.rotation.set(Math.PI / 2, 0, Math.PI / 2 - 0.35 + 0.25 * Math.sin(t * 5)); }
       // 17 days flip
       minis.forEach((p, k) => { const tk = T.seventeen + 0.15 + k * 0.06; const u = t - tk; if (k >= 17 || u <= 0) { p.rotation.set(0, 0, 0); p.visible = true; return; }
-        p.rotation.x = -Math.min(u / 0.12, 1) * 2.6; p.position.y = 1.05 + Math.max(0, u - 0.12) * 1.5; p.position.x = -0.45 + Math.max(0, u - 0.12) * 0.8; p.visible = u < 1.2; });
+        p.rotation.x = -Math.min(u / 0.12, 1) * 2.6; const fu = Math.max(0, u - 0.1); p.position.y = 1.05 + fu * 3.2; p.position.x = -0.45 + fu * 1.6; p.position.z = 0.93 + (NC - k) * 0.006 + fu * 0.8; p.rotation.z = fu * 3; p.visible = u < 0.5; });
       // launch rail -> shelf (giant amber hand)
       const gIn = smooth(T.shelved - 0.9, T.shelved - 0.05, t), lift = inOut(lin(T.shelved, T.model + 0.5, t)), gOut = smooth(T.model + 0.7, T.model + 1.6, t);
       const railPos = V3(-15.4, 2.15, GZ - 2.4), shelfPos = V3(-23.2, 5.95, GZ - 2.9);
       const mp = railPos.clone().lerp(shelfPos, lift); mp.y += Math.sin(Math.PI * lift) * 2.2; bigModel.position.copy(mp); bigModel.rotation.z = 0.55 * (1 - lift) + 0.05 * Math.sin(t * 1.1);
       bigModel.userData.ring.rotation.z = t * 0.6; bigModel.scale.setScalar(lerp(1, 0.7, lift)); bigModel.visible = t > T.september - 2;
-      giantHand.position.set(mp.x + 3.2, mp.y + 1.4 + 10 * (1 - gIn) + 10 * gOut, mp.z + 0.6); giantHand.rotation.set(Math.PI / 2 - 0.3, 0, -Math.PI / 2 - 0.3 + 0.08 * Math.sin(t * 1.4)); giantHand.visible = gIn > 0.001 && gOut < 0.999;
-      // crash test: car rolls out on "Testing", slow motion into the wall on "crash"
-      const c0 = T.testing - 0.3, cImp = T.crash; const prog = lin(c0, cImp, t); const ease = 1 - Math.pow(1 - prog, 1.6);
-      const z0 = GZ + 1.5, zHit = WALLZ - 0.95; let cz2 = lerp(z0, zHit, ease); const after = t - cImp; let crumple = 0, rebound = 0;
-      if (after > 0) { crumple = expoOut(clamp(after / 0.5, 0, 1)); rebound = Math.sin(Math.min(after, 1.2) / 1.2 * Math.PI) * 0.35 * Math.exp(-after * 1.5); cz2 = zHit - rebound; }
-      car.position.set(TRX, 0, cz2); car.visible = t > c0 - 0.2; carFront.scale.x = 1 - 0.55 * crumple; carFront.rotation.z = 0.06 * crumple;
+      giantHand.position.set(mp.x + 0.15, mp.y + 2.7 * bigModel.scale.x + 12 * (1 - gIn) + 12 * gOut, mp.z + 0.32); giantHand.rotation.set(Math.PI / 2, 0, -Math.PI / 2 + 0.06 * Math.sin(t * 1.4)); giantHand.visible = gIn > 0.001 && gOut < 0.999;
+      // crash test: car rolls out after "The lesson", real speed, then slow motion from just before "crash" through the impact
+      const c0 = T.lesson + 0.2, tSlow = T.crash - 0.45, tImp = T.crash + 0.12, Q = 0.14;
+      const tau = (x) => (x < tSlow ? x : tSlow + Q * (x - tSlow));
+      const z0 = GZ + 1.5, zHit = WALLZ - 0.95, Dz = zHit - z0, vC = Dz / (tau(tImp) - c0 - 0.4);
+      const sAt = (x) => { const u = Math.max(0, tau(x) - c0); return vC * (u < 0.8 ? (u * u) / 1.6 : u - 0.4); };
+      let cz2 = z0 + Math.min(sAt(t), Dz); const after = t - tImp, aS = Math.max(0, after) * 0.42; let crumple = 0, rebound = 0;
+      if (after > 0) { crumple = expoOut(clamp(aS / 0.3, 0, 1)); rebound = Math.sin(Math.min(aS, 0.9) / 0.9 * Math.PI) * 0.4 * Math.exp(-aS * 1.2); cz2 = zHit - rebound; }
+      car.position.set(TRX, 0, cz2); car.visible = t > c0 - 0.2; carFront.scale.x = 1 - 0.55 * crumple; carFront.rotation.z = 0.06 * crumple; car.rotation.x = -0.05 * Math.sin(Math.min(aS / 0.5, 1) * Math.PI);
       carIn.children.forEach((w) => { if (w.userData.wheel) w.rotation.z = -cz2 * 2.2; }); carFront.children.forEach((w) => { if (w.userData.wheel) w.rotation.z = -cz2 * 2.2; });
-      const jolt = after > 0 ? Math.exp(-after * 2.2) * Math.sin(after * 7) : 0;
-      dummy.userData.pose(t, { lean: 0.9 * jolt, lookUp: -0.3 * jolt + 0.2 * smooth(T.cars, T.cars + 0.6, t), reach: 0.3 + 0.4 * smooth(T.cars + 0.2, T.cars + 0.9, t), armUp: 0.45 * smooth(T.cars + 0.3, T.cars + 1.0, t) });
-      const fl = after > 0 ? Math.exp(-after * 9) + 0.8 * Math.exp(-Math.max(0, after - 0.38) * 9) * (after > 0.38 ? 1 : 0) : 0;
+      const jolt = after > 0 ? Math.exp(-aS * 2.4) * Math.sin(aS * 6.5) : 0;
+      dummy.userData.pose(t, { lean: 0.9 * jolt, lookUp: -0.3 * jolt + 0.25 * smooth(T.cars, T.cars + 0.6, t), reach: 0.3 + 0.5 * smooth(T.cars + 0.1, T.cars + 0.8, t), armUp: 0.6 * smooth(T.cars + 0.15, T.cars + 0.85, t) });
+      const fl = after > 0 ? Math.exp(-after * 7) + 0.8 * Math.exp(-Math.max(0, after - 0.45) * 7) * (after > 0.45 ? 1 : 0) : 0;
       bulbs.forEach((b, i) => b.userData.b.userData.setGlow(0.35 + 3.2 * fl * (i ? 0.9 : 1)));
       flash.position.set(TRX + 1.5, 2.8, WALLZ - 2.2); flash.intensity = 40 * fl;
-      for (let k = 0; k < ND; k++) { const D = DEB[k]; if (after <= 0 || after > 2.5) { dmy.scale.setScalar(0.0001); } else { const u = after; dmy.scale.setScalar(1);
+      for (let k = 0; k < ND; k++) { const D = DEB[k]; if (after <= 0 || aS > 1.4) { dmy.scale.setScalar(0.0001); } else { const u = aS; dmy.scale.setScalar(1);
           dmy.position.set(TRX + D.vx * u, Math.max(0.02, 0.9 + D.vy * u - 4.9 * u * u), WALLZ - 0.9 + D.vz * u); dmy.rotation.set(D.s * u, D.s * 0.7 * u, 0); } dmy.updateMatrix(); debris.setMatrixAt(k, dmy.matrix); }
       debris.instanceMatrix.needsUpdate = true;
       // net: pops up on "A safety net"; the single peg wobbles on "switch off"; the rope sags and recovers
-      const up = spring(lin(T.net - 0.15, T.net + 0.95, t)); netHinge.rotation.x = -Math.PI / 2 * (1 - up) + 0.004 * Math.sin(t * 0.9) * up; netHinge.visible = t > T.net - 0.4 || t < T.government;
+      const up = spring(lin(T.net - 0.15, T.net + 0.95, t)); netHinge.rotation.x = -Math.PI / 2 * (1 - up) + 0.004 * Math.sin(t * 0.9) * up; netHinge.visible = true;
       const wb = t > T.switchOff ? Math.exp(-(t - T.switchOff) * 1.6) * Math.sin((t - T.switchOff) * 9) : 0; const lean = 0.22 * wb + 0.06 * smooth(T.switchOff, T.switchOff + 0.3, t) * (1 - smooth(T.switchOff + 0.8, T.yet, t));
       peg.rotation.z = -lean + 0.006 * Math.sin(t * 2.1); const dropR = Math.max(0, lean) * 2.6;
       { const a = rope.geometry.attributes.position; for (let i = 0; i < a.count; i++) { const x = ropeBase[i * 3]; const u = clamp((x - NX0) / (NX1 - NX0), 0, 1); a.array[i * 3 + 1] = ropeBase[i * 3 + 1] - dropR * Math.pow(u, 3) - 0.03 * Math.sin(u * Math.PI) * (1 + Math.sin(t * 1.3)); } a.needsUpdate = true; }
