@@ -2,3 +2,5 @@ node_modules/
 renders/
 snaps*/
 .hyperframes/
+tools/.snap*.mjs
+episodes/*/film/scenes/.*-ready
