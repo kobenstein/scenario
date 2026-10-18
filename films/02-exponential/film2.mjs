@@ -6,6 +6,8 @@ import {
 } from './engine.mjs';
 import * as M from './scenes/md.mjs';
 import * as M2 from './scenes/md2.mjs';
+import * as X from './scenes/explain.mjs';
+import * as K from './scenes/hook_code.mjs';
 
 const ROOT = '/mnt/project-files/scenario/film-02-exponential/';
 const PLATES = ROOT + 'plates/';
@@ -245,14 +247,14 @@ export async function build() {
   const tTitle = SEC['01'].end + .5;
   const amodei = { words: WD('01', 'We must slow', 'AI models'), who: 'Dario Amodei', role: 'CEO, Anthropic', date: '12 Sep 2026', source: 'Essay · “We Must Pace the Frontier”', hi: ['slow'] };
   L.push(
-    [0, plate('p06_gen2026', { cam: cam(1300, 860, 1.12, 1420, 760, 1.32), fx: both(lampFlicker(690, 665, 140), skyCurve(2.5, 6)) })],
-    [S('01', 'The people building'), plate('p23_lab_night', { cam: cam(1376, 800, 1.15, 1300, 760, 1.3), front: stand('researcher', 1620, 1140, 740, { flip: true }), fx: lampFlicker(470, 320, 120, C.amber, '#fff3dd', .4) }), 'dissolve', 1],
-    [S('01', 'Last month') - .2, M2.quotePage({ ...amodei, bg: plate('p23_lab_night', { cam: cam(1300, 760, 1.3, 1250, 740, 1.4) }) }), 'push', 1],
-    [S('01', "He's asking"), plate('p03_hill_night', { cam: cam(1300, 900, 1.15, 1450, 700, 1.3), front: you, fx: skyCurve(S('01', "He's asking"), 3) }), 'fog', 1.2],
-    [S('01', 'In mathematics') - .2, plate('p28_problem_library', { cam: cam(1376, 820, 1.2, 1376, 760, 1.38), fx: lampsOn(INFO('p28_problem_library').lamps || [], S('01', 'In mathematics'), .25) }), 'left', 1],
-    [S('01', 'In biology') - .2, plate('p27_dna_sea', { cam: cam(1376, 800, 1.15, 1500, 760, 1.35) }), 'left', 1],
-    [S('01', 'In public health') - .2, plate('p30_field_office', { cam: cam(1376, 800, 1.15, 1300, 780, 1.35) }), 'left', 1],
-    [S('01', 'And the month') - .3, plate('p03_hill_night', { cam: cam(1250, 900, 1.25, 1500, 560, 1.35), front: you, fx: skyCurve(S('01', 'And the month') - .3, 2.5, C.amber) }), 'fog', 1.4],
+    [0, K.street({ tLine: 2.5 })],
+    [S('01', 'The people building'), K.lab({}), 'dissolve', 1],
+    [S('01', 'Last month') - .2, M2.quotePage({ ...amodei, bg: K.lab({ cam0: [-40, -10, 1.08], cam1: [-60, -20, 1.14] }) }), 'push', 1],
+    [S('01', "He's asking"), K.hillView({ tLine: .3, dur: 4.5 }), 'fog', 1.2],
+    [S('01', 'In mathematics') - .2, K.problems({ tFall: .9, step: .3 }), 'left', 1],
+    [S('01', 'In biology') - .2, K.dnaSea({ tFind: 2.2 }), 'left', 1],
+    [S('01', 'In public health') - .2, K.healthMap({ tPins: .3, report: X.shrinkBar({ t0: S('01', 'In public health'), t1: S('01', 'And the month') - .7, tShrink: S('01', 'now takes'), title: 'one daily report', fromLabel: 'all day', toLabel: 'under an hour', x: 1180, y: 520, w: 600 }) }), 'left', 1],
+    [S('01', 'And the month') - .3, K.hillView({ tLine: 0, dur: 2.5, hex: C.amber, from: [500, 620], to: [1840, 40] }), 'fog', 1.4],
     [tTitle, M.title('The Curve', 'is going vertical'), 'up', 1.4],
   );
 
@@ -317,25 +319,26 @@ export async function build() {
   const agent = { words: WD('07', 'I can see', 'array', 1), who: 'A Claude agent', role: 'note in its own log', date: '23 Sep 2026', source: 'Anthropic · “Claude discovers a novel enzyme system”', hi: ['CRISPR-like'], size: 58 };
   const zhang = { words: WD('07', 'This is an exciting', 'discovery'), who: 'Feng Zhang', role: 'CRISPR pioneer, Broad Institute', date: 'Sep 2026', source: 'On the agents’ discovery', hi: ['discovery'] };
   const lampsP28 = INFO('p28_problem_library').lamps || [];
+  const MAPPTS = [[300, 420], [520, 360], [760, 470], [430, 640], [880, 330], [640, 760], [990, 620], [260, 880], [820, 900], [1080, 820], [520, 1000], [700, 560], [380, 300], [1000, 1020]];
   L.push(
     // Aug 1
     [SEC['03'].start - .4, days, 'push', 1.2],
-    [S('03', 'Ten problems') - .2, plate('p28_problem_library', { cam: cam(1376, 820, 1.15, 1376, 760, 1.4), fx: both(lampsOn(lampsP28, S('03', 'Ten problems'), .3), caption(S('03', 'One bound'), 'sphere packing', 'stuck since 1978', { dur: 3.5 })) }), 'dissolve', 1],
+    [S('03', 'Ten problems') - .2, plate('p28_problem_library', { cam: cam(1376, 820, 1.15, 1376, 760, 1.4), fx: both(lampsOn(lampsP28, S('03', 'Ten problems'), .3), caption(S('03', 'One bound'), 'sphere packing', 'stuck since 1978', { dur: 3.5 }), X.proof({ t0: S('03', 'then checked') - .3, t1: S('03', 'The computing bill') - .5, rate: 3 })) }), 'dissolve', 1],
     [S('03', 'The computing bill') - .2, plate('p28_problem_library', { cam: cam(1250, 900, 1.45, 1450, 860, 1.3), fx: both(lampsOn(lampsP28, 0, 0), caption(S('03', 'The computing bill'), 'compute bill, OpenAI estimate', 'about $2,000', { dur: 3.2 }), caption(S('03', 'None of it'), 'status', 'not yet peer-reviewed', { dur: 3, color: C.cream })) }), 'dissolve', 1],
-    [S('03', 'Keep that in mind') - .2, plate('p28_problem_library', { cam: cam(1376, 760, 1.38, 1376, 700, 1.5), fx: lampsOn(lampsP28, 0, 0) }), 'dissolve', 1],
+    [S('03', 'Keep that in mind') - .2, plate('p28_problem_library', { cam: cam(1376, 760, 1.38, 1376, 700, 1.5), fx: both(lampsOn(lampsP28, 0, 0), X.icons({ items: [{ t: S('03', 'Checking'), kind: 'check', label: 'checking' }], t1: 1e9, y: 300 })) }), 'dissolve', 1],
     // Aug 26
     [SEC['04'].start - .3, days, 'dissolve', 1],
-    [S('04', 'Nvidia reports') + .3, plate('p02_dc_ext', { cam: cam(1100, 900, 1.25, 1500, 860, 1.4), fx: both(lampFlicker(580, 990, 160), caption(S('04', 'eighty-nine billion'), 'Nvidia data-center sales, 3 months', '$89 billion', { dur: 4 })) }), 'dissolve', 1],
-    [S('04', 'Its finance chief') - .2, plate('p08_dc_int', { cam: cam(1380, 1000, 1.12, 1380, 960, 1.45), dolly: .25, fx: caption(S('04', 'one point three'), 'big-cloud spending next year (forecast)', '$1.3 trillion', { dur: 4 }) }), 'push', 1],
+    [S('04', 'Nvidia reports') + .3, plate('p02_dc_ext', { cam: cam(1100, 900, 1.25, 1500, 860, 1.4), fx: both(lampFlicker(580, 990, 160), X.bars({ t0: S('04', 'reports') - .2, t1: S('04', 'Its finance chief') - .6, title: 'Nvidia data-center sales, 3 months', x: 1060, y: 330, rows: [{ label: 'Aug 2026', v: 89, t: S('04', 'eighty-nine billion'), fmt: (v) => '$' + Math.round(v) + ' bn', col: C.amber }, { label: 'a year before', v: 42, t: S('04', 'More than double'), fmt: () => 'less than half', col: C.muted }] })) }), 'dissolve', 1],
+    [S('04', 'Its finance chief') - .2, plate('p08_dc_int', { cam: cam(1380, 1000, 1.12, 1380, 960, 1.45), dolly: .25, fx: both(X.flow({ t0: S('04', 'Its finance chief'), t1: S('04', 'On the same call') - .5, tx: 1380, ty: 900, col: C.amber }), caption(S('04', 'one point three'), 'big-cloud spending next year (forecast)', '$1.3 trillion', { dur: 4 })) }), 'push', 1],
     [S('04', 'On the same call') - .2, M2.quotePage({ ...huang, bg: plate('p08_dc_int', { cam: cam(1380, 960, 1.45, 1380, 940, 1.55), dolly: .25 }) }), 'push', 1],
-    [S('04', "That's the fuel") - .2, plate('p02_dc_ext', { cam: cam(1600, 900, 1.35, 1100, 950, 1.2) }), 'dissolve', 1],
+    [S('04', "That's the fuel") - .2, days, 'dissolve', 1],
     // Sep 12
     [SEC['05'].start - .3, days, 'dissolve', 1],
     [S('05', "That's the essay") - .3, M2.quotePage({ ...amodei, bg: plate('p23_lab_night', { cam: cam(1250, 740, 1.4, 1200, 740, 1.5) }) }), 'push', 1],
     // Sep 22
     [SEC['06'].start - .3, days, 'dissolve', 1],
-    [S('06', 'An engineer') - .2, plate('p29_office_overnight', { cam: cam(1376, 820, 1.15, 1376, 780, 1.4), fx: (c, t) => { const u = lin(S('06', 'In the morning') - 1, S('06', 'In the morning') + 1.5, t); if (u > 0) { c.fillStyle = `rgba(255,179,92,${.18 * u})`; c.globalCompositeOperation = 'soft-light'; c.fillRect(0, 0, W, H); c.globalCompositeOperation = 'source-over'; } caption(S('06', 'More than eighteen'), 'one run, one task', '18+ hours')(c, t); } }), 'dissolve', 1],
-    [S('06', 'That model costs') - .2, plate('p29_office_overnight', { cam: cam(1250, 860, 1.4, 1450, 820, 1.25), fx: caption(S('06', 'forty percent'), 'price vs. its July predecessor', '−40 %', { dur: 3.5 }) }), 'dissolve', 1],
+    [S('06', 'An engineer') - .2, ((clk) => plate('p29_office_overnight', { cam: cam(1376, 820, 1.15, 1376, 780, 1.4), fx: (c, t) => { const u = lin(S('06', 'In the morning') - 1, S('06', 'In the morning') + 1.5, t); if (u > 0) { c.fillStyle = `rgba(255,179,92,${.18 * u})`; c.globalCompositeOperation = 'soft-light'; c.fillRect(0, 0, W, H); c.globalCompositeOperation = 'source-over'; } clk(c, t); } }))(X.clock({ t0: S('06', 'An engineer') + .3, t1: S('06', 'That model costs') - .6, tRun0: S('06', 'working overnight'), tRun1: S('06', 'More than eighteen') + 1.2, hours: 18, label: 'one task, one run' })), 'dissolve', 1],
+    [S('06', 'That model costs') - .2, plate('p29_office_overnight', { cam: cam(1250, 860, 1.4, 1450, 820, 1.25), fx: X.bars({ t0: S('06', 'That model costs'), t1: 1e9, title: 'price for the same work', x: 1060, y: 380, rows: [{ label: 'July model', v: 100, t: S('06', 'That model costs') + .2, fmt: () => '100 %', col: C.muted }, { label: 'September model', v: 60, t: S('06', 'forty percent'), fmt: (v) => Math.round(v) + ' %', col: C.cyan }], note: '40 % cheaper, two months later' }) }), 'dissolve', 1],
     // Sep 23
     [SEC['07'].start - .3, days, 'dissolve', 1],
     [S('07', 'Nine hundred and fifty') - .2, plate('p27_dna_sea', { cam: cam(1376, 820, 1.12, 1376, 760, 1.4), fx: swarm(S('07', 'Nine hundred and fifty'), S('07', 'One of them stops') + .5, 1800, 820) }), 'dissolve', 1],
@@ -364,12 +367,12 @@ export async function build() {
     [SEC['10'].start - .4, plate('p03_hill_night', { cam: cam(1376, 900, 1.15, 1300, 820, 1.3), front: you, fx: skyCurve(SEC['10'].start, 3) }), 'fog', 1.4],
     [S('10', 'In September') - .2, M2.quotePage({ ...altman, bg: plate('p24_parliament', { cam: cam(1376, 800, 1.2, 1376, 760, 1.35) }) }), 'push', 1],
     [S('10', 'When firsts arrive') - .2, plate('p09_mountain', { cam: cam(1700, 1100, 1.4, 1376, 800, 1.15), front: walker(2200, 1950, 1490, 1380, 260, S('10', 'When firsts arrive'), S('10', 'Or we can build')) }), 'dissolve', 1],
-    [S('10', 'Or we can build') - .2, plate('p20_hill_dawn', { cam: cam(1250, 900, 1.2, 1500, 800, 1.32), front: you }), 'flash', 1],
+    [S('10', 'Or we can build') - .2, plate('p20_hill_dawn', { cam: cam(1250, 900, 1.2, 1500, 800, 1.32), front: you, fx: X.icons({ items: [{ t: S('10', 'the checking'), kind: 'check', label: 'checking' }, { t: S('10', 'the referees'), kind: 'eye', label: 'referees' }, { t: S('10', 'the phone lines'), kind: 'phone', label: 'phone lines' }, { t: S('10', 'point the pace'), kind: 'target', label: 'aim' }], t1: 1e9, y: 250, x0: 760, gap: 300 }) }), 'flash', 1],
     [S('10', 'Pause here') - .3, card('Pause here.', 'Which would you choose?', { size: 110, size2: 60, t2: S('10', 'Which would') - .2 }), 'dissolve', 1],
   );
 
   // ===== 11 Two endings =====
-  const amaniN = stand('amani', 640, 1420, 880, { sway: .25, shadow: false });
+  const amaniN = stand('amani', 560, 1420, 880, { sway: .25, shadow: false });
   const amaniD = (ctx, t, m, P) => amaniN(ctx, t, m, PL.p31_kinshasa_night);
   const reports = (t0) => (ctx, t) => { const r = prng(9); for (let i = 0; i < 26; i++) { const born = t0 + i * .18; const a = eout(lin(born, born + .3, t)); if (a <= 0) break; const x = 160 + r() * 1600, y = 120 + r() * 520, w = 150 + r() * 120; ctx.fillStyle = rgba(r() > .5 ? C.cyan : C.rose, .16 * a); ctx.fillRect(x, y, w, 90); ctx.strokeStyle = rgba(C.cream, .35 * a); ctx.strokeRect(x, y, w, 90); for (let l = 0; l < 4; l++) { ctx.fillStyle = rgba(C.cream, .3 * a); ctx.fillRect(x + 14, y + 18 + l * 17, w * (.4 + .5 * r()), 4); } } };
   L.push(
@@ -378,7 +381,7 @@ export async function build() {
     [S('11', 'Her inbox') - .2, plate('p31_kinshasa_night', { cam: cam(1300, 860, 1.4, 1250, 860, 1.55), front: amaniN, fx: reports(S('11', 'Her inbox')) }), 'dissolve', 1],
     [S('11', 'So she trusts') - .2, plate('p31_kinshasa_night', { cam: cam(1250, 860, 1.55, 1376, 800, 1.2), front: amaniN }), 'dissolve', 1.2],
     [S('11', 'Same morning') - .2, plate('p32_kinshasa_dawn', { cam: cam(1376, 800, 1.12, 1300, 840, 1.3), front: amaniD }), 'flash', 1],
-    [S('11', 'The virus genome') - .2, plate('p30_field_office', { cam: cam(1376, 800, 1.15, 1450, 760, 1.38) }), 'dissolve', 1],
+    [S('11', 'The virus genome') - .2, plate('p30_field_office', { cam: cam(1376, 800, 1.15, 1450, 760, 1.38), fx: both(X.pins({ t0: S('11', 'The case map'), t1: 1e9, pts: MAPPTS, step: .25, hourly: { from: 9, every: .9, x: 1300, y: 96 } }), caption(S('11', 'The virus genome'), 'virus genome', 'assembled before lunch', { dur: 3, x: 1250 })) }), 'dissolve', 1],
     [S('11', "She isn't working") - .2, plate('p32_kinshasa_dawn', { cam: cam(1300, 840, 1.35, 1376, 800, 1.2), front: amaniD, fx: lampFlicker(1990, 560, 260, C.amber, '#fff3dd', .4) }), 'dissolve', 1],
     [S('11', 'Same curve in both') - .2, split2(plate('p31_kinshasa_night', { cam: cam(1376, 820, 1.2, 1300, 820, 1.3), front: amaniN }), plate('p32_kinshasa_dawn', { cam: cam(1376, 820, 1.2, 1300, 820, 1.3), front: amaniD }), 'we waited', 'we built the checks'), 'dissolve', 1],
   );
@@ -392,20 +395,20 @@ export async function build() {
     [SEC['12a'].start - .4, card('How we get there', '', { size: 110 }), 'up', 1.4],
     [S('12a', 'On October fifteenth') - .3, plate('p33_glass_lab', { cam: cam(1376, 820, 1.15, 1376, 760, 1.38), front: (ctx, t, m, P) => { const u = lin(S('12a', 'On October fifteenth'), S('12a', 'In the company') + 1, t); const sp = P.sp.evaluators; if (sp) standFigure(ctx, sp, m.X(mix(ev[0], ev[1], u)), m.Y(mix(ev[2], ev[3], u)), mix(ev[4], ev[5], u) * m.k, t, {}); }, fx: (c, t) => stamp(c, t, S('12a', 'On October fifteenth'), '15 Oct', 'METR inside Anthropic') }), 'dissolve', 1],
     [S('12a', "In the company's") - .2, M2.quotePage({ ...veto, bg: plate('p33_glass_lab', { cam: cam(1376, 760, 1.38, 1376, 740, 1.48) }) }), 'push', 1],
-    [S('12a', "It's voluntary") - .2, plate('p33_glass_lab', { cam: cam(1250, 800, 1.4, 1500, 820, 1.2) }), 'dissolve', 1],
+    [S('12a', "It's voluntary") - .2, plate('p33_glass_lab', { cam: cam(1250, 800, 1.4, 1500, 820, 1.2), fx: X.chips({ items: [{ t: S('12a', "It's voluntary"), text: 'voluntary' }, { t: S('12a', "It's one company"), text: 'one company' }, { t: S('12a', 'Six people'), text: 'six people' }], t1: 1e9, y: 700 }) }), 'dissolve', 1],
     [S('12a', 'But the company') - .2, M2.quotePage({ ...every, bg: plate('p33_glass_lab', { cam: cam(1500, 820, 1.2, 1450, 800, 1.3) }) }), 'push', 1],
     [SEC['12b'].start - .3, plate('p34_hotline_1963', { cam: cam(1376, 820, 1.15, 1300, 860, 1.4), fx: both(lampFlicker(1030, 620, 220, C.amber, '#fff3dd', 1), (c, t) => stamp(c, t, S('12b', 'In nineteen sixty-three'), '1963', 'Washington · Moscow')) }), 'left', 1.2],
     [S('12b', 'On September twenty-sixth') - .2, hotline(S('12b', 'On September twenty-sixth') + .5), 'dissolve', 1],
-    [S('12b', 'Coverage called') - .2, plate('p34_hotline_1963', { cam: cam(1300, 860, 1.4, 1376, 820, 1.2) }), 'dissolve', 1],
+    [S('12b', 'Coverage called') - .2, plate('p34_hotline_1963', { cam: cam(1300, 860, 1.4, 1376, 820, 1.2), fx: X.chips({ items: [{ t: S('12b', 'Coverage called'), text: '“short on breakthroughs”' }, { t: S('12b', 'The real talks'), text: 'real talks start in November' }, { t: S('12b', "A channel isn't"), text: 'a channel, not a treaty', col: C.amber }], t1: 1e9, y: 700 }) }), 'dissolve', 1],
     [S('12b', 'But when things') - .2, hotline(S('12b', 'But when things') - 2.5), 'dissolve', 1],
-    [SEC['12c'].start - .3, plate('p28_problem_library', { cam: cam(1376, 820, 1.2, 1376, 760, 1.38), fx: lampsOn(lampsP28, 0, 0) }), 'left', 1.2],
-    [S('12c', 'And the Navier') - .2, plate('p23_lab_night', { cam: cam(1300, 780, 1.2, 1376, 800, 1.35), fx: caption(S('12c', 'And the Navier'), 'Navier–Stokes claim, Sep 2026', 'disputed in public', { color: C.cream, dur: 4 }) }), 'dissolve', 1],
+    [SEC['12c'].start - .3, plate('p28_problem_library', { cam: cam(1376, 820, 1.2, 1376, 760, 1.38), fx: both(lampsOn(lampsP28, 0, 0), X.proof({ t0: S('12c', 'Those ten') - .3, t1: 1e9, rate: 3.2, label: 'lines checked by a computer' })) }), 'left', 1.2],
+    [S('12c', 'And the Navier') - .2, plate('p23_lab_night', { cam: cam(1300, 780, 1.2, 1376, 800, 1.35), fx: both(caption(S('12c', 'And the Navier'), 'Navier–Stokes claim, Sep 2026', 'disputed in public', { color: C.cream, dur: 4 }), X.proof({ t0: S('12c', 'And the Navier'), t1: 1e9, rate: 2.4, fail: 11, label: 'checked by mathematicians' })) }), 'dissolve', 1],
     [S('12c', 'In July') - .3, names(S('12c', 'more than eleven')), 'push', 1],
-    [S('12c', 'Checking costs') - .2, plate('p28_problem_library', { cam: cam(1376, 760, 1.38, 1376, 820, 1.18), fx: lampsOn(lampsP28, 0, 0) }), 'dissolve', 1],
-    [SEC['12d'].start - .3, plate('p30_field_office', { cam: cam(1376, 800, 1.15, 1450, 760, 1.38), fx: (c, t) => stamp(c, t, S('12d', 'This September'), 'Sep 2026', 'Ebola response · DR Congo') }), 'left', 1.2],
+    [S('12c', 'Checking costs') - .2, plate('p28_problem_library', { cam: cam(1376, 760, 1.38, 1376, 820, 1.18), fx: both(lampsOn(lampsP28, 0, 0), X.chips({ items: [{ t: S('12c', 'Checking costs') + .4, text: 'costs time' }, { t: S('12c', 'and money'), text: 'costs money' }, { t: S('12c', 'won\'t hand us'), text: 'never free', col: C.amber }], t1: 1e9, y: 700 })) }), 'dissolve', 1],
+    [SEC['12d'].start - .3, plate('p30_field_office', { cam: cam(1376, 800, 1.15, 1450, 760, 1.38), fx: both((c, t) => stamp(c, t, S('12d', 'This September'), 'Sep 2026', 'Ebola response · DR Congo'), X.pins({ t0: S('12d', 'health workers'), t1: 1e9, pts: MAPPTS, step: .3 }), X.shrinkBar({ t0: S('12d', 'A report that') - .2, t1: 1e9, tShrink: S('12d', 'can now take'), title: 'daily situation report', fromLabel: 'all day', toLabel: 'under an hour', x: 1100, y: 820 })) }), 'left', 1.2],
     [S('12d', 'The virologist') - .2, M2.quotePage({ ...muyembe, bg: plate('p30_field_office', { cam: cam(1450, 760, 1.38, 1450, 740, 1.48) }) }), 'push', 1],
-    [S('12d', "That didn't happen") - .2, plate('p14_clinic', { cam: cam(1500, 900, 1.3, 1600, 860, 1.45), front: stand('doctor', 1650, 1430, 640) }), 'dissolve', 1],
-    [S('12d', 'Cheap intelligence') - .2, plate('p26_classroom', { cam: cam(1250, 1000, 1.4, 1400, 900, 1.2), front: stand('student', 1380, 1440, 700, { sway: .5 }) }), 'dissolve', 1],
+    [S('12d', "That didn't happen") - .2, plate('p14_clinic', { cam: cam(1500, 900, 1.3, 1600, 860, 1.45), front: stand('doctor', 1650, 1430, 640), fx: X.icons({ items: [{ t: S('12d', 'Someone chose'), kind: 'target', label: 'someone chose the problem' }], t1: 1e9, y: 300, x0: 520 }) }), 'dissolve', 1],
+    [S('12d', 'Cheap intelligence') - .2, plate('p26_classroom', { cam: cam(1250, 1000, 1.4, 1400, 900, 1.2), front: stand('student', 1380, 1440, 700, { sway: .5 }), fx: both(X.flow({ t0: S('12d', 'Cheap intelligence'), t1: 1e9, tx: 1420, ty: 1180 }), X.chips({ items: [{ t: S('12d', 'Unless public health'), text: 'public health' }, { t: S('12d', 'schools'), text: 'schools' }, { t: S('12d', 'and science'), text: 'science' }, { t: S('12d', 'with the money'), text: '… with the money to match', col: C.amber }], t1: 1e9, y: 180, size: 46 })) }), 'dissolve', 1],
   );
 
   // ===== 13 Your part =====
@@ -413,12 +416,13 @@ export async function build() {
   L.push(
     [SEC['13'].start - .4, longCurve, 'fog', 1.4],
     [S('13', 'So next time') - .2, card('Who checked it?', 'When was the last one like it?', { size: 104, size2: 58, t2: S('13', 'And when was') - .2 }), 'dissolve', 1],
-    [S('13', 'And if you want') - .2, plate('p24_parliament', { cam: cam(1376, 900, 1.15, 1376, 700, 1.4) }), 'up', 1.4],
+    [S('13', 'And if you want') - .2, plate('p24_parliament', { cam: cam(1376, 900, 1.15, 1376, 700, 1.4), fx: X.chips({ items: [{ t: S('13', 'outside testing'), text: 'outside testing:' }, { t: S('13', 'a rule'), text: 'a rule, not a favour', col: C.amber }], t1: 1e9, y: 760, size: 62 }) }), 'up', 1.4],
     [S('13', 'Somewhere on this') - .2, plate('p20_hill_dawn', { cam: cam(1250, 900, 1.25, 1600, 600, 1.3), front: you, fx: skyCurve(S('13', 'Somewhere on this'), 3.5, C.amber) }), 'fog', 1.6],
     [S('13', "What's the last") - .2, card('What’s the last AI headline', 'that made you stop?', { size: 88, size2: 60, col2: C.cream }), 'dissolve', 1.4],
     [E('13', 'in the comments') + 1.2, M.title('The Curve', 'is going vertical'), 'dissolve', 1.6],
   );
 
+  if (process.env.SHOTS) { const T = TM.words; const out = L.map((x, i) => { const a = x[0], b = (L[i + 1] || [tEnd])[0]; return { i, a: +a.toFixed(1), b: +b.toFixed(1), txt: T.filter((w) => w.s >= a && w.s < b).map((w) => w.w).join(" ") }; }); fs.writeFileSync(process.env.SHOTS, JSON.stringify(out, null, 1)); }
   const film = new Film(seq(L, tEnd), { grainAmt: .05 });
   const drops = [...LC.cards, ...dayCards].map((c) => ({ f: 'card', t: c.t + .35, v: .7 }));
   film.sound = soundPlan(film.shots, [

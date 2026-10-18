@@ -79,7 +79,7 @@ export const cardLine = (cfg) => {
       const w = CW * k, h = CH * k;
       let cx = X(c.x), cy = Y(j + 1) - h / 2 - 40;
       for (const p of placed) if (Math.abs(p.x - cx) < w * .9 && Math.abs(p.y - cy) < h * .9) cy = Math.min(cy, p.y - h * .62);
-      cy = Math.max(cy, T - 40);
+      cy = Math.max(cy, h / 2 + 70);
       placed.push({ x: cx, y: cy });
       const y = mix(cy - 520, cy, land) + bump, rot = (1 - land) * (j % 2 ? .25 : -.22) + (c.rot ?? (j % 2 ? .035 : -.03));
       ctx.save(); ctx.translate(cx, y); ctx.rotate(rot); ctx.globalAlpha = clamp(f * 3);

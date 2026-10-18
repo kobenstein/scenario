@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Mix VO + music cues (ducked under the voice) + SFX plan -> mix.wav (-14 LUFS).
 usage: mix.py <audio_dir>"""
-import json, subprocess, sys
+import json, os, subprocess, sys
 import numpy as np
 A = sys.argv[1].rstrip('/') + '/'; SR = 48000
 def load(f):
@@ -27,7 +27,8 @@ def place(buf, x, t, gain=1.0, fin=0.0, fout=0.0, d=None, loop=False):
     if s < 0: x = x[-s:]; s = 0
     e2 = min(N, s + len(x)); buf[s:e2] += x[:e2 - s] * gain
 music = np.zeros((N, 2), np.float32)
-for f, t, fin, fout in [('cueA', 0, 0.5, 4), ('cueB', 161, 4, 4), ('cueC', 335, 4, 6)]:
+CUES = json.load(open(A + 'music/cues.json')) if os.path.exists(A + 'music/cues.json') else [('cueA', 0, 0.5, 4), ('cueB', 161, 4, 4), ('cueC', 335, 4, 6)]
+for f, t, fin, fout in CUES:
     x = load(A + f'music/{f}.mp3'); x *= db(-25) / rms(x); place(music, x, t, 1, fin, fout)
 music *= (1 - 0.5 * duck)[:, None]          # -6 dB under the voice
 sfx = np.zeros((N, 2), np.float32); cache = {}
