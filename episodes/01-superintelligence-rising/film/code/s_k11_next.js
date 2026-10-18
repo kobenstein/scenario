@@ -1,13 +1,12 @@
-// "Next time: the first day of superintelligence. What would actually happen?"  (then the end card)
-// A new dawn, a different one: over a dark plain a huge cyan ring rises like a sun. A small person stands and watches.
-// "Next time" card top left; on "What would actually happen?" the ring sends out a slow pulse. After the voice ends,
-// the channel name "Scenario" fades in below and the ring keeps turning and breathing to the last frame.
+// End card after the last question (no next-episode teaser, no channel name: Jakob 2026-10-18).
+// A new dawn, a different one: over a dark plain a huge cyan ring rises like a sun. A small person stands and watches;
+// the ring sends out a slow pulse and keeps turning and breathing to the last frame.
 const L = require('./lib');
 const { W, H, C, clamp, sm, ramp, lerp, drift, rng, lin, rad, rgba, light, out, ease, stamp } = L;
 const { gf, curve, glowE, mini } = require('./s_k11_poll');
 
 const T0 = 721.55, T1 = 734.21;
-const T_NEXT = 722.10, T_ASK = 725.64, T_NAME = 727.5;
+const T_ASK = 725.64;
 const RING = { x: 1240, R: 250 };
 const HZ = 690;     // horizon
 const STARS = (() => { const r = rng(722); return Array.from({ length: 140 }, () => [r() * W, r() * HZ, r()]); })();
@@ -73,16 +72,6 @@ function draw(ctx, t) {
     // cyan rim light from the ring on the figure's right edge
     light(ctx, FIG.x + 10, FIG.y - 70, 60, C.cyan, 0.12 * glow);
   });
-  stamp(ctx, t, T_NEXT, 727.25, 'The first day of superintelligence', 'Next time', { size: 84 });
-  // the channel name, after the voice ends
-  const na = ramp(t, T_NAME, T_NAME + 1.4);
-  if (na > 0) {
-    ctx.save(); ctx.globalAlpha = na; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
-    ctx.shadowColor = 'rgba(4,4,16,0.8)'; ctx.shadowBlur = 30;
-    const y = 870 - (1 - out((t - T_NAME) / 1.8)) * 16;
-    ctx.fillStyle = C.cream; ctx.font = '150px "Instrument Serif"'; ctx.letterSpacing = '2px'; ctx.fillText('Scenario', W / 2, y);
-    ctx.restore();
-  }
 }
 
 module.exports = { T0, T1, draw };
