@@ -7,6 +7,11 @@ GlobalFonts.registerFromPath(path.join(EP, 'fonts', 'InstrumentSerif-Regular.ttf
 GlobalFonts.registerFromPath(path.join(EP, 'fonts', 'Inter-Medium.otf'), 'Inter Medium');
 GlobalFonts.registerFromPath(path.join(EP, 'fonts', 'Inter-SemiBold.otf'), 'Inter SemiBold');
 
+// createPattern copies its image into native memory that is never freed (~1 MB per call for a 512 px texture),
+// and scenes call it every frame, so hand out one pattern per image and repetition.
+{ const proto = Object.getPrototypeOf(createCanvas(1, 1).getContext('2d')), orig = proto.createPattern, cache = new WeakMap();
+  proto.createPattern = function (img, rep) { let m = cache.get(img); if (!m) cache.set(img, m = {}); return m[rep] ??= orig.call(this, img, rep); }; }
+
 const W = 1920, H = 1080, FPS = 30;
 const C = {
   ink: '#070918', night: '#0b0f2a', indigo: '#151a44', violet: '#3b2f6e', dusk: '#5a4a8a',

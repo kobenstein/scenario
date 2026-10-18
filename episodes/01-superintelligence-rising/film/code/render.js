@@ -19,7 +19,8 @@ function frame(t, fi) {
     ctx.save(); ctx.globalAlpha = sm((t - s.T0) / XF); ctx.drawImage(tmp, 0, 0); ctx.restore();
   });
   // bloom: bright light bleeds softly into the dark, like the illustrations
-  tctx.save(); tctx.globalCompositeOperation = 'copy'; tctx.filter = 'blur(28px)'; tctx.drawImage(cv, 0, 0); tctx.restore();
+  // (no 'copy' composite: in @napi-rs/canvas it leaks ~9 MB of native memory per frame)
+  tctx.save(); tctx.clearRect(0, 0, W, H); tctx.filter = 'blur(28px)'; tctx.drawImage(cv, 0, 0); tctx.restore();
   ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = 0.22; ctx.drawImage(tmp, 0, 0); ctx.restore();
   L.finish(ctx, fi);
 }
@@ -37,6 +38,7 @@ if (args.snap) {
     for (let fi = f0; fi < f1; fi++) {
       frame(fi / FPS, fi);
       if (!ff.stdin.write(Buffer.from(cv.data()))) await new Promise(r => ff.stdin.once('drain', r));
+      if (global.gc && fi % 20 === 0) global.gc(); // frame buffers live outside the JS heap, so GC would not run on its own
       if ((fi - f0) % 150 === 0) console.log(args.out, fi - f0, '/', f1 - f0, ((Date.now() - t0) / Math.max(1, fi - f0) / 1000).toFixed(3) + 's/f');
     }
     ff.stdin.end();
