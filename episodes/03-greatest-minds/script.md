@@ -21,7 +21,7 @@ And almost nobody has noticed.
 And the strangest part? Building it may turn out to be the easy bit.
 PICTURE: a drawn group photo of scientists in three rows (composition after a famous 1920s physics conference, no names, no faces in detail). On "Not once" the photo duplicates left and right, then tiles outward in every direction; rows become points of light; the camera pulls back until the lights form the grid of a datacenter at night beside a small town. The tiny figure ("you") walks past on the road below, looking at a phone.
 ON SCREEN: nothing.
-LOOP: opens "what happens when minds are no longer the limit?"
+LOOP: opens "what happens when minds are no longer the limit?" + "if building it is the easy bit, what is the hard bit?" (closes at the narrow door, 4:45)
 
 ## 2 · Why believe this? (0:35–1:30)
 CLIP K1 · Dario Amodei, Dwarkesh Podcast, 13 Feb 2026 · youtube.com/watch?v=n1E9IZfvGMA · 00:00:49–00:01:02
@@ -80,7 +80,7 @@ A thousand PhDs, on call, day and night.
 Most of us use them to fix our emails.
 PICTURE: split timeline: a calendar flipping ten years of pages on one side, a clock moving two days on the other; both stop on the same drawing of a bacterium passing a tiny "key" to another. Then an eye in close-up, pupil opening as a drop falls, a petri dish under a lamp. Then "you" on a bus: from the phone screen, hundreds of tiny figures in lab coats climb out like from a door, look around expectantly; "you" types "rephrase this email more politely"; they sigh in unison.
 ON SCREEN: "Imperial College London + Google, 2025"; "FutureHouse, 2025 · cells only"; "GPT-5 launch, Aug 2025".
-LOOP: "if it works, why haven't we felt it yet?"
+LOOP: "if it works, why haven't we felt it yet?" + plants "Keep that eye drop in mind" (pays off in ending 2, ~7:00)
 
 ## 5 · The promise (4:00–4:45)
 VO:
