@@ -4,7 +4,7 @@ const fs = require('fs'), path = require('path');
 const L = require('./lib');
 const { createCanvas, W, H, FPS, sm } = L;
 
-const SCENES = fs.readdirSync(__dirname).filter(f => /^s_.*\.js$/.test(f)).map(f => require('./' + f)).sort((a, b) => a.T0 - b.T0);
+const SCENES = fs.readdirSync(__dirname).filter(f => /^s_.*\.js$/.test(f)).map(f => require('./' + f)).filter(s => typeof s.draw === 'function' && typeof s.T0 === 'number').sort((a, b) => a.T0 - b.T0);
 const XF = 0.3;
 
 const cv = createCanvas(W, H), ctx = cv.getContext('2d');
