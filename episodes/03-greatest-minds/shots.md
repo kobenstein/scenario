@@ -4,7 +4,7 @@ Stand: Skript-Fassung 2 (2026-10-18). Dichte wie Folge 1 Rohfassung 2: jedes Bil
 
 Spalten: Nr · VO-Anker (vo.txt-Zeile) · Bild und Bewegung · **Übergang zum nächsten Shot**.
 
-Übergänge (Jakob 2026-10-18, 22:07): pro Übergang wird entschieden, was am besten passt, ohne feste Quote. Standard ist der **Objekt-Übergang** (Zeile ohne Kennzeichnung: ein konkretes Objekt wird sichtbar in den nächsten Shot überführt), dort wo ein Gedanke den nächsten trägt. Wo es besser passt, steht fett davor die andere Art: **Kamerafahrt/Schwenk** (innerhalb derselben Welt), **Zoom durch/hinein** (Kamera taucht in ein Objekt), **Reißschwenk**, **Blende** (nur an Kapitelgrenzen und Ruhemomenten, z. B. Stille vor der Abzweigung, Seitenwechsel zwischen den Enden, Schluss). Keine harten Schnitte ohne Grund, keine Crossfades als Standard.
+Übergänge (Jakob 2026-10-18, 22:07): pro Übergang wird entschieden, was am besten passt, ohne feste Quote. Standard ist der **Objekt-Übergang** (Zeile ohne Kennzeichnung: ein konkretes Objekt wird sichtbar in den nächsten Shot überführt), dort wo ein Gedanke den nächsten trägt. Wo es besser passt, steht fett davor die andere Art: **Kamerafahrt/Schwenk** (innerhalb derselben Welt), **Zoom durch/hinein** (Kamera taucht in ein Objekt), **Blende** (nur an Kapitelgrenzen und Ruhemomenten, z. B. Stille vor der Abzweigung, Seitenwechsel zwischen den Enden, Schluss). Keine harten Schnitte ohne Grund, keine Crossfades als Standard.
 
 ## 1 · Hook (≈0:00–0:35)
 | Nr | VO | Bild und Bewegung | Übergang |
@@ -26,7 +26,7 @@ Spalten: Nr · VO-Anker (vo.txt-Zeile) · Bild und Bewegung · **Übergang zum n
 | Nr | VO | Bild und Bewegung | Übergang |
 |---|---|---|---|
 | C1 | Clip K1 „lack of public recognition…“ | Clip läuft auf einem alten Röhrenfernseher in einem Schaufenster einer Kleinstadtstraße; Passanten (Silhouetten) gehen vorbei, keiner bleibt stehen. Name + Datum unten eingeblendet. | Fernseher: Kamera fährt rückwärts aus dem Bildschirm, der Bildschirm wird ein Fenster der Laborgebäude-Skyline |
-| 13 | 12 „head of one of the biggest AI labs“ | Fernsehbild zoomt heraus zu einer Skyline aus Laborgebäuden; ein Gebäude hebt sich, Amodeis Namensschild klappt auf. | **Reißschwenk:** die Kamera reißt vom Gebäude zur Seite, Bewegungsunschärfe, Landung auf einem Handydisplay |
+| 13 | 12 „head of one of the biggest AI labs“ | Fernsehbild zoomt heraus zu einer Skyline aus Laborgebäuden; ein Gebäude hebt sich, Amodeis Namensschild klappt auf. | **Zoom durch:** Kamera fährt auf ein erleuchtetes Fenster des Gebäudes zu, dahinter liegt ein Handydisplay |
 | 14 | 13a „better chatbot“ | Eine Sprechblase hüpft auf einem Handydisplay, tippt drei Punkte. | Sprechblase: faltet sich zum Briefumschlag |
 | 15 | 13b „writes your emails“ | Sprechblase spuckt einen Briefumschlag, der fliegt in einen Ordner „Sent“, Stapel wächst. | Briefumschlag: entfaltet sich zur Blaupause |
 | 16 | 14 „picture something else“ | Umschlag dreht sich und wird zu einer Bauzeichnung (Blaupause) eines riesigen Raums, Linien zeichnen sich selbst. | Blaupause: auf ihr leuchtet ein gezeichneter Bildschirm auf, in dem der Clip startet |
