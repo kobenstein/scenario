@@ -36,6 +36,10 @@ export const graphPaper = () => (ctx, t, s) => {
     ctx.fillStyle = ink(.9 * a); ctx.beginPath(); ctx.arc(X(yr), Y(l), 9 * back(a), 0, 7); ctx.fill();
     text(ctx, String(yr), X(yr), PH / 2 - 30, { size: 26, font: 'Instrument Serif', color: '#3a2f3a', align: 'center', alpha: a * .85 });
   });
+  // doubling axis: each labelled step up is ×2, which is why doubling draws a straight line here
+  const axA = lin(tD - .4, tD + .4, t);
+  for (let l = 0; l <= 16; l++) { const y = Y(l); if (y < -PH / 2 + 60) continue; text(ctx, fmt(Math.pow(2, l)), -PW / 2 + 78, y + 8, { size: 22, font: 'Instrument Serif', color: '#3a2f3a', align: 'right', alpha: axA * .85 }); }
+  text(ctx, 'each mark up = double', -PW / 2 + 110, -PH / 2 + 40, { size: 34, font: 'Instrument Serif Italic', color: '#3a2f3a', alpha: axA * .9 });
   // pencil line through the dots
   const u = eio(lin(tL, tL + 1.6, t));
   if (u > 0) { ctx.strokeStyle = ink(.85); ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(X(1958.6), Y(-.4)); ctx.lineTo(mix(X(1958.6), X(1965.4), u), mix(Y(-.4), Y(6.4), u)); ctx.stroke(); }
