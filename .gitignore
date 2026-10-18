@@ -8,3 +8,7 @@ episodes/*/film/render/
 episodes/*/film/snaps/
 episodes/*/mix/*.wav
 episodes/*/audio/vo-master.wav
+episodes/*/film/code/node_modules/
+episodes/*/film/code/out/
+episodes/*/film/code/snaps/
+episodes/*/film/code/out_run.log
