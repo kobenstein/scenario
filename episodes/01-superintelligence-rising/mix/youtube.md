@@ -1,9 +1,11 @@
 # Episode 1 · YouTube metadata (draft, upload only after Jakob's approval)
 
-**Title:** Superintelligence Is Rising. Here's How We Get It Right.
+**Title:** The Superintelligence Takeoff Has Started
+
+(Alternatives, if the hook line is not changed: "The AI Takeoff Has Started")
 
 **Description:**
-It has started. At one of the biggest AI labs, most new code is now written by the AI itself. In 2021 a young researcher, Daniel Kokotajlo, wrote down what 2026 would look like, and much of it came true. His story splits into two endings. This film walks through both, and through four questions that decide which one we get.
+It has started. At one of the biggest AI labs, most new code is now written by the AI itself, including code for the next version of that AI. That is the first stage of a takeoff, and only the first stage: people still check the work, and the brakes still work. In 2021 a young researcher, Daniel Kokotajlo, wrote down what 2026 would look like, and much of it came true. His story splits into two endings. This film walks through both, and through four questions that decide which one we get.
 
 This is a scenario, not a prediction. Every claim in it is sourced below.
 
@@ -22,4 +24,4 @@ This is a scenario, not a prediction. Every claim in it is sourced below.
 If you could have an independent tester check one thing first, what would it be?
 
 Sources: see sources.md and sources-new.md in this episode folder (to be pasted as a list before upload).
-Made with AI tools: voice (ElevenLabs), illustration and music generated, edited and animated by the Scenario team.
+Made with AI tools: voice and music (ElevenLabs), sound effects (Mirelo). Every image and animation is drawn in code.
