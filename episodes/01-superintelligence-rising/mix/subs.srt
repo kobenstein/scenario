@@ -1063,382 +1063,386 @@ Huge numbers of them,
 and they're starting to be trackable.
 
 267
-00:08:55,825 --> 00:08:58,005
-In New Delhi, nearly ninety countries
+00:08:55,877 --> 00:08:57,444
+In New Delhi, nearly ninety
 
 268
-00:08:58,045 --> 00:09:00,065
-agreed to test AI in languages
+00:08:57,484 --> 00:08:59,573
+countries signed a declaration,
 
 269
-00:09:00,105 --> 00:09:01,995
-the big labs usually ignore.
+00:08:59,613 --> 00:09:01,187
+and the labs promised to test
 
 270
-00:09:02,325 --> 00:09:03,755
-None of this is finished.
+00:09:01,227 --> 00:09:02,829
+in neglected languages.
 
 271
-00:09:03,865 --> 00:09:05,125
-Nobody can properly check
+00:09:03,075 --> 00:09:04,505
+None of this is finished.
 
 272
-00:09:05,165 --> 00:09:06,575
-a deal like that yet,
+00:09:04,615 --> 00:09:05,875
+Nobody can properly check
 
 273
-00:09:06,645 --> 00:09:08,585
-and at the UN, the US government
+00:09:05,915 --> 00:09:07,325
+a deal like that yet,
 
 274
-00:09:08,625 --> 00:09:11,335
-said no to global control of AI.
+00:09:07,395 --> 00:09:09,335
+and at the UN, the US government
 
 275
+00:09:09,375 --> 00:09:12,085
+said no to global control of AI.
+
+276
 00:09:12,554 --> 00:09:14,884
 Not everyone thinks this is urgent.
 
-276
+277
 00:09:15,274 --> 00:09:16,934
 Yann LeCun, one of the people
 
-277
+278
 00:09:16,974 --> 00:09:18,644
 behind modern AI,
 
-278
+279
 00:09:18,734 --> 00:09:21,334
 says safety is "just another engineering
 
-279
+280
 00:09:21,374 --> 00:09:24,164
 problem," like making jet engines safe.
 
-280
+281
 00:09:24,554 --> 00:09:26,934
 Arvind Narayanan and Sayash Kapoor
 
-281
+282
 00:09:26,974 --> 00:09:29,354
 at Princeton call AI a "normal
 
-282
+283
 00:09:29,394 --> 00:09:31,674
 technology," and expect its effects
 
-283
+284
 00:09:31,714 --> 00:09:33,564
 to play out over decades.
 
-284
+285
 00:09:33,874 --> 00:09:35,804
 They could be right about the timing.
 
-285
+286
 00:09:36,094 --> 00:09:38,364
 But look at what they actually propose:
 
-286
+287
 00:09:38,654 --> 00:09:40,824
 more technical experts in government,
 
-287
+288
 00:09:40,894 --> 00:09:42,254
 more transparency,
 
-288
+289
 00:09:42,294 --> 00:09:43,894
 and AI tools for the people
 
-289
+290
 00:09:43,934 --> 00:09:45,604
 defending our systems.
 
-290
+291
 00:09:46,074 --> 00:09:47,714
 Now look at the eleven hundred lab
 
-291
+292
 00:09:47,754 --> 00:09:49,934
 employees who asked Washington to get
 
-292
+293
 00:09:49,974 --> 00:09:52,884
 ready to "deliberately pace the frontier."
 
-293
+294
 00:09:53,274 --> 00:09:55,684
 The two camps don't want the same things.
 
-294
+295
 00:09:55,934 --> 00:09:57,274
 But they overlap on the part
 
-295
+296
 00:09:57,314 --> 00:09:58,604
 that comes first:
 
-296
+297
 00:09:58,814 --> 00:10:00,674
 people outside the labs who can
 
-297
+298
 00:10:00,714 --> 00:10:02,604
 actually see what's going on.
 
-298
+299
 00:10:02,954 --> 00:10:05,224
 That part, we can start on now.
 
-299
+300
 00:10:05,414 --> 00:10:06,514
 Whoever turns out to be
 
-300
+301
 00:10:06,554 --> 00:10:07,964
 right about the speed.
 
-301
+302
 00:10:09,360 --> 00:10:11,790
 Let's imagine it's twenty thirty-five.
 
-302
+303
 00:10:12,000 --> 00:10:13,170
 Just a scenario.
 
-303
+304
 00:10:13,420 --> 00:10:15,370
 Same street, early morning.
 
-304
+305
 00:10:15,700 --> 00:10:17,340
 The hospital down the road runs
 
-305
+306
 00:10:17,380 --> 00:10:19,340
 software that AI went through,
 
-306
+307
 00:10:19,380 --> 00:10:20,800
 hole by hole, before
 
-307
+308
 00:10:20,840 --> 00:10:22,290
 anyone could break in.
 
-308
+309
 00:10:22,600 --> 00:10:24,620
 Last spring, a model did something
 
-309
+310
 00:10:24,660 --> 00:10:26,470
 its makers didn't expect.
 
-310
+311
 00:10:26,700 --> 00:10:28,820
 Within days the report was public,
 
-311
+312
 00:10:28,860 --> 00:10:30,750
 and every lab learned from it.
 
-312
+313
 00:10:31,080 --> 00:10:32,860
 If superintelligence comes,
 
-313
+314
 00:10:32,900 --> 00:10:34,000
 it comes into a world
 
-314
+315
 00:10:34,040 --> 00:10:35,810
 that can see what it's doing.
 
-315
+316
 00:10:36,160 --> 00:10:37,850
 None of that needs a miracle.
 
-316
+317
 00:10:38,040 --> 00:10:39,560
 Just those four answers,
 
-317
+318
 00:10:39,600 --> 00:10:40,610
 done together.
 
-318
+319
 00:10:41,399 --> 00:10:43,110
 Remember the two million dollars?
 
-319
+320
 00:10:43,340 --> 00:10:44,510
 He didn't lose it.
 
-320
+321
 00:10:44,800 --> 00:10:46,800
 After his refusal became public,
 
-321
+322
 00:10:46,840 --> 00:10:48,830
 OpenAI dropped the clause.
 
-322
+323
 00:10:49,140 --> 00:10:50,580
 One person said no,
 
-323
+324
 00:10:50,620 --> 00:10:52,030
 and a rule changed.
 
-324
+325
 00:10:52,400 --> 00:10:54,470
 Kokotajlo wrote two endings.
 
-325
+326
 00:10:54,600 --> 00:10:56,730
 Which one we get isn't up to him.
 
-326
+327
 00:10:56,960 --> 00:10:58,710
 Or only up to the labs.
 
-327
+328
 00:10:59,160 --> 00:11:01,150
 If AI shows up in your job,
 
-328
+329
 00:11:01,220 --> 00:11:02,590
 ask who's checking it.
 
-329
+330
 00:11:02,740 --> 00:11:04,620
 And tell the people who represent you
 
-330
+331
 00:11:04,660 --> 00:11:07,150
 that outside testing should be the law.
 
-331
+332
 00:11:07,460 --> 00:11:08,700
 In polls this year,
 
-332
+333
 00:11:08,740 --> 00:11:09,780
 most Americans,
 
-333
+334
 00:11:09,820 --> 00:11:11,520
 up to seventy-seven percent,
 
-334
+335
 00:11:11,560 --> 00:11:13,659
 wanted it slowed or paused until
 
-335
+336
 00:11:13,699 --> 00:11:15,310
 its safety can be checked.
 
-336
+337
 00:11:15,540 --> 00:11:16,830
 You wouldn't be alone.
 
-337
+338
 00:11:17,580 --> 00:11:18,930
 I'll tell you what I think.
 
-338
+339
 00:11:19,240 --> 00:11:21,360
 The people who invented writing never got
 
-339
+340
 00:11:21,400 --> 00:11:23,610
 a vote on what it would do to the world.
 
-340
+341
 00:11:23,860 --> 00:11:24,860
 We do.
 
-341
+342
 00:11:25,000 --> 00:11:26,240
 It's a small one each,
 
-342
+343
 00:11:26,280 --> 00:11:28,390
 but it's real, and it's now.
 
-343
+344
 00:11:29,100 --> 00:11:31,230
 And we've done hard things before.
 
-344
+345
 00:11:31,540 --> 00:11:33,280
 A hole opened in the sky,
 
-345
+346
 00:11:33,320 --> 00:11:35,040
 and two years later the world
 
-346
+347
 00:11:35,080 --> 00:11:36,850
 signed a treaty to close it.
 
-347
+348
 00:11:37,160 --> 00:11:39,610
 Flying got about forty times safer,
 
-348
+349
 00:11:39,660 --> 00:11:42,310
 partly by learning from every close call.
 
-349
+350
 00:11:42,600 --> 00:11:45,010
 Our headlights don't reach far enough yet.
 
-350
+351
 00:11:45,160 --> 00:11:47,130
 We know how to build better ones.
 
-351
+352
 00:11:47,360 --> 00:11:49,070
 And we still have the wheel.
 
-352
+353
 00:11:49,820 --> 00:11:51,040
 The future isn't something
 
-353
+354
 00:11:51,080 --> 00:11:52,390
 that happens to us.
 
-354
+355
 00:11:52,540 --> 00:11:54,450
 It's something we decide.
 
-355
+356
 00:11:55,220 --> 00:11:56,560
 If you could have an independent
 
-356
+357
 00:11:56,600 --> 00:11:58,640
 tester check one thing first,
 
-357
+358
 00:11:58,680 --> 00:11:59,680
 what would it be?
 
-358
+359
 00:12:00,000 --> 00:12:01,430
 Let me know in the comments.
 
-359
+360
 00:12:02,100 --> 00:12:03,820
 Next time: the first day
 
-360
+361
 00:12:03,860 --> 00:12:05,370
 of superintelligence.
 
-361
+362
 00:12:05,640 --> 00:12:07,270
 What would actually happen?
 

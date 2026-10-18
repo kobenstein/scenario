@@ -1,11 +1,11 @@
-// "In New Delhi, nearly ninety countries agreed to test AI in languages the big labs usually ignore."
+// "In New Delhi, nearly ninety countries signed a declaration, and the labs promised to test in neglected languages."
 // A dotted world map at night. New Delhi lights up; then lights wake across ~90 countries and send threads to it.
 // Speech bubbles rise from the lights, each writing a different (abstract, invented) script.
 const L = require('./lib');
 const { W, H, C, clamp, sm, ramp, lerp, drift, rng, lin, rad, rgba, light, stamp, label, out, ease } = L;
 const { LAND } = require('./s_k8_globe');
 
-const T0 = 535.30, T1 = 542.10;
+const T0 = 535.30, T1 = 542.85;
 
 // map projection (equirectangular)
 const MX0 = 60, MX1 = 1860, LON0 = -170, LON1 = 190, LAT0 = 78, LAT1 = -58;
@@ -25,7 +25,7 @@ const LIGHTS = (() => { const r = rng(90), out = [], tries = DOTS.slice().sort((
 // bubbles: lights in regions whose languages are rarely tested, each in its own invented script
 const SPOTS = [[12, -1], [16, -90], [-14, -72], [-1, 37], [43, 66], [-6, 146], [-26, 26], [52, 20]];
 const BUB = SPOTS.map(([la, lo], k) => { const [x, y] = mp(la, lo); const l = { x, y, t: 536.9 + k * 0.08, arc: 537.1 + k * 0.08, lift: 0.22, ph: k }; LIGHTS.push(l);
-  return { l, t: 538.5 + k * 0.27, style: k % 6, seed: 100 + k, w: 120 }; });
+  return { l, t: 540.35 + k * 0.2, style: k % 6, seed: 100 + k, w: 120 }; });
 
 // invented glyph strings, by style
 function glyphs(style, seed, w) {
@@ -104,7 +104,7 @@ function draw(ctx, t) {
     ctx.restore();
   }
   ctx.restore();
-  stamp(ctx, t, 537.1, T1 + 0.4, '~90 countries', 'agreed in New Delhi', { size: 110 });
+  stamp(ctx, t, 537.1, T1 + 0.4, '~90 countries', 'signed in New Delhi', { size: 110 });
   label(ctx, t, 536.1, T1 + 0.4, 'New Delhi', 'India', 1330, 480);
 }
 

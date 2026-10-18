@@ -6,6 +6,7 @@ const L = require('./lib');
 const { W, H, C, clamp, sm, ramp, lerp, drift, rng, lin, rad, rgba, light, label, out, ease } = L;
 
 const T0 = 546.20, T1 = 551.80;
+const DT = 0.75; // this scene plays 0.75 s later than written, after the longer New Delhi line (fact-check fix)
 
 let PAT = null;
 function gf(ctx, pathFn, fill, grain = 0.45, box = null) {
@@ -120,4 +121,4 @@ function draw(ctx, t) {
   label(ctx, t, 547.0, T1 + 0.4, 'United Nations', 'the US says no to global control of AI', 110, 110);
 }
 
-module.exports = { T0, T1, draw };
+module.exports = { T0: T0 + DT, T1: T1, draw: (ctx, t) => draw(ctx, t - DT) };
