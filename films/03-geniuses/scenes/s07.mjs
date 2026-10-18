@@ -168,7 +168,7 @@ const wide = (T) => {
     // you, standing on the road before the gate; the hand rises toward the dials, then stops
     const raise = eio(lin(t0, t0 + 1.4, t)), hold = 1 + .03 * Math.sin(t * 2);
     const armFn = (c, sh) => { const a = mix(.1, -2.25, raise) * hold; c.strokeStyle = '#c8661e'; c.lineWidth = 5.5; c.lineCap = 'round'; c.beginPath(); c.moveTo(3, sh + 5); c.lineTo(3 + Math.sin(-a) * 28, sh + 5 + Math.cos(a) * 28); c.stroke(); };
-    person(ctx, G.cx - 40, G.by + 120, 240, t, { coat: P.amber, arm: armFn });
+    person(ctx, G.cx - 260, G.by + 120, 240, t, { coat: P.amber, arm: armFn });   // off to the left so the fork stays visible
     ctx.restore();
     finish(ctx, t, { vig: .55 });
   };

@@ -87,24 +87,49 @@ function spark(ctx, x, y, t0, t, s = 1) { const u = (t - t0) / .7; if (u < 0 || 
 
 // ================= 22: the camera rises out of the fog, through clouds, until the whole planet hangs below =================
 const AF = { lon0: 22, lat0: 6 };
+// a night cloud sprite: soft navy body, moonlit upper rim (lit layer drawn first, body shifted down over it)
+function cloudSprite(seed) {
+  return once('cloud' + seed, () => {
+    const [c, x] = canvas(900, 380), r = prng(seed), puffs = [];
+    for (let i = 0; i < 16; i++) { const u = i / 15; puffs.push([90 + u * 720 + (r() - .5) * 60, 250 - Math.sin(u * Math.PI) * (70 + r() * 80) + (r() - .5) * 30, 50 + Math.sin(u * Math.PI) * 70 + r() * 40]); }
+    x.filter = 'blur(5px)';
+    x.fillStyle = '#b9cdf2'; for (const [px, py, pr] of puffs) { x.beginPath(); x.arc(px, py, pr, 0, 7); x.fill(); }
+    x.filter = 'blur(9px)';
+    const g = x.createLinearGradient(0, 80, 0, 360); g.addColorStop(0, '#34407f'); g.addColorStop(1, '#141a48');
+    x.fillStyle = g; for (const [px, py, pr] of puffs) { x.beginPath(); x.arc(px + 6, py + 12, pr * .97, 0, 7); x.fill(); }
+    x.fillRect(80, 250, 740, 90);
+    return c;
+  });
+}
 const riseOut = (T) => {
   const t0 = T.S('03a', 'To see'), tZoom = T.S('03a', 'zoom out'), tAll = T.S('03a', 'All the way');
+  const r = prng(31), clouds = Array.from({ length: 30 }, (_, i) => ({ layer: i % 3, x: r() * (W + 600) - 300, y: r() * H * 2.2 - H * .6, seed: 1 + (i % 6), s: .7 + r() * .6, flip: r() < .5 }));
   return (ctx, t, s) => {
-    const uC = eio(lin(s.a, tZoom + .4, t)), uG = eio(lin(tZoom - .3, tAll + 1.0, t));
+    const uC = eio(lin(s.a, tZoom + .5, t)), uG = eio(lin(tZoom - .3, tAll + 1.0, t)), rise = t - s.a;
     space(ctx, t);
-    // the globe, huge at first (only a curved horizon), shrinking to a whole planet
+    // moon, upper right, lighting the cloud rims
+    addGlow(ctx, 1560, 170, 260, .35 * (1 - uG * .5), '#9fb8ff', '#f3f6ff');
+    ctx.fillStyle = rgba('#eef2ff', .9); ctx.beginPath(); ctx.arc(1560, 170, 26, 0, 7); ctx.fill();
+    // the globe, huge at first (only a curved horizon), shrinking to a whole planet, with a glowing atmosphere band
     const R = mix(2600, 360, uG), cy = mix(H + R - 260, 540, uG);
+    const at = ctx.createRadialGradient(960, cy, R * .96, 960, cy, R * 1.12); at.addColorStop(0, rgba('#8fe6ff', .0)); at.addColorStop(.25, rgba('#8fe6ff', .45)); at.addColorStop(.5, rgba('#3a7fd0', .25)); at.addColorStop(1, rgba('#3a7fd0', 0));
+    ctx.fillStyle = at; ctx.beginPath(); ctx.arc(960, cy, R * 1.12, 0, 7); ctx.fill();
     globe(ctx, t, { cx: 960, cy, R, lon0: AF.lon0 + (t - s.a) * 1.2, lat0: AF.lat0 });
-    // cloud layers stream downward past the camera as it climbs
-    const fogA = 1 - uC * .85;
-    if (fogA > 0) {
-      const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, rgba('#b8cfe8', .8 * (1 - uC))); g.addColorStop(1, rgba('#d8e6f5', .95 * (1 - uC))); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-      const r = prng(17);
-      for (let i = 0; i < 26; i++) { const x = r() * W, sp = 500 + r() * 900, y = ((r() * H * 2 + (t - s.a) * sp) % (H * 2)) - H * .5, rx = 300 + r() * 500;
-        const cg = ctx.createRadialGradient(x, y, 0, x, y, rx); cg.addColorStop(0, rgba('#e6f0fa', .5 * fogA)); cg.addColorStop(1, rgba('#e6f0fa', 0)); ctx.fillStyle = cg; ctx.save(); ctx.translate(x, y); ctx.scale(1, .35); ctx.translate(-x, -y); ctx.beginPath(); ctx.arc(x, y, rx, 0, 7); ctx.fill(); ctx.restore(); }
+    ctx.strokeStyle = rgba('#bff3ff', .7); ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(960, cy, R * 1.004, Math.PI * 1.05, Math.PI * 1.95); ctx.stroke();
+    // cloud layers stream downward past the camera as it climbs (parallax: near layers faster and bigger), thinning out above
+    const fogA = 1 - uC;
+    if (fogA > .01) {
+      for (const L of [0, 1, 2]) for (const c of clouds) {
+        if (c.layer !== L) continue;
+        const sp = [220, 520, 1000][L], sc = [.7, 1.1, 1.8][L] * c.s, y = c.y + rise * sp, a = fogA * [.75, .9, 1][L];
+        if (y > H + 200 || y < -400 * sc) continue;
+        ctx.save(); ctx.globalAlpha = a; ctx.translate(c.x, y); ctx.scale(c.flip ? -sc : sc, sc); ctx.drawImage(cloudSprite(c.seed), -450, -300); ctx.restore();
+      }
+      // haze inside the cloud deck at the very start
+      ctx.fillStyle = rgba('#5b6fb0', .35 * Math.pow(fogA, 2)); ctx.fillRect(0, 0, W, H);
     }
-    // a thin wisp layer of cloud over the planet once we're out
-    if (uG > 0 && uG < 1) { ctx.save(); ctx.globalAlpha = .25 * Math.sin(uG * Math.PI); fogBand(ctx, t, cy - R * .9, 160, { a: .5, hex: '#d8e6f5', speed: 40 }); ctx.restore(); }
+    // stars brighten as we clear the clouds
+    if (uC > .3) { ctx.save(); ctx.globalAlpha = (uC - .3) * .8 * (1 - uG * .4); stars(ctx, t * 1.3, 90, 41); ctx.restore(); }
     finish(ctx, t, { vig: .5 });
   };
 };
@@ -285,16 +310,36 @@ function stairs(ctx, t, k, { n = ST.n, x0 = ST.x0, y0 = ST.y0, rise = 0 } = {}) 
 }
 const chipStair = (T) => {
   const t0 = T.S('03a', 'Keeping chips'), tDbl = T.S('03a', 'doubling'), tNow = T.S('03a', 'now takes');
+  const r = prng(2828), traces = Array.from({ length: 22 }, () => ({ y: 120 + r() * 760, x: r() * W, len: 160 + r() * 420, ph: r() * 6, turn: r() < .5 ? 1 : -1 }));
   return (ctx, t, s) => {
     const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#0a0c26'); g.addColorStop(1, '#1b1f55'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-    // the chip from the rock lands as the first step, then each next step pops up, denser
-    const uLand = eio(lin(s.a + .2, s.a + 1.5, t));
-    const k = 1 + clamp((t - tDbl) / (tNow - tDbl + .2)) * (ST.n - 1);
-    if (uLand < 1) { const fx = ST.x0 + 120, fy = ST.y0 - 60, tw = ST.w * 1.7, tx = fx + (ST.x0 - fx) * 1.7, ty = fy + (ST.y0 - ST.h - fy) * 1.7, sz = mix(440, tw, uLand);
-      chipTop(ctx, mix(W / 2 - sz / 2, tx, uLand), mix(H / 2 - sz * .23, ty, uLand), sz, sz * ST.h / ST.w, 1, .6 * (1 - uLand)); }
-    else { const z = mix(1.7, 1, eio((k - 1) / (ST.n - 1))), fx = ST.x0 + 120, fy = ST.y0 - 60; ctx.save(); ctx.translate(fx, fy); ctx.scale(z, z); ctx.translate(-fx, -fy); stairs(ctx, t, k); ctx.restore(); }
-    const a = sm(lin(tDbl, tDbl + .4, t)); text(ctx, '×2', ST.x0 + ST.w * 1.5, ST.y0 - ST.h * 2 - 30, { size: 44, font: 'Instrument Serif', align: 'center', alpha: a, color: '#e9fbff' });
-    text(ctx, '×2', ST.x0 + ST.w * 2.5, ST.y0 - ST.h * 3 - 30, { size: 44, font: 'Instrument Serif', align: 'center', alpha: sm(lin(tDbl + .4, tDbl + .8, t)), color: '#e9fbff' });
+    // circuit traces in the dark behind, pulses running along them
+    ctx.lineWidth = 2;
+    for (const tr of traces) {
+      ctx.strokeStyle = 'rgba(110,160,255,.07)'; ctx.beginPath(); ctx.moveTo(tr.x, tr.y); ctx.lineTo(tr.x + tr.len, tr.y); ctx.lineTo(tr.x + tr.len + 40, tr.y + 40 * tr.turn); ctx.stroke(); ctx.fillStyle = 'rgba(110,160,255,.18)'; ctx.beginPath(); ctx.arc(tr.x, tr.y, 4, 0, 7); ctx.arc(tr.x + tr.len + 40, tr.y + 40 * tr.turn, 4, 0, 7); ctx.fill();
+      const u = ((t * .35 + tr.ph) % 1); ctx.fillStyle = rgba(C.cyan, .5 * Math.sin(u * Math.PI)); ctx.fillRect(tr.x + u * tr.len - 10, tr.y - 1.5, 20, 3);
+    }
+    addGlow(ctx, 960, 470, 700, .14, '#4f6bff', C.cyanWhite);
+    // the chip from the rock lands as the first step; each next step pops up, denser.
+    // camera keeps the built staircase centred and pulls back to the full stair (identity) for the hand-over to the crowd.
+    const uLand = eio(lin(s.a + .2, s.a + 1.2, t));
+    const k = 1 + clamp((t - tDbl) / (tNow - tDbl + .2)) * (ST.n - 1), e = eio((k - 1) / (ST.n - 1));
+    const kk = Math.max(1, k), Fx = ST.x0 + kk * ST.w / 2, Fy = ST.y0 - kk * ST.h / 2, z = mix(1.6, 1, e);
+    const Sx = mix(960, Fx, e), Sy = mix(560, Fy, e);
+    const cam = (x, y) => [Sx + (x - Fx) * z, Sy + (y - Fy) * z];
+    if (uLand < 1) {
+      const [tx, ty] = cam(ST.x0, ST.y0 - ST.h), tw = ST.w * z, sz = mix(440, tw, uLand);
+      // floor of the first step appears under the landing chip
+      ctx.save(); ctx.translate(Sx, Sy); ctx.scale(z, z); ctx.translate(-Fx, -Fy); ctx.globalAlpha = uLand; stairs(ctx, t, uLand * .999); ctx.restore(); ctx.globalAlpha = 1;
+      chipTop(ctx, mix(W / 2 - sz / 2, tx, uLand), mix(H / 2 - sz * .23, ty, uLand), sz, sz * ST.h / ST.w, 1, .7 * (1 - uLand));
+    } else {
+      ctx.save(); ctx.translate(Sx, Sy); ctx.scale(z, z); ctx.translate(-Fx, -Fy);
+      const st = stairs(ctx, t, k);
+      // rim light on the newest step + the ×2 marks riding with the camera
+      const top = st[st.length - 1]; if (top) addGlow(ctx, top.x + ST.w / 2, top.y + ST.h / 2, 260, .3, C.cyan, C.cyanWhite);
+      for (let i = 1; i < st.length; i++) { const a = sm(clamp(k - i) * 2 - .3); text(ctx, '×2', st[i].x + ST.w / 2, st[i].y - 26, { size: 44, font: 'Instrument Serif', align: 'center', alpha: a * (i < 4 ? 1 : .6), color: '#e9fbff' }); }
+      ctx.restore();
+    }
     finish(ctx, t, { vig: .5 });
   };
 };

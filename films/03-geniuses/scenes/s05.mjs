@@ -14,23 +14,39 @@ const horizon = (T) => {
   const t0 = T.S('05a', 'So what'), tC = T.S('05a', 'country'), tEnd = T.S('05a', "Amodei's bet");
   const near = () => once('h_near', () => cityLayer({ seed: 611, z: 1.4, base: H * 1.02, hMin: 260, hMax: 620, col: '#141846', lit: .22, litCol: P.amber, span: 3400, fogAmt: .2 }));
   const mid = () => once('h_mid', () => cityLayer({ seed: 612, z: 3, base: H * .86, hMin: 120, hMax: 320, col: '#1d2560', lit: .12, litCol: P.amber, span: 3000, fogTo: '#3a4a92', fogAmt: .5 }));
+  const far = () => once('h_far', () => cityLayer({ seed: 613, z: 5, base: H * .66, hMin: 50, hMax: 150, wMin: 40, wMax: 90, col: '#2a3577', lit: .3, litCol: '#ffd29a', span: 2800, fogTo: '#5a6cb0', fogAmt: .6 }));
+  const r0 = prng(55), motes = Array.from({ length: 220 }, () => ({ x: r0() * W, d: r0() * 1.6, sp: 40 + r0() * 110, sz: 1.5 + r0() * 2.5, warm: r0() < .75, ph: r0() * 6 }));
   return (ctx, t, s) => {
-    const rise = eio(lin(s.a, tEnd, t)), camY = mix(-260, 120, rise);
-    skyGrad(ctx, { t, stars: .7, bottom: '#41579e' });
-    // the light city: a band of countless points on the horizon, growing brighter on "country"
-    const hy = 640 + camY * .15, b = .5 + .5 * sm(lin(tC - .4, tC + .8, t));
-    const hg = ctx.createLinearGradient(0, hy - 160, 0, hy + 40); hg.addColorStop(0, rgba(P.amber, 0)); hg.addColorStop(1, rgba('#ffd29a', .35 * b)); ctx.fillStyle = hg; ctx.fillRect(0, hy - 160, W, 200);
+    const rise = eio(lin(s.a, tEnd, t)), camY = mix(-260, 120, rise), drift = (t - s.a) * 14;
+    skyGrad(ctx, { t, stars: .7, bottom: '#4a5fa8' });
+    // dawn glow behind the far city, swelling on "country"
+    const b = .5 + .5 * sm(lin(tC - .4, tC + .8, t)), hy = 640 + camY * .15;
+    const dg = ctx.createRadialGradient(960, hy, 0, 960, hy, 1100); dg.addColorStop(0, rgba('#ffcf96', .55 * b)); dg.addColorStop(.35, rgba('#d98a7a', .22 * b)); dg.addColorStop(1, rgba('#d98a7a', 0)); ctx.fillStyle = dg; ctx.fillRect(0, 0, W, H);
+    // the far city of light on the horizon
+    far().draw(ctx, t, t * 6 + drift * .3, mix(-60, -120, rise), 1);
     const r = prng(5); for (let i = 0; i < 1400; i++) { const x = r() * W, y = hy - Math.pow(r(), 3) * 70, tw = .6 + .4 * Math.sin(t * (1 + r() * 3) + i); ctx.fillStyle = rgba(r() < .7 ? '#ffd29a' : C.cyanWhite, b * tw * (.3 + .6 * r())); ctx.fillRect(x, y, 2, 2); }
     addGlow(ctx, 960, hy - 20, 700, .35 * b, P.amber, '#fff3dd');
+    // countless small lights lift off the horizon city and climb, each with a short trail
+    const lift = sm(lin(t0 - .2, tC + .4, t));
+    for (const m of motes) {
+      if (m.d > lift * 1.6) continue;
+      const age = t - (t0 - .2) - m.d * 1.2; if (age <= 0) continue;
+      const y = hy - 20 - age * m.sp, x = m.x + Math.sin(age * 1.3 + m.ph) * 14; if (y < -40) continue;
+      const col = m.warm ? '#ffd29a' : C.cyanWhite, a = clamp(age * 2) * clamp((y + 40) / 300);
+      const tg = ctx.createLinearGradient(x, y, x, y + m.sz * 18); tg.addColorStop(0, rgba(col, .55 * a)); tg.addColorStop(1, rgba(col, 0)); ctx.fillStyle = tg; ctx.fillRect(x - m.sz / 2, y, m.sz, m.sz * 18);
+      ctx.fillStyle = rgba(col, .95 * a); ctx.beginPath(); ctx.arc(x, y, m.sz, 0, 7); ctx.fill();
+      if (m.sz > 3.6) addGlow(ctx, x, y, m.sz * 8, .35 * a, P.amber, '#fff3dd');
+    }
     fogBand(ctx, t, hy + 30, 160, { a: .3, hex: '#8ab8e8' });
-    mid().draw(ctx, t, t * 10, mix(0, -1200, rise), 1);
-    near().draw(ctx, t, t * 18, mix(0, -700, rise), 1);
+    // our city in front, sinking slowly as the camera rises (kept in frame as a dark foreground)
+    mid().draw(ctx, t, t * 10 + drift * .6, mix(0, -420, rise), 1);
+    near().draw(ctx, t, t * 18 + drift, mix(0, -330, rise), 1);
+    const gd = ctx.createLinearGradient(0, hy + 20, 0, H); gd.addColorStop(0, 'rgba(11,14,46,0)'); gd.addColorStop(.5, 'rgba(11,14,46,.55)'); gd.addColorStop(1, 'rgba(8,10,34,.8)'); ctx.fillStyle = gd; ctx.fillRect(0, hy + 20, W, H);
     // the bus far below, a little row of lit windows on the street
     const by = H + 40 + camY * 1.6; if (by < H + 80) { ctx.fillStyle = '#0d1033'; ctx.fillRect(700, by - 40, 380, 46); for (let i = 0; i < 8; i++) { ctx.fillStyle = rgba('#ffd29a', .8); ctx.fillRect(716 + i * 45, by - 32, 32, 16); } }
     finish(ctx, t, { vig: .5 });
   };
 };
-
 // ---------- shot 51: a century of calendar pages (2026 → 2126) squeezed by two hands to ten pages ----------
 function bigHand(ctx, x, y, s, flip, t) {
   ctx.save(); ctx.translate(x, y); ctx.scale(flip ? -s : s, s);

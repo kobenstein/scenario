@@ -502,7 +502,7 @@ const ukMap = (T) => {
     if (t > tTest - .2) {
       const cols = [P.amber, P.rose, '#b59cff', '#7fffd4'];
       cols.forEach((col, k) => {
-        const q = ((t - tTest) * .22 + k * .25) % 1, f = q * (hs.length - 1), i0 = Math.floor(f), fr = f - i0;
+        const q = (((t - tTest) * .22 + k * .25) % 1 + 1) % 1, f = q * (hs.length - 1), i0 = Math.floor(f), fr = f - i0;
         const [x0, y0] = hs[i0], [x1, y1] = hs[Math.min(i0 + 1, hs.length - 1)], x = mix(x0, x1, fr), y = mix(y0, y1, fr);
         ctx.save(); ctx.translate(x, y); ctx.rotate(.6); ctx.fillStyle = col; ctx.beginPath(); ctx.roundRect(-14, -7, 28, 14, 7); ctx.fill(); ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.fillRect(-1, -7, 2, 14); ctx.restore();
         addGlow(ctx, x, y, 40, .5 * sm(lin(tTest - .2, tTest + .3, t)), col, '#ffffff');

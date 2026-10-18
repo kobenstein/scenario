@@ -543,29 +543,44 @@ const keyhole = (T) => {
 const cellShot = (T) => {
   const t0 = T.S('06c', 'You cant'), tFast = T.S('06c', 'faster');
   return (ctx, t, s) => {
-    const bg = ctx.createRadialGradient(960, 540, 0, 960, 540, 900); bg.addColorStop(0, '#3a2a40'); bg.addColorStop(.6, '#1d1638'); bg.addColorStop(1, '#0a0a20'); ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
-    // floating particles
-    const r = prng(65); for (let i = 0; i < 60; i++) { const x = (r() * W + t * 8) % W, y = (r() * H + Math.sin(t * .5 + i) * 20); addGlow(ctx, x, y, 6 + r() * 10, .15, P.amber, '#fff3dd'); }
-    // the cell: elongates, pinches, two daughters drift apart (slow, its own tempo)
+    const bg = ctx.createRadialGradient(900, 540, 0, 900, 540, 1000); bg.addColorStop(0, '#3a2440'); bg.addColorStop(.6, '#1d1638'); bg.addColorStop(1, '#0a0a20'); ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    // microscope field: a warm lit disc with a soft rim, slow drifting specks inside
+    const fr = 430, fc = [900, 540];
+    const fg = ctx.createRadialGradient(fc[0], fc[1], 0, fc[0], fc[1], fr); fg.addColorStop(0, '#6a3f4e'); fg.addColorStop(.8, '#40263f'); fg.addColorStop(1, '#22172f'); ctx.fillStyle = fg; ctx.beginPath(); ctx.arc(fc[0], fc[1], fr, 0, 7); ctx.fill();
+    ctx.strokeStyle = rgba('#ffd9b0', .25); ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(fc[0], fc[1], fr, 0, 7); ctx.stroke();
+    addGlow(ctx, fc[0], fc[1], fr * 1.2, .18, P.amber, '#fff3dd');
+    ctx.save(); ctx.beginPath(); ctx.arc(fc[0], fc[1], fr, 0, 7); ctx.clip();
+    const r = prng(65); for (let i = 0; i < 70; i++) { const x = fc[0] - fr + ((r() * fr * 2 + t * (6 + r() * 8)) % (fr * 2)), y = fc[1] - fr + r() * fr * 2 + Math.sin(t * .5 + i) * 10; ctx.fillStyle = rgba('#ffd9b0', .12 + r() * .15); ctx.beginPath(); ctx.arc(x, y, 1.5 + r() * 2.5, 0, 7); ctx.fill(); }
+    // the cell: elongates, pinches, two daughters drift apart, at its own slow tempo
     const d = sine(clamp((t - (t0 - .8)) / 4.2));
-    const cx = 900, cy = 540, R = 170, sep = d * 150, pinch = clamp(d * 1.5);
-    ctx.save(); ctx.globalCompositeOperation = 'lighter';
-    for (const sgn of [-1, 1]) { const x = cx + sgn * sep * .5; const g = ctx.createRadialGradient(x, cy, 10, x, cy, R * mix(1, .8, pinch)); g.addColorStop(0, 'rgba(255,200,150,.35)'); g.addColorStop(.85, 'rgba(255,170,110,.25)'); g.addColorStop(1, 'rgba(255,170,110,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(x, cy, R * mix(1, .8, pinch) * (1 + .03 * Math.sin(t * 1.4)), R * mix(1, .85, pinch), 0, 0, 7); ctx.fill(); }
+    const cx = fc[0], cy = fc[1], R = 160, sep = d * 170, pinch = clamp(d * 1.5);
+    for (const sgn of [-1, 1]) {
+      const x = cx + sgn * sep * .5, rx = R * mix(1, .8, pinch) * (1 + .03 * Math.sin(t * 1.4)), ry = R * mix(1, .85, pinch);
+      const g = ctx.createRadialGradient(x - rx * .3, cy - ry * .3, 10, x, cy, rx); g.addColorStop(0, 'rgba(255,214,170,.55)'); g.addColorStop(.75, 'rgba(255,170,120,.35)'); g.addColorStop(1, 'rgba(255,150,110,.15)');
+      ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(x, cy, rx, ry, 0, 0, 7); ctx.fill();
+      ctx.strokeStyle = rgba('#ffe2c4', .9); ctx.lineWidth = 5; ctx.stroke();
+      addGlow(ctx, x, cy, rx * .9, .12, P.amber, '#fff3dd');
+    }
+    // spindle fibres + chromosomes pulled to the two poles
+    const poleL = cx - sep * .5 - mix(60, 40, d), poleR = cx + sep * .5 + mix(60, 40, d), chX = mix(0, 1, d);
+    ctx.strokeStyle = rgba('#fff0dc', .35 * (1 - pinch * .6)); ctx.lineWidth = 1.5;
+    for (let k = 0; k < 7; k++) { const ky = cy - 60 + k * 20; ctx.beginPath(); ctx.moveTo(poleL, cy); ctx.quadraticCurveTo(cx, ky, poleR, cy); ctx.stroke(); }
+    for (const sgn of [-1, 1]) for (let k = 0; k < 5; k++) {
+      const ky = cy - 50 + k * 25, x = cx + sgn * mix(8, sep * .5 + 10, chX);
+      ctx.save(); ctx.translate(x, ky); ctx.rotate(.4 * Math.sin(k + t * .3) + sgn * .3); ctx.fillStyle = rgba('#ff8f6a', .95); ctx.beginPath(); ctx.roundRect(-16, -5, 32, 10, 5); ctx.fill(); ctx.restore();
+    }
+    addGlow(ctx, poleL, cy, 30, .5, P.amber, '#fff3dd'); addGlow(ctx, poleR, cy, 30, .5, P.amber, '#fff3dd');
     ctx.restore();
-    ctx.strokeStyle = rgba('#ffd9b0', .8); ctx.lineWidth = 4;
-    for (const sgn of [-1, 1]) { const x = cx + sgn * sep * .5; ctx.beginPath(); ctx.ellipse(x, cy, R * mix(1, .8, pinch) * (1 + .03 * Math.sin(t * 1.4)), R * mix(1, .85, pinch), 0, 0, 7); ctx.stroke();
-      // nucleus / chromosomes splitting
-      ctx.fillStyle = rgba('#ff9f7a', .8); for (let k = 0; k < 5; k++) { const ky = cy - 50 + k * 25; ctx.save(); ctx.translate(x + sgn * mix(0, 30, d) - sgn * sep * .5 * (1 - pinch), ky); ctx.rotate(.4 * Math.sin(k + t * .3)); ctx.fillRect(-14, -4, 28, 8); ctx.restore(); } }
-    // glass wall at x 1240: faint reflections
-    const gx = 1240;
-    ctx.fillStyle = 'rgba(180,220,255,.06)'; ctx.fillRect(gx, 0, 22, H); ctx.strokeStyle = 'rgba(200,235,255,.35)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke();
-    ctx.fillStyle = 'rgba(200,235,255,.08)'; ctx.beginPath(); ctx.moveTo(gx + 4, 0); ctx.lineTo(gx + 18, 0); ctx.lineTo(gx + 18, H * .4); ctx.lineTo(gx + 4, H * .5); ctx.fill();
-    // the hand reaches in from the right, pushes, hits the glass and bounces back
-    const reach = t0 + .6, hit = tFast - .1;
-    const hp = t < hit ? eio(lin(reach, hit, t)) : 1 - .35 * eout(lin(hit, hit + .5, t)) + .1 * Math.sin((t - hit) * 18) * Math.exp(-(t - hit) * 5);
-    const hx = mix(W + 600, gx + 200, hp);
+    // glass wall at x 1400 between us and the cell
+    const gx = 1400;
+    ctx.fillStyle = 'rgba(180,220,255,.07)'; ctx.fillRect(gx, 0, 26, H); ctx.strokeStyle = 'rgba(200,235,255,.45)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke();
+    ctx.fillStyle = 'rgba(200,235,255,.10)'; ctx.beginPath(); ctx.moveTo(gx + 4, 0); ctx.lineTo(gx + 20, 0); ctx.lineTo(gx + 20, H * .4); ctx.lineTo(gx + 4, H * .5); ctx.fill();
+    // a hand reaches in from the right to push it along, meets the glass and stays pressed there: the cell keeps its own pace
+    const reach = t0 - .2, hit = tFast - .1;
+    const hp = t < hit ? eio(lin(reach, hit, t)) : 1 + .04 * Math.sin((t - hit) * 18) * Math.exp(-(t - hit) * 5);
+    const hx = mix(W + 500, gx + 190, hp);
     workHand(ctx, hx, 560, 2.2, Math.PI, {});
-    const ring = Math.exp(-Math.pow((t - hit - .1) / .25, 2)); if (ring > .02) { ctx.strokeStyle = rgba(C.cyanWhite, .7 * ring); ctx.lineWidth = 3; for (let k = 1; k <= 3; k++) { ctx.beginPath(); ctx.ellipse(gx + 10, 560, 14 * k * (1.5 - ring), 70 * k * (1.5 - ring), 0, 0, 7); ctx.stroke(); } }
+    const ring = Math.exp(-Math.pow((t - hit - .1) / .3, 2)); if (ring > .02) { ctx.strokeStyle = rgba(C.cyanWhite, .7 * ring); ctx.lineWidth = 3; for (let k = 1; k <= 3; k++) { ctx.beginPath(); ctx.ellipse(gx + 12, 560, 14 * k * (1.5 - ring), 70 * k * (1.5 - ring), 0, 0, 7); ctx.stroke(); } }
     // keyhole-shaped vignette at the start (we're looking through it), opening up
     const kv = 1 - eio(lin(s.a, s.a + 1.4, t));
     if (kv > 0) { ctx.save(); ctx.fillStyle = rgba('#2a1a14', kv); const kr = mix(1400, 300, kv); ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.moveTo(960 + kr, 540); ctx.arc(960, 540, kr, 0, 6.2832, true); ctx.closePath(); ctx.fill('evenodd'); ctx.restore(); }
