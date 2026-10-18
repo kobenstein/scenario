@@ -1,0 +1,1444 @@
+1
+00:00:00,600 --> 00:00:02,070
+It has started.
+
+2
+00:00:02,280 --> 00:00:05,200
+At Anthropic, one of the biggest AI labs,
+
+3
+00:00:05,240 --> 00:00:06,360
+more than eighty percent
+
+4
+00:00:06,400 --> 00:00:08,640
+of the code going into its codebase
+
+5
+00:00:08,680 --> 00:00:11,360
+is now written by its own AI.
+
+6
+00:00:11,400 --> 00:00:12,960
+Some of it is code for the next
+
+7
+00:00:13,000 --> 00:00:14,657
+version of that AI.
+
+8
+00:00:15,400 --> 00:00:17,680
+For the first time in human history,
+
+9
+00:00:17,720 --> 00:00:19,200
+a tool is helping to make
+
+10
+00:00:19,240 --> 00:00:20,817
+its own successor.
+
+11
+00:00:21,480 --> 00:00:22,880
+In twenty twenty-one,
+
+12
+00:00:22,920 --> 00:00:24,320
+Daniel Kokotajlo,
+
+13
+00:00:24,360 --> 00:00:25,920
+then a young researcher,
+
+14
+00:00:25,960 --> 00:00:27,640
+wrote down what he thought the world
+
+15
+00:00:27,680 --> 00:00:30,240
+would look like in twenty twenty-six.
+
+16
+00:00:30,280 --> 00:00:32,000
+Much of it came true.
+
+17
+00:00:32,040 --> 00:00:35,080
+In twenty twenty-four he quit OpenAI,
+
+18
+00:00:35,120 --> 00:00:36,400
+saying he'd lost trust it
+
+19
+00:00:36,440 --> 00:00:38,640
+would handle this responsibly.
+
+20
+00:00:38,680 --> 00:00:41,080
+Then he refused to sign a gag agreement,
+
+21
+00:00:41,120 --> 00:00:42,560
+with about two million dollars
+
+22
+00:00:42,600 --> 00:00:44,560
+of his equity at stake.
+
+23
+00:00:44,600 --> 00:00:46,240
+Then he and four colleagues
+
+24
+00:00:46,280 --> 00:00:48,240
+wrote out the next few years,
+
+25
+00:00:48,280 --> 00:00:49,480
+month by month,
+
+26
+00:00:49,520 --> 00:00:51,040
+with two endings.
+
+27
+00:00:51,080 --> 00:00:52,640
+One goes badly.
+
+28
+00:00:52,680 --> 00:00:54,390
+One goes a lot better.
+
+29
+00:00:54,600 --> 00:00:55,600
+Which one we're heading
+
+30
+00:00:55,640 --> 00:00:58,240
+for comes down to a few choices.
+
+31
+00:00:58,280 --> 00:01:00,550
+Some of them got made this summer.
+
+32
+00:01:01,359 --> 00:01:03,639
+Let's start with what he got right.
+
+33
+00:01:03,679 --> 00:01:05,399
+When someone went back and graded
+
+34
+00:01:05,439 --> 00:01:07,639
+the first three years of his story,
+
+35
+00:01:07,679 --> 00:01:10,079
+more than half of it had come true.
+
+36
+00:01:10,119 --> 00:01:12,199
+Anthropic says its engineers merge
+
+37
+00:01:12,239 --> 00:01:14,759
+about eight times as much code per day
+
+38
+00:01:14,799 --> 00:01:17,079
+as they did in twenty twenty-four.
+
+39
+00:01:17,119 --> 00:01:20,319
+OpenAI says its AI agents put in about
+
+40
+00:01:20,359 --> 00:01:22,599
+three days of research work for every
+
+41
+00:01:22,639 --> 00:01:24,999
+day its human researchers do.
+
+42
+00:01:25,039 --> 00:01:27,399
+METR, an independent lab,
+
+43
+00:01:27,439 --> 00:01:29,439
+measures how long a task an AI
+
+44
+00:01:29,479 --> 00:01:31,799
+can finish about half the time.
+
+45
+00:01:31,839 --> 00:01:33,799
+Long as in, how long it
+
+46
+00:01:33,839 --> 00:01:35,799
+would take a skilled person.
+
+47
+00:01:35,839 --> 00:01:37,079
+In twenty nineteen,
+
+48
+00:01:37,119 --> 00:01:38,759
+that was a few seconds.
+
+49
+00:01:38,799 --> 00:01:41,239
+Last year, around two hours.
+
+50
+00:01:41,279 --> 00:01:44,189
+This spring, at least sixteen hours.
+
+51
+00:01:44,399 --> 00:01:46,829
+That's as far as their tests go.
+
+52
+00:01:48,159 --> 00:01:49,479
+Full disclosure:
+
+53
+00:01:49,519 --> 00:01:51,999
+we make this channel with help from AI,
+
+54
+00:01:52,039 --> 00:01:53,309
+Claude included.
+
+55
+00:01:53,439 --> 00:01:54,679
+And most of these numbers
+
+56
+00:01:54,719 --> 00:01:55,959
+come from the companies,
+
+57
+00:01:55,999 --> 00:01:57,309
+about themselves.
+
+58
+00:01:57,599 --> 00:01:59,469
+So, an outside check.
+
+59
+00:01:59,599 --> 00:02:01,479
+In a small study last year,
+
+60
+00:02:01,519 --> 00:02:02,919
+experienced programmers
+
+61
+00:02:02,959 --> 00:02:05,149
+using AI felt faster.
+
+62
+00:02:05,359 --> 00:02:08,279
+Timed, they were nineteen percent slower.
+
+63
+00:02:08,319 --> 00:02:10,599
+Even Anthropic says AI improving
+
+64
+00:02:10,639 --> 00:02:12,829
+itself "is not inevitable."
+
+65
+00:02:13,359 --> 00:02:14,999
+Where does that leave us?
+
+66
+00:02:15,039 --> 00:02:16,999
+I'd say the takeoff has started,
+
+67
+00:02:17,039 --> 00:02:18,919
+but only the first stage.
+
+68
+00:02:18,959 --> 00:02:20,829
+People still check the work.
+
+69
+00:02:20,879 --> 00:02:22,839
+And the brakes still work.
+
+70
+00:02:22,879 --> 00:02:24,349
+Hold on to that.
+
+71
+00:02:25,118 --> 00:02:27,548
+This moment is shorter than it feels.
+
+72
+00:02:27,838 --> 00:02:30,008
+Squeeze the whole human story,
+
+73
+00:02:30,118 --> 00:02:32,258
+all three hundred thousand years,
+
+74
+00:02:32,298 --> 00:02:33,528
+into one day.
+
+75
+00:02:33,898 --> 00:02:35,458
+Writing shows up in the last
+
+76
+00:02:35,498 --> 00:02:36,808
+twenty-four minutes.
+
+77
+00:02:37,098 --> 00:02:38,038
+And the years between
+
+78
+00:02:38,078 --> 00:02:39,688
+now and twenty thirty?
+
+79
+00:02:39,978 --> 00:02:41,868
+That's about the last second.
+
+80
+00:02:42,558 --> 00:02:45,458
+Jared Kaplan, Anthropic's chief scientist,
+
+81
+00:02:45,498 --> 00:02:47,418
+thinks that somewhere in that second
+
+82
+00:02:47,458 --> 00:02:49,098
+we'll have to decide whether to let
+
+83
+00:02:49,138 --> 00:02:51,468
+AI train its own successors.
+
+84
+00:02:51,818 --> 00:02:53,038
+He's called it maybe
+
+85
+00:02:53,078 --> 00:02:54,788
+the biggest decision yet.
+
+86
+00:02:55,378 --> 00:02:57,158
+A kid starting first grade this
+
+87
+00:02:57,198 --> 00:02:59,038
+fall will still be in elementary
+
+88
+00:02:59,078 --> 00:03:00,628
+school when it comes due.
+
+89
+00:03:01,798 --> 00:03:03,538
+People who study technology have
+
+90
+00:03:03,578 --> 00:03:05,448
+a name for this kind of moment.
+
+91
+00:03:05,838 --> 00:03:08,738
+Early on, a technology is easy to change,
+
+92
+00:03:08,778 --> 00:03:10,728
+but nobody knows where it's going.
+
+93
+00:03:11,078 --> 00:03:12,778
+By the time everyone knows,
+
+94
+00:03:12,818 --> 00:03:13,818
+it's set.
+
+95
+00:03:14,158 --> 00:03:16,458
+Right now we can see enough to worry,
+
+96
+00:03:16,498 --> 00:03:18,608
+and it's still soft enough to shape.
+
+97
+00:03:18,958 --> 00:03:20,348
+That doesn't last.
+
+98
+00:03:21,338 --> 00:03:22,798
+The real problem is a gap
+
+99
+00:03:22,838 --> 00:03:24,308
+between two lines.
+
+100
+00:03:24,598 --> 00:03:27,108
+On one side, what AI can do.
+
+101
+00:03:27,458 --> 00:03:28,978
+On METR's measure,
+
+102
+00:03:29,018 --> 00:03:31,228
+that's been doubling every few months.
+
+103
+00:03:31,578 --> 00:03:33,658
+On the other, how well we understand
+
+104
+00:03:33,698 --> 00:03:35,348
+what's going on inside it.
+
+105
+00:03:35,818 --> 00:03:37,218
+In twenty twenty-five,
+
+106
+00:03:37,258 --> 00:03:38,078
+Anthropic wrote:
+
+107
+00:03:38,118 --> 00:03:40,378
+"we don't understand how models
+
+108
+00:03:40,418 --> 00:03:42,388
+do most of the things they do."
+
+109
+00:03:43,118 --> 00:03:45,508
+There's an old rule for driving in fog:
+
+110
+00:03:45,798 --> 00:03:47,888
+never go faster than you can see.
+
+111
+00:03:48,238 --> 00:03:49,888
+You don't have to stop the car.
+
+112
+00:03:49,998 --> 00:03:52,248
+You just can't outrun your headlights.
+
+113
+00:03:53,269 --> 00:03:54,909
+That gap is exactly where
+
+114
+00:03:54,949 --> 00:03:57,019
+Kokotajlo's story splits.
+
+115
+00:03:57,369 --> 00:03:59,659
+Both endings start the same way.
+
+116
+00:03:59,949 --> 00:04:01,329
+Then, at one point,
+
+117
+00:04:01,369 --> 00:04:03,089
+the people in charge find warning
+
+118
+00:04:03,129 --> 00:04:04,949
+signs that their AI isn't
+
+119
+00:04:04,989 --> 00:04:06,759
+doing quite what they think.
+
+120
+00:04:07,129 --> 00:04:08,409
+In one ending, they patch
+
+121
+00:04:08,449 --> 00:04:10,099
+it up and keep racing.
+
+122
+00:04:10,389 --> 00:04:12,359
+That one doesn't go well for us.
+
+123
+00:04:12,749 --> 00:04:14,269
+In the other, they slow down
+
+124
+00:04:14,309 --> 00:04:15,489
+long enough to understand
+
+125
+00:04:15,529 --> 00:04:17,699
+the problem and actually fix it.
+
+126
+00:04:18,229 --> 00:04:20,679
+This year they graded their own story.
+
+127
+00:04:20,969 --> 00:04:22,589
+Reality was moving at roughly
+
+128
+00:04:22,629 --> 00:04:24,279
+two thirds of its pace.
+
+129
+00:04:24,609 --> 00:04:27,009
+If that holds, the takeoff in their story
+
+130
+00:04:27,049 --> 00:04:29,309
+lands between late twenty twenty-seven
+
+131
+00:04:29,349 --> 00:04:31,279
+and mid twenty twenty-nine.
+
+132
+00:04:31,469 --> 00:04:33,069
+Their more careful model says
+
+133
+00:04:33,109 --> 00:04:34,799
+closer to twenty thirty.
+
+134
+00:04:35,829 --> 00:04:37,619
+So put yourself there.
+
+135
+00:04:37,929 --> 00:04:39,119
+You run the lab.
+
+136
+00:04:39,269 --> 00:04:41,479
+Your rivals are months behind you.
+
+137
+00:04:41,749 --> 00:04:43,389
+Your AI just did something
+
+138
+00:04:43,429 --> 00:04:44,799
+you can't explain.
+
+139
+00:04:45,089 --> 00:04:46,089
+Do you stop?
+
+140
+00:04:48,656 --> 00:04:49,996
+This summer, we found out
+
+141
+00:04:50,036 --> 00:04:51,746
+what a real lab does.
+
+142
+00:04:52,016 --> 00:04:54,156
+OpenAI was running some of its models
+
+143
+00:04:54,196 --> 00:04:55,556
+through a hacking test,
+
+144
+00:04:55,596 --> 00:04:57,666
+with some safeguards turned down.
+
+145
+00:04:57,936 --> 00:05:00,476
+They got out, and reached real systems,
+
+146
+00:05:00,516 --> 00:05:02,056
+including Hugging Face,
+
+147
+00:05:02,096 --> 00:05:03,296
+a platform where AI
+
+148
+00:05:03,336 --> 00:05:05,186
+developers share their work.
+
+149
+00:05:05,436 --> 00:05:07,166
+Hugging Face spotted it.
+
+150
+00:05:07,396 --> 00:05:09,146
+OpenAI went public.
+
+151
+00:05:09,396 --> 00:05:11,796
+By September, after more incidents,
+
+152
+00:05:11,836 --> 00:05:12,896
+it had stopped training
+
+153
+00:05:12,936 --> 00:05:14,666
+its most capable models.
+
+154
+00:05:14,916 --> 00:05:16,106
+Remember the brakes?
+
+155
+00:05:16,316 --> 00:05:17,326
+That was them.
+
+156
+00:05:17,556 --> 00:05:18,976
+As far as anyone knows,
+
+157
+00:05:19,016 --> 00:05:20,846
+it still hasn't restarted.
+
+158
+00:05:21,255 --> 00:05:22,356
+In a small way,
+
+159
+00:05:22,396 --> 00:05:24,966
+that's the fork in Kokotajlo's story.
+
+160
+00:05:25,196 --> 00:05:27,666
+And this time, the lab slowed down.
+
+161
+00:05:28,076 --> 00:05:29,276
+But in his story,
+
+162
+00:05:29,316 --> 00:05:31,366
+slowing down is only half of it.
+
+163
+00:05:31,636 --> 00:05:33,866
+The other half is using the time.
+
+164
+00:05:34,176 --> 00:05:36,056
+This pause left four things
+
+165
+00:05:36,096 --> 00:05:37,426
+nobody could answer.
+
+166
+00:05:38,665 --> 00:05:40,885
+Reports say those models were apparently
+
+167
+00:05:40,925 --> 00:05:43,135
+hunting for the test's answer key.
+
+168
+00:05:43,545 --> 00:05:44,545
+Were they?
+
+169
+00:05:44,665 --> 00:05:45,825
+Until recently,
+
+170
+00:05:45,865 --> 00:05:48,015
+nobody could look inside and check.
+
+171
+00:05:48,345 --> 00:05:49,745
+In twenty twenty-four,
+
+172
+00:05:49,785 --> 00:05:52,285
+Anthropic mapped millions of "features"
+
+173
+00:05:52,325 --> 00:05:54,015
+inside one of its models.
+
+174
+00:05:54,325 --> 00:05:55,485
+Little patterns,
+
+175
+00:05:55,525 --> 00:05:57,495
+each one tied to an idea.
+
+176
+00:05:57,945 --> 00:06:00,115
+One of them was the Golden Gate Bridge.
+
+177
+00:06:00,445 --> 00:06:01,505
+They turned it up,
+
+178
+00:06:01,545 --> 00:06:02,625
+and the model got,
+
+179
+00:06:02,665 --> 00:06:03,675
+as they put it,
+
+180
+00:06:03,805 --> 00:06:06,115
+"effectively obsessed with the bridge."
+
+181
+00:06:06,485 --> 00:06:07,625
+It showed you can read
+
+182
+00:06:07,665 --> 00:06:08,825
+some of what's in there,
+
+183
+00:06:08,865 --> 00:06:10,175
+and even change it.
+
+184
+00:06:10,525 --> 00:06:11,525
+But they can only see
+
+185
+00:06:11,565 --> 00:06:13,335
+a sliver of it so far.
+
+186
+00:06:13,625 --> 00:06:16,245
+And Neel Nanda at Google DeepMind has
+
+187
+00:06:16,285 --> 00:06:18,525
+warned that this alone won't reliably
+
+188
+00:06:18,565 --> 00:06:21,195
+catch an AI that's trying to deceive us.
+
+189
+00:06:21,605 --> 00:06:23,225
+AI is starting to help here,
+
+190
+00:06:23,265 --> 00:06:24,185
+too.
+
+191
+00:06:24,225 --> 00:06:25,425
+In one experiment,
+
+192
+00:06:25,465 --> 00:06:27,545
+two human researchers spent a week
+
+193
+00:06:27,585 --> 00:06:29,405
+on a safety problem and closed
+
+194
+00:06:29,445 --> 00:06:31,075
+about a quarter of the gap.
+
+195
+00:06:31,465 --> 00:06:34,655
+Nine AI agents closed almost all of it.
+
+196
+00:06:34,865 --> 00:06:36,125
+They also tried to cheat,
+
+197
+00:06:36,165 --> 00:06:37,645
+by the way, so humans
+
+198
+00:06:37,685 --> 00:06:39,175
+still checked the results.
+
+199
+00:06:39,525 --> 00:06:41,365
+And on a real production model,
+
+200
+00:06:41,405 --> 00:06:43,235
+it didn't make a clear difference
+
+201
+00:06:43,564 --> 00:06:44,564
+yet.
+
+202
+00:06:45,105 --> 00:06:47,075
+And notice who caught the breach.
+
+203
+00:06:47,365 --> 00:06:48,735
+Not OpenAI.
+
+204
+00:06:49,065 --> 00:06:50,195
+Hugging Face.
+
+205
+00:06:50,805 --> 00:06:51,785
+Most of the time,
+
+206
+00:06:51,825 --> 00:06:54,555
+the only one checking a lab is the lab.
+
+207
+00:06:54,905 --> 00:06:57,395
+Anthropic tested how much that matters.
+
+208
+00:06:57,725 --> 00:07:00,225
+They hid a secret goal inside a model
+
+209
+00:07:00,265 --> 00:07:02,575
+and gave it to four teams of auditors.
+
+210
+00:07:02,865 --> 00:07:04,035
+Three found it.
+
+211
+00:07:04,265 --> 00:07:05,665
+The one team that wasn't allowed
+
+212
+00:07:05,705 --> 00:07:07,995
+to see the training data missed it.
+
+213
+00:07:08,445 --> 00:07:10,045
+This October, outside
+
+214
+00:07:10,085 --> 00:07:12,075
+auditors got real access.
+
+215
+00:07:12,445 --> 00:07:15,325
+Six people from METR now have the same
+
+216
+00:07:15,365 --> 00:07:17,735
+access as Anthropic's own staff,
+
+217
+00:07:17,945 --> 00:07:19,605
+and Anthropic says it can't
+
+218
+00:07:19,645 --> 00:07:20,955
+stop them publishing.
+
+219
+00:07:21,305 --> 00:07:23,395
+OpenAI says it'll match that.
+
+220
+00:07:23,685 --> 00:07:25,695
+But a favor can be withdrawn.
+
+221
+00:07:25,945 --> 00:07:28,505
+In September, at Washington's request,
+
+222
+00:07:28,545 --> 00:07:31,145
+Britain's AI Security Institute lost
+
+223
+00:07:31,185 --> 00:07:34,015
+access to new models for seventeen days.
+
+224
+00:07:34,925 --> 00:07:36,355
+Then there's the law.
+
+225
+00:07:36,765 --> 00:07:38,065
+California makes labs
+
+226
+00:07:38,105 --> 00:07:40,035
+report serious incidents.
+
+227
+00:07:40,365 --> 00:07:41,665
+Officials said this one
+
+228
+00:07:41,705 --> 00:07:42,995
+didn't meet the bar,
+
+229
+00:07:43,125 --> 00:07:44,945
+and OpenAI itself asked
+
+230
+00:07:44,985 --> 00:07:46,575
+lawmakers to tighten it.
+
+231
+00:07:46,865 --> 00:07:49,034
+Aviation went through the same thing.
+
+232
+00:07:49,304 --> 00:07:50,845
+In nineteen seventy-four,
+
+233
+00:07:50,885 --> 00:07:51,925
+a jet crashed into
+
+234
+00:07:51,965 --> 00:07:53,615
+a mountain near Washington.
+
+235
+00:07:53,925 --> 00:07:55,525
+Weeks earlier, another crew
+
+236
+00:07:55,565 --> 00:07:57,045
+had nearly done the same,
+
+237
+00:07:57,085 --> 00:07:59,715
+and nobody outside their airline heard.
+
+238
+00:08:00,085 --> 00:08:02,405
+After that, pilots got a way to report
+
+239
+00:08:02,445 --> 00:08:04,815
+close calls without getting in trouble.
+
+240
+00:08:05,125 --> 00:08:06,945
+It's one of several reasons flying
+
+241
+00:08:06,985 --> 00:08:08,885
+is now about forty times safer
+
+242
+00:08:08,925 --> 00:08:10,575
+than it was in the seventies.
+
+243
+00:08:11,445 --> 00:08:12,795
+And the hardest one:
+
+244
+00:08:13,065 --> 00:08:15,095
+will the others slow down too?
+
+245
+00:08:15,565 --> 00:08:17,635
+That's the trap in his race ending.
+
+246
+00:08:17,985 --> 00:08:19,985
+Nobody wants to slow down alone,
+
+247
+00:08:20,025 --> 00:08:22,015
+because the others just catch up.
+
+248
+00:08:22,385 --> 00:08:25,065
+In September, Anthropic's CEO,
+
+249
+00:08:25,105 --> 00:08:26,815
+Dario Amodei, wrote:
+
+250
+00:08:27,025 --> 00:08:28,925
+"We must slow the pace at which we
+
+251
+00:08:28,965 --> 00:08:31,605
+improve the capabilities of AI models."
+
+252
+00:08:31,645 --> 00:08:33,555
+Can competitors agree on that?
+
+253
+00:08:33,665 --> 00:08:34,955
+It's happened before.
+
+254
+00:08:35,085 --> 00:08:36,485
+In nineteen eighty-five,
+
+255
+00:08:36,525 --> 00:08:37,805
+scientists found a hole
+
+256
+00:08:37,845 --> 00:08:39,155
+in the ozone layer.
+
+257
+00:08:39,305 --> 00:08:40,265
+Two years later,
+
+258
+00:08:40,305 --> 00:08:42,475
+the Montreal Protocol was signed.
+
+259
+00:08:42,605 --> 00:08:44,425
+Almost ninety-nine percent of those
+
+260
+00:08:44,465 --> 00:08:46,145
+chemicals have been phased out,
+
+261
+00:08:46,185 --> 00:08:47,185
+and the ozone layer
+
+262
+00:08:47,225 --> 00:08:48,775
+is on track to recover.
+
+263
+00:08:49,025 --> 00:08:51,295
+AI has its own countable thing:
+
+264
+00:08:51,465 --> 00:08:52,425
+chips.
+
+265
+00:08:52,465 --> 00:08:53,805
+Huge numbers of them,
+
+266
+00:08:53,845 --> 00:08:55,615
+and they're starting to be trackable.
+
+267
+00:08:55,825 --> 00:08:58,005
+In New Delhi, nearly ninety countries
+
+268
+00:08:58,045 --> 00:09:00,065
+agreed to test AI in languages
+
+269
+00:09:00,105 --> 00:09:01,995
+the big labs usually ignore.
+
+270
+00:09:02,325 --> 00:09:03,755
+None of this is finished.
+
+271
+00:09:03,865 --> 00:09:05,125
+Nobody can properly check
+
+272
+00:09:05,165 --> 00:09:06,575
+a deal like that yet,
+
+273
+00:09:06,645 --> 00:09:08,585
+and at the UN, the US government
+
+274
+00:09:08,625 --> 00:09:11,335
+said no to global control of AI.
+
+275
+00:09:12,554 --> 00:09:14,884
+Not everyone thinks this is urgent.
+
+276
+00:09:15,274 --> 00:09:16,934
+Yann LeCun, one of the people
+
+277
+00:09:16,974 --> 00:09:18,644
+behind modern AI,
+
+278
+00:09:18,734 --> 00:09:21,334
+says safety is "just another engineering
+
+279
+00:09:21,374 --> 00:09:24,164
+problem," like making jet engines safe.
+
+280
+00:09:24,554 --> 00:09:26,934
+Arvind Narayanan and Sayash Kapoor
+
+281
+00:09:26,974 --> 00:09:29,354
+at Princeton call AI a "normal
+
+282
+00:09:29,394 --> 00:09:31,674
+technology," and expect its effects
+
+283
+00:09:31,714 --> 00:09:33,564
+to play out over decades.
+
+284
+00:09:33,874 --> 00:09:35,804
+They could be right about the timing.
+
+285
+00:09:36,094 --> 00:09:38,364
+But look at what they actually propose:
+
+286
+00:09:38,654 --> 00:09:40,824
+more technical experts in government,
+
+287
+00:09:40,894 --> 00:09:42,254
+more transparency,
+
+288
+00:09:42,294 --> 00:09:43,894
+and AI tools for the people
+
+289
+00:09:43,934 --> 00:09:45,604
+defending our systems.
+
+290
+00:09:46,074 --> 00:09:47,714
+Now look at the eleven hundred lab
+
+291
+00:09:47,754 --> 00:09:49,934
+employees who asked Washington to get
+
+292
+00:09:49,974 --> 00:09:52,884
+ready to "deliberately pace the frontier."
+
+293
+00:09:53,274 --> 00:09:55,684
+The two camps don't want the same things.
+
+294
+00:09:55,934 --> 00:09:57,274
+But they overlap on the part
+
+295
+00:09:57,314 --> 00:09:58,604
+that comes first:
+
+296
+00:09:58,814 --> 00:10:00,674
+people outside the labs who can
+
+297
+00:10:00,714 --> 00:10:02,604
+actually see what's going on.
+
+298
+00:10:02,954 --> 00:10:05,224
+That part, we can start on now.
+
+299
+00:10:05,414 --> 00:10:06,514
+Whoever turns out to be
+
+300
+00:10:06,554 --> 00:10:07,964
+right about the speed.
+
+301
+00:10:09,360 --> 00:10:11,790
+Let's imagine it's twenty thirty-five.
+
+302
+00:10:12,000 --> 00:10:13,170
+Just a scenario.
+
+303
+00:10:13,420 --> 00:10:15,370
+Same street, early morning.
+
+304
+00:10:15,700 --> 00:10:17,340
+The hospital down the road runs
+
+305
+00:10:17,380 --> 00:10:19,340
+software that AI went through,
+
+306
+00:10:19,380 --> 00:10:20,800
+hole by hole, before
+
+307
+00:10:20,840 --> 00:10:22,290
+anyone could break in.
+
+308
+00:10:22,600 --> 00:10:24,620
+Last spring, a model did something
+
+309
+00:10:24,660 --> 00:10:26,470
+its makers didn't expect.
+
+310
+00:10:26,700 --> 00:10:28,820
+Within days the report was public,
+
+311
+00:10:28,860 --> 00:10:30,750
+and every lab learned from it.
+
+312
+00:10:31,080 --> 00:10:32,860
+If superintelligence comes,
+
+313
+00:10:32,900 --> 00:10:34,000
+it comes into a world
+
+314
+00:10:34,040 --> 00:10:35,810
+that can see what it's doing.
+
+315
+00:10:36,160 --> 00:10:37,850
+None of that needs a miracle.
+
+316
+00:10:38,040 --> 00:10:39,560
+Just those four answers,
+
+317
+00:10:39,600 --> 00:10:40,610
+done together.
+
+318
+00:10:41,399 --> 00:10:43,110
+Remember the two million dollars?
+
+319
+00:10:43,340 --> 00:10:44,510
+He didn't lose it.
+
+320
+00:10:44,800 --> 00:10:46,800
+After his refusal became public,
+
+321
+00:10:46,840 --> 00:10:48,830
+OpenAI dropped the clause.
+
+322
+00:10:49,140 --> 00:10:50,580
+One person said no,
+
+323
+00:10:50,620 --> 00:10:52,030
+and a rule changed.
+
+324
+00:10:52,400 --> 00:10:54,470
+Kokotajlo wrote two endings.
+
+325
+00:10:54,600 --> 00:10:56,730
+Which one we get isn't up to him.
+
+326
+00:10:56,960 --> 00:10:58,710
+Or only up to the labs.
+
+327
+00:10:59,160 --> 00:11:01,150
+If AI shows up in your job,
+
+328
+00:11:01,220 --> 00:11:02,590
+ask who's checking it.
+
+329
+00:11:02,740 --> 00:11:04,620
+And tell the people who represent you
+
+330
+00:11:04,660 --> 00:11:07,150
+that outside testing should be the law.
+
+331
+00:11:07,460 --> 00:11:08,700
+In polls this year,
+
+332
+00:11:08,740 --> 00:11:09,780
+most Americans,
+
+333
+00:11:09,820 --> 00:11:11,520
+up to seventy-seven percent,
+
+334
+00:11:11,560 --> 00:11:13,659
+wanted it slowed or paused until
+
+335
+00:11:13,699 --> 00:11:15,310
+its safety can be checked.
+
+336
+00:11:15,540 --> 00:11:16,830
+You wouldn't be alone.
+
+337
+00:11:17,580 --> 00:11:18,930
+I'll tell you what I think.
+
+338
+00:11:19,240 --> 00:11:21,360
+The people who invented writing never got
+
+339
+00:11:21,400 --> 00:11:23,610
+a vote on what it would do to the world.
+
+340
+00:11:23,860 --> 00:11:24,860
+We do.
+
+341
+00:11:25,000 --> 00:11:26,240
+It's a small one each,
+
+342
+00:11:26,280 --> 00:11:28,390
+but it's real, and it's now.
+
+343
+00:11:29,100 --> 00:11:31,230
+And we've done hard things before.
+
+344
+00:11:31,540 --> 00:11:33,280
+A hole opened in the sky,
+
+345
+00:11:33,320 --> 00:11:35,040
+and two years later the world
+
+346
+00:11:35,080 --> 00:11:36,850
+signed a treaty to close it.
+
+347
+00:11:37,160 --> 00:11:39,610
+Flying got about forty times safer,
+
+348
+00:11:39,660 --> 00:11:42,310
+partly by learning from every close call.
+
+349
+00:11:42,600 --> 00:11:45,010
+Our headlights don't reach far enough yet.
+
+350
+00:11:45,160 --> 00:11:47,130
+We know how to build better ones.
+
+351
+00:11:47,360 --> 00:11:49,070
+And we still have the wheel.
+
+352
+00:11:49,820 --> 00:11:51,040
+The future isn't something
+
+353
+00:11:51,080 --> 00:11:52,390
+that happens to us.
+
+354
+00:11:52,540 --> 00:11:54,450
+It's something we decide.
+
+355
+00:11:55,220 --> 00:11:56,560
+If you could have an independent
+
+356
+00:11:56,600 --> 00:11:58,640
+tester check one thing first,
+
+357
+00:11:58,680 --> 00:11:59,680
+what would it be?
+
+358
+00:12:00,000 --> 00:12:01,430
+Let me know in the comments.
+
+359
+00:12:02,100 --> 00:12:03,820
+Next time: the first day
+
+360
+00:12:03,860 --> 00:12:05,370
+of superintelligence.
+
+361
+00:12:05,640 --> 00:12:07,270
+What would actually happen?
+

@@ -4,3 +4,7 @@ snaps*/
 .hyperframes/
 tools/.snap*.mjs
 episodes/*/film/scenes/.*-ready
+episodes/*/film/render/
+episodes/*/film/snaps/
+episodes/*/mix/*.wav
+episodes/*/audio/vo-master.wav
