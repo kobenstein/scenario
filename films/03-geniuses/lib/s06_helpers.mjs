@@ -110,7 +110,7 @@ export function dial(ctx, x, y, r, v, t, { label = '', icons = [], glowA = 1, a 
   // lit arc up to v
   ctx.strokeStyle = rgba(P.amber, .9); ctx.lineWidth = r * .03; ctx.beginPath(); ctx.arc(x, y, r * .72, A0, mix(A0, A1, v)); ctx.stroke();
   // icons around the scale
-  icons.forEach((fn, i) => { const q = mix(A0, A1, icons.length > 1 ? i / (icons.length - 1) : .5); const ix = x + Math.cos(q) * r * 1.22, iy = y + Math.sin(q) * r * 1.22; fn(ctx, ix, iy, r * .14, t); });
+  icons.forEach((fn, i) => { const q = mix(A0, A1, icons.length > 1 ? i / (icons.length - 1) : .5); const ix = x + Math.cos(q) * r * 1.3, iy = y + Math.sin(q) * r * 1.3; fn(ctx, ix, iy, r * .2, t); });
   // knob + needle
   const q = mix(A0, A1, v);
   ctx.strokeStyle = '#fff3dd'; ctx.lineWidth = r * .045; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + Math.cos(q) * r * .68, y + Math.sin(q) * r * .68); ctx.stroke();

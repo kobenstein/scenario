@@ -308,7 +308,7 @@ const fractionJug = (T) => {
   return (ctx, t, s) => {
     const M = mood(0), pan = eio(lin(tW - 1.6, tW + .3, t)), u = lin(s.a, s.b, t);
     // at the end the camera pulls back and slides so the jug lands where it stands beside her hands
-    ctx.save(); cam(ctx, mix(960, -18, pan), mix(560, 371, pan), mix(1.0, .45, pan) * mix(1, 1.04, u * (1 - pan)));
+    ctx.save(); cam(ctx, mix(960, -462, pan), mix(560, 371, pan), mix(1.0, .45, pan) * mix(1, 1.04, u * (1 - pan)));
     const g = ctx.createLinearGradient(0, -1500, 0, H); g.addColorStop(0, M.wallTop); g.addColorStop(1, M.wallBot); ctx.fillStyle = g; ctx.fillRect(-3000, -2000, W + 6000, H + 4000);
     ctx.fillStyle = '#141838'; ctx.fillRect(-3000, 880, W + 6000, 1600); ctx.fillStyle = '#1d2250'; ctx.fillRect(-3000, 870, W + 6000, 14);
     // cool light from the left window
@@ -329,27 +329,42 @@ const fractionJug = (T) => {
 };
 
 // ---------- 81 · "She waits." Folded hands, the clock ticks, light dims a touch ----------
-function hands(ctx, x, y, s, t, { warm = 0 } = {}) {
-  const skin = mixHex('#b08a76', '#d9a687', warm), skinD = shade(skin, -.12), sleeve = mixHex('#5d5577', '#a0727a', warm);
-  ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
-  // sleeves from both sides (knit ribs)
-  for (const sd of [-1, 1]) {
-    ctx.fillStyle = sleeve; ctx.beginPath(); ctx.moveTo(sd * 520, -60); ctx.lineTo(sd * 180, -40); ctx.lineTo(sd * 170, 80); ctx.lineTo(sd * 520, 120); ctx.fill();
-    ctx.fillStyle = shade(sleeve, .08); ctx.beginPath(); ctx.roundRect(sd > 0 ? 150 : -210, -50, 60, 140, 20); ctx.fill();
-    ctx.strokeStyle = shade(sleeve, -.12); ctx.lineWidth = 3; for (let i = 0; i < 7; i++) { const xx = (sd > 0 ? 156 : -204) + i * 8; ctx.beginPath(); ctx.moveTo(xx, -44); ctx.lineTo(xx, 82); ctx.stroke(); }
+function hand(ctx, x, y, ang, skin, t, { thumb = 0, s = 1 } = {}) {
+  // wrist at (x, y), hand pointing along ang; palm down
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang); ctx.scale(s, s);
+  const d = shade(skin, -.14), hl = shade(skin, .08);
+  ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.beginPath(); ctx.roundRect(4, -56, 260, 130, 50); ctx.fill();
+  for (let i = 0; i < 4; i++) {
+    const fy = -44 + i * 30, len = 118 - Math.abs(i - 1.3) * 16;
+    ctx.fillStyle = i % 2 ? skin : shade(skin, -.04); ctx.beginPath(); ctx.roundRect(120, fy - 15, len, 30, 15); ctx.fill();
+    ctx.strokeStyle = d; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(120 + len * .52, fy - 9); ctx.quadraticCurveTo(120 + len * .56, fy, 120 + len * .52, fy + 9); ctx.stroke();
+    ctx.fillStyle = rgba('#ffe8dc', .35); ctx.beginPath(); ctx.ellipse(120 + len - 14, fy - 3, 9, 6, 0, 0, 7); ctx.fill();
   }
-  // back hand (right hand, palm down, fingers to the left)
-  ctx.fillStyle = skinD; ctx.beginPath(); ctx.ellipse(40, 30, 150, 78, -.06, 0, 7); ctx.fill();
-  for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.roundRect(-160 + i * 6, -10 + i * 26, 120, 28, 14); ctx.fill(); }
-  // front hand (left hand over it), thumb rubbing slowly
-  ctx.fillStyle = skin; ctx.beginPath(); ctx.ellipse(-40, 10, 150, 74, .08, 0, 7); ctx.fill();
-  for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.roundRect(60 - i * 4, -30 + i * 25, 130, 26, 13); ctx.fill(); }
-  const th = Math.sin(t * 1.1) * 8;
-  ctx.save(); ctx.translate(-40 + th, -50); ctx.rotate(-.35); ctx.beginPath(); ctx.roundRect(0, -16, 130, 32, 16); ctx.fill(); ctx.restore();
-  // knuckles and veins, soft
-  ctx.strokeStyle = shade(skin, -.2); ctx.lineWidth = 2; for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.arc(40 - i * 4, -14 + i * 25, 9, -1, 1); ctx.stroke(); }
-  ctx.strokeStyle = rgba('#7a8ab8', .35); ctx.beginPath(); ctx.moveTo(-160, 20); ctx.bezierCurveTo(-100, 0, -60, 30, 0, 10); ctx.stroke();
-  ctx.fillStyle = 'rgba(255,255,255,.08)'; ctx.beginPath(); ctx.ellipse(-60, -20, 90, 22, .08, 0, 7); ctx.fill();
+  ctx.fillStyle = skin; ctx.beginPath(); ctx.roundRect(-10, -62, 150, 126, 44); ctx.fill();
+  ctx.fillStyle = hl; ctx.beginPath(); ctx.ellipse(70, -20, 60, 22, 0, 0, 7); ctx.fill();
+  ctx.strokeStyle = d; ctx.lineWidth = 2.4; for (let i = 0; i < 4; i++) { ctx.beginPath(); ctx.arc(126, -44 + i * 30, 10, -1.2, 1.2); ctx.stroke(); }
+  ctx.strokeStyle = rgba('#6a7ab0', .35); ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(0, 10); ctx.bezierCurveTo(40, -10, 80, 20, 118, -14); ctx.stroke();
+  // thumb along the top edge, rubbing slowly
+  ctx.save(); ctx.translate(40, -54); ctx.rotate(-.25 + thumb * .12); ctx.fillStyle = shade(skin, -.03); ctx.beginPath(); ctx.roundRect(0, -18, 120, 36, 18); ctx.fill(); ctx.fillStyle = rgba('#ffe8dc', .35); ctx.beginPath(); ctx.ellipse(100, -6, 10, 7, 0, 0, 7); ctx.fill(); ctx.restore();
+  ctx.restore();
+}
+function sleeve(ctx, x, y, ang, col) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang);
+  ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(0, -78); ctx.lineTo(1400, -170); ctx.lineTo(1400, 170); ctx.lineTo(0, 78); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = shade(col, .07); ctx.beginPath(); ctx.roundRect(-14, -84, 80, 168, 26); ctx.fill();
+  ctx.strokeStyle = shade(col, -.12); ctx.lineWidth = 3; for (let i = 0; i < 8; i++) { ctx.beginPath(); ctx.moveTo(-6 + i * 9, -78); ctx.lineTo(-6 + i * 9, 78); ctx.stroke(); }
+  ctx.strokeStyle = shade(col, -.08); ctx.lineWidth = 2; for (let i = 0; i < 6; i++) { ctx.beginPath(); ctx.moveTo(120 + i * 90, -80 - i * 6); ctx.quadraticCurveTo(150 + i * 90, 0, 120 + i * 90, 80 + i * 6); ctx.stroke(); }
+  ctx.restore();
+}
+function hands(ctx, x, y, s, t, { warm = 0 } = {}) {
+  const skin = mixHex('#b08a76', '#d9a687', warm), sl = mixHex('#5d5577', '#a0727a', warm);
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+  // right forearm from lower right, hand points up-left (underneath)
+  sleeve(ctx, 170, 70, .5, shade(sl, -.05));
+  hand(ctx, 170, 70, Math.PI + .5, shade(skin, -.06), t, {});
+  // left forearm from lower left, hand lies on top pointing up-right
+  sleeve(ctx, -170, 90, Math.PI - .42, sl);
+  hand(ctx, -170, 90, -.42, skin, t, { thumb: Math.sin(t * 1.1) });
   ctx.restore();
 }
 const foldedHands = (T, warm = 0) => {
@@ -364,9 +379,9 @@ const foldedHands = (T, warm = 0) => {
     ctx.fillStyle = mixHex('#1b1e44', '#4a2c3c', warm); ctx.beginPath(); ctx.ellipse(900, 1000, 820, 380, 0, 0, 7); ctx.fill();
     ctx.strokeStyle = rgba('#000000', .15); ctx.lineWidth = 4; for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.moveTo(500 + i * 180, 720); ctx.quadraticCurveTo(540 + i * 190, 900, 520 + i * 200, 1100); ctx.stroke(); }
     // side table with the jug (from the shot before)
-    ctx.fillStyle = mixHex('#141838', '#3a2638', warm); ctx.fillRect(1250, 760, 300, 30); ctx.fillRect(1280, 790, 20, 300); ctx.fillRect(1500, 790, 20, 300);
-    jug(ctx, 1400, 760, .55, warm ? .85 : .1, t, { ghost: warm ? 0 : 1, warm });
-    hands(ctx, 860, 640 + Math.sin(t * 1.2) * 3, 1.05, t, { warm });
+    ctx.fillStyle = mixHex('#141838', '#3a2638', warm); ctx.fillRect(1450, 760, 300, 30); ctx.fillRect(1480, 790, 20, 300); ctx.fillRect(1700, 790, 20, 300);
+    jug(ctx, 1600, 760, .55, warm ? .85 : .1, t, { ghost: warm ? 0 : 1, warm });
+    hands(ctx, 900, 620 + Math.sin(t * 1.2) * 3, 1.25, t, { warm });
     if (warm) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const lb = ctx.createLinearGradient(1600, 0, 400, H); lb.addColorStop(0, rgba(P.amber, .25)); lb.addColorStop(1, rgba(P.amber, 0)); ctx.fillStyle = lb; ctx.fillRect(0, 0, W, H); ctx.restore(); }
     ctx.restore();
     if (dim > 0) { ctx.fillStyle = `rgba(7,9,24,${dim})`; ctx.fillRect(0, 0, W, H); }

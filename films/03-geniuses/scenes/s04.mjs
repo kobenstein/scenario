@@ -74,7 +74,7 @@ const mapShot = (T) => {
     // sea haze + graticule
     const g = ctx.createRadialGradient(900, 560, 0, 900, 560, 1100); g.addColorStop(0, '#121a4a'); g.addColorStop(1, '#070918'); ctx.fillStyle = g; ctx.fillRect(-400, -400, W + 800, H + 800);
     ctx.strokeStyle = 'rgba(95,143,196,.08)'; ctx.lineWidth = 1; for (let i = -2; i < 14; i++) { ctx.beginPath(); ctx.moveTo(i * 160, -200); ctx.lineTo(i * 160 + 120, H + 200); ctx.stroke(); ctx.beginPath(); ctx.moveTo(-200, i * 110); ctx.lineTo(W + 200, i * 110 - 30); ctx.stroke(); }
-    for (const [x, y, m] of mapDots()) { ctx.fillStyle = rgba(m > .93 ? '#ffd29a' : '#7fa8e8', m > .93 ? .55 : .22 + .14 * Math.sin(t * 1.3 + m * 9)); ctx.fillRect(x - 1.6, y - 1.6, 3.2, 3.2); }
+    for (const [x, y, m] of mapDots()) { ctx.fillStyle = rgba(m > .93 ? '#ffd29a' : '#8fb8f0', m > .93 ? .75 : .42 + .16 * Math.sin(t * 1.3 + m * 9)); ctx.fillRect(x - 2.2, y - 2.2, 4.4, 4.4); }
     CITIES.forEach(([x, y], i) => addGlow(ctx, x, y, 22, .35 + .15 * Math.sin(t * 2 + i), P.amber, '#fff3dd'));
     // the three falling lights
     for (const st of stars) {
@@ -157,9 +157,9 @@ const londonLab = (T) => {
       ctx.fillStyle = '#e8dcc0'; ctx.fillRect(-60, -80, 120, 160); text(ctx, String(2015 + k), 0, 20, { size: 40, font: 'Instrument Serif', color: '#20183a', align: 'center' }); ctx.restore();
     }
     // scientists: two seated at microscopes, one standing with a clipboard (all breathing, one turning a knob)
-    person(ctx, 1120, 980, 330, t, { sit: true, flip: true, coat: LAB, dark: '#283055', hood: false, typing: true, skin: '#a8714f' });
-    person(ctx, 560, 980, 320, t, { sit: true, coat: LAB, dark: '#283055', hood: false, typing: true, skin: '#d9a77f', hair: '#6b4a2a' });
-    person(ctx, 780, 1010, 420, t, { coat: LAB, dark: '#283055', hood: false, skin: '#8a5a3c', look: Math.sin(t * .6) });
+    person(ctx, 1150, 760, 360, t, { sit: true, flip: true, coat: LAB, dark: '#283055', hood: false, typing: true, skin: '#a8714f' });
+    person(ctx, 520, 750, 350, t, { sit: true, coat: LAB, dark: '#283055', hood: false, typing: true, skin: '#d9a77f', hair: '#6b4a2a' });
+    person(ctx, 800, 930, 470, t, { coat: LAB, dark: '#283055', hood: false, skin: '#8a5a3c', look: Math.sin(t * .6) });
     // bench
     ctx.fillStyle = '#1a1f4a'; ctx.fillRect(-100, 712, W + 200, 22); ctx.fillStyle = '#0d1030'; ctx.fillRect(-100, 734, W + 200, 400);
     microscope(ctx, LAB_SCOPE.x, LAB_SCOPE.y, LAB_SCOPE.s, t); microscope(ctx, 660, 712, 1.2, t + 1);
@@ -354,7 +354,7 @@ const twoDays = (T) => {
     const spin = eio(lin(t0 - .3, tDays + 1.2, t)), day = (spin * 2) % 1, dayAmt = Math.max(0, Math.sin(day * Math.PI * 2 - Math.PI / 2) * .5 + .5);
     const uM = eio(lin(tMatch - .7, tMatch + .2, t)), flash = Math.exp(-Math.pow((t - tTheirs + .05) / .18, 2));
     ctx.fillStyle = mixHex('#10143a', '#24305e', dayAmt * (1 - uM)); ctx.fillRect(0, 0, W, H);
-    ctx.save(); ctx.globalAlpha = 1 - uM * .75;
+    ctx.save(); ctx.globalAlpha = 1 - uM * .97;
     // window showing day → night → day → night
     ctx.fillStyle = mixHex('#0f1a4a', '#8fb6e0', dayAmt); ctx.fillRect(140, 140, 300, 380); ctx.fillStyle = '#0b0e2c'; ctx.fillRect(282, 140, 16, 380); ctx.fillRect(140, 322, 300, 16);
     const sunA = day * Math.PI * 2 - Math.PI / 2; addGlow(ctx, 290 + Math.cos(sunA + Math.PI) * 120, 420 + Math.sin(sunA + Math.PI) * 220, 50, .7, dayAmt > .3 ? '#ffd29a' : '#d8f7ff', '#ffffff');
@@ -377,7 +377,7 @@ const twoDays = (T) => {
     if (uM > 0) {
       const nx = mix(-300, 960, uM), op = 1 - lin(tMatch + .2, tMatch + .6, t) * .55;
       ctx.save(); ctx.globalAlpha = op; ctx.translate(nx, 540); ctx.rotate((1 - uM) * -.3);
-      ctx.fillStyle = 'rgba(239,228,200,.9)'; ctx.fillRect(-260, -180, 520, 360); ctx.strokeStyle = '#8a3b17'; ctx.lineWidth = 3;
+      ctx.fillStyle = `rgba(239,228,200,${.9 * (1 - uM * .8)})`; ctx.fillRect(-260, -180, 520, 360); ctx.strokeStyle = '#8a3b17'; ctx.lineWidth = 3;
       const k = 520 / 370; ctx.scale(k, k); ctx.translate(-185, 40); ctx.beginPath(); ctx.roundRect(40, -150, 120, 54, 27); ctx.stroke(); ctx.beginPath(); ctx.arc(290, -120, 28, 0, 7); ctx.stroke(); ctx.beginPath(); ctx.arc(318, -96, 24, 0, 7); ctx.stroke(); ctx.beginPath(); ctx.moveTo(160, -124); ctx.quadraticCurveTo(220, -190, 258, -132); ctx.stroke(); padlock(ctx, 185, 20, 1, { ink: '#8a3b17' });
       ctx.restore();
       text(ctx, 'AI', 960 + 280, 540 - 200, { size: 20, weight: 600, spacing: 6, color: C.cyan, alpha: lin(tMatch, tMatch + .4, t) * (1 - lin(tNext - 1, tNext - .4, t)) });
@@ -385,8 +385,8 @@ const twoDays = (T) => {
     }
     // after the match: the two times side by side, then everything collapses into one point (carrier → pupil)
     const sum = lin(tTheirs + .3, tTheirs + .8, t) * (1 - lin(tNext - .9, tNext - .4, t));
-    text(ctx, 'about ten years', 960 - 300, 860, { size: 44, font: 'Instrument Serif Italic', align: 'center', color: P.amber, alpha: sum });
-    text(ctx, 'two days', 960 + 300, 860, { size: 44, font: 'Instrument Serif Italic', align: 'center', color: C.cyan, alpha: sum });
+    text(ctx, 'about ten years', 960 - 300, 860, { size: 58, font: 'Instrument Serif Italic', align: 'center', color: P.amber, alpha: sum });
+    text(ctx, 'two days', 960 + 300, 860, { size: 58, font: 'Instrument Serif Italic', align: 'center', color: C.cyan, alpha: sum });
     if (flash > .01) { ctx.fillStyle = rgba('#fff6e6', .55 * flash); ctx.fillRect(0, 0, W, H); addGlow(ctx, 960, 540, 500, flash, P.amber, '#ffffff'); }
     const col = eio(lin(tNext - .7, tNext + .2, t)); if (col > 0) { ctx.fillStyle = rgba('#070918', col); ctx.fillRect(0, 0, W, H); addGlow(ctx, 960, 540, mix(300, 40, col), col, '#ffd29a', '#ffffff'); }
     finish(ctx, t, { vig: .55 });
@@ -459,7 +459,7 @@ const dropShot = (T) => {
     const r = prng(51); for (let i = 0; i < 26; i++) addGlow(ctx, (r() * W + t * 6) % W, r() * H, 30 + r() * 70, .12, r() < .4 ? P.amber : C.cyan, '#ffffff');
     // the dropper bottle at the top, tilted, with the packet's red circle on its label
     const bt = sm(lin(s.a, t0 + .3, t));
-    ctx.save(); ctx.translate(960, mix(-220, 60, bt)); ctx.rotate(Math.PI);
+    ctx.save(); ctx.translate(960, mix(-220, 60, bt));
     ctx.fillStyle = '#e8ecf5'; ctx.beginPath(); ctx.roundRect(-70, -220, 140, 220, 18); ctx.fill();
     ctx.fillStyle = '#2a4a8a'; ctx.fillRect(-70, -150, 140, 70); ctx.fillStyle = '#c8352e'; ctx.beginPath(); ctx.arc(0, -115, 18, 0, 7); ctx.fill();
     ctx.fillStyle = '#d8dcef'; ctx.beginPath(); ctx.moveTo(-30, 0); ctx.lineTo(30, 0); ctx.lineTo(10, 70); ctx.lineTo(-10, 70); ctx.fill();
@@ -593,8 +593,8 @@ const SEATS = [-120, 230, 580, 930, 1280, 1630, 1980];
 // the minis: where they sit or stand once they've climbed out of the phone
 const MINIS = (() => {
   const r = prng(88), m = [];
-  for (const sx of SEATS) for (let k = 0; k < 4; k++) if (!(Math.abs(sx - 930) < 10 && k < 3)) m.push({ x: sx - 30 + k * 34, y: 712 - (k % 2) * 6, sit: true, h: 70 + r() * 10 });
-  for (let i = 0; i < 26; i++) m.push({ x: -100 + r() * 2100, y: 990 + r() * 60, sit: false, h: 80 + r() * 16, flip: r() < .5 });
+  for (const sx of SEATS) for (let k = 0; k < 3; k++) if (!(Math.abs(sx - 930) < 10)) m.push({ x: sx - 20 + k * 40, y: 724 - (k % 2) * 6, sit: true, h: 118 + r() * 14 });
+  for (let i = 0; i < 26; i++) m.push({ x: -100 + r() * 2100, y: 1000 + r() * 70, sit: false, h: 130 + r() * 24, flip: r() < .5 });
   for (let i = 0; i < 22; i++) m.push({ x: -100 + r() * 2100, y: 108, sit: true, h: 52 + r() * 8 });
   return m.map((p, i) => ({ ...p, d: r() * .9 + (Math.abs(p.x - PHONE.x) / 2200) * 1.4, skin: mixHex('#7a4a30', '#e2b994', r()), ph: r() * 7, i }));
 })();
@@ -664,10 +664,10 @@ const display = (T) => {
     text(ctx, 'explain superbugs?', -20, -338, { size: 24, weight: 500, color: '#1a1030', alpha: q1 });
     const ans = lin(t0 + 1.2, tAny, t); for (let i = 0; i < 8; i++) { const w = [380, 420, 340, 400, 300, 410, 360, 220][i], a = clamp(ans * 8 - i); if (a <= 0) continue; ctx.fillStyle = rgba('#d8f7ff', .45 * a); ctx.beginPath(); ctx.roundRect(-230, -280 + i * 34, w * a, 14, 7); ctx.fill(); }
     // the tiny figure at the bottom of the screen; the hat floats down and lands on it
-    const fy = 380; mini(ctx, 0, fy, 190, t, { hat: 0 });
-    const hu = eio(lin(tSam, tPhd + .2, t)), hx = Math.sin(t * 1.8) * 40 * (1 - hu), hy = mix(-560, fy - 92 * 1.9 - 13, hu);
-    mortarboard(ctx, 1.5 * 1.9 + hx, hy, 1.9 * .85 * 1.05, 1);
-    if (t > tPhd + .2) { const k = (t - tPhd - .2); for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2, rr = 30 + k * 160; ctx.fillStyle = rgba(P.amber, Math.max(0, .9 - k)); ctx.fillRect(Math.cos(a) * rr - 2, fy - 190 + Math.sin(a) * rr - 2, 4, 4); } addGlow(ctx, 0, fy - 180, 120, .5 * Math.max(0, 1 - k * .6), P.amber, '#fff3dd'); }
+    const fy = 470, fs = 3.4; mini(ctx, 0, fy, fs * 100, t, { hat: 0 });
+    const hu = eio(lin(tSam, tPhd + .2, t)), hx = Math.sin(t * 1.8) * 50 * (1 - hu), hy = mix(-560, fy - 99 * fs, hu);
+    mortarboard(ctx, 1.5 * fs + hx, hy, fs * .85, 1);
+    if (t > tPhd + .2) { const k = (t - tPhd - .2); for (let i = 0; i < 10; i++) { const a = i / 10 * Math.PI * 2, rr = 30 + k * 160; ctx.fillStyle = rgba(P.amber, Math.max(0, .9 - k)); ctx.fillRect(Math.cos(a) * rr - 2, fy - 99 * fs + Math.sin(a) * rr - 2, 4, 4); } addGlow(ctx, 0, fy - 95 * fs, 120, .5 * Math.max(0, 1 - k * .6), P.amber, '#fff3dd'); }
     ctx.restore();
     addGlow(ctx, 0, 0, 600, .2, C.cyan, C.cyanWhite);
     ctx.restore();

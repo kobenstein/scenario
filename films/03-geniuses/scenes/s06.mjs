@@ -431,7 +431,7 @@ const waiting = (T) => {
 
 // ---------- 62 + 63: the field. Left the huge glowing room of minds, right the tiny old door; a queue of ideas jams between them.
 // Then the camera tracks along the queue to an old TV standing in the grass. ----------
-const FIELD = { door: { x: 1640, y: 760 }, room: { x: 300, y: 720 }, tv: { x: 1460, y: 1090 } };
+const FIELD = { door: { x: 1640, y: 760 }, room: { x: 300, y: 720 }, tv: { x: 1780, y: 1090 } };
 const queue = (() => { const pts = []; for (let i = 0; i < 170; i++) { const q = i / 169; const x = mix(640, 1610, Math.pow(q, .8)), y = 700 + Math.sin(q * 9) * 55 * (1 - q) + q * 50; pts.push({ x, y, q }); } return pts; })();
 const fieldWorld = (ctx, t, cam, { tDoor = 1e9 } = {}) => {
   // cam = {x, y, z}: world point at screen centre
@@ -568,7 +568,7 @@ const cellShot = (T) => {
     const ring = Math.exp(-Math.pow((t - hit - .1) / .25, 2)); if (ring > .02) { ctx.strokeStyle = rgba(C.cyanWhite, .7 * ring); ctx.lineWidth = 3; for (let k = 1; k <= 3; k++) { ctx.beginPath(); ctx.ellipse(gx + 10, 560, 14 * k * (1.5 - ring), 70 * k * (1.5 - ring), 0, 0, 7); ctx.stroke(); } }
     // keyhole-shaped vignette at the start (we're looking through it), opening up
     const kv = 1 - eio(lin(s.a, s.a + 1.4, t));
-    if (kv > 0) { ctx.save(); ctx.fillStyle = rgba('#2a1a14', kv); ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.arc(960, 540, mix(1400, 300, kv), 0, 7, true); ctx.fill('evenodd'); ctx.restore(); }
+    if (kv > 0) { ctx.save(); ctx.fillStyle = rgba('#2a1a14', kv); const kr = mix(1400, 300, kv); ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.moveTo(960 + kr, 540); ctx.arc(960, 540, kr, 0, 6.2832, true); ctx.closePath(); ctx.fill('evenodd'); ctx.restore(); }
     finish(ctx, t, { vig: .55 });
   };
 };
