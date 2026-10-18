@@ -18,6 +18,7 @@ And there were never enough of them.
 That's about to change.
 Somewhere, at the edge of a quiet town, someone is building this room right now.
 And almost nobody has noticed.
+And the strangest part? Building it may turn out to be the easy bit.
 PICTURE: a drawn group photo of scientists in three rows (composition after a famous 1920s physics conference, no names, no faces in detail). On "Not once" the photo duplicates left and right, then tiles outward in every direction; rows become points of light; the camera pulls back until the lights form the grid of a datacenter at night beside a small town. The tiny figure ("you") walks past on the road below, looking at a phone.
 ON SCREEN: nothing.
 LOOP: opens "what happens when minds are no longer the limit?"
@@ -71,6 +72,7 @@ In another lab, an AI system called Robin looked at a common cause of blindness 
 It suggested an eye drop already sold in Japan for glaucoma. [S7]
 So far, it has only been tested on cells in a dish. It's a lead, not a cure.
 But a lead that no human had followed.
+Keep that eye drop in mind. We'll meet it again.
 [pause]
 And a piece of this is already in your pocket.
 When OpenAI launched GPT-5, Sam Altman called it a "PhD-level expert" in any area. [S13]
