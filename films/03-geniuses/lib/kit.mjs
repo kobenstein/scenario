@@ -88,7 +88,7 @@ export function clipLabel(ctx, t, T, id, x = 110, y = 900) {
 // Placeholder captions inside the clip (the real clip gets burned-in subtitles from the clip transcript later)
 export function clipQuote(ctx, t, T, id, x, y, w, size = 34) {
   const c = T.clip(id), info = clipInfo(id), words = info.quote.split(' '), n = words.length;
-  if (clipFrame(id, 1)) return; // real footage: subtitles come from the subtitle track
+  return; // the subtitle track carries the clip quote (subs.py), so no second copy inside the screen
   const u = clamp((t - c.start) / (c.end - c.start - .4)), shown = Math.ceil(u * n);
   const lines = []; let cur = '';
   ctx.font = `500 ${size}px "Inter"`;
