@@ -1,4 +1,4 @@
-// Film 02 v2 "Why AI Will Surprise Almost Everyone": shot list anchored to the v2 VO (v2/audio/timing.json word times).
+// Film 02 v2 "AI Is Moving Faster Than You Think": shot list anchored to the v2 VO (v2/audio/timing.json word times).
 import fs from 'node:fs';
 import {
   W, H, C, rgba, clamp, lin, mix, sm, eio, eout, sine, drift, prng, img, canvas, glow, addGlow, sky, fog,
@@ -282,7 +282,7 @@ export async function build() {
     [S('01', 'In biology') - .2, K.dnaSea({ tFind: 2.2 }), 'left', 1],
     [S('01', 'In public health') - .2, K.healthMap({ tPins: .3, report: X.shrinkBar({ t0: S('01', 'In public health'), t1: S('01', 'And the month') - .7, tShrink: S('01', 'now takes'), title: 'one daily report', fromLabel: 'all day', toLabel: 'under an hour', x: 1180, y: 520, w: 600 }) }), 'left', 1],
     [S('01', 'And the month') - .3, K.hillView({ tLine: 0, dur: 2.5, hex: C.amber, from: [500, 620], to: [1840, 40] }), 'fog', 1.4],
-    [tTitle, M.title('Why AI will surprise', 'almost everyone'), 'up', 1.4],
+    [tTitle, M.title('AI is moving faster', 'than you think'), 'up', 1.4],
   );
 
   // ===== 2 The long curve =====
@@ -448,7 +448,7 @@ export async function build() {
     [S('13', 'And if you want') - .2, plate('p24_parliament', { cam: cam(1376, 900, 1.15, 1376, 700, 1.4), fx: X.chips({ items: [{ t: S('13', 'outside testing'), text: 'outside testing:' }, { t: S('13', 'a rule'), text: 'a rule, not a favour', col: C.amber }], t1: 1e9, y: 760, size: 62 }) }), 'up', 1.4],
     [S('13', 'Somewhere on this') - .2, plate('p20_hill_dawn', { cam: cam(1250, 900, 1.25, 1600, 600, 1.3), front: you, fx: skyCurve(S('13', 'Somewhere on this'), 3.5, C.amber) }), 'fog', 1.6],
     [S('13', "What's the last") - .2, card('What’s the last AI headline', 'that made you stop?', { size: 88, size2: 60, col2: C.cream }), 'dissolve', 1.4],
-    [E('13', 'in the comments') + 1.2, M.title('Why AI will surprise', 'almost everyone'), 'dissolve', 1.6],
+    [E('13', 'in the comments') + 1.2, M.title('AI is moving faster', 'than you think'), 'dissolve', 1.6],
   );
 
   if (process.env.SHOTS) { const T = TM.words; const out = L.map((x, i) => { const a = x[0], b = (L[i + 1] || [tEnd])[0]; return { i, a: +a.toFixed(1), b: +b.toFixed(1), txt: T.filter((w) => w.s >= a && w.s < b).map((w) => w.w).join(" ") }; }); fs.writeFileSync(process.env.SHOTS, JSON.stringify(out, null, 1)); }
