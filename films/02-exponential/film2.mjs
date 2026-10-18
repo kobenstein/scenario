@@ -8,6 +8,8 @@ import * as M from './scenes/md.mjs';
 import * as M2 from './scenes/md2.mjs';
 import * as X from './scenes/explain.mjs';
 import * as K from './scenes/hook_code.mjs';
+import * as PLC from './scenes/places.mjs';
+import { pict } from './scenes/picts.mjs';
 
 const ROOT = '/mnt/project-files/scenario/film-02-exponential/';
 const PLATES = ROOT + 'plates/';
@@ -48,7 +50,11 @@ function clampCam(c, pf, dolly) {
   const lx = Math.min(lim(kN, 'x'), lim(kF, 'x') / pf), ly = Math.min(lim(kN, 'y'), lim(kF, 'y') / pf);
   return { x: clamp(c.x, IW / 2 - lx, IW / 2 + lx), y: clamp(c.y, IH / 2 - ly, IH / 2 + ly), z };
 }
-const plate = (id, o = {}) => Object.assign((ctx, t, s) => drawPlateShot(id, o, ctx, t, s), { pid: id, walk: !!o.walk });
+// All pictures are drawn in code now (Jakob 2026-10-18: no AI images). plate(id, o) keeps the old shot list working:
+// it draws the code scene that stands in for that location, then the shot's screen-space overlays (o.fx).
+const CODE = {};
+const CAM0 = { x: 1376, y: 768, z: 1 };
+const plate = (id, o = {}) => Object.assign((ctx, t, s) => { const f = CODE[id]; if (!f) return drawPlateShot(id, o, ctx, t, s); f(ctx, t, s); if (o.fx) o.fx(ctx, t, CAM0, s, { sp: {} }); }, { pid: id, walk: !!o.walk });
 function drawPlateShot(id, o, ctx, t, s) {
   const P = PL[id];
   if (!P) { sky(ctx, t, {}); text(ctx, id, W / 2, H / 2, { size: 40, align: 'center', color: C.muted }); return; }
@@ -67,7 +73,7 @@ const walker = (x0, x1, y0, y1, h, a, b, o = {}) => (ctx, t, m) => {
   walkFigure(ctx, UPPER, m.X(x), m.Y(y), hh * m.k, Math.abs(x - x0) * 240 / hh + (t - a) * (o.inPlace || 0), t, { flip: x1 < x0, phoneGlow: o.phone ?? true });
 };
 const both = (...fs) => (...a) => fs.forEach((f) => f && f(...a));
-const lampFlicker = (x, y, r, col = C.amber, core = '#fff3dd', p = 1) => (ctx, t, cam) => {
+const lampFlicker = (x, y, r, col = C.amber, core = '#fff3dd', p = 1) => (ctx, t, cam) => { return;
   const m = mapper(cam, p, { dolly: .1 }); addGlow(ctx, m.X(x), m.Y(y), r * m.k, .22 + .05 * Math.sin(t * 2.3) + .03 * Math.sin(t * 7.1), col, core);
 };
 
@@ -181,7 +187,7 @@ const split2 = (A, B, la, lb) => {
   };
 };
 // lamps switching on one by one (positions in image px on the given layer)
-const lampsOn = (pts, t0, step, p = .4, col = C.amber) => (ctx, t, cam) => {
+const lampsOn = (pts, t0, step, p = .4, col = C.amber) => (ctx, t, cam) => { return;
   const m = mapper(cam, p, { dolly: .1 });
   pts.forEach(([x, y], i) => { const a = eout(lin(t0 + i * step, t0 + i * step + .4, t)); if (a > 0) addGlow(ctx, m.X(x), m.Y(y), 120 * m.k, .5 * a + .05 * Math.sin(t * 3 + i), col, '#fff3dd'); });
 };
@@ -194,7 +200,7 @@ const caption = (t0, top, big, o = {}) => (ctx, t) => {
   text(ctx, big, x, y + 54, { size: o.size ?? 76, font: 'Instrument Serif', color: o.color ?? C.amber, alpha: a, align: al });
 };
 // 950 lights fan out over the DNA sea and converge on one pattern
-const swarm = (t0, t1, tx, ty, p = .4) => (ctx, t, cam) => {
+const swarm = (t0, t1, tx, ty, p = .4) => (ctx, t, cam) => { return;
   const m = mapper(cam, p, { dolly: .1 }), r = prng(23), u = lin(t0, t1, t);
   if (t < t0) return;
   for (let i = 0; i < 950; i++) {
@@ -233,11 +239,32 @@ const names = (t0) => (ctx, t, s) => {
   text(ctx, 'PEOPLE AT FOUR FRONTIER LABS', W / 2, H / 2 + 72, { size: 20, weight: 600, color: C.muted, spacing: 6, align: 'center', alpha: lin(t0, t0 + .5, t) });
 };
 
+// "Most of us picture AI progress as a few big moments, with long quiet stretches in between."
+const pictured = (t0) => (ctx, t, s) => {
+  sky(ctx, t, { stars: .5 });
+  const steps = [[150, 0], [620, 0], [620, 1], [1080, 1], [1080, 2], [1520, 2], [1520, 3], [1780, 3]];
+  const u = lin(t0, t0 + 4, t), Y = (k) => 820 - k * 170;
+  ctx.save(); ctx.setLineDash([16, 14]); ctx.lineDashOffset = -t * 20; ctx.strokeStyle = rgba(C.cream, .55); ctx.lineWidth = 5; ctx.beginPath();
+  const n = steps.length * u; steps.forEach(([x, k], i) => { if (i > n) return; i ? ctx.lineTo(x, Y(k)) : ctx.moveTo(x, Y(k)); }); ctx.stroke(); ctx.restore();
+  [[620, 1], [1080, 2], [1520, 3]].forEach(([x, k], i) => { const a = eout(lin(t0 + .9 + i * 1.1, t0 + 1.5 + i * 1.1, t)); if (a <= 0) return; addGlow(ctx, x, Y(k - .5), 70, .5 * a, C.amber, '#fff3dd'); text(ctx, 'big moment', x, Y(k) - 40, { size: 30, font: 'Instrument Serif Italic', color: C.amber, align: 'center', alpha: a }); });
+  [[385, 0], [850, 1], [1300, 2]].forEach(([x, k], i) => { const a = eout(lin(t0 + 1.4 + i * 1.1, t0 + 2 + i * 1.1, t)); text(ctx, 'quiet', x, Y(k) + 56, { size: 26, color: C.muted, align: 'center', alpha: a * .8, spacing: 4 }); });
+  text(ctx, 'HOW MOST OF US PICTURE AI PROGRESS', 150, 160, { size: 22, weight: 600, color: C.muted, spacing: 6, alpha: lin(t0, t0 + .6, t) });
+};
+
 export async function build() {
   const ids = fs.readdirSync(PLATES).filter((d) => /^p\d\d_/.test(d));
-  for (const id of ids) { PL[id] = await loadPlate(id); if (fs.existsSync(PLATES + id + '/key.png')) keyImg[id] = await img(PLATES + id + '/key.png'); }
+  void ids;
+  Object.assign(keyImg, { p28_problem_library: pict('math'), p02_dc_ext: pict('chip'), p23_lab_night: pict('essay'), p29_office_overnight: pict('overnight'), p27_dna_sea: pict('dna'), p34_hotline_1963: pict('phone'), p24_parliament: pict('capitol'), p17_core_hall: pict('core'), p08_dc_int: pict('core2') });
+  Object.assign(CODE, {
+    p28_problem_library: K.problems({ tFall: .8, step: .35 }), p02_dc_ext: PLC.dcOutside(), p08_dc_int: PLC.datacenter(), p23_lab_night: K.lab({}),
+    p29_office_overnight: PLC.office({ morning: S('06', 'In the morning') }), p27_dna_sea: K.dnaSea({ tFindAbs: S('07', 'One of them stops') }),
+    p03_hill_night: K.hillView({ tLine: .3 }), p24_parliament: PLC.chamber(), p09_mountain: K.hillView({ tLine: 0, dur: 6, hex: C.muted }),
+    p20_hill_dawn: K.hillView({ warm: 1, hex: C.amber, tLine: .4 }), p31_kinshasa_night: PLC.kinRoom({}), p32_kinshasa_dawn: PLC.kinRoom({ dawn: true }),
+    p30_field_office: K.healthMap({ tPins: .3 }), p33_glass_lab: PLC.glassLab({ tWalk0: .5, tWalk1: 9 }), p34_hotline_1963: PLC.desk1963({ tRing: 1.2 }),
+    p14_clinic: PLC.clinic(), p26_classroom: PLC.classroom(),
+  });
   const CARD = {};
-  if (fs.existsSync(PLATES + 'cards')) for (const f of fs.readdirSync(PLATES + 'cards')) if (/^c\d\d_.*\.png$/.test(f)) CARD[f.slice(0, 3)] = await img(PLATES + 'cards/' + f);
+  Object.assign(CARD, { c01: pict('dartmouth'), c02: pict('chess'), c03: pict('seeing'), c04: pict('go'), c05: pict('protein'), c06: pict('chat'), c07: pict('exam'), c08: pict('medal'), c09: pict('proof') });
   UPPER = await img('/mnt/project-files/scenario/folge-01-flagship/motion-test/upper.png');
   const cam = (x0, y0, z0, x1, y1, z1) => [{ x: x0, y: y0, z: z0 }, { x: x1, y: y1, z: z1 }];
   const you = stand('you_back', 900, 1150, 330, { flip: true });
@@ -284,7 +311,8 @@ export async function build() {
   const gowers = { words: WD('02', 'No previous', 'to that'), who: 'Tim Gowers', role: 'Fields Medal winner', date: 'May 2026', source: 'On the AI disproof of Erdős’s unit-distance conjecture', hi: ['no'] };
   const institute = { words: WD('02', 'The rate at which', 'accelerating'), who: 'Anthropic Institute', role: '“When AI builds itself”', date: '2026', source: 'Research report', hi: ['accelerating'] };
   L.push(
-    [SEC['02'].start - .4, longCurve, 'up', 1.2],
+    [SEC['02'].start - .4, pictured(SEC['02'].start + .3), 'up', 1.2],
+    [S('02', 'So let') - .3, longCurve, 'dissolve', 1],
     [S('02', 'The Fields Medal') - .2, M2.quotePage({ ...gowers, bg: plate('p28_problem_library', { cam: cam(1376, 820, 1.3, 1376, 800, 1.4) }) }), 'push', 1],
     [S('02', 'The gaps between') - .2, longCurve, 'dissolve', 1],
     [S('02', 'The rate at which') - .5, M2.quotePage({ ...institute }), 'push', 1],
@@ -353,7 +381,8 @@ export async function build() {
   const princeton = { words: WD('09', 'on the timescale', 'decades'), who: 'Arvind Narayanan & Sayash Kapoor', role: 'Princeton', date: 'Apr 2025', source: 'Essay · “AI as Normal Technology”', hi: ['decades'], size: 70 };
   const korinek = { words: WD('09', 'Steam, electricity', 'few years'), who: 'Anton Korinek', role: 'economist, University of Virginia', date: 'Jul 2026', source: 'On the “We Must Act Now” statement', hi: ['few', 'years'], size: 56 };
   L.push(
-    [SEC['09'].start - .4, M2.loop({ n: [S('09', 'Because each one'), S('09', 'You run nine'), S('09', 'More attempts'), S('09', 'More finds bring'), S('09', 'More money buys')], close: S('09', "It's a loop"), gap: S('09', "It isn't closed") - 3.2 }), 'push', 1.2],
+    [SEC['09'].start - .4, days, 'dissolve', 1.2],
+    [S('09', 'Because each one') - .6, M2.loop({ n: [S('09', 'Because each one'), S('09', 'You run nine'), S('09', 'More attempts'), S('09', 'More finds bring'), S('09', 'More money buys')], close: S('09', "It's a loop"), gap: S('09', "It isn't closed") - 3.2 }), 'push', 1.2],
     [S('09', 'Google checked') - .3, plate('p23_lab_night', { cam: cam(1300, 780, 1.2, 1376, 800, 1.35), front: stand('researcher', 1620, 1140, 740, { flip: true }), fx: both(caption(S('09', 'AI already writes'), 'new code at Google written by AI', 'over 75 %', { dur: 3.5 }), caption(S('09', 'Yet it found'), 'measured speed-up of research itself', 'none yet', { dur: 3.5, color: C.cream })) }), 'dissolve', 1],
     [S('09', 'The loop is turning') - .3, M2.loop({ n: [0, 0, 0, 0, 0], close: 0, gap: S('09', "It isn't closed") - .3 }), 'dissolve', 1],
     [S('09', 'Two Princeton') - .2, M2.quotePage({ ...princeton, x: W / 2, w: 1100 }), 'push', 1],

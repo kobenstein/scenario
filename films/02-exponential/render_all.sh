@@ -2,9 +2,9 @@
 # Full render: N parallel chunks -> concat -> mux mix.wav -> burn subtitles.  usage: render_all.sh <out_dir> [chunks]
 set -euo pipefail
 cd "$(dirname "$0")"
-OUT=${1:?out dir}; N=${2:-4}; A=/mnt/project-files/scenario/film-02-exponential
+OUT=${1:?out dir}; N=${2:-4}; A=${AV:-/mnt/project-files/scenario/film-02-exponential}; FILM=${FILM:-./film.mjs}; export FILM
 mkdir -p "$OUT/parts"
-DUR=$(node -e "import('./film.mjs').then(async m=>console.log((await m.build()).duration))")
+DUR=$(node -e "import('$FILM').then(async m=>console.log((await m.build()).duration))")
 for i in $(seq 0 $((N-1))); do
   F=$(python3 -c "print(round($DUR*$i/$N*30)/30)"); T=$(python3 -c "print(round($DUR*($i+1)/$N*30)/30)")
   node render.mjs --out "$OUT/parts/p$i.mp4" --from $F --to $T --crf 14 --preset veryfast > "$OUT/parts/p$i.log" 2>&1 &
