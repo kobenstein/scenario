@@ -1,0 +1,136 @@
+What if you could copy the smartest people who ever lived?
+Not once. A thousand times. A million.
+And they never slept.
+[pause]
+Every medicine you've ever taken, every light you've ever switched on, began in minds like these.
+And there were never enough of them.
+[pause]
+That's about to change.
+Somewhere, at the edge of a quiet town, someone is building this room right now.
+And almost nobody has noticed.
+
+That's the head of one of the biggest AI labs.
+Most of us picture AI as a better chatbot. Something that writes your emails.
+The people building it picture something else.
+He calls it a country of geniuses in a datacenter.
+Millions of copies, each smarter than a Nobel Prize winner in most fields.
+Each working ten to a hundred times faster than you.
+He thinks it could arrive within a few years. Others think it will take much longer.
+But even the doubters are arguing about when, not whether.
+
+To see why this matters, zoom out. All the way out.
+For almost all of human history, there was one simple rule. More people meant more ideas.
+Economists looking back a million years found it: places with more people invented faster.
+Because an idea, once found, can be used by everyone.
+[pause]
+But the best ideas are getting harder to find.
+Keeping chips doubling in power now takes more than eighteen times the researchers it did in the early nineteen-seventies.
+We have been running out of geniuses for a long time.
+[pause]
+Now imagine that limit simply disappears.
+Not more scientists. As many as we want.
+That's the real meaning of a country of geniuses.
+
+And small pieces of it already work.
+In London, a team of scientists spent about a decade on one question: how do some superbugs share their defences between species?
+They had found the answer. They hadn't published it yet.
+Then they gave the same question to an AI system from Google.
+Within two days, its top idea matched theirs.
+[pause]
+In another lab, an AI system called Robin looked at a common cause of blindness in older people.
+It suggested an eye drop already sold in Japan for glaucoma.
+So far, it has only been tested on cells in a dish. It's a lead, not a cure.
+But a lead that no human had followed.
+[pause]
+And a piece of this is already in your pocket.
+When OpenAI launched GPT-5, Sam Altman called it a "PhD-level expert" in any area.
+A thousand PhDs, on call, day and night.
+Most of us use them to fix our emails.
+
+So what could a whole country of them do?
+Amodei's bet: fifty to a hundred years of progress in biology and medicine, squeezed into five to ten.
+He calls it the compressed twenty-first century.
+Demis Hassabis, who shared a Nobel Prize for AI work in biology, goes further.
+These are bets, from people who build and sell this technology. Many biologists think they're far too hopeful.
+And they have a point. Because there's a part of this story almost nobody talks about.
+
+Thinking was never the only slow step.
+A new medicine has to be made. Then tested on cells. Then on animals. Then on people, in stages, for years.
+Look at the first drugs designed with AI.
+One, for a disease that scars the lungs, is now in its final stage of human testing.
+More than a hundred and seventy are in trials. As of this spring, not one had been approved.
+[pause]
+The geniuses are not the bottleneck anymore. The door is.
+Amodei puts the question better than anyone.
+Here's what I can't stop thinking about.
+You can't make a cell divide faster.
+But almost everything else about that door was built by people. Rules, labs, money, priorities.
+And what people built, people can change.
+
+So pause here, and imagine it's your call.
+The geniuses are coming either way. Three choices are still open.
+How fast we can test their ideas safely.
+Who gets the results.
+And what we ask them to work on in the first place.
+[pause]
+What would you do?
+[pause 3s]
+
+Let's imagine it's twenty thirty-five. This part is a scenario, not a forecast.
+Your mother sits in the waiting room of an eye clinic.
+[pause]
+In the first future, the room of geniuses has found hundreds of promising leads for her kind of blindness.
+They're sitting in a queue.
+Trials run the way they always have. The few treatments that make it through are expensive, and reach rich cities first.
+Nothing collapsed. We just got a small fraction of what was possible.
+She waits.
+[pause]
+In the second future, it's the same clinic. The same chair.
+The drop she takes was a lead in twenty twenty-six.
+Robot labs tested thousands of versions in a few months. A trial that once took a decade took a few careful years, with real patients and every safety check.
+It costs about what an eye drop costs.
+She reads the small print on the wall, out loud, just because she can.
+
+Getting there takes three things. None of them is magic, and all three have already worked somewhere.
+[pause]
+First: labs that move as fast as ideas.
+In twenty twenty-three, a lab at Berkeley ran itself.
+Robots mixed powders, heated them, measured the result, and an AI chose the next try.
+In seventeen days, it made forty-one materials it had never made before.
+Other scientists later questioned how many were truly new. That debate is healthy, and robots still struggle with delicate biology.
+But the idea is spreading: labs that work through the night, so a thousand ideas don't wait for one pair of hands.
+[pause]
+Second: trials that move at the speed of evidence, without cutting corners on safety.
+We've done this before.
+In March twenty twenty, British doctors set up one trial across many hospitals, testing several treatments at once.
+Within about a hundred days, it showed that a cheap steroid saved lives. Among the sickest patients on ventilators, it cut deaths by about a third.
+That same year, vaccines went from a genetic sequence to approval in under twelve months.
+They didn't skip the steps. They ran them side by side, with the money committed up front and regulators reading the data as it arrived.
+That was an emergency. The work now is to make that speed normal, for diseases that kill quietly.
+Health agencies and governments hold that key.
+[pause]
+Third: geniuses for everyone.
+When Google DeepMind solved the shape of proteins, it gave the results away.
+Today, more than three million researchers use it.
+That's what open results can do.
+But a market points its geniuses at what pays. Diseases of the poor pay the least.
+Even Hassabis says the industry isn't doing enough of this kind of work.
+And Amodei worries about the people who'll be left behind, even after the cures exist.
+So who decides what a country of geniuses works on?
+Right now, a handful of companies. They don't have to be the only ones.
+Governments can buy computing time for public science, the way they once built telescopes and particle colliders.
+Funders can pay for results that are shared with everyone.
+And none of it happens on its own. The labs, the governments, and the voters who choose those governments all have a hand on that door.
+
+You already carry a thousand PhDs in your pocket.
+Ask them better questions.
+What's known about the illness in your family. What's being tested. What it would take.
+If you work in science, health, or government, you're standing at that door. Hold it open.
+And ask the people you vote for one simple thing: are we building the door, or just the room?
+[pause]
+For all of history, progress was limited by how many brilliant minds we had.
+That limit is ending.
+What matters now is what we ask them.
+[pause]
+So here's my question for you.
+If a million geniuses worked for you tomorrow, what would you ask them first?
