@@ -29,14 +29,15 @@ VO:
 That's the head of one of the biggest AI labs.
 Most of us picture AI as a better chatbot. Something that writes your emails.
 The people building it picture something else.
-QUOTE CARD: Dario Amodei, "Machines of Loving Grace", Oct 2024: "We could summarize this as a 'country of geniuses in a datacenter'." [S3]
+CLIP K0 · Dario Amodei, keynote at India AI Impact Summit, Feb 2026 (upload: Business Today, 19 Feb 2026) · youtube.com/watch?v=Izm_Xuo6oGQ · 00:01:07–00:01:23
+"We're increasingly close to what I've called a country of geniuses in a data center: a set of AI agents that are more capable than most humans at most things, and can coordinate at superhuman speed." [S18]
 VO:
-He calls it a country of geniuses in a datacenter. [S3]
+In his essay, he spells it out. [S3]
 Millions of copies, each smarter than a Nobel Prize winner in most fields.
 Each working ten to a hundred times faster than you. [S3]
 He thinks it could arrive within a few years. Others think it will take much longer. [S5]
 But even the doubters are arguing about when, not whether.
-PICTURE: quote card unfolds like a printed page; "country of geniuses" glows. One silhouette at a desk splits into two, four, sixteen; a small clock above each desk spins faster than the wall clock. Then a split frame: a phone with an email draft on the left, the vast room of lights on the right.
+PICTURE: the clip plays on a screen inside the room of lights; the words "country of geniuses in a data center" lift off as glowing type. One silhouette at a desk splits into two, four, sixteen; a small clock above each desk spins faster than the wall clock. Then a split frame: a phone with an email draft on the left, the vast room of lights on the right.
 ON SCREEN: speaker name + date under the clip; "country of geniuses in a datacenter".
 LOOP: "why would copying minds change everything?"
 
