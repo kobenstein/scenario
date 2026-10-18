@@ -1,4 +1,4 @@
-// Film 02 v2 "The Curve Is Going Vertical": shot list anchored to the v2 VO (v2/audio/timing.json word times).
+// Film 02 v2 "Why AI Will Surprise Almost Everyone": shot list anchored to the v2 VO (v2/audio/timing.json word times).
 import fs from 'node:fs';
 import {
   W, H, C, rgba, clamp, lin, mix, sm, eio, eout, sine, drift, prng, img, canvas, glow, addGlow, sky, fog,
@@ -282,7 +282,7 @@ export async function build() {
     [S('01', 'In biology') - .2, K.dnaSea({ tFind: 2.2 }), 'left', 1],
     [S('01', 'In public health') - .2, K.healthMap({ tPins: .3, report: X.shrinkBar({ t0: S('01', 'In public health'), t1: S('01', 'And the month') - .7, tShrink: S('01', 'now takes'), title: 'one daily report', fromLabel: 'all day', toLabel: 'under an hour', x: 1180, y: 520, w: 600 }) }), 'left', 1],
     [S('01', 'And the month') - .3, K.hillView({ tLine: 0, dur: 2.5, hex: C.amber, from: [500, 620], to: [1840, 40] }), 'fog', 1.4],
-    [tTitle, M.title('The Curve', 'is going vertical'), 'up', 1.4],
+    [tTitle, M.title('Why AI will surprise', 'almost everyone'), 'up', 1.4],
   );
 
   // ===== 2 The long curve =====
@@ -327,21 +327,17 @@ export async function build() {
     { t: S('05', 'September twelfth'), x: D(9, 12), img: keyImg.p23_lab_night, year: 'Sep 12', title: '“slow the pace”', gap: '17 days', date: 'September 12', hold: 3 },
     { t: S('06', 'September twenty-second'), x: D(9, 22), img: keyImg.p29_office_overnight, year: 'Sep 22', title: '18 hours on one task', gap: '10 days', date: 'September 22', hold: 3 },
     { t: S('07', 'September twenty-third'), x: D(9, 23), img: keyImg.p27_dna_sea, year: 'Sep 23', title: 'a new biological system', gap: '1 day', date: 'September 23', hold: 3 },
-    { t: S('08', 'September twenty-sixth'), x: D(9, 26), img: keyImg.p34_hotline_1963, year: 'Sep 26', title: 'a US–China channel', date: 'September 26', hold: 1.6 },
-    { t: S('08', 'Twenty-ninth'), x: D(9, 29), img: keyImg.p24_parliament, year: 'Sep 29', title: '“Super Intelligence”', date: 'September 29', hold: 1.6 },
-    { t: S('08', 'Thirtieth'), x: D(9, 30), img: keyImg.p17_core_hall, year: 'Sep 30', title: 'Google', date: 'September 30', hold: 1.6 },
-    { t: S('08', 'October twelfth'), x: D(10, 12), img: keyImg.p08_dc_int, year: 'Oct 12', title: 'Meta', date: 'October 12', hold: 2 },
   ];
   const days = M2.cardLine({
     cards: dayCards, x0: -6, cardW: 210, cardH: 150,
     view: [
       { t: SEC['03'].start, x0: -8, x1: 40, y: 3 },
       { t: S('05', 'September twelfth'), x0: -8, x1: 60, y: 5, d: 2.5 },
-      { t: S('08', 'And then the cards') + 1, x0: -8, x1: 76, y: 9.5, d: 3 },
+      { t: SEC['08'].start, x0: -8, x1: 62, y: 6, d: 2.5 },
     ],
     ticks: [[8, 1, 'Aug 1'], [9, 1, 'Sep 1'], [10, 1, 'Oct 1'], [10, 15, 'Oct 15']].map(([m, d, l]) => ({ x: D(m, d), label: l })),
     counter: { t0: SEC['03'].start, top: 'the last 90 days', from: 'August 1' },
-    tail: { t: S('08', 'Four of the biggest'), dx: 3, dy: 4 },
+    tail: { t: S('08', 'But the quiet'), dx: 3, dy: 4 },
   });
   const huang = { words: WD('04', 'AI has reached', 'inflection point'), who: 'Jensen Huang', role: 'CEO, Nvidia', date: '26 Aug 2026', source: 'Earnings call, Q2 FY2027', hi: ['inflection'] };
   const agent = { words: WD('07', 'I can see', 'array', 1), who: 'A Claude agent', role: 'note in its own log', date: '23 Sep 2026', source: 'Anthropic · “Claude discovers a novel enzyme system”', hi: ['CRISPR-like'], size: 58 };
@@ -373,8 +369,11 @@ export async function build() {
     [S('07', 'I can see') - .3, M2.quotePage({ ...agent, bg: plate('p27_dna_sea', { cam: cam(1376, 760, 1.4, 1376, 740, 1.5) }) }), 'push', 1],
     [S('07', "It's a system") - .2, plate('p27_dna_sea', { cam: cam(1650, 800, 1.5, 1500, 800, 1.2), fx: (c, t, cm) => { const m = mapper(cm, .4, { dolly: .1 }); addGlow(c, m.X(1800), m.Y(820), 200 * m.k, .5 + .1 * Math.sin(t * 2), C.amber, '#fff3dd'); } }), 'dissolve', 1],
     [S('07', 'Feng Zhang') - .2, M2.quotePage({ ...zhang, bg: plate('p27_dna_sea', { cam: cam(1376, 800, 1.2, 1376, 820, 1.3) }) }), 'push', 1],
-    // the cards pile up
-    [SEC['08'].start - .3, days, 'dissolve', 1],
+    // the gaps, and why it surprises
+    [SEC['08'].start - .3, both(days, X.chips({ items: [{ t: S('08', 'Twenty-five days'), text: '25 days' }, { t: S('08', 'Seventeen'), text: '17' }, { t: S('08', 'Ten.'), text: '10' }, { t: S('08', 'One.'), text: '1', col: C.amber }], t1: S('08', 'These are the') - .2, x: 160, y: 330, size: 64 }), X.chips({ items: [{ t: S('08', 'These are the'), text: 'our picks: not every week brings one' }, { t: S('08', 'But the quiet'), text: 'but the quiet stretches shrink', col: C.amber }], t1: S('08', 'Most of us') - .6, x: 140, y: 820, size: 46 })), 'dissolve', 1],
+    [S('08', 'Most of us') - .2, K.street({ tLine: 1.2 }), 'fog', 1.2],
+    [S('08', 'Take two months') - .2, both(days, X.chips({ items: [{ t: S('08', 'Take two months'), text: '2 months away from the news' }, { t: S('08', 'missed all five'), text: '5 firsts missed', col: C.amber }], t1: 1e9, x: 140, y: 820, size: 52 })), 'dissolve', 1],
+    [S('08', "That's why this") - .2, both(K.hillView({ tLine: 0, dur: 3, hex: C.amber, from: [500, 620], to: [1840, 40] }), X.chips({ items: [{ t: S('08', 'almost everyone'), text: 'surprises almost everyone', col: C.amber }], t1: 1e9, x: 140, y: 900, size: 58 })), 'fog', 1.2],
   );
 
   // ===== 9 Why faster =====
@@ -445,10 +444,11 @@ export async function build() {
   L.push(
     [SEC['13'].start - .4, longCurve, 'fog', 1.4],
     [S('13', 'So next time') - .2, card('Who checked it?', 'When was the last one like it?', { size: 104, size2: 58, t2: S('13', 'And when was') - .2 }), 'dissolve', 1],
+    [S('13', 'This will surprise') - .2, card('It will surprise almost everyone.', 'It doesn’t have to surprise you.', { size: 78, size2: 58, t2: S('13', "It doesn't") - .2 }), 'dissolve', 1],
     [S('13', 'And if you want') - .2, plate('p24_parliament', { cam: cam(1376, 900, 1.15, 1376, 700, 1.4), fx: X.chips({ items: [{ t: S('13', 'outside testing'), text: 'outside testing:' }, { t: S('13', 'a rule'), text: 'a rule, not a favour', col: C.amber }], t1: 1e9, y: 760, size: 62 }) }), 'up', 1.4],
     [S('13', 'Somewhere on this') - .2, plate('p20_hill_dawn', { cam: cam(1250, 900, 1.25, 1600, 600, 1.3), front: you, fx: skyCurve(S('13', 'Somewhere on this'), 3.5, C.amber) }), 'fog', 1.6],
     [S('13', "What's the last") - .2, card('What’s the last AI headline', 'that made you stop?', { size: 88, size2: 60, col2: C.cream }), 'dissolve', 1.4],
-    [E('13', 'in the comments') + 1.2, M.title('The Curve', 'is going vertical'), 'dissolve', 1.6],
+    [E('13', 'in the comments') + 1.2, M.title('Why AI will surprise', 'almost everyone'), 'dissolve', 1.6],
   );
 
   if (process.env.SHOTS) { const T = TM.words; const out = L.map((x, i) => { const a = x[0], b = (L[i + 1] || [tEnd])[0]; return { i, a: +a.toFixed(1), b: +b.toFixed(1), txt: T.filter((w) => w.s >= a && w.s < b).map((w) => w.w).join(" ") }; }); fs.writeFileSync(process.env.SHOTS, JSON.stringify(out, null, 1)); }
@@ -458,7 +458,7 @@ export async function build() {
     ...drops,
     { f: 'chime', t: tTitle + .3, v: .7 },
     { f: 'tick', t: SEC['03'].start, d: SEC['08'].end - SEC['03'].start, v: .22, loop: 1 },
-    { f: 'bloom', t: S('08', 'Four of the biggest'), v: .6 },
+    { f: 'bloom', t: S('08', 'almost everyone'), v: .6 },
     { f: 'tone', t: S('09', "It isn't closed"), v: .5 },
     { f: 'teletype', t: S('12b', 'In nineteen sixty-three'), d: 6, v: .5 },
     { f: 'chime', t: S('13', "Let's make sure"), v: .5 },
