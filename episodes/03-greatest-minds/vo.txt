@@ -15,8 +15,8 @@ The people building it picture something else.
 In his essay, he spells it out.
 Millions of copies, each smarter than a Nobel Prize winner in most fields.
 Each working ten to a hundred times faster than you.
-He thinks it could arrive within a few years. Others think it will take much longer.
-But even the doubters are arguing about when, not whether.
+He thinks it could arrive within a few years.
+Others think it will take much longer, or won't look like this at all.
 
 To see why this matters, zoom out. All the way out.
 For almost all of human history, there was one simple rule. More people meant more ideas.
@@ -91,12 +91,13 @@ Robot labs tested thousands of versions in a few months. A trial that once took 
 It costs about what an eye drop costs.
 She reads the small print on the wall, out loud, just because she can.
 
-Getting there takes three things. None of them is magic, and all three have already worked somewhere.
+I don't know which future we'll get. Nobody does.
+But the second one takes three things. None of them is magic, and all three have already worked somewhere.
 [pause]
 First: labs that move as fast as ideas.
 In twenty twenty-three, a lab at Berkeley ran itself.
 Robots mixed powders, heated them, measured the result, and an AI chose the next try.
-In seventeen days, it made forty-one materials it had never made before.
+In a little over two weeks, it made dozens of materials it had never made before.
 Other scientists later questioned how many were truly new. That debate is healthy, and robots still struggle with delicate biology.
 But the idea is spreading: labs that work through the night, so a thousand ideas don't wait for one pair of hands.
 [pause]
@@ -104,7 +105,7 @@ Second: trials that move at the speed of evidence, without cutting corners on sa
 We've done this before.
 In March twenty twenty, British doctors set up one trial across many hospitals, testing several treatments at once.
 Within about a hundred days, it showed that a cheap steroid saved lives. Among the sickest patients on ventilators, it cut deaths by about a third.
-That same year, vaccines went from a genetic sequence to approval in under twelve months.
+The vaccines that year worked the same way.
 They didn't skip the steps. They ran them side by side, with the money committed up front and regulators reading the data as it arrived.
 That was an emergency. The work now is to make that speed normal, for diseases that kill quietly.
 Health agencies and governments hold that key.
@@ -115,7 +116,6 @@ Today, more than three million researchers use it.
 That's what open results can do.
 But a market points its geniuses at what pays. Diseases of the poor pay the least.
 Even Hassabis says the industry isn't doing enough of this kind of work.
-And Amodei worries about the people who'll be left behind, even after the cures exist.
 So who decides what a country of geniuses works on?
 Right now, a handful of companies. They don't have to be the only ones.
 Governments can buy computing time for public science, the way they once built telescopes and particle colliders.
@@ -126,7 +126,7 @@ You already carry a thousand PhDs in your pocket.
 Ask them better questions.
 What's known about the illness in your family. What's being tested. What it would take.
 If you work in science, health, or government, you're standing at that door. Hold it open.
-And ask the people you vote for one simple thing: are we building the door, or just the room?
+And the next time someone tells you AI will cure everything, ask one question: are we building the door, or just the room?
 [pause]
 For all of history, progress was limited by how many brilliant minds we had.
 That limit is ending.

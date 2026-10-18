@@ -2,8 +2,8 @@
 Insight: For all of history, progress was limited by how many brilliant minds we had. That limit is ending. What matters now is what we ask them, and whether the world can keep up with their answers.
 Misconception: AI = a smarter chatbot that writes your emails.
 Through-line image: ONE room full of minds (an unnamed group photo of scientists, drawn in code) that keeps multiplying, and ONE narrow door in front of it, where ideas queue. The film ends with the room full of faces from everywhere and the door wide open.
-Words: 1,335 VO (+ 7 clips ≈ 70 s) | Est. runtime: ≈ 10:30 incl. clips and pauses | Solutions share (fork + endings + how + your part): 52 %
-Status: DRAFT 1 (2026-10-18). [S#] = sources.md. CLIP = real interview audio/video with exact timestamp (decision on rights pending with Jakob); QUOTE CARD = real wording on screen, read by George.
+Words: 1317 VO (+ 7 clips ≈ 65 s) | Est. runtime: ≈ 10:15 incl. clips and pauses | Solutions share (fork + endings + how + your part): 52 %
+Status: DRAFT 2 (2026-10-18, self-review vs. skill + copywriting lessons). [S#] = sources.md. CLIP = real interview audio/video with exact timestamp (decision on rights pending with Jakob); QUOTE CARD = real wording on screen, read by George.
 Not reused from Folge 1 / Film 2: METR, Kaplan, "AI builds AI", Erdős proof, AlphaFold as main proof, exponential curve, Amodei "slow the pace".
 
 ## 1 · Hook (0:00–0:35)
@@ -35,8 +35,8 @@ VO:
 In his essay, he spells it out. [S3]
 Millions of copies, each smarter than a Nobel Prize winner in most fields.
 Each working ten to a hundred times faster than you. [S3]
-He thinks it could arrive within a few years. Others think it will take much longer. [S5]
-But even the doubters are arguing about when, not whether.
+He thinks it could arrive within a few years. [S5]
+Others think it will take much longer, or won't look like this at all.
 PICTURE: the clip plays on a screen inside the room of lights; the words "country of geniuses in a data center" lift off as glowing type. One silhouette at a desk splits into two, four, sixteen; a small clock above each desk spins faster than the wall clock. Then a split frame: a phone with an email draft on the left, the vast room of lights on the right.
 ON SCREEN: speaker name + date under the clip; "country of geniuses in a datacenter".
 LOOP: "why would copying minds change everything?"
@@ -156,12 +156,13 @@ LOOP: "how do we get the second one?"
 
 ## 9 · How we get there (7:40–10:00)
 VO:
-Getting there takes three things. None of them is magic, and all three have already worked somewhere.
+I don't know which future we'll get. Nobody does.
+But the second one takes three things. None of them is magic, and all three have already worked somewhere.
 [pause]
 First: labs that move as fast as ideas.
 In twenty twenty-three, a lab at Berkeley ran itself.
 Robots mixed powders, heated them, measured the result, and an AI chose the next try.
-In seventeen days, it made forty-one materials it had never made before. [S14]
+In a little over two weeks, it made dozens of materials it had never made before. [S14]
 Other scientists later questioned how many were truly new. That debate is healthy, and robots still struggle with delicate biology. [S14]
 But the idea is spreading: labs that work through the night, so a thousand ideas don't wait for one pair of hands.
 [pause]
@@ -169,7 +170,7 @@ Second: trials that move at the speed of evidence, without cutting corners on sa
 We've done this before.
 In March twenty twenty, British doctors set up one trial across many hospitals, testing several treatments at once. [S15]
 Within about a hundred days, it showed that a cheap steroid saved lives. Among the sickest patients on ventilators, it cut deaths by about a third. [S15]
-That same year, vaccines went from a genetic sequence to approval in under twelve months. [S16]
+The vaccines that year worked the same way. [S16]
 They didn't skip the steps. They ran them side by side, with the money committed up front and regulators reading the data as it arrived.
 That was an emergency. The work now is to make that speed normal, for diseases that kill quietly.
 Health agencies and governments hold that key.
@@ -183,17 +184,13 @@ Today, more than three million researchers use it. [S12]
 That's what open results can do.
 But a market points its geniuses at what pays. Diseases of the poor pay the least.
 Even Hassabis says the industry isn't doing enough of this kind of work. [S17]
-And Amodei worries about the people who'll be left behind, even after the cures exist.
-CLIP K5 · Dario Amodei, Dwarkesh Podcast, 13 Feb 2026 · 01:47:01–01:47:04
-"I worry that even if the cures are developed, maybe there's someone in rural Mississippi who doesn't get it." [S5]
-VO:
 So who decides what a country of geniuses works on?
 Right now, a handful of companies. They don't have to be the only ones.
 Governments can buy computing time for public science, the way they once built telescopes and particle colliders.
 Funders can pay for results that are shared with everyone.
 And none of it happens on its own. The labs, the governments, and the voters who choose those governments all have a hand on that door.
 PICTURE: (1) the narrow door gets robot arms on both sides, working through a night sky that turns to morning, powders glowing in tiny crucibles; a red margin note "disputed?" appears and stays. (2) a hospital map of Britain; one line connects many hospitals; a single cheap pill bottle lights up; next, a vaccine vial where four stage-boxes that normally sit in a long row slide side by side. (3) a library of glowing protein shapes opening its doors to a world map that lights up city by city; then a balance scale: a pile of coins on one side, a small village clinic on the other; finally a government building pouring light into a public telescope-shaped "compute dome".
-ON SCREEN: "A-Lab, Berkeley · Nature 2023"; "RECOVERY trial, UK · 2020"; "first COVID vaccine authorised Dec 2020"; "AlphaFold database · free since 2021".
+ON SCREEN: "A-Lab, Berkeley · Nature 2023 · 41 materials in 17 days"; "RECOVERY trial, UK · 2020"; "COVID vaccines: sequence Jan 2020 → authorised Dec 2020"; "AlphaFold database · free since 2021".
 LOOP: closes "how do we get the second ending?"
 
 ## 10 · Your part (10:00–10:40)
@@ -202,7 +199,7 @@ You already carry a thousand PhDs in your pocket.
 Ask them better questions.
 What's known about the illness in your family. What's being tested. What it would take.
 If you work in science, health, or government, you're standing at that door. Hold it open.
-And ask the people you vote for one simple thing: are we building the door, or just the room?
+And the next time someone tells you AI will cure everything, ask one question: are we building the door, or just the room?
 [pause]
 For all of history, progress was limited by how many brilliant minds we had.
 That limit is ending.
