@@ -63,7 +63,7 @@ LOOP: closes "why does it matter?" — opens "is it already happening?" (REVEAL 
 ## 4 · It has already started, quietly (2:40–4:00)
 VO:
 And small pieces of it already work.
-In London, a team of scientists spent about a decade on one question: how do some superbugs share their defences between species? [S6]
+In London, a team of scientists spent about a decade on one question: how do some superbugs pass their genes, including drug resistance, to other species? [S6]
 They had found the answer. They hadn't published it yet.
 Then they gave the same question to an AI system from Google.
 Within two days, its top idea matched theirs. [S6]
@@ -71,11 +71,11 @@ Within two days, its top idea matched theirs. [S6]
 In another lab, an AI system called Robin looked at a common cause of blindness in older people.
 It suggested an eye drop already sold in Japan for glaucoma. [S7]
 So far, it has only been tested on cells in a dish. It's a lead, not a cure.
-But a lead that no human had followed.
+But it was a new lead, and the idea came from a machine.
 Keep that eye drop in mind. We'll meet it again.
 [pause]
 And a piece of this is already in your pocket.
-When OpenAI launched GPT-5, Sam Altman called it a "PhD-level expert" in any area. [S13]
+When OpenAI launched GPT-5, Sam Altman said talking to it was like talking to a "PhD-level expert" in any area. [S13]
 A thousand PhDs, on call, day and night.
 Most of us use them to fix our emails.
 PICTURE: split timeline: a calendar flipping ten years of pages on one side, a clock moving two days on the other; both stop on the same drawing of a bacterium passing a tiny "key" to another. Then an eye in close-up, pupil opening as a drop falls, a petri dish under a lamp. Then "you" on a bus: from the phone screen, hundreds of tiny figures in lab coats climb out like from a door, look around expectantly; "you" types "rephrase this email more politely"; they sigh in unison.
@@ -106,7 +106,7 @@ CLIP K7 · Demis Hassabis, Fortune "Titans and Disruptors", 11 Feb 2026 · youtu
 VO:
 Look at the first drugs designed with AI.
 One, for a disease that scars the lungs, is now in its final stage of human testing. [S8]
-More than a hundred and seventy are in trials. As of this spring, not one had been approved. [S9]
+More than a hundred are now being tested in people. So far, not one has been approved. [S9]
 [pause]
 The geniuses are not the bottleneck anymore. The door is.
 Amodei puts the question better than anyone.
@@ -118,7 +118,7 @@ You can't make a cell divide faster.
 But almost everything else about that door was built by people. Rules, labs, money, priorities.
 And what people built, people can change.
 PICTURE: the room of lights from the hook; in front of it, a small, old wooden lab door. Glowing idea-cards stream out of the room and pile up into a queue that winds across a field. Through the keyhole: cells, a mouse, a hospital bed, a calendar. Second reveal: the camera pans from the dazzling room to the tiny door, and holds.
-ON SCREEN: "Rentosertib (Insilico Medicine) · Phase III since July 2026"; "170+ AI-discovered drugs in trials · 0 approved (March 2026)".
+ON SCREEN: "Rentosertib (Insilico Medicine) · Phase III since Sept 2026"; "100+ AI-discovered drugs in human trials · 0 approved (Oct 2026)".
 LOOP: closes "the part nobody talks about" (REVEAL 2, ~50 %) — opens "so what do we do?"
 
 ## 7 · The fork (6:00–6:25)
@@ -192,7 +192,7 @@ Governments can buy computing time for public science, the way they once built t
 Funders can pay for results that are shared with everyone.
 And none of it happens on its own. The labs, the governments, and the voters who choose those governments all have a hand on that door.
 PICTURE: (1) the narrow door gets robot arms on both sides, working through a night sky that turns to morning, powders glowing in tiny crucibles; a red margin note "disputed?" appears and stays. (2) a hospital map of Britain; one line connects many hospitals; a single cheap pill bottle lights up; next, a vaccine vial where four stage-boxes that normally sit in a long row slide side by side. (3) a library of glowing protein shapes opening its doors to a world map that lights up city by city; then a balance scale: a pile of coins on one side, a small village clinic on the other; finally a government building pouring light into a public telescope-shaped "compute dome".
-ON SCREEN: "A-Lab, Berkeley · Nature 2023 · 41 materials in 17 days"; "RECOVERY trial, UK · 2020"; "COVID vaccines: sequence Jan 2020 → authorised Dec 2020"; "AlphaFold database · free since 2021".
+ON SCREEN: "A-Lab, Berkeley · Nature 2023 · 41 materials in 17 days · novelty disputed, corrected 2026"; "RECOVERY trial, UK · 2020"; "COVID vaccines: sequence Jan 2020 → authorised Dec 2020"; "AlphaFold database · free since 2021".
 LOOP: closes "how do we get the second ending?"
 
 ## 10 · Your part (10:00–10:40)

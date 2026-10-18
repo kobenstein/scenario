@@ -33,7 +33,7 @@ Not more scientists. As many as we want.
 That's the real meaning of a country of geniuses.
 
 And small pieces of it already work.
-In London, a team of scientists spent about a decade on one question: how do some superbugs share their defences between species?
+In London, a team of scientists spent about a decade on one question: how do some superbugs pass their genes, including drug resistance, to other species?
 They had found the answer. They hadn't published it yet.
 Then they gave the same question to an AI system from Google.
 Within two days, its top idea matched theirs.
@@ -41,11 +41,11 @@ Within two days, its top idea matched theirs.
 In another lab, an AI system called Robin looked at a common cause of blindness in older people.
 It suggested an eye drop already sold in Japan for glaucoma.
 So far, it has only been tested on cells in a dish. It's a lead, not a cure.
-But a lead that no human had followed.
+But it was a new lead, and the idea came from a machine.
 Keep that eye drop in mind. We'll meet it again.
 [pause]
 And a piece of this is already in your pocket.
-When OpenAI launched GPT-5, Sam Altman called it a "PhD-level expert" in any area.
+When OpenAI launched GPT-5, Sam Altman said talking to it was like talking to a "PhD-level expert" in any area.
 A thousand PhDs, on call, day and night.
 Most of us use them to fix our emails.
 
@@ -60,7 +60,7 @@ Thinking was never the only slow step.
 A new medicine has to be made. Then tested on cells. Then on animals. Then on people, in stages, for years.
 Look at the first drugs designed with AI.
 One, for a disease that scars the lungs, is now in its final stage of human testing.
-More than a hundred and seventy are in trials. As of this spring, not one had been approved.
+More than a hundred are now being tested in people. So far, not one has been approved.
 [pause]
 The geniuses are not the bottleneck anymore. The door is.
 Amodei puts the question better than anyone.
