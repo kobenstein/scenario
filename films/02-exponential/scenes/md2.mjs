@@ -125,7 +125,7 @@ export const quotePage = (q) => (ctx, t, s) => {
   lines.forEach((ln, li) => {
     let x = x0; const y = -PH / 2 + 170 + li * lh;
     ln.forEach((wi) => {
-      const o = q.words[wi], wa = mix(.16, 1, eout(lin(o.s - .05, o.s + .25, t))), wd = ctx.measureText(o.w).width;
+      const o = q.words[wi], wa = mix(.5, 1, eout(lin(o.s - .05, o.s + .25, t))), wd = ctx.measureText(o.w).width;
       text(ctx, o.w, x, y, { size, font, color: hi.has(wi) && t > o.s ? '#b4631d' : ink, alpha: wa });
       if (hi.has(wi)) { const u = eout(lin(o.s, o.s + .4, t)); ctx.fillStyle = rgba(C.amber, .8); ctx.fillRect(x, y + 10, wd * u, 4); }
       x += wd + sp;

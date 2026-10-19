@@ -9,6 +9,12 @@ NUM = [('nineteen sixty-five', '1965'), ('nineteen seventy-five', '1975'), ('nin
        ('three hundred billion', '300 billion'), ('ninety-nine percent', '99%'), ('twenty percent', '20%'), ('one percent', '1%'),
        ('two hundred million', '200 million'), ('a hundred and ninety', '190'), ('two million', '2 million'), ('seventeen gigawatts', '17 gigawatts')]
 def fix(s):
+    # any spoken year 'twenty twenty-nine' / 'nineteen fifty-six' -> digits
+    U = 'one two three four five six seven eight nine'.split(); T = {'twenty': 2, 'thirty': 3, 'forty': 4, 'fifty': 5, 'sixty': 6, 'seventy': 7, 'eighty': 8, 'ninety': 9}
+    def yr(m):
+        c = {'nineteen': 19, 'twenty': 20}[m.group(1).lower()]; d = T[m.group(2).lower()] * 10 + (U.index(m.group(3).lower()) + 1 if m.group(3) else 0)
+        return f'{c}{d:02d}'
+    s = re.sub(r'\b(nineteen|twenty)[ -](twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety)(?:-(' + '|'.join(U) + r'))?\b', yr, s, flags=re.I)
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
 MAX = 40

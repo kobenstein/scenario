@@ -1,6 +1,6 @@
 // Code-drawn locations for film 02 v2 (style A). Each export returns draw(ctx, t, s). No generated images.
 import { W, H, C, rgba, clamp, lin, mix, eio, eout, sine, prng, addGlow, text, canvas } from '../engine.mjs';
-import { P, skyGrad, cityLayer, houseRow, fogBand, cone, lampPost, hill, grass, person, skyLine, finish, shade } from './world.mjs';
+import { P, skyGrad, cityLayer, houseRow, fogBand, cone, lampPost, hill, grass, person, personBack, skyLine, finish, shade } from './world.mjs';
 import { monitor } from './hook_code.mjs';
 
 const cache = new Map(); const once = (k, f) => { if (!cache.has(k)) cache.set(k, f()); return cache.get(k); };
@@ -42,7 +42,7 @@ export const datacenter = ({ walker = true, flowT = null } = {}) => (ctx, t, s) 
   for (const side of [-1, 1]) { const x0 = vx + side * 520, y0 = 30; ctx.strokeStyle = 'rgba(10,20,40,.9)'; ctx.lineWidth = 16; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(vx + side * 60, vy - 150); ctx.stroke();
     for (let k = 0; k < 6; k++) { const u = ((t * .35 + k / 6) % 1), x = mix(x0, vx + side * 60, eio(u)), y = mix(y0, vy - 150, eio(u)); addGlow(ctx, x, y, 26 * (1 - u) + 6, .8, P.cyan, '#ffffff'); } }
   fogBand(ctx, t, vy + 200, 260, { a: .18, hex: '#6fc8e8' });
-  if (walker) { const u = lin(s.a, s.b, t), x = mix(vx - 40, vx + 10, u); person(ctx, x, vy + 230 - u * 30, 240 - u * 40, t, { phase: t * 5, coat: '#d9a35f', hood: false, skin: '#b07a58' }); }
+  if (walker) { const u = lin(s.a, s.b + 2, t), k = 1 / (1 + u * 1.6); personBack(ctx, vx - 30 + u * 20, vy + 140 + 360 * k, 330 * k, t, { phase: t * 4.2, coat: '#d9a35f', skin: '#b07a58' }); }
   ctx.restore(); finish(ctx, t);
 };
 
@@ -77,9 +77,22 @@ export const office = ({ morning = null } = {}) => (ctx, t, s) => {
   ctx.fillStyle = '#0d1031'; ctx.fillRect(360, 860, 1400, 22);
   monitor(ctx, 420, 690, 230, 140, t, { seed: 2, on: .15 }); monitor(ctx, 1380, 690, 230, 140, t, { seed: 4, on: .15 });
   monitor(ctx, 860, 640, 330, 200, t, { seed: 9, kind: 'code' });
-  // empty chair, coat over it
-  ctx.fillStyle = '#0c0e2c'; ctx.fillRect(1060, 900, 110, 18); ctx.fillRect(1150, 760, 18, 150); ctx.fillRect(1100, 918, 12, 120);
-  ctx.fillStyle = P.amber; ctx.beginPath(); ctx.moveTo(1140, 770); ctx.quadraticCurveTo(1190, 760, 1185, 840); ctx.lineTo(1160, 930); ctx.lineTo(1130, 930); ctx.closePath(); ctx.fill();
+  // office chair (side view); at night empty with the engineer's coat over the backrest, in the morning the engineer is back
+  const chair = '#0c0e2c';
+  ctx.strokeStyle = chair; ctx.lineWidth = 10; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(1140, 925); ctx.lineTo(1140, 1015); ctx.moveTo(1080, 1025); ctx.lineTo(1200, 1025); ctx.stroke();
+  ctx.fillStyle = '#1a1d48'; for (const wx of [1080, 1200]) { ctx.beginPath(); ctx.arc(wx, 1032, 9, 0, 7); ctx.fill(); }
+  ctx.fillStyle = chair; ctx.beginPath(); ctx.roundRect(1070, 900, 150, 24, 10); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(1196, 740, 26, 170, 12); ctx.fill();
+  const back = m < .5;
+  if (back) {
+    // coat folded over the backrest: collar on top, front panel hanging, one sleeve
+    ctx.fillStyle = shade(P.amber, -.12); ctx.beginPath(); ctx.moveTo(1190, 752); ctx.quadraticCurveTo(1209, 728, 1230, 752); ctx.lineTo(1236, 880); ctx.lineTo(1214, 884); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = P.amber; ctx.beginPath(); ctx.moveTo(1192, 750); ctx.quadraticCurveTo(1176, 760, 1172, 800); ctx.lineTo(1168, 890); ctx.lineTo(1206, 892); ctx.lineTo(1206, 752); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = shade(P.amber, -.25); ctx.lineWidth = 9; ctx.beginPath(); ctx.moveTo(1186, 770); ctx.quadraticCurveTo(1170, 830, 1180, 880); ctx.stroke();
+    ctx.fillStyle = shade(P.amber, -.3); ctx.beginPath(); ctx.ellipse(1209, 750, 18, 7, 0, Math.PI, 0); ctx.fill();
+  } else {
+    ctx.save(); ctx.globalAlpha = clamp((m - .5) * 2, 0, 1); person(ctx, 1150, 1012, 300, t, { sit: true, typing: true, flip: true, coat: P.amber, hood: false }); ctx.restore();
+  }
   // coffee cup with steam
   ctx.fillStyle = '#e9d9be'; ctx.fillRect(1240, 838, 30, 26);
   ctx.restore();

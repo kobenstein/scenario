@@ -128,7 +128,8 @@ const DOTS_ = (() => { const [c, x] = canvas(8, 8); x.fillStyle = '#fff'; x.begi
 
 // ---------- biology: strands of DNA drift in the dark; a swarm of searchers lights one pattern no one has seen ----------
 export const dnaSea = ({ tFind = 2.2, tFindAbs = null, label = true } = {}) => (ctx, t, s) => {
-  const u = sine(lin(s.a, s.b, t)); if (tFindAbs !== null) tFind = tFindAbs - s.a;
+  // with an absolute find time the camera runs on one continuous clock, so cuts between dnaSea shots don't jump
+  const u = tFindAbs !== null ? sine(lin(tFindAbs - 10, tFindAbs + 30, t)) : sine(lin(s.a, s.b, t)); if (tFindAbs !== null) tFind = tFindAbs - s.a;
   skyGrad(ctx, { t, stars: .2, top: '#06081f', mid: '#0d1440', bottom: '#14306a' });
   const strands = [[180, .9, 0], [420, .6, 1], [640, 1.15, 2], [860, .75, 3]];
   ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(mix(1, 1.15, u), mix(1, 1.15, u)); ctx.translate(-W / 2 - u * 120, -H / 2);

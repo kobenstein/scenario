@@ -210,6 +210,27 @@ export function person(ctx, x, y, h, t, { phase = null, coat = P.amber, dark = '
   ctx.restore();
 }
 
+// a figure seen from behind, walking away from the camera (into depth)
+export function personBack(ctx, x, y, h, t, { phase = 0, coat = P.amber, dark = '#121434', skin = '#c98f6a', hair = '#1a1530', hood = false } = {}) {
+  const s = h / 100; ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+  const bob = Math.abs(Math.cos(phase)) * 1.4, hipY = -45 - bob, sh = hipY - 38;
+  ctx.fillStyle = 'rgba(4,5,18,.5)'; ctx.beginPath(); ctx.ellipse(0, 0, 14, 3, 0, 0, 7); ctx.fill();
+  // legs side by side; the leg in its swing phase is lifted and shortened (foot moves away from us)
+  ctx.strokeStyle = dark; ctx.lineWidth = 7; ctx.lineCap = 'round';
+  for (const [lx, ph] of [[-5, 0], [5, Math.PI]]) { const lift = Math.max(0, Math.sin(phase + ph)), fy = -lift * 9; ctx.beginPath(); ctx.moveTo(lx * .8, hipY); ctx.lineTo(lx, fy); ctx.stroke(); ctx.fillStyle = shade(dark, -.05); ctx.beginPath(); ctx.ellipse(lx, fy, 4.5, 2.4, 0, 0, 7); ctx.fill(); }
+  // arms just outside the coat, swinging in depth (seen as a slight up/down of the hand)
+  ctx.strokeStyle = shade(coat, -.25); ctx.lineWidth = 5.5;
+  for (const [ax, ph] of [[-12, Math.PI], [12, 0]]) { const sw = Math.sin(phase + ph) * 4; ctx.beginPath(); ctx.moveTo(ax * .8, sh + 6); ctx.lineTo(ax * 1.05, sh + 30 - sw); ctx.stroke(); ctx.fillStyle = skin; ctx.beginPath(); ctx.arc(ax * 1.07, sh + 33 - sw, 2.6, 0, 7); ctx.fill(); }
+  // coat from behind: rounded shoulders, slight flare, centre seam
+  ctx.fillStyle = coat; ctx.beginPath(); ctx.moveTo(-4, sh - 2); ctx.bezierCurveTo(-10, sh - 2, -12, sh + 3, -12, sh + 10); ctx.lineTo(-14, hipY + 16); ctx.lineTo(14, hipY + 16); ctx.lineTo(12, sh + 10); ctx.bezierCurveTo(12, sh + 3, 10, sh - 2, 4, sh - 2); ctx.closePath(); ctx.fill();
+  ctx.save(); ctx.clip(); ctx.fillStyle = shade(coat, -.18); ctx.fillRect(4, sh - 4, 20, 80); ctx.globalAlpha = .28; ctx.fillStyle = ctx.createPattern(DOTS, 'repeat'); ctx.fillRect(-20, sh + 18, 44, 50); ctx.restore();
+  ctx.strokeStyle = shade(coat, -.3); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, sh + 6); ctx.lineTo(0, hipY + 16); ctx.stroke();
+  // back of the head
+  ctx.fillStyle = hood ? shade(coat, -.08) : hair; ctx.beginPath(); ctx.ellipse(0, sh - 9, hood ? 8.8 : 6.8, hood ? 9.6 : 8, 0, 0, 7); ctx.fill();
+  if (!hood) { ctx.fillStyle = skin; ctx.fillRect(-2.5, sh - 3, 5, 3); }
+  ctx.restore();
+}
+
 // a car with headlights driving along y (screen), direction d
 export function car(ctx, x, y, s, d = 1, { col = '#0f1236' } = {}) {
   ctx.save(); ctx.translate(x, y); ctx.scale(d * s, s);
