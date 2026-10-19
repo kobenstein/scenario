@@ -99,7 +99,7 @@ const threeDials = (T) => {
     ctx.restore();
     // a small label after "still open"
     const la = sm(lin(tOpen - .2, tOpen + .4, t)) * (1 - sm(lin(s.b - .5, s.b, t)));
-    if (la > 0) text(ctx, 'THREE CHOICES · STILL OPEN', 960, 980, { size: 22, weight: 600, color: P.amber, align: 'center', spacing: 8, alpha: la });
+    if (la > 0) text(ctx, 'THREE CHOICES · STILL OPEN', 960, 880, { size: 22, weight: 600, color: P.amber, align: 'center', spacing: 8, alpha: la });
     finish(ctx, t, { vig: .6 });
   };
 };

@@ -437,7 +437,7 @@ const eye = (T) => {
       const sp = eout(lin(tBlind - .2, tEnd - .3, t));
       if (sp > 0) { const dg = ctx.createRadialGradient(900, 560, 0, 900, 560, 70 + 300 * sp); dg.addColorStop(0, 'rgba(20,8,16,.92)'); dg.addColorStop(.7, 'rgba(20,8,16,.6)'); dg.addColorStop(1, 'rgba(20,8,16,0)'); ctx.fillStyle = dg; ctx.beginPath(); for (let i = 0; i <= 40; i++) { const a = i / 40 * Math.PI * 2, rr = (70 + 300 * sp) * (1 + .12 * Math.sin(a * 5 + t)); ctx[i ? 'lineTo' : 'moveTo'](900 + Math.cos(a) * rr, 560 + Math.sin(a) * rr); } ctx.fill(); }
       ctx.restore();
-      text(ctx, 'a common cause of blindness', 960, 960, { size: 40, font: 'Instrument Serif Italic', align: 'center', color: C.cream, alpha: lin(tBlind, tBlind + .5, t) * ret });
+      text(ctx, 'a common cause of blindness', 960, 870, { size: 40, font: 'Instrument Serif Italic', align: 'center', color: C.cream, alpha: lin(tBlind, tBlind + .5, t) * ret });
       // a drop falls in from above (carrier → eye-drop shot)
       const df = lin(tEnd - .9, tEnd, t); if (df > 0) { const dy = mix(-80, 300, ein(df)); ctx.fillStyle = rgba('#e8fbff', .9); ctx.beginPath(); ctx.moveTo(960, dy - 50); ctx.quadraticCurveTo(990, dy, 960, dy + 22); ctx.quadraticCurveTo(930, dy, 960, dy - 50); ctx.fill(); addGlow(ctx, 960, dy, 60, .7, C.cyan, '#ffffff'); }
     }
@@ -563,7 +563,7 @@ const forest = (T) => {
       for (let i = 0; i < 2; i++) { const q = ((t - tMeet) * .5 + i / 2) % 1; if (t > tMeet) { ctx.strokeStyle = rgba(P.amber, .4 * (1 - q) * ka); ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(dx, dy, 30 + q * 90, 0, 7); ctx.stroke(); } }
     }
     const ma = lin(tMach - .4, tMach + .2, t) * (1 - lin(tKeep - .3, tKeep + .1, t));
-    text(ctx, 'the idea came from a machine', 960, 980, { size: 44, font: 'Instrument Serif Italic', align: 'center', color: C.cream, alpha: ma });
+    text(ctx, 'the idea came from a machine', 960, 870, { size: 44, font: 'Instrument Serif Italic', align: 'center', color: C.cream, alpha: ma });
     finish(ctx, t, { vig: .6 });
   };
 };

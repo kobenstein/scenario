@@ -307,7 +307,7 @@ const chute = (T) => {
     const tL = c.end - 2.4, lf = lin(tL, tL + 1, t);
     if (lf > 0) { const x = mix(1500, FALLEN.x, lf), y = Math.min(mix(620, FALLEN.y, ein(lf)), FALLEN.y); capsule(ctx, x, y, 44, lf * 5); addGlow(ctx, x, y, 80 + 60 * sm(lin(tL + 1, c.end, t)), .7, C.cyan, C.cyanWhite); }
     ctx.restore();
-    clipLabel(ctx, t, T, 'K7', 110, 900);
+    clipLabel(ctx, t, T, 'K7', 110, 870);
     finish(ctx, t, { vig: .5 });
   };
 };
@@ -376,7 +376,7 @@ const lungs = (T) => {
     molecule(ctx, mpath.x, mpath.y, mix(MOL0.s, .16, eout(clamp(m * 2))), t, { glowA: .5 });
     // on-screen fact
     const la = sm(lin(tFinal - .2, tFinal + .4, t)) * (1 - sm(lin(s.b - .5, s.b, t)));
-    if (la > 0) { text(ctx, 'Rentosertib (Insilico Medicine)', 110, 920, { size: 40, font: 'Instrument Serif', alpha: la }); text(ctx, 'PHASE III SINCE SEPT 2026', 110, 960, { size: 18, weight: 600, color: P.amber, alpha: la, spacing: 5 }); }
+    if (la > 0) { text(ctx, 'Rentosertib (Insilico Medicine)', 110, 840, { size: 40, font: 'Instrument Serif', alpha: la }); text(ctx, 'PHASE III SINCE SEPT 2026', 110, 880, { size: 18, weight: 600, color: P.amber, alpha: la, spacing: 5 }); }
     finish(ctx, t, { vig: .55 });
   };
 };
@@ -422,9 +422,9 @@ const waiting = (T) => {
     ctx.restore();
     // on-screen numbers
     const a1 = sm(lin(t0 + .3, t0 + .9, t)) * (1 - sm(lin(s.b - .6, s.b - .1, t)));
-    if (a1 > 0) { text(ctx, '100+', 110, 930, { size: 72, font: 'Instrument Serif', color: C.cream, alpha: a1 }); text(ctx, 'AI-DISCOVERED DRUGS IN HUMAN TRIALS', 260, 922, { size: 18, weight: 600, color: C.muted, spacing: 4, alpha: a1 }); }
+    if (a1 > 0) { text(ctx, '100+', 110, 810, { size: 72, font: 'Instrument Serif', color: C.cream, alpha: a1 }); text(ctx, 'AI-DISCOVERED DRUGS IN HUMAN TRIALS', 260, 802, { size: 18, weight: 600, color: C.muted, spacing: 4, alpha: a1 }); }
     const a2 = sm(lin(tNot, tNot + .5, t)) * (1 - sm(lin(s.b - .6, s.b - .1, t)));
-    if (a2 > 0) { text(ctx, '0', 110, 1010, { size: 72, font: 'Instrument Serif', color: P.amber, alpha: a2 }); text(ctx, 'APPROVED · OCT 2026', 170, 1002, { size: 18, weight: 600, color: P.amber, spacing: 4, alpha: a2 }); }
+    if (a2 > 0) { text(ctx, '0', 110, 890, { size: 72, font: 'Instrument Serif', color: P.amber, alpha: a2 }); text(ctx, 'APPROVED · OCT 2026', 170, 882, { size: 18, weight: 600, color: P.amber, spacing: 4, alpha: a2 }); }
     finish(ctx, t, { vig: .55 });
   };
 };
@@ -510,7 +510,7 @@ const tvClip = (T) => {
     tvSet(ctx, 760, 1040, .95, t, (scr) => { clipScreen(ctx, t, T, 'K2', scr.x, scr.y, scr.w, scr.h, { radius: 24, bezel: false }); clipQuote(ctx, t, T, 'K2', scr.x + 40, scr.y + scr.h - 40, scr.w - 80, 28); });
     grass(ctx, t, 150, 1450, () => 1045, { n: 160, col: '#1b2058', h: 60, seed: 9 });
     ctx.restore();
-    clipLabel(ctx, t, T, 'K2', 110, 900);
+    clipLabel(ctx, t, T, 'K2', 110, 870);
     finish(ctx, t, { vig: .5 });
   };
 };

@@ -112,7 +112,7 @@ const book = (T) => {
     ctx.restore();
     addGlow(ctx, 960, 540, 600, .18 * fold, P.amber, '#fff3dd');
     // spine thickness callout: "ten pages thin"
-    text(ctx, '“the compressed 21st century”', 960, 990, { size: 44, font: 'Instrument Serif Italic', align: 'center', color: C.cream, alpha: lin(tC, tC + .5, t) * (1 - lin(s.b - .5, s.b, t)) });
+    text(ctx, '“the compressed 21st century”', 960, 880, { size: 44, font: 'Instrument Serif Italic', align: 'center', color: C.cream, alpha: lin(tC, tC + .5, t) * (1 - lin(s.b - .5, s.b, t)) });
     finish(ctx, t, { vig: .5 });
   };
 };

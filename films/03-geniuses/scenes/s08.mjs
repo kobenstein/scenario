@@ -626,7 +626,7 @@ const clipK8 = (T) => {
     clipScreen(ctx, t, T, 'K8', 960 - sw / 2, 540 - sh / 2, sw, sh, { radius: 8 });
     clipQuote(ctx, t, T, 'K8', 960 - sw / 2 + 60, 540 + sh / 2 - 50, sw - 120, 34);
     ctx.restore();
-    clipLabel(ctx, t, T, 'K8', 110, 960);
+    clipLabel(ctx, t, T, 'K8', 110, 870);
     finish(ctx, t, { vig: .45 });
   };
 };

@@ -161,7 +161,7 @@ const spreadIdeas = (T) => {
     for (const p of pops) { if (p.L.d > mix(.06, 1.05, u) - .05) continue; const tp = t0 + .5 + p.L.d * (t1 - t0) + p.dt * .8, [x, y, z] = proj(p.L.lon, p.L.lat, g); if (z < .2) continue;
       spark(ctx, x, y, tp, t, .8); const a = sm(lin(tp, tp + .3, t)) * (1 - sm(lin(tp + 1.6, tp + 2.2, t))); icon(ctx, p.k, x, y - 26 - 10 * sm(lin(tp, tp + 1, t)), .9, a); }
     const a = sm(lin(tIdeas - .3, tIdeas + .3, t)) * (1 - sm(lin(t1 - .4, t1, t)));
-    text(ctx, 'more people, more ideas', 960, 1000, { size: 46, font: 'Instrument Serif', align: 'center', alpha: a });
+    text(ctx, 'more people, more ideas', 960, 880, { size: 46, font: 'Instrument Serif', align: 'center', alpha: a });
     finish(ctx, t, { vig: .55 });
   };
 };
@@ -404,7 +404,7 @@ const hourglassLow = (T) => {
     const z = mix(1, 1.06, sine(lin(s.a, s.b, t))); ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2);
     hourglass(ctx, t, { level });
     ctx.restore();
-    const a = sm(lin(tRun - .2, tRun + .4, t)); text(ctx, 'running out of geniuses', 960, 1010, { size: 44, font: 'Instrument Serif', align: 'center', alpha: a * .9 });
+    const a = sm(lin(tRun - .2, tRun + .4, t)); text(ctx, 'running out of geniuses', 1300, 560, { size: 44, font: 'Instrument Serif', align: 'left', alpha: a * .9 });
     finish(ctx, t, { vig: .55 });
   };
 };

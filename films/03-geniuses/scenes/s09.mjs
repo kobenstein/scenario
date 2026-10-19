@@ -588,7 +588,7 @@ const ward = (T) => {
     }
     ctx.restore();
     const la = sm(lin(tCut + .4, tCut + 1, t));
-    text(ctx, 'ON VENTILATORS: ABOUT ONE THIRD FEWER DEATHS', 960, 990, { size: 22, weight: 600, color: C.cream, align: 'center', alpha: .85 * la, spacing: 5 });
+    text(ctx, 'ON VENTILATORS: ABOUT ONE THIRD FEWER DEATHS', 960, 880, { size: 22, weight: 600, color: C.cream, align: 'center', alpha: .85 * la, spacing: 5 });
     void t0;
     finish(ctx, t, { vig: .55 });
   };
@@ -626,7 +626,7 @@ const vaccine = (T) => {
     drawRing(true);
     ctx.restore();
     const la = sm(lin(t0 + .5, t0 + 1.1, t));
-    text(ctx, 'SEQUENCE JAN 2020  →  AUTHORISED DEC 2020', 960, 960, { size: 22, weight: 600, color: C.cream, align: 'center', alpha: .85 * la, spacing: 5 });
+    text(ctx, 'SEQUENCE JAN 2020  →  AUTHORISED DEC 2020', 960, 880, { size: 22, weight: 600, color: C.cream, align: 'center', alpha: .85 * la, spacing: 5 });
     finish(ctx, t, { vig: .5 });
   };
 };
@@ -835,7 +835,7 @@ const clipK9 = (T) => {
       protein(ctx, x, y, mix(.35, .6, q), t * 1.4 + k, { seed: 70 + k, hex: JAR_COLS[k % 6], a: Math.sin(q * Math.PI) * .9, wings: 1 });
     }
     ctx.restore();
-    clipLabel(ctx, t, T, 'K9', 110, 960);
+    clipLabel(ctx, t, T, 'K9', 110, 870);
     finish(ctx, t, { vig: .5 });
   };
 };
@@ -866,7 +866,7 @@ const worldLand = (T) => {
     ctx.restore();
     const a = sm(lin(tMil - .3, tMil + .3, t));
     text(ctx, '3 million+', 110, 930, { size: 84, font: 'Instrument Serif', alpha: a });
-    text(ctx, 'RESEARCHERS USE IT', 114, 975, { size: 20, weight: 600, color: C.muted, alpha: a, spacing: 6 });
+    text(ctx, 'RESEARCHERS USE IT', 114, 885, { size: 20, weight: 600, color: C.muted, alpha: a, spacing: 6 });
     finish(ctx, t, { vig: .5 });
   };
 };

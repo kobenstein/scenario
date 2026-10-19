@@ -164,7 +164,7 @@ const holdDoor = (T) => {
       person(ctx, px, 900, 360, t, { coat: r.coat, hood: false, flip: i === 2, hair: ['#2a2030', '#4a3020', '#1a1a1a'][i], skin: ['#c98f6a', '#8a5a40', '#e0b090'][i], look: lean, arm: (c, sh) => { c.beginPath(); c.moveTo(3, sh + 5); c.lineTo(20, sh + 2 - lean * 10); c.lineTo(34, sh - 6 - lean * 16); c.stroke(); } });
       addGlow(ctx, px + (i === 2 ? -20 : 20), 700, 120, .25 * o, P.amber, '#fff3dd');
       ctx.restore();
-      text(ctx, r.label, px, 960, { size: 18, weight: 600, color: C.cream, align: 'center', alpha: a * .85, spacing: 6 });
+      text(ctx, r.label, px, 505, { size: 18, weight: 600, color: C.cream, align: 'center', alpha: a * .85, spacing: 6 });
     });
     ctx.restore();
     finish(ctx, t, { vig: .55 });

@@ -76,7 +76,7 @@ const shopTV = (T) => {
     const r = prng(12); ctx.strokeStyle = 'rgba(200,225,255,.18)'; ctx.lineWidth = 1.2;
     for (let i = 0; i < 160; i++) { const x0 = r() * (W + 400) - 200, sp = 900 + r() * 400, y0 = ((r() * H + t * sp) % (H + 100)) - 50; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0 - 6, y0 + 22); ctx.stroke(); }
     ctx.restore();
-    if (uPush < .2) clipLabel(ctx, t, T, 'K1', 110, 930);
+    if (uPush < .2) clipLabel(ctx, t, T, 'K1', 110, 870);
     finish(ctx, t, { vig: .55 * (1 - uPush) });
   };
 };
@@ -259,7 +259,7 @@ function hallPlan(ctx, t, u, { a = 1, flicker = 0 } = {}) {
   }
   ctx.globalAlpha = a;
   // dimension lines + labels
-  if (u > .6) { const la = clamp((u - .6) / .3); ctx.globalAlpha = a * la; ctx.setLineDash([8, 8]); ctx.beginPath(); ctx.moveTo(160, 1040); ctx.lineTo(1760, 1040); ctx.stroke(); ctx.setLineDash([]); text(ctx, 'HALL A  ·  MANY THOUSANDS OF RACKS', 960, 1030, { size: 18, weight: 600, align: 'center', color: BPL, alpha: a * la, spacing: 6 }); }
+  if (u > .6) { const la = clamp((u - .6) / .3); ctx.globalAlpha = a * la; ctx.setLineDash([8, 8]); ctx.beginPath(); ctx.moveTo(160, 930); ctx.lineTo(1760, 930); ctx.stroke(); ctx.setLineDash([]); text(ctx, 'HALL A  ·  MANY THOUSANDS OF RACKS', 960, 920, { size: 18, weight: 600, align: 'center', color: BPL, alpha: a * la, spacing: 6 }); }
   ctx.restore();
 }
 const blueprint = (T) => {
@@ -323,7 +323,7 @@ const clipHall = (T) => {
         x += ww;
       });
     }
-    clipLabel(ctx, t, T, 'K0', 110, 940);
+    clipLabel(ctx, t, T, 'K0', 110, 870);
     finish(ctx, t, { vig: .5 });
   };
 };

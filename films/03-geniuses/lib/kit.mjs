@@ -66,7 +66,9 @@ export function clipScreen(ctx, t, T, id, x, y, w, h, o = {}) {
     // quote card (source not downloadable): the quote writes itself onto the screen, word by word
     const g = ctx.createRadialGradient(x + w * .5, y + h * .4, 0, x + w * .5, y + h * .4, w * .75);
     g.addColorStop(0, rgba('#1c2a5c', on)); g.addColorStop(1, rgba('#060818', on)); ctx.fillStyle = g; ctx.fillRect(x, y, w, h);
-    const words = info.quote.split(' '), n = words.length, shown = clamp((t - c.start - .3) / (c.end - c.start - 2.2)) * n;
+    const words = info.quote.split(' '), n = words.length, ws = CLIPS[id].wordStarts;
+    // read aloud: each word appears as the voice says it; otherwise an even reveal
+    const shown = ws ? ws.reduce((k, s0, i) => k + clamp((t - c.start - s0) / .25), 0) : clamp((t - c.start - .3) / (c.end - c.start - 2.2)) * n;
     const size = Math.round(h * .1), lh = size * 1.28, maxW = w * .8; ctx.font = `400 ${size}px "Instrument Serif"`;
     const lines = []; let cur = [];
     words.forEach((wd, i) => { const nx = [...cur, [wd, i]]; if (cur.length && ctx.measureText(nx.map((q) => q[0]).join(' ')).width > maxW) { lines.push(cur); cur = [[wd, i]]; } else cur = nx; });
