@@ -15,7 +15,7 @@ export async function build() {
   const want = process.env.SECS ? process.env.SECS.split(',') : ALL;
   const list = [];
   for (const id of want) {
-    const f = new URL(`./scenes/s${id}.mjs`, import.meta.url);
+    const f = new URL(id === 'hill' ? './scenes/hill.mjs' : `./scenes/s${id}.mjs`, import.meta.url);
     if (!fs.existsSync(f)) continue;
     const mod = await import(f.href);
     const shots = await mod.default(T);

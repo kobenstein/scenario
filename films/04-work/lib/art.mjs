@@ -169,14 +169,14 @@ export function cone(ctx, x, y, { dir = 0, spread = .45, len = 500, col = C.ambe
 export function pool(ctx, x, y, rx, ry, { col = C.amber, a = .6, k = .7, seed = 1, op = 'lighter', cell = 1, rot = 0 } = {}) {
   const [c, g] = layer(); g.translate(x, y); g.rotate(rot); g.scale(1, ry / rx);
   const rg = g.createRadialGradient(0, 0, 0, 0, 0, rx); rg.addColorStop(0, rgba(col, a)); rg.addColorStop(.4, rgba(col, a * .5)); rg.addColorStop(1, rgba(col, 0));
-  g.fillStyle = rg; g.beginPath(); g.arc(0, 0, rx, 0, 7); g.fill();
+  g.fillStyle = rg; g.beginPath(); g.arc(0, 0, rx, 0, 7); g.fill(); g.setTransform(1, 0, 0, 1, 0, 0);   // putImageData would inherit the transform
   stipple(c, { k, g: 1.2, seed, cell }); put(ctx, c, { op }); return c;
 }
 // Smooth radial glow with stippled outer falloff (bloom around a hero light)
 export function bloom(ctx, x, y, r, { col = C.amber, core = C.amberHot, a = .6, k = .5, seed = 1, sy = 1, op = 'lighter' } = {}) {
   const [c, g] = layer(); g.translate(x, y); g.scale(1, sy);
   const rg = g.createRadialGradient(0, 0, 0, 0, 0, r); rg.addColorStop(0, rgba(core, a)); rg.addColorStop(.15, rgba(col, a * .6)); rg.addColorStop(.5, rgba(col, a * .18)); rg.addColorStop(1, rgba(col, 0));
-  g.fillStyle = rg; g.beginPath(); g.arc(0, 0, r, 0, 7); g.fill(); stipple(c, { k, g: 1.2, seed }); put(ctx, c, { op }); return c;
+  g.fillStyle = rg; g.beginPath(); g.arc(0, 0, r, 0, 7); g.fill(); g.setTransform(1, 0, 0, 1, 0, 0); stipple(c, { k, g: 1.2, seed }); put(ctx, c, { op }); return c;
 }
 
 // ---------------------------------------------------------------- houses
