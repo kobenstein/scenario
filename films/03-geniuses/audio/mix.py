@@ -23,9 +23,9 @@ duck = np.interp(np.arange(N), np.arange(len(act)) * hop, act)
 clipbuf = np.zeros((N, 2), np.float32)
 for c in timing.get('clips', []):
     s0, s1 = int(c['start'] * SR), int(c['end'] * SR)
-    duck[max(0, s0 - SR // 4):s1 + SR // 4] = np.maximum(duck[max(0, s0 - SR // 4):s1 + SR // 4], 1)
     f = A + f"../clips/{c['id']}.wav"
-    if os.path.exists(f):
+    if os.path.exists(f):   # quote cards (no clip audio) keep the music up
+        duck[max(0, s0 - SR // 4):s1 + SR // 4] = np.maximum(duck[max(0, s0 - SR // 4):s1 + SR // 4], 1)
         x = load(f); x *= db(-20) / rms(x[np.abs(x).max(1) > 1e-3])
         n = min(len(x), s1 - s0); clipbuf[s0:s0 + n] += x[:n]
 def place(buf, x, t, gain=1.0, fin=0.0, fout=0.0, d=None, loop=False):
@@ -47,8 +47,9 @@ for c in json.load(open(A + 'sound_plan.json')):
     if c['f'] not in cache: cache[c['f']] = load(A + f"sfx/{c['f']}.mp3")
     x = cache[c['f']]
     if c.get('loop'): g = db(-30) / rms(x) * c['v']; place(sfx, x, c['t'], g, c.get('fade', .8), c.get('fade', .8), c.get('d'), True)
-    else: g = db(-14) / (np.abs(x).max() + 1e-9) * c['v']; place(sfx, x, c['t'], g, .02, .3 if not c.get('d') else c.get('fade', .3), c.get('d'))
-sfx *= (1 - 0.35 * duck)[:, None]
+    else:   # accents that land on speech get +5 dB so they are not masked
+        g = db(-14) / (np.abs(x).max() + 1e-9) * c['v'] * (db(5) if duck[min(N - 1, int(c['t'] * SR))] > .5 else 1); place(sfx, x, c['t'], g, .02, .3 if not c.get('d') else c.get('fade', .3), c.get('d'))
+sfx *= (1 - 0.15 * duck)[:, None]
 mix = vo + clipbuf + music + sfx
 for name, buf in [('stem_music', music), ('stem_sfx', sfx), ('premix', mix)]:
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-i', '-', A + name + '.wav'], input=buf.astype(np.float32).tobytes(), check=True)

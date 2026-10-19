@@ -1,6 +1,6 @@
 // Shared helpers for film 03: VO timing lookup, interview-clip screens, quote cards, lower thirds.
 import fs from 'node:fs';
-import { Image } from '@napi-rs/canvas';
+import { loadImage } from '@napi-rs/canvas';
 import { W, H, C, rgba, clamp, lin, mix, sm, eout, eio, text, addGlow, glow, canvas } from '../engine.mjs';
 
 const ROOT = '/mnt/project-files/scenario/film-03-geniuses/';
@@ -33,16 +33,23 @@ export function timing(file) {
 // ---------- interview clips ----------
 const CLIPS = JSON.parse(fs.readFileSync(ROOT + 'audio/clips.json', 'utf8'));
 const frameCache = new Map();
-function clipFrame(id, k) {
-  const f = `${ROOT}clips/${id}/f${String(k).padStart(5, '0')}.jpg`;
-  if (!fs.existsSync(f)) return null;
-  if (frameCache.size > 40) frameCache.clear();
-  if (!frameCache.has(f)) { const im = new Image(); im.src = fs.readFileSync(f); frameCache.set(f, im); }
-  return frameCache.get(f);
+const framePath = (id, k) => `${ROOT}clips/${id}/f${String(CLIPS[id].maxFrame ? Math.min(k, CLIPS[id].maxFrame) : k).padStart(5, '0')}.jpg`;
+const frameIndex = (c, t) => Math.floor(clamp(t - c.start, 0, c.end - c.start) * 30) + 1;
+// JPEG decoding in @napi-rs/canvas is async, so the renderer awaits prepareClips(T, t) before each frame;
+// clipFrame then only reads the decoded image from the cache.
+export async function prepareClips(T, t) {
+  for (const c of Object.values(T.clips)) {
+    if (t < c.start - .7 || t > c.end + .7 || CLIPS[c.id].card) continue;
+    const f = framePath(c.id, frameIndex(c, t));
+    if (frameCache.has(f) || !fs.existsSync(f)) continue;
+    if (frameCache.size > 40) frameCache.delete(frameCache.keys().next().value);
+    frameCache.set(f, await loadImage(f));
+  }
 }
+function clipFrame(id, k) { return frameCache.get(framePath(id, k)) || null; }
 export const clipInfo = (id) => {
   const c = CLIPS[id]; const parts = c.who.replace(/\s*\(.*?\)/g, '').split(',').map((x) => x.trim());
-  return { name: parts[0], source: parts.slice(1, -1).join(', ') || parts[1] || '', date: parts[parts.length - 1], quote: c.quote };
+  return { name: parts[0], source: parts.slice(1, -1).join(', ') || parts[1] || '', date: parts[parts.length - 1], quote: c.quote, card: !!c.card };
 };
 // Draw an interview clip into a screen rectangle (x, y, w, h) that belongs to the scene (TV, canvas, monitor).
 // Uses the real clip frames from clips/<id>/f00001.jpg… (30 fps, extracted once the YouTube download works);
@@ -54,9 +61,24 @@ export function clipScreen(ctx, t, T, id, x, y, w, h, o = {}) {
   ctx.save();
   ctx.beginPath(); ctx.roundRect(x, y, w, h, o.radius ?? 6); ctx.clip();
   ctx.fillStyle = '#05060f'; ctx.fillRect(x, y, w, h);
-  const k = Math.floor(clamp(t - c.start, 0, c.end - c.start) * 30) + 1;
-  const fr = clipFrame(id, k);
-  if (fr) {
+  const fr = info.card ? null : clipFrame(id, frameIndex(c, t));
+  if (info.card) {
+    // quote card (source not downloadable): the quote writes itself onto the screen, word by word
+    const g = ctx.createRadialGradient(x + w * .5, y + h * .4, 0, x + w * .5, y + h * .4, w * .75);
+    g.addColorStop(0, rgba('#1c2a5c', on)); g.addColorStop(1, rgba('#060818', on)); ctx.fillStyle = g; ctx.fillRect(x, y, w, h);
+    const words = info.quote.split(' '), n = words.length, shown = clamp((t - c.start - .3) / (c.end - c.start - 2.2)) * n;
+    const size = Math.round(h * .1), lh = size * 1.28, maxW = w * .8; ctx.font = `400 ${size}px "Instrument Serif"`;
+    const lines = []; let cur = [];
+    words.forEach((wd, i) => { const nx = [...cur, [wd, i]]; if (cur.length && ctx.measureText(nx.map((q) => q[0]).join(' ')).width > maxW) { lines.push(cur); cur = [[wd, i]]; } else cur = nx; });
+    if (cur.length) lines.push(cur);
+    const y0 = y + h * .46 - (lines.length - 1) * lh / 2;
+    text(ctx, '“', x + w * .1 - size * .2, y0 - lh * .55, { size: size * 2.2, font: 'Instrument Serif', color: C.amber, alpha: .8 * on });
+    lines.forEach((ln, li) => {
+      let xx = x + w * .1;
+      for (const [wd, i] of ln) { const a = clamp(shown - i) * on; text(ctx, wd, xx, y0 + li * lh + (1 - a) * 6, { size, font: 'Instrument Serif', color: C.cream, alpha: a }); xx += ctx.measureText(wd + ' ').width; ctx.font = `400 ${size}px "Instrument Serif"`; }
+    });
+    text(ctx, `— ${info.name}`.toUpperCase(), x + w * .1, y0 + lines.length * lh + size * .3, { size: Math.round(size * .42), weight: 600, color: C.muted, alpha: on * sm(lin(c.start + 1, c.start + 2, t)), spacing: 4 });
+  } else if (fr) {
     const s = Math.max(w / fr.width, h / fr.height), dw = fr.width * s, dh = fr.height * s;
     ctx.globalAlpha = on; ctx.drawImage(fr, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh); ctx.globalAlpha = 1;
   } else {

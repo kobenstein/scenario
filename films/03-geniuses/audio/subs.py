@@ -11,7 +11,7 @@ NUM = [('twenty twenty-three', '2023'), ('twenty twenty-six', '2026'), ('ninetee
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
-MAX = 50
+MAX = 44
 FN = set('a an the to of and or that in on for was is it its by with as at from than but if we our'.split())
 def length(ws): return len(fix(' '.join(x['w'] for x in ws)))
 def split(ws):
@@ -29,18 +29,17 @@ for i, w in enumerate(W):
     cur.append(w); nxt = W[i + 1] if i + 1 < len(W) else None
     if not nxt or re.search(r'[.?!]["”]?$', w['w']) or nxt['s'] - w['e'] > .45 or nxt['sec'] != w['sec']: sents.append(cur); cur = []
 cues = [[c[0]['s'], c[-1]['e'], fix(' '.join(x['w'] for x in c))] for snt in sents for c in split(snt)]
-# interview clips: subtitle the quote (from clips.json) across the clip slot, split into readable lines
+# interview clips: real wording with phrase timings from the clip transcript (clips.json "cues", seconds from clip start);
+# quote cards show the words on screen, so no subtitle for them
 import os
 CL = json.load(open(A + 'clips.json'))
 for c in json.load(open(A + 'timing.json')).get('clips', []):
-    words = CL[c['id']]['quote'].replace(' \u2026', '').replace(' …', '').split(); parts, cur = [], []
-    for w in words:
-        if len(' '.join(cur + [w])) > MAX and cur: parts.append(cur); cur = []
-        cur.append(w)
-    if cur: parts.append(cur)
-    n = sum(len(p) for p in parts); t = c['start'] + .2; span = c['end'] - c['start'] - .4
-    for p in parts:
-        d = span * len(p) / n; cues.append([t, t + d - .05, ' '.join(p)]); t += d
+    cl = CL[c['id']]
+    if cl.get('card') or not cl.get('cues'): continue
+    q = cl['cues']
+    for k, (t0, line) in enumerate(q):
+        t1 = q[k + 1][0] if k + 1 < len(q) else c['end'] - c['start']
+        cues.append([c['start'] + t0, c['start'] + t1 - .05, line])
 cues.sort(key=lambda c: c[0])
 for i, c in enumerate(cues):  # hold each cue a little, never overlapping the next
     nx = cues[i + 1][0] if i + 1 < len(cues) else c[1] + 2
@@ -52,11 +51,11 @@ ass = """[Script Info]
 ScriptType: v4.00+
 PlayResX: 1920
 PlayResY: 1080
-WrapStyle: 2
+WrapStyle: 0
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Sub,Inter,44,&H00E2EFF3,&H00E2EFF3,&H00180907,&H66180907,0,0,0,0,100,100,0.5,0,1,2.2,1.2,2,160,160,62,1
+Style: Sub,Inter,56,&H00E2EFF3,&H00E2EFF3,&H00180907,&H66180907,0,0,0,0,100,100,0.5,0,1,2.6,1.4,2,120,120,64,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

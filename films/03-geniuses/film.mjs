@@ -5,7 +5,7 @@
 // SECS=03,04 node render.mjs --snap ...   builds only those sections (absolute times stay the same).
 import fs from 'node:fs';
 import { Film } from './engine.mjs';
-import { timing } from './lib/kit.mjs';
+import { timing, prepareClips } from './lib/kit.mjs';
 
 export const ROOT = '/mnt/project-files/scenario/film-03-geniuses/';
 const ALL = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10'];
@@ -31,6 +31,7 @@ export async function build() {
   for (let i = 1; i < shots.length; i++) shots[i].a = Math.min(shots[i].a, shots[i - 1].b - .01);
   const film = new Film(shots, { grainAmt: .045 });
   film.T = T;
+  film.prepare = (t) => prepareClips(T, t);
   film.list = list;
   return film;
 }

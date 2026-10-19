@@ -17,6 +17,7 @@ if (arg('snap')) {
   const { createCanvas } = await import('@napi-rs/canvas');
   const out = createCanvas(Math.round(1920 * scale), Math.round(1080 * scale)), ox = out.getContext('2d');
   for (const s of arg('snap').split(',').map(Number)) {
+    if (film.prepare) await film.prepare(s);
     const c = film.frame(s); ox.drawImage(c, 0, 0, out.width, out.height);
     const f = path.join(dir, `t${s.toFixed(2).padStart(7, '0')}.jpg`);
     fs.writeFileSync(f, await out.encode('jpeg', 85)); console.log(f);
@@ -30,6 +31,7 @@ const ff = spawn('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-f', 'r
   '-c:v', 'libx264', '-crf', arg('crf', '18'), '-preset', arg('preset', 'medium'), '-pix_fmt', 'yuv420p', '-tune', 'grain', path.resolve(arg('out', 'out.mp4'))], { stdio: ['pipe', 'inherit', 'inherit'] });
 const t0 = Date.now();
 for (let f = f0; f < f1; f++) {
+  if (film.prepare) await film.prepare(f / fps);
   const c = film.frame(f / fps);
   const buf = c.data();
   if (!ff.stdin.write(Buffer.from(buf))) await new Promise((r) => ff.stdin.once('drain', r));
