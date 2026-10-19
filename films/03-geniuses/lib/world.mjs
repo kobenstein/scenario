@@ -180,19 +180,29 @@ export function person(ctx, x, y, h, t, { phase = null, coat = P.amber, dark = '
   leg(Math.PI, true); leg(0, false);
   const sh = hipY - 38, sway = walk ? Math.sin(phase * 2) * .6 : 0;
   // back arm (behind the coat)
-  ctx.strokeStyle = shade(coat, -.3); ctx.lineWidth = 5.5; ctx.lineCap = 'round';
-  if (!phone && !typing) { const a = walk ? Math.sin(phase) * .45 : -.05; ctx.beginPath(); ctx.moveTo(-1, sh + 6); ctx.lineTo(-1 + Math.sin(a) * 28, sh + 6 + Math.cos(a) * 28); ctx.stroke(); }
-  // coat: a slightly A-shaped long coat
-  ctx.fillStyle = coat; ctx.beginPath(); ctx.moveTo(-8, sh); ctx.quadraticCurveTo(-11, sh + 4, -12, hipY + 4); ctx.lineTo(-13 + sway, hipY + 16); ctx.lineTo(12 + sway, hipY + 16); ctx.lineTo(10, hipY); ctx.quadraticCurveTo(10, sh + 4, 7, sh); ctx.closePath(); ctx.fill();
+  // arms hang from the shoulder joint at the side of the body: upper arm + slightly bent forearm + hand,
+  // swinging opposite to the legs; a > 0 = forward (towards the face)
+  const limb = (a, bend, col) => {
+    const ex = 1 + Math.sin(a) * 17, ey = sh + 4 + Math.cos(a) * 17, hx = ex + Math.sin(a + bend) * 16, hy = ey + Math.cos(a + bend) * 16;
+    ctx.strokeStyle = col; ctx.lineWidth = 5.5; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.beginPath(); ctx.moveTo(1, sh + 4); ctx.lineTo(ex, ey); ctx.lineTo(hx, hy); ctx.stroke();
+    ctx.fillStyle = skin; ctx.beginPath(); ctx.arc(hx + Math.sin(a + bend) * 2, hy + Math.cos(a + bend) * 2, 2.7, 0, 7); ctx.fill();
+  };
+  if (!phone && !typing) { const a = walk ? Math.sin(phase) * .5 : -.06; limb(a, walk ? .15 + Math.max(0, a) * .5 : .18, shade(coat, -.3)); }
+  // coat: a slightly A-shaped long coat with rounded, sloping shoulders
+  ctx.fillStyle = coat; ctx.beginPath(); ctx.moveTo(-7, sh + 5); ctx.bezierCurveTo(-7, sh - 1, -3, sh - 3, 1.5, sh - 3); ctx.bezierCurveTo(6, sh - 3, 9, sh - 1, 9, sh + 5);
+  ctx.quadraticCurveTo(10, hipY - 6, 10, hipY); ctx.lineTo(12 + sway, hipY + 16); ctx.lineTo(-13 + sway, hipY + 16); ctx.lineTo(-12, hipY + 4); ctx.quadraticCurveTo(-10, sh + 12, -7, sh + 5); ctx.closePath(); ctx.fill();
   ctx.save(); ctx.clip(); ctx.fillStyle = shade(coat, -.2); ctx.fillRect(2, sh, 20, 70); ctx.globalAlpha = .28; ctx.fillStyle = ctx.createPattern(DOTS, 'repeat'); ctx.fillRect(-20, sh + 18, 44, 50); ctx.restore();
   // front arm
   ctx.strokeStyle = shade(coat, -.12); ctx.lineWidth = 5.5;
   if (arm) arm(ctx, sh);
   else if (phone || typing) {
     const tp = typing ? Math.sin(t * 13) * 1.5 : 0;
-    ctx.beginPath(); ctx.moveTo(3, sh + 5); ctx.lineTo(7, sh + 21); ctx.lineTo(16, sh + 15 + tp); ctx.stroke();
+    ctx.lineJoin = 'round'; ctx.beginPath(); ctx.moveTo(1, sh + 4); ctx.lineTo(4, sh + 21); ctx.lineTo(15, sh + 15 + tp); ctx.stroke();
+    ctx.fillStyle = skin; ctx.beginPath(); ctx.arc(16.5, sh + 14.5 + tp, 2.7, 0, 7); ctx.fill();
     if (phone) { ctx.fillStyle = '#0b0d22'; ctx.fillRect(15, sh + 10, 5, 8); addGlow(ctx, 19, sh + 10, 20, .75, P.cyan, '#e8fbff'); }
-  } else { const a = walk ? Math.sin(phase + Math.PI) * .45 : .06; ctx.beginPath(); ctx.moveTo(3, sh + 5); ctx.lineTo(3 + Math.sin(a) * 28, sh + 5 + Math.cos(a) * 28); ctx.stroke(); }
+  } else if (sit) limb(.3, 1.05, shade(coat, -.12));   // hand rests on the lap
+  else { const a = walk ? Math.sin(phase + Math.PI) * .5 : .08 + Math.sin(t * 1.6) * .02 * breathe; limb(a, walk ? .15 + Math.max(0, a) * .5 : .22, shade(coat, -.12)); }
   // neck, head; head tilts down when on the phone
   const tilt = (phone || typing) ? .35 : look * .2, hx = 1.5 + tilt * 4, hy = sh - 9;
   ctx.save(); ctx.translate(hx, hy); ctx.rotate(tilt);
