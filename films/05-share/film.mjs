@@ -9,37 +9,41 @@
 import fs from 'node:fs';
 import { Film } from './engine.mjs';
 import { timing, prepareClips, ROOT } from './lib/kit.mjs';
-import { printFinish } from './lib/print.mjs';
+import { filmFinish } from './lib/print.mjs';
 import { errorCard } from './lib/stub.mjs';
 
 export { ROOT };
 // Chunk table (shots-v0 §4). from = [section, first phrase of the chunk's first shot]; a missing phrase falls back to the section start.
+// from = candidate anchors [section, first phrase] (v2 first, then v1); none found -> the first one's section start.
 export const CHUNKS = [
-  { id: 'c01', name: 'Hook', shots: 'H.01–H.10', from: ['H'] },
-  { id: 'c02', name: '§0 Two promises', shots: '0.01–1.01', from: ['0'] },
-  { id: 'c03', name: '§1 The fortune', shots: '1.02–1.16', from: ['1', 'Because the largest'] },
-  { id: 'c04', name: '§2 Take, print', shots: '2.01–2.16b', from: ['2'] },
-  { id: 'c05', name: '§2 end, §3 Alaska', shots: '2.17–3.07c', from: ['2', 'Printing takes nothing'] },
-  { id: 'c06', name: '§3 Norway, plan, §4 sow', shots: '3.08–4.05', from: ['3', 'Norway set'] },
-  { id: 'c07', name: '§4 Fund, seeds', shots: '4.06–4.18', from: ['4', 'But a share only'] },
-  { id: 'c08', name: '§5 Grow', shots: '5.01–5.16b', from: ['5'] },
-  { id: 'c09', name: '§6 Harvest', shots: '6.01–6.19', from: ['6'] },
-  { id: 'c10', name: '§6 Manila/Ohio, §7', shots: '6.20–7.12', from: ['6', 'A care worker'] },
+  { id: 'c01', name: 'Hook', shots: 'H.01–H.10', from: [['H']] },
+  { id: 'c02', name: '§0 Two promises', shots: '§0', from: [['0']] },
+  { id: 'c03', name: '§1 The fortune', shots: '§1', from: [['1']] },
+  { id: 'c04', name: '§2 Take, print', shots: '§2 to the IMF sliver', from: [['2']] },
+  { id: 'c05', name: '§2 end, §3 doubt, Alaska', shots: '§2 "If prices hold" … §3 "Child or adult"', from: [['2', 'If prices hold'], ['2', 'Printing takes nothing']] },
+  { id: 'c06', name: '§3 Norway, plan, §4 plant', shots: '§3 Norway … §4 "set slices aside is now"', from: [['3', 'Norway made sure'], ['3', 'Norway set']] },
+  { id: 'c07', name: '§4 Fund, seeds', shots: '§4 "But a share only counts" … end', from: [['4', 'But a share only']] },
+  { id: 'c08', name: '§5 Grow', shots: '§5', from: [['5']] },
+  { id: 'c09', name: '§6 Harvest', shots: '§6 … §7 "So picture the day we do"', from: [['6']] },
+  { id: 'c10', name: '§7 Manila/Ohio, close', shots: '§7 "A care worker" … end', from: [['7', 'A care worker'], ['6', 'A care worker']] },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 
 // absolute chunk ranges for a timing: R.a = first word of the chunk (section start or phrase), R.b = next chunk's R.a (or film end)
 export function chunkRanges(T) {
-  const at = ([sec, phrase]) => {
-    if (phrase && T.has(sec, phrase)) return T.S(sec, phrase);
-    if (phrase) console.warn(`[film] chunk anchor "${phrase}" not found in §${sec}; using the section start`);
-    return T.seg(sec).start;
+  const at = (cands) => {
+    for (const [sec, phrase] of cands) { if (!phrase) return T.seg(sec).start; if (T.has(sec, phrase)) return T.S(sec, phrase); }
+    console.warn(`[film] chunk anchor ${JSON.stringify(cands)} not found; using the section start`);
+    return T.seg(cands[0][0]).start;
   };
   const a = CHUNKS.map((c) => at(c.from));
   return Object.fromEntries(CHUNKS.map((c, i) => [c.id, { ...c, a: i ? a[i] : 0, b: i + 1 < CHUNKS.length ? a[i + 1] : T.duration, first: a[i] }]));
 }
 
-export async function build({ timingFile = ROOT + 'audio/timing.json' } = {}) {
+// the real timing (audio/build_vo.py) wins; the provisional one (tools/provisional_timing.py) only fills in while it is missing
+const realTiming = () => { try { return !JSON.parse(fs.readFileSync(ROOT + 'audio/timing.json', 'utf8')).provisional; } catch { return false; } };
+export const TIMING = process.env.TIMING || (realTiming() || !fs.existsSync(ROOT + 'audio/timing.provisional.json') ? ROOT + 'audio/timing.json' : ROOT + 'audio/timing.provisional.json');
+export async function build({ timingFile = TIMING } = {}) {
   const T = timing(timingFile);
   const RANGES = chunkRanges(T);
   const want = process.env.SECS ? process.env.SECS.split(',').map((s) => (/^\d+$/.test(s) ? 'c' + s.padStart(2, '0') : s)) : ALL;
@@ -61,7 +65,7 @@ export async function build({ timingFile = ROOT + 'audio/timing.json' } = {}) {
     return { a: i ? a : 0, b, draw: e.draw, sec: e.sec, sound: e.sound, print: e.print, out: nx ? { kind: nx.tr || 'dissolve', x: nx.x, y: nx.y, r: nx.r, depth: nx.depth } : { kind: 'black' }, _start: e.t };
   });
   for (let i = 1; i < shots.length; i++) shots[i].a = Math.min(shots[i].a, shots[i - 1].b - .01);
-  const film = new Film(shots, { grainAmt: .045, finish: printFinish });
+  const film = new Film(shots, { grainAmt: .045, finish: filmFinish });
   film.T = T;
   film.ranges = RANGES;
   film.prepare = (t) => prepareClips(T, t);

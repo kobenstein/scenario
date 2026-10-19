@@ -10,9 +10,11 @@ const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 // ---------- timing ----------
 // Anchor ONLY via phrases, never via seconds: the provisional timing.json (tools/provisional_timing.py) and the real one
 // (audio/build_vo.py) share one format, so code written against one runs unchanged on the other.
-//   id = a section ('H', '0'…'7') or a VO segment id (e.g. '3b' if the real VO is split); both work everywhere.
+//   id = a section or a VO segment id; both work everywhere. Sections: 'H' (= 'H0'), '0'…'7' (= '00'…'07');
+//   segments of the real VO: 'H0a', '00a', '01a', '02a', '02b', '02c', '03a', '03b', '04a', '04b', '05a', '05b', '06a', '06b', '07a', '07b'.
+//   Prefer section ids ('2', 'H'): they survive any re-split of the VO segments.
 //   T.S('H', 'buzzes')        start (s) of that phrase in the section      T.E(…) its end
-//   T.S('1', 'Yet', 1)        nth = 1 → the second occurrence in that section
+//   T.S('1', 'Yet', 1)        nth = 1 → the second occurrence in that section;  T.S('3') / T.E('3') = section start / end
 //   T.W('0', 'This will', 'many')  word objects [{w,s,e,sec}] from…to (inclusive) for word-by-word reveals
 //   T.seg('3')                {start, end} of a section (or segment)      T.secs = section ids in film order
 //   T.line('2', 'take')       the sentence containing the phrase: {text, s, e, words}
@@ -23,7 +25,10 @@ export function timing(file) {
   TM.clips = TM.clips || [];
   const segSec = {};
   for (const [id, s] of Object.entries(TM.sections)) segSec[id] = s.sec ?? id;
-  const inSec = (w, id) => w.sec === id || segSec[w.sec] === id;
+  // canonical section id: 'H0'/'H'/'h' -> 'H', '00' -> '0', '07' -> '7'; segment ids like '02b' stay themselves
+  const canon = (x) => { x = String(x); if (/^h0?$/i.test(x)) return 'H'; if (/^\d+$/.test(x)) return String(Number(x)); return x; };
+  const secOf = (seg) => canon(segSec[seg] ?? seg);
+  const inSec = (w, id) => w.sec === id || segSec[w.sec] === id || secOf(w.sec) === canon(id);
   const wordsOf = (id) => TM.words.filter((w) => inSec(w, id));
   function find(seg, phrase, nth = 0) {
     const ws = wordsOf(seg), q = String(phrase).split(/\s+/).map(norm).filter(Boolean);
@@ -37,26 +42,28 @@ export function timing(file) {
   // sections in film order (aggregates segments that share a .sec)
   const agg = {};
   for (const [id, s] of Object.entries(TM.sections)) {
-    for (const k of new Set([id, segSec[id]])) { const a = agg[k] || (agg[k] = { start: 1e9, end: -1e9 }); a.start = Math.min(a.start, s.start); a.end = Math.max(a.end, s.end); }
+    for (const k of new Set([id, segSec[id], canon(segSec[id])])) { const a = agg[k] || (agg[k] = { start: 1e9, end: -1e9 }); a.start = Math.min(a.start, s.start); a.end = Math.max(a.end, s.end); }
   }
-  const secs = [...new Set(Object.values(segSec))].sort((a, b) => agg[a].start - agg[b].start);
+  const secs = [...new Set(Object.values(segSec).map(canon))].sort((a, b) => agg[a].start - agg[b].start);
   // sentences: split words at . ? ! (a closing quote after the mark is fine)
-  const sentences = (ws) => { const out = []; let cur = []; for (const w of ws) { cur.push(w); if (/[.?!]["”’')\]]*$/.test(w.w)) { out.push(cur); cur = []; } } if (cur.length) out.push(cur); return out.map((c) => ({ text: c.map((w) => w.w).join(' '), s: c[0].s, e: c[c.length - 1].e, words: c, sec: segSec[c[0].sec] ?? c[0].sec })); };
+  const sentences = (ws) => { const out = []; let cur = []; for (const w of ws) { cur.push(w); if (/[.?!]["”’')\]]*$/.test(w.w)) { out.push(cur); cur = []; } } if (cur.length) out.push(cur); return out.map((c) => ({ text: c.map((w) => w.w).join(' '), s: c[0].s, e: c[c.length - 1].e, words: c, sec: secOf(c[0].sec) })); };
   const linesCache = {}; const lines = (id) => linesCache[id] || (linesCache[id] = sentences(wordsOf(id)));
   const allLines = secs.flatMap((id) => lines(id));
   const T = {
     duration: TM.duration, words: TM.words, sections: TM.sections, clips: Object.fromEntries(TM.clips.map((c) => [c.id, c])), secs,
-    S: (seg, phrase, nth) => find(seg, phrase, nth).s,
-    E: (seg, phrase, nth) => find(seg, phrase, nth).e,
-    at: (seg, phrase, nth) => find(seg, phrase, nth).s,
+    S: (seg, phrase, nth) => (phrase == null ? T.seg(seg).start : find(seg, phrase, nth).s),   // no phrase → section start
+    E: (seg, phrase, nth) => (phrase == null ? T.seg(seg).end : find(seg, phrase, nth).e),     // no phrase → section end
+    at: (seg, phrase, nth) => (phrase == null ? T.seg(seg).start : find(seg, phrase, nth).s),
     has: (seg, phrase, nth) => { try { find(seg, phrase, nth); return true; } catch { return false; } },
-    seg: (id) => agg[id] || (() => { throw new Error('unknown section ' + id); })(),
+    seg: (id) => agg[id] || agg[canon(id)] || (() => { throw new Error('unknown section ' + id); })(),
+    canon,
     clip: (id) => TM.clips.find((c) => c.id === id),
-    W: (seg, from, to) => { const a = find(seg, from).s, b = to ? find(seg, to).e : 1e9; return wordsOf(seg).filter((w) => w.s >= a - 1e-3 && w.e <= b + 1e-3); },
+    W: (seg, from, to) => { const a = from == null ? -1 : find(seg, from).s, b = to ? find(seg, to).e : 1e9; return wordsOf(seg).filter((w) => w.s >= a - 1e-3 && w.e <= b + 1e-3); },
     lines,
     line: (seg, phrase, nth) => { const { s } = find(seg, phrase, nth); return lines(seg).find((l) => s >= l.s - 1e-3 && s <= l.e + 1e-3); },
     lineAt: (t) => { let cur = allLines[0]; for (const l of allLines) { if (l.s - .35 <= t) cur = l; else break; } return cur; },
     secAt: (t) => { let cur = secs[0]; for (const id of secs) if (agg[id].start - 1 <= t) cur = id; return cur; },
+    provisional: !!TM.provisional,
   };
   return T;
 }

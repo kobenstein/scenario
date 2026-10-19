@@ -1,4 +1,4 @@
-// Film 02 engine: Canvas 2D (via @napi-rs/canvas) renderer for illustrated plates with real depth layers,
+// Film 05 engine (from films 02/03): Canvas 2D (via @napi-rs/canvas) renderer for illustrated plates with real depth layers,
 // procedural figures and motion-design symbol scenes. Everything is a pure function of time t (seconds).
 import { createCanvas, loadImage, GlobalFonts } from '@napi-rs/canvas';
 import fs from 'node:fs';
@@ -262,6 +262,24 @@ export function composite(ctx, A, B, kind, u, o = {}) {
     for (let i = 0; i < 5; i++) { const g = ctx.createRadialGradient(x - i * 260, H * (.3 + .12 * i), 0, x - i * 260, H * (.3 + .12 * i), 900); g.addColorStop(0, `rgba(150,200,225,${.55 * a})`); g.addColorStop(1, 'rgba(150,200,225,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
     return;
   }
+  if (kind.startsWith('whip')) { // (c) motion match: fast pan in one direction, 3 smear copies at alpha .25, ease-out landing
+    const dir = { whipL: [-1, 0], whipR: [1, 0], whipU: [0, -1], whipD: [0, 1] }[kind] || [-1, 0], span = dir[0] ? W : H;
+    const P = (x) => span * (1 - Math.pow(1 - clamp(x), 2.4)), p = P(u), v = Math.abs(P(u + .025) - P(u - .025));
+    const smear = Math.min(span * .16, v * .55);
+    const put = (im, off) => {
+      const x = dir[0] * off, y = dir[1] * off;
+      ctx.globalAlpha = 1; ctx.drawImage(im, x, y);
+      if (smear > 2) { ctx.globalAlpha = .25; for (let k = 1; k <= 3; k++) ctx.drawImage(im, x - dir[0] * smear * k / 3, y - dir[1] * smear * k / 3); }
+      ctx.globalAlpha = 1;
+    };
+    put(A, p); put(B, p - span);
+    if (smear > 2) { // streak light along the pan
+      const g = dir[0] ? ctx.createLinearGradient(0, 0, W, 0) : ctx.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0, 'rgba(243,239,226,0)'); g.addColorStop(.5, `rgba(243,239,226,${.06 * Math.min(1, smear / 120)})`); g.addColorStop(1, 'rgba(243,239,226,0)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    }
+    return;
+  }
   if (kind === 'flash') { ctx.drawImage(u < .5 ? A : B, 0, 0); const a = Math.max(0, 1 - Math.abs(u - .5) * 3); ctx.fillStyle = `rgba(216,247,255,${a * .9})`; ctx.fillRect(0, 0, W, H); return; }
   ctx.drawImage(u < .5 ? A : B, 0, 0);
 }
@@ -269,8 +287,8 @@ export function composite(ctx, A, B, kind, u, o = {}) {
 // ---------- film runner ----------
 // shots: [{ a, b, draw(ctx, t, shot), out: {kind, d} }] — consecutive shots overlap by out.d seconds
 export class Film {
-  constructor(shots, { grainAmt = 0.05 } = {}) {
-    this.shots = shots.sort((x, y) => x.a - y.a); this.grainAmt = grainAmt;
+  constructor(shots, { grainAmt = 0.05, finish = null } = {}) {
+    this.shots = shots.sort((x, y) => x.a - y.a); this.grainAmt = grainAmt; this.finish = finish;
     [this.A, this.ax] = canvas(); [this.B, this.bx] = canvas(); [this.F, this.fx] = canvas();
   }
   get duration() { return Math.max(...this.shots.map((s) => s.b)); }
@@ -285,7 +303,60 @@ export class Film {
       this.renderShot(this.ax, s1, t); this.renderShot(this.bx, s2, t);
       fx.fillStyle = C.ink; fx.fillRect(0, 0, W, H); composite(fx, this.A, this.B, kind, u, s1.out || {});
     }
-    vignette(fx, .35); grain(fx, t, this.grainAmt);
+    const cur = live[live.length - 1];
+    if (this.finish) this.finish(fx, t, cur?.print === false ? { off: true } : (cur?.print || {}));   // the finish owns vignette + grain
+    else { vignette(fx, .35); grain(fx, t, this.grainAmt); }
     return this.F;
   }
 }
+
+// ---------- print helpers: hatching in shadow, rough (hand-cut) edges ----------
+// shape: array of [x,y] points | Path2D | function(ctx) that builds the path. ang = line angle (rad), gap = px between lines,
+// a = alpha. o.col line colour (default ink), o.w line width, o.wobble px of hand-drawn waviness, o.box [x,y,w,h] to limit the work,
+// o.fade = [x0,y0,x1,y1] gradient direction: lines fade out from (x0,y0) (shadow core) to (x1,y1) (light side).
+export function hatch(ctx, shape, ang = -.8, gap = 7, a = .35, o = {}) {
+  const col = o.col || '#070918', lw = o.w ?? 1.1, wob = o.wobble ?? .8;
+  ctx.save();
+  if (Array.isArray(shape)) { ctx.beginPath(); shape.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.clip(); }
+  else if (typeof shape === 'function') { ctx.beginPath(); shape(ctx); ctx.clip(); }
+  else if (shape) ctx.clip(shape);
+  let bx, by, bw, bh;
+  if (o.box) [bx, by, bw, bh] = o.box;
+  else if (Array.isArray(shape)) { const xs = shape.map((p) => p[0]), ys = shape.map((p) => p[1]); bx = Math.min(...xs); by = Math.min(...ys); bw = Math.max(...xs) - bx; bh = Math.max(...ys) - by; }
+  else { bx = 0; by = 0; bw = W; bh = H; }
+  const cx = bx + bw / 2, cy = by + bh / 2, R = Math.hypot(bw, bh) / 2 + 4, c = Math.cos(ang), s = Math.sin(ang);
+  if (o.fade) { const [x0, y0, x1, y1] = o.fade, g = ctx.createLinearGradient(x0, y0, x1, y1); g.addColorStop(0, rgba(col, a)); g.addColorStop(1, rgba(col, 0)); ctx.strokeStyle = g; }
+  else ctx.strokeStyle = rgba(col, a);
+  ctx.lineWidth = lw; ctx.lineCap = 'round'; ctx.beginPath();
+  const r = prng(o.seed || 7);
+  for (let d = -R; d <= R; d += gap) {
+    const j = (r() - .5) * gap * .35, ox = cx - s * (d + j), oy = cy + c * (d + j), L = R * (0.82 + r() * .18);
+    const seg = Math.max(2, Math.round(L / 40));
+    for (let k = 0; k <= seg; k++) {
+      const u = -L + 2 * L * k / seg, wv = wob ? Math.sin(k * 1.7 + d * .37) * wob : 0;
+      const x = ox + c * u - s * wv, y = oy + s * u + c * wv;
+      k ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+  }
+  ctx.stroke(); ctx.restore();
+}
+// smooth 1D value noise for edges
+function vnoise(seed) { const r = prng(seed), v = Array.from({ length: 512 }, r); return (x) => { const i = Math.floor(x), f = x - i, a = v[((i % 512) + 512) % 512], b = v[(((i + 1) % 512) + 512) % 512]; return mix(a, b, f * f * (3 - 2 * f)) * 2 - 1; }; }
+// rough(pts, amp, seed, {closed = true, step = 14, freq = .09}) -> new points: subdivided + displaced along the normal
+export function rough(pts, amp = 3, seed = 1, { closed = true, step = 14, freq = .09 } = {}) {
+  const n1 = vnoise(seed), n2 = vnoise(seed + 99), out = []; let dist = 0;
+  const N = closed ? pts.length : pts.length - 1;
+  for (let i = 0; i < N; i++) {
+    const [x0, y0] = pts[i], [x1, y1] = pts[(i + 1) % pts.length], L = Math.hypot(x1 - x0, y1 - y0), k = Math.max(1, Math.round(L / step));
+    const nx = -(y1 - y0) / (L || 1), ny = (x1 - x0) / (L || 1);
+    for (let j = 0; j < k; j++) {
+      const u = j / k, d = dist + L * u, off = amp * (n1(d * freq) * .75 + n2(d * freq * 4.3) * .25);
+      out.push([x0 + (x1 - x0) * u + nx * off, y0 + (y1 - y0) * u + ny * off]);
+    }
+    dist += L;
+  }
+  if (!closed) out.push(pts[pts.length - 1]);
+  return out;
+}
+export const roughRect = (x, y, w, h, amp = 2.5, seed = 1, o = {}) => rough([[x, y], [x + w, y], [x + w, y + h], [x, y + h]], amp, seed, o);
+export function poly(ctx, pts, close = true) { ctx.beginPath(); pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); if (close) ctx.closePath(); }
