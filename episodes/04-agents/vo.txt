@@ -1,0 +1,152 @@
+Somewhere right now, a new kind of worker is starting its first day.
+It doesn't sleep. It doesn't take lunch. It never asks for a raise.
+And soon, there could be a billion of them.
+[pause]
+Analysts at IDC expect more than a billion AI agents at work by twenty twenty-nine.
+Not robots. Small programs that take a task and finish it on their own.
+They answer the customer. They write the code. They book the shipment.
+[pause]
+Most people ask one question about this. Is my job safe?
+It's a fair question. But it's not the one that decides how this ends.
+That one is simpler. When the agents do the work, who gets paid?
+
+That's the head of Nvidia. His company sells the chips these agents run on.
+So don't take his word for it. Look at what the agents can do.
+Researchers at a lab called METR measure how long a task an AI can finish on its own.
+That length has doubled every few months.
+Today the best systems can take on work that keeps an expert busy for a full day.
+They still fail about half the time. But a few years ago, they managed minutes.
+[pause]
+And the rollout is messier than the demos.
+Gartner expects more than forty percent of company agent projects to be cancelled by the end of twenty twenty-seven.
+Klarna replaced hundreds of service jobs with AI, then started hiring people again, because quality dropped.
+Across the whole economy, economists still see no wave of job losses.
+But in one place, the change has already begun.
+
+A hundred years ago, miners carried a canary underground.
+If the air turned bad, the bird felt it first.
+Today, the canary is twenty-two years old.
+At Stanford, Erik Brynjolfsson's team followed the payroll records of millions of American workers.
+In the jobs most exposed to AI, like software and customer service, workers aged twenty-two to twenty-five are now about nineteen percent behind where they would have been.
+Older workers in the same jobs? Doing fine.
+Nobody fired the young ones. They just never got hired.
+[pause]
+And here's the strange part. AI makes beginners better.
+In a study of more than five thousand support agents, an AI assistant made the newest workers about a third more productive.
+So why hire fewer of them?
+Because a company can use the same tool in two ways.
+To make a beginner as good as a veteran. Or to need fewer beginners at all.
+That's not something the technology decides. Someone chooses it.
+Keep that in mind.
+
+And the choice doesn't stop at the bottom rung.
+That's the head of Salesforce, talking about his own support team.
+Every salary a company stops paying doesn't disappear.
+It flows somewhere else: to whoever owns the agent.
+In America, the share of national income paid out as wages has just fallen to its lowest level since records began in nineteen forty-seven.
+AI didn't start that slide.
+But it's a very good machine for continuing it.
+
+We've lived through a machine like this before.
+In nineteen hundred, about four in ten Americans worked on farms.
+And beside them worked more than twenty million horses.
+Then came the tractor.
+The farmers' children found new work, in factories and offices. Today fewer than two in a hundred Americans farm.
+The horses found nothing. Within sixty years, most of them were gone.
+[pause]
+So here's the question for this century. Are we the farmers, or the horses?
+[pause]
+Many economists say we're the farmers.
+Two hundred years of machines, and work never ran out. When things get cheaper, we want more of them. And ageing countries will need more hands, not fewer.
+They could be right.
+But last time, people escaped from muscle work into thinking work.
+This time, the machine is learning the thinking too. And it learns the new jobs as fast as we invent them.
+[pause]
+Here's the part that gives me hope.
+The horses didn't lose because they were slow. They lost because they couldn't own the tractor, and they couldn't vote on the rules.
+We can do both.
+
+So imagine it's your call.
+A billion agents are coming either way. Two things are still open.
+Who owns them.
+And whether what they earn comes back to all of us, as time, as security, as a share.
+[pause]
+What would you do?
+[pause 3s]
+
+Let's imagine it's twenty thirty-two. This is a scenario, not a forecast.
+Your little sister has just finished her degree.
+[pause]
+In the first future, the agents belong to a handful of companies.
+Her inbox fills with polite rejections. An agent wrote every one.
+Many things got cheaper. Rent didn't.
+The country is richer than ever. Most people in it aren't.
+Nothing collapsed. We just let the gains flow to whoever owned the machines.
+[pause]
+In the second future, it's the same desk. The same laptop.
+She starts as a junior who runs a small team of agents, with a senior who trains her.
+Every autumn, a dividend lands in her account. Her share of the machines, like every citizen's.
+And when her father's job was automated, the cushion was there before the fall.
+Same technology. Different rules.
+
+I don't know which future we'll get. Nobody does.
+But the second one stands on three layers. None of them is magic. Each one already works somewhere.
+[pause]
+The first layer: keep the bottom rung.
+Remember the choice: make beginners better, or need fewer of them.
+Right now, the rules tilt that choice.
+In America, a company pays roughly thirty percent in taxes on a worker, and around five percent on the software and machines that could replace one.
+We're subsidising our own replacement.
+Taxing both the same isn't punishing technology. It's a level field.
+And some companies choose the other path.
+IBM says it's tripling its entry-level hiring this year, and rewriting those jobs so juniors check the AI's work and spend more time with customers.
+In Switzerland, about two in three teenagers learn a trade inside a real company.
+Experience is the one thing you can't download.
+And yes, some people will lead the agents instead of competing with them.
+A tiny team in Israel built an app business with AI and sold it for eighty million dollars.
+But that's a path for thousands, not millions.
+And even there, by early twenty twenty-six, almost all of their revenue went straight to the AI companies they ran on.
+Which brings us to the money.
+[pause]
+The second layer: own a piece of the machines.
+In the nineteen seventies, Alaska struck oil. Its governor, Jay Hammond, had an idea. The oil belongs to everyone, so everyone gets a share.
+Since nineteen eighty-two, every resident gets a check from that fund. This year, twelve hundred dollars.
+People didn't stop working. Poverty fell.
+And this year, the idea jumped to AI.
+OpenAI has proposed a public wealth fund that would give every citizen a stake.
+Senator Bernie Sanders wants half of the biggest AI companies in a citizens' fund.
+Every American baby born since twenty twenty-five gets an investment account with a thousand dollars.
+Right now it may only hold index funds. Anthropic has suggested letting it hold a stake in AI companies too.
+But Alaska also shows the catch.
+Since twenty sixteen, politicians have cut the check again and again to fill budget gaps.
+A share only protects you if the rule is written down before the money arrives.
+[pause]
+The third layer: a floor that rises with the need.
+Sam Altman paid for one of the largest cash experiments ever. A thousand dollars a month, for three years, no strings.
+The results were honest, and mixed.
+People worked a little less, about an hour or two a week, and mostly gained free time.
+Their stress dropped, but by the second year the relief had faded.
+Money takes away fear. It doesn't give you a reason to get up in the morning.
+In nineteen thirty-three, in the Austrian village of Marienthal, the psychologist Marie Jahoda studied what unemployment does to people.
+They lost their sense of time. They stopped meeting each other.
+In twenty twenty, the same village tried the opposite. A guaranteed job for everyone out of work for a long time.
+People got back their structure, their friends, the feeling of being needed. And it cost about the same as unemployment.
+In Washington, one bill would connect the pieces: a tax on AI that rises automatically when unemployment rises, and pays for jobs in care and housing.
+It's only a proposal. But it works like a thermostat. The answer grows with the problem.
+[pause]
+None of these layers builds itself.
+AI companies, governments, and the voters who choose those governments are writing these rules right now.
+
+So what can you do?
+Use the agents to learn, not to skip learning. Ask them why, not just what.
+If you hire people, ask whether AI makes your juniors better, or just makes them unnecessary. Then hire the junior.
+Don't bargain alone. In twenty twenty-three, Hollywood's writers bargained together, and won a rule that AI can't write the scripts that replace them.
+And as a citizen, ask the question that decides all of this. Who will own the agents?
+Ask it now, while the rules are still being written.
+[pause]
+A billion agents don't want anything.
+The horses couldn't own anything. They couldn't vote.
+We can do both.
+[pause]
+So here's my question for you.
+If you owned a share of every AI agent's work, what would you do with your time?

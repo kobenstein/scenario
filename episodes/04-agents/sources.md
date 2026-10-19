@@ -1,0 +1,31 @@
+# 04 · Sources (Entwurf 1, 2026-10-19)
+
+Details, Zitate und weitere Quellen: recherche/A–D (IDs dort in Klammern). Status: ✔ am Original/Transkript geprüft · ◐ nur Suchauszug der Primärquelle oder Sekundärquelle; Faktencheck muss prüfen.
+
+| ID | Quelle | Genutzte Aussage | Status |
+|---|---|---|---|
+| S1 | IDC, „Agent Adoption: The IT Industry's Next Great Inflection Point“, Blog 10.12.2025, https://www.idc.com/resource-center/blog/agent-adoption-the-it-industrys-next-great-inflection-point/ ; IDC auf X 2026 (1,15 Mrd.) (A: S3–S5) | „more than 1 billion actively deployed agents by 2029“ | ◐ |
+| S2 | Jensen Huang, NVIDIA CES 2025 Keynote, 07.01.2025, https://www.youtube.com/watch?v=k82RwXqZHY8 , 00:40:13–00:40:23 | „the IT department of every company is going to be the HR department of AI agents in the future“ | ✔ Transkript |
+| S3 | METR, Time Horizons of Frontier AI Models, https://metr.org/time-horizons/ ; Frontier Risk Report 19.05.2026 (A: S17–S19) | 50-%-Zeithorizont verdoppelt sich alle ~4–7 Monate; Anfang 2026 ≥16 h (Messgrenze); 80 % nur 3–4 h; GPT-2/3-Zeit: Sekunden/Minuten | ◐ |
+| S4 | Gartner, Pressemitteilung 25.06.2025, https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027 | „Over 40% of agentic AI projects will be canceled by the end of 2027“ | ◐ |
+| S5 | Klarna: PM Feb. 2024 (2/3 der Chats, „700 full-time agents“); Siemiatkowski Mai 2025 („lower quality“, wieder Menschen); https://tech.co/news/klarna-reverses-ai-overhaul (A: S23) | ersetzte Hunderte Servicejobs, stellt wieder Menschen ein | ◐ |
+| S6 | Yale Budget Lab / Brookings, AI & Labor Market Tracker (Okt. 2025, Update März 2026), https://budgetlab.yale.edu/ (A: S32) | keine „discernible disruption“ im Gesamtarbeitsmarkt | ◐ |
+| S7 | Brynjolfsson, Chandar, Chen, „Canaries in the Coal Mine?“, Stanford DEL, Aug. 2025; Update 12.08.2026 „… Gap for Young Workers Has Widened to 19%“, https://digitaleconomy.stanford.edu/news/canariesaug26/ (A: S26–S28) | ADP-Lohndaten (Millionen Beschäftigte); 22–25-Jährige in hoch exponierten Berufen ~19 % relativ unter Trend; Ältere stabil; Anpassung über Einstellungen | ◐ |
+| S8 | Brynjolfsson, Li, Raymond, „Generative AI at Work“, NBER w31161 / QJE 2025 (D8) | 5.179 Support-Agenten; +14 % (QJE 15 %) im Schnitt, +34 % für Novizen | ◐ |
+| S9 | Marc Benioff, The Logan Bartlett Show, 29.08.2025, https://www.youtube.com/watch?v=0RkNkGihrvc , 00:01:52–00:02:00 | „I've reduced it from 9,000 heads to about 5,000 because I need less heads.“ | ✔ Transkript |
+| S10 | BLS, The Economics Daily: „Labor share at its lowest level, 52.8 percent, in second quarter 2026“, https://www.bls.gov/opub/ted/2026/labor-share-at-its-lowest-level-52-8-percent-in-second-quarter-2026.htm (A: S35) | tiefster Lohnanteil seit Beginn der Reihe 1947 (Nonfarm Business) | ◐ |
+| S11 | USDA ERS, „The 20th Century Transformation of U.S. Agriculture and Farm Policy“ (EIB-3), 2005 (A: S42) | 41 % (1900) → 1,9 % (2000) der Beschäftigten in der Landwirtschaft | ◐ |
+| S12 | Pferde/Maultiere USA: ~21 Mio. 1900, Peak ~26 Mio. um 1915–20, ~3 Mio. 1960 (Brynjolfsson/McAfee; USDA-Zensus) (A: S43) | „more than twenty million horses“; „within sixty years, most were gone“ | ◐ ⚠ prüfen |
+| S13 | Acemoglu, Manera, Restrepo, „Does the US Tax Code Favor Automation?“, Brookings Papers 2020 / NBER w27052 (D13) | Arbeit effektiv 25,5–33,5 %, Software/Ausrüstung ~10 % (2010er), ~5 % nach 2017 | ◐ |
+| S14 | IBM, CHRO Nickle LaMoreaux, Feb. 2026 (Bloomberg; PYMNTS), https://www.pymnts.com/artificial-intelligence-2/2026/ibm-to-triple-entry-level-hiring-as-ai-rewrites-junior-roles/ (D16) | US-Einstiegseinstellungen 2026 verdreifacht; Junior-Rollen neu (KI-Output prüfen, Kundenarbeit) | ◐ |
+| S15 | SBFI/SERI, „Vocational and professional education and training in Switzerland 2024“ (D18) | ~2/3 der Jugendlichen in der beruflichen Grundbildung | ◐ |
+| S16 | Base44/Wix: Globes 2025 (80 Mio. $, ~6–8 MA, ohne Investoren); Wix Q4 2025 („near-zero non-GAAP gross margin“ Anfang 2026) (D1–D3) | kleines Team, 80 Mio. $; Umsatz floss an Modellanbieter | ◐ |
+| S17 | Alaska DOR (PFD-Beträge 1982 1.000 $; 2026 1.200 $ = 1.000 + 200 Energiehilfe); APFC; Jones & Marinescu, AEJ: Policy 2022 (keine Beschäftigungswirkung); ISER/Berman (Armut) (B: 1–9) | Hammond; seit 1982 jährlich; 2026: 1.200 $; Arbeit nicht gesunken; Armut gesunken | ◐ |
+| S18 | OpenAI, „Industrial Policy for the Intelligence Age“, 06.04.2026 (B: 19; D41) | Public Wealth Fund mit Anteil für jeden Bürger | ◐ |
+| S19 | Sen. Bernie Sanders, S.4825 „American AI Sovereign Wealth Fund Act“, 18.06.2026 (Roll Call) (B: 27) | 50 % großer KI-Firmen in einen Bürgerfonds | ◐ |
+| S20 | Trump Accounts (OBBBA 2025; Start 04.07.2026; 1.000 $ für Geburten 2025–2028); Anthropic Economic Policy Framework, Juni 2026, https://www.anthropic.com/policy-on-the-ai-exponential/epf (B: 24, 31) | Babykonto 1.000 $; nur Indexfonds; Anthropic: Beteiligungen an KI-Firmen zulassen | ✔ Anthropic direkt gelesen / ◐ Trump Accounts |
+| S21 | Alaska PFD-Kürzungen seit Walker-Veto 2016 (1.022 $), Commonwealth North 2026 (B: 7) | seit 2016 wiederholt politisch gekürzt | ◐ |
+| S22 | OpenResearch Unconditional Cash Study: Vivalt et al., NBER w32719 / QJE 2026; Miller et al., NBER w32711 (C: Q1–Q4) | 1.000 $/Monat, 3 Jahre; −1–2 h/Woche; v. a. Freizeit; Stressgewinn kurzlebig (nach Jahr 1 verblasst); Finanzierung u. a. Altman | ◐ |
+| S23 | Jahoda, Lazarsfeld, Zeisel, „Die Arbeitslosen von Marienthal“ (1933); Kasy & Lehner, INET Oxford WP 2022-29 (Jobgarantie Gramatneusiedl ab Okt. 2020) (C: Q35) | Zeitgefühl, soziale Kontakte; Jobgarantie: Struktur, Kontakte, Anerkennung; Kosten ~ wie Arbeitslosigkeit | ◐ |
+| S24 | H.R. 10044 „AI Tax and Work Protection Act“, eingebracht 06.08.2026 (Casar u. a.), https://www.congress.gov/bill/119th-congress/house-bill/10044/text (C: Q27) | KI-Steuer, Satz steigt mit Arbeitslosigkeit >5 %; Jobs in Pflege, Wohnungsbau u. a.; nur Entwurf | ◐ |
+| S25 | WGA, Summary of the 2023 MBA, https://wgacontract2023.org/the-campaign/summary-of-the-2023-wga-mba (D32) | KI darf kein „literary material“ schreiben; KI-Output kein „source material“ | ◐ |
