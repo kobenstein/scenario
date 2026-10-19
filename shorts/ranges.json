@@ -1,0 +1,664 @@
+[
+ {
+  "id": "f1a",
+  "film": "f1",
+  "start": 0.35,
+  "end": 21.62,
+  "cues": [
+   [
+    0.25,
+    1.72,
+    "It has started."
+   ],
+   [
+    1.93,
+    4.85,
+    "At Anthropic, one of the biggest AI labs,"
+   ],
+   [
+    4.89,
+    6.01,
+    "more than eighty percent"
+   ],
+   [
+    6.05,
+    8.29,
+    "of the code going into its codebase"
+   ],
+   [
+    8.33,
+    11.01,
+    "is now written by its own AI."
+   ],
+   [
+    11.05,
+    12.61,
+    "Some of it is code for the next"
+   ],
+   [
+    12.65,
+    14.307,
+    "version of that AI."
+   ],
+   [
+    15.05,
+    17.33,
+    "For the first time in human history,"
+   ],
+   [
+    17.37,
+    18.85,
+    "a tool is helping to make"
+   ],
+   [
+    18.89,
+    20.467,
+    "its own successor."
+   ]
+  ]
+ },
+ {
+  "id": "f1b",
+  "film": "f1",
+  "start": 144.87,
+  "end": 181.43,
+  "cues": [
+   [
+    0.25,
+    2.68,
+    "This moment is shorter than it feels."
+   ],
+   [
+    2.97,
+    5.14,
+    "Squeeze the whole human story,"
+   ],
+   [
+    5.25,
+    7.39,
+    "all three hundred thousand years,"
+   ],
+   [
+    7.43,
+    8.66,
+    "into one day."
+   ],
+   [
+    9.03,
+    10.59,
+    "Writing shows up in the last"
+   ],
+   [
+    10.63,
+    11.94,
+    "twenty-four minutes."
+   ],
+   [
+    12.23,
+    13.17,
+    "And the years between"
+   ],
+   [
+    13.21,
+    14.82,
+    "now and twenty thirty?"
+   ],
+   [
+    15.11,
+    17.0,
+    "That's about the last second."
+   ],
+   [
+    17.69,
+    20.59,
+    "Jared Kaplan, Anthropic's chief scientist,"
+   ],
+   [
+    20.63,
+    22.55,
+    "thinks that somewhere in that second"
+   ],
+   [
+    22.59,
+    24.23,
+    "we'll have to decide whether to let"
+   ],
+   [
+    24.27,
+    26.6,
+    "AI train its own successors."
+   ],
+   [
+    26.95,
+    28.17,
+    "He's called it maybe"
+   ],
+   [
+    28.21,
+    29.92,
+    "the biggest decision yet."
+   ],
+   [
+    30.51,
+    32.29,
+    "A kid starting first grade this"
+   ],
+   [
+    32.33,
+    34.17,
+    "fall will still be in elementary"
+   ],
+   [
+    34.21,
+    35.76,
+    "school when it comes due."
+   ]
+  ]
+ },
+ {
+  "id": "f1c",
+  "film": "f1",
+  "start": 348.1,
+  "end": 370.98,
+  "cues": [
+   [
+    0.25,
+    1.65,
+    "In twenty twenty-four,"
+   ],
+   [
+    1.69,
+    4.19,
+    "Anthropic mapped millions of \"features\""
+   ],
+   [
+    4.23,
+    5.92,
+    "inside one of its models."
+   ],
+   [
+    6.23,
+    7.39,
+    "Little patterns,"
+   ],
+   [
+    7.43,
+    9.4,
+    "each one tied to an idea."
+   ],
+   [
+    9.85,
+    12.02,
+    "One of them was the Golden Gate Bridge."
+   ],
+   [
+    12.35,
+    13.41,
+    "They turned it up,"
+   ],
+   [
+    13.45,
+    14.53,
+    "and the model got,"
+   ],
+   [
+    14.57,
+    15.58,
+    "as they put it,"
+   ],
+   [
+    15.71,
+    18.02,
+    "\"effectively obsessed with the bridge.\""
+   ],
+   [
+    18.39,
+    19.53,
+    "It showed you can read"
+   ],
+   [
+    19.57,
+    20.73,
+    "some of what's in there,"
+   ],
+   [
+    20.77,
+    22.08,
+    "and even change it."
+   ]
+  ]
+ },
+ {
+  "id": "f2a",
+  "film": "f2",
+  "start": 72.41,
+  "end": 111.19,
+  "cues": [
+   [
+    0.25,
+    3.13,
+    "Forty-one years later, in 1997,"
+   ],
+   [
+    3.17,
+    4.17,
+    "a computer beats"
+   ],
+   [
+    4.21,
+    6.02,
+    "the world chess champion."
+   ],
+   [
+    6.09,
+    7.65,
+    "Fifteen years after that,"
+   ],
+   [
+    7.69,
+    10.01,
+    "a neural network learns to recognise"
+   ],
+   [
+    10.05,
+    11.25,
+    "what's in a photo,"
+   ],
+   [
+    11.29,
+    13.38,
+    "far better than anything before it."
+   ],
+   [
+    13.93,
+    16.25,
+    "Four years: AlphaGo beats one"
+   ],
+   [
+    16.29,
+    18.73,
+    "of the best Go players alive."
+   ],
+   [
+    18.77,
+    20.61,
+    "Four years: AlphaFold"
+   ],
+   [
+    20.65,
+    22.45,
+    "cracks how proteins fold,"
+   ],
+   [
+    22.49,
+    25.25,
+    "a fifty-year-old puzzle in biology."
+   ],
+   [
+    25.29,
+    28.05,
+    "Two years: ChatGPT."
+   ],
+   [
+    28.09,
+    30.93,
+    "Four months: GPT-4 scores high"
+   ],
+   [
+    30.97,
+    32.793,
+    "enough to pass the bar exam."
+   ],
+   [
+    33.77,
+    34.77,
+    "Decades."
+   ],
+   [
+    35.13,
+    36.5,
+    "Then years."
+   ],
+   [
+    36.57,
+    37.98,
+    "Then months."
+   ]
+  ]
+ },
+ {
+  "id": "f2b",
+  "film": "f2",
+  "start": 270.01,
+  "end": 294.35,
+  "cues": [
+   [
+    0.25,
+    2.97,
+    "Nine hundred and fifty AI agents search"
+   ],
+   [
+    3.01,
+    5.01,
+    "the DNA of living things,"
+   ],
+   [
+    5.05,
+    6.66,
+    "for twenty-one hours."
+   ],
+   [
+    7.13,
+    9.49,
+    "One of them stops at a strange pattern,"
+   ],
+   [
+    9.53,
+    10.94,
+    "and writes a note:"
+   ],
+   [
+    11.05,
+    12.45,
+    "\"I can see by eye"
+   ],
+   [
+    12.49,
+    14.45,
+    "a tandem repeat array..."
+   ],
+   [
+    14.49,
+    16.85,
+    "a CRISPR-like repeat array?!\""
+   ],
+   [
+    16.89,
+    18.05,
+    "It's a system no one"
+   ],
+   [
+    18.09,
+    19.62,
+    "had described before."
+   ],
+   [
+    20.09,
+    21.94,
+    "Scientists check it in the lab."
+   ],
+   [
+    22.25,
+    23.54,
+    "It's real."
+   ]
+  ]
+ },
+ {
+  "id": "f2c",
+  "film": "f2",
+  "start": 112.01,
+  "end": 138.67,
+  "cues": [
+   [
+    0.25,
+    3.81,
+    "In July 2025, AI reaches gold-medal"
+   ],
+   [
+    3.85,
+    5.17,
+    "level at the International"
+   ],
+   [
+    5.21,
+    7.73,
+    "Mathematical Olympiad, the hardest"
+   ],
+   [
+    7.77,
+    9.78,
+    "contest for students on Earth."
+   ],
+   [
+    9.85,
+    10.93,
+    "Ten months later,"
+   ],
+   [
+    10.97,
+    12.45,
+    "it disproves a conjecture"
+   ],
+   [
+    12.49,
+    14.5,
+    "that had stood for eighty years."
+   ],
+   [
+    14.89,
+    16.69,
+    "Nine outside mathematicians"
+   ],
+   [
+    16.73,
+    17.97,
+    "check the proof."
+   ],
+   [
+    18.01,
+    19.01,
+    "It holds."
+   ],
+   [
+    19.29,
+    21.89,
+    "The Fields Medal winner Tim Gowers:"
+   ],
+   [
+    21.93,
+    23.81,
+    "\"No previous AI-generated"
+   ],
+   [
+    23.85,
+    25.86,
+    "proof has come close to that.\""
+   ]
+  ]
+ },
+ {
+  "id": "f3a",
+  "film": "f3",
+  "start": 1.15,
+  "end": 35.01,
+  "cues": [
+   [
+    0.25,
+    1.37,
+    "What if you could copy"
+   ],
+   [
+    1.41,
+    3.97,
+    "the smartest people who ever lived?"
+   ],
+   [
+    4.01,
+    4.93,
+    "Not once."
+   ],
+   [
+    4.97,
+    6.45,
+    "A thousand times."
+   ],
+   [
+    6.49,
+    7.57,
+    "A million."
+   ],
+   [
+    7.61,
+    9.38,
+    "And they never slept."
+   ],
+   [
+    10.17,
+    12.41,
+    "Every medicine you've ever taken,"
+   ],
+   [
+    12.45,
+    14.41,
+    "every light you've ever switched on,"
+   ],
+   [
+    14.45,
+    16.69,
+    "began in minds like these."
+   ],
+   [
+    16.73,
+    18.42,
+    "And there were never enough of them."
+   ],
+   [
+    19.13,
+    20.74,
+    "That's about to change."
+   ],
+   [
+    21.13,
+    23.65,
+    "Somewhere, at the edge of a quiet town,"
+   ],
+   [
+    23.69,
+    26.34,
+    "someone is building this room right now."
+   ],
+   [
+    26.49,
+    28.5,
+    "And almost nobody has noticed."
+   ],
+   [
+    28.73,
+    30.1,
+    "And the strangest part?"
+   ],
+   [
+    30.33,
+    33.06,
+    "Building it may turn out to be the easy bit."
+   ]
+  ]
+ },
+ {
+  "id": "f3b",
+  "film": "f3",
+  "start": 190.04,
+  "end": 210.78,
+  "cues": [
+   [
+    0.25,
+    1.17,
+    "And a piece of this"
+   ],
+   [
+    1.21,
+    3.29,
+    "is already in your pocket."
+   ],
+   [
+    3.33,
+    6.21,
+    "When OpenAI launched GPT-5,"
+   ],
+   [
+    6.25,
+    8.05,
+    "Sam Altman said talking"
+   ],
+   [
+    8.09,
+    9.17,
+    "to it was like talking"
+   ],
+   [
+    9.21,
+    12.82,
+    "to a \"PhD-level expert\" in any area."
+   ],
+   [
+    13.13,
+    17.1,
+    "A thousand PhDs, on call, day and night."
+   ],
+   [
+    17.21,
+    19.94,
+    "Most of us use them to fix our emails."
+   ]
+  ]
+ },
+ {
+  "id": "f3c",
+  "film": "f3",
+  "start": 141.88,
+  "end": 165.58,
+  "cues": [
+   [
+    0.25,
+    2.53,
+    "In London, a team of scientists"
+   ],
+   [
+    2.57,
+    5.33,
+    "spent about a decade on one question:"
+   ],
+   [
+    5.37,
+    8.29,
+    "how do some superbugs pass their genes,"
+   ],
+   [
+    8.33,
+    11.38,
+    "including drug resistance, to other species?"
+   ],
+   [
+    11.45,
+    12.98,
+    "They had found the answer."
+   ],
+   [
+    13.21,
+    15.18,
+    "They hadn't published it yet."
+   ],
+   [
+    15.29,
+    16.85,
+    "Then they gave the same question"
+   ],
+   [
+    16.89,
+    18.98,
+    "to an AI system from Google."
+   ],
+   [
+    19.29,
+    20.65,
+    "Within two days,"
+   ],
+   [
+    20.69,
+    22.9,
+    "its top idea matched theirs."
+   ]
+  ]
+ }
+]
