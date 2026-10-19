@@ -1,6 +1,6 @@
 // "Some of it is code for the next version of that AI."
-// A server hall in one-point perspective. The current AI, a cyan ring, pulses as it thinks;
-// streams of light pour out of it and draw a second, larger, brighter ring stroke by stroke.
+// A server hall in one-point perspective. The current AI, a luminous cyan disc, pulses as it thinks;
+// streams of light pour out of it into a second, larger mind that condenses while a pen of light draws its rim.
 const L = require('./lib');
 const { W, H, C, sm, ramp, lerp, drift, hash, rng, lin, rad, rgba, light, cone, out, clamp, label } = L;
 
@@ -113,22 +113,16 @@ function rack(ctx, t, rk, glow) {
   ctx.save(); quad(ctx, a, b, c, d); ctx.clip(); light(ctx, mid[0], 330, 380, C.cyan, 0.10 * glow * (1 - fade * 0.5)); ctx.restore();
 }
 
-// ---------- the rings ----------
-const R1 = { x: 700, y: 330, rx: 58, ry: 86 };
-const R2 = { x: 1255, y: 305, rx: 118, ry: 182 };
-// strokes of the new ring: each is drawn by a pen travelling round the ellipse; the last closes on "AI"
-const STROKES = [
-  { k: 1.00, w: 7, t0: 11.95, t1: 13.05, a0: -1.6, dash: null },
-  { k: 0.90, w: 2.5, t0: 12.20, t1: 13.30, a0: 1.2, dash: null },
-  { k: 1.10, w: 2, t0: 12.45, t1: 13.55, a0: 2.6, dash: [10, 8] },
-  { k: 0.82, w: 1.5, t0: 12.70, t1: 13.70, a0: -0.4, dash: [3, 6] },
-  { k: 1.19, w: 3, t0: 12.85, t1: T_DONE, a0: 0.5, dash: [40, 14, 6, 14] },
-];
+// ---------- the two minds: luminous discs (an eye-like iris), the new one condensing out of the streams ----------
+const R1 = { x: 700, y: 330, r: 64 };
+const R2 = { x: 1255, y: 300, r: 150 };
+const PEN = { t0: 11.95, t1: T_DONE, a0: -Math.PI / 2 };   // the new disc's rim is drawn in one stroke, closing on "AI"
+const penA = t => PEN.a0 + Math.PI * 2 * L.ease((t - PEN.t0) / (PEN.t1 - PEN.t0));
 const STREAMS = (() => { const r = rng(77), a = [];
-  for (let i = 0; i < 40; i++) { const a1 = -1.15 + r() * 2.3, back = r() < 0.3; a.push({ a1, tgt: i % STROKES.length, pen: r() < 0.3, ta: back ? a1 * 1.3 : Math.PI - a1 * 1.35, c1: (r() - 0.5) * 70, c2: (r() - 0.5) * 90, d: r() * 0.5, sp: 180 + r() * 260, w: 0.6 + r() * 1.4 }); }
+  for (let i = 0; i < 34; i++) { const a1 = -1.1 + r() * 2.2; a.push({ a1, pen: r() < 0.3, ta: Math.PI - a1 * 1.2 + (r() - 0.5) * 0.5, c1: (r() - 0.5) * 70, c2: (r() - 0.5) * 90, d: r() * 0.5, sp: 180 + r() * 260, w: 0.6 + r() * 1.3 }); }
   return a; })();
-const ell = (R, k, a, rot = 0) => { const x = Math.cos(a) * R.rx * k, y = Math.sin(a) * R.ry * k; return [R.x + x * Math.cos(rot) - y * Math.sin(rot), R.y + x * Math.sin(rot) + y * Math.cos(rot)]; };
-const penA = (s, t) => s.a0 + Math.PI * 2 * L.ease((t - s.t0) / (s.t1 - s.t0));
+const onRim = (R, a, k = 1) => [R.x + Math.cos(a) * R.r * k, R.y + Math.sin(a) * R.r * k];
+const FIB = (() => { const r = rng(31), a = []; for (let i = 0; i < 90; i++) a.push({ a: i / 90 * Math.PI * 2 + r() * 0.05, r0: 0.3 + r() * 0.08, r1: 0.62 + r() * 0.3, al: 0.25 + r() * 0.5, w: 0.6 + r() * 0.9 }); return a; })();
 
 function glowStroke(ctx, path, col, w, a) {
   ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
@@ -136,46 +130,45 @@ function glowStroke(ctx, path, col, w, a) {
   ctx.restore();
 }
 
+// one mind: a deep cyan disc with a bright core, iris fibres turning slowly, a soft inner ring and a thin bright rim
+function orb(ctx, R, t, k, a, spin, think) {
+  const r = R.r * k; if (r < 1 || a <= 0) return;
+  const br = 0.5 + 0.5 * Math.sin(t * 2.1 + R.x);
+  light(ctx, R.x, R.y, r * 3.2, C.cyan, (0.16 + 0.06 * br) * a);
+  ctx.save(); ctx.globalAlpha = a;
+  grainFill(ctx, c => c.arc(R.x, R.y, r, 0, Math.PI * 2),
+    rad(ctx, R.x - r * 0.12, R.y - r * 0.14, r * 0.05, r, [[0, '#e9fbff'], [0.18, '#a8eeff'], [0.45, '#2aa6c8'], [0.78, '#0a5a78'], [1, '#062c46']]), 0.35);
+  // iris fibres
+  ctx.save(); ctx.beginPath(); ctx.arc(R.x, R.y, r * 0.97, 0, Math.PI * 2); ctx.clip(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+  for (const f of FIB) { const ang = f.a + spin, wob = 0.04 * Math.sin(t * 1.3 + f.a * 5);
+    ctx.strokeStyle = rgba(C.cyanW, f.al * (0.35 + 0.25 * think) * a); ctx.lineWidth = f.w * Math.max(0.6, r / 120);
+    ctx.beginPath(); ctx.moveTo(R.x + Math.cos(ang) * r * f.r0, R.y + Math.sin(ang) * r * f.r0); ctx.lineTo(R.x + Math.cos(ang + wob) * r * f.r1, R.y + Math.sin(ang + wob) * r * f.r1); ctx.stroke(); }
+  // thinking: soft ripples moving out from the core
+  for (let i = 0; i < 2; i++) { const ph = (t * 0.7 + i / 2) % 1; ctx.strokeStyle = rgba(C.cyanW, 0.35 * think * Math.sin(ph * Math.PI)); ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(R.x, R.y, r * (0.32 + 0.6 * ph), 0, Math.PI * 2); ctx.stroke(); }
+  ctx.restore();
+  // core and rim
+  light(ctx, R.x, R.y, r * 0.55, C.cyanW, 0.55 + 0.2 * br);
+  ctx.restore();
+}
+
 function ring1(ctx, t, think) {
-  const p = 0.5 + 0.5 * Math.sin(t * 6.2), q = 0.5 + 0.5 * Math.sin(t * 2.3 + 1);
-  light(ctx, R1.x, R1.y, 210, C.cyan, 0.18 + 0.12 * p * think);
-  glowStroke(ctx, c => c.ellipse(R1.x, R1.y, R1.rx, R1.ry, 0, 0, 7), C.cyan, 6 + 1.5 * p, 0.75 + 0.25 * p);
-  glowStroke(ctx, c => c.ellipse(R1.x, R1.y, R1.rx - 3, R1.ry - 4, 0, 0, 7), C.cyanW, 1.6, 0.6 + 0.4 * p);
-  // inner thought: rotating arcs and sparks circulating
-  // thinking: ripples rising from the centre to the rim, again and again
-  for (let k = 0; k < 3; k++) { const ph = (t * 0.9 + k / 3) % 1;
-    glowStroke(ctx, c => c.ellipse(R1.x, R1.y, R1.rx * (0.25 + 0.7 * ph), R1.ry * (0.25 + 0.7 * ph), 0, 0, 7), C.cyan, 1.1, 0.4 * think * Math.sin(ph * Math.PI)); }
-  for (let i = 0; i < 10; i++) { const a = t * (2 + i * 0.13) + i * 0.63, pt = ell(R1, 1 + 0.06 * Math.sin(t * 3 + i), a); light(ctx, pt[0], pt[1], 7, C.cyanW, 0.6 * (0.5 + 0.5 * Math.sin(t * 9 + i))); }
+  orb(ctx, R1, t, 1 + 0.025 * Math.sin(t * 6.2) * think, 1, t * 0.25, think);
+  glowStroke(ctx, c => c.arc(R1.x, R1.y, R1.r + 1, 0, Math.PI * 2), C.cyanW, 1.6, 0.7);
 }
 
 function ring2(ctx, t, rot) {
   const done = ramp(t, T_DONE - 0.05, T_DONE + 0.1), flash = Math.exp(-Math.max(0, t - T_DONE) * 3.2) * (t >= T_DONE - 0.03 ? 1 : 0);
-  const pulse = 0.5 + 0.5 * Math.sin(t * 3.4);
-  let drawn = 0;
-  // faint construction guide: where the new ring will be, sketched in before the strokes arrive
-  const g = ramp(t, 11.65, 12.2) * (1 - 0.7 * ramp(t, 13.2, T_DONE));
-  if (g > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.setLineDash([3, 8]); ctx.lineDashOffset = t * 8; ctx.strokeStyle = rgba(C.cyan, 0.6 * g); ctx.lineWidth = 2;
-    for (const k of [1, 1.19]) { ctx.beginPath(); ctx.ellipse(R2.x, R2.y, R2.rx * k, R2.ry * k, rot, 0, 7); ctx.stroke(); }
-    ctx.setLineDash([]); ctx.strokeStyle = rgba(C.cyan, 0.18 * g); ctx.beginPath(); ctx.moveTo(R2.x - R2.rx * 1.4, R2.y); ctx.lineTo(R2.x + R2.rx * 1.4, R2.y); ctx.moveTo(R2.x, R2.y - R2.ry * 1.3); ctx.lineTo(R2.x, R2.y + R2.ry * 1.3); ctx.stroke();
-    ctx.restore(); }
-  for (const s of STROKES) {
-    if (t < s.t0) continue;
-    const a0 = s.a0, a1 = penA(s, t); drawn += (a1 - a0) / (Math.PI * 2) / STROKES.length;
-    const R = { x: R2.x, y: R2.y, rx: R2.rx * s.k, ry: R2.ry * s.k };
-    const path = c => { if (s.dash) c.setLineDash(s.dash); else c.setLineDash([]); c.lineDashOffset = -t * 20 * (s.k > 1 ? 1 : -1); c.ellipse(R.x, R.y, R.rx, R.ry, rot * (s.k > 1 ? 1 : -0.6), a0, a1); };
-    glowStroke(ctx, path, s.k === 1 ? C.cyanW : C.cyan, s.w * (1 + 0.35 * flash), (0.75 + 0.25 * done) * (1 + 0.6 * flash));
-    ctx.setLineDash([]);
-    if (a1 - a0 < Math.PI * 2 - 0.01) { const pp = ell(R, 1, a1, rot * (s.k > 1 ? 1 : -0.6)); light(ctx, pp[0], pp[1], 26, C.cyanW, 0.9); light(ctx, pp[0], pp[1], 70, C.cyan, 0.3); }
-  }
-  // tick marks around the outside once the ring exists
-  const tk = ramp(t, 12.9, T_DONE);
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(C.cyan, 0.55 * tk); ctx.lineWidth = 1.5;
-  for (let i = 0; i < 72; i++) { if (i / 72 > tk) break; const a = i / 72 * Math.PI * 2 + rot * 0.5, p1 = ell(R2, 1.27, a), p2 = ell(R2, i % 6 ? 1.30 : 1.35, a); ctx.beginPath(); ctx.moveTo(p1[0], p1[1]); ctx.lineTo(p2[0], p2[1]); ctx.stroke(); }
-  ctx.restore();
-  // its light: grows as it is built, flares on completion, then breathes. The brightest thing in the frame.
-  light(ctx, R2.x, R2.y, 320 + 120 * done, C.cyan, 0.10 + 0.22 * drawn + 0.10 * done * pulse + 0.35 * flash);
-  light(ctx, R2.x, R2.y, 160, C.cyanW, 0.08 * done + 0.3 * flash);
-  if (flash > 0.01) glowStroke(ctx, c => c.ellipse(R2.x, R2.y, R2.rx * (1.2 + (1 - flash) * 0.9), R2.ry * (1.2 + (1 - flash) * 0.9), 0, 0, 7), C.cyanW, 2, flash * 0.6);
+  const build = L.ease((t - PEN.t0) / (PEN.t1 - PEN.t0 + 0.2));
+  // the disc condenses as light pours in: it grows from a glow into a full, solid mind
+  if (t > PEN.t0) orb(ctx, R2, t, 0.55 + 0.45 * build + 0.03 * flash, Math.min(1, build * 1.3), -t * 0.18 + rot, 0.4 + 0.6 * done);
+  // the rim, drawn by a pen of light in one sweep (once closed, a full arc must start at 0 or @napi-rs/canvas draws nothing)
+  if (t > PEN.t0) { const a1 = Math.min(penA(t), PEN.a0 + Math.PI * 2);
+    glowStroke(ctx, c => a1 >= PEN.a0 + Math.PI * 2 - 1e-3 ? c.arc(R2.x, R2.y, R2.r + 2, 0, Math.PI * 2) : c.arc(R2.x, R2.y, R2.r + 2, PEN.a0, Math.max(PEN.a0 + 0.001, a1)), C.cyanW, 2.4 * (1 + 0.5 * flash), 0.85 + 0.15 * done);
+    if (t < PEN.t1) { const pp = onRim({ x: R2.x, y: R2.y, r: R2.r + 2 }, a1); light(ctx, pp[0], pp[1], 26, C.cyanW, 0.9); light(ctx, pp[0], pp[1], 70, C.cyan, 0.3); } }
+  // its light: the brightest thing in the frame once it closes
+  light(ctx, R2.x, R2.y, 360 + 120 * done, C.cyan, 0.08 + 0.16 * build + 0.08 * done * (0.5 + 0.5 * Math.sin(t * 3.4)) + 0.3 * flash);
+  if (flash > 0.01) glowStroke(ctx, c => c.arc(R2.x, R2.y, R2.r * (1.05 + (1 - flash) * 0.7), 0, Math.PI * 2), C.cyanW, 2, flash * 0.5);
 }
 
 function streams(ctx, t, rot) {
@@ -184,18 +177,17 @@ function streams(ctx, t, rot) {
   const settle = ramp(t, T_DONE, T_DONE + 1.2);
   for (const st of STREAMS) {
     const grow = out((t - T_STREAM - st.d * 0.8) / 0.7); if (grow <= 0) continue;
-    const s = STROKES[st.tgt], R = { x: R2.x, y: R2.y, rx: R2.rx * s.k, ry: R2.ry * s.k };
-    const ta = st.pen && t < s.t1 ? Math.max(penA(s, t), s.a0) : st.ta;
-    const p0 = ell(R1, 1, st.a1), p3 = ell(R, 1, ta, rot), p1 = [p0[0] + 200, R1.y + (p0[1] - R1.y) * 0.4 + st.c1], p2 = [p3[0] - 250, R2.y + (p3[1] - R2.y) * 0.55 + st.c2];
+    const ta = st.pen && t < PEN.t1 && t > PEN.t0 ? penA(t) : st.ta;
+    const p0 = onRim(R1, st.a1), p3 = onRim(R2, ta, 0.98), p1 = [p0[0] + 200, R1.y + (p0[1] - R1.y) * 0.4 + st.c1], p2 = [p3[0] - 250, R2.y + (p3[1] - R2.y) * 0.55 + st.c2];
     const N = 36, n = Math.max(2, Math.floor(N * grow));
     ctx.beginPath();
     for (let i = 0; i <= n; i++) { const u = i / N, v = 1 - u;
       const x = v * v * v * p0[0] + 3 * v * v * u * p1[0] + 3 * v * u * u * p2[0] + u * u * u * p3[0], y = v * v * v * p0[1] + 3 * v * v * u * p1[1] + 3 * v * u * u * p2[1] + u * u * u * p3[1];
       i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
-    const a = (st.pen ? 0.5 : 0.28) * (1 - 0.45 * settle);
-    ctx.setLineDash([]); ctx.strokeStyle = rgba(C.cyan, a * 0.45); ctx.lineWidth = st.w; ctx.stroke();
-    // packets of light flowing along it toward the new ring
-    ctx.setLineDash([14 + st.w * 10, 46 + st.d * 60]); ctx.lineDashOffset = -t * st.sp; ctx.strokeStyle = rgba(C.cyanW, a * 1.5); ctx.lineWidth = st.w + 0.8; ctx.stroke();
+    const a = (st.pen ? 0.45 : 0.26) * (1 - 0.5 * settle);
+    ctx.setLineDash([]); ctx.strokeStyle = rgba(C.cyan, a * 0.4); ctx.lineWidth = st.w; ctx.stroke();
+    // packets of light flowing along it toward the new mind
+    ctx.setLineDash([14 + st.w * 10, 46 + st.d * 60]); ctx.lineDashOffset = -t * st.sp; ctx.strokeStyle = rgba(C.cyanW, a * 1.4); ctx.lineWidth = st.w + 0.8; ctx.stroke();
   }
   ctx.restore(); ctx.setLineDash([]);
 }
