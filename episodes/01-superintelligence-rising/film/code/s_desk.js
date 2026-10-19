@@ -217,7 +217,9 @@ function person(c, t) {
   const farHand = tp > 0 && tp < 1
     ? [NB.x + Math.cos(Math.PI * ease(tp)) * NB.w * 0.9 - 6, NB.y - Math.sin(Math.PI * ease(tp)) * NB.w * 0.56]
     : [NB.x + 4 + 3 * Math.sin(t * 0.5) + 30 * lk, NB.y - 1 + 4 * lk];
-  const shoulderFar = [sh[0] - 14, sh[1] + 4];
+  // the arms hang from the shoulder joint a little below the top of the shoulder (not from the base of the neck)
+  const ash = [sh[0] + Math.sin(lean) * 18 - Math.cos(lean) * 4, sh[1] + Math.cos(lean) * 18 + Math.sin(lean) * 4];
+  const shoulderFar = [ash[0] - 14, ash[1] + 4];
   const skin = '#c9773a', shirt = lin(c, sh[0] - 70, 0, hip[0] + 30, 0, [[0, '#d98a44'], [0.35, '#8a4422'], [1, '#2a1418']]);
 
   // far arm (behind the body), darker
@@ -254,9 +256,9 @@ function person(c, t) {
   if (lk > 0) { c.save(); c.beginPath(); hd(c); c.clip(); light(c, -18, 6, 40, C.lav, 0.35 * lk); c.restore(); }
   c.restore();
   // writing arm (near side): upper arm, forearm, hand with pen
-  const el = ik(sh, hand, 78, 74, -1);
-  limb(c, sh, el, 17, 13, lin(c, sh[0], sh[1], el[0], el[1], [[0, '#5a2818'], [1, '#3a1810']]));
-  c.strokeStyle = 'rgba(255,192,120,0.55)'; c.lineWidth = 2; c.beginPath(); c.moveTo(sh[0] - 12, sh[1] + 6); c.lineTo(el[0] - 10, el[1] - 4); c.stroke();
+  const el = ik(ash, hand, 72, 74, -1);
+  limb(c, ash, el, 18.5, 13, lin(c, ash[0], ash[1], el[0], el[1], [[0, '#5a2818'], [1, '#3a1810']]));
+  c.strokeStyle = 'rgba(255,192,120,0.55)'; c.lineWidth = 2; c.beginPath(); c.moveTo(ash[0] - 13, ash[1] + 6); c.lineTo(el[0] - 10, el[1] - 4); c.stroke();
   limb(c, el, hand, 13, 9, lin(c, el[0], 0, hand[0], 0, [[0, '#4a2014'], [1, '#a85628']]));
   c.fillStyle = skin; c.beginPath(); c.ellipse(hand[0] - 2, hand[1] - 2, 10, 7, -0.3, 0, 7); c.fill();
   c.strokeStyle = '#1a0c0a'; c.lineWidth = 2.5; c.beginPath(); c.moveTo(hand[0] - 6, hand[1] + 4); c.lineTo(hand[0] + 12, hand[1] - 18); c.stroke();

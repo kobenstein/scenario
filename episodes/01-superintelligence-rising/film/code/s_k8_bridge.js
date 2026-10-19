@@ -2,6 +2,7 @@
 // A bridge being built from two cliffs over a misty gorge. Cranes on both ends; a segment is lowered, but the gap stays open.
 // On "check" a worker at the end of one deck lifts a lamp toward the other side; the beam dies in the fog before it gets there.
 const L = require('./lib');
+const K7 = require('./s_k7_kit');
 const { W, H, C, clamp, sm, ramp, lerp, drift, rng, lin, rad, rgba, light, cone, out, ease } = L;
 
 const T0 = 541.80, T1 = 546.50;
@@ -87,14 +88,22 @@ function worker(ctx, t, x, f, ph, lampUp) {
   const s = 0.8, br = Math.sin(t * 1.7 + ph);
   ctx.save(); ctx.translate(x, DECK); ctx.scale(s * f, s);
   gf(ctx, c => { c.rect(-14, -70, 11, 70); c.rect(3, -70, 11, 70); }, '#4a2210', 0.3, null);
-  gf(ctx, c => { c.moveTo(-22, -66); c.bezierCurveTo(-26, -110, -20, -146 + br, 0, -150 + br); c.bezierCurveTo(22, -146 + br, 26, -110, 22, -66); c.closePath(); }, lin(ctx, 0, -150, 0, -66, [[0, '#ffc27c'], [1, '#c9702e']]), 0.4, null);
+  // far arm hanging at the back edge, behind the body
+  gf(ctx, c => K7.armPath(c, [-15, -134 + br], [-19, -106 + br], [-16, -80], 7.5, 6.5, 5.5), '#9a4c1c', 0.3, null);
+  // torso with rounded shoulders a little below the neck, narrowing slightly to the waist
+  gf(ctx, c => { c.moveTo(-19, -66); c.bezierCurveTo(-21, -96, -24, -118, -21, -133 + br); c.quadraticCurveTo(-17, -147 + br, -6, -149 + br); c.lineTo(9, -149 + br);
+    c.quadraticCurveTo(21, -147 + br, 24, -133 + br); c.bezierCurveTo(26, -118, 23, -96, 20, -66); c.closePath(); }, lin(ctx, 0, -150, 0, -66, [[0, '#ffc27c'], [1, '#c9702e']]), 0.4, null);
   // hi-vis stripes
   ctx.fillStyle = 'rgba(243,239,226,0.7)'; ctx.fillRect(-22, -100, 44, 4); ctx.fillRect(-21, -84, 42, 4);
   gf(ctx, c => c.ellipse(2, -168 + br, 15, 17, 0, 0, 7), '#c9702e', 0.3, null);
   gf(ctx, c => { c.ellipse(2, -176 + br, 18, 11, 0, Math.PI, 0); c.rect(-18, -178 + br, 40, 4); }, '#ffe2a8', 0.2, null);   // hard hat
   // arm with the lamp
   const ax = lerp(16, 40, lampUp), ay = lerp(-80, -170, lampUp);
-  gf(ctx, c => cap(c, 12, -138 + br, ax, ay, 7, 6), '#e08a42', 0.3, null);
+  // near arm from the outer edge of the shoulder, elbow bending out as the lamp rises
+  const S = [17, -136 + br], [a1] = K7.ik(S[0], S[1], ax, ay, 31, 30, -1), E = [S[0] + Math.cos(a1) * 31, S[1] + Math.sin(a1) * 31];
+  ctx.save(); ctx.translate(-2, 1.5); ctx.beginPath(); K7.armPath(ctx, S, E, [ax, ay], 8, 7, 6); ctx.fillStyle = 'rgba(60,24,8,0.3)'; ctx.fill(); ctx.restore();
+  gf(ctx, c => K7.armPath(c, S, E, [ax, ay], 8, 7, 6), '#e08a42', 0.3, null);
+  gf(ctx, c => c.ellipse(ax, ay, 5.5, 6, 0, 0, 7), '#b0602a', 0, null);
   ctx.restore();
   return [x + ax * s * f, DECK + ay * s];
 }

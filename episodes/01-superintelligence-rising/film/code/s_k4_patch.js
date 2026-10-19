@@ -8,7 +8,7 @@ const { W, H, C, clamp, sm, ramp, lerp, drift, rng, lin, rad, rgba, light, out, 
 const { grainFill, roundRect, blob, pat } = require('./s_k4_gap');
 const { orb } = require('./s_k4_quote');
 const { road } = require('./s_k4_fog');
-const { figure } = require('./s_timeline');
+const { figure, ik, capsule } = require('./s_timeline');
 
 const T0 = 246.70, T1 = 252.70;
 const T_PATCH = 248.21, T_CUT = 249.05;
@@ -105,30 +105,62 @@ function sceneRoad(ctx, t) {
   ctx.fillStyle = rgba('#02040a', 0.5 * ramp(t, 250.4, 252.4)); ctx.fillRect(0, 0, W, H);
 }
 
-// a person in a coat and dark trousers, built on the shared rig
+// a person in a coat and dark trousers, built on the shared rig (legs, head); the coat and its sleeves are drawn here:
+// rounded shoulders that slope from the collar, and sleeves of coat cloth rooted at the outer shoulder edge
 function dressed(ctx, f) {
   const s = f.s;
-  figure(ctx, Object.assign({}, f, { pal: f.trousers || ['#2a2440', '#16122a', '#08060f'], rimA: (f.rimA ?? 0.6) * 0.5 }));
+  figure(ctx, Object.assign({}, f, { pal: f.trousers || ['#2a2440', '#16122a', '#08060f'], rimA: (f.rimA ?? 0.6) * 0.5, noArms: true }));
   const cs = Math.cos(f.lean || 0), sn = Math.sin(f.lean || 0), P = (x, y) => [f.x + x * cs - y * sn, f.y + x * sn + y * cs];
-  const len = 118 * s, sw = 47 * s, hw = 34 * s, hem = 74 * s * (f.coatLen ?? 1), fl = Math.sin(ctx.__t || 0) * 0;
-  const coat = c => { let p = P(-sw * 0.6, -len * 1.02); c.moveTo(p[0], p[1]);
-    let a = P(-sw * 1.05, -len * 0.98), b = P(-sw * 1.02, -len * 0.8); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
-    a = P(-sw * 1.0, -len * 0.3); b = P(-hw * 1.45, hem); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
+  const len = 118 * s, sw = 47 * s, hw = 34 * s, hem = 74 * s * (f.coatLen ?? 1);
+  const coat = c => { let p = P(-sw * 0.42, -len * 1.03); c.moveTo(p[0], p[1]);
+    // collar down the sloping shoulder to a rounded cap, a touch narrower at the waist, flaring to the hem
+    let a = P(-sw * 0.72, -len * 1.0), b = P(-sw * 0.9, -len * 0.95); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
+    a = P(-sw * 1.06, -len * 0.9); b = P(-sw * 1.04, -len * 0.76); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
+    a = P(-sw * 0.94, -len * 0.3); b = P(-hw * 1.45, hem); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
     a = P(0, hem + 8 * s); b = P(hw * 1.45, hem); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
-    a = P(sw * 1.0, -len * 0.3); b = P(sw * 1.02, -len * 0.8); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
-    a = P(sw * 1.05, -len * 0.98); b = P(sw * 0.6, -len * 1.02); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
-    a = P(0, -len * 0.94); c.quadraticCurveTo(a[0], a[1], P(-sw * 0.6, -len * 1.02)[0], P(-sw * 0.6, -len * 1.02)[1]); c.closePath(); };
+    a = P(sw * 0.94, -len * 0.3); b = P(sw * 1.04, -len * 0.76); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
+    a = P(sw * 1.06, -len * 0.9); b = P(sw * 0.9, -len * 0.95); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
+    a = P(sw * 0.72, -len * 1.0); b = P(sw * 0.42, -len * 1.03); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
+    a = P(0, -len * 0.95); b = P(-sw * 0.42, -len * 1.03); c.quadraticCurveTo(a[0], a[1], b[0], b[1]); c.closePath(); };
   const Lx = f.lx ?? -1;
-  if (f.rim) { ctx.save(); ctx.translate(f.rimDx ?? -3, f.rimDy ?? -1); grainFill(ctx, coat, rgba(f.rim, f.rimA ?? 0.6), 0); ctx.restore(); }
-  grainFill(ctx, coat, lin(ctx, f.x + Lx * sw, f.y - len, f.x - Lx * sw, f.y + hem, [[0, f.pal[0]], [0.5, f.pal[1]], [1, f.pal[2]]]), 0.42);
+  const cloth = lin(ctx, f.x + Lx * sw, f.y - len, f.x - Lx * sw, f.y + hem, [[0, f.pal[0]], [0.5, f.pal[1]], [1, f.pal[2]]]);
+  // sleeves: the shoulder joint sits just inside the outer edge of the coat at shoulder height
+  const ua = 60 * s, fa = 56 * s, r0 = 15 * s, r1 = 12 * s, r2 = 9.5 * s;
+  const SH = [P(-sw * 0.76, -len * 0.86), P(sw * 0.76, -len * 0.86)];
+  const arms = (f.arms || []).map((spec, i) => {
+    if (!spec) return null;
+    const o = SH[i], [a1, a2] = spec.tx !== undefined ? ik(o[0], o[1], spec.tx, spec.ty, ua, fa, spec.bend ?? 1) : [spec.a1, spec.a2];
+    const e = [o[0] + Math.cos(a1) * ua, o[1] + Math.sin(a1) * ua], h = [e[0] + Math.cos(a2) * fa, e[1] + Math.sin(a2) * fa];
+    return { o, e, h, a1, a2 };
+  }).filter(Boolean);
+  const upper = A => c => capsule(c, A.o[0], A.o[1], r0, A.e[0], A.e[1], r1);
+  const lower = A => c => capsule(c, A.e[0], A.e[1], r1, A.h[0], A.h[1], r2);
+  const handP = A => c => c.ellipse(A.h[0] + Math.cos(A.a2) * 5 * s, A.h[1] + Math.sin(A.a2) * 5 * s, 9 * s, 7.5 * s, A.a2, 0, Math.PI * 2);
+  if (f.rim) {
+    ctx.save(); ctx.translate(f.rimDx ?? -3, f.rimDy ?? -1);
+    for (const A of arms) for (const p of [upper(A), lower(A), handP(A)]) grainFill(ctx, p, rgba(f.rim, f.rimA ?? 0.6), 0);
+    grainFill(ctx, coat, rgba(f.rim, f.rimA ?? 0.6), 0); ctx.restore();
+  }
+  grainFill(ctx, coat, cloth, 0.42);
   // back seam, belt line and a fold
-  const q1 = P(0, -len * 0.9), q2 = P(2 * s, hem - 4 * s), b1 = P(-sw * 0.95, -len * 0.05), b2 = P(sw * 0.95, -len * 0.05);
+  const q1 = P(0, -len * 0.9), q2 = P(2 * s, hem - 4 * s), b1 = P(-sw * 0.92, -len * 0.05), b2 = P(sw * 0.92, -len * 0.05);
   ctx.save(); ctx.strokeStyle = rgba('#2a1004', 0.45); ctx.lineWidth = 2.5 * s; ctx.lineCap = 'round';
   ctx.beginPath(); ctx.moveTo(q1[0], q1[1]); ctx.lineTo(q2[0], q2[1]); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(b1[0], b1[1]); ctx.quadraticCurveTo((b1[0] + b2[0]) / 2, b1[1] + 5 * s, b2[0], b2[1]); ctx.stroke();
   ctx.restore();
-  // sleeves over the coat
-  return figure(ctx, Object.assign({}, f, { only: 'arms', rim: null }));
+  // sleeves over the coat, in the same cloth so the shoulder cap flows into the sleeve
+  for (const A of arms) {
+    grainFill(ctx, upper(A), cloth, 0.42);
+    grainFill(ctx, lower(A), cloth, 0.42);
+    // a soft fold where the sleeve leaves the shoulder, on the underside of the upper arm
+    const u = [Math.cos(A.a1), Math.sin(A.a1)], side = Math.sign(A.o[0] - f.x) || 1, nx = -u[1] * side, ny = u[0] * side;
+    ctx.save(); ctx.strokeStyle = rgba('#2a1004', 0.3); ctx.lineWidth = 2 * s; ctx.lineCap = 'round'; ctx.beginPath();
+    ctx.moveTo(A.o[0] + u[0] * 6 * s - nx * r0 * 0.55, A.o[1] + u[1] * 6 * s - ny * r0 * 0.55);
+    ctx.quadraticCurveTo(A.o[0] + u[0] * 22 * s - nx * r0 * 0.75, A.o[1] + u[1] * 22 * s - ny * r0 * 0.75, A.o[0] + u[0] * 38 * s - nx * r1 * 0.6, A.o[1] + u[1] * 38 * s - ny * r1 * 0.6);
+    ctx.stroke(); ctx.restore();
+    grainFill(ctx, handP(A), f.pal[1], 0.3);
+  }
+  return { hands: arms.map(A => A.h) };
 }
 
 let BUF = null;

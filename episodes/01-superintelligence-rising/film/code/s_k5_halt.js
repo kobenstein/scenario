@@ -6,7 +6,7 @@
 const L = require('./lib');
 const { W, H, C, clamp, sm, ramp, lerp, drift, hash, rng, lin, rad, rgba, light, cone, stamp, label, out, ease } = L;
 const { grainFill, roundRect, cap, glowStroke, cached, tag } = require('./s_k5_race');
-const { figure } = require('./s_timeline');
+const { figure, ik } = require('./s_timeline');
 
 const T0 = 308.8, T1 = 314.7;
 const TA = 312.15, TB = 314.0;                       // brake pulled / rings at rest
@@ -83,13 +83,19 @@ function lever(ctx, t, lv, glow) {
   if (glow > 0) { light(ctx, hx, hy, 110, C.amber, 0.55 * glow); glowStroke(ctx, c => c.arc(LEVER.x, LEVER.y, LEVER.len * 0.6, -2.55, -2.15), C.amber, 4, glow); }
 }
 
+// right arm: pick the IK solution whose elbow points out and down (away from the spine), whichever way the lever goes
+function elbowOut(sx, sy, tx, ty) {
+  const e = b => { const [a1] = ik(sx, sy, tx, ty, 57, 53, b); return Math.cos(a1) * 0.8 + Math.sin(a1) * 0.6; };
+  return e(1) >= e(-1) ? 1 : -1;
+}
 function engineer(ctx, t, lv, grip, fx = 1425, up = 0) {
   const [hx, hy] = leverHandle(lv), br = Math.sin(t * 1.6);
   const lean = 0.05 + 0.12 * lv * grip;
+  const tx = lerp(fx + 44, hx - 6, grip), ty = lerp(862, hy + 6, grip);
   figure(ctx, { x: fx, y: 850, s: 0.95, facing: 'back', br, lean: lean - 0.12 * lv * grip, turn: 0.15 + 0.2 * Math.sin(t * 0.4) - 0.25 * ramp(t, 312.5, 313.6), tilt: -0.08 - 0.12 * up, lx: 1, grain: 0.35,
     rim: C.cyan, rimA: 0.55, rimDx: -3, rimDy: -2, pal: ['#ffb35c', '#c9702e', '#5a2a12'],
     legs: [{ a1: Math.PI / 2 + 0.1, a2: Math.PI / 2 + 0.06 }, { a1: Math.PI / 2 - 0.12, a2: Math.PI / 2 - 0.05 }],
-    arms: [{ a1: Math.PI / 2 + 0.15, a2: Math.PI / 2 + 0.08 + 0.03 * br }, { tx: lerp(fx + 44, hx - 6, grip), ty: lerp(862, hy + 6, grip), bend: -1 }] });
+    arms: [{ a1: Math.PI / 2 + 0.15, a2: Math.PI / 2 + 0.08 + 0.03 * br }, { tx, ty, bend: elbowOut(fx + 39, 854 - 112, tx, ty) }] });
 }
 
 // o: { z, fx, fy, active, lv, grip, leverGlow, offAt, after(ctx) }

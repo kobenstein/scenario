@@ -60,16 +60,19 @@ function mini(ctx, f, t, litK, grainPath) {
   const lc = mix('#0c0b20', '#4a200c', lit);
   ctx.fillStyle = lc; ctx.beginPath(); rr(ctx, -6.5 * wd, -34, 5.2, 33, 2); rr(ctx, 1.3 * wd, -34, 5.2, 33, 2); ctx.fill();
   ctx.beginPath(); ctx.ellipse(-4.5 * wd, -1, 4.6, 2.2, 0, 0, Math.PI * 2); ctx.ellipse(4.5 * wd, -1, 4.6, 2.2, 0, 0, Math.PI * 2); ctx.fill();
-  // arms hang just off the body, swinging a touch
+  // arms hang from the outer shoulder, swinging a touch (drawn after the coat, see below)
   const sy = -78 + br * 0.5, sw = Math.sin(t * 0.9 + f.ph) * 0.04;
   const armCol = lin(ctx, 0, sy, 0, -36, [[0, coatA], [1, coatB]]);
-  for (const sg of [-1, 1]) { ctx.save(); ctx.translate(sg * 12.5 * wd, sy + 4); ctx.rotate(sg * (0.1 + sw * sg));
-    ctx.fillStyle = armCol; ctx.beginPath(); rr(ctx, -3.6, 0, 7.2, 36, 3.6); ctx.fill();
-    ctx.fillStyle = mix('#1d1a40', '#c9702e', lit); ctx.beginPath(); ctx.arc(0, 37, 3.4, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
   // coat: sloped shoulders, a waist, a flared hem
   const coat = c => { c.moveTo(-11 * wd - hem, -28 + f.len); c.bezierCurveTo(-10 * wd, -44, -9.5 * wd, -56, -11 * wd, sy + 8); c.quadraticCurveTo(-12 * wd, sy, -6, sy - 2.5);
     c.lineTo(6, sy - 2.5); c.quadraticCurveTo(12 * wd, sy, 11 * wd, sy + 8); c.bezierCurveTo(9.5 * wd, -56, 10 * wd, -44, 11 * wd + hem, -28 + f.len); c.quadraticCurveTo(0, -26 + f.len, -11 * wd - hem, -28 + f.len); c.closePath(); };
   ctx.fillStyle = lin(ctx, -10, sy, 12, -26, [[0, coatA], [1, coatB]]); ctx.beginPath(); coat(ctx); ctx.fill();
+  // sleeves: rounded shoulder cap at the coat's outer edge, tapering to the wrist, a small hand; a thin shade line sets them off the coat
+  for (const sg of [-1, 1]) { ctx.save(); ctx.translate(sg * 11 * wd, sy + 5.5); ctx.rotate(-sg * 0.05 + sw);
+    const sleeve = () => { ctx.beginPath(); ctx.moveTo(-4.3, 0); ctx.arc(0, 0, 4.3, Math.PI, 0); ctx.lineTo(3.1, 33); ctx.arc(0, 33, 3.1, 0, Math.PI); ctx.closePath(); };
+    ctx.fillStyle = 'rgba(10,6,20,0.28)'; ctx.save(); ctx.translate(-sg * 1.1, 0.4); sleeve(); ctx.fill(); ctx.restore();
+    ctx.fillStyle = armCol; sleeve(); ctx.fill();
+    ctx.fillStyle = mix('#1d1a40', '#c9702e', lit); ctx.beginPath(); ctx.ellipse(0, 36.6, 2.9, 3.4, 0, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
   // collar and a fold down the front
   ctx.strokeStyle = mix('#0a0a1c', '#7a3b17', lit); ctx.lineWidth = 1.3; ctx.beginPath(); if (!f.back) { ctx.moveTo(-4, sy - 2); ctx.lineTo(0, sy + 7); ctx.lineTo(4, sy - 2); } ctx.moveTo(0, sy + 7); ctx.lineTo(0.5, -30 + f.len); ctx.stroke();
   if (f.bag) { ctx.strokeStyle = mix('#0b0a1e', '#5a2a12', lit); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(-8 * wd, sy); ctx.lineTo(13 * wd, -48); ctx.stroke(); ctx.fillStyle = mix('#0b0a1e', '#5a2a12', lit); ctx.fillRect(11 * wd, -50, 9, 11); }

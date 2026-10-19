@@ -25,6 +25,19 @@ function cap(c, x0, y0, x1, y1, r0, r1) {
   c.moveTo(x0 + Math.cos(n) * r0, y0 + Math.sin(n) * r0); c.lineTo(x1 + Math.cos(n) * r1, y1 + Math.sin(n) * r1);
   c.arc(x1, y1, r1, n, n - Math.PI, true); c.lineTo(x0 - Math.cos(n) * r0, y0 - Math.sin(n) * r0); c.arc(x0, y0, r0, n + Math.PI, n, true); c.closePath();
 }
+// A sleeve with volume: upper arm from the shoulder joint S to the elbow E, forearm to the wrist Wr, and a rounded
+// deltoid over the joint so the arm grows out of the shoulder, not out of the coat. All sub-shapes are wound the same
+// way (a clockwise ellipse would punch a hole under nonzero fill).
+function armPath(c, S, E, Wr, r0, r1, r2) {
+  const a = Math.atan2(E[1] - S[1], E[0] - S[0]), cx = S[0] + Math.cos(a) * r0 * 0.5, cy = S[1] + Math.sin(a) * r0 * 0.5, rx = r0 * 1.55;
+  cap(c, S[0], S[1], E[0], E[1], r0, r1); cap(c, E[0], E[1], Wr[0], Wr[1], r1, r2);
+  c.moveTo(cx + Math.cos(a) * rx, cy + Math.sin(a) * rx); c.ellipse(cx, cy, rx, r0 * 1.12, a, 0, -7, true); c.closePath();
+}
+// draw it; shade = [dx, dy, alpha]: a soft contact shadow on the body behind a near arm
+function sleeve(ctx, S, E, Wr, r0, r1, r2, fill, grain, box, shade) {
+  if (shade) { ctx.save(); ctx.translate(shade[0], shade[1]); ctx.beginPath(); armPath(ctx, S, E, Wr, r0, r1, r2); ctx.fillStyle = rgba('#1a0a06', shade[2]); ctx.fill(); ctx.restore(); }
+  gf(ctx, c => armPath(c, S, E, Wr, r0, r1, r2), fill, grain, box);
+}
 // camera: push z0->z1 over [a,b], drift, optional pan; returns layer(par, fn)
 function camera(ctx, t, a, b, o = {}) {
   const k = sm((t - a) / (b - a)), z = lerp(o.z0 ?? 1, o.z1 ?? 1.07, k);
@@ -82,7 +95,7 @@ function walkerFig(ctx, p, o = {}) {
   const arm = (a, near) => {
     const ex = sx + 2 + Math.sin(a) * 62, ey = sy + 16 + Math.cos(a) * 62, a2 = a + 0.25 + 0.2 * Math.max(0, Math.sin(a + 0.3));
     const hx = ex + Math.sin(a2) * 58, hy = ey + Math.cos(a2) * 58;
-    gf(ctx, c => { cap(c, sx + 2, sy + 16, ex, ey, near ? 15 : 13, 12); cap(c, ex, ey, hx, hy, 12, 9); }, near ? col(coat[0], coat[1]) : col(coat[1], '#4a2210'), 0.4 * G, box);
+    sleeve(ctx, [sx + 2, sy + 16], [ex, ey], [hx, hy], near ? 15 : 13.5, 12, 9, near ? col(coat[0], coat[1]) : col(coat[1], '#4a2210'), 0.4 * G, box, near && !rim ? [-3, 2, 0.28] : null);
     gf(ctx, c => c.ellipse(hx + Math.sin(a2) * 5, hy + Math.cos(a2) * 5, 8, 10, -a2, 0, 7), rim || (near ? (o.skin || '#e08a42') : '#8a451c'), 0);
     return [hx, hy];
   };
@@ -123,7 +136,7 @@ function walkerFig(ctx, p, o = {}) {
     if (!rim && o.papers === 'clip') { ctx.save(); ctx.translate(hx + 10, hy + 16); ctx.rotate(-0.5); ctx.scale(1.3, 1.3); ctx.fillStyle = '#5a3420'; ctx.fillRect(-4, -46, 40, 58); ctx.fillStyle = '#f3efe2'; ctx.fillRect(0, -42, 32, 50); ctx.fillStyle = '#2a2050'; ctx.fillRect(10, -48, 12, 6);
       if (o.clipFn) o.clipFn(ctx); ctx.restore(); }
     else if (!rim) { ctx.save(); ctx.translate(hx - 4, hy - 8); ctx.rotate(-0.25); for (let k = 0; k < 3; k++) { ctx.fillStyle = k === 2 ? '#f3efe2' : '#d9d2bd'; ctx.fillRect(-6 + k * 2, -38 + k * 2, 34, 46); } ctx.restore(); }
-    gf(ctx, c => { cap(c, sx + 2, sy + 16, ex, ey, 15, 12); cap(c, ex, ey, hx, hy, 12, 9); }, col(coat[0], coat[1]), 0.4 * G, box);
+    sleeve(ctx, [sx + 2, sy + 16], [ex, ey], [hx, hy], 15, 12, 9, col(coat[0], coat[1]), 0.4 * G, box, rim ? null : [-3, 2, 0.28]);
     gf(ctx, c => c.ellipse(hx + 4, hy, 9, 8, 0, 0, 7), rim || (o.skin || '#e08a42'), 0);
     hand = [hx, hy];
   } else hand = arm(swing, true);
@@ -131,7 +144,7 @@ function walkerFig(ctx, p, o = {}) {
     // the far arm comes round in front of the body to write on what the near hand holds
     const [a1, a2] = TL.ik(sx + 6, sy + 18, o.writeAt[0], o.writeAt[1], 60, 56, -1);
     const ex = sx + 6 + Math.cos(a1) * 60, ey = sy + 18 + Math.sin(a1) * 60, hx = ex + Math.cos(a2) * 56, hy = ey + Math.sin(a2) * 56;
-    gf(ctx, c => { cap(c, sx + 6, sy + 18, ex, ey, 14, 11); cap(c, ex, ey, hx, hy, 11, 8.5); }, col(coat[0], coat[1]), 0.4 * G, box);
+    sleeve(ctx, [sx + 6, sy + 18], [ex, ey], [hx, hy], 14, 11, 8.5, col(coat[0], coat[1]), 0.4 * G, box, rim ? null : [-3, 2, 0.24]);
     if (!rim) { ctx.strokeStyle = '#1a1438'; ctx.lineWidth = 3.5; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(hx + 2, hy + 6); ctx.lineTo(hx - 10, hy - 16); ctx.stroke(); }
     gf(ctx, c => c.ellipse(hx, hy, 8, 7, 0, 0, 7), rim || (o.skin || '#e08a42'), 0);
   }
@@ -170,4 +183,4 @@ function caption(ctx, t, t0, t1, text, x, y, o = {}) {
   ctx.fillText(text, x, y + (1 - L.out((t - t0) / 0.7)) * 10); ctx.restore();
 }
 
-module.exports = { T0: -100, T1: -100, draw() {}, gf, cached, rr, cap, camera, sky, stars, fog, dust, walker, walkerFig, legPose, check, caption, figure: TL.figure, ik: TL.ik, capsule: TL.capsule };
+module.exports = { T0: -100, T1: -100, draw() {}, gf, cached, rr, cap, armPath, sleeve, camera, sky, stars, fog, dust, walker, walkerFig, legPose, check, caption, figure: TL.figure, ik: TL.ik, capsule: TL.capsule };

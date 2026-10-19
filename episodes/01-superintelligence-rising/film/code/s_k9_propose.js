@@ -133,8 +133,8 @@ function sparks(ctx, t, up) {
 function defender(ctx, t, up) {
   // stands in front of the network, tablet raised: the shield comes from it
   const x = 1900, y = 935, br = Math.sin(t * 1.7);
-  tiny(ctx, x, y, 1.05, { facing: 'back', pal: ['#ffb35c', '#c36a2b', '#5a2a12'], arm: 0.25 + 0.55 * out(up), armL: 0.15 + 0.4 * out(up), br, hair: '#1c0a05', coat: true });
-  const tx = x + 32, ty = y - lerp(100, 190, out(up));
+  const fig = tiny(ctx, x, y, 1.05, { facing: 'back', pal: ['#ffb35c', '#c36a2b', '#5a2a12'], arm: 0.25 + 0.55 * out(up), armL: 0.15 + 0.4 * out(up), br, hair: '#1c0a05', coat: true });
+  const tx = fig.handR[0], ty = fig.handR[1] - 8;
   ctx.fillStyle = '#14123a'; ctx.fillRect(tx - 18, ty - 12, 36, 24); ctx.fillStyle = rgba(C.cyanW, 0.9); ctx.fillRect(tx - 15, ty - 9, 30, 18);
   light(ctx, tx, ty, 120, C.cyan, 0.5 * (0.4 + 0.6 * up));
   if (up > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(C.cyan, 0.3 * up); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(tx, ty); ctx.quadraticCurveTo(tx + 20, ty - 160, DOME.x - 40, DOME.y - DOME.ry * out(up)); ctx.stroke(); ctx.restore(); }

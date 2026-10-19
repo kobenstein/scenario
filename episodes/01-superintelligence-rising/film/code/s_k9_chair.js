@@ -129,7 +129,13 @@ function man(ctx, t, pass) {
   }
   // near arm: elbow on the armrest, mug in hand; lifts on "urgent"
   const elb = [1130, 600], mug = [lerp(1040, 1100, sip), lerp(590, 496, sip) + br];
-  gf(ctx, c => { cap(c, sh[0] + 6, sh[1] + 12, elb[0], elb[1], 20, 16); cap(c, elb[0], elb[1], mug[0] + 30, mug[1] + 10, 16, 12); }, lin(ctx, sh[0], sh[1], elb[0], elb[1], [[0, '#ffb35c'], [1, '#b0602a']]), 0.4);
+  // the arm hangs from a rounded shoulder cap at the top of the torso and sits in front of it (soft contact shadow)
+  const sj = [sh[0] + 4, sh[1] + 14];
+  ctx.save(); ctx.translate(6, 4); gf(ctx, c => { cap(c, sj[0], sj[1], elb[0], elb[1], 23, 16); cap(c, elb[0], elb[1], mug[0] + 30, mug[1] + 10, 16, 12); }, 'rgba(70,30,10,0.28)', 0); ctx.restore();
+  gf(ctx, c => cap(c, elb[0], elb[1], mug[0] + 30, mug[1] + 10, 16, 12), lin(ctx, elb[0], elb[1], mug[0], mug[1], [[0, '#c46e30'], [1, '#e0904a']]), 0.4);
+  gf(ctx, c => cap(c, sj[0], sj[1], elb[0], elb[1], 23, 16), lin(ctx, sj[0] - 10, sj[1] - 20, elb[0], elb[1], [[0, '#ffc07a'], [0.5, '#ec9a4e'], [1, '#b0602a']]), 0.4);
+  ctx.strokeStyle = 'rgba(90,42,18,0.35)'; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.beginPath();
+  ctx.arc(sj[0], sj[1], 20, Math.atan2(elb[1] - sj[1], elb[0] - sj[0]) + 1.2, Math.atan2(elb[1] - sj[1], elb[0] - sj[0]) + 2.6); ctx.stroke();
   gf(ctx, c => { rr(c, mug[0] - 26, mug[1] - 36, 44, 52, 6); }, lin(ctx, mug[0] - 26, 0, mug[0] + 18, 0, [[0, '#e9e1cf'], [1, '#9a9086']]), 0.3);
   ctx.strokeStyle = '#9a9086'; ctx.lineWidth = 7; ctx.beginPath(); ctx.arc(mug[0] - 30, mug[1] - 12, 12, Math.PI * 0.5, Math.PI * 1.5); ctx.stroke();
   gf(ctx, c => c.ellipse(mug[0] + 20, mug[1] - 4, 14, 18, 0, 0, 7), '#e0904a', 0);

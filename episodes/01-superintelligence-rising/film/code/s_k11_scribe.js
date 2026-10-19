@@ -79,9 +79,17 @@ function scribe(ctx, t, lamp) {
   ctx.restore();
   // near arm with the stylus: shoulder, elbow, hand on the tablet
   const hx = tp[0] + 18 - press * 6, hy = tp[1] - 30 + press * 14;
-  const sh = [748, 440], el = [790, 590];
-  gf(ctx, c => { c.moveTo(sh[0] - 30, sh[1] - 20); c.quadraticCurveTo(sh[0] + 40, sh[1] + 10, el[0] + 22, el[1] - 6); c.lineTo(hx + 10, hy + 6); c.lineTo(hx - 4, hy + 24); c.lineTo(el[0] - 18, el[1] + 18); c.quadraticCurveTo(sh[0] - 30, sh[1] + 60, sh[0] - 30, sh[1] - 20); c.closePath(); },
-    lin(ctx, sh[0], sh[1], hx, hy, [[0, mix('#3a2a50', '#d07a38', lamp)], [1, mix('#2a1a30', '#9a4a1c', lamp)]]), 0.45);
+  // the upper arm hangs from a rounded shoulder cap at the top of the torso and lies in front of it; forearm tapers to the hand
+  const sh = [752, 440], el = [792, 590];
+  const capP = (c, x0, y0, x1, y1, r0, r1) => { const a = Math.atan2(y1 - y0, x1 - x0), n = a + Math.PI / 2;
+    c.moveTo(x0 + Math.cos(n) * r0, y0 + Math.sin(n) * r0); c.lineTo(x1 + Math.cos(n) * r1, y1 + Math.sin(n) * r1);
+    c.arc(x1, y1, r1, n, n - Math.PI, true); c.lineTo(x0 - Math.cos(n) * r0, y0 - Math.sin(n) * r0); c.arc(x0, y0, r0, n + Math.PI, n, true); c.closePath(); };
+  const armFill = lin(ctx, sh[0], sh[1] - 30, hx, hy, [[0, mix('#3a2a50', '#d07a38', lamp)], [1, mix('#2a1a30', '#9a4a1c', lamp)]]);
+  ctx.save(); ctx.translate(-7, 5); gf(ctx, c => capP(c, sh[0], sh[1], el[0], el[1], 34, 25), 'rgba(30,10,8,0.3)', 0); ctx.restore();   // shade on the robe behind the arm
+  gf(ctx, c => capP(c, el[0], el[1], hx + 2, hy + 12, 24, 15), armFill, 0.45);
+  gf(ctx, c => capP(c, sh[0], sh[1], el[0], el[1], 34, 25), armFill, 0.45);
+  ctx.strokeStyle = 'rgba(40,14,8,0.45)'; ctx.lineWidth = 4; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(sh[0] - 26, sh[1] + 20); ctx.quadraticCurveTo(sh[0] - 14, sh[1] + 90, el[0] - 20, el[1] + 4); ctx.stroke();   // back edge of the sleeve
   // hand and stylus
   gf(ctx, c => c.ellipse(hx, hy + 10, 18, 13, -0.5, 0, Math.PI * 2), mix('#3a2030', '#c9702e', lamp), 0.35);
   ctx.strokeStyle = mix('#3a2a20', '#d8b070', lamp); ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(hx + 22, hy - 26); ctx.lineTo(tp[0] + 2, tp[1] - 2 + press * 3); ctx.stroke();

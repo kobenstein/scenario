@@ -3,6 +3,7 @@
 // Night track. Four runners race toward a cold cyan glow; the one in front glances back at the pack.
 // On "slow down alone" he eases off, and the others close the gap and draw level on "catch up"; he speeds up again.
 const L = require('./lib');
+const K7 = require('./s_k7_kit');
 const { W, H, C, clamp, sm, ramp, lerp, drift, rng, lin, rad, rgba, light, out } = L;
 
 const T0 = 490.70, T1 = 502.30;
@@ -75,9 +76,15 @@ function runner(ctx, t, p, g, gl, kit, rim, rimA) {
     const a = -armAmp * Math.sin(ph) + 0.15 * g, ex = sx + Math.sin(a) * UA, ey = sy + 10 + Math.cos(a) * UA;
     const b = a + bend + 0.18 * g * Math.cos(ph), hx = ex + Math.sin(b) * FA, hy = ey + Math.cos(b) * FA;
     const sk = near ? col(kit.skin[0], kit.skin[1]) : col(kit.skin[1], '#3a1a0c');
-    gf(ctx, c => { cap(c, sx, sy + 10, ex, ey, 13, 10.5); cap(c, ex, ey, hx, hy, 10.5, 8); c.ellipse(hx + Math.sin(b) * 5, hy + Math.cos(b) * 5, 9, 8, -b, 0, 7); }, sk, 0.4 * G, box);
-    // sleeve
-    gf(ctx, c => cap(c, sx, sy + 8, lerp(sx, ex, 0.5), lerp(sy + 10, ey, 0.5), 16, 13.5), near ? col(kit.shirt[0], kit.shirt[1]) : col(kit.shirt[1], '#5a2a12'), 0.4 * G, box);
+    // a soft contact shadow on the shirt behind the near arm, so it reads as in front of the body
+    const S = [sx + 2, sy + 10], M = [lerp(S[0], ex, 0.5), lerp(S[1], ey, 0.5)];
+    if (near && !rim) { ctx.save(); ctx.translate(-3, 2); ctx.beginPath(); K7.armPath(ctx, S, [ex, ey], [hx, hy], 16, 10.5, 8); ctx.fillStyle = rgba('#1a0a06', 0.26); ctx.fill(); ctx.restore(); }
+    // hand drawn with the same winding as the caps (a clockwise ellipse would punch a hole where it overlaps the forearm)
+    gf(ctx, c => { cap(c, S[0], S[1], ex, ey, 13, 10.5); cap(c, ex, ey, hx, hy, 10.5, 8); const hx2 = hx + Math.sin(b) * 5, hy2 = hy + Math.cos(b) * 5; c.moveTo(hx2 + 9 * Math.cos(-b), hy2 + 9 * Math.sin(-b)); c.ellipse(hx2, hy2, 9, 8, -b, 0, -7, true); c.closePath(); }, sk, 0.4 * G, box);
+    // sleeve: a rounded shoulder cap over the joint, tapering down the upper arm
+    gf(ctx, c => { const a = Math.atan2(M[1] - S[1], M[0] - S[0]), cx = S[0] + Math.cos(a) * 7, cy = S[1] + Math.sin(a) * 7;
+      cap(c, S[0], S[1], M[0], M[1], 16, 13.5); c.moveTo(cx + Math.cos(a) * 23, cy + Math.sin(a) * 23); c.ellipse(cx, cy, 23, 17.5, a, 0, -7, true); c.closePath(); },
+      near ? col(kit.shirt[0], kit.shirt[1]) : col(kit.shirt[1], '#5a2a12'), 0.4 * G, box);
   };
   arm(p, false);          // far arm swings with the near leg
   leg(B, false);

@@ -140,9 +140,17 @@ function inspector(ctx, t, p, walkAmt, lift, look) {
   ctx.fillStyle = '#2a1a10'; ctx.fillRect(10, -48, 20, 8);
   ctx.fillStyle = 'rgba(40,30,50,0.6)'; for (let j = 0; j < 5; j++) ctx.fillRect(4, -26 + j * 9, 26 - (j % 2) * 8, 2);
   ctx.restore();
-  const ex = sx + 4 + 6 * lift, ey = sy + 76 - 14 * lift;
-  grainFill(ctx, c => { cap(c, sx + 4, sy + 16, ex, ey, 15, 12); cap(c, ex, ey, cbx + 6, cby + 10, 12, 9); }, lin(ctx, 0, sy, 0, sy + 100, [[0, '#ffb35c'], [1, '#c36a2b']]), 0.42);
-  grainFill(ctx, c => c.ellipse(cbx + 8, cby + 8, 9, 11, 0, 0, 7), '#e08a42', 0.3);
+  // the sleeve hangs from a rounded shoulder cap at the top of the coat; a soft shadow lifts it off the coat
+  const shx = sx + 3, shy = sy + 14, ex = sx + 6 + 6 * lift, ey = sy + 74 - 14 * lift, wx = cbx + 2, wy = cby + 12;
+  const sleeve = c => { cap(c, shx, shy, ex, ey, 17, 13); cap(c, ex, ey, wx, wy, 13, 10.5); };
+  ctx.save(); ctx.translate(-3, 3); grainFill(ctx, sleeve, 'rgba(74,30,10,0.38)', 0); ctx.restore();
+  grainFill(ctx, sleeve, lin(ctx, shx, shy - 16, ex, ey + 30, [[0, '#ffbe6e'], [0.5, '#e8904a'], [1, '#b0602a']]), 0.42);
+  // shoulder seam: the top of the sleeve reads as a round cap, a little below the collar
+  ctx.strokeStyle = 'rgba(122,59,23,0.4)'; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.arc(shx, shy + 2, 16, Math.PI * 1.05, Math.PI * 1.85); ctx.stroke();
+  // cuff and hand
+  { const a = Math.atan2(wy - ey, wx - ex);
+    grainFill(ctx, c => { c.save(); c.translate(wx, wy); c.rotate(a); roundRect(c, -7, -11.5, 8, 23, 3); c.restore(); }, '#9a4a1e', 0.3);
+    grainFill(ctx, c => c.ellipse(cbx + 8, cby + 8, 9, 11, 0, 0, 7), '#e08a42', 0.3); }
 }
 
 const MOTE = (() => { const r = rng(311); return Array.from({ length: 34 }, () => [r(), r(), r()]); })();

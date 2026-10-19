@@ -92,10 +92,14 @@ function kid(ctx, t, p, grow) {
     ctx.restore();
   };
   const armSw = Math.sin(p) * 0.55;
-  const arm = (near) => {
+  const arm = (near, part) => {
     const a1 = (near ? -armSw : armSw) + 0.1, sx0 = sx + 4, sy0 = sy + 12;
     const ex = sx0 + Math.sin(a1) * 34, ey = sy0 + Math.cos(a1) * 34, a2 = a1 + 0.35 + (near ? 0.25 : 0.1), hx = ex + Math.sin(a2) * 30, hy = ey + Math.cos(a2) * 30;
-    grainFill(ctx, c => { cap(c, sx0, sy0, ex, ey, 10, 8.5); cap(c, ex, ey, hx, hy, 8.5, 7); }, near ? lin(ctx, 0, sy0, 0, hy, [[0, '#ffb35c'], [1, '#d27a34']]) : '#a2521f', 0.4);
+    const fill = near ? lin(ctx, 0, sy0 - 12, 0, hy, [[0, '#ffbe72'], [0.25, '#ffb35c'], [1, '#d27a34']]) : '#a2521f';
+    // rounded shoulder cap of the hoodie flowing into a sleeve with some volume, tapering to the cuff
+    if (part !== 'sleeve') grainFill(ctx, c => c.ellipse(sx0 - 1, sy0 - 1, 13, 14, a1, 0, Math.PI * 2), fill, 0.4);
+    if (part === 'cap') return;
+    grainFill(ctx, c => { cap(c, sx0, sy0, ex, ey, 12, 9); cap(c, ex, ey, hx, hy, 9, 7); }, fill, 0.4);
     grainFill(ctx, c => c.arc(hx + Math.sin(a2) * 3, hy + Math.cos(a2) * 3, 6.5, 0, 7), near ? '#e0904a' : '#9a4c1c', 0.2);
   };
   // shadow
@@ -132,9 +136,10 @@ function kid(ctx, t, p, grow) {
   grainFill(ctx, c => roundRect(c, -BW + 2, 38, 22, 30, 7), '#a83c22', 0.4);
   ctx.fillStyle = 'rgba(255,226,170,0.6)'; ctx.fillRect(-BW + 18, 20, 18, 3);
   ctx.restore();
-  // strap over the shoulder and the near hand gripping it
+  // strap over the shoulder (over the shoulder cap) and the near arm in front
+  arm(true, 'cap');
   ctx.strokeStyle = '#8a2f1c'; ctx.lineWidth = 6; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(sx - 6, sy + 4); ctx.quadraticCurveTo(sx + 14, sy + 20, sx + 4, sy + 52); ctx.stroke();
-  arm(true);
+  arm(true, 'sleeve');
 }
 
 // ---------- leaves ----------

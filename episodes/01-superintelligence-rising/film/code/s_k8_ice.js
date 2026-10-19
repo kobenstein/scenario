@@ -3,6 +3,7 @@
 // parkas by an instrument on a tripod; one lets a weather balloon go. On "scientists" they look up, and the camera
 // tilts up with the balloon into a sky where a thin violet veil hangs, with a dark gap opening above them.
 const L = require('./lib');
+const K7 = require('./s_k7_kit');
 const { W, H, C, clamp, sm, ramp, lerp, drift, rng, lin, rad, rgba, light, stamp, out, ease } = L;
 
 const T0 = 514.70, T1 = 517.60;
@@ -93,9 +94,10 @@ function parka(ctx, x, y, s, t, o) {
   gf(ctx, c => { c.rect(-30, -60, 24, 56); c.rect(6, -60, 24, 56); }, '#2a1a28', 0.4, box);
   gf(ctx, c => { c.ellipse(-16, -4, 22, 9, 0, 0, 7); c.ellipse(22, -4, 22, 9, 0, 0, 7); }, '#140c18', 0, box);
   // far arm
-  const sh = [-6, -170 + br];
+  // (3/4 view toward +x: the far shoulder sits at the back edge of the parka, the near one at its front edge)
+  const sh = [-30, -166 + br];
   const fa = o.armFar || [30, -100];
-  gf(ctx, c => { cap(c, sh[0] - 10, sh[1] + 6, fa[0] - 10, (sh[1] + fa[1]) / 2 + 20, 18, 16); cap(c, fa[0] - 10, (sh[1] + fa[1]) / 2 + 20, fa[0], fa[1], 16, 13); }, '#9a4c1c', 0.45, box);
+  gf(ctx, c => K7.armPath(c, sh, [fa[0] - 18, (sh[1] + fa[1]) / 2 + 20], fa, 18, 16, 13), '#9a4c1c', 0.45, box);
   // parka body: bulky, to the knees, with a hem
   gf(ctx, c => { c.moveTo(-52, -54); c.bezierCurveTo(-60, -120, -58, -170 + br, -34, -190 + br); c.quadraticCurveTo(0, -204 + br, 34, -190 + br); c.bezierCurveTo(56, -170 + br, 62, -110, 54, -54); c.quadraticCurveTo(0, -44, -52, -54); c.closePath(); },
     lin(ctx, -50, -200, 50, -50, [[0, '#ffc27c'], [0.45, '#e08a42'], [1, '#8a451c']]), 0.45, box);
@@ -109,7 +111,9 @@ function parka(ctx, x, y, s, t, o) {
   ctx.restore();
   // near arm
   const na = o.armNear || [44, -90];
-  gf(ctx, c => { cap(c, 16, -168 + br, (16 + na[0]) / 2 + 14, (-168 + na[1]) / 2 + 10, 19, 17); cap(c, (16 + na[0]) / 2 + 14, (-168 + na[1]) / 2 + 10, na[0], na[1], 17, 14); }, lin(ctx, 0, -170, 0, -60, [[0, '#ffb35c'], [1, '#b0602a']]), 0.45, box);
+  const ns = [30, -168 + br], ne = [(ns[0] + na[0]) / 2 + 16, (ns[1] + na[1]) / 2 + 10];
+  ctx.save(); ctx.translate(-4, 3); ctx.beginPath(); K7.armPath(ctx, ns, ne, na, 19, 17, 14); ctx.fillStyle = 'rgba(60,24,8,0.28)'; ctx.fill(); ctx.restore();
+  gf(ctx, c => K7.armPath(c, ns, ne, na, 19, 17, 14), lin(ctx, 0, -170, 0, -60, [[0, '#ffb35c'], [1, '#b0602a']]), 0.45, box);
   gf(ctx, c => c.ellipse(na[0], na[1], 14, 12, 0, 0, 7), '#3a1a0c', 0, box);
   if (o.clip) { gf(ctx, c => { c.save(); c.translate(na[0] + 8, na[1] - 26); c.rotate(-0.4); c.rect(-20, -26, 40, 52); c.restore(); }, '#e9e2cc', 0.2, box); }
   ctx.restore();

@@ -66,7 +66,10 @@ function delegate(ctx, t, st, dark, lean) {
   // the delegate from behind: shoulders and head, leaning back on "no"
   ctx.save(); ctx.translate(x, y - lean * 6 * s); ctx.rotate(st.a - Math.PI / 2 + turn * 0.2);
   const coat = st.coat < 0.3 ? ['#c9702e', '#5a2a12'] : st.coat < 0.8 ? ['#3a3470', '#141236'] : ['#e8964e', '#7a3b17'];
-  gf(ctx, c => { c.moveTo(-38 * s, 40 * s); c.bezierCurveTo(-42 * s, -6 * s, -36 * s, -30 * s + br, 0, -32 * s + br); c.bezierCurveTo(36 * s, -30 * s + br, 42 * s, -6 * s, 38 * s, 40 * s); c.closePath(); },
+  // back view: rounded shoulder caps at the outer edges, sloping up to a collar and neck under the head
+  gf(ctx, c => { c.moveTo(-38 * s, 40 * s); c.bezierCurveTo(-41 * s, 6 * s, -40 * s, -14 * s + br, -30 * s, -20 * s + br); c.quadraticCurveTo(-19 * s, -27 * s + br, -9 * s, -29 * s + br);
+    c.quadraticCurveTo(-7 * s, -34 * s + br, -6 * s, -40 * s + br); c.lineTo(6 * s, -40 * s + br); c.quadraticCurveTo(7 * s, -34 * s + br, 9 * s, -29 * s + br);
+    c.quadraticCurveTo(19 * s, -27 * s + br, 30 * s, -20 * s + br); c.bezierCurveTo(40 * s, -14 * s + br, 41 * s, 6 * s, 38 * s, 40 * s); c.closePath(); },
     lin(ctx, 0, -32 * s, 0, 40 * s, [[0, coat[0]], [1, coat[1]]]), 0.4, box);
   gf(ctx, c => c.ellipse(turn * 10 * s, -56 * s + br - lean * 4 * s, 17 * s, 20 * s, 0, 0, 7), st.hair < 0.3 ? '#1c0a05' : st.hair < 0.7 ? '#3a1a0c' : '#a49fc4', 0.35, box);
   ctx.restore();

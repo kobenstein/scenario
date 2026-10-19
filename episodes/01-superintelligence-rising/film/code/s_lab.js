@@ -47,11 +47,17 @@ function L_figure(ctx, x, y, h, o = {}) {
     ctx.lineWidth = w * 0.75; ctx.beginPath(); ctx.moveTo(an[0] - 1.5, an[1] + 0.5); ctx.lineTo(an[0] + 6.5, an[1] + 0.5 - slope * 6); ctx.stroke();
   };
   const sh = [hip[0] + 30 * Math.sin(lean), hip[1] - 30 * Math.cos(lean) - br * 0.6];
+  // the arm hangs from a rounded shoulder a little below the collar (not from the top of the back),
+  // with a tapered sleeve and a small round hand
+  const ash = [sh[0] - 2.6 * Math.sin(lean) + 0.6, sh[1] + 2.6 * Math.cos(lean)];
   const arm = (alpha, fore, col, w) => {
-    const el = [sh[0] + 15 * Math.sin(alpha), sh[1] + 15 * Math.cos(alpha)];
-    const ha = [el[0] + 14 * Math.sin(fore), el[1] + 14 * Math.cos(fore)];
-    ctx.strokeStyle = col; ctx.lineWidth = w;
-    ctx.beginPath(); ctx.moveTo(sh[0], sh[1]); ctx.lineTo(el[0], el[1]); ctx.lineTo(ha[0], ha[1]); ctx.stroke();
+    const el = [ash[0] + 14 * Math.sin(alpha), ash[1] + 14 * Math.cos(alpha)];
+    const ha = [el[0] + 13 * Math.sin(fore), el[1] + 13 * Math.cos(fore)];
+    ctx.strokeStyle = col; ctx.fillStyle = col;
+    ctx.lineWidth = w * 1.12; ctx.beginPath(); ctx.moveTo(ash[0], ash[1]); ctx.lineTo(el[0], el[1]); ctx.stroke();
+    ctx.lineWidth = w * 0.88; ctx.beginPath(); ctx.moveTo(el[0], el[1]); ctx.lineTo(ha[0], ha[1]); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(ash[0], ash[1] - 0.4, w * 0.72, w * 0.64, 0, 0, Math.PI * 2); ctx.fill();   // shoulder cap
+    ctx.beginPath(); ctx.ellipse(ha[0] + 0.8 * Math.sin(fore), ha[1] + 0.8 * Math.cos(fore), w * 0.5, w * 0.44, 0, 0, Math.PI * 2); ctx.fill(); // hand
     return ha;
   };
   const sw = amp * 0.5 * Math.sin(ph);

@@ -45,7 +45,9 @@ function figure(ctx, f) {
   const bodyFill = lin(ctx, f.x + Lx * sw * 1.2, f.y - len * 1.1, f.x - Lx * sw, f.y, [[0, pal[0]], [0.45, pal[1]], [1, pal[2]]]);
   const limbFill = (x0, y0, x1, y1, dark) => lin(ctx, x0, y0, x1, y1, dark ? [[0, pal[1]], [1, pal[2]]] : [[0, pal[0]], [0.6, pal[1]], [1, pal[2]]]);
   const ua = 60 * s, fa = 56 * s, th = 78 * s, sh = 76 * s;
-  const SH = [P(-sw * 0.78, -len * 0.88), P(sw * 0.78, -len * 0.88)];
+  // shoulder joints sit at the outer edge of the torso, a little below the neck line, so the upper arm grows
+  // out of a rounded shoulder cap instead of from the middle of the back
+  const SH = [P(-sw * 0.9, -len * 0.86), P(sw * 0.9, -len * 0.86)];
   const HP = [P(-hw * 0.55, -8 * s), P(hw * 0.55, -8 * s)];
   const limb = (o, spec, l1, l2, r0, r1, r2, isLeg) => {
     if (!spec) return null;
@@ -55,6 +57,12 @@ function figure(ctx, f) {
   };
   const arms = (f.arms || []).map((a, i) => limb(SH[i], a, ua, fa, 13.5 * s * wf, 11 * s, 9 * s, false));
   const legs = (f.legs || []).map((a, i) => limb(HP[i], a, th, sh, 17 * s, 13 * s, 10 * s, true));
+  // an arm drawn behind the body still shows its shoulder: the top of the upper arm (deltoid) lies over the torso edge
+  const capOf = L => {
+    if (!L || L.isLeg || !L.behind) return null;
+    const a = Math.atan2(L.e[1] - L.o[1], L.e[0] - L.o[0]), k = 0.22 * ua, ex = L.o[0] + Math.cos(a) * k, ey = L.o[1] + Math.sin(a) * k;
+    return [c => capsule(c, L.o[0], L.o[1], L.r0, ex, ey, L.r0 * 0.9), limbFill(L.o[0], L.o[1], L.h[0], L.h[1], L.dark), undefined, true];
+  };
   const pushLimb = L => {
     if (!L) return;
     const fill = limbFill(L.o[0], L.o[1], L.h[0], L.h[1], L.dark), arm = !L.isLeg;
@@ -70,17 +78,19 @@ function figure(ctx, f) {
   parts.push([c => {
     const q = (x, y) => P(x, y);
     let p = q(-hw, 0); c.moveTo(p[0], p[1]);
-    let a = q(-hw * 1.06, -len * 0.45), b = q(-sw * 1.04, -len * 0.62), d = q(-sw, -len * 0.84); c.bezierCurveTo(a[0], a[1], b[0], b[1], d[0], d[1]);
-    a = q(-sw * 0.96, -len * 0.97); b = q(-sw * 0.62, -len * 0.99); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
-    a = q(-sw * 0.38, -len * 1.0); b = q(-sw * 0.22, -len * 1.06); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
+    // the chest tapers to the waist; shoulders are rounded caps that slope down from the neck (no square corners)
+    let a = q(-hw * 1.04, -len * 0.42), b = q(-sw * 0.95, -len * 0.6), d = q(-sw * 0.98, -len * 0.8); c.bezierCurveTo(a[0], a[1], b[0], b[1], d[0], d[1]);
+    a = q(-sw * 1.0, -len * 0.92); b = q(-sw * 0.88, -len * 0.975); d = q(-sw * 0.66, -len * 0.99); c.bezierCurveTo(a[0], a[1], b[0], b[1], d[0], d[1]);
+    a = q(-sw * 0.4, -len * 1.0); b = q(-sw * 0.22, -len * 1.06); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
     p = q(sw * 0.22, -len * 1.06); c.lineTo(p[0], p[1]);
-    a = q(sw * 0.38, -len * 1.0); b = q(sw * 0.62, -len * 0.99); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
-    a = q(sw * 0.96, -len * 0.97); b = q(sw, -len * 0.84); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
-    a = q(sw * 1.04, -len * 0.62); b = q(hw * 1.06, -len * 0.45); d = q(hw, 0); c.bezierCurveTo(a[0], a[1], b[0], b[1], d[0], d[1]);
+    a = q(sw * 0.4, -len * 1.0); b = q(sw * 0.66, -len * 0.99); c.quadraticCurveTo(a[0], a[1], b[0], b[1]);
+    a = q(sw * 0.88, -len * 0.975); b = q(sw * 1.0, -len * 0.92); d = q(sw * 0.98, -len * 0.8); c.bezierCurveTo(a[0], a[1], b[0], b[1], d[0], d[1]);
+    a = q(sw * 0.95, -len * 0.6); b = q(hw * 1.04, -len * 0.42); d = q(hw, 0); c.bezierCurveTo(a[0], a[1], b[0], b[1], d[0], d[1]);
     c.closePath();
   }, bodyFill]);
   parts.push([c => { const a = P(-Lx * sw * 0.25, -len * 0.98), b = P(-Lx * sw * 0.05, -len * 0.5), d = P(-Lx * hw * 0.2, 0), e = P(-Lx * hw * 1.0, 0), g = P(-Lx * sw * 1.0, -len * 0.6), k = P(-Lx * sw * 0.95, -len * 0.95);
     c.moveTo(a[0], a[1]); c.quadraticCurveTo(b[0], b[1], d[0], d[1]); c.lineTo(e[0], e[1]); c.quadraticCurveTo(g[0], g[1], k[0], k[1]); c.closePath(); }, rgba('#3a1608', 0.28)]);
+  arms.map(capOf).filter(Boolean).forEach(cp => parts.push(cp));
   // neck and head
   const hr = 23 * s, hy = -len * 1.04 - 30 * s, tilt = (f.tilt || 0) + lean * 0.4, turn = f.turn || 0;
   const HC = P(turn * 4 * s, hy);
@@ -104,7 +114,7 @@ function figure(ctx, f) {
     parts.push([c => c.ellipse(HC[0] - turn * hr * 0.55, HC[1] + hr * 0.15, hr * 0.5, hr * 0.85, lean + tilt, 0, Math.PI * 2), rgba('#3a1608', 0.12 + 0.22 * Math.abs(turn))]);
   }
   arms.filter(l => l && !l.behind).forEach(pushLimb);
-  if (f.only === 'arms') { parts.length = 0; arms.forEach(pushLimb); }
+  if (f.only === 'arms') { parts.length = 0; arms.forEach(pushLimb); arms.map(capOf).filter(Boolean).forEach(cp => parts.push(cp)); }
   else if (f.noArms) { const keep = parts.filter(pp => !pp[3]); parts.length = 0; parts.push(...keep); }
   if (f.rim) { ctx.save(); ctx.translate(f.rimDx ?? -3 * Lx, f.rimDy ?? -2); for (const [p] of parts) grainFill(ctx, p, rgba(f.rim, f.rimA ?? 0.9), 0); ctx.restore(); }
   const box = [f.x - 340 * s, f.y - 420 * s, 680 * s, 700 * s];

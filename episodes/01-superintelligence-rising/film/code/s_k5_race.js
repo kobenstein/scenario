@@ -98,7 +98,9 @@ function runner(ctx, o) {
     const k = [hip[0] + dir(th)[0] * 46 * s, hip[1] + dir(th)[1] * 46 * s], sa = th - kn, f = [k[0] + dir(sa)[0] * 46 * s, k[1] + dir(sa)[1] * 46 * s];
     return { k, f, sa }; };
   const sh = [hip[0] + Math.sin(lean) * 64 * s, hip[1] - Math.cos(lean) * 64 * s];
-  const arm = ph => { const ua = -0.85 * Math.sin(ph) + lean, e = [sh[0] + Math.sin(ua) * 30 * s, sh[1] + Math.cos(ua) * 30 * s], fa = ua + 1.5 + 0.2 * Math.sin(ph), h = [e[0] + Math.sin(fa) * 27 * s, e[1] + Math.cos(fa) * 27 * s]; return { e, h }; };
+  // the arm hangs from a joint a little below the top of the shoulder line, not from the neckline itself
+  const shA = [sh[0] - Math.sin(lean) * 8 * s, sh[1] + Math.cos(lean) * 8 * s];
+  const arm = ph => { const ua = -0.85 * Math.sin(ph) + lean, e = [shA[0] + Math.sin(ua) * 30 * s, shA[1] + Math.cos(ua) * 30 * s], fa = ua + 1.5 + 0.2 * Math.sin(ph), h = [e[0] + Math.sin(fa) * 27 * s, e[1] + Math.cos(fa) * 27 * s]; return { e, h }; };
   const head = [sh[0] + Math.sin(lean) * 26 * s + 2 * s, sh[1] - 24 * s];
   const LN = leg(p), LF = leg(p + Math.PI), AN = arm(p + Math.PI), AF = arm(p);
   const skinN = lin(ctx, hip[0], hip[1] - 60 * s, hip[0] + 20 * s, o.y, [[0, '#ffbf80'], [1, '#b0602a']]);
@@ -108,7 +110,11 @@ function runner(ctx, o) {
     parts.push([c => cap(c, Lg.k[0], Lg.k[1], Lg.f[0], Lg.f[1], 7.5 * s, 5 * s), fill]);
     parts.push([c => { const r = -Lg.sa * 0.6; c.ellipse(Lg.f[0] + Math.cos(r) * 6 * s, Lg.f[1] + 2 * s + Math.sin(r) * 6 * s, 13 * s, 5.5 * s, r, 0, Math.PI * 2); }, shoe]);
   };
-  const armParts = (A, fill) => { parts.push([c => cap(c, sh[0], sh[1], A.e[0], A.e[1], 6.5 * s, 5 * s), fill]); parts.push([c => cap(c, A.e[0], A.e[1], A.h[0], A.h[1], 5 * s, 4.2 * s), fill]); };
+  const shirt = lin(ctx, sh[0] - 20 * s, sh[1], hip[0] + 20 * s, hip[1], [[0, '#ffc488'], [0.5, '#e08a42'], [1, '#9a4c1c']]);
+  // upper arm tapers from a rounded shoulder; a short shirt sleeve caps the near arm so it reads as part of the body
+  const armParts = (A, fill, sleeve) => { parts.push([c => cap(c, shA[0], shA[1], A.e[0], A.e[1], 7 * s, 5 * s), fill]); parts.push([c => cap(c, A.e[0], A.e[1], A.h[0], A.h[1], 5 * s, 4.2 * s), fill]);
+    parts.push([c => c.ellipse(A.h[0], A.h[1], 5.6 * s, 4.8 * s, 0, 0, Math.PI * 2), fill]);
+    if (sleeve) parts.push([c => { const u = [(A.e[0] - shA[0]) / 30 / s, (A.e[1] - shA[1]) / 30 / s]; cap(c, shA[0] - u[0] * 2 * s, shA[1] - u[1] * 2 * s, shA[0] + u[0] * 11 * s, shA[1] + u[1] * 11 * s, 9 * s, 7.5 * s); }, sleeve]); };
   armParts(AF, '#7a3b17'); legParts(LF, '#8a4419', '#2a1408');
   // shorts
   parts.push([c => { c.moveTo(hip[0] - 14 * s, hip[1] - 14 * s); c.lineTo(hip[0] + 14 * s, hip[1] - 12 * s); c.lineTo(LN.k[0] * 0.45 + hip[0] * 0.55 + 9 * s, LN.k[1] * 0.45 + hip[1] * 0.55); c.lineTo(hip[0] - 4 * s, hip[1] + 18 * s); c.lineTo(LF.k[0] * 0.4 + hip[0] * 0.6 - 8 * s, LF.k[1] * 0.4 + hip[1] * 0.6); c.closePath(); }, '#3a2a6a']);
@@ -125,7 +131,7 @@ function runner(ctx, o) {
   parts.push([c => { c.ellipse(head[0] - 2 * s, head[1] - 3 * s, 12 * s, 11.5 * s, lean * 0.5, Math.PI * 0.85, Math.PI * 2.15); c.lineTo(head[0] - 4 * s, head[1] + 4 * s); c.closePath();
     c.moveTo(head[0] - 11 * s, head[1] - 4 * s); c.quadraticCurveTo(head[0] - 26 * s, head[1] - 2 * s + pt * 10 * s, head[0] - 30 * s, head[1] + 10 * s + pt * 12 * s); c.quadraticCurveTo(head[0] - 18 * s, head[1] + 4 * s, head[0] - 9 * s, head[1] + 2 * s); c.closePath(); },
     lin(ctx, head[0], head[1] - 14 * s, head[0], head[1] + 14 * s, [[0, '#5a2a12'], [1, '#1c0a05']])]);
-  armParts(AN, skinN);
+  armParts(AN, skinN, shirt);
   if (o.ghost) {
     // the story: a runner drawn in paper and dashed ink, half transparent
     ctx.save(); ctx.globalAlpha = o.a ?? 1;

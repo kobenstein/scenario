@@ -62,22 +62,39 @@ function tiny(ctx, x, y, s, o = {}) {
   ctx.fillStyle = '#140804'; ctx.beginPath(); ctx.ellipse(-11 + sw * 3, -3 - lf, 9, 4.5, 0, 0, 7); ctx.ellipse(11 - sw * 3, -3 - rf, 9, 4.5, 0, 0, 7); ctx.fill();
   // far-side arm behind the body when walking
   const ar = o.arm || 0, al = o.armL || 0;
-  const armPath = (side, raise) => c => { const sx = side * 22, sy = -138, ex = side * lerp(27, 36, raise) + (w == null ? 0 : -side * sw * 0), ey = lerp(-100, -156, raise),
-      hx = side * lerp(25, 30, raise) + (w == null ? 0 : side * sw * 6), hy = lerp(-70, -192, raise);
-    cap(c, sx, sy, ex, ey, 7.5, 6); cap(c, ex, ey, hx, hy, 6, 5); c.moveTo(hx + 5, hy); c.arc(hx, hy, 5.5, 0, 7); };
+  // arm: rooted at the outer shoulder (a rounded deltoid cap); upper arm and forearm follow keyframed angles
+  // (radians from straight down, + = away from the body); tapered sleeve, small skin hand.
+  const sk = o.skin || ['#ffd29a', '#e0904a', '#7a3b17'];
+  const KU = [[0, 0.06], [0.25, 0.3], [0.6, 0.55], [0.8, 1.2], [1, 2.3]], KF = [[0, 0.03], [0.25, -0.5], [0.6, -2.4], [0.8, -2.8], [1, -3.35]];
+  const key = (K, r) => { r = clamp(r); for (let i = 1; i < K.length; i++) if (r <= K[i][0]) { const u = (r - K[i - 1][0]) / (K[i][0] - K[i - 1][0]); return lerp(K[i - 1][1], K[i][1], sm(u)); } return K[K.length - 1][1]; };
+  const armGeo = (side, raise) => {
+    const sx = side * 23, sy = -139 + br * 0.5, swing = w == null ? 0 : side * sw * 0.07 * (1 - raise);
+    const au = key(KU, raise) + swing, af = key(KF, raise) + swing * 0.6;
+    const ex = sx + side * Math.sin(au) * 36, ey = sy + Math.cos(au) * 36, hx = ex + side * Math.sin(af) * 33, hy = ey + Math.cos(af) * 33;
+    return { sx, sy, ex, ey, hx, hy, behind: back && side * hx < 21 && af < -1 };
+  };
+  const upper = (g, col) => gf(ctx, c => cap(c, g.sx, g.sy, g.ex, g.ey, 8.6, 6.6), col, 0);
+  const lower = (g, col) => {
+    const fa = Math.atan2(g.hy - g.ey, g.hx - g.ex), wx = g.hx - Math.cos(fa) * 4, wy = g.hy - Math.sin(fa) * 4;
+    gf(ctx, c => cap(c, g.ex, g.ey, wx, wy, 6.6, 5.2), col, 0);
+    ctx.fillStyle = sk[1]; ctx.beginPath(); ctx.ellipse(g.hx, g.hy, 4.6, 5.4, fa - Math.PI / 2, 0, Math.PI * 2); ctx.fill();
+  };
+  const gL = armGeo(-1, o.armL || 0), gR = armGeo(1, o.arm || 0);
+  const colL = lin(ctx, 0, -146, 0, -70, [[0, pal[1]], [1, pal[2]]]), colR = lin(ctx, 0, -146, 0, -70, [[0, pal[0]], [1, pal[1]]]);
+  // in a back view a forearm folded across the front of the body is hidden behind the coat
+  if (gL.behind) lower(gL, colL); if (gR.behind) lower(gR, colR);
   // torso: shoulders, coat or jacket
   const len = o.coat ? 100 : 82, hem = -148 + len;
-  gf(ctx, c => { c.moveTo(-8, -152 + br); c.quadraticCurveTo(-22, -150 + br, -27, -138); c.bezierCurveTo(-30, -120, -24, -100, o.coat ? -25 : -20, hem);
-    c.quadraticCurveTo(0, hem + 4, o.coat ? 25 : 20, hem); c.bezierCurveTo(24, -100, 30, -120, 27, -138); c.quadraticCurveTo(22, -150 + br, 8, -152 + br); c.closePath(); },
+  gf(ctx, c => { c.moveTo(-8, -153 + br); c.bezierCurveTo(-16, -152 + br, -26, -149 + br, -28, -137); c.bezierCurveTo(-30, -120, -24, -100, o.coat ? -25 : -20, hem);
+    c.quadraticCurveTo(0, hem + 4, o.coat ? 25 : 20, hem); c.bezierCurveTo(24, -100, 30, -120, 28, -137); c.bezierCurveTo(26, -149 + br, 16, -152 + br, 8, -153 + br); c.closePath(); },
     lin(ctx, -27, -150, 27, hem, [[0, pal[0]], [0.55, pal[1]], [1, pal[2]]]), g, box);
   // fold / centre seam and collar
   ctx.strokeStyle = rgba('#2a1206', 0.35); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(back ? 0 : 2, -146); ctx.lineTo(back ? 0 : 3, hem - 2); ctx.stroke();
   gf(ctx, c => { c.moveTo(-14, -151 + br); c.quadraticCurveTo(0, back ? -146 : -134, 14, -151 + br); c.lineTo(10, -156 + br); c.quadraticCurveTo(0, -150, -10, -156 + br); c.closePath(); }, pal[2], 0);
-  gf(ctx, armPath(-1, al), lin(ctx, 0, -140, 0, -70, [[0, pal[1]], [1, pal[2]]]), 0);
-  gf(ctx, armPath(1, ar), lin(ctx, 0, -140, 0, -70, [[0, pal[0]], [1, pal[1]]]), 0);
+  upper(gL, colL); if (!gL.behind) lower(gL, colL);
+  upper(gR, colR); if (!gR.behind) lower(gR, colR);
   if (o.bag) { gf(ctx, c => rr(c, 20, -92, 24, 20, 3), pal[2], 0); ctx.strokeStyle = pal[2]; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(-18, -146); ctx.lineTo(28, -92); ctx.stroke(); }
   // neck and head
-  const sk = o.skin || ['#ffd29a', '#e0904a', '#7a3b17'];
   ctx.fillStyle = sk[2]; ctx.fillRect(-5, -162 + br, 10, 12);
   const hx = 0, hy = -174 + br;
   ctx.fillStyle = lin(ctx, -12, hy - 14, 12, hy + 14, [[0, sk[0]], [0.6, sk[1]], [1, sk[2]]]);
@@ -89,5 +106,8 @@ function tiny(ctx, x, y, s, o = {}) {
   ctx.fill();
   if (!back) { ctx.fillStyle = rgba('#3a1608', 0.22); ctx.beginPath(); ctx.ellipse(hx + 5, hy + 3, 6, 11, 0, 0, 7); ctx.fill(); }
   ctx.restore();
+  // hand positions in the caller's coordinates (for props held in the hand)
+  const toW = (px, py) => { const c = Math.cos(lean), sn = Math.sin(lean); return [x + s * (px * c - py * sn), y + s * (px * sn + py * c)]; };
+  return { handL: toW(gL.hx, gL.hy), handR: toW(gR.hx, gR.hy) };
 }
 module.exports = { T0: -100, T1: -100, draw() {}, gf, rr, cap, ik2, cached, quote, tiny };

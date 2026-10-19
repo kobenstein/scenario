@@ -253,4 +253,4 @@ function draw(ctx, t) {
   label(ctx, t, 12.6, T1 - 0.1, 'the next version', null, 1445, 520, { color: C.cyan });
 }
 
-module.exports = { T0, T1, draw };
+module.exports = { T0, T1, draw, orb };

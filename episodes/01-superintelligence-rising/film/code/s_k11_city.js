@@ -41,13 +41,19 @@ function leaner(ctx, t, x, y, k) {
   gf(ctx, c => { c.ellipse(-36, 258, 26, 9, 0, 0, Math.PI * 2); c.ellipse(34, 258, 26, 9, 0, 0, Math.PI * 2); }, '#140806', 0.3);
   ctx.translate(0, br * 1.2);
   // coat: shoulders hunched forward onto the rail, hem flaring
-  const coat = c => { c.moveTo(-82, 110); c.bezierCurveTo(-78, 40, -86, -40, -92, -110); c.quadraticCurveTo(-90, -150, -50, -160); c.quadraticCurveTo(0, -172, 50, -160);
-    c.quadraticCurveTo(90, -150, 92, -110); c.bezierCurveTo(86, -40, 78, 40, 82, 110); c.quadraticCurveTo(0, 120, -82, 110); c.closePath(); };
+  const coat = c => { c.moveTo(-82, 110); c.bezierCurveTo(-78, 40, -86, -40, -92, -110); c.quadraticCurveTo(-86, -154, -50, -160); c.quadraticCurveTo(0, -172, 50, -160);
+    c.quadraticCurveTo(86, -154, 90, -110); c.bezierCurveTo(86, -40, 78, 40, 82, 110); c.quadraticCurveTo(0, 120, -82, 110); c.closePath(); };
   ctx.save(); ctx.translate(-4, -3); gf(ctx, coat, rgba('#ffd59a', 0.9), 0); ctx.restore();
   gf(ctx, coat, pal, 0.4);
   // upper arms out to the elbows resting on the rail
-  for (const sg of [-1, 1]) gf(ctx, c => { c.moveTo(sg * 70, -150); c.quadraticCurveTo(sg * 120, -110, sg * 128, -10); c.lineTo(sg * 92, -2); c.quadraticCurveTo(sg * 88, -80, sg * 50, -120); c.closePath(); },
-    lin(ctx, sg * 60, -150, sg * 120, 0, [[0, sg < 0 ? '#ffb35c' : '#c9702e'], [1, '#5a2a12']]), 0.4);
+  // (rounded shoulder cap at the coat's outer top edge; a shade line where the sleeve lies over the back)
+  for (const sg of [-1, 1]) {
+    gf(ctx, c => { c.moveTo(sg * 54, -150); c.bezierCurveTo(sg * 68, -170, sg * 104, -160, sg * 113, -118); c.quadraticCurveTo(sg * 126, -70, sg * 128, -10); c.lineTo(sg * 92, -2);
+      c.quadraticCurveTo(sg * 88, -70, sg * 70, -110); c.quadraticCurveTo(sg * 60, -128, sg * 54, -150); c.closePath(); },
+      lin(ctx, sg * 60, -160, sg * 120, 0, [[0, sg < 0 ? '#ffb35c' : '#d27a34'], [0.35, sg < 0 ? '#e8924a' : '#c06628'], [1, '#5a2a12']]), 0.4);
+    ctx.strokeStyle = 'rgba(74,30,12,0.45)'; ctx.lineWidth = 3.5; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(sg * 92, -6); ctx.quadraticCurveTo(sg * 88, -70, sg * 70, -110); ctx.quadraticCurveTo(sg * 62, -126, sg * 57, -142); ctx.stroke();
+  }
   // seam and back fold
   ctx.strokeStyle = 'rgba(74,30,12,0.6)'; ctx.lineWidth = 4; ctx.lineCap = 'round';
   ctx.beginPath(); ctx.moveTo(2, -150); ctx.bezierCurveTo(-4, -60, 6, 20, 0, 110); ctx.stroke();

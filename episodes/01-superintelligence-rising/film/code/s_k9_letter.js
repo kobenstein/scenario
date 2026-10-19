@@ -3,7 +3,7 @@
 // passed from the front of the crowd toward a domed capitol on the horizon, which lights up warm when it arrives.
 const L = require('./lib');
 const { W, H, C, sm, ramp, lerp, drift, rng, hash, lin, rad, rgba, light, cone, out, clamp, ease, stamp } = L;
-const { gf, rr, cached, quote } = require('./s_k9_kit');
+const { gf, rr, cap, cached, quote } = require('./s_k9_kit');
 
 const T0 = 585.5, T1 = 592.95;
 const HOR = 400, DOME = [1480, HOR];
@@ -40,7 +40,12 @@ function person(ctx, p, t, show, raise) {
   ctx.globalAlpha = pop;
   ctx.fillStyle = lin(ctx, x - 20 * s, y - 60 * s, x + 20 * s, y, [[0, pal[0]], [1, pal[1]]]);
   ctx.beginPath(); ctx.moveTo(x - 19 * s, y); ctx.quadraticCurveTo(x - 21 * s, y - 50 * s + b, x - 6 * s, y - 54 * s + b); ctx.lineTo(x + 6 * s, y - 54 * s + b); ctx.quadraticCurveTo(x + 21 * s, y - 50 * s + b, x + 19 * s, y); ctx.closePath(); ctx.fill();
-  if (raise > 0) { ctx.strokeStyle = pal[0]; ctx.lineWidth = 6 * s; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(x + 14 * s, y - 44 * s + b); ctx.lineTo(x + 18 * s, y - (44 + 46 * raise) * s + b); ctx.stroke(); }
+  if (raise > 0) {
+    // raised arm: from the outer shoulder, elbow a touch outward, tapered sleeve and a small hand
+    const sx = x + 16 * s, sy = y - 43 * s + b, ex = x + 23 * s, ey = y - (43 + 24 * raise) * s + b, hx = x + 20 * s, hy = y - (43 + 46 * raise) * s + b;
+    ctx.fillStyle = lin(ctx, 0, hy, 0, sy, [[0, pal[0]], [1, pal[1]]]); ctx.beginPath(); cap(ctx, sx, sy, ex, ey, 4.4 * s, 3.6 * s); cap(ctx, ex, ey, hx, hy + 3 * s, 3.6 * s, 3 * s); ctx.fill();
+    ctx.fillStyle = '#e0904a'; ctx.beginPath(); ctx.ellipse(hx, hy, 2.8 * s, 3.3 * s, 0, 0, Math.PI * 2); ctx.fill();
+  }
   ctx.fillStyle = '#e0904a'; ctx.beginPath(); ctx.ellipse(x, y - 66 * s + b, 10 * s, 12 * s, 0, 0, 7); ctx.fill();
   ctx.fillStyle = p.hair < 0.4 ? '#2e140a' : p.hair < 0.7 ? '#1c0a05' : '#5a2a12'; ctx.beginPath(); ctx.ellipse(x, y - 68 * s + b, 10.5 * s, 11 * s, 0, 0, 7); ctx.fill();
   ctx.globalAlpha = 1;

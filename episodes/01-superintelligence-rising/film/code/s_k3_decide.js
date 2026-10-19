@@ -1,18 +1,19 @@
 // "Jared Kaplan, Anthropic's chief scientist, thinks that somewhere in that second we'll have to decide whether to let
 //  AI train its own successors. He's called it maybe the biggest decision yet."
-// Inside the last second (we stand on its glowing edge): the AI, a cyan ring, pours streams of light toward an amber
-// gate. A person stands at the gate with a hand on its lever. Beyond the gate, faint dashed rings sketch themselves in,
+// Inside the last second (we stand on its glowing edge): the AI, a luminous cyan disc, pours streams of light toward an amber
+// gate. A person stands at the gate with a hand on its lever. Beyond the gate, faint translucent minds light up,
 // each one bigger: the successors it would build if the gate opened. The hand stays on the lever.
 const L = require('./lib');
 const { W, H, C, sm, ease, out, ramp, lerp, drift, rng, lin, rad, rgba, light, clamp, label } = L;
 const { grainFill, roundRect, glowStroke, stars, sky } = require('./s_k3_clock');
 const { figure } = require('./s_timeline');
+const { orb } = require('./s_rings');
 
 const T0 = 162.0, T1 = 175.1;
 const FLOOR = 822;
-const R1 = { x: 470, y: 490, rx: 88, ry: 136 };
+const R1 = { x: 470, y: 490, rx: 110, ry: 110, r: 110 };
 const GATE = { x: 1190, y0: 250, y1: FLOOR, w: 34 };
-const GHOST = [{ x: 1400, y: 480, rx: 100, ry: 156, t: 169.75 }, { x: 1590, y: 462, rx: 122, ry: 190, t: 170.15 }, { x: 1790, y: 440, rx: 148, ry: 230, t: 170.55 }];
+const GHOST = [{ x: 1360, y: 470, r: 62, t: 169.75 }, { x: 1505, y: 458, r: 78, t: 170.15 }, { x: 1680, y: 444, r: 95, t: 170.55 }];
 const LEVER = { px: 1112, py: FLOOR - 26 };
 
 const STREAMS = (() => { const r = rng(17), a = []; for (let i = 0; i < 46; i++) a.push({ y: (r() - 0.5) * 2, bow: (r() - 0.5) * 70, sp: 0.35 + r() * 0.35, ph: r(), len: 0.05 + r() * 0.08, w: 1 + r() * 1.6 }); return a; })();
@@ -20,13 +21,9 @@ const STREAMS = (() => { const r = rng(17), a = []; for (let i = 0; i < 46; i++)
 function ell(R, k, a) { return [R.x + Math.cos(a) * R.rx * k, R.y + Math.sin(a) * R.ry * k]; }
 
 function ring1(ctx, t) {
-  const p = 0.5 + 0.5 * Math.sin(t * 6.2), think = 0.7 + 0.3 * ramp(t, 165.5, 166.5);
-  light(ctx, R1.x, R1.y, 260, C.cyan, 0.20 + 0.10 * p * think);
-  glowStroke(ctx, c => c.ellipse(R1.x, R1.y, R1.rx, R1.ry, 0, 0, 7), C.cyan, 6 + 1.5 * p, 0.8 + 0.2 * p);
-  glowStroke(ctx, c => c.ellipse(R1.x, R1.y, R1.rx - 4, R1.ry - 5, 0, 0, 7), C.cyanW, 1.6, 0.6 + 0.4 * p);
-  for (let k = 0; k < 3; k++) { const ph = (t * 0.9 + k / 3) % 1;
-    glowStroke(ctx, c => c.ellipse(R1.x, R1.y, R1.rx * (0.25 + 0.7 * ph), R1.ry * (0.25 + 0.7 * ph), 0, 0, 7), C.cyan, 1.1, 0.4 * think * Math.sin(ph * Math.PI)); }
-  for (let i = 0; i < 12; i++) { const a = t * (1.6 + i * 0.13) + i * 0.63, q = ell(R1, 1 + 0.06 * Math.sin(t * 3 + i), a); light(ctx, q[0], q[1], 8, C.cyanW, 0.6 * (0.5 + 0.5 * Math.sin(t * 9 + i))); }
+  const think = 0.7 + 0.3 * ramp(t, 165.5, 166.5);
+  orb(ctx, R1, t, 1 + 0.02 * Math.sin(t * 6.2) * think, 1, t * 0.25, think);
+  glowStroke(ctx, c => c.arc(R1.x, R1.y, R1.r + 1, 0, Math.PI * 2), C.cyanW, 1.6, 0.7);
 }
 
 // streams from the ring to the gate, where they are held
@@ -88,32 +85,29 @@ function lever(ctx, t, grip) {
   return [hx, hy];
 }
 
+// the successors it would build: each a larger mind, still only a faint promise (translucent, a soft rim), lit one after another
 function ghosts(ctx, t, hold) {
   GHOST.forEach((g, i) => {
     const k = out((t - g.t) / 0.9); if (k <= 0) return;
-    const br = 0.55 + 0.45 * Math.sin(t * 2.2 + i * 1.3), al = (0.95 - i * 0.2) * k;
-    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
-    ctx.setLineDash([10, 12]); ctx.lineDashOffset = -t * 18;
-    for (const [lw, la] of [[10, 0.12], [3.5, 1]]) { ctx.strokeStyle = rgba(C.cyan, la * al * (0.7 + 0.3 * br)); ctx.lineWidth = lw;
-      ctx.beginPath(); if (k > 0.999) ctx.ellipse(g.x, g.y, g.rx, g.ry, 0, 0, 7); else ctx.ellipse(g.x, g.y, g.rx, g.ry, 0, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * k); ctx.stroke(); }
-    ctx.setLineDash([3, 9]); ctx.strokeStyle = rgba(C.cyan, al * 0.5); ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.ellipse(g.x, g.y, g.rx * 1.14, g.ry * 1.14, 0, 0, k > 0.999 ? 7 : Math.PI * 2 * k); ctx.stroke();
-    // the faint link it would have to the previous one
-    const prev = i === 0 ? { x: GATE.x + GATE.w, y: 480, rx: 0 } : GHOST[i - 1];
-    ctx.setLineDash([2, 10]); ctx.strokeStyle = rgba(C.cyan, al * 0.45); ctx.lineWidth = 2;
-    for (const o of [-0.4, 0, 0.4]) { ctx.beginPath(); ctx.moveTo(prev.x + prev.rx, prev.y + o * 80); ctx.lineTo(g.x - g.rx, g.y + o * g.ry * 0.6); ctx.stroke(); }
-    ctx.restore();
-    light(ctx, g.x, g.y, g.rx * 2.2, C.cyan, 0.12 * k * br);
-    if (k < 1) { const a = -Math.PI / 2 + Math.PI * 2 * k, q = [g.x + Math.cos(a) * g.rx, g.y + Math.sin(a) * g.ry]; light(ctx, q[0], q[1], 30, C.cyanW, 0.8); }
+    const br = 0.55 + 0.45 * Math.sin(t * 2.2 + i * 1.3), al = (0.55 - i * 0.12) * k;
+    orb(ctx, g, t, 0.85 + 0.15 * k, al, -t * 0.15 + i, 0.5);
+    glowStroke(ctx, c => c.arc(g.x, g.y, g.r * (0.85 + 0.15 * k) + 1, 0, Math.PI * 2), C.cyan, 1.4, (0.5 + 0.2 * br) * k * (1 - i * 0.15));
+    // a thin thread of light back to the one before it
+    const prev = i === 0 ? { x: GATE.x + GATE.w, y: 480, r: 0 } : GHOST[i - 1];
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.setLineDash([2, 10]); ctx.lineDashOffset = -t * 18; ctx.strokeStyle = rgba(C.cyan, al * 0.6); ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(prev.x + prev.r, prev.y); ctx.lineTo(g.x - g.r, g.y); ctx.stroke(); ctx.restore();
   });
 }
 
 // a long coat over the figure's back: collar, flared hem, centre vent, belt
 function coat(ctx, x, y, b, t) {
   const sway = Math.sin(t * 1.3) * 2, sw = 47, top = y - 106;
-  const path = c => { c.moveTo(x - 20, top - 6); c.quadraticCurveTo(x - sw, top - 2, x - sw - 2, top + 18);
-    c.bezierCurveTo(x - sw - 4, top + 70, x - 40, y - 10, x - 46 + sway, y + 74); c.quadraticCurveTo(x, y + 80, x + 46 + sway, y + 72);
-    c.bezierCurveTo(x + 40, y - 10, x + sw + 4, top + 70, x + sw + 2, top + 18); c.quadraticCurveTo(x + sw, top - 2, x + 20, top - 6); c.closePath(); };
+  // shoulders slope down from the collar into rounded caps at the figure's shoulder joints (x ±41, y -101), then the coat narrows a little at the waist
+  const path = c => { c.moveTo(x - 18, top - 6); c.bezierCurveTo(x - 30, top - 3, x - 38, top + 1, x - 42, top + 6);
+    c.bezierCurveTo(x - 47, top + 10, x - 48, top + 20, x - 46, top + 32);
+    c.bezierCurveTo(x - 43, top + 70, x - 40, y - 10, x - 46 + sway, y + 74); c.quadraticCurveTo(x, y + 80, x + 46 + sway, y + 72);
+    c.bezierCurveTo(x + 40, y - 10, x + 43, top + 70, x + 46, top + 32);
+    c.bezierCurveTo(x + 48, top + 20, x + 47, top + 10, x + 42, top + 6); c.bezierCurveTo(x + 38, top + 1, x + 30, top - 3, x + 18, top - 6); c.closePath(); };
   ctx.save(); ctx.translate(-3, -2); grainFill(ctx, path, rgba(C.cyan, 0.5), 0); ctx.restore();
   grainFill(ctx, path, lin(ctx, x - sw, top, x + sw, y + 70, [[0, '#ffb35c'], [0.45, '#c9702e'], [1, '#5a2a12']]), 0.45);
   ctx.save(); ctx.lineCap = 'round';

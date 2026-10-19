@@ -28,10 +28,15 @@ function figure(ctx, x, y, h, o = {}) {
   };
   const sh = [hip[0] + 30 * Math.sin(lean), hip[1] - 30 * Math.cos(lean) - br * 0.6];
   const arm = (alpha, fore, col, w) => {
-    const el = [sh[0] + 15 * Math.sin(alpha), sh[1] + 15 * Math.cos(alpha)];
-    const ha = [el[0] + 14 * Math.sin(fore), el[1] + 14 * Math.cos(fore)];
-    ctx.strokeStyle = col; ctx.lineWidth = w;
-    ctx.beginPath(); ctx.moveTo(sh[0], sh[1]); ctx.lineTo(el[0], el[1]); ctx.lineTo(ha[0], ha[1]); ctx.stroke();
+    // shoulder joint sits inside the rounded top of the coat (below the neck line), with a deltoid cap and a tapered sleeve
+    const sj = [sh[0] - 4.5 * Math.sin(lean), sh[1] + 4.5 * Math.cos(lean)];
+    const el = [sj[0] + 13.5 * Math.sin(alpha), sj[1] + 13.5 * Math.cos(alpha)];
+    const ha = [el[0] + 13.5 * Math.sin(fore), el[1] + 13.5 * Math.cos(fore)];
+    ctx.strokeStyle = col; ctx.fillStyle = col;
+    ctx.lineWidth = w * 1.15; ctx.beginPath(); ctx.moveTo(sj[0], sj[1]); ctx.lineTo(el[0], el[1]); ctx.stroke();
+    ctx.lineWidth = w * 0.9; ctx.beginPath(); ctx.moveTo(el[0], el[1]); ctx.lineTo(ha[0], ha[1]); ctx.stroke();
+    ctx.beginPath(); ctx.ellipse(sj[0], sj[1] + 0.6, w * 0.78, w * 0.85, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#c97a3e'; ctx.beginPath(); ctx.ellipse(ha[0], ha[1] + 0.8, w * 0.42, w * 0.5, 0, 0, Math.PI * 2); ctx.fill();
     return ha;
   };
   const sw = amp * 0.5 * Math.sin(ph);
@@ -295,9 +300,9 @@ function year(ctx, t) {
   const ones = v % 10, tensV = Math.floor(v / 10) + (ones > 9 ? ones - 9 : 0);
   const slot = (val, sx) => {
     const d = Math.floor(val) % 10, fr = val - Math.floor(val);
-    ctx.save(); ctx.beginPath(); ctx.rect(sx - 10, y + size * 0.1, dw + 20, size * 0.8); ctx.clip();
-    ctx.fillText(String(d), sx, y - fr * size * 0.9);
-    if (fr > 0.001) ctx.fillText(String((d + 1) % 10), sx, y + (1 - fr) * size * 0.9);
+    ctx.save(); ctx.beginPath(); ctx.rect(sx - 10, y - size * 0.02, dw + 20, size * 1.0); ctx.clip();   // tall enough for the digits' tops
+    ctx.fillText(String(d), sx, y - fr * size * 1.05);
+    if (fr > 0.001) ctx.fillText(String((d + 1) % 10), sx, y + (1 - fr) * size * 1.05);
     ctx.restore();
   };
   slot(tensV, x2); slot(ones, x2 + dw);

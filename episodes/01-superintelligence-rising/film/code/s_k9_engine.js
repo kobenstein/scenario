@@ -111,8 +111,8 @@ function engineers(ctx, t) {
   // one at the intake with a hand lamp, crouched a little, sweeping it over the fan
   const sweep = Math.sin(t * 0.6) * 0.25;
   const ex = 330, ey = 860;
-  tiny(ctx, ex, ey, 1.12, { facing: 'back', pal: ['#ffb35c', '#c36a2b', '#5a2a12'], arm: 0.62, br: Math.sin(t * 1.6) * 1.2, coat: true, hair: '#3a1a0c', lean: 0.04 });
-  const lx = ex + 31, ly = ey - 163;
+  const eng = tiny(ctx, ex, ey, 1.12, { facing: 'back', pal: ['#ffb35c', '#c36a2b', '#5a2a12'], arm: 0.62, br: Math.sin(t * 1.6) * 1.2, coat: true, hair: '#3a1a0c', lean: 0.04 });
+  const [lx, ly] = eng.handR;
   const ang = -0.28 + sweep, len = 520;
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
   ctx.fillStyle = lin(ctx, lx, ly, lx + Math.cos(ang) * len, ly + Math.sin(ang) * len, [[0, rgba(C.amber, 0.35)], [1, rgba(C.amber, 0)]]);
@@ -124,9 +124,9 @@ function engineers(ctx, t) {
   ctx.strokeStyle = 'rgba(30,28,70,0.9)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(680, 210); ctx.lineTo(1100, 210); ctx.stroke();
   for (let x = 700; x < 1100; x += 50) { ctx.beginPath(); ctx.moveTo(x, 210); ctx.lineTo(x, 250); ctx.stroke(); }
   const look = 0.06 + 0.04 * Math.sin(t * 0.8);
-  tiny(ctx, 900, 252, 1.0, { facing: 'front', pal: ['#ffc27c', '#cf7a36', '#5a2a12'], arm: 0.25, br: Math.sin(t * 1.4 + 1), hair: '#1c0a05', lean: look });
-  ctx.save(); ctx.translate(930, 168); ctx.rotate(-0.4); ctx.fillStyle = '#1a1a40'; ctx.fillRect(-14, -10, 28, 20); ctx.fillStyle = rgba(C.amber, 0.85); ctx.fillRect(-11, -7, 22, 14); ctx.restore();
-  light(ctx, 930, 168, 60, C.amber, 0.4);
+  const gan = tiny(ctx, 900, 252, 1.0, { facing: 'front', pal: ['#ffc27c', '#cf7a36', '#5a2a12'], arm: 0.25, br: Math.sin(t * 1.4 + 1), hair: '#1c0a05', lean: look });
+  ctx.save(); ctx.translate(gan.handR[0], gan.handR[1] - 6); ctx.rotate(-0.4); ctx.fillStyle = '#1a1a40'; ctx.fillRect(-14, -10, 28, 20); ctx.fillStyle = rgba(C.amber, 0.85); ctx.fillRect(-11, -7, 22, 14); ctx.restore();
+  light(ctx, gan.handR[0], gan.handR[1] - 6, 60, C.amber, 0.4);
   cone(ctx, 910, 270, 30, 300, 240, C.amber, 0.10);
 }
 

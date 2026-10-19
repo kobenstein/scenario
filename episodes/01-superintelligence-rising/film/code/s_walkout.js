@@ -202,7 +202,11 @@ function figure(ctx, t, p, look, rim) {
   ctx.restore();
   // near arm: upper arm hangs, forearm under the box, hand gripping its front edge
   const ex = sx - 2, ey = sy + 82 + sway * 0.5;
-  grainFill(ctx, c => { cap(c, sx + 2, sy + 14, ex, ey, 16, 13); cap(c, ex, ey, bx + BW - 2, by + BH - 8, 13, 10); }, col('#ffb35c', '#c36a2b'), 0.42 * G);
+  // the upper arm starts in a rounded shoulder cap right under the shoulder line; a soft shadow along its back edge
+  // separates the sleeve from the jacket so the arm reads as a volume hanging from the shoulder
+  const nearArm = c => { cap(c, sx + 3, sy + 9, ex, ey, 17.5, 13); cap(c, ex, ey, bx + BW - 2, by + BH - 8, 13, 10); };
+  if (!rim) { ctx.save(); ctx.translate(-4, 2); grainFill(ctx, nearArm, 'rgba(110,50,18,0.55)', 0); ctx.restore(); }
+  grainFill(ctx, nearArm, col('#ffb35c', '#c36a2b'), 0.42 * G);
   grainFill(ctx, c => { c.ellipse(bx + BW + 2, by + BH - 14, 9, 15, 0.1, 0, 7); }, rim || '#e08a42', 0.3 * G);
 }
 
