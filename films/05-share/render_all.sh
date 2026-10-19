@@ -2,7 +2,7 @@
 # Full render: N parallel chunks -> concat -> mux mix.wav -> burn subtitles.  usage: render_all.sh <out_dir> [chunks]
 set -euo pipefail
 cd "$(dirname "$0")"
-OUT=${1:?out dir}; N=${2:-4}; A=${AV:-/mnt/project-files/scenario/film-03-geniuses}; FILM=${FILM:-./film.mjs}; export FILM
+OUT=${1:?out dir}; N=${2:-4}; A=${AV:-/mnt/project-files/scenario/film-05-share}; FILM=${FILM:-./film.mjs}; export FILM
 mkdir -p "$OUT/parts"
 DUR=$(node -e "import('$FILM').then(async m=>console.log((await m.build()).duration))")
 for i in $(seq 0 $((N-1))); do
@@ -14,5 +14,5 @@ for i in $(seq 0 $((N-1))); do echo "file 'p$i.mp4'"; done > "$OUT/parts/list.tx
 ffmpeg -hide_banner -loglevel error -y -f concat -safe 0 -i "$OUT/parts/list.txt" -c copy "$OUT/parts/video.mp4"
 ffmpeg -hide_banner -loglevel error -y -i "$OUT/parts/video.mp4" -i "$A/audio/mix.wav" \
   -vf "ass=$A/subtitles.ass" -c:v libx264 -crf 19 -preset medium -tune grain -pix_fmt yuv420p -movflags +faststart \
-  -c:a aac -b:a 256k -shortest "$OUT/film03_geniuses.mp4"
+  -c:a aac -b:a 256k -shortest "$OUT/film05_share.mp4"
 echo done

@@ -1,37 +1,68 @@
-// Shared helpers for film 03: VO timing lookup, interview-clip screens, quote cards, lower thirds.
+// Shared helpers for film 05: VO timing lookup (phrase anchors), quote cards, lower thirds.
+// (Interview-clip helpers are kept from film 03 but Film 5 has no clips: everything is guarded.)
 import fs from 'node:fs';
 import { loadImage } from '@napi-rs/canvas';
 import { W, H, C, rgba, clamp, lin, mix, sm, eout, eio, text, addGlow, glow, canvas } from '../engine.mjs';
 
-const ROOT = '/mnt/project-files/scenario/film-03-geniuses/';
+export const ROOT = '/mnt/project-files/scenario/film-05-share/';
 const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 
 // ---------- timing ----------
-// T.S('04a', 'In London') = start of that phrase in segment 04a; T.E = its end; T.seg('04a') = {start,end}; T.clip('K1') = {start,end,...}
+// Anchor ONLY via phrases, never via seconds: the provisional timing.json (tools/provisional_timing.py) and the real one
+// (audio/build_vo.py) share one format, so code written against one runs unchanged on the other.
+//   id = a section ('H', '0'…'7') or a VO segment id (e.g. '3b' if the real VO is split); both work everywhere.
+//   T.S('H', 'buzzes')        start (s) of that phrase in the section      T.E(…) its end
+//   T.S('1', 'Yet', 1)        nth = 1 → the second occurrence in that section
+//   T.W('0', 'This will', 'many')  word objects [{w,s,e,sec}] from…to (inclusive) for word-by-word reveals
+//   T.seg('3')                {start, end} of a section (or segment)      T.secs = section ids in film order
+//   T.line('2', 'take')       the sentence containing the phrase: {text, s, e, words}
+//   T.lines('2')              all sentences of a section;  T.lineAt(t) the sentence being spoken (or last spoken) at t
+//   T.has('2', 'take')        true/false (no throw), for optional beats that may vanish in a script revision
 export function timing(file) {
   const TM = JSON.parse(fs.readFileSync(file, 'utf8'));
+  TM.clips = TM.clips || [];
+  const segSec = {};
+  for (const [id, s] of Object.entries(TM.sections)) segSec[id] = s.sec ?? id;
+  const inSec = (w, id) => w.sec === id || segSec[w.sec] === id;
+  const wordsOf = (id) => TM.words.filter((w) => inSec(w, id));
   function find(seg, phrase, nth = 0) {
-    const ws = TM.words.filter((w) => w.sec === seg), q = phrase.split(/\s+/).map(norm).filter(Boolean);
+    const ws = wordsOf(seg), q = String(phrase).split(/\s+/).map(norm).filter(Boolean);
     let hit = 0;
     for (let i = 0; i + q.length <= ws.length; i++) {
-      if (q.every((p, j) => (j === q.length - 1 ? norm(ws[i + j].w).startsWith(p) : norm(ws[i + j].w) === p))) { if (hit++ === nth) return { s: ws[i].s, e: ws[i + q.length - 1].e }; }
+      if (q.every((p, j) => (j === q.length - 1 ? norm(ws[i + j].w).startsWith(p) : norm(ws[i + j].w) === p))) { if (hit++ === nth) return { s: ws[i].s, e: ws[i + q.length - 1].e, i }; }
     }
-    throw new Error(`phrase not found in ${seg}: "${phrase}"`);
+    const txt = ws.map((w) => w.w).join(' ');
+    throw new Error(`phrase not found in section ${seg}: "${phrase}"${nth ? ` (#${nth})` : ''}. Section text: ${txt.slice(0, 160)}…`);
   }
-  const clips = Object.fromEntries(TM.clips.map((c) => [c.id, c]));
-  return {
-    duration: TM.duration, words: TM.words, sections: TM.sections, clips,
+  // sections in film order (aggregates segments that share a .sec)
+  const agg = {};
+  for (const [id, s] of Object.entries(TM.sections)) {
+    for (const k of new Set([id, segSec[id]])) { const a = agg[k] || (agg[k] = { start: 1e9, end: -1e9 }); a.start = Math.min(a.start, s.start); a.end = Math.max(a.end, s.end); }
+  }
+  const secs = [...new Set(Object.values(segSec))].sort((a, b) => agg[a].start - agg[b].start);
+  // sentences: split words at . ? ! (a closing quote after the mark is fine)
+  const sentences = (ws) => { const out = []; let cur = []; for (const w of ws) { cur.push(w); if (/[.?!]["”’')\]]*$/.test(w.w)) { out.push(cur); cur = []; } } if (cur.length) out.push(cur); return out.map((c) => ({ text: c.map((w) => w.w).join(' '), s: c[0].s, e: c[c.length - 1].e, words: c, sec: segSec[c[0].sec] ?? c[0].sec })); };
+  const linesCache = {}; const lines = (id) => linesCache[id] || (linesCache[id] = sentences(wordsOf(id)));
+  const allLines = secs.flatMap((id) => lines(id));
+  const T = {
+    duration: TM.duration, words: TM.words, sections: TM.sections, clips: Object.fromEntries(TM.clips.map((c) => [c.id, c])), secs,
     S: (seg, phrase, nth) => find(seg, phrase, nth).s,
     E: (seg, phrase, nth) => find(seg, phrase, nth).e,
-    seg: (id) => TM.sections[id],
-    clip: (id) => clips[id],
-    // words of a segment between two phrases (for word-by-word reveals)
-    W: (seg, from, to) => { const a = find(seg, from).s, b = to ? find(seg, to).e : 1e9; return TM.words.filter((w) => w.sec === seg && w.s >= a - 1e-3 && w.e <= b + 1e-3); },
+    at: (seg, phrase, nth) => find(seg, phrase, nth).s,
+    has: (seg, phrase, nth) => { try { find(seg, phrase, nth); return true; } catch { return false; } },
+    seg: (id) => agg[id] || (() => { throw new Error('unknown section ' + id); })(),
+    clip: (id) => TM.clips.find((c) => c.id === id),
+    W: (seg, from, to) => { const a = find(seg, from).s, b = to ? find(seg, to).e : 1e9; return wordsOf(seg).filter((w) => w.s >= a - 1e-3 && w.e <= b + 1e-3); },
+    lines,
+    line: (seg, phrase, nth) => { const { s } = find(seg, phrase, nth); return lines(seg).find((l) => s >= l.s - 1e-3 && s <= l.e + 1e-3); },
+    lineAt: (t) => { let cur = allLines[0]; for (const l of allLines) { if (l.s - .35 <= t) cur = l; else break; } return cur; },
+    secAt: (t) => { let cur = secs[0]; for (const id of secs) if (agg[id].start - 1 <= t) cur = id; return cur; },
   };
+  return T;
 }
 
 // ---------- interview clips ----------
-const CLIPS = JSON.parse(fs.readFileSync(ROOT + 'audio/clips.json', 'utf8'));
+const CLIPS = fs.existsSync(ROOT + 'audio/clips.json') ? JSON.parse(fs.readFileSync(ROOT + 'audio/clips.json', 'utf8')) : {}; // Film 5: no clips
 const frameCache = new Map();
 const framePath = (id, k) => `${ROOT}clips/${id}/f${String(CLIPS[id].maxFrame ? Math.min(k, CLIPS[id].maxFrame) : k).padStart(5, '0')}.jpg`;
 const frameIndex = (c, t) => Math.floor(clamp(t - c.start, 0, c.end - c.start) * 30) + 1;
@@ -39,7 +70,7 @@ const frameIndex = (c, t) => Math.floor(clamp(t - c.start, 0, c.end - c.start) *
 // clipFrame then only reads the decoded image from the cache.
 export async function prepareClips(T, t) {
   for (const c of Object.values(T.clips)) {
-    if (t < c.start - .7 || t > c.end + .7 || CLIPS[c.id].card) continue;
+    if (!CLIPS[c.id] || t < c.start - .7 || t > c.end + .7 || CLIPS[c.id].card) continue;
     const f = framePath(c.id, frameIndex(c, t));
     if (frameCache.has(f) || !fs.existsSync(f)) continue;
     if (frameCache.size > 40) frameCache.delete(frameCache.keys().next().value);

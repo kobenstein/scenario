@@ -1,7 +1,8 @@
 // Code-drawn locations for film 02 v2 (style A). Each export returns draw(ctx, t, s). No generated images.
 import { W, H, C, rgba, clamp, lin, mix, eio, eout, sine, prng, addGlow, text, canvas } from '../engine.mjs';
 import { P, skyGrad, cityLayer, houseRow, fogBand, cone, lampPost, hill, grass, person, skyLine, finish, shade } from './world.mjs';
-import { monitor } from './hook_code.mjs';
+// Film 5: hook_code.mjs does not exist; office() (forbidden in Film 5 anyway) gets a no-op monitor.
+const monitor = () => {};
 
 const cache = new Map(); const once = (k, f) => { if (!cache.has(k)) cache.set(k, f()); return cache.get(k); };
 const DOTS = (() => { const [c, x] = canvas(8, 8); x.fillStyle = '#fff'; x.beginPath(); x.arc(4, 4, 1.25, 0, 7); x.fill(); return c; })();
