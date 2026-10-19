@@ -4,10 +4,7 @@ usage: subs.py <audio_dir> <out_dir>"""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']
-NUM = [('twenty twenty-three', '2023'), ('twenty twenty-six', '2026'), ('nineteen-seventies', '1970s'), ('nineteen seventies', '1970s'), ('nineteen sixty-five', '1965'), ('nineteen seventy-five', '1975'), ('nineteen ninety', '1990'), ('twenty twenty-four', '2024'),
-       ('twenty twenty-five', '2025'), ('twenty thirty-five', '2035'), ('twenty thirty-two', '2032'), ('twenty twenty', '2020'), ('twenty ten', '2010'),
-       ('three hundred billion', '300 billion'), ('ninety-nine percent', '99%'), ('twenty percent', '20%'), ('one percent', '1%'),
-       ('two hundred million', '200 million'), ('a hundred and ninety', '190'), ('two million', '2 million'), ('seventeen gigawatts', '17 gigawatts')]
+NUM = [('two hundred and twenty dollars', '$220'), ("eleven thousand dollars' worth", '$11,000 worth')]
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
