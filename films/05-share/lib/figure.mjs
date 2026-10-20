@@ -261,3 +261,136 @@ export function figureBack(ctx, x, y, s, o = {}) {
   ctx.drawImage(c, x - U.ox * s, y - U.oy * s);
   return { phone: [x + 9 * s, y - 124 * s], head: [x, y - 167 * s], feetY: y };
 }
+
+// ---------- children (shots.md §6 "Kind": 3.07c, 4.12, 4.16, 4.18) ----------
+//   figureKid(ctx, x, y, s, pose, o) → { hand(i), feetY, head }   same conventions as figure(): x,y = hip joint, s = the ADULT scale
+//     (so a child next to an adult with the same s has the right size: child ≈ .66, toddler ≈ .48 of an adult's height)
+//     pose: KIDPOSES.stand / reachUp (holds an adult's hand above) / hold / sit / squat (crouches to plant) / walk(phase) (shared cycle)
+//     o: { age: 'child' | 'toddler', t, seed, dress: { top, pants, shoes, skin, hair }, accent (top colour), hair: 'short' | 'pigtails' |
+//          'curly' | 'bob' | 'beanie', light: { x, y, col, a } (form light), rim, rimSide, shadow (true), flip, prop(ctx, frontArm, backArm) }
+//   POSES.cradle + cradleProp(o)  an adult holding a baby: figure(ctx, x, y, s, POSES.cradle, { prop: cradleProp({ blanket, skin, t }) })
+//   babyBundle(ctx, x, y, s, o)    the swaddled baby alone (o: { t, ang, skin, blanket, hair, light, rim }); s = adult scale
+//   smallFeet(ctx, x, y, s, o)     close-up: a small child's bare feet standing on soil; x,y = ground point between the feet,
+//                                  s = 1 → a foot ~110 px long; o: { t, skin, soil true, light: { x, y } (warm key light), seed, mud .35 }
+export const KIDPOSES = {
+  stand: {},
+  reachUp: { sh: [2.45, 0.18], el: [0.12, 0.3], lean: -.03, head: -.15 },
+  hold: { sh: [0.7, 0.6], el: [1.2, 1.3], head: .28 },
+  sit: { hip: [1.45, 1.5], kn: [1.45, 1.5], sh: [0.5, 0.42], el: [0.8, 0.9], lean: .05 },
+  squat: { hip: [1.95, 1.85], kn: [2.5, 2.4], lean: .5, sh: [0.95, 0.75], el: [0.45, 0.55], head: .4, dy: 0 },
+};
+POSES.cradle = { sh: [0.78, 0.66], el: [1.42, 1.55], head: .34, lean: .02 };
+const KIDP = {
+  child: { legU: 28, legL: 27, thigh: 6.6, knee: 5, ankle: 3.9, foot: [7.2, 3.7], T: 40, shw: 11.2, armU: 19, armL: 17, armR: [5.6, 4.4], hand: 3.7, head: [9.6, 10.8], neck: 3.6 },
+  toddler: { legU: 18, legL: 16.5, thigh: 6.5, knee: 5.4, ankle: 4.4, foot: [6.4, 3.6], T: 28, shw: 10.4, armU: 13.5, armL: 12, armR: [5.2, 4.6], hand: 3.6, head: [9.4, 10.2], neck: 2.6 },
+};
+const KIDC = new Map();
+export function figureKid(ctx, x, y, s, pose = {}, o = {}) {
+  const A = KIDP[o.age || 'child'] || KIDP.child, P = resolve(pose, o), flip = o.flip ? -1 : 1;
+  const D = Object.assign({ top: o.accent || '#d9824a', pants: '#2a2f52', shoes: '#16141f', skin: SKINS[(o.seed || 0) % SKINS.length], hair: '#21161a' }, o.dress || {});
+  if (o.accent) D.top = o.accent;
+  const legY = A.legU + A.legL, sY = -A.T + (P._b || 0) * -.5, pad = Math.ceil(110 * s), key = pad;
+  if (!KIDC.has(key)) KIDC.set(key, [canvas(pad * 2, pad * 2), canvas(pad * 2, pad * 2)]);
+  const [[c, g], [rc, rg]] = KIDC.get(key); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.clearRect(0, 0, pad * 2, pad * 2);
+  g.translate(pad, pad); g.scale(s * flip, s);
+  const leg = (i) => { const a = P.hip[i], k = P.kn[i], sx = i ? -A.shw * .32 : A.shw * .32, kx = sx + Math.sin(a) * A.legU, ky = Math.cos(a) * A.legU, fx = kx + Math.sin(a - k) * A.legL, fy = ky + Math.cos(a - k) * A.legL;
+    g.fillStyle = i ? shadeHex(D.pants, -.05) : D.pants; capsule(g, sx, 0, A.thigh, kx, ky, A.knee); capsule(g, kx, ky, A.knee, fx, fy, A.ankle);
+    g.fillStyle = D.shoes; g.beginPath(); g.ellipse(fx + A.foot[0] * .55, fy + A.foot[1] * .6, A.foot[0], A.foot[1], 0, 0, TAU2); g.fill(); return [fx, fy]; };
+  const arm = (i) => { const a = P.sh[i], e = P.el[i], sx = i ? -A.shw * .25 : A.shw * .25, sy = sY + A.armR[0] * .9, ex = sx + Math.sin(a) * A.armU, ey = sy + Math.cos(a) * A.armU, hx = ex + Math.sin(a + e) * A.armL, hy = ey + Math.cos(a + e) * A.armL;
+    g.fillStyle = i ? shadeHex(D.top, -.07) : D.top; capsule(g, sx, sy, A.armR[0], ex, ey, A.armR[1]); capsule(g, ex, ey, A.armR[1], hx, hy, A.armR[1] * .85);
+    g.fillStyle = D.skin; g.beginPath(); g.ellipse(hx + Math.sin(a + e) * A.hand * .7, hy + Math.cos(a + e) * A.hand * .7, A.hand, A.hand * 1.12, -(a + e), 0, TAU2); g.fill(); return { sx, sy, ex, ey, hx, hy, ang: a + e }; };
+  leg(1); const f0 = leg(0);
+  g.save(); g.translate(P._wx || 0, 0); g.rotate(P.lean);
+  const backArm = arm(1);
+  // torso: short, round belly, sloping shoulders; the top in the accent colour
+  const w = A.shw; g.fillStyle = D.top; g.beginPath();
+  g.moveTo(-w * .95, 3); g.bezierCurveTo(-w * 1.15, -A.T * .35, -w * 1.05, sY + 8, -w * .55, sY - 1); g.quadraticCurveTo(0, sY - 4, w * .6, sY - 1);
+  g.bezierCurveTo(w * 1.12, sY + 8, w * 1.3, -A.T * .35, w * 1.02, 3); g.quadraticCurveTo(0, 8, -w * .95, 3); g.closePath(); g.fill();
+  g.fillStyle = 'rgba(0,0,0,.12)'; g.fillRect(-w * .9, -2, w * 1.9, 3);   // waistband shadow
+  // neck + head (faceless), hair
+  g.save(); g.translate(1, sY - 1); g.rotate(P.head); g.fillStyle = D.skin; capsule(g, 0, 2, A.neck + 1, 1, -A.neck, A.neck);
+  const hy = -A.neck - A.head[1] * .92; g.beginPath(); g.ellipse(2, hy, A.head[0], A.head[1], .1, 0, TAU2); g.fill();
+  g.fillStyle = D.hair; const hs = o.hair || (o.age === 'toddler' ? 'curly' : 'short');
+  if (hs === 'beanie') { g.fillStyle = o.accent || D.top; g.beginPath(); g.ellipse(1, hy - A.head[1] * .35, A.head[0] * 1.05, A.head[1] * .78, .1, Math.PI, TAU2 + .05); g.closePath(); g.fill(); g.beginPath(); g.arc(-1, hy - A.head[1] * 1.15, 2.4, 0, TAU2); g.fill(); }
+  else if (hs === 'curly') { for (let i = 0; i < 7; i++) { g.beginPath(); g.arc(-7 + i * 2.6, hy - A.head[1] * .62 + Math.sin(i * 2.1) * 1.2 + (i < 2 ? 4 : 0), 3.7, 0, TAU2); g.fill(); } }
+  else { g.beginPath(); g.ellipse(0, hy - 2.5, A.head[0] * 1.02, A.head[1] * .82, .12, Math.PI * .72, Math.PI * 2.05); g.closePath(); g.fill();
+    if (hs === 'pigtails') { for (const sx of [-A.head[0] * .95]) { g.beginPath(); g.ellipse(sx, hy + 2, 3.2, 5.2, .3, 0, TAU2); g.fill(); } }
+    if (hs === 'bob') { g.beginPath(); g.moveTo(-A.head[0] * .9, hy - 4); g.quadraticCurveTo(-A.head[0] * 1.2, hy + 6, -A.head[0] * .5, hy + A.head[1] * .75); g.lineTo(-A.head[0] * .2, hy + 2); g.closePath(); g.fill(); } }
+  g.restore();
+  const frontArm = arm(0);
+  if (o.prop) o.prop(g, frontArm, backArm, D);
+  g.restore();
+  // form light, rim, then onto the frame
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  if (o.light) { const { x: lx, y: ly, col = '#ffd9a0', a = .5 } = o.light, dx = lx - x, dy = ly - y, L = Math.hypot(dx, dy) || 1, ux = dx / L, uy = dy / L;
+    g.globalCompositeOperation = 'source-atop'; const gr = g.createLinearGradient(pad - ux * 22 * s, pad - 30 * s - uy * 22 * s, pad + ux * 22 * s, pad - 30 * s + uy * 22 * s);
+    gr.addColorStop(0, 'rgba(5,6,20,.36)'); gr.addColorStop(.5, 'rgba(5,6,20,0)'); gr.addColorStop(.62, rgba(col, 0)); gr.addColorStop(1, rgba(col, a)); g.fillStyle = gr; g.fillRect(0, 0, pad * 2, pad * 2); g.globalCompositeOperation = 'source-over'; }
+  const px = x + (P._wx || 0) * 0, py = y + ((P.dy || 0) + (P._b || 0) * -.25) * s, sitting = P.hip[0] > 1.2;
+  if (o.shadow !== false && !sitting) { const fy = y + legY * s, gr = ctx.createRadialGradient(x, fy, 0, x, fy, 26 * s); gr.addColorStop(0, 'rgba(4,4,14,.5)'); gr.addColorStop(1, 'rgba(4,4,14,0)'); ctx.save(); ctx.translate(x, fy); ctx.scale(1, .22); ctx.translate(-x, -fy); ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x, fy, 26 * s, 0, TAU2); ctx.fill(); ctx.restore(); }
+  if (o.rim) { rg.setTransform(1, 0, 0, 1, 0, 0); rg.globalCompositeOperation = 'source-over'; rg.clearRect(0, 0, pad * 2, pad * 2); rg.drawImage(c, 0, 0); rg.globalCompositeOperation = 'source-in'; rg.fillStyle = o.rim; rg.fillRect(0, 0, pad * 2, pad * 2);
+    const off = Math.max(1.1, 1.4 * s), side = o.rimSide ?? 1; ctx.drawImage(rc, px - pad + side * off, py - pad - off * .4); }
+  ctx.drawImage(c, px - pad, py - pad);
+  const toScr = (hx, hy) => { const cs = Math.cos(P.lean), sn = Math.sin(P.lean); return [px + ((hx * cs - hy * sn) + (P._wx || 0)) * s * flip, py + (hx * sn + hy * cs) * s]; };
+  return { hand: (i) => { const m = i ? backArm : frontArm; return toScr(m.hx, m.hy); }, feetY: y + legY * s, head: toScr(2, sY - A.neck - A.head[1]) };
+}
+const TAU2 = Math.PI * 2;
+
+// the swaddled baby: a blanket bundle with folds, a small head with a wisp of hair, one tiny hand at the face
+export function babyBundle(ctx, x, y, s, o = {}) {
+  const t = o.t ?? 0, b = breath(t * 1.6, 1) * .6, skin = o.skin || '#d9a984', bl = o.blanket || '#efe4cc';
+  ctx.save(); ctx.translate(x, y); ctx.rotate(o.ang ?? -.35); ctx.scale(s, s);
+  if (o.rim) { ctx.save(); ctx.translate(1.4, -1); ctx.fillStyle = o.rim; ctx.beginPath(); ctx.ellipse(-2, 0, 25, 13 + b * .3, 0, 0, TAU2); ctx.fill(); ctx.beginPath(); ctx.arc(20, -3, 9.5, 0, TAU2); ctx.fill(); ctx.restore(); }
+  // blanket body
+  const g = ctx.createLinearGradient(-20, -12, 6, 14); g.addColorStop(0, shadeHex(bl, .06)); g.addColorStop(1, shadeHex(bl, -.18));
+  ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(26, -10); ctx.bezierCurveTo(14, -15, -18, -15 - b * .3, -27, -4); ctx.bezierCurveTo(-31, 6, -20, 14 + b * .3, -2, 13); ctx.bezierCurveTo(14, 12, 24, 8, 28, 2); ctx.closePath(); ctx.fill();
+  // head in the hood of the blanket
+  ctx.fillStyle = shadeHex(bl, -.08); ctx.beginPath(); ctx.ellipse(20, -3, 11.5, 10.5, -.2, 0, TAU2); ctx.fill();
+  ctx.fillStyle = skin; ctx.beginPath(); ctx.ellipse(20.5, -3.2, 8.2, 7.6, -.2, 0, TAU2); ctx.fill();
+  ctx.fillStyle = o.hair || '#2a1c18'; ctx.beginPath(); ctx.ellipse(23, -8.5, 4.2, 2, -.5, 0, TAU2); ctx.fill();
+  ctx.fillStyle = shadeHex(skin, .05); ctx.beginPath(); ctx.ellipse(12.5, 1.5, 3, 2.6, .3, 0, TAU2); ctx.fill();   // tiny hand
+  // folds: engraved lines on the blanket
+  ctx.strokeStyle = 'rgba(60,40,30,.32)'; ctx.lineWidth = .7; ctx.lineCap = 'round';
+  for (let i = 0; i < 6; i++) { ctx.beginPath(); ctx.moveTo(-20 + i * 6, -10 + i * .6); ctx.quadraticCurveTo(-14 + i * 6, 0, -18 + i * 5.5, 10); ctx.stroke(); }
+  ctx.beginPath(); ctx.moveTo(8, -12); ctx.quadraticCurveTo(4, 0, 9, 11); ctx.stroke();
+  ctx.restore();
+}
+export function cradleProp(o = {}) {
+  return (g, front, back, D) => {
+    const mx = (front.hx + back.hx) / 2 - 2, my = Math.min(front.hy, back.hy) - 6;
+    babyBundle(g, mx, my, 1, { ang: -.28, ...o });
+    // the front forearm and hand wrap around the bundle again
+    g.fillStyle = D.coat || '#2c3450'; capsule(g, front.ex, front.ey, 6.2, front.hx, front.hy, 5);
+    g.fillStyle = D.skin || '#c99a74'; g.beginPath(); g.ellipse(front.hx + Math.sin(front.ang) * 3.5, front.hy + Math.cos(front.ang) * 3.5, 4.6, 5.4, -front.ang, 0, TAU2); g.fill();
+  };
+}
+
+// close-up: a small child's bare feet on dark soil (4.18). Soil crumbs, clods, contact shadow, rim light from the key light.
+export function smallFeet(ctx, x, y, s, o = {}) {
+  const t = o.t ?? 0, skin = o.skin || '#c08a64', r0 = (o.seed ?? 3), Lx = o.light ? o.light.x - x : 300, Ly = o.light ? o.light.y - y : -400, Lm = Math.hypot(Lx, Ly) || 1, lx = Lx / Lm, ly = Ly / Lm;
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+  if (o.soil !== false) {   // soil: dark loam with crumbs and small clods
+    const sg = ctx.createRadialGradient(0, 10, 10, 0, 10, 260); sg.addColorStop(0, '#3a2a1f'); sg.addColorStop(.6, '#2a1d16'); sg.addColorStop(1, 'rgba(20,14,11,0)'); ctx.fillStyle = sg; ctx.beginPath(); ctx.ellipse(0, 10, 280, 120, 0, 0, TAU2); ctx.fill();
+    let r = r0 * 7919 + 1; const rnd = () => (r = (r * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 520; i++) { const a = rnd() * TAU2, d = Math.pow(rnd(), .6) * 250, px = Math.cos(a) * d, py = 10 + Math.sin(a) * d * .42, z = .8 + rnd() * 3.2, lit = rnd() < .5; ctx.fillStyle = lit ? `rgba(120,88,62,${.35 + rnd() * .4})` : `rgba(14,9,7,${.4 + rnd() * .4})`; ctx.beginPath(); ctx.ellipse(px, py, z, z * .7, rnd() * 3, 0, TAU2); ctx.fill(); }
+  }
+  const foot = (fx, mirror, ph) => {
+    ctx.save(); ctx.translate(fx, 0); ctx.scale(mirror, 1);
+    // contact shadow
+    const cg = ctx.createRadialGradient(0, 4, 0, 0, 4, 70); cg.addColorStop(0, 'rgba(6,4,3,.65)'); cg.addColorStop(1, 'rgba(6,4,3,0)'); ctx.fillStyle = cg; ctx.beginPath(); ctx.ellipse(0, 6, 70, 22, 0, 0, TAU2); ctx.fill();
+    // leg stub + foot body (3/4 view from the front, toes toward the viewer-right)
+    const g = ctx.createLinearGradient(-30 * lx * mirror, -60, 30 * lx * mirror, 0); g.addColorStop(0, shadeHex(skin, .1)); g.addColorStop(1, shadeHex(skin, -.16)); ctx.fillStyle = g;
+    ctx.beginPath(); ctx.moveTo(-22, -150); ctx.bezierCurveTo(-24, -90, -30, -40, -34, -8); ctx.bezierCurveTo(-30, 6, 10, 8, 40, 4); ctx.bezierCurveTo(52, 2, 56, -14, 46, -22); ctx.bezierCurveTo(30, -34, 14, -48, 16, -90); ctx.lineTo(18, -150); ctx.closePath(); ctx.fill();
+    // toes: five, getting smaller, slight wiggle
+    const toes = [[44, -12, 8.5], [55, -6, 6.6], [61, -1, 5.8], [65, 4, 5.1], [67, 9, 4.4]];
+    toes.forEach(([tx, ty, tr], i) => { const wg = Math.sin(t * 2 + ph + i * .7) * .8; ctx.fillStyle = shadeHex(skin, -.03 - i * .015); ctx.beginPath(); ctx.ellipse(tx * .82 + wg, ty - 2, tr, tr * .86, 0, 0, TAU2); ctx.fill();
+      ctx.fillStyle = 'rgba(255,236,220,.45)'; ctx.beginPath(); ctx.ellipse(tx * .82 + wg + tr * .25, ty - 2 - tr * .3, tr * .38, tr * .28, -.3, 0, TAU2); ctx.fill(); });
+    // ankle bone, crease, rim toward the key light
+    ctx.strokeStyle = rgba('#3a2216', .35); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(-8, -40, 9, -1.2, 1.4); ctx.stroke(); ctx.beginPath(); ctx.moveTo(-20, -70); ctx.quadraticCurveTo(-4, -64, 12, -70); ctx.stroke();
+    ctx.strokeStyle = rgba('#ffe2b8', .7); ctx.lineWidth = 2.2; ctx.beginPath(); if (lx * mirror > 0) { ctx.moveTo(18, -150); ctx.lineTo(16, -90); ctx.bezierCurveTo(14, -48, 30, -34, 46, -22); } else { ctx.moveTo(-22, -150); ctx.bezierCurveTo(-24, -90, -30, -40, -34, -8); } ctx.stroke();
+    // soil on the toes and the sole edge (the feet are standing IN the earth)
+    if (o.soil !== false) { let r = (r0 + ph * 10) * 104729 + 3; const rnd = () => (r = (r * 16807) % 2147483647) / 2147483647; for (let i = 0; i < 90 * (o.mud ?? .35) + 20; i++) { const px = -34 + rnd() * 100, py = -2 + rnd() * 10; ctx.fillStyle = rnd() < .5 ? 'rgba(42,29,22,.9)' : 'rgba(96,70,50,.8)'; ctx.beginPath(); ctx.ellipse(px, py, 1 + rnd() * 2.4, .8 + rnd() * 1.6, 0, 0, TAU2); ctx.fill(); } }
+    ctx.restore();
+  };
+  foot(-58, -1, 0); foot(58, 1, 1.3);
+  ctx.restore();
+}

@@ -60,7 +60,7 @@ export function ghostLine(ctx, pts, o = {}) {
   }
   ctx.restore();
   let tip = null;
-  if (o.burin != null && o.burin > 0 && o.burin < 1) { tip = at(pts, d, Lb); burinTip(ctx, tip[0], tip[1], tip[2], o.t ?? 0, { size: o.tipSize ?? 14, foil: o.foil, a, seed: o.seed }); }
+  if (o.burin != null && o.burin > 0 && o.burin < 1 && !o.noTip) { tip = at(pts, d, Lb); burinTip(ctx, tip[0], tip[1], tip[2], o.t ?? 0, { size: o.tipSize ?? 14, foil: o.foil, a, seed: o.seed }); }
   return { tip, len: L };
 }
 
@@ -107,6 +107,6 @@ export function ghostPaths(ctx, lines, o = {}) {
     let b = o.burin;
     if (b != null) { b = clamp(b * (1 + stg) - (k / Math.max(1, n - 1)) * stg); }
     const showTip = b != null && b > 0 && b < 1 && tips < maxTips; if (showTip) tips++;
-    ghostLine(ctx, lines[k], { ...o, burin: b == null ? null : (showTip ? b : (b <= 0 ? 0 : b)), seed: (o.seed ?? 1) + k * 7, _noTip: !showTip, tipSize: showTip ? o.tipSize : 0 });
+    ghostLine(ctx, lines[k], { ...o, burin: b, seed: (o.seed ?? 1) + k * 7, noTip: !showTip });
   }
 }

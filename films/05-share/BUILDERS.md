@@ -65,10 +65,32 @@ Anchor every accent to a word (±2 frames), never to seconds. Ids: sections `'H'
 - **carry.mjs + handoffs.mjs**: `carry('c03>c04', T, R)` → `{ t, into: {t, tr, x, y, d}, pos(t), draw(ctx, t) }`: the carrier at each chunk boundary,
   identical in both chunks (outgoing: draw it until `C.t + d/2`; incoming: first shot `{ t: C.into.t, tr: C.into.tr, x: C.into.x, y: C.into.y, d: C.into.d }`).
   `track(keys, t0)` for your own carriers; `drawCarrier(ctx, kind, x, y, s, r, t)` (pen, nib, coin, drop, envelope, knot, sprout, line, thread, ring, light).
-  The register (`handoffs.mjs`) follows shots-v0 §2; ask the lead to change it, do not edit it.
+  The register (`handoffs.mjs`) and `CHUNKS` in film.mjs are switched to v2 by the lead and owned by the lead. Ask the lead to change them;
+  do not edit them yourself.
 - **quote2.mjs**: `quoteCard2(ctx, t, {words: T.W(id, from, to), name, role, source, date, paper, hi: ['word'], x, y, w, size})` — words light with the
   voice; name, role, source and date always on screen.
 - **slice.mjs**: `slicePie(ctx, x, y, r, {share, at, grow, widen, dotted, tilt, depth, col, sliceCol, t})` → `{tip, centre}` — the pie and the one slice.
+- **Wertpapier-Sprache (shots.md v2 §1), round 3**:
+  - **ghost.mjs**: `ghostLine(ctx, pts, {ghost, burin, smoke, u, col, w, a, dot, seed, t, glow, tipSize, foil})` → `{tip, len}`. A dotted engraved
+    line means it does not exist yet (ghost 1 = dotted, 0 = solid engraved). `burin` 0..1 runs an engraving tip along it and the line is solid behind the
+    tip. `smoke` 0..1 makes the dots drift away (a mere promise).
+    `ghostPaths(ctx, lines, {…, stagger, tips})` puts one burin front over many lines. `burinTip(ctx, x, y, ang, t, {size, foil})` is the tip alone
+    (C3's burin hand). `smokeDots(ctx, pts, smoke, o)`.
+  - The same `ghost / burin / smoke` options work on `rosette(…)`, `gBorder(…)` and `certificate(ctx, t, {…})` (plus `ghostCol, ghostW, dot`). Existing
+    calls are unchanged. certificate ghost 1 is the dotted structure only, and the paper fades in as ghost drops to 0.
+  - **perforate.mjs** (reservations, never rubber stamps):
+    - `perforateText(ctx, 'PROMISE', x, y, {size, pitch, hole, font, weight, light, glow, u (punched in reading order), t, rot, a, back})` →
+      `{w, h, n}`: pinhole letters with light shining through. x,y = centre.
+    - `perforation(ctx, pts, {pitch, hole, tear, light|col})` is a hole row along a line (coupons, corners).
+    - `tearAway(ctx, {line, draw(ctx), part: 'rest'|'piece', side, tear, lift, rot, dir})` lets the coupon or corner come off. Call it twice: once
+      with 'rest', once with 'piece'.
+  - **microPath** (certificate.mjs): `microPath(ctx, pts, text, {size, u, glint, col, a, offset, spacing, side, repeat})` runs microtext along a
+    polyline or a map border. glint 0..1 is a bright run.
+  - **Children** (figure.mjs):
+    - `figureKid(ctx, x, y, s, pose, {age: 'child'|'toddler', t, seed, dress, hair: 'short'|'pigtails'|'curly'|'bob'|'beanie', light, rim, flip, prop})`
+      → `{hand(i), feetY, head}`. x,y = hip, s = adult scale (same s as the adults next to them). Poses: `KIDPOSES.stand|reachUp|hold|sit|squat`.
+    - Baby in arms: `figure(ctx, x, y, s, POSES.cradle, {prop: cradleProp({…})})`, or `babyBundle(ctx, x, y, s, o)` on its own.
+    - `smallFeet(ctx, x, y, s, {t})` draws a child's bare feet on soil (close-up).
 - **stub.mjs**: `PAL` (ground / middle / accent per section, konzept §3), the placeholder cards. Legacy Film 2/3 files (`world places explain md2 picts`):
   mechanics only, not the look.
 
@@ -104,7 +126,7 @@ Anchor every accent to a word (±2 frames), never to seconds. Ids: sections `'H'
 
 ## Ownership
 - You create/modify only your `scenes/scNN.mjs` and new `lib/scNN_*.mjs` helpers (plus the kit file your chunk owns per shots-v0 §2, e.g. C1 phone,
-  C2 paper/share; keep their signatures). Do not edit engine.mjs, film.mjs, lib/kit.mjs, art.mjs, print.mjs, certificate.mjs, map.mjs, handoffs.mjs or
+  C2 paper/share; keep their signatures). Do not edit engine.mjs, film.mjs, lib/kit.mjs, art.mjs, print.mjs, certificate.mjs, ghost.mjs, perforate.mjs, figure.mjs, map.mjs, handoffs.mjs or
   another chunk's files; copy what you need into your helper and say so in your report.
 - Your first shot starts at `R.a` (the boundary); your last shot runs until the next chunk's first shot (`R.b`). Use `carry()` at both ends.
 - Write scratch files only to your scratchpad or `/tmp/claude-0/`; write to the shared mount only where your assignment says.
@@ -113,5 +135,5 @@ Anchor every accent to a word (±2 frames), never to seconds. Ids: sections `'H'
 Carrier chain, measured ms/frame, 4–6 snapshot paths of your best frames, known weaknesses, any kit function you copied/changed.
 
 ## Open (lead)
-- shots.md v2 (re-keyed to the final VO) is not on the mount yet; CHUNKS may be re-cut then (only `from` anchors in film.mjs change).
+- shots.md v2 is at `/mnt/project-files/scenario/film-05-share/bild/shots.md` (§1 Wertpapier-Sprache is binding). The lead keys CHUNKS and handoffs to v2.
 - If dark silhouettes show a doubled light edge, that is the riso offset: set `print: { riso: .25 }` on that shot.
