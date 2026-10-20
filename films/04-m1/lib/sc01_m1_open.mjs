@@ -5,13 +5,21 @@
 //   rowLight(t, K)          screen point of the far light (for the zoom into 1.04)
 //   slipTex(res, o)         the income slip as a cached texture (also used on the wall in 1.09)
 //   cam3, quadSprite, once, eoX, eiX, qio   small helpers shared with lib/sc01_m1_world.mjs
+import { Image } from '@napi-rs/canvas';
 import { W, H, rgba, clamp, mix, eio, sm, prng, drift, canvas, text } from '../engine.mjs';
 import { stipple, vnoise, fbm } from './art.mjs';
 import { gBorder, rosette, microtext, seal, guilloche, FOIL } from './certificate.mjs';
 import { ghostLine } from './ghost.mjs';
 import { scribble } from './paper.mjs';
 
-const CACHE = new Map(); export const once = (k, f) => { if (!CACHE.has(k)) CACHE.set(k, f()); return CACHE.get(k); };
+// cached textures are also handed to the renderer as Images: @napi-rs/canvas copies a Canvas source on every drawImage (and keeps
+// the copy), an Image it does not. PNG decoding is async, so the Canvas is used until its Image has decoded (ready() awaits all).
+const PEND = [], REC = new WeakMap();
+const isCanvas = (c) => !!c && typeof c.getContext === 'function' && typeof c.toBuffer === 'function';
+export const toImg = (c) => { if (!isCanvas(c) || REC.has(c)) return c; const im = new Image(), r = { im, ok: false }; REC.set(c, r); im.src = c.toBuffer('image/png'); PEND.push(im.decode().then(() => { r.ok = im.width > 0; }, () => { })); return c; };
+export const best = (c) => { const r = REC.get(c); return r && r.ok ? r.im : c; };   // the decoded Image if there is one, else the Canvas
+export async function ready() { while (PEND.length) await PEND.shift(); }
+const CACHE = new Map(); export const once = (k, f) => { if (!CACHE.has(k)) CACHE.set(k, toImg(f())); return best(CACHE.get(k)); };
 export const eoX = (x) => (x >= 1 ? 1 : x <= 0 ? 0 : 1 - Math.pow(2, -10 * x));            // expo-out (landings)
 export const eiX = (x) => (x <= 0 ? 0 : x >= 1 ? 1 : Math.pow(2, 10 * x - 10));            // expo-in (exits)
 export const qio = (x) => { x = clamp(x); return x < .5 ? 8 * x ** 4 : 1 - Math.pow(-2 * x + 2, 4) / 2; };   // quart in-out (moves)
@@ -29,6 +37,12 @@ export function cam3(o) {
   P.F = F; return P;
 }
 // draw img onto a projected quad (corners TL, TR, BR, BL on screen): n vertical strips, each an affine map (n = 1: no clip)
+const STRIPS = new WeakMap();
+function strips(img, n) {   // cut img into n vertical strips once (cached per image and n)
+  let m = STRIPS.get(img); if (!m) STRIPS.set(img, m = new Map());
+  if (!m.has(n)) { const iw = img.width, ih = img.height, a = []; for (let i = 0; i < n; i++) { const sx = Math.floor(iw * i / n), w = Math.min(iw - sx, Math.ceil(iw / n) + 2), [c, g] = canvas(w, ih); g.drawImage(img, -sx, 0); a.push({ c: toImg(c), sx }); } m.set(n, a); }
+  return m.get(n);
+}
 export function quadSprite(ctx, img, q, n = 1, a = 1) {
   const [A, B, C, D] = q, iw = img.width, ih = img.height;
   ctx.save(); ctx.globalAlpha = a;
@@ -37,10 +51,9 @@ export function quadSprite(ctx, img, q, n = 1, a = 1) {
     const t0 = [mix(A[0], B[0], u0), mix(A[1], B[1], u0)], t1 = [mix(A[0], B[0], u1), mix(A[1], B[1], u1)];
     const b0 = [mix(D[0], C[0], u0), mix(D[1], C[1], u0)], b1 = [mix(D[0], C[0], u1), mix(D[1], C[1], u1)];
     const sw = iw * (u1 - u0), aa = (t1[0] - t0[0]) / sw, bb = (t1[1] - t0[1]) / sw, cc = (b0[0] - t0[0]) / ih, dd = (b0[1] - t0[1]) / ih;
-    if (n > 1) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); const e = .6; ctx.beginPath(); ctx.moveTo(t0[0] - e, t0[1] - e); ctx.lineTo(t1[0] + e, t1[1] - e); ctx.lineTo(b1[0] + e, b1[1] + e); ctx.lineTo(b0[0] - e, b0[1] + e); ctx.closePath(); ctx.clip(); }
     ctx.setTransform(aa, bb, cc, dd, t0[0] - aa * iw * u0, t0[1] - bb * iw * u0);
-    ctx.drawImage(img, 0, 0);
-    if (n > 1) ctx.restore();
+    if (n === 1) ctx.drawImage(img, 0, 0);
+    else { const S = strips(img, n)[i]; ctx.drawImage(best(S.c), S.sx, 0); }   // a pre-cut strip (+2 px overlap, no clip)
   }
   ctx.restore();
 }
@@ -375,14 +388,21 @@ function drawRow(ctx, t, K, o = {}) {
     const wpx = Math.max(Math.abs(q[1][0] - q[0][0]), Math.abs(q[3][1] - q[0][1]) * 1.9);
     if (Math.max(q[0][0], q[1][0]) < -20 || Math.min(q[0][0], q[1][0]) > W + 20) continue;
     if (wpx < 3) { ctx.fillStyle = 'rgba(255,210,160,.5)'; ctx.fillRect(q[0][0], q[0][1], 1.5, Math.max(1, q[3][1] - q[0][1])); continue; }
+    // occlusion: the next nearer slip (drawn later) hides all of this one left of its right edge, when it spans our height
+    let cx = -1e5;
+    if (k > 0) { const zn = slipZ(k - 1, t, K); if (k - 1 === 0 || zn <= -1) { const n0 = P(x0, y1, zn), n1 = P(x1, y1, zn), n2 = P(x1, y0, zn), n3 = P(x0, y0, zn);
+      if (n0[2] >= 60 && n0[1] <= q[0][1] + .5 && n3[1] >= q[3][1] - .5 && Math.max(n0[0], n3[0]) <= Math.min(q[0][0], q[3][0]) + .5) cx = Math.min(n1[0], n2[0]) - 1.5; } }
+    if (cx > Math.max(q[1][0], q[2][0]) + 12) continue;
+    const occ = cx > Math.min(q[0][0], q[3][0]); if (occ) { ctx.save(); ctx.beginPath(); ctx.rect(cx, -1e4, 3e4, 3e4); ctx.clip(); }
     // the slip's edge (thickness) toward the camera side
     const e = [P(x1, y1, z), P(x1, y1, z - 6), P(x1, y0, z - 6), P(x1, y0, z)]; poly(ctx, e); ctx.fillStyle = '#7a6040'; ctx.fill();
     const res = wpx > 700 ? 1 : wpx > 260 ? .5 : wpx > 60 ? .2 : .06;
-    quadSprite(ctx, slipTex(res, { sealed: true }), q, wpx > 900 ? 10 : wpx > 300 ? 4 : 1);
+    quadSprite(ctx, slipTex(res, { sealed: true }), q, wpx > 900 ? 3 : 1);
     // back-lit: the faces fall into shade with distance, a warm rim on the top edge
     const dist = q[0][2], sh = clamp((dist - 1500) / 9000) * .55 + .12;
     poly(ctx, q); ctx.fillStyle = `rgba(14,10,24,${sh})`; ctx.fill();
     ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = `rgba(255,200,140,${.5 * la})`; ctx.lineWidth = Math.max(.6, Math.min(2, wpx / 300)); ctx.beginPath(); ctx.moveTo(q[0][0], q[0][1]); ctx.lineTo(q[1][0], q[1][1]); ctx.lineTo(q[2][0], q[2][1]); ctx.stroke(); ctx.restore();
+    if (occ) ctx.restore();
     // contact shadow
     const s0 = P(x0 - 40, y0, z + 30), s1 = P(x1 + 40, y0, z + 30), s2 = P(x1 + 40, y0, z - 60), s3 = P(x0 - 40, y0, z - 60); poly(ctx, [s0, s1, s2, s3]); ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.fill();
   }
@@ -418,9 +438,10 @@ function drawHeroCard(ctx, t, K, S, flip, rot, ghost, a = 1, clipTop = null) {
     ctx.restore();
     const lg = ctx.createRadialGradient(-w * .1, -h * .25, 0, 0, 0, h * .8); lg.addColorStop(0, 'rgba(255,200,130,.18)'); lg.addColorStop(1, 'rgba(20,10,30,.22)'); ctx.fillStyle = lg; ctx.fillRect(-w / 2, -h / 2, w, h);
   } else {
-    ctx.scale(-1, 1); ctx.rotate(Math.PI / 2);
+    ctx.save(); ctx.scale(-1, 1); ctx.rotate(Math.PI / 2);
     const sx = h / SLIP.w; ctx.scale(sx, w / SLIP.h); ctx.translate(-SLIP.w / 2, -SLIP.h / 2);
     slipLive(ctx, t, { glint: .6 });
+    ctx.restore();
   }
   // the sheen of the turn
   const sheen = Math.sin(clamp(flip / Math.PI) * Math.PI); if (sheen > .02) { ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = `rgba(255,236,206,${.25 * sheen})`; ctx.fillRect(-w / 2, -h / 2, w, h); }

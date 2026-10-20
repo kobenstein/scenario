@@ -19,10 +19,11 @@
 // | 1.09 | And the reason isn't the one you'd guess.     | the slip pinned to the wall, still glowing; a       | the wall fills the frame; c02 pulls out | (c02 out)|     |
 // |      |                                               | guilloche "?" engraves itself; its dot on "guess"   |                                         |          |     |
 // Ends on a composition with the wall filling the frame (c02 opens with a pull-out to a small vignette of it).
-import { openTake, rowLight } from '../lib/sc01_m1_open.mjs';
-import { roofShot, facadeShot, mapShot, mapCoast, lakeTake, wallShot } from '../lib/sc01_m1_world.mjs';
+import { openTake, rowLight, ready } from '../lib/sc01_m1_open.mjs';
+import { canvas } from '../engine.mjs';
+import { roofShot, facadeShot, mapShot, mapCoast, lakeTake, wallShot, warmTrees } from '../lib/sc01_m1_world.mjs';
 
-export default (T, R) => {
+export default async (T, R) => {
   const S = (p, n) => T.S('00a', p, n), E = (p, n) => T.E('00a', p, n), Sb = (p, n) => T.S('00b', p, n), Eb = (p, n) => T.E('00b', p, n);
   const K = { one: S('One day'), never: S('never'), work: S('work'), again: S('again'), againE: E('again'), your: S('Your income'), care: S('care'), ofE: E('care of'),
     rest: S('rest'), life: S('life'), lifeE: E('life'), so: Sb('So what'), doE: Eb('do you do'), sleep: Sb('Sleep'), sleepE: Eb('Sleep in'), travel: Sb('Travel'),
@@ -33,6 +34,12 @@ export default (T, R) => {
   const K4 = { t0: t04, out: t05 + .3 }, K5 = { t0: t05, sleep: K.sleep, out: t06 + .15 }, K6 = { t0: t06, arrive: K.finally - .35, out: t07 + .25 };
   const K7 = { t0: t07, but: K.but, months: K.months, wall: K.wall, out: t09 }, K9 = { t0: t09, reason: K.reason, guess: K.guess, end: R.b + 1 };
   const [lx, ly] = rowLight(t04, K), [cx, cy] = mapCoast(K6, t07);
+  // warm-up: build every cached texture once and wait for their Images to decode (see lib/sc01_m1_open.mjs, toImg)
+  { const [, g] = canvas(); const at = (f, ts) => ts.forEach((t) => { g.save(); f(g, t); g.restore(); });
+    at((g, t) => openTake(g, t, K), [.5, K.never + .5, K.again + .3, K.flip0 + .5, K.care + .3, K.rest + .4, K.lifeE, t04 + .2]);
+    at((g, t) => roofShot(g, t, K4), [t04 + .5, t05]); at((g, t) => facadeShot(g, t, K5), [t05 + .5]); at((g, t) => mapShot(g, t, K6), [t06 + .2, t07]);
+    warmTrees(); at((g, t) => lakeTake(g, t, K7), [t07 + .5, K.months, K.wall + .6, t09]); at((g, t) => wallShot(g, t, K9), [t09 + .5, K.guess + .5]);
+    await ready(); }
   return [
     // 1.01 the rack, your card, the ghost rows, the lift (pre-roll from R.a: the rack in darkness, one amber light sweeping)
     { t: R.a, draw: (ctx, t) => openTake(ctx, t, K), print: { riso: .35 },

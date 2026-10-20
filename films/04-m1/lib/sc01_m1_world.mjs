@@ -12,7 +12,7 @@ import { rosette, ring, seal, microtext } from './certificate.mjs';
 import { ghostLine } from './ghost.mjs';
 import { tree } from './tree.mjs';
 import { daySheet, drawDay, toView, ll } from './sc09_map.mjs';
-import { once, eoX, eiX, qio, slipTex, SLIP } from './sc01_m1_open.mjs';
+import { once, toImg, best, eoX, eiX, qio, slipTex, SLIP } from './sc01_m1_open.mjs';
 
 const TAU = Math.PI * 2;
 const poly = (ctx, pts) => { ctx.beginPath(); pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); };
@@ -32,7 +32,7 @@ function motes(ctx, t, cx, cy, R, a, seed = 23) {
 export const ROOF_SUN0 = [1290, 520];
 export function roofShot(ctx, t, K) {
   const u = clamp((t - K.t0) / (K.out - K.t0)), climb = sm(u) * .45 + eiX(clamp((t - (K.out - .9)) / .9)) * .55;
-  const dawn = mix(.35, .85, u);
+  const dawn = sm(clamp((t - K.t0 - .45) / .9));   // blue before dawn → the gold arrives on "do?" (one set at a time outside the cross-fade)
   const cam = { x: (t - K.t0) * 9 + drift(t, 5, 1), y: drift(t, 3, 2) - 40 * eiX(clamp((t - (K.out - .7)) / .7)), z: mix(1.08, 1.02, eoX(clamp((t - K.t0) / 1.6))), fx: 1290, fy: 520 };
   let SUN = null;
   const A = rooftop(ctx, t, {
@@ -50,7 +50,9 @@ export function roofShot(ctx, t, K) {
   // your long shadow toward us (the sun is behind you), then you
   ctx.save(); ctx.translate(fx + 40 * k1, fy - 30 * k1); ctx.rotate(.18); const sg = ctx.createLinearGradient(0, -40, 0, 300); sg.addColorStop(0, 'rgba(4,3,10,.55)'); sg.addColorStop(1, 'rgba(4,3,10,0)'); ctx.fillStyle = sg; ctx.beginPath(); ctx.ellipse(0, 120, 150 * k1, 260 * k1, 0, 0, TAU); ctx.fill(); ctx.restore();
   const look = .75 + .25 * sm(clamp((t - K.t0 - .3) / 1.2));
-  youFree(ctx, fx, fy, 1.2 * k1, { t, look, lit: 0, light: { x: SUN ? SUN[0] : 1300, y: SUN ? SUN[1] : 500, col: '#ffe0b0', a: .95 }, wind: 1.2, accent: '#c8843a' });
+  ctx.save(); ctx.translate(fx, fy); ctx.scale(k1, k1);   // a fixed figure size (stable buffers); the camera scale goes on the context
+  youFree(ctx, 0, 0, 1.2, { t, look, lit: 0, light: { x: ((SUN ? SUN[0] : 1300) - fx) / k1, y: ((SUN ? SUN[1] : 500) - fy) / k1, col: '#ffe0b0', a: .95 }, wind: 1.2, accent: '#c8843a' });
+  ctx.restore();
   if (SUN) motes(ctx, t, SUN[0], SUN[1], 420, .5);
   const vg = ctx.createRadialGradient(W * .55, H * .48, 420, W * .5, H * .5, 1250); vg.addColorStop(0, 'rgba(3,4,12,0)'); vg.addColorStop(1, 'rgba(3,4,12,.45)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
   return { sun: SUN };
@@ -143,7 +145,7 @@ export function facadeShot(ctx, t, K) {
 // 1.06 · Travel: the engraved paper map, a dotted route with a little engraved plane, landing on a coast
 // =====================================================================================================================
 const ccOf = (lon, lat) => { const [x, y] = ll(lon, lat); return { cx: x, cy: y }; };
-const mapSheet = () => once('m1map', () => daySheet({ ...ccOf(9, 47), z: 5.2, rot: -.05, tilt: .36 }, { seed: 17, lamp: [W * .7 + 90, -40], scale: 1.4 }));
+const mapSheet = () => once('m1map', () => ((S) => { const c0 = toImg(S.c); return { ...S, get c() { return best(c0); } }; })(daySheet({ ...ccOf(9, 47), z: 5.2, rot: -.05, tilt: .36 }, { seed: 17, lamp: [W * .7 + 90, -40], scale: 1.4 })));
 const ROUTE = { from: [-3.7, 40.4], to: [19.9, 39.6] };   // Madrid → the coast of Corfu
 function routePts(S) { const out = []; for (let i = 0; i <= 80; i++) { const q = i / 80, lon = mix(ROUTE.from[0], ROUTE.to[0], q), lat = mix(ROUTE.from[1], ROUTE.to[1], q) + Math.sin(q * Math.PI) * 6.5; out.push(S.PL(lon, lat).slice(0, 2)); } return out; }
 function plane(ctx, x, y, ang, s) {
@@ -257,6 +259,9 @@ function hammockYou(ctx, x, y, s, t, sit, light) {
   if (light > 0) { ctx.strokeStyle = rgba('#ffd6a0', .55 * light); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, -17); ctx.lineTo(sx + Math.cos(ang - Math.PI / 2) * 19, sy + Math.sin(ang - Math.PI / 2) * 19); ctx.stroke(); ctx.beginPath(); ctx.arc(hx, hy - 2, 16, -2.6, -.6); ctx.stroke(); }
   ctx.restore();
 }
+const TS = { w: 700, h: 760, ox: 350, oy: 700, res: 2 };
+function treeSprite(sd, sc, ti) { return once(`m1tree${sd}_${ti}`, () => { const res = ti === 0 ? TS.res : 1, [c, g] = canvas(TS.w * res, TS.h * res); g.scale(res, res);   /* tone -1 (bucket 0) is the one the push zooms into */ tree(g, TS.ox, TS.oy, sc, 0, { seed: sd, lightDir: [.7, -.6], wind: 1, leafTone: ti / 2 - 1 }); return c; }); }
+export function warmTrees() { for (const [sd, sc] of [[5, 1.05], [9, .95]]) for (let i = 0; i < 5; i++) treeSprite(sd, sc, i); }
 const TB = []; function treeBuf() { if (!TB.length) TB.push(canvas()); const [c, g] = TB[0]; g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; g.clearRect(0, 0, W, H); return [c, g]; }
 export function lakeTake(ctx, t, K) {
   // time: dusk at rest; from "But a few months in" the days and nights flicker (≈ 4 days), settling at a grey dusk by "wall"
@@ -306,8 +311,12 @@ export function lakeTake(ctx, t, K) {
   poly(ctx, [...shorePts, [W + 300, H + 300], [-300, H + 300]]); ctx.fillStyle = pal.ground; ctx.fill();
   { const r = prng(2); ctx.strokeStyle = mixHex(pal.ground, '#8a9a8a', .25); ctx.lineWidth = 1.6; ctx.lineCap = 'round'; for (let i = 0; i < 160; i++) { const x = r() * (W + 400) - 200, y = LAKE.shore + 10 + r() * 300, L = 14 + r() * 30, a = -Math.PI / 2 + (r() - .5) * .6 + Math.sin(t * 1.5 + x * .01) * .12; ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x + Math.cos(a) * L * .5 + 4, y + Math.sin(a) * L * .5, x + Math.cos(a) * L, y + Math.sin(a) * L); ctx.stroke(); } }
   const T1 = [610, LAKE.shore + 70], T2 = [1330, LAKE.shore + 60], season = fl > 0 ? Math.sin(fl * Math.PI * 1.5) : 0;
-  const lightDir = SUN ? [SUN[0] > 960 ? .7 : -.7, -.6] : [.6, -.8];
-  { const [bc, bg] = treeBuf(); bg.setTransform(ctx.getTransform()); for (const [tx, ty, sd, sc] of [[T1[0], T1[1], 5, 1.05], [T2[0], T2[1], 9, .95]]) tree(bg, tx, ty, sc, t, { seed: sd, lightDir, wind: 1 + 2 * (fl > 0 && fl < 1), leafTone: season });
+  { const [bc, bg] = treeBuf(); bg.setTransform(ctx.getTransform()); const wind = 1 + 2 * (fl > 0 && fl < 1) * Math.sin(fl * Math.PI), tq = (clamp(season, -1, 1) + 1) * 2, ti = Math.min(3, Math.floor(tq)), tfr = tq - ti;
+    for (const [tx, ty, sd, sc] of [[T1[0], T1[1], 5, 1.05], [T2[0], T2[1], 9, .95]]) {   // cached tree sprites (tone buckets cross-faded), swaying from the root
+      const sk = wind * (.011 * Math.sin(t * .9 + sd) + .004 * Math.sin(t * 2.3 + sd * 2));
+      bg.save(); bg.translate(tx, ty); bg.transform(1, 0, sk, 1, 0, 0);
+      bg.drawImage(treeSprite(sd, sc, ti), -TS.ox, -TS.oy, TS.w, TS.h); if (tfr > .01) { bg.globalAlpha = tfr; bg.drawImage(treeSprite(sd, sc, ti + 1), -TS.ox, -TS.oy, TS.w, TS.h); }
+      bg.restore(); }
     bg.setTransform(1, 0, 0, 1, 0, 0); bg.globalCompositeOperation = 'source-atop'; bg.fillStyle = rgba(mixHex(pal.ground, '#3a3050', .3), .72 - .2 * pal.sun * 0); bg.fillRect(0, 0, W, H);
     if (SUN) { const rg = bg.createLinearGradient(SUN[0] > 960 ? W : 0, 0, SUN[0] > 960 ? 0 : W, 0); rg.addColorStop(0, rgba('#ffb070', .28 * pal.sun)); rg.addColorStop(.6, 'rgba(255,176,112,0)'); bg.globalCompositeOperation = 'source-atop'; bg.fillStyle = rg; bg.fillRect(0, 0, W, H); }
     bg.globalCompositeOperation = 'source-over'; ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(bc, 0, 0); ctx.restore(); }
