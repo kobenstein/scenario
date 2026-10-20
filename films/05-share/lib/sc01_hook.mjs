@@ -36,6 +36,7 @@ function motes(ctx, t, cx, cy, a) {
   ctx.restore();
 }
 const LOCK = (K) => ({ time: '6:12', day: 'Thursday, 22 October', cards: [{ title: 'Electricity bill', sub: 'Payment due Friday', t0: K.buzz + .12, t1: 99 }] });
+let _hb = null; const HOOKBUF = () => (_hb ??= canvas(W, H));
 export function hookHand(ctx, t, K) {
   const push = eio(clamp(t / (K.bill + .2))), s = mix(2.02, 2.42, push) * (1 + .006 * Math.sin(t * 1.3));
   const ang = -.12 + .012 * Math.sin(t * .4) + .03 * (1 - push);
@@ -60,8 +61,14 @@ export function hookHand(ctx, t, K) {
   const zu = clamp((t - (K.bill - .35)) / .7), hide = sm(clamp((zu - .28) / .26));
   const scr = (g, w, h, tt) => { lockScreen(g, w, h, tt, { lit, ...LOCK(K) });
     if (hide > 0) { g.save(); g.globalAlpha = hide * clamp(lit); const bg = g.createLinearGradient(0, 0, 0, h); bg.addColorStop(0, '#1b2236'); bg.addColorStop(1, '#0b0e18'); g.fillStyle = bg; g.fillRect(0, 0, w, h); g.restore(); } };
-  const P = heldPhone(ctx, cx, cy, s, { t, buzz: buzzes.map((b) => b - .04), ang, lit, screen: scr, skin: '#b98261', rim: '#dfe6f2', rimA: .35 + .4 * lit, warm: 1 });
+  // the hand and phone stay solid and rise out of the dark (drawn off-screen, then darkened as one), never half-transparent like a ghost
   ctx.globalAlpha = 1;
+  const PO = { t, buzz: buzzes.map((b) => b - .04), ang, lit, screen: scr, skin: '#b98261', rim: '#dfe6f2', rimA: .35 + .4 * lit, warm: 1 };
+  let P;
+  if (exp < 1) { const [c, g] = HOOKBUF(); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, W, H); g.setTransform(ctx.getTransform());
+    P = heldPhone(g, cx, cy, s, PO); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-atop'; g.fillStyle = `rgba(3,4,12,${.97 * (1 - exp)})`; g.fillRect(0, 0, W, H); g.globalCompositeOperation = 'source-over';
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(c, 0, 0); ctx.restore(); }
+  else P = heldPhone(ctx, cx, cy, s, PO);
   // the wrist sinks into the dark below the hand (only the hand near the glass is lit)
   { const [ax, ay] = P.map(150, 150), [bx, by] = P.map(232, 268), wg = ctx.createLinearGradient(ax, ay, bx, by); wg.addColorStop(0, 'rgba(2,3,9,0)'); wg.addColorStop(.55, 'rgba(2,3,9,.55)'); wg.addColorStop(1, 'rgba(2,3,9,.94)'); ctx.fillStyle = wg; ctx.fillRect(0, 0, W, H); }
   // the second ring runs over the fingers: a faint pass of the youngest ring in front of the hand
