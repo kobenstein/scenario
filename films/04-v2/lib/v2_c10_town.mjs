@@ -149,15 +149,17 @@ function camKeys(K) {
     { t: K.flats + .62, p: [25.5, -1.38, 16.3, Math.PI / 2, .04], v: [4.6, 0, 0, 0, .1] },
     { t: PU.ta, p: [...PU.P0, Math.PI / 2, .2], v: [...PU.dir.map((d) => d * PU.v0), 0, 0] },
     { t: K.pushEnd, p: [...PU.P1, Math.PI / 2, 0], v: [PU.vEnd, 0, 0, 0, 0] },
-    { t: K.pushEnd + .5, p: [116.9, PU.Y + 1.85, ST.z, Math.PI / 2, -.5] },
-    { t: K.stairE, p: [117.55, PU.Y + 1.6, ST.z, Math.PI / 2, -.74] },
-    { t: K.now, p: [117.7, PU.Y + 1.6, ST.z, Math.PI / 2, -.78] },
-    { t: K.now + .9, p: [118.7, PU.Y + 3.6, ST.z, Math.PI / 2, -1.15] },
+    { t: K.pushEnd + .5, p: [117.4, PU.Y + 2.5, ST.z, Math.PI / 2, -.55] },
+    { t: K.stairE, p: [117.6, PU.Y + 2.5, ST.z, Math.PI / 2, -.76] },
+    { t: K.now, p: [117.75, PU.Y + 2.5, ST.z, Math.PI / 2, -.8] },
+    { t: K.now + .9, p: [118.7, PU.Y + 4.2, ST.z, Math.PI / 2, -1.15] },
     { t: K.tribe, p: [ST.x, BLK.top + 1.2, ST.z, Math.PI / 2, -1.53] },
-    { t: K.againE + .2, p: [114.5, BLK.top + 8, 12, .55, -.95] },
-    { t: K.streets + .45, p: [105, BLK.top - 2, 8, .1, -.62] },
-    { t: K.hurry, p: [101, 14, 30, -.15, -.38] },
-    { t: K.hurryE, p: [100.4, 12.5, 37, -.35, -.25] },
+    // out over the roof: the street below is one long table, a line of light through the town; the glide down over it
+    { t: K.againE, p: [117.5, BLK.top + 9, 10, -.2, -1.05] },
+    { t: K.streets + .3, p: [108, BLK.top + 6, 4, .02, -.72] },
+    { t: K.people2, p: [104.5, 30, 14, -.05, -.55] },
+    { t: K.hurry, p: [101.5, 16, 27, -.15, -.36] },
+    { t: K.hurryE, p: [100.6, 13, 36, -.35, -.22] },
     { t: K.end, p: [100, 13, 41, SKY_F.yaw, SKY_F.pitch] },
   ];
 }
@@ -221,7 +223,7 @@ function actions(t, K, E) {
 }
 export function townTake(ctx, t, K) {
   const c = townCam(t, K), C = cam({ ...c, f: F }), E = envAt(t, K); actions(t, K, E);
-  if (C.z < G.wallZ + .05 && C.yaw < .9) roomGarden(ctx, C, t, E, { lane: (g, CC) => lane(g, CC, t, E, K, { behindWall: true }) });
+  if (C.x < 9 && C.z < G.wallZ + .05 && C.yaw < .9) roomGarden(ctx, C, t, E, { lane: (g, CC) => lane(g, CC, t, E, K, { behindWall: true }) });
   else if (C.x < LANE.x1 + 1) lane(ctx, C, t, E, K, {});
   else if (C.x < HBR.bridge.x1) harbour(ctx, C, t, E, K, { beyond: (g, CC) => city(g, CC, t, K) });
   else if (C.x > BLK.x0 + .01 && C.y < BLK.top && Math.hypot(C.x - ST.x, C.z - ST.z) < ST.ro + .6) stairs(ctx, C, t, K, {});

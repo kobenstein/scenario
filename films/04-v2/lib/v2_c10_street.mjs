@@ -50,6 +50,8 @@ function blob(ctx, x, y, k, L, sit) {
   ctx.fillStyle = L.dress.hair; ctx.beginPath(); ctx.arc(x, by - hh * (sit ? .22 : .32) - r * .35, r * .9, Math.PI, TAU); ctx.fill();
 }
 const LIGHT = (p) => ({ x: p.x + 60, y: p.y - 500, col: '#ffcf8a', a: .5 });
+// the crowd in lantern light: every colour pulled a little toward the warm light, far ones toward the night
+const WARM = (d) => (d > 60 ? { col: '#3a2c48', a: clamp((d - 60) / 160) * .5 } : { col: '#ffcf8a', a: .1 * clamp((60 - d) / 30) });
 function seated(ctx, C, s0, t, P, camSide) {
   const xs = TX + s0.side * BX, hip = at3(C, xs, SY + .46, s0.z); if (!hip || hip.x < -80 || hip.x > W + 80 || hip.y < -120 || hip.y > H + 160) return;
   const far = s0.side === camSide ? -1 : 1, px = 1.75 * hip.k * s0.h;
@@ -65,7 +67,7 @@ function seated(ctx, C, s0, t, P, camSide) {
     else if (s0.act === 'laugh') { const l = cyc(4.6, 1.1); pose = { ...base, lean: -.05 * l, head: mix(.05, -.3, l) }; smile = .4 + .5 * l; }
     else if (s0.act === 'listen') pose = { ...base, sh: [.85, .5], el: [2.3, 1.0], head: .14, lean: .08 };
     else if (s0.act === 'turn') pose = { ...base, head: -.1, sh: [.5, .62], el: [.9, .7] };
-    person(ctx, hip.x, hip.y, hip.k * U * s0.h, pose, { t, seed: s0.i, dress: s0.dress, flip: s0.side > 0, light: LIGHT(hip), rim: '#ffcf8a', rimSide: s0.side > 0 ? 1 : -1, prop, smile, shadow: false, fog: { col: '#2a2440', a: clamp((hip.d - 40) / 140) * .45 } });
+    person(ctx, hip.x, hip.y, hip.k * U * s0.h, pose, { t, seed: s0.i, dress: s0.dress, flip: s0.side > 0, prop, smile, shadow: false, fog: WARM(hip.d) });
   });
 }
 function standing(ctx, C, p, t, P, o = {}) {
@@ -76,7 +78,7 @@ function standing(ctx, C, p, t, P, o = {}) {
     const tt = t + p.ph, g = .5 + .5 * Math.sin(tt * 1.9);
     let pose = o.pose || (p.glass ? { sh: [mix(.55, 1.45, sm2(((tt % 6) / 6 - .55) / .15) * (1 - sm2(((tt % 6) / 6 - .8) / .12))), .2], el: [1.25, .3], head: .02 } : { sh: [mix(.35, .9, g), .15], el: [mix(.9, 1.4, g), .35], head: .03 * Math.sin(tt) });
     pose = { ...POSES.stand, ...pose, hair: p.hair, skirt: p.skirt };
-    const r = person(ctx, hip.x, hip.y, hip.k * U * p.h, pose, { t, seed: p.i, dress: p.dress, flip: p.face < 0, light: LIGHT(hip), rim: '#ffcf8a', rimSide: p.face < 0 ? 1 : -1, prop: o.prop || (p.glass ? glassProp : null), smile: .35, fog: { col: '#2a2440', a: clamp((hip.d - 40) / 140) * .45 } });
+    const r = person(ctx, hip.x, hip.y, hip.k * U * p.h, pose, { t, seed: p.i, dress: p.dress, flip: p.face < 0, ...(o.prop ? { light: LIGHT(hip), rim: '#ffcf8a', rimSide: p.face < 0 ? 1 : -1 } : { fog: WARM(hip.d) }), prop: o.prop || (p.glass ? glassProp : null), smile: .35 });
     if (o.after) o.after(r, hip);
   });
 }
@@ -85,7 +87,7 @@ function sitStep(ctx, C, p, t, P) {
   P.add(hip.d, () => {
     if (1.75 * hip.k < 15) { blob(ctx, hip.x, hip.y, hip.k, p, true); return; }
     const tt = t + p.ph;
-    person(ctx, hip.x, hip.y, hip.k * U * p.h, { ...POSES.sit, hip: [1.9, 1.95], kn: [2.1, 2.15], sh: [.9, .8], el: [.9, 1.0], lean: .2, head: .05 * Math.sin(tt * .7), hair: p.hair, skirt: p.skirt }, { t, seed: p.i, dress: p.dress, flip: p.face < 0, light: LIGHT(hip), rim: '#ffcf8a', rimSide: p.face < 0 ? 1 : -1, smile: .3, shadow: false });
+    person(ctx, hip.x, hip.y, hip.k * U * p.h, { ...POSES.sit, hip: [1.9, 1.95], kn: [2.1, 2.15], sh: [.9, .8], el: [.9, 1.0], lean: .2, head: .05 * Math.sin(tt * .7), hair: p.hair, skirt: p.skirt }, { t, seed: p.i, dress: p.dress, flip: p.face < 0, smile: .3, shadow: false, fog: WARM(hip.d) });
   });
 }
 // one slice of the long table (cloth top, the near drape, the things on it)

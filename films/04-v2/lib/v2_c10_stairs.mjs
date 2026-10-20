@@ -30,13 +30,15 @@ function floorDraw(ctx, C, t, K, f, FOG) {
   const y0 = Yf(f), warmF = sm2((t - doorOpen(f, 0, K)) / .6), cold = FOG;
   const wallC = cold(mixHex('#8e96ac', '#d8b890', warmF * .55)), floorC = cold(mixHex('#6a7088', '#a88a6a', warmF * .5)), stepC = cold(mixHex('#7a8098', '#b89a78', warmF * .45)), edge = cold('#232636');
   // the outer wall of this storey (inner face), with the two doors on the landing, the window to the west
-  const NS = 36;
-  for (let i = 0; i < NS; i++) {
+  const NS = 36, outside = Math.hypot(C.x - ST.x, C.z - ST.z) > ST.ro - .05, segs = [];
+  for (let i = 0; i < NS; i++) { if (outside && (i === 17 || i === 18)) continue; const m = (i + .5) / NS * TAU; segs.push([Math.hypot(ST.x + ST.ro * Math.cos(m) - C.x, ST.z + ST.ro * Math.sin(m) - C.z), i]); }
+  segs.sort((p, q) => q[0] - p[0]);
+  for (const [, i] of segs) {
     const a = i / NS * TAU, b = (i + 1) / NS * TAU, sh = .82 + .18 * Math.cos((a + b) / 2 - 2.4);
     fill3(ctx, C, [P(ST.ro, a, y0), P(ST.ro, b, y0), P(ST.ro, b, y0 + ST.fh), P(ST.ro, a, y0 + ST.fh)], shade(wallC, sh - 1));
   }
-  // the window (west, over the stairs): the night outside
-  fill3(ctx, C, [P(ST.ro - .01, Math.PI - .13, y0 + 1.25), P(ST.ro - .01, Math.PI + .13, y0 + 1.25), P(ST.ro - .01, Math.PI + .13, y0 + 3.15), P(ST.ro - .01, Math.PI - .13, y0 + 3.15)], cold('#1a2040'));
+  // the window (west, over the stairs): the night outside (seen from inside only; from outside it is the hole we look through)
+  if (!outside) fill3(ctx, C, [P(ST.ro - .01, Math.PI - .13, y0 + 1.25), P(ST.ro - .01, Math.PI + .13, y0 + 1.25), P(ST.ro - .01, Math.PI + .13, y0 + 3.15), P(ST.ro - .01, Math.PI - .13, y0 + 3.15)], cold('#1a2040'));
   for (let d = 0; d < 2; d++) {
     const th = DOORS[d], w = .13, open = sm2((t - doorOpen(f, d, K)) / .45);
     const q = [P(ST.ro - .012, th - w, y0), P(ST.ro - .012, th + w, y0), P(ST.ro - .012, th + w, y0 + 2.05), P(ST.ro - .012, th - w, y0 + 2.05)];
