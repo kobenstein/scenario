@@ -30,16 +30,34 @@
 import { handsOf } from '../lib/handoff4.mjs';
 import { ready } from '../lib/v2_c07_kit.mjs';
 import { hallTake, hallInit, hallWarm } from '../lib/v2_c07_hall.mjs';
+import { voidInit, voidTake } from '../lib/v2_c07_void.mjs';
+import { paperWarm, diveR } from '../lib/v2_c07_paper.mjs';
+import { shopTake } from '../lib/v2_c07_shop.mjs';
+import { chartTake } from '../lib/v2_c07_chart.mjs';
 
 export default async (T, R) => {
   const { in: HI, out: HO } = handsOf('c07', T);
   const S = (p, n) => T.S('03b', p, n), E = (p, n) => T.E('03b', p, n);
   const K = { hb: HI.b, ha: HO.a, haveTo: E('have-to') + .04, follow: S('And after twenty') - .05, top: S('tired', 1) - .15, stop: S('ends'), dis0: S('The habit'), phone0: S('escaping') - .5 };
   K.wideAt = S('have-to') + .2; K.arrive = K.top + 1.15;
-  hallInit(K); hallWarm();
+  // 7.04–7.08: the void (same take, the fragment in 3D), the slip, the ticket, the map
+  K.TV = S("That's the slump") + .15;                       // every ghost line is gone: the hall hands the take to the void
+  K.sit0 = S('slump') - .25; K.sit1 = K.sit0 + .85;
+  K.dawn0 = S('But it') + .05; K.dawn1 = K.dawn0 + 2.3; K.lift = S('destiny');
+  K.slip0 = S('Some people') - .08; K.land = E('that message') + .1; K.td = S('Big lottery') + .45; K.foil = S('winners');
+  K.cover = S('Researchers') - .07; K.morph0 = S('Researchers') + .03; K.follow0 = S('followed'); K.follow1 = E('years', 1) - .05;
+  K.dive0 = E('years', 1) - .04; K.qEnd = 1900; K.bulbR = diveR(K);
+  // 7.09–7.10: the workshop out of the dot, the shaving, the chart, the push into the paper plate
+  K.shop0 = K.dive0 + .33;
+  K.strokes = [S('Most of them') + .1, S('kept working') + .05, S('kept working') + .22, E('kept working') - .1];
+  K.fly0 = E('kept working') + .02; K.chart0 = S('And years later') + .22; K.glint = S('not less'); K.push0 = E('not less') - 1.05;
+  hallInit(K); voidInit(K); hallWarm(); paperWarm();
   await ready();
-  const print = HI.print;
+  const pi = HI.print, po = HO.print;
   return [
-    { t: HI.b, tr: 'cut', d: .1, print, draw: (ctx, t) => hallTake(ctx, t, K) },
+    { t: HI.b, tr: 'cut', d: .1, print: pi, draw: (ctx, t) => hallTake(ctx, t, K), sound: [{ f: 'tick', t: K.haveTo, v: .6 }, { f: 'powerdown', t: K.stop + .71, v: .5 }] },
+    { t: K.TV, tr: 'cut', d: .1, print: pi, draw: (ctx, t) => voidTake(ctx, t, K), sound: [{ f: 'steps', t: K.sit0 + .76, v: .4 }, { f: 'paper_pop', t: K.land + .04, v: .5 }, { f: 'foil_glint', t: K.foil + .74, v: .5 }, { f: 'whoosh', t: K.dive0 + .06, v: .6 }] },
+    { t: K.shop0, tr: 'cut', d: .1, print: po, draw: (ctx, t) => shopTake(ctx, t, K), sound: [{ f: 'whoosh_airy', t: K.fly0 + .04, v: .5 }] },
+    { t: K.chart0, tr: 'cut', d: .1, print: po, draw: (ctx, t) => chartTake(ctx, t, K) },
   ];
 };

@@ -28,6 +28,7 @@ import { openTake, ready } from '../lib/sc01_m1_open.mjs';
 import { canvas } from '../engine.mjs';
 import { morningTake, rowToRoof } from '../lib/m1x_c01_morning.mjs';
 import { lakeTake } from '../lib/m1x_c01_lake.mjs';
+import { leafSprite } from '../lib/m1x_c01_kit.mjs';
 import { b12, b12K, bridgeWin, warm } from '../lib/m1x_bridge.mjs';
 
 export default async (T, R) => {
@@ -47,6 +48,7 @@ export default async (T, R) => {
     at(open, [.5, K.never + .5, K.again + .3, K.flip0 + .5, K.care + .3, K.rest + .4, K.lifeE, J1 - .2]);
     at((g, t) => morningTake(g, t, KM), [J1 + .5, K.sleep + .3, K.travel + .3, J2 - .1]);
     at((g, t) => lakeTake(g, t, KL), [J2 + .5, K.months, K.wall + .6, KL.push1 + .2, K9.guess + .5]);
+    for (let tone = 0; tone < 6; tone++) for (let v = 0; v < 3; v++) leafSprite(tone, v);   // every leaf tone the season passes through
     await warm(T); await ready(); }
   const P = { riso: .3 };
   return [

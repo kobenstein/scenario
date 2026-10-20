@@ -191,7 +191,7 @@ export function lakeTake(ctx, t, K) {
       ctx.strokeStyle = mixHex(lawnD, lawn, .3 + .6 * q.c); ctx.lineWidth = lw; ctx.beginPath(); ctx.moveTo(b[0], b[1]); ctx.quadraticCurveTo(b[0], (b[1] + tp[1]) / 2, tp[0], tp[1]); ctx.stroke();
       if (q.c > .55) { ctx.strokeStyle = tip; ctx.lineWidth = lw * .7; ctx.beginPath(); ctx.moveTo(mix(b[0], tp[0], .6), mix(b[1], tp[1], .6)); ctx.lineTo(tp[0], tp[1]); ctx.stroke(); } } }
   // 8 · the far tree, the hammock with you in it, the near tree
-  const light = { pal, I, SUN, shadeW, season, t };
+  const light = { pal, I, SUN, shadeW, season, t, hole: holeOf(K) };
   drawTree(ctx, C, T2, 1, light);
   drawHammock(ctx, C, t, K, phi, light);
   drawTree(ctx, C, T1, 0, light);
@@ -205,6 +205,15 @@ export function lakeTake(ctx, t, K) {
   return { land: false, sun: SUN };
 }
 export const R_SUN = 26, R_JUNC = 1750;
+// the leaf clusters the landing frame would look into are left out (the push ends looking through a gap in the crowns, so nothing
+// of the garden is in frame when wallShot takes over at push1)
+let HOLE = null, HOLEK = null;
+function holeOf(K) {
+  if (HOLE && HOLEK === K.push1) return HOLE;
+  HOLEK = K.push1; HOLE = new Set(); const E = endCam(K.push1, K);
+  for (const Ls of LEAVES) for (const c of Ls) { const p = P3(E, c.p[0], c.p[1], c.p[2]); if (c.p[2] - E.z < .3) continue; const rr = .95 * E.f * (c.sz + .3) / p[2] + 40; if (p[0] > -rr && p[0] < W + rr && p[1] > -rr && p[1] < H + rr) HOLE.add(c); }
+  return HOLE;
+}
 
 // ---------------------------------------------------------------- tree (trunk + limbs + leaf clusters), drawn in the world
 function drawTree(ctx, C, T, ti, L) {
@@ -226,7 +235,9 @@ function drawTree(ctx, C, T, ti, L) {
   // leaf clusters: shade side first; the season turns each cluster at its own moment (two tones of the same cluster, never two pictures)
   const sway = (c) => .05 * Math.sin(t * 1.1 + c.ph) + .02 * Math.sin(t * 2.7 + c.ph * 2);
   const tint = rgba(SHADE, shadeW * .55);
+  const hole = L.hole;
   for (const c of LEAVES[ti]) {
+    if (hole.has(c)) continue;
     const p = P3(C, c.p[0] + sway(c), c.p[1], c.p[2]); if (p[2] < .6) continue; const sz = C.f * c.sz / p[2] / 128 * 1.9; if (p[0] < -128 * sz || p[0] > W + 128 * sz || p[1] < -128 * sz || p[1] > H + 128 * sz) continue;
     const lit = (p[0] - SUN[0]) * 0 + c.lit > .5 ? 1 : 0, tq = clamp(season * 4.6 - c.off * 1.6, 0, 4), t0 = Math.floor(Math.min(3.999, tq)), fr = tq - t0;
     const base = lit ? [1, 2, 3, 4, 5] : [0, 2, 3, 4, 5];
@@ -242,7 +253,7 @@ function fallingLeaves(ctx, C, t, K, L) {
   const r = prng(808);
   for (let i = 0; i < 26; i++) {
     const ti = i % 2, src = LEAVES[ti][Math.floor(r() * LEAVES[ti].length)], t0 = mix(K.tl0 + 1.0, K.tl1 + .3, r()), sp = .8 + r() * .5, ph = r() * TAU, tone = 3 + Math.floor(r() * 3);
-    const u = t - t0; if (u <= 0) continue;
+    const u = t - t0; if (u <= 0 || t0 + src.p[1] / (sp * 1.6) > K.push1 - .35) continue;   // only leaves that are down before the landing
     const Y = Math.max(.01, src.p[1] - u * sp * 1.6), land = Y <= .011, du = land ? (src.p[1] - .01) / (sp * 1.6) : u;
     const X = src.p[0] + .35 * Math.sin(du * 2.4 + ph) + du * .3, Z = src.p[2] - du * .4, p = P3(C, X, Y, Z); if (p[2] < .6 || p[1] > H + 10) continue;
     const s = C.f * .06 / p[2], ang = land ? ph : du * 5 + ph, fl = land ? .35 : Math.cos(du * 7 + ph);
@@ -311,7 +322,8 @@ function hammockYou(ctx, C, t, K, phi, L, px) {
   pose.sh[0] = .1 + .02 * Lf.b; pose.el[0] = 2.8 - .04 * Lf.b;
   // light in the figure's frame (the frame turns by -90°: figure (x, y) → screen (y, -x))
   const lx = -(SUN[1] - h[1]), ly = SUN[0] - h[0];
-  o.light = { x: lx, y: ly, col: pal.sun, a: .4 * I }; o.rim = mixHex(pal.sun, '#ffffff', .2); o.rimSide = lx > 0 ? 1 : -1; o.shadeA = .1 + .35 * shadeW;
+  const hi = clamp((I - .8) / .28);   // the high sun: a softer, warmer key (a white key at noon bleached the coat)
+  o.light = { x: lx, y: ly, col: mixHex(pal.sun, '#ffd2a0', .45 * hi), a: .4 * I * (1 - .55 * hi) }; o.rim = mixHex(pal.sun, '#ffe2bc', .3 + .4 * hi); o.rimSide = lx > 0 ? 1 : -1; o.shadeA = .1 + .35 * shadeW;
   ctx.save(); ctx.translate(h[0], h[1]); ctx.rotate(-Math.PI / 2);
   figure(ctx, -2 * Lf.w * s, .35 * Lf.b * s, s, pose, o);
   ctx.restore();

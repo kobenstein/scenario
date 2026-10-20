@@ -43,6 +43,7 @@ function ticketCanvas(part) {
     } else { g.save(); g.translate(-w / 2 + 2, -h / 2 + 2); gBorder(g, 0, 0, w - 4, h - 4, { band: 5, lines: 5, waves: 90, col: ROSE, w: .14, a: .7, radius: 2.5 }); g.restore(); }
     g.restore();
     g.strokeStyle = 'rgba(90,70,40,.4)'; g.lineWidth = .25; g.beginPath(); g.roundRect(-w / 2, -h / 2, w, h, 2.2); g.stroke();
+    g.setTransform(1, 0, 0, 1, 0, 0);   // putImageData follows the transform in this canvas: stipple in pixels
     stipple(c, { k: .14, g: 1, seed: part === 'back' ? 9 : 8, mid: false, boost: 1 });
     return c;
   }
@@ -160,7 +161,7 @@ export function drawPaperPhase(ctx, M, t, K, o = {}) {
   for (let k = 0; k < R.length; k++) {
     const u = clamp((t - m0 - .04 * k) / .8);
     const L = u <= 0 ? R[k] : unwind(R[k], k === 0 ? map.coast : map.lines[k - 1], u, { n: k === 0 ? 900 : 260, sweep: .55 });
-    ctx.strokeStyle = k === 0 ? mixHex(ROSE, INK, u) : ROSE; ctx.lineWidth = k === 0 ? mix(.13, .2, u) : mix(.13, .07, u); ctx.globalAlpha = k === 0 ? .9 : mix(.85, .5, u);
+    ctx.strokeStyle = k === 0 ? mixHex(ROSE, INK, u) : ROSE; ctx.lineWidth = k === 0 ? mix(.13, .2, u) : mix(.13, .07, u); ctx.globalAlpha = k === 0 ? mix(.85, .95, u) : mix(.85, .5, u);
     strokeL(ctx, L);
   }
   ctx.globalAlpha = 1;

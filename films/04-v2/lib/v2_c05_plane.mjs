@@ -42,7 +42,7 @@ function sheet(L) {
 // the outline of the folding sheet (letter-local metres, x right, y up) from the rectangle to the dart seen from behind
 const RECT = [[-.13, .18], [0, .18], [.13, .18], [.13, -.18], [0, -.18], [-.13, -.18]];
 const HOUSE = [[-.13, .05], [0, .18], [.13, .05], [.13, -.18], [0, -.18], [-.13, -.18]];
-const DART = [[-.15, -.06], [0, .16], [.15, -.06], [.02, -.04], [0, -.1], [-.02, -.04]];
+const DART = [[-.1375, -.165], [0, .165], [.1375, -.165], [.05, -.165], [0, -.165], [-.05, -.165]];   // = the 3D dart (size 1.1) seen from above, nose up
 function foldShape(u) {
   const a = smo(clamp(u / .45)), b = smo(clamp((u - .4) / .5));
   return RECT.map((p, i) => [mix(mix(p[0], HOUSE[i][0], a), DART[i][0], b), mix(mix(p[1], HOUSE[i][1], a), DART[i][1], b)]);
@@ -109,8 +109,22 @@ export function drawDart(ctx, cam, pos, ori, o = {}) {
 export function dartScreen(ctx, x, y, s, ori, o = {}) {
   const S = {};
   for (const [k, p] of Object.entries(DM)) { const q = rot(p, ori); S[k] = [x + q[0] * s, y + q[1] * s, -q[2]]; }
-  drawFaces(ctx, S, dartFaces(S, o), Math.max(.7, .004 * s));
+  drawFaces(ctx, S, dartFaces(S, o), o.lw ?? Math.max(.7, .004 * s));
   return S;
 }
 // orientation from a velocity (and a roll from the turn)
-export function oriFrom(v, roll = 0) { const h = Math.hypot(v[0], v[2]) || 1e-6; return { yaw: Math.atan2(v[0], v[2]), pitch: Math.atan2(-v[1], h) * -1, roll }; }
+export function oriFrom(v, roll = 0) { const h = Math.hypot(v[0], v[2]) || 1e-6; return { yaw: Math.atan2(v[0], v[2]), pitch: Math.atan2(-v[1], h), roll }; }
+
+// the wing filling the frame (the flight's change of place): from the dart at (x0, y0, s0 px/m) to its top-left face covering the frame
+export const faceTop = (o = {}) => mixHex(shade(o.col || '#f6efe0', -.06), '#fff8ec', o.lit ?? .5);
+function faceIn(ori) {
+  const L = rot(DM.L, ori), N = rot(DM.N, ori), C = rot(DM.C, ori);
+  const a = Math.hypot(N[0] - C[0], N[1] - C[1]), b = Math.hypot(L[0] - C[0], L[1] - C[1]), c = Math.hypot(L[0] - N[0], L[1] - N[1]), p = a + b + c || 1;
+  return [(a * L[0] + b * N[0] + c * C[0]) / p, (a * L[1] + b * N[1] + c * C[1]) / p];
+}
+export function wingFill(ctx, u, x0, y0, s0, ori, o = {}) {
+  const e = clamp(u);
+  if (e >= .999) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = faceTop(o); ctx.fillRect(0, 0, 1920, 1080); ctx.restore(); return null; }
+  const s = Math.exp(mix(Math.log(s0), Math.log(90000), e)), [ix, iy] = faceIn(ori), w = Math.pow(e, .35);
+  return dartScreen(ctx, mix(x0, 960 - ix * s, w), mix(y0, 540 - iy * s, w), s, ori, { ...o, lw: Math.min(6, Math.max(.8, .004 * s)) });
+}

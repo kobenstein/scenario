@@ -16,7 +16,7 @@ import { TAU, sstep, cio, qio, mixHex, proj, pline, linePlateBG, glowAt, path2 }
 import { F, COL, E0, HERO, geo, heroX, KEEP, e0Frag } from './v2_c07_world.mjs';
 import { drawEsc, drawBridge, drawHero, heroPose, lerpPose } from './v2_c07_esc.mjs';
 import { hallCam, B0A, heroLit, heroCyan, e0SA } from './v2_c07_hall.mjs';
-import { drawTicket, TICKET } from './v2_c07_paper.mjs';
+import { drawTicket, drawPaperPhase, paperM, TICKET } from './v2_c07_paper.mjs';
 
 const U = 185 / 1.75;                     // figure units per metre
 const DECK = E0.yb + E0.R;                // the landing deck (36 m)
@@ -114,7 +114,7 @@ export function topCam(K, cu, cv, h) { const c = ticketPt(K, cu, cv); return { x
 // height of the camera over the ticket and the ticket point it looks at, from the landing to the push into the map (log-smooth keys)
 export function topPath(t, K) {
   const keys = [[K.land - .7, 2.4], [K.land, .95], [K.td, .27], [K.cover, .093]];
-  let h; if (t <= keys[0][0]) h = keys[0][1]; else if (t >= keys[3][0]) h = keys[3][1]; else {
+  let h; if (t <= keys[0][0]) h = keys[0][1]; else if (t >= keys[3][0]) h = keys[3][1] * Math.exp(-.08 * sstep(keys[3][0], K.dive0, t)); else {
     let i = 0; while (i < keys.length - 2 && t > keys[i + 1][0]) i++;
     const [t0, h0] = keys[i], [t1, h1] = keys[i + 1], u = (t - t0) / (t1 - t0), e = i === 0 ? u * u * (3 - 2 * u) * .5 + u * .5 : i === 2 ? cio(u) : u;
     h = Math.exp(mix(Math.log(h0), Math.log(h1), e));
@@ -138,6 +138,9 @@ export function voidCam(t, K) {
   }
   return C;
 }
+// the light on the ticket once it lies on the deck (the dawn's warm light, evening out as the camera comes down onto it)
+export const paperLightAt = (t, K) => ({ lit: mix(.789, 1, sstep(K.td, K.cover + .4, t)), warm: mix(.7, .3, sstep(K.td, K.cover + .4, t)) });
+export const foilAt = (t, K) => sstep(K.foil - .05, K.foil + .5, t);
 // the ticket's screen affine once it lies on the deck and the camera looks straight down (exact): ticket mm → screen
 export function ticketM(t, K) { const { h, cu, cv } = topPath(t, K), q = F / (h * 1000); return [q, 0, 0, q, W / 2 - q * cu, H / 2 - q * cv]; }
 
@@ -166,14 +169,15 @@ function sunbeams(ctx, P, C, t, K, dw) {
   }
   ctx.restore();
 }
-function dust(ctx, P, C, t, K, dw) {
+function dust(ctx, P, C, t, K, dw, k0 = 1) {
+  if (k0 <= .01) return;
   const box = [K.xF - 5, DECK - 2.5, E0.z - 5], size = [13, 7.5, 9];
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
   for (const [a, b, c, ph, sp, k] of DUST) {
     const x = box[0] + ((a * size[0] + Math.sin(t * sp + ph) * .4 - t * .05) % size[0] + size[0]) % size[0], y = box[1] + ((b * size[1] + Math.cos(t * sp * .8 + ph) * .3 - t * .06 * (.5 + k)) % size[1] + size[1]) % size[1], z = box[2] + c * size[2];
     const p = P(x, y, z); if (p[2] < .4 || p[0] < -10 || p[0] > W + 10 || p[1] < -10 || p[1] > H + 10) continue;
     const near = Math.exp(-Math.abs(y - DECK - 1.2) / 3), tw = .55 + .45 * Math.sin(t * (1.2 + k) + ph * 3);
-    const al = (.05 + .5 * dw * near) * tw, s = Math.max(.9, .018 * p[3]);
+    const al = (.05 + .5 * dw * near) * tw * k0, s = Math.max(.9, .018 * p[3]);
     if (al < .02) continue;
     ctx.fillStyle = rgba(mixHex('#a9bde8', '#ffe2b0', dw), Math.min(.8, al)); ctx.fillRect(p[0] - s / 2, p[1] - s / 2, s, s);
   }
@@ -199,7 +203,8 @@ function deckPlate(ctx, P, C, t, K, Lw, warm) {
 
 // ---------------------------------------------------------------- the frame
 export function voidTake(ctx, t, K) {
-  const C = voidCam(t, K), P = proj(C), dw = dawnAt(t, K), cy = cyanAt(t, K);
+  if (t >= K.cover) { const pl = paperLightAt(t, K); drawPaperPhase(ctx, paperM(t, K, ticketM(t, K)), t, K, pl); return null; }
+  const C = voidCam(t, K), P = proj(C), dw = dawnAt(t, K), cy = cyanAt(t, K), down = t > K.slip0 ? sstep(K.land - .75, K.td, t) : 0;
   linePlateBG(ctx, t);
   dawnSky(ctx, P, C, t, K, dw);
   // the fragment and you, lit by the phone and then by the dawn (the same calls as the hall's last frames)
@@ -228,8 +233,8 @@ export function voidTake(ctx, t, K) {
   drawEsc(ctx, P, C, E0, t, K, { L: Lf, dark: false, morning: 0, sA, hi: dw > 0 ? gold : undefined, mid: hero });
   drawBridge(ctx, P, C, B0A, t, K, 'front', { L: Lf, hi: dw > 0 ? gold : undefined });
   if (sl) drawSlip(ctx, P, C, t, K, sl, dw);
-  sunbeams(ctx, P, C, t, K, dw);
-  dust(ctx, P, C, t, K, dw);
+  sunbeams(ctx, P, C, t, K, dw * (1 - down));
+  dust(ctx, P, C, t, K, dw * (1 - down), 1 - down);
   return { C, P };
 }
 // the warm light lying on the deck round you
@@ -257,6 +262,7 @@ function drawSlip(ctx, P, C, t, K, sl, dw) {
   const ndl = Math.max(0, n[0] * SUN[0] + n[1] * SUN[1] + n[2] * SUN[2]) * (front ? 1 : .6);
   // specular: the sun's reflection toward the camera
   const vm = Math.hypot(...view), r = [2 * ndl * n[0] - SUN[0], 2 * ndl * n[1] - SUN[1], 2 * ndl * n[2] - SUN[2]], spec = Math.pow(Math.max(0, (r[0] * view[0] + r[1] * view[1] + r[2] * view[2]) / vm), 24);
+  if (sl.landed) { drawTicket(ctx, M, t, K, { ...paperLightAt(t, K), foil: foilAt(t, K) }); return; }
   const lit = mix(.42, 1, dw * (.45 + .55 * ndl));
-  drawTicket(ctx, M, t, K, { back: !front, lit, warm: dw * .7, foil: 0, glint: spec * dw * (1 - sl.u * .7) });
+  drawTicket(ctx, M, t, K, { back: !front, lit, warm: dw * .7, foil: 0, glint: spec * dw * (1 - sl.u) });
 }

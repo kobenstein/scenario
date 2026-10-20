@@ -111,9 +111,9 @@ function rowTex(R) {
     return c;
   });
 }
-export function drawRows(ctx, t, cam, S, zMin = 0) {
+export function drawRows(ctx, t, cam, S, zMin = 0, zMax = 1e9) {
   for (let i = ROWS.length - 1; i >= 0; i--) {
-    const R = ROWS[i]; if (R.z <= cam.z + .5 || R.z < zMin) continue;
+    const R = ROWS[i]; if (R.z <= cam.z + .5 || R.z < zMin || R.z > zMax) continue;
     const top = R.hMax * 1.9; bb(ctx, cam, rowTex(R), R.x0, R.ground - top, R.z, R.w, top);
   }
 }
@@ -284,10 +284,10 @@ function towerSide(ctx, t, cam) {
   poly3(ctx, cam, [[x, T.top, z0], [x, T.top, z1], [x, CITY.street, z1], [x, CITY.street, z0]]); ctx.fill();
 }
 export function drawOpposite(ctx, t, cam, S) {
-  const z = CITY.opp; if (z <= cam.z + .1) return;
-  const B = CITY.left, Tw = CITY.tower;
+  const z = CITY.opp, B = CITY.left, Tw = CITY.tower;
   sideWall(ctx, t, cam);
   towerSide(ctx, t, cam);
+  if (z <= cam.z + .1) return;
   bb(ctx, cam, towerTex(), Tw.x0, Tw.top - 3, z, Tw.x1 - Tw.x0, CITY.street - Tw.top + 3);
   officeInterior(ctx, t, cam, S.office || {});
   bb(ctx, cam, leftTex(), B.x0, B.ridge - .4, z, B.x1 - B.x0, CITY.street - B.ridge + .4);
@@ -393,7 +393,9 @@ export function drawOutside(ctx, t, cam, S) {
   drawSky(ctx, cam, S.tod);
   drawSun(ctx, t, cam, S);
   drawFar(ctx, t, cam, S);
-  drawRows(ctx, t, cam, S);
+  drawRows(ctx, t, cam, S, 40);
+  if (S.mid) S.mid(ctx, t, cam);
+  drawRows(ctx, t, cam, S, 0, 40);
   drawStreet(ctx, t, cam, S);
   drawOpposite(ctx, t, cam, S);
 }
