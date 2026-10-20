@@ -370,7 +370,9 @@ export default (T, R) => {
     for (const p of ppl) {
       const s = p.k * 2.1, ph = (t - CT.s217) * (2.2 + p.i * .13) * Math.PI * 2 * .5 + p.i, pose = walk(ph), flip = p.v < 0;
       if (s < .1) continue;
-      figureFlat(ctx, p.x, p.y - 92 * s, s, pose, { t, seed: p.i + 3, col: '#454a86', rim: '#d6fff3', rimSide: 1, accent: p.acc, accentPart: 'sweater', skin: '#c99a74', fast: true, flip, shade: .45 });
+      figure(ctx, p.x, p.y - 92 * s, s, pose, { t, seed: p.i + 3, flip, accent: p.acc, accentPart: 'coat', rim: '#d6fff3', rimSide: 1, shadow: true,
+        dress: { coat: '#5b609e', pants: '#3a3e76', shoes: '#1c1e36', skin: ['#c99a74', '#8d5f42', '#e0b896', '#a8734f', '#6e4a33'][p.i % 5], hair: '#231c26' },
+        light: { x: lp.x, y: lp.y - 40, col: '#bff5e6', a: .45 } });
       const [hx, hy] = handPos(p.x, p.y - 92 * s, s, pose, 0, flip, { t, seed: p.i + 3 });
       ctx.save(); ctx.translate(hx, hy);
       if (p.bag) { ctx.fillStyle = '#5a4532'; ctx.strokeStyle = '#2a1e14'; ctx.lineWidth = 1.5 * s; ctx.beginPath(); ctx.roundRect(-14 * s, 4 * s, 28 * s, 30 * s, 4 * s); ctx.fill(); ctx.stroke(); ctx.beginPath(); ctx.arc(0, 6 * s, 8 * s, Math.PI, TAU); ctx.stroke();

@@ -2,6 +2,7 @@
 // The topojson decode is copied from lib/map.mjs (decode()), reading data/land-110m.json (Natural Earth via world-atlas@2.0.2).
 //   landRings(detail = '110m') → [[ [lon, lat] … ] …] outer rings of all land polygons, largest first
 import fs from 'node:fs';
+import { createCanvas } from '@napi-rs/canvas';
 const DATA = new URL('../data/', import.meta.url);
 let RINGS = null;
 export function landRings() {
@@ -30,10 +31,17 @@ export function landMap(g, P, o = {}) {
   // graticule
   g.strokeStyle = N ? 'rgba(159,184,192,.10)' : 'rgba(42,32,48,.12)'; g.lineWidth = .8; for (let lo = -150; lo <= 150; lo += 30) { g.beginPath(); for (let la = -90; la <= 90; la += 3) { const [x, y] = P(lo, la); la === -90 ? g.moveTo(x, y) : g.lineTo(x, y); } g.stroke(); }
   for (let la = -60; la <= 60; la += 30) { g.beginPath(); for (let lo = -180; lo <= 180; lo += 4) { const [x, y] = P(lo, la); lo === -180 ? g.moveTo(x, y) : g.lineTo(x, y); } g.stroke(); }
-  // land as one: fill + coast ink, no borders
-  g.beginPath();
-  for (const r of landRings()) { let prev = null; r.forEach(([lo, la], i) => { const [x, y] = P(lo, la); if (!i || Math.abs(lo - prev) > 180) g.moveTo(x, y); else g.lineTo(x, y); prev = lo; }); g.closePath(); }
-  g.fillStyle = land; g.fill(); g.strokeStyle = inkA(.75); g.lineWidth = 1.1; g.lineJoin = 'round'; g.stroke();
+  // land as one: fill + coast ink, no borders. Equal Earth squeezes the polar band (70°–90° N is ~27 px here) against the flat pole
+  // line, which read as land cut flat along the top: the land is drawn on its own layer and fades out from 64° N to 80° N
+  const cw = g.canvas.width, ch = g.canvas.height, lc = createCanvas(cw, ch), lx = lc.getContext('2d');
+  lx.setTransform(g.getTransform());
+  lx.beginPath();
+  for (const r of landRings()) { let prev = null; r.forEach(([lo, la], i) => { const [x, y] = P(lo, la); if (!i || Math.abs(lo - prev) > 180) lx.moveTo(x, y); else lx.lineTo(x, y); prev = lo; }); lx.closePath(); }
+  lx.fillStyle = land; lx.fill(); lx.strokeStyle = inkA(.75); lx.lineWidth = 1.1; lx.lineJoin = 'round'; lx.stroke();
+  lx.setTransform(1, 0, 0, 1, 0, 0);
+  const yTop = P(0, o.fadeTo ?? 80)[1], yBot = P(0, o.fadeFrom ?? 64)[1];
+  if (yBot > yTop) { lx.globalCompositeOperation = 'destination-out'; const fg = lx.createLinearGradient(0, yTop, 0, yBot); fg.addColorStop(0, 'rgba(0,0,0,1)'); fg.addColorStop(1, 'rgba(0,0,0,0)'); lx.fillStyle = fg; lx.fillRect(0, 0, cw, Math.ceil(yBot) + 1); lx.globalCompositeOperation = 'source-over'; }
+  g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(lc, 0, 0); g.restore();
   g.restore();
   g.strokeStyle = inkA(.5); g.lineWidth = 1.2; path(edge); g.stroke();
 }
