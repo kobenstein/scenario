@@ -12,6 +12,12 @@
 //   foilGlint(ctx, path, t, o)     a moving specular band clipped to a Path2D (amber foil catching light)
 //   certificate(ctx, t, o)         the full "YOUR SHARE" certificate as one cached layer + live glint; o: { x, y, s, rot, title, name ('' = empty line) }
 //   unwind(from, to, u, o)         morph one polyline into another (resampled), sweeping from one end: a guilloche line → coastline
+//   peel(from, to, u, o)           a thread leaves a spool: the first u of `to` is already laid down, the rest still lies on `from`
+//   ripple(ctx, x, y, t, t0s, o)   the buzz as engraved guilloche rings rippling outward from a source (a phone): rings start as the
+//                                  source's rounded rectangle (o.w0, o.h0 half sizes) and relax into circles; o: { rings 3, gap .17 s,
+//                                  speed 330 px/s, life 2.4 s, lines 7, band 16, wave 30 px, col, glow, a, lw, sy (ground squash), rot,
+//                                  to: [x, y] (rings drift toward this point as they grow, e.g. the rising rosette), toR (radius there) }
+//   ring(ctx, x, y, rx, ry, o)     one guilloche ring (the drawing primitive of ripple); o: { lines, band, wave, col, glow, a, lw, p (superellipse 2 = circle), rot, ph }
 import { Path2D } from '@napi-rs/canvas';
 import { W, H, rgba, clamp, mix, prng, canvas, eout, eio, lin, text } from '../engine.mjs';
 import { roughPath, stipple, vnoise } from './art.mjs';
@@ -173,6 +179,51 @@ export function unwind(from, to, u, o = {}) {
   const n = o.n ?? 900, A = resample(from, n), B = resample(to, n), sw = o.sweep ?? .6;
   return A.map((p, i) => { const q = eio(clamp((u * (1 + sw) - (i / n) * sw))); return [mix(p[0], B[i][0], q), mix(p[1], B[i][1], q)]; });
 }
+
+// a thread leaves its spool: points of `to` up to the front (u) are laid down; behind the front the thread still lies on `from`;
+// a short blend zone (o.zone, fraction of the length) keeps the hand-over smooth (no zigzag), and the spool end follows `from`.
+export function peel(from, to, u, o = {}) {
+  const n = o.n ?? 900, A = resample(from, n), B = resample(to, n), z = o.zone ?? .08, f = clamp(u) * (1 + z);
+  return B.map((p, i) => { const q = i / (n - 1), k = sm01(clamp((f - q) / z)); const a = A[Math.min(n - 1, Math.max(0, Math.round((q - f + z) * (n - 1)) + (o.spoolOffset ?? 0)))] || A[0]; return [mix(a[0], p[0], k), mix(a[1], p[1], k)]; });
+}
+const sm01 = (x) => x * x * (3 - 2 * x);
+
+// ---------- the buzz: guilloche rings ----------
+// one ring: `lines` interwoven sine lines around a superellipse (p = 2 circle … 8 rounded rectangle), band = how far they weave
+export function ring(ctx, x, y, rx, ry, o = {}) {
+  const L = o.lines ?? 7, band = o.band ?? 16, wave = o.wave ?? 30, p = o.p ?? 2, a = o.a ?? 1, lw = o.lw ?? .9, ph0 = o.ph ?? 0;
+  if (a <= .003 || rx < 1) return;
+  const per = 2 * Math.PI * Math.sqrt((rx * rx + ry * ry) / 2), N = Math.max(96, Math.min(o.maxN ?? 900, Math.round(per / 4))), nw = Math.max(3, Math.round(per / wave));
+  const bx = new Float64Array(N + 1), by = new Float64Array(N + 1), nx = new Float64Array(N + 1), ny = new Float64Array(N + 1), bm = new Float64Array(N + 1);
+  for (let j = 0; j <= N; j++) {
+    const th = j / N * TAU, c = Math.cos(th), s = Math.sin(th);
+    const r = Math.pow(Math.pow(Math.abs(c) / rx, p) + Math.pow(Math.abs(s) / ry, p), -1 / p);
+    bx[j] = c * r; by[j] = s * r; nx[j] = c; ny[j] = s; bm[j] = band * .45 * (1 + .3 * Math.sin(th * 2 + ph0 * 1.3));   // the band breathes along the ring
+  }
+  ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot ?? 0); if (o.sy) ctx.scale(1, o.sy); ctx.lineJoin = 'round'; ctx.globalCompositeOperation = o.op || 'lighter';
+  if (o.glow !== null) { ctx.strokeStyle = rgba(o.glow || AMBER, (o.glowA ?? .13) * a); ctx.lineWidth = band * 1.4; ctx.beginPath(); for (let j = 0; j <= N; j++) j ? ctx.lineTo(bx[j], by[j]) : ctx.moveTo(bx[j], by[j]); ctx.stroke(); }
+  ctx.strokeStyle = o.col || '#fff1d6'; ctx.lineWidth = lw;
+  for (let i = 0; i < L; i++) {
+    const ph = i / L * TAU + ph0; ctx.globalAlpha = Math.min(1, a * (o.lineA ?? .8) * (.7 + .3 * Math.sin(i * 2.3))); ctx.beginPath();
+    for (let j = 0; j <= N; j++) { const q = j / N * nw * TAU, d = bm[j] * (Math.sin(q + ph) * .75 + Math.sin(q * 2 - ph * 1.5 + ph0) * .25); const X = bx[j] + nx[j] * d, Y = by[j] + ny[j] * d; j ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); }
+    ctx.closePath(); ctx.stroke();
+  }
+  ctx.restore();
+}
+export function ripple(ctx, x, y, t, t0s, o = {}) {
+  const starts = [].concat(t0s ?? []), n = o.rings ?? 2, gap = o.gap ?? .22, sp = o.speed ?? 330, life = o.life ?? 2.4, w0 = o.w0 ?? 40, h0 = o.h0 ?? 80;
+  const warmC = o.col || '#fff1d6', coolC = o.coolCol || '#9fb6cf';
+  for (const b of starts) for (let k = 0; k < n; k++) {
+    const age = t - b - k * gap; if (age <= 0 || age >= life) continue;
+    const q = age / life, D = sp * life * (1 - Math.pow(1 - q, 1.7)) / 1.7, fade = Math.pow(1 - q, 1.3) * Math.min(1, age / .1) * (k ? .55 : 1);
+    const relax = sm01(clamp(D / ((o.relax ?? .7) * Math.max(w0, h0)))), R = (w0 + h0) / 2 + D;
+    let cx = x, cy = y, rx = mix(w0 + D, R, relax), ry = mix(h0 + D, R, relax);
+    if (o.to) { const f = Math.pow(q, 1.25); cx = mix(x, o.to[0], f); cy = mix(y, o.to[1], f); if (o.toR) { const r0 = mix(w0, h0, .5) + D * (o.spread ?? .25); rx = ry = mix(r0, o.toR, Math.pow(f, 1.2)); } }
+    ring(ctx, cx, cy, rx, ry, { ...o, p: mix(6, 2, relax), lines: k ? Math.max(3, (o.lines ?? 7) - 3) : (o.lines ?? 7), band: (o.band ?? 16) * (1 - .4 * q) * (k ? .65 : 1), a: (o.a ?? 1) * fade,
+      ph: b * 3.1 + k * 1.7 + age * .6, lw: (o.lw ?? .9) * (1 - .3 * q), col: mixHex(warmC, coolC, Math.min(1, q * 1.3)), glow: o.glow === null ? null : mixHex(o.glow || AMBER, coolC, q) });
+  }
+}
+function mixHex(a, b, u) { const A = parseInt(a.slice(1), 16), B = parseInt(b.slice(1), 16); const m = (s) => Math.round(mix((A >> s) & 255, (B >> s) & 255, u)); return '#' + [m(16), m(8), m(0)].map((v) => v.toString(16).padStart(2, '0')).join(''); }
 
 // ---------- the full certificate ----------
 const CW = 1500, CH = 980;

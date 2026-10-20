@@ -12,6 +12,10 @@
 //          'Philippines', 'Kenya', 'South Korea', 'World', or an ISO alpha-3 / numeric id.  Spread it into your cam: {...region('USA'), tilt: .45}
 //   ll(lon, lat) → [x, y] Equal Earth units;  project(cam, lon, lat) → [sx, sy, scale] screen position on the tilted sheet
 //   country(id) → { id, name, polys } (lon/lat rings) for custom drawing
+//   outlineLocal(name, o) → { rings: [[x, y]…]…, box } the outline of a country/area in a local equal-area-ish projection
+//          (x = Δlon·cos lat0, y = −Δlat, degrees; looks like an atlas inset), largest ring first; o: { detail '50m', n (max rings) }.
+//          For motion graphics (a line that becomes a coast); fitTo(rings, box, x, y, w, h) scales them into a screen box.
+//          .coast = per-vertex flags (false on a land border); coastRuns(ring, flags) → the open coast stretches (for waterlines).
 import { Path2D } from '@napi-rs/canvas';
 import fs from 'node:fs';
 import { W, H, rgba, clamp, mix, prng, addGlow, rough, poly, hatch } from '../engine.mjs';
@@ -61,6 +65,28 @@ export function country(id, detail = '110m') { const d = data(detail); const key
 function ringPath(ctx, P, ring) { let first = true, prev = 0, k = 0; for (const [lon0, lat] of ring) { let lon = lon0 + k; if (!first && lon - prev > 180) { k -= 360; lon -= 360; } else if (!first && prev - lon > 180) { k += 360; lon += 360; } prev = lon; const [ex, ey] = ll(clamp(lon, -200, 200), lat), [x, y] = P(ex + (lon > 180 ? (lon - 180) * .015 : lon < -180 ? (lon + 180) * .015 : 0), ey); first ? ctx.moveTo(x, y) : ctx.lineTo(x, y); first = false; } ctx.closePath(); }
 function countryPath(ctx, P, c, filter) { for (const p of c.polys) { if (filter && !filter(p[0])) continue; for (const r of p) ringPath(ctx, P, r); } }
 
+export function outlineLocal(name, o = {}) {
+  const A = AREAS[name] || { id: name }, c = country(A.id, o.detail || '50m');
+  if (!c) throw new Error('map.outlineLocal: unknown ' + name);
+  const polys = c.polys.filter((p) => !A.filter || A.filter(p[0])).map((p) => p[0]).sort((a, b) => b.length - a.length).slice(0, o.n ?? 12);
+  let lo = 0, la = 0, k = 0; for (const [x, y] of polys[0]) { lo += x; la += y; k++; } lo /= k; la /= k;
+  const cl = Math.cos(la * D2R), dl = (x) => { let d = x - lo; if (d > 180) d -= 360; if (d < -180) d += 360; return d; };   // islands across the antimeridian stay next door
+  const rings = polys.map((r) => r.map(([x, y]) => [dl(x) * cl, -(y - la)]));
+  let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const r of rings) for (const [x, y] of r) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+  // coast[i][j] = false where the vertex lies on a land border shared with another country (no waterlines there)
+  const B = borderKeys(o.detail || '50m'), coast = polys.map((r) => r.map(([x, y]) => !B.has(x + ',' + y)));
+  return { rings, coast, box: [x0, y0, x1 - x0, y1 - y0], lon0: lo, lat0: la };
+}
+const BK = {};
+function borderKeys(detail) { if (!BK[detail]) { const s = new Set(); for (const arc of data(detail).borders) for (const [x, y] of arc) s.add(x + ',' + y); BK[detail] = s; } return BK[detail]; }
+// split a ring into its coast runs (open polylines without the land-border stretches); coast = flags from outlineLocal
+export function coastRuns(ring, coast) {
+  const n = ring.length, runs = []; if (coast.every(Boolean)) return [ring.concat([ring[0]])];
+  let s = coast.findIndex((c) => !c); // start right after a border vertex so no run wraps around the seam
+  let cur = null; for (let k = 1; k <= n; k++) { const i = (s + k) % n; if (coast[i]) { (cur ||= []).push(ring[i]); } else { if (cur && cur.length > 1) runs.push(cur); cur = null; } }
+  if (cur && cur.length > 1) runs.push(cur); return runs;
+}
+export function fitTo(rings, box, x, y, w, h) { const k = Math.min(w / box[2], h / box[3]), ox = x + (w - box[2] * k) / 2 - box[0] * k, oy = y + (h - box[3] * k) / 2 - box[1] * k; return rings.map((r) => r.map(([a, b]) => [ox + a * k, oy + b * k])); }
 const AREAS = {
   USA: { id: 'USA', filter: (r) => r[0][0] > -130 && r[0][1] < 50 },
   Alaska: { id: 'USA', filter: (r) => r[0][0] < -130 && r[0][1] > 50 },

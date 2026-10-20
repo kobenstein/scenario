@@ -181,3 +181,83 @@ export function figure(ctx, x, y, s, pose = {}, o = {}) {
   }
   return person(ctx, px, py, s, P, { flip, rim: o.rim, rimSide: o.rimSide, rimW: o.rimW, light: o.light, dress, prop: o.prop, shadeA: o.shadeA, shadeCol: o.shadeCol });
 }
+
+// ---------- figureBack(): a person seen from behind (rooftop, window, horizon) ----------
+// Faceless, capsule limbs, round shoulders, the scene's accent on the scarf; back-lit: a dark silhouette with a rim on the
+// side facing the light and the phone's warm light wrapping around the chest. Breath and weight shift from o.t.
+//   figureBack(ctx, x, y, s, o) → { phone: [x, y] (the phone, hidden in front of the chest: put its glow / rings there), head, feetY }
+//     x,y = between the feet on the ground, s = scale (1 → ~185 px tall)
+//     o: { t, seed, dress: { coat, pants, shoes, skin, hair }, accent (scarf, default ochre), hold: 'phone' | 'none',
+//          light: { x, y, col, a } (screen point of the back light: rim on that side), glow: { col, a } (phone light around the chest),
+//          headTilt (+ looks down at the phone), shade (0..1 extra darkening for distance),
+//          rimFloor (units above the feet below which the back light is blocked, e.g. by a parapet: no rim there) }
+const BACKC = new Map();
+export function figureBack(ctx, x, y, s, o = {}) {
+  const t = o.t ?? 0, b = breath(t, o.seed || 0) * .8, w8 = weight(t, o.seed || 0) * 1.4, hold = (o.hold ?? 'phone') === 'phone';
+  const D = Object.assign({ coat: '#26304a', pants: '#131427', shoes: '#0a0a12', skin: '#8d5f40', hair: '#16111a' }, o.dress || {});
+  const scarf = o.accent ?? '#c8843a', tilt = o.headTilt ?? .22;
+  const U = { w: 140, h: 210, ox: 70, oy: 198 }, cw = Math.ceil(U.w * s), ch = Math.ceil(U.h * s);
+  const key = cw + 'x' + ch; if (!BACKC.has(key)) BACKC.set(key, [canvas(cw, ch), canvas(cw, ch), canvas(cw, ch)]);
+  const [[c, g], [mc, mg], [rc, rg]] = BACKC.get(key);
+  for (const q of [g, mg, rg]) { q.setTransform(1, 0, 0, 1, 0, 0); q.globalCompositeOperation = 'source-over'; q.globalAlpha = 1; q.clearRect(0, 0, cw, ch); }
+  const paint = (q, mono) => {
+    q.setTransform(s, 0, 0, s, U.ox * s, U.oy * s);
+    const col = (k) => mono || D[k], sh = (k, d) => mono || shadeHex(D[k], d);
+    const sy = -b, hx = w8;   // shoulders breathe, hips sway
+    // legs: weight on the left leg, the right knee eased (a little shorter, slightly out)
+    q.fillStyle = col('pants'); capsule(q, -8 + hx, -92, 9, -8.8, -50, 6.9); capsule(q, -8.8, -50, 6.7, -8.4, -9, 5.2);
+    q.fillStyle = sh('pants', .03); capsule(q, 8 + hx, -92, 9, 10.4, -52, 6.9); capsule(q, 10.4, -52, 6.6, 9.6, -10, 5.2);
+    q.fillStyle = col('shoes'); q.beginPath(); q.ellipse(-8.6, -4.6, 6.2, 4.6, 0, 0, 7); q.fill(); q.beginPath(); q.ellipse(9.8, -5.2, 6.2, 4.4, .1, 0, 7); q.fill();
+    // left arm at the side (never behind the back), a slight bend, hand by the thigh
+    q.fillStyle = sh('coat', -.04); capsule(q, -19, -142 + sy, 6.9, -24, -113, 5.9); capsule(q, -24, -113, 5.7, -22, -87, 4.7);
+    q.fillStyle = col('skin'); q.beginPath(); q.ellipse(-21.4, -81.5, 3.9, 5.2, .15, 0, 7); q.fill();
+    // coat: round shoulders, a little waist, A-line hem, stand-up collar
+    q.fillStyle = col('coat'); q.beginPath();
+    q.moveTo(-18.5, -77); q.bezierCurveTo(-19.5, -92, -16.2, -106, -16.4, -120); q.bezierCurveTo(-16.8, -134, -23, -140 + sy, -18.5, -147 + sy); q.bezierCurveTo(-13, -152 + sy, -6, -151.5 + sy, 0, -151.5 + sy);
+    q.bezierCurveTo(6, -151.5 + sy, 13, -152 + sy, 18.5, -147 + sy); q.bezierCurveTo(23, -140 + sy, 16.8, -134, 16.4, -120); q.bezierCurveTo(16.2, -106, 19.5, -92 + hx * .2, 18.5, -77);
+    q.quadraticCurveTo(0, -73.5, -18.5, -77); q.closePath(); q.fill();
+    // right arm: the upper arm angles out to the elbow; the forearm goes forward to the phone in front of the chest (hidden)
+    if (hold) { q.fillStyle = col('coat'); capsule(q, 17.5, -142 + sy, 7, 27.5, -117, 6.3); q.beginPath(); q.ellipse(27, -115.5, 6.6, 6.2, .5, 0, 7); q.fill(); }
+    else { q.fillStyle = col('coat'); capsule(q, 19, -142 + sy, 6.9, 24, -113, 5.9); capsule(q, 24, -113, 5.7, 22, -87, 4.7); q.fillStyle = col('skin'); q.beginPath(); q.ellipse(21.4, -81.5, 3.9, 5.2, -.15, 0, 7); q.fill(); }
+    // collar, neck, head bowed toward the phone, hair
+    q.fillStyle = sh('coat', .08); q.beginPath(); q.moveTo(-9.5, -148 + sy); q.quadraticCurveTo(0, -146 + sy, 9.5, -148 + sy); q.lineTo(8.5, -154 + sy); q.quadraticCurveTo(0, -152.5 + sy, -8.5, -154 + sy); q.closePath(); q.fill();
+    q.fillStyle = sh('skin', -.18); capsule(q, 0, -151 + sy, 4.6, 0, -158 + sy + tilt * 3, 4.3);
+    q.save(); q.translate(0, -166.5 + sy + tilt * 5);
+    q.fillStyle = col('hair'); q.beginPath(); q.ellipse(0, 0, 9.3, 11.4 - tilt * 2, 0, 0, 7); q.fill();
+    q.beginPath(); q.moveTo(-8.6, 3); q.quadraticCurveTo(0, 12.5 - tilt * 3, 8.6, 3); q.lineTo(7.8, 6.5); q.quadraticCurveTo(0, 11, -7.8, 6.5); q.closePath(); q.fill();
+    q.restore();
+    // scarf (the accent): a wrapped band at the collar, one short tail with a fold
+    q.fillStyle = mono || scarf; q.beginPath(); q.ellipse(0, -149.5 + sy, 10.4, 4.2, 0, 0, 7); q.fill();
+    q.beginPath(); q.moveTo(-8, -150 + sy); q.quadraticCurveTo(-11.5, -139, -9.5, -128); q.lineTo(-4.2, -129); q.quadraticCurveTo(-5.4, -139, -2.8, -149 + sy); q.closePath(); q.fill();
+    if (!mono) { q.fillStyle = 'rgba(40,16,4,.35)'; q.beginPath(); q.ellipse(0, -147.6 + sy, 10, 2.2, 0, 0, Math.PI); q.fill(); q.strokeStyle = 'rgba(40,16,4,.4)'; q.lineWidth = .7; q.beginPath(); q.moveTo(-7.4, -141); q.lineTo(-5.2, -140); q.moveTo(-8.2, -134); q.lineTo(-5.6, -133.4); q.stroke(); }
+  };
+  paint(g, null);
+  // form and print: cool sky on the shoulders, darker toward the ground, engraved hatch, coat seams
+  g.setTransform(s, 0, 0, s, U.ox * s, U.oy * s); g.globalCompositeOperation = 'source-atop';
+  const fg = g.createLinearGradient(0, -190, 0, 0); fg.addColorStop(0, 'rgba(120,150,200,.16)'); fg.addColorStop(.35, 'rgba(0,0,0,0)'); fg.addColorStop(1, 'rgba(3,4,10,.45)'); g.fillStyle = fg; g.fillRect(-70, -200, 140, 210);
+  if (o.shade) { g.fillStyle = `rgba(10,14,30,${o.shade})`; g.fillRect(-70, -200, 140, 210); }
+  g.strokeStyle = 'rgba(0,0,0,.35)'; g.lineWidth = .6; g.beginPath(); g.moveTo(0, -146); g.lineTo(.5, -78); g.stroke(); g.beginPath(); g.moveTo(-.2, -92); g.lineTo(-.4, -78); g.lineWidth = 1.2; g.stroke();
+  g.setTransform(1, 0, 0, 1, 0, 0); hatch(g, null, -1.1, 3.2 * Math.max(1, s * .9), .2, { box: [0, 0, cw, ch], col: '#05060c', w: Math.max(.6, s * .35), wobble: .5 });
+  g.globalCompositeOperation = 'source-over';
+  // rim toward the back light (mask minus mask shifted away from it)
+  paint(mg, '#fff'); mg.setTransform(1, 0, 0, 1, 0, 0);
+  const L = o.light || { x: x + 600, y: y - 500, col: '#ffe2b8', a: .9 }, dx = L.x - x, dy = L.y - (y - 120 * s), m = Math.hypot(dx, dy) || 1, rw = Math.max(1.2, s * 1.3);
+  rg.setTransform(1, 0, 0, 1, 0, 0); rg.drawImage(mc, 0, 0); rg.globalCompositeOperation = 'destination-out'; rg.drawImage(mc, -dx / m * rw, -dy / m * rw);
+  if (o.rimFloor) { rg.globalCompositeOperation = 'destination-in'; const lg = rg.createLinearGradient(0, (U.oy - o.rimFloor - 18) * s, 0, (U.oy - o.rimFloor) * s); lg.addColorStop(0, '#fff'); lg.addColorStop(1, 'rgba(255,255,255,0)'); rg.fillStyle = lg; rg.fillRect(0, 0, cw, ch); }
+  rg.globalCompositeOperation = 'source-in'; rg.fillStyle = L.col || '#ffe2b8'; rg.fillRect(0, 0, cw, ch);
+  g.globalAlpha = L.a ?? .9; g.drawImage(rc, 0, 0); g.globalAlpha = 1;
+  // a faint cool rim of sky on the other shoulder and the top of the head (volume)
+  rg.globalCompositeOperation = 'source-over'; rg.clearRect(0, 0, cw, ch); rg.drawImage(mc, 0, 0); rg.globalCompositeOperation = 'destination-out'; rg.drawImage(mc, rw * .8, rw * 1.1);
+  rg.globalCompositeOperation = 'destination-in'; { const lg = rg.createLinearGradient(0, (U.oy - 190) * s, 0, (U.oy - 110) * s); lg.addColorStop(0, '#fff'); lg.addColorStop(1, 'rgba(255,255,255,0)'); rg.fillStyle = lg; rg.fillRect(0, 0, cw, ch); }
+  rg.globalCompositeOperation = 'source-in'; rg.fillStyle = '#9fb6cf'; rg.fillRect(0, 0, cw, ch); g.globalAlpha = .55; g.drawImage(rc, 0, 0); g.globalAlpha = 1;
+  // the phone's warm light wraps around the right side of the chest and the inside of the arm
+  if (hold && o.glow !== null) {
+    const G = o.glow || { col: '#ffb35c', a: .9 };
+    rg.globalCompositeOperation = 'source-over'; rg.clearRect(0, 0, cw, ch); rg.drawImage(mc, 0, 0); rg.globalCompositeOperation = 'destination-out'; rg.drawImage(mc, -rw * 1.6, rw * .3);
+    rg.globalCompositeOperation = 'destination-in'; const px = (U.ox + 10) * s, py = (U.oy - 124) * s, gg = rg.createRadialGradient(px, py, 0, px, py, 34 * s); gg.addColorStop(0, '#fff'); gg.addColorStop(1, 'rgba(255,255,255,0)'); rg.fillStyle = gg; rg.fillRect(0, 0, cw, ch);
+    rg.globalCompositeOperation = 'source-in'; rg.fillStyle = G.col; rg.fillRect(0, 0, cw, ch);
+    g.globalCompositeOperation = 'lighter'; g.globalAlpha = G.a ?? .9; g.drawImage(rc, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over';
+  }
+  ctx.drawImage(c, x - U.ox * s, y - U.oy * s);
+  return { phone: [x + 9 * s, y - 124 * s], head: [x, y - 167 * s], feetY: y };
+}
