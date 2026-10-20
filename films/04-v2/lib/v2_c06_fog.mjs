@@ -32,10 +32,14 @@ export async function warmFog() { tex(31, false); tex(57, true); tex(83, false);
 export function fogX(t, A) { const u = sm(clamp((t - A.turn0) / (A.turn1 - A.turn0))); return t * 22 + u * 2600; }
 
 const COL = { base: '#5e6a96', hi: '#c3cdea', lo: '#2a3260' };
-export function fogDraw(ctx, t, o = {}) {
+// drawn at half resolution into one reused offscreen canvas, then laid over the frame (the fog is soft by nature; 4× cheaper)
+let OFF = null;
+export function fogDraw(ctx0, t, o = {}) {
   const edge = o.edge ?? -200, x0 = o.x ?? t * 22, tint = o.tint || null, s = 1.6, rip = o.ripple ?? 1;
   if (edge >= H + 60) return;
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  if (!OFF) OFF = canvas(W / 2, H / 2);
+  const [oc, ctx] = OFF; ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.clearRect(0, 0, W / 2, H / 2);
+  ctx.save(); ctx.setTransform(.5, 0, 0, .5, 0, 0);
   // the wispy top edge: four stepped clips (soft gradient by bands, not a fade of the whole picture)
   const wav = (x, k) => edge + k * 34 + rip * (28 * Math.sin(x * .004 + t * .35 + k) + 14 * Math.sin(x * .011 - t * .6 + k * 2) + 6 * Math.sin(x * .03 + t));
   const bands = [[3, 1], [2, .62], [1, .36], [0, .18]];
@@ -49,10 +53,11 @@ export function fogDraw(ctx, t, o = {}) {
     // drifting noise layers (two speeds: depth), tiled horizontally
     for (const [seed, sp, dy, al] of [[57, .7, 40, .9], [31, 1, -60, .85], [83, 1.45, 120, .7]]) {
       ctx.globalAlpha = al * (k === 3 ? 1 : a); const im = tex(seed, seed === 57), w = FW * s, off = ((-(x0 * sp) % w) + w) % w - w;
-      const y0 = clamp(edge - 200, -260, H) + dy * .4 + 16 * Math.sin(t * .2 + seed);
+      const y0 = Math.min(H, -260 + 60 * Math.log1p(Math.exp((edge + 60) / 60))) + dy * .4 + 16 * Math.sin(t * .2 + seed);   // a soft floor (no kink)
       for (let x = off; x < W; x += w) ctx.drawImage(im, x, y0, w, 1400);
     }
     ctx.globalAlpha = 1; ctx.restore();
   }
   ctx.restore();
+  ctx0.save(); ctx0.setTransform(1, 0, 0, 1, 0, 0); ctx0.globalAlpha = 1; ctx0.globalCompositeOperation = 'source-over'; ctx0.drawImage(oc, 0, 0, W, H); ctx0.restore();
 }

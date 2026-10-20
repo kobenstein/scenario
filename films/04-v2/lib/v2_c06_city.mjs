@@ -130,6 +130,9 @@ export function makeCityTake(A, HO, T1) {
     const c = cam(t), op = FL.opening(c);
     if (!op || (op.l <= 0 && op.r >= W && op.t <= 0 && op.b >= H)) { FL.draw(ctx, t, c); return; }
     const cw = { x: c.x + HX, y: c.y + HY, z: c.z + OZ, F, ox: 0, oy: c.oy }, f = fN(t);
+    const kf = F / Math.max(1, QZ - cw.z), feQ = H / 2 + cw.oy + (-60 - cw.y) * kf, fe = KFOG(t) + Math.max(0, Math.min(feQ, H + 400) - feQ0);
+    const fog = () => fogDraw(ctx, t, { edge: fe, x: fogX(t, A), tint: { x: W / 2, y: Math.min(H, fe + 260), r: 1100, col: SCREEN, a: .12 + .08 * syncF(t) } });
+    if (fe < -152) { fog(); return; }   // the fog's opaque body covers the whole frame: nothing under it can show
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
     // does the hero block alone fill the frame? (then the far city is hidden behind it)
     const kq = F / (QZ - cw.z), bl = W / 2 + (HX - 1070 - cw.x) * kq, br = W / 2 + (HX + 1030 - cw.x) * kq, bt = H / 2 + cw.oy + (HY - 1190 - cw.y) * kq, bb = H / 2 + cw.oy + (0 - cw.y) * kq;
@@ -159,8 +162,7 @@ export function makeCityTake(A, HO, T1) {
     // the hero window: the flat seen from outside, the reveals, the casements, the sill
     FL.windowView(ctx, t, c);
     // the fog lying on the water (its top edge slides down out of frame as the camera nears the quay)
-    const kf = F / Math.max(1, QZ - cw.z), feQ = H / 2 + cw.oy + (-60 - cw.y) * kf, fe = KFOG(t) + Math.max(0, Math.min(feQ, H + 400) - feQ0);
-    fogDraw(ctx, t, { edge: fe, x: fogX(t, A), tint: { x: W / 2, y: Math.min(H, fe + 260), r: 1100, col: SCREEN, a: .12 + .08 * syncF(t) } });
+    fog();
   }
   return { draw, cam, into };
 }

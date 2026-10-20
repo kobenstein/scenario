@@ -19,9 +19,16 @@
 // | 1.09 | And the reason isn't the one you'd guess.     | the slip pinned to the wall, still glowing; a       | the wall fills the frame; c02 pulls out | (c02 out)|     |
 // |      |                                               | guilloche "?" engraves itself; its dot on "guess"   |                                         |          |     |
 // Ends on a composition with the wall filling the frame (c02 opens with a pull-out to a small vignette of it).
-import { openTake, rowLight, ready } from '../lib/sc01_m1_open.mjs';
+// v2 minute repair (c01, 2026-10-20): every transition inside the chunk is now one continuous take; the scene only hard-cuts at the
+// junctions, where both sides draw the same picture: 0 → 11.50 openTake (the flip goes through darkness, the hero slip becomes row
+// slip k = 0 before 8.72) · 11.50 the dawn light (the row's far light covers the frame, shrinks into the roof's sun) · 11.50 → 15.65
+// morningTake (roof → the window → the map blind → the landing) · 15.65 the gold light · 15.65 → lakeTake (the hammock, one day as one
+// sun arc, the wall, the push onto wallShot's frame) · bridge c01>c02 from its window start (b12, c02 draws it on from 25.47).
+import { openTake, ready } from '../lib/sc01_m1_open.mjs';
 import { canvas } from '../engine.mjs';
-import { roofShot, facadeShot, mapShot, mapCoast, lakeTake, wallShot, warmTrees } from '../lib/sc01_m1_world.mjs';
+import { morningTake, rowToRoof } from '../lib/m1x_c01_morning.mjs';
+import { lakeTake } from '../lib/m1x_c01_lake.mjs';
+import { b12, b12K, bridgeWin, warm } from '../lib/m1x_bridge.mjs';
 
 export default async (T, R) => {
   const S = (p, n) => T.S('00a', p, n), E = (p, n) => T.E('00a', p, n), Sb = (p, n) => T.S('00b', p, n), Eb = (p, n) => T.E('00b', p, n);
@@ -30,36 +37,33 @@ export default async (T, R) => {
     finally: Sb('Finally'), restE: Eb('Finally rest'), but: Sb('But a few'), months: Sb('months'), wall: Sb('wall'), wallE: Eb('wall'),
     and: Sb('And the reason'), reason: Sb('reason'), guess: Sb('guess'), guessE: Eb('guess') };
   K.flip0 = K.againE + .3; K.flipEnd = K.flip0 + 1.05;
-  const t04 = K.so - .25, t05 = K.sleep - .25, t06 = K.travel - .1, t07 = K.finally - .1, t09 = K.and - .3;
-  const K4 = { t0: t04, out: t05 + .3 }, K5 = { t0: t05, sleep: K.sleep, out: t06 + .15 }, K6 = { t0: t06, arrive: K.finally - .35, out: t07 + .25 };
-  const K7 = { t0: t07, but: K.but, months: K.months, wall: K.wall, out: t09 }, K9 = { t0: t09, reason: K.reason, guess: K.guess, end: R.b + 1 };
-  const [lx, ly] = rowLight(t04, K), [cx, cy] = mapCoast(K6, t07);
+  const J1 = K.so - .25, J2 = K.finally - .1, K9 = b12K(T), B = bridgeWin('c01>c02', T);
+  K.J1 = J1;
+  const KM = { J1, doE: K.doE, sleep: K.sleep, sleepE: K.sleepE, J2, map: { t0: K.travel - .09, arrive: K.finally - .5 } };
+  const KL = { t0: J2, months: K.months, wall: K.wall, tl0: K.but - .27, tl1: K.but + 2.43, push0: K.wall + .53, push1: K.wall + 1.98, K9 };
+  const open = (ctx, t) => { const o = openTake(ctx, t, K); rowToRoof(ctx, t, KM, o.light); };
   // warm-up: build every cached texture once and wait for their Images to decode (see lib/sc01_m1_open.mjs, toImg)
   { const [, g] = canvas(); const at = (f, ts) => ts.forEach((t) => { g.save(); f(g, t); g.restore(); });
-    at((g, t) => openTake(g, t, K), [.5, K.never + .5, K.again + .3, K.flip0 + .5, K.care + .3, K.rest + .4, K.lifeE, t04 + .2]);
-    at((g, t) => roofShot(g, t, K4), [t04 + .5, t05]); at((g, t) => facadeShot(g, t, K5), [t05 + .5]); at((g, t) => mapShot(g, t, K6), [t06 + .2, t07]);
-    warmTrees(); at((g, t) => lakeTake(g, t, K7), [t07 + .5, K.months, K.wall + .6, t09]); at((g, t) => wallShot(g, t, K9), [t09 + .5, K.guess + .5]);
-    await ready(); }
+    at(open, [.5, K.never + .5, K.again + .3, K.flip0 + .5, K.care + .3, K.rest + .4, K.lifeE, J1 - .2]);
+    at((g, t) => morningTake(g, t, KM), [J1 + .5, K.sleep + .3, K.travel + .3, J2 - .1]);
+    at((g, t) => lakeTake(g, t, KL), [J2 + .5, K.months, K.wall + .6, KL.push1 + .2, K9.guess + .5]);
+    await warm(T); await ready(); }
+  const P = { riso: .3 };
   return [
     // 1.01 the rack, your card, the ghost rows, the lift (pre-roll from R.a: the rack in darkness, one amber light sweeping)
-    { t: R.a, draw: (ctx, t) => openTake(ctx, t, K), print: { riso: .35 },
-      sound: [{ f: 'tick', t: .15, v: .12 }, { f: 'lamp', t: .35, v: .12 }, { f: 'card', t: K.againE + .05, v: .2 }] },
-    // 1.02 the turn: the card's back is the income slip; the seal lands on "care"
-    { t: K.flip0, tr: 'cut', d: .08, draw: (ctx, t) => openTake(ctx, t, K), print: { riso: .3 },
+    { t: R.a, draw: open, print: P, sound: [{ f: 'tick', t: .15, v: .12 }, { f: 'lamp', t: .35, v: .12 }, { f: 'card', t: K.againE + .05, v: .2 }] },
+    // 1.02 the turn: the card's back is the income slip; the seal lands on "care" (same take: the cut is invisible)
+    { t: K.flip0, tr: 'cut', draw: open, print: P,
       sound: [{ f: 'whoosh_airy', t: K.flip0 + .05, v: .16 }, { f: 'foil_glint', t: K.flipEnd - .1, v: .22 }, { f: 'stamp', t: K.care + .01, v: .22 }] },
-    // 1.03 ★ the row of slips to the horizon, the years engraved beside it
-    { t: K.rest - .3, tr: 'cut', d: .08, draw: (ctx, t) => openTake(ctx, t, K), print: { riso: .3 },
-      sound: [{ f: 'multiply', t: K.rest - .25, v: .14 }, { f: 'swell', t: K.lifeE + .05, v: .2 }] },
-    // 1.04 the far light becomes the sun over the city; you on the roof
-    { t: t04, tr: 'zoom', x: lx, y: ly, depth: 3.2, d: 1.0, draw: (ctx, t) => roofShot(ctx, t, K4), print: { riso: .25 } },
-    // 1.05 sleep in: the blind lowers
-    { t: t05, tr: 'up', d: .6, draw: (ctx, t) => facadeShot(ctx, t, K5), print: { riso: .3 }, sound: [{ f: 'curtain', t: K.sleep - .02, v: .16 }] },
-    // 1.06 travel: the route on the paper map
-    { t: t06, tr: 'whipR', d: .3, draw: (ctx, t) => mapShot(ctx, t, K6), print: { riso: .3 }, sound: [{ f: 'pencil', t: t06 + .15, v: .12 }] },
-    // 1.07 + 1.08 the lake, the hammock, the flicker of days, the wall
-    { t: t07, tr: 'push', x: cx, y: cy, d: .5, draw: (ctx, t) => lakeTake(ctx, t, K7), print: { riso: .3 }, sound: [{ f: 'gust', t: t07 + .3, v: .1 }, { f: 'tick', t: K.but - .2, v: .1 }, { f: 'boom', t: K.wall + .02, v: .35 }] },
-    { t: K.but - .1, tr: 'cut', d: .08, draw: (ctx, t) => lakeTake(ctx, t, K7), print: { riso: .3 } },
-    // 1.09 the wall up close: the slip pinned, still glowing; the guilloche "?" (its dot on "guess")
-    { t: t09, tr: 'push', d: .6, draw: (ctx, t) => wallShot(ctx, t, K9), print: { riso: .3 }, sound: [{ f: 'pencil', t: K.reason - .05, v: .12 }, { f: 'tick', t: K.guess + .04, v: .16 }] },
+    // 1.03 ★ the row of slips to the horizon, the years engraved beside it; the far light grows over the frame (J1)
+    { t: K.rest - .3, tr: 'cut', draw: open, print: P, sound: [{ f: 'multiply', t: K.rest - .25, v: .14 }, { f: 'swell', t: K.lifeE + .05, v: .2 }] },
+    // 1.04–1.06 the dawn light shrinks into the sun; you on the roof; the window; the blind lowers ("Sleep"); the map on it ("Travel.")
+    { t: J1, tr: 'cut', draw: (ctx, t) => morningTake(ctx, t, KM), print: P,
+      sound: [{ f: 'curtain', t: K.sleep - .02, v: .16 }, { f: 'pencil', t: K.travel + .05, v: .12 }] },
+    // 1.07–1.09 the gold light shrinks into the low sun over the lake; the hammock; one day; the wall; the push onto the slip on the wall
+    { t: J2, tr: 'cut', draw: (ctx, t) => lakeTake(ctx, t, KL), print: P,
+      sound: [{ f: 'gust', t: J2 + .3, v: .1 }, { f: 'tick', t: K.but - .2, v: .1 }, { f: 'boom', t: K.wall + .02, v: .35 }, { f: 'pencil', t: K.reason - .05, v: .12 }, { f: 'tick', t: K.guess + .04, v: .16 }] },
+    // the bridge c01>c02: the same picture c02 draws on from 25.47 (b12 = wallShot(K9) inside the sheet's vignette at B.a)
+    { t: B.a, tr: 'cut', draw: (ctx, t) => b12(ctx, t, T), print: P },
   ];
 };

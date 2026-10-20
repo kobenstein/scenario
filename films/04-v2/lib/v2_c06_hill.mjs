@@ -63,6 +63,8 @@ export function makeHillTake(A) {
   // the fog: from the water line up over the street, then the whole frame (the edge is a screen y)
   const KFOG = mono([[A.that - .3, H + 90], [A.numb + .1, 960], [A.numbE - .25, 650], [A.numbE + .2, 330], [A.so2 + .1, -160], [end + 1, -260]]);
   function draw(ctx, t) {
+    const fe = KFOG(t), fog = () => fogDraw(ctx, t, { edge: fe, x: fogX(t, A), tint: { x: W / 2, y: Math.min(H, fe + 260), r: 1100, col: SCREEN, a: .12 + .08 * flickNow(t) } });
+    if (fe < -152) { fog(); return; }   // the fog's opaque body covers the whole frame
     const mc = cam(t), S = roomState(t, RA); S.flick = flickNow(t);
     const d = FZ - mc.z, open = curtain(t), fill = winFill(ctx, t);
     const room = (c2) => { drawRoom(c2, t, mc, S, G); drawW1(c2, t, mc, G, S, { open, fill, glow: 1 }); };
@@ -81,7 +83,7 @@ export function makeHillTake(A) {
       if (useIn) { const a = .14 * (1 - s5((hc.z - 5) / 18)); if (a > .003) { const [hx, hy] = toScreen(hc, wc.x, wc.y); ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = rgba('#8fe6ff', a); ctx.beginPath(); ctx.arc(hx, hy, 9 * hc.z, 0, TAU); ctx.fill(); ctx.restore(); } }
     }
     // the fog off the water (6.12), lit cyan by the street of screens
-    const fe = KFOG(t); if (fe < H + 80) fogDraw(ctx, t, { edge: fe, x: fogX(t, A), tint: { x: W / 2, y: Math.min(H, fe + 260), r: 1100, col: SCREEN, a: .12 + .08 * flickNow(t) } });
+    if (fe < H + 80) fog();
   }
   return { draw, cam, G, end, enter, out, fogEdge: KFOG };
 }

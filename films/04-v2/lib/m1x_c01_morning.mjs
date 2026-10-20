@@ -28,7 +28,7 @@ const VIEW0 = { z: 1, dx: 0, dy: 0 }, MS = 256 / W;                // the map fr
 const KA = 1.045, KW = 3.3, KC = 3.55, KD = 15, SW = [960, 548];
 const R_SUN = 26;
 export const ROOF_SUN_J1 = [1290, 430];                             // the sun on screen at J1 (camera at rest there)
-export const J1R = 1700, J1D = .7, J1SEED = 41;                     // the dawn light pass at J1 (both sides draw it)
+export const J1R = 1700, J1D = 1.0, J1SEED = 41;                    // the dawn light pass at J1 (both sides draw it)
 export const J2R = 1750, J2D = .45;                                 // the gold light at J2 (the lake side uses its own D)
 
 let LP = null;

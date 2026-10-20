@@ -256,7 +256,7 @@ export function drawHero(ctx, P, C, t, K, o = {}) {
   const rimC = o.rimC || mixHex(COL.rim, COL.morning, mo), rimA = o.rimA ?? lit * (.45 + .45 * mo);
   ctx.save(); ctx.translate(p[0], p[1]); ctx.rotate(C.roll || 0);
   const light = o.light !== undefined ? (typeof o.light === 'function' ? o.light(s) : o.light) : cy > .01 ? { x: 90 * s, y: -50 * s, col: COL.cyan, a: .32 * cy } : mo > .05 ? { x: 600, y: -500, col: COL.morning, a: .35 * mo * lit } : null;
-  const fr = figure(ctx, o.dx ?? 0, 0, s, pose, { t, seed: HERO.seed, dress, accent: mixHex(base, mixHex(HERO.scarf, '#2a1c14', .5 * (1 - lit)), clamp(L)), accentPart: 'scarf', rim: rimA > .05 ? rgba(rimC, Math.min(1, rimA)) : null, rimSide: o.rimSide ?? 1, light, shadow: false, hatch: s > .6 });
+  const fr = figure(ctx, (o.dxU ?? 0) * s, 0, s, pose, { t, seed: HERO.seed, dress, accent: mixHex(base, mixHex(HERO.scarf, '#2a1c14', .5 * (1 - lit)), clamp(L)), accentPart: 'scarf', rim: rimA > .05 ? rgba(rimC, Math.min(1, rimA)) : null, rimSide: o.rimSide ?? 1, light, shadow: false, hatch: s > .6 });
   ctx.restore();
   // the phone: a thin dark slab in the front hand, its screen light on the face and hands
   const cr = Math.cos(C.roll || 0), sr = Math.sin(C.roll || 0), toS = (v) => [p[0] + v[0] * cr - v[1] * sr, p[1] + v[0] * sr + v[1] * cr];

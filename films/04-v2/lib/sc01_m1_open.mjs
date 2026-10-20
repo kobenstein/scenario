@@ -6,7 +6,7 @@
 //   slipTex(res, o)         the income slip as a cached texture (also used on the wall in 1.09)
 //   cam3, quadSprite, once, eoX, eiX, qio   small helpers shared with lib/sc01_m1_world.mjs
 import { Image } from '@napi-rs/canvas';
-import { W, H, rgba, clamp, mix, eio, sm, prng, drift, canvas, text } from '../engine.mjs';
+import { W, H, rgba, clamp, mix, eio, sm, prng, drift, canvas, text, lin } from '../engine.mjs';
 import { stipple, vnoise, fbm } from './art.mjs';
 import { gBorder, rosette, microtext, seal, guilloche, FOIL } from './certificate.mjs';
 import { ghostLine } from './ghost.mjs';
@@ -453,46 +453,61 @@ function drawHeroCard(ctx, t, K, S, flip, rot, ghost, a = 1, clipTop = null) {
 export function openTake(ctx, t, K) {
   const flipU = clamp((t - K.flip0) / (K.flipEnd - K.flip0)), fe = qio(flipU);
   const ghost = eoX(clamp((t - K.never) / .9));
-  const rackA = 1 - sm(clamp((t - (K.flip0 + .1)) / (K.flipEnd - K.flip0 - .1)));
-  // ---- the rack world (until the turn), rendered into a buffer when it must fade ----
+  const tm = K.flip0 + .45;   // the rack has gone fully dark behind the turning card; from here the row world rises out of that dark
   if (t < K.flipEnd) {
-    const [bc, bg] = rackA < 1 ? buf('rack') : [null, ctx];
-    const S = heroCardScreen(t, K);
-    const lifted = t >= K.again - .02;
-    const R = drawRack(bg, t, K, S.P, { lightA: 1 - .5 * clamp((t - K.again) / 1.2), heroInRack: lifted ? null : (g2) => { drawHeroCard(g2, t, K, S, 0, Math.atan2(S.q[1][1] - S.q[0][1], S.q[1][0] - S.q[0][0]), ghost, 1, 248 / CARD.h * S.h); } });
-    if (lifted && t < K.flip0) {
-      // the ledges in front of the card's lower part must still cover it while it slides up: clip the card above the ledge top
-      const ledgeTop = S.P(colX(RACK.hero.i), rowY(RACK.hero.j), RACK.depth)[1], fwd = clamp((t - (K.again + .15)) / .5);
-      bg.save(); if (fwd < .02) { bg.beginPath(); bg.rect(0, 0, W, ledgeTop); bg.clip(); }
-      drawHeroCard(bg, t, K, S, 0, 0, ghost); bg.restore();
+    const DARK = '14,12,22';
+    if (t < tm) {
+      // ---- the rack world: the office falls into darkness behind the rising card ----
+      const S = heroCardScreen(t, K);
+      const lifted = t >= K.again - .02;
+      const R = drawRack(ctx, t, K, S.P, { lightA: 1 - .5 * clamp((t - K.again) / 1.2), heroInRack: lifted ? null : (g2) => { drawHeroCard(g2, t, K, S, 0, Math.atan2(S.q[1][1] - S.q[0][1], S.q[1][0] - S.q[0][0]), ghost, 1, 248 / CARD.h * S.h); } });
+      const Lp = S.P(R.L.x, R.L.y, 10); dust(ctx, t, Lp[0], Lp[1], 300 * 1400 / Math.max(300, Lp[2]), .8 * (1 - clamp((t - K.again) / 1.2)));
+      const dk = clamp((t - (K.again + .2)) / (K.flip0 + .4 - K.again)), a = mix(.75 * sm(dk), 1, sm(lin(K.flip0, tm, t)));
+      if (a > 0) { ctx.fillStyle = `rgba(${DARK},${a})`; ctx.fillRect(0, 0, W, H); }
+      if (lifted && t < K.flip0) {   // the lifted card is in front of the darkness (the same as the turning card after flip0)
+        // the ledges in front of the card's lower part must still cover it while it slides up: clip the card above the ledge top
+        const ledgeTop = S.P(colX(RACK.hero.i), rowY(RACK.hero.j), RACK.depth)[1], fwd = clamp((t - (K.again + .15)) / .5);
+        ctx.save(); if (fwd < .02) { ctx.beginPath(); ctx.rect(0, 0, W, ledgeTop); ctx.clip(); }
+        drawHeroCard(ctx, t, K, S, 0, 0, ghost); ctx.restore();
+      }
+    } else {
+      // ---- the row world rises out of the same darkness (the two worlds never overlap) ----
+      drawRow(ctx, t, K, { heroHidden: true });
+      const a = 1 - sm(lin(tm, K.flipEnd, t)); if (a > 0) { ctx.fillStyle = `rgba(${DARK},${a})`; ctx.fillRect(0, 0, W, H); }
     }
-    const Lp = S.P(R.L.x, R.L.y, 10); dust(bg, t, Lp[0], Lp[1], 300 * 1400 / Math.max(300, Lp[2]), .8 * (1 - clamp((t - K.again) / 1.2)));
-    // darkness: the office falls away behind the rising card
-    const dk = clamp((t - (K.again + .2)) / (K.flip0 + .4 - K.again)); if (dk > 0) { bg.fillStyle = `rgba(4,5,12,${.75 * sm(dk)})`; bg.fillRect(0, 0, W, H); }
-    if (rackA < 1) { drawRow(ctx, t, K, { heroHidden: true, lightA: 1 - rackA }); ctx.save(); ctx.globalAlpha = rackA; ctx.drawImage(bc, 0, 0); ctx.restore(); }
     // the card leaves the rack, comes forward, turns over; its back is the slip, landing where the row world holds it
     if (t >= K.flip0) {
       const S0 = heroCardScreen(K.flip0, K), C = cam3(rowCam(K.flipEnd, K)), a = C(-SLIP.w / 2, ROW.ground + SLIP.h, 0), b = C(SLIP.w / 2, ROW.ground, 0);
       const tw = b[1] - a[1], th = b[0] - a[0];   // the card's short side becomes the slip's height, its long side the width
       const lift = Math.sin(fe * Math.PI) * -40;
       const S1 = { cx: mix(S0.cx, (a[0] + b[0]) / 2, fe), cy: mix(S0.cy, (a[1] + b[1]) / 2, fe) + lift, w: mix(S0.w, tw, fe), h: mix(S0.h, th, fe) };
-      // shadow and glow under the turning card
-      ctx.save(); ctx.globalCompositeOperation = 'lighter'; const gl = ctx.createRadialGradient(S1.cx, S1.cy, 0, S1.cx, S1.cy, Math.max(S1.w, S1.h)); gl.addColorStop(0, `rgba(255,190,120,${.22 * fe})`); gl.addColorStop(1, 'rgba(255,190,120,0)'); ctx.fillStyle = gl; ctx.fillRect(S1.cx - 1200, S1.cy - 1200, 2400, 2400); ctx.restore();
+      // glow under the turning card (it rises and settles with the turn)
+      const ga = .22 * Math.sin(fe * Math.PI);
+      if (ga > .002) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const gl = ctx.createRadialGradient(S1.cx, S1.cy, 0, S1.cx, S1.cy, Math.max(S1.w, S1.h)); gl.addColorStop(0, `rgba(255,190,120,${ga})`); gl.addColorStop(1, 'rgba(255,190,120,0)'); ctx.fillStyle = gl; ctx.fillRect(S1.cx - 1200, S1.cy - 1200, 2400, 2400); ctx.restore(); }
       drawHeroCard(ctx, t, K, S1, fe * Math.PI, -fe * Math.PI / 2, ghost);
     }
     return { light: rowLight(t, K) };
   }
   // ---- the row world: the slip stands on the ground, the seal lands, it fans out into the row ----
   const R = drawRow(ctx, t, K, { heroHidden: t < K.rest - .3 });
-  if (t < K.rest - .3) {   // the hero slip, frontal (exact), with the live seal and glint
+  if (t < K.rest - .3) {   // the hero slip, frontal (exact), with the live seal and glint; 8.3–8.72 it becomes the row's slip k = 0
     const P = R.P, a = P(-SLIP.w / 2, ROW.ground + SLIP.h, 0), b = P(SLIP.w / 2, ROW.ground, 0);
-    // back light: a halo round the slip (it stands in front of the far light)
+    const cv = sm(lin(K.rest - .72, K.rest - .3, t)), hv = sm(lin(K.flipEnd, K.flipEnd + .35, t)) * (1 - cv);
+    const x0 = -SLIP.w / 2, x1 = SLIP.w / 2, y0 = ROW.ground, y1 = ROW.ground + SLIP.h;
+    if (cv > 0) { const e = [P(x1, y1, 0), P(x1, y1, -6), P(x1, y0, -6), P(x1, y0, 0)]; ctx.save(); ctx.globalAlpha = cv; poly(ctx, e); ctx.fillStyle = '#7a6040'; ctx.fill(); ctx.restore(); }
     ctx.save(); ctx.translate(a[0], a[1]); ctx.scale((b[0] - a[0]) / SLIP.w, (b[1] - a[1]) / SLIP.h);
     const dip = t > K.care ? Math.exp(-(t - K.care - .06) * 12) * Math.sin((t - K.care - .06) * 30) * 4 * (t > K.care + .06) : 0;
     ctx.translate(0, dip);
-    ctx.save(); ctx.shadowColor = 'rgba(255,170,90,.55)'; ctx.shadowBlur = 60; ctx.fillStyle = '#e9dcc0'; ctx.beginPath(); ctx.roundRect(4, 4, SLIP.w - 8, SLIP.h - 8, 10); ctx.fill(); ctx.restore();
-    slipLive(ctx, t, { seal: (t - (K.care - .22)) / .22, sealT: K.care });
+    // back light: a halo round the slip (it stands in front of the far light)
+    if (hv > .002) { ctx.save(); ctx.shadowColor = `rgba(255,170,90,${.55 * hv})`; ctx.shadowBlur = 60; ctx.fillStyle = '#e9dcc0'; ctx.beginPath(); ctx.roundRect(4, 4, SLIP.w - 8, SLIP.h - 8, 10); ctx.fill(); ctx.restore(); }
+    slipLive(ctx, t, { seal: (t - (K.care - .22)) / .22, sealT: K.care, glint: 1 - cv, sealedA: cv, liveA: 1 - cv });
     ctx.restore();
+    if (cv > 0) {   // the row's shade, warm rim and contact shadow on slip k = 0 (drawRow's own look at 8.72)
+      const q = [P(x0, y1, 0), P(x1, y1, 0), P(x1, y0, 0), P(x0, y0, 0)], sh = clamp((q[0][2] - 1500) / 9000) * .55 + .12, wpx = Math.max(Math.abs(q[1][0] - q[0][0]), Math.abs(q[3][1] - q[0][1]) * 1.9);
+      poly(ctx, q); ctx.fillStyle = `rgba(14,10,24,${sh * cv})`; ctx.fill();
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = `rgba(255,200,140,${.5 * cv})`; ctx.lineWidth = Math.max(.6, Math.min(2, wpx / 300)); ctx.beginPath(); ctx.moveTo(q[0][0], q[0][1]); ctx.lineTo(q[1][0], q[1][1]); ctx.lineTo(q[2][0], q[2][1]); ctx.stroke(); ctx.restore();
+      const s0 = P(x0 - 40, y0, 30), s1 = P(x1 + 40, y0, 30), s2 = P(x1 + 40, y0, -60), s3 = P(x0 - 40, y0, -60); poly(ctx, [s0, s1, s2, s3]); ctx.fillStyle = `rgba(0,0,0,${.35 * cv})`; ctx.fill();
+    }
   }
   return { light: [R.LP[0], R.LP[1]] };
 }

@@ -305,10 +305,10 @@ function hammockYou(ctx, C, t, K, phi, L, px) {
   const lean = ang(h, sh) + Math.PI + (ang(h, sh) < 0 ? 0 : -2 * Math.PI) + .012 * Lf.b;
   const hipA = -ang(h, kn), knA = hipA + ang(kn, hl);
   const pose = { lean, head: .2 + lift, hip: [hipA, hipA - .05], kn: [knA, knA + .12], sh: [.3, .12], el: [1.1, .35], hands: ['relaxed', 'relaxed'], hair: 'short', lock: [true, false], turn: .1 * lift };
-  // the near hand rests on the belly and rides the breath
+  // the near hand rests on the chest and rides the breath
   const o = { t, seed: SEED, dress: { coat: '#3a4266', pants: '#262840', shoes: '#16131c', skin: '#b98262', hair: '#16111a' }, accent: '#c8843a', accentPart: 'scarf', shadow: false, rimW: 1.6 };
-  const cl = Math.cos(lean), sl = Math.sin(lean), bx = 15 + 1.2 * Lf.b, by = -27;
-  const r = reachArm(0, 0, s, pose, 0, false, o, [s * (bx * cl - by * sl), s * (bx * sl + by * cl)], 1); pose.sh[0] = r.sh; pose.el[0] = r.el;
+  // (the upper arm lies along your side, the forearm folds up so the hand lies flat on the chest: no IK, the clamp would lift it off)
+  pose.sh[0] = .1 + .02 * Lf.b; pose.el[0] = 2.8 - .04 * Lf.b;
   // light in the figure's frame (the frame turns by -90°: figure (x, y) → screen (y, -x))
   const lx = -(SUN[1] - h[1]), ly = SUN[0] - h[0];
   o.light = { x: lx, y: ly, col: pal.sun, a: .4 * I }; o.rim = mixHex(pal.sun, '#ffffff', .2); o.rimSide = lx > 0 ? 1 : -1; o.shadeA = .1 + .35 * shadeW;

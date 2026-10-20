@@ -37,7 +37,7 @@ const cyanAt = (t, K) => heroCyan(t, K) * (1 - .72 * dawnAt(t, K));
 
 // ---------------------------------------------------------------- the hero sits down (feet planted, hips go back and down)
 // leg IK in figure units (y down): hip joint (hx, hy), ankle (ax, ay) → thigh angle a (0 = down, + forward) and knee k (figure.mjs)
-function legIK(hx, hy, ax, ay) {
+export function legIK(hx, hy, ax, ay) {
   const dx = ax - hx, dy = ay - hy, d = clamp(Math.hypot(dx, dy), 4, 87.6), psi = Math.atan2(dx, dy);
   const al = Math.acos(clamp((45 * 45 + d * d - 43 * 43) / (2 * 45 * d), -1, 1)), a = psi + al;
   const kx = hx + Math.sin(a) * 45, ky = hy + Math.cos(a) * 45, sh = Math.atan2(ax - kx, ay - ky);

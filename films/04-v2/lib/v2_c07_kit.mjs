@@ -137,3 +137,11 @@ export function solid(ctx, path, M, style, L, t, dark = true) {
 }
 // a Path2D from screen points (one or several closed polygons)
 export function path2(...polys) { const p = new Path2D(); for (const q of polys) { if (!q || q.length < 2) continue; p.moveTo(q[0][0], q[0][1]); for (let i = 1; i < q.length; i++) p.lineTo(q[i][0], q[i][1]); p.closePath(); } return p; }
+
+// the amber light of a winner's dot / the workshop bulb (the same gradient on both sides of the push into the dot, lib/v2_c07_paper.mjs →
+// lib/v2_c07_shop.mjs): an opaque disc of radius R
+export function amberFill(ctx, cx, cy, R) {
+  const g = ctx.createRadialGradient(cx - R * .12, cy - R * .14, 0, cx, cy, R);
+  g.addColorStop(0, '#fff6e2'); g.addColorStop(.42, '#ffcf8a'); g.addColorStop(.8, '#f0a04c'); g.addColorStop(1, '#d9772f');
+  ctx.save(); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, R, 0, TAU); ctx.fill(); ctx.restore();
+}
