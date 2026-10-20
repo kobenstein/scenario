@@ -177,9 +177,11 @@ export function twoHandsPen(ctx, t, nib, o = {}) {
   // the ochre of your scarf at the cuff (the accent)
   { const ca = Math.atan2(wy - gy, wx - gx); ctx.save(); ctx.translate(wx + Math.cos(ca) * 40 * sc, wy + Math.sin(ca) * 40 * sc); ctx.rotate(ca); ctx.fillStyle = '#c8843a'; ctx.fillRect(0, -34 * sc, 12 * sc, 68 * sc); ctx.restore(); }
   if (reach2 > 0) {
-    const off2 = 1 - eout(reach2), hs2 = 1.15 * sc, hang2 = -.78, [px, py] = palmPos(wx, wy, hs, { pose: 'write', ang: hang, t, seed: 1 }), tip2 = handTip(0, 0, hs2, { pose: 'reach', ang: hang2, close: .62, t, seed: 4 });
-    const hx = px + 6 * sc - tip2[0] - off2 * 640 * sc, hy = py + 4 * sc - tip2[1] + off2 * 620 * sc;
-    hand(ctx, hx, hy, hs2, { pose: 'reach', ang: hang2, close: .62, skin: '#8d5f40', sleeve: '#1f6a6e', rim: '#ffe0b0', light: [.6, -1], t, seed: 4, sleeveLen: 460 });
+    // her hand comes to rest on yours (palm on the back of your hand, fingers together): two people, one pen
+    const off2 = 1 - eout(reach2), hs2 = 1.25 * sc, hang2 = -.45, HO = { pose: 'cup', ang: hang2, close: .45, spread: .35, t, seed: 4 };
+    const [px, py] = palmPos(wx, wy, hs, { pose: 'write', ang: hang, t, seed: 1 }), pm2 = palmPos(0, 0, hs2, HO);
+    const hx = px + 12 * sc - pm2[0] - off2 * 640 * sc, hy = py - 6 * sc - pm2[1] + off2 * 620 * sc;
+    hand(ctx, hx, hy, hs2, { ...HO, skin: '#8d5f40', sleeve: '#1f6a6e', rim: '#ffe0b0', light: [.6, -1], sleeveLen: 460 });
   }
 }
 
