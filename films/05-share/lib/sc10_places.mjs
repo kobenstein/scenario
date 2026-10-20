@@ -191,7 +191,7 @@ export function manila(ctx, t, o = {}) {
   const [x0, x1, tA, tB] = o.walk || [600, 1010, t0, t0 + 3.4], q = clamp((t - tA) / (tB - tA)), fx = mix(x0, x1, q) - P(1) * .2, fy = 820, s = 2.15;
   const ph = (mix(x0, x1, q) - x0) / 262 * TAU + 1.1, pose = walk(ph); pose.lean = .07; pose.head = .2 - .12 * lift; pose.sh = [pose.sh[0] * .7 + .04, pose.sh[1] * .7 + .04];
   castShadow(ctx, fx, fy + 88 * s, s, MANILA_SUN.x + 300, MANILA_SUN.y - 60, { a: .4, len: 2.2 });
-  figure(ctx, fx, fy, s, pose, { t, seed: 3, dress: { coat: '#2f7c80', pants: '#245d63', shoes: '#151219', skin: '#a8734f', hair: '#1a1114' }, accentPart: 'coat', light: { x: MANILA_SUN.x, y: MANILA_SUN.y, col: '#ffd2a8', a: .45 + .2 * lift }, rim: '#ffd9b4', rimSide: 1, rimW: 2.6, prop: (g, front) => { g.fillStyle = '#4a3a30'; g.beginPath(); g.roundRect(front.hx - 6, front.hy - 2, 15, 22, 3); g.fill(); } });
+  figure(ctx, fx, fy, s, { ...pose, hair: 'bun' }, { t, seed: 3, dress: { coat: '#2f7c80', pants: '#245d63', shoes: '#151219', skin: '#a8734f', hair: '#1a1114' }, accentPart: 'coat', light: { x: MANILA_SUN.x, y: MANILA_SUN.y, col: '#ffd2a8', a: .45 + .2 * lift }, rim: '#ffd9b4', rimSide: 1, rimW: 2.6, prop: (g, front) => { g.fillStyle = '#4a3a30'; g.beginPath(); g.roundRect(front.hx - 6, front.hy - 2, 15, 22, 3); g.fill(); } });
   // humid air: motes in the sun, a warm bloom over everything near the sun
   motes(ctx, t, 0, 300, W, 700, 90, 7, '#ffe2c4', .5 * sun);
   { const vg = ctx.createRadialGradient(MANILA_SUN.x, MANILA_SUN.y, 200, MANILA_SUN.x, MANILA_SUN.y, 1500); vg.addColorStop(0, 'rgba(20,12,30,0)'); vg.addColorStop(1, 'rgba(20,12,30,.5)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H); }
@@ -337,7 +337,7 @@ export function split(ctx, t, o = {}) {
     { const g = ctx.createRadialGradient(1720, 560, 0, 1720, 560, 760); g.addColorStop(0, 'rgba(255,236,206,.6)'); g.addColorStop(.2, 'rgba(255,196,150,.22)'); g.addColorStop(1, 'rgba(255,170,130,0)'); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore(); }
     const fx = 1420 - dl, fy = 790;
     const pose = { ...POSES.hold, head: mix(.12, .42, bow) - .5 * look, sh: [.6, .48], el: [1.15, 1.2], lean: .03 };
-    figure(ctx, fx, fy, s, pose, { t, seed: 3, flip: true, dress: { coat: '#2f7c80', pants: '#245d63', skin: '#a8734f', hair: '#1a1114' }, light: { x: 1700, y: 600, col: '#ffd2a8', a: .55 }, rim: '#ffd9b4', rimSide: 1, rimW: 3.4, shadow: false, prop: phoneProp });
+    figure(ctx, fx, fy, s, { ...pose, hair: 'bun' }, { t, seed: 3, flip: true, dress: { coat: '#2f7c80', pants: '#245d63', skin: '#a8734f', hair: '#1a1114' }, light: { x: 1700, y: 600, col: '#ffd2a8', a: .55 }, rim: '#ffd9b4', rimSide: 1, rimW: 3.4, shadow: false, prop: phoneProp });
     paperSwarm(ctx, t, { x: fx - 60, y: fy + 40, R: 130 + 90 * swirlU, height: 2.1, n: 150, seed: 3, size: 1.15, a: Math.sin(Math.PI * swirlU), kinds: ['recipe', 'letter', 'notes', 'hand'], t0 });
   });
   // the split line: an engraved guilloche band in foil, like the day–night line on the map
