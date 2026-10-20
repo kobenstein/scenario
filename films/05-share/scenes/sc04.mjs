@@ -358,44 +358,262 @@ export default (T, R) => {
     vign(ctx, .5);
   }
 
-  // ═══════════════ 2.17 · PRINT path: the drop lands, people walk on with full bags ═══════════════
-  const P17 = (t) => ({ view: 'persp', hi: 'print', cam: { x: 0, y: (t - CT.s217) * 26, z: 1.45 }, life: { take: .25, print: 1, agree: .25 }, fog: 0, fork: { x: 1010, y: 1010 }, labels: false });
-  const LAND = (() => { const [c2, g] = canvas(W, H), tl = CT.s217 + .75, p = paths(g, tl, P17(tl)).along('print', .1); return { x: p.x, y: p.y }; })();
+  // ═══════════════ 2.17 · PRINT path: the drop lands, its light runs out over the plain, new notes are engraved into a hand ═══════════════
+  // One calm composition (v3 note "sehr schlechte Grafikdarstellung": fewer, larger people, one hero light, real depth). A night plain under a
+  // cool sky; the PRINT band (verdigris weave) comes out of the haze in an S and runs past the feet of the person in front. The drop from the
+  // tap lands on the band on "hold": that landing is the one hero light (warm core, verdigris halo). Engraved rings (the buzz through-line) run
+  // out over the ground, the band lights up both ways, everyone gets a rim of that light and a long shadow toward us. Two passers-by walk on
+  // with full paper bags (a loaf: prices hold); in front, left, someone in a petrol coat (2.18's sleeve) lifts a hand as the ring reaches them
+  // on "printing", and a small fan of new notes is engraved into it (dotted → solid, the Wertpapier-Sprache; 2.18 smokes the same fan away).
+  // The chip "takes nothing · if prices hold" checks on "nothing"; on "from anyone" the camera glides onto the fan and holds it exactly where
+  // 2.18's notes sit, so the zoom (NH18) carries the very same notes. Camera = pan + zoom only (no parallax needed, like a turning lens).
+  const G17 = { HZ: 500, VX: 980, F: 1150, H0: 1.6 };             // horizon y, vanishing x, focal px, eye height (m)
+  const PJ = (X, Z, Y = 0) => { const k = G17.F / Math.max(.3, Z); return [G17.VX + X * k, G17.HZ + (G17.H0 - Y) * k, k]; };
+  const LW = [-.8, 10.5], TL17 = CT.s217 + .75;                     // where and when the drop lands (world m; = the end of dropY)
+  const LAND = (() => { const [x, y] = PJ(...LW); return { x, y }; })();
   drop.x = LAND.x;
-  const PEOPLE = [ // ground X, start Y, speed (world units/s), colour accent, scale factor, carries: bag | note
-    { X: -260, Y: 420, v: 55, acc: '#7aa6c8', bag: 1 }, { X: 300, Y: 260, v: -40, acc: '#c9a27a', bag: 1 }, { X: 170, Y: 90, v: 34, acc: VERD, note: 1 },
-    { X: -170, Y: 160, v: -30, acc: '#b8b0d8', bag: 1 }, { X: 520, Y: 620, v: 45, acc: '#d8c49a', bag: 1 },
-  ];
-  let NOTEHAND = { x: 1250, y: 640 };
-  const noteHandAt = (t) => { const [c2, g] = canvas(W, H), Rp = paths(g, t, P17(t)), p = PEOPLE[2], i = 2, Y = p.Y + p.v * (t - CT.s217), [x, y, k] = Rp.P(p.X, Y), s = k * 2.1;
-    const ph = (t - CT.s217) * (2.2 + i * .13) * Math.PI * 2 * .5 + i, pose = walk(ph); const [hx, hy] = handPos(x, y - 92 * s, s, pose, 0, p.v < 0, { t, seed: i + 3 }); return { x: hx + 18 * s, y: hy - 6 * s }; };
-  const NH18 = noteHandAt(CT.s218);
-  function frame217(ctx, t) {
-    const Rp = paths(ctx, t, P17(t));
-    // ripple where the drop landed
-    const tl = CT.s217 + .75, lp = Rp.along('print', .1);
-    if (t > tl) { const q = t - tl; for (let k = 0; k < 3; k++) { const qq = q - k * .18; if (qq <= 0) continue; const r = 30 + qq * 260; ctx.save(); ctx.strokeStyle = rgba('#bff5e6', Math.max(0, .7 - qq * .5)); ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(lp.x, lp.y, r, r * .28, 0, 0, TAU); ctx.stroke(); ctx.restore(); }
-      addGlow(ctx, lp.x, lp.y, 140, .5 * Math.exp(-q * 2), VERD, '#effff9'); }
-    // people walking on, bags full (sorted far → near)
-    const ppl = PEOPLE.map((p, i) => { const Y = p.Y + p.v * (t - CT.s217), [x, y, k] = Rp.P(p.X, Y); return { ...p, i, x, y, k, Y }; }).sort((p, q) => q.Y - p.Y);
-    for (const p of ppl) {
-      const s = p.k * 2.1, ph = (t - CT.s217) * (2.2 + p.i * .13) * Math.PI * 2 * .5 + p.i, pose = walk(ph), flip = p.v < 0;
-      if (s < .1) continue;
-      figure(ctx, p.x, p.y - 92 * s, s, pose, { t, seed: p.i + 3, flip, accent: p.acc, accentPart: 'coat', rim: null, shadow: true,
-        dress: { coat: '#5b609e', pants: '#3a3e76', shoes: '#1c1e36', skin: ['#c99a74', '#8d5f42', '#e0b896', '#a8734f', '#6e4a33'][p.i % 5], hair: '#231c26' },
-        light: { x: lp.x, y: lp.y - 40, col: '#bff5e6', a: .45 } });
-      const [hx, hy] = handPos(p.x, p.y - 92 * s, s, pose, 0, flip, { t, seed: p.i + 3 });
-      ctx.save(); ctx.translate(hx, hy);
-      if (p.bag) { ctx.fillStyle = '#5a4532'; ctx.strokeStyle = '#2a1e14'; ctx.lineWidth = 1.5 * s; ctx.beginPath(); ctx.roundRect(-14 * s, 4 * s, 28 * s, 30 * s, 4 * s); ctx.fill(); ctx.stroke(); ctx.beginPath(); ctx.arc(0, 6 * s, 8 * s, Math.PI, TAU); ctx.stroke();
-        ctx.fillStyle = rgba(VERD_L, .9); ctx.fillRect(-9 * s, 6 * s, 18 * s, 4 * s); }   // a note sticks out: the bag is full
-      if (p.note) { const N = noteSprite(); ctx.rotate(-.5); ctx.drawImage(N, -8 * s, -22 * s, 48 * s, 22 * s); NOTEHAND = { x: hx, y: hy }; }
-      ctx.restore();
+  const n17 = (() => { const r = prng(1717), v = Array.from({ length: 1024 }, r); return (x) => { const i = Math.floor(x), f = x - i, a = v[((i % 1024) + 1024) % 1024], b = v[(((i + 1) % 1024) + 1024) % 1024]; return mix(a, b, f * f * (3 - 2 * f)); }; })();
+  // the PRINT band: centreline far → near (world m), Catmull-Rom; d = arc length (m), iL = the sample at the landing point
+  const PATH17 = (() => {
+    const K = [[-9, 150], [-5.5, 40], [-2.6, 18], LW, [.6, 6.6], [1.15, 4.4], [1.7, 2.4]], pts = [];
+    for (let i = 0; i < K.length - 1; i++) { const p0 = K[Math.max(0, i - 1)], p1 = K[i], p2 = K[i + 1], p3 = K[Math.min(K.length - 1, i + 2)], n = i < 2 ? 70 : 40;
+      for (let j = 0; j < n; j++) { const u = j / n, u2 = u * u, u3 = u2 * u; pts.push([0, 1].map((c) => .5 * (2 * p1[c] + (-p0[c] + p2[c]) * u + (2 * p0[c] - 5 * p1[c] + 4 * p2[c] - p3[c]) * u2 + (-p0[c] + 3 * p1[c] - 3 * p2[c] + p3[c]) * u3))); } }
+    pts.push(K[K.length - 1]);
+    const d = [0]; for (let i = 1; i < pts.length; i++) d.push(d[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    const nrm = pts.map((p, i) => { const a = pts[Math.max(0, i - 1)], b = pts[Math.min(pts.length - 1, i + 1)], dx = b[0] - a[0], dz = b[1] - a[1], l = Math.hypot(dx, dz) || 1; return [-dz / l, dx / l]; });
+    let iL = 0; pts.forEach((p, i) => { if (Math.hypot(p[0] - LW[0], p[1] - LW[1]) < Math.hypot(pts[iL][0] - LW[0], pts[iL][1] - LW[1])) iL = i; });
+    const kz = pts.map((p) => G17.F / p[1]), q = d.map((dd) => dd * .72 * TAU);   // weave phase: one wave per 1.4 m, so the ribbon keeps its shape up close
+    return { pts, d, nrm, iL, kz, q };
+  })();
+  // the light: born on landing (a short flash), then a steady glow that breathes; rings run out over the ground
+  const lightK = (t) => (t < TL17 ? 0 : sm(lin(TL17, TL17 + .18, t)) * (1 + .7 * Math.exp(-(t - TL17) * 5)) * (.78 + .22 * Math.exp(-(t - TL17) / 1.1)) * (1 + .04 * Math.sin(t * 2.3)));
+  const ringR = (t, k = 0) => { const age = t - TL17 - k * .24; return age <= 0 ? -1 : 10 * (1 - Math.exp(-age / .7)); };
+  const reach = (X, Z) => { const dist = Math.hypot(X - LW[0], Z - LW[1]); return TL17 - .7 * Math.log(Math.max(.02, 1 - dist / 10)); };   // when ring 0 gets there
+  // the people (world m): A stands on the band in front (petrol coat, 2.18's sleeve and skin), B and C walk on with full paper bags
+  const A17 = { X: 1.05, Z: 4.0 };
+  const WB = { X0: -1.55, Z: 9.0, v: -.72, f: .62, seed: 6 };    // walks left, out of the light, home toward the village
+  const WC = { X0: 8.6, Z: 20, v: .36, f: .45, seed: 9 };          // far right, strolls on
+  const tPrint = reach(A17.X, A17.Z);                              // ≈ "printing": the ring reaches A, the hand lifts, the notes are engraved
+  const DRESS17 = {
+    A: { coat: PETROL, pants: '#1a2034', shoes: '#0b0c16', skin: '#c99a74', hair: '#2a1c18' },
+    B: { coat: '#4f4656', pants: '#222740', shoes: '#0d0d18', skin: '#8d5f42', hair: '#17121a' },
+    C: { coat: '#4c5a80', pants: '#1d2140', shoes: '#0d0d18', skin: '#e0b896', hair: '#3a2a22' },
+  };
+  const poseA17 = (t) => {   // stands, weight on the back foot; on the ring the near hand comes up and holds the new notes up at eye height to look at them
+    const up = easeIO(lin(tPrint - .06, tPrint + .5, t)), look = easeIO(lin(tPrint + .1, tPrint + .75, t)), lift = sm(lin(TL17 + .08, TL17 + .5, t)) * (1 - look);
+    return { hip: [.06, -.07], kn: [.02, .06], sh: [mix(.1, 1.2, up), mix(.06, .16, up)], el: [mix(.28, 1.2, up), mix(.24, .38, up)], head: mix(-.02, .06, look) - .07 * lift, lean: .015, hair: 'bun', coat: .5 };
+  };
+  const walkPose = (t, p, hair) => { const ph = (t - CT.s217) * p.f * TAU + p.seed, w = walk(ph); return { ...w, sh: [.06 + .02 * Math.sin(ph), w.sh[1] * .8], el: [.14, w.el[1]], hair, coat: .3 }; };
+  const hipOf = (X, Z, s) => { const [x, y] = PJ(X, Z); return [x, y - 88 * s]; };
+  const sOf = (Z) => G17.F / Z / 106;                               // figure scale: 1.72 m tall
+  const posB = (t) => ({ X: WB.X0 + WB.v * (t - CT.s217), Z: WB.Z }), posC = (t) => ({ X: WC.X0 + WC.v * (t - CT.s217), Z: WC.Z });
+  // the fan of new notes in A's hand: pivot (layout px) and engraving progress per note; same geometry as 2.18 (pivot at the notes' lower left)
+  const FAN17 = { a: [-.62, -.36, -.1], sc: .13 };
+  const fanAt = (t) => { const s = sOf(A17.Z), [hx, hy] = hipOf(A17.X, A17.Z, s), [x, y] = handPos(hx, hy, s, poseA17(t), 0, true, { t, seed: 2 }); return [x - 1.5 * s, y - 2 * s]; };
+  const notesP = (t, k) => lin(tPrint + .14 + k * .09, tPrint + .62 + k * .09, t);
+  // camera: still while the drop falls (LAND is exact), a slow push around the light, then on "from anyone" a glide that brings the fan to
+  // the point the 2.18 zoom flies into, and holds it there while the zoom runs (the fan stays fixed on screen under the composite)
+  const NH18 = { x: 968, y: 636 };
+  const cam17 = (t) => {
+    const z1 = 1 + .03 * easeOut(lin(TL17, TL17 + 2.6, t)), g = easeIO(lin(A.nothing + .2, CT.s218 - .25, t));
+    const base = (p) => [LAND.x + (p[0] - LAND.x) * z1, LAND.y + (p[1] - LAND.y) * z1];
+    if (g <= 0) return { z: z1, map: base };
+    const N = fanAt(t), N0 = base(N), z = mix(z1, 1.2, g) + .1 * easeIn(lin(CT.s218 - .25, CT.s218 + .45, t)), T0 = [mix(N0[0], NH18.x, g), mix(N0[1], NH18.y, g)];
+    return { z, map: (p) => [T0[0] + (p[0] - N[0]) * z, T0[1] + (p[1] - N[1]) * z] };
+  };
+  // cached layers: the sky with the far hills and a village, the engraved plain (dim and lit)
+  const sky17 = () => once('c4sky17', () => {
+    const [c, g] = canvas(W, H), r = prng(171), HZ = G17.HZ;
+    const sg = g.createLinearGradient(0, 0, 0, HZ + 40); sg.addColorStop(0, '#04061a'); sg.addColorStop(.45, '#0b1132'); sg.addColorStop(.82, '#1c2552'); sg.addColorStop(1, '#2f3a6c');
+    g.fillStyle = sg; g.fillRect(0, 0, W, H);
+    for (let i = 0; i < 150; i++) { const x = r() * W, y = Math.pow(r(), 1.4) * HZ * .8, m = r(); g.fillStyle = `rgba(216,228,255,${.12 + .4 * m * (1 - y / HZ)})`; g.fillRect(x, y, m > .94 ? 2.2 : 1.2, m > .94 ? 2.2 : 1.2); }
+    g.strokeStyle = 'rgba(160,178,230,.05)'; g.lineWidth = 1;   // an engraved sky: fine level lines, a little wavy, denser low
+    for (let y = 8; y < HZ; y += 4 + 10 * Math.pow(1 - y / HZ, 2)) { g.beginPath(); for (let x = -10; x <= W + 10; x += 24) { const yy = y + (n17(x * .004 + y * .13) - .5) * 3; x < 0 ? g.moveTo(x, yy) : g.lineTo(x, yy); } g.stroke(); }
+    // two low ridges in the haze and a village with a few warm windows (people live here)
+    for (const [amp, base, col, seed] of [[26, HZ - 4, '#25305e', 3], [16, HZ + 3, '#182046', 11]]) {
+      g.fillStyle = col; g.beginPath(); g.moveTo(0, HZ + 30);
+      for (let x = 0; x <= W; x += 8) g.lineTo(x, base - amp * Math.pow(n17(x * .0021 + seed), 1.6) - 6 * n17(x * .02 + seed * 3)); g.lineTo(W, HZ + 30); g.closePath(); g.fill(); }
+    for (let i = 0; i < 26; i++) { const x = 110 + r() * 340, y = HZ - 2 - r() * 9 * (1 - Math.abs(x - 280) / 220); g.fillStyle = `rgba(255,${190 + r() * 40 | 0},${120 + r() * 50 | 0},${.35 + r() * .45})`; g.fillRect(x, y, 2, 1.6); }
+    const hz = g.createLinearGradient(0, HZ - 70, 0, HZ + 50); hz.addColorStop(0, 'rgba(120,140,200,0)'); hz.addColorStop(.6, 'rgba(126,146,206,.32)'); hz.addColorStop(1, 'rgba(90,108,170,0)');
+    g.fillStyle = hz; g.fillRect(0, HZ - 70, W, 120);
+    return c;
+  });
+  const groundStrokes = (g, lit) => {   // the engraved plain: continuous level lines, closer toward the horizon, swelling and breaking with noise
+    let row = 0;
+    for (let y = G17.HZ + 2; y < H + 6; y += 2.6 + (y - G17.HZ) * .022, row++) {
+      const k = (y - G17.HZ) / G17.H0, fade = Math.min(1, (y - G17.HZ) / 60), lw = Math.max(.55, Math.min(1.3, k / 260));
+      for (let x0 = -20; x0 < W + 20; x0 += 64) {   // short runs so alpha can follow the noise along the line
+        const m = n17(x0 * .0021 + row * .53 + 40) * .8 + n17(x0 * .011 + row * 1.7) * .2, a = (lit ? .62 : .17) * fade * clamp((m - .3) / .3);
+        if (a < .01) continue;
+        g.strokeStyle = lit ? `rgba(255,228,186,${a})` : `rgba(152,168,218,${a})`; g.lineWidth = lw * (.75 + .5 * m); g.beginPath();
+        for (let x = x0; x <= x0 + 66; x += 11) { const yy = y + (n17(x * .006 + row * 2.1) - .5) * Math.min(3, k * .012); x > x0 ? g.lineTo(x, yy) : g.moveTo(x, yy); }
+        g.stroke(); }
     }
+  };
+  const ground17 = () => once('c4gnd17', () => {
+    const [c, g] = canvas(W, H), HZ = G17.HZ;
+    const gg = g.createLinearGradient(0, HZ, 0, H); gg.addColorStop(0, '#26305c'); gg.addColorStop(.12, '#171d42'); gg.addColorStop(.45, '#0e1230'); gg.addColorStop(1, '#06081a');
+    g.fillStyle = gg; g.fillRect(0, HZ, W, H - HZ);
+    groundStrokes(g, false);
+    const hz = g.createLinearGradient(0, HZ, 0, HZ + 90); hz.addColorStop(0, 'rgba(110,128,190,.38)'); hz.addColorStop(1, 'rgba(110,128,190,0)'); g.fillStyle = hz; g.fillRect(0, HZ, W, 90);
+    return c;
+  });
+  const world17 = () => once('c4wld17', () => { const [c, g] = canvas(W, H); g.drawImage(sky17(), 0, 0); g.drawImage(ground17(), 0, 0); return c; });
+  const LIT17 = { y0: G17.HZ, h: 520 };                             // the lit plain only needs the band around the light
+  const groundLit17 = () => once('c4gndL17', () => {   // what the landing light shows: a warm pool on the plain, its strokes catching the light
+    const [c, g] = canvas(W, LIT17.h), HZ = G17.HZ;
+    g.translate(0, -LIT17.y0); g.save(); g.beginPath(); g.rect(0, HZ, W, H - HZ); g.clip();
+    groundStrokes(g, true);
+    g.globalCompositeOperation = 'destination-in';
+    const [lx, ly, k] = PJ(...LW), m = g.createRadialGradient(lx, ly, 0, lx, ly, 900); m.addColorStop(0, 'rgba(255,255,255,1)'); m.addColorStop(.25, 'rgba(255,255,255,.55)'); m.addColorStop(.6, 'rgba(255,255,255,.14)'); m.addColorStop(1, 'rgba(255,255,255,0)');
+    g.save(); g.translate(lx, ly); g.scale(1, .32); g.translate(-lx, -ly); g.fillStyle = m; g.fillRect(-2000, -4000, 6000, 9000); g.restore();
+    g.globalCompositeOperation = 'source-over';
+    const P = g.createRadialGradient(lx, ly, 0, lx, ly, 760); P.addColorStop(0, 'rgba(255,214,160,.62)'); P.addColorStop(.1, 'rgba(255,190,120,.3)'); P.addColorStop(.3, 'rgba(190,170,120,.1)'); P.addColorStop(.6, 'rgba(63,174,154,.04)'); P.addColorStop(1, 'rgba(63,174,154,0)');
+    g.save(); g.translate(lx, ly); g.scale(1, .3); g.translate(-lx, -ly); g.fillStyle = P; g.fillRect(-2000, -4000, 6000, 9000); g.restore();
+    g.restore(); stipple(c, { k: .45, g: 1.1, seed: 174, boost: 1.6 });
+    return c;
+  });
+  const warm17 = (key, R, a) => once('c4w17' + key, () => { const [c, g] = canvas(R * 2, R * 2), rg = g.createRadialGradient(R, R, 0, R, R, R);
+    rg.addColorStop(0, `rgba(255,206,140,${a})`); rg.addColorStop(.18, `rgba(255,179,92,${a * .5})`); rg.addColorStop(.5, `rgba(214,140,80,${a * .14})`); rg.addColorStop(1, 'rgba(200,120,70,0)');
+    g.fillStyle = rg; g.fillRect(0, 0, R * 2, R * 2); stipple(c, { k: .8, g: 1.2, seed: R + 17, boost: 2 }); return c; });
+  const fogBand17 = (key, col, a, seed, y0, y1) => once('c4fb17' + key, () => { const F = fogLayer(key, col, a, seed, y0, y1), [c, g] = canvas(F.width, y1 - y0); g.drawImage(F, 0, -y0); return c; });
+  // the PRINT band, drawn per frame (its weave drifts slowly toward us; the lit stretch runs out from the landing point both ways)
+  function band17(ctx, t, lit) {
+    const { pts, d, nrm, iL, kz, q } = PATH17, n = pts.length - 1, hw = .5, dL = d[iL];
+    const S = (i, off) => PJ(pts[i][0] + nrm[i][0] * off * hw, pts[i][1] + nrm[i][1] * off * hw);
+    const fadeZ = (i) => clamp((pts[i][1] - 2.5) / 2.2) * Math.min(1, kz[i] / 30);   // melts into the dark foreground and into the haze
+    const strip = (o0, o1) => { ctx.beginPath(); for (let i = 0; i <= n; i++) { const [x, y] = S(i, o0); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } for (let i = n; i >= 0; i--) { const [x, y] = S(i, o1); ctx.lineTo(x, y); } ctx.closePath(); };
+    ctx.save(); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    strip(-1.3, 1.3); ctx.fillStyle = 'rgba(2,4,14,.34)'; ctx.fill();
+    strip(-1, 1); ctx.fillStyle = 'rgba(16,40,50,.3)'; ctx.fill();
+    const front = t < TL17 ? 0 : 18 * (1 - Math.exp(-(t - TL17) / .8)), L = lit ? Math.min(1, lightK(t)) : 0;
+    const litAt = (i) => { const dd = Math.abs(d[i] - dL); return dd > front + 1 ? 0 : L * clamp((front - dd) + 1) * Math.exp(-dd / 5.5); };
+    const ph0 = -t * .8;   // the weave drifts slowly toward us
+    for (let kk = 0; kk < 6; kk++) {
+      const ph = kk / 6 * TAU, cream = kk % 2, P = [];
+      for (let i = 0; i <= n; i++) { const off = .82 * (Math.sin(q[i] + ph + ph0) * .75 + Math.sin(q[i] * 2.03 - ph * 1.5) * .25); P.push(S(i, off)); }
+      for (let i0 = 0; i0 < n; i0 += 4) {   // runs of 4 segments share one style (cheap, still smooth)
+        const i1 = Math.min(n, i0 + 4), im = (i0 + i1) >> 1, fz = fadeZ(im), li = litAt(im), a = fz * ((cream ? .2 : .34) + li * (cream ? .4 : .3));
+        if (a < .01) continue;
+        ctx.strokeStyle = rgba(li > .05 ? (cream ? '#ffe2b0' : '#9fe2cc') : (cream ? CREAM : VERD), Math.min(1, a)); ctx.lineWidth = Math.max(.6, Math.min(1.5, kz[im] / 160));
+        ctx.beginPath(); ctx.moveTo(P[i0][0], P[i0][1]); for (let i = i0 + 1; i <= i1; i++) ctx.lineTo(P[i][0], P[i][1]); ctx.stroke();
+      }
+    }
+    for (const off of [-1, 1]) for (let i0 = 0; i0 < n; i0 += 8) { const i1 = Math.min(n, i0 + 8), im = (i0 + i1) >> 1, a = fadeZ(im) * (.34 + .4 * litAt(im)); if (a < .01) continue;
+      ctx.strokeStyle = rgba(CREAM, a); ctx.lineWidth = Math.max(.8, Math.min(1.6, kz[im] / 140)); ctx.beginPath(); for (let i = i0; i <= i1; i++) { const [x, y] = S(i, off); i > i0 ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); }
+    if (L > 0) {   // the current: a thin warm thread down the middle that runs out from the landing point both ways, and a faint glow
+      ctx.globalCompositeOperation = 'lighter';
+      for (let i0 = 0; i0 < n; i0 += 4) { const i1 = Math.min(n, i0 + 4), im = (i0 + i1) >> 1, li = litAt(im) * fadeZ(im); if (li < .02) continue;
+        const path = () => { ctx.beginPath(); for (let i = i0; i <= i1; i++) { const [x, y] = S(i, 0); i > i0 ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } };
+        ctx.strokeStyle = rgba('#3fae9a', .07 * li); ctx.lineWidth = Math.max(3, kz[im] * .7); path(); ctx.stroke();
+        ctx.strokeStyle = rgba('#ffd9a0', .38 * li); ctx.lineWidth = Math.max(.8, Math.min(2, kz[im] / 90)); path(); ctx.stroke(); }
+    }
+    ctx.restore();
+  }
+  // a ring on the ground: a world circle around the landing point, woven like the certificate's guilloche band, projected (near part clipped)
+  function ring17(ctx, R, a, ph, t) {
+    if (R <= .05 || a <= .005) return;
+    const N = Math.round(Math.min(360, 80 + R * 22)), nw = Math.max(6, Math.round(R * 7)), bw = .16 + R * .012;
+    const line = (off, wv) => { ctx.beginPath(); let pen = false;
+      for (let j = 0; j <= N; j++) { const th = j / N * TAU, q = th * nw, dd = wv ? bw * (Math.sin(q + off) * .75 + Math.sin(q * 2 - off * 1.5 + ph) * .25) : off, X = LW[0] + Math.cos(th) * (R + dd), Z = LW[1] + Math.sin(th) * (R + dd) * .999;
+        if (Z < 1.4) { pen = false; continue; } const [x, y] = PJ(X, Z); pen ? ctx.lineTo(x, y) : ctx.moveTo(x, y); pen = true; }
+      ctx.stroke(); };
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineJoin = 'round';
+    ctx.strokeStyle = rgba(AMBER, .07 * a); ctx.lineWidth = 8; line(0, false);
+    for (let kk = 0; kk < 3; kk++) { ctx.strokeStyle = rgba(kk % 2 ? '#bff5e6' : '#ffe9c6', (kk % 2 ? .4 : .62) * a); ctx.lineWidth = 1; line(kk / 3 * TAU + ph, true); }
+    ctx.restore();
+  }
+  // a paper grocery bag hanging from a hand (figure units × s): kraft paper, a loaf and greens, engraved shade on the far side
+  function bag17(ctx, x, y, s, t, o = {}) {
+    const lit = o.lit ?? 0, side = o.side ?? -1, sw = .05 * Math.sin(t * 2.2 + (o.seed || 0));
+    ctx.save(); ctx.translate(x, y); ctx.rotate(sw); ctx.scale(s, s);
+    ctx.strokeStyle = '#5a4128'; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(-6, 9); ctx.quadraticCurveTo(-4, -2, 0, -1); ctx.quadraticCurveTo(4, -2, 6, 9); ctx.stroke();   // twisted handles
+    ctx.fillStyle = '#d29a4c'; ctx.save(); ctx.translate(4, 4); ctx.rotate(.35); ctx.beginPath(); ctx.ellipse(0, 0, 3.4, 10, 0, 0, TAU); ctx.fill(); ctx.fillStyle = 'rgba(255,226,170,.5)'; ctx.fillRect(-1, -8, 1.2, 4); ctx.restore();   // the loaf
+    ctx.fillStyle = '#4f6a3c'; ctx.beginPath(); ctx.ellipse(-5, 6, 4.2, 5, -.4, 0, TAU); ctx.fill();   // greens
+    const bg = ctx.createLinearGradient(-13, 0, 13, 0); bg.addColorStop(0, side < 0 ? '#c7a26c' : '#6e5434'); bg.addColorStop(1, side < 0 ? '#6e5434' : '#c7a26c');
+    ctx.fillStyle = bg; ctx.beginPath(); ctx.moveTo(-12, 8); ctx.lineTo(12, 8); ctx.lineTo(13, 38); ctx.lineTo(-13, 38); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = 'rgba(255,238,205,.35)'; ctx.fillRect(-12, 8, 24, 2.4);   // the folded rim
+    ctx.save(); ctx.beginPath(); ctx.moveTo(-12, 8); ctx.lineTo(12, 8); ctx.lineTo(13, 38); ctx.lineTo(-13, 38); ctx.closePath(); ctx.clip();
+    ctx.strokeStyle = 'rgba(40,24,10,.38)'; ctx.lineWidth = .6; for (let k = -30; k < 40; k += 2.6) { ctx.beginPath(); ctx.moveTo(side < 0 ? 13 - (k + 30) * .35 : -13 + (k + 30) * .35, 8); ctx.lineTo(side < 0 ? 13 - (k + 30) * .35 - 9 : -13 + (k + 30) * .35 + 9, 38); ctx.stroke(); }
+    ctx.restore();
+    if (lit > 0) { ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = rgba('#ffe2b4', .3 * lit); ctx.fillRect(side < 0 ? -13 : 9, 8, 4, 30); }
+    ctx.restore();
+  }
+  // the fan of notes engraved into A's hand: dotted outline, the burin closes it, the paper and ink come in, a wet glint
+  function fan17(ctx, t, x, y, z) {
+    const N = noteSprite(), sc = FAN17.sc;
+    for (let k = 0; k < 3; k++) {
+      const p = notesP(t, k); if (p <= 0) continue;
+      const a = FAN17.a[k], c0 = Math.cos(a), s0 = Math.sin(a), toS = (lx, ly) => [x + lx * c0 - ly * s0, y + lx * s0 + ly * c0];
+      const x0 = -NW * sc * .15, y0 = -NH * sc, w = NW * sc, h = NH * sc, fill = sm(lin(.55, .95, p));
+      if (fill > 0) { ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.globalAlpha = fill; ctx.shadowColor = 'rgba(0,0,0,.45)'; ctx.shadowBlur = 6; ctx.shadowOffsetY = 2; ctx.drawImage(N, x0, y0, w, h); ctx.restore(); }
+      if (fill < 1) { const rect = []; for (let i = 0; i <= 48; i++) { const q = i / 48 * 4, side = Math.floor(q) % 4, f = q - Math.floor(q); rect.push(toS(...[[x0 + w * f, y0], [x0 + w, y0 + h * f], [x0 + w * (1 - f), y0 + h], [x0, y0 + h * (1 - f)]][side])); }
+        ghostLine(ctx, rect, { ghost: 1, burin: p < .2 ? null : clamp((p - .2) / .45), u: clamp(p / .2), col: VERD_L, a: 1 - fill * .6, w: 1.3, dot: 4, t, seed: k + 11, tipSize: 7, glow: VERD }); }
+      // wet ink: one glint sweeps across the fresh note
+      const gl = lin(.7, 1.15, p);
+      if (gl > 0 && gl < 1) { ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.beginPath(); ctx.rect(x0, y0, w, h); ctx.clip(); ctx.globalCompositeOperation = 'lighter';
+        const gx = mix(x0 - 20, x0 + w + 20, gl), gg = ctx.createLinearGradient(gx - 14, 0, gx + 14, 0); gg.addColorStop(0, 'rgba(225,255,245,0)'); gg.addColorStop(.5, 'rgba(225,255,245,.7)'); gg.addColorStop(1, 'rgba(225,255,245,0)');
+        ctx.fillStyle = gg; ctx.fillRect(x0, y0, w, h); ctx.restore(); }
+    }
+  }
+  function frame217(ctx, t) {
+    const CAM = cam17(t), L = lightK(t), [lx, ly] = [LAND.x, LAND.y];
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+    { const [ax, ay] = CAM.map([0, 0]); ctx.transform(CAM.z, 0, 0, CAM.z, ax, ay); }
+    ctx.drawImage(world17(), 0, 0);
+    // the light on the haze above the landing point (a low dome, never a column) and over the far ridges
+    // the lit plain inside the first ring (its front hides the edge), then the band, the rings, the pool
+    if (L > 0) { const R0 = ringR(t); ctx.save(); ctx.beginPath(); for (let j = 0; j <= 72; j++) { const th = j / 72 * TAU, X = LW[0] + Math.cos(th) * (R0 + .2), Z = Math.max(1.5, LW[1] + Math.sin(th) * (R0 + .2)), [x, y] = PJ(X, Z); j ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+      ctx.closePath(); ctx.clip(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = Math.min(1, L * .95); ctx.drawImage(groundLit17(), 0, LIT17.y0); ctx.restore(); }
+    band17(ctx, t, true);
+    for (let k = 0; k < 2; k++) { const R = ringR(t, k), age = t - TL17 - k * .24; if (R > 0) ring17(ctx, R, Math.pow(clamp(1 - age / 2.1), 1.6) * Math.min(1, age / .08) * (k ? .5 : .85), t * .6 + k * 1.7, t); }
+    if (L > 0) { const Lk = Math.min(1.5, L);   // the hero light: a small hot core on the band and the warm pool it throws on the plain
+      putBloom(ctx, bloomSprite('v17', VERD, 420, .3), lx, ly - 12, .9, .3 * Lk);
+      ctx.save(); ctx.translate(lx, ly); ctx.scale(1, .27); putBloom(ctx, warm17('p', 360, .6), 0, 0, 1.7, .75 * Lk); ctx.restore();
+      putBloom(ctx, warm17('c', 120, .8), lx, ly - 8, 1, .7 * Lk);
+      addGlow(ctx, lx, ly - 6, 22, .8 * Math.min(1, L), AMBER, '#fff1d6'); addGlow(ctx, lx, ly - 5, 8, Math.min(1, L), '#fff1d6', '#ffffff'); }
+    // the splash: a few drops thrown up out of the landing, falling back
+    if (t > TL17 && t < TL17 + .7) { const q = t - TL17, r = prng(77); ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      for (let i = 0; i < 9; i++) { const ang = -Math.PI / 2 + (r() - .5) * 2.2, v = 150 + r() * 160, x = lx + Math.cos(ang) * v * q * .9, y = ly + Math.sin(ang) * v * q + 620 * q * q, a = 1 - q / .7;
+        if (y > ly + 4) continue; ctx.fillStyle = rgba('#dffff4', .8 * a); ctx.beginPath(); ctx.arc(x, y, 2.4, 0, TAU); ctx.fill(); }
+      ctx.restore(); }
+    // far haze in front of the horizon, lit a little over the landing
+    drawFog(ctx, fogBand17('h17', '#7a8cc4', .4, 171, 400, 640), t - CT.s217 + 3, 9, .55, 400, 'source-over');
+    if (L > 0) { ctx.save(); ctx.translate(lx, ly - 30); ctx.scale(1, .55); putBloom(ctx, warm17('d', 560, .5), 0, 0, 1.2, .6 * Math.min(1.5, L)); ctx.restore(); }   // the air above the light: a low warm dome
+    // the people, far → near: C, B (walk on with full bags), A (stands on the band; the hand comes up, the notes are engraved into it)
+    const rimCol = (k) => rgba(mixHex('#8ea2d6', '#ffe9c6', clamp(L)), (.5 + .5 * clamp(L)) * k);
+    const person17 = (key, X, Z, pose, flip, o = {}) => {
+      const s = sOf(Z), [hx, hy] = hipOf(X, Z, s), [fx, fy] = PJ(X, Z), dx = X - LW[0], dz = Z - LW[1], dl = Math.hypot(dx, dz) || 1;
+      if (L > 0) { const len = Math.min(7, 2.2 + dl * .55), ux = dx / dl, uz = dz / dl, px = -uz, pz = ux, w0 = .2, w1 = .5;   // the long shadow away from the light
+        const q = [[X + px * w0, Z + pz * w0], [X + ux * len + px * w1, Z + uz * len + pz * w1], [X + ux * len - px * w1, Z + uz * len - pz * w1], [X - px * w0, Z - pz * w0]].map(([a, b]) => PJ(a, Math.max(1.6, b)));
+        const sg = ctx.createLinearGradient(fx, fy, q[1][0], q[1][1]); sg.addColorStop(0, `rgba(2,3,10,${.6 * Math.min(1, L)})`); sg.addColorStop(1, 'rgba(2,3,10,0)');
+        ctx.fillStyle = sg; ctx.beginPath(); q.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.fill(); }
+      const fog = clamp((Z - 6) / 22) * .42, dk = o.dark || 0;   // fog for the far ones; dk: the night closing in (A, on "anyone")
+      figure(ctx, hx, hy, s, pose, { t, seed: o.seed, flip, dress: DRESS17[key], shadow: true, rim: rimCol(1 - .45 * dk), rimSide: dx < 0 ? 1 : -1, rimW: Math.max(1.2, 1.25 * s),
+        light: { x: lx, y: ly - 60, col: L > 0 ? '#ffe2b8' : '#8ea2d6', a: .25 + .5 * Math.min(1, L) * Math.exp(-dl / 14) }, shadeA: dk ? dk : fog, shadeCol: dk ? '#060918' : '#28325e' });
+      return { s, hx, hy };
+    };
+    { const p = posC(t), pose = walkPose(t, WC, 'long'), r = person17('C', p.X, p.Z, pose, false, { seed: WC.seed }); const [bx, by] = handPos(r.hx, r.hy, r.s, pose, 0, false, { t, seed: WC.seed }); bag17(ctx, bx, by, r.s, t, { seed: 2, side: -1, lit: L * .3 }); }
+    { const p = posB(t), pose = walkPose(t, WB, 'short'), r = person17('B', p.X, p.Z, pose, true, { seed: WB.seed }); const [bx, by] = handPos(r.hx, r.hy, r.s, pose, 0, true, { t, seed: WB.seed });
+      bag17(ctx, bx, by, r.s, t, { seed: 5, side: 1, lit: L });
+      const gB = lin(reach(p.X, p.Z), reach(p.X, p.Z) + .5, t); if (gB > 0 && gB < 1) addGlow(ctx, bx, by + 18 * r.s, 30 * r.s, .5 * Math.sin(Math.PI * gB), VERD, '#effff9'); }
+    const dim = easeIO(lin(A.nothing + .45, CT.s218 + .1, t));   // on "anyone" the night closes in around the notes: only the fresh notes (and the hand in their glow) stay lit
+    { const pose = poseA17(t), r = person17('A', A17.X, A17.Z, pose, true, { seed: 2, dark: .68 * dim }); const [fx, fy] = fanAt(t);
+      fan17(ctx, t, fx, fy, CAM.z);
+      if (notesP(t, 0) > .3) { ctx.fillStyle = DRESS17.A.skin; ctx.beginPath(); ctx.ellipse(fx + 2.5 * r.s, fy - 1.5 * r.s, 2.6 * r.s, 1.7 * r.s, -.5, 0, TAU); ctx.fill(); }   // the thumb over the fan
+      const gA = lin(tPrint - .05, tPrint + .45, t); if (gA > 0 && gA < 1) addGlow(ctx, fx + 20, fy - 12, 60, .55 * Math.sin(Math.PI * gA), VERD, '#effff9');
+      const gS = sm(lin(tPrint + .4, tPrint + .9, t)); if (gS > 0) addGlow(ctx, fx + 22, fy - 14, 46 + 14 * dim, (.16 + .08 * dim) * gS * (1 + .15 * Math.sin(t * 2.1)), '#ffd9a0', '#fff1d6'); }
+    // near mist over the ground, lit around the light
+    drawFog(ctx, fogBand17('n17', '#8fa6dc', .28, 177, 560, 900), t - CT.s217 + 2, 22, .45 + .25 * Math.min(1, L), 560);
+    ctx.restore();
+    if (dim > 0) {   // the falloff around the notes (soft and wide, never an iris), stretched along the forearm (down-right) like 2.18's sleeve
+      const [nx, ny] = CAM.map(fanAt(t)), z = CAM.z, gd = ctx.createRadialGradient(0, 0, 40 * z, 0, 0, 640 * z);
+      gd.addColorStop(0, 'rgba(5,8,22,0)'); gd.addColorStop(.1, `rgba(5,8,22,${.55 * dim})`); gd.addColorStop(.3, `rgba(5,8,22,${.78 * dim})`); gd.addColorStop(1, `rgba(5,8,22,${.85 * dim})`);
+      ctx.save(); ctx.translate(nx + 18 * z, ny + 8 * z); ctx.rotate(.82); ctx.scale(2, 1); ctx.fillStyle = gd; ctx.fillRect(-W, -H, 2 * W, 2 * H); ctx.restore(); }
     // the drop arrives from above (compensated against the 'down' composite)
-    if (t < tl + .05) { const e = eDown(t); dropDraw(ctx, LAND.x, dropY(t) - (1 - e) * H, t); }
-    drawFog(ctx, fogLayer('p17', '#6f86b8', .3, 61, 80, 820), t - CT.s217 + 2, 16, .7);
+    if (t < TL17 + .02) { const e = eDown(t); dropDraw(ctx, LAND.x, dropY(t) - (1 - e) * H, t); }
     chip(ctx, 120, 190, 'takes nothing · if prices hold', { check: easeOut(lin(A.nothing - .05, A.nothing + .35, t)), a: easeOut(lin(A.s217 + .3, A.s217 + .8, t)), col: VERD });
-    vign(ctx, .45);
+    vign(ctx, .5, 900, 560);
   }
 
   // ═══════════════ 2.18 · the notes in a hand turn to dots and smoke ═══════════════
@@ -718,7 +936,7 @@ export default (T, R) => {
     { t: CT.s215, tr: 'cut', d: .1, draw: frameTap, sound: [{ f: 'pages', t: A.onegoE + .03, v: .3 }] },                         // 2.15
     { t: CT.s216a, tr: 'cut', d: .1, draw: frameTap },                                                                              // 2.16a
     { t: CT.s216b, tr: 'cut', d: .1, draw: frameTap, sound: [{ f: 'drop', t: A.sliverE + .5, v: .3 }] },                          // 2.16b
-    { t: CT.s217, tr: 'down', d: .5, draw: frame217 },                                                                              // 2.17
+    { t: CT.s217, tr: 'down', d: .5, draw: frame217, print: { riso: .25 }, sound: [{ f: 'shimmer_rings', t: CT.s217 + .76, v: .16 }] },                // 2.17
     { t: CT.s218, tr: 'zoom', x: NH18.x, y: NH18.y, depth: 5, d: .8, draw: frame218 },                                                   // 2.18
     { t: CT.s219, tr: 'up', d: .6, draw: frame219, sound: [{ f: 'tick', t: A.whatE + .25, v: .25 }] },                              // 2.19
     { t: CT.s220, tr: 'whipR', d: .3, draw: frame220, sound: [{ f: 'foil_glint', t: A.agreeE + .05, v: .3 }] },                     // 2.20
