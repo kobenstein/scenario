@@ -149,7 +149,8 @@ export function houseFront(ctx, C, h, z, E, o = {}) {
   const yb = laneY((h.x0 + h.x1) / 2) - .2, yt = yb + h.h, light = E.facade || 1;
   const col = mixHex(shade(h.col, -.32), h.col, clamp(light)), q = [[h.x0, yb, z], [h.x1, yb, z], [h.x1, yt, z], [h.x0, yt, z]];
   const S = poly3(ctx, C, q); if (!S) return;
-  const g = ctx.createLinearGradient(0, S[3][1], 0, S[0][1]); g.addColorStop(0, mixHex(col, E.rimCol || '#ffcf8a', .18 * light)); g.addColorStop(1, shade(col, -.12)); ctx.fillStyle = g; ctx.fill();
+  let ya = 1e9, yz = -1e9; for (const p of S) { ya = Math.min(ya, p[1]); yz = Math.max(yz, p[1]); } if (!(yz > ya)) yz = ya + 1;
+  const g = ctx.createLinearGradient(0, ya, 0, yz); g.addColorStop(0, mixHex(col, E.rimCol || '#ffcf8a', .18 * light)); g.addColorStop(1, shade(col, -.12)); ctx.fillStyle = g; ctx.fill();
   // roof: tiles (a sloped band) + eaves line + a chimney
   const rt = yt + .9 + .5 * h.roof, rq = [[h.x0 - .15, yt, z - .25], [h.x1 + .15, yt, z - .25], [h.x1 + .15, rt, z + 1.8], [h.x0 - .15, rt, z + 1.8]];
   if (fill3(ctx, C, rq, mixHex('#7a3a2a', '#b8603a', .6 * light))) { ctx.strokeStyle = 'rgba(40,14,8,.4)'; ctx.lineWidth = 1; ctx.beginPath(); for (let k = 1; k < 6; k++) { const v = k / 6; seg3(ctx, C, [h.x0 - .15, mix(yt, rt, v), mix(z - .25, z + 1.8, v)], [h.x1 + .15, mix(yt, rt, v), mix(z - .25, z + 1.8, v)]); } ctx.stroke(); }
@@ -191,7 +192,7 @@ function backWall(ctx, C, t, E, SN, gateA) {
   const q = [[-8, y0, z], [8, y0, z], [8, y1, z], [-8, y1, z]], hole = [[g.x0, y0, z], [g.x0, GY + g.y1, z], [g.x1, GY + g.y1, z], [g.x1, y0, z]];
   const S = proj3(C, q), Hh = proj3(C, hole); if (!S) return;
   ctx.beginPath(); trace(ctx, S); if (Hh) trace(ctx, Hh);
-  const gr = ctx.createLinearGradient(0, S[2][1], 0, S[0][1]); gr.addColorStop(0, mixHex('#c8a07a', E.key, .35)); gr.addColorStop(1, '#8a6a52'); ctx.fillStyle = gr; ctx.fill('evenodd');
+  const gr = ctx.createLinearGradient(0, Math.min(...S.map((p) => p[1])), 0, Math.max(...S.map((p) => p[1])) + .01); gr.addColorStop(0, mixHex('#c8a07a', E.key, .35)); gr.addColorStop(1, '#8a6a52'); ctx.fillStyle = gr; ctx.fill('evenodd');
   // stone courses + joints (engraved)
   ctx.save(); ctx.beginPath(); trace(ctx, S); if (Hh) trace(ctx, Hh); ctx.clip('evenodd');
   ctx.strokeStyle = 'rgba(60,36,24,.45)'; ctx.lineWidth = 1; ctx.beginPath();

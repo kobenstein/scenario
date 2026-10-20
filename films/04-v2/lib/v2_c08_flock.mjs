@@ -22,7 +22,7 @@ export const heroMips = () => mips('c08hero', () => formTexture(206.5, { grow: 1
 
 // ---------------------------------------------------------------- the flyers
 // each: { p0 (sheet centre on the stack), rot0, t0 (lift), xv (where it crosses the vent), r, ph (circle), h (height), tb (becomes a bird), dirB (flight out) }
-export const FLOCKC = [0, 25, 17];
+export const FLOCKC = [0, 25, 21];
 export const flyers = (K) => memo('c08fly', () => {
   const out = [], r = prng(9393);
   for (const d of DESKS) {
@@ -32,6 +32,8 @@ export const flyers = (K) => memo('c08fly', () => {
     const zc = clamp(d.cz + (r() - .5) * 3, FLOCKC[2] - 17, FLOCKC[2] + 17), ph = Math.atan2(zc - FLOCKC[2], xv * 4 + (r() - .5) * 2);
     out.push({ d, hero: d.hero, p0, rot0, t0, xv, zc, rad: 5 + Math.abs(zc - FLOCKC[2]) * .7 + r() * 3, ph, h: FLOCKC[1] + (r() - .5) * 9, sp: .55 + r() * .25,
       tb: K.gone - .7 + r() * .55, az: r() * TAU, el: .12 + r() * .35, s1: r() * TAU, s2: r() * TAU, s3: r() * TAU, vmax: 15 + r() * 3, wf: K.unemp + .05 + r() * .55 });
+    const f = out[out.length - 1];
+    if (K.lead && d === K.lead.desk) { f.lead = true; f.wf = K.lead.wf; f.tb = K.lead.tb; }
   }
   return out;
 });
@@ -67,8 +69,24 @@ export function pose(f, t, K) {
   const rot = (a, b, ang) => { const c2 = Math.cos(ang), s2 = Math.sin(ang); return [[a[0] * c2 + b[0] * s2, a[1] * c2 + b[1] * s2, a[2] * c2 + b[2] * s2], [b[0] * c2 - a[0] * s2, b[1] * c2 - a[1] * s2, b[2] * c2 - a[2] * s2]]; };
   [ez, en] = rot(ez, en, tilt); [ex, en] = rot(ex, en, roll);
   const fold = bird ? eo3(wb) * (.45 + .55 * Math.sin((t - f.tb) * 13 + f.s1)) : 0;
+  // the lead sheet: drawn to the camera (K.lead.at(t) → its pose in front of the lens), then a bird flying off ahead and up
+  if (f.lead && K.lead) {
+    const L = K.lead, w = sio(seg(t, L.t0, L.t1));
+    if (w > 0) {
+      const q = L.at(Math.min(t, f.tb)); let O2 = q.O, ex2 = q.ex, ez2 = q.ez, en2 = q.en;
+      if (bird) {
+        const u = t - f.tb, dist = 3 * u + 6 * u * u, dir = L.dir; O2 = [O2[0] + dir[0] * dist, O2[1] + dir[1] * dist, O2[2] + dir[2] * dist];
+        const fz = dir, fx = nrm([fz[2], 0, -fz[0]]), fn = cross(fx, fz);
+        ex2 = nrm(lerp3(ex2, fx, wb)); ez2 = nrm(lerp3(ez2, fz, wb)); en2 = nrm(lerp3(en2, fn, wb));
+      }
+      O = lerp3(O, O2, w); ex = nrm(lerp3(ex, ex2, w)); ez = nrm(lerp3(ez, ez2, w)); en = nrm(lerp3(en, en2, w));
+    }
+  }
   return { O, ex, ez, en, fold, bird, tau, tv };
 }
+const lerp3 = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
+const nrm = (a) => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
 // a sheet (A4) at pose p: P(u, v) on the paper (u right, v down the page); folded birds: the halves rotate about the fold line (v = .5)
 function sheetP(p, bend = 0) {
   const { O, ex, ez, en } = p, Wd = .21, Hd = .297;
@@ -88,13 +106,12 @@ export function drawFlyers(ctx, cam, t, K, o = {}) {
     items.push([dd, f, p, px]);
   }
   items.sort((a, b) => b[0] - a[0]);
-  const sky = o.inside ? 0 : 1;
   for (const [dd, f, p, px] of items) {
     // the word's dissolve frame
     const k = f.hero ? -1 : Math.min(NWF - 1, Math.max(0, Math.floor((t - f.wf) / .17)));
     const tex = f.hero ? HM : WF[t < f.wf ? 0 : k];
     // light: inside the hall warm from below, outside the dusk sky; the back of the paper is plain
-    const upF = p.en[1], warm = clamp(1 - (p.O[1] - 1) / 14) * (o.inside ? 1 : .4);
+    const ins = clamp((16.4 - p.O[1]) / 1.6), upF = p.en[1], warm = clamp(1 - (p.O[1] - 1) / 14) * mix(.4, 1, ins);
     const back = css(lerpC(rgb('#cfc7d8'), rgb('#f2d9b0'), warm * .6));
     if (px < 3) { const s = cam.P(...p.O); ctx.fillStyle = back; ctx.fillRect(s[0] - 1, s[1] - 1, 2, 2); continue; }
     if (!p.bird) {
@@ -104,7 +121,7 @@ export function drawFlyers(ctx, cam, t, K, o = {}) {
       else { const sp = cam.poly([P(0, 0), P(1, 0), P(1, 1), P(0, 1)]); fillS(ctx, sp, back); }
       // shade: facing away from the light → darker
       const sp = cam.poly([P(0, 0), P(1, 0), P(1, 1), P(0, 1)]);
-      const dark = o.inside ? clamp(.35 - upF * .15) : clamp(.3 - upF * .25);
+      const dark = mix(clamp(.3 - upF * .25), clamp(.35 - upF * .15), ins);
       if (sp.length > 2 && dark > .02) fillS(ctx, sp, `rgba(22,22,52,${dark.toFixed(3)})`);
     } else {
       for (const top of [true, false]) {
@@ -121,7 +138,7 @@ export function drawFlyers(ctx, cam, t, K, o = {}) {
 
 // ---------------------------------------------------------------- dust → stars
 // every flyer sheds a few dust grains from its word when the word dissolves; they drift up and gather into the first stars on "gone"
-export const STARS = memo('c08stars', () => { const r = prng(4545), s = []; for (let i = 0; i < 80; i++) s.push({ az: (r() - .5) * 2.6 + Math.PI / 2, el: .2 + r() * .75, m: .5 + r() * 1, tw: r() * TAU }); return s; });
+export const STARS = memo('c08stars', () => { const r = prng(4545), s = []; for (let i = 0; i < 80; i++) s.push({ az: (r() - .5) * 1.5, el: .06 + r() * .5, m: .5 + r() * 1, tw: r() * TAU }); return s; });
 const grains = (K) => memo('c08grains', () => { const F = flyers(K), r = prng(6161), g = []; F.forEach((f, i) => { if (f.hero) return; for (let k = 0; k < 6; k++) g.push({ f, ox: (r() - .5) * .12, oz: (r() - .2) * .06, star: (i * 6 + k) % 80, t1: f.wf + r() * .5, sp: .4 + r() * .8, a: r() }); }); return g; });
 function starPos(cam, s, t) { return cam.dir(s.az, s.el); }
 export function drawDust(ctx, cam, t, K) {

@@ -16,7 +16,7 @@ export function quad(ctx, V, pts) {
   ctx.closePath();
 }
 export const seg3 = (ctx, V, a, b) => { const p = V.P(a[0], a[1], a[2]), q = V.P(b[0], b[1], b[2]); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); };
-const WALLC = { warm: ['#b0906a', '#9a7c5a', '#5a4632'], cool: ['#8e969f', '#7a828b', '#3e4650'] };
+const WALLC = { warm: ['#6a5040', '#5a4436', '#3a2c24'], cool: ['#5e6670', '#4e565f', '#30363e'] };
 
 // ---------------------------------------------------------------- the room shell + light
 export function drawRoom(ctx, t, V, S, R, st) {
@@ -33,9 +33,9 @@ export function drawRoom(ctx, t, V, S, R, st) {
   ctx.fillStyle = wallTone; quad(ctx, V, [[R.x0, R.y0, d1], [R.x1, R.y0, d1], [R.x1, R.y1, d1], [R.x0, R.y1, d1]]); ctx.fill();
   ctx.fillStyle = shadeHex(wallTone, -.16); quad(ctx, V, [[R.x0, R.y0, 0], [R.x0, R.y0, d1], [R.x0, R.y1, d1], [R.x0, R.y1, 0]]); ctx.fill();
   ctx.fillStyle = shadeHex(wallTone, -.2); quad(ctx, V, [[R.x1, R.y0, 0], [R.x1, R.y0, d1], [R.x1, R.y1, d1], [R.x1, R.y1, 0]]); ctx.fill();
-  const floorC = office ? '#4e5258' : R.j === 0 ? '#5a4030' : '#644834';
+  const floorC = office ? '#3e4248' : R.j === 0 ? '#3a2a20' : '#40301f';
   ctx.fillStyle = floorC; quad(ctx, V, [[R.x0, R.y1, 0], [R.x1, R.y1, 0], [R.x1, R.y1, d1], [R.x0, R.y1, d1]]); ctx.fill();
-  ctx.fillStyle = office ? '#5a6068' : '#3e2e28'; quad(ctx, V, [[R.x0, R.y0, 0], [R.x1, R.y0, 0], [R.x1, R.y0, d1], [R.x0, R.y0, d1]]); ctx.fill();
+  ctx.fillStyle = office ? '#3a4048' : '#221a18'; quad(ctx, V, [[R.x0, R.y0, 0], [R.x1, R.y0, 0], [R.x1, R.y0, d1], [R.x0, R.y0, d1]]); ctx.fill();
   // engraved hatch on the side walls (courses along the depth) and the back wall's lower half
   ctx.strokeStyle = rgba('#1a1018', .2); ctx.lineWidth = Math.max(.5, q0 * .03); ctx.beginPath();
   for (let y = R.y0 + .5; y < R.y1; y += .5) { seg3(ctx, V, [R.x0, y, 0], [R.x0, y, d1]); seg3(ctx, V, [R.x1, y, 0], [R.x1, y, d1]); }
@@ -58,14 +58,26 @@ export function drawRoom(ctx, t, V, S, R, st) {
   const lamp = ACT.lampOf(R);
   ACT.props(ctx, t, V, S, R, st, 'back');
   // darkness away from the lamp (one radial gradient over the whole box, centred on the lamp's floor pool)
-  const Lp = V.P(lamp.x, (lamp.y + R.y1) / 2, lamp.d), rad = Math.max(R.x1 - R.x0, 26) * .62 * Lp[2];
+  const Lp = V.P(lamp.x, (lamp.y + R.y1) / 2, lamp.d), rad = Math.min(R.x1 - R.x0, 24) * .7 * Lp[2];
   const g = ctx.createRadialGradient(Lp[0], Lp[1], rad * .05, Lp[0], Lp[1], rad);
-  g.addColorStop(0, 'rgba(20,14,26,0)'); g.addColorStop(.35, 'rgba(20,14,26,.12)'); g.addColorStop(.75, rgba('#120c1a', office ? .45 : .58)); g.addColorStop(1, rgba('#0c0814', office ? .62 : .78));
+  g.addColorStop(0, 'rgba(20,14,26,0)'); g.addColorStop(.3, 'rgba(14,10,20,.2)'); g.addColorStop(.7, rgba('#0e0a14', office ? .5 : .66)); g.addColorStop(1, rgba('#08060e', office ? .7 : .84));
   ctx.fillStyle = g; quad(ctx, V, [[R.x0, R.y0, 0], [R.x1, R.y0, 0], [R.x1, R.y1, 0], [R.x0, R.y1, 0]]); ctx.fill();
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
-  const g2 = ctx.createRadialGradient(Lp[0], Lp[1], 0, Lp[0], Lp[1], rad * .55);
-  g2.addColorStop(0, rgba(office ? '#9fc8ff' : '#ff9a4a', office ? .12 : .2)); g2.addColorStop(1, 'rgba(255,154,74,0)');
-  ctx.fillStyle = g2; ctx.fill(); ctx.restore();
+  const lc = office ? '#9fc8ff' : '#ffaa60', La = V.P(lamp.x, lamp.y, lamp.d), Lf = V.P(lamp.x, R.y1, lamp.d), qa = La[2];
+  // the lamp-lit back wall, the floor pool, the cone of light with dust in it (Film 5's armchair room)
+  const Bw = V.P(lamp.x, lamp.y + 2, R.d1), g2 = ctx.createRadialGradient(Bw[0], Bw[1], 0, Bw[0], Bw[1], Bw[2] * 11);
+  g2.addColorStop(0, rgba(lc, office ? .16 : .3)); g2.addColorStop(.4, rgba(lc, office ? .06 : .1)); g2.addColorStop(1, rgba(lc, 0));
+  ctx.fillStyle = g2; ctx.fill();
+  ctx.save(); ctx.translate(Lf[0], Lf[1]); ctx.scale(1, .28); const g3 = ctx.createRadialGradient(0, 0, 0, 0, 0, qa * 7);
+  g3.addColorStop(0, rgba(lc, office ? .14 : .26)); g3.addColorStop(1, rgba(lc, 0)); ctx.fillStyle = g3; ctx.fillRect(-qa * 7, -qa * 7, qa * 14, qa * 14); ctx.restore();
+  if (!office) {
+    const cg = ctx.createLinearGradient(0, La[1], 0, Lf[1]); cg.addColorStop(0, rgba(lc, .2)); cg.addColorStop(1, rgba(lc, .025));
+    ctx.fillStyle = cg; ctx.beginPath(); ctx.moveTo(La[0] - qa * .9, La[1] + qa * .25); ctx.lineTo(La[0] + qa * .9, La[1] + qa * .25); ctx.lineTo(Lf[0] + qa * 4.2, Lf[1]); ctx.lineTo(Lf[0] - qa * 4.2, Lf[1]); ctx.closePath(); ctx.fill();
+    if (qa > 9) { const r2 = prng(R.seed + 77); ctx.fillStyle = rgba('#ffe2b8', .5);
+      for (let k = 0; k < 26; k++) { const v = (r2() + t * (.02 + .03 * r2())) % 1, w = (r2() - .5) * 2 * mix(.9, 4, v) + Math.sin(t * .7 + k) * .3, sz = qa * (.03 + .03 * r2());
+        ctx.beginPath(); ctx.arc(mix(La[0], Lf[0], v) + w * qa, mix(La[1], Lf[1], v), sz, 0, TAU); ctx.fill(); } }
+  }
+  ctx.restore();
   ACT.people(ctx, t, V, S, R, st, lamp);
   ACT.lamp(ctx, t, V, R, lamp, office);
   ctx.restore();

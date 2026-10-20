@@ -111,7 +111,8 @@ function insideView(ctx, t, K, sx, sy, sw, sh, on) {
   const ga = 1 - sm2((sw - 16) / 170);
   if (ga > 0) { ctx.globalAlpha = ga; ctx.fillStyle = wc; ctx.fillRect(sx, sy, sw, sh); ctx.globalAlpha = 1; }
   // mullions and the frame (engraved, dark), visible as the window grows
-  const fa = sm2((sw - 30) / 120); if (fa > 0) { ctx.strokeStyle = `rgba(30,18,24,${.9 * fa})`; ctx.lineWidth = Math.max(1, sw * .045); ctx.beginPath(); ctx.moveTo(sx + sw / 2, sy); ctx.lineTo(sx + sw / 2, sy + sh); ctx.moveTo(sx, sy + sh * .42); ctx.lineTo(sx + sw, sy + sh * .42); ctx.stroke(); ctx.lineWidth = Math.max(1, sw * .07); ctx.strokeRect(sx, sy, sw, sh); }
+  // the frame (engraved, dark) grows with the window and passes out of the picture; a single pane, so nothing crosses our path
+  if (sw > 30) { ctx.strokeStyle = 'rgba(30,18,24,.9)'; ctx.lineWidth = Math.max(1, sw * .07); ctx.strokeRect(sx, sy, sw, sh); }
   ctx.restore();
 }
 

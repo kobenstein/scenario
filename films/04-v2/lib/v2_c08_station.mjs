@@ -215,7 +215,7 @@ export function person(ctx, cam, o) {
     ctx.fillStyle = o.front.card; ctx.fillRect(-5.6, -7.6, 11.2, 15.2);
     ctx.fillStyle = o.front.ink; ctx.fillRect(-4.4, -6.2, 3.6, 4.4);                     // the photo square
     scribble(ctx, -4.2, 1.6, 8.4, 2.2, { seed: 91, ink: o.front.ink, lw: .55 });         // the name (a scribble)
-    if (o.title > 0) { ctx.save(); ctx.beginPath(); ctx.rect(-4.4, 3.4, 8.8 * o.title, 2.6); ctx.clip(); ctx.fillStyle = o.front.band; ctx.fillRect(-4.4, 3.4, 8.8, 2.6); ctx.restore(); }   // the title line
+    if (o.title > 0) { ctx.save(); ctx.beginPath(); ctx.rect(-4.4 + 8.8 * (1 - o.title), 3.4, 8.8 * o.title, 2.6); ctx.clip(); ctx.fillStyle = o.front.band; ctx.fillRect(-4.4, 3.4, 8.8, 2.6); ctx.restore(); }   // the title line
     ctx.restore();
   }
   ctx.restore();

@@ -54,10 +54,10 @@ function wallBack(ctx, C, E, gateA, nightK) {
 function lanterns(ctx, C, t, E, nightK) {
   const out = [];
   for (const [xi, k] of [[6.2, 0], [9.0, 1], [11.8, 2]]) {
-    const ya = laneY(xi) + 4.3, wire = [];
+    const ya = laneY(xi) + 5.6, wire = [];
     for (let i = 0; i <= 12; i++) { const z = mix(LANE.z0 + .3, LANE.z1, i / 12); wire.push([xi, ya - Math.sin(Math.PI * i / 12) * .7, z]); }
     ctx.strokeStyle = 'rgba(30,24,30,.8)'; ctx.lineWidth = 1; ctx.beginPath(); for (let i = 0; i < 12; i++) seg3(ctx, C, wire[i], wire[i + 1]); ctx.stroke();
-    for (let j = 1; j < 6; j++) { const w = wire[j * 2], sw = Math.sin(t * 1.3 + j + k) * .03, p = at3(C, w[0] + sw, w[1] - .28, w[2]); if (!p) continue; out.push(p);
+    for (let j = 1; j < 6; j++) { const w = wire[j * 2], sw = Math.sin(t * 1.3 + j + k) * .03, p = at3(C, w[0] + sw, w[1] - .28, w[2]); if (!p || p.d < 3.2) continue; out.push(p);
       const r = .16 * p.k, col = j % 2 ? '#ffb35c' : '#ff9a5a'; ctx.fillStyle = mixHex(shade(col, -.2), '#fff1d6', .35 * nightK); ctx.beginPath(); ctx.ellipse(p.x, p.y, r, r * 1.15, 0, 0, TAU); ctx.fill();
       ctx.strokeStyle = rgba('#7a3a1a', .5); ctx.lineWidth = Math.max(.6, r * .08); ctx.beginPath(); for (const v of [-.5, 0, .5]) { ctx.moveTo(p.x - r * Math.sqrt(1 - v * v), p.y + v * r); ctx.lineTo(p.x + r * Math.sqrt(1 - v * v), p.y + v * r); } ctx.stroke(); }
   }
@@ -176,7 +176,7 @@ export function lane(ctx, C, t, E, K, o = {}) {
   P.run();
   // the light of the candles and lanterns (screen), the cork's pop
   for (const [x, y, k, fl] of lights) glowAt(ctx, glowImg('#ffb35c', { R: 64, core: .4 }), x, y, .55 * k * fl, .8, 'screen');
-  for (const p of lan) glowAt(ctx, glowImg('#ffb35c', { R: 64, core: .4 }), p.x, p.y, 1.1 * p.k, .65 + .3 * nightK, 'screen');
+  for (const p of lan) glowAt(ctx, glowImg('#ffb35c', { R: 64, core: .4, dots: 0 }), p.x, p.y, 1.1 * p.k, .65 + .3 * nightK, 'screen');
 }
 function houseSouth(ctx, C, h, E, nightK) {
   // a south-row facade at Z = 17 facing +Z (the lane): drawn like houseFront, mirrored

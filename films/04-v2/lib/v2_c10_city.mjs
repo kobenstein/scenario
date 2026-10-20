@@ -110,7 +110,7 @@ function canal(ctx, C, t, K, lights) {
   // the reflections of the block's lights: the stair core's cold column and the one warm window, broken by ripples
   ctx.save(); const S = proj3(C, [[CAN.x0, WY, CAN.z0], [CAN.x1, WY, CAN.z0], [CAN.x1, WY, CAN.z1], [CAN.x0, WY, CAN.z1]]);
   if (S) { ctx.beginPath(); trace(ctx, S); ctx.clip();
-    const party = t > K.now, refl = [[CORE.z, SY + 3, BLK.top - 2, party ? '#ffcf8a' : '#cfe0e0', .35]]; if (t >= K.flats + .5) refl.push([LITWIN.z, SY + LITWIN.fl * 3 + 1, SY + LITWIN.fl * 3 + 2.4, '#ffcf8a', .55]);
+    const party = t > K.now, refl = [[CORE.z, SY + 3, BLK.top - 2, party ? '#ffcf8a' : '#cfe0e0', .35]]; if (t >= K.flats + .7) refl.push([LITWIN.z, SY + LITWIN.fl * 3 + 1, SY + LITWIN.fl * 3 + 2.4, '#ffcf8a', .55]);
     for (const [z, y0, y1, col, a] of refl) { const A = C.p(BLK.x0, 2 * WY - y0, z), B = C.p(BLK.x0, 2 * WY - y1, z); if (!A || !B) continue; const w = Math.max(1.5, 1.0 * C.f / A[2]); ctx.fillStyle = rgba(col, a);
       for (let k = 0; k < 26; k++) { const u = k / 26, y = mix(A[1], B[1], u), jx = (hash(k, Math.floor(t * 6)) - .5) * w * 2.5; ctx.fillRect(A[0] + jx - w * (1 + hash(k, 3)), y, w * 2 * (1 + hash(k, 3)), Math.max(1, (B[1] - A[1]) / 26 * .55)); } }
   }
@@ -128,7 +128,7 @@ function canal(ctx, C, t, K, lights) {
 const byDist = (C, L) => L.map((b) => [Math.hypot(clamp(C.x, b.x0, b.x1) - C.x, clamp(C.z, b.z0, b.z1) - C.z), b]).sort((a, b) => b[0] - a[0]).map((a) => a[1]);
 // ---------------------------------------------------------------- the block
 function block(ctx, C, t, K, lights, o) {
-  const yb = SY, fl = BLK.fl, fh = BLK.fh, litOn = t >= K.flats + .5, party = t > K.now;
+  const yb = SY, fl = BLK.fl, fh = BLK.fh, litOn = t >= K.flats + .7, party = t > K.now;
   box3(ctx, C, BLK.x0, yb, BLK.z0, BLK.x1, BLK.top, BLK.z1, (f) => (f === 'y1' ? '#2a2c3e' : f === 'z0' || f === 'z1' ? '#23263a' : '#20222f'));
   // seen from above: the skylight over the stairwell, the well below it
   if (o.stair && C.y > BLK.top) {
