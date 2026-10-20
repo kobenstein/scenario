@@ -371,7 +371,7 @@ export function seasonsMailbox(ctx, t, o = {}) {
   // the cabin wall behind, out of focus
   ctx.drawImage(once('cabinblur', () => { const S = cabinSprite(1.6), [c, g] = canvas(S.width + 40, S.height + 40); g.filter = 'blur(4px)'; g.drawImage(S, 20, 20); g.filter = 'none'; g.globalCompositeOperation = 'destination-out'; const fg = g.createLinearGradient(c.width - 220, 0, c.width - 30, 0); fg.addColorStop(0, 'rgba(0,0,0,0)'); fg.addColorStop(1, 'rgba(0,0,0,1)'); g.fillStyle = fg; g.fillRect(c.width - 220, 0, 220, c.height); return c; }), 40, 100);
   // ground: snow ↔ grass
-  const gg = ctx.createLinearGradient(0, 620, 0, H); gg.addColorStop(0, S.ground); gg.addColorStop(1, mixHex(S.ground, '#101824', .55)); ctx.fillStyle = gg; ctx.fillRect(0, 620, W, H - 620);
+  const gg = ctx.createLinearGradient(0, 620, 0, H); gg.addColorStop(0, S.ground); gg.addColorStop(1, mixHex(S.ground, '#101824', .55)); ctx.fillStyle = gg; ctx.fillRect(0, 620, W, H - 620 + 200);
   const r = prng(5); for (let i = 0; i < 260; i++) { const x = r() * W, y = 640 + r() * 440, l = 6 + r() * 16; ctx.strokeStyle = S.snow > .5 ? 'rgba(150,170,200,.35)' : rgba(mixHex('#2a4a20', S.ground, .3), .6); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 2, y - l * (1 - S.snow)); ctx.stroke(); }
   // a birch branch in the foreground with leaves that come and go
   ctx.save(); ctx.strokeStyle = '#d8d2c6'; ctx.lineWidth = 9; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(W + 20, 120); ctx.quadraticCurveTo(1500, 160, 1300, 90); ctx.stroke(); ctx.strokeStyle = '#2a2420'; ctx.lineWidth = 2; for (let i = 0; i < 9; i++) { const x = 1340 + i * 64; ctx.beginPath(); ctx.moveTo(x, 118 + i * 3); ctx.lineTo(x + 8, 120 + i * 3); ctx.stroke(); }

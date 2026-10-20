@@ -10,11 +10,12 @@
 // |       |                                              | in on "shares"; the ring closes on "wholly owns"    |                                                |             |     |
 // | 0.08  | And the pledge comes just before … public.   | brass bell from below; "IPO PLANNED" punched on     | the bell's highlight                           | (b) iris    |     |
 // |       |                                              | "plans"; the clapper trembles on "public", no ring  |                                                |             |     |
-// | 0.10  | But whatever the motives, imagine every …    | 7 medallions turn restless on "motives"; foil wedge | the wedges sink                                | (a) down    | ★   |
-// |       |                                              | cascade front→back, 60 ms apart, on "every company" |                                                |             |     |
+// | 0.10  | But whatever the motives, imagine every …    | 7 medallions turn restless on "motives"; a glint    | the wedges sink, the camera tilts down after   | (a) down    | ★   |
+// |       |                                              | sweeps each face and 50 ms later its foil wedge pops| them on "did the same"                         |             |     |
+// |       |                                              | toward us: front→back, 60 ms apart, "every company" |                                                |             |     |
 // | 0.11  | And imagine your share grew every time …     | wedges rain into the coin; rosettes grow on "grew"  | the coin                                       | (b) iris    |     |
 // |       |                                              | ×2, the coin swells 80 ms after each                |                                                |             |     |
-// | 1.01a | Why would any of it be yours?                | the hand rises, the coin evades, hovers on "yours"  | the coin rises                                 | (a) up      |     |
+// | 1.01a | Why would any of it be yours?                | a hand reaches up, the coin evades, hovers on "yours"| the coin rises                                 | (a) up      |     |
 // | 1.01b | They built it.                               | the beam sets down on "built", a lamp flickers on   | the hauled beam                                | (b) zoom    |     |
 // | 1.05  | But look at what they built it from.         | macro glide along the paper beam, faster on "from"  | a page comes loose                             | (a) up      |     |
 // | 1.06  | So much of what people ever wrote down.      | fragments rise and whirl; outline of a building on  | three fragments fly at the camera              | (a) push    | ★   |
@@ -23,7 +24,8 @@
 // | 1.07b | Songs and research.                          | staff lines flow into the lab grid; data on         | the flow to the right                          | (c) whipL   |     |
 // |       |                                              | "research"                                          |                                                |             |     |
 // | 1.07c | Code.                                        | one listing line lights on "Code"                   | the paper folds                                | (a) down    |     |
-// | 1.08  | A grandmother's recipe, shared online.       | the old hand smooths the card; flash on "shared"    | the photo flies up                             | (a) up      |     |
+// | 1.08  | A grandmother's recipe, shared online.       | the old hand smooths the card; a young hand's phone | the photo flies up                             | (a) up      |     |
+// |       |                                              | photographs it, flash on "shared"                   |                                                |             |     |
 // | 1.09  | A forum answer, written for a stranger.      | the answer peels off, folds into a plane; caught on | the plane circles up                           | (a) up      |     |
 // |       |                                              | "stranger"                                          |                                                |             |     |
 // | 1.10a | That's what AI is learning from.             | all fragments flow into the scaffold, it glows      | the crane keeps rising                         | plan seq.   |     |
@@ -49,6 +51,8 @@ import { figure, POSES, handPos } from '../lib/figure.mjs';
 import { shareLight } from '../lib/share.mjs';
 import { pen } from '../lib/paper.mjs';
 import { cone as artCone, fog as artFog } from '../lib/art.mjs';
+// Musk's card is C1's own muskCard at the cut (identical object); if C1's file ever fails to load, our copy (same quoteCard2 options) stands in
+const SC01 = await import('../lib/sc01_sheets.mjs').catch(() => null);
 
 export default (T, R) => {
   const wd = (seg, phrase, k = 0) => { const ws = T.W(seg, phrase, phrase); return ws[k < 0 ? ws.length + k : k]; };
@@ -93,7 +97,8 @@ export default (T, R) => {
     plateSigLine(ctx, L.x, L.y, L.w, t, { a: ap }); emptySeal(ctx, a.x + 196, a.y + 222, 40, t, { a: ap });
     plateSigLine(ctx, p.x - 250, p.y + 150, 250, t, { a: ap }); emptySeal(ctx, p.x + 180, p.y + 150, 36, t, { a: ap });
     anthSheet(ctx, t, a.x, a.y, a.s, a.rot);
-    muskSheet(ctx, t, p.x, p.y, p.s, p.r, muskWords);
+    let drawn = false; if (SC01?.muskCard) { ctx.save(); try { SC01.muskCard(ctx, t, p.x, p.y, p.s, p.r, muskWords, { hi: ['many'] }); drawn = true; } catch { /* C1's helper changed: our copy stands in */ } ctx.restore(); }
+    if (!drawn) muskSheet(ctx, t, p.x, p.y, p.s, p.r, muskWords);
     // "PROMISE" punched through both sheets on "contracts" (pinholes, light through them)
     const u = lin(K.contracts - .02, K.contracts + .42, t);
     if (u > 0) {
@@ -115,7 +120,7 @@ export default (T, R) => {
     const pull = eout(lin(t05a + .15, t05a + 1.6, t)), k = mix(1.12, 1, pull);
     ctx.save(); ctx.translate(960, 540); ctx.scale(k, k); ctx.translate(-960, -540 + 20 * (1 - pull));
     // Anthropic's rosette draws in around the box
-    const ru = eout(lin(t05a + .25, t05a + 1.7, t));
+    const ru = eout(lin(t05a + .02, t05a + 1.5, t));
     if (ru > 0) { if (ru >= 1) rosette(ctx, 960, 520, { R: 330, A: 46, B: 18, n: 20, m: 7, lines: 36, col: PAL0.cream, w: .9, a: .38, cache: true, rot: t * .01 }); else rosette(ctx, 960, 520, { R: 330, A: 46, B: 18, n: 20, m: 7, lines: 36, col: PAL0.cream, w: .9, a: .38, u: ru, rot: t * .01 }); }
     // the line (arriving from 0.05, 1300 px wide at the screen centre) shortens and becomes the box's top edge, the sides draw down
     const lu = eio(lin(t05a + .1, t05a + .85, t)), half = mix(650, BOX.w / 2, lu), ly = mix(540, BOX.y - BOX.h / 2, lu);
@@ -233,7 +238,7 @@ export default (T, R) => {
       if (w.flash > .02) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, w.x, w.y, m.R * w.k * .7, .45 * Math.min(1, w.flash), '#ffb35c', '#fff1d6'); ctx.restore(); } }
     vignette(ctx, .5);
   };
-  shots.push({ t: t10, tr: 'iris', x: HI[0], y: HI[1], r: 18, d: .8, draw: draw10, print: { riso: .25 }, sound: [{ f: 'shimmer_rings', t: K.every + .05, v: .14 }] });
+  shots.push({ t: t10, tr: 'iris', x: HI[0], y: HI[1], r: 18, d: .8, draw: draw10, print: { riso: .25 }, sound: [{ f: 'shimmer_rings', t: K.motivesE + .04, v: .12 }] });
 
   // ================= 0.11 · the segments rain into your coin; it grows each time they grow =================
   const t11 = K.andImagine - .3, COIN = { x: 960, y: 470, R: 128 };
@@ -261,18 +266,18 @@ export default (T, R) => {
 
   // ================= 1.01a · the coin hovers over your open hand =================
   const t01a = K.why - .45, R11end = coinR(t01a);
-  const HAND1 = { x: 470, y: 900, s: 2.4 };
+  const HAND1 = { x: 600, y: 1030, s: 2.4, ang: -.72 };
   const coin01 = (t) => {
     const pull = eout(lin(t01a + .3, t01a + 1.3, t)), base = { x: mix(COIN.x, 800, pull), y: mix(COIN.y, 470, pull), R: mix(R11end, 62, pull) };
-    const h = hand01(t), pp = palmPos(h.x, h.y, h.s, { pose: 'open', ang: -.22 }), goal = [pp[0] + 40, pp[1] - 150];
+    const h = hand01(t), pp = palmPos(h.x, h.y, h.s, { pose: 'open', ang: HAND1.ang }), goal = [pp[0] + 70, pp[1] - 210];
     const ev = eio(lin(K.yours - .8, K.yours - .3, t)), set = eio(lin(K.yours - .3, K.yours + .1, t)), rise = ein(lin(K.yoursE + .05, K.they + .3, t));
     const ex = base.x + 40 * ev, ey = base.y - 50 * ev;
     return { x: mix(ex, goal[0], set), y: mix(ey, goal[1], set) - 760 * rise + 3 * Math.sin(t * 2.3) * set, R: base.R };
   };
-  const hand01 = (t) => { const up = eout(lin(K.why - .1, K.yours - .1, t)); return { x: HAND1.x + 50 * up, y: HAND1.y - 110 * up, s: HAND1.s }; };
+  const hand01 = (t) => { const up = eout(lin(K.why - .1, K.yours - .1, t)); return { x: HAND1.x + 40 * up, y: HAND1.y - 130 * up, s: HAND1.s }; };
   const draw01a = (ctx, t) => {
     const c = coin01(t); umberBG(ctx, t, { lx: c.x, ly: c.y, r: 760, warm: .9 });
-    const h = hand01(t), o = { pose: 'open', ang: -.22, skin: '#c99a74', sleeve: PAL1.ochre, sleeveLen: 300, rim: '#ffd59a', light: [c.x - h.x, c.y - h.y], t, seed: 3, spread: .9 };
+    const h = hand01(t), o = { pose: 'open', ang: HAND1.ang, skin: '#c99a74', sleeve: PAL1.ochre, sleeveLen: 300, rim: '#ffd59a', light: [c.x - h.x, c.y - h.y], t, seed: 3, spread: .9 };
     hand(ctx, h.x, h.y, h.s, o);
     // warm light from the coin on the palm
     const pp = palmPos(h.x, h.y, h.s, o); ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, pp[0], pp[1] - 20, 220, .16 * clamp(1 - (pp[1] - c.y - 100) / 500), '#ffb35c', '#fff1d6'); ctx.restore();
@@ -379,8 +384,14 @@ export default (T, R) => {
     // the phone above the card takes the picture; flash on "shared"
     const pi = eout(lin(K.recipeW - .2, K.recipeW + .5, t)), px = mix(1700, 1370, pi), py = mix(150, 330, pi);
     const screen = (g, w, h) => { g.fillStyle = '#1a1410'; g.fillRect(0, 0, w, h); g.save(); g.translate(w / 2, h * .45); g.rotate(CARD.rot + .07); g.drawImage(RC, -w * .46, -w * .32, w * .92, w * .64); g.restore(); g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 2; g.beginPath(); g.arc(w / 2, h * .86, 14, 0, TAU); g.stroke(); };
-    if (pi > 0) { phone(ctx, px, py, 1.15, { t, ang: .16, held: true, lit: 1, glow: .6, screen });
-      if (flash > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, px - 50, py - 150, 520, .65 * flash, '#fff4e0', '#ffffff'); ctx.restore(); } }
+    if (pi > 0) { heldPhone(ctx, px, py, 1.05, { t, ang: .16, lit: 1, screen, skin: '#a8754f', warm: .7, rim: '#ffe0b0', rimA: .35 });   // a younger hand holds the phone over the card
+      // the forearm in a denim sleeve continues out of frame (the cuff covers the wrist)
+      ctx.save(); ctx.translate(px, py); ctx.rotate(.16); ctx.scale(1.05, 1.05 * Math.cos(.22));
+      const sg = ctx.createLinearGradient(-40, 0, 190, 0); sg.addColorStop(0, '#4a5d74'); sg.addColorStop(.35, '#2c3a4c'); sg.addColorStop(1, '#141b25'); ctx.fillStyle = sg;
+      ctx.beginPath(); ctx.moveTo(-26, 268); ctx.bezierCurveTo(20, 258, 104, 256, 150, 270); ctx.lineTo(200, 1100); ctx.lineTo(-74, 1100); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = 'rgba(255,224,176,.35)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-26, 270); ctx.lineTo(-74, 1100); ctx.stroke();
+      ctx.strokeStyle = 'rgba(10,14,20,.6)'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(-24, 300); ctx.bezierCurveTo(20, 290, 104, 290, 154, 302); ctx.stroke(); ctx.restore();
+      if (flash > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, px - 40, py - 120, 620, .9 * flash, '#fff4e0', '#ffffff'); ctx.fillStyle = `rgba(255,248,236,${.16 * flash})`; ctx.fillRect(0, 0, W, H); ctx.restore(); } }
     // the photo leaves the phone as a small rectangle and flies up
     const fq = lin(K.shared + .2, K.forum + .2, t);
     if (fq > 0) { const e = ein(fq), x = mix(px, 1240, e), y = mix(py, -260, e), w = mix(130, 80, e); ctx.save(); ctx.translate(x, y); ctx.rotate(mix(.16, -.25, e)); ctx.fillStyle = '#f6efe0'; ctx.fillRect(-w / 2 - 6, -w * .38 - 6, w + 12, w * .76 + 12); ctx.drawImage(RC, -w / 2, -w * .35, w, w * .68); ctx.restore(); ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, x, y, 90, .25, '#ffb35c', '#fff1d6'); ctx.restore(); }
@@ -411,12 +422,12 @@ export default (T, R) => {
     // the answer peels off the display as a paper strip, folds into a plane, glides to the stranger and is caught on "stranger"
     if (peel > 0) {
       const q = fly09(t), fold = eio(lin(K.answer + .5, K.written + .05, t)), pp = palmPos(S9.x, S9.y, S9.s, S9.o), lift = eout(clamp(peel));
-      const catchQ = eout(lin(K.stranger - .02, K.stranger + .3, t)), leave = ein(lin(K.strangerE - .05, K.thats + .3, t));
+      const catchQ = eout(lin(K.stranger - .02, K.stranger + .3, t)), leave = lin(K.stranger + .32, K.thats + .25, t);
       let x, y, rot, sc = 1;
       if (q <= 0) { const sp = P.map ? P.map(0, -20) : [PH.x, PH.y - 40]; x = sp[0]; y = sp[1] - 150 * lift; rot = -.05 * lift; }
       else { const [ax, ay] = planePath(q), [bx, by] = planePath(Math.min(1, q + .02)); x = ax; y = ay; rot = Math.atan2(by - ay, bx - ax); }
       if (catchQ > 0) { x = mix(x, pp[0], catchQ); y = mix(y, pp[1] - 30, catchQ); rot = mix(rot, -.25, catchQ); }
-      if (leave > 0) { const a = leave * 3; x = pp[0] + Math.sin(a) * 170 * leave + 60 * leave; y = pp[1] - 30 - 1000 * leave * leave - 50 * Math.sin(a); rot = mix(-.25, -1.3, leave); sc = 1 - .3 * leave; }
+      if (leave > 0) { const a = leave * 3; x = pp[0] + Math.sin(a) * 170 * leave + 60 * leave; y = pp[1] - 30 - 1300 * Math.pow(leave, 1.5) - 50 * Math.sin(a); rot = mix(-.25, -1.3, leave); sc = 1 - .3 * leave; }
       plane(ctx, x, y, 1.2 * sc, rot, { fold, bank: Math.sin(q * 7) * .4, light: '#9fb6cf' });
       if (q > 0 && q < 1) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = 'rgba(200,220,255,.12)'; ctx.lineWidth = 2; ctx.beginPath(); for (let k = 0; k <= 20; k++) { const [px, py] = planePath(Math.max(0, q - k * .012)); k ? ctx.lineTo(px, py) : ctx.moveTo(px, py); } ctx.stroke(); ctx.restore(); }
     }
@@ -488,10 +499,12 @@ export default (T, R) => {
     umberBG(ctx, t, { lx: 960, ly: 560, r: 900, warm: .6 });
     ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .7; ctx.drawImage(coneL12(), 0, 0); ctx.restore();
     const open = eout(lin(K.inheritance - .1, K.inhE + .25, t)), glow = sm(lin(K.inheritance, K.inhE + .2, t));
+    // contact shadow: the box stands on something
+    { ctx.save(); ctx.translate(BOXP.x, BOXP.y + 132); ctx.scale(1, .1); const sg = ctx.createRadialGradient(0, 0, 0, 0, 0, 430); sg.addColorStop(0, 'rgba(6,3,2,.75)'); sg.addColorStop(.6, 'rgba(6,3,2,.35)'); sg.addColorStop(1, 'rgba(6,3,2,0)'); ctx.fillStyle = sg; ctx.fillRect(-440, -440, 880, 880); ctx.restore(); }
     const Bx = woodBox(ctx, BOXP.x, BOXP.y, BOXP.s, t, { open, glow });
     // the young hand (ochre sleeve) under the lid's front edge
-    const hq = eout(lin(t12 - .2, K.inheritance - .05, t)), [lx, ly] = Bx.lidFront;
-    hand(ctx, lx + 330 + 300 * (1 - hq), ly + 110 + 120 * (1 - hq), 1.5, { pose: 'reach', ang: -2.82, skin: '#e9c2a0', sleeve: PAL1.ochre, sleeveLen: 640, rim: '#ffd59a', light: [-.3, -1], t, seed: 21, close: .4 });
+    const hq = eout(lin(t12 - .2, K.inheritance - .05, t)), [lx, ly] = Bx.lidFront, wq = ein(lin(K.inhE - .05, K.inhE + .55, t));   // it lets go once the lid stands
+    if (wq < 1) hand(ctx, lx + 330 + 300 * (1 - hq) + 900 * wq, ly + 110 + 120 * (1 - hq) + 260 * wq, 1.5, { pose: 'reach', ang: -2.82, skin: '#e9c2a0', sleeve: PAL1.ochre, sleeveLen: 640, rim: '#ffd59a', light: [-.3, -1], t, seed: 21, close: .4 });
     if (glow > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, Bx.mouth[0], Bx.mouth[1] - 10, 260, .35 * glow, '#ffb35c', '#fff1d6'); ctx.restore(); }
     if (!under) vignette(ctx, .5);
     return Bx;
@@ -541,9 +554,10 @@ export default (T, R) => {
     ctx.translate(-PG.w / 2, -PG.h / 2);
     for (let i = 0; i < spoken.length; i++) { const w = spoken[i], j = 2 + i, x = lx0 + xs[j], lit = sm(lin(w.s - .06, w.s + .24, t)); if (lit <= 0) continue; const word = line0[j].replace(/[,.]/g, '');
       if (word === 'right') { const fq = sm(lin(w.s + .05, w.s + .4, t)); text(ctx, word, x, PG.PY, { size: FS, font: 'Instrument Serif', color: rgba('#2a2230', lit * (1 - fq)) });
-        if (fq > 0) { ctx.save(); ctx.font = `${FS}px "Instrument Serif"`; const g = ctx.createLinearGradient(x, PG.PY - FS, x + wRight, PG.PY); FOIL.forEach((cc, q) => g.addColorStop(q / (FOIL.length - 1), cc)); ctx.globalAlpha = fq * (1 - sm(lin(K.rightE, K.rightE + .5, t))); ctx.fillStyle = g; ctx.fillText(word, x, PG.PY);
-          const gx = mix(x - 40, x + wRight + 40, lin(w.s + .15, w.s + .6, t)), gg = ctx.createLinearGradient(gx - 30, 0, gx + 30, 0); gg.addColorStop(0, 'rgba(255,240,210,0)'); gg.addColorStop(.5, 'rgba(255,250,235,.9)'); gg.addColorStop(1, 'rgba(255,240,210,0)'); ctx.globalCompositeOperation = 'source-atop'; ctx.fillStyle = gg; ctx.fillRect(x - 10, PG.PY - FS, wRight + 20, FS * 1.3); ctx.restore();
-          ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, x + wRight / 2, PG.PY - FS * .32, 120, .3 * fq, '#ffb35c', '#fff1d6'); ctx.restore(); } }
+        if (fq > 0) { ctx.save(); ctx.font = `${FS}px "Instrument Serif"`; const g = ctx.createLinearGradient(x, PG.PY - FS, x + wRight, PG.PY); ['#4a2008', '#9a561a', '#d08430', '#eaa94e', '#9a561a'].forEach((cc, q) => g.addColorStop(q / 4, cc)); ctx.globalAlpha = fq * (1 - sm(lin(K.rightE, K.rightE + .5, t)));
+          ctx.fillStyle = 'rgba(60,30,10,.55)'; ctx.fillText(word, x + 1.2, PG.PY + 1.8); ctx.fillStyle = g; ctx.fillText(word, x, PG.PY);   // debossed foil: a hairline of shadow under the leaf
+          const gx = mix(x - 40, x + wRight + 40, lin(w.s + .06, w.s + .3, t)), gg = ctx.createLinearGradient(gx - 30, 0, gx + 30, 0); gg.addColorStop(0, 'rgba(255,240,210,0)'); gg.addColorStop(.5, 'rgba(255,250,235,.75)'); gg.addColorStop(1, 'rgba(255,240,210,0)'); ctx.globalCompositeOperation = 'source-atop'; ctx.fillStyle = gg; ctx.fillRect(x - 10, PG.PY - FS, wRight + 20, FS * 1.3); ctx.restore();
+          ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, x + wRight / 2, PG.PY - FS * .32, 120, .16 * fq, '#ffb35c', '#fff1d6'); ctx.restore(); } }
       else text(ctx, line0[j], x, PG.PY, { size: FS, font: 'Instrument Serif', color: rgba('#2a2230', lit) }); }
     ctx.restore();
     // the word stays as a point of light and travels on (carry c02>c03, kind 'light')

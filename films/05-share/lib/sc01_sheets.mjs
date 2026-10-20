@@ -187,7 +187,7 @@ export function plateTake(ctx, t, K) {
     ctx.save(); ctx.translate(mx, my); ctx.scale(mk, mk);
     for (let i = 0; i < Math.min(5, U.rings.length); i++) ghostLine(ctx, U.rings[i], { ghost: 1, col: '#f3efe2', w: 1.5 / mk, a: .75, dot: 6 / mk, u: eio(mapIn), t, glow: null });
     ctx.restore();
-    text(ctx, 'EVERY CHILD IN AMERICA', mx + 20, my + MAP[3] + 46, { size: 18, weight: 600, color: rgba('#f3efe2', .6 * sm(clamp((t - K.every) / .5))), spacing: 6 });
+    text(ctx, 'EVERY CHILD IN AMERICA', mx + MAP[2] - 36, my - 10, { size: 18, weight: 600, color: rgba('#f3efe2', .6 * sm(clamp((t - K.every) / .5))), spacing: 6, align: 'right' });   // above the map: the bottom 170 px stay free for subtitles
   }
   // the one share: slides out from under the card and lands in the middle of the map
   const C1 = certSprite(), one = clamp((t - K.spacex) / .9), centre = [mx + 520 * mk, my + 300 * mk];
@@ -245,8 +245,7 @@ export function sheetName(ctx, t, K) {
   const lift = ul > 0 ? (curl >= 1 ? sm(clamp((t - (K.anth + 1.05)) / .3)) : 0) : (1 - eout(arr)) * .8 + .2 * bump(arr);
   pen(ctx, px + lift * 60, py - lift * 40, .5, { ang: -2.35 + .1 * Math.sin(t * 3), t, lift });
   ctx.restore();
-  // the source (always on screen in the print look)
-  text(ctx, 'ANTHROPIC  ·  “INVESTING IN THE PUBLIC BENEFIT”  ·  18 OCT 2026', 80, H - 54, { size: 16, weight: 600, color: rgba('#f3efe2', .62 * sm(clamp((t - t0 - .3) / .6))), spacing: 4 });
+  // (no separate source line here: the sheet itself carries name, date and title, and a cream line would vanish on the paper)
   motes(ctx, t, 0, 0, W, H, .5, 9);
   vignette(ctx, .5);
 }
@@ -281,16 +280,16 @@ export function rosetteTake(ctx, t, K) {
   text(ctx, 'A SLICE, PLEDGED NOW', tx + 52, ty + 20, { size: 22, weight: 600, color: rgba('#f3efe2', .85 * la), spacing: 5 });
   text(ctx, 'subject to stockholder approval', tx + 52, ty + 52, { size: 21, weight: 400, color: rgba('#f3efe2', .6 * la) });
   const ra = sm(clamp((t - K.climb1 - .1) / .5)) * (1 - glide);
-  text(ctx, '+2 % per +50 % value', 1230, 860, { size: 62, font: 'Instrument Serif', color: rgba('#f3efe2', ra) });
+  text(ctx, '+2 % per +50 % value', 1230, 816, { size: 62, font: 'Instrument Serif', color: rgba('#f3efe2', ra) });
   const ba = sm(clamp((t - K.board + .1) / .5)) * (1 - glide);
-  text(ctx, 'AT THE BOARD’S DISCRETION', 1234, 906, { size: 21, weight: 600, color: rgba('#ffcf8a', .9 * ba), spacing: 5 });
+  text(ctx, 'AT THE BOARD’S DISCRETION', 1234, 860, { size: 21, weight: 600, color: rgba('#ffcf8a', .9 * ba), spacing: 5 });
   // the board's seal lands on "agrees"
   const sp = clamp((t - (K.agrees - .25)) / .3), land = t - K.agrees;
   if (sp > 0) { const sc = land < 0 ? mix(1.8, 1, eio(sp)) : 1 + .08 * Math.exp(-land * 8) * Math.cos(land * 30); const [qx, qy] = res.centre;
     ctx.save(); ctx.globalAlpha = Math.min(1, sp * 2); seal(ctx, qx + 120, qy + 70, 52 * sc, t, { foil: true, label: 'BOARD · BOARD · BOARD · BOARD ·', rot: -.3 }); ctx.restore(); }
   ctx.restore();
   ctx.restore();
-  text(ctx, 'ANTHROPIC  ·  18 OCT 2026', 80, H - 54, { size: 16, weight: 600, color: rgba('#f3efe2', .55 * sm(clamp((t - t0 - .4) / .6)) * (1 - glide)), spacing: 4 });
+  text(ctx, 'ANTHROPIC  ·  18 OCT 2026', 110, 892, { size: 16, weight: 600, color: rgba('#f3efe2', .62 * sm(clamp((t - t0 - .4) / .6)) * (1 - glide)), spacing: 4 });   // just above the subtitle zone
   motes(ctx, t, 0, 0, W, H, .6, 12);
   vignette(ctx);
 }

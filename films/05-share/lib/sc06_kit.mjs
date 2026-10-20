@@ -163,30 +163,50 @@ export function labelCard(ctx, x, y, s, t, o = {}) {
   ctx.strokeStyle = 'rgba(90,70,50,.45)'; ctx.lineWidth = 1.2; path(); ctx.stroke();
   ctx.restore();
 }
-// the dotted idea card: only a ghost engraving (border, a small building outline, a ring of tiny figures), it floats and glows
+// the dotted idea card (4.11): a pale ghost of a card with a border of light dots (as c07's ghost form), a small company
+// building, and a ring of people standing around it; on "owned … citizens" they light up one by one and dotted lines run
+// from each of them to the building. o.lit paper light, o.ring 0..1, o.body content visibility (fades before the handoff).
 export function ideaCard(ctx, x, y, s, t, o = {}) {
-  const w = 230, h = 150, a = o.a ?? 1, lit = clamp(o.lit ?? 0), ring = clamp(o.ring ?? 0);
+  const w = 216, h = 150, a = o.a ?? 1, lit = clamp(o.lit ?? 0), ring = clamp(o.ring ?? 0), body = clamp(o.body ?? 1);
   ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot ?? 0); ctx.scale(s, s); ctx.globalAlpha = a;
-  // faint paper (barely there: an idea)
-  ctx.fillStyle = `rgba(243,236,220,${.2 + .12 * lit})`; ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, 10); ctx.fill(); ctx.fillStyle = `rgba(30,20,30,${.18})`; ctx.beginPath(); ctx.roundRect(-w / 2 + 4, -h / 2 + 4, w - 8, h - 8, 8); ctx.fill();
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; const gg = ctx.createRadialGradient(0, 0, 0, 0, 0, w * .8); gg.addColorStop(0, rgba('#ffb35c', .16 + .2 * lit)); gg.addColorStop(1, 'rgba(255,179,92,0)'); ctx.fillStyle = gg; ctx.fillRect(-w, -h, 2 * w, 2 * h); ctx.restore();
-  const col = '#fff1d6', dot = 5.5 / s;
-  const rect = (x0, y0, ww, hh, rr) => { const P = []; const k = 12; const add = (cx, cy, a0) => { for (let i = 0; i <= k; i++) { const aa = a0 + i / k * Math.PI / 2; P.push([cx + Math.cos(aa) * rr, cy + Math.sin(aa) * rr]); } };
-    add(x0 + ww - rr, y0 + rr, -Math.PI / 2); add(x0 + ww - rr, y0 + hh - rr, 0); add(x0 + rr, y0 + hh - rr, Math.PI / 2); add(x0 + rr, y0 + rr, Math.PI); P.push(P[0]); return P; };
-  ghostLine(ctx, rect(-w / 2, -h / 2, w, h, 10), { ghost: 1, col, w: 1.6 / s, dot, a: .95 });
-  ghostLine(ctx, rect(-w / 2 + 9, -h / 2 + 9, w - 18, h - 18, 6), { ghost: 1, col, w: 1 / s, dot: dot * .8, a: .6 });
-  // a small company building (outline) and the people around it who own part of it
-  const B = [[-26, 22], [-26, -30], [-6, -42], [26, -30], [26, 22]];
-  ghostLine(ctx, [...B, [-26, 22]], { ghost: 1, col, w: 1.3 / s, dot, a: .9 });
-  for (let k = 0; k < 3; k++) ghostLine(ctx, [[-16, -18 + k * 13], [16, -18 + k * 13]], { ghost: 1, col, w: 1 / s, dot: dot * .8, a: .7 });
-  const n = 14;
-  for (let k = 0; k < n; k++) {
-    const aa = Math.PI * (.08 + .84 * k / (n - 1)), px = Math.cos(aa) * 82, py = 34 - Math.sin(aa) * 6 + (k % 2) * 4, on = clamp(ring * 1.6 - k / n * .6);
-    ctx.fillStyle = rgba(on > .1 ? '#ffd59a' : col, .55 + .45 * on); ctx.beginPath(); ctx.arc(px, py - 13, 3.2, 0, TAU); ctx.fill();
-    ctx.beginPath(); ctx.roundRect(px - 3.6, py - 9, 7.2, 12, 3.4); ctx.fill();
-    if (on > .1) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g2 = ctx.createRadialGradient(px, py - 8, 0, px, py - 8, 16); g2.addColorStop(0, rgba('#ffb35c', .45 * on)); g2.addColorStop(1, 'rgba(255,179,92,0)'); ctx.fillStyle = g2; ctx.fillRect(px - 16, py - 24, 32, 32); ctx.restore(); }
+  // paper: barely there, warm from the glow behind it
+  const pg = ctx.createLinearGradient(0, -h / 2, 0, h / 2); pg.addColorStop(0, `rgba(255,238,210,${.2 + .08 * lit})`); pg.addColorStop(1, `rgba(236,214,180,${.12 + .06 * lit})`);
+  ctx.fillStyle = pg; ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, 9); ctx.fill();
+  // border of light dots (outer, inner)
+  const dotRect = (x0, y0, ww, hh, rr, gap, rad, col) => { ctx.fillStyle = col; const per = 2 * (ww + hh - 4 * rr) + TAU * rr, n = Math.round(per / gap);
+    for (let i = 0; i < n; i++) { let d = i / n * per, px, py; const sx = ww - 2 * rr, sy = hh - 2 * rr, q = TAU * rr / 4;
+      if (d < sx) { px = x0 + rr + d; py = y0; } else if ((d -= sx) < q) { const u = d / rr - Math.PI / 2; px = x0 + ww - rr + Math.cos(u) * rr; py = y0 + rr + Math.sin(u) * rr; }
+      else if ((d -= q) < sy) { px = x0 + ww; py = y0 + rr + d; } else if ((d -= sy) < q) { const u = d / rr; px = x0 + ww - rr + Math.cos(u) * rr; py = y0 + hh - rr + Math.sin(u) * rr; }
+      else if ((d -= q) < sx) { px = x0 + ww - rr - d; py = y0 + hh; } else if ((d -= sx) < q) { const u = d / rr + Math.PI / 2; px = x0 + rr + Math.cos(u) * rr; py = y0 + hh - rr + Math.sin(u) * rr; }
+      else if ((d -= q) < sy) { px = x0; py = y0 + hh - rr - d; } else { d -= sy; const u = d / rr + Math.PI; px = x0 + rr + Math.cos(u) * rr; py = y0 + rr + Math.sin(u) * rr; }
+      ctx.beginPath(); ctx.arc(px, py, rad, 0, TAU); ctx.fill(); } };
+  dotRect(-w / 2, -h / 2, w, h, 9, 5.4, 1.05, 'rgba(255,226,176,.95)');
+  if (body > 0) {
+    ctx.globalAlpha = a * body;
+    dotRect(-w / 2 + 8, -h / 2 + 8, w - 16, h - 16, 6, 5, .62, 'rgba(255,226,176,.45)');
+    // the people standing in a ring around the company (ellipse seen from slightly above); back half first
+    const n = 12, cy = 26, rx = 74, ry = 19, P = [];
+    for (let k = 0; k < n; k++) { const th = k / n * TAU + .26; P.push({ k, x: Math.cos(th) * rx, y: cy + Math.sin(th) * ry, back: Math.sin(th) < 0, ord: ((k + 3) % n) / n }); }
+    const fig = (F) => { const f = F.back ? .8 : 1, on = clamp(ring * 1.7 - F.ord * .7), px = F.x, py = F.y;
+      if (on > .05) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(px, py - 10 * f, 0, px, py - 10 * f, 13); g.addColorStop(0, rgba('#ffb35c', .38 * on)); g.addColorStop(1, 'rgba(255,179,92,0)'); ctx.fillStyle = g; ctx.fillRect(px - 13, py - 23 * f, 26, 26); ctx.restore(); }
+      ctx.fillStyle = on > .05 ? `rgba(255,${mix(236, 206, on) | 0},${mix(214, 140, on) | 0},${.62 + .36 * on})` : `rgba(255,236,214,${F.back ? .42 : .6})`;
+      ctx.beginPath(); ctx.arc(px, py - 16.5 * f, 3.3 * f, 0, TAU); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(px - 4.8 * f, py); ctx.lineTo(px - 4.8 * f, py - 7.5 * f); ctx.quadraticCurveTo(px - 4.8 * f, py - 12 * f, px, py - 12 * f); ctx.quadraticCurveTo(px + 4.8 * f, py - 12 * f, px + 4.8 * f, py - 7.5 * f); ctx.lineTo(px + 4.8 * f, py); ctx.closePath(); ctx.fill(); };
+    // the plaza they stand on
+    ctx.fillStyle = 'rgba(255,226,176,.07)'; ctx.beginPath(); ctx.ellipse(0, cy, rx + 12, ry + 6, 0, 0, TAU); ctx.fill();
+    for (const F of P) if (F.back) fig(F);
+    // the company: a small block with a stepped top and windows
+    const bw = 19, bt = -36;
+    ctx.fillStyle = `rgba(255,232,196,${.1 + .16 * ring})`; ctx.fillRect(-bw, bt, 2 * bw, cy - bt); ctx.fillRect(-11, bt - 8, 22, 8);
+    ctx.strokeStyle = 'rgba(255,236,206,.9)'; ctx.lineWidth = 1.7; ctx.lineJoin = 'round';
+    ctx.beginPath(); ctx.moveTo(-bw, cy); ctx.lineTo(-bw, bt); ctx.lineTo(-11, bt); ctx.lineTo(-11, bt - 8); ctx.lineTo(11, bt - 8); ctx.lineTo(11, bt); ctx.lineTo(bw, bt); ctx.lineTo(bw, cy); ctx.stroke();
+    ctx.fillStyle = `rgba(255,${mix(236, 214, ring) | 0},${mix(206, 150, ring) | 0},${.5 + .4 * ring})`;
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) ctx.fillRect(-13 + c * 10, bt + 7 + r * 13, 6, 7);
+    // dotted lines from each person to the building
+    if (ring > 0) { ctx.fillStyle = 'rgba(255,214,150,.85)';
+      for (const F of P) { const u = clamp(ring * 1.7 - F.ord * .7 - .1); if (u <= 0) continue; const x0 = F.x, y0 = F.y - 9 * (F.back ? .8 : 1), x1 = Math.sign(F.x) * bw * .95, y1 = mix(y0, -2, .5), L = Math.hypot(x1 - x0, y1 - y0), m = Math.max(2, Math.round(L / 4.5));
+        for (let i = 1; i < m * u; i++) { ctx.beginPath(); ctx.arc(mix(x0, x1, i / m), mix(y0, y1, i / m), .7, 0, TAU); ctx.fill(); } } }
+    for (const F of P) if (!F.back) fig(F);
   }
-  // dotted lines from the people to the building: "partly owned by all its citizens"
-  if (ring > 0) for (let k = 0; k < n; k += 2) { const aa = Math.PI * (.08 + .84 * k / (n - 1)), px = Math.cos(aa) * 82, py = 34 - Math.sin(aa) * 6 - 14; ghostLine(ctx, [[px, py], [px * .3, mix(py, 0, .7)]], { ghost: 1, col: '#ffd59a', w: .9 / s, dot: dot * .7, a: .7 * ring, u: clamp(ring * 1.4 - k / n * .4) }); }
   ctx.restore();
 }

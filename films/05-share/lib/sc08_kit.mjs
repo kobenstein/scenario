@@ -264,7 +264,7 @@ export function cityCheer(ctx, t, t0, cx, cy, k, a = 1) {   // k = city px → s
 export const MAPV = { K: 640, cx: -.62, cy: .64, sy: .94 };       // view: Equal Earth units at screen centre, px per unit
 const MPAD = 900, MW = W + MPAD * 2, MH = H + MPAD * 2;
 export function mapXY(lon, lat) { const [ex, ey] = ll(lon, lat); return [W / 2 + (ex - MAPV.cx) * MAPV.K, H / 2 - (ey - MAPV.cy) * MAPV.K * MAPV.sy]; }
-function usaRings() { const c = country('USA', '110m'); return c.polys.filter((p) => p[0][0][0] > -130 && p[0][0][1] < 50).map((p) => p[0]); }
+function usaRings(all = false) { const c = country('USA', '110m'); return c.polys.filter((p) => all ? (p[0][0][0] < 0 && !(p[0][0][1] < 25 && p[0][0][0] < -150)) : (p[0][0][0] > -130 && p[0][0][1] < 50)).map((p) => p[0]); }   // all: with Alaska (the amber layer)
 export function usaBorder() { return once('usaBorder', () => { const R = usaRings().sort((a, b) => b.length - a.length)[0]; const pts = R.map(([lon, lat]) => mapXY(lon, lat)); pts.push(pts[0]); return pts; }); }
 export function nightMap() {
   return once('nightMap', () => {
@@ -301,12 +301,12 @@ function bordersPath() {
 export function usaLayer() {
   return once('usaLayer', () => {
     const [c, g] = canvas(MW, MH); g.translate(MPAD, MPAD);
-    const P = new Path2D(); for (const R of usaRings()) { R.forEach(([lon, lat], k) => { const [x, y] = mapXY(lon, lat); k ? P.lineTo(x, y) : P.moveTo(x, y); }); P.closePath(); }
-    g.save(); g.clip(P); g.fillStyle = 'rgba(255,150,60,.16)'; g.fillRect(-MPAD, -MPAD, MW, MH);
-    g.strokeStyle = 'rgba(255,190,110,.8)'; g.lineWidth = 1.05;
-    for (let y = 0; y < H; y += 3.4) { g.beginPath(); for (let x = 0; x <= W; x += 30) { const yy = y + .8 * Math.sin(x * .03 + y * .1); x === 0 ? g.moveTo(x, yy) : g.lineTo(x, yy); } g.stroke(); }
+    const P = new Path2D(); for (const R of usaRings(true)) { R.forEach(([lon, lat], k) => { const [x, y] = mapXY(lon, lat); k ? P.lineTo(x, y) : P.moveTo(x, y); }); P.closePath(); }
+    g.save(); g.clip(P); g.fillStyle = 'rgba(255,150,60,.2)'; g.fillRect(-MPAD, -MPAD, MW, MH);
+    g.strokeStyle = 'rgba(255,190,110,.62)'; g.lineWidth = 1.1;
+    for (let y = 0; y < H; y += 4.2) { g.beginPath(); for (let x = 0; x <= W; x += 30) { const yy = y + .6 * Math.sin(x * .02 + y * .05); x === 0 ? g.moveTo(x, yy) : g.lineTo(x, yy); } g.stroke(); }
     g.restore();
-    const [gc, gg] = canvas(MW, MH); gg.translate(MPAD, MPAD); gg.filter = 'blur(26px)'; gg.fillStyle = 'rgba(255,150,60,.5)'; gg.fill(P); gg.filter = 'none'; gg.setTransform(1, 0, 0, 1, 0, 0); stipple(gc, { k: .8, g: 1.2, seed: 4 });
+    const [gc, gg] = canvas(MW, MH); gg.translate(MPAD, MPAD); gg.filter = 'blur(26px)'; gg.fillStyle = 'rgba(255,150,60,.5)'; gg.fill(P); gg.filter = 'none'; gg.setTransform(1, 0, 0, 1, 0, 0); stipple(gc, { k: .3, g: 1.2, seed: 4 });
     const [out, og] = canvas(MW, MH); og.globalCompositeOperation = 'lighter'; og.drawImage(gc, 0, 0); og.drawImage(c, 0, 0);
     return out;
   });

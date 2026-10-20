@@ -1,14 +1,16 @@
 // C3 helpers (shots 1.02–2.08): the burin (hand + graver + chip + foil dust), engraved deeds, the public-fund box, the bill,
 // legal file stacks, a mini share certificate and cached plates. Owner C3. Pure draw functions, cached static parts.
 //   burin(ctx, x, y, ang, s, t, o)   x,y = the cutting point (tip) on screen; ang = direction the shaft points (hand → tip);
-//                                    s = scale (1 → graver ~240 px); o: { lift 0..1 (tip off the plate), cut 0..1 (cutting: chip + dust),
-//                                    sleeve, skin, rim, a, light (bool: tip light), flip }
+//                                    s = scale (1 → wrist to tip ~345 px); o: { lift 0..1 (tip off the plate), cut 0..1 (cutting: chip + dust),
+//                                    sleeve, skin, rim, a, glow 0..1 (tip light on knuckles and fingertips) }
+//   fadedHand(ctx, x, y, s, o)       lib/hand.mjs hand whose sleeve folds and dissolves ~250 px behind the wrist (scratch layer + destination-out)
 //   deed(ctx, kind, x, y, s, rot, o)  'house' | 'book' | 'share' engraved documents lying on the plate (cached), o: { shadow, a, lift }
 //   fundBox(ctx, x, y, s, t, o)      the public fund (an engraved strongbox, open, label PUBLIC FUND); o: { fill 0..1 (stack inside), glow }
 //   miniCert(ctx, x, y, s, rot, o)   a small share certificate (cached), o: { a, col (accent of the rosette), ghost }
 //   billSheet(ctx, x, y, s, rot, t, o) the bill (own typography, § A BILL), o: { turn 0..1 (top page turns), hi 0..1 (paragraph lit) }
 //   fileStack(ctx, x, y, s, h, t, o) a stack of legal files growing to h folders
-import { W, H, rgba, clamp, mix, prng, canvas, lin, eout, sm, text } from '../engine.mjs';
+import { Path2D } from '@napi-rs/canvas';
+import { W, H, rgba, clamp, mix, prng, canvas, lin, eout, sm, text, hatch } from '../engine.mjs';
 import { hand } from './hand.mjs';
 import { rosette, gBorder, microtext, intaglio, guilloche } from './certificate.mjs';
 import { fibreFill } from './print.mjs';
@@ -18,54 +20,129 @@ const TAU = Math.PI * 2;
 const CACHE = new Map(); export const once = (k, f) => { if (!CACHE.has(k)) CACHE.set(k, f()); return CACHE.get(k); };
 export const INK = '#1f2a3a', CREAM = '#f3efe2', PAPER = '#efe6cf', AMBER = '#ffb35c', CORE = '#fff1d6', RUST = '#c4512e';
 
-// ---------- the burin ----------
+// ---------- the burin: an engraver's right hand seen from above (index finger along the shaft, thumb at its side,
+// the other fingers curled), a short tool close to the plate, a short sleeve that dissolves into the dark ----------
+// local units: the tool's tip at (0,0), +u toward the tip, the hand behind (−u), the thumb on −v. cap() is copied from lib/hand.mjs.
 function burinTool() {
-  return once('burintool', () => {
-    // local: tip at (300, 60) of a 320×120 canvas, shaft toward −x, handle at the left
-    const [c, g] = canvas(330, 120), ty = 60;
-    // wooden mushroom handle (in the palm)
-    const hg = g.createLinearGradient(0, ty - 30, 0, ty + 30); hg.addColorStop(0, '#c08a55'); hg.addColorStop(.45, '#8a5530'); hg.addColorStop(1, '#3a2014');
-    g.fillStyle = hg; g.beginPath(); g.ellipse(36, ty, 34, 30, 0, Math.PI * .5, Math.PI * 1.5); g.lineTo(70, ty - 16); g.quadraticCurveTo(84, ty - 13, 92, ty - 9); g.lineTo(92, ty + 9); g.quadraticCurveTo(84, ty + 13, 70, ty + 16); g.closePath(); g.fill();
-    g.strokeStyle = 'rgba(255,220,170,.35)'; g.lineWidth = 1.2; g.beginPath(); g.ellipse(36, ty, 30, 26, 0, Math.PI * .62, Math.PI * 1.3); g.stroke();
-    // ferrule
-    const fg = g.createLinearGradient(0, ty - 9, 0, ty + 9); fg.addColorStop(0, '#e8d3a0'); fg.addColorStop(.5, '#9a7a40'); fg.addColorStop(1, '#4a3418');
-    g.fillStyle = fg; g.fillRect(90, ty - 9, 14, 18);
-    // steel shaft, square section (two faces), tapering to the lozenge face at the tip
-    const sg = g.createLinearGradient(0, ty - 6, 0, ty + 6); sg.addColorStop(0, '#eef2f8'); sg.addColorStop(.42, '#98a2b3'); sg.addColorStop(.55, '#59616f'); sg.addColorStop(1, '#232833');
-    g.fillStyle = sg; g.beginPath(); g.moveTo(104, ty - 6); g.lineTo(270, ty - 4); g.lineTo(300, ty); g.lineTo(270, ty + 4); g.lineTo(104, ty + 6); g.closePath(); g.fill();
-    g.strokeStyle = 'rgba(255,255,255,.75)'; g.lineWidth = .8; g.beginPath(); g.moveTo(106, ty - 4.5); g.lineTo(268, ty - 3); g.stroke();
-    // the polished cut face
-    g.fillStyle = '#f6f8fc'; g.beginPath(); g.moveTo(272, ty - 3.6); g.lineTo(300, ty); g.lineTo(276, ty + 1); g.closePath(); g.fill();
+  return once('burintool2', () => {
+    // tip at (250, 50) of a 262×100 canvas, shaft toward −x, the mushroom handle at the left (it sits in the palm)
+    const [c, g] = canvas(262, 100), ty = 50;
+    const hg = g.createLinearGradient(0, ty - 26, 0, ty + 26); hg.addColorStop(0, '#c08a55'); hg.addColorStop(.45, '#8a5530'); hg.addColorStop(1, '#3a2014');
+    g.fillStyle = hg; g.beginPath(); g.ellipse(30, ty, 28, 25, 0, Math.PI * .5, Math.PI * 1.5); g.lineTo(60, ty - 13); g.quadraticCurveTo(72, ty - 11, 80, ty - 8); g.lineTo(80, ty + 8); g.quadraticCurveTo(72, ty + 11, 60, ty + 13); g.closePath(); g.fill();
+    const fg = g.createLinearGradient(0, ty - 8, 0, ty + 8); fg.addColorStop(0, '#e8d3a0'); fg.addColorStop(.5, '#9a7a40'); fg.addColorStop(1, '#4a3418');
+    g.fillStyle = fg; g.fillRect(78, ty - 8, 12, 16);
+    const sg = g.createLinearGradient(0, ty - 5.5, 0, ty + 5.5); sg.addColorStop(0, '#eef2f8'); sg.addColorStop(.42, '#98a2b3'); sg.addColorStop(.55, '#59616f'); sg.addColorStop(1, '#232833');
+    g.fillStyle = sg; g.beginPath(); g.moveTo(90, ty - 5.5); g.lineTo(224, ty - 3.8); g.lineTo(250, ty); g.lineTo(224, ty + 3.8); g.lineTo(90, ty + 5.5); g.closePath(); g.fill();
+    g.strokeStyle = 'rgba(255,255,255,.75)'; g.lineWidth = .8; g.beginPath(); g.moveTo(92, ty - 4.2); g.lineTo(222, ty - 2.8); g.stroke();
+    g.fillStyle = '#f6f8fc'; g.beginPath(); g.moveTo(226, ty - 3.3); g.lineTo(250, ty); g.lineTo(229, ty + 1); g.closePath(); g.fill();
     return c;
   });
 }
+function cap(p, x1, y1, r1, x2, y2, r2) {
+  const a = Math.atan2(y2 - y1, x2 - x1), d = Math.hypot(x2 - x1, y2 - y1), k = Math.asin(Math.max(-1, Math.min(1, (r1 - r2) / (d || 1))));
+  p.moveTo(x1 + Math.cos(a + Math.PI / 2 + k) * r1, y1 + Math.sin(a + Math.PI / 2 + k) * r1);
+  p.arc(x1, y1, r1, a + Math.PI / 2 + k, a + 3 * Math.PI / 2 - k);
+  p.arc(x2, y2, r2, a - Math.PI / 2 - k, a + Math.PI / 2 + k);
+  p.closePath();
+}
+function smoothClosed(p, P) {
+  const n = P.length; p.moveTo(P[0][0], P[0][1]);
+  for (let i = 0; i < n; i++) { const p0 = P[(i - 1 + n) % n], p1 = P[i], p2 = P[(i + 1) % n], p3 = P[(i + 2) % n];
+    p.bezierCurveTo(p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6, p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6, p2[0], p2[1]); }
+  p.closePath();
+}
+function handGeo(t) {
+  const pr = Math.sin(t * 2.1) * .5 + .5, br = Math.sin(t * 1.3 + .7);   // pressure pulse on the shaft, breathing of the curled fingers
+  return {
+    IDX: [[-200, 5, 13.5], [-141, 2, 11.8], [-104 + pr * 1.5, .5, 10.6], [-75 + pr * 2, 0, 9.4]],
+    CURL: [[[-208, 28, 13.2], [-163, 35 + br * .6, 12.2], [-176, 45, 10.4]], [[-215, 50, 12.2], [-176, 59 + br * .6, 11.2], [-189, 67, 9.4]], [[-224, 69, 10.8], [-194, 79 + br * .5, 9.6], [-203, 86, 8.4]]],
+    TH: [[-292, -14, 17], [-212, -32, 13.6], [-156, -27, 11.6], [-116 + pr * 1.2, -16, 10]],
+    BACK: [[-196, -7], [-206, 30], [-214, 82], [-262, 90], [-318, 80], [-352, 70], [-358, 28], [-350, -10], [-306, -30], [-246, -22]],
+  };
+}
+function engraverHand(g, t, o) {
+  const G = handGeo(t), skin = o.skin || '#a8734f', rim = o.rim || '#ffd59a', gl = clamp(o.glow ?? 1);
+  const S = new Path2D(); smoothClosed(S, G.BACK);
+  const chain = (P) => { for (let i = 0; i < P.length - 1; i++) cap(S, P[i][0], P[i][1], P[i][2], P[i + 1][0], P[i + 1][1], P[i + 1][2]); };
+  chain(G.TH); for (const f of G.CURL) chain(f); chain(G.IDX);
+  // rim: the silhouette shifted toward the tip light; strongest on the fingertips and knuckles that face the tip
+  const rg = g.createRadialGradient(0, 0, 50, 0, 0, 400); rg.addColorStop(0, rgba(rim, gl)); rg.addColorStop(.4, rgba(rim, .55 * gl)); rg.addColorStop(1, rgba(rim, .06));
+  g.save(); g.translate(3, -.4); g.fillStyle = rg; g.fill(S); g.restore();
+  g.save(); g.translate(-1.6, 1.8); g.fillStyle = 'rgba(8,5,14,.55)'; g.fill(S); g.restore();   // dark edge on the far side
+  g.fillStyle = skin; g.fill(S);
+  g.save(); g.clip(S);
+  // warm light from the tip, the wrist half falls into the dark
+  const wl = g.createRadialGradient(0, 0, 40, 0, 0, 330); wl.addColorStop(0, `rgba(255,196,130,${.5 * gl})`); wl.addColorStop(.5, `rgba(255,168,96,${.14 * gl})`); wl.addColorStop(1, 'rgba(255,168,96,0)'); g.fillStyle = wl; g.fillRect(-420, -130, 440, 260);
+  const dk = g.createLinearGradient(-175, 0, -365, 0); dk.addColorStop(0, 'rgba(10,6,18,0)'); dk.addColorStop(1, 'rgba(10,6,18,.66)'); g.fillStyle = dk; g.fillRect(-420, -130, 440, 260);
+  const sv = g.createLinearGradient(0, -40, 0, 95); sv.addColorStop(0, 'rgba(10,6,18,.28)'); sv.addColorStop(.3, 'rgba(10,6,18,0)'); sv.addColorStop(.75, 'rgba(10,6,18,0)'); sv.addColorStop(1, 'rgba(10,6,18,.3)'); g.fillStyle = sv; g.fillRect(-420, -130, 440, 260);
+  g.lineCap = 'round';
+  // round volume: a soft ridge light along each finger, separations between the curled fingers
+  const ridge = (P, a0) => { g.strokeStyle = `rgba(255,226,190,${a0})`; g.lineWidth = 5; g.beginPath(); g.moveTo(P[0][0], P[0][1] - P[0][2] * .3); for (let i = 1; i < P.length; i++) g.lineTo(P[i][0], P[i][1] - P[i][2] * .3); g.stroke(); };
+  ridge(G.IDX, .16 + .1 * gl); ridge(G.TH.slice(1), .1 + .08 * gl); for (const f of G.CURL) ridge(f.slice(0, 2), .1 + .06 * gl);
+  g.strokeStyle = 'rgba(46,18,16,.5)'; g.lineWidth = 1.6;
+  for (let i = 0; i < 2; i++) { const a = G.CURL[i], b = G.CURL[i + 1]; g.beginPath(); g.moveTo((a[0][0] + b[0][0]) / 2 - 4, (a[0][1] + b[0][1]) / 2); g.quadraticCurveTo((a[1][0] + b[1][0]) / 2 - 10, (a[1][1] + b[1][1]) / 2 - 2, (a[1][0] + b[1][0]) / 2 + 2, (a[1][1] + b[1][1]) / 2 + 1); g.stroke(); }
+  // knuckle creases (index PIP and DIP across the finger, small folds on the curled PIPs)
+  g.strokeStyle = 'rgba(70,30,24,.38)'; g.lineWidth = 1.1;
+  for (const [u, v, h] of [[G.IDX[1][0], G.IDX[1][1], 8], [G.IDX[1][0] - 5, G.IDX[1][1], 6.5], [G.IDX[2][0], G.IDX[2][1], 6.5]]) { g.beginPath(); g.moveTo(u + 1, v - h); g.quadraticCurveTo(u - 3, v, u + 1, v + h); g.stroke(); }
+  for (const f of G.CURL) { const [u, v, r] = f[1]; g.beginPath(); g.arc(u + 2, v, r * .55, -1.1, 1.1); g.stroke(); }
+  // tendons on the back of the hand (faint light ridges toward the wrist)
+  g.strokeStyle = 'rgba(255,224,190,.07)'; g.lineWidth = 4;
+  for (const [u, v] of [[-212, 6], [-220, 28], [-226, 49], [-233, 67]]) { g.beginPath(); g.moveTo(u, v); g.quadraticCurveTo(u - 60, v * .7 + 10, -335, 18 + v * .4); g.stroke(); }
+  // engraved hatching on the shadow half (the film's print language)
+  hatch(g, null, -.9, 3.6, .3, { box: [-380, -60, 240, 170], fade: [-365, 0, -215, 0], col: '#140a14', w: .8, wobble: .4 });
+  g.restore();
+  // nails: index (seen from above) and the thumb's edge
+  g.save(); g.translate(G.IDX[3][0] - 8, G.IDX[3][1]); g.fillStyle = 'rgba(255,214,192,.42)'; g.beginPath(); g.ellipse(0, 0, 9.5, 6.2, 0, 0, TAU); g.fill();
+  g.strokeStyle = 'rgba(90,40,30,.4)'; g.lineWidth = 1; g.beginPath(); g.ellipse(0, 0, 9.5, 6.2, 0, Math.PI * .6, Math.PI * 1.4); g.stroke(); g.restore();
+  g.save(); g.translate(G.TH[3][0] - 7, G.TH[3][1] - 5); g.rotate(.27); g.fillStyle = 'rgba(255,214,192,.36)'; g.beginPath(); g.ellipse(0, 0, 8, 3.6, 0, 0, TAU); g.fill(); g.restore();
+  // the tip's glow on what faces it: fingertips, thumb tip, the curled knuckles, the knuckle row
+  g.save(); g.globalCompositeOperation = 'lighter';
+  const spot = (u, v, r, a0) => { if (a0 <= .005) return; const q = g.createRadialGradient(u, v, 0, u, v, r); q.addColorStop(0, `rgba(255,190,118,${a0})`); q.addColorStop(1, 'rgba(255,190,118,0)'); g.fillStyle = q; g.fillRect(u - r, v - r, r * 2, r * 2); };
+  spot(G.IDX[3][0] + 2, G.IDX[3][1], 26, .5 * gl); spot(G.TH[3][0] + 3, G.TH[3][1], 22, .36 * gl);
+  G.CURL.forEach((f, i) => spot(f[1][0] + f[1][2] * .6, f[1][1], 17, (.28 - i * .07) * gl));
+  [G.IDX[0], ...G.CURL.map((f) => f[0])].forEach((p, i) => spot(p[0] + p[2] * .5, p[1], 15, (.16 - i * .03) * gl));
+  g.restore();
+}
+function sleeveShort(g, t, o) {
+  const col = o.sleeve || '#3a2a3a', rim = o.rim || '#ffd59a', gl = clamp(o.glow ?? 1), top = (u) => -18 + (u + 342) * .07, bot = (u) => 82 - (u + 342) * .07;
+  const P = new Path2D(); P.moveTo(-344, -18); P.quadraticCurveTo(-326, 32, -342, 82); P.lineTo(-700, bot(-700)); P.lineTo(-700, top(-700)); P.closePath();
+  g.save(); g.fillStyle = col; g.fill(P); g.clip(P);
+  const sv = g.createLinearGradient(0, -40, 0, 110); sv.addColorStop(0, 'rgba(255,232,205,.12)'); sv.addColorStop(.32, 'rgba(255,232,205,0)'); sv.addColorStop(1, 'rgba(4,3,10,.5)'); g.fillStyle = sv; g.fillRect(-720, -60, 400, 190);
+  const su = g.createLinearGradient(-345, 0, -560, 0); su.addColorStop(0, 'rgba(4,3,10,0)'); su.addColorStop(1, 'rgba(4,3,10,.8)'); g.fillStyle = su; g.fillRect(-720, -60, 400, 190);
+  // soft folds across the sleeve (they breathe a little)
+  g.lineCap = 'round';
+  [[-372, 1], [-402, .8], [-440, .6], [-488, .4], [-540, .25]].forEach(([u0, w0], i) => { const b = 10 + 4 * Math.sin(t * .9 + i * 1.7), y0 = top(u0) + 6, y1 = bot(u0) - 6;
+    g.strokeStyle = `rgba(0,0,0,${.4 * w0})`; g.lineWidth = 5; g.beginPath(); g.moveTo(u0, y0); g.quadraticCurveTo(u0 + b, (y0 + y1) / 2, u0 + 3, y1); g.stroke();
+    g.strokeStyle = `rgba(255,232,205,${.12 * w0})`; g.lineWidth = 1.6; g.beginPath(); g.moveTo(u0 + 5, y0 + 2); g.quadraticCurveTo(u0 + b + 5, (y0 + y1) / 2, u0 + 8, y1 - 2); g.stroke(); });
+  g.restore();
+  // the cuff edge catches the tip light
+  g.save(); g.strokeStyle = rgba(rim, .42 * gl); g.lineWidth = 2.4; g.lineCap = 'round'; g.beginPath(); g.moveTo(-343, -16); g.quadraticCurveTo(-325, 32, -341, 80); g.stroke(); g.restore();
+}
+const OW = 1100, OH = 420, OX = 1060, OY = 150; let OFF = null;
 export function burin(ctx, x, y, ang, s, t, o = {}) {
-  const a = o.a ?? 1; if (a <= 0) return;
+  const a = o.a ?? 1; if (a <= 0) return null;
   const lift = clamp(o.lift ?? 0), cut = clamp(o.cut ?? 0), r = prng(31);
-  const dx = Math.cos(ang), dy = Math.sin(ang), L = 300 * s;
+  const dx = Math.cos(ang), dy = Math.sin(ang);
   // the tool lifts toward the viewer: tip moves back along the shaft and up a little
   const tx = x - dx * lift * 26 * s, ty = y - dy * lift * 26 * s - lift * 34 * s;
-  ctx.save(); ctx.globalAlpha = a;
-  // contact shadow of the shaft on the plate (soft), offset away from the tip light
-  // (no live blur: three widening soft bands make the penumbra)
-  ctx.save(); ctx.translate(tx + 10 * s, ty + 16 * s + lift * 30 * s); ctx.rotate(ang); const sa = .45 * (1 - lift * .6);
-  for (const [hw, al] of [[14, .22], [9, .32], [5, .5]]) { ctx.fillStyle = `rgba(0,0,0,${sa * al})`; ctx.beginPath(); ctx.roundRect(-L, -hw * s, L - 6 * s, hw * 2 * s, hw * s); ctx.fill(); }
+  // soft shadow of hand and tool on the plate, cast away from the tip light (no live blur: gradients)
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(tx, ty); ctx.rotate(ang); ctx.scale(s, s); const sa = .5 * (1 - lift * .5);
+  ctx.save(); ctx.translate(-270 - lift * 24, 40 + lift * 34); ctx.scale(1, .34); const sg = ctx.createRadialGradient(0, 0, 0, 0, 0, 250); sg.addColorStop(0, `rgba(0,0,0,${sa})`); sg.addColorStop(.6, `rgba(0,0,0,${sa * .4})`); sg.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = sg; ctx.fillRect(-250, -250, 500, 500); ctx.restore();
+  for (const [hw, al] of [[6, .22], [3.4, .38]]) { ctx.fillStyle = `rgba(0,0,0,${sa * al})`; ctx.beginPath(); ctx.roundRect(-92, 6 + lift * 24 - hw, 88, hw * 2, hw); ctx.fill(); }
   ctx.restore();
-  // the hand behind the tool: wrist back along the shaft, fingers wrap the handle
-  const wx = tx - dx * 268 * s, wy = ty - dy * 268 * s;
-  hand(ctx, wx, wy, s * 1.32, { pose: 'grip', ang, flip: o.flip, skin: o.skin || '#b98261', sleeve: o.sleeve || '#5a3a26', rim: o.rim || '#ffd59a', light: [dx, dy], t, seed: 4, close: .15, sleeveLen: o.sleeveLen ?? 300 });
-  // the tool on top (the shaft runs out between thumb and index)
-  const T = burinTool(); ctx.save(); ctx.translate(tx, ty); ctx.rotate(ang); ctx.scale(s, s); ctx.drawImage(T, -300, -60); ctx.restore();
-  // the index finger lying along the shaft (a capsule on top), rim lit
-  ctx.save(); ctx.translate(tx, ty); ctx.rotate(ang); ctx.scale(s, s);
-  const fx0 = -205, fx1 = -128; ctx.fillStyle = o.rim || '#ffd59a'; ctx.beginPath(); ctx.roundRect(fx0, -17, fx1 - fx0 + 2, 15, 7.5); ctx.fill();
-  ctx.fillStyle = o.skin || '#b98261'; ctx.beginPath(); ctx.roundRect(fx0, -15.5, fx1 - fx0, 14, 7); ctx.fill();
-  ctx.fillStyle = 'rgba(30,14,10,.35)'; ctx.beginPath(); ctx.roundRect(fx0, -6, fx1 - fx0, 4.5, 2); ctx.fill();
-  ctx.fillStyle = 'rgba(255,230,200,.5)'; ctx.beginPath(); ctx.ellipse(fx1 - 6, -11, 4.5, 3, 0, 0, TAU); ctx.fill();   // nail
-  ctx.restore();
+  // hand, tool and sleeve in a scratch layer, so the sleeve can dissolve (destination-out) instead of running off as a tube
+  if (!OFF) OFF = canvas(OW, OH); const [oc, g] = OFF;
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; g.clearRect(0, 0, OW, OH);
+  g.translate(OX, OY); g.scale(s, s);
+  g.drawImage(burinTool(), -250, -50);
+  engraverHand(g, t, o);
+  sleeveShort(g, t, o);
+  g.globalCompositeOperation = 'destination-out'; const fo = g.createLinearGradient(-420, 0, -560, 0); fo.addColorStop(0, 'rgba(0,0,0,0)'); fo.addColorStop(1, 'rgba(0,0,0,1)'); g.fillStyle = fo; g.fillRect(-OX / s, -OY / s, OW / s, OH / s);
+  g.globalCompositeOperation = 'source-over'; g.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(tx, ty); ctx.rotate(ang); ctx.drawImage(oc, -OX, -OY); ctx.restore();
   // cutting: the curl of metal chip rising behind the tip + foil dust + a hot contact glint
   if (cut > 0 && lift < .5) {
-    const k = cut * (1 - lift * 2), S = 16 * s;
+    const k = cut * (1 - lift * 2) * a, S = 13 * s;
     ctx.save(); ctx.globalCompositeOperation = 'lighter';
     const gl = ctx.createRadialGradient(x, y, 0, x, y, S * 3.2); gl.addColorStop(0, rgba(CORE, .95 * k)); gl.addColorStop(.25, rgba(AMBER, .5 * k)); gl.addColorStop(1, rgba(AMBER, 0)); ctx.fillStyle = gl; ctx.fillRect(x - S * 3.2, y - S * 3.2, S * 6.4, S * 6.4);
     for (let i = 0; i < 34; i++) { const life = (t * (.8 + r() * .9) + r()) % 1, sp = (r() - .5) * 1.9, dist = S * (.4 + life * (1.6 + r() * 2.8));
@@ -74,8 +151,32 @@ export function burin(ctx, x, y, ang, s, t, o = {}) {
     ctx.save(); ctx.translate(x, y); ctx.rotate(ang + Math.PI); ctx.strokeStyle = rgba('#ffe2a8', .9 * k); ctx.lineWidth = Math.max(.8, S * .09); ctx.lineCap = 'round';
     const wob = Math.sin(t * 7) * .12; ctx.beginPath(); ctx.moveTo(S * .2, 0); ctx.bezierCurveTo(S * .9, -S * (.1 + wob), S * 1.25, -S * .85, S * .8, -S * 1.1); ctx.bezierCurveTo(S * .38, -S * 1.3, S * .22, -S * .8, S * .58, -S * .66); ctx.stroke(); ctx.restore();
   }
-  ctx.restore();
-  return { tip: [tx, ty], wrist: [wx, wy] };
+  const wu = -345, wv = 30;
+  return { tip: [tx, ty], wrist: [tx + (wu * dx - wv * dy) * s, ty + (wu * dy + wv * dx) * s] };
+}
+
+// ---------- a hand from lib/hand.mjs whose sleeve ends in soft folds and dissolves into the dark (~250 px behind the wrist) ----------
+//   fadedHand(ctx, x, y, s, o)  same arguments as hand(); o.fade0 / o.fade1 = start / end of the dissolve behind the wrist (hand units),
+//   o.res = extra resolution when the caller draws under a zoom (the scratch layer is rendered at s·res and composited at 1/res)
+const HW = 760, HH = 440, HX = 390, HY = 220; let HOFF = null;
+export function fadedHand(ctx, x, y, s, o = {}) {
+  if (!HOFF) HOFF = canvas(HW, HH); const [hc, g] = HOFF, ang = o.ang ?? 0, f = o.flip ? -1 : 1, res = o.res ?? 1, sr = s * res;
+  const L = o.light || [.3, -1], c = Math.cos(-ang), sn = Math.sin(-ang), light = [L[0] * c - L[1] * sn, L[0] * sn + L[1] * c];
+  const fade0 = o.fade0 ?? 95, fade1 = o.fade1 ?? 160, t = o.t ?? 0;
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; g.clearRect(0, 0, HW, HH);
+  hand(g, HX, HY, sr, { ...o, ang: 0, light, sleeveLen: fade1 + 30 });
+  // soft folds on the sleeve behind the cuff, sinking into the dark
+  g.save(); g.translate(HX, HY); g.scale(sr, sr * f); g.beginPath(); g.rect(-fade1 - 30, -27, fade1 + 16, 54); g.clip();
+  g.lineCap = 'round';
+  [[-30, 1], [-52, .85], [-80, .65], [-112, .45], [-146, .3]].forEach(([u0, w0], i) => { const b = 7 + 3 * Math.sin(t * .8 + i * 1.9 + (o.seed || 0));
+    g.strokeStyle = `rgba(0,0,0,${.34 * w0})`; g.lineWidth = 3.6; g.beginPath(); g.moveTo(u0, -27); g.quadraticCurveTo(u0 + b, 0, u0 + 2, 27); g.stroke();
+    g.strokeStyle = `rgba(255,236,210,${.13 * w0})`; g.lineWidth = 1.3; g.beginPath(); g.moveTo(u0 + 4, -25); g.quadraticCurveTo(u0 + b + 4, 0, u0 + 6, 25); g.stroke(); });
+  const dk = g.createLinearGradient(-18, 0, -fade1, 0); dk.addColorStop(0, 'rgba(6,5,16,0)'); dk.addColorStop(1, 'rgba(6,5,16,.72)'); g.fillStyle = dk; g.fillRect(-fade1 - 30, -27, fade1 + 16, 54);
+  g.restore();
+  g.save(); g.translate(HX, HY); g.scale(sr, sr); g.globalCompositeOperation = 'destination-out';
+  const fo = g.createLinearGradient(-fade0, 0, -fade1, 0); fo.addColorStop(0, 'rgba(0,0,0,0)'); fo.addColorStop(1, 'rgba(0,0,0,1)'); g.fillStyle = fo; g.fillRect(-HX / sr, -HY / sr, HW / sr, HH / sr); g.restore();
+  g.globalCompositeOperation = 'source-over';
+  ctx.save(); ctx.translate(x, y); ctx.rotate(ang); if (res !== 1) ctx.scale(1 / res, 1 / res); ctx.drawImage(hc, -HX, -HY); ctx.restore();
 }
 
 // ---------- engraved deeds (cached) ----------

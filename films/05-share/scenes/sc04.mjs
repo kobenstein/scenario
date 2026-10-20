@@ -535,7 +535,7 @@ export default (T, R) => {
 
   // ═══════════════ 2.23 ★ · the three paths from high above, AGREE a quiet foil line in the fog ═══════════════
   const Q23 = .7, ROT23 = -.45;                                     // AGREE point the carrier grows from; world turned so AGREE runs flat
-  const opt23 = (cam) => ({ view: 'top', cam, rot: ROT23, life: { take: 1, print: 1, agree: .5 }, fog: 0, labels: true, labelA: .7, glow: .8 });
+  const opt23 = (cam) => ({ view: 'top', cam, rot: ROT23, life: { take: 1, print: 1, agree: 0 }, fog: 0, labels: false, glow: .8 });   // labels + AGREE glint drawn here
   const solve23 = (q, tx, ty, z) => {   // camera that puts along('agree', q) at (tx, ty): two Newton steps on the (linear) projection
     const [c2, g] = canvas(W, H); let cam = { x: 0, y: 0, z };
     for (let it = 0; it < 2; it++) {
@@ -554,9 +554,26 @@ export default (T, R) => {
     const seeds = [[w('take', .55), 1.2], [w('take', .9), 1], [w('print', .45), .9], [w('print', .85), 1.3], [w('agree', .35), .8], [w('agree', .75), 1.1], [[0, -900], 1.2], [[1400, -400], 1]];
     for (const [[X, Y], k] of seeds) { const ox = (r() - .5) * 700, oy = (r() - .5) * 700; hills.push({ X: X + ox, Y: Y + oy, n: 6 + Math.floor(r() * 5), R: (160 + r() * 140) * k, ph: r() * 9 }); }
     const river = []; const a0 = w('take', .3), a1 = w('agree', .5); for (let i = 0; i <= 60; i++) { const q = i / 60; river.push([mix(a0[0] - 1600, a1[0] + 2200, q) + Math.sin(q * 9) * 160, mix(a0[1] + 1900, a1[1] - 1300, q) + Math.cos(q * 7) * 200]); }
-    const end = w('agree', 1), pre = w('agree', .93), dir = Math.atan2(end[1] - pre[1], end[0] - pre[0]);
-    const meadows = [[-1, 1], [1, 1], [-1, -1], [1, -1], [0, 2.1], [0, -2.1]].map(([u, v], i) => ({ u, v, i }));
-    return { hills, river, end, dir, meadows };
+    const end = w('agree', 1), pre = w('agree', .93), dir = Math.atan2(end[1] - pre[1], end[0] - pre[0]), ca = Math.cos(dir), sa = Math.sin(dir);
+    const L2W = (u, v) => [end[0] + ca * u - sa * v, end[1] + sa * u + ca * v], W2L = (X, Y) => [(X - end[0]) * ca + (Y - end[1]) * sa, -(X - end[0]) * sa + (Y - end[1]) * ca];
+    const road = []; for (let i = 0; i <= 50; i++) road.push(W2L(...w('agree', i / 50)));
+    // a patchwork of fields and hedgerows around the end of AGREE; the path runs into the one field that is staked out
+    const GU = [-1500, -1130, -760, -330, -40, 560, 900, 1380, 1820, 2400], GV = [-1450, -980, -640, -170, 170, 520, 1060, 1450], FI = 4, FJ = 3;
+    const J = GU.map((u, i) => GV.map((v, j) => { const k = (i === FI || i === FI + 1) && (j === FJ || j === FJ + 1) ? 10 : 110; return [u + (r() - .5) * 2 * k, v + (r() - .5) * 2 * k]; }));
+    const cells = [], lerp2 = (a, b, q) => [mix(a[0], b[0], q), mix(a[1], b[1], q)];
+    const hedge = (a0, a1, trees) => { const len = Math.hypot(a1[0] - a0[0], a1[1] - a0[1]); let s = 20 + r() * 60;
+      while (s < len - 20) { if (r() < .4) { const n = 2 + Math.floor(r() * 4); for (let k = 0; k < n && s < len - 20; k++, s += 14 + r() * 10) { const u = mix(a0[0], a1[0], s / len) + (r() - .5) * 12, v = mix(a0[1], a1[1], s / len) + (r() - .5) * 12;
+          if (!road.some(([ru, rv]) => Math.hypot(ru - u, rv - v) < 170)) trees.push([...L2W(u, v), 9 + r() * 9]); } } s += 50 + r() * 90; } };
+    for (let i = 0; i < GU.length - 1; i++) for (let j = 0; j < GV.length - 1; j++) {
+      const cu = (GU[i] + GU[i + 1]) / 2, cv = (GV[j] + GV[j + 1]) / 2, fall = clamp(1 - Math.hypot((cu - 300) / 1.25, cv) / 1900);
+      if (fall <= 0) continue;
+      const uv = [J[i][j], J[i + 1][j], J[i + 1][j + 1], J[i][j + 1]], field = i === FI && j === FJ, trees = [], lines = [];
+      if (!field) { if (r() < .62) { lines.push([uv[0], uv[1]].map(([u, v]) => L2W(u, v))); hedge(uv[0], uv[1], trees); } if (r() < .62) { lines.push([uv[0], uv[3]].map(([u, v]) => L2W(u, v))); hedge(uv[0], uv[3], trees); } }
+      const parts = field || r() > .38 ? [uv] : (() => { const q = .35 + r() * .3; return r() < .5 ? [[uv[0], lerp2(uv[0], uv[1], q), lerp2(uv[3], uv[2], q), uv[3]], [lerp2(uv[0], uv[1], q), uv[1], uv[2], lerp2(uv[3], uv[2], q)]]
+        : [[uv[0], uv[1], lerp2(uv[1], uv[2], q), lerp2(uv[0], uv[3], q)], [lerp2(uv[0], uv[3], q), lerp2(uv[1], uv[2], q), uv[2], uv[3]]]; })();
+      parts.forEach((pq, k) => cells.push({ q: pq.map(([u, v]) => L2W(u, v)), field, tone: Math.floor(r() * 5), hatch: r() < .5, n: 4 + Math.floor(r() * 8), fall, trees: k ? [] : trees, lines: k ? [] : lines }));
+    }
+    return { hills, river, end, dir, cells };
   })();
   function terrain(ctx, Rp, t) {
     ctx.save(); ctx.lineWidth = 1; ctx.lineJoin = 'round';
@@ -566,14 +583,44 @@ export default (T, R) => {
       ctx.stroke(); }
     // the river: two banks and a faint glint of the dawn on the water
     for (const [off, al] of [[-26, .16], [26, .16], [0, .05]]) { ctx.strokeStyle = rgba(off ? '#9fb7e8' : AMBER, al); ctx.lineWidth = off ? 1.2 : 6; ctx.beginPath(); LAND23.river.forEach(([X, Y], i) => { const [x, y] = Rp.P(X + off, Y); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke(); }
-    // meadows around the empty field: lightly hatched plots
-    const [EX, EY] = LAND23.end, ca = Math.cos(LAND23.dir), sa = Math.sin(LAND23.dir);
-    for (const m of LAND23.meadows) {
-      const cxw = EX + ca * (260 + m.u * 420) - sa * m.v * 300, cyw = EY + sa * (260 + m.u * 420) + ca * m.v * 300, hw = 190, hh = 120;
-      const corner = (u, v) => Rp.P(cxw + ca * u - sa * v, cyw + sa * u + ca * v);
-      ctx.strokeStyle = rgba('#b9c99a', .12); ctx.lineWidth = 1; ctx.beginPath(); const c0 = corner(-hw, -hh), c1 = corner(hw, -hh), c2 = corner(hw, hh), c3 = corner(-hw, hh); ctx.moveTo(...c0); ctx.lineTo(...c1); ctx.lineTo(...c2); ctx.lineTo(...c3); ctx.closePath(); ctx.stroke();
-      for (let i = 1; i < 7; i++) { const v = -hh + i * 2 * hh / 7, p0 = corner(-hw + 10, v), p1 = corner(hw - 10, v); ctx.strokeStyle = rgba('#b9c99a', .07); ctx.beginPath(); ctx.moveTo(...p0); ctx.lineTo(...p1); ctx.stroke(); }
+    // the patchwork: fields in night tones, furrow hatching, hedgerows with tree crowns lit from the dawn side; it fades out with distance
+    const P0 = Rp.P(0, 0), P1 = Rp.P(100, 0), sc = Math.hypot(P1[0] - P0[0], P1[1] - P0[1]) / 100, TONES = ['#2a3652', '#2c3d42', '#36304c', '#222c4a', '#3a3a52'];
+    const poly = (Q) => { ctx.beginPath(); Q.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); };
+    for (const c of LAND23.cells) { if (c.field) continue;
+      const Q = c.q.map(([X, Y]) => Rp.P(X, Y)), f = c.fall, [A0, A1, A2, A3] = Q;
+      ctx.fillStyle = rgba(TONES[c.tone], .55 * f); poly(Q); ctx.fill();
+      ctx.strokeStyle = rgba('#c9d6b0', .075 * f); ctx.lineWidth = 1; ctx.beginPath();
+      for (let k = 1; k <= c.n; k++) { const s = k / (c.n + 1), a = c.hatch ? [mix(A0[0], A3[0], s), mix(A0[1], A3[1], s)] : [mix(A0[0], A1[0], s), mix(A0[1], A1[1], s)], b = c.hatch ? [mix(A1[0], A2[0], s), mix(A1[1], A2[1], s)] : [mix(A3[0], A2[0], s), mix(A3[1], A2[1], s)];
+        ctx.moveTo(mix(a[0], b[0], .05), mix(a[1], b[1], .05)); ctx.lineTo(mix(a[0], b[0], .95), mix(a[1], b[1], .95)); }
+      ctx.stroke();
+      ctx.strokeStyle = rgba('#05081a', .45 * f); ctx.lineWidth = Math.max(1, 8 * sc); ctx.beginPath(); for (const [a, b] of c.lines) { const pa = Rp.P(...a), pb = Rp.P(...b); ctx.moveTo(pa[0], pa[1]); ctx.lineTo(pb[0], pb[1]); } ctx.stroke();
+      for (const [X, Y, rr] of c.trees) { const [x, y] = Rp.P(X, Y), R = Math.max(1.2, rr * sc); ctx.fillStyle = rgba('#070b1c', .78 * f); ctx.beginPath(); ctx.arc(x, y, R, 0, TAU); ctx.fill();
+        ctx.fillStyle = rgba('#ffcf9a', .24 * f); ctx.beginPath(); ctx.arc(x + R * .35, y - R * .25, R * .45, 0, TAU); ctx.fill(); }
     }
+    // the field AGREE runs into: ploughed, warm in the first light, staked out with pegs and string, the agreement on its stake
+    const fc = LAND23.cells.find((c) => c.field);
+    if (fc) { const Q = fc.q.map(([X, Y]) => Rp.P(X, Y)), [A0, A1, A2, A3] = Q, cx = (A0[0] + A1[0] + A2[0] + A3[0]) / 4, cy = (A0[1] + A1[1] + A2[1] + A3[1]) / 4, k4 = sc / .25;
+      putBloom(ctx, bloomSprite('f23', AMBER, 260, .5), cx, cy, 1.1 * k4, .22);
+      ctx.save(); ctx.shadowColor = 'rgba(255,170,90,.3)'; ctx.shadowBlur = 30 * k4; const gr = ctx.createLinearGradient(A0[0], A0[1], A1[0], A1[1]); gr.addColorStop(0, '#553823'); gr.addColorStop(1, '#30221a'); ctx.fillStyle = gr; poly(Q); ctx.fill(); ctx.restore();
+      ctx.save(); poly(Q); ctx.clip();
+      for (let k = 1; k < 22; k++) { const s = k / 22, a = [mix(A0[0], A3[0], s), mix(A0[1], A3[1], s)], b = [mix(A1[0], A2[0], s), mix(A1[1], A2[1], s)];
+        ctx.strokeStyle = 'rgba(22,12,6,.55)'; ctx.lineWidth = Math.max(.8, 7 * sc); ctx.beginPath(); ctx.moveTo(a[0], a[1] + .8 * k4); ctx.lineTo(b[0], b[1] + .8 * k4); ctx.stroke();
+        ctx.strokeStyle = 'rgba(255,206,150,.19)'; ctx.lineWidth = Math.max(.6, 3 * sc); ctx.beginPath(); ctx.moveTo(a[0], a[1] - .6 * k4); ctx.lineTo(b[0], b[1] - .6 * k4); ctx.stroke(); }
+      const lg = ctx.createLinearGradient(A0[0], A0[1], A1[0], A1[1]); lg.addColorStop(0, 'rgba(255,190,120,0)'); lg.addColorStop(1, 'rgba(255,190,120,.15)'); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = lg; ctx.fillRect(cx - 800, cy - 800, 1600, 1600);
+      ctx.restore();
+      const ins = (P, k = .07) => [mix(P[0], cx, k), mix(P[1], cy, k)], mid = (P, R) => [(P[0] + R[0]) / 2, (P[1] + R[1]) / 2];
+      const pg = [A0, A1, A2, A3].map((P) => ins(P)), pegs = [...pg, mid(pg[0], pg[1]), mid(pg[3], pg[2])], shim = .5 + .12 * Math.sin(t * 1.7);
+      ctx.strokeStyle = rgba(CREAM, shim); ctx.lineWidth = Math.max(.8, 3.2 * sc); ctx.beginPath(); pg.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.stroke();
+      for (const [x, y] of pegs) { const R = Math.max(1.4, 8 * sc); ctx.fillStyle = 'rgba(6,4,10,.55)'; ctx.beginPath(); ctx.arc(x + R * .6, y + R * .8, R, 0, TAU); ctx.fill(); ctx.fillStyle = '#efe6cf'; ctx.beginPath(); ctx.arc(x, y, R, 0, TAU); ctx.fill(); }
+      // the stake by the path's entrance, its sheet lifting a little in the wind
+      const e0 = [mix(A0[0], A3[0], .2), mix(A0[1], A3[1], .2)], [sx, sy] = [mix(e0[0], cx, .34), mix(e0[1], cy, .34)], ang = Math.atan2(A1[1] - A0[1], A1[0] - A0[0]), fl = .82 + .18 * Math.sin(t * 2.6);
+      ctx.save(); ctx.translate(sx, sy); ctx.rotate(ang);
+      ctx.fillStyle = 'rgba(6,4,10,.5)'; ctx.fillRect(-14 * sc + 9 * sc, -20 * sc + 12 * sc, 34 * sc * fl, 44 * sc);
+      ctx.fillStyle = '#f3efe2'; ctx.fillRect(-14 * sc, -20 * sc, 34 * sc * fl, 44 * sc);
+      ctx.fillStyle = 'rgba(90,70,50,.55)'; for (let i = 0; i < 4; i++) ctx.fillRect(-10 * sc, (-13 + i * 9) * sc, 24 * sc * fl, Math.max(.6, 2.2 * sc));
+      ctx.fillStyle = '#4a3322'; ctx.beginPath(); ctx.arc(-18 * sc, 0, Math.max(1.6, 9 * sc), 0, TAU); ctx.fill();
+      ctx.restore();
+      addGlow(ctx, sx, sy, 60 * k4, .35 + .12 * Math.sin(t * 1.3), AMBER, '#fff1d6'); }
     ctx.restore();
   }
   const OFF23 = () => once('c4off23', () => canvas(W, H));
@@ -600,16 +647,15 @@ export default (T, R) => {
         p.x += -Math.sin(p.ang) * off; p.y += Math.cos(p.ang) * off;
         og.beginPath(); og.moveTo(p.x, p.y); og.lineTo(p.x + Math.cos(p.ang) * L, p.y + Math.sin(p.ang) * L); og.stroke(); }
       og.restore(); }
-    // the empty ploughed field where AGREE arrives (furrows along the path, a stake with a tiny glint)
-    { const zz = cam23(t).z / .62, L = 150 * zz, Wd = 96 * zz, ca = Math.cos(end.ang), sa = Math.sin(end.ang), cx = end.x + ca * L * .62, cy = end.y + sa * L * .62;
-      og.save(); og.translate(cx, cy); og.rotate(end.ang);
-      og.save(); og.shadowColor = 'rgba(255,170,90,.35)'; og.shadowBlur = 26; const sg = og.createLinearGradient(0, -Wd / 2, 0, Wd / 2); sg.addColorStop(0, '#4f3524'); sg.addColorStop(1, '#2c1d15');
-      og.fillStyle = sg; og.beginPath(); og.roundRect(-L / 2, -Wd / 2, L, Wd, 6); og.fill(); og.restore();
-      for (let i = 1; i < 16; i++) { const yy = -Wd / 2 + i * Wd / 16; og.strokeStyle = 'rgba(20,12,8,.55)'; og.lineWidth = 1.6; og.beginPath(); og.moveTo(-L / 2 + 4, yy + 1.2); og.lineTo(L / 2 - 4, yy + 1.2); og.stroke();
-        og.strokeStyle = 'rgba(255,200,140,.32)'; og.lineWidth = .9; og.beginPath(); og.moveTo(-L / 2 + 4, yy); og.lineTo(L / 2 - 4, yy + Math.sin(i * 1.7) * .6); og.stroke(); }
-      og.fillStyle = '#f3efe2'; og.fillRect(-L / 2 - 9, -Wd / 2 - 12, 6, 8); og.fillStyle = '#5a412c'; og.fillRect(-L / 2 - 7, -Wd / 2 - 4, 2, 7);
-      og.restore();
-      const sx = end.x + ca * 8 - sa * (Wd / 2 + 10), sy = end.y + sa * 8 + ca * (Wd / 2 + 10); addGlow(og, sx, sy, 22, .45 + .15 * Math.sin(t * 1.3), AMBER, '#fff1d6'); }
+    // labels: engraved caps beside each band (never on it)
+    for (const [name, q, size, col, al] of [['take', .5, 44, '#f0a07c', .66], ['print', .56, 44, '#9fe0cf', .66], ['agree', .42, 50, '#ffd59a', 1]]) {
+      const p = Rp.along(name, q); let nx = -Math.sin(p.ang), ny = Math.cos(p.ang);
+      if ((name === 'take' && nx > 0) || (name === 'print' && nx < 0) || (name === 'agree' && ny > 0)) { nx = -nx; ny = -ny; }
+      const hw = (name.length * size * .64 + (name.length - 1) * size * .12) / 2, hh = size * .36, off = 24 + hw * Math.abs(nx) + hh * Math.abs(ny), x = p.x + nx * off, y = p.y + ny * off + hh;
+      const la = name === 'agree' ? al : al * (1 - sm(lin(COUT.t - 1.2, COUT.t - .5, t)));   // the push belongs to AGREE alone
+      if (la > .01) { og.save(); og.shadowColor = 'rgba(2,3,12,.9)'; og.shadowBlur = 12; text(og, name.toUpperCase(), x, y, { size, font: 'Instrument Serif', color: rgba(col, la), align: 'center', spacing: size * .12 }); og.restore(); }
+      if (name === 'agree') { og.save(); og.globalCompositeOperation = 'lighter'; const gx = x + Math.sin(t * .9) * size * 1.2, g = og.createRadialGradient(gx, y - hh, 0, gx, y - hh, size * 1.1); g.addColorStop(0, rgba('#fff1d6', .2)); g.addColorStop(1, rgba(AMBER, 0)); og.fillStyle = g; og.fillRect(gx - size * 1.2, y - size * 1.5, size * 2.4, size * 2.4); og.restore(); }
+    }
     // AGREE: only a quiet foil line in the fog, a slow glint travelling along it
     { const P = AGREE_PTS(Rp); og.save(); og.globalCompositeOperation = 'lighter'; og.lineCap = 'round'; og.lineJoin = 'round';
       for (const [lw, al, col] of [[12, .06, AMBER], [4, .22, AMBER], [1.4, .9, '#fff1d6']]) { og.strokeStyle = rgba(col, al); og.lineWidth = lw; og.beginPath(); P.forEach(([x, y], i) => (i ? og.lineTo(x, y) : og.moveTo(x, y))); og.stroke(); }

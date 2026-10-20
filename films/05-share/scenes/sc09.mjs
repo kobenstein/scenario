@@ -19,8 +19,9 @@
 //  6.15  │ But nobody pays every human on Earth **yet**.     │ a dotted ghost share waits in every screen       │ push into the middle screen's ghost share  │ cut (plan seq.)
 //  6.16  │ The pledges depend on **boards** and **billionaires**│ two PROMISE sheets (perforated) hang from a    │ both are pulled up and out                 │ zoom
 //        │                                                    │ cuff + cufflink hand and a signet hand           │                                            │
-//  6.17  │ And there's **no global fund** to **fill** those …│ the glass fund draws itself as a ghost; dotted   │ (same set)                                 │ cut (plan seq.)
-//        │                                                    │ pipes reach for five dark phones and end short   │                                            │
+//  6.17  │ And there's **no global fund** to **fill** those …│ a lit, empty plinth: the glass fund draws itself │ (same set)                                 │ cut (plan seq.)
+//        │                                                    │ as a ghost; dotted pipes reach for five dark     │                                            │
+//        │                                                    │ phones and end short                             │                                            │
 //  6.18  │ That's exactly what we still have to **agree** on.│ camera glides to the plaque; the pen touches down│ the pen hovers through the pause           │ cut (plan seq.)
 //  6.19  │ So picture the day we **do**.                     │ the pen signs; light ignites at the end of the   │ c09>c10 'thread' streams out right → whipR │ cut (plan seq.)
 //        │                                                    │ line and runs right; the burin engraves it solid │                                            │
@@ -190,7 +191,11 @@ export default (T, R) => {
       const k = ROWS[j], v = LV.d0 + k * LV.gap; if (v < -460) continue; const [x, y, q] = boxAt(k); if (y < -40 || y > H + 40) continue;
       const up = rise(k), yy = y - up * (900 + q * 500), xx = x + up * (k % 3 - 1) * 40;
       if (up < .9 && q > .3) glowDot(ctx, xx, yy, 70 * q, .16 * lit * clamp((q - .3) * 4) * (1 - up));
-      shareLight(ctx, xx, yy, 22 * q + 4, t, { a: clamp((q - .2) * 4) * lit, born: A.noone - .02 });
+      // near rows get the full share light; the dense far rows only a small warm core, so their stacked halos don't blow out
+      const wN = sm(lin(.42, .62, q)), aF = clamp((q - .14) * 5) * lit * (1 - wN);
+      if (wN > 0) shareLight(ctx, xx, yy, 22 * q + 4, t, { a: clamp((q - .2) * 4) * lit * wN, born: A.noone - .02 });
+      if (aF > 0) { const R = 30 * q * eout(lin(A.noone - .02, A.noone + .5, t)), g = ctx.createRadialGradient(xx, yy, 0, xx, yy, R); g.addColorStop(0, rgba(CORE, .95 * aF)); g.addColorStop(.3, rgba(AMBER, .55 * aF)); g.addColorStop(1, rgba(AMBER, 0));
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.beginPath(); ctx.arc(xx, yy, R, 0, TAU); ctx.fill(); ctx.restore(); }
       if (up > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(AMBER, .25 * up); ctx.lineWidth = 3 * q + 1; ctx.beginPath(); ctx.moveTo(xx, yy); ctx.lineTo(xx, yy + 140 * up); ctx.stroke(); ctx.restore(); }
     }
     ctx.drawImage(lampPool(), 0, 0);
@@ -234,10 +239,10 @@ export default (T, R) => {
     // three deciders: engraved (dotted) emblems appear on their word and drift off as smoke
     for (const [key, name, x, tw] of DEC) {
       const w0 = tw(), u = eo5(lin(w0 - .12, w0 + .38, t)), smoke = sm(lin(w0 + .62, w0 + 1.45, t)); if (u <= 0 || smoke >= 1) continue;
-      ctx.save(); ctx.translate(x, 480 - 16 * u); const sc = 1.6; ctx.scale(sc, sc);
+      ctx.save(); ctx.translate(x, 452 - 16 * u); const sc = 1.45; ctx.scale(sc, sc);
       ghostPaths(ctx, EMB[key].map((p) => p.map(([a, b]) => [a, b])), { ghost: 1, u, smoke, col: CREAM, w: 2.2 / sc, dot: 7 / sc, a: .95, t, seed: 3, stagger: .3 });
       ctx.restore();
-      label(ctx, name, x, 712, u * (1 - smoke), { align: 'center', size: 24, spacing: 9, col: PEACH });
+      label(ctx, name, x, 652, u * (1 - smoke), { align: 'center', size: 24, spacing: 9, col: PEACH });
       // the gate it makes between the lights and the people
       ctx.save(); ctx.strokeStyle = rgba(CREAM, .18 * u * (1 - smoke)); ctx.setLineDash([3, 9]); ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(x - 300, 330); ctx.lineTo(x + 300, 330); ctx.stroke(); ctx.restore();
     }
@@ -494,13 +499,14 @@ export default (T, R) => {
       if (has) { g.globalAlpha = on * dim; const cg = g.createLinearGradient(cx, cy, cx + cw, cy + ch); cg.addColorStop(0, mix3('#2d3a5e', '#f0a04b', glow)); cg.addColorStop(1, mix3('#1a2240', '#c87a2c', glow)); g.fillStyle = cg; rr(g, cx, cy, cw, ch, 8); g.fill();
         g.strokeStyle = rgba(CREAM, .35); g.lineWidth = 1; rr(g, cx + 4, cy + 4, cw - 8, ch - 8, 6); g.stroke();
         g.fillStyle = rgba(CORE, .85); g.beginPath(); g.arc(cx + 18, cy + 20, 8, 0, TAU); g.fill();
-        text(g, 'ACCOUNT', cx + 32, cy + 25, { size: 10, weight: 600, color: rgba(CORE, .9), spacing: 2 }); text(g, '•••• ' + String((4821 + i * 1373) % 10000).padStart(4, '0'), cx + 12, cy + ch - 14, { size: 13, weight: 500, color: rgba(CORE, .9), spacing: 1 }); }
-      else { g.globalAlpha = on * dim * .8; g.setLineDash([3, 4]); g.strokeStyle = rgba(CREAM, .35); g.lineWidth = 1.2; rr(g, cx, cy, cw, ch, 8); g.stroke(); g.setLineDash([]); text(g, 'no account', w / 2, cy + ch / 2 + 4, { size: 11, weight: 500, color: rgba(CREAM, .4), align: 'center' }); }
+        text(g, 'ACCOUNT', cx + 32, cy + 25, { size: 10, weight: 600, color: rgba(CORE, .9), spacing: 2, alpha: on * dim }); text(g, '•••• ' + String((4821 + i * 1373) % 10000).padStart(4, '0'), cx + 12, cy + ch - 14, { size: 13, weight: 500, color: rgba(CORE, .9), spacing: 1, alpha: on * dim }); }
+      else { g.globalAlpha = on * dim * .8; g.setLineDash([3, 4]); g.strokeStyle = rgba(CREAM, .35); g.lineWidth = 1.2; rr(g, cx, cy, cw, ch, 8); g.stroke(); g.setLineDash([]); text(g, 'no account', w / 2, cy + ch / 2 + 4, { size: 11, weight: 500, color: rgba(CREAM, .4), align: 'center', alpha: on * dim * .8 }); }
       // 6.15: an incoming share that does not exist yet (dotted), in every screen
       const gh = eo5(lin(A.every - .1 + i * .05, A.every + .4 + i * .05, t)); if (gh > 0) { g.globalAlpha = 1; const yy = h * .7, pulse = .55 + .45 * Math.sin(t * 5 + i) * sm(lin(A.yet - .1, A.yet + .3, t));
-        text(g, 'INCOMING', w / 2, yy - 40, { size: 10, weight: 600, color: rgba(CREAM, .6 * gh), spacing: 2, align: 'center' });
-        g.strokeStyle = rgba(AMBER, (.55 + .4 * pulse) * gh); g.lineWidth = 1.8; g.setLineDash([2, 4.5]); g.beginPath(); g.arc(w / 2, yy, 24, 0, TAU); g.stroke(); g.beginPath(); g.arc(w / 2, yy, 15, 0, TAU); g.stroke(); g.setLineDash([]);
-        g.globalCompositeOperation = 'lighter'; const rg = g.createRadialGradient(w / 2, yy, 0, w / 2, yy, 30); rg.addColorStop(0, rgba(AMBER, .25 * pulse * gh)); rg.addColorStop(1, rgba(AMBER, 0)); g.fillStyle = rg; g.fillRect(w / 2 - 30, yy - 30, 60, 60); g.globalCompositeOperation = 'source-over'; }
+        text(g, 'INCOMING', w / 2, yy + 50, { size: 11, weight: 600, color: rgba(CREAM, .65 * gh), spacing: 2, align: 'center' });
+        g.strokeStyle = rgba(AMBER, (.55 + .4 * pulse) * gh); g.lineWidth = 2; g.setLineDash([2, 4.5]); g.beginPath(); g.arc(w / 2, yy, 31, 0, TAU); g.stroke(); g.beginPath(); g.arc(w / 2, yy, 20, 0, TAU); g.stroke(); g.setLineDash([]);
+        g.fillStyle = rgba(AMBER, .5 * gh * pulse); g.beginPath(); g.arc(w / 2, yy, 3, 0, TAU); g.fill();
+        g.globalCompositeOperation = 'lighter'; const rg = g.createRadialGradient(w / 2, yy, 0, w / 2, yy, 40); rg.addColorStop(0, rgba(AMBER, .28 * pulse * gh)); rg.addColorStop(1, rgba(AMBER, 0)); g.fillStyle = rg; g.fillRect(w / 2 - 40, yy - 40, 80, 80); g.globalCompositeOperation = 'source-over'; }
       g.restore();
     };
   }
@@ -538,9 +544,13 @@ export default (T, R) => {
     text(g, 'PLEDGE', 210, 278, { size: 16, weight: 600, color: rgba(INK, .6), spacing: 8, align: 'center' }); g.fillStyle = rgba(INK, .5); g.fillRect(90, 290, 240, 1.5);
     for (let l = 0; l < 5; l++) scribble(g, 60, 326 + l * 26, 300 - (l % 3) * 40, 12, { seed: 30 + l + i * 9, ink: '#3a3442', lw: 1.3 });
     sigLine(g, 70, 480, 240, { seed: 3 + i, u: 1, label: false }); return c; });
+  const spotImg = () => once('fundspot', () => { const [c, g] = canvas(700, 1100); g.filter = 'blur(26px)';
+    const cg = g.createLinearGradient(0, 40, 0, 1000); cg.addColorStop(0, 'rgba(214,220,255,0)'); cg.addColorStop(1, 'rgba(214,220,255,.075)'); g.fillStyle = cg;
+    g.beginPath(); g.moveTo(290, 40); g.lineTo(410, 40); g.lineTo(610, 1000); g.lineTo(90, 1000); g.closePath(); g.fill(); g.filter = 'none';
+    g.save(); g.translate(350, 1000); g.scale(1, .2); const pg = g.createRadialGradient(0, 0, 0, 0, 0, 300); pg.addColorStop(0, 'rgba(214,220,255,.16)'); pg.addColorStop(1, 'rgba(214,220,255,0)'); g.fillStyle = pg; g.fillRect(-300, -300, 600, 600); g.restore(); return c; });
   function voidCam(t) {
     const g1 = qio(lin(A.s618 + .1, A.agree - .2, t)), g2 = qio(lin(A.s619 + .1, COUT.t - 1, t));
-    const Z1 = 1.3, c1 = [PLQ.x + PLQ.w * .5 + 150, PLQ.y + 60], Z2 = 1.0, c2 = [OUT.x + 260 / Z2, OUT.y - 20 / Z2];
+    const Z1 = 1.3, c1 = [PLQ.x + PLQ.w * .5 + 150, PLQ.y + 60], Z2 = .92, c2 = [OUT.x + 260 / Z2, OUT.y - 20 / Z2];
     const Z = mix(mix(1, Z1, g1), Z2, g2), cx = mix(mix(960, c1[0], g1), c2[0], g2), cy = mix(mix(540, c1[1], g1), c2[1], g2);
     const dA = 1 - g2; return { Z: Z * (1 + .01 * Math.sin(t * .3)), cx: cx + drift(t, 5, 21) * dA, cy: cy + drift(t, 4, 22) * dA };
   }
@@ -570,6 +580,8 @@ export default (T, R) => {
     });
     // 6.17 · no global fund (yet): the glass fund appears as a dotted ghost, pipes reach for the accounts and end short
     const fin = sm(lin(A.billE - .3, A.fund, t)), burin = t > A.do2 - .35 ? clamp((t - (A.do2 - .35)) / .95) : null;
+    // an empty, lit place: a soft cool spot falls on the plinth where the fund will stand
+    { const k = fin * (1 - .6 * (burin != null ? sm(burin) : 0)); if (k > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = k; ctx.drawImage(spotImg(), FUND.x - 350, FUND.y + 30 - 1000); ctx.restore(); } }
     if (fin > 0) {
       ctx.save(); const top = FUND.y - 560 * FUND.s, yC = mix(FUND.y + 20, top - 40, fin); ctx.beginPath(); ctx.rect(FUND.x - 400, yC, 800, FUND.y + 120 - yC); ctx.clip();
       glassFund(ctx, FUND.x, FUND.y, FUND.s, t, { ghost: 1, burin, fill: burin != null ? .25 * sm(burin) : 0, seal: burin != null ? sm(lin(.55, .9, burin)) : 0, glow: burin != null ? sm(burin) * .8 : 0, label: 'global fund', sub: burin != null && burin > .6 ? 'agreed' : 'not yet' });
@@ -598,11 +610,12 @@ export default (T, R) => {
     if (pA > 0) {
       ctx.save(); ctx.globalAlpha = pA; ctx.translate(0, (1 - pA) * 30);
       paperSheet(ctx, PLQ.x, PLQ.y, PLQ.w, PLQ.h, { seed: 9, tone: '#efe6cf', lift: 4 });
-      text(ctx, 'AGREEMENT', PLQ.x + 24, PLQ.y + 40, { size: 15, weight: 600, color: rgba(INK, .75), spacing: 8 });
-      text(ctx, 'an equal share for every human', PLQ.x + 24, PLQ.y + 76, { size: 26, font: 'Instrument Serif', color: '#1b1820' });
+      text(ctx, 'AGREEMENT', PLQ.x + 24, PLQ.y + 40, { size: 15, weight: 600, color: rgba(INK, .75), spacing: 8, alpha: pA });
+      text(ctx, 'an equal share for every human', PLQ.x + 24, PLQ.y + 76, { size: 26, font: 'Instrument Serif', color: '#1b1820', alpha: pA });
       ctx.restore();
       const sx = PLQ.x + 30, sw = OUT.x - sx, sy = OUT.y, sU = clamp((t - (A.s619 + .09)) / .9);
-      ctx.save(); ctx.globalAlpha = pA; sigLine(ctx, sx, sy, sw, { u: sU * .92, label: 'signature', dotted: sU <= 0, seed: 4, signInk: '#1b2a6b' }); ctx.restore();
+      ctx.save(); ctx.globalAlpha = pA; sigLine(ctx, sx, sy, sw, { u: sU * .92, label: false, dotted: sU <= 0, seed: 4, signInk: '#1b2a6b' }); ctx.restore();
+      text(ctx, 'SIGNATURE', sx, sy + 24, { size: Math.max(11, sw * .035), weight: 600, color: rgba('#1f1a26', .5), spacing: 3, alpha: pA }); // sigLine's own label ignores the fade
       // the pen
       const touch = Math.exp(-Math.pow((t - A.agree) / .1, 2)), inK = eo5(lin(A.agree - .9, A.agree - .1, t)), outK = ei5(lin(A.do2 - .45, A.do2 + .15, t));
       if (inK > 0 && outK < 1) {

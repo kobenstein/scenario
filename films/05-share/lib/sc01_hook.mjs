@@ -35,7 +35,7 @@ function motes(ctx, t, cx, cy, a) {
   for (let i = 0; i < 110; i++) { const ang = r() * 6.283, d = 140 + r() * 560, sp = .2 + r() * .5, x = cx + Math.cos(ang) * d + Math.sin(t * sp + i) * 24, y = cy + Math.sin(ang) * d * .8 + Math.cos(t * sp * .8 + i * 1.7) * 18 - t * 6; const f = Math.max(0, 1 - d / 700); ctx.fillStyle = `rgba(255,214,170,${(.12 + .45 * r()) * f * a})`; const z = r() < .8 ? 1.4 : 2.4; ctx.fillRect(x, y, z, z); }
   ctx.restore();
 }
-const LOCK = (K) => ({ time: '6:12', day: 'Monday', cards: [{ title: 'Electricity bill', sub: 'Payment due Friday', t0: K.buzz + .12, t1: 99 }] });
+const LOCK = (K) => ({ time: '6:12', day: 'Monday, 9 November', cards: [{ title: 'Electricity bill', sub: 'Payment due Friday', t0: K.buzz + .12, t1: 99 }] });
 export function hookHand(ctx, t, K) {
   const push = eio(clamp(t / (K.bill + .2))), s = mix(2.02, 2.42, push) * (1 + .006 * Math.sin(t * 1.3));
   const ang = -.12 + .012 * Math.sin(t * .4) + .03 * (1 - push);
@@ -72,7 +72,7 @@ export function hookHand(ctx, t, K) {
 // Display units: origin = the card centre = frame centre at z 1.
 const WW = 2500, WH = 1500, WX = 1250, WY = 700;
 function wallpaper() {
-  return once('wall2', () => {
+  return once('wall3', () => {
     const [c, g] = canvas(WW, WH);
     const bg = g.createLinearGradient(0, 0, 0, WH); bg.addColorStop(0, '#202a49'); bg.addColorStop(.42, '#151c31'); bg.addColorStop(1, '#090c17'); g.fillStyle = bg; g.fillRect(0, 0, WW, WH);
     const cg = g.createRadialGradient(WX - 200, WY - 520, 0, WX - 200, WY - 520, 1100); cg.addColorStop(0, 'rgba(120,150,220,.16)'); cg.addColorStop(1, 'rgba(120,150,220,0)'); g.fillStyle = cg; g.fillRect(0, 0, WW, WH);
@@ -80,7 +80,6 @@ function wallpaper() {
     rosette(g, WX, WY + 30, { R: 660, A: 44, B: 16, n: 42, m: 13, lines: 22, col: '#9cb0de', w: 1.3, a: .16, steps: 1400 });
     rosette(g, WX, WY + 30, { R: 420, A: 30, B: 12, n: 30, m: 9, lines: 16, col: '#b4c4e6', w: 1.2, a: .13, steps: 1200 });
     g.textAlign = 'center';
-    g.fillStyle = 'rgba(236,240,250,.72)'; g.font = '500 40px "Inter"'; g.fillText('Monday, 20 October', WX, WY - 492);
     g.fillStyle = 'rgba(238,242,252,.93)'; g.font = '300 230px "Inter"'; g.fillText('6:12', WX, WY - 286);
     stipple(c, { k: .2, g: 1, seed: 3, mid: false, boost: 1 });
     return c;
@@ -169,6 +168,13 @@ function shareCard(ctx, t, lockT) {
 }
 export function lockTake(ctx, t, K) {
   ctx.fillStyle = '#05060c'; ctx.fillRect(0, 0, W, H);
+  // during the zoom in from H.01 (engine 'zoom', depth 4 at (940, 470)) the engine grows this frame linearly while it zooms the phone
+  // exponentially: pre-scale so the clock and the card stay registered with the phone's own lock screen (no double image)
+  const zu = clamp((t - (K.bill - .35)) / .7), zc = zu < 1;
+  if (zc) { const e = eio(zu), za = Math.pow(4, e), zb = mix(.25, 1, e), f = za / 4 / zb, k = (za / 4 - e) / zb;
+    ctx.save(); ctx.translate(W / 2 + k * (W / 2 - 940), H / 2 + k * (H / 2 - 470)); ctx.scale(f, f); ctx.translate(-W / 2, -H / 2);
+    // + the phone's own layout is ~7 % taller and sits higher: match it while both are visible, ease back once this frame covers the phone
+    const cr = 1 - sm(clamp((zu - .62) / .38)), sc = 1 + .075 * cr; ctx.translate(960 + 38 * cr, 520 - 100 * cr); ctx.scale(sc, sc); ctx.translate(-960, -520); }
   const lockT = K.shareE - .06;                                     // the lock-in lands with the foil_glint sfx
   // timing of the three cards
   const billIn = eoX(clamp((t - (K.buzz + .12)) / .5)), wipe = clamp((t - (K.billE - .12)) / .3);
@@ -179,8 +185,11 @@ export function lockTake(ctx, t, K) {
   const j = t - K.buzz2, jolt = j > 0 && j < .5 ? Math.sin(j * 120) * 7 * Math.sin(Math.PI * j / .5) : 0;
   const z = 1.0 + .025 * clamp((t - K.bill) / 2.5) + .07 * lean + (settle > 0 ? .012 * Math.exp(-settle * 5) * Math.sin(settle * 18) : 0);
   const dx = -34 * bump(wipe * .8) + 18 * bump((t - (K.billE - .04)) / .9) + jolt, dy = -22 * bump(fly * .8) + 30 * (1 - lean) * clamp(rise * 3) * 0;
-  ctx.save(); ctx.translate(W / 2 + drift(t, 8, 1) + dx, H / 2 + 20 + drift(t, 6, 2) + dy - 30 * lean); ctx.rotate(-.045 + .006 * Math.sin(t * .5) + .03 * lean); ctx.scale(z, z);
+  ctx.save(); ctx.translate(W / 2 + drift(t, 8, 1) + dx, H / 2 + 20 + drift(t, 6, 2) + dy - 12 * lean); ctx.rotate(-.045 + .006 * Math.sin(t * .5) + .03 * lean); ctx.scale(z, z);
   ctx.drawImage(wallpaper(), -WX, -WY);
+  // the date (a few weeks after the 18 Oct announcement; 9 Nov 2026 is a Monday) fades before the lean-in would crop it at the top edge
+  const dA = 1 - sm(clamp((lean - .04) / .24));
+  if (dA > 0) { ctx.save(); ctx.textAlign = 'center'; ctx.fillStyle = `rgba(236,240,250,${.72 * dA})`; ctx.font = '500 40px "Inter"'; ctx.fillText('Monday, 9 November', 0, -492); ctx.restore(); }
   // the bill: dropped in with the buzz, flicked off to the left on "bill" (a short trail behind it)
   if (wipe < 1) { const e = ein(wipe), x = -e * 1900, y = -(1 - billIn) * 380, L = greyCardLayer(BILL);
     for (let k = 4; k >= 1; k--) drawCard(ctx, L, x + k * 80 * Math.min(1, wipe * 4), y, -.05 * e, .045 * bump(wipe * 1.4));
@@ -199,6 +208,7 @@ export function lockTake(ctx, t, K) {
   ctx.restore();
   glass(ctx, t, .8);
   const vg = ctx.createRadialGradient(W / 2, H / 2, 380, W / 2, H / 2, 1150); vg.addColorStop(0, 'rgba(2,3,9,0)'); vg.addColorStop(1, 'rgba(2,3,9,.55)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+  if (zc) ctx.restore();
   // as the camera starts to pull back, the glass shows its edge: a dark bezel with round corners (it reads as a screen as it shrinks)
   const bz = sm(clamp((t - (K.t04 - .1)) / .4));
   if (bz > 0) { const i = 46 * bz, r = 120 * bz; ctx.save(); ctx.fillStyle = '#04050a'; ctx.beginPath(); ctx.rect(0, 0, W, H); ctx.roundRect(i, i, W - 2 * i, H - 2 * i, r); ctx.fill('evenodd');

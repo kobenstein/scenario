@@ -257,3 +257,44 @@ export function groundRibbon(ctx, P, pts0, { u = 1, w = .55, col = AMBER, a = 1,
   ctx.restore();
 }
 export function mixHex(a, b, u) { const A = parseInt(a.slice(1), 16), B = parseInt(b.slice(1), 16); const m = (s) => Math.round(mix((A >> s) & 255, (B >> s) & 255, u)); return '#' + [m(16), m(8), m(0)].map((v) => v.toString(16).padStart(2, '0')).join(''); }
+
+// An arm in a sleeve that comes from the viewer's side: the forearm leaves the wrist in direction `dir` (rad, wrist → elbow) for
+// `fore` hand units, then bends smoothly toward a shoulder off-screen, widening with perspective. Draw it BEFORE hand(..., sleeve: null);
+// the cuff ends 6 units into the palm like hand.mjs's own sleeve.
+//   arm(ctx, wx, wy, s, { ang (hand finger direction), dir, fore = 230, shoulder: [x, y], w: [27, 34, 62] half-widths in hand units,
+//        col, rim, light: [dx, dy] (direction the light comes from), t })
+export function arm(ctx, wx, wy, s, o) {
+  const ang = o.ang ?? 0, x0 = wx + Math.cos(ang) * 6 * s, y0 = wy + Math.sin(ang) * 6 * s, dir = o.dir ?? ang + Math.PI;
+  const ex = x0 + Math.cos(dir) * (o.fore ?? 230) * s, ey = y0 + Math.sin(dir) * (o.fore ?? 230) * s, [sx, sy] = o.shoulder;
+  const [w0, w1, w2] = (o.w || [27, 34, 62]).map((v) => v * s), N = 40, L = [], R = [], C = [];
+  // centreline: straight forearm, then a quadratic bend into the upper arm (control at the elbow)
+  const mxp = [mix(ex, sx, .5), mix(ey, sy, .5)];
+  for (let i = 0; i <= N; i++) { const q = i / N; let x, y;
+    if (q <= .45) { const u = q / .45; x = mix(x0, ex, u * .82); y = mix(y0, ey, u * .82); }
+    else { const u = (q - .45) / .55, a0 = [mix(x0, ex, .82), mix(y0, ey, .82)], a = 1 - u; x = a * a * a0[0] + 2 * a * u * ex + u * u * mxp[0]; y = a * a * a0[1] + 2 * a * u * ey + u * u * mxp[1];
+      if (u >= 1) { x = mxp[0]; y = mxp[1]; } }
+    C.push([x, y, q < .45 ? mix(w0, w1, q / .45) : mix(w1, w2, Math.pow((q - .45) / .55, 1.4))]); }
+  C.push([sx, sy, w2 * 1.15]);
+  for (let i = 0; i < C.length; i++) { const p = C[Math.max(0, i - 1)], n = C[Math.min(C.length - 1, i + 1)], dx = n[0] - p[0], dy = n[1] - p[1], m = Math.hypot(dx, dy) || 1, nx = -dy / m, ny = dx / m;
+    L.push([C[i][0] + nx * C[i][2], C[i][1] + ny * C[i][2]]); R.push([C[i][0] - nx * C[i][2], C[i][1] - ny * C[i][2]]); }
+  const poly = () => { ctx.beginPath(); L.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); for (let i = R.length - 1; i >= 0; i--) ctx.lineTo(R[i][0], R[i][1]); ctx.closePath(); };
+  const lm = Math.hypot(...(o.light || [.3, -1])) || 1, lx = (o.light || [.3, -1])[0] / lm, ly = (o.light || [.3, -1])[1] / lm;
+  const fnx = -Math.sin(dir), fny = Math.cos(dir), litL = fnx * lx + fny * ly > 0;   // is the L side lit (for the forearm)?
+  ctx.save();
+  if (o.rim) { ctx.save(); ctx.translate(lx * 2.4, ly * 2.4); ctx.fillStyle = rgba(o.rim, .9); poly(); ctx.fill(); ctx.restore(); }
+  ctx.fillStyle = o.col; poly(); ctx.fill();
+  ctx.save(); poly(); ctx.clip(); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  // volume: the shadow side darkens in a broad soft band, the lit side lifts
+  const side = (A, col, al, wk) => { for (let i = 0; i < A.length - 1; i++) { ctx.strokeStyle = rgba(col, al); ctx.lineWidth = C[i][2] * wk; ctx.beginPath(); ctx.moveTo(A[i][0], A[i][1]); ctx.lineTo(A[i + 1][0], A[i + 1][1]); ctx.stroke(); } };
+  side(litL ? R : L, '#00000a', .32, 1.1); side(litL ? L : R, '#fff0dc', .12, .5);
+  // cuff seam near the wrist, and soft folds in the crook of the elbow
+  const at = (i, k) => [mix(L[i][0], R[i][0], k), mix(L[i][1], R[i][1], k)];
+  ctx.strokeStyle = 'rgba(0,0,8,.35)'; ctx.lineWidth = 3.2 * s; ctx.beginPath(); ctx.moveTo(...at(3, 0)); ctx.lineTo(...at(3, 1)); ctx.stroke();
+  ctx.strokeStyle = rgba('#fff0dc', .14); ctx.lineWidth = 1.4 * s; ctx.beginPath(); ctx.moveTo(...at(2, 0)); ctx.lineTo(...at(2, 1)); ctx.stroke();
+  const inner = litL ? 1 : 0, ph = Math.sin((o.t ?? 0) * 1.1) * .03;
+  for (const [i, k0, k1, al] of [[17, .15, .7, .3], [19, .2, .8, .26], [22, .1, .6, .22], [14, .35, .75, .16]]) {
+    const a = at(i, Math.abs(inner - k0) + ph), b = at(i + 2, Math.abs(inner - k1)), c = at(i + 1, Math.abs(inner - (k0 + k1) / 2) - .08);
+    ctx.strokeStyle = rgba('#00000a', al); ctx.lineWidth = 2.6 * s; ctx.beginPath(); ctx.moveTo(...a); ctx.quadraticCurveTo(c[0], c[1], b[0], b[1]); ctx.stroke(); }
+  ctx.restore(); ctx.restore();
+  return Math.atan2(y0 - ey, x0 - ex);
+}

@@ -63,10 +63,14 @@ const CREAM = '#f3efe2', AMBER = '#ffb35c', CORE = '#fff1d6', INKN = '#1d2238';
 // ---------- shared looks ----------
 function vignette(ctx, a = .5, x = W / 2, y = H / 2, r0 = 420, r1 = 1250) { const g = ctx.createRadialGradient(x, y, r0, x, y, r1); g.addColorStop(0, 'rgba(4,3,10,0)'); g.addColorStop(1, `rgba(4,3,10,${a})`); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
 // on-screen fact line (bottom 170 px stay free for subtitles)
+// the dark bed under a fact line: fades out upward, downward and to the right (no hard edge)
+const factBed = () => once('c6factbed', () => { const [c, g] = canvas(Math.round(W * .86), 190);
+  const v = g.createLinearGradient(0, 0, 0, 190); v.addColorStop(0, 'rgba(6,4,12,0)'); v.addColorStop(.55, 'rgba(6,4,12,.42)'); v.addColorStop(1, 'rgba(6,4,12,0)'); g.fillStyle = v; g.fillRect(0, 0, c.width, 190);
+  g.globalCompositeOperation = 'destination-in'; const hz = g.createLinearGradient(0, 0, c.width, 0); hz.addColorStop(0, 'rgba(0,0,0,1)'); hz.addColorStop(.62, 'rgba(0,0,0,1)'); hz.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = hz; g.fillRect(0, 0, c.width, 190); return c; });
 function factCard(ctx, lines, a, o = {}) {
   if (a <= 0) return; const x = o.x ?? 110, y = o.y ?? H - 236, fs = o.size ?? 40;
   ctx.save();
-  const bed = ctx.createLinearGradient(0, y - 120, 0, y + 70); bed.addColorStop(0, 'rgba(6,4,12,0)'); bed.addColorStop(.55, `rgba(6,4,12,${.42 * a})`); bed.addColorStop(1, 'rgba(6,4,12,0)'); ctx.fillStyle = bed; ctx.fillRect(0, y - 120, W * .78, 190);
+  ctx.globalAlpha = a; ctx.drawImage(factBed(), 0, y - 120); ctx.globalAlpha = 1;
   ctx.shadowColor = 'rgba(4,3,10,.85)'; ctx.shadowBlur = 14;
   ctx.fillStyle = rgba(AMBER, .9 * a); ctx.fillRect(x, y - 54 + (1 - a) * 10, 34 * a, 2);
   // rich line: runs of serif text, the symbols ≈ → in Inter (the serif has no glyph for them)
@@ -369,7 +373,7 @@ export default (T, R) => {
   const CROWD404 = once('c6crowd404', () => { const r = prng(404), L = []; for (let k = 0; k < 26; k++) L.push({ x: -18 + r() * 36, z: -2 + r() * 14, seed: k, flip: r() < .5, col: ['#2a2440', '#3a2c48', '#2c3448'][k % 3], ph: r() * TAU }); return L; });
   function f404(ctx, t) {
     const cam = C404(t), g = Math.max(1, GROW(t));
-    const r = towersFrame(ctx, t, { cam, grow: g, tag: 1, clouds: 1, cloudY: 46, labels: 0, fence: 1 });
+    const r = towersFrame(ctx, t, { cam, grow: g, tag: 1, tagLabel: '$220', tagSub: 'PER PERSON', tagGlow: .5 * clamp((g - 1.2) / 3), clouds: 1, cloudY: 46, labels: 0, fence: 1 });
     // the people below with their tiny certificates (they stay tiny)
     const P = r.P, items = CROWD404.map((c) => ({ c, d: Math.hypot(c.x - cam.x, c.z - cam.z) })).sort((p, q) => q.d - p.d);
     for (const { c } of items) { const b = P(c.x, 0, c.z), tp = P(c.x, 1.7, c.z); if (b[2] < 1) continue; const s = (b[1] - tp[1]) / 185; if (s <= 0 || b[1] - 200 * s > H + 40) continue;
@@ -472,6 +476,7 @@ export default (T, R) => {
     const cam = FC(t), sprout = eio(lin(A.t409 + .15, A.groundE, t));
     const F = field(ctx, t, { cam, mist: .85 - .3 * lin(A.t409, A.t411, t), light: 'dawn', pegs: 0, string: 0, post: 0, sprout, sheet: false });
     const soil = F.soil || { x: 960, y: 690 };
+    { const tg = ctx.createLinearGradient(0, 0, 0, 230); tg.addColorStop(0, 'rgba(30,22,48,.66)'); tg.addColorStop(1, 'rgba(30,22,48,0)'); ctx.fillStyle = tg; ctx.fillRect(0, 0, W, 230); }   // the sky deepens upward
     // "ground": a breath of light where the shoots break the soil
     const gl = bell(t, A.ground + .2, .5); if (gl > .02) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, soil.x + 40, soil.y - 10, 260, .3 * gl, '#ffd59a', CORE); ctx.restore(); }
     // ---- 4.10: a hand lowers a card into the soil; as it goes in it turns like a coin: SUBSIDIES → STAKE
@@ -483,7 +488,7 @@ export default (T, R) => {
       labelCard(ctx, c1x, c1y, 1.3, t, { flip, rot: .04 * Math.sin(t * 2) * (1 - plant) });
       if (plant > 0) { ctx.save(); ctx.fillStyle = '#2a1c14'; ctx.beginPath(); ctx.ellipse(c1x, c1g + 6, 84, 16, 0, 0, TAU); ctx.fill(); ctx.fillStyle = 'rgba(244,180,124,.32)'; ctx.beginPath(); ctx.ellipse(c1x - 12, c1g, 60, 7, 0, Math.PI, TAU); ctx.fill();
         const r = prng(9); for (let i = 0; i < 9; i++) { ctx.fillStyle = `rgba(${90 + r() * 60 | 0},${60 + r() * 40 | 0},40,.9)`; ctx.beginPath(); ctx.ellipse(c1x + (r() - .5) * 150, c1g + (r() - .3) * 14, 6 + r() * 7, 3 + r() * 3, 0, 0, TAU); ctx.fill(); } ctx.restore(); }
-      if (hOut < 1) { const ha = Math.PI / 2 + .25, tipY = c1y - 130 * 1.3, hx = c1x + 10 + hOut * 160, hy = tipY - 170 - hOut * 700;
+      if (hOut < 1) { const ha = Math.PI / 2 + .25, tipY = c1y - 88 * 1.3, hx = c1x + 10 + hOut * 160, hy = tipY - 170 - hOut * 700;
         hand(ctx, hx - Math.cos(ha) * 40, hy, 2.1, { pose: 'grip', ang: ha, flip: true, skin: SKINS[1], sleeve: '#2c3a5c', sleeveLen: 420, rim: '#ffd0a0', light: [.6, -1], t, seed: 11, close: .25 * (1 - hOut) }); }
       if (flip > .3 && flip < 1) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, c1x, c1y, 200, .55 * Math.sin(Math.PI * flip), AMBER, CORE); ctx.restore(); }
     }
@@ -491,17 +496,20 @@ export default (T, R) => {
     // ---- 4.11: a second hand brings a dotted idea card; on "floated" it hovers a hand's breadth above the soil, its ring of owners lights, then it tips in
     if (t > A.t411 - .3) {
       const c2x = soil.x + 1180, g2 = soil.y + 70, cin = eio(lin(A.t411 + .1, A.floated - .3, t)), rel = eio(lin(A.floated - .15, A.floated + .45, t)), hOut2 = eio(lin(A.floated + .35, A.floated + 1.25, t));
-      let x = c2x, y = mix(g2 - 760, g2 - 150, cin) - 34 * rel + 9 * Math.sin(t * 1.7) * rel, rot = .04 * Math.sin(t * 1.2), sc = 1.5;
+      let x = c2x, y = mix(g2 - 760, g2 - 160, cin) - 34 * rel + 9 * Math.sin(t * 1.7) * rel, rot = .04 * Math.sin(t * 1.2), sc = 1.7;
       const ringU = eio(lin(A.owned - .1, A.citizens + .3, t)), q = eio(lin(A.out - 1.2, A.out - .9, t));
-      if (q > 0) { const p = COUT.pos(t); x = mix(x, p.x, q); y = mix(y, p.y, q); rot = mix(rot, p.r, q); sc = mix(sc, 1.5 * p.s, q); }
+      if (q > 0) { const p = COUT.pos(t); x = mix(x, p.x, q); y = mix(y, p.y, q); rot = mix(rot, p.r, q); sc = mix(sc, 1.4 * p.s, q); }
       const hover = clamp((g2 - 105 - y) / 120);
       cardShadow(ctx, x + 30, g2 + 6, 150 * (1 - .3 * hover), (.25 + .35 * (1 - hover)) * (1 - sm(lin(A.out - .9, A.out - .3, t))));
-      if (t < A.out + .25) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, x, y, 260 * sc, .16 + .2 * ringU, AMBER, CORE); ctx.restore(); ideaCard(ctx, x, y, sc, t, { lit: .55 + .45 * ringU, ring: ringU, rot }); }
+      // while the camera tilts down into c07 (A slides up), the card is held at its place on screen (as c07 holds its form)
+      const yS = y + eio(lin(A.out - .25, A.out + .25, t)) * H, body = 1 - sm(lin(A.out - .45, A.out - .1, t));
+      if (t < A.out + .25) { { const dg = ctx.createRadialGradient(x + 8, yS + 12, 0, x + 8, yS + 12, 200 * sc); dg.addColorStop(0, `rgba(18,10,22,${.3 * body})`); dg.addColorStop(1, 'rgba(18,10,22,0)'); ctx.fillStyle = dg; ctx.fillRect(x - 200 * sc, yS - 200 * sc, 400 * sc, 400 * sc); }
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, x, yS, 230 * sc, (.08 + .1 * ringU) * (.4 + .6 * body), AMBER, CORE); ctx.restore(); ideaCard(ctx, x, yS, sc, t, { lit: .55 + .45 * ringU, ring: ringU, rot, body }); }
       if (hOut2 < 1) { const ha = Math.PI / 2 - .35, hx = x - 120 - hOut2 * 220, hy = y - 250 - hOut2 * 700;
         hand(ctx, hx, hy, 2.0, { pose: 'open', ang: ha + .25 * (1 - rel), flip: false, skin: SKINS[0], sleeve: '#6b5a7a', sleeveLen: 420, rim: '#ffd0a0', light: [.6, -1], t, seed: 12, spread: .6 + .3 * rel }); }
       const tip = sm(lin(A.out - .9, A.out, t)); if (tip > 0) { const P = COUT.pos(A.out); ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, P.x, P.y + 40, 170 * tip, .35 * tip, AMBER, CORE); ctx.restore(); }
     }
-    factCard(ctx, ['South Korea · a national AI company, part-owned by all citizens', 'FLOATED BEFORE TAKING OFFICE · 2025'], sm(lin(A.floated - .3, A.floated + .3, t)) * (1 - sm(lin(A.citizens + .5, A.out - .2, t))), { size: 34 });
+    factCard(ctx, ['South Korea · a national AI company, part-owned by all citizens', 'FLOATED BEFORE TAKING OFFICE · 2025'], sm(lin(A.floated - .3, A.floated + .3, t)) * (1 - sm(lin(A.citizens + .38, A.out - .42, t))), { size: 34 });
     vignette(ctx, .38);
   }
 

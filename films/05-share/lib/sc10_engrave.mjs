@@ -8,7 +8,10 @@
 //          holdFor 1.4 (s), glow 1 (warm glow on fresh words), tip true (burin tip at the cut front), base true (the dotted guide line under
 //          the line turns solid behind the burin), baseW (px, default = line width + 40), a 1, spacing .4 (px) }
 //   measureWords(ctx, words, o) → [{ x0, w }] positions of the words (same layout engraveWords uses)
-import { rgba, clamp, lin, prng } from '../engine.mjs';
+//   maskedGlint(ctx, mask, x, y, t, o) → a foil glint that lights only the letters of `mask` (a canvas drawn at x,y); o as
+//     certificate.foilGlint (x, y in the caller's space, speed, phase, width, span, angle, a). foilGlint clips to a path, which
+//     on a rect path paints a light box over the paper; this one is masked by the glyphs' alpha.
+import { rgba, clamp, lin, prng, canvas } from '../engine.mjs';
 import { ghostLine, burinTip } from './ghost.mjs';
 
 const font = (o) => `${o.size ?? 54}px "${o.font || 'Instrument Serif'}"`;
@@ -50,4 +53,20 @@ export function engraveWords(ctx, words, x, y, o = {}) {
   ctx.restore();
   if (cutting && o.tip !== false) burinTip(ctx, x + front + 2, y - size * .18, -.05, t, { size: Math.max(8, size * .2), a: a * .95, seed: 7 });
   return { front: [x + front, frontY], w: total, done };
+}
+
+const GL = new Map();
+export function maskedGlint(ctx, mask, x, y, t, o = {}) {
+  const w = mask.width, h = mask.height, key = w + 'x' + h;
+  if (!GL.has(key)) GL.set(key, canvas(w, h));
+  const [c, g] = GL.get(key);
+  const sp = o.speed ?? .22, ang = o.angle ?? -.5, bw = o.width ?? 140, span = o.span ?? 900, ph = ((t * sp + (o.phase ?? 0)) % 1.6) - .3;
+  const cx = (o.x ?? x) - x + ph * span, cy = (o.y ?? y + h / 2) - y, dx = Math.cos(ang), dy = Math.sin(ang), A = o.a ?? 1;
+  if (cx + bw * 2 < 0 || cx - bw * 2 > w) return;   // the band is off the letters
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; g.clearRect(0, 0, w, h);
+  const gr = g.createLinearGradient(cx - dx * bw, cy - dy * bw, cx + dx * bw, cy + dy * bw);
+  gr.addColorStop(0, 'rgba(255,179,92,0)'); gr.addColorStop(.45, `rgba(255,214,150,${Math.min(1, .35 * A)})`); gr.addColorStop(.5, `rgba(255,248,230,${Math.min(1, .75 * A)})`); gr.addColorStop(.55, `rgba(255,214,150,${Math.min(1, .35 * A)})`); gr.addColorStop(1, 'rgba(255,179,92,0)');
+  g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  g.globalCompositeOperation = 'destination-in'; g.drawImage(mask, 0, 0); g.globalCompositeOperation = 'source-over';
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.drawImage(c, x, y); ctx.restore();
 }

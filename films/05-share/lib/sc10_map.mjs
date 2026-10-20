@@ -9,6 +9,7 @@ import { stipple, cone } from './art.mjs';
 import { nightSheet, drawSheet, paperAt } from './map.mjs';
 import { ring, rosette, microtext, foilGlint, gBorder } from './certificate.mjs';
 import { expoOut, expoIn, quart } from './sc10_places.mjs';
+import { maskedGlint } from './sc10_engrave.mjs';
 
 const CACHE = new Map(); const once = (k, f) => { if (!CACHE.has(k)) CACHE.set(k, f()); return CACHE.get(k); };
 const TAU = Math.PI * 2;
@@ -138,8 +139,7 @@ export function cards(ctx, t, o = {}) {
   ctx.save(); ctx.globalCompositeOperation = u > .985 ? 'source-over' : 'source-over'; drawCard(off, 'MANILA · 6:12 AM', 'right', u > .985 ? .55 : .92); ctx.restore();
   // in register: one impression; a foil glint runs through both at once, the marks lock with a tiny flash
   if (t > reg - .02) {
-    const p = new Path2D(); p.rect(W / 2 - CW / 2 + 262, y - CHh / 2 + 52, 620, 150);
-    ctx.save(); foilGlint(ctx, p, (t - glintAt) * 2.2, { x: W / 2 - CW / 2 + 160, y: y - 40, span: 900, width: 120, speed: .5, a: 1.2 }); ctx.restore();
+    maskedGlint(ctx, TT, W / 2 - CW / 2 + 262, y - CHh / 2 + 52, (t - glintAt) * 2.2, { x: W / 2 - CW / 2 + 160, y: y - 40, span: 900, width: 120, speed: .5, a: 1.6 });
     const fl = Math.exp(-Math.max(0, t - reg) * 6); ctx.save(); ctx.globalCompositeOperation = 'lighter'; for (const mx of [W / 2 - CW / 2 - 40, W / 2 + CW / 2 + 40]) { const g = ctx.createRadialGradient(mx, y, 0, mx, y, 60); g.addColorStop(0, `rgba(255,241,214,${.8 * fl})`); g.addColorStop(1, 'rgba(255,179,92,0)'); ctx.fillStyle = g; ctx.fillRect(mx - 60, y - 60, 120, 120); } ctx.restore();
   }
   ctx.restore();

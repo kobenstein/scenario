@@ -18,21 +18,23 @@
 // |       |                                                 | rise; the US lights on "cheer"      |                                                       |             |
 // | 5.16b | Only the people of one rich country?            | border runs as microtext on "one    | the border line lifts (exit up) and redraws itself     | (a) exit up |
 // |       |                                                 | rich country"; the rest stays dark  | into the HARVEST coupon edge (signature unwind)        | + unwind    |
-// | 6.01  | Step three: harvest.                            | HARVEST coupon embossed in foil on  | the engraved fruit lifts as light → push-in            | (b) zoom    |
-// |       |                                                 | "harvest"; the fruit lifts off      |                                                       |             |
-// | 6.02  | One rule matters most: the same share for       | fruit splits into identical slices  | one slice drops, the camera tilts down with it         | (a) exit dn |
-// |       | everyone.                                       | on "same", they line up             |                                                       |             |
-// | 6.03  | Switzerland already does a small version.       | the slice lands on Switzerland on   | push-in on the slice                                   | (b) zoom    |
-// |       |                                                 | "small"; the country lights         |                                                       |             |
-// | 6.04  | Every resident, from baby to pensioner, gets    | the same amber refund line lights   | push-in on the parent's refund line                    | (b) zoom    |
-// |       | the same refund … every year.                   | on all three letters on "same"      |                                                       |             |
+// | 6.01  | Step three: harvest.                            | the border line lands as the coupon | the engraved fruit lifts as light, the camera pushes   | (b) push +  |
+// |       |                                                 | edge; foil frame + word on "harvest"| in on it → cut on the fruit (same spot, same size)     | match cut   |
+// | 6.02  | One rule matters most: the same share for       | pull back: the fruit hangs in the   | one slice drops, the camera tilts down after it; cut   | (a) exit dn |
+// |       | everyone.                                       | fund's tree; splits on "same", the  | with the slice in the same screen spot                 |             |
+// |       |                                                 | identical slices line up            |                                                       |             |
+// | 6.03  | Switzerland already does a small version.       | the slice falls away from the       | push-in into the landed slice's light → 6.04 opens     | (b) push    |
+// |       |                                                 | camera, lands on "small"; CH lights | out of that light (Swiss morning)                      | into light  |
+// | 6.04  | Every resident, from baby to pensioner, gets    | the same amber refund line lights   | push-in on the parent's refund line → match cut: the   | (b) push +  |
+// |       | the same refund … every year.                   | on all three letters on "same"      | statement of 6.05 at the same place and scale          | match cut   |
 // | 6.05  | It arrives through their health insurance.      | letterhead underlined + leader to   | the sheet slides away to the left, revealing the card  | (a) exit L  |
 // |       |                                                 | the refund on "health insurance"    |                                                       |             |
 // | 6.06  | Anthropic's plan mentions "direct distributions | words light with the voice; the     | OUT: carry('c08>c09') 'line' — the highlight under     | (b) zoom    |
 // |       | to specific populations."                       | highlight sweeps on "specific"      | "specific populations" on the register path, push-in   |             |
 // Speed contrast: snappy lands (expo-out .4–.7 s) on the accent words against slow living holds (drift, glints, motes, breathing hands).
 // Sound (new, only in speech pauses or on the contact frame of my own images): shimmer as the rings run out (5.10 → 5.16a), foil glint as
-// the border lifts (5.16b pause), the HARVEST emboss, paper as the statement slides away. The lead's accents are not in this range.
+// the border lifts (5.16b pause), the HARVEST emboss, an airy whoosh into the fruit, a whoosh as the slice drops, a bloom into the Swiss
+// light, paper as the statement slides away. The lead's accents are not in this range.
 import { Path2D } from '@napi-rs/canvas';
 import { W, H, rgba, clamp, lin, mix, sm, eio, eout, prng, drift, canvas, text, addGlow } from '../engine.mjs';
 import { rosette, ring, microPath, foilGlint, resample, unwind } from '../lib/certificate.mjs';
@@ -244,7 +246,10 @@ export default (T, R) => {
     const ca = 1 - sm(lin(A.out0 - .1, A.out0 + .3, t)), X = 132;
     if (ca > 0) {
       ctx.save(); ctx.globalAlpha = ca;
-      K.revealText(ctx, 'Windfall Clause', X, 396, lin(A.windfall - .1, A.windfall + .5, t), { size: 80, font: 'Instrument Serif', color: '#f1ead2' });
+      // the title arrives on "proposed", a foil glint runs through it on "Windfall" (the key word)
+      K.revealText(ctx, 'Windfall Clause', X, 396, lin(A.windfall - .74, A.windfall - .14, t), { size: 80, font: 'Instrument Serif', color: '#f1ead2' });
+      const gp = lin(A.windfall - .06, A.windfall + .66, t);
+      if (gp > 0 && gp < 1) { ctx.save(); ctx.font = '80px "Instrument Serif"'; const w = ctx.measureText('Windfall Clause').width, bx = X - 130 + qio(gp) * (w + 260), gl = ctx.createLinearGradient(bx - 80, 316, bx + 80, 396); gl.addColorStop(0, 'rgba(255,190,110,0)'); gl.addColorStop(.5, 'rgba(255,214,150,.9)'); gl.addColorStop(1, 'rgba(255,190,110,0)'); ctx.restore(); text(ctx, 'Windfall Clause', X, 396, { size: 80, font: 'Instrument Serif', color: gl }); }
       K.revealText(ctx, 'PROPOSED BY OXFORD RESEARCHERS  ·  2020', X + 4, 446, lin(A.oxford + .05, A.oxford + .7, t), { size: 17, weight: 600, color: '#e9c46a', spacing: 4 });
       const nums = [['1 %', A.windfall + .25], ['20 %', A.big2], ['50 %', A.share]]; let xx = X;
       for (const [k, [s, t0]] of nums.entries()) { const on = sm(lin(t0, t0 + .35, t)), base = sm(lin(A.big1 - .3, A.big1 + .2, t));
@@ -278,7 +283,7 @@ export default (T, R) => {
   const usPath = (mc) => { const p = new Path2D(); MB.forEach((q, i) => { const [x, y] = mapPt(mc, q); i ? p.lineTo(x, y) : p.moveTo(x, y); }); p.closePath(); return p; };
   function cheerOnMap(ctx, t, mc, a) {   // cheer rings spread from the city over the country and stop at its border
     if (a <= 0) return; ctx.save(); ctx.clip(usPath(mc));
-    for (let k = 0; k < 7; k++) { const t0 = A.cheer - .55 + k * .55, q = (t - t0) / 2.8; if (q <= 0 || q >= 1) continue; const r = (40 + 900 * xout(q)) * mc.m, [x, y] = mapPt(mc, SF); ring(ctx, x, y, r, r, { lines: 5, band: 14, wave: 26, col: '#ffe2b0', glow: '#ffb35c', glowA: .14, a: a * (1 - q) * .85, lw: 1, ph: k }); }
+    for (let k = 0; k < 6; k++) { const t0 = A.cheer - .55 + k * .6, q = (t - t0) / 2.8; if (q <= 0 || q >= 1) continue; const r = (40 + 1150 * (1 - Math.pow(1 - q, 1.6))) * mc.m, [x, y] = mapPt(mc, SF); ring(ctx, x, y, r, r, { lines: 3, band: 9, wave: 22, col: '#fff4e0', glow: '#ffb35c', glowA: .2, a: a * (1 - q) * .95, lw: 1.6, ph: k }); }
     ctx.restore();
   }
   // ---------------- 5.16a But who gets to cheer? ----------------
@@ -407,14 +412,14 @@ export default (T, R) => {
     if (t > A.same - .02 && t < A.same + .5) K.bloomAt(ctx, FR[0], FR[1], 300, .8 * env(t, A.same - .02, A.same + .04, A.same + .1, A.same + .5));
     ctx.restore();
     // the slices: identical, in a row across the frame (drawn at screen scale so they read); the fund steps back into the dark
-    const veil = sm(lin(A.same + .3, A.everyone, t)); if (veil > 0) { ctx.fillStyle = `rgba(10,6,3,${.5 * veil})`; ctx.fillRect(0, -200, W, H + 400 + tilt); }
+    const veil = sm(lin(A.same + .3, A.everyone, t)); if (veil > 0) { ctx.fillStyle = `rgba(10,6,3,${.62 * veil})`; ctx.fillRect(0, -200, W, H + 400 + tilt); }
     if (t >= A.same + .05) for (let i = 0; i < NS; i++) {
       if (i === DROP && t > A.drop0) continue;
       const st = sliceState(t, i), k = zc, x = FR[0] + (st.x - FR[0]) * (st.y === ROWY ? 1 : 1), y = st.y;
       slice(ctx, (x - FR[0]) * (t < A.everyone ? mix(k, 1, qio(lin(A.same + .3, A.everyone, t))) : 1) + FR[0], y, st.R * (t < A.everyone ? mix(k, 1, qio(lin(A.same + .3, A.everyone, t))) : 1), st.a0, st.a1);
     }
-    const la = env(t, A.everyone - .15, A.everyone + .25, A.drop0 + .25, A.drop0 + .5);
-    if (la > 0) K.revealText(ctx, 'THE SAME SHARE FOR EVERYONE', W / 2, ROWY + 92, lin(A.everyone - .15, A.everyone + .35, t), { size: 20, weight: 600, color: rgba('#ffe2b0', .92 * la), spacing: 7, align: 'center' });
+    const la = env(t, A.same + .4, A.same + .7, A.drop0 + .45, A.drop0 + .7);
+    if (la > 0) K.revealText(ctx, 'SAME SHARE FOR EVERYONE', W / 2, ROWY + 96, lin(A.same + .4, A.same + .85, t), { size: 22, weight: 600, color: rgba('#ffe2b0', .95 * la), spacing: 7, align: 'center' });
     ctx.restore();
     if (t > A.drop0) { const d = dropPos(t); slice(ctx, d.x, d.y, d.R, -Math.PI / 2 - Math.PI / NS, -Math.PI / 2 + Math.PI / NS); }
     K.motes(ctx, t, { a: .7, n: 60, seed: 19 });
@@ -451,7 +456,7 @@ export default (T, R) => {
     { const s = sp.s, u = clamp((t - A.cut603) / (A.small - A.cut603)), [lx, ly] = mapToScreen(v, CH0);
       ctx.save(); ctx.globalAlpha = .35 * u * u; ctx.fillStyle = '#1a1208'; ctx.filter = `blur(${mix(14, 3, u)}px)`; ctx.beginPath(); ctx.ellipse(lx + mix(40, 4, u), ly - sp.r * .4 + mix(30, 3, u), sp.r * .5, sp.r * .3, 0, 0, TAU); ctx.fill(); ctx.filter = 'none'; ctx.restore();
       slice(ctx, sp.x, sp.y, sp.r, s.a0, s.a1); }
-    const la = sm(lin(A.small + .25, A.small + .7, t)) * (1 - sm(lin(A.t604 - .2, A.t604, t)));
+    const la = sm(lin(A.small + .05, A.small + .45, t)) * (1 - sm(lin(A.t604 - .3, A.t604 - .1, t)));
     if (la > 0) { const [x, y] = mapToScreen(v, [CH0[0], CH0[1] - 120]); text(ctx, 'SWITZERLAND', x, y, { size: 26, weight: 600, color: rgba('#2a3f5f', .95 * la), spacing: 9, align: 'center' }); }
     ctx.restore();
     K.motes(ctx, t, { a: .4, n: 40, seed: 29, col: '255,240,220' });
@@ -569,10 +574,10 @@ export default (T, R) => {
     { id: '5.10', t: A.pan0 + .52, tr: 'cut', d: .1, draw: d510, print: mgPrint, sound: [{ f: 'shimmer_rings', t: A.out0 + .05, v: .3 }] },
     { id: '5.16a', t: A.iris, tr: 'iris', x: P2[0], y: P2[1], r: RINGS[2] * 1.42, d: .8, draw: d516a, print: { riso: .3 } },
     { id: '5.16b', t: A.only, tr: 'cut', d: .1, draw: d516b, print: { riso: .3 }, sound: [{ f: 'foil_glint', t: A.lift0 + .05, v: .35 }] },
-    { id: '6.01', t: A.cut601, tr: 'cut', d: .1, draw: d601, sound: [{ f: 'stamp', t: A.harvest + .02, v: .28 }] },
-    { id: '6.02', t: A.t602, tr: 'cut', d: .1, draw: d602 },
+    { id: '6.01', t: A.cut601, tr: 'cut', d: .1, draw: d601, sound: [{ f: 'stamp', t: A.harvest + .02, v: .28 }, { f: 'whoosh_airy', t: A.t602 - .4, v: .2 }] },
+    { id: '6.02', t: A.t602, tr: 'cut', d: .1, draw: d602, sound: [{ f: 'whoosh', t: A.everyoneE + .04, v: .18 }] },
     { id: '6.03', t: A.cut603, tr: 'cut', d: .1, draw: d603, print: { riso: .3, hatch: .4 } },
-    { id: '6.04', t: A.t604, tr: 'cut', d: .1, draw: d604, print: { riso: .3, hatch: .35, vig: .3 } },
+    { id: '6.04', t: A.t604, tr: 'cut', d: .1, draw: d604, print: { riso: .3, hatch: .35, vig: .3 }, sound: [{ f: 'bloom', t: A.t604 - .2, v: .22 }] },
     { id: '6.05', t: A.t605, tr: 'cut', d: .1, draw: d605, print: { riso: .3, hatch: .35 } },
     { id: '6.06', t: A.t606, tr: 'cut', d: .1, draw: d606, sound: [{ f: 'pages', t: A.t606 + .05, v: .3 }] },
   ];

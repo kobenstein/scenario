@@ -115,7 +115,7 @@ export function tree(ctx, x, y, s, t, o = {}) {
     const f = vis(b); if (f <= 0) return;
     const ang = b.ang + angOff + swayA(b), bb = { ...b, x0: ox, y0: oy, ang }, N = b.depth === 0 ? 14 : 8, pts = [];
     for (let i = 0; i <= N; i++) pts.push(pointOn(bb, f * i / N));
-    P.push({ b, bb, pts, f, w0: b.w0 * thick, w1: mix(b.w0, b.w1, f) * thick });
+    P.push({ b, bb, pts, f, w0: b.w0 * thick, w1: b.w1 * thick });   // a growing limb tapers to its tip (no blunt stake)
     for (const k of b.kids) { const q = (k.b0 - b.b0) / Math.max(.001, (b.b1 - b.b0) * .85); const [px, py] = pointOn(bb, clamp(q)); walk(k, px, py, angOff + (ang - b.ang - angOff) * .8 + swayA(b) * .4); }
   };
   walk(S.B[0], 0, 0, 0);

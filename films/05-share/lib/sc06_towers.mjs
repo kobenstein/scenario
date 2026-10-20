@@ -264,7 +264,7 @@ export function towersFrame(ctx, t, o = {}) {
     const tx = hang[0] + Math.sin(swing) * 30, ty = hang[1];
     ctx.strokeStyle = 'rgba(250,236,210,.8)'; ctx.lineWidth = 1.1; ctx.beginPath(); ctx.moveTo(top[0], top[1]); ctx.quadraticCurveTo((top[0] + tx) / 2 + 8, (top[1] + ty) / 2, tx, ty); ctx.stroke();
     const ts = clamp((hang[1] - top[1]) / 400 + .4, .5, 1.4) * (o.tagScale ?? 1);
-    priceTag(ctx, tx, ty, ts, t, { rot: swing * .8 + .1, a: o.tag });
+    priceTag(ctx, tx, ty, ts, t, { rot: swing * .8 + .1, a: o.tag, label: o.tagLabel, sub: o.tagSub, glow: o.tagGlow || 0 });
     out.tag = { x: tx, y: ty + 46 * ts, s: ts };
   }
   // near fog in front, low on the ground

@@ -74,10 +74,10 @@ export default (T, R) => {
     draw: (ctx, t) => { sheetShot(ctx, t, a, CIN); },
   });
   // ======================= 3.01 · your phone, over the shoulder =======================
-  const CUR = [956, 708];   // the cursor on screen (measured from heldPhone's map at the shot's end)
+  const FLD = [969, 560];   // the comment field's centre after phoneShot's settle (960,560) + B's field offset; B's field is 3.44× as wide
   out.push({ t: a.probably - .3, tr: 'cut', d: .1, draw: (ctx, t) => phoneShot(ctx, t, a) });
   // ======================= 3.02 · "the rich never share", the column =======================
-  out.push({ t: a.rich - .3, tr: 'zoom', x: CUR[0], y: CUR[1], depth: 3.6, d: .55, draw: (ctx, t) => commentShot(ctx, t, a, T),
+  out.push({ t: a.rich - .3, tr: 'zoom', x: FLD[0], y: FLD[1], depth: 3.44, d: .55, draw: (ctx, t) => commentShot(ctx, t, a, T),
     sound: [{ f: 'phone_tap', t: a.never + .55, v: .3 }] });
   // ======================= 3.03 · the villa behind bars =======================
   out.push({ t: a.forWhat - .15, tr: 'whipU', d: .5, draw: (ctx, t) => villaShot(ctx, t, a),
@@ -87,7 +87,7 @@ export default (T, R) => {
   out.push({ t: a.fortune - .2, tr: 'whipL', d: .45, draw: (ctx, t) => landShot(ctx, t, a),
     sound: [{ f: 'lamp', t: a.yet - .06, v: .45 }] });
   // ======================= 3.05 + 3.06 ★ · the rule, the riches, Alaska =======================
-  const ENV = [679, 803];   // the cabin's envelope at the end of 3.06 (screen)
+  const ENV = [960, 540];   // the cabin's envelope at the end of 3.06: alaskaShot settles it to the centre before the zoom
   out.push({ t: a.andWhere - .1, tr: 'zoom', x: LAMP[0], y: LAMP[1], depth: 5, d: .6, draw: (ctx, t) => alaskaShot(ctx, t, a) });
   // ======================= 3.07a · every year =======================
   out.push({ t: a.year - .12, tr: 'zoom', x: ENV[0], y: ENV[1], depth: 4, d: .5, draw: (ctx, t, s) => seasonsShot(ctx, t, a),
@@ -98,9 +98,9 @@ export default (T, R) => {
   out.push({ t: a.child - .15, tr: 'down', d: .4, draw: (ctx, t) => porchShot(ctx, t, a) });
   // ======================= 3.08 · Norway's licence → the fjord =======================
   out.push({ t: a.norway - .2, tr: 'whipR', d: .4, draw: (ctx, t) => licenceShot(ctx, t, a),
-    sound: [{ f: 'drop', t: a.came + .42, v: .4 }] });
+    sound: [{ f: 'drop', t: a.came + .06, v: .4 }] });
   // ======================= 3.09 · Nvidia's rosette, the fund's slice =======================
-  out.push({ t: a.today - .2, tr: 'zoom', x: RINGPT[0], y: RINGPT[1], depth: 3, d: .5, draw: (ctx, t) => nvidiaShot(ctx, t, a) });
+  out.push({ t: a.today - .05, tr: 'zoom', x: 960, y: 540, depth: 3, d: .5, draw: (ctx, t) => nvidiaShot(ctx, t, a) });
   // ======================= 3.10 · ≈ $11,000 for every Norwegian =======================
   out.push({ t: a.about - .15, tr: 'zoom', x: SLICE_TIP[0], y: SLICE_TIP[1], depth: 3, d: .5, draw: (ctx, t) => rowShot(ctx, t, a) });
   // ======================= 3.12 + 3.13 · humanity, almost rich; not each of us — all of us =======================
@@ -237,13 +237,16 @@ function thumb(ctx, x, y, s, ang) {
 function phoneShot(ctx, t, a) {
   const t0 = a.probably - .3, z = 1 + .035 * eio(lin(t0, a.rich, t)), dx = drift(t, 5, 3), dy = drift(t, 4, 4);
   ctx.drawImage(roomBack(), 0, 0);
-  ctx.save(); ctx.translate(1000, 560); ctx.scale(z, z); ctx.translate(-1000 + dx, -560 + dy);
+  // once the field has focus the camera settles onto it: the field's centre comes to the middle of the frame (the zoom lands there)
+  const fc = eio(lin(a.thinking + .2, a.rich - .56, t)), z2 = 1 + .25 * fc, FZ = [1113, 697];
+  ctx.save(); ctx.translate((960 - FZ[0]) * fc, (560 - FZ[1]) * fc); ctx.translate(FZ[0], FZ[1]); ctx.scale(z2, z2); ctx.translate(-FZ[0], -FZ[1]);
+  ctx.translate(1000, 560); ctx.scale(z, z); ctx.translate(-1000 + dx, -560 + dy);
   // display light on the room (warm-cool spill)
   { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(1060, 560, 0, 1060, 560, 700); g.addColorStop(0, 'rgba(170,190,255,.14)'); g.addColorStop(1, 'rgba(170,190,255,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore(); }
   const kb = eout(lin(a.thinking - .3, a.thinking + .15, t));   // on "thinking" the field takes focus: the keyboard slides up, the cursor starts blinking
   const P = heldPhone(ctx, 1100, 590, 2.85, { t, ang: -.07, pitch: .2, lit: 1, rim: '#9fb6ff', rimA: .35, screen: (g, w, h, tt) => phoneScreen(g, w, h, tt, { kb }) });
-  ctx.restore();
-  ctx.drawImage(shoulder(), -40 + dx * 1.6, 20 + dy * 1.6);
+  ctx.restore(); ctx.restore();
+  ctx.drawImage(shoulder(), -40 + dx * 1.6 + (960 - FZ[0]) * fc * 1.4, 20 + dy * 1.6 + (560 - FZ[1]) * fc * 1.4);
   // fade up from the dark of the bar shadow
   const up = sm(lin(t0, t0 + .45, t)); if (up < 1) { ctx.fillStyle = `rgba(7,9,24,${1 - up})`; ctx.fillRect(0, 0, W, H); }
 }
@@ -277,7 +280,8 @@ function commentShot(ctx, t, a, T) {
   // camera: starts close on the field (as the cursor zoom lands), pulls back to show the column
   const pb = eio(lin(t0 + .3, a.never - .05, t)), z = mix(1.55, 1, pb), fx = 960, fy = mix(540, 820, pb);
   const FIELD_Y = 820, scrAt = (tt) => 46 * (tt - t0) + 2300 * eio(lin(a.never - .05, a.never + .62, tt)), scr = scrAt(t);
-  ctx.save(); ctx.translate(fx, fy); ctx.scale(z, z); ctx.translate(-960, -FIELD_Y);
+  const rot = -.07 * (1 - eio(lin(t0 - .25, t0 + .35, t)));   // the phone's tilt, straightened as the zoom lands
+  ctx.save(); ctx.translate(fx, fy); ctx.rotate(rot); ctx.scale(z, z); ctx.translate(-960, -FIELD_Y);
   // the column of the same sentence (rows above the field, scrolling up)
   const sent = a.never + .6, mine = eout(lin(sent, sent + .3, t));
   ctx.save(); ctx.beginPath(); ctx.rect(0, -2000, W, FIELD_Y - 70 + 2000); ctx.clip();
@@ -329,6 +333,14 @@ function landShot(ctx, t, a) {
   ctx.restore();
   // the fence ends: the last bars and the end pillar slide out to the left (the pan, decelerating)
   fenceEnd(ctx, t, { x: mix(1450, -700, pan) - slow, base: 940, s: 1.75 });
+  // flying into the lamp: its light fills the frame (3.05 starts inside that same light and clears to night)
+  const tz = a.andWhere - .1, fl = sm(lin(tz - .42, tz - .08, t));
+  if (fl > 0) {
+    ctx.save(); ctx.fillStyle = rgba('#b3b7bb', fl); ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = 'lighter'; const r = mix(240, 120, fl), rg = ctx.createRadialGradient(LAMPP[0], LAMPP[1], 0, LAMPP[0], LAMPP[1], r);
+    rg.addColorStop(0, rgba('#fff1d6', .9 * fl)); rg.addColorStop(.22, rgba('#ffd9a0', .4 * fl)); rg.addColorStop(1, rgba('#ffd9a0', 0)); ctx.fillStyle = rg; ctx.fillRect(LAMPP[0] - r, LAMPP[1] - r, 2 * r, 2 * r);
+    ctx.restore();
+  }
 }
 const LAMPP = [1088, 325];
 function beam(ctx, x, y, a) {   // the lamp's straight beam through the fog, to the left: it will become the rule in 3.05
@@ -379,13 +391,20 @@ function alaskaShot(ctx, t, a) {
   const dropMap = lift * 160;
   if (lift < 1) {
     plateBack(ctx, t, cam, { dy: dropMap, warm: null });
+    // flying into the lamp: the frame starts as its light and the dawn fog of 3.04 and clears to night as the zoom lands
+    const fogIn = 1 - sm(lin(t0 + .05, t0 + .55, t));
+    if (fogIn > 0) {
+      ctx.save(); ctx.fillStyle = rgba('#b3b7bb', fogIn); ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'lighter'; const rg = ctx.createRadialGradient(960, 540, 0, 960, 540, 520); rg.addColorStop(0, rgba('#fff1d6', .85 * fogIn)); rg.addColorStop(.22, rgba('#ffd9a0', .35 * fogIn)); rg.addColorStop(1, rgba('#ffd9a0', 0)); ctx.fillStyle = rg; ctx.fillRect(0, 0, W, H);
+      ctx.restore();
+    }
     ctx.save(); ctx.translate(cam.x, cam.y + dropMap);
     // ---- the rule and the shares (3.05) ----
     const A = alaska(), N = A.pts.length, z = .06;
     const xEnd = mix(RULE.x1, START[0], conv);
     const amp = 7 * (1 - conv);
     const preUnwind = u <= 0, bm = 1 - sm(lin(t0 + .25, a.rules + .3, t));
-    if (bm > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; for (const [w, al] of [[90, .05], [26, .14], [6, .4], [1.8, .9]]) { ctx.fillStyle = rgba(CORE, al * bm); ctx.fillRect(-200, RULE.y - w / 2, W + 400, w); } ctx.restore(); }
+    if (bm > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; for (const [w, al] of [[90, .05], [26, .14], [6, .4], [1.8, .9]]) { const hg = ctx.createLinearGradient(-cam.x, 0, W - cam.x, 0), e0 = al * bm * (1 - fogIn); hg.addColorStop(0, rgba(CORE, e0)); hg.addColorStop(.3, rgba(CORE, al * bm)); hg.addColorStop(.7, rgba(CORE, al * bm)); hg.addColorStop(1, rgba(CORE, e0)); ctx.fillStyle = hg; ctx.fillRect(-200, RULE.y - w / 2, W + 400, w); } ctx.restore(); }
     if (preUnwind) {
       const xe = ruleBand(ctx, t, RULE.x0, xEnd, RULE.y, amp, draw);
       // the burin light at the drawing head
@@ -451,11 +470,16 @@ function alaskaShot(ctx, t, a) {
   }
   // ---- 3.06: the coast thread rises into the sky and becomes the aurora's lowest line; the camera tilts down to the houses ----
   const pz = eio(lin(a.same - .6, a.money + .5, t)), ncam = { x: mix(40, -30, pz) + drift(t, 8, 3), y: 760 * (1 - tiltD) + drift(t, 5, 4), z: mix(1, 1.09, pz) };
+  // the camera settles onto the cabin's envelope (to the centre of the frame) before the zoom into "every year"
+  const fcE = eio(lin(a.year - 1.2, a.year - .37, t)), envS = [W / 2 + (700 + ncam.x * .86 + 30.45 - W / 2) * ncam.z, H / 2 + (868 + ncam.y * .86 - 83.475 - H / 2) * ncam.z];
+  const settle = (c) => { if (fcE <= 0) return; const z2 = 1 + .35 * fcE; c.translate((960 - envS[0]) * fcE, (540 - envS[1]) * fcE); c.translate(envS[0], envS[1]); c.scale(z2, z2); c.translate(-envS[0], -envS[1]); };
   let NW = null;
+  ctx.save(); settle(ctx);
   if (lift > 0) {
     if (lift < 1) { const [c, g] = northScratch(); g.clearRect(0, 0, W, H); NW = northWide(g, t, { cam: ncam, tilt: 1, same, fan, auroraA: sm(lin(a.every - .5, a.every + .3, t)) }); ctx.save(); ctx.globalAlpha = lift; ctx.drawImage(c, 0, 0); ctx.restore(); }
     else NW = northWide(ctx, t, { cam: ncam, tilt: 1, same, fan, auroraA: 1 });
   }
+  ctx.restore();
   // the thread: the laid coast → the aurora's base line (in the north camera)
   if (mph > 0 && mph < 1) {
     const A = alaska(), ab = auroraBase(t, { dx: ncam.x, dy: ncam.y }).map(([x, y]) => [W / 2 + (x - W / 2) * ncam.z, H / 2 + (y - H / 2) * ncam.z]);
@@ -477,10 +501,12 @@ function alaskaShot(ctx, t, a) {
       label(ctx, 'ELIGIBLE RESIDENTS · EVERY YEAR · SINCE 1982', 112, 170, ta, { col: '#b8ffe0', size: 18, spacing: 5 });
     }
     // "the same": every mailbox lights up with the same envelope, a ring of light around each (stagger 70 ms)
+    ctx.save(); settle(ctx);
     if (NW && t > a.same - .1) NW.boxes.forEach(([bx, by], i) => {
       const X = W / 2 + (bx - W / 2) * ncam.z, Y = H / 2 + (by - H / 2) * ncam.z, q = lin(a.same - .05 + i * .07, a.same + .9 + i * .07, t), k = [.5, .62, 1.05][i] * ncam.z;
       if (q > 0) { addGlow(ctx, X, Y, 120 * k, .5 * Math.min(1, q * 4), AMB, CORE); if (q < 1) ring(ctx, X, Y, mix(20, 160, eout(q)) * k, mix(20, 160, eout(q)) * k * .55, { lines: 5, band: 8, wave: 18, col: CORE, glow: AMB, a: 1 - q, lw: 1 }); }
     });
+    ctx.restore();
     source(ctx, t, a.every + .9, a.money + .55, 'Source: Alaska Dept. of Revenue, PFD Division', { x: 112, y: 204 });
     return NW;
   }
@@ -491,7 +517,11 @@ function alaskaShot(ctx, t, a) {
 // =====================================================================================================================
 function seasonsShot(ctx, t, a) {
   const t0 = a.year - .12, u = lin(t0, a.year + 1.1, t);
+  // starts close on the envelope (where the zoom lands, frame centre) and eases back to show the seasons turning around it
+  const k = mix(1.7, 1.1, eio(lin(t0 + .2, t0 + 1.1, t))), Q = [1359.3, 1107.8];
+  ctx.save(); ctx.translate(Q[0], Q[1]); ctx.scale(k, k); ctx.translate(-Q[0], -Q[1]);
   seasonsMailbox(ctx, t, { u: eio(u) * .98 + .01, years: 2 });
+  ctx.restore();
   // the gust at the end: snow driven hard to the right
   const g = lin(a.year + .7, a.year + 1.25, t); if (g > 0) { const r = prng(21); ctx.save(); ctx.globalCompositeOperation = 'lighter'; for (let i = 0; i < 220; i++) { const y = r() * H, x0 = r() * W, sp = 900 + r() * 1400, x = (x0 + g * sp * 1.4) % (W + 300) - 150, l = 20 + g * 80 * r(); ctx.fillStyle = `rgba(235,242,255,${(.25 + .5 * r()) * g})`; ctx.fillRect(x, y, l, 1.6); } ctx.restore(); }
 }
@@ -529,9 +559,16 @@ function licenceShot(ctx, t, a) {
     label(ctx, 'NORWAY · STATE STAKE, FROM 1972', 960, 870, fadeIO(t, a.stateOwned + .3, a.bigBefore - .55, .5, .35) * (1 - push), { size: 22, spacing: 5, align: 'center' });
     if (push < .05) source(ctx, t, a.stateOwned + .4, a.bigBefore - .55, 'Source: Meld. St. 28 (2010–2011), Norwegian petroleum policy', { x: 552, y: 902 });
   }
-  if (xf > 0) {
-    ctx.save(); ctx.globalAlpha = xf; fjord(ctx, t, { z: mix(1.08, 1, eout(lin(a.bigBefore - .35, a.bigBefore + 1.2, t))) * (1 + .025 * lin(a.bigBefore, a.today, t)), drop: a.came + .45 }); ctx.restore();
-  }
+  if (xf > 0) { ctx.save(); ctx.globalAlpha = xf; fjordA(ctx, t, a); ctx.restore(); }
+}
+// the fjord as 3.08 shows it: after "came" the camera follows the drop down onto its rings (they arrive at the frame centre, where
+// the zoom into 3.09 is anchored); 3.09 redraws exactly this, magnified, while the zoom runs, so the two frames are one
+function fjordA(ctx, t, a) {
+  const fz = mix(1.08, 1, eout(lin(a.bigBefore - .35, a.bigBefore + 1.2, t))) * (1 + .025 * lin(a.bigBefore, a.today, t));
+  const fc = eio(lin(a.came - .75, a.came + .05, t)), R = [RINGPT[0], RINGPT[1] - 70 + 70 * fz], z2 = 1 + fc;
+  ctx.save(); ctx.translate((960 - R[0]) * fc, (540 - R[1]) * fc); ctx.translate(R[0], R[1]); ctx.scale(z2, z2); ctx.translate(-R[0], -R[1]);
+  fjord(ctx, t, { z: fz, drop: a.came + .06 });
+  ctx.restore();
 }
 function LIC_V(x, y, rot, s) { const V = { x: 30, y: -250, w: 520, h: 292 }, cx = (V.x + V.w / 2) * s, cy = (V.y + V.h / 2) * s, c = Math.cos(rot), sn = Math.sin(rot); return { x: x + cx * c - cy * sn, y: y + cx * sn + cy * c, w: V.w * s, h: V.h * s }; }
 
@@ -545,11 +582,15 @@ function nvBack() {
 }
 function slicePath(r0, r1, a0, a1) { const p = new Path2D(); p.moveTo(Math.cos(a0) * r0, Math.sin(a0) * r0); for (let i = 0; i <= 12; i++) { const q = mix(a0, a1, i / 12); p.lineTo(Math.cos(q) * r1, Math.sin(q) * r1); } p.lineTo(Math.cos(a1) * r0, Math.sin(a1) * r0); p.closePath(); return p; }
 function nvidiaShot(ctx, t, a) {
-  const t0 = a.today - .2, form = eio(lin(t0, a.today + .9, t)), lift = eout(lin(a.nvidia - .2, a.nvidia + .4, t)), giant = eio(lin(a.giant - .2, a.giant + .9, t));
+  const t0 = a.today - .05, form = eio(lin(t0 + .2, a.today + 1.1, t)), lift = eout(lin(a.nvidia - .2, a.nvidia + .4, t)), giant = eio(lin(a.giant - .2, a.giant + .9, t));
   ctx.drawImage(nvBack(), 0, 0);
+  // while the zoom runs (t0 ± .25) this frame is the fjord of 3.08 magnified exactly as the engine needs it; then the water clears
+  const fo = 1 - sm(lin(t0 + .15, t0 + .75, t));
+  if (fo > 0) { const e = eio(lin(t0 - .25, t0 + .25, t)), m = Math.pow(3, e) / mix(1 / 3, 1, e); ctx.save(); ctx.globalAlpha = fo; ctx.translate(960, 540); ctx.scale(m, m); ctx.translate(-960, -540); fjordA(ctx, t, a); ctx.restore(); }
   const sc = mix(1, 1.55, giant), rot = t * .03;
-  // the rings (from the water) contract/expand into the rosette's radius
-  if (form < 1) for (let k = 0; k < 4; k++) { const r0 = 40 + k * 150, r = mix(r0, RR * (.55 + k * .15), form); ring(ctx, RC[0], RC[1], r, r, { lines: 6, band: 10, wave: 26, col: '#f3f6f0', glow: '#cfe3e0', a: (1 - form) * .8, lw: 1 }); }
+  // the rings (from the water) tilt up to face the camera and contract/expand into the rosette's radius
+  const sy = mix(.3, 1, eio(lin(t0 + .05, t0 + .85, t))), ra = sm(lin(t0 + .05, t0 + .45, t));
+  if (form < 1) for (let k = 0; k < 4; k++) { const r0 = 40 + k * 150, r = mix(r0, RR * (.55 + k * .15), form); ring(ctx, RC[0], mix(540, RC[1], sy), r, r * sy, { lines: 6, band: 10, wave: 26, col: '#f3f6f0', glow: '#cfe3e0', a: (1 - form) * .8 * ra, lw: 1 }); }
   ctx.save(); ctx.translate(RC[0], RC[1]); ctx.scale(sc, sc);
   ctx.globalCompositeOperation = 'lighter';
   rosette(ctx, 0, 0, { R: RR * .78, A: 52, B: 20, n: 26, m: 9, lines: 46, col: '#cfe3e0', w: .7, a: .55, u: form, rot, cache: form >= 1 });

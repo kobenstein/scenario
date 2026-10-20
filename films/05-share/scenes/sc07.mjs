@@ -14,7 +14,7 @@
 //   4.17★ macro: a newborn hand closes around a seed of light; the paper tag on it gets her name as unreadable scribble ("name")
 //                                                                                                   → the seed            [zoom]
 //   4.18  the seed in the soil (cut face under a dawn field): shell cracks, root probes, time-lapse shoot → little tree; two small
-//         bare feet toddle in ("walk"); a leaf unfolds ("growing")                                → the top shoot stays while the
+//         toddler (backlit) walks in ("walk") and reaches for it; a leaf unfolds ("growing")        → the top shoot stays while the
 //         field slides up and the plan sheet arrives under it                                                             [down]
 //   5.01  the shoot settles into the GROW coupon, foil runs on "grow" and it becomes the engraving; a real shoot lifts out again
 //                                                                                                   → push into it        [zoom]
@@ -41,7 +41,7 @@ import { Path2D } from '@napi-rs/canvas';
 import { carry, track, drawCarrier } from '../lib/carry.mjs';
 import { shareLight } from '../lib/share.mjs';
 import { scribble, pen } from '../lib/paper.mjs';
-import { figure, POSES, babyBed, smallFeetSide, breath } from '../lib/figure.mjs';
+import { figure, POSES, babyBed, breath, figureKid, walk as walkPose, FIGDEF } from '../lib/figure.mjs';
 import { hand, palmPos, SKINS } from '../lib/hand.mjs';
 import { worldMap, project, country } from '../lib/map.mjs';
 import { ring, foilGlint, microtext, seal } from '../lib/certificate.mjs';
@@ -240,7 +240,7 @@ export default (T, R) => {
     const cam = camAt(t);
     ctx.fillStyle = '#120d12'; ctx.fillRect(0, 0, W, H);
     const dim = .55 + .25 * E(A.everyone - .1, .8, t), bg = E(A.borders - .15, .3, t) * (1 - .6 * E(A.borders + .5, 1.2, t));
-    worldMap(ctx, cam, { t, highlight: ['USA', 'KOR'], dim, borderGlow: bg > .02 ? ['USA'] : [], glowCol: AMB, light: [960, 300] });
+    worldMap(ctx, cam, { t, highlight: ['USA', 'KOR'], dim, borderGlow: bg > .02 ? ['USA'] : [], glowCol: AMB, light: [960, 300], detail: '110m' });   // 50m costs ~10 s a frame
     // seeds
     const formLand = A.none + .55;
     for (const sd of SEEDS) {
@@ -301,7 +301,7 @@ export default (T, R) => {
   function draw415(ctx, t) {
     const cam = cam415(t);
     ctx.fillStyle = '#120d12'; ctx.fillRect(0, 0, W, H);
-    worldMap(ctx, cam, { t, highlight: ['USA'], dim: .55, borderGlow: [], light: [960, 300] });
+    worldMap(ctx, cam, { t, highlight: ['USA'], dim: .55, borderGlow: [], light: [960, 300], detail: '110m' });
     const pu = E(t415 + .1, .6, t);
     const centres = [SEEDS[2], SEEDS[0]].map((sd) => project(cam, sd.lon, sd.lat));
     centres.forEach(([x, y, sc], i) => plate(ctx, x, y, (.8 + .3 * sc) * (i ? .7 : 1) * pu, t, pu));
@@ -471,7 +471,7 @@ export default (T, R) => {
     g.fillStyle = 'rgba(244,180,124,.45)'; for (let x = 0; x <= c.width; x += 3) g.fillRect(x, 2 + 5 * n(x * .02, 1), 3, 1.4);
     return c;
   });
-  const feetL = () => once('feetL', () => canvas(600, 620));
+  const kidL = () => once('kidL', () => canvas(700, 620)), kidR = () => once('kidR', () => canvas(700, 620));
   const growAt = (t) => { const a = lin(A.walk - .5, A.grEnd + .2, t), b = lin(A.grEnd + .2, t501 + .4, t); return .05 + .36 * sine(a) + .08 * b; };
   const camY418 = (t) => 0;   // the camera rises to the top shoot before the slide
   // the top shoot carrier (4.18 → 5.01): own track, screen space
@@ -506,14 +506,25 @@ export default (T, R) => {
     if (lu > 0 && T0) { const lx = T0.top.x + 18, ly = T0.top.y + 26; ctx.save(); ctx.translate(lx, ly); ctx.rotate(-.9 + .6 * lu); ctx.scale(lu * 1.4, lu * 1.4 * (0.35 + .65 * lu));
       const lg2 = ctx.createLinearGradient(0, -12, 46, 12); lg2.addColorStop(0, '#d9f2a0'); lg2.addColorStop(1, '#6fae5a'); ctx.fillStyle = lg2; ctx.beginPath(); ctx.moveTo(0, 0); ctx.quadraticCurveTo(22, -20, 50, 0); ctx.quadraticCurveTo(22, 18, 0, 0); ctx.fill();
       ctx.strokeStyle = 'rgba(60,90,40,.6)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(48, 0); ctx.stroke(); ctx.restore(); addGlow(ctx, lx + 30, ly - 10, 70, .25 * lu * (1 - lin(A.growing + 1, A.growing + 2, t)), '#d9f2a0', '#ffffff'); }
-    // the small feet toddle in from the right on "walk"
-    const fw = lin(A.walk - .15, A.walk + 1.3, t);
-    if (fw > 0) { // toddler feet, legs fading up into the dawn haze (a ground-level macro)
-      const x = mix(2300, 1330, eout(fw)), ph = fw * 3, [fc, fg] = feetL();
-      fg.setTransform(1, 0, 0, 1, 0, 0); fg.globalCompositeOperation = 'source-over'; fg.clearRect(0, 0, fc.width, fc.height);
-      smallFeetSide(fg, 300, 560, 1.0, { t, dir: -1, step: fw < 1 ? [Math.max(0, Math.sin(ph * Math.PI)), Math.max(0, -Math.sin(ph * Math.PI))] : [0, 0], light: { x: 300 + 500, y: 560 - 400 }, soil: false });
-      fg.setTransform(1, 0, 0, 1, 0, 0); fg.globalCompositeOperation = 'destination-in'; const mg = fg.createLinearGradient(0, 160, 0, 400); mg.addColorStop(0, 'rgba(0,0,0,0)'); mg.addColorStop(1, 'rgba(0,0,0,1)'); fg.fillStyle = mg; fg.fillRect(0, 0, fc.width, fc.height);
-      ctx.drawImage(fc, x - 300, GY + 6 - 560); addGlow(ctx, x - 10, GY - 330, 220, .25, '#ffd9b0', '#fff4e6'); }
+    // the girl toddles in from the right on "walk", backlit by the dawn, and stops at her tree; on "growing" she reaches for the new leaf
+    const fw = lin(A.walk - .3, A.walk + 1.45, t);
+    if (fw > 0) {
+      const KS = 3.9, x = mix(2120, 1105, eout(fw)), ph = (2120 - x) / 125 * TAU, st = clamp((fw - .86) / .14), rch = E(A.growing + .05, .7, t);
+      const W0 = walkPose(ph), bl = (a, b, k) => [mix(a[0], b[0], k), mix(a[1], b[1], k)], live = 1 - st;
+      const pose = { hip: bl(FIGDEF.hip, W0.hip, live), kn: bl(FIGDEF.kn, W0.kn, live), el: bl(bl(FIGDEF.el, W0.el, live), [.15, .3], rch), dy: W0.dy * live,
+        sh: bl(bl(FIGDEF.sh, W0.sh, live), [1.25, .14], rch), lean: .03 * live + .05 * rch, head: .18 * rch };
+      const fy = GY - 4, hipY = fy - (15.5 + 14) * KS;
+      // contact shadow stretched toward the camera (the sun is behind her)
+      ctx.save(); ctx.translate(x, fy + 2); ctx.scale(1, .16); const sg = ctx.createRadialGradient(0, 0, 0, 0, 0, 120); sg.addColorStop(0, 'rgba(10,6,12,.5)'); sg.addColorStop(1, 'rgba(10,6,12,0)'); ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(0, 0, 120, 0, TAU); ctx.fill(); ctx.restore();
+      // drawn off-screen, then darkened into a backlit silhouette with a warm rim on the sun side
+      const [kc, kg] = kidL(), [rc, rg] = kidR(), ox = 350, oy = 420;
+      kg.setTransform(1, 0, 0, 1, 0, 0); kg.globalCompositeOperation = 'source-over'; kg.clearRect(0, 0, kc.width, kc.height);
+      figureKid(kg, ox, oy, KS, pose, { age: 'toddler', t, seed: 4, flip: true, accent: '#e8a3a0', dress: { pants: '#3a3150', shoes: '#2a1d16', skin: SKINS[2], hair: '#2a1a14' }, hair: 'curly',
+        light: { x: ox + 195, y: oy - 90, col: '#ffd2a0', a: .7 }, shadow: false });
+      kg.globalCompositeOperation = 'source-atop'; const dg = kg.createLinearGradient(ox + 60, oy - 260, ox - 60, oy + 120); dg.addColorStop(0, 'rgba(70,40,60,.38)'); dg.addColorStop(1, 'rgba(18,10,22,.74)'); kg.fillStyle = dg; kg.fillRect(0, 0, kc.width, kc.height);
+      rg.setTransform(1, 0, 0, 1, 0, 0); rg.globalCompositeOperation = 'source-over'; rg.clearRect(0, 0, rc.width, rc.height); rg.drawImage(kc, 0, 0); rg.globalCompositeOperation = 'source-in'; rg.fillStyle = '#ffcf98'; rg.fillRect(0, 0, rc.width, rc.height);
+      ctx.save(); ctx.globalAlpha = .9; ctx.drawImage(rc, x - ox + 3.2, hipY - oy - 2.4); ctx.restore(); ctx.drawImage(kc, x - ox, hipY - oy);
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, x + 40, hipY - 170, 230, .2, '#ffd9b0', '#fff4e6'); ctx.restore(); }
     ctx.restore();
     // the top shoot: stays while the field slides up (carrier into 5.01)
     if (t > t501 - 1.1) { const P = shootKeys(sheetAt())(t), e = slideE(t501, d418, t); drawCarrier(ctx, 'sprout', P.x, P.y + e * H, P.s, 0, t, { a: E(t501 - 1.1, .3, t) }); }
@@ -626,6 +637,10 @@ export default (T, R) => {
     ctx.font = '168px "Instrument Serif"'; const sp = ctx.measureText(' ').width;
     lines.forEach((ln, li) => { let x = X0; for (const wi of ln) { const w = HL[wi]; if (!w) continue; const s = w.w.replace(/["“”.]/g, ''), u = lin(w.s - .04, w.s + .22, t);
       ctx.font = '168px "Instrument Serif"'; const ww = ctx.measureText(s).width;
+      // "the next headline:" — the coming headline waits out of focus, each word racks into focus as it is spoken
+      const pre = E(A.headline + .05, .9, t) * (1 - clamp(u * 2.4));
+      if (pre > .01) { const spr = blurred('hl505_' + wi, Math.ceil(ww + 220), 360, 26, (g) => { g.font = '168px "Instrument Serif"'; g.fillStyle = '#151822'; g.fillText(s, 110, 240); });
+        ctx.save(); ctx.globalAlpha = .3 * pre; ctx.drawImage(spr, x - 110, Y0[li] - 240 + (1 - pre) * 10); ctx.restore(); }
       if (u > 0) { const k = pop(u); ctx.save(); ctx.translate(x, Y0[li]); ctx.scale(.94 + .06 * k, .94 + .06 * k); ctx.globalAlpha = clamp(u * 3);
         text(ctx, s, 0, 0, { size: 168, font: 'Instrument Serif', color: '#151822' });
         const fl = Math.exp(-Math.max(0, t - w.s - .05) * 5); if (fl > .02) { ctx.globalCompositeOperation = 'lighter'; text(ctx, s, 0, 0, { size: 168, font: 'Instrument Serif', color: rgba('#ffb35c', .8 * fl) }); }

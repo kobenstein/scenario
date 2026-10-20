@@ -15,7 +15,7 @@ import { rooftop, rooftopFriends, ROOF } from './rooftop.mjs';
 import { guilloche, rosette, ring, gBorder, microtext, microRing, foilGlint, seal, resample } from './certificate.mjs';
 import { ghostLine, ghostPaths, burinTip } from './ghost.mjs';
 import { fibreFill } from './print.mjs';
-import { engraveWords } from './sc10_engrave.mjs';
+import { engraveWords, maskedGlint } from './sc10_engrave.mjs';
 import { expoOut, expoIn, quart } from './sc10_places.mjs';
 
 const CACHE = new Map(); const once = (k, f) => { if (!CACHE.has(k)) CACHE.set(k, f()); return CACHE.get(k); };
@@ -53,7 +53,10 @@ export function roofDawn(ctx, t, o = {}) {
   rooftopFriends(ctx, t, R, { you: { lean: -.04, nod: 0 }, friend: { nod: .25 + .2 * sm(lin(buzz, buzz + .6, t)), lean: .2 }, light: { x: L.x, y: L.y, col: '#ffd08a', a: .45 } });
   // the phone lying on the parapet top (a thin slab with a lit edge), it buzzes once
   const k = t > buzz ? Math.exp(-(t - buzz) * 3) : 0, jit = k * Math.sin(t * 90) * 1.6, lit = sm(lin(buzz - .05, buzz + .2, t));
-  ctx.save(); ctx.translate(phx + jit, py - 3); ctx.fillStyle = '#121420'; ctx.beginPath(); ctx.roundRect(-34, -5, 68, 7, 3); ctx.fill(); ctx.fillStyle = `rgba(255,214,160,${.25 + .6 * lit})`; ctx.fillRect(-30, -5, 60, 1.6); ctx.restore();
+  ctx.save(); ctx.translate(phx + jit, py - 3); ctx.scale(ks, ks); ctx.fillStyle = '#121420'; ctx.beginPath(); ctx.roundRect(-40, -6, 80, 8, 3); ctx.fill(); ctx.fillStyle = `rgba(255,214,160,${.25 + .7 * lit})`; ctx.fillRect(-36, -6, 72, 2);
+  // face up: when it lights, its screen throws a soft cone of light up into the dawn air
+  if (lit > 0) { const g = ctx.createRadialGradient(0, -8, 0, 0, -8, 110); g.addColorStop(0, `rgba(255,236,200,${.55 * lit * (.65 + .35 * k)})`); g.addColorStop(.35, `rgba(255,200,140,${.18 * lit})`); g.addColorStop(1, 'rgba(255,190,130,0)'); ctx.globalCompositeOperation = 'lighter'; ctx.save(); ctx.scale(1, .55); ctx.fillStyle = g; ctx.fillRect(-110, -125, 220, 230); ctx.restore(); }
+  ctx.restore();
   ringPass(true);
   // the sheet on top of the ring's sweep
   // it enters where the fragment left the split screen (x ≈ 1000) and drifts down to its place beside the phone, swaying like paper
@@ -119,7 +122,7 @@ function drawSheet(ctx, t, o) {
   const TL = titleLayers(), tx = SW / 2 - TL.w / 2, ty = 70, tu = o.title ?? 1;
   if (tu < 1) { ctx.save(); ctx.globalAlpha = .8 * (1 - tu); ctx.drawImage(TL.dots, tx, ty); ctx.restore(); }
   if (tu > 0) { ctx.save(); ctx.beginPath(); ctx.rect(tx, ty, TL.w * clamp(tu * 1.02), TL.h); ctx.clip(); ctx.globalAlpha = .5; ctx.drawImage(TL.shadow, tx + 2, ty + 3); ctx.globalAlpha = 1; ctx.drawImage(TL.foil, tx, ty);
-    const p = new Path2D(); p.rect(tx + 60, ty + 20, TL.w - 120, TL.h - 30); foilGlint(ctx, p, t, { x: tx, y: ty + 80, span: TL.w + 200, width: 90, speed: .12, phase: .2, a: .9 }); ctx.restore();
+    maskedGlint(ctx, TL.foil, tx, ty, t, { x: tx, y: ty + 80, span: TL.w + 200, width: 90, speed: .12, phase: .2, a: 1.1 }); ctx.restore();
     if (tu < 1) burinTip(ctx, tx + TL.w * tu, ty + 96, -.1, t, { size: 16, seed: 2 }); }
   // the guide lines for the text (dotted ghost), the signature line, a ghost seal (not binding yet)
   const ga = o.guides ?? 1;
@@ -244,7 +247,7 @@ function fogBand() { return once('c10-fog', () => { const [c, g] = canvas(W + 40
 function cityCam(t, o) {
   const t0 = o.t0 ?? 0, yet = o.yet ?? t0 + 3.4, which = o.which ?? t0 + 5, fall = o.fall ?? t0 + 8;
   const near = quart(lin(yet - 1.7, yet - .05, t)), wide = quart(lin(which - .1, which + 3.3, t)), down = eio(clamp((t - fall + .2) / 1.5));
-  return { near, wide, zz: mix(mix(1.0, 1.5, near), .92, wide), fx: mix(mix(ROS.x - 70, ROS.x - 330, near), 990, wide) + (t - t0) * 4, fy: mix(mix(560, 300, near), 520, wide) + 200 * down, dx: drift(t, 7, 1), dy: drift(t, 4, 2) };
+  return { near, wide, zz: mix(mix(1.0, 1.35, near), .92, wide), fx: mix(mix(ROS.x - 70, ROS.x, near), 990, wide) + (t - t0) * 4, fy: mix(mix(560, 365, near), 520, wide) + 200 * down, dx: drift(t, 7, 1), dy: drift(t, 4, 2) };
 }
 const FG = { py: 1080, sx: 780 };
 // screen point of the sheet on the foreground parapet (the zoom point into 7.07)
@@ -252,7 +255,7 @@ export function cityAnchor(t, o = {}) { const c = cityCam(t, o); return [W / 2 +
 export function dawnCity(ctx, t, o = {}) {
   const t0 = o.t0 ?? 0, yet = o.yet ?? t0 + 3.4, which = o.which ?? t0 + 5, every = o.every ?? t0 + 7, fall = o.fall ?? t0 + 8;
   const { zz, fx, fy, dx, dy, near } = cityCam(t, o);
-  const rise = eio(clamp((t - which) / 3.4)), light = sm(clamp((t - which - .2) / 2.4)), ry = ROS.y - 170 * rise, RS = mix(.5, .6, rise);
+  const rise = eio(clamp((t - which) / 3.4)), light = sm(clamp((t - which - .2) / 2.4)), ry = ROS.y - 140 * rise, RS = mix(.5, .6, rise);
   const cam = (p) => { ctx.translate(W / 2, H / 2); ctx.scale(zz, zz); ctx.translate(-fx - dx * p, -fy - dy * p); };
   ctx.save(); cam(.2); ctx.drawImage(citySky(), -200, -150); ctx.restore();
   // ---- the rosette: dotted ghost (unclaimed, the wind moves through it) → one ring engraves on "Yet" → all of it engraves and rises
@@ -266,7 +269,7 @@ export function dawnCity(ctx, t, o = {}) {
     const P = ROSG[i], rot = spin * [1, -1.6, 2.2][i] + i;
     ctx.save(); ctx.rotate(rot);
     if (solid > 0) { const S = rosSolid(i), e = S.width / 2; ctx.globalAlpha = solid * (.16 + .1 * light) * [1, 1.1, 1.25][i] / .5 * .5; ctx.drawImage(S, -e, -e); ctx.globalAlpha = 1; }
-    if (burn < 1) ghostPaths(ctx, rosLines(i), { ghost: 1, burin: t > which ? burn : null, smoke: t > which ? 0 : wind * (1 - near), col: P.col, w: 1.3 / RS, a: .85, dot: 6.5 / RS, t, stagger: .55, tips: 2, glow: '#ffe2b8', tipSize: 10 / RS });
+    if (burn < 1) ghostPaths(ctx, rosLines(i), { ghost: 1, burin: t > which ? burn : null, smoke: t > which ? 0 : wind * (1 - near), col: P.col, w: 1.3 / RS, a: .85, dot: 6.5 / RS, t, stagger: .55, tips: 2, glow: null, tipSize: 10 / RS });
     ctx.restore();
   }
   ctx.restore();
