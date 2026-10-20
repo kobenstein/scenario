@@ -33,5 +33,5 @@ Entries may carry `sound: [{ f, t, v, d?, loop? }]` with absolute film times. Fi
 2. Build, then review by looking: snapshots at 0.5 scale every ~0.33 s around each transition and one per shot (`SECS=cNN node render.mjs --snap … --dir …`). At least 2 review rounds; fix the weakest thing each round.
 3. Performance ≤ 250 ms per frame at full size (cache static layers offscreen, deterministic prng, no Math.random; avoid createPattern and the 'copy' composite, they leak in @napi-rs/canvas).
 4. Score your chunk 1–5 on: random-frame test, onset order, carriers at every boundary, speed contrast, poster quality, text readability. Nothing below 4 before you report.
-5. Touch only your own `scenes/scNN.mjs` (and new files named `lib/cNN-*.mjs` if you need them). Shared-lib bugs go to the lead in your report. Don't commit; the lead does.
+5. Touch only your own `scenes/scNN.mjs` (and new files named `lib/scNN_*.mjs` if you need them). Shared-lib bugs go to the lead in your report. Don't commit; the lead does.
 6. Report: shots built, 4–6 still paths (copy them to `/mnt/project-files/scenario/film-05-share/stills/cNN/`), ms per frame, anything you could not do.

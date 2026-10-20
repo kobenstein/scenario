@@ -13,19 +13,18 @@ import { filmFinish } from './lib/print.mjs';
 import { errorCard } from './lib/stub.mjs';
 
 export { ROOT };
-// Chunk table (shots-v0 §4). from = [section, first phrase of the chunk's first shot]; a missing phrase falls back to the section start.
-// from = candidate anchors [section, first phrase] (v2 first, then v1); none found -> the first one's section start.
+// Chunk table (bild/shots.md v2 §4). from = candidate anchors [segment or section, first phrase of the chunk's first shot].
 export const CHUNKS = [
-  { id: 'c01', name: 'Hook', shots: 'H.01–H.10', from: [['H']] },
-  { id: 'c02', name: '§0 Two promises', shots: '§0', from: [['0']] },
-  { id: 'c03', name: '§1 The fortune', shots: '§1', from: [['1']] },
-  { id: 'c04', name: '§2 Take, print', shots: '§2 to the IMF sliver', from: [['2']] },
-  { id: 'c05', name: '§2 end, §3 doubt, Alaska', shots: '§2 "If prices hold" … §3 "Child or adult"', from: [['2', 'If prices hold'], ['2', 'Printing takes nothing']] },
-  { id: 'c06', name: '§3 Norway, plan, §4 plant', shots: '§3 Norway … §4 "set slices aside is now"', from: [['3', 'Norway made sure'], ['3', 'Norway set']] },
-  { id: 'c07', name: '§4 Fund, seeds', shots: '§4 "But a share only counts" … end', from: [['4', 'But a share only']] },
-  { id: 'c08', name: '§5 Grow', shots: '§5', from: [['5']] },
-  { id: 'c09', name: '§6 Harvest', shots: '§6 … §7 "So picture the day we do"', from: [['6']] },
-  { id: 'c10', name: '§7 Manila/Ohio, close', shots: '§7 "A care worker" … end', from: [['7', 'A care worker'], ['6', 'A care worker']] },
+  { id: 'c01', name: 'Hook, §0 to the Musk quote', shots: 'H.01–0.04', from: [['H0a']] },
+  { id: 'c02', name: '§0 caveats, §1 inheritance to Paine', shots: '0.05–1.13', from: [['00a', 'Both are promises']] },
+  { id: 'c03', name: '§1 the fortune to come, §2 TAKE', shots: '1.02–2.08', from: [['01a', 'And the largest fortune']] },
+  { id: 'c04', name: '§2 PRINT and AGREE', shots: '2.09–2.23', from: [['02b', 'The second is to print']] },
+  { id: 'c05', name: '§2 objection, §3 Alaska, Norway, humanity', shots: '2.24–3.13', from: [['03a', 'But it has one']] },
+  { id: 'c06', name: 'The plan, §4 plant to Korea', shots: '3.14–4.11', from: [['04a', 'So here']] },
+  { id: 'c07', name: '§4 babies and seeds, §5 grow to the cheering', shots: '4.12–5.15', from: [['04b', 'American babies']] },
+  { id: 'c08', name: '§5 what exists, §6 Switzerland to the selection', shots: '5.07–6.06', from: [['05b', 'Pieces of this']] },
+  { id: 'c09', name: '§6 selection, borders, the gap, "So picture the day we do."', shots: '6.07–6.19', from: [['06a', 'But someone would']] },
+  { id: 'c10', name: 'Manila, Ohio, §7 close', shots: '6.20–7.10', from: [['07a', 'A care worker']] },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 

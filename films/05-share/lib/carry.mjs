@@ -1,4 +1,4 @@
-// Carriers across a cut (shots-v0 §2): both neighbours draw the same object at the same place at the same time.
+// Carriers across a cut (bild/shots.md v2 §2): both neighbours draw the same object at the same place at the same time.
 //   carry(id, T, R?) → { id, kind, t (the cut, film seconds), into: { t, tr, x, y, d } (spread into the incoming first shot),
 //                        pos(t) → { x, y, s, r, a }, draw(ctx, t, o) }      id = 'c01>c02' … (lib/handoffs.mjs)
 //   track(keys, t0) → pos(t)   the same easing for your own carriers inside a chunk: keys = [{ dt, x, y, s, r, a }] relative to t0
@@ -36,6 +36,7 @@ export function drawCarrier(ctx, kind, x, y, s, r, t, o = {}) {
   const a = o.a ?? 1, col = o.col || '#ffb35c'; if (a <= 0) return;
   ctx.save(); ctx.globalAlpha = a;
   switch (kind) {
+    case 'own': break; // the builders draw the object themselves at pos(t)
     case 'pen': pen(ctx, x, y, s, { ang: r, t }); break;
     case 'nib': { ctx.translate(x, y); ctx.rotate(r); ctx.scale(s, s); addGlow(ctx, 0, 0, 40, .45, col, '#fff1d6');
       ctx.fillStyle = '#c9b48a'; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(26, -8); ctx.lineTo(26, 8); ctx.closePath(); ctx.fill(); ctx.fillStyle = '#1d1a24'; ctx.fillRect(26, -9, 60, 18);
