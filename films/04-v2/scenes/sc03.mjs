@@ -254,7 +254,7 @@ export default async (T, R) => {
     const [wx, wy] = toScreen(c, WINp.x, WINp.y), wr = t > tLit ? winR(t) * c.s : 0;
     const inside = (doorOn && opaque(dx, dy, dr) && corners(c).every(([x, y]) => inDoor(x, y))) || opaque(wx, wy, wr);
     if (!inside) {
-      drawWorld(ctx, c, t, { live: t < tO1 + .2 });
+      drawWorld(ctx, c, t, { live: true });
       ctx.save(); camT(ctx, c);
       drawLive(ctx, t, c);
       const warm = eout(lin(tArrive, tArrive + .7, t));
@@ -277,15 +277,15 @@ export default async (T, R) => {
   const draw = (ctx, t) => frame(ctx, t);
 
   return [
-    { t: B23w.cut, tr: 'cut', d: .04, draw, print: { riso: .25 },
+    { t: B23w.cut, tr: 'cut', d: .02, draw, print: { riso: .25 },
       sound: [{ f: 'whoosh_airy', t: A.partE + .02, v: .35 }] },
-    { t: A.s302, tr: 'cut', d: .04, draw, print: { riso: .3 },
+    { t: A.s302, tr: 'cut', d: .01, draw, print: { riso: .3 },
       sound: [{ f: 'drop', t: A.youE + .03, v: .45 }] },
-    { t: A.s303, tr: 'cut', d: .04, draw, print: { riso: .25 },
+    { t: A.s303, tr: 'cut', d: .01, draw, print: { riso: .25 },
       sound: [{ f: 'shimmer_rings', t: tEng1 - .05, v: .3 }, { f: 'foil_glint', t: A.filmE + .05, v: .35 }] },
-    { t: A.s304, tr: 'cut', d: .04, draw, print: { riso: .25 },
+    { t: A.s304, tr: 'cut', d: .01, draw, print: { riso: .25 },
       sound: [{ f: 'pencil', t: tBur0 + .05, v: .25 }, { f: 'bloom', t: tLit - .05, v: .45 }] },
     // inside your window's light: exactly the bridge picture c04 starts from (lib/m1x_bridge.mjs b34)
-    { t: B34w.a, tr: 'cut', d: .04, draw: (ctx, t) => b34(ctx, t), print: { riso: .3 } },
+    { t: B34w.a, tr: 'cut', d: .01, draw: (ctx, t) => b34(ctx, t), print: { riso: .3 } },
   ];
 };

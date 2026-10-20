@@ -7,8 +7,8 @@
 //   kitchenTake(ctx, t, K)   K: cut, one, person, idea, help, scientist, had, ten, ago, agoE, piv (+ k.* timings set in anchors)
 //   inkFill(ctx, t)          the river ink / the water at the pivot (shared with the valley take)
 //   warmKitchen()
-import { W, H, rgba, clamp, mix, prng } from '../engine.mjs';
-import { pin, polyPath, mixHex, eoX, eiX, qio, smo, smr, bump, mono, projPoly, projSeg, projLine, plane3, hatchPoly, TAU } from './v2_c13_kit.mjs';
+import { W, H, rgba, clamp, mix, prng, canvas } from '../engine.mjs';
+import { pin, polyPath, mixHex, eoX, eiX, qio, smo, smr, bump, mono, projPoly, projSeg, projLine, plane3, hatchPoly, scratchLayer, TAU } from './v2_c13_kit.mjs';
 import { lightFill } from './v2_c13_road.mjs';
 import { figure, reachArm } from './figure.mjs';
 import { scribble } from './paper.mjs';
@@ -31,7 +31,7 @@ const rv = (u) => .33 + .05 * Math.sin(u * 7.2 + .5) + .02 * Math.sin(u * 18 + 1
 const drv = (u) => .36 * Math.cos(u * 7.2 + .5) + .36 * Math.cos(u * 18 + 1.2);
 const RW = .0125;                                                   // the river band on paper
 const SW = { u: .745 }; SW.v = rv(SW.u) - .024;                     // the rope-swing tree, south bank
-const PV = { u: .705 }; PV.v = rv(PV.u);                            // the dive point on the river line
+const PV = { u: .55 }; PV.v = rv(PV.u);                             // the dive point on the river line (clear of the hand, road, samples)
 const HOUSE = [.1, .085], TOWN = [.56, .57], OUTLET = [.235, rv(.235) + RW * .5];
 const riverSide = (s, u0 = 0, u1 = 1, n = 120) => { const out = []; for (let i = 0; i <= n; i++) { const u = mix(u0, u1, i / n), d = drv(u), L = Math.hypot(1, d); out.push([u - s * RW * .5 * d / L, rv(u) + s * RW * .5 / L]); } return out; };
 const HILLS = [[.14, .6, .16, .09, 7, 1], [.86, .66, .2, .07, 6, 2], [.9, .12, .12, .08, 5, 3], [.42, .1, .1, .05, 4, 4]];
@@ -39,18 +39,20 @@ const TREES = (() => { const r = prng(611), a = []; for (let i = 0; i < 70; i++)
 const BLOCKS = (() => { const r = prng(77), a = []; for (let i = 0; i < 34; i++) { const u = .44 + r() * .3, v = .53 + r() * .12; a.push([u, v, .012 + r() * .014, .008 + r() * .01, r() * .5 - .25]); } return a; })();
 const ROAD = (() => { const a = []; for (let i = 0; i <= 60; i++) { const k = i / 60; a.push([mix(HOUSE[0], TOWN[0], k) + .06 * Math.sin(k * 3.1), mix(HOUSE[1], TOWN[1], k) - .03 * Math.sin(k * 6.2)]); } return a; })();
 const SAMPLES = [.62, .47, .31];
-const CARDS = (() => { const r = prng(4040), a = [];
-  const spots = [[.42, 1.18, 2.66], [.62, 1.46, 2.78], [.86, 1.62, 2.66], [.3, 1.4, 3.0], [.55, 1.66, 3.14], [.98, 1.32, 2.55], [.18, 1.12, 2.86], [.78, 1.08, 3.26], [1.12, 1.56, 3.1], [.44, 1.62, 2.52], [1.32, 1.18, 3.24], [.12, 1.52, 3.2]];
-  spots.forEach((p, i) => a.push({ p, from: [.08 + r() * .84, .12 + r() * .5], kind: i % 6, rot: (r() - .5) * .3, ph: r() * TAU, d: i * .055 + r() * .03, w: .1 + r() * .03 }));
-  return a; })();
-
+// the help's drawings, lifted off the paper (three, from where the point drew), then spreading out of each other ("ten years ago")
+const CARDS = [
+  { p: [.56, 1.1, 2.8], from: [SAMPLES[0], .3], par: -1, kind: 1, w: .17 }, { p: [-.02, 1.06, 2.6], from: [SAMPLES[1], .3], par: -1, kind: 0, w: .19 },
+  { p: [0, 1.36, 3.0], from: [OUTLET[0], .33], par: -1, kind: 2, w: .17 }, { p: [-.3, 1.62, 3.2], par: 2, kind: 3, w: .16 },
+  { p: [.3, .98, 2.5], par: 1, kind: 4, w: .15 }, { p: [1.0, 1.66, 2.75], par: 0, kind: 5, w: .15 }, { p: [-.25, 1.15, 2.9], par: 1, kind: 0, w: .17 },
+  { p: [1.3, 1.35, 2.5], par: 0, kind: 1, w: .15 }, { p: [.62, 1.75, 3.15], par: 2, kind: 2, w: .16 },
+].map((c, i) => ({ ...c, rot: Math.sin(i * 2.3) * .12, ph: i * 1.7 }));
 // ---------------------------------------------------------------- the camera
 let _K = null, PX, PY, PZ, TX, TYc, TZ;
 function paths(K) {
   if (_K === K) return; _K = K;
   const k = K.k, B = [BULB.x - .042, BULB.y - .1, BULB.z - .058];
   const keys = [[K.cut, B, [BULB.x, BULB.y, BULB.z]], [k.c1, [-.5, 1.34, 1.02], [.42, .99, 2.95]], [k.c1b, [-.47, 1.36, 1.1], [.44, .97, 2.95]],
-    [k.c2, [-.12, 1.63, 1.93], [.52, .8, 2.86]], [k.c2b, [-.05, 1.58, 2.0], [.53, .79, 2.86]], [k.c3, [-.42, 1.56, 1.42], [.72, 1.12, 2.94]], [k.dive, [-.38, 1.55, 1.48], [.7, 1.1, 2.94]]];
+    [k.c2, [-.12, 1.63, 1.93], [.52, .8, 2.86]], [k.c2b, [-.05, 1.58, 2.0], [.53, .79, 2.86]], [k.c3, [-.5, 1.42, 1.15], [.66, 1.3, 2.88]], [k.dive, [-.46, 1.43, 1.2], [.65, 1.28, 2.88]]];
   const ch = (j, i) => mono(keys.map((kk) => [kk[0], kk[j][i]]));
   PX = ch(1, 0); PY = ch(1, 1); PZ = ch(1, 2); TX = ch(2, 0); TYc = ch(2, 1); TZ = ch(2, 2);
 }
@@ -99,7 +101,13 @@ function room(ctx, P, t, cam, Lp) {
     ctx.strokeStyle = 'rgba(10,6,16,.35)'; ctx.lineWidth = 1.4; ctx.beginPath(); projLine(ctx, P, [[LWX, .9, WZ - .002], [RWX, .9, WZ - .002]], zn); ctx.stroke();
     ctx.restore();
   }
-  for (const [x, fx] of [[LWX, 1], [RWX, -1]]) { const s = projPoly(P, [[x, 0, -1], [x, 0, WZ], [x, LAMP.ceil, WZ], [x, LAMP.ceil, -1]], zn); fillP(ctx, s, '#0f0c1a'); if (s.length > 2) hatchPoly(ctx, s, -.9, 5, 'rgba(0,0,0,.25)'); }
+  for (const [x, fx] of [[LWX, 1], [RWX, -1]]) { const s = projPoly(P, [[x, 0, -1], [x, 0, WZ], [x, LAMP.ceil, WZ], [x, LAMP.ceil, -1]], zn); fillP(ctx, s, '#0f0c1a');
+    if (s.length > 2 && fx < 0) {   // the right wall catches the lamp too (a falloff drawn in the wall's own plane)
+      ctx.save(); polyPath(ctx, s); ctx.clip();
+      if (plane3(ctx, P, [x, 1.3, LAMP.z], [0, 0, 1], [0, -1, 0])) { const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 2.3); g.addColorStop(0, '#4a3434'); g.addColorStop(.4, '#2e2230'); g.addColorStop(.8, '#171222'); g.addColorStop(1, '#0f0c1a'); ctx.fillStyle = g; ctx.fillRect(-6, -4, 12, 8); }
+      id(ctx); ctx.restore(); }
+    if (s.length > 2) hatchPoly(ctx, s, -.9, 5, 'rgba(0,0,0,.25)'); }
+  dresser(ctx, P, t, zn);
   // the window: the valley at night, a lamp reflection on the glass, cream frame, curtains
   const win = projPoly(P, [[KWIN.x0, KWIN.y0, WZ], [KWIN.x1, KWIN.y0, WZ], [KWIN.x1, KWIN.y1, WZ], [KWIN.x0, KWIN.y1, WZ]], zn);
   if (win.length > 2) {
@@ -142,6 +150,48 @@ function room(ctx, P, t, cam, Lp) {
     const top = projPoly(P, [[LWX, .92, 3.0], [LWX + .6, .92, 3.0], [LWX + .6, .92, 4.2], [LWX, .92, 4.2]], zn); fillP(ctx, top, '#2a1e22'); inkP(ctx, top, 1); }
 }
 
+// the dresser against the right wall: drawers below, a plate rack above (plates stand on edge behind a rail, catching the lamp)
+const DR = { x0: RWX - .42, x1: RWX, z0: 3.02, z1: 4.12, top: .9, rack: .26 };
+function dresser(ctx, P, t, zn) {
+  const { x0, x1, z0, z1, top, rack } = DR, X = x0, wood = '#3a2418', dark = '#21140e', lit = (y) => P(X, y, LAMP.z)[3];
+  const quad = (pts, fill, ink = 1) => { const s = projPoly(P, pts, zn); fillP(ctx, s, fill); if (ink) inkP(ctx, s, ink); return s; };
+  // the base: side, front, worktop
+  quad([[x0, 0, z0], [x1, 0, z0], [x1, top, z0], [x0, top, z0]], dark);
+  const fr = quad([[X, 0, z0], [X, 0, z1], [X, top, z1], [X, top, z0]], wood);
+  if (fr.length > 2) { ctx.save(); polyPath(ctx, fr); ctx.clip(); if (plane3(ctx, P, [X, .6, LAMP.z], [0, 0, 1], [0, -1, 0])) { const g = ctx.createRadialGradient(-.3, -.4, 0, -.3, -.4, 1.6); g.addColorStop(0, 'rgba(255,190,130,.22)'); g.addColorStop(1, 'rgba(255,190,130,0)'); ctx.fillStyle = g; ctx.fillRect(-3, -3, 6, 6); } id(ctx); ctx.restore(); }
+  for (let r = 0; r < 2; r++) for (let c = 0; c < 2; c++) {   // four drawers with brass knobs
+    const za = mix(z0, z1, c / 2) + .03, zb = mix(z0, z1, (c + 1) / 2) - .03, ya = top - .06 - r * .38, yb = ya - .32;
+    const d = quad([[X - .004, yb, za], [X - .004, yb, zb], [X - .004, ya, zb], [X - .004, ya, za]], '#432a1c', 1.1);
+    const k = P(X - .02, (ya + yb) / 2, (za + zb) / 2); ctx.fillStyle = '#b48a4a'; ctx.beginPath(); ctx.arc(k[0], k[1], Math.max(1.5, .014 * k[3]), 0, TAU); ctx.fill(); }
+  quad([[x0 - .03, top, z0 - .03], [x1, top, z0 - .03], [x1, top, z1 + .03], [x0 - .03, top, z1 + .03]], '#5a3a26');
+  quad([[x0 - .03, top - .035, z0 - .03], [x0 - .03, top - .035, z1 + .03], [x0 - .03, top, z1 + .03], [x0 - .03, top, z0 - .03]], '#4a2e1e');
+  // the rack: back board, sides, three shelves, plates on edge, the rails
+  const R0 = x1 - rack, Y1 = 1.98;
+  quad([[x1 - .01, top, z0], [x1 - .01, top, z1], [x1 - .01, Y1, z1], [x1 - .01, Y1, z0]], '#2a1a14');
+  for (const z of [z0, z1]) quad([[R0, top, z], [x1, top, z], [x1, Y1, z], [R0, Y1, z]], dark);
+  const shelves = [top + .04, 1.26, 1.62];
+  for (const [j, y] of shelves.entries()) {
+    quad([[R0, y, z0], [x1, y, z0], [x1, y, z1], [R0, y, z1]], '#4a2e20', 0); quad([[R0, y - .022, z0], [R0, y - .022, z1], [R0, y, z1], [R0, y, z0]], '#5a3a26');
+    const n = 5, r = j === 0 ? .1 : .085;
+    for (let i = 0; i < n; i++) {   // a plate: cream enamel, blue band, the lamp's glint on the left rim
+      const z = mix(z0 + .13, z1 - .13, i / (n - 1)), c = [x1 - .1, y + r + .006, z];
+      if (!plane3(ctx, P, c, [0, 0, r], [.22 * r, -r * .97, 0])) { id(ctx); continue; }
+      ctx.fillStyle = '#d8ccb2'; ctx.beginPath(); ctx.arc(0, 0, 1, 0, TAU); ctx.fill();
+      ctx.strokeStyle = (i + j) % 2 ? '#2c4a7a' : '#7a3a2a'; ctx.lineWidth = .1; ctx.beginPath(); ctx.arc(0, 0, .8, 0, TAU); ctx.stroke();
+      ctx.fillStyle = 'rgba(40,30,30,.18)'; ctx.beginPath(); ctx.arc(.05, .05, .5, 0, TAU); ctx.fill();
+      ctx.strokeStyle = 'rgba(255,236,200,.7)'; ctx.lineWidth = .07; ctx.beginPath(); ctx.arc(0, 0, .93, Math.PI * .75, Math.PI * 1.25); ctx.stroke();
+      ctx.strokeStyle = 'rgba(8,6,14,.55)'; ctx.lineWidth = .04; ctx.beginPath(); ctx.arc(0, 0, 1, 0, TAU); ctx.stroke();
+      id(ctx); }
+    const ry = y + .07; ctx.strokeStyle = '#6a4630'; ctx.lineWidth = Math.max(1.2, .014 * lit(ry)); ctx.beginPath(); projLine(ctx, P, [[R0 + .01, ry, z0], [R0 + .01, ry, z1]], zn); ctx.stroke();
+  }
+  quad([[R0 - .02, Y1, z0 - .02], [x1, Y1, z0 - .02], [x1, Y1, z1 + .02], [R0 - .02, Y1, z1 + .02]], '#4a2e20');
+  quad([[R0 - .02, Y1 - .04, z0 - .02], [R0 - .02, Y1 - .04, z1 + .02], [R0 - .02, Y1, z1 + .02], [R0 - .02, Y1, z0 - .02]], '#5a3a26');
+  // a jug on the worktop
+  { const c = [x0 + .14, top, z1 - .2], b = P(...c), h = .2, tp = P(c[0], top + h, c[2]), w = .055 * b[3];
+    ctx.fillStyle = '#c8c0ac'; ctx.beginPath(); ctx.moveTo(b[0] - w, b[1]); ctx.quadraticCurveTo(b[0] - w * 1.35, (b[1] + tp[1]) / 2, tp[0] - w * .7, tp[1]); ctx.lineTo(tp[0] + w * .8, tp[1] - w * .15); ctx.quadraticCurveTo(b[0] + w * 1.35, (b[1] + tp[1]) / 2, b[0] + w, b[1]); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = INK; ctx.lineWidth = 1; ctx.stroke(); ctx.strokeStyle = '#2c4a7a'; ctx.lineWidth = Math.max(1, .008 * b[3]); ctx.beginPath(); ctx.moveTo(b[0] - w * 1.25, (b[1] * 2 + tp[1]) / 3); ctx.lineTo(b[0] + w * 1.25, (b[1] * 2 + tp[1]) / 3); ctx.stroke(); }
+}
+
 // ---------------------------------------------------------------- the table, chair, props
 function table(ctx, P, t, cam) {
   const zn = .02, q = qAt(P, 0, TY, 2.9);
@@ -182,7 +232,7 @@ function mapSheet(ctx, P, t, K, cam) {
   fillP(ctx, projPoly(P, [mw(.006, -.008, -.001), mw(MAP.w + .008, -.008, -.001), mw(MAP.w + .008, MAP.d - .006, -.001), mw(.006, MAP.d - .006, -.001)], zn), 'rgba(20,8,4,.45)');
   fillP(ctx, sheet, '#e2d3b2');
   ctx.save(); polyPath(ctx, sheet); ctx.clip();
-  const sep = 'rgba(92,60,34,.55)', sepL = 'rgba(92,60,34,.3)', blue = 'rgba(36,62,96,.85)';
+  const sep = 'rgba(80,48,26,.75)', sepL = 'rgba(80,48,26,.42)', blue = 'rgba(30,54,88,.92)';
   mapLine(ctx, P, [[.012, .012], [MAP.w - .012, .012], [MAP.w - .012, MAP.d - .012], [.012, MAP.d - .012], [.012, .012]], .0012, sep);
   mapLine(ctx, P, [[.018, .018], [MAP.w - .018, .018], [MAP.w - .018, MAP.d - .018], [.018, MAP.d - .018], [.018, .018]], .0005, sep);
   for (const [cu, cv, ru, rvv, n, sd] of HILLS) for (let k = 1; k <= n; k++) { const f = k / n, pts = []; for (let i = 0; i <= 48; i++) { const th = i / 48 * TAU, w = 1 + .12 * Math.sin(th * 3 + sd + k * .4) + .06 * Math.sin(th * 5 + sd * 2); pts.push([cu + Math.cos(th) * ru * f * w, cv + Math.sin(th) * rvv * f * w]); } mapLine(ctx, P, pts, .0005, k === n ? sep : sepL); }
@@ -193,7 +243,7 @@ function mapSheet(ctx, P, t, K, cam) {
   const L = riverSide(-1), R = riverSide(1);
   fillP(ctx, projPoly(P, [...L, ...R.reverse()].map(([u, v]) => mw(u, v, dy * .5)), zn), PIVCOL);
   mapLine(ctx, P, riverSide(-1), .0011, blue, dy); mapLine(ctx, P, riverSide(1), .0011, blue, dy);
-  for (const s of [-.45, .45]) mapLine(ctx, P, riverSide(s).filter((_, i) => i % 9 < 5), .0004, 'rgba(30,58,80,.4)', dy);
+  for (const s of [-.6, .6]) mapLine(ctx, P, riverSide(s).filter((_, i) => i % 9 < 5), .0004, 'rgba(30,58,80,.4)', dy);
   // road (double line), bridge, your house, the town, the barn
   const rd = (s) => ROAD.map(([u, v], i) => { const a = ROAD[Math.max(0, i - 1)], b = ROAD[Math.min(ROAD.length - 1, i + 1)], du = b[0] - a[0], dv = b[1] - a[1], l = Math.hypot(du, dv) || 1; return [u - s * .0035 * dv / l, v + s * .0035 * du / l]; });
   mapLine(ctx, P, rd(1), .0007, sep, dy); mapLine(ctx, P, rd(-1), .0007, sep, dy);
@@ -227,18 +277,18 @@ function helpDrawings(ctx, P, t, K, dy) {
   const lift = smr(K.k.lift0, K.k.lift0 + .35, t), on = 1 - lift * .85;   // once the cards lift, the drawings on the paper are what they left behind
   const col = (a) => rgba(CYAN, a * on), dyy = dy * 2;
   const [pu, pv] = helpPath(t, K), u0 = SW.u - .02;
-  if (pu < u0 - .002) { const pts = []; for (let u = u0; u >= pu; u -= .004) pts.push([u, rv(u) + .0042]); pts.push([pu, rv(pu) + .0042]);
-    mapLine(ctx, P, pts, .0006, col(.9), dyy);
-    for (let u = u0 - .03; u > pu; u -= .05) { const d = drv(u), l = Math.hypot(1, d), tx = 1 / l, tv = d / l, c = [u, rv(u) + .0042]; mapLine(ctx, P, [[c[0] - tx * .006 - tv * .003, c[1] - tv * .006 + tx * .003], c, [c[0] - tx * .006 + tv * .003, c[1] - tv * .006 - tx * .003]], .0006, col(.9), dyy); } }
+  if (pu < u0 - .002) { const pts = []; for (let u = u0; u >= pu; u -= .004) pts.push([u, rv(u) + .005]); pts.push([pu, rv(pu) + .005]);
+    mapLine(ctx, P, pts, .0024, col(.16), dyy); mapLine(ctx, P, pts, .0008, col(.95), dyy);
+    for (let u = u0 - .03; u > pu; u -= .05) { const d = drv(u), l = Math.hypot(1, d), tx = 1 / l, tv = d / l, c = [u, rv(u) + .005]; mapLine(ctx, P, [[c[0] - tx * .006 - tv * .003, c[1] - tv * .006 + tx * .003], c, [c[0] - tx * .006 + tv * .003, c[1] - tv * .006 - tx * .003]], .0006, col(.9), dyy); } }
   for (let i = 0; i < SAMPLES.length; i++) { const su = SAMPLES[i]; if (pu > su) continue; const k = eoX((u0 - pu - (u0 - su)) / .05 + .001), sv = rv(su);
-    mapLine(ctx, P, ring(su, sv, .011 * k, 40), .0006, col(.95), dyy);
+    mapLine(ctx, P, ring(su, sv, .011 * k, 40), .0024, col(.14), dyy); mapLine(ctx, P, ring(su, sv, .011 * k, 40), .0008, col(.95), dyy);
     for (let j = 0; j < 8; j++) { const a = j / 8 * TAU; mapLine(ctx, P, [[su + Math.cos(a) * .013 * k, sv + Math.sin(a) * .013 * k], [su + Math.cos(a) * .017 * k, sv + Math.sin(a) * .017 * k]], .0005, col(.8), dyy); } }
   if (pu < OUTLET[0] + .03) { const k = eoX((OUTLET[0] + .03 - pu) / .04), [ou, ov] = OUTLET;
     mapLine(ctx, P, [[ou - .007 * k, ov - .007 * k], [ou + .007 * k, ov + .007 * k]], .0008, col(1), dyy); mapLine(ctx, P, [[ou - .007 * k, ov + .007 * k], [ou + .007 * k, ov - .007 * k]], .0008, col(1), dyy);
     const pl = smr(K.k.plume0, K.k.plume0 + .8, t); if (pl > 0) for (let j = 0; j < 9; j++) { const uu = ou + .02 + j * .018; if (uu > ou + .02 + pl * .2) break; mapLine(ctx, P, [[uu, rv(uu) - RW * .4], [uu + .008, rv(uu + .008) + RW * .4]], .0004, col(.7), dyy); } }
   // the point itself (a cyan spark with a ring pulse), until it lifts into the first card
   const born = eoX((t - K.help) / .3), gone = smr(K.k.lift0 - .05, K.k.lift0 + .15, t);
-  if (born > 0 && gone < 1) { const p = P(...mw(pu, pv, .002)), q = p[3], r = Math.max(2.5, .0022 * q) * born * (1 - gone);
+  if (born > 0 && gone < 1) { const p = P(...mw(pu, pv, .002)), q = p[3], r = Math.max(4, .003 * q) * born * (1 - gone);
     ctx.save(); id(ctx); ctx.globalCompositeOperation = 'lighter';
     const g = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], r * 6); g.addColorStop(0, rgba(CYANW, .9)); g.addColorStop(.18, rgba(CYAN, .55)); g.addColorStop(1, rgba(CYAN, 0)); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p[0], p[1], r * 6, 0, TAU); ctx.fill();
     ctx.fillStyle = CYANW; ctx.beginPath(); ctx.arc(p[0], p[1], r, 0, TAU); ctx.fill();
@@ -306,13 +356,13 @@ function lamp(ctx, P, t, cam) {
   ctx.fillStyle = '#2c2a26'; const ck = P(LAMP.x + sw, LAMP.top + .02, LAMP.z); ctx.beginPath(); ctx.ellipse(ck[0], ck[1], .022 * ck[3], .012 * ck[3], 0, 0, TAU); ctx.fill();
 }
 // the bulb's glare: exactly lightFill at the cut (the window's light), shrinking to the bulb as the camera pulls back; hidden by the rim
-function bulbGlare(ctx, P, t, cam) {
+function bulbGlare(ctx, P, t, cam, K) {
   const sw = .006 * Math.sin(t * .8), b = P(BULB.x + sw, BULB.y, BULB.z); if (b[2] < .003) return;
-  const d = Math.hypot(cam.x - BULB.x, cam.y - BULB.y, cam.z - BULB.z), d0 = Math.hypot(.042, .1, .058);
-  const vis = smo(clamp((LAMP.rim + .012 - cam.y) / .07));
-  const R = Math.min(1500, 1500 * Math.pow(d0 / d, 1.9) + 34 * Math.min(1, d / .6)) * vis;
+  const d = Math.hypot(cam.x - BULB.x, cam.y - BULB.y, cam.z - BULB.z), vis = smo(clamp((LAMP.rim + .012 - cam.y) / .07));
+  const u = qio(clamp((t - K.cut) / .78)), Rt = Math.exp(mix(Math.log(1500), Math.log(40), u));
+  const R = Math.min(1500, Math.max(Rt, 40 * 1.55 / Math.max(.3, d))) * vis;
   if (R < 1.5) return;
-  lightFill(ctx, t, { cx: b[0], cy: b[1], R });
+  lightFill(ctx, t, { cx: b[0], cy: b[1], R, k: 1 - smo(clamp((t - K.cut - .04) / .42)) });
 }
 // the lamp's pool of light on the table and paper (drawn after the map and props, before you)
 function lampPool(ctx, P, t, top) {
@@ -344,53 +394,94 @@ function penTarget(t, K, P) {
   if (t > k.touch0 - .3 && t < k.touch1 + .5) { const cp = cardPos(card, t, K), sp = P(...cp), w = smo(clamp((t - (k.touch0 - .3)) / .3)) * (1 - smo(clamp((t - k.touch1) / .5))); p = [mix(p[0], sp[0], w), mix(p[1], sp[1], w)]; }
   return p;
 }
-function person(ctx, P, t, K, Lp) {
+function person(ctx, P, t, K, Lp, occ) {
   const h = P(HIP.x, HIP.y, HIP.z); if (h[2] < .1) return;
-  const s = 1.75 * h[3] / 185, ps = pose(t, K), o = { t, seed: 4, flip: true, dress: { coat: '#3a4a5a', pants: '#1e1c2c', shoes: '#120e14', skin: '#d9b08e', hair: '#2a1c18' }, light: { x: Lp[0], y: Lp[1], col: '#ffcf8a', a: .75 }, rim: '#ffcf8a', rimSide: -1, shadow: false };
-  const tg = penTarget(t, K, P), arm = reachArm(h[0], h[1], s, ps, 0, true, o, tg, 1), back = reachArm(h[0], h[1], s, ps, 1, true, o, P(.86, TY + .03, 2.6), 1);
+  // the side-view figure lives in the plane X-Y at HIP.z (it faces -X): the camera's local affine of that plane, split into a uniform
+  // scale s (figure() draws at that size) and a residual R with |det| = 1 (mirror, foreshortening, shear) applied as the transform
+  const m = 1.75 / 185, ax = P(HIP.x - m, HIP.y, HIP.z), ay = P(HIP.x, HIP.y - m, HIP.z);
+  const M = [ax[0] - h[0], ax[1] - h[1], ay[0] - h[0], ay[1] - h[1]], det = M[0] * M[3] - M[2] * M[1], s = Math.sqrt(Math.abs(det)), R = M.map((v) => v / s), dR = R[0] * R[3] - R[2] * R[1];
+  const loc = ([x, y]) => { const dx = x - h[0], dy = y - h[1]; return [h[0] + (R[3] * dx - R[2] * dy) / dR, h[1] + (-R[1] * dx + R[0] * dy) / dR]; };
+  const scr = ([x, y]) => { const dx = x - h[0], dy = y - h[1]; return [h[0] + R[0] * dx + R[2] * dy, h[1] + R[1] * dx + R[3] * dy]; };
+  const ps = pose(t, K), L = loc(Lp);
+  const o = { t, seed: 4, dress: { coat: '#3a4a5a', pants: '#1e1c2c', shoes: '#120e14', skin: '#d9b08e', hair: '#2a1c18' }, light: { x: L[0], y: L[1], col: '#ffcf8a', a: .75 }, rim: '#ffcf8a', rimSide: 1, shadow: false };
+  const tg = penTarget(t, K, P), arm = reachArm(h[0], h[1], s, ps, 0, false, o, loc(tg), 1), back = reachArm(h[0], h[1], s, ps, 1, false, o, loc(P(.86, TY + .03, 2.6)), 1);
   const pz = { ...ps, sh: [arm.sh, back.sh], el: [arm.el, back.el], lock: [1, 1] };
-  const f = figure(ctx, h[0], h[1], s, pz, o), hd = f && f.hand ? f.hand(0) : null;
-  if (hd) { const dx = hd[0] - tg[0], dy = hd[1] - tg[1], L = Math.hypot(dx, dy) || 1, len = .15 * h[3], ux = dx / L, uy = dy / L, tip = [hd[0] - ux * len * .45, hd[1] - uy * len * .45];
-    ctx.lineCap = 'round'; ctx.strokeStyle = '#c89c3a'; ctx.lineWidth = Math.max(2, .008 * h[3]); ctx.beginPath(); ctx.moveTo(tip[0], tip[1]); ctx.lineTo(hd[0] + ux * len * .55, hd[1] + uy * len * .55); ctx.stroke();
-    ctx.strokeStyle = '#2a2420'; ctx.lineWidth = Math.max(1.2, .004 * h[3]); ctx.beginPath(); ctx.moveTo(tip[0], tip[1]); ctx.lineTo(tip[0] + ux * len * .06, tip[1] + uy * len * .06); ctx.stroke(); }
+  const [lc, lg] = scratchLayer('c13person');
+  lg.setTransform(R[0], R[1], R[2], R[3], h[0] - (R[0] * h[0] + R[2] * h[1]), h[1] - (R[1] * h[0] + R[3] * h[1]));
+  const f = figure(lg, h[0], h[1], s, pz, o);
+  lg.setTransform(1, 0, 0, 1, 0, 0);
+  const hd = f && f.hand ? scr(f.hand(0)) : null;
+  if (hd) {   // the pencil: from its point on the paper (or the card) back through the fingers
+    const dx = hd[0] - tg[0], dy = hd[1] - tg[1], Lh = Math.hypot(dx, dy) || 1, ux = dx / Lh, uy = dy / Lh, len = .16 * h[3], tip = [hd[0] - ux * len * .42, hd[1] - uy * len * .42];
+    lg.lineCap = 'round'; lg.strokeStyle = '#c89c3a'; lg.lineWidth = Math.max(2, .008 * h[3]); lg.beginPath(); lg.moveTo(tip[0], tip[1]); lg.lineTo(hd[0] + ux * len * .58, hd[1] + uy * len * .58); lg.stroke();
+    lg.strokeStyle = '#e8d8b0'; lg.lineWidth = Math.max(1, .003 * h[3]); lg.beginPath(); lg.moveTo(tip[0] + ux * len * .06, tip[1] + uy * len * .06); lg.lineTo(tip[0] + ux * len * .1, tip[1] + uy * len * .1); lg.stroke();
+    lg.strokeStyle = '#2a2420'; lg.lineWidth = Math.max(1.2, .004 * h[3]); lg.beginPath(); lg.moveTo(tip[0], tip[1]); lg.lineTo(tip[0] + ux * len * .06, tip[1] + uy * len * .06); lg.stroke(); }
+  if (occ) { lg.save(); polyPath(lg, occ.half); lg.clip(); lg.globalCompositeOperation = 'destination-out'; lg.fillStyle = '#000'; for (const q of occ.polys) if (q.length > 2) { polyPath(lg, q); lg.fill(); } lg.restore(); }
+  ctx.drawImage(lc, 0, 0);
+}
+// what of you the table hides: its top, front edge, apron and near legs, but only below the line where your plane meets the table top
+function tableOcc(P) {
+  const zn = .02, A = P(-3, TY, HIP.z), B = P(3, TY, HIP.z), F = P(HIP.x, 0, HIP.z);
+  if (A[2] < zn || B[2] < zn) return null;
+  let dx = B[0] - A[0], dy = B[1] - A[1]; const l = Math.hypot(dx, dy) || 1; dx /= l; dy /= l;
+  let nx = -dy, ny = dx; if ((F[0] - A[0]) * nx + (F[1] - A[1]) * ny < 0) { nx = -nx; ny = -ny; }
+  const E = 6000, half = [[A[0] - dx * E, A[1] - dy * E], [A[0] + dx * E, A[1] + dy * E], [A[0] + dx * E + nx * E, A[1] + dy * E + ny * E], [A[0] - dx * E + nx * E, A[1] - dy * E + ny * E]];
+  const polys = [projPoly(P, [[TBL.x0, TY, TBL.z0], [TBL.x1, TY, TBL.z0], [TBL.x1, TY, TBL.z1], [TBL.x0, TY, TBL.z1]], zn),
+    projPoly(P, [[TBL.x0, TY - .045, TBL.z0], [TBL.x1, TY - .045, TBL.z0], [TBL.x1, TY, TBL.z0], [TBL.x0, TY, TBL.z0]], zn),
+    projPoly(P, [[TBL.x1, TY - .045, TBL.z0], [TBL.x1, TY - .045, TBL.z1], [TBL.x1, TY, TBL.z1], [TBL.x1, TY, TBL.z0]], zn),
+    projPoly(P, [[TBL.x0 + .03, TY - .12, TBL.z0 + .03], [TBL.x1 - .03, TY - .12, TBL.z0 + .03], [TBL.x1 - .03, TY - .045, TBL.z0 + .03], [TBL.x0 + .03, TY - .045, TBL.z0 + .03]], zn),
+    projPoly(P, [[TBL.x1 - .03, TY - .12, TBL.z0 + .03], [TBL.x1 - .03, TY - .12, TBL.z1 - .03], [TBL.x1 - .03, TY - .045, TBL.z1 - .03], [TBL.x1 - .03, TY - .045, TBL.z0 + .03]], zn)];
+  for (const [x, z] of [[TBL.x1 - .06, TBL.z0 + .06], [TBL.x0 + .06, TBL.z0 + .06]]) polys.push(projPoly(P, [[x - .03, 0, z - .03], [x + .03, 0, z - .03], [x + .03, TY - .05, z - .03], [x - .03, TY - .05, z - .03]], zn));
+  return { half, polys };
 }
 
 // ---------------------------------------------------------------- the cards: the help's drawings lift off the paper and multiply round you
-function cardPos(c, t, K) {
-  const k = K.k, u = clamp((t - k.lift0 - c.d) / .7), e = 1 - Math.pow(1 - u, 3), from = mw(c.from[0], c.from[1], .002);
+const cardT0 = (i, K) => (CARDS[i].par < 0 ? K.k.lift0 + i * .07 : K.ten - .02 + (i - 3) * .055);
+function cardPos(c, t, K, depth = 0) {
+  const i = CARDS.indexOf(c), t0 = cardT0(i, K), u = clamp((t - t0) / .62), e = 1 - Math.pow(1 - u, 3);
+  const from = c.par < 0 ? mw(c.from[0], c.from[1], .002) : depth > 3 ? c.p : cardPos(CARDS[c.par], t0, K, depth + 1);
   const bob = [.008 * Math.sin(t * 1.1 + c.ph), .012 * Math.sin(t * .9 + c.ph * 1.3), .006 * Math.sin(t * .7 + c.ph)];
   return [mix(from[0], c.p[0], e) + bob[0] * e, mix(from[1], c.p[1], e) + bob[1] * e, mix(from[2], c.p[2], e) + bob[2] * e];
 }
-function cardWarm(i, t, K) { const k = K.k; return i === k.touch ? smr(k.touch0, k.touch0 + .2, t) : smr(k.touch0 + .12 + i * .06, k.touch0 + .4 + i * .06, t); }
+function cardWarm(i, t, K) { const k = K.k, d = i === k.touch ? 0 : .1 + ((i - k.touch + CARDS.length) % CARDS.length) * .045; return smr(k.touch0 + .1 + d, k.touch0 + .32 + d, t); }
 function cards(ctx, P, t, K, cam) {
   const k = K.k; if (t < k.lift0) return;
-  const list = CARDS.map((c, i) => ({ c, i, p: cardPos(c, t, K) })).map((o) => ({ ...o, d: P(...o.p)[2] })).filter((o) => o.d > .03).sort((a, b) => b.d - a.d);
+  const list = CARDS.map((c, i) => ({ c, i, p: cardPos(c, t, K) })).filter((o) => t >= cardT0(o.i, K)).map((o) => ({ ...o, d: P(...o.p)[2] })).filter((o) => o.d > .03).sort((a, b) => b.d - a.d);
   for (const { c, i, p } of list) {
-    const u = clamp((t - k.lift0 - c.d) / .7), up = 1 - Math.pow(1 - u, 2), th = up * Math.PI / 2;     // flat on the paper → upright
-    const yawC = Math.atan2(cam.x - p[0], cam.z - p[2]) + Math.PI, cy = Math.cos(yawC), sy = Math.sin(yawC);
-    const ux = [cy * c.w, 0, -sy * c.w], fwd = [sy, 0, cy], uy = [-fwd[0] * Math.cos(th) * c.w, -Math.sin(th) * c.w, -fwd[2] * Math.cos(th) * c.w];
-    const q = plane3(ctx, P, p, ux, uy); if (!q) continue;
-    const wcol = mixHex(CYAN, AMB, cardWarm(i, t, K)), hcol = (a) => rgba(wcol, a);
+    const t0 = cardT0(i, K), u = clamp((t - t0) / .62), up = c.par < 0 ? 1 - Math.pow(1 - u, 2) : 1, th = up * Math.PI / 2;   // flat on the paper → upright
+    const grow = c.par < 0 ? 1 : eoX(u * 1.4);                                                                        // a child card opens out of its parent
+    const yawC = Math.atan2(cam.x - p[0], cam.z - p[2]) + Math.PI, cy = Math.cos(yawC), sy = Math.sin(yawC), w = c.w * (.35 + .65 * grow);
+    const ux = [cy * w, 0, -sy * w], fwd = [sy, 0, cy], uy = [-fwd[0] * Math.cos(th) * w, -Math.sin(th) * w, -fwd[2] * Math.cos(th) * w];
+    if (!plane3(ctx, P, p, ux, uy)) { id(ctx); continue; }
     ctx.rotate(c.rot * up);
-    const W2 = .5, H2 = .36;
-    ctx.fillStyle = 'rgba(8,20,34,.55)'; ctx.fillRect(-W2, -H2, W2 * 2, H2 * 2);
+    const col = mixHex(CYAN, AMB, cardWarm(i, t, K)), W2 = .5, H2 = .36;
     ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    ctx.strokeStyle = hcol(.85); ctx.lineWidth = .012; ctx.strokeRect(-W2, -H2, W2 * 2, H2 * 2);
-    ctx.lineWidth = .014; ctx.strokeStyle = hcol(.95); ctx.beginPath();
-    if (c.kind === 0) { ctx.moveTo(-.4, .26); ctx.lineTo(-.4, -.26); ctx.moveTo(-.4, .26); ctx.lineTo(.42, .26); for (let x = 0; x <= 20; x++) { const xx = -.38 + x * .04, yy = -.16 + x * .018 + .05 * Math.sin(x * 1.3); x ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy); } }
-    else if (c.kind === 1) { ctx.moveTo(-.44, -.1); ctx.bezierCurveTo(-.25, -.08, -.22, .24, 0, .24); ctx.bezierCurveTo(.22, .24, .25, -.08, .44, -.1); ctx.moveTo(-.3, .02); ctx.lineTo(.3, .02); for (let x = -.24; x < .24; x += .06) { ctx.moveTo(x, .12); ctx.lineTo(x + .04, .2); } }
-    else if (c.kind === 2) { for (let j = 0; j < 4; j++) { const y = -.22 + j * .15; ctx.moveTo(-.42, y); ctx.bezierCurveTo(-.15, y - .06, .1, y + .06, .36, y); ctx.moveTo(.3, y - .04); ctx.lineTo(.38, y); ctx.lineTo(.3, y + .04); } }
-    else if (c.kind === 3) { for (let j = 0; j < 4; j++) for (let m = 0; m < 3; m++) { ctx.moveTo(-.38 + m * .27, -.24 + j * .15); ctx.arc(-.38 + m * .27 + .03, -.24 + j * .15, .03, 0, TAU); ctx.moveTo(-.3 + m * .27, -.24 + j * .15); ctx.lineTo(-.18 + m * .27, -.24 + j * .15); } }
-    else if (c.kind === 4) { ctx.ellipse(-.1, 0, .2, .09, 0, 0, TAU); ctx.moveTo(.1, 0); ctx.lineTo(.24, -.09); ctx.lineTo(.24, .09); ctx.closePath(); ctx.moveTo(-.2, -.02); ctx.arc(-.22, -.02, .015, 0, TAU); for (let j = 0; j < 3; j++) { ctx.moveTo(-.4 + j * .1, -.24); ctx.lineTo(-.36 + j * .1, -.3); } }
-    else { for (let j = 1; j <= 4; j++) { ctx.moveTo(.3 * j / 4 + .05, 0); ctx.ellipse(.05, 0, .3 * j / 4, .2 * j / 4, .2, 0, TAU); } ctx.moveTo(-.44, .2); ctx.bezierCurveTo(-.2, .1, .1, .3, .44, .18); }
-    ctx.stroke(); ctx.restore();
-    id(ctx);
+    const path = () => { ctx.beginPath();
+      for (const [x, y, sx, sy2] of [[-W2, -H2, 1, 1], [W2, -H2, -1, 1], [W2, H2, -1, -1], [-W2, H2, 1, -1]]) { ctx.moveTo(x + sx * .09, y); ctx.lineTo(x, y); ctx.lineTo(x, y + sy2 * .09); }
+      if (c.kind === 0) { ctx.moveTo(-.4, .26); ctx.lineTo(-.4, -.26); ctx.moveTo(-.4, .26); ctx.lineTo(.42, .26); for (let x = 0; x <= 20; x++) { const xx = -.38 + x * .04, yy = -.16 + x * .018 + .05 * Math.sin(x * 1.3); x ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy); } }
+      else if (c.kind === 1) { ctx.moveTo(-.44, -.1); ctx.bezierCurveTo(-.25, -.08, -.22, .24, 0, .24); ctx.bezierCurveTo(.22, .24, .25, -.08, .44, -.1); ctx.moveTo(-.3, .02); ctx.lineTo(.3, .02); for (let x = -.24; x < .24; x += .06) { ctx.moveTo(x, .12); ctx.lineTo(x + .04, .2); } }
+      else if (c.kind === 2) { for (let j = 0; j < 4; j++) { const y = -.22 + j * .15; ctx.moveTo(-.42, y); ctx.bezierCurveTo(-.15, y - .06, .1, y + .06, .36, y); ctx.moveTo(.3, y - .04); ctx.lineTo(.38, y); ctx.lineTo(.3, y + .04); } }
+      else if (c.kind === 3) { for (let j = 0; j < 4; j++) for (let m = 0; m < 3; m++) { ctx.moveTo(-.35 + m * .27 + .03, -.24 + j * .15); ctx.arc(-.35 + m * .27, -.24 + j * .15, .03, 0, TAU); ctx.moveTo(-.29 + m * .27, -.24 + j * .15); ctx.lineTo(-.17 + m * .27, -.24 + j * .15); } }
+      else if (c.kind === 4) { ctx.ellipse(-.1, 0, .2, .09, 0, 0, TAU); ctx.moveTo(.1, 0); ctx.lineTo(.24, -.09); ctx.lineTo(.24, .09); ctx.closePath(); ctx.moveTo(-.205, -.02); ctx.arc(-.22, -.02, .015, 0, TAU); for (let j = 0; j < 3; j++) { ctx.moveTo(-.4 + j * .1, -.24); ctx.lineTo(-.36 + j * .1, -.3); } }
+      else { for (let j = 1; j <= 4; j++) { ctx.moveTo(.05 + .3 * j / 4, 0); ctx.ellipse(.05, 0, .3 * j / 4, .2 * j / 4, .2, 0, TAU); } ctx.moveTo(-.44, .2); ctx.bezierCurveTo(-.2, .1, .1, .3, .44, .18); } };
+    path(); ctx.strokeStyle = rgba(col, .16); ctx.lineWidth = .07; ctx.stroke();
+    ctx.strokeStyle = rgba(col, .95); ctx.lineWidth = .02; ctx.stroke();
+    ctx.restore(); id(ctx);
   }
 }
 
 // ---------------------------------------------------------------- the frame at the pivot (the river's ink = the water)
+let PIVS = null;
+export const pivotCol = () => PIVS ?? PIVCOL;   // the water's colour at the pivot (measured by samplePivot in the warm-up)
+export function samplePivot(K) {
+  const [, g] = canvas(); g.save(); kitchenTake(g, K.piv - 1 / 30, K); g.restore();
+  const d = g.getImageData(0, 0, W, H).data; let r = 0, gg = 0, b = 0, n = 0, lo = 255, hi = 0;
+  for (let y = 40; y < H - 40; y += 20) for (let x = 40; x < W - 40; x += 20) { const i = (y * W + x) * 4, L = (d[i] + d[i + 1] + d[i + 2]) / 3; r += d[i]; gg += d[i + 1]; b += d[i + 2]; n++; lo = Math.min(lo, L); hi = Math.max(hi, L); }
+  PIVS = '#' + [r, gg, b].map((v) => Math.round(v / n).toString(16).padStart(2, '0')).join('');
+  return { col: PIVS, spread: hi - lo };
+}
 export function inkFill(ctx, t) {
-  ctx.save(); id(ctx); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = PIVCOL; ctx.fillRect(0, 0, W, H); ctx.restore();
+  ctx.save(); id(ctx); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = pivotCol(); ctx.fillRect(0, 0, W, H); ctx.restore();
 }
 
 // ---------------------------------------------------------------- the take
@@ -406,11 +497,11 @@ export function kitchenTake(ctx, t, K) {
   props(ctx, P, t, cam);
   lampPool(ctx, P, t, top);
   chair(ctx, P, 'seat');
-  person(ctx, P, t, K, Lp);
+  person(ctx, P, t, K, Lp, tableOcc(P));
   lampBack(ctx, P, t, cam);
   lamp(ctx, P, t, cam);
   cards(ctx, P, t, K, cam);
-  bulbGlare(ctx, P, t, cam);
+  bulbGlare(ctx, P, t, cam, K);
   id(ctx);
 }
 export function warmKitchen() { }

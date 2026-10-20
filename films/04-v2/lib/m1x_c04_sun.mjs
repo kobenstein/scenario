@@ -33,6 +33,13 @@ export function sunDisc(ctx, t, sx, sy, rd, m = 0) {
   const g = ctx.createRadialGradient(sx - 8 * off, sy - 10 * off, 0, sx, sy, rg);
   g.addColorStop(0, mixHex('#fffaf0', C0, m)); g.addColorStop(mix(.7, .42, m), mixHex('#ffe1a6', C1, m)); g.addColorStop(1, mixHex('#ffc27a', C2, m));
   ctx.save(); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+  // the corona: as we fly in, the disc's edge colour glows out over the sky (it is the plate's falloff beyond the disc), so the sun
+  // never shows a hard rim against the sky and its light takes the frame from the inside out
+  if (m > 0) {
+    const ce = mixHex('#ffc27a', C2, m), w = (rd + 40) * 4 * m, gc = ctx.createRadialGradient(sx, sy, rd * .97, sx, sy, rd + w);
+    gc.addColorStop(0, rgba(ce, 1)); gc.addColorStop(.3, rgba(ce, .55)); gc.addColorStop(.65, rgba(ce, .16)); gc.addColorStop(1, rgba(ce, 0));
+    ctx.fillStyle = gc; ctx.beginPath(); ctx.arc(sx, sy, rd + w, 0, TAU); ctx.fill();
+  }
   ctx.fillStyle = g; ctx.beginPath(); ctx.arc(sx, sy, rd, 0, TAU); ctx.fill();
   // the plate's stipple in the falloff (screen-space dots), scaled with the disc; at Z = 1 the same dots in the same order as the plate
   const S = 1100 * Z;

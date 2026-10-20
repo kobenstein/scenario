@@ -49,6 +49,12 @@ export const mixC = (a, b, u) => { const A = rgb3(a), B = rgb3(b); u = clamp(u);
 export const mixH = (a, b, u) => { const A = rgb3(a), B = rgb3(b); u = clamp(u); return '#' + [0, 1, 2].map((i) => Math.round(mix(A[i], B[i], u)).toString(16).padStart(2, '0')).join(''); };
 export const shadeH = (h, d) => { const A = rgb3(h); return '#' + A.map((v) => Math.round(clamp(v * (1 + d), 0, 255)).toString(16).padStart(2, '0')).join(''); };
 // the hill's screen flicker (lib/maslow4.mjs, base windows when st.screens): the TV in your room flickers in the same rhythm as your window
+// the screens' flicker, copied from lib/maslow4.mjs (winState, 2026-10-20): one window (its k, ph) or, with sync = 1, the town's common
+// rhythm. Every screen in c06 uses it (your TV = your window's flicker; after "numb" everything falls into syncF, the city too).
+const hsh = (x) => { const v = Math.sin(x * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
+const nz = (x) => { const i = Math.floor(x), f = x - i; return mix(hsh(i), hsh(i + 1), f * f * (3 - 2 * f)) * 2 - 1; };
+export function screenF(t, k = 0, ph = 0, sync = 1) { const rate = mix(.9 + 1.6 * k, 1.3, sync), p = mix(ph * 5, 0, sync); return .62 + .38 * (.5 + .5 * nz(t * rate + p)) + .04 * nz(t * 6.1 + p * 3); }
+export const syncF = (t) => screenF(t, 0, 0, 1);
 export const flick = (t, k = .42, ph = 3.378) => .65 + .35 * Math.sin(t * (5 + k * 7) + ph) * Math.sin(t * 2.3 + ph * 2);
 export const SCREEN = '#8fe6ff', SCREEN_HOT = '#d8f7ff', SCREEN_DIM = '#5fb8d8', AMBER = '#ffb35c', CREAM = '#f3efe2', OCHRE = '#c8843a';
 
@@ -135,7 +141,7 @@ export function bottle(ctx, x, y, o = {}) {
 }
 // the stream of wine from a mouth (x0, y0) falling to (x1, y1) (cm), u 0..1 (how far the front has fallen), thin = 0..1 (ending)
 export function wineStream(ctx, x0, y0, x1, y1, u, o = {}) {
-  if (u <= 0) return; const thin = clamp(o.thin ?? 0), w = mix(.75, .12, thin), yf = mix(y0, y1, clamp(u)), r = prng(7);
+  if (u <= 0) return; const thin = clamp(o.thin ?? 0), w = mix(o.w ?? .75, .12, thin), yf = mix(y0, y1, clamp(u)), r = prng(7);
   ctx.save(); ctx.lineCap = 'round';
   const pts = []; for (let i = 0; i <= 16; i++) { const q = i / 16, yy = mix(y0, yf, q), xx = mix(x0, x1, Math.pow(q, .6) * clamp(u * 1.4)) + Math.sin(q * 9 + (o.t ?? 0) * 14) * .06; pts.push([xx, yy]); }
   ctx.strokeStyle = '#4a0716'; ctx.lineWidth = w * 1.5; ctx.beginPath(); pts.forEach(([a, b], i) => (i ? ctx.lineTo(a, b) : ctx.moveTo(a, b))); ctx.stroke();

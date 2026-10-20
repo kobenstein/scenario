@@ -7,6 +7,7 @@
 //   OV                    the portrait oval { x, y, a, b } (note px)
 // The ink is one engraving system: each region has its line families (straight or concentric), a tone 0..1 sets each line's width
 // (a box-filtered band, so thin lines stay thin), and the same lines become the dots of the smoke.
+import { Path2D } from '@napi-rs/canvas';
 import { clamp, mix, prng, canvas, rgba } from '../engine.mjs';
 import { guilloche, gBorder, microtext } from './certificate.mjs';
 import { scribble } from './paper.mjs';
@@ -53,6 +54,22 @@ function sawSeal(g, cx, cy, R, o = {}) {
   g.fillStyle = rgba(PAPERC, 1); g.beginPath(); g.arc(0, 0, R * .14, 0, TAU); g.fill(); g.strokeStyle = col; g.lineWidth = 1.6; g.stroke();
   g.restore();
 }
+// an unreadable cursive signature: a prolate cycloid (loops where the pen doubles back) with varying heights, and an underline flourish
+function signature(g, x, y, w, h, seed) {
+  const r = prng(seed), N = 420, turns = 14 + Math.floor(r() * 5), lo = [], amp = [], bk = [];
+  for (let i = 0; i <= turns; i++) { amp.push(.35 + r() * .65 * (r() < .25 ? 1.6 : 1)); bk.push(r() < .55 ? .9 + r() * 1.3 : .2 + r() * .4); }
+  const at = (A, q) => { const f = q * turns, i = Math.min(turns - 1, Math.floor(f)), u = f - i, e = u * u * (3 - 2 * u); return mix(A[i], A[i + 1], e); };
+  const a = w / (turns * TAU);
+  g.save(); g.strokeStyle = '#1f2e2a'; g.lineCap = 'round'; g.lineJoin = 'round'; g.beginPath();
+  for (let k = 0; k <= N; k++) {
+    const q = k / N, th = q * turns * TAU, b = a * TAU * .16 * at(bk, q) * 3.2, c = h * .5 * at(amp, q);
+    const X = x + a * th - b * Math.sin(th) + (q < .08 ? -(1 - q / .08) * 10 : 0), Y = y - c * Math.cos(th) * (1 - .3 * q) + 6 * Math.sin(q * 5 + seed);
+    k ? g.lineTo(X, Y) : g.moveTo(X, Y); lo.push([X, Y]);
+  }
+  g.lineWidth = 2.4; g.stroke();
+  g.beginPath(); g.moveTo(x + w * .1, y + h * .62); g.bezierCurveTo(x + w * .45, y + h * .9, x + w * .8, y + h * .5, x + w * 1.02, y + h * .2); g.lineWidth = 2; g.stroke();
+  g.restore(); void lo;
+}
 // the four corner cartouches (the 100s themselves are ink, they wash out)
 export const CORNERS = [[230, 196], [NW - 230, 196], [230, NH - 196], [NW - 230, NH - 196]];
 const CART = { rx: 168, ry: 104 };
@@ -78,8 +95,8 @@ export function noteBase() {
       g.stroke();
     }
     g.restore();
-    for (const [x, R, n, m] of [[640, 250, 22, 7], [NW - 640, 250, 20, 9]]) {
-      const G = guilloche({ R, A: 38, B: 16, n, m, lines: 46 }); g.save(); g.translate(x, NH / 2); g.strokeStyle = G3; g.lineWidth = 1.1; g.globalAlpha = .8;
+    for (const [x, R, n, m] of [[640, 236, 26, 9], [NW - 640, 222, 24, 11]]) {
+      const G = guilloche({ R, A: 26, B: 10, n, m, lines: 30 }); g.save(); g.translate(x, NH / 2); g.strokeStyle = G3; g.lineWidth = .9; g.globalAlpha = .55;
       for (let k = 0; k < G.lines; k++) strokeP(g, G.line(k)); g.restore();
     }
     // the border: outer rule, woven band, inner rule, microtext rows
@@ -129,7 +146,7 @@ export function noteBase() {
     g.save(); g.font = '600 40px "Inter"'; g.fillStyle = CARM; g.globalAlpha = .9; try { g.letterSpacing = '7px'; } catch { }
     g.textAlign = 'left'; g.fillText('B 04817263 A', 430, 372); g.textAlign = 'right'; g.fillText('B 04817263 A', NW - 430, NH - 330); g.restore();
     for (const [x, sd] of [[430, 11], [NW - 830, 23]]) {
-      scribble(g, x + 14, NH - 268, 360, 30, { seed: sd, ink: '#22302c', lw: 2.6 });
+      signature(g, x + 20, NH - 262, 350, 34, sd);
       g.strokeStyle = G1; g.lineWidth = 1.3; g.beginPath(); g.moveTo(x, NH - 236); g.lineTo(x + 400, NH - 236); g.stroke();
       microtext(g, x + 40, NH - 216, 320, 'ONE HUNDRED', { size: 9, col: G1, a: .75, spacing: 1 });
     }
@@ -363,4 +380,121 @@ export function inkStatic() {
     for (const b of BOXES()) { const im = g.createImageData(b.w, b.h); engraveBox(im.data, b, null); g.putImageData(im, b.x0, b.y0); }
     return c;
   });
+}
+
+// ---------------------------------------------------------------- the wash-out: the lines break into dots, the dots lift off as smoke
+// every line of the ink becomes a row of dots at pitch DP (the same centres the per-pixel dot mask uses)
+export const DP = 4.2;
+function dotsBuild() {
+  const xs = [], ys = [], rs = [], bx = [];
+  BOXES().forEach((b, bi) => {
+    b.fams.forEach((f, fi) => {
+      if (!f) return;
+      const c = Math.cos(f.ang), s = Math.sin(f.ang), corners = [[b.x0, b.y0], [b.x0 + b.w, b.y0], [b.x0, b.y0 + b.h], [b.x0 + b.w, b.y0 + b.h]];
+      let v0 = 1e9, v1 = -1e9, p0 = 1e9, p1 = -1e9;
+      for (const [x, y] of corners) { const v = -s * x + c * y, p = c * x + s * y; v0 = Math.min(v0, v); v1 = Math.max(v1, v); p0 = Math.min(p0, p); p1 = Math.max(p1, p); }
+      const Hmax = 200 * f.kap;
+      for (let k = Math.floor((v0 - Hmax) / f.P) - 1; k <= Math.ceil(v1 / f.P) + 1; k++) {
+        const sh = (k & 7) * DP * .37;
+        for (let j = Math.floor((p0 + sh) / DP) - 1; j <= Math.ceil((p1 + sh) / DP) + 1; j++) {
+          const psi = j * DP - sh; let v = k * f.P, x = 0, y = 0, ok = true;
+          for (let it = 0; it < 4; it++) {
+            x = c * psi - s * v; y = s * psi + c * v;
+            const i = Math.floor(x - b.x0), jj = Math.floor(y - b.y0); if (i < 0 || jj < 0 || i >= b.w || jj >= b.h) { ok = false; break; }
+            v = k * f.P + f.kap * (b.H ? b.H[jj * b.w + i] : 0);
+          }
+          if (!ok) continue;
+          const i = Math.floor(x - b.x0), jj = Math.floor(y - b.y0), idx = jj * b.w + i; if (!b.inside(idx)) continue;
+          const T = b.tone[idx]; if (T < .015) continue;
+          const cq = split(T)[fi], hw = cq * f.P / 2; if (hw < .3) continue;
+          xs.push(x); ys.push(y); rs.push(Math.max(.35, hw * .85)); bx.push(bi);
+        }
+      }
+    });
+  });
+  return { n: xs.length, x: Float32Array.from(xs), y: Float32Array.from(ys), r: Float32Array.from(rs), box: Uint8Array.from(bx) };
+}
+export const inkDots = () => onceRaw('c14-dots', dotsBuild);
+
+// the ink at time t, drawn in note space (the caller has set the note → screen transform). A: anchors (respect, change, earn, …)
+//   before "earn": the engraving as printed (a few specks already lift off the oval's edge on "starts to change")
+//   earn − .06 → earn + .16: the lines break into dots (per pixel, exact)
+//   then: every dot lifts off and drifts away as smoke, in a sweep from left to right; the oval and the corners end empty
+const DYN = () => onceRaw('c14-ink-dyn', () => canvas(NW, NH));
+const hsh = (x) => { const v = Math.sin(x * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
+export const washTimes = (A) => ({ d0: A.earn - .06, d1: A.earn + .16, s0: A.earn + .1, sweep: .5, life: .62 });
+export function drawInk(ctx, t, A, ks = .65) {
+  const W8 = washTimes(A);
+  if (t < W8.d0) {
+    ctx.drawImage(inkStatic(), 0, 0);
+    if (t > A.change - .15) specks(ctx, t, A, ks);
+    return;
+  }
+  if (t < W8.d1) {   // lines → dots
+    const k = smo2((t - W8.d0) / (W8.d1 - W8.d0)), [c, g] = DYN();
+    for (const b of BOXES()) { const im = g.createImageData(b.w, b.h); engraveBox(im.data, b, { P: DP, k }); g.putImageData(im, b.x0, b.y0); }
+    ctx.drawImage(c, 0, 0);
+    return;
+  }
+  smoke(ctx, t, W8, ks);
+}
+const smo2 = (x) => { x = clamp(x); return x * x * (3 - 2 * x); };
+function smokeState(D, i, t, W8) {
+  const x = D.x[i], y = D.y[i], r1 = hsh(i * 1.37 + .5), r2 = hsh(i * 2.71 + 3.3);
+  const ts = W8.s0 + W8.sweep * clamp((x - 120) / 2160) + .16 * r1, q = clamp((t - ts) / W8.life);
+  return [x, y, q, r2];
+}
+// a soft round ink dot (sprite) for the bigger smoke dots: many arcs in one path cost O(n²) in this canvas, rects and images are linear
+const DOTIMG = () => once('c14-dot', () => { const [c, g] = canvas(32, 32); g.fillStyle = G1; g.beginPath(); g.arc(16, 16, 14, 0, TAU); g.fill(); return c; });
+function dotsOut(ctx, L, alpha, ks) {
+  // L = [x, y, r, …] in note px; tiny dots as squares of equal area (one path), bigger ones as the sprite
+  const img = DOTIMG(); ctx.fillStyle = rgba(G1, alpha); ctx.beginPath(); let big = false;
+  for (let i = 0; i < L.length; i += 3) { const r = L[i + 2]; if (r * ks < 1.6) { const q = r * 1.772; ctx.rect(L[i] - q / 2, L[i + 1] - q / 2, q, q); } else big = true; }
+  ctx.fill();
+  if (big) { ctx.save(); ctx.globalAlpha = alpha; for (let i = 0; i < L.length; i += 3) { const r = L[i + 2]; if (r * ks >= 1.6) { const R = r * 16 / 14; ctx.drawImage(img, L[i] - R, L[i + 1] - R, R * 2, R * 2); } } ctx.restore(); }
+}
+function smoke(ctx, t, W8, ks) {
+  const D = inkDots(), NB = 9, B = Array.from({ length: NB + 1 }, () => []);
+  const wa = Math.atan2(-.85, .53);
+  for (let i = 0; i < D.n; i++) {
+    let [x, y, q, r2] = smokeState(D, i, t, W8); if (q >= 1) continue;
+    if (q > 0) {
+      const dist = Math.pow(q, 1.6) * (150 + 280 * r2), st = dist / 4;
+      for (let s = 0; s < 4; s++) { const f = Math.sin(x * .011 + t * .23) + Math.sin(y * .013 - t * .17 + x * .004) + Math.sin((x + y) * .007 + t * .11), an = wa + f * .55; x += Math.cos(an) * st; y += Math.sin(an) * st; }
+    }
+    const a = Math.pow(1 - q, 1.4) * (q > 0 ? .9 : 1), b = Math.min(NB, Math.round(a * NB)); if (b <= 0) continue;
+    B[b].push(x, y, D.r[i] * (1 + q * 1.6));
+  }
+  for (let b = 1; b <= NB; b++) if (B[b].length) dotsOut(ctx, B[b], b / NB, ks);
+}
+// "starts to change": a few specks of ink lift off the oval's edge and drift (anticipation; the print itself still holds)
+function specks(ctx, t, A, ks) {
+  const D = inkDots(), n = D.n, L = [];
+  for (let k = 0; k < 90; k++) {
+    const i = Math.floor(hsh(k * 9.13 + 1.1) * n); if (D.box[i] !== 0) continue;
+    const ex = (D.x[i] - OV.x) / OV.a, ey = (D.y[i] - OV.y) / OV.b; if (ex * ex + ey * ey < .7) continue;
+    const ts = A.change - .1 + 1.4 * hsh(k * 3.7), q = clamp((t - ts) / 1.1); if (q <= 0 || q >= 1) continue;
+    const d = q * (40 + 70 * hsh(k * 5.1)), an = Math.atan2(-.85, .53) + .6 * Math.sin(k * 1.7 + t * .4);
+    L.push(D.x[i] + Math.cos(an) * d, D.y[i] + Math.sin(an) * d, D.r[i] * (1 + q));
+  }
+  if (L.length) dotsOut(ctx, L, .85, ks);
+}
+// "respect": the oval frame glows (warm foil light runs round the ring, a soft halo), then cools as respect "starts to change"
+export function respectGlow(A, t) { return smo2((t - (A.respect - .08)) / .38) * (1 - .82 * smo2((t - (A.starts - .1)) / 1.5)) * (1 - smo2((t - (A.earn - .3)) / .4)); }
+export function drawGlow(ctx, t, A) {
+  const g = respectGlow(A, t); if (g <= .004) return;
+  const { x, y, a, b } = OV;
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  // halo around the oval
+  ctx.save(); ctx.translate(x, y); ctx.scale(1, (b + 120) / (a + 120));
+  const hg = ctx.createRadialGradient(0, 0, a * .9, 0, 0, a + 190); hg.addColorStop(0, 'rgba(255,179,92,0)'); hg.addColorStop(.25, `rgba(255,179,92,${.26 * g})`); hg.addColorStop(1, 'rgba(255,150,60,0)');
+  ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(0, 0, a + 190, 0, TAU); ctx.fill(); ctx.restore();
+  // the ring itself in warm foil, with a glint that runs once round it
+  const ring = new Path2D(); const P0 = ellipsePts(x, y, a, b, 4, 240), P1 = ellipsePts(x, y, a, b, 58, 240);
+  ring.moveTo(P0[0][0], P0[0][1]); for (const p of P0) ring.lineTo(p[0], p[1]); ring.closePath(); ring.moveTo(P1[0][0], P1[0][1]); for (let i = P1.length - 1; i >= 0; i--) ring.lineTo(P1[i][0], P1[i][1]); ring.closePath();
+  ctx.fillStyle = `rgba(255,170,80,${.32 * g})`; ctx.fill(ring);
+  const u = clamp((t - A.respect + .05) / 1.1), th = -Math.PI / 2 + u * TAU * 1.1, gx = x + Math.cos(th) * (a + 30), gy = y + Math.sin(th) * (b + 30);
+  ctx.save(); ctx.clip(ring); const gg = ctx.createRadialGradient(gx, gy, 0, gx, gy, 150); gg.addColorStop(0, `rgba(255,244,220,${.8 * g * (1 - u * .6)})`); gg.addColorStop(.4, `rgba(255,200,120,${.4 * g})`); gg.addColorStop(1, 'rgba(255,179,92,0)');
+  ctx.fillStyle = gg; ctx.fillRect(gx - 150, gy - 150, 300, 300); ctx.restore();
+  ctx.restore();
 }

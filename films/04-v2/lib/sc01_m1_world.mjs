@@ -343,15 +343,26 @@ export function lakeTake(ctx, t, K) {
 const QM = (() => { const out = []; for (let i = 0; i <= 120; i++) { const q = i / 120, a = mix(Math.PI * 1.08, Math.PI * 2.5, q), r = 118; out.push([Math.cos(a) * r, -200 + Math.sin(a) * r * 1.02]); } const e = out[out.length - 1]; for (let i = 1; i <= 40; i++) { const q = i / 40; out.push([mix(e[0], 0, sm(q)), mix(e[1], 50, q)]); } return out; })();
 function qmLines() { return once('qmlines', () => { const L = []; const d = [0]; for (let i = 1; i < QM.length; i++) d.push(d[i - 1] + Math.hypot(QM[i][0] - QM[i - 1][0], QM[i][1] - QM[i - 1][1]));
   for (let k = 0; k < 9; k++) { const pts = []; for (let i = 0; i < QM.length; i++) { const a = QM[Math.max(0, i - 1)], b = QM[Math.min(QM.length - 1, i + 1)], tx = b[0] - a[0], ty = b[1] - a[1], m = Math.hypot(tx, ty) || 1, nx = -ty / m, ny = tx / m, off = (k - 4) * 4.2 + 9 * Math.sin(d[i] * .045 + k * .7) * Math.sin(Math.min(1, d[i] / 60) * Math.PI / 2); pts.push([QM[i][0] + nx * off, QM[i][1] + ny * off]); } L.push(pts); } return L; }); }
+// wallShot's camera: wall px (X, Y) → screen (ox + k·X, oy + k·Y). The lake take (lib/m1x_c01_lake.mjs) flies its camera onto exactly this.
+export function wallFrame(t, K) {
+  const u = clamp((t - K.t0) / (K.end - K.t0)), z = 1 + .035 * sm(u), dx = drift(t, 6, 1) - 20 * u, dy = drift(t, 4, 2), sp = WALL.slip;
+  return { k: z, ox: W / 2 + dx + z * (700 - sp[0] - W / 2), oy: H / 2 + dy + z * (520 - sp[1] - H / 2) };   // the slip sits at (700, 520)
+}
+export const WALL_DIM = { w: 5200, h: 2200, slip: [2000, 1000] };
+// the wall with the slip and the engraving "?" in wall px under the current transform (o.shade: darken, o.clipY: wall px below it hidden)
+export function wallPaint(ctx, t, K, o = {}) { wallBody(ctx, t, K, 0, 0, 1, o); }
+export function wallVignette(ctx, cx = W * .5, cy = H * .5, r0 = 380, r1 = 1200, a = .42) {
+  const vg = ctx.createRadialGradient(cx, cy, r0, W * .5, H * .5, r1); vg.addColorStop(0, 'rgba(3,4,12,0)'); vg.addColorStop(1, `rgba(3,4,12,${a})`); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+}
 export function wallShot(ctx, t, K) {
-  const u = clamp((t - K.t0) / (K.end - K.t0));
-  const z = 1 + .035 * sm(u), dx = drift(t, 6, 1) - 20 * u, dy = drift(t, 4, 2);
-  ctx.save(); ctx.translate(W / 2 + dx, H / 2 + dy); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2);
-  const s = 1.0, sp = WALL.slip;
-  // the wall fills the frame; the slip sits left of centre
-  const x0 = 700 - sp[0] * s, top = 520 - sp[1] * s;
+  const F = wallFrame(t, K);
+  ctx.save(); ctx.translate(F.ox, F.oy); ctx.scale(F.k, F.k); wallPaint(ctx, t, K); ctx.restore();
+  wallVignette(ctx);
+}
+function wallBody(ctx, t, K, x0, top, s, o = {}) {
+  const sp = WALL.slip;
   const qu = qio(clamp((t - (K.reason - .1)) / (K.guess - .05 - (K.reason - .1)))), dotU = clamp((t - (K.guess + .02)) / .35);
-  drawWall(ctx, t, x0, top, s, { slip: sp, after: (g) => {
+  drawWall(ctx, t, x0, top, s, { slip: sp, shade: o.shade, after: qu <= 0 ? null : (g) => {
     // the "?" engraved in the wall's own ink, beside the slip (wall px)
     const qx = sp[0] + 820, qy = sp[1] - 10, Ls = qmLines();
     g.save(); g.translate(qx, qy); g.scale(1.18, 1.18);
@@ -361,6 +372,4 @@ export function wallShot(ctx, t, K) {
       if (dotU < 1) { g.save(); g.globalCompositeOperation = 'lighter'; g.strokeStyle = `rgba(255,200,140,${.5 * (1 - dotU)})`; g.lineWidth = 2; g.beginPath(); g.arc(0, 150, 40 + 90 * eoX(dotU), 0, TAU); g.stroke(); g.restore(); } }
     g.restore();
   } });
-  ctx.restore();
-  const vg = ctx.createRadialGradient(W * .5, H * .5, 380, W * .5, H * .5, 1200); vg.addColorStop(0, 'rgba(3,4,12,0)'); vg.addColorStop(1, 'rgba(3,4,12,.42)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
 }

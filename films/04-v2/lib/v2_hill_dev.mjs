@@ -780,7 +780,7 @@ const FLY = (y, side) => { const k = y * 2 + (side > 0 ? 1 : 0); let v = FLYC.ge
 function rock(ctx, k) {
   const { x, y, s, seed } = k, r = prng(seed), pts = [];
   for (let i = 0; i < 7; i++) { const a = Math.PI + i * Math.PI / 6, rr = s * (.7 + r() * .4); pts.push([x + Math.cos(a) * rr * 1.3, y + Math.sin(a) * rr * .8]); }
-  polyP(ctx, pts); ctx.fillStyle = hgrad(ctx, x - s, x + s, [[0, '#8a809a'], [.5, '#6a6080'], [1, '#463e58']]); ctx.fill();
+  polyP(ctx, pts); ctx.fillStyle = hgrad(ctx, x - s, x + s, [[0, '#766e8a'], [.5, '#5a5272'], [1, '#3a3450']]); ctx.fill();
   ctx.save(); ctx.clip(); hatchBox(ctx, [x, y - s, x + s * 1.4, y + 1], 1.1, .9, INK, .35, { seed }); ctx.restore();
   ctx.strokeStyle = K(INK, .4); ctx.lineWidth = lw(.6); ctx.stroke();
 }
@@ -982,7 +982,7 @@ function plantFlanks() {
       for (let x = xin + side * (1 + r() * 6); (xout - x) * side > 2; x += side * (6.5 + r() * 7)) {
         const u = r(), top = y < 330;
         const kind = side < 0 ? (top ? (u < .45 ? 'bush' : u < .75 ? 'cypress' : 'rock') : u < .6 ? 'olive' : u < .78 ? 'cypress' : u < .92 ? 'bush' : 'rock')
-          : (u < .3 ? 'rock' : u < .56 ? 'bush' : u < .7 ? 'pine' : u < .86 ? 'cypress' : 'olive');
+          : (u < .3 ? 'rock' : u < .56 ? 'bush' : u < .7 ? ((xout - x) * side > 30 ? 'pine' : 'cypress') : u < .86 ? 'cypress' : 'olive');
         row.items.push({ x, y: y + (r() - .5) * 2, kind, s: kind === 'rock' ? 2.6 + r() * 4.4 : kind === 'bush' ? .7 + r() * .8 : kind === 'pine' ? .5 + r() * .35 : .5 + r() * .45, seed: Math.floor(r() * 1e6), col: r() < .5 ? VEG : VEG_D });
       }
       add(O(lv, 4) + y * 1e-5, [Math.min(xin, xout) - 14, y - 34, Math.max(xin, xout) + 14, y + 5], (ctx) => grove(ctx, row), { wide: true });
@@ -997,7 +997,7 @@ function plantFlanks() {
       for (let x = s0 + r() * 5; x < s1 - 2; x += 4.5 + r() * 7) {
         if (y < 240 && Math.abs(x - CX) < 106) continue;
         const u = r(), kind = y < 242 ? (u < .65 ? 'bush' : 'rock') : (u < .52 ? 'bush' : u < .7 ? 'rock' : u < .88 ? 'cypress' : 'olive');
-        row.items.push({ x, y: y + (r() - .5) * 2, kind, s: kind === 'rock' ? 2.2 + r() * 3.4 : kind === 'bush' ? .6 + r() * .7 : .42 + r() * .35, seed: Math.floor(r() * 1e6), col: r() < .5 ? VEG : VEG_D });
+        row.items.push({ x, y: y + (r() - .5) * 2, kind, s: kind === 'rock' ? 1.6 + r() * 2.4 : kind === 'bush' ? .6 + r() * .7 : .42 + r() * .35, seed: Math.floor(r() * 1e6), col: r() < .5 ? VEG : VEG_D });
       }
       add(O(lv, 4) + y * 1e-5, [s0 - 14, y - 30, s1 + 14, y + 5], (ctx) => grove(ctx, row), { wide: true });
     }
@@ -1453,7 +1453,7 @@ function waterWorld(ctx, t, cam, n, st) {
       if (HZ + d + h < VB[1]) continue;
       const ys1 = HZ - d, ys0 = ys1 - h * .8;   // the mirrored source rows (a thin dark gap between bands)
       if (ys0 < RB[1]) break;
-      const dx = bandDX(k, d, t), a = clamp(.62 - d * .0011) * (.78 + .22 * hash(k * 2.3));
+      const dx = bandDX(k, d, t), a = clamp(.62 - d * .0016) * (.78 + .22 * hash(k * 2.3));
       const a1 = a * (1 - n) / (1 - a * n), a2 = a * n;
       const sx = (vx0 - RB[0]) * s, sy = (ys0 - RB[1]) * s, sw = (vx1 - vx0) * s, sh = (ys1 - ys0) * s;
       if (a1 > .003) { ctx.globalAlpha = a1; ctx.drawImage(img, sx, sy, sw, sh, vx0 + dx, ys0, vx1 - vx0, ys1 - ys0); }
@@ -1475,7 +1475,7 @@ function waterWorld(ctx, t, cam, n, st) {
       if (d + h < dTop) continue; if (d > dTop + len) break;
       const u = (d - dTop) / len, hk = hash(k * 1.9 + w.ph); if (hk < .14) continue;
       const wv = w.w * (1.15 - .55 * u) * (.6 + .7 * hk), x = w.x + w.w / 2 + bandDX(k, d, t) * 1.3 + (hash(k * 7.1 + w.ph) - .5) * w.w * .6 * u;
-      ctx.rect(x - wv / 2, HZ + d + h * .4 * hash(k * 3.7 + w.ph * 2), wv, h * .5);
+      ctx.rect(x - wv / 2, HZ + d + h * .4 * hash(k * 3.7 + w.ph * 2), wv, Math.min(h * .5, .45 + 2.4 / Z));
     }
     if (am >= .02) { ctx.fillStyle = `rgba(255,${Math.round(170 + 30 * (1 - w.warm))},${Math.round(90 + 40 * (1 - w.warm))},${(am * .5 * fade).toFixed(3)})`; ctx.fill(); }
     if (tv >= .02) { ctx.fillStyle = `rgba(143,230,255,${(tv * .45 * fade).toFixed(3)})`; ctx.fill(); }
@@ -1664,6 +1664,15 @@ function buildLive(ctx, t, n, b) {
   ctx.fillStyle = 'rgb(7,8,24)'; ctx.fillRect(VB[0], VB[1], VB[2] - VB[0], yf - soft - VB[1]);
   ctx.fillStyle = g; ctx.fillRect(VB[0], yf - soft, VB[2] - VB[0], soft * 1.2);
   ctx.restore();
+  // its reflection: dark water where the hill is still dark (the mirrored front moves down from the water line)
+  if (VB[3] > HZ) {
+    ctx.save(); ctx.beginPath(); ctx.rect(VB[0], HZ, VB[2] - VB[0], VB[3] - HZ + 10); ctx.clip();
+    ctx.translate(0, 2 * HZ); ctx.scale(1, -1); polyP(ctx, OUTLINE); ctx.clip();
+    const gm = ctx.createLinearGradient(0, yf - soft, 0, yf + soft * .2); gm.addColorStop(0, 'rgba(8,9,26,.94)'); gm.addColorStop(1, 'rgba(8,9,26,0)');
+    ctx.fillStyle = 'rgba(8,9,26,.94)'; ctx.fillRect(VB[0], -4000, VB[2] - VB[0], yf - soft + 4000);
+    ctx.fillStyle = gm; ctx.fillRect(VB[0], yf - soft, VB[2] - VB[0], soft * 1.2);
+    ctx.restore();
+  }
   // the amber line: draws itself along the silhouette, then cools into the hill's rim as the terraces fill
   const uo = clamp(b / .35), N = Math.max(2, Math.floor(OUTLINE.length * uo)), cool = clamp((b - .5) / .5);
   ctx.save(); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
@@ -1688,7 +1697,9 @@ function labels(ctx, t, cam, st) {
       else { const ym = mix(L.y0, L.y1, .45); [ax, ay] = toScreen(cam, CX + hwAt(lv, ym) - 22, ym); ly = ay + size * .3; }
       // a label belongs to its terrace: when the terrace leaves the frame its label un-writes
       const vis = sm(clamp((ay - 30) / 70)) * sm(clamp((1000 - ay) / 90)) * sm(clamp((1880 - ax) / 80)) * sm(clamp((ax + 40) / 80));
-      items.push({ lv, L, isF, size, ax, ay, ly, u: clamp(la * 1.25 - lv * .06) * (isF ? 1 : zf) * vis });
+      // while the hill builds itself (st.build) a label waits for its terrace to come out of the dark
+      const bu = st.build ?? 1, yf = bu < 1 ? mix(812, 186, clamp((bu - .35) / .65)) : -1e9, rv = clamp((L.y0 - yf) / (L.y0 - L.y1));
+      items.push({ lv, L, isF, size, ax, ay, ly, u: clamp(la * 1.25 - lv * .06) * (isF ? 1 : zf) * vis * rv });
     }
     // stacked bottom-up inside [70 + size·.7, 905], at least a line apart (the gap shrinks with the lower label, so nothing jumps)
     let prev = null;

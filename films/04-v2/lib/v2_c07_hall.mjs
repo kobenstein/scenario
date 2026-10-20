@@ -410,10 +410,11 @@ function bridgesIn(zb, za, t, K, L) {
   }
   return out;
 }
+// where E0 still begins (the dissolve eats it from the foot up to the fragment)
+export function e0SA(t, K) { const g = geo(E0); let sA = g.s0; if (K.dis0 && t > K.dis0 + .8) { for (let s = g.s0; s < KEEP.s(); s += .25) if (e0Gone(s, t, K) >= 1) sA = s + .25; } return sA; }
 function drawOneEsc(ctx, C, P, e, t, K, st, mo) {
   if (e === E0) {
-    const g = geo(E0); let sA = g.s0;
-    if (K.dis0 && t > K.dis0 + .8) { for (let s = g.s0; s < KEEP.s(); s += .25) if (e0Gone(s, t, K) >= 1) sA = s + .25; }
+    const sA = e0SA(t, K);
     const Lf = e0Frag(t, K), Lr = e0Hall(t, K);
     const dk = st.behind && goneAt(E0.z, t, K) <= 0, o = { L: Lf, dark: dk, morning: mo, st, sA };
     o.mid = () => { drawRiders(ctx, P, C, e, t, K, { L: Lr, dark: dk, morning: mo, sA }); st.hero = drawHero(ctx, P, C, t, K, { L: e0On(t, K), lit: heroLit(t, K), morning: mo, cyan: heroCyan(t, K) }); };

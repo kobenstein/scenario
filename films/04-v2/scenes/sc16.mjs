@@ -6,8 +6,8 @@ import { anchors, setup, take } from '../lib/v2_c16_take.mjs';
 export default async (T, R) => {
   const { in: HI, out: HO } = handsOf('c16', T);
   const A = anchors(T, HI, HO);
-  setup(A); await ready();
-  const draw = (ctx, t) => take(ctx, t, A, HO, null);
+  setup(T, A); await ready();
+  const draw = (ctx, t) => take(ctx, t, A, HO);
   return [
     { t: HI.b, tr: 'cut', d: .1, print: HI.print, draw },
     { t: A.riv0, tr: 'cut', d: .1, print: HO.print, draw },

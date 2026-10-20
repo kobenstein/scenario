@@ -23,8 +23,8 @@ const LOOKS = [
 ];
 const FOLK = (() => { const r = prng(9090), o = []; for (let f = 0; f <= 14; f++) for (let d = 0; d < 2; d++) { const n = r() < .35 ? 2 : 1; for (let k = 0; k < n; k++) o.push({ f, d, k, look: LOOKS[Math.floor(r() * LOOKS.length)], dth: (k ? .17 : 0) * (d ? 1 : -1) + (r() - .5) * .08, talk: r(), up: r() < .5, ph: r() * 9, h: .94 + r() * .1 }); } return o; })();
 // the two strangers
-export const STR = { a: { f: 8, door: .45 }, b: { f: 7, th: -.25 } };
-const doorOpen = (f, d, K) => K.now + .06 + Math.abs(f - 8) * .085 + d * .07;
+export const STR = { a: { f: 9, door: .45 }, b: { f: 8, th: -.25 } };
+const doorOpen = (f, d, K) => K.now + .06 + Math.abs(f - 9) * .085 + d * .07;
 
 function floorDraw(ctx, C, t, K, f, FOG) {
   const y0 = Yf(f), warmF = sm2((t - doorOpen(f, 0, K)) / .6), cold = FOG;

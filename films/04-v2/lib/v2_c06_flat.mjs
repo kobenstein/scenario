@@ -27,7 +27,7 @@ const CLOCK = { x: -40, y: -44, r: 15 };
 const DOOR = { x0: 62, x1: 150, top: -64 };
 const LAMP = { x: -274, z: 492, y: -10 };
 const GLASS = { x: -27, z: ZP }, RING = [[-41, 397, .9], [-14, 407, 1.1]], BOT0 = { x: -44, z: 412 }, REM0 = { x: -57, z: ZP };
-const LAPTOP = { x: 22, z: 420, ang: .45 };
+const LAPTOP = { x: 22, z: 420, ang: -.5 };
 // the "?" and the line: the plate's line centre (960, 590) sits on the wall at Q; the camera's end pose CEND sees the wall exactly as the plate
 const Q = { x: -165, y: -45 };
 export const KE = 18.75; const DE = ZB - 440;
@@ -115,14 +115,14 @@ export function makeFlat(A, HO) {
   const lights = (t) => ({ lamp: 1.45, tv: 1.9 * tvL(t), lap: .35 * lapL(t) });
   // ---- the person's keys (hip in cm, angles in rad)
   const KHX = mono([[0, -84], [T.drop, -84], [T.drop + .15, -89], [T.drop + .32, -106], [T.contact - .06, -126], [T.contact, -131.5], [T.contact + .1, -133], [T.contact + .22, -133.4], [T.contact + .45, -134],
-    [T.reach0, -133.5], [T.grab, -128], [T.point + .1, -129.5], [T.sink + .5, -133.5], [T.b0, -133.5], [T.bg, -130.5], [T.pour0, -129.5], [T.pour1, -129.5], [T.bset, -130], [T.back + .4, -134], [A.maybe2, -134.5], [T.ex1, -130.5], [999, -130.5]]);
+    [T.reach0, -133.5], [T.grab, -128], [T.point + .1, -129.5], [T.sink + .5, -133.5], [T.b0, -133.5], [T.bg, -130.5], [T.pour0, -129.5], [T.pour1, -129.5], [T.bset, -130], [T.back + .4, -134], [A.maybe2, -134.5], [T.ex0, -134.5], [T.ex1, -119], [999, -118.5]]);
   const KHY = mono([[0, 63.5], [T.drop, 63.5], [T.drop + .15, 68], [T.drop + .32, 82], [T.contact - .06, 97.5], [T.contact, 102.5], [T.contact + .08, 105.2], [T.contact + .2, 102.6], [T.contact + .4, 103.4],
-    [T.reach0, 103.3], [T.grab, 102.6], [T.point + .1, 103], [T.sink + .5, 103.6], [T.bg, 103.2], [T.bset, 103.2], [T.back + .4, 103.8], [A.maybe2, 104.2], [T.ex1, 105.6], [999, 105.6]]);
+    [T.reach0, 103.3], [T.grab, 102.6], [T.point + .1, 103], [T.sink + .5, 103.6], [T.bg, 103.2], [T.bset, 103.2], [T.back + .4, 103.8], [A.maybe2, 104.2], [T.ex0, 104.2], [T.ex1, 106.4], [999, 106.6]]);
   const KLEAN = mono([[0, .07], [T.drop, .07], [T.drop + .18, .3], [T.drop + .36, .34], [T.contact - .04, .12], [T.contact + .1, -.3], [T.contact + .2, -.22], [T.contact + .36, -.29], [T.reach0, -.24],
     [T.grab - .06, .76], [T.grab + .08, .7], [T.point, .1], [T.point + .25, .02], [T.sink + .6, -.3], [T.b0, -.3], [T.bg, .52], [T.pour0, .42], [T.pour1, .42], [T.bset - .1, .56], [T.bset + .08, .5], [T.back + .4, -.31],
-    [A.maybe2, -.33], [T.ex0, -.34], [T.ex1, -.43], [999, -.43]]);
+    [A.maybe2, -.33], [T.ex0, -.34], [T.ex1, -.63], [999, -.64]]);
   const KHEAD = mono([[0, .26], [T.drop, .26], [T.drop + .25, .12], [T.contact, .06], [T.contact + .07, .24], [T.contact + .16, -.12], [T.contact + .34, .1], [T.reach0, .1], [T.grab - .1, .34], [T.point, .04],
-    [T.point + .3, -.04], [T.sink + .6, .08], [T.b0, .08], [T.bg, .3], [T.pour0, .36], [T.pour1, .34], [T.bset, .3], [T.back + .4, .1], [A.maybe2, .12], [T.ex0, .12], [T.ex1, -.42], [999, -.42]]);
+    [T.point + .3, -.04], [T.sink + .6, .08], [T.b0, .08], [T.bg, .3], [T.pour0, .36], [T.pour1, .34], [T.bset, .3], [T.back + .4, .1], [A.maybe2, .12], [T.ex0, .12], [T.ex1, -.3], [999, -.31]]);
   const KEYE = mono([[0, 0], [T.ex0 + .3, 0], [T.ex1 - .2, 1], [999, 1]]);
   // ---- the props: remote (in the front hand from the grab), bottle (in the back hand from bg to bset)
   const remoteIn = (t) => t >= T.grab;
@@ -178,14 +178,18 @@ export function makeFlat(A, HO) {
     if (pp.s > 9) return pp;   // never a portrait: the camera never gets this close while the person is in frame
     const tvp = pr(c, TVP[0], TVP[1], TVP[2]), lp = pr(c, LAMPP[0], LAMPP[1], LAMPP[2]), tl = clamp(L.tv / 1.9);
     const lightPt = { x: mix(lp[0], tvp[0], s5(tl * 1.4)), y: mix(lp[1], tvp[1], s5(tl * 1.4)), col: mixC('#ffc98a', SCREEN_HOT, s5(tl * 1.4)), a: mix(.32, .62, tl) };
-    const remoteProp = remoteIn(t) ? (g, fa) => {
-      const hxp = fa.hx + Math.sin(fa.ang) * 3.4, hyp = fa.hy + Math.cos(fa.ang) * 3.4; g.save(); g.translate(hxp, hyp); g.rotate(Math.PI / 2 - fa.ang - .25);
-      g.fillStyle = '#15171f'; g.beginPath(); g.roundRect(-5, -2.3, 19, 4.6, 2); g.fill(); g.fillStyle = 'rgba(160,170,190,.25)'; g.fillRect(-3, -2.2, 16, .8);
-      g.fillStyle = tvOn(t) > .5 ? '#ff4a3a' : '#7a2a24'; g.beginPath(); g.arc(12, -.6, .7, 0, TAU); g.fill();
-      if (tl > .02) { g.strokeStyle = rgba(SCREEN, .5 * tl); g.lineWidth = .5; g.beginPath(); g.moveTo(-4, -2.3); g.lineTo(13, -2.3); g.stroke(); }
-      g.restore();
-    } : null;
-    figure(ctx, pp.sx, pp.sy, pp.s, pp.pose, { ...pp.o, dress: DRESS, light: lightPt, rim: rgba('#ffb35c', .85), rimSide: -1, rimW: Math.max(1.2, pp.s * .45), prop: remoteProp });
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+    figure(ctx, pp.sx, pp.sy, pp.s, pp.pose, { ...pp.o, dress: DRESS, light: lightPt, rim: rgba('#ffb35c', .85), rimSide: -1, rimW: Math.max(1.2, pp.s * .45) });
+    // the remote in the front hand (drawn over the fist, along the forearm; its red LED lights when the TV answers)
+    if (remoteIn(t)) {
+      const hp = handPos(pp.sx, pp.sy, pp.s, pp.pose, 0, false, pp.o), ang = pp.pose.sh[0] + pp.pose.el[0], lean = pp.pose.lean;
+      const rot = lean + Math.PI / 2 - ang - .25, dx = Math.sin(ang + lean), dy = Math.cos(ang + lean);
+      ctx.translate(hp[0] - dx * .6 * pp.s, hp[1] - dy * .6 * pp.s); ctx.rotate(rot); ctx.scale(pp.s, pp.s);
+      ctx.fillStyle = '#15171f'; ctx.beginPath(); ctx.roundRect(-5, -2.3, 19, 4.6, 2); ctx.fill(); ctx.fillStyle = 'rgba(160,170,190,.25)'; ctx.fillRect(-3, -2.2, 16, .8);
+      ctx.fillStyle = tvOn(t) > .5 ? '#ff4a3a' : '#7a2a24'; ctx.beginPath(); ctx.arc(12, -.6, .7, 0, TAU); ctx.fill();
+      if (tl > .02) { ctx.strokeStyle = rgba(SCREEN, .5 * tl); ctx.lineWidth = .5; ctx.beginPath(); ctx.moveTo(-4, -2.3); ctx.lineTo(13, -2.3); ctx.stroke(); }
+    }
+    ctx.restore();
     return pp;
   }
 
@@ -284,9 +288,9 @@ export function makeFlat(A, HO) {
   function wallX(ctx, c, X, L, t) {
     // engraved vertical courses (wallpaper) and the lights that reach the side walls
     const side = X < 0 ? 1 : -1;
-    if (X < 0) { const g = (z, y, rx, ry, col, a) => { if (a <= .002) return; const p = pr(c, X, y, z); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.translate(p[0], p[1]); const sq = Math.abs(X - c.x) / Math.max(10, z - c.z); ctx.scale(Math.max(.05, sq), ry / rx); const R = rx * p[2], gg = ctx.createRadialGradient(0, 0, 0, 0, 0, R); gg.addColorStop(0, rgba(col, a)); gg.addColorStop(1, rgba(col, 0)); ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(0, 0, R, 0, TAU); ctx.fill(); ctx.restore(); };
+    if (X < 0) { const g = (z, y, rx, ry, col, a) => { if (a <= .002 || z - c.z < 12) return; const p = pr(c, X, y, z); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.translate(p[0], p[1]); const sq = Math.abs(X - c.x) / Math.max(10, z - c.z); ctx.scale(Math.max(.05, sq), ry / rx); const R = rx * p[2], gg = ctx.createRadialGradient(0, 0, 0, 0, 0, R); gg.addColorStop(0, rgba(col, a)); gg.addColorStop(1, rgba(col, 0)); ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(0, 0, R, 0, TAU); ctx.fill(); ctx.restore(); };
       g(LAMP.z - 10, LAMP.y, 130, 150, '#ffb35c', .22); }
-    else { const tl = clamp(L.tv / 1.9); if (tl > .01) { const p = pr(c, X, TVP[1], TVP[2]); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.translate(p[0], p[1]); const sq = Math.abs(X - c.x) / Math.max(10, TVP[2] - c.z); ctx.scale(Math.max(.05, sq), 1); const R = 120 * p[2], gg = ctx.createRadialGradient(0, 0, 0, 0, 0, R); gg.addColorStop(0, rgba(SCREEN, .35 * tl)); gg.addColorStop(1, rgba(SCREEN, 0)); ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(0, 0, R, 0, TAU); ctx.fill(); ctx.restore(); } }
+    else { const tl = clamp(L.tv / 1.9); if (tl > .01 && TVP[2] - c.z > 12) { const p = pr(c, X, TVP[1], TVP[2]); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.translate(p[0], p[1]); const sq = Math.abs(X - c.x) / Math.max(10, TVP[2] - c.z); ctx.scale(Math.max(.05, sq), 1); const R = 120 * p[2], gg = ctx.createRadialGradient(0, 0, 0, 0, 0, R); gg.addColorStop(0, rgba(SCREEN, .35 * tl)); gg.addColorStop(1, rgba(SCREEN, 0)); ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(0, 0, R, 0, TAU); ctx.fill(); ctx.restore(); } }
     ctx.strokeStyle = 'rgba(0,0,0,.18)'; ctx.lineWidth = 1; ctx.beginPath(); for (let z = 20; z < ZB; z += 24) { const s = seg3(c, [X, CE, z], [X, FL, z]); if (s) { ctx.moveTo(s[0], s[1]); ctx.lineTo(s[2], s[3]); } } ctx.stroke();
   }
   function floor(ctx, c, t, L) {
@@ -490,7 +494,7 @@ export function makeFlat(A, HO) {
     const n = (() => { const a3 = lidQ[0], b3 = lidQ[1], c3 = lidQ[3]; const u = [b3[0] - a3[0], b3[1] - a3[1], b3[2] - a3[2]], v = [c3[0] - a3[0], c3[1] - a3[1], c3[2] - a3[2]]; return [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]]; })();
     const ctr = [(lidQ[0][0] + lidQ[2][0]) / 2, (lidQ[0][1] + lidQ[2][1]) / 2, (lidQ[0][2] + lidQ[2][2]) / 2], facing = n[0] * (c.x - ctr[0]) + n[1] * (c.y - ctr[1]) + n[2] * (c.z - ctr[2]);
     if (poly3(ctx, c, lidQ)) {
-      if (facing < 0) {   // the screen
+      if (facing > 0) {   // the screen
         ctx.fillStyle = '#0c0e14'; ctx.fill(); ctx.save(); ctx.clip();
         const sc = (u, v) => { const q = [L1[0][0] + (L1[1][0] - L1[0][0]) * u + (lidQ[3][0] - lidQ[0][0]) * v, L1[0][1] + (L1[1][1] - L1[0][1]) * u + (lidQ[3][1] - lidQ[0][1]) * v, L1[0][2] + (L1[1][2] - L1[0][2]) * u + (lidQ[3][2] - lidQ[0][2]) * v]; return q; };
         const inner = [sc(.05, .08), sc(.95, .08), sc(.95, .94), sc(.05, .94)];
@@ -514,7 +518,7 @@ export function makeFlat(A, HO) {
       const B = bottleAt(t); plane(ctx, c, B.z); bottleScaled(ctx, B.mx, B.my, B.ang, L);
       // the pour: the stream from the mouth into the glass
       const u = clamp((t - T.pour0) / .14), thin = s5((t - (T.pour1 - .12)) / .16), gone = t > T.pour1 + .06;
-      if (u > 0 && !gone) { plane(ctx, c, GLASS.z); const lv = glassLv(t), surf = TABLE.top - mix(10.4, 17.6, lv); wineStream(ctx, B.mx, B.my + .6, GLASS.x + .4, surf, u, { thin, t }); }
+      if (u > 0 && !gone) { plane(ctx, c, GLASS.z); const lv = glassLv(t), surf = TABLE.top - mix(10.4, 17.6, lv); wineStream(ctx, B.mx, B.my + .3, GLASS.x + .4, surf, u, { thin, t, w: .46 }); }
     }
   }
   function motes(ctx, c, t, tl) {
@@ -530,5 +534,16 @@ export function makeFlat(A, HO) {
     drawRoom(ctx, t, c);
     qmark(ctx, t, c);
   }
-  return { draw, drawRoom, qmark, T, tvOn, personPose };
+  // ---- the camera inside (local cm): [t, x, y, z, oy]. The take's camera (v2_c06_city) continues the flight through the window into these.
+  const into = A.why2 + .1;
+  const keys = [
+    [into + .32, -6, 12, -8, 0], [A.tired, -13, 20, 6, 0], [A.tired + .45, -20, 26, 22, 0], [A.reach, -22, 28, 30, 0], [A.remote, -24, 29, 37, 0], [A.night, -26, 30, 44, 0],
+    // 6.16: down to the table, the third glass; then back out (the person stays out of frame while the camera is close)
+    [A.why3 + .02, -26, 30.5, 46, 0], [A.why3 + .3, -8, 52, 160, -20], [A.third - .02, -9, 88, 330, -60], [A.glassE, -10, 88.6, 336, -60],
+    [A.glassE + .28, -8, 70, 262, -40], [A.glassE + .8, -28, 32, 70, 0], [A.maybe1 + .55, -40, 22, 12, 0],
+    // 6.17 wide, 6.18 the slow push to the exhausted face (figure scale), 6.19 up to the "?" and onto its line
+    [A.maybe2, -43, 23, 22, 0], [A.exhaustedE, -55, 24, 78, 0], [A.thats + .1, -57, 18, 80, 0], [A.didnt, -60, -4, 86, 0],
+    [A.didnt + .24, -95, -30, 150, 0], [A.didnt + .46, -135, -42, 290, 0], [A.didnt + .69, -161, -47.2, 405, 0], [A.HOa - .12, CEND.x, CEND.y, CEND.z, 0], [A.HOb + .3, CEND.x, CEND.y, CEND.z, 0],
+  ];
+  return { draw, drawRoom, qmark, T, tvOn, personPose, keys };
 }

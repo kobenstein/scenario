@@ -141,17 +141,19 @@ function camKeys(K) {
     { t: K.swap, p: [16.7, 1.8, 14.0, 1.07, -.92] },
     { t: K.swap + .45, p: [16.75, 1.9, 14.05, 1.1, -.92] },
     { t: K.apart + .3, p: [18.3, .5, 15.4, 1.56, -.42] },
-    { t: K.apartE + .1, p: [21.5, -1.55, 16.25, 1.56, -.1] },
-    { t: K.apartE + .75, p: [24.9, -1.85, 16.3, Math.PI / 2, -.02] },
-    // World 2: out of the vault, the camera rises over the canal, pushes into the stair core window (analytic, see PUSH), looks down
-    { t: K.flats + .55, p: [27.8, -1.65, 16.3, Math.PI / 2, .02] },
-    { t: K.commutes + .05, p: [33.5, .9, 16.3, Math.PI / 2, .07] },
-    { t: K.commE, p: [...PU.P0, Math.PI / 2, .12], v: [...PU.dir.map((d) => d * PU.v0), 0, 0] },
-    { t: K.pushEnd, p: [...PU.P1, Math.PI / 2, PU.lp], v: [...PU.dir.map((d) => d * PU.vEnd), 0, -.4] },
-    { t: K.pushEnd + 1.0, p: [ST.x - .3, PU.Y9 + 2.6, ST.z, Math.PI / 2, -1.3] },
-    { t: K.now, p: [ST.x, PU.Y9 + 2.75, ST.z, Math.PI / 2 + .1, -1.33] },
-    { t: K.now + .95, p: [ST.x, PU.Y9 + 4.2, ST.z, Math.PI / 2 + .25, -1.36] },
-    { t: K.tribe, p: [ST.x, BLK.top + 2.2, ST.z, Math.PI / 2 + .45, -1.38] },
+    // behind the boat into the vault (the current carries it ahead), out at the far end
+    { t: K.apartE + .1, p: [20.0, -1.25, 16.25, 1.56, -.1] },
+    { t: K.apartE + .75, p: [22.6, -1.45, 16.3, Math.PI / 2, -.02] },
+    // World 2: out of the vault a slow crane up over the canal (the block, the crawl at its foot), then the push into the stair core
+    // window (analytic, see push()), then inside the well: look down at the strangers
+    { t: K.flats + .62, p: [25.5, -1.38, 16.3, Math.PI / 2, .04], v: [4.6, 0, 0, 0, .1] },
+    { t: PU.ta, p: [...PU.P0, Math.PI / 2, .2], v: [...PU.dir.map((d) => d * PU.v0), 0, 0] },
+    { t: K.pushEnd, p: [...PU.P1, Math.PI / 2, 0], v: [PU.vEnd, 0, 0, 0, 0] },
+    { t: K.pushEnd + .5, p: [116.9, PU.Y + 1.85, ST.z, Math.PI / 2, -.5] },
+    { t: K.stairE, p: [117.55, PU.Y + 1.6, ST.z, Math.PI / 2, -.74] },
+    { t: K.now, p: [117.7, PU.Y + 1.6, ST.z, Math.PI / 2, -.78] },
+    { t: K.now + .9, p: [118.7, PU.Y + 3.6, ST.z, Math.PI / 2, -1.15] },
+    { t: K.tribe, p: [ST.x, BLK.top + 1.2, ST.z, Math.PI / 2, -1.53] },
     { t: K.againE + .2, p: [114.5, BLK.top + 8, 12, .55, -.95] },
     { t: K.streets + .45, p: [105, BLK.top - 2, 8, .1, -.62] },
     { t: K.hurry, p: [101, 14, 30, -.15, -.38] },
@@ -159,20 +161,25 @@ function camKeys(K) {
     { t: K.end, p: [100, 13, 41, SKY_F.yaw, SKY_F.pitch] },
   ];
 }
-// the push into the stair core window: log distance to the window, its log speed ramps from the incoming speed and holds
-const PU = (() => {
-  const Y9 = SY + 9 * 3, T = [BLK.x0 + .02, Y9 + 2.2, CORE.z], P0 = [44, 8.2, CORE.z], d = T.map((v, i) => v - P0[i]), D0 = Math.hypot(...d), dir = d.map((v) => v / D0);
-  const D1 = .55, v0 = 9, lp = Math.atan2(d[1], Math.hypot(d[0], d[2]));
-  return { Y9, T, P0, dir, D0, D1, v0, lp, P1: T.map((v, i) => v - dir[i] * D1) };
-})();
-function push(t, K) {
-  const Tp = K.pushEnd - K.commE, Tr = Tp * .45, l0 = PU.v0 / PU.D0, LN = Math.log(PU.D0 / PU.D1), lmax = (LN - l0 * Tr / 2) / (Tp - Tr / 2), tau = clamp(t - K.commE, 0, Tp);
+// the push into the stair core window of floor 10: the log distance to the window falls with a log speed that ramps up from the
+// incoming speed and holds; the approach direction levels out as the window comes close (the window stays centred)
+const PU = { Y: SY + 10 * 3, P0: [32.5, 2.0, CORE.z], v0: 6.5, D1: .55 };
+PU.T = [BLK.x0 + .02, PU.Y + 2.2, CORE.z];
+{ const d = PU.T.map((v, i) => v - PU.P0[i]); PU.D0 = Math.hypot(...d); PU.dir = d.map((v) => v / PU.D0); PU.lp = Math.atan2(d[1], Math.hypot(d[0], d[2])); }
+PU.P1 = [PU.T[0] - PU.D1, PU.T[1], PU.T[2]];
+function pushI(tau, Tp) {
+  const Tr = Tp * .5, l0 = PU.v0 / PU.D0, LN = Math.log(PU.D0 / PU.D1), lmax = (LN - l0 * Tr / 2) / (Tp - Tr / 2);
   let I; if (tau < Tr) { const u = tau / Tr; I = l0 * tau + (lmax - l0) * Tr * (u * u * u - u * u * u * u / 2); } else I = l0 * Tr / 2 + lmax * (tau - Tr / 2);
+  return { I, lmax };
+}
+function push(t, K) {
+  const Tp = K.pushEnd - PU.ta, tau = clamp(t - PU.ta, 0, Tp), { I, lmax } = pushI(tau, Tp);
   PU.vEnd = lmax * PU.D1;
-  const D = PU.D0 * Math.exp(-I), pos = PU.T.map((v, i) => v - PU.dir[i] * D), pitch = mix(.12, PU.lp, sm2(tau / (Tp * .6)));
+  const D = PU.D0 * Math.exp(-I), lev = sm2(1 - D / PU.D0 * 1.6);   // 0 far → 1 near: the approach levels out
+  const dy = mix(PU.dir[1], 0, lev), dx = Math.sqrt(1 - dy * dy), pos = [PU.T[0] - dx * D, PU.T[1] - dy * D, PU.T[2]];
+  const pitch = mix(.2, Math.atan2(dy, dx), sm2(tau / (Tp * .5)));
   return { x: pos[0], y: pos[1], z: pos[2], yaw: Math.PI / 2, pitch };
 }
-{ const Tp = 1, Tr = .45; PU.vEnd = 0; }
 let KEYS = null, KEYK = null;
 function hermite(t, Ks, j) {
   const n = Ks.length; if (t <= Ks[0].t) return Ks[0].p[j] + (Ks[0].v ? Ks[0].v[j] * (t - Ks[0].t) : 0);
@@ -184,8 +191,8 @@ function hermite(t, Ks, j) {
   return (2 * u3 - 3 * u2 + 1) * A.p[j] + (u3 - 2 * u2 + u) * h * m0 + (-2 * u3 + 3 * u2) * B.p[j] + (u3 - u2) * h * m1;
 }
 export function townCam(t, K) {
-  if (KEYK !== K) { push(K.pushEnd, K); KEYS = camKeys(K); KEYK = K; boatStarts(K); }
-  if (t > K.commE && t < K.pushEnd) return push(t, K);
+  if (KEYK !== K) { PU.ta = K.commutes + .5; push(K.pushEnd, K); KEYS = camKeys(K); KEYK = K; boatStarts(K); }
+  if (t > PU.ta && t < K.pushEnd) return push(t, K);
   const v = [0, 1, 2, 3, 4].map((j) => hermite(t, KEYS, j));
   return { x: v[0], y: v[1], z: v[2], yaw: v[3], pitch: v[4] };
 }
@@ -218,5 +225,5 @@ export function townTake(ctx, t, K) {
   else if (C.x < LANE.x1 + 1) lane(ctx, C, t, E, K, {});
   else if (C.x < HBR.bridge.x1) harbour(ctx, C, t, E, K, { beyond: (g, CC) => city(g, CC, t, K) });
   else if (C.x > BLK.x0 + .01 && C.y < BLK.top && Math.hypot(C.x - ST.x, C.z - ST.z) < ST.ro + .6) stairs(ctx, C, t, K, {});
-  else city(ctx, C, t, K, { stair: (g, CC, o) => stairs(g, CC, t, K, o), stairFloor: 9 });
+  else city(ctx, C, t, K, { stair: (g, CC, o) => stairs(g, CC, t, K, o), stairFloor: 10 });
 }

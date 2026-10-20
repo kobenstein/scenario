@@ -125,16 +125,22 @@ export function pose12(t, T) {
   return { x: Q[0] + (C0[0] - Q[0]) * k + drift(t, 4, 1) * sway, y: Q[1] + (C0[1] - Q[1]) * k + drift(t, 3, 2) * sway, s, r: S12.r1 * u + .006 * Math.sin(t * .6) * sway };
 }
 const sheetImg = () => { const L = sheetLayer(); toImg(L.c); return L; };
+// M.sy (optional, default M.s): a separate vertical scale (the sheet tipping flat, foreshortened); o.lift (0..1, default 1): how high it
+// floats (shadow offset and blur); o.vig(ctx, x0, y0, L): draws the vignette instead of c01's live wall (c02 uses it once the picture
+// starts to leave as dots; L = the sheet layer). All three are optional: without them the picture is exactly as before.
 export function sheet12(ctx, t, T, M, o = {}) {
-  const L = sheetImg(), x0 = -VIG.w / 2, y0 = -VIG.h / 2;
-  ctx.save(); ctx.translate(M.x, M.y); ctx.rotate(M.r); ctx.scale(M.s, M.s);
+  const L = sheetImg(), x0 = -VIG.w / 2, y0 = -VIG.h / 2, lift = o.lift ?? 1;
+  ctx.save(); ctx.translate(M.x, M.y); ctx.rotate(M.r); ctx.scale(M.s, M.sy ?? M.s);
   // soft shadow under the floating sheet, then the sheet (deckled paper, engraved frames, microtext)
-  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 40; ctx.shadowOffsetX = 18; ctx.shadowOffsetY = 28; ctx.fillStyle = 'rgba(0,0,0,.5)'; ctx.fillRect(x0 - SHEET.vx, y0 - SHEET.vy, SHEET.w, SHEET.h); ctx.restore();
+  ctx.save(); ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 40 * (lift === 1 ? 1 : mix(.2, 1, lift)); ctx.shadowOffsetX = 18 * lift; ctx.shadowOffsetY = 28 * lift; ctx.fillStyle = 'rgba(0,0,0,.5)'; ctx.fillRect(x0 - SHEET.vx, y0 - SHEET.vy, SHEET.w, SHEET.h); ctx.restore();
   ctx.drawImage(best(L.c), x0 - SHEET.vx - L.pad, y0 - SHEET.vy - L.pad, L.c.width / L.K, L.c.height / L.K);
-  // the vignette IS c01's wall shot, live (identity transform when M.s = DEPTH at the frame centre)
-  ctx.save(); ctx.beginPath(); ctx.rect(x0, y0, VIG.w, VIG.h); ctx.clip(); ctx.translate(x0, y0); ctx.scale(1 / DEPTH, 1 / DEPTH);
-  wallShot(ctx, t, b12K(T));
-  ctx.restore();
+  if (o.vig) o.vig(ctx, x0, y0, L);
+  else {
+    // the vignette IS c01's wall shot, live (identity transform when M.s = DEPTH at the frame centre)
+    ctx.save(); ctx.beginPath(); ctx.rect(x0, y0, VIG.w, VIG.h); ctx.clip(); ctx.translate(x0, y0); ctx.scale(1 / DEPTH, 1 / DEPTH);
+    wallShot(ctx, t, b12K(T));
+    ctx.restore();
+  }
   if (o.wash > 0) { ctx.fillStyle = rgba('#e6dcc3', clamp(o.wash)); ctx.fillRect(x0, y0, VIG.w, VIG.h); }
   ctx.restore();
 }

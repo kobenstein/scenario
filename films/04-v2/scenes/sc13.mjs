@@ -34,7 +34,7 @@ export function anchors(T) {
   // kitchen take
   K.piv = K.maybe + .11;
   K.k = { c1: K.cut + .75, c1b: K.cut + 1.0, c2: K.idea + .66, c2b: K.had - .21, c3: K.ten + .21, dive: K.ago + .24,
-    ring0: K.idea - .02, ring1: K.idea + .5, plume0: K.help + 1.25, lift0: K.had, touch: 5, touch0: K.ten + .05, touch1: K.ago + .2 };
+    ring0: K.idea - .02, ring1: K.idea + .5, plume0: K.help + 1.25, lift0: K.had, touch: 0, touch0: K.ago - .08, touch1: K.ago + .3 };
   return K;
 }
 

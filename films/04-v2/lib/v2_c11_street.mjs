@@ -15,11 +15,10 @@
 //     open:   t of the front lift (fronts lift from the frame centre outward), or null = closed, or 'open' = all open
 //     busy:   per-room activity clocks (see rooms.mjs): { potter: t0 (the bowl rises from t0), office: t0 (dissolve), gather: t0, pin: t0 }
 //     plate:  (ctx, t) draws the next chunk's paper plate inside the blank notice (screen space)
-import * as M4s from './maslow4.mjs';
+import * as M4 from './maslow4.mjs';
 import { W, H, rgba, clamp, mix, lin, sm, prng, TAU, eoX, eiX, qio, u01, mixHex, shadeHex, hash } from './v2_c11_kit.mjs';
 import { drawRoom, drawPoche, drawPassage, ROOMKINDS } from './v2_c11_rooms.mjs';
 
-const M4 = process.env.C11_HILL_DEV ? await import('./v2_hill_dev.mjs') : M4s;   // DEV ONLY (the hill agent's working copy); removed at hand-off
 export const drawHill = M4.drawHill, HILL = M4.HILL, toScreen = M4.toScreen;
 export const FOC = 1400;          // focal length of the street camera (px)
 export const MPU = .23;           // metres per hill unit

@@ -32,7 +32,7 @@ export function drawEsc(ctx, P, C, e, t, K, o = {}) {
   const n = Math.max(12, Math.min(140, Math.round((s1 - sA) / .45)));
   const ss = []; for (let i = 0; i <= n; i++) ss.push(sA + (s1 - sA) * i / n);
   const bot = (s) => Math.max(e.yb - (e.yb > 0 ? 1.4 : 0), Y(s) - TRUSS - (s > g.top - .5 || s < g.bot + .5 ? .45 : 0));
-  const hi = mixHex(COL.ironHi, COL.morning, o.morning ?? 0);
+  const hi = o.hi || mixHex(COL.ironHi, COL.morning, o.morning ?? 0);
   // supports under the long ones
   if (e.R > 30) for (const f of [.36, .68]) {
     const s = g.run * f; if (s < sA) continue; const x = X(s), yt = Y(s) - TRUSS, pq = [P(x - .32, e.yb, e.z), P(x + .32, e.yb, e.z), P(x + .32, yt, e.z), P(x - .32, yt, e.z)];
@@ -170,7 +170,7 @@ export function drawBridge(ctx, P, C, br, t, K, part, o = {}) {
   const L = o.L ?? 1, dark = !!o.dark; if (L <= .002 && !dark) return;
   const { x0, x1, y, z0, z1 } = br, deep = br.deep ?? 1.25;
   const f = [P(x0, y, z1), P(x1, y, z1), P(x1, y - deep, z1), P(x0, y - deep, z1)]; if (f.some((p) => p[2] < .5)) return;
-  const q = (f[0][3] + f[1][3]) / 2, depth = (f[0][2] + f[1][2]) / 2, fz = (c, k = 1) => fogC(c, depth, k), hi = mixHex(COL.ironHi, COL.morning, o.morning ?? 0);
+  const q = (f[0][3] + f[1][3]) / 2, depth = (f[0][2] + f[1][2]) / 2, fz = (c, k = 1) => fogC(c, depth, k), hi = o.hi || mixHex(COL.ironHi, COL.morning, o.morning ?? 0);
   if (part === 'back') {
     if (C.y > y) {
       const tp = [P(x0, y, z0), P(x1, y, z0), P(x1, y, z1), P(x0, y, z1)];
@@ -247,23 +247,23 @@ export function heroPose(t, K) {
 export function drawHero(ctx, P, C, t, K, o = {}) {
   const h = heroPath(t, K), g = geo(E0);
   const fy = h.carried ? E0.yb + g.yN(stepNose(E0, h.s, t, K)) : E0.yb + E0.R;
-  const p = P(h.x, fy + .87, E0.z); if (p[2] < .8) return null;
+  const hp = o.hip || [h.x, fy + .87, E0.z], p = P(hp[0], hp[1], hp[2]); if (p[2] < .8) return null;
   const s = p[3] * 1.75 / 185, pose = o.pose || heroPose(t, K), L = o.L ?? 1, lit = o.lit ?? L;
   const mo = o.morning ?? 0, cy = o.cyan ?? 0;
   // the dress: dark until lit (rises out of the dark as one figure), then darkens again as the hall goes (lit only by the phone)
   const base = bgAt(p[0], p[1]), dress = {};
   for (const [k, v] of Object.entries(HERO.dress)) dress[k] = mixHex(base, mixHex(v, '#0d1024', .55 * (1 - lit)), clamp(L));
-  const rimC = mixHex(COL.rim, COL.morning, mo), rimA = lit * (.45 + .45 * mo);
+  const rimC = o.rimC || mixHex(COL.rim, COL.morning, mo), rimA = o.rimA ?? lit * (.45 + .45 * mo);
   ctx.save(); ctx.translate(p[0], p[1]); ctx.rotate(C.roll || 0);
-  const light = cy > .01 ? { x: 90 * s, y: -50 * s, col: COL.cyan, a: .32 * cy } : mo > .05 ? { x: 600, y: -500, col: COL.morning, a: .35 * mo * lit } : null;
-  const fr = figure(ctx, 0, 0, s, pose, { t, seed: HERO.seed, dress, accent: mixHex(base, mixHex(HERO.scarf, '#2a1c14', .5 * (1 - lit)), clamp(L)), accentPart: 'scarf', rim: rimA > .05 ? rgba(rimC, Math.min(1, rimA)) : null, rimSide: 1, light, shadow: false, hatch: s > .6 });
+  const light = o.light !== undefined ? (typeof o.light === 'function' ? o.light(s) : o.light) : cy > .01 ? { x: 90 * s, y: -50 * s, col: COL.cyan, a: .32 * cy } : mo > .05 ? { x: 600, y: -500, col: COL.morning, a: .35 * mo * lit } : null;
+  const fr = figure(ctx, o.dx ?? 0, 0, s, pose, { t, seed: HERO.seed, dress, accent: mixHex(base, mixHex(HERO.scarf, '#2a1c14', .5 * (1 - lit)), clamp(L)), accentPart: 'scarf', rim: rimA > .05 ? rgba(rimC, Math.min(1, rimA)) : null, rimSide: o.rimSide ?? 1, light, shadow: false, hatch: s > .6 });
   ctx.restore();
   // the phone: a thin dark slab in the front hand, its screen light on the face and hands
   const cr = Math.cos(C.roll || 0), sr = Math.sin(C.roll || 0), toS = (v) => [p[0] + v[0] * cr - v[1] * sr, p[1] + v[0] * sr + v[1] * cr];
   const hand = fr && fr.hand ? toS(fr.hand(0)) : null, head = fr && fr.head ? toS(fr.head) : null;
   if (hand && pose.phone > .3 && cy > .01) {
     const ph = s * 16;
-    ctx.save(); ctx.translate(hand[0] + 1.5 * s, hand[1] - 5 * s); ctx.rotate(-.5 + (C.roll || 0));
+    ctx.save(); ctx.translate(hand[0] + 1.5 * s, hand[1] - 5 * s); ctx.rotate((pose.phoneAng ?? -.5) + (C.roll || 0));
     ctx.fillStyle = '#0b0d16'; ctx.beginPath(); ctx.roundRect(-ph * .09, -ph / 2, ph * .18, ph, ph * .05); ctx.fill();
     ctx.fillStyle = rgba('#d8fbff', .9 * cy); ctx.fillRect(-ph * .09 - Math.max(1, ph * .04), -ph * .44, Math.max(1, ph * .05), ph * .88);
     ctx.restore();

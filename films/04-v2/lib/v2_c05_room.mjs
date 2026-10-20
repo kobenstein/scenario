@@ -26,24 +26,20 @@ const lit = (base, light, u) => mixHex(base, light, clamp(u));
 
 // ---------------------------------------------------------------- textures (cached Images)
 function headboardTex() {
-  return once('c5:headboard', () => {
-    const ppm = 420, w = 1.64, h = 1.3, [c, g] = canvas(Math.ceil(w * ppm), Math.ceil(h * ppm)), r = prng(12), X = (x) => x * ppm, Y = (y) => y * ppm;
-    // walnut panel with a curved top rail, turned posts with brass knobs (seen from behind: the back of the headboard faces you)
+  return once('c5:headboard2', () => {
+    // 1.64 × 1.04 m: a walnut headboard seen from behind (its back faces you), a curved top rail, turned posts with brass knobs
+    const ppm = 420, w = 1.64, h = 1.04, [c, g] = canvas(Math.ceil(w * ppm), Math.ceil(h * ppm)), r = prng(12), X = (x) => x * ppm, Y = (y) => y * ppm;
     const wood = (y0, y1) => { const gr = g.createLinearGradient(0, Y(y0), 0, Y(y1)); gr.addColorStop(0, '#5a3a2c'); gr.addColorStop(1, '#2c1a16'); return gr; };
-    g.fillStyle = wood(.05, 1.3); g.beginPath(); g.moveTo(X(.08), Y(1.3)); g.lineTo(X(.08), Y(.42)); g.bezierCurveTo(X(.4), Y(.18), X(1.24), Y(.18), X(1.56), Y(.42)); g.lineTo(X(1.56), Y(1.3)); g.closePath(); g.fill();
-    // grain
-    const n = vnoise(14); g.save(); g.clip(); for (let i = 0; i < 160; i++) { const y = .2 + r() * 1.1; g.strokeStyle = rgba(r() < .5 ? '#1a0e0a' : '#7a5040', .12 + r() * .14); g.lineWidth = 1 + r() * 1.5; g.beginPath(); g.moveTo(0, Y(y)); for (let x = 0; x < w; x += .05) g.lineTo(X(x), Y(y + (fbm(n, x * 3, y * 9, 2) - .5) * .05)); g.stroke(); } g.restore();
-    // raised panels (engraved frame lines)
-    for (const [x0, x1] of [[.2, .76], [.88, 1.44]]) { g.strokeStyle = rgba('#120806', .55); g.lineWidth = 5; g.strokeRect(X(x0), Y(.5), X(x1 - x0), Y(.62)); g.strokeStyle = rgba('#a07050', .35); g.lineWidth = 2; g.strokeRect(X(x0) + 6, Y(.5) + 6, X(x1 - x0) - 12, Y(.62) - 12); }
-    // the top rail catches the window light (a warm rim)
-    g.strokeStyle = rgba('#ffcf98', .85); g.lineWidth = 6; g.beginPath(); g.moveTo(X(.1), Y(.42)); g.bezierCurveTo(X(.4), Y(.18), X(1.24), Y(.18), X(1.54), Y(.42)); g.stroke();
-    // posts with knobs
+    g.fillStyle = wood(.05, h); g.beginPath(); g.moveTo(X(.08), Y(h)); g.lineTo(X(.08), Y(.3)); g.bezierCurveTo(X(.4), Y(.08), X(1.24), Y(.08), X(1.56), Y(.3)); g.lineTo(X(1.56), Y(h)); g.closePath(); g.fill();
+    const n = vnoise(14); g.save(); g.clip(); for (let i = 0; i < 130; i++) { const y = .1 + r() * (h - .1); g.strokeStyle = rgba(r() < .5 ? '#1a0e0a' : '#7a5040', .12 + r() * .14); g.lineWidth = 1 + r() * 1.5; g.beginPath(); g.moveTo(0, Y(y)); for (let x = 0; x < w; x += .05) g.lineTo(X(x), Y(y + (fbm(n, x * 3, y * 9, 2) - .5) * .05)); g.stroke(); } g.restore();
+    for (const [x0, x1] of [[.2, .76], [.88, 1.44]]) { g.strokeStyle = rgba('#120806', .55); g.lineWidth = 5; g.strokeRect(X(x0), Y(.36), X(x1 - x0), Y(.46)); g.strokeStyle = rgba('#a07050', .35); g.lineWidth = 2; g.strokeRect(X(x0) + 6, Y(.36) + 6, X(x1 - x0) - 12, Y(.46) - 12); }
+    g.strokeStyle = rgba('#ffcf98', .85); g.lineWidth = 6; g.beginPath(); g.moveTo(X(.1), Y(.3)); g.bezierCurveTo(X(.4), Y(.08), X(1.24), Y(.08), X(1.54), Y(.3)); g.stroke();
     for (const px of [.0, 1.5]) {
       const pg = g.createLinearGradient(X(px), 0, X(px + .14), 0); pg.addColorStop(0, '#2a1812'); pg.addColorStop(.6, '#6a4432'); pg.addColorStop(1, '#2a1812');
-      g.fillStyle = pg; g.fillRect(X(px), Y(.3), X(.14), Y(1.0));
-      for (const ry of [.5, .9, 1.1]) { g.fillStyle = rgba('#140a08', .5); g.fillRect(X(px) - 3, Y(ry), X(.14) + 6, 7); }
-      const kg = g.createRadialGradient(X(px + .05), Y(.2), 2, X(px + .07), Y(.23), X(.09)); kg.addColorStop(0, '#fff0c8'); kg.addColorStop(.3, '#d8a850'); kg.addColorStop(1, '#6a4818');
-      g.fillStyle = kg; g.beginPath(); g.arc(X(px + .07), Y(.23), X(.08), 0, TAU); g.fill();
+      g.fillStyle = pg; g.fillRect(X(px), Y(.16), X(.14), Y(h - .16));
+      for (const ry of [.34, .7, .88]) { g.fillStyle = rgba('#140a08', .5); g.fillRect(X(px) - 3, Y(ry), X(.14) + 6, 7); }
+      const kg = g.createRadialGradient(X(px + .05), Y(.07), 2, X(px + .07), Y(.1), X(.09)); kg.addColorStop(0, '#fff0c8'); kg.addColorStop(.3, '#d8a850'); kg.addColorStop(1, '#6a4818');
+      g.fillStyle = kg; g.beginPath(); g.arc(X(px + .07), Y(.1), X(.075), 0, TAU); g.fill();
     }
     return c;
   });
@@ -150,7 +146,7 @@ function aperture(cam, Wd) {
   const z = cam.z < -.02 ? 0 : ROOM.thick;
   return proj(cam, opening(Wd, z));
 }
-function wallColour(S) { return mixHex('#3a2f48', '#5b4a5e', S.flood ?? 0); }
+function wallColour(S) { return mixHex('#2c2434', '#4a3844', S.flood ?? 0); }
 function drawWindowWall(ctx, t, cam, S) {
   const R = ROOM, wall = wallColour(S);
   const outer = proj(cam, [[R.x0, R.ceil, 0], [R.x1, R.ceil, 0], [R.x1, 0, 0], [R.x0, 0, 0]]); if (!outer) return;
@@ -160,7 +156,7 @@ function drawWindowWall(ctx, t, cam, S) {
   g.addColorStop(0, shade(wall, -.04)); g.addColorStop(.32, shade(wall, .05)); g.addColorStop(.6, wall); g.addColorStop(1, shade(wall, -.05)); ctx.fillStyle = g; ctx.fill('evenodd');
   // plaster texture, a warm bloom around the bright windows
   ctx.save(); ctx.clip('evenodd');
-  for (const Wd of WIN) { const c = cam.P((Wd.x0 + Wd.x1) / 2, Wd.y0 * .55, 0); if (c) putGlow(ctx, c[0], c[1], 2.4 * c[2], .2 + .25 * (S.flood ?? 0), '#ffcf9a', '#ffe8c8', 'screen'); }
+  for (const [i, Wd] of WIN.entries()) { const c = cam.P((Wd.x0 + Wd.x1) / 2, Wd.y0 * .5, 0); if (c) putGlow(ctx, c[0], c[1], (i ? 2.6 : 3.4) * c[2], (i ? .2 : .3) + (i ? .3 : .45) * (S.flood ?? 0), '#ffc890', '#ffe8c8', 'screen'); }
   ctx.restore();
   // skirting board, cornice, picture rail; architraves round the openings
   poly3(ctx, cam, [[R.x0, -.14, 0], [R.x1, -.14, 0], [R.x1, 0, 0], [R.x0, 0, 0]], shade(wall, -.07));
@@ -292,7 +288,14 @@ function drawShell(ctx, t, cam, S) {
   // the room's door on the right wall (panelled)
   if (cam.x < R.x1) { poly3(ctx, cam, [[R.x1 - .005, -2.15, -3.4], [R.x1 - .005, -2.15, -2.45], [R.x1 - .005, 0, -2.45], [R.x1 - .005, 0, -3.4]], shade(wall, -.1)); poly3(ctx, cam, [[R.x1 - .01, -2.05, -3.3], [R.x1 - .01, -2.05, -2.55], [R.x1 - .01, -.05, -2.55], [R.x1 - .01, -.05, -3.3]], '#4a3430'); }
   // a framed mirror on the left wall above the bed (it shows a soft bright smear of the window)
-  if (cam.x > R.x0) { const m = poly3(ctx, cam, [[R.x0 + .005, -2.3, -3.1], [R.x0 + .005, -2.3, -2.0], [R.x0 + .005, -1.35, -2.0], [R.x0 + .005, -1.35, -3.1]], '#6a4c34'); if (m) { poly3(ctx, cam, [[R.x0 + .01, -2.22, -3.02], [R.x0 + .01, -2.22, -2.08], [R.x0 + .01, -1.43, -2.08], [R.x0 + .01, -1.43, -3.02]], lit('#6a6478', '#f4dcc0', .35 + .4 * f)); } }
+  if (cam.x > R.x0) {
+    const fr = poly3(ctx, cam, [[R.x0 + .005, -2.15, -2.85], [R.x0 + .005, -2.15, -2.25], [R.x0 + .005, -1.6, -2.25], [R.x0 + .005, -1.6, -2.85]], '#4a3226');
+    if (fr) { poly3(ctx, cam, [[R.x0 + .01, -2.09, -2.79], [R.x0 + .01, -2.09, -2.31], [R.x0 + .01, -1.66, -2.31], [R.x0 + .01, -1.66, -2.79]], lit('#a89a86', '#ecdcc0', .3 + .4 * f));
+      ctx.strokeStyle = rgba('#3a3448', .55); ctx.lineWidth = Math.max(.7, .006 * cam.k(-2.5)); ctx.beginPath();
+      for (let k = 0; k < 6; k++) { const s1 = seg3(cam, [R.x0 + .012, -1.9 + k * .035, -2.74], [R.x0 + .012, -1.9 + k * .035, -2.36]); if (s1) { ctx.moveTo(s1[0][0], s1[0][1]); ctx.lineTo(s1[1][0], s1[1][1]); } }
+      const s2 = seg3(cam, [R.x0 + .012, -1.92, -2.7], [R.x0 + .012, -2.03, -2.55]), s3 = seg3(cam, [R.x0 + .012, -2.03, -2.55], [R.x0 + .012, -1.92, -2.4]);
+      if (s2 && s3) { ctx.moveTo(s2[0][0], s2[0][1]); ctx.lineTo(s2[1][0], s2[1][1]); ctx.lineTo(s3[1][0], s3[1][1]); } ctx.stroke(); }
+  }
   // floor
   const fq = poly3(ctx, cam, [[R.x0, 0, 0], [R.x1, 0, 0], [R.x1, 0, zb], [R.x0, 0, zb]]);
   if (fq) {
@@ -328,9 +331,9 @@ function patches(ctx, t, cam, S) {
     ctx.save(); ctx.beginPath(); pathPts(ctx, q, true); ctx.clip();
     const p0 = cam.P((Wd.x0 + Wd.x1) / 2, 0, -.01), p1 = cam.P((a[0] + b[0]) / 2, 0, Math.max(a[2], cam.z + 1));
     const gx0 = p0 ? p0[1] : 0, gx1 = p1 ? p1[1] : H;
-    const g = ctx.createLinearGradient(0, gx0, 0, gx1); g.addColorStop(0, rgba(col, .62 * amt + .12 * cl)); g.addColorStop(1, rgba(col, .2 * amt));
+    const g = ctx.createLinearGradient(0, gx0, 0, gx1); g.addColorStop(0, rgba(col, .85 * amt + .12 * cl)); g.addColorStop(1, rgba(col, .3 * amt));
     ctx.globalCompositeOperation = 'screen'; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-    ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .22 * amt; ctx.drawImage(stippleTex('room', 30000, 7), 0, 0); ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .38 * amt; ctx.drawImage(stippleTex('room', 30000, 7), 0, 0); ctx.globalAlpha = 1;
     // the window's own shadows in the patch: the glazing bars of the leaves (ajar) and the railing
     ctx.globalCompositeOperation = 'source-over'; ctx.strokeStyle = rgba('#2a1a1e', .3 * amt); ctx.lineWidth = Math.max(1, .05 * cam.k(-1.5));
     ctx.beginPath(); for (let k = 0; k <= 12; k++) { const x = mix(Wd.x0, Wd.x1, k / 12), p = alongY([x, -.98, .4], 0, L), s = seg3(cam, [x - L.az * 0, 0, .4], [p[0], 0, p[2]]); if (s) { ctx.moveTo(s[0][0], s[0][1]); ctx.lineTo(s[1][0], s[1][1]); } } ctx.stroke();
@@ -347,19 +350,29 @@ function hull3(pts) {
   return lo.slice(0, -1).concat(up.slice(0, -1)).map((p) => [p[0], 0, p[1]]);
 }
 // volumetric beams: the light prism of each window (top and side faces), stippled, fading away from the window
+const BEAM = { c: null, g: null, sc: 1 / 8 };
 function beams(ctx, t, cam, S) {
   const L = S.L, f = (S.flood ?? 0) * (S.beamA ?? 1); if (f <= .01 || L.el <= .01) return;
-  const len = 4.6, col = L.col;
-  ctx.save(); ctx.globalCompositeOperation = 'screen';
-  for (const Wd of WIN) {
+  const len = 7, col = L.col, sc = BEAM.sc;
+  if (!BEAM.c) { const [c, g] = canvas(Math.round(W * sc), Math.round(H * sc)); BEAM.c = c; BEAM.g = g; }
+  const g = BEAM.g; g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.clearRect(0, 0, BEAM.c.width, BEAM.c.height);
+  g.setTransform(sc, 0, 0, sc, 0, 0); g.globalCompositeOperation = 'lighter';
+  const polys = [];
+  for (const [wi, Wd] of WIN.entries()) {
     const q = [[Wd.x0, Wd.y0, .02], [Wd.x1, Wd.y0, .02], [Wd.x1, 0, .02], [Wd.x0, 0, .02]], e = q.map((p) => [p[0] - L.az * len, p[1] + L.el * len, p[2] - len]);
-    for (const [i, j] of [[0, 1], [0, 3], [1, 2]]) {
+    const k = (wi ? .75 : 1) * f;
+    for (const [i, j] of [[0, 1], [0, 3], [1, 2], [3, 2]]) {
       const face = [q[i], q[j], e[j], e[i]], s = proj(cam, face); if (!s) continue;
-      const a = cam.P(...q[i]) || s[0], b = cam.P(...e[i]) || s[2];
-      const g = ctx.createLinearGradient(a[0], a[1], b[0], b[1]); g.addColorStop(0, rgba(col, .16 * f)); g.addColorStop(.5, rgba(col, .06 * f)); g.addColorStop(1, rgba(col, 0));
-      ctx.fillStyle = g; ctx.beginPath(); pathPts(ctx, s, true); ctx.fill();
+      const a = cam.Pu(...q[i]), b = cam.Pu(...e[i]);
+      const gr = g.createLinearGradient(a[0], a[1], b[0], b[1]); gr.addColorStop(0, rgba(col, .17 * k)); gr.addColorStop(.35, rgba(col, .06 * k)); gr.addColorStop(1, rgba(col, 0));
+      g.fillStyle = gr; g.beginPath(); s.forEach(([x, y], n) => (n ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath(); g.fill();
+      polys.push(s);
     }
   }
+  ctx.save(); ctx.globalCompositeOperation = 'screen'; ctx.imageSmoothingEnabled = true; ctx.drawImage(BEAM.c, 0, 0, W, H);
+  // grain of light inside the shafts
+  ctx.beginPath(); for (const s of polys) { s.forEach(([x, y], n) => (n ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); } ctx.clip();
+  ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .1 * f; ctx.drawImage(stippleTex('beam', 22000, 17, [.6, 1.6]), 0, 0);
   ctx.restore();
 }
 // dust motes drifting in the light (screen-space particles inside the beams' region, depth-scaled)
@@ -379,7 +392,7 @@ function motes(ctx, t, cam, S) {
 
 // ---------------------------------------------------------------- the bed (seen from its head end), the quilt, pillows, the sleeper
 // the quilt surface: a height field over the mattress with a mound where the body lies (x across, z along the bed)
-const BODY = { x: -2.2, zHead: -4.36, zHip: -3.55, zFeet: -2.72 };
+const BODY = { x: -2.56, zHead: -4.36, zHip: -3.55, zFeet: -2.72 };
 function quiltY(x, z, S) {
   const up = S.sleeper ? smo(S.sleeper.up ?? 0) : 0, dx = x - BODY.x;
   let b = 0;
@@ -423,12 +436,15 @@ function drawBed(ctx, t, cam, S) {
     void zm;
   }
   // the quilt's turned-down edge near the pillows (a white band)
-  const eA = [], eB = []; for (let j = 0; j <= NX; j++) { const x = mix(BED.x0 - .05, BED.x1 + .05, j / NX); eA.push([x, quiltY(x, zq, S) - .004, zq]); eB.push([x, quiltY(x, zq, S) + .01, zq - .07]); }
-  const eq = proj(cam, [...eA, ...eB.reverse()]); if (eq) { ctx.fillStyle = lit('#d8d0d8', '#fff6ea', .3 + .5 * f); ctx.beginPath(); pathPts(ctx, eq, true); ctx.fill(); }
+}
+function drawQuiltEdge(ctx, t, cam, S) {
+  const f = S.flood ?? 0, zq = quiltStart(S), NX = 18;
+  const eA = [], eB = []; for (let j = 0; j <= NX; j++) { const x = mix(BED.x0 - .05, BED.x1 + .05, j / NX); eA.push([x, quiltY(x, zq, S) - .004 - .05 * Math.exp(-(((x - BODY.x) / .25) ** 2)) * smo(S.sleeper?.up ?? 0), zq]); eB.push([x, quiltY(x, zq, S) + .01, zq - .07]); }
+  const eq = proj(cam, [...eA, ...eB.reverse()]); if (eq) { ctx.fillStyle = lit('#d8d0d8', '#fff6ea', .3 + .5 * f); ctx.beginPath(); pathPts(ctx, eq, true); ctx.fill(); ctx.strokeStyle = rgba('#8a7a90', .4); ctx.lineWidth = Math.max(1, .006 * cam.k(zq)); ctx.stroke(); }
 }
 function drawPillows(ctx, t, cam, S) {
   const f = S.flood ?? 0;
-  for (const [x0, x1] of [[BED.x0 + .08, -2.24], [-2.16, BED.x1 - .08]]) {
+  for (const [x0, x1] of [[BED.x0 + .07, -2.22], [-2.16, BED.x1 - .07]]) {
     const zc = BED.zh + .24, top = BED.top - .17, a = cam.P(x0, top, zc), b = cam.P(x1, BED.top, zc - .2); if (!a || !b) continue;
     const cx = (a[0] + b[0]) / 2, w = b[0] - a[0], y0 = a[1], y1 = b[1];
     const g = ctx.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, lit('#d8d2dc', '#fff8ee', .3 + .5 * f)); g.addColorStop(1, lit('#9a92a8', '#d8c8c0', .3 * f));
@@ -441,51 +457,72 @@ function drawPillows(ctx, t, cam, S) {
 // up 0..1 (torso angle 0 → 100°), arms 0..1 (stretch), all in 3D, drawn as a back-lit silhouette with a warm rim
 export function drawSleeper(ctx, t, cam, S) {
   const sl = S.sleeper || {}, up = smo(clamp(sl.up ?? 0)), arms = clamp(sl.arms ?? 0), L = S.L, f = S.flood ?? 0;
-  const br = Math.sin(t * TAU / 4.4) * .006 * (1 - up * .5);                 // breathing
-  const th = up * 1.72, hip = [BODY.x, BED.top - .14, BODY.zHip];               // torso angle from lying (0) to sitting (≈ 98°)
-  const ax = (r) => [hip[0], hip[1] - Math.sin(th) * r, hip[2] - Math.cos(th) * r];  // a point on the torso axis at distance r from the hip
-  const shL = ax(.5 + br), head = ax(.74 + br), neck = ax(.6 + br);
-  const k = cam.k(head[2]); if (!cam.P(...head)) return;
-  // shoulders (wide), the back, the head with the hair (the back of the head), the arms
-  const sw = .2, P = (p) => cam.P(...p);
-  const sL = P([shL[0] - sw, shL[1] + .02, shL[2]]), sR = P([shL[0] + sw, shL[1] + .02, shL[2]]), wa = ax(.12), wL = P([wa[0] - .16, wa[1], wa[2]]), wR = P([wa[0] + .16, wa[1], wa[2]]);
-  const hd = P(head), nk = P(neck); if (!sL || !sR || !hd || !nk || !wL || !wR) return;
-  const top = '#2c3248', hair = '#2a1c1a', skin = '#b88a6c';
-  const rim = L.col, rw = Math.max(1.5, .012 * k);
-  const shapes = (dx, dy, mono) => {
-    ctx.fillStyle = mono || top;
-    // the back (from the waist to the shoulders), only the part above the quilt shows
-    ctx.beginPath(); ctx.moveTo(wL[0] + dx, wL[1] + dy); ctx.lineTo(wR[0] + dx, wR[1] + dy);
-    ctx.bezierCurveTo(wR[0] + (sR[0] - wR[0]) * .9 + dx, mix(wR[1], sR[1], .5) + dy, sR[0] + dx + 4, sR[1] + dy + 6, sR[0] + dx, sR[1] + dy);
-    ctx.quadraticCurveTo(mix(sR[0], nk[0], .5) + dx, sR[1] - (sR[0] - sL[0]) * .12 + dy, nk[0] + dx, nk[1] + dy);
-    ctx.quadraticCurveTo(mix(sL[0], nk[0], .5) + dx, sL[1] - (sR[0] - sL[0]) * .12 + dy, sL[0] + dx, sL[1] + dy);
-    ctx.bezierCurveTo(sL[0] + dx - 4, sL[1] + dy + 6, wL[0] + (sL[0] - wL[0]) * .9 + dx, mix(wL[1], sL[1], .5) + dy, wL[0] + dx, wL[1] + dy); ctx.closePath(); ctx.fill();
-    // arms: upper arm + forearm capsules in 3D (stretch: up and a little forward and out)
-    const armUp = arms, lift = Math.sin(armUp * Math.PI) ;
-    for (const sd of [-1, 1]) {
-      const s3 = [shL[0] + sd * (sw - .03), shL[1] + .04, shL[2]];
-      const rest = [s3[0] + sd * .05, s3[1] + .28, s3[2] - .06], restH = [s3[0] + sd * .02, s3[1] + .5, s3[2] - .12];
-      const upE = [s3[0] + sd * .1, s3[1] - .27, s3[2] + .06], upH = [s3[0] + sd * .06, s3[1] - .55, s3[2] + .1];
-      const e3 = rest.map((v, i) => mix(v, upE[i], lift)), h3 = restH.map((v, i) => mix(v, upH[i], lift));
-      const a = P(s3), e = P(e3), hh = P(h3); if (!a || !e || !hh) continue;
-      ctx.fillStyle = mono || top; ctx.lineCap = 'round'; ctx.strokeStyle = mono || top; ctx.lineWidth = .1 * k; ctx.beginPath(); ctx.moveTo(a[0] + dx, a[1] + dy); ctx.lineTo(e[0] + dx, e[1] + dy); ctx.stroke();
-      ctx.strokeStyle = mono || top; ctx.lineWidth = .085 * k; ctx.beginPath(); ctx.moveTo(e[0] + dx, e[1] + dy); ctx.lineTo(hh[0] + dx, hh[1] + dy); ctx.stroke();
-      if (lift > .25) { ctx.fillStyle = mono || skin; ctx.beginPath(); ctx.ellipse(hh[0] + dx, hh[1] + dy - .03 * k, .042 * k, .055 * k, 0, 0, TAU); ctx.fill(); }
-    }
-    // neck and head (hair: the back of the head)
-    ctx.fillStyle = mono || shade(skin, -.25); ctx.beginPath(); ctx.ellipse(nk[0] + dx, nk[1] + dy, .055 * k, .07 * k, 0, 0, TAU); ctx.fill();
-    ctx.fillStyle = mono || hair; ctx.beginPath(); ctx.ellipse(hd[0] + dx, hd[1] + dy, .1 * k, .118 * k, 0, 0, TAU); ctx.fill();
+  const br = Math.sin(t * TAU / 4.6) * .007 * (1 - up * .6);                    // breathing
+  const th = up * 1.64, hip = [BODY.x, BED.top - .1, BODY.zHip];                   // torso angle: lying (0) → sitting (≈ 94°)
+  const ax = (r, lift = 0) => [hip[0], hip[1] - Math.sin(th) * r - lift, hip[2] - Math.cos(th) * r];
+  const headLift = (1 - up) * .16;                                                  // lying: the head rests on the pillow, higher than the hip
+  const stretch = Math.sin(arms * Math.PI);
+  const head = ax(.8 + br + .02 * stretch, headLift), shC = ax(.55 + br + .025 * stretch, headLift * .6), wa = ax(.06);
+  const k = cam.k(head[2]), P = (p) => cam.P(...p); if (!P(head)) return;
+  const hd = P(head), sc = P(shC), wc = P(wa); if (!hd || !sc || !wc) return;
+  const vis = clamp((up - .22) / .4);
+  const top = '#2f3652', hair = '#2b1d19', skin = '#b8896a', rim = L.col, rimC = rgba(rim, .55 + .4 * f), rw = Math.max(1.5, .013 * k);
+  // the arms swing up IN FRONT of the body (about the shoulder, through "forward" toward the window) and come down again; drawn first:
+  // the back hides them while they are in front of it, above the shoulders they show
+  const phi = stretch * 2.85, armShow = clamp((up - .45) / .25);
+  const arm = (sd, mono, dy) => {
+    if (armShow <= 0) return;
+    const s3 = [shC[0] + sd * .17, shC[1] + .04, shC[2]], dir = [sd * (.06 + .1 * stretch), Math.cos(phi), Math.sin(phi)];
+    const bend = [sd * .05 * stretch, 0, -.03];
+    const e3 = [s3[0] + dir[0] * .28 + bend[0], s3[1] + dir[1] * .28, s3[2] + dir[2] * .28 + bend[2]], h3 = [s3[0] + dir[0] * .52 + bend[0] * .4, s3[1] + dir[1] * .53, s3[2] + dir[2] * .53];
+    const a = P(s3), e = P(e3), hh = P(h3); if (!a || !e || !hh) return;
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.strokeStyle = mono || shade(top, -.03); ctx.lineWidth = .095 * k; ctx.beginPath(); ctx.moveTo(a[0], a[1] + dy); ctx.lineTo(e[0], e[1] + dy); ctx.stroke();
+    ctx.strokeStyle = mono || shade(top, .02); ctx.lineWidth = .08 * k; ctx.beginPath(); ctx.moveTo(e[0], e[1] + dy); ctx.lineTo(mix(e[0], hh[0], .8), mix(e[1], hh[1], .8) + dy); ctx.stroke();
+    ctx.fillStyle = mono || skin; ctx.beginPath(); ctx.ellipse(hh[0], hh[1] + dy, .035 * k, .045 * k, Math.atan2(hh[0] - e[0], e[1] - hh[1]), 0, TAU); ctx.fill();
   };
-  // rim toward the light (the window is ahead and up): the silhouette drawn in the light colour, shifted up, then the body over it
-  shapes(0, -rw, rgba(rim, .55 + .35 * f));
-  shapes(0, 0, null);
-  // hair texture and the ears
-  ctx.strokeStyle = rgba('#5a3a2a', .5); ctx.lineWidth = Math.max(.8, .006 * k); ctx.beginPath();
-  for (let i = 0; i < 9; i++) { const a0 = -2.6 + i * .3; ctx.moveTo(hd[0] + Math.cos(a0) * .09 * k, hd[1] + Math.sin(a0) * .1 * k); ctx.quadraticCurveTo(hd[0] + Math.cos(a0 + .3) * .05 * k, hd[1] + .02 * k, hd[0] + Math.cos(a0 + .6) * .02 * k, hd[1] + .09 * k); }
-  ctx.stroke();
-  ctx.fillStyle = shade(skin, -.15); for (const sd of [-1, 1]) { ctx.beginPath(); ctx.ellipse(hd[0] + sd * .098 * k, hd[1] + .01 * k, .018 * k, .032 * k, 0, 0, TAU); ctx.fill(); }
-  // a warm glow of the sun around the head when sitting up (it is in front of the window)
-  if (up > .3) putGlow(ctx, hd[0], hd[1] - .05 * k, .45 * k, .18 * up * f, L.col, '#fff1d6');
+  // the back: a soft rounded shape between the waist and the shoulders, drawn in local units (waist 0, shoulders −50) along the
+  // projected torso (it shortens as the torso tilts toward the bed)
+  const torso = (mono, dy) => {
+    if (vis <= 0) return;
+    const ux = .0125 * k, vx = (wc[0] - sc[0]) / 50, vy = (wc[1] - sc[1]) / 50;
+    ctx.save(); ctx.transform(ux, 0, vx, vy, wc[0], wc[1] + dy);
+    const sy = -stretch * 3;
+    ctx.beginPath(); ctx.moveTo(-16, 4); ctx.bezierCurveTo(-16.5, -10, -15.4, -24, -16.2, -33);
+    ctx.bezierCurveTo(-17.4, -42, -21.5, -45 + sy, -16.5, -50 + sy); ctx.bezierCurveTo(-11.5, -53.5 + sy, -6, -53 + sy, 0, -53 + sy);
+    ctx.bezierCurveTo(6, -53 + sy, 11.5, -53.5 + sy, 16.5, -50 + sy); ctx.bezierCurveTo(21.5, -45 + sy, 17.4, -42, 16.2, -33);
+    ctx.bezierCurveTo(15.4, -24, 16.5, -10, 16, 4); ctx.closePath();
+    if (mono) { ctx.fillStyle = mono; ctx.fill(); ctx.restore(); return; }
+    const g = ctx.createLinearGradient(0, -53, 0, 4); g.addColorStop(0, mixHex(top, rim, .32 * (.4 + .6 * f))); g.addColorStop(.35, top); g.addColorStop(1, shade(top, -.08)); ctx.fillStyle = g; ctx.fill();
+    ctx.clip();
+    // the spine's soft crease, shoulder blades, a few folds of the pyjama shirt (engraved)
+    ctx.strokeStyle = rgba('#141826', .4); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(0, -50 + sy); ctx.quadraticCurveTo(.8, -25, 0, 2); ctx.stroke();
+    ctx.strokeStyle = rgba('#141826', .22); ctx.lineWidth = 1; ctx.beginPath();
+    for (const sd of [-1, 1]) { ctx.moveTo(sd * 4, -42 + sy); ctx.quadraticCurveTo(sd * 11, -40 + sy, sd * 12.5, -31); ctx.moveTo(sd * 13, -18); ctx.quadraticCurveTo(sd * 8, -12, sd * 3, -14); }
+    ctx.stroke();
+    ctx.strokeStyle = rgba('#141826', .14); ctx.lineWidth = .8; ctx.beginPath(); for (let y = -46; y < 4; y += 2.6) { ctx.moveTo(-17, y); ctx.lineTo(17, y + 1.2); } ctx.stroke();
+    ctx.restore();
+  };
+  const headShape = (mono, dy) => {
+    const nk = [mix(sc[0], hd[0], .45), mix(sc[1], hd[1], .45)];
+    ctx.fillStyle = mono || shade(skin, -.22); ctx.beginPath(); ctx.ellipse(nk[0], nk[1] + dy, .046 * k, .05 * k, 0, 0, TAU); ctx.fill();
+    ctx.fillStyle = mono || shade(skin, -.1); for (const sd of [-1, 1]) { ctx.beginPath(); ctx.ellipse(hd[0] + sd * .09 * k, hd[1] + .025 * k + dy, .016 * k, .028 * k, 0, 0, TAU); ctx.fill(); }
+    ctx.fillStyle = mono || hair; ctx.beginPath(); ctx.ellipse(hd[0], hd[1] + dy, .093 * k, .108 * k, 0, 0, TAU); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(hd[0] - .086 * k, hd[1] + .03 * k + dy); ctx.quadraticCurveTo(hd[0], hd[1] + .125 * k + dy, hd[0] + .086 * k, hd[1] + .03 * k + dy); ctx.closePath(); ctx.fill();
+  };
+  // rim toward the light (the window ahead and up): the silhouette in the light colour shifted up, then the body
+  for (const sd of [-1, 1]) arm(sd, rimC, -rw);
+  torso(rimC, -rw); headShape(rimC, -rw);
+  for (const sd of [-1, 1]) arm(sd, null, 0);
+  torso(null, 0);
+  headShape(null, 0);
+  // the hair: a soft sheen on the crown and a few strands (the back of the head, no face)
+  ctx.save(); ctx.beginPath(); ctx.ellipse(hd[0], hd[1], .093 * k, .108 * k, 0, 0, TAU); ctx.clip();
+  const sh = ctx.createRadialGradient(hd[0], hd[1] - .07 * k, 0, hd[0], hd[1] - .07 * k, .09 * k); sh.addColorStop(0, rgba(rim, .5 * (.35 + .65 * f))); sh.addColorStop(1, rgba(rim, 0)); ctx.fillStyle = sh; ctx.fillRect(hd[0] - .1 * k, hd[1] - .12 * k, .2 * k, .24 * k);
+  ctx.strokeStyle = rgba('#4a3024', .6); ctx.lineWidth = Math.max(.8, .004 * k); ctx.beginPath();
+  for (let i = 0; i < 13; i++) { const a0 = -2.9 + i * .22, x0 = hd[0] + Math.cos(a0) * .1 * k, y0 = hd[1] + Math.sin(a0) * .11 * k; ctx.moveTo(x0, y0); ctx.quadraticCurveTo(hd[0] + Math.cos(a0) * .05 * k, hd[1] + .015 * k, hd[0] + (i - 6) * .007 * k, hd[1] + .105 * k); }
+  ctx.stroke(); ctx.restore();
+  if (up > .3) putGlow(ctx, hd[0], hd[1] - .05 * k, .5 * k, .14 * up * f, L.col, '#fff1d6');
 }
 // the alarm clock on the floor: a cached image + live hands (minute, hour, a red seconds hand); its bell hammer stays still
 export function drawClock(ctx, t, cam, S) {
@@ -613,7 +650,7 @@ export function drawRoom(ctx, t, cam, S) {
   const aps = WIN.map((Wd) => aperture(cam, Wd)), full = aps.includes('full');
   if (full) { drawOutside(ctx, t, cam, out); if (out.plate >= .9999) return; }
   else {
-    ctx.save(); ctx.beginPath(); for (const a of aps) if (a) pathPts(ctx, a, true); ctx.clip();
+    ctx.save(); ctx.beginPath(); for (const a of aps) if (a) a.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.clip();
     drawOutside(ctx, t, cam, out);
     for (const Wd of WIN) drawRailing(ctx, t, cam, Wd);
     ctx.restore();
@@ -634,10 +671,16 @@ export function drawRoom(ctx, t, cam, S) {
   drawClock(ctx, t, cam, S);
   drawBed(ctx, t, cam, S);
   drawSleeper(ctx, t, cam, S);
+  drawQuiltEdge(ctx, t, cam, S);
   drawPillows(ctx, t, cam, S);
   // the headboard (nearest): a billboard at the head end
-  bb(ctx, cam, headboardTex(), BED.x0 - .05, -1.32, BED.zh - .02, 1.64, 1.3);
+  bb(ctx, cam, headboardTex(), BED.x0 - .05, -1.04, BED.zh - .02, 1.64, 1.04);
   if (S.letterDraw) S.letterDraw(ctx, t, cam, 'air');
   beams(ctx, t, cam, S);
   motes(ctx, t, cam, S);
+  vignette(ctx, S);
+}
+function vignette(ctx, S) {
+  const g = ctx.createRadialGradient(W / 2, H * .45, H * .35, W / 2, H * .5, H * 1.05); g.addColorStop(0, rgba('#120c18', 0)); g.addColorStop(1, rgba('#120c18', .55 - .15 * (S.flood ?? 0)));
+  ctx.save(); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore();
 }

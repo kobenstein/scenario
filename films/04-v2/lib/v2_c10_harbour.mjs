@@ -40,7 +40,9 @@ export function boats(t, K) {
   // B: pulled toward the first arch, faster through the bridge (the current), then on along the canal beyond
   const zc = (HBR.arches[0][0] + HBR.arches[0][1]) / 2, P1 = [B.x0 - 1.0, zc], Cn = [B0[0] + .5, B0[1] - 1.3];
   const ramp = (v, tau) => v * (d - tau * (1 - Math.exp(-d / tau)));                // eases in, then a steady drift
-  const sB = ramp(2.5, .5), L1 = Math.hypot(P1[0] - B0[0], P1[1] - B0[1]) * 1.04; let xb, zb, hb;
+  // the current under the bridge: a smooth surge of +2 m/s from d 1.2 to 2.6 s (∫ smoothstep), so the boat leaves the vault well ahead of the camera
+  const Si = (x) => (x <= 0 ? 0 : x < 1 ? x * x * x - x * x * x * x / 2 : x - .5), surge = 2.0 * .4 * (Si((d - 1.2) / .4) - Si((d - 2.6) / .4));
+  const sB = ramp(2.5, .5) + surge, L1 = Math.hypot(P1[0] - B0[0], P1[1] - B0[1]) * 1.04; let xb, zb, hb;
   if (sB < L1) { const u = sB / L1, p = bez(B0, Cn, P1, u), q = bez(B0, Cn, P1, Math.min(1, u + .01)); [xb, zb] = p; hb = Math.atan2(q[1] - p[1], q[0] - p[0]); }
   else { xb = P1[0] + (sB - L1); zb = zc; hb = 0; }
   if (d <= 0) hb = -Math.PI / 2;

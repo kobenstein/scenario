@@ -112,7 +112,7 @@ export default async (T, R) => {
   });
   // 9.07 line: the near part (card → up the wall → over the parapet), the bridge across the bay, the outline
   const zc = CARD.z + .002, NEARPTS = (() => {
-    const c = [sw(hu(7), fv(fAmber(7))), sw(26.5, 3.95), sw(28.6, 3.4), [SPREAD.x1 + .07, SPREAD.y1 + .04], [SPREAD.x1 + .22, SPREAD.y1 + .45], [XL + .78, 22.6], [XL + .9, 23.6], [XL + .88, 24.9], [XL + .7, RAIL + .9]];
+    const c = [sw(hu(7), fv(fAmber(7))), sw(26.5, 3.95), sw(28.6, 3.4), [SPREAD.x1 + .07, SPREAD.y1 + .04], [SPREAD.x1 + .38, SPREAD.y1 + .36], [XL + .78, 22.6], [XL + .9, 23.6], [XL + .88, 24.9], [XL + .7, RAIL + .9]];
     const out = []; for (let i = 0; i < c.length - 1; i++) { const p0 = c[Math.max(0, i - 1)], p1 = c[i], p2 = c[i + 1], p3 = c[Math.min(c.length - 1, i + 2)]; for (let k = 0; k < 10; k++) { const q = k / 10, q2 = q * q, q3 = q2 * q; out.push([.5 * (2 * p1[0] + (-p0[0] + p2[0]) * q + (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * q2 + (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * q3), .5 * (2 * p1[1] + (-p0[1] + p2[1]) * q + (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * q2 + (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * q3), zc + (i >= 5 ? .35 * (i - 5 + q) / 3 : 0)]); } }
     out.push([c[c.length - 1][0], c[c.length - 1][1], zc + .35]); return out;
   })();
@@ -138,8 +138,8 @@ export default async (T, R) => {
   // camera up) until it tops the parapet; found per frame by bisection on the head's screen height (the path rises monotonically)
   const sE = NCUM[ICARD], sEnd = NCUM[NCUM.length - 1], yOn = (cam, s) => P3(cam, ...at3(s))[1];
   const sWall = (t) => {
-    const cam = camAt(t), v = clamp((t - Te) / .36), w = -1.6 * v ** 3 + 2.2 * v * v + .4 * v, y0 = yOn(cam, sE);
-    const y = mix(y0, mix(175, 150, clamp((t - Te - .36) / .3)), w);
+    const cam = camAt(t), v = clamp((t - Te) / .46), w = -1.6 * v ** 3 + 2.2 * v * v + .4 * v, y0 = yOn(cam, sE);
+    const y = mix(y0, mix(175, 150, clamp((t - Te - .46) / .25)), w);
     if (y0 <= y) return sE;
     if (yOn(cam, sEnd) >= y) return sEnd;
     let lo = sE, hi = sEnd; for (let k = 0; k < 24; k++) { const m = (lo + hi) / 2; if (yOn(cam, m) > y) lo = m; else hi = m; }
@@ -149,9 +149,13 @@ export default async (T, R) => {
   const Th2 = Th1 + .42, Th3 = Th2 + .55;                                             // across the bay; the outline round the hill
   const Tt0 = Th2 + .15, Tt1 = Tt0 + .5;                                              // the tail follows into the hill's foot
   const Tb1 = Tg1 - .1, Tl0 = Th3 + .2;                                               // the terraces rise; the labels print
+  // across the bay: the bridge (screen space, from above the parapet into the hill's left foot); the head eases along it (slow while
+  // the bridge's base still rides the near world down the frame, then faster on its calm far part)
+  let BK0 = +(globalThis.__BK0 ?? .5);
+  const G = (u) => { u = clamp(u); return u * u * (BK0 + (1 - BK0) * u); };
   const lineState = (t) => {
-    // head h and tail a: 0..1 the near part (3D), 1..2 the bridge (screen); then the hill's build line (st.build 0 → .35)
-    const h = t < Th0 ? 0 : t < Te ? .25 * ((t - Th0) / (Te - Th0)) ** 2 : t < Th1 ? .25 + .75 * (sWall(t) - sE) / (sEnd - sE) : Math.min(2, 1 + (t - Th1) / (Th2 - Th1));
+    // head h and tail a: 0..1 the near part (3D), 1..2 the flight across the bay (screen); then the hill's build line (st.build 0 → .35)
+    const h = t < Th0 ? 0 : t < Te ? .25 * ((t - Th0) / (Te - Th0)) ** 2 : t < Th1 ? .25 + .75 * (sWall(t) - sE) / (sEnd - sE) : t < Th2 ? 1 + G((t - Th1) / (Th2 - Th1)) : 2;
     const a = t < Tt0 ? 0 : t < Tt1 ? 2 * qio((t - Tt0) / (Tt1 - Tt0)) : 2;
     return { h, a };
   };
@@ -185,7 +189,7 @@ export default async (T, R) => {
       const { h, a } = lineState(t), b = buildOf(t);
       const pxcm = P3(cam, SPREAD.x0 + .01, SPREAD.y0, CARD.z)[0] - P3(cam, SPREAD.x0, SPREAD.y0, CARD.z)[0], lw = clamp(pxcm * .1, 4.2, 7);
       if (a < 1 && h > 0) for (const p of proj3(cam, sub3(a, Math.min(1, h)))) amberStroke(ctx, p, lw);
-      const brScr = h > 1 && a < 2 ? bridge(cam) : null;
+      const brScr = t >= Th1 && h > 1 && a < 2 ? bridge(cam) : null;
       if (brScr) {   // the bridge tapers to the hill outline's width and cools, so the line hands over without a step
         const u0 = Math.max(0, a - 1), u1 = Math.min(1, h - 1), WF = 2.5;
         amberTaper(ctx, sliceLen(brScr, u0, u1), mix(lw, WF, u0), mix(lw, WF, u1), 1 - u0, 1 - u1);

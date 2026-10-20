@@ -13,12 +13,12 @@ import { plate } from './handoff4.mjs';
 export const CITY = {
   street: 6.2,                 // street level below your floor (y down)
   opp: 8.6,                    // the facades across the street
-  gap: { x0: -6.6, x1: -2.4 }, // the side street running east, down to the harbour (the sun rises over it)
+  gap: { x0: -6.6, x1: -1.0 }, // the side street running east, down to the harbour (the sun rises over it)
   left: { x0: -18, x1: -6.6, eave: -.6, ridge: -2.9 },              // the house left of the side street
-  tower: { x0: -2.4, x1: 13.6, top: -22.5 },                         // the office tower on the right corner
-  office: { x0: -2.0, x1: .5, y0: -3.35, y1: -1.0, floor: -.65 },   // its corner office (2nd floor), straight across from your window B
-  win: { x0: -2.05, x1: .3, y0: 3.0, y1: 5.45 },                    // the corner shop's display window
-  door: { x0: .5, x1: 1.4, y0: 3.0 },
+  tower: { x0: -1.0, x1: 15.0, top: -22.5 },                         // the office tower on the right corner
+  office: { x0: -.6, x1: 1.9, y0: -3.35, y1: -1.0, floor: -.65 },   // its corner office (2nd floor), straight across from your window B
+  win: { x0: -.65, x1: 1.7, y0: 3.0, y1: 5.45 },                    // the corner shop's display window
+  door: { x0: 1.9, x1: 2.8, y0: 3.0 },
 };
 
 // ---------------------------------------------------------------- sun and sky over one day (tod = hour of the day)
@@ -196,7 +196,7 @@ function towerTex() {
     // ground floor: rusticated stone with arched windows (the corner shop's frame is drawn live)
     g.fillStyle = '#463c58'; g.fillRect(0, Y(2.6), w * ppm, (CITY.street - 2.6) * ppm);
     g.strokeStyle = rgba('#140e1e', .4); g.lineWidth = 1.4; for (let y = 2.95; y < CITY.street; y += .5) { g.beginPath(); g.moveTo(0, Y(y)); g.lineTo(w * ppm, Y(y)); g.stroke(); }
-    for (let x = 2.4; x < T.x1 - 1.5; x += 2.5) { g.fillStyle = '#231b30'; g.beginPath(); g.moveTo(X(x), Y(CITY.street - .4)); g.lineTo(X(x), Y(4.0)); g.arc(X(x + .8), Y(4.0), .8 * ppm, Math.PI, 0); g.lineTo(X(x + 1.6), Y(CITY.street - .4)); g.closePath(); g.fill();
+    for (let x = CITY.door.x1 + .5; x < T.x1 - 1.5; x += 2.5) { g.fillStyle = '#231b30'; g.beginPath(); g.moveTo(X(x), Y(CITY.street - .4)); g.lineTo(X(x), Y(4.0)); g.arc(X(x + .8), Y(4.0), .8 * ppm, Math.PI, 0); g.lineTo(X(x + 1.6), Y(CITY.street - .4)); g.closePath(); g.fill();
       const ag = g.createLinearGradient(0, Y(3.2), 0, Y(CITY.street)); ag.addColorStop(0, rgba('#d8b0a8', .22)); ag.addColorStop(1, rgba('#d8b0a8', 0)); g.fillStyle = ag; g.fill(); }
     // the corner catches the sun
     const eg = g.createLinearGradient(0, 0, 64, 0); eg.addColorStop(0, rgba('#ffd3a0', .42)); eg.addColorStop(1, rgba('#ffd3a0', 0)); g.fillStyle = eg; g.fillRect(0, Y(T.top - 2.6), 64, h * ppm);
@@ -262,10 +262,32 @@ function sideWall(ctx, t, cam) {
   // the side street itself, going down to the harbour
   poly3(ctx, cam, [[CITY.gap.x0, CITY.street, CITY.opp], [CITY.gap.x1, CITY.street, CITY.opp], [CITY.gap.x1, CITY.street + 2.5, z1 + 6], [CITY.gap.x0, CITY.street + 2.5, z1 + 6]], '#4a3c56');
 }
+// the tower's west side along the side street (seen from your window: it runs away from the corner, in soft shade)
+function towerSide(ctx, t, cam) {
+  const T = CITY.tower, x = T.x0, z0 = CITY.opp, z1 = CITY.opp + 16;
+  if (cam.x >= x) return;
+  const p = poly3(ctx, cam, [[x, T.top, z0], [x, T.top, z1], [x, CITY.street, z1], [x, CITY.street, z0]]); if (!p) return;
+  const g = ctx.createLinearGradient(p[0][0], 0, p[1][0], 0); g.addColorStop(0, '#4f4568'); g.addColorStop(1, '#5e5274'); ctx.fillStyle = g; ctx.fill();
+  // mansard edge, floor bands, windows with pediments (dark glass with a pale sky reflection), the arcade at street level
+  poly3(ctx, cam, [[x, T.top, z0], [x, T.top - 2.6, z0 + .8], [x, T.top - 2.6, z1], [x, T.top, z1]], '#3a3048');
+  for (const fy of TOWER_FLOORS) { const s = seg3(cam, [x, fy, z0], [x, fy, z1]); if (s) { ctx.strokeStyle = '#5b4f72'; ctx.lineWidth = Math.max(1, .18 * s[0][2]); ctx.beginPath(); ctx.moveTo(s[0][0], s[0][1]); ctx.lineTo(s[1][0], s[1][1]); ctx.stroke(); } }
+  for (let fi = 0; fi < TOWER_FLOORS.length; fi++) {
+    const fy = TOWER_FLOORS[fi], y0 = fy - 2.7, y1 = fy - .35; if (y0 < T.top + .5) continue;
+    for (let z = z0 + 1.0; z < z1 - 1; z += 2.5) {
+      poly3(ctx, cam, [[x, y0 - .12, z - .1], [x, y0 - .12, z + 1.6], [x, y1 + .12, z + 1.6], [x, y1 + .12, z - .1]], '#5d5174');
+      const q = poly3(ctx, cam, [[x, y0, z], [x, y0, z + 1.5], [x, y1, z + 1.5], [x, y1, z]]);
+      if (q) { const gg = ctx.createLinearGradient(0, q[0][1], 0, q[3][1]); gg.addColorStop(0, '#6a5a7e'); gg.addColorStop(1, '#2b2440'); ctx.fillStyle = gg; ctx.fill(); }
+    }
+  }
+  for (let z = z0 + .6; z < z1 - 1; z += 2.5) { const q = poly3(ctx, cam, [[x, 3.6, z], [x, 3.6, z + 1.6], [x, CITY.street - .3, z + 1.6], [x, CITY.street - .3, z]], '#231b30'); void q; }
+  const lg = ctx.createLinearGradient(p[0][0], 0, p[1][0], 0); lg.addColorStop(0, rgba('#1a1226', .0)); lg.addColorStop(1, rgba('#e9c0a0', .18)); ctx.fillStyle = lg;
+  poly3(ctx, cam, [[x, T.top, z0], [x, T.top, z1], [x, CITY.street, z1], [x, CITY.street, z0]]); ctx.fill();
+}
 export function drawOpposite(ctx, t, cam, S) {
   const z = CITY.opp; if (z <= cam.z + .1) return;
   const B = CITY.left, Tw = CITY.tower;
   sideWall(ctx, t, cam);
+  towerSide(ctx, t, cam);
   bb(ctx, cam, towerTex(), Tw.x0, Tw.top - 3, z, Tw.x1 - Tw.x0, CITY.street - Tw.top + 3);
   officeInterior(ctx, t, cam, S.office || {});
   bb(ctx, cam, leftTex(), B.x0, B.ridge - .4, z, B.x1 - B.x0, CITY.street - B.ridge + .4);

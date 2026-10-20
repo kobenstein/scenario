@@ -4,14 +4,13 @@
 // lights across a misty valley, its broken end, the gap, and on the far plateau a small house whose window is "you".
 // Static parts are cached in raster layers (A: x -500…3960 at 1×, B: x 3820…5400 at 2.4× for the final push to the window);
 // per frame only transforms, lights, smoke, stars, fog drift and the bridge/seal engraving are drawn. Close to the works hall's door
-// (3.01 starts inside its light, scale up to 13) the hall is drawn live as vector art over layer A, so it stays sharp at any zoom
-// (culled to the view: hatchV).
+// (3.01 starts inside its light at scale 13) the hall is drawn from sharp raster levels (k up to 12.2) over layer A.
 // Every cached canvas is handed to the renderer as a decoded Image (@napi-rs/canvas copies a Canvas source on every drawImage and keeps
 // the copy): toImg / best / warmWorld() (await it in the scene's default export).
 //
 //   GEO                     world geometry (hall, aqueduct top(x), gap, house, window, outlet, door)
 //   warmWorld()             builds every cache and awaits the Image decodes
-//   drawWorld(ctx, cam, t, o)  sky, stars, far hills, back fog, mid hills, main layers (A, B); o.live: the hall as live vector art
+//   drawWorld(ctx, cam, t, o)  sky, stars, far hills, back fog, mid hills, main layers (A, B); o.live: the hall from its sharp levels
 //   drawValleyFog(ctx, cam, t)  the valley mist in front of the piers (after the lights, so falling lights sink into it)
 //   drawLive(ctx, t)        steam, hall glow, chimney smoke, the tree (world transform set)
 //   DOORL, doorPath(g), doorFrame(ctx)  the hall's great open door: its light's centre, its opening (clip for the scene's lightAt),
@@ -154,7 +153,7 @@ export function ifSeal(ctx, x, y, r, t, o = {}) {
 // ---------------------------------------------------------------- static drawing
 const archPath = (g, x0, x1, ySpring, yBot) => { const r = (x1 - x0) / 2, xm = (x0 + x1) / 2; g.moveTo(x0, yBot); g.lineTo(x0, ySpring); g.arc(xm, ySpring, r, Math.PI, TAU); g.lineTo(x1, yBot); g.closePath(); };
 // lib/art.mjs hatch, copied with view culling: the same lines (same prng / noise sequence); with `view` = [x0, y0, x1, y1] (world) only
-// the segments near the view are stroked, so the live hall costs little at high zoom and is pixel-identical inside the view
+// the segments near the view are stroked (the hall's high-resolution levels cover small regions), pixel-identical inside the view
 function hatchV(ctx, bbox, { angle = -.6, gap = 7, w = 1.1, col = '#000', a = .3, wobble = 1.2, seed = 1, broken = .25 } = {}, view = null) {
   const [bx, by, bw, bh] = bbox, r = prng(seed), n = vnoise(seed + 5), cx = bx + bw / 2, cy = by + bh / 2, R = Math.hypot(bw, bh) / 2 + 10;
   const ca = Math.cos(angle), sa = Math.sin(angle), M = 14;
@@ -185,7 +184,7 @@ function drawStairs(g) {
   for (let i = 15; i >= 0; i--) { const S = slabLayer(Math.min(i, 13)), x = F.x + i * run, y = F.y - th - i * rise; g.drawImage(best(S.c), x - S.pad, y - S.pad + D[1]); }
 }
 
-// opt.view = [x0, y0, x1, y1] (world): the live overlay draws only what is near the view (same pixels inside it, see hatchV)
+// opt.view = [x0, y0, x1, y1] (world): only what is near the view is drawn (same pixels inside it, see hatchV)
 function drawHall(g, opt = {}) {
   const h = G.hall, r = prng(17), cxH = (h.x0 + h.x1) / 2, V = opt.view || null;
   const vis = (x0, y0, x1, y1) => !V || (x1 > V[0] - 16 && x0 < V[2] + 16 && y1 > V[1] - 16 && y0 < V[3] + 16);
@@ -281,10 +280,24 @@ function hallSilhouette(g) {
   g.rect(860, 140, 60, 310); g.rect(852, 128, 76, 20); g.rect(h.x0 - 10, h.base - 14, h.x1 - h.x0 + 20, 16);
   g.moveTo(o.x - 8 + 20, o.y + 2); g.ellipse(o.x - 8, o.y + 2, 20, 28, 0, 0, TAU);
 }
-// the works hall as live vector art over layer A (camera close to the door): sharp at any zoom, identical geometry
-export function hallLive(ctx, cam) {
-  const hw = 960 / cam.s, hh = 540 / cam.s, view = [cam.cx - hw, cam.cy - hh, cam.cx + hw, cam.cy + hh];
-  ctx.save(); camT(ctx, cam); hallSilhouette(ctx); ctx.clip('nonzero'); drawHall(ctx, { forecourt: false, view }); ctx.restore();
+// the works hall for the camera close to it (3.01 starts at scale 13 in its door): cached raster levels at k = 1.5, 3, 6 and 12.2 px per
+// world unit, clipped to the hall's silhouette (no stipple), drawn over layer A whenever the hall is in view. Each level covers the views
+// the pull-back passes at its scales; drawWorld picks the sharpest one that covers the view (the switch at k = s is invisible).
+const HALL_BOX = [705, 125, 1785, 910];
+const HALL_LV = [{ k: 1.5, r: HALL_BOX }, { k: 3, r: HALL_BOX }, { k: 6, r: [800, 505, 1460, 885] }, { k: 12.2, r: [1015, 636, 1345, 826] }];
+function hallLevel(i) {
+  return once('c03hall' + i, () => {
+    const { k, r } = HALL_LV[i], [c, g] = canvas(Math.ceil((r[2] - r[0]) * k), Math.ceil((r[3] - r[1]) * k));
+    g.setTransform(k, 0, 0, k, -r[0] * k, -r[1] * k); hallSilhouette(g); g.clip('nonzero'); drawHall(g, { forecourt: false, view: r });
+    return { c: toImg(c), x0: r[0], y0: r[1], k, r };
+  });
+}
+function hallPick(cam) {
+  const hw = W / 2 / cam.s, hh = H / 2 / cam.s, v = [Math.max(cam.cx - hw, HALL_BOX[0]), Math.max(cam.cy - hh, HALL_BOX[1]), Math.min(cam.cx + hw, HALL_BOX[2]), Math.min(cam.cy + hh, HALL_BOX[3])];
+  if (v[0] >= v[2] || v[1] >= v[3]) return null;   // the hall is not in view
+  let best = null;
+  for (let i = 0; i < HALL_LV.length; i++) { const L = HALL_LV[i]; if (v[0] < L.r[0] || v[1] < L.r[1] || v[2] > L.r[2] || v[3] > L.r[3]) continue; best = i; if (L.k >= cam.s * .98) break; }
+  return best == null ? null : hallLevel(best);
 }
 // the aqueduct: two tiers, piers down into the valley; the last pier ends at AQ1 with a broken stub of the next arch
 function aqPiers() {
@@ -460,11 +473,10 @@ export function worldLayers() {
 }
 const STARS = (() => { const r = prng(91), out = []; for (let i = 0; i < 300; i++) out.push([r() * 2400 - 240, r() * 640, r(), r()]); return out; })();
 
-// o.live: the hall is drawn as live vector art over layer A while the camera is close (cam.s > LIVE_S); when the frame shows nothing
-// but the facade (the view lies inside the facade body, which the live hall paints opaque) the far layers and layer A are skipped
-export const LIVE_S = 1.15;
+// o.live: the hall is drawn from its sharp levels (hallPick) over layer A; when the frame shows nothing but the facade (the view lies
+// inside the facade body, which every level paints opaque) the far layers and layer A are skipped
 export function drawWorld(ctx, cam, t, o = {}) {
-  const L = worldLayers(), live = o.live && cam.s > LIVE_S, h = G.hall, hw = W / 2 / cam.s, hh = H / 2 / cam.s;
+  const L = worldLayers(), live = !!o.live, h = G.hall, hw = W / 2 / cam.s, hh = H / 2 / cam.s;
   const inside = live && cam.cx - hw > h.x0 + 1 && cam.cx + hw < h.x1 - 1 && cam.cy - hh > h.top + 1 && cam.cy + hh < h.base - 15;
   ctx.save();
   if (inside) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = STONE; ctx.fillRect(0, 0, W, H); }
@@ -479,7 +491,7 @@ export function drawWorld(ctx, cam, t, o = {}) {
     put(ctx, cam, L.mid, .55);
     put(ctx, cam, L.A, 1);
   }
-  if (live) hallLive(ctx, cam);
+  if (live) { const lv = hallPick(cam); if (lv) put(ctx, cam, lv, 1); }
   if (cam.cx + 960 / cam.s > 3820) put(ctx, cam, L.B, 1);
   ctx.restore();
 }
@@ -491,6 +503,7 @@ export function warmWorld(sealR = [210]) {
     const L = worldLayers(), [, g] = canvas(64, 64);
     for (let i = 0; i < 14; i++) slabLayer(i);
     nightTree(g, 0, 0, 1, 0); for (const r of sealR) ifSeal(g, 0, 0, r, 0); bridgeLines();
+    for (let i = 0; i < HALL_LV.length; i++) hallLevel(i);
     await ready();
     for (const v of Object.values(L)) if (v && v.c) v.c = best(v.c);
     for (const [k, v] of CACHE) { if (isCanvas(v) && REC.has(v)) CACHE.set(k, best(v)); else if (v && v.c && REC.has(v.c)) v.c = best(v.c); }

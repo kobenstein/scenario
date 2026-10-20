@@ -7,7 +7,7 @@
 //   SKYP                            the plate's own arrays (stars, band) rebuilt with the same generators
 //   skyGround(ctx)                  the plate's gradient
 import { Image } from '@napi-rs/canvas';
-import { W, H, clamp, mix, prng, canvas } from '../engine.mjs';
+import { W, H, clamp, mix, lin, prng, canvas } from '../engine.mjs';
 
 const TAU = Math.PI * 2;
 // ---------------------------------------------------------------- cached images
@@ -27,6 +27,11 @@ export const qio = (x) => { x = clamp(x); return x < .5 ? 8 * x ** 4 : 1 - Math.
 export const cio = (x) => { x = clamp(x); return x < .5 ? 4 * x ** 3 : 1 - Math.pow(-2 * x + 2, 3) / 2; };
 export const sstep = (a, b, x) => { const u = clamp((x - a) / (b - a)); return u * u * (3 - 2 * u); };
 export const smoother = (x) => { x = clamp(x); return x * x * x * (x * (x * 6 - 15) + 10); };
+// the way out of the cards (16.08 → 16.09) is one eased pull-back over two worlds: the room part takes the first EXIT_SPLIT of it
+export const EXIT_SPLIT = .53;
+export const exitW = (t, A) => cio(lin(A.back0, A.exitEnd, t));
+// trapezoid velocity profile: accelerate over a, cruise, decelerate over b (normalised position 0..1)
+export function trap(u, a = .25, b = .3) { u = clamp(u); const v = 1 / (1 - a / 2 - b / 2); if (u < a) return v * u * u / (2 * a); if (u <= 1 - b) return v * (a / 2 + (u - a)); const w = 1 - u; return 1 - v * w * w / (2 * b); }
 export const hash = (x) => { const v = Math.sin(x * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
 
 // ---------------------------------------------------------------- 3D camera (world y up; floor = the plane y = 0)

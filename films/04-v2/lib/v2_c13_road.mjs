@@ -463,12 +463,12 @@ function pane(ctx, P, t, K, glowR) {
 }
 
 // ---------------------------------------------------------------- the light that fills the frame (window → kitchen lamp): opaque inside .85 R
-export function lightFill(ctx, t, o = {}) {   // o.k (0..1, default 1 = the shared fill): below 1 the same light relaxes into a bulb's glare
+export function lightFill(ctx, t, o = {}) {   // o.k (0..1, default 1 = the shared fill): below 1 the same light relaxes into a bulb's glare (outer stops first: no disc edge)
   const cx = o.cx ?? W / 2, cy = o.cy ?? H / 2, R = o.R ?? 1500, br = 1 + .025 * Math.sin(t * 2.3) + .015 * Math.sin(t * 5.1), k = clamp(o.k ?? 1);
-  const st = (hex, q) => { if (k >= 1) return hex; const n = parseInt(hex.slice(1), 16), u = 1 - k; return `rgba(${Math.round(mix(n >> 16, q[0], u))},${Math.round(mix((n >> 8) & 255, q[1], u))},${Math.round(mix(n & 255, q[2], u))},${mix(1, q[3], u)})`; };
+  const st = (hex, q, r) => { if (k >= 1) return hex; const n = parseInt(hex.slice(1), 16), u = 1 - Math.pow(k, 1 + 4 * r); return `rgba(${Math.round(mix(n >> 16, q[0], u))},${Math.round(mix((n >> 8) & 255, q[1], u))},${Math.round(mix(n & 255, q[2], u))},${mix(1, q[3], u)})`; };
   ctx.save(); id(ctx); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
   const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * br);
-  g.addColorStop(0, '#fff8ea'); g.addColorStop(.16, st('#ffeccb', [255, 246, 230, 1])); g.addColorStop(.4, st('#ffd796', [255, 226, 180, .62])); g.addColorStop(.66, st('#f5b267', [255, 194, 128, .2])); g.addColorStop(.85, st('#e8964c', [255, 172, 100, .06])); g.addColorStop(1, 'rgba(232,150,76,0)');
+  g.addColorStop(0, '#fff8ea'); g.addColorStop(.16, st('#ffeccb', [255, 246, 230, 1], .16)); g.addColorStop(.4, st('#ffd796', [255, 226, 180, .62], .4)); g.addColorStop(.66, st('#f5b267', [255, 194, 128, .2], .66)); g.addColorStop(.85, st('#e8964c', [255, 172, 100, .06], .85)); g.addColorStop(1, 'rgba(232,150,76,0)');
   ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, R * br, 0, TAU); ctx.fill();
   if (k > 0) { const sp = fillSprite(); ctx.globalAlpha = .5 * k; ctx.globalCompositeOperation = 'multiply'; ctx.drawImage(sp, cx - R * .9, cy - R * .9, R * 1.8, R * 1.8);
     ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = 1; const r = prng(5);

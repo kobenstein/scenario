@@ -6,7 +6,8 @@
 // things that matter (painting, teaching a child, gardening, building a boat). Nothing fades: the cover is a real page that turns,
 // every piece rises on its hinge, the sun grows from the gathered light.
 // All coordinates are plate units (origin = plate centre, the card is 1000×560); the caller sets the plate's transform.
-//   popup(ctx, t, K, o)   K: book times (bookTimes), o: { cover: plate() options of plate II's printed face, sun: { x, y, r, m, R, a }
+//   popup(ctx, t, K, o)   K: book times (bookTimes), o: { cover: plate() options of plate II's printed face, glow (the light of the holes
+//                          once it leaves the paper; the cover then keeps only the punched holes), sun: { x, y, r, m, R }
 //                          (the sun disc and halo in SCREEN px, from the scene's camera), live } → { sunY }
 //   bookTimes(K0)         K0: { change, human, for, end } → the book's times (fold, gather, ign, rise, sunUp, …)
 //   foldAt(t, K)          { th, dy }: cover angle (0 closed … π/2 flat) and the projected offset of its free edge from the hinge
@@ -44,9 +45,12 @@ export function sunAt(t, K) {
 }
 
 // ---------------------------------------------------------------- sky (back page)
+// cached at 3× (with its grain made at 3×): the camera flies into the sun, so the sky is seen up to ~10× magnified before the sun's
+// light covers it; at 1× its stipple would turn into blocks
+const SKYRES = 2;
 function skyLayer() {
   return once('c04sky', () => {
-    const [c, g] = canvas(PW, PH), gr = g.createLinearGradient(0, 0, 0, PH);
+    const [c, g] = canvas(PW * SKYRES, PH * SKYRES); g.scale(SKYRES, SKYRES); const gr = g.createLinearGradient(0, 0, 0, PH);
     gr.addColorStop(0, '#2b2a62'); gr.addColorStop(.3, '#5b4482'); gr.addColorStop(.55, '#b4708a'); gr.addColorStop(.74, '#f0a07f'); gr.addColorStop(.88, '#ffc990'); gr.addColorStop(1, '#ffe2b2');
     g.fillStyle = gr; g.fillRect(0, 0, PW, PH);
     // engraved sky: fine horizontal ruling, denser toward the top (intaglio)
@@ -54,9 +58,9 @@ function skyLayer() {
     for (let y = 2; y < PH * .62; y += 4.2) { g.globalAlpha = 1 - y / (PH * .62); g.beginPath(); for (let x = 0; x <= PW; x += 8) { const yy = y + Math.sin(x * .012 + y * .05) * .8; x ? g.lineTo(x, yy) : g.moveTo(x, yy); } g.stroke(); }
     g.globalAlpha = 1;
     // warm halo low around the sun's column, stippled
-    const [hc, hg] = canvas(PW, PH), hr = hg.createRadialGradient(PW / 2 + SUNX, PH * .62, 0, PW / 2 + SUNX, PH * .62, PW * .55);
+    const [hc, hg] = canvas(PW * SKYRES, PH * SKYRES); hg.scale(SKYRES, SKYRES); const hr = hg.createRadialGradient(PW / 2 + SUNX, PH * .62, 0, PW / 2 + SUNX, PH * .62, PW * .55);
     hr.addColorStop(0, 'rgba(255,214,150,.75)'); hr.addColorStop(.4, 'rgba(255,170,110,.3)'); hr.addColorStop(1, 'rgba(255,170,110,0)'); hg.fillStyle = hr; hg.fillRect(0, 0, PW, PH);
-    stipple(hc, { k: .7, g: 1, seed: 33, boost: 2 }); g.globalCompositeOperation = 'lighter'; g.drawImage(hc, 0, 0);
+    stipple(hc, { k: .7, g: 1, seed: 33, boost: 2 }); g.globalCompositeOperation = 'lighter'; g.drawImage(hc, 0, 0, PW, PH);
     return c;
   });
 }
@@ -189,7 +193,7 @@ function people(ctx, t, P, life, K) {
   }
   if (P.key === 'p3') {
     // the gardener watering a row of seedlings (centre front, facing the sun)
-    gardener(ctx, t, { x: GARDENER.x, y: -P.hgt(GARDENER.x), s: GARDENER.s, live: lv(2), pour0: K.human + .3, seed: 8, col: SIL, rim: RIM, rimSide: -1 });
+    gardener(ctx, t, { x: GARDENER.x, y: -P.hgt(GARDENER.x), s: GARDENER.s, live: 1, pour0: K.rise + .38, seed: 8, col: SIL, rim: RIM, rimSide: -1 });
     // building a boat on the shore: the hammer rises and falls
     const x = 330, y = -P.hgt(x); ctx.save(); ctx.translate(x, y); ctx.scale(1.35, 1.35); hull(ctx, 0, 0); ctx.restore();
     const bx = 438, by = -P.hgt(bx), s = .44, hit = Math.pow(Math.max(0, Math.sin(t * 3.4)), 2) * lv(2);
@@ -278,7 +282,7 @@ export function popup(ctx, t, K, o = {}) {
     if (gu > 0) { ctx.save(); ctx.translate(0, FB + dy * .97); ctx.scale(1, Math.max(0, gu)); grass(ctx, t, -hw1 + 4, -300, 0, 110, 5); grass(ctx, t, 520, hw1 - 4, 0, 120, 6); ctx.restore(); }
   }
   // 4 · the light points of HAVING TO leave the paper (just before the cover moves) and gather into the sun
-  const P = holePts(), sp = glowSprite('#ffb35c', 9), ga = clamp((o.cover.glow ?? 1) * (.88 + .12 * Math.sin(t * 1.7)));
+  const P = holePts(), sp = glowSprite('#ffb35c', 9), ga = clamp((o.glow ?? o.cover.glow ?? 1) * (.88 + .12 * Math.sin(t * 1.7)));
   if (t >= K.gather && ga > 0) {
     const kc = Math.max(0, -dy / PH);
     ctx.save(); ctx.globalCompositeOperation = 'lighter';

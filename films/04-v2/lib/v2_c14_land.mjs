@@ -404,18 +404,9 @@ function drawHouses(ctx, t, P, H0, fg, n, glow) {
     ctx.fill();
   }
   // the wave front: each window flares as it lights (soft discs, batched in brightness steps, added to the light)
-  if (flares.length) {
+  if (flares.length) {   // drawn as the glow sprite, one image each (many arcs in one path are quadratic in this canvas)
     ctx.save(); ctx.globalCompositeOperation = 'lighter';
-    for (let b = 1; b <= 4; b++) {
-      for (const [rk, ak] of [[1, .1], [.55, .2], [.25, .4]]) {
-        ctx.fillStyle = `rgba(255,${150 + 20 * b},${70 + 15 * b},${(ak * b / 4).toFixed(3)})`; ctx.beginPath(); let any = false;
-        for (let i = 0; i < flares.length; i += 4) {
-          const f = flares[i + 2]; if (Math.min(4, Math.ceil(f * 4)) !== b) continue;
-          const r = (2.5 + flares[i + 3] * .4 + 7 * f) * rk; ctx.moveTo(flares[i] + r, flares[i + 1]); ctx.arc(flares[i], flares[i + 1], r, 0, TAU); any = true;
-        }
-        if (any) ctx.fill();
-      }
-    }
+    for (let i = 0; i < flares.length; i += 4) { const f = flares[i + 2], r = 4 + flares[i + 3] * .7 + 13 * f; ctx.globalAlpha = Math.min(1, f * 1.15); ctx.drawImage(glow, flares[i] - r, flares[i + 1] - r, r * 2, r * 2); }
     ctx.restore();
   }
   for (let i = 0; i < full.length; i += 3) house3d(ctx, t, P, full[i], full[i + 1], full[i + 2], fg, n, glow);
