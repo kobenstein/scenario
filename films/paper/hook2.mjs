@@ -114,12 +114,12 @@ export async function build() {
       g.translate(-left, -top);   // local = world
       // age axis: a cream paper rule that draws itself on from the left
       const ax = smoo(lin(6.2, 7.4, t)), axEnd = mix(X30 - 200, ageX(A1) + 200, ax * .55 + .45 * smoo(lin(8.7, 10.4, t)));
-      if (ax > 0) { g.fillStyle = rgba(CREAM, .85); g.fillRect(X30 - 200, axisY, axEnd - X30 + 200, 5); }
+      if (ax > 0) { g.fillStyle = rgba(CREAM, .85 * (1 - lin(11.4, 11.9, t))); g.fillRect(X30 - 200, axisY, axEnd - X30 + 200, 5); }
       // bars (each a year of income), rising with an expo ease and a small overshoot settle
-      g.save(); g.beginPath(); g.rect(X30 - 300, lineY - 400, (A1 - A0 + 8) * PER, axisY - lineY + 400); g.clip();
+      g.save(); g.beginPath(); g.rect(X30 - 300, lineY - 400, (A1 - A0 + 8) * PER, axisY - lineY + 3000); g.clip();
       for (let i = 0; i <= A1 - A0; i++) {
         const k = lin(barStart(i), barStart(i) + .55, t); if (k <= 0) continue;
-        const e = expoO(k), y = axisY - (BAR_H) * e + 6 * Math.sin(k * Math.PI) * (1 - k), x = ageX(A0 + i) - BAR_W / 2;
+        const e = expoO(k), y = axisY - (BAR_H) * e + 6 * Math.sin(k * Math.PI) * (1 - k) + 1400 * expoIO(lin(11.35 + i * .012, 12.05 + i * .012, t)), x = ageX(A0 + i) - BAR_W / 2;
         const sk = barSh.scale / bar.res;
         g.globalAlpha = .45; g.drawImage(barSh.img, x - 10 - barSh.pad / sk, y + 8 - barSh.pad / sk, barSh.img.width / sk, barSh.img.height / sk); g.globalAlpha = 1;
         g.drawImage(bar.img, x, y, BAR_W, BAR_H + 200);
@@ -129,8 +129,8 @@ export async function build() {
       g.font = '130px "Instrument Serif"'; g.textAlign = 'center'; g.textBaseline = 'top';
       for (let a = A0; a <= A1; a += 10) { const k = smoo(lin(barStart(a - A0) + .1, barStart(a - A0) + .6, t)); if (k <= 0) continue;
         g.save(); g.beginPath(); g.rect(ageX(a) - 160, axisY + 22, 320, 170); g.clip();
-        g.fillStyle = rgba(CREAM, .9 * k); g.fillText(String(a), ageX(a), axisY + 30 + (1 - k) * 140); g.restore(); }
-      { const k = smoo(lin(9.0, 9.8, t)); if (k > 0) { g.font = '600 46px Inter'; g.letterSpacing = '14px'; g.textAlign = 'left'; g.fillStyle = rgba('#a49fc4', k); g.fillText('AGE', ageX(A1) + 170, axisY + 70); g.letterSpacing = '0px'; } }
+        g.fillStyle = rgba(CREAM, .9 * k * (1 - lin(11.4, 11.9, t))); g.fillText(String(a), ageX(a), axisY + 30 + (1 - k) * 140); g.restore(); }
+      { const k = smoo(lin(9.0, 9.8, t)); if (k > 0) { g.font = '600 46px Inter'; g.letterSpacing = '14px'; g.textAlign = 'left'; g.fillStyle = rgba('#a49fc4', k * (1 - lin(11.4, 11.9, t))); g.fillText('AGE', ageX(A1) + 170, axisY + 70); g.letterSpacing = '0px'; } }
       // label: line + two-line caption, wiped in from below
       { const k = smoo(lin(6.55, 7.25, t)), lx = -640, ly = lineY - 70;
         if (k > 0) { g.save(); g.beginPath(); g.rect(lx - 10, ly - 150, 1200, 150); g.clip();
