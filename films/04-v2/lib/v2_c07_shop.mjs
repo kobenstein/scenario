@@ -16,7 +16,7 @@ const DRESS = { coat: '#4b3a2a', pants: '#25242c', shoes: '#17120e', skin: '#d6a
 
 // ---------------------------------------------------------------- the camera: zoom out of the bulb, then a slow push
 function shopCam(t, K) {
-  const u = clamp((t - K.shop0) / 1.0), e = u >= 1 ? 1 : 1 - Math.pow(2, -10 * u), Z0 = K.bulbR / RB;
+  const u = clamp((t - K.shop0) / .85), e = cio(u), Z0 = K.bulbR / RB;   // eases out of the full amber (no jump at the turn)
   const Z = Math.exp(Math.log(Z0) * (1 - e)) * (1 + .035 * sstep(K.shop0 + .9, K.fly0, t)), c = cio(clamp(u / .8));
   const sb = [mix(W / 2, B[0], c) + 4 * drift(t, 1, 3) * c, mix(H / 2, B[1], c) + 3 * drift(t, 1, 5) * c];
   return { Z, M: [Z, 0, 0, Z, sb[0] - B[0] * Z, sb[1] - B[1] * Z] };
@@ -165,8 +165,9 @@ export function shopTake(ctx, t, K) {
   if (t >= K.fly0) flyShaving(ctx, t, K, at(M, planeX(1) + 64, 588));
 }
 function flyShaving(ctx, t, K, mouth) {
-  const u = clamp((t - K.fly0) / (K.chart0 - K.fly0)), e = (Math.pow(2, 6 * u) - 1) / 63, M0 = chartM0();
-  const g = mix(.045, 1, e), c = [mix(mouth[0], W / 2, cio(u)), mix(mouth[1], H / 2, cio(u))], rot = mix(-1.1, 0, cio(u));
+  const u = clamp((t - K.fly0) / (K.chart0 - K.fly0)), M0 = chartM0();
+  const g = Math.exp(Math.log(.045) * (1 - cio(u))),   // log-scale ease: it settles as it fills the frame
+    c = [mix(mouth[0], W / 2, cio(u)), mix(mouth[1], H / 2, cio(u))], rot = mix(-1.1, 0, cio(u));
   // G: screen-space similarity applied after M0 (sheet → screen at chart0); G(1) = identity
   const cr = Math.cos(rot) * g, sr = Math.sin(rot) * g, G = [cr, sr, -sr, cr, c[0] - (cr * W / 2 - sr * H / 2), c[1] - (sr * W / 2 + cr * H / 2)];
   const Mf = [G[0] * M0[0] + G[2] * M0[1], G[1] * M0[0] + G[3] * M0[1], G[0] * M0[2] + G[2] * M0[3], G[1] * M0[2] + G[3] * M0[3], G[0] * M0[4] + G[2] * M0[5] + G[4], G[1] * M0[4] + G[3] * M0[5] + G[5]];

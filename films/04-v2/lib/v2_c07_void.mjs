@@ -119,7 +119,7 @@ export function topPath(t, K) {
     const [t0, h0] = keys[i], [t1, h1] = keys[i + 1], u = (t - t0) / (t1 - t0), e = i === 0 ? u * u * (3 - 2 * u) * .5 + u * .5 : i === 2 ? cio(u) : u;
     h = Math.exp(mix(Math.log(h0), Math.log(h1), e));
   }
-  const cu = mix(0, -8, sstep(K.td, K.cover, t)), cv = mix(0, 1.5, sstep(K.td, K.cover, t));
+  const cu = mix(0, -8, sstep(K.td, K.cover, t)), cv = mix(0, 1.5, sstep(K.td, K.cover, t)) + 2.6 * sstep(K.cover, K.dive0, t) ** 2;   // drifts down with the push: the type stays above y 910, the paper still fills the frame
   return { h, cu, cv };
 }
 export function voidCam(t, K) {

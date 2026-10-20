@@ -151,10 +151,9 @@ export default async (T, R) => {
   const Tb1 = Tg1 - .1, Tl0 = Th3 + .2;                                               // the terraces rise; the labels print
   // across the bay: the bridge (screen space, from above the parapet into the hill's left foot); the head eases along it (slow while
   // the bridge's base still rides the near world down the frame, then faster on its calm far part)
-  let BK0 = +(globalThis.__BK0 ?? .5);
-  const G = (u) => { u = clamp(u); return u * u * (BK0 + (1 - BK0) * u); };
+  const G = (u) => { u = clamp(u); return u * u; };                                  // ends at the speed drawHill's outline starts with
   const lineState = (t) => {
-    // head h and tail a: 0..1 the near part (3D), 1..2 the flight across the bay (screen); then the hill's build line (st.build 0 → .35)
+    // head h and tail a: 0..1 the near part (3D), 1..2 the bridge across the bay (screen); then the hill's build line (st.build 0 → .35)
     const h = t < Th0 ? 0 : t < Te ? .25 * ((t - Th0) / (Te - Th0)) ** 2 : t < Th1 ? .25 + .75 * (sWall(t) - sE) / (sEnd - sE) : t < Th2 ? 1 + G((t - Th1) / (Th2 - Th1)) : 2;
     const a = t < Tt0 ? 0 : t < Tt1 ? 2 * qio((t - Tt0) / (Tt1 - Tt0)) : 2;
     return { h, a };
@@ -166,7 +165,6 @@ export default async (T, R) => {
     return .35 + .65 * sm(clamp((t - Th3) / (Tb1 - Th3)));
   };
   const labelsOf = (t) => clamp((t - Tl0) / (Tb1 - Tl0));
-  globalThis.__c09dbg?.({ camAt, lineState, sOf, at3, NCUM, K, Th0, Th1, Th2, Tg0, Tg1, bridge, buildOf });
 
   const draw = (ctx, t) => {
     const cam = camAt(t), lp = lamp(t);

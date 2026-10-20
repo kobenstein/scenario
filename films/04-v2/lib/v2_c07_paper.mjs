@@ -217,15 +217,15 @@ function rulerAndType(ctx, t, K) {
   typeIn(ctx, 'SWEDEN', -2.5, -11.5, (t - m0 - .6) / .35, { font: '4.2px "Instrument Serif"', sp: .9 });
   const ul = (t - m0 - .8) / .4;
   if (ul > 0) { amberFill(ctx, 6.2, -24.6, .5); typeIn(ctx, 'LOTTERY WINNERS', 7.6, -23.9, ul, { font: '600 1.8px "Inter"', sp: .2 }); }
-  typeIn(ctx, SRC[0], -8, 24.7, (t - m0 - .85) / .5, { font: '600 1.5px "Inter"', align: 'center', col: rgba(INK, .9), sp: .08 });
-  typeIn(ctx, SRC[1], -8, 27.2, (t - m0 - 1.05) / .45, { font: '600 1.5px "Inter"', align: 'center', col: rgba(INK, .9), sp: .08 });
+  typeIn(ctx, SRC[0], -8, 25.0, (t - m0 - .85) / .5, { font: '600 1.4px "Inter"', align: 'center', col: rgba(INK, .9), sp: .08 });
+  typeIn(ctx, SRC[1], -8, 26.8, (t - m0 - 1.05) / .45, { font: '600 1.4px "Inter"', align: 'center', col: rgba(INK, .9), sp: .08 });
   ctx.textAlign = 'left';
 }
 // the dive: from the top-down camera's affine M0 into the dot (it moves to the frame centre while the zoom runs away)
 export function paperM(t, K, M0) {
   if (t <= K.dive0) return M0;
   const d = MAP.dots[DIVE], s0 = [M0[0] * d[0] + M0[4], M0[3] * d[1] + M0[5]], u = clamp((t - K.dive0) / (K.shop0 - K.dive0));
-  const e = (Math.pow(2, 9 * u) - 1) / (Math.pow(2, 9) - 1), q = M0[0] * Math.exp(Math.log(K.qEnd / M0[0]) * e), c = cio(clamp(u / .7));
+  const e = cio(u), q = M0[0] * Math.exp(Math.log(K.qEnd / M0[0]) * e), c = cio(clamp(u / .7));
   const sx = mix(s0[0], W / 2, c), sy = mix(s0[1], H / 2, c);
   return [q, 0, 0, q, sx - q * d[0], sy - q * d[1]];
 }
