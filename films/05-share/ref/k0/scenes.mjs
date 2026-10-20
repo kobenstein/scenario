@@ -5,13 +5,13 @@
 //   hookRooftop(ctx, t, o)             H.04: pull back: you on a rooftop at blue hour, the rings rise as a vast rosette of light
 //   certFrame(ctx, t)                  the certificate language: "YOUR SHARE", guilloche, seal, foil glint
 //   unwindFrame(ctx, t, { u })         transition: one guilloche line unwinds into Alaska's coastline on the paper map
-//   mapNight(ctx, t, { utc })          6.22: the paper map at night, Manila at dawn, Ohio at dusk, two phones buzz at once
+//   mapNight(ctx, t, { utc, buzz })    07a: the engraved paper map at night, Manila at dawn, Ohio at dusk, two phones buzz at once
 import { Path2D } from '@napi-rs/canvas';
 import { W, H, rgba, clamp, lin, mix, eout, eio, sm, prng, drift, canvas, addGlow, text } from '../../engine.mjs';
 import { vnoise, fbm, stipple, roughPath, hatch as artHatch, pool, bloom, cone, fog } from '../../lib/art.mjs';
 import { phone } from '../../lib/phone.mjs';
 import { shareLight } from '../../lib/share.mjs';
-import { worldMap, ll, project, region, country, outlineLocal, fitTo, coastRuns } from '../../lib/map.mjs';
+import { worldMap, ll, project, region, country, outlineLocal, fitTo, coastRuns, nightSheet, drawSheet, paperAt } from '../../lib/map.mjs';
 import { certificate, rosette, guilloche, unwind, peel, ripple, ring, gBorder, microtext, resample } from '../../lib/certificate.mjs';
 import { heldPhone, lockScreen } from '../../lib/phone.mjs';
 import { figureBack } from '../../lib/figure.mjs';
@@ -331,34 +331,50 @@ export function unwindFrame(ctx, t, o = {}) {
   const vg = ctx.createRadialGradient(W * .55, H * .5, 380, W * .55, H * .5, 1250); vg.addColorStop(0, 'rgba(4,5,16,0)'); vg.addColorStop(1, 'rgba(4,5,16,.6)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
 }
 
-// ============ 6.22 · the map at night: Manila at dawn, Ohio at dusk ============
+// ============ 07a · the paper map at night: Manila at dawn, Ohio at dusk, two phones buzz at the same moment ============
+// The engraved sheet (lib/map.mjs nightSheet: ruled sea, waterlines, the real terminator as a soft band, deep blue night,
+// city-light stipple) is static and cached; per frame: a slow push-in, twinkle, the two buzzes as guilloche ripples lying flat
+// on the paper (paperAt → local transform), a tiny phone at each place, the labels on the night side, the lamp's cone and motes.
 const MANILA = [120.98, 14.6], OHIO = [-82.99, 39.96];
+export const MAPCAM = { cx: .34, cy: .45, z: 1.17, rot: -.05, tilt: .62, x: 960, y: 610, f: 1500 };
+function lampCone() { return once('lampcone', () => { const [c, g] = canvas(W, H); cone(g, W * .9, -140, { dir: -.62, spread: .36, len: 1500, col: '#ffcf96', a: .16, k: .65, seed: 8, soft: .35 }); return c; }); }
+function mapMotes(ctx, t) {
+  const r = prng(83); ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  for (let i = 0; i < 70; i++) { const u = r(), x0 = W * (.45 + .55 * r()), y0 = H * r(), sp = 4 + r() * 10, x = ((x0 - t * sp * .6) % W + W) % W, y = y0 + Math.sin(t * .4 + i) * 12 + t * sp * .2;
+    const inCone = clamp(1 - Math.abs((x - W * .9) * .78 + (y + 140) * .62 - 0) / (420 + y * .5)), a = (.1 + .35 * r()) * inCone; if (a < .02) continue; ctx.fillStyle = `rgba(255,226,180,${a})`; const sz = u < .15 ? 2.2 : 1.2; ctx.fillRect(x, y % H, sz, sz); }
+  ctx.restore();
+}
+// a phone lying on the paper (drawn in paper px, the screen glows when it buzzes)
+function paperPhone(ctx, t, buzz) {
+  const on = buzz.some((b) => t > b), k = buzz.reduce((m, b) => Math.max(m, t > b ? Math.exp(-(t - b) * 2.2) : 0), 0), jit = k * Math.sin(t * 90) * .8;
+  ctx.save(); ctx.translate(jit, 0); ctx.rotate(-.35);
+  ctx.fillStyle = 'rgba(5,6,14,.55)'; ctx.beginPath(); ctx.roundRect(-5.5 + 2, -10 + 3, 11, 20, 2.6); ctx.fill();
+  ctx.fillStyle = '#121420'; ctx.beginPath(); ctx.roundRect(-5.5, -10, 11, 20, 2.6); ctx.fill();
+  ctx.fillStyle = on ? '#ffd9a0' : '#1c2133'; ctx.beginPath(); ctx.roundRect(-4.3, -8.6, 8.6, 17.2, 1.8); ctx.fill();
+  if (on) { ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 40); g.addColorStop(0, `rgba(255,200,130,${.45 + .4 * k})`); g.addColorStop(1, 'rgba(255,170,90,0)'); ctx.fillStyle = g; ctx.fillRect(-40, -40, 80, 80); }
+  ctx.restore();
+}
 export function mapNight(ctx, t, o = {}) {
-  const utc = o.utc ?? 22.6, buzzT = o.buzz ?? 1.0;
-  ctx.fillStyle = '#07080f'; ctx.fillRect(0, 0, W, H);
-  // the table in a dark room, one warm lamp pool to the right
-  ctx.save(); ctx.translate(W / 2, H / 2); ctx.rotate(-.06); ctx.globalAlpha = .55; ctx.drawImage(tableLayer(), -TW / 2, -TH / 2); ctx.restore();
-  ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = '#3a4060'; ctx.fillRect(0, 0, W, H); ctx.restore();
-  // Pacific-centred view would cut the Americas; centre between Ohio and Manila across the Atlantic/Africa instead
-  const cam = { cx: .05, cy: .26, z: 1.02 + .012 * t, rot: -.07 + .003 * Math.sin(t * .2), tilt: .5, x: W * .5 + drift(t, 8, 1), y: H * .56 + drift(t, 5, 2), f: 1500 };
-  const M = worldMap(ctx, cam, { t, terminator: { utc, decl: -10.5 }, paper: '#e6dcc4', land: '#cbb68c', light: [W * .78, H * .2] });
-  // city lights on the night side: tiny amber specks on land, only where the sun is down
-  const lights = once('citylights', () => { const r = prng(51), pts = []; const D = []; for (let i = 0; i < 900; i++) { const lon = -180 + r() * 360, lat = -50 + Math.pow(r(), .8) * 110; pts.push([lon, lat, r()]); } return pts; });
-  // two phones: Manila (dawn) and Ohio (dusk) buzz in the same frame; rings run toward each other along the twilight line
-  const pM = project(cam, ...MANILA), pO = project(cam, ...OHIO);
-  for (const [p, label, sub] of [[pM, 'MANILA', 'DAWN · 6:36 AM'], [pO, 'OHIO', 'DUSK · 6:36 PM']]) {
-    const age = t - buzzT;
-    for (let k = 0; k < 3; k++) { const a = age - k * .45; if (a < 0 || a > 2.6) continue; const rr = 10 + a * 120; ctx.strokeStyle = `rgba(255,179,92,${.7 * (1 - a / 2.6)})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(p[0], p[1], rr, rr * .62, -.07, 0, 7); ctx.stroke(); }
-    addGlow(ctx, p[0], p[1], 90, .55, '#ffb35c', '#fff1d6');
-    shareLight(ctx, p[0], p[1], 9, t, { born: buzzT - .2 });
-    const lx = p[0] + (label === 'OHIO' ? -230 : 40), ly = p[1] - 70;
-    ctx.strokeStyle = 'rgba(255,241,214,.6)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p[0], p[1] - 12); ctx.lineTo(lx + (label === 'OHIO' ? 190 : 0), ly + 10); ctx.stroke();
-    ctx.fillStyle = 'rgba(7,9,24,.55)'; ctx.fillRect(lx - 10, ly - 30, 200, 52);
-    text(ctx, label, lx, ly - 6, { size: 22, weight: 600, color: '#fff1d6', spacing: 5 });
-    text(ctx, sub, lx, ly + 14, { size: 14, weight: 500, color: '#f3d9b0', spacing: 3 });
+  const S = nightSheet(MAPCAM, { utc: o.utc ?? 22.6, decl: -10.5 }), view = { z: 1 + .005 * t, dx: drift(t, 6, 1) - t * 3, dy: drift(t, 4, 2), t };
+  drawSheet(ctx, S, view);
+  const buzz = o.buzz ?? [.3, 1.05, 1.8];                 // the hook's rhythm: both phones at the same moment
+  for (const [pos, name, sub, side] of [[MANILA, 'MANILA', 'DAWN · 6:36 AM', -1], [OHIO, 'OHIO', 'DUSK · 6:36 PM', 1]]) {
+    const A = paperAt(S, view, ...pos);
+    ctx.save(); ctx.translate(A.x, A.y); ctx.transform(...A.m, 0, 0);
+    { const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 120); g.addColorStop(0, 'rgba(255,190,120,.16)'); g.addColorStop(1, 'rgba(255,170,100,0)'); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.fillRect(-120, -120, 240, 240); ctx.restore(); }
+    ripple(ctx, 0, 0, t, buzz, { w0: 5.5, h0: 10, rings: 2, gap: .2, speed: 66, life: 2.4, lines: 7, band: 12, wave: 15, col: '#b4561a', coolCol: '#c8742c', glow: null, op: 'source-over', lineA: 1, a: .95, lw: .85, relax: .9 });   // foil-amber ink on the paper
+    ripple(ctx, 0, 0, t, buzz, { w0: 5.5, h0: 10, rings: 1, speed: 66, life: 2.4, lines: 3, band: 12, wave: 15, col: '#fff1d6', coolCol: '#ffd9a0', glow: '#ffb35c', glowA: .16, a: .7, lw: .6, relax: .9 });
+    paperPhone(ctx, t, buzz);
+    ctx.restore();
+    // label on the night side of the place, with a hairline leader
+    const lx = A.x + side * 150, ly = A.y - 74, al = side > 0 ? 'left' : 'right';
+    ctx.save(); ctx.strokeStyle = 'rgba(255,236,205,.6)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(A.x + side * 14, A.y - 10); ctx.lineTo(lx - side * 10, ly + 14); ctx.lineTo(lx - side * 4, ly + 14); ctx.stroke(); ctx.restore();
+    ctx.save(); ctx.shadowColor = 'rgba(4,6,20,.85)'; ctx.shadowBlur = 10;
+    text(ctx, name, lx, ly, { size: 26, weight: 600, color: '#fff1d6', spacing: 6, align: al });
+    text(ctx, sub, lx, ly + 24, { size: 15, weight: 500, color: '#ffd59a', spacing: 3, align: al });
+    ctx.restore();
   }
-  // lamp pool from the right and cold room light from the left
-  const L = once('maplamp', () => { const [c, g] = canvas(W, H); const lg = g.createRadialGradient(W * .86, H * .1, 0, W * .8, H * .2, 1200); lg.addColorStop(0, 'rgba(255,190,120,.5)'); lg.addColorStop(.5, 'rgba(255,160,90,.12)'); lg.addColorStop(1, 'rgba(255,150,80,0)'); g.fillStyle = lg; g.fillRect(0, 0, W, H); stipple(c, { k: .7, g: 1.2, seed: 33 }); return c; });
-  ctx.save(); ctx.globalCompositeOperation = 'soft-light'; ctx.drawImage(L, 0, 0); ctx.restore();
-  const vg = ctx.createRadialGradient(W * .5, H * .55, 380, W * .5, H * .55, 1250); vg.addColorStop(0, 'rgba(6,6,14,0)'); vg.addColorStop(1, 'rgba(6,6,14,.75)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .9; ctx.drawImage(lampCone(), 0, 0); ctx.restore();
+  mapMotes(ctx, t);
+  const vg = ctx.createRadialGradient(W * .5, H * .55, 420, W * .5, H * .55, 1250); vg.addColorStop(0, 'rgba(6,6,14,0)'); vg.addColorStop(1, 'rgba(6,6,14,.6)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
 }
