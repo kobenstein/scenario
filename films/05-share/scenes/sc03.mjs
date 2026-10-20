@@ -118,9 +118,13 @@ export default (T, R) => {
     return { P1, P2, P3 };
   })();
   const PB = { t0: Math.max(A.largest - .05, CIN.t + .55), d: 1.35 }, GL = { t0: A.yet1e + .1, t1: Math.max(A.yet1e + 1.0, A.noone + .15) }, PU = { t0: A.s104 - .45, t1: A.s104 + .55 };
-  // the cut: outer line k = 0 of the fortune rosette, run counter-clockwise from angle a0
-  const G0 = guilloche({ ...RG, steps: 1440 }), L0 = G0.line(0), a0 = -1.95, i0 = Math.round(((a0 % TAU + TAU) % TAU) / TAU * 1440);
-  const CUT = (() => { const out = []; for (let k = 0; k <= 520; k++) { const i = (i0 - k + 1440) % 1440; out.push([ROS.x + L0[i][0], ROS.y + L0[i][1]]); } return resample(out, 600); })();
+  // the cut: the plate's first line, a fine guilloche wave (rope-band profile: a sine plus a quarter of its 2.03 harmonic, low amplitude,
+  // 90 waves round the circle) on the fortune rosette's mid circle, run counter-clockwise from angle a0. Its dotted ghost lies in the
+  // plate layer; the burin makes it solid.
+  const a0 = -1.95, NW = 90, AW = 7, SPAN = 2.27;
+  const waveR = (th) => RG.R + AW * (.75 * Math.sin(NW * th) + .25 * Math.sin(2.03 * NW * th - .8));
+  const CUT = (() => { const out = []; for (let k = 0; k <= 2400; k++) { const th = a0 - k / 2400 * SPAN, r = waveR(th); out.push([ROS.x + Math.cos(th) * r, ROS.y + Math.sin(th) * r]); } return resample(out, 1400); })();
+  const cutAt = (u) => { const f = clamp(u) * (CUT.length - 1), i = Math.min(CUT.length - 2, Math.floor(f)), q = f - i; return [mix(CUT[i][0], CUT[i + 1][0], q), mix(CUT[i][1], CUT[i + 1][1], q)]; };
   const tCut0 = Math.min(CIN.t + .5, A.largest - .1), tCut1 = A.yet1 + .02, cutU = (t) => .42 * (1 - Math.pow(1 - lin(tCut0, tCut1, t), 1.6));
   // P0 is solved so that the cut's first point lies exactly under the carrier light at tCut0
   const camAt = (t, P0) => {
@@ -144,7 +148,10 @@ export default (T, R) => {
   const plateLayer = () => once('c03plate', () => {
     const [c, g] = canvas(PW, PH); g.translate(PW / 2, PH / 2);
     certificate(g, 0, { x: 0, y: 0, s: PK, rot: 0, ghost: 1, ghostCol: PAPERC, ghostW: 1.45, dot: 5.4, title: 'YOUR SHARE', a: .82, tips: 0 });
-    g.save(); g.scale(PK, PK); rosette(g, ROS.x, ROS.y, { ...RG, ghost: 1, col: '#f0dcb4', w: 1.35 / PK, a: .78, dot: 5.4 / PK }); g.restore();
+    g.save(); g.scale(PK, PK); rosette(g, ROS.x, ROS.y, { ...RG, ghost: 1, col: '#f0dcb4', w: 1.35 / PK, a: .78, dot: 5.4 / PK });
+    { const pts = []; for (let i = 0; i <= 4000; i++) { const th = i / 4000 * TAU, r = waveR(th); pts.push([ROS.x + Math.cos(th) * r, ROS.y + Math.sin(th) * r]); }   // the first line's ghost
+      ghostLine(g, pts, { ghost: 1, col: '#f6e6c4', w: 1.25 / PK, a: .8, dot: 3.4 / PK }); }
+    g.restore();
     // the empty name line + its labels (dotted engraving), drawn live in the close-up; here only the small caps
     g.save(); g.scale(PK, PK); g.textAlign = 'center';
     g.font = '600 19px Inter'; try { g.letterSpacing = '6px'; } catch { } g.fillStyle = rgba(PAPERC, .62); g.fillText('THIS CERTIFIES THAT', 0, 226);
@@ -158,7 +165,7 @@ export default (T, R) => {
     const C = cam(t), s = C.s;
     ctx.drawImage(bgLayer('plate', '#1c1830', '#110f22', '#050410', { x: 980, y: 520 }), -100 + drift(t, 10, 3) * .4, -70 + drift(t, 8, 4) * .4);
     // the warm pool of the burin light on the plate
-    const tip = (() => { if (t < tCut0) { const p = CIN.pos(t); return [p.x, p.y]; } const u = cutU(t), i = Math.min(CUT.length - 1, Math.round(u * (CUT.length - 1))); return toS(C, ...CUT[i]); })();
+    const tip = (() => { if (t < tCut0) { const p = CIN.pos(t); return [p.x, p.y]; } return toS(C, ...cutAt(cutU(t))); })();
     const lift = sm(lin(A.yet1, A.yet1 + .4, t)), away = eio(lin(A.yet1 + .5, GL.t0 + 1.4, t));
     const light = (t < A.yet1 ? 1 : mix(1, .35, lift)) * (1 - away * .8);
     { const g = ctx.createRadialGradient(tip[0], tip[1], 0, tip[0], tip[1], 620); g.addColorStop(0, rgba('#ffb35c', .2 * light)); g.addColorStop(.4, rgba('#c8742c', .07 * light)); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
@@ -176,9 +183,9 @@ export default (T, R) => {
     ctx.save(); ctx.translate(960, 540); ctx.rotate(C.r); ctx.scale(s, s); ctx.translate(-C.cx, -C.cy);
     // the engraved part of the fortune rosette (solid, warm behind the burin, cooling to cream)
     const u = cutU(t); if (u > .001) {
-      const Pts = subPts(CUT, 0, u), hot = Math.max(0, Pts.length - 40);
+      const Pts = subPts(CUT, 0, u).slice(0, -1).concat([cutAt(u)]), hot = Math.max(0, Pts.length - 90);
       ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(AMBER, .14); ctx.lineWidth = 9 / s + 3; strokePoly(ctx, Pts); ctx.strokeStyle = rgba(AMBER, .32); ctx.lineWidth = 3.2 / s + 1.2; strokePoly(ctx, Pts.slice(hot)); ctx.restore();
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(AMBER, .16); ctx.lineWidth = 5 / s + 1.6; strokePoly(ctx, Pts); ctx.strokeStyle = rgba(AMBER, .32); ctx.lineWidth = 3.2 / s + 1.2; strokePoly(ctx, Pts.slice(hot)); ctx.restore();
       ctx.strokeStyle = rgba(CREAM, .95); ctx.lineWidth = 1.9 / s + .55; strokePoly(ctx, Pts);
       ctx.strokeStyle = rgba(CORE, .9); ctx.lineWidth = 1.2 / s + .4; strokePoly(ctx, Pts.slice(hot));
     }

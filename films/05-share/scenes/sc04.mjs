@@ -47,7 +47,7 @@ import { worldMap } from '../lib/map.mjs';
 import { seal, ring } from '../lib/certificate.mjs';
 import { ghostLine, smokeDots } from '../lib/ghost.mjs';
 import { fog as artFog, stipple } from '../lib/art.mjs';
-import { once, TAU, VERD, VERD_D, VERD_L, CREAM, AMBER, RUST, easeOut, easeIn, easeIO, plate, bloomSprite, putBloom, motes, noteSprite, NW, NH, sheetSprite,
+import { arm, once, TAU, VERD, VERD_D, VERD_L, CREAM, AMBER, RUST, easeOut, easeIn, easeIO, plate, bloomSprite, putBloom, motes, noteSprite, NW, NH, sheetSprite,
   checkSprite, CKW, CKH, chip, nameLabel, sourceLine, bigNumber, loafSprite, shelfLayer, dieSprite, coinFace, groundRibbon, mixHex } from '../lib/sc04_art.mjs';
 import { drawTap, stream, arcs, bucket, heap } from '../lib/sc04_tap.mjs';
 
@@ -243,7 +243,8 @@ export default (T, R) => {
     const hIn = easeOut(lin(A.verified - .9, A.verified - .15, t));
     if (hIn > 0) {
       const hx = mix(cx + 760, cx + 10, hIn), hy = mix(cy + 380, cy + 120, hIn) + drift(t, 2, 6);
-      hand(ctx, hx, hy, 1.55, { pose: 'open', ang: -2.55, flip: false, skin: '#c99a74', sleeve: PETROL, sleeveLen: 520, rim: '#bfe8dc', light: [-.3, -1], t, seed: 3, spread: .9 });
+      arm(ctx, hx, hy, 1.55, { ang: -2.55, dir: .52, fore: 220, shoulder: [hx + 820, hy + 760], w: [27, 33, 56], col: PETROL, rim: '#bfe8dc', light: [-.3, -1], t });
+      hand(ctx, hx, hy, 1.55, { pose: 'open', ang: -2.55, flip: false, skin: '#c99a74', sleeve: null, rim: '#bfe8dc', light: [-.3, -1], t, seed: 3, spread: .9 });
     }
     ctx.restore();
     motes(ctx, t, cx, cy - 60, 520, .7 + lit, 11, '200,240,225');
@@ -407,7 +408,8 @@ export default (T, R) => {
       ghostLine(ctx, rect, { ghost: 1, smoke, col: VERD_L, a: ga, w: 2, dot: 8, t, wind: [.4, -1], seed: k + 1 });
       ghostLine(ctx, oval, { ghost: 1, smoke, col: VERD_L, a: ga * .8, w: 1.6, dot: 7, t, wind: [.3, -1], seed: k + 4 });
     }
-    hand(ctx, hd.x, hd.y, HAND18.s, { pose: hd.pose, close: hd.close, ang: hd.ang, skin: '#c99a74', sleeve: PETROL, sleeveLen: 600, rim: '#bfe8dc', light: [-.4, -1], t, seed: 5, spread: 1 });
+    arm(ctx, hd.x, hd.y, HAND18.s, { ang: hd.ang, dir: hd.ang + Math.PI - .22, fore: 200, shoulder: [hd.x + 520, hd.y + 900], w: [27, 32, 46], col: PETROL, rim: '#bfe8dc', light: [-.4, -1], t });
+    hand(ctx, hd.x, hd.y, HAND18.s, { pose: hd.pose, close: hd.close, ang: hd.ang, skin: '#c99a74', sleeve: null, rim: '#bfe8dc', light: [-.4, -1], t, seed: 5, spread: 1 });
     chip(ctx, 120, 190, 'owns nothing', { a: easeOut(lin(A.owning - .05, A.owning + .4, t)), col: VERD });
     motes(ctx, t, 900, 380, 640, .8, 13, '200,240,225');
     vign(ctx, .55);
@@ -440,7 +442,9 @@ export default (T, R) => {
     const rimP = [wx + Math.cos(th) * tap.wheelR, wy + Math.sin(th) * tap.wheelR * .34];
     const h18 = hand18(t), from = [h18.x, h18.y + (1 - e) * H];
     const hx = mix(from[0], rimP[0] + 55, grip), hy = mix(from[1], rimP[1] + 70, grip);
-    hand(ctx, hx, hy, 1.15, { pose: grip > .6 ? 'grip' : 'open', close: grip, ang: mix(-1.62, -2.05, grip), skin: '#c99a74', sleeve: PETROL, sleeveLen: 900, rim: '#ffd59a', light: [-.4, -1], t, seed: 5 });
+    const ang19 = mix(-1.62, -2.05, grip);
+    arm(ctx, hx, hy, 1.15, { ang: ang19, dir: mix(1.35, .98, grip), fore: 235, shoulder: [hx + 640, hy + 980], w: [27, 35, 66], col: PETROL, rim: '#ffd59a', light: [-.4, -1], t });
+    hand(ctx, hx, hy, 1.15, { pose: grip > .6 ? 'grip' : 'open', close: grip, ang: ang19, skin: '#c99a74', sleeve: null, rim: '#ffd59a', light: [-.4, -1], t, seed: 5 });
     ctx.restore();
     vign(ctx, .5);
   }
@@ -493,7 +497,8 @@ export default (T, R) => {
       const nx = tip[0] + (1 - ins) * 600 + outp * 520, ny = tip[1] - (1 - ins) * 400 - outp * 380, pa = -.95;
       pen(ctx, nx, ny, 1.25, { ang: pa, lift, t });
       const wr = [nx + Math.cos(pa) * 205, ny + Math.sin(pa) * 205 - 14];
-      hand(ctx, wr[0], wr[1], 1.3, { pose: 'write', ang: pa + Math.PI + .12, flip: true, skin: '#c99a74', sleeve: PETROL, sleeveLen: 700, rim: '#ffd59a', light: [.6, -.8], t, seed: 8 });
+      arm(ctx, wr[0], wr[1], 1.3, { ang: pa + Math.PI + .12, dir: pa + .1, fore: 230, shoulder: [wr[0] + 760, wr[1] - 700], w: [27, 33, 58], col: PETROL, rim: '#ffd59a', light: [.6, -.8], t });
+      hand(ctx, wr[0], wr[1], 1.3, { pose: 'write', ang: pa + Math.PI + .12, flip: true, skin: '#c99a74', sleeve: null, rim: '#ffd59a', light: [.6, -.8], t, seed: 8 });
     }
     // warm sun from the right
     ctx.save(); ctx.globalCompositeOperation = 'lighter'; const lg = ctx.createRadialGradient(1800, 300, 0, 1800, 300, 1100); lg.addColorStop(0, 'rgba(255,190,130,.22)'); lg.addColorStop(1, 'rgba(255,190,130,0)'); ctx.fillStyle = lg; ctx.fillRect(0, 0, W, H); ctx.restore();
