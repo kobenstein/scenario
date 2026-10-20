@@ -9,6 +9,7 @@
 import { W, H, rgba, clamp, mix, lin, sm, prng, TAU, eoX, eiX, qio, qo, u01, putGlow, mixHex, shadeHex, hash } from './v2_c11_kit.mjs';
 import { person, kid, reachArm } from './v2_c11_people.mjs';
 import { dancer } from './v2_c11_dancer.mjs';
+import { VIOLIN, JOINER, OFFICE, VIGN } from './v2_c11_acts2.mjs';
 
 const MPU = .23, FOC = 1400;
 const figS = (V, d) => FOC / Math.max(.05, V.D + d) / MPU / 105.7;
@@ -45,7 +46,7 @@ export function pot(ctx, V, x, yb, d, prof, col, o = {}) {
 // ---------------------------------------------------------------- the lamp of each room
 export function lampOf(R) {
   const w = R.x1 - R.x0, r = hash(R.seed * .37);
-  const xs = { potter: .52, dancer: .62, violin: .45, joiner: .5, office: .5, painter: .4 }[R.kind] ?? (.3 + .4 * r);
+  const xs = { potter: .52, dancer: .62, violin: .45, joiner: .39, office: .5, painter: .4 }[R.kind] ?? (.3 + .4 * r);
   return { x: R.x0 + w * xs, y: R.y0 + (R.kind === 'office' ? .35 : 2.2), d: R.kind === 'office' ? 8 : 6.5, cool: R.kind === 'office' };
 }
 export function lamp(ctx, t, V, R, L, office) {
@@ -69,7 +70,7 @@ export function props(ctx, t, V, S, R, st, layer) {
   const f = PROPS[R.kind]; if (f) f(ctx, t, V, S, R, st);
 }
 export function people(ctx, t, V, S, R, st, L) {
-  const f = ACTS[R.kind]; if (f) f(ctx, t, V, S, R, st, L);
+  const f = ACTS[R.kind] || VIGN[R.kind]; if (f) f(ctx, t, V, S, R, st, L);
 }
 const lightOf = (V, L) => { const P = V.P(L.x, L.y + .4, L.d); return { x: P[0], y: P[1], col: '#ffcf8a', a: .6 }; };
 
@@ -123,7 +124,7 @@ const PROPS = {
     for (let k = 0; k < 6; k++) { const x = R.x0 + 3 + k * 4.2 + r(), w = 2.4 + r() * 1.6, h = 2 + r() * 2.2, y = R.y0 + 3 + r() * 2; box(ctx, V, x, y, R.d1 - .2, x + w, y + h, R.d1 - .1, ['#c4512e', '#4f6a7a', '#e9c46a', '#3a5a3a', '#b7c25a', '#8a5a9a'][k]); }
     win(ctx, t, V, R, R.x1 - 14, R.x1 - 7, R.y0 + 2.4, R.y1 - 4.6);
   },
-  office(ctx, t, V, S, R, st) { ACT_OFFICE.props(ctx, t, V, S, R, st); },
+  office(ctx, t, V, S, R, st) { OFFICE.props(ctx, t, V, S, R, st); },
 };
 // a window in the back wall: the night outside (deep blue, a few lights of the level above), mullions
 function win(ctx, t, V, R, x0, x1, y0, y1) {
@@ -142,8 +143,7 @@ const ACTS = {
   },
   violin: (ctx, t, V, S, R, st, L) => VIOLIN(ctx, t, V, S, R, st, L),
   joiner: (ctx, t, V, S, R, st, L) => JOINER(ctx, t, V, S, R, st, L),
-  painter: (ctx, t, V, S, R, st, L) => PAINTER(ctx, t, V, S, R, st, L),
-  office: (ctx, t, V, S, R, st, L) => ACT_OFFICE.people(ctx, t, V, S, R, st, L),
+  office: () => {},
 };
 
 // ---------------------------------------------------------------- the potter ★
@@ -230,11 +230,5 @@ function potClay(ctx, t, V, x, yb, d, pts, e, rot) {
   ctx.save(); outline(); ctx.clip(); ctx.fillStyle = 'rgba(255,220,190,.22)'; ctx.fillRect(P0[0] - top[0] * q * .62, P0[1] - top[1] * q - q, top[0] * q * .16, top[1] * q + q); ctx.restore();
 }
 
-// ---------------------------------------------------------------- placeholders filled in below (violin, joiner, painter, office)
-function VIOLIN(ctx, t, V, S, R, st, L) {}
-function JOINER(ctx, t, V, S, R, st, L) {}
-function PAINTER(ctx, t, V, S, R, st, L) {}
-const ACT_OFFICE = { props() {}, people() {} };
-export function officeClip() {}
-export function officeSmoke() {}
-export function passage(ctx, t, V, S, st) {}
+// ---------------------------------------------------------------- the other acts live in lib/v2_c11_acts2.mjs
+export { officeClip, officeSmoke, passage } from './v2_c11_acts2.mjs';

@@ -46,7 +46,7 @@ export function streetLayout() {
       if (y1 - y0 < 7) continue;
       rooms.push({ i, j, x0: s.x0 + .7, x1: s.x1 - .7, y0: y0 + (j < storeys - 1 ? .45 : 0), y1: y1 - (j ? .45 : 0), d1: DEPTH, kind: ROOMKINDS(i, j), seed: s.seed + j * 31 });
     }
-    return { i, ...s, storeys, rooms, top: s.yb - s.h };
+    return { i, ...s, storeys, rooms, top: s.yb - s.h, roomTop: Math.min(...rooms.map((R) => R.y0)) };
   });
   LAYOUT = { shops, office: shops[4], potter: shops[0] };
   return LAYOUT;
@@ -93,7 +93,7 @@ export function liftU(st, i, t, V) {
 const LIFT = 150;   // units the front travels (out of frame at the widest view of the lift)
 function front(ctx, t, V, S, u, hillSt) {
   const L = LIFT * eiX(u) + 3 * u; if (u <= 0) return; if (u >= 1) return;
-  const a = V.P(S.x0, S.top - L, 0), b = V.P(S.x1, S.yb - L, 0);
+  const a = V.P(S.x0, S.top - L, 0), b = V.P(S.x1, S.yb - 4.6 - L, 0);   // the balustrade (the bottom 4.6 units) stays on the street
   if (b[1] < -4 || a[0] > W || b[0] < 0) return;
   ctx.save(); ctx.beginPath(); ctx.rect(a[0], a[1], b[0] - a[0], b[1] - a[1]); ctx.clip();
   drawHill(ctx, t, { x: V.x, y: V.y + L, z: V.z }, hillSt);
@@ -105,20 +105,25 @@ function front(ctx, t, V, S, u, hillSt) {
 // ---------------------------------------------------------------- the frame
 export function drawStreet(ctx, t, V, st = {}) {
   const LY = streetLayout(), hillSt = { ...(st.hill || {}), labels: 0, title: 0 };
-  const inside = st.inside || 0;   // 1: the camera is inside the passage (the hill is out of frame)
-  if (!inside) drawHill(ctx, t, V.cam, hillSt);
+  // is the frame entirely inside opened rooms? then the hill is not drawn at all (it would be covered, and the close zooms are costly)
+  const fx0 = V.x - W / 2 / V.z, fx1 = V.x + W / 2 / V.z, fy0 = V.y - H / 2 / V.z, fy1 = V.y + H / 2 / V.z;
+  const sh = LY.shops.filter((S) => S.x1 > fx0 && S.x0 < fx1);
+  const covered = sh.length > 0 && sh[0].x0 <= fx0 && sh[sh.length - 1].x1 >= fx1 && sh.every((S) => liftU(st, S.i, t, V) >= 1 && fy0 >= S.roomTop && fy1 <= S.yb);
+  if (!covered) drawHill(ctx, t, V.cam, hillSt);
   else { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = '#1a1424'; ctx.fillRect(0, 0, W, H); ctx.restore(); }
-  if (st.labels && !inside) labels(ctx, t, V, st.labels);
+  if (st.labels && !covered) labels(ctx, t, V, st.labels);
+  // the rooms reach down over the balustrade only as the camera comes close (at the street view it stays in front of them)
+  const rail = 4.6 * (1 - sm(clamp((V.z - 10) / 30)));
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
   for (const S of LY.shops) {
     const u = liftU(st, S.i, t, V); if (u <= 0) continue;
-    const A = V.P(S.x0, S.top, 0), B = V.P(S.x1, S.yb, 0); if (B[0] < -20 || A[0] > W + 20 || B[1] < -20 || A[1] > H + 20) continue;
+    const A = V.P(S.x0, S.top, 0), B = V.P(S.x1, S.yb - rail, 0); if (B[0] < -20 || A[0] > W + 20 || B[1] < -20 || A[1] > H + 20) continue;
     // the rooms behind the facade, clipped to the opening
     ctx.save(); ctx.beginPath(); ctx.rect(A[0], A[1], B[0] - A[0], B[1] - A[1]); ctx.clip();
     if (S.i === 4 && st.busy && st.busy.office != null && t > st.busy.office) drawPassage(ctx, t, V, S, st);
     for (const R of S.rooms) drawRoom(ctx, t, V, S, R, st);
     ctx.restore();
-    drawPoche(ctx, t, V, S, st);
+    if (V.D > .6) drawPoche(ctx, t, V, S, st);
   }
   for (const S of LY.shops) front(ctx, t, V, S, liftU(st, S.i, t, V), hillSt);
   ctx.restore();

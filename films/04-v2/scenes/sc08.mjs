@@ -203,7 +203,7 @@ export default async (T, R) => {
     });
   }
   function drawD(ctx, t) {
-    const cam = camD(t), on = seg(t, K.clip0 - .32, K.clip0 - .02), off = seg(t, K.clip1, K.clip1 + .12);
+    const cam = camD(t), on = seg(t, K.clip0 - .32, K.clip0 - .02), off = seg(t, K.clip1 - .2, K.clip1 + .12);   // the picture folds to a line over 10 frames
     drawStation(ctx, t, cam, {
       trainDz: t < tDep ? 0 : 2 * (t - tDep) ** 2, doors: 1 - ss(0, 1, seg(t, K.run + .05, K.run + .45)), clockM: clockM(t),
       man: man(t), refl: t < K.clip0 - .02 ? 1 : 0, title: 1 - ss(0, 1, seg(t, K.job + .02, K.job + .55)), smoke: { u: Math.max(0, t - K.job) * 1.15 },

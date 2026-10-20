@@ -226,7 +226,7 @@ export function townTake(ctx, t, K) {
   const c = townCam(t, K), C = cam({ ...c, f: F }), E = envAt(t, K); actions(t, K, E);
   if (C.x < 9 && C.z < G.wallZ + .05 && C.yaw < .9) roomGarden(ctx, C, t, E, { lane: (g, CC) => lane(g, CC, t, E, K, { behindWall: true }) });
   else if (C.x < LANE.x1 + 1) lane(ctx, C, t, E, K, {});
-  else if (C.x < HBR.bridge.x1) harbour(ctx, C, t, E, K, { beyond: (g, CC) => city(g, CC, t, K) });
+  else if (C.x < HBR.bridge.x1) harbour(ctx, C, t, E, K, { beyond: (g, CC) => city(g, CC, t, K, { lite: true }) });
   else if (C.x > BLK.x0 + .01 && C.y < BLK.top && Math.hypot(C.x - ST.x, C.z - ST.z) < ST.ro + .6) stairs(ctx, C, t, K, {});
   else city(ctx, C, t, K, { stair: (g, CC, o) => stairs(g, CC, t, K, o), stairFloor: 10 });
 }

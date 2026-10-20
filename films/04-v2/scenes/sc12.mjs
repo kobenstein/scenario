@@ -33,11 +33,15 @@
 // |       |                                        | drifts at low brightness; the clip collapses into the rule  |                      | until it fills the frame                |                                  |   |                       |
 import { W, H, rgba, clamp, lin, mix, sm, eout, eio, drift } from '../engine.mjs';
 import { handsOf } from '../lib/handoff4.mjs';
-import { ready, qio, eiq, eoq, glowAt, paperSheet, paperVignette, sourceLine } from '../lib/v2_c12_kit.mjs';
+import { ready, qio, eiq, eoq, smoother, glowAt, paperSheet, paperVignette, sourceLine } from '../lib/v2_c12_kit.mjs';
 import { MAP, drawMap, drawMapLabels, drawVillageNote, drawRose, drawVillages, drawPayments, drawLandings, landT, drawMedallion } from '../lib/v2_c12_map.mjs';
 import { roadGround, roadSky, prewarmRoad } from '../lib/v2_c12_road.mjs';
 import { DIAL, drawThread, threadAt, drawDial, hourAt } from '../lib/v2_c12_dial.mjs';
 import { plate, plateShadow, plateGlow, PW, PH, HOLE, targetHole, prewarmPlates } from '../lib/v2_c12_plates.mjs';
+import { FOC, DH, LAMP0, view, drawStreet } from '../lib/v2_c12_street.mjs';
+import { FR, RULE, housing, screen, spill, lowerThird, covers } from '../lib/v2_c12_frame.mjs';
+import { ROOT } from '../lib/kit.mjs';
+import { loadImage } from '@napi-rs/canvas';
 
 export default async (T, R) => {
   const { in: HI, out: HO } = handsOf('c12', T);
@@ -133,7 +137,7 @@ export default async (T, R) => {
   // ---- the plates (plate units, origin = the star O; PS native units per plate unit)
   const PS = .78;
   function plates(t) {
-    const born = eout(lin(K.tightB - .12, K.tightB + .5, t)), born2 = eout(lin(K.those - .2, K.those + .3, t));
+    const born = eout(lin(K.tightB, K.tightB + .55, t)), born2 = eout(lin(K.those - .2, K.those + .3, t));
     const u1 = eio(lin(K.those - .12, K.two + .45, t)), u2 = eio(lin(K.alike - .5, K.alikeE, t)), u3 = eio(lin(K.diff - .15, K.diff + .72, t));
     let x1 = mix(0, -560, u1), y1 = mix(0, 12, u1); x1 = mix(x1, 0, u2); y1 = mix(y1, 0, u2); x1 = mix(x1, -640, u3); y1 = mix(y1, 60, u3);
     let x2 = mix(0, 560, u1), y2 = mix(0, -12, u1); x2 = mix(x2, 0, u2); y2 = mix(y2, 0, u2); x2 = mix(x2, 420, u3); y2 = mix(y2, -40, u3);
@@ -147,7 +151,7 @@ export default async (T, R) => {
   const plateAt = (P, px, py) => [O[0] + (P.x + (px * Math.cos(P.rot) - py * Math.sin(P.rot)) * P.s) * PS, O[1] + (P.y + (px * Math.sin(P.rot) + py * Math.cos(P.rot)) * P.s) * PS];
   function drawPlates(ctx, t, pl, hi) {
     const one = (P, kind, o) => {
-      ctx.save(); ctx.translate(O[0] + P.x * PS, O[1] + P.y * PS); ctx.rotate(P.rot); ctx.scale(P.s * PS, P.s * PS);
+      ctx.save(); ctx.translate(O[0] + P.x * PS, starY(t) + P.y * PS); ctx.rotate(P.rot); ctx.scale(P.s * PS, P.s * PS);
       plateShadow(ctx, P.lift, clamp(P.born * 1.4));
       plate(ctx, t, { kind, cut: kind === 2 ? 1 : 0, ...o });
       if (P.born < 1) { ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = rgba('#ffcf8a', .9 * (1 - P.born) ** 1.5); ctx.fillRect(-PW / 2, -PH / 2, PW, PH); }
@@ -177,10 +181,10 @@ export default async (T, R) => {
       if (t < K.tightB) drawDial(ctx, t, K, { hour: h, night });
       drawThread(ctx, t, K, clamp(.25 + night));
       ctx.restore();
-      const st = tight(t); if (st > 0) { const born = eout(lin(K.tightB - .12, K.tightB + .5, t)); glowAt(ctx, DIAL.x, DIAL.y + dy, 80 + 220 * st, clamp(st * 1.4) * (1 - born), '#ffcf8a'); glowAt(ctx, DIAL.x, DIAL.y + dy, 30 + 40 * st, clamp(st * 1.6) * (1 - born), '#fff1d6'); }
+      const st = tight(t); if (st > 0) { const born = eout(lin(K.tightB, K.tightB + .55, t)); glowAt(ctx, DIAL.x, DIAL.y + dy, 80 + 220 * st, clamp(st * 1.4) * (1 - born), '#ffcf8a'); glowAt(ctx, DIAL.x, DIAL.y + dy, 30 + 40 * st, clamp(st * 1.6) * (1 - born), '#fff1d6'); }
     }
     // the plates
-    if (t >= K.tightB - .12) { const pl = fly ? fly.pl : plates(t); drawPlates(ctx, t, pl, fly ? clamp((fly.k * PS * pl.p2.s - 1.6) / 2) : 0); }
+    if (t >= K.tightB) { const pl = fly ? fly.pl : plates(t); drawPlates(ctx, t, pl, fly ? clamp((fly.k * PS * pl.p2.s - 1.6) / 2) : 0); }
     ctx.restore();
     // the pinhole's light: it grows from the hole until it is the whole frame (the light the next world is lit by)
     if (fly) {
@@ -192,8 +196,57 @@ export default async (T, R) => {
     // sources
   }
   const LIGHT = '#fff4e0';
-  // ======================================================================== 12.07–12.09 (placeholder until the street lib is in)
-  function hillTake(ctx, t) { ctx.fillStyle = LIGHT; ctx.fillRect(0, 0, W, H); }
+  // ======================================================================== 12.07–12.09 the hill (H3): the street, the sweep, the frame, clip A
+  // 12.07 out of the light: the camera starts at the bulb of the potter's lamp (it fills the frame, as the pinhole's light did) and pulls
+  // back (log distance, a cubic that starts at 2.6 e-folds/s and lands at rest) through her room and out of the cut-away street to H3.
+  K.h3 = K.workingE; K.swA = K.it + .17; K.swB = K.swA + .75; K.saA = K.swA + .45; K.saB = K.saA + .75;
+  K.ruleOn = K.swA + .526 * .75;                                    // the esteem sweep passes the frame on the square: its rule lights
+  K.pushA = K.toE; K.pushB = K.clipA + .7; K.outA = K.clipB - .66; K.offA = K.clipB - .14; K.last = K.end - 1 / 30;
+  const H3V = { x: 1010, y: 450, z: 1.75 }, DIST0 = .36, DIST1 = FOC / H3V.z + LAMP0.d, DL = Math.log(DIST1 / DIST0);
+  function pullView(t) {
+    const T0 = K.flyB, T1 = K.h3, u = clamp((t - T0) / (T1 - T0)), m0 = 2.6 * (T1 - T0) / DL;
+    const f = m0 * (u * u * u - 2 * u * u + u) + (3 * u * u - 2 * u * u * u), dist = DIST0 * Math.exp(DL * f), q = FOC / dist, q1 = FOC / DIST1;
+    const Lf = [W / 2 + (LAMP0.x - H3V.x) * q1, H / 2 + (LAMP0.y - H3V.y) * q1], g = sm(Math.pow(f, 1.4));
+    return view(LAMP0.x - (mix(W / 2, Lf[0], g) - W / 2) / q, LAMP0.y - (mix(H / 2, Lf[1], g) - H / 2) / q, dist - LAMP0.d);
+  }
+  const FC = [FR.x + FR.w / 2, FR.y + FR.h / 2], RC = [FR.x + FR.w / 2, RULE.y], ZC = 35.2, CLIPV = { x: FC[0], y: FR.y - (222 - H / 2) / ZC, z: ZC }, ZEND = 172;
+  const holdCam = (t) => { const r = sm(lin(K.h3, K.h3 + 1.2, t)); return { x: H3V.x + 3 * drift(t, 1, 1) * r, y: H3V.y + 2 * drift(t, 1, 4) * r, z: H3V.z * (1 + .02 * sm(lin(K.h3, K.pushA, t))) }; };
+  const clipCam = (t) => { const r = sm(lin(K.pushB, K.pushB + 1.5, t)); return { x: CLIPV.x + .09 * drift(t, 1, 2) * r, y: CLIPV.y + .05 * drift(t, 1, 5) * r, z: ZC * (1 + .006 * Math.sin((t - K.pushB) * .45) * r) }; };
+  const toS = (c, p) => [(p[0] - c.x) * c.z + W / 2, (p[1] - c.y) * c.z + H / 2];
+  const aimAt = (p, S, z) => ({ x: p[0] - (S[0] - W / 2) / z, y: p[1] - (S[1] - H / 2) / z, z });
+  function hillCam(t) {
+    if (t < K.pushA) return holdCam(t);
+    if (t < K.pushB) {   // push to the frame: the frame's centre glides to its place while the zoom runs in log space
+      const c0 = holdCam(K.pushA), e = sm(lin(K.pushA, K.pushB, t)), S0 = toS(c0, FC), S1 = toS(CLIPV, FC);
+      return aimAt(FC, [mix(S0[0], S1[0], e), mix(S0[1], S1[1], e)], Math.exp(mix(Math.log(c0.z), Math.log(ZC), e)));
+    }
+    if (t < K.outA) return clipCam(t);
+    // push onto the rule until it IS the line plate (y 600, full width) at H.a − 1/30, at rest
+    const c0 = clipCam(K.outA), e = smoother(lin(K.outA, K.last, t)), S0 = toS(c0, RC);
+    return aimAt(RC, [mix(S0[0], W / 2, e), mix(S0[1], 600, e)], Math.exp(mix(Math.log(c0.z), Math.log(ZEND), e)));
+  }
+  function hillState(t) {
+    const st = { night: mix(.45, .78, sm(lin(K.pushA, K.pushB, t))), lit: [1, 1, 0, 0, 0], labels: 1, title: 0, focus: -1, people: .7 };
+    const u2 = clamp((t - K.swA) / (K.swB - K.swA)), u3 = clamp((t - K.saA) / (K.saB - K.saA));
+    if (t >= K.saB) st.lit = [1, 1, 1, 1, 0];
+    else if (u3 > 0) return { st: { ...st, sweep: { level: 2, u: u2 } }, split: { y: 432, hill: { sweep: { level: 3, u: u3 } } } };
+    else if (u2 > 0) st.sweep = { level: 2, u: u2 };
+    return { st };
+  }
+  function hillTake(ctx, t) {
+    let V, cam;
+    if (t < K.h3) { V = pullView(t); cam = V.cam; } else { cam = hillCam(t); V = view(cam.x, cam.y, FOC / cam.z); }
+    const S = hillState(t), out = V.D > DH;
+    if (!(out && covers(cam))) { drawStreet(ctx, t, V, { hill: S.st, split: S.split }); if (out) housing(ctx, t, cam); }
+    if (!out) return;
+    const on = t >= K.clipA && t < K.clipB, pic = on ? eoq(lin(K.clipA, K.clipA + .3, t)) * (1 - eiq(lin(K.offA, K.clipB, t))) : 0;
+    const flash = on ? Math.max((1 - lin(K.clipA, K.clipA + .35, t)) ** 2, lin(K.offA, K.clipB, t) ** 2) : 0;
+    const img = t < K.clipA + .07 ? IMG0 : t >= 371.41 ? IMG1 : null;
+    screen(ctx, t, T, cam, { pic, flash, img, ruleA: t >= K.ruleOn ? 1 : 0, ruleGrow: eout(lin(K.ruleOn, K.ruleOn + .3, t)), wob: smoother(lin(K.outA, K.last, t)) });
+    spill(ctx, cam, pic * (1 - sm(lin(K.outA, K.offA, t))));
+    lowerThird(ctx, t, clamp((t - K.pushB) / .6) * (1 - clamp((t - (K.outA - .35)) / .3)));
+  }
+  const IMG0 = await loadImage(ROOT + 'clips/A/f00003.jpg'), IMG1 = await loadImage(ROOT + 'clips/A/f00641.jpg');
 
   const take = (ctx, t) => { if (t < K.many) mapTake(ctx, t); else if (t < K.flyB) roadTake(ctx, t); else hillTake(ctx, t); };
 
@@ -204,6 +257,6 @@ export default async (T, R) => {
     { t: HI.b, tr: 'cut', d: .1, print: HI.print, draw: take, sound: [{ f: 'foil_glint', t: K.received - .2, v: .16 }] },
     { t: K.many, tr: 'cut', d: .1, print: P, draw: take, sound: [{ f: 'tape_measure', t: K.start - .05, v: .16 }, { f: 'tone', t: K.close + .3, v: .12 }] },
     { t: K.people, tr: 'cut', d: .1, print: P, draw: take, sound: [{ f: 'shimmer_rings', t: K.tightA, v: .14 }, { f: 'card', t: K.alikeE + .02, v: .18 }, { f: 'whoosh_airy', t: K.flyA - .05, v: .14 }] },
-    { t: K.flyB, tr: 'cut', d: .1, print: P, draw: take, sound: [{ f: 'bloom', t: K.flyB - .2, v: .18 }] },
+    { t: K.flyB, tr: 'cut', d: .1, print: P, draw: take, sound: [{ f: 'bloom', t: K.flyB - .2, v: .18 }, { f: 'screen_off', t: K.clipB - .04, v: .16 }] },
   ];
 };

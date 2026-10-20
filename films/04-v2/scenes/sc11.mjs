@@ -1,6 +1,6 @@
 // Film 4 v2 · c11 "Who you are" (Maslow 3) · VO 05a "But people aren't enough." … "And most people don't stop working."
 // One continuous take, no blends: the c10>c11 night sky → tilt down onto the long table → you at its head → someone raises a glass →
-// over your shoulder down to your business card (the job title smokes away) → the camera swings over the card to its back: an engraved
+// over your shoulder down to your business card (the job title smokes away) → the card flips on its pin: its back is an engraved
 // vignette of you building a boat, its window shows the night over the Maslow hill → through the window onto the hill (H3) →
 // the esteem street: on "hands" the house fronts lift away (cut-away street) → potter ★ → dancer → violin → grandfather's craft →
 // the office dissolves into dotted smoke, the gap becomes the way to the notice board → the board → a blank notice → c11>c12 paper plate.
@@ -15,9 +15,9 @@
 // 11.03 · "And for once, the honest answer isn't a job title." · over your right shoulder down to your business card in its brass
 //        holder: name (a pen line) + SENIOR ACCOUNT MANAGER; on "title" the title's letters lift off as dotted smoke, the name stays ·
 //        lantern light on the paper · swoop + slow push · continuous · — · card whoosh after "title"
-// 11.04 · "It's whatever you'd do even if nobody paid you." · the camera swings over the card to its back: an engraved vignette, you at
+// 11.04 · "It's whatever you'd do even if nobody paid you." · the card flips on its pin; its back: an engraved vignette, you at
 //        a workbench building a small wooden boat, a lamp, a big window with the night in it; the vignette grows as the camera nears ·
-//        the vignette's lamp · orbit over the top, push · continuous · — · whoosh_airy on the swing
+//        the vignette's lamp · card flip, push · continuous · — · whoosh on the flip, whoosh_airy into the window
 // 11.05 ★ · "Something made by human hands becomes precious, because someone chose to make it." · through the vignette's window: the
 //        night over the Maslow hill (H3), ESTEEM + SELF-ACTUALIZATION written on; push onto the esteem street; on "hands" the house
 //        fronts lift away: a potter at her wheel, a bowl rising under her hands · the potter's lamp · push in · continuous · ★ · wood lift
@@ -38,6 +38,7 @@ import { W, H, rgba, clamp, mix, lin, sm, camera, keys, spline, hermite, qio, eo
 import { tableWorld, tableState, clearLanterns, CARD, YOU } from '../lib/v2_c11_table.mjs';
 import { drawCard, paneHill, winCentre, backNormal, WIN } from '../lib/v2_c11_card.mjs';
 import { drawStreet, streetView, streetLayout, FOC, H3 } from '../lib/v2_c11_street.mjs';
+import { boardGeo } from '../lib/v2_c11_acts2.mjs';
 
 const PI = Math.PI;
 
@@ -119,7 +120,7 @@ export default async function (T, R) {
 
   // ---------------------------------------------------------------- the street (hill units; see lib/v2_c11_street.mjs)
   const LY = streetLayout(), SHOP = LY.shops, mid = (i) => (SHOP[i].x0 + SHOP[i].x1) / 2, yb = SHOP[0].yb, YM = yb - 6.6;
-  const D0 = FOC / H3.z, L = Math.log;
+  const D0 = FOC / H3.z, L = Math.log, BG = boardGeo(SHOP[4]);
   const SK = [
     [tWin, [H3.x, H3.y, L(D0)], [0, 0, -RATE]],
     [A.something + .55, [948, 458, L(900)], null],
@@ -143,14 +144,16 @@ export default async function (T, R) {
     [A.jobs + .55, [mid(3) + 26, YM, L(28)], null],
     [A.quietly, [mid(4), YM, L(25)], null],
     [A.disappear + .5, [mid(4), YM + .3, L(16)], null],
-    // 11.10 the notice board in the passage
-    [A.now + .9, [mid(4) - .5, YM + .6, L(7.5)], null],
-    [A.salary + .2, [mid(4) - .2, YM + .7, L(5.6)], null],
-    // 11.11 pull back along the street, then into the blank notice
-    [A.most + .55, [mid(4) - 30, YM - 6, L(135)], [-8, 0, 0]],
+    // 11.10 the notice board at the mouth of the passage
+    [A.now + .9, [BG.xb + .4, BG.fl - 4.4, L(10.2)], null],
+    [A.salary + .2, [BG.xb + .2, BG.fl - 4.5, L(9.8)], null],
+    [A.most + .05, [BG.xb + 0, BG.fl - 4.6, L(9.6)], null],
+    // 11.11 pull back: the street at work around the passage; a woman pins a new blank notice; into its paper (= the c11>c12 plate)
+    [A.most + .9, [BG.xb - 3, BG.fl - 9, L(42)], [0, 0, 0]],
+    [HO.a - .07, [(BG.B.x0 + BG.B.x1) / 2, (BG.B.y0 + BG.B.y1) / 2, L(.31)], [0, 0, -7]],
   ];
   const streetAt = (t) => { const v = hermite(t, SK); return streetView(v[0], v[1], Math.exp(v[2])); };
-  const STB = { potter: A.precious - .2, dancer: A.people + .2, office: A.quietly, gather: A.meaning - .4, pin: A.most + .3 };
+  const STB = { potter: A.precious - .2, dancer: A.people + .2, violin: A.violin, office: A.quietly, gather: A.meaning - .4, pin: A.most + .3 };
   const lab = (t, a) => eoX(u01(t, a, a + .6)) - eiX(u01(t, A.hands - .62, A.hands - .3));   // written on with the words, unwritten as the push begins
   const streetState = (t) => ({ hill: HILLST(t), labels: { es: lab(t, A.something - .1), sa: lab(t, A.something + .14) }, open: A.hands, busy: STB, plate: HO.plate });
 
@@ -174,9 +177,9 @@ export default async function (T, R) {
   return [
     { t: HI.b, tr: 'cut', d: .1, print: HI.print, draw: Dr, sound: [{ f: 'whoosh_airy', t: HI.b + .12, v: .35 }] },
     { t: A.sooner - .2, tr: 'cut', d: .1, draw: Dr },
-    { t: A.and - .3, tr: 'cut', d: .1, draw: Dr, sound: [{ f: 'glass_clink', t: A.do + .35, v: .4 }] },
-    { t: A.its - .3, tr: 'cut', d: .1, draw: Dr, sound: [{ f: 'whoosh', t: A.its - .12, v: .3 }] },
-    { t: tWin, tr: 'cut', d: .1, draw: Dr },
-    { t: HO.a - .6, tr: 'cut', d: .1, print: HO.print, draw: Dr },
+    { t: A.and - .3, tr: 'cut', d: .1, draw: Dr, sound: [{ f: 'clink', t: A.do + .35, v: .4 }] },
+    { t: A.its - .3, tr: 'cut', d: .1, draw: Dr, sound: [{ f: 'whoosh', t: A.its - .12, v: .3 }, { f: 'whoosh_airy', t: tWin - .15, v: .3 }] },
+    { t: tWin, tr: 'cut', d: .1, draw: Dr, sound: [{ f: 'gust', t: A.disappear + .65, v: .3 }] },
+    { t: HO.a - .6, tr: 'cut', d: .1, print: HO.print, draw: Dr, sound: [{ f: 'paper_pop', t: HO.a - .2, v: .35 }] },
   ];
 }

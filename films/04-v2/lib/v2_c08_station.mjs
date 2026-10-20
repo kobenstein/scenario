@@ -49,10 +49,11 @@ function shedWalls(ctx, cam) {
   for (const [x, nx] of [[V.cx - V.half, 1], [V.cx + V.half, -1]]) {
     if ((cam.pos[0] - x) * nx <= 0) continue;
     const sp = cam.poly([[x, 0, V.z0], [x, V.y0, V.z0], [x, V.y0, V.z1], [x, 0, V.z1]]); if (sp.length < 3) continue;
-    linOn(ctx, cam, sp, [x, 0, 10], [x, V.y0, 10], [[0, css(mulC(C.wall, .75))], [1, css(C.wall)]]);
+    const zA = clamp(cam.pos[2] + 8, V.z0, V.z1);   // the gradient's anchors must lie in front of the camera
+    linOn(ctx, cam, sp, [x, 0, zA], [x, V.y0, zA], [[0, css(mulC(C.wall, .75))], [1, css(C.wall)]]);
     for (let z = V.z0 + 2; z < V.z1 - 2; z += 9) {   // tall arched openings (dusk outside)
       const pts = [[x + nx * .03, 1.2, z]]; for (let i = 0; i <= 10; i++) { const a = Math.PI * i / 10; pts.push([x + nx * .03, 6 + 2.2 * Math.sin(a), z + 2.2 - 2.2 * Math.cos(a)]); } pts.push([x + nx * .03, 1.2, z + 4.4]);
-      const ws = cam.poly(pts); if (ws.length >= 3 && onScreen(ws, 2)) linOn(ctx, cam, ws, [x, 1.2, z], [x, 8.2, z], [[0, css(fogC(rgb('#3a3770'), 30))], [1, css(fogC(rgb('#5a4c86'), 30))]]);
+      const ws = cam.poly(pts); const zz = Math.max(z, cam.pos[2] + 1); if (ws.length >= 3 && onScreen(ws, 2)) linOn(ctx, cam, ws, [x, 1.2, zz], [x, 8.2, zz], [[0, css(fogC(rgb('#3a3770'), 30))], [1, css(fogC(rgb('#5a4c86'), 30))]]);
     }
   }
   // the far opening of the shed (dusk) beyond z1
@@ -95,7 +96,8 @@ function drawTrain(ctx, cam, t, dz, doors) {
     const d = distOf(cam, [30, 2, (z0 + z1) / 2]);
     for (const f of boxVis(cam, { x0: T.x0, x1: T.x1, y0: T.y0, y1: T.y1, z0, z1 })) {
       const sp = cam.poly(f.pts); if (sp.length < 3 || !onScreen(sp, 2)) continue;
-      if (f.side === 'xp') linOn(ctx, cam, sp, [T.x1, T.y0, z0], [T.x1, T.y1, z0], [[0, css(fogC(mulC(C.carr, .7), d))], [.55, css(fogC(C.carrLit, d))], [1, css(fogC(C.carr, d))]]);
+      const zA = clamp(cam.pos[2] + 6, z0, z1);
+      if (f.side === 'xp') linOn(ctx, cam, sp, [T.x1, T.y0, zA], [T.x1, T.y1, zA], [[0, css(fogC(mulC(C.carr, .7), d))], [.55, css(fogC(C.carrLit, d))], [1, css(fogC(C.carr, d))]]);
       else fillS(ctx, sp, css(fogC(f.side === 'top' ? rgb('#16262a') : mulC(C.carr, .75), d)));
     }
     // a cream band under the windows, the windows, the doors (two per car, dark glass; open ones show the lit inside)
@@ -103,7 +105,7 @@ function drawTrain(ctx, cam, t, dz, doors) {
     ctx.strokeStyle = css(fogC(rgb('#cdbb92'), d)); ctx.lineWidth = clamp(cam.f / d * .07, .6, 8); ctx.beginPath(); line3(ctx, cam, [[x, 1.75, z0 + .3], [x, 1.75, z1 - .3]]); ctx.stroke();
     for (const [a, b, k] of winRow(z0, z1, i)) {
       const sp = cam.poly([[x, 1.95, a], [x, 1.95, b], [x, 3.05, b], [x, 3.05, a]]); if (sp.length < 3 || !onScreen(sp, 2)) continue;
-      linOn(ctx, cam, sp, [x, 1.95, a], [x, 3.05, a], [[0, css(fogC(C.winDim, d * .6))], [1, css(fogC(C.win, d * .6))]]);
+      const za = Math.max(a, cam.pos[2] + .5); linOn(ctx, cam, sp, [x, 1.95, za], [x, 3.05, za], [[0, css(fogC(C.winDim, d * .6))], [1, css(fogC(C.win, d * .6))]]);
       if (k > .45) { // a passenger seated by the window
         const hc = cam.P(x - .25, 2.42, (a + b) / 2 + (k - .7) * .5), r = cam.f / hc[2] * .11; if (hc[2] > cam.near) { ctx.save(); ctx.beginPath(); pathS(ctx, sp); ctx.clip(); ctx.fillStyle = 'rgba(40,26,30,.75)'; ctx.beginPath(); ctx.ellipse(hc[0], hc[1], r * .85, r, 0, 0, TAU); ctx.fill(); ctx.beginPath(); ctx.ellipse(hc[0], hc[1] + r * 2.4, r * 2.2, r * 1.6, 0, 0, TAU); ctx.fill(); ctx.restore(); }
       }

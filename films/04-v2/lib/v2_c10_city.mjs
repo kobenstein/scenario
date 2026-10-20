@@ -150,7 +150,7 @@ function block(ctx, C, t, K, lights, o) {
   for (let f = 1; f < fl; f++) for (let i = 0; i < nb; i++) {
     const zc = BLK.z0 + (i + .5) * 2.4; if (Math.abs(zc - CORE.z) < 1.3) continue;
     const y0 = yb + f * fh + .9, x = BLK.x0 - .02, Q = proj3(C, [[x, y0, zc - .62], [x, y0, zc + .62], [x, y0 + 1.45, zc + .62], [x, y0 + 1.45, zc - .62]]); if (!Q) continue;
-    let mnx = 1e9, mxx = -1e9, mny = 1e9, mxy = -1e9; for (const [px, py] of Q) { mnx = Math.min(mnx, px); mxx = Math.max(mxx, px); mny = Math.min(mny, py); mxy = Math.max(mxy, py); } if (mxx < 0 || mnx > W || mxy < 0 || mny > H) continue;
+    let mnx = 1e9, mxx = -1e9, mny = 1e9, mxy = -1e9; for (const [px, py] of Q) { mnx = Math.min(mnx, px); mxx = Math.max(mxx, px); mny = Math.min(mny, py); mxy = Math.max(mxy, py); } if (mxx < 0 || mnx > W || mxy < 0 || mny > H || (o.lite && mxx - mnx < 2.5)) continue;
     const h = hash(f * 131 + i, 5), lit = f === LITWIN.fl && Math.abs(zc - LITWIN.z) < 1.2;
     const warm = lit ? (litOn ? 1 : 0) : party ? sm2((t - K.now - .2 - h * 2.5) / .25) * (h < .45 ? 1 : 0) : 0;
     const tv = !party && h > .985 ? .5 + .3 * Math.sin(t * 7 + i) * Math.sin(t * 3.1 + f) : 0;
@@ -174,7 +174,7 @@ function block(ctx, C, t, K, lights, o) {
 }
 // ---------------------------------------------------------------- the road: the evening crawl of headlights; later the long table
 const TRAFFIC = [[97.5, -1, 2.3], [100.8, -1, 2.7], [104, 1, 2.0], [107.3, 1, 2.5]];
-function road(ctx, C, t, K, lights) {
+function road(ctx, C, t, K, lights, lite) {
   const party = t > K.now;
   fill3(ctx, C, [[92, SY, -170], [ROAD.e, SY, -170], [ROAD.e, SY, 420], [92, SY, 420]], '#1c2032');
   fill3(ctx, C, [[ROAD.x0, SY + .005, -170], [ROAD.x1, SY + .005, -170], [ROAD.x1, SY + .005, 420], [ROAD.x0, SY + .005, 420]], party ? '#24222e' : '#16192a');
@@ -197,17 +197,18 @@ function road(ctx, C, t, K, lights) {
       const be = at3(C, x, SY + .02, zf + dir * 6); const bh = at3(C, x, SY + .02, zf); if (be && bh) { const g = ctx.createLinearGradient(bh.x, bh.y, be.x, be.y); g.addColorStop(0, rgba('#fff1d6', .18)); g.addColorStop(1, rgba('#fff1d6', 0)); ctx.strokeStyle = g; ctx.lineWidth = Math.max(1, 1.4 * bh.k); ctx.beginPath(); ctx.moveTo(bh.x, bh.y); ctx.lineTo(be.x, be.y); ctx.stroke(); }
     }
   }
-  for (const [x, y, k, c] of heads) { ctx.fillStyle = c; ctx.beginPath(); ctx.arc(x, y, Math.max(.8, .09 * k), 0, TAU); ctx.fill(); glowAt(ctx, glowImg(c, { R: 48, core: .5, dots: 0 }), x, y, Math.max(3, .5 * k), .8, 'screen'); }
+  for (const [x, y, k, c] of heads) { ctx.fillStyle = c; ctx.beginPath(); ctx.arc(x, y, Math.max(.8, .09 * k), 0, TAU); ctx.fill(); if (!lite) glowAt(ctx, glowImg(c, { R: 48, core: .5, dots: 0 }), x, y, Math.max(3, .5 * k), .8, 'screen'); }
 }
 // ---------------------------------------------------------------- World 2
 export function city(ctx, C, t, K, o = {}) {
   const lights = [], party = t > K.now;
   skyW2(ctx, t, C);
   for (const [z0, z1, h] of [[-160, -60, 26], [90, 200, 30]]) fill3(ctx, C, [[180, SY, z0], [180, SY, z1], [180, SY + h, z1], [180, SY + h, z0]], '#1a1c30');
-  const town = () => { for (const b of byDist(C, TOWN)) bldg(ctx, C, t, K, b, party); };
+  const lite = o.lite || C.mirror;   // seen through the bridge's arch or in the water: only what can show there
+  const town = () => { if (!lite) for (const b of byDist(C, TOWN)) bldg(ctx, C, t, K, b, party); };
   const banks = () => { canal(ctx, C, t, K, lights); for (const b of byDist(C, BANKS)) bldg(ctx, C, t, K, b, party); };
-  const blk = () => block(ctx, C, t, K, lights, o);
-  const rd = () => { road(ctx, C, t, K, lights); if (party) street(ctx, C, t, K, lights); };
+  const blk = () => block(ctx, C, t, K, lights, { ...o, lite });
+  const rd = () => { road(ctx, C, t, K, lights, lite); if (party) street(ctx, C, t, K, lights); };
   // far → near, by where the camera is: over the canal the block is the farthest; over the street the street is the nearest;
   // over the roof the roof is
   if (C.x < ROAD.x0 - 2) { town(); blk(); rd(); banks(); }
