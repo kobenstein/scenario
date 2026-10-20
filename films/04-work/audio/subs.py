@@ -35,7 +35,7 @@ import os
 CL = json.load(open(A + 'clips.json'))
 for c in json.load(open(A + 'timing.json')).get('clips', []):
     cl = CL[c['id']]
-    if cl.get('card') or not cl.get('cues'): continue
+    if cl.get('card') or cl.get('burned') or not cl.get('cues'): continue   # burned: footage already carries captions
     q = cl['cues']
     for k, (t0, line) in enumerate(q):
         t1 = q[k + 1][0] if k + 1 < len(q) else c['end'] - c['start']

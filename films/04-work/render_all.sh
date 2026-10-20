@@ -13,6 +13,6 @@ wait
 for i in $(seq 0 $((N-1))); do echo "file 'p$i.mp4'"; done > "$OUT/parts/list.txt"
 ffmpeg -hide_banner -loglevel error -y -f concat -safe 0 -i "$OUT/parts/list.txt" -c copy "$OUT/parts/video.mp4"
 ffmpeg -hide_banner -loglevel error -y -i "$OUT/parts/video.mp4" -i "$A/audio/mix.wav" \
-  -vf "ass=$A/subtitles.ass" -c:v libx264 -crf 19 -preset medium -tune grain -pix_fmt yuv420p -movflags +faststart \
+  -vf "ass=$A/subs/subtitles.ass" -c:v libx264 -crf 19 -maxrate 5M -bufsize 10M -preset medium -tune grain -pix_fmt yuv420p -movflags +faststart \
   -c:a aac -b:a 256k -shortest "$OUT/film04.mp4"
 echo done

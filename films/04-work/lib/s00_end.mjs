@@ -25,7 +25,7 @@ function grainSprite(col, core, seed = 1) {
   g.fillStyle = rg; g.fillRect(0, 0, 256, 256); stipple(c, { k: .7, g: 1.2, seed }); GS.set(k, c); return c;
 }
 export function spot(ctx, x, y, r, a, col = K.amber, core = '#fff1d6', { grain = false, sy = 1 } = {}) {
-  if (r <= 0 || a <= 0.003) return;
+  if (r <= 0 || a <= 0.003 || r > 4000 || x < -r || x > W + r || y < -r * sy || y > H + r * sy) return;
   const s = grain ? grainSprite(col, core) : glowSprite(col, core);
   ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = Math.min(1, a);
   ctx.drawImage(s, x - r, y - r * sy, 2 * r, 2 * r * sy); ctx.restore();
@@ -34,7 +34,7 @@ const FIG = new Map(); let FIGB = 0; const FIGMAX = 120e6;
 const qz = (v, s = .02) => Math.round(v / s) * s;
 export function fig(ctx, x, y, s, pose, o = {}) {
   const P = {}; for (const [k, v] of Object.entries(pose)) P[k] = Array.isArray(v) ? v.map((u) => qz(u)) : typeof v === 'number' ? qz(v) : v;
-  const sq = Math.round(s * 50) / 50, ld = o.light ? Math.round(Math.atan2(o.light.y - y, o.light.x - x) * 4) / 4 : 0;
+  const sq = Math.pow(2, Math.round(Math.log2(s) * 8) / 8), ld = o.light ? Math.round(Math.atan2(o.light.y - y, o.light.x - x) * 4) / 4 : 0;
   const key = JSON.stringify([P, sq, o.key || '', ld, !!o.flip]);
   let e = FIG.get(key);
   if (!e) {
@@ -127,7 +127,7 @@ export function roomDawn(tm) { // { t0, push0, push1, ifEnd }
     ctx.fillStyle = '#060824'; ctx.fillRect(0, 0, W, H);
     lay(ctx, UPPER(), hcam, 1); lay(ctx, harbour('dawn', EXT).sky, hcam, 1);
     drawHarbour(ctx, t, hcam, 'dawn', { ext: EXT, noSky: true });
-    const ia = 1 - sm(lin(tm.t0 + .4, tm.ifEnd, t));
+    const ia = sm(lin(tm.t0 + .1, tm.t0 + .45, t)) * (1 - sm(lin(tm.t0 + .6, tm.ifEnd, t)));
     if (ia > 0) drawIfThread(ctx, sx, hsy + (IFW[1] - 540) * zv, 250 * zv, 1, .55 * ia, { t, dotA: .85 * ia, glowK: 1, width: 1 });
     // the room
     const rcam = { x: WC[0], y: WC[1], z: rz, sx, sy };
@@ -556,7 +556,7 @@ export function pierYou(tm) { // { t0, every, bend0, lift, want, rise0, rise1, c
     pose = { ...STAND, ...pose, lean: pose.lean + Math.sin(t * 1.9) * .008, head: pose.head + (t > tm.want + 1 ? -.05 : 0) };
     let hands = null;
     const figFn = (ctx2, cc) => {
-      const [fx, fy, fz] = proj(cc, 0, PIER.deck, zf); if (fz < 30) return; const sc = cc.f / fz;
+      const [fx, fy, fz] = proj(cc, 0, PIER.deck, zf); if (fz < 30) return; const sc = cc.f / fz; if (sc > 4 || fx < -300 || fx > W + 300) return;
       const [sx, sy] = proj(cc, 0, 0, 1e7);
       ctx2.save(); ctx2.fillStyle = rgba('#0a0820', .35); ctx2.beginPath(); ctx2.ellipse(fx - 30 * sc, fy + 2, 60 * sc, 7 * sc, 0, 0, 7); ctx2.fill(); ctx2.restore();
       const r = fig(ctx2, fx, fy - 88 * sc, sc, pose, { dress: DRESS8, light: { x: sx, y: sy, col: K.hot, a: .5 }, rim: '#ffd8aa', rimSide: 1, rimW: Math.max(1, 2 * sc / 2), key: 'pier8' });

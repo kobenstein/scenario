@@ -71,7 +71,12 @@ export function bake(x0, y0, w, h, fn, s = 1) {
 export const breathe = (t, a = 1, ph = 0) => ({ dx: drift(t, 5 * a, ph), dy: drift(t, 3.2 * a, ph + 2), dz: .004 * a * Math.sin(t * .41 + ph) });
 
 // the per-shot finish: paper tooth + fine grain (the engine adds the global vignette + grain on top)
-export function fin(ctx, { vig = .22, grain = .07, tint = null } = {}) { printFinish(ctx, { grain, vig, tint }); }
+// fin(): printFinish() from art.mjs (vignette here, then the paper grain)
+export function fin(ctx, { vig = .22, grain = .07, tint = null } = {}) {
+  if (vig) { const g = ctx.createRadialGradient(W * .5, H * .5, H * .35, W * .5, H * .5, H * 1.08); g.addColorStop(0, rgba('#05060f', 0)); g.addColorStop(1, rgba('#05060f', vig)); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
+  if (tint) { ctx.save(); ctx.globalCompositeOperation = 'soft-light'; ctx.fillStyle = tint; ctx.fillRect(0, 0, W, H); ctx.restore(); }
+  printFinish(ctx, { grain, vig: 0 });
+}
 
 // ---------------------------------------------------------------- the message light (cyan, the only machine colour)
 export function msgLight(ctx, x, y, a = 1, r = 60) {
