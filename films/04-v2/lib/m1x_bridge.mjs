@@ -1,5 +1,5 @@
-// Film 4 v2 · the minute (c01–c04): the three chunk-boundary bridges, no blends. Owner: the minute-fix PLAN step (chunk agents import,
-// nobody else edits). Plan: /mnt/project-files/scenario/film-04-v2/bild/minute-fix-plan.md
+// Film 4 v2 · the minute (c01–c04): the three chunk-boundary bridges, no blends. Owner: m1-c02 (minute repair 2026-10-20; the
+// other chunks import, nobody else edits). Since the repair sheet12 also takes M.sy, o.lift and o.vig (all optional, defaults = old look). Plan: /mnt/project-files/scenario/film-04-v2/bild/minute-fix-plan.md
 //
 // A bridge is ONE function that both neighbouring chunks draw over the same window [a, b]; the cut between the two chunk files sits at
 // `cut` inside it, so it cannot be seen. Outside the window each chunk draws its own world and lands on / leaves the bridge picture

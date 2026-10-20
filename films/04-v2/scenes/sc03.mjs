@@ -20,8 +20,9 @@
 //       │                                                        │ lights up and the camera flies into its light     │ paper
 // ★ none in c03 (the ★ of the minute are 1.03 and 4.04). Hard accents: "if" (seal) and "does" (bridge solid) = 2.
 // Boundaries (lib/m1x_bridge.mjs): in = b23 from the cut to B23.b, then the in-world light (same lightAt, same tone and seed) at the
-//   hall's door shrinks with the pull-back; out = the window's lightAt (tone cream, seed 34) grows with the push-in until it is exactly
-//   b34 at B34.a (same position, size, zero velocity); the last entry draws b34 until c04 takes over at B34.cut.
+//   hall's open door (core clipped to the opening) shrinks with the pull-back; out = the window's lightAt (tone cream, seed 34, core
+//   clipped to the pane) grows as the camera flies into the window until it is exactly b34 at B34.a (same position, size, zero
+//   velocity); the last entry draws b34 until c04 takes over at B34.cut.
 // Sound (accents in speech pauses): whoosh_airy as the camera sets off (pause after "part."), drop as the light falls (pause after
 //   "you."), shimmer_rings as the seal is finished, foil_glint in the pause after "film.", pencil under the burin, bloom when the window lights.
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -30,7 +31,7 @@ import { ring } from '../lib/certificate.mjs';
 import { ghostLine, burinTip } from '../lib/ghost.mjs';
 import { shareLight } from '../lib/share.mjs';
 import { bridgeWin, lightAt, R_FULL, B23, B34, b23, b34 } from '../lib/m1x_bridge.mjs';
-import { GEO, AMBER, CORE, warmWorld, drawWorld, drawValleyFog, drawLive, drawWindow, DOORL, doorPath, doorFrame, camT, toScreen, bridgeLines, bridgeFill, BRIDGE, ifSeal } from '../lib/sc03_world.mjs';
+import { GEO, AMBER, CORE, warmWorld, drawWorld, drawValleyFog, drawLive, drawWindow, winFrame, DOORL, doorPath, doorFrame, camT, toScreen, bridgeLines, bridgeFill, BRIDGE, ifSeal } from '../lib/sc03_world.mjs';
 
 const TAU = Math.PI * 2;
 const qio = (x) => { x = clamp(x); return x < .5 ? 8 * x ** 4 : 1 - Math.pow(-2 * x + 2, 4) / 2; };
@@ -128,15 +129,21 @@ export default async (T, R) => {
   const c2 = (t) => { const x = heroX(t); return { cx: x + 160, cy: chanY(x) + 190, s: .92 }; };
   const GAP = { cx: 4360, cy: 590, s: .98 };
   const c3 = (t) => { const u = ss(A.s303 - .15, A.s304 + .1, t), v = lin(A.s304 + .1, A.doesE + .2, t); return { cx: mix(GAP.cx, 4340, u), cy: mix(GAP.cy, 560, u) + 10 * v, s: GAP.s * Math.exp(Math.log(1.2 / GAP.s) * u + .035 * v) }; };
-  // the push into your window ends at rest exactly in b34 at B34.a: window centre at the frame centre, its light R_FULL wide
-  const WINp = GEO.win, SE = 4, WIN = { cx: WINp.x, cy: WINp.y, s: SE };
-  const tP1 = A.end, tP0 = tP1 - 1.45, tLit = Math.min(tArrive, tP1 - .6);
-  const pushK = (t) => qio(lin(tP0, tP1, t));
-  const winR = (t) => (R_FULL / SE) * (.08 * eout(lin(tLit, tLit + .35, t)) + .92 * ss(tLit + .1, tP1, t));   // the window light's world radius
+  // the push into your window ends at rest exactly in b34 at B34.a: the window's centre at the frame centre, the camera so close (scale
+  // SE) that the pane fills the frame, its light (lightAt, tone cream, seed 34, core clipped to the pane) R_FULL wide. A zoom about a
+  // fixed point (the window comes to the frame centre on a straight line); the light comes on in the pane when the crossing light
+  // arrives, and its world radius settles from WR1 (opaque over the whole pane) to R_FULL/SE once the pane's corners have left the frame.
+  const WINp = GEO.win, SE = 25, WIN = { cx: WINp.x, cy: WINp.y, s: SE }, WR1 = 74, WR2 = R_FULL / SE;
+  const tP1 = A.end, tP0 = tSolid - .15, tLit = Math.min(tArrive, tP1 - .6);
+  const pushK = (t) => ss(tP0, tP1, t);
+  const Cp = c3(tP0), kqp = 1 / Cp.s - 1 / SE, QVp = [(WIN.cx - Cp.cx) / kqp, (WIN.cy - Cp.cy) / kqp], Qp = [WIN.cx + QVp[0] / SE, WIN.cy + QVp[1] / SE];
+  const push = (t) => { const s = Math.exp(mix(Math.log(Cp.s), Math.log(SE), pushK(t))); return { cx: Qp[0] - QVp[0] / s, cy: Qp[1] - QVp[1] / s, s }; };
+  const winRW = (t, s) => eout(lin(tLit, tLit + .45, t)) * mix(WR1, WR2, sm(clamp(Math.log(s / 11.25) / Math.log(20 / 11.25))));
+  const inPane = (x, y) => Math.abs(x - WINp.x) < WINp.w / 2 - 1 && Math.abs(y - WINp.y) < WINp.h / 2 - 1;
   const cam = (t) => {
     let c = lerpCam(c1(t), c2(t), qio(lin(A.s302 - .3, A.s302 + 1.0, t)));
     c = lerpCam(c, c3(t), qio(lin(A.reaches + .1, A.youE + .2, t)));
-    c = lerpCam(c, WIN, pushK(t));
+    if (t > tP0) c = push(t);
     const kd = ss(tO0, tO0 + .9, t) * (1 - pushK(t));   // the hand-held drift fades in out of b23 and out into b34
     return { cx: c.cx + kd * drift(t, 6, 1) / c.s, cy: c.cy + kd * drift(t, 4, 2) / c.s, s: c.s };
   };
@@ -251,8 +258,8 @@ export default async (T, R) => {
     const c = cam(t);
     // the two lights the camera passes through: the hall's open door (3.01) and your window (end of 3.04), both lightAt in screen space
     const [dx, dy] = toScreen(c, DOORL.x, DOORL.y), dr = doorRW(c.s) * c.s, doorOn = dx + 2.6 * dr > 0 && dy + 2.6 * dr > 0 && dy - 2.6 * dr < H && dx - 2.6 * dr < W;
-    const [wx, wy] = toScreen(c, WINp.x, WINp.y), wr = t > tLit ? winR(t) * c.s : 0;
-    const inside = (doorOn && opaque(dx, dy, dr) && corners(c).every(([x, y]) => inDoor(x, y))) || opaque(wx, wy, wr);
+    const [wx, wy] = toScreen(c, WINp.x, WINp.y), wr = t > tLit ? winRW(t, c.s) * c.s : 0;
+    const inside = (doorOn && opaque(dx, dy, dr) && corners(c).every(([x, y]) => inDoor(x, y))) || (opaque(wx, wy, wr) && corners(c).every(([x, y]) => inPane(x, y)));
     if (!inside) {
       drawWorld(ctx, c, t, { live: true });
       ctx.save(); camT(ctx, c);
@@ -272,7 +279,11 @@ export default async (T, R) => {
       ctx.save(); camT(ctx, c); ctx.beginPath(); doorPath(ctx); ctx.clip(); lightAt(ctx, t, dx, dy, dr, { ...B23, bloom: 0 }); ctx.restore();
       ctx.save(); camT(ctx, c); doorFrame(ctx); ctx.restore();
     }
-    if (wr > .5) lightAt(ctx, t, wx, wy, wr, B34);
+    if (wr > .5) {   // your window's light: halo over the house, source clipped to the pane, the window's frame over it
+      lightAt(ctx, t, wx, wy, wr, { ...B34, core: 0 });
+      ctx.save(); camT(ctx, c); ctx.beginPath(); ctx.rect(WINp.x - WINp.w / 2, WINp.y - WINp.h / 2, WINp.w, WINp.h); ctx.clip(); lightAt(ctx, t, wx, wy, wr, { ...B34, bloom: 0 }); ctx.restore();
+      ctx.save(); camT(ctx, c); winFrame(ctx); ctx.restore();
+    }
   }
   const draw = (ctx, t) => frame(ctx, t);
 

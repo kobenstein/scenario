@@ -156,10 +156,17 @@ function plane(ctx, x, y, ang, s) {
 }
 function planeShape(ctx) { ctx.beginPath(); ctx.moveTo(26, 0); ctx.quadraticCurveTo(22, -3.6, 8, -3.6); ctx.lineTo(2, -26); ctx.lineTo(-4, -26); ctx.lineTo(-2, -3.6); ctx.lineTo(-16, -3.2); ctx.lineTo(-21, -11); ctx.lineTo(-25, -11); ctx.lineTo(-23, 0); ctx.lineTo(-25, 11); ctx.lineTo(-21, 11); ctx.lineTo(-16, 3.2); ctx.lineTo(-2, 3.6); ctx.lineTo(-4, 26); ctx.lineTo(2, 26); ctx.lineTo(8, 3.6); ctx.quadraticCurveTo(22, 3.6, 26, 0); ctx.closePath(); }
 export function mapShot(ctx, t, K) {
-  const S = mapSheet(), u = clamp((t - K.t0) / (K.out - K.t0));
-  const land = eoX(clamp((t - K.t0) / .7));
+  const u = clamp((t - K.t0) / (K.out - K.t0)), land = eoX(clamp((t - K.t0) / .7));
   const view = { z: mix(1.02, 1.12, sm(u)), dx: mix(-260, 0, land) - 40 * u + drift(t, 4, 1), dy: drift(t, 3, 2) };
   ctx.fillStyle = '#0d0a0c'; ctx.fillRect(0, 0, W, H);
+  const out = mapPaint(ctx, t, K, view);
+  const vg = ctx.createRadialGradient(W * .55, H * .45, 420, W * .5, H * .5, 1250); vg.addColorStop(0, 'rgba(3,4,12,0)'); vg.addColorStop(1, 'rgba(3,4,12,.5)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
+  return out;
+}
+export { mapSheet, routePts };
+// the map, the route, the plane and the landing in frame px for the given view (no ground, no vignette): the morning take draws it on the blind
+export function mapPaint(ctx, t, K, view) {
+  const S = mapSheet();
   drawDay(ctx, S, view);
   const R = routePts(S).map(([x, y]) => toView(S, view, x, y));
   const ru = qio(clamp((t - (K.t0 + .05)) / (K.arrive - K.t0 - .05)));
@@ -175,7 +182,6 @@ export function mapShot(ctx, t, K) {
   if (arr > 0) { const [ex, ey] = R[R.length - 1]; ctx.save(); ctx.globalCompositeOperation = 'lighter'; const gg = ctx.createRadialGradient(ex, ey, 0, ex, ey, 120); gg.addColorStop(0, `rgba(255,190,120,${.6 * sm(arr)})`); gg.addColorStop(1, 'rgba(255,190,120,0)'); ctx.fillStyle = gg; ctx.fillRect(ex - 120, ey - 120, 240, 240); ctx.restore();
     for (let k = 0; k < 2; k++) { const q = clamp(arr * 1.3 - k * .25); if (q > 0) ring(ctx, ex, ey, 18 + 70 * eoX(q), 18 + 70 * eoX(q), { lines: 4, band: 8, wave: 12, col: '#8e2f2a', glow: null, op: 'source-over', a: .8 * (1 - q * .6), lw: .9 }); }
     plane(ctx, ex + 6, ey - 6, -.2, 2.6 * view.z * (1 - .25 * eoX(arr))); }
-  const vg = ctx.createRadialGradient(W * .55, H * .45, 420, W * .5, H * .5, 1250); vg.addColorStop(0, 'rgba(3,4,12,0)'); vg.addColorStop(1, 'rgba(3,4,12,.5)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
   return { coast: R[R.length - 1] };
 }
 export function mapCoast(K, t) { const S = mapSheet(), u = clamp((t - K.t0) / (K.out - K.t0)), view = { z: mix(1.02, 1.12, sm(u)), dx: -40 * u + drift(t, 4, 1), dy: drift(t, 3, 2) }; const R = routePts(S); return toView(S, view, R[R.length - 1][0], R[R.length - 1][1]); }

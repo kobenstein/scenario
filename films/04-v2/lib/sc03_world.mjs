@@ -15,7 +15,7 @@
 //   drawLive(ctx, t)        steam, hall glow, chimney smoke, the tree (world transform set)
 //   DOORL, doorPath(g), doorFrame(ctx)  the hall's great open door: its light's centre, its opening (clip for the scene's lightAt),
 //                           its frame and sill drawn over that light (world transform set)
-//   drawWindow(ctx, t, warm) the house window (0 faint, 1 warm amber)
+//   drawWindow(ctx, t, warm), winFrame(ctx)  the house window, one pane (0 faint, 1 warm amber); its frame (over the scene's light)
 //   camT(ctx, cam)          sets the world transform;  toScreen(cam, x, y)
 //   bridgeLines(), bridgeFill(ctx, a, xFront), BRIDGE   the bridge across the gap (ghost → burin → stone)
 //   ifSeal(ctx, x, y, r, t, o)  copied from lib/sc02_m1.mjs (c02's IF seal, 2.05) so 3.03 shows the same seal; o.clip(ctx, r) clips the body
@@ -47,7 +47,7 @@ export const GEO = {
   top: (x) => mix(470, 600, Math.pow(aq(x), .95)),            // top of the channel lip
   gap: { x0: AQ1, x1: CLIFF },
   house: { x0: 4618, x1: 4846, base: 724, eave: 588, ridge: 492 },
-  win: { x: 4732, y: 662, w: 50, h: 60 },
+  win: { x: 4732, y: 662, w: 84, h: 96 },   // one pane, big enough to fly into (3.04 → b34)
   outlet: { x: 1790, y: 466 },
   stair: { x: -150, y: 905 },
   door: { x0: 1130, x1: 1290, top: 600, bot: 880, cx: 1210, cy: 742 },   // the hall's great arched door (its light opens 3.01)
@@ -562,11 +562,11 @@ export function drawWindow(ctx, t, warm) {
   const lg = ctx.createLinearGradient(0, y, 0, y + w.h);
   lg.addColorStop(0, mixc('#5a4038', '#ffcf8a', warm)); lg.addColorStop(1, mixc('#9a7450', '#fff1d6', warm));
   ctx.fillStyle = lg; ctx.fillRect(x, y, w.w, w.h);
-  ctx.strokeStyle = '#0d0f26'; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(w.x, y); ctx.lineTo(w.x, y + w.h); ctx.moveTo(x, w.y - 4); ctx.lineTo(x + w.w, w.y - 4); ctx.stroke();
-  ctx.lineWidth = 3; ctx.strokeRect(x, y, w.w, w.h);
+  ctx.strokeStyle = '#0d0f26'; ctx.lineWidth = 2; ctx.strokeRect(x, y, w.w, w.h);   // one pane: the camera flies into it at the end of 3.04
   addGlow(ctx, w.x, w.y, mix(46, 170, warm) * fl, mix(.16, .6, warm), AMBER, CORE);
   if (warm > 0) { ctx.save(); ctx.translate(w.x, G.house.base + 8); ctx.scale(1, .2); addGlow(ctx, 0, 0, 200, .35 * warm, AMBER, '#ffd9a0'); ctx.restore(); }
 }
+export function winFrame(ctx) { const w = G.win; ctx.strokeStyle = '#0d0f26'; ctx.lineWidth = 2; ctx.strokeRect(w.x - w.w / 2, w.y - w.h / 2, w.w, w.h); }
 const mixc = (a, b, k) => { const pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16), f = (s) => Math.round(mix((pa >> s) & 255, (pb >> s) & 255, clamp(k))); return `rgb(${f(16)},${f(8)},${f(0)})`; };
 
 // ---------------------------------------------------------------- the bridge across the gap

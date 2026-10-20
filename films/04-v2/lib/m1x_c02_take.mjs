@@ -68,7 +68,7 @@ export function c02Take(T, R) {
   Object.assign(A, {
     dep0: A.day + .02, dep1: A.day + .78,                        // the picture's dots leave (26.45–27.21)
     pb0: A.dayE - .26, gat0: A.but - .25, gl0: A.but - .1,       // pull-back from 27.05, dots gather into the beam from 27.30, the sheet glides from 27.45
-    on0: A.building + .06,                                        // the screen powers on (28.25)
+    on0: A.but + .2,                                              // the screen powers on right as the stage appears (~27.8)
     push0: A.stageE - .45, push1: A.c0 + .1,                      // push into the screen (30.70–31.95)
     sw0: A.stageE - .05,                                          // the screen switches to the clip (31.10–31.56)
     glass0: A.c1 - .02, hand: A.c1 + .46,                        // push into the dark glass, hand-off to the ruler world (34.78)
@@ -126,7 +126,7 @@ export function c02Take(T, R) {
       }
       sR /= n; sG /= n; sB /= n; const ink = clamp(((sR * .3 + sG * .59 + sB * .11) - mL - 30) / 60) * .8;
       const r1 = r(), r2 = r(), r3 = r(), r4 = r(), r5 = r(), r6 = r();
-      const ts = A.dep0 + (A.dep1 - A.dep0) * clamp(Math.hypot(vx - Q[0], vy - Q[1]) / 560 + .14 * (r1 - .5));
+      const ts = A.dep0 + (A.dep1 - A.dep0) * clamp(.62 * Math.hypot(vx - Q[0], vy - Q[1]) / 560 + .5 * r1 - .06);
       const M = floatW(ts), c = Math.cos(M.r), s = Math.sin(M.r), dx = (vx - VIG.w / 2) * M.s, dy = (vy - VIG.h / 2) * M.s;
       const u = Math.sqrt(r4), l = r5 * 2 - 1, hw = 4 + 116 * u;
       out.push({ vx, vy, ts, bx: M.x + dx * c - dy * s, by: M.y + dx * s + dy * c, col: [mix(sR, mR, ink), mix(sG, mG, ink), mix(sB, mB, ink)], r2, r3,
@@ -150,15 +150,16 @@ export function c02Take(T, R) {
     const n = departed(t); if (!n) return;
     ctx.save();
     for (let i = 0; i < n; i++) {
-      const d = DOTS[i], q = clamp((t - d.ts) / 1.6), kc = ss((t - d.tc) / .9);
+      const d = DOTS[i], q = clamp((t - d.ts) / 1.25), kc = ss((t - d.tc) / .9);
       let x = d.bx, y = d.by;
       if (q > 0 && kc < 1) {   // smoke: a few steps through a slow flow field, rising
-        const st = Math.pow(q, 1.3) * (22 + 40 * d.r2) / 4;
+        const st = Math.pow(q, 1.2) * (34 + 56 * d.r2) / 4;
         for (let k = 0; k < 4; k++) { const f = Math.sin(x * .033 + t * .5) + Math.sin(y * .039 - t * .37 + x * .012) + Math.sin((x + y) * .021 + d.r3 * 6), an = -Math.PI / 2 - .3 + f * .6; x += Math.cos(an) * st; y += Math.sin(an) * st; }
       }
       if (kc > 0) { x = mix(x, d.tx + 2.5 * Math.sin(t * .8 + d.r2 * TAU), kc); y = mix(y, d.ty + 2.5 * Math.cos(t * .65 + d.r3 * TAU), kc); }
       const sx = (x - C.cx) * C.s + W / 2, sy = (y - C.cy) * C.s + H / 2; if (sx < -6 || sy < -6 || sx > W + 6 || sy > H + 6) continue;
-      const air = sm(clamp(q * 2.4)), z = mix(mix(Z0, 1.9, air), d.z1, kc), al = mix(1, mix(.9, .62, kc), air);
+      const air = sm(clamp(q * 2.4)), z = mix(mix(Z0, 2.8, air), d.z1, kc), al = mix(1, mix(.95, .62, kc), air);
+      if (air > 0 && kc < 1) { const zs = z * 2.2, sa = .55 * air * (1 - kc); ctx.fillStyle = `rgba(8,7,14,${sa.toFixed(2)})`; ctx.fillRect(sx - zs / 2 + 1, sy - zs / 2 + 1.5, zs, zs); }   // a dark seat under each lifted dot keeps it legible over the paper
       ctx.fillStyle = `rgba(${mix(mix(d.col[0], 246, air), 255, kc) | 0},${mix(mix(d.col[1], 236, air), 214, kc) | 0},${mix(mix(d.col[2], 214, air), 160, kc) | 0},${al.toFixed(2)})`;
       ctx.fillRect(sx - z / 2, sy - z / 2, z, z);
     }
@@ -220,7 +221,7 @@ export function c02Take(T, R) {
     if (st.kind && st.k > 0) {
       ctx.save(); ctx.translate(0, SCC[1]); ctx.scale(1, st.k); ctx.translate(0, -SCC[1]);
       if (st.kind === 'ros') rosette(ctx, t); else feed(ctx, t, st.kind);
-      if (st.k < 1) { ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = rgba('#fff6e6', .5 * (1 - st.k)); ctx.fillRect(S.x, S.y, S.w, S.h); }   // the picture's light gathers into the line
+      if (st.k < 1) { ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = rgba('#fff6e6', .35 * (1 - st.k)); ctx.fillRect(S.x, S.y, S.w, S.h); }   // the picture's light gathers into the line
       ctx.restore();
     }
     ctx.restore();
@@ -262,7 +263,7 @@ export function c02Take(T, R) {
     rows.forEach(([s, dy, o], k) => {   // each line rises out of its own mask and sinks back into it
       const rise = (1 - eout(lin(A.c0 + .25 + k * .08, A.c0 + .85 + k * .08, t))) + eio(lin(A.c1 - .5 + k * .04, A.c1 - .12 + k * .04, t)), z = o.size;
       if (rise >= 1) return;
-      ctx.save(); ctx.beginPath(); ctx.rect(x + 12, y + dy - z * 1.05, 520, z * 1.4); ctx.clip(); label(ctx, s, x + 20, y + dy + rise * z * 1.3, o); ctx.restore();
+      ctx.save(); ctx.beginPath(); ctx.rect(x + 12, y + dy - z * 1.25, 560, z * 1.8); ctx.clip(); label(ctx, s, x + 20, y + dy + rise * z * 1.3, o); ctx.restore();
     });
   }
   function stageWorld(ctx, t) {

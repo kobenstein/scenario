@@ -16,6 +16,8 @@ const hash = (x) => { const v = Math.sin(x * 127.1 + 311.7) * 43758.5453; return
 // ---------------------------------------------------------------- the watering can, in can units (origin = the top grip, +x = forward
 // toward the spout, +y = down). Real proportions: body ≈ 30 cm long, spout ≈ 30 cm, rose ≈ 8 cm (1 can unit ≈ 1.9 cm at s = .5).
 const GRIP = [0, -1], REAR = [-10.2, 9.5];
+const REACH = 47;   // the top grip this far in front of the hip (figure units): the can's barrel stands clear of the legs, so its
+                    // silhouette never merges with the body's
 const SPOUT0 = [9.6, 12.4], SPOUT1 = [22.5, -.5];
 const SU = (() => { const dx = SPOUT1[0] - SPOUT0[0], dy = SPOUT1[1] - SPOUT0[1], L = Math.hypot(dx, dy); return [dx / L, dy / L]; })();
 const ROSE = [SPOUT1[0] + SU[0] * 2.6, SPOUT1[1] + SU[1] * 2.6];   // the face of the rose (where the water leaves)
@@ -71,7 +73,7 @@ export function gardener(ctx, t, o) {
   const ext = Math.max(...[0, 1].map((i) => Math.cos(hipR[i]) * 45 + Math.cos(hipR[i] - knR[i]) * 43));
   const hx = x0 + 6 * sf, hy = gy - ext * s;
   // the can: its top grip in front of the body at thigh height (forward = −x)
-  const G = [hx - (38 + sweep) * s, hy - (16 + lift) * s], cs = 1.18 * sf;
+  const G = [hx - (REACH + sweep) * s, hy - (16 + lift) * s], cs = 1.18 * sf;
   const ca = Math.cos(tilt), sa = Math.sin(tilt);
   const toW = ([u, v]) => { const ru = (u - GRIP[0]) * ca - (v - GRIP[1]) * sa, rv = (u - GRIP[0]) * sa + (v - GRIP[1]) * ca; return [G[0] - ru * cs, G[1] + rv * cs]; };
   const rear = toW(REAR), rose = toW(ROSE);
@@ -91,7 +93,7 @@ export function gardener(ctx, t, o) {
   // ---- the seedling bed in front of him (where the water lands)
   const g0 = 516 * sf, v0 = 66 * sf, bed = [];
   { // where the central stream lands at full tilt with no sweep: the row is planted there
-    const caf = Math.cos(.98), saf = Math.sin(.98), Gf = [hx - 38 * s, hy - 16 * s];
+    const caf = Math.cos(.98), saf = Math.sin(.98), Gf = [hx - REACH * s, hy - 16 * s];
     const rf = [Gf[0] - ((ROSE[0] - GRIP[0]) * caf - (ROSE[1] - GRIP[1]) * saf) * cs, Gf[1] + ((ROSE[0] - GRIP[0]) * saf + (ROSE[1] - GRIP[1]) * caf) * cs];
     const df = [-(SU[0] * caf - SU[1] * saf), SU[0] * saf + SU[1] * caf], vy = df[1] * v0, hgt = gy - rf[1], th = (-vy + Math.sqrt(vy * vy + 2 * g0 * hgt)) / g0;
     const xi = rf[0] + df[0] * v0 * th;
