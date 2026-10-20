@@ -280,7 +280,8 @@ export default (T, R) => {
   // ================================================================ 4.15 seeds become printing plates; prints hop in rings over borders
   // 4.15 continues 4.14's camera (one continuous move across the match), then pulls back to show the copies spreading
   const cam415 = (t) => { const c0 = camAt(t), k = quart(lin(t415 - .25, A.picture, t));
-    return { cx: mix(c0.cx, -1.02, k), cy: mix(c0.cy, .58, k), z: mix(c0.z, 2.2, k), tilt: mix(c0.tilt, .4, k), rot: mix(c0.rot, -.02, k), x: mix(c0.x, 960, k), y: 560 }; };
+    // wide enough that the copies visibly cross the ocean (at z 2.2 this read as a third close-up of the same US map)
+    return { cx: mix(c0.cx, -.7, k), cy: mix(c0.cy, .7, k), z: mix(c0.z, 1.7, k), tilt: mix(c0.tilt, .4, k), rot: mix(c0.rot, -.02, k), x: mix(c0.x, 960, k), y: 560 }; };
   function plate(ctx, x, y, s, t, u) { // the copper plate with an engraved seed: bevel, brushed face, engraved rings, a slow specular sweep
     if (s <= .01) return;
     ctx.save(); ctx.translate(x, y); ctx.scale(s, s * .62);
