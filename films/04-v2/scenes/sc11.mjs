@@ -34,13 +34,12 @@
 //        its paper until it IS the warm paper plate (c11>c12) · lantern · pull back, push in · continuous into the plate · — · paper pop
 // Ambience: city_night_hill (street murmur, a far violin) — lead's mix.
 import { handsOf } from '../lib/handoff4.mjs';
-import { W, H, rgba, clamp, mix, lin, sm, camera, keys, spline, qio, eoX, eiX, cio, qo, u01, ready, shifted, glowSprite } from '../lib/v2_c11_kit.mjs';
-import { tableWorld, tableState, CARD, YOU } from '../lib/v2_c11_table.mjs';
-import { drawCard, paneHill, WIN_C3, facing } from '../lib/v2_c11_card.mjs';
-import { drawHill } from '../lib/maslow4.mjs';
+import { W, H, rgba, clamp, mix, lin, sm, camera, keys, spline, hermite, qio, eoX, eiX, cio, qo, u01, ready, shifted, glowSprite } from '../lib/v2_c11_kit.mjs';
+import { tableWorld, tableState, clearLanterns, CARD, YOU } from '../lib/v2_c11_table.mjs';
+import { drawCard, paneHill, winCentre, backNormal, WIN } from '../lib/v2_c11_card.mjs';
+import { drawStreet, streetView, streetLayout, FOC, H3 } from '../lib/v2_c11_street.mjs';
 
 const PI = Math.PI;
-export const H3 = { x: 960, y: 452, z: 1.12 };   // the view of the hill when the vignette's window fills the frame
 
 export default async function (T, R) {
   const HI = handsOf('c11', T).in, HO = handsOf('c11', T).out;
@@ -54,42 +53,51 @@ export default async function (T, R) {
     now: S('Now a project'), meaning: S('with meaning'), salary: S('a salary') + .08, most: S('And most people'), working: S('stop working') + .32, ha: HO.a,
   };
   // phase boundaries
-  const tSwoop0 = A.and - .3, tSwoop1 = A.and + 1.0, tOrb0 = A.its - .14, tOrb1 = A.its + .5, tWin = A.something - .32;
-  A.tSwoop0 = tSwoop0; A.tOrb0 = tOrb0; A.tOrb1 = tOrb1; A.tWin = tWin;
+  const tSwoop0 = A.and - .3, tSwoop1 = A.and + 1.0, tF0 = A.its - .22, tF1 = A.its + .42, tP0 = A.its + .08, tWin = A.something - .32;
+  Object.assign(A, { tSwoop0, tF0, tF1, tP0, tWin });
 
   // ---------------------------------------------------------------- the camera of the table take
-  const P0 = [5.6, 9.2, .05], CLOSE = [CARD.x + .14, CARD.y + .03, CARD.z - .004];
-  const POS = [
-    [A.hb, P0], [A.hb + .9, [5.1, 7.9, .1]], [A.hb + 1.75, [4.3, 5.9, .18]], [A.sooner - .05, [3.55, 4.55, .2]],
-    [A.sooner + 1.45, [2.62, 1.38, -.42]], [tSwoop0, [2.36, 1.34, -.44]],
+  // keys: [t, [x, y, z, yaw, pitch]]; a key can aim instead: [t, pos, worldPoint, screenX, screenY] puts that point at that place in frame.
+  // One Catmull-Rom spline through all keys (time-warped at the start so the tilt leaves the plate from rest).
+  const aimYP = (p, q, sx, sy) => {
+    const dx = q[0] - p[0], dy = q[1] - p[1], dz = q[2] - p[2], hd = Math.hypot(dx, dz);
+    let yaw = Math.atan2(dx, -dz) - Math.atan((sx - W / 2) / 1400); while (yaw > PI / 2) yaw -= 2 * PI; while (yaw < -3 * PI / 2) yaw += 2 * PI;
+    return [yaw, Math.atan2(dy, hd) + Math.atan((sy - H / 2) / 1400)];
+  };
+  const YOUH = [YOU.x, 1.05, YOU.z], ASKH = [-.55, 1.27, -.8];
+  const RAW = [
+    [A.hb, [5.8, 12.0, .05, -PI / 2, .62]],
+    [A.hb + .85, [5.42, 10.5, .1, -PI / 2, .08]],
+    [A.hb + 1.75, [4.45, 6.9, .2], [-4, .76, 0], 960, 430],
+    [A.enough + .62, [3.5, 4.4, .3], YOUH, 930, 800],
+    [A.sooner + .06, [3.0, 3.25, .2], YOUH, 905, 790],
+    [A.sooner + 1.45, [2.62, 1.38, -.42], [-6, 1.0, 0], 960, 470],
+    [A.asks + .33, [2.45, 1.33, -.72], ASKH, 1330, 470],
+    [tSwoop0, [2.38, 1.32, -.75], ASKH, 1335, 482],
   ];
-  const SW = [[tSwoop0, [2.36, 1.34, -.44]], [tSwoop0 + .55, [1.25, 1.06, -.5]], [tSwoop1, CLOSE]];
+  const WARP = .8, KEYS = RAW.map(([tk, p, q, sx, sy], i) => [i ? tk - WARP / 2 : tk, q ? [...p, ...aimYP(p, q, sx, sy)] : p]);
+  const warp = (t) => (t - A.hb < WARP ? A.hb + (t - A.hb) ** 2 / (2 * WARP) : t - WARP / 2);
+  const CLOSE = [CARD.x + .14, CARD.y + .03, CARD.z - .004], CLOSE2 = [CLOSE[0] - .022, CLOSE[1], CLOSE[2]];
+  const K7 = KEYS[KEYS.length - 1][1], SW = [[tSwoop0, K7.slice(0, 3)], [tSwoop0 + .55, [1.25, 1.06, -.5]], [tSwoop1, CLOSE]];
+  const fwd = (yaw, p) => [Math.sin(yaw) * Math.cos(p), Math.sin(p), -Math.cos(yaw) * Math.cos(p)];
+  const F0 = (() => { const f = fwd(K7[3], K7[4]); return [K7[0] + 3 * f[0], K7[1] + 3 * f[1], K7[2] + 3 * f[2]]; })();
+  // the push into the vignette's window: the window ends 6 % wider than the frame, centred, seen square-on; the camera does not stop
+  // there (the hill inside keeps growing at the same rate and the street phase takes that rate over)
+  const CC = [CARD.x, CARD.y, CARD.z], WINC = winCentre(PI), BN = backNormal(PI), R1 = 1400 * (WIN.y1 - WIN.y0) / 1000 / (H * 1.06), WWEND = 1400 * (WIN.x1 - WIN.x0) / 1000 / R1;
+  const R0 = Math.hypot(CLOSE2[0] - CC[0], CLOSE2[1] - CC[1], CLOSE2[2] - CC[2]), DIR0 = CLOSE2.map((v, i) => (v - CC[i]) / R0);
+  const SIG = .6, PUSH = (u) => (-2 * u ** 3 + 3 * u * u) + SIG * (u ** 3 - u * u);   // Hermite: from rest, ends with slope SIG
+  const RATE = .85 * Math.log(R0 / R1) * SIG / (tWin - tP0);                          // d log(zoom)/dt of the hill at tWin
   function camAt(t) {
-    if (t <= tSwoop0) {
-      const p = spline(t, POS);
-      const pitch = t < A.hb + 1.75 ? mix(.62, -.7, cio(u01(t, A.hb, A.hb + 1.75))) : t < A.sooner - .05 ? mix(-.7, -.74, u01(t, A.hb + 1.75, A.sooner - .05)) : mix(-.74, -.075, qio(u01(t, A.sooner - .05, A.sooner + 1.45)));
-      const yaw = -PI / 2 + .07 * qio(u01(t, A.sooner - .05, A.sooner + 1.45));
-      return { x: p[0], y: p[1], z: p[2], yaw, pitch, f: 1400 };
+    if (t <= tSwoop0) { const v = spline(warp(t), KEYS); return { x: v[0], y: v[1], z: v[2], yaw: v[3], pitch: v[4], f: 1400 }; }
+    if (t <= tP0) {   // swoop over your right shoulder down to the card (the look point slides from the asker onto the card), then a slow push
+      const u = qio(u01(t, tSwoop0, tSwoop1)), p = t <= tSwoop1 ? spline(tSwoop0 + u * (tSwoop1 - tSwoop0), SW) : CLOSE.map((v, i) => v + (i === 0 ? -.022 : 0) * sm(u01(t, tSwoop1, tP0)));
+      const uL = qio(u01(t, tSwoop0, tSwoop1 - .05));
+      return look(p, [mix(F0[0], CC[0], uL), mix(F0[1], CC[1], uL), mix(F0[2], CC[2], uL)], -PI / 2);
     }
-    if (t <= tOrb0) {   // swoop over your right shoulder down to the card, then a slow push
-      const u = qio(u01(t, tSwoop0, tSwoop1)), p = t <= tSwoop1 ? spline(tSwoop0 + u * (tSwoop1 - tSwoop0), SW) : CLOSE.map((v, i) => v + (i === 0 ? -.025 : 0) * u01(t, tSwoop1, tOrb0));
-      const look = [CARD.x, CARD.y, CARD.z], dx = look[0] - p[0], dy = look[1] - p[1], dz = look[2] - p[2];
-      const yawL = Math.atan2(dz, -dx) * -1, pitchL = Math.atan2(dy, Math.hypot(dx, dz));
-      const yaw = mix(-PI / 2 + .07, -PI / 2 + yawL * 0, u) , pitch = mix(-.07, pitchL, u);
-      return { x: p[0], y: p[1], z: p[2], yaw, pitch, f: 1400 };
-    }
-    // the swing over the card (azimuth half a turn, elevation up and down again) and the push into the window
-    const c = [CARD.x, CARD.y, CARD.z];
-    if (t <= tOrb1) {
-      const u = qio(u01(t, tOrb0, tOrb1)), az = mix(0, PI, u), elv = mix(.21, .42, u) + .95 * Math.sin(PI * u), r = mix(.115, .12, u);
-      const p = [c[0] + Math.cos(az) * Math.cos(elv) * r, c[1] + Math.sin(elv) * r, c[2] - Math.sin(az) * Math.cos(elv) * r];
-      return look(p, c, mix(-PI / 2, PI / 2, u));
-    }
-    const u = u01(t, tOrb1, tWin), e = 1 - Math.pow(1 - u, 2.2), r0 = .12, r1 = 1400 * .034 / W / 1.06;
-    const aim = [mix(c[0], WIN_C3[0], qio(Math.min(1, u * 1.6))), mix(c[1], WIN_C3[1], qio(Math.min(1, u * 1.6))), mix(c[2], WIN_C3[2], qio(Math.min(1, u * 1.6)))];
-    const el0 = .42, elv = mix(el0, .1, qio(Math.min(1, u * 1.3))), r = Math.exp(mix(Math.log(r0), Math.log(r1), qio(u)));
-    const p = [aim[0] - Math.cos(elv) * r, aim[1] + Math.sin(elv) * r, aim[2]];
-    return look(p, aim, PI / 2);
+    const u = u01(t, tP0, tWin), ua = qio(Math.min(1, u * 1.35)), ud = qio(Math.min(1, u * 1.15));
+    const aim = CC.map((v, i) => mix(v, WINC[i], ua)), dv = DIR0.map((v, i) => mix(v, BN[i], ud)), dl = Math.hypot(...dv);
+    const r = Math.exp(mix(Math.log(R0), Math.log(R1), PUSH(u)));
+    return { ...look(aim.map((v, i) => v + dv[i] / dl * r), aim, -PI / 2), near: .003 };   // the camera ends 18 mm from the card
   }
   function look(p, at, yawHint) {
     const dx = at[0] - p[0], dy = at[1] - p[1], dz = at[2] - p[2], hd = Math.hypot(dx, dz);
@@ -97,39 +105,78 @@ export default async function (T, R) {
     let yaw = hd > 1e-5 ? Math.atan2(dx, -dz) : yawHint; while (yaw - yawHint > PI) yaw -= 2 * PI; while (yaw - yawHint < -PI) yaw += 2 * PI;
     return { x: p[0], y: p[1], z: p[2], yaw, pitch: Math.atan2(dy, hd), f: 1400 };
   }
+  const spinAt = (t) => PI * qio(u01(t, tF0, tF1));
   // the sky plate, shifted up as the camera tilts down (drawn by handoff4 itself, unchanged)
   const p0 = .62;
   const platePass = (ctx, t, C) => {
     const dy = -1400 * Math.tan(p0 - C.o.pitch); if (dy < -H - 4) return;
     HI.plate(shifted(ctx, 0, dy), t);
   };
-  const pane = paneHill(H3, { night: .85, lit: [1, 1, 0, 0, 0], labels: 0, title: 0, focus: -1, people: .4 });
+  // no lantern hangs in the path of the camera (they would fill the frame for a moment)
+  { const pts = []; for (let t = A.hb; t < tSwoop1; t += .04) { const c = camAt(t); pts.push([c.x, c.y, c.z]); } clearLanterns(pts, .95); }
+  const HILLST = (t) => ({ night: .85, lit: [1, 1, eoX(u01(t, A.something - .05, A.something + .9)), 0, 0], labels: 0, title: 0, focus: -1, people: .4 });
+  const pane = paneHill(H3, HILLST(tWin - .5), WWEND);
+
+  // ---------------------------------------------------------------- the street (hill units; see lib/v2_c11_street.mjs)
+  const LY = streetLayout(), SHOP = LY.shops, mid = (i) => (SHOP[i].x0 + SHOP[i].x1) / 2, yb = SHOP[0].yb, YM = yb - 6.6;
+  const D0 = FOC / H3.z, L = Math.log;
+  const SK = [
+    [tWin, [H3.x, H3.y, L(D0)], [0, 0, -RATE]],
+    [A.something + .55, [948, 458, L(900)], null],
+    [A.hands - .05, [(SHOP[0].x0 + SHOP[5].x1) / 2 - 3, yb - 19, L(222)], [-12, 1.5, -.22]],
+    [A.hands + .62, [mid(1) - 16, yb - 14, L(150)], null],
+    [A.precious - .1, [mid(0) + 1.5, YM + .5, L(13.6)], [-2, .4, -.16]],
+    [A.make + .3, [mid(0) + 1.8, YM + .7, L(12.4)], [.4, 0, -.03]],
+    // 11.06 the dancer: truck right, the camera breathes out and in
+    [A.people + .45, [mid(0) + 22, YM, L(30)], null],
+    [A.joy - .45, [mid(1) + 1, YM - .2, L(21)], null],
+    [A.joy + .7, [mid(1) + 3, YM - .2, L(19.5)], null],
+    // 11.07 violin
+    [A.violin + .1, [mid(1) + 24, YM, L(28)], null],
+    [A.forty, [mid(2) - 1, YM - .2, L(21)], null],
+    [A.craft - .15, [mid(2) + 2, YM - .2, L(19.5)], null],
+    // 11.08 grandfather
+    [A.craft + .55, [mid(2) + 24, YM, L(28)], null],
+    [A.grand + .2, [mid(3) - 1, YM - .2, L(21)], null],
+    [A.jobs - .2, [mid(3) + 2, YM - .2, L(19.5)], null],
+    // 11.09 the office, it goes; the passage behind it
+    [A.jobs + .55, [mid(3) + 26, YM, L(28)], null],
+    [A.quietly, [mid(4), YM, L(25)], null],
+    [A.disappear + .5, [mid(4), YM + .3, L(16)], null],
+    // 11.10 the notice board in the passage
+    [A.now + .9, [mid(4) - .5, YM + .6, L(7.5)], null],
+    [A.salary + .2, [mid(4) - .2, YM + .7, L(5.6)], null],
+    // 11.11 pull back along the street, then into the blank notice
+    [A.most + .55, [mid(4) - 30, YM - 6, L(135)], [-8, 0, 0]],
+  ];
+  const streetAt = (t) => { const v = hermite(t, SK); return streetView(v[0], v[1], Math.exp(v[2])); };
+  const STB = { potter: A.precious - .2, dancer: A.people + .2, office: A.quietly, gather: A.meaning - .4, pin: A.most + .3 };
+  const lab = (t, a) => eoX(u01(t, a, a + .6)) - eiX(u01(t, A.hands - .62, A.hands - .3));   // written on with the words, unwritten as the push begins
+  const streetState = (t) => ({ hill: HILLST(t), labels: { es: lab(t, A.something - .1), sa: lab(t, A.something + .14) }, open: A.hands, busy: STB, plate: HO.plate });
 
   // ---------------------------------------------------------------- frames
   function frame(ctx, t) {
     if (t < tWin) {
-      const C = camera(camAt(t)), St = tableState(t, A);
+      const C = camera(camAt(t)), St = tableState(t, A), spin = spinAt(t);
       tableWorld(ctx, t, C, St, {
         plate: t < A.hb + 1.6 ? platePass : null,
-        card: (c2, tt, CC) => drawCard(c2, tt, CC, A, { pane }),
-        noYou: t > tSwoop0 + .5,
+        card: (c2, tt, C2) => drawCard(c2, tt, C2, A, { pane, spin }),
       });
       return;
     }
-    // provisional: the hill phase (lib/v2_c11_street.mjs replaces this)
-    drawHill(ctx, t, { ...H3 }, { night: .85, lit: [1, 1, 0, 0, 0], labels: 1, title: 0, focus: -1, people: .4 });
+    drawStreet(ctx, t, streetAt(t), streetState(t));
   }
   // warm up the cached sprites so frames use decoded Images
-  for (const c of ['#ffb35c', '#fff1d6', '#ffcf8a']) glowSprite(c, 128, null);
+  for (const c of ['#ffb35c', '#fff1d6', '#ffcf8a', '#cfe6ff', '#ff8a3a']) glowSprite(c, 128, null);
   await ready();
 
-  const D = (ctx, t) => frame(ctx, t);
+  const Dr = (ctx, t) => frame(ctx, t);
   return [
-    { t: HI.b, tr: 'cut', d: .1, print: HI.print, draw: D, sound: [{ f: 'whoosh_airy', t: HI.b + .12, v: .35 }] },
-    { t: A.sooner - .2, tr: 'cut', d: .1, draw: D },
-    { t: A.and - .3, tr: 'cut', d: .1, draw: D, sound: [{ f: 'glass_clink', t: A.do + .35, v: .4 }] },
-    { t: A.its - .3, tr: 'cut', d: .1, draw: D, sound: [{ f: 'whoosh', t: A.its - .12, v: .3 }] },
-    { t: tWin, tr: 'cut', d: .1, draw: D },
-    { t: HO.a - .6, tr: 'cut', d: .1, print: HO.print, draw: D },
+    { t: HI.b, tr: 'cut', d: .1, print: HI.print, draw: Dr, sound: [{ f: 'whoosh_airy', t: HI.b + .12, v: .35 }] },
+    { t: A.sooner - .2, tr: 'cut', d: .1, draw: Dr },
+    { t: A.and - .3, tr: 'cut', d: .1, draw: Dr, sound: [{ f: 'glass_clink', t: A.do + .35, v: .4 }] },
+    { t: A.its - .3, tr: 'cut', d: .1, draw: Dr, sound: [{ f: 'whoosh', t: A.its - .12, v: .3 }] },
+    { t: tWin, tr: 'cut', d: .1, draw: Dr },
+    { t: HO.a - .6, tr: 'cut', d: .1, print: HO.print, draw: Dr },
   ];
 }

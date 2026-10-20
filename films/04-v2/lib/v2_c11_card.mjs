@@ -7,27 +7,34 @@
 //   drawCard(ctx, t, C, A, o)   the card as a 3D object for camera C (front or back, whichever faces the camera), in its brass holder
 //   cardWindowRect(C)           the window's quad on screen (for the push-in) and its centre in world space
 import { W, H, rgba, clamp, mix, lin, sm, prng, TAU, eoX, eiX, qio, u01, putGlow, mixHex, shadeHex, hash, once, canvas, text } from './v2_c11_kit.mjs';
-import { person } from './v2_c11_people.mjs';
-import { drawHill } from './maslow4.mjs';
+import { person, reachArm } from './v2_c11_people.mjs';
+import { drawHill } from './v2_c11_street.mjs';
 import { CARD } from './v2_c11_table.mjs';
 
 const INKC = '#2a2346', PAPER = '#f1e8d2';
 const HW = CARD.w * 500, HH = CARD.h * 500;                     // half size in mm (42.5 × 27.5)
-// card axes in world space: u = across (seen from the front, +u is screen right = -Z), v = down the face (leans back by tilt)
-const ct = Math.cos(CARD.tilt), st = Math.sin(CARD.tilt);
-const UAX = [0, 0, -1], VAX = [st, -ct, 0], NRM = [ct, st, 0];
-export const cardPt = (u, v) => [CARD.x + (u * UAX[0] + v * VAX[0]) / 1000, CARD.y + (u * UAX[1] + v * VAX[1]) / 1000, CARD.z + (u * UAX[2] + v * VAX[2]) / 1000];
+// card axes in world space: u = across (seen from the front, +u is screen right = -Z), v = down the face (leans back by tilt).
+// The card can turn on the pin of its holder (spin phi about the vertical axis): at phi = π its back faces you, leaning back as the front did.
+function axes(phi = 0) {
+  const tl = CARD.tilt * Math.cos(phi), ct = Math.cos(tl), st = Math.sin(tl), c = Math.cos(phi), s = Math.sin(phi);
+  const R = (v) => [v[0] * c + v[2] * s, v[1], -v[0] * s + v[2] * c];
+  return { U: R([0, 0, -1]), V: R([st, -ct, 0]), N: R([ct, st, 0]) };
+}
+let AX = axes(0);
+export const cardPt = (u, v, ax = AX) => [CARD.x + (u * ax.U[0] + v * ax.V[0]) / 1000, CARD.y + (u * ax.U[1] + v * ax.V[1]) / 1000, CARD.z + (u * ax.U[2] + v * ax.V[2]) / 1000];
 // the window in the vignette (back side, mm in BACK coordinates: u_b = -u)
-export const WIN = { x0: -14, x1: 20, y0: -21, y1: 2 };
-const backPt = (ub, v) => cardPt(-ub, v);
-export const WIN_C3 = backPt((WIN.x0 + WIN.x1) / 2, (WIN.y0 + WIN.y1) / 2);   // world centre of the window (aim point of the push)
+export const WIN = { x0: -8, x1: 24, y0: -21.5, y1: -6.5 };   // a long workshop window above the bench (the push ends in it)
+const backPt = (ub, v, ax = AX) => cardPt(-ub, v, ax);
+export const winCentre = (phi) => backPt((WIN.x0 + WIN.x1) / 2, (WIN.y0 + WIN.y1) / 2, axes(phi));   // world centre of the window
+export const backNormal = (phi) => axes(phi).N.map((v) => -v);
+export const WIN_C3 = winCentre(Math.PI);
 
 // affine screen transform for card mm coordinates (centre Jacobian), front or back
 function affine(C, back) {
   const s = back ? -1 : 1, P0 = C.P(...cardPt(0, 0)), Pu = C.P(...cardPt(s, 0)), Pv = C.P(...cardPt(0, 1));
   return [Pu[0] - P0[0], Pu[1] - P0[1], Pv[0] - P0[0], Pv[1] - P0[1], P0[0], P0[1], P0[2]];
 }
-export function facing(C) { const o = C.o, d = [o.x - CARD.x, o.y - CARD.y, o.z - CARD.z]; return d[0] * NRM[0] + d[1] * NRM[1] + d[2] * NRM[2] >= 0 ? 'front' : 'back'; }
+export function facing(C, phi = 0) { const N = axes(phi).N, o = C.o, d = [o.x - CARD.x, o.y - CARD.y, o.z - CARD.z]; return d[0] * N[0] + d[1] * N[1] + d[2] * N[2] >= 0 ? 'front' : 'back'; }
 
 // ---------------------------------------------------------------- the front
 const TITLE = 'SENIOR ACCOUNT MANAGER', TITLE_MM = 3.2, TITLE_Y = 7.5, TITLE_SP = .55;
@@ -112,8 +119,8 @@ function vignetteFront(g, t, o) {   // everything in front of the window pane
   g.fillStyle = '#6a4a2e'; g.beginPath(); g.ellipse(-30.7, -15.4, 1.3, 1.1, 0, 0, TAU); g.fill();
   for (let i = 0; i < 4; i++) { const x = -28.6 + i * 1.1; g.fillStyle = '#7a5a3a'; g.fillRect(x, -16.2, .5, 3); g.fillStyle = '#b8b4ac'; g.fillRect(x + .1, -13.2, .3, 2.4); }
   // the lamp: cord, shade, warm light (hand-coloured)
-  const sw = Math.sin(t * 1.3) * .5, lx = -20 + sw, ly = -15.5;
-  g.strokeStyle = rgba(INKC, .8); g.lineWidth = .12; g.beginPath(); g.moveTo(-20, IY0); g.lineTo(lx, ly - 2.6); g.stroke();
+  const sw = Math.sin(t * 1.3) * .5, lx = -17 + sw, ly = -15.5;
+  g.strokeStyle = rgba(INKC, .8); g.lineWidth = .12; g.beginPath(); g.moveTo(-17, IY0); g.lineTo(lx, ly - 2.6); g.stroke();
   g.fillStyle = '#2f3a3a'; g.beginPath(); g.moveTo(lx - 1, ly - 2.8); g.lineTo(lx + 1, ly - 2.8); g.lineTo(lx + 3.6, ly); g.lineTo(lx - 3.6, ly); g.closePath(); g.fill();
   // the bench: top, apron, legs, a vice at the left end, wood grain
   g.fillStyle = '#b08a5c'; g.fillRect(-40, 8, 80, 1.7); g.fillStyle = '#8a6844'; g.fillRect(-40, 9.7, 80, 2.6);
@@ -122,33 +129,33 @@ function vignetteFront(g, t, o) {   // everything in front of the window pane
   g.strokeStyle = rgba(INKC, .75); g.lineWidth = .12; g.strokeRect(-40, 8, 80, 4.3);
   g.fillStyle = '#5a5a5a'; g.fillRect(-39, 5.6, 3.4, 2.4); g.fillRect(-38.4, 9.7, 1.2, 3.6);
   // the boat on two cradles: a planked hull (side view), its little mast lying beside it
+  g.save(); g.translate(-7.5, 0);
   g.fillStyle = '#6a4e32'; g.fillRect(-1.5, 6.3, 1.4, 1.7); g.fillRect(10.5, 6.3, 1.4, 1.7);
   g.fillStyle = '#c79a62'; g.beginPath(); g.moveTo(-6.5, 1.8); g.quadraticCurveTo(5, 3.2, 17.5, .6); g.quadraticCurveTo(15.5, 4.8, 11, 6.6); g.quadraticCurveTo(3, 7.6, -4.2, 6.6); g.quadraticCurveTo(-6.4, 5, -6.5, 1.8); g.closePath(); g.fill();
   g.strokeStyle = rgba('#3a2412', .7); g.lineWidth = .1; g.stroke();
   g.beginPath(); for (let i = 1; i < 4; i++) { const q = i / 4; g.moveTo(-6.3 + q * 1.3, mix(1.8, 6.4, q)); g.quadraticCurveTo(5, mix(3.2, 7.4, q), mix(17.5, 11.5, q), mix(.6, 6.4, q)); } g.stroke();
   hatchRect(g, -6, 4.6, 16, 7.2, .32, -.25, .2, .06);
-  g.strokeStyle = '#7a5434'; g.lineWidth = .35; g.beginPath(); g.moveTo(19, 7.6); g.lineTo(31, 6.6); g.stroke();
+  g.restore();
+  g.strokeStyle = '#7a5434'; g.lineWidth = .35; g.beginPath(); g.moveTo(14, 7.6); g.lineTo(30, 6.4); g.stroke();
   // shavings on the bench
-  g.strokeStyle = rgba('#d8b07a', .9); g.lineWidth = .14; for (let i = 0; i < 5; i++) { const x = -10 + i * 2.3, y = 7.6; g.beginPath(); g.arc(x, y - .5, .5 + .1 * i, 0, 5); g.stroke(); }
+  g.strokeStyle = rgba('#d8b07a', .9); g.lineWidth = .14; for (let i = 0; i < 5; i++) { const x = -22 + i * 2.1, y = 7.6; g.beginPath(); g.arc(x, y - .5, .5 + .1 * i, 0, 5); g.stroke(); }
   g.restore();
 }
 // you at the bench (in front of everything, a hand-coloured engraving: muted ink tones + the ochre scarf), a plane stroking the gunwale
 function vignetteYou(g, t, o) {
   const stroke = Math.sin(t * 2.4) * .5 + .5;   // the plane goes along the gunwale and back
-  const s = 22 / 1000 * 1.75 / 188 * 1000 / 1.75 * 1.0;   // figure units → mm (1.75 m = 38.5 mm)
-  const fs = 38.5 / 188;
-  const target = [mix(-4, 6, stroke), 2.4];
-  const pose = { lean: .62, head: .28, sh: [1.2, 1.0], el: [.25, .35], hip: [.1, -.06], kn: [.1, .05], hair: 'short', hands: ['closed', 'closed'] };
-  g.save();
-  person(g, -17.5 + stroke * .8, 9.4, fs, pose, { t, seed: 3, dress: { coat: '#39405e', pants: '#2a2840', shoes: '#1a1824', skin: '#b98262', hair: '#1c1418', scarf: '#c8843a' }, rim: '#ffcf8a', rimW: .35, shadow: false,
-    light: { x: -20, y: -15, col: '#ffcf8a', a: .55 },
-    prop: (gg, fa) => { gg.save(); gg.translate(fa.hx, fa.hy); gg.fillStyle = '#8a6440'; gg.fillRect(-2, -1.2, 9, 3.2); gg.fillStyle = '#5a5a60'; gg.fillRect(1.5, -2.6, 2.4, 1.6); gg.restore(); } });
-  g.restore();
-  // the ochre scarf is part of the dress via pose? (person() draws P.scarf when set) — drawn by the figure when pose.scarf
+  const fs = 38.5 / 188, hx = -28.5 + stroke * .9, hy = 9.6;
+  const pose = { lean: .58, head: .3, sh: [1.2, 1.0], el: [.25, .35], hip: [.1, -.06], kn: [.1, .05], hair: 'short', hands: ['closed', 'closed'], scarf: true };
+  const oo = { t, seed: 3, dress: { coat: '#39405e', pants: '#2a2840', shoes: '#1a1824', skin: '#b98262', hair: '#1c1418', scarf: '#c8843a' }, rim: '#ffcf8a', rimW: .35, shadow: false, light: { x: -17, y: -15, col: '#ffcf8a', a: .55 } };
+  const tgt = [mix(-19.5, -13.5, stroke), 2.2];
+  const a0 = reachArm(hx, hy, fs, pose, 0, false, oo, tgt, 1), a1 = reachArm(hx, hy, fs, pose, 1, false, oo, [tgt[0] - 1.2, tgt[1] + .3], 1);
+  pose.sh = [a0.sh, a1.sh]; pose.el = [a0.el, a1.el];
+  person(g, hx, hy, fs, pose, { ...oo, prop: (gg, fa) => { gg.save(); gg.translate(fa.hx, fa.hy); gg.fillStyle = '#8a6440'; gg.fillRect(-2, -1.2, 9, 3.2); gg.fillStyle = '#5a5a60'; gg.fillRect(1.5, -2.6, 2.4, 1.6); gg.restore(); } });
 }
 // ---------------------------------------------------------------- the card in 3D
 export function drawCard(ctx, t, C, A, o = {}) {
-  const side = facing(C);
+  AX = axes(o.spin || 0);
+  const side = facing(C, o.spin || 0);
   const corners = [cardPt(-HW, -HH), cardPt(HW, -HH), cardPt(HW, HH), cardPt(-HW, HH)];
   const S = C.S(corners); if (!S) return;
   let bx0 = 1e9, bx1 = -1e9, by0 = 1e9, by1 = -1e9; for (const [x, y] of S) { bx0 = Math.min(bx0, x); bx1 = Math.max(bx1, x); by0 = Math.min(by0, y); by1 = Math.max(by1, y); }
@@ -179,24 +186,42 @@ export function drawCard(ctx, t, C, A, o = {}) {
     }
   }
   ctx.restore();
-  // a soft warm sheen moving over the paper (lantern light), and the paper edge
+  // the paper edge, then the clip over the bottom edge
   ctx.save(); ctx.strokeStyle = 'rgba(120,96,64,.5)'; ctx.lineWidth = 1; ctx.beginPath(); S.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.stroke(); ctx.restore();
+  clip(ctx, C);
 }
 function holder(ctx, C) {
-  const y0 = .76, pts = []; for (let i = 0; i < 14; i++) { const q = i / 14 * TAU; pts.push([CARD.x + Math.cos(q) * .018, y0 + .002, CARD.z + Math.sin(q) * .026]); }
-  const S = C.S(pts); if (!S) return; ctx.fillStyle = '#7a5a2a'; ctx.beginPath(); S.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.fill();
-  ctx.fillStyle = '#c8a050'; const S2 = C.S([[CARD.x + .006, y0 + .012, CARD.z - .02], [CARD.x - .006, y0 + .012, CARD.z - .02], [CARD.x - .006, y0 + .012, CARD.z + .02], [CARD.x + .006, y0 + .012, CARD.z + .02]]);
-  if (S2) { ctx.beginPath(); S2.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.fill(); }
+  const y0 = TBTOP, ring = (r, y, n = 20) => { const pts = []; for (let i = 0; i < n; i++) { const q = i / n * TAU; pts.push([CARD.x + Math.cos(q) * r, y, CARD.z + Math.sin(q) * r]); } return pts; };
+  // shadow on the cloth, the foot (side band + top), the pin, the clip (turns with the card)
+  ctx.fillStyle = 'rgba(70,50,30,.28)'; if (C.poly(ctx, ring(.024, y0 + .0005))) ctx.fill();
+  const S1 = C.S(ring(.016, y0 + .001)), S2 = C.S(ring(.016, y0 + .006));
+  if (S1 && S2) {
+    ctx.fillStyle = '#6e4c1e'; ctx.beginPath(); S1.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.fill();
+    for (let i = 0; i < S1.length; i++) { const j = (i + 1) % S1.length; ctx.beginPath(); ctx.moveTo(S1[i][0], S1[i][1]); ctx.lineTo(S1[j][0], S1[j][1]); ctx.lineTo(S2[j][0], S2[j][1]); ctx.lineTo(S2[i][0], S2[i][1]); ctx.closePath(); ctx.fill(); }
+    const g = ctx.createLinearGradient(S2[0][0], S2[0][1], S2[10][0], S2[10][1]); g.addColorStop(0, '#f0cf80'); g.addColorStop(.45, '#c8a050'); g.addColorStop(1, '#7a5a2a');
+    ctx.fillStyle = g; ctx.beginPath(); S2.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = 'rgba(60,40,10,.6)'; ctx.lineWidth = 1; ctx.stroke();
+  }
+  // the pin up to the clip
+  const pb = cardPt(0, HH + .8), Pa = C.P(CARD.x, y0 + .006, CARD.z), Pb = C.P(...pb);
+  if (Pa[2] > .01 && Pb[2] > .01) { ctx.strokeStyle = '#8a6a2e'; ctx.lineWidth = Math.max(1, C.k(Pa[2]) * .0025); ctx.beginPath(); ctx.moveTo(Pa[0], Pa[1]); ctx.lineTo(Pb[0], Pb[1]); ctx.stroke(); }
 }
+// the clip: a narrow brass bar holding the bottom edge of the card (in card coordinates, so it turns with it)
+function clip(ctx, C) {
+  const cb = HH + .8, q = [cardPt(-9, HH - 2.2), cardPt(9, HH - 2.2), cardPt(9, cb), cardPt(-9, cb)];
+  ctx.fillStyle = '#b8903e'; if (C.poly(ctx, q)) ctx.fill();
+  ctx.strokeStyle = '#d8b464'; ctx.lineWidth = 1; ctx.beginPath(); C.seg(ctx, cardPt(-9, HH - 2.2), cardPt(9, HH - 2.2)); ctx.stroke();
+}
+const TBTOP = .76;
 // the window pane's quad on screen (back side), for the hill inside and for the push
 export function windowQuad(C) { return C.S([backPt(WIN.x0, WIN.y0), backPt(WIN.x1, WIN.y0), backPt(WIN.x1, WIN.y1), backPt(WIN.x0, WIN.y1)]); }
 // the night through the window: the Maslow hill (H3 view when the window fills the frame), clipped to the pane
-export function paneHill(H3, st) {
+export function paneHill(H3, st, wwEnd = W) {
   return (ctx, t, C) => {
     const Q = windowQuad(C); if (!Q) return;
     let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const [x, y] of Q) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
     if (x1 < 0 || x0 > W || y1 < 0 || y0 > H) return;
-    const ww = x1 - x0, wx = (x0 + x1) / 2, wy = (y0 + y1) / 2, f = Math.pow(Math.min(1, ww / W), .85), z = H3.z * f;
+    const ww = x1 - x0, wx = (x0 + x1) / 2, wy = (y0 + y1) / 2, f = Math.pow(ww / wwEnd, .85), z = H3.z * f;   // grows on past the frame: the street phase takes the same zoom over
     const cam = { x: H3.x - (wx - W / 2) / z, y: H3.y - (wy - H / 2) / z, z };
     ctx.save(); ctx.beginPath(); Q.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.clip();
     drawHill(ctx, t, cam, st);

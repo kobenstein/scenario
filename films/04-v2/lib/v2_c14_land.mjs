@@ -9,7 +9,7 @@
 //                                wave: { t0 } (the light waves start), target: the dive cottage drawer (called in its depth bin) }
 //   COTTAGE                      the one house the camera dives into (position, facing, window)
 import { W, H, clamp, mix, lin, prng } from '../engine.mjs';
-import { once, smo, hash, hexRGB, mixRGB, css, TAU } from './v2_c14_util.mjs';
+import { once, onceRaw, smo, hash, hexRGB, mixRGB, css, TAU } from './v2_c14_util.mjs';
 
 export const FL = 1400;           // focal length of the land camera (px) — the sky remap uses the same
 export const P0 = .42;            // the pitch at which the sky IS the dusk plate
@@ -36,7 +36,7 @@ export function drawSky(ctx, t, P, n = 0) {
   const y0 = st[0][0], y1 = st[st.length - 1][0];
   const g = ctx.createLinearGradient(0, y0, 0, y1);
   for (const [y, c] of st) g.addColorStop(clamp((y - y0) / (y1 - y0)), c);
-  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, p === P0 ? H : Math.min(H, Math.max(0, ys(-.03) + 40)));
   if (p === P0 && dyaw === 0 && n === 0) { plateDetail(ctx, t); return; }
   const remap = (X, Y) => [xs(X), ys(elevOf(Y))];
   // the band (rotated -.42 about the frame centre in plate space), batched by alpha
@@ -216,56 +216,110 @@ export function drawLand(ctx, t, P, o = {}) {
     const s = SLICES[k], dz = P.cs(cx, 0, s.Z)[2], half = dz * tanH * 1.25 + 80;
     const a = Math.max(s.i0, Math.floor((cx - half) / s.dx)), b = Math.min(s.i1, Math.ceil((cx + half) / s.dx));
     if (b <= a) continue;
-    const buf = [], gs = []; let ymax = -1e9, lx = -1e9, ly = 0, pend = null, gx = -1e9;
+    // keep a vertex only where the line bends by more than ~.5 px from the straight run since the last kept one
+    const buf = [], gs = []; let ymax = -1e9, gx = -1e9, kx = 0, ky = 0, run = [];
     for (let i = a; i <= b; i++) {
       const q = P(i * s.dx, s.hs[i - s.i0], s.Z); if (q[2] < 1) continue;
-      if (q[1] > ymax) ymax = q[1];
-      if (q[0] - gx >= 34 || i === b) { gs.push(q[0], s.sh[i - s.i0]); gx = q[0]; }
-      if (buf.length && q[0] - lx < 5 && Math.abs(q[1] - ly) < 1.2 && i < b) { pend = q; continue; }
-      if (pend && Math.abs(pend[1] - ly) > .4) buf.push(pend[0], pend[1]);
-      buf.push(q[0], q[1]); lx = q[0]; ly = q[1]; pend = null;
+      const x = q[0], y = q[1]; if (y > ymax) ymax = y;
+      if (x - gx >= 150 || i === b) { gs.push(x, s.sh[i - s.i0]); gx = x; }
+      if (!buf.length) { buf.push(x, y); kx = x; ky = y; continue; }
+      run.push(x, y);
+      const dx = x - kx, dy = y - ky, L = Math.hypot(dx, dy) || 1; let bad = false;
+      for (let r = 0; r < run.length - 2; r += 2) { if (Math.abs((run[r] - kx) * dy - (run[r + 1] - ky) * dx) / L > .55) { bad = true; break; } }
+      if (bad) { const px = run[run.length - 4], py = run[run.length - 3]; buf.push(px, py); kx = px; ky = py; run = [x, y]; }
     }
+    if (run.length) buf.push(run[run.length - 2], run[run.length - 1]);
     if (buf.length >= 4) crests.set(k, { pts: buf, gs, ymax, d: dz });
   }
   const order = list.filter((k) => crests.has(k));
-  let prev = null;
+  // pass A (far → near, half resolution): the relief bands with their slope light, the river, the mist
+  const [TC, tx] = TERR();
+  tx.setTransform(1, 0, 0, 1, 0, 0); tx.globalAlpha = 1; tx.globalCompositeOperation = 'source-over'; tx.clearRect(0, 0, W / TR, H / TR);
+  tx.setTransform(1 / TR, 0, 0, 1 / TR, 0, 0);
+  const fogs = new Map();
   for (let j = 0; j < order.length; j++) {
     const k = order[j], C = crests.get(k), nxt = order[j + 1] != null ? crests.get(order[j + 1]) : null, s = SLICES[k];
     const d = Math.max(0, cz - s.Z) + Math.abs(cyy) * .3, fg = fogOf(d);
-    const base = mixRGB(mixRGB(near, haze, fg), mixRGB(nN, nH, fg), n);
-    const yb = nxt ? Math.min(H + 4, nxt.ymax + 3) : H + 4, pts = C.pts, m = pts.length / 2, gs = C.gs;
+    const base = mixRGB(mixRGB(near, haze, fg), mixRGB(nN, nH, fg), n); fogs.set(k, [fg, base]);
+    const pts = C.pts, m = pts.length / 2, gs = C.gs;
     if (gs.length >= 6 && gs[gs.length - 2] - gs[0] > 40) {
-      const x0 = gs[0], x1 = gs[gs.length - 2], g = ctx.createLinearGradient(x0, 0, x1, 0), kl = .26 * (1 - .45 * fg) * (1 - .5 * n);
+      const x0 = gs[0], x1 = gs[gs.length - 2], g = tx.createLinearGradient(x0, 0, x1, 0), kl = .26 * (1 - .45 * fg) * (1 - .5 * n);
       for (let i = 0; i < gs.length; i += 2) { const sv = gs[i + 1]; g.addColorStop(clamp((gs[i] - x0) / (x1 - x0)), css(sv > .5 ? mixRGB(base, LITC, (sv - .5) * 2 * kl) : mixRGB(base, DARKC, (.5 - sv) * 2 * .32))); }
-      ctx.fillStyle = g;
-    } else ctx.fillStyle = css(base);
-    ctx.beginPath(); ctx.moveTo(pts[0], pts[1]);
-    for (let i = 1; i < m; i++) ctx.lineTo(pts[i * 2], pts[i * 2 + 1]);
-    ctx.lineTo(pts[(m - 1) * 2], Math.max(yb, pts[(m - 1) * 2 + 1])); ctx.lineTo(pts[0], Math.max(yb, pts[1])); ctx.closePath(); ctx.fill();
-    // the ridge line: only where this crest stands above the land behind it (a silhouette), lit by the afterglow behind the hills
-    if (prev) {
-      const ra = (.62 - .2 * fg) * (1 - .5 * n), rc = mixRGB(rim0, rim1, Math.min(1, fg * 1.25));
-      ctx.strokeStyle = css(rc, Q(ra)); ctx.lineWidth = 1; ctx.beginPath();
-      const pp = prev.pts, pm = pp.length / 2; let w = 0, on = false;
+      tx.fillStyle = g;
+    } else tx.fillStyle = css(base);
+    // the band: a strip from this crest down to the next nearer crest (+3 px under it; that crest's band covers the rest).
+    // Where the nearer crest stands higher the strip turns over, which is still right: the nearer band paints over it.
+    tx.beginPath(); tx.moveTo(pts[0], pts[1]);
+    for (let i = 1; i < m; i++) tx.lineTo(pts[i * 2], pts[i * 2 + 1]);
+    if (nxt) {
+      const np = nxt.pts, nm = np.length / 2;
+      tx.lineTo(Math.max(pts[(m - 1) * 2], np[(nm - 1) * 2]) + 2, np[(nm - 1) * 2 + 1] + 3);
+      for (let i = nm - 1; i >= 0; i--) tx.lineTo(np[i * 2], np[i * 2 + 1] + 3);
+      tx.lineTo(Math.min(pts[0], np[0]) - 2, np[1] + 3);
+    } else { tx.lineTo(pts[(m - 1) * 2], H + 4); tx.lineTo(pts[0], H + 4); }
+    tx.closePath(); tx.fill();
+    const s1 = k > 0 ? SLICES[k - 1] : null;
+    if (s1 && s.Z > -17000) river(tx, P, s.Z, s1.Z, fg, n);
+    for (const mm of s.mist) mist(tx, P, mm, fg, n);
+  }
+  tx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.drawImage(TC, 0, 0, W, H);
+  // pass B (near → far, full resolution): what each slice hides is known from the slices in front of it (a per-column horizon),
+  // so ridge lines, houses and lights can be drawn sharp over the relief and still disappear behind the hills in front of them
+  const occ = OCC; occ.fill(1e9);
+  const items = [];
+  for (let j = order.length - 1; j >= 0; j--) {
+    const k = order[j], C = crests.get(k), far = j > 0 ? crests.get(order[j - 1]) : null, s = SLICES[k], [fg, base] = fogs.get(k);
+    const it = { k, fg, base, rim: null, houses: null, trees: s.trees };
+    // ridge line: where this crest stands above the land behind it and is not hidden by the land in front
+    if (far) {
+      const pts = C.pts, m = pts.length / 2, pp = far.pts, pm = pp.length / 2, seg = []; let w = 0, on = false;
       for (let i = 0; i < m; i++) {
         const x = pts[i * 2], y = pts[i * 2 + 1];
         while (w < pm - 2 && pp[(w + 1) * 2] < x) w++;
         const x0 = pp[w * 2], x1 = pp[(w + 1) * 2] ?? x0, y0 = pp[w * 2 + 1], y1 = pp[(w + 1) * 2 + 1] ?? y0;
-        const yf = x1 > x0 ? mix(y0, y1, clamp((x - x0) / (x1 - x0))) : y0, sil = y < yf - .7;
-        if (sil) { if (!on) { ctx.moveTo(i ? pts[i * 2 - 2] : x, i ? pts[i * 2 - 1] : y); on = true; } ctx.lineTo(x, y); }
-        else if (on) { ctx.lineTo(x, y); on = false; }
+        const yf = x1 > x0 ? mix(y0, y1, clamp((x - x0) / (x1 - x0))) : y0, xi = x | 0;
+        const sil = y < yf - .7 && (xi < 0 || xi >= W || y < occ[xi] - .5);
+        if (sil) { if (!on) { seg.push(NaN, NaN); if (i) seg.push(pts[i * 2 - 2], pts[i * 2 - 1]); on = true; } seg.push(x, y); }
+        else if (on) { seg.push(x, y); on = false; }
       }
-      ctx.stroke();
+      if (seg.length > 4) it.rim = seg;
     }
-    prev = C;
-    const s1 = k > 0 ? SLICES[k - 1] : null;
-    if (s1 && s.Z > -17000) river(ctx, P, s.Z, s1.Z, fg, n);
-    for (const mm of s.mist) mist(ctx, P, mm, fg, n);
-    if (s.trees) trees(ctx, P, s.trees, base, fg, n);
-    houses(ctx, t, P, s.houses, wt, fg, n, glow);
-    if (o.target && o.target.bin === k) o.target.draw(ctx, t, P, fg);
+    it.vis = (x, y) => { const xi = Math.round(x); return xi < 0 || xi >= W || y < occ[xi] - .3; };
+    it.hs = s.houses.length ? collectHouses(t, P, s.houses, wt, it.vis) : null;
+    if (o.target && o.target.bin === k) it.target = true;
+    items.push(it);
+    // this crest now hides what lies behind it
+    const pts = C.pts, m = pts.length / 2;
+    for (let i = 0; i < m - 1; i++) {
+      let x0 = pts[i * 2], y0 = pts[i * 2 + 1], x1 = pts[i * 2 + 2], y1 = pts[i * 2 + 3]; if (x1 < x0) { [x0, x1] = [x1, x0]; [y0, y1] = [y1, y0]; }
+      const a = Math.max(0, Math.ceil(x0)), b = Math.min(W - 1, Math.floor(x1)), dd = x1 - x0 || 1;
+      for (let x = a; x <= b; x++) { const y = y0 + (y1 - y0) * (x - x0) / dd; if (y < occ[x]) occ[x] = y; }
+    }
+  }
+  // the ridge lines, batched by brightness, under all houses and lights
+  const rb = new Map();
+  for (const it of items) {
+    if (!it.rim) continue;
+    const ra = Q((.62 - .2 * it.fg) * (1 - .5 * n), 16), rc = mixRGB(rim0, rim1, Math.min(1, it.fg * 1.25)), key = css([Math.round(rc[0] / 6) * 6, Math.round(rc[1] / 6) * 6, Math.round(rc[2] / 6) * 6], ra);
+    let L = rb.get(key); if (!L) rb.set(key, L = []); L.push(it.rim);
+  }
+  ctx.lineWidth = 1;
+  for (const [key, L] of rb) {
+    ctx.strokeStyle = key; ctx.beginPath();
+    for (const seg of L) { let mv = true; for (let i = 0; i < seg.length; i += 2) { if (seg[i] !== seg[i]) { mv = true; continue; } if (mv) { ctx.moveTo(seg[i], seg[i + 1]); mv = false; } else ctx.lineTo(seg[i], seg[i + 1]); } }
+    ctx.stroke();
+  }
+  for (let j = items.length - 1; j >= 0; j--) {
+    const it = items[j];
+    if (it.trees) trees(ctx, P, it.trees, it.base, it.fg, n);
+    if (it.hs) drawHouses(ctx, t, P, it.hs, it.fg, n, glow);
+    if (it.target) o.target.draw(ctx, t, P, it.fg, it.vis);
   }
 }
+const TR = 3;   // the relief is drawn at a third of the resolution (it is soft light; the ridge lines on top are sharp)
+const TERR = () => onceRaw('c14-terrain', () => canvasOf(W / TR, H / TR));
+const OCC = new Float32Array(W);
 // the river ribbon from Za (far) to Zb (near), 30 cm above the valley floor: the afterglow on the water
 function river(ctx, P, Za, Zb, fg, n) {
   const N = Math.max(2, Math.ceil((Zb - Za) / 50)), L = [], R = [];
@@ -301,20 +355,24 @@ function trees(ctx, P, list, base, fg, n) {
 }
 // the houses of one depth bin, by level of detail. wt = seconds since the light waves started
 const WIN = { y0: 1.05, y1: 2.15, w: 1.25 };
-function houses(ctx, t, P, list, wt, fg, n, glow) {
-  if (!list.length) return;
-  const wall = css(mixRGB(mixRGB(hexRGB('#0c0b20'), hexRGB('#463a64'), fg), hexRGB('#08081a'), n * .5));
-  const roof = css(mixRGB(mixRGB(hexRGB('#221f42'), hexRGB('#76648f'), fg), hexRGB('#141230'), n * .55));
+function collectHouses(t, P, list, wt, vis) {
   const dots = [], blocks = [], wins = [], flares = [], full = [];
   for (const h of list) {
     const q = P(h.X, h.Y + 1.6, h.Z); if (q[2] < 3 || q[0] < -60 || q[0] > W + 60 || q[1] < -60 || q[1] > H + 80) continue;
     const s = FL * h.w / q[2];
-    const lt = h.pre ? -10 : lightTime(h), on = smo(clamp((wt - lt) / .16)), fl = wt > lt ? Math.exp(-(wt - lt) / .3) * clamp((wt - lt) / .05) : 0;
-    if (fl > .04) flares.push(q[0], q[1], fl, s);
+    if (!vis(q[0], q[1])) continue;
+    const lt = h.pre ? -10 : lightTime(h), on = smo(clamp((wt - lt) / .16)), fl = wt > lt ? Math.exp(-(wt - lt) / .24) * clamp((wt - lt) / .06) : 0;
+    if (fl > .06) flares.push(q[0], q[1], fl, s);
     if (s < 1.7) { if (on > .01) dots.push(q[0], q[1], on, s); continue; }
     if (s < 9) { blocks.push(h, q, s); if (on > .01) wins.push(q, s, on); continue; }
     full.push(h, on, fl);
   }
+  return { dots, blocks, wins, flares, full };
+}
+function drawHouses(ctx, t, P, H0, fg, n, glow) {
+  const { dots, blocks, wins, flares, full } = H0;
+  const wall = css(mixRGB(mixRGB(hexRGB('#0c0b20'), hexRGB('#463a64'), fg), hexRGB('#08081a'), n * .5));
+  const roof = css(mixRGB(mixRGB(hexRGB('#221f42'), hexRGB('#76648f'), fg), hexRGB('#141230'), n * .55));
   // far lights: amber points with a soft square halo (batched), brighter when fully on
   if (dots.length) {
     ctx.fillStyle = 'rgba(255,170,80,.16)'; ctx.beginPath();
@@ -345,10 +403,19 @@ function houses(ctx, t, P, list, wt, fg, n, glow) {
     for (let i = 0; i < wins.length; i += 3) { if (wins[i + 2] < .3) continue; const q = wins[i], s = wins[i + 1], z = 4 + s * .5; ctx.rect(q[0] - s * .14 - z / 2, q[1] - z / 2, z, z); }
     ctx.fill();
   }
-  // the wave front: each window flares as it lights (a soft glow that settles in ~.4 s)
+  // the wave front: each window flares as it lights (soft discs, batched in brightness steps, added to the light)
   if (flares.length) {
     ctx.save(); ctx.globalCompositeOperation = 'lighter';
-    for (let i = 0; i < flares.length; i += 4) { const f = flares[i + 2], r = 5 + flares[i + 3] * .7 + 11 * f; ctx.globalAlpha = Math.min(1, .6 * f); ctx.drawImage(glow, flares[i] - r, flares[i + 1] - r, r * 2, r * 2); }
+    for (let b = 1; b <= 4; b++) {
+      for (const [rk, ak] of [[1, .1], [.55, .2], [.25, .4]]) {
+        ctx.fillStyle = `rgba(255,${150 + 20 * b},${70 + 15 * b},${(ak * b / 4).toFixed(3)})`; ctx.beginPath(); let any = false;
+        for (let i = 0; i < flares.length; i += 4) {
+          const f = flares[i + 2]; if (Math.min(4, Math.ceil(f * 4)) !== b) continue;
+          const r = (2.5 + flares[i + 3] * .4 + 7 * f) * rk; ctx.moveTo(flares[i] + r, flares[i + 1]); ctx.arc(flares[i], flares[i + 1], r, 0, TAU); any = true;
+        }
+        if (any) ctx.fill();
+      }
+    }
     ctx.restore();
   }
   for (let i = 0; i < full.length; i += 3) house3d(ctx, t, P, full[i], full[i + 1], full[i + 2], fg, n, glow);

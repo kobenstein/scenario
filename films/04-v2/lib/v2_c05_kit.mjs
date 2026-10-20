@@ -13,6 +13,7 @@
 //   rise(ctx, draw, u)               an object that rises out of the dark as ONE solid picture (offscreen, darkened with source-atop)
 import { Image } from '@napi-rs/canvas';
 import { W, H, rgba, clamp, lin, mix, sm, prng, drift, canvas } from '../engine.mjs';
+import { plate } from './handoff4.mjs';
 
 // ---------------------------------------------------------------- cached layers as Images (copied from lib/sc01_m1_open.mjs)
 const PEND = [], REC = new WeakMap();
@@ -133,6 +134,7 @@ export const plateCentre = (t) => [W / 2 + 18 * drift(t, 1, 3), H / 2 + 12 * dri
 // k = 1: identical to plate(ctx, t, 'light', { tone: 'dawn' }) at (cx, cy) = plateCentre(t). k < 1: the same light, smaller, with an
 // opaque margin (160·k px) and then a soft edge (1.4·R) into whatever was drawn before (the sky); the stipple thins out with it.
 export function plateGlow(ctx, t, cx, cy, k = 1, o = {}) {
+  if (k >= .9999 && !o.cols) { const [px, py] = plateCentre(t); if (Math.abs(px - cx) < .01 && Math.abs(py - cy) < .01) { plate(ctx, t, 'light', { tone: 'dawn' }); return; } }
   const [c0, c1, c2] = o.cols || DAWN, br = plateBreath(t), R = 1150 * br * k, rO = R + 160 * k, rF = rO + 1.4 * R;
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
   const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rF);
@@ -174,16 +176,30 @@ export function putGlow(ctx, x, y, r, a = 1, col = '#ffb35c', core = '#fff1d6', 
 // ---------------------------------------------------------------- rise out of the dark (never a half-transparent fade of an object)
 // draw(g) paints the object into a scratch canvas (full frame); u 0..1: 0 = black silhouette of the object (as dark as the room),
 // 1 = fully lit. The object is ALWAYS fully opaque: only its light changes (source-atop darkening).
-let RS = null;
-export function rise(ctx, draw, u, dark = '#05060f') {
+// box = [x, y, w, h] (screen) limits the scratch layer (a full-frame canvas drawn every frame costs ~8 MB of transient memory)
+const RSC = new Map();
+export function rise(ctx, draw, u, dark = '#05060f', box = [0, 0, W, H]) {
   if (u >= 1) { draw(ctx); return; }
-  if (!RS) RS = canvas();
-  const [c, g] = RS; g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; g.clearRect(0, 0, W, H);
-  draw(g); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-atop'; g.fillStyle = dark; g.globalAlpha = 1 - clamp(u); g.fillRect(0, 0, W, H);
-  g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; ctx.drawImage(c, 0, 0);
+  const bx = Math.max(0, Math.floor(box[0])), by = Math.max(0, Math.floor(box[1])), bw = Math.min(W, Math.ceil(box[0] + box[2])) - bx, bh = Math.min(H, Math.ceil(box[1] + box[3])) - by;
+  if (bw < 1 || bh < 1) return;
+  const key = Math.ceil(bw / 64) + 'x' + Math.ceil(bh / 64); if (!RSC.has(key)) RSC.set(key, canvas(Math.ceil(bw / 64) * 64, Math.ceil(bh / 64) * 64));
+  const [c, g] = RSC.get(key); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; g.clearRect(0, 0, c.width, c.height);
+  g.setTransform(1, 0, 0, 1, -bx, -by); draw(g); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-atop'; g.fillStyle = dark; g.globalAlpha = 1 - clamp(u); g.fillRect(0, 0, bw, bh);
+  g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; ctx.drawImage(c, 0, 0, bw, bh, bx, by, bw, bh);
 }
 
 // ---------------------------------------------------------------- small drawing helpers
 export function pathPts(ctx, pts, close = true) { ctx.beginPath(); pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); if (close) ctx.closePath(); }
 export const TAU = Math.PI * 2;
+// ---------------------------------------------------------------- sunlight through a window (light travels (-az, +el, -1) per metre of -Z)
+// L = { az, el } tangents of the sun direction (az + = toward +x, el + = up). A point p lit from outside continues along the ray.
+export const alongY = (p, y0, L) => { const s = (y0 - p[1]) / L.el; return [p[0] - L.az * s, y0, p[2] - s, s]; };   // onto the plane Y = y0
+export const alongZ = (p, z0, L) => { const s = p[2] - z0; return [p[0] - L.az * s, p[1] + L.el * s, z0, s]; };     // onto the plane Z = z0
+export const alongX = (p, x0, L) => { const s = (p[0] - x0) / L.az; return [x0, p[1] + L.el * s, p[2] - s, s]; };   // onto the plane X = x0
+// clip the current path region to (frame minus a list of screen polygons)
+export function clipOut(ctx, polys) {
+  ctx.beginPath(); ctx.rect(-10, -10, W + 20, H + 20);
+  for (const q of polys) { if (!q || q.length < 3) continue; q.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); }
+  ctx.clip('evenodd');
+}
 export { W, H, rgba, clamp, lin, mix, sm, prng, drift, canvas };

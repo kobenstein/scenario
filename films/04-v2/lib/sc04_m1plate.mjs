@@ -1,25 +1,29 @@
-// C04 (Film 4 minute 1) · the two letterpress plates of 4.01–4.03 and the crowd of 4.03. Owner: c04 (film-04-m1).
+// C04 (Film 4 minute 1) · the two letterpress plates of 4.01–4.03 and the crowd of 4.03. Owner: c04 (minute repair).
 // Modelled on Film 5's "PROMISE" cards (sc02 0.05): cream cotton sheet, guilloche border, pressed ink, light through pinholes.
 //   PW, PH                          plate size in plate units (origin = plate centre)
 //   plate(ctx, t, o)                draws one plate in plate units (caller sets the transform); o: { kind 1|2, ink: [the,end,of,work] 0..1,
 //                                   band 0..1 (ornament rule), cut 0..1 (the band is cut away left→right, HAVING TO punched behind the front),
-//                                   glow 0..1 (light through the holes), fade 0..1 (ink fades into the dawn), cold 0..1, warm 0..1, holesOff }
+//                                   glow 0..1 (light through the holes), cold 0..1, warm 0..1, holesOff, num2 0..1 (the second I of
+//                                   PLATE II is pressed: plate II is lifted off plate I as an identical print, then numbered) }
 //   plateShadow(ctx, lift, a)       soft cast shadow under a plate (plate units)
 //   holePts()                       pinhole centres of HAVING TO in plate units (for the gather into the sun)
 //   crowd(ctx, t, o)                busts seen from behind (no faces), cold rim light; o: { x, y, w, n, hunch 0..1, light 0..1, rim }
-import { rgba, clamp, mix, prng, canvas, sm, eout, lin } from '../engine.mjs';
+//   warmPlates()                    builds every cached layer (the scene awaits ready() after it)
+// Cached layers are Images (lib/m1x_c04_img.mjs once): no Canvas is drawn per frame. The sheet is cached at 2× because c04 opens with
+// the camera very close to plate I (pulled back out of the cream light of c03's window).
+import { rgba, clamp, mix, prng, canvas, eout } from '../engine.mjs';
 import { gBorder, rosette, microtext, INK } from './certificate.mjs';
-import { stipple } from './art.mjs';
 import { fibreFill } from './print.mjs';
+import { once } from './m1x_c04_img.mjs';
 
 export const PW = 1000, PH = 560;
-const TAU = Math.PI * 2, PAPER = '#efe4cc';
-const CACHE = new Map(); const once = (k, f) => { if (!CACHE.has(k)) CACHE.set(k, f()); return CACHE.get(k); };
+const TAU = Math.PI * 2, PAPER = '#efe4cc', RES = 2;
+const MEMO = new Map(); const memo = (k, f) => { if (!MEMO.has(k)) MEMO.set(k, f()); return MEMO.get(k); };
 
-// ---------------------------------------------------------------- the sheet (cached)
-function sheet(kind) {
-  return once('sheet' + kind, () => {
-    const [c, g] = canvas(PW, PH);
+// ---------------------------------------------------------------- the sheet (cached at 2×; the plate number is pressed live)
+function sheet() {
+  return once('c04sheet', () => {
+    const [c, g] = canvas(PW * RES, PH * RES); g.scale(RES, RES);
     const gr = g.createLinearGradient(0, 0, PW * .3, PH); gr.addColorStop(0, '#f4ead4'); gr.addColorStop(1, '#e6d8bb');
     g.fillStyle = gr; g.beginPath(); g.rect(0, 0, PW, PH); g.fill();
     // halftone dot screen like Film 5's cards
@@ -33,19 +37,37 @@ function sheet(kind) {
     for (const [x, y] of [[52, 52], [PW - 52, 52], [52, PH - 52], [PW - 52, PH - 52]]) rosette(g, x, y, { R: 15, A: 5, B: 2, n: 10, m: 4, lines: 12, col: INK, w: .6, a: .6 });
     microtext(g, 80, 70, PW - 160, 'SET IN TYPE · PRESSED BY HAND · ONE IMPRESSION ', { size: 6.5, col: INK, a: .45 });
     microtext(g, 80, PH - 70, PW - 160, 'TIME · WORK · LIFE · ', { size: 6.5, col: INK, a: .45 });
-    // plate number, letterpress small caps
-    g.font = '600 15px "Inter"'; try { g.letterSpacing = '6px'; } catch { } g.fillStyle = rgba(INK, .55); g.textAlign = 'center';
-    g.fillText(kind === 1 ? 'PLATE  I' : 'PLATE  II', PW / 2, 100);
     // slight edge darkening (cotton sheet)
     const v = g.createRadialGradient(PW / 2, PH / 2, PH * .3, PW / 2, PH / 2, PW * .62); v.addColorStop(0, 'rgba(90,60,30,0)'); v.addColorStop(1, 'rgba(90,60,30,.18)');
     g.fillStyle = v; g.fillRect(0, 0, PW, PH);
     return c;
   });
 }
+// the plate number, letterpress small caps: both plates use the layout of 'PLATE  II' (plate I simply lacks the last I), so plate II
+// can lift off plate I as an identical print and get its second I pressed afterwards
+const NUMF = '600 15px "Inter"', NUMY = 100 - PH / 2;
+const numLayout = () => memo('num', () => {
+  const [, g] = canvas(10, 10); g.font = NUMF; try { g.letterSpacing = '6px'; } catch { }
+  const full = g.measureText('PLATE  II').width, pre = g.measureText('PLATE  I').width, lastI = g.measureText('I').width;
+  return { x0: -full / 2, split: -full / 2 + Math.min(pre, full - lastI * .5) };
+});
+function plateNumber(ctx, kind, num2) {
+  const L = numLayout();
+  ctx.save(); ctx.font = NUMF; try { ctx.letterSpacing = '6px'; } catch { } ctx.textAlign = 'left'; ctx.fillStyle = rgba(INK, .55);
+  ctx.save(); ctx.beginPath(); ctx.rect(-PW / 2, NUMY - 30, L.split + PW / 2, 50); ctx.clip(); ctx.fillText('PLATE  II', L.x0, NUMY); ctx.restore();
+  const a = kind === 2 ? clamp(num2 ?? 1) : 0;
+  if (a > 0) {   // the second I is pressed like the type: a quick dent that darkens, settling from 5 % larger
+    const k = mix(1.05, 1, eout(clamp(a * 1.4))), cx = L.split + 6;
+    ctx.beginPath(); ctx.rect(L.split, NUMY - 30, PW / 2 - L.split, 50); ctx.clip();
+    ctx.translate(cx, NUMY - 5); ctx.scale(k, k); ctx.translate(-cx, -(NUMY - 5));
+    ctx.globalAlpha = clamp(a * 1.6); ctx.fillText('PLATE  II', L.x0, NUMY);
+  }
+  ctx.restore();
+}
 // the ornament rule of row 2 (a guilloche band with a lozenge), cached
 function band() {
-  return once('band', () => {
-    const w = 560, h = 70, [c, g] = canvas(w, h);
+  return once('c04band', () => {
+    const w = 560, h = 70, [c, g] = canvas(w * RES, h * RES); g.scale(RES, RES);
     g.strokeStyle = rgba(INK, .7); g.lineWidth = .9;
     for (let k = 0; k < 6; k++) {
       const ph = k / 6 * TAU; g.beginPath();
@@ -57,19 +79,21 @@ function band() {
     return c;
   });
 }
-const shadowSprite = () => once('shadow', () => {
+const BANDW = 560, BANDH = 70;
+const shadowSprite = () => once('c04shadow', () => {
   const pad = 80, [c, g] = canvas(PW + pad * 2, PH + pad * 2); g.filter = 'blur(28px)'; g.fillStyle = 'rgba(3,3,12,.75)'; g.fillRect(pad, pad, PW, PH); return c;
 });
 export function plateShadow(ctx, lift = 1, a = 1) {
+  if (a <= 0) return;
   ctx.save(); ctx.globalAlpha = a * mix(.55, .8, clamp(lift)); const d = 10 + 26 * lift; ctx.drawImage(shadowSprite(), -PW / 2 - 80 + d * .5, -PH / 2 - 80 + d, PW + 160, PH + 160); ctx.restore();
 }
 
 // ---------------------------------------------------------------- pinholes (HAVING TO)
 const HOLE = { size: 74, pitch: 6.4, r: 1.7, y: -6 };
 export function holePts() {
-  return once('holes', () => {
-    const fs = HOLE.size / .72, [m, mx] = canvas(10, 10); mx.font = `600 ${fs}px "Inter"`; try { mx.letterSpacing = '12px'; } catch { }
-    const tw = Math.ceil(mx.measureText('HAVING TO').width) + 24, th = Math.ceil(fs * 1.2), [c, g] = canvas(tw, th);
+  return memo('holes', () => {
+    const fs = HOLE.size / .72, [, mx] = canvas(10, 10); mx.font = `600 ${fs}px "Inter"`; try { mx.letterSpacing = '12px'; } catch { }
+    const tw = Math.ceil(mx.measureText('HAVING TO').width) + 24, th = Math.ceil(fs * 1.2), [, g] = canvas(tw, th);
     g.font = `600 ${fs}px "Inter"`; try { g.letterSpacing = '12px'; } catch { } g.fillStyle = '#fff'; g.fillText('HAVING TO', 12, th * .8);
     const D = g.getImageData(0, 0, tw, th).data, pts = [], p = HOLE.pitch;
     for (let row = 0, y = p * .5; y < th; y += p * .866, row++) for (let x = (row & 1) ? p * .5 : 0; x < tw; x += p) {
@@ -79,23 +103,30 @@ export function holePts() {
     pts.sort((a, b) => a[0] - b[0] || a[1] - b[1]); return pts;
   });
 }
-const SPR = new Map();
-function glowSprite(col, r) { const k = col + r; if (!SPR.has(k)) { const R = Math.ceil(r), [c, g] = canvas(R * 2, R * 2), gr = g.createRadialGradient(R, R, 0, R, R, R); gr.addColorStop(0, rgba(col, .95)); gr.addColorStop(.3, rgba(col, .35)); gr.addColorStop(1, rgba(col, 0)); g.fillStyle = gr; g.fillRect(0, 0, R * 2, R * 2); SPR.set(k, c); } return SPR.get(k); }
+function glowSprite(col, r) {
+  return once('c04glow' + col + r, () => { const R = Math.ceil(r), [c, g] = canvas(R * 2, R * 2), gr = g.createRadialGradient(R, R, 0, R, R, R); gr.addColorStop(0, rgba(col, .95)); gr.addColorStop(.3, rgba(col, .35)); gr.addColorStop(1, rgba(col, 0)); g.fillStyle = gr; g.fillRect(0, 0, R * 2, R * 2); return c; });
+}
 // the punched letters as two cached layers: paper rims (shade) and the light (cores + halo)
+const HL = { w: 760, h: 160 };
 function holeLayers() {
-  return once('holeL', () => {
-    const P = holePts(), w = 760, h = 160, [cs, gs] = canvas(w, h), [cl, gl] = canvas(w, h), ox = w / 2, oy = h / 2;
-    // paper shading round the letters (onPaper): the sheet dims so the light reads
+  const P = holePts(), { w, h } = HL, ox = w / 2, oy = h / 2;
+  const s = once('c04holeS', () => {
+    const [cs, gs] = canvas(w, h);
     for (const [x, y] of P) { gs.fillStyle = 'rgba(60,35,15,.05)'; gs.beginPath(); gs.arc(ox + x, oy + y, 7, 0, TAU); gs.fill(); }
     for (const [x, y] of P) { gs.fillStyle = 'rgba(40,22,8,.85)'; gs.beginPath(); gs.arc(ox + x + .5, oy + y + .6, HOLE.r + .7, 0, TAU); gs.fill(); }
-    const spr = glowSprite('#ffb35c', 9);
-    gl.globalCompositeOperation = 'lighter';
-    for (const [x, y] of P) gl.drawImage(spr, ox + x - 9, oy + y - 9);
-    for (const [x, y] of P) { gl.fillStyle = '#fff1d6'; gl.beginPath(); gl.arc(ox + x, oy + y, HOLE.r, 0, TAU); gl.fill(); }
-    return { s: cs, l: cl, ox, oy, w, h };
+    return cs;
   });
+  const l = once('c04holeL', () => {
+    const [cl, gl] = canvas(w, h), R = 9, [sc, sg] = canvas(R * 2, R * 2), gr = sg.createRadialGradient(R, R, 0, R, R, R);
+    gr.addColorStop(0, rgba('#ffb35c', .95)); gr.addColorStop(.3, rgba('#ffb35c', .35)); gr.addColorStop(1, rgba('#ffb35c', 0)); sg.fillStyle = gr; sg.fillRect(0, 0, R * 2, R * 2);
+    gl.globalCompositeOperation = 'lighter';
+    for (const [x, y] of P) gl.drawImage(sc, ox + x - 9, oy + y - 9);
+    for (const [x, y] of P) { gl.fillStyle = '#fff1d6'; gl.beginPath(); gl.arc(ox + x, oy + y, HOLE.r, 0, TAU); gl.fill(); }
+    return cl;
+  });
+  return { s, l, ox, oy, w, h };
 }
-// x0..x1: the visible slice (the punch front), in plate units
+// x1: the visible slice (the punch front), in plate units
 function drawHoles(ctx, x1, glow, t) {
   const L = holeLayers(); if (x1 <= -L.ox) return;
   ctx.save(); ctx.beginPath(); ctx.rect(-L.ox, -L.oy, Math.max(0, x1 + L.ox), L.h); ctx.clip();
@@ -105,7 +136,6 @@ function drawHoles(ctx, x1, glow, t) {
 }
 
 // ---------------------------------------------------------------- pressed type
-const LINES = { the: { s: 'THE', y: -112 }, end: { s: 'END', y: -112 }, of: { s: 'OF', y: -112 }, work: { s: 'WORK', y: 190 } };
 function pressed(ctx, s, x, y, size, a, align = 'center') {
   if (a <= 0) return;
   ctx.save(); ctx.font = `${size}px "Instrument Serif"`; ctx.textAlign = align; try { ctx.letterSpacing = (size * .06) + 'px'; } catch { }
@@ -117,8 +147,8 @@ function pressed(ctx, s, x, y, size, a, align = 'center') {
 }
 // x positions of THE / END / OF on line 1 (measured once)
 function line1() {
-  return once('line1', () => {
-    const [m, g] = canvas(10, 10); g.font = '104px "Instrument Serif"'; try { g.letterSpacing = (104 * .06) + 'px'; } catch { }
+  return memo('line1', () => {
+    const [, g] = canvas(10, 10); g.font = '104px "Instrument Serif"'; try { g.letterSpacing = (104 * .06) + 'px'; } catch { }
     const ws = ['THE', 'END', 'OF'].map((s) => g.measureText(s).width), sp = 34, tot = ws.reduce((a, b) => a + b) + sp * 2; let x = -tot / 2; const out = [];
     for (const w of ws) { out.push(x + w / 2); x += w + sp; } return out;
   });
@@ -126,15 +156,16 @@ function line1() {
 
 export function plate(ctx, t, o = {}) {
   const kind = o.kind || 1, ink = o.ink || [1, 1, 1, 1], fade = clamp(o.fade ?? 0), ia = 1 - fade;
-  ctx.drawImage(sheet(kind), -PW / 2, -PH / 2);
+  ctx.drawImage(sheet(), -PW / 2, -PH / 2, PW, PH);
+  plateNumber(ctx, kind, o.num2);
   const X = line1();
   pressed(ctx, 'THE', X[0], -112 + 40, 104, ink[0] * ia);
   pressed(ctx, 'END', X[1], -112 + 40, 104, ink[1] * ia);
   pressed(ctx, 'OF', X[2], -112 + 40, 104, ink[2] * ia);
   pressed(ctx, 'WORK', 0, 190, 168, ink[3] * ia);
   // row 2: the ornament rule; on plate II it is cut away behind a burin front and HAVING TO is punched in its place
-  const B = band(), bw = B.width, bh = B.height, cut = clamp(o.cut ?? 0), front = mix(-bw / 2 - 40, bw / 2 + 60, cut), ba = (o.band ?? 1) * ia;
-  if (ba > 0 && front < bw / 2) { ctx.save(); ctx.beginPath(); ctx.rect(front, -6 - bh / 2, bw / 2 - front + 2, bh); ctx.clip(); ctx.globalAlpha = ba; ctx.drawImage(B, -bw / 2, -6 - bh / 2); ctx.restore(); }
+  const B = band(), bw = BANDW, bh = BANDH, cut = clamp(o.cut ?? 0), front = mix(-bw / 2 - 40, bw / 2 + 60, cut), ba = (o.band ?? 1) * ia;
+  if (ba > 0 && front < bw / 2) { ctx.save(); ctx.beginPath(); ctx.rect(front, -6 - bh / 2, bw / 2 - front + 2, bh); ctx.clip(); ctx.globalAlpha = ba; ctx.drawImage(B, -bw / 2, -6 - bh / 2, bw, bh); ctx.restore(); }
   if (kind === 2 && cut > 0 && !o.holesOff) {
     drawHoles(ctx, front, o.glow ?? 1, t);
     if (cut < 1) { // the burin spark at the front
@@ -158,6 +189,7 @@ export function plate(ctx, t, o = {}) {
 }
 export function burinSpark(ctx, x, y, r = 34) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.drawImage(glowSprite('#ffb35c', r), x - r, y - r); ctx.restore(); }
 export { glowSprite };
+export function warmPlates() { sheet(); band(); shadowSprite(); holeLayers(); glowSprite('#ffb35c', 34); glowSprite('#ffb35c', 9); numLayout(); line1(); }
 
 // ---------------------------------------------------------------- the crowd (4.03): busts from behind, cold rim
 const BUSTS = (() => {

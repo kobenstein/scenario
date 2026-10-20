@@ -5,11 +5,14 @@
 //   hillTake(ctx, t, K)     249.46 → K.cover: the hill zoom with the room drawn through the window (st.inside)
 //   townTake(ctx, t, K)     K.cover → the bridge: the 3D town
 //   envAt(t, K)             light and colour state (one sun that sets slowly over 20 s)
-import { W, H, rgba, clamp, mix, prng, mixHex, shade, TAU, cam, sm2, smr, eoX, eiX, qio, cio, radial, hash } from './v2_c10_kit.mjs';
+import { W, H, rgba, clamp, mix, prng, mixHex, shade, TAU, cam, sm2, smr, eoX, eiX, qio, cio, radial, hash, spline } from './v2_c10_kit.mjs';
 import { drawHill, VIEWS, hillWindow, toScreen } from './maslow4.mjs';
 import { roomGarden, G } from './v2_c10_garden.mjs';
 import { lane, LANE } from './v2_c10_lane.mjs';
-import { harbour, HB } from './v2_c10_harbour.mjs';
+import { harbour, QY, WY, HBR, boats } from './v2_c10_harbour.mjs';
+import { city, SY, BLK, CORE, SKY_F } from './v2_c10_city.mjs';
+import { stairs, ST } from './v2_c10_stairs.mjs';
+import { handsOf } from './handoff4.mjs';
 
 export const F = 1400;
 export function townAnchors(T) {
@@ -22,15 +25,19 @@ export function townAnchors(T) {
     neigh: S('Neighbours'), name: S('name.'), nameE: E('know your name'),
     whole: S('A whole afternoon'), friend: S('friend,'), calendar: S('calendar.'), calE: E('no calendar'),
     decades: S('For decades'), apart: S('apart.'), apartE: E('drifted apart'),
-    small: S('Small flats'), flats: S('flats.'),
+    small: S('Small flats'), flats: S('flats.'), commutes: S('commutes.'), commE: E('commutes.'), strangers: S('Strangers'),
+    stair: S('staircase.'), stairE: E('staircase.'), now: S('Now there'), build: S('build'), tribe: S('tribe'), againE: E('again.'),
+    streets: S('Streets full'), people2: S('people who'), hurry: S('hurry.'), hurryE: E('hurry.'),
   };
+  K.end = handsOf('c10', T).out.a - 1 / 30;  // from here on the frame is the sky plate
+  K.pushEnd = K.stair - .3;                  // the push into the stair core window ends (the window covers the frame)
   K.cover = K.peopleE + .14;                 // the window covers the frame (z ≥ 330)
   K.inGarden = K.love - .08;                 // the camera comes to rest in the garden
   K.seasons0 = K.parents - .2; K.seasons1 = K.weekend + .35;
   K.gate0 = K.weekendE - .02; K.gateT = K.long + .45;   // the gate opens; the camera passes it
   K.lane = K.long + 1.05;                    // looking down the lane
   K.glide0 = K.nameE - .2; K.wall = K.friend - .6;      // down the lane → resting by the harbour wall
-  K.tilt0 = K.calE + .05; K.boats = K.apart - .55; K.arch = K.apartE + .2;
+  K.tilt0 = K.calE + .05; K.swap = K.decades + .5; K.arch = K.apartE + .2;
   return K;
 }
 
@@ -52,8 +59,9 @@ function palAt(t, K) {
 }
 export function envAt(t, K) {
   const P = palAt(t, K);
-  // the sun: fixed azimuth over the lane's end (+X), sinking from 9° (garden) to −4° (after the boats)
-  const el = mix(9, -4, clamp((t - K.cover) / (K.apartE + .3 - K.cover))) * Math.PI / 180, az = 84 * Math.PI / 180;
+  // the sun: low over the sea at the lane's end (az 82°), sinking slowly; over the friends it moves along one smooth arc and sets
+  const el = spline(t, [[K.cover, 10], [K.nine, 7], [K.wall, 5], [K.calE, 1.6], [K.apart, -2.5]]) * Math.PI / 180;
+  const az = spline(t, [[K.cover, 82], [K.wall - .3, 82], [K.calE + .2, 86.5]]) * Math.PI / 180;
   const sunDir = [Math.sin(az) * Math.cos(el), Math.sin(el), Math.cos(az) * Math.cos(el)];
   const sunA = clamp(1 + el * 30);   // fades as it sinks below the horizon (it is behind the sea line by then)
   return {
@@ -96,7 +104,7 @@ function insideView(ctx, t, K, sx, sy, sw, sh, on) {
   const wc = windowColor(t, on);
   if (sw < 9) { ctx.fillStyle = wc; ctx.fillRect(sx, sy, sw, sh); return; }
   const d = F * G.win.w / sw, C = cam({ x: G.win.x, y: G.win.y, z: -d, f: F, ox: sx + sw / 2, oy: sy + sh / 2 });
-  const E = envAt(t, K); E.lamp = on; E.season = 0; E.rays = 0;
+  const E = envAt(t, K); actions(t, K, E); E.lamp = on;
   ctx.save(); ctx.beginPath(); ctx.rect(sx, sy, sw, sh); ctx.clip();
   roomGarden(ctx, C, t, E, { cheap: sw < 80 });
   // the window glass: its lit colour reads as one glow from afar and clears as we come close
@@ -125,15 +133,46 @@ function camKeys(K) {
     { t: K.neigh + .75, p: [gx + 1.5, 2.45, LANE.z + .1, Math.PI / 2 - .12, .12] },
     { t: K.name - .1, p: [gx + 1.7, 2.45, LANE.z + .1, Math.PI / 2 - .1, .1] },
     { t: K.glide0, p: [gx + 1.9, 2.4, LANE.z, Math.PI / 2 - .02, -.12] },
-    { t: K.glide0 + 1.1, p: [LANE.x1 - 3, 1.6, LANE.z - .2, Math.PI / 2 + .1, -.1] },
-    { t: K.wall, p: HB.cam0, v: [.12, 0, 0, 0, 0] },
-    { t: K.tilt0, p: HB.cam1 },
-    { t: K.boats, p: HB.cam2 },
-    { t: K.apart + .2, p: HB.cam3 },
-    { t: K.arch, p: HB.cam4 },
-    { t: K.arch + .6, p: HB.cam5 },
+    { t: K.glide0 + .95, p: [12.2, 1.5, 19.7, Math.PI / 2 - .05, -.1] },
+    { t: K.wall - .5, p: [16.4, -.4, 18.0, 1.3, -.06] },
+    { t: K.wall, p: [17.9, -1.1, 16.1, 1.2, -.02], v: [.05, 0, .012, .003, 0] },
+    { t: K.tilt0, p: [18.05, -1.08, 16.15, 1.21, -.02] },
+    { t: K.tilt0 + .9, p: [17.0, 1.2, 14.4, 1.1, -.75] },
+    { t: K.swap, p: [16.7, 1.8, 14.0, 1.07, -.92] },
+    { t: K.swap + .45, p: [16.75, 1.9, 14.05, 1.1, -.92] },
+    { t: K.apart + .3, p: [18.3, .5, 15.4, 1.56, -.42] },
+    { t: K.apartE + .1, p: [21.5, -1.55, 16.25, 1.56, -.1] },
+    { t: K.apartE + .75, p: [24.9, -1.85, 16.3, Math.PI / 2, -.02] },
+    // World 2: out of the vault, the camera rises over the canal, pushes into the stair core window (analytic, see PUSH), looks down
+    { t: K.flats + .55, p: [27.8, -1.65, 16.3, Math.PI / 2, .02] },
+    { t: K.commutes + .05, p: [33.5, .9, 16.3, Math.PI / 2, .07] },
+    { t: K.commE, p: [...PU.P0, Math.PI / 2, .12], v: [...PU.dir.map((d) => d * PU.v0), 0, 0] },
+    { t: K.pushEnd, p: [...PU.P1, Math.PI / 2, PU.lp], v: [...PU.dir.map((d) => d * PU.vEnd), 0, -.4] },
+    { t: K.pushEnd + 1.0, p: [ST.x - .3, PU.Y9 + 2.6, ST.z, Math.PI / 2, -1.3] },
+    { t: K.now, p: [ST.x, PU.Y9 + 2.75, ST.z, Math.PI / 2 + .1, -1.33] },
+    { t: K.now + .95, p: [ST.x, PU.Y9 + 4.2, ST.z, Math.PI / 2 + .25, -1.36] },
+    { t: K.tribe, p: [ST.x, BLK.top + 2.2, ST.z, Math.PI / 2 + .45, -1.38] },
+    { t: K.againE + .2, p: [114.5, BLK.top + 8, 12, .55, -.95] },
+    { t: K.streets + .45, p: [105, BLK.top - 2, 8, .1, -.62] },
+    { t: K.hurry, p: [101, 14, 30, -.15, -.38] },
+    { t: K.hurryE, p: [100.4, 12.5, 37, -.35, -.25] },
+    { t: K.end, p: [100, 13, 41, SKY_F.yaw, SKY_F.pitch] },
   ];
 }
+// the push into the stair core window: log distance to the window, its log speed ramps from the incoming speed and holds
+const PU = (() => {
+  const Y9 = SY + 9 * 3, T = [BLK.x0 + .02, Y9 + 2.2, CORE.z], P0 = [44, 8.2, CORE.z], d = T.map((v, i) => v - P0[i]), D0 = Math.hypot(...d), dir = d.map((v) => v / D0);
+  const D1 = .55, v0 = 9, lp = Math.atan2(d[1], Math.hypot(d[0], d[2]));
+  return { Y9, T, P0, dir, D0, D1, v0, lp, P1: T.map((v, i) => v - dir[i] * D1) };
+})();
+function push(t, K) {
+  const Tp = K.pushEnd - K.commE, Tr = Tp * .45, l0 = PU.v0 / PU.D0, LN = Math.log(PU.D0 / PU.D1), lmax = (LN - l0 * Tr / 2) / (Tp - Tr / 2), tau = clamp(t - K.commE, 0, Tp);
+  let I; if (tau < Tr) { const u = tau / Tr; I = l0 * tau + (lmax - l0) * Tr * (u * u * u - u * u * u * u / 2); } else I = l0 * Tr / 2 + lmax * (tau - Tr / 2);
+  PU.vEnd = lmax * PU.D1;
+  const D = PU.D0 * Math.exp(-I), pos = PU.T.map((v, i) => v - PU.dir[i] * D), pitch = mix(.12, PU.lp, sm2(tau / (Tp * .6)));
+  return { x: pos[0], y: pos[1], z: pos[2], yaw: Math.PI / 2, pitch };
+}
+{ const Tp = 1, Tr = .45; PU.vEnd = 0; }
 let KEYS = null, KEYK = null;
 function hermite(t, Ks, j) {
   const n = Ks.length; if (t <= Ks[0].t) return Ks[0].p[j] + (Ks[0].v ? Ks[0].v[j] * (t - Ks[0].t) : 0);
@@ -145,9 +184,19 @@ function hermite(t, Ks, j) {
   return (2 * u3 - 3 * u2 + 1) * A.p[j] + (u3 - 2 * u2 + u) * h * m0 + (-2 * u3 + 3 * u2) * B.p[j] + (u3 - u2) * h * m1;
 }
 export function townCam(t, K) {
-  if (KEYK !== K) { KEYS = camKeys(K); KEYK = K; }
+  if (KEYK !== K) { push(K.pushEnd, K); KEYS = camKeys(K); KEYK = K; boatStarts(K); }
+  if (t > K.commE && t < K.pushEnd) return push(t, K);
   const v = [0, 1, 2, 3, 4].map((j) => hermite(t, KEYS, j));
   return { x: v[0], y: v[1], z: v[2], yaw: v[3], pitch: v[4] };
+}
+// where the two boats open out: the water points under the friends' reflections, seen from the camera at K.swap
+function boatStarts(K) {
+  const P = [0, 1, 2].map((j) => hermite(K.swap, KEYS, j)), out = [];
+  for (const F of HBR.friends) {
+    const Mx = F.x, My = 2 * WY - (QY + .1 + 34 * 1.75 / 188 * F.h), Mz = 18.6 + .17, u = (P[1] - WY) / (P[1] - My);
+    out.push([P[0] + (Mx - P[0]) * u, P[2] + (Mz - P[2]) * u]);
+  }
+  K.boatA0 = out[0]; K.boatB0 = out[1];
 }
 // per-time actions of the family and the lane
 function actions(t, K, E) {
@@ -161,10 +210,13 @@ function actions(t, K, E) {
   E.smile = .2 + .4 * E.love;
   E.gate = eoX(clamp((t - K.gate0) / .7)) * .98;
   E.rays = 1 - sm2((t - K.gateT + .4) / .6);
+  E.northLit = (hh, f, i, r) => { const q = r(), q2 = r(); if (q < .28) return .6 + .2 * Math.sin(t * .5 + i + f); if (q < .55) return clamp((t - K.long - 1 - q2 * 6) / .4) * .85; return 0; };
 }
 export function townTake(ctx, t, K) {
   const c = townCam(t, K), C = cam({ ...c, f: F }), E = envAt(t, K); actions(t, K, E);
   if (C.z < G.wallZ + .05 && C.yaw < .9) roomGarden(ctx, C, t, E, { lane: (g, CC) => lane(g, CC, t, E, K, { behindWall: true }) });
   else if (C.x < LANE.x1 + 1) lane(ctx, C, t, E, K, {});
-  else harbour(ctx, C, t, E, K, {});
+  else if (C.x < HBR.bridge.x1) harbour(ctx, C, t, E, K, { beyond: (g, CC) => city(g, CC, t, K) });
+  else if (C.x > BLK.x0 + .01 && C.y < BLK.top && Math.hypot(C.x - ST.x, C.z - ST.z) < ST.ro + .6) stairs(ctx, C, t, K, {});
+  else city(ctx, C, t, K, { stair: (g, CC, o) => stairs(g, CC, t, K, o), stairFloor: 9 });
 }

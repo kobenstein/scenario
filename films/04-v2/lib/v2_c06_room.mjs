@@ -459,11 +459,12 @@ export function drawW1(ctx, t, c, G, S, o = {}) {
     if (c.y > -hh) fillP(ctx, c, [[-hw, -hh, -30], [hw, -hh, -30], [hw, -hh, 0], [-hw, -hh, 0]], '#0b0d22'); if (c.y < hh) fillP(ctx, c, [[-hw, hh, -30], [hw, hh, -30], [hw, hh, 0], [-hw, hh, 0]], '#1a1d40'); }
   // the curtains at Z = 6: two sheer panels, pleated; backlit they glow, the room shows through them
   const Zc = 6; if (c.z < Zc - 2) {
-    const k = plane(ctx, c, Zc), gap = mix(4, hw * .95, open), sway = Math.sin(t * .9) * 1.2 + Math.sin(t * 2.3) * .5;
+    const k = plane(ctx, c, Zc), gap = mix(0, hw * .95, open), sway = Math.sin(t * .9) * 1.2 + Math.sin(t * 2.3) * .5;
     for (const sx of [-1, 1]) {
       const xi = sx * gap, xo = sx * (hw + 8), top = -hh - 6, bot = hh + 4;
       ctx.save(); ctx.beginPath(); ctx.moveTo(xo, top); ctx.lineTo(xi, top); ctx.bezierCurveTo(xi + sway * .5, top + (bot - top) * .3, xi + sway * 1.3 - sx * open * 6, top + (bot - top) * .7, xi + sway * 2 - sx * open * 14, bot); ctx.lineTo(xo, bot); ctx.closePath();
-      const g = ctx.createLinearGradient(xi, 0, xo, 0); g.addColorStop(0, rgba(glowCol, .14 * glowA)); g.addColorStop(1, rgba(glowCol, .3 * glowA)); ctx.fillStyle = g; ctx.fill(); ctx.clip();
+      if (o.fill) { ctx.fillStyle = o.fill; ctx.fill(); } else { const g = ctx.createLinearGradient(xi, 0, xo, 0); g.addColorStop(0, rgba(glowCol, .14 * glowA)); g.addColorStop(1, rgba(glowCol, .3 * glowA)); ctx.fillStyle = g; ctx.fill(); }
+      ctx.clip();
       // pleats: folds bunch toward the outer edge as the curtain opens (darker valleys, light crests)
       const n = 9; for (let i = 0; i < n; i++) { const u = Math.pow((i + .5) / n, 1 - open * .45), x = mix(xi, xo, u) + sway * (1 - u), wv = Math.abs(xo - xi) / n * (1 - open * .4);
         ctx.fillStyle = rgba('#05060f', .12 + .05 * Math.sin(i * 1.7)); ctx.fillRect(x - wv * .22, top, wv * .44, bot - top); ctx.fillStyle = rgba('#ffffff', .07 * glowA); ctx.fillRect(x + wv * .28, top, wv * .14, bot - top); }

@@ -51,7 +51,7 @@ export function pin(o) {
   const P = (X, Y, Z) => {
     const dx = X - o.x, dy = Y - o.y, dz = Z - o.z;
     const xc = dx * cy - dz * sy, zc0 = dx * sy + dz * cy;
-    const yc = dy * cp - zc0 * sp, zc = dy * sp + zc0 * cp, q = F / Math.max(.05, zc);
+    const yc = dy * cp - zc0 * sp, zc = dy * sp + zc0 * cp, q = F / Math.max(o.zmin ?? .05, zc);
     return [ox + xc * q, oy - yc * q, zc, q];
   };
   P.o = o; P.F = F; return P;
@@ -200,4 +200,36 @@ export function hatchPoly(ctx, pts, ang = -.9, gap = 5, col = 'rgba(0,0,0,.3)', 
   const c = Math.cos(ang), s = Math.sin(ang), cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, R = Math.hypot(x1 - x0, y1 - y0) / 2 + 2;
   for (let d = -R; d <= R; d += gap) { const px = cx - s * d, py = cy + c * d; ctx.moveTo(px - c * R, py - s * R); ctx.lineTo(px + c * R, py + s * R); }
   ctx.stroke(); ctx.restore();
+}
+
+// ---------------------------------------------------------------- 3D helpers for the kitchen and the valley (the road keeps its own copies)
+export const camOf = (o) => { const cy = Math.cos(o.yaw || 0), sy = Math.sin(o.yaw || 0), cp = Math.cos(o.pitch || 0), sp = Math.sin(o.pitch || 0);
+  return ([X, Y, Z]) => { const dx = X - o.x, dy = Y - o.y, dz = Z - o.z, xc = dx * cy - dz * sy, zc0 = dx * sy + dz * cy; return [xc, dy * cp - zc0 * sp, dy * sp + zc0 * cp]; }; };
+// world polygon → screen polygon, clipped at the near plane z = zn (Sutherland–Hodgman)
+export function projPoly(P, pts, zn = .35) {
+  const o = P.o, cam = camOf(o), C = pts.map(cam), out = [], F = P.F, ox = o.ox ?? W / 2, oy = o.oy ?? H / 2;
+  for (let i = 0; i < C.length; i++) {
+    const a = C[i], b = C[(i + 1) % C.length], ia = a[2] >= zn, ib = b[2] >= zn;
+    if (ia) out.push(a);
+    if (ia !== ib) { const k = (zn - a[2]) / (b[2] - a[2]); out.push([a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, zn]); }
+  }
+  return out.map(([x, y, z]) => [ox + x * F / z, oy - y * F / z]);
+}
+export function projSeg(P, A, B, zn = .35) {
+  const o = P.o, cam = camOf(o), a = cam(A), b = cam(B), F = P.F, ox = o.ox ?? W / 2, oy = o.oy ?? H / 2;
+  if (a[2] < zn && b[2] < zn) return null;
+  const cl = (p, q) => { if (p[2] >= zn) return p; const k = (zn - p[2]) / (q[2] - p[2]); return [p[0] + (q[0] - p[0]) * k, p[1] + (q[1] - p[1]) * k, zn]; };
+  const a2 = cl(a, b), b2 = cl(b, a);
+  return [[ox + a2[0] * F / a2[2], oy - a2[1] * F / a2[2]], [ox + b2[0] * F / b2[2], oy - b2[1] * F / b2[2]]];
+}
+// a polyline in world space → screen (points behind the near plane split the line)
+export function projLine(ctx, P, pts, zn = .35) {
+  const o = P.o, cam = camOf(o), F = P.F, ox = o.ox ?? W / 2, oy = o.oy ?? H / 2; let on = false;
+  for (const p of pts) { const c = cam(p); if (c[2] < zn) { on = false; continue; } const x = ox + c[0] * F / c[2], y = oy - c[1] * F / c[2]; on ? ctx.lineTo(x, y) : ctx.moveTo(x, y); on = true; }
+}
+// the transform that maps local plane coords (x along ux, y along uy, metres) at the 3D point C onto the screen (exact at C)
+export function plane3(ctx, P, C, ux, uy) {
+  const o = P(C[0], C[1], C[2]); if (o[2] < (P.o.zmin ?? .05) * 1.01) return 0;
+  const a = P(C[0] + ux[0], C[1] + ux[1], C[2] + ux[2]), b = P(C[0] + uy[0], C[1] + uy[1], C[2] + uy[2]);
+  ctx.setTransform(a[0] - o[0], a[1] - o[1], b[0] - o[0], b[1] - o[1], o[0], o[1]); return o[3];
 }

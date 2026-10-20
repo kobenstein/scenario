@@ -1,85 +1,40 @@
 // c09 · 9.07 ★ "Which tells you exactly where to go": the amber curve runs off the card's edge into the night, keeps rising,
-// arcs over the roofs and becomes the flank of the Maslow hill across the bay; the hill (a dark mass in the night) is outlined by
-// the line, then fills terrace by terrace, its labels print in, and the camera lands on VIEW H2.
-// The hill is drawn only by lib/maslow4.mjs drawHill(); this file only darkens its unbuilt terraces (the hill rises out of the dark)
-// and draws the amber outline on top. Once everything is filled the frame is drawHill(VIEWS.H2) and nothing else.
-import { W, H, rgba, clamp, mix, sm } from '../engine.mjs';
-import { drawHill, VIEWS, HILL, toScreen } from './maslow4.mjs';
-import { burinTip } from './ghost.mjs';
-import { cs, toScr, NEAR } from './v2_c09_kit.mjs';
+// arcs over the roofs and flows into the left foot of the Maslow hill across the bay; from there the hill's own build (lib/maslow4.mjs
+// st.build: an amber outline round the silhouette, then the terraces rise out of the dark from the quay up) carries it on, the labels
+// print in, and the camera lands on VIEW H2.
+// The hill is drawn only by lib/maslow4.mjs drawHill(). On top of it this file only darkens the hill's reflection in the water while the
+// hill above is still dark (the reflection follows the reveal front, mirrored), so nothing shows in the water that is not yet on the hill.
+// Once the build and the labels are complete the frame is drawHill(VIEWS.H2) and nothing else.
+import { W, H, clamp, mix } from '../engine.mjs';
+import { drawHill, VIEWS, HILL, toScreen, hillOutline } from './maslow4.mjs';
 import { camFar, hillPt, FAR } from './v2_c09_court.mjs';
 
-const LV = HILL.levels, CX = HILL.cx;
-// the silhouette of level lv in hill units (terrace trapezoid + the retaining wall on its top edge; the peak with level 4)
-function levelPoly(lv) {
-  const L = LV[lv], p = [[CX - L.hw0, L.y0], [CX - L.hw1, L.y1 + 2], [CX - L.hw1 - 6, L.y1 + 2], [CX - L.hw1 - 6, L.y1 - 5]];
-  if (lv === 4) { p.push([CX - 90, 214 - 5]); for (let i = 0; i <= 12; i++) { const q = i / 12, x = (1 - q) ** 2 * (CX - 90) + 2 * (1 - q) * q * (CX - 20) + q * q * CX, y = (1 - q) ** 2 * 214 + 2 * (1 - q) * q * 190 + q * q * HILL.summit.y; p.push([x, Math.min(y, 214 - 5)]); } }
-  const half = p.slice(), right = half.slice().reverse().map(([x, y]) => [2 * CX - x, y]);
-  return [...half, ...right];
-}
-const POLYS = LV.map((_, lv) => levelPoly(lv));
-// the outline the line runs along: base-left → up the stepped flank → over the peak → down to base-right (hill units)
-export const OUTLINE = (() => {
-  const left = [];
-  for (let lv = 0; lv < 5; lv++) { const L = LV[lv]; left.push([CX - L.hw0, L.y0], [CX - L.hw1, L.y1]); }
-  for (let i = 1; i <= 16; i++) { const q = i / 16; left.push([(1 - q) ** 2 * (CX - 90) + 2 * (1 - q) * q * (CX - 20) + q * q * CX, (1 - q) ** 2 * 214 + 2 * (1 - q) * q * 190 + q * q * HILL.summit.y]); }
-  const right = left.slice(0, -1).reverse().map(([x, y]) => [2 * CX - x, y]);
-  return [...left, ...right];
-})();
-const pathHill = (ctx, cf, pts, dy = 0, mirror = false) => {
-  ctx.beginPath(); pts.forEach(([x, y], i) => { const [sx, sy] = toScreen(cf, x, mirror ? 2 * HILL.horizon - y : y); i ? ctx.lineTo(sx, sy + dy) : ctx.moveTo(sx, sy + dy); }); ctx.closePath();
-};
+export const HOUT = hillOutline();                 // world (hill units): left foot → summit → right foot (drawHill draws its build line along it)
+// the head of the build's amber line: drawHill draws N = floor(len·b/.35) points (≥ 2) → [head, the point before]
+export function outlineHead(b) { const uo = clamp(b / .35), N = Math.max(2, Math.floor(HOUT.length * uo)); return [HOUT[N - 1], HOUT[N - 2]]; }
 
-// st: the H2 state; B: { dark (0..1 how dark the unbuilt hill is), fill[5] (0..1 terrace fill fronts), label[5] (0..1 wipes),
-//     outline: [a, b] (part of OUTLINE drawn, 0..1 by length), lineW, t }
+// B: { build 0..1, labels 0..1 } (null → the finished H2 frame)
 export function farField(ctx, t, cam, B) {
-  const cf = camFar(cam), st = VIEWS.H2.st, built = !B || (B.fill.every((f) => f >= 1) && B.label.every((u) => u >= 1) && !(B.outline && B.outline[1] > B.outline[0]));
-  if (built) { drawHill(ctx, t, cf, st); return; }
-  drawHill(ctx, t, cf, { ...st, labels: 0 });
-  // the unbuilt terraces: the hill is there, a dark mass in the night; each terrace rises out of the dark from its foot up
-  const dk = clamp(B.dark ?? 1);
-  for (let lv = 0; lv < 5; lv++) {
-    const f = clamp(B.fill[lv]); if (f >= 1 || dk <= 0) continue;
-    const L = LV[lv], yTop = lv === 4 ? HILL.summit.y - 4 : L.y1 - 6, [, sy0] = toScreen(cf, 0, L.y0 + 1), [, sy1] = toScreen(cf, 0, yTop);
-    const front = mix(sy0, sy1, f), soft = Math.max(2, (sy0 - sy1) * .35);
-    for (const mir of [false, true]) {
-      ctx.save(); pathHill(ctx, cf, POLYS[lv], 0, mir); ctx.clip();
-      const a = .9 * dk * (mir ? .55 : 1);
-      if (!mir) {
-        const g = ctx.createLinearGradient(0, front + soft * .2, 0, front - soft); g.addColorStop(0, `rgba(6,7,20,0)`); g.addColorStop(1, `rgba(6,7,20,${a})`);
-        ctx.fillStyle = g; ctx.fillRect(0, front - soft, W, soft * 1.2 + 1); ctx.fillStyle = `rgba(6,7,20,${a})`; ctx.fillRect(0, -10, W, front - soft + 10);
-        // the fill front glows as it climbs (light filling the terrace)
-        if (f > 0) { const g2 = ctx.createLinearGradient(0, front + soft * .5, 0, front - soft * .5); g2.addColorStop(0, 'rgba(255,179,92,0)'); g2.addColorStop(.5, `rgba(255,179,92,${.22 * dk})`); g2.addColorStop(1, 'rgba(255,179,92,0)'); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g2; ctx.fillRect(0, front - soft * .5, W, soft); ctx.globalCompositeOperation = 'source-over'; }
-      } else {
-        const [, m0] = toScreen(cf, 0, 2 * HILL.horizon - L.y0), mf = m0 + (front - sy0) * -1;   // mirrored front
-        ctx.fillStyle = `rgba(6,7,20,${a})`; ctx.fillRect(0, mf, W, H - mf + 10);
-      }
-      ctx.restore();
-    }
-  }
-  // the labels print in (the same drawHill, labels on, only inside the revealed bands)
-  if (B.label.some((u) => u > 0)) {
-    ctx.save(); ctx.beginPath(); let any = false;
-    LV.forEach((L, lv) => {
-      const u = clamp(B.label[lv]); if (u <= 0) return; any = true;
-      const ym = (L.y0 + L.y1) / 2, [fx, fy] = toScreen(cf, CX + (L.hw0 + L.hw1) / 2 + 4, ym), x0 = fx + 4;
-      ctx.rect(x0, fy - 46, (W - x0) * u, 70);
-    });
-    if (any) { ctx.clip(); drawHill(ctx, t, cf, st); }
-    ctx.restore();
-  }
-  // the amber outline, on top of the still dark part only (a filled terrace swallows its piece of the line)
-  if (B.outline && B.outline[1] > B.outline[0]) {
-    ctx.save();
-    ctx.beginPath(); ctx.rect(0, 0, W, H);   // clip: everything except the filled part of each terrace
-    let yClip = H;
-    for (let lv = 0; lv < 5; lv++) { const L = LV[lv], f = clamp(B.fill[lv]); if (f <= 0) break; const yTop = lv === 4 ? HILL.summit.y - 4 : L.y1 - 6, [, sy0] = toScreen(cf, 0, L.y0 + 1), [, sy1] = toScreen(cf, 0, yTop); yClip = mix(sy0, sy1, f) - 2; if (f < 1) break; }
-    ctx.restore(); ctx.save(); ctx.beginPath(); ctx.rect(0, -10, W, yClip + 10); ctx.clip();
-    const pts = sliceLen(OUTLINE.map(([x, y]) => toScreen(cf, x, y)), B.outline[0], B.outline[1]);
-    amberStroke(ctx, pts, B.lineW ?? 4.5);
-    ctx.restore();
-  }
+  const cf = camFar(cam), st = VIEWS.H2.st, b = B ? clamp(B.build) : 1, la = B ? clamp(B.labels) : st.labels;
+  if (b >= 1 && la >= st.labels) { drawHill(ctx, t, cf, st); return; }
+  drawHill(ctx, t, cf, { ...st, build: b, labels: la });
+  if (b < 1) reflectionDark(ctx, cf, b);
 }
+// drawHill's reveal front (its buildLive): opaque dark above yf − 46, soft to yf + 9; mirrored about the water line for the reflection
+function reflectionDark(ctx, cf, b) {
+  const HZ = HILL.horizon, ue = clamp((b - .35) / .65), yf = mix(812, 186, ue), soft = 46;
+  const yOpaque = 2 * HZ - (yf - soft), yClear = 2 * HZ - (yf + soft * .2);
+  const sO = toScreen(cf, 0, yOpaque)[1], sC = toScreen(cf, 0, yClear)[1], sH = toScreen(cf, 0, HZ)[1];
+  if (sO > H + 20 && sC > H + 20) return;
+  ctx.save();
+  ctx.beginPath(); HOUT.forEach(([x, y], i) => { const [sx, sy] = toScreen(cf, x, 2 * HZ - y); i ? ctx.lineTo(sx, sy) : ctx.moveTo(sx, sy); }); ctx.closePath(); ctx.clip();
+  ctx.beginPath(); ctx.rect(0, sH, W, H - sH + 10); ctx.clip();
+  const top = Math.min(sC, sO), g = ctx.createLinearGradient(0, sC, 0, sO); g.addColorStop(0, 'rgba(7,8,24,0)'); g.addColorStop(1, 'rgba(7,8,24,.9)');
+  ctx.fillStyle = g; ctx.fillRect(0, top, W, Math.abs(sO - sC) + 1);
+  ctx.fillStyle = 'rgba(7,8,24,.9)'; ctx.fillRect(0, sO, W, Math.max(0, H + 10 - sO));
+  ctx.restore();
+}
+
 // the visible piece [a, b] of a polyline (fractions of its length)
 export function sliceLen(pts, a, b) {
   const d = [0]; for (let i = 1; i < pts.length; i++) d.push(d[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
@@ -101,10 +56,30 @@ export function amberStroke(ctx, pts, w) {
   path(); ctx.strokeStyle = 'rgba(255,241,214,.85)'; ctx.lineWidth = Math.max(.8, w * .35); ctx.stroke();
   ctx.restore();
 }
-// the near part of the line (3D, projected with the real camera, near-clipped): pts3 = [[X, Y, Z], …]
-export function line3Screen(cam, pts3) {
-  const out = [];
-  for (const p of pts3) { const c = cs(cam, ...p); if (c[2] < NEAR * 4) { if (out.length) break; else continue; } out.push(toScr(cam, c)); }
-  return out;
+// the same line with a width that tapers along it (w0 at the start → w1 at the end) and a hot core that cools (hot0 → hot1): each layer is
+// one filled ribbon (no overlapping strokes, so the additive glow has no beads); used where the line hands over to the hill's thinner outline
+export function amberTaper(ctx, pts, w0, w1, hot0 = 1, hot1 = 0) {
+  if (pts.length < 2) return;
+  const n = pts.length, d = [0]; for (let i = 1; i < n; i++) d.push(d[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+  const L = d[n - 1] || 1, nr = pts.map((p, i) => { const a = pts[Math.max(0, i - 1)], b = pts[Math.min(n - 1, i + 1)], dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1; return [-dy / l, dx / l]; });
+  const ribbon = (k) => {
+    ctx.beginPath();
+    for (let i = 0; i < n; i++) { const hw = mix(w0, w1, d[i] / L) * k / 2; const x = pts[i][0] + nr[i][0] * hw, y = pts[i][1] + nr[i][1] * hw; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+    const he = w1 * k / 2, ae = Math.atan2(nr[n - 1][1], nr[n - 1][0]); ctx.arc(pts[n - 1][0], pts[n - 1][1], he, ae, ae - Math.PI, false);
+    for (let i = n - 1; i >= 0; i--) { const hw = mix(w0, w1, d[i] / L) * k / 2; ctx.lineTo(pts[i][0] - nr[i][0] * hw, pts[i][1] - nr[i][1] * hw); }
+    const hs = w0 * k / 2, as = Math.atan2(-nr[0][1], -nr[0][0]); ctx.arc(pts[0][0], pts[0][1], hs, as, as - Math.PI, false);
+    ctx.closePath();
+  };
+  ctx.save();
+  ctx.globalCompositeOperation = 'lighter';
+  ribbon(5); ctx.fillStyle = 'rgba(255,150,60,.14)'; ctx.fill();
+  ribbon(2.2); ctx.fillStyle = 'rgba(255,170,80,.28)'; ctx.fill();
+  ctx.globalCompositeOperation = 'source-over';
+  ribbon(1); ctx.fillStyle = '#ffb35c'; ctx.fill();
+  if (Math.max(hot0, hot1) > 0) {   // the hot core, cooling along the line (drawn in pieces; its own alpha only, no glow)
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    for (let i = 1; i < n; i++) { const u = d[i] / L, h = mix(hot0, hot1, u); if (h <= .01) continue; ctx.strokeStyle = `rgba(255,241,214,${.85 * h})`; ctx.lineWidth = Math.max(.8, mix(w0, w1, u) * .35); ctx.beginPath(); ctx.moveTo(pts[i - 1][0], pts[i - 1][1]); ctx.lineTo(pts[i][0], pts[i][1]); ctx.stroke(); }
+  }
+  ctx.restore();
 }
 export { hillPt, FAR };

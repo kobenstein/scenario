@@ -5,7 +5,7 @@
 //   proj(C)                       pinhole camera (world y up, looking along -Z, yaw/pitch/roll, principal point ox/oy) → P(X, Y, Z) → [sx, sy, depth, q]
 //   planeT(C, z)                  the affine screen transform of the plane Z = z (yaw = pitch = 0) → [a, b, c, d, e, f, q]
 //   linePlateBG / linePlateLine   exact copies of handoff4's line plate (c06>c07), split so the line can become the handrail
-import { Image } from '@napi-rs/canvas';
+import { Image, Path2D } from '@napi-rs/canvas';
 import { W, H, rgba, clamp, mix, prng } from '../engine.mjs';
 
 const PEND = [], REC = new WeakMap();
@@ -116,3 +116,24 @@ export function dotLines(ctx, lines, o = {}) {
   for (const [x, y, s, al] of cell) { ctx.globalAlpha = al * a; ctx.fillRect(x - s / 2, y - s / 2, s, s); }
   ctx.globalAlpha = 1;
 }
+
+// ---------------------------------------------------------------- rising out of the dark as one solid picture (no alpha ghosts)
+// the plate's dark ground at a screen point (what linePlateBG leaves there, without its faint ruling): a thing that is not lit yet has
+// this colour, so it is invisible against the dark and a solid silhouette against anything lit behind it
+export function bgAt(x, y) {
+  const u = clamp(Math.hypot(x - W / 2, y - PLATE_Y) / (W * .7)), a = .55 * (1 - u);
+  const c = [[10, 40, 10], [12, 36, 12], [34, 90, 34]].map(([b, c0, c1]) => b * (1 - a) + mix(c0, c1, u) * a);
+  return '#' + c.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
+}
+// fill a Path2D (in the coordinates of transform M, or of the screen when M is null) as a solid surface lit to L (0 = the plate's dark
+// ground, 1 = its own colour). Below 1 the dark ground is first laid into its outline, so nothing behind shows through it.
+// dark = false: at L = 0 nothing is drawn at all (nothing lit behind it to hide)
+export function solid(ctx, path, M, style, L, t, dark = true) {
+  if (L <= .002 && !dark) return;
+  ctx.save();
+  if (L < .998) { if (M) setT(ctx, M); else ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clip(path); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; linePlateBG(ctx, t); ctx.restore(); ctx.save(); }
+  if (L > .002) { if (M) setT(ctx, M); else ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha *= L; ctx.fillStyle = style; ctx.fill(path); }
+  ctx.restore();
+}
+// a Path2D from screen points (one or several closed polygons)
+export function path2(...polys) { const p = new Path2D(); for (const q of polys) { if (!q || q.length < 2) continue; p.moveTo(q[0][0], q[0][1]); for (let i = 1; i < q.length; i++) p.lineTo(q[i][0], q[i][1]); p.closePath(); } return p; }

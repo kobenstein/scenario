@@ -3,18 +3,25 @@
 // terrace (amber windows, rows of racks behind the bars, a rosette in the pediment), the two-tier stone aqueduct that carries the share
 // lights across a misty valley, its broken end, the gap, and on the far plateau a small house whose window is "you".
 // Static parts are cached in raster layers (A: x -500…3960 at 1×, B: x 3820…5400 at 2.4× for the final push to the window);
-// per frame only transforms, lights, smoke, stars, fog drift and the bridge/seal engraving are drawn.
+// per frame only transforms, lights, smoke, stars, fog drift and the bridge/seal engraving are drawn. Close to the works hall's door
+// (3.01 starts inside its light, scale up to 13) the hall is drawn live as vector art over layer A, so it stays sharp at any zoom
+// (culled to the view: hatchV).
+// Every cached canvas is handed to the renderer as a decoded Image (@napi-rs/canvas copies a Canvas source on every drawImage and keeps
+// the copy): toImg / best / warmWorld() (await it in the scene's default export).
 //
-//   GEO                     world geometry (hall, aqueduct top(x), gap, house, window, outlet)
-//   drawWorld(ctx, cam, t)  sky, stars, far hills, back fog, mid hills, main layers (A, B)
+//   GEO                     world geometry (hall, aqueduct top(x), gap, house, window, outlet, door)
+//   warmWorld()             builds every cache and awaits the Image decodes
+//   drawWorld(ctx, cam, t, o)  sky, stars, far hills, back fog, mid hills, main layers (A, B); o.live: the hall as live vector art
 //   drawValleyFog(ctx, cam, t)  the valley mist in front of the piers (after the lights, so falling lights sink into it)
 //   drawLive(ctx, t)        steam, hall glow, chimney smoke, the tree (world transform set)
+//   DOORL, doorPath(g), doorFrame(ctx)  the hall's great open door: its light's centre, its opening (clip for the scene's lightAt),
+//                           its frame and sill drawn over that light (world transform set)
 //   drawWindow(ctx, t, warm) the house window (0 faint, 1 warm amber)
 //   camT(ctx, cam)          sets the world transform;  toScreen(cam, x, y)
-//   bridgeLines(), bridgeFill(ctx, a), BRIDGE   the bridge across the gap (ghost → burin → stone)
-//   ifSeal(ctx, x, y, r, t, o)  copied from lib/sc02_m1.mjs (c02's IF seal, 2.05) so 3.03 shows the same seal
+//   bridgeLines(), bridgeFill(ctx, a, xFront), BRIDGE   the bridge across the gap (ghost → burin → stone)
+//   ifSeal(ctx, x, y, r, t, o)  copied from lib/sc02_m1.mjs (c02's IF seal, 2.05) so 3.03 shows the same seal; o.clip(ctx, r) clips the body
 //   slabLayer(i), STEP      copied from lib/sc02_m1.mjs (c02's stair slabs) so 3.01 lands at the foot of the same staircase
-import { Path2D } from '@napi-rs/canvas';
+import { Path2D, Image } from '@napi-rs/canvas';
 import { W, H, rgba, clamp, mix, prng, canvas, lin, sm, eout, addGlow } from '../engine.mjs';
 import { stipple, vnoise, fbm, hatch } from './art.mjs';
 import { rosette, microtext, FOIL, guilloche, microRing, foilGlint, INK, PAPER } from './certificate.mjs';
@@ -25,6 +32,12 @@ const STONE = '#2c3060', STONE_L = '#40467c', STONE_D = '#161935';
 const TAU = Math.PI * 2;
 const CACHE = new Map();
 export const once = (k, f) => { if (!CACHE.has(k)) CACHE.set(k, f()); return CACHE.get(k); };
+// cached canvases → decoded Images (the toImg / best / ready pattern of lib/sc01_m1_open.mjs, copied: minute files are not imported)
+const PEND = [], REC = new WeakMap();
+const isCanvas = (c) => !!c && typeof c.getContext === 'function' && typeof c.toBuffer === 'function';
+export const toImg = (c) => { if (!isCanvas(c) || REC.has(c)) return c; const im = new Image(), r = { im, ok: false }; REC.set(c, r); im.src = c.toBuffer('image/png'); PEND.push(im.decode().then(() => { r.ok = im.width > 0; }, () => { })); return c; };
+export const best = (c) => { const r = REC.get(c); return r && r.ok ? r.im : c; };   // the decoded Image if there is one, else the Canvas
+export async function ready() { while (PEND.length) await PEND.shift(); }
 
 // ---------------------------------------------------------------- geometry
 const HX0 = 720, HX1 = 1700, AQ0 = 1790, AQ1 = 4110, CLIFF = 4542, VALLEY = 1560;
@@ -38,10 +51,12 @@ export const GEO = {
   win: { x: 4732, y: 662, w: 50, h: 60 },
   outlet: { x: 1790, y: 466 },
   stair: { x: -150, y: 905 },
+  door: { x0: 1130, x1: 1290, top: 600, bot: 880, cx: 1210, cy: 742 },   // the hall's great arched door (its light opens 3.01)
 };
 const G = GEO;
+const NG = vnoise(31);
 export function ground(x) {
-  const n = vnoise(31), wob = (fbm(n, x * .004, 1.3, 3) - .5) * 26;
+  const n = NG, wob = (fbm(n, x * .004, 1.3, 3) - .5) * 26;
   if (x < 1800) return 906 + wob * .25;
   if (x < 1990) return mix(906, VALLEY, sm(lin(1800, 1990, x))) + wob * .3;
   if (x < CLIFF - 40) return VALLEY;
@@ -57,7 +72,7 @@ const REF = [880, 560];
 function put(ctx, cam, L, p, dx = 0) {
   const sp = 1 + (cam.s - 1) * p, cx = REF[0] + (cam.cx - REF[0]) * p, cy = REF[1] + (cam.cy - REF[1]) * p;
   ctx.setTransform(sp / L.k, 0, 0, sp / L.k, 960 + (L.x0 + dx - cx) * sp, 540 + (L.y0 - cy) * sp);
-  ctx.drawImage(L.c, 0, 0);
+  ctx.drawImage(best(L.c), 0, 0);
 }
 
 // ---------------------------------------------------------------- c02's pieces (copied, see header)
@@ -78,7 +93,7 @@ export function slabLayer(i) {
     g.restore();
     g.strokeStyle = rgba('#2a1d14', .7); g.lineWidth = 1; g.strokeRect(0, 0, run, th);
     const eg = g.createLinearGradient(0, 0, run, 0); FOIL.forEach((col, k) => eg.addColorStop(k / (FOIL.length - 1), col)); g.strokeStyle = eg; g.lineWidth = 2.2; g.beginPath(); g.moveTo(0, 0); g.lineTo(run, 0); g.stroke();
-    return { c, pad, D };
+    return { c: toImg(c), pad, D };
   });
 }
 // c02's seal body uses certificate.seal(), whose foil stipple lands off-centre (putImageData under a translate): a fixed copy
@@ -126,10 +141,11 @@ export function ifSeal(ctx, x, y, r, t, o = {}) {
     g.font = `400 ${Math.round(r * .82)}px "Instrument Serif"`; g.textAlign = 'center'; g.textBaseline = 'middle';
     g.fillStyle = 'rgba(70,28,6,.85)'; g.fillText('IF', r * .025, r * .1); g.fillStyle = 'rgba(255,246,222,.95)'; g.fillText('IF', -r * .015, r * .055);
     g.fillStyle = '#b5621f'; g.fillText('IF', 0, r * .075);
-    return c;
+    return toImg(c);
   });
   ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot ?? 0); ctx.globalAlpha = a; const S = body.width;
-  ctx.drawImage(body, -S / 2, -S / 2);
+  if (o.clip) { o.clip(ctx, r); ctx.clip(); }   // the burin engraves it round (sector) or its rim unwinds it (cap): the body is clipped, never faded
+  ctx.drawImage(best(body), -S / 2, -S / 2);
   if (o.glint != null) { const p = o.glint, gx = mix(-r * 1.4, r * 1.4, p), gg = ctx.createLinearGradient(gx - r * .4, -r, gx + r * .4, r); gg.addColorStop(0, 'rgba(255,240,210,0)'); gg.addColorStop(.5, `rgba(255,248,232,${.55 * Math.sin(Math.PI * clamp(p))})`); gg.addColorStop(1, 'rgba(255,240,210,0)');
     ctx.globalCompositeOperation = 'lighter'; ctx.beginPath(); ctx.arc(0, 0, r * 1.02, 0, TAU); ctx.clip(); ctx.fillStyle = gg; ctx.fillRect(-r * 1.2, -r * 1.2, r * 2.4, r * 2.4); }
   ctx.restore();
@@ -137,75 +153,139 @@ export function ifSeal(ctx, x, y, r, t, o = {}) {
 
 // ---------------------------------------------------------------- static drawing
 const archPath = (g, x0, x1, ySpring, yBot) => { const r = (x1 - x0) / 2, xm = (x0 + x1) / 2; g.moveTo(x0, yBot); g.lineTo(x0, ySpring); g.arc(xm, ySpring, r, Math.PI, TAU); g.lineTo(x1, yBot); g.closePath(); };
+// lib/art.mjs hatch, copied with view culling: the same lines (same prng / noise sequence); with `view` = [x0, y0, x1, y1] (world) only
+// the segments near the view are stroked, so the live hall costs little at high zoom and is pixel-identical inside the view
+function hatchV(ctx, bbox, { angle = -.6, gap = 7, w = 1.1, col = '#000', a = .3, wobble = 1.2, seed = 1, broken = .25 } = {}, view = null) {
+  const [bx, by, bw, bh] = bbox, r = prng(seed), n = vnoise(seed + 5), cx = bx + bw / 2, cy = by + bh / 2, R = Math.hypot(bw, bh) / 2 + 10;
+  const ca = Math.cos(angle), sa = Math.sin(angle), M = 14;
+  const [vx0, vy0, vx1, vy1] = view ? [view[0] - M, view[1] - M, view[2] + M, view[3] + M] : [-Infinity, -Infinity, Infinity, Infinity];
+  let nMin = -Infinity, nMax = Infinity;   // the view's extent across the lines (offset o along the normal)
+  if (view) { nMin = Infinity; nMax = -Infinity; for (const [x, y] of [[vx0, vy0], [vx1, vy0], [vx0, vy1], [vx1, vy1]]) { const q = -(x - cx) * sa + (y - cy) * ca; nMin = Math.min(nMin, q); nMax = Math.max(nMax, q); } }
+  ctx.save(); ctx.strokeStyle = col; ctx.lineWidth = w; ctx.lineCap = 'round';
+  for (let o = -R; o <= R; o += gap * (.8 + r() * .4)) {
+    const al = a * (.55 + .45 * r());
+    if (o + wobble < nMin || o - wobble > nMax) continue;
+    ctx.globalAlpha = al; ctx.beginPath(); let pen = false;
+    for (let s = -R; s <= R; s += 6) {
+      const brk = broken && n(o * .07, s * .012) < broken; if (brk) { pen = false; continue; }
+      const off = (n(o * .05, s * .02) - .5) * 2 * wobble, x = cx + ca * s - sa * (o + off), y = cy + sa * s + ca * (o + off);
+      if (x < vx0 || x > vx1 || y < vy0 || y > vy1) { pen = false; continue; }
+      if (!pen) { ctx.moveTo(x, y); pen = true; } else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+  ctx.restore();
+}
 
 // the staircase: c02's slabs, from the ground at the stair foot up to the upper right (over the hall roof, out of frame)
 function drawStairs(g) {
   const F = G.stair, { run, rise, th, D } = STEP;
   // a soft shadow where the first slab meets the ground
   g.save(); g.translate(F.x + 90, F.y + 4); g.scale(1, .16); const sg = g.createRadialGradient(0, 0, 0, 0, 0, 220); sg.addColorStop(0, 'rgba(3,3,12,.6)'); sg.addColorStop(1, 'rgba(3,3,12,0)'); g.fillStyle = sg; g.fillRect(-240, -240, 480, 480); g.restore();
-  for (let i = 15; i >= 0; i--) { const S = slabLayer(Math.min(i, 13)), x = F.x + i * run, y = F.y - th - i * rise; g.drawImage(S.c, x - S.pad, y - S.pad + D[1]); }
+  for (let i = 15; i >= 0; i--) { const S = slabLayer(Math.min(i, 13)), x = F.x + i * run, y = F.y - th - i * rise; g.drawImage(best(S.c), x - S.pad, y - S.pad + D[1]); }
 }
 
-function drawHall(g) {
-  const h = G.hall, r = prng(17), cxH = (h.x0 + h.x1) / 2;
+// opt.view = [x0, y0, x1, y1] (world): the live overlay draws only what is near the view (same pixels inside it, see hatchV)
+function drawHall(g, opt = {}) {
+  const h = G.hall, r = prng(17), cxH = (h.x0 + h.x1) / 2, V = opt.view || null;
+  const vis = (x0, y0, x1, y1) => !V || (x1 > V[0] - 16 && x0 < V[2] + 16 && y1 > V[1] - 16 && y0 < V[3] + 16);
   // right side wall in perspective (the channel leaves through it)
   g.fillStyle = STONE_D; g.beginPath(); g.moveTo(h.x1, h.top); g.lineTo(h.side, h.top + 22); g.lineTo(h.side, h.base - 4); g.lineTo(h.x1, h.base); g.closePath(); g.fill();
-  g.save(); g.clip(); hatch(g, [h.x1, h.top, 90, h.base - h.top], { angle: -1.2, gap: 4.5, col: '#000', a: .35, seed: 4 }); g.restore();
+  if (vis(h.x1, h.top, h.side, h.base)) { g.save(); g.clip(); hatchV(g, [h.x1, h.top, 90, h.base - h.top], { angle: -1.2, gap: 4.5, col: '#000', a: .35, seed: 4 }, V); g.restore(); }
   g.fillStyle = '#10122a'; g.beginPath(); g.moveTo(cxH, h.peak); g.lineTo(cxH + 70, h.peak + 4); g.lineTo(h.side + 8, h.top + 16); g.lineTo(h.x1 + 16, h.top - 4); g.closePath(); g.fill();
   // the vent tower behind (steam is live)
-  g.fillStyle = '#14163a'; g.fillRect(860, 140, 60, 310); g.fillStyle = '#23275a'; g.fillRect(852, 128, 76, 20);
-  g.save(); g.beginPath(); g.rect(860, 140, 60, 310); g.clip(); hatch(g, [860, 140, 60, 310], { angle: -1.3, gap: 4, col: '#000', a: .4, seed: 9 }); g.restore();
-  g.strokeStyle = rgba('#8c90c4', .35); g.lineWidth = 1.5; g.beginPath(); g.moveTo(860, 148); g.lineTo(860, 450); g.stroke();
+  if (vis(852, 128, 928, 450)) {
+    g.fillStyle = '#14163a'; g.fillRect(860, 140, 60, 310); g.fillStyle = '#23275a'; g.fillRect(852, 128, 76, 20);
+    g.save(); g.beginPath(); g.rect(860, 140, 60, 310); g.clip(); hatchV(g, [860, 140, 60, 310], { angle: -1.3, gap: 4, col: '#000', a: .4, seed: 9 }, V); g.restore();
+    g.strokeStyle = rgba('#8c90c4', .35); g.lineWidth = 1.5; g.beginPath(); g.moveTo(860, 148); g.lineTo(860, 450); g.stroke();
+  }
   // facade body
   const body = () => { g.beginPath(); g.moveTo(h.x0, h.base); g.lineTo(h.x0, h.top); g.lineTo(cxH, h.peak); g.lineTo(h.x1, h.top); g.lineTo(h.x1, h.base); g.closePath(); };
   body(); const fg = g.createLinearGradient(0, h.peak, 0, h.base); fg.addColorStop(0, '#323770'); fg.addColorStop(.55, STONE); fg.addColorStop(1, '#1b1e44'); g.fillStyle = fg; g.fill();
   g.save(); body(); g.clip();
   g.strokeStyle = rgba('#0c0e24', .5); g.lineWidth = 1;
-  for (let y = h.top + 18; y < h.base; y += 22) { g.beginPath(); g.moveTo(h.x0, y); g.lineTo(h.x1, y); g.stroke(); const off = ((y / 22) | 0) % 2 ? 0 : 30; for (let x = h.x0 + off; x < h.x1; x += 60) { g.beginPath(); g.moveTo(x, y); g.lineTo(x, y + 22); g.stroke(); } }
-  for (const px of [h.x0 + 8, 856, 976, 1096, 1300, 1420, 1540, h.x1 - 38]) { const pg = g.createLinearGradient(px, 0, px + 30, 0); pg.addColorStop(0, rgba('#555b98', .55)); pg.addColorStop(1, rgba('#0c0e24', .35)); g.fillStyle = pg; g.fillRect(px, h.top + 10, 30, h.base - h.top); }
-  hatch(g, [h.x0, h.top, h.x1 - h.x0, h.base - h.top], { angle: -.75, gap: 6, col: '#05061a', a: .3, seed: 12, broken: .3 });
+  for (let y = h.top + 18; y < h.base; y += 22) { if (!vis(h.x0, y, h.x1, y + 22)) continue; g.beginPath(); g.moveTo(h.x0, y); g.lineTo(h.x1, y); g.stroke(); const off = ((y / 22) | 0) % 2 ? 0 : 30; for (let x = h.x0 + off; x < h.x1; x += 60) { g.beginPath(); g.moveTo(x, y); g.lineTo(x, y + 22); g.stroke(); } }
+  for (const px of [h.x0 + 8, 856, 976, 1096, 1300, 1420, 1540, h.x1 - 38]) { if (!vis(px, h.top, px + 30, h.base)) continue; const pg = g.createLinearGradient(px, 0, px + 30, 0); pg.addColorStop(0, rgba('#555b98', .55)); pg.addColorStop(1, rgba('#0c0e24', .35)); g.fillStyle = pg; g.fillRect(px, h.top + 10, 30, h.base - h.top); }
+  hatchV(g, [h.x0, h.top, h.x1 - h.x0, h.base - h.top], { angle: -.75, gap: 6, col: '#05061a', a: .3, seed: 12, broken: .3 }, V);
   // the glow from the windows lifts the lower facade
   const lg = g.createLinearGradient(0, h.base - 360, 0, h.base); lg.addColorStop(0, 'rgba(255,179,92,0)'); lg.addColorStop(1, 'rgba(255,179,92,.16)'); g.fillStyle = lg; g.fillRect(h.x0, h.base - 360, h.x1 - h.x0, 360);
   g.restore();
-  g.strokeStyle = rgba('#9da2d8', .55); g.lineWidth = 3; g.beginPath(); g.moveTo(h.x0 - 16, h.top + 2); g.lineTo(h.x1 + 16, h.top + 2); g.stroke();
-  g.lineWidth = 2.5; g.beginPath(); g.moveTo(h.x0 - 16, h.top); g.lineTo(cxH, h.peak - 12); g.lineTo(h.x1 + 16, h.top); g.stroke();
-  g.strokeStyle = rgba('#05061a', .7); g.lineWidth = 6; g.beginPath(); g.moveTo(h.x0 - 16, h.top + 9); g.lineTo(h.x1 + 16, h.top + 9); g.stroke();
-  rosette(g, cxH, h.top - 54, { R: 46, A: 9, B: 4, n: 14, m: 5, lines: 24, col: '#e9b46a', w: .7, a: .6 });
-  microtext(g, h.x0 + 110, h.top + 34, h.x1 - h.x0 - 220, 'THE WORKS · ', { size: 7, col: '#9da2d8', a: .5 });
+  if (vis(h.x0 - 16, h.peak - 20, h.x1 + 16, h.top + 12)) {
+    g.strokeStyle = rgba('#9da2d8', .55); g.lineWidth = 3; g.beginPath(); g.moveTo(h.x0 - 16, h.top + 2); g.lineTo(h.x1 + 16, h.top + 2); g.stroke();
+    g.lineWidth = 2.5; g.beginPath(); g.moveTo(h.x0 - 16, h.top); g.lineTo(cxH, h.peak - 12); g.lineTo(h.x1 + 16, h.top); g.stroke();
+    g.strokeStyle = rgba('#05061a', .7); g.lineWidth = 6; g.beginPath(); g.moveTo(h.x0 - 16, h.top + 9); g.lineTo(h.x1 + 16, h.top + 9); g.stroke();
+  }
+  if (vis(cxH - 70, h.top - 124, cxH + 70, h.top + 16)) rosette(g, cxH, h.top - 54, { R: 46, A: 9, B: 4, n: 14, m: 5, lines: 24, col: '#e9b46a', w: .7, a: .6 });
+  if (vis(h.x0 + 110, h.top + 24, h.x1 - 110, h.top + 44)) microtext(g, h.x0 + 110, h.top + 34, h.x1 - h.x0 - 220, 'THE WORKS · ', { size: 7, col: '#9da2d8', a: .5 });
+  // the windows (racks behind bars) and, in the middle, the great door: open, full of the works' white-hot light (the light itself is
+  // drawn live by the scene, lightAt clipped to doorPath; here only its warm ground, in case a pixel of the clip edge shows)
   const wins = [[cxH - 80, 160, 600, 880], [h.x0 + 60, 66, 570, 860], [h.x0 + 180, 66, 570, 860], [h.x0 + 300, 66, 570, 860], [h.x1 - 366, 66, 570, 860], [h.x1 - 246, 66, 570, 860], [h.x1 - 126, 66, 570, 860]];
-  for (const [x, w, yTop, yBot] of wins) {
-    const rr = w / 2, ys = yTop + rr;
+  wins.forEach(([x, w, yTop, yBot], wi) => {
+    const rr = w / 2, ys = yTop + rr, nb = Math.max(2, Math.round(w / 28)), door = wi === 0;
+    if (door || !vis(x - 8, yTop, x + w + 8, yBot + 8)) { for (let i = 0; i < nb * 11; i++) r(); }   // keep the prng sequence of the other windows
+    if (!vis(x - 8, yTop, x + w + 8, yBot + 8)) return;
     g.save(); g.beginPath(); archPath(g, x, x + w, ys, yBot); g.clip();
-    const wg = g.createLinearGradient(0, yTop, 0, yBot); wg.addColorStop(0, '#6a3a1a'); wg.addColorStop(.45, '#d98a3c'); wg.addColorStop(1, '#ffd79a'); g.fillStyle = wg; g.fillRect(x, yTop, w, yBot - yTop);
-    const nb = Math.max(2, Math.round(w / 28));
-    for (let i = 0; i < nb; i++) {
-      const bx = x + (i + .5) * w / nb - 7, bw = 12 + r() * 4, by = yTop + rr * .6 + r() * 20;
-      g.fillStyle = 'rgba(40,18,8,.82)'; g.fillRect(bx, by, bw, yBot - by);
-      for (let k = 0; k < 9; k++) { g.fillStyle = r() < .7 ? 'rgba(255,226,170,.9)' : 'rgba(255,150,60,.9)'; g.fillRect(bx + 3 + (k % 2) * 4, by + 10 + k * ((yBot - by - 20) / 9), 2, 2); }
+    if (door) { const dg = g.createRadialGradient(DOORL.x, DOORL.y, 0, DOORL.x, DOORL.y, 180); dg.addColorStop(0, '#fff4dc'); dg.addColorStop(.5, '#ffc978'); dg.addColorStop(1, '#e8893a'); g.fillStyle = dg; g.fillRect(x, yTop, w, yBot - yTop); g.restore(); }
+    else {
+      const wg = g.createLinearGradient(0, yTop, 0, yBot); wg.addColorStop(0, '#6a3a1a'); wg.addColorStop(.45, '#d98a3c'); wg.addColorStop(1, '#ffd79a'); g.fillStyle = wg; g.fillRect(x, yTop, w, yBot - yTop);
+      for (let i = 0; i < nb; i++) {
+        const bx = x + (i + .5) * w / nb - 7, bw = 12 + r() * 4, by = yTop + rr * .6 + r() * 20;
+        g.fillStyle = 'rgba(40,18,8,.82)'; g.fillRect(bx, by, bw, yBot - by);
+        for (let k = 0; k < 9; k++) { g.fillStyle = r() < .7 ? 'rgba(255,226,170,.9)' : 'rgba(255,150,60,.9)'; g.fillRect(bx + 3 + (k % 2) * 4, by + 10 + k * ((yBot - by - 20) / 9), 2, 2); }
+      }
+      g.fillStyle = 'rgba(30,12,4,.35)'; g.fillRect(x, yBot - 30, w, 30);
+      g.restore();
     }
-    g.fillStyle = 'rgba(30,12,4,.35)'; g.fillRect(x, yBot - 30, w, 30);
-    g.restore();
     g.strokeStyle = 'rgba(14,10,22,.95)'; g.lineWidth = 3; g.beginPath(); archPath(g, x, x + w, ys, yBot); g.stroke();
-    g.lineWidth = 2; for (let k = 1; k < 4; k++) { const xx = x + k * w / 4; g.beginPath(); g.moveTo(xx, yTop + (k === 2 ? 0 : rr * .3)); g.lineTo(xx, yBot); g.stroke(); }
-    for (let yy = ys; yy < yBot; yy += 46) { g.beginPath(); g.moveTo(x, yy); g.lineTo(x + w, yy); g.stroke(); }
-    for (let k = 1; k < 6; k++) { const a = Math.PI + k * Math.PI / 6; g.beginPath(); g.moveTo(x + rr, ys); g.lineTo(x + rr + Math.cos(a) * rr, ys + Math.sin(a) * rr); g.stroke(); }
+    if (!door) {
+      g.lineWidth = 2; for (let k = 1; k < 4; k++) { const xx = x + k * w / 4; g.beginPath(); g.moveTo(xx, yTop + (k === 2 ? 0 : rr * .3)); g.lineTo(xx, yBot); g.stroke(); }
+      for (let yy = ys; yy < yBot; yy += 46) { g.beginPath(); g.moveTo(x, yy); g.lineTo(x + w, yy); g.stroke(); }
+      for (let k = 1; k < 6; k++) { const a = Math.PI + k * Math.PI / 6; g.beginPath(); g.moveTo(x + rr, ys); g.lineTo(x + rr + Math.cos(a) * rr, ys + Math.sin(a) * rr); g.stroke(); }
+    }
     g.strokeStyle = rgba(AMBER, .35); g.lineWidth = 1.5; g.beginPath(); g.moveTo(x - 3, yBot); g.lineTo(x - 3, ys); g.stroke();
     g.fillStyle = '#4a4f86'; g.fillRect(x - 8, yBot, w + 16, 7); g.fillStyle = 'rgba(255,179,92,.4)'; g.fillRect(x - 8, yBot, w + 16, 2);
-  }
-  // the forecourt: engraved paving in perspective, leading from the stair foot to the hall
+  });
+  // the forecourt: engraved paving in perspective, leading from the stair foot to the hall (not in the live overlay: it lies on layer A)
+  if (opt.forecourt !== false) {
   g.save(); g.beginPath(); g.rect(-400, h.base, 2200, 700); g.clip();
   { const rr = prng(23); g.strokeStyle = rgba('#5a5f98', .22); g.lineCap = 'round';
     for (let k = 0; k < 90; k++) { const y = h.base + 8 + Math.pow(rr(), 1.6) * 260, x = 300 + rr() * 1600, L = 30 + rr() * 120 * (1 + (y - h.base) / 120); g.lineWidth = .8 + (y - h.base) / 200; g.beginPath(); g.moveTo(x, y); g.lineTo(x + L, y + (rr() - .5) * 2); g.stroke(); } }
   const pg2 = g.createRadialGradient(cxH, h.base, 0, cxH, h.base, 900); pg2.addColorStop(0, 'rgba(255,179,92,.22)'); pg2.addColorStop(.5, 'rgba(255,179,92,.06)'); pg2.addColorStop(1, 'rgba(255,179,92,0)'); g.save(); g.translate(0, h.base); g.scale(1, .35); g.translate(0, -h.base); g.fillStyle = pg2; g.fillRect(-400, h.base, 2400, 1400); g.restore();
   g.restore();
+  }
   // plinth
   g.fillStyle = '#1a1d40'; g.fillRect(h.x0 - 10, h.base - 14, h.x1 - h.x0 + 20, 16); g.fillStyle = rgba('#9da2d8', .35); g.fillRect(h.x0 - 10, h.base - 14, h.x1 - h.x0 + 20, 2);
   // the outlet where the channel leaves the hall
   const o = G.outlet;
-  g.fillStyle = '#1a0d06'; g.beginPath(); g.ellipse(o.x - 8, o.y + 2, 20, 28, 0, 0, TAU); g.fill();
-  const og = g.createRadialGradient(o.x - 8, o.y + 8, 0, o.x - 8, o.y + 8, 28); og.addColorStop(0, 'rgba(255,224,170,.95)'); og.addColorStop(1, 'rgba(255,140,50,0)'); g.fillStyle = og; g.beginPath(); g.ellipse(o.x - 8, o.y + 2, 18, 26, 0, 0, TAU); g.fill();
+  if (vis(o.x - 30, o.y - 30, o.x + 14, o.y + 32)) {
+    g.fillStyle = '#1a0d06'; g.beginPath(); g.ellipse(o.x - 8, o.y + 2, 20, 28, 0, 0, TAU); g.fill();
+    const og = g.createRadialGradient(o.x - 8, o.y + 8, 0, o.x - 8, o.y + 8, 28); og.addColorStop(0, 'rgba(255,224,170,.95)'); og.addColorStop(1, 'rgba(255,140,50,0)'); g.fillStyle = og; g.beginPath(); g.ellipse(o.x - 8, o.y + 2, 18, 26, 0, 0, TAU); g.fill();
+  }
 }
-
+// the great door (world): its opening as a path, the point its light shines from, and its frame + sill drawn over the light
+export const DOORL = { x: 1210, y: 751 };   // the light's centre: every point of the opening lies within 152 of it
+export function doorPath(g) { const d = G.door; archPath(g, d.x0, d.x1, d.top + (d.x1 - d.x0) / 2, d.bot); }
+export function doorFrame(ctx) {
+  const d = G.door, w = d.x1 - d.x0, ys = d.top + w / 2;
+  ctx.strokeStyle = 'rgba(14,10,22,.95)'; ctx.lineWidth = 3; ctx.beginPath(); archPath(ctx, d.x0, d.x1, ys, d.bot); ctx.stroke();
+  ctx.fillStyle = '#4a4f86'; ctx.fillRect(d.x0 - 8, d.bot, w + 16, 7); ctx.fillStyle = 'rgba(255,179,92,.4)'; ctx.fillRect(d.x0 - 8, d.bot, w + 16, 2);
+}
+// the hall's opaque silhouette (body, side wall, roof wedge, vent tower, plinth, outlet): everything drawHall paints opaque first, so the
+// live overlay inside it repaints layer A's hall pixel for pixel (only sharper) and never doubles a translucent stroke outside it
+function hallSilhouette(g) {
+  const h = G.hall, cxH = (h.x0 + h.x1) / 2, o = G.outlet;
+  g.beginPath();
+  g.moveTo(h.x0, h.base); g.lineTo(h.x0, h.top); g.lineTo(cxH, h.peak); g.lineTo(h.x1, h.top); g.lineTo(h.x1, h.base); g.closePath();
+  g.moveTo(h.x1, h.top); g.lineTo(h.side, h.top + 22); g.lineTo(h.side, h.base - 4); g.lineTo(h.x1, h.base); g.closePath();
+  g.moveTo(cxH, h.peak); g.lineTo(cxH + 70, h.peak + 4); g.lineTo(h.side + 8, h.top + 16); g.lineTo(h.x1 + 16, h.top - 4); g.closePath();
+  g.rect(860, 140, 60, 310); g.rect(852, 128, 76, 20); g.rect(h.x0 - 10, h.base - 14, h.x1 - h.x0 + 20, 16);
+  g.moveTo(o.x - 8 + 20, o.y + 2); g.ellipse(o.x - 8, o.y + 2, 20, 28, 0, 0, TAU);
+}
+// the works hall as live vector art over layer A (camera close to the door): sharp at any zoom, identical geometry
+export function hallLive(ctx, cam) {
+  const hw = 960 / cam.s, hh = 540 / cam.s, view = [cam.cx - hw, cam.cy - hh, cam.cx + hw, cam.cy + hh];
+  ctx.save(); camT(ctx, cam); hallSilhouette(ctx); ctx.clip('nonzero'); drawHall(ctx, { forecourt: false, view }); ctx.restore();
+}
 // the aqueduct: two tiers, piers down into the valley; the last pier ends at AQ1 with a broken stub of the next arch
 function aqPiers() {
   const P = []; let x = AQ1;
@@ -322,16 +402,16 @@ function drawHouse(g) {
   g.fillStyle = '#5a5f98'; g.fillRect(x - 12, y + w.h + 6, w.w + 24, 6);
 }
 
-function buildMain(xa, xb, k, key) {
+function buildMain(xa, xb, k, key, y0 = -900, hh = 2500) {
   return once(key, () => {
-    const y0 = -900, hh = 2500, [c, g] = canvas(Math.ceil((xb - xa) * k), Math.ceil(hh * k));
+    const [c, g] = canvas(Math.ceil((xb - xa) * k), Math.ceil(hh * k));
     g.setTransform(k, 0, 0, k, -xa * k, -y0 * k);
     drawLand(g, xa, xb);
     if (xa < 1800) { drawHall(g); drawStairs(g); }
     if (xb > AQ0 && xa < AQ1 + 100) { const x0 = Math.max(xa, AQ0 - 10), x1 = Math.min(xb, AQ1 + 120), A = drawAqueduct(g, x0, x1, k); g.save(); g.setTransform(1, 0, 0, 1, (x0 - xa) * k, (0 - y0) * k); g.drawImage(A, 0, 0); g.restore(); }
     if (xb > 4400) drawHouse(g);
     g.setTransform(1, 0, 0, 1, 0, 0); stipple(c, { k: .3, g: 1, seed: 3, mid: false, boost: 1.05 });
-    return { c, x0: xa, y0, k };
+    return { c: toImg(c), x0: xa, y0, k };
   });
 }
 
@@ -343,11 +423,11 @@ function buildSky() {
     const wg = g.createRadialGradient(W * .55, H * 1.05, 0, W * .55, H * 1.05, W * .75); wg.addColorStop(0, 'rgba(150,110,160,.25)'); wg.addColorStop(1, 'rgba(150,110,160,0)'); g.fillStyle = wg; g.fillRect(0, 0, W, H);
     rosette(g, W * .72, -H * .3, { R: 950, A: 60, B: 30, n: 34, m: 11, lines: 40, col: '#9aa3e0', w: .6, a: .05 });
     stipple(c, { k: .5, g: 1, seed: 2, mid: false, boost: 1 });
-    return c;
+    return toImg(c);
   });
 }
 function ridgeY(n, x, base, amp, f, seed) { return base - amp * fbm(n, x * f, seed * .1, 4); }
-function buildHills(key, x0, x1, draw) { return once(key, () => { const [c, g] = canvas(x1 - x0, 1500); g.translate(-x0, 0); draw(g); g.setTransform(1, 0, 0, 1, 0, 0); stipple(c, { k: .5, g: 1, seed: 6, mid: false, boost: 1 }); return { c, x0, y0: 0, k: 1 }; }); }
+function buildHills(key, x0, x1, draw) { return once(key, () => { const [c, g] = canvas(x1 - x0, 1500); g.translate(-x0, 0); draw(g); g.setTransform(1, 0, 0, 1, 0, 0); stipple(c, { k: .5, g: 1, seed: 6, mid: false, boost: 1 }); return { c: toImg(c), x0, y0: 0, k: 1 }; }); }
 const farHills = () => buildHills('c03far', -900, 3600, (g) => {
   const n = vnoise(3), Y = (x) => ridgeY(n, x, 760, 230, .0015, 3);
   g.beginPath(); g.moveTo(-900, 1500); for (let x = -900; x <= 3600; x += 8) g.lineTo(x, Y(x)); g.lineTo(3600, 1500); g.closePath();
@@ -371,29 +451,51 @@ function mistLayer(key, seed, x0, x1, yTop, h, col, a, cover = .5) {
     for (let j = 0; j < hh; j++) { const v = j / hh, band = Math.pow(clamp(v / .35), 1.5) * clamp((1 - v) / .15 + .3);
       for (let i = 0; i < w; i++) { const f = fbm(n, i * q * .0022, j * q * .009, 5), dens = clamp((f - (1 - cover)) / .35) * band; const o = (j * w + i) * 4; p[o] = R; p[o + 1] = Gc; p[o + 2] = B; p[o + 3] = 255 * a * clamp(dens + band * .35); } }
     g.putImageData(d, 0, 0);
-    return { c, x0, y0: yTop, k: 1 / q };
+    return { c: toImg(c), x0, y0: yTop, k: 1 / q };
   });
 }
 export function worldLayers() {
-  return { A: buildMain(-500, 3960, 1, 'c03A'), B: buildMain(3820, 5400, 2.4, 'c03B'), far: farHills(), mid: midHills(), sky: buildSky(),
+  return { A: buildMain(-500, 3960, 1, 'c03A', -560, 2260), B: buildMain(3820, 5400, 2.4, 'c03B', 300, 1400), far: farHills(), mid: midHills(), sky: buildSky(),
     mistBack: mistLayer('c03mistB', 5, 1300, 5600, 700, 360, '#6f78bb', .55, .55), mistFront: mistLayer('c03mistF', 11, 1830, 5400, 860, 700, '#8a92d0', .75, .5) };
 }
 const STARS = (() => { const r = prng(91), out = []; for (let i = 0; i < 300; i++) out.push([r() * 2400 - 240, r() * 640, r(), r()]); return out; })();
 
-export function drawWorld(ctx, cam, t) {
-  const L = worldLayers();
+// o.live: the hall is drawn as live vector art over layer A while the camera is close (cam.s > LIVE_S); when the frame shows nothing
+// but the facade (the view lies inside the facade body, which the live hall paints opaque) the far layers and layer A are skipped
+export const LIVE_S = 1.15;
+export function drawWorld(ctx, cam, t, o = {}) {
+  const L = worldLayers(), live = o.live && cam.s > LIVE_S, h = G.hall, hw = W / 2 / cam.s, hh = H / 2 / cam.s;
+  const inside = live && cam.cx - hw > h.x0 + 1 && cam.cx + hw < h.x1 - 1 && cam.cy - hh > h.top + 1 && cam.cy + hh < h.base - 15;
   ctx.save();
-  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(L.sky, 0, 0);
-  const sx = -(cam.cx - REF[0]) * .03, sy = -(cam.cy - REF[1]) * .03;
-  ctx.globalCompositeOperation = 'lighter';
-  for (const [x, y, b, ph] of STARS) { const tw = .55 + .45 * Math.sin(t * (1 + ph * 2) + ph * 20), X = ((x + sx) % 2400 + 2400) % 2400 - 240; ctx.fillStyle = `rgba(220,226,255,${(.1 + .5 * b * b) * tw})`; const z = b > .93 ? 2.2 : 1.3; ctx.fillRect(X, y + sy, z, z); }
-  ctx.globalCompositeOperation = 'source-over';
-  put(ctx, cam, L.far, .25);
-  ctx.globalAlpha = .9; put(ctx, cam, L.mistBack, .45, Math.sin(t * .11) * 60 - t * 6); ctx.globalAlpha = 1;
-  put(ctx, cam, L.mid, .55);
-  put(ctx, cam, L.A, 1);
+  if (inside) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = STONE; ctx.fillRect(0, 0, W, H); }
+  else {
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.drawImage(best(L.sky), 0, 0);
+    const sx = -(cam.cx - REF[0]) * .03, sy = -(cam.cy - REF[1]) * .03;
+    ctx.globalCompositeOperation = 'lighter';
+    for (const [x, y, b, ph] of STARS) { const tw = .55 + .45 * Math.sin(t * (1 + ph * 2) + ph * 20), X = ((x + sx) % 2400 + 2400) % 2400 - 240; ctx.fillStyle = `rgba(220,226,255,${(.1 + .5 * b * b) * tw})`; const z = b > .93 ? 2.2 : 1.3; ctx.fillRect(X, y + sy, z, z); }
+    ctx.globalCompositeOperation = 'source-over';
+    put(ctx, cam, L.far, .25);
+    ctx.globalAlpha = .9; put(ctx, cam, L.mistBack, .45, Math.sin(t * .11) * 60 - t * 6); ctx.globalAlpha = 1;
+    put(ctx, cam, L.mid, .55);
+    put(ctx, cam, L.A, 1);
+  }
+  if (live) hallLive(ctx, cam);
   if (cam.cx + 960 / cam.s > 3820) put(ctx, cam, L.B, 1);
   ctx.restore();
+}
+// every cache of this world, built once and decoded to Images (await in the scene's default export); then the Canvas copies are dropped
+let WARM = null;
+export function warmWorld(sealR = [210]) {
+  if (WARM) return WARM;
+  WARM = (async () => {
+    const L = worldLayers(), [, g] = canvas(64, 64);
+    for (let i = 0; i < 14; i++) slabLayer(i);
+    nightTree(g, 0, 0, 1, 0); for (const r of sealR) ifSeal(g, 0, 0, r, 0); bridgeLines();
+    await ready();
+    for (const v of Object.values(L)) if (v && v.c) v.c = best(v.c);
+    for (const [k, v] of CACHE) { if (isCanvas(v) && REC.has(v)) CACHE.set(k, best(v)); else if (v && v.c && REC.has(v.c)) v.c = best(v.c); }
+  })();
+  return WARM;
 }
 export function drawValleyFog(ctx, cam, t) {
   const L = worldLayers(); ctx.save(); ctx.globalAlpha = .95; put(ctx, cam, L.mistFront, 1, t * 9 - 40); ctx.restore();
@@ -438,9 +540,9 @@ function nightTree(ctx, x, y, s, t) {
     }
     g.globalCompositeOperation = 'source-atop'; hatch(g, [0, 0, w, h], { angle: -.7, gap: 3, w: .6, col: '#000', a: .35, seed: 5 });
     g.globalCompositeOperation = 'source-over'; g.setTransform(1, 0, 0, 1, 0, 0); stipple(c, { k: .5, g: 1, seed: 4, mid: false, boost: 1.1 });
-    return { c, w, h };
+    return { c: toImg(c), w, h };
   });
-  ctx.save(); ctx.translate(x, y); ctx.rotate(Math.sin(t * .9) * .012 + Math.sin(t * 2.3) * .004); ctx.scale(s / 2, s / 2); ctx.drawImage(S.c, -S.w, -S.h * 2); ctx.restore();
+  ctx.save(); ctx.translate(x, y); ctx.rotate(Math.sin(t * .9) * .012 + Math.sin(t * 2.3) * .004); ctx.scale(s / 2, s / 2); ctx.drawImage(best(S.c), -S.w, -S.h * 2); ctx.restore();
 }
 export function drawWindow(ctx, t, warm) {
   const w = G.win, x = w.x - w.w / 2, y = w.y - w.h / 2, fl = 1 + .04 * Math.sin(t * 7.1) * Math.sin(t * 3.3);
@@ -466,9 +568,12 @@ export function bridgeLines() {
     return { arch, ring, deck, deckB, vous, spand };
   });
 }
-export function bridgeFill(ctx, a) {
+// xFront: the stone exists only left of this x (it is cut out of the dark behind the burin); null = the whole bridge
+export function bridgeFill(ctx, a, xFront = null) {
   if (a <= 0) return; const B = bridgeLines();
-  ctx.save(); ctx.globalAlpha = a; ctx.beginPath(); ctx.moveTo(BX0, DECK); ctx.lineTo(BX1, DECK); ctx.lineTo(BX1, SPRING + 6);
+  ctx.save(); ctx.globalAlpha = a;
+  if (xFront != null) { if (xFront <= BX0) { ctx.restore(); return; } ctx.beginPath(); ctx.rect(BX0 - 20, DECK - 20, xFront - BX0 + 20, SPRING - DECK + 60); ctx.clip(); }
+  ctx.beginPath(); ctx.moveTo(BX0, DECK); ctx.lineTo(BX1, DECK); ctx.lineTo(BX1, SPRING + 6);
   for (let i = B.arch.length - 1; i >= 0; i--) ctx.lineTo(B.arch[i][0], B.arch[i][1]); ctx.lineTo(BX0, SPRING + 6); ctx.closePath();
   const g = ctx.createLinearGradient(0, DECK, 0, SPRING); g.addColorStop(0, '#5d639e'); g.addColorStop(.15, '#474d86'); g.addColorStop(.6, STONE); g.addColorStop(1, '#202451'); ctx.fillStyle = g; ctx.fill();
   ctx.clip();

@@ -18,7 +18,7 @@ export function youSeat(ctx, x, y, s, o = {}) {
   const br = Math.sin(t * TAU / 4.3), sw = Math.sin(t * TAU / 9.4) * .6 + Math.sin(t * 1.3 + 1) * .4;
   const ky = mix(1, .62, el), topD = 150 * el;                    // the back foreshortens seen from above, the tops of shoulders and head show
   const sy = -br * 3.2, tw = turn * .16 + sw * .02;               // breath lifts the shoulders; the shoulders follow the head a little
-  const hd = { x: turn * 26 + sw * 3, y: (-690 + sy) * ky - topD * .55, rot: turn * .12 + lean * .3 };
+  const hd = { x: turn * 34 + sw * 3, y: (-690 + sy) * ky - topD * .55, rot: turn * .12 + lean * .3 };
   // light direction on screen (for rims and form)
   const ldx = L.x - x, ldy = L.y - (y - 500 * s), lm = Math.hypot(ldx, ldy) || 1, lx = ldx / lm, ly = ldy / lm;
   const rimW = Math.max(1.4, 6 * s);
@@ -64,7 +64,7 @@ export function youSeat(ctx, x, y, s, o = {}) {
     const hr = 82, hv = 102 * mix(1, .88, el), a = Math.abs(turn), d = Math.sign(turn) || 1;
     g.fillStyle = C(shadeHex(skin, -.32)); B(); g.moveTo(turn * 10 + hr, 4); g.ellipse(turn * 10, 4, hr, hv, 0, 0, TAU); Fi();
     if (a > .05) {                                        // cheek and jaw beyond the skull's edge; strong turns: brow and the tip of the nose in the contour
-      const q = clamp((a - .45) / .55), e = hr + 2 + 16 * a;
+      const q = clamp((a - .4) / .5), e = hr + 4 + 24 * a;
       g.fillStyle = C(shadeHex(skin, -.16)); B();
       g.moveTo(d * (hr - 20), -40);
       g.quadraticCurveTo(d * (e + 2), -40, d * (e + 1 + 5 * q), -26);           // brow
@@ -73,6 +73,10 @@ export function youSeat(ctx, x, y, s, o = {}) {
       g.quadraticCurveTo(d * (e - 2), 30, d * (e - 4), 40);                     // under the nose, lips
       g.bezierCurveTo(d * (e - 4), 56, d * (e - 10 + 4 * a), 70, d * (hr - 8 + 10 * a), 80);
       g.quadraticCurveTo(d * (hr - 30), 104, d * (hr - 62), 96); g.lineTo(d * (hr - 42), -26); g.closePath(); Fi();
+      if (!mono && q > .2) {   // the lashes of the far eye and the line of the brow, just inside the contour
+        g.strokeStyle = rgba('#1a0e10', .7 * q); g.lineWidth = 3; g.beginPath(); g.moveTo(d * (e - 14), -12); g.quadraticCurveTo(d * (e - 6), -16, d * (e - 1), -8);
+        g.moveTo(d * (e - 20), -34); g.quadraticCurveTo(d * (e - 8), -40, d * (e + 2), -30); g.stroke();
+      }
     }
     g.fillStyle = C(shadeHex(skin, -.42)); B(); const ex = -d * (hr - 6 - 34 * a); g.moveTo(ex + 12, 10); g.ellipse(ex, 10, 12, 23, 0, 0, TAU); Fi();
     g.fillStyle = C(hair); B();

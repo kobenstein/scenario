@@ -7,15 +7,15 @@
 //   drawRose(ctx, t, glow)            the payment source: the watermark rosette catches foil light, a small foil seal grows at its centre
 //   drawVillages(ctx, t, lit(i), o)   village markers; lit(i) 0..1 = that village has its light (amber, alive)
 //   payment(i, wave) / drawPayments(ctx, t, P)  the foil lights flying from the rose to the villages (arcs, shadow on the paper)
-//   drawMedallion(ctx, t, inner)      the round inset vignette (a village roadside); inner(ctx) draws the roadside in medallion units
+//   drawMedallion(ctx, t, x, y, r, inner)  the village opening into a round vignette (the roadside), the push into one village
 import { Path2D } from '@napi-rs/canvas';
-import { W, H, rgba, clamp, lin, mix, prng, sm, eout } from '../engine.mjs';
+import { W, H, rgba, clamp, lin, mix, prng, sm, eout, text } from '../engine.mjs';
 import { outlineLocal, country, coastRuns } from './map.mjs';
 import { microRing, guilloche, FOIL } from './certificate.mjs';
 import { once, memo, glowSpr, TAU, label } from './v2_c12_kit.mjs';
 import { canvas } from '../engine.mjs';
 
-export const KS = 300, LX0 = 4.0, LY0 = 2.8;                          // sheet = (local - (LX0, LY0)) * KS
+export const KS = 300, LX0 = 4.4, LY0 = 2.8;                          // sheet = (local - (LX0, LY0)) * KS
 const INK = '#3a2616', INKB = '#2a1a0e', EARTH = '#c9763c';
 let G = null;
 function geo() {
@@ -36,12 +36,13 @@ function geo() {
   // villages of the trial (rural western Kenya, near Lake Victoria): two clusters, deterministic jitter, none in the lake
   const r = prng(1203), vil = [];
   const inLake = (x, y) => { let c = false; for (let i = 0, j = VIC.length - 1; i < VIC.length; j = i++) { const [xi, yi] = VIC[i], [xj, yj] = VIC[j]; if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c; } return c; };
-  const add = (lon, lat, sx, sy, n) => { let k = 0, guard = 0; while (k < n && guard++ < 400) { const [x, y] = LL(lon + (r() - .5) * sx, lat + (r() - .5) * sy); if (inLake(x, y) || vil.some((v) => Math.hypot(v.x - x, v.y - y) < 46)) continue; vil.push({ x, y, ph: r() * TAU, k: r() }); k++; } };
-  add(34.35, .12, .65, .55, 24); add(35.3, -.78, .55, .5, 16);
+  const add = (lon, lat, sx, sy, n) => { let k = 0, guard = 0; while (k < n && guard++ < 400) { const [x, y] = LL(lon + (r() - .5) * sx, lat + (r() - .5) * sy); if (inLake(x, y) || vil.some((v) => Math.hypot(v.x - x, v.y - y) < 40)) continue; vil.push({ x, y, ph: r() * TAU, k: r() }); k++; } };
+  add(34.3, .15, .7, .55, 26); add(35.3, -.8, .6, .5, 18);
   vil.sort((a, b) => a.x - b.x);
-  const MED = (() => { const [x, y] = LL(32.4, 2.2); return { x, y, r: 470 }; })();
+  // the village the camera pushes into: the one nearest the middle of the first cluster
+  const [mx, my] = LL(34.35, .12); let home = 0, hd = 1e9; vil.forEach((v, i) => { const d = Math.hypot(v.x - mx, v.y - my); if (d < hd) { hd = d; home = i; } });
   const rose = { x: W * .72, y: H * .56 };
-  G = { K, LL, kenya, kpath: path(kenya), coast, nb, nbPaths: nb.map((n) => ({ id: n.id, p: path([n.pts]) })), VIC, TUR, vicPath: path([VIC]), turPath: path([TUR]), TANA, GALANA, vil, MED, rose,
+  G = { K, LL, kenya, kpath: path(kenya), coast, nb, nbPaths: nb.map((n) => ({ id: n.id, p: path([n.pts]) })), VIC, TUR, vicPath: path([VIC]), turPath: path([TUR]), TANA, GALANA, vil, home, rose,
     nairobi: LL(36.82, -1.29), mombasa: LL(39.67, -4.04), kisumu: LL(34.76, -.09), mtKenya: LL(37.31, -.15), kili: LL(37.35, -3.07) };
   return G;
 }
@@ -90,7 +91,7 @@ export function drawMap(ctx, t, o = {}) {
   ctx.strokeStyle = rgba(INKB, .42); ctx.lineWidth = 2.6;
   const rift = memo('rift', () => [[[35.75, 1.9], [35.62, 1.2], [35.7, .5], [35.85, -.2], [36.05, -.9], [36.2, -1.6], [36.1, -2.3]].map(([a, b]) => g.LL(a, b)), [[36.55, 1.7], [36.45, 1.0], [36.5, .3], [36.6, -.4], [36.75, -1.1], [36.85, -1.8], [36.7, -2.5]].map(([a, b]) => g.LL(a, b))]);
   hachure(ctx, rift[0], 70, 13, -1); hachure(ctx, rift[1], 70, 13, 1);
-  for (const [mx, my, R] of [[g.mtKenya[0], g.mtKenya[1], 120], [g.kili[0], g.kili[1], 100]]) {
+  for (const [mx, my, R] of [[g.mtKenya[0], g.mtKenya[1], 120], [g.kili[0], g.kili[1], 100], [...g.LL(34.55, 1.12), 80], [...g.LL(36.65, -.45), 70]]) {
     ctx.beginPath(); for (let k = 0; k < 44; k++) { const a = k / 44 * TAU, r0 = R * .18, r1 = R * (.75 + .25 * Math.sin(k * 2.7)); ctx.moveTo(mx + Math.cos(a) * r0, my + Math.sin(a) * r0); ctx.lineTo(mx + Math.cos(a) * r1, my + Math.sin(a) * r1); } ctx.stroke();
   }
   ctx.restore();
@@ -104,28 +105,44 @@ export function drawMap(ctx, t, o = {}) {
     ctx.save(); ctx.clip(P); for (let k = 1; k <= 5; k++) { ctx.strokeStyle = rgba(INK, .34 * (1 - k / 7)); ctx.lineWidth = 2 - k * .2; ctx.beginPath(); offsetRun(pts.concat([pts[0]]), 12 + k * k * 3.2).forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.stroke(); } ctx.restore();
     ctx.strokeStyle = rgba(INKB, .75); ctx.lineWidth = 3.4; ctx.stroke(P);
   }
+  // the small Rift Valley lakes (Baringo, Bogoria, Nakuru, Naivasha)
+  for (const [lon, lat, rx, ry] of [[36.08, .62, .1, .16], [36.1, .25, .03, .09], [36.08, -.37, .05, .06], [36.35, -.77, .1, .08]]) {
+    const [x, y] = g.LL(lon, lat); ctx.fillStyle = rgba('#e7dcc3', .95); ctx.beginPath(); ctx.ellipse(x, y, rx * KS, ry * KS, .2, 0, TAU); ctx.fill();
+    ctx.strokeStyle = rgba(INKB, .7); ctx.lineWidth = 2.2; ctx.stroke(); ctx.strokeStyle = rgba(INK, .3); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.ellipse(x, y, rx * KS * .6, ry * KS * .6, .2, 0, TAU); ctx.stroke();
+  }
+  // the old Uganda Railway, Mombasa → Nairobi → Kisumu (the engraved line with cross ticks of the atlases)
+  { const rail = memo('rail', () => [[39.67, -4.04], [39.2, -3.75], [38.56, -3.4], [38.17, -2.69], [37.82, -2.28], [37.3, -1.85], [36.82, -1.29], [36.43, -.72], [36.07, -.3], [35.73, -.25], [35.6, -.17], [35.35, -.2], [35.2, -.15], [34.95, -.12], [34.76, -.09]].map(([a, b]) => g.LL(a, b)));
+    ctx.strokeStyle = rgba(INKB, .8); ctx.lineWidth = 3.2; strokePts(ctx, rail); ctx.lineWidth = 2; ctx.beginPath(); let acc = 0;
+    for (let i = 1; i < rail.length; i++) { const [x0, y0] = rail[i - 1], [x1, y1] = rail[i], L = Math.hypot(x1 - x0, y1 - y0), nx = -(y1 - y0) / L, ny = (x1 - x0) / L;
+      for (let d = acc; d < L; d += 26) { const q = d / L, x = mix(x0, x1, q), y = mix(y0, y1, q); ctx.moveTo(x - nx * 9, y - ny * 9); ctx.lineTo(x + nx * 9, y + ny * 9); } acc = ((acc - L) % 26 + 26) % 26; }
+    ctx.stroke(); }
   // rivers
   ctx.strokeStyle = rgba(INK, .6); for (const [R, w] of [[g.TANA, 3.2], [g.GALANA, 2.6]]) { ctx.lineWidth = w; ctx.beginPath(); R.forEach(([x, y], i) => { const wob = Math.sin(i * 2.3) * 9; i ? ctx.lineTo(x + wob, y - wob * .5) : ctx.moveTo(x, y); }); ctx.stroke(); }
   // cities: Nairobi (capital: a ring with a dot), Mombasa, Kisumu
   for (const [p, cap] of [[g.nairobi, true], [g.mombasa, false], [g.kisumu, false]]) { ctx.fillStyle = rgba(INKB, .9); ctx.beginPath(); ctx.arc(p[0], p[1], cap ? 13 : 10, 0, TAU); ctx.fill(); if (cap) { ctx.strokeStyle = rgba(INKB, .9); ctx.lineWidth = 3.5; ctx.beginPath(); ctx.arc(p[0], p[1], 25, 0, TAU); ctx.stroke(); } }
-  // labels (sheet units: ~62 = 16 px on screen at the map view)
-  const k = o.k ?? .26, la = o.labels ?? 1;
-  const L = (s, x, y, size, opt = {}) => { ctx.save(); ctx.translate(x, y); ctx.scale(1 / k, 1 / k); label(ctx, s, 0, 0, la, { size: size, col: opt.col || '#3a2616', shadow: 'rgba(246,231,201,.9)', blur: 6, spacing: opt.spacing ?? 3, font: opt.font, weight: opt.weight, align: opt.align || 'center', alpha: opt.alpha ?? .9 }); ctx.restore(); };
   ctx.restore();
-  return { L, g };
 }
-// map labels, drawn at a constant screen size (they are the atlas lettering; sizes in screen px at the map view)
-export function drawMapLabels(ctx, k, a = 1) {
-  if (a <= 0) return; const g = geo();
-  const L = (s, [x, y], size, opt = {}) => { ctx.save(); ctx.translate(x, y); ctx.scale(1 / k, 1 / k); label(ctx, s, 0, 0, a, { size, col: opt.col || '#3a2616', shadow: 'rgba(246,231,201,.0)', blur: 0, spacing: opt.spacing ?? 3, font: opt.font, weight: opt.weight ?? 600, align: opt.align || 'center', alpha: opt.alpha ?? .85 }); ctx.restore(); };
-  const s = 1 / .26 * k;   // keep sizes in sheet proportion: they scale with the sheet (printed), sized for the map view
-  const S = (px) => px * s;
-  L('K E N Y A', g.LL(38.6, 1.4), S(64), { font: 'Instrument Serif', weight: 400, spacing: S(14), alpha: .82 });
-  L('Nairobi', [g.nairobi[0] + 40, g.nairobi[1] - 30], S(19), { font: 'Instrument Serif', weight: 400, spacing: 0, align: 'left', alpha: .9 });
-  L('Mombasa', [g.mombasa[0] - 36, g.mombasa[1] + 22], S(16), { font: 'Instrument Serif', weight: 400, spacing: 0, align: 'right', alpha: .8 });
-  L('Lake Victoria', g.LL(33.0, -1.25), S(19), { font: 'Instrument Serif', weight: 400, spacing: 1, alpha: .75 });
-  L('I N D I A N   O C E A N', [g.rose.x - 120, g.rose.y - 520], S(20), { font: 'Instrument Serif', weight: 400, spacing: S(4), alpha: .7 });
-  for (const [s2, p] of [['UGANDA', g.LL(33.1, 3.3)], ['TANZANIA', g.LL(35.3, -4.6)], ['SOMALIA', g.LL(43.3, 3.0)], ['ETHIOPIA', g.LL(38.9, 5.6)]]) L(s2, p, S(13), { spacing: S(5), alpha: .5 });
+// map labels: printed on the sheet (they scale with it); sizes are given in screen px at the map view scale kv
+export function drawMapLabels(ctx, kv = .44, a = 1) {
+  if (a <= 0) return; const g = geo(), S = (px) => px / kv;
+  ctx.save(); ROSE_HOLE(ctx);
+  const L = (s, [x, y], px, opt = {}) => {
+    ctx.save(); ctx.translate(x, y); ctx.scale(S(1), S(1));
+    text(ctx, s, 0, 0, { size: px, font: opt.font || 'Inter', weight: opt.weight ?? 600, color: opt.col || INKB, alpha: (opt.alpha ?? .85) * a, spacing: opt.spacing ?? 0, align: opt.align || 'center' });
+    ctx.restore();
+  };
+  L('K E N Y A', g.LL(37.9, 1.15), 54, { font: 'Instrument Serif', weight: 400, spacing: 10, alpha: .8 });
+  L('Nairobi', [g.nairobi[0] + S(14), g.nairobi[1] - S(10)], 21, { font: 'Instrument Serif', weight: 400, align: 'left', alpha: .9 });
+  L('Mombasa', [g.mombasa[0] - S(12), g.mombasa[1] + S(20)], 18, { font: 'Instrument Serif', weight: 400, align: 'right', alpha: .82 });
+  L('Lake Victoria', g.LL(33.0, -1.3), 19, { font: 'Instrument Serif', weight: 400, alpha: .72 });
+  L('I N D I A N    O C E A N', [700, -330], 22, { font: 'Instrument Serif', weight: 400, alpha: .62 });
+  for (const [s2, p] of [['UGANDA', g.LL(32.9, 2.6)], ['TANZANIA', g.LL(35.6, -4.3)], ['SOMALIA', g.LL(43.4, 2.6)], ['ETHIOPIA', g.LL(38.6, 5.3)]]) L(s2, p, 13, { spacing: 5, alpha: .5 });
+  ctx.restore();
+}
+// the note at the village clusters (printed in the map's small caps)
+export function drawVillageNote(ctx, kv, a) {
+  if (a <= 0) return; const g = geo(), [x, y] = g.LL(34.9, .95), S = 1 / kv;
+  ctx.save(); ctx.translate(x, y); ctx.scale(S, S); text(ctx, 'VILLAGES WITH A BASIC INCOME', 0, 0, { size: 13, weight: 600, color: INKB, alpha: .78 * a, spacing: 3.5, align: 'center' }); ctx.restore();
 }
 
 // ---------------------------------------------------------------- the rose: payment source
@@ -208,17 +225,15 @@ export function drawLandings(ctx, t, waves) {
 // when village i first receives a light (for lit(i))
 export const landT = (i, w, t0) => { const p = payment(i, w, 0, t0); return p.dep + p.dur; };
 
-// ---------------------------------------------------------------- the inset vignette
-export function drawMedallion(ctx, t, inner, o = {}) {
-  const g = geo(), { x, y, r } = g.MED;
-  // the leader line from the village cluster to the inset
-  const c = g.vil[Math.floor(g.vil.length * .3)];
-  ctx.strokeStyle = rgba(INKB, .55); ctx.lineWidth = 2.6; ctx.setLineDash([10, 9]);
-  const a = Math.atan2(c.y - y, c.x - x); ctx.beginPath(); ctx.moveTo(x + Math.cos(a) * (r + 30), y + Math.sin(a) * (r + 30)); ctx.lineTo(c.x - Math.cos(a) * 40, c.y - Math.sin(a) * 40); ctx.stroke(); ctx.setLineDash([]);
-  // shadow, the picture, the engraved double ring with microtext
-  ctx.fillStyle = 'rgba(60,35,15,.18)'; ctx.beginPath(); ctx.arc(x + 10, y + 14, r + 26, 0, TAU); ctx.fill();
-  ctx.save(); ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.clip(); inner(ctx, x, y, r); ctx.restore();
-  ctx.strokeStyle = rgba(INKB, .9); ctx.lineWidth = 6; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.stroke();
-  ctx.lineWidth = 2.2; ctx.beginPath(); ctx.arc(x, y, r + 24, 0, TAU); ctx.stroke();
-  microRing(ctx, x, y, r + 12, 'A VILLAGE ROADSIDE · WESTERN KENYA', { size: 13, col: INKB, a: .75 });
+// ---------------------------------------------------------------- the village opens into a round vignette (the push into one village)
+// (x, y, r) in sheet units; inner(ctx) draws the roadside (the caller sets its transform); o.k = sheet→screen scale (ring weight)
+export function drawMedallion(ctx, t, x, y, r, inner, o = {}) {
+  const k = o.k ?? 1, ring = Math.max(2.2 / k, Math.min(6, r * .03));
+  ctx.save(); ctx.fillStyle = 'rgba(60,35,15,.2)'; ctx.beginPath(); ctx.arc(x + r * .02, y + r * .03, r * 1.05 + 4 / k, 0, TAU); ctx.fill(); ctx.restore();
+  ctx.save(); ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.clip(); inner(ctx); ctx.restore();
+  ctx.strokeStyle = rgba(INKB, .9); ctx.lineWidth = ring; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.stroke();
+  if (r * k > 60) {
+    const q = clamp((r * k - 60) / 120); ctx.lineWidth = ring * .4; ctx.strokeStyle = rgba(INKB, .9 * q); ctx.beginPath(); ctx.arc(x, y, r * 1.05, 0, TAU); ctx.stroke();
+    microRing(ctx, x, y, r * 1.025, 'A VILLAGE ROADSIDE · WESTERN KENYA', { size: r * .022, col: INKB, a: .75 * q });
+  }
 }

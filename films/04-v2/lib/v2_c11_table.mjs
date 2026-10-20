@@ -24,7 +24,7 @@ const HOUSES = (() => {
   const r = prng(1101), out = []; let x = 4.2;
   const cols = ['#2c2a4f', '#33294a', '#272c4c', '#2f2c45', '#2a2543', '#352d4d'];
   while (x > ST.xEnd + 2) {
-    const w = 4.4 + r() * 3.4, fl = r() < .5 ? 3 : 2, h = 3.4 + fl * 2.9 + .3;
+    const w = 4.4 + r() * 3.4, fl = r() < .5 ? 2 : 1, h = 3.4 + fl * 2.9 + .3;   // two or three storeys (the opening frame, all sky, sees none)
     const nwin = Math.max(2, Math.round(w / 1.85)), lit = [], bal = [];
     for (let f = 0; f <= fl; f++) for (let i = 0; i < nwin; i++) { lit.push(r() < (f ? .58 : .5)); bal.push(f === 1 && r() < .35); }
     out.push({ x0: x, x1: x - w, fl, h, nwin, lit, bal, col: cols[Math.floor(r() * cols.length)], seed: Math.floor(r() * 1e5), door: Math.floor(r() * nwin), cafe: r() < .3 });
@@ -32,8 +32,9 @@ const HOUSES = (() => {
   }
   return out;
 })();
-// lantern strings: zigzag between house anchors and poles on the parapet; one extra string right above the head of the table
-const POLES = Array.from({ length: 12 }, (_, j) => 2.9 - 6 * j);
+// lantern strings: zigzag between house anchors and poles on the parapet. One string crosses right over the head of the table, and
+// its middle lantern (bigger) hangs just in front of you: the hero light of 11.01–11.02.
+const POLES = Array.from({ length: 12 }, (_, j) => 5.9 - 6 * j);
 const STRINGS = (() => {
   const out = [];
   for (let j = 0; j < POLES.length; j++) {
@@ -41,18 +42,24 @@ const STRINGS = (() => {
     out.push({ a: [px + 1.6, 4.55, ST.houseZ + .05], b: [px, 3.95, ST.parapetZ - .05], sag: .55, n: 6, seed: j * 2 });
     out.push({ a: [px, 3.95, ST.parapetZ - .05], b: [px - 1.5, 4.5, ST.houseZ + .05], sag: .6, n: 6, seed: j * 2 + 1 });
   }
-  out.push({ a: [1.05, 4.7, ST.houseZ + .05], b: [1.15, 4.0, ST.parapetZ - .05], sag: .45, n: 5, seed: 99, head: true });
   return out;
 })();
 const catenary = (S, u) => [mix(S.a[0], S.b[0], u), mix(S.a[1], S.b[1], u) - S.sag * 4 * u * (1 - u), mix(S.a[2], S.b[2], u)];
 const LANTERNS = (() => {
   const out = [];
   for (const S of STRINGS) for (let i = 0; i < S.n; i++) {
-    const u = (i + .5 + (hash(S.seed * 13 + i) - .5) * .3) / S.n, p = catenary(S, u), big = S.head && i === 2;
-    out.push({ p, r: big ? .26 : .15 + hash(S.seed * 7 + i) * .07, drop: big ? .42 : .18 + hash(S.seed + i * 3) * .16, col: hash(S.seed * 3 + i * 5) < .78 ? 0 : 1, ph: hash(i + S.seed * 9) * TAU, head: big });
+    const u = (i + .5 + (hash(S.seed * 13 + i) - .5) * .3) / S.n, p = catenary(S, u);
+    out.push({ p, r: .15 + hash(S.seed * 7 + i) * .07, drop: .18 + hash(S.seed + i * 3) * .16, col: hash(S.seed * 3 + i * 5) < .78 ? 0 : 1, ph: hash(i + S.seed * 9) * TAU, head: false });
   }
+  // the head lantern: the one nearest the air just in front of you, over the table
+  let hb = null, bd = 1e9; for (const L of out) { const d = Math.hypot(L.p[0] - (YOU.x - .3), L.p[2]); if (d < bd) { bd = d; hb = L; } }
+  if (hb) { hb.head = true; hb.r = .24; hb.drop = .3; hb.col = 0; }
   return out;
 })();
+// the chunk clears the lanterns its camera flies through (samples of the camera path, metres)
+export function clearLanterns(path, r = .9) {
+  for (const L of LANTERNS) { const c = [L.p[0], L.p[1] - L.drop, L.p[2]]; if (path.some((q) => Math.hypot(q[0] - c[0], q[1] - c[1], q[2] - c[2]) < r)) L.off = true; }
+}
 // people on the benches: side +1 = the valley-side bench (Z = +benchZ, facing -Z), -1 = the house-side bench (facing +Z)
 const COATS = ['#2c3450', '#3a2f4a', '#46324a', '#2b3a3f', '#4a3a2c', '#33374f', '#5a3a36', '#2f2a3e', '#3d4a5a', '#5b4a3a'];
 const SHIRTS = ['#c9b9a0', '#9fb6cf', '#d8a48a', '#b7c25a', '#e8d7b0', '#a07a9a'];
@@ -90,7 +97,7 @@ const ITEMS = (() => {
     out.push(q < .3 ? { k: 'bread', x: x - .75, z: (r() - .5) * .1 } : q < .55 ? { k: 'bottle', x: x - .7, z: (r() - .5) * .14, green: r() < .6 } : q < .8 ? { k: 'bowl', x: x - .78, z: (r() - .5) * .1, col: ['#c4512e', '#b7c25a', '#e9c46a'][Math.floor(r() * 3)] } : { k: 'flowers', x: x - .72, z: 0 });
   }
   // your place at the head: plate, glass, the card in its holder
-  out.push({ k: 'plate', x: .33, z: 0, r: .13, you: true }, { k: 'glass', x: .27, z: -.2, red: true, fill: .45, you: true });
+  out.push({ k: 'plate', x: .33, z: 0, r: .13, you: true }, { k: 'glass', x: .29, z: .21, red: true, fill: .45, you: true });
   return out;
 })();
 
@@ -126,20 +133,65 @@ function skyAndValley(ctx, t, C) {
     ctx.fillStyle = `rgba(243,239,226,${(.3 + .6 * tw) * haze})`; ctx.fillRect(x, y, s, s);
   }
   if (yh >= H) return yh;
-  // below the horizon: the valley in the dark (deep indigo), the far ridge, and the lights of the valley far below
-  const gv = ctx.createLinearGradient(0, yh, 0, H + 400); gv.addColorStop(0, '#1c1838'); gv.addColorStop(.12, '#0f0e26'); gv.addColorStop(1, '#05050f');
+  // below the horizon: the valley in the dark. A haze band at the horizon, two ridges, the valley floor with a river and the
+  // lights of villages, then the slope of our own hill falling away under the parapet with the roofs of the terrace below.
+  const gv = ctx.createLinearGradient(0, yh, 0, H + 400); gv.addColorStop(0, '#221d40'); gv.addColorStop(.05, '#141230'); gv.addColorStop(.3, '#0b0b1f'); gv.addColorStop(1, '#06060f');
   ctx.fillStyle = gv; ctx.fillRect(0, Math.max(0, yh), W, H - Math.max(0, yh));
-  // far ridge (directions), lit faintly from the sky
-  ctx.fillStyle = '#17142e'; ctx.beginPath(); ctx.moveTo(-10, H + 10);
-  for (const [a, hm] of RIDGE) { const P = C.P(o.x - Math.cos(a) * 3200, o.y * 0 + hm - 40, o.z + Math.sin(a) * 3200); ctx.lineTo(P[0], P[1]); }
-  ctx.lineTo(W + 10, H + 10); ctx.closePath(); ctx.fill();
+  // far ridge (directions), lit faintly from the sky, and a nearer, darker one
+  for (const [R, dh, col, rim] of [[3200, -40, '#1a1734', 'rgba(120,110,190,.22)'], [1500, -92, '#100f25', 'rgba(110,100,180,.14)']]) {
+    const pts = []; for (const [a, hm] of RIDGE) { const P = C.P(o.x - Math.cos(a) * R, (R < 2000 ? hm * .45 + 18 * Math.sin(a * 5.3) : hm) + dh, o.z + Math.sin(a) * R); pts.push(P); }
+    ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(-10, H + 10); for (const P of pts) ctx.lineTo(P[0], P[1]); ctx.lineTo(W + 10, H + 10); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = rim; ctx.lineWidth = 1; ctx.beginPath(); pts.forEach((P, i) => (i ? ctx.lineTo(P[0], P[1]) : ctx.moveTo(P[0], P[1]))); ctx.stroke();
+  }
+  // the river on the valley floor, catching the sky
+  ctx.strokeStyle = 'rgba(92,86,150,.55)'; ctx.lineCap = 'round';
+  for (let i = 0; i < RIVER.length - 1; i++) {
+    const a = C.P(...RIVER[i]), b = C.P(...RIVER[i + 1]); if (a[2] < 5 || b[2] < 5) continue;
+    ctx.lineWidth = Math.max(.8, 26 * C.F / a[2] * clamp((o.y - RIVER[i][1]) / a[2], 0, 1)); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+  }
   for (const [X, Y, Z, k, ph] of VALLEY) {
     const P = C.P(X, Y, Z); if (P[2] < 1 || P[0] < -10 || P[0] > W + 10 || P[1] < yh - 2 || P[1] > H + 10) continue;
-    const a = (.35 + .5 * k) * (.75 + .25 * Math.sin(t * (.6 + k) + ph)), s = .8 + 1.4 * k * clamp(400 / P[2]);
+    const a = (.45 + .55 * k) * (.75 + .25 * Math.sin(t * (.6 + k) + ph)), s = 1 + 1.6 * k * clamp(500 / P[2]);
     ctx.fillStyle = rgba(k < .82 ? '#ffcf8a' : '#cfe6ff', a); ctx.fillRect(P[0], P[1], s, s);
   }
+  lowerTerrace(ctx, t, C);
   return yh;
 }
+// the river (valley floor, metres) and the terrace below the parapet: the backs of its roofs, chimneys, a lit skylight here and there
+const RIVER = (() => { const pts = []; for (let i = 0; i <= 40; i++) { const x = 900 - i * 110; pts.push([x, -128, 760 + 260 * Math.sin(i * .37 + .6) + 90 * Math.sin(i * 1.1)]); } return pts; })();
+const ROOFS = (() => {
+  const r = prng(2024), out = []; let x = 9;
+  while (x > ST.xEnd) { const w = 5 + r() * 4, y0 = -3.4 - r() * .8, rh = 2.1 + r() * .8; out.push({ x0: x, x1: x - w, y0, rh, z0: 4.3 + r() * .4, d: 5.4, col: ['#2e2234', '#33243a', '#2a2236', '#36283a'][Math.floor(r() * 4)], ch: r() < .6 ? .2 + r() * .6 : -1, sky: r() < .45 ? .25 + r() * .5 : -1, lit: r() < .7, ph: r() * TAU }); x -= w + .1 + (r() < .2 ? 1.5 : 0); }
+  return out;
+})();
+function lowerTerrace(ctx, t, C) {
+  const o = C.o; if (o.y < 1.2) return;   // hidden behind the parapet from eye level
+  // the slope below (dark, a little lighter near the wall where the lanterns reach)
+  const S = C.poly(ctx, [[Math.min(o.x + 20, 30), -2.5, 3.3], [ST.xEnd, -2.5, 3.3], [ST.xEnd, -60, 80], [Math.min(o.x + 20, 30), -60, 80]]);
+  if (S) { ctx.fillStyle = '#0c0b1d'; ctx.fill(); }
+  for (const R of ROOFS) {
+    if (R.x1 > o.x + 6) continue;
+    const zr = R.z0 + R.d / 2, yr = R.y0 + R.rh;
+    // back slope (faces up toward the street), then the gable end facing +X when it is visible
+    const q = [[R.x0, R.y0, R.z0], [R.x1, R.y0, R.z0], [R.x1, yr, zr], [R.x0, yr, zr]];
+    const Sq = C.S(q); if (!Sq || !onScreenPts(Sq)) continue;
+    ctx.fillStyle = R.col; C.poly(ctx, q); ctx.fill();
+    ctx.strokeStyle = 'rgba(8,6,16,.55)'; ctx.lineWidth = 1; ctx.beginPath();
+    for (let k = 1; k < 7; k++) { const u = k / 7; C.seg(ctx, [R.x0, mix(R.y0, yr, u), mix(R.z0, zr, u)], [R.x1, mix(R.y0, yr, u), mix(R.z0, zr, u)]); }
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(150,130,190,.18)'; ctx.beginPath(); C.seg(ctx, [R.x0, yr, zr], [R.x1, yr, zr]); ctx.stroke();   // the ridge catches the sky
+    if (R.sky > 0) {   // a skylight, lit from the room below
+      const xs = mix(R.x0, R.x1, R.sky), u0 = .3, u1 = .62, P = [[xs + .35, mix(R.y0, yr, u0), mix(R.z0, zr, u0)], [xs - .35, mix(R.y0, yr, u0), mix(R.z0, zr, u0)], [xs - .35, mix(R.y0, yr, u1), mix(R.z0, zr, u1)], [xs + .35, mix(R.y0, yr, u1), mix(R.z0, zr, u1)]];
+      ctx.fillStyle = R.lit ? mixHex('#c46a2e', '#ffcf8a', .6 + .2 * Math.sin(t * .8 + R.ph)) : '#121026'; if (C.poly(ctx, P)) ctx.fill();
+    }
+    if (R.ch > 0) {   // a chimney on the ridge
+      const xc = mix(R.x0, R.x1, R.ch);
+      ctx.fillStyle = '#1e1626'; if (C.poly(ctx, [[xc + .25, yr - .3, zr - .25], [xc - .25, yr - .3, zr - .25], [xc - .25, yr + .7, zr - .25], [xc + .25, yr + .7, zr - .25]])) ctx.fill();
+      ctx.fillStyle = '#2c2234'; if (C.poly(ctx, [[xc + .25, yr + .7, zr - .25], [xc - .25, yr + .7, zr - .25], [xc - .25, yr + .7, zr + .25], [xc + .25, yr + .7, zr + .25]])) ctx.fill();
+    }
+  }
+}
+const onScreenPts = (S) => { let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; for (const [x, y] of S) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); } return x1 > -20 && x0 < W + 20 && y1 > -20 && y0 < H + 20; };
 
 // ---------------------------------------------------------------- houses
 function houses(ctx, t, C) {
@@ -162,6 +214,18 @@ function houses(ctx, t, C) {
     // cornice + storey lines (engraved)
     ctx.strokeStyle = 'rgba(12,10,26,.55)'; ctx.lineWidth = Math.max(1, C.k(S[0][2] ?? 10) * .03); ctx.beginPath();
     C.seg(ctx, [h.x0, h.h - .15, Z + .02], [h.x1, h.h - .15, Z + .02]); C.seg(ctx, [h.x0, 3.35, Z + .02], [h.x1, 3.35, Z + .02]); ctx.stroke();
+    // engraved plaster: broken diagonal hatching, denser low on the wall (stable in world space), and a darker plinth
+    const dist = Math.hypot(o.x - (h.x0 + h.x1) / 2, o.z - Z);
+    if (dist < 26) {
+      ctx.strokeStyle = rgba(shadeHex(h.col, -.45), .32 * clamp((26 - dist) / 8)); ctx.lineWidth = 1; ctx.beginPath();
+      for (let q = 0; q < 70; q++) {
+        const xs = h.x0 + h.h * .55 - q * .32; if (xs < h.x1) break;
+        let y = .55 + hash(h.seed + q) * .6;
+        while (y < h.h - .3) { const L = .5 + 1.1 * hash(q * 7.1 + y * 3.3 + h.seed), xa = xs - y * .55, xb = xa - L * .55; if (xa <= h.x0 - .05 && xb >= h.x1 + .05 && y + L < h.h - .2) C.seg(ctx, [xa, y, Z + .02], [xb, y + L, Z + .02]); y += L + .35 + .9 * hash(q * 3.7 + y); }
+      }
+      ctx.stroke();
+    }
+    ctx.fillStyle = shadeHex(h.col, -.3); if (C.poly(ctx, [[h.x0, 0, Z + .03], [h.x1, 0, Z + .03], [h.x1, .45, Z + .03], [h.x0, .45, Z + .03]])) ctx.fill();
     // windows
     const ww = 1.0, wh = 1.45, step = (h.x0 - h.x1) / h.nwin;
     for (let f = 0; f <= h.fl; f++) for (let i = 0; i < h.nwin; i++) {
@@ -172,9 +236,12 @@ function houses(ctx, t, C) {
         ctx.fillStyle = lit ? '#ffb768' : '#141228'; if (C.poly(ctx, R)) ctx.fill();
         if (lit) { ctx.fillStyle = 'rgba(120,52,20,.35)'; if (C.poly(ctx, [[cx + dw / 2, by, Z + .015], [cx - dw / 2, by, Z + .015], [cx - dw / 2, by + dh * .45, Z + .015], [cx + dw / 2, by + dh * .45, Z + .015]])) ctx.fill(); }
         ctx.strokeStyle = '#100e1e'; ctx.lineWidth = Math.max(1, C.k(10) * .006); if (C.poly(ctx, R)) ctx.stroke();
-        if (h.cafe && door) {   // a striped awning over the café door
-          ctx.fillStyle = '#6a2a2a'; if (C.poly(ctx, [[cx + 1.6, 2.7, Z], [cx - 1.6, 2.7, Z], [cx - 1.6, 2.25, Z + 1.1], [cx + 1.6, 2.25, Z + 1.1]])) ctx.fill();
-          ctx.strokeStyle = 'rgba(232,215,176,.35)'; ctx.lineWidth = 2; ctx.beginPath(); for (let q = 0; q <= 8; q++) { const xx = cx + 1.6 - q * .4; C.seg(ctx, [xx, 2.7, Z], [xx, 2.25, Z + 1.1]); } ctx.stroke();
+        if (h.cafe && door) {   // a small striped awning over the café door (muted: it must not shout from above)
+          for (let q = 0; q < 8; q++) {
+            const xa = cx + 1.0 - q * .25, xb = xa - .25;
+            ctx.fillStyle = q % 2 ? '#3e2c3c' : '#6b5a5a'; if (C.poly(ctx, [[xa, 2.65, Z], [xb, 2.65, Z], [xb, 2.3, Z + .75], [xa, 2.3, Z + .75]])) ctx.fill();
+          }
+          ctx.fillStyle = '#2a1e2c'; if (C.poly(ctx, [[cx + 1.0, 2.3, Z + .75], [cx - 1.0, 2.3, Z + .75], [cx - 1.0, 2.18, Z + .75], [cx + 1.0, 2.18, Z + .75]])) ctx.fill();
         }
         continue;
       }
@@ -189,8 +256,14 @@ function houses(ctx, t, C) {
       } else { ctx.fillStyle = '#121026'; ctx.fill(); }
       ctx.strokeStyle = lit ? 'rgba(40,20,20,.7)' : 'rgba(60,58,96,.5)'; ctx.lineWidth = Math.max(1, C.k(10) * .004); ctx.beginPath();
       C.seg(ctx, [cx, base, Z + .02], [cx, base + wh, Z + .02]); C.seg(ctx, [cx - ww / 2, base + wh * .62, Z + .02], [cx + ww / 2, base + wh * .62, Z + .02]); ctx.stroke();
-      // shutters
+      // shutters, the stone sill (catches the lantern light) and the lintel
       ctx.fillStyle = shadeHex(h.col, -.3); for (const sd of [-1, 1]) if (C.poly(ctx, [[cx + sd * ww / 2, base, Z + .03], [cx + sd * ww * .95, base, Z + .03], [cx + sd * ww * .95, base + wh, Z + .03], [cx + sd * ww / 2, base + wh, Z + .03]])) ctx.fill();
+      ctx.fillStyle = shadeHex(h.col, .28); if (C.poly(ctx, [[cx + ww * .62, base - .1, Z + .09], [cx - ww * .62, base - .1, Z + .09], [cx - ww * .62, base, Z + .09], [cx + ww * .62, base, Z + .09]])) ctx.fill();
+      ctx.fillStyle = shadeHex(h.col, -.18); if (C.poly(ctx, [[cx + ww * .58, base + wh, Z + .04], [cx - ww * .58, base + wh, Z + .04], [cx - ww * .58, base + wh + .16, Z + .04], [cx + ww * .58, base + wh + .16, Z + .04]])) ctx.fill();
+      if (!h.bal[k] && hash(h.seed + k * 3.3) < .3) {   // a flower box under the window
+        ctx.fillStyle = '#3a2a24'; if (C.poly(ctx, [[cx + ww * .5, base - .3, Z + .2], [cx - ww * .5, base - .3, Z + .2], [cx - ww * .5, base - .1, Z + .2], [cx + ww * .5, base - .1, Z + .2]])) ctx.fill();
+        for (let q = 0; q < 6; q++) { const P = C.P(cx - ww * .42 + q * ww * .17, base + .02 + .05 * hash(k + q), Z + .2); if (P[2] < .3) continue; const rr = Math.max(.8, C.k(P[2]) * .055); ctx.fillStyle = q % 2 ? '#3f5a34' : ['#e8a3a0', '#e9c46a', '#f3efe2'][(k + q) % 3]; ctx.beginPath(); ctx.arc(P[0], P[1], rr, 0, TAU); ctx.fill(); }
+      }
       // a balcony with a railing and pots
       if (h.bal[k]) {
         const by = base - .1; ctx.fillStyle = '#1c1a30'; if (C.poly(ctx, [[cx + .8, by, Z], [cx - .8, by, Z], [cx - .8, by, Z + .55], [cx + .8, by, Z + .55]])) ctx.fill();
@@ -214,7 +287,7 @@ function ground(ctx, t, C) {
   ctx.fillStyle = '#1b1830'; if (C.poly(ctx, [[xN, 0, ST.houseZ], [xF, 0, ST.houseZ], [xF, 0, ST.parapetZ], [xN, 0, ST.parapetZ]])) ctx.fill();
   // pools of lantern light on the cobbles and around the table (additive, warm)
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
-  for (const L of LANTERNS) { if (L.p[0] > o.x + 2) continue; pool(ctx, C, L.p[0], L.p[2] * .7, L.head ? 2.6 : 1.7, L.head ? .2 : .1); }
+  for (const L of LANTERNS) { if (L.off || L.p[0] > o.x + 2) continue; pool(ctx, C, L.p[0], L.p[2] * .7, L.head ? 2.6 : 1.7, L.head ? .2 : .1); }
   pool(ctx, C, -3, 0, 7.5, .1); pool(ctx, C, -10, 0, 7.5, .08);
   ctx.restore();
   // cobbles: rows along the street + joints near the camera (engraved lines)
@@ -246,16 +319,13 @@ function pool(ctx, C, x, z, R, a) {
 }
 
 // ---------------------------------------------------------------- lanterns (the hero light)
-function wires(ctx, t, C) {
+function wire(ctx, t, C, S) {
   ctx.strokeStyle = 'rgba(12,10,20,.85)'; ctx.lineCap = 'round';
-  for (const S of STRINGS) {
-    if (Math.min(S.a[0], S.b[0]) > C.o.x + 1) continue;
-    ctx.lineWidth = 1.2; ctx.beginPath(); let prev = null;
-    for (let i = 0; i <= 16; i++) { const p = catenary(S, i / 16); if (prev) C.seg(ctx, prev, p); prev = p; }
-    ctx.stroke();
-    // little bulbs along the wire
-    for (let i = 1; i < 22; i++) { const p = catenary(S, i / 22), P = C.P(p[0], p[1] - .03, p[2]); if (P[2] < .3 || P[0] < -20 || P[0] > W + 20 || P[1] < -20 || P[1] > H + 20) continue; const k = C.k(P[2]); putGlow(ctx, P[0], P[1], k * .09, .5, '#ffcf8a'); ctx.fillStyle = '#fff1d6'; ctx.fillRect(P[0] - k * .006, P[1] - k * .006, Math.max(1, k * .012), Math.max(1, k * .012)); }
-  }
+  ctx.lineWidth = 1.2; ctx.beginPath(); let prev = null;
+  for (let i = 0; i <= 16; i++) { const p = catenary(S, i / 16); if (prev) C.seg(ctx, prev, p); prev = p; }
+  ctx.stroke();
+  // little bulbs along the wire
+  for (let i = 1; i < 22; i++) { const p = catenary(S, i / 22), P = C.P(p[0], p[1] - .03, p[2]); if (P[2] < .3 || P[0] < -20 || P[0] > W + 20 || P[1] < -20 || P[1] > H + 20) continue; const k = C.k(P[2]); putGlow(ctx, P[0], P[1], k * .09, .5, '#ffcf8a'); ctx.fillStyle = '#fff1d6'; ctx.fillRect(P[0] - k * .006, P[1] - k * .006, Math.max(1, k * .012), Math.max(1, k * .012)); }
 }
 function lantern(ctx, t, C, L) {
   const sw = Math.sin(t * (1.6 + L.ph * .05) + L.ph) * .05, top = L.p, cx = top[0] + Math.sin(sw) * L.drop * .3, cy = top[1] - L.drop, cz = top[2] + Math.sin(sw) * L.drop;
@@ -284,14 +354,18 @@ function tableSlice(ctx, C, xa, xb) {
   ctx.fillStyle = '#16101a';
   for (let x = Math.ceil(xb / 2.5) * 2.5; x <= xa; x += 2.5) for (const z of [-hw + .08, hw - .08]) if (C.poly(ctx, [[x + .04, 0, z], [x - .04, 0, z], [x - .04, T, z], [x + .04, T, z]])) ctx.fill();
   // cloth hanging down on both sides + the end
-  ctx.fillStyle = '#b9ab92'; for (const sd of [-1, 1]) if (C.poly(ctx, [[xa, T, sd * hw], [xb, T, sd * hw], [xb, T - .2, sd * (hw + .01)], [xa, T - .2, sd * (hw + .01)]])) ctx.fill();
+  const xc = xa >= TB.x0 - 1e-6 ? xa : xa + .02;
+  ctx.fillStyle = '#b9ab92'; for (const sd of [-1, 1]) if (C.poly(ctx, [[xc, T, sd * hw], [xb, T, sd * hw], [xb, T - .2, sd * (hw + .01)], [xc, T - .2, sd * (hw + .01)]])) ctx.fill();
   if (xa >= TB.x0 - 1e-6) { ctx.fillStyle = '#a89a80'; if (C.poly(ctx, [[xa, T, -hw], [xa, T, hw], [xa, T - .2, hw], [xa, T - .2, -hw]])) ctx.fill(); }
   // top: linen, warm in the lantern light
-  const S = C.S([[xa, T, -hw], [xb, T, -hw], [xb, T, hw], [xa, T, hw]]); if (!S) return;
-  ctx.fillStyle = '#e3d6bc'; C.poly(ctx, [[xa, T, -hw], [xb, T, -hw], [xb, T, hw], [xa, T, hw]]); ctx.fill();
+  const xo = xa >= TB.x0 - 1e-6 ? xa : xa + .02;
+  const S = C.S([[xo, T, -hw], [xb, T, -hw], [xb, T, hw], [xo, T, hw]]); if (!S) return;
+  ctx.fillStyle = '#e3d6bc'; C.poly(ctx, [[xo, T, -hw], [xb, T, -hw], [xb, T, hw], [xo, T, hw]]); ctx.fill();
   ctx.fillStyle = 'rgba(160,130,90,.18)'; if (C.poly(ctx, [[xa, T + .001, -.1], [xb, T + .001, -.1], [xb, T + .001, .1], [xa, T + .001, .1]])) ctx.fill();
   ctx.strokeStyle = 'rgba(120,96,70,.25)'; ctx.lineWidth = 1; ctx.beginPath(); C.seg(ctx, [xa, T + .001, -.1], [xb, T + .001, -.1]); C.seg(ctx, [xa, T + .001, .1], [xb, T + .001, .1]); ctx.stroke();
 }
+// a horizontal disc (projected, so it is right from any angle)
+function disc(ctx, C, x, y, z, r) { const pts = []; for (let i = 0; i < 14; i++) { const a = i / 14 * TAU; pts.push([x + Math.cos(a) * r, y, z + Math.sin(a) * r]); } return C.poly(ctx, pts); }
 function bench(ctx, C, xa, xb, side) {
   const z = side * TB.benchZ, Y = TB.benchY;
   ctx.fillStyle = '#2a1e1c'; if (C.poly(ctx, [[xa, Y, z - .16], [xb, Y, z - .16], [xb, Y, z + .16], [xa, Y, z + .16]])) ctx.fill();
@@ -307,8 +381,8 @@ function item(ctx, t, C, it) {
     ctx.fillStyle = it.k === 'plate' ? '#f1ead8' : it.k === 'bowl' ? '#d9cdb4' : '#9a5a2a'; ctx.beginPath(); S.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.fill();
     if (it.k === 'plate') { ctx.strokeStyle = 'rgba(120,100,80,.3)'; ctx.lineWidth = Math.max(.6, k * .003); ctx.stroke();
       // food on the plate
-      const F = C.P(it.x + .02, T + .01, it.z); ctx.fillStyle = it.you ? '#b8a07a' : ['#c4512e', '#8fae5a', '#e9c46a', '#a0603a'][Math.floor(hash(it.x * 13) * 4)]; ctx.beginPath(); ctx.ellipse(F[0], F[1], k * .05, k * .05 * Math.abs(S[4][1] - S[13][1]) / Math.max(1, Math.abs(S[0][0] - S[9][0])), 0, 0, TAU); ctx.fill(); }
-    if (it.k === 'bowl') { const F = C.P(it.x, T + .02, it.z); ctx.fillStyle = it.col; ctx.beginPath(); ctx.ellipse(F[0], F[1], k * .08, k * .08 * Math.abs(S[4][1] - S[13][1]) / Math.max(1, Math.abs(S[0][0] - S[9][0])) * .9, 0, 0, TAU); ctx.fill(); }
+      ctx.fillStyle = it.you ? '#b8a07a' : ['#c4512e', '#8fae5a', '#e9c46a', '#a0603a'][Math.floor(hash(it.x * 13) * 4)]; disc(ctx, C, it.x + .02, T + .01, it.z, .055); ctx.fill(); }
+    if (it.k === 'bowl') { ctx.fillStyle = it.col; disc(ctx, C, it.x, T + .02, it.z, .085); ctx.fill(); }
     if (it.k === 'bread') { ctx.strokeStyle = 'rgba(60,30,10,.5)'; ctx.lineWidth = Math.max(.6, k * .004); ctx.beginPath(); for (let q = -2; q <= 2; q++) C.seg(ctx, [it.x + q * .05 - .02, T + .03, it.z - .05], [it.x + q * .05 + .02, T + .03, it.z + .05]); ctx.stroke(); }
     return;
   }
@@ -348,7 +422,9 @@ function poseOf(p, t, S) {
   else if (p.act === 'laugh') { const c = Math.pow(w(.7, 1), 4); base.lean = .08 - .1 * c; base.head = -.18 * c + .03 * Math.sin(t * 9) * c; smile = .5 + .5 * c; }
   else if (p.act === 'eat') { const c = Math.pow(w(1.2, 2), 5); base.sh = [.55 + .5 * c, .4]; base.el = [1 + .9 * c, 1]; base.head = .1 - .06 * c; }
   else if (p.act === 'lean') { base.lean = .2; base.sh = [.75, .7]; base.el = [1.05, 1.1]; smile = .3; }
-  else if (p.act === 'ask') { const u = S.askLift; base.sh = [mix(.6, 1.72, u), .45]; base.el = [mix(.95, .55, u), 1]; base.head = mix(.04, -.08, u); base.lean = mix(.08, .03, u); smile = .35 + .3 * u; lift = u; }
+  else if (p.act === 'ask') {   // the glass comes up to face height, held out toward you (not a cheer over the head)
+    const u = S.askLift; base.sh = [mix(.6, 1.18, u), .45]; base.el = [mix(.95, .98, u), 1]; base.head = mix(.04, -.04, u); base.lean = mix(.08, .13, u); smile = .35 + .3 * u; lift = u;
+  }
   else smile = .2;
   return { pose: base, lift, smile };
 }
@@ -394,7 +470,7 @@ export function tableWorld(ctx, t, C, S, opts = {}) {
   const headL = LANTERNS.find((L) => L.head), hp = headL ? C.P(headL.p[0], headL.p[1] - headL.drop, headL.p[2]) : [W / 2, 0, 1];
   // depth slices along the table, far → near: bench, people (body), table slice, items, people (front arm)
   const xs = []; for (let x = TB.x1; x < TB.x0; x += .63) xs.push(x); xs.push(TB.x0);
-  const nearLantern = (x) => { let best = null, bd = 1e9; for (const L of LANTERNS) { if (L.p[2] < -2.6 || L.p[2] > 2.6) continue; const d = Math.abs(L.p[0] - x); if (d < bd) { bd = d; best = L; } } return best; };
+  const nearLantern = (x) => { let best = null, bd = 1e9; for (const L of LANTERNS) { if (L.off || L.p[2] < -2.6 || L.p[2] > 2.6) continue; const d = Math.abs(L.p[0] - x); if (d < bd) { bd = d; best = L; } } return best; };
   for (let i = 0; i < xs.length - 1; i++) {
     const xb = xs[i], xa = xs[i + 1];
     const cxm = (xa + xb) / 2; if (cxm > o.x + .3 && o.pitch > -1.2) continue;
@@ -406,16 +482,16 @@ export function tableWorld(ctx, t, C, S, opts = {}) {
     for (const it of ITEMS) if (it.x <= xa && it.x > xb) item(ctx, t, C, it);
     for (const p of here) drawPerson(ctx, t, C, p, S, 'front', LP);
   }
-  // the card in its holder (drawn by the card module so close-ups and wide shots are the same object)
-  if (opts.card) opts.card(ctx, t, C);
-  // you at the head of the table (back view), unless the camera is past you
-  const YP = C.P(YOU.x, YOU.seatY, YOU.z);
-  if (YP[2] > .35 && !opts.noYou) {
-    const k = C.k(YP[2]), elv = clamp(Math.atan2(o.y - 1, Math.hypot(o.x - YOU.x, o.z - YOU.z)) / (Math.PI / 2) * 1.25);
-    youSeat(ctx, YP[0], YP[1], k / 1000, { t, turn: S.youTurn, elev: elv, light: { x: hp[0], y: hp[1], col: '#ffcf8a', a: .9 } });
-  }
-  // lanterns + wires over everything (they hang between the camera and the table in the high views)
-  wires(ctx, t, C);
-  const Ls = LANTERNS.map((L) => [L, C.P(L.p[0], L.p[1], L.p[2])[2]]).filter(([, d]) => d > .15).sort((a, b) => b[1] - a[1]);
-  for (const [L] of Ls) lantern(ctx, t, C, L);
+  // the near things in depth order (far → near): lanterns, the wires, the card in its holder, you at the head of the table
+  const items = [];
+  for (const L of LANTERNS) { if (L.off) continue; const d = C.P(L.p[0], L.p[1] - L.drop, L.p[2])[2]; if (d > .15) items.push([d, () => lantern(ctx, t, C, L)]); }
+  for (const Sg of STRINGS) { if (Math.min(Sg.a[0], Sg.b[0]) > o.x + 1) continue; const m = catenary(Sg, .5), d = C.P(m[0], m[1], m[2])[2]; items.push([d, () => wire(ctx, t, C, Sg)]); }
+  if (opts.card) items.push([C.P(CARD.x, CARD.y, CARD.z)[2], () => opts.card(ctx, t, C)]);
+  const YP = C.P(YOU.x, YOU.seatY + .45, YOU.z);
+  if (YP[2] > .35 && !opts.noYou) items.push([YP[2], () => {
+    const Y0 = C.P(YOU.x, YOU.seatY, YOU.z), k = C.k(Y0[2]), elv = clamp(Math.atan2(o.y - 1, Math.hypot(o.x - YOU.x, o.z - YOU.z)) / (Math.PI / 2) * 1.25);
+    youSeat(ctx, Y0[0], Y0[1], k / 1000, { t, turn: S.youTurn, elev: elv, light: { x: hp[0], y: hp[1], col: '#ffcf8a', a: .9 } });
+  }]);
+  items.sort((p, q) => q[0] - p[0]);
+  for (const [, f] of items) f();
 }

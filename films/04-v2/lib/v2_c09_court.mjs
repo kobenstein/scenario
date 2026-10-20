@@ -6,7 +6,7 @@
 // Look: an engraving at night. World-anchored line work (courses, cross-hatching in the shadows) with a level of detail that keeps
 // the line pitch on screen at a few px while the camera travels 100×; ink outlines; moonlit top edges; one amber lantern.
 import { W, H, rgba, clamp, mix, lin, sm, prng } from '../engine.mjs';
-import { cs, P3, path3, line3, plane, scaleAt, TAU, toScr } from './v2_c09_kit.mjs';
+import { cs, P3, path3, line3, plane, scaleAt, TAU, toScr, NEAR } from './v2_c09_kit.mjs';
 import { VIEWS } from './maslow4.mjs';
 
 export const FL = [0, 4, 7.3, 10.6, 13.9, 17.2, 20.5, 23.8];          // floor lines (ground floor 4 m, then 3.3 m); cornice from 23.8
@@ -64,6 +64,15 @@ function visZ(cam, z0, m = 60) {
   if (pts.some((p) => !p)) return { x0: -1e3, x1: 1e3, y0: -1e3, y1: 1e3 };
   return { x0: Math.min(...pts.map((p) => p[0])), x1: Math.max(...pts.map((p) => p[0])), y0: Math.min(...pts.map((p) => p[1])), y1: Math.max(...pts.map((p) => p[1])) };
 }
+// does a 3D polygon reach the frame at all? (near-clipped, projected bounding box against the frame + margin)
+function onScreen(cam, pts, m = 40) {
+  let C = pts.map((p) => cs(cam, p[0], p[1], p[2]));
+  if (C.every((c) => c[2] < NEAR)) return false;
+  if (C.some((c) => c[2] < NEAR)) { const out = []; for (let i = 0; i < C.length; i++) { const a = C[i], b = C[(i + 1) % C.length], ia = a[2] >= NEAR, ib = b[2] >= NEAR; if (ia) out.push(a); if (ia !== ib) { const u = (NEAR - a[2]) / (b[2] - a[2]); out.push([mix(a[0], b[0], u), mix(a[1], b[1], u), NEAR]); } } C = out; }
+  let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+  for (const c of C) { const [x, y] = toScr(cam, c); x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+  return x1 > -m && x0 < W + m && y1 > -m && y0 < H + m;
+}
 // level of detail for line work: spacing d (a power of 2 in metres) so that d·s ≈ px; the in-between lines grow in with r
 function lod(px, s) { const L = Math.log2(px / Math.max(1e-6, s)), n = Math.floor(L); return { d: 2 ** n, r: L - n }; }
 // engraved parallel lines on W (plane Z = 0) inside a world box: horizontal (dir 'h') or diagonal ('d': X − Y = const)
@@ -110,12 +119,37 @@ export function paneP(ctx, t, cam) {
 }
 
 // ---------------------------------------------------------------- glass (all the other panes: the same dark glass, a sheen anchored to it)
-function glass(ctx, cam, x0, y0, x1, y1, z, seed, warm = 0, clipBuild = null) {
+function glass(ctx, cam, x0, y0, x1, y1, z, seed, warm = 0, clipBuild = null, inside = null) {
   const top = warm > 0 ? mixHex(C2.glassT, '#3a2414', warm) : C2.glassT, bot = warm > 0 ? mixHex(C2.glassB, '#120804', warm) : C2.glassB;
   ctx.save(); ctx.beginPath(); if (clipBuild) clipBuild(); else rectZ(ctx, cam, x0, y0, x1, y1, z); ctx.clip();
   fillPath(ctx, grad3(ctx, cam, [x0, y1, z], [x0, y0, z], [[0, top], [1, bot]]), () => rectZ(ctx, cam, x0 - .5, y0 - .5, x1 + .5, y1 + .5, z));
+  if (inside) inside();
   const k = hash(seed) * .7, xm = mix(x0, x1, k), w2 = (y1 - y0) * .55, glint = hash(seed, 3) > .86 ? 2.2 : 1;
   fillPath(ctx, `rgba(200,230,255,${.045 * glint})`, () => path3(ctx, cam, [[xm - .14, y0, z], [xm + .02, y0, z], [xm + .02 + w2, y1, z], [xm - .14 + w2, y1, z]], true));
+  ctx.restore();
+}
+
+// ---------------------------------------------------------------- the room behind L's glass: a linen curtain drawn across the right
+// light, its folds lit by the lantern through the glass; the lantern's own reflection in the pane (13 cm behind the glass)
+function roomL(ctx, t, cam, X, x0, y0, x1, y1, warm) {
+  const zc = GLASSZ - .12, cx0 = X - .02, cx1 = x1 + .04, lx = LANTERN.x, ym = (y0 + y1) / 2;
+  const A = P3(cam, cx0, ym, zc), B = P3(cam, cx1, ym, zc), g = ctx.createLinearGradient(A[0], A[1], B[0], B[1]);
+  for (let i = 0; i <= 48; i++) {
+    const q = i / 48, m = mix(cx0, cx1, q), fold = (.5 + .5 * Math.cos(q * TAU * 3.3 + .6)) ** 1.6, fall = 1 / (1 + ((m - lx) / .55) ** 2);
+    g.addColorStop(q, mixHex('#0a0a16', '#b07a46', clamp(warm * (.12 + .5 * fold) * fall + .07 * fold)));
+  }
+  fillPath(ctx, g, () => path3(ctx, cam, [[cx0, y0 - .05, zc], [cx1, y0 - .05, zc], [cx1, y1 + .05, zc], [cx0, y1 + .05, zc]], true));
+  // the lantern sits low: the curtain darkens toward its top
+  fillPath(ctx, grad3(ctx, cam, [X, y0 + .25, zc], [X, y1, zc], [[0, 'rgba(6,6,16,0)'], [1, 'rgba(6,6,16,.62)']]), () => path3(ctx, cam, [[cx0, y0 + .25, zc], [cx1, y0 + .25, zc], [cx1, y1 + .05, zc], [cx0, y1 + .05, zc]], true));
+  // the curtain's leading edge (a hem in shadow) and the dark room beside it
+  ctx.strokeStyle = 'rgba(4,4,12,.6)'; ctx.lineWidth = 1.2; ctx.beginPath(); line3(ctx, cam, [[cx0, y0 - .05, zc], [cx0 + .01, y1 + .05, zc]], true); ctx.stroke();
+  if (warm <= 0) return;
+  const rz = 2 * GLASSZ - LANTERN.z, rp = P3(cam, LANTERN.x, LANTERN.y + .1, rz), rs = scaleAt(cam, LANTERN.x, LANTERN.y + .1, rz);
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  // a dim copy of the globe (a soft upright oval) inside a broad warm sheen
+  const R = .3 * rs, gr = ctx.createRadialGradient(rp[0], rp[1], 0, rp[0], rp[1], R); gr.addColorStop(0, rgba('#ff9a40', .12 * warm)); gr.addColorStop(.4, rgba('#a0501c', .05 * warm)); gr.addColorStop(1, 'rgba(120,50,20,0)');
+  ctx.fillStyle = gr; ctx.fillRect(rp[0] - R, rp[1] - R, 2 * R, 2 * R);
+  ctx.translate(rp[0], rp[1]); ctx.scale(1, 1.3); const r3 = .05 * rs, g3 = ctx.createRadialGradient(0, 0, 0, 0, 0, r3); g3.addColorStop(0, rgba('#ffcf8a', .2 * warm)); g3.addColorStop(.6, rgba('#ff9a40', .08 * warm)); g3.addColorStop(1, 'rgba(160,70,20,0)'); ctx.fillStyle = g3; ctx.fillRect(-r3, -r3, 2 * r3, 2 * r3);
   ctx.restore();
 }
 
@@ -142,7 +176,8 @@ function windowW(ctx, t, cam, c, k, S, lw) {
     if (isP && S.paneDetail) paneP(ctx, t, cam); else glass(ctx, cam, X + .025, y0 + .06, x1 - .06, y1 - .03, GLASSZ, c * 7 + k + 1);
     glass(ctx, cam, x0 + .06, y0 + .06, X - .025, y1 - .03, GLASSZ, c * 7 + k + 2);
     glass(ctx, cam, x0, y1, x1, top, GLASSZ, c * 7 + k + 3, 0, () => path3(ctx, cam, [[x0 + .06, y1 + .03, GLASSZ], [x1 - .06, y1 + .03, GLASSZ], ...arch(GLASSZ, .06).reverse()], true));
-  } else glass(ctx, cam, x0, y0, x1, y1, GLASSZ, c * 7 + k, warm);
+  } else if (isL) glass(ctx, cam, x0, y0, x1, y1, GLASSZ, c * 7 + k, 0, null, () => roomL(ctx, t, cam, X, x0, y0, x1, y1, warm));
+  else glass(ctx, cam, x0, y0, x1, y1, GLASSZ, c * 7 + k, warm);
   // curtains half drawn, a screen's cold flicker in a few rooms
   const key = `${c},${k}`, hv = hash(c * 13 + 1, k * 7 + 2);
   if (!isL && !isP && px >= 9 && hv < .32) {
@@ -156,9 +191,9 @@ function windowW(ctx, t, cam, c, k, S, lw) {
   }
   // the reveals (side faces of the recess) where the camera can see them
   if (px > 12) {
-    const rv = (xr, nx) => { if ((cam.x - xr) * nx <= 0) return; const lt = nx > 0 ? (lit ? .9 : .5) : .25; fillPath(ctx, warm > 0 && nx > 0 ? mixHex('#262a58', '#8a5a2c', warm) : mixHex('#0b0d24', '#2b3166', lt), () => path3(ctx, cam, [[xr, y0, 0], [xr, y0, GLASSZ], [xr, y1, GLASSZ], [xr, y1, 0]], true)); };
+    const rv = (xr, nx) => { if ((cam.x - xr) * nx <= 0) return; const lt = nx > 0 ? (lit ? .9 : .5) : .25, wl = isL ? warm / (1 + ((xr - LANTERN.x) / .45) ** 2) : 0; fillPath(ctx, mixHex(mixHex('#0b0d24', '#2b3166', lt), '#a0682e', wl), () => path3(ctx, cam, [[xr, y0, 0], [xr, y0, GLASSZ], [xr, y1, GLASSZ], [xr, y1, 0]], true)); };
     rv(x0, 1); rv(x1, -1);
-    if (!w.arch && cam.y < top) fillPath(ctx, '#080a1e', () => path3(ctx, cam, [[x0, top, 0], [x1, top, 0], [x1, top, GLASSZ], [x0, top, GLASSZ]], true));
+    if (!w.arch && cam.y < top) fillPath(ctx, isL ? mixHex('#080a1e', '#4a2c16', warm * .6) : '#080a1e', () => path3(ctx, cam, [[x0, top, 0], [x1, top, 0], [x1, top, GLASSZ], [x0, top, GLASSZ]], true));
   }
   if (px < 9) { fillPath(ctx, lit ? C2.trimLit : C2.trim, () => rectZ(ctx, cam, x0 - .1, y0 - .07, x1 + .1, y0, .12)); return; }
   // casement frame (painted wood): outer frame, mullion, transom; moonlit top edges
@@ -176,8 +211,15 @@ function windowW(ctx, t, cam, c, k, S, lw) {
   if (px > 30) { ctx.strokeStyle = rgba(warm > .05 ? '#ffcf8a' : C2.moon, warm > .05 ? .35 * warm : (lit ? .3 : .14)); ctx.lineWidth = lw; ctx.beginPath(); const ty = y0 + w.h * .68; if (!w.arch) { line3(ctx, cam, [[x0 + fb, y1 - fb, fz], [x1 - fb, y1 - fb, fz]], true); line3(ctx, cam, [[x0 + fb, ty + fb / 2, fz], [x1 - fb, ty + fb / 2, fz]], true); } line3(ctx, cam, [[x0 + .05, y0 + .05, fz], [x0 + .05, y1 - .05, fz]], true); ctx.stroke(); }
   // the sill: a stone slab (top face lit by the moon or the lantern, front face, a shadow on the wall under it)
   const sx0 = x0 - .1, sx1 = x1 + .1, sz1 = .12;
-  if (cam.y > y0) fillInk(ctx, warm > 0 ? mixHex(lit ? C2.trimLit : C2.trim, '#d6995a', warm) : (lit ? C2.trimLit : C2.trim), () => rectY(ctx, cam, y0, sx0, GLASSZ, sx1, sz1), ol * .8, .5);
-  fillInk(ctx, warm > 0 ? mixHex(C2.trim, '#9a6232', warm * .8) : C2.trim, () => rectZ(ctx, cam, sx0, y0 - .07, sx1, y0, sz1), ol);
+  const sTop = isL ? mixHex('#4c5078', '#9a7a5c', warm * .7) : (lit ? C2.trimLit : C2.trim), sFront = isL ? mixHex('#353a62', '#6a5040', warm * .6) : C2.trim;
+  if (cam.y > y0) fillInk(ctx, sTop, () => rectY(ctx, cam, y0, sx0, GLASSZ, sx1, sz1), ol * .8, .5);
+  fillInk(ctx, sFront, () => rectZ(ctx, cam, sx0, y0 - .07, sx1, y0, sz1), ol);
+  if (isL && px > 160) {   // the worn stone of the sill, engraved: lines along it on the top and the front, a chipped front edge
+    ctx.strokeStyle = 'rgba(5,6,26,.32)'; ctx.lineWidth = lw; ctx.beginPath();
+    if (cam.y > y0) for (let i = 1; i < 9; i++) { const zz = mix(GLASSZ, sz1, i / 9), j = hash(i, 3) * .2; line3(ctx, cam, [[sx0 + j, y0, zz], [sx1 - hash(i, 5) * .25, y0, zz]], true); }
+    for (let i = 1; i < 3; i++) line3(ctx, cam, [[sx0, y0 - .07 * i / 3, sz1], [sx1, y0 - .07 * i / 3, sz1]], true);
+    ctx.stroke();
+  }
   fillPath(ctx, 'rgba(4,5,16,.5)', () => rectZ(ctx, cam, sx0 + .02, y0 - .24, sx1 - .02, y0 - .07, 0));
   if (px > 20) { ctx.strokeStyle = rgba(C2.moon, lit ? .45 : .2); ctx.lineWidth = lw; ctx.beginPath(); line3(ctx, cam, [[sx0, y0, sz1], [sx1, y0, sz1]], true); ctx.stroke(); }
   // flower pots on a few sills (a pot and a small plant)
@@ -263,6 +305,7 @@ function sideWall(ctx, t, cam, sgn, S, lw) {
   const X = sgn * CW, lit = sgn > 0;
   if ((cam.x - X) * sgn > 0) return;
   const zMax = Math.min(CD, cam.z - .05); if (zMax <= 0) return;
+  if (!onScreen(cam, [[X, 0, 0], [X, 0, zMax], [X, RAIL, zMax], [X, RAIL, 0]])) return;
   fillPath(ctx, grad3(ctx, cam, [X, 0, 6], [X, 24.6, 6], [[0, lit ? C2.wLow : '#0a0c22'], [1, lit ? C2.sideLit : C2.sideDk]]), () => rectX(ctx, cam, X, 0, 0, zMax, 24.6));
   // courses (perspective), denser hatch on the shadow wall
   const sm2 = scaleAt(cam, X, clamp(cam.y, 0, 24), Math.max(0, cam.z - 12)), { d, r } = lod(lit ? 7 : 5, sm2);
@@ -293,28 +336,49 @@ function sideWall(ctx, t, cam, sgn, S, lw) {
 function floor(ctx, t, cam, lw) {
   if (cam.y < .05) return;
   const zMax = Math.min(CD, cam.z - .1); if (zMax <= 0) return;
+  if (!onScreen(cam, [[-CW, 0, 0], [CW, 0, 0], [CW, 0, zMax], [-CW, 0, zMax]])) return;
   fillPath(ctx, grad3(ctx, cam, [0, 0, 0], [0, 0, zMax], [[0, '#1b1e40'], [1, '#0a0b20']]), () => path3(ctx, cam, [[-CW, 0, 0], [CW, 0, 0], [CW, 0, zMax], [-CW, 0, zMax]], true));
   ctx.save(); ctx.lineWidth = lw; ctx.strokeStyle = 'rgba(4,5,16,.45)'; ctx.beginPath();
   for (let z = .3; z < zMax; z += .3) line3(ctx, cam, [[-CW, 0, z], [CW, 0, z]], true);
   ctx.stroke(); ctx.strokeStyle = 'rgba(4,5,16,.3)'; ctx.beginPath();
-  for (let j = 0; j * .3 < zMax; j++) for (let x = -CW + (j % 2) * .2; x < CW; x += .4) { const z = j * .3; if (cs(cam, x, 0, z)[2] < 4 || cs(cam, x, 0, z)[2] > 26) continue; line3(ctx, cam, [[x, 0, z], [x, 0, Math.min(zMax, z + .3)]], true); }
+  for (let j = 0; j * .3 < zMax; j++) { const z = j * .3, d = cs(cam, 0, 0, z)[2]; if (d < 4 || d > 26) continue; for (let x = -CW + (j % 2) * .2; x < CW; x += .4) line3(ctx, cam, [[x, 0, z], [x, 0, Math.min(zMax, z + .3)]], true); }
   ctx.stroke(); ctx.restore();
 }
 // ---------------------------------------------------------------- roofs (zinc with standing seams), chimney stacks, skylights
 function chimney(ctx, cam, x, z, w, h, lw, seed) {
-  const y0 = ROOF, y1 = ROOF + h, d = .7, s = scaleAt(cam, x, y1, z);
-  // body: the face toward the camera (+Z, moonlit), the side we see, brick courses, the cap slab, two clay pots
-  if (cam.x < x - w / 2) fillInk(ctx, '#2a2f60', () => path3(ctx, cam, [[x - w / 2, y0, z + d / 2], [x - w / 2, y1, z + d / 2], [x - w / 2, y1, z - d / 2], [x - w / 2, y0, z - d / 2]], true), lw);
-  if (cam.x > x + w / 2) fillInk(ctx, '#151834', () => path3(ctx, cam, [[x + w / 2, y0, z + d / 2], [x + w / 2, y1, z + d / 2], [x + w / 2, y1, z - d / 2], [x + w / 2, y0, z - d / 2]], true), lw);
-  fillInk(ctx, '#2c2a52', () => rectZ(ctx, cam, x - w / 2, y0, x + w / 2, y1, z + d / 2), lw);
-  if (s * .12 > 2) { ctx.strokeStyle = 'rgba(5,6,26,.5)'; ctx.lineWidth = lw * .8; ctx.beginPath(); for (let y = y0 + .12; y < y1 - .1; y += .12) line3(ctx, cam, [[x - w / 2, y, z + d / 2], [x + w / 2, y, z + d / 2]], true); ctx.stroke(); }
-  fillInk(ctx, '#4a528f', () => path3(ctx, cam, [[x - w / 2 - .06, y1, z - d / 2 - .06], [x + w / 2 + .06, y1, z - d / 2 - .06], [x + w / 2 + .06, y1, z + d / 2 + .06], [x - w / 2 - .06, y1, z + d / 2 + .06]], true), lw);
-  fillInk(ctx, '#3c4380', () => rectZ(ctx, cam, x - w / 2 - .06, y1 - .1, x + w / 2 + .06, y1, z + d / 2 + .06), lw);
-  for (const dx of [-w * .22, w * .22]) {
-    const px0 = x + dx, r = .1, ph = .36 + .1 * hash(seed, dx);
-    fillInk(ctx, '#3a2c44', () => rectZ(ctx, cam, px0 - r, y1, px0 + r, y1 + ph, z), lw);
-    fillPath(ctx, 'rgba(154,163,230,.25)', () => rectZ(ctx, cam, px0 - r, y1, px0 - r * .4, y1 + ph, z + .001));
-    fillInk(ctx, '#4a3a56', () => rectZ(ctx, cam, px0 - r * 1.2, y1 + ph - .05, px0 + r * 1.2, y1 + ph, z + .002), lw);
+  const y0 = ROOF, y1 = ROOF + h, d = .7, s = scaleAt(cam, x, y1, z), zf = z + d / 2, xl = x - w / 2, xr = x + w / 2;
+  if (s * w < 2) return;
+  // the stack: the moonlit left face or the dark right face (whichever the camera sees), the front face; soot darkens the top
+  const side = cam.x < xl ? -1 : cam.x > xr ? 1 : 0, sx = side < 0 ? xl : xr;
+  const sideQuad = () => path3(ctx, cam, [[sx, y0, zf], [sx, y1, zf], [sx, y1, z - d / 2], [sx, y0, z - d / 2]], true);
+  if (side) fillInk(ctx, grad3(ctx, cam, [sx, y0, z], [sx, y1, z], side < 0 ? [[0, '#2c3264'], [.75, '#30366c'], [1, '#1c1e3c']] : [[0, '#161a38'], [1, '#0e1026']]), sideQuad, lw);
+  fillInk(ctx, grad3(ctx, cam, [x, y0, zf], [x, y1, zf], [[0, '#2a2c58'], [.7, '#2c2a54'], [1, '#1a1a36']]), () => rectZ(ctx, cam, xl, y0, xr, y1, zf), lw);
+  // brick courses (and staggered joints when near) on both faces; lead flashing where the stack meets the roof
+  const bh = .075, near = s * .23 > 7;
+  if (s * bh > 2.2) {
+    ctx.lineWidth = lw * .8; ctx.strokeStyle = 'rgba(5,6,26,.45)'; ctx.beginPath();
+    for (let y = y0 + .12, i = 0; y < y1 - .1; y += bh, i++) {
+      line3(ctx, cam, [[xl, y, zf], [xr, y, zf]], true);
+      if (side) line3(ctx, cam, [[sx, y, zf], [sx, y, z - d / 2]], true);
+      if (near) for (let bx = xl + (i & 1 ? .115 : 0) + .23; bx < xr - .02; bx += .23) line3(ctx, cam, [[bx, y, zf], [bx, Math.min(y1 - .1, y + bh), zf]], true);
+    }
+    ctx.stroke();
+  }
+  fillPath(ctx, 'rgba(140,150,200,.28)', () => rectZ(ctx, cam, xl - .02, y0, xr + .02, y0 + .07, zf + .005));
+  // moonlight on the upper-left edges
+  ctx.strokeStyle = rgba(C2.moon, .4); ctx.lineWidth = lw; ctx.beginPath(); line3(ctx, cam, [[xl, y0 + .07, zf], [xl, y1 - .1, zf]], true); ctx.stroke();
+  // the cap slab (overhanging), its moonlit top
+  fillInk(ctx, '#4a528f', () => path3(ctx, cam, [[xl - .06, y1, z - d / 2 - .06], [xr + .06, y1, z - d / 2 - .06], [xr + .06, y1, zf + .06], [xl - .06, y1, zf + .06]], true), lw);
+  fillInk(ctx, '#3a417c', () => rectZ(ctx, cam, xl - .06, y1 - .1, xr + .06, y1, zf + .06), lw);
+  ctx.strokeStyle = rgba(C2.moon, .55); ctx.lineWidth = lw; ctx.beginPath(); line3(ctx, cam, [[xl - .06, y1, zf + .06], [xr + .06, y1, zf + .06]], true); ctx.stroke();
+  // clay pots: tapered, a rolled rim, lit on the left, a dark mouth when seen from above
+  const np = w > 1.15 ? 3 : 2;
+  for (let i = 0; i < np; i++) {
+    const px0 = x + (i - (np - 1) / 2) * (w / np) * .9, r0 = .11, r1 = .085, ph = .34 + .14 * hash(seed, i), zp = z + .1;
+    const prof = [[px0 - r0, y1], [px0 - r1, y1 + ph * .82], [px0 - r1 - .02, y1 + ph * .86], [px0 - r1 - .02, y1 + ph], [px0 + r1 + .02, y1 + ph], [px0 + r1 + .02, y1 + ph * .86], [px0 + r1, y1 + ph * .82], [px0 + r0, y1]];
+    const g = grad3(ctx, cam, [px0 - r0, y1, zp], [px0 + r0, y1, zp], [[0, '#5a3c50'], [.35, '#6a4658'], [1, '#2a1c2e']]);
+    fillInk(ctx, g, () => path3(ctx, cam, prof.map(([a, b]) => [a, b, zp]), true), lw);
+    if (cam.y > y1 + ph) fillPath(ctx, '#07060e', () => { ctx.save(); const c0 = P3(cam, px0, y1 + ph, zp), c1 = P3(cam, px0 + r1, y1 + ph, zp), c2 = P3(cam, px0, y1 + ph, zp - r1); ctx.restore(); ctx.ellipse(c0[0], c0[1], Math.abs(c1[0] - c0[0]), Math.max(.5, Math.abs(c2[1] - c0[1])), 0, 0, TAU); });
   }
 }
 function roofs(ctx, t, cam, lw) {
@@ -354,48 +418,71 @@ function mist(ctx, t, cam) {
 
 // ---------------------------------------------------------------- the storm lantern on L's sill (about 23 cm tall)
 export const LANTERN = { x: XL - .34, y: SILL_L, z: -.07 };
+const mixH = (a, b, u) => { const p = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)), A = p(a), B = p(b); return '#' + A.map((v, i) => Math.round(mix(v, B[i], clamp(u))).toString(16).padStart(2, '0')).join(''); };
+const shadeHex = (h, k) => mixH(h, k < 0 ? '#000000' : '#ffffff', Math.abs(k));
 export function lantern(ctx, t, cam, on) {
   const pl = plane(cam, LANTERN.x, LANTERN.y + .1, LANTERN.z), s = pl.s; if (s * .23 < 1.5) return;
   ctx.save(); pl.set(ctx);
-  const x = LANTERN.x, y = LANTERN.y, ink = 'rgba(5,6,20,.85)', u = 1 / s;
+  const x = LANTERN.x, y = LANTERN.y, ink = 'rgba(5,6,20,.8)', u = 1 / s;
   const fl = on > 0 ? on * (.93 + .05 * Math.sin(t * 13) + .02 * Math.sin(t * 29 + 1)) : 0;
-  const metal = (a) => mixHex('#22202e', '#c08a48', a * fl);
+  // galvanised tin: cold in the moonlight, warm where its own flame reaches it
+  const tin = (k) => mixH('#3a3d52', '#b98a52', clamp(k * fl));
+  const cyl = (x0, x1, k) => { const g = ctx.createLinearGradient(x0, 0, x1, 0), b = tin(k); g.addColorStop(0, shadeHex(b, -.5)); g.addColorStop(.28, shadeHex(b, .22)); g.addColorStop(.5, b); g.addColorStop(1, shadeHex(b, -.6)); return g; };
   ctx.lineJoin = 'round'; ctx.lineCap = 'round';
   // contact shadow on the sill
-  ctx.fillStyle = 'rgba(4,4,12,.45)'; ctx.beginPath(); ctx.ellipse(x + .01, y + .002, .07, .008, 0, 0, TAU); ctx.fill();
-  // fuel tank: a squat drum with a rim
-  ctx.fillStyle = metal(.55); ctx.beginPath(); ctx.moveTo(x - .055, y); ctx.lineTo(x + .055, y); ctx.lineTo(x + .058, y + .03); ctx.quadraticCurveTo(x, y + .042, x - .058, y + .03); ctx.closePath(); ctx.fill();
-  ctx.strokeStyle = ink; ctx.lineWidth = 1.2 * u; ctx.stroke();
-  ctx.strokeStyle = rgba('#ffd9a0', .35 * fl); ctx.lineWidth = 1 * u; ctx.beginPath(); ctx.moveTo(x - .05, y + .012); ctx.lineTo(x - .05, y + .028); ctx.stroke();
-  // the burner collar
-  ctx.fillStyle = metal(.7); ctx.fillRect(x - .02, y + .036, .04, .012); ctx.strokeStyle = ink; ctx.lineWidth = 1 * u; ctx.strokeRect(x - .02, y + .036, .04, .012);
-  // the glass globe (clear): the flame inside, the glow, reflections; wire guards over it
+  ctx.fillStyle = 'rgba(4,4,12,.5)'; ctx.beginPath(); ctx.ellipse(x + .012, y + .002, .072, .009, 0, 0, TAU); ctx.fill();
+  // fuel tank: a squat drum with a rolled rim and a filler cap
+  ctx.fillStyle = cyl(x - .06, x + .06, .5); ctx.beginPath(); ctx.moveTo(x - .056, y); ctx.lineTo(x + .056, y); ctx.lineTo(x + .06, y + .028); ctx.quadraticCurveTo(x, y + .044, x - .06, y + .028); ctx.closePath(); ctx.fill();
+  ctx.strokeStyle = ink; ctx.lineWidth = 1.1 * u; ctx.stroke();
+  ctx.strokeStyle = rgba('#05061a', .5); ctx.lineWidth = .8 * u; ctx.beginPath(); ctx.moveTo(x - .058, y + .01); ctx.quadraticCurveTo(x, y + .016, x + .058, y + .01); ctx.stroke();
+  ctx.fillStyle = tin(.6); ctx.fillRect(x + .03, y + .03, .014, .01); ctx.strokeStyle = ink; ctx.lineWidth = .8 * u; ctx.strokeRect(x + .03, y + .03, .014, .01);
+  ctx.strokeStyle = rgba('#ffe2b0', .5 * fl); ctx.lineWidth = 1.2 * u; ctx.beginPath(); ctx.moveTo(x - .055, y + .03); ctx.quadraticCurveTo(x, y + .043, x + .055, y + .03); ctx.stroke();   // the rim catches the flame
+  // the burner collar and the wick knob
+  ctx.fillStyle = cyl(x - .022, x + .022, .8); ctx.fillRect(x - .022, y + .036, .044, .012); ctx.strokeStyle = ink; ctx.lineWidth = .9 * u; ctx.strokeRect(x - .022, y + .036, .044, .012);
+  ctx.fillStyle = tin(.7); ctx.beginPath(); ctx.arc(x + .028, y + .041, .005, 0, TAU); ctx.fill(); ctx.stroke();
+  // the clear glass globe: you see the flame and the dark window through it; the glass shows only in its rims and streaks
   const gy = y + .1, gw = .042, gh = .052;
   ctx.save(); ctx.beginPath(); ctx.ellipse(x, gy, gw, gh, 0, 0, TAU); ctx.clip();
-  ctx.fillStyle = fl > 0 ? rgba('#2a1406', .6) : 'rgba(14,20,44,.85)'; ctx.fillRect(x - gw, gy - gh, gw * 2, gh * 2);
+  ctx.fillStyle = fl > 0 ? rgba('#3a1c08', .22) : 'rgba(30,40,80,.25)'; ctx.fillRect(x - gw, gy - gh, gw * 2, gh * 2);
   if (fl > 0) {
-    const g = ctx.createRadialGradient(x, gy - .008, 0, x, gy, gw * 1.3); g.addColorStop(0, rgba('#fff4dc', .95 * fl)); g.addColorStop(.3, rgba('#ffc46e', .75 * fl)); g.addColorStop(1, rgba('#b4581c', .25 * fl));
+    const g = ctx.createRadialGradient(x, gy - .012, 0, x, gy - .006, gw * 1.15); g.addColorStop(0, rgba('#fff0d0', .7 * fl)); g.addColorStop(.18, rgba('#ffc46e', .42 * fl)); g.addColorStop(.55, rgba('#d0702a', .12 * fl)); g.addColorStop(1, 'rgba(160,70,20,0)');
     ctx.fillStyle = g; ctx.fillRect(x - gw, gy - gh, gw * 2, gh * 2);
   }
+  // fresnel: the globe's edge reflects (cold moon on the outside, warm flame on the inside)
+  ctx.save(); ctx.translate(x, gy); ctx.scale(1, gh / gw);
+  const fr = ctx.createRadialGradient(0, 0, gw * .55, 0, 0, gw * 1.02); fr.addColorStop(0, 'rgba(255,255,255,0)'); fr.addColorStop(1, fl > 0 ? rgba('#ffd9a0', .35 * fl) : 'rgba(170,185,240,.25)');
+  ctx.fillStyle = fr; ctx.fillRect(-gw, -gw, gw * 2, gw * 2); ctx.restore();
   ctx.restore();
   if (fl > .02) {
-    const fh = .036 * Math.min(1, on * 1.5) * (1 + .07 * Math.sin(t * 11)), fx = x + .0015 * Math.sin(t * 9);
-    ctx.fillStyle = rgba('#fffaf0', Math.min(1, fl * 1.1)); ctx.beginPath(); ctx.moveTo(fx, gy - .022 + fh); ctx.bezierCurveTo(fx + .011, gy - .005, fx + .009, gy - .02, fx, gy - .026); ctx.bezierCurveTo(fx - .009, gy - .02, fx - .011, gy - .005, fx, gy - .022 + fh); ctx.fill();
-    ctx.fillStyle = rgba('#ffb35c', .8 * fl); ctx.beginPath(); ctx.ellipse(fx, gy - .023, .005, .004, 0, 0, TAU); ctx.fill();
+    // the flame: a flat wick flame, white-hot core, amber skin, a blue foot
+    const fh = .03 * Math.min(1, on * 1.4) * (1 + .06 * Math.sin(t * 11) + .03 * Math.sin(t * 23)), fx = x + .0012 * Math.sin(t * 9), fb = gy - .03;
+    ctx.fillStyle = rgba('#ffb35c', .9 * fl); ctx.beginPath(); ctx.moveTo(fx, fb + fh + .004); ctx.bezierCurveTo(fx + .012, fb + fh * .4, fx + .011, fb - .002, fx, fb - .003); ctx.bezierCurveTo(fx - .011, fb - .002, fx - .012, fb + fh * .4, fx, fb + fh + .004); ctx.fill();
+    ctx.fillStyle = rgba('#fffaf0', Math.min(1, fl * 1.1)); ctx.beginPath(); ctx.moveTo(fx, fb + fh * .85); ctx.bezierCurveTo(fx + .007, fb + fh * .35, fx + .006, fb + .002, fx, fb + .001); ctx.bezierCurveTo(fx - .006, fb + .002, fx - .007, fb + fh * .35, fx, fb + fh * .85); ctx.fill();
+    ctx.fillStyle = rgba('#6aa8ff', .5 * fl); ctx.beginPath(); ctx.ellipse(fx, fb + .002, .006, .0025, 0, 0, TAU); ctx.fill();
   }
-  ctx.strokeStyle = rgba(fl > 0 ? '#fff6e6' : '#aab4e8', fl > 0 ? .55 : .3); ctx.lineWidth = 1.4 * u; ctx.beginPath(); ctx.ellipse(x - .012, gy - .005, .018, .036, -.15, Math.PI * .95, Math.PI * 1.45); ctx.stroke();
-  ctx.strokeStyle = ink; ctx.lineWidth = 1.1 * u; ctx.beginPath(); ctx.ellipse(x, gy, gw, gh, 0, 0, TAU); ctx.stroke();
-  // guard wires and the two side tubes of the frame
-  ctx.strokeStyle = metal(.6); ctx.lineWidth = 2.2 * u; ctx.beginPath();
-  for (const dx of [-.62, 0, .62]) { ctx.moveTo(x + dx * gw, gy - gh - .004); ctx.quadraticCurveTo(x + dx * gw * 1.55, gy, x + dx * gw, gy + gh + .004); }
-  ctx.stroke(); ctx.strokeStyle = ink; ctx.lineWidth = .8 * u; ctx.stroke();
-  ctx.fillStyle = metal(.5);
-  for (const sx of [-1, 1]) { ctx.beginPath(); ctx.roundRect(x + sx * (gw + .012) - .004, y + .03, .008, .125, .003); ctx.fill(); ctx.strokeStyle = ink; ctx.lineWidth = 1 * u; ctx.stroke(); }
-  // the top: chimney cap with vents, the bail handle
-  ctx.fillStyle = metal(.65); ctx.beginPath(); ctx.moveTo(x - .058, gy + gh + .004); ctx.lineTo(x + .058, gy + gh + .004); ctx.lineTo(x + .032, gy + gh + .03); ctx.lineTo(x - .032, gy + gh + .03); ctx.closePath(); ctx.fill(); ctx.strokeStyle = ink; ctx.lineWidth = 1.1 * u; ctx.stroke();
-  ctx.fillStyle = metal(.5); ctx.fillRect(x - .016, gy + gh + .03, .032, .022); ctx.strokeRect(x - .016, gy + gh + .03, .032, .022);
-  ctx.strokeStyle = metal(.55); ctx.lineWidth = 2 * u; ctx.beginPath(); ctx.moveTo(x - .066, gy + gh - .005); ctx.bezierCurveTo(x - .072, gy + gh + .09, x + .072, gy + gh + .09, x + .066, gy + gh - .005); ctx.stroke();
-  ctx.strokeStyle = ink; ctx.lineWidth = .7 * u; ctx.stroke();
+  // glass streaks (specular), then the globe's outline
+  ctx.strokeStyle = rgba(fl > 0 ? '#fff6e6' : '#aab4e8', fl > 0 ? .6 : .35); ctx.lineWidth = 1.6 * u; ctx.beginPath(); ctx.ellipse(x - .004, gy, gw * .78, gh * .84, 0, Math.PI * .98, Math.PI * 1.32); ctx.stroke();
+  ctx.lineWidth = 1 * u; ctx.globalAlpha = .6; ctx.beginPath(); ctx.ellipse(x + .004, gy, gw * .8, gh * .86, 0, Math.PI * 1.85, Math.PI * 2.05); ctx.stroke(); ctx.globalAlpha = 1;
+  ctx.strokeStyle = rgba('#05061a', .55); ctx.lineWidth = .9 * u; ctx.beginPath(); ctx.ellipse(x, gy, gw, gh, 0, 0, TAU); ctx.stroke();
+  // the guard wires over the globe (lit from inside on their inner edge)
+  ctx.lineWidth = 2 * u; ctx.strokeStyle = tin(.75); ctx.beginPath();
+  for (const dx of [-.62, 0, .62]) { ctx.moveTo(x + dx * gw, gy - gh - .004); ctx.quadraticCurveTo(x + dx * gw * 1.6, gy, x + dx * gw, gy + gh + .004); }
+  ctx.moveTo(x - gw * 1.02, gy); ctx.quadraticCurveTo(x, gy - .006, x + gw * 1.02, gy);
+  ctx.stroke(); ctx.strokeStyle = ink; ctx.lineWidth = .6 * u; ctx.stroke();
+  // the two side tubes (air), from the tank up to the hood
+  for (const sx of [-1, 1]) {
+    const tx = x + sx * (gw + .013);
+    ctx.fillStyle = cyl(tx - .005, tx + .005, sx < 0 ? .45 : .3); ctx.beginPath(); ctx.roundRect(tx - .005, y + .028, .01, .128, .004); ctx.fill(); ctx.strokeStyle = ink; ctx.lineWidth = .9 * u; ctx.stroke();
+    ctx.strokeStyle = rgba('#ffd9a0', .55 * fl); ctx.lineWidth = 1 * u; ctx.beginPath(); ctx.moveTo(tx - sx * .004, y + .04); ctx.lineTo(tx - sx * .004, y + .148); ctx.stroke();
+  }
+  // the hood with its vents, the chimney cap, the bail handle
+  const hy0 = gy + gh + .003;
+  ctx.fillStyle = cyl(x - .062, x + .062, .55); ctx.beginPath(); ctx.moveTo(x - .062, hy0); ctx.lineTo(x + .062, hy0); ctx.lineTo(x + .034, hy0 + .03); ctx.lineTo(x - .034, hy0 + .03); ctx.closePath(); ctx.fill(); ctx.strokeStyle = ink; ctx.lineWidth = 1 * u; ctx.stroke();
+  ctx.fillStyle = rgba('#05061a', .55); for (let i = -2; i <= 2; i++) { ctx.beginPath(); ctx.ellipse(x + i * .016, hy0 + .013, .0035, .0022, 0, 0, TAU); ctx.fill(); }
+  ctx.fillStyle = cyl(x - .018, x + .018, .5); ctx.fillRect(x - .018, hy0 + .03, .036, .02); ctx.strokeRect(x - .018, hy0 + .03, .036, .02);
+  ctx.fillStyle = tin(.45); ctx.beginPath(); ctx.ellipse(x, hy0 + .052, .024, .005, 0, 0, TAU); ctx.fill(); ctx.stroke();
+  ctx.strokeStyle = tin(.6); ctx.lineWidth = 1.8 * u; ctx.beginPath(); ctx.moveTo(x - .067, hy0 - .008); ctx.bezierCurveTo(x - .075, hy0 + .1, x + .075, hy0 + .1, x + .067, hy0 - .008); ctx.stroke();
+  ctx.strokeStyle = ink; ctx.lineWidth = .6 * u; ctx.stroke();
   ctx.restore();
 }
 // the lantern's warm light on everything around it (additive): a hot pool on the sill, a quick falloff over the wall
@@ -406,6 +493,8 @@ export function lanternLight(ctx, t, cam, on, k = 1) {
   const R = 1.7 * s, g = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], R);
   g.addColorStop(0, rgba('#ffb35c', .3 * br * k)); g.addColorStop(.06, rgba('#ff9a40', .2 * br * k)); g.addColorStop(.25, rgba('#c8642a', .07 * br * k)); g.addColorStop(1, 'rgba(120,50,20,0)');
   ctx.fillStyle = g; ctx.fillRect(p[0] - R, p[1] - R, 2 * R, 2 * R);
+  const far = clamp(1 - s / 90);
+  if (far > 0) { const Rf = 22 + 40 * far, gf = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], Rf); gf.addColorStop(0, rgba('#ffd08a', .5 * br * far)); gf.addColorStop(.2, rgba('#ffa040', .22 * br * far)); gf.addColorStop(1, 'rgba(160,70,20,0)'); ctx.fillStyle = gf; ctx.fillRect(p[0] - Rf, p[1] - Rf, 2 * Rf, 2 * Rf); }
   const r2 = .07 * s, g2 = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], r2);
   g2.addColorStop(0, rgba('#fff1d6', .5 * br)); g2.addColorStop(1, 'rgba(255,179,92,0)'); ctx.fillStyle = g2; ctx.fillRect(p[0] - r2, p[1] - r2, 2 * r2, 2 * r2);
   ctx.restore();

@@ -3,7 +3,8 @@
 import { canvas } from '../engine.mjs';
 import { handsOf } from '../lib/handoff4.mjs';
 import { ready } from '../lib/v2_c13_kit.mjs';
-import { roadTake, warmRoad, lightFill } from '../lib/v2_c13_road.mjs';
+import { roadTake, warmRoad } from '../lib/v2_c13_road.mjs';
+import { kitchenTake, warmKitchen, inkFill } from '../lib/v2_c13_kitchen.mjs';
 
 // every anchor from the VO (never seconds); last(ph) = the last word of a phrase
 export function anchors(T) {
@@ -16,7 +17,7 @@ export function anchors(T) {
     now: S('Now nothing'), nothing: S('nothing stops'), stops: S('stops you'), you1: last('stops you').s, nowE: E('stops you'),
     money: S('money'), moneyE: E('money'), permission: S('permission'), permE: E('permission'),
     only: S('Only you'), you2: last('Only you').s, onlyE: E('Only you'),
-    one: S('One person'), person: S('person'), idea: last('one idea').s, help: S('help no'), ten: S('ten years'), ago: last('years ago').s, agoE: E('years ago'),
+    one: S('One person'), person: S('person'), idea: last('one idea').s, help: S('help no'), scientist: S('scientist'), had: S('had ten'), ten: S('ten years'), ago: last('years ago').s, agoE: E('years ago'),
     maybe: S('Maybe'), river1: S('river where'), swam: S('swam'), kid: S('kid'), dying: S('dying'), summer: S('summer'), summerE: E('every summer'),
     nobody1: S('Nobody was'), paid: S('paid'), saveE: E('save it'),
     now2: S('Now nobody'), nobody2: S('nobody has'), beE: E('has to be'),
@@ -29,20 +30,26 @@ export function anchors(T) {
     and3: S('And you have the best'), best: S('best'), reason: S('reason'), there: last('reason there').s, isE: E('there is'),
   };
   // road take
-  K.sun0 = K.permE - .1; K.push0 = K.onlyE - .08; K.cut = K.one + .06;
+  K.sun0 = K.permE - .1; K.push0 = K.you2 + .12; K.cut = K.one + .16;
+  // kitchen take
+  K.piv = K.maybe + .11;
+  K.k = { c1: K.cut + .75, c1b: K.cut + 1.0, c2: K.idea + .66, c2b: K.had - .21, c3: K.ten + .21, dive: K.ago + .24,
+    ring0: K.idea - .02, ring1: K.idea + .5, plume0: K.help + 1.25, lift0: K.had, touch: 5, touch0: K.ten + .05, touch1: K.ago + .2 };
   return K;
 }
 
 export default async (T, R) => {
   const K = anchors(T);
-  warmRoad();
-  { const [, g] = canvas(); for (const t of [K.b0 + .3, K.catch, K.money, K.permission + .4, K.you2 + .1, K.cut - .05]) { g.save(); roadTake(g, t, K); g.restore(); } await ready(); }
-  const road = (ctx, t) => roadTake(ctx, t, K);
+  warmRoad(); warmKitchen();
+  { const [, g] = canvas(); for (const t of [K.b0 + .3, K.catch, K.money, K.permission + .4, K.you2 + .1, K.cut - .05]) { g.save(); roadTake(g, t, K); g.restore(); }
+    for (const t of [K.cut + .5, K.help + .5, K.ten]) { g.save(); kitchenTake(g, t, K); g.restore(); } await ready(); }
+  const road = (ctx, t) => roadTake(ctx, t, K), kitchen = (ctx, t) => kitchenTake(ctx, t, K);
   return [
     { t: K.b0, tr: 'cut', d: .1, draw: road, print: K.HI.print,
       sound: [{ f: 'key', t: K.catch + .02, v: .14 }, { f: 'lever_switch', t: K.nothing + .04, v: .16 }] },
     { t: K.now - .1, tr: 'cut', d: .06, draw: road, print: K.HI.print, sound: [{ f: 'curtain', t: K.permission + .03, v: .14 }] },
     { t: K.only - .2, tr: 'cut', d: .06, draw: road, print: K.HI.print, sound: [{ f: 'whoosh_airy', t: K.push0 + .05, v: .16 }] },
-    { t: K.cut, tr: 'cut', d: .06, draw: (ctx, t) => lightFill(ctx, t, { R: 1500 }), print: K.HO.print },
+    { t: K.cut, tr: 'cut', d: .06, draw: kitchen, print: K.HI.print, sound: [{ f: 'tone', t: K.help + .02, v: .12 }] },
+    { t: K.piv, tr: 'cut', d: .06, draw: (ctx, t) => inkFill(ctx, t), print: K.HO.print },
   ];
 };

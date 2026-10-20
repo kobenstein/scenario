@@ -69,6 +69,28 @@ export function paperPlateWorld(ctx, t, o = {}) {
   ctx.strokeStyle = rgba('#9c8458', .1); ctx.lineWidth = .8; const R0 = 300, rot = t * .02;
   for (let k = 0; k < 7; k++) { ctx.beginPath(); for (let i = 0; i <= 360; i++) { const q = i / 360 * TAU, rr = R0 * (.78 + .06 * k / 7) + 26 * Math.sin(q * 12 + k * .9 + rot * 4); const x = W * .72 + rr * Math.cos(q + rot), y = H * .56 + rr * Math.sin(q + rot) * .92; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); }
 }
+// the paper of the map phase: the plate's light stays in SCREEN space (a lamp over the desk, fixed to the camera), the sheet's fibres
+// and its watermark rosette are WORLD things (the caller's transform). With the identity transform this IS handoff4's paperPlate
+// (gradient, FIB, rosette; the caller adds paperVignette). o.view = [x0, y0, x1, y1] the visible sheet rect (the extra fibres).
+const FIB2B = (() => { const b = [[], [], [], [], [], []]; for (const f of FIB2) b[(f[4] < .5 ? 0 : 3) + Math.min(2, Math.floor((f[4] % .5) * 6))].push(f); return b; })();
+export function paperSheet(ctx, t, o = {}) {
+  const [p0, p1, p2] = PAPERW, [lx, ly] = plateLight(t);
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  const g = ctx.createRadialGradient(lx, ly, 0, lx, ly, 1700); g.addColorStop(0, p0); g.addColorStop(.6, p1); g.addColorStop(1, p2);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore();
+  ctx.lineCap = 'round';
+  for (const [x, y, a, L, k] of FIB) { ctx.strokeStyle = rgba(k < .5 ? '#8a7350' : '#fffaf0', .07 + .06 * k); ctx.lineWidth = .7 + k * .6; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + Math.cos(a) * L, y + Math.sin(a) * L); ctx.stroke(); }
+  if (o.view) {
+    const [vx0, vy0, vx1, vy1] = o.view;
+    FIB2B.forEach((arr, bi) => {
+      const k = bi < 3 ? .08 + bi * .16 : .58 + (bi - 3) * .16; ctx.strokeStyle = rgba(bi < 3 ? '#8a7350' : '#fffaf0', .07 + .06 * k); ctx.lineWidth = .7 + k * .6; ctx.beginPath();
+      for (const [x, y, a, L] of arr) { if (x < vx0 - 40 || x > vx1 + 40 || y < vy0 - 40 || y > vy1 + 40) continue; ctx.moveTo(x, y); ctx.lineTo(x + Math.cos(a) * L, y + Math.sin(a) * L); }
+      ctx.stroke();
+    });
+  }
+  ctx.strokeStyle = rgba('#9c8458', .1); ctx.lineWidth = .8; const R0 = 300, rot = t * .02;
+  for (let k = 0; k < 7; k++) { ctx.beginPath(); for (let i = 0; i <= 360; i++) { const q = i / 360 * TAU, rr = R0 * (.78 + .06 * k / 7) + 26 * Math.sin(q * 12 + k * .9 + rot * 4); const x = W * .72 + rr * Math.cos(q + rot), y = H * .56 + rr * Math.sin(q + rot) * .92; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); }
+}
 // the plate's screen vignette (screen space), strength a (1 = the plate's)
 export function paperVignette(ctx, a = 1) {
   if (a <= 0) return;

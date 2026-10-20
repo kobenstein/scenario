@@ -8,7 +8,7 @@ import { person, POSES, U, jointAt } from './v2_c10_people.mjs';
 import { G, NORTH, laneY, houseFront, sun } from './v2_c10_garden.mjs';
 import { harbourFar } from './v2_c10_harbour.mjs';
 
-export const LANE = { z: 20, z0: 17, z1: 23, x0: -8, x1: 15.5, t0: 5.0, t1: 12.6, tw: .9 };
+export const LANE = { z: 20, z0: 17, z1: G.northZ, x0: -8, x1: 15.5, t0: 5.0, t1: 12.6, tw: .9 };
 const LZ = LANE.z;
 // the south row (after the garden wall): fronts facing +Z at Z = 17
 const SOUTH = (() => { const r = prng(5522), o = []; let x = 8.3; const cols = ['#c98a6a', '#e0b88a', '#b98a72', '#d9a77a']; while (x < LANE.x1 - .3) { const w = 2.8 + r() * 1.8; o.push({ x0: x, x1: Math.min(LANE.x1, x + w), h: (r() < .5 ? 2 : 3) * 2.9 + .6, fl: 0, col: cols[o.length % cols.length], sh: '#3f6a6a', seed: Math.floor(r() * 1e5), roof: r() }); o[o.length - 1].fl = Math.round((o[o.length - 1].h - .6) / 2.9); x += w + .05; } return o; })();
@@ -50,29 +50,6 @@ function wallBack(ctx, C, E, gateA, nightK) {
   box3(ctx, C, -8, y1, z - .14, 8.2, y1 + .12, z + .14, (f) => (f === 'y1' ? '#c8ae8c' : '#8f735a'));
   const ang = gateA * 1.75, hx = g.x1, wl = g.x1 - g.x0, ex = hx - Math.cos(ang) * wl, ez = z + Math.sin(ang) * wl, top = G.gy + g.y1 - .02;
   fill3(ctx, C, [[ex, G.gy + .04, ez], [hx, G.gy + .04, z], [hx, top, z], [ex, top, ez]], '#2f5552');
-}
-function tower(ctx, C, t, E, K, nightK) {
-  // the church tower by the harbour, its clock face toward the lane (−X); the minute hand reaches 12 on "nine"
-  const X = 26, Z = 12, b = laneY(15.5) - .2, top = b + 11, w = 2.6;
-  box3(ctx, C, X, b, Z - w / 2, X + w, top, Z + w / 2, (f) => (f === 'x0' ? mixHex('#c8a07a', '#5a4a62', nightK * .6) : f === 'z1' ? mixHex('#a87a5a', '#3a3050', nightK * .6) : '#6a5060'));
-  // the spire
-  const ap = at3(C, X + w / 2, top + 4.2, Z), q1 = at3(C, X, top, Z - w / 2), q2 = at3(C, X, top, Z + w / 2);
-  if (ap && q1 && q2) { ctx.fillStyle = mixHex('#7a4a3a', '#2a2238', nightK * .6); ctx.beginPath(); ctx.moveTo(ap.x, ap.y); ctx.lineTo(q1.x, q1.y); ctx.lineTo(q2.x, q2.y); ctx.closePath(); ctx.fill(); }
-  // belfry openings (dark arches)
-  for (const zz of [-.5, .5]) { const p = at3(C, X - .01, top - 1.6, Z + zz); if (p) { ctx.fillStyle = '#1a1424'; ctx.beginPath(); ctx.ellipse(p.x, p.y, .28 * p.k, .7 * p.k, 0, 0, TAU); ctx.fill(); } }
-  const c = at3(C, X - .02, top - 3.6, Z); if (!c) return;
-  const R = .82 * c.k, lit = .55 + .45 * nightK;
-  ctx.fillStyle = mixHex('#efe2c4', '#ffe7b0', nightK); ctx.beginPath(); ctx.ellipse(c.x, c.y, R * .8, R, 0, 0, TAU); ctx.fill();
-  if (nightK > .2) radial(ctx, c.x, c.y, R * 3, '#ffcf8a', .25 * nightK, 'screen');
-  ctx.strokeStyle = '#2a2030'; ctx.lineWidth = Math.max(1, R * .08); ctx.beginPath(); ctx.ellipse(c.x, c.y, R * .8, R, 0, 0, TAU); ctx.stroke();
-  ctx.lineWidth = Math.max(1, R * .05); ctx.beginPath(); for (let i = 0; i < 12; i++) { const a = i / 12 * TAU; ctx.moveTo(c.x + Math.sin(a) * R * .66, c.y - Math.cos(a) * R * .82); ctx.lineTo(c.x + Math.sin(a) * R * .74, c.y - Math.cos(a) * R * .92); } ctx.stroke();
-  // time: 8:58 at the start of the lane, 9:00 exactly on "nine", then on
-  const mins = 58 + 2 * clamp((t - (K.nine - 1.6)) / 1.6) + Math.max(0, t - K.nine) / 60, hr = 8 + mins / 60;
-  const am = mins / 60 * TAU, ah = hr / 12 * TAU;
-  ctx.lineCap = 'round'; ctx.lineWidth = Math.max(1.2, R * .09); ctx.beginPath(); ctx.moveTo(c.x, c.y); ctx.lineTo(c.x + Math.sin(ah) * R * .4, c.y - Math.cos(ah) * R * .5); ctx.stroke();
-  ctx.lineWidth = Math.max(1, R * .06); ctx.beginPath(); ctx.moveTo(c.x, c.y); ctx.lineTo(c.x + Math.sin(am) * R * .62, c.y - Math.cos(am) * R * .78); ctx.stroke();
-  // the bell's ring on nine: two soft rings leave the belfry
-  const d = t - K.nine; if (d > 0 && d < 1.6) { for (let k = 0; k < 2; k++) { const q = clamp(d / 1.4 - k * .25); if (q <= 0 || q >= 1) continue; const bp = at3(C, X - .02, top - 1.6, Z); if (!bp) continue; ctx.strokeStyle = rgba('#ffe2b0', .5 * (1 - q)); ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(bp.x, bp.y, (.6 + q * 4) * bp.k, (.8 + q * 4) * bp.k, 0, 0, TAU); ctx.stroke(); } }
 }
 function lanterns(ctx, C, t, E, nightK) {
   const out = [];
@@ -179,17 +156,14 @@ export function lane(ctx, C, t, E, K, o = {}) {
     harbourFar(ctx, C, t, E, K, { fromLane: true });
   }
   // the north facades (left when looking down the lane), the south row (right), the tower
-  if (!o.behindWall) {
-    tower(ctx, C, t, E, K, nightK);
-    for (const h of SOUTH) houseSouth(ctx, C, h, E, nightK);
-  }
+  if (!o.behindWall) for (const h of SOUTH) houseSouth(ctx, C, h, E, nightK);
   if (o.behindWall) {
     // from the garden: only the lane ground and the far end of the table through the open gate, plus the tower over the roofs
     if ((E.gate ?? 0) < .02) return;
     ground(ctx, C, E, nightK);
     return;
   }
-  for (const h of NORTH) houseFront(ctx, C, h, LANE.z1, { ...E, facade: E.facade * .8 }, { lit: (hh, f, i, r) => (r() < .45 ? clamp((t - K.long - 1 - r() * 6) * 3) * .9 : 0) });
+  for (const h of NORTH) if (h.x0 < LANE.x1 - .5) houseFront(ctx, C, h.x1 > LANE.x1 ? { ...h, x1: LANE.x1 } : h, LANE.z1, E, { lit: E.northLit });
   ground(ctx, C, E, nightK);
   wallBack(ctx, C, E, E.gate ?? 1, nightK);
   neighbour(ctx, C, t, E, K, nightK);

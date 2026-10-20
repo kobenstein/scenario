@@ -10,7 +10,7 @@ export const G = {
   win: { x: 0, y: 1.5, w: 1.0, h: 1.5 },
   room: { x0: -2.4, x1: 2.4, y1: 2.6, z1: 3.2 },
   door: { x0: -.8, x1: .8, y1: 2.25 },
-  gy: -.3, wallZ: 17, wallH: 2.15,
+  gy: -.3, wallZ: 17, wallH: 2.15, northZ: 23,
   gate: { x0: 2.8, x1: 4.0, y1: 1.62 },
   tree: { x: -3.5, z: 13.4 },
   dad: [-1.3, 11.9], you: [.22, 12.1], mum: [.66, 12.32], rose: [1.25, 12.75], basket: [-.42, 11.6],
@@ -118,7 +118,7 @@ const DOTS = Array.from({ length: 420 }, () => { const a = R0() * TAU, d = Math.
 const BRANCH = (() => { const r = prng(77), o = []; const grow = (x, y, a, len, w, n) => { const x2 = x + Math.cos(a) * len, y2 = y + Math.sin(a) * len; o.push([x, y, x2, y2, w]); if (n <= 0) return; grow(x2, y2, a - .45 - r() * .3, len * (.62 + r() * .14), w * .62, n - 1); grow(x2, y2, a + .35 + r() * .35, len * (.6 + r() * .14), w * .6, n - 1); if (r() < .4) grow(x2, y2, a + (r() - .5) * .3, len * .55, w * .5, n - 2); }; grow(0, -1.0, -Math.PI / 2 - .12, 1.0, .26, 4); return o; })();
 const APPLES = Array.from({ length: 26 }, () => { const a = R0() * TAU, d = Math.pow(R0(), .5); return [Math.cos(a) * d * 2.2, Math.sin(a) * d * 1.3 + .35, R0()]; });
 
-function sky(ctx, C, t, E) {
+export function sky(ctx, C, t, E) {
   // the horizon line on screen follows the pitch; the gradient is anchored to it
   const hy = C.oy + C.f * Math.tan(C.pitch), [s0, s1, s2] = E.sky;
   const g = ctx.createLinearGradient(0, hy - 1100, 0, hy + 40); g.addColorStop(0, s0); g.addColorStop(.62, s1); g.addColorStop(1, s2); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
@@ -382,7 +382,7 @@ export function roomGarden(ctx, C, t, E, o = {}) {
   const inRoom = C.z < G.room.z1 - .02, outside = C.z < 0;
   sky(ctx, C, t, E);
   // beyond the wall: the lane's north houses, their fronts lit low from the right
-  if (!o.noFar) { for (const h of NORTH) houseFront(ctx, C, h, 21.4, E, { lit: (hh, f, i, r) => (r() < .3 ? .6 + .3 * Math.sin(t * .5 + i) : 0) }); }
+  if (!o.noFar) { for (const h of NORTH) if (h.x0 < 15) houseFront(ctx, C, h.x1 > 15.5 ? { ...h, x1: 15.5 } : h, G.northZ, E, { lit: E.northLit }); }
   if (o.lane) o.lane(ctx, C);   // the lane seen through the open gate (drawn by the lane module, behind the wall)
   lawn(ctx, C, t, E, SN);
   backWall(ctx, C, t, E, SN, E.gate ?? 0);

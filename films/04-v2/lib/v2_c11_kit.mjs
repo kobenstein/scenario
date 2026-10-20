@@ -143,3 +143,17 @@ export function shifted(ctx, dx, dy, k = 1) {
     set(o, p, v) { o[p] = v; return true; },
   });
 }
+// cubic Hermite through K = [[t, [values…], [slopes…] | null], …]: a knot without slopes takes the Catmull-Rom tangent (time-scaled),
+// the ends without slopes take the chord. Holds before the first and after the last knot.
+export function hermite(t, K) {
+  const n = K.length; if (t <= K[0][0]) return K[0][1]; if (t >= K[n - 1][0]) return K[n - 1][1];
+  let i = 0; while (i < n - 2 && t >= K[i + 1][0]) i++;
+  const tang = (j) => {
+    if (K[j][2]) return K[j][2];
+    const a = K[Math.max(0, j - 1)], b = K[Math.min(n - 1, j + 1)];
+    return K[j][1].map((v, c) => (b[1][c] - a[1][c]) / ((b[0] - a[0]) || 1));
+  };
+  const [ta, va] = K[i], [tb, vb] = K[i + 1], h = tb - ta, u = (t - ta) / h, ma = tang(i), mb = tang(i + 1);
+  const h00 = 2 * u ** 3 - 3 * u * u + 1, h10 = u ** 3 - 2 * u * u + u, h01 = -2 * u ** 3 + 3 * u * u, h11 = u ** 3 - u * u;
+  return va.map((v, c) => h00 * v + h10 * h * ma[c] + h01 * vb[c] + h11 * h * mb[c]);
+}
