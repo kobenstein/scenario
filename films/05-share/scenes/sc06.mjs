@@ -306,8 +306,8 @@ export default (T, R) => {
   const scratch = canvas(64, 36);
   const TAG403 = (() => { const [c, g] = canvas(W, H); const r = towersFrame(g, A.t403, { cam: C402(A.t403), tag: 1, labels: 1, figure: null }); return r.tag || { x: 900, y: 600 }; })();
   function f402(ctx, t) {
-    const cam = C402(t), fxp = mix(-11.5, -1.5, lin(A.t402 - .5, A.t403 + .4, t));
-    const r = towersFrame(ctx, t, { cam, tag: 1, labels: sm(lin(A.t402 + .2, A.t402 + 1.1, t)), figure: { x: fxp, z: 36.2, phase: fxp * 2.3 }, fence: 1 });
+    const cam = C402(t), fxp = mix(-15, -7.2, lin(A.t402 - .5, A.t403 + .4, t));
+    const r = towersFrame(ctx, t, { cam, tag: 1, labels: sm(lin(A.t402 + .2, A.t402 + 1.1, t)), figure: { x: fxp, z: 28.6, phase: fxp * 2.3 }, fence: 1 });
     // "small": a hairline from the walker's head to the first floor line, both tiny in the world
     const mk = bell(t, A.small2 + .25, .35);
     if (mk > .02 && r.figure) { const P = r.P, T0 = TW[0], y1 = P(T0.x, .9 + 3.2 * 1.0, T0.z - T0.hz)[1]; ctx.save(); ctx.globalAlpha = mk * .8; ctx.strokeStyle = CORE; ctx.lineWidth = 1.2; ctx.setLineDash([2, 4]);
@@ -316,10 +316,28 @@ export default (T, R) => {
   }
 
   // ═════════════════════════════════════ 4.03: the towers as outlines, $220, a crowd with tiny certificates ═════════════════════════════════════
-  const G403 = { hz: 640, ax: 780, bx: 1150, aw: 110, bw: 136, ah: 360, bh: 300 };
-  const towerLines = (cx, w, h, base) => { const d = w * .38, L = []; L.push([[cx - w / 2, base], [cx - w / 2, base - h], [cx + w / 2, base - h], [cx + w / 2, base]]); L.push([[cx + w / 2, base - h], [cx + w / 2 + d, base - h - d * .45], [cx + w / 2 + d, base - d * .45], [cx + w / 2, base]]);
-    L.push([[cx - w / 2, base - h], [cx - w / 2 + d, base - h - d * .45], [cx + w / 2 + d, base - h - d * .45]]); for (let f = 1; f < Math.round(h / 34); f++) { const y = base - f * 34; L.push([[cx - w / 2, y], [cx + w / 2, y], [cx + w / 2 + d, y - d * .45]]); } return L; };
-  const TL = [towerLines(G403.ax, G403.aw, G403.ah, G403.hz), towerLines(G403.bx, G403.bw, G403.bh, G403.hz + 6)];
+  // A (OpenAI, front-left): a rounded glass tower with a soft dome; B (Anthropic, further back, right): a stepped Art Deco tower. Never a pair.
+  const G403 = { hz: 640, ax: 760, aw: 96, ah: 410, ab: 654, bx: 1172, bw: 150, bh: 280, bb: 628 };
+  const DOME = .12, CR403 = [[0, 1], [.34, .97], [.6, .9], [.8, .8], [.93, .68], [1, .56]], STEP403 = [[0, .5, 1], [.5, .72, .76], [.72, .86, .54], [.86, 1, .38], [1, 1.045, .24], [1.045, 1.075, .13]];
+  const roundLines = (cx, w, h, base) => { const L = [], hb = h * (1 - DOME), dome = h * DOME, arc = (y, k = 1) => { const bow = .1 * w * k * clamp((base - y) / h) - .02 * w; const A = []; for (let i = 0; i <= 18; i++) { const q = i / 9 - 1; A.push([cx + q * w / 2 * k, y - bow * Math.sqrt(1 - q * q)]); } return A; };
+    L.push([[cx - w / 2, base], [cx - w / 2, base - hb]], [[cx + w / 2, base], [cx + w / 2, base - hb]], arc(base));
+    for (const a of [-1.05, -.55, 0, .55, 1.05]) { const x = cx + Math.sin(a) * w / 2, by = arc(base)[Math.round((Math.sin(a) + 1) * 9)][1], ty = arc(base - hb)[Math.round((Math.sin(a) + 1) * 9)][1]; L.push([[x, by], [x, ty]]); }
+    for (let f = 1; f < Math.round(hb / 30); f++) L.push(arc(base - f * hb / Math.round(hb / 30)));
+    L.push(arc(base - hb)); L.push(CR403.map(([f, k]) => [cx - k * w / 2, base - hb - f * dome]), CR403.map(([f, k]) => [cx + k * w / 2, base - hb - f * dome]));
+    for (const [f, k] of CR403.slice(1)) L.push(arc(base - hb - f * dome, k));
+    return L; };
+  const stepLines = (cx, w, h, base) => { const L = [], d = w * .26;
+    for (const [a, b, k] of STEP403) { const x0 = cx - w * k / 2, x1 = cx + w * k / 2, y0 = base - a * h, y1 = base - b * h, dk = d * k;
+      L.push([[x0, y0], [x0, y1], [x1, y1], [x1, y0]], [[x1, y1], [x1 + dk, y1 - dk * .45], [x1 + dk, y0 - dk * .45]], [[x0, y1], [x0 + dk, y1 - dk * .45], [x1 + dk, y1 - dk * .45]]);
+      if (b <= .87) for (let f = 1; f < Math.round((b - a) * h / 26); f++) { const y = y0 - f * (b - a) * h / Math.round((b - a) * h / 26); L.push([[x0, y], [x1, y], [x1 + dk, y - dk * .45]]); }
+      else if (a === .86) for (let i = 0; i <= 6; i++) { const q = i / 6; L.push([[cx, y0], [mix(x0, x1, q), y1 + (y0 - y1) * (.1 + .5 * Math.abs(q - .5))]]); }   // the sunburst in the crown
+    }
+    return L; };
+  const TL = [roundLines(G403.ax, G403.aw, G403.ah, G403.ab), stepLines(G403.bx, G403.bw, G403.bh, G403.bb)];
+  const SIL403 = [   // glass silhouettes (fade away as the outlines draw)
+    (() => { const { ax: cx, aw: w, ah: h, ab: b } = G403, hb = h * (1 - DOME), A = [[cx - w / 2, b]]; for (const [f, k] of CR403) A.push([cx - k * w / 2, b - hb - f * h * DOME]); for (const [f, k] of CR403.slice().reverse()) A.push([cx + k * w / 2, b - hb - f * h * DOME]); A.push([cx + w / 2, b]); return A; })(),
+    (() => { const { bx: cx, bw: w, bh: h, bb: b } = G403, Lf = [], Rt = []; for (const [a, e, k] of STEP403) { Lf.push([cx - w * k / 2, b - a * h], [cx - w * k / 2, b - e * h]); Rt.unshift([cx + w * k / 2, b - e * h], [cx + w * k / 2, b - a * h]); } return Lf.concat(Rt); })(),
+  ];
   const crowd = () => once('c6crowd', () => {   // rows of tiny figures holding a tiny certificate (cached per row) + their hand points
     const rows = [], r = prng(88), cols = ['#2a2440', '#3a2c48', '#4a3448', '#2c3448', '#3c3040', '#30283c'];
     for (let j = 0; j < 7; j++) {
@@ -345,13 +363,13 @@ export default (T, R) => {
     ctx.save(); ctx.translate(0, -camY);
     // the towers as dotted outlines (their glass fades away first)
     const glassA = 1 - sm(lin(A.t403 - .2, A.t403 + .7, t)), lineA = .9 - .45 * burst;
-    if (glassA > 0) { ctx.save(); ctx.globalAlpha = glassA * .8; for (const [cx, w, h, b] of [[G403.ax, G403.aw, G403.ah, G403.hz], [G403.bx, G403.bw, G403.bh, G403.hz + 6]]) { const lg = ctx.createLinearGradient(0, b - h, 0, b); lg.addColorStop(0, '#e8b0a4'); lg.addColorStop(1, '#5a4a6a'); ctx.fillStyle = lg; ctx.fillRect(cx - w / 2, b - h, w, h); } ctx.restore(); }
+    if (glassA > 0) { ctx.save(); ctx.globalAlpha = glassA * .8; for (const S of SIL403) { const ys = S.map((q) => q[1]), lg = ctx.createLinearGradient(0, Math.min(...ys), 0, Math.max(...ys)); lg.addColorStop(0, '#e8b0a4'); lg.addColorStop(1, '#5a4a6a'); ctx.fillStyle = lg; ctx.beginPath(); S.forEach((q, i) => (i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]))); ctx.closePath(); ctx.fill(); } ctx.restore(); }
     TL.forEach((L, k) => L.forEach((P, i) => ghostLine(ctx, P, { ghost: .9, col: '#ffe9d0', w: 1.4, dot: 5, a: lineA, u: clamp(u0 * 1.6 - i * .04) })));
     // "together": light runs down both outlines into the tag
     const [tx, ty0] = [960, 470], tagS = mix(3.1, 1.75, eio(lin(A.t403 - .2, A.t403 + .9, t))) * (1 - .25 * burst), ty = mix(ty0 + 60, ty0, eio(lin(A.t403 - .2, A.t403 + .9, t)));
-    if (merge > 0 && merge < 1) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; for (const [cx, h] of [[G403.ax + G403.aw / 2, G403.ah], [G403.bx - G403.bw / 2, G403.bh]]) { const x = mix(cx, tx, merge), y = mix(G403.hz - h * .7, ty + 40, merge); addGlow(ctx, x, y, 60, .7 * Math.sin(Math.PI * merge), AMBER, CORE); } ctx.restore(); }
+    if (merge > 0 && merge < 1) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; for (const [cx, cy] of [[G403.ax + G403.aw / 2, G403.ab - G403.ah * .7], [G403.bx - G403.bw * .8 / 2, G403.bb - G403.bh * .6]]) { const x = mix(cx, tx, merge), y = mix(cy, ty + 40, merge); addGlow(ctx, x, y, 60, .7 * Math.sin(Math.PI * merge), AMBER, CORE); } ctx.restore(); }
     // the tag on its string from tower A's roof corner
-    const swing = .07 * Math.sin(t * 1.4), topA = [G403.ax + G403.aw / 2, G403.hz - G403.ah];
+    const swing = .07 * Math.sin(t * 1.4), topA = [G403.ax + G403.aw * .36, G403.ab - G403.ah * (1 - DOME) - 5];
     ctx.strokeStyle = rgba(CORE, .7 * (1 - burst)); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(topA[0], topA[1]); ctx.quadraticCurveTo((topA[0] + tx) / 2 + 10, (topA[1] + ty) / 2 - 10, tx + Math.sin(swing) * 20, ty); ctx.stroke();
     const showNum = sm(lin(A.two - .15, A.two + .35, t));
     const tagA = 1 - sm(lin(A.person - .05, A.person + .35, t)); if (tagA > .01) priceTag(ctx, tx + Math.sin(swing) * 20, ty, tagS * (1 - .5 * (1 - tagA)), t, { rot: swing, a: tagA, label: showNum > .5 ? '$220' : '$', sub: showNum > .5 ? 'PER PERSON' : null, glow: merge * (1 - burst) });
@@ -405,7 +423,7 @@ export default (T, R) => {
   function f405(ctx, t) {
     const cam = C405(t), perfo = eio(lin(A.slices - .15, A.aside - .05, t)), punch = sm(lin(A.aside - .02, A.aside + .12, t)), outU = eio(lin(A.aside + .3, A.asideE + .6, t));
     const certU = sm(lin(A.t406 - .1, A.t406 + .45, t)), flying = t > A.t406 + .35;
-    const slices = [{ pu: perfo, perfo: perfo > 0 ? 1 : 0, punch: punch * (1 - outU), u: outU, at: -Math.PI / 2 - .55, turn: .7 }, { pu: perfo, perfo: perfo > 0 ? 1 : 0, punch: punch * (1 - outU), u: outU, at: AT1, turn: -.6, cert: certU, certTex: certTex(), certScale: .024, hide: flying }];
+    const slices = [{ pu: perfo, perfo: perfo > 0 ? 1 : 0, punch: punch * (1 - outU), u: outU, at: Math.PI - .25, turn: -.9 }, { pu: perfo, perfo: perfo > 0 ? 1 : 0, punch: punch * (1 - outU), u: outU, at: AT1, turn: -.6, cert: certU, certTex: certTex(), certScale: .024, hide: flying }];
     const shake = 6 * bell(t, A.aside + .05, .05);
     ctx.save(); ctx.translate(drift(t * 9, shake, 1), drift(t * 9, shake, 2));
     const r = towersFrame(ctx, t, { cam, slices, fence: 1, labels: 0, tag: 0 });

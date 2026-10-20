@@ -13,12 +13,12 @@ import { figure, walk, figureFlat } from './figure.mjs';
 import { once } from './sc06_kit.mjs';
 
 const TAU = Math.PI * 2;
-// Two clearly different buildings, never a matching pair: OpenAI a rounded (elliptical) glass tower with a soft curved crown,
+// Two clearly different buildings, never a matching pair: OpenAI a rounded (elliptical) glass tower with a flat stepped crown,
 // front-left; Anthropic a stepped tower with setbacks and an engraved Art Deco crown + needle, further back to the right.
 // Different footprints, heights and depths at every moment (both grow by the same factor, so the difference stays).
 export const TW = [ // towers: centre x, z, half width (x), half depth (z), yaw, base height, kind, name
-  { x: -5, z: 38, hx: 3.3, hz: 2.7, yaw: .3, h: 14, kind: 'round', name: 'OpenAI', glass: ['#c8a0a8', '#7d6c8c', '#2c2f4e'] },
-  { x: 6.5, z: 54, hx: 4.7, hz: 3.8, yaw: .28, h: 11, kind: 'step', name: 'Anthropic', glass: ['#d4a89c', '#8a7088', '#2a2c48'] },
+  { x: -5, z: 38, hx: 2.5, hz: 2.05, yaw: .3, h: 15, kind: 'round', name: 'OpenAI', glass: ['#c8a0a8', '#7d6c8c', '#2c2f4e'] },
+  { x: 6.5, z: 54, hx: 4.3, hz: 3.5, yaw: .28, h: 11, kind: 'step', name: 'Anthropic', glass: ['#d4a89c', '#8a7088', '#2a2c48'] },
 ];
 export const PLR = 7.5;           // plinth radius
 export const FENCE = { x: 0, z: 47, r: 24 };
@@ -205,6 +205,94 @@ function tower(ctx, P, T, h, t, cam, o = {}) {
   }
   return { roof: R, corner: C };
 }
+// ---------- OpenAI: a rounded glass tower (an elliptical cylinder) with a stepped, flat-roofed crown ----------
+const RN = 64, CROWN = [[0, 1], [.35, 1], [.4, .93], [.75, .93], [.8, .86], [1, .86]];   // the crown: two slim setbacks and a flat roof (a domed top read as a rocket): height fraction, radius scale
+function ell(T, k, y, P) {   // ring of RN points: world x/z, outward normal, projected point at height y
+  const c = Math.cos(T.yaw), s = Math.sin(T.yaw), L = [];
+  for (let i = 0; i < RN; i++) { const a = i / RN * TAU, lx = T.hx * k * Math.cos(a), lz = T.hz * k * Math.sin(a), nlx = Math.cos(a) / T.hx, nlz = Math.sin(a) / T.hz, nn = Math.hypot(nlx, nlz);
+    const x = T.x + lx * c - lz * s, z = T.z + lx * s + lz * c; L.push({ x, z, nx: (nlx * c - nlz * s) / nn, nz: (nlx * s + nlz * c) / nn, p: P(x, y, z) }); }
+  return L;
+}
+function visRun(R, cam) {   // the contiguous run of ring indices facing the camera (+1 sample past each silhouette)
+  const vis = R.map((q) => (cam.x - q.x) * q.nx + (cam.z - q.z) * q.nz > 0); let i0 = vis.findIndex((v, i) => v && !vis[(i - 1 + RN) % RN]); if (i0 < 0) i0 = 0;
+  const run = [(i0 - 1 + RN) % RN]; for (let k = 0; k < RN && vis[(i0 + k) % RN]; k++) run.push((i0 + k) % RN); run.push((i0 + run.length - 1) % RN); return run;
+}
+const lit = (q) => clamp(.5 + .62 * q.nx + .2 * q.nz);   // the low sun from the right and behind: the right flank glows
+function hShade(ctx, pts, run, cols) {   // horizontal gradient across the visible arc: shade → lit, following the curvature
+  const xs = run.map((i) => pts[i]), xl = Math.min(...xs.map((q) => q.p[0])), xr = Math.max(...xs.map((q) => q.p[0])), g = ctx.createLinearGradient(xl, 0, xr + .01, 0);
+  const st = xs.map((q) => [clamp((q.p[0] - xl) / Math.max(1, xr - xl)), lit(q)]).sort((a, b) => a[0] - b[0]);
+  for (const [u, l] of st) g.addColorStop(u, cols(l)); return g;
+}
+const mixC = (a, b, u) => { const A = [1, 3, 5].map((i) => parseInt(a.slice(i, i + 2), 16)), B = [1, 3, 5].map((i) => parseInt(b.slice(i, i + 2), 16)); return `rgb(${A.map((v, i) => Math.round(mix(v, B[i], clamp(u)))).join(',')})`; };
+function roundTower(ctx, P, T, h, t, cam) {
+  const base = .9, crownH = clamp(h * .12, 1.9, 6.5), yb = base + h - crownH, top = base + h, fl = 3.2, nf = Math.max(1, Math.round((h - crownH) / fl)), fh = (h - crownH) / nf;
+  const R0 = ell(T, 1, base, P), run = visRun(R0, cam), Rt = ell(T, 1, yb, P);
+  const path = (A, B) => { ctx.beginPath(); run.forEach((i, k) => (k ? ctx.lineTo(A[i].p[0], A[i].p[1]) : ctx.moveTo(A[i].p[0], A[i].p[1]))); for (let k = run.length - 1; k >= 0; k--) ctx.lineTo(B[run[k]].p[0], B[run[k]].p[1]); ctx.closePath(); };
+  const band = (y0, y1) => path(ell(T, 1, y0, P), ell(T, 1, y1, P));
+  const ytop = Math.min(...run.map((i) => Rt[i].p[1])), ybot = Math.max(...run.map((i) => R0[i].p[1]));
+  // body: curved glass, lit flank → shade flank, sky reflection darker toward the foot
+  path(R0, Rt); ctx.fillStyle = hShade(ctx, ell(T, 1, (base + yb) / 2, P), run, (l) => (l > .5 ? mixC(T.glass[1], '#f6c8ac', (l - .5) * 2) : mixC(T.glass[2], T.glass[1], l * 2))); ctx.fill();
+  ctx.save(); ctx.clip();
+  { const vg = ctx.createLinearGradient(0, ytop, 0, ybot); vg.addColorStop(0, 'rgba(255,214,190,.22)'); vg.addColorStop(.5, 'rgba(255,214,190,0)'); vg.addColorStop(1, 'rgba(20,14,40,.35)'); ctx.fillStyle = vg; ctx.fillRect(-50, ytop - 10, W + 100, ybot - ytop + 20); }
+  // vertical sky streaks: on a curved face reflections stand as soft vertical bands that slide as the camera moves
+  const sh = (cam.x * .02 + t * .012) % 1;
+  for (const [b0, bw, al] of [[.18, .05, .2], [.36, .1, .12], [.71, .04, .16]]) { const i0 = Math.floor(((b0 + sh) % 1) * RN), i1 = i0 + Math.max(1, Math.round(bw * RN)), sub = [];
+    for (let i = i0; i <= i1; i++) sub.push(i % RN); if (!sub.every((i) => run.includes(i))) continue;
+    const A = ell(T, 1, base, P), B = ell(T, 1, yb, P); ctx.beginPath(); sub.forEach((i, k) => (k ? ctx.lineTo(A[i].p[0], A[i].p[1]) : ctx.moveTo(A[i].p[0], A[i].p[1]))); for (let k = sub.length - 1; k >= 0; k--) ctx.lineTo(B[sub[k]].p[0], B[sub[k]].p[1]); ctx.closePath(); ctx.fillStyle = `rgba(255,236,220,${al})`; ctx.fill(); }
+  // spandrels as curved dark bands (they bow with the cylinder), mullions bunching toward the silhouettes
+  for (let j = 1; j <= nf; j++) { const y = base + j * fh; band(y - .22, y); ctx.fillStyle = 'rgba(30,20,46,.22)'; ctx.fill(); }
+  ctx.lineWidth = .9; ctx.beginPath(); for (const i of run) { if (i % 2) continue; const a = R0[i].p, b = Rt[i].p; ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); } ctx.strokeStyle = 'rgba(24,16,40,.3)'; ctx.stroke();
+  const r = prng(Math.round(T.h * 10 + 5));
+  for (let j = 0; j < nf; j++) for (let i = 0; i < RN; i += 4) { const v = r(); if (v > .07 || !run.includes(i) || !run.includes((i + 4) % RN)) continue; const A = ell(T, 1, base + j * fh + .25, P), B = ell(T, 1, base + (j + 1) * fh - .5, P);
+    ctx.beginPath(); [A[i].p, A[(i + 4) % RN].p, B[(i + 4) % RN].p, B[i].p].forEach((q, k) => (k ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]))); ctx.closePath(); ctx.fillStyle = v < .03 ? 'rgba(255,214,150,.62)' : 'rgba(255,196,140,.3)'; ctx.fill(); }
+  band(base, base + fh - .28); ctx.fillStyle = 'rgba(255,196,130,.3)'; ctx.fill();   // the lobby, warm
+  ctx.restore();
+  // the warm rim on the sunward silhouette, a faint one on the other
+  const e0 = run[1], e1 = run[run.length - 2], [eL, eR] = R0[e0].p[0] < R0[e1].p[0] ? [e0, e1] : [e1, e0];
+  ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,236,206,.9)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(R0[eR].p[0], R0[eR].p[1]); ctx.lineTo(Rt[eR].p[0], Rt[eR].p[1]); ctx.stroke();
+  ctx.strokeStyle = 'rgba(240,210,220,.3)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(R0[eL].p[0], R0[eL].p[1]); ctx.lineTo(Rt[eL].p[0], Rt[eL].p[1]); ctx.stroke();
+  // the crown: stacked rings with two slim setbacks and a flat roof, engraved ring lines, a warm lantern at the top
+  const rings = CROWN.map(([f, k]) => ({ y: yb + f * crownH, k, R: ell(T, k, yb + f * crownH, P) }));
+  const ringCol = (m, l) => mixC(T.glass[1], '#ffd8b8', clamp(.15 + l * .8 + m * .05));
+  // each crown band as small facing quads (the 3D normal of the taper decides what the camera sees): from below the highest band
+  // first, from above the lowest first, so nearer surfaces always paint last; a cap on the top when seen from above
+  const order = cam.y > top ? rings.slice(0, -1).map((g, m) => m) : rings.slice(0, -1).map((g, m) => rings.length - 2 - m);
+  for (const m of order) { const A = rings[m].R, B = rings[m + 1].R, dy = rings[m + 1].y - rings[m].y, dk = rings[m].k - rings[m + 1].k, ym = (rings[m].y + rings[m + 1].y) / 2;
+    for (let i = 0; i < RN; i++) { const j = (i + 1) % RN, q = A[i], rr = Math.hypot(q.x - T.x, q.z - T.z) / Math.max(.01, rings[m].k), ny = dk * rr, nh = dy, L = Math.hypot(ny, nh);
+      if (((cam.x - q.x) * q.nx + (cam.z - q.z) * q.nz) * nh / L + (cam.y - ym) * ny / L <= 0) continue;
+      const col = ringCol(m, lit(q) * .85 + .3 * ny / L); ctx.beginPath(); ctx.moveTo(A[i].p[0], A[i].p[1]); ctx.lineTo(A[j].p[0], A[j].p[1]); ctx.lineTo(B[j].p[0], B[j].p[1]); ctx.lineTo(B[i].p[0], B[i].p[1]); ctx.closePath();
+      ctx.fillStyle = col; ctx.fill(); ctx.strokeStyle = col; ctx.lineWidth = .8; ctx.stroke(); }
+    if (m % 2 === 0 && m) { ctx.strokeStyle = 'rgba(255,232,206,.35)'; ctx.lineWidth = .9; ctx.beginPath(); run.forEach((i, k) => (k ? ctx.lineTo(A[i].p[0], A[i].p[1]) : ctx.moveTo(A[i].p[0], A[i].p[1]))); ctx.stroke(); } }
+  if (cam.y > top) { const g = rings[rings.length - 1]; ctx.beginPath(); g.R.forEach((q, i) => (i ? ctx.lineTo(q.p[0], q.p[1]) : ctx.moveTo(q.p[0], q.p[1]))); ctx.closePath(); ctx.fillStyle = '#f2d2b4'; ctx.fill(); }
+  { const L = P(T.x, top + .1, T.z), d = Math.max(3, cam.f * .45 / Math.max(1, L[2])); ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(L[0], L[1], 0, L[0], L[1], d * 2.4); g.addColorStop(0, 'rgba(255,236,200,.45)'); g.addColorStop(1, 'rgba(255,190,120,0)'); ctx.fillStyle = g; ctx.fillRect(L[0] - d * 2.4, L[1] - d * 2.4, d * 4.8, d * 4.8); ctx.restore(); }
+  return { roof: run.map((i) => Rt[i].p), corner: [] };
+}
+// ---------- Anthropic: a stepped tower with setbacks, an engraved Art Deco crown (sunburst, flutes) and a needle ----------
+const STEPS = [[0, .5, 1], [.5, .72, .76], [.72, .86, .54]];   // tiers: from, to (fraction of h), footprint scale
+function stepTower(ctx, P, T, h, t, cam) {
+  const base = .9, D = [];
+  STEPS.forEach(([a, b, k], i) => D.push(() => tower(ctx, P, { ...T, hx: T.hx * k, hz: T.hz * k }, (b - a) * h, t, cam, { base: base + a * h, crown: false, units: false, lobby: i === 0, seed: i * 17 })));
+  for (const [a, b, k] of [[.86, 1, .38], [1, 1.045, .24], [1.045, 1.075, .13]]) D.push(() => tower(ctx, P, { ...T, hx: T.hx * k, hz: T.hz * k }, (b - a) * h, t, cam, { base: base + a * h, deco: true, units: false }));
+  // from below the upper tiers are drawn first (the lower ledges hide their feet); from above the lower first (the roofs show around the upper)
+  (cam.y > base + 1.075 * h ? D : D.slice().reverse()).forEach((f) => f());
+  const c = Math.cos(T.yaw), s = Math.sin(T.yaw);
+  return { roof: [], corner: [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([sx, sz]) => [T.x + sx * T.hx * c - sz * T.hz * s, T.z + sx * T.hx * s + sz * T.hz * c]) };
+}
+function hull(pts) {   // convex hull (monotone chain) of screen points
+  const p = pts.map((q) => [q[0], q[1]]).sort((a, b) => a[0] - b[0] || a[1] - b[1]), cr = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]), lo = [], up = [];
+  for (const q of p) { while (lo.length > 1 && cr(lo[lo.length - 2], lo[lo.length - 1], q) <= 0) lo.pop(); lo.push(q); }
+  for (let i = p.length - 1; i >= 0; i--) { const q = p[i]; while (up.length > 1 && cr(up[up.length - 2], up[up.length - 1], q) <= 0) up.pop(); up.push(q); }
+  return lo.slice(0, -1).concat(up.slice(0, -1));
+}
+export function footprint(T, n = 24) {   // ground outline of a tower (world x/z)
+  const c = Math.cos(T.yaw), s = Math.sin(T.yaw);
+  if (T.kind === 'round') { const L = []; for (let i = 0; i < n; i++) { const a = i / n * TAU, lx = T.hx * Math.cos(a), lz = T.hz * Math.sin(a); L.push([T.x + lx * c - lz * s, T.z + lx * s + lz * c]); } return L; }
+  return [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([sx, sz]) => [T.x + sx * T.hx * c - sz * T.hz * s, T.z + sx * T.hx * s + sz * T.hz * c]);
+}
+export function tagAnchor(T, grow = 1) {   // where the price tag's string is tied: the round tower's front-right shoulder, under its crown
+  const c = Math.cos(T.yaw), s = Math.sin(T.yaw), lx = T.hx * .72, lz = -T.hz * .7;
+  return { x: T.x + lx * c - lz * s, z: T.z + lx * s + lz * c, y: .9 + T.h * grow * (T.kind === 'round' ? .84 : 1) };
+}
 
 export function towersFrame(ctx, t, o = {}) {
   const cam = camera(o.cam), P = projector(cam), grow = o.grow ?? 1, out = { P, cam };
@@ -229,11 +317,9 @@ export function towersFrame(ctx, t, o = {}) {
       const R0 = ring(FENCE.r); ctx.beginPath(); R0.forEach((q, i) => (i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]))); ctx.closePath(); ctx.fillStyle = 'rgba(214,170,160,.16)'; ctx.fill();
       ctx.strokeStyle = 'rgba(255,214,190,.14)'; ctx.lineWidth = 1; for (let rr = FENCE.r - 2; rr > PLR; rr -= 2.5) { const Rk = ring(rr); ctx.beginPath(); Rk.forEach((q, i) => (i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]))); ctx.stroke(); } } }
   // ---- long shadows of the towers toward us
-  for (const T of TW) { const h = T.h * grow, c = Math.cos(T.yaw), s = Math.sin(T.yaw), Lsh = Math.min(90, h * 1.6);
-    const pts = [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([sx, sz]) => [T.x + sx * T.hx * c - sz * T.hz * s, T.z + sx * T.hx * s + sz * T.hz * c]);
-    const far = pts.map(([x, z]) => P(x - .1 * Lsh, .01, Math.max(z - Lsh, cam.z + 2))), near = pts.map(([x, z]) => P(x, .01, z));
-    ctx.fillStyle = 'rgba(14,8,20,.2)'; ctx.beginPath(); const hull = [near[0], near[1], far[1], far[0]]; hull.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); ctx.fill();
-    ctx.beginPath(); [near[1], near[2], far[2], far[1]].forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); ctx.fill(); }
+  for (const T of TW) { const h = T.h * grow, Lsh = Math.min(90, h * 1.6), pts = [];
+    for (const [x, z] of footprint(T, 20)) { pts.push(P(x, .01, z)); pts.push(P(x - .1 * Lsh, .01, Math.max(z - Lsh, cam.z + 2))); }
+    ctx.fillStyle = 'rgba(14,8,20,.2)'; ctx.beginPath(); hull(pts).forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); ctx.fill(); }
   // ---- painter's list: fence posts, trees, plinths + towers, slices, tag, figure
   const items = [];
   const fenceA = o.fence ?? 1;
@@ -251,7 +337,7 @@ export function towersFrame(ctx, t, o = {}) {
       drawFlat(ctx, P, plinthTop(), T.x, .9, T.z, 0, PLR / 300);
       // perforated wedge (a slice) on the plinth, then the slice itself if it has been punched out
       const sl = (o.slices || [])[i]; if (sl) slice(ctx, P, T, sl, t);
-      const TT = tower(ctx, P, T, T.h * grow, t, cam);
+      const TT = T.kind === 'round' ? roundTower(ctx, P, T, T.h * grow, t, cam) : T.kind === 'step' ? stepTower(ctx, P, T, T.h * grow, t, cam) : tower(ctx, P, T, T.h * grow, t, cam);
       out['roof' + i] = TT.roof;
       // engraved plaque + label
       if ((o.labels ?? 0) > 0) { const pa = P(T.x - 1.3, .18, T.z - PLR * .99), pb = P(T.x + 1.3, .72, T.z - PLR * .99); ctx.fillStyle = '#d8c49c'; ctx.fillRect(pa[0], pb[1], pb[0] - pa[0], pa[1] - pb[1]); ctx.strokeStyle = 'rgba(60,40,25,.7)'; ctx.lineWidth = 1; ctx.strokeRect(pa[0] + 2, pb[1] + 2, pb[0] - pa[0] - 4, pa[1] - pb[1] - 4);
@@ -275,7 +361,7 @@ export function towersFrame(ctx, t, o = {}) {
   }
   // ---- price tag on a string from tower A's roof corner
   if ((o.tag ?? 0) > 0) {
-    const T = TW[0], c = Math.cos(T.yaw), s = Math.sin(T.yaw), cx = T.x + T.hx * c - (-T.hz) * s, cz = T.z + T.hx * s + (-T.hz) * c, top = P(cx, .9 + T.h * grow, cz);
+    const T = TW[0], an = tagAnchor(T, grow), cx = an.x, cz = an.z, top = P(cx, an.y, cz);
     const swing = .12 * Math.sin(t * 1.3) + .05 * Math.sin(t * 2.9), hang = P(cx + .6, 2.6 + Math.max(0, T.h * grow - 13.5) * .55, cz - .4);
     const tx = hang[0] + Math.sin(swing) * 30, ty = hang[1];
     ctx.strokeStyle = 'rgba(250,236,210,.8)'; ctx.lineWidth = 1.1; ctx.beginPath(); ctx.moveTo(top[0], top[1]); ctx.quadraticCurveTo((top[0] + tx) / 2 + 8, (top[1] + ty) / 2, tx, ty); ctx.stroke();
