@@ -390,8 +390,10 @@ export default (T, R) => {
   // ═══════════════ 2.18 · the notes in a hand turn to dots and smoke ═══════════════
   const HAND18 = { x: 1060, y: 820, s: 2.5 };
   const eUp = (t) => eio(clamp((t - (CT.s219 - .3)) / .6));
-  const hand18S = (t) => mix(HAND18.s, 1.15, easeIO(lin(A.anythingE - .45, CT.s219 + .2, t)));   // the hand recedes toward the tap as it rises (same size on both sides of the cut)
-  const arm18 = (x, y, ang, grip, t, rim) => ({ ang, dir: mix(ang + Math.PI - .22, 1.3, grip), fore: 210, shoulder: [x + 560, y + 950], w: [27, 34, 60], col: PETROL, rim, light: [-.4, -1], t });
+  const HS19 = 1.35;   // hand scale at the tap
+  const hand18S = (t) => mix(HAND18.s, HS19, easeIO(lin(A.anythingE - .45, CT.s219 + .2, t)));   // the hand recedes toward the tap as it rises (same size on both sides of the cut)
+  // the arm keeps its size near the camera while the hand recedes (w2·s stays 150 px), so the reach reads as depth, not length
+  const arm18 = (x, y, ang, grip, t, rim, s = HAND18.s) => { const w2 = 150 / s; return { ang, dir: mix(ang + Math.PI - .22, 1.3, grip), fore: 210, shoulder: [x + 560, y + 950], w: [27, 34 + (w2 - 60) * .35, w2], col: PETROL, rim, light: [-.4, -1], t }; };
   const hand18 = (t) => {   // the hand's SCREEN track: grips the notes, empties, opens and rises; 2.18 draws it at y - e·H, 2.19 at y + (1 - e)·H
     const open = sm(lin(A.owning + .1, A.owning + .7, t)), rise = easeIO(lin(A.anythingE - .45, CT.s219 + .2, t));
     return { x: HAND18.x - open * 40 + drift(t, 4, 2), y: HAND18.y - open * 60 - rise * 260 + drift(t, 3, 3), ang: mix(-2.2, -1.62, open), close: mix(.55, 0, open), pose: open > .5 ? 'open' : 'grip' };
@@ -418,7 +420,7 @@ export default (T, R) => {
       ghostLine(ctx, rect, { ghost: 1, smoke, col: VERD_L, a: ga, w: 2, dot: 8, t, wind: [.4, -1], seed: k + 1 });
       ghostLine(ctx, oval, { ghost: 1, smoke, col: VERD_L, a: ga * .8, w: 1.6, dot: 7, t, wind: [.3, -1], seed: k + 4 });
     }
-    const s18 = hand18S(t); arm(ctx, hd.x, hd.y, s18, arm18(hd.x, hd.y, hd.ang, 0, t, '#bfe8dc'));
+    const s18 = hand18S(t); arm(ctx, hd.x, hd.y, s18, arm18(hd.x, hd.y, hd.ang, 0, t, '#bfe8dc', s18));
     hand(ctx, hd.x, hd.y, s18, { pose: hd.pose, close: hd.close, ang: hd.ang, skin: '#c99a74', sleeve: null, rim: '#bfe8dc', light: [-.4, -1], t, seed: 5, spread: 1 });
     chip(ctx, 120, 190, 'owns nothing', { a: easeOut(lin(A.owning - .05, A.owning + .4, t)), col: VERD });
     motes(ctx, t, 900, 380, 640, .8, 13, '200,240,225');
@@ -451,10 +453,11 @@ export default (T, R) => {
     const wx = tap.wheel[0], wy = tap.wheel[1], th = Math.PI / 2 - .25 + .18 * Math.sin(turn19(t) * 1.3);
     const rimP = [wx + Math.cos(th) * tap.wheelR, wy + Math.sin(th) * tap.wheelR * .34];
     const h18 = hand18(t), from = [h18.x, h18.y + (1 - e) * H];
-    const hx = mix(from[0], rimP[0] + 55, grip), hy = mix(from[1], rimP[1] + 70, grip);
+    const ko = HS19 / 1.15, hx = mix(from[0], rimP[0] + 55 * ko, grip), hy = mix(from[1], rimP[1] + 70 * ko, grip);
     const ang19 = mix(-1.62, -2.05, grip);
-    const s19 = hand18S(t); arm(ctx, hx, hy, s19, arm18(hx, hy, ang19, grip, t, '#ffd59a'));
-    hand(ctx, hx, hy, s19, { pose: grip > .6 ? 'grip' : 'open', close: grip, ang: ang19, skin: '#c99a74', sleeve: null, rim: '#ffd59a', light: [-.4, -1], t, seed: 5 });
+    const s19 = hand18S(t); arm(ctx, hx, hy, s19, arm18(hx, hy, ang19, grip, t, '#ffd59a', s19));
+    // the fingers curl over the front of the rim (a fist here read as a block next to the stem)
+    hand(ctx, hx, hy, s19, { pose: 'open', close: .75 * grip, ang: ang19, skin: '#c99a74', sleeve: null, rim: '#ffd59a', light: [-.4, -1], t, seed: 5 });
     ctx.restore();
     vign(ctx, .5);
   }
