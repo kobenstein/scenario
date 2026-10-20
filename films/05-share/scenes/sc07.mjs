@@ -52,7 +52,7 @@ import { glassFund } from '../lib/glassfund.mjs';
 import { heldPhone } from '../lib/phone.mjs';
 import { tree } from '../lib/tree.mjs';
 import { coupon, couponSheet, flight, ideaForm } from '../lib/sc07_coupons.mjs';
-import { street, rain, ripples, backFig, SODIUM } from '../lib/sc07_rain.mjs';
+import { street, rain, ripples, splashes, backFig, sleeve, phoneAt, LOOKS, SODIUM } from '../lib/sc07_rain.mjs';
 
 const CACHE = new Map(); const once = (k, f) => { if (!CACHE.has(k)) CACHE.set(k, f()); return CACHE.get(k); };
 const TAU = Math.PI * 2, AMB = '#ffb35c', CORE = '#fff1d6', CREAM = '#f3efe2', INK = '#1f2a3a';
@@ -675,10 +675,29 @@ export default (T, R) => {
   }
 
   // ================================================================ 5.13 / 5.14 the crossing in the rain
-  const PEOPLE = [{ x: 1500, y: 1470, s: 5.6, c: '#2a3350', a: '#c8843a', seed: 1 }, { x: 330, y: 1300, s: 3.6, c: '#33304a', a: '#5fe0a8', seed: 2 }, { x: 720, y: 1250, s: 3.2, c: '#2a2f3c', a: '#e8a3a0', seed: 3 },
-    { x: 1030, y: 1260, s: 3.0, c: '#3a3046', a: '#e9c46a', seed: 4 }];
+  // Four people wait at the kerb (lib LOOKS, distinct heights and silhouettes): the hood (puffer, both hands on the phone at the
+  // chest), the beanie with the backpack (phone up on the right, its display peeks past his head), the bun with the scarf (phone up
+  // on the left) and, over his shoulder in the foreground, the man in the long coat: heldPhone + his sleeve rising to it.
+  const PHS = .54;          // the near phone's scale (a hand that matches the near man's head, not a giant prop)
+  const NEAR = { x: 1660, s: 11.4, look: LOOKS.coat, seed: 1 }; NEAR.y = 692 + 167.6 * NEAR.s * NEAR.look.h / 180;
+  const PEOPLE = [NEAR, { x: 330, y: 1335, s: 3.85, look: LOOKS.hood, seed: 2, hold: { at: 'chest' } }, { x: 726, y: 1292, s: 3.45, look: LOOKS.pack, seed: 3, hold: { side: 1, at: 'face' } },
+    { x: 1046, y: 1298, s: 3.3, look: LOOKS.bun, seed: 4, hold: { side: -1, at: 'face' } }];
   const cam513 = (t) => { const u = sine(lin(t513, t506, t)); return { x: mix(-30, 60, u), y: mix(30, 0, u), z: mix(1.0, 1.08, u) }; };
-  const PH = [1318, 650];   // the near phone (over the shoulder)
+  const PH = [1342, 668];   // the near phone (over the shoulder)
+  // the small display of a far person (100 × 200 units): the headline card, thumbed away on "scroll past" (a grey feed runs on),
+  // back with the engraved foil line "your share ↑" on "With a share", warm on "raise"
+  const sliver = (i, t, warmU) => (g, w, h) => {
+    const back = E(A.withA + .1 + i * .08, .5, t), sc = expo(lin(A.scroll + i * .1, A.scroll + .45 + i * .1, t)), foil = clamp(lin(A.win - .1 + i * .07, A.win + .55 + i * .07, t));
+    g.fillStyle = '#0b0e18'; g.fillRect(0, 0, w, h);
+    const run = (sc * 150 + Math.max(0, t - A.scroll - .6) * 30) * (1 - back);
+    if (back < 1) { g.globalAlpha = 1 - back; for (let k = 0; k < 6; k++) { const y = 110 + k * 72 - run; if (y < -70 || y > h) continue; g.fillStyle = '#1d2333'; g.beginPath(); g.roundRect(7, y, w - 14, 62, 8); g.fill(); g.fillStyle = '#323a4e'; g.fillRect(15, y + 12, (w - 30) * (.45 + .4 * ((k * 37) % 10) / 10), 8); g.fillRect(15, y + 26, (w - 30) * .4, 8); } g.globalAlpha = 1; }
+    const cy = back > 0 ? 18 - (1 - eout(back)) * 120 : 18 - run;
+    if (cy > -90) { g.fillStyle = '#f2efe6'; g.beginPath(); g.roundRect(7, cy, w - 14, 80, 9); g.fill(); g.fillStyle = '#20232c'; g.fillRect(15, cy + 13, w - 34, 9); g.fillRect(15, cy + 28, w - 48, 9);
+      g.strokeStyle = '#c4512e'; g.lineWidth = 4; g.beginPath(); g.moveTo(15, cy + 68); g.lineTo(42, cy + 64); g.lineTo(62, cy + 58); g.lineTo(84, cy + 42); g.stroke(); }
+    if (back > 0 && foil > 0) { const fy = cy + 90, fg = g.createLinearGradient(7, 0, w - 7, 0); fg.addColorStop(0, '#c87a2c'); fg.addColorStop(clamp(foil * .9), '#fff0c8'); fg.addColorStop(1, '#c87a2c');
+      g.fillStyle = '#2a1a08'; g.beginPath(); g.roundRect(7, fy, w - 14, 26, 6); g.fill(); g.fillStyle = fg; g.fillRect(14, fy + 9, (w - 28) * foil, 8); }
+    if (warmU > 0) { g.globalCompositeOperation = 'lighter'; g.fillStyle = rgba('#ffb35c', .14 * warmU); g.fillRect(0, 0, w, h); g.globalCompositeOperation = 'source-over'; }
+  };
   function phoneScreen(warmU, swipe, back, foil, t) {
     return (g, w, h) => {
       g.fillStyle = '#0b0e18'; g.fillRect(0, 0, w, h);
@@ -704,35 +723,33 @@ export default (T, R) => {
     const cam = cam513(t), board = .8 + .2 * E(A.left - .1, .4, t), warm = E(A.raise - .05, .9, t);
     const st = street(ctx, t, { cam, board, ped: 'red', warm });
     ripples(ctx, t, { box: [260, 640, 900, 200], n: 28, col: SODIUM, a: .8 });
+    splashes(ctx, t, { box: [-60, 880, 2040, 200], n: 34, col: '#cfdcff', a: .5, L: st.L });
     rain(ctx, t, { L: st.L, n: 520, seed: 1, warm: warm > .5 ? 1 : 0 });
-    // the waiting people: shoulders pulled up on "left behind", in shadow; phones glow (cool → warm on "raise")
-    const shUp = E(A.left - .05, .6, t) * (1 - E(A.raise, .8, t)), glowCol = warm > .3 ? '#ffb35c' : '#cfe0ff';
+    // the waiting people: shoulders pulled up on "left behind", in shadow; displays glow (cool → warm on "raise")
+    const shUp = E(A.left - .05, .6, t) * (1 - E(A.raise, .8, t)), lift = E(A.raise + .1, 1.2, t) * .35, glowCol = warm > .3 ? AMB : '#cfe0ff';
+    const lights = (i) => ({ light: { x: 1400, y: 200, col: '#cfdcff', a: .75 - warm * .3 }, light2: { x: 300, y: 80, col: warm > .3 ? AMB : SODIUM, a: .5 + .4 * warm }, glow: { col: glowCol, a: .65 + .3 * warm }, shade: .28 * (1 - warm) });
+    const flick = (i) => Math.sin(Math.PI * clamp(lin(A.scroll + i * .1, A.scroll + .32 + i * .1, t)));   // the swipe on "scroll past"
     ctx.save(); ctx.translate(960, 540); ctx.scale(cam.z, cam.z); ctx.translate(-960 - cam.x * 1.25, -540 - cam.y * 1.25);
     for (let i = PEOPLE.length - 1; i >= 1; i--) { const P = PEOPLE[i];
-      const r = backFig(ctx, P.x, P.y, P.s, { t, seed: P.seed, dress: { coat: P.c }, accent: P.a, shUp, light: { x: 1400, y: 200, col: '#cfdcff', a: .7 - warm * .3 }, light2: { x: 300, y: 80, col: warm > .3 ? AMB : SODIUM, a: .45 + .45 * warm }, glow: { col: glowCol, a: .55 + .4 * warm }, shade: .25 * (1 - warm) });
-      // a small display peeks past the right shoulder: the same headline card (then the foil line)
-      const [px, py] = r.phone, sw = 13 * P.s, shh = 22 * P.s; ctx.save(); ctx.translate(px + 10 * P.s, py - 6 * P.s); ctx.rotate(.25);
-      ctx.fillStyle = '#0b0e18'; ctx.fillRect(-sw / 2, -shh / 2, sw, shh); const back = E(A.withA + .1 + i * .08, .5, t), sc = expo(lin(A.scroll + i * .1, A.scroll + .45 + i * .1, t));
-      ctx.save(); ctx.beginPath(); ctx.rect(-sw / 2, -shh / 2, sw, shh); ctx.clip(); const run = (sc * .62 + Math.max(0, t - A.scroll - .6) * .12) * shh * (1 - back);
-      if (back < 1) { ctx.fillStyle = rgba('#3a4258', .9 * (1 - back)); for (let k = 1; k < 5; k++) { const y = -shh / 2 + 5 + k * shh * .5 - run; ctx.fillRect(-sw / 2 + 1.5, y, sw - 3, shh * .4); } }
-      ctx.fillStyle = '#f2efe6'; ctx.fillRect(-sw / 2 + 1.5, -shh / 2 + 5 - run, sw - 3, shh * .42); ctx.restore();
-      if (back > 0) { ctx.fillStyle = rgba('#e9c46a', back * E(A.win, .5, t)); ctx.fillRect(-sw / 2 + 1.5, -shh / 2 + 5 + shh * .48, sw - 3, shh * .14); }
-      addGlow(ctx, 0, 0, sw * 1.6, .3, glowCol, '#ffffff'); ctx.restore(); }
+      backFig(ctx, P.x, P.y, P.s, { t, seed: P.seed, look: P.look, hold: P.hold, free: 'pocket', shUp, relax: lift, scroll: flick(i), screen: sliver(i, t, warm), ...lights(i) }); }
     ctx.restore();
-    // the near person (over the shoulder) and their phone: the thumb swipes the headline away ("scroll past"); it returns with the foil line
-    const P = PEOPLE[0];
+    // the near man, over his shoulder: his hand and phone (the thumb swipes the headline away, it returns with the foil line), the
+    // sleeve of his left forearm rising to it from behind his shoulder, then his head and shoulders in front of everything
     ctx.save(); ctx.translate(960, 540); ctx.scale(cam.z, cam.z); ctx.translate(-960 - cam.x * 1.6, -540 - cam.y * 1.6);
     const swipe = expo(lin(A.scroll + .05, A.scroll + .5, t)), back = E(A.withA + .05, .6, t), foil = lin(A.win - .1, A.win + .7, t);
-    const ph = heldPhone(ctx, PH[0], PH[1], .8, { t, pitch: .3, ang: -.16, skin: '#a8734f', lit: 1, warm: .4 + warm * .6, rim: SODIUM, rimA: .35, screen: phoneScreen(warm, swipe, back, foil, t) });
-    if (foil > 0 && foil < 1.2) { const [fx, fy] = ph.map(-40 + 120 * clamp(foil), 50); addGlow(ctx, fx, fy, 40, .5, AMB, CORE); }
-    backFig(ctx, P.x, P.y, P.s, { t, seed: P.seed, dress: { coat: P.c }, accent: P.a, shUp, hold: 'phone', light: { x: 1500, y: 150, col: '#cfdcff', a: .6 }, light2: { x: 300, y: 80, col: warm > .3 ? AMB : SODIUM, a: .5 + .4 * warm }, glow: { col: warm > .3 ? AMB : '#cfe0ff', a: .5 + .4 * warm }, shade: .3 * (1 - warm) });
+    const breathe = Math.sin(t * TAU / 4.3 + 1.1), up = shUp * 4.8 * NEAR.s * .9, ph0 = [PH[0] + Math.sin(t * .9) * 3, PH[1] + breathe * 2.5 - up * .55];
+    const ph = heldPhone(ctx, ph0[0], ph0[1], PHS, { t, pitch: .3, ang: -.16 + Math.sin(t * .7 + .4) * .012, skin: '#a8734f', lit: 1, warm: .4 + warm * .6, rim: SODIUM, rimA: .35, screen: phoneScreen(warm, swipe, back, foil, t) });
+    if (foil > 0 && foil < 1.2) { const [fx, fy] = ph.map(-40 + 120 * clamp(foil), 50); addGlow(ctx, fx, fy, 30, .5, AMB, CORE); }
+    const wr = ph.map(92, 292), el = [wr[0] + 120 * PHS / .54, wr[1] + 470 * PHS / .54];
+    sleeve(ctx, el, wr, { r0: 92 * PHS, r1: 76 * PHS, col: NEAR.look.coat, rim: { col: '#cfdcff', a: .35 }, rim2: { col: warm > .3 ? AMB : SODIUM, a: .3 + .3 * warm }, glow: { col: glowCol, a: .6 + .3 * warm, p: ph.map(0, 40) }, shade: .25 * (1 - warm) });
+    backFig(ctx, NEAR.x, NEAR.y, NEAR.s, { t, seed: NEAR.seed, look: NEAR.look, hold: { side: -1, at: 'ext' }, free: 'pocket', shUp, relax: lift, glowAt: ph.map(0, 60), ...lights(0), light: { x: 1500, y: 150, col: '#cfdcff', a: .6 } });
     ctx.restore();
     if (warm > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(PH[0], PH[1], 0, PH[0], PH[1], 1500); g.addColorStop(0, rgba('#ffb35c', .26 * warm)); g.addColorStop(.6, rgba('#ff9a3c', .1 * warm)); g.addColorStop(1, rgba('#ffb35c', 0)); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
       const fl = Math.exp(-Math.max(0, t - A.raise - .05) * 2.5) * warm; if (fl > .02) { ctx.fillStyle = rgba('#ffd9a0', .12 * fl); ctx.fillRect(0, 0, W, H); } ctx.restore(); }
     rain(ctx, t, { L: () => .5, n: 60, seed: 7, near: 1, a: .5 });
     vign(ctx, .55);
   }
-  const display513 = (t) => { const cam = cam513(t); return [(PH[0] - 960 - cam.x * 1.6) * cam.z + 960, (PH[1] - 540 - cam.y * 1.6) * cam.z + 540 - 20]; };
+  const display513 = (t) => { const cam = cam513(t); return [(PH[0] - 960 - cam.x * 1.6) * cam.z + 960, (PH[1] - 540 - cam.y * 1.6) * cam.z + 540 - 20 * PHS / .8]; };
 
   // ================================================================ 5.06 ▲ Automatically: the line engraves itself on the wet display
   const drops = () => once('drops506', () => { const r = prng(5); return Array.from({ length: 22 }, () => ({ x: r() * W, y0: r() * H, r: 10 + r() * 26, v: 60 + r() * 220, ph: r() })); });
@@ -764,23 +781,28 @@ export default (T, R) => {
   }
 
   // ================================================================ 5.15 envy turns into cheering
-  const HEADS = [{ x: 330, y: 560 + 167 * 5.0, s: 5.0, c: '#2a3350', a: '#c8843a', seed: 1 }, { x: 880, y: 600 + 167 * 4.4, s: 4.4, c: '#33304a', a: '#5fe0a8', seed: 2 }, { x: 1380, y: 590 + 167 * 4.6, s: 4.6, c: '#2a2f3c', a: '#e8a3a0', seed: 3 }, { x: 1830, y: 540 + 167 * 5.1, s: 5.1, c: '#3a3046', a: '#e9c46a', seed: 4 }];
-  const OUTPT = [880 + 19 * 4.4, 600 + 167 * 4.4 - 130 * 4.4];
+  // closer on the same four, in the same order as 5.13: the shoulders drop and the heads come up, the beanie raises a quiet fist
+  // with his free hand, the bun nudges him with her elbow (he gives a little, 100 ms later); sparks rise from the displays
+  const HEADS = [{ x: 300, y0: 512, s: 6.7, look: LOOKS.hood, seed: 2, hold: { at: 'chest' } }, { x: 846, y0: 538, s: 6.0, look: LOOKS.pack, seed: 3, hold: { side: 1, at: 'face' } },
+    { x: 1376, y0: 556, s: 6.3, look: LOOKS.bun, seed: 4, hold: { side: 1, at: 'face' } }, { x: 1880, y0: 480, s: 6.8, look: LOOKS.coat, seed: 1, hold: { side: -1, at: 'face' } }];
+  for (const P of HEADS) P.y = P.y0 + 167.6 * P.s * P.look.h / 180;
+  const OUTPT = phoneAt(HEADS[1].x, HEADS[1].y, HEADS[1].s, HEADS[1].look, HEADS[1].hold);   // the macro display lands on his phone
   function draw515(ctx, t) {
     const st = street(ctx, t, { cam: { x: 60 + 30 * lin(t515, R.b, t), y: 90, z: 1.32 }, board: .7, ped: 'red', warm: 1, words: false });
     ctx.fillStyle = 'rgba(8,10,22,.28)'; ctx.fillRect(0, 0, W, H);
+    splashes(ctx, t, { box: [-60, 900, 2040, 180], n: 26, col: '#ffd29a', a: .45, L: st.L, seed: 9 });
     rain(ctx, t, { L: st.L, n: 420, seed: 2, warm: 1 });
     const relax = E(A.envy + .3, .9, t), fist = lin(A.closer, A.cheering + .2, t), nudge = Math.sin(clamp(lin(A.cheering - .2, A.cheering + .7, t)) * Math.PI);
+    const give = Math.sin(clamp(lin(A.cheering - .1, A.cheering + .8, t)) * Math.PI);   // the reaction to the nudge, a beat later and smaller
+    const phones = [];
     for (let i = 0; i < HEADS.length; i++) { const P = HEADS[i];
-      const r = backFig(ctx, P.x + (i === 2 ? -nudge * 26 : 0) + (i === 1 ? -nudge * 10 : 0), P.y, P.s, { t, seed: P.seed, dress: { coat: P.c }, accent: P.a, shUp: 1 - relax, fist: i === 1 ? eio(fist) : 0, nudge: i === 2 ? nudge : 0,
-        light: { x: 1300, y: 100, col: '#ffcf8a', a: .8 }, light2: { x: 300, y: 80, col: SODIUM, a: .5 }, glow: { col: AMB, a: .9 }, shade: .1 });
-      if (i !== 1 || fist < .1) { const [px, py] = r.phone, sw = 13 * P.s, shh = 22 * P.s; ctx.save(); ctx.translate(px + 10 * P.s, py - 6 * P.s); ctx.rotate(.25); ctx.fillStyle = '#0b0e18'; ctx.fillRect(-sw / 2, -shh / 2, sw, shh);
-        ctx.fillStyle = '#f2efe6'; ctx.fillRect(-sw / 2 + 2, -shh / 2 + 5, sw - 4, shh * .42); ctx.fillStyle = '#e9c46a'; ctx.fillRect(-sw / 2 + 2, -shh / 2 + 5 + shh * .48, sw - 4, shh * .14); addGlow(ctx, 0, 0, sw * 1.8, .35, AMB, CORE); ctx.restore(); }
-    }
-    // sparks of the share light rise from the phones and speed up into the whip
+      const r = backFig(ctx, P.x + (i === 2 ? -nudge * 4.4 * P.s : 0) + (i === 1 ? -give * 1.7 * P.s : 0), P.y, P.s, { t, seed: P.seed, look: P.look, hold: P.hold, free: 'pocket', shUp: 1 - relax, relax, fist: i === 1 ? eio(fist) : 0, fistT: A.cheering + .2,
+        nudge: i === 2 ? nudge : 0, nudgeSide: -1, screen: sliver(i, t, 1), light: { x: 1300, y: 100, col: '#ffcf8a', a: .8 }, light2: { x: 300, y: 80, col: SODIUM, a: .5 }, glow: { col: AMB, a: .9 }, shade: .1 });
+      phones.push(r.phone); }
+    // sparks of the share light rise from the displays and speed up into the whip
     const r = prng(71), acc = expoIn(lin(A.cheering + .4, CO.t + .15, t));
     ctx.save(); ctx.globalCompositeOperation = 'lighter';
-    for (let i = 0; i < 40; i++) { const P = HEADS[i % 4], t0 = A.envy + .6 + r() * 2.2; if (t < t0) continue; const age = t - t0, x = P.x + 50 + (r() - .5) * 160 + Math.sin(age * 2 + i) * 14, y = P.y - 124 * P.s - age * (60 + r() * 60) - acc * 900;
+    for (let i = 0; i < 40; i++) { const P = phones[i % 4], t0 = A.envy + .6 + r() * 2.2; if (t < t0) continue; const age = t - t0, x = P[0] + (r() - .5) * 120 + Math.sin(age * 2 + i) * 14, y = P[1] - 20 - age * (60 + r() * 60) - acc * 900;
       const a = clamp(1 - age / 3.5) * .8; if (y < -40 || a <= 0) continue; addGlow(ctx, x, y, 14, a * .6, AMB, CORE); ctx.fillStyle = rgba(CORE, a); ctx.beginPath(); ctx.arc(x, y, 2.2, 0, TAU); ctx.fill(); }
     ctx.restore();
     vign(ctx, .5);
