@@ -20,6 +20,7 @@ for (const [id, a] of Object.entries(AMB)) {
 const sh = film.shots;
 for (let i = 1; i < sh.length; i++) { const tr = TR[sh[i - 1].out?.kind]; if (tr) out.push({ f: tr[0], t: sh[i].a - .25, v: tr[1] }); }
 for (const e of film.list) for (const s of e.sound || []) out.push(s);
+const mEnd = () => Math.min(E('7', 'same moment'), S('7', 'same moment') + .85); // E() of "moment." includes the breath pause
 const safe = (f) => { try { return f(); } catch (err) { console.warn('[sound]', err.message.slice(0, 90)); return null; } };
 const acc = [
   ['phone_buzz', () => E('H', 'buzzes') + .05, .8],                  // the buzz lands in the breath after "buzzes."
@@ -27,8 +28,8 @@ const acc = [
   ['shimmer_rings', () => S('H', 'largest') - .15, .4],              // the rosette of light rises
   ['gavel', () => E('2', 'years in court') + .03, .45],
   ['press_notes', () => E('2', 'at the US border') + .05, .45, 1.4],  // the press starts in the pause before "The second is to print"
-  ['phone_buzz', () => E('7', 'same moment') + .08, .75],             // two phones, one moment
-  ['phone_buzz', () => E('7', 'same moment') + .16, .55],
+  ['phone_buzz', () => mEnd() + .08, .75],                            // two phones, one moment (= A.buzz in sc10)
+  ['phone_buzz', () => mEnd() + .16, .55],
   ['shimmer_rings', () => S('7', 'That buzz') - .9, .3],
   ['bloom', () => E('7', "what's coming") + .5, .45],
 ];

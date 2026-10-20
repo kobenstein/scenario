@@ -59,7 +59,7 @@ export default (T, R) => {
   const A = {
     s620: C.into.t, dawn: S('dawn'),
     s621: S('A truck'), dusk: S('dusk'),
-    s622: S('Two phones'), phones: S('phones'), same0: S('same moment'), buzz: E('same moment') + .08,
+    s622: S('Two phones'), phones: S('phones'), same0: S('same moment'), buzz: Math.min(E('same moment'), S('same moment') + .85) + .08, // E() of "moment." carries the breath pause; the voice ends ~.75 s after "same"
     s623: S('same', 1), share: S('share'),
     s624: S('Not charity'), their: S('Their'), inh: S('inheritance'), inhE: E('inheritance'),
     buzz7: S7('That buzz') - .9, fantasy: S7('fantasy'),
