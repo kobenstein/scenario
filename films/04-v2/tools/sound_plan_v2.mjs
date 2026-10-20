@@ -41,5 +41,16 @@ for (const [id, f, v, a, b] of AMB) {
 }
 out.sort((p, q) => p.t - q.t);
 const dst = process.argv[2] || '/tmp/claude-0/mix/audio/sound_plan.json';
+// every named sound must exist next to the plan (audio/sfx/<f>.mp3, read by mix.py): fetch it from the libraries, else drop it loudly
+const SFX = dst.replace(/[^/]*$/, 'sfx/'), LIBS = ['/mnt/project-files/scenario/sfx-bibliothek/akzent/', '/mnt/project-files/scenario/sfx-bibliothek/atmo/', '/mnt/project-files/scenario/film-04-work/audio/sfx/'];
+fs.mkdirSync(SFX, { recursive: true });
+const missing = new Set();
+for (const f of new Set(out.map((o) => o.f))) {
+  if (fs.existsSync(SFX + f + '.mp3')) continue;
+  const src = LIBS.map((d) => d + f + '.mp3').find((p) => fs.existsSync(p));
+  if (src) fs.copyFileSync(src, SFX + f + '.mp3'); else missing.add(f);
+}
+if (missing.size) console.log('[sound] no file for', [...missing].join(' '), '(dropped)');
+for (let i = out.length - 1; i >= 0; i--) if (missing.has(out[i].f)) out.splice(i, 1);
 fs.writeFileSync(dst, JSON.stringify(out, null, 1));
 console.log(out.length, 'sound events ->', dst, '|', [...new Set(out.map((o) => o.f))].join(' '));
