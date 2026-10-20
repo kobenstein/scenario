@@ -14,6 +14,8 @@ const CACHE = new Map(); const once = (k, f) => { if (!CACHE.has(k)) CACHE.set(k
 const TAU = Math.PI * 2;
 const MANILA = [120.98, 14.6], OHIO = [-82.99, 39.96];
 export const MAPCAM10 = { cx: .34, cy: .45, z: 1.17, rot: -.09, tilt: .62, x: 960, y: 600, f: 1500 };
+// the screen point where the two rings touch (mapStar's mid at the touch; measured, the view is nearly still by then) = the zoom point into 6.23
+export const MAP_MID = [951, 576];
 const UTC = 22.2;   // 22:12 UTC = 6:12 PM in Ohio (EDT), 6:12 AM in Manila (PHT): the hook's "6:12" on both phones
 
 function lampCone() { return once('m10-lamp', () => { const [c, g] = canvas(W, H); cone(g, W * .88, -160, { dir: -.6, spread: .38, len: 1550, col: '#ffcf96', a: .15, k: .65, seed: 8, soft: .35 }); return c; }); }
@@ -22,11 +24,11 @@ const spark = () => sprite('m10-spark', 300, [[0, 'rgba(255,248,232,1)'], [.05, 
 // a phone lying on the paper (paper units), its display wakes, then buzzes
 function paperPhone(ctx, t, wake, buzz) {
   const lit = sm(lin(wake, wake + .4, t)), k = t > buzz ? Math.exp(-(t - buzz) * 2.4) : 0, jit = k * Math.sin(t * 95) * 1.1;
-  ctx.save(); ctx.translate(jit, 0); ctx.rotate(-.35);
+  ctx.save(); ctx.translate(jit, 0); ctx.rotate(-.35); ctx.scale(2.3, 2.3);
   ctx.fillStyle = 'rgba(5,6,14,.55)'; ctx.beginPath(); ctx.roundRect(-6 + 2.5, -11 + 3.5, 12, 22, 2.8); ctx.fill();
   ctx.fillStyle = '#121420'; ctx.beginPath(); ctx.roundRect(-6, -11, 12, 22, 2.8); ctx.fill();
   ctx.fillStyle = `rgb(${mix(28, 255, lit) | 0},${mix(33, 222, lit) | 0},${mix(51, 170, lit) | 0})`; ctx.beginPath(); ctx.roundRect(-4.7, -9.4, 9.4, 18.8, 2); ctx.fill();
-  if (lit > 0) { ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 46); g.addColorStop(0, `rgba(255,200,130,${.25 * lit + .55 * k})`); g.addColorStop(1, 'rgba(255,170,90,0)'); ctx.fillStyle = g; ctx.fillRect(-46, -46, 92, 92); }
+  if (lit > 0) { ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 46); g.addColorStop(0, `rgba(255,206,140,${.4 * lit + .6 * k})`); g.addColorStop(1, 'rgba(255,170,90,0)'); ctx.fillStyle = g; ctx.fillRect(-46, -46, 92, 92); }
   ctx.restore();
 }
 // clock label: the minute flips from 11 to 12 at `same` (both at the same frame)
@@ -94,10 +96,10 @@ function cardLayer() {
   return once('m10-card', () => {
     const pad = 40, [c, g] = canvas(CW + pad * 2, CHh + pad * 2); g.translate(pad, pad);
     g.save(); g.shadowColor = 'rgba(0,0,0,.6)'; g.shadowBlur = 40; g.shadowOffsetY = 18; g.fillStyle = '#2a1d1a'; g.beginPath(); g.roundRect(0, 0, CW, CHh, 34); g.fill(); g.restore();
-    const bg = g.createLinearGradient(0, 0, CW, CHh); bg.addColorStop(0, '#3a2620'); bg.addColorStop(.5, '#2c1d1c'); bg.addColorStop(1, '#3a2420'); g.fillStyle = bg; g.beginPath(); g.roundRect(0, 0, CW, CHh, 34); g.fill();
+    const bg = g.createLinearGradient(0, 0, CW, CHh); bg.addColorStop(0, '#523528'); bg.addColorStop(.5, '#3c2722'); bg.addColorStop(1, '#4e3026'); g.fillStyle = bg; g.beginPath(); g.roundRect(0, 0, CW, CHh, 34); g.fill();
     g.save(); g.beginPath(); g.roundRect(0, 0, CW, CHh, 34); g.clip(); rosette(g, CW * .62, CHh * .5, { R: 300, A: 40, B: 18, n: 30, m: 11, lines: 46, col: '#c87a2c', w: .5, a: .12 }); g.restore();
-    gBorder(g, 10, 10, CW - 20, CHh - 20, { band: 18, lines: 6, waves: 120, col: '#ffb35c', w: .7, a: .55, radius: 26 });
-    rosette(g, 150, CHh * .5, { R: 62, A: 16, B: 7, n: 16, m: 7, lines: 30, col: '#ffcf8a', w: .7, a: .9 });
+    gBorder(g, 10, 10, CW - 20, CHh - 20, { band: 18, lines: 6, waves: 120, col: '#ffb35c', w: .8, a: .85, radius: 26 });
+    rosette(g, 150, CHh * .5, { R: 64, A: 12, B: 6, n: 18, m: 7, lines: 26, col: '#ffcf8a', w: .6, a: .6 }); g.strokeStyle = 'rgba(255,207,138,.7)'; g.lineWidth = 1.2; g.beginPath(); g.arc(150, CHh * .5, 84, 0, TAU); g.stroke();
     microtext(g, 270, 252, 560, 'ONE EQUAL SHARE FOR EVERY PERSON ON EARTH', { size: 7, col: '#ffcf8a', a: .55 });
     text(g, 'of the largest fortune ever made', 272, 222, { size: 26, weight: 400, color: 'rgba(255,225,190,.82)' });
     stipple(c, { k: .2, g: 1, seed: 6, mid: false, boost: 1 });
@@ -116,12 +118,13 @@ export function cards(ctx, t, o = {}) {
   const t0 = o.t0 ?? 0, reg = o.reg ?? t0 + .3, glintAt = o.glint ?? reg + .2, ex = o.exit ?? t0 + 1;
   // ground: an engraved plate, dawn-peach on the left, dusk-orange on the right, the rings still running through it
   ctx.fillStyle = '#120d1c'; ctx.fillRect(0, 0, W, H);
-  { const g1 = ctx.createRadialGradient(260, 520, 0, 260, 520, 1100); g1.addColorStop(0, 'rgba(245,176,138,.34)'); g1.addColorStop(1, 'rgba(245,176,138,0)'); ctx.fillStyle = g1; ctx.fillRect(0, 0, W, H);
-    const g2 = ctx.createRadialGradient(1680, 560, 0, 1680, 560, 1100); g2.addColorStop(0, 'rgba(240,138,75,.32)'); g2.addColorStop(1, 'rgba(240,138,75,0)'); ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H); }
+  { const g1 = ctx.createRadialGradient(260, 520, 0, 260, 520, 1100); g1.addColorStop(0, 'rgba(240,138,75,.32)'); g1.addColorStop(1, 'rgba(240,138,75,0)'); ctx.fillStyle = g1; ctx.fillRect(0, 0, W, H);
+    const g2 = ctx.createRadialGradient(1680, 560, 0, 1680, 560, 1100); g2.addColorStop(0, 'rgba(245,176,138,.34)'); g2.addColorStop(1, 'rgba(245,176,138,0)'); ctx.fillStyle = g2; ctx.fillRect(0, 0, W, H); }
   const lt = t - t0;
   for (const [cx, k] of [[-260, 0], [W + 260, 1]]) for (let j = 0; j < 3; j++) { const r = 700 + j * 110 + lt * 60; ring(ctx, cx, 540, r, r * .9, { lines: 5, band: 14, wave: 40, col: '#fff1d6', glow: '#ffb35c', glowA: .05, a: .22 - j * .05, lw: .6, ph: t * .3 + j + k }); }
   const u = expoOut(clamp((t - t0 + .05) / (reg - t0 + .05))), off = (1 - u) * 640, rise = expoIn(clamp((t - ex) / .4)) * 900, y = 540 - 40 - rise;
   const L = cardLayer(), TT = titleFoil();
+  ctx.save(); ctx.translate(W / 2, 540); ctx.scale(1.4, 1.4); ctx.translate(-W / 2, -540);
   const drawCard = (dx, tag, tagAlign, a) => {
     ctx.save(); ctx.globalAlpha = a; ctx.translate(W / 2 + dx, y); ctx.rotate(dx * -.00012);
     ctx.drawImage(L, -CW / 2 - 40, -CHh / 2 - 40);
@@ -131,13 +134,14 @@ export function cards(ctx, t, o = {}) {
     const tx = tagAlign === 'left' ? W / 2 + dx - CW / 2 + 10 : W / 2 + dx + CW / 2 - 10;
     text(ctx, tag, tx, y - CHh / 2 - 26, { size: 18, weight: 600, color: '#ffd59a', spacing: 5, align: tagAlign, alpha: a * .95 });
   };
-  drawCard(-off, 'MANILA · 6:12 AM', 'left', 1);
-  ctx.save(); ctx.globalCompositeOperation = u > .985 ? 'source-over' : 'source-over'; drawCard(off, 'OHIO · 6:12 PM', 'right', u > .985 ? .55 : .92); ctx.restore();
+  drawCard(-off, 'OHIO · 6:12 PM', 'left', 1);
+  ctx.save(); ctx.globalCompositeOperation = u > .985 ? 'source-over' : 'source-over'; drawCard(off, 'MANILA · 6:12 AM', 'right', u > .985 ? .55 : .92); ctx.restore();
   // in register: one impression; a foil glint runs through both at once, the marks lock with a tiny flash
   if (t > reg - .02) {
     const p = new Path2D(); p.rect(W / 2 - CW / 2 + 262, y - CHh / 2 + 52, 620, 150);
     ctx.save(); foilGlint(ctx, p, (t - glintAt) * 2.2, { x: W / 2 - CW / 2 + 160, y: y - 40, span: 900, width: 120, speed: .5, a: 1.2 }); ctx.restore();
     const fl = Math.exp(-Math.max(0, t - reg) * 6); ctx.save(); ctx.globalCompositeOperation = 'lighter'; for (const mx of [W / 2 - CW / 2 - 40, W / 2 + CW / 2 + 40]) { const g = ctx.createRadialGradient(mx, y, 0, mx, y, 60); g.addColorStop(0, `rgba(255,241,214,${.8 * fl})`); g.addColorStop(1, 'rgba(255,179,92,0)'); ctx.fillStyle = g; ctx.fillRect(mx - 60, y - 60, 120, 120); } ctx.restore();
   }
+  ctx.restore();
   const vg = ctx.createRadialGradient(W / 2, H / 2, 380, W / 2, H / 2, 1200); vg.addColorStop(0, 'rgba(8,6,14,0)'); vg.addColorStop(1, 'rgba(8,6,14,.6)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, W, H);
 }

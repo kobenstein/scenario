@@ -172,8 +172,8 @@ export function paths(ctx, t, o = {}) {
     for (const name of NAMES) {
       const uu = u[NAMES.indexOf(name)] ?? 1; if (uu < .55 || la <= 0) continue;
       const q = name === 'print' ? .5 : .56, p = along(name, q), [, , s] = Pr.P(...centre(name).pts[Math.round(q * 260)]);
-      const size = clamp(64 * s * 1.6, 30, 96), al = la * clamp((uu - .55) / .25) * (o.hi ? (o.hi === name ? 1 : .5) : 1), side = name === 'take' ? -1 : name === 'agree' ? 1 : 0;
-      const x = p.x + side * 30 * s, y = p.y - 70 * Math.max(.5, s) - size * .2;
+      const size = clamp(64 * s * 1.6, 42, 96), al = la * clamp((uu - .55) / .25) * (o.hi ? (o.hi === name ? 1 : .5) : 1), side = name === 'take' ? -1 : name === 'agree' ? 1 : 0;
+      const x = p.x + side * 30 * s + (name === 'print' ? size * 1.9 : 0), y = p.y - 70 * Math.max(.5, s) - size * .2;   // PRINT sits beside its band, not on it
       ctx.save(); ctx.shadowColor = 'rgba(2,3,12,.9)'; ctx.shadowBlur = 12;
       text(ctx, LABEL[name], x, y, { size, font: 'Instrument Serif', color: rgba(name === 'agree' ? '#ffd59a' : name === 'print' ? '#9fe0cf' : '#f0a07c', al), align: 'center', spacing: size * .12 });
       ctx.restore();

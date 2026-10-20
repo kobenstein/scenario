@@ -47,10 +47,13 @@ export function burin(ctx, x, y, ang, s, t, o = {}) {
   const tx = x - dx * lift * 26 * s, ty = y - dy * lift * 26 * s - lift * 34 * s;
   ctx.save(); ctx.globalAlpha = a;
   // contact shadow of the shaft on the plate (soft), offset away from the tip light
-  ctx.save(); ctx.translate(tx + 10 * s, ty + 16 * s + lift * 30 * s); ctx.rotate(ang); ctx.filter = 'blur(6px)'; ctx.fillStyle = `rgba(0,0,0,${.45 * (1 - lift * .6)})`; ctx.fillRect(-L, -7 * s, L - 6 * s, 14 * s); ctx.filter = 'none'; ctx.restore();
+  // (no live blur: three widening soft bands make the penumbra)
+  ctx.save(); ctx.translate(tx + 10 * s, ty + 16 * s + lift * 30 * s); ctx.rotate(ang); const sa = .45 * (1 - lift * .6);
+  for (const [hw, al] of [[14, .22], [9, .32], [5, .5]]) { ctx.fillStyle = `rgba(0,0,0,${sa * al})`; ctx.beginPath(); ctx.roundRect(-L, -hw * s, L - 6 * s, hw * 2 * s, hw * s); ctx.fill(); }
+  ctx.restore();
   // the hand behind the tool: wrist back along the shaft, fingers wrap the handle
   const wx = tx - dx * 268 * s, wy = ty - dy * 268 * s;
-  hand(ctx, wx, wy, s * 1.32, { pose: 'grip', ang, flip: o.flip, skin: o.skin || '#b98261', sleeve: o.sleeve || '#5a3a26', rim: o.rim || '#ffd59a', light: [dx, dy], t, seed: 4, close: .15, sleeveLen: 300 });
+  hand(ctx, wx, wy, s * 1.32, { pose: 'grip', ang, flip: o.flip, skin: o.skin || '#b98261', sleeve: o.sleeve || '#5a3a26', rim: o.rim || '#ffd59a', light: [dx, dy], t, seed: 4, close: .15, sleeveLen: o.sleeveLen ?? 300 });
   // the tool on top (the shaft runs out between thumb and index)
   const T = burinTool(); ctx.save(); ctx.translate(tx, ty); ctx.rotate(ang); ctx.scale(s, s); ctx.drawImage(T, -300, -60); ctx.restore();
   // the index finger lying along the shaft (a capsule on top), rim lit
@@ -141,22 +144,24 @@ function boxLayer() {
   return once('fundbox', () => {
     const w = 520, h = 470, [c, g] = canvas(w, h), x0 = 60, top = 150, fw = 360, fh = 250, d = 90; // front face x0..x0+fw, top edge at `top`
     // back rim (inside) and the dark inside
-    g.fillStyle = '#120d0a'; g.beginPath(); g.moveTo(x0, top); g.lineTo(x0 + d, top - d * .62); g.lineTo(x0 + fw + d, top - d * .62); g.lineTo(x0 + fw, top); g.closePath(); g.fill();
-    // side face (right)
-    const sg = g.createLinearGradient(x0 + fw, 0, x0 + fw + d, 0); sg.addColorStop(0, '#4a3020'); sg.addColorStop(1, '#2a1a12');
+    g.fillStyle = '#06071a'; g.beginPath(); g.moveTo(x0, top); g.lineTo(x0 + d, top - d * .62); g.lineTo(x0 + fw + d, top - d * .62); g.lineTo(x0 + fw, top); g.closePath(); g.fill();
+    // side face (right): deep indigo, engraved diagonals
+    const sg = g.createLinearGradient(x0 + fw, 0, x0 + fw + d, 0); sg.addColorStop(0, '#22264f'); sg.addColorStop(1, '#0f1132');
     g.fillStyle = sg; g.beginPath(); g.moveTo(x0 + fw, top); g.lineTo(x0 + fw + d, top - d * .62); g.lineTo(x0 + fw + d, top - d * .62 + fh); g.lineTo(x0 + fw, top + fh); g.closePath(); g.fill();
-    // front face: wood/cream panel with an engraved border and label plate
-    const fg = g.createLinearGradient(0, top, 0, top + fh); fg.addColorStop(0, '#6a4630'); fg.addColorStop(1, '#3a2418'); g.fillStyle = fg; g.fillRect(x0, top, fw, fh);
-    g.save(); g.beginPath(); g.rect(x0, top, fw, fh); g.clip(); g.strokeStyle = 'rgba(20,10,6,.35)'; g.lineWidth = 1; for (let i = 0; i < 60; i++) { const yy = top + i * 4.3 + Math.sin(i) * 1.5; g.beginPath(); g.moveTo(x0, yy); g.bezierCurveTo(x0 + fw * .3, yy + 3, x0 + fw * .7, yy - 3, x0 + fw, yy + 1); g.stroke(); } g.restore();
-    gBorder(g, x0 + 10, top + 10, fw - 20, fh - 20, { band: 12, lines: 4, waves: 80, col: '#e9c98a', w: .55, a: .75, radius: 6 });
-    // brass corners
-    g.fillStyle = '#c9a45a'; for (const [cx, cy] of [[x0, top], [x0 + fw - 22, top], [x0, top + fh - 22], [x0 + fw - 22, top + fh - 22]]) g.fillRect(cx, cy, 22, 22);
+    g.save(); g.clip(); g.strokeStyle = 'rgba(233,215,170,.07)'; g.lineWidth = 1; for (let i = 0; i < 70; i++) { const yy = top - d + i * 5; g.beginPath(); g.moveTo(x0 + fw, yy); g.lineTo(x0 + fw + d, yy - d * .62); g.stroke(); } g.restore();
+    // front face: an engraved panel (intaglio lines on indigo), a guilloche border in cream foil, the label plate
+    const fg = g.createLinearGradient(0, top, 0, top + fh); fg.addColorStop(0, '#30346a'); fg.addColorStop(1, '#171a40'); g.fillStyle = fg; g.fillRect(x0, top, fw, fh);
+    g.save(); g.beginPath(); g.rect(x0, top, fw, fh); g.clip(); g.strokeStyle = 'rgba(233,215,170,.09)'; g.lineWidth = .9; for (let i = 0; i < 64; i++) { const yy = top + i * 4 + Math.sin(i * .7) * 1.2; g.beginPath(); g.moveTo(x0, yy); g.bezierCurveTo(x0 + fw * .3, yy + 4, x0 + fw * .7, yy - 4, x0 + fw, yy + 1); g.stroke(); } g.restore();
+    gBorder(g, x0 + 10, top + 10, fw - 20, fh - 20, { band: 14, lines: 5, waves: 90, col: '#f0d6a0', w: .6, a: .8, radius: 6 });
+    // foil rivets in the corners
+    for (const [cx, cy] of [[x0 + 24, top + 24], [x0 + fw - 24, top + 24], [x0 + 24, top + fh - 24], [x0 + fw - 24, top + fh - 24]]) { const rg = g.createRadialGradient(cx - 2, cy - 2, 0, cx, cy, 7); rg.addColorStop(0, '#fff1d6'); rg.addColorStop(.6, '#d9a85a'); rg.addColorStop(1, '#6a4a20'); g.fillStyle = rg; g.beginPath(); g.arc(cx, cy, 6.5, 0, TAU); g.fill(); }
     // label plate (paper)
     const lx = x0 + 60, ly = top + 78, lw = fw - 120, lh = 84; g.save(); g.translate(lx, ly); sheetBase(g, lw, lh, 17); g.restore();
     g.strokeStyle = rgba(INK, .6); g.lineWidth = 1; g.strokeRect(lx + 6, ly + 6, lw - 12, lh - 12);
     text(g, 'PUBLIC FUND', lx + lw / 2, ly + 52, { size: 30, font: 'Instrument Serif', color: '#22314a', align: 'center', spacing: 4 });
-    // rim highlight
-    g.strokeStyle = 'rgba(255,220,170,.55)'; g.lineWidth = 2; g.beginPath(); g.moveTo(x0, top); g.lineTo(x0 + fw, top); g.lineTo(x0 + fw + d, top - d * .62); g.stroke();
+    // foil edges (the rim catches the light)
+    g.strokeStyle = 'rgba(255,214,150,.75)'; g.lineWidth = 2.2; g.beginPath(); g.moveTo(x0, top + fh); g.lineTo(x0, top); g.lineTo(x0 + fw, top); g.lineTo(x0 + fw + d, top - d * .62); g.stroke();
+    g.strokeStyle = 'rgba(255,214,150,.3)'; g.lineWidth = 1.4; g.beginPath(); g.moveTo(x0 + fw, top); g.lineTo(x0 + fw, top + fh); g.stroke();
     stipple(c, { k: .25, g: 1, seed: 19, mid: false, boost: 1 });
     return { c, x0, top, fw, fh, d };
   });
@@ -223,7 +228,7 @@ export function fileStack(ctx, x, y, s, h, t, o = {}) {
   const n = Math.floor(h), fr = h - n, r = prng(o.seed ?? 3); let yy = y;
   ctx.save();
   // ground shadow
-  ctx.save(); ctx.translate(x, y + 4 * s); ctx.scale(1, .25); const sg = ctx.createRadialGradient(0, 0, 0, 0, 0, 120 * s); sg.addColorStop(0, 'rgba(0,0,0,.5)'); sg.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(0, 0, 120 * s, 0, TAU); ctx.fill(); ctx.restore();
+  ctx.save(); ctx.translate(x, y + 4 * s); ctx.scale(1, .25); const sg = ctx.createRadialGradient(0, 0, 0, 0, 0, 120 * s); sg.addColorStop(0, `rgba(0,0,0,${.5 * clamp(h * .6)})`); sg.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(0, 0, 120 * s, 0, TAU); ctx.fill(); ctx.restore();
   for (let i = 0; i <= n; i++) {
     const th = (10 + r() * 8) * s, w = (150 + r() * 26) * s, dx = (r() - .5) * 14 * s, tone = ['#d9c9a4', '#cbb88f', '#e2d3b0', '#c4ae86'][Math.floor(r() * 4)];
     if (i === n) { if (fr <= 0) break; const k = eout(fr); yy -= th * k; const drop = (1 - k) * 60 * s; ctx.globalAlpha = k; drawFolder(ctx, x + dx, yy - drop, w, th, tone, r, s); ctx.globalAlpha = 1; break; }

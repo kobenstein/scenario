@@ -95,7 +95,8 @@ function limbPoly(ctx, pts, w0, w1) {
 export function tree(ctx, x, y, s, t, o = {}) {
   const S = build(o.seed ?? 5), g = clamp(o.grow ?? 1), a = o.a ?? 1, ink = o.ink || null, light = o.light || '#ffb35c';
   const ld = o.lightDir || [.6, -.8], lm = Math.hypot(ld[0], ld[1]) || 1, lx = ld[0] / lm, ly = ld[1] / lm;
-  const dU = o.doubleAt != null ? t - o.doubleAt : -1, kd = o.doubleAt != null ? 1 + ((o.dbl ?? 2) - 1) * jolt(dU) : 1;
+  const dA = Number.isFinite(o.doubleAt) ? o.doubleAt : null;   // a missing/NaN signal never breaks the canvas
+  const dU = dA != null ? t - dA : -1, kd = dA != null ? 1 + ((o.dbl ?? 2) - 1) * jolt(dU) : 1;
   const shake = clamp((o.shake ?? 0) + (dU > 0 ? Math.exp(-dU * 4) * 1.2 : 0)), wind = (o.wind ?? 1) * (1 + shake * 2.5);
   const K = s * kd;
   // young trees are green and slim; the bark browns as it grows

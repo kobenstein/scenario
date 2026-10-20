@@ -27,9 +27,9 @@ const shade = (hex, d) => mixHex(hex, d < 0 ? '#000000' : '#ffffff', Math.abs(d)
 // ---------------------------------------------------------------- aurora
 // curtains: y = base line (px), h = height, x0..x1 span, A = sway amplitude, f1/f2 = waves across, w1/w2 = speed, p = parallax
 export const CURTAINS = [
-  { x0: -240, x1: 2160, y: 360, h: 300, A: 46, f1: 5.2, f2: 11.5, w1: .16, w2: .23, ph: 0, lines: 30, band: 9, nw: 9, wv: .5, lw: .8, a: .62, p: .25, rays: 150, col0: '#b8ffe0', col1: '#5fe0a8', col2: '#5a5fc8' },
-  { x0: 300, x1: 2300, y: 230, h: 210, A: 34, f1: 4.1, f2: 9.3, w1: -.12, w2: .19, ph: 2.1, lines: 22, band: 7, nw: 7, wv: -.4, lw: .7, a: .38, p: .18, rays: 100, col0: '#9ff7d8', col1: '#3fc9c0', col2: '#5a5fc8' },
-  { x0: -300, x1: 1100, y: 170, h: 160, A: 26, f1: 3.3, f2: 8.1, w1: .1, w2: -.15, ph: 4.2, lines: 18, band: 6, nw: 6, wv: .35, lw: .6, a: .28, p: .14, rays: 70, col0: '#9ff7d8', col1: '#3fc9c0', col2: '#6f62c8' },
+  { x0: -240, x1: 2160, y: 380, h: 400, A: 52, f1: 5.2, f2: 11.5, w1: .16, w2: .23, ph: 0, lines: 34, band: 9, nw: 9, wv: .5, lw: .9, a: .95, p: .25, rays: 150, col0: '#b8ffe0', col1: '#5fe0a8', col2: '#5a5fc8' },
+  { x0: 300, x1: 2300, y: 250, h: 280, A: 38, f1: 4.1, f2: 9.3, w1: -.12, w2: .19, ph: 2.1, lines: 24, band: 7, nw: 7, wv: -.4, lw: .8, a: .6, p: .18, rays: 100, col0: '#9ff7d8', col1: '#3fc9c0', col2: '#5a5fc8' },
+  { x0: -300, x1: 1100, y: 190, h: 220, A: 30, f1: 3.3, f2: 8.1, w1: .1, w2: -.15, ph: 4.2, lines: 20, band: 6, nw: 6, wv: .35, lw: .7, a: .42, p: .14, rays: 70, col0: '#9ff7d8', col1: '#3fc9c0', col2: '#6f62c8' },
 ];
 function curtainGeo(c, t, dx, dy, N = 140) {
   const xs = new Float64Array(N + 1), base = new Float64Array(N + 1), hg = new Float64Array(N + 1);
@@ -52,23 +52,27 @@ export function aurora(ctx, t, o = {}) {
     const G = curtainGeo(c, t, dx, dy), { xs, base, hg, N } = G;
     // glow along the lower edge (wide, faint strokes) and a veil above it
     for (const [w, al] of [[90, .025], [40, .05], [14, .09]]) { ctx.globalAlpha = a * c.a * al * 1.6; ctx.strokeStyle = c.col1; ctx.lineWidth = w; ctx.beginPath(); for (let i = 0; i <= N; i++) { const y = base[i] - w * .25; i ? ctx.lineTo(xs[i], y) : ctx.moveTo(xs[i], y); } ctx.stroke(); }
+    // the veil: the curtain's body, bright just above the lower edge, fading upward into violet
+    { let yb = -1e9, yt = 1e9; for (let i = 0; i <= N; i++) { yb = Math.max(yb, base[i]); yt = Math.min(yt, base[i] - hg[i] * fan); }
+      const vg = ctx.createLinearGradient(0, yb + 10, 0, yt); vg.addColorStop(0, rgba(c.col0, 0)); vg.addColorStop(.05, rgba(c.col0, .26)); vg.addColorStop(.25, rgba(c.col1, .13)); vg.addColorStop(.6, rgba(c.col2, .05)); vg.addColorStop(1, rgba(c.col2, 0));
+      ctx.globalAlpha = a * c.a; ctx.fillStyle = vg; ctx.beginPath(); for (let i = 0; i <= N; i++) i ? ctx.lineTo(xs[i], base[i] + 6) : ctx.moveTo(xs[i], base[i] + 6); for (let i = N; i >= 0; i--) ctx.lineTo(xs[i], base[i] - hg[i] * fan); ctx.closePath(); ctx.fill(); }
     // the curtain: guilloche lines weaving upward, green at the base → teal → violet at the top
     const L = Math.max(2, Math.round(c.lines * mix(.15, 1, fan)));
     for (let k = 0; k < L; k++) {
       const f = k / (c.lines - 1) * mix(.2, 1, fan), col = f < .45 ? mixHex(c.col0, c.col1, f / .45) : mixHex(c.col1, c.col2, (f - .45) / .55);
-      ctx.strokeStyle = col; ctx.globalAlpha = a * c.a * Math.pow(1 - f, 1.35) * (.55 + .45 * Math.sin(k * 1.73 + 1)); ctx.lineWidth = c.lw * (1 + (1 - f) * .6);
+      ctx.strokeStyle = col; ctx.globalAlpha = .55 * a * c.a * Math.pow(1 - f, 1.35) * (.55 + .45 * Math.sin(k * 1.73 + 1)); ctx.lineWidth = c.lw * (1 + (1 - f) * .6);
       ctx.beginPath();
       for (let i = 0; i <= N; i++) { const q = i / N, wv = Math.sin(q * c.nw * TAU + k * .83 + t * c.wv) * c.band * (1 - f * .4) + Math.sin(q * c.nw * 2.07 * TAU - k * 1.3 + t * c.wv * .7) * c.band * .3; const y = base[i] - hg[i] * f + wv; i ? ctx.lineTo(xs[i], y) : ctx.moveTo(xs[i], y); }
       ctx.stroke();
     }
     // vertical rays: travelling brightness waves, each ray three stacked strokes (bright at the base, fading up)
-    const R = Math.round(c.rays * fan);
+    const R = Math.round(c.rays * 2 * fan);
     for (let j = 0; j < R; j++) {
-      const q = (j + .5) / c.rays + .004 * Math.sin(t * .8 + j), i = Math.min(N, Math.max(0, Math.round(q * N))), x = xs[i];
+      const q = (j + .5) / (c.rays * 2) + .004 * Math.sin(t * .8 + j), i = Math.min(N, Math.max(0, Math.round(q * N))), x = xs[i];
       const b = Math.pow(.5 + .5 * Math.sin(q * 41 + t * 1.1 + c.ph) * Math.sin(q * 13 - t * .63 + j * .1), 2.2); if (b < .05) continue;
       const y0 = base[i] + 4, top = hg[i] * (.55 + .45 * Math.abs(Math.sin(j * 2.31 + c.ph)));
-      ctx.lineWidth = .9 + 1.3 * Math.abs(Math.sin(j * 3.7));
-      for (let s = 0; s < 3; s++) { ctx.globalAlpha = a * c.a * b * [.5, .22, .08][s]; ctx.strokeStyle = s ? c.col1 : c.col0; ctx.beginPath(); ctx.moveTo(x, y0 - top * s / 3); ctx.lineTo(x + (s + 1) * .6, y0 - top * (s + 1) / 3); ctx.stroke(); }
+      ctx.lineWidth = 1.2 + 2.4 * Math.abs(Math.sin(j * 3.7));
+      for (let s = 0; s < 3; s++) { ctx.globalAlpha = a * c.a * b * [.6, .3, .12][s]; ctx.strokeStyle = s ? c.col1 : c.col0; ctx.beginPath(); ctx.moveTo(x, y0 - top * s / 3); ctx.lineTo(x + (s + 1) * .6, y0 - top * (s + 1) / 3); ctx.stroke(); }
     }
   }
   ctx.restore();
@@ -302,13 +306,13 @@ export function northWide(ctx, t, o = {}) {
   { const [dx, dy] = L(.35); ctx.drawImage(northTrees(), dx, dy + drop(.9)); }
   const gd = drop(1);
   { const [dx, dy] = L(.6); ctx.drawImage(northGround(), dx, dy + gd); }
-  { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const br = .5 + .5 * Math.sin(t * .4); const gg = ctx.createLinearGradient(0, HZ + gd, 0, H + gd); gg.addColorStop(0, `rgba(95,224,168,${.12 + .05 * br})`); gg.addColorStop(1, 'rgba(95,224,168,0)'); ctx.fillStyle = gg; ctx.fillRect(0, HZ + gd - 40, W, H); ctx.restore(); }
+  { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const br = .5 + .5 * Math.sin(t * .4); const cyG = cam.y * .6, gg = ctx.createLinearGradient(0, HZ + gd + cyG - 40, 0, H + gd + cyG); gg.addColorStop(0, 'rgba(95,224,168,0)'); gg.addColorStop(.06, `rgba(95,224,168,${.12 + .05 * br})`); gg.addColorStop(1, 'rgba(95,224,168,0)'); ctx.fillStyle = gg; ctx.fillRect(0, HZ + gd + cyG - 40, W, H + 40); ctx.restore(); }
   // houses in depth: trailer (far right), villa (middle), cabin (near left) and their mailboxes at the road
   const P = (p, x, y) => [x + cam.x * p, y + cam.y * p + gd];
   const boxes = [];
   { const [x, y] = P(.62, 1540, 640); const S = trailerSprite(1); ctx.drawImage(S, x - 150, y - 130 * 1 + 4); }
-  { const [x, y] = P(.64, 1400, 652); boxes.push(mailbox(ctx, x, y, .5, 'trailer', { t, glow: same, env: 1 }).env); }
   { const [x, y] = P(.66, 1150, 688); const S = villaSprite(1); ctx.drawImage(S, x - 320, y - 330); }
+  { const [x, y] = P(.64, 1752, 672); boxes.push(mailbox(ctx, x, y, .54, 'trailer', { t, glow: same, env: 1 }).env); }
   { const [x, y] = P(.68, 960, 714); boxes.push(mailbox(ctx, x, y, .62, 'villa', { t, glow: same, env: 1 }).env); }
   // chimney smoke from the cabin (drawn before the cabin sprite)
   { const [x, y] = P(.8, 420, 812); smoke(ctx, t, x + 2, y - 318 + 26); const S = cabinSprite(1); ctx.drawImage(S, x - 210, y - 300); }
@@ -365,7 +369,7 @@ export function seasonsMailbox(ctx, t, o = {}) {
   const lg = ctx.createLinearGradient(0, 0, 0, H * .7); lg.addColorStop(0, mixHex(S.sky0, '#050a18', .5 * (1 - day))); lg.addColorStop(1, mixHex(S.sky1, '#0c1b33', .45 * (1 - day))); ctx.fillStyle = lg; ctx.fillRect(0, 0, W, H);
   ctx.fillStyle = mixHex('#14243a', S.ground, .25); ctx.beginPath(); ctx.moveTo(0, 600); for (let x = 0; x <= W; x += 40) ctx.lineTo(x, 560 - 40 * Math.abs(Math.sin(x * .013)) - 20 * Math.sin(x * .05)); ctx.lineTo(W, 640); ctx.lineTo(0, 640); ctx.fill();
   // the cabin wall behind, out of focus
-  ctx.save(); ctx.filter = 'blur(4px)'; ctx.drawImage(cabinSprite(1.6), 60, 120); ctx.filter = 'none'; ctx.restore();
+  ctx.drawImage(once('cabinblur', () => { const S = cabinSprite(1.6), [c, g] = canvas(S.width + 40, S.height + 40); g.filter = 'blur(4px)'; g.drawImage(S, 20, 20); g.filter = 'none'; g.globalCompositeOperation = 'destination-out'; const fg = g.createLinearGradient(c.width - 220, 0, c.width - 30, 0); fg.addColorStop(0, 'rgba(0,0,0,0)'); fg.addColorStop(1, 'rgba(0,0,0,1)'); g.fillStyle = fg; g.fillRect(c.width - 220, 0, 220, c.height); return c; }), 40, 100);
   // ground: snow ↔ grass
   const gg = ctx.createLinearGradient(0, 620, 0, H); gg.addColorStop(0, S.ground); gg.addColorStop(1, mixHex(S.ground, '#101824', .55)); ctx.fillStyle = gg; ctx.fillRect(0, 620, W, H - 620);
   const r = prng(5); for (let i = 0; i < 260; i++) { const x = r() * W, y = 640 + r() * 440, l = 6 + r() * 16; ctx.strokeStyle = S.snow > .5 ? 'rgba(150,170,200,.35)' : rgba(mixHex('#2a4a20', S.ground, .3), .6); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 2, y - l * (1 - S.snow)); ctx.stroke(); }
@@ -386,19 +390,23 @@ export function seasonsMailbox(ctx, t, o = {}) {
 
 // ---------------------------------------------------------------- 3.07b · rich or poor
 export function twoBoxes(ctx, t, o = {}) {
-  const pull = clamp(o.pull ?? 0), cam = o.cam || { x: 0, y: 0 };
+  const pull = clamp(o.pull ?? 0), cam = o.cam || { x: 0, y: 0 }, drop = clamp(o.drop ?? 0);
   // night snow, the aurora above (far), two boxes, a spruce trunk between them in the foreground
   ctx.drawImage(northSky(), -200 + cam.x * .1, -60);
   aurora(ctx, t, { dx: cam.x - 300, dy: -60, a: .7 });
   const lg = ctx.createLinearGradient(0, 640, 0, H); lg.addColorStop(0, '#8ea6c4'); lg.addColorStop(1, '#2b3f60'); ctx.fillStyle = lg; ctx.fillRect(0, 640, W, H);
-  ctx.save(); ctx.filter = 'blur(3px)'; ctx.drawImage(villaSprite(1.2), -120 + cam.x * .4, 160); ctx.drawImage(trailerSprite(1.6), 1300 + cam.x * .4, 400); ctx.filter = 'none'; ctx.restore();
-  const v = mailbox(ctx, 520 + cam.x * .8, 1010, 4.2, 'villa', { t, env: 1, glow: .5 + .5 * pull, pull, lid: .9 });
-  const tr = mailbox(ctx, 1420 + cam.x * .8, 1000, 4.2, 'trailer', { t, env: 1, glow: .5 + .5 * pull, pull, lid: .9 });
+  ctx.drawImage(once('vtblur', () => { const [c, g] = canvas(W + 400, H); g.filter = 'blur(3px)'; g.drawImage(villaSprite(1.2), 80, 160); g.drawImage(trailerSprite(1.6), 1500, 400); g.filter = 'none'; return c; }), -200 + cam.x * .4, 0);
+  const v = mailbox(ctx, 520 + cam.x * .8, 1010, 4.2, 'villa', { t, env: drop > 0 ? 0 : 1, glow: .5 + .5 * pull, pull, lid: .9 });
+  const tr = mailbox(ctx, 1420 + cam.x * .8, 1000, 4.2, 'trailer', { t, env: drop > 0 ? 0 : 1, glow: .5 + .5 * pull, pull, lid: .9 });
+  const dy = drop * 1000, vE = [v.env[0], v.env[1] + dy], tE = [tr.env[0], tr.env[1] + dy];
+  if (drop > 0) { envelope(ctx, vE[0], vE[1], .42 * 4.2, { t, glow: 1, rot: -.48 }); envelope(ctx, tE[0], tE[1], .42 * 4.2, { t, glow: 1, rot: -.48 }); }
   // the hands: a cuffed hand with a signet ring (villa), a worn sleeve (trailer); they grip the envelopes and pull at once
-  const hp = (e, flip, sleeve, ringOn, seed) => { hand(ctx, e[0] + (flip ? 70 : -70) * (1 - pull * .2), e[1] + 40, 1.25, { pose: 'grip', ang: flip ? Math.PI + .5 : -.5, flip, sleeve, skin: flip ? '#8d5f40' : '#e9c2a0', rim: '#bfe8d8', t, seed, ring: ringOn, light: [0, -1] }); };
-  hp(v.env, false, '#1d2433', true, 1); hp(tr.env, true, '#6a5236', false, 2);
+  // both reach in the same way from the right; the villa owner's arm comes from behind the trunk (its sleeve ends there)
+  const tx = 960 + cam.x * 1.4;
+  const hp = (e, sleeve, skin, ringOn, seed, sleeveLen) => { hand(ctx, e[0] + 70 * (1 - pull * .2), e[1] + 40, 1.25, { pose: 'grip', ang: Math.PI + .5, flip: true, sleeve, sleeveLen, skin, rim: '#bfe8d8', t, seed, ring: ringOn, light: [0, -1] }); };
+  hp(vE, '#1d2433', '#e9c2a0', true, 1, Math.max(60, (tx - (vE[0] + 70 * (1 - pull * .2))) / (Math.cos(.5) * 1.25))); hp(tE, '#6a5236', '#8d5f40', false, 2);
   // the trunk between them, sharp in the foreground
-  ctx.save(); const tx = 960 + cam.x * 1.4; const bg = ctx.createLinearGradient(tx - 70, 0, tx + 70, 0); bg.addColorStop(0, '#0a0f18'); bg.addColorStop(.35, '#1a2230'); bg.addColorStop(1, '#05080e'); ctx.fillStyle = bg; ctx.fillRect(tx - 64, -10, 128, H + 20);
+  ctx.save(); const bg = ctx.createLinearGradient(tx - 70, 0, tx + 70, 0); bg.addColorStop(0, '#0a0f18'); bg.addColorStop(.35, '#1a2230'); bg.addColorStop(1, '#05080e'); ctx.fillStyle = bg; ctx.fillRect(tx - 64, -10, 128, H + 20);
   artHatch(ctx, [tx - 64, 0, 128, H], { angle: 1.45, gap: 4, w: .8, col: '#000000', a: .45, seed: 3, broken: .3 }); ctx.fillStyle = 'rgba(190,232,216,.35)'; ctx.fillRect(tx - 64, 0, 3, H); ctx.restore();
   snowfall(ctx, t, { a: .7, n: 110, wind: 30, seed: 8 });
 }

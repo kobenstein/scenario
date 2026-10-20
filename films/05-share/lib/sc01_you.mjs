@@ -55,7 +55,10 @@ export function youBack(ctx, x, y, s, o = {}) {
     // near arm (left): hangs at the side, a little forward, the hand by the thigh
     g.fillStyle = C(shadeH(coat, .03)); g.beginPath();
     g.moveTo(-150, -780 + sy); g.bezierCurveTo(-196, -760 + sy, -206, -680, -204, -600); g.bezierCurveTo(-202, -530, -196, -480, -184, -446); g.lineTo(-140, -452); g.bezierCurveTo(-146, -520, -146, -600, -132, -690); g.closePath(); g.fill();
-    g.fillStyle = C(shadeH(skin, -.62)); g.beginPath(); g.ellipse(-160, -432, 19, 26, .12, 0, 7); g.fill();
+    // the hand: relaxed, fingers curled toward the thigh (a real silhouette, in the coat's shadow)
+    g.fillStyle = C(shadeH(skin, -.72)); g.beginPath(); g.moveTo(-180, -452); g.bezierCurveTo(-186, -436, -186, -418, -178, -404); g.bezierCurveTo(-170, -392, -156, -390, -148, -398);
+    g.bezierCurveTo(-142, -404, -142, -414, -146, -420); g.bezierCurveTo(-138, -424, -134, -434, -138, -444); g.lineTo(-142, -452); g.closePath(); g.fill();
+    g.strokeStyle = C(shadeH(skin, -.82)); g.lineWidth = 1.6; g.beginPath(); g.moveTo(-174, -420); g.quadraticCurveTo(-164, -416, -152, -420); g.moveTo(-176, -408); g.quadraticCurveTo(-166, -403, -154, -406); g.stroke();
     // neck and the lost profile: jaw and cheek on the right edge of the head (no face)
     g.fillStyle = C(shadeH(skin, -.35)); g.beginPath(); g.moveTo(-34, -830 + sy); g.lineTo(34, -830 + sy); g.lineTo(26 + hd.x * .4, hd.y + 30); g.lineTo(-30 + hd.x * .4, hd.y + 34); g.closePath(); g.fill();
     g.save(); g.translate(hd.x, hd.y); g.rotate(hd.rot);

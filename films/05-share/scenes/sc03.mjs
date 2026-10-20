@@ -11,8 +11,8 @@
 //  1.15a │ how to share what's **coming**.                 │ dotted engraving spreads from the nib, a     │ the rosette                                         │ (b) zoom
 //                                                            small rosette dawns over the sheet's edge
 //  1.16  │ But how do you share a fortune that doesn't exist **yet**? │ 3 dotted cuts try and smoke away  │ the nib tip                                         │ (b) zoom
-//  2.01  │ There are **three** ways.                       │ the nib draws a line that forks in three     │ the camera races down TAKE to the left              │ (c) whipL
-//  2.02  │ The first is to **take**.                       │ a rust hand grips the big rosette            │ the bill slides in over it                          │ (a) cut
+//  2.01  │ There are **three** ways.                       │ the nib draws a line that forks in three     │ the camera races down TAKE to the left (world → right) │ (c) whipR
+//  2.02  │ The first is to **take**.                       │ a rust hand grips the big rosette            │ rosette + hand exit right, the bill slides in       │ (a) cut on the bill
 //  2.03  │ Bernie Sanders has a **bill**.                  │ § A BILL, a page turns                       │ a paragraph lights → push in                        │ (b) zoom
 //  2.04  │ A tax, paid in **new shares** … **half** …      │ shares engraved out of the rosette fly into  │ the box slides out right                            │ (a) right
 //                                                            the fund; the rust half follows
@@ -23,7 +23,10 @@
 //                                                            stops a share that wants out
 // Boundaries: in = carry('c02>c03') kind 'light': the foil "right" light becomes the burin tip (tip at C.pos(t) until it touches the plate).
 //             out = carry('c03>c04') whipR d .3: 2.08 ends on an accelerating move to the right.
-// Sound: lead places shimmer/gavel/press_notes; C3 adds only image-caused accents in pauses (stamp on the seal-like grip, tear, paper).
+// Zooms (1.16, 2.01, 2.04, 2.07) use a light dip: the outgoing frame sinks into the dark around the carrier (radii follow the engine's
+// zoom), the incoming one lights up from its centre, so the growing frame has no visible edge.
+// Sound: the lead places gavel/press_notes; C3 adds only image-caused accents in speech pauses: foil_glint (1.04 glint), bloom (dawn
+// reaches the hands); transition whooshes come from tools/sound_plan.mjs; the tear sits on the tear frame ("half") by design.
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 import { Path2D } from '@napi-rs/canvas';
 import { W, H, rgba, clamp, lin, mix, sm, eio, eout, ein, prng, drift, canvas, text, addGlow } from '../engine.mjs';
@@ -33,7 +36,7 @@ import { ghostLine, ghostPaths, smokeDots } from '../lib/ghost.mjs';
 import { hand } from '../lib/hand.mjs';
 import { pen } from '../lib/paper.mjs';
 import { shareLight } from '../lib/share.mjs';
-import { figureFlat } from '../lib/figure.mjs';
+import { figureFlat, handPos } from '../lib/figure.mjs';
 import { worldMap, region, country, project } from '../lib/map.mjs';
 import { paths } from '../lib/paths.mjs';
 import { stipple, fog as artFog, vnoise } from '../lib/art.mjs';
@@ -43,6 +46,7 @@ const TAU = Math.PI * 2;
 const eo5 = (x) => 1 - Math.pow(1 - clamp(x), 5);                  // expo-ish out (landings)
 const ei5 = (x) => Math.pow(clamp(x), 4);                          // expo-ish in (exits)
 const qio = (x) => { x = clamp(x); return x < .5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2; };   // quart in-out (moves)
+const mix3 = (a, b, k) => { const pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16), f = (sh) => Math.round(mix((pa >> sh) & 255, (pb >> sh) & 255, clamp(k))); return '#' + [16, 8, 0].map((sh) => f(sh).toString(16).padStart(2, '0')).join(''); };
 const PAPERC = '#e8d7b0', NIGHT = '#10123a', UMBRA = '#2a1c18', HONEY = '#e9a54b', INDIGO = '#0b0f2a', VERD = '#3fae9a';
 
 // ---------- shared looks ----------
@@ -61,8 +65,23 @@ function motes(ctx, t, seed, n, a, col = '255,226,190', box = [0, 0, W, H]) {
     ctx.fillStyle = `rgba(${col},${(.08 + .3 * r()) * a})`; const z = r() < .85 ? 1.3 : 2.4; ctx.fillRect(x, y, z, z); }
   ctx.restore();
 }
-function label(ctx, s, x, y, a, o = {}) { if (a <= 0) return; ctx.save(); ctx.shadowColor = 'rgba(2,3,12,.85)'; ctx.shadowBlur = 12; text(ctx, s, x, y + (1 - a) * 14, { size: o.size ?? 20, weight: o.weight ?? 600, color: rgba(o.col || CREAM, a * (o.alpha ?? .92)), spacing: o.spacing ?? 5, align: o.align || 'left', font: o.font || 'Inter' }); ctx.restore(); }
+function label(ctx, s, x, y, a, o = {}) { if (a <= 0) return; ctx.save(); if (o.shadow !== false) { ctx.shadowColor = 'rgba(2,3,12,.85)'; ctx.shadowBlur = 12; } text(ctx, s, x, y + (1 - a) * 14, { size: o.size ?? 20, weight: o.weight ?? 600, color: rgba(o.col || CREAM, a * (o.alpha ?? .92)), spacing: o.spacing ?? 5, align: o.align || 'left', font: o.font || 'Inter' }); ctx.restore(); }
 function source(ctx, s, a) { label(ctx, s, 96, H - 196, a, { size: 16, weight: 500, col: '#c9c3dc', spacing: 2.5, alpha: .8 }); }
+function dipOut(ctx, t, tB, d, x, y, depth = 5) { const k = sm(lin(tB - d / 2 - .35, tB, t)); if (k <= 0) return; const za = Math.pow(depth, eio(lin(tB - d / 2, tB + d / 2, t))), g = ctx.createRadialGradient(x, y, 60 / za, x, y, 300 / za);   // radii shrink with the engine's zoom so the lit spot stays the same on screen
+  g.addColorStop(0, 'rgba(4,4,14,0)'); g.addColorStop(1, `rgba(4,4,14,${.94 * k})`); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
+function dipIn(ctx, t, tB, d) { const k = 1 - sm(lin(tB - d / 2, tB + d / 2 + .3, t)); if (k <= 0) return; const g = ctx.createRadialGradient(W / 2, H / 2, 200, W / 2, H / 2, 640); g.addColorStop(0, 'rgba(4,4,14,0)'); g.addColorStop(1, `rgba(4,4,14,${.94 * k})`); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
+// fabric on the K0 hand's flat sleeve (drawn over it, same transform): soft creases near the cuff, the far end sinks into the dark
+function sleeveShade(ctx, x, y, s, o) {
+  const f = o.flip ? -1 : 1, sl = o.sleeveLen ?? 260;
+  ctx.save(); ctx.translate(x, y); ctx.rotate(o.ang ?? 0); ctx.scale(s, s * f);
+  ctx.beginPath(); ctx.rect(-sl, -27, sl - 9, 54); ctx.clip();
+  const g = ctx.createLinearGradient(-14, 0, -Math.min(sl, 640), 0); g.addColorStop(0, 'rgba(6,5,16,0)'); g.addColorStop(.3, 'rgba(6,5,16,.1)'); g.addColorStop(1, `rgba(6,5,16,${o.far ?? .6})`); ctx.fillStyle = g; ctx.fillRect(-sl, -27, sl, 54);
+  const v = ctx.createLinearGradient(0, -27, 0, 27); v.addColorStop(0, 'rgba(255,238,215,.1)'); v.addColorStop(.45, 'rgba(255,238,215,0)'); v.addColorStop(1, 'rgba(6,5,16,.22)'); ctx.fillStyle = v; ctx.fillRect(-sl, -27, sl, 54);
+  ctx.lineCap = 'round';
+  for (const [x0, w] of [[-36, 1], [-66, .8], [-104, .6], [-150, .42], [-210, .3]]) { ctx.strokeStyle = `rgba(10,6,14,${.24 * w})`; ctx.lineWidth = 3.4; ctx.beginPath(); ctx.moveTo(x0 + 7, -27); ctx.quadraticCurveTo(x0 - 5, 0, x0 + 9, 27); ctx.stroke(); ctx.strokeStyle = `rgba(255,236,210,${.1 * w})`; ctx.lineWidth = 1.3; ctx.beginPath(); ctx.moveTo(x0 + 11, -25); ctx.quadraticCurveTo(x0 + 1, 0, x0 + 13, 25); ctx.stroke(); }
+  ctx.fillStyle = 'rgba(255,240,220,.07)'; ctx.fillRect(-30, -27, 12, 54);
+  ctx.restore();
+}
 // a guilloche ring as one closed polyline (for ghost rings)
 function ringPts(cx, cy, R, amp, waves, ph, n = 420) { const pts = []; for (let i = 0; i <= n; i++) { const a = i / n * TAU, r = R + amp * Math.sin(a * waves + ph); pts.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); } return pts; }
 const subPts = (P, u0, u1) => { const n = P.length - 1, i0 = Math.max(0, Math.floor(u0 * n)), i1 = Math.min(n, Math.ceil(u1 * n)); return P.slice(i0, i1 + 1); };
@@ -98,11 +117,11 @@ export default (T, R) => {
     const P1 = { cx: ROS.x - 20, cy: ROS.y + 10, s: 1.02, r: -.045 }, P2 = { cx: 0, cy: 290, s: 1.6, r: -.02 }, P3 = { cx: -150, cy: 290, s: 4.3, r: -.005 };
     return { P1, P2, P3 };
   })();
-  const PB = { t0: A.largest - .05, d: 1.35 }, GL = { t0: A.yet1e + .1, t1: A.s103 + 1.7 }, PU = { t0: A.s104 - .45, t1: A.s104 + .55 };
+  const PB = { t0: Math.max(A.largest - .05, CIN.t + .55), d: 1.35 }, GL = { t0: A.yet1e + .1, t1: Math.max(A.yet1e + 1.0, A.noone + .15) }, PU = { t0: A.s104 - .45, t1: A.s104 + .55 };
   // the cut: outer line k = 0 of the fortune rosette, run counter-clockwise from angle a0
   const G0 = guilloche({ ...RG, steps: 1440 }), L0 = G0.line(0), a0 = -1.95, i0 = Math.round(((a0 % TAU + TAU) % TAU) / TAU * 1440);
-  const CUT = (() => { const out = []; for (let k = 0; k <= 420; k++) { const i = (i0 - k + 1440) % 1440; out.push([ROS.x + L0[i][0], ROS.y + L0[i][1]]); } return resample(out, 600); })();
-  const tCut0 = CIN.t + .8, tCut1 = A.yet1 + .02, cutU = (t) => .36 * (1 - Math.pow(1 - lin(tCut0, tCut1, t), 1.6));
+  const CUT = (() => { const out = []; for (let k = 0; k <= 520; k++) { const i = (i0 - k + 1440) % 1440; out.push([ROS.x + L0[i][0], ROS.y + L0[i][1]]); } return resample(out, 600); })();
+  const tCut0 = Math.min(CIN.t + .5, A.largest - .1), tCut1 = A.yet1 + .02, cutU = (t) => .42 * (1 - Math.pow(1 - lin(tCut0, tCut1, t), 1.6));
   // P0 is solved so that the cut's first point lies exactly under the carrier light at tCut0
   const camAt = (t, P0) => {
     let c;
@@ -124,16 +143,16 @@ export default (T, R) => {
   const PK = 1.3, PW = Math.ceil((1500 + 240) * PK), PH = Math.ceil((980 + 240) * PK);
   const plateLayer = () => once('c03plate', () => {
     const [c, g] = canvas(PW, PH); g.translate(PW / 2, PH / 2);
-    certificate(g, 0, { x: 0, y: 0, s: PK, rot: 0, ghost: 1, ghostCol: PAPERC, ghostW: 1.25, dot: 5.4, title: 'YOUR SHARE', a: .62, tips: 0 });
-    g.save(); g.scale(PK, PK); rosette(g, ROS.x, ROS.y, { ...RG, ghost: 1, col: PAPERC, w: 1.05 / PK, a: .5, dot: 5.4 / PK }); g.restore();
+    certificate(g, 0, { x: 0, y: 0, s: PK, rot: 0, ghost: 1, ghostCol: PAPERC, ghostW: 1.45, dot: 5.4, title: 'YOUR SHARE', a: .82, tips: 0 });
+    g.save(); g.scale(PK, PK); rosette(g, ROS.x, ROS.y, { ...RG, ghost: 1, col: '#f0dcb4', w: 1.35 / PK, a: .78, dot: 5.4 / PK }); g.restore();
     // the empty name line + its labels (dotted engraving), drawn live in the close-up; here only the small caps
     g.save(); g.scale(PK, PK); g.textAlign = 'center';
-    g.font = '600 19px Inter'; try { g.letterSpacing = '6px'; } catch { } g.fillStyle = rgba(PAPERC, .5); g.fillText('THIS CERTIFIES THAT', 0, 226);
+    g.font = '600 19px Inter'; try { g.letterSpacing = '6px'; } catch { } g.fillStyle = rgba(PAPERC, .62); g.fillText('THIS CERTIFIES THAT', 0, 226);
     g.restore();
     return c;
   });
   const [revC, revG] = canvas(W, H);
-  const fibres = (() => { const r = prng(17), F = []; for (let i = 0; i < 46; i++) F.push({ y: r(), ph: r() * 10, sp: .5 + r(), len: 10 + r() * 26, bend: (r() - .5) * 1.6, z: .6 + r() * .9 }); return F; })();
+  const fibres = (() => { const r = prng(17), F = []; for (let i = 0; i < 22; i++) F.push({ y: r(), ph: r() * 10, sp: .5 + r(), len: 10 + r() * 26, bend: (r() - .5) * 1.6, z: .6 + r() * .9 }); return F; })();
   const glint104 = (t) => lin(A.s104 - .02, A.s104 + .75, t);     // the foil glint along the line (0 → 1, then out)
   function plateFrame(ctx, t) {
     const C = cam(t), s = C.s;
@@ -146,9 +165,13 @@ export default (T, R) => {
     // the plate (cached ghost engraving), revealed from the light outward in the first second
     const P = plateLayer(), rev = clamp((t - CIN.t + .05) / 1.25);
     const drawPlate = (g) => { g.save(); g.translate(960, 540); g.rotate(C.r); g.scale(s / PK, s / PK); g.translate(-C.cx * PK - PW / 2, -C.cy * PK - PH / 2); g.drawImage(P, 0, 0); g.restore(); };
-    if (rev < 1) { revG.globalCompositeOperation = 'source-over'; revG.clearRect(0, 0, W, H); drawPlate(revG); revG.globalCompositeOperation = 'destination-in';
-      const R0 = 40 + eout(rev) * 2300, g = revG.createRadialGradient(tip[0], tip[1], 0, tip[0], tip[1], R0); g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(.75, 'rgba(0,0,0,.85)'); g.addColorStop(1, 'rgba(0,0,0,0)'); revG.fillStyle = g; revG.fillRect(0, 0, W, H); revG.globalCompositeOperation = 'source-over'; ctx.drawImage(revC, 0, 0); }
-    else drawPlate(ctx);
+    const masked = (R0, inner, alpha, op) => { revG.globalCompositeOperation = 'source-over'; revG.clearRect(0, 0, W, H); drawPlate(revG); revG.globalCompositeOperation = 'destination-in';
+      const g = revG.createRadialGradient(tip[0], tip[1], 0, tip[0], tip[1], R0); g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(inner, 'rgba(0,0,0,.8)'); g.addColorStop(1, 'rgba(0,0,0,0)'); revG.fillStyle = g; revG.fillRect(0, 0, W, H);
+      revG.globalCompositeOperation = 'source-over'; ctx.save(); ctx.globalAlpha = alpha; if (op) ctx.globalCompositeOperation = op; ctx.drawImage(revC, 0, 0); ctx.restore(); };
+    // the plate is found by the light: it spreads out from the tip in the first second, then lies there, dim
+    if (rev < 1) masked(40 + eout(rev) * 2300, .75, .88, null); else { ctx.save(); ctx.globalAlpha = .88; drawPlate(ctx); ctx.restore(); }
+    // where the light falls the dotted engraving glows warmer and brighter
+    if (light > .05) masked(560 * Math.max(.7, s / 1.6), .3, .9 * light * clamp(rev * 2), 'lighter');
     // world-space live parts
     ctx.save(); ctx.translate(960, 540); ctx.rotate(C.r); ctx.scale(s, s); ctx.translate(-C.cx, -C.cy);
     // the engraved part of the fortune rosette (solid, warm behind the burin, cooling to cream)
@@ -164,21 +187,22 @@ export default (T, R) => {
       ctx.save(); ctx.lineCap = 'round';
       for (let x = x0; x <= x1; x += pitch) { const q = (x - x0) / (x1 - x0), d = Math.abs(q - g * 1.25 + .12), fl = g > 0 && g < 1 ? Math.exp(-d * d / .0035) : 0, after = g > 0 ? clamp((g * 1.25 - .12 - q) * 3) * .35 : 0;
         ctx.fillStyle = fl > .02 ? rgba(fl > .5 ? CORE : AMBER, Math.min(1, .6 + fl)) : rgba(PAPERC, .62 + after * .4); const rr = lw * (1 + fl * 1.3 + after * .3); ctx.beginPath(); ctx.arc(x, y, rr, 0, TAU); ctx.fill();
-        if (fl > .05) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = rgba(AMBER, .35 * fl); ctx.beginPath(); ctx.arc(x, y, rr * 6, 0, TAU); ctx.fill(); ctx.restore(); }
       }
       ctx.font = '600 15px Inter'; try { ctx.letterSpacing = '7px'; } catch { } ctx.textAlign = 'center'; ctx.fillStyle = rgba(PAPERC, .62); ctx.fillText('OWNER', 0, y + 34);
       ctx.restore(); }
     ctx.restore();
     // the glint leaving to the right (screen space): a foil streak + light, the strip of 1.14 is waiting
     { const g = glint104(t); if (g > 0 && g < 1.2) { const q = g * 1.25 - .12, [gx, gy] = toS(C, mix(-330, 330, q), 286); ctx.save(); ctx.globalCompositeOperation = 'lighter';
-      const L = 260, lg = ctx.createLinearGradient(gx - L, gy, gx + 40, gy); lg.addColorStop(0, 'rgba(255,179,92,0)'); lg.addColorStop(.85, rgba(AMBER, .55)); lg.addColorStop(1, rgba(CORE, .95)); ctx.fillStyle = lg; ctx.fillRect(gx - L, gy - 2.5, L + 40, 5);
-      addGlow(ctx, gx, gy, 90, .7, AMBER, CORE); ctx.restore(); } }
+      const fade = 1 - sm(lin(.9, 1.2, g)), L = 420, lg = ctx.createLinearGradient(gx - L, gy, gx + 60, gy); lg.addColorStop(0, 'rgba(255,179,92,0)'); lg.addColorStop(.8, rgba(AMBER, .5 * fade)); lg.addColorStop(.93, rgba(CORE, .95 * fade)); lg.addColorStop(1, 'rgba(255,241,214,0)'); ctx.fillStyle = lg; ctx.fillRect(gx - L, gy - 1.6, L + 60, 3.2);
+      const rg = ctx.createRadialGradient(gx, gy, 0, gx, gy, 150); rg.addColorStop(0, rgba(CORE, .55 * fade)); rg.addColorStop(.18, rgba(AMBER, .22 * fade)); rg.addColorStop(1, 'rgba(255,179,92,0)'); ctx.fillStyle = rg; ctx.fillRect(gx - 150, gy - 150, 300, 300);
+      ctx.save(); ctx.translate(gx, gy); ctx.scale(1, .06); const sg = ctx.createRadialGradient(0, 0, 0, 0, 0, 520); sg.addColorStop(0, rgba(CORE, .6 * fade)); sg.addColorStop(1, 'rgba(255,241,214,0)'); ctx.fillStyle = sg; ctx.fillRect(-520, -520, 1040, 1040); ctx.restore();
+      ctx.restore(); } }
     // fibres in the air current over the line (1.03): they drift across; one touches the line on "no one" and lifts off again
     { const fa = sm(lin(A.s103 - .6, A.s103 + .2, t)) * (1 - sm(lin(A.s104 + .3, A.s104 + .9, t))); if (fa > 0) {
       const [lx0, ly] = toS(C, -330, 286), [lx1] = toS(C, 330, 286);
       ctx.save(); ctx.lineCap = 'round';
       fibres.forEach((f, i) => { const span = W + 400, x = ((t - A.s103 + f.ph) * 90 * f.sp * f.z) % span - 200, y = ly - 260 + f.y * 520 + Math.sin(t * 1.3 + f.ph * 3) * 24 * f.z;
-        ctx.strokeStyle = rgba('#efe4cc', (.25 + .35 * f.z) * fa); ctx.lineWidth = .7 * f.z + .3; const L = f.len * f.z; ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x + L * .5, y + f.bend * 8, x + L, y + f.bend * 14 * Math.sin(t + i)); ctx.stroke(); });
+        ctx.strokeStyle = rgba('#efe4cc', (.1 + .16 * f.z) * fa); ctx.lineWidth = .5 * f.z + .25; const L = f.len * f.z; ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x + L * .5, y + f.bend * 8, x + L, y + f.bend * 14 * Math.sin(t + i)); ctx.stroke(); });
       // the one that lands
       const k = lin(A.noone - .5, A.noone + 1.0, t); if (k > 0 && k < 1) { const land = sm(lin(0, .35, k)), off = ein(lin(.55, 1, k)), x = mix(lx0 + 180, (lx0 + lx1) / 2, land) + off * 520, y = mix(ly - 140, ly - 4, land) - off * 180;
         ctx.strokeStyle = rgba('#fff4dc', .85 * fa); ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(x - 18, y + 2); ctx.quadraticCurveTo(x, y - 6 + off * 10, x + 22, y + off * 14); ctx.stroke(); }
@@ -186,15 +210,19 @@ export default (T, R) => {
     // the burin (hand + graver), world-anchored once it touches the plate; it lifts on "yet" and leaves up-right
     { const ha = clamp((t - CIN.t + .1) / .45) * (1 - sm(lin(GL.t0 + .6, GL.t0 + 1.4, t)));
       if (ha > 0) {
-        let ang; if (t < tCut0) ang = -2.62 + .05 * Math.sin(t * 1.2); else { const uu = cutU(t), i = Math.min(CUT.length - 2, Math.round(uu * (CUT.length - 1))), j = Math.max(0, i - 30), k2 = Math.min(CUT.length - 1, i + 30); ang = Math.atan2(CUT[k2][1] - CUT[j][1], CUT[k2][0] - CUT[j][0]) + C.r; ang = mix(ang, -2.62, .45); }
+        const REF = -2.62 + TAU; let ang = REF + .05 * Math.sin(t * 1.2); if (t >= tCut0) { const uu = cutU(t), i = Math.min(CUT.length - 2, Math.round(uu * (CUT.length - 1))), j = Math.max(0, i - 40), k2 = Math.min(CUT.length - 1, i + 40); let a1 = Math.atan2(CUT[k2][1] - CUT[j][1], CUT[k2][0] - CUT[j][0]) + C.r; while (a1 - REF > Math.PI) a1 -= TAU; while (REF - a1 > Math.PI) a1 += TAU; ang = mix(ang, a1, .55 * sm(lin(tCut0, tCut0 + .45, t))); }
         const sc = .78 * (C.s / 1.6) ** .55, outX = away * 520, outY = -away * 260;
-        burin(ctx, tip[0] + outX, tip[1] + outY, ang, sc, t, { lift, cut: t >= tCut0 && t < A.yet1 + .1 ? 1 : 0, a: ha, sleeve: '#4a3226', skin: '#a8734f', rim: '#ffd59a' });
+        const bu = burin(ctx, tip[0] + outX, tip[1] + outY, ang, sc, t, { lift, cut: t >= tCut0 && t < A.yet1 + .1 ? 1 : 0, a: ha, sleeve: '#3a2a3a', skin: '#a8734f', rim: '#ffd59a', sleeveLen: 900 });
+        if (ha > .3) sleeveShade(ctx, bu.wrist[0], bu.wrist[1], sc * 1.32, { ang, sleeveLen: 900, far: .75 });
         // the light at the tip = the carrier from c02 (shareLight); it calms down once the cut begins
         const la = t < tCut0 ? 1 : mix(1, .55, sm(lin(tCut0, tCut0 + .5, t))) * (1 - lift * .5);
         shareLight(ctx, tip[0] + outX, tip[1] + outY - lift * 26 * sc, 14 * (t < tCut0 ? CIN.pos(t).s : 1) * mix(1, .6, lift), t, { a: la * ha });
       } }
+    { const wk = 1 - sm(lin(CIN.t - .1, CIN.t + .8, t)); if (wk > 0) { ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = rgba('#d8b48c', wk); ctx.fillRect(0, 0, W, H); ctx.restore(); } }
+    { const dk = (1 - away) * (1 - sm(lin(A.s103 - .2, A.s103 + .8, t))); if (dk > 0) { const g = ctx.createRadialGradient(tip[0], tip[1], 260, tip[0], tip[1], 1250); g.addColorStop(0, 'rgba(4,3,12,0)'); g.addColorStop(1, `rgba(4,3,12,${.62 * dk})`); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); } }
     motes(ctx, t, 7, 70, .6);
     vignette(ctx, .62, W * .5, H * .48);
+    { const ek = sm(lin(A.s114 - .9, A.s114 - .2, t)); if (ek > 0) { const g = ctx.createRadialGradient(W / 2, H * .55, 260, W / 2, H * .55, 1100); g.addColorStop(0, 'rgba(4,4,14,0)'); g.addColorStop(1, `rgba(4,4,14,${.9 * ek})`); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); } }
   }
 
   // ════════════════ 1.14 – 1.15a · the table of what people already have ════════════════
@@ -216,10 +244,14 @@ export default (T, R) => {
   };
   const ROS2 = { x: SHEET.x + 40, y: SHEET.y - SHEET.h / 2 + 6 };    // the dawn rosette rises over the sheet's top edge
   const rise = (t) => eout(lin(A.s115a + .15, A.coming + .3, t));
-  function tableFrame(ctx, t) {
-    // camera: top view, glides to the centre during 1.15, lifts a little for the dawn in 1.15a
+  const tableCam = (t) => {   // top view: glides to the centre during 1.15, tilts up a little for the dawn in 1.15a
     const g1 = qio(lin(A.has - .3, A.agree + .3, t)), g2 = qio(lin(A.s115a, A.comingE + .8, t));
-    const z = mix(1, 1.18, g1) * mix(1, .96, g2) + .006 * Math.sin(t * .4), cx = 960 + drift(t, 8, 1), cy = mix(540, 500, g1) + mix(0, -40, g2) + drift(t, 5, 2);
+    return { z: mix(1, 1.18, g1) * mix(1, .9, g2) + .006 * Math.sin(t * .4), cx: 960 + drift(t, 8, 1), cy: mix(540, 500, g1) + mix(0, -120, g2) + drift(t, 5, 2) };
+  };
+  const dawnY = (t) => ROS2.y + 130 - rise(t) * 150;
+  const tableToS = (t, x, y) => { const c = tableCam(t); return [960 + (x - c.cx) * c.z, 540 + (y - c.cy) * c.z]; };
+  function tableFrame(ctx, t) {
+    const { z, cx, cy } = tableCam(t);
     ctx.drawImage(bgLayer('table', '#1b1a3a', '#0f1030', '#04040f', { x: 960, y: 480 }), -100 + drift(t, 6, 7) * .5, -70);
     ctx.save(); ctx.translate(960, 540); ctx.scale(z, z); ctx.translate(-cx, -cy);
     // the engraved ground: a faint intaglio grain
@@ -252,13 +284,13 @@ export default (T, R) => {
       const top = SHEET.y - SHEET.h / 2;
       ctx.save(); ctx.beginPath(); ctx.rect(-400, -400, W + 800, top + 400 - 2); ctx.clip();
       ctx.globalCompositeOperation = 'lighter';
-      const ry = ROS2.y + 130 - R2 * 150, gg = ctx.createRadialGradient(ROS2.x, ry, 0, ROS2.x, ry, 420); gg.addColorStop(0, rgba('#ffd59a', .5 * R2)); gg.addColorStop(.35, rgba(AMBER, .16 * R2)); gg.addColorStop(1, rgba(AMBER, 0)); ctx.fillStyle = gg; ctx.fillRect(ROS2.x - 420, ry - 420, 840, 840);
+      const ry = dawnY(t), gg = ctx.createRadialGradient(ROS2.x, ry, 0, ROS2.x, ry, 420); gg.addColorStop(0, rgba('#ffd59a', .5 * R2)); gg.addColorStop(.35, rgba(AMBER, .16 * R2)); gg.addColorStop(1, rgba(AMBER, 0)); ctx.fillStyle = gg; ctx.fillRect(ROS2.x - 420, ry - 420, 840, 840);
       rosette(ctx, ROS2.x, ry, { R: 120, A: 18, B: 8, n: 18, m: 7, lines: 26, col: '#ffe2b0', w: .8, a: .75 * R2, rot: t * .05, ghost: 1 - R2 * .6, dot: 5 });
       ring(ctx, ROS2.x, ry, 150, 150, { lines: 5, band: 12, wave: 22, col: '#fff1d6', glow: AMBER, a: .5 * R2, lw: .6, ph: t * .3 });
       ctx.restore();
-      // rays of the dawn across the sheet and toward the hands
-      ctx.save(); ctx.globalCompositeOperation = 'lighter'; const reach = sm(lin(A.coming - .5, A.coming + .4, t));
-      for (const [hx, hy] of [[handL(t).x + 120, handL(t).y - 40], [handR(t).x - 120, handR(t).y]]) { const lg = ctx.createLinearGradient(ROS2.x, top, hx, hy); lg.addColorStop(0, rgba(AMBER, .2 * reach)); lg.addColorStop(1, rgba(AMBER, .05 * reach)); ctx.strokeStyle = lg; ctx.lineWidth = 60; ctx.beginPath(); ctx.moveTo(ROS2.x, top); ctx.lineTo(hx, hy); ctx.stroke(); }
+      // the dawn light washes down over the sheet and reaches both hands on "coming" (a broad soft light, no beams)
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; const reach = sm(lin(A.coming - .6, A.coming + .5, t)), RR = mix(260, 820, reach);
+      const dg = ctx.createRadialGradient(ROS2.x, top, 0, ROS2.x, top, RR); dg.addColorStop(0, rgba('#ffd59a', .22 * R2)); dg.addColorStop(.55, rgba(AMBER, .08 * R2)); dg.addColorStop(1, rgba(AMBER, 0)); ctx.fillStyle = dg; ctx.fillRect(ROS2.x - RR, top - RR, RR * 2, RR * 2);
       ctx.restore();
       // the dotted engraving spreading from the nib (a ring of dots running outward over the sheet)
       const wv = lin(A.now + .05, A.coming + .4, t); if (wv > 0 && wv < 1) { const n0 = nib(t), rr = 30 + eout(wv) * 620; ctx.save(); ctx.beginPath(); ctx.rect(SHEET.x - SHEET.w / 2, SHEET.y - SHEET.h / 2, SHEET.w, SHEET.h); ctx.clip(); ctx.globalCompositeOperation = 'lighter';
@@ -268,14 +300,18 @@ export default (T, R) => {
     const hl = handL(t), hr = handR(t), warm = sm(lin(A.coming - .4, A.coming + .5, t));
     const rimL = warm > 0 ? '#ffd59a' : '#e9c08a', n0 = nib(t);
     pen(ctx, n0.x, n0.y, 1.05, { ang: n0.ang, t, lift: n0.lift });
-    hand(ctx, hl.x, hl.y, 1.55, { pose: hl.pose, ang: hl.ang, skin: '#c99a74', sleeve: '#c8843a', rim: rimL, light: [1, -.4], t, seed: 2, spread: hl.pose === 'open' ? 1.2 : undefined, sleeveLen: 420 });
-    hand(ctx, hr.x, hr.y, 1.55, { pose: 'reach', ang: hr.ang, flip: true, skin: '#7a4f33', sleeve: '#1f5560', rim: warm > 0 ? '#ffd59a' : '#9fc8d0', light: [-1, -.4], t, seed: 5, sleeveLen: 420 });
+    hand(ctx, hl.x, hl.y, 1.55, { pose: hl.pose, ang: hl.ang, skin: '#c99a74', sleeve: '#c8843a', rim: rimL, light: [1, -.4], t, seed: 2, spread: hl.pose === 'open' ? 1.2 : undefined, sleeveLen: 620 });
+    sleeveShade(ctx, hl.x, hl.y, 1.55, { ang: hl.ang, sleeveLen: 620 });
+    hand(ctx, hr.x, hr.y, 1.55, { pose: 'reach', ang: hr.ang, flip: true, skin: '#7a4f33', sleeve: '#1f5560', rim: warm > 0 ? '#ffd59a' : '#9fc8d0', light: [-1, -.4], t, seed: 5, sleeveLen: 620 });
+    sleeveShade(ctx, hr.x, hr.y, 1.55, { ang: hr.ang, flip: true, sleeveLen: 620 });
     // the nib's contact on "now": an ink bloom on the line
     { const k = lin(A.now - .05, A.now + .6, t); if (k > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, n0.x, n0.y, 50 + 40 * eout(k), .6 * (1 - k * .5), AMBER, CORE); ctx.restore(); } }
     if (warm > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, hl.x + 110, hl.y - 30, 260, .18 * warm, AMBER, '#ffe2b0'); addGlow(ctx, hr.x - 110, hr.y, 260, .18 * warm, AMBER, '#ffe2b0'); ctx.restore(); }
     ctx.restore();
     motes(ctx, t, 21, 50, .5);
     vignette(ctx, .6);
+    { const [zx, zy] = tableToS(A.s116, ROS2.x, dawnY(A.s116)); dipOut(ctx, t, A.s116, .9, zx, zy); }
+    { const dk = 1 - sm(lin(A.s114 - .1, A.s114 + .9, t)); if (dk > 0) { const [sx, sy] = tableToS(t, (STRIP.x0 + STRIP.x1) / 2, STRIP.y), g = ctx.createRadialGradient(sx, sy, mix(14, 120, 1 - dk), sx, sy, mix(150, 1400, 1 - dk)); g.addColorStop(0, 'rgba(4,4,14,0)'); g.addColorStop(1, `rgba(4,4,14,${.92 * dk})`); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); } }
   }
 
   // ════════════════ 1.16 · how do you share what doesn't exist yet ════════════════
@@ -301,9 +337,10 @@ export default (T, R) => {
     ctx.restore();
     // the pen tip hovering above (the nib, lit)
     const n0 = nib16(t); pen(ctx, n0.x, n0.y, 1.2, { ang: -2.35 + .04 * Math.sin(t * .8), t, lift: .9 }); addGlow(ctx, n0.x, n0.y - 12, 34, .55, AMBER, CORE);
-    label(ctx, 'THE FORTUNE THAT DOESN’T EXIST YET', R16.x, R16.y + R16.R + 112, sm(lin(A.s116 + .3, A.s116 + 1.0, t)) * (1 - sm(lin(A.s201 - .6, A.s201 - .2, t))), { align: 'center', size: 18, spacing: 6, col: '#ffd59a' });
+    label(ctx, 'THE FORTUNE THAT DOESN’T EXIST YET', 96, 150, sm(lin(A.s116 + .3, A.s116 + 1.0, t)) * (1 - sm(lin(A.s201 - .6, A.s201 - .2, t))), { size: 20, spacing: 6, col: '#ffd59a' });
     motes(ctx, t, 31, 60, .5);
     vignette(ctx, .58);
+    dipIn(ctx, t, A.s116, .9); { const nn = nib16(A.s201); dipOut(ctx, t, A.s201, .8, nn.x, nn.y, 6); }
   }
 
   // ════════════════ 2.01 · three ways (the paths) ════════════════
@@ -314,12 +351,13 @@ export default (T, R) => {
   };
   function frame201(ctx, t) {
     const P = p201(t);
-    const r = paths(ctx, t, { view: 'persp', fork: FORK, cam: P.cam, u: P.u, trunk: P.trunk, fog: .45, life: { take: .5 * P.u[0], print: .5 * P.u[1], agree: .6 * P.u[2] }, labelA: sm(lin(A.ways - .1, A.ways + .3, t)) });
+    const r = paths(ctx, t, { view: 'persp', fork: FORK, cam: P.cam, u: P.u, trunk: mix(.84, 1, P.trunk), fog: .45, life: { take: .5 * P.u[0], print: .5 * P.u[1], agree: .6 * P.u[2] }, labelA: sm(lin(A.ways - .1, A.ways + .3, t)) });
     // the nib draws the trunk (from the push-in it arrives big and settles to the drawing head)
-    if (P.trunk < 1) { const p = r.along('trunk', P.trunk), s = mix(1.9, 1.0, eout(lin(A.s201 - .45, A.s201 + .25, t))); pen(ctx, p.x, p.y, s, { ang: -2.1, t, lift: 0 }); addGlow(ctx, p.x, p.y, 40, .7, AMBER, CORE); }
+    if (P.trunk < 1) { const p = r.along('trunk', mix(.84, 1, P.trunk)), s = mix(1.9, 1.0, eout(lin(A.s201 - .45, A.s201 + .25, t))); pen(ctx, p.x, p.y, s, { ang: -2.1, t, lift: 0 }); addGlow(ctx, p.x, p.y, 40, .7, AMBER, CORE); }
     else { const k = lin(A.three, A.three + .6, t), p = r.along('trunk', 1); pen(ctx, p.x + k * 40, p.y - k * 30, mix(1, .9, k), { ang: -2.1, t, lift: k }); }
     motes(ctx, t, 41, 50, .45);
     vignette(ctx, .5);
+    dipIn(ctx, t, A.s201, .8);
   }
 
   // ════════════════ 2.02 – 2.08 · TAKE ════════════════
@@ -336,17 +374,20 @@ export default (T, R) => {
   const ROS202 = { x: 1120, y: 520 };
   const bill = (t) => { const k = qio(lin(A.s203 - .75, A.s203 + .35, t)), settle = eout(lin(A.s203 + .3, A.s203 + 1.2, t)); return { x: mix(-520, 700, k) + settle * 0, y: mix(560, 560, k), s: mix(1.18, 1.08, k) - settle * .25, rot: mix(-.2, -.045, k) }; };
   function frame202(ctx, t) {
-    const land = eo5(lin(A.s202 - .2, A.s202 + .6, t));
+    const land = eo5(lin(A.s202 - .2, A.s202 + .6, t)), exitR = ei5(lin(A.s203 - 1.0, A.s203 - .3, t)) * 1500;
     ctx.drawImage(bgLayer('take', '#2a1830', '#130f2c', '#05040f', { x: 1100, y: 480, ros: [1100, 520, 700], rosCol: '#e0a080', rosA: .04 }), -100 + drift(t, 8, 1) * .6 - (1 - land) * 60, -70);
-    // the TAKE band passing under (perspective strip)
-    paths(ctx, t, { view: 'persp', fork: { x: 1500, y: 1300 }, cam: { x: -900 - (t - A.s202) * 40, y: 700, z: 1.4 }, u: [1, 0, 0], trunk: 0, fog: .3, bg: false, labels: false, life: { take: .6 }, a: .55 });
+    // the TAKE band from above, running across under the rosette: the race of 2.01 lands on it and slows down (motion match)
+    { const t0 = A.s202 - .2, tau = t < t0 ? (t - t0) : (1 - Math.exp(-(t - t0) * 3)) / 3 + (t - t0) * .02, dx = -.928, dy = .372, v0 = 2300;
+      paths(ctx, t, { view: 'top', rot: .37, fork: { x: 960, y: 905 }, cam: { x: -1620 + dx * v0 * (tau - .353) - exitR / .88, y: 1257 + dy * v0 * (tau - .353), z: 2.1 }, u: [1, 0, 0], trunk: 0, fog: 0, bg: false, labels: false, life: { take: 0 }, a: .8 }); }
     const grip = eout(lin(A.take2 - .25, A.take2 + .15, t)), pull = sm(lin(A.take2 + .1, A.take2 + .9, t));
+    ctx.save(); ctx.translate(exitR, 0);
     bigRosette(ctx, ROS202.x - pull * 26, ROS202.y, 1 + .015 * Math.sin(t * .7), t, { rot: t * .03 });
-    label(ctx, 'THE BIG AI COMPANIES', ROS202.x, ROS202.y + 392, sm(lin(A.s202 + .2, A.s202 + .8, t)), { align: 'center', size: 18, spacing: 6, col: '#f0b8a0' });
+    label(ctx, 'THE BIG AI COMPANIES', 96, 150, sm(lin(A.s202 + .2, A.s202 + .8, t)), { size: 20, spacing: 6, col: '#f0b8a0' });
     // the hand: from the left, open → grip on the rim
     const hx = mix(-140, ROS202.x - 420, eout(lin(A.s202 + .2, A.take2 + .05, t))) - pull * 30, hy = ROS202.y + 40 + drift(t, 5, 3);
-    hand(ctx, hx, hy, 2.1, { pose: grip > .5 ? 'grip' : 'reach', close: grip * .4, ang: -.05, skin: '#b98762', sleeve: '#c4512e', rim: '#ffcf96', light: [1, -.5], t, seed: 7, sleeveLen: 520 });
+    hand(ctx, hx, hy, 2.1, { pose: grip > .5 ? 'grip' : 'reach', close: grip * .4, ang: -.05, skin: '#b98762', sleeve: '#c4512e', rim: '#ffcf96', light: [1, -.5], t, seed: 7, sleeveLen: 1400 }); sleeveShade(ctx, hx, hy, 2.1, { ang: -.05, sleeveLen: 1400, far: .7 });
     if (grip > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, hx + 150, hy - 10, 120, .3 * grip * (1 - pull * .6), RUST, '#ffd0b0'); ctx.restore(); }
+    ctx.restore();
     // the bill slides in over everything (carrier into 2.03)
     const b = bill(t); if (t > A.s203 - .8) billSheet(ctx, b.x, b.y, b.s, b.rot, t, {});
     motes(ctx, t, 51, 40, .4, '255,200,170');
@@ -354,6 +395,7 @@ export default (T, R) => {
   }
   // 2.03: the bill; a page turns; a paragraph lights (it is the tax paid in new shares) → push in
   const PARA = { t: A.s204 };
+  const paraAt = (t) => { const b = bill(t), x = b.x + drift(t, 4, 2), y = b.y + drift(t, 3, 3); return [x + 37 * b.s * Math.sin(b.rot), y - 37 * b.s * Math.cos(b.rot)]; };
   function frame203(ctx, t) {
     ctx.drawImage(bgLayer('bill', '#22182c', '#110d24', '#04030c', { x: 700, y: 520 }), -100 + drift(t, 6, 1) * .5, -70);
     const b = bill(t), turn = eio(lin(A.bill - .55, A.bill + .35, t)), hi = sm(lin(A.bill + .35, A.s204 - .25, t));
@@ -365,6 +407,7 @@ export default (T, R) => {
     ctx.save(); ctx.fillStyle = rgba(RUST, .9 * la); ctx.fillRect(1254, 545, 220 * la, 2); ctx.restore();
     motes(ctx, t, 61, 40, .4, '255,210,180');
     vignette(ctx, .55);
+    { const [px, py] = paraAt(A.s204); dipOut(ctx, t, A.s204, .8, px, py); }
   }
   // 2.04: from the rosette new shares are engraved and fly into the PUBLIC FUND; the rust half follows on "half"
   const R204 = { x: 640, y: 500, s: .86 }, BOX = { x: 1440, y: 900, s: .86 };
@@ -403,33 +446,39 @@ export default (T, R) => {
     source(ctx, 'American AI Sovereign Wealth Fund Act, introduced June 18, 2026', la);
     motes(ctx, t, 71, 50, .45);
     vignette(ctx, .55);
+    dipIn(ctx, t, A.s204, .8);
   }
   // 2.05: polls: four rows of three; in each row two raise a hand on "two in three"
   const crowd = (() => { const out = [], r = prng(44); for (let row = 0; row < 4; row++) for (let c = 0; c < 3; c++) { const depth = row / 3, s = mix(1.55, .7, depth); out.push({ row, c, x: 960 + (c - 1) * mix(300, 170, depth) + (r() - .5) * 30 + (row % 2 ? 40 : -30), y: mix(830, 470, depth), s, raise: c !== (row + 1) % 3, seed: row * 3 + c + 1, delay: r() * .25, col: ['#2c3456', '#33305a', '#2a3a58', '#3a3150'][Math.floor(r() * 4)] }); } return out.sort((a, b) => b.row - a.row); })();
-  const rising = (t) => { const k = lin(A.s206 - .9, A.s206 + .5, t); return { k, x: 1010 + k * 40, y: mix(430, -260, ein(k)) }; };
+  const upOf = (f, t) => eout(lin(A.twoInThree + f.delay * .6 - .05, A.twoInThree + f.delay * .6 + .45, t)) * (f.raise ? 1 : 0);
+  const poseOf = (u) => ({ sh: [mix(.18, .7, u), mix(.08, .55, u)], el: [mix(.32, 1.25, u), mix(.26, 1.2, u)], head: .1 * u });
+  const crowdX = (f, t) => { const enter = eo5(lin(A.s205 - .3, A.s205 + .5, t)); return f.x + drift(t, 10, 2) * (1 - f.row * .2) - (1 - enter) * 300 * (1 - f.row * .2); };
+  const HERO = crowd.find((f) => f.row === 0 && f.raise && f.c === 1) || crowd.find((f) => f.row === 0 && f.raise);
+  const cardAt = (f, t) => { const u = upOf(f, t), [hx, hy] = handPos(crowdX(f, t), f.y, f.s, poseOf(u), 0, false, { t }); return [hx + 10 * f.s, hy - 14 * f.s]; };
+  const rising = (t) => { const k = lin(A.s206 - .9, A.s206 + .5, t), t0 = A.s206 - .9, [sx, sy] = cardAt(HERO, t0); return { k, x: sx + k * 60, y: mix(sy, -260, ein(k)), s: mix(.42 * HERO.s, 1.1, sm(k)) }; };
   function frame205(ctx, t) {
     ctx.drawImage(bgLayer('poll', '#232650', '#11133a', '#05061a', { x: 960, y: 380 }), -100 + drift(t, 6, 1) * .5, -70);
     // the floor: an engraved chart plane in perspective
     ctx.save(); ctx.strokeStyle = 'rgba(170,180,230,.08)'; ctx.lineWidth = 1; for (let i = -10; i <= 10; i++) { ctx.beginPath(); ctx.moveTo(960 + i * 40, 380); ctx.lineTo(960 + i * 260, H); ctx.stroke(); } for (const y of [420, 470, 540, 640, 780, 960]) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); } ctx.restore();
     { const g = ctx.createRadialGradient(960, 300, 0, 960, 300, 900); g.addColorStop(0, rgba('#ffd59a', .16)); g.addColorStop(1, 'rgba(255,213,154,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
-    const cx = drift(t, 10, 2), enter = eo5(lin(A.s205 - .3, A.s205 + .5, t));
+    const rs = rising(t);
     for (const f of crowd) {
-      const up = eout(lin(A.twoInThree + f.delay * .6 - .05, A.twoInThree + f.delay * .6 + .4, t)) * (f.raise ? 1 : 0);
-      const pose = { sh: [mix(.18, 2.75, up), .1], el: [mix(.3, .15, up), .25], head: -.12 * up };
-      figureFlat(ctx, f.x + cx * (1 - f.row * .2) - (1 - enter) * 300 * (1 - f.row * .2), f.y, f.s, pose, { t, seed: f.seed, col: f.col, rim: up > .3 ? '#ffd59a' : '#9fb0d8', rimSide: 1, accent: up > .3 ? '#c8843a' : null, accentPart: 'sleeve', shade: .55 });
-      if (up > .5) { const hp = [f.x + cx * (1 - f.row * .2) + 8 * f.s, f.y - (64 + 55) * f.s]; ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, hp[0], hp[1], 40 * f.s, .35 * up, AMBER, CORE); ctx.restore(); }
+      const up = upOf(f, t), pose = poseOf(up), fx = crowdX(f, t);
+      figureFlat(ctx, fx, f.y, f.s, pose, { t, seed: f.seed, col: up > .3 ? mix3(f.col, '#4a3a5a', up) : f.col, rim: up > .3 ? '#ffd59a' : '#9fb0d8', rimSide: 1, shade: .55 });
+      if (up > 0 && !(f === HERO && rs.k > 0)) { const [cx2, cy2] = cardAt(f, t); ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, cx2, cy2, 70 * f.s, .3 * up, AMBER, CORE); ctx.restore(); miniCert(ctx, cx2, cy2, .42 * f.s * mix(.6, 1, up), -.12, { glow: .5 * up, a: up, shadow: false }); }
     }
-    const la = sm(lin(A.twoInThree - .1, A.twoInThree + .5, t));
-    text(ctx, '≈ 2 in 3', 120, 250 + (1 - la) * 14, { size: 110, font: 'Instrument Serif', color: rgba('#ffd59a', la) });
+    const la = sm(lin(A.twoInThree - .1, A.twoInThree + .5, t)), lp = sm(lin(A.s205 + .15, A.s205 + .75, t));
+    label(ctx, 'IN POLLS, ROUGHLY', 124, 136, lp, { size: 18, spacing: 6, col: '#ffd59a' });
+    text(ctx, '2 in 3', 120, 250 + (1 - la) * 14, { size: 110, font: 'Instrument Serif', color: rgba('#ffd59a', la) });
     label(ctx, 'AMERICANS SUPPORT IT', 124, 298, la, { size: 18, spacing: 6 });
     source(ctx, 'Verasight poll, June 2026 (69 % in favour)', la);
     // a share rises from a raised hand (carrier into 2.06)
-    const rs = rising(t); if (rs.k > 0) { miniCert(ctx, rs.x, rs.y, 1.1, -.12 + rs.k * .3, { glow: .6 }); addGlow(ctx, rs.x, rs.y, 80, .4, AMBER, CORE); }
+    if (rs.k > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, rs.x, rs.y, 90, .45, AMBER, CORE); ctx.restore(); miniCert(ctx, rs.x, rs.y, rs.s, -.12 + rs.k * .3, { glow: .6 }); }
     motes(ctx, t, 81, 50, .45);
     vignette(ctx, .55);
   }
   // 2.06: the rosette grows into dotted future rings; slices from them engrave solid on the way to the fund
-  const R206 = { x: 700, y: 560 }, BOX6 = { x: 1500, y: 960, s: .7 };
+  const R206 = { x: 820, y: 600 }, BOX6 = { x: 1540, y: 960, s: .7 };   // the rings keep clear of the two text lines top-left
   function frame206(ctx, t) {
     ctx.drawImage(bgLayer('future', '#1a1c48', '#0c0d30', '#04040f', { x: 760, y: 520 }), -100 + drift(t, 8, 1) * .5, -70);
     const grow = eo5(lin(A.future - .3, A.future + .9, t)), z = 1 - .04 * grow;
@@ -439,15 +488,20 @@ export default (T, R) => {
     // future rings (ghost) growing outward
     const rings = [250, 330, 410];
     rings.forEach((Rr, i) => { const g = eo5(lin(A.future - .3 + i * .18, A.future + .7 + i * .18, t)); if (g <= 0) return;
-      ghostLine(ctx, ringPts(R206.x, R206.y, Rr * mix(.7, 1, g), 9, 26 + i * 6, t * .2 + i), { ghost: 1, col: PAPERC, a: .55 * g, dot: 6.5, w: 1.6 });
+      ghostLine(ctx, ringPts(R206.x, R206.y, Rr * mix(.7, 1, g), 9, 26 + i * 6, t * .2 + i), { ghost: 1, col: PAPERC, a: .8 * g, dot: 6.5, w: 1.9 });
       ghostLine(ctx, ringPts(R206.x, R206.y, Rr * mix(.7, 1, g) - 12, 7, 26 + i * 6, -t * .15 + i * 2), { ghost: 1, col: '#ffd59a', a: .3 * g, dot: 6.5, w: 1.2 }); });
     // the share from 2.05 drops into the outer ring
-    { const k = lin(A.s206 - .45, A.s206 + .7, t); if (k > 0 && k < 1.2) { const y = mix(-200, R206.y - 410, eo5(k)), x = R206.x + 40; miniCert(ctx, x, y, mix(1.1, .55, eo5(k)), .18 - k * .2, { glow: 1 - clamp(k), a: 1 - sm(lin(.9, 1.15, k)) }); } }
+    { const k = lin(A.s206 - .45, A.s206 + .7, t), gone = sm(lin(A.s206 + .55, A.s206 + 1.0, t)); if (k > 0 && gone < 1) { const y = mix(-200, R206.y - 410, eo5(k)), x = R206.x + 40; miniCert(ctx, x, y, mix(1.1, .55, eo5(k)) * (1 - gone * .5), .18 - k * .2, { glow: 1 - k * .5, a: 1 - gone }); if (k >= 1) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, x, y, 90, .5 * (1 - gone), AMBER, CORE); ctx.restore(); } } }
     // slices of the future rings leave for the fund and engrave solid on the way (on "later")
     for (let i = 0; i < 3; i++) { const t0 = A.later - .5 + i * .45, k = lin(t0, t0 + 1.5, t); if (k <= 0 || k >= 1) continue;
-      const Rr = rings[i], a0 = -.5 + i * .35, fly = qio(lin(.1, 1, k)), cx = mix(R206.x, fb.mouth[0], fly), cy = mix(R206.y, fb.mouth[1], fly) - Math.sin(fly * Math.PI) * 160, sc = mix(1, .25, fly);
-      const pts = []; for (let j = 0; j <= 40; j++) { const a = a0 + j / 40 * .5, r0 = Rr + 9 * Math.sin(a * (26 + i * 6)); pts.push([cx + (Math.cos(a) * r0 - Math.cos(a0 + .25) * Rr) * sc, cy + (Math.sin(a) * r0 - Math.sin(a0 + .25) * Rr) * sc]); }
-      ghostLine(ctx, pts, { ghost: 1 - sm(lin(.15, .7, k)), col: '#ffd59a', w: 2.6 * sc + .8, dot: 6, a: .95, glow: AMBER });
+      const Rr = rings[i], a0 = -.5 + i * .35, am = a0 + .25, fly = qio(lin(.1, 1, k)), cx = mix(R206.x + Math.cos(am) * Rr, fb.mouth[0], fly), cy = mix(R206.y + Math.sin(am) * Rr, fb.mouth[1], fly) - Math.sin(fly * Math.PI) * 160, sc = mix(1.25, .3, fly);
+      const solid = sm(lin(.15, .7, k));
+      { const Mx = Math.cos(am) * Rr, My = Math.sin(am) * Rr, poly = []; for (let j = 0; j <= 14; j++) { const a = a0 + j / 14 * .5; poly.push([Math.cos(a) * (Rr + 22), Math.sin(a) * (Rr + 22)]); } for (let j = 14; j >= 0; j--) { const a = a0 + j / 14 * .5; poly.push([Math.cos(a) * (Rr - 22), Math.sin(a) * (Rr - 22)]); }
+        ctx.save(); ctx.translate(cx, cy); ctx.scale(sc, sc); ctx.translate(-Mx, -My); ctx.beginPath(); poly.forEach(([px, py], j) => j ? ctx.lineTo(px, py) : ctx.moveTo(px, py)); ctx.closePath();
+        ctx.fillStyle = rgba(AMBER, .08 + .2 * solid); ctx.fill(); ctx.strokeStyle = rgba(CORE, .25 + .6 * solid); ctx.lineWidth = 1.4 / sc; ctx.stroke(); ctx.restore(); }
+      for (const dr of [-14, 0, 14]) { const pts = []; for (let j = 0; j <= 40; j++) { const a = a0 + j / 40 * .5, r0 = Rr + dr + 9 * Math.sin(a * (26 + i * 6)); pts.push([cx + (Math.cos(a) * r0 - Math.cos(am) * Rr) * sc, cy + (Math.sin(a) * r0 - Math.sin(am) * Rr) * sc]); }
+        ghostLine(ctx, pts, { ghost: 1 - solid, col: dr ? '#f3e3cf' : '#ffd59a', w: (dr ? 1.6 : 2.8) * sc + .6, dot: 6, a: .95, glow: AMBER }); }
+      if (solid > .2) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, cx, cy, 70 * sc + 20, .35 * solid * (1 - fly), AMBER, CORE); ctx.restore(); }
     }
     ctx.restore();
     const la = sm(lin(A.later - .2, A.later + .4, t)), lf = sm(lin(A.future - .2, A.future + .4, t));
@@ -455,6 +509,7 @@ export default (T, R) => {
     text(ctx, 'also taxes shares created later', 96, 222 + (1 - la) * 14, { size: 54, font: 'Instrument Serif', color: rgba(CREAM, la) });
     motes(ctx, t, 91, 50, .45);
     vignette(ctx, .55);
+    dipOut(ctx, t, A.s207, .8, R206.x + 410 * .96, R206.y);
   }
   // 2.07: the rosette resists: the hand pulls half of it away, the engraving stretches like cloth and tears in rust on "half"
   const R207 = { x: 900, y: 500, R: 330 }, G7 = guilloche({ R: R207.R, A: 40, B: 18, n: 22, m: 9, lines: 30, steps: 540 }), G7L = Array.from({ length: 30 }, (_, k) => G7.line(k));
@@ -486,17 +541,18 @@ export default (T, R) => {
     ctx.restore();
     // the hand gripping the right rim, pulling
     const hx = R207.x + R207.R + 120 + stretch, hy = R207.y + 20 + fall * 900;
-    hand(ctx, hx, hy, 2.1, { pose: 'grip', close: .3, ang: Math.PI + .05, flip: true, skin: '#b98762', sleeve: '#c4512e', rim: '#ffcf96', light: [-1, -.4], t, seed: 9, sleeveLen: 600 });
-    label(ctx, 'WHAT ALREADY EXISTS', R207.x, R207.y + R207.R + 140, sm(lin(A.s207 + .3, A.s207 + .9, t)) * (1 - fall), { align: 'center', size: 18, spacing: 6, col: '#f0b8a0' });
+    hand(ctx, hx, hy, 2.1, { pose: 'grip', close: .3, ang: Math.PI + .05, flip: true, skin: '#b98762', sleeve: '#c4512e', rim: '#ffcf96', light: [-1, -.4], t, seed: 9, sleeveLen: 900 }); sleeveShade(ctx, hx, hy, 2.1, { ang: Math.PI + .05, flip: true, sleeveLen: 900, far: .7 });
+    label(ctx, 'WHAT ALREADY EXISTS', 96, 150, sm(lin(A.s207 + .3, A.s207 + .9, t)) * (1 - fall), { size: 20, spacing: 6, col: '#f0b8a0' });
     motes(ctx, t, 101, 40, .4, '255,200,170');
     vignette(ctx, .55);
+    dipIn(ctx, t, A.s207, .8);
   }
   // 2.08: the fund on the US paper map: file stacks rise ("years in court"), the border lights up and holds a share that wants out
   const MAPCAM = { ...region('USA', .62), rot: -.03, tilt: .52, x: 960, y: 560, f: 1500 };
-  const mapLayer = () => once('c03map', () => { const [c, g] = canvas(W, H); g.fillStyle = '#120e14'; g.fillRect(0, 0, W, H); worldMap(g, MAPCAM, { t: 0, borders: true, light: [W * .62, H * .2], detail: '50m' }); return c; });
+  const mapLayer = () => once('c03map', () => { const [c, g] = canvas(W, H); g.fillStyle = '#120e14'; g.fillRect(0, 0, W, H); worldMap(g, MAPCAM, { t: 0, borders: true, light: [W * .62, H * .2], detail: '50m', highlight: ['USA'], dim: .45 }); g.globalCompositeOperation = 'multiply'; g.fillStyle = '#b3abc9'; g.fillRect(0, 0, W, H); g.globalCompositeOperation = 'source-over'; const vg = g.createRadialGradient(BOX8.x, BOX8.y, 300, BOX8.x, BOX8.y, 1250); vg.addColorStop(0, 'rgba(10,8,26,0)'); vg.addColorStop(1, 'rgba(10,8,26,.62)'); g.fillStyle = vg; g.fillRect(0, 0, W, H); return c; });
   const usBorder = (() => { const cn = country('USA', '50m'); let best = null; for (const p of cn.polys) { const r0 = p[0]; if (!(r0[0][0] > -130 && r0[0][1] < 50)) continue; if (!best || r0.length > best.length) best = r0; } return best.map(([lon, lat]) => { const [x, y] = project(MAPCAM, lon, lat); return [x, y]; }); })();
   const BOX8 = (() => { const [x, y] = project(MAPCAM, -97, 38.5); return { x, y }; })();
-  const borderBits = (() => { const r = prng(12), out = []; for (let i = 0; i < 64; i++) { const j = Math.floor(r() * usBorder.length), [x, y] = usBorder[j]; out.push({ x: x + (r() - .5) * 14, y: y + (r() - .5) * 8, rot: (r() - .5) * 1.4, s: .14 + r() * .06 }); } return out; })();
+  const borderBits = (() => { const r = prng(12), out = []; for (let i = 0; i < 52; i++) { const j = Math.floor(r() * usBorder.length), [x, y] = usBorder[j]; out.push({ x: x + (r() - .5) * 14, y: y + (r() - .5) * 8, rot: (r() - .5) * 1.4, s: .22 + r() * .08 }); } return out; })();
   const stacks = [[-300, 40, 9], [-180, -80, 7], [210, -60, 8], [330, 50, 10], [-80, 130, 6], [120, 140, 7]];
   const southPt = (() => { const [x, y] = project(MAPCAM, -103.5, 29.6); return { x, y }; })();
   function frame208(ctx, t) {
@@ -504,11 +560,13 @@ export default (T, R) => {
     const z = 1.04 + .03 * lin(A.s208, A.end, t), ox = drift(t, 8, 1) + whip * 700, oy = drift(t, 5, 2) + (1 - enter) * -60;
     ctx.save(); ctx.translate(960 + ox, 560 + oy); ctx.scale(z, z); ctx.translate(-960, -560);
     ctx.drawImage(mapLayer(), 0, 0);
+    if (whip > .02) { ctx.save(); ctx.globalAlpha = .2 * whip; for (let k = 1; k <= 3; k++) ctx.drawImage(mapLayer(), -k * 70 * whip, 0); ctx.restore(); }
     // the tiny share certificates from H.07 lying along the border
     for (const b of borderBits) miniCert(ctx, b.x, b.y, b.s, b.rot, { shadow: false, a: .9 });
     // the border lights up on "border" and holds a share that wants out
     const bg = sm(lin(A.border - .25, A.border + .2, t)), pulse = .8 + .2 * Math.sin(t * 6);
-    if (bg > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineJoin = 'round'; for (const [w, al] of [[16, .12], [6, .32], [2, .95]]) { ctx.strokeStyle = rgba(w < 3 ? CORE : AMBER, al * bg * pulse); ctx.lineWidth = w; strokePoly(ctx, usBorder); } ctx.restore(); }
+    if (bg > 0) { const G = once('c03borderglow', () => { const [c, g] = canvas(W, H); g.lineJoin = 'round'; g.globalCompositeOperation = 'lighter'; for (const [w, al] of [[16, .12], [6, .32], [2, .95]]) { g.strokeStyle = rgba(w < 3 ? CORE : AMBER, al); g.lineWidth = w; strokePoly(g, usBorder); } return c; });
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = Math.min(1, bg * pulse); ctx.drawImage(G, 0, 0); ctx.restore(); }
     // the fund on the map, the stacks around it
     const stackH = (i) => eout(lin(A.court - .15 + i * .09, A.courtE + .3 + i * .09, t)) * stacks[i][2];
     stacks.forEach((s, i) => { if (s[1] < 0) fileStack(ctx, BOX8.x + s[0], BOX8.y + s[1], .62, stackH(i), t, { seed: i + 2 }); });
@@ -523,10 +581,10 @@ export default (T, R) => {
     // lamp light, labels
     { const g = ctx.createRadialGradient(W * .64, H * .1, 0, W * .6, H * .3, 1400); g.addColorStop(0, 'rgba(255,200,140,.18)'); g.addColorStop(1, 'rgba(255,170,100,0)'); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore(); }
     const lc = sm(lin(A.court - .1, A.court + .5, t)) * (1 - whip), lb = sm(lin(A.border - .1, A.border + .4, t)) * (1 - whip);
+    { const pa = Math.max(lc, lb); if (pa > 0) { ctx.save(); ctx.fillStyle = `rgba(10,10,30,${.72 * pa})`; ctx.beginPath(); ctx.roundRect(72, 112, 470, 62 + 42 * lb, 10); ctx.fill(); ctx.restore(); } }
     label(ctx, 'YEARS IN COURT?', 96, 150, lc, { size: 20, spacing: 6, col: '#f0b8a0' });
-    label(ctx, 'ONLY INSIDE THE US', 96, 186, lb, { size: 20, spacing: 6, col: '#ffd59a' });
+    label(ctx, 'ONLY INSIDE THE US', 96, 192, lb, { size: 20, spacing: 6, col: '#ffd59a' });
     // the tear back to the fork: smear to the right
-    if (whip > .02) { ctx.save(); ctx.globalAlpha = .22 * whip; for (let k = 1; k <= 3; k++) ctx.drawImage(ctx.canvas, -k * 60 * whip, 0); ctx.restore(); }
     vignette(ctx, .55);
   }
 
@@ -535,18 +593,18 @@ export default (T, R) => {
   return [
     { t: CIN.into.t, tr: CIN.into.tr, x: CIN.into.x, y: CIN.into.y, d: CIN.into.d, draw: (ctx, t) => plateFrame(ctx, t), print: { riso: .3 } },   // 1.02
     { t: A.s103, ...cutIn, draw: (ctx, t) => plateFrame(ctx, t), print: { riso: .3 } },                                                           // 1.03 (plan sequence)
-    { t: A.s104, ...cutIn, draw: (ctx, t) => plateFrame(ctx, t), print: { riso: .3 } },                                                           // 1.04
+    { t: A.s104, ...cutIn, draw: (ctx, t) => plateFrame(ctx, t), print: { riso: .3 }, sound: [{ f: 'foil_glint', t: A.s104 - .1, v: .2 }] },                                                           // 1.04
     { t: A.s114, tr: 'out', x: (STRIP.x0 + STRIP.x1) / 2, y: STRIP.y, depth: 5, d: .9, draw: (ctx, t) => tableFrame(ctx, t), print: { riso: .3 } },  // 1.14
     { t: A.s115, ...cutIn, draw: (ctx, t) => tableFrame(ctx, t), print: { riso: .3 } },                                                           // 1.15
-    { t: A.s115a, ...cutIn, draw: (ctx, t) => tableFrame(ctx, t), print: { riso: .3 } },                                                          // 1.15a
-    { t: A.s116, tr: 'zoom', x: ROS2.x, y: ROS2.y - 60, depth: 5, d: .9, draw: (ctx, t) => frame116(ctx, t) },                                   // 1.16
-    { t: A.s201, tr: 'zoom', x: 1150, y: 450, depth: 6, d: .8, draw: (ctx, t) => frame201(ctx, t) },                                             // 2.01
-    { t: A.s202, tr: 'whipL', d: .3, draw: (ctx, t) => frame202(ctx, t) },                                                                       // 2.02
+    { t: A.s115a, ...cutIn, draw: (ctx, t) => tableFrame(ctx, t), print: { riso: .3 }, sound: [{ f: 'bloom', t: A.comingE + .25, v: .16 }] },                                                          // 1.15a
+    { t: A.s116, tr: 'zoom', x: tableToS(A.s116, ROS2.x, dawnY(A.s116))[0], y: tableToS(A.s116, ROS2.x, dawnY(A.s116))[1], depth: 5, d: .9, draw: (ctx, t) => frame116(ctx, t) },                                   // 1.16
+    { t: A.s201, tr: 'zoom', x: nib16(A.s201).x, y: nib16(A.s201).y, depth: 6, d: .8, draw: (ctx, t) => frame201(ctx, t) },                                             // 2.01
+    { t: A.s202, tr: 'whipR', d: .3, draw: (ctx, t) => frame202(ctx, t) },                                                                       // 2.02
     { t: A.s203 - .3, tr: 'cut', d: .12, draw: (ctx, t) => frame203(ctx, t) },                                                                   // 2.03 (the bill carries over)
-    { t: A.s204, tr: 'zoom', x: 960, y: 560, depth: 5, d: .8, draw: (ctx, t) => frame204(ctx, t), sound: [{ f: 'paper_pop', t: A.s204 - .45, v: .25 }] },   // 2.04
+    { t: A.s204, tr: 'zoom', x: paraAt(A.s204)[0], y: paraAt(A.s204)[1], depth: 5, d: .8, draw: (ctx, t) => frame204(ctx, t) },   // 2.04
     { t: A.s205, tr: 'right', d: .55, draw: (ctx, t) => frame205(ctx, t) },                                                                      // 2.05
     { t: A.s206, tr: 'up', d: .5, draw: (ctx, t) => frame206(ctx, t) },                                                                          // 2.06
-    { t: A.s207, tr: 'zoom', x: R206.x + 410, y: R206.y, depth: 5, d: .8, draw: (ctx, t) => frame207(ctx, t) },                                  // 2.07
-    { t: A.s208, tr: 'down', d: .5, draw: (ctx, t) => frame208(ctx, t), sound: [{ f: 'tear', t: A.half2 + .02, v: .3 }] },                        // 2.08
+    { t: A.s207, tr: 'zoom', x: R206.x + 410 * .96, y: R206.y, depth: 5, d: .8, draw: (ctx, t) => frame207(ctx, t), sound: [{ f: 'tear', t: A.half2 + .02, v: .22 }] },                                  // 2.07
+    { t: A.s208, tr: 'down', d: .5, draw: (ctx, t) => frame208(ctx, t) },                        // 2.08
   ];
 };

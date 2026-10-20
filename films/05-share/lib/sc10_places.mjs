@@ -39,10 +39,17 @@ function motes(ctx, t, x0, y0, w, h, n, seed, col, a, drift0 = [12, -4]) {
 function lightSprite(key, r, stops) { return once(key, () => { const [c, g] = canvas(r * 2, r * 2), rg = g.createRadialGradient(r, r, 0, r, r, r); for (const [p, col] of stops) rg.addColorStop(p, col); g.fillStyle = rg; g.fillRect(0, 0, r * 2, r * 2); stipple(c, { k: .7, g: 1.2, seed: r }); return c; }); }
 
 // ---------------------------------------------------------------- 6.20 Manila at dawn
+function mnlRays() {
+  return once('mnl-rays', () => { const [c, g] = canvas(W, H), r = prng(21), sx = MANILA_SUN.x, sy = MANILA_SUN.y;
+    g.globalCompositeOperation = 'lighter';
+    for (let i = 0; i < 26; i++) { const a = -Math.PI + .15 + r() * (Math.PI - .3), w = .02 + r() * .05, L = 900 + r() * 900, lg = g.createRadialGradient(sx, sy, 40, sx, sy, L);
+      lg.addColorStop(0, `rgba(255,226,186,${.10 + r() * .12})`); lg.addColorStop(1, 'rgba(255,200,150,0)'); g.fillStyle = lg; g.beginPath(); g.moveTo(sx, sy); g.arc(sx, sy, L, a - w, a + w); g.closePath(); g.fill(); }
+    g.filter = 'blur(6px)'; g.drawImage(c, 0, 0); g.filter = 'none'; return c; });
+}
 function mnlSky() {
   return once('mnl-sky', () => {
     const [c, g] = canvas(PADW, H);
-    vgrad(g, PADW, H, [[0, '#1f2148'], [.3, '#46426e'], [.52, '#9a7896'], [.66, '#e7a58e'], [.74, '#f6c09a'], [1, '#f2b18c']]);
+    vgrad(g, PADW, H, [[0, '#2a2858'], [.2, '#58507e'], [.36, '#b07f98'], [.47, '#eea58c'], [.57, '#f8c69e'], [1, '#f4b48e']]);
     const sx = MANILA_SUN.x + 180, sy = MANILA_SUN.y;
     const sg = g.createRadialGradient(sx, sy, 0, sx, sy, 900); sg.addColorStop(0, 'rgba(255,236,200,.95)'); sg.addColorStop(.08, 'rgba(255,214,170,.7)'); sg.addColorStop(.35, 'rgba(250,170,130,.25)'); sg.addColorStop(1, 'rgba(250,160,130,0)'); g.fillStyle = sg; g.fillRect(0, 0, PADW, H);
     cloudBand(g, 300, 120, 1300, 34, 3, 'rgba(190,140,170,.9)', 'rgba(250,190,160,.9)', .55);
@@ -88,7 +95,6 @@ function mnlStreet() {
       x += w + (r() < .3 ? 6 + r() * 18 : 0);
     }
     // street and the near sidewalk, wet from the night: the sky glints in it
-    vgrad(g, PADW, 0, []);
     const sg = g.createLinearGradient(0, ground, 0, H); sg.addColorStop(0, '#3c3348'); sg.addColorStop(.3, '#2a2336'); sg.addColorStop(1, '#17121f'); g.fillStyle = sg; g.fillRect(0, ground, PADW, H - ground);
     const gl = g.createRadialGradient(MANILA_SUN.x + 180, ground + 30, 0, MANILA_SUN.x + 180, ground + 30, 900); gl.addColorStop(0, 'rgba(255,200,160,.42)'); gl.addColorStop(1, 'rgba(255,200,160,0)'); g.save(); g.translate(0, ground); g.scale(1, .18); g.translate(0, -ground); g.fillStyle = gl; g.fillRect(0, ground - 400, PADW, 1800); g.restore();
     g.fillStyle = '#4a3f52'; g.fillRect(0, 916, PADW, 8); g.fillStyle = 'rgba(255,214,180,.45)'; g.fillRect(0, 916, PADW, 1.6);   // curb
@@ -137,6 +143,21 @@ function jeepney() {
     g.fillStyle = '#6a5f6e'; g.beginPath(); g.moveTo(492, 112); g.lineTo(512, 74); g.lineTo(560, 120); g.closePath(); g.fill();                         // windscreen
     g.fillStyle = '#d9a24a'; g.beginPath(); g.moveTo(540, 112); g.lineTo(552, 80); g.lineTo(560, 112); g.closePath(); g.fill();                         // a small bonnet ornament
     g.fillStyle = '#17121c'; for (const wx of [110, 470]) { g.beginPath(); g.arc(wx, 196, 30, 0, TAU); g.fill(); }
+    // what makes it a jeepney: chrome, a painted skirt, the long jeep bonnet with a tall grille and twin lamps, silver horses on the
+    // bonnet, an open rear entrance with a step and a grab bar, amber lights along the roof lip
+    { const hg = g.createLinearGradient(0, 56, 0, 70); hg.addColorStop(0, 'rgba(255,246,236,.75)'); hg.addColorStop(1, 'rgba(255,246,236,0)'); g.fillStyle = hg; g.fillRect(24, 54, 462, 16); }
+    { const sk = g.createLinearGradient(24, 0, 488, 0); ['#c8442f', '#e0a23a', '#2f7c80', '#c8442f', '#e0a23a'].forEach((col, i) => sk.addColorStop(i / 4, col)); g.fillStyle = sk; g.fillRect(24, 158, 462, 30);
+      g.fillStyle = 'rgba(255,240,220,.85)'; for (let x = 34; x < 480; x += 26) { g.beginPath(); g.moveTo(x, 173); g.lineTo(x + 7, 166); g.lineTo(x + 14, 173); g.lineTo(x + 7, 180); g.closePath(); g.fill(); }
+      g.fillStyle = 'rgba(255,250,240,.7)'; g.fillRect(24, 156, 462, 2.5); g.fillRect(24, 188, 462, 2.5); }
+    g.fillStyle = '#a9a4ae'; g.beginPath(); g.moveTo(492, 118); g.lineTo(574, 124); g.quadraticCurveTo(592, 128, 594, 146); g.lineTo(594, 190); g.lineTo(492, 190); g.closePath(); g.fill();
+    { const bg2 = g.createLinearGradient(0, 118, 0, 190); bg2.addColorStop(0, 'rgba(255,246,236,.6)'); bg2.addColorStop(.3, 'rgba(255,255,255,0)'); bg2.addColorStop(1, 'rgba(20,10,30,.4)'); g.fillStyle = bg2; g.fill(); }
+    g.fillStyle = '#d8d3dc'; g.fillRect(578, 134, 18, 50); g.fillStyle = '#6a6470'; for (let y = 138; y < 182; y += 6) g.fillRect(580, y, 14, 2.5);
+    g.fillStyle = '#fff0d0'; for (const ly of [140, 168]) { g.beginPath(); g.arc(592, ly, 7, 0, TAU); g.fill(); }
+    g.fillStyle = '#e6e2ea'; g.fillRect(486, 190, 112, 9); g.fillStyle = 'rgba(255,255,255,.8)'; g.fillRect(486, 190, 112, 2);   // chrome bumper
+    for (const hx of [530, 556]) { g.fillStyle = '#e9e5ee'; g.beginPath(); g.moveTo(hx, 122); g.lineTo(hx + 2, 104); g.lineTo(hx + 8, 96); g.lineTo(hx + 12, 99); g.lineTo(hx + 8, 104); g.lineTo(hx + 14, 108); g.lineTo(hx + 12, 122); g.closePath(); g.fill(); }   // silver horses
+    g.fillStyle = '#120e18'; g.fillRect(8, 70, 16, 126); g.fillStyle = '#d8d3dc'; g.fillRect(14, 76, 3, 110); g.fillStyle = '#4a4450'; g.fillRect(2, 190, 30, 8);   // open rear, grab bar, step
+    for (let x = 44; x < 478; x += 36) { g.fillStyle = '#ffb35c'; g.beginPath(); g.arc(x, 51, 2.6, 0, TAU); g.fill(); }
+    g.fillStyle = '#c9c4cc'; for (const wx of [110, 470]) { g.beginPath(); g.arc(wx, 196, 12, 0, TAU); g.fill(); }
     stipple(c, { k: .3, g: 1, seed: 5, mid: false, boost: 1 });
     return c;
   });
@@ -149,8 +170,11 @@ export function manila(ctx, t, o = {}) {
   ctx.drawImage(mnlSky(), -180 - P(.08), cam.y * .1);
   // the sun pushes through the haze (the hero light); on "dawn" it breaks clear
   { const B = lightSprite('mnl-sun', 520, [[0, 'rgba(255,246,226,1)'], [.05, 'rgba(255,226,186,.85)'], [.22, 'rgba(255,190,140,.3)'], [1, 'rgba(255,170,130,0)']]); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .45 + .5 * lift; ctx.drawImage(B, MANILA_SUN.x - P(.1) - 520, MANILA_SUN.y - 520 + cam.y * .1); ctx.restore(); }
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .25 + .55 * lift; ctx.translate(MANILA_SUN.x - P(.1), MANILA_SUN.y); ctx.rotate(.02 * Math.sin(t * .3)); ctx.drawImage(mnlRays(), -MANILA_SUN.x, -MANILA_SUN.y); ctx.restore();
   ctx.drawImage(mnlFar(), -180 - P(.2), cam.y * .2);
   ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .9; ctx.drawImage(mnlHaze(), -180 - P(.3) - lt * 4, cam.y * .3); ctx.restore();
+  // on "dawn" the peach light floods the street: a warm wash from the sun side
+  { const wg = ctx.createRadialGradient(MANILA_SUN.x, MANILA_SUN.y, 0, MANILA_SUN.x, MANILA_SUN.y, 1500); wg.addColorStop(0, `rgba(255,200,150,${.22 + .2 * lift})`); wg.addColorStop(.5, `rgba(255,170,130,${.06 + .08 * lift})`); wg.addColorStop(1, 'rgba(255,160,120,0)'); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = wg; ctx.fillRect(0, 0, W, H); ctx.restore(); }
   // the jeepney passes on the street behind her (moving right, faster than her)
   const jx = mix(-700, 2100, eio(lin(t0 + .2, t0 + 3.6, t))), jy = 846 - 250 + 4 + Math.sin(t * 19) * .8;
   ctx.drawImage(mnlStreet(), -180 - P(.55), cam.y * .55);
@@ -160,7 +184,7 @@ export function manila(ctx, t, o = {}) {
   const Wr = mnlWires(); ctx.drawImage(Wr.c, -180 - P(.7), cam.y * .7);
   // the light thread (c09>c10) lands on the wire and runs right: the dawn catches the wire
   { const g0 = o.glint ?? t0, u = (t - g0) / 2.2; if (u > 0 && u < 1.2) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
-      const pts = Wr.wires, n = pts.length, head = Math.floor(clamp(u) * (n - 1)), tail = Math.max(0, head - 90), fade = 1 - clamp((u - .9) / .3);
+      const pts = Wr.wires[0][0] > Wr.wires[Wr.wires.length - 1][0] ? [...Wr.wires].reverse() : Wr.wires, n = pts.length, head = Math.floor(clamp(u) * (n - 1)), tail = Math.max(0, head - 90), fade = 1 - clamp((u - .9) / .3);
       for (const [lw, a] of [[10, .08], [4, .22], [1.6, .9]]) { ctx.strokeStyle = rgba(lw > 2 ? '#ffb35c' : '#fff1d6', a * fade); ctx.lineWidth = lw; ctx.beginPath(); for (let i = tail; i <= head; i++) { const [x, y] = pts[i]; i === tail ? ctx.moveTo(x - 180 - P(.7), y + cam.y * .7) : ctx.lineTo(x - 180 - P(.7), y + cam.y * .7); } ctx.stroke(); }
       const [hx, hy] = pts[head]; const hg = ctx.createRadialGradient(hx - 180 - P(.7), hy, 0, hx - 180 - P(.7), hy, 60); hg.addColorStop(0, `rgba(255,241,214,${.8 * fade})`); hg.addColorStop(1, 'rgba(255,179,92,0)'); ctx.fillStyle = hg; ctx.fillRect(hx - 240 - P(.7), hy - 60, 120, 120); ctx.restore(); } }
   // her: walking home after the night shift, petrol scrubs, tired round shoulders, head a little down; toward the sun
@@ -221,10 +245,18 @@ function truck() {
   return once('truck', () => {
     const w = 1500, h = 560, [c, g] = canvas(w, h), base = 470;
     // trailer (long box to the right), then the conventional cab facing left: long hood, sleeper, chrome stack
-    g.fillStyle = '#4a4f63'; g.fillRect(560, 90, 940, 330); const tg = g.createLinearGradient(0, 90, 0, 420); tg.addColorStop(0, 'rgba(255,170,110,.3)'); tg.addColorStop(.2, 'rgba(0,0,0,0)'); tg.addColorStop(1, 'rgba(10,6,20,.5)'); g.fillStyle = tg; g.fillRect(560, 90, 940, 330);
-    g.strokeStyle = 'rgba(10,8,16,.45)'; g.lineWidth = 1.4; for (let x = 600; x < 1500; x += 46) { g.beginPath(); g.moveTo(x, 94); g.lineTo(x, 416); g.stroke(); }
-    g.fillStyle = 'rgba(255,190,130,.5)'; g.fillRect(560, 90, 940, 2);
-    g.fillStyle = '#1b1722'; g.fillRect(560, 420, 940, 18); for (const wx of [1180, 1300]) { g.beginPath(); g.arc(wx, base, 46, 0, TAU); g.fill(); }
+    // a 53-ft dry van: taller than the cab, a gap at the fifth wheel, the dusk sky reflected along its side, amber marker lights
+    g.fillStyle = '#454a60'; g.fillRect(600, 52, 900, 368);
+    { const tg = g.createLinearGradient(0, 52, 0, 420); tg.addColorStop(0, 'rgba(255,176,116,.34)'); tg.addColorStop(.18, 'rgba(0,0,0,0)'); tg.addColorStop(1, 'rgba(10,6,20,.55)'); g.fillStyle = tg; g.fillRect(600, 52, 900, 368);
+      const rg = g.createLinearGradient(600, 0, 1500, 0); rg.addColorStop(0, 'rgba(255,150,96,.32)'); rg.addColorStop(.35, 'rgba(255,150,96,.08)'); rg.addColorStop(1, 'rgba(255,150,96,0)'); g.fillStyle = rg; g.fillRect(600, 150, 900, 120); }
+    g.strokeStyle = 'rgba(10,8,16,.42)'; g.lineWidth = 1.4; for (let x = 640; x < 1500; x += 44) { g.beginPath(); g.moveTo(x, 56); g.lineTo(x, 416); g.stroke(); }
+    g.strokeStyle = 'rgba(255,214,170,.18)'; g.lineWidth = 1; for (let x = 642; x < 1500; x += 44) { g.beginPath(); g.moveTo(x, 56); g.lineTo(x, 416); g.stroke(); }
+    g.fillStyle = 'rgba(255,196,140,.75)'; g.fillRect(600, 52, 900, 2.5); g.fillRect(600, 52, 3, 368);
+    g.fillStyle = '#1b1722'; g.fillRect(600, 420, 900, 20); g.fillRect(560, 410, 50, 16);
+    g.fillStyle = '#2a2531'; g.fillRect(720, 438, 10, 70); g.fillRect(704, 500, 42, 8);   // landing gear
+    for (let x = 640; x < 1500; x += 128) { g.fillStyle = '#ff9a3c'; g.beginPath(); g.arc(x, 431, 4, 0, TAU); g.fill(); g.fillStyle = 'rgba(255,170,90,.25)'; g.beginPath(); g.arc(x, 431, 10, 0, TAU); g.fill(); }
+    g.fillStyle = '#ff9a3c'; g.beginPath(); g.arc(610, 64, 4, 0, TAU); g.fill();
+    for (const wx of [1180, 1300]) { g.fillStyle = '#16121c'; g.beginPath(); g.arc(wx, base, 48, 0, TAU); g.fill(); g.fillStyle = '#5f5965'; g.beginPath(); g.arc(wx, base, 19, 0, TAU); g.fill(); g.fillStyle = 'rgba(255,214,170,.35)'; g.beginPath(); g.arc(wx - 5, base - 5, 7, 0, TAU); g.fill(); }
     // cab
     g.fillStyle = '#2c3552'; g.beginPath(); g.moveTo(30, 400); g.lineTo(34, 300); g.quadraticCurveTo(40, 262, 90, 254); g.lineTo(260, 246); g.lineTo(300, 120); g.quadraticCurveTo(306, 100, 330, 98); g.lineTo(520, 92); g.quadraticCurveTo(548, 92, 552, 120); g.lineTo(556, 430); g.lineTo(30, 430); g.closePath(); g.fill();
     const cg = g.createLinearGradient(0, 92, 0, 430); cg.addColorStop(0, 'rgba(255,170,110,.35)'); cg.addColorStop(.35, 'rgba(255,170,110,0)'); cg.addColorStop(1, 'rgba(8,6,16,.55)'); g.fillStyle = cg; g.fill();
@@ -288,22 +320,24 @@ export function split(ctx, t, o = {}) {
   const Rbg = blurredBg('split-R', (g) => { g.save(); g.translate(-200, -230); g.scale(1.25, 1.25); g.drawImage(ohSky(), -180, 0); g.drawImage(ohFar(), -180, 0); g.drawImage(ohLot(), -180, 0); g.globalAlpha = .9; g.globalCompositeOperation = 'lighter'; g.drawImage(sodiumCones(), -180, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; g.drawImage(truck(), 420, 300); g.restore(); });
   const side = (left, draw) => { ctx.save(); ctx.beginPath(); if (left) { ctx.moveTo(0, 0); ctx.lineTo(cut(0), 0); ctx.lineTo(cut(H), H); ctx.lineTo(0, H); } else { ctx.moveTo(cut(0), 0); ctx.lineTo(W, 0); ctx.lineTo(W, H); ctx.lineTo(cut(H), H); } ctx.closePath(); ctx.clip(); draw(); ctx.restore(); };
   const s = 3.3, swirlU = sm(lin(sw[0], sw[1], t));
+  const phoneProp = (g, front) => { g.fillStyle = '#121018'; g.beginPath(); g.roundRect(front.hx - 4, front.hy - 14, 10, 18, 2.5); g.fill(); g.fillStyle = `rgba(255,214,160,${.5 + .4 * (1 - look)})`; g.fillRect(front.hx - 3, front.hy - 13, 8, 15); };
+  // left: Ohio (as on the map), the driver in rust facing right; the dusk glow behind him
   side(true, () => {
-    ctx.drawImage(Lbg, -40 + dl * .5, 0);
-    { const B = lightSprite('mnl-sun', 520, []); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .8; ctx.drawImage(B, 760 - 520, 420 - 520); ctx.restore(); }
-    const fx = 470 + dl, fy = 790;
-    const pose = { ...POSES.hold, head: mix(.12, .42, bow) - .5 * look, sh: [.6, .48], el: [1.15, 1.2], lean: .03 };
-    figure(ctx, fx, fy, s, pose, { t, seed: 3, dress: { coat: '#2f7c80', pants: '#245d63', skin: '#a8734f', hair: '#1a1114' }, light: { x: 900, y: 420, col: '#ffd2a8', a: .55 }, rim: '#ffd9b4', rimSide: 1, rimW: 3.4, shadow: false,
-      prop: (g, front) => { g.fillStyle = '#121018'; g.beginPath(); g.roundRect(front.hx - 4, front.hy - 14, 10, 18, 2.5); g.fill(); g.fillStyle = `rgba(255,214,160,${.5 + .4 * (1 - look)})`; g.fillRect(front.hx - 3, front.hy - 13, 8, 15); } });
-    paperSwarm(ctx, t, { x: fx + 70, y: fy - 150, R: 170 + 90 * swirlU, u: 0, n: 260, seed: 3, a: Math.sin(Math.PI * swirlU) });
-  });
-  side(false, () => {
-    ctx.drawImage(Rbg, 30 - dl * .5, 0);
-    const fx = 1450 - dl, fy = 790;
+    ctx.drawImage(Rbg, -30 + dl * .5, 0);
+    { const g = ctx.createRadialGradient(200, 470, 0, 200, 470, 700); g.addColorStop(0, 'rgba(255,214,150,.5)'); g.addColorStop(.25, 'rgba(255,160,100,.18)'); g.addColorStop(1, 'rgba(255,140,80,0)'); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore(); }
+    const fx = 520 + dl, fy = 790;
     const pose = { ...POSES.hold, head: mix(.12, .42, bow) - .5 * look, sh: [.6, .48], el: [1.15, 1.2], lean: .02, hair: 'cap' };
-    figure(ctx, fx, fy, s, pose, { t, seed: 5, flip: true, dress: { coat: '#a8492c', pants: '#22263a', skin: '#d9a888', hair: '#3a2f2a' }, light: { x: 1000, y: 380, col: '#ffb070', a: .55 }, rim: '#ffbf80', rimSide: -1, rimW: 3.4, shadow: false,
-      prop: (g, front) => { g.fillStyle = '#121018'; g.beginPath(); g.roundRect(front.hx - 4, front.hy - 14, 10, 18, 2.5); g.fill(); g.fillStyle = `rgba(255,214,160,${.5 + .4 * (1 - look)})`; g.fillRect(front.hx - 3, front.hy - 13, 8, 15); } });
-    paperSwarm(ctx, t, { x: fx - 70, y: fy - 150, R: 170 + 90 * swirlU, u: 0, n: 260, seed: 5, a: Math.sin(Math.PI * swirlU) });
+    figure(ctx, fx, fy, s, pose, { t, seed: 5, dress: { coat: '#a8492c', pants: '#22263a', skin: '#d9a888', hair: '#3a2f2a' }, light: { x: 200, y: 470, col: '#ffb070', a: .55 }, rim: '#ffbf80', rimSide: -1, rimW: 3.4, shadow: false, prop: phoneProp });
+    paperSwarm(ctx, t, { x: fx + 60, y: fy + 40, R: 130 + 90 * swirlU, height: 2.1, n: 150, seed: 5, size: 1.15, a: Math.sin(Math.PI * swirlU), kinds: ['letter', 'recipe', 'hand', 'print'], t0 });
+  });
+  // right: Manila, the care worker in petrol facing left; the dawn sun behind her
+  side(false, () => {
+    ctx.drawImage(Lbg, 40 - dl * .5, 0);
+    { const g = ctx.createRadialGradient(1720, 560, 0, 1720, 560, 760); g.addColorStop(0, 'rgba(255,236,206,.6)'); g.addColorStop(.2, 'rgba(255,196,150,.22)'); g.addColorStop(1, 'rgba(255,170,130,0)'); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore(); }
+    const fx = 1420 - dl, fy = 790;
+    const pose = { ...POSES.hold, head: mix(.12, .42, bow) - .5 * look, sh: [.6, .48], el: [1.15, 1.2], lean: .03 };
+    figure(ctx, fx, fy, s, pose, { t, seed: 3, flip: true, dress: { coat: '#2f7c80', pants: '#245d63', skin: '#a8734f', hair: '#1a1114' }, light: { x: 1700, y: 600, col: '#ffd2a8', a: .55 }, rim: '#ffd9b4', rimSide: 1, rimW: 3.4, shadow: false, prop: phoneProp });
+    paperSwarm(ctx, t, { x: fx - 60, y: fy + 40, R: 130 + 90 * swirlU, height: 2.1, n: 150, seed: 3, size: 1.15, a: Math.sin(Math.PI * swirlU), kinds: ['recipe', 'letter', 'notes', 'hand'], t0 });
   });
   // the split line: an engraved guilloche band in foil, like the day–night line on the map
   { const pts = []; for (let i = 0; i <= 40; i++) { const y = i / 40 * H; pts.push([cut(y), y]); }

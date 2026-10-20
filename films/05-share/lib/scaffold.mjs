@@ -12,7 +12,7 @@
 //        hoist = 0..1 (the hauled beam rises to its slot; 1 = set down), glow = 0..1 (the scaffold fills from inside with warm light),
 //        crowd = 0..1 (a huge crowd of tiny figures around the foot), sheets = 0..1 (every figure's sheet lights up, a wave from the centre),
 //        back = 0..1 (amber back light behind the scaffold, 1.06), glide = 0 (macro: px the camera has travelled along the beam),
-//        drawSky = true }
+//        drawSky = true, under(ctx, { project, base, top, outline(n) }) (drawn behind the lattice: e.g. the back half of a paperSwarm) }
 //   → { top: { x, y } (crown), base: { x, y } (foot centre), project(X, Y, Z) → [x, y, depth], lamps: [{ x, y, a, s }],
 //       box: { x0, y0, x1, y1 } (screen bbox of the structure), outline(n) → [[x, y] …] (n points on the outline of the finished
 //       building around the lattice: corner edges, floor lines, roof: targets for paperSwarm({ shape })),
@@ -72,7 +72,7 @@ function sky(mood) {
     const wg = g.createRadialGradient(1100, hz + 100, 0, 1100, hz + 100, 1100); wg.addColorStop(0, rgba(M.warm, mood === 'dawn' ? .55 : .22)); wg.addColorStop(1, rgba(M.warm, 0)); g.fillStyle = wg; g.fillRect(0, 0, c.width, c.height);
     // the plain: dark, a few long furrows of mist-lit ground receding
     const gg = g.createLinearGradient(0, hz + 150, 0, c.height); gg.addColorStop(0, M.hor); gg.addColorStop(.08, mix3(M.hor, M.ground2, .6)); gg.addColorStop(.3, M.ground2); gg.addColorStop(1, M.ground); g.fillStyle = gg; g.fillRect(0, hz + 150, c.width, c.height - hz - 150);
-    const hg = g.createLinearGradient(0, hz + 40, 0, hz + 300); hg.addColorStop(0, rgba(M.hor, 0)); hg.addColorStop(.45, rgba(M.hor, mood === 'dawn' ? .55 : .35)); hg.addColorStop(1, rgba(M.hor, 0)); g.fillStyle = hg; g.fillRect(0, hz + 40, c.width, 260);
+    const hg = g.createLinearGradient(0, hz, 0, hz + 196); hg.addColorStop(0, rgba(M.hor, 0)); hg.addColorStop(.74, rgba(M.hor, mood === 'dawn' ? .5 : .35)); hg.addColorStop(1, rgba(M.hor, 0)); g.fillStyle = hg; g.fillRect(0, hz, c.width, 196);
     const r = prng(5); g.strokeStyle = rgba(M.warm, .05); g.lineWidth = 1;
     for (let i = 0; i < 26; i++) { const y = hz + 150 + Math.pow(i / 26, 1.8) * (c.height - hz - 150); g.globalAlpha = .4 + .6 * i / 26; g.beginPath(); g.moveTo(0, y + r() * 4); for (let x = 0; x <= c.width; x += 60) g.lineTo(x, y + Math.sin(x * .004 + i) * 2 + r() * 2); g.stroke(); }
     g.globalAlpha = 1;
@@ -194,6 +194,12 @@ export function scaffold(ctx, t, o = {}) {
   if (back > 0) { const Bg = backGlow(M.warm); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = back; const [bx, by] = P(0, LV * SY * .45, PZ(BZ) + 30); ctx.drawImage(Bg, bx - 800, by - 700); ctx.restore(); }
   // far fog band behind the structure
   { const [dx, dy] = par(.3); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = fogA * 1.1; ctx.drawImage(fogLayer('sf-far-' + mood, 420, 860, M.fog, M.fogA, 3), fogX(.3, .03), hk, W * 1.12, H); ctx.restore(); }
+  // contact shadow: the structure stands on the plain (keeps it from floating in the horizon haze)
+  { const c0 = P(PX(0), 0, PZ(0)), c1 = P(PX(BX), 0, PZ(BZ)), c2 = P(PX(BX), 0, PZ(0)), c3 = P(PX(0), 0, PZ(BZ)); const xs = [c0[0], c1[0], c2[0], c3[0]], ys = [c0[1], c1[1], c2[1], c3[1]];
+    const cx = (Math.min(...xs) + Math.max(...xs)) / 2, cy = (Math.min(...ys) + Math.max(...ys)) / 2, rx = (Math.max(...xs) - Math.min(...xs)) * .75 + 6, ry = Math.max(4, (Math.max(...ys) - Math.min(...ys)) * .9 + 3);
+    if (rx > 4 && cy > 0 && cy < H + 200) { ctx.save(); ctx.translate(cx, cy); ctx.scale(1, ry / rx); const sg = ctx.createRadialGradient(0, 0, 0, 0, 0, rx); sg.addColorStop(0, rgba(M.ground, .75)); sg.addColorStop(.55, rgba(M.ground, .35)); sg.addColorStop(1, rgba(M.ground, 0)); ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(0, 0, rx, 0, Math.PI * 2); ctx.fill(); ctx.restore(); } }
+  // caller layer behind the lattice (e.g. the back half of a paper swarm): o.under(ctx, { project, base, top })
+  if (o.under) o.under(ctx, { project: P, base: { x: base[0], y: base[1] }, top: { x: top[0], y: top[1] }, outline: (n) => outline(P, n) });
   // the lattice: beams sorted by depth into bins; far bins lighter (fog), near bins darker with a warm top edge
   const BM = beams(), segs = [];
   const hoist = o.hoist; let beamPos = null;
@@ -246,7 +252,7 @@ export function scaffold(ctx, t, o = {}) {
     const S = coneSprite(sp), k = s * .055; ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = (.26 + .14 * Math.sin(i * 2.3)) * a * (mood === 'dawn' ? .5 : 1); ctx.translate(x, y); ctx.rotate(aim); ctx.scale(k, k); ctx.drawImage(S, -500, -30); ctx.restore();
     const Bs = bloomSprite('#ffb35c', 120), bs = Math.max(10, s * 1.6); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = a; ctx.drawImage(Bs, x - bs, y - bs, bs * 2, bs * 2); ctx.restore();
   }
-  if ((o.topLight ?? 0) > 0) { const [x, y, z] = P(...CROWN), s = C.f / z, a = clamp(o.topLight); const S = coneSprite(.22); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .6 * a; ctx.translate(x, y); ctx.rotate(Math.PI - .25); ctx.scale(s * .06, s * .07); ctx.drawImage(S, -500, -30); ctx.restore(); const Bs = bloomSprite('#ffb35c', 120), bs = Math.max(14, s * 2.2); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = a; ctx.drawImage(Bs, x - bs, y - bs, bs * 2, bs * 2); ctx.restore(); lamps.push({ x, y, a, s, top: true }); }
+  if ((o.topLight ?? 0) > 0) { const [x, y, z] = P(...CROWN), s = C.f / z, a = clamp(o.topLight); const S = coneSprite(.55); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .5 * a; ctx.translate(x, y); ctx.rotate(-.12); ctx.scale(s * .05, s * .036); ctx.drawImage(S, -500, -30); ctx.restore(); const Bs = bloomSprite('#ffb35c', 120), bs = Math.max(14, s * 2.2); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = a; ctx.drawImage(Bs, x - bs, y - bs, bs * 2, bs * 2); ctx.globalAlpha = .35 * a; ctx.drawImage(Bs, x - bs * 4, y - bs * 4, bs * 8, bs * 8); ctx.restore(); lamps.push({ x, y, a, s, top: true }); }
   // the crowd (1.10b): rings of tiny figures on the plain around the foot, each holding a sheet that lights up
   const crowd = clamp(o.crowd ?? 0);
   if (crowd > 0) {

@@ -266,7 +266,7 @@ function heroCoupon(ctx, i, t, hu, a, glint) {
     ctx.save(); ctx.beginPath(); ctx.rect(wx, wy - 4, F.tw * wu, F.th + 8); ctx.clip(); ctx.drawImage(F.c, wx, wy, F.tw, F.th); ctx.restore();
     if (glint) {   // a foil glint band running through the letters
       const [sc, sg] = F.scratch, tw = sc.width, th = sc.height; sg.globalCompositeOperation = 'source-over'; sg.clearRect(0, 0, tw, th); sg.drawImage(F.mask, 0, 0);
-      sg.globalCompositeOperation = 'source-in'; const ph = ((t * .22 + i * .3) % 1.5) - .25, gx = ph * (tw + 300) - 150; const gg = sg.createLinearGradient(gx - 70, 0, gx + 70, th * .5); gg.addColorStop(0, 'rgba(255,179,92,0)'); gg.addColorStop(.5, 'rgba(255,246,225,.95)'); gg.addColorStop(1, 'rgba(255,179,92,0)'); sg.fillStyle = gg; sg.fillRect(0, 0, tw, th);
+      sg.globalCompositeOperation = 'source-in'; const ph = ((t * .22 + i * .3) % 1.5) - .25, gx = ph * (tw + 300) - 150; const gg = sg.createLinearGradient(gx - 70, 0, gx + 70, th * .5); gg.addColorStop(0, 'rgba(255,179,92,0)'); gg.addColorStop(.5, 'rgba(255,214,150,.42)'); gg.addColorStop(1, 'rgba(255,179,92,0)'); sg.fillStyle = gg; sg.fillRect(0, 0, tw, th);
       ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = a * wu; ctx.drawImage(sc, wx, wy, F.tw, F.th); ctx.restore();
     }
   }

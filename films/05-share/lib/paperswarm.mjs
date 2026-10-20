@@ -8,8 +8,9 @@
 //        side = 'all' | 'back' | 'front' (draw only the half behind / in front of the axis: put a scaffold or hands in between),
 //        shape = null | [[x, y], …] (screen targets for u → 1; e.g. scaffold().outline(n)), height = 1.6 (whirl height in R),
 //        tilt = .32 (orbit ellipse squash), rise = 1 (0..1: fragments still lying on the ground lift off and join), inflow = 0 (0..1: they
-//        spiral into the axis and vanish, e.g. into the scaffold), sink = [x, y] (where inflow ends, default mid-axis),
-//        spin = 1, size = 1 (fragment size factor), back = .6 (0..1 how strongly the light shines through the paper), t0 = 0 }
+//        spiral into the axis and vanish, e.g. into the scaffold), sink = [x, y] or { x, y } (where inflow ends, default mid-axis),
+//        spin = 1, size = 1 (fragment size factor), back = .6 (0..1 how strongly the light shines through the paper), t0 = 0,
+//        trail = .5 (faint light streaks along the orbit, 0 = off) }
 //   → { n, centre: [x, y] }
 // drawFragment(ctx, kind, x, y, w, rot, o)  one fragment (screen px width w), o: { flip (-1..1, tumble), back 0..1, a, seed }
 import { rgba, clamp, mix, eio, eout, sm, prng, canvas } from '../engine.mjs';
@@ -17,17 +18,21 @@ import { rgba, clamp, mix, eio, eout, sm, prng, canvas } from '../engine.mjs';
 const TAU = Math.PI * 2;
 const SPR = new Map();
 const KINDS = ['hand', 'print', 'notes', 'grid', 'recipe', 'letter', 'code'];
-// one sprite: [front canvas, back-lit canvas, aspect]
+// one sprite: { L: five canvases from front-lit (0) to fully back-lit (4), asp }
 function sprite(kind, v) {
   const key = kind + v; if (SPR.has(key)) return SPR.get(key);
-  const r = prng(17 + v * 31 + KINDS.indexOf(kind) * 101), portrait = kind === 'recipe' ? false : r() < .45;
+  const seed = 17 + v * 31 + KINDS.indexOf(kind) * 101, r0 = prng(seed), portrait = kind === 'recipe' ? false : r0() < .45;
   const w = portrait ? 44 : 64, h = portrait ? 60 : 44, pad = 3;
+  // the outline: a slightly irregular quad; one edge may be torn (small zigzag)
+  const j = () => (r0() - .5) * 2.6, pts = [[j(), j()], [w + j(), j()], [w + j(), h + j()], [j(), h + j()]];
+  if (r0() < .4) { const e = Math.floor(r0() * 4), [a, b] = [pts[e], pts[(e + 1) % 4]], k = 6 + Math.floor(r0() * 4), mid = [];
+    for (let i = 1; i < k; i++) { const q = i / k, nx = -(b[1] - a[1]), ny = b[0] - a[0], L = Math.hypot(nx, ny) || 1; const d = (r0() - .3) * 3.2; mid.push([mix(a[0], b[0], q) + nx / L * d, mix(a[1], b[1], q) + ny / L * d]); }
+    pts.splice(e + 1, 0, ...mid); }
+  const path = (g) => { g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath(); };
   const mk = (backlit) => {
+    const r = prng(seed + 7);   // same content on both faces
     const [c, g] = canvas(w + pad * 2, h + pad * 2); g.translate(pad, pad);
-    // a torn or cut fragment: a slightly irregular quad
-    const j = () => (r() - .5) * 3, pts = [[j(), j()], [w + j(), j()], [w + j(), h + j()], [j(), h + j()]];
-    if (r() < .35) pts.splice(2, 0, [w * (.5 + r() * .4), h + j() * 2]);
-    g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath();
+    path(g);
     const base = kind === 'letter' ? '#efe4cc' : kind === 'recipe' ? '#f4ead2' : kind === 'grid' ? '#eef0e8' : '#ede1c6';
     if (backlit) { const gr = g.createRadialGradient(w * .5, h * .5, 0, w * .5, h * .5, w * .7); gr.addColorStop(0, '#ffe7bd'); gr.addColorStop(.6, '#ffbf72'); gr.addColorStop(1, '#e98a3a'); g.fillStyle = gr; }
     else { const gr = g.createLinearGradient(0, 0, w, h); gr.addColorStop(0, '#fbf3e1'); gr.addColorStop(1, base); g.fillStyle = gr; }
@@ -51,19 +56,27 @@ function sprite(kind, v) {
       g.strokeStyle = ink; for (let i = 0; i < 4; i++) { const y = 16 + i * 6; let x = 5; g.beginPath(); g.moveTo(x, y); while (x < w - 10 - r() * 14) { const st = 3 + r() * 3; g.quadraticCurveTo(x + st * .5, y - 3, x + st, y); x += st; } g.stroke(); }
     }
     g.restore();
-    if (backlit) { g.strokeStyle = 'rgba(255,240,210,.85)'; g.lineWidth = 1.2; g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath(); g.stroke(); }
-    else { g.strokeStyle = 'rgba(90,70,50,.35)'; g.lineWidth = .8; g.beginPath(); pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y))); g.closePath(); g.stroke(); }
+    g.strokeStyle = backlit ? 'rgba(255,240,210,.85)' : 'rgba(90,70,50,.35)'; g.lineWidth = backlit ? 1.2 : .8; path(g); g.stroke();
     return c;
   };
-  const out = [mk(false), mk(true), w / h]; SPR.set(key, out); return out;
+  const F = mk(false), B = mk(true), L = [F];
+  for (const k of [.25, .5, .75]) { const [c, g] = canvas(F.width, F.height); g.drawImage(F, 0, 0); g.globalAlpha = k; g.drawImage(B, 0, 0); L.push(c); }
+  L.push(B);
+  const out = { L, asp: w / h, pad: pad / w }; SPR.set(key, out); return out;
 }
+// one fragment through the 2×3 matrix m = [a, b, c, d, e, f] of the caller (no save/restore: fast)
+function frag(ctx, m, S, x, y, w, rot, flip, bk, a) {
+  const h = w / S.asp, fx = Math.abs(flip) < .06 ? .06 * Math.sign(flip || 1) : flip, co = Math.cos(rot), si = Math.sin(rot);
+  // local: rotate(rot) · scale(fx, 1)
+  const la = co * fx, lb = si * fx, lc = -si, ld = co;
+  ctx.setTransform(m[0] * la + m[2] * lb, m[1] * la + m[3] * lb, m[0] * lc + m[2] * ld, m[1] * lc + m[3] * ld, m[0] * x + m[2] * y + m[4], m[1] * x + m[3] * y + m[5]);
+  ctx.globalAlpha = a; const img = S.L[Math.max(0, Math.min(4, Math.round(bk * 4)))], pw = w * (1 + 2 * S.pad), ph = h + w * 2 * S.pad;
+  ctx.drawImage(img, -pw / 2, -ph / 2, pw, ph);
+}
+const mat = (ctx) => { const T = ctx.getTransform(); return [T.a, T.b, T.c, T.d, T.e, T.f]; };
 export function drawFragment(ctx, kind, x, y, w, rot = 0, o = {}) {
-  const [F, B, asp] = sprite(kind, (o.seed ?? 0) % 6), h = w / asp, flip = o.flip ?? 1, a = o.a ?? 1, back = clamp(o.back ?? 0);
-  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(Math.abs(flip) < .06 ? .06 * Math.sign(flip || 1) : flip, 1);
-  const bk = clamp(back + (flip < 0 ? .6 : 0));
-  if (bk < 1) { ctx.globalAlpha = a; ctx.drawImage(F, -w / 2, -h / 2, w, h); }
-  if (bk > 0) { ctx.globalAlpha = a * bk; ctx.drawImage(B, -w / 2, -h / 2, w, h); }
-  ctx.restore();
+  const S = sprite(kind, (o.seed ?? 0) % 6), flip = o.flip ?? 1, bk = clamp((o.back ?? 0) + (flip < 0 ? .6 : 0));
+  ctx.save(); frag(ctx, mat(ctx), S, x, y, w, rot, flip, bk, o.a ?? 1); ctx.restore();
 }
 // default target: the outline of a building around the axis (gable, walls, floor lines), in screen px relative to (x, y, R)
 function buildingShape(x, y, R, n, seed) {
@@ -79,27 +92,34 @@ export function paperSwarm(ctx, t, o = {}) {
   const u = clamp(o.u ?? 0), side = o.side || 'all', tilt = o.tilt ?? .32, Hh = (o.height ?? 1.6) * R, rise = clamp(o.rise ?? 1), inflow = clamp(o.inflow ?? 0), spin = o.spin ?? 1, size = o.size ?? 1, back = o.back ?? .6, A = o.a ?? 1;
   if (A <= 0) return { n: 0, centre: [x, y - Hh / 2] };
   let shape = o.shape; if (!shape && u > 0) { const k = [x, y, R, n, seed].join(); if (!SHAPES.has(k)) { if (SHAPES.size > 20) SHAPES.clear(); SHAPES.set(k, buildingShape(x, y, R, n, seed)); } shape = SHAPES.get(k); }
-  const sink = o.sink || [x, y - Hh * .45], r = prng(seed * 7 + 3), list = [];
+  const sk = o.sink, sink = sk ? (Array.isArray(sk) ? sk : [sk.x, sk.y]) : [x, y - Hh * .45], r = prng(seed * 7 + 3), list = [], trail = o.trail ?? .5, tr2 = [];
   for (let i = 0; i < n; i++) {
-    const th0 = r() * TAU, w0 = (.25 + r() * .35) * spin * (r() < .5 ? 1 : .8), rr = R * (.35 + Math.pow(r(), .7) * .85), h0 = r(), vh = .035 + r() * .05, ph = r() * TAU, tr = (r() - .5) * 2.4, rot0 = r() * TAU, rs = (r() - .5) * 1.6;
+    const th0 = r() * TAU, w0 = (.25 + r() * .35) * spin * (r() < .5 ? 1 : .8), rr0 = R * (.45 + Math.pow(r(), .6) * .7), h0 = r(), vh = .035 + r() * .05, ph = r() * TAU, tr = (r() - .5) * 2.4, rot0 = r() * TAU, rs = (r() - .5) * 1.6;
     const kind = kinds[Math.floor(r() * kinds.length)], v = Math.floor(r() * 6), sz = (8 + Math.pow(r(), 2) * 16) * size, q = r(), q2 = r();
     // the whirl: orbit + slow rise (wrapping, faded at the top and bottom of the column)
-    const th = th0 + w0 * (t - (o.t0 ?? 0)), hq = (h0 + vh * t) % 1, X = Math.cos(th) * rr, Z = Math.sin(th) * rr, wob = Math.sin(t * 1.3 + ph) * 6;
+    const th = th0 + w0 * (t - (o.t0 ?? 0)), hq = (h0 + vh * t) % 1, rr = rr0 * (.8 + .4 * hq), X = Math.cos(th) * rr, Z = Math.sin(th) * rr, wob = Math.sin(t * 1.3 + ph) * 6;
     let px = x + X, py = y - hq * Hh + Z * tilt + wob, depth = Z / R, fade = clamp(hq * 6) * clamp((1 - hq) * 5);
     // rising from the ground: still lying in the plain until its turn
     if (rise < 1) { const lift = eout(clamp((rise - q * .75) / .25)); const gx = x + (q2 - .5) * R * 3.4, gy = y + 10 + q * 60; px = mix(gx, px, lift); py = mix(gy, py, lift); fade = mix(.55, fade, lift); }
-    let flip = Math.cos(ph + tr * t), rot = rot0 + rs * t;
+    let flip = Math.cos(ph + tr * t), rot = rot0 + rs * t, free = rise < 1 ? eout(clamp((rise - q * .75) / .25)) : 1;
     // settling into the outline (u) and flowing into the axis (inflow)
-    if (shape) { const uu = eio(clamp(u * 1.35 - q * .35)); if (uu > 0) { const [tx, ty] = shape[i % shape.length]; px = mix(px, tx, uu); py = mix(py, ty, uu); fade = mix(fade, 1, uu); flip = mix(flip, .85 + .15 * Math.sin(t + ph), uu); rot = mix(rot, rot0 * .15 + Math.sin(t * .7 + ph) * .1, uu); depth = mix(depth, 0, uu); } }
-    if (inflow > 0) { const f = eio(clamp(inflow * 1.4 - q * .4)); px = mix(px, sink[0] + (q2 - .5) * R * .25, f); py = mix(py, sink[1] + (q - .5) * Hh * .5, f); fade *= 1 - sm(clamp((f - .7) / .3)); }
+    if (shape) { const uu = eio(clamp(u * 1.35 - q * .35)); if (uu > 0) { free *= 1 - uu; const [tx, ty] = shape[i % shape.length]; px = mix(px, tx, uu); py = mix(py, ty, uu); fade = mix(fade, 1, uu); flip = mix(flip, .85 + .15 * Math.sin(t + ph), uu); rot = mix(rot, rot0 * .15 + Math.sin(t * .7 + ph) * .1, uu); depth = mix(depth, depth * .2, uu); } }
+    if (inflow > 0) { const f = eio(clamp(inflow * 1.4 - q * .4)); free *= 1 - f; px = mix(px, sink[0] + (q2 - .5) * R * .25, f); py = mix(py, sink[1] + (q - .5) * Hh * .5, f); fade *= 1 - sm(clamp((f - .7) / .3)); }
     if (fade <= .02) continue;
     if (side === 'back' && depth > 0) continue; if (side === 'front' && depth <= 0) continue;
+    // a short streak behind the fragment along its orbit (shows the turning direction in a still frame)
+    if (trail > 0 && free > .05 && (i & 1)) { const pts = []; for (let k = 1; k <= 3; k++) { const tk = th - w0 * .16 * k; pts.push(px - X + Math.cos(tk) * rr, py - Z * tilt + Math.sin(tk) * rr * tilt); } tr2.push([depth, px, py, pts, fade * free]); }
     list.push([depth, kind, v, px, py, sz * (1 + .3 * depth), rot, flip, fade, i]);
   }
   list.sort((p, q) => p[0] - q[0]);
-  for (const [depth, kind, v, px, py, sz, rot, flip, fade, i] of list) {
-    const bl = clamp(back * (.6 - .5 * depth));
-    drawFragment(ctx, kind, px, py, sz, rot, { flip, back: bl, a: A * fade * clamp(.55 + .45 * (depth + 1)), seed: v });
+  const m = mat(ctx); ctx.save();
+  if (tr2.length) { ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = o.light || '#ffb35c'; ctx.lineCap = 'round';
+    for (const [lo, hi, aa] of [[-1.01, -.2, .1], [-.2, .5, .16], [.5, 1.01, .24]]) { ctx.beginPath(); for (const [d, px, py, P, f] of tr2) { if (d < lo || d >= hi || f < .3) continue; ctx.moveTo(px, py); for (let k = 0; k < 6; k += 2) ctx.lineTo(P[k], P[k + 1]); } ctx.globalAlpha = aa * trail * A; ctx.lineWidth = 1 + (hi > .5 ? .6 : 0); ctx.stroke(); }
+    ctx.globalCompositeOperation = 'source-over'; }
+  for (const [depth, kind, v, px, py, sz, rot, flip, fade] of list) {
+    const bl = clamp(back * (.6 - .5 * depth)) , bk = clamp(bl + (flip < 0 ? .6 : 0));
+    frag(ctx, m, sprite(kind, v), px, py, sz, rot, flip, bk, A * fade * clamp(.55 + .45 * (depth + 1)));
   }
+  ctx.restore();
   return { n: list.length, centre: [x, y - Hh / 2] };
 }

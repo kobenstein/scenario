@@ -5,8 +5,8 @@
 // | shot  | words                                   | hero onset (word)                          | carrier → next                                  | type      | acc |
 // |-------|-----------------------------------------|--------------------------------------------|-------------------------------------------------|-----------|-----|
 // | H.01  | Your phone buzzes.                      | display wakes + first buzz ring (buzz sfx) | rings contract onto the display                 | (b) zoom  | ▲   |
-// | H.02a | Not a bill.                             | grey bill card lands, wiped on "bill"      | the wipe to the left continues                  | (c) whipL |     |
-// | H.02b | Not a paycheck.                         | paycheck card flies up on "paycheck"       | upward motion, the next card rises from below   | (c) whipU |     |
+// | H.02a | Not a bill.                             | grey bill card lands, flicked off on "bill"| the paycheck slides in behind the flick         | (a) cut   |     |
+// | H.02b | Not a paycheck.                         | paycheck card flung up on "paycheck"       | warm light rises from below the glass edge      | (a) cut   |     |
 // | H.03  | A share.                                | engraved share card locks in (foil glint)  | the share light at the card's heart             | (b) out   | ▲   |
 // | H.04  | Your share of the largest fortune …     | rosette lifts over the horizon, "largest"  | the camera keeps gliding                        | take      | ★   |
 // | H.05  | Sounds like a fantasy.                  | lines → dotted ghost → smoke, "fantasy"    | one dotted thread leaves to the right           | (a) cut   |     |
@@ -17,7 +17,7 @@
 // | H.08  | So whose fortune will it be?            | the light stops mid-air on "whose"         | the light pulls a thread to the right           | (a) left  |     |
 // | H.09  | Let me show you … every person on Earth.| the row runs to the horizon, "every person"| the sideways track                              | (c) whipL |     |
 // | H.10  | With a plan you could explain …         | she nods on "friend"                       | the pen lifts and leaves right                  | (a) cut   |     |
-// | 0.01  | The company is Anthropic.               | shadow band slides off, pen underlines     | the underline curves into a ring                | (b) zoom  |     |
+// | 0.01  | The company is Anthropic.               | shadow band slides off, pen underlines     | the underline curls into a ring                 | (b) iris  |     |
 // | 0.03  | It's pledging a slice of itself now.    | a foil segment slides out on "now"         | the camera stays                                | take      |     |
 // | 0.03a | That slice can climb … if its board …   | seal lands on "agrees", ghost → engraved   | the segment glides right                        | (a) left  |     |
 // | 0.04  | And Musk added: "This will be …"        | words light with the voice, "many" glints  | carry('c01>c02') own: the sheet slides right    | (a) cut   |     |
@@ -26,7 +26,7 @@ import { W, H, rgba, clamp, lin, mix, eout, eio, sm, drift } from '../engine.mjs
 import { carry } from '../lib/carry.mjs';
 import { roofTake, roofNight } from '../lib/sc01_roof.mjs';
 import { hookHand, lockShot, shareShot } from '../lib/sc01_hook.mjs';
-import { plateTake, sheetName, rosetteTake, muskQuote } from '../lib/sc01_sheets.mjs';
+import { plateTake, sheetName, rosetteTake, muskQuote, nameRingScreen } from '../lib/sc01_sheets.mjs';
 import { mailboxShot } from '../lib/sc01_mailbox.mjs';
 import { handsShot } from '../lib/sc01_hands.mjs';
 
@@ -41,28 +41,29 @@ export default (T, R) => {
     bill: S('Not a bill'), billW: S('bill'), billE: E('bill'), pay: S('Not a paycheck'), payW: S('paycheck'), payE: E('paycheck'),
     share: S('A share'), shareE: E('A share'),
     t04: S('Your share of'), largest: S('largest'), made: E('ever made'), fantasy: S('fantasy'),
-    t06: S('But a few'), piece: S('piece of itself'), good: E('public good'),
-    t07: S('Then Elon'), every: S('every child'), america: E('in America'),
+    t06: S('But a few'), promised: S('promised a piece'), piece: S('piece of itself'), good: E('public good'),
+    t07: S('Then Elon'), elon: S('Elon Musk'), musk: S('Musk made'), spacex: S('SpaceX share'), every: S('every child'), america: E('in America'),
     t08: S('So whose'), whose: S('whose'), be: E('will it be'),
     t09: S('Let me show'), person: S('every person'), earth: E('on Earth'),
     t10: S('With a plan'), plan: S('plan you'), friend: S('a friend'), tonight: E('tonight'),
     t01: S0('The company'), anth: S0('Anthropic'),
     t03: S0("It's pledging"), now: S0('itself now') + .5, nowE: E0('itself now'),
-    t03a: S0('That slice can'), climb1: S0('climb as'), climb2: S0('value climbs') + .4, board: S0('board agrees'), agrees: S0('agrees'),
-    t04q: S0('And Musk added'), quote: T.W('00a', 'This will', 'many'), many: S0('of many') + .2, cut: C.t,
+    t03a: S0('That slice can'), climb1: S0('climb as'), climbs: S0('value climbs'), climb2: S0('value climbs') + .4, board: S0('board agrees'), agrees: S0('agrees'),
+    t04q: S0('And Musk added'), added: S0('added'), quote: T.W('00a', 'This will', 'many'), many: S0('of many') + .2, cut: C.t,
   };
   K.t03b = K.shareE + .48;                        // H.04's pull-back starts as the card has locked in
   const shots = [];
   // H.01 ▲ your hand, the phone, the buzz as guilloche rings
   shots.push({ t: R.a, draw: (ctx, t) => hookHand(ctx, t, K), print: { riso: .4 } });
   // H.02a · H.02b · H.03 inside the display (lock-screen motion graphics)
-  shots.push({ t: K.bill, tr: 'zoom', x: 905, y: 450, depth: 7, d: .7, draw: (ctx, t) => lockShot(ctx, t, K, 'bill'), print: { riso: .3 } });
-  shots.push({ t: K.pay, tr: 'whipL', d: .3, draw: (ctx, t) => lockShot(ctx, t, K, 'pay'), print: { riso: .3 } });
-  shots.push({ t: K.payE + .12, tr: 'whipU', d: .3, draw: (ctx, t) => shareShot(ctx, t, K), print: { riso: .3 } });
+  // one continuous take on the glass: the camera flies into the notification; the cards themselves are the transitions
+  shots.push({ t: K.bill, tr: 'zoom', x: 940, y: 470, depth: 4, d: .7, draw: (ctx, t) => lockShot(ctx, t, K), print: { riso: .3 } });
+  shots.push({ t: K.pay, tr: 'cut', d: .08, draw: (ctx, t) => lockShot(ctx, t, K), print: { riso: .3 } });
+  shots.push({ t: K.payE + .12, tr: 'cut', d: .08, draw: (ctx, t) => shareShot(ctx, t, K), print: { riso: .3 } });
   // H.04 ★ + H.05: one take on the roof (pull back from the display into your hand)
   const K4 = { t0: K.t04, largest: K.largest, made: K.made, fantasy: K.fantasy, out: K.t06 };
-  shots.push({ t: K.t04, tr: 'out', x: 705, y: 636, depth: 9, d: 1.0, draw: (ctx, t) => roofTake(ctx, t, K4), print: { riso: .25 },
-    sound: [{ f: 'whoosh_airy', t: K.t04 - .45, v: .18 }] });
+  shots.push({ t: K.t04 + .3, tr: 'out', x: 705, y: 636, depth: 9, d: .9, draw: (ctx, t) => roofTake(ctx, t, K4), print: { riso: .25 },
+    sound: [{ f: 'whoosh_airy', t: K.t04 - .12, v: .18 }] });
   shots.push({ t: K.fantasy - .55, tr: 'cut', d: .08, draw: (ctx, t) => roofTake(ctx, t, K4), print: { riso: .25 } });
   // H.06 + H.07: one take on the engraving plate (the announcement, the torn corner, Musk's card, the US map)
   const KP = { ...K, cutIn: K.t06 };
@@ -78,7 +79,8 @@ export default (T, R) => {
   // 0.01 the name under the shadow band, the pen underlines it
   shots.push({ t: K.t01, tr: 'cut', d: .08, draw: (ctx, t) => sheetName(ctx, t, K) });
   // 0.03 + 0.03a the rosette and its slice (one take)
-  shots.push({ t: K.t03, tr: 'zoom', x: 960, y: 640, depth: 4, d: .8, draw: (ctx, t) => rosetteTake(ctx, t, K) });
+  const [rgx, rgy] = nameRingScreen(K);
+  shots.push({ t: K.t03, tr: 'iris', x: rgx, y: rgy, r: 68, d: .8, draw: (ctx, t) => rosetteTake(ctx, t, K) });
   shots.push({ t: K.t03a, tr: 'cut', d: .08, draw: (ctx, t) => rosetteTake(ctx, t, K), sound: [{ f: 'stamp', t: K.agrees + .02, v: .25 }] });
   // 0.04 Musk's quote sheet; it slides aside on the register's curve (carry c01>c02, kind 'own')
   shots.push({ t: K.t04q, tr: 'left', d: .6, draw: (ctx, t) => muskQuote(ctx, t, K, C) });

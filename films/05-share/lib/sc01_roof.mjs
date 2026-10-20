@@ -67,9 +67,9 @@ export function roofTake(ctx, t, K) {
       g.globalAlpha = 1;
       if (dis > 0) {   // the same lines as dotted ghost engraving, then lifting away as smoke
         g.save(); g.translate(x, y); g.rotate(t * .02); g.scale(RR * k, RR * k);
-        const lines = ghostRos(), dot = 7 / (RR * k), w = 1.5 / (RR * k);
-        for (let i = 0; i < lines.length; i++) ghostLine(g, lines[i], { ghost: 1, smoke: clamp(smoke * 1.15 - i / lines.length * .15), col: '#fff1d6', w, dot, a: .75 * sm(dis), t, seed: i + 1, wind: [.6 / (RR * k), -1] });
-        g.rotate(-t * .055); const l2 = ghostRos2(); for (let i = 0; i < l2.length; i++) ghostLine(g, l2[i], { ghost: 1, smoke: clamp(smoke * 1.25 - .05), col: '#ffc887', w, dot, a: .7 * sm(dis), t, seed: 40 + i });
+        const lines = ghostRos(), dot = 9 / (RR * k), w = 1.6 / (RR * k);
+        for (let i = 0; i < lines.length; i++) if (i % 3 !== 2) ghostLine(g, lines[i], { ghost: 1, smoke: clamp(smoke * 1.15 - i / lines.length * .15), col: '#fff1d6', w, dot, a: .75 * sm(dis), t, seed: i + 1, wind: [.6 / (RR * k), -1] });
+        g.rotate(-t * .055); const l2 = ghostRos2(); for (let i = 0; i < l2.length; i += 2) ghostLine(g, l2[i], { ghost: 1, smoke: clamp(smoke * 1.25 - .05), col: '#ffc887', w, dot, a: .7 * sm(dis), t, seed: 40 + i });
         g.restore();
       }
       // two guilloche rings around it (the buzz rings arriving)
@@ -111,7 +111,7 @@ function threadOut(ctx, t, K, A0) {
 // K: { t0, plan, friend (start of "friend"), tonight, out (cut to 0.01) }
 export function roofNight(ctx, t, K) {
   const u = clamp((t - K.t0) / (K.out - K.t0));
-  const cam = { x: -60 + u * 70 + drift(t, 4, 3), y: 40 + drift(t, 2, 1), z: 1.62 - u * .06, fx: 950, fy: 640 };
+  const cam = { x: -40 + u * 50 + drift(t, 4, 3), y: -2 + drift(t, 2, 1), z: 2.85 - u * .14, fx: 965, fy: 625 };
   const A = rooftop(ctx, t, { state: 'night', cam, seats: 2, seatX: [870, 1060], seatS: 1.55 });
   const nod = Math.max(0, Math.sin(clamp((t - K.friend + .05) / .7) * Math.PI)) * 1;   // she nods once on "friend"
   const lean = sm(clamp((t - (K.friend - .9)) / .7));
@@ -120,12 +120,12 @@ export function roofNight(ctx, t, K) {
   // the napkin on your knee (lies flat-ish, seen at an angle) with three signs drawn one after the other
   const S = A.seats[0], ks = S.s / 1.55;
   const nx = S.hip[0] + 64 * ks, ny = S.hip[1] - 6 * ks;
-  const N = napkin(ctx, nx, ny, .3 * ks, t, { rot: -.12, tilt: .55, marks: { dot: clamp(writing * 3), sprout: clamp(writing * 3 - 1), fruit: clamp(writing * 3 - 2) }, light: 'night', glow: .4 });
+  const N = napkin(ctx, nx, ny, .23 * ks, t, { rot: -.12, tilt: .55, marks: { dot: clamp(writing * 3), sprout: clamp(writing * 3 - 1), fruit: clamp(writing * 3 - 2) }, light: 'night', glow: .4 });
   // the pen in your hand: follows the drawing, then lifts and leaves to the right (the carrier into 0.01)
   const tip = N.pen(writing < 1 / 3 ? 0 : writing < 2 / 3 ? 1 : 2) || N.mark(2);
   const lift = clamp((t - (K.out - .9)) / .9);
   const px = mix(tip.x + 2, 2100, ein(lift) * .0 + eio(lift) * 1), py = mix(tip.y - 2, 120, eio(lift));
-  if (lift < 1) pen(ctx, px, py, .55 * ks * (1 + lift * 1.2), { ang: -2.2 + lift * .8, t, lift: lift > 0 ? 1 : 0 });
+  if (lift < 1) pen(ctx, px, py, .2 * ks * (1 + lift * 2.2), { ang: -2.2 + lift * .8, t, lift: lift > 0 ? 1 : 0 });
   return A;
 }
 export { ROOF };

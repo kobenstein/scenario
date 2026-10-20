@@ -96,7 +96,6 @@ export function checkSprite(seed = 1) {
     scribble(g, 115, 160, 200 + r() * 60, 13, { seed: seed * 3 + 2, ink: '#1b2a6b', lw: 1.6 });
     g.strokeStyle = rgba(ink, .8); g.lineWidth = 1.2; g.strokeRect(410, 128, 120, 40); scribble(g, 422, 155, 80, 12, { seed: seed + 11, ink: '#1b2a6b', lw: 1.5 });
     g.beginPath(); g.moveTo(330, 212); g.lineTo(530, 212); g.stroke(); scribble(g, 345, 206, 140, 12, { seed: seed + 5, ink: '#1b2a6b', lw: 1.4 });
-    text(g, '⑈ 0001 ⑈', 30, 215, { size: 12, color: rgba(ink, .7) });
     stipple(c, { k: .15, g: 1, seed: 6, mid: false, boost: 1 });
     return c;
   });
@@ -132,11 +131,18 @@ export function sourceLine(ctx, t, t0, t1, s, { x = 110, y = 892, a = 1 } = {}) 
   ctx.save(); ctx.shadowColor = 'rgba(2,3,12,.9)'; ctx.shadowBlur = 8; text(ctx, s.toUpperCase(), x, y, { size: 16, weight: 600, color: rgba('#d9d3c4', .85 * u), spacing: 3 }); ctx.restore();
 }
 // big number in serif with a small caps line
-export function bigNumber(ctx, t, t0, x, y, num, caps, { col = CREAM, acc = VERD, size = 120, t1 = 1e9 } = {}) {
+export function bigNumber(ctx, t, t0, x, y, num, caps, { col = CREAM, acc = VERD, size = 120, t1 = 1e9, panel = false } = {}) {
   const u = eout(lin(t0, t0 + .7, t)) * (1 - sm(lin(t1, t1 + .45, t))); if (u <= 0) return;
-  ctx.save(); ctx.globalAlpha = u; ctx.beginPath(); ctx.rect(x - 10, y - size * 1.1 + (1 - u) * 0, 1200, size * 1.6 + 60); ctx.clip();
+  // "≈" is missing in Instrument Serif: it is set in Inter, the number in the serif
+  const approx = num.startsWith('≈'), rest = approx ? num.replace(/^≈\s*/, '') : num;
+  ctx.save(); ctx.font = `${size}px "Instrument Serif"`; const nw = ctx.measureText(rest).width; ctx.font = `600 18px Inter`; const cw = caps ? ctx.measureText(caps.toUpperCase()).width + caps.length * 4 : 0; ctx.restore();
+  const ax = approx ? size * .62 : 0;
+  if (panel) { ctx.save(); ctx.globalAlpha = u * .82; ctx.fillStyle = 'rgba(8,10,26,.88)'; ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 30; ctx.beginPath(); ctx.roundRect(x - 34, y - size * .92, Math.max(ax + nw, cw) + 72, size * .92 + 78, 14); ctx.fill(); ctx.restore(); }
+  ctx.save(); ctx.globalAlpha = u; ctx.beginPath(); ctx.rect(x - 10, y - size * 1.1, 1400, size * 1.6 + 60); ctx.clip();
   ctx.shadowColor = 'rgba(2,3,12,.9)'; ctx.shadowBlur = 18;
-  text(ctx, num, x, y + (1 - eout(lin(t0, t0 + .7, t))) * size * .5, { size, font: 'Instrument Serif', color: col });
+  const dy = (1 - eout(lin(t0, t0 + .7, t))) * size * .5;
+  if (approx) text(ctx, '≈', x, y + dy - size * .06, { size: size * .62, weight: 300, color: rgba(col, .85) });
+  text(ctx, rest, x + ax, y + dy, { size, font: 'Instrument Serif', color: col });
   if (caps) text(ctx, caps.toUpperCase(), x + 4, y + 44, { size: 18, weight: 600, color: rgba(acc === VERD ? '#cfe9e1' : acc, .95), spacing: 4 });
   ctx.restore();
 }
@@ -229,7 +235,8 @@ export function coinFace(r = 150) {
 
 // ---------- the AGREE ribbon on the ground (field perspective) ----------
 // a woven amber guilloche band along ground points (X, Z) projected with P; u = how far it exists; glint 0..1 along it
-export function groundRibbon(ctx, P, pts, { u = 1, w = .55, col = AMBER, a = 1, t = 0, glint = null, lines = 6, waves = 30 } = {}) {
+export function groundRibbon(ctx, P, pts0, { u = 1, w = .55, col = AMBER, a = 1, t = 0, glint = null, lines = 6, waves = 30 } = {}) {
+  const pts = once('rib' + pts0.length + pts0[0][0] + pts0[pts0.length - 1][1], () => { const out = [], N = 260; for (let i = 0; i <= N; i++) { const f = i / N * (pts0.length - 1), j = Math.min(pts0.length - 2, Math.floor(f)), q = f - j; out.push([mix(pts0[j][0], pts0[j + 1][0], q), mix(pts0[j][1], pts0[j + 1][1], q)]); } return out; });
   const n = pts.length - 1, m = Math.max(1, Math.round(n * clamp(u))); if (u <= 0) return;
   const nrm = pts.map((p, i) => { const q0 = pts[Math.max(0, i - 1)], q1 = pts[Math.min(n, i + 1)], dx = q1[0] - q0[0], dz = q1[1] - q0[1], l = Math.hypot(dx, dz) || 1; return [-dz / l, dx / l]; });
   const at = (i, off) => P(pts[i][0] + nrm[i][0] * off * w, pts[i][1] + nrm[i][1] * off * w);

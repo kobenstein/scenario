@@ -119,7 +119,6 @@ export function lapLayer() {
     g.strokeStyle = 'rgba(255,170,90,.75)'; g.lineWidth = 2.2; g.beginPath(); g.moveTo(-100, 168); g.lineTo(W + 100, 98); g.stroke();
     g.strokeStyle = 'rgba(255,200,140,.25)'; g.lineWidth = 7; g.beginPath(); g.moveTo(-100, 170); g.lineTo(W + 100, 100); g.stroke();
     // the thigh: a broad rounded form from the lower left (hip, near) to the knee (upper right)
-    const th = new (globalThis.Path2D || Object)();
     g.beginPath(); g.moveTo(-100, 1180); g.bezierCurveTo(-60, 720, 240, 430, 760, 330); g.bezierCurveTo(1150, 255, 1560, 250, 1760, 320);
     g.bezierCurveTo(1960, 390, 1990, 560, 1880, 700); g.bezierCurveTo(1700, 900, 1500, 1080, 1420, 1190); g.closePath();
     const tg = g.createLinearGradient(400, 250, 900, 1100); tg.addColorStop(0, '#2f5a63'); tg.addColorStop(.45, '#1f4650'); tg.addColorStop(1, '#0d2128'); g.fillStyle = tg; g.fill();
@@ -169,7 +168,7 @@ export function ideaCard(ctx, x, y, s, t, o = {}) {
   const w = 230, h = 150, a = o.a ?? 1, lit = clamp(o.lit ?? 0), ring = clamp(o.ring ?? 0);
   ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot ?? 0); ctx.scale(s, s); ctx.globalAlpha = a;
   // faint paper (barely there: an idea)
-  ctx.fillStyle = `rgba(243,239,226,${.08 + .06 * lit})`; ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, 10); ctx.fill();
+  ctx.fillStyle = `rgba(243,236,220,${.2 + .12 * lit})`; ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, 10); ctx.fill(); ctx.fillStyle = `rgba(30,20,30,${.18})`; ctx.beginPath(); ctx.roundRect(-w / 2 + 4, -h / 2 + 4, w - 8, h - 8, 8); ctx.fill();
   ctx.save(); ctx.globalCompositeOperation = 'lighter'; const gg = ctx.createRadialGradient(0, 0, 0, 0, 0, w * .8); gg.addColorStop(0, rgba('#ffb35c', .16 + .2 * lit)); gg.addColorStop(1, 'rgba(255,179,92,0)'); ctx.fillStyle = gg; ctx.fillRect(-w, -h, 2 * w, 2 * h); ctx.restore();
   const col = '#fff1d6', dot = 5.5 / s;
   const rect = (x0, y0, ww, hh, rr) => { const P = []; const k = 12; const add = (cx, cy, a0) => { for (let i = 0; i <= k; i++) { const aa = a0 + i / k * Math.PI / 2; P.push([cx + Math.cos(aa) * rr, cy + Math.sin(aa) * rr]); } };

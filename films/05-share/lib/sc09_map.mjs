@@ -2,7 +2,8 @@
 // Copied and adapted from lib/map.mjs nightSheet (K0): same table, sheet, ruled sea, waterlines, coastal intaglio, graticule,
 // dashed borders and depth of field, without the night pass and the city lights. Cached per camera (~2 s once).
 //   daySheet(cam, o) → S  (same shape as nightSheet's S, so map.mjs drawSheet(ctx, S, view) and paperAt(S, view, lon, lat) work on it)
-//     cam = { cx, cy, z, rot, tilt, x, y, f } as in map.mjs;  o: { detail '50m', lamp [x, y], pad 90, paper, ink, land (tint), hi: [iso…] }
+//     cam = { cx, cy, z, rot, tilt, x, y, f } as in map.mjs;  o: { detail '50m', lamp [x, y], pad 90, paper, ink, land (tint), hi: [iso…],
+//           scale 1 (2 = a sheet twice as sharp for zooms up to ~2.5×; toView/drawDay handle it) }
 //   PL(S, lon, lat) → [x, y, q] in sheet canvas px (add view transform with toView)
 //   toView(S, view, x, y) → screen px for a sheet-canvas point
 //   borderLine(S, isoA, isoB) → [[x, y]…] the shared border of two countries in sheet px (ordered polyline)
@@ -59,14 +60,14 @@ function countryPath(ctx, P, c, filter) { for (const p of c.polys) { if (filter 
 const SHEETS = new Map();
 export function daySheet(cam, o = {}) {
   const key = 'day' + JSON.stringify([cam, o]); if (SHEETS.has(key)) return SHEETS.get(key);
-  const pad = o.pad ?? 90, CW = W + 2 * pad, CH = H + 2 * pad;
-  const camP = { ...cam, x: (cam.x ?? W / 2) + pad, y: (cam.y ?? H / 2) + pad }, { P, c, k } = projector(camP), D = mapData(o.detail || '50m');
+  const pad = o.pad ?? 90, SC = o.scale ?? 1, CW = Math.round((W + 2 * pad) * SC), CH = Math.round((H + 2 * pad) * SC);   // o.scale: a sharper sheet for big screen zooms
+  const camP = { ...cam, x: ((cam.x ?? W / 2) + pad) * SC, y: ((cam.y ?? H / 2) + pad) * SC, z: (cam.z ?? 1) * SC, f: (cam.f ?? 1700) * SC }, { P, c, k } = projector(camP), D = mapData(o.detail || '50m');
   const PL = (lon, lat) => { const [x, y] = ll(lon, lat); return P(x, y); };
   const [cv, g] = mkCanvas(CW, CH), r = prng(o.seed ?? 91), n = vnoise(23), ink = o.ink || '#2b2433';
   // the table: dark walnut with long grain, warm where the lamp reaches
   g.fillStyle = '#0d0a0c'; g.fillRect(0, 0, CW, CH); g.lineCap = 'round';
   for (let i = 0; i < 420; i++) { const y = r() * CH, a = .05 + r() * .09; g.strokeStyle = r() < .5 ? `rgba(120,80,55,${a})` : `rgba(0,0,0,${a * 1.5})`; g.lineWidth = .6 + r() * 2.2; g.beginPath(); for (let x = -20; x <= CW + 20; x += 40) { const yy = y + 8 * Math.sin(x * .004 + i) + 5 * (n(x * .006, i * .3) - .5); x < 0 ? g.moveTo(x, yy) : g.lineTo(x, yy); } g.stroke(); }
-  const lamp = o.lamp || [W * .82 + pad, pad - 60];
+  const lamp = (o.lamp || [W * .82 + pad, pad - 60]).map((v) => v * SC);
   { const lg = g.createRadialGradient(lamp[0], lamp[1] + 120, 0, lamp[0], lamp[1] + 120, 1500); lg.addColorStop(0, 'rgba(255,170,100,.32)'); lg.addColorStop(.5, 'rgba(255,150,90,.08)'); lg.addColorStop(1, 'rgba(255,150,90,0)'); g.fillStyle = lg; g.fillRect(0, 0, CW, CH); }
   // the sheet
   const m = .16, cs = [[-2.7066 - m, -1.3173 - m], [2.7066 + m, -1.3173 - m], [2.7066 + m, 1.3173 + m], [-2.7066 - m, 1.3173 + m]].map(([x, y]) => P(x, y));
@@ -109,12 +110,12 @@ export function daySheet(cam, o = {}) {
   { g.save(); g.clip(sheetPath); const sg = g.createRadialGradient(lamp[0], lamp[1] + 200, 300, lamp[0], lamp[1] + 200, CW * 1.2); sg.addColorStop(0, 'rgba(20,12,10,0)'); sg.addColorStop(1, 'rgba(20,12,10,.42)'); g.fillStyle = sg; g.fillRect(0, 0, CW, CH); g.restore(); }
   if (o.dof !== false) { const [bc, bgx] = mkCanvas(CW, CH); bgx.filter = 'blur(3px)'; bgx.drawImage(cv, 0, 0); bgx.filter = 'none'; const top = o.dofTop ?? PL(0, 90)[1];
     bgx.globalCompositeOperation = 'destination-in'; const mg = bgx.createLinearGradient(0, top - 120, 0, top + 260); mg.addColorStop(0, '#000'); mg.addColorStop(1, 'rgba(0,0,0,0)'); bgx.fillStyle = mg; bgx.fillRect(0, 0, CW, CH); g.drawImage(bc, 0, 0); }
-  const S = { c: cv, pad, cam: camP, P, PL, twinkle: [], k, D, sheetPath, landPath, countryPath: (ctx, id, filter) => { const cn = D.byId.get(isoId(id)); if (cn) countryPath(ctx, P, cn, filter); } };
+  const S = { c: cv, pad, SC, cam: camP, P, PL, twinkle: [], k, D, sheetPath, landPath, countryPath: (ctx, id, filter) => { const cn = D.byId.get(isoId(id)); if (cn) countryPath(ctx, P, cn, filter); } };
   SHEETS.set(key, S); return S;
 }
-export const toView = (S, v, x, y) => [W / 2 + (x - S.pad - W / 2) * (v.z ?? 1) + (v.dx ?? 0), H / 2 + (y - S.pad - H / 2) * (v.z ?? 1) + (v.dy ?? 0)];
+export const toView = (S, v, x, y) => { const k = S.SC || 1; return [W / 2 + (x / k - S.pad - W / 2) * (v.z ?? 1) + (v.dx ?? 0), H / 2 + (y / k - S.pad - H / 2) * (v.z ?? 1) + (v.dy ?? 0)]; };
 export function drawDay(ctx, S, view = {}) {
-  const z = view.z ?? 1; ctx.save(); ctx.translate(W / 2 + (view.dx ?? 0), H / 2 + (view.dy ?? 0)); ctx.scale(z, z); ctx.drawImage(S.c, -W / 2 - S.pad, -H / 2 - S.pad); ctx.restore();
+  const z = view.z ?? 1, k = S.SC || 1; ctx.save(); ctx.translate(W / 2 + (view.dx ?? 0), H / 2 + (view.dy ?? 0)); ctx.scale(z / k, z / k); ctx.drawImage(S.c, (-W / 2 - S.pad) * k, (-H / 2 - S.pad) * k); ctx.restore();
 }
 // the shared border of two countries (sheet px): arcs used by both, chained into one polyline
 export function borderLine(S, a, b) {
