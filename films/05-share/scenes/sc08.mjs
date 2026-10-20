@@ -465,7 +465,7 @@ export default (T, R) => {
     ctx.restore();
     K.motes(ctx, t, { a: .4, n: 40, seed: 29, col: '255,240,220' });
     K.vignette(ctx, .5 * (1 - pk), W * .5, H * .5, '6,8,12');
-    if (pk > 0) { const x = mix(sp0.x, W / 2, pk), y = mix(sp0.y - 30, H / 2, pk); K.bloomAt(ctx, x, y, 160 + 1700 * pk, .4 + .6 * pk, '#ffcf8a'); ctx.fillStyle = `rgba(255,240,218,${.9 * sm(lin(A.t604 - .4, A.t604 - .02, t))})`; ctx.fillRect(0, 0, W, H); }   // reaches the 6.04 opening light (.9) at the cut
+    if (pk > 0) { const x = mix(sp0.x, W / 2, pk), y = mix(sp0.y - 30, H / 2, pk); K.bloomAt(ctx, x, y, 160 + 1700 * pk, .4 + .6 * pk, '#ffcf8a'); ctx.fillStyle = `rgba(255,240,218,${.55 * sm(lin(A.t604 - .3, A.t604 - .02, t))})`; ctx.fillRect(0, 0, W, H); }   // reaches the 6.04 opening light (.55) at the cut (at .9 it read as a dip to white)
   }
   // ---------------- 6.04 Every resident … the same refund … every year. ----------------
   const LETTERS = [
@@ -547,7 +547,7 @@ export default (T, R) => {
     K.sourceLine(ctx, 'Source: Swiss Federal Office for the Environment (BAFU), 2026', ca, { col: '#22324c', x: 1250, y: 118 });
     ctx.restore();
     K.vignette(ctx, .25, W * .5, H * .45, '30,40,60');
-    const op = 1 - xout(lin(A.t604, A.t604 + .55, t)); if (op > 0) { ctx.fillStyle = `rgba(255,240,218,${.9 * op})`; ctx.fillRect(0, 0, W, H); }
+    const op = 1 - xout(lin(A.t604, A.t604 + .4, t)); if (op > 0) { ctx.fillStyle = `rgba(255,240,218,${.55 * op})`; ctx.fillRect(0, 0, W, H); }
   }
   const line604 = (t) => { const cam = swCam(t), L = LETTERS[1], x = L.x + cam.dx, y = L.y + Math.sin(t * 1.3 + 2) * 3 + cam.dy, c = Math.cos(L.rot), s = Math.sin(L.rot), lx = (x - LW / 2) + (22 * LW / 380) * c - (311 * LH / 500) * s, ly = (y - LH / 2) + (22 * LW / 380) * s + (311 * LH / 500) * c; const p = [lx + LW * .45 * c, ly + LW * .45 * s]; return [W / 2 + (p[0] - W / 2) * cam.z, H / 2 + (p[1] - H / 2) * cam.z]; };
   // ---------------- 6.05 It arrives through their health insurance. ----------------
