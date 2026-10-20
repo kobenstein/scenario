@@ -1,0 +1,459 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>e-glow · Film 4 hook in reference style</title>
+<style>html,body{margin:0;background:#000}canvas{display:block}</style></head>
+<body><canvas id="c" width="1920" height="1080"></canvas>
+<script>
+// Style test E "glow": gradient silhouettes, rim light, depth-of-field blur, light-line carrier.
+// One continuous space: desk at night -> the screen's light leaves, circles you, becomes a sun ->
+// the sun pours out an income line that runs across your whole life (age axis 30-90).
+// Everything is drawn in Canvas2D; render(t) is pure, so any frame can be rendered in any order.
+const W = 1920, H = 1080, DUR = 11.4;
+const cv = document.getElementById("c"), ctx = cv.getContext("2d");
+const mk = () => { const c = document.createElement("canvas"); c.width = W; c.height = H; return c; };
+const mask = mk(), mctx = mask.getContext("2d"), tint = mk(), tctx = tint.getContext("2d");
+
+// ---------- math ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, k) => a + (b - a) * k;
+const ss = (a, b, x) => { const k = clamp((x - a) / (b - a)); return k * k * (3 - 2 * k); };
+const eio = (k) => k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+const eout = (k) => 1 - Math.pow(1 - k, 3);
+const back = (k) => { const c = 1.7; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+const hex = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+const mix = (a, b, k, al = 1) => { const A = hex(a), B = hex(b); return `rgba(${A.map((v, i) => Math.round(lerp(v, B[i], k))).join(",")},${al})`; };
+const rnd = (() => { let s = 7; return () => (s = (s * 16807) % 2147483647) / 2147483647; })();
+
+// ---------- camera: Catmull-Rom through keys (t, x, y, zoom) ----------
+const KEYS = [[0, 40, 150, 1.5], [2.6, 20, 140, 1.62], [4.6, 0, 125, 1.85], [6.5, 60, 30, 1.0],
+  [8.6, 760, -40, 0.74], [11.4, 1300, 30, 0.6]];
+function cam(t) {
+  t = clamp(t, 0, DUR);
+  let i = 0; while (i < KEYS.length - 2 && t > KEYS[i + 1][0]) i++;
+  const k0 = KEYS[Math.max(0, i - 1)], k1 = KEYS[i], k2 = KEYS[i + 1], k3 = KEYS[Math.min(KEYS.length - 1, i + 2)];
+  const u = eio(clamp((t - k1[0]) / (k2[0] - k1[0])));
+  const cr = (j) => { const p0 = k0[j], p1 = k1[j], p2 = k2[j], p3 = k3[j];
+    const m1 = (p2 - p0) / 2, m2 = (p3 - p1) / 2, u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * p1 + (u3 - 2 * u2 + u) * m1 * .6 + (-2 * u3 + 3 * u2) * p2 + (u3 - u2) * m2 * .6; };
+  // a slow handheld-free drift so the frame never freezes
+  return { x: cr(1) + Math.sin(t * .7) * 4, y: cr(2) + Math.sin(t * .53) * 3, z: cr(3) };
+}
+// parallax plane p: 1 = figure plane, <1 far, >1 near
+function setPlane(c, C, p) {
+  const s = Math.pow(C.z, p);
+  c.setTransform(s, 0, 0, s, W / 2 - C.x * p * s, H / 2 - C.y * p * s);
+}
+const toScreen = (C, p, x, y) => { const s = Math.pow(C.z, p); return [W / 2 + (x - C.x * p) * s, H / 2 + (y - C.y * p) * s]; };
+
+// ---------- palette: night -> dawn ----------
+const NIGHT = { top: "#07031d", mid: "#1a0a52", hor: "#3b1c9e", glow: "#3ff0e0", dune: ["#2a1170", "#1a0a4c", "#0f0634"], floor: "#0b0428" };
+const DAWN = { top: "#3d17a6", mid: "#e2457e", hor: "#fff0e4", glow: "#fff4ea", dune: ["#d4569a", "#8a32c8", "#4a1ba0"], floor: "#5a1fb0" };
+
+// ---------- scene data ----------
+const GROUND = 300, SUN = { x: 0, y: 60, r: 210 };
+const tasks = Array.from({ length: 18 }, (_, i) => ({
+  x: (rnd() - .5) * 1500, y: -260 + rnd() * 470, w: 50 + rnd() * 110, h: 36 + rnd() * 70,
+  p: .55 + rnd() * 1.1, rot: (rnd() - .5) * .25, g: i % 3, ph: rnd() * 6, lift: 260 + rnd() * 380, delay: rnd() * .7 }));
+tasks.push({ x: 380, y: 40, w: 300, h: 190, p: 2.1, rot: .08, g: 1, ph: 1, lift: 500, delay: .1 }); // big DOF foreground card
+const GRADS = [["#ff7aa8", "#6b39e6"], ["#58e8ff", "#5b2bd6"], ["#ffb38a", "#c43fa0"]];
+const bokeh = Array.from({ length: 16 }, (_, i) => ({
+  x: -300 + rnd() * 3300, y: [-780, -640, -580, -110, 30, 150][i % 6] + rnd() * 90, r: 14 + rnd() * 46, p: .6 + rnd() * 1.2,
+  kind: i % 4 === 0 ? "diamond" : "sphere", g: i % 3, ph: rnd() * 6 }));
+const AGE0 = 360, DEC = 390, LINE_Y = -330; // age 30 at x=360, 90 at x=2700
+
+// ---------- drawing helpers ----------
+function sky(C, t, k) {
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  const [, hy] = toScreen(C, .25, 0, GROUND);
+  const hk = clamp(hy / H, .2, .98);
+  g.addColorStop(0, mix(NIGHT.top, DAWN.top, k)); g.addColorStop(hk * .62, mix(NIGHT.mid, DAWN.mid, k));
+  g.addColorStop(hk, mix(NIGHT.hor, DAWN.hor, k)); g.addColorStop(1, mix(NIGHT.floor, DAWN.floor, k));
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  // horizon glow (cyan at night: the screen; cream at dawn: the sun)
+  const [gx, gy] = toScreen(C, .5, 0, GROUND);
+  const rg = ctx.createRadialGradient(gx, gy, 0, gx, gy, 900 * C.z);
+  rg.addColorStop(0, mix(NIGHT.glow, DAWN.glow, k, .55)); rg.addColorStop(.35, mix(NIGHT.glow, "#ffb08a", k, .18)); rg.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.save(); ctx.translate(gx, gy); ctx.scale(1, .32); ctx.translate(-gx, -gy);
+  ctx.fillStyle = rg; ctx.fillRect(0, 0, W, H * 4); ctx.restore();
+}
+function dune(C, t, k, p, base, amp, f, col, blur, seed) {
+  setPlane(ctx, C, p);
+  ctx.filter = blur ? `blur(${blur}px)` : "none";
+  const x0 = -2400, x1 = 4200;
+  ctx.beginPath(); ctx.moveTo(x0, 2000);
+  for (let x = x0; x <= x1; x += 30)
+    ctx.lineTo(x, base - amp * (.55 * Math.sin(x * f + seed) + .3 * Math.sin(x * f * 2.3 + seed * 2) + .15 * Math.sin(x * f * 5.1 + seed)));
+  ctx.lineTo(x1, 2000); ctx.closePath();
+  const g = ctx.createLinearGradient(0, base - amp, 0, base + 260);
+  g.addColorStop(0, col[0]); g.addColorStop(1, col[1]);
+  ctx.fillStyle = g; ctx.fill(); ctx.filter = "none";
+}
+function card(c, x, y, w, h, rot, grad, alpha) {
+  c.save(); c.translate(x, y); c.rotate(rot); c.globalAlpha = alpha;
+  const g = c.createLinearGradient(-w / 2, -h / 2, w / 2, h / 2);
+  g.addColorStop(0, grad[0]); g.addColorStop(1, grad[1]);
+  c.fillStyle = g; c.fillRect(-w / 2, -h / 2, w, h);
+  c.fillStyle = "rgba(255,255,255,.55)"; c.fillRect(-w / 2, -h / 2, w, 3); // lit top edge
+  c.restore();
+}
+
+// ---------- figure ----------
+// angles: 0 = limb points down, + = toward +x. Torso angle: 0 = upright, + = leaning forward (+x).
+const L = { torso: 104, neck: 14, ua: 60, fa: 56, th: 78, sh: 80 };
+function pose(t) {
+  const up = eio(ss(2.55, 3.7, t)); // sit -> stand on "never have to work"
+  const type = (1 - up) * Math.sin(t * 19) * .07;
+  const P = {
+    th: [lerp(1.5, .05, up), lerp(1.42, -.05, up)], sh: [lerp(.06, 0, up), lerp(.02, .02, up)],
+    torso: lerp(.16, -.02, up) + Math.sin(t * 1.3) * .012,
+    ua: [lerp(.62, -.14, up), lerp(.5, .16, up)], fa: [lerp(1.35, .02, up) + type, lerp(1.25, .2, up) - type],
+    head: lerp(.12, 0, up),
+  };
+  // look up toward the sun, then raise the near arm toward the income line
+  P.head -= .32 * ss(4.6, 5.8, t);
+  const reach = eio(ss(6.3, 7.4, t));
+  P.ua[1] = lerp(P.ua[1], 2.25, reach); P.fa[1] = lerp(P.fa[1], 2.45, reach);
+  P.torso -= .06 * reach;
+  // feet stay planted at x=0 on the ground: solve hip from the legs
+  P.hx = -(L.th * Math.sin(P.th[0]) + L.sh * Math.sin(P.sh[0]));
+  P.hy = GROUND - L.th * Math.cos(P.th[0]) - L.sh * Math.cos(P.sh[0]);
+  return P;
+}
+function seg(c, x, y, a, len, w0, w1) {
+  const x2 = x + Math.sin(a) * len, y2 = y + Math.cos(a) * len;
+  const nx = Math.cos(a), ny = -Math.sin(a);
+  c.beginPath();
+  c.moveTo(x + nx * w0 / 2, y + ny * w0 / 2); c.lineTo(x2 + nx * w1 / 2, y2 + ny * w1 / 2);
+  c.lineTo(x2 - nx * w1 / 2, y2 - ny * w1 / 2); c.lineTo(x - nx * w0 / 2, y - ny * w0 / 2); c.fill();
+  c.beginPath(); c.arc(x, y, w0 / 2, 0, 7); c.fill(); c.beginPath(); c.arc(x2, y2, w1 / 2, 0, 7); c.fill();
+  return [x2, y2];
+}
+function silhouette(c, P) {
+  c.fillStyle = "#fff";
+  const sx = P.hx + Math.sin(P.torso) * L.torso, sy = P.hy - Math.cos(P.torso) * L.torso;
+  // legs (far leg first)
+  for (const i of [1, 0]) {
+    const [kx, ky] = seg(c, P.hx + (i ? 4 : -4), P.hy, P.th[i], L.th, 30, 21);
+    const [fx, fy] = seg(c, kx, ky, P.sh[i], L.sh, 21, 14);
+    c.beginPath(); c.ellipse(fx + 9, fy - 2, 17, 7, 0, 0, 7); c.fill(); // shoe
+  }
+  // torso: rounded shoulders, narrower waist
+  c.save(); c.translate(P.hx, P.hy); c.rotate(P.torso);
+  c.beginPath();
+  c.moveTo(-21, 4); c.quadraticCurveTo(-24, -50, -27, -L.torso + 14);
+  c.quadraticCurveTo(-27, -L.torso - 2, -10, -L.torso - 4); c.lineTo(10, -L.torso - 4);
+  c.quadraticCurveTo(27, -L.torso - 2, 27, -L.torso + 14);
+  c.quadraticCurveTo(24, -50, 21, 4); c.closePath(); c.fill();
+  c.restore();
+  // neck + head
+  const ha = P.torso + P.head;
+  const nx = sx + Math.sin(ha) * L.neck, ny = sy - Math.cos(ha) * L.neck;
+  seg(c, sx, sy + 2, Math.PI + ha, L.neck + 4, 13, 12);
+  c.save(); c.translate(nx + Math.sin(ha) * 17, ny - Math.cos(ha) * 17); c.rotate(ha);
+  c.beginPath(); c.ellipse(0, 0, 15.5, 19.5, 0, 0, 7); c.fill(); c.restore();
+  // arms
+  for (const i of [0, 1]) {
+    const ox = sx + Math.cos(P.torso) * (i ? 15 : -15), oy = sy + 6 + Math.sin(P.torso) * (i ? 15 : -15);
+    const [ex, ey] = seg(c, ox, oy, P.ua[i], L.ua, 16, 12);
+    seg(c, ex, ey, P.fa[i], L.fa, 12, 9);
+  }
+}
+function drawFigure(C, t, k) {
+  const P = pose(t);
+  for (const c of [mctx, tctx]) { c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, W, H); }
+  setPlane(mctx, C, 1); silhouette(mctx, P);
+  mctx.setTransform(1, 0, 0, 1, 0, 0);
+  const s = C.z;
+  // rim: night = cyan from the monitor on the right, dawn = cream from the sun behind
+  const rimOff = [lerp(4.5, -3.5, k) * s, lerp(-1, -2.5, k) * s];
+  tctx.drawImage(mask, 0, 0); tctx.globalCompositeOperation = "source-in";
+  tctx.fillStyle = mix("#7ff6ff", "#fff2e6", k); tctx.fillRect(0, 0, W, H); tctx.globalCompositeOperation = "source-over";
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.drawImage(tint, rimOff[0], rimOff[1]);
+  if (k > .2) ctx.drawImage(tint, 3 * s, -1 * s); // dawn: thin second rim (sun wraps around)
+  // body gradient
+  tctx.clearRect(0, 0, W, H); tctx.drawImage(mask, 0, 0); tctx.globalCompositeOperation = "source-in";
+  const [, top] = toScreen(C, 1, 0, P.hy - 200), [, bot] = toScreen(C, 1, 0, GROUND);
+  const g = tctx.createLinearGradient(0, top, 0, bot);
+  g.addColorStop(0, mix("#2b1466", "#5b2bd0", k)); g.addColorStop(.55, mix("#1c0c4e", "#b0359a", k)); g.addColorStop(1, mix("#0d0530", "#ff5a6e", k));
+  tctx.fillStyle = g; tctx.fillRect(0, 0, W, H); tctx.globalCompositeOperation = "source-over";
+  ctx.drawImage(tint, 0, 0);
+}
+
+// ---------- desk (dissolves after "work") ----------
+function desk(C, t) {
+  const gone = ss(3.6, 4.7, t); if (gone >= 1) return;
+  setPlane(ctx, C, 1);
+  ctx.save(); ctx.globalAlpha = 1 - gone; ctx.translate(0, gone * 40);
+  if (gone > 0) ctx.filter = `blur(${gone * 8}px)`;
+  const on = 1 - ss(3.42, 3.6, t); // monitor clicks off on "work"
+  // screen light pool on the desk + figure
+  if (on > 0) {
+    const rg = ctx.createRadialGradient(70, 170, 0, 70, 170, 260);
+    rg.addColorStop(0, `rgba(80,240,255,${.45 * on})`); rg.addColorStop(1, "rgba(80,240,255,0)");
+    ctx.fillStyle = rg; ctx.fillRect(-250, -100, 600, 450);
+  }
+  ctx.fillStyle = "#0b0430";
+  ctx.fillRect(-30, 206, 190, 9); ctx.fillRect(-20, 215, 7, 85); ctx.fillRect(142, 215, 7, 85); // table
+  ctx.fillRect(62, 188, 8, 18); ctx.fillRect(44, 202, 44, 5); // monitor stand
+  ctx.fillRect(28, 126, 76, 64);
+  const sg = ctx.createLinearGradient(32, 130, 100, 186);
+  sg.addColorStop(0, mix("#0b0430", "#9ffcff", on)); sg.addColorStop(1, mix("#0b0430", "#3fd0ff", on));
+  ctx.fillStyle = sg; ctx.fillRect(31, 129, 70, 58); // screen (faces us a little)
+  ctx.fillStyle = "#0b0430";
+  ctx.fillRect(-126, 216, 76, 8); ctx.fillRect(-92, 224, 6, 76); ctx.fillRect(-126, 138, 7, 82); // chair
+  ctx.restore(); ctx.filter = "none";
+}
+
+// ---------- the light line: screen light -> orbit -> circle -> sun ----------
+function spark(tau) {
+  if (tau < 3.5) return { x: 66, y: 158, z: 1 };
+  if (tau < 3.95) { const u = eio((tau - 3.5) / .45); return { x: lerp(66, 130, u), y: lerp(158, 210, u), z: 1 }; }
+  const w = 2 * Math.PI / .95, a = (tau - 3.95) * w;
+  const m = eio(ss(4.85, 5.85, tau));
+  const cy = lerp(lerp(230, 40, eio(ss(3.95, 5.0, tau))), SUN.y, m);
+  const rx = lerp(130, SUN.r, m), ry = lerp(30, SUN.r, m);
+  return { x: SUN.x + Math.cos(a) * rx, y: cy + Math.sin(a) * ry, z: m > .6 ? -1 : Math.sin(a) };
+}
+function lightLine(C, t, front) {
+  if (t < 3.45 || t > 6.9) return;
+  const fade = 1 - ss(6.2, 6.9, t);
+  const trail = lerp(.35, .96, ss(4.3, 5.85, t));
+  setPlane(ctx, C, 1);
+  ctx.save(); ctx.globalCompositeOperation = "lighter"; ctx.lineCap = "round";
+  const N = 90;
+  let prev = spark(t - trail);
+  for (let i = 1; i <= N; i++) {
+    const tau = t - trail + trail * i / N, p = spark(tau);
+    const isFront = (p.z + prev.z) / 2 > 0;
+    if (isFront === front) {
+      const a = (i / N) * fade;
+      ctx.strokeStyle = `rgba(255,80,110,${.45 * a})`; ctx.lineWidth = 12; ctx.beginPath(); ctx.moveTo(prev.x, prev.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+      ctx.strokeStyle = `rgba(255,236,226,${.95 * a})`; ctx.lineWidth = 3.2; ctx.stroke();
+    }
+    prev = p;
+  }
+  const h = spark(t);
+  if ((h.z > 0) === front && fade > 0) { // bright head
+    const rg = ctx.createRadialGradient(h.x, h.y, 0, h.x, h.y, 34);
+    rg.addColorStop(0, `rgba(255,245,235,${fade})`); rg.addColorStop(.3, `rgba(255,110,130,${.6 * fade})`); rg.addColorStop(1, "rgba(255,80,110,0)");
+    ctx.fillStyle = rg; ctx.fillRect(h.x - 40, h.y - 40, 80, 80);
+  }
+  ctx.restore();
+}
+function sun(C, t) {
+  const k = ss(5.55, 6.6, t); if (k <= 0) return;
+  setPlane(ctx, C, .94);
+  const r = SUN.r * lerp(.92, 1, eout(k));
+  ctx.save(); ctx.globalAlpha = k;
+  const halo = ctx.createRadialGradient(SUN.x, SUN.y, r * .8, SUN.x, SUN.y, r * 3.2);
+  halo.addColorStop(0, "rgba(255,190,160,.55)"); halo.addColorStop(1, "rgba(255,120,140,0)");
+  ctx.fillStyle = halo; ctx.fillRect(SUN.x - r * 3.3, SUN.y - r * 3.3, r * 6.6, r * 6.6);
+  const g = ctx.createRadialGradient(SUN.x - r * .25, SUN.y - r * .3, r * .05, SUN.x, SUN.y, r);
+  g.addColorStop(0, "#fffaf2"); g.addColorStop(.45, "#ffc79c"); g.addColorStop(.85, "#ff6f7f"); g.addColorStop(1, "#e2457e");
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(SUN.x, SUN.y, r, 0, 7); ctx.fill();
+  ctx.strokeStyle = "rgba(255,240,230,.85)"; ctx.lineWidth = 3; ctx.stroke(); // the light line, now the sun's rim
+  ctx.restore();
+}
+
+// ---------- infographic: income across a lifetime ----------
+// the line leaves the sun at its upper right and runs flat across the age axis
+const PATH = (() => {
+  const pts = [], a0 = -1.25;
+  const p0 = [SUN.x + Math.cos(a0) * SUN.r, SUN.y + Math.sin(a0) * SUN.r];
+  const c1 = [p0[0] + 50, p0[1] - 150], c2 = [AGE0 - 170, LINE_Y], p3 = [AGE0, LINE_Y];
+  for (let i = 0; i <= 40; i++) { const u = i / 40, v = 1 - u;
+    pts.push([v * v * v * p0[0] + 3 * v * v * u * c1[0] + 3 * v * u * u * c2[0] + u * u * u * p3[0],
+      v * v * v * p0[1] + 3 * v * v * u * c1[1] + 3 * v * u * u * c2[1] + u * u * u * p3[1]]); }
+  for (let x = AGE0 + 30; x <= AGE0 + 6 * DEC + 120; x += 30) pts.push([x, LINE_Y]);
+  let acc = 0; pts[0][2] = 0;
+  for (let i = 1; i < pts.length; i++) { acc += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); pts[i][2] = acc; }
+  return pts;
+})();
+const PLEN = PATH[PATH.length - 1][2];
+function headLen(t) { // income line grows with the VO: fast on "taken care of", steady through "rest of your life"
+  const a = eio(ss(6.35, 8.0, t)) * (AGE0 + 1.3 * DEC), b = eio(ss(8.0, 10.9, t)) * (PLEN - AGE0 - 1.3 * DEC);
+  return Math.min(PLEN, a + b);
+}
+function pointAt(len) {
+  for (let i = 1; i < PATH.length; i++) if (PATH[i][2] >= len) {
+    const u = (len - PATH[i - 1][2]) / (PATH[i][2] - PATH[i - 1][2]);
+    return [lerp(PATH[i - 1][0], PATH[i][0], u), lerp(PATH[i - 1][1], PATH[i][1], u)];
+  }
+  return PATH[PATH.length - 1];
+}
+function chart(C, t) {
+  if (t < 6.3) return;
+  const hl = headLen(t), [hx, hy] = pointAt(hl);
+  setPlane(ctx, C, 1);
+  ctx.save();
+  // area under the flat part: the income that is "taken care of"
+  if (hx > AGE0) {
+    const g = ctx.createLinearGradient(0, LINE_Y, 0, GROUND);
+    g.addColorStop(0, "rgba(255,120,140,.38)"); g.addColorStop(.6, "rgba(255,170,150,.12)"); g.addColorStop(1, "rgba(255,200,170,0)");
+    ctx.fillStyle = g; ctx.fillRect(AGE0, LINE_Y, hx - AGE0, GROUND - LINE_Y);
+  }
+  ctx.restore(); chartLine(C, t, hl, hx, hy);
+}
+function chartAxis(C, t) {
+  if (t < 6.3) return;
+  const hl = headLen(t), [hx] = pointAt(hl);
+  setPlane(ctx, C, 1); ctx.save();
+  const ax = ss(6.9, 7.6, t);
+  ctx.strokeStyle = `rgba(255,244,234,${.55 * ax})`; ctx.lineWidth = 2 / C.z;
+  ctx.beginPath(); ctx.moveTo(AGE0 - 60, GROUND); ctx.lineTo(lerp(AGE0 - 60, AGE0 + 6 * DEC + 140, eio(ax)), GROUND); ctx.stroke();
+  ctx.font = `500 ${30 / C.z}px Inter`; ctx.textAlign = "center"; ctx.textBaseline = "top";
+  for (let d = 0; d <= 6; d++) {
+    const x = AGE0 + d * DEC, on = hx >= x - 2 ? eout(clamp((t - tickT[d]) / .45)) : 0;
+    if (on <= 0) continue;
+    ctx.globalAlpha = on;
+    ctx.fillStyle = "rgba(255,244,234,.9)"; ctx.fillRect(x - 1 / C.z, GROUND - 10 / C.z, 2 / C.z, 20 / C.z * on);
+    ctx.fillText(String(30 + d * 10), x, GROUND + 22 / C.z + (1 - on) * 10);
+    // dashed drop line from the income line to the axis
+    ctx.strokeStyle = "rgba(255,244,234,.28)"; ctx.setLineDash([4 / C.z, 7 / C.z]); ctx.lineWidth = 1.5 / C.z;
+    ctx.beginPath(); ctx.moveTo(x, LINE_Y + 14); ctx.lineTo(x, LINE_Y + 14 + (GROUND - LINE_Y - 24) * on); ctx.stroke(); ctx.setLineDash([]);
+  }
+  ctx.globalAlpha = ss(9.0, 9.8, t);
+  ctx.textAlign = "left"; ctx.fillStyle = "rgba(255,244,234,.7)";
+  ctx.fillText("AGE", AGE0 + 6 * DEC + 60, GROUND + 22 / C.z);
+  ctx.globalAlpha = 1; ctx.restore();
+}
+function chartLine(C, t, hl, hx, hy) {
+  setPlane(ctx, C, 1); ctx.save();
+  // the line itself (glow + core)
+  ctx.globalCompositeOperation = "lighter"; ctx.lineCap = "round"; ctx.lineJoin = "round";
+  ctx.beginPath(); ctx.moveTo(PATH[0][0], PATH[0][1]);
+  for (const p of PATH) { if (p[2] > hl) break; ctx.lineTo(p[0], p[1]); }
+  ctx.lineTo(hx, hy);
+  ctx.strokeStyle = "rgba(255,80,110,.45)"; ctx.lineWidth = 16; ctx.stroke();
+  ctx.strokeStyle = "rgba(255,238,228,.98)"; ctx.lineWidth = 4.2; ctx.stroke();
+  // payments flowing out of the sun along the line
+  for (let j = 0; j < 40; j++) {
+    const L0 = ((t - 6.4) * 520 - j * 150); if (L0 < 0 || L0 > hl) continue;
+    const [px, py] = pointAt(L0);
+    const rg = ctx.createRadialGradient(px, py, 0, px, py, 16);
+    rg.addColorStop(0, "rgba(255,255,250,.95)"); rg.addColorStop(1, "rgba(255,150,160,0)");
+    ctx.fillStyle = rg; ctx.fillRect(px - 16, py - 16, 32, 32);
+  }
+  // head glow
+  if (hl < PLEN - 1) {
+    const rg = ctx.createRadialGradient(hx, hy, 0, hx, hy, 46);
+    rg.addColorStop(0, "rgba(255,250,240,1)"); rg.addColorStop(.25, "rgba(255,130,150,.7)"); rg.addColorStop(1, "rgba(255,90,120,0)");
+    ctx.fillStyle = rg; ctx.fillRect(hx - 50, hy - 50, 100, 100);
+  }
+  ctx.globalCompositeOperation = "source-over";
+  // nodes on the flat part, one per five years, pop in as the line passes
+  for (let n = 0; n <= 12; n++) {
+    const x = AGE0 + n * DEC / 2; if (hx < x) break;
+    const born = nodeT[n], s = back(clamp((t - born) / .4));
+    ctx.fillStyle = "#fff4ea"; ctx.beginPath(); ctx.arc(x, LINE_Y, (n % 2 ? 5 : 8) * s, 0, 7); ctx.fill();
+    ctx.strokeStyle = "rgba(255,244,234,.5)"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(x, LINE_Y, (n % 2 ? 11 : 17) * s, 0, 7); ctx.stroke();
+  }
+  // label
+  const la = ss(6.9, 7.6, t);
+  ctx.globalAlpha = la; ctx.fillStyle = "#fff4ea"; ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+  ctx.font = `600 ${26 / C.z}px Inter`;
+  ctx.letterSpacing = `${4 / C.z}px`;
+  ctx.fillText("YOUR INCOME", AGE0 + 24, LINE_Y - 34 / C.z - (1 - la) * 14);
+  ctx.letterSpacing = "0px";
+  ctx.restore();
+}
+// when the head passes each tick/node (precomputed by search)
+const firstT = (x) => { for (let t = 6.3; t < DUR; t += 1 / 96) if (pointAt(headLen(t))[0] >= x - 2 && headLen(t) > SUN.r) return t; return DUR; };
+const tickT = Array.from({ length: 7 }, (_, d) => firstT(AGE0 + d * DEC));
+const nodeT = Array.from({ length: 13 }, (_, n) => firstT(AGE0 + n * DEC / 2));
+
+// ---------- floating task cards (night) and bokeh (dawn) ----------
+function floaters(C, t, near) {
+  const lift = (o) => eio(clamp((t - 2.9 - o.delay) / 1.8));
+  for (const o of tasks) {
+    if ((o.p > 1) !== near) continue;
+    const L = lift(o); if (L >= 1) continue;
+    setPlane(ctx, C, o.p);
+    ctx.filter = `blur(${Math.abs(o.p - 1) * 13 + L * 6}px)`;
+    const drift = o.p > 2 ? (t - 1) * -60 : 0;
+    card(ctx, o.x + drift + Math.sin(t * .8 + o.ph) * 6, o.y - L * o.lift + Math.sin(t * 1.1 + o.ph) * 5, o.w, o.h, o.rot + Math.sin(t * .5 + o.ph) * .03,
+      GRADS[o.g], (o.p > 2 ? .7 : .85) * (1 - L));
+  }
+  const ba = ss(6.0, 7.6, t);
+  if (ba > 0) for (const b of bokeh) {
+    if ((b.p > 1) !== near) continue;
+    setPlane(ctx, C, b.p);
+    ctx.filter = `blur(${Math.abs(b.p - 1) * 16}px)`;
+    const x = b.x + Math.sin(t * .4 + b.ph) * 20, y = b.y + Math.cos(t * .5 + b.ph) * 14;
+    ctx.globalAlpha = ba * .9;
+    if (b.kind === "sphere") {
+      const g = ctx.createRadialGradient(x - b.r * .35, y - b.r * .4, b.r * .1, x, y, b.r);
+      g.addColorStop(0, "#ffe9f0"); g.addColorStop(.5, GRADS[b.g][0]); g.addColorStop(1, GRADS[b.g][1]);
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, b.r, 0, 7); ctx.fill();
+    } else card(ctx, x, y, b.r * 1.3, b.r * 1.3, Math.PI / 4 + Math.sin(t * .3 + b.ph) * .2, GRADS[b.g], 1);
+    ctx.globalAlpha = 1;
+  }
+  ctx.filter = "none";
+}
+
+// ---------- grain, vignette, subtitles ----------
+const noise = (() => { const c = document.createElement("canvas"); c.width = c.height = 384; const x = c.getContext("2d");
+  const im = x.createImageData(384, 384); for (let i = 0; i < im.data.length; i += 4) { const v = 128 + (Math.random() - .5) * 255; im.data[i] = im.data[i + 1] = im.data[i + 2] = v; im.data[i + 3] = 255; }
+  x.putImageData(im, 0, 0); return c; })();
+function post(t) {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  const v = ctx.createRadialGradient(W / 2, H / 2, H * .35, W / 2, H / 2, H * 1.05);
+  v.addColorStop(0, "rgba(0,0,0,0)"); v.addColorStop(1, "rgba(8,2,30,.55)");
+  ctx.fillStyle = v; ctx.fillRect(0, 0, W, H);
+  ctx.save(); ctx.globalCompositeOperation = "overlay"; ctx.globalAlpha = .16;
+  const f = Math.floor(t * 24), ox = (f * 137) % 384, oy = (f * 251) % 384;
+  ctx.fillStyle = ctx.createPattern(noise, "repeat"); ctx.translate(-ox, -oy); ctx.fillRect(0, 0, W + 384, H + 384); ctx.restore();
+}
+const SUBS = [[1.5, 2.36, "One day soon,"], [2.4, 4.79, "you might never have to work again."], [6.42, 8.62, "Your income, taken care of."], [8.66, 10.5, "For the rest of your life."]];
+function subs(t) {
+  const s = SUBS.find(([a, b]) => t >= a && t < b); if (!s) return;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.font = "600 56px Inter"; ctx.textAlign = "center"; ctx.textBaseline = "alphabetic";
+  ctx.lineWidth = 8; ctx.strokeStyle = "rgba(10,4,30,.55)"; ctx.lineJoin = "round"; ctx.strokeText(s[2], W / 2, H - 92);
+  ctx.fillStyle = "#fff"; ctx.fillText(s[2], W / 2, H - 92);
+}
+
+// mirror floor: everything above the horizon reflects, blurred and darkened (as in the reference)
+const refl = mk(), rctx = refl.getContext("2d");
+function floor(C, k) {
+  const [, hy] = toScreen(C, 1, 0, GROUND + 2), h = Math.max(0, Math.min(H - hy, hy));
+  if (h < 2) return;
+  rctx.setTransform(1, 0, 0, 1, 0, 0); rctx.clearRect(0, 0, W, H); rctx.drawImage(cv, 0, 0);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.save(); ctx.beginPath(); ctx.rect(0, hy, W, H - hy); ctx.clip();
+  ctx.fillStyle = mix(NIGHT.floor, DAWN.floor, k); ctx.fillRect(0, hy, W, H - hy);
+  ctx.filter = "blur(5px)"; ctx.globalAlpha = .42;
+  ctx.translate(0, 2 * hy); ctx.scale(1, -1); ctx.drawImage(refl, 0, hy - h, W, h, 0, hy - h, W, h);
+  ctx.restore(); ctx.filter = "none";
+  const g = ctx.createLinearGradient(0, hy, 0, H);
+  g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(1, mix("#05010f", "#26095e", k, .85));
+  ctx.fillStyle = g; ctx.fillRect(0, hy, W, H - hy);
+  ctx.fillStyle = mix("#7ff6ff", "#fff1e6", k, .35); ctx.fillRect(0, hy - 1, W, 2); // horizon shine
+}
+
+// ---------- frame ----------
+function render(t) {
+  const C = cam(t), k = ss(5.6, 7.0, t);
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.filter = "none"; ctx.globalCompositeOperation = "source-over";
+  sky(C, t, k);
+  dune(C, t, k, .28, 170, 120, .0021, [mix(NIGHT.dune[0], DAWN.dune[0], k), mix(NIGHT.dune[1], DAWN.dune[1], k)], 7, 1.2);
+  sun(C, t);
+  dune(C, t, k, .5, 235, 90, .0031, [mix(NIGHT.dune[1], DAWN.dune[1], k), mix(NIGHT.dune[2], DAWN.dune[2], k)], 3, 4.1);
+  dune(C, t, k, .78, 288, 40, .0042, [mix(NIGHT.dune[2], DAWN.dune[2], k), mix(NIGHT.floor, DAWN.floor, k)], 1, 2.3);
+  floaters(C, t, false);
+  chart(C, t);
+  lightLine(C, t, false);
+  desk(C, t);
+  drawFigure(C, t, k);
+  lightLine(C, t, true);
+  floor(C, k);
+  chartAxis(C, t);
+  dune(C, t, k, 1.6, 520 + 140 * k, 70, .0016, [mix("#120636", "#3a1690", k), mix("#05010f", "#1d0a52", k)], 14, 5.5);
+  floaters(C, t, true);
+  post(t); subs(t);
+}
+document.fonts.load("600 56px Inter").then(() => {
+  window.__timelines = { main: { duration: () => DUR, seek: (t) => render(t) } };
+  render(Number(new URLSearchParams(location.search).get("t") || 0));
+});
+</script></body></html>
