@@ -31,7 +31,7 @@
 // | 1.10a | That's what AI is learning from.             | all fragments flow into the scaffold, it glows      | the crane keeps rising                         | plan seq.   |     |
 // | 1.10b | All of us.                                   | the crowd; every sheet lights on "us"               | one sheet in a hand                            | (b) zoom    | ▲   |
 // | 1.11  | So a share of what it makes isn't charity.   | coin into the tin cup; the sheet tears on "charity" | the halves fall away, 1.12 lies beneath        | reveal/cut  |     |
-// | 1.12  | It's an inheritance.                         | the young hand lifts the lid on "inheritance"       | the light from the box                         | (b) zoom    |     |
+// | 1.12  | It's an inheritance.                         | engraved chest; lid swings open on "inheritance"    | the light from the chest opening               | (b) zoom    |     |
 // | 1.13  | Thomas Paine put it this way: "not charity … | the spoken words ink in; "right" turns foil         | carry('c02>c03') light: the page sinks, the    | (a) cut     |     |
 // |       |                                              |                                                     | word stays as a point of light                 |             |     |
 // Carriers in: carry('c01>c02') own (Musk's sheet at C.pos(t)); out: carry('c02>c03') light ("right" at (1150, 600) at C.t − 1 s).
@@ -39,7 +39,7 @@ import { W, H, rgba, clamp, lin, mix, eout, eio, ein, sm, prng, drift, canvas, t
 import { carry } from '../lib/carry.mjs';
 import { plateBG, umberBG, vignette, anthSheet, muskSheet, emptySeal, plateSigLine, medal, wedge, wedgeCentre, coin, once, PAL0, PAL1, TAU, ANTH } from '../lib/sc02_kit.mjs';
 import { bell } from '../lib/sc02_bell.mjs';
-import { book, envelope, songLabBand, dataSeries, BAND, listingSheet, LISTING, recipeCard, plane, woodBox, charityPrint, quadImage } from '../lib/sc02_objects.mjs';
+import { book, envelope, songLabBand, dataSeries, BAND, listingSheet, LISTING, recipeCard, plane, inheritancePrint, inheritanceBase, IPRINT, charityPrint, quadImage } from '../lib/sc02_objects.mjs';
 import { scaffold } from '../lib/scaffold.mjs';
 import { paperSwarm, drawFragment } from '../lib/paperswarm.mjs';
 import { perforateText } from '../lib/perforate.mjs';
@@ -477,12 +477,14 @@ export default (T, R) => {
       ctx.save(); ctx.translate(cx, y); ctx.rotate(e * 5); ctx.scale(1, .35 + .65 * Math.abs(Math.cos(e * 7))); ctx.fillStyle = '#efe4cc'; ctx.strokeStyle = '#2a2230'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(0, 0, 26, 0, TAU); ctx.fill(); ctx.stroke(); ctx.lineWidth = 1.2; for (let k = -2; k <= 2; k++) { ctx.beginPath(); ctx.moveTo(-18, k * 7); ctx.lineTo(18, k * 7); ctx.stroke(); } ctx.restore(); }
     ctx.restore();
   };
+  // the torn edges lift a little off the plate below and shade it (drawn under the halves, so only the crack shows it)
+  const tornShadow = (ctx, gap, a) => { ctx.save(); ctx.lineJoin = 'round'; for (const [lw, al] of [[2 * gap + 46, .1], [2 * gap + 22, .16], [2 * gap + 8, .22]]) { ctx.strokeStyle = `rgba(28,18,12,${al * a})`; ctx.lineWidth = lw; ctx.beginPath(); tearPts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.stroke(); } ctx.restore(); };
   const draw111 = (ctx, t) => {
-    const fall = lin(tear1, tear1 + .55, t);
-    if (fall > 0) draw112(ctx, t, true); else { ctx.fillStyle = '#120c09'; ctx.fillRect(0, 0, W, H); }
+    const fall = lin(tear1, tear1 + .55, t), tq = eio(lin(tear0, tear1, t));
+    if (tq > 0) draw112(ctx, t, true); else { ctx.fillStyle = '#120c09'; ctx.fillRect(0, 0, W, H); }   // the next plate lies underneath
     const k = 1 + .05 * eio(lin(t11b - .3, tear0, t));
     ctx.save(); ctx.translate(960, 540); ctx.scale(k, k);
-    const tq = eio(lin(tear0, tear1, t));
+    if (tq > 0 && fall < .25) tornShadow(ctx, 6 + 10 * tq, 1 - fall * 4);
     if (tq <= 0) drawSheet111(ctx, t, 0);
     else { const e = ein(fall); for (const side of [-1, 1]) { ctx.save(); const gap = 6 + 10 * tq; ctx.translate(side * (gap + 1300 * e), 900 * e * e); ctx.rotate(side * (.04 * tq + .6 * e)); drawSheet111(ctx, t, side); ctx.restore(); }
       // the torn fibres glowing at the edge
@@ -492,34 +494,49 @@ export default (T, R) => {
   };
   shots.push({ t: t11b, tr: 'zoom', x: sheetAt(t11b)[0], y: sheetAt(t11b)[1], depth: 6, d: .6, draw: draw111, print: { riso: .2 }, sound: [{ f: 'tear', t: tear1 - .05, v: .22 }] });
 
-  // ================= 1.12 · an old wooden box: the young hand lifts the lid on "inheritance" =================
-  const t12 = K.its - .1, BOXP = { x: 930, y: 700, s: .82 };
-  const coneL12 = () => once('cone112', () => { const [c, g] = canvas(W, H); artCone(g, 960, -120, { dir: Math.PI / 2, spread: .36, len: 1250, col: '#ffd59a', a: .38, k: .6, seed: 12, soft: .5 }); return c; });
+  // ================= 1.12 · the next plate of the same book: an engraved heirloom chest; the lid swings open on "inheritance" =================
+  // The tear of 1.11 reveals it underneath (same paper, ink, line gap and border as the charity print): closed at first, light leaking
+  // at the seam; "an" lifts the lid a crack, "inheritance" swings it open (expo-out) and the beams, rays and warm glow come up; then a
+  // loose letter lifts in the warm air, dust drifts in the light and the camera creeps toward the opening (the carrier into 1.13).
+  const t12 = K.its - .1, PL = { k: 1.03, rot: -.006, ox: 250, oy: 65, s: 1.5 };   // the plate: a hair smaller and askew under the charity sheet
+  const PR = 1.25;   // the plate is cached a little above screen size (the push-in magnifies it)
+  const plate112 = () => once('plate112', () => { const [c, g] = canvas(SHEET.w * PR, SHEET.h * PR); g.scale(PR, PR); const pg = g.createRadialGradient(SHEET.w * .42, SHEET.h * .3, 0, SHEET.w / 2, SHEET.h / 2, SHEET.w * .7); pg.addColorStop(0, '#f6ecd4'); pg.addColorStop(1, '#d9c7a0'); g.fillStyle = pg; g.fillRect(0, 0, SHEET.w, SHEET.h);
+    g.drawImage(inheritanceBase(), PL.ox, PL.oy, IPRINT.w * PL.s, IPRINT.h * PL.s); return c; });
+  const plateXY = ([px, py]) => { const x = (PL.ox + px * PL.s - SHEET.w / 2) * PL.k, y = (PL.oy + py * PL.s - SHEET.h / 2) * PL.k, c = Math.cos(PL.rot), s = Math.sin(PL.rot); return [960 + x * c - y * s, 540 + x * s + y * c]; };
+  const M112 = plateXY(IPRINT.mouth);   // the opening's resting screen point: the slow push-in scales about it
+  const tZoom = K.thomas - .15;   // 1.13's zoom into the opening is centred here (it starts .35 s earlier)
+  const lid112 = (t) => .045 * eout(lin(K.inheritance - .3, K.inheritance - .08, t)) + .955 * eout(lin(K.inheritance - .08, K.inheritance + .72, t));
   const draw112 = (ctx, t, under = false) => {
-    umberBG(ctx, t, { lx: 960, ly: 560, r: 900, warm: .6 });
-    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .7; ctx.drawImage(coneL12(), 0, 0); ctx.restore();
-    const open = eout(lin(K.inheritance - .1, K.inhE + .25, t)), glow = sm(lin(K.inheritance, K.inhE + .2, t));
-    // contact shadow: the box stands on something
-    { ctx.save(); ctx.translate(BOXP.x, BOXP.y + 132); ctx.scale(1, .1); const sg = ctx.createRadialGradient(0, 0, 0, 0, 0, 430); sg.addColorStop(0, 'rgba(6,3,2,.75)'); sg.addColorStop(.6, 'rgba(6,3,2,.35)'); sg.addColorStop(1, 'rgba(6,3,2,0)'); ctx.fillStyle = sg; ctx.fillRect(-440, -440, 880, 880); ctx.restore(); }
-    const Bx = woodBox(ctx, BOXP.x, BOXP.y, BOXP.s, t, { open, glow });
-    // the young hand (ochre sleeve) under the lid's front edge
-    const hq = eout(lin(t12 - .2, K.inheritance - .05, t)), [lx, ly] = Bx.lidFront, wq = ein(lin(K.inhE - .05, K.inhE + .55, t));   // it lets go once the lid stands
-    if (wq < 1) hand(ctx, lx + 330 + 300 * (1 - hq) + 900 * wq, ly + 110 + 120 * (1 - hq) + 260 * wq, 1.5, { pose: 'reach', ang: -2.82, skin: '#e9c2a0', sleeve: PAL1.ochre, sleeveLen: 640, rim: '#ffd59a', light: [-.3, -1], t, seed: 21, close: .4 });
-    if (glow > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, Bx.mouth[0], Bx.mouth[1] - 10, 260, .35 * glow, '#ffb35c', '#fff1d6'); ctx.restore(); }
-    if (!under) vignette(ctx, .5);
-    return Bx;
+    ctx.fillStyle = '#1a110c'; ctx.fillRect(0, 0, W, H);   // the dark table round the plate (only a thin margin shows)
+    const open = lid112(t), light = eout(lin(K.inheritance - .04, K.inheritance + .75, t)), draft = sm(lin(K.inheritance + .25, K.inheritance + 1, t));
+    const seam = sm(lin(tear0 + .25, tear1, t)) * (.55 + .45 * sm(lin(K.its + .15, K.inheritance - .1, t))), push = 1 + .1 * sm(lin(tear1 - .4, tZoom + .3, t));
+    const dive = sm(lin(tZoom - .28, tZoom + .2, t));   // as 1.13's zoom dives in, the opening floods with light
+    ctx.save(); ctx.translate(M112[0], M112[1]); ctx.scale(push, push); ctx.translate(-M112[0], -M112[1]);
+    ctx.translate(960, 540); ctx.rotate(PL.rot); ctx.scale(PL.k, PL.k);
+    ctx.drawImage(plate112(), -SHEET.w / 2, -SHEET.h / 2, SHEET.w, SHEET.h);
+    ctx.translate(PL.ox - SHEET.w / 2, PL.oy - SHEET.h / 2); ctx.scale(PL.s, PL.s);
+    const B = inheritancePrint(ctx, t, { open, light, seam, draft, base: false }), m = ctx.getTransform();
+    ctx.restore();
+    const mouth = [m.a * B.mouth[0] + m.c * B.mouth[1] + m.e, m.b * B.mouth[0] + m.d * B.mouth[1] + m.f];
+    if (dive > 0) {   // the light swells and turns to warm paper, so the zoom lands in it and the Paine page grows out of it
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, mouth[0], mouth[1], 140 + 520 * dive, .75 * dive, '#ffb35c', '#fff4e0'); ctx.restore();
+      const gr = ctx.createRadialGradient(mouth[0], mouth[1], 0, mouth[0], mouth[1], 90 + 430 * dive); gr.addColorStop(0, rgba('#fcf2dc', dive)); gr.addColorStop(.55, rgba('#f7e8c9', .85 * dive)); gr.addColorStop(1, rgba('#f2dfba', 0)); ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
+    }
+    if (!under) vignette(ctx, .45);
+    return { mouth };
   };
-  const box112 = (() => { const [c, g] = canvas(W, H); return draw112(g, K.thomas - .25, true); })();
+  const box112 = (() => { const [c, g] = canvas(W, H); return draw112(g, tZoom, true); })();   // where the opening is when 1.13's zoom is centred
   const draw112f = (ctx, t) => {
-    draw112(ctx, t);
+    draw112(ctx, t, true);
     // the torn halves of 1.11 still falling out of frame
     const fall = lin(tear1, tear1 + .55, t);
-    if (fall < 1) { const e = ein(fall); ctx.save(); ctx.translate(960, 540); ctx.scale(1.05, 1.05); for (const side of [-1, 1]) { ctx.save(); ctx.translate(side * (16 + 1300 * e), 900 * e * e); ctx.rotate(side * (.04 + .6 * e)); drawSheet111(ctx, t, side); ctx.restore(); } ctx.restore(); }
+    if (fall < 1) { const e = ein(fall); ctx.save(); ctx.translate(960, 540); ctx.scale(1.05, 1.05); if (fall < .25) tornShadow(ctx, 16, 1 - fall * 4); for (const side of [-1, 1]) { ctx.save(); ctx.translate(side * (16 + 1300 * e), 900 * e * e); ctx.rotate(side * (.04 + .6 * e)); drawSheet111(ctx, t, side); ctx.restore(); } ctx.restore(); }
+    vignette(ctx, .45);
   };
   shots.push({ t: t12, tr: 'cut', d: .08, draw: draw112f, print: { riso: .25 } });
 
   // ================= 1.13 · Paine: "not charity but a right." — "right" turns foil and stays as a point of light =================
-  const t13 = K.thomas - .25;
+  const t13 = tZoom;
   const QL = ['It is not charity but a right,', 'not bounty but justice,', 'that I am pleading for.'];
   const spoken = T.W('01a', 'not charity but', 'a right'), FS = 64, LH = 86;
   const [, MX] = canvas(8, 8); MX.font = `${FS}px "Instrument Serif"`;
