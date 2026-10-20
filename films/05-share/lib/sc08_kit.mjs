@@ -246,8 +246,9 @@ export function cityTop() {
     g.globalCompositeOperation = 'lighter'; g.drawImage(fc, 0, 0); g.globalCompositeOperation = 'source-over';
     // soft edge so the city melts into the map when it shrinks
     stipple(c, { k: .18, g: 1, seed: 9, mid: false, boost: 1 });
-    const eg = g.createRadialGradient(CTW / 2, CTH / 2, CTH * .3, CTW / 2, CTH / 2, CTH * .74); eg.addColorStop(0, 'rgba(0,0,0,1)'); eg.addColorStop(1, 'rgba(0,0,0,0)');
-    g.globalCompositeOperation = 'destination-in'; g.fillStyle = eg; g.fillRect(0, 0, CTW, CTH); g.globalCompositeOperation = 'source-over';
+    // elliptical mask: zero alpha on all four edges (a round mask left the top and bottom edges at half alpha: a visible box)
+    const eg = g.createRadialGradient(0, 0, CTW * .5 * .42, 0, 0, CTW * .5 * .99); eg.addColorStop(0, 'rgba(0,0,0,1)'); eg.addColorStop(1, 'rgba(0,0,0,0)');
+    g.save(); g.globalCompositeOperation = 'destination-in'; g.translate(CTW / 2, CTH / 2); g.scale(1, CTH / CTW); g.fillStyle = eg; g.fillRect(-CTW / 2, -CTW / 2, CTW, CTW); g.restore();
     return c;
   });
 }

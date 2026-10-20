@@ -32,10 +32,11 @@
 //  4.11  │ … **floated** a national AI company, partly owned by **all its citizens**. │ a second hand's dotted idea card floats a hand's breadth above the soil, its ring of
 //                                                               tiny owners lights up, then it tips into the soil (on-screen source) │ exit down (c06>c07) │ (a) down
 // Boundaries: in  = carry('c05>c06') 'pen': the pen arrives in her hand on the lap (C.pos until its last key, then the writing path).
-//             out = carry('c06>c07') 'own', tr 'down': the dotted idea card tips into the soil at C.pos(t) (drawn until C.t + .25).
+//             out = carry('c06>c07') 'own', tr 'down': the dotted idea card tips into the soil at C.pos(t), drawn until C.t + .25 and held
+//             on screen through the tilt (compensated like c07's form); its people fade first, so only the dotted card meets c07's ghost form.
 // Sound (lead places phone/foil/shimmer/gavel/bloom): C6 adds only what its images cause, in pauses where possible:
 //   foil_glint (the new sheet, pause 280.2–281.4), stamp (coupon embosses), stamp (the punch ▲), card (slices land, pause),
-//   stamp (the seal presses), paper_pop (the bow lets go), card (the card is planted).
+//   whoosh_airy (the certificate lifts), stamp (the seal presses), paper_pop (the bow lets go), card (the card is planted).
 // ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 import { W, H, rgba, clamp, lin, mix, sm, eio, eout, ein, prng, drift, canvas, text, addGlow } from '../engine.mjs';
 import { carry, track } from '../lib/carry.mjs';
@@ -67,6 +68,8 @@ function vignette(ctx, a = .5, x = W / 2, y = H / 2, r0 = 420, r1 = 1250) { cons
 const factBed = () => once('c6factbed', () => { const [c, g] = canvas(Math.round(W * .86), 190);
   const v = g.createLinearGradient(0, 0, 0, 190); v.addColorStop(0, 'rgba(6,4,12,0)'); v.addColorStop(.55, 'rgba(6,4,12,.42)'); v.addColorStop(1, 'rgba(6,4,12,0)'); g.fillStyle = v; g.fillRect(0, 0, c.width, 190);
   g.globalCompositeOperation = 'destination-in'; const hz = g.createLinearGradient(0, 0, c.width, 0); hz.addColorStop(0, 'rgba(0,0,0,1)'); hz.addColorStop(.62, 'rgba(0,0,0,1)'); hz.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = hz; g.fillRect(0, 0, c.width, 190); return c; });
+// a soft warm glow sprite (radial, cached): the light of a small certificate in a hand
+const glowSpr = () => once('c6glowspr', () => { const [c, g] = canvas(64, 64), rg = g.createRadialGradient(32, 32, 0, 32, 32, 32); rg.addColorStop(0, 'rgba(255,200,130,1)'); rg.addColorStop(.3, 'rgba(255,179,92,.42)'); rg.addColorStop(1, 'rgba(255,179,92,0)'); g.fillStyle = rg; g.fillRect(0, 0, 64, 64); return c; });
 function factCard(ctx, lines, a, o = {}) {
   if (a <= 0) return; const x = o.x ?? 110, y = o.y ?? H - 236, fs = o.size ?? 40;
   ctx.save();
@@ -136,7 +139,7 @@ export default (T, R) => {
   // ═════════════════════════════════════ 3.14 – 4.01: the lap, the napkin, the plan sheet (one continuous set) ═════════════════════════════════════
   const N0 = { x: 960, y: 610 }, NS = 1.5, SX = [-112, 0, 112], SY = -22, WY = 62;
   const CEND = CIN.t + 1.1;                                              // the carrier's last key
-  const NROT = (t) => mix(2.3, -.035, eio(lin(A.t314 + .05, A.plan + .14, t))) + .006 * Math.sin(t * .9);
+  const NROT = (t) => mix(-.9, -.035, eio(lin(A.t314 + .05, A.plan + .14, t))) + .006 * Math.sin(t * .9);   // she turns the napkin to face us
   const NPOS = (t) => { const u = eio(lin(A.t314 + .05, A.plan + .14, t)); return { x: mix(1010, N0.x, u), y: mix(548, N0.y, u) }; };
   const toW = (t, px, py) => { const r = NROT(t), c = Math.cos(r), s = Math.sin(r), P = NPOS(t); return [P.x + (px * c - py * s) * NS, P.y + (px * s + py * c) * NS]; };
   const toN = (t, wx, wy) => { const r = NROT(t), c = Math.cos(r), s = Math.sin(r), P = NPOS(t), dx = (wx - P.x) / NS, dy = (wy - P.y) / NS; return [dx * c + dy * s, -dx * s + dy * c]; };
@@ -263,17 +266,20 @@ export default (T, R) => {
     }
     // ----- the pen and her writing hand
     let nib = null, ang = -2.42, lift = 0, ps = 1;
-    if (t < CEND) { const p = CIN.pos(t); nib = s2w(cam, p.x, p.y); ang = p.r; ps = p.s; lift = .15 * lin(CIN.t, CEND, t); nib = w2s(cam, nib[0], nib[1]); ps *= 1; }
+    // the pen arrives at c05's angle, then her wrist turns into a writing grip (hand up-right of the nib) from just after the cut
+    const turnU = eio(lin(CIN.t + .2, WT[0][0] - .05, t));
+    if (t < CEND) { const p = CIN.pos(t); nib = s2w(cam, p.x, p.y); lift = .15 * lin(CIN.t, CEND, t); ang = mix(p.r, -1.02, turnU) + .15 * lift; ps = p.s; nib = w2s(cam, nib[0], nib[1]); ps *= 1; }
     else {
       const writing = NS_ && NS_.tips.find((q) => q);
       if (writing) nib = NS_.L2S(writing[0], writing[1]);
       else if (t >= CT[0] && t <= CT[1]) { const cu = (t - CT[0]) / (CT[1] - CT[0]), k = Math.min(2, Math.floor(cu * 3)), q = clamp(cu * 3 - k), [p0, p1] = CUTS[k]; nib = (NS_ ? NS_.L2S : (a, b) => w2s(cam, ...toW(t, a, b)))(mix(p0[0], p1[0], q), mix(p0[1], p1[1], q)); }
       else { const k = penKey(t), w = toW(t, k.p[0], k.p[1]); nib = w2s(cam, w[0], w[1]); lift = k.lift; }
-      ang = mix(CIN.pos(CEND).r, -1.02, eio(lin(CEND, WT[0][0] - .05, t))) + .05 * Math.sin(t * 2.3) + .15 * lift; ps = 1.02;
+      ang = mix(CIN.pos(CEND).r, -1.02, turnU) + .05 * Math.sin(t * 2.3) * lin(CEND, CEND + .5, t) + .15 * lift; ps = mix(CIN.pos(CEND).s, 1.02, lin(CEND, CEND + .4, t));
     }
     const penA = 1 - sm(lin(A.every, A.every + .3, t));
     if (nib && penA > 0) {
-      const s = ps * z * .95, bd = [Math.cos(ang), Math.sin(ang)], angF = ang + Math.PI, hs = 1.6 * z;
+      // the hand meets the pen at an angle (as a real grip does): her arm comes from straight above while the pen still has c05's angle
+      const s = ps * z * .95, bd = [Math.cos(ang), Math.sin(ang)], angF = ang + Math.PI + .73 * (1 - turnU), hs = 1.6 * z;
       const grip = [nib[0] + bd[0] * 52 * s, nib[1] + bd[1] * 52 * s - lift * 14 * s], tip0 = handTip(0, 0, hs, { pose: 'write', ang: angF, flip: false, t });
       const wx = grip[0] - tip0[0], wy = grip[1] - tip0[1];
       ctx.save(); ctx.globalAlpha = penA;
@@ -318,9 +324,11 @@ export default (T, R) => {
     const rows = [], r = prng(88), cols = ['#2a2440', '#3a2c48', '#4a3448', '#2c3448', '#3c3040', '#30283c'];
     for (let j = 0; j < 7; j++) {
       const y = mix(700, 1010, Math.pow(j / 6, 1.3)), s = mix(.11, .36, Math.pow(j / 6, 1.3)), n = Math.round(mix(46, 15, j / 6)), [c, g] = canvas(W + 100, 260), pts = [];
-      for (let i = 0; i < n; i++) { const x = (i + .5 + (r() - .5) * .5) / n * (W + 60) - 30 + 50, pose = { ...POSES.hold, head: .1 + r() * .2, sh: [.6 + r() * .1, .5], el: [1.1 + r() * .1, 1.15] }, flip = r() < .5, yy = 200 + (r() - .5) * 8 * s;
-        figureFlat(g, x, yy - 90 * s, s, pose, { t: 0, seed: i + j * 50, col: cols[(i + j) % cols.length], rim: '#ffcf9e', rimSide: 1, flip, fast: true, shadow: true, skin: '#7a5a4a' });
-        const hp = handPos(x, yy - 90 * s, s, pose, 0, flip); pts.push({ x: hp[0] - 50, y: hp[1] - 200 + y, s, ph: r() * TAU, d: Math.abs(x - 50 - W / 2) / (W / 2) }); }
+      const F = []; for (let i = 0; i < n; i++) { const x = (i + .5 + (r() - .5) * .9) / n * (W + 60) - 30 + 50, pose = { ...POSES.hold, head: .1 + r() * .2, sh: [.6 + r() * .1, .5], el: [1.1 + r() * .1, 1.15] }, flip = r() < .5, yy = 200 + (r() - .5) * 64 * s, sf = s * (.86 + r() * .26); F.push({ i, x, yy, sf, pose, flip }); }
+      F.sort((p, q) => p.yy - q.yy);   // the ones a little further back first
+      for (const { i, x, yy, sf, pose, flip } of F) {
+        figureFlat(g, x, yy - 90 * sf, sf, pose, { t: 0, seed: i + j * 50, col: cols[(i + j) % cols.length], rim: '#ffcf9e', rimSide: 1, flip, fast: true, shadow: true, skin: '#7a5a4a' });
+        const hp = handPos(x, yy - 90 * sf, sf, pose, 0, flip); pts.push({ x: hp[0] - 50, y: hp[1] - 200 + y, s: sf, ph: r() * TAU, d: Math.abs(x - 50 - W / 2) / (W / 2) }); }
       stipple(c, { k: .3, g: 1, seed: 70 + j, mid: false, boost: 1 }); rows.push({ c, y, s, pts });
     }
     return rows;
@@ -354,13 +362,13 @@ export default (T, R) => {
         ctx.save(); ctx.beginPath(); ctx.ellipse(ox, row.y, Math.max(1, R * 1.25), 400, 0, 0, TAU); ctx.clip(); ctx.drawImage(row.c, -50, row.y - 200); ctx.restore();
         ctx.save(); ctx.globalCompositeOperation = 'lighter';
         for (const p of row.pts) { const d = Math.hypot((p.x - ox) / 1.25, 0), on = clamp((R - d) / 140); if (on <= 0) continue; const cs = Math.max(2.2, 34 * p.s), gl = .55 + .45 * Math.sin(t * 2 + p.ph);
-          ctx.fillStyle = rgba('#fff1d6', .9 * on); ctx.fillRect(p.x - cs / 2, p.y - cs * .35, cs, cs * .7); ctx.fillStyle = rgba(AMBER, .35 * on * gl); ctx.beginPath(); ctx.arc(p.x, p.y, cs * 1.4, 0, TAU); ctx.fill(); }
+          const gs = cs * 3.4; ctx.globalAlpha = .5 * on * gl; ctx.drawImage(glowSpr(), p.x - gs / 2, p.y - gs / 2, gs, gs); ctx.globalAlpha = 1; ctx.fillStyle = rgba('#fff1d6', .9 * on); ctx.fillRect(p.x - cs / 2, p.y - cs * .35, cs, cs * .7); }
         ctx.restore(); }
       // the burst front: a ring of light leaving the tag
       if (burst < 1) ring(ctx, ox, oy + 120, 1500 * burst * 1.25, 320 * burst, { lines: 4, band: 10, wave: 26, col: CORE, glow: AMBER, a: .5 * (1 - burst) });
     }
     // one certificate rises (exit up)
-    if (rise > 0) { const C = crowd(), p = C[6].pts[Math.floor(C[6].pts.length / 2)], y = mix(p.y, p.y - 900, rise); drawCert(ctx, p.x, y, mix(.14, .5, rise), -.1 + .2 * Math.sin(t * 3), 1, { glow: 1 }); addGlow(ctx, p.x, y, 120, .4, AMBER, CORE); }
+    if (rise > 0) { const C = crowd(), p = C[6].pts.reduce((a, b) => (Math.abs(b.x - 960) < Math.abs(a.x - 960) ? b : a)), y = mix(p.y, p.y - 900, rise); drawCert(ctx, p.x, y, mix(.14, .5, rise), -.1 + .2 * Math.sin(t * 3), 1, { glow: 1 }); addGlow(ctx, p.x, y, 120, .4, AMBER, CORE); }
     ctx.restore();
     factCard(ctx, ['≈ $220 per person on Earth', '2026 VALUATIONS · OPENAI + ANTHROPIC'], sm(lin(A.two, A.two + .5, t)) * (1 - sm(lin(A.earthE - .1, A.t404 - .05, t))));
     vignette(ctx, .45);

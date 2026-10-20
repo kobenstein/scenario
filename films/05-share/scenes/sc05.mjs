@@ -4,31 +4,31 @@
 // |-------|----------------------------|----------------------------------------------------------|--------------------------------------------------|------|
 // | 2.24  | carry c04>c05 (zoom)       | the AGREE line lands as the signature line; bar shadows  | one huge bar shadow sweeps left over the frame:  | a    |
 // |       |                            | slide in, one crosses the signature on "problem"         | its darkness is the night of 3.01 (cut)          |      |
-// | 3.01  | "You're probably" −.3, cut | your phone over the shoulder, cursor blinks, the thumb   | the cursor → push-in (zoom)                      | b    |
-// |       |                            | hovers and twitches on "thinking"                        |                                                  |      |
+// | 3.01  | "You're probably" −.3, cut | your phone over the shoulder; on "thinking" the field    | the camera settles on the field → zoom anchored  | b    |
+// |       |                            | takes focus (keyboard up, cursor blinks)                 | on it (B starts tilted like the phone)           |      |
 // | 3.02  | "The rich" −.3, zoom       | the comment types with the voice; the column of the same | the column scrolls up and away → whipU           | c    |
-// |       |                            | sentence by many users scrolls on "never"; send          |                                                  |      |
-// | 3.03  | "For what they" −.15, whipU| the villa behind bars; the gate swings shut from "own",   | lateral whip along the bars → whipL              | c    |
+// |       |                            | sentence by many users races up on "never"; send         |                                                  |      |
+// | 3.03  | "For what they" −.15, whipU| the villa behind bars; the gate swings shut from "own",  | lateral whip along the bars → whipL              | c    |
 // |       |                            | latch ≈ after "right"; bar shadows slice the moonlight   |                                                  |      |
-// | 3.04  | "But this fortune" −.2,    | the fence ends, open land at dawn, the paper scaffold    | the lamp → push-in (zoom), its light becomes the | b    |
-// |       | whipL                      | far away, nobody's ("no one"); the top lamp on "Yet"     | burin that engraves the rule in 3.05             |      |
-// | 3.05  | "And where the" −.1, zoom  | the rule engraved + seal on "rules"; the riches arrive   | the rule unwinds into Alaska's coast (in-draw)   | morph|
-// |       |                            | on "riches", split into equal shares; stretch "worked"   |                                                  |      |
-// | 3.06★ | (same entry)               | coast laid on "decades"; the coast thread lifts into the | the cabin's envelope → push-in (zoom)            | b    |
-// |       |                            | aurora, the land descends; envelopes light on "same"     |                                                  |      |
+// | 3.04  | "But this fortune" −.2,    | the fence ends, open land at dawn, the paper scaffold    | the lamp → zoom into its light (the frame whites | b    |
+// |       | whipL                      | far away, nobody's ("no one"); the top lamp on "Yet"     | out; 3.05 starts in that light, clears to night) |      |
+// | 3.05  | "And where the" −.1, zoom  | the beam becomes the rule + seal on "rules"; the riches  | the rule unwinds into Alaska's coast (in-draw)   | morph|
+// |       |                            | stream in on "riches", split into equal shares           |                                                  |      |
+// | 3.06★ | (same entry)               | coast laid on "decades"; the coast thread lifts into the | the camera settles on the cabin's envelope →     | b    |
+// |       |                            | aurora, the land descends; envelopes light on "same"     | zoom anchored there                              |      |
 // | 3.07a | "Every year" −.12, zoom    | seasons turn at the cabin's mailbox, the envelope returns| a gust drives the snow right → whipR             | c    |
-// | 3.07b | "Rich or poor" −.12, whipR | two hands pull equal envelopes on "poor"                 | the envelopes drop out of frame → down           | a    |
-// | 3.07c | "Child or adult" −.15, down| child + grandmother open the same envelope on "adult"    | the envelope flies right → whipR (the licence)   | a    |
-// | 3.08  | "Norway made" −.2, whipR   | STATE STAKE seal presses on "state owned"; push into the | a drop, rings on the water → push-in (zoom)      | b    |
-// |       |                            | vignette, it becomes the fjord on "before"               |                                                  |      |
-// | 3.09  | "Today its fund" −.2, zoom | the rings become Nvidia's rosette; a 1.3 % foil slice    | the slice → push-in (zoom)                       | b    |
-// |       |                            | lifts on "Nvidia"; the rosette grows on "giant"          |                                                  |      |
-// | 3.10  | "About eleven" −.15, zoom  | the slice splits into equal strips, one per figure; the  | pull back (out) into Norway on the world map     | b    |
-// |       |                            | row runs into depth on "every Norwegian"                 |                                                  |      |
+// | 3.07b | "Rich or poor" −.12, whipR | two hands (same gesture) pull equal envelopes on "poor"  | the envelopes drop out of frame → down           | a    |
+// | 3.07c | "Child or adult" −.15, down| child + grandmother open the same envelope on "adult"    | → whipR (the licence)                            | a    |
+// | 3.08  | "Norway made" −.2, whipR   | STATE STAKE seal presses on "state owned"; push into the | the camera follows a drop onto the water; zoom   | b    |
+// |       |                            | vignette, it becomes the fjord on "before"; drop "came"  | into its rings (3.09 redraws the fjord, seamless)|      |
+// | 3.09  | "Today its" −.05, zoom     | the rings tilt up and become Nvidia's rosette; a 1.3 %   | the slice → zoom (3.10 redraws 3.09 magnified,   | b    |
+// |       |                            | foil slice lifts on "Nvidia"; the rosette grows "giant"  | dissolves as the slice breaks into strips)       |      |
+// | 3.10  | "About eleven" −.15, zoom  | the strips fly one per figure; the row runs into depth   | out: the world map closes in around the row in a | b    |
+// |       |                            | on "every Norwegian"; ≈ $11,000                          | soft window that shrinks into Norway             |      |
 // | 3.12  | "Taken as one" −.25, out   | microtext HUMANITY runs around all land from Norway;     | the bar → plansequenz                            | —    |
 // |       |                            | the bar stops just below HIGH INCOME on "almost rich"    |                                                  |      |
 // | 3.13  | (same entry)               | the bar splits into unequal bars on "each"; they merge   | the bar thins to a stroke, becomes the pen;      | a    |
-// |       |                            | again on "together"                                       | carry c05>c06 takes it right                     |      |
+// |       |                            | again on "together"                                      | carry c05>c06 takes it right                     |      |
 import { Path2D } from '@napi-rs/canvas';
 import { W, H, rgba, clamp, lin, mix, sm, eout, eio, ein, prng, drift, canvas, text, addGlow } from '../engine.mjs';
 import { source } from '../lib/kit.mjs';
@@ -74,7 +74,6 @@ export default (T, R) => {
     draw: (ctx, t) => { sheetShot(ctx, t, a, CIN); },
   });
   // ======================= 3.01 · your phone, over the shoulder =======================
-  const FLD = [969, 560];   // the comment field's centre after phoneShot's settle (960,560) + B's field offset; B's field is 3.44× as wide
   out.push({ t: a.probably - .3, tr: 'cut', d: .1, draw: (ctx, t) => phoneShot(ctx, t, a) });
   // ======================= 3.02 · "the rich never share", the column =======================
   out.push({ t: a.rich - .3, tr: 'zoom', x: FLD[0], y: FLD[1], depth: 3.44, d: .55, draw: (ctx, t) => commentShot(ctx, t, a, T),
@@ -91,7 +90,7 @@ export default (T, R) => {
   out.push({ t: a.andWhere - .1, tr: 'zoom', x: LAMP[0], y: LAMP[1], depth: 5, d: .6, draw: (ctx, t) => alaskaShot(ctx, t, a) });
   // ======================= 3.07a · every year =======================
   out.push({ t: a.year - .12, tr: 'zoom', x: ENV[0], y: ENV[1], depth: 4, d: .5, draw: (ctx, t, s) => seasonsShot(ctx, t, a),
-    sound: [{ f: 'gust', t: a.year + 1.06, v: .3 }] });
+    sound: [{ f: 'gust', t: a.year + 1.14, v: .3 }] });
   // ======================= 3.07b · rich or poor =======================
   out.push({ t: S('03b', 'Rich or') - .12, tr: 'whipR', d: .35, draw: (ctx, t) => boxesShot(ctx, t, a) });
   // ======================= 3.07c · child or adult =======================
@@ -102,7 +101,7 @@ export default (T, R) => {
   // ======================= 3.09 · Nvidia's rosette, the fund's slice =======================
   out.push({ t: a.today - .05, tr: 'zoom', x: 960, y: 540, depth: 3, d: .5, draw: (ctx, t) => nvidiaShot(ctx, t, a) });
   // ======================= 3.10 · ≈ $11,000 for every Norwegian =======================
-  out.push({ t: a.about - .15, tr: 'zoom', x: SLICE_TIP[0], y: SLICE_TIP[1], depth: 3, d: .5, draw: (ctx, t) => rowShot(ctx, t, a) });
+  out.push({ t: a.about - .15, tr: 'zoom', x: SLICE_TIP[0], y: SLICE_TIP[1], depth: 3, d: .5, draw: (ctx, t) => rowShot(ctx, t, a, COUT) });
   // ======================= 3.12 + 3.13 · humanity, almost rich; not each of us — all of us =======================
   const NOR = project(MAPCAM, 9.5, 61.5);
   out.push({ t: a.taken - .25, tr: 'out', x: NOR[0], y: NOR[1], depth: 6, d: 1.0, draw: (ctx, t) => worldShot(ctx, t, a, COUT) });
@@ -302,6 +301,8 @@ function commentShot(ctx, t, a, T) {
   ctx.fillStyle = '#1a1208'; ctx.beginPath(); ctx.moveTo(X + 918, FIELD_Y - 14); ctx.lineTo(X + 946, FIELD_Y); ctx.lineTo(X + 918, FIELD_Y + 14); ctx.lineTo(X + 922, FIELD_Y); ctx.closePath(); ctx.fill();
   ctx.restore();
   ctx.restore();
+  // during the zoom this frame is 3.01 magnified onto the field; it dissolves into the comment column
+  replica(ctx, t, t0, .55, FLD, 3.44, 1 - sm(lin(t0 + .08, t0 + .45, t)), (g) => phoneShot(g, t, a));
   // speed: a faint vertical streak while the column races
   const sp = Math.sin(Math.PI * lin(a.never, a.never + .62, t)); if (sp > 0) { ctx.fillStyle = `rgba(200,206,222,${.035 * sp})`; ctx.fillRect(0, 0, W, H); }
 }
@@ -376,6 +377,37 @@ function shareMark(ctx, x, y, f, t, i) {   // one equal share: a foil lozenge on
   ctx.restore();
   addGlow(ctx, x, y, 60 * f, .25 * f, AMB, CORE);
 }
+// a frame that, while a zoom transition runs, redraws the previous shot exactly as the engine shows it (so the incoming frame has no
+// visible edge), then dissolves into its own content. anchor = the zoom's (x,y), depth its depth, tc/d its centre and duration.
+const RSC = []; function repScratch() { if (!RSC.length) RSC.push(canvas(W, H)); return RSC[0]; }
+function replica(ctx, t, tc, d, anchor, depth, alpha, drawPrev) {
+  if (alpha <= 0) return;
+  const e = eio(lin(tc - d / 2, tc + d / 2, t)), za = Math.pow(depth, e), zb = mix(1 / depth, 1, e), k = za / zb;
+  const X = [anchor[0] + (W / 2 - anchor[0]) * e / za, anchor[1] + (H / 2 - anchor[1]) * e / za];
+  const [c, g] = repScratch(); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; g.clearRect(0, 0, W, H);
+  g.save(); g.translate(W / 2, H / 2); g.scale(k, k); g.translate(-X[0], -X[1]); drawPrev(g); g.restore();
+  ctx.save(); ctx.globalAlpha = alpha; ctx.drawImage(c, 0, 0); ctx.restore();
+}
+// the reverse for an 'out' transition: the outgoing frame paints the incoming one around a soft ellipse that tightens on its subject,
+// so the shrinking frame has no edge — it is a spot of the next picture
+const RSC2 = []; function repScratch2() { if (!RSC2.length) RSC2.push(canvas(W, H)); return RSC2[0]; }
+const RSM = []; function repMask() { if (!RSM.length) RSM.push(canvas(W, H)); return RSM[0]; }
+function replicaOut(ctx, t, tc, d, anchor, depth, centre, drawNext) {
+  const u = lin(tc - d / 2, tc + d / 2, t); if (u <= 0) return;
+  const e = eio(u), za = mix(1, 1 / depth, e), zb = Math.pow(depth, 1 - e), ce = [mix(W / 2, anchor[0], e), mix(H / 2, anchor[1], e)];
+  const k = zb / za, X = [anchor[0] + (ce[0] - anchor[0]) / zb, anchor[1] + (ce[1] - anchor[1]) / zb];
+  const [c, g] = repScratch2(); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; g.clearRect(0, 0, W, H);
+  g.save(); g.translate(W / 2, H / 2); g.scale(k, k); g.translate(-X[0], -X[1]); drawNext(g); g.restore();
+  // a feathered elliptical window onto the outgoing picture, inset from the frame edge (so the border is always the map) and closing in
+  const fa = sm(lin(0, .08, u)), m = sm(lin(.04, .62, u)), rx = mix(W / 2 - 10, 360, m), ry = mix(H / 2 - 10, 230, m), fe = mix(150, 260, m);
+  const cx = mix(W / 2, centre[0], m), cy = mix(H / 2, centre[1], m);
+  // (napi canvas clips composite fills drawn at negative coordinates under a transform, so the ellipse goes on its own mask canvas)
+  const [mc, mg] = repMask(); mg.setTransform(1, 0, 0, 1, 0, 0); mg.clearRect(0, 0, W, H); mg.save(); mg.translate(cx, cy); mg.scale(1, ry / rx);
+  const rg = mg.createRadialGradient(0, 0, Math.max(0, rx - fe), 0, 0, rx); rg.addColorStop(0, 'rgba(0,0,0,0)'); rg.addColorStop(1, 'rgba(0,0,0,1)'); mg.fillStyle = rg; mg.fillRect(-cx - 2, -(cy + 2) * rx / ry, W + 4, (H + 4) * rx / ry); mg.restore();
+  g.globalCompositeOperation = 'destination-in'; g.drawImage(mc, 0, 0); g.globalCompositeOperation = 'source-over';
+  ctx.save(); ctx.globalAlpha = fa; ctx.drawImage(c, 0, 0); ctx.restore();
+}
+const FLD = [969, 560];   // 3.01's comment field after phoneShot's settle (+ B's field offset); the 3.02 zoom is anchored here
 const NSC = []; function northScratch() { if (!NSC.length) NSC.push(canvas(W, H)); return NSC[0]; }
 function alaskaShot(ctx, t, a) {
   const t0 = a.andWhere - .1;
@@ -492,7 +524,7 @@ function alaskaShot(ctx, t, a) {
   }
   if (lift > 0) {
     // on-screen text, readable from the moment the land settles
-    const ta = fadeIO(t, a.every + .7, a.money + .55, .6, .35);
+    const ta = fadeIO(t, a.every + .7, a.year - .42, .6, .35);
     if (ta > 0) {
       const g = ctx.createLinearGradient(0, 0, 0, 260); g.addColorStop(0, `rgba(4,8,23,${.55 * ta})`); g.addColorStop(1, 'rgba(4,8,23,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, 260);
       // a soft shadow pool behind the title block so the curtains' rays don't cut through the type
@@ -507,7 +539,7 @@ function alaskaShot(ctx, t, a) {
       if (q > 0) { addGlow(ctx, X, Y, 120 * k, .5 * Math.min(1, q * 4), AMB, CORE); if (q < 1) ring(ctx, X, Y, mix(20, 160, eout(q)) * k, mix(20, 160, eout(q)) * k * .55, { lines: 5, band: 8, wave: 18, col: CORE, glow: AMB, a: 1 - q, lw: 1 }); }
     });
     ctx.restore();
-    source(ctx, t, a.every + .9, a.money + .55, 'Source: Alaska Dept. of Revenue, PFD Division', { x: 112, y: 204 });
+    source(ctx, t, a.every + .9, a.year - .42, 'Source: Alaska Dept. of Revenue, PFD Division', { x: 112, y: 204 });
     return NW;
   }
 }
@@ -522,6 +554,8 @@ function seasonsShot(ctx, t, a) {
   ctx.save(); ctx.translate(Q[0], Q[1]); ctx.scale(k, k); ctx.translate(-Q[0], -Q[1]);
   seasonsMailbox(ctx, t, { u: eio(u) * .98 + .01, years: 2 });
   ctx.restore();
+  // during the zoom this frame is 3.06 magnified onto the cabin's envelope; then the seasons start turning around it
+  replica(ctx, t, t0, .5, [960, 540], 4, 1 - sm(lin(t0 + .12, t0 + .5, t)), (g) => alaskaShot(g, t, a));
   // the gust at the end: snow driven hard to the right
   const g = lin(a.year + .7, a.year + 1.25, t); if (g > 0) { const r = prng(21); ctx.save(); ctx.globalCompositeOperation = 'lighter'; for (let i = 0; i < 220; i++) { const y = r() * H, x0 = r() * W, sp = 900 + r() * 1400, x = (x0 + g * sp * 1.4) % (W + 300) - 150, l = 20 + g * 80 * r(); ctx.fillStyle = `rgba(235,242,255,${(.25 + .5 * r()) * g})`; ctx.fillRect(x, y, l, 1.6); } ctx.restore(); }
 }
@@ -585,8 +619,7 @@ function nvidiaShot(ctx, t, a) {
   const t0 = a.today - .05, form = eio(lin(t0 + .2, a.today + 1.1, t)), lift = eout(lin(a.nvidia - .2, a.nvidia + .4, t)), giant = eio(lin(a.giant - .2, a.giant + .9, t));
   ctx.drawImage(nvBack(), 0, 0);
   // while the zoom runs (t0 ± .25) this frame is the fjord of 3.08 magnified exactly as the engine needs it; then the water clears
-  const fo = 1 - sm(lin(t0 + .15, t0 + .75, t));
-  if (fo > 0) { const e = eio(lin(t0 - .25, t0 + .25, t)), m = Math.pow(3, e) / mix(1 / 3, 1, e); ctx.save(); ctx.globalAlpha = fo; ctx.translate(960, 540); ctx.scale(m, m); ctx.translate(-960, -540); fjordA(ctx, t, a); ctx.restore(); }
+  replica(ctx, t, t0, .5, [960, 540], 3, 1 - sm(lin(t0 + .15, t0 + .75, t)), (g) => fjordA(g, t, a));
   const sc = mix(1, 1.55, giant), rot = t * .03;
   // the rings (from the water) tilt up to face the camera and contract/expand into the rosette's radius
   const sy = mix(.3, 1, eio(lin(t0 + .05, t0 + .85, t))), ra = sm(lin(t0 + .05, t0 + .45, t));
@@ -609,6 +642,8 @@ function nvidiaShot(ctx, t, a) {
   addGlow(ctx, lx + Math.cos(mid) * RR * .6 * sc, ly + Math.sin(mid) * RR * .6 * sc, 120, .35 * lift, AMB, CORE);
   label(ctx, "NORWAY'S OIL FUND", lx + Math.cos(mid) * RR * .95 * sc + 24, ly + Math.sin(mid) * RR * .95 * sc - 18, sm(lin(a.nvidia, a.nvidia + .4, t)), { col: '#ffd9a0', size: 18 });
   const ta = fadeIO(t, a.nvidia + .15, a.about - .05, .5, .3);
+  // a soft shadow pool under the caption so the rosette's lines don't run through the type
+  if (ta > 0) { ctx.save(); ctx.translate(520, 872); ctx.scale(1, .16); const pg = ctx.createRadialGradient(0, 0, 0, 0, 0, 640); pg.addColorStop(0, `rgba(6,18,24,${.85 * ta})`); pg.addColorStop(.65, `rgba(6,18,24,${.6 * ta})`); pg.addColorStop(1, 'rgba(6,18,24,0)'); ctx.fillStyle = pg; ctx.fillRect(-640, -640, 1280, 1280); ctx.restore(); }
   label(ctx, "NORWAY'S OIL FUND OWNS ≈ 1.3 % OF NVIDIA (30 JUN 2026)", 110, 860, ta, { size: 20, spacing: 4 });
   source(ctx, t, a.nvidia + .3, a.about - .05, 'Source: NBIM holdings, via Reuters', { x: 110, y: 892 });
 }
@@ -632,7 +667,7 @@ function strip(ctx, x, y, s, t, i, a = 1) {
   const gl = Math.max(0, Math.sin(t * 2.4 - i * .35)); if (gl > .85) { ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = `rgba(255,241,214,${(gl - .85) * 4})`; ctx.fillRect(-w / 2, -h, w, h); }
   ctx.restore();
 }
-function rowShot(ctx, t, a) {
+function rowShot(ctx, t, a, C) {
   const t0 = a.about - .15;
   ctx.drawImage(rowBack(), 0, 0);
   const cam = { x: drift(t, 8, 2) - 30 * lin(t0, a.taken, t), y: drift(t, 5, 5) };
@@ -652,9 +687,13 @@ function rowShot(ctx, t, a) {
   // beyond the last figure: the row goes on as fine light into the fog (every Norwegian)
   if (far > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; for (let k = 0; k < 90; k++) { const q = k / 90, x = mix(1540, 1640, q), y = mix(482, 466, q), al = far * (1 - q) * .6 * (.6 + .4 * Math.sin(t * 3 + k)); ctx.fillStyle = `rgba(255,214,150,${al})`; ctx.fillRect(x, y - 2, 1.4, 4); } ctx.restore(); }
   ctx.restore();
+  // during the zoom this frame is 3.09 magnified into the slice; it dissolves as the slice breaks into the strips
+  replica(ctx, t, t0, .5, SLICE_TIP, 3, 1 - sm(lin(t0 + .12, t0 + .55, t)), (g) => nvidiaShot(g, t, a));
   const ta = fadeIO(t, a.about + .4, a.taken - .1, .5, .35);
   if (ta > 0) { text(ctx, '≈', 110, 168, { size: 76, weight: 300, color: rgba('#ffd9a0', ta) }); text(ctx, '$11,000', 168, 170, { size: 92, font: 'Instrument Serif', color: rgba('#ffd9a0', ta) }); label(ctx, 'PER NORWEGIAN · THE FUND’S NVIDIA SLICE', 116, 214, ta, { size: 18, spacing: 5 }); }
   source(ctx, t, a.about + .6, a.taken - .1, 'NBIM, 30 Jun 2026 · ≈ 5.6 M Norwegians', { x: 116, y: 250 });
+  // the 'out' into 3.12: the world map closes in around the row, which shrinks into Norway
+  replicaOut(ctx, t, a.taken - .25, 1.0, project(MAPCAM, 9.5, 61.5), 6, [1000, 600], (g) => worldShot(g, t, a, C));
 }
 
 // =====================================================================================================================
@@ -726,7 +765,7 @@ function worldShot(ctx, t, a, C) {
       ctx.drawImage(bc, 0, 0);
     }
   }
-  label(ctx, 'HUMANITY · $14,244', BAR.x - BAR.w / 2 - 14, BAR.top + 36, ca * rise * (1 - sm(clamp(split * 3))), { align: 'right', size: 18, col: '#ffd9a0' });
+  { const la = ca * rise * (1 - sm(clamp(split * 3))); label(ctx, 'HUMANITY', BAR.x + BAR.w / 2 + 16, BAR.top + 40, la, { size: 18, col: '#ffd9a0' }); label(ctx, '$14,244', BAR.x + BAR.w / 2 + 16, BAR.top + 68, la, { size: 18, col: '#ffd9a0' }); }
   label(ctx, 'HUMANITY · $14,244', 960 + BAR.w / 2 + 16, BAR.top + 36, sm(lin(.7, 1, merge)) * (1 - thin), { size: 18, col: '#ffd9a0' });
   label(ctx, 'EACH OF US', 960, BAR.base + 40, fadeIO(t, a.each + .2, a.together - .1, .4, .3), { align: 'center', size: 18 });
   label(ctx, 'ALL OF US, TOGETHER', 960, BAR.base + 40, fadeIO(t, a.together + .1, C.t - 1.1, .4, .3), { align: 'center', size: 18, col: '#ffd9a0' });

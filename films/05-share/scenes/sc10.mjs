@@ -24,7 +24,8 @@
 // |       |                                             | "written", never touching                                    |                                        |              |
 // | 7.05  | It belongs to **no one**.                    | wide over the city at sunrise; the hook's rosette hangs as  | camera approaches one ring (plan seq.)  | up           |
 // |       |                                             | a dotted ghost, the wind blows through its lines             |                                        |              |
-// | 7.05a | **Yet.**                                     | one ring engraves solid and catches foil; silence around it  | the ring starts turning (plan seq.)     | cut (seamless)|
+// | 7.05a | **Yet.**                                     | camera leans in: the outer ring, an arch over the skyline,   | the ring starts turning (plan seq.)     | cut (seamless)|
+// |       |                                             | engraves solid and catches foil; silence around it           |                                        |              |
 // | 7.06★ | Which means it can still belong to          | the rosette engraves completely and rises as a second dawn; | its light falls on the parapet → zoom   | cut (seamless)|
 // |       | **everyone**.                               | microtext ring EVERYONE; light on all roofs, tiny figures    |  into the sheet                         |              |
 // |       |                                             | look up; the camera pulls wide, then tilts to the parapet    |                                        |              |
@@ -32,7 +33,7 @@
 // |       | already has.                                | (Gravurschrift); the city lights below stay their own        |                                        |              |
 // | 7.08  | We just have to **agree**,                  | the 2nd line begins; two hands (ochre, petrol) reach for the | the pen lowers (plan seq.)              | cut (seamless)|
 // |       |                                             | pen together above the signature line                        |                                        |              |
-// | 7.09▲ | **now,**                                     | the nib touches the line; "now," engraves and stays foil;   | the line runs right (plan seq.)         | cut (seamless)|
+// | 7.09▲ | **now,**                                     | the nib touches down just before "now,"; "now," engraves, | the line runs right (plan seq.)         | cut (seamless)|
 // |       |                                             | everything holds in the pause, then one amber foil line      |                                        |              |
 // | 7.10  | how to share what's **coming**.              | the line draws on slowly while the rosette's light sweeps;  | – (end screen; no fade)                 | cut (seamless)|
 // |       |                                             | half drawn and glowing on "coming", the pen lifts a little;  |                                        |              |
@@ -44,7 +45,7 @@
 //   its light falls on the parapet → (zoom) the sheet → the lines engrave → the signature line (end).
 // Sound: lead accents in range (phone_buzz ×2 after "same moment", shimmer_rings before "That buzz", bloom after "what's coming") are not
 //   duplicated; the images are synced to them (BUZZ = E('same moment') + .08 as in tools/sound_plan.mjs). Own additions, in pauses only:
-//   pages + whoosh_up (6.24 fragments, the fragment rising), foil_glint (after "Yet."), tick (the nib touches on "now,"), foil_glint (the
+//   pages + whoosh_up (6.24 fragments, the fragment rising), foil_glint (after "Yet."), tick (the nib touches, in the gap before "now,"), foil_glint (the
 //   foil line starts in the silence after "now,").
 import { carry } from '../lib/carry.mjs';
 import { clamp, lin, sm, eout } from '../engine.mjs';
@@ -85,7 +86,7 @@ export default (T, R) => {
     const Q = ruleSheet(ctx, t, { t0: A.s707, mode: 'write', lines, sig, sweep, rise });
     const reach = clamp((t - (A.agree - .3)) / 1.1);
     if (reach > 0) {
-      const touch = sm(lin(A.s709 - .12, A.s709 + .1, t)), up = sm(lin(A.coming + .1, A.coming + .9, t));
+      const touch = sm(lin(A.s709 - .3, A.s709 - .08, t)), up = sm(lin(A.coming + .1, A.coming + .9, t));
       const lift = (1 - touch) * 1 + up * .35 + .04 * Math.sin(t * 1.3) * (1 - touch + up);
       const { SIG } = SHEET, nib = Q.toScr(SIG.x0 + (SIG.x1 - SIG.x0) * sig, SIG.y);
       twoHandsPen(ctx, t, nib, { lift, reach, sc: Q.sc });
@@ -112,7 +113,7 @@ export default (T, R) => {
     // 6.24 split screen: they look up, the fragments whirl, one rises
     { t: A.s624, tr: 'cut', d: .1,
       draw: (ctx, t) => split(ctx, t, { t0: A.s624, down: A.s624 + .1, up: A.their - .1, swirl: [A.inh - .2, A.inh + 1.3], lift: A.lift }),
-      sound: [{ f: 'pages', t: A.inhE - .15, v: .22 }, { f: 'whoosh_up', t: A.lift + .05, v: .2 }] },
+      sound: [{ f: 'pages', t: A.inhE + .01, v: .22 }, { f: 'whoosh_up', t: A.lift + .2, v: .2 }] },
     // 7.02a the roof at sunrise, the buzz is real
     { t: A.s702a, tr: 'up', d: .6,
       draw: (ctx, t) => roofDawn(ctx, t, { t0: A.s702a, land: A.buzz7 - .05, buzz: A.buzz7, fantasy: A.fantasy }) },
@@ -126,7 +127,7 @@ export default (T, R) => {
     // 7.07 · 7.08 · 7.09 ▲ · 7.10 one plan sequence on the sheet; the last image lives until the film's last frame
     { t: A.s707, tr: 'zoom', d: .8, ...xy(cityAnchor(A.s707, CITY)), depth: 3.5, print: { riso: .3 }, draw: close },
     { t: A.s708, tr: 'cut', d: .1, print: { riso: .3 }, draw: close },
-    { t: A.s709, tr: 'cut', d: .1, print: { riso: .3 }, draw: close, sound: [{ f: 'tick', t: A.s709 + .04, v: .16 }] },
+    { t: A.s709, tr: 'cut', d: .1, print: { riso: .3 }, draw: close, sound: [{ f: 'tick', t: A.s709 - .08, v: .16 }] },
     { t: A.s710, tr: 'cut', d: .1, print: { riso: .3 }, draw: close, sound: [{ f: 'foil_glint', t: A.sig0 + .02, v: .3 }] },
   ];
   return shots;

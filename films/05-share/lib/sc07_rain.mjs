@@ -145,6 +145,7 @@ function capsule(ctx, x1, y1, r1, x2, y2, r2) {
 }
 function shadeHex(hex, d) { const n = parseInt(hex.slice(1), 16), f = (v) => Math.round(clamp(v * (1 + d), 0, 255)); return `rgb(${f(n >> 16)},${f((n >> 8) & 255)},${f(n & 255)})`; }
 const BACKC = new Map();
+const HATCHC = new Map();
 export function backFig(ctx, x, y, s, o = {}) {
   const t = o.t ?? 0, sd = o.seed || 0, br = Math.sin(t * TAU / 4.2 + sd) * .8, w8 = (Math.sin(t * TAU / 9 + sd * 1.7) * .7 + Math.sin(t * TAU / 3.7 + sd) * .3) * 1.4;
   const D = Object.assign({ coat: '#26304a', pants: '#131427', shoes: '#0a0a12', skin: '#8d5f40', hair: '#16111a' }, o.dress || {});
@@ -190,7 +191,10 @@ export function backFig(ctx, x, y, s, o = {}) {
   g.setTransform(s, 0, 0, s, U.ox * s, U.oy * s); g.globalCompositeOperation = 'source-atop';
   const fg = g.createLinearGradient(0, -200, 0, 0); fg.addColorStop(0, 'rgba(120,150,200,.14)'); fg.addColorStop(.35, 'rgba(0,0,0,0)'); fg.addColorStop(1, 'rgba(3,4,10,.5)'); g.fillStyle = fg; g.fillRect(-75, -230, 150, 240);
   if (o.shade) { g.fillStyle = `rgba(8,11,24,${o.shade})`; g.fillRect(-75, -230, 150, 240); }
-  g.setTransform(1, 0, 0, 1, 0, 0); hatch(g, null, -1.1, 3.2 * Math.max(1, s * .9), .2, { box: [0, 0, cw, ch], col: '#05060c', w: Math.max(.6, s * .35), wobble: .5 });
+  // the engraved hatch is static per figure size: stroked once, then laid over the figure (source-atop) as an image
+  g.setTransform(1, 0, 0, 1, 0, 0);
+  if (!HATCHC.has(key)) { const [hc, hg] = canvas(cw, ch); hatch(hg, null, -1.1, 3.2 * Math.max(1, s * .9), .2, { box: [0, 0, cw, ch], col: '#05060c', w: Math.max(.6, s * .35), wobble: .5 }); HATCHC.set(key, hc); }
+  g.drawImage(HATCHC.get(key), 0, 0);
   g.globalCompositeOperation = 'source-over';
   paint(mg, '#fff'); mg.setTransform(1, 0, 0, 1, 0, 0);
   const rim = (Lx, Ly, colr, a) => {

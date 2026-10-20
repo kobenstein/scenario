@@ -240,6 +240,8 @@ function cityRays() {
   });
 }
 const RO_C = OUT_R * .6;
+// the outer ring once it is engraved (after the glint on "Yet" it no longer changes): the same ghostLine, drawn once at RS .5's widths
+function outerLine() { return once('c10-outl', () => { const q = .6, e = Math.ceil((OUT_R + 40) * q + 24), [c, g] = canvas(e * 2, e * 2); g.translate(e, e); g.scale(q, q); ghostLine(g, outerRing(), { ghost: 1, burin: 1, col: '#fff1d6', w: 1.6 / .5, a: .9, dot: 16, t: 0, glow: '#ffb35c', smoke: 0, noTip: true }); return { c, e, q }; }); }
 function outerSolid() { return once('c10-outs', () => { const e = Math.ceil(RO_C + 60), [c, g] = canvas(e * 2, e * 2); g.translate(e, e); g.globalCompositeOperation = 'lighter'; ring(g, 0, 0, RO_C, RO_C, { lines: 7, band: 22, wave: 30, col: '#fff1d6', glow: '#ffb35c', glowA: .12, a: 1, lw: .8 }); return c; }); }
 function microSolid() { return once('c10-micro', () => { const e = Math.ceil(RO_C * 1.09 + 30), [c, g] = canvas(e * 2, e * 2); microRing(g, e, e, RO_C * 1.09, 'EVERYONE', { size: 15, col: '#fff1d6', a: .95 }); return c; }); }
 function fogBand() { return once('c10-fog', () => { const [c, g] = canvas(W + 400, 420); g.translate(0, -640); fog(g, { y0: 700, y1: 1000, col: '#ffd2b0', a: .32, seed: 11, sx: .0016, sy: .012, cover: .6, soft: .4, k: .5, x1: W + 400 }); return c; }); }
@@ -275,9 +277,10 @@ export function dawnCity(ctx, t, o = {}) {
   ctx.restore();
   // the outer ring: dotted, then engraved on "Yet" (the first piece that is agreed), catching foil; later the microtext EVERYONE
   { const P = outerRing(), yu = clamp((t - yet + .08) / .75), gl = Math.exp(-Math.pow((t - yet - .6) / .35, 2)), RO = OUT_R * RS;
-    ctx.save(); ctx.rotate(spin * .5); ctx.scale(RS, RS); ctx.globalCompositeOperation = 'lighter';
-    ghostLine(ctx, P, { ghost: 1, burin: yu > 0 ? yu : null, col: '#fff1d6', w: (1.6 + gl * 1.4) / RS, a: .9, dot: 8 / RS, t, glow: '#ffb35c', tipSize: 15 / RS, smoke: yu > 0 ? 0 : wind * .6 });
-    ctx.restore();
+    if (t > yet + 1.7) { const O = outerLine(), k = RS / O.q; ctx.save(); ctx.rotate(spin * .5); ctx.scale(k, k); ctx.drawImage(O.c, -O.e, -O.e); ctx.restore(); }   // engraved and still: cached
+    else { ctx.save(); ctx.rotate(spin * .5); ctx.scale(RS, RS); ctx.globalCompositeOperation = 'lighter';
+      ghostLine(ctx, P, { ghost: 1, burin: yu > 0 ? yu : null, col: '#fff1d6', w: (1.6 + gl * 1.4) / RS, a: .9, dot: 8 / RS, t, glow: '#ffb35c', tipSize: 15 / RS, smoke: yu > 0 ? 0 : wind * .6 });
+      ctx.restore(); }
     if (yu >= 1 || gl > .01) { const S = outerSolid(), e = S.width / 2, k = RO / RO_C; ctx.save(); ctx.rotate(spin * .5 + t * .01); ctx.scale(k, k); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = Math.min(1, .45 + .6 * gl) * (yu >= 1 ? 1 : gl); ctx.drawImage(S, -e, -e); ctx.restore(); }
     const eu = clamp((t - every + .1) / 1.1); if (eu > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, RO * 1.3, -Math.PI / 2, -Math.PI / 2 + TAU * eu); ctx.closePath(); ctx.clip(); { const S = microSolid(), e = S.width / 2, k = RO / RO_C; ctx.save(); ctx.rotate(-spin * .3); ctx.scale(k, k); ctx.drawImage(S, -e, -e); ctx.restore(); }
       const k = Math.exp(-Math.max(0, t - every - .2) * 1.2); if (k > .02) { const a2 = -Math.PI / 2 + TAU * eu; foilGlint && ctx.save(); const hx = Math.cos(a2) * RO * 1.09, hy = Math.sin(a2) * RO * 1.09, hg = ctx.createRadialGradient(hx, hy, 0, hx, hy, 70); hg.addColorStop(0, `rgba(255,241,214,${.9 * k})`); hg.addColorStop(1, 'rgba(255,179,92,0)'); ctx.fillStyle = hg; ctx.fillRect(hx - 70, hy - 70, 140, 140); ctx.restore(); }

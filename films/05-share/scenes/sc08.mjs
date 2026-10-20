@@ -11,9 +11,9 @@
 // |       | of OpenAI, and gets more if … soars tenfold.    | the rosette on "given"; pull back,  | with it and it lands on fragment 2                     |             |
 // |       |                                                 | rosette ×√10 on "soars", wedge +    |                                                       |             |
 // |       |                                                 | widens on "tenfold"                 |                                                       |             |
-// | 5.10  | Oxford researchers proposed a Windfall Clause:  | profit rings grow on "bigger the    | the rings run outward as light, push-in, iris          | (b) iris    |
-// |       | the bigger the profit, the bigger the share …   | profit", foil bands 1→20→50 % on    | (they become the cheer rings over the city)            |             |
-// |       |                                                 | "bigger the share"; lift on "away"  |                                                       |             |
+// | 5.10  | Oxford researchers proposed a Windfall Clause:  | title on "proposed", foil glint on  | the rings run outward as light, push-in, iris          | (b) iris    |
+// |       | the bigger the profit, the bigger the share …   | "Windfall"; profit rings, foil     | (they become the cheer rings over the city)            |             |
+// |       |                                                 | bands 1→20→50 %; lift on "away"    |                                                       |             |
 // | 5.16a | But who gets to cheer?                          | cheer rings over the night city;    | plansequenz: the camera keeps rising                   | plan        |
 // |       |                                                 | rise; the US lights on "cheer"      |                                                       |             |
 // | 5.16b | Only the people of one rich country?            | border runs as microtext on "one    | the border line lifts (exit up) and redraws itself     | (a) exit up |
@@ -25,8 +25,9 @@
 // |       |                                                 | identical slices line up            |                                                       |             |
 // | 6.03  | Switzerland already does a small version.       | the slice falls away from the       | push-in into the landed slice's light → 6.04 opens     | (b) push    |
 // |       |                                                 | camera, lands on "small"; CH lights | out of that light (Swiss morning)                      | into light  |
-// | 6.04  | Every resident, from baby to pensioner, gets    | the same amber refund line lights   | push-in on the parent's refund line → match cut: the   | (b) push +  |
-// |       | the same refund … every year.                   | on all three letters on "same"      | statement of 6.05 at the same place and scale          | match cut   |
+// | 6.04  | Every resident, from baby to pensioner, gets    | three letters held up (81, 38, 0 —  | push-in on the parent's refund line → match cut: the   | (b) push +  |
+// |       | the same refund … every year.                   | a baby's hand on the corner); the   |
+// |       |                                                 | same amber refund line on "same"   | statement of 6.05 at the same place and scale          | match cut   |
 // | 6.05  | It arrives through their health insurance.      | letterhead underlined + leader to   | the sheet slides away to the left, revealing the card  | (a) exit L  |
 // |       |                                                 | the refund on "health insurance"    |                                                       |             |
 // | 6.06  | Anthropic's plan mentions "direct distributions | words light with the voice; the     | OUT: carry('c08>c09') 'line' — the highlight under     | (b) zoom    |
@@ -277,7 +278,8 @@ export default (T, R) => {
   const fogRush = () => K.once('fogRush', () => { const [c, g] = canvas(W, H), r = prng(3); g.filter = 'blur(30px)'; for (let i = 0; i < 18; i++) { const x = r() * W, y = r() * H, R = 220 + r() * 420, gr = g.createRadialGradient(x, y, 0, x, y, R); gr.addColorStop(0, 'rgba(120,140,180,.20)'); gr.addColorStop(.6, 'rgba(120,140,180,.08)'); gr.addColorStop(1, 'rgba(120,140,180,0)'); g.fillStyle = gr; g.beginPath(); g.ellipse(x, y, R * 1.4, R * .7, r() * .6 - .3, 0, TAU); g.fill(); } g.filter = 'none'; return c; });
   function drawMapB(ctx, t, mc, o = {}) {
     const L = K.nightMap(), [sx, sy] = mapPt(mc, [0, 0]);
-    ctx.save(); ctx.globalAlpha = o.a ?? 1; ctx.drawImage(L, sx - K.MAP.pad * mc.m, sy - K.MAP.pad * mc.m, K.MAP.w * mc.m, K.MAP.h * mc.m); ctx.restore();
+    const ma = 1 - sm(lin(Math.log(6), Math.log(22), Math.log(mc.m)));   // the raster map only shows once it is not magnified into blur (the rise passes through haze first)
+    if (ma > 0) { ctx.save(); ctx.globalAlpha = (o.a ?? 1) * ma; ctx.drawImage(L, sx - K.MAP.pad * mc.m, sy - K.MAP.pad * mc.m, K.MAP.w * mc.m, K.MAP.h * mc.m); ctx.restore(); }
     const ua = o.us ?? 0; if (ua > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = ua * (.88 + .12 * Math.sin(t * 2.2)); ctx.drawImage(K.usaLayer(), sx - K.MAP.pad * mc.m, sy - K.MAP.pad * mc.m, K.MAP.w * mc.m, K.MAP.h * mc.m); ctx.restore(); }
   }
   const usPath = (mc) => { const p = new Path2D(); MB.forEach((q, i) => { const [x, y] = mapPt(mc, q); i ? p.lineTo(x, y) : p.moveTo(x, y); }); p.closePath(); return p; };
@@ -454,20 +456,22 @@ export default (T, R) => {
     if (t > A.small) { const q = lin(A.small, A.small + 1.1, t); if (q < 1) ring(ctx, sp.x, sp.y + 4, 20 + 260 * xout(q), (20 + 260 * xout(q)) * .84, { lines: 5, band: 12, wave: 20, col: '#ffe2b0', glow: '#ffb35c', glowA: .1, a: (1 - q) * .8, lw: .9 }); }
     // the slice: falling, shrinking with height, landing with a small settle
     { const s = sp.s, u = clamp((t - A.cut603) / (A.small - A.cut603)), [lx, ly] = mapToScreen(v, CH0);
-      ctx.save(); ctx.globalAlpha = .35 * u * u; ctx.fillStyle = '#1a1208'; ctx.filter = `blur(${mix(14, 3, u)}px)`; ctx.beginPath(); ctx.ellipse(lx + mix(40, 4, u), ly - sp.r * .4 + mix(30, 3, u), sp.r * .5, sp.r * .3, 0, 0, TAU); ctx.fill(); ctx.filter = 'none'; ctx.restore();
+      { const ex = lx + mix(40, 4, u), ey = ly - sp.r * .4 + mix(30, 3, u), bl = mix(14, 3, u), rx = sp.r * .5 + bl, ry = sp.r * .3 + bl, gr = ctx.createRadialGradient(0, 0, 0, 0, 0, 1);   // soft shadow, no blur filter
+        gr.addColorStop(0, 'rgba(26,18,8,1)'); gr.addColorStop(Math.max(.05, 1 - 2 * bl / (rx + ry)), 'rgba(26,18,8,.85)'); gr.addColorStop(1, 'rgba(26,18,8,0)');
+        ctx.save(); ctx.globalAlpha = .35 * u * u; ctx.translate(ex, ey); ctx.scale(rx, ry); ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(0, 0, 1, 0, TAU); ctx.fill(); ctx.restore(); }
       slice(ctx, sp.x, sp.y, sp.r, s.a0, s.a1); }
     const la = sm(lin(A.small + .05, A.small + .45, t)) * (1 - sm(lin(A.t604 - .3, A.t604 - .1, t)));
     if (la > 0) { const [x, y] = mapToScreen(v, [CH0[0], CH0[1] - 120]); text(ctx, 'SWITZERLAND', x, y, { size: 26, weight: 600, color: rgba('#2a3f5f', .95 * la), spacing: 9, align: 'center' }); }
     ctx.restore();
     K.motes(ctx, t, { a: .4, n: 40, seed: 29, col: '255,240,220' });
     K.vignette(ctx, .5 * (1 - pk), W * .5, H * .5, '6,8,12');
-    if (pk > 0) { const x = mix(sp0.x, W / 2, pk), y = mix(sp0.y - 30, H / 2, pk); K.bloomAt(ctx, x, y, 160 + 1700 * pk, .4 + .6 * pk, '#ffcf8a'); ctx.fillStyle = `rgba(255,240,218,${.9 * pk * pk})`; ctx.fillRect(0, 0, W, H); }
+    if (pk > 0) { const x = mix(sp0.x, W / 2, pk), y = mix(sp0.y - 30, H / 2, pk); K.bloomAt(ctx, x, y, 160 + 1700 * pk, .4 + .6 * pk, '#ffcf8a'); ctx.fillStyle = `rgba(255,240,218,${.9 * sm(lin(A.t604 - .4, A.t604 - .02, t))})`; ctx.fillRect(0, 0, W, H); }   // reaches the 6.04 opening light (.9) at the cut
   }
   // ---------------- 6.04 Every resident … the same refund … every year. ----------------
   const LETTERS = [
-    { x: 500, y: 495, rot: -.075, age: 'AGE 81', hand: { skin: '#e7c3a4', sleeve: '#6e6254', s: 1.0, ang: -1.32, dx: -70, dy: 300 }, tAge: 'pensioner' },
-    { x: 960, y: 470, rot: .02, age: 'AGE 38', hand: { skin: '#a8734f', sleeve: '#1f5560', s: 1.0, ang: -1.5, dx: -40, dy: 305 }, tAge: 'resident' },
-    { x: 1420, y: 510, rot: .085, age: 'AGE 0', hand: { skin: '#c99a74', sleeve: '#9a4a3a', s: 1.0, ang: -1.22, dx: -96, dy: 300 }, baby: { skin: '#f1d3b8', sleeve: '#e9dcc0', s: .62, ang: -2.45, dx: -18, dy: 365 }, tAge: 'baby' },
+    { x: 500, y: 495, rot: -.075, age: 'AGE 81', hand: { skin: '#e7c3a4', sleeve: '#6e6254', f: .44, lean: -.14 }, tAge: 'pensioner' },
+    { x: 960, y: 470, rot: .02, age: 'AGE 38', hand: { skin: '#a8734f', sleeve: '#1f5560', f: .56, lean: .08, flip: true }, tAge: 'resident' },
+    { x: 1420, y: 510, rot: .085, age: 'AGE 0', hand: { skin: '#c99a74', sleeve: '#9a4a3a', f: .34, lean: -.2 }, baby: { skin: '#f1d3b8', sleeve: '#e9dcc0', f: .88, ang: -2.05 }, tAge: 'baby' },
   ];
   const LW = 340, LH = 448;
   const letterCanvas = (mark) => K.once('letter' + mark, () => { const [c, g] = canvas(380, 500); g.fillStyle = '#f5f2ea'; g.fillRect(0, 0, 380, 500); K.refundLetter(g, 380, 500, { mark }); return c; });
@@ -482,6 +486,32 @@ export default (T, R) => {
   const pushE = (t) => xin(lin(A.t605 - .6, A.t605, t));
   const K605 = 2.6 / ((LW / 380) * (1 + .012 * (A.t605 - A.t604)));   // the push makes the parent's letter as large as the statement in 6.05
   const pushT = (t) => { const e = pushE(t), P = line604(Math.min(t, A.t605)), Q = [960 + drift(A.t605, 6, 1), 540 + drift(A.t605, 4, 2)], k = mix(1, K605, e); return { e, k, P, Q: [mix(P[0], Q[0], e), mix(P[1], Q[1], e)] }; };
+  // where a hand holds a letter: a point on the sheet's bottom edge (fraction f of its width), the hand pointing up the sheet
+  const holdGeo = (t, L, i, cam, f, lean) => {
+    const x = L.x + cam.dx, y = L.y + Math.sin(t * 1.3 + i * 2) * 3 + cam.dy, rot = L.rot + .006 * Math.sin(t * .8 + i), c = Math.cos(rot), s = Math.sin(rot);
+    const g = [x - LW / 2 + f * LW * c - LH * s, y - LH / 2 + f * LW * s + LH * c], ang = rot - Math.PI / 2 + lean + .025 * Math.sin(t * .9 + i);
+    return { g, ang, wrist: (d) => [g[0] - Math.cos(ang) * d, g[1] - Math.sin(ang) * d] };
+  };
+  const capsule = (p, x1, y1, r1, x2, y2, r2) => {   // tapered capsule (same construction as lib/hand.mjs)
+    const a = Math.atan2(y2 - y1, x2 - x1), d = Math.hypot(x2 - x1, y2 - y1), k = Math.asin(Math.max(-1, Math.min(1, (r1 - r2) / (d || 1))));
+    p.moveTo(x1 + Math.cos(a + Math.PI / 2 + k) * r1, y1 + Math.sin(a + Math.PI / 2 + k) * r1);
+    p.arc(x1, y1, r1, a + Math.PI / 2 + k, a + 3 * Math.PI / 2 - k); p.arc(x2, y2, r2, a - Math.PI / 2 - k, a + Math.PI / 2 + k); p.closePath();
+  };
+  function frontThumb(ctx, W0, S, o, t, i) {   // the thumb pressing the sheet's face, from the palm up over the edge
+    const f = o.flip ? -1 : 1, c = Math.cos(o.ang), sn = Math.sin(o.ang), P = (px, py) => [W0[0] + (px * c - py * f * sn) * S, W0[1] + (px * sn + py * f * c) * S];
+    const b = P(28, -22), tp = P(74 + 1.5 * Math.sin(t * 1.1 + i), -6), r0 = 10.5 * S, r1 = 8.2 * S;
+    for (const [g0, sa] of [[4, .07], [2, .09], [0, .12]]) { const sh = new Path2D(); capsule(sh, b[0] + 5, b[1] + 7, r0 + g0 * S, tp[0] + 5, tp[1] + 7, r1 + g0 * S); ctx.fillStyle = `rgba(40,32,26,${sa})`; ctx.fill(sh); }   // soft contact shadow (no blur filter)
+    const p = new Path2D(); capsule(p, b[0], b[1], r0, tp[0], tp[1], r1);
+    const ax = tp[0] - b[0], ay = tp[1] - b[1], al = Math.hypot(ax, ay) || 1, nx = -ay / al, ny = ax / al, mx = (b[0] + tp[0]) / 2, my = (b[1] + tp[1]) / 2;
+    ctx.save(); ctx.fillStyle = o.skin; ctx.fill(p); ctx.clip(p);
+    const side = nx * .6 + ny * -1 > 0 ? 1 : -1, g = ctx.createLinearGradient(mx - nx * r0 * side, my - ny * r0 * side, mx + nx * r0 * side, my + ny * r0 * side);
+    g.addColorStop(0, 'rgba(40,20,10,.32)'); g.addColorStop(.5, 'rgba(40,20,10,0)'); g.addColorStop(.82, 'rgba(255,244,224,.12)'); g.addColorStop(1, 'rgba(255,244,224,.45)');
+    ctx.fillStyle = g; ctx.fillRect(Math.min(b[0], tp[0]) - 30, Math.min(b[1], tp[1]) - 30, Math.abs(ax) + 60, Math.abs(ay) + 60);
+    const na = Math.atan2(ay, ax), nc = [tp[0] - ax / al * r1 * .5, tp[1] - ay / al * r1 * .5];
+    ctx.beginPath(); ctx.ellipse(nc[0] + ax / al * r1 * .15, nc[1] + ay / al * r1 * .15, r1 * .58, r1 * .44, na, 0, TAU); ctx.fillStyle = 'rgba(255,236,222,.24)'; ctx.fill(); ctx.strokeStyle = 'rgba(110,60,40,.22)'; ctx.lineWidth = .9; ctx.stroke();
+    ctx.restore();
+    ctx.strokeStyle = 'rgba(60,30,20,.4)'; ctx.lineWidth = 1.1; ctx.stroke(p);
+  }
   function d604(ctx, t) {
     const cam = swCam(t), mark = xout(lin(A.sameRefund - .1, A.sameRefund + .55, t)), pt = pushT(t);
     ctx.save(); if (pt.e > 0) { ctx.translate(pt.Q[0], pt.Q[1]); ctx.scale(pt.k, pt.k); ctx.translate(-pt.P[0], -pt.P[1]); }
@@ -492,11 +522,18 @@ export default (T, R) => {
     const lines = [];
     LETTERS.forEach((L, i) => {
       ctx.save(); ctx.translate(0, rise(i));
+      // each letter is held up at its bottom edge: the hand behind the sheet, the thumb on its face (drawn after the sheet)
+      const hd = L.hand, ha = 1 - sm(lin(.08, .5, pushE(t))), HG = holdGeo(t, L, i, cam, hd.f, hd.lean), HS = 1.25;
+      const ho = { pose: 'grip', ang: HG.ang, flip: !!hd.flip, skin: hd.skin, sleeve: hd.sleeve, sleeveLen: 300, rim: '#fff4e0', light: [.6, -1], t, seed: i };
+      const HW = HG.wrist(46 * HS);
+      if (ha > 0) { ctx.save(); ctx.globalAlpha = ha; hand(ctx, HW[0], HW[1], HS, ho); ctx.restore(); }
       const r = drawLetter(ctx, t, L, i, mark, cam); lines.push([r.line[0], r.line[1] + rise(i)]);
-      const hd = L.hand, wx = r.x + hd.dx, wy = r.y + hd.dy, ha = 1 - sm(lin(.35, .85, pushE(t)));
       if (ha > 0) { ctx.save(); ctx.globalAlpha = ha;
-        hand(ctx, wx, wy, hd.s * 1.25, { pose: 'grip', ang: hd.ang + .03 * Math.sin(t * .9 + i), skin: hd.skin, sleeve: hd.sleeve, sleeveLen: 300, rim: '#fff4e0', light: [.6, -1], t, seed: i });
-        if (L.baby) { const bb = L.baby, by = Math.sin(t * 2.1) * 4; hand(ctx, r.x + bb.dx, r.y + bb.dy + by, bb.s * 1.25, { pose: 'baby', ang: bb.ang + .06 * Math.sin(t * 1.7), skin: bb.skin, sleeve: bb.sleeve, sleeveLen: 320, rim: '#fff4e0', light: [.6, -1], t, seed: 7, close: .5 + .08 * Math.sin(t * 1.3) }); }
+        frontThumb(ctx, HW, HS, ho, t, i);
+        if (L.baby) {   // the baby's hand grabs the corner of the family's letter (fingers curl over the edge)
+          const bb = L.baby, BS = .62 * HS, BG = holdGeo(t, L, i, cam, bb.f, 0), ba = bb.ang + .07 * Math.sin(t * 1.7), bd = [Math.cos(ba), Math.sin(ba)], bw = 30 * BS + 3 * Math.sin(t * 2.1);
+          hand(ctx, BG.g[0] - bd[0] * bw, BG.g[1] - bd[1] * bw, BS, { pose: 'baby', ang: ba, skin: bb.skin, sleeve: bb.sleeve, sleeveLen: 420, rim: '#fff4e0', light: [.6, -1], t, seed: 7, close: .55 + .08 * Math.sin(t * 1.3) });
+        }
         ctx.restore(); }
       const ta = { pensioner: A.pensioner, resident: A.resident + .5, baby: A.baby }[L.tAge], la = sm(lin(ta, ta + .4, t)) * (1 - sm(lin(A.t605 - .3, A.t605, t)));
       if (la > 0) text(ctx, L.age, r.x - LW / 2 + 6, r.y - LH / 2 - 22, { size: 17, weight: 600, color: rgba('#26354f', .85 * la), spacing: 5 });

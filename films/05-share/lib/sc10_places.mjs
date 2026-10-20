@@ -301,7 +301,8 @@ export function ohio(ctx, t, o = {}) {
   // the driver leans against the cab, rust jacket, cap, phone loose in the front hand
   const dx = tx + 600, dy = ty + 470 + 50 - 88 * 2.25, s = 2.25;
   castShadow(ctx, dx, dy + 88 * s, s, OHIO_GLOW.x - 200, OHIO_GLOW.y, { a: .35, len: 2 });
-  figure(ctx, dx, dy, s, { lean: -.07, head: -.05 + .04 * Math.sin(t * .5), sh: [.38, .12], el: [.95, .25], hip: [.06, -.12], kn: [.02, .14], hair: 'cap', coat: .4 }, { t, seed: 5, flip: true, dress: { coat: '#a8492c', pants: '#22263a', shoes: '#120f16', skin: '#d9a888', hair: '#3a2f2a' }, light: { x: OHIO_GLOW.x, y: OHIO_GLOW.y, col: '#ffb070', a: .5 }, rim: '#ffbf80', rimSide: -1, rimW: 2.4,
+  const glance = sm(lin(on + .05, on + .55, t)) * .14;   // the lamps flicker on: he looks up at them
+  figure(ctx, dx, dy, s, { lean: -.07, head: -.05 + .04 * Math.sin(t * .5) - glance, sh: [.38, .12], el: [.95, .25], hip: [.06, -.12], kn: [.02, .14], hair: 'cap', coat: .4 }, { t, seed: 5, flip: true, dress: { coat: '#a8492c', pants: '#22263a', shoes: '#120f16', skin: '#d9a888', hair: '#3a2f2a' }, light: { x: OHIO_GLOW.x, y: OHIO_GLOW.y, col: '#ffb070', a: .5 }, rim: '#ffbf80', rimSide: -1, rimW: 2.4,
     prop: (g, front) => { g.fillStyle = '#121018'; g.beginPath(); g.roundRect(front.hx - 5, front.hy - 9, 11, 19, 2.5); g.fill(); } });
   { const f = flick(1); if (f > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(dx, dy - 120, 0, dx, dy - 120, 260); g.addColorStop(0, `rgba(255,154,60,${.16 * f})`); g.addColorStop(1, 'rgba(255,154,60,0)'); ctx.fillStyle = g; ctx.fillRect(dx - 260, dy - 380, 520, 520); ctx.restore(); } }
   motes(ctx, t, 0, 200, W, 700, 70, 9, '#ffcf96', .35 + .3 * flick(1), [-10, -3]);

@@ -258,7 +258,7 @@ export default (T, R) => {
     PEOPLE.forEach((p, i) => {
       const inK = eo5(lin(TT.s609 - .3 + i * .045, TT.s609 + .75 + i * .045, t)), fall = Math.pow(lin(A.deserves, A.s609E + .04, t), 2);
       const k = clamp(qio(lin(A.deserves + .3, A.s609E + .14, t)) - (i % 3) * .05), pose = { sh: [mix(.18, .62, k), mix(.08, .5, k)], el: [mix(.32, 1.15, k), mix(.26, 1.2, k)], head: .2 * k };
-      const fy = 952, hip = p.kid ? fy - 66 * p.s : fy - 96 * p.s, [hx, hy] = p.kid ? [p.x + (p.flip ? -14 : 14), hip - 36 * p.s] : handPos(p.x, hip, p.s, pose, 0, p.flip);
+      const fy = 952, hip = p.kid ? fy - 66 * p.s : fy - 96 * p.s, [hx, hy] = p.kid ? [p.x + (p.flip ? -1 : 1) * 27 * p.s * 1.05, hip - 19 * p.s * 1.05] : handPos(p.x, hip, p.s, pose, 0, p.flip); // kids: measured front hand at full reach
       const yHover = lightY + Math.sin(t * 1.4 + i * .9) * 7 + 10 * Math.sin(i * 1.7), y0 = mix(1200, yHover, inK), y = mix(y0, hy - 14, fall), x = mix(mix(1150, p.x, eo5(lin(TT.s609 - .1 + i * .045, TT.s609 + 1.0 + i * .045, t))) + Math.sin(t * .9 + i) * 4, hx, fall);
       const tremble = A.decides < t && t < A.deserves ? Math.sin(t * 40 + i) * 1.6 * sm(lin(A.decides, A.decides + .3, t)) : 0;
       shareLight(ctx, x + tremble, y, 15, t, { a: 1 });
@@ -315,7 +315,7 @@ export default (T, R) => {
     { h1: 'OpenAI floats', h2: 'a citizens’ fund', meta: 'APRIL 2026 · U.S. ONLY', x: 1290, rot: -.03, seed: 8 },
   ];
   const cardImg = (i) => once('card' + i, () => { const c0 = CARDS[i], [c, g] = canvas(330, 200); paperSheet(g, 10, 10, 300, 170, { seed: c0.seed, tone: '#ece3cd', shadow: false, lines: 0 });
-    g.fillStyle = rgba(INK, .85); g.fillRect(26, 30, 268, 2); text(g, 'THE DAILY RECORD', 160, 50, { size: 11, weight: 600, color: rgba(INK, .55), spacing: 4, align: 'center' });
+    g.fillStyle = rgba(INK, .85); g.fillRect(26, 30, 268, 2); scribble(g, 100, 48, 120, 8, { seed: 60 + i, ink: rgba(INK, .55), lw: 1.4 }); // masthead stays illegible (no invented paper names)
     text(g, c0.h1, 28, 98, { size: 34, font: 'Instrument Serif', color: '#1b1820' }); text(g, c0.h2, 28, 134, { size: 34, font: 'Instrument Serif', color: '#1b1820' });
     text(g, c0.meta, 28, 164, { size: 12, weight: 600, color: rgba('#8e2f2a', .9), spacing: 2 }); return c; });
   function usFrame(ctx, t) {

@@ -382,6 +382,8 @@ export default (T, R) => {
   // ═══════════════ 2.18 · the notes in a hand turn to dots and smoke ═══════════════
   const HAND18 = { x: 1060, y: 820, s: 2.5 };
   const eUp = (t) => eio(clamp((t - (CT.s219 - .3)) / .6));
+  const hand18S = (t) => mix(HAND18.s, 1.15, easeIO(lin(A.anythingE - .45, CT.s219 + .2, t)));   // the hand recedes toward the tap as it rises (same size on both sides of the cut)
+  const arm18 = (x, y, ang, grip, t, rim) => ({ ang, dir: mix(ang + Math.PI - .22, 1.3, grip), fore: 210, shoulder: [x + 560, y + 950], w: [27, 34, 60], col: PETROL, rim, light: [-.4, -1], t });
   const hand18 = (t) => {   // the hand's SCREEN track: grips the notes, empties, opens and rises; 2.18 draws it at y - e·H, 2.19 at y + (1 - e)·H
     const open = sm(lin(A.owning + .1, A.owning + .7, t)), rise = easeIO(lin(A.anythingE - .45, CT.s219 + .2, t));
     return { x: HAND18.x - open * 40 + drift(t, 4, 2), y: HAND18.y - open * 60 - rise * 260 + drift(t, 3, 3), ang: mix(-2.2, -1.62, open), close: mix(.55, 0, open), pose: open > .5 ? 'open' : 'grip' };
@@ -408,8 +410,8 @@ export default (T, R) => {
       ghostLine(ctx, rect, { ghost: 1, smoke, col: VERD_L, a: ga, w: 2, dot: 8, t, wind: [.4, -1], seed: k + 1 });
       ghostLine(ctx, oval, { ghost: 1, smoke, col: VERD_L, a: ga * .8, w: 1.6, dot: 7, t, wind: [.3, -1], seed: k + 4 });
     }
-    arm(ctx, hd.x, hd.y, HAND18.s, { ang: hd.ang, dir: hd.ang + Math.PI - .22, fore: 200, shoulder: [hd.x + 520, hd.y + 900], w: [27, 32, 46], col: PETROL, rim: '#bfe8dc', light: [-.4, -1], t });
-    hand(ctx, hd.x, hd.y, HAND18.s, { pose: hd.pose, close: hd.close, ang: hd.ang, skin: '#c99a74', sleeve: null, rim: '#bfe8dc', light: [-.4, -1], t, seed: 5, spread: 1 });
+    const s18 = hand18S(t); arm(ctx, hd.x, hd.y, s18, arm18(hd.x, hd.y, hd.ang, 0, t, '#bfe8dc'));
+    hand(ctx, hd.x, hd.y, s18, { pose: hd.pose, close: hd.close, ang: hd.ang, skin: '#c99a74', sleeve: null, rim: '#bfe8dc', light: [-.4, -1], t, seed: 5, spread: 1 });
     chip(ctx, 120, 190, 'owns nothing', { a: easeOut(lin(A.owning - .05, A.owning + .4, t)), col: VERD });
     motes(ctx, t, 900, 380, 640, .8, 13, '200,240,225');
     vign(ctx, .55);
@@ -443,8 +445,8 @@ export default (T, R) => {
     const h18 = hand18(t), from = [h18.x, h18.y + (1 - e) * H];
     const hx = mix(from[0], rimP[0] + 55, grip), hy = mix(from[1], rimP[1] + 70, grip);
     const ang19 = mix(-1.62, -2.05, grip);
-    arm(ctx, hx, hy, 1.15, { ang: ang19, dir: mix(1.35, .98, grip), fore: 235, shoulder: [hx + 640, hy + 980], w: [27, 35, 66], col: PETROL, rim: '#ffd59a', light: [-.4, -1], t });
-    hand(ctx, hx, hy, 1.15, { pose: grip > .6 ? 'grip' : 'open', close: grip, ang: ang19, skin: '#c99a74', sleeve: null, rim: '#ffd59a', light: [-.4, -1], t, seed: 5 });
+    const s19 = hand18S(t); arm(ctx, hx, hy, s19, arm18(hx, hy, ang19, grip, t, '#ffd59a'));
+    hand(ctx, hx, hy, s19, { pose: grip > .6 ? 'grip' : 'open', close: grip, ang: ang19, skin: '#c99a74', sleeve: null, rim: '#ffd59a', light: [-.4, -1], t, seed: 5 });
     ctx.restore();
     vign(ctx, .5);
   }

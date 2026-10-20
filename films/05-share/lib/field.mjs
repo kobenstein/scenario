@@ -94,6 +94,15 @@ function hedge(L, key) {
     return c;
   });
 }
+// the rows of a cached layer that hold anything (so the per-frame composite skips the empty rows)
+const ROWS = new Map();
+function rowsOf(img) {
+  if (ROWS.has(img)) return ROWS.get(img);
+  const d = img.getContext('2d').getImageData(0, 0, img.width, img.height).data, w = img.width; let a = img.height, b = 0;
+  for (let y = 0; y < img.height; y++) { for (let x = 0; x < w; x += 3) if (d[(y * w + x) * 4 + 3] > 1) { if (y < a) a = y; b = y; break; } }
+  const r = b >= a ? [Math.max(0, a - 2), Math.min(img.height, b + 3)] : [0, 0]; ROWS.set(img, r); return r;
+}
+function drawRows(ctx, img, dx, dy) { const [a, b] = rowsOf(img); if (b > a) ctx.drawImage(img, 0, a, img.width, b - a, dx, dy + a, img.width, b - a); }
 function mistLayer(L, key, k) {
   return once('mist' + key + k, () => {
     const [c, g] = canvas(W + 500, H);
@@ -154,7 +163,7 @@ export function field(ctx, t, o = {}) {
   if (o.sun !== false) { const B = sunBloom(L, key), sx = G.SUNX - cx * 2.5, sy = G.HZ - 18; ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .9 + .06 * Math.sin(t * .7); ctx.drawImage(B, sx - B.width / 2, sy - B.height / 2); ctx.restore(); }
   ctx.drawImage(hedge(L, key), -300 - cx * 5.5, G.HZ - 150 + 2 + (ch - G.H0) * 5.5);
   // far mist band behind the field's end
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .55 + .45 * mist; ctx.drawImage(mistLayer(L, key, 0), -250 - ((t * 7 + cx * 6) % 250 + 250) % 250, 0); ctx.restore();
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .55 + .45 * mist; drawRows(ctx, mistLayer(L, key, 0), -250 - ((t * 7 + cx * 6) % 250 + 250) % 250, 0); ctx.restore();
 
   // ground: meadow left of the field, the field itself
   const [xl0, yN] = P(G.XL, 2.6), [xlF, yF] = P(G.XL, G.ZF), [xrN] = P(G.XR, 2.6), [xrF] = P(G.XR, G.ZF);
@@ -182,16 +191,18 @@ export function field(ctx, t, o = {}) {
   for (let i = Zs.length - 1; i >= 0; i--) {         // far to near, so near ridges overlap the far ones
     const Z = Zs[i], C1 = crest(Z), [, , kk] = P(0, Z), yTop = C1[0][1], face = Math.min(.36 * kk * ch / Z * 2.2, 140);
     if (yTop > H + 160) continue;
+    if ((Z > 28 && i % 2) || (Z > 46 && i % 4 > 1)) continue;   // far ridges are < 1 px apart: thin them (same tone, half the work)
     const fog = clamp((Z - 8) / 60), fa = 1 - .7 * fog;
     // the face toward us (shadow), a slight lit band on top
-    ctx.beginPath(); C1.forEach(([x, y], j) => (j ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); for (let j = C1.length - 1; j >= 0; j--) ctx.lineTo(C1[j][0], C1[j][1] + face); ctx.closePath();
-    const fg = ctx.createLinearGradient(0, yTop, 0, yTop + face); fg.addColorStop(0, rgba(L.lit, .9 * fa)); fg.addColorStop(.18, rgba(L.shade, .85 * fa)); fg.addColorStop(1, rgba(L.ink, .55 * fa)); ctx.fillStyle = fg; ctx.fill();
+    if (face > 1) { ctx.beginPath(); C1.forEach(([x, y], j) => (j ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); for (let j = C1.length - 1; j >= 0; j--) ctx.lineTo(C1[j][0], C1[j][1] + face); ctx.closePath();
+      const fg = ctx.createLinearGradient(0, yTop, 0, yTop + face); fg.addColorStop(0, rgba(L.lit, .9 * fa)); fg.addColorStop(.18, rgba(L.shade, .85 * fa)); fg.addColorStop(1, rgba(L.ink, .55 * fa)); ctx.fillStyle = fg; ctx.fill(); }
     // engraved lines following the ridge (only where they are wide enough to read)
-    if (face > 7) { ctx.strokeStyle = rgba(L.ink, .5 * fa); ctx.lineWidth = Math.max(.6, face * .03); for (const q of [.35, .55, .72, .86]) { ctx.beginPath(); C1.forEach(([x, y], j) => { const yy = y + face * q + Math.sin(j * 1.7 + Z) * face * .03; j ? ctx.lineTo(x, yy) : ctx.moveTo(x, yy); }); ctx.stroke(); } }
+    if (face > 7) { ctx.strokeStyle = rgba(L.ink, .5 * fa); ctx.lineWidth = Math.max(.6, face * .03); ctx.beginPath(); for (const q of [.35, .55, .72, .86]) C1.forEach(([x, y], j) => { const yy = y + face * q + Math.sin(j * 1.7 + Z) * face * .03; j ? ctx.lineTo(x, yy) : ctx.moveTo(x, yy); }); ctx.stroke(); }
     // the crest catches the sun: brighter toward the sun's side
     ctx.save(); ctx.globalCompositeOperation = 'lighter';
     const cg = ctx.createLinearGradient(sunX - 1400, 0, sunX + 1400, 0); const cb = .35 + .65 * nz(Z * 3.1, 7); cg.addColorStop(0, rgba(L.crest, .12 * fa * cb)); cg.addColorStop(.5, rgba(L.crest, .8 * fa * cb)); cg.addColorStop(1, rgba(L.crest, .18 * fa * cb));
-    ctx.strokeStyle = cg; ctx.lineWidth = Math.max(.7, Math.min(2.4, kk * .009)); ctx.setLineDash([kk * (.5 + nz(Z, 3)), kk * .06 * (1 + nz(Z * 2, 4))]); ctx.lineDashOffset = Z * 37; ctx.beginPath(); C1.forEach(([x, y], j) => (j ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.stroke(); ctx.setLineDash([]); ctx.restore();
+    // broken crest light: a few segments are skipped (cheaper than a dash effect, same read)
+    ctx.strokeStyle = cg; ctx.lineWidth = Math.max(.7, Math.min(2.4, kk * .009)); ctx.beginPath(); C1.forEach(([x, y], j) => (j && nz(j * 1.37 + Z * 5.1, 11) > .3 ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.stroke(); ctx.restore();
   }
   // soil texture (cached noise + stipple)
   ctx.save(); ctx.globalCompositeOperation = 'soft-light'; ctx.globalAlpha = .85; ctx.drawImage(soilTex(), -200 - (cx * 60 % 200), G.HZ - 10); ctx.restore();
@@ -220,7 +231,7 @@ export function field(ctx, t, o = {}) {
   for (const [Zt, d, h, v] of EDGE) { const [x, y, k] = P(G.XL + d, Zt), hh = h * k; if (hh < 1 || y > H + 20) continue; ctx.strokeStyle = v < .5 ? rgba(L.grass, .95) : rgba(L.grassLit, .6); ctx.lineWidth = Math.max(.6, k * .011);
     for (let j = 0; j < 4; j++) { const lx = x + (j - 1.5) * hh * .12, ln = (j - 1.5) * .25 + Math.sin(t * 1.2 + Zt) * .05; ctx.beginPath(); ctx.moveTo(lx, y); ctx.quadraticCurveTo(lx + ln * hh * .3, y - hh * .6, lx + ln * hh, y - hh * (.8 + .2 * v)); ctx.stroke(); } }
   // mid mist over the field
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .25 + .7 * mist; ctx.drawImage(mistLayer(L, key, 1), -250 - ((t * 12 + cx * 14) % 250 + 250) % 250, (ch - G.H0) * 30); ctx.restore();
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .25 + .7 * mist; drawRows(ctx, mistLayer(L, key, 1), -250 - ((t * 12 + cx * 14) % 250 + 250) % 250, (ch - G.H0) * 30); ctx.restore();
   // warm light over everything near the sun
   ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .7; ctx.drawImage(warmth(L, key), -200 - cx * 3, 0); ctx.restore();
 
@@ -265,7 +276,7 @@ export function field(ctx, t, o = {}) {
     if (o.sheet !== false) fieldSheet(ctx, sheet, t, L, ps);
   }
   // near mist rolling over the bottom of the frame
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .2 + .6 * mist; ctx.drawImage(mistLayer(L, key, 2), -250 - ((t * 16 + cx * 30) % 250 + 250) % 250, -(ch - G.H0) * 40); ctx.restore();
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .2 + .6 * mist; drawRows(ctx, mistLayer(L, key, 2), -250 - ((t * 16 + cx * 30) % 250 + 250) % 250, -(ch - G.H0) * 40); ctx.restore();
   ctx.restore();
   // anchors in screen space (after the zoom)
   const Z = (x, y) => [fx + (x - fx) * z, fy + (y - fy) * z];

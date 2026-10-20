@@ -40,7 +40,7 @@ import { figureFlat, handPos } from '../lib/figure.mjs';
 import { worldMap, region, country, project } from '../lib/map.mjs';
 import { paths } from '../lib/paths.mjs';
 import { stipple, fog as artFog, vnoise } from '../lib/art.mjs';
-import { burin, deed, fundBox, miniCert, billSheet, fileStack, once, CREAM, AMBER, CORE, RUST } from '../lib/sc03_kit.mjs';
+import { burin, fadedHand, deed, fundBox, miniCert, billSheet, fileStack, once, CREAM, AMBER, CORE, RUST } from '../lib/sc03_kit.mjs';
 
 const TAU = Math.PI * 2;
 const eo5 = (x) => 1 - Math.pow(1 - clamp(x), 5);                  // expo-ish out (landings)
@@ -71,17 +71,6 @@ function dipOut(ctx, t, tB, d, x, y, depth = 5) { const k = sm(lin(tB - d / 2 - 
   g.addColorStop(0, 'rgba(4,4,14,0)'); g.addColorStop(1, `rgba(4,4,14,${.94 * k})`); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
 function dipIn(ctx, t, tB, d) { const k = 1 - sm(lin(tB - d / 2, tB + d / 2 + .3, t)); if (k <= 0) return; const g = ctx.createRadialGradient(W / 2, H / 2, 200, W / 2, H / 2, 640); g.addColorStop(0, 'rgba(4,4,14,0)'); g.addColorStop(1, `rgba(4,4,14,${.94 * k})`); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
 // fabric on the K0 hand's flat sleeve (drawn over it, same transform): soft creases near the cuff, the far end sinks into the dark
-function sleeveShade(ctx, x, y, s, o) {
-  const f = o.flip ? -1 : 1, sl = o.sleeveLen ?? 260;
-  ctx.save(); ctx.translate(x, y); ctx.rotate(o.ang ?? 0); ctx.scale(s, s * f);
-  ctx.beginPath(); ctx.rect(-sl, -27, sl - 9, 54); ctx.clip();
-  const g = ctx.createLinearGradient(-14, 0, -Math.min(sl, 640), 0); g.addColorStop(0, 'rgba(6,5,16,0)'); g.addColorStop(.3, 'rgba(6,5,16,.1)'); g.addColorStop(1, `rgba(6,5,16,${o.far ?? .6})`); ctx.fillStyle = g; ctx.fillRect(-sl, -27, sl, 54);
-  const v = ctx.createLinearGradient(0, -27, 0, 27); v.addColorStop(0, 'rgba(255,238,215,.1)'); v.addColorStop(.45, 'rgba(255,238,215,0)'); v.addColorStop(1, 'rgba(6,5,16,.22)'); ctx.fillStyle = v; ctx.fillRect(-sl, -27, sl, 54);
-  ctx.lineCap = 'round';
-  for (const [x0, w] of [[-36, 1], [-66, .8], [-104, .6], [-150, .42], [-210, .3]]) { ctx.strokeStyle = `rgba(10,6,14,${.24 * w})`; ctx.lineWidth = 3.4; ctx.beginPath(); ctx.moveTo(x0 + 7, -27); ctx.quadraticCurveTo(x0 - 5, 0, x0 + 9, 27); ctx.stroke(); ctx.strokeStyle = `rgba(255,236,210,${.1 * w})`; ctx.lineWidth = 1.3; ctx.beginPath(); ctx.moveTo(x0 + 11, -25); ctx.quadraticCurveTo(x0 + 1, 0, x0 + 13, 25); ctx.stroke(); }
-  ctx.fillStyle = 'rgba(255,240,220,.07)'; ctx.fillRect(-30, -27, 12, 54);
-  ctx.restore();
-}
 // a guilloche ring as one closed polyline (for ghost rings)
 function ringPts(cx, cy, R, amp, waves, ph, n = 420) { const pts = []; for (let i = 0; i <= n; i++) { const a = i / n * TAU, r = R + amp * Math.sin(a * waves + ph); pts.push([cx + Math.cos(a) * r, cy + Math.sin(a) * r]); } return pts; }
 const subPts = (P, u0, u1) => { const n = P.length - 1, i0 = Math.max(0, Math.floor(u0 * n)), i1 = Math.min(n, Math.ceil(u1 * n)); return P.slice(i0, i1 + 1); };
@@ -119,10 +108,10 @@ export default (T, R) => {
   })();
   const PB = { t0: Math.max(A.largest - .05, CIN.t + .55), d: 1.35 }, GL = { t0: A.yet1e + .1, t1: Math.max(A.yet1e + 1.0, A.noone + .15) }, PU = { t0: A.s104 - .45, t1: A.s104 + .55 };
   // the cut: the plate's first line, a fine guilloche wave (rope-band profile: a sine plus a quarter of its 2.03 harmonic, low amplitude,
-  // 90 waves round the circle) on the fortune rosette's mid circle, run counter-clockwise from angle a0. Its dotted ghost lies in the
+  // 80 waves round the circle) on the fortune rosette's mid circle, run counter-clockwise from angle a0. Its dotted ghost lies in the
   // plate layer; the burin makes it solid.
-  const a0 = -1.95, NW = 90, AW = 7, SPAN = 2.27;
-  const waveR = (th) => RG.R + AW * (.75 * Math.sin(NW * th) + .25 * Math.sin(2.03 * NW * th - .8));
+  const a0 = -1.95, NW = 80, AW = 2.8, SPAN = 2.27;
+  const waveR = (th) => RG.R + AW * (.8 * Math.sin(NW * th) + .2 * Math.sin(2.03 * NW * th + .6));
   const CUT = (() => { const out = []; for (let k = 0; k <= 2400; k++) { const th = a0 - k / 2400 * SPAN, r = waveR(th); out.push([ROS.x + Math.cos(th) * r, ROS.y + Math.sin(th) * r]); } return resample(out, 1400); })();
   const cutAt = (u) => { const f = clamp(u) * (CUT.length - 1), i = Math.min(CUT.length - 2, Math.floor(f)), q = f - i; return [mix(CUT[i][0], CUT[i + 1][0], q), mix(CUT[i][1], CUT[i + 1][1], q)]; };
   const tCut0 = Math.min(CIN.t + .5, A.largest - .1), tCut1 = A.yet1 + .02, cutU = (t) => .42 * (1 - Math.pow(1 - lin(tCut0, tCut1, t), 1.6));
@@ -185,7 +174,7 @@ export default (T, R) => {
     const u = cutU(t); if (u > .001) {
       const Pts = subPts(CUT, 0, u).slice(0, -1).concat([cutAt(u)]), hot = Math.max(0, Pts.length - 90);
       ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(AMBER, .16); ctx.lineWidth = 5 / s + 1.6; strokePoly(ctx, Pts); ctx.strokeStyle = rgba(AMBER, .32); ctx.lineWidth = 3.2 / s + 1.2; strokePoly(ctx, Pts.slice(hot)); ctx.restore();
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(AMBER, .18); ctx.lineWidth = 3.5 / s + 1.2; strokePoly(ctx, Pts); ctx.strokeStyle = rgba(AMBER, .32); ctx.lineWidth = 3.2 / s + 1.2; strokePoly(ctx, Pts.slice(hot)); ctx.restore();
       ctx.strokeStyle = rgba(CREAM, .95); ctx.lineWidth = 1.9 / s + .55; strokePoly(ctx, Pts);
       ctx.strokeStyle = rgba(CORE, .9); ctx.lineWidth = 1.2 / s + .4; strokePoly(ctx, Pts.slice(hot));
     }
@@ -217,12 +206,15 @@ export default (T, R) => {
     // the burin (hand + graver), world-anchored once it touches the plate; it lifts on "yet" and leaves up-right
     { const ha = clamp((t - CIN.t + .1) / .45) * (1 - sm(lin(GL.t0 + .6, GL.t0 + 1.4, t)));
       if (ha > 0) {
-        const REF = -2.62 + TAU; let ang = REF + .05 * Math.sin(t * 1.2); if (t >= tCut0) { const uu = cutU(t), i = Math.min(CUT.length - 2, Math.round(uu * (CUT.length - 1))), j = Math.max(0, i - 40), k2 = Math.min(CUT.length - 1, i + 40); let a1 = Math.atan2(CUT[k2][1] - CUT[j][1], CUT[k2][0] - CUT[j][0]) + C.r; while (a1 - REF > Math.PI) a1 -= TAU; while (REF - a1 > Math.PI) a1 += TAU; ang = mix(ang, a1, .55 * sm(lin(tCut0, tCut0 + .45, t))); }
-        const sc = .78 * (C.s / 1.6) ** .55, outX = away * 520, outY = -away * 260;
-        const bu = burin(ctx, tip[0] + outX, tip[1] + outY, ang, sc, t, { lift, cut: t >= tCut0 && t < A.yet1 + .1 ? 1 : 0, a: ha, sleeve: '#3a2a3a', skin: '#a8734f', rim: '#ffd59a', sleeveLen: 900 });
-        if (ha > .3) sleeveShade(ctx, bu.wrist[0], bu.wrist[1], sc * 1.32, { ang, sleeveLen: 900, far: .75 });
+        // a large engraver's hand close to the plate. The wrist follows the smooth mid circle, the tool pivots a little so its tip rides the fine wave.
+        const sc = 1.15 * (C.s / 1.6) ** .45, outX = away * 520, outY = -away * 260, cutOn = t >= tCut0 && t < A.yet1 + .1;
+        const REF = -2.62 + TAU; let ang = REF + .05 * Math.sin(t * 1.2);
+        if (t >= tCut0) { const p = cutAt(cutU(t)), th = Math.atan2(p[1] - ROS.y, p[0] - ROS.x); let a1 = th - Math.PI / 2 + C.r; while (a1 - REF > Math.PI) a1 -= TAU; while (REF - a1 > Math.PI) a1 += TAU;
+          const a2 = mix(ang, a1, .55 * sm(lin(tCut0, tCut0 + .45, t))), m = toS(C, ROS.x + Math.cos(th) * RG.R, ROS.y + Math.sin(th) * RG.R), Lw = 345 * sc;
+          const wx = m[0] - Math.cos(a2) * Lw, wy = m[1] - Math.sin(a2) * Lw; ang = Math.atan2(tip[1] - wy, tip[0] - wx); }
         // the light at the tip = the carrier from c02 (shareLight); it calms down once the cut begins
         const la = t < tCut0 ? 1 : mix(1, .55, sm(lin(tCut0, tCut0 + .5, t))) * (1 - lift * .5);
+        burin(ctx, tip[0] + outX, tip[1] + outY, ang, sc, t, { lift, cut: cutOn ? 1 : 0, a: ha, sleeve: '#3a2a3a', skin: '#a8734f', rim: '#ffd59a', glow: Math.max(la, cutOn ? .9 : 0) });
         shareLight(ctx, tip[0] + outX, tip[1] + outY - lift * 26 * sc, 14 * (t < tCut0 ? CIN.pos(t).s : 1) * mix(1, .6, lift), t, { a: la * ha });
       } }
     { const wk = 1 - sm(lin(CIN.t - .1, CIN.t + .8, t)); if (wk > 0) { ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = rgba('#d8b48c', wk); ctx.fillRect(0, 0, W, H); ctx.restore(); } }
@@ -307,10 +299,9 @@ export default (T, R) => {
     const hl = handL(t), hr = handR(t), warm = sm(lin(A.coming - .4, A.coming + .5, t));
     const rimL = warm > 0 ? '#ffd59a' : '#e9c08a', n0 = nib(t);
     pen(ctx, n0.x, n0.y, 1.05, { ang: n0.ang, t, lift: n0.lift });
-    hand(ctx, hl.x, hl.y, 1.55, { pose: hl.pose, ang: hl.ang, skin: '#c99a74', sleeve: '#c8843a', rim: rimL, light: [1, -.4], t, seed: 2, spread: hl.pose === 'open' ? 1.2 : undefined, sleeveLen: 620 });
-    sleeveShade(ctx, hl.x, hl.y, 1.55, { ang: hl.ang, sleeveLen: 620 });
-    hand(ctx, hr.x, hr.y, 1.55, { pose: 'reach', ang: hr.ang, flip: true, skin: '#7a4f33', sleeve: '#1f5560', rim: warm > 0 ? '#ffd59a' : '#9fc8d0', light: [-1, -.4], t, seed: 5, sleeveLen: 620 });
-    sleeveShade(ctx, hr.x, hr.y, 1.55, { ang: hr.ang, flip: true, sleeveLen: 620 });
+    // the sleeves end in soft folds and dissolve into the dark ~150–250 px behind the wrist (no tube crosses the table)
+    fadedHand(ctx, hl.x, hl.y, 1.55, { pose: hl.pose, ang: hl.ang, skin: '#c99a74', sleeve: '#c8843a', rim: rimL, light: [1, -.4], t, seed: 2, spread: hl.pose === 'open' ? 1.2 : undefined, res: z });
+    fadedHand(ctx, hr.x, hr.y, 1.55, { pose: 'reach', ang: hr.ang, flip: true, skin: '#7a4f33', sleeve: '#1f5560', rim: warm > 0 ? '#ffd59a' : '#9fc8d0', light: [-1, -.4], t, seed: 5, res: z });
     // the nib's contact on "now": an ink bloom on the line
     { const k = lin(A.now - .05, A.now + .6, t); if (k > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, n0.x, n0.y, 50 + 40 * eout(k), .6 * (1 - k * .5), AMBER, CORE); ctx.restore(); } }
     if (warm > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, hl.x + 110, hl.y - 30, 260, .18 * warm, AMBER, '#ffe2b0'); addGlow(ctx, hr.x - 110, hr.y, 260, .18 * warm, AMBER, '#ffe2b0'); ctx.restore(); }
@@ -392,7 +383,7 @@ export default (T, R) => {
     label(ctx, 'THE BIG AI COMPANIES', 96, 150, sm(lin(A.s202 + .2, A.s202 + .8, t)), { size: 20, spacing: 6, col: '#f0b8a0' });
     // the hand: from the left, open → grip on the rim
     const hx = mix(-140, ROS202.x - 420, eout(lin(A.s202 + .2, A.take2 + .05, t))) - pull * 30, hy = ROS202.y + 40 + drift(t, 5, 3);
-    hand(ctx, hx, hy, 2.1, { pose: grip > .5 ? 'grip' : 'reach', close: grip * .4, ang: -.05, skin: '#b98762', sleeve: '#c4512e', rim: '#ffcf96', light: [1, -.5], t, seed: 7, sleeveLen: 1400 }); sleeveShade(ctx, hx, hy, 2.1, { ang: -.05, sleeveLen: 1400, far: .7 });
+    fadedHand(ctx, hx, hy, 2.1, { pose: grip > .5 ? 'grip' : 'reach', close: grip * .4, ang: -.05, skin: '#b98762', sleeve: '#c4512e', rim: '#ffcf96', light: [1, -.5], t, seed: 7, fade0: 60, fade1: 115 });
     if (grip > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, hx + 150, hy - 10, 120, .3 * grip * (1 - pull * .6), RUST, '#ffd0b0'); ctx.restore(); }
     ctx.restore();
     // the bill slides in over everything (carrier into 2.03)
@@ -548,7 +539,7 @@ export default (T, R) => {
     ctx.restore();
     // the hand gripping the right rim, pulling
     const hx = R207.x + R207.R + 120 + stretch, hy = R207.y + 20 + fall * 900;
-    hand(ctx, hx, hy, 2.1, { pose: 'grip', close: .3, ang: Math.PI + .05, flip: true, skin: '#b98762', sleeve: '#c4512e', rim: '#ffcf96', light: [-1, -.4], t, seed: 9, sleeveLen: 900 }); sleeveShade(ctx, hx, hy, 2.1, { ang: Math.PI + .05, flip: true, sleeveLen: 900, far: .7 });
+    fadedHand(ctx, hx, hy, 2.1, { pose: 'grip', close: .3, ang: Math.PI + .05, flip: true, skin: '#b98762', sleeve: '#c4512e', rim: '#ffcf96', light: [-1, -.4], t, seed: 9, fade0: 60, fade1: 115 });
     label(ctx, 'WHAT ALREADY EXISTS', 96, 150, sm(lin(A.s207 + .3, A.s207 + .9, t)) * (1 - fall), { size: 20, spacing: 6, col: '#f0b8a0' });
     motes(ctx, t, 101, 40, .4, '255,200,170');
     vignette(ctx, .55);

@@ -4,7 +4,7 @@
 // Patterns copied from ref/k0/scenes.mjs hookHand (cached background, fog, bloom, motes) and extended.
 import { W, H, rgba, clamp, lin, mix, eout, eio, ein, sm, drift, prng, canvas, text } from '../engine.mjs';
 import { stipple, fog } from './art.mjs';
-import { heldPhone } from './phone.mjs';
+import { heldPhone, lockScreen } from './phone.mjs';
 import { ripple, ring, rosette, gBorder, microtext, microRing, seal, foilGlint, guilloche } from './certificate.mjs';
 import { shareLight } from './share.mjs';
 
@@ -35,7 +35,7 @@ function motes(ctx, t, cx, cy, a) {
   for (let i = 0; i < 110; i++) { const ang = r() * 6.283, d = 140 + r() * 560, sp = .2 + r() * .5, x = cx + Math.cos(ang) * d + Math.sin(t * sp + i) * 24, y = cy + Math.sin(ang) * d * .8 + Math.cos(t * sp * .8 + i * 1.7) * 18 - t * 6; const f = Math.max(0, 1 - d / 700); ctx.fillStyle = `rgba(255,214,170,${(.12 + .45 * r()) * f * a})`; const z = r() < .8 ? 1.4 : 2.4; ctx.fillRect(x, y, z, z); }
   ctx.restore();
 }
-const LOCK = (K) => ({ time: '6:12', day: 'Monday, 9 November', cards: [{ title: 'Electricity bill', sub: 'Payment due Friday', t0: K.buzz + .12, t1: 99 }] });
+const LOCK = (K) => ({ time: '6:12', day: 'Thursday, 22 October', cards: [{ title: 'Electricity bill', sub: 'Payment due Friday', t0: K.buzz + .12, t1: 99 }] });
 export function hookHand(ctx, t, K) {
   const push = eio(clamp(t / (K.bill + .2))), s = mix(2.02, 2.42, push) * (1 + .006 * Math.sin(t * 1.3));
   const ang = -.12 + .012 * Math.sin(t * .4) + .03 * (1 - push);
@@ -55,7 +55,12 @@ export function hookHand(ctx, t, K) {
   const pull = clamp((t - (K.bill - .62)) / .55);
   if (pull > 0 && pull < 1) { const e = eiX(pull), R = mix(820, 150 * s * .5, e); ring(ctx, cx, cy, mix(R, 75 * s, e), mix(R, 150 * s * .97, e), { lines: 9, band: 26, wave: 38, col: '#fff1d6', glow: '#ffb35c', a: .9 * Math.sin(Math.PI * pull), lw: 1.2, p: mix(2, 6, e), rot: ang, ph: t }); }
   ctx.globalAlpha = exp;
-  const P = heldPhone(ctx, cx, cy, s, { t, buzz: buzzes.map((b) => b - .04), ang, lit, lock: LOCK(K), skin: '#b98261', rim: '#dfe6f2', rimA: .35 + .4 * lit, warm: 1 });
+  // during the zoom into the display the phone's own clock and card dissolve into its plain wallpaper while the full-frame lock screen
+  // (H.02a) fades in over it: the content crossfades instead of showing twice at two slightly different sizes
+  const zu = clamp((t - (K.bill - .35)) / .7), hide = sm(clamp((zu - .28) / .26));
+  const scr = (g, w, h, tt) => { lockScreen(g, w, h, tt, { lit, ...LOCK(K) });
+    if (hide > 0) { g.save(); g.globalAlpha = hide * clamp(lit); const bg = g.createLinearGradient(0, 0, 0, h); bg.addColorStop(0, '#1b2236'); bg.addColorStop(1, '#0b0e18'); g.fillStyle = bg; g.fillRect(0, 0, w, h); g.restore(); } };
+  const P = heldPhone(ctx, cx, cy, s, { t, buzz: buzzes.map((b) => b - .04), ang, lit, screen: scr, skin: '#b98261', rim: '#dfe6f2', rimA: .35 + .4 * lit, warm: 1 });
   ctx.globalAlpha = 1;
   // the wrist sinks into the dark below the hand (only the hand near the glass is lit)
   { const [ax, ay] = P.map(150, 150), [bx, by] = P.map(232, 268), wg = ctx.createLinearGradient(ax, ay, bx, by); wg.addColorStop(0, 'rgba(2,3,9,0)'); wg.addColorStop(.55, 'rgba(2,3,9,.55)'); wg.addColorStop(1, 'rgba(2,3,9,.94)'); ctx.fillStyle = wg; ctx.fillRect(0, 0, W, H); }
@@ -187,9 +192,9 @@ export function lockTake(ctx, t, K) {
   const dx = -34 * bump(wipe * .8) + 18 * bump((t - (K.billE - .04)) / .9) + jolt, dy = -22 * bump(fly * .8) + 30 * (1 - lean) * clamp(rise * 3) * 0;
   ctx.save(); ctx.translate(W / 2 + drift(t, 8, 1) + dx, H / 2 + 20 + drift(t, 6, 2) + dy - 12 * lean); ctx.rotate(-.045 + .006 * Math.sin(t * .5) + .03 * lean); ctx.scale(z, z);
   ctx.drawImage(wallpaper(), -WX, -WY);
-  // the date (a few weeks after the 18 Oct announcement; 9 Nov 2026 is a Monday) fades before the lean-in would crop it at the top edge
+  // the date ("a few days ago": four days after the 18 Oct announcement; 22 Oct 2026 is a Thursday) fades before the lean-in would crop it at the top edge
   const dA = 1 - sm(clamp((lean - .04) / .24));
-  if (dA > 0) { ctx.save(); ctx.textAlign = 'center'; ctx.fillStyle = `rgba(236,240,250,${.72 * dA})`; ctx.font = '500 40px "Inter"'; ctx.fillText('Monday, 9 November', 0, -492); ctx.restore(); }
+  if (dA > 0) { ctx.save(); ctx.textAlign = 'center'; ctx.fillStyle = `rgba(236,240,250,${.72 * dA})`; ctx.font = '500 40px "Inter"'; ctx.fillText('Thursday, 22 October', 0, -492); ctx.restore(); }
   // the bill: dropped in with the buzz, flicked off to the left on "bill" (a short trail behind it)
   if (wipe < 1) { const e = ein(wipe), x = -e * 1900, y = -(1 - billIn) * 380, L = greyCardLayer(BILL);
     for (let k = 4; k >= 1; k--) drawCard(ctx, L, x + k * 80 * Math.min(1, wipe * 4), y, -.05 * e, .045 * bump(wipe * 1.4));

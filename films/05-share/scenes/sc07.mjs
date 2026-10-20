@@ -6,7 +6,7 @@
 //   4.13  flat world map on a table: the form rises in from the bottom, lands on the US and folds into the third seed;
 //         three seeds glow (Santa Clara, Washington, Seoul), the rest stays dark ("everyone")      → camera drifts in (plan sequence)
 //   4.14  (same shot) roots run from the seeds and stop at the US border, the border flares ("borders"); a stack of
-//         blank forms slides in, APPLY is punched through the top one ("apply")                    → a border segment flickers   [zoom]
+//         blank forms slides in, APPLY is punched through the top one ("apply")                    → same camera, roots fade    [match]
 //   4.15  each seed becomes an engraved printing plate; prints are pulled ("copied") and hop in rings over the borders
 //                                                                                                   → the prints stream right   [whipR]
 //   4.16  night wind carries the prints; a strip of four engraved vignettes glides by: hammock, basket, crib, mat, a newborn
@@ -63,6 +63,8 @@ const E = (t0, d, t) => expo(lin(t0, t0 + d, t));
 const pop = (u) => (u <= 0 ? 0 : u >= 1 ? 1 : 1 - Math.exp(-u * 7) * Math.cos(u * 9.5));  // ≤4 % overshoot
 // slide compensation: progress of an up/down transition into a shot that starts at Bt
 const slideE = (Bt, d, t) => eio(lin(Bt - d / 2, Bt + d / 2, t));
+// while a zoom grows this shot out of the last one, its frame edges melt into the colour it is born from (no picture-in-picture edge)
+function edgeMelt(ctx, col, k) { if (k <= .005) return; const g = ctx.createRadialGradient(960, 540, 300, 960, 540, 1000); g.addColorStop(0, rgba(col, 0)); g.addColorStop(.55, rgba(col, .55 * k)); g.addColorStop(1, rgba(col, k)); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
 function vign(ctx, a = .55, col = '#05060f') { const g = ctx.createRadialGradient(960, 560, 380, 960, 560, 1250); g.addColorStop(0, rgba(col, 0)); g.addColorStop(1, rgba(col, a)); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
 function motes(ctx, t, box, n, col, seed, a = .5, rise = 6) {
   const r = prng(seed); const [bx, by, bw, bh] = box; ctx.save(); ctx.globalCompositeOperation = 'lighter';
@@ -271,14 +273,14 @@ export default (T, R) => {
     }
     // "apply": a stack of blank forms slides in, APPLY punched through the top one
     const su = E(A.parents - .1, .7, t);
-    if (su > 0) stackForms(ctx, 1420, 780, t, su, lin(A.apply - .1, A.apply + .55, t));
-    // the flicker on one border segment (the zoom goes into it)
-    if (t > t415 - .6) { const [bx, by] = project(cam, -100.5, 28.6); const f = .5 + .5 * Math.sin(t * 40); addGlow(ctx, bx, by, 60, .5 * f * E(t415 - .6, .2, t), AMB, CORE); }
+    if (su > 0) stackForms(ctx, 1420, 780, t, su, lin(A.apply - .25, A.apply + .3, t));
     vign(ctx, .5);
   }
 
   // ================================================================ 4.15 seeds become printing plates; prints hop in rings over borders
-  const cam415 = (t) => ({ cx: -1.02, cy: .58, z: mix(3.3, 2.2, quart(lin(t415, A.picture, t))), tilt: .4, rot: -.02, x: 960, y: 560 });
+  // 4.15 continues 4.14's camera (one continuous move across the match), then pulls back to show the copies spreading
+  const cam415 = (t) => { const c0 = camAt(t), k = quart(lin(t415 - .25, A.picture, t));
+    return { cx: mix(c0.cx, -1.02, k), cy: mix(c0.cy, .58, k), z: mix(c0.z, 2.2, k), tilt: mix(c0.tilt, .4, k), rot: mix(c0.rot, -.02, k), x: mix(c0.x, 960, k), y: 560 }; };
   function plate(ctx, x, y, s, t, u) { // the copper plate with an engraved seed
     ctx.save(); ctx.translate(x, y); ctx.scale(s, s * .62);
     const g = ctx.createLinearGradient(-90, -60, 90, 60); g.addColorStop(0, '#e0a070'); g.addColorStop(.5, '#a8603a'); g.addColorStop(1, '#5a2e1c');
@@ -302,6 +304,8 @@ export default (T, R) => {
     const cam = cam415(t);
     ctx.fillStyle = '#120d12'; ctx.fillRect(0, 0, W, H);
     worldMap(ctx, cam, { t, highlight: ['USA'], dim: .55, borderGlow: [], light: [960, 300], detail: '110m' });
+    // the APPLY stack stays through the match (readable ≥ 1 s), then slides out as the plates take over
+    const sx = 1 - expoIn(lin(A.but + .3, A.but + .85, t)); if (sx > 0) stackForms(ctx, 1420, 780, t, sx, 1);
     const pu = E(t415 + .1, .6, t);
     const centres = [SEEDS[2], SEEDS[0]].map((sd) => project(cam, sd.lon, sd.lat));
     centres.forEach(([x, y, sc], i) => plate(ctx, x, y, (.8 + .3 * sc) * (i ? .7 : 1) * pu, t, pu));
@@ -366,6 +370,9 @@ export default (T, R) => {
     for (let i = 0; i < 16; i++) { const sp = 260 + r() * 340, y0 = r() < .5 ? 90 + r() * 230 : 820 + r() * 170, ph = r() * 3000, s = .45 + r() * .6; const x = ((t - t416) * sp + ph * .4 - 300) % (W + 400) - 100 + (t < t416 + .5 ? 0 : 0);
       printSheet(ctx, x, y0 + Math.sin(t * 1.3 + i) * 30, s, Math.sin(t * 2 + i) * .5, t, .9, .5); }
     vign(ctx, .55);
+    // the night closes in around the crib as the camera pushes into it (the zoom then meets 4.17's dark edges)
+    const cl = eio(clamp(lin(t417 - .45, t417 + .12, t)));
+    if (cl > 0) { const cx = vigX(1, t), cy = VY + 40, r0 = mix(1500, 210, cl), g = ctx.createRadialGradient(cx, cy, r0, cx, cy, r0 + 260); g.addColorStop(0, rgba('#1a1020', 0)); g.addColorStop(1, rgba('#1a1020', cl)); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
   }
 
   // ================================================================ 4.17 ★ the newborn hand closes around the seed; her name on the tag
@@ -456,6 +463,10 @@ export default (T, R) => {
     ctx.restore();
     motes(ctx, t, [500, 150, 1000, 750], 26, '#ffd9a0', 4, .45, 4);
     vign(ctx, .6, '#0a0506');
+    edgeMelt(ctx, '#1a1020', 1 - E(t417 + .22, .7, t));   // born out of the dark crib vignette
+    // the seed's light floods the frame as the camera dives into it (4.18 opens out of the same light)
+    const bl = eio(clamp(lin(t418 - .4, t418 + .02, t)));
+    if (bl > 0) { const [zx, zy] = toScr(905, 700, 2.3, -.42, 2, -50), g = ctx.createRadialGradient(zx, zy, 0, zx, zy, mix(200, 1300, bl)); g.addColorStop(0, rgba('#ffcf9e', Math.min(1, bl * 1.5))); g.addColorStop(1, rgba('#ffcf9e', bl * bl)); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
   }
 
   // ================================================================ 4.18 the seed in the soil, the little tree, small feet
@@ -530,6 +541,7 @@ export default (T, R) => {
     if (t > t501 - 1.1) { const P = shootKeys(sheetAt())(t), e = slideE(t501, d418, t); drawCarrier(ctx, 'sprout', P.x, P.y + e * H, P.s, 0, t, { a: E(t501 - 1.1, .3, t) }); }
     motes(ctx, t, [0, 200, W, 420], 30, '#ffe2b8', 12, .35, 5);
     vign(ctx, .45);
+    edgeMelt(ctx, '#ffcf9e', 1 - E(t418 + .22, .7, t));   // the dawn field opens out of the seed's light
   }
 
   // ================================================================ 5.01 Step two: grow
@@ -662,14 +674,21 @@ export default (T, R) => {
   function phoneScreen(warmU, swipe, back, foil, t) {
     return (g, w, h) => {
       g.fillStyle = '#0b0e18'; g.fillRect(0, 0, w, h);
-      const card = (dx, a, withFoil) => { g.save(); g.globalAlpha = a; g.translate(dx, 0); g.fillStyle = '#f2efe6'; g.beginPath(); g.roundRect(10, 60, w - 20, 150, 12); g.fill();
-        g.fillStyle = '#151822'; g.font = '25px "Instrument Serif"'; g.fillText('AI company', 22, 100); g.fillText('doubles its value', 22, 128);
+      const card = (dx, a, withFoil, dy = 0) => { if (a <= 0 || dy < -230) return; g.save(); g.globalAlpha = a; g.translate(dx, dy); g.fillStyle = '#f2efe6'; g.beginPath(); g.roundRect(10, 60, w - 20, 150, 12); g.fill();
+        g.font = '25px "Instrument Serif"'; const fs = Math.min(25, 25 * (w - 46) / g.measureText('doubles its value').width);   // fits the screen, never cut
+        g.fillStyle = '#151822'; g.font = `${fs.toFixed(1)}px "Instrument Serif"`; g.fillText('AI company', 20, 96); g.fillText('doubles its value', 20, 96 + fs * 1.1);
         g.strokeStyle = '#c4512e'; g.lineWidth = 3; g.beginPath(); g.moveTo(24, 190); g.lineTo(60, 184); g.lineTo(90, 180); g.lineTo(110, 162); g.lineTo(128, 140); g.stroke();
-        if (withFoil > 0) { g.fillStyle = '#e9c46a'; g.font = '600 13px "Inter"'; try { g.letterSpacing = '2px'; } catch { } g.save(); g.beginPath(); g.rect(14, 214, (w - 28) * withFoil, 40); g.clip();
-          g.fillStyle = '#2a1a08'; g.beginPath(); g.roundRect(14, 218, w - 28, 34, 8); g.fill(); const fg = g.createLinearGradient(14, 0, w - 14, 0); fg.addColorStop(0, '#c87a2c'); fg.addColorStop(.5, '#ffe2a8'); fg.addColorStop(1, '#c87a2c'); g.fillStyle = fg; g.fillText('YOUR SHARE ↑', 26, 241); g.restore(); try { g.letterSpacing = '0px'; } catch { } }
+        if (withFoil > 0) { g.font = '700 13px "Inter"'; try { g.letterSpacing = '1px'; } catch { } const ff = Math.min(15, 13 * (w - 40) / g.measureText('YOUR SHARE ↑').width); g.font = `700 ${ff.toFixed(1)}px "Inter"`;
+          g.save(); g.beginPath(); g.rect(8, 212, (w - 16) * withFoil, 46); g.clip();
+          g.fillStyle = '#2a1a08'; g.beginPath(); g.roundRect(8, 216, w - 16, 38, 8); g.fill(); const fg = g.createLinearGradient(8, 0, w - 8, 0); fg.addColorStop(0, '#d88a3c'); fg.addColorStop(.5, '#fff0c8'); fg.addColorStop(1, '#d88a3c'); g.fillStyle = fg; g.textAlign = 'center'; g.fillText('YOUR SHARE ↑', w / 2, 235 + ff * .36); g.textAlign = 'left'; g.restore(); try { g.letterSpacing = '0px'; } catch { } }
         g.restore(); };
-      if (back < 1) card(-swipe * w * 1.1, 1 - back, 0);
-      if (back > 0) card((1 - back) * w * 1.1, back, foil);
+      // "scroll past": the headline card is thumbed up and away, a grey feed keeps scrolling under it (nothing for us in it)
+      const run = swipe * 200 + Math.max(0, t - A.scroll - .5) * 55;
+      if (back < 1) { g.save(); g.globalAlpha = (1 - back) * .9; for (let k = 0; k < 7; k++) { const y = 250 + k * 170 - run; if (y < -160 || y > h) continue;
+          g.fillStyle = '#1b2131'; g.beginPath(); g.roundRect(10, y, w - 20, 150, 12); g.fill(); g.fillStyle = '#2d3549'; g.fillRect(22, y + 18, (w - 44) * (.5 + .4 * ((k * 37) % 10) / 10), 10); g.fillRect(22, y + 36, (w - 44) * .38, 10);
+          g.fillStyle = '#232a3c'; g.fillRect(22, y + 60, w - 44, 76); } g.restore();
+        card(0, 1 - back, 0, -run); }
+      if (back > 0) card(0, back, foil, -(1 - back) * 230);
       if (warmU > 0) { g.save(); g.globalCompositeOperation = 'lighter'; g.fillStyle = rgba('#ffb35c', .12 * warmU); g.fillRect(0, 0, w, h); g.restore(); }
     };
   }
@@ -685,8 +704,10 @@ export default (T, R) => {
       const r = backFig(ctx, P.x, P.y, P.s, { t, seed: P.seed, dress: { coat: P.c }, accent: P.a, shUp, light: { x: 1400, y: 200, col: '#cfdcff', a: .7 - warm * .3 }, light2: { x: 300, y: 80, col: warm > .3 ? AMB : SODIUM, a: .45 + .45 * warm }, glow: { col: glowCol, a: .55 + .4 * warm }, shade: .25 * (1 - warm) });
       // a small display peeks past the right shoulder: the same headline card (then the foil line)
       const [px, py] = r.phone, sw = 13 * P.s, shh = 22 * P.s; ctx.save(); ctx.translate(px + 10 * P.s, py - 6 * P.s); ctx.rotate(.25);
-      ctx.fillStyle = '#0b0e18'; ctx.fillRect(-sw / 2, -shh / 2, sw, shh); const back = E(A.withA + .1 + i * .08, .5, t), sc = lin(A.scroll + i * .1, A.scroll + .35 + i * .1, t);
-      ctx.fillStyle = rgba('#f2efe6', (1 - sc) * (1 - back) + back); ctx.fillRect(-sw / 2 + 1.5 - sc * sw * (1 - back), -shh / 2 + 5, sw - 3, shh * .42);
+      ctx.fillStyle = '#0b0e18'; ctx.fillRect(-sw / 2, -shh / 2, sw, shh); const back = E(A.withA + .1 + i * .08, .5, t), sc = expo(lin(A.scroll + i * .1, A.scroll + .45 + i * .1, t));
+      ctx.save(); ctx.beginPath(); ctx.rect(-sw / 2, -shh / 2, sw, shh); ctx.clip(); const run = (sc * .62 + Math.max(0, t - A.scroll - .6) * .12) * shh * (1 - back);
+      if (back < 1) { ctx.fillStyle = rgba('#3a4258', .9 * (1 - back)); for (let k = 1; k < 5; k++) { const y = -shh / 2 + 5 + k * shh * .5 - run; ctx.fillRect(-sw / 2 + 1.5, y, sw - 3, shh * .4); } }
+      ctx.fillStyle = '#f2efe6'; ctx.fillRect(-sw / 2 + 1.5, -shh / 2 + 5 - run, sw - 3, shh * .42); ctx.restore();
       if (back > 0) { ctx.fillStyle = rgba('#e9c46a', back * E(A.win, .5, t)); ctx.fillRect(-sw / 2 + 1.5, -shh / 2 + 5 + shh * .48, sw - 3, shh * .14); }
       addGlow(ctx, 0, 0, sw * 1.6, .3, glowCol, '#ffffff'); ctx.restore(); }
     ctx.restore();
@@ -714,7 +735,7 @@ export default (T, R) => {
     // the card (top) and the foil line that engraves itself, left to right, with a burin point
     ctx.fillStyle = '#f2efe6'; ctx.beginPath(); ctx.roundRect(160, -200, 1600, 560, 40); ctx.fill();
     text(ctx, 'AI company doubles its value', 240, 180, { size: 92, font: 'Instrument Serif', color: '#151822' });
-    const u = lin(A.auto - .05, A.autoE - .05, t);
+    const u = lin(A.auto - .1, A.auto + .5, t);   // engraved fast ("Automatically"), then it stays readable ≥ 1 s
     ctx.fillStyle = '#2a1a08'; ctx.beginPath(); ctx.roundRect(160, 440, 1600, 230, 34); ctx.fill();
     ctx.save(); ctx.beginPath(); ctx.rect(160, 430, 1600 * u + 40, 260); ctx.clip();
     const fg = ctx.createLinearGradient(200, 0, 1700, 0); fg.addColorStop(0, '#c87a2c'); fg.addColorStop(.5, '#ffe2a8'); fg.addColorStop(1, '#c87a2c');
@@ -760,7 +781,7 @@ export default (T, R) => {
   return [
     { t: t412, tr: CI.into.tr, x: CI.into.x, y: CI.into.y, d: CI.into.d, draw: draw412 },
     { t: t413, tr: 'cut', d: .12, draw: draw413 },
-    { t: t415, tr: 'zoom', d: .6, depth: 3, ...(() => { const c = camAt(t415); const [x, y] = project(c, -100.5, 28.6); return { x, y }; })(), draw: draw415 },
+    { t: t415, tr: 'match', d: .5, draw: draw415 },   // same map, same camera: the roots fade, the plates rise
     { t: t416, tr: 'whipR', d: .35, draw: draw416 },
     { t: t417, tr: 'zoom', d: .6, depth: 4, x: vigX(1, t417), y: VY + 40, draw: draw417 },
     { t: t418, tr: 'zoom', d: .6, depth: 4, ...(() => { const [x, y] = toScr(905, 700, 2.3, -.42, 2, -50); return { x, y }; })(), draw: draw418, sound: [{ f: 'swell', t: A.grEnd + .1, v: .2 }] },

@@ -67,21 +67,21 @@ export default (T, R) => {
   shots.push({ t: K.fantasy - .55, tr: 'cut', d: .08, draw: (ctx, t) => roofTake(ctx, t, K4), print: { riso: .25 } });
   // H.06 + H.07: one take on the engraving plate (the announcement, the torn corner, Musk's card, the US map)
   const KP = { ...K, cutIn: K.t06 };
-  shots.push({ t: K.t06, tr: 'cut', d: .08, draw: (ctx, t) => plateTake(ctx, t, KP), sound: [{ f: 'tear', t: K.piece + .05, v: .22 }] });
-  shots.push({ t: K.t07 - .3, tr: 'cut', d: .08, draw: (ctx, t) => plateTake(ctx, t, KP), sound: [{ f: 'multiply', t: K.every + .35, v: .2 }] });
+  shots.push({ t: K.t06, tr: 'cut', d: .08, draw: (ctx, t) => plateTake(ctx, t, KP), sound: [{ f: 'tear', t: K.piece + .05, v: .15 }] });   // short and low: the tear lands on "piece" (no pause to move it to)
+  shots.push({ t: K.t07 - .3, tr: 'cut', d: .08, draw: (ctx, t) => plateTake(ctx, t, KP) });   // (no accent under the running sentence)
   // H.08 the mailbox wall
   shots.push({ t: K.t08 - .2, tr: 'up', d: .6, draw: (ctx, t) => mailboxShot(ctx, t, K) });
   // H.09 the row of open hands
   shots.push({ t: K.t09, tr: 'left', d: .55, draw: (ctx, t) => handsShot(ctx, t, K) });
   // H.10 the two friends on the roof at night
   const K10 = { t0: K.t10, plan: K.plan, friend: K.friend, tonight: K.tonight, out: K.t01 };
-  shots.push({ t: K.t10, tr: 'whipL', d: .3, draw: (ctx, t) => roofNight(ctx, t, K10), print: { riso: .25 }, sound: [{ f: 'pencil', t: K.plan + .1, v: .12 }] });
+  shots.push({ t: K.t10, tr: 'whipL', d: .3, draw: (ctx, t) => roofNight(ctx, t, K10), print: { riso: .25 }, sound: [{ f: 'whoosh_airy', t: K.t01 - .78, v: .14 }] });   // in the long pause after "tonight.": the pen lifts away
   // 0.01 the name under the shadow band, the pen underlines it
   shots.push({ t: K.t01, tr: 'cut', d: .08, draw: (ctx, t) => sheetName(ctx, t, K) });
   // 0.03 + 0.03a the rosette and its slice (one take)
   const [rgx, rgy] = nameRingScreen(K);
   shots.push({ t: K.t03, tr: 'iris', x: rgx, y: rgy, r: 68, d: .8, draw: (ctx, t) => rosetteTake(ctx, t, K) });
-  shots.push({ t: K.t03a, tr: 'cut', d: .08, draw: (ctx, t) => rosetteTake(ctx, t, K), sound: [{ f: 'stamp', t: K.agrees + .02, v: .25 }] });
+  shots.push({ t: K.t03a, tr: 'cut', d: .08, draw: (ctx, t) => rosetteTake(ctx, t, K), sound: [{ f: 'stamp', t: K.agrees + .02, v: .2 }] });   // the board's seal lands on the sentence's last word
   // 0.04 Musk's quote sheet; it slides aside on the register's curve (carry c01>c02, kind 'own')
   shots.push({ t: K.t04q, tr: 'left', d: .6, draw: (ctx, t) => muskQuote(ctx, t, K, C) });
   return shots;

@@ -362,17 +362,32 @@ const SEASON = [ // sky, ground, foliage, snow
 ];
 function seasonAt(f) { const k = Math.floor(f) % 4, q = sm(f - Math.floor(f)), A = SEASON[k], B = SEASON[(k + 1) % 4];
   return { sky0: mixHex(A.sky[0], B.sky[0], q), sky1: mixHex(A.sky[1], B.sky[1], q), ground: mixHex(A.ground, B.ground, q), leafA: A.leaf, leafB: B.leaf, q, snow: mix(A.snow, B.snow, q), k }; }
+function fieldTex() {
+  return once('fieldtex', () => {
+    const [c, g] = canvas(W, 660), n = vnoise(17);
+    for (let y = 0; y < 660; y += 4) for (let x = 0; x < W; x += 4) { const p = 1 + y / 90, v = fbm(n, x * .006 / p * 3, y * .03 / p * 3, 4); g.fillStyle = `rgba(${v > .5 ? '255,255,255' : '0,0,0'},${Math.abs(v - .5) * .9})`; g.fillRect(x, y, 4, 4); }
+    g.filter = 'blur(2px)'; g.drawImage(c, 0, 0); g.filter = 'none'; return c;
+  });
+}
 export function seasonsMailbox(ctx, t, o = {}) {
   const u = clamp(o.u ?? 0), years = o.years ?? 2, f = u * years * 4, S = seasonAt(f), cx = o.x ?? 1020, cy = o.y ?? 760, sc = o.s ?? 3.6;
   // sky and a far treeline, day and night flickering past
   const day = .5 + .5 * Math.sin(u * years * 4 * TAU * 2.5);
   const lg = ctx.createLinearGradient(0, 0, 0, H * .7); lg.addColorStop(0, mixHex(S.sky0, '#050a18', .5 * (1 - day))); lg.addColorStop(1, mixHex(S.sky1, '#0c1b33', .45 * (1 - day))); ctx.fillStyle = lg; ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = mixHex('#14243a', S.ground, .25); ctx.beginPath(); ctx.moveTo(0, 600); for (let x = 0; x <= W; x += 40) ctx.lineTo(x, 560 - 40 * Math.abs(Math.sin(x * .013)) - 20 * Math.sin(x * .05)); ctx.lineTo(W, 640); ctx.lineTo(0, 640); ctx.fill();
+  { const mg = ctx.createLinearGradient(0, 470, 0, 640); mg.addColorStop(0, mixHex('#14243a', S.sky1, .45)); mg.addColorStop(1, mixHex('#14243a', S.ground, .3)); ctx.fillStyle = mg; } ctx.beginPath(); ctx.moveTo(0, 600); for (let x = 0; x <= W; x += 40) ctx.lineTo(x, 560 - 40 * Math.abs(Math.sin(x * .013)) - 20 * Math.sin(x * .05)); ctx.lineTo(W, 640); ctx.lineTo(0, 640); ctx.fill();
   // the cabin wall behind, out of focus
   ctx.drawImage(once('cabinblur', () => { const S = cabinSprite(1.6), [c, g] = canvas(S.width + 40, S.height + 40); g.filter = 'blur(4px)'; g.drawImage(S, 20, 20); g.filter = 'none'; g.globalCompositeOperation = 'destination-out'; const fg = g.createLinearGradient(c.width - 220, 0, c.width - 30, 0); fg.addColorStop(0, 'rgba(0,0,0,0)'); fg.addColorStop(1, 'rgba(0,0,0,1)'); g.fillStyle = fg; g.fillRect(c.width - 220, 0, 220, c.height); return c; }), 40, 100);
   // ground: snow ↔ grass
-  const gg = ctx.createLinearGradient(0, 620, 0, H); gg.addColorStop(0, S.ground); gg.addColorStop(1, mixHex(S.ground, '#101824', .55)); ctx.fillStyle = gg; ctx.fillRect(0, 620, W, H - 620 + 200);
-  const r = prng(5); for (let i = 0; i < 260; i++) { const x = r() * W, y = 640 + r() * 440, l = 6 + r() * 16; ctx.strokeStyle = S.snow > .5 ? 'rgba(150,170,200,.35)' : rgba(mixHex('#2a4a20', S.ground, .3), .6); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 2, y - l * (1 - S.snow)); ctx.stroke(); }
+  const gg = ctx.createLinearGradient(0, 620, 0, H); gg.addColorStop(0, mixHex(S.ground, S.sky1, .4)); gg.addColorStop(.18, S.ground); gg.addColorStop(1, mixHex(S.ground, '#101824', .6)); ctx.fillStyle = gg; ctx.fillRect(0, 620, W, H - 620 + 200);
+  // field texture: soft mottling (cached), then grass or wind-cut snow strokes, longer toward the camera
+  ctx.save(); ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = .55; ctx.drawImage(fieldTex(), 0, 620); ctx.restore();
+  const r = prng(5), dark = mixHex('#1e3a18', S.ground, .25), lite = mixHex(S.ground, '#e8f0c0', .3);
+  ctx.lineCap = 'round';
+  for (let i = 0; i < 620; i++) {
+    const q = Math.pow(r(), .75), x = r() * W, y = 628 + q * 470, l = (3 + r() * 9) * (.5 + q * 2.2), lean = (r() - .5) * 5 * (.5 + q);
+    if (S.snow > .5) { ctx.strokeStyle = `rgba(150,170,200,${.18 + .2 * q})`; ctx.lineWidth = .8 + q; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + l * 1.6, y + .5); ctx.stroke(); }
+    else { ctx.strokeStyle = rgba(i % 3 ? dark : lite, (.35 + .4 * q) * (1 - S.snow)); ctx.lineWidth = .7 + q * 1.4; ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x + lean * .3, y - l * .6, x + lean, y - l * (1 - S.snow)); ctx.stroke(); }
+  }
   // a birch branch in the foreground with leaves that come and go
   ctx.save(); ctx.strokeStyle = '#d8d2c6'; ctx.lineWidth = 9; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(W + 20, 120); ctx.quadraticCurveTo(1500, 160, 1300, 90); ctx.stroke(); ctx.strokeStyle = '#2a2420'; ctx.lineWidth = 2; for (let i = 0; i < 9; i++) { const x = 1340 + i * 64; ctx.beginPath(); ctx.moveTo(x, 118 + i * 3); ctx.lineTo(x + 8, 120 + i * 3); ctx.stroke(); }
   const leafCol = S.leafA && S.leafB ? mixHex(S.leafA, S.leafB, S.q) : (S.leafA || S.leafB), leafA = S.leafA && S.leafB ? 1 : S.leafA ? 1 - S.q : S.q;

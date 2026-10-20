@@ -285,7 +285,9 @@ export function arm(ctx, wx, wy, s, o) {
   ctx.fillStyle = o.col; poly(); ctx.fill();
   ctx.save(); poly(); ctx.clip(); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
   // volume: the shadow side darkens in a broad soft band, the lit side lifts
-  const side = (A, col, al, wk) => { for (let i = 0; i < A.length - 1; i++) { ctx.strokeStyle = rgba(col, al); ctx.lineWidth = C[i][2] * wk; ctx.beginPath(); ctx.moveTo(A[i][0], A[i][1]); ctx.lineTo(A[i + 1][0], A[i + 1][1]); ctx.stroke(); } };
+  const side = (A, col, al, wk) => { ctx.strokeStyle = rgba(col, al); ctx.lineCap = 'butt';   // one path per part: no stacked caps
+    for (const [i0, i1] of [[0, 14], [14, 26], [26, A.length - 1]]) { ctx.lineWidth = C[Math.round((i0 + i1) / 2)][2] * wk; ctx.beginPath(); for (let i = i0; i <= i1; i++) (i === i0 ? ctx.moveTo(A[i][0], A[i][1]) : ctx.lineTo(A[i][0], A[i][1])); ctx.stroke(); }
+    ctx.lineCap = 'round'; };
   side(litL ? R : L, '#00000a', .32, 1.1); side(litL ? L : R, '#fff0dc', .12, .5);
   // cuff seam near the wrist, and soft folds in the crook of the elbow
   const at = (i, k) => [mix(L[i][0], R[i][0], k), mix(L[i][1], R[i][1], k)];

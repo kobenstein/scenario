@@ -162,7 +162,7 @@ export function rooftop(ctx, t, o = {}) {
 }
 
 // ---------- the two friends on the parapet (H.10; reusable for 3.14–3.16 and the close) ----------
-// rooftopFriends(ctx, t, A, o)   A = anchors from rooftop(…, { seats: 2 }); o: { you: { accent '#c8843a', lean, nod (0..1), write (0..1 pen moving),
+// rooftopFriends(ctx, t, A, o)   A = anchors from rooftop(…, { seats: 2 }); o: { you: { accent '#c8843a', lean, nod (0..1), up (0..1 head lifts from the napkin), pen (0..1 writing hand down at the knee), write (0..1 pen moving),
 //   napkin(ctx, x, y, s) callback at your knee }, friend: { accent '#1f6a6e', lean, nod }, light: { x, y, col, a } (default: the sodium glow below) }
 //   → { you: { hand: [x, y] (writing hand), knee: [x, y] }, friend: { hand } }
 import { figure, POSES, handPos } from './figure.mjs';
@@ -172,7 +172,7 @@ export function rooftopFriends(ctx, t, A, o = {}) {
   const Y = o.you || {}, F = o.friend || {};
   const nodF = (F.nod ?? 0), lean = (F.lean ?? 0);
   // she: on the right seat, facing left (toward you); you: on the left seat, facing right, head bowed to the napkin on your knee
-  const poseYou = { ...POSES.sit, lean: .1 + (Y.lean ?? 0), head: .32 + .05 * Math.sin(t * 1.3) * (Y.write ?? 0), sh: [0.85, 0.7], el: [1.05, 1.25], hair: 'short', kn: [1.35, 1.45] };
+  const poseYou = { ...POSES.sit, lean: .1 + (Y.lean ?? 0), head: .32 + .05 * Math.sin(t * 1.3) * (Y.write ?? 0) + .18 * (Y.nod ?? 0) - .26 * (Y.up ?? 0), sh: [0.85 - .47 * (Y.pen ?? 0), 0.7], el: [1.05 + .05 * (Y.pen ?? 0), 1.25], hair: 'short', kn: [1.35, 1.45] };
   const poseHer = { ...POSES.sit, lean: .06 + lean * .14, head: .12 + nodF * .22, sh: [0.62, 0.45], el: [0.95, 1.05], hair: 'long', kn: [1.4, 1.5] };
   const out = { you: {}, friend: {} };
   figure(ctx, S[1].hip[0], S[1].hip[1], S[1].s, poseHer, { t, seed: 3, flip: true, accent: F.accent || '#1f6a6e', dress: { coat: F.accent || '#1f6a6e', pants: '#1b1a2e', skin: '#8d5f40', hair: '#1a1214' }, light: L, rim: L.col, rimSide: 1, rimW: 2 });

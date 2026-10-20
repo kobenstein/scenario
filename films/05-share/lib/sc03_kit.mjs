@@ -86,8 +86,8 @@ function engraverHand(g, t, o) {
   for (const [u, v, h] of [[G.IDX[1][0], G.IDX[1][1], 8], [G.IDX[1][0] - 5, G.IDX[1][1], 6.5], [G.IDX[2][0], G.IDX[2][1], 6.5]]) { g.beginPath(); g.moveTo(u + 1, v - h); g.quadraticCurveTo(u - 3, v, u + 1, v + h); g.stroke(); }
   for (const f of G.CURL) { const [u, v, r] = f[1]; g.beginPath(); g.arc(u + 2, v, r * .55, -1.1, 1.1); g.stroke(); }
   // tendons on the back of the hand (faint light ridges toward the wrist)
-  g.strokeStyle = 'rgba(255,224,190,.07)'; g.lineWidth = 4;
-  for (const [u, v] of [[-212, 6], [-220, 28], [-226, 49], [-233, 67]]) { g.beginPath(); g.moveTo(u, v); g.quadraticCurveTo(u - 60, v * .7 + 10, -335, 18 + v * .4); g.stroke(); }
+  g.strokeStyle = 'rgba(255,224,190,.045)'; g.lineWidth = 5;
+  for (const [u, v] of [[-214, 6], [-222, 28], [-228, 49], [-235, 67]]) { g.beginPath(); g.moveTo(u, v); g.quadraticCurveTo(u - 40, v * .85 + 5, -300, 22 + v * .55); g.stroke(); }
   // engraved hatching on the shadow half (the film's print language)
   hatch(g, null, -.9, 3.6, .3, { box: [-380, -60, 240, 170], fade: [-365, 0, -215, 0], col: '#140a14', w: .8, wobble: .4 });
   g.restore();
@@ -118,6 +118,12 @@ function sleeveShort(g, t, o) {
   // the cuff edge catches the tip light
   g.save(); g.strokeStyle = rgba(rim, .42 * gl); g.lineWidth = 2.4; g.lineCap = 'round'; g.beginPath(); g.moveTo(-343, -16); g.quadraticCurveTo(-325, 32, -341, 80); g.stroke(); g.restore();
 }
+// erase everything left of x1 in a scratch layer, softly from x1 to x0 (identity transform: a gradient's pad region under a
+// transform is not painted with destination-out in @napi-rs/canvas, so the solid part is a separate rect)
+function eraseLeft(g, x0, x1, w, h) {
+  g.save(); g.globalCompositeOperation = 'destination-out'; const fo = g.createLinearGradient(x0, 0, x1, 0); fo.addColorStop(0, 'rgba(0,0,0,1)'); fo.addColorStop(1, 'rgba(0,0,0,0)');
+  g.fillStyle = fo; g.fillRect(x0, 0, x1 - x0, h); if (x0 > 0) { g.fillStyle = '#000'; g.fillRect(0, 0, x0, h); } g.restore();
+}
 const OW = 1100, OH = 420, OX = 1060, OY = 150; let OFF = null;
 export function burin(ctx, x, y, ang, s, t, o = {}) {
   const a = o.a ?? 1; if (a <= 0) return null;
@@ -137,8 +143,7 @@ export function burin(ctx, x, y, ang, s, t, o = {}) {
   g.drawImage(burinTool(), -250, -50);
   engraverHand(g, t, o);
   sleeveShort(g, t, o);
-  g.globalCompositeOperation = 'destination-out'; const fo = g.createLinearGradient(-420, 0, -560, 0); fo.addColorStop(0, 'rgba(0,0,0,0)'); fo.addColorStop(1, 'rgba(0,0,0,1)'); g.fillStyle = fo; g.fillRect(-OX / s, -OY / s, OW / s, OH / s);
-  g.globalCompositeOperation = 'source-over'; g.setTransform(1, 0, 0, 1, 0, 0);
+  g.setTransform(1, 0, 0, 1, 0, 0); eraseLeft(g, OX - 560 * s, OX - 420 * s, OW, OH);
   ctx.save(); ctx.globalAlpha = a; ctx.translate(tx, ty); ctx.rotate(ang); ctx.drawImage(oc, -OX, -OY); ctx.restore();
   // cutting: the curl of metal chip rising behind the tip + foil dust + a hot contact glint
   if (cut > 0 && lift < .5) {
@@ -162,7 +167,11 @@ const HW = 760, HH = 440, HX = 390, HY = 220; let HOFF = null;
 export function fadedHand(ctx, x, y, s, o = {}) {
   if (!HOFF) HOFF = canvas(HW, HH); const [hc, g] = HOFF, ang = o.ang ?? 0, f = o.flip ? -1 : 1, res = o.res ?? 1, sr = s * res;
   const L = o.light || [.3, -1], c = Math.cos(-ang), sn = Math.sin(-ang), light = [L[0] * c - L[1] * sn, L[0] * sn + L[1] * c];
-  const fade0 = o.fade0 ?? 95, fade1 = o.fade1 ?? 160, t = o.t ?? 0;
+  const fade0 = o.fade0 ?? 85, fade1 = o.fade1 ?? 150, t = o.t ?? 0;
+  // where the sleeve dissolves the table goes dark too (the arm's soft shadow), so nothing shows through it as a ghost
+  { ctx.save(); ctx.translate(x, y); ctx.rotate(ang); ctx.scale(s, s); ctx.translate(-(fade0 + fade1) / 2 - 10, 4 * f); const ry = 52; ctx.scale(fade1 * .95 / ry, 1);
+    const sg = ctx.createRadialGradient(0, 0, 0, 0, 0, ry); sg.addColorStop(0, `rgba(4,4,14,${o.shadow ?? .62})`); sg.addColorStop(.6, `rgba(4,4,14,${(o.shadow ?? .62) * .5})`); sg.addColorStop(1, 'rgba(4,4,14,0)');
+    ctx.fillStyle = sg; ctx.fillRect(-ry, -ry, ry * 2, ry * 2); ctx.restore(); }
   g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; g.clearRect(0, 0, HW, HH);
   hand(g, HX, HY, sr, { ...o, ang: 0, light, sleeveLen: fade1 + 30 });
   // soft folds on the sleeve behind the cuff, sinking into the dark
@@ -173,9 +182,7 @@ export function fadedHand(ctx, x, y, s, o = {}) {
     g.strokeStyle = `rgba(255,236,210,${.13 * w0})`; g.lineWidth = 1.3; g.beginPath(); g.moveTo(u0 + 4, -25); g.quadraticCurveTo(u0 + b + 4, 0, u0 + 6, 25); g.stroke(); });
   const dk = g.createLinearGradient(-18, 0, -fade1, 0); dk.addColorStop(0, 'rgba(6,5,16,0)'); dk.addColorStop(1, 'rgba(6,5,16,.72)'); g.fillStyle = dk; g.fillRect(-fade1 - 30, -27, fade1 + 16, 54);
   g.restore();
-  g.save(); g.translate(HX, HY); g.scale(sr, sr); g.globalCompositeOperation = 'destination-out';
-  const fo = g.createLinearGradient(-fade0, 0, -fade1, 0); fo.addColorStop(0, 'rgba(0,0,0,0)'); fo.addColorStop(1, 'rgba(0,0,0,1)'); g.fillStyle = fo; g.fillRect(-HX / sr, -HY / sr, HW / sr, HH / sr); g.restore();
-  g.globalCompositeOperation = 'source-over';
+  g.setTransform(1, 0, 0, 1, 0, 0); eraseLeft(g, HX - fade1 * sr, HX - fade0 * sr, HW, HH);
   ctx.save(); ctx.translate(x, y); ctx.rotate(ang); if (res !== 1) ctx.scale(1 / res, 1 / res); ctx.drawImage(hc, -HX, -HY); ctx.restore();
 }
 
