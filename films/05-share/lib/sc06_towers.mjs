@@ -13,9 +13,12 @@ import { figure, walk, figureFlat } from './figure.mjs';
 import { once } from './sc06_kit.mjs';
 
 const TAU = Math.PI * 2;
-export const TW = [ // towers: centre x, z, half width (x), half depth (z), yaw, base height, name
-  { x: -9, z: 44, hx: 3.4, hz: 3.4, yaw: .5, h: 13, name: 'OpenAI', glass: ['#c8a0a8', '#7d6c8c', '#2c2f4e'] },
-  { x: 9.5, z: 49, hx: 4.0, hz: 3.2, yaw: .32, h: 11, name: 'Anthropic', glass: ['#d4a89c', '#8a7088', '#2a2c48'] },
+// Two clearly different buildings, never a matching pair: OpenAI a rounded (elliptical) glass tower with a soft curved crown,
+// front-left; Anthropic a stepped tower with setbacks and an engraved Art Deco crown + needle, further back to the right.
+// Different footprints, heights and depths at every moment (both grow by the same factor, so the difference stays).
+export const TW = [ // towers: centre x, z, half width (x), half depth (z), yaw, base height, kind, name
+  { x: -5, z: 38, hx: 3.3, hz: 2.7, yaw: .3, h: 14, kind: 'round', name: 'OpenAI', glass: ['#c8a0a8', '#7d6c8c', '#2c2f4e'] },
+  { x: 6.5, z: 54, hx: 4.7, hz: 3.8, yaw: .28, h: 11, kind: 'step', name: 'Anthropic', glass: ['#d4a89c', '#8a7088', '#2a2c48'] },
 ];
 export const PLR = 7.5;           // plinth radius
 export const FENCE = { x: 0, z: 47, r: 24 };
