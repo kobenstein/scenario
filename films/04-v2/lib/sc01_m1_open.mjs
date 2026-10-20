@@ -315,12 +315,15 @@ function titleGlint(ctx, t, a = 1) {
 // draw a slip in slip units (0..w, 0..h) under the current transform, with the live seal and glint (hero only)
 export function slipLive(ctx, t, o = {}) {
   ctx.drawImage(slipTex(1, { sealed: !!o.sealedTex }), 0, 0);
-  titleGlint(ctx, t, o.glint ?? 1);
-  if (o.seal != null && o.seal > 0 && !o.sealedTex) {
+  const sA = o.sealedA ?? 0, lA = o.liveA ?? 1;   // the row's baked seal over the live one (8.3–8.72 the hero slip becomes the row's slip)
+  if (sA > 0 && !o.sealedTex) { ctx.save(); ctx.globalAlpha = sA; ctx.drawImage(slipTex(1, { sealed: true }), 0, 0); ctx.restore(); }
+  if ((o.glint ?? 1) > 0) titleGlint(ctx, t, o.glint ?? 1);
+  if (o.seal != null && o.seal > 0 && !o.sealedTex && lA > 0) { ctx.save(); ctx.globalAlpha = lA;
     const u = clamp(o.seal), land = eoX(u), sc = mix(2.4, 1, land);
     if (u < 1) { ctx.save(); ctx.globalAlpha = .35 * (1 - land); ctx.fillStyle = '#000'; ctx.beginPath(); ctx.ellipse(SEAL.x + 18 * sc, SEAL.y + 22 * sc, SEAL.r * sc, SEAL.r * sc, 0, 0, TAU); ctx.fill(); ctx.restore(); }
-    ctx.save(); ctx.globalAlpha = clamp(u * 4); ctx.translate(SEAL.x, SEAL.y); ctx.scale(sc, sc); seal(ctx, 0, 0, SEAL.r, t, { foil: true, rot: -.25 + (1 - land) * .4, label: 'TAKEN CARE OF · EVERY MONTH · ' }); ctx.restore();
+    ctx.save(); ctx.globalAlpha = clamp(u * 4) * lA; ctx.translate(SEAL.x, SEAL.y); ctx.scale(sc, sc); seal(ctx, 0, 0, SEAL.r, t, { foil: true, rot: -.25 + (1 - land) * .4, label: 'TAKEN CARE OF · EVERY MONTH · ' }); ctx.restore();
     if (o.sealT != null && t > o.sealT) { const d = t - o.sealT; if (d < 1) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; for (let k = 0; k < 2; k++) { const q = clamp(d / .8 - k * .15); if (q <= 0) continue; ctx.strokeStyle = `rgba(255,214,150,${.6 * (1 - q)})`; ctx.lineWidth = 3 * (1 - q) + .5; ctx.beginPath(); ctx.arc(SEAL.x, SEAL.y, SEAL.r * (1 + eoX(q) * 1.3), 0, TAU); ctx.stroke(); } ctx.restore(); } }
+    ctx.restore();
   }
 }
 

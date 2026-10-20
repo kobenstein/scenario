@@ -5,10 +5,10 @@
 //   hill cam = { x: wc.x + mc.x / RW, y: wc.y + mc.y / RW, z: RW · F / (FZ − mc.z) }      (RW = cm per hill unit; wc = the window centre)
 // While the window does not cover the frame, drawHill draws the town and your room is its st.inside view (clipped to the window by the
 // hill); once the opening covers the frame, only the room is drawn (same projection, so nothing jumps).
-import { W, H, rgba, clamp, mix } from '../engine.mjs';
+import { W, H, rgba, clamp, mix, sm } from '../engine.mjs';
 import { drawHill, hillWindow, VIEWS, toScreen } from './maslow4.mjs';
 import { roomGeo, roomState, drawRoom, drawW1 } from './v2_c06_room.mjs';
-import { TAU, mono, mixC, flick, s5, SCREEN } from './v2_c06_kit.mjs';
+import { TAU, mono, mixC, mixH, screenF, s5, SCREEN } from './v2_c06_kit.mjs';
 import { TOWER, FAR } from './v2_c06_view.mjs';
 import { fogDraw, fogX } from './v2_c06_fog.mjs';
 
@@ -54,13 +54,17 @@ export function makeHillTake(A) {
   const curtain = (t) => s5((t - (A.changes + .6)) / .95) * (1 - .55 * s5((t - (out + .2)) / 1.6));
   // the screens' rhythm: your TV = your window's flicker; it falls into the town's common rhythm on "numb" (6.12)
   const syncU = (t) => s5((t - (A.numb - .3)) / 1.1);
-  const flickNow = (t) => mix(flick(t), flick(t, .5, 0), syncU(t));
-  const winCol = (t) => mixC('#5fb8d8', '#d8f7ff', flickNow(t));
+  const flickNow = (t) => screenF(t, WY.k, WY.ph, syncU(t));
+  const screens = (t) => s5((t - A.changes) / 1.2);
+  // your window as the hill paints it (namedGlow: amber lamp → the screen's cold gradient as it turns), so the closed curtains glow the same
+  const tvYou = (t) => sm(clamp((screens(t) * 1.1 - (WY.sth ?? .5)) / .05));
+  const winFill = (ctx, t) => { const tv = tvYou(t), f = flickNow(t), a1 = (1 - tv) * .92, a2 = tv * f, g = ctx.createLinearGradient(0, -G.hh, 0, G.hh);
+    g.addColorStop(0, mixC(mixH('#0b0e22', '#ffd28e', a1), '#2c5f88', Math.min(1, a2))); g.addColorStop(1, mixC(mixH('#0b0e22', '#e8913c', a1), '#8fe6ff', Math.min(1, a2))); return g; };
   // the fog: from the water line up over the street, then the whole frame (the edge is a screen y)
   const KFOG = mono([[A.that - .3, H + 90], [A.numb + .1, 960], [A.numbE - .25, 650], [A.numbE + .2, 330], [A.so2 + .1, -160], [end + 1, -260]]);
   function draw(ctx, t) {
     const mc = cam(t), S = roomState(t, RA); S.flick = flickNow(t);
-    const d = FZ - mc.z, open = curtain(t), fill = winCol(t);
+    const d = FZ - mc.z, open = curtain(t), fill = winFill(ctx, t);
     const room = (c2) => { drawRoom(c2, t, mc, S, G); drawW1(c2, t, mc, G, S, { open, fill, glow: 1 }); };
     let covered = d <= 0;
     if (!covered) { const k = mc.F / d, l = W / 2 + mc.ox + (-G.hw - mc.x) * k, r = W / 2 + mc.ox + (G.hw - mc.x) * k, tp = H / 2 + mc.oy + (-G.hh - mc.y) * k, b = H / 2 + mc.oy + (G.hh - mc.y) * k; covered = l <= 0 && r >= W && tp <= 0 && b >= H; }
@@ -70,7 +74,7 @@ export function makeHillTake(A) {
       const night = .3 + .7 * s5((t - (A.t0 + .1)) / (A.changes - .2 - A.t0)), lab = 1 - s5((t - (A.but + .2)) / (A.changes - .6 - A.but));
       const useIn = t > A.changes + .5;
       const st = { night, lit: [1, 0, 0, 0, 0], labels: lab, title: lab, focus: 0, focusU: H1.st.focusU, people: t < A.changes + .55 ? 1 : 0,
-        screens: s5((t - A.changes) / .45), sync: syncU(t) };
+        screens: screens(t), sync: syncU(t) };
       if (useIn) st.inside = { level: 0, id: WY.id, draw: (c2) => room(c2) };
       drawHill(ctx, t, hc, st);
       // the glow round your window that the hill leaves out for an inside window (same light as its neighbours), gone up close
@@ -79,5 +83,5 @@ export function makeHillTake(A) {
     // the fog off the water (6.12), lit cyan by the street of screens
     const fe = KFOG(t); if (fe < H + 80) fogDraw(ctx, t, { edge: fe, x: fogX(t, A), tint: { x: W / 2, y: Math.min(H, fe + 260), r: 1100, col: SCREEN, a: .12 + .08 * flickNow(t) } });
   }
-  return { draw, cam, G, end, enter, out };
+  return { draw, cam, G, end, enter, out, fogEdge: KFOG };
 }

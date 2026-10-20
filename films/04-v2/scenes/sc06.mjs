@@ -68,7 +68,7 @@ export default async (T, R) => {
   // the fog turn (the camera swings across the water inside the fog): shared by both takes
   A.turn0 = A.numbE + .45; A.turn1 = A.honest - .35; A.swap = A.numbE + .62;
   await warmView(); await warmFog(); await warmCity();
-  const T1 = makeHillTake(A), T2 = makeCityTake(A, HO);
+  const T1 = makeHillTake(A), T2 = makeCityTake(A, HO, T1);
   await ready();
   const t1 = (ctx, t) => T1.draw(ctx, t), t2 = (ctx, t) => T2.draw(ctx, t);
   return [

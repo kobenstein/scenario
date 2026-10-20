@@ -10,7 +10,7 @@
 // Copied code: QM / qmLines (the "?" centre line and its 9 guilloche strands) and the dot's rosette call from lib/sc01_m1_world.mjs (1.09);
 // the line plate's ground, hatch and line from lib/handoff4.mjs (linePlate), replicated in plate space.
 import { W, H, rgba, clamp, mix, sm, prng } from '../engine.mjs';
-import { TAU, mono, mixC, mixH, shadeH, s5, eoX, pr, plane, poly3, seg3, wineGlass, bottle, wineStream, wallClock, flick, SCREEN, SCREEN_HOT, AMBER, OCHRE } from './v2_c06_kit.mjs';
+import { TAU, mono, mixC, mixH, shadeH, s5, eoX, pr, plane, poly3, seg3, wineGlass, bottle, wineStream, wallClock, flick, syncF, SCREEN, SCREEN_HOT, AMBER, OCHRE } from './v2_c06_kit.mjs';
 import { figure, reachArm, handPos, life } from './figure.mjs';
 import { ghostLine } from './ghost.mjs';
 import { rosette, resample, unwind } from './certificate.mjs';
@@ -32,7 +32,7 @@ const LAPTOP = { x: 22, z: 420, ang: -.5 };
 const Q = { x: -165, y: -45 };
 export const KE = 18.75; const DE = ZB - 440;
 export const CEND = { x: Q.x, y: Q.y - 50 / KE, z: ZB - DE, F: 1500, ox: 0, oy: 0 };
-const QS = 2.25, QX = W / 2, QY = 590 + 80 * QS;   // "?" units → plate px; its origin in plate px (the visual centre on the line centre)
+const QS = 3.6, QX = W / 2, QY = 590 + 80 * QS;   // "?" units → plate px; its origin in plate px (the visual centre on the line centre)
 
 // ---------------------------------------------------------------- light (a tiny shading model: ambient night + lamp + TV + laptop)
 const LAMPP = [LAMP.x, LAMP.y - 6, LAMP.z], TVP = [TV.x - 2, (TV.y0 + TV.y1) / 2, (TV.z0 + TV.z1) / 2], LAPP = [LAPTOP.x, TABLE.top - 14, LAPTOP.z];
@@ -110,7 +110,7 @@ export function makeFlat(A, HO) {
   };
   // ---- the TV and the laptop (lights)
   const tvOn = (t) => s5((t - A.remote) / .16);
-  const tvL = (t) => { const u = tvOn(t); if (u <= 0) return 0; const f = flick(t, .5, 0); return u * (.72 + .28 * f) + .9 * Math.exp(-Math.max(0, t - A.remote) / .22) * u; };
+  const tvL = (t) => { const u = tvOn(t); if (u <= 0) return 0; const f = clamp((syncF(t) - .58) / .46); return u * (.72 + .28 * f) + .9 * Math.exp(-Math.max(0, t - A.remote) / .22) * u; };
   const lapL = (t) => .55 + .45 * s5((t - (A.lazy - .05)) / .25);
   const lights = (t) => ({ lamp: 1.45, tv: 1.9 * tvL(t), lap: .35 * lapL(t) });
   // ---- the person's keys (hip in cm, angles in rad)
@@ -545,5 +545,50 @@ export function makeFlat(A, HO) {
     [A.maybe2, -43, 23, 22, 0], [A.exhaustedE, -55, 24, 78, 0], [A.thats + .1, -57, 18, 80, 0], [A.didnt, -60, -4, 86, 0],
     [A.didnt + .24, -95, -30, 150, 0], [A.didnt + .46, -135, -42, 290, 0], [A.didnt + .69, -161, -47.2, 405, 0], [A.HOa - .12, CEND.x, CEND.y, CEND.z, 0], [A.HOb + .3, CEND.x, CEND.y, CEND.z, 0],
   ];
-  return { draw, drawRoom, qmark, T, tvOn, personPose, keys };
+  // ---- the flat from outside (6.14): the room through the opening (outer ∩ inner face), the lit reveals, the open casements, the sill
+  function opening(c) {
+    const { hw, hh } = FLATWIN; if (FLAT.FZ - c.z <= 1) return null;
+    const a = pr(c, -hw, -hh, FLAT.FZ), b = pr(c, hw, hh, FLAT.FZ), a2 = pr(c, -hw, -hh, 0), b2 = pr(c, hw, hh, 0);
+    return { l: Math.max(a[0], a2[0]), r: Math.min(b[0], b2[0]), t: Math.max(a[1], a2[1]), b: Math.min(b[1], b2[1]), o: [a[0], a[1], b[0], b[1]], k: a[2] };
+  }
+  function quad(ctx, c, P, fill, stroke, lw) { if (!poly3(ctx, c, P)) return; ctx.closePath(); if (fill) { ctx.fillStyle = fill; ctx.fill(); } if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = lw; ctx.stroke(); } }
+  function windowView(ctx, t, c) {
+    const { hw, hh } = FLATWIN, op = opening(c); if (!op) return;
+    const L = lights(t), tl = clamp(L.tv / 1.9), FZ = FLAT.FZ, [x0, y0, x1, y1] = op.o;
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+    if (x1 - x0 < 18) {   // far: only the window's warm glow (the hill's lamp-lit window colours)
+      const g = ctx.createLinearGradient(0, y0, 0, y1); g.addColorStop(0, '#ffd28e'); g.addColorStop(1, '#e8913c'); ctx.fillStyle = g; ctx.fillRect(x0, y0, x1 - x0, y1 - y0);
+      ctx.fillStyle = 'rgba(30,20,16,.55)'; ctx.fillRect(x0 + (x1 - x0) * .62, y0 + (y1 - y0) * .35, (x1 - x0) * .14, (y1 - y0) * .5);   // the person, standing
+      ctx.restore(); return;
+    }
+    // the room, clipped to what the opening shows
+    ctx.save(); ctx.beginPath(); ctx.rect(op.l, op.t, op.r - op.l, op.b - op.t); ctx.clip(); ctx.fillStyle = '#05060f'; ctx.fillRect(op.l, op.t, op.r - op.l, op.b - op.t);
+    drawRoom(ctx, t, c);
+    // the two casements, opened inward (hinged at the inner face), glass catching the lamp
+    for (const sx of [-1, 1]) {
+      const a = 1.2, fx = sx * (hw - hw * Math.cos(a)), fz = hw * Math.sin(a), P = [[sx * hw, -hh, 0], [fx, -hh, fz], [fx, hh, fz], [sx * hw, hh, 0]];
+      const km = c.F / Math.max(10, fz / 2 - c.z);
+      quad(ctx, c, P, rgba('#ffcf8a', .07), '#1c130d', Math.max(1, 5 * km));
+      quad(ctx, c, [[mix(sx * hw, fx, .5), -hh, fz / 2], [mix(sx * hw, fx, .5), hh, fz / 2], [mix(sx * hw, fx, .5), hh, fz / 2], [mix(sx * hw, fx, .5), -hh, fz / 2]], null, '#1c130d', Math.max(1, 3 * km));
+      if (poly3(ctx, c, [[sx * hw, -hh * .6, 0], [fx, -hh * .9, fz], [fx, -hh * .7, fz], [sx * hw, -hh * .3, 0]])) { ctx.closePath(); ctx.fillStyle = 'rgba(255,225,180,.08)'; ctx.fill(); }
+    }
+    ctx.restore();
+    // the reveals between the outer and the inner face: plaster lit from inside (warm), darker toward the street
+    const lit = mixC('#ffcf8a', SCREEN_HOT, tl), rev = (P, a) => { if (!poly3(ctx, c, P)) return; ctx.closePath(); ctx.fillStyle = mixC('#1a1b33', lit, a); ctx.fill();
+      const p0 = pr(c, (P[0][0] + P[3][0]) / 2, (P[0][1] + P[3][1]) / 2, FZ), p1 = pr(c, (P[1][0] + P[2][0]) / 2, (P[1][1] + P[2][1]) / 2, 0);
+      if (Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) > 2) { const g = ctx.createLinearGradient(p0[0], p0[1], p1[0], p1[1]); g.addColorStop(0, 'rgba(6,7,20,.55)'); g.addColorStop(1, rgba(lit, .12)); ctx.fillStyle = g; ctx.fill(); } };
+    ctx.save(); ctx.beginPath(); ctx.rect(x0, y0, x1 - x0, y1 - y0); ctx.clip();
+    if (c.x > -hw) rev([[-hw, -hh, FZ], [-hw, -hh, 0], [-hw, hh, 0], [-hw, hh, FZ]], .22);
+    if (c.x < hw) rev([[hw, -hh, FZ], [hw, -hh, 0], [hw, hh, 0], [hw, hh, FZ]], .22);
+    if (c.y > -hh) rev([[-hw, -hh, FZ], [hw, -hh, FZ], [hw, -hh, 0], [-hw, -hh, 0]], .12);
+    if (c.y < hh) rev([[-hw, hh, FZ], [hw, hh, FZ], [hw, hh, 0], [-hw, hh, 0]], .34);
+    ctx.restore();
+    // the stone sill outside (its top catches the window's light)
+    const sw = hw + 9, sz = FZ - 7;
+    if (c.y < hh) { quad(ctx, c, [[-sw, hh, sz], [sw, hh, sz], [sw, hh, FZ], [-sw, hh, FZ]], mixC('#2a2b44', lit, .3)); }
+    quad(ctx, c, [[-sw, hh, sz], [sw, hh, sz], [sw, hh + 6, sz], [-sw, hh + 6, sz]], '#1e1f36', 'rgba(255,220,180,.18)', 1);
+    ctx.restore();
+  }
+  return { draw, drawRoom, qmark, T, tvOn, personPose, keys, windowView, opening };
 }
+export async function warmFlat() {}
