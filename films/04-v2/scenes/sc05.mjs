@@ -63,7 +63,7 @@ export default async (T, R) => {
   // ------------------------------------------------------------------ 5.01: the pull-back out of the sun (the sun stays pinned on screen)
   const PB0 = HI.b, PB1 = A.hoped + .15, SUN_END = [742, 318];
   const pullBack = (t) => {
-    const u = clamp((t - PB0) / (PB1 - PB0)), e = qio(u), ek = qio(clamp(u * 1.08));
+    const u = clamp((t - PB0) / (PB1 - PB0)), e = .2 * u + .8 * qio(u), ek = .2 * clamp(u * 1.08) + .8 * qio(clamp(u * 1.08));
     const s = sun(tod(t)), pc = plateCentre(t);
     const x = mix(-2.2, -2.0, e), y = mix(-1.42, -1.75, e), z = mix(1.6, -5.6, e), f = Math.exp(mix(Math.log(6500), Math.log(1150), e));
     const sx = mix(pc[0], SUN_END[0], e), sy = mix(pc[1], SUN_END[1], e);
@@ -77,18 +77,18 @@ export default async (T, R) => {
     [A.wakesE + .02, { x: -2.3, y: -2.02, z: -5.4, f: 1150, lx: -.05, ly: .46 }, sio],
   ];
   // 5.03 the swoop out of window A down to the shop window, the push at the glass; 5.04 back up and in through window B
-  const tS0 = A.wakesE + .02, tS1 = A.maths, tP1 = A.checkout + .29, tB1 = tP1 + 1.25, tW1 = A.gone - .04;
-  const SWOOP = [[tS0, -2.3, -2.02, -5.4], [tS0 + .32, -2.15, -1.55, -1.7], [tS0 + .54, -2.0, -1.45, .7], [tS0 + .78, -1.0, 1.6, 4.0], [tS1, .5, 4.05, 7.0]];
-  const SWOOP_L = [[tS0, -.05, .46, 1150], [tS0 + .54, -.02, .3, 1150], [tS1, 0, .12, 1150]];
+  const tS0 = A.wakesE + .02, tS1 = A.maths + .35, tP1 = A.checkout + .29, tB1 = tP1 + 1.25, tW1 = A.gone - .04;
+  const SWOOP = [[tS0, -2.3, -2.02, -5.4], [tS0 + .45, -2.15, -1.55, -1.7], [tS0 + .76, -2.0, -1.45, .7], [tS0 + 1.08, -1.0, 1.6, 4.0], [tS1, .5, 4.05, 7.0]];
+  const SWOOP_L = [[tS0, -.05, .46, 1150], [tS0 + .76, -.02, .3, 1150], [tS1, 0, .12, 1150]];
   const BACK = [[tP1, .45, 4.0, 7.45], [tP1 + .4, .7, .9, 4.4], [tP1 + .7, .85, -1.55, 1.3], [tP1 + .9, .95, -1.65, -.35], [tB1, 1.6, -1.75, -2.3]];
   const BACK_L = [[tP1, 0, .12, 1150], [tP1 + .5, 0, -.08, 1150], [tP1 + .9, .1, 0, 1220], [tB1, .17, .05, 1300]];
   // 5.05 the desk; 5.06–5.08 the flight (camera and plane), the plane's wake on "down"; the wing fills the frame at CUT
   const tD0 = A.gone + .46, tD1 = A.goneE + .6, tL0 = A.finally + .54, tL1 = A.finally + 1.24, tF0 = A.noE + .07;
   const FLY = [[tF0, 1.25, -1.35, -1.5], [86.10, .95, -1.55, -.3], [86.35, .75, -1.85, 2.4], [86.60, .65, -2.15, 6.3], [86.95, .2, -2.1, 6.75],
     [87.25, -2.2, -1.2, 8.0], [87.50, -3.8, .4, 10.8], [87.80, -3.8, 0, 16.8], [88.05, -3.7, -3.0, 21.6], [88.35, -3.2, -5.4, 25.5], [88.80, -2.0, -5.0, 30.0],
-    [89.30, -1.0, -2.0, 34.0], [89.75, -.3, -.7, 37.6], [90.25, .1, 5.4, 39.9], [90.70, .25, 9.5, 41.1], [A.down, .25, 10.1, 41.5], [91.50, .3, 9.3, 42.0], [CUT, .35, 6.6, 42.6]];
+    [89.30, -1.0, -2.0, 34.0], [89.75, -.3, -.7, 37.6], [90.25, .1, 5.4, 39.9], [90.70, .25, 9.6, 40.9], [A.down, .25, 10.55, 41.4], [91.50, .3, 9.8, 41.9], [CUT, .35, 6.6, 42.6]];
   const FLY_L = [[tF0, -.1, .2, 1300], [86.15, -.02, .1, 1150], [86.6, 0, .02, 1150], [86.95, 0, .03, 1150], [87.5, .02, .12, 1150], [88.05, 0, .22, 1150], [88.35, 0, .3, 1150],
-    [88.8, 0, .33, 1150], [89.3, 0, .45, 1150], [89.75, 0, .55, 1150], [90.25, 0, .56, 1150], [90.7, 0, .56, 1150], [A.down, 0, .56, 1150], [91.5, 0, .2, 1150], [CUT, 0, -.25, 1150]];
+    [88.8, 0, .33, 1150], [89.3, 0, .45, 1150], [89.75, 0, .55, 1150], [90.25, 0, .56, 1150], [90.7, 0, .45, 1150], [A.down, 0, .33, 1150], [91.5, 0, .1, 1150], [CUT, 0, -.25, 1150]];
   const lens = (t, L) => { const [lx, ly, f] = spline(t, L); return { lx, ly, f }; };
   const camCity = (t) => {
     if (t < PB1) return pullBack(t).cam;
@@ -108,16 +108,16 @@ export default async (T, R) => {
     [87.18, -3.4, -.4, 10.9], [87.48, -3.75, -.1, 15.2], [87.78, -3.6, -2.0, 21.0], [88.08, -3.2, -4.7, 25.6], [88.38, -2.4, -5.6, 28.9], [88.83, -.4, -5.2, 33.8],
     [89.33, .3, -2.6, 37.6], [89.83, .3, 2.6, 40.6], [90.33, -.3, 7.4, 42.1], [90.78, -.7, 10.4, 43.0], [A.down, .15, 11.05, 43.45], [91.35, .45, 9.9, 43.7], [91.65, .4, 7.6, 43.7], [CUT, .38, 5.6, 43.65]];
   const planeAt = (t) => fly(t, PLANE, .12, 0);
-  const W0 = 91.62;
+  const W0 = A.down + .3;
   const planeCity = (ctx, t, cam) => {
     if (t < tF0) return;
     const p = planeAt(t), q = planeAt(t + .02), v = [q[0] - p[0], q[1] - p[1], q[2] - p[2]];
     let ori = oriFrom(v, .08 * Math.sin(t * 5.3));
     ori = lerpOri({ yaw: 0, pitch: Math.PI / 2, roll: 0 }, ori, smo(clamp((t - tF0) / .25)));
-    ori = lerpOri(ori, ORI_CUT, smo(clamp((t - 91.3) / (W0 - 91.3))));
+    ori = lerpOri(ori, ORI_CUT, smo(clamp((t - A.down - .05) / (W0 - A.down - .05))));
     if (t < W0) { drawDart(ctx, cam, p, ori, { size: 1.1, ...PAPER }); return; }
     const c = camOf(camCity(W0)), p0 = planeAt(W0), s0 = c.P(...p0);
-    wingFill(ctx, smo(clamp((t - W0) / (CUT - .01 - W0))) ** 1.6, s0[0], s0[1], s0[2] * 1.1, ORI_CUT, PAPER);
+    wingFill(ctx, clamp((t - W0) / (CUT - W0)) ** 2, s0[0], s0[1], s0[2] * 1.1, ORI_CUT, PAPER);
   };
   const roomState = (t) => {
     const td = tod(t), pb = t < PB1 ? pullBack(t) : null;
@@ -126,7 +126,7 @@ export default async (T, R) => {
       out: {
         k: pb ? pb.k : .12, sunXY: pb ? pb.sunXY : null, plate: t <= PB0 + 1 / 60 ? 1 : 0,
         office: { chair: .6 + .5 * (t - 85.9), lamp: t < A.boss + .18 ? 1 : 0 },
-        shopInterior: (c, tt, cam, r) => shopInterior(c, tt, cam, r, { sums: ramp(tt, A.maths, A.maths + .85, sio), receipt: ramp(tt, A.checkout - .3, A.checkout + .75, sio) }),
+        shopInterior: (c, tt, cam, r) => shopInterior(c, tt, cam, r, { sums: ramp(tt, A.maths + .3, A.maths + 1.1, sio), receipt: ramp(tt, A.checkout - .2, A.checkout + .75, sio) }),
         mid: (c, tt, cam) => drawMid(c, tt, cam, { trainX: 10 - 22 * (tt - 87.9), laces: pulse(tt, A.down - .02, A.down + .12, A.down + .6, A.down + 1.3, sio) }),
       },
       curtain: ramp(t, A.everything - .06, A.everything + .9, cio), gust: pulse(t, A.everything - .15, A.everything + .35, A.hoped + .3, A.hoped + 1.6, sio),
@@ -140,8 +140,8 @@ export default async (T, R) => {
   const city = (ctx, t) => { const cam = camOf(camCity(t)); drawRoom(ctx, t, cam, roomState(t)); planeCity(ctx, t, cam); };
 
   // ------------------------------------------------------------------ the coast and the hill (lib/maslow4.mjs world)
-  const P_ = [SPOT.you + 2.6, GARDEN.ground - 7.5], C = [960, 540];
-  const Z0 = { x: 905, y: 712, z: 1.55 }, ZG = 38, tA1 = A.grandmother + .04, tN1 = A.street - .8;
+  const P_ = [SPOT.you + 2.6, GARDEN.ground - 6.0], C = [960, 540];
+  const Z0 = { x: 905, y: 712, z: 1.55 }, ZG = 50, tA1 = A.grandmother + .04, tN1 = A.street - .8;
   const sAt = (c, p) => [(p[0] - c.x) * c.z + 960, (p[1] - c.y) * c.z + 540];
   const camFrom = (z, s) => ({ x: P_[0] - (s[0] - C[0]) / z, y: P_[1] - (s[1] - C[1]) / z, z });
   const S0 = sAt(Z0, P_), S2 = [1000, 600], SH = sAt(VIEWS.H1.cam, P_);
@@ -161,10 +161,10 @@ export default async (T, R) => {
     [tA1 + .3, GARDEN.x + 37, GARDEN.ground - 12.5, 0], [A.tuesday - .31, GARDEN.x + 41.5, GARDEN.ground - 8.5, 0], [A.tuesday, SPOT.land[0], GARDEN.ground - 4.25, 0]];
   const planeHill = (t) => (ctx, info) => {
     const cam = hillCam(t), col = mixHex(PAPER.col, '#f6e2c4', ramp(t, 92.4, 94.5)), o = { col, lit: .5 };
-    if (t < CUT + .55) { const u = 1 - eo(clamp((t - CUT - .02) / .53)); wingFill(ctx, u, 930, 770, 640, lerpOri(ORI_CUT, ORI_FLY, smo(clamp((t - CUT - .12) / .6))), o); return; }
-    const sS = (() => { const [x, y] = spline(t, SCR.map(([a, b, c]) => [a, b, c, 0])); return [x, y]; })();
-    const sz = Math.exp(mix(Math.log(640), Math.log(300), sio(clamp((t - CUT - .55) / (A.love - CUT - .55)))));
-    let ori = { ...ORI_FLY, roll: .08 * Math.sin(t * 3.1) };
+    const RV = .55, sS = (() => { const [x, y] = spline(t, SCR.map(([a, b, c]) => [a, b, c, 0])); return [x, y]; })();
+    const sz = Math.exp(mix(Math.log(640), Math.log(300), sio(clamp((t - CUT - RV) / (A.love - CUT - RV)))));
+    let ori = lerpOri(ORI_CUT, { ...ORI_FLY, roll: .08 * Math.sin(t * 3.1) }, smo(clamp((t - CUT - .15) / .6)));
+    if (t < CUT + RV) { wingFill(ctx, (1 - clamp((t - CUT) / RV)) ** 2, sS[0], sS[1], sz, ori, o); return; }
     const bank = smo(clamp((t - A.love) / .45)); ori = lerpOri(ori, { yaw: -.5, pitch: -.2, roll: -.7 }, bank);
     const wW = smo(clamp((t - (A.love + .35)) / .6)), zz = cam.z, sWorld = UPM * zz * 1.1;
     if (t < A.tuesday) {
@@ -199,7 +199,7 @@ export default async (T, R) => {
   const out = [
     { t: HI.b, tr: 'cut', d: .1, print: P1, draw: take, sound: [{ f: 'whoosh_airy', t: A.everything - .2, v: .3 }, { f: 'curtain', t: A.everything - .05, v: .45 }] },
     { t: A.sleep, tr: 'cut', d: .1, print: P1, draw: take, sound: [{ f: 'tick', t: A.sleep + .6, v: .25 }] },
-    { t: A.stop - .1, tr: 'cut', d: .1, print: P1, draw: take, sound: [{ f: 'whoosh', t: tS0 + .1, v: .35 }, { f: 'pencil', t: A.maths, v: .3 }] },
+    { t: A.stop - .1, tr: 'cut', d: .1, print: P1, draw: take, sound: [{ f: 'whoosh', t: tS0 + .1, v: .35 }, { f: 'pencil', t: A.maths + .3, v: .3 }] },
     { t: A.knot, tr: 'cut', d: .1, print: P1, draw: take, sound: [{ f: 'whoosh_up', t: tP1 + .05, v: .3 }, { f: 'drop', t: A.gone + .9, v: .3 }] },
     { t: A.finally, tr: 'cut', d: .1, print: P1, draw: take, sound: [{ f: 'pencil_desk', t: A.no, v: .4 }, { f: 'paper_pop', t: A.no + .55, v: .35 }, { f: 'whoosh_airy', t: tF0 + .05, v: .35 }] },
     { t: A.boss - .2, tr: 'cut', d: .1, print: P1, draw: take, sound: [{ f: 'lamp', t: A.boss + .18, v: .45 }] },

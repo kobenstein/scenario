@@ -116,8 +116,8 @@ function facade(ctx, k, vis) {
   ctx.fillStyle = rgba('#3a1a14', .14); for (let x = F.x0 + 1.9; x < F.x1; x += 3.8) if (Math.abs(x - .2) > 2.2) ctx.fillRect(x, F.eave, .5, F.ground - F.eave - .6);
   ctx.fillStyle = '#c8a888'; ctx.fillRect(F.x0, F.eave, F.x1 - F.x0, .32); ctx.fillStyle = rgba('#2a1a18', .3); ctx.fillRect(F.x0, F.eave + .32, F.x1 - F.x0, .1);
   // tall arched windows (iron glazing bars, the sky in the glass), soot below the sills
-  for (const cx of [-10.1, -6.3, 4.7, 8.5]) {
-    const w = 2.2, top = 1.6, sill = 7.1, r = w / 2;
+  for (const [cx, w, sill] of [[-10.1, 2.2, 7.1], [-6.3, 2.2, 7.1], [.2, 2.8, 6.5], [4.7, 2.2, 7.1], [8.5, 2.2, 7.1]]) {
+    const top = 1.6, r = w / 2;
     ctx.fillStyle = '#c4a486'; ctx.beginPath(); ctx.moveTo(cx - r - .18, sill); ctx.lineTo(cx - r - .18, top + r); ctx.arc(cx, top + r, r + .18, Math.PI, 0); ctx.lineTo(cx + r + .18, sill); ctx.closePath(); ctx.fill();
     ctx.beginPath(); ctx.moveTo(cx - r, sill); ctx.lineTo(cx - r, top + r); ctx.arc(cx, top + r, r, Math.PI, 0); ctx.lineTo(cx + r, sill); ctx.closePath();
     const gg = ctx.createLinearGradient(0, top, 0, sill); gg.addColorStop(0, '#8a90a8'); gg.addColorStop(.5, '#4a4c62'); gg.addColorStop(1, '#2c2a3a'); ctx.fillStyle = gg; ctx.fill();

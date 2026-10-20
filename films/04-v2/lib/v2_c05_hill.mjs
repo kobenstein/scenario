@@ -64,7 +64,7 @@ const CATP = {
   stretch: { b: [-.05, -.78, 1.18, .38, .26], h: [1.3, -.55, .34], fl: [[.8, -.5], [1.8, 0]], hl: [[-.85, -.95], [-.95, 0]], tl: [[-1.2, -1.05], [-1.55, -1.9], [-1.3, -2.45]], eye: 0 },
   sit: { b: [0, -.86, .55, .78, -.2], h: [.36, -1.86, .36], fl: [[.32, -.6], [.42, 0]], hl: [[-.2, -.4], [-.1, 0]], tl: [[-.5, -.2], [.2, .06], [.85, 0]], eye: 1 },
 };
-const mixArr = (a, b, u) => (Array.isArray(a) ? a.map((v, i) => mixArr(v, b[i], u)) : mix(a, b, u));
+const mixArr = (a, b, u) => (Array.isArray(a) ? a.map((v, i) => mixArr(v, b[i], u)) : typeof a === 'object' ? Object.fromEntries(Object.keys(a).map((k) => [k, mixArr(a[k], b[k], u)])) : mix(a, b, u));
 function cat(ctx, x, y, u, st, t) {
   const P = st < 1 ? mixArr(CATP.loaf, CATP.stretch, smo(st)) : mixArr(CATP.stretch, CATP.sit, smo(st - 1)), br = 1 + .03 * Math.sin(t * 2.4);
   ctx.save(); ctx.translate(x, y); ctx.scale(u, u);

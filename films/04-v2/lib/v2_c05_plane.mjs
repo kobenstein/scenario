@@ -125,6 +125,6 @@ function faceIn(ori) {
 export function wingFill(ctx, u, x0, y0, s0, ori, o = {}) {
   const e = clamp(u);
   if (e >= .999) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = faceTop(o); ctx.fillRect(0, 0, 1920, 1080); ctx.restore(); return null; }
-  const s = Math.exp(mix(Math.log(s0), Math.log(90000), e)), [ix, iy] = faceIn(ori), w = Math.pow(e, .35);
+  const s = Math.exp(mix(Math.log(s0), Math.log(o.S1 ?? 26000), e)), [ix, iy] = faceIn(ori), w = Math.pow(e, .35);
   return dartScreen(ctx, mix(x0, 960 - ix * s, w), mix(y0, 540 - iy * s, w), s, ori, { ...o, lw: Math.min(6, Math.max(.8, .004 * s)) });
 }
