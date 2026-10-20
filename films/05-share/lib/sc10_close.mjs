@@ -49,8 +49,14 @@ export function roofDawn(ctx, t, o = {}) {
     ctx.restore();
   };
   ringPass(false);
-  // the two friends of H.10 (C1's rooftopFriends): you (ochre scarf) left facing right, she (petrol) right facing left; both turn to the phone
-  rooftopFriends(ctx, t, R, { you: { lean: -.04, nod: 0 }, friend: { nod: .25 + .2 * sm(lin(buzz, buzz + .6, t)), lean: .2 }, light: { x: L.x, y: L.y, col: '#ffd08a', a: .45 } });
+  // the two friends of H.10 (C1's rooftopFriends): you (ochre scarf) left facing right, she (petrol) right facing left. A quiet talk:
+  // she listens and nods, you look at her; on the buzz both glance at the phone (she faces it and looks a beat longer), then they
+  // look back at each other and smile, you nod once and she nods twice (on "fantasy"). No big gestures.
+  const hump = (a, w) => Math.pow(Math.sin(clamp((t - a) / w) * Math.PI), 2);
+  const glY = sm(lin(buzz + .12, buzz + .45, t)) * (1 - sm(lin(buzz + 1.0, buzz + 1.5, t))), glF = sm(lin(buzz + .06, buzz + .4, t)) * (1 - sm(lin(buzz + 1.5, buzz + 2.1, t)));
+  const warm = sm(lin(buzz + 1.1, buzz + 2.3, t)), nodF = .3 * hump(t0 + .05, .55) + .55 * hump(buzz + 2.15, .45) + .4 * hump(buzz + 2.58, .4), nodY = .35 * hump(buzz + 1.6, .5);
+  rooftopFriends(ctx, t, R, { you: { lean: -.04, up: 1, nod: nodY, look: [phx, py - 4], lookK: glY * .85, smile: .22 + .38 * warm },
+    friend: { nod: nodF, lean: .2 + .08 * glF, look: [phx, py - 4], lookK: glF, smile: .3 + .4 * warm }, light: { x: L.x, y: L.y, col: '#ffd08a', a: .45 } });
   // the phone lying on the parapet top (a thin slab with a lit edge), it buzzes once
   const k = t > buzz ? Math.exp(-(t - buzz) * 3) : 0, jit = k * Math.sin(t * 90) * 1.6, lit = sm(lin(buzz - .05, buzz + .2, t));
   ctx.save(); ctx.translate(phx + jit, py - 3); ctx.scale(ks, ks); ctx.fillStyle = '#121420'; ctx.beginPath(); ctx.roundRect(-40, -6, 80, 8, 3); ctx.fill(); ctx.fillStyle = `rgba(255,214,160,${.25 + .7 * lit})`; ctx.fillRect(-36, -6, 72, 2);

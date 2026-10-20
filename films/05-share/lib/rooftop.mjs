@@ -165,21 +165,58 @@ export function rooftop(ctx, t, o = {}) {
 // rooftopFriends(ctx, t, A, o)   A = anchors from rooftop(…, { seats: 2 }); o: { you: { accent '#c8843a', lean, nod (0..1), up (0..1 head lifts from the napkin), pen (0..1 writing hand down at the knee), write (0..1 pen moving),
 //   napkin(ctx, x, y, s) callback at your knee }, friend: { accent '#1f6a6e', lean, nod }, light: { x, y, col, a } (default: the sodium glow below) }
 //   → { you: { hand: [x, y] (writing hand), knee: [x, y] }, friend: { hand } }
-import { figure, POSES, handPos } from './figure.mjs';
+// v2 (people pass): both sit ON the coping with the knees toward us (thighs foreshortened, shins down the wall, feet on the deck), the
+//   torso and head turned to the other. Faces, blinks, breathing and small weight shifts come from figure(). Added options:
+//   you.napkin(ctx, x, y, s) is now drawn between your body and your writing hand; it may return { grip: [x, y] } (where the pen is
+//   held): the writing hand then reaches it (2-bone IK), so the hand really writes. you.look / friend.look: [x, y] a screen point the
+//   head turns to (eyes follow; behind the shoulder the head turns away); you.lookK / friend.lookK 0..1 blend from the default look
+//   to that point (default 1), so a glance can ease in and out. you.smile / friend.smile 0..1.
+import { figure, POSES, handPos, reachArm } from './figure.mjs';
+// head angle + gaze + turn so a figure (facing +1 right / -1 left) looks at a screen point from its head
+function lookAt(hx, hy, face, tx, ty) {
+  const dx = (tx - hx) * face, dy = ty - hy;
+  if (dx > 0) { const a = Math.atan2(dy, dx); return { head: clamp(a * .7, -.25, .55), gaze: clamp(a * .9, -.6, 1), turn: 0 }; }
+  return { head: clamp(Math.atan2(dy, Math.abs(dx)) * .6, -.1, .5), gaze: .5, turn: -.9 };
+}
+const blendLook = (a, b, k) => ({ head: mix(a.head, b.head, k), gaze: mix(a.gaze, b.gaze, k), turn: mix(a.turn, b.turn, k) });
 export function rooftopFriends(ctx, t, A, o = {}) {
   const S = A.seats; if (!S || S.length < 2) return {};
   const L = o.light || { x: (S[0].x + S[1].x) / 2 + 300, y: A.parapet.y + 160, col: A.state === 'night' ? '#ff9a3c' : '#ffd08a', a: .3 };
-  const Y = o.you || {}, F = o.friend || {};
-  const nodF = (F.nod ?? 0), lean = (F.lean ?? 0);
-  // she: on the right seat, facing left (toward you); you: on the left seat, facing right, head bowed to the napkin on your knee
-  const poseYou = { ...POSES.sit, lean: .1 + (Y.lean ?? 0), head: .32 + .05 * Math.sin(t * 1.3) * (Y.write ?? 0) + .18 * (Y.nod ?? 0) - .26 * (Y.up ?? 0), sh: [0.85 - .47 * (Y.pen ?? 0), 0.7], el: [1.05 + .05 * (Y.pen ?? 0), 1.25], hair: 'short', kn: [1.35, 1.45] };
-  const poseHer = { ...POSES.sit, lean: .06 + lean * .14, head: .12 + nodF * .22, sh: [0.62, 0.45], el: [0.95, 1.05], hair: 'long', kn: [1.4, 1.5] };
-  const out = { you: {}, friend: {} };
-  figure(ctx, S[1].hip[0], S[1].hip[1], S[1].s, poseHer, { t, seed: 3, flip: true, accent: F.accent || '#1f6a6e', dress: { coat: F.accent || '#1f6a6e', pants: '#1b1a2e', skin: '#8d5f40', hair: '#1a1214' }, light: L, rim: L.col, rimSide: 1, rimW: 2 });
-  out.friend.hand = handPos(S[1].hip[0], S[1].hip[1], S[1].s, poseHer, 0, true, { t, seed: 3 });
-  figure(ctx, S[0].hip[0], S[0].hip[1], S[0].s, poseYou, { t, seed: 7, accent: Y.accent || '#c8843a', accentPart: 'scarf', dress: { coat: '#2a3350', pants: '#17162a', skin: '#b98262', hair: '#16111a' }, light: L, rim: L.col, rimSide: -1, rimW: 2,
-    prop: Y.napkin ? (g, fa) => { } : undefined });
-  out.you.hand = handPos(S[0].hip[0], S[0].hip[1], S[0].s, poseYou, 0, false, { t, seed: 7 });
+  const Y = o.you || {}, F = o.friend || {}, out = { you: {}, friend: {} };
+  const nodF = F.nod ?? 0, leanF = F.lean ?? 0, up = clamp(Y.up ?? 0), wr = Y.write ?? 0, penK = Y.pen ?? 0;
+  const s0 = S[0].s, s1 = S[1].s, hip0 = [S[0].hip[0], S[0].hip[1] + 1.5 * s0], hip1 = [S[1].hip[0], S[1].hip[1] + 1.5 * s1];
+  const head0 = [hip0[0] + 8 * s0, hip0[1] - 80 * s0], head1 = [hip1[0] - 8 * s1, hip1[1] - 80 * s1];
+  // she: right seat, facing left, leaning in to the napkin / to you; nods; looks at the napkin while you write, at you when you look up
+  const busy = clamp(wr + penK * .6);
+  const herDef = { head: mix(.05, .2, busy * (1 - up)), gaze: mix(.05, .55, busy * (1 - up)), turn: 0 };
+  const herLook = F.look ? blendLook(herDef, lookAt(head1[0], head1[1], -1, F.look[0], F.look[1]), clamp(F.lookK ?? 1)) : herDef;
+  const poseHer = { ...POSES.perch, lean: .08 + leanF * .16, head: herLook.head + nodF * .2, gaze: herLook.gaze - nodF * .2, turn: herLook.turn, smile: F.smile ?? .35, hair: 'long',
+    sh: [.62, .5], el: [.95, 1.0], hands: ['relaxed', 'open'] };
+  const oHer = { t, seed: 3, flip: true, accent: F.accent || '#1f6a6e', dress: { coat: F.accent || '#1f6a6e', pants: '#1b1a2e', shoes: '#0f0d18', skin: '#8d5f40', hair: '#1a1214' }, light: L, rim: L.col, rimSide: 1, rimW: 2 };
+  { // her near hand rests on her knee, the far one on the coping beside her
+    const kn = [hip1[0] - 24 * s1, hip1[1] + 1 * s1], cp = [hip1[0] - 6 * s1, hip1[1] - 2 * s1];
+    const a0 = reachArm(hip1[0], hip1[1], s1, poseHer, 0, true, oHer, kn), a1 = reachArm(hip1[0], hip1[1], s1, poseHer, 1, true, oHer, cp);
+    poseHer.sh = [a0.sh, a1.sh]; poseHer.el = [a0.el, a1.el]; poseHer.lock = [1, 1];
+  }
+  figure(ctx, hip1[0], hip1[1], s1, poseHer, oHer);
+  out.friend.hand = handPos(hip1[0], hip1[1], s1, poseHer, 0, true, { t, seed: 3 });
+  // you: left seat, facing right; head bowed to the napkin on your knee while you write, then up to her, a nod back
+  const myDef = { head: mix(.34, -.04, up), gaze: mix(.85, .02, up), turn: 0 };
+  const myLook = Y.look ? blendLook(myDef, lookAt(head0[0], head0[1], 1, Y.look[0], Y.look[1]), clamp(Y.lookK ?? 1)) : myDef;
+  const poseYou = { ...POSES.perch, lean: .1 + (Y.lean ?? 0) + .03 * busy * (1 - up), head: myLook.head + .04 * Math.sin(t * 1.3) * wr * (1 - up) + .2 * (Y.nod ?? 0), gaze: myLook.gaze, turn: myLook.turn,
+    smile: Y.smile ?? .2 + .3 * up, hair: 'short', sh: [.55, .42], el: [.95, 1.0], hands: [penK > .05 ? 'fist' : 'relaxed', 'open'] };
+  const oYou = { t, seed: 7, accent: Y.accent || '#c8843a', accentPart: 'scarf', dress: { coat: '#2a3350', pants: '#17162a', shoes: '#0d0c16', skin: '#b98262', hair: '#16111a' }, light: L, rim: L.col, rimSide: -1, rimW: 2, allowBack: true };
+  { const kn = [hip0[0] + 22 * s0, hip0[1] + 1 * s0], b = reachArm(hip0[0], hip0[1], s0, poseYou, 1, false, oYou, [hip0[0] + 26 * s0, hip0[1] - 2 * s0]);
+    const rest = reachArm(hip0[0], hip0[1], s0, poseYou, 0, false, oYou, kn); poseYou.sh = [rest.sh, b.sh]; poseYou.el = [rest.el, b.el]; poseYou.lock = [1, 1]; }
+  if (!Y.napkin) {
+    figure(ctx, hip0[0], hip0[1], s0, poseYou, oYou);
+  } else {
+    figure(ctx, hip0[0], hip0[1], s0, poseYou, { ...oYou, part: 'body' });
+    const N = Y.napkin(ctx, hip0[0] + 22 * s0, hip0[1] - 1 * s0, s0) || {};
+    if (N.grip) { const k = clamp(N.hold ?? 1), g = reachArm(hip0[0], hip0[1], s0, poseYou, 0, false, oYou, N.grip); poseYou.sh[0] = mix(poseYou.sh[0], g.sh, k); poseYou.el[0] = mix(poseYou.el[0], g.el, k); }
+    figure(ctx, hip0[0], hip0[1], s0, poseYou, { ...oYou, part: 'front' });
+  }
+  out.you.hand = handPos(hip0[0], hip0[1], s0, poseYou, 0, false, { t, seed: 7 });
   out.you.knee = S[0].knee;
   return out;
 }

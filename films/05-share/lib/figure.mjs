@@ -14,7 +14,12 @@
 //             skin (hands, default = col), shade (0..1 volume), hatch (true), shadow (contact shadow, true), fast (no offscreen, for crowds),
 //             prop(ctx, frontArm, backArm) drawn in figure units after the front arm }
 //   handPos(x, y, s, pose, i = 0, flip)  screen position of hand i (0 front, 1 back) — to put a phone, pen or light in it
-//   POSES.stand / hold / reach / lean / look / sit, walk(phase), breath(t), weight(t)
+//   POSES.stand / hold / reach / lean / look / sit / perch, walk(phase), breath(t), weight(t), life(t, seed), blink(t, seed)
+// Life (o.t given): every figure breathes (4–4.6 s), shifts its weight now and then (a smooth step every 8–13 s), glances about
+//   (a head turn every 6–11 s, eased in, held, eased back) and blinks (figure, figureKid); each on its own phase and rate via o.seed.
+// walk(phase): a real gait (heel strike with the toe up, flat foot, push-off on the toe, knee flexed in the swing, the opposite arm swinging,
+//   the lowest foot kept on the ground so the body bobs) → also returns ft (foot pitch) and _walk.
+// Faces: figure() → art.person() v3 (near-profile face, blink, gaze, smile); figureKid draws a child's face when it is big enough.
 import { rgba, mix, clamp, canvas, hatch } from '../engine.mjs';
 import { person, castShadow } from './art.mjs';
 
@@ -33,15 +38,49 @@ export const POSES = {
   lean: { lean: .12, sh: [0.45, 0.35], el: [0.7, 0.8], head: .1 },    // leaning forward over a table
   look: { head: -.22, sh: [0.12, 0.06], el: [0.25, 0.2] },           // looking up
   sit: { hip: [1.42, 1.5], kn: [1.42, 1.5], sh: [0.55, 0.45], el: [0.85, 0.9], lean: .04 },
+  // sitting on a wall / bench edge with the knees toward the viewer (thighs foreshortened), the torso turned to the side
+  perch: { hip: [1.35, 1.45], kn: [1.33, 1.43], thigh: [.62, .56], hipX: [0, 5], sh: [0.5, 0.42], el: [0.9, 0.95], lean: .06, hands: ['relaxed', 'open'] },
 };
-// walk cycle: phase in radians (2π per double step); arms swing, but stay at the side/front
+// walk cycle: phase in radians (2π per double step). Keyframed gait per leg (u = 0 heel strike → .6 toe-off → swing), the other leg
+// half a cycle later; arms swing opposite to the legs, mostly in front of the body (never behind the back).
+const GAIT = {
+  hip: [[0, .44], [.15, .31], [.5, -.21], [.6, -.15], [.75, .2], [.88, .46]],
+  kn: [[0, .05], [.12, .28], [.38, .07], [.5, .2], [.6, .6], [.72, 1.0], [.86, .42], [.96, .06]],
+  ft: [[0, .3], [.08, 0], [.4, 0], [.52, -.22], [.62, -.7], [.72, -.28], [.84, .06], [.94, .22]],
+};
+function gait(K, u) {   // periodic Catmull-Rom through the keys
+  const n = K.length; let i = 0; for (let j = 0; j < n; j++) if (K[j][0] <= u) i = j;
+  const k1 = K[i], k2 = K[(i + 1) % n], u2 = i + 1 < n ? k2[0] : 1, q = (u - k1[0]) / (u2 - k1[0]), p0 = K[(i - 1 + n) % n][1], p1 = k1[1], p2 = k2[1], p3 = K[(i + 2) % n][1];
+  return .5 * (2 * p1 + (p2 - p0) * q + (2 * p0 - 5 * p1 + 4 * p2 - p3) * q * q + (3 * p1 - p0 - 3 * p2 + p3) * q * q * q);
+}
 export function walk(phase) {
-  const s = Math.sin(phase), c = Math.cos(phase);
-  return { hip: [0.36 * s, -0.36 * s], kn: [Math.max(0, -c) * 0.7 + .05, Math.max(0, c) * 0.7 + .05], sh: [Math.max(-.05, 0.12 - 0.2 * s), Math.max(-.05, 0.12 + 0.2 * s)], el: [0.3 + .1 * Math.max(0, -s), 0.3 + .1 * Math.max(0, s)], dy: -2.2 * Math.abs(c), lean: .03 };
+  const u0 = ((phase / (Math.PI * 2)) % 1 + 1) % 1, u1 = (u0 + .5) % 1;
+  const hip = [gait(GAIT.hip, u0), gait(GAIT.hip, u1)], kn = [gait(GAIT.kn, u0), gait(GAIT.kn, u1)], ft = [gait(GAIT.ft, u0), gait(GAIT.ft, u1)];
+  const c = Math.cos(Math.PI * 2 * (u0 - .03)), c2 = Math.cos(Math.PI * 2 * (u0 - .1));
+  const sh = [Math.max(-.05, .14 - .26 * c), Math.max(-.05, .14 + .26 * c)], el = [.36 + .1 * (1 - c2), .36 + .1 * (1 + c2)];
+  // the lowest point of either shoe stays on the ground (heel at the strike, toe at the push-off): the bob comes out of the legs
+  const low = (i) => { const a = hip[i], p = ft[i]; return Math.cos(a) * 45 + Math.cos(a - kn[i]) * 43 + Math.max(4.6 * Math.cos(p) + 5.6 * Math.sin(p), 4.6 * Math.cos(p) - 13.8 * Math.sin(p)); };
+  return { hip, kn, ft, sh, el, dy: 92.6 - Math.max(low(0), low(1)), lean: .04 + .012 * Math.sin(Math.PI * 4 * u0 + .6), head: -.03, _walk: true };
 }
 // breathing (4.2 s) and slow weight shift (9 s) as small pose offsets
 export const breath = (t, ph = 0) => Math.sin(t * Math.PI * 2 / 4.2 + ph);
 export const weight = (t, ph = 0) => Math.sin(t * Math.PI * 2 / 9 + ph * 1.7) * .7 + Math.sin(t * Math.PI * 2 / 3.7 + ph) * .3;
+const hash = (x) => { const v = Math.sin(x * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
+const smo = (x) => x * x * (3 - 2 * x);
+// the slow life of one figure: { b breath -1..1, w weight -1..1 (held, then shifted), turn -1..1 and nod -1..1 (a glance, eased) }
+export function life(t, seed = 0) {
+  const sd = seed * 1.37 + .5, b = Math.sin(t * Math.PI * 2 / 4.2 * (1 + .12 * (hash(sd) - .5)) + sd * 2.3);
+  const v = clamp(Math.sin(t * Math.PI * 2 / (8 + 5 * hash(sd * 2.3)) + sd * 2.1) * 2.2, -1, 1), w = v * (3 - v * v) / 2;
+  const pg = 6.5 + 4.5 * hash(sd * 3.3), tg = t / pg + hash(sd * 5.1), k = Math.floor(tg), u = tg - k;
+  const r1 = hash(k * 7.7 + sd * 1.3), r2 = hash(k * 3.1 + sd * 2.9), on = hash(k * 5.3 + sd) < .82 ? 1 : 0, u0 = .08 + .3 * r2, d = .13, hold = .22 + .2 * r1;
+  const env = on * smo(clamp((u - u0) / d)) * (1 - smo(clamp((u - u0 - d - hold) / d)));
+  return { b, w, turn: (r1 - .5) * 2 * env, nod: (r2 - .5) * 2 * env };
+}
+// a blink every 3.4–5 s (lids close in 80 ms, open in 140 ms)
+export function blink(t, seed = 0) {
+  const sd = seed * 1.37 + .5, per = 3.4 + 1.6 * hash(sd * 7.1), tt = t + hash(sd * 1.9) * per, k = Math.floor(tt / per), d = tt - k * per - per * (.12 + .7 * hash(k * 13.7 + sd));
+  return d < 0 || d > .22 ? 0 : d < .08 ? smo(d / .08) : 1 - smo((d - .08) / .14);
+}
 
 function limbs(P) {
   const shY = -64 + (P._b || 0) * -.9, out = {};
@@ -61,11 +100,12 @@ function resolve(pose, o) {
   const P = Object.assign({}, FIGDEF, pose);
   P.sh = [...P.sh]; P.el = [...P.el]; P.hip = [...P.hip]; P.kn = [...P.kn];
   if (o.t != null) {
-    const ph = (o.seed || 0) * 1.37, b = breath(o.t, ph), w = weight(o.t, ph);
-    P._b = b; P.lean += w * .012; P.head += b * .015;
-    if (P.hip[0] < 1) { P.hip[0] += w * .035; P.hip[1] -= w * .035; }
-    P.sh[0] += .025 * Math.sin(o.t * .9 + ph); P.sh[1] += .02 * Math.sin(o.t * .8 + ph + 1);
-    P._wx = w * 1.3;
+    const ph = (o.seed || 0) * 1.37, Lf = life(o.t, o.seed || 0), b = Lf.b, w = Lf.w, sitting = P.hip[0] > 1 || (P.thigh != null), walking = !!P._walk;
+    P._b = b; P._life = Lf; P.lean += w * .014 + b * .004; P.head += b * .015;
+    if (!sitting && !walking) { P.hip[0] += w * .05; P.hip[1] -= w * .05; P.kn[w > 0 ? 1 : 0] += Math.abs(w) * .1; }
+    if (!(pose.lock && pose.lock[0])) P.sh[0] += .025 * Math.sin(o.t * .9 + ph);
+    if (!(pose.lock && pose.lock[1])) P.sh[1] += .02 * Math.sin(o.t * .8 + ph + 1);
+    P._wx = walking ? 0 : w * (sitting ? 1 : 2);
   }
   if (!o.allowBack) { P.sh[0] = Math.max(-0.05, P.sh[0]); P.sh[1] = Math.max(-0.05, P.sh[1]); }
   return P;
@@ -112,6 +152,7 @@ function scratchFor(w, h) { const k = `${Math.ceil(w / 64)}x${Math.ceil(h / 64)}
 
 export function figureFlat(ctx, x, y, s, pose = {}, o = {}) {
   const P = resolve(pose, o), L = limbs(P), flip = o.flip ? -1 : 1, rimSide = o.rimSide ?? 1;
+  if (P._life) P.head += P._life.turn * .17 + P._life.nod * .07;
   const col = o.col || '#120f30', rim = o.rim || null, acc = o.accent || null, part = o.accentPart || 'sweater';
   y += (P.dy || 0) * s;
   const F = { leg: col, legBack: shadeHex(col, -.02), arm: col, armBack: shadeHex(col, -.03), torso: col, head: col, hand: o.skin || col, scarf: null };
@@ -160,6 +201,17 @@ export function handPos(x, y, s, pose, i = 0, flip = false, o = {}) {
   const c = Math.cos(P.lean), sn = Math.sin(P.lean);
   return [x + ((hx * c - hy * sn) + (P._wx || 0)) * s * f, y + (hx * sn + hy * c) * s + (P.dy || 0) * s];
 }
+// arm i reaches a screen point (the hand point, as handPos returns it) → { sh, el } for the pose (+ lock it against the idle sway).
+// Same o (t, seed) as the figure() call; a point out of reach is approached along the line. elbow -1 bends the other way.
+export function reachArm(x, y, s, pose, i, flip, o, target, elbow = 1) {
+  const P = resolve(pose, o), f = flip ? -1 : 1, px = x + (P._wx || 0) * s * f, py = y + ((P.dy || 0) + (P._b || 0) * -.35) * s;
+  let ux = (target[0] - px) / (s * f), uy = (target[1] - py) / s; const c = Math.cos(-P.lean), sn = Math.sin(-P.lean); [ux, uy] = [ux * c - uy * sn, ux * sn + uy * c];
+  const sx = i ? -3 : 3, sy = -64 + (P._b || 0) * -.9 + 7, dx = ux - sx, dy = uy - sy, A = 29, Bf = 30, d = clamp(Math.hypot(dx, dy), Math.abs(A - Bf) + .5, A + Bf - .05);
+  const inner = Math.acos(clamp((A * A + Bf * Bf - d * d) / (2 * A * Bf), -1, 1)), alpha = Math.acos(clamp((A * A + d * d - Bf * Bf) / (2 * A * d), -1, 1)), base = Math.atan2(dx, dy);
+  const r = elbow > 0 ? { sh: base - alpha, el: Math.PI - inner } : { sh: base + alpha, el: inner - Math.PI };
+  if (r.sh < -.35) { r.el += r.sh + .35; r.sh = -.35; }   // the upper arm never swings far behind the back
+  return r;
+}
 function shadeHex(hex, d) { const n = parseInt(hex.slice(1), 16); const fx = (v) => Math.round(clamp(v + d * 255, 0, 255)); return '#' + [fx(n >> 16), fx((n >> 8) & 255), fx(n & 255)].map((v) => v.toString(16).padStart(2, '0')).join(''); }
 export { capsule };
 
@@ -167,19 +219,20 @@ export { capsule };
 const SKINS = ['#e9c3a0', '#d9b08e', '#b98762', '#8d5f40', '#6a4430', '#f0d2b4'];
 export function figure(ctx, x, y, s, pose = {}, o = {}) {
   const P = resolve(pose, o), flip = !!o.flip;
+  if (P._life) { const Lf = P._life; P.turn = (pose.turn || 0) + Lf.turn * .7; P.head += Lf.nod * .07 + Lf.turn * .02; if (pose.eye == null) P.eye = blink(o.t, o.seed || 0); }
   const dress = Object.assign({ coat: '#2c3450', pants: '#15142a', shoes: '#0b0a18', skin: SKINS[(o.seed || 0) % SKINS.length], hair: '#1c1420' }, o.dress || {});
   const part = o.accentPart || 'coat';
   if (o.accent) { if (part === 'scarf') { P.scarf = true; dress.scarf = o.accent; } else dress.coat = o.accent; }
   if (part === 'sleeve' && o.accent) dress.coat = o.accent;
   const px = x + (P._wx || 0) * s * (flip ? -1 : 1), py = y + ((P.dy || 0) + (P._b || 0) * -.35) * s;
-  const sitting = P.hip[0] > 1;
-  if (o.cast) castShadow(ctx, px, py + 88 * s, s, o.cast.x, o.cast.y, { a: o.cast.a ?? .4, len: o.cast.len ?? 2.4 });
-  if (o.shadow !== false && !sitting) {
+  const sitting = P.hip[0] > .9 || P.thigh != null;
+  if (o.cast && o.part !== 'front') castShadow(ctx, px, py + 88 * s, s, o.cast.x, o.cast.y, { a: o.cast.a ?? .4, len: o.cast.len ?? 2.4 });
+  if (o.shadow !== false && !sitting && o.part !== 'front') {
     const fy = py + 90 * s, g = ctx.createRadialGradient(px, fy, 0, px, fy, 40 * s);
     g.addColorStop(0, 'rgba(4,4,14,.5)'); g.addColorStop(1, 'rgba(4,4,14,0)');
     ctx.save(); ctx.translate(px, fy); ctx.scale(1, .2); ctx.translate(-px, -fy); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, fy, 40 * s, 0, 7); ctx.fill(); ctx.restore();
   }
-  return person(ctx, px, py, s, P, { flip, rim: o.rim, rimSide: o.rimSide, rimW: o.rimW, light: o.light, dress, prop: o.prop, shadeA: o.shadeA, shadeCol: o.shadeCol });
+  return person(ctx, px, py, s, P, { flip, rim: o.rim, rimSide: o.rimSide, rimW: o.rimW, light: o.light, dress, prop: o.prop, shadeA: o.shadeA, shadeCol: o.shadeCol, part: o.part, hatch: o.hatch });
 }
 
 // ---------- figureBack(): a person seen from behind (rooftop, window, horizon) ----------
@@ -289,6 +342,7 @@ const KIDP = {
 const KIDC = new Map();
 export function figureKid(ctx, x, y, s, pose = {}, o = {}) {
   const A = KIDP[o.age || 'child'] || KIDP.child, P = resolve(pose, o), flip = o.flip ? -1 : 1;
+  if (P._life) { P.head += P._life.turn * .12 + P._life.nod * .06; P.eye = pose.eye ?? blink(o.t, o.seed || 0); P.turn = P._life.turn * .7; }
   const D = Object.assign({ top: o.accent || '#d9824a', pants: '#2a2f52', shoes: '#16141f', skin: SKINS[(o.seed || 0) % SKINS.length], hair: '#21161a' }, o.dress || {});
   if (o.accent) D.top = o.accent;
   const legY = A.legU + A.legL, sY = -A.T + (P._b || 0) * -.5, pad = Math.ceil(110 * s), key = pad;
@@ -318,6 +372,7 @@ export function figureKid(ctx, x, y, s, pose = {}, o = {}) {
   else { g.beginPath(); g.ellipse(0, hy - 2.5, A.head[0] * 1.02, A.head[1] * .82, .12, Math.PI * .72, Math.PI * 2.05); g.closePath(); g.fill();
     if (hs === 'pigtails') { for (const sx of [-A.head[0] * .95]) { g.beginPath(); g.ellipse(sx, hy + 2, 3.2, 5.2, .3, 0, TAU2); g.fill(); } }
     if (hs === 'bob') { g.beginPath(); g.moveTo(-A.head[0] * .9, hy - 4); g.quadraticCurveTo(-A.head[0] * 1.2, hy + 6, -A.head[0] * .5, hy + A.head[1] * .75); g.lineTo(-A.head[0] * .2, hy + 2); g.closePath(); g.fill(); } }
+  kidFace(g, A, hy, D, s * A.head[1] * 2, P, hs);
   g.restore();
   const frontArm = arm(0);
   if (o.prop) o.prop(g, frontArm, backArm, D);
@@ -336,6 +391,25 @@ export function figureKid(ctx, x, y, s, pose = {}, o = {}) {
   return { hand: (i) => { const m = i ? backArm : frontArm; return toScr(m.hx, m.hy); }, feetY: y + legY * s, head: toScr(2, sY - A.neck - A.head[1]) };
 }
 const TAU2 = Math.PI * 2;
+// a child's face in profile on the round head (centre (2, hy)): a small nose, the eye (lid, blink), brow, mouth, cheek, ear.
+// px = head height on screen: < 14 px nothing, < 34 px an eye mark + nose + mouth, larger the lid, iris and brow.
+function kidFace(g, A, hy, D, px, P, hs) {
+  if (px < 14) return;
+  const rx = A.head[0], ry = A.head[1], cx = 2, skin = D.skin, big = px >= 34, op = clamp(1 - (P.eye || 0)), tn = clamp(P.turn || 0, -1, 1);
+  g.fillStyle = skin; g.beginPath(); g.ellipse(cx + rx * .93, hy + ry * .2, rx * .17, rx * .15, .3, 0, TAU2); g.fill();              // nose
+  g.fillStyle = shadeHex(skin, -.05); g.beginPath(); g.ellipse(cx - rx * .12 - tn * 1.2, hy + ry * .14, rx * .17, ry * .25, .1, 0, TAU2); g.fill();   // ear
+  g.fillStyle = 'rgba(200,96,76,.16)'; g.beginPath(); g.ellipse(cx + rx * .5, hy + ry * .4, rx * .22, ry * .14, 0, 0, TAU2); g.fill();   // cheek
+  const ex = cx + rx * .56 + tn * .8, ey = hy + ry * .05;
+  if (big) {
+    g.save(); g.beginPath(); g.moveTo(ex - 1.5, ey); g.quadraticCurveTo(ex - .1, ey - 2.4 * op, ex + 1.2, ey + .1); g.quadraticCurveTo(ex, ey + 1.2 * op, ex - 1.5, ey); g.closePath();
+    if (op > .1) { g.fillStyle = mixHexF(skin, '#f4ece2', .55); g.fill(); g.clip(); g.fillStyle = '#1d1416'; g.beginPath(); g.arc(ex + .4, ey - .1, 1.0, 0, TAU2); g.fill(); }
+    g.restore();
+    g.strokeStyle = shadeHex(skin, -.42); g.lineCap = 'round'; g.lineWidth = .55; g.beginPath(); g.moveTo(ex - 1.7, ey); g.quadraticCurveTo(ex - .1, ey - 2.45 * op - .1 + (1 - op) * 1.2, ex + 1.3, ey + .1); g.stroke();
+    if (hs !== 'short' && hs !== 'curly') { g.strokeStyle = shadeHex(D.hair, .05); g.lineWidth = .8; g.beginPath(); g.moveTo(ex - 2, ey - 2.4); g.quadraticCurveTo(ex, ey - 3.3, ex + 1.8, ey - 2.6); g.stroke(); }
+  } else { g.fillStyle = '#1d1416'; g.beginPath(); g.ellipse(ex + .3, ey, 1.1, .25 + .65 * op, 0, 0, TAU2); g.fill(); }
+  g.strokeStyle = rgba(shadeHex(skin, -.45), .85); g.lineWidth = big ? .55 : .75; g.lineCap = 'round'; g.beginPath(); g.moveTo(cx + rx * .86, hy + ry * .5); g.quadraticCurveTo(cx + rx * .74, hy + ry * .53, cx + rx * .64, hy + ry * .48); g.stroke();
+}
+function mixHexF(a, b, u) { const A = parseInt(a.slice(1), 16), B = parseInt(b.slice(1), 16), m = (k) => Math.round(mix((A >> k) & 255, (B >> k) & 255, u)); return '#' + [m(16), m(8), m(0)].map((v) => v.toString(16).padStart(2, '0')).join(''); }
 
 // the swaddled baby: a blanket bundle with folds, a small head with a wisp of hair, one tiny hand at the face
 export function babyBundle(ctx, x, y, s, o = {}) {

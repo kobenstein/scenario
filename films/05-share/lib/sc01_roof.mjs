@@ -109,30 +109,35 @@ function threadOut(ctx, t, K, A0) {
 
 // ---------- H.10: the roof at night, two friends on the parapet, the napkin, the pen ----------
 // K: { t0, plan, friend (start of "friend"), tonight, out (cut to 0.01) }
+// People pass: the napkin lies on your lap (drawn between your body and your writing hand), the pen is a real pen (~17 cm) held in the
+// hand, its nib follows the ink of each sign and the hand follows the pen (IK); she nods twice (down-up, a smaller second one).
 export function roofNight(ctx, t, K) {
   const u = clamp((t - K.t0) / (K.out - K.t0));
   // the camera leans in toward the napkin over the whole take (the plan is the subject)
   const cam = { x: -40 + 44 * eio(u) + drift(t, 4, 3), y: -2 + drift(t, 2, 1), z: 2.68 + .36 * eio(u), fx: 965, fy: 640 };
   const A = rooftop(ctx, t, { state: 'night', cam, seats: 2, seatX: [870, 1060], seatS: 1.55 });
   const hump = (a, d) => Math.max(0, Math.sin(clamp((t - a) / d) * Math.PI));
-  const nod = Math.max(hump(K.friend - .05, .7), .8 * hump(K.tonight + .05, .7));   // she nods on "friend", and again after "tonight"
+  const nodTwice = (a) => Math.max(hump(a, .44), .55 * hump(a + .4, .4));
+  const nod = Math.max(nodTwice(K.friend - .05), .8 * nodTwice(K.tonight + .05));   // she nods on "friend", and again after "tonight"
   const lean = sm(clamp((t - (K.friend - .9)) / .7));
   const writing = clamp((t - (K.plan - .2)) / ((K.friend + .3) - (K.plan - .2)));
   // in the pause after "tonight" you look up from the napkin to her, she nods, you nod back; then the pen leaves
   const up = sm(clamp((t - (K.tonight - .45)) / .5)), ynod = .8 * hump(K.tonight + .45, .6);
-  const F = rooftopFriends(ctx, t, A, { you: { write: writing < 1 ? 1 : 0, up, nod: ynod, pen: 1 - sm(clamp((t - (K.out - .95)) / .5)) }, friend: { nod, lean }, light: { x: (A.seats[0].x + A.seats[1].x) / 2 + 300, y: A.parapet.y + 160, col: '#ff9a3c', a: .14 } });
-  // the napkin on your knee (lies flat-ish, seen at an angle) with three signs drawn one after the other
-  const S = A.seats[0], ks = S.s / 1.55;
-  const nx = S.hip[0] + 64 * ks, ny = S.hip[1] - 6 * ks;
-  const N = napkin(ctx, nx, ny, .23 * ks, t, { rot: -.12, tilt: .55, marks: { dot: clamp(writing * 3), sprout: clamp(writing * 3 - 1), fruit: clamp(writing * 3 - 2) }, light: 'night', glow: .4 });
-  // the pen in your hand: follows the drawing, then lifts and leaves to the right (the carrier into 0.01)
-  const tip = N.pen(writing < 1 / 3 ? 0 : writing < 2 / 3 ? 1 : 2) || N.mark(2);
-  const lift = clamp((t - (K.out - .9)) / .9);
-  const px = mix(tip.x + 2, 2100, ein(lift) * .0 + eio(lift) * 1), py = mix(tip.y - 2, 120, eio(lift));
-  // while it writes the pen runs from the nib up into your hand (held, not floating); then it lifts away
-  let ang = -2.2 + lift * .8, ps = .2 * ks * (1 + lift * 2.2); const hd = F && F.you && F.you.hand;
-  if (hd) { const dx = hd[0] - tip.x, dy = hd[1] - tip.y, k = eio(lift); ang = mix(Math.atan2(dy, dx), ang, k); ps = mix(clamp(Math.hypot(dx, dy) / (246 * .78), .14 * ks, .3 * ks), ps, k); }
-  if (lift < 1) pen(ctx, px, py, ps, { ang, t, lift: lift > 0 ? 1 : 0 });
+  const lift = clamp((t - (K.out - .9)) / .9), ks = A.seats[0].s / 1.55;
+  const napkinCb = (g, x, y, s) => {
+    // the napkin on your lap (seen at an angle), three signs drawn one after the other
+    const N = napkin(g, x, y, .17 * ks, t, { rot: -.12, tilt: .55, marks: { dot: clamp(writing * 3), sprout: clamp(writing * 3 - 1), fruit: clamp(writing * 3 - 2) }, light: 'night', glow: .4 });
+    const tip = N.pen(writing < 1 / 3 ? 0 : writing < 2 / 3 ? 1 : 2) || N.mark(2);
+    // the pen: its nib on the ink while it writes (a small wobble of the hand), then it lifts and leaves to the right (the carrier into 0.01)
+    const ps0 = s * 17 / 230, wob = writing > 0 && writing < 1 ? 1 : 0;
+    const ang = mix(-2.2 + .05 * Math.sin(t * 9) * wob, -1.4, lift), ps = mix(ps0, .2 * ks * 3.2, lift);
+    const nx = mix(tip.x + 1, 2100, eio(lift)), ny = mix(tip.y - 1, 120, eio(lift));
+    if (lift < 1) pen(g, nx, ny, ps, { ang, t, lift: lift > 0 ? 1 : 0 });
+    // the fingers hold the pen a quarter along; the palm sits a little further up the hand
+    const gx = nx + Math.cos(ang) * 62 * ps, gy = ny + Math.sin(ang) * 62 * ps;
+    return { grip: [gx - .85 * 5 * s, gy - .5 * 5 * s], hold: 1 - sm(clamp(lift * 3)) };
+  };
+  rooftopFriends(ctx, t, A, { you: { write: writing < 1 ? 1 : 0, up, nod: ynod, pen: 1 - sm(clamp((t - (K.out - .95)) / .5)), napkin: napkinCb }, friend: { nod, lean }, light: { x: (A.seats[0].x + A.seats[1].x) / 2 + 300, y: A.parapet.y + 160, col: '#ff9a3c', a: .14 } });
   return A;
 }
 export { ROOF };

@@ -30,7 +30,7 @@ export function youBack(ctx, x, y, s, o = {}) {
   const [F, f] = buf('F' + cw + 'x' + ch, cw, ch), [M, m] = buf('M' + cw + 'x' + ch, cw, ch), [R, r] = buf('R' + cw + 'x' + ch, cw, ch);
   const U = (g) => g.setTransform(k, 0, 0, k, -X0 * k, -Y0 * k);
   const sy = -br * 3.5, hx = sway * 4;                      // shoulders breathe, hips sway
-  const hd = { x: mix(8, 26, look) + hx * .5, y: mix(-878, -905, look) + sy, rot: mix(.32, -.06, look) };   // head: bowed → lifted, turning right
+  const hd = { x: mix(8, 26, look) + hx * .5, y: mix(-878, -905, look) + sy, rot: mix(.32, -.06, look) + .016 * Math.sin(t * .8 + 1) + .008 * Math.sin(t * 1.9) };   // head: bowed → lifted, turning right; never quite still
   const ph = { x: mix(150, 132, up), y: mix(-640, -720, up) + sy * .6 };   // the phone (display faces you, we see its back and its light)
   // ---- shapes (one function paints all parts; mono = mask colour) ----
   const paint = (g, mono) => {
@@ -63,10 +63,30 @@ export function youBack(ctx, x, y, s, o = {}) {
     g.fillStyle = C(shadeH(skin, -.35)); g.beginPath(); g.moveTo(-34, -830 + sy); g.lineTo(34, -830 + sy); g.lineTo(26 + hd.x * .4, hd.y + 30); g.lineTo(-30 + hd.x * .4, hd.y + 34); g.closePath(); g.fill();
     g.save(); g.translate(hd.x, hd.y); g.rotate(hd.rot);
     g.fillStyle = C(shadeH(skin, -.25)); g.beginPath(); g.ellipse(8, 4, 60, 76, .08, 0, 7); g.fill();              // skull + cheek
-    g.fillStyle = C(hair); g.beginPath();                                                                         // hair: covers the back, the cheek stays on the right
-    g.moveTo(52, -50); g.bezierCurveTo(30, -84, -30, -88, -56, -54); g.bezierCurveTo(-74, -20, -66, 30, -50, 52); g.bezierCurveTo(-30, 66, 0, 66, 20, 50);
-    g.bezierCurveTo(28, 30, 30, 0, 40, -16); g.bezierCurveTo(48, -26, 56, -36, 52, -50); g.closePath(); g.fill();
+    const hairPath = () => { g.beginPath();                                                                      // hair: covers the back, the cheek stays on the right
+      g.moveTo(52, -50); g.bezierCurveTo(30, -84, -30, -88, -56, -54); g.bezierCurveTo(-74, -20, -66, 30, -50, 52); g.bezierCurveTo(-30, 66, 0, 66, 20, 50);
+      g.bezierCurveTo(28, 30, 30, 0, 40, -16); g.bezierCurveTo(48, -26, 56, -36, 52, -50); g.closePath(); };
+    if (!mono) { g.fillStyle = 'rgba(0,0,0,.28)'; g.beginPath(); g.ellipse(-14, 58, 34, 9, .1, 0, 7); g.fill(); }  // the hair's shadow on the nape
+    g.fillStyle = C(hair); hairPath(); g.fill();
+    if (!mono) {
+      // volume and strands: a fan from the crown whorl down to the nape and round to the temple, a dim sheen where the sky catches it
+      g.save(); hairPath(); g.clip(); g.lineCap = 'round';
+      const sg = g.createRadialGradient(10, -60, 4, 10, -60, 70); sg.addColorStop(0, rgba(shadeH(hair, 2.4), .5)); sg.addColorStop(1, rgba(shadeH(hair, 2.4), 0)); g.fillStyle = sg; g.fillRect(-80, -100, 160, 120);
+      for (let j = 0; j < 15; j++) { const a = .95 + j * .175 + Math.sin(j * 2.3) * .05, r0 = 12 + (j * 7) % 11, r1 = 74 + (j * 13) % 26, cx = -8, cy = -54, bend = .42 + .12 * Math.sin(j * 1.3);
+        g.strokeStyle = j % 3 === 1 ? 'rgba(0,0,0,.3)' : rgba(shadeH(hair, 2.6), .26 + .1 * ((j * 5) % 3) / 2); g.lineWidth = j % 3 === 1 ? 2.2 : 1.5;
+        g.beginPath(); g.moveTo(cx + Math.cos(a) * r0, cy + Math.sin(a) * r0); g.quadraticCurveTo(cx + Math.cos(a - bend) * r1 * .55, cy + Math.sin(a - bend) * r1 * .55, cx + Math.cos(a) * r1, cy + Math.sin(a) * r1); g.stroke(); }
+      g.restore();
+      // the nape: short tapering tufts where the hair ends on the neck
+      g.strokeStyle = C(hair); g.lineCap = 'round'; for (let j = 0; j < 7; j++) { const x0 = -44 + j * 9, y0 = 54 + Math.sin(j * 1.7) * 3; g.lineWidth = 3.2 - (j % 2); g.beginPath(); g.moveTo(x0, y0 - 6); g.quadraticCurveTo(x0 + 2, y0 + 2, x0 + 5, y0 + 5 + (j % 3)); g.stroke(); }
+    }
     g.fillStyle = C(shadeH(skin, -.4)); g.beginPath(); g.ellipse(38, 2, 9, 15, .2, 0, 7); g.fill();               // ear
+    if (!mono) {
+      g.strokeStyle = 'rgba(20,10,8,.55)'; g.lineWidth = 2; g.lineCap = 'round'; g.beginPath(); g.ellipse(39, 1, 4.5, 9, .2, -1.9, 1.3); g.stroke();   // the ear's inner fold
+      g.strokeStyle = rgba(shadeH(skin, .2), .35); g.lineWidth = 1.6; g.beginPath(); g.ellipse(38, 2, 8.4, 14.4, .2, -2.2, -.6); g.stroke();
+      // lost profile: the tip of the brow and of the lashes just show past the cheek once the head lifts
+      const lp = clamp((look - .35) / .5); if (lp > 0) { g.strokeStyle = `rgba(20,12,14,${.6 * lp})`; g.lineWidth = 2.6; g.beginPath(); g.moveTo(58, -22); g.quadraticCurveTo(64, -25, 68, -21); g.stroke();
+        g.lineWidth = 1.8; g.beginPath(); g.moveTo(64, -8); g.lineTo(69, -9.5); g.stroke(); }
+    }
     g.restore();
     // scarf: a wrapped band at the collar and one tail over the left shoulder blade, lifting in the wind
     const wv = (q) => wind * (Math.sin(t * 2.3 + q * 3) * 10 + Math.sin(t * 3.7 + q * 5) * 4) * q;
