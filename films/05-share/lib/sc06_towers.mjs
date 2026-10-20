@@ -126,7 +126,7 @@ function quad(ctx, P, F, q0, q1, y0, y1, k0 = 0, k1 = 0) {   // k = slant of the
 }
 function tower(ctx, P, T, h, t, cam, o = {}) {
   const c = Math.cos(T.yaw), s = Math.sin(T.yaw), corner = (sx, sz) => [T.x + sx * T.hx * c - sz * T.hz * s, T.z + sx * T.hx * s + sz * T.hz * c];
-  const C = [corner(-1, -1), corner(1, -1), corner(1, 1), corner(-1, 1)], base = .9, top = base + h;
+  const C = [corner(-1, -1), corner(1, -1), corner(1, 1), corner(-1, 1)], base = o.base ?? .9, top = base + h, crownH = o.crown === false ? .5 : 1.6;
   const faces = [];
   for (let i = 0; i < 4; i++) {
     const a = C[i], b = C[(i + 1) % 4], mx = (a[0] + b[0]) / 2, mz = (a[1] + b[1]) / 2, nx = mx - T.x, nz = mz - T.z;
@@ -134,12 +134,25 @@ function tower(ctx, P, T, h, t, cam, o = {}) {
     faces.push({ a, b, nx, nz, d: Math.hypot(vx, vz), i, w: Math.hypot(b[0] - a[0], b[1] - a[1]) });
   }
   faces.sort((p, q) => q.d - p.d);
-  const fl = 3.2, nf = Math.max(2, Math.round((h - 1.6) / fl)), fh = (h - 1.6) / nf;   // floors; a 1.6 m crown on top
+  const fl = 3.2, nf = Math.max(1, Math.round((h - crownH) / fl)), fh = (h - crownH) / nf;   // floors; a 1.6 m crown on top (a .5 m ledge on a setback)
   for (const F of faces) {
     const A = P(F.a[0], base, F.a[1]), B = P(F.b[0], base, F.b[1]), Cc = P(F.b[0], top, F.b[1]), D = P(F.a[0], top, F.a[1]);
     const L = Math.hypot(F.nx, F.nz), k = F.nx / L > .05 ? 1 : 0;   // k = 1: the face turned toward the low sun (grazing warm light)
     const ytop = Math.min(D[1], Cc[1]), ybot = Math.max(A[1], B[1]), xl = Math.min(A[0], B[0], Cc[0], D[0]), xr = Math.max(A[0], B[0], Cc[0], D[0]);
     ctx.save(); ctx.beginPath(); ctx.moveTo(A[0], A[1]); ctx.lineTo(B[0], B[1]); ctx.lineTo(Cc[0], Cc[1]); ctx.lineTo(D[0], D[1]); ctx.closePath();
+    if (o.deco) {   // Art Deco crown: brushed gold-steel, vertical fluting and an engraved sunburst on every face
+      const dg = ctx.createLinearGradient(0, ytop, 0, ybot); if (k) { dg.addColorStop(0, '#f4d6a8'); dg.addColorStop(1, '#b88a5e'); } else { dg.addColorStop(0, '#8a7088'); dg.addColorStop(1, '#3e3450'); }
+      ctx.fillStyle = dg; ctx.fill(); ctx.clip();
+      ctx.strokeStyle = k ? 'rgba(110,70,40,.45)' : 'rgba(14,12,30,.45)'; ctx.lineWidth = .9; ctx.beginPath();
+      for (let i = 1; i < 10; i++) { const q = i / 10, p0 = P(mix(F.a[0], F.b[0], q), base, mix(F.a[1], F.b[1], q)), p1 = P(mix(F.a[0], F.b[0], q), top, mix(F.a[1], F.b[1], q)); ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); } ctx.stroke();
+      // sunburst: rays fanning up from the middle of the face's foot (the certificate's rosette language)
+      const fm = P(mix(F.a[0], F.b[0], .5), base, mix(F.a[1], F.b[1], .5)); ctx.strokeStyle = k ? 'rgba(255,240,214,.7)' : 'rgba(220,200,230,.35)'; ctx.lineWidth = 1.1; ctx.beginPath();
+      for (let i = 0; i <= 8; i++) { const q = i / 8, p1 = P(mix(F.a[0], F.b[0], q), top - (top - base) * (.08 + .5 * Math.abs(q - .5)), mix(F.a[1], F.b[1], q)); ctx.moveTo(fm[0], fm[1]); ctx.lineTo(p1[0], p1[1]); } ctx.stroke();
+      quad(ctx, P, F, 0, 1, top - (top - base) * .12, top); ctx.fillStyle = k ? 'rgba(255,236,200,.5)' : 'rgba(200,180,220,.22)'; ctx.fill();
+      ctx.restore();
+      ctx.strokeStyle = k ? 'rgba(255,236,206,.9)' : 'rgba(240,210,220,.4)'; ctx.lineWidth = 1.3; ctx.beginPath(); ctx.moveTo(D[0], D[1]); ctx.lineTo(Cc[0], Cc[1]); ctx.stroke();
+      F.P = { A, B, Cc, D, k }; continue;
+    }
     // glass: reflects the dawn sky (pink high, violet low); the sun face is warmer and brighter
     const gg = ctx.createLinearGradient(0, ytop, 0, ybot);
     if (k) { gg.addColorStop(0, '#f2c2a8'); gg.addColorStop(.35, T.glass[0]); gg.addColorStop(1, T.glass[1]); }
@@ -155,16 +168,16 @@ function tower(ctx, P, T, h, t, cam, o = {}) {
     for (let j = 1; j <= nf; j++) { const y = base + j * fh; quad(ctx, P, F, 0, 1, y - .42, y); ctx.fillStyle = k ? 'rgba(90,56,64,.42)' : 'rgba(18,16,38,.5)'; ctx.fill(); }
     const nb = Math.max(3, Math.round(F.w / 1.5));
     ctx.strokeStyle = k ? 'rgba(96,60,70,.34)' : 'rgba(10,10,30,.42)'; ctx.lineWidth = .9;
-    ctx.beginPath(); for (let i = 1; i < nb; i++) { const q = i / nb, p0 = P(mix(F.a[0], F.b[0], q), base, mix(F.a[1], F.b[1], q)), p1 = P(mix(F.a[0], F.b[0], q), top - 1.6, mix(F.a[1], F.b[1], q)); ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); } ctx.stroke();
+    ctx.beginPath(); for (let i = 1; i < nb; i++) { const q = i / nb, p0 = P(mix(F.a[0], F.b[0], q), base, mix(F.a[1], F.b[1], q)), p1 = P(mix(F.a[0], F.b[0], q), top - crownH, mix(F.a[1], F.b[1], q)); ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); } ctx.stroke();
     // a few early lights inside (stable per tower and face), small and soft
-    const r = prng(Math.round(T.h * 10 + F.i * 7 + 3));
+    const r = prng(Math.round(T.h * 10 + F.i * 7 + 3 + (o.seed || 0)));
     for (let j = 0; j < nf; j++) for (let i = 0; i < nb; i++) { const v = r(); if (v > .07) continue; const y0 = base + j * fh + .25, y1 = base + (j + 1) * fh - .5;
       quad(ctx, P, F, (i + .12) / nb, (i + .88) / nb, y0, y1); ctx.fillStyle = v < .03 ? 'rgba(255,214,150,.62)' : 'rgba(255,196,140,.3)'; ctx.fill(); }
     // the lobby: a warm lit ground floor
-    quad(ctx, P, F, .02, .98, base, base + 1.0 * fh - .42); ctx.fillStyle = k ? 'rgba(255,200,140,.32)' : 'rgba(255,186,120,.26)'; ctx.fill();
+    if (o.lobby !== false) { quad(ctx, P, F, .02, .98, base, base + 1.0 * fh - .42); ctx.fillStyle = k ? 'rgba(255,200,140,.32)' : 'rgba(255,186,120,.26)'; ctx.fill(); }
     // the crown: brushed steel band with engraved lines
-    quad(ctx, P, F, 0, 1, top - 1.6, top); ctx.fillStyle = k ? '#c7a098' : '#4c4058'; ctx.fill();
-    ctx.strokeStyle = k ? 'rgba(255,236,214,.35)' : 'rgba(200,180,220,.18)'; ctx.lineWidth = .8; ctx.beginPath(); for (let m = 1; m < 4; m++) { const y = top - 1.6 + m * .4, p0 = P(F.a[0], y, F.a[1]), p1 = P(F.b[0], y, F.b[1]); ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); } ctx.stroke();
+    quad(ctx, P, F, 0, 1, top - crownH, top); ctx.fillStyle = k ? '#c7a098' : '#4c4058'; ctx.fill();
+    ctx.strokeStyle = k ? 'rgba(255,236,214,.35)' : 'rgba(200,180,220,.18)'; ctx.lineWidth = .8; ctx.beginPath(); for (let m = 1; m < 4; m++) { const y = top - crownH + m * crownH / 4, p0 = P(F.a[0], y, F.a[1]), p1 = P(F.b[0], y, F.b[1]); ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); } ctx.stroke();
     // engraved hatch on the shade face
     if (!k) { ctx.strokeStyle = 'rgba(10,8,24,.16)'; ctx.lineWidth = .8; ctx.beginPath(); for (let x = xl - (ybot - ytop); x < xr; x += 4.6) { ctx.moveTo(x, ybot); ctx.lineTo(x + (ybot - ytop) * .9, ytop); } ctx.stroke(); }
     ctx.restore();
@@ -180,7 +193,7 @@ function tower(ctx, P, T, h, t, cam, o = {}) {
   if (cam.y > top) {
     ctx.beginPath(); R.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); ctx.fillStyle = '#5a4a5e'; ctx.fill(); ctx.strokeStyle = 'rgba(255,226,196,.8)'; ctx.lineWidth = 1.6; ctx.stroke();
     const Ri = C.map(([x, z]) => P(mix(x, T.x, .1), top, mix(z, T.z, .1))); ctx.beginPath(); Ri.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); ctx.fillStyle = '#382c40'; ctx.fill();
-    for (const [ux, uz, uw, ud, uh] of [[-.35, -.2, .3, .25, .9], [.3, .35, .22, .3, .6]]) {
+    if (o.units !== false) for (const [ux, uz, uw, ud, uh] of [[-.35, -.2, .3, .25, .9], [.3, .35, .22, .3, .6]]) {
       const bx = T.x + ux * T.hx * c - uz * T.hz * s, bz = T.z + ux * T.hx * s + uz * T.hz * c, ww = uw * T.hx, dd = ud * T.hz;
       const q = [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(([a, b]) => [bx + a * ww * c - b * dd * s, bz + a * ww * s + b * dd * c]);
       const lo = q.map(([x, z]) => P(x, top, z)), hi = q.map(([x, z]) => P(x, top + uh, z));

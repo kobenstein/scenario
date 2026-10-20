@@ -210,6 +210,28 @@ export function glowLine(ctx, pts, u = 1, { color = C.cyan, width = 4, glowW = 1
 export function samples(f, a, b, n = 200) { const r = []; for (let i = 0; i <= n; i++) { const u = a + (b - a) * i / n; r.push(f(u)); } return r; }
 
 // ---------- transitions between two rendered shots ----------
+// Soft oval matte for zoom/out/push: the smaller picture shows through a feathered window instead of a hard-edged rectangle.
+// feather(im, k): k = 1 full feather (edges transparent), 0 untouched. The matte is only ever drawn at >= frame size
+// (destination-in must cover every pixel), so less feather = a larger matte.
+let _matte = null, _soft = null;
+function matte() {
+  if (_matte) return _matte;
+  const w = 480, h = 270, [c, x] = canvas(w, h), img = x.createImageData(w, h), d = img.data;
+  for (let y = 0; y < h; y++) for (let X = 0; X < w; X++) {
+    const r = Math.hypot((X + .5 - w / 2) / (w / 2), (y + .5 - h / 2) / (h / 2)), i = (y * w + X) * 4;
+    d[i] = d[i + 1] = d[i + 2] = 255; d[i + 3] = Math.round(255 * (1 - sm(lin(.42, .98, r))));
+  }
+  x.putImageData(img, 0, 0); return (_matte = c);
+}
+function feather(im, k) {
+  if (k <= .002) return im;
+  if (!_soft) _soft = canvas();
+  const [c, x] = _soft, m = 1 + (1 - k) * 2.3;
+  x.save(); x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over';
+  x.clearRect(0, 0, W, H); x.drawImage(im, 0, 0);
+  x.globalCompositeOperation = 'destination-in'; x.drawImage(matte(), W / 2 - W * m / 2, H / 2 - H * m / 2, W * m, H * m);
+  x.restore(); return c;
+}
 export function composite(ctx, A, B, kind, u, o = {}) {
   const ox = o.x ?? W / 2, oy = o.y ?? H / 2;
   if (kind === 'match') { ctx.drawImage(A, 0, 0); ctx.globalAlpha = sm(u); ctx.drawImage(B, 0, 0); ctx.globalAlpha = 1; return; }
@@ -222,14 +244,14 @@ export function composite(ctx, A, B, kind, u, o = {}) {
   if (kind === 'zoom') { // camera flies into the carrier at (ox, oy); B grows out of it
     const e = eio(u), za = Math.pow(o.depth || 6, e);
     ctx.save(); ctx.translate(ox, oy); ctx.scale(za, za); ctx.translate(-ox, -oy); ctx.drawImage(A, 0, 0); ctx.restore();
-    const zb = mix(1 / (o.depth || 6), 1, e), a = sm(lin(.35, .8, u));
-    ctx.save(); ctx.globalAlpha = a; ctx.translate(mix(ox, W / 2, e), mix(oy, H / 2, e)); ctx.scale(zb, zb); ctx.drawImage(B, -W / 2, -H / 2); ctx.restore(); return;
+    const zb = mix(1 / (o.depth || 6), 1, e), a = sm(lin(.35, .8, u)), k = 1 - sm(lin(.83, 1, u)); // the oval opens only once B nearly fills the frame
+    ctx.save(); ctx.globalAlpha = a; ctx.translate(mix(ox, W / 2, e), mix(oy, H / 2, e)); ctx.scale(zb, zb); ctx.drawImage(feather(B, k), -W / 2, -H / 2); ctx.restore(); return;
   }
   if (kind === 'out') { // reverse zoom: camera pulls back, A shrinks into a spot of B
     const e = eio(u), zb = Math.pow(o.depth || 6, 1 - e);
     ctx.save(); ctx.translate(ox, oy); ctx.scale(zb, zb); ctx.translate(-ox, -oy); ctx.drawImage(B, 0, 0); ctx.restore();
     const za = mix(1, 1 / (o.depth || 6), e);
-    ctx.save(); ctx.globalAlpha = 1 - sm(lin(.3, .75, u)); ctx.translate(mix(W / 2, ox, e), mix(H / 2, oy, e)); ctx.scale(za, za); ctx.drawImage(A, -W / 2, -H / 2); ctx.restore(); return;
+    ctx.save(); ctx.globalAlpha = 1 - sm(lin(.3, .75, u)); ctx.translate(mix(W / 2, ox, e), mix(H / 2, oy, e)); ctx.scale(za, za); ctx.drawImage(feather(A, sm(lin(0, .17, u))), -W / 2, -H / 2); ctx.restore(); return;
   }
   if (kind === 'black') { // fade through black (chapter boundaries and rests only)
     if (u < .5) { ctx.drawImage(A, 0, 0); ctx.fillStyle = `rgba(7,9,24,${sm(u * 2)})`; } else { ctx.drawImage(B, 0, 0); ctx.fillStyle = `rgba(7,9,24,${1 - sm((u - .5) * 2)})`; }
@@ -246,7 +268,7 @@ export function composite(ctx, A, B, kind, u, o = {}) {
   if (kind === 'push') { // A zooms past camera, B settles from slightly smaller
     const e = eio(u);
     ctx.save(); ctx.globalAlpha = 1; const za = 1 + e * .35; ctx.translate(W / 2, H / 2); ctx.scale(za, za); ctx.drawImage(A, -W / 2, -H / 2); ctx.restore();
-    ctx.save(); ctx.globalAlpha = sm(lin(.25, .85, u)); const zb = mix(.88, 1, e); ctx.translate(W / 2, H / 2); ctx.scale(zb, zb); ctx.drawImage(B, -W / 2, -H / 2); ctx.restore(); return;
+    ctx.save(); ctx.globalAlpha = sm(lin(.25, .85, u)); const zb = mix(.88, 1, e); ctx.translate(W / 2, H / 2); ctx.scale(zb, zb); ctx.drawImage(feather(B, 1 - sm(lin(.75, 1, u))), -W / 2, -H / 2); ctx.restore(); return;
   }
   if (kind === 'up' || kind === 'down') { // vertical camera move: A slides out, B slides in (tilt)
     const e = eio(u), s = kind === 'up' ? 1 : -1;

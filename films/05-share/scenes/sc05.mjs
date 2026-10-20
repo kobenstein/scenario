@@ -399,7 +399,9 @@ function replicaOut(ctx, t, tc, d, anchor, depth, centre, drawNext) {
   g.save(); g.translate(W / 2, H / 2); g.scale(k, k); g.translate(-X[0], -X[1]); drawNext(g); g.restore();
   // a feathered elliptical window onto the outgoing picture, inset from the frame edge (so the border is always the map) and closing in
   const fa = sm(lin(0, .08, u)), m = sm(lin(.04, .62, u)), rx = mix(W / 2 - 10, 360, m), ry = mix(H / 2 - 10, 230, m), fe = mix(150, 260, m);
-  const cx = mix(W / 2, centre[0], m), cy = mix(H / 2, centre[1], m);
+  // centre null: the window lands on the anchor (its point in A's frame that sits on the anchor's screen position)
+  const tq = centre || [W / 2 + (anchor[0] - W / 2) * (1 - e) / za, H / 2 + (anchor[1] - H / 2) * (1 - e) / za];
+  const cx = mix(W / 2, tq[0], m), cy = mix(H / 2, tq[1], m);
   // (napi canvas clips composite fills drawn at negative coordinates under a transform, so the ellipse goes on its own mask canvas)
   const [mc, mg] = repMask(); mg.setTransform(1, 0, 0, 1, 0, 0); mg.clearRect(0, 0, W, H); mg.save(); mg.translate(cx, cy); mg.scale(1, ry / rx);
   const rg = mg.createRadialGradient(0, 0, Math.max(0, rx - fe), 0, 0, rx); rg.addColorStop(0, 'rgba(0,0,0,0)'); rg.addColorStop(1, 'rgba(0,0,0,1)'); mg.fillStyle = rg; mg.fillRect(-cx - 2, -(cy + 2) * rx / ry, W + 4, (H + 4) * rx / ry); mg.restore();
@@ -670,7 +672,10 @@ function rowShot(ctx, t, a, C) {
   const t0 = a.about - .15;
   ctx.drawImage(rowBack(), 0, 0);
   const cam = { x: drift(t, 8, 2) - 30 * lin(t0, a.taken, t), y: drift(t, 5, 5) };
-  ctx.save(); ctx.translate(cam.x, cam.y);
+  // the 'out' into 3.12: the row slides with the closing window so the near figures land on Norway (replicaOut's centre null)
+  const ou = lin(a.taken - .75, a.taken + .25, t), oe = eio(ou), oz = mix(1, 1 / 6, oe), om = sm(lin(.04, .62, ou)), NP = project(MAPCAM, 9.5, 61.5);
+  const RF = [860, 690], ro = [om * (W / 2 + (NP[0] - W / 2) * (1 - oe) / oz - RF[0]), om * (H / 2 + (NP[1] - H / 2) * (1 - oe) / oz - RF[1])];
+  ctx.save(); ctx.translate(cam.x + ro[0], cam.y + ro[1]);
   // the slice arrives in the centre (from the zoom) and splits into strips that fly to the figures, near ones first
   const split = lin(t0 + .2, t0 + .5, t);
   if (split < 1) { ctx.save(); ctx.globalAlpha = 1 - split; const p = slicePath(10, 300, -.55, -.55 + SL_W * 1.6); ctx.translate(840, 640); const g = ctx.createLinearGradient(-300, -300, 300, 300); ['#7a3b17', '#c87a2c', '#ffb35c', '#ffe2a8', '#c87a2c'].forEach((c, i) => g.addColorStop(i / 4, c)); ctx.fillStyle = g; ctx.fill(p); ctx.restore(); }
@@ -691,8 +696,8 @@ function rowShot(ctx, t, a, C) {
   const ta = fadeIO(t, a.about + .4, a.taken - .1, .5, .35);
   if (ta > 0) { text(ctx, '≈', 110, 168, { size: 76, weight: 300, color: rgba('#ffd9a0', ta) }); text(ctx, '$11,000', 168, 170, { size: 92, font: 'Instrument Serif', color: rgba('#ffd9a0', ta) }); label(ctx, 'PER NORWEGIAN · THE FUND’S NVIDIA SLICE', 116, 214, ta, { size: 18, spacing: 5 }); }
   source(ctx, t, a.about + .6, a.taken - .1, 'NBIM, 30 Jun 2026 · ≈ 5.6 M Norwegians', { x: 116, y: 250 });
-  // the 'out' into 3.12: the world map closes in around the row, which shrinks into Norway
-  replicaOut(ctx, t, a.taken - .25, 1.0, project(MAPCAM, 9.5, 61.5), 6, [1000, 600], (g) => worldShot(g, t, a, C));
+  // the 'out' into 3.12: the world map closes in around the row; the window and the row land on Norway
+  replicaOut(ctx, t, a.taken - .25, 1.0, NP, 6, null, (g) => worldShot(g, t, a, C));
 }
 
 // =====================================================================================================================
@@ -708,16 +713,32 @@ function mapNight() {
 }
 const barCanvas = () => once('bars313', () => canvas(W, H));
 function humanityRings() {
+  // the coasts as runs: break at the antimeridian seam (a ring jumping from -180° to 180° would draw a line straight across
+  // the map), above 67.5° N (Equal Earth squeezes the polar coasts into a few pixels under the flat pole line; the land
+  // fades out there) and at any long, nearly flat segment near the top; runs keep their arc position so the border still
+  // travels round each coast from Norway
   return once('hrings', () => {
+    const LMAX = 67.5, yTop = project(MAPCAM, 0, 60)[1], nor = project(MAPCAM, 9.5, 61.5), byRing = [];
     const rings = landRings('110m').filter((r) => r.length > 30 && r.reduce((m, p) => m + p[1], 0) / r.length > -58);
-    const nor = project(MAPCAM, 9.5, 61.5), out = [];
     for (const r of rings) {
-      const pts = r.map(([lo, la]) => { const p = project(MAPCAM, lo, la); return [p[0], p[1]]; });
-      let len = 0; for (let i = 1; i < pts.length; i++) len += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
-      let best = 0, bd = 1e18; pts.forEach(([x, y], i) => { const d = (x - nor[0]) ** 2 + (y - nor[1]) ** 2; if (d < bd) { bd = d; best = i; } });
-      const rot = pts.slice(best).concat(pts.slice(0, best + 1)); out.push({ pts: rot, len, d: Math.sqrt(bd) });
+      const P = r.map(([lo, la]) => { const p = project(MAPCAM, lo, la); return [p[0], p[1], lo, la]; });
+      let best = 0, bd = 1e18; P.forEach(([x, y, , la], i) => { if (la > LMAX) return; const d = (x - nor[0]) ** 2 + (y - nor[1]) ** 2; if (d < bd) { bd = d; best = i; } });
+      const rot = P.slice(best).concat(P.slice(0, best + 1)), runs = [];
+      let cur = [], s = 0, s0 = 0;
+      const flush = () => {
+        if (cur.length > 1) { let len = 0; for (let i = 1; i < cur.length; i++) len += Math.hypot(cur[i][0] - cur[i - 1][0], cur[i][1] - cur[i - 1][1]); if (len > 40) runs.push({ pts: cur.map(([x, y]) => [x, y]), s0, len }); }
+        cur = [];
+      };
+      for (let i = 1; i < rot.length; i++) {
+        const p = rot[i], q = rot[i - 1], dx = Math.abs(p[0] - q[0]), dy = Math.abs(p[1] - q[1]), seam = Math.abs(p[2] - q[2]) > 180;
+        const cut = seam || p[3] > LMAX || q[3] > LMAX || (dx > 30 && dy < .2 * dx && Math.min(p[1], q[1]) < yTop);
+        if (cut) flush(); else { if (!cur.length) { cur.push(q); s0 = s; } cur.push(p); }
+        if (!seam) s += Math.hypot(p[0] - q[0], p[1] - q[1]);
+      }
+      flush(); byRing.push({ runs, L: s, d: Math.sqrt(bd) });
     }
-    out.sort((p, q) => p.d - q.d); return out;
+    byRing.sort((p, q) => p.d - q.d);
+    const out = []; byRing.forEach((R, k) => R.runs.forEach((run) => out.push({ ...run, L: R.L, k }))); return out;
   });
 }
 const BAR = { x: 1640, w: 110, base: 840, top: 300 }, THR = 14375, HUM = 14244;
@@ -734,7 +755,8 @@ function worldShot(ctx, t, a, C) {
   if (dim > 0) { ctx.save(); ctx.globalAlpha = dim; ctx.drawImage(mapNight(), 0, 0); ctx.restore(); }
   // the one border of humanity: microtext along every coast, starting from Norway
   const HR = humanityRings();
-  HR.forEach((r, k) => { const uk = clamp(u * 1.25 - k * .02); if (uk > 0) microPath(ctx, r.pts, 'HUMANITY', { size: 10.5, u: uk, col: mixHex('#7a3b17', '#ffd9a0', dim), a: (1 - dim * .4), glint: (t * .25 + k * .17) % 1, offset: -(t - 255) * 18, side: 7, weight: 700 }); });
+  const hc = mixHex('#7a3b17', '#ffd9a0', dim), ha = 1 - dim * .4;
+  HR.forEach((r) => { const uk = clamp(u * 1.25 - r.k * .02), ur = clamp((uk * r.L - r.s0) / r.len); if (ur > 0) microPath(ctx, r.pts, 'HUMANITY', { size: 10.5, u: ur, col: hc, a: ha, glint: (t * .25 + r.k * .17 + r.s0 * .001) % 1, offset: -(t - 255) * 18, side: 7, weight: 700 }); });
   ctx.restore();
   // the chart on the right: the high-income line and humanity's bar
   const ca = sm(lin(a.humanity - .4, a.humanity + .2, t));
