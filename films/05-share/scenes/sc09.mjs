@@ -513,11 +513,11 @@ export default (T, R) => {
   function mix3(a, b, k) { const p = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)], x = p(a), y = p(b); return `rgb(${x.map((v, j) => Math.round(mix(v, y[j], k))).join(',')})`; }
   function phonesFrame(ctx, t) {
     ctx.drawImage(phBg(), drift(t, 10, 2) - 10, 0);
-    const z = 1 + .04 * sm(lin(TT.s614, TT.s616, t)); ctx.save(); ctx.translate(960, 560); ctx.scale(z, z); ctx.translate(-960, -560);
+    const z = 1 + .075 * sm(lin(TT.s614 - .3, TT.s616, t)); ctx.save(); ctx.translate(960, 560); ctx.scale(z, z); ctx.translate(-960, -560);
     const pin = (i) => eo5(lin(TT.s614 - .2 + i * .06, TT.s614 + .7 + i * .06, t));
     PH.forEach((p, i) => { const k = pin(i), glow = i !== DARK ? sm(lin(A.four - .05 + i * .04, A.four + .3 + i * .04, t)) : 0;
       if (glow > 0) glowDot(ctx, p.x, p.y - 40, 260, .22 * glow);
-      heldPhone(ctx, p.x + drift(t, 6, i), p.y + (1 - k) * 420 + drift(t, 5, i + 2), 1.0, { t, skin: p.skin, ang: p.ang, lit: .6 + .4 * glow, warm: i === DARK ? .1 : .4 + .6 * glow, screen: acctScreen(i, t) }); });
+      heldPhone(ctx, p.x + drift(t, 9, i), p.y + (1 - k) * 420 + drift(t, 8, i + 2) + 5 * Math.sin(t * 1.4 + i * 1.9), 1.0, { t, skin: p.skin, ang: p.ang, lit: .6 + .4 * glow, warm: i === DARK ? .1 : .4 + .6 * glow, screen: acctScreen(i, t) }); });
     ctx.restore();
     const nA = eo5(lin(A.four - .05, A.four + .4, t)) * (1 - sm(lin(A.s615 + .2, A.s615 + .8, t)));
     serif(ctx, '79%', 960, 210, nA, { size: 140, align: 'center', col: CORE });
@@ -552,7 +552,9 @@ export default (T, R) => {
     const g1 = qio(lin(A.s618 + .1, A.agree - .2, t)), g2 = qio(lin(A.s619 + .1, COUT.t - 1, t));
     const Z1 = 1.3, c1 = [PLQ.x + PLQ.w * .5 + 150, PLQ.y + 60], Z2 = .92, c2 = [OUT.x + 260 / Z2, OUT.y - 20 / Z2];
     const Z = mix(mix(1, Z1, g1), Z2, g2), cx = mix(mix(960, c1[0], g1), c2[0], g2), cy = mix(mix(540, c1[1], g1), c2[1], g2);
-    const dA = 1 - g2; return { Z: Z * (1 + .01 * Math.sin(t * .3)), cx: cx + drift(t, 5, 21) * dA, cy: cy + drift(t, 4, 22) * dA };
+    // the camera leans in slowly through both holds (the empty fund, the pen waiting), so the plan sequence never freezes
+    const lean = 1 + .045 * sm(lin(A.fund - .3, A.s618 + .4, t)) * (1 - g1) + .035 * sm(lin(A.agree - .1, A.s619 + .5, t)) * (1 - g2);
+    const dA = 1 - g2; return { Z: Z * lean * (1 + .01 * Math.sin(t * .3)), cx: cx + drift(t, 5, 21) * dA, cy: cy + drift(t, 4, 22) * dA };
   }
   const toS = (cam, x, y) => [960 + (x - cam.cx) * cam.Z, 540 + (y - cam.cy) * cam.Z];
   function voidFrame(ctx, t) {

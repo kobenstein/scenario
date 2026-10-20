@@ -83,7 +83,8 @@ export default (T, R) => {
     const lines = [L1, t > A.s708 - .3 ? L2 : null, t > A.s710 - .3 ? L3 : null];
     const sig = .5 * eout(clamp((t - A.sig0) / (A.coming + .1 - A.sig0)));                   // half drawn on "coming", the rest stays open
     const sweep = sm(lin(A.s710, A.s710 + 5, t)), rise = sm(lin(A.coming + .5, A.end + 1.5, t));
-    const Q = ruleSheet(ctx, t, { t0: A.s707, mode: 'write', lines, sig, sweep, rise });
+    const push = .065 * eout(lin(A.s707 - .3, A.s708 + 1.5, t));   // the camera leans in while the first line engraves, so the hold never freezes
+    const Q = ruleSheet(ctx, t, { t0: A.s707, mode: 'write', lines, sig, sweep, rise, push });
     const reach = clamp((t - (A.agree - .3)) / 1.1);
     if (reach > 0) {
       const touch = sm(lin(A.s709 - .3, A.s709 - .08, t)), up = sm(lin(A.coming + .1, A.coming + .9, t));

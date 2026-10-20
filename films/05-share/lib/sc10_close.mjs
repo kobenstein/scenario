@@ -135,8 +135,8 @@ function drawSheet(ctx, t, o) {
   if (o.lines) o.lines.forEach((ws, i) => { if (ws && ws.length) fronts.push(engraveWords(ctx, ws, LINE_X, LINES_Y[i], { t, size: 56, ink: '#1f2a3a', hold: o.hold || [], baseW: SW - 2 * LINE_X + 20 })); });
   return fronts;
 }
-// sheet placement on screen for the close-up: centre, scale, a slight turn; `rise` moves the camera up and back (the last image)
-function sheetXform(t, o) { const rise = o.rise ?? 0, z = mix(1, .84, rise) * (1 + .006 * Math.sin(t * .4)), x = 960 + drift(t, 5, 1), y = 520 + drift(t, 3, 2) + 70 * rise; return { x, y, z, rot: -.035 + .004 * Math.sin(t * .3) }; }
+// sheet placement on screen for the close-up: centre, scale, a slight turn; `push` leans in while the words engrave; `rise` moves the camera up and back (the last image)
+function sheetXform(t, o) { const rise = o.rise ?? 0, z = mix(1, .84, rise) * (1 + .006 * Math.sin(t * .4)) * (1 + (o.push ?? 0)), x = 960 + drift(t, 5, 1), y = 520 + drift(t, 3, 2) + 70 * rise; return { x, y, z, rot: -.035 + .004 * Math.sin(t * .3) }; }
 export const SHEET = { SW, SH, SIG, LINES_Y, LINE_X };
 export function ruleSheet(ctx, t, o = {}) {
   const t0 = o.t0 ?? 0, X = sheetXform(t, o), sc = X.z * .92;

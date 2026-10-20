@@ -359,8 +359,8 @@ export default (T, R) => {
   function f403(ctx, t) {
     ctx.drawImage(BG403(), 0, 0);
     const u0 = eio(lin(A.t403 - .3, A.t403 + 1.1, t)), merge = eio(lin(A.together - .1, A.together + .7, t)), burst = eio(lin(A.person - .15, A.earthE, t)), rise = eio(lin(A.earthE - .25, A.t404 + .3, t));
-    const camY = -260 * ein(lin(A.earthE - .35, A.t404 + .2, t)) + drift(t, 4, 1);
-    ctx.save(); ctx.translate(0, -camY);
+    const camY = -260 * ein(lin(A.earthE - .35, A.t404 + .2, t)) + drift(t, 4, 1), zz = 1 + .05 * sm(lin(A.t403 - .3, A.t404 + .2, t));   // a slow lean-in, the hold never parks
+    ctx.save(); ctx.translate(0, -camY); ctx.translate(960, 560); ctx.scale(zz, zz); ctx.translate(-960, -560);
     // the towers as dotted outlines (their glass fades away first)
     const glassA = 1 - sm(lin(A.t403 - .2, A.t403 + .7, t)), lineA = .9 - .45 * burst;
     if (glassA > 0) { ctx.save(); ctx.globalAlpha = glassA * .8; for (const S of SIL403) { const ys = S.map((q) => q[1]), lg = ctx.createLinearGradient(0, Math.min(...ys), 0, Math.max(...ys)); lg.addColorStop(0, '#e8b0a4'); lg.addColorStop(1, '#5a4a6a'); ctx.fillStyle = lg; ctx.beginPath(); S.forEach((q, i) => (i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]))); ctx.closePath(); ctx.fill(); } ctx.restore(); }

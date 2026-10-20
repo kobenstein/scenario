@@ -215,7 +215,7 @@ export default (T, R) => {
   function drawF2(ctx, t) { ctx.save(); ctx.translate(PAN * (1 - pan(t)), 0); K.drawFrag(ctx, 1, { cert: C2, lift: 1 + .4 * Math.sin(t * .6), rot: .006 * Math.sin(t * .5) }); ctx.restore(); }
   const BANDS = [[0, 0, .01], [0, 1, .20], [1, 2, .50]];   // [inner ring index (−1 → centre), outer ring index, share]
   function d510(ctx, t) {
-    const px = -PAN * pan(t), zp = 1 + .42 * qio(lin(A.out0, A.iris + .4, t));
+    const px = -PAN * pan(t), zp = (1 + .05 * sm(lin(A.oxford - .6, A.out0, t))) * (1 + .42 * qio(lin(A.out0, A.iris + .4, t)));   // a slow lean-in while the rings draw, then the push
     K.drawGroundA(ctx, t, px, 0);
     ctx.save(); ctx.translate(P2[0], P2[1]); ctx.scale(zp, zp); ctx.translate(-P2[0], -P2[1]);
     drawF2(ctx, t);

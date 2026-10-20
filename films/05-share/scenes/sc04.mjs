@@ -152,6 +152,9 @@ export default (T, R) => {
     const land = easeOut(lin(CT.s210, CT.s210 + .7, t)), flip = Math.sin(Math.min(1, lin(CT.s210, CT.s210 + .42, t)) * Math.PI / 2);
     const open = easeOut(lin(A.checks - .05, A.everyone + .1, t)), close = easeIn(lin(A.everyoneE - .3, CT.s210a - .12, t)), shrink = easeIO(lin(A.everyoneE - .05, CT.s210a + .02, t));
     const single = { x: mix(flipEnd.x, 960, land), y: mix(flipEnd.y, 470, land) + drift(t, 4, 1), s: mix(flipEnd.s * NW / CKW, 1.12, land) };
+    // the landed check keeps breathing until the fan opens: a slow push toward us, a slight sway, a sheen crossing the paper
+    const live = 1 - open, hk = 1 + .05 * sm(lin(CT.s210 + .35, A.checks + .1, t)) * live;
+    const sway = (.014 * Math.sin((t - CT.s210) * 2.1 + .4) - .005) * live * sm(lin(CT.s210 + .3, CT.s210 + .9, t));
     const items = [];
     for (let i = 0; i < FAN.n; i++) {
       // dealt out like cards: the middle first, the outer ones a beat later, each settling with a small paper flutter
@@ -166,12 +169,20 @@ export default (T, R) => {
       let { x, y, s, a } = it; const isMid = Math.abs(it.k) < 1e-6;
       if (!showFan) a = mix(-.08, 0, land);
       // closing: the stack travels into the price tag
+      s *= hk; a += sway;
       x = mix(x, tagPos.x, shrink); y = mix(y, tagPos.y, shrink); s = mix(s, tagPos.s, shrink); a = mix(a, tagPos.rot, shrink);
       const C = checkSprite(1 + (it.i % 5));
       ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.scale(s, s * (showFan || isMid ? (t < CT.s210 + .42 ? Math.max(.002, flip) : 1) : 1));
       ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 24; ctx.shadowOffsetY = 14;
       if (!isMid) ctx.globalAlpha = Math.min(1, (it.oi ?? open) * 4) * (1 - sm(lin(.75, 1, shrink)));
-      ctx.drawImage(C, -CKW / 2, -CKH / 2); ctx.restore();
+      ctx.drawImage(C, -CKW / 2, -CKH / 2);
+      const gq = lin(CT.s210 + .5, CT.s210 + 1.9, t);
+      if (isMid && live > .01 && gq > 0 && gq < 1) {
+        const gx = mix(-CKW * .85, CKW * .85, eio(gq)), g = ctx.createLinearGradient(gx - 130, -70, gx + 130, 70);
+        g.addColorStop(0, 'rgba(255,252,236,0)'); g.addColorStop(.5, `rgba(255,252,236,${.2 * live * Math.sin(gq * Math.PI)})`); g.addColorStop(1, 'rgba(255,252,236,0)');
+        ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.fillRect(-CKW / 2, -CKH / 2, CKW, CKH);
+      }
+      ctx.restore();
     }
     nameLabel(ctx, t, A.s210 + .05, 130, 170, 'Elon Musk', 'on X · April 2026', { col: VERD, t1: A.everyoneE - .2 });
     motes(ctx, t, 960, 400, 700, .6, 6, '200,240,225');

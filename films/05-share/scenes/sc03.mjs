@@ -118,12 +118,14 @@ export default (T, R) => {
   const cutAt = (u) => { const f = clamp(u) * (CUT.length - 1), i = Math.min(CUT.length - 2, Math.floor(f)), q = f - i; return [mix(CUT[i][0], CUT[i + 1][0], q), mix(CUT[i][1], CUT[i + 1][1], q)]; };
   const tCut0 = Math.min(CIN.t + .5, A.largest - .1), tCut1 = A.yet1 + .02, cutU = (t) => .42 * (1 - Math.pow(1 - lin(tCut0, tCut1, t), 1.6));
   // P0 is solved so that the cut's first point lies exactly under the carrier light at tCut0
+  const CREEP = .035;
   const camAt = (t, P0) => {
     let c;
     if (t < PB.t0) c = P0;
     else if (t < GL.t0) { const e = eo5((t - PB.t0) / PB.d); c = { cx: mix(P0.cx, camKeys.P1.cx, e), cy: mix(P0.cy, camKeys.P1.cy, e), s: Math.exp(mix(Math.log(P0.s), Math.log(camKeys.P1.s), e)), r: mix(P0.r, camKeys.P1.r, e) }; }
-    else if (t < PU.t0) { const e = qio((t - GL.t0) / (GL.t1 - GL.t0)), P1 = camKeys.P1, P2 = camKeys.P2; c = { cx: mix(P1.cx, P2.cx, e), cy: mix(P1.cy, P2.cy, e), s: Math.exp(mix(Math.log(P1.s), Math.log(P2.s), e)), r: mix(P1.r, P2.r, e) }; }
-    else { const e = qio((t - PU.t0) / (PU.t1 - PU.t0)), P2 = camKeys.P2, P3 = camKeys.P3; c = { cx: mix(P2.cx, P3.cx, e), cy: mix(P2.cy, P3.cy, e), s: Math.exp(mix(Math.log(P2.s), Math.log(P3.s), e)), r: mix(P2.r, P3.r, e) }; }
+    else if (t < PU.t0) { const e = qio((t - GL.t0) / (GL.t1 - GL.t0)), P1 = camKeys.P1, P2 = camKeys.P2; c = { cx: mix(P1.cx, P2.cx, e), cy: mix(P1.cy, P2.cy, e), s: Math.exp(mix(Math.log(P1.s), Math.log(P2.s), e)), r: mix(P1.r, P2.r, e) };
+      c.s *= 1 + CREEP * lin(GL.t1, PU.t0, t); }   // between the glide and the push the camera keeps creeping in, it never parks
+    else { const e = qio((t - PU.t0) / (PU.t1 - PU.t0)), P2 = camKeys.P2, P3 = camKeys.P3, s2 = P2.s * (1 + CREEP); c = { cx: mix(P2.cx, P3.cx, e), cy: mix(P2.cy, P3.cy, e), s: Math.exp(mix(Math.log(s2), Math.log(P3.s), e)), r: mix(P2.r, P3.r, e) }; }
     return { ...c, cx: c.cx + drift(t, 6, 1) / c.s, cy: c.cy + drift(t, 4, 2) / c.s };
   };
   const P0 = (() => {
@@ -319,12 +321,12 @@ export default (T, R) => {
   const nib16 = (t) => { const k = qio(lin(A.yet3e + .1, A.s201 - .05, t)); return { x: mix(1290, R16.x + 6, k) + drift(t, 10, 2) * (1 - k), y: mix(250, R16.y - 6, k) + drift(t, 8, 3) * (1 - k) }; };
   function frame116(ctx, t) {
     ctx.drawImage(bgLayer('e116', '#1a1d4a', '#0d1036', '#04051a', { x: 960, y: 480, ros: [960, 500, 640], rosA: .04 }), -100 + drift(t, 8, 1) * .6, -70 + drift(t, 6, 2) * .6);
-    const z = 1 + .03 * lin(A.s116 - .4, A.s201, t);
+    const z = 1 + .065 * lin(A.s116 - .4, A.s201, t);
     ctx.save(); ctx.translate(R16.x, R16.y); ctx.scale(z, z); ctx.translate(-R16.x, -R16.y);
     // the fortune: a dotted rosette breathing
     const br = .5 + .5 * Math.sin(t * 1.6), keep = sm(lin(A.yet3 - .1, A.yet3 + .4, t)) * (1 - sm(lin(A.yet3 + .6, A.yet3 + 1.4, t)));
     ctx.save(); ctx.globalCompositeOperation = 'lighter'; const gg = ctx.createRadialGradient(R16.x, R16.y, 0, R16.x, R16.y, 460); gg.addColorStop(0, rgba(AMBER, .12 + .1 * keep)); gg.addColorStop(1, rgba(AMBER, 0)); ctx.fillStyle = gg; ctx.fillRect(R16.x - 460, R16.y - 460, 920, 920); ctx.restore();
-    rosette(ctx, R16.x, R16.y, { R: R16.R, A: 36, B: 16, n: 22, m: 9, lines: 22, ghost: 1, col: PAPERC, w: 1.3, a: .62 + .12 * br + .2 * keep, dot: 6.5, rot: t * .02 });
+    rosette(ctx, R16.x, R16.y, { R: R16.R, A: 36, B: 16, n: 22, m: 9, lines: 22, ghost: 1, col: PAPERC, w: 1.3, a: .62 + .12 * br + .2 * keep, dot: 6.5, rot: t * .045 });
     // three dotted cut lines try, one after another, and smoke away
     const tries = [A.s116 + .15, A.fortune116 - .1, A.fortune116 + .75];
     tries.forEach((t0, i) => {
@@ -489,8 +491,10 @@ export default (T, R) => {
         ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, x, y, 60 * f.s, .35, AMBER, CORE); ctx.restore();
         miniCert(ctx, x, y, .42 * f.s * mix(1.15, .6, fly), mix(.5, -.12, fly), { glow: .7, shadow: false });
       } else {
-        ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, cx2, cy2, 70 * f.s, .14 + .3 * up, AMBER, CORE); ctx.restore();
-        miniCert(ctx, cx2, cy2, .42 * f.s * mix(.6, 1, up), -.12, { glow: .3 + .4 * up, shadow: false });
+        // a held slip is never frozen: it sways a little in the hand and its glow breathes (fading out before the hero's slip rises)
+        const still = f === HERO ? 1 - sm(lin(A.s206 - 1.6, A.s206 - .9, t)) : 1, sw = .05 * Math.sin(t * 1.7 + f.seed * 2.1) * (1 - .6 * up) * still, bob = 3 * f.s * Math.sin(t * 1.3 + f.seed) * still;
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, cx2, cy2 + bob, 70 * f.s, (.14 + .3 * up) * (1 + .2 * Math.sin(t * 2.3 + f.seed)), AMBER, CORE); ctx.restore();
+        miniCert(ctx, cx2, cy2 + bob, .42 * f.s * mix(.6, 1, up), -.12 + sw, { glow: .3 + .4 * up, shadow: false });
       }
     }
     // labels: first the dividend (sourced estimate), then the polls
