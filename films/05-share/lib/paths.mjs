@@ -1,4 +1,5 @@
-// The three engraved guilloche paths with the fork (TAKE rust, PRINT verdigris, AGREE amber), owner C3 (2.01 …); also used by C4 (2.20, 2.23).
+// The three engraved guilloche paths with the fork (OWN rust, PRINT verdigris, AGREE amber), owner C3 (2.01 …); also used by C4 (2.20, 2.23).
+// The first path is labelled OWN since Fassung 3 (Sanders told as public ownership, not taking); its key stays 'take'.
 // paths(ctx, t, { view = 'persp' | 'top', cam = { x: 0, y: 0, z: 1 }, u = [1, 1, 1] (draw-on of TAKE, PRINT, AGREE), hi = null | 'take' | 'print' | 'agree',
 //   fork = { x: 960, y: 760 }, fog = .5, life = { take: 0..1 (crowd, dust), print: 0..1 (rushing stream), agree: 0..1 (foil glint) } })
 //   draws the whole frame. → { along(name, q) → { x, y, ang } (screen point on a path, q 0 = fork … 1 = far end) }
@@ -11,7 +12,7 @@
 //   cam           { x, y } moves the camera over the ground (world units ≈ px at the fork, y = forward), z zooms around the fork
 // Extra options (all optional, defaults keep the call above unchanged):
 //   tilt 0..1 (blend persp → top; overrides view), rot (rad, turns the world in top view), trunk 0..1 (draw-on of the stem that the
-//   nib draws toward the fork; default 1), labels true (TAKE / PRINT / AGREE engraved at the far ends), labelA 1, bg true (false: draw
+//   nib draws toward the fork; default 1), labels true (OWN / PRINT / AGREE engraved at the far ends), labelA 1, bg true (false: draw
 //   only the paths over your own frame), glow 1, a 1 (alpha of the paths), horizon (screen y of the horizon in persp, default fork.y - 470).
 // Returned anchors: along(name, q) for 'take' | 'print' | 'agree' | 'trunk' (trunk: q 0 = the nib end, 1 = the fork), fork { x, y } (screen),
 //   P(X, Y) → [x, y, scale] (ground point → screen), world(name, q) → [X, Y] (ground point).
@@ -20,7 +21,7 @@ import { fog as artFog, stipple, vnoise } from './art.mjs';
 import { rosette } from './certificate.mjs';
 
 export const PATH_COL = { take: '#c4512e', print: '#3fae9a', agree: '#ffb35c' };
-const COL = PATH_COL, NAMES = ['take', 'print', 'agree'], LABEL = { take: 'TAKE', print: 'PRINT', agree: 'AGREE' };
+const COL = PATH_COL, NAMES = ['take', 'print', 'agree'], LABEL = { take: 'OWN', print: 'PRINT', agree: 'AGREE' };
 const TAU = Math.PI * 2;
 const CACHE = new Map(); const once = (k, f) => { if (!CACHE.has(k)) CACHE.set(k, f()); return CACHE.get(k); };
 

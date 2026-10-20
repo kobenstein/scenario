@@ -1,4 +1,6 @@
-// Chunk C3 · §1 the fortune to come, §2 TAKE · shots 1.02–2.08 (bild/shots.md v2 §3) · builder c03
+// Chunk C3 · §1 the fortune to come, §2 OWN · shots 1.02–2.08 (bild/shots.md v2 §3) · builder c03
+// Fassung 3: Sanders is told as public ownership (Jakob: no "taking from the rich"): the path is OWN, 2.02 adds the public as a co-owner
+// instead of a gripping hand, 2.05 opens with the same dividend for every American, the tear (2.07) is gone.
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 // PLAN (gate 1). Times are VO anchors (T.S/T.E), never seconds. ★ none in C3; 11 MG shots in the share-certificate language.
 //  shot  │ words (accent)                                │ hero onset                                   │ carrier into the next shot                          │ type
@@ -11,27 +13,27 @@
 //  1.15a │ how to share what's **coming**.                 │ dotted engraving spreads from the nib, a     │ the rosette                                         │ (b) zoom
 //                                                            small rosette dawns over the sheet's edge
 //  1.16  │ But how do you share a fortune that doesn't exist **yet**? │ 3 dotted cuts try and smoke away  │ the nib tip                                         │ (b) zoom
-//  2.01  │ There are **three** ways.                       │ the nib draws a line that forks in three     │ the camera races down TAKE to the left (world → right) │ (c) whipR
-//  2.02  │ The first is to **take**.                       │ a rust hand grips the big rosette            │ rosette + hand exit right, the bill slides in       │ (a) cut on the bill
+//  2.01  │ There are **three** ways.                       │ the nib draws a line that forks in three     │ the camera races down OWN to the left (world → right) │ (c) whipR
+//  2.02  │ The first is to **own**.                        │ "+ the public" engraves under the owners     │ rosette + owners exit right, the bill slides in     │ (a) cut on the bill
 //  2.03  │ Bernie Sanders has a **bill**.                  │ § A BILL, a page turns                       │ a paragraph lights → push in                        │ (b) zoom
 //  2.04  │ A tax, paid in **new shares** … **half** …      │ shares engraved out of the rosette fly into  │ the box slides out right                            │ (a) right
 //                                                            the fund; the rust half follows
-//  2.05  │ … roughly **two in three** Americans …          │ 4 rows × 3: two of three raise a hand        │ a share rises from a raised hand                    │ (a) up
+//  2.05  │ Every year … every **American** the **same** dividend. │ 4 rows × 3: one slip lands in every hand │ (same shot)                                         │ (a) right
+//        │ … roughly **two in three** Americans …          │ two of three raise their slip                │ a share rises from a raised hand                    │ (a) up
 //  2.06  │ … into the **future** … created **later** …     │ dotted future rings; slices engrave solid    │ the outer ring → push in                            │ (b) zoom
-//  2.07  │ But first, it takes **half** …                  │ the rosette stretches and tears in rust      │ the halves fall                                     │ (a) down
-//  2.08  │ … **years in court** … the US **border**.       │ file stacks rise, the border glows and       │ the camera tears right to the fork (c03>c04)        │ (c) whipR
+//  2.08  │ … **years in court** … the US **border**.       │ a share drops into the fund; file stacks     │ the camera tears right to the fork (c03>c04)        │ (c) whipR
 //                                                            stops a share that wants out
 // Boundaries: in = carry('c02>c03') kind 'light': the foil "right" light becomes the burin tip (tip at C.pos(t) until it touches the plate).
 //             out = carry('c03>c04') whipR d .3: 2.08 ends on an accelerating move to the right.
-// Zooms (1.16, 2.01, 2.04, 2.07) use a light dip: the outgoing frame sinks into the dark around the carrier (radii follow the engine's
+// Zooms (1.16, 2.01, 2.04) use a light dip: the outgoing frame sinks into the dark around the carrier (radii follow the engine's
 // zoom), the incoming one lights up from its centre, so the growing frame has no visible edge.
 // Sound: the lead places gavel/press_notes; C3 adds only image-caused accents in speech pauses: foil_glint (1.04 glint), bloom (dawn
-// reaches the hands); transition whooshes come from tools/sound_plan.mjs; the tear sits on the tear frame ("half") by design.
+// reaches the hands), foil_glint in the pause after "dividend"; transition whooshes come from tools/sound_plan.mjs.
 // ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 import { Path2D } from '@napi-rs/canvas';
 import { W, H, rgba, clamp, lin, mix, sm, eio, eout, ein, prng, drift, canvas, text, addGlow } from '../engine.mjs';
 import { carry } from '../lib/carry.mjs';
-import { certificate, rosette, guilloche, gBorder, microtext, ring, seal, resample } from '../lib/certificate.mjs';
+import { certificate, rosette, gBorder, microtext, ring, seal, resample } from '../lib/certificate.mjs';
 import { ghostLine, ghostPaths, smokeDots } from '../lib/ghost.mjs';
 import { hand } from '../lib/hand.mjs';
 import { pen } from '../lib/paper.mjs';
@@ -89,12 +91,12 @@ export default (T, R) => {
     s115a: W1('01a', 'how to share'), coming: W1('01a', 'coming'), comingE: E1('01a', 'coming'),
     s116: W1('02a', 'But how do you'), fortune116: word('02a', 'a fortune that').s, yet3: word('02a', 'exist yet').s, yet3e: E1('02a', 'exist yet'),
     s201: W1('02a', 'There are three'), three: word('02a', 'are three').s, ways: word('02a', 'three ways').s,
-    s202: W1('02a', 'The first is'), take2: word('02a', 'is to take').s,
+    s202: W1('02a', 'The first is'), own2: word('02a', 'is to own').s,
     s203: W1('02a', 'Bernie Sanders'), bill: word('02a', 'a bill').s,
     s204: W1('02a', 'A tax'), newShares: W1('02a', 'new shares'), half1: W1('02a', 'half'), companies: E1('02a', 'AI companies'),
+    sDiv: W1('02a', 'Every year'), pay: word('02a', 'would pay').s, everyAm: word('02a', 'every American').s, same: word('02a', 'the same').s, dividendE: E1('02a', 'same dividend'),
     s205: W1('02a', 'In polls'), twoInThree: W1('02a', 'two in three'), support: W1('02a', 'support it'),
     s206: W1('02a', 'It reaches'), future: word('02a', 'the future').s, later: word('02a', 'created later').s, well: E1('02a', 'as well'),
-    s207: W1('02a', 'But first'), half2: W1('02a', 'half', 1), exists: E1('02a', 'already exists'),
     s208: W1('02a', 'Critics expect'), court: W1('02a', 'years in court'), courtE: E1('02a', 'years in court'), border: word('02a', 'US border').s, borderE: E1('02a', 'US border'),
     end: COUT.t,
   };
@@ -368,23 +370,35 @@ export default (T, R) => {
     rosette(ctx, 0, 0, { R: 150, A: 26, B: 10, n: 16, m: 7, lines: 24, col: '#f0a07c', w: .7, a: .5, rot: -(o.rot ?? 0) * 1.4, cache: true });
     ctx.restore();
   }
-  // 2.02: arrival on the TAKE path, the big rosette, a rust hand grips its rim on "take"
+  // 2.02: arrival on the OWN path, the big rosette and its owners; on "own" the public is engraved in as a co-owner (nothing is taken away)
   const ROS202 = { x: 1120, y: 520 };
   const bill = (t) => { const k = qio(lin(A.s203 - .75, A.s203 + .35, t)), settle = eout(lin(A.s203 + .3, A.s203 + 1.2, t)); return { x: mix(-520, 700, k) + settle * 0, y: mix(560, 560, k), s: mix(1.18, 1.08, k) - settle * .25, rot: mix(-.2, -.045, k) }; };
+  // the owner line of the companies' certificate (the empty OWNER line of 1.03, now with names): the founders and investors stay,
+  // "+ the public" is engraved in after them, finishing on "own", with a hot tip at the engraving front
+  function owners202(ctx, t) {
+    const a = sm(lin(A.s202 + .15, A.s202 + .6, t)); if (a <= 0) return;
+    const x0 = 96, x1 = 680, y1 = 596, y2 = 684, yl = 716;
+    text(ctx, 'Founders & investors', x0, y1 + (1 - a) * 12, { size: 54, font: 'Instrument Serif', color: rgba(CREAM, .78 * a) });
+    ctx.save(); ctx.fillStyle = rgba(PAPERC, .55 * a); for (let x = x0; x <= x1; x += 7) { ctx.beginPath(); ctx.arc(x, yl, 1.5, 0, TAU); ctx.fill(); } ctx.restore();
+    label(ctx, 'OWNERS', x0, yl + 34, a, { size: 15, spacing: 7, col: PAPERC, alpha: .66, shadow: false });
+    const g = eout(lin(A.s202 + .45, A.own2 + .05, t)); if (g <= 0) return;
+    const xe = x0 + g * 420;
+    ctx.save(); ctx.beginPath(); ctx.rect(x0 - 10, y2 - 90, xe - x0 + 10, 120); ctx.clip();
+    text(ctx, '+ the public', x0, y2, { size: 80, font: 'Instrument Serif', color: rgba('#ff9a6c', a) });
+    ctx.restore();
+    const hot = 1 - sm(lin(A.own2 + .05, A.own2 + .5, t));
+    if (hot > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, xe, y2 - 26, 56, .7 * hot, AMBER, CORE); ctx.restore(); }
+  }
   function frame202(ctx, t) {
-    const land = eo5(lin(A.s202 - .2, A.s202 + .6, t)), exitR = ei5(lin(A.s203 - 1.0, A.s203 - .3, t)) * 1500;
+    const land = eo5(lin(A.s202 - .2, A.s202 + .6, t)), exitR = ei5(lin(A.s203 - .65, A.s203 - .05, t)) * 1500;
     ctx.drawImage(bgLayer('take', '#2a1830', '#130f2c', '#05040f', { x: 1100, y: 480, ros: [1100, 520, 700], rosCol: '#e0a080', rosA: .04 }), -100 + drift(t, 8, 1) * .6 - (1 - land) * 60, -70);
-    // the TAKE band from above, running across under the rosette: the race of 2.01 lands on it and slows down (motion match)
+    // the OWN band from above, running across under the rosette: the race of 2.01 lands on it and slows down (motion match)
     { const t0 = A.s202 - .2, tau = t < t0 ? (t - t0) : (1 - Math.exp(-(t - t0) * 3)) / 3 + (t - t0) * .02, dx = -.928, dy = .372, v0 = 2300;
       paths(ctx, t, { view: 'top', rot: .37, fork: { x: 960, y: 905 }, cam: { x: -1620 + dx * v0 * (tau - .353) - exitR / .88, y: 1257 + dy * v0 * (tau - .353), z: 2.1 }, u: [1, 0, 0], trunk: 0, fog: 0, bg: false, labels: false, life: { take: 0 }, a: .8 }); }
-    const grip = eout(lin(A.take2 - .25, A.take2 + .15, t)), pull = sm(lin(A.take2 + .1, A.take2 + .9, t));
     ctx.save(); ctx.translate(exitR, 0);
-    bigRosette(ctx, ROS202.x - pull * 26, ROS202.y, 1 + .015 * Math.sin(t * .7), t, { rot: t * .03 });
+    bigRosette(ctx, ROS202.x, ROS202.y, 1 + .015 * Math.sin(t * .7), t, { rot: t * .03 });
     label(ctx, 'THE BIG AI COMPANIES', 96, 150, sm(lin(A.s202 + .2, A.s202 + .8, t)), { size: 20, spacing: 6, col: '#f0b8a0' });
-    // the hand: from the left, open → grip on the rim
-    const hx = mix(-140, ROS202.x - 420, eout(lin(A.s202 + .2, A.take2 + .05, t))) - pull * 30, hy = ROS202.y + 40 + drift(t, 5, 3);
-    fadedHand(ctx, hx, hy, 2.1, { pose: grip > .5 ? 'grip' : 'reach', close: grip * .4, ang: -.05, skin: '#b98762', sleeve: '#c4512e', rim: '#ffcf96', light: [1, -.5], t, seed: 7, fade0: 60, fade1: 115 });
-    if (grip > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, hx + 150, hy - 10, 120, .3 * grip * (1 - pull * .6), RUST, '#ffd0b0'); ctx.restore(); }
+    owners202(ctx, t);
     ctx.restore();
     // the bill slides in over everything (carrier into 2.03)
     const b = bill(t); if (t > A.s203 - .8) billSheet(ctx, b.x, b.y, b.s, b.rot, t, {});
@@ -412,7 +426,7 @@ export default (T, R) => {
   const shares204 = (() => { const out = []; for (let i = 0; i < 7; i++) out.push({ t0: A.newShares - .55 + i * .28, a: -1.2 + i * .42 }); return out; })();
   function frame204(ctx, t) {
     ctx.drawImage(bgLayer('fund', '#1e1838', '#0e0c28', '#04030c', { x: 900, y: 480, ros: [640, 500, 560], rosCol: '#e0a080', rosA: .03 }), -100 + drift(t, 8, 1) * .5, -70 + drift(t, 5, 2) * .5);
-    const out = ei5(lin(A.s205 - .55, A.s205 + .1, t)), z = 1 + .02 * lin(A.s204, A.s205, t);
+    const out = ei5(lin(A.sDiv - .55, A.sDiv + .1, t)), z = 1 + .02 * lin(A.s204, A.sDiv, t);
     ctx.save(); ctx.translate(960, 540); ctx.scale(z, z); ctx.translate(-960, -540);
     const fb = fundBox(ctx, BOX.x + out * 900, BOX.y, BOX.s, t, { fill: lin(A.newShares, A.companies, t), glow: .4 + .6 * sm(lin(A.half1, A.half1 + .8, t)) });
     // the rosette with its right half turning rust on "half", then that half travels into the box in steps
@@ -446,12 +460,16 @@ export default (T, R) => {
     vignette(ctx, .55);
     dipIn(ctx, t, A.s204, .8);
   }
-  // 2.05: polls: four rows of three; in each row two raise a hand on "two in three"
+  // 2.05: four rows of three Americans. "Every year … the same dividend": one slip flies in from the right (where the fund left) into every
+  // hand, nearest first; "two in three": in each row two raise theirs
   const crowd = (() => { const out = [], r = prng(44); for (let row = 0; row < 4; row++) for (let c = 0; c < 3; c++) { const depth = row / 3, s = mix(1.55, .7, depth); out.push({ row, c, x: 960 + (c - 1) * mix(300, 170, depth) + (r() - .5) * 30 + (row % 2 ? 40 : -30), y: mix(830, 470, depth), s, raise: c !== (row + 1) % 3, seed: row * 3 + c + 1, delay: r() * .25, col: ['#2c3456', '#33305a', '#2a3a58', '#3a3150'][Math.floor(r() * 4)] }); } return out.sort((a, b) => b.row - a.row); })();
   const upOf = (f, t) => eout(lin(A.twoInThree + f.delay * .6 - .05, A.twoInThree + f.delay * .6 + .45, t)) * (f.raise ? 1 : 0);
   const poseOf = (u) => ({ sh: [mix(.18, .7, u), mix(.08, .55, u)], el: [mix(.32, 1.25, u), mix(.26, 1.2, u)], head: .1 * u });
-  const crowdX = (f, t) => { const enter = eo5(lin(A.s205 - .3, A.s205 + .5, t)); return f.x + drift(t, 10, 2) * (1 - f.row * .2) - (1 - enter) * 300 * (1 - f.row * .2); };
+  const crowdX = (f, t) => { const enter = eo5(lin(A.sDiv - .3, A.sDiv + .5, t)); return f.x + drift(t, 10, 2) * (1 - f.row * .2) - (1 - enter) * 300 * (1 - f.row * .2); };
   const HERO = crowd.find((f) => f.row === 0 && f.raise && f.c === 1) || crowd.find((f) => f.row === 0 && f.raise);
+  // the dividend slips: launch order front-right first (the fund left to the right), all landed by "same"
+  const slipOrder = [...crowd].sort((a, b) => (b.x - b.row * 120) - (a.x - a.row * 120));
+  const slipK = (f, t) => { const i = slipOrder.indexOf(f), t0 = A.pay - .25 + i * .07; return lin(t0, Math.max(t0 + .7, A.same - .05 + i * .02), t); };
   const cardAt = (f, t) => { const u = upOf(f, t), [hx, hy] = handPos(crowdX(f, t), f.y, f.s, poseOf(u), 0, false, { t }); return [hx + 10 * f.s, hy - 14 * f.s]; };
   const rising = (t) => { const k = lin(A.s206 - .9, A.s206 + .5, t), t0 = A.s206 - .9, [sx, sy] = cardAt(HERO, t0); return { k, x: sx + k * 60, y: mix(sy, -260, ein(k)), s: mix(.42 * HERO.s, 1.1, sm(k)) }; };
   function frame205(ctx, t) {
@@ -463,8 +481,24 @@ export default (T, R) => {
     for (const f of crowd) {
       const up = upOf(f, t), pose = poseOf(up), fx = crowdX(f, t);
       figureFlat(ctx, fx, f.y, f.s, pose, { t, seed: f.seed, col: up > .3 ? mix3(f.col, '#4a3a5a', up) : f.col, rim: up > .3 ? '#ffd59a' : '#9fb0d8', rimSide: 1, shade: .55 });
-      if (up > 0 && !(f === HERO && rs.k > 0)) { const [cx2, cy2] = cardAt(f, t); ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, cx2, cy2, 70 * f.s, .3 * up, AMBER, CORE); ctx.restore(); miniCert(ctx, cx2, cy2, .42 * f.s * mix(.6, 1, up), -.12, { glow: .5 * up, a: up, shadow: false }); }
+      if (f === HERO && rs.k > 0) continue;
+      const k = slipK(f, t); if (k <= 0) continue;
+      const [cx2, cy2] = cardAt(f, t);
+      if (k < 1) {   // in flight: an arc in from the upper right, turning to lie in the hand
+        const fly = qio(k), sx = W + 120 - f.row * 40, sy = -90 + f.row * 50, x = mix(sx, cx2, fly), y = mix(sy, cy2, fly) - Math.sin(fly * Math.PI) * 140 * f.s;
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, x, y, 60 * f.s, .35, AMBER, CORE); ctx.restore();
+        miniCert(ctx, x, y, .42 * f.s * mix(1.15, .6, fly), mix(.5, -.12, fly), { glow: .7, shadow: false });
+      } else {
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, cx2, cy2, 70 * f.s, .14 + .3 * up, AMBER, CORE); ctx.restore();
+        miniCert(ctx, cx2, cy2, .42 * f.s * mix(.6, 1, up), -.12, { glow: .3 + .4 * up, shadow: false });
+      }
     }
+    // labels: first the dividend (sourced estimate), then the polls
+    const ld = sm(lin(A.sDiv + .2, A.sDiv + .8, t)) * (1 - sm(lin(A.s205 - .35, A.s205 + .05, t))), ln = sm(lin(A.everyAm - .15, A.everyAm + .45, t)) * (1 - sm(lin(A.s205 - .35, A.s205 + .05, t)));
+    label(ctx, 'EVERY YEAR, ROUGHLY', 124, 136, ld, { size: 18, spacing: 6, col: '#ffd59a' });
+    text(ctx, '$1,000', 120, 250 + (1 - ln) * 14, { size: 110, font: 'Instrument Serif', color: rgba('#ffd59a', ln) });
+    label(ctx, 'FOR EVERY AMERICAN, THE SAME', 124, 298, ln, { size: 18, spacing: 6 });
+    source(ctx, "Estimate by Sanders' office, June 2026", ln);
     const la = sm(lin(A.twoInThree - .1, A.twoInThree + .5, t)), lp = sm(lin(A.s205 + .15, A.s205 + .75, t));
     label(ctx, 'IN POLLS, ROUGHLY', 124, 136, lp, { size: 18, spacing: 6, col: '#ffd59a' });
     text(ctx, '2 in 3', 120, 250 + (1 - la) * 14, { size: 110, font: 'Instrument Serif', color: rgba('#ffd59a', la) });
@@ -507,43 +541,6 @@ export default (T, R) => {
     text(ctx, 'also taxes shares created later', 96, 222 + (1 - la) * 14, { size: 54, font: 'Instrument Serif', color: rgba(CREAM, la) });
     motes(ctx, t, 91, 50, .45);
     vignette(ctx, .55);
-    dipOut(ctx, t, A.s207, .8, R206.x + 410 * .96, R206.y);
-  }
-  // 2.07: the rosette resists: the hand pulls half of it away, the engraving stretches like cloth and tears in rust on "half"
-  const R207 = { x: 900, y: 500, R: 330 }, G7 = guilloche({ R: R207.R, A: 40, B: 18, n: 22, m: 9, lines: 30, steps: 540 }), G7L = Array.from({ length: 30 }, (_, k) => G7.line(k));
-  function frame207(ctx, t) {
-    ctx.drawImage(bgLayer('tear', '#24162c', '#120d26', '#04030c', { x: 900, y: 480 }), -100 + drift(t, 6, 1) * .5, -70);
-    const pull = sm(lin(A.s207 + .1, A.half2, t)), torn = eout(lin(A.half2, A.half2 + .35, t)), fall = ein(lin(A.exists - .4, A.s208 + .2, t));
-    const stretch = pull * 70 * (1 - torn) + torn * 190, shake = (1 - torn) * pull * Math.sin(t * 40) * 2;
-    ctx.save(); ctx.translate(drift(t, 6, 2), drift(t, 4, 3));
-    // glow behind
-    const gg = ctx.createRadialGradient(R207.x, R207.y, 0, R207.x, R207.y, 520); gg.addColorStop(0, rgba(RUST, .16 + .2 * pull)); gg.addColorStop(1, rgba(RUST, 0)); ctx.fillStyle = gg; ctx.fillRect(0, 0, W, H);
-    ctx.lineJoin = 'round'; ctx.globalCompositeOperation = 'lighter';
-    for (let k = 0; k < 30; k++) {
-      const L = G7L[k], col = k % 3 === 0 ? '#f0a07c' : '#f3e3cf';
-      for (const side of [-1, 1]) {
-        ctx.strokeStyle = rgba(side > 0 ? (torn > 0 ? '#ff9a6c' : col) : col, .5 + .2 * pull); ctx.lineWidth = .8; ctx.beginPath(); let started = false;
-        for (let i = 0; i < L.length; i++) { const [lx, ly] = L[i]; const right = lx > 0; if ((side > 0) !== right && torn > .02) { started = false; continue; }
-          // stretch: points right of centre are dragged right, more the closer they are to the centre line (cloth)
-          const f = right ? 1 : 0, near = Math.exp(-Math.abs(lx) / 120), dx = right ? stretch * (1 - near * .3 * (1 - torn)) : -stretch * .12 * near * (1 - torn);
-          const fy = fall * (right ? 900 : 760) * (right ? 1 : 1.1), x = R207.x + lx + dx + shake * f, y = R207.y + ly + fy;
-          started ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), started = true); }
-        ctx.stroke(); if (torn <= .02) break;
-      }
-    }
-    ctx.globalCompositeOperation = 'source-over';
-    // tension lines between the halves (before the tear), the rust edge and fibres after
-    if (pull > .1 && torn < 1) { ctx.save(); ctx.strokeStyle = rgba('#ffcfb0', .35 * pull * (1 - torn)); ctx.lineWidth = .7; for (let i = -14; i <= 14; i++) { const y = R207.y + i * 20; ctx.beginPath(); ctx.moveTo(R207.x - 20, y); ctx.lineTo(R207.x + stretch * .9, y + Math.sin(i) * 4); ctx.stroke(); } ctx.restore(); }
-    if (torn > 0) { const r = prng(7); ctx.save(); ctx.strokeStyle = rgba(RUST, .95); ctx.lineWidth = 2.4; for (const side of [-1, 1]) { ctx.beginPath(); for (let i = 0; i <= 40; i++) { const y = R207.y - 360 + i * 18, x = R207.x + (side > 0 ? stretch : 0) + (r() - .5) * 16; const yy = y + fall * (side > 0 ? 900 : 836); i ? ctx.lineTo(x, yy) : ctx.moveTo(x, yy); } ctx.stroke(); }
-      ctx.globalCompositeOperation = 'lighter'; for (let i = 0; i < 40; i++) { const k = (t - A.half2) * (1 + r()) * 1.4, x = R207.x + stretch / 2 + (r() - .5) * 60 + k * (r() - .5) * 300, y = R207.y + (r() - .5) * 600 + k * k * 300; ctx.fillStyle = rgba(r() < .5 ? '#ff9a6c' : '#ffe0c8', (1 - clamp(k)) * .8); ctx.fillRect(x, y, 2, 2); } ctx.restore(); }
-    ctx.restore();
-    // the hand gripping the right rim, pulling
-    const hx = R207.x + R207.R + 120 + stretch, hy = R207.y + 20 + fall * 900;
-    fadedHand(ctx, hx, hy, 2.1, { pose: 'grip', close: .3, ang: Math.PI + .05, flip: true, skin: '#b98762', sleeve: '#c4512e', rim: '#ffcf96', light: [-1, -.4], t, seed: 9, fade0: 60, fade1: 115 });
-    label(ctx, 'WHAT ALREADY EXISTS', 96, 150, sm(lin(A.s207 + .3, A.s207 + .9, t)) * (1 - fall), { size: 20, spacing: 6, col: '#f0b8a0' });
-    motes(ctx, t, 101, 40, .4, '255,200,170');
-    vignette(ctx, .55);
-    dipIn(ctx, t, A.s207, .8);
   }
   // 2.08: the fund on the US paper map: file stacks rise ("years in court"), the border lights up and holds a share that wants out
   const MAPCAM = { ...region('USA', .62), rot: -.03, tilt: .52, x: 960, y: 560, f: 1500 };
@@ -570,8 +567,8 @@ export default (T, R) => {
     stacks.forEach((s, i) => { if (s[1] < 0) fileStack(ctx, BOX8.x + s[0], BOX8.y + s[1], .62, stackH(i), t, { seed: i + 2 }); });
     const fb = fundBox(ctx, BOX8.x, BOX8.y + 30, .42, t, { fill: 1, glow: .35 });
     stacks.forEach((s, i) => { if (s[1] >= 0) fileStack(ctx, BOX8.x + s[0], BOX8.y + s[1], .7, stackH(i), t, { seed: i + 2 }); });
-    // the rust half from 2.07 lands in the box at the start
-    { const k = lin(A.s208 - .5, A.s208 + .45, t); if (k > 0 && k < 1) { const y = mix(-120, fb.mouth[1], ein(k)); ctx.save(); ctx.globalCompositeOperation = 'lighter'; rosette(ctx, fb.mouth[0], y, { R: 60, A: 9, B: 4, n: 12, m: 5, lines: 14, col: '#ff9a6c', w: .8, a: .8 * (1 - k * .6) }); ctx.restore(); } }
+    // the last future share of 2.06 drops into the fund at the start (the tilt down follows it)
+    { const k = lin(A.s208 - .5, A.s208 + .45, t); if (k > 0 && k < 1) { const y = mix(-120, fb.mouth[1], ein(k)); ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, fb.mouth[0], y, 70, .45 * (1 - k * .5), AMBER, CORE); ctx.restore(); miniCert(ctx, fb.mouth[0], y, mix(.55, .32, k), .2 - k * .3, { glow: .6 * (1 - k * .5), shadow: false }); } }
     // the share that wants out: leaves the box toward the southern border, is stopped and settles back a little
     { const k = lin(A.border - .9, A.border + .1, t), back = eout(lin(A.border + .1, A.border + .6, t)); if (k > 0) { const go = qio(k), x = mix(fb.mouth[0], southPt.x, go * mix(1, .93, back)), y = mix(fb.mouth[1], southPt.y - 6, go * mix(1, .93, back)) - Math.sin(go * Math.PI) * 50;
       miniCert(ctx, x, y, .42, -.2 + go * .3, { col: '#c4512e', glow: .5 }); if (k >= 1) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; addGlow(ctx, southPt.x, southPt.y, 70, .5 * (1 - back * .5), AMBER, CORE); ctx.restore(); } } }
@@ -598,11 +595,10 @@ export default (T, R) => {
     { t: A.s116, tr: 'zoom', x: tableToS(A.s116, ROS2.x, dawnY(A.s116))[0], y: tableToS(A.s116, ROS2.x, dawnY(A.s116))[1], depth: 5, d: .9, draw: (ctx, t) => frame116(ctx, t) },                                   // 1.16
     { t: A.s201, tr: 'zoom', x: nib16(A.s201).x, y: nib16(A.s201).y, depth: 6, d: .8, draw: (ctx, t) => frame201(ctx, t) },                                             // 2.01
     { t: A.s202, tr: 'whipR', d: .3, draw: (ctx, t) => frame202(ctx, t) },                                                                       // 2.02
-    { t: A.s203 - .3, tr: 'cut', d: .12, draw: (ctx, t) => frame203(ctx, t) },                                                                   // 2.03 (the bill carries over)
+    { t: A.s203 - .05, tr: 'cut', d: .12, draw: (ctx, t) => frame203(ctx, t) },                                                                  // 2.03 (the bill carries over)
     { t: A.s204, tr: 'zoom', x: paraAt(A.s204)[0], y: paraAt(A.s204)[1], depth: 5, d: .8, draw: (ctx, t) => frame204(ctx, t) },   // 2.04
-    { t: A.s205, tr: 'right', d: .55, draw: (ctx, t) => frame205(ctx, t) },                                                                      // 2.05
+    { t: A.sDiv, tr: 'right', d: .55, draw: (ctx, t) => frame205(ctx, t), sound: [{ f: 'foil_glint', t: A.dividendE + .02, v: .16 }] },           // 2.05 (dividend, polls)
     { t: A.s206, tr: 'up', d: .5, draw: (ctx, t) => frame206(ctx, t) },                                                                          // 2.06
-    { t: A.s207, tr: 'zoom', x: R206.x + 410 * .96, y: R206.y, depth: 5, d: .8, draw: (ctx, t) => frame207(ctx, t), sound: [{ f: 'tear', t: A.half2 + .02, v: .22 }] },                                  // 2.07
     { t: A.s208, tr: 'down', d: .5, draw: (ctx, t) => frame208(ctx, t) },                        // 2.08
   ];
 };

@@ -17,7 +17,7 @@ export { ROOT };
 export const CHUNKS = [
   { id: 'c01', name: 'Hook, §0 to the Musk quote', shots: 'H.01–0.04', from: [['H0a']] },
   { id: 'c02', name: '§0 caveats, §1 inheritance to Paine', shots: '0.05–1.13', from: [['00a', 'Both are promises']] },
-  { id: 'c03', name: '§1 the fortune to come, §2 TAKE', shots: '1.02–2.08', from: [['01a', 'And the largest fortune']] },
+  { id: 'c03', name: '§1 the fortune to come, §2 OWN', shots: '1.02–2.08', from: [['01a', 'And the largest fortune']] },
   { id: 'c04', name: '§2 PRINT and AGREE', shots: '2.09–2.23', from: [['02b', 'The second is to print']] },
   { id: 'c05', name: '§2 objection, §3 Alaska, Norway, humanity', shots: '2.24–3.13', from: [['03a', 'But it has one']] },
   { id: 'c06', name: 'The plan, §4 plant to Korea', shots: '3.14–4.11', from: [['04a', 'So here']] },
