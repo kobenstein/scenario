@@ -172,7 +172,7 @@ export function quoteCard(ctx, t, t0, t1, { quote, who, x = W / 2, y = H / 2, si
   if (who) text(ctx, who.toUpperCase(), x, y0 + lines.length * size * 1.24 + 30, { size: 18, weight: 600, color: C.muted, align: 'center', alpha: a, spacing: 5 });
 }
 // small source line, bottom left
-export function source(ctx, t, t0, t1, s, { x = 110, y = 1000 } = {}) {
+export function source(ctx, t, t0, t1, s, { x = 110, y = 890 } = {}) { // y 890: above the burned-in subtitles (bottom 170 px)
   const a = eout(lin(t0, t0 + .6, t)) * (1 - lin(t1 - .5, t1, t)); if (a <= 0) return;
   text(ctx, s.toUpperCase(), x, y, { size: 17, weight: 600, color: C.muted, alpha: a, spacing: 4 });
 }

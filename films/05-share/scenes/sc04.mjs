@@ -29,7 +29,8 @@
 //  2.21a │ Like neighbors **agreeing** … before the first **seed** goes in. │ handshake, strings split the   │ steep crane up                                  │ (c) whipD
 //                                                              field in equal strips, a closed seed bag         │                                                 │
 //  2.23★ │ It's the quietest way, and the one I keep **coming back** to. │ the three paths from high above:   │ the amber AGREE line → push in (c04>c05)        │ (b) zoom out
-//                                                              TAKE crowd + dust, PRINT stream, AGREE a quiet foil line in fog; settles on "coming back"
+//                                                              TAKE crowd + dust, PRINT stream, AGREE a quiet foil line in fog that runs
+//                                                              into the one staked-out field of a night patchwork; settles on "coming back"
 // Boundaries: in = carry('c03>c04') whipR d .3 (2.09 lands out of a fast move to the right, content still sliding right);
 //             out = carry('c04>c05') kind 'line': the paths drawing is transformed so the AGREE line lies exactly on C.pos(t);
 //             C.draw() is drawn on top until C.t + .4.
@@ -44,7 +45,7 @@ import { pen } from '../lib/paper.mjs';
 import { quoteCard2 } from '../lib/quote2.mjs';
 import { figure, figureFlat, walk, handPos } from '../lib/figure.mjs';
 import { worldMap } from '../lib/map.mjs';
-import { seal, ring } from '../lib/certificate.mjs';
+import { seal, ring, rosette } from '../lib/certificate.mjs';
 import { ghostLine, smokeDots } from '../lib/ghost.mjs';
 import { fog as artFog, stipple } from '../lib/art.mjs';
 import { arm, once, TAU, VERD, VERD_D, VERD_L, CREAM, AMBER, RUST, easeOut, easeIn, easeIO, plate, bloomSprite, putBloom, motes, noteSprite, NW, NH, sheetSprite,
@@ -103,6 +104,9 @@ export default (T, R) => {
     const slide = easeOut(lin(A.in - .32, A.in + 1.05, t));         // the sheet keeps the whip's momentum and settles
     const off = mix(-1150, 0, slide);
     ctx.drawImage(PL, -150 + off * .12 + drift(t, 6), -100 + drift(t, 4, 1));
+    // the banknote plate behind: a large engraved rosette turning slowly (parallax with the whip)
+    { const R = once('c4ros09', () => { const [c, g] = canvas(1500, 1500); rosette(g, 750, 750, { R: 560, A: 64, B: 26, lines: 34, n: 22, m: 9, col: VERD_L, w: 1.1, a: .55 }); return c; });
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .13; ctx.translate(1420 + off * .3, 500 + drift(t, 5, 2)); ctx.rotate(.4 + (t - A.in) * .035); ctx.drawImage(R, -750, -750); ctx.restore(); }
     putBloom(ctx, bloomSprite('v5', VERD, 520, .45), 1360, 260, 1.2, .55);
     const S = sheetSprite(3, 2), w = S.width * SH.sc, h = S.height * SH.sc, x = SH.x0 + off, y0 = SH.y - h / 2;
     // the sheet (only the part that has left the roller)
@@ -150,9 +154,11 @@ export default (T, R) => {
     const single = { x: mix(flipEnd.x, 960, land), y: mix(flipEnd.y, 470, land) + drift(t, 4, 1), s: mix(flipEnd.s * NW / CKW, 1.12, land) };
     const items = [];
     for (let i = 0; i < FAN.n; i++) {
-      const k = (i - (FAN.n - 1) / 2) / ((FAN.n - 1) / 2), a0 = k * FAN.amax * open, a = mix(a0, .55, close);
+      // dealt out like cards: the middle first, the outer ones a beat later, each settling with a small paper flutter
+      const k = (i - (FAN.n - 1) / 2) / ((FAN.n - 1) / 2), ak = Math.abs(k), oi = easeOut(lin(A.checks - .05 + ak * .28, A.everyone + .1 + ak * .28, t));
+      const a0 = k * FAN.amax * oi + Math.sin(t * 8.5 + i * 1.7) * .03 * (1 - oi) * oi, a = mix(a0, .55, close);
       const fx = FAN.px + Math.sin(a) * FAN.R, fy = FAN.py - Math.cos(a) * FAN.R, sc = mix(1.12, .74, open);
-      items.push({ i, k, a, x: fx, y: fy, s: sc, z: -Math.abs(k) });
+      items.push({ i, k, a, x: fx, y: fy, s: sc, z: -ak, oi });
     }
     items.sort((p, q) => p.z - q.z);
     const showFan = t >= A.checks - .05;
@@ -164,7 +170,7 @@ export default (T, R) => {
       const C = checkSprite(1 + (it.i % 5));
       ctx.save(); ctx.translate(x, y); ctx.rotate(a); ctx.scale(s, s * (showFan || isMid ? (t < CT.s210 + .42 ? Math.max(.002, flip) : 1) : 1));
       ctx.shadowColor = 'rgba(0,0,0,.5)'; ctx.shadowBlur = 24; ctx.shadowOffsetY = 14;
-      if (!isMid) ctx.globalAlpha = Math.min(1, open * 3) * (1 - sm(lin(.75, 1, shrink)));
+      if (!isMid) ctx.globalAlpha = Math.min(1, (it.oi ?? open) * 4) * (1 - sm(lin(.75, 1, shrink)));
       ctx.drawImage(C, -CKW / 2, -CKH / 2); ctx.restore();
     }
     nameLabel(ctx, t, A.s210 + .05, 130, 170, 'Elon Musk', 'on X · April 2026', { col: VERD, t1: A.everyoneE - .2 });

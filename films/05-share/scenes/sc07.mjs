@@ -281,13 +281,20 @@ export default (T, R) => {
   // 4.15 continues 4.14's camera (one continuous move across the match), then pulls back to show the copies spreading
   const cam415 = (t) => { const c0 = camAt(t), k = quart(lin(t415 - .25, A.picture, t));
     return { cx: mix(c0.cx, -1.02, k), cy: mix(c0.cy, .58, k), z: mix(c0.z, 2.2, k), tilt: mix(c0.tilt, .4, k), rot: mix(c0.rot, -.02, k), x: mix(c0.x, 960, k), y: 560 }; };
-  function plate(ctx, x, y, s, t, u) { // the copper plate with an engraved seed
+  function plate(ctx, x, y, s, t, u) { // the copper plate with an engraved seed: bevel, brushed face, engraved rings, a slow specular sweep
+    if (s <= .01) return;
     ctx.save(); ctx.translate(x, y); ctx.scale(s, s * .62);
-    const g = ctx.createLinearGradient(-90, -60, 90, 60); g.addColorStop(0, '#e0a070'); g.addColorStop(.5, '#a8603a'); g.addColorStop(1, '#5a2e1c');
-    ctx.fillStyle = 'rgba(0,0,0,.4)'; ctx.beginPath(); ctx.roundRect(-86, -54, 180, 120, 8); ctx.fill();
-    ctx.fillStyle = g; ctx.beginPath(); ctx.roundRect(-90, -60, 180, 120, 8); ctx.fill();
-    ctx.strokeStyle = 'rgba(255,230,200,.55)'; ctx.lineWidth = 1.5; ctx.stroke();
-    ring(ctx, 0, 0, 62 * u, 44 * u, { lines: 5, band: 10, wave: 14, col: '#3a1a0c', glow: null, op: 'source-over', a: .8, lw: .8 });
+    ctx.fillStyle = 'rgba(20,10,5,.45)'; ctx.beginPath(); ctx.roundRect(-84, -50, 186, 126, 10); ctx.fill();
+    const bev = ctx.createLinearGradient(0, -64, 0, 64); bev.addColorStop(0, '#f6c9a0'); bev.addColorStop(1, '#4a2414'); ctx.fillStyle = bev; ctx.beginPath(); ctx.roundRect(-94, -64, 188, 128, 9); ctx.fill();
+    const g = ctx.createLinearGradient(-90, -60, 90, 60); g.addColorStop(0, '#eaae7e'); g.addColorStop(.45, '#b46a40'); g.addColorStop(1, '#6a3420'); ctx.fillStyle = g; ctx.beginPath(); ctx.roundRect(-86, -56, 172, 112, 6); ctx.fill();
+    ctx.save(); ctx.beginPath(); ctx.roundRect(-86, -56, 172, 112, 6); ctx.clip();
+    ctx.strokeStyle = 'rgba(255,224,196,.1)'; ctx.lineWidth = .8; for (let yy = -54; yy < 56; yy += 3) { ctx.beginPath(); ctx.moveTo(-86, yy); ctx.lineTo(86, yy + Math.sin(yy * 1.7) * .7); ctx.stroke(); }
+    const sx = -150 + ((t * 70) % 340), sg = ctx.createLinearGradient(sx - 50, -60, sx + 50, 60); sg.addColorStop(0, 'rgba(255,240,220,0)'); sg.addColorStop(.5, 'rgba(255,240,220,.24)'); sg.addColorStop(1, 'rgba(255,240,220,0)'); ctx.fillStyle = sg; ctx.fillRect(-86, -56, 172, 112);
+    ctx.restore();
+    ring(ctx, 0, 0, 64 * u, 45 * u, { lines: 7, band: 12, wave: 14, col: '#3a1a0c', glow: null, op: 'source-over', a: .85, lw: .8 });
+    ring(ctx, 0, 0, 30 * u, 21 * u, { lines: 4, band: 6, wave: 10, col: '#3a1a0c', glow: null, op: 'source-over', a: .7, lw: .7 });
+    for (const [cx, cy] of [[-76, -46], [76, -46], [-76, 46], [76, 46]]) { ctx.fillStyle = '#3a1c10'; ctx.beginPath(); ctx.arc(cx, cy, 4, 0, TAU); ctx.fill(); ctx.fillStyle = 'rgba(255,220,190,.55)'; ctx.beginPath(); ctx.arc(cx - 1, cy - 1, 1.6, 0, TAU); ctx.fill(); }
+    ctx.strokeStyle = 'rgba(255,230,200,.55)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.roundRect(-86, -56, 172, 112, 6); ctx.stroke();
     ctx.restore();
     shareLight(ctx, x, y, 12 * s, t, { mode: 'seed', a: .9 });
   }
@@ -308,10 +315,10 @@ export default (T, R) => {
     const sx = 1 - expoIn(lin(A.but + .3, A.but + .85, t)); if (sx > 0) stackForms(ctx, 1420, 780, t, sx, 1);
     const pu = E(t415 + .1, .6, t);
     const centres = [SEEDS[2], SEEDS[0]].map((sd) => project(cam, sd.lon, sd.lat));
-    centres.forEach(([x, y, sc], i) => plate(ctx, x, y, (.8 + .3 * sc) * (i ? .7 : 1) * pu, t, pu));
+    centres.forEach(([x, y, sc], i) => plate(ctx, x, y, (.8 + .3 * sc) * (i ? .8 : 1.45) * pu, t, pu));
     // the pull on "copied": a sheet presses onto the main plate and lifts with the print
     const [mx, my] = centres[0], pull = lin(A.copied - .25, A.copied + .25, t), hop0 = A.copied + .2;
-    if (pull > 0 && pull < 1) { const d = Math.sin(pull * Math.PI); printSheet(ctx, mx, my - 30 * (1 - d) - 4, 2.1, -.03, t, 1, .3 + d * .5); }
+    if (pull > 0 && pull < 1) { const d = Math.sin(pull * Math.PI), peel = Math.max(0, pull - .5) * 2; printSheet(ctx, mx + peel * 30, my - 40 * (1 - d) - 6 - peel * 30, 2.9, -.03 - .3 * peel, t, 1, .3 + d * .5); }
     // prints hop out in rings, each crossing borders; small ring where they land
     let flying = 0;
     RINGS.forEach((Rg, ri) => {

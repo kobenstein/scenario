@@ -76,8 +76,7 @@ export default (T, R) => {
   // ======================= 3.01 · your phone, over the shoulder =======================
   out.push({ t: a.probably - .3, tr: 'cut', d: .1, draw: (ctx, t) => phoneShot(ctx, t, a) });
   // ======================= 3.02 · "the rich never share", the column =======================
-  out.push({ t: a.rich - .3, tr: 'zoom', x: FLD[0], y: FLD[1], depth: 3.44, d: .55, draw: (ctx, t) => commentShot(ctx, t, a, T),
-    sound: [{ f: 'phone_tap', t: a.never + .55, v: .3 }] });
+  out.push({ t: a.rich - .3, tr: 'zoom', x: FLD[0], y: FLD[1], depth: 3.44, d: .55, draw: (ctx, t) => commentShot(ctx, t, a, T) });
   // ======================= 3.03 · the villa behind bars =======================
   out.push({ t: a.forWhat - .15, tr: 'whipU', d: .5, draw: (ctx, t) => villaShot(ctx, t, a),
     sound: [{ f: 'stamp', t: a.right + .08, v: .28 }] });

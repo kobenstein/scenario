@@ -285,10 +285,11 @@ export function arm(ctx, wx, wy, s, o) {
   ctx.fillStyle = o.col; poly(); ctx.fill();
   ctx.save(); poly(); ctx.clip(); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
   // volume: the shadow side darkens in a broad soft band, the lit side lifts
-  const side = (A, col, al, wk) => { ctx.strokeStyle = rgba(col, al); ctx.lineCap = 'butt';   // one path per part: no stacked caps
-    for (const [i0, i1] of [[0, 14], [14, 26], [26, A.length - 1]]) { ctx.lineWidth = C[Math.round((i0 + i1) / 2)][2] * wk; ctx.beginPath(); for (let i = i0; i <= i1; i++) (i === i0 ? ctx.moveTo(A[i][0], A[i][1]) : ctx.lineTo(A[i][0], A[i][1])); ctx.stroke(); }
-    ctx.lineCap = 'round'; };
-  side(litL ? R : L, '#00000a', .32, 1.1); side(litL ? L : R, '#fff0dc', .12, .5);
+  // shading as nested bands that follow the silhouette (smooth width, no steps)
+  const band = (A, B, k, col, al) => { ctx.fillStyle = rgba(col, al); ctx.beginPath(); A.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); for (let i = A.length - 1; i >= 0; i--) ctx.lineTo(mix(A[i][0], B[i][0], k), mix(A[i][1], B[i][1], k)); ctx.closePath(); ctx.fill(); };
+  const SH = litL ? R : L, LT = litL ? L : R;
+  for (const k of [.16, .3, .46]) band(SH, LT, k, '#00000a', .13);
+  for (const k of [.08, .18]) band(LT, SH, k, '#fff0dc', .06);
   // cuff seam near the wrist, and soft folds in the crook of the elbow
   const at = (i, k) => [mix(L[i][0], R[i][0], k), mix(L[i][1], R[i][1], k)];
   ctx.strokeStyle = 'rgba(0,0,8,.35)'; ctx.lineWidth = 3.2 * s; ctx.beginPath(); ctx.moveTo(...at(3, 0)); ctx.lineTo(...at(3, 1)); ctx.stroke();

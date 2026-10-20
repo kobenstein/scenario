@@ -89,7 +89,21 @@ export function groundA() {
     return c;
   });
 }
-export function fogA() { return once('fogA', () => { const [c, g] = canvas(W + 1700, H); artFog(g, { y0: 60, y1: 1060, col: '#5f8a6c', a: .2, seed: 31, sx: .0019, sy: .005, cover: .5, soft: .4, k: .6, x1: W + 1700 }); return c; }); }
+// art.fog() only fills one W×H layer (its x1 cannot reach past W), so a wide fog is built from W-wide tiles that cross-fade
+function wideFog(w, o) {
+  const [c, g] = canvas(w, H), n = Math.max(1, Math.ceil((w - W) / (W - 200)) + 1), step = n > 1 ? (w - W) / (n - 1) : 0, XF = Math.min(W - step, 500);
+  for (let i = 0; i < n; i++) {
+    const [tc, tg] = canvas(W, H); artFog(tg, { ...o, seed: o.seed + i * 7 });
+    const fade = (x0, x1, inward) => { const gr = tg.createLinearGradient(x0, 0, x1, 0); gr.addColorStop(0, inward ? 'rgba(0,0,0,0)' : 'rgba(0,0,0,1)'); gr.addColorStop(1, inward ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0)'); tg.fillStyle = gr; tg.fillRect(0, 0, W, H); };
+    tg.globalCompositeOperation = 'destination-in';
+    if (i > 0) fade(0, XF, true);
+    if (i < n - 1) fade(step, step + XF, false);
+    tg.globalCompositeOperation = 'source-over';
+    g.drawImage(tc, Math.round(i * step), 0);
+  }
+  return c;
+}
+export function fogA() { return once('fogA', () => wideFog(W + 1700, { y0: 60, y1: 1060, col: '#5f8a6c', a: .2, seed: 31, sx: .0019, sy: .005, cover: .5, soft: .4, k: .6 })); }
 // out-of-focus guilloche arcs in front (fastest plane)
 export function dofArcsA() {
   return once('dofA', () => { const [c, g] = canvas(W + 400, H + 200); g.filter = 'blur(8px)'; ring(g, -200, 1240, 760, 760, { lines: 6, band: 50, wave: 64, col: '#efe6c8', glow: '#ffb35c', glowA: .08, a: .38, lw: 2.4, op: 'source-over' }); ring(g, 2250, -180, 560, 560, { lines: 5, band: 40, wave: 58, col: '#efe6c8', glow: null, a: .22, lw: 2.2, op: 'source-over' }); g.filter = 'none'; return c; });
@@ -347,7 +361,7 @@ export function swissMorning() {
     void n; return c;
   });
 }
-export function swissFog() { return once('swissFog', () => { const [c, g] = canvas(W + 400, H); artFog(g, { y0: 520, y1: 1000, col: '#f4f6fa', a: .5, seed: 13, sx: .0018, sy: .008, cover: .55, soft: .4, k: .5, x1: W + 400 }); return c; }); }
+export function swissFog() { return once('swissFog', () => wideFog(W + 400, { y0: 520, y1: 1000, col: '#f4f6fa', a: .5, seed: 13, sx: .0018, sy: .008, cover: .55, soft: .4, k: .5 })); }
 
 // a refund letter (sheet units: 380 × 500), the same layout for everyone; mark 0..1 = the amber line sweeps over the refund
 export function refundLetter(g, w, h, o = {}) {
