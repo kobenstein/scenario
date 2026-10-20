@@ -7,7 +7,7 @@
 // SECS=c03,c04 node render.mjs --snap ...   builds only those chunks (absolute times stay the same).
 // If a chunk throws (e.g. a phrase vanished in a script revision) the film still builds: that chunk becomes a red error card.
 import fs from 'node:fs';
-import { Film } from './engine.mjs';
+import { Film, W, H, drift } from './engine.mjs';
 import { timing, prepareClips, ROOT } from './lib/kit.mjs';
 import { filmFinish } from './lib/print.mjs';
 import { errorCard } from './lib/stub.mjs';
@@ -42,6 +42,12 @@ export function chunkRanges(T) {
 // the real timing (audio/build_vo.py) wins; the provisional one (tools/provisional_timing.py) only fills in while it is missing
 const realTiming = () => { try { return !JSON.parse(fs.readFileSync(ROOT + 'audio/timing.json', 'utf8')).provisional; } catch { return false; } };
 export const TIMING = process.env.TIMING || (realTiming() || !fs.existsSync(ROOT + 'audio/timing.provisional.json') ? ROOT + 'audio/timing.json' : ROOT + 'audio/timing.provisional.json');
+// the camera never stops (Jakob 20.10.: "even in the calmest moments something moves a little"): a slow float over the whole
+// picture, 1.6–3.6 % zoom breathing, a drift that stays inside the zoom margin, a hint of roll. Absolute time, so cuts stay aligned.
+export function cameraFloat(t) {
+  const z = 1.026 + .01 * Math.sin(t * .23 + .7), m = (z - 1) / 2 * .8;
+  return { z, x: Math.max(-1, Math.min(1, drift(t, 1, 11))) * W * m, y: Math.max(-1, Math.min(1, drift(t, 1, 23))) * H * m, r: .0011 * Math.sin(t * .17 + 2) };
+}
 export async function build({ timingFile = TIMING } = {}) {
   const T = timing(timingFile);
   const RANGES = chunkRanges(T);
@@ -64,7 +70,7 @@ export async function build({ timingFile = TIMING } = {}) {
     return { a: i ? a : 0, b, draw: e.draw, sec: e.sec, sound: e.sound, print: e.print, out: nx ? { kind: nx.tr || 'dissolve', x: nx.x, y: nx.y, r: nx.r, depth: nx.depth } : { kind: 'black' }, _start: e.t };
   });
   for (let i = 1; i < shots.length; i++) shots[i].a = Math.min(shots[i].a, shots[i - 1].b - .01);
-  const film = new Film(shots, { grainAmt: .045, finish: filmFinish });
+  const film = new Film(shots, { grainAmt: .045, finish: filmFinish, float: cameraFloat });
   film.T = T;
   film.ranges = RANGES;
   film.prepare = (t) => prepareClips(T, t);

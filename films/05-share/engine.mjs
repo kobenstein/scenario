@@ -309,21 +309,28 @@ export function composite(ctx, A, B, kind, u, o = {}) {
 // ---------- film runner ----------
 // shots: [{ a, b, draw(ctx, t, shot), out: {kind, d} }] — consecutive shots overlap by out.d seconds
 export class Film {
-  constructor(shots, { grainAmt = 0.05, finish = null } = {}) {
-    this.shots = shots.sort((x, y) => x.a - y.a); this.grainAmt = grainAmt; this.finish = finish;
-    [this.A, this.ax] = canvas(); [this.B, this.bx] = canvas(); [this.F, this.fx] = canvas();
+  // float(t) → { z, x, y, r }: an optional camera float over the whole composited picture (after the transitions, before the finish), so
+  // no frame ever freezes and carriers stay aligned across cuts (the same transform applies to both shots of a transition)
+  constructor(shots, { grainAmt = 0.05, finish = null, float = null } = {}) {
+    this.shots = shots.sort((x, y) => x.a - y.a); this.grainAmt = grainAmt; this.finish = finish; this.float = float;
+    [this.A, this.ax] = canvas(); [this.B, this.bx] = canvas(); [this.F, this.fx] = canvas(); if (float) [this.G, this.gx] = canvas();
   }
   get duration() { return Math.max(...this.shots.map((s) => s.b)); }
   renderShot(x, s, t) { x.save(); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; x.fillStyle = C.indigo; x.fillRect(0, 0, W, H); s.draw(x, t, s); x.restore(); }
   frame(t) {
-    const fx = this.fx, live = this.shots.filter((s) => t >= s.a && t < s.b);
-    if (live.length === 0) { fx.fillStyle = C.ink; fx.fillRect(0, 0, W, H); }
-    else if (live.length === 1) this.renderShot(fx, live[0], t);
+    const fx = this.fx, px = this.float ? this.gx : fx, live = this.shots.filter((s) => t >= s.a && t < s.b);
+    if (live.length === 0) { px.fillStyle = C.ink; px.fillRect(0, 0, W, H); }
+    else if (live.length === 1) this.renderShot(px, live[0], t);
     else {
       const [s1, s2] = live.slice(-2), kind = s1.out?.kind || 'dissolve';
       const u = lin(s2.a, s1.b, t);
       this.renderShot(this.ax, s1, t); this.renderShot(this.bx, s2, t);
-      fx.fillStyle = C.ink; fx.fillRect(0, 0, W, H); composite(fx, this.A, this.B, kind, u, s1.out || {});
+      px.fillStyle = C.ink; px.fillRect(0, 0, W, H); composite(px, this.A, this.B, kind, u, s1.out || {});
+    }
+    if (this.float) {
+      const f = this.float(t);
+      fx.save(); fx.setTransform(1, 0, 0, 1, 0, 0); fx.globalAlpha = 1; fx.globalCompositeOperation = 'source-over';
+      fx.translate(W / 2 + f.x, H / 2 + f.y); fx.rotate(f.r || 0); fx.scale(f.z, f.z); fx.drawImage(this.G, -W / 2, -H / 2); fx.restore();
     }
     const cur = live[live.length - 1];
     if (this.finish) this.finish(fx, t, cur?.print === false ? { off: true } : (cur?.print || {}));   // the finish owns vignette + grain
