@@ -12,7 +12,8 @@
 //       glow null      colour of a soft glow under the solid part (e.g. '#ffb35c' for foil), tipSize 14, foil '#ffb35c' (dust colour),
 //       op 'source-over' }
 //   ghostPaths(ctx, lines, o)  many polylines (a rosette, a border) with one shared burin front: line k is engraved after line k-1
-//                              (o.stagger 0..1, default .6) and only o.tips (default 2) tips are drawn at once. Same options as ghostLine.
+//                              (o.stagger 0..1, default .6; o.seq true = strictly one line after another, by length) and only o.tips
+//                              (default 2) tips are drawn at once. Same options as ghostLine.
 //   burinTip(ctx, x, y, ang, t, o)  the tip alone (o: { size 14, foil, a, seed }) — e.g. for C3's hand with the burin (1.02)
 //   smokeDots(ctx, pts, smoke, o)   the smoke state alone for any dotted path
 // rosette(), gBorder() and certificate() in certificate.mjs take the same ghost / burin / smoke options (all existing calls unchanged).
@@ -64,16 +65,20 @@ export function ghostLine(ctx, pts, o = {}) {
   return { tip, len: L };
 }
 
-// dots lifting off the line and drifting away (deterministic per dot; o.t moves the plume, o.phase keeps dots fixed on the line)
+// dots lifting off the line and drifting away along a slow flow field, so they form wisps (deterministic per dot; o.t moves the
+// plume, o.phase keeps dots fixed on the line, o.wind [x, y] the main drift direction)
 export function smokeDots(ctx, pts, smoke, o = {}) {
   if (pts.length < 2) return; const d = cum(pts), L = d[d.length - 1], P = o.dot ?? 6, col = o.col || '#f3efe2', a = o.a ?? 1, w = o.w ?? 1.2, t = o.t ?? 0;
-  const r = prng((o.seed ?? 1) * 131 + 7), first = Math.ceil((o.phase ?? 0) / P) * P - (o.phase ?? 0), up = o.wind ?? [.25, -1];
+  const r = prng((o.seed ?? 1) * 131 + 7), first = Math.ceil((o.phase ?? 0) / P) * P - (o.phase ?? 0), wind = o.wind ?? [.35, -1], wa = Math.atan2(wind[1], wind[0]);
   ctx.save(); ctx.fillStyle = col;
   for (let s = first, k = 0; s <= L; s += P, k++) {
-    const r1 = r(), r2 = r(), r3 = r(), q = clamp(smoke * 1.7 - r1 * .7); if (q >= 1) continue;
-    const [x, y] = at(pts, d, s), lift = q * q * (50 + 90 * r2), sway = Math.sin(t * 1.3 + k * .7 + r3 * 6) * 14 * q;
-    const px = x + up[0] * lift + sway, py = y + up[1] * lift, rad = w * .62 * (1 + q * 1.6);
-    ctx.globalAlpha = a * (1 - q) * (q > 0 ? .8 : 1); ctx.beginPath(); ctx.arc(px, py, rad, 0, TAU); ctx.fill();
+    const r1 = r(), r2 = r(); r(); const q = clamp(smoke * 1.8 - r1 * .8); if (q >= 1) continue;
+    let [x, y] = at(pts, d, s);
+    if (q > 0) {   // integrate a few steps through the field: the direction bends with a smooth noise of position and time
+      const dist = q * q * (70 + 110 * r2), n = 4, st = dist / n;
+      for (let i = 0; i < n; i++) { const f = Math.sin(x * .011 + t * .23) + Math.sin(y * .013 - t * .17 + x * .004) + Math.sin((x + y) * .007 + t * .11), an = wa + f * .55; x += Math.cos(an) * st; y += Math.sin(an) * st; }
+    }
+    const rad = w * .6 * (1 + q * 2.2); ctx.globalAlpha = a * Math.pow(1 - q, 1.4) * (q > 0 ? .85 : 1); ctx.beginPath(); ctx.arc(x, y, rad, 0, TAU); ctx.fill();
   }
   ctx.restore();
 }
@@ -100,13 +105,17 @@ export function burinTip(ctx, x, y, ang, t = 0, o = {}) {
   ctx.restore();
 }
 
-// many lines, one burin front: used for rosettes, borders, the certificate. lines = [[[x,y],…], …]
+// many lines, one burin front: used for rosettes, borders, the certificate. lines = [[[x,y],…], …]; a line array may carry .a / .w multipliers
+const LENS = new WeakMap();
+function lensOf(lines) { let r = LENS.get(lines); if (!r) { r = lines.map((P) => { let s = 0; for (let i = 1; i < P.length; i++) s += Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]); return s; }); LENS.set(lines, r); } return r; }
 export function ghostPaths(ctx, lines, o = {}) {
   const n = lines.length, stg = o.stagger ?? .6, maxTips = o.tips ?? 2; let tips = 0;
+  const lens = o.seq ? lensOf(lines) : null, tot = lens ? lens.reduce((a, b) => a + b, 0) : 0; let acc = 0;
   for (let k = 0; k < n; k++) {
     let b = o.burin;
-    if (b != null) { b = clamp(b * (1 + stg) - (k / Math.max(1, n - 1)) * stg); }
+    if (b != null && lens) { b = clamp((b * tot - acc) / (lens[k] || 1)); acc += lens[k]; }
+    else if (b != null) { b = clamp(b * (1 + stg) - (k / Math.max(1, n - 1)) * stg); }
     const showTip = b != null && b > 0 && b < 1 && tips < maxTips; if (showTip) tips++;
-    ghostLine(ctx, lines[k], { ...o, burin: b, seed: (o.seed ?? 1) + k * 7, noTip: !showTip });
+    const L = lines[k]; ghostLine(ctx, L, { ...o, burin: b, seed: (o.seed ?? 1) + k * 7, noTip: !showTip, a: (o.a ?? 1) * (L.a ?? 1), w: (o.w ?? 1.2) * (L.w ?? 1) });
   }
 }

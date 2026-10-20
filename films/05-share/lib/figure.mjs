@@ -272,6 +272,8 @@ export function figureBack(ctx, x, y, s, o = {}) {
 //   babyBundle(ctx, x, y, s, o)    the swaddled baby alone (o: { t, ang, skin, blanket, hair, light, rim }); s = adult scale
 //   smallFeet(ctx, x, y, s, o)     close-up: a small child's bare feet standing on soil; x,y = ground point between the feet,
 //                                  s = 1 → a foot ~110 px long; o: { t, skin, soil true, light: { x, y } (warm key light), seed, mud .35 }
+//   smallFeetSide(ctx, x, y, s, o) the same feet in profile, toddling (4.18): o.step [near, far] 0..1 (0 flat, .5 heel strike, 1 lifted), o.dir, o.gap
+//   babyBed(ctx, x, y, s, kind, o) a sleeping baby in a 'basket' | 'crib' | 'hammock' | 'mat' (4.12, 4.16)
 export const KIDPOSES = {
   stand: {},
   reachUp: { sh: [2.45, 0.18], el: [0.12, 0.3], lean: -.03, head: -.15 },
@@ -281,8 +283,8 @@ export const KIDPOSES = {
 };
 POSES.cradle = { sh: [0.78, 0.66], el: [1.42, 1.55], head: .34, lean: .02 };
 const KIDP = {
-  child: { legU: 28, legL: 27, thigh: 6.6, knee: 5, ankle: 3.9, foot: [7.2, 3.7], T: 40, shw: 11.2, armU: 19, armL: 17, armR: [5.6, 4.4], hand: 3.7, head: [9.6, 10.8], neck: 3.6 },
-  toddler: { legU: 18, legL: 16.5, thigh: 6.5, knee: 5.4, ankle: 4.4, foot: [6.4, 3.6], T: 28, shw: 10.4, armU: 13.5, armL: 12, armR: [5.2, 4.6], hand: 3.6, head: [9.4, 10.2], neck: 2.6 },
+  child: { legU: 25, legL: 24, thigh: 6.9, knee: 5.3, ankle: 4.2, foot: [7.2, 3.9], T: 37, shw: 11.6, armU: 17, armL: 15.5, armR: [5.8, 4.6], hand: 3.8, head: [10.8, 11.9], neck: 3.1 },
+  toddler: { legU: 15.5, legL: 14, thigh: 7, knee: 5.9, ankle: 4.9, foot: [6.8, 4], T: 27, shw: 11.2, armU: 12, armL: 11, armR: [5.5, 4.9], hand: 3.9, head: [10.6, 11.2], neck: 2.1 },
 };
 const KIDC = new Map();
 export function figureKid(ctx, x, y, s, pose = {}, o = {}) {
@@ -346,7 +348,7 @@ export function babyBundle(ctx, x, y, s, o = {}) {
   // head in the hood of the blanket
   ctx.fillStyle = shadeHex(bl, -.08); ctx.beginPath(); ctx.ellipse(20, -3, 11.5, 10.5, -.2, 0, TAU2); ctx.fill();
   ctx.fillStyle = skin; ctx.beginPath(); ctx.ellipse(20.5, -3.2, 8.2, 7.6, -.2, 0, TAU2); ctx.fill();
-  ctx.fillStyle = o.hair || '#2a1c18'; ctx.beginPath(); ctx.ellipse(23, -8.5, 4.2, 2, -.5, 0, TAU2); ctx.fill();
+  ctx.strokeStyle = o.hair || '#2a1c18'; ctx.lineWidth = 1.3; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(15.5, -9); ctx.quadraticCurveTo(19, -12.5, 22.5, -10.2); ctx.quadraticCurveTo(20.5, -8.4, 19, -9.6); ctx.stroke();   // a wisp of hair under the hood
   ctx.fillStyle = shadeHex(skin, .05); ctx.beginPath(); ctx.ellipse(12.5, 1.5, 3, 2.6, .3, 0, TAU2); ctx.fill();   // tiny hand
   // folds: engraved lines on the blanket
   ctx.strokeStyle = 'rgba(60,40,30,.32)'; ctx.lineWidth = .7; ctx.lineCap = 'round';
@@ -392,5 +394,97 @@ export function smallFeet(ctx, x, y, s, o = {}) {
     ctx.restore();
   };
   foot(-58, -1, 0); foot(58, 1, 1.3);
+  ctx.restore();
+}
+
+// ---------- small feet in profile (4.18: two small bare feet toddle into frame next to the sprout) ----------
+//   smallFeetSide(ctx, x, y, s, { t, skin, light, soil, seed, step: [near, far] 0..1 (per foot: 0 = flat, .5 = landing on the heel,
+//             toes up, 1 = lifted off the ground),
+//             gap 105 (units between the feet along the ground), dir 1 | -1 (walking to the right / left) })   x,y = ground point of the near heel;
+//             the legs run up ~470·s px: frame them out at the top (a ground-level macro)
+function sideFoot(ctx, skin, step, lx, ly, t, ph, near, soilOn, seed) {
+  const lift = clamp((step - .5) * 2), heel = clamp(step * 2) * .42, up = lift * 46;
+  ctx.save(); ctx.translate(0, -up);
+  // pivot on the ball of the foot while the heel rises
+  ctx.translate(46, 0); ctx.rotate(-heel + lift * .2); ctx.translate(-46, 0);
+  const sk = near ? skin : shadeHex(skin, -.14), dark = shadeHex(sk, -.22), lite = shadeHex(sk, .12);
+  // the smaller toes sit behind the big toe and peek over the instep
+  for (let i = 3; i >= 0; i--) { const wg = Math.sin(t * 2.2 + ph + i) * .6; ctx.fillStyle = shadeHex(sk, -.1 - i * .03); ctx.beginPath(); ctx.ellipse(57 - i * 5.2 + wg, -13.5 + i * 1.6, 5.2 - i * .45, 4.6 - i * .4, -.35, 0, TAU2); ctx.fill(); }
+  // lower leg (chubby calf tapering to the ankle), heel, instep, sole
+  const g = ctx.createLinearGradient(-30, -120, 40, 0); g.addColorStop(0, lite); g.addColorStop(.55, sk); g.addColorStop(1, dark); ctx.fillStyle = g;
+  ctx.beginPath(); ctx.moveTo(-48, -470); ctx.lineTo(-42, -330); ctx.bezierCurveTo(-40, -280, -30, -220, -24, -176); ctx.bezierCurveTo(-34, -140, -32, -100, -22, -66); ctx.bezierCurveTo(-18, -48, -26, -34, -32, -20);
+  ctx.bezierCurveTo(-38, -6, -30, 1, -18, 1); ctx.bezierCurveTo(4, 2, 34, 1, 56, 0); ctx.bezierCurveTo(70, -1, 72, -9, 66, -15);
+  ctx.bezierCurveTo(52, -20, 30, -26, 14, -42); ctx.bezierCurveTo(8, -50, 7, -62, 9, -76); ctx.bezierCurveTo(13, -110, 18, -150, 20, -190); ctx.bezierCurveTo(24, -230, 30, -280, 34, -330); ctx.lineTo(40, -470); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = sk; ctx.beginPath(); ctx.ellipse(62.5, -7.5, 8.4, 7, -.1, 0, TAU2); ctx.fill();   // the big toe
+  ctx.fillStyle = 'rgba(255,236,220,.42)'; ctx.beginPath(); ctx.ellipse(65, -11, 3, 1.8, -.2, 0, TAU2); ctx.fill();   // nail sheen
+  // creases: ankle fold, chubby fold on the calf, the arch
+  ctx.strokeStyle = rgba('#3a2216', .32); ctx.lineWidth = 1.3; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(10, -50); ctx.quadraticCurveTo(-2, -44, -14, -50); ctx.stroke();
+  ctx.beginPath(); ctx.arc(-6, -30, 6, -2.2, .6); ctx.stroke();   // ankle bone
+  ctx.beginPath(); ctx.moveTo(-26, -104); ctx.quadraticCurveTo(-14, -98, 0, -104); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(-12, -5); ctx.quadraticCurveTo(14, -11, 40, -5); ctx.stroke();
+  // rim toward the key light (top/back edge) and a warm bounce from the soil underneath
+  ctx.strokeStyle = rgba('#ffe2b8', .75 * (near ? 1 : .6)); ctx.lineWidth = 2.4; ctx.beginPath();
+  if (lx < 0) { ctx.moveTo(-42, -330); ctx.bezierCurveTo(-40, -280, -30, -220, -24, -176); ctx.bezierCurveTo(-34, -140, -30, -100, -22, -66); ctx.bezierCurveTo(-18, -48, -26, -34, -32, -20); ctx.bezierCurveTo(-38, -6, -30, 1, -18, 1); }
+  else { ctx.moveTo(34, -330); ctx.bezierCurveTo(30, -280, 24, -230, 20, -190); ctx.bezierCurveTo(18, -150, 13, -110, 9, -76); ctx.bezierCurveTo(7, -62, 8, -50, 14, -42); ctx.bezierCurveTo(30, -26, 52, -20, 66, -15); }
+  ctx.stroke();
+  ctx.strokeStyle = rgba('#8a5a34', .45); ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-28, 0); ctx.bezierCurveTo(-10, 3, 30, 2, 56, 1); ctx.stroke();
+  if (soilOn) { let r = seed * 104729 + 3 + ph * 77; const rnd = () => (r = (r * 16807) % 2147483647) / 2147483647; for (let i = 0; i < 46; i++) { const px = -30 + rnd() * 98, py = -3 + rnd() * 6 - (px > 40 ? (px - 40) * .25 * rnd() : 0); ctx.fillStyle = rnd() < .55 ? 'rgba(42,29,22,.9)' : 'rgba(110,80,56,.8)'; ctx.beginPath(); ctx.ellipse(px, py, .8 + rnd() * 2.2, .7 + rnd() * 1.4, 0, 0, TAU2); ctx.fill(); } }
+  ctx.restore();
+  return up;
+}
+export function smallFeetSide(ctx, x, y, s, o = {}) {
+  const t = o.t ?? 0, skin = o.skin || '#c08a64', Lx = o.light ? o.light.x - x : -300, Ly = o.light ? o.light.y - y : -400, dir = o.dir ?? 1, gap = o.gap ?? 105, st = o.step || [0, 0], seed = o.seed ?? 3;
+  ctx.save(); ctx.translate(x, y); ctx.scale(s * dir, s);
+  if (o.soil !== false) {
+    const sg = ctx.createRadialGradient(20, 6, 10, 20, 6, 300); sg.addColorStop(0, '#3a2a1f'); sg.addColorStop(.6, '#2a1d16'); sg.addColorStop(1, 'rgba(20,14,11,0)'); ctx.fillStyle = sg; ctx.beginPath(); ctx.ellipse(20, 8, 320, 70, 0, 0, TAU2); ctx.fill();
+    let r = seed * 7919 + 1; const rnd = () => (r = (r * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 380; i++) { const px = -280 + rnd() * 600, py = -4 + Math.pow(rnd(), 1.4) * 60, z = .8 + rnd() * 3; ctx.fillStyle = rnd() < .45 ? `rgba(120,88,62,${.3 + rnd() * .4})` : `rgba(14,9,7,${.4 + rnd() * .4})`; ctx.beginPath(); ctx.ellipse(px, py, z * 1.3, z * .6, 0, 0, TAU2); ctx.fill(); }
+  }
+  const shadow = (fx, up, k) => { const cg = ctx.createRadialGradient(fx + 20, 2, 0, fx + 20, 2, 80); cg.addColorStop(0, `rgba(6,4,3,${.7 * k / (1 + up / 30)})`); cg.addColorStop(1, 'rgba(6,4,3,0)'); ctx.fillStyle = cg; ctx.beginPath(); ctx.ellipse(fx + 20, 3, 82, 12, 0, 0, TAU2); ctx.fill(); };
+  // far foot (behind, a little up the ground plane), then the near one
+  ctx.save(); ctx.translate(gap, -16); ctx.scale(.92, .92); shadow(0, st[1] > .5 ? (st[1] - .5) * 90 : 0, .8); sideFoot(ctx, skin, st[1], Lx * dir, Ly, t, 1.7, false, o.soil !== false, seed); ctx.restore();
+  shadow(0, st[0] > .5 ? (st[0] - .5) * 90 : 0, 1); sideFoot(ctx, skin, st[0], Lx * dir, Ly, t, 0, true, o.soil !== false, seed + 1);
+  ctx.restore();
+}
+
+// ---------- where babies sleep (4.12 basket by the armchair, 4.16 hammock · basket · crib · mat) ----------
+//   babyBed(ctx, x, y, s, kind, o)   kind 'basket' | 'crib' | 'hammock' | 'mat'; x,y = centre of the bed on the ground (hammock: centre
+//     of the sling); s = adult scale (the baby is babyBundle at the same s). o: { t, blanket, skin, hair, wood, weave, cloth, light, rim }
+export function babyBed(ctx, x, y, s, kind = 'basket', o = {}) {
+  const t = o.t ?? 0, b = (o2) => babyBundle(ctx, 0, 0, 1, { ang: 0, t, ...o, ...o2 });
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+  if (kind === 'basket') {
+    const wv = o.weave || '#b0814f', dk = shadeHex(wv, -.35);
+    ctx.fillStyle = 'rgba(4,4,12,.45)'; ctx.beginPath(); ctx.ellipse(0, 2, 46, 7, 0, 0, TAU2); ctx.fill();
+    ctx.fillStyle = dk; ctx.beginPath(); ctx.ellipse(0, -22, 40, 9, 0, 0, TAU2); ctx.fill();   // the inside, back rim
+    ctx.save(); ctx.translate(0, -24); b(); ctx.restore();
+    const g = ctx.createLinearGradient(0, -24, 0, 0); g.addColorStop(0, shadeHex(wv, .1)); g.addColorStop(1, shadeHex(wv, -.25)); ctx.fillStyle = g;
+    ctx.beginPath(); ctx.moveTo(-40, -22); ctx.bezierCurveTo(-40, -6, -30, 0, 0, 0); ctx.bezierCurveTo(30, 0, 40, -6, 40, -22); ctx.bezierCurveTo(30, -15, -30, -15, -40, -22); ctx.closePath(); ctx.fill();
+    ctx.save(); ctx.clip(); ctx.strokeStyle = rgba('#3a2414', .38); ctx.lineWidth = .8; for (let i = -44; i <= 44; i += 4) { ctx.beginPath(); ctx.moveTo(i, -24); ctx.quadraticCurveTo(i * .92, -10, i * .8, 2); ctx.stroke(); }
+    for (let j = 0; j < 4; j++) { ctx.beginPath(); ctx.ellipse(0, -22 + j * 5.5, 40 - j * 2.5, 7.5 - j * .5, 0, .1, Math.PI - .1); ctx.stroke(); } ctx.restore();
+    ctx.strokeStyle = rgba('#ffd9a0', .55); ctx.lineWidth = 1.6; ctx.beginPath(); ctx.ellipse(0, -22, 40, 8.5, 0, .05, Math.PI - .05); ctx.stroke();
+  } else if (kind === 'crib') {
+    const wd = o.wood || '#c9a27a';
+    ctx.strokeStyle = shadeHex(wd, -.3); ctx.lineWidth = 2.2; for (let i = -40; i <= 40; i += 8) { ctx.beginPath(); ctx.moveTo(i + 4, -66); ctx.lineTo(i + 4, -24); ctx.stroke(); }
+    ctx.fillStyle = '#e9e0cc'; ctx.fillRect(-46, -30, 92, 9); ctx.save(); ctx.translate(-4, -34); b(); ctx.restore();
+    ctx.fillStyle = shadeHex(wd, -.12); ctx.fillRect(-52, -72, 6, 72); ctx.fillRect(46, -72, 6, 72); ctx.fillRect(-52, -72, 104, 5); ctx.fillRect(-52, -24, 104, 5);
+    ctx.strokeStyle = wd; ctx.lineWidth = 2.6; for (let i = -40; i <= 40; i += 8) { ctx.beginPath(); ctx.moveTo(i, -67); ctx.lineTo(i, -24); ctx.stroke(); }
+    ctx.fillStyle = 'rgba(4,4,12,.4)'; ctx.beginPath(); ctx.ellipse(0, 1, 60, 6, 0, 0, TAU2); ctx.fill();
+  } else if (kind === 'hammock') {
+    const cl = o.cloth || '#c8442f', sw = Math.sin(t * 1.1) * 3;
+    ctx.translate(sw, 0); ctx.strokeStyle = 'rgba(40,28,20,.8)'; ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(-50, -14); ctx.lineTo(-120, -110); ctx.moveTo(50, -14); ctx.lineTo(120, -110); ctx.stroke();
+    ctx.fillStyle = shadeHex(cl, -.3); ctx.beginPath(); ctx.moveTo(-52, -16); ctx.quadraticCurveTo(0, 22, 52, -16); ctx.quadraticCurveTo(0, -2, -52, -16); ctx.fill();
+    ctx.save(); ctx.translate(0, -8); b({ ang: .05 }); ctx.restore();
+    const g = ctx.createLinearGradient(0, -10, 0, 16); g.addColorStop(0, shadeHex(cl, .1)); g.addColorStop(1, shadeHex(cl, -.25)); ctx.fillStyle = g;
+    ctx.beginPath(); ctx.moveTo(-52, -16); ctx.quadraticCurveTo(0, 26, 52, -16); ctx.quadraticCurveTo(0, 6, -52, -16); ctx.fill();
+    ctx.strokeStyle = rgba('#ffe2b8', .35); ctx.lineWidth = .8; for (let i = 0; i < 5; i++) { ctx.beginPath(); ctx.moveTo(-48 + i * 4, -12 + i); ctx.quadraticCurveTo(0, 14 + i * 2, 48 - i * 4, -12 + i); ctx.stroke(); }
+  } else {   // mat
+    const m = o.weave || '#c9a46a';
+    ctx.fillStyle = shadeHex(m, -.2); ctx.beginPath(); ctx.ellipse(0, -2, 64, 15, 0, 0, TAU2); ctx.fill();
+    ctx.save(); ctx.beginPath(); ctx.ellipse(0, -2, 64, 15, 0, 0, TAU2); ctx.clip(); ctx.strokeStyle = rgba('#3a2414', .3); ctx.lineWidth = 1; for (let i = -70; i < 70; i += 5) { ctx.beginPath(); ctx.moveTo(i, -20); ctx.lineTo(i + 12, 16); ctx.stroke(); }
+    ctx.fillStyle = rgba('#c8442f', .55); ctx.fillRect(-70, -9, 140, 3); ctx.fillRect(-70, 4, 140, 3); ctx.restore();
+    ctx.save(); ctx.translate(0, -12); b({ ang: .02 }); ctx.restore();
+  }
   ctx.restore();
 }

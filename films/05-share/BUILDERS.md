@@ -90,7 +90,17 @@ Anchor every accent to a word (±2 frames), never to seconds. Ids: sections `'H'
     - `figureKid(ctx, x, y, s, pose, {age: 'child'|'toddler', t, seed, dress, hair: 'short'|'pigtails'|'curly'|'bob'|'beanie', light, rim, flip, prop})`
       → `{hand(i), feetY, head}`. x,y = hip, s = adult scale (same s as the adults next to them). Poses: `KIDPOSES.stand|reachUp|hold|sit|squat`.
     - Baby in arms: `figure(ctx, x, y, s, POSES.cradle, {prop: cradleProp({…})})`, or `babyBundle(ctx, x, y, s, o)` on its own.
-    - `smallFeet(ctx, x, y, s, {t})` draws a child's bare feet on soil (close-up).
+    - `babyBed(ctx, x, y, s, 'basket'|'crib'|'hammock'|'mat', {t, blanket, weave, wood, cloth})` is a baby asleep (4.12, 4.16).
+    - `smallFeetSide(ctx, x, y, s, {t, step: [near, far], light, gap, dir})` shows toddler feet in profile walking on soil (4.18; 0 = flat,
+      .5 = heel strike, 1 = lifted; the legs leave the frame at the top). `smallFeet` is the same feet seen from the front.
+  - Options worth knowing:
+    - On rosette, gBorder and certificate, `seq: true` makes the burin cut one line after another. On the certificate the first line
+      (the outer band) is done at burin ≈ .1, which is what 1.02 needs.
+    - `ghostLines` (rosette, default 8): a ghost reads only with few lines.
+    - `onPaper: true` (perforateText) dims the sheet round the letters so the light reads.
+    - `smooth` (microPath, default size·2.2) keeps ragged coasts legible.
+  - Look: dotted ghost lines double under the riso offset. Set `print: { riso: .25 }` on ghost-heavy shots. Reference frames and code:
+    `ref/k0/r3.mjs`, stills `stills/k0/ghost-*`, `perforate-*`, `micro-*`, `kids-*`, `feet-*`.
 - **stub.mjs**: `PAL` (ground / middle / accent per section, konzept §3), the placeholder cards. Legacy Film 2/3 files (`world places explain md2 picts`):
   mechanics only, not the look.
 

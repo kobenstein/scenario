@@ -4,7 +4,8 @@
 // in the film's amber. Static parts are rendered once into cached offscreen layers; per frame only transforms + glints.
 //
 //   guilloche(o) → { n, line(k, u = 1) → pts }        o: { R, A, B, n, m, lines, twist, squash, tighten 0..1, morph 0..1, n2, m2 }
-//   rosette(ctx, x, y, o)          draws all lines; o.u (draw-on 0..1, staggered per line), o.rot, o.col, o.w, o.a, o.cache (true: static → layer)
+//   rosette(ctx, x, y, o)          draws all lines; o.u (draw-on 0..1, staggered per line), o.rot, o.col, o.w, o.a, o.cache (true: static → layer);
+//                                  ghost modes: o.ghost / o.burin / o.smoke / o.seq, o.ghostLines (8: how many of the lines the ghost draws), o.dot
 //   gBorder(ctx, x, y, w, h, o)    woven guilloche band inside the rectangle; o: { band, lines, waves, col, w, a, u (draw-on) } (cached)
 //   intaglio(ctx, x, y, w, h, o)   engraved shading: parallel lines bent by o.warp(x,y), swelling with o.tone(x,y) 0..1 (cached by o.key)
 //   microtext(ctx, x, y, w, text, o) / microRing(ctx, cx, cy, r, text, o)   tiny repeated caps that read as a line
@@ -13,7 +14,8 @@
 //   certificate(ctx, t, o)         the full "YOUR SHARE" certificate as one cached layer + live glint; o: { x, y, s, rot, title, name ('' = empty line) }
 //                                  ghost modes (lib/ghost.mjs): o.ghost 0..1 (1 = only the dotted engraving, the paper fades in as it drops),
 //                                  o.burin 0..1 (the structure is engraved solid line by line), o.smoke 0..1 (the dotted ghost drifts away),
-//                                  o.ghostCol, o.ghostW (px), o.dot (px). rosette() and gBorder() take o.ghost / o.burin / o.smoke too.
+//                                  o.ghostCol, o.ghostW (px), o.dot (px), o.seq (true: the burin cuts one line after another; the first line,
+//                                  the outer band, is done at burin ≈ .2). rosette() and gBorder() take o.ghost / o.burin / o.smoke / o.seq too.
 //   microPath(ctx, pts, text, o)   microtext along a polyline or map border; o: { size, u, glint 0..1, col, a, offset (run), side }
 //   unwind(from, to, u, o)         morph one polyline into another (resampled), sweeping from one end: a guilloche line → coastline
 //   peel(from, to, u, o)           a thread leaves a spool: the first u of `to` is already laid down, the rest still lies on `from`
@@ -52,7 +54,8 @@ function strokePts(ctx, pts) { ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1])
 export function rosette(ctx, x, y, o = {}) {
   const u = clamp(o.u ?? 1), col = o.col || INK, w = o.w ?? 1, a = o.a ?? .85;
   if (o.ghost != null || o.burin != null || o.smoke) {   // ghost engraving (lib/ghost.mjs): dotted = not yet, burin = being engraved, smoke = gone
-    const G = guilloche(o), lines = []; for (let k = 0; k < G.lines; k++) { const uk = clamp(u * 1.35 - k / G.lines * .35); if (uk > 0) lines.push(G.line(k, uk)); }
+    const G = guilloche(o), lines = [], nG = Math.max(1, Math.min(G.lines, o.ghostLines ?? 8)), step = G.lines / nG;   // a ghost reads only with few lines
+    for (let j = 0; j < nG; j++) { const k = Math.floor(j * step), uk = clamp(u * 1.35 - k / G.lines * .35); if (uk > 0) lines.push(G.line(k, uk)); }
     ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot ?? 0); ghostPaths(ctx, lines, { ...o, col, w, a, u: 1, dot: o.dot ?? 5 }); ctx.restore(); return;
   }
   const draw = (g, cx, cy) => {
@@ -150,10 +153,20 @@ export function microRing(ctx, cx, cy, r, str, o = {}) {
 // microtext running along a polyline (a border, a map line, "everyone"): the unit repeats to fill the path.
 //   microPath(ctx, pts, text, { size 7, u 1 (reveal along the path), glint null (0..1: a bright foil glint travelling along the text),
 //            col INK, a .85, offset 0 (px along the path, animate it to make the text run), spacing .6, side 0 (px off the line, + = left of travel),
-//            repeat true, weight 600 })
+//            repeat true, weight 600, smooth size·2.2 (px window: the letters ride a smoothed copy of a ragged line; 0 = exact) })
+// even resampling + moving average (window w px), cached per input array
+const SMP = new WeakMap();
+function smoothPath(pts, w) {
+  if (!(w > 0)) return pts; const c = SMP.get(pts); if (c && c.w === w) return c.out;
+  const step = Math.max(1, w / 6), R = resample(pts, Math.max(8, Math.round(pathLen(pts) / step))), k = Math.round(w / step / 2), out = [];
+  for (let i = 0; i < R.length; i++) { let sx = 0, sy = 0, n = 0; for (let j = Math.max(0, i - k); j <= Math.min(R.length - 1, i + k); j++) { sx += R[j][0]; sy += R[j][1]; n++; } out.push([sx / n, sy / n]); }
+  SMP.set(pts, { w, out }); return out;
+}
+function pathLen(P) { let s = 0; for (let i = 1; i < P.length; i++) s += Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]); return s; }
 export function microPath(ctx, pts, str, o = {}) {
   if (!pts || pts.length < 2 || !str) return;
   const size = o.size ?? 7, u = clamp(o.u ?? 1), col = o.col || INK, a = o.a ?? .85, sp = o.spacing ?? .6, side = o.side ?? 0;
+  pts = smoothPath(pts, o.smooth ?? size * 2.2);   // ragged coasts: the letters ride a smoothed line so they stay legible
   const d = [0]; for (let i = 1; i < pts.length; i++) d.push(d[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
   const L = d[d.length - 1], Lu = L * u; if (Lu <= 0) return;
   ctx.save(); ctx.font = `${o.weight ?? 600} ${size}px "Inter"`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = col;
@@ -328,30 +341,37 @@ function titleLayers(title) {
 }
 // the certificate's engraved structure as polylines (certificate units, centred), for the ghost modes
 let CGL = null;
+// the certificate as a sparse line drawing (an underdrawing, like a pounce pattern): few lines per band so the dots stay legible.
+// A line may carry .a / .w multipliers (ghostPaths reads them).
 function certGhostLines() {
-  if (CGL) return CGL; const out = [], add = (pts, dx, dy) => out.push(pts.map(([px, py]) => [px + dx - CW / 2, py + dy - CH / 2]));
-  for (const L of borderLines(CW - 44, CH - 44, 46, 11, 150, 26)) add(L, 22, 22);
-  for (const L of borderLines(CW - 164, CH - 164, 16, 5, 260, 14)) add(L, 82, 82);
-  const G = guilloche({ R: 46, A: 13, B: 6, n: 14, m: 5, lines: 22 });
-  for (const [cx, cy] of [[150, 150], [CW - 150, 150], [150, CH - 150], [CW - 150, CH - 150]]) for (let k = 0; k < 22; k += 2) add(G.line(k), cx, cy);
+  if (CGL) return CGL; const out = [], add = (pts, dx, dy, a = 1, w = 1) => { const q = pts.map(([px, py]) => [px + dx - CW / 2, py + dy - CH / 2]); q.a = a; q.w = w; out.push(q); };
+  const B1 = borderLines(CW - 44, CH - 44, 46, 2, 58, 26), B2 = borderLines(CW - 164, CH - 164, 16, 2, 120, 14);
+  B1.forEach((L, i) => add(L, 22, 22, i < 2 ? 1 : .8, i < 2 ? 1 : 1.15));   // the first line the burin cuts is the outer band
+  { const P = perimeter(CW - 8, CH - 8, 30), pts = []; for (let j = 0; j <= 480; j++) { const [px, py] = P.at(j / 480 * P.tot); pts.push([px + 4, py + 4]); } add(pts, 0, 0, .55); }
+  B2.forEach((L) => add(L, 82, 82, .85));
+  const GC = guilloche({ R: 300, A: 40, B: 14, n: 12, m: 5, lines: 24 }); for (let k = 0; k < 24; k += 6) add(GC.line(k), CW / 2, CH / 2, .4);
+  const G = guilloche({ R: 44, A: 12, B: 5, n: 8, m: 3, lines: 12 });
+  for (const [cx, cy] of [[150, 150], [CW - 150, 150], [150, CH - 150], [CW - 150, CH - 150]]) for (let k = 0; k < 12; k += 4) add(G.line(k), cx, cy, .9);
   for (const e of [6, 11]) { const pts = []; for (let i = 0; i <= 160; i++) { const a = i / 160 * TAU; pts.push([CW / 2 + Math.cos(a) * (230 + e), 350 + Math.sin(a) * (98 + e)]); } add(pts, 0, 0); }
+  // text placeholders: dotted rules where the small type will be
+  for (const [y0, hw, a] of [[170, 260, .8], [228, 450, .45], [650, 450, .45], [712, 150, .7], [822, 230, .7]]) add([[CW / 2 - hw, y0], [CW / 2 + hw, y0]], 0, 0, a);
   add([[CW / 2 - 330, 776], [CW / 2 + 330, 776]], 0, 0);
   { const pts = []; for (let i = 0; i <= 200; i++) { const a = i / 200 * TAU, q = 118 * (1 + .035 * Math.cos(24 * a)); pts.push([CW - 230 + Math.cos(a) * q, CH - 215 + Math.sin(a) * q]); } add(pts, 0, 0); }
+  { const pts = []; for (let i = 0; i <= 120; i++) { const a = i / 120 * TAU; pts.push([CW - 230 + Math.cos(a) * 84, CH - 215 + Math.sin(a) * 84]); } add(pts, 0, 0, .7); }
   return (CGL = out);
 }
 export function certificate(ctx, t, o = {}) {
   const c = certLayer(o), s = o.s ?? .8, x = o.x ?? W / 2, y = o.y ?? H / 2, rot = o.rot ?? -.05;
   const gm = o.ghost != null || o.burin != null || !!o.smoke, gh = clamp(o.ghost ?? 1);
   if (gm) {   // ghost certificate (lib/ghost.mjs): the paper fades in as ghost → 0; the engraving is dotted, engraved by the burin, or smokes away
+    if (gh < 1 && !(o.ghost == null && o.burin != null)) { ctx.save(); ctx.globalAlpha = (ctx.globalAlpha ?? 1) * (1 - gh); certificate(ctx, t, { ...o, ghost: undefined, burin: undefined, smoke: undefined }); ctx.restore(); }
     ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s, s);
-    const gw = (o.ghostW ?? 1.25) / s, col = o.ghostCol || '#f3efe2', lineA = o.burin != null ? 1 : clamp(gh * 1.4);
-    if (lineA > 0) ghostPaths(ctx, certGhostLines(), { ghost: gh, burin: o.burin, smoke: o.smoke, col, w: gw, a: lineA * (o.a ?? 1), dot: (o.dot ?? 5.5) / s, t, tipSize: 14 / s, stagger: o.stagger ?? .5, tips: o.tips ?? 3, glow: o.burin != null ? '#ffb35c' : null });
+    const gw = (o.ghostW ?? 1.6) / s, col = o.ghostCol || '#f3efe2', lineA = o.burin != null ? 1 : clamp(gh * 1.4);
+    if (lineA > 0) ghostPaths(ctx, certGhostLines(), { ghost: gh, burin: o.burin, smoke: o.smoke, col, w: gw, a: lineA * (o.a ?? 1), dot: (o.dot ?? 7.5) / s, t, tipSize: 14 / s, stagger: o.stagger ?? .5, tips: o.tips ?? 3, seq: o.seq, glow: o.burin != null ? '#ffb35c' : null });
     if (lineA > 0) { const title = o.title || 'YOUR SHARE'; ctx.save(); ctx.font = '150px "Instrument Serif"'; try { ctx.letterSpacing = '10px'; } catch { } ctx.textAlign = 'center';
       const solid = o.burin != null && o.burin > .8; ctx.strokeStyle = rgba(col, lineA * (o.a ?? 1) * (o.smoke ? 1 - clamp(o.smoke * 1.4) : 1)); ctx.lineWidth = gw; ctx.lineCap = 'round';
-      if (!solid) ctx.setLineDash([.1, (o.dot ?? 5.5) / s]); ctx.strokeText(title, 0, -CH / 2 + 612); ctx.restore(); }
-    ctx.restore();
-    if (gh >= 1 || (o.ghost == null && o.burin != null)) return;
-    ctx.save(); ctx.globalAlpha = 1 - gh; certificate(ctx, t, { ...o, ghost: undefined, burin: undefined, smoke: undefined }); ctx.restore(); return;
+      if (!solid) ctx.setLineDash([.1, (o.dot ?? 6.5) / s * .8]); ctx.strokeText(title, 0, -CH / 2 + 612); ctx.restore(); }
+    ctx.restore(); return;
   }
   ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s, s);
   // shadow on the table

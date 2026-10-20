@@ -5,7 +5,7 @@
 //     o: { size 110 (cap height px), pitch 6.5 (hole spacing px), hole 1.5 (hole radius px), font 'Inter', weight 800, spacing 10 (px),
 //          light '#ffe2b0' (what shines through), glow .8 (halo), u 1 (0..1: holes punched in reading order, each with a tiny flash),
 //          t (the light breathes), rot 0, a 1, shade '#140c08' (the hole's rim/shadow in the paper), back null (colour of a paper patch
-//          behind, null = draw over your own paper) }
+//          behind, null = draw over your own paper), onPaper false (true on a light sheet: the paper round the letters is shaded, smaller halo) }
 //   perforation(ctx, pts, o)   a row of holes along a polyline; o: { pitch 7, hole 1.4, light null (colour shining through) | col,
 //          tear 0 (0..1: torn open from the first point on, a ragged fibrous gap), a 1, shade }
 //   tearAway(ctx, o)           tears a piece off along a straight perforation: o: { line: [[x0, y0], [x1, y1]], draw(ctx) (draws the whole
@@ -37,12 +37,18 @@ export function perforateText(ctx, text, x, y, o = {}) {
   const Hs = holesFor(text, size, pitch, o.font || 'Inter', o.weight ?? 800, o.spacing ?? 10), n = Hs.pts.length, shown = Math.floor(n * u);
   ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot ?? 0); ctx.globalAlpha = a;
   if (o.back) { ctx.fillStyle = o.back; ctx.fillRect(-Hs.w / 2 - 40, -size / 2 - 40, Hs.w + 80, size + 80); }
-  const shade = o.shade || '#140c08', spr = glowSprite(light, hole * 7), br = .85 + .15 * Math.sin(t * 1.7);
-  // the punched rims (paper fibre pushed in) under the light
-  ctx.fillStyle = rgba(shade, .55);
-  for (let i = 0; i < shown; i++) { const [px, py] = Hs.pts[i]; ctx.beginPath(); ctx.arc(px + .5, py + .6, hole + .9, 0, TAU); ctx.fill(); }
+  const shade = o.shade || '#140c08', paper = !!o.onPaper, spr = glowSprite(paper ? '#ffb35c' : light, hole * (paper ? 4.5 : 7)), br = .85 + .15 * Math.sin(t * 1.7);
+  if (paper) {   // on a light sheet: the paper round the letters dims a little (the light is behind it), a crisp edge per hole, then the light
+    if (shown) { const ry = size * .9 + 30, rx = Hs.w / 2 + 70; ctx.save(); ctx.scale(1, ry / rx); const g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx); g.addColorStop(0, rgba('#6e4a2c', .42 * clamp(u * 3))); g.addColorStop(.6, rgba('#6e4a2c', .2 * clamp(u * 3))); g.addColorStop(1, rgba('#6e4a2c', 0));
+      ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = g; ctx.fillRect(-rx, -rx, rx * 2, rx * 2); ctx.restore(); }
+    ctx.strokeStyle = rgba(shade, .5); ctx.lineWidth = .8;
+    for (let i = 0; i < shown; i++) { const [px, py] = Hs.pts[i]; ctx.beginPath(); ctx.arc(px, py, hole + .55, 0, TAU); ctx.stroke(); }
+  } else {   // the punched rims (paper fibre pushed in) under the light
+    ctx.fillStyle = rgba(shade, .55);
+    for (let i = 0; i < shown; i++) { const [px, py] = Hs.pts[i]; ctx.beginPath(); ctx.arc(px + .5, py + .6, hole + .9, 0, TAU); ctx.fill(); }
+  }
   ctx.globalCompositeOperation = 'lighter';
-  if ((o.glow ?? .8) > 0) { ctx.globalAlpha = a * (o.glow ?? .8) * .5 * br; for (let i = 0; i < shown; i++) { const [px, py] = Hs.pts[i]; ctx.drawImage(spr, px - spr.width / 2, py - spr.height / 2); } }
+  if ((o.glow ?? .8) > 0) { ctx.globalAlpha = a * (o.glow ?? .8) * (paper ? .6 : .5) * br; for (let i = 0; i < shown; i++) { const [px, py] = Hs.pts[i]; ctx.drawImage(spr, px - spr.width / 2, py - spr.height / 2); } }
   ctx.globalAlpha = a; ctx.fillStyle = light;
   for (let i = 0; i < shown; i++) { const [px, py] = Hs.pts[i], fresh = u < 1 ? clamp(1 - (shown - i) / 12) : 0; ctx.beginPath(); ctx.arc(px, py, hole * (1 + fresh * .8), 0, TAU); ctx.fill(); }
   ctx.globalAlpha = a * .9; ctx.fillStyle = '#ffffff'; for (let i = 0; i < shown; i++) { const [px, py] = Hs.pts[i]; ctx.fillRect(px - .45, py - .45, .9, .9); }
