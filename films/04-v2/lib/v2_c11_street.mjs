@@ -60,7 +60,7 @@ export function streetView(cx, cy, D) {
 // a person's scale (lib/v2_c11_people.mjs person(): s = px per metre / 105.7) at depth d
 export const figS = (V, d) => FOC / Math.max(.05, V.D + d) / MPU / 105.7;
 
-// ---------------------------------------------------------------- the labels (the hill's label style, after lib/v2_hill_dev.mjs labels(), 2026-10-20:
+// ---------------------------------------------------------------- the labels (the hill's label style, after lib/maslow4.mjs labels(), 2026-10-20:
 // anchor dot on the terrace, a leader, Instrument Serif; restricted to ESTEEM (the level of this chunk: lit, larger, amber leader) and
 // SELF-ACTUALIZATION (the next one up). Screen-placed like the hill's own; written on and off by a clip, never a fade.
 function labels(ctx, t, V, la) {

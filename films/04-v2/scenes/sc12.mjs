@@ -201,7 +201,7 @@ export default async (T, R) => {
   // back (log distance, a cubic that starts at 2.6 e-folds/s and lands at rest) through her room and out of the cut-away street to H3.
   K.h3 = K.workingE; K.swA = K.it + .17; K.swB = K.swA + .75; K.saA = K.swA + .45; K.saB = K.saA + .75;
   K.ruleOn = K.swA + .526 * .75;                                    // the esteem sweep passes the frame on the square: its rule lights
-  K.pushA = K.toE; K.pushB = K.clipA + .7; K.outA = K.clipB - .66; K.offA = K.clipB - .14; K.last = K.end - 1 / 30;
+  K.hpA = K.toE; K.hpB = K.clipA + .7; K.outA = K.clipB - .66; K.offA = K.clipB - .4; K.last = K.end - 1 / 30;
   const H3V = { x: 1010, y: 450, z: 1.75 }, DIST0 = .36, DIST1 = FOC / H3V.z + LAMP0.d, DL = Math.log(DIST1 / DIST0);
   function pullView(t) {
     const T0 = K.flyB, T1 = K.h3, u = clamp((t - T0) / (T1 - T0)), m0 = 2.6 * (T1 - T0) / DL;
@@ -210,14 +210,14 @@ export default async (T, R) => {
     return view(LAMP0.x - (mix(W / 2, Lf[0], g) - W / 2) / q, LAMP0.y - (mix(H / 2, Lf[1], g) - H / 2) / q, dist - LAMP0.d);
   }
   const FC = [FR.x + FR.w / 2, FR.y + FR.h / 2], RC = [FR.x + FR.w / 2, RULE.y], ZC = 35.2, CLIPV = { x: FC[0], y: FR.y - (222 - H / 2) / ZC, z: ZC }, ZEND = 172;
-  const holdCam = (t) => { const r = sm(lin(K.h3, K.h3 + 1.2, t)); return { x: H3V.x + 3 * drift(t, 1, 1) * r, y: H3V.y + 2 * drift(t, 1, 4) * r, z: H3V.z * (1 + .02 * sm(lin(K.h3, K.pushA, t))) }; };
-  const clipCam = (t) => { const r = sm(lin(K.pushB, K.pushB + 1.5, t)); return { x: CLIPV.x + .09 * drift(t, 1, 2) * r, y: CLIPV.y + .05 * drift(t, 1, 5) * r, z: ZC * (1 + .006 * Math.sin((t - K.pushB) * .45) * r) }; };
+  const holdCam = (t) => { const r = sm(lin(K.h3, K.h3 + 1.2, t)); return { x: H3V.x + 3 * drift(t, 1, 1) * r, y: H3V.y + 2 * drift(t, 1, 4) * r, z: H3V.z * (1 + .02 * sm(lin(K.h3, K.hpA, t))) }; };
+  const clipCam = (t) => { const r = sm(lin(K.hpB, K.hpB + 1.5, t)); return { x: CLIPV.x + .09 * drift(t, 1, 2) * r, y: CLIPV.y + .05 * drift(t, 1, 5) * r, z: ZC * (1 + .006 * Math.sin((t - K.hpB) * .45) * r) }; };
   const toS = (c, p) => [(p[0] - c.x) * c.z + W / 2, (p[1] - c.y) * c.z + H / 2];
   const aimAt = (p, S, z) => ({ x: p[0] - (S[0] - W / 2) / z, y: p[1] - (S[1] - H / 2) / z, z });
   function hillCam(t) {
-    if (t < K.pushA) return holdCam(t);
-    if (t < K.pushB) {   // push to the frame: the frame's centre glides to its place while the zoom runs in log space
-      const c0 = holdCam(K.pushA), e = sm(lin(K.pushA, K.pushB, t)), S0 = toS(c0, FC), S1 = toS(CLIPV, FC);
+    if (t < K.hpA) return holdCam(t);
+    if (t < K.hpB) {   // push to the frame: the frame's centre glides to its place while the zoom runs in log space
+      const c0 = holdCam(K.hpA), e = sm(lin(K.hpA, K.hpB, t)), S0 = toS(c0, FC), S1 = toS(CLIPV, FC);
       return aimAt(FC, [mix(S0[0], S1[0], e), mix(S0[1], S1[1], e)], Math.exp(mix(Math.log(c0.z), Math.log(ZC), e)));
     }
     if (t < K.outA) return clipCam(t);
@@ -226,7 +226,7 @@ export default async (T, R) => {
     return aimAt(RC, [mix(S0[0], W / 2, e), mix(S0[1], 600, e)], Math.exp(mix(Math.log(c0.z), Math.log(ZEND), e)));
   }
   function hillState(t) {
-    const st = { night: mix(.45, .78, sm(lin(K.pushA, K.pushB, t))), lit: [1, 1, 0, 0, 0], labels: 1, title: 0, focus: -1, people: .7 };
+    const st = { night: mix(.45, .78, sm(lin(K.hpA, K.hpB, t))), lit: [1, 1, 0, 0, 0], labels: 1, title: 0, focus: -1, people: .7 };
     const u2 = clamp((t - K.swA) / (K.swB - K.swA)), u3 = clamp((t - K.saA) / (K.saB - K.saA));
     if (t >= K.saB) st.lit = [1, 1, 1, 1, 0];
     else if (u3 > 0) return { st: { ...st, sweep: { level: 2, u: u2 } }, split: { y: 432, hill: { sweep: { level: 3, u: u3 } } } };
@@ -239,12 +239,13 @@ export default async (T, R) => {
     const S = hillState(t), out = V.D > DH;
     if (!(out && covers(cam))) { drawStreet(ctx, t, V, { hill: S.st, split: S.split }); if (out) housing(ctx, t, cam); }
     if (!out) return;
-    const on = t >= K.clipA && t < K.clipB, pic = on ? eoq(lin(K.clipA, K.clipA + .3, t)) * (1 - eiq(lin(K.offA, K.clipB, t))) : 0;
-    const flash = on ? Math.max((1 - lin(K.clipA, K.clipA + .35, t)) ** 2, lin(K.offA, K.clipB, t) ** 2) : 0;
+    // the picture grows out of the rule in a flash of the tube's light (on) and folds evenly back into it (off)
+    const on = t >= K.clipA && t < K.clipB, uo = lin(K.offA, K.clipB - .02, t), pic = on ? eoq(lin(K.clipA, K.clipA + .3, t)) * (1 - sm(uo)) : 0;
+    const flash = on ? (1 - lin(K.clipA, K.clipA + .35, t)) ** 2 : 0;
     const img = t < K.clipA + .07 ? IMG0 : t >= 371.41 ? IMG1 : null;
     screen(ctx, t, T, cam, { pic, flash, img, ruleA: t >= K.ruleOn ? 1 : 0, ruleGrow: eout(lin(K.ruleOn, K.ruleOn + .3, t)), wob: smoother(lin(K.outA, K.last, t)) });
     spill(ctx, cam, pic * (1 - sm(lin(K.outA, K.offA, t))));
-    lowerThird(ctx, t, clamp((t - K.pushB) / .6) * (1 - clamp((t - (K.outA - .35)) / .3)));
+    lowerThird(ctx, t, clamp((t - K.hpB) / .6) * (1 - clamp((t - (K.outA - .35)) / .3)));
   }
   const IMG0 = await loadImage(ROOT + 'clips/A/f00003.jpg'), IMG1 = await loadImage(ROOT + 'clips/A/f00641.jpg');
 

@@ -94,10 +94,10 @@ export function JOINER(ctx, t, V, S, R, st, L) {
   const fl = R.y1, w = R.x1 - R.x0, bx0 = R.x0 + w * .3, bx1 = bx0 + 8.5, bt = fl - 3.75, bd0 = 6.0, bd1 = 8.6;
   // the stroke: forward with the cut (0 … .62), back lifted (.62 … 1)
   const Tp = 1.9, ph = (((t - 300) / Tp) % 1 + 1) % 1, fwd = ph < .62, k = fwd ? qio(ph / .62) : 1 - qio((ph - .62) / .38), lift = fwd ? 0 : Math.sin(Math.PI * (ph - .62) / .38) * .22;
-  const px = mix(bx0 + 1.45, bx0 + 2.7, k), pd = 7.3, ptop = bt - .2, ph0 = .34;
+  const px = mix(bx0 + 3.5, bx0 + 4.4, k), pd = 7.3, ptop = bt - .2, ph0 = .38;
   const lt = lightOf(V, L), sAd = figS(V, 9.9), sKid = figS(V, 9.1) * 1.15;
   // the grandfather (behind the child), leaning over him; his hands come over the child's on the plane
-  const G = standAt(V, bx0 - .25, fl, 9.9), gDress = { coat: '#5a4a3c', pants: '#2c2824', shoes: '#1a1410', skin: '#d0a07c', hair: '#d8d4cc', shirt: '#cfc6b0' };
+  const G = standAt(V, bx0 + 1.5, fl, 9.9), gDress = { coat: '#5a4a3c', pants: '#2c2824', shoes: '#1a1410', skin: '#d0a07c', hair: '#d8d4cc', shirt: '#cfc6b0' };
   const knob = V.P(px + .5, ptop - lift - ph0 - .15, pd), tote = V.P(px - .3, ptop - lift - ph0 - .3, pd);
   const gPose = { lean: .44, head: .3, sh: [1, 1], el: [.6, .6], hair: 'short', bulk: 1.02, hands: ['open', 'open'] }, gO = fo(t, 63, gDress, V, L, { smile: .5 });
   const g0 = reachArm(G.hx, G.hy, sAd, gPose, 0, false, gO, [knob[0] + .3 * sAd, knob[1] - 4 * sAd], 1), g1 = reachArm(G.hx, G.hy, sAd, gPose, 1, false, gO, [tote[0], tote[1] - 4 * sAd], 1);
@@ -125,9 +125,9 @@ export function JOINER(ctx, t, V, S, R, st, L) {
   // the shaving: it curls up out of the mouth during the cut, then drops behind the plane onto the bench
   const M = V.P(px + .12, ptop - lift - ph0 + .05, pd);
   if (fwd) curl(M[0] - pq * .05, M[1] - pq * (.18 + .2 * k), .12 + .2 * k, -1.2 + k * 2.2, .6 + 1.1 * k, pq, '#f2dcae');
-  else { const u = (ph - .62) / .38, D0 = V.P(bx0 + 2.7 + .12 - .9 * u, bt - .2 - .52 + .45 * u * u, pd); curl(D0[0], D0[1], .32, 1 + u * 2.5, 1.7, pq, '#f2dcae'); }
+  else { const u = (ph - .62) / .38, D0 = V.P(bx0 + 4.4 + .12 + .9 * u, bt - .2 - .52 + .45 * u * u, pd); curl(D0[0], D0[1], .32, 1 + u * 2.5, 1.7, pq, '#f2dcae'); }
   // the child on a box behind the bench (clipped to above the bench top), his hands on the tote and the knob; leaning into the stroke
-  const C = standAt(V, bx0 + .55, fl - U(.34), 9.1), kh = C.hy + (88 * figS(V, 9.1) - 49 * sKid), lean = mix(.12, .4, k);
+  const C = standAt(V, bx0 + 3.0, fl - U(.34), 9.1), kh = C.hy + (88 * figS(V, 9.1) - 49 * sKid), lean = mix(.12, .4, k);
   const k0 = kidArm(C.hx, kh, sKid, lean, false, 0, knob[0] - .4 * sKid, knob[1] - 1 * sKid, -1), k1 = kidArm(C.hx, kh, sKid, lean, false, 1, tote[0], tote[1] - 1.5 * sKid, -1);
   const farEdge = V.P(bx0, bt, bd1)[1];
   ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, farEdge + 1); ctx.clip();
@@ -281,7 +281,7 @@ function notice(ctx, V, s, art, plate, t) {
   pathQ(ctx, Q); ctx.fillStyle = g; ctx.fill(); ctx.clip(); if (art) art(Q, Q[0][2]);
   ctx.restore(); pins(ctx, Q);
 }
-function pins(ctx, Q) { const q = Q[0][2]; for (const [x, y] of [Q[0], Q[1]]) { ctx.fillStyle = '#b8402a'; ctx.beginPath(); ctx.arc(x + (x < Q[1][0] - 1 ? 1 : -1) * q * .25, y + q * .2, Math.max(1.2, q * .09), 0, TAU); ctx.fill(); } }
+function pins(ctx, Q) { const q = Q[0][2]; for (const [x, y] of [Q[0], Q[1]]) { ctx.fillStyle = '#b8402a'; ctx.beginPath(); ctx.arc(x + (x < Q[1][0] - 1 ? 1 : -1) * q * .12, y + q * .1, Math.max(1.2, q * .06), 0, TAU); ctx.fill(); } }
 // the people at the board: three adults and a child at the right notice (A), the woman with the new sheet left of the board
 function crowd(ctx, t, V, G, st, near, lt) {
   const tg = st.busy?.gather ?? 1e9, tp = st.busy?.pin ?? 1e9, gu = qio(u01(t, tg, tg + .9));

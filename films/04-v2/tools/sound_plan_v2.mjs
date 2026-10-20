@@ -25,7 +25,7 @@ const AMB = [
   ['c08', 'hall', .35, 0, 28], ['c08', 'city_night_hill', .3, 28, null],
   ['c09', 'nightsky', .4, 0, null],
   ['c10', 'harbour', .4, 0, 20], ['c10', 'city_street', .35, 20, null],
-  ['c11', 'kitchen', .3, 0, 10], ['c11', 'hill', .4, 10, null],
+  ['c11', 'city_night_hill', .35, 0, null],
   ['c12', 'bazaar', .35, 0, 14], ['c12', 'hill', .35, 14, null],
   ['c13', 'river', .45, 0, null],
   ['c14', 'nightsky', .4, 0, 6], ['c14', 'hill', .35, 6, null],

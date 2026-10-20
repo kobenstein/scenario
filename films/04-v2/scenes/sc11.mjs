@@ -138,8 +138,8 @@ export default async function (T, R) {
     [A.craft - .15, [mid(2) + 2, YM - .2, L(19.5)], null],
     // 11.08 grandfather
     [A.craft + .55, [mid(2) + 24, YM, L(28)], null],
-    [A.grand + .2, [mid(3) - 1, YM - .2, L(21)], null],
-    [A.jobs - .2, [mid(3) + 2, YM - .2, L(19.5)], null],
+    [A.grand + .2, [SHOP[3].x0 + .7 + (SHOP[3].x1 - SHOP[3].x0 - 1.4) * .3 + 4, YM - .9, L(11)], null],
+    [A.jobs - .2, [SHOP[3].x0 + .7 + (SHOP[3].x1 - SHOP[3].x0 - 1.4) * .3 + 4.8, YM - .9, L(10.5)], null],
     // 11.09 the office, it goes; the passage behind it
     [A.jobs + .55, [mid(3) + 26, YM, L(28)], null],
     [A.quietly, [mid(4), YM, L(25)], null],
