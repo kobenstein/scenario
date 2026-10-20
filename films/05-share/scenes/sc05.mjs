@@ -480,7 +480,10 @@ function alaskaShot(ctx, t, a) {
       if (u > 0) {
         const pg = ctx.createRadialGradient(tip[0], tip[1], 0, tip[0], tip[1], 420); pg.addColorStop(0, `rgba(255,170,100,${.16 * (1 - lift)})`); pg.addColorStop(1, 'rgba(255,170,100,0)'); ctx.fillStyle = pg; ctx.fillRect(tip[0] - 420, tip[1] - 420, 840, 840);
         ctx.save(); ctx.setLineDash([1.4, 5.5]); ctx.strokeStyle = `rgba(243,239,226,${.42 * (1 - mapA)})`; ctx.lineWidth = 1.2; poly(ctx, A.pts, Math.max(0, laid - 2), N - 1); ctx.stroke(); ctx.restore();
-        if (mapA > 0) { ctx.save(); ctx.fillStyle = rgba('#e9dfc6', .12 * mapA); ctx.fill(A.path); ctx.restore(); }
+        // the land tint leaves with the thread: Alaska's land border is a straight meridian (141° W), and once the thread lifts
+        // off it the tint's flat edge would read as a box through the dissolve into 3.06
+        const tint = .12 * mapA * (1 - sm(lin(a.every - .85, a.every - .45, t)));
+        if (tint > 0) { ctx.save(); ctx.fillStyle = rgba('#e9dfc6', tint); ctx.fill(A.path); ctx.restore(); }
         ctx.save(); ctx.globalCompositeOperation = 'lighter';
         revealAlong(ctx, WL, A.pts, laid, Math.round(N * .05), 190);
         revealAlong(ctx, LL, A.pts, Math.max(0, laid - Math.round(N * .015)), Math.round(N * .06), 150);
