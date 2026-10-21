@@ -15,6 +15,7 @@
 //  220.38          8.13  his reflection in it: the badge on its lanyard; the title line goes up as dotted smoke on "job"
 //  223.40–227.41   8.14  the screen lights: clip S (lower third, from c02); it folds to a line; the camera is in its glass
 //  227.58          → c09 glass plate
+import { footageTag } from '../lib/footage_tag.mjs';
 import { W, H, clamp, mix, lin, eout, eio, text, rgba } from '../engine.mjs';
 import { handsOf } from '../lib/handoff4.mjs';
 import { clipScreen } from '../lib/kit.mjs';
@@ -201,6 +202,7 @@ export default async (T, R) => {
       if (rise >= 1) return;
       ctx.save(); ctx.beginPath(); ctx.rect(x + 12, y + dy - z * 1.25, 560, z * 1.8); ctx.clip(); label(ctx, s, x + 20, y + dy + rise * z * 1.3, o); ctx.restore();
     });
+    footageTag(ctx, t, x + 20, y, 'Mustafa Suleyman', 1 - (1 - eout(lin(c0 + .3, c0 + .9, t))) - eio(lin(c1 - .5, c1 - .12, t)));
   }
   function drawD(ctx, t) {
     const cam = camD(t), on = seg(t, K.clip0 - .32, K.clip0 - .02), off = seg(t, K.clip1 - .2, K.clip1 + .12);   // the picture folds to a line over 10 frames

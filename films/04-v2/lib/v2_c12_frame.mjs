@@ -3,6 +3,7 @@
 // the dark glass panel below it, both lit like handoff4's line plate (at the end the rule IS the c12>c13 line plate), the lower third.
 //   housing(ctx, t, cam) · screen(ctx, t, T, cam, o) · spill(ctx, cam, a) · lowerThird(ctx, t, u) · rects(cam)
 //   cam = maslow4 camera { x, y, z }. The housing covers maslow4's own stand (posts, pediment, base) exactly, so it can be drawn at any zoom.
+import { footageTag } from './footage_tag.mjs';
 import { W, H, rgba, clamp, mix } from '../engine.mjs';
 import { HILL } from './maslow4.mjs';
 import { clipScreen } from './kit.mjs';
@@ -102,4 +103,5 @@ export function lowerThird(ctx, t, u, x = 150, y = 712) {
   label(ctx, 'THE RUNDOWN AI', x + 21, y + 58 + rise(2), 1, { size: 16, spacing: 3, col: '#c9c3dc', alpha: .8 });
   label(ctx, 'OCT 9, 2025', x + 21, y + 82 + rise(3), 1, { size: 16, spacing: 3, col: '#c9c3dc', alpha: .8 });
   ctx.restore();
+  footageTag(ctx, t, x + 20, y, 'Sam Altman', clamp((e - .2) / .8));
 }

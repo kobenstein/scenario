@@ -19,6 +19,7 @@
 // "If AI …"    one slab per beat slides out of the seal / out from behind the step below; the camera climbs; the light above grows.
 // "He thinks"  dotted ghost steps, engraved solid one after another up to the light; the camera flies into the light, which is
 //              exactly b23 (W/2, H/2, R_FULL, zero velocity) at c02>c03's a (44.48).
+import { footageTag } from './footage_tag.mjs';
 import { loadImage } from '@napi-rs/canvas';
 import { W, H, rgba, clamp, mix, lin, sm, eio, eout, ein, prng, drift, canvas, text, addGlow } from '../engine.mjs';
 import { clipScreen, ROOT } from './kit.mjs';
@@ -265,6 +266,7 @@ export function c02Take(T, R) {
       if (rise >= 1) return;
       ctx.save(); ctx.beginPath(); ctx.rect(x + 12, y + dy - z * 1.25, 560, z * 1.8); ctx.clip(); label(ctx, s, x + 20, y + dy + rise * z * 1.3, o); ctx.restore();
     });
+    footageTag(ctx, t, x + 20, y, 'Elon Musk', 1 - (1 - eout(lin(A.c0 + .3, A.c0 + .9, t))) - eio(lin(A.c1 - .5, A.c1 - .12, t)));
   }
   function stageWorld(ctx, t) {
     const C = stageCam(t), I = beamI(t), sc = scrI(t);
