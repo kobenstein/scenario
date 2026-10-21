@@ -53,13 +53,13 @@ export default async (T, R) => {
   const tPicture = S('Picture'), tNo = S('No rule'), tShe = S('She does'), tArt2 = S('Artificial intelligence got'), tFirst = S('first'), tCaring = S('Caring'), tSecondE = E('second');
   const t0 = HI.b, tEnd = HO.a - 1 / 30;
   // ---- the moves of TAKE AB
-  const tPull0 = t0 + .06, tPull1 = tComp - .55;                          // out of the dawn
+  const tPull0 = t0 + .06, tPull1 = tComp - .25;                          // out of the dawn
   const tDown0 = tComp - .1, tDown1 = tComp + 1.25;                       // down to the lotus
   const tOpen = tComp + .2;                                               // the lotus opens on three breaths
   const tLab0 = tIn + .3, tLab1 = tPos + .7;                              // the research label
   const tSwell0 = tPos, tSwell1 = tPos + .75;                             // the ember in the flower swells
   const tPush0 = tPos + .75, tSwitch = tPush0 + 1.0;                      // into the water → the table
-  const tRise0 = tSwitch, tRise1 = tSwitch + .8, tLight0 = tSwitch + .25, tLight1 = tSwitch + 1.05;
+  const tRise0 = tSwitch, tRise1 = tSwitch + .8, tLight0 = tSwitch + .1, tLight1 = tSwitch + .85;
   const tTag0 = tPeople + .3, tTag1 = tArt, tDim1 = tArt + .1, tSrc0 = tLower, tSrc1 = tBecause - .25;
   const tBack0 = tBecause, tBack1 = tBecause + 1.4;                       // pull back to the two people
   const tEmber = tBecause + .1, tSpeak = tBecause + .3, tGest = tBecause + .45;
@@ -131,7 +131,7 @@ export default async (T, R) => {
     const la = lin(tLab0, tLab0 + .9, t) * (1 - lin(tLab1, tLab1 + .3, t));
     label(ctx, 'COMPASSION TRAINING', 1180, 522, la, { size: 18, col: rgba(F6.amberCore, .92) });
     label(ctx, 'KLIMECKI ET AL. · 2013 · 2014', 1180, 558, la, { size: 15, col: rgba(F6.cream, .72) });
-    vignette(ctx, .34 * clamp(2 / cam.z) * (1 - lin(tPush0, tSwitch, t)));
+    vignette(ctx, .34 * clamp(2 / cam.z) * clamp((4.5 - cam.z) / 2.5) * (1 - lin(tPush0, tSwitch, t)));
   }
   function table(ctx, t) {
     const cam = camB(t), m = camMap(cam, 1);
@@ -165,7 +165,7 @@ export default async (T, R) => {
     vignette(ctx, .3 * lin(tRise0, tRise1, t) * (1 - lin(tFill0, tFill1, t)));
     // the light of the one ember grows until it is the whole frame (the surface TAKE C pulls out of)
     const uF = QUART(lin(tFill0, tFill1, t));
-    if (uF > 0) lightSheet(ctx, t, { x: m.X(handB[0]), y: m.Y(handB[1]), r: mix(60, 2300, uF), k: Math.pow(uF, 1.4) });
+    if (uF > 0) lightSheet(ctx, t, { x: m.X(handB[0]), y: m.Y(handB[1]), r: mix(40, 2600, uF), k: clamp(uF * 2.2) });
   }
   const takeAB = (ctx, t) => (t < tSwitch ? hall(ctx, t) : table(ctx, t));
 
@@ -190,7 +190,7 @@ export default async (T, R) => {
     label(ctx, 'CONSCIOUSNESS', kx - 118, ky, l3, { size: 17, col: rgba(F6.amberCore, .92), w: 260 });
     vignette(ctx, .32 * clamp(2 / cam.z) * (1 - lin(tPushC, tEnd, t)));
     const uO = QUART(lin(tOut0, tOut1, t));
-    if (uO < 1) lightSheet(ctx, t, { x: m.X(LIGHTC.x), y: m.Y(LIGHTC.y + 24), r: mix(2300, 40, uO), k: 1 });
+    if (uO < 1) lightSheet(ctx, t, { x: m.X(LIGHTC.x), y: m.Y(LIGHTC.y + 24), r: mix(2600, 90, uO), k: clamp((1 - uO) / .3) });
     // the push into the night light: a soft-edged disc of the plate itself grows from the bulb until it covers the frame (c03's method)
     const uP = QUART(lin(tPushC, tEnd, t));
     if (uP > 0) {

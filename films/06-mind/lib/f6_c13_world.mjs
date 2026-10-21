@@ -47,9 +47,10 @@ export function lightFill(ctx, { x, y, r, a = 1, tone = 'lamp', op = 'lighter' }
 // the same light drawn OPAQUE (source-over) as the plate-like surface the world grows out of: at k = 1 the frame is only this light
 export function lightSheet(ctx, t, { x, y, r, k }) {
   if (k <= 0) return; const [c0, c1, c2] = LAMPT, br = 1 + .03 * Math.sin(t * 1.7) + .015 * Math.sin(t * 4.3);
+  x += 14 * drift(t, 1, 3) * k; y += 10 * drift(t, 1, 7) * k;   // the light's slow wander (as the plates have), only once it is the frame
   ctx.save(); ctx.globalAlpha = 1;
   // a disc of light (soft edge) whose strength grows with k: at k 1 it is opaque and covers the frame; outside it the frame shows through
-  const g = ctx.createRadialGradient(x, y, 0, x, y, r * br); g.addColorStop(0, rgba(c0, k)); g.addColorStop(.42, rgba(c1, k)); g.addColorStop(.86, rgba(c2, k)); g.addColorStop(1, rgba(c2, 0));
+  const g = ctx.createRadialGradient(x, y, 0, x, y, r * br); g.addColorStop(0, rgba(c0, k)); g.addColorStop(.3, rgba(c1, k)); g.addColorStop(.6, rgba(c2, k * .96)); g.addColorStop(.82, rgba(c2, k * .5)); g.addColorStop(1, rgba(c2, 0));
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   const q = prng(31 + Math.floor(t * 12)); ctx.fillStyle = rgba(c2, .32 * k);
   for (const [px, py, d, kk] of DOTS) { if (d < .35) continue; if (kk > (d - .35) * 1.4) continue; const s = .8 + q() * 1.1; ctx.fillRect(x + px * r + (q() - .5) * 2, y + py * r + (q() - .5) * 2, s, s); }
@@ -128,7 +129,7 @@ export function lotusOpen(t, t0, { step = .85, per = .75 } = {}) {
 export const TB = { yFar: 600, x0: -400, x1: 2400, yNear: 1500 };
 export const LAMPB = { x: 1420, y: 600, s: 1.2, dir: .5 };
 export const CARDS = [{ x: 700, y: 690, w: 330, h: 215, rot: -.045, seed: 3, tag: 'PERSON' }, { x: 1092, y: 712, w: 330, h: 215, rot: .035, seed: 3, tag: 'AI' }];
-export const FA = { x: 560, y: 560, s: 2.0, seed: 6 }, FB = { x: 1010, y: 552, s: 1.95, seed: 9 };
+export const FA = { x: 835, y: 560, s: 2.0, seed: 6 }, FB = { x: 985, y: 552, s: 1.95, seed: 9 };
 const INK = '#2a2420', KC = 2;
 const TBOX = [TB.x0, TB.yFar - 40, TB.x1 - TB.x0, TB.yNear - TB.yFar + 40];
 export function tableB(ctx) {
@@ -199,7 +200,7 @@ export function figuresB(ctx, t, { gesture = 0, reach = 0, lift = 0, speak = 0, 
   const base = { sh: [.3, .2], el: [.45, .4], head: .08 + .1 * speak, turn: .25 * speak, lean: .02, hands: ['open', 'relaxed'] };
   const o = { t, seed: FA.seed };
   let pose = { ...base, sh: [mix(.3, .62, EXPO_OUT(gesture)), .2], el: [mix(.45, .38, EXPO_OUT(gesture)), .4] };
-  const target = [FB.x - 10 * FB.s, FB.y - 62 * FB.s];
+  const target = [FB.x - 13 * FB.s, FB.y - 60 * FB.s];
   if (reach > 0) { const r = reachArm(FA.x, FA.y, FA.s, pose, 0, false, o, target); const k = EXPO_OUT(reach); pose = { ...pose, sh: [mix(pose.sh[0], r.sh, k), pose.sh[1]], el: [mix(pose.el[0], r.el, k), pose.el[1]], lean: mix(.02, .12, k), hands: ['open', 'relaxed'] }; }
   figure(ctx, FA.x, FA.y, FA.s, pose, { ...o, accent: '#8a5a3a', dress: { pants: '#1a1626' }, light: lA, rim: rgba(F6.amber, .55 * (1 - dark)), rimSide: 1, shadow: false, shadeA, shadeCol: '#0c0a14' });
   // the ember in A's chest, and its light travelling along the arm to the hand on the shoulder (pass 0..1)
