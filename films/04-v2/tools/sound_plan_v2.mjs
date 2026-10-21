@@ -30,7 +30,7 @@ const AMB = [
   ['c13', 'river', .45, 0, null],
   ['c14', 'nightsky', .4, 0, 6], ['c14', 'hill', .35, 6, null],
   ['c15', 'mountain', .4, 0, null],
-  ['c16', 'nightsky', .35, 0, null],
+  ['c16', 'nightsky', .35, 0, 14.5], ['c16', 'ward', .25, 14.5, 28.4], ['c16', 'nightsky', .35, 28.4, null],
   ['c17', 'nightsky', .45, 0, null],
   ['c18', 'dawn_birds', .45, 0, null],
 ];

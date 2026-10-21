@@ -37,8 +37,8 @@ function lampZoom(a, b, u) {
 const KS = (() => {
   const kc = 1 / P2B;
   return {
-    base: { T: [C0[0], C0[1]], k: 1 },
-    hold: { T: [C0[0] - 34, C0[1] - 14], k: (D0 + ZL.lamp) / (.94 * D0 + ZL.lamp) },
+    base: { T: [C0[0], 560], k: 1.2 },
+    hold: { T: [C0[0] - 40, 550], k: 1.2 * (D0 + ZL.lamp) / (.94 * D0 + ZL.lamp) },
     card1: { T: [LAMP.x, LAMP.y + CARD.y1 * P2B], k: kc },
     card1b: { T: [LAMP.x + 3 * P2B, LAMP.y + (CARD.y1 + 10) * P2B], k: kc * 1.022 },
     card2: { T: [LAMP.x - 4 * P2B, LAMP.y + CARD.y2 * P2B], k: kc * 1.022 },
@@ -55,7 +55,7 @@ export function roomCam(t, A, portal) {
     // seen through the hole: the room lies deeper than the ring, so it grows more slowly than the hole (parallax)
     const r = Math.max(1, portal.size) / A.ringSizeIn, g = .58, kb = Math.pow(r, g);   // kb: scale of the bed plane
     const Dbed = (D0 + ZL.bed) / kb - ZL.bed, k = (D0 + ZL.lamp) / (Dbed + ZL.lamp);
-    return camFromTk(C0[0], C0[1], k, portal.cx, portal.cy);
+    return camFromTk(KS.base.T[0], KS.base.T[1], KS.base.k * k, portal.cx, portal.cy);
   }
   let s;
   if (t < A.lamp0) s = tkMix(KS.base, KS.hold, sstep(A.ringIn, A.lamp0 + .3, t));
@@ -181,7 +181,7 @@ export function drawRoom(ctx, t, A, cam) {
 
 // ---- the window: frame on the wall, glass panes showing the night (stars, a pale moon, roofs of the town with two lit windows)
 const WIN = { x0: 1092, x1: 1556, y0: 168, y1: 566 };
-function windowPath(ctx) { const { x0, x1, y0, y1 } = WIN; ctx.beginPath(); ctx.moveTo(x0, y1); ctx.lineTo(x0, y0 + 60); ctx.quadraticCurveTo(x0, y0, x0 + 60, y0); ctx.lineTo(x1 - 60, y0); ctx.quadraticCurveTo(x1, y0, x1, y0 + 60); ctx.lineTo(x1, y1); ctx.closePath(); }
+function windowPath(ctx, begin = true) { const { x0, x1, y0, y1 } = WIN; if (begin) ctx.beginPath(); ctx.moveTo(x0, y1); ctx.lineTo(x0, y0 + 60); ctx.quadraticCurveTo(x0, y0, x0 + 60, y0); ctx.lineTo(x1 - 60, y0); ctx.quadraticCurveTo(x1, y0, x1, y0 + 60); ctx.lineTo(x1, y1); ctx.closePath(); }
 const SKYS = (() => { const r = prng(1614), s = []; for (let i = 0; i < 160; i++) s.push([r() * 900 + 870, r() * 560 + 60, .5 + r() * (r() < .9 ? .9 : 2), r() * TAU, .5 + r() * 1.5]); return s; })();
 function sky(ctx, t, cam) {
   if (!L(ctx, cam, ZL.wall)) return;
@@ -206,7 +206,7 @@ function sky(ctx, t, cam) {
 function wall(ctx, t, A, cam, I) {
   const k = L(ctx, cam, ZL.wall); if (!k) return;
   // the wall around the window (even-odd: the glass stays)
-  ctx.save(); ctx.beginPath(); ctx.rect(-1200, -900, 4400, 1676); windowPath(ctx); ctx.clip('evenodd');
+  ctx.save(); ctx.beginPath(); ctx.rect(-1200, -900, 4400, 1676); windowPath(ctx, false); ctx.clip('evenodd');
   ctx.drawImage(wallTex(), -400, -500, 2900, 1276);
   // wainscot: a chair rail and darker panelling below
   ctx.fillStyle = 'rgba(8,8,22,.42)'; ctx.fillRect(-1200, 600, 4400, 176);
@@ -239,9 +239,6 @@ function wall(ctx, t, A, cam, I) {
   g = ctx.createRadialGradient(lx, ly - 40, 0, lx, ly - 40, 520); g.addColorStop(0, rgba('#ffe2b0', .3 * I)); g.addColorStop(.5, rgba('#ffcf8a', .1 * I)); g.addColorStop(1, 'rgba(255,207,138,0)'); ctx.fillStyle = g; ctx.fillRect(lx - 600, ly - 700, 1200, 700); ctx.restore();
   ctx.restore();
   // the carer's shadow on the wall (cast by the lamp, to her right, bigger and softer; it leans with her)
-  const lean = carerLean(t, A);
-  ctx.save(); ctx.globalAlpha = .3; ctx.translate(1010, 610); ctx.scale(1.55, 1.42); ctx.rotate(-.04);
-  shadowCarer(ctx, lean); ctx.restore();
 }
 function curtain(ctx, x0, x1, y0, y1, side, sway) {
   const n = 7, w = x1 - x0;
@@ -265,7 +262,7 @@ function lamp(ctx, t, A, cam, I) {
   const k = L(ctx, cam, ZL.lamp); if (!k) return;
   const lx = LAMP.x, ly = LAMP.y, top = ly - LAMP.h / 2, bot = ly + LAMP.h / 2, hw = LAMP.w / 2;
   // only the shade's panel is on screen at the card framing: skip the rest when it is far out of frame
-  const sc = S(cam, ZL.lamp, lx, ly), big = sc[2] > 6;
+  const sc = S(cam, ZL.lamp, lx, ly), big = false;   // everything is always drawn (no threshold pops)
   if (!big) {
     // table: top slab, drawer, legs; lit from above by the lamp
     ctx.fillStyle = '#2a1c18'; ctx.fillRect(372, 604, 196, 12);

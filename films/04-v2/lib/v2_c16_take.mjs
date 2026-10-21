@@ -43,8 +43,10 @@ export function setup(T, A) { gridSetup(A); warmSprites(); warmRoom(T, A); }
 function portal(ctx, t, A, ring) {
   const [a, b, c, d] = ring.m;
   ctx.save();
-  ctx.setTransform(a, b, c, d, ring.cx, ring.cy); ctx.beginPath(); ctx.arc(0, 0, .47, 0, Math.PI * 2);
-  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clip();
+  // the hole's ellipse built in screen space (a path made under one transform and clipped under another comes out empty here)
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.beginPath();
+  for (let i = 0; i <= 96; i++) { const q = i / 96 * Math.PI * 2, u = .47 * Math.cos(q), v = .47 * Math.sin(q), X = ring.cx + a * u + c * v, Y = ring.cy + b * u + d * v; i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); }
+  ctx.closePath(); ctx.clip();
   drawRoom(ctx, t, A, roomCam(t, A, ring));
   // the inside wall of the hole (depth), only while the hole is smaller than the frame
   ctx.setTransform(a, b, c, d, ring.cx, ring.cy);

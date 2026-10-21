@@ -109,7 +109,7 @@ const SSTARS = (() => { const r = prng(4242), s = []; for (let i = 0; i < 520; i
 export function skyPlateAt(ctx, t, o = {}) {
   const [s0, s1, s2] = ['#0b0f2a', '#3b2f6e', '#c77a8a'], dy = o.dy ?? 0, sa = o.stars ?? 1;
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
-  const g = ctx.createLinearGradient(0, dy, 0, H + dy); g.addColorStop(0, s0); g.addColorStop(.62, s1); g.addColorStop(1, s2); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  if (!o.noGrad) { const g = ctx.createLinearGradient(0, dy, 0, H + dy); g.addColorStop(0, s0); g.addColorStop(.62, s1); g.addColorStop(1, s2); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
   if (sa > 0) {
     ctx.save(); ctx.translate(W / 2, H / 2 + dy); ctx.rotate(-.42); const r = prng(55);
     for (let i = 0; i < 900; i++) { const x = (r() - .5) * W * 1.5, y = (r() + r() + r() - 1.5) * 150, a = (.05 + .1 * r()) * sa; ctx.fillStyle = `rgba(216,230,255,${a})`; ctx.fillRect(x + t * 1.5, y, 1.3, 1.3); }

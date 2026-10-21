@@ -210,6 +210,7 @@ export function ghost(ctx, x, y, sc, pose, o = {}) {
   };
   S = S.map(tS);
   const PS = props.flatMap((p) => p.shapes.map(tS)), PL = props.flatMap((p) => p.lines.map((l) => l.map(T)));
+  if (o.measure) return { head: T(R.head), hands: [T(R.am[0].hand), T(R.am[1].hand)], wrists: [T(R.am[0].wr), T(R.am[1].wr)], elbows: [T(R.am[0].el), T(R.am[1].el)], top: y - 100 * sc * R.f };
   const col = o.col || '#f3efe2', A = o.a ?? 1; if (A <= .004) return;
   const pitch = o.pitch ?? clamp(sc * 3.2, 2.2, 6), rad = o.r ?? clamp(sc * .55, .55, 1.7), t = o.t ?? 0, crawl = (o.crawl ?? 2.5) * t + (o.seed ?? 0) * 7.3;
   const H100 = 100 * sc * R.f, gy = y, rev = o.reveal;

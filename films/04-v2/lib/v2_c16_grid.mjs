@@ -59,9 +59,9 @@ export function gridCamAt(t, A) {
   if (t < A.dive0) return lookCam(lookMix(K.ov, K.ovEnd, sm(lin(A.fly1, A.dive0, t))));
   if (t < A.ringIn) {
     // the dive: one curve over the grid to the room ring, turning to look along the rows; the distance shrinks exponentially
-    const w = qio(lin(A.dive0, A.ringIn, t));
+    const w = cio(lin(A.dive0, A.ringIn, t));
     const a = lookMix(K.ovEnd, K.diveMid, clamp(w / .55), { pos: sm, dist: sm, yaw: sm, elev: sm });
-    const b = lookMix(K.diveMid, K.ring, clamp((w - .45) / .55), { pos: sm, dist: sm, yaw: (x) => sm(clamp(x / .55)), elev: sm });
+    const b = lookMix(K.diveMid, K.ring, clamp((w - .45) / .55), { pos: sm, dist: (x) => x, yaw: (x) => sm(clamp(x / .55)), elev: sm });
     return lookCam(blendLook(a, b, sstep(.4, .6, w)));
   }
   if (t < A.ringOut) return lookCam(K.ring);

@@ -61,11 +61,11 @@ export function kitchenCam(t, K) {
   paths(K);
   const tt = Math.min(t, K.k.dive), p = [PX(tt), PY(tt), PZ(tt)], [yaw, pitch] = aim(p, [TX(tt), TYc(tt), TZ(tt)]);
   const c = { x: p[0], y: p[1], z: p[2], yaw, pitch, f: 1150, zmin: .0005 };
-  if (t > K.k.dive) {   // the dive into the river line: exponential approach to 6.5 mm above the ink, turning to look straight down along the river
-    const u = clamp((t - K.k.dive) / (K.piv - K.k.dive)), E = qio(u), G = mw(PV.u, PV.v), Gv = [G[0] - p[0], G[1] + .0065 - p[1], G[2] - p[2]];
-    const d0 = Math.hypot(...Gv), dd = d0 * Math.pow(.0065 / d0, E), kk = 1 - dd / d0;
+  if (t > K.k.dive) {   // the dive into the river line: exponential approach to 4 mm above the ink, turning to look straight down, downstream up
+    const u = clamp((t - K.k.dive) / (K.piv - K.k.dive)), E = qio(u), G = mw(PV.u, PV.v), Gv = [G[0] - p[0], G[1] + .004 - p[1], G[2] - p[2]];
+    const d0 = Math.hypot(...Gv), dd = d0 * Math.pow(.004 / d0, E), kk = 1 - dd / d0;
     const x = p[0] + Gv[0] * kk, y = p[1] + Gv[1] * kk, z = p[2] + Gv[2] * kk, w = smo(clamp(E * 1.25));
-    const yawE = -Math.atan(drv(PV.u));
+    const yawE = Math.atan2(1, drv(PV.u));   // downstream is up in the frame, as in the valley's first frame
     return { x, y, z, yaw: mix(yaw, yawE, w), pitch: mix(pitch, -Math.PI / 2 + 1e-4, w), f: 1150, zmin: .0005 };
   }
   return c;
