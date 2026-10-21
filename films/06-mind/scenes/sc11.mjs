@@ -213,9 +213,12 @@ export default async (T, R) => {
     if (gl > 0 && !far) addGlow(ctx, m.X(PANE.x), m.Y(PANE.y), Math.max(PANE.w, PANE.h) * .95 * m.k, .14 * gl, F6.cool, F6.coolCore);
 
     // screen space: the sources (baseline ≤ 850), the opening disc
-    sourceLine(ctx, t, 'COLLECTIVE CONSTITUTIONAL AI  ·  2023', tThousand - .3, tDoneE - .1, { y: 790, align: 'right' });
-    sourceLine(ctx, t, 'ANTHROPIC & COLLECTIVE INTELLIGENCE PROJECT', tThousand - .1, tDoneE - .1, { y: 820, align: 'right' });
-    sourceLine(ctx, t, '≈ 1,000 US PARTICIPANTS', tThousand + .1, tDoneE - .1, { y: 850, align: 'right' });
+    // four short right-aligned lines (≤ 450 px) so the block stays fully right of the pane on its stand (screen x ≤ ~1340 at z .42) and clear of the pen
+    const SRC = { size: 17, spacing: 3, align: 'right' };
+    sourceLine(ctx, t, 'COLLECTIVE CONSTITUTIONAL AI', tThousand - .3, tDoneE - .1, { ...SRC, y: 770 });
+    sourceLine(ctx, t, 'ANTHROPIC & COLLECTIVE', tThousand - .2, tDoneE - .1, { ...SRC, y: 800 });
+    sourceLine(ctx, t, 'INTELLIGENCE PROJECT  ·  2023', tThousand - .1, tDoneE - .1, { ...SRC, y: 830 });
+    sourceLine(ctx, t, '≈ 1,000 US PARTICIPANTS', tThousand + .1, tDoneE - .1, { ...SRC, y: 860 });
     openingDisc(ctx, t, cam);
   };
 

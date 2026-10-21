@@ -344,8 +344,8 @@ export function hallFloor(ctx) { const fg = ctx.createLinearGradient(0, FLOOR.y0
 // a source line in Inter caps (baseline ≤ 860), written by a mask reveal, held, then wiped (pattern: c09)
 export function sourceLine(ctx, t, s, t0, t1, o = {}) {
   const a = Math.min(lin(t0, t0 + .5, t), 1 - lin(t1, t1 + .3, t)); if (a <= 0) return;
-  const y = o.y ?? 850, size = o.size ?? 19; ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.font = `600 ${size}px "Inter"`; try { ctx.letterSpacing = '4px'; } catch { }
-  const w = ctx.measureText(s).width, x = o.align === 'right' ? W - 110 - w : o.x ?? 110;
+  const y = o.y ?? 850, size = o.size ?? 19, sp = o.spacing ?? 4; ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.font = `600 ${size}px "Inter"`; try { ctx.letterSpacing = sp + 'px'; } catch { }
+  const w = ctx.measureText(s).width + sp * s.length, x = o.align === 'right' ? W - 110 - w : o.x ?? 110; // measureText ignores letterSpacing here
   ctx.beginPath(); ctx.rect(x - 4, y - size - 8, (w + 12) * eout(a), size + 16); ctx.clip();
   ctx.fillStyle = rgba('#000000', .3); ctx.fillText(s, x + 1, y + 1); ctx.fillStyle = rgba(o.col || '#dfe7f2', .85); ctx.fillText(s, x, y); ctx.restore();
 }
