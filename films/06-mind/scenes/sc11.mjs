@@ -87,7 +87,7 @@ export default async (T, R) => {
     [tBrain, tSplit, sp(560, 430, 1.55), sp(610, 350, 1.6)],
     [tOther, tMoves + .6, sp(610, 350, 1.6), sp(790, 370, 1.5)],
     [tSoWhen - .1, tCare + .2, sp(790, 370, 1.5), aim(1300, 790, 1.45)],
-    [tPush0, tEnd, aim(1300, 790, 1.45), aim(PANE.x, PANE.y + 78, 12), QUART],
+    [tPush0, tEnd, aim(1300, 790, 1.45), aim(PANE.x, PANE.y + 30, 7.4), QUART], // z 7.4 = the glass just overfills the frame (pane 635..885 × 1525..1855), so the push decelerates INTO the plate (no pop)
   ];
   const camAt = (t) => {
     let cur = SEGS[0][2];
@@ -159,7 +159,8 @@ export default async (T, R) => {
       const bl = [PROF.lx + PROF.w * PROF.brain[0], PROF.y + PROF.h * PROF.brain[1]], br = [PROF.rx + PROF.w * (1 - PROF.brain[0]), PROF.y + PROF.h * PROF.brain[1]];
       distress(g, t, bl[0], bl[1], { a: lin(tPain - .1, tPain + .3, t), sink: QUART(lin(tOne + .1, tYouE, t)) });
       const ea = lin(tCaring - .1, tCaring + .4, t); if (ea > 0) ember(g, t, { x: br[0], y: br[1], kind: 'glow', r: 46 * (.6 + .4 * ea), a: ea, phase: .35 });
-      labelOn(g, t, 'SINGER & KLIMECKI  ·  CURRENT BIOLOGY  ·  2014', 990, PROF.y - 16, tBrain + .3, { size: 13 });
+      labelOn(g, t, 'SINGER & KLIMECKI · 2014', 1045, PROF.y + 26, tBrain + .3, { size: 12, spacing: 2 }); // study source, right of the profiles, above the step figures
+      labelOn(g, t, 'CURRENT BIOLOGY', 1045, PROF.y + 46, tBrain + .4, { size: 12, spacing: 2 });
       labelOn(g, t, 'EMPATHIC DISTRESS', PROF.lx + PROF.w / 2, PROF.y + PROF.h + 36, tDifferent, { col: '#8e2f2a' });
       labelOn(g, t, 'COMPASSION', PROF.rx + PROF.w / 2, PROF.y + PROF.h + 36, tDifferent + .25, { col: '#7a4a1a' });
       const sa = lin(tOther - .1, tOther + .35, t);
@@ -200,7 +201,7 @@ export default async (T, R) => {
       lamp(g, t, 1, 'cone');
       sheetAt(g, t, { ...SHEET, seed: 9, shade: 1, lift: 6, key: 'c11:sheet', content: (q) => content(q, t) });
       lamp(g, t, 1, 'bloom');
-      machinePane(g, t, { plate: HO.plate, paneFn: kitPane, glow: Math.min(1, lin(tNotes[0], tNotes[0] + .7, t) * .5 + lin(tHelp, tHelp + .5, t) * .5) * (1 - sm(lin(.15, .75, pushU))),
+      machinePane(g, t, { plate: HO.plate, paneFn: kitPane, fade: 1 - sm(lin(.3, .8, pushU)), glow: Math.min(1, lin(tNotes[0], tNotes[0] + .7, t) * .5 + lin(tHelp, tHelp + .5, t) * .5) * (1 - sm(lin(.15, .75, pushU))),
         lines: tNotes.map((tn, i) => ({ t0: tn + .35, len: [.72, .55, .8, .62][i] })), read: { text: 'Help them, honestly.', t0: tHonestlyE + .3, per: .12, size: 28 } });
       if (t >= tCompanies - .4) documents(g, t, tCompanies - .35);
       if (!far) nearWriter(g, t);

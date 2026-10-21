@@ -192,8 +192,10 @@ export function distress(ctx, t, x, y, { a, sink }) {
 }
 export function labelOn(ctx, t, s, x, y, t0, o = {}) {
   const a = lin(t0, t0 + .45, t); if (a <= 0) return;
-  ctx.save(); ctx.font = `600 ${o.size ?? 15}px "Inter"`; try { ctx.letterSpacing = '4px'; } catch { } ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
-  const w = ctx.measureText(s).width; ctx.beginPath(); ctx.rect(x - w / 2 - 4, y - 22, (w + 8) * eout(a), 32); ctx.clip();
+  const sp = o.spacing ?? 4;
+  ctx.save(); ctx.font = `600 ${o.size ?? 15}px "Inter"`; try { ctx.letterSpacing = sp + 'px'; } catch { } ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  // measureText ignores letterSpacing in this canvas: add it per glyph so the clip never cuts the tail of the label
+  const w = ctx.measureText(s).width + sp * s.length; ctx.beginPath(); ctx.rect(x - w / 2 - 4, y - 22, (w + 8) * eout(a), 32); ctx.clip();
   ctx.fillStyle = rgba(o.col || F6.ink, .8); ctx.fillText(s, x, y); ctx.restore();
 }
 // the engraved figures beside the compassion profile: one stands by the other; on "moves you to help" the first takes two real steps toward
@@ -209,7 +211,7 @@ export function stepFigures(ctx, t, { walkU, reach, a, emberA }) {
   if (emberA > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; const b = breathe(t, 60, .4); const g = ctx.createRadialGradient(px + 3, y - 52 * s, 0, px + 3, y - 52 * s, 20 * b); g.addColorStop(0, rgba(F6.amberCore, .9 * emberA)); g.addColorStop(.4, rgba(F6.amber, .5 * emberA)); g.addColorStop(1, rgba(F6.amberDeep, 0)); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px + 3, y - 52 * s, 20 * b, 0, TAU); ctx.fill(); ctx.restore(); }
 }
 // ink writing by a mask reveal with the pen at the front (the human hand's precision): 'care =' and 'feel what they feel'; the red strike-through
-export const CARE = { x: 500, y: 505, feelY: 578, helpY: 650 };
+export const CARE = { x: 500, y: 522, feelY: 584, helpY: 652 };
 export function inkWriting(ctx, t, { care, feel, strike }) {
   let front = null;
   if (care > 0) { ctx.save(); ctx.font = '600 26px "Inter"'; try { ctx.letterSpacing = '7px'; } catch { } const w = ctx.measureText('care =').width; ctx.beginPath(); ctx.rect(CARE.x - 4, CARE.y - 30, (w + 10) * care, 42); ctx.clip(); ctx.fillStyle = rgba(F6.ink, .62); ctx.fillText('care =', CARE.x, CARE.y); ctx.restore(); if (care < 1) front = [CARE.x + w * care, CARE.y - 2]; }
@@ -220,7 +222,7 @@ export function inkWriting(ctx, t, { care, feel, strike }) {
 
 // ---------------------------------------------------------------- the small pane (the machine): dark glass = the glass plate at identity, cool lines on it
 // plate(ctx, t) draws the glass plate (handoff) at identity; lines: [{ t0, seed }] glyph lines; read: { words|text, t0 } readable copy; glow 0..1
-export function machinePane(ctx, t, { plate, lines = [], read = null, glow = 0, paneFn }) {
+export function machinePane(ctx, t, { plate, lines = [], read = null, glow = 0, fade = 1, paneFn }) { // fade: the writing dims to the bare glass during the push
   const { x, y, w, h } = PANE;
   // the stand on the table (a small foot behind the pane)
   ctx.fillStyle = '#0c0f1c'; ctx.beginPath(); ctx.roundRect(x - 60, y + h / 2 + 2, 120, 16, 5); ctx.fill(); ctx.fillStyle = '#141a2c'; ctx.fillRect(x - 110, y + h / 2 + 14, 220, 7);
@@ -229,8 +231,8 @@ export function machinePane(ctx, t, { plate, lines = [], read = null, glow = 0, 
   // the cool haze of a screen that is on (ramped by glow, never the kit's full haze at once)
   if (glow > 0) { const hz = ctx.createRadialGradient(x, y, 0, x, y, Math.max(w, h) * .7); hz.addColorStop(0, rgba('#17264a', .55 * glow)); hz.addColorStop(1, rgba('#0a0f24', 0)); ctx.fillStyle = hz; ctx.fillRect(x - w / 2, y - h / 2, w, h); }
   // the lines it has read (glyph runs, one per because-note), then the readable copy
-  lines.forEach((L, i) => { if (t >= L.t0) coolText(ctx, t, { x: x - w / 2 + 22, y: y - h / 2 + 62 + i * 20, w: w - 44, size: 9, lines: 1, t0: L.t0, cps: 30, seed: 40 + i, a: .85, cursor: false, lengths: [L.len ?? .7] }); });
-  if (read && t >= read.t0 - .2) coolText(ctx, t, { x: x - w / 2 + 22, y: y - h / 2 + 12, w: w - 40, text: read.text, words: read.words, t0: read.t0, per: read.per ?? .18, fontSize: read.size ?? 30, a: 1, col: '#9fd0ff', core: '#f4fbff', cursor: true });
+  lines.forEach((L, i) => { if (t >= L.t0) coolText(ctx, t, { x: x - w / 2 + 22, y: y - h / 2 + 62 + i * 20, w: w - 44, size: 9, lines: 1, t0: L.t0, cps: 30, seed: 40 + i, a: .85 * fade, cursor: false, lengths: [L.len ?? .7] }); });
+  if (read && t >= read.t0 - .2 && fade > 0) coolText(ctx, t, { x: x - w / 2 + 22, y: y - h / 2 + 12, w: w - 40, text: read.text, words: read.words, t0: read.t0, per: read.per ?? .18, fontSize: read.size ?? 30, a: fade, col: '#9fd0ff', core: '#f4fbff', cursor: true });
   ctx.restore();
   paneFn(ctx, t, { x, y, w, h, frame: 'thin', edge: .7, sheen: 0, dark: false, spill: false, seed: 3 });
 }
