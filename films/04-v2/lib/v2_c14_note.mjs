@@ -125,20 +125,7 @@ export function noteBase() {
       microtext(g, x0 + 30, y1 - 24, x1 - x0 - 60, 'ONE HUNDRED', { size: 13, col: G1, a: .85, spacing: 1.4 });
       g.restore();
     }
-    // the oval frame: woven band, rules, microtext ring outside it
-    {
-      const { x, y, a, b } = OV;
-      g.save(); g.fillStyle = '#efe8d0'; g.beginPath(); g.ellipse(x, y, a + 60, b + 60, 0, 0, TAU); g.fill(); g.restore();
-      ellipseBand(g, x, y, a, b, { r0: 10, r1: 52, lines: 13, waves: 104, col: G2, w: 1.05, al: .95 });
-      g.strokeStyle = G1; g.lineWidth = 2.4; strokeP(g, ellipsePts(x, y, a, b, 6), true); strokeP(g, ellipsePts(x, y, a, b, 56), true);
-      g.lineWidth = 1; strokeP(g, ellipsePts(x, y, a, b, 64), true);
-      // microtext around the frame
-      const pts = ellipsePts(x, y, a, b, 74, 900); g.save(); g.font = '600 12px "Inter"'; g.fillStyle = G1; g.globalAlpha = .85; g.textAlign = 'center'; g.textBaseline = 'middle';
-      const unit = 'ONE HUNDRED · '; let s = 0, k = 0; const d = [0]; for (let i = 1; i < pts.length; i++) d.push(d[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
-      const L = d[d.length - 1]; let j = 0;
-      while (s < L - 10) { const ch = unit[k++ % unit.length], wch = g.measureText(ch).width + 1.4, sm2 = s + wch / 2; s += wch; while (j < d.length - 2 && d[j + 1] < sm2) j++; const q = (sm2 - d[j]) / ((d[j + 1] - d[j]) || 1), px = mix(pts[j][0], pts[j + 1][0], q), py = mix(pts[j][1], pts[j + 1][1], q), an = Math.atan2(pts[j + 1][1] - pts[j][1], pts[j + 1][0] - pts[j][0]); if (ch !== ' ') { g.save(); g.translate(px, py); g.rotate(an); g.fillText(ch, 0, 0); g.restore(); } }
-      g.restore();
-    }
+    ovalFrame(g);
     // seals left and right of the oval
     sawSeal(g, 640, NH / 2, 128, { teeth: 72, n: 14, m: 5, points: 12 });
     sawSeal(g, NW - 640, NH / 2, 112, { teeth: 60, n: 11, m: 4, points: 8 });
@@ -162,6 +149,20 @@ export function noteBase() {
 // The portrait is engraved like a medal on a ruling machine: one family of fine parallel lines runs across the whole oval and is
 // deflected by the relief (so it bends over the forehead, the nose, the shoulders), a second family crosses it in the dark tones.
 // The relief is built from the painted silhouettes (inflated) plus sculpted bumps; light from the upper left with cast shadows.
+// the oval frame: woven band, rules, microtext ring outside it (also drawn as vectors during the fly-in, when the note is magnified)
+export function ovalFrame(g) {
+      const { x, y, a, b } = OV;
+      g.save(); g.fillStyle = '#efe8d0'; g.beginPath(); g.ellipse(x, y, a + 60, b + 60, 0, 0, TAU); g.fill(); g.restore();
+      ellipseBand(g, x, y, a, b, { r0: 10, r1: 52, lines: 13, waves: 104, col: G2, w: 1.05, al: .95 });
+      g.strokeStyle = G1; g.lineWidth = 2.4; strokeP(g, ellipsePts(x, y, a, b, 6), true); strokeP(g, ellipsePts(x, y, a, b, 56), true);
+      g.lineWidth = 1; strokeP(g, ellipsePts(x, y, a, b, 64), true);
+      // microtext around the frame
+      const pts = ellipsePts(x, y, a, b, 74, 900); g.save(); g.font = '600 12px "Inter"'; g.fillStyle = G1; g.globalAlpha = .85; g.textAlign = 'center'; g.textBaseline = 'middle';
+      const unit = 'ONE HUNDRED · '; let s = 0, k = 0; const d = [0]; for (let i = 1; i < pts.length; i++) d.push(d[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+      const L = d[d.length - 1]; let j = 0;
+      while (s < L - 10) { const ch = unit[k++ % unit.length], wch = g.measureText(ch).width + 1.4, sm2 = s + wch / 2; s += wch; while (j < d.length - 2 && d[j + 1] < sm2) j++; const q = (sm2 - d[j]) / ((d[j + 1] - d[j]) || 1), px = mix(pts[j][0], pts[j + 1][0], q), py = mix(pts[j][1], pts[j + 1][1], q), an = Math.atan2(pts[j + 1][1] - pts[j][1], pts[j + 1][0] - pts[j][0]); if (ch !== ' ') { g.save(); g.translate(px, py); g.rotate(an); g.fillText(ch, 0, 0); g.restore(); } }
+      g.restore();
+    }
 export const PB = { x0: OV.x - OV.a, y0: OV.y - OV.b, w: OV.a * 2, h: OV.b * 2 };
 const KAP = .16;                                                          // line deflection per px of relief height
 export const FAMS = [{ ang: -.05, P: 3.6, kap: KAP }, { ang: 1.02, P: 3.9, kap: KAP }];
@@ -423,17 +424,49 @@ export const inkDots = () => onceRaw('c14-dots', dotsBuild);
 const DYN = () => onceRaw('c14-ink-dyn', () => canvas(NW, NH));
 const hsh = (x) => { const v = Math.sin(x * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
 export const washTimes = (A) => ({ d0: A.earn - .06, d1: A.earn + .16, s0: A.earn + .1, sweep: .5, life: .62 });
+// pre-filtered half and quarter copies (each step an exact 2×2 box average): this canvas's drawImage samples without mipmaps, so
+// under a strong downscale the fine engraving would turn into moiré (the portrait striped); two levels are mixed (trilinear, opaque only)
+const halve = (src) => { const [c, g] = canvas(src.width / 2, src.height / 2); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'low'; g.drawImage(src, 0, 0, src.width / 2, src.height / 2); return c; };
+const mip = (name, src, lv) => (lv <= 0 ? src() : once(`c14-mip-${name}-${lv}`, () => halve(mip(name, src, lv - 1))));
+const noteFull = () => once('c14-note-full', () => { const [c, g] = canvas(NW, NH); g.drawImage(noteBase(), 0, 0); g.drawImage(inkStatic(), 0, 0); return c; });
+function drawLevels(ctx, get, ks) {
+  const lv = clamp(Math.log2(.6 / ks), 0, 2), L = Math.min(1, Math.floor(lv)), f = lv - L;
+  if (f > .002) ctx.drawImage(get(L + 1), 0, 0, NW, NH);
+  if (f < .998) { ctx.save(); ctx.globalAlpha = 1 - f; ctx.drawImage(get(L), 0, 0, NW, NH); ctx.restore(); }
+}
+const inkMixed = (ks) => Math.log2(.6 / ks) > .002;   // small on screen: the ink is printed into the paper's levels (else drawn at full size)
+const SCR = () => onceRaw('c14-mip-scratch', () => [canvas(NW, NH), canvas(NW / 2, NH / 2), canvas(NW / 4, NH / 4)]);
+let dynT = NaN;
+function dynInk(t, A) {   // the ink while its lines break into dots (d0 ≤ t < d1), rebuilt once per t
+  const [c, g] = DYN();
+  if (t !== dynT) {
+    const W8 = washTimes(A), k = smo2((t - W8.d0) / (W8.d1 - W8.d0));
+    for (const b of BOXES()) { const im = g.createImageData(b.w, b.h); engraveBox(im.data, b, { P: DP, k }); g.putImageData(im, b.x0, b.y0); }
+    dynT = t;
+  }
+  return c;
+}
+export function warmNote() { for (const lv of [1, 2]) { mip('full', noteFull, lv); mip('base', noteBase, lv); } }
+// the paper with everything printed on it (before the wash also the portrait and the 100s), at the level that suits the screen scale ks
+export function drawPaper(ctx, t, A, ks) {
+  const W8 = washTimes(A);
+  if (t < W8.d0) return drawLevels(ctx, (L) => mip('full', noteFull, L), ks);
+  if (t < W8.d1 && inkMixed(ks)) {
+    const [[c0, g0], [c1, g1], [c2, g2]] = SCR();
+    g0.drawImage(noteBase(), 0, 0); g0.drawImage(dynInk(t, A), 0, 0);
+    g1.drawImage(c0, 0, 0, NW / 2, NH / 2); g2.drawImage(c1, 0, 0, NW / 4, NH / 4);
+    return drawLevels(ctx, (L) => [c0, c1, c2][L], ks);
+  }
+  drawLevels(ctx, (L) => mip('base', noteBase, L), ks);
+}
 export function drawInk(ctx, t, A, ks = .65) {
   const W8 = washTimes(A);
-  if (t < W8.d0) {
-    ctx.drawImage(inkStatic(), 0, 0);
+  if (t < W8.d0) {   // (the static ink is part of drawPaper)
     if (t > A.change - .15) specks(ctx, t, A, ks);
     return;
   }
   if (t < W8.d1) {   // lines → dots
-    const k = smo2((t - W8.d0) / (W8.d1 - W8.d0)), [c, g] = DYN();
-    for (const b of BOXES()) { const im = g.createImageData(b.w, b.h); engraveBox(im.data, b, { P: DP, k }); g.putImageData(im, b.x0, b.y0); }
-    ctx.drawImage(c, 0, 0);
+    if (!inkMixed(ks)) ctx.drawImage(dynInk(t, A), 0, 0);
     return;
   }
   smoke(ctx, t, W8, ks);

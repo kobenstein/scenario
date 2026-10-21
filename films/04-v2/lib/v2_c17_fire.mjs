@@ -27,10 +27,10 @@ export function spline(ctx, P, closed = true, move = true) {
 // ---------------------------------------------------------------- flames: tongues around wavy centrelines (waves travel upward)
 const TONGUES = (() => { const r = prng(511), a = []; for (let i = 0; i < 9; i++) { const u = i / 8 - .5; a.push({ x: u * .44 + (r() - .5) * .05, h: .5 + r() * .3 - Math.abs(u) * .42, w: .085 + r() * .05, p: r() * 10, q: r() * 10, f: 1.0 + r() * .6 }); } return a; })();
 const nz = (x) => Math.sin(x) * .5 + Math.sin(x * 2.31 + 1.3) * .3 + Math.sin(x * 5.17 + 2.1) * .2;
-function tonguePts(T, t, sh, sw, inf = 1) {   // metres, origin at the fire base centre, y up
-  const h = T.h * sh * (1 + .14 * nz(t * 2.3 + T.p) + .05 * Math.sin(t * 6.1 + T.q)) * (1 + .6 * (inf - 1)), w = T.w * sw * inf, n = 9, L = [], R = [];
+function tonguePts(T, t, sh, sw, hi = 1, wi = 1) {   // metres, origin at the fire base centre, y up; hi/wi inflate (the light seen from inside)
+  const h = T.h * sh * (1 + .14 * nz(t * 2.3 + T.p) + .05 * Math.sin(t * 6.1 + T.q)) * hi, w = T.w * sw * wi, n = 9, L = [], R = [], sx = 1 + .5 * (wi - 1);
   for (let j = 0; j <= n; j++) {
-    const v = j / n, y = h * v, xi = T.x + (.05 + .03 * nz(T.q + t * .7)) * v * Math.sin(TAU * (v * .75 - t * T.f) + T.p) + .05 * v * v;
+    const v = j / n, y = h * v, xi = T.x * sx + (.05 + .03 * nz(T.q + t * .7)) * Math.sqrt(wi) * v * Math.sin(TAU * (v * .75 - t * T.f) + T.p) + .05 * v * v;
     const hw = w * Math.pow(1 - v, .7) * (1 + .18 * Math.sin(TAU * (v * 1.3 - t * T.f * 1.1) + T.q)) * (v < .12 ? .75 + 2.1 * v : 1);
     L.push([xi - hw, y]); R.push([xi + hw, y]);
   }
@@ -57,14 +57,16 @@ export function flames(ctx, t, bx, by, k) {
 // ---------------------------------------------------------------- the light: plate gradient + plate stipple inside the (inflated) flame silhouette
 const LC = ['#fff1d6', '#ffb35c', '#c4512e'];
 const DOTS = (() => { const r = prng(901), d = []; for (let i = 0; i < 2600; i++) d.push([r(), r(), r()]); return d; })();
-function blobPath(ctx, t, bx, by, k, inf) {
+// inf ≥ 1: fat, tall tongues (the camera inside the light); m 0→1: from the outer flame silhouette down to the white core layer
+function blobPath(ctx, t, bx, by, k, inf, m) {
+  const sh = mix(1, .46, Math.pow(m, 1.5)), sw = mix(1, .46, Math.sqrt(m)), hi = 1 + .7 * (inf - 1), wi = 1 + 1.8 * (inf - 1);
   ctx.beginPath();
-  for (const T of TONGUES) pathM(ctx, tonguePts(T, t, 1.0, 1.0, inf), bx, by, k);
-  ctx.moveTo(bx + .44 * inf * k, by - .2 * k); ctx.ellipse(bx, by - .2 * k, .44 * inf * k, .3 * inf * k, 0, 0, TAU);
+  for (const T of TONGUES) pathM(ctx, tonguePts(T, t + .23 * m, sh, sw, hi, wi), bx, by, k);
+  const rx = .25 * sw * wi * k, ry = .09 * sw * hi * k; ctx.moveTo(bx + rx, by - .07 * k); ctx.ellipse(bx, by - .07 * k, rx, ry, 0, 0, TAU);
 }
 // sc = colour scale (1 = the plate), (cx, cy) its centre; drawn inside the current clip
-function plateFill(ctx, t, cx, cy, sc, a) {
-  const br = fireBr(t), R = 1150 * br * sc, g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
+function plateFill(ctx, t, cx, cy, sc, a, grow = 1) {
+  const br = fireBr(t), R = 1150 * br * sc * grow, g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
   g.addColorStop(0, LC[0]); g.addColorStop(.42, LC[1]); g.addColorStop(1, LC[2]);
   ctx.globalAlpha = a; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
   const pcx = W / 2 + 18 * drift(t, 1, 3), pcy = H / 2 + 12 * drift(t, 1, 7), r = prng(31 + Math.floor(t * 12)), keep = sc * sc;
@@ -89,12 +91,14 @@ export function fireHalo(ctx, t, C, o) {
     g.addColorStop(0, rgba('#ffb35c', .26)); g.addColorStop(.35, rgba('#ff8a3a', .1)); g.addColorStop(1, rgba('#c4512e', 0)); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(L[0], L[1], gr, 0, TAU); ctx.fill();
     ctx.globalCompositeOperation = 'source-over';
   }
-  // the light itself, opaque inside the flame silhouette, inflated while the camera is in it
-  const a = 1 - smooth01(1.35, 2.6, d);
+  // the light itself, opaque inside the flame silhouette: inflated while the camera is in it, then it condenses into the white core
+  // of the drawn flames (same tongues, same phase) and only there, white on white, lets go (never a veil over the scene)
+  const a = 1 - smooth01(2.45, 2.75, d);
   if (a > 0) {
-    const inf = 1 + 1.35 * (1 - smooth01(.45, 1.5, d)), e = sio(u01(t, o.hb, o.hb + 1.5));
-    const cx = L[0] + 18 * drift(t, 1, 3) * (1 - e), cy = L[1] + 12 * drift(t, 1, 7) * (1 - e);
-    ctx.save(); blobPath(ctx, t, B[0], B[1], k, inf); ctx.clip('nonzero'); plateFill(ctx, t, cx, cy, sc, a); ctx.restore();
+    const inf = 1 + 1.35 * (1 - smooth01(.45, 1.5, d)), m = smooth01(1.5, 2.6, d), e = sio(u01(t, o.hb, o.hb + 1.5));
+    const Hc = C.P(FIRE.x, mix(FIRE.heart, .14, m), FIRE.z) || L;
+    const cx = Hc[0] + 18 * drift(t, 1, 3) * (1 - e), cy = Hc[1] + 12 * drift(t, 1, 7) * (1 - e);
+    ctx.save(); blobPath(ctx, t, B[0], B[1], k, inf, m); ctx.clip('nonzero'); plateFill(ctx, t, cx, cy, sc, a, 1 + 2.2 * m); ctx.restore();
   }
   ctx.restore();
 }
@@ -147,7 +151,7 @@ export function sitter(ctx, t, P, X, Y, k, L, extra = {}) {
   if (!P.hood && P.hair) { ctx.beginPath(); spline(ctx, [[.235, 1.075], [.15, 1.11], [.05, 1.08], [-.0, .99], [-.02, .9], [.08, .93], [.17, 1.0], [.22, 1.05]].map(hd).map(S)); ctx.fillStyle = P.hair; ctx.fill(); }
   if (k > 160) { const e = S(hd([.258, 1.012])); ctx.fillStyle = rgba('#140a08', .8); ctx.beginPath(); ctx.ellipse(e[0], e[1], k * .007, k * .004, 0, 0, TAU); ctx.fill(); }
   // feet peeking out under the blanket
-  ctx.fillStyle = mixHex('#0b090f', '#3a2418', .3 + .4 * lit); ctx.beginPath(); spline(ctx, [[.5, .1], [.6, .07], [.655, .03], [.64, 0], [.48, 0]].map(S)); ctx.fill();
+  ctx.fillStyle = mixHex('#120c0c', '#6a4028', .25 + .5 * lit); ctx.beginPath(); spline(ctx, [[.53, .07], [.6, .055], [.64, .025], [.63, 0], [.52, 0]].map(S)); ctx.fill();
   ctx.restore();
   return { hand: S(up([.47, .56])), head: S(hd([.15, 1.0])) };
 }
@@ -207,17 +211,23 @@ function drawPerson(ctx, t, C, P, L, o) {
   const [x, y, k] = p; if (x < -k * .8 || x > W + k * .8 || y - k * 1.2 > H) return;
   const v = P.stick ? pokeAt(t, o.tb) : 0;
   if (P.stick) {   // the stick: from the hands at the knees into the embers (pokes, the sparks answer)
-    const hand = [x + .5 * k * P.f, y - .56 * k], tip = C.P(FIRE.x - .1 + .1 * v, .1 - .03 * v, FIRE.z + .1);
+    const hand = [x + .46 * k * P.f, y - .56 * k], tip = C.P(FIRE.x - .1 + .1 * v, .1 - .03 * v, FIRE.z + .1);
     if (tip) { ctx.strokeStyle = '#24160e'; ctx.lineWidth = Math.max(1, k * .022); ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(hand[0] + v * .04 * k, hand[1] + v * .02 * k); ctx.lineTo(tip[0], tip[1]); ctx.stroke();
       ctx.strokeStyle = rgba('#ffb35c', .45); ctx.lineWidth = Math.max(.6, k * .008); ctx.beginPath(); ctx.moveTo(mix(hand[0], tip[0], .5), mix(hand[1], tip[1], .5) - 1); ctx.lineTo(tip[0], tip[1] - 1); ctx.stroke(); }
   }
   sitter(ctx, t, P, x, y, k, L, { nod: P.stick ? .05 * v : 0 });
-  if (P.stick) {   // the forearm out of the blanket, the hand on the stick (small, at figure scale)
-    const sh = [x + .33 * k * P.f, y - .68 * k], hd = [x + (.5 + .04 * v) * k * P.f, y - (.56 - .02 * v) * k];
-    ctx.strokeStyle = shadeHex(P.cloth, -.1); ctx.lineWidth = Math.max(1.5, k * .06); ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(sh[0], sh[1]); ctx.lineTo(hd[0], hd[1]); ctx.stroke();
-    ctx.strokeStyle = rgba('#ffb066', .5); ctx.lineWidth = Math.max(.8, k * .012); ctx.beginPath(); ctx.moveTo(sh[0], sh[1] + k * .03); ctx.lineTo(hd[0], hd[1] + k * .025); ctx.stroke();
-    ctx.fillStyle = P.skin; ctx.beginPath(); ctx.ellipse(hd[0], hd[1], k * .028, k * .024, 0, 0, TAU); ctx.fill();
+  if (P.stick) {   // the blanket's opening where the hands hold the stick (the hands stay inside)
+    const hd = [x + .47 * k * P.f, y - .56 * k]; ctx.strokeStyle = rgba('#05030a', .6); ctx.lineWidth = Math.max(.8, k * .008); ctx.beginPath();
+    ctx.moveTo(hd[0] - .07 * k * P.f, hd[1] - .09 * k); ctx.quadraticCurveTo(hd[0] - .02 * k * P.f, hd[1], hd[0] - .06 * k * P.f, hd[1] + .1 * k); ctx.stroke();
   }
+}
+function shadow(ctx, C, P) {   // thrown away from the fire on the ground: a soft tapered ellipse, projected point by point
+  const d = Math.hypot(P.x, P.z), ux = P.x / d, uz = P.z / d, zmin = C.z + .3, pts = [];
+  for (let i = 0; i < 18; i++) { const a = i / 18 * TAU, along = .9 + 1.15 * Math.cos(a), across = .36 * Math.sin(a) * (1 - .25 * Math.cos(a));
+    const X = FIRE.x + ux * (d + along) - uz * across, Z = Math.max(zmin, FIRE.z + uz * (d + along) + ux * across), p = C.P(X, 0, Z); if (!p) return; pts.push(p); }
+  const p0 = C.P(P.x, 0, Math.max(zmin, P.z)), p1 = C.P(FIRE.x + ux * (d + 2.1), 0, Math.max(zmin, FIRE.z + uz * (d + 2.1))); if (!p0 || !p1) return;
+  const g = ctx.createLinearGradient(p0[0], p0[1], p1[0], p1[1]); g.addColorStop(0, rgba('#06040a', .5)); g.addColorStop(1, rgba('#06040a', 0));
+  ctx.fillStyle = g; ctx.beginPath(); spline(ctx, pts.map((p) => [p[0], p[1]])); ctx.fill();
 }
 export function fireBack(ctx, t, C, o) {
   const base = C.P(FIRE.x, 0, FIRE.z), L = fireScreen(C); if (!base || !L) return;
@@ -227,14 +237,9 @@ export function fireBack(ctx, t, C, o) {
     const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 5.5 * br); g.addColorStop(0, rgba('#ffb35c', .5)); g.addColorStop(.12, rgba('#ff9a4a', .3)); g.addColorStop(.4, rgba('#c4512e', .1)); g.addColorStop(1, rgba('#c4512e', 0));
     ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, 5.5 * br, 0, TAU); ctx.fill();
     ctx.globalCompositeOperation = 'source-over';
-    for (const P of PEOPLE) {   // shadows thrown away from the fire
-      const ang = Math.atan2(P.z, P.x), d = Math.hypot(P.x, P.z);
-      ctx.save(); ctx.rotate(ang); ctx.translate(d - .1, 0);
-      const sg = ctx.createLinearGradient(0, 0, 3.4, 0); sg.addColorStop(0, rgba('#06040a', .65)); sg.addColorStop(1, rgba('#06040a', 0));
-      ctx.fillStyle = sg; ctx.beginPath(); ctx.moveTo(0, -.32); ctx.lineTo(3.4, -.8); ctx.lineTo(3.4, .8); ctx.lineTo(0, .32); ctx.closePath(); ctx.fill(); ctx.restore();
-    }
     ctx.restore();
   }
+  for (const P of PEOPLE) shadow(ctx, C, P);
   for (const P of PEOPLE.filter((p) => p.z > 0).sort((a, b) => b.z - a.z)) drawPerson(ctx, t, C, P, L, o);
   for (const s of STONES.filter((s) => Math.sin(s.a) > 0)) stone(ctx, C, s, 1);
   logs(ctx, t, C);

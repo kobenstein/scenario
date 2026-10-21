@@ -191,7 +191,7 @@ import { canvas as canvasOf } from '../engine.mjs';
 export function warmLand() { MISTIMG(); GLOWIMG(); }
 
 // single trees in the cottage's garden (they matter only when the camera comes down there)
-export const TREES = [[-16, -9, 4.2], [14, -14, 5], [24, 6, 3.6], [-30, 12, 4.6], [9, 30, 3.4], [-12, 44, 3.9]].map(([dx, dz, rr]) => ({ X: COTTAGE.X + dx, Z: COTTAGE.Z + dz, Y: hgt(COTTAGE.X + dx, COTTAGE.Z + dz) + 5.5 + rr * .4, r: rr }));
+export const TREES = [[-16, -9, 4.2], [14, -14, 5], [24, 6, 3.6], [-30, 12, 4.6], [17, 26, 3.4], [-20, 40, 3.9]].map(([dx, dz, rr]) => ({ X: COTTAGE.X + dx, Z: COTTAGE.Z + dz, Y: hgt(COTTAGE.X + dx, COTTAGE.Z + dz) + 5.5 + rr * .4, r: rr }));
 for (const tr of TREES) { let k = 0; while (k < SLICES.length - 1 && SLICES[k + 1].Z >= tr.Z) k++; const sl = SLICES[Math.min(SLICES.length - 1, k + 1)]; (sl.trees || (sl.trees = [])).push(tr); }
 
 // ---------------------------------------------------------------- colours of the land (dusk → night)
@@ -343,14 +343,21 @@ function trees(ctx, P, list, base, fg, n) {
   const dk = css(mixRGB(base, [4, 4, 14], .38)), lt = css(mixRGB(base, hexRGB('#8f7cb0'), .32 * (1 - .4 * n)));
   const dots = [], big = [];
   for (const tr of list) {
-    const q = P(tr.X, tr.Y, tr.Z); if (q[2] < 2 || q[0] < -20 || q[0] > W + 20 || q[1] < -20 || q[1] > H + 20) continue;
+    const q = P(tr.X, tr.Y, tr.Z); if (q[2] < 2 || q[0] < -20 || q[0] > W + 20 || q[1] < -20 || q[1] > H + 20) { if (!(q[2] >= 2 && FL * tr.r / q[2] > 60 && q[0] > -FL * tr.r / q[2] && q[0] < W + FL * tr.r / q[2] && q[1] > -FL * tr.r / q[2] && q[1] < H + FL * tr.r / q[2])) continue; }
     const rr = FL * tr.r / q[2]; if (rr < .42) continue;
-    if (rr < 1.4) dots.push(q[0], q[1], rr); else big.push(q[0], q[1], rr);
+    if (rr < 1.4) dots.push(q[0], q[1], rr); else { const g = P(tr.X, tr.Y - 5.5 - tr.r * .4, tr.Z); big.push(q[0], q[1], rr, g[1], (tr.X * 7.13 + tr.Z * 3.71) % 6.283); }
   }
   if (dots.length) { ctx.fillStyle = dk; ctx.beginPath(); for (let i = 0; i < dots.length; i += 3) { const z = Math.max(1, dots[i + 2] * 1.6); ctx.rect(dots[i] - z / 2, dots[i + 1] - z / 2, z, z); } ctx.fill(); }
   if (big.length) {
-    ctx.fillStyle = lt; ctx.beginPath(); for (let i = 0; i < big.length; i += 3) { const x = big[i], y = big[i + 1] - big[i + 2] * .22, r = big[i + 2]; ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, TAU); } ctx.fill();
-    ctx.fillStyle = dk; ctx.beginPath(); for (let i = 0; i < big.length; i += 3) { const x = big[i] + big[i + 2] * .08, y = big[i + 1] + big[i + 2] * .06, r = big[i + 2]; ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, TAU); } ctx.fill();
+    // a trunk and a clumped crown (lobes), lit from the sky on its upper left
+    const crown = (dx, dy, k) => { ctx.beginPath(); for (let i = 0; i < big.length; i += 5) { const x = big[i] + dx * big[i + 2], y = big[i + 1] + dy * big[i + 2], r = big[i + 2], sd = big[i + 4];
+      if (r < 6) { ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, TAU); continue; }
+      for (let l = 0; l < 7; l++) { const a = sd + l * .9, d = l === 6 ? 0 : r * (.42 + .1 * Math.sin(sd * 3 + l)), lr = r * (l === 6 ? .62 : .44 + .1 * Math.sin(sd * 5 + l * 2.1)) * k, cx = x + Math.cos(a) * d * 1.08, cy = y + Math.sin(a) * d * .9; ctx.moveTo(cx + lr, cy); ctx.arc(cx, cy, lr, 0, TAU); } }
+      ctx.fill(); };
+    ctx.strokeStyle = dk; ctx.lineCap = 'round';
+    for (let i = 0; i < big.length; i += 5) { if (big[i + 2] < 6) continue; ctx.lineWidth = Math.max(1, big[i + 2] * .14); ctx.beginPath(); ctx.moveTo(big[i], big[i + 1] + big[i + 2] * .3); ctx.lineTo(big[i] + big[i + 2] * .03, Math.max(big[i + 1] + big[i + 2] * .5, big[i + 3])); ctx.stroke(); }
+    ctx.fillStyle = lt; crown(-.07, -.3, 1);
+    ctx.fillStyle = dk; crown(.04, -.2, .97);
   }
 }
 // the houses of one depth bin, by level of detail. wt = seconds since the light waves started

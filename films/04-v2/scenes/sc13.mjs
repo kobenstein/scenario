@@ -4,7 +4,8 @@ import { canvas } from '../engine.mjs';
 import { handsOf } from '../lib/handoff4.mjs';
 import { ready } from '../lib/v2_c13_kit.mjs';
 import { roadTake, warmRoad } from '../lib/v2_c13_road.mjs';
-import { kitchenTake, warmKitchen, inkFill, samplePivot } from '../lib/v2_c13_kitchen.mjs';
+import { kitchenTake, warmKitchen, samplePivot } from '../lib/v2_c13_kitchen.mjs';
+import { valleyTake, warmValley } from '../lib/v2_c13_valley.mjs';
 
 // every anchor from the VO (never seconds); last(ph) = the last word of a phrase
 export function anchors(T) {
@@ -42,7 +43,7 @@ export default async (T, R) => {
   const K = anchors(T);
   warmRoad(); warmKitchen();
   { const [, g] = canvas(); for (const t of [K.b0 + .3, K.catch, K.money, K.permission + .4, K.you2 + .1, K.cut - .05]) { g.save(); roadTake(g, t, K); g.restore(); }
-    for (const t of [K.cut + .5, K.help + .5, K.ten]) { g.save(); kitchenTake(g, t, K); g.restore(); } samplePivot(K); await ready(); }
+    for (const t of [K.cut + .5, K.help + .5, K.ten]) { g.save(); kitchenTake(g, t, K); g.restore(); } samplePivot(K); warmValley(K); await ready(); }
   const road = (ctx, t) => roadTake(ctx, t, K), kitchen = (ctx, t) => kitchenTake(ctx, t, K);
   return [
     { t: K.b0, tr: 'cut', d: .1, draw: road, print: K.HI.print,
@@ -50,6 +51,7 @@ export default async (T, R) => {
     { t: K.now - .1, tr: 'cut', d: .06, draw: road, print: K.HI.print, sound: [{ f: 'curtain', t: K.permission + .03, v: .14 }] },
     { t: K.only - .2, tr: 'cut', d: .06, draw: road, print: K.HI.print, sound: [{ f: 'whoosh_airy', t: K.push0 + .05, v: .16 }] },
     { t: K.cut, tr: 'cut', d: .06, draw: kitchen, print: K.HI.print, sound: [{ f: 'tone', t: K.help + .02, v: .12 }] },
-    { t: K.piv, tr: 'cut', d: .06, draw: (ctx, t) => inkFill(ctx, t), print: K.HO.print },
+    { t: K.piv, tr: 'cut', d: .06, draw: (ctx, t) => valleyTake(ctx, t, K), print: K.HO.print,
+      sound: [{ f: 'chime', t: K.time1E + .02, v: .12 }, { f: 'splash', t: K.reason, v: .16 }, { f: 'whoosh_up', t: K.reason + .14, v: .12 }] },
   ];
 };

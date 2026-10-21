@@ -7,6 +7,9 @@ import { figure, POSES, reachArm } from './figure.mjs';
 import { LC, toS, toW, setL, viewB, HZ, hash, noise, fbm, rgba, mixH, shadeH, hatchL, poly, line, vg, hg, rg, glowAt, smt, span, eoX } from './v2_c15_kit.mjs';
 import { ghost, workPose, POSE, mixPose } from './v2_c15_ghost.mjs';
 
+// ghosts and figures draw in screen space (their x, y come from toS): never under the layer transform
+const gS = (ctx, ...a) => { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); const r = ghost(ctx, ...a); ctx.restore(); return r; };
+const fS = (ctx, ...a) => { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); const r = figure(ctx, ...a); ctx.restore(); return r; };
 const TAU = Math.PI * 2, INK = '#130f24', CREAM = '#f3efe2', AMB = '#ffb35c', AMBH = '#fff1d6';
 export const SK = .45, PU = 18.9;                 // the strip's depth and a person's height in its units
 const PERU0 = 2890;
@@ -28,7 +31,7 @@ function ground(ctx, L, x0, x1, n) {
   for (let x = x0; x <= x1 + step; x += step) pts.push([x, G(x)]);
   const [, by] = toW(L, 0, H + 40);
   ctx.beginPath(); ctx.moveTo(x0, by); for (const p of pts) ctx.lineTo(p[0], p[1]); ctx.lineTo(x1 + step, by); ctx.closePath();
-  ctx.fillStyle = vg(ctx, G(x0) - 4, by, [[0, mixH('#6a5240', '#2a2440', n)], [.15, mixH('#4a3a34', '#1c1a34', n)], [1, '#0e0c20']]); ctx.fill();
+  ctx.fillStyle = vg(ctx, HZ - 38, by, [[0, mixH('#6a5240', '#2a2440', n)], [.15, mixH('#4a3a34', '#1c1a34', n)], [1, '#0e0c20']]); ctx.fill();
   ctx.save(); ctx.clip(); hatchL(ctx, [x0, G(x0) - 80, x1, by], L.z, { ang: .05, gap: 1.4, a: .25, seed: 21 }); ctx.restore();
   ctx.strokeStyle = rgba('#d8c8b8', .18); ctx.lineWidth = 1 / L.z; ctx.beginPath(); pts.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.stroke();
 }
@@ -56,11 +59,11 @@ function wheatSet(ctx, t, L, o) {
   const sc = L.z * PU / 100, warm = o.warm;
   P.glean.forEach((gx, i) => {
     const [X, Y] = toS(L, gx, G(gx) - .6), ph = t * (.78 + .09 * i) + i * .37;
-    ghost(ctx, X, Y, sc, { ...workPose(i === 1 ? 'glean' : 'sickle', ph, { robe: i === 1 ? 'ankle' : 'knee' }), hat: ['brim', 'scarf', 'cap'][i] }, { t, seed: 40 + i, dir: i === 2 ? -1 : 1, props: i === 1 ? [] : [{ kind: 'sickle' }], a: .95, fill: .09, warm, r: Math.max(.9, sc * .55), pitch: Math.max(3, sc * 3) });
+    gS(ctx, X, Y, sc, { ...workPose(i === 1 ? 'glean' : 'sickle', ph, { robe: i === 1 ? 'ankle' : 'knee' }), hat: ['brim', 'scarf', 'cap'][i] }, { t, seed: 40 + i, dir: i === 2 ? -1 : 1, props: i === 1 ? [] : [{ kind: 'sickle' }], a: .95, fill: .09, warm, r: Math.max(.9, sc * .55), pitch: Math.max(3, sc * 3) });
   });
   // the front rows (in front of the gleaners' legs)
-  stalks(ctx, t, L, x0, x1, gy + 1.5, 8.5, lit, mixH('#9a7a50', '#ffd890', gl), 2, .3);
-  stalks(ctx, t, L, x0 - 4, x1 + 2, gy + 4.5, 7.5, mixH('#5a4838', '#c8964e', gl), mixH('#806040', '#f0c070', gl), 3, .35);
+  stalks(ctx, t, L, x0, x1, gy + 1.5, 2.4, lit, mixH('#9a7a50', '#ffd890', gl), 2, .3);   // the cut strip: stubble where they work
+  stalks(ctx, t, L, x0 - 4, x1 + 2, gy + 4.5, 1.6, mixH('#5a4838', '#c8964e', gl), mixH('#806040', '#f0c070', gl), 3, .35);
 }
 
 // ---------------------------------------------------------------- the landlord's lit window: the open ledger, a coin laid on the stack (rent)
@@ -103,7 +106,7 @@ function houseSet(ctx, t, L, A, o) {
   // oil lamp
   ctx.fillStyle = '#8a6a3a'; ctx.fillRect(lx - .6, dy - 1.6, 1.2, 1.6); ctx.fillStyle = rgba('#fff4dc', .9); ctx.beginPath(); ctx.ellipse(lx, dy - 2.6, .45, .9 + .08 * Math.sin(t * 9), 0, 0, TAU); ctx.fill(); glowAt(ctx, lx, dy - 2.6, 3, '#ffd28a', .7);
   // the coins: a stack on the right page; on "rent" one more is laid on it, then another
-  const cx = bx + bw * .72, cyb = by + bh * .62, drops = [A.rent + .02, A.rent + .4];
+  const cx = bx + bw * .72, cyb = by + bh * .62, drops = [A.rent + .25, A.rentE - .02];
   let nC = 5; const fly = [];
   for (const d of drops) { const u = span(t, d - .22, d); if (t >= d) nC++; else if (u > 0) fly.push(u); }
   for (let i = 0; i < nC; i++) coin(ctx, cx, cyb - i * .34, L, i === nC - 1 && t < drops[1] + .3 && t > drops[0] ? clamp(1 - (t - (t > drops[1] ? drops[1] : drops[0])) / .25) : 0);
@@ -150,7 +153,7 @@ function gateSet(ctx, t, L, A, o) {
   const pick = { col: 1, row: 2 };
   for (let c = 0; c < 2; c++) for (let r = 0; r < 4; r++) {
     const sx = rk + .5 + c * 4.6, sy = ry + .6 + r * 3.1;
-    if (!(c === pick.col && r === pick.row && t > A.shift - .55 && t < A.shiftE + .35)) card(ctx, L, sx + .3, sy - 1.6, 3.4, 4.2, r * 2 + c, 0);
+    if (!(c === pick.col && r === pick.row && t > A.punch - .67 && t < A.shiftE + .35)) card(ctx, L, sx + .3, sy - 1.6, 3.4, 4.2, r * 2 + c, 0);
     ctx.fillStyle = '#2a1e18'; ctx.fillRect(sx, sy + 1.6, 4.2, .9);
   }
   // the punch clock: a wooden case, a round dial, the slot on top; the needle jumps on the punch
@@ -158,15 +161,15 @@ function gateSet(ctx, t, L, A, o) {
   ctx.fillStyle = '#4a3222'; ctx.fillRect(kx, ky, K.w, K.h); ctx.fillStyle = '#6a4a30'; ctx.fillRect(kx + .3, ky + .3, K.w - .6, K.h - .6);
   ctx.fillStyle = '#e8dcc4'; ctx.beginPath(); ctx.arc(kx + K.w / 2, ky + 3.1, 2.3, 0, TAU); ctx.fill(); ctx.strokeStyle = '#2a2018'; ctx.lineWidth = .25; ctx.stroke();
   ctx.lineWidth = .15; ctx.beginPath(); for (let i = 0; i < 12; i++) { const q = i / 12 * TAU; ctx.moveTo(kx + K.w / 2 + Math.cos(q) * 1.9, ky + 3.1 + Math.sin(q) * 1.9); ctx.lineTo(kx + K.w / 2 + Math.cos(q) * 2.15, ky + 3.1 + Math.sin(q) * 2.15); } ctx.stroke();
-  const punch = A.shift + .12, jolt = t > punch ? Math.exp(-(t - punch) * 18) * Math.sin((t - punch) * 70) : 0;
+  const punch = A.punch, jolt = t > punch ? Math.exp(-(t - punch) * 18) * Math.sin((t - punch) * 70) : 0;
   const hand = -Math.PI / 2 + (t > punch ? .52 : 0) + .1 * Math.sin(t * .3);
   ctx.strokeStyle = '#1a1018'; ctx.lineWidth = .28; ctx.beginPath(); ctx.moveTo(kx + K.w / 2, ky + 3.1); ctx.lineTo(kx + K.w / 2 + Math.cos(hand) * 1.7, ky + 3.1 + Math.sin(hand) * 1.7); ctx.moveTo(kx + K.w / 2, ky + 3.1); ctx.lineTo(kx + K.w / 2 + Math.cos(hand * 12) * 1.2, ky + 3.1 + Math.sin(hand * 12) * 1.2); ctx.stroke();
   ctx.fillStyle = '#1a1018'; ctx.fillRect(kx + 1.2, ky - .35, K.w - 2.4, .6);
   ctx.fillStyle = '#2a1e18'; ctx.fillRect(kx + 1.6, ky + 6.4, K.w - 3.2, 1.5);   // the punch lever housing
   // the card on its way: out of the rack, into the slot, punched (clack), back up with the stamp
   const sx0 = rk + .5 + pick.col * 4.6 + .3, sy0 = ry + .6 + pick.row * 3.1 - 1.6, slx = kx + K.w / 2 - 1.7, sly = ky - 4.6;
-  const a1 = span(t, A.shift - .55, A.shift - .12), a2 = span(t, A.shift - .12, punch), a3 = span(t, punch + .14, punch + .45), a4 = span(t, punch + .5, A.shiftE + .3);
-  if (t > A.shift - .55 && t < A.shiftE + .35) {
+  const a1 = span(t, punch - .67, punch - .24), a2 = span(t, punch - .24, punch), a3 = span(t, punch + .14, punch + .45), a4 = span(t, punch + .5, A.shiftE + .3);
+  if (t > punch - .67 && t < A.shiftE + .35) {
     let cx, cy;
     const e1 = smt(a1); cx = mix(sx0, slx, e1); cy = mix(sy0, sly, e1) - Math.sin(Math.PI * e1) * 3;
     if (a2 > 0) cy = sly + 3.6 * smt(a2);
@@ -177,8 +180,8 @@ function gateSet(ctx, t, L, A, o) {
   }
   // the ghost of the worker at the clock (half in the lamplight)
   const [GX, GY] = toS(L, kx + K.w + 4.2, gy - .3), sc = L.z * PU / 100;
-  const pose = { ...POSE.stand, lean: .06, head: .15 + .1 * span(t, A.shift - .4, A.shift), sh: [mix(.25, 1.0, smt(span(t, A.shift - .7, A.shift - .2)) * (1 - smt(span(t, A.shiftE, A.shiftE + .4)))), -.04], el: [mix(.3, 1.2, smt(span(t, A.shift - .7, A.shift - .2)) * (1 - smt(span(t, A.shiftE, A.shiftE + .4)))), .2], hat: 'cap' };
-  ghost(ctx, GX, GY, sc, pose, { t, seed: 77, dir: -1, a: .85, fill: .07, props: [{ kind: 'pail' }] });
+  const pose = { ...POSE.stand, lean: .06, head: .15 + .1 * span(t, A.punch - .52, A.punch - .12), sh: [mix(.25, 1.0, smt(span(t, A.punch - .82, A.punch - .32)) * (1 - smt(span(t, A.shiftE, A.shiftE + .4)))), -.04], el: [mix(.3, 1.2, smt(span(t, A.punch - .82, A.punch - .32)) * (1 - smt(span(t, A.shiftE, A.shiftE + .4)))), .2], hat: 'cap' };
+  gS(ctx, GX, GY, sc, pose, { t, seed: 77, dir: -1, a: .85, fill: .07, props: [{ kind: 'pail' }] });
 }
 function card(ctx, L, x, y, w, h, num, stamp) {
   ctx.fillStyle = '#d8ccb0'; ctx.fillRect(x, y, w, h); ctx.fillStyle = '#c4b490'; ctx.fillRect(x, y, w, .7);
@@ -211,7 +214,7 @@ function cottageSet(ctx, t, L, A, o) {
   const sc = L.z * PU / 100, br = Math.sin(t * TAU / 4.6) * .02;
   const pose = { lean: 1.02 + br, head: .62, sh: [1.62, 1.5], el: [3.0, 2.9], hip: [1.45, 1.4], kn: [1.5, 1.45], ft: [0, 0], seat: true, hat: 0 };
   const [SX, SY] = toS(L, tx - 4.3, gy - 5.1);
-  ghost(ctx, SX, SY, sc, pose, { t, seed: 88, dir: 1, a: .95, fill: .1, warm: { ...toSxy(L, kx, ky - 3), col: '#ffcf86', a: .9 }, r: Math.max(.9, sc * .55), pitch: Math.max(3, sc * 3) });
+  gS(ctx, SX, SY, sc, pose, { t, seed: 88, dir: 1, a: .95, fill: .1, warm: { ...toSxy(L, kx, ky - 3), col: '#ffcf86', a: .9 }, r: Math.max(.9, sc * .55), pitch: Math.max(3, sc * 3) });
   ctx.restore();
   // walls (cut): the side walls and the cut edge of the front, thick stone
   ctx.fillStyle = mixH('#7a6a64', '#2c2640', n); ctx.fillRect(x0 - .6, wt - .5, 1.9, gy - wt + 1.5); ctx.fillRect(x1 - 1.3, wt - .5, 1.9, gy - wt + 1.5);
@@ -274,7 +277,7 @@ function townSet(ctx, t, L, A, o) {
   const ex = wx + 6.4, ey = wyy + 6.2, ang = -2.45, len = 9.5, ox = ex + Math.cos(ang) * len, oy = ey + Math.sin(ang) * len;
   ctx.strokeStyle = '#2a1a10'; ctx.lineWidth = .32; ctx.beginPath(); const mx = ex + Math.cos(ang) * 3.2, my = ey + Math.sin(ang) * 3.2; for (const d of [-2.2, 0, 2.2]) { ctx.moveTo(mx, my); ctx.lineTo(mx + d, wyy + wh + 1); } ctx.stroke();
   const sc = L.z * PU / 100, [SX, SY] = toS(L, ex + 3.9, wyy + wh + 6.6);
-  ghost(ctx, SX, SY, sc, { lean: .35, head: .2, sh: [1.2, 1.05], el: [.55, .9], hip: [.05, -.05], kn: [.04, .02], ft: [0, 0], robe: 'ankle', hat: 'bun' }, { t, seed: 61, dir: -1, a: .95, fill: .12, warm: { x: SX - 400, y: SY - 600, col: '#ffd48a', a: .6 }, r: Math.max(.9, sc * .55), pitch: Math.max(3, sc * 3) });
+  gS(ctx, SX, SY, sc, { lean: .35, head: .2, sh: [1.2, 1.05], el: [.55, .9], hip: [.05, -.05], kn: [.04, .02], ft: [0, 0], robe: 'ankle', hat: 'bun' }, { t, seed: 61, dir: -1, a: 1, col: '#2a1a14', fill: .9, warm: { x: SX + 520, y: SY - 260, col: '#ffd9a0', a: .95 }, r: Math.max(.9, sc * .55), pitch: Math.max(3, sc * 3) });
   ctx.lineCap = 'round';
   ctx.strokeStyle = '#3a2410'; ctx.lineWidth = 1.25; ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(ox, oy); ctx.stroke();
   ctx.strokeStyle = '#c8943a'; ctx.lineWidth = 1.0; ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(ox, oy); ctx.stroke();
@@ -334,7 +337,7 @@ function lagosSet(ctx, t, L, A, o) {
   const pose = { ...POSES.stand, lean: .08 - .06 * lookU, head: .25 - .75 * lookU, sh: [.9, .3], el: [.6, .5] };
   const arm = reachArm(HX, HY, s, pose, 0, false, { t, seed: 3 }, hand);
   pose.sh = [arm.sh, .25]; pose.el = [arm.el, .55]; pose.lock = [true, false];
-  const fig = figure(ctx, HX, HY, s, pose, { t, seed: 3, dress: { coat: '#c8642a', pants: '#3a2a4a', skin: '#6a4430', hair: '#14101a' }, accent: '#2a8a6a', accentPart: 'scarf', light: { x: toS(L, px, gy - 3)[0], y: toS(L, px, gy - 3)[1], col: '#ffb35c', a: .8 }, rim: '#ffb066', rimSide: 1 });
+  const fig = fS(ctx, HX, HY, s, pose, { t, seed: 3, dress: { coat: '#c8642a', pants: '#3a2a4a', skin: '#6a4430', hair: '#14101a' }, accent: '#2a8a6a', accentPart: 'scarf', light: { x: toS(L, px, gy - 3)[0], y: toS(L, px, gy - 3)[1], col: '#ffb35c', a: .8 }, rim: '#ffb066', rimSide: 1 });
   // the ladle from her hand into the pot
   const hp = fig && fig.hand ? fig.hand(0) : hand; const [tX, tY] = toS(L, tip[0], tip[1]);
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.strokeStyle = '#6a4a30'; ctx.lineWidth = Math.max(1.2, L.z * .35); ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(hp[0], hp[1]); ctx.lineTo(tX, tY); ctx.stroke(); ctx.restore();
@@ -373,7 +376,7 @@ function peruSet(ctx, t, L, A, o) {
   ctx.save(); ctx.beginPath(); ctx.ellipse(ax, agy - 8.2, 4.6, 2.9, 0, 0, TAU); ctx.clip(); ctx.strokeStyle = rgba('#8a7a60', .5); ctx.lineWidth = .3 / L.z; ctx.beginPath(); for (let i = 0; i < 40; i++) { const q = hash(i * 1.7), r2 = hash(i * 2.9); ctx.moveTo(ax - 4.6 + q * 9.2, agy - 11 + r2 * 5.6); ctx.arc(ax - 4.6 + q * 9.2, agy - 11 + r2 * 5.6, .45, 0, Math.PI); } ctx.stroke(); ctx.restore();
   ctx.fillStyle = '#c84a3a'; ctx.beginPath(); ctx.ellipse(ax + 5.4 + sw * .5, agy - 14.6, .25, .5, 0, 0, TAU); ctx.fill();
   // the farmer: poncho and hat, both hands stacked on the hoe's handle, its blade on the terrace in front; he looks up (peru)
-  const fx = P.farmer, fgy = G(fx) - .9, s = L.z * PU / 185, lookU = smt(span(t, A.peru + .1, A.peru + .65));
+  const fx = P.farmer, fgy = G(fx) - .9, s = L.z * PU / 185, lookU = smt(span(t, A.farmer + .25, A.peru + .1));
   const [HX, HY] = toS(L, fx, fgy - PU * .5);
   const bladeX = fx + 6.4, bladeY = fgy, topX = fx + 4.6, topY = fgy - 11.8;
   const pose = { ...POSES.stand, lean: .1 - .1 * lookU, head: .12 - .7 * lookU, sh: [.9, .7], el: [.8, .9] };
@@ -383,7 +386,7 @@ function peruSet(ctx, t, L, A, o) {
   // the hoe: the long handle, the iron blade at a right angle on the ground (drawn behind the near arm)
   ctx.strokeStyle = '#6a4a2a'; ctx.lineWidth = .55; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(topX, topY); ctx.lineTo(bladeX, bladeY - .9); ctx.stroke();
   ctx.fillStyle = '#5a5a62'; ctx.beginPath(); ctx.moveTo(bladeX - .3, bladeY - 1.3); ctx.lineTo(bladeX + 3.3, bladeY - .9); ctx.lineTo(bladeX + 3.4, bladeY); ctx.lineTo(bladeX - .1, bladeY); ctx.closePath(); ctx.fill(); ctx.fillStyle = '#9a9aa8'; ctx.fillRect(bladeX + .2, bladeY - 1.2, 3, .25); ctx.lineCap = 'butt';
-  figure(ctx, HX, HY, s, pose, { t, seed: 8, dress: { coat: '#a8342a', pants: '#2a2a3a', skin: '#8d5f40', hair: '#14101a' }, accent: '#e8b84a', accentPart: 'scarf', light: { x: HX - 600, y: HY - 500, col: '#9fd8c8', a: .5 }, rim: '#9fd0d8', rimSide: -1 });
+  fS(ctx, HX, HY, s, pose, { t, seed: 8, dress: { coat: '#a8342a', pants: '#2a2a3a', skin: '#8d5f40', hair: '#14101a' }, accent: '#e8b84a', accentPart: 'scarf', light: { x: HX - 600, y: HY - 500, col: '#9fd8c8', a: .5 }, rim: '#9fd0d8', rimSide: -1 });
   // the hat (chullo-style brimmed hat)
   const hd = toS(L, fx + .5, fgy - PU * .965 + 1.1 * lookU);
   setL(ctx, L);
@@ -394,7 +397,7 @@ export function drawSets(ctx, t, C, A, o = {}) {
   const L = LC(C, SK); if (L.z <= 0 || L.z > 140) return;
   const [vx0, , vx1] = viewB(L, 80);
   ctx.save(); setL(ctx, L);
-  ground(ctx, L, Math.max(2280, vx0), Math.min(3020, vx1), o.night ?? 1);
+  ground(ctx, L, vx0, vx1, o.night ?? 1);
   const inV = (a, b) => b > vx0 && a < vx1;
   if (inV(2330, 2445)) wheatSet(ctx, t, L, o);
   if (inV(...P.house)) houseSet(ctx, t, L, A, o);

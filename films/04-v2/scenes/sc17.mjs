@@ -28,7 +28,7 @@ import { W, H, clamp, mix } from '../engine.mjs';
 import { ready, track, camera, sio } from '../lib/v2_c17_kit.mjs';
 import { drawSky, prepareSky } from '../lib/v2_c17_sky.mjs';
 import { worldA, prepareA } from '../lib/v2_c17_landA.mjs';
-import { worldB, prepareB } from '../lib/v2_c17_hill.mjs';
+import { worldB, prepareB, hillH } from '../lib/v2_c17_hill.mjs';
 
 export default async function (T, R) {
   const { in: HI, out: HO } = handsOf('c17', T);
@@ -44,18 +44,19 @@ export default async function (T, R) {
   const LAST = K.ha - 1 / 30;
 
   // ---------------------------------------------------------------- world A camera: out of the fire, the dolly, the tilt into the sky
-  const AX = track([[K.hb, 0], [K.older - 1.1, .45], [K.older - .05, .62], [K.one - .2, 2.0], [K.silence + .3, 6.6], [K.prayer + .35, 12.3], [K.night + .15, 18.0], [K.sky + .55, 21.3], [K.sw + .4, 22.0]]);
-  const AY = track([[K.hb, .35], [K.older - 1.1, 1.15], [K.older - .05, 1.2], [K.one - .1, 3.0], [K.silence - .2, 1.15], [K.night, 1.0], [K.sky + .55, 6.5], [K.sw + .4, 7.0]]);
+  const AX = track([[K.hb, 0], [K.older - 1.1, .45], [K.older - .05, .62], [K.one - .2, 1.8], [K.silence + .3, 4.3], [K.prayer + .35, 7.9], [K.night + .15, 11.7], [K.sky + .55, 13.8], [K.sw + .4, 14.2]]);
+  const AY = track([[K.hb, .35], [K.older - 1.1, 1.15], [K.older - .05, 1.2], [K.one - .1, 2.4], [K.silence - .2, 1.1], [K.night, 1.0], [K.sky + .55, 6.5], [K.sw + .4, 7.0]]);
   const AD = track([[K.hb, Math.log(.45)], [K.older - 1.1, Math.log(5.2)], [K.older - .05, Math.log(5.6)], [K.one - .1, Math.log(13.5)], [K.sw + .4, Math.log(13.6)]]);
-  const ADL = track([[K.hb, 760], [K.older - 1.1, 900], [K.older - .05, 912], [K.one - .1, 740], [K.silence - .2, 660], [K.night + .05, 660], [K.sky + .55, 0], [K.sw + .4, 0]]);
+  const ADL = track([[K.hb, 760], [K.older - 1.1, 900], [K.older - .05, 912], [K.one - .1, 700], [K.silence - .2, 600], [K.night + .05, 600], [K.sky + .7, 0], [K.sw, -70], [K.sw + .6, -95]]);
   const camA = (t) => camera(AX(t), AY(t), -Math.exp(AD(t)), ADL(t));
 
   // ---------------------------------------------------------------- world B camera: down onto the hill, closer, back, up into the sky
-  const BX = track([[K.sw - .4, -9], [K.what + .9, -7], [K.who - .05, -6.6], [K.do - .35, -.6], [K.not + .2, .2], [K.its + .1, .5], [K.stops - 1.2, -4], [K.stops + .3, -4.3], [K.end - .1, -4.6], [LAST, -4.6]]);
-  const BY = track([[K.sw - .4, 14], [K.what + .9, 1.8], [K.who - .05, 1.9], [K.do - .35, 6.3], [K.not + .2, 6.45], [K.its + .1, 6.5], [K.stops - 1.2, 3.4], [K.stops + .3, 3.4], [K.end - .1, 9.5], [LAST, 9.6]]);
-  const BZ = track([[K.sw - .4, -56], [K.what + .9, -52], [K.who - .05, -49], [K.do - .35, -10.8], [K.not + .2, -10.4], [K.its + .1, -10.2], [K.stops - 1.2, -32], [K.stops + .3, -33], [K.end - .1, -34], [LAST, -34]]);
-  const BDL = track([[K.sw - .4, 0], [K.sw + .5, 0], [K.what + .9, 410], [K.who - .05, 400], [K.do - .35, 300], [K.its + .1, 300], [K.stops - 1.2, 400], [K.stops + .3, 400], [K.end - .1, 0], [LAST, 0]]);
-  const camB = (t) => camera(BX(t), BY(t), BZ(t), BDL(t));
+  const mid = (K.what + .9 + K.do - .35) / 2;   // the approach up the slope: log distance, x and y follow
+  const BX = track([[K.sw - .4, -9], [K.what + .9, -7], [mid, -3.95], [K.do - .35, -.9], [K.not + .2, -.6], [K.its + .1, -.5], [K.stops - 1.2, -4], [K.stops + .3, -4.3], [K.end - .1, -4.6], [LAST, -4.6]]);
+  const BY = track([[K.sw - .4, 14], [K.what + .9, 1.8], [mid, 5.65], [K.do - .35, 7.9], [K.not + .2, 7.95], [K.its + .1, 8.0], [K.stops - 1.2, 8.6], [K.stops + .3, 8.7], [K.end - .1, 12], [LAST, 12.1]]);
+  const BD = track([[K.sw - .4, Math.log(56)], [K.what + .9, Math.log(52)], [mid, Math.log(18)], [K.do - .35, Math.log(6.2)], [K.not + .2, Math.log(5.9)], [K.its + .1, Math.log(5.8)], [K.stops - 1.2, Math.log(24)], [K.stops + .3, Math.log(25)], [K.end - .1, Math.log(26)], [LAST, Math.log(26)]]);
+  const BDL = track([[K.sky + .7, 0], [K.sw, -70], [K.sw + .6, -95], [K.what + .9, 410], [mid, 450], [K.do - .35, 500], [K.its + .1, 490], [K.stops - 1.2, 420], [K.stops + .3, 420], [K.end - .1, 0], [LAST, 0]]);
+  const camB = (t) => { const x = BX(t), z = -Math.exp(BD(t)); return camera(x, Math.max(BY(t), hillH(x, z) + .6), z, BDL(t)); };   // never below the ground
 
   // ---------------------------------------------------------------- the star wheel: rests at φ0, turns from "people" to "stops"
   const PHI0 = .61, w0 = K.people, w1 = K.people + 1.9, w2 = K.stops - 1.3, w3 = K.stops + .32;
@@ -68,7 +69,8 @@ export default async function (T, R) {
     const a2 = a1 + WMAX * (w2 - w1); if (t < w3) { const d = w3 - w2, u = (t - w2) / d; return a2 + WMAX * (d * u - ramp(u, d)); }
     return PHI0;
   };
-  const skyCam = (C, t) => ({ pan: C.pan, dl: C.dl, phi: Math.max(0, PHI0 - swept(t)), omega: -WMAX * omegaN(t), tau: 5.6 });
+  const skyCam = (C, t) => ({ pan: C.pan, dl: C.dl, phi: Math.max(0, PHI0 - swept(t)), omega: -WMAX * omegaN(t), tau: 4.2 });
+  const skyCamAt = (t) => skyCam(camB(t), t);
 
   prepareSky(); prepareA(); prepareB();
   await ready();
@@ -77,7 +79,7 @@ export default async function (T, R) {
     if (t <= K.hb + 1e-6) { HI.plate(ctx, t); return; }
     if (t >= LAST - .2) { HO.plate(ctx, t); return; }   // the camera has been at the plate's view since K.end; the plate itself takes over
     if (t < K.sw) { const C = camA(t); drawSky(ctx, t, skyCam(C, t)); worldA(ctx, t, C, K, HI); return; }
-    const C = camB(t); drawSky(ctx, t, skyCam(C, t)); worldB(ctx, t, C, K);
+    const C = camB(t); drawSky(ctx, t, skyCam(C, t)); worldB(ctx, t, C, K, skyCamAt);
   };
   const SND = (f, t, v = .7) => ({ f, t, v });
   return [

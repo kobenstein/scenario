@@ -77,9 +77,10 @@ const fillP = (ctx, pts, fill) => { if (pts.length < 3) return; polyPath(ctx, pt
 const INK = 'rgba(8,6,14,.6)';
 const inkP = (ctx, pts, lw = 1, col = INK) => { if (pts.length < 3) return; polyPath(ctx, pts); ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.lineJoin = 'round'; ctx.stroke(); };
 const qAt = (P, X, Y, Z) => P(X, Y, Z)[3];
-// a stroke along map points (u, v) in ink of width wm metres (screen width from the local scale)
+// a stroke along map points (u, v) in ink of width wm metres (screen width from the median scale of its points in front of the lens)
 function mapLine(ctx, P, pts, wm, col, dy = .0002, zn = .002) {
-  const q = P(...mw(pts[pts.length >> 1][0], pts[pts.length >> 1][1], dy))[3]; ctx.strokeStyle = col; ctx.lineWidth = Math.max(.6, wm * q); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  const qs = pts.map(([u, v]) => P(...mw(u, v, dy))).filter((p) => p[2] > zn).map((p) => p[3]).sort((a, b) => a - b); if (!qs.length) return;
+  const q = qs[qs.length >> 1]; ctx.strokeStyle = col; ctx.lineWidth = Math.max(.6, wm * q); ctx.lineCap = 'round'; ctx.lineJoin = 'round';
   ctx.beginPath(); projLine(ctx, P, pts.map(([u, v]) => mw(u, v, dy)), zn); ctx.stroke();
 }
 const ring = (cu, cv, r, n = 40, wob = 0, seed = 0) => { const a = []; for (let i = 0; i <= n; i++) { const th = i / n * TAU; const rr = r * (1 + wob * Math.sin(th * 3 + seed) + wob * .5 * Math.sin(th * 7 + seed * 2)); a.push([cu + Math.cos(th) * rr, cv + Math.sin(th) * rr]); } return a; };
@@ -396,10 +397,11 @@ function penTarget(t, K, P) {
 }
 function person(ctx, P, t, K, Lp, occ) {
   const h = P(HIP.x, HIP.y, HIP.z); if (h[2] < .1) return;
+  if (h[2] < 1.4 && h[1] < 0) return;   // the dive: your hip has left over the top edge, the rest of you is beyond it (the table hides the legs)
   // the side-view figure lives in the plane X-Y at HIP.z (it faces -X): the camera's local affine of that plane, split into a uniform
-  // scale s (figure() draws at that size) and a residual R with |det| = 1 (mirror, foreshortening, shear) applied as the transform
+  // scale s (figure() draws at that size, at most 4.2: closer in the dive R scales it up) and a residual R (mirror, foreshortening, shear)
   const m = 1.75 / 185, ax = P(HIP.x - m, HIP.y, HIP.z), ay = P(HIP.x, HIP.y - m, HIP.z);
-  const M = [ax[0] - h[0], ax[1] - h[1], ay[0] - h[0], ay[1] - h[1]], det = M[0] * M[3] - M[2] * M[1], s = Math.sqrt(Math.abs(det)), R = M.map((v) => v / s), dR = R[0] * R[3] - R[2] * R[1];
+  const M = [ax[0] - h[0], ax[1] - h[1], ay[0] - h[0], ay[1] - h[1]], det = M[0] * M[3] - M[2] * M[1], s = Math.min(4.2, Math.sqrt(Math.abs(det))), R = M.map((v) => v / s), dR = R[0] * R[3] - R[2] * R[1];
   const loc = ([x, y]) => { const dx = x - h[0], dy = y - h[1]; return [h[0] + (R[3] * dx - R[2] * dy) / dR, h[1] + (-R[1] * dx + R[0] * dy) / dR]; };
   const scr = ([x, y]) => { const dx = x - h[0], dy = y - h[1]; return [h[0] + R[0] * dx + R[2] * dy, h[1] + R[1] * dx + R[3] * dy]; };
   const ps = pose(t, K), L = loc(Lp);
@@ -416,16 +418,13 @@ function person(ctx, P, t, K, Lp, occ) {
     lg.lineCap = 'round'; lg.strokeStyle = '#c89c3a'; lg.lineWidth = Math.max(2, .008 * h[3]); lg.beginPath(); lg.moveTo(tip[0], tip[1]); lg.lineTo(hd[0] + ux * len * .58, hd[1] + uy * len * .58); lg.stroke();
     lg.strokeStyle = '#e8d8b0'; lg.lineWidth = Math.max(1, .003 * h[3]); lg.beginPath(); lg.moveTo(tip[0] + ux * len * .06, tip[1] + uy * len * .06); lg.lineTo(tip[0] + ux * len * .1, tip[1] + uy * len * .1); lg.stroke();
     lg.strokeStyle = '#2a2420'; lg.lineWidth = Math.max(1.2, .004 * h[3]); lg.beginPath(); lg.moveTo(tip[0], tip[1]); lg.lineTo(tip[0] + ux * len * .06, tip[1] + uy * len * .06); lg.stroke(); }
-  if (occ) { lg.save(); polyPath(lg, occ.half); lg.clip(); lg.globalCompositeOperation = 'destination-out'; lg.fillStyle = '#000'; for (const q of occ.polys) if (q.length > 2) { polyPath(lg, q); lg.fill(); } lg.restore(); }
+  if (occ.half.length > 2) { lg.save(); polyPath(lg, occ.half); lg.clip(); lg.globalCompositeOperation = 'destination-out'; lg.fillStyle = '#000'; for (const q of occ.polys) if (q.length > 2) { polyPath(lg, q); lg.fill(); } lg.restore(); }
   ctx.drawImage(lc, 0, 0);
 }
 // what of you the table hides: its top, front edge, apron and near legs, but only below the line where your plane meets the table top
+// (near-clipped in 3D, so it holds down to the last millimetres of the dive)
 function tableOcc(P) {
-  const zn = .02, A = P(-3, TY, HIP.z), B = P(3, TY, HIP.z), F = P(HIP.x, 0, HIP.z);
-  if (A[2] < zn || B[2] < zn) return null;
-  let dx = B[0] - A[0], dy = B[1] - A[1]; const l = Math.hypot(dx, dy) || 1; dx /= l; dy /= l;
-  let nx = -dy, ny = dx; if ((F[0] - A[0]) * nx + (F[1] - A[1]) * ny < 0) { nx = -nx; ny = -ny; }
-  const E = 6000, half = [[A[0] - dx * E, A[1] - dy * E], [A[0] + dx * E, A[1] + dy * E], [A[0] + dx * E + nx * E, A[1] + dy * E + ny * E], [A[0] - dx * E + nx * E, A[1] - dy * E + ny * E]];
+  const zn = .001, half = projPoly(P, [[-3, TY, HIP.z], [3, TY, HIP.z], [3, -2, HIP.z], [-3, -2, HIP.z]], zn);
   const polys = [projPoly(P, [[TBL.x0, TY, TBL.z0], [TBL.x1, TY, TBL.z0], [TBL.x1, TY, TBL.z1], [TBL.x0, TY, TBL.z1]], zn),
     projPoly(P, [[TBL.x0, TY - .045, TBL.z0], [TBL.x1, TY - .045, TBL.z0], [TBL.x1, TY, TBL.z0], [TBL.x0, TY, TBL.z0]], zn),
     projPoly(P, [[TBL.x1, TY - .045, TBL.z0], [TBL.x1, TY - .045, TBL.z1], [TBL.x1, TY, TBL.z1], [TBL.x1, TY, TBL.z0]], zn),
@@ -496,8 +495,11 @@ export function kitchenTake(ctx, t, K) {
   mapSheet(ctx, P, t, K, cam);
   props(ctx, P, t, cam);
   lampPool(ctx, P, t, top);
-  chair(ctx, P, 'seat');
-  person(ctx, P, t, K, Lp, tableOcc(P));
+  const occ = tableOcc(P);
+  { const [sc, sg] = scratchLayer('c13seat'); chair(sg, P, 'seat');   // the seat stands beside the table: low cameras see it behind the top
+    sg.globalCompositeOperation = 'destination-out'; sg.fillStyle = '#000'; for (const q of [occ.polys[0], occ.polys[2]]) if (q.length > 2) { polyPath(sg, q); sg.fill(); }
+    sg.globalCompositeOperation = 'source-over'; ctx.drawImage(sc, 0, 0); }
+  person(ctx, P, t, K, Lp, occ);
   lampBack(ctx, P, t, cam);
   lamp(ctx, P, t, cam);
   cards(ctx, P, t, K, cam);

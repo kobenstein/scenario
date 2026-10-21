@@ -2,7 +2,7 @@
 // trees, villages, and the ghosts who work on them. Every layer is drawn in its own units through LC(C, k) (lib/v2_c15_kit.mjs).
 //   night n (1 deep night … 0 day) and sun { x, y (screen), u (0..1 strength) } tint the land; ghosts live on the terrace lines.
 import { W, H, clamp, mix, prng } from '../engine.mjs';
-import { LC, toS, toW, setL, viewB, HZ, hash, noise, fbm, rgba, mixH, shadeH, hatchL, poly, line, vg, glowAt } from './v2_c15_kit.mjs';
+import { LC, toS, toW, setL, viewB, HZ, hash, noise, fbm, rgba, mixH, shadeH, hatchL, poly, line, vg, glowAt, smt } from './v2_c15_kit.mjs';
 import { ghost, workPose, POSE, mixPose } from './v2_c15_ghost.mjs';
 
 const TAU = Math.PI * 2, INK = '#130f24';
@@ -17,8 +17,8 @@ export const LAND = {
   far2: { k: 2.0, col: '#1a1a3e', day: '#7a6a72', rim: .2, seed: 5, top: (x) => HZ - 10 - 26 * (.5 + .5 * fbm(x * .008 + 9)) - bump(x, 1650, 120, 26) - bump(x, 2350, 170, 48) },
   mid14: { k: 1.4, col: '#17163a', day: '#6e5c5c', rim: .24, seed: 7, top: (x) => HZ - 6 - 20 * (.5 + .5 * fbm(x * .011 + 1)) - bump(x, 1900, 90, 30) },
   // the near ridges in front of the hill's right flank (k < 1): terraced fields where the ghosts of the valleys work
-  near8: { k: .8, col: '#16143a', day: '#5a4a48', rim: .3, seed: 11, terr: 18, top: (x) => HZ - 60 - bump(x, 1640, 150, 120) - bump(x, 1900, 210, 150) - 18 * fbm(x * .013 + 4) },
-  near6: { k: .6, col: '#141236', day: '#4e3e3a', rim: .34, seed: 13, terr: 22, top: (x) => HZ - 40 - bump(x, 1560, 120, 250) - bump(x, 1760, 160, 300) - bump(x, 2050, 260, 180) - 20 * fbm(x * .011 + 2) },
+  near8: { k: .8, col: '#16143a', day: '#5a4a48', rim: .3, seed: 11, terr: 18, top: (x) => HZ - 28 - 34 * (1 - smt((x - 1720) / 200)) - bump(x, 1640, 150, 120) - bump(x, 1700, 120, 100) - 14 * fbm(x * .013 + 4) },
+  near6: { k: .6, col: '#141236', day: '#4e3e3a', rim: .34, seed: 13, terr: 22, top: (x) => HZ - 40 + 16 * smt((x - 1980) / 320) - bump(x, 1560, 120, 250) - bump(x, 1760, 160, 300) - bump(x, 1960, 110, 90) - 16 * fbm(x * .011 + 2) },
 };
 // the visible x range of a layer with a margin
 const xRange = (L, m = 60) => { const [x0, , x1] = viewB(L, m); return [x0, x1]; };
@@ -91,6 +91,9 @@ function crowdOf(key) {
     const kind = kinds[Math.floor(r() * kinds.length)];
     out.push({ x, y, kind, rate: .55 + r() * .35, ph: r(), dir: r() < .5 ? 1 : -1, robe: r() < .4 ? 'ankle' : r() < .5 ? 'knee' : 0, hat: ['brim', 'scarf', 0, 'cap', 0, 'hood'][Math.floor(r() * 6)], seed: Math.floor(r() * 1000) });
   }
+  // the hero's neighbours on his terrace (near6): he is one of many, bent at work
+  if (key === 'near6') for (const [x, y, kind, dir, seed] of [[1527, 485, 'hoe', 1, 611], [1543, 463, 'sickle', -1, 612], [1586, 463, 'hoe', 1, 613], [1607, 485, 'carry', -1, 614], [1626, 463, 'sickle', 1, 615]])
+    out.push({ x, y, kind, rate: .62 + (seed % 5) * .05, ph: (seed * .37) % 1, dir, robe: seed % 2 ? 'knee' : 0, hat: ['brim', 'scarf', 'cap'][seed % 3], seed });
   return (CROWD[key] = out);
 }
 const PROPS = { sickle: [{ kind: 'sickle' }], hoe: [{ kind: 'hoe', through: 'hands', over: 8, under: 34 }], glean: [], carry: [{ kind: 'basket', on: 'head', fill: 'sheaf' }], plant: [], haul: [] };
@@ -101,10 +104,14 @@ export function drawCrowd(ctx, t, C, key, o = {}) {
   for (const g of list) {
     if (g.x < x0 || g.x > x1) continue;
     const [X, Y] = toS(L, g.x, g.y); if (Y < -50 || Y > H + 120) continue;
-    let P = workPose(g.kind, t * g.rate + g.ph, { robe: g.robe });
-    const su = clamp((o.straight ?? 0) * 1.6 - hash(g.seed) * .6);
-    if (su > 0) P = mixPose(P, { ...POSE.look, robe: g.robe }, su * su * (3 - 2 * su));
-    ghost(ctx, X, Y, sc, { ...P, hat: g.hat }, { t, seed: g.seed, dir: g.dir, props: su > .5 ? [] : PROPS[g.kind], a: o.a ?? .85, warm: o.warm });
+    const hero = o.hero && Math.abs(g.x - o.hero.x) < 1 ? o.hero : null, kind = hero && hero.kind ? hero.kind : g.kind;
+    // the hero keeps working until his moment: the work cycle slows to a stop before he straightens (no snap)
+    const ph = hero ? t * g.rate + g.ph - hero.u * .35 : t * g.rate + g.ph;
+    let P = workPose(kind, ph, { robe: g.robe });
+    let su = clamp((o.straight ?? 0) * 1.6 - hash(g.seed) * .6);
+    if (hero) su = Math.max(su, hero.u);
+    if (su > 0) P = mixPose(P, { ...POSE.look, robe: g.robe, ...(hero ? { head: -.62 } : {}) }, su * su * (3 - 2 * su));
+    ghost(ctx, X, Y, sc, { ...P, hat: g.hat }, { t, seed: g.seed, dir: hero ? -1 : g.dir, props: su > .5 && !hero ? [] : PROPS[kind], a: hero ? Math.min(1, (o.a ?? .85) + .15 * hero.u) : o.a ?? .85, warm: hero ? hero.warm : o.warm });
   }
 }
 
