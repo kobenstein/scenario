@@ -8,7 +8,7 @@ NUM = [('four thousand weeks', '4,000 weeks')]
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
-MAX = 44
+MAX = 34   # one line at the large size (~72 px on 1080p): about 34 characters fit with room at the sides
 FN = set('a an the to of and or that in on for was is it its by with as at from than but if we our'.split())
 def length(ws): return len(fix(' '.join(x['w'] for x in ws)))
 def split(ws):
