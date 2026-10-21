@@ -4,8 +4,8 @@ usage: mix.py <audio_dir>"""
 import json, os, subprocess, sys
 import numpy as np
 A = sys.argv[1].rstrip('/') + '/'; SR = 48000
-def load(f):
-    raw = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f, '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'])
+def load(f, af=None):
+    raw = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f] + (['-af', af] if af else []) + ['-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'])
     return np.frombuffer(raw, np.float32).reshape(-1, 2).copy()
 def rms(x): return float(np.sqrt(np.mean(x ** 2)) + 1e-9)
 def db(v): return 10 ** (v / 20)
@@ -20,13 +20,16 @@ for i, v in enumerate(e): a = min(1, a + .12) if v else max(0, a - .02); act[i] 
 duck = np.interp(np.arange(N), np.arange(len(act)) * hop, act)
 # interview clips: real clip audio (clips/<K>.wav, written once the YouTube download works) placed into their slots;
 # music + SFX duck under the whole slot as under the voice
+# per-clip corrections from clips.json: "gain_db" on top of the -20 dB RMS match, "af" an ffmpeg filter (e.g. a light compressor)
+CLIPS = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
 clipbuf = np.zeros((N, 2), np.float32)
 for c in timing.get('clips', []):
     s0, s1 = int(c['start'] * SR), int(c['end'] * SR)
     f = A + f"../clips/{c['id']}.wav"
     if os.path.exists(f):   # quote cards (no clip audio) keep the music up
         duck[max(0, s0 - SR // 4):s1 + SR // 4] = np.maximum(duck[max(0, s0 - SR // 4):s1 + SR // 4], 1)
-        x = load(f); x *= db(-20) / rms(x[np.abs(x).max(1) > 1e-3])
+        k = CLIPS.get(c['id'], {}) if isinstance(CLIPS, dict) else {}
+        x = load(f, k.get('af')); x *= db(-20 + k.get('gain_db', 0)) / rms(x[np.abs(x).max(1) > 1e-3])
         n = min(len(x), s1 - s0); clipbuf[s0:s0 + n] += x[:n]
 def place(buf, x, t, gain=1.0, fin=0.0, fout=0.0, d=None, loop=False):
     s = int(t * SR); n = int(d * SR) if d else len(x)
