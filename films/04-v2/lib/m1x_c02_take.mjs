@@ -62,7 +62,7 @@ export function c02Take(T, R) {
     onst: S0('on stage'), stageE: E0('on stage'), c0: clip.start, c1: clip.end,
     he: S1('He gives'), ten: S1('ten'), twenty: S1('twenty'), yearsE: E1('twenty years'),
     and: S1('And he adds'), cond: S1('condition'), condE: E1('condition'),
-    if: S1('If AI'), ai: S1('AI and'), robots: S1('robots'), keep: S1('keep'), getting: S1('getting'), better: S1('better'), betterE: E1('better'),
+    if: S1('If artificial'), ai: S1('artificial intelligence and'), robots: S1('robots'), keep: S1('keep'), getting: S1('getting'), better: S1('better'), betterE: E1('better'),
     he2: S1('He thinks'), will: S1('will'), willE: E1('will'), ba: B2.a, cut: B2.cut, end: R.b,
   };
   Object.assign(A, {
