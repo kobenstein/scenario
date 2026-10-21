@@ -660,5 +660,244 @@
     "its top idea matched theirs."
    ]
   ]
+ },
+ {
+  "id": "f5a",
+  "film": "f5",
+  "start": 1.15,
+  "end": 30.39,
+  "cues": [
+   [
+    0.25,
+    1.9,
+    "Your phone buzzes."
+   ],
+   [
+    2.53,
+    3.53,
+    "Not a bill."
+   ],
+   [
+    3.57,
+    4.94,
+    "Not a paycheck."
+   ],
+   [
+    5.43,
+    6.43,
+    "A share."
+   ],
+   [
+    6.63,
+    9.787,
+    "Your share of the largest fortune ever made."
+   ],
+   [
+    10.63,
+    12.27,
+    "Sounds like a fantasy."
+   ],
+   [
+    12.31,
+    13.55,
+    "But a few days ago,"
+   ],
+   [
+    13.59,
+    14.91,
+    "one of the companies building"
+   ],
+   [
+    14.95,
+    16.95,
+    "superintelligence promised a piece"
+   ],
+   [
+    16.99,
+    19.2,
+    "of itself to the public good."
+   ],
+   [
+    19.27,
+    22.15,
+    "Then Elon Musk made a promise of his own:"
+   ],
+   [
+    22.19,
+    25.76,
+    "a SpaceX share for every child in America."
+   ],
+   [
+    26.07,
+    28.44,
+    "So whose fortune will it be?"
+   ]
+  ]
+ },
+ {
+  "id": "f5b",
+  "film": "f5",
+  "start": 72.17,
+  "end": 103.71,
+  "cues": [
+   [
+    0.25,
+    2.37,
+    "Why would any of it be yours?"
+   ],
+   [
+    2.41,
+    3.65,
+    "They built it."
+   ],
+   [
+    3.69,
+    5.78,
+    "But look at what they built it from."
+   ],
+   [
+    6.09,
+    8.85,
+    "So much of what people ever wrote down."
+   ],
+   [
+    8.89,
+    10.29,
+    "Books and letters."
+   ],
+   [
+    10.33,
+    11.97,
+    "Songs and research."
+   ],
+   [
+    12.01,
+    12.85,
+    "Code."
+   ],
+   [
+    12.89,
+    15.57,
+    "A grandmother's recipe, shared online."
+   ],
+   [
+    15.61,
+    18.45,
+    "A forum answer, written for a stranger."
+   ],
+   [
+    18.49,
+    20.69,
+    "That's what AI is learning from."
+   ],
+   [
+    20.73,
+    21.81,
+    "All of us."
+   ],
+   [
+    21.85,
+    24.69,
+    "So a share of what it makes isn't charity."
+   ],
+   [
+    24.73,
+    26.37,
+    "It's an inheritance."
+   ],
+   [
+    26.41,
+    28.45,
+    "Thomas Paine put it this way:"
+   ],
+   [
+    28.49,
+    30.74,
+    "\"not charity but a right.\""
+   ]
+  ]
+ },
+ {
+  "id": "f5c",
+  "film": "f5",
+  "start": 235.63,
+  "end": 269.25,
+  "cues": [
+   [
+    0.25,
+    2.05,
+    "For decades, almost every"
+   ],
+   [
+    2.09,
+    3.25,
+    "Alaskan has received"
+   ],
+   [
+    3.29,
+    5.81,
+    "the same share of the state's oil money."
+   ],
+   [
+    5.85,
+    7.13,
+    "Every year."
+   ],
+   [
+    7.17,
+    8.61,
+    "Rich or poor."
+   ],
+   [
+    8.65,
+    9.887,
+    "Child or adult."
+   ],
+   [
+    10.89,
+    13.21,
+    "Norway made sure the state owned a share"
+   ],
+   [
+    13.25,
+    16.05,
+    "of its oil before the big money came."
+   ],
+   [
+    16.09,
+    18.69,
+    "Today its fund owns a slice of Nvidia,"
+   ],
+   [
+    18.73,
+    20.77,
+    "a giant of the AI boom."
+   ],
+   [
+    20.81,
+    24.233,
+    "About $11,000 worth for every Norwegian."
+   ],
+   [
+    25.21,
+    26.61,
+    "Taken as one country,"
+   ],
+   [
+    26.65,
+    29.65,
+    "humanity is already almost rich."
+   ],
+   [
+    29.69,
+    30.93,
+    "Not each of us."
+   ],
+   [
+    30.97,
+    32.82,
+    "All of us, together."
+   ]
+  ]
  }
 ]

@@ -21,6 +21,7 @@ const FINAL = {
   f1: '/mnt/project-files/scenario/folge-01-flagship/code-v1/episode01-code-1080p.mp4',
   f2: '/mnt/project-files/scenario/film-02-exponential/v2/render/AI Progress Is Going Vertical.mp4',
   f3: '/mnt/project-files/scenario/film-03-geniuses/render/final/1000000_geniuses_in_a_data_center.mp4',
+  f5: '/mnt/project-files/scenario/film-05-share/render/AI Giants Just Promised to Share.mp4',
 }[R.film];
 const DUR = R.end - R.start, FPS = 30, SW = 1920, SH_ = 1080, TW = 1080, TH = 1920;
 const TY = 870;                      // where the framed point sits vertically
@@ -53,7 +54,7 @@ for (let [a, b, text] of R.cues) {
   if (cur.length) groups.push(cur.join(' '));
   const tot = groups.reduce((n, g) => n + g.length + 2, 0);
   let t = a;
-  for (const g of groups) { const d = (b - a) * (g.length + 2) / tot; CHUNKS.push([t, t + d, g]); t += d; }
+  for (const g of groups) { const d = (b - a) * (g.length + 2) / tot; CHUNKS.push([t, t + d, g, t + d]); t += d; }
 }
 for (let i = 0; i < CHUNKS.length - 1; i++) if (CHUNKS[i + 1][0] - CHUNKS[i][1] < 0.35) CHUNKS[i][1] = CHUNKS[i + 1][0];
 
@@ -124,10 +125,24 @@ function compose(t) {
     ox.save(); ox.translate(TW / 2, CAP_Y); ox.scale(sc, sc);
     ox.font = '600 80px Inter'; ox.textAlign = 'center'; ox.textBaseline = 'middle';
     const lines = wrap(ox, c[2], 900);
+    // currently spoken word in amber (Shorts only), timed by character share inside the chunk
+    const allW = c[2].split(' '), wt = allW.map((w) => w.length + 1), wsum = wt.reduce((x, y) => x + y, 0);
+    const u = clamp((t - c[0]) / Math.max(0.05, c[3] - c[0])) * wsum;
+    let acc = 0, active = allW.length - 1;
+    for (let i = 0; i < allW.length; i++) { acc += wt[i]; if (u < acc) { active = i; break; } }
+    if (t > c[3]) active = -1;
+    let wi = 0;
+    ox.textAlign = 'left';
+    const space = ox.measureText(' ').width;
     lines.forEach((line, i) => {
       const y = (i - (lines.length - 1) / 2) * 96;
-      ox.lineJoin = 'round'; ox.lineWidth = 12; ox.strokeStyle = 'rgba(5,6,18,0.85)'; ox.strokeText(line, 0, y);
-      ox.fillStyle = '#ffffff'; ox.fillText(line, 0, y);
+      const ws = line.split(' '), widths = ws.map((w) => ox.measureText(w).width);
+      let x = -(widths.reduce((p, q) => p + q, 0) + space * (ws.length - 1)) / 2;
+      ws.forEach((w, j) => {
+        ox.lineJoin = 'round'; ox.lineWidth = 12; ox.strokeStyle = 'rgba(5,6,18,0.85)'; ox.strokeText(w, x, y);
+        ox.fillStyle = wi === active ? '#ffb35c' : '#ffffff'; ox.fillText(w, x, y);
+        x += widths[j] + space; wi++;
+      });
     });
     ox.restore();
   }
