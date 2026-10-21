@@ -138,8 +138,8 @@ export function drawSky(ctx, t, cam, S) {
     if (c && e) {
       const r = Math.hypot(e[0] - c[0], e[1] - c[1]);
       if (c[0] > -r * 3 && c[0] < W + r * 3 && c[1] > -r * 3 && c[1] < H + r * 3) {
-        putSprite(ctx, moonHalo(), c[0], c[1], r * 3.2 / 400, (M.halo ?? 1) * .85);
-        if (M.ring > 0) ring(ctx, c[0], c[1], r * 1.42, r * 1.42, { lines: 7, band: Math.max(6, r * .1), wave: Math.max(14, r * .2), col: '#fff1d6', glow: '#ffb35c', glowA: .06, a: .34 * M.ring, lw: .7, ph: t * .21 });
+        putSprite(ctx, moonHalo(), c[0], c[1], r * 3.2 / 400, (M.halo ?? 1) * .85 * clamp((M.el + .03) / .06));
+        const rg = M.ring * clamp((M.el + .01) / .05); if (rg > 0) ring(ctx, c[0], c[1], r * 1.42, r * 1.42, { lines: 7, band: Math.max(6, r * .1), wave: Math.max(14, r * .2), col: '#fff1d6', glow: '#ffb35c', glowA: .06, a: .34 * rg, lw: .7, ph: t * .21 });
         ifSeal(ctx, c[0], c[1], r, t, { rot: M.rot ?? 0, pale: M.pale ?? 0, paleCol: M.paleCol, glint: M.glint });
       }
     }
@@ -158,7 +158,9 @@ export const prewarmSky = () => { sunBloom(); moonHalo(); };
 export function skyGlow(ctx, t, cam, S, sk) {
   if (!sk || !sk.sun) return;
   const k = cam.f / 1400, a = clamp((S.L - .3) / .9) * (S.glowA ?? 1), [x, y] = sk.sun;
-  putSprite(ctx, sunBloom(), x, Math.min(y, sk.horizon + 30), .9 * k * (1 + .02 * Math.sin(t * 1.4)), .42 * a);
+  const yy = Math.min(y, sk.horizon + 20), R0 = 520 * k, g0 = ctx.createRadialGradient(x, yy, 0, x, yy, R0);
+  g0.addColorStop(0, `rgba(255,226,180,${.32 * a})`); g0.addColorStop(.25, `rgba(255,190,140,${.12 * a})`); g0.addColorStop(1, 'rgba(255,170,130,0)');
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g0; ctx.fillRect(x - R0, yy - R0, 2 * R0, 2 * R0); ctx.restore();
   ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.translate(x, sk.horizon); ctx.scale(1, .06);
   const R = W * .9, g = ctx.createRadialGradient(0, 0, 0, 0, 0, R); g.addColorStop(0, `rgba(255,214,160,${.3 * a})`); g.addColorStop(.4, `rgba(246,170,130,${.1 * a})`); g.addColorStop(1, 'rgba(240,160,130,0)');
   ctx.fillStyle = g; ctx.fillRect(-R, -R, 2 * R, 2 * R); ctx.restore();

@@ -18,10 +18,10 @@ export const AQ = arcade(smoothPath(AQ_CTRL, 24), { ...ARC, ground: (x, z) => pl
 const DIR = [Math.sin(.253), -Math.cos(.253)];
 export const B0 = BR_CTRL.B0;
 const BR_PTS = BR_CTRL.pts;
-export const BR = arcade(BR_PTS, { ...ARC, bay: 29.25, ground: (x, z) => groundY(x, z), midY: -40 });
-export const S_BREAK = 29.25 * 7 - 14;      // the far side's ragged end, about a bay out over the valley
-export const S_YOURS = 29.25 * 3;           // the stretch you engrave
-export const S_LAND = 29.25 * 8;            // the far rim (the valley lies between your parapet and here)
+export const BR = arcade(BR_PTS, { ...ARC, bay: 26.8, width: 3.4, ground: (x, z) => groundY(x, z), midY: -42 });   // a walk one could cross
+export const S_BREAK = 94;                  // the far side's ragged end, a bay and a half out over the valley
+export const S_YOURS = 26.8 * 2;            // the stretch you engrave
+export const S_LAND = 134;                   // the far rim (the valley lies between your parapet and here)
 // ---------------------------------------------------------------- the network (18.05): nodes, lines, towns
 const LINES = LINE_DEF.map((d) => ({ ...d }));
 for (const L of LINES) { L.path = smoothPath(L.n.map((k) => NODE[k]), 24); L.A = arcade(L.path, { ...ARC, ground: (x, z) => plainY(x, z) }); L.cum = [0]; for (let i = 1; i < L.n.length; i++) { const a = NODE[L.n[i - 1]], b = NODE[L.n[i]]; L.cum.push(L.cum[i - 1] + Math.hypot(b[0] - a[0], b[1] - a[1])); } const k = L.A.len / L.cum[L.cum.length - 1]; L.cum = L.cum.map((v) => v * k); }
@@ -56,19 +56,19 @@ export const LINE_LIST = LINES;
 export function netItems(t, cam, S, NC) {
   const items = [], hz = hazeRGB(S.L), base = { L: S.L, hz };
   // the old aqueduct (lit: the light flows into A)
-  for (const it of arcadeItems(t, cam, AQ, { ...base, lit: 1 })) items.push(it);
+  for (const it of arcadeItems(t, cam, AQ, { ...base, lit: 1 })) items.push({ ...it, arc: 'aq', cat: 'aq' });
   items.push({ d: cs(cam, CASTELLUM[0], TOP, CASTELLUM[1])[2], draw: (ctx) => castellum(ctx, t, cam, S) });
   // the network, as far as the burin has drawn it: the stone unrolls down from the engraved line behind the front
   for (const Ln of LINES) {
     const f = NC.front(Ln.id, t); if (f <= .5) continue;
     const drop = (b) => clamp((f - b.s1) / 220 + .05) ** .8;
-    for (const it of arcadeItems(t, cam, Ln.A, { ...base, lit: clamp((t - NC.line[Ln.id].t0 - .3) / .6), s1: f, drop })) items.push(it);
+    for (const it of arcadeItems(t, cam, Ln.A, { ...base, lit: clamp((t - NC.line[Ln.id].t0 - .3) / .6), s1: f, drop })) items.push({ ...it, arc: 'net', cat: 'net' });
   }
   // the line to you: the far branch (from A's castellum back to its broken end), your stretch
   const fb = S.branch ?? 0;   // 0..1 how far the far branch is drawn (from the castellum toward the gap); its valley part is drawn by the scene
-  if (fb > 0) { const sF = mix(BR.len, S_BREAK, fb); for (const it of arcadeItems(t, cam, BR, { ...base, lit: S.branchLit ?? 0, s0: Math.max(sF, S_LAND), s1: BR.len, drop: (b) => clamp((b.s0 - sF) / 50 + .15) })) items.push(it); }
+  if (fb > 0) { const sF = mix(BR.len, S_BREAK, fb); for (const it of arcadeItems(t, cam, BR, { ...base, lit: S.branchLit ?? 0, walk: true, s0: Math.max(sF, S_LAND), s1: BR.len, drop: (b) => clamp((b.s0 - sF) / 50 + .15) })) items.push(it); }
   // towns
-  for (const T of TOWNS) { const c = cs(cam, T.x, plainY(T.x, T.z), T.z); if (c[2] < NEAR) continue; items.push({ d: c[2], draw: (ctx) => town(ctx, t, cam, S, T, NC.townLit(T, t), c) }); }
+  for (const T of TOWNS) { const c = cs(cam, T.x, plainY(T.x, T.z), T.z); if (c[2] < NEAR) continue; items.push({ d: c[2], town: true, cat: 'town', draw: (ctx) => town(ctx, t, cam, S, T, NC.townLit(T, t), c) }); }
   return items;
 }
 // the castellum: a round water tower where the aqueduct ends, its lantern lit
@@ -112,7 +112,7 @@ function town(ctx, t, cam, S, T, lit, c0) {
     }
   }
   // the town's glow once lit (its light seen through the haze)
-  if (lit > 0) { const r = clamp(T.R * q0 * 1.1, 6, 260), g = ctx.createRadialGradient(s0[0], s0[1] - r * .15, 0, s0[0], s0[1] - r * .15, r); g.addColorStop(0, rgba('#ffcf8a', .34 * lit * (1 - k * .3))); g.addColorStop(.4, rgba('#ffb35c', .12 * lit)); g.addColorStop(1, 'rgba(255,179,92,0)'); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.fillRect(s0[0] - r, s0[1] - r * 1.15, r * 2, r * 2); ctx.restore(); }
+  if (lit > .02) { const r = clamp(T.R * q0 * 1.1, 6, 170), g = ctx.createRadialGradient(s0[0], s0[1] - r * .15, 0, s0[0], s0[1] - r * .15, r); g.addColorStop(0, rgba('#ffcf8a', .34 * lit * (1 - k * .3))); g.addColorStop(.4, rgba('#ffb35c', .12 * lit)); g.addColorStop(1, 'rgba(255,179,92,0)'); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.fillRect(s0[0] - r, s0[1] - r * 1.15, r * 2, r * 2); ctx.restore(); }
 }
 // ---------------------------------------------------------------- the lights flowing on the channels (drawn after all stone)
 function dot(ctx, x, y, r, a) { const g = ctx.createRadialGradient(x, y, 0, x, y, r * 3); g.addColorStop(0, rgba('#fff1d6', a)); g.addColorStop(.3, rgba('#ffb35c', .6 * a)); g.addColorStop(1, 'rgba(255,179,92,0)'); ctx.fillStyle = g; ctx.fillRect(x - r * 3, y - r * 3, r * 6, r * 6); }
@@ -134,21 +134,29 @@ export function netLights(ctx, t, cam, S, NC) {
 const DOT = (ctx, x, y, r, a) => { ctx.fillStyle = `rgba(243,236,220,${a})`; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); };
 export function ghostStretch(ctx, t, cam, S, o) {
   const sk = clamp(o.sketch ?? 0); if (sk <= 0) return;
-  const solid = clamp(o.solid ?? 0, 0, S_BREAK), sMin = mix(S_BREAK, 0, sk), y0 = TOP + .3;
+  const solid = clamp(o.solid ?? 0, 0, S_BREAK), sMin = mix(S_BREAK, 0, sk), y0 = TOP + .06;
   const P = (x, y, z) => { const c = cs(cam, x, y, z); return c[2] > NEAR ? [toScr(cam, c), cam.f / c[2]] : null; };
   // the missing bays' arches, dotted and faint (the ghost of the bridge's shape)
   ctx.save();
   for (const b of BR.bays) {
     if (b.s1 > S_BREAK + 1 || b.s0 < Math.max(sMin, solid) - 1) continue;
+    // seen end-on (along the bridge) the arches collapse into vertical dots: they fade out unless the bridge is seen from the side
+    const [bx, bz, bdx, bdz] = BR.at(b.sm), vx = bx - cam.x, vz = bz - cam.z, vl = Math.hypot(vx, vz) || 1, vis = clamp((Math.abs(vx * bdz - vz * bdx) / vl - .3) / .3);
+    if (vis <= 0) continue;
     const sd = 1, arcs = [];
     const o0 = b.s0 + BR.pw / 2, o1 = b.s1 - BR.pw / 2, r = (o1 - o0) / 2, yc = BR.top - BR.up;
     if (b.gy < BR.midY - 14) { arcs.push([o0 + 1, o1 - 1, BR.midY - 1.6]); arcs.push([o0, o1, yc - 1.6]); } else arcs.push([o0, o1, yc - 2]);
     for (const [a0, a1, crown] of arcs) {
       const rr = (a1 - a0) / 2, ys = crown - rr, m = (a0 + a1) / 2, n = 40;
-      for (let k = 0; k <= n; k++) { const an = Math.PI - k / n * Math.PI, s = m + Math.cos(an) * rr, [x, z] = BR.at(s), q = P(x, ys + Math.sin(an) * rr, z); if (!q) continue; if (k % 2) continue; DOT(ctx, q[0][0], q[0][1], clamp(q[1] * .07, .7, 2.4), .3 * sk); }
+      for (let k = 0; k <= n; k++) { const an = Math.PI - k / n * Math.PI, s = m + Math.cos(an) * rr, [x, z] = BR.at(s), q = P(x, ys + Math.sin(an) * rr, z); if (!q) continue; if (k % 2) continue; DOT(ctx, q[0][0], q[0][1], clamp(q[1] * .07, .7, 2.4), .42 * sk * vis); }
     }
     // the cornice under the small arches
-    for (let s = b.s0; s < b.s1; s += 2.4) { const [x, z] = BR.at(s), q = P(x, yc, z); if (q) DOT(ctx, q[0][0], q[0][1], clamp(q[1] * .06, .6, 2), .22 * sk); }
+    for (let s = b.s0; s < b.s1; s += 2.4) { const [x, z] = BR.at(s), q = P(x, yc, z); if (q) DOT(ctx, q[0][0], q[0][1], clamp(q[1] * .06, .6, 2), .3 * sk * vis); }
+  }
+  // the two lips of the missing walk, dotted and fainter: the ghost reads as a stretch of bridge, not a wire
+  for (const sd of [-1, 1]) {
+    let s2 = S_BREAK - .4;
+    while (s2 > Math.max(sMin, solid)) { const q = P(...side3(BR, s2, sd, TOP + .6)); if (!q) { s2 -= 1; continue; } DOT(ctx, q[0][0], q[0][1], clamp(q[1] * .04, .7, 2.4), .55); s2 -= clamp(13 / q[1], .14, 4); }
   }
   // the top line: dots at an even screen pitch, from the broken end toward you (as far as the burin has sketched), never over the solid
   let s = S_BREAK - .4;

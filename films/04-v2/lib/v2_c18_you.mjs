@@ -31,13 +31,16 @@ function limb(g, x1, y1, r1, x2, y2, r2) {
 export function burinShape(g, h, tip, w = 1, mono = null) {
   const dx = tip[0] - h[0], dy = tip[1] - h[1], L = Math.hypot(dx, dy) || 1, a = Math.atan2(dy, dx);
   g.save(); g.translate(h[0], h[1]); g.rotate(a);
-  const hl = Math.min(L * .32, 46 * w), hr = 15 * w, sw = 4.2 * w;
-  const wood = mono || (() => { const gr = g.createLinearGradient(0, -hr, 0, hr); gr.addColorStop(0, '#c99260'); gr.addColorStop(.45, '#8a5530'); gr.addColorStop(1, '#3a2014'); return gr; })();
-  g.fillStyle = wood; g.beginPath(); g.ellipse(hr * .55, 0, hr * .62, hr, 0, Math.PI * .5, Math.PI * 1.5); g.lineTo(hl, -hr * .5); g.quadraticCurveTo(hl + 6 * w, -hr * .42, hl + 9 * w, -hr * .3); g.lineTo(hl + 9 * w, hr * .3); g.quadraticCurveTo(hl + 6 * w, hr * .42, hl, hr * .5); g.closePath(); g.fill();
-  g.fillStyle = mono || '#b89a58'; g.fillRect(hl + 8 * w, -hr * .32, 6 * w, hr * .64);
-  const steel = mono || (() => { const gr = g.createLinearGradient(0, -sw, 0, sw); gr.addColorStop(0, '#f2f5fa'); gr.addColorStop(.42, '#9aa4b5'); gr.addColorStop(.58, '#5a6270'); gr.addColorStop(1, '#22262f'); return gr; })();
-  g.fillStyle = steel; g.beginPath(); g.moveTo(hl + 14 * w, -sw); g.lineTo(L - 9 * w, -sw * .7); g.lineTo(L, 0); g.lineTo(L - 9 * w, sw * .7); g.lineTo(hl + 14 * w, sw); g.closePath(); g.fill();
-  if (!mono) { g.strokeStyle = 'rgba(255,255,255,.8)'; g.lineWidth = 1.1 * w; g.beginPath(); g.moveTo(hl + 15 * w, -sw * .7); g.lineTo(L - 10 * w, -sw * .45); g.stroke(); }
+  const hr = 13 * w, hl = Math.min(L * .2, hr * 2.1), sw = 4.2 * w;
+  const wood = mono || (() => { const gr = g.createLinearGradient(0, -hr, 0, hr); gr.addColorStop(0, '#b07a4c'); gr.addColorStop(.45, '#6a3f22'); gr.addColorStop(1, '#2a160c'); return gr; })();
+  // the mushroom handle: a round knob (flattened underneath, as engravers cut it), a short neck, a brass ferrule
+  g.fillStyle = wood; g.beginPath(); g.ellipse(hr * .72, -hr * .04, hr * .72, hr, 0, Math.PI * .58, Math.PI * 2.42); g.lineTo(hl, -hr * .36); g.quadraticCurveTo(hl + 4 * w, -hr * .3, hl + 7 * w, -hr * .24); g.lineTo(hl + 7 * w, hr * .24); g.quadraticCurveTo(hl + 4 * w, hr * .3, hl, hr * .36); g.lineTo(hr * 1.1, hr * .62); g.closePath(); g.fill();
+  if (!mono) { g.strokeStyle = 'rgba(255,214,170,.55)'; g.lineWidth = 1.6 * w; g.beginPath(); g.ellipse(hr * .72, -hr * .04, hr * .6, hr * .86, 0, Math.PI * 1.05, Math.PI * 1.55); g.stroke(); }
+  g.fillStyle = mono || '#c9a860'; g.fillRect(hl + 6 * w, -hr * .28, 5 * w, hr * .56);
+  // the steel shaft: square section seen on its edge (a bright upper facet, a dark lower one), the bevelled point
+  const steel = mono || (() => { const gr = g.createLinearGradient(0, -sw, 0, sw); gr.addColorStop(0, '#f3f4f6'); gr.addColorStop(.45, '#b4b8be'); gr.addColorStop(.55, '#575c64'); gr.addColorStop(1, '#22252a'); return gr; })();
+  g.fillStyle = steel; g.beginPath(); g.moveTo(hl + 11 * w, -sw); g.lineTo(L - 14 * w, -sw * .8); g.lineTo(L, sw * .25); g.lineTo(L - 14 * w, sw * .8); g.lineTo(hl + 11 * w, sw); g.closePath(); g.fill();
+  if (!mono) { g.strokeStyle = 'rgba(255,255,255,.85)'; g.lineWidth = 1.2 * w; g.beginPath(); g.moveTo(hl + 13 * w, -sw * .6); g.lineTo(L - 15 * w, -sw * .5); g.stroke(); g.fillStyle = '#ffffff'; g.beginPath(); g.moveTo(L - 14 * w, -sw * .8); g.lineTo(L, sw * .25); g.lineTo(L - 12 * w, -sw * .1); g.closePath(); g.fill(); }
   g.restore();
 }
 export function you(ctx, x, y, s, o = {}) {

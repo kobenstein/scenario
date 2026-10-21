@@ -13,7 +13,7 @@ export const DIST = { A: [-40, -770], B: [250, -640], C: [430, -1010], D: [-440,
 // the corridors that stay free: the branch from A's castellum to the bridge's landing on the far rim, the bridge axis itself
 const segDist = (px, pz, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], u = clamp(((px - a[0]) * dx + (pz - a[1]) * dz) / (dx * dx + dz * dz)); return Math.hypot(px - a[0] - u * dx, pz - a[1] - u * dz); };
 export const CASTELLUM = [-92, -748];
-export const LANDING = [59.2, -226.9];
+export const LANDING = [.6 + Math.sin(.253) * 134, -.36 - Math.cos(.253) * 134];   // the bridge meets the far rim (5 bays from your parapet)
 // the aqueduct of 3.02 (from the left horizon into A), the network the burin draws (18.05), the line to you (bridge + far branch)
 export const AQ_CTRL = [[-5200, -10500], [-3600, -7200], [-2300, -4600], [-1300, -2700], [-700, -1600], [-330, -1060], [-160, -830], CASTELLUM];
 export const NODE = {
@@ -35,8 +35,8 @@ export const LINE_DEF = [
 for (const L of LINE_DEF) L.path = smoothPath(L.n.map((k) => NODE[k]), 24);
 const BDIR = [Math.sin(.253), -Math.cos(.253)];
 export const BR_CTRL = (() => {
-  const B0 = [.6, -.36], P = []; for (let s = 0; s <= 234; s += 6) P.push([B0[0] + BDIR[0] * s, B0[1] + BDIR[1] * s]);
-  const tail = smoothPath([[B0[0] + BDIR[0] * 222, B0[1] + BDIR[1] * 222], LANDING.map((v, i) => v + BDIR[i] * 8), [LANDING[0] + BDIR[0] * 70, LANDING[1] + BDIR[1] * 70], [40, -470], [-20, -640], CASTELLUM], 8);
+  const B0 = [.6, -.36], P = []; for (let s = 0; s <= 134; s += 4) P.push([B0[0] + BDIR[0] * s, B0[1] + BDIR[1] * s]);
+  const tail = smoothPath([[B0[0] + BDIR[0] * 126, B0[1] + BDIR[1] * 126], [B0[0] + BDIR[0] * 150, B0[1] + BDIR[1] * 150], [B0[0] + BDIR[0] * 196, B0[1] + BDIR[1] * 196], [22, -420], [-40, -610], CASTELLUM], 8);
   return { B0, pts: P.slice(0, -1).concat(tail.slice(1)) };
 })();
 const CORRIDORS = [AQP, BR_CTRL.pts, ...LINE_DEF.map((L) => L.path)];
@@ -62,6 +62,64 @@ export const TOWERS = (() => {
     return true;
   });
 })();
+// the low city on the far plain: blocks of three to five storeys between the rim and the districts (each belongs to its nearest district)
+export const LOW = (() => {
+  const r = prng(4711), out = [], keys = Object.keys(DIST);
+  for (let i = 0; i < 900 && out.length < 340; i++) {
+    const z = -150 - Math.pow(r(), 1.25) * 1500, x = (r() - .5) * mix(700, 2600, clamp((-z - 150) / 1500)) + 60, w = 12 + r() * 18, d = 10 + r() * 16, rad = Math.max(w, d) / 2;
+    if (z > farEdge(x) - 14 - rad) continue;
+    let ok = true; for (const P of CORRIDORS) if (polyDist(P, x, z) < 12 + rad) { ok = false; break; } if (!ok) continue;
+    for (const T of TOWERS) if (x + w / 2 > T.x0 - 4 && x - w / 2 < T.x1 + 4 && z + d / 2 > T.z0 - 4 && z - d / 2 < T.z1 + 4) { ok = false; break; } if (!ok) continue;
+    let best = 'A', bd = 1e9; for (const k of keys) { const dd = Math.hypot(DIST[k][0] - x, DIST[k][1] - z); if (dd < bd) { bd = dd; best = k; } }
+    out.push({ x0: x - w / 2, x1: x + w / 2, z0: z - d / 2, z1: z + d / 2, y0: plainY(x, z) - 1.5, h: 7 + r() * 11, seed: Math.floor(r() * 1e6), dist: bd < 520 ? best : 'A' === best ? 'A' : best, tone: r(), roof: r() < .64 ? 'gable' : 'flat' });
+  }
+  return out;
+})();
+const LOWB = [['#0e1130', '#221f3c', '#3e3048'], ['#11142f', '#26223f', '#44344c']];
+export function drawLow(ctx, t, cam, B, S) {
+  const L = S.L, hz = hazeRGB(L), cx = (B.x0 + B.x1) / 2, cz = (B.z0 + B.z1) / 2, yT = B.y0 + B.h, c = cs(cam, cx, yT, cz); if (c[2] < NEAR) return;
+  const px = cam.f / c[2], k = fogC(Math.hypot(c[0], c[2]), L), sx = toScr(cam, c)[0]; if (sx < -60 || sx > W + 60) return;
+  const body = tri(LOWB[B.tone < .5 ? 0 : 1], L), rimC = tri(RIM, L), rimA = clamp(L * .5 + .1) * (1 - k * .7);
+  if (px * (B.x1 - B.x0) < 1.6) { const s = toScr(cam, c); ctx.fillStyle = css(mix3(body, hz, k)); ctx.fillRect(s[0] - .8, s[1], 1.6, Math.max(.8, B.h * px)); return; }
+  const gable = B.roof === 'gable', dd = B.z1 - B.z0, rise = Math.min(5.5, dd * .36), ym = yT + rise, near = px > 3, big = px > 4.5;
+  const lit = towerLit(B, S), winC = css(mix3(mixRGB('#ffcf8a', '#ffb35c', lit.amber), [255, 240, 205], (lit.flare ?? 0) * .5), .9 * (1 - k * .8));
+  for (const F of FACES) {
+    const [[ax, az], [bx, bz]] = F.c(B), mx = (ax + bx) / 2, mz = (az + bz) / 2;
+    if ((cam.x - mx) * F.n[0] + (cam.z - mz) * F.n[1] <= 0) continue;
+    // the wall (a gable end runs up to the ridge)
+    const wall = gable && F.n[0] !== 0 ? [[ax, yT, az], [mx, ym, cz], [bx, yT, bz], [bx, B.y0, bz], [ax, B.y0, az]] : [[ax, yT, az], [bx, yT, bz], [bx, B.y0, bz], [ax, B.y0, az]];
+    if (!path3(ctx, cam, wall)) continue;
+    const turn = F.n[0] > 0 ? 1 : F.n[0] < 0 ? -.4 : 0;
+    const col = turn > 0 ? mix3(body, [255, 178, 138], clamp(L - .35) * .2 + (S.sun ?? 0) * .15) : mix3(body, [3, 3, 14], .2 * -turn);
+    ctx.fillStyle = css(mix3(col, hz, clamp(k + .12))); ctx.fill();
+    // windows: the dark panes of the sleeping flats (near only), the lit ones (the district wakes; the wave lights it)
+    const rows = Math.floor((B.h - 2) / 3.2), len = Math.hypot(bx - ax, bz - az), cols = Math.floor(len / 3.4);
+    if (px * 1.4 > .6 && rows > 0) {
+      const on = [], off = [];
+      for (let rr = 0; rr < rows; rr++) for (let cc = 0; cc < cols; cc++) (hash(B.seed * .013 + rr * 7.1 + cc * 3.3 + F.n[0] * 5) < lit.p * .8 ? on : big ? off : []).push([rr, cc]);
+      if (big) {   // near: exact panes (the dark ones of the sleeping flats too)
+        const pane = (list) => { ctx.beginPath(); for (const [rr, cc] of list) { const u0 = (cc + .3) / cols, u1 = (cc + .7) / cols, y0 = B.y0 + 1.4 + rr * 3.2, y1 = y0 + 1.6; path3(ctx, cam, [[mix(ax, bx, u0), y1, mix(az, bz, u0)], [mix(ax, bx, u1), y1, mix(az, bz, u1)], [mix(ax, bx, u1), y0, mix(az, bz, u1)], [mix(ax, bx, u0), y0, mix(az, bz, u0)]], true); } ctx.fill(); };
+        if (off.length) { ctx.fillStyle = css(mix3(mix3(col, [6, 8, 26], .45), hz, k), .85); pane(off); }
+        if (on.length) { ctx.fillStyle = winC; pane(on); }
+      } else if (on.length) {   // far: the lit windows as specks
+        ctx.fillStyle = winC;
+        for (const [rr, cc] of on) { const u = (cc + .5) / cols, cw = cs(cam, mix(ax, bx, u), B.y0 + 2.2 + rr * 3.2, mix(az, bz, u)); if (cw[2] < NEAR) continue; const sw = toScr(cam, cw), q = cam.f / cw[2], ww = Math.max(.8, q * .55), hh = Math.max(.9, q * 1.4); ctx.fillRect(sw[0] - ww / 2, sw[1] - hh / 2, ww, hh); }
+      }
+    }
+    // the eave / cornice line
+    if (near) { ctx.strokeStyle = css(mix3(body, [0, 0, 8], .5), .7 * (1 - k)); ctx.lineWidth = clamp(px * .25, .6, 1.6); line3(ctx, cam, [[ax, yT - .35, az], [bx, yT - .35, bz]]); ctx.stroke(); }
+  }
+  if (gable) {   // ridge along x: the slope toward us (+z) in shade, the back slope (−z, toward the sun) lit; each only when it faces the camera
+    const slope = (zE, sgn, lift) => { if ((cam.y - yT) * dd / 2 + (cam.z - zE) * rise * sgn <= 0) return; if (path3(ctx, cam, [[B.x0 - .4, yT - .3, zE + sgn * .5], [B.x1 + .4, yT - .3, zE + sgn * .5], [B.x1 + .4, ym, cz], [B.x0 - .4, ym, cz]])) { ctx.fillStyle = css(mix3(mix3(mix3(body, [8, 6, 20], .25), rimC, lift * L), hz, k)); ctx.fill(); } };
+    slope(B.z0, -1, .3); slope(B.z1, 1, .08);
+    ctx.strokeStyle = css(rimC, rimA); ctx.lineWidth = clamp(px * .3, .5, 1.4); line3(ctx, cam, [[B.x0 - .4, ym, cz], [B.x1 + .4, ym, cz]]); ctx.stroke();
+    if (near && hash(B.seed * .7) < .6) { const chx = mix(B.x0, B.x1, .25 + .5 * hash(B.seed * .3)), chz = mix(cz, B.z1, .45); box(ctx, cam, chx - .5, chx + .5, chz - .5, chz + .5, yT + rise * .4, ym + 1.4, mix3(mix3(body, [8, 6, 20], .3), hz, k), rimC, rimA * .6, L); }
+  } else {       // flat: the roof with its parapet lip; a 1.04 water tank or a stair hut on some
+    if (cam.y > yT && path3(ctx, cam, [[B.x0, yT, B.z0], [B.x1, yT, B.z0], [B.x1, yT, B.z1], [B.x0, yT, B.z1]])) { ctx.fillStyle = css(mix3(mix3(body, rimC, .14 * L), hz, k)); ctx.fill(); if (near) { ctx.strokeStyle = css(mix3(body, [0, 0, 8], .4), .6); ctx.lineWidth = clamp(px * .3, .5, 1.6); line3(ctx, cam, [[B.x0 + .6, yT, B.z0 + .6], [B.x1 - .6, yT, B.z0 + .6], [B.x1 - .6, yT, B.z1 - .6], [B.x0 + .6, yT, B.z1 - .6], [B.x0 + .6, yT, B.z0 + .6]]); ctx.stroke(); } }
+    ctx.strokeStyle = css(rimC, rimA * .8); ctx.lineWidth = clamp(px * .3, .5, 1.4); line3(ctx, cam, [[B.x0, yT, B.z1], [B.x1, yT, B.z1]]); ctx.stroke();
+    if (px > 3.5) { const hk = hash(B.seed * .37); if (hk < .4) tank(ctx, cam, mix(B.x0, B.x1, .3), yT, mix(B.z0, B.z1, .4), mix3(mix3(body, [40, 26, 30], .3), hz, k), L, rimC, rimA); else if (hk < .7) box(ctx, cam, B.x1 - 5, B.x1 - 1.5, B.z0 + 2, B.z0 + 5, yT, yT + 3, mix3(body, hz, k), rimC, rimA * .7, L); }
+  }
+}
 // lit window fraction and colour: S.wake 0..1 (the city wakes: a few windows), S.wave(T) 0..1 (the burin's network reached it),
 // S.flare(T) 0..1 (the morning sun floods its windows)
 export function towerLit(T, S) {
@@ -76,7 +134,7 @@ const FACES = [ // [corner pair on the footprint, outward normal]
   { n: [-1, 0], c: (T) => [[T.x0, T.z0], [T.x0, T.z1]] },  // −X (north)
   { n: [0, -1], c: (T) => [[T.x1, T.z0], [T.x0, T.z0]] },  // −Z (east, toward the sun)
 ];
-const BODY = [['#10132e', '#2a2444', '#5a4458'], ['#131632', '#2e2848', '#624a5c']];
+const BODY = [['#0f122d', '#241f3e', '#4a3a50'], ['#121530', '#28233f', '#503e54']];
 const RIM = ['#39407a', '#f4b49c', '#ffe4bc'];
 export function drawTower(ctx, t, cam, T, S) {
   const L = S.L, hz = hazeRGB(L), cx = (T.x0 + T.x1) / 2, cz = (T.z0 + T.z1) / 2, c = cs(cam, cx, T.y0 + T.h / 2, cz); if (c[2] < NEAR) return;
@@ -139,12 +197,13 @@ export function tank(ctx, cam, x, y, z, col, L, rimC, rimA = 0) {
   line3(ctx, cam, [[x - 2.2, y + .4, z + 2.2], [x + 2, y + 3.6, z + 2]], true); ctx.stroke();
   const n = 12, ring = (yy, r) => Array.from({ length: n }, (_, i) => [x + Math.cos(i / n * Math.PI * 2) * r, yy, z + Math.sin(i / n * Math.PI * 2) * r]);
   const lo = ring(y + 4, 2.6), hi = ring(y + 8.6, 2.6);
-  ctx.fillStyle = css(mix3(col, [40, 30, 50], .15)); ctx.beginPath();
-  for (let i = 0; i < n; i++) { const j = (i + 1) % n; path3(ctx, cam, [lo[i], lo[j], hi[j], hi[i]], true); }
-  ctx.fill();
-  if (q > 4) { ctx.strokeStyle = css(mix3(col, [0, 0, 0], .4), .7); ctx.lineWidth = .8; ctx.beginPath(); for (const hy of [5.3, 6.6, 7.9]) line3(ctx, cam, ring(y + hy, 2.62).concat([ring(y + hy, 2.62)[0]]), true); ctx.stroke(); }
-  ctx.fillStyle = css(col); ctx.beginPath(); for (let i = 0; i < n; i++) { const j = (i + 1) % n; path3(ctx, cam, [hi[i], hi[j], [x, y + 11.2, z]], true); } ctx.fill();
-  if (rimC && rimA > 0) { ctx.strokeStyle = css(rimC, rimA * .8); ctx.lineWidth = Math.max(.6, q * .12); line3(ctx, cam, [[x + 2.6, y + 4, z], [x + 2.6, y + 8.6, z], [x, y + 11.2, z]]); ctx.stroke(); }
+  // the drum's staves and the lid, each facet turned to the sunrise (−Z) a little lighter; only the facets facing the camera
+  const shade = (i, base, k0) => { const a = (i + .5) / n * Math.PI * 2, d = Math.cos(a) * .26 - Math.sin(a) * .97; return css(d > 0 ? mix3(base, rimC || [255, 200, 170], k0 * d * clamp(L - .3)) : mix3(base, [0, 0, 8], .3 * -d)); };
+  for (let i = 0; i < n; i++) { const j = (i + 1) % n, a = (i + .5) / n * Math.PI * 2; if ((cam.x - x) * Math.cos(a) + (cam.z - z) * Math.sin(a) <= 2.4) continue; if (path3(ctx, cam, [lo[i], lo[j], hi[j], hi[i]])) { ctx.fillStyle = shade(i, mix3(col, [40, 30, 50], .15), .25); ctx.fill(); } }
+  const vis = (i) => { const a = (i + .5) / n * Math.PI * 2; return (cam.x - x) * Math.cos(a) + (cam.z - z) * Math.sin(a) > 2.4; };
+  if (q > 4) { ctx.strokeStyle = css(mix3(col, [0, 0, 0], .4), .7); ctx.lineWidth = .8; ctx.beginPath(); for (const hy of [5.3, 6.6, 7.9]) { const R = ring(y + hy, 2.62); for (let i = 0; i < n; i++) if (vis(i)) line3(ctx, cam, [R[i], R[(i + 1) % n]], true); } ctx.stroke(); }
+  for (let i = 0; i < n; i++) { const j = (i + 1) % n; if (path3(ctx, cam, [hi[i], hi[j], [x, y + 11.2, z]])) { ctx.fillStyle = shade(i, col, .4); ctx.fill(); } }
+  if (rimC && rimA > 0 && cam.x - x > 2.4) { ctx.strokeStyle = css(rimC, rimA * .8); ctx.lineWidth = Math.max(.6, q * .12); line3(ctx, cam, [[x + 2.6, y + 4, z], [x + 2.6, y + 8.6, z], [x, y + 11.2, z]]); ctx.stroke(); }
 }
 // windows of one face: floors every 3.6 m, exact rows (both row ends projected); only lit windows are drawn (warm / cool / amber / gold)
 function windows(ctx, cam, T, F, lit, px, k, L, hz, a, b) {

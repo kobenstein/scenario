@@ -32,7 +32,7 @@ import { handsOf } from '../lib/handoff4.mjs';
 import { ready, camPath, qio, eoX, eiX, cio, span, sio, cs, toScr, dirScr, NEAR, mix3, css, sealImage } from '../lib/v2_c18_kit.mjs';
 import { drawSky, prewarmSky, skyGlow } from '../lib/v2_c18_sky.mjs';
 import { drawFar, drawValley, drawMist, G, hazeRGB } from '../lib/v2_c18_land.mjs';
-import { TOWERS, drawTower, CASTELLUM } from '../lib/v2_c18_city.mjs';
+import { TOWERS, drawTower, CASTELLUM, LOW, drawLow } from '../lib/v2_c18_city.mjs';
 import { netItems, netLights, netClock, BR, S_BREAK, S_YOURS, S_LAND, TOP, ghostStretch, bigBurin, LINE_LIST } from '../lib/v2_c18_net.mjs';
 import { arcadeItems } from '../lib/v2_c18_arcade.mjs';
 import { drawHere } from '../lib/v2_c18_roof.mjs';
@@ -50,8 +50,8 @@ export default async (T, R) => {
   const cam = camPath([
     { t: K.a, cam: cam0 },
     { t: K.a + .5, cam: { x: .6, y: 3.6, z: .7, az: -.05, pitch: .48, f: 1400 } },
-    { t: K.that + .45, cam: { x: .5, y: 4.4, z: -.4, az: -.13, pitch: .1, f: 1420 } },
-    { t: K.stillE, cam: { x: .45, y: 4.3, z: -.6, az: -.15, pitch: .085, f: 1460 } },
+    { t: K.that + .45, cam: { x: .55, y: 3.8, z: .9, az: -.13, pitch: .2, f: 1420 } },
+    { t: K.stillE, cam: { x: .5, y: 3.7, z: 1.0, az: -.15, pitch: .19, f: 1460 } },
     { t: K.poss, cam: { x: .48, y: 1.5, z: 2.85, az: .05, pitch: .03, f: 1650 } },
     { t: K.but, cam: { x: .5, y: 1.52, z: 2.7, az: .052, pitch: .03, f: 1700 } },
     { t: K.but + 1.0, cam: { x: 1.4, y: 2.6, z: -4, az: .0, pitch: .0, f: 2300 } },
@@ -62,20 +62,21 @@ export default async (T, R) => {
     { t: K.every, cam: { x: -60, y: 150, z: 280, az: .05, pitch: -.16, f: 1350 } },
     { t: K.earth, cam: { x: -80, y: 190, z: 340, az: .06, pitch: -.18, f: 1300 } },
     { t: K.part, cam: { x: -70, y: 160, z: 300, az: .08, pitch: -.2, f: 1300 } },
-    { t: K.open, cam: { x: -10, y: 40, z: 70, az: .2, pitch: -.28, f: 1300 } },
-    { t: K.openE + .8, cam: { x: -6, y: 30, z: 52, az: .21, pitch: -.22, f: 1300 } },
-    { t: K.dayB, cam: { x: -4, y: 16, z: 30, az: .22, pitch: -.08, f: 1350 } },
-    { t: K.dont, cam: { x: -.6, y: 3.4, z: 5.2, az: .16, pitch: -.12, f: 1500 } },
+    { t: K.open, cam: { x: -24, y: 40, z: 80, az: .19, pitch: -.2, f: 1300 } },
+    { t: K.openE + .8, cam: { x: -12, y: 20, z: 44, az: .2, pitch: -.15, f: 1300 } },
+    { t: K.dayB, cam: { x: -2.5, y: 6.2, z: 12.5, az: .19, pitch: -.1, f: 1380 } },
+    { t: K.dont, cam: { x: -1.2, y: 4.2, z: 7.5, az: .17, pitch: -.12, f: 1450 } },
     { t: K.dontE + .5, cam: { x: .55, y: 2.5, z: 3.6, az: .1, pitch: -.13, f: 1550 } },
     { t: K.want0, cam: { x: .7, y: 2.3, z: 3.3, az: .12, pitch: -.13, f: 1500 } },
     { t: K.wantE + .1, cam: { x: .8, y: 2.6, z: 3.6, az: .16, pitch: -.1, f: 1450 } },
-    { t: K.so, cam: { x: .6, y: 4, z: 6, az: .18, pitch: -.12, f: 1400 } },
-    { t: K.there, cam: { x: -6, y: 22, z: 30, az: .2, pitch: -.2, f: 1350 } },
-    { t: K.end, cam: { x: -30, y: 70, z: 110, az: .2, pitch: -.18, f: 1350 } },
+    { t: K.so, cam: { x: .9, y: 4.2, z: 6.5, az: .14, pitch: -.14, f: 1400 } },
+    { t: K.there, cam: { x: 10, y: 22, z: 38, az: .02, pitch: -.26, f: 1350 } },
+    { t: K.end, cam: { x: 58, y: 70, z: 129, az: -.15, pitch: -.2, f: 1350 } },
+    { t: K.end + 3, cam: { x: 66, y: 80, z: 142, az: -.16, pitch: -.2, f: 1350 } },   // never reached: the camera is still drifting on the last frame
   ]);
   // ---------------------------------------------------------------- the clock of the light, the network, the burin
   const NC = netClock({ t0: K.or + .33, every: K.every, spurs: K.every + .25 });
-  const sunEl = (t) => (t < K.every ? mix(-.12, -.0195, (t - K.a) / (K.every - K.a)) : -.0195 + .0085 * (t - K.every));
+  const sunEl = (t) => { if (t < K.every) return mix(-.12, -.0195, (t - K.a) / (K.every - K.a)); const u = t - K.every, D = K.dayB - K.every; return -.0195 + .003 * u + .0055 * D * (1 - Math.exp(-u / D)); };   // it crests on "every", is fully up in 18.07, then slows (in frame at the end)
   const L = (t) => .55 * span(t, K.a + .2, K.stillE, sio) + .45 * span(t, K.stillE, K.but, sio) + .6 * span(t, K.or, K.earthE + .4, sio) + .4 * span(t, K.morning, K.dayB, sio);
   const flare = (z) => { const tf = K.morning + .3 + 3 * (1 - clamp(-z / 12000)); return (t) => sio(clamp((t - tf) / .8)); };
   const YOU = { x: 0, z: .3, az: .2 };
@@ -87,7 +88,7 @@ export default async (T, R) => {
     return {
       L: l, wake: span(t, K.day0, K.possE, sio), stars: 1 - span(t, K.a + .6, K.poss, sio), few: span(t, K.few - .35, K.few + .3, sio) * (1 - .4 * span(t, K.or, K.every)),
       sun: clamp((t - K.every) / 4), flare: (Tz) => flare(typeof Tz === 'number' ? Tz : (Tz.z0 + Tz.z1) / 2)(t),
-      wave: (Tw) => (Tw.dist === 'A' ? 1 : NC.distLit(Tw.dist, t)),
+      wave: (Tw) => (Tw.few ? 1 : NC.distLit(Tw.dist, t)),
       branch: eoX(clamp((t - (K.every + .3)) / .9)), branchLit: clamp((t - (K.every + 1.2)) / .8),
       ghostSketch: clamp((t - (K.earthE - .2)) / (K.open - K.earthE + .2)), yours: S_YOURS * eoX(clamp((t - K.want) / .9)), yoursDrop: clamp((t - K.want - .2) / 2.2),
     };
@@ -130,30 +131,38 @@ export default async (T, R) => {
   // ---------------------------------------------------------------- the frame
   const draw = (ctx, t) => {
     if (t < K.a + 1 / 60) { HI.plate(ctx, t); return; }
+    const PR = globalThis.__c18prof, tick = (k) => { if (!PR) return; ctx.getImageData(0, 0, 1, 1); const n = performance.now(); PR[k] = (PR[k] || 0) + n - PR._t; PR._t = n; }; if (PR) { ctx.getImageData(0, 0, 1, 1); PR._t = performance.now(); }
     const c = cam(t), S = state(t), sunE = sunEl(t);
-    const sealEl = mix(-.09, .075, span(t, K.that - .4, K.stillE + .2, eoX)) + .0022 * (t - K.a);
+    const sealEl = mix(-.09, .075, span(t, K.that - .4, K.stillE + .2, eoX)) + .0012 * (t - K.a);
     const sealGl = clamp((t - K.stillE) / .7);
     const sk = drawSky(ctx, t, c, { L: S.L, stars: S.stars, t0: K.a, cam0, sun: { az: .26, el: sunE }, sunA: 1, sunRing: clamp((t - K.every + .3) / 1.2),
-      seal: { az: -.36, el: sealEl, r: .072, pale: .18 + .55 * clamp(S.L - .45), ring: 1, halo: 1, glint: sealGl > 0 && sealGl < 1 ? sealGl : null } });
+      seal: { az: -.36, el: sealEl, r: .072, pale: .42 + .3 * clamp(S.L - .45), paleCol: '#f1e6d8', ring: 1, halo: 1, glint: sealGl > 0 && sealGl < 1 ? sealGl : null } });
+    tick('sky');
     // the land and everything out there, far → near
     const items = netItems(t, c, S, NC);
-    for (const T0 of TOWERS) { const d = cs(c, (T0.x0 + T0.x1) / 2, T0.y0 + T0.h * .3, (T0.z0 + T0.z1) / 2)[2]; if (d > NEAR) items.push({ d, draw: (g) => drawTower(g, t, c, T0, S) }); }
-    drawFar(ctx, t, c, S, items);
-    skyGlow(ctx, t, c, S, sk);
-    drawValley(ctx, t, c, S);
+    for (const T0 of TOWERS) { const d = cs(c, (T0.x0 + T0.x1) / 2, T0.y0 + T0.h * .3, (T0.z0 + T0.z1) / 2)[2]; if (d > NEAR) items.push({ d, tw: true, cat: 'tower', draw: (g) => drawTower(g, t, c, T0, S) }); }
+    for (const B0 of LOW) { const d = cs(c, (B0.x0 + B0.x1) / 2, B0.y0 + B0.h * .5, (B0.z0 + B0.z1) / 2)[2]; if (d > NEAR) items.push({ d, low: true, cat: 'low', draw: (g) => drawLow(g, t, c, B0, S) }); }
+    const SK = (globalThis.process?.env?.C18SKIP || '').split(',');
+    tick('items');
+    drawFar(ctx, t, c, S, SK.includes('far') ? [] : items.filter((it) => !(SK.includes('towns') && it.town) && !(SK.includes('aq') && it.arc === 'aq') && !(SK.includes('net') && it.arc === 'net') && !(SK.includes('tw') && it.tw) && !(SK.includes('low') && it.low)));
+    tick('far');
+    if (!SK.includes('glow')) skyGlow(ctx, t, c, S, sk); tick('glow');
+    if (!SK.includes('valley')) drawValley(ctx, t, c, S); tick('valley');
     // the line to you over the valley: your stretch (engraved, the stone unrolling), the far side's broken end
     const vb = [], hz = hazeRGB(S.L);
-    if (S.branch > 0) for (const it of arcadeItems(t, c, BR, { L: S.L, hz, lit: S.branchLit, s0: S_BREAK - 1, s1: S_LAND, broken: S_BREAK, drop: () => clamp(S.branch * 3 - 2) })) vb.push(it);
-    if (S.yours > 0) for (const it of arcadeItems(t, c, BR, { L: S.L, hz, lit: 0, s0: 0, s1: S.yours, drop: (b) => clamp(S.yoursDrop * 1.8 - b.i * .3) })) vb.push(it);
-    vb.sort((p, q) => q.d - p.d); for (const it of vb) it.draw(ctx);
-    drawMist(ctx, t, c, S);
-    netLights(ctx, t, c, S, NC);
-    ghostStretch(ctx, t, c, S, { sketch: S.ghostSketch, solid: S.yours });
+    if (S.branch > 0) for (const it of arcadeItems(t, c, BR, { L: S.L, hz, lit: S.branchLit, walk: true, s0: S_BREAK - 1, s1: S_LAND, broken: S_BREAK, drop: () => clamp(S.branch * 3 - 2) })) vb.push(it);
+    if (S.yours > 0) for (const it of arcadeItems(t, c, BR, { L: S.L, hz, lit: 0, walk: true, s0: 0, s1: S.yours, drop: (b) => clamp(S.yoursDrop * 1.8 - b.i * .3) })) vb.push(it);
+    if (!SK.includes('vb')) { vb.sort((p, q) => q.d - p.d); for (const it of vb) it.draw(ctx); }
+    tick('vb');
+    if (!SK.includes('mist')) drawMist(ctx, t, c, S); tick('mist');
+    if (!SK.includes('lights')) netLights(ctx, t, c, S, NC); tick('lights');
+    if (!SK.includes('ghost')) ghostStretch(ctx, t, c, S, { sketch: S.ghostSketch, solid: S.yours }); tick('ghost');
+    if (SK.includes('here')) return;
     // here: the near rim, your roof, the burin on the coping, you
     const B = burinState(t, c, S), A3 = armPose(t);
     const onRoof = (g) => { if (B && B.rest && !(A3 && A3.held)) restBurin(g, t, c, B.land); };
     const youDraw = (g) => drawYou(g, t, c, S, A3, sk);
-    drawHere(ctx, t, c, S, youDraw, onRoof);
+    drawHere(ctx, t, c, S, (g) => { tick('here0'); youDraw(g); tick('you'); }, onRoof); tick('here1');
     if (B && !B.rest) bigBurin(ctx, t, B);
   };
   // the burin lying on the coping (it settles with a small rock as it lands)

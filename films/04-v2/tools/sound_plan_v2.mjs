@@ -24,7 +24,6 @@ const AMB = [
   ['c07', 'hall', .45, 0, 13.5], ['c07', 'dawn', .35, 13.5, 25.4], ['c07', 'snow', .3, 25.4, 27.6], ['c07', 'dawn', .25, 27.6, null],
   ['c08', 'hall', .35, 0, 28], ['c08', 'city_night_hill', .3, 28, null],
   ['c09', 'nightsky', .4, 0, null],
-  ['c10', 'harbour', .4, 0, 20], ['c10', 'city_street', .35, 20, null],
   ['c11', 'city_night_hill', .35, 0, null],
   ['c12', 'bazaar', .3, 4.4, 6.7], ['c12', 'nightsky', .35, 6.7, 20.4], ['c12', 'city_night_hill', .3, 20.4, null],
   ['c13', 'dawn_birds', .4, 0, 8.2], ['c13', 'nightsky', .25, 8.2, 13.4], ['c13', 'river', .45, 13.4, null],
@@ -47,7 +46,7 @@ fs.mkdirSync(SFX, { recursive: true });
 const missing = new Set();
 for (const f of new Set(out.map((o) => o.f))) {
   if (fs.existsSync(SFX + f + '.mp3')) continue;
-  const src = LIBS.map((d) => d + f + '.mp3').find((p) => fs.existsSync(p));
+  const src = LIBS.flatMap((d) => [d + f + '.mp3', d + f.replace(/^amb_/, '') + '.mp3']).find((p) => fs.existsSync(p));   // amb_<x> = the library's <x>
   if (src) fs.copyFileSync(src, SFX + f + '.mp3'); else missing.add(f);
 }
 if (missing.size) console.log('[sound] no file for', [...missing].join(' '), '(dropped)');

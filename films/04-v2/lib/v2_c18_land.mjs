@@ -81,7 +81,10 @@ export function drawFar(ctx, t, cam, S, items) {
   for (const it of items || []) list.push(it);
   // the contour lines between the hills (one item per band, so a hill covers the lines behind it)
   for (let i = 0; i < CONT.length; i++) { const d = CONT[i]; list.push({ d: dep(cam.x, G.farY, farEdge(0) - d), draw: () => contour(ctx, t, cam, S, d, i) }); }
-  for (const F of FIELDS) { const d = dep(F[0][0], F[0][1], F[0][2]); if (d > NEAR) list.push({ d, draw: () => field(ctx, cam, S, F) }); }
+  // the field strokes in bands between the hills (one stroke per band: a hill still covers the strokes behind it)
+  const bands = new Map();
+  for (const F of FIELDS) { const d = dep(F[0][0], F[0][1], F[0][2]); if (d <= NEAR) continue; const k = HILLS.findIndex((h) => F[0][2] > h.z) * 4 + Math.min(3, Math.floor(d / 1500)); if (!bands.has(k)) bands.set(k, { d: 0, n: 0, F: [] }); const B = bands.get(k); B.d += d; B.n++; B.F.push(F); }
+  for (const B of bands.values()) list.push({ d: B.d / B.n, draw: () => fieldBand(ctx, cam, S, B.F) });
   list.sort((a, b) => b.d - a.d);
   for (const it of list) it.draw(ctx);
 }
@@ -105,6 +108,10 @@ function contour(ctx, t, cam, S, d, i) {
   const n = 90, pts = [];
   for (let j = 0; j <= n; j++) { const th = (-80 + 160 * j / n) * Math.PI / 180, x = cam.x + Math.tan(th) * (d + 200), z = farEdge(x) - d - 6 * Math.sin(x * .004 + i); pts.push([x, plainY(x, z) + .2, z]); }
   ctx.strokeStyle = css(mix3(tri(['#2a2c5c', '#6a5878', '#c39a8c'], L), [0, 0, 0], .1), a); ctx.lineWidth = .8; line3(ctx, cam, pts); ctx.stroke();
+}
+function fieldBand(ctx, cam, S, list) {
+  const d = list.reduce((a, F) => a + dist2(cam, F[0][0], F[0][2]), 0) / list.length, k = fogK(d, S.L), a = .3 * (1 - k); if (a < .02) return;
+  ctx.strokeStyle = css(tri(['#262850', '#5a4a6c', '#a98a84'], S.L), a); ctx.lineWidth = .8; ctx.beginPath(); for (const F of list) line3(ctx, cam, F, true); ctx.stroke();
 }
 function field(ctx, cam, S, F) {
   const d = dist2(cam, F[0][0], F[0][2]), k = fogK(d, S.L), a = .3 * (1 - k); if (a < .02) return;

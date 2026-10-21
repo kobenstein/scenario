@@ -45,10 +45,12 @@ export const mix3 = (a, b, u) => [mix(a[0], b[0], u), mix(a[1], b[1], u), mix(a[
 // cam = { x, y, z, az, pitch, f, oy }: az = look direction in radians from −Z toward +X (0 = straight at the sunrise side, + = turned
 // right), pitch + = looking up, f = focal length in px, oy = screen row of the optical axis.
 export const NEAR = .05;
+// (the camera's trig is computed once per camera object: camPath hands out a fresh object per frame and nothing mutates one)
+const trig = (cam) => cam._trig || (cam._trig = [Math.cos(cam.az || 0), Math.sin(cam.az || 0), Math.cos(cam.pitch || 0), Math.sin(cam.pitch || 0)]);
 export function cs(cam, X, Y, Z) {
-  const dx = X - cam.x, dy = Y - cam.y, dz = Z - cam.z, ca = Math.cos(cam.az || 0), sa = Math.sin(cam.az || 0);
-  const xr = dx * ca + dz * sa, zf = dx * sa - dz * ca, p = cam.pitch || 0, cp = Math.cos(p), sp = Math.sin(p);
-  return [xr, dy * cp - zf * sp, dy * sp + zf * cp];
+  const T = trig(cam), dx = X - cam.x, dy = Y - cam.y, dz = Z - cam.z;
+  const xr = dx * T[0] + dz * T[1], zf = dx * T[1] - dz * T[0];
+  return [xr, dy * T[2] - zf * T[3], dy * T[3] + zf * T[2]];
 }
 export const toScr = (cam, c) => { const q = cam.f / Math.max(NEAR, c[2]); return [W / 2 + c[0] * q, (cam.oy ?? H / 2) - c[1] * q]; };
 export const P3 = (cam, X, Y, Z) => toScr(cam, cs(cam, X, Y, Z));
@@ -86,8 +88,9 @@ export function path3(ctx, cam, pts, add = false) {
 export function line3(ctx, cam, pts, add = false) {
   if (!add) ctx.beginPath();
   let pen = false;
+  const C = pts.map((p) => cs(cam, p[0], p[1], p[2]));
   for (let i = 0; i < pts.length - 1; i++) {
-    let a = cs(cam, ...pts[i]), b = cs(cam, ...pts[i + 1]);
+    let a = C[i], b = C[i + 1];
     if (a[2] < NEAR && b[2] < NEAR) { pen = false; continue; }
     if (a[2] < NEAR) { const u = (NEAR - a[2]) / (b[2] - a[2]); a = [mix(a[0], b[0], u), mix(a[1], b[1], u), NEAR]; pen = false; }
     if (b[2] < NEAR) { const u = (NEAR - a[2]) / (b[2] - a[2]); b = [mix(a[0], b[0], u), mix(a[1], b[1], u), NEAR]; }

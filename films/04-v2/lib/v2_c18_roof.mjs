@@ -11,11 +11,13 @@ export const YOU = { x: 0, z: .58 };
 // the district on the near rim (low blocks, a few taller), kept clear of your tower and of the camera's way down
 export const NEAR_B = (() => {
   const r = prng(77), out = [];
-  for (let i = 0; i < 70; i++) {
-    const x = (r() - .5) * 520, z = 2 + Math.pow(r(), .8) * 260, w = 12 + r() * 20, d = 12 + r() * 20;
-    if (x + w / 2 > ROOFB.x0 - 3 && x - w / 2 < ROOFB.x1 + 3 && z - d / 2 < ROOFB.z1 + 6) continue;
-    const ne = nearEdge(x); if (z - d / 2 < ne + 1) continue;
-    const h = 8 + Math.pow(r(), 1.5) * 34 * (Math.abs(x) < 60 ? .8 : 1);
+  const ok = (x, z, w, d) => !(x + w / 2 > ROOFB.x0 - 3 && x - w / 2 < ROOFB.x1 + 3 && z - d / 2 < ROOFB.z1 + 6) && z - d / 2 >= nearEdge(x) + .5;
+  // the row on the gorge's edge (your neighbours, some taller than your roof), then the district behind
+  for (let x = -300; x < 320; ) { const w = 14 + r() * 16; if (x + w > -12 && x < 15) { x = 16; continue; } const d = 18 + r() * 16, z = nearEdge(x + w / 2) + .4 + d / 2, h = 22 + Math.pow(r(), 1.4) * 44; if (ok(x + w / 2, z, w, d)) out.push({ x0: x, x1: x + w, z0: z - d / 2, z1: z + d / 2, y0: G.rimY, h, tank: r() < .35, seed: Math.floor(r() * 1e6), tone: r() }); x += w + 4 + r() * 6; }
+  for (let i = 0; i < 90; i++) {
+    const x = (r() - .5) * 620, z = 30 + Math.pow(r(), .8) * 280, w = 12 + r() * 20, d = 12 + r() * 20;
+    if (!ok(x, z, w, d)) continue;
+    const h = 10 + Math.pow(r(), 1.5) * 40;
     out.push({ x0: x - w / 2, x1: x + w / 2, z0: z - d / 2, z1: z + d / 2, y0: G.rimY, h, tank: r() < .25, seed: Math.floor(r() * 1e6), tone: r() });
   }
   return out;
@@ -95,8 +97,8 @@ export function drawRoof(ctx, t, cam, S) {
   const prop = tri(['#16142a', '#2e2640', '#54404e'], L), rim = tri(['#4a5677', '#d8a8a0', '#ffe2b8'], L);
   boxP(ctx, cam, 2.2, 5.2, 13.2, 15.4, 0, .95, prop, rim, L);
   boxP(ctx, cam, 8.3, 8.75, 6.3, 6.75, 0, 1.6, prop, rim, L); boxP(ctx, cam, 8.15, 8.9, 6.15, 6.9, 1.6, 1.75, prop, rim, L);
-  tank(ctx, cam, -5.2, 0, 15.6, prop, L, rim, .5);
-  ctx.strokeStyle = css(prop); ctx.lineWidth = Math.max(.6, cam.f / Math.max(1, cs(cam, 10.6, 3, 17.5)[2]) * .06); line3(ctx, cam, [[10.6, 0, 17.5], [10.6, 7.5, 17.5]]); ctx.stroke();
+  tank(ctx, cam, 8.4, 0, 16.6, prop, L, rim, .5);   // back right: clear of the camera's way down over the roof in 18.06–18.08
+  ctx.strokeStyle = css(prop); ctx.lineWidth = Math.max(.6, cam.f / Math.max(1, cs(cam, 10.9, 3, 11.8)[2]) * .06); line3(ctx, cam, [[10.9, 0, 11.8], [10.9, 7.5, 11.8]]); ctx.stroke();
   // the parapet: four walls (inner faces toward the deck), the coping on top
   parapet(ctx, t, cam, S);
 }
@@ -111,7 +113,7 @@ function boxP(ctx, cam, x0, x1, z0, z1, y0, y1, col, rim, L) {
 }
 // the parapet (1.04: concrete blocks, joints, a lit coping with a thin dark lip)
 export function parapet(ctx, t, cam, S) {
-  const L = S.L, R = ROOFB, cop = G.coping, par = tri(['#1e1a30', '#3a2e48', '#6a4e5a'], L), top = tri(['#8a7a8a', '#d2a8a4', '#ffd8b8'], L);
+  const L = S.L, R = ROOFB, cop = G.coping, par = tri(['#1a1729', '#2e2640', '#4c3a4c'], L), top = tri(['#3e3a58', '#6e5e72', '#a88a8a'], L);
   const walls = [
     { a: [R.x0, R.z0], b: [R.x1, R.z0], n: [0, 1] }, { a: [R.x1 - R.t, R.z0], b: [R.x1 - R.t, R.z1], n: [-1, 0] },
     { a: [R.x0 + R.t, R.z1], b: [R.x0 + R.t, R.z0], n: [1, 0] }, { a: [R.x1, R.z1 - R.t], b: [R.x0, R.z1 - R.t], n: [0, -1] },
@@ -139,7 +141,7 @@ export function parapet(ctx, t, cam, S) {
     if (cam.y > cop && path3(ctx, cam, q)) { ctx.fillStyle = css(top); ctx.fill(); }
     const lip = [[w.a[0] + w.n[0] * (R.t + o), cop, w.a[1] + w.n[1] * (R.t + o)], [w.b[0] + w.n[0] * (R.t + o), cop, w.b[1] + w.n[1] * (R.t + o)]];
     if (path3(ctx, cam, [lip[0], lip[1], [lip[1][0], cop - .12, lip[1][2]], [lip[0][0], cop - .12, lip[0][2]]])) { ctx.fillStyle = css(mix3(top, [0, 0, 0], .45)); ctx.fill(); }
-    ctx.strokeStyle = css(mix3(top, [255, 240, 220], .4), .55 + .25 * clamp(L - .5)); ctx.lineWidth = 1.4; line3(ctx, cam, [q[0], q[1]]); ctx.stroke();
+    ctx.strokeStyle = css(mix3(top, [255, 226, 196], .5), .45 + .25 * clamp(L - .5)); ctx.lineWidth = 1.2; line3(ctx, cam, [q[0], q[1]]); ctx.stroke();
   }
 }
 // "here": the rim's ground, the district and your tower, back to front; you(ctx) is drawn right after your tower
