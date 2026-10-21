@@ -657,12 +657,25 @@ export function lowerThird(ctx, t, T, id, o = {}) {
   const c = T && T.clip ? T.clip(id) : null, info = o.info || clipInfo(id), x = o.x ?? 110, y = Math.min(o.y ?? 850, 860), size = o.size ?? 40;
   const a = o.a ?? (c ? sm(lin(c.start + .15, c.start + .75, t)) * (1 - sm(lin(c.end - .55, c.end - .05, t))) : 1); if (a <= 0) return;
   const meta = [info.role, info.source, info.date].filter(Boolean).join('  ·  ').toUpperCase();
-  ctx.save(); ctx.font = `${size}px "Instrument Serif"`; const nw = ctx.measureText(info.name).width; ctx.font = '600 17px "Inter"'; const mw = ctx.measureText(meta).width + meta.length * 4; ctx.restore();
-  const wmax = Math.max(nw, mw) + 20, lineU = clamp(a * 1.6), textU = clamp((a - .25) / .75);
+  // every interview clip is a real recording: a small tag beside the name says so (Jakob 2026-10-21: viewers must not think it is generated)
+  const tag = o.tag === undefined ? 'ORIGINAL FOOTAGE' : o.tag;
+  ctx.save(); ctx.font = `${size}px "Instrument Serif"`; const nw = ctx.measureText(info.name).width; ctx.font = '600 17px "Inter"'; const mw = ctx.measureText(meta).width + meta.length * 4;
+  ctx.font = '600 18px "Inter"'; const tw = tag ? ctx.measureText(tag).width + tag.length * 3.5 : 0; ctx.restore();
+  const tx0 = x + nw + 26, tagW = tag ? tw + 50 : 0;
+  const wmax = Math.max(nw + (tag ? 26 + tagW : 0), mw) + 20, lineU = clamp(a * 1.6), textU = clamp((a - .25) / .75);
   coolLine(ctx, t, { from: [x, y + 50], to: [x + wmax, y + 50], u: lineU, w: 1.3, glow: .5, head: a < 1 });
   reveal(ctx, x - 4, y - size, wmax + 8, size * 2.4, textU, (g) => {
     text(g, info.name, x, y, { size, font: 'Instrument Serif', color: F6.cream });
     text(g, meta, x, y + 34, { size: 17, weight: 600, color: rgba(F6.cool, .85), spacing: 4 });
+    if (tag) {   // pill: a recording light + the words, centred on the name's capitals
+      const cy = y - 13, ph = 36;
+      g.save(); g.fillStyle = rgba(F6.glassBot, .45); g.strokeStyle = rgba(F6.cream, .5); g.lineWidth = 1.2;
+      g.beginPath(); g.roundRect(tx0, cy - ph / 2, tagW, ph, ph / 2); g.fill(); g.stroke();
+      const pulse = .75 + .25 * Math.sin(t * 3.2);
+      addGlow(g, tx0 + 20, cy, 18, .35 * pulse, F6.amber, F6.amberCore);
+      g.fillStyle = rgba(F6.amber, .95); g.beginPath(); g.arc(tx0 + 20, cy, 5.2, 0, Math.PI * 2); g.fill(); g.restore();
+      text(g, tag, tx0 + 36, cy + 6.5, { size: 18, weight: 600, color: rgba(F6.cream, .95), spacing: 3.5 });
+    }
   });
 }
 

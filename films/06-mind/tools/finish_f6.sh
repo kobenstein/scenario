@@ -6,6 +6,8 @@ set -euo pipefail
 WD=${1:?work dir}; JOBS=${2:-4}; STAGE=${3:-all}
 FILM=/home/user/scenario/films/06-mind; ROOT=/tmp/claude-0/-home-user-scenario/7d9687bd-7149-579e-92ec-09522995c0c5/scratchpad/film6; A=$ROOT/audio
 mkdir -p "$WD/parts" "$WD/preview"
+# burned subtitles, channel standard since 2026-10-21: ~72 px on 1080p, one line of max 34 characters (audio/subs.py)
+STYLE="FontName=DejaVu Sans,FontSize=19,PrimaryColour=&H00E2EFF3,OutlineColour=&H80000000,BorderStyle=1,Outline=1.4,Shadow=0,MarginV=20"
 cd "$FILM"
 if [[ $STAGE == render || $STAGE == all ]]; then
   node --input-type=module -e "
@@ -44,7 +46,6 @@ if [[ $STAGE == mix || $STAGE == all ]]; then
   python3 audio/subs.py "$A" "$A"
 fi
 if [[ $STAGE == final || $STAGE == all ]]; then
-  STYLE="FontName=DejaVu Sans,FontSize=19,PrimaryColour=&H00E2EFF3,OutlineColour=&H80000000,BorderStyle=1,Outline=1.4,Shadow=0,MarginV=20"
   VF="subtitles=$A/subtitles.srt:force_style='$STYLE'"
   ffmpeg -v error -y -i "$WD/video.mp4" -i "$A/mix.wav" -vf "$VF" -c:v libx264 -preset slow -tune grain -b:v 4600k -maxrate 9000k -bufsize 12000k \
     -pass 1 -passlogfile "$WD/x264" -an -f mp4 /dev/null
@@ -54,14 +55,15 @@ if [[ $STAGE == final || $STAGE == all ]]; then
   echo "final: $(du -h "$WD/final.mp4" | cut -f1)  $(ffprobe -v error -show_entries format=duration -of csv=p=0 "$WD/final.mp4") s"
 fi
 if [[ $STAGE == preview || $STAGE == all ]]; then
+  # 720p player parts straight from the silent master + mix, subtitles burned per part (no need to wait for the 2-pass final)
   mapfile -t P < <(awk '{print $1" "$2}' "$WD/parts.txt")
   for i in "${!P[@]}"; do
     read -r a b <<< "${P[$i]}"; n=$(printf %02d "$i"); d=$(python3 -c "print($b-$a)")
     kb=$(python3 -c "print(min(4000, int(13.2*8192/($b-$a))-96))")
-    ffmpeg -v error -y -ss "$a" -t "$d" -i "$WD/final.mp4" -vf scale=1280:720 -c:v libx264 -preset slow -b:v ${kb}k -maxrate $((kb*2))k -bufsize $((kb*2))k -pass 1 -passlogfile "$WD/preview/pl$n" -an -f mp4 /dev/null
-    ffmpeg -v error -y -ss "$a" -t "$d" -i "$WD/final.mp4" -vf scale=1280:720 -c:v libx264 -preset slow -b:v ${kb}k -maxrate $((kb*2))k -bufsize $((kb*2))k -pass 2 -passlogfile "$WD/preview/pl$n" -c:a aac -b:a 96k -movflags +faststart "$WD/preview/part$n.mp4"
-    ffmpeg -v error -y -ss "$(python3 -c "print($a+1.5)")" -i "$WD/final.mp4" -frames:v 1 -vf scale=1280:720 -q:v 4 "$WD/preview/part$n.jpg"
+    ffmpeg -v error -y -ss "$a" -t "$d" -i "$WD/video.mp4" -ss "$a" -t "$d" -i "$A/mix.wav" \
+      -vf "setpts=PTS+$a/TB,subtitles=$A/subtitles.srt:force_style='$STYLE',setpts=PTS-STARTPTS,scale=1280:720" \
+      -map 0:v -map 1:a -c:v libx264 -preset medium -b:v ${kb}k -maxrate $((kb*2))k -bufsize $((kb*2))k -c:a aac -b:a 96k -movflags +faststart "$WD/preview/part$n.mp4"
+    ffmpeg -v error -y -ss "$(python3 -c "print($a+1.5)")" -i "$WD/video.mp4" -frames:v 1 -vf scale=1280:720 -q:v 4 "$WD/preview/part$n.jpg"
     echo "preview $n  $a–$b s  $(du -h "$WD/preview/part$n.mp4" | cut -f1)"
   done
-  rm -f "$WD"/preview/pl*
 fi
