@@ -44,7 +44,7 @@ if [[ $STAGE == mix || $STAGE == all ]]; then
   python3 audio/subs.py "$A" "$A"
 fi
 if [[ $STAGE == final || $STAGE == all ]]; then
-  STYLE="FontName=DejaVu Sans,FontSize=15,PrimaryColour=&H00E2EFF3,OutlineColour=&H80000000,BorderStyle=1,Outline=1,Shadow=0,MarginV=22"
+  STYLE="FontName=DejaVu Sans,FontSize=19,PrimaryColour=&H00E2EFF3,OutlineColour=&H80000000,BorderStyle=1,Outline=1.4,Shadow=0,MarginV=20"
   VF="subtitles=$A/subtitles.srt:force_style='$STYLE'"
   ffmpeg -v error -y -i "$WD/video.mp4" -i "$A/mix.wav" -vf "$VF" -c:v libx264 -preset slow -tune grain -b:v 4600k -maxrate 9000k -bufsize 12000k \
     -pass 1 -passlogfile "$WD/x264" -an -f mp4 /dev/null
