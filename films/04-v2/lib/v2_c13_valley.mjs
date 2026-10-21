@@ -47,7 +47,7 @@ function vt(K) {
   const CK = [[V.piv, [12, 1.2, 7], 90, -89.99, 1250], [V.up1, [13.35, 2.2, -.06], [24, 2.6, 8.6], 1250], [V.s1e, [14.5, 2.2, .8], [24, 2.6, 8.6], 1250],
     [V.s2, [7, 11, -7], [2, 6, 34], 1250], [V.s3, [1, 5.6, 18.5], [1, 8.6, 34], 1250], [V.s3e, [1.3, 5.5, 19.4], [1.3, 8.5, 34], 1250],
     [V.s4, [16.6, 5.4, 21.5], [16.9, 5.2, 31], 1250], [V.s4e, [16.9, 5.3, 21.1], [17.2, 5.1, 31], 1250], [V.s5m, [17.4, 4.4, 12.5], [17.8, 3.0, 25], 1160],
-    [V.s5, [16.2, 1.6, 3.4], [15.4, 1.04, 14], 1100], [V.s5e, [16.4, 1.6, 3.5], [15.6, 1.04, 14], 1100], [V.s6, [13.35, 2.2, -.06], [24, 2.6, 8.6], 1500],
+    [V.s5, [15.6, 1.6, 3.4], [15.6, 1.04, 14], 1100], [V.s5e, [15.8, 1.6, 3.5], [15.8, 1.04, 14], 1100], [V.s6, [13.35, 2.2, -.06], [24, 2.6, 8.6], 1500],
     [V.tilt0, [13.3, 2.2, -.1], [24, 2.6, 8.6], 1500], [V.tilt1, [13.0, 6.2, -.4], 46, 62, 1250]]
     .map((k) => { if (Array.isArray(k[2])) { const p = k[1], q = k[2], dx = q[0] - p[0], dy = q[1] - p[1], dz = q[2] - p[2]; return [k[0], p, Math.atan2(dx, dz) / DEG, Math.atan2(dy, Math.hypot(dx, dz)) / DEG, k[3]]; } return k; });
   const ch = (f) => mono(CK.map((k) => [k[0], f(k)]));
@@ -594,6 +594,7 @@ function swimSign(ctx, P, F) {   // the old swimming sign by the swing; sinks in
   const sink = old ? 1.15 * smr(V.sign, V.sign + 1.6, t) : 0, tilt = old ? .38 * smr(V.sign - .1, V.sign + 1.3, t) : 0;
   const base = P(x, g, z); if (base[2] < .5) return; const q = base[3], fg = fogD(base[2]);
   const up = [0, Math.cos(tilt), Math.sin(tilt)], ux = [.66, 0, -.75], at = (k) => [x + up[0] * k, g + up[1] * k, z + up[2] * k];
+  const bc = P(...at(1.55 - sink)); if (bc[2] < 1.2 || Math.abs(bc[0] - W / 2) > 1.5 * W) return;   // beside the lens (S5) the board's affine is meaningless: it is off-frame there anyway
   ctx.save(); ctx.beginPath(); ctx.rect(0, -10, W, base[1] + 10 + .02 * q); ctx.clip();
   const p0 = P(...at(-sink)), p1 = P(...at(1.95 - sink)); ctx.strokeStyle = col('#4a3a2c', .4, fg); ctx.lineWidth = Math.max(1.5, .07 * q); ctx.beginPath(); ctx.moveTo(p0[0], p0[1]); ctx.lineTo(p1[0], p1[1]); ctx.stroke();
   if (plane3(ctx, P, at(1.55 - sink), ux.map((v) => v * .5), up.map((v) => v * -.35))) {
