@@ -153,6 +153,16 @@ export function drawSky(ctx, t, cam, S) {
   }
   return { sun: sp, horizon: hy };
 }
+export const prewarmSky = () => { sunBloom(); moonHalo(); };
+// after the land: the sun's glow spills over the skyline (1.04: the stippled bloom over the towers), a warm haze band on the horizon
+export function skyGlow(ctx, t, cam, S, sk) {
+  if (!sk || !sk.sun) return;
+  const k = cam.f / 1400, a = clamp((S.L - .3) / .9) * (S.glowA ?? 1), [x, y] = sk.sun;
+  putSprite(ctx, sunBloom(), x, Math.min(y, sk.horizon + 30), .9 * k * (1 + .02 * Math.sin(t * 1.4)), .42 * a);
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.translate(x, sk.horizon); ctx.scale(1, .06);
+  const R = W * .9, g = ctx.createRadialGradient(0, 0, 0, 0, 0, R); g.addColorStop(0, `rgba(255,214,160,${.3 * a})`); g.addColorStop(.4, `rgba(246,170,130,${.1 * a})`); g.addColorStop(1, 'rgba(240,160,130,0)');
+  ctx.fillStyle = g; ctx.fillRect(-R, -R, 2 * R, 2 * R); ctx.restore();
+}
 // motes in the low sun (1.04)
 export function motes(ctx, t, cx, cy, R, a, seed = 23) {
   if (a <= 0) return; const r = prng(seed); ctx.save(); ctx.globalCompositeOperation = 'lighter';

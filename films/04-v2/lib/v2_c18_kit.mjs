@@ -120,6 +120,16 @@ export function camPath(keys) {
   function out(v) { return { x: v.x, y: v.y, z: v.z, az: v.az, pitch: v.pitch, f: Math.exp(v.lf), oy: v.oy }; }
 }
 
+// a smooth path through control points (Catmull-Rom, sampled every ~step m)
+export function smoothPath(P, step = 20) {
+  const out = [];
+  for (let i = 0; i < P.length - 1; i++) {
+    const p0 = P[Math.max(0, i - 1)], p1 = P[i], p2 = P[i + 1], p3 = P[Math.min(P.length - 1, i + 2)], n = Math.max(2, Math.ceil(Math.hypot(p2[0] - p1[0], p2[1] - p1[1]) / step));
+    for (let k = 0; k < n; k++) { const u = k / n, u2 = u * u, u3 = u2 * u; out.push([0, 1].map((j) => .5 * (2 * p1[j] + (-p0[j] + p2[j]) * u + (2 * p0[j] - 5 * p1[j] + 4 * p2[j] - p3[j]) * u2 + (-p0[j] + 3 * p1[j] - 3 * p2[j] + p3[j]) * u3))); }
+  }
+  out.push(P[P.length - 1].slice()); return out;
+}
+
 // ---------- the IF seal (copied from lib/sc03_world.mjs: sealFixed + ifSeal, 3.03 = 2.05's seal)
 const strokePts = (ctx, pts) => { ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]); for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]); ctx.stroke(); };
 function foilFill(g, x, y, w, h, ang = .6) { const gr = g.createLinearGradient(x, y, x + Math.cos(ang) * w, y + Math.sin(ang) * h); FOIL.forEach((c, i) => gr.addColorStop(i / (FOIL.length - 1), c)); return gr; }

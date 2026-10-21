@@ -19,7 +19,12 @@
 //     workshop, campanile, church, clocktower, tower, boathouse, hall, villa, library, atelier, observatory, chapel)
 //   hillRooms(2) → [{ id, house, floor, x, y, w, h }] the rooms behind the workshop fronts (st.cutaway opens them; st.room draws in them)
 //   hillOutline() → [[x, y], …] the hill silhouette (left foot → summit → right foot) · terraceY(lv, x) · flankX(y, side −1|1)
-//   anchors: HILL.quay { y 784, x0, x1 } (the quay top) · HILL.garden { x, y, w, h, ground } (the garden on the quay, L0) ·
+//   hillWinState(lv, id, t, st) → { on, tv, b, f } one window's live state exactly as drawHill computes it (amber on, screen tv, breathing b,
+//     screen flicker f) · hillFlicker(t, w, sync) → the screen flicker of window w (from hillWindow) · hillWindowGlow(ctx, cam, lv, id, t, st)
+//     draws the halo drawHill paints round that window (it leaves it out for st.inside), screen space for cam
+//   anchors: HILL.quay { y 784, x0, x1 } (the quay top) · HILL.garden { x, y, w, h, ground } (the garden on the quay, L0; also its layout:
+//     wallTop, wall [[x0, x1], [x0, x1]], gate { x0, x1, top }, pergola { posts, x0, x1, beam, vine { x, y } }, bench { x0, x1, seat, back },
+//     chair { x0, x1, seat, back { x, top } }, beds [{ x, y }]) ·
 //     HILL.square { x, y, w, frame { x, y, w, h } (the tall frame's aperture on the esteem square, for clip A), rule { x0, x1, y } } ·
 //     HILL.view { x, y (= standY), parapet { x0, x1, y }, cairn { x, y }, bench { x, y }, edge { x0, x1 }, path [[x, y] …] } (the summit)
 // STATE st (all optional; numbers 0..1 unless said)
@@ -34,6 +39,15 @@
 //   fog (fog banks rise from the water) · build (0..1: the hill rises out of the dark from the quay up, an amber outline first; 1 = built)
 //   inside { level, id, draw(ctx, sx, sy, sw, sh, t) } (you draw what is seen through that window, screen space, clipped to it; for
 //     push-ins: when the window covers the frame your scene IS the frame; the hill leaves that window's glow to you)
+// OPT-IN OPTIONS (added 2026-10-21; leaving them out gives exactly the frames of before):
+//   sky: false (no sky and no water base: you paint them; the call order inside drawHill is unchanged) ·
+//   sweeps [{ level, u }, …] (a sweep per level, each with its own u; lights windows and labels like sweep) ·
+//   buildFix (with build: nothing at build 0, the town stays dark down to the water until the terraces rise, the reflection stays dark
+//     where the hill is, the cooled rim fades out over build .8 → 1, label dots grow instead of fading in) ·
+//   dotSolid (label dots grow at full strength instead of fading in) · labelBlend (label and leader colours follow the terrace's light
+//     smoothly instead of switching at lit .5) · haloFix (window halos fade out between z 3 and 6) ·
+//   doorFolk (with doors: a neighbour on every quay doorstep, each stepping out when its own door is open) ·
+//   wide (wide views z < 1: the far ridges and the last light stay on the sea line; no effect from z 1.6 up)
 // drawHill(ctx, t, cam, st) draws the full frame (sky, far ridges, water + reflection, the hill, lights, people, boats, labels, title).
 //   Synchronous, deterministic (a pure function of t, cam, st). Holds up from z 1 to z ≈ 400 (a single window fills the frame at z ≈ 330).
 // VIEWS: the fixed views used as handoff plates (lib/handoff4.mjs): H1, H2, H4. Never change them without the lead.
@@ -1185,6 +1199,13 @@ assemble();
 // ---------------------------------------------------------------- public anchors
 HILL.quay = { y: 784, x0: 290, x1: 1650 };
 HILL.garden = { ...SPECIAL.garden };
+{ // the garden's own layout (drawGarden), for a builder who draws the garden itself: world units, y = the quay (ground) minus height
+  const g = SPECIAL.garden, x = g.x, y = g.ground;
+  Object.assign(HILL.garden, { wallTop: y - 4, wall: [[x - .4, x + 20.4], [x + 26.6, x + 56.4]], gate: { x0: x + 20.6, x1: x + 26.6, top: y - 4.4 },
+    pergola: { posts: [x + 26, x + 50], x0: x + 22, x1: x + 54, beam: y - 15, vine: { x: x + 38, y: y - 16 } },
+    bench: { x0: x + 30, x1: x + 41, seat: y - 4.2, back: y - 7 }, chair: { x0: x + 44, x1: x + 48, seat: y - 4, back: { x: x + 47.4, top: y - 8 } },
+    beds: [x + 6, x + 14, x + 52].map((bx) => ({ x: bx, y: y - 2.6 })) });
+}
 HILL.square = { x: SPECIAL.square.x, y: terraceY(2, SPECIAL.square.x + SPECIAL.square.w / 2), w: SPECIAL.square.w, frame: { ...SPECIAL.frame }, rule: { x0: SPECIAL.frame.x, x1: SPECIAL.frame.x + SPECIAL.frame.w, y: SPECIAL.frame.y + SPECIAL.frame.h } };
 HILL.view = { x: 960, y: HILL.standY, parapet: { x0: 914, x1: 1006, y: 207 }, cairn: { x: 960, y: 196 }, bench: { x: 927, y: 214 }, edge: { x0: 896, x1: 1024 }, path: PATH4.map((p) => [...p]) };
 
@@ -1210,6 +1231,7 @@ function winState(w) {
   let on = 0; const L = lit[w.lv] ?? 0;
   if (L > 0) on = sm(clamp((L * 1.07 - w.th) / .05));
   if (st.sweep) { const lvs = Array.isArray(st.sweep.level) ? st.sweep.level : [st.sweep.level]; if (lvs.includes(w.lv)) { const hw = LV[w.lv].hw0, xs = (w.x - (CX - hw)) / (2 * hw); on = Math.max(on, sm(clamp((st.sweep.u * 1.15 - xs) / .07))); } }
+  if (st.sweeps) for (const sw of st.sweeps) { if (!sw || sw.level !== w.lv) continue; const hw = LV[w.lv].hw0, xs = (w.x - (CX - hw)) / (2 * hw); on = Math.max(on, sm(clamp(((sw.u ?? 0) * 1.15 - xs) / .07))); }
   let tv = 0;
   if (w.lv === 0 && (st.screens ?? 0) > 0 && !w.shop) tv = sm(clamp((st.screens * 1.1 - w.sth) / .05));
   const b = .9 + .1 * Math.sin(T * (.3 + .4 * w.k) + w.ph);
@@ -1224,6 +1246,28 @@ function liveGlass(ctx, w) {
   if (w.named) { namedGlow(ctx, w, s); return; }
   if (s.on > .002) glassLit(ctx, w, 'amber', s.on * s.b * (1 - s.tv));
   if (s.tv > .002) glassLit(ctx, w, 'tv', s.tv * s.f);
+}
+// ---- for the builders (c06): one window's live state, its screen flicker and its halo, exactly as drawHill computes them
+// hillWinState(lv, id, t, st) → { on, tv, b, f }   (id: index or name, as hillWindow; st: the state passed to drawHill)
+export function hillWinState(lv, id, t, st = {}) {
+  const w = hillWindow(lv, id); if (!w) return null;
+  const pT = T, pS = ST; T = t; ST = st || {}; const s = winState(w); T = pT; ST = pS; return s;
+}
+// hillFlicker(t, w, sync) → the screen flicker f of window w (from hillWindow) at film time t; sync 0..1 = st.sync (1: the town's common rhythm)
+export function hillFlicker(t, w, sync = 0) { const sy = clamp(sync ?? 0), rate = mix(.9 + 1.6 * w.k, 1.3, sy), ph = mix(w.ph * 5, 0, sy); return .62 + .38 * (.5 + .5 * noise(t * rate + ph)) + .04 * noise(t * 6.1 + ph * 3); }
+// hillWindowGlow(ctx, cam, lv, id, t, st): the halo drawHill paints round a lit window (it leaves it out for st.inside), in screen space for cam
+export function hillWindowGlow(ctx, cam, lv, id, t, st = {}) {
+  const w = hillWindow(lv, id); if (!w) return;
+  const n = clamp(st.night ?? .5), z = cam.z, ga = (.07 + .12 * n) * (1 - .85 * sm(clamp((z - 1.6) / 4))) * (st.haloFix ? 1 - sm(clamp((z - 3) / 3)) : 1);
+  const s = hillWinState(lv, id, t, st), aa = s.on * (1 - s.tv) * s.b * ga, at = s.tv * s.f * .8 * ga; if (aa < .006 && at < .006) return;
+  const cx = w.x + w.w / 2, cy = w.y + w.h * .55, rr = Math.max(w.w, w.h) * .95 + 2.5;
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-cam.x, -cam.y); ctx.globalCompositeOperation = 'lighter';
+  for (const [a, c] of [[aa, '255,179,92'], [at, '143,230,255']]) {
+    if (a < .006) continue;
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, rr); g.addColorStop(0, `rgba(${c},1)`); g.addColorStop(.45, `rgba(${c},.35)`); g.addColorStop(1, `rgba(${c},0)`);
+    ctx.globalAlpha = a; ctx.fillStyle = g; ctx.fillRect(cx - rr, cy - rr, rr * 2, rr * 2);
+  }
+  ctx.restore();
 }
 
 // ---------------------------------------------------------------- people and boats (live, drawn every frame)
@@ -1246,6 +1290,19 @@ const PEOPLE = (() => {
   for (const [dx, pose, fl] of [[6, 'stand', false], [26, 'look', true], [34, 'stand', false], [66, 'stand', true]]) { const x = SPECIAL.square.x + dx; P(x, terraceY(2, x), pose, { lv: 2, clip: terraceY(2, x) - 3.7, s: .047, flip: fl }); }
   // self-actualization: someone in a garden
   P(1002, terraceY(3, 1002), 'sit', { lv: 3, clip: terraceY(3, 1002) - 4.4, s: .045, flip: true });
+  return out;
+})();
+// how far a quay door is open (st.doors, staggered per door)
+const doorU = (d, dO) => sm(clamp((dO * 1.15 - d.k * .5) / .2));
+// st.doorFolk: the doorsteps PEOPLE leaves empty (its own random stream, so nothing else moves)
+const DOORFOLK = (() => {
+  const r = prng(4711), out = [], q = 784, ds = DOORS.filter((d) => d.lv === 0 && d.house.row === 0 && !d.church);
+  ds.forEach((d, i) => {
+    if (i % 3 === 0) return;
+    const left = r() < .35, pose = ['stand', 'sit', 'look', 'lean', 'stand'][Math.floor(r() * 5)];
+    out.push({ x: left ? d.x - 1.6 : d.x + d.w + 1.6, y: q, pose, s: .051, flip: left ? false : r() < .5, seed: 2000 + Math.floor(r() * 1000), th: 0, clip: null, lv: 0, door: d,
+      acc: r() < .55 ? ACC[Math.floor(r() * ACC.length)] : null, part: r() < .5 ? 'sweater' : 'coat', hair: ['short', 'long', 'bun', 'curly', 'short'][Math.floor(r() * 5)] });
+  });
   return out;
 })();
 const SUMMIT_FIGS = [{ x: 944, pose: 'look', flip: false, seed: 41 }, { x: 972, pose: 'stand', flip: true, seed: 42 }, { x: 990, pose: 'look', flip: false, seed: 43 }];
@@ -1382,6 +1439,13 @@ function namedGlow(ctx, w, s) {
 // ---------------------------------------------------------------- sky and water
 // sky layers move with their own parallax camera (a layer k times farther away than the hill moves and zooms less)
 function parCam(cam, k) { return { x: 960 + (cam.x - 960) / k, y: 520 + (cam.y - 520) / k, z: k / (k - 1 + 1 / cam.z) }; }
+// st.wide: the far layers keep their horizon on the hill's horizon (lam 1), so in wide views (z < 1) the ridges and the last light sit on
+// the sea line instead of sinking behind the water; released between z 1 and 1.6 (above that the frame is exactly the default)
+function parCamH(cam, k, lam) {
+  const p = parCam(cam, k); if (!(lam > 0)) return p;
+  const hyL = (HZ - p.y) * p.z + H / 2, hyC = (HZ - cam.y) * cam.z + H / 2;
+  return { x: p.x, y: HZ - (mix(hyL, hyC, lam) - H / 2) / p.z, z: p.z };
+}
 let STARB = null;
 const STARS = (() => { const r = prng(7), s = []; for (let i = 0; i < 760; i++) { const m = r(); s.push([r() * 2600 - 340, r() * 860 - 160, m < .88 ? .45 + r() * .65 : 1 + r() * 1.2, r() * TAU, .25 + r() * .9, m]); } return s; })();
 const MILKY = (() => { const r = prng(91), out = []; for (let i = 0; i < 2600; i++) { const u = (r() * 2 - 1) * 1300, g = (r() + r() + r() - 1.5) / 1.5, rift = Math.abs(g * 120 + 18 * Math.sin(u * .006) - 14) < 9 && r() < .75; if (rift) continue; out.push([u, g * 150 * (1 - .35 * Math.abs(u) / 1300), .5 + r() * .7, Math.floor(r() * r() * 4)]); } return out; })();
@@ -1389,7 +1453,8 @@ function skyCols(n) { return [mixH('#262458', '#04050f', n), mixH('#4e447e', '#0
 const CLOUDS = [[330, 250, 620, 22, 0], [600, 128, 460, 14, 1], [1290, 92, 560, 16, 2], [150, 430, 330, 12, 3], [1660, 196, 300, 10, 4], [1830, 380, 260, 9, 5]];
 const RIDGES = [[9, '#8a7aa8', '#1c1c46', 1, 46], [4.5, '#6a5c8a', '#14143a', 2, 30]];
 function sky(ctx, t, cam, n, st) {
-  const p6 = parCam(cam, 6), [, hy] = toScreen(p6, 0, HZ), [s0, s1, s2, s3] = skyCols(n), span = 900 * p6.z;
+  const lam = st.wide ? 1 - sm(clamp((cam.z - 1) / .6)) : 0;
+  const p6 = parCamH(cam, 6, lam), [, hy] = toScreen(p6, 0, HZ), [s0, s1, s2, s3] = skyCols(n), span = 900 * p6.z;
   const g = ctx.createLinearGradient(0, hy - span, 0, hy);
   g.addColorStop(0, s0); g.addColorStop(.55, s1); g.addColorStop(.85, s2); g.addColorStop(1, s3);
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
@@ -1454,7 +1519,7 @@ function sky(ctx, t, cam, n, st) {
   }
   // far ridges on the horizon (two layers), a mist at their feet
   for (const [k, cd, cn, sd, amp] of RIDGES) {
-    const pc = parCam(cam, k), col = mixH(cd, cn, n);
+    const pc = parCamH(cam, k, lam), col = mixH(cd, cn, n);
     ctx.beginPath(); let first = true;
     for (let x = -700; x <= 2620; x += 14) {
       const e = Math.abs(x - 960) / 960, hgt = amp * (.35 + .65 * clamp(e * 1.2)) * (.55 + .45 * fbm(x * .0042 + sd * 9)) + 10 * fbm(x * .021 + sd * 4);
@@ -1562,8 +1627,7 @@ export function drawHill(ctx, t, cam, st = {}) {
   T = t; ST = st;
   const n = clamp(st.night ?? .5), z = cam.z;
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over'; ctx.imageSmoothingEnabled = true;
-  sky(ctx, t, cam, n, st);
-  waterBase(ctx, cam, n);
+  if (st.sky !== false) { sky(ctx, t, cam, n, st); waterBase(ctx, cam, n); }
   ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-cam.x, -cam.y);
   const [vx0, vy0] = toWorld(cam, -40, -40), [vx1, vy1] = toWorld(cam, W + 40, H + 40);
   VB = [vx0, vy0, vx1, vy1]; Z = z; setN(n); setTint(CX, HZ);
@@ -1597,7 +1661,7 @@ function live(ctx, t, cam, n, st) {
   if (st.garden && st.garden.draw) { const g = SPECIAL.garden, m = ctx.getTransform(); ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); const sx = m.a * g.x + m.e, sy = m.d * g.y + m.f; ctx.beginPath(); ctx.rect(sx, sy, m.a * g.w, m.d * (g.ground - g.y)); ctx.clip(); st.garden.draw(ctx, sx, sy, m.a * g.w, m.d * (g.ground - g.y), t); ctx.restore(); }
   // halos round lit windows and open doors
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
-  const ga = (.07 + .12 * n) * (1 - .85 * sm(clamp((Z - 1.6) / 4)));
+  const ga = (.07 + .12 * n) * (1 - .85 * sm(clamp((Z - 1.6) / 4))) * (st.haloFix ? 1 - sm(clamp((Z - 3) / 3)) : 1);
   if (ga > .004) for (let lv = 0; lv < 5; lv++) for (const w of WINDOWS[lv]) {
     if (!inVB(w.x - 10, w.y - 10, w.x + w.w + 10, w.y + w.h + 10)) continue;
     if (ST.inside && ST.inside.level === lv && ST.inside.id === w.id) continue;
@@ -1627,8 +1691,13 @@ function live(ctx, t, cam, n, st) {
   // people (standing, sitting, perched; nobody walks)
   const pp = st.people ?? 0;
   if (pp > 0) for (const p of PEOPLE) {
-    if (p.door ? !(dO > .3 && pp >= p.th) : pp < p.th + .02) continue;
+    if (p.door ? (st.doorFolk ? !(doorU(p.door, dO) >= .6 && pp >= p.th) : !(dO > .3 && pp >= p.th)) : pp < p.th + .02) continue;
     if (!inVB(p.x - 12, p.y - 14, p.x + 14, p.y + 3)) continue;
+    person(ctx, p, t, n);
+  }
+  // st.doorFolk: a neighbour on every other quay doorstep too, each stepping out as its own door opens
+  if (st.doorFolk && pp > 0 && dO > 0) for (const p of DOORFOLK) {
+    if (doorU(p.door, dO) < .6 || !inVB(p.x - 12, p.y - 14, p.x + 14, p.y + 3)) continue;
     person(ctx, p, t, n);
   }
   if ((st.summitFigs ?? 0) > 0) SUMMIT_FIGS.forEach((f, i) => { if (st.summitFigs * 3 > i + .02) person(ctx, { ...f, y: HILL.standY, s: .046, hair: 'short', acc: i === 1 ? '#7a5a7a' : null, part: 'coat' }, t, n); });
@@ -1699,17 +1768,29 @@ function fogLive(ctx, t, n, st) {
 }
 function buildLive(ctx, t, n, b) {
   // the reveal front rises from the quay to the summit; above it the hill is still dark (opaque ink, not transparent)
-  const ue = clamp((b - .35) / .65), yf = mix(812, 186, ue), soft = 46;
+  // (st.buildFix: the front starts below the water line, so at build ≤ .35 nothing of the town shows, not even the quay's lowest lights)
+  const fix = !!ST.buildFix, ue = clamp((b - .35) / .65), yf = mix(fix ? 868 : 812, 186, ue), soft = 46;
   ctx.save(); polyP(ctx, OUTLINE); ctx.clip();
   const g = ctx.createLinearGradient(0, yf - soft, 0, yf + soft * .2); g.addColorStop(0, 'rgba(7,8,24,1)'); g.addColorStop(1, 'rgba(7,8,24,0)');
   ctx.fillStyle = 'rgb(7,8,24)'; ctx.fillRect(VB[0], VB[1], VB[2] - VB[0], yf - soft - VB[1]);
   ctx.fillStyle = g; ctx.fillRect(VB[0], yf - soft, VB[2] - VB[0], soft * 1.2);
   ctx.restore();
+  // st.buildFix: the reflection stays dark where the hill is still dark (the same front, mirrored about the water line)
+  if (fix && VB[3] > HZ) {
+    ctx.save(); ctx.beginPath(); ctx.rect(VB[0], HZ, VB[2] - VB[0], VB[3] - HZ + 10); ctx.clip();
+    ctx.translate(0, 2 * HZ); ctx.scale(1, -1); polyP(ctx, OUTLINE); ctx.clip();
+    const gm = ctx.createLinearGradient(0, yf - soft, 0, yf + soft * .2); gm.addColorStop(0, 'rgba(8,9,26,.94)'); gm.addColorStop(1, 'rgba(8,9,26,0)');
+    ctx.fillStyle = 'rgba(8,9,26,.94)'; ctx.fillRect(VB[0], -4000, VB[2] - VB[0], yf - soft + 4000);
+    ctx.fillStyle = gm; ctx.fillRect(VB[0], yf - soft, VB[2] - VB[0], soft * 1.2);
+    ctx.restore();
+  }
   // the amber line: draws itself along the silhouette, then cools into the hill's rim as the terraces fill
-  const uo = clamp(b / .35), N = Math.max(2, Math.floor(OUTLINE.length * uo)), cool = clamp((b - .5) / .5);
+  // (st.buildFix: nothing at build 0, and the cooled rim fades out over build .8 → 1 instead of vanishing at 1)
+  if (fix && b <= 0) return;
+  const uo = clamp(b / .35), N = Math.max(2, Math.floor(OUTLINE.length * uo)), cool = clamp((b - .5) / .5), fade = fix ? 1 - sm(clamp((b - .8) / .2)) : 1;
   ctx.save(); ctx.lineJoin = 'round'; ctx.lineCap = 'round';
   for (const [wd, al] of [[10, .08], [4.5, .2], [1.8, .9]]) {
-    ctx.strokeStyle = rgba(mixH('#ffb35c', '#8a7aa8', cool), al * (1 - cool * .85)); ctx.lineWidth = wd / Z * (wd > 2 ? 1 : 1.4);
+    ctx.strokeStyle = rgba(mixH('#ffb35c', '#8a7aa8', cool), al * (1 - cool * .85) * fade); ctx.lineWidth = wd / Z * (wd > 2 ? 1 : 1.4);
     ctx.beginPath(); for (let i = 0; i < N; i++) i ? ctx.lineTo(OUTLINE[i][0], OUTLINE[i][1]) : ctx.moveTo(OUTLINE[i][0], OUTLINE[i][1]); ctx.stroke();
   }
   ctx.restore();
@@ -1742,16 +1823,25 @@ function labels(ctx, t, cam, st) {
       const { lv, L, isF, size, ax, ay, ly, u } = it; if (u <= .01) continue;
       ctx.save(); ctx.font = `400 ${size}px "Instrument Serif"`; const tw = ctx.measureText(L.label).width;
       const lx = Math.min(HILL.labelX, 1840 - tw);
-      const on = Math.max((st.lit || [])[lv] ?? 0, swl.includes(lv) ? st.sweep.u : 0) > .5, amber = isF && (st.focusU ?? 0) > 0;
+      let litL = Math.max((st.lit || [])[lv] ?? 0, swl.includes(lv) ? st.sweep.u : 0);
+      if (st.sweeps) for (const sw of st.sweeps) if (sw && sw.level === lv) litL = Math.max(litL, sw.u ?? 0);
+      const on = litL > .5, amber = isF && (st.focusU ?? 0) > 0;
+      // st.labelBlend: the colours follow the terrace's light smoothly instead of switching at .5
+      const kb = st.labelBlend ? sm(clamp((litL - .3) / .4)) : on ? 1 : 0;
+      const cLead = amber ? '#ffb35c' : st.labelBlend ? mixH('#a49fc4', '#e8dcc0', kb) : on ? '#e8dcc0' : '#a49fc4';
+      const cDot = amber ? '#ffb35c' : st.labelBlend ? mixH('#a49fc4', '#f3efe2', kb) : on ? '#f3efe2' : '#a49fc4';
+      const cText = st.labelBlend ? mixH('#a49fc4', '#f3efe2', kb) : on ? '#f3efe2' : '#a49fc4';
       // the leader runs from the terrace to the near end of the label (never through the text)
       const ex = ax > lx + tw * .5 ? lx + tw + 12 : lx - 14, ey = ly - size * .3, lu = clamp(u / .35), tu = clamp((u - .25) / .75);
-      ctx.strokeStyle = rgba(amber ? '#ffb35c' : on ? '#e8dcc0' : '#a49fc4', .7); ctx.lineWidth = 1.1;
+      ctx.strokeStyle = rgba(cLead, .7); ctx.lineWidth = 1.1;
       ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(mix(ax, ex, lu), mix(ay, ey, lu)); ctx.stroke();
-      ctx.fillStyle = rgba(amber ? '#ffb35c' : on ? '#f3efe2' : '#a49fc4', .9 * lu); ctx.beginPath(); ctx.arc(ax, ay, 2.4, 0, TAU); ctx.fill();
+      // st.dotSolid (or st.buildFix): the dot grows out of the leader's start at full strength instead of fading in
+      if (st.dotSolid || st.buildFix) { ctx.fillStyle = rgba(cDot, .9); ctx.beginPath(); ctx.arc(ax, ay, 2.4 * sm(lu), 0, TAU); ctx.fill(); }
+      else { ctx.fillStyle = rgba(cDot, .9 * lu); ctx.beginPath(); ctx.arc(ax, ay, 2.4, 0, TAU); ctx.fill(); }
       if (tu > 0) {
         ctx.beginPath(); ctx.rect(lx - 6, ly - size, (tw + 12) * tu, size * 1.4); ctx.clip();
         ctx.shadowColor = 'rgba(6,6,20,.85)'; ctx.shadowBlur = 14;
-        ctx.fillStyle = on ? '#f3efe2' : '#a49fc4'; ctx.textBaseline = 'alphabetic'; ctx.fillText(L.label, lx, ly);
+        ctx.fillStyle = cText; ctx.textBaseline = 'alphabetic'; ctx.fillText(L.label, lx, ly);
       }
       ctx.restore();
     }

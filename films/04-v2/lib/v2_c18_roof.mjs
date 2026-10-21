@@ -46,7 +46,7 @@ function block(ctx, t, cam, B, S) {
     }
   }
   if (cam.y > yT && path3(ctx, cam, [[B.x0, yT, B.z0], [B.x1, yT, B.z0], [B.x1, yT, B.z1], [B.x0, yT, B.z1]])) { ctx.fillStyle = css(mix3(tri(['#252a52', '#4e4470', '#a08490'], L), hz, k)); ctx.fill(); ctx.strokeStyle = css(mix3(tri(['#3c427a', '#9c84a0', '#e8c0a8'], L), hz, k), .6); ctx.lineWidth = Math.max(.5, Math.min(1.5, px * .3)); ctx.stroke(); }
-  if (B.tank && px > .6) tank(ctx, cam, cx + 2, yT, cz + 2, mix3(tri(['#141838', '#2c2848', '#5a4458'], L), hz, k), L);
+  if (B.tank && px > .6) tank(ctx, cam, cx + 2, yT, cz + 2, mix3(tri(['#141838', '#2c2848', '#5a4458'], L), hz, k), L, tri(['#39407a', '#f4b49c', '#ffe4bc'], L), .5);
 }
 // the near rim's ground and its edge (seen from above)
 function rimGround(ctx, cam, S) {
@@ -95,7 +95,7 @@ export function drawRoof(ctx, t, cam, S) {
   const prop = tri(['#16142a', '#2e2640', '#54404e'], L), rim = tri(['#4a5677', '#d8a8a0', '#ffe2b8'], L);
   boxP(ctx, cam, 2.2, 5.2, 13.2, 15.4, 0, .95, prop, rim, L);
   boxP(ctx, cam, 8.3, 8.75, 6.3, 6.75, 0, 1.6, prop, rim, L); boxP(ctx, cam, 8.15, 8.9, 6.15, 6.9, 1.6, 1.75, prop, rim, L);
-  tank(ctx, cam, -5.2, 0, 15.6, prop, L);
+  tank(ctx, cam, -5.2, 0, 15.6, prop, L, rim, .5);
   ctx.strokeStyle = css(prop); ctx.lineWidth = Math.max(.6, cam.f / Math.max(1, cs(cam, 10.6, 3, 17.5)[2]) * .06); line3(ctx, cam, [[10.6, 0, 17.5], [10.6, 7.5, 17.5]]); ctx.stroke();
   // the parapet: four walls (inner faces toward the deck), the coping on top
   parapet(ctx, t, cam, S);
@@ -143,11 +143,11 @@ export function parapet(ctx, t, cam, S) {
   }
 }
 // "here": the rim's ground, the district and your tower, back to front; you(ctx) is drawn right after your tower
-export function drawHere(ctx, t, cam, S, you) {
+export function drawHere(ctx, t, cam, S, you, onRoof) {
   if (cam.y > G.rimY) rimGround(ctx, cam, S);
   const list = NEAR_B.map((B) => ({ B, d: cs(cam, (B.x0 + B.x1) / 2, B.y0 + B.h / 2, (B.z0 + B.z1) / 2)[2] })).filter((e) => e.d > NEAR);
   list.push({ B: null, d: Math.max(NEAR * 2, cs(cam, (ROOFB.x0 + ROOFB.x1) / 2, -10, (ROOFB.z0 + ROOFB.z1) / 2)[2]) });
   list.sort((a, b) => b.d - a.d);
-  for (const { B } of list) { if (B) block(ctx, t, cam, B, S); else { drawRoof(ctx, t, cam, S); if (you) you(ctx); } }
+  for (const { B } of list) { if (B) block(ctx, t, cam, B, S); else { drawRoof(ctx, t, cam, S); if (onRoof) onRoof(ctx); if (you) you(ctx); } }
 }
 export { rimGround };

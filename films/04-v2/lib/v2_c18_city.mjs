@@ -4,16 +4,43 @@
 // light when the burin's network reaches them (S.wave), and their windows flare gold when the morning sun floods them (S.flare).
 //   DIST (district centres), TOWERS, towerLit(T, S), drawTower(ctx, t, cam, T, S), tank()
 import { W, H, clamp, mix, rgba, prng } from '../engine.mjs';
-import { cs, toScr, NEAR, path3, line3, mixRGB, css, mix3, hash } from './v2_c18_kit.mjs';
+import { cs, toScr, NEAR, path3, line3, mixRGB, css, mix3, hash, smoothPath } from './v2_c18_kit.mjs';
 import { G, farEdge, plainY, fogC, hazeRGB, tri } from './v2_c18_land.mjs';
 
 // A sits straight ahead (the aqueduct from the left horizon ends in it); D and F lie along the aqueduct (it passes them by), the IF seal
 // rises behind D; B, C, E, N wait on the right, back-lit by the sunrise.
 export const DIST = { A: [-40, -770], B: [250, -640], C: [430, -1010], D: [-440, -1180], E: [760, -1520], F: [-980, -1960], N: [150, -1420], M: [-230, -1650] };
 // the corridors that stay free: the branch from A's castellum to the bridge's landing on the far rim, the bridge axis itself
+const segDist = (px, pz, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], u = clamp(((px - a[0]) * dx + (pz - a[1]) * dz) / (dx * dx + dz * dz)); return Math.hypot(px - a[0] - u * dx, pz - a[1] - u * dz); };
 export const CASTELLUM = [-92, -748];
 export const LANDING = [59.2, -226.9];
-const segDist = (px, pz, a, b) => { const dx = b[0] - a[0], dz = b[1] - a[1], u = clamp(((px - a[0]) * dx + (pz - a[1]) * dz) / (dx * dx + dz * dz)); return Math.hypot(px - a[0] - u * dx, pz - a[1] - u * dz); };
+// the aqueduct of 3.02 (from the left horizon into A), the network the burin draws (18.05), the line to you (bridge + far branch)
+export const AQ_CTRL = [[-5200, -10500], [-3600, -7200], [-2300, -4600], [-1300, -2700], [-700, -1600], [-330, -1060], [-160, -830], CASTELLUM];
+export const NODE = {
+  A: CASTELLUM, B: [250, -640], C: [430, -1010], E: [760, -1520], N: [150, -1420], M: [-230, -1650], D: [-440, -1180], F: [-980, -1960],
+  t1: [330, -2350], t2: [900, -4000], t3: [1800, -7000], sun: [3190, -12000], t5: [1500, -2050], t6: [2500, -3400], t7: [3800, -5400], t16: [5600, -8600],
+  t9: [-800, -2700], t10: [-1900, -4000], t11: [-3200, -5900], t13: [-4600, -8600], t15: [-500, -6400], t14: [-2300, -8300], t18: [900, -9000],
+};
+const AQP = smoothPath(AQ_CTRL, 24);
+const nearOn = (P, p) => { let best = null, bd = 1e9; for (const q of P) { const d = Math.hypot(q[0] - p[0], q[1] - p[1]); if (d < bd) { bd = d; best = q.slice(); } } return best; };
+NODE.aqD = nearOn(AQP, NODE.D); NODE.aqF = nearOn(AQP, NODE.F);
+export const LINE_DEF = [
+  { id: 'trunk', n: ['A', 'N', 't1', 't2', 't3', 'sun'], burin: true },
+  { id: 'right', n: ['A', 'B', 'C', 'E', 't5', 't6', 't7', 't16'] },
+  { id: 'left', n: ['A', 'M', 't9', 't10', 't11', 't13'] },
+  { id: 'mid', n: ['t2', 't15', 't14'] },
+  { id: 'far', n: ['t3', 't18'] },
+  { id: 'spurD', n: ['aqD', 'D'], at: 'D' }, { id: 'spurF', n: ['aqF', 'F'], at: 'F' },
+];
+for (const L of LINE_DEF) L.path = smoothPath(L.n.map((k) => NODE[k]), 24);
+const BDIR = [Math.sin(.253), -Math.cos(.253)];
+export const BR_CTRL = (() => {
+  const B0 = [.6, -.36], P = []; for (let s = 0; s <= 234; s += 6) P.push([B0[0] + BDIR[0] * s, B0[1] + BDIR[1] * s]);
+  const tail = smoothPath([[B0[0] + BDIR[0] * 222, B0[1] + BDIR[1] * 222], LANDING.map((v, i) => v + BDIR[i] * 8), [LANDING[0] + BDIR[0] * 70, LANDING[1] + BDIR[1] * 70], [40, -470], [-20, -640], CASTELLUM], 8);
+  return { B0, pts: P.slice(0, -1).concat(tail.slice(1)) };
+})();
+const CORRIDORS = [AQP, BR_CTRL.pts, ...LINE_DEF.map((L) => L.path)];
+const polyDist = (P, x, z) => { let d = 1e9; for (let i = 1; i < P.length; i++) d = Math.min(d, segDist(x, z, P[i - 1], P[i])); return d; };
 export const TOWERS = (() => {
   const r = prng(2024), out = [];
   const TOPS = ['flat', 'flat', 'setback', 'crown', 'slant', 'setback', 'flat'];
@@ -30,7 +57,7 @@ export const TOWERS = (() => {
   return out.filter((T) => {
     const cx = (T.x0 + T.x1) / 2, cz = (T.z0 + T.z1) / 2, rad = Math.max(T.x1 - T.x0, T.z1 - T.z0) / 2;
     if (cz > farEdge(cx) - 40) return false;
-    if (segDist(cx, cz, CASTELLUM, [20, -480]) < 26 + rad || segDist(cx, cz, [20, -480], LANDING) < 26 + rad) return false;   // the branch to you
+    for (const P of CORRIDORS) if (polyDist(P, cx, cz) < 18 + rad) return false;   // the aqueducts run through streets
     if (Math.hypot(cx - CASTELLUM[0], cz - CASTELLUM[1]) < 16 + rad) return false;
     return true;
   });

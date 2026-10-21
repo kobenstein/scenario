@@ -76,14 +76,14 @@ export function drawFar(ctx, t, cam, S, items) {
     if (path3(ctx, cam, P)) ctx.fill();
   }
   // the far items (hills, towns, the network's far parts), sorted far → near
-  const list = [];
-  HILLPTS.forEach((pts, k) => list.push({ z: HILLS[k].z, draw: () => hill(ctx, t, cam, S, pts, HILLS[k]) }));
+  const list = [], dep = (x, y, z) => cs(cam, x, y, z)[2];
+  HILLPTS.forEach((pts, k) => list.push({ d: dep(cam.x, 0, HILLS[k].z), draw: () => hill(ctx, t, cam, S, pts, HILLS[k]) }));
   for (const it of items || []) list.push(it);
   // the contour lines between the hills (one item per band, so a hill covers the lines behind it)
-  for (let i = 0; i < CONT.length; i++) { const d = CONT[i]; list.push({ z: farEdge(0) - d, draw: () => contour(ctx, t, cam, S, d, i) }); }
-  for (const F of FIELDS) list.push({ z: F[0][2], draw: () => field(ctx, cam, S, F) });
-  list.sort((a, b) => a.z - b.z);
-  for (const it of list) it.draw();
+  for (let i = 0; i < CONT.length; i++) { const d = CONT[i]; list.push({ d: dep(cam.x, G.farY, farEdge(0) - d), draw: () => contour(ctx, t, cam, S, d, i) }); }
+  for (const F of FIELDS) { const d = dep(F[0][0], F[0][1], F[0][2]); if (d > NEAR) list.push({ d, draw: () => field(ctx, cam, S, F) }); }
+  list.sort((a, b) => b.d - a.d);
+  for (const it of list) it.draw(ctx);
 }
 function hill(ctx, t, cam, S, pts, h) {
   const L = S.L, d = Math.abs(h.z - cam.z), hz = hazeRGB(L), k = fogK(d, L);
