@@ -26,7 +26,7 @@
 //                                                    the ring flattens into one flat amber line; the glass goes the plate's night blue
 // plates: in = glass c04>c05 (the plate is the mirror's own surface, glued to the glass at the camera of H.b; the pull-back leaves it);
 //         out = line (amber) c05>c06 (the glass fills the frame; its ground becomes the plate's ground; the ring IS the plate's line at H.a).
-// ambience: amb hall. Requests: a single soft heartbeat accent (used 'drop' for now).
+// ambience: amb hall. A single soft heartbeat accent (sfx heartbeat, since Fassung 1).
 import { W, H, rgba, clamp, lin, mix, sm, eout, drift, addGlow } from '../engine.mjs';
 import { canvas } from '../engine.mjs';
 import { handsOf } from '../lib/handoff4.mjs';
@@ -162,6 +162,6 @@ export default async (T, R) => {
     { t: C4.start - 1.6, tr: 'cut', d: .1, print: P, draw: frame, sound: [{ f: 'whoosh_up', t: tQuestionE + .07, v: .35 }] },
     { t: tThats - .05, tr: 'cut', d: .1, print: P, draw: frame },
     { t: tMaps - .05, tr: 'cut', d: .1, print: HO.print, draw: frame, sound: [{ f: 'pages', t: tConvE + .03, v: .35 }, { f: 'gust', t: tProofsE + .04, v: .35 }] },
-    { t: tCan, tr: 'cut', d: .1, print: HO.print, draw: frame, sound: [{ f: 'drop', t: tBack + .55, v: .4 }] },
+    { t: tCan, tr: 'cut', d: .1, print: HO.print, draw: frame, sound: [{ f: 'heartbeat', t: tBack + .55, v: .5 }] },
   ];
 };

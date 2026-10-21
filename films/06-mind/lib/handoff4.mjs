@@ -56,13 +56,17 @@ export const HAND = {
 };
 const PRINT = { light: { riso: .2, halftone: .6 }, paper: { riso: .25 }, sky: { riso: .3 }, line: { riso: .25 }, glass: { riso: .3 } };
 
+// F6_TSHIFT (s): only when a re-rendered head is spliced onto parts rendered on a later time base (Fassung 3: the new hook is 14 s
+// shorter, the parts after the c01>c02 plate are the Fassung 2 files, so F6_TSHIFT=14 for the new head). The slow absolute-time life
+// (the plates here, cameraFloat in film.mjs) then runs on the old clock and the frame at the splice equals the old part's first frame.
+export const TSHIFT = +(process.env.F6_TSHIFT || 0);
 let _R = null;
 export function hand(key, T, RANGES) {
   const Hd = HAND[key]; if (!Hd) throw new Error('hand: unknown boundary ' + key);
   const R = RANGES || (_R && _R.T === T ? _R.R : (_R = { T, R: chunkRanges(T) }).R);
   const inc = key.split('>')[1], t = R[inc].first + Hd.at, a = t - Hd.w / 2, b = t + Hd.w / 2;
   return { key, kind: Hd.kind, t, a, b, o: Hd.o, note: Hd.note, print: Hd.print || PRINT[Hd.kind] || { riso: .3 },
-    plate: (ctx, tt) => plate(ctx, tt, Hd.kind, Hd.o) };
+    plate: (ctx, tt) => plate(ctx, tt + TSHIFT, Hd.kind, Hd.o) };
 }
 export function handsOf(id, T) {
   const k = Object.keys(HAND);

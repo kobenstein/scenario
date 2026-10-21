@@ -11,7 +11,7 @@ CLIP_IN, CLIP_OUT = 0.7, 0.6                 # air before / after a clip
 GAP_SECTION, GAP_SUB = 1.8, 0.9
 GAP_AFTER = {'00a': 2.2, '01b': 2.0, '02d': 2.0, '03c': 2.0, '04b': 2.0, '05a': 2.2, '06a': 2.2}  # Film 6: air after the hook and between the movements
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
-BREATH = [('06a', 'choose?', 'Path', 2.2), ('08a', 'of.', 'Intelligence', .5), ('00a', 'there?', 'Even', .4), ('07b', 'second.', '', 0)]
+BREATH = [('06a', 'choose?', 'Path', 2.2), ('08a', 'of.', 'Intelligence', .5), ('07b', 'second.', '', 0)]
 def dur(f): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).decode())
 def cuts(sid, mp3, W):
     """[(cut time, extra seconds)] for this take, cut at the quietest 10 ms frame between the two words"""

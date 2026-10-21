@@ -21,11 +21,23 @@ def split(ws):
         c += 40 if len(R) < 3 or len(L) < 3 else 0
         if c < best: best, bi = c, k
     return split(ws[:bi]) + split(ws[bi:])
+# hand-made breaks where the balanced split would cut a phrase (Film 6 hook, Fassung 3): sentence text -> cue texts, same words in order
+BREAKS = {
+    'The artificial intelligence you talk to is very probably not conscious.': ['The artificial intelligence', 'you talk to is very probably', 'not conscious.'],
+    'Anthropic lets its artificial intelligence hang up on people who keep being abusive.': ['Anthropic lets', 'its artificial intelligence', 'hang up on people', 'who keep being abusive.'],
+}
+def pieces(snt):
+    k = ' '.join(x['w'] for x in snt)
+    if k not in BREAKS: return split(snt)
+    out, i = [], 0
+    for p in BREAKS[k]: n = len(p.split()); out.append(snt[i:i + n]); i += n
+    assert i == len(snt) and [' '.join(x['w'] for x in c) for c in out] == BREAKS[k], k
+    return out
 sents, cur = [], []
 for i, w in enumerate(W):
     cur.append(w); nxt = W[i + 1] if i + 1 < len(W) else None
     if not nxt or re.search(r'[.?!]["”]?$', w['w']) or nxt['s'] - w['e'] > .45 or nxt['sec'] != w['sec']: sents.append(cur); cur = []
-cues = [[c[0]['s'], c[-1]['e'], fix(' '.join(x['w'] for x in c))] for snt in sents for c in split(snt)]
+cues = [[c[0]['s'], c[-1]['e'], fix(' '.join(x['w'] for x in c))] for snt in sents for c in pieces(snt)]
 # interview clips: real wording with phrase timings from the clip transcript (clips.json "cues", seconds from clip start);
 # quote cards show the words on screen, so no subtitle for them
 import os

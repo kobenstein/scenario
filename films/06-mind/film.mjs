@@ -15,7 +15,7 @@ import { Film, W, H, drift } from './engine.mjs';
 import { timing, prepareClips, ROOT } from './lib/kit.mjs';
 import { filmFinish } from './lib/print.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
-import { HAND, hand } from './lib/handoff4.mjs';
+import { HAND, hand, TSHIFT } from './lib/handoff4.mjs';
 
 export { ROOT };
 // Chunk table (/mnt/project-files/scenario/film-06-mind/bild/shots.md §3). from = candidate anchors [segment or section, first phrase of the
@@ -103,7 +103,7 @@ export async function build({ timingFile = TIMING } = {}) {
     return { a: i ? a : 0, b, draw: e.draw, sec: e.sec, sound: e.sound, print: e.print, out: nx ? { kind: 'cut' } : { kind: 'black' }, _start: e.t };
   });
   for (let i = 1; i < shots.length; i++) shots[i].a = Math.min(shots[i].a, shots[i - 1].b - .01);
-  const film = new Film(shots, { grainAmt: .045, finish: filmFinish, float: cameraFloat });
+  const film = new Film(shots, { grainAmt: .045, finish: filmFinish, float: TSHIFT ? (t) => cameraFloat(t + TSHIFT) : cameraFloat });   // F6_TSHIFT: lib/handoff4.mjs
   film.T = T;
   film.ranges = RANGES;
   film.prepare = (t) => prepareClips(T, t);

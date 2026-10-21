@@ -169,7 +169,7 @@ export default async (T, R) => {
   const [, g0] = canvas(); draw(g0, HI.b + .6); draw(g0, tP1 + 2); draw(g0, tPicture + 3); draw(g0, tEnd - .4); await ready();
   const A = (t, sound, print = HI.print) => ({ t, tr: 'cut', d: .1, print, draw, sound });
   return [
-    A(HI.b, [{ f: 'pages', t: R.first - .3, v: .35 }]),
+    A(HI.b, [{ f: 'pages', t: R.first - .3, v: .35 }, { f: 'brush', t: tS1, v: .3 }, { f: 'brush', t: tS2, v: .3 }]),   // the two brush strokes of 10.03
     A(tP1 - .25, [{ f: 'whoosh_airy', t: tP1 - .2, v: .3 }]),
     A(tFinding - .2, []),
     A(tAwayE + .05, [{ f: 'swell', t: tAwayE + .2, v: .4 }, { f: 'whoosh', t: tP2 - .14, v: .3 }]),
