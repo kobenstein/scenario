@@ -47,7 +47,7 @@ export default async (T, R) => {
   const t0 = HI.b, tEnd = HO.a - 1 / 30;
   // ---- the beats (from words)
   const tTurn = C.end + .35, tMirror = C.end + .95, tHeart = A.please - .05, tCardIn = A.thats - .1, tCardOut = A.praise2 + .02;
-  const tDark = A.honest + .05, tClear = tDark + .5, tWipe = A.pretends - .05, tWrite = A.very - .15, tPull = A.sister + .4, tOn = A.every - .1, tWarm = A.every + .15, tDawn = A.every + .25;
+  const tDark = A.honest + .05, tClear = tDark + .5, tWipe = A.pretends - .05, tWrite = A.very - .15, tPull = A.sister + .4, tOn = A.every - .75, tWarm = A.every - .02, tDawn = A.every + .08;
   const PW = PANE.w, PH = PANE.h;
   // ---- the camera (world focus + zoom), quart between keys; the global float is added by film.mjs
   const KEYS = [
@@ -98,7 +98,7 @@ export default async (T, R) => {
       // 3 · the compliments round the reflected head (12.05): cool lines with foil glints, light on the glass, they go with the mirror
       if (mirror > 0 && t > A.thats - .2) local((q) => {
         q.globalAlpha = mirror; const [hx, hy] = reflHead, Rr = 150, gl = 1.2 * sm(lin(A.praised - .2, A.praised + .3, t));
-        [[-165, 170], [-128, 200], [-92, 170], [-56, 200], [-20, 160], [200, 180], [232, 150]].forEach(([deg, w], i) => {
+        [[-168, 170], [-62, 190], [-26, 160], [12, 150], [198, 180], [232, 150]].forEach(([deg, w], i) => {
           const an = deg * Math.PI / 180, cx = hx + Math.cos(an) * Rr * 1.5, cyy = hy + Math.sin(an) * Rr;
           coolText(q, t, { x: cx - w / 2, y: cyy - 10, w, size: 15, lines: 1, t0: A.thats + i * .22, cps: 12, seed: 120 + i, cursor: false, ripple: true, lengths: [.95], lineH: 24, a: .95, glint: gl });
         });
@@ -107,10 +107,10 @@ export default async (T, R) => {
     // 4 · the painted-on heart: brushed on at "please", wiped away by the cool line at "pretends to feel"
     if (t > tHeart) local((q) => {
       const u = eout(lin(tHeart, tHeart + .7, t)), wu = quartIO(lin(tWipe, tWipe + .95, t)), wx = wu > 0 ? mix(-PW / 2 - 60, PW / 2 + 60, wu) : null;
-      if (wx == null || wx < 110 + 120) paintedHeart(q, 110, -150, 1, { u, wipeX: wx });
+      if (wx == null || wx < 200 + 120) paintedHeart(q, 200, -165, 1, { u, wipeX: wx });
       if (wu > 0 && wu < 1) {
         // the squeegee: the cool line runs down the glass and moves across; a wet smear of paint right behind it that dries in a few px
-        if (wx > 110 - 130 && wx < 110 + 130) { q.save(); q.beginPath(); q.rect(wx - 26, -PH / 2, 26, PH); q.clip(); paintedHeart(q, 110, -150, 1, { u: 1, a: .22 }); q.restore(); }
+        if (wx > 200 - 130 && wx < 200 + 130) { q.save(); q.beginPath(); q.rect(wx - 26, -PH / 2, 26, PH); q.clip(); paintedHeart(q, 200, -165, 1, { u: 1, a: .22 }); q.restore(); }
         coolLine(q, t, { from: [wx, -PH / 2 - 10], to: [wx, PH / 2 + 10], u: 1, head: false, w: 1.5, glow: .9, ticks: false });
         addGlow(q, wx, -60, 180, .14, F6.cool, F6.coolCore);
       }
@@ -176,7 +176,7 @@ export default async (T, R) => {
     // 6 · the dawn swells out of the big screen until it fills the frame (screen space)
     if (t > tDawn) {
       const m = camMap(cam, 1), rect = [m.X(PANE.x - PW / 2), m.Y(PANE.y - PH / 2), PW * m.k, PH * m.k];
-      closingLight12(ctx, t, { rect, u: quartIO(lin(tDawn, tEnd - .06, t)), inner: lin(tEnd - .4, tEnd - 1 / 30, t), plate: HO.plate });
+      closingLight12(ctx, t, { rect, u: -(Math.cos(Math.PI * lin(tDawn, tEnd - .05, t)) - 1) / 2, inner: lin(tEnd - .45, tEnd - 1 / 30, t), plate: HO.plate });
     }
   };
 

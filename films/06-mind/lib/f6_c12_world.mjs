@@ -32,7 +32,7 @@ export const PANE = { x: 820, y: 440, w: 1180, h: 1180 * H / W, radius: 0 };    
 export const ZFILL = W / PANE.w;
 export const FIG = { x: 1480, feet: 905, s: 1.9, seed: 12 };                        // the researcher, standing in front of the bench, facing the pane
 export const BENCH = { far: 740, top: 800, front: 830, bottom: 905 };   // far edge of the top face, its near edge, the front face
-export const CARDP = { x: 290, y: 140 };                                           // where the comment card hangs (figure plane)
+export const CARDP = { x: 250, y: 140 };                                           // where the comment card hangs (figure plane)
 // the other screens (the companies): on the bench (plane 1) and on the far wall (plane .85); each switches on with the honest line at the end
 export const SMALL = [
   { x: -80, y: 640, w: 440, h: 247.5, plane: 1, seed: 41, stand: true },
@@ -234,15 +234,16 @@ export function closingLight12(ctx, t, o) {
   const u = clamp(o.u); if (u <= 0) return;
   const [x, y, w, h] = o.rect, cx = x + w / 2, cy = y + h / 2;
   const [pc, pg] = once('c12plate', () => canvas(W, H)), [mc, mg] = once('c12mask', () => canvas(W, H));
-  const ri = mix(1.0, 4.2, u), soft = .5, inner = clamp(o.inner ?? ((u - .78) / .22));
+  // the light spills out of the screen as a bloom: a wide, soft falloff that grows until its core covers the frame (never a disc)
+  const ri = mix(.25, 4.6, u), soft = .6 + ri * 1.3, a0 = sm(clamp(u / .14)), inner = clamp(o.inner ?? ((u - .78) / .22));
   mg.setTransform(1, 0, 0, 1, 0, 0); mg.globalCompositeOperation = 'source-over'; mg.globalAlpha = 1; mg.clearRect(0, 0, W, H);
   mg.save(); mg.translate(cx, cy); mg.scale(w / 2 * 1.02, h / 2 * 1.02);
-  const rg = mg.createRadialGradient(0, 0, 0, 0, 0, ri + soft); rg.addColorStop(0, 'rgba(0,0,0,1)'); rg.addColorStop(ri / (ri + soft), 'rgba(0,0,0,1)'); rg.addColorStop(1, 'rgba(0,0,0,0)');
-  mg.fillStyle = rg; mg.fillRect(-6, -6, 12, 12); mg.restore();
+  const rg = mg.createRadialGradient(0, 0, 0, 0, 0, ri + soft); rg.addColorStop(0, 'rgba(0,0,0,1)'); rg.addColorStop(ri / (ri + soft), 'rgba(0,0,0,1)'); rg.addColorStop(ri / (ri + soft) + (1 - ri / (ri + soft)) * .35, 'rgba(0,0,0,.55)'); rg.addColorStop(ri / (ri + soft) + (1 - ri / (ri + soft)) * .7, 'rgba(0,0,0,.18)'); rg.addColorStop(1, 'rgba(0,0,0,0)');
+  mg.fillStyle = rg; mg.fillRect(-8, -8, 16, 16); mg.restore();
   mg.globalCompositeOperation = 'destination-out'; mg.fillStyle = '#000'; mg.beginPath(); mg.rect(x, y, w, h); mg.fill();
   mg.globalCompositeOperation = 'source-over'; mg.fillStyle = `rgba(0,0,0,${inner})`; mg.beginPath(); mg.rect(x, y, w, h); mg.fill();
   pg.setTransform(1, 0, 0, 1, 0, 0); pg.globalCompositeOperation = 'source-over'; pg.globalAlpha = 1; pg.clearRect(0, 0, W, H);
   const ko = Math.pow(1 - u, 1.5); pg.save(); pg.translate((cx - W / 2) * ko, (cy - H / 2) * ko); o.plate(pg, t); pg.restore();
   pg.globalCompositeOperation = 'destination-in'; pg.drawImage(mc, 0, 0);
-  ctx.drawImage(pc, 0, 0);
+  ctx.save(); ctx.globalAlpha = a0; ctx.drawImage(pc, 0, 0); ctx.restore();   // the light grows out of the screen's edge: no first-frame pop
 }
