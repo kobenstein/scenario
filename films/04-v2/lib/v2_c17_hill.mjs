@@ -21,7 +21,7 @@ export const YOU = [0, hillH(0, 0), 0];
 const FAR = [
   { key: 'b1', z: 2200, x0: -2800, x1: 640, top: '#1a1940', bot: '#211f4a', rim: '#9aa6d4', ra: .28, seed: 21, h: (X, n) => 14 + 46 * Math.pow(n(X * .0021, .4), 1.6) + 10 * n(X * .011, 1.7) },
   { key: 'b2', z: 760, x0: -1300, x1: 420, top: '#131232', bot: '#18173c', rim: '#7e8ab8', ra: .24, seed: 23, h: (X, n) => 4 + 22 * Math.pow(n(X * .006, .2), 1.8) },
-].map((Ly) => ({ ...Ly, h: (X, n) => Ly.h(X, (a, b) => { let s = 0, w = .5, f = 1, tt = 0; for (let o = 0; o < 4; o++) { s += w * n(a * f, b * f); tt += w; w *= .5; f *= 2.03; } return s / tt; }) }));
+].map((Ly) => ({ ...Ly, h: (X, n) => smooth01(Ly.x0, Ly.x0 + .25 * (Ly.x1 - Ly.x0), X) * (1 - smooth01(Ly.x1 - .3 * (Ly.x1 - Ly.x0), Ly.x1 - 20, X)) * Ly.h(X, (a, b) => { let s = 0, w = .5, f = 1, tt = 0; for (let o = 0; o < 4; o++) { s += w * n(a * f, b * f); tt += w; w *= .5; f *= 2.03; } return s / tt; }) }));
 const CITY = { z: 2300, x0: 800, x1: 1440, zc: -20, cx: 1110 };
 const BUILD = (() => { const r = prng(808), a = []; let X = CITY.x0;
   while (X < CITY.x1) { const w = 12 + r() * 30, c = Math.exp(-((X - CITY.cx) ** 2) / 20000), h = 8 + r() * 26 + (r() < .35 * c + .05 ? 50 + r() * 90 * c : 0); a.push({ X, w, h, g: Math.floor(r() * 6), red: h > 70 && r() < .7 }); X += w + r() * 6; }

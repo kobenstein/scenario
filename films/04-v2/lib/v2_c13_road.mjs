@@ -64,8 +64,8 @@ export function roadCam(t, K) {
     return { ...c, f: c.f * z, ox: W / 2, oy: ay + (H / 2 - by) * z, _ay: ay, _z: z };
   }
   if (t > K.push0) {                                               // the fly into the lit window: exponential approach on a low arc, aim settles on the pane
-    const u = clamp((t - K.push0) / (K.cut - K.push0)), E = qio(u);
-    const dx = WIN.x - c.x, dy = WIN.y - c.y, dz = WIN.z - c.z, d0 = Math.hypot(dx, dy, dz), d1 = .3, d = d0 * Math.pow(d1 / d0, E), k = 1 - d / d0;
+    const u = clamp((t - K.push0) / (K.cut - K.push0)), E = qio(.8 * u) / qio(.8);   // still moving when the light closes over the frame (no hold)
+    const dx = WIN.x - c.x, dy = WIN.y - c.y, dz = WIN.z - c.z, d0 = Math.hypot(dx, dy, dz), d1 = .44, d = d0 * Math.pow(d1 / d0, E), k = 1 - d / d0;
     const x = c.x + dx * k, z = c.z + dz * k, y = c.y + dy * k + 1.5 * 4 * k * (1 - k) * Math.sqrt(1 - k);
     const ay = Math.atan2(WIN.x - x, WIN.z - z), ap = Math.atan2(WIN.y - y, Math.hypot(WIN.x - x, WIN.z - z)), w = smo(clamp(E * 1.7));
     return { x, y, z, yaw: mix(c.yaw, ay, w), pitch: mix(c.pitch, ap, w), f: F0, _d: d };

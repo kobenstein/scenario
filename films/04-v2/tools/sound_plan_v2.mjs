@@ -31,7 +31,7 @@ const AMB = [
   ['c14', 'nightsky', .4, 0, 4.4], ['c14', 'kitchen', .3, 4.4, 11.7], ['c14', 'lake', .35, 11.7, null],
   ['c15', 'mountain', .35, 0, 9], ['c15', 'nightsky', .35, 9, null],
   ['c16', 'nightsky', .35, 0, 14.5], ['c16', 'ward', .25, 14.5, 28.4], ['c16', 'nightsky', .35, 28.4, null],
-  ['c17', 'nightsky', .45, 0, null],
+  ['c17', 'nightsky', .4, 0, 10.6], ['c17', 'roof', .2, 7.7, 9.5], ['c17', 'hill', .35, 10.6, null], ['c17', 'city_night_hill', .22, 12.5, 24],
   ['c18', 'dawn_birds', .45, 0, null],
 ];
 for (const [id, f, v, a, b] of AMB) {

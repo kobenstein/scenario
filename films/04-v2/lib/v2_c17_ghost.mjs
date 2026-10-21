@@ -58,10 +58,10 @@ const NET = (() => {
 })();
 const MOTIFS = [
   { key: 'badge', lines: BADGE, size: .95, th: 3.24 },   // starts at your left, in front of you the whole time (never behind your head)
-  { key: 'tools', lines: TOOLS, size: .95, th: 3.24 + TAU * .2 },
-  { key: 'boat', lines: BOAT, size: .95, th: 3.24 + TAU * .4 },
-  { key: 'violin', lines: VIOLIN, size: .9, th: 3.24 + TAU * .6 },
-  { key: 'net', lines: NET, size: .95, th: 3.24 + TAU * .8 },
+  { key: 'tools', lines: TOOLS, size: .95, th: 3.24 + 1.17 },   // phases chosen so that, while the camera is close (≈ "everything I"),
+  { key: 'boat', lines: BOAT, size: .95, th: 3.24 + 2.37 },    // nobody hides straight behind you: badge, net, tools in front,
+  { key: 'violin', lines: VIOLIN, size: .9, th: 3.24 + 4.95 }, // the boat at your right, the violin at your left
+  { key: 'net', lines: NET, size: .95, th: 3.24 + .57 },
 ].map((m) => ({ ...m, lines: m.lines.map((L) => { let len = 0; for (let i = 1; i < L.length; i++) len += Math.hypot(L[i][0] - L[i - 1][0], L[i][1] - L[i - 1][1]); return resample(L, clamp(Math.round(len / .012), 4, 160)); }) }));
 
 // the state of motif j at time t: orbit angle, radius, height, draw-on, ghost, smoke

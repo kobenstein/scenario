@@ -47,8 +47,8 @@ function vt(K) {
   const CK = [[V.piv, [12, 1.2, 7], 90, -89.99, 1250], [V.up1, [13.35, 2.2, -.06], [24, 2.6, 8.6], 1250], [V.s1e, [14.5, 2.2, .8], [24, 2.6, 8.6], 1250],
     [V.s2, [7, 11, -7], [2, 6, 34], 1250], [V.s3, [1, 5.6, 18.5], [1, 8.6, 34], 1250], [V.s3e, [1.3, 5.5, 19.4], [1.3, 8.5, 34], 1250],
     [V.s4, [16.6, 5.4, 21.5], [16.9, 5.2, 31], 1250], [V.s4e, [16.9, 5.3, 21.1], [17.2, 5.1, 31], 1250], [V.s5m, [17.4, 4.4, 12.5], [17.8, 3.0, 25], 1160],
-    [V.s5, [18, 1.6, 3.4], [18, 1.04, 14], 1100], [V.s5e, [18.2, 1.6, 3.5], [18.2, 1.04, 14], 1100], [V.s6, [13.35, 2.2, -.06], [24, 2.6, 8.6], 1250],
-    [V.tilt0, [13.3, 2.2, -.1], [24, 2.6, 8.6], 1250], [V.tilt1, [13.2, 2.25, -.2], 46, 62, 1250]]
+    [V.s5, [16.2, 1.6, 3.4], [15.4, 1.04, 14], 1100], [V.s5e, [16.4, 1.6, 3.5], [15.6, 1.04, 14], 1100], [V.s6, [13.35, 2.2, -.06], [24, 2.6, 8.6], 1500],
+    [V.tilt0, [13.3, 2.2, -.1], [24, 2.6, 8.6], 1500], [V.tilt1, [13.0, 6.2, -.4], 46, 62, 1250]]
     .map((k) => { if (Array.isArray(k[2])) { const p = k[1], q = k[2], dx = q[0] - p[0], dy = q[1] - p[1], dz = q[2] - p[2]; return [k[0], p, Math.atan2(dx, dz) / DEG, Math.atan2(dy, Math.hypot(dx, dz)) / DEG, k[3]]; } return k; });
   const ch = (f) => mono(CK.map((k) => [k[0], f(k)]));
   V.cam = { x: ch((k) => k[1][0]), y: ch((k) => k[1][1]), z: ch((k) => k[1][2]), yaw: ch((k) => k[2]), pitch: ch((k) => k[3]), f: ch((k) => k[4]) };
@@ -189,12 +189,16 @@ function ropeState(t, V) {   // θ (out over the water +), ψ (the stick turning
   const th = A0 * Math.sin(OM * (t - S.t0)); return { th: t < S.rel ? th : th * Math.exp(-(t - S.rel) / 3), ps: t < S.rel ? 0 : .3 * Math.sin(2 * (t - S.rel)) * smr(S.rel, S.rel + .5, t) };
 }
 function rope(ctx, P, F, upto) {
-  const { th, ps } = ropeState(F.t, F.V), s = seatAt(th), a = P(...SWP), b = P(...(upto || s)); if (a[2] < .5 || b[2] < .5) return;
+  const { th } = ropeState(F.t, F.V), s = seatAt(th), a = P(...SWP), b = P(...(upto || s)); if (a[2] < .5 || b[2] < .5) return;
   const fg = fogD(a[2]);
   ctx.strokeStyle = col('#c8b48a', .8, fg); ctx.lineWidth = Math.max(1.2, .028 * b[3]); ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
   ctx.strokeStyle = col('#3a2c24', .3, fg); ctx.lineWidth = Math.max(1.5, .06 * a[3]); ctx.beginPath(); ctx.moveTo(a[0], a[1] - .05 * a[3]); ctx.lineTo(a[0], a[1] + .1 * a[3]); ctx.stroke();   // the wrap round the limb
-  const sd = [Math.cos(ps) * .23, 0, Math.sin(ps) * .23], p1 = P(s[0] - sd[0], s[1], s[2] - sd[2]), p2 = P(s[0] + sd[0], s[1], s[2] + sd[2]);
-  ctx.strokeStyle = col('#6a4a30', .6, fg); ctx.lineWidth = Math.max(2, .045 * b[3]); ctx.beginPath(); ctx.moveTo(p1[0], p1[1]); ctx.lineTo(p2[0], p2[1]); ctx.stroke();
+  // the seat: a wooden disc on a knot (reads from every side, unlike a stick seen end-on)
+  const cr = [Math.cos(F.cam.yaw) * .16, 0, -Math.sin(F.cam.yaw) * .16], p1 = P(s[0] - cr[0], s[1], s[2] - cr[2]), p2 = P(s[0] + cr[0], s[1], s[2] + cr[2]);
+  const rx = Math.max(2.5, Math.hypot(p2[0] - p1[0], p2[1] - p1[1]) / 2), ry = Math.max(1.4, rx * .34), cx = (p1[0] + p2[0]) / 2, cy = (p1[1] + p2[1]) / 2, an = Math.atan2(p2[1] - p1[1], p2[0] - p1[0]), dk = Math.max(1.2, .045 * b[3]);
+  ctx.fillStyle = col('#4a3020', .5, fg); ctx.beginPath(); ctx.ellipse(cx, cy + dk, rx, ry, an, 0, TAU); ctx.fill(); ctx.fillRect(cx - rx, cy, rx * 2, dk);
+  ctx.fillStyle = col('#9a7048', .75, fg); ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, an, 0, TAU); ctx.fill();
+  ctx.fillStyle = col('#3a2c24', .3, fg); ctx.beginPath(); ctx.ellipse(cx, cy - ry * .2, Math.max(1.2, rx * .2), Math.max(1.2, rx * .26), 0, 0, TAU); ctx.fill();
 }
 const KSIT = { hip: [1.3, 1.4], kn: [1.25, 1.35], sh: [2.75, 2.55], el: [.35, .5], lean: -.05, head: -.12 };
 const KFLY = { hip: [1.95, 1.8], kn: [2.25, 2.1], sh: [2.95, 2.6], el: [.15, .25], lean: .1, head: -.05 };
