@@ -13,16 +13,19 @@
 // 18.05★| Or it could reach every … Earth | the burin swoops in, draws the aqueduct on from A to the     | sun crests on       | crane to the wide, high view
 //       |                                 | horizon (the sun crests on "every"), lines branch to every   | "every"; the towns  | of the land
 //       |                                 | town, the towns light in a wave                              |                     |
-// 18.06 | That part is still wide open    | the far branch ends ragged over the gap; the burin sketches  | the dotted line     | descend to the gap behind
-//       |                                 | the dotted ghost of the next stretch across the valley to    |                     | your roof
-//       |                                 | your parapet (on "open") and lands on your coping            |                     |
+// 18.06 | That part is still wide open    | the far branch ends ragged over the gap; the burin sketches  | the dotted line     | descend from the high view to
+//       |                                 | the dotted ghost of the next stretch (its two lips and the   |                     | behind and above your roof
+//       |                                 | centre line) across the valley to your parapet (on "open"),  |                     |
+//       |                                 | then lands on your coping (pause)                            |                     |
 // 18.07 | … wake up to that day           | the sun rises fully; the morning light floods the towns'     | the sun             | drift down, gaze up to the
 //       |                                 | windows (gold wave from the horizon toward you)              |                     | horizon
 // 18.08 | You don't have to               | you at the edge of the gap, standing; the burin beside you   | rim light on you    | come close behind-right
 // 18.09★| You want to                     | you take up the burin (pause), on "want" you push it: the    | the engraved line   | hold, slight pull back
-//       |                                 | dotted line turns solid, the stone unrolls under it          |                     |
-// 18.10 | So how … to there?              | wide and high: the half-built bridge reaching toward the     | sun + flowing       | rises and drifts to the last
-//       | (562.6–end music)               | sunrise, lights waiting at the far broken end                | lights              | frame (alive, no fade, no text)
+//       |                                 | dotted line turns solid, the walk spreads out of the line    |                     |
+//       |                                 | (low walls rise), the stone unrolls down under it            |                     |
+// 18.10 | So how … to there?              | wide and high, off the bridge's axis: your stretch, the open | sun + flowing       | rises, drifts right and back
+//       | (after "there": music)          | gap with its dotted line, the far broken end with its        | lights              | to the last frame (still moving
+//       |                                 | waiting lights, the land, the sunrise, the IF seal above     |                     | then: alive, no fade, no text)
 // In: plate c17>c18 (sky, deep): at H.b the frame IS HI.plate (drawn directly), then the same stars are re-projected through the moving
 // camera. Out: none — the film ends on this image. Sound (in pauses): foil_glint (the seal glints after "still there."), whoosh_airy (the
 // burin swoops in), tick (the burin lands on the coping after "open."), clink (you take it up), shimmer_rings (the stretch stands after
@@ -56,7 +59,7 @@ export default async (T, R) => {
     { t: K.but, cam: { x: .5, y: 1.52, z: 2.7, az: .052, pitch: .03, f: 1700 } },
     { t: K.but + 1.0, cam: { x: 1.4, y: 2.6, z: -4, az: .0, pitch: .0, f: 2300 } },
     { t: K.shared, cam: { x: 1.8, y: 3.2, z: -9, az: -.02, pitch: -.005, f: 2700 } },
-    { t: K.shared + .9, cam: { x: 60, y: 4, z: -14, az: .3, pitch: -.01, f: 2500 } },
+    { t: K.shared + .9, cam: { x: 40, y: 4, z: -14, az: .17, pitch: -.01, f: 2500 } },   // the truck to the dark districts (one calm move)
     { t: K.few, cam: { x: 30, y: 30, z: 60, az: .12, pitch: -.06, f: 1800 } },
     { t: K.or, cam: { x: -20, y: 80, z: 160, az: .06, pitch: -.12, f: 1500 } },
     { t: K.every, cam: { x: -60, y: 150, z: 280, az: .05, pitch: -.16, f: 1350 } },
@@ -131,38 +134,33 @@ export default async (T, R) => {
   // ---------------------------------------------------------------- the frame
   const draw = (ctx, t) => {
     if (t < K.a + 1 / 60) { HI.plate(ctx, t); return; }
-    const PR = globalThis.__c18prof, tick = (k) => { if (!PR) return; ctx.getImageData(0, 0, 1, 1); const n = performance.now(); PR[k] = (PR[k] || 0) + n - PR._t; PR._t = n; }; if (PR) { ctx.getImageData(0, 0, 1, 1); PR._t = performance.now(); }
     const c = cam(t), S = state(t), sunE = sunEl(t);
     const sealEl = mix(-.09, .075, span(t, K.that - .4, K.stillE + .2, eoX)) + .0012 * (t - K.a);
     const sealGl = clamp((t - K.stillE) / .7);
     const sk = drawSky(ctx, t, c, { L: S.L, stars: S.stars, t0: K.a, cam0, sun: { az: .26, el: sunE }, sunA: 1, sunRing: clamp((t - K.every + .3) / 1.2),
       seal: { az: -.36, el: sealEl, r: .072, pale: .42 + .3 * clamp(S.L - .45), paleCol: '#f1e6d8', ring: 1, halo: 1, glint: sealGl > 0 && sealGl < 1 ? sealGl : null } });
-    tick('sky');
     // the land and everything out there, far → near
     const items = netItems(t, c, S, NC);
-    for (const T0 of TOWERS) { const d = cs(c, (T0.x0 + T0.x1) / 2, T0.y0 + T0.h * .3, (T0.z0 + T0.z1) / 2)[2]; if (d > NEAR) items.push({ d, tw: true, cat: 'tower', draw: (g) => drawTower(g, t, c, T0, S) }); }
-    for (const B0 of LOW) { const d = cs(c, (B0.x0 + B0.x1) / 2, B0.y0 + B0.h * .5, (B0.z0 + B0.z1) / 2)[2]; if (d > NEAR) items.push({ d, low: true, cat: 'low', draw: (g) => drawLow(g, t, c, B0, S) }); }
-    const SK = (globalThis.process?.env?.C18SKIP || '').split(',');
-    tick('items');
-    drawFar(ctx, t, c, S, SK.includes('far') ? [] : items.filter((it) => !(SK.includes('towns') && it.town) && !(SK.includes('aq') && it.arc === 'aq') && !(SK.includes('net') && it.arc === 'net') && !(SK.includes('tw') && it.tw) && !(SK.includes('low') && it.low)));
-    tick('far');
-    if (!SK.includes('glow')) skyGlow(ctx, t, c, S, sk); tick('glow');
-    if (!SK.includes('valley')) drawValley(ctx, t, c, S); tick('valley');
+    for (const T0 of TOWERS) { const d = cs(c, (T0.x0 + T0.x1) / 2, T0.y0 + T0.h * .3, (T0.z0 + T0.z1) / 2)[2]; if (d > NEAR) items.push({ d, draw: (g) => drawTower(g, t, c, T0, S) }); }
+    for (const B0 of LOW) { const d = cs(c, (B0.x0 + B0.x1) / 2, B0.y0 + B0.h * .5, (B0.z0 + B0.z1) / 2)[2]; if (d > NEAR) items.push({ d, draw: (g) => drawLow(g, t, c, B0, S) }); }
+    drawFar(ctx, t, c, S, items);
+    skyGlow(ctx, t, c, S, sk);
+    drawValley(ctx, t, c, S);
     // the line to you over the valley: your stretch (engraved, the stone unrolling), the far side's broken end
     const vb = [], hz = hazeRGB(S.L);
     if (S.branch > 0) for (const it of arcadeItems(t, c, BR, { L: S.L, hz, lit: S.branchLit, walk: true, s0: S_BREAK - 1, s1: S_LAND, broken: S_BREAK, drop: () => clamp(S.branch * 3 - 2) })) vb.push(it);
-    if (S.yours > 0) for (const it of arcadeItems(t, c, BR, { L: S.L, hz, lit: 0, walk: true, s0: 0, s1: S.yours, drop: (b) => clamp(S.yoursDrop * 1.8 - b.i * .3) })) vb.push(it);
-    if (!SK.includes('vb')) { vb.sort((p, q) => q.d - p.d); for (const it of vb) it.draw(ctx); }
-    tick('vb');
-    if (!SK.includes('mist')) drawMist(ctx, t, c, S); tick('mist');
-    if (!SK.includes('lights')) netLights(ctx, t, c, S, NC); tick('lights');
-    if (!SK.includes('ghost')) ghostStretch(ctx, t, c, S, { sketch: S.ghostSketch, solid: S.yours }); tick('ghost');
-    if (SK.includes('here')) return;
+    // your stretch grows out of the engraved line: the walk spreads sideways from it, its low walls rise, the stone unrolls down
+    const spread = sio(clamp((t - K.want - .1) / .7));
+    if (S.yours > 0 && spread > 0) for (const it of arcadeItems(t, c, spread < 1 ? { ...BR, wd: BR.wd * spread } : BR, { L: S.L, hz, lit: 0, walk: true, wallH: .6 * spread, s0: 0, s1: S.yours, drop: (b) => clamp(S.yoursDrop * 1.8 - b.i * .3) })) vb.push(it);
+    vb.sort((p, q) => q.d - p.d); for (const it of vb) it.draw(ctx);
+    drawMist(ctx, t, c, S);
+    netLights(ctx, t, c, S, NC);
+    ghostStretch(ctx, t, c, S, { sketch: S.ghostSketch, solid: S.yours });
     // here: the near rim, your roof, the burin on the coping, you
     const B = burinState(t, c, S), A3 = armPose(t);
     const onRoof = (g) => { if (B && B.rest && !(A3 && A3.held)) restBurin(g, t, c, B.land); };
     const youDraw = (g) => drawYou(g, t, c, S, A3, sk);
-    drawHere(ctx, t, c, S, (g) => { tick('here0'); youDraw(g); tick('you'); }, onRoof); tick('here1');
+    drawHere(ctx, t, c, S, youDraw, onRoof);
     if (B && !B.rest) bigBurin(ctx, t, B);
   };
   // the burin lying on the coping (it settles with a small rock as it lands)
@@ -175,8 +173,8 @@ export default async (T, R) => {
   // you: the sprite at your feet, scaled to the camera; the arm and the burin projected from 3D into figure units
   function drawYou(g, t, c, S, A3, sk) {
     const f3 = cs(c, YOU.x, 0, YOU.z); if (f3[2] < .3) return;
-    const ft = toScr(c, f3), q = c.f / f3[2], s = q * 1.78 / 1000;
-    if (s * 1000 < 8 || ft[0] < -600 * s - 50 || ft[0] > W + 600 * s + 50) return;
+    const ft = toScr(c, f3), q = c.f / f3[2], s = q * 1.78 / 1000, h3 = cs(c, YOU.x, 1.85, YOU.z), hd = h3[2] > NEAR ? toScr(c, h3) : null;
+    if (s * 1000 < 8 || s > 2.6 || ft[0] < -600 * s - 50 || ft[0] > W + 600 * s + 50 || (hd && hd[1] > H + 40 && ft[1] > H + 40)) return;   // too small, out of frame (or right under the lens)
     const ca = Math.cos(c.az), sa = Math.sin(c.az), cp = Math.cos(c.pitch), sp = Math.sin(c.pitch);
     const Rv = [ca, 0, sa], Uv = [-sa * sp, cp, ca * sp], U = 1000 / 1.78;
     const fu = (P, O) => { const v = [P[0] - O[0], P[1] - O[1], P[2] - O[2]]; return [(v[0] * Rv[0] + v[2] * Rv[2]) * U, -(v[0] * Uv[0] + v[1] * Uv[1] + v[2] * Uv[2]) * U]; };
@@ -197,7 +195,7 @@ export default async (T, R) => {
   const snd = (f, t, v) => ({ f, t, v });
   return [
     { t: HI.b, tr: 'cut', d: .1, print: HI.print, draw, sound: [snd('foil_glint', K.stillE + .02, .5)] },
-    { t: K.or - .2, tr: 'cut', d: .1, print: HI.print, draw, sound: [snd('whoosh_airy', K.or - .14, .45)] },
+    { t: K.or - .2, tr: 'cut', d: .1, print: HI.print, draw, sound: [snd('whoosh_airy', K.or - .1, .45)] },   // in the gap after "few"
     { t: K.openE, tr: 'cut', d: .1, print: HI.print, draw, sound: [snd('tick', tLand, .55), snd('clink', K.dontE + .3 + .78, .4)] },
     { t: K.wantE, tr: 'cut', d: .1, print: HI.print, draw, sound: [snd('shimmer_rings', K.wantE + .04, .5), snd('whoosh_up', K.so - .25, .3)] },
   ];

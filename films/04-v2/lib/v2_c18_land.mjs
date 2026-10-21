@@ -105,7 +105,7 @@ function hill(ctx, t, cam, S, pts, h) {
 function contour(ctx, t, cam, S, d, i) {
   const L = S.L, k = fogK(d, L), a = .22 * (1 - k) * clamp(1.4 - i / 40);
   if (a < .01) return;
-  const n = 90, pts = [];
+  const n = 60, pts = [];
   for (let j = 0; j <= n; j++) { const th = (-80 + 160 * j / n) * Math.PI / 180, x = cam.x + Math.tan(th) * (d + 200), z = farEdge(x) - d - 6 * Math.sin(x * .004 + i); pts.push([x, plainY(x, z) + .2, z]); }
   ctx.strokeStyle = css(mix3(tri(['#2a2c5c', '#6a5878', '#c39a8c'], L), [0, 0, 0], .1), a); ctx.lineWidth = .8; line3(ctx, cam, pts); ctx.stroke();
 }

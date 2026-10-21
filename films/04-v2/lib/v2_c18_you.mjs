@@ -11,7 +11,8 @@ import { rgba, clamp, mix, prng, canvas } from '../engine.mjs';
 import { once } from './v2_c18_kit.mjs';
 
 const BUF = new Map();
-function buf(key, w, h) { if (!BUF.has(key)) BUF.set(key, canvas(w, h)); const [c, g] = BUF.get(key); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; g.clearRect(0, 0, w, h); return [c, g]; }
+function buf(key, w, h) { if (!BUF.has(key)) { if (BUF.size >= 9) BUF.delete(BUF.keys().next().value); BUF.set(key, canvas(w, h)); } const [c, g] = BUF.get(key);   // a few recent sizes only (three buffers a size)
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; g.clearRect(0, 0, w, h); return [c, g]; }
 function mkHatch() {   // one engraved diagonal hatch, drawn once at a fixed size and scaled into the figure's box
   const w = 900, h = 1200, [c, g] = canvas(w, h), r = prng(11), gap = 4.2;
   g.strokeStyle = '#000'; g.lineCap = 'round';

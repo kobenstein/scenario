@@ -56,19 +56,19 @@ export const LINE_LIST = LINES;
 export function netItems(t, cam, S, NC) {
   const items = [], hz = hazeRGB(S.L), base = { L: S.L, hz };
   // the old aqueduct (lit: the light flows into A)
-  for (const it of arcadeItems(t, cam, AQ, { ...base, lit: 1 })) items.push({ ...it, arc: 'aq', cat: 'aq' });
+  for (const it of arcadeItems(t, cam, AQ, { ...base, lit: 1 })) items.push(it);
   items.push({ d: cs(cam, CASTELLUM[0], TOP, CASTELLUM[1])[2], draw: (ctx) => castellum(ctx, t, cam, S) });
   // the network, as far as the burin has drawn it: the stone unrolls down from the engraved line behind the front
   for (const Ln of LINES) {
     const f = NC.front(Ln.id, t); if (f <= .5) continue;
     const drop = (b) => clamp((f - b.s1) / 220 + .05) ** .8;
-    for (const it of arcadeItems(t, cam, Ln.A, { ...base, lit: clamp((t - NC.line[Ln.id].t0 - .3) / .6), s1: f, drop })) items.push({ ...it, arc: 'net', cat: 'net' });
+    for (const it of arcadeItems(t, cam, Ln.A, { ...base, lit: clamp((t - NC.line[Ln.id].t0 - .3) / .6), s1: f, drop })) items.push(it);
   }
   // the line to you: the far branch (from A's castellum back to its broken end), your stretch
   const fb = S.branch ?? 0;   // 0..1 how far the far branch is drawn (from the castellum toward the gap); its valley part is drawn by the scene
   if (fb > 0) { const sF = mix(BR.len, S_BREAK, fb); for (const it of arcadeItems(t, cam, BR, { ...base, lit: S.branchLit ?? 0, walk: true, s0: Math.max(sF, S_LAND), s1: BR.len, drop: (b) => clamp((b.s0 - sF) / 50 + .15) })) items.push(it); }
   // towns
-  for (const T of TOWNS) { const c = cs(cam, T.x, plainY(T.x, T.z), T.z); if (c[2] < NEAR) continue; items.push({ d: c[2], town: true, cat: 'town', draw: (ctx) => town(ctx, t, cam, S, T, NC.townLit(T, t), c) }); }
+  for (const T of TOWNS) { const c = cs(cam, T.x, plainY(T.x, T.z), T.z); if (c[2] < NEAR) continue; items.push({ d: c[2], draw: (ctx) => town(ctx, t, cam, S, T, NC.townLit(T, t), c) }); }
   return items;
 }
 // the castellum: a round water tower where the aqueduct ends, its lantern lit

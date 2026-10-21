@@ -27,7 +27,7 @@ const side3 = (A, s, sd, y) => { const [x, z, dx, dz] = A.at(s), nx = -dz, nz = 
 const archPts = (A, sd, o0, o1, foot, crown, n = 12) => { const r = (o1 - o0) / 2, ys = crown - r, h = [side3(A, o0, sd, foot)]; for (let k = 0; k <= n; k++) { const an = Math.PI - k / n * Math.PI; h.push(side3(A, (o0 + o1) / 2 + Math.cos(an) * r, sd, ys + Math.sin(an) * r)); } h.push(side3(A, o1, sd, foot)); return { pts: h, o0, o1, r, ys, foot }; };
 // one bay's face (side sd): the solid outline and its openings (lower tier, the middle tier over deep ground, the small upper arches)
 function bayFace(A, b, sd, nA = 12) {   // static geometry: cached on the bay per side and arch resolution
-  const C = b._face || (b._face = {}), key = sd * 100 + nA; if (C[key]) return C[key];
+  const C = b._face || (b._face = {}), key = sd * 100 + nA + '|' + A.wd; if (C[key]) return C[key];
   const { pw, top, up } = A, s0 = b.s0, s1 = b.s1, gy = b.gy, yc = top - up, o0 = s0 + pw / 2, o1 = s1 - pw / 2;
   const outer = [side3(A, s0, sd, top), side3(A, s1, sd, top), side3(A, s1, sd, gy - 4), side3(A, s0, sd, gy - 4)];
   const holes = [], three = A.midY != null && gy < A.midY - 14;
@@ -72,7 +72,7 @@ export function drawBay(ctx, t, cam, A, b, o) {
     if (!path3(ctx, cam, P)) { ctx.restore(); return; } ctx.clip();
   }
   // the inner faces seen through the openings (jambs and soffits): the band between the front and the back outline
-  if (px > 18) {
+  if (px > 30) {
     ctx.fillStyle = css(dark);
     for (const h of F.holes) {
       const back = h.pts.map((p, i) => { const n = h.pts.length - 3, s = i === 0 ? h.o0 : i === h.pts.length - 1 ? h.o1 : (h.o0 + h.o1) / 2 + Math.cos(Math.PI - (i - 1) / n * Math.PI) * h.r; return side3(A, s, -sd, p[1]); });
@@ -88,15 +88,15 @@ export function drawBay(ctx, t, cam, A, b, o) {
     const det = clamp((px - 22) / 40) * (1 - k);
     ctx.save(); ctx.beginPath(); path3(ctx, cam, F.outer, true); for (const h of F.holes) path3(ctx, cam, h.pts, true); ctx.clip('evenodd');
     ctx.strokeStyle = css(mix3(st, [5, 6, 20], .7), .34 * det); ctx.lineWidth = .8; ctx.beginPath();
-    const step = Math.max(px > 120 ? 1.1 : px > 50 ? 1.6 : 2.6, (A.top - b.gy) / 44, 4.5 * (b.s1 - b.s0) / px), jr = Math.max(4, Math.floor(260 / Math.ceil((b.s1 - b.s0) / 2.6)));   // ≤ 44 courses, ≤ ~260 joints a bay
+    const step = Math.max(px > 120 ? 1.1 : px > 50 ? 1.6 : 2.6, (A.top - b.gy) / 44, 6 * (b.s1 - b.s0) / px), jr = Math.max(4, Math.floor(260 / Math.ceil((b.s1 - b.s0) / 2.6)));   // ≤ 44 courses, ≤ ~260 joints a bay
     for (let y = A.top - 1; y > b.gy - 4; y -= step) line3(ctx, cam, [side3(A, b.s0, sd, y), side3(A, b.s1, sd, y)], true);
-    if (px > 60) for (let y = A.top - 1, r = 0; y > b.gy - 4 && r < jr; y -= step, r++) for (let s = b.s0 + (r % 2) * 1.3; s < b.s1; s += 2.6) line3(ctx, cam, [side3(A, s, sd, y), side3(A, s, sd, y - step)], true);
+    if (px > 110) for (let y = A.top - 1, r = 0; y > b.gy - 4 && r < jr; y -= step, r++) for (let s = b.s0 + (r % 2) * 1.3; s < b.s1; s += 2.6) line3(ctx, cam, [side3(A, s, sd, y), side3(A, s, sd, y - step)], true);
     ctx.stroke(); ctx.restore();
     const corn = [A.top - 1.6, A.top - A.up]; if (F.three) corn.push(A.midY);
     ctx.strokeStyle = css(mix3(st, [5, 6, 20], .8), .85); ctx.lineWidth = Math.min(3, px / 40); ctx.beginPath(); for (const y of corn) line3(ctx, cam, [side3(A, b.s0, sd, y), side3(A, b.s1, sd, y)], true); ctx.stroke();
     ctx.strokeStyle = css(mix3(stL, [200, 205, 240], .3), .4); ctx.lineWidth = 1.2; ctx.beginPath(); for (const y of corn) line3(ctx, cam, [side3(A, b.s0, sd, y + .3), side3(A, b.s1, sd, y + .3)], true); ctx.stroke();
     ctx.strokeStyle = css(mix3(st, [5, 6, 20], .7), .7 * det); ctx.lineWidth = .9; ctx.beginPath();
-    for (const h of F.holes) { if (h.tier === 2) continue; const m = (h.o0 + h.o1) / 2; for (let v = 0; v <= 11; v++) { const an = Math.PI - v / 11 * Math.PI; line3(ctx, cam, [side3(A, m + Math.cos(an) * h.r, sd, h.ys + Math.sin(an) * h.r), side3(A, m + Math.cos(an) * (h.r + 1.4), sd, h.ys + Math.sin(an) * (h.r + 1.4))], true); } }
+    if (px > 40) for (const h of F.holes) { if (h.tier === 2) continue; const m = (h.o0 + h.o1) / 2; for (let v = 0; v <= 11; v++) { const an = Math.PI - v / 11 * Math.PI; line3(ctx, cam, [side3(A, m + Math.cos(an) * h.r, sd, h.ys + Math.sin(an) * h.r), side3(A, m + Math.cos(an) * (h.r + 1.4), sd, h.ys + Math.sin(an) * (h.r + 1.4))], true); } }
     ctx.stroke();
   }
   // the top: the stone walk between two lips, the channel in its middle (dark; warm where the light flows), the lips catching the dawn
@@ -105,7 +105,7 @@ export function drawBay(ctx, t, cam, A, b, o) {
   if (path3(ctx, cam, q4(-1, 1, A.top))) { ctx.fillStyle = css(mix3(st, stL, .55)); ctx.fill(); }   // a low sun grazes the walk: it stays mid-dark, the lips catch it
   let yLip = A.top;
   if (o.walk) {   // the bridge one could cross: paved, with a low wall on each side (its cap catches the dawn)
-    const wh = .6, ti = 1 - .3 / (A.wd / 2), [mx2, mz2, ddx, ddz] = A.at((sT0 + sT1) / 2); yLip = A.top + wh;
+    const wh = o.wallH ?? .6, ti = Math.max(.2, 1 - .3 / (A.wd / 2)), [mx2, mz2, ddx, ddz] = A.at((sT0 + sT1) / 2); yLip = A.top + wh;
     if (px > 24) { ctx.strokeStyle = css(mix3(st, [5, 6, 20], .6), .32); ctx.lineWidth = Math.max(.6, Math.min(1.6, px / 120)); ctx.beginPath(); for (let s = Math.ceil(sT0 / 1.6) * 1.6; s < sT1; s += 1.6) line3(ctx, cam, [side3(A, s, -ti, A.top + .01), side3(A, s, ti, A.top + .01)], true); ctx.stroke(); }
     for (const w of [-sd, sd]) {   // the far wall first
       const sm2 = (sT0 + sT1) / 2, Pi = side3(A, sm2, w * ti, A.top), Po = side3(A, sm2, w, A.top), nx = -ddz * w, nz = ddx * w;   // n·w points outward
@@ -114,7 +114,7 @@ export function drawBay(ctx, t, cam, A, b, o) {
       if (cam.y > A.top + wh && path3(ctx, cam, q4(w * ti, w, A.top + wh))) { ctx.fillStyle = css(mix3(stL, stT, .55)); ctx.fill(); }
     }
     void mx2; void mz2;
-  } else if (px > 5 && path3(ctx, cam, q4(-.36, .36, A.top + .01))) { ctx.fillStyle = css(o.lit > 0 ? mix3(dark, [255, 150, 70], .32 * o.lit) : mix3(dark, st, .25)); ctx.fill(); }
+  } else if (px > 26 && path3(ctx, cam, q4(-.36, .36, A.top + .01))) { ctx.fillStyle = css(o.lit > 0 ? mix3(dark, [255, 150, 70], .32 * o.lit) : mix3(dark, st, .25)); ctx.fill(); }
   ctx.strokeStyle = css(mix3(stT, [255, 255, 255], .3), .75); ctx.lineWidth = Math.max(.6, Math.min(2, px / 30)); line3(ctx, cam, [side3(A, sT0, sd, yLip), side3(A, sT1, sd, yLip)]); ctx.stroke();
   if (px > 5) { ctx.strokeStyle = css(mix3(stT, [255, 255, 255], .2), .45); ctx.lineWidth = Math.max(.5, Math.min(1.4, px / 45)); line3(ctx, cam, [side3(A, sT0, -sd, yLip), side3(A, sT1, -sd, yLip)]); ctx.stroke(); }
   if (o.lit > 0) { ctx.strokeStyle = rgba('#ffb35c', .6 * o.lit); ctx.lineWidth = Math.max(.8, Math.min(3, px / 20)); line3(ctx, cam, [side3(A, sT0, 0, A.top + .15), side3(A, sT1, 0, A.top + .15)]); ctx.stroke(); }
@@ -166,7 +166,7 @@ export function arcadeItems(t, cam, A, o) {
     const px = cam.f / Math.max(NEAR, Math.hypot(c[0], c[2])) * A.bl;
     const sx = c[2] > NEAR ? toScr(cam, c)[0] : W / 2, off = sx < -px * 2 - 200 || sx > W + px * 2 + 200;
     if (off && c[2] > NEAR) { flush(); continue; }
-    if (px < 14 && c[2] > NEAR && o.broken == null) { run.push(b); if (run.length >= 24) flush(); continue; }
+    if (px < 18 && c[2] > NEAR && o.broken == null) { run.push(b); if (run.length >= 24) flush(); continue; }
     flush();
     out.push({ d: Math.max(NEAR, c[2]), draw: (ctx) => drawBay(ctx, t, cam, A, b, { ...o, brk: o.broken != null && o.broken > b.s0 && o.broken < b.s1 ? o.broken : null }) });
   }
