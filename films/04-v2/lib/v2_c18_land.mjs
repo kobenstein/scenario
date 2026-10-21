@@ -8,7 +8,7 @@ import { vnoise, fbm } from './art.mjs';
 import { TAU, cs, toScr, P3, NEAR, path3, line3, proj, mixRGB, css, mix3, ramp, hash, sio, horizonY } from './v2_c18_kit.mjs';
 
 // ---------------------------------------------------------------- geometry
-export const G = { coping: 1.05, roofY: 0, rimY: -34, valY: -112, farY: -30 };
+export const G = { coping: 1.05, roofY: 0, rimY: -34, valY: -95, farY: -30 };
 const NZ = vnoise(17);
 export const nearEdge = (x) => -0.6 + 5 * Math.sin(x * .013 + .4) * clamp((Math.abs(x) - 16) / 40);
 export const farEdge = (x) => -236 + 9 * Math.sin(x * .0047 + 1) + 5 * Math.sin(x * .017 + 2);
@@ -25,7 +25,8 @@ export function groundY(x, z) {
 export const HAZE = [[0, '#1e1c48'], [1, '#c4879a'], [2, '#f7c9a2']];
 export const hazeRGB = (L) => ramp(HAZE, L);
 // aerial perspective: how much of the haze a thing at distance d (m) takes
-export const fogK = (d, L) => clamp(1 - Math.exp(-d / mix(5200, 7800, clamp(L / 2))));
+export const fogK = (d, L) => clamp(1 - Math.exp(-d / mix(3300, 4800, clamp(L / 2))));
+export const fogC = fogK;
 // a colour of the stone/land family by light state: [night, dawn, morning-lit]
 export const tri = (c, L) => (L <= 1 ? mixRGB(c[0], c[1], L) : mixRGB(c[1], c[2], L - 1));
 const dist2 = (cam, x, z) => Math.hypot(x - cam.x, z - cam.z);
@@ -154,98 +155,3 @@ export function drawMist(ctx, t, cam, S, o = {}) {
   ctx.restore();
 }
 
-// ---------------------------------------------------------------- arcades (the 3.02 aqueduct in perspective)
-// path: [[x, z], …] polyline; o: { top (Y of the channel lip), ground(x, z), bay, pier, width, upper (height of the upper tier), small (3) }
-// → { len, at(s) → [x, z, dirx, dirz], bays: [{ s0, s1, …3D outlines… }] }
-export function arcade(path, o) {
-  const cum = [0]; for (let i = 1; i < path.length; i++) cum.push(cum[i - 1] + Math.hypot(path[i][0] - path[i - 1][0], path[i][1] - path[i - 1][1]));
-  const len = cum[cum.length - 1];
-  const at = (s) => { s = clamp(s, 0, len); let i = 1; while (i < cum.length - 1 && cum[i] < s) i++; const a = path[i - 1], b = path[i], q = (s - cum[i - 1]) / ((cum[i] - cum[i - 1]) || 1), dx = b[0] - a[0], dz = b[1] - a[1], l = Math.hypot(dx, dz) || 1; return [mix(a[0], b[0], q), mix(a[1], b[1], q), dx / l, dz / l]; };
-  const bay = o.bay, n = Math.max(1, Math.round(len / bay)), bl = len / n, pw = o.pier ?? bl * .2, wd = o.width ?? 5, top = o.top, up = o.upper ?? bl * .42;
-  const bays = [];
-  for (let i = 0; i < n; i++) {
-    const s0 = i * bl, s1 = s0 + bl, sm0 = (s0 + s1) / 2, [mx, mz] = at(sm0), gy = Math.min(o.ground(mx, mz), top - up - 4);
-    bays.push({ i, s0, s1, sm: sm0, gy, mx, mz });
-  }
-  return { len, at, bays, bl, pw, wd, top, up, small: o.small ?? 3, ground: o.ground };
-}
-// a point on the arcade: s along, side −1 left / +1 right face, y height
-const side3 = (A, s, sd, y) => { const [x, z, dx, dz] = A.at(s), nx = -dz, nz = dx; return [x + nx * sd * A.wd / 2, y, z + nz * sd * A.wd / 2]; };
-// the outline of one bay's face (side sd) as 3D polygons: the solid face (outer) and its openings (holes)
-function bayFace(A, b, sd) {
-  const { pw, top, up } = A, s0 = b.s0, s1 = b.s1, gy = b.gy, yc = top - up;   // yc = the cornice between the tiers
-  const outer = [side3(A, s0, sd, top), side3(A, s1, sd, top), side3(A, s1, sd, gy - 4), side3(A, s0, sd, gy - 4)];
-  const holes = [];
-  // lower tier: one tall opening between the piers, arch crown 2 m under the cornice
-  const o0 = s0 + pw / 2, o1 = s1 - pw / 2, r = (o1 - o0) / 2, ys = yc - 2 - r;
-  if (ys > gy + 1) { const h = [side3(A, o0, sd, gy - 4)]; for (let k = 0; k <= 12; k++) { const an = Math.PI - k / 12 * Math.PI; h.push(side3(A, (o0 + o1) / 2 + Math.cos(an) * r, sd, ys + Math.sin(an) * r)); } h.push(side3(A, o1, sd, gy - 4)); holes.push({ pts: h, lower: true, o0, o1, r, ys }); }
-  // upper tier: small arches
-  const n = A.small, sw = (s1 - s0) / n;
-  for (let j = 0; j < n; j++) {
-    const u0 = s0 + j * sw + sw * .2, u1 = s0 + (j + 1) * sw - sw * .2, rr = (u1 - u0) / 2, ys2 = top - 1.4 - rr, yb = yc + .6;
-    if (ys2 <= yb) continue;
-    const h = [side3(A, u0, sd, yb)]; for (let k = 0; k <= 8; k++) { const an = Math.PI - k / 8 * Math.PI; h.push(side3(A, (u0 + u1) / 2 + Math.cos(an) * rr, sd, ys2 + Math.sin(an) * rr)); } h.push(side3(A, u1, sd, yb));
-    holes.push({ pts: h, lower: false, o0: u0, o1: u1, r: rr, ys: ys2, yb });
-  }
-  return { outer, holes };
-}
-// which face of the arcade looks at the camera at s
-const faceSide = (A, cam, s) => { const [x, z, dx, dz] = A.at(s), nx = -dz, nz = dx; return (cam.x - x) * nx + (cam.z - z) * nz > 0 ? 1 : -1; };
-const STONE = ['#2c3060', '#5a4e78', '#9a7c8e'], STONE_L = ['#40467c', '#7c6890', '#c8a098'], STONE_TOP = ['#4b5188', '#b08a9c', '#f0c8a8'];
-// draw bay b of arcade A. o: { L, hz (haze rgb), lit 0..1 (amber channel), lip (lip colour mix), detail 0..1 (LOD), clipS [s0, s1] (only this
-// stretch exists: the broken end / growth), broken (loose blocks at the end) }
-export function drawBay(ctx, t, cam, A, b, o) {
-  const L = o.L, sd = faceSide(A, cam, b.sm), c = cs(cam, ...side3(A, b.sm, sd, (A.top + b.gy) / 2)); if (c[2] < NEAR) return;
-  const d = Math.hypot(c[0], c[2]), k = fogK(d, L) * (o.fogMul ?? 1), hz = o.hz, px = cam.f / c[2] * (b.s1 - b.s0);   // px = the bay's width on screen
-  if (px < .6) return;
-  const st = mix3(tri(STONE, L), hz, k), stL = mix3(tri(STONE_L, L), hz, k), stT = mix3(tri(STONE_TOP, L), hz, k), dark = mix3(mix3(tri(['#1b1e42', '#2e2a50', '#4e3e58'], L), hz, k), [0, 0, 0], .1);
-  const F = bayFace(A, b, sd);
-  // inner faces (seen through the openings): the pier side toward the camera and the soffit
-  if (px > 6) {
-    ctx.fillStyle = css(dark);
-    for (const h of F.holes) {
-      const p0 = h.o0, p1 = h.o1, mid = (p0 + p1) / 2, toward = cs(cam, ...side3(A, p0, sd, h.ys))[0] < cs(cam, ...side3(A, p1, sd, h.ys))[0];
-      // the far face's arch (the soffit is the band between front and back arch curves)
-      const back = h.pts.map((p, i) => { const s = i === 0 ? p0 : i === h.pts.length - 1 ? p1 : mid + Math.cos(Math.PI - (i - 1) / (h.pts.length - 3) * Math.PI) * h.r; return side3(A, s, -sd, p[1]); });
-      ctx.beginPath(); path3(ctx, cam, h.pts.concat(back.slice().reverse()), true); ctx.fill('evenodd');
-      void toward;
-    }
-  }
-  // the face with its openings
-  ctx.beginPath(); path3(ctx, cam, F.outer, true); for (const h of F.holes) { if (px > 3 || h.lower) path3(ctx, cam, h.pts.slice().reverse(), true); }
-  const sy = proj(cam, [side3(A, b.sm, sd, A.top), side3(A, b.sm, sd, b.gy)]);
-  if (sy.length === 2 && Math.abs(sy[1][1] - sy[0][1]) > 1) { const g = ctx.createLinearGradient(0, sy[0][1], 0, sy[1][1]); g.addColorStop(0, css(stT)); g.addColorStop(.1, css(stL)); g.addColorStop(.5, css(st)); g.addColorStop(1, css(mix3(st, [10, 12, 40], .55))); ctx.fillStyle = g; } else ctx.fillStyle = css(st);
-  ctx.fill('evenodd');
-  if (px > 14) {   // engraved detail: stone courses, cornices, voussoir ticks
-    const det = clamp((px - 14) / 40);
-    ctx.save(); ctx.beginPath(); path3(ctx, cam, F.outer, true); for (const h of F.holes) path3(ctx, cam, h.pts.slice().reverse(), true); ctx.clip('evenodd');
-    ctx.strokeStyle = css(mix3(st, [5, 6, 20], .7), .38 * det); ctx.lineWidth = .8; ctx.beginPath();
-    for (let y = A.top - 1; y > b.gy; y -= 1.4) line3(ctx, cam, [side3(A, b.s0, sd, y), side3(A, b.s1, sd, y)], true);
-    ctx.stroke(); ctx.restore();
-    ctx.strokeStyle = css(mix3(st, [5, 6, 20], .8), .85); ctx.lineWidth = Math.min(3, px / 40); ctx.beginPath();
-    line3(ctx, cam, [side3(A, b.s0, sd, A.top - 1.6), side3(A, b.s1, sd, A.top - 1.6)], true); line3(ctx, cam, [side3(A, b.s0, sd, A.top - A.up), side3(A, b.s1, sd, A.top - A.up)], true); ctx.stroke();
-    ctx.strokeStyle = css(mix3(stL, [200, 205, 240], .3), .4); ctx.lineWidth = 1.2; ctx.beginPath();
-    line3(ctx, cam, [side3(A, b.s0, sd, A.top - 1.3), side3(A, b.s1, sd, A.top - 1.3)], true); line3(ctx, cam, [side3(A, b.s0, sd, A.top - A.up + .3), side3(A, b.s1, sd, A.top - A.up + .3)], true); ctx.stroke();
-    ctx.strokeStyle = css(mix3(st, [5, 6, 20], .7), .7 * det); ctx.lineWidth = .9; ctx.beginPath();
-    for (const h of F.holes) { if (!h.lower) continue; const m = (h.o0 + h.o1) / 2; for (let v = 0; v <= 11; v++) { const an = Math.PI - v / 11 * Math.PI; line3(ctx, cam, [side3(A, m + Math.cos(an) * h.r, sd, h.ys + Math.sin(an) * h.r), side3(A, m + Math.cos(an) * (h.r + 1.4), sd, h.ys + Math.sin(an) * (h.r + 1.4))], true); } }
-    ctx.stroke();
-  }
-  // the channel lip on top: light stone, an amber line when the light flows
-  const lip = [side3(A, b.s0, sd, A.top), side3(A, b.s1, sd, A.top)], lipB = [side3(A, b.s0, -sd, A.top), side3(A, b.s1, -sd, A.top)];
-  if (path3(ctx, cam, [lip[0], lip[1], lipB[1], lipB[0]])) { ctx.fillStyle = css(mix3(stT, [230, 230, 250], .25)); ctx.fill(); }
-  ctx.strokeStyle = css(mix3(stT, [255, 255, 255], .3), .7); ctx.lineWidth = Math.max(.6, Math.min(2, px / 30)); line3(ctx, cam, lip); ctx.stroke();
-  if (o.lit > 0) { ctx.strokeStyle = rgba('#ffb35c', .55 * o.lit); ctx.lineWidth = Math.max(.8, Math.min(3, px / 20)); line3(ctx, cam, [side3(A, b.s0, 0, A.top + .15), side3(A, b.s1, 0, A.top + .15)]); ctx.stroke(); }
-}
-// the share lights flowing along an arcade's channel: s positions move at v m/s toward the end (dir +1) or the start (−1)
-export function flowLights(ctx, t, cam, A, o) {
-  const v = o.v ?? 60, P = o.gap ?? 70, n = Math.ceil(A.len / P) + 1, out = [];
-  for (let i = 0; i < n; i++) {
-    let s = ((i * P + t * v) % (n * P));
-    if (o.dir < 0) s = A.len - s;
-    if (s < (o.s0 ?? 0) || s > (o.s1 ?? A.len)) continue;
-    const [x, z] = A.at(s), c = cs(cam, x, A.top + .9, z); if (c[2] < NEAR) continue;
-    const p = toScr(cam, c), r = clamp(cam.f / c[2] * 1.1, .8, o.rmax ?? 14);
-    out.push([p[0], p[1], r, c[2]]);
-  }
-  return out;
-}

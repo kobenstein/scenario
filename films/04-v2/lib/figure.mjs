@@ -346,7 +346,7 @@ export function figureKid(ctx, x, y, s, pose = {}, o = {}) {
   const D = Object.assign({ top: o.accent || '#d9824a', pants: '#2a2f52', shoes: '#16141f', skin: SKINS[(o.seed || 0) % SKINS.length], hair: '#21161a' }, o.dress || {});
   if (o.accent) D.top = o.accent;
   const legY = A.legU + A.legL, sY = -A.T + (P._b || 0) * -.5, pad = Math.ceil(110 * s), key = pad;
-  if (!KIDC.has(key)) KIDC.set(key, [canvas(pad * 2, pad * 2), canvas(pad * 2, pad * 2)]);
+  if (!KIDC.has(key)) { if (KIDC.size >= 24) KIDC.delete(KIDC.keys().next().value); KIDC.set(key, [canvas(pad * 2, pad * 2), canvas(pad * 2, pad * 2)]); }   // bounded: one pair per pixel size
   const [[c, g], [rc, rg]] = KIDC.get(key); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.clearRect(0, 0, pad * 2, pad * 2);
   g.translate(pad, pad); g.scale(s * flip, s);
   const leg = (i) => { const a = P.hip[i], k = P.kn[i], sx = i ? -A.shw * .32 : A.shw * .32, kx = sx + Math.sin(a) * A.legU, ky = Math.cos(a) * A.legU, fx = kx + Math.sin(a - k) * A.legL, fy = ky + Math.cos(a - k) * A.legL;

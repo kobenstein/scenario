@@ -277,7 +277,7 @@ export const DRESS = {
 const SCR = {};
 function scratch(k, w, h) {
   let e = SCR[k];
-  if (!e || e[0].width < w || e[0].height < h) { const cw = Math.max(w, e ? e[0].width : 0), chh = Math.max(h, e ? e[0].height : 0); e = SCR[k] = layer(Math.ceil(cw / 32) * 32, Math.ceil(chh / 32) * 32); }
+  if (!e || e[0].width < w || e[0].height < h || e[0].width * e[0].height > Math.max(4 * w * h, 512 * 512)) { if (e && e[0].width >= w && e[0].height >= h) e = null; const cw = Math.max(w, e ? e[0].width : 0), chh = Math.max(h, e ? e[0].height : 0); e = SCR[k] = layer(Math.ceil(cw / 32) * 32, Math.ceil(chh / 32) * 32); }   // grows as needed, shrinks again after one giant figure
   const [, g] = e; g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; g.clearRect(0, 0, w + 2, h + 2); return e;
 }
 // engraved hatch (fixed pixel pitch like a burin, drawn once)
