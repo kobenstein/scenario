@@ -80,14 +80,14 @@ export default async (T, R) => {
     [tFor, tKindness + .4, aim(960, 540, 1), aim(900, 520, 1.2)],
     [tCompanies - .35, tRules, aim(900, 520, 1.2), aim(830, 1060, 1.1)],
     [tBut + .05, tAloneE, aim(830, 1060, 1.1), aim(960, 240, .42)],
-    [tDoneE + .05, tBillions + .3, aim(960, 240, .42), aim(MAPC[0], MAPC[1], .036)],
-    [tBillionsE + .3, tCut, aim(MAPC[0], MAPC[1], .036), CAMCARD],
+    [tDoneE - .35, tBillions + .5, aim(960, 240, .42), aim(MAPC[0], MAPC[1], .036)],
+    [tBillionsE + .2, tCut, aim(MAPC[0], MAPC[1], .036), CAMCARD],
     [tCut, tCut, CAMCARD, sp(590, 430, 2.6)],
     [tRemember, tSkillE - .1, sp(590, 430, 2.6), sp(560, 430, 1.55), EXPO_OUT],
     [tBrain, tSplit, sp(560, 430, 1.55), sp(610, 350, 1.6)],
     [tOther, tMoves + .6, sp(610, 350, 1.6), sp(790, 370, 1.5)],
     [tSoWhen - .1, tCare + .2, sp(790, 370, 1.5), aim(1300, 790, 1.45)],
-    [tPush0, tEnd, aim(1300, 790, 1.45), aim(PANE.x, PANE.y + 78, 12), ein],
+    [tPush0, tEnd, aim(1300, 790, 1.45), aim(PANE.x, PANE.y + 78, 12), QUART],
   ];
   const camAt = (t) => {
     let cur = SEGS[0][2];
@@ -230,7 +230,7 @@ export default async (T, R) => {
     { t: tCompanies - .35, tr: 'cut', d: .1, print: P, draw: frame, sound: [{ f: 'card', t: tCompanies - .3, v: .35 }] },
     { t: tBut, tr: 'cut', d: .1, print: P, draw: frame, sound: [{ f: 'whoosh', t: tBut - .14, v: .35 }] },
     { t: tThousand - .3, tr: 'cut', d: .1, print: P, draw: frame },
-    { t: tSo, tr: 'cut', d: .1, print: P, draw: frame, sound: [{ f: 'whoosh_up', t: tDoneE - .02, v: .3 }, { f: 'whoosh_airy', t: tBillionsE + .34, v: .35 }] },
+    { t: tSo, tr: 'cut', d: .1, print: P, draw: frame, sound: [{ f: 'whoosh_up', t: tDoneE + .02, v: .3 }, { f: 'whoosh_airy', t: tBillionsE + .34, v: .35 }] },
     { t: tRemember, tr: 'cut', d: .1, print: P, draw: frame },
     { t: tBrain, tr: 'cut', d: .1, print: P, draw: frame, sound: [{ f: 'pencil', t: tSplitE + .12, v: .3 }] },
     { t: tOne, tr: 'cut', d: .1, print: P, draw: frame },

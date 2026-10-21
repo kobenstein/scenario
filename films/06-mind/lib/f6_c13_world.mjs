@@ -48,10 +48,10 @@ export function lightFill(ctx, { x, y, r, a = 1, tone = 'lamp', op = 'lighter' }
 export function lightSheet(ctx, t, { x, y, r, k }) {
   if (k <= 0) return; const [c0, c1, c2] = LAMPT, br = 1 + .03 * Math.sin(t * 1.7) + .015 * Math.sin(t * 4.3);
   ctx.save(); ctx.globalAlpha = 1;
-  // an opaque disc of light (soft edge) that covers the frame at k 1; outside it the frame shows through
-  const g = ctx.createRadialGradient(x, y, 0, x, y, r * br); g.addColorStop(0, c0); g.addColorStop(.42, c1); g.addColorStop(.86, c2); g.addColorStop(1, rgba(c2, 0));
+  // a disc of light (soft edge) whose strength grows with k: at k 1 it is opaque and covers the frame; outside it the frame shows through
+  const g = ctx.createRadialGradient(x, y, 0, x, y, r * br); g.addColorStop(0, rgba(c0, k)); g.addColorStop(.42, rgba(c1, k)); g.addColorStop(.86, rgba(c2, k)); g.addColorStop(1, rgba(c2, 0));
   ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-  const q = prng(31 + Math.floor(t * 12)); ctx.fillStyle = rgba(c2, .32);
+  const q = prng(31 + Math.floor(t * 12)); ctx.fillStyle = rgba(c2, .32 * k);
   for (const [px, py, d, kk] of DOTS) { if (d < .35) continue; if (kk > (d - .35) * 1.4) continue; const s = .8 + q() * 1.1; ctx.fillRect(x + px * r + (q() - .5) * 2, y + py * r + (q() - .5) * 2, s, s); }
   ctx.restore();
 }
@@ -104,11 +104,11 @@ export function mist(ctx, t, mouth, seed, a = 1) {
   const n = once('c13:mistnoise', () => vnoise(41));
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
   for (let k = 0; k < 2; k++) {   // the current exhale and the one before it (still thinning)
-    const K = Math.floor((om * t + ph - Math.PI / 2) / TAU) - k, tk = (Math.PI / 2 + TAU * K - ph) / om, age = t - tk; if (age < 0 || age > 2.6) continue;
-    const u = age / 2.6, dx = 10 + 60 * eout(u) + 14 * (n(age * .7, K) - .5), dy = -4 - 44 * u * u + 8 * (n(age * .9, K + 7) - .5);
-    const r = 7 + 26 * u, al = a * .5 * Math.sin(Math.PI * Math.min(1, u * 1.15)) * (1 - u * .6);
-    for (let j = 0; j < 3; j++) { const q = j / 3, px = mouth[0] + dx * (.55 + .45 * q) + (n(j * 3.1, K) - .5) * 10 * u, py = mouth[1] + dy * (.6 + .4 * q) + (n(j * 1.7 + 5, K) - .5) * 8 * u, rr = r * (.7 + .3 * q);
-      const g = ctx.createRadialGradient(px, py, 0, px, py, rr); g.addColorStop(0, rgba('#e8e2d8', al * .55)); g.addColorStop(.6, rgba('#d8d2c8', al * .2)); g.addColorStop(1, rgba('#d8d2c8', 0)); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, rr, 0, TAU); ctx.fill(); }
+    const K = Math.floor((om * t + ph - Math.PI / 2) / TAU) - k, tk = (Math.PI / 2 + TAU * K - ph) / om, age = t - tk; if (age < 0 || age > 3.6) continue;
+    const u = age / 3.6, dx = 12 + 90 * eout(u) + 16 * (n(age * .7, K) - .5), dy = -6 - 60 * u * u + 10 * (n(age * .9, K + 7) - .5);
+    const r = 10 + 40 * u, al = a * Math.sin(Math.PI * Math.min(1, u * 1.2)) * (1 - u * .55);
+    for (let j = 0; j < 4; j++) { const q = j / 4, px = mouth[0] + dx * (.5 + .5 * q) + (n(j * 3.1, K) - .5) * 14 * u, py = mouth[1] + dy * (.55 + .45 * q) + (n(j * 1.7 + 5, K) - .5) * 10 * u, rr = r * (.65 + .35 * q);
+      const g = ctx.createRadialGradient(px, py, 0, px, py, rr); g.addColorStop(0, rgba('#efe9df', al * .8)); g.addColorStop(.55, rgba('#d8d2c8', al * .32)); g.addColorStop(1, rgba('#d8d2c8', 0)); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(px, py, rr, 0, TAU); ctx.fill(); }
   }
   ctx.restore();
 }
@@ -162,7 +162,7 @@ export function cardFace(i) {
     paperSheet(g, 0, 0, c.w, c.h, { tone: '#efe4cc', seed: 11 + i, shadow: false, light: [c.w * 1.3, -c.h * .4], lines: 0 });
     // the same words on both: identical seeds (the handwriting is the same)
     const rows = [[26, 62, .82], [26, 92, .9], [26, 122, .7], [26, 152, .5]];
-    rows.forEach(([x, y, k], j) => scribble(g, x, y, (c.w - 52) * k, 7, { seed: 60 + j, ink: rgba(INK, .62), lw: 1.1 }));
+    rows.forEach(([x, y, k], j) => scribble(g, x, y, (c.w - 52) * k, 4.5, { seed: 60 + j, ink: rgba(INK, .62), lw: 1.1 }));
     g.strokeStyle = rgba(INK, .18); g.lineWidth = 1; for (const [, y] of rows) { g.beginPath(); g.moveTo(22, y + 6); g.lineTo(c.w - 22, y + 6); g.stroke(); }
     g.setTransform(1, 0, 0, 1, 0, 0); stipple(cv, { k: .12, g: 1, seed: 19 + i, mid: false, boost: 1 });
   });
@@ -190,17 +190,18 @@ export function card(ctx, t, i, { slide = 1, dim = 0, press = 0, glint = 0 }) {
 // the two people behind the table: A (left) turns to B (right) and speaks, then lays a hand on B's shoulder; B lifts the head
 //   gesture 0..1 (A's open hand toward B), reach 0..1 (the hand on the shoulder), lift 0..1 (B's head comes up), speak (A's head toward B)
 export function figuresB(ctx, t, { gesture = 0, reach = 0, lift = 0, speak = 0, emberA = 0, pass = 0 }) {
-  const lA = { x: LAMPB.x - 60, y: LAMPB.y - 100, col: F6.amberCore, a: .35 };
+  const dark = 1 - clamp(emberA), lA = { x: LAMPB.x - 60, y: LAMPB.y - 100, col: F6.amberCore, a: .35 * (1 - dark) };   // they stand in the dark until the ember lights them
+  const shadeA = .96 * dark;
   // B: standing, shoulders low, head bowed; lifts the head when the hand lands
   const headB = mix(.42, .04, EXPO_OUT(lift)), poseB = { sh: [.3, .24], el: [.5, .46], head: headB, lean: mix(.08, .02, EXPO_OUT(lift)), hands: ['relaxed', 'relaxed'], hair: 'bob' };
-  figure(ctx, FB.x, FB.y, FB.s, poseB, { t, seed: FB.seed, accent: '#5a4a6a', dress: { pants: '#17142a', hair: '#2a1c1a' }, light: lA, rim: rgba(F6.amber, .5), rimSide: 1, flip: true, shadow: false });
+  figure(ctx, FB.x, FB.y, FB.s, poseB, { t, seed: FB.seed, accent: '#5a4a6a', dress: { pants: '#17142a', hair: '#2a1c1a' }, light: lA, rim: rgba(F6.amber, .5 * (1 - dark)), rimSide: 1, flip: true, shadow: false, shadeA, shadeCol: '#0c0a14' });
   // A: turned to B; the front arm opens toward B (gesture), then reaches B's shoulder (reach)
   const base = { sh: [.3, .2], el: [.45, .4], head: .08 + .1 * speak, turn: .25 * speak, lean: .02, hands: ['open', 'relaxed'] };
   const o = { t, seed: FA.seed };
-  let pose = { ...base, sh: [mix(.3, .95, EXPO_OUT(gesture)), .2], el: [mix(.45, .2, EXPO_OUT(gesture)), .4] };
+  let pose = { ...base, sh: [mix(.3, .62, EXPO_OUT(gesture)), .2], el: [mix(.45, .38, EXPO_OUT(gesture)), .4] };
   const target = [FB.x - 10 * FB.s, FB.y - 62 * FB.s];
   if (reach > 0) { const r = reachArm(FA.x, FA.y, FA.s, pose, 0, false, o, target); const k = EXPO_OUT(reach); pose = { ...pose, sh: [mix(pose.sh[0], r.sh, k), pose.sh[1]], el: [mix(pose.el[0], r.el, k), pose.el[1]], lean: mix(.02, .12, k), hands: ['open', 'relaxed'] }; }
-  figure(ctx, FA.x, FA.y, FA.s, pose, { ...o, accent: '#8a5a3a', dress: { pants: '#1a1626' }, light: lA, rim: rgba(F6.amber, .55), rimSide: 1, shadow: false });
+  figure(ctx, FA.x, FA.y, FA.s, pose, { ...o, accent: '#8a5a3a', dress: { pants: '#1a1626' }, light: lA, rim: rgba(F6.amber, .55 * (1 - dark)), rimSide: 1, shadow: false, shadeA, shadeCol: '#0c0a14' });
   // the ember in A's chest, and its light travelling along the arm to the hand on the shoulder (pass 0..1)
   const chest = [FA.x + 7 * FA.s, FA.y - 44 * FA.s];
   if (emberA > 0) ember(ctx, t, { x: chest[0], y: chest[1], kind: 'heart', r: 66 * FA.s * (.5 + .5 * emberA) * (1 - .55 * EXPO_OUT(pass)), a: emberA });
