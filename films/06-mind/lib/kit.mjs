@@ -84,10 +84,16 @@ export async function prepareClips(T, t) {
     frameCache.set(f, await loadImage(f));
   }
 }
-function clipFrame(id, k) { return frameCache.get(framePath(id, k)) || null; }
+// the decoded frame k (1-based) of clip id, or null while it is not loaded (prepareClips loads ±0.7 s around the clip window)
+export function clipFrame(id, k) { return CLIPS[id] ? frameCache.get(framePath(id, k)) || null : null; }
 export const clipInfo = (id) => {
-  const c = CLIPS[id]; const parts = c.who.replace(/\s*\(.*?\)/g, '').split(',').map((x) => x.trim());
-  return { name: parts[0], source: parts.slice(1, -1).join(', ') || parts[1] || '', date: parts[parts.length - 1], quote: c.quote, card: !!c.card };
+  const c = CLIPS[id] || {};
+  if (c.who) { // Film 3/5 format: "Name (role), source, date"
+    const parts = c.who.replace(/\s*\(.*?\)/g, '').split(',').map((x) => x.trim());
+    return { name: parts[0], role: '', source: parts.slice(1, -1).join(', ') || parts[1] || '', date: parts[parts.length - 1], quote: c.quote, card: !!c.card };
+  }
+  // Film 6 format (tools/build.py): name, role, source, date, words
+  return { name: c.name || id, role: c.role || '', source: c.source || '', date: c.date || '', quote: c.quote || c.words || '', card: !!c.card };
 };
 // Draw an interview clip into a screen rectangle (x, y, w, h) that belongs to the scene (TV, canvas, monitor).
 // Uses the real clip frames from clips/<id>/f00001.jpg… (30 fps, extracted once the YouTube download works);
