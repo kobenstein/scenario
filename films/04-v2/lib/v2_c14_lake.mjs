@@ -40,7 +40,7 @@ export const lnSigma = (t, A) => A.lnSb + (A.lnSe - A.lnSb) * Math.pow(clamp((t 
 export function hillState(t, A) {
   if (t >= A.T1 - 1e-6) return H4.st;
   const L = (a) => smo((t - a) / .9);
-  return { night: smo((t - (A.flood1 - .1)) / 3.3), lit: [L(A.run - .45), L(A.run + .15), L(A.question + .2), L(A.project + .1), 0],
+  return { wide: true, night: smo((t - (A.flood1 - .1)) / 3.3), lit: [L(A.run - .45), L(A.run + .15), L(A.question + .2), L(A.project + .1), 0],
     labels: smo((t - (A.run - .1)) / .9), title: 0, focus: 4, focusU: smo((t - A.answer) / 1.1), people: .3 * smo((t - (A.question - .3)) / 1.6), summitFigs: 0 };
 }
 export function riseCam(t, A) {

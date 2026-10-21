@@ -17,24 +17,8 @@ export function outlineHead(b) { const uo = clamp(b / .35), N = Math.max(2, Math
 export function farField(ctx, t, cam, B) {
   const cf = camFar(cam), st = VIEWS.H2.st, b = B ? clamp(B.build) : 1, la = B ? clamp(B.labels) : st.labels;
   if (b >= 1 && la >= st.labels) { drawHill(ctx, t, cf, st); return; }
-  drawHill(ctx, t, cf, { ...st, build: b, labels: la });
-  if (b < 1) reflectionDark(ctx, cf, b);
+  drawHill(ctx, t, cf, { ...st, build: b, labels: la, buildFix: true });   // buildFix: no stub at b=0, dark reflection, rim fades
 }
-// drawHill's reveal front (its buildLive): opaque dark above yf − 46, soft to yf + 9; mirrored about the water line for the reflection
-function reflectionDark(ctx, cf, b) {
-  const HZ = HILL.horizon, ue = clamp((b - .35) / .65), yf = mix(812, 186, ue), soft = 46;
-  const yOpaque = 2 * HZ - (yf - soft), yClear = 2 * HZ - (yf + soft * .2);
-  const sO = toScreen(cf, 0, yOpaque)[1], sC = toScreen(cf, 0, yClear)[1], sH = toScreen(cf, 0, HZ)[1];
-  if (sO > H + 20 && sC > H + 20) return;
-  ctx.save();
-  ctx.beginPath(); HOUT.forEach(([x, y], i) => { const [sx, sy] = toScreen(cf, x, 2 * HZ - y); i ? ctx.lineTo(sx, sy) : ctx.moveTo(sx, sy); }); ctx.closePath(); ctx.clip();
-  ctx.beginPath(); ctx.rect(0, sH, W, H - sH + 10); ctx.clip();
-  const top = Math.min(sC, sO), g = ctx.createLinearGradient(0, sC, 0, sO); g.addColorStop(0, 'rgba(7,8,24,0)'); g.addColorStop(1, 'rgba(7,8,24,.9)');
-  ctx.fillStyle = g; ctx.fillRect(0, top, W, Math.abs(sO - sC) + 1);
-  ctx.fillStyle = 'rgba(7,8,24,.9)'; ctx.fillRect(0, sO, W, Math.max(0, H + 10 - sO));
-  ctx.restore();
-}
-
 // the visible piece [a, b] of a polyline (fractions of its length)
 export function sliceLen(pts, a, b) {
   const d = [0]; for (let i = 1; i < pts.length; i++) d.push(d[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));

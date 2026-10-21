@@ -97,7 +97,7 @@ export function hillTake(ctx, t, K) {
   const c = hillCam(t, K), L1 = hillLit(t, K), on = sm2(clamp((L1 * 1.25 - WIN.d) / .25));
   const st = { ...VIEWS.H2.st, lit: [1, L1, 0, 0, 0], focusU: sm2((t - K.first + .15) / .5), labels: 1 - sm2((c.z - 1.8) / 2.6) };
   st.inside = { level: 1, id: WIN.id, draw: (g, sx, sy, sw, sh, tt) => insideView(g, tt, K, sx, sy, sw, sh, on) };
-  drawHill(ctx, t, c, st);
+  drawHill(ctx, t, c, { ...st, labelBlend: true, haloFix: true });
 }
 // what is seen through the family window, drawn into its screen rect (clipped by maslow4)
 function insideView(ctx, t, K, sx, sy, sw, sh, on) {
