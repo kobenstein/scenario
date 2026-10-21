@@ -12,7 +12,7 @@
 //                               o.y), so the line can settle into the pane and the ember can travel to the figure (14.09–14.11)
 //   openingLight(ctx, t, HI, cx, cy, k)   the incoming lamp plate, masked by a glow-shaped falloff that shrinks into the lamp (pattern c04/c09/c11)
 //   glassVeil(ctx, t, P, m, a)  the pane's tint and sliding sheen re-drawn in screen space (so the glass can fall away once it fills the frame)
-import { W, H, rgba, clamp, lin, mix, sm, eout, ein, prng, canvas, text, addGlow } from '../engine.mjs';
+import { W, H, rgba, clamp, lin, mix, sm, eout, ein, prng, canvas, text, addGlow, hatch } from '../engine.mjs';
 import { vnoise } from './art.mjs';
 import { F6, pane, ember, witness, coolText, coolLine, figureDesk, view, camMap, ROOM, breathe, once, reveal } from './f6_kit.mjs';
 import { figure, POSES } from './figure.mjs';
@@ -47,18 +47,23 @@ export function reflectionC14(q, t, o = {}) {
   }
   // the ember in the chest of you at the desk (seen from the side-back: the body hides its core, its warmth spills around the silhouette)
   const YX = -G.you[0], YY = G.you[1];
-  if (o.chest > 0) { const c = eout(clamp(o.chest)); ember(q, t, { x: -G.youChest[0], y: G.youChest[1], kind: 'heart', r: 95 * c, a: .95 * c }); }
-  figureDesk(q, t, YX, YY, 1.15, { seed: o.seed ?? 3, typing: o.typing !== false, lamp: { x: LX, y: LY - 100 }, screen: { x: sx0 + sw / 2, y: LY - 30 }, lampA, screenA: o.screenOn !== false ? 1 : 0, shade: .25, chair: true });
-  if (o.chest > 0) { // the warm rim the ember gives the shoulders, and the thread that leaves the chest for the screen
-    const c = eout(clamp(o.chest)); q.save(); q.globalCompositeOperation = 'lighter'; const rg = q.createRadialGradient(YX, YY - 62, 0, YX, YY - 62, 46); rg.addColorStop(0, rgba(F6.amber, .3 * c)); rg.addColorStop(1, rgba(F6.amber, 0)); q.fillStyle = rg; q.fillRect(YX - 50, YY - 115, 100, 100); q.restore();
+  if (o.chest > 0) {
+    // the ember in the chest (in front of the body, i.e. behind it from here: its core is hidden, its warmth spills around the silhouette), and the
+    // thread of warmth that leaves the chest, rounds the shoulder on the screen's side and enters the reflected screen; both drawn BEFORE the figure
+    const c = eout(clamp(o.chest)); ember(q, t, { x: -G.youChest[0], y: G.youChest[1], kind: 'heart', r: 110 * c, a: .95 * c });
     const u = clamp(o.thread ?? 0); if (u > 0) {
-      const n = once('c14:thread', () => vnoise(41)), a0 = [-G.youChest[0], G.youChest[1]], a1 = [sx0 + sw * .55, S.y1 + 2], mid = [(a0[0] + a1[0]) / 2 + 10 + 4 * (n(t * 1.3, 2) - .5), (a0[1] + a1[1]) / 2 + 8];
-      const e = QUART(u), pts = []; for (let i = 0; i <= 24; i++) { const k = i / 24 * e, p = (1 - k) * (1 - k), r2 = 2 * k * (1 - k), s2 = k * k; pts.push([p * a0[0] + r2 * mid[0] + s2 * a1[0], p * a0[1] + r2 * mid[1] + s2 * a1[1]]); }
-      q.save(); q.globalCompositeOperation = 'lighter'; q.lineCap = 'round'; const tg = q.createLinearGradient(a0[0], a0[1], a1[0], a1[1]); tg.addColorStop(0, rgba(F6.amber, .7)); tg.addColorStop(.6, rgba(F6.amber, .5)); tg.addColorStop(1, rgba(F6.cool, .7));
-      for (const [lw, al] of [[7, .14], [2.4, .6], [1, .95]]) { q.strokeStyle = tg; q.globalAlpha = al; q.lineWidth = lw; q.beginPath(); pts.forEach((p, i) => (i ? q.lineTo(p[0], p[1]) : q.moveTo(p[0], p[1]))); q.stroke(); }
-      q.globalAlpha = 1; const tip = pts[pts.length - 1]; if (e < 1) { const hg = q.createRadialGradient(tip[0], tip[1], 0, tip[0], tip[1], 9); hg.addColorStop(0, rgba('#fff6e6', .95)); hg.addColorStop(1, rgba(F6.amber, 0)); q.fillStyle = hg; q.fillRect(tip[0] - 9, tip[1] - 9, 18, 18); }
+      const n = once('c14:thread', () => vnoise(41)), w1 = 3 * (n(t * 1.3, 2) - .5);
+      const a0 = [-G.youChest[0], G.youChest[1]], c1 = [a0[0] - 50 + w1, a0[1] + 16], c2 = [a0[0] - 64 + w1, a0[1] - 44], a1 = [sx0 + sw * .22, S.y1 - 6];
+      const e = QUART(u), pts = []; for (let i = 0; i <= 28; i++) { const k = i / 28 * e, p = 1 - k; pts.push([p * p * p * a0[0] + 3 * p * p * k * c1[0] + 3 * p * k * k * c2[0] + k * k * k * a1[0], p * p * p * a0[1] + 3 * p * p * k * c1[1] + 3 * p * k * k * c2[1] + k * k * k * a1[1]]); }
+      q.save(); q.globalCompositeOperation = 'lighter'; q.lineCap = 'round'; const tg = q.createLinearGradient(a0[0], a0[1], a1[0], a1[1]); tg.addColorStop(0, rgba(F6.amber, .8)); tg.addColorStop(.55, rgba(F6.amber, .7)); tg.addColorStop(1, rgba(F6.cool, .8));
+      for (const [lw, al] of [[9, .16], [3.4, .6], [1.5, .95]]) { q.strokeStyle = tg; q.globalAlpha = al; q.lineWidth = lw; q.beginPath(); pts.forEach((p, i) => (i ? q.lineTo(p[0], p[1]) : q.moveTo(p[0], p[1]))); q.stroke(); }
+      q.globalAlpha = 1; const tip = pts[pts.length - 1]; if (e < 1) { const hg = q.createRadialGradient(tip[0], tip[1], 0, tip[0], tip[1], 11); hg.addColorStop(0, rgba('#fff6e6', .95)); hg.addColorStop(1, rgba(F6.amber, 0)); q.fillStyle = hg; q.fillRect(tip[0] - 11, tip[1] - 11, 22, 22); }
       q.restore();
     }
+  }
+  figureDesk(q, t, YX, YY, 1.15, { seed: o.seed ?? 3, typing: o.typing !== false, lamp: { x: LX, y: LY - 100 }, screen: { x: sx0 + sw / 2, y: LY - 30 }, lampA, screenA: o.screenOn !== false ? 1 : 0, shade: .25, chair: true });
+  if (o.chest > 0) { // the warm rim the ember gives the shoulders (its light wraps the body's edge)
+    const c = eout(clamp(o.chest)); q.save(); q.globalCompositeOperation = 'lighter'; const rg = q.createRadialGradient(YX, YY - 58, 0, YX, YY - 58, 50); rg.addColorStop(0, rgba(F6.amber, .32 * c)); rg.addColorStop(1, rgba(F6.amber, 0)); q.fillStyle = rg; q.fillRect(YX - 52, YY - 110, 104, 104); q.restore();
   }
   // the lamp's pool on the floor in front of the desk, so the chair stands in light
   q.save(); q.globalCompositeOperation = 'lighter'; q.translate(LX + 60, LY + 150); q.scale(1, .3); const pg = q.createRadialGradient(0, 0, 0, 0, 0, 260); pg.addColorStop(0, rgba(F6.amber, .16 * lampA)); pg.addColorStop(1, rgba(F6.amber, 0)); q.fillStyle = pg; q.beginPath(); q.arc(0, 0, 260, 0, TAU); q.fill(); q.restore();
@@ -69,10 +74,58 @@ export function reflectionC14(q, t, o = {}) {
     if (o.sitterGlow > 0) { // the ember has settled in the chest: its warmth answers on the body (80 ms after the arrival)
       q.save(); q.globalCompositeOperation = 'lighter'; const cg = q.createRadialGradient(-G.chest[0], G.chest[1], 0, -G.chest[0], G.chest[1], 70); cg.addColorStop(0, rgba(F6.amber, .45 * o.sitterGlow)); cg.addColorStop(1, rgba(F6.amber, 0)); q.fillStyle = cg; q.fillRect(-G.chest[0] - 70, G.chest[1] - 70, 140, 140); q.restore();
     }
-    const pose = { ...POSES.perch, sh: [.52, .46], el: [1.05, 1.1], head: .04, turn: 1, hands: ['relaxed', 'relaxed'] };
-    figure(q, x, y, s, pose, { t, seed: (o.seed ?? 3) + 2, dress: YOU, light: { x: LX, y: LY - 100, col: F6.amberCore, a: .5 * lampA }, rim: rgba(F6.amberCore, .75 * lampA), rimSide: -1, shadow: false });
-    if (o.witnessA > 0) witness(q, t, { x: -G.witness[0], y: G.witness[1], r: 4, halo: 64, a: o.witnessA });
+    sitterFront(q, t, x, y, s, { seed: (o.seed ?? 3) + 2, lamp: { x: LX, y: LY - 100 }, lampA, life: o.sitterLife ?? 1 });
+    if (o.witnessA > 0) { witness(q, t, { x: -G.witness[0], y: G.witness[1], r: 5.5, halo: 84, a: o.witnessA });   // a little larger: it must read at WIN
+      q.save(); q.globalCompositeOperation = 'lighter'; q.fillStyle = rgba('#ffffff', .8 * o.witnessA); q.beginPath(); q.arc(-G.witness[0], G.witness[1], 2.4, 0, TAU); q.fill(); q.restore(); }
   }
+}
+
+// ---------------------------------------------------------------- you, seated, facing us (the ★ of 14.08): round shoulders, hands resting on the thighs,
+// the knees toward us, the head level, no features at figure scale (the lamp models the face from its side); breath and a slow sway from t.
+// Built like f6_kit figureDesk (an offscreen silhouette, a form gradient, the rim from the lamp, engraved hatch). x, y = the hip point; s 1 ≈ 95 px seat→crown.
+const SITC = new Map();
+export function sitterFront(ctx, t, x, y, s, o = {}) {
+  const seed = o.seed ?? 1, r0 = seed * 1.37, b = Math.sin(t * TAU / 4.5 + r0) * .8 * (o.life ?? 1), sway = Math.sin(t * TAU / 9.5 + r0 * 2) * .6 * (o.life ?? 1);
+  const D = YOU, U = { w: 120, h: 150, ox: 60, oy: 120 }, cw = Math.ceil(U.w * s) + 4, ch = Math.ceil(U.h * s) + 4, key = cw + 'x' + ch;
+  if (!SITC.has(key)) SITC.set(key, [canvas(cw, ch), canvas(cw, ch), canvas(cw, ch)]);
+  const [[c, g], [mc, mg], [rc, rg]] = SITC.get(key);
+  for (const q of [g, mg, rg]) { q.setTransform(1, 0, 0, 1, 0, 0); q.globalCompositeOperation = 'source-over'; q.globalAlpha = 1; q.clearRect(0, 0, cw, ch); }
+  const cap = (q, x1, y1, r1, x2, y2, r2) => { const a = Math.atan2(y2 - y1, x2 - x1), d = Math.hypot(x2 - x1, y2 - y1), k = Math.asin(Math.max(-1, Math.min(1, (r1 - r2) / (d || 1)))); q.beginPath(); q.arc(x1, y1, r1, a + Math.PI / 2 + k, a + 3 * Math.PI / 2 - k); q.arc(x2, y2, r2, a - Math.PI / 2 - k, a + Math.PI / 2 + k); q.closePath(); q.fill(); };
+  const shade = (hexc, d) => { const n = parseInt(hexc.slice(1), 16); const f = (v) => Math.round(clamp(v + d * 255, 0, 255)).toString(16).padStart(2, '0'); return '#' + f(n >> 16) + f((n >> 8) & 255) + f(n & 255); };
+  const paint = (q, mono) => {
+    q.setTransform(s, 0, 0, s, U.ox * s, U.oy * s); const col = (k) => mono || D[k], sy = -b * .6;
+    // the legs: thighs toward us (foreshortened), shins down, shoes seen from the front
+    q.fillStyle = mono || shade(D.pants, -.02); cap(q, -9, 0, 9.5, -14, 24, 8.5); cap(q, 9, 0, 9.5, 14, 24, 8.5);
+    q.fillStyle = col('pants'); cap(q, -14, 24, 7, -15, 66, 5.2); cap(q, 14, 24, 7, 15, 66, 5.2);
+    q.fillStyle = col('shoes'); q.beginPath(); q.ellipse(-15.5, 71, 8.5, 4.6, 0, 0, TAU); q.ellipse(15.5, 71, 8.5, 4.6, 0, 0, TAU); q.fill();
+    // the torso: wide round shoulders, a little waist, the hips on the seat; the coat opens in a soft V at the collar
+    q.fillStyle = col('coat');
+    q.beginPath(); q.moveTo(-22, 6); q.bezierCurveTo(-23, -16, -17, -34, -19, -48 + sy); q.bezierCurveTo(-21, -60 + sy, -16, -67 + sy, -6, -68 + sy); q.lineTo(6, -68 + sy); q.bezierCurveTo(16, -67 + sy, 21, -60 + sy, 19, -48 + sy); q.bezierCurveTo(17, -34, 23, -16, 22, 6); q.closePath(); q.fill();
+    if (!mono) { q.fillStyle = shade(D.coat, -.06); q.beginPath(); q.moveTo(-7, -66 + sy); q.lineTo(0, -46 + sy); q.lineTo(7, -66 + sy); q.closePath(); q.fill(); q.fillStyle = shade(D.skin, -.05); q.beginPath(); q.moveTo(-5, -67 + sy); q.lineTo(0, -54 + sy); q.lineTo(5, -67 + sy); q.closePath(); q.fill(); q.strokeStyle = 'rgba(0,0,0,.25)'; q.lineWidth = .7; q.beginPath(); q.moveTo(.5, -46 + sy); q.lineTo(1, 4); q.stroke(); }
+    // the arms: upper arms down along the body, forearms to the lap, hands resting on the thighs
+    q.fillStyle = mono || shade(D.coat, -.04); cap(q, -19, -56 + sy, 7.2, -24, -22, 6); cap(q, 19, -56 + sy, 7.2, 24, -22, 6);
+    q.fillStyle = col('coat'); cap(q, -24, -22, 6, -14, 16, 5); cap(q, 24, -22, 6, 14, 16, 5);
+    q.fillStyle = col('skin'); q.beginPath(); q.ellipse(-13, 20, 5.4, 4.2, .3, 0, TAU); q.ellipse(13, 20, 5.4, 4.2, -.3, 0, TAU); q.fill();
+    // the neck and the head, level, facing us; the hair as a cap with a soft fringe
+    q.fillStyle = mono || shade(D.skin, -.12); cap(q, 0, -66 + sy, 4.8, sway * .3, -74 + sy, 4.4);
+    q.fillStyle = col('skin'); q.beginPath(); q.ellipse(sway * .4, -86 + sy, 10.6, 12.6, 0, 0, TAU); q.fill();
+    q.fillStyle = col('hair'); q.beginPath(); q.moveTo(-10.8 + sway * .4, -88 + sy); q.bezierCurveTo(-11.5 + sway * .4, -100 + sy, 11.5 + sway * .4, -100 + sy, 10.8 + sway * .4, -88 + sy); q.quadraticCurveTo(6 + sway * .4, -92 + sy, 0 + sway * .4, -91.5 + sy); q.quadraticCurveTo(-6 + sway * .4, -92 + sy, -10.8 + sway * .4, -88 + sy); q.closePath(); q.fill();
+    q.beginPath(); q.ellipse(-11 + sway * .4, -86 + sy, 2.2, 3.4, 0, 0, TAU); q.ellipse(11 + sway * .4, -86 + sy, 2.2, 3.4, 0, 0, TAU); q.fillStyle = mono || shade(D.skin, -.08); q.fill();   // ears
+  };
+  paint(g, null);
+  g.setTransform(s, 0, 0, s, U.ox * s, U.oy * s); g.globalCompositeOperation = 'source-atop';
+  const L = o.lamp || { x: x - 300, y: y - 300 }, side = Math.sign(L.x - x) || -1;
+  const fg = g.createLinearGradient(side * 26, 0, -side * 26, 0); fg.addColorStop(0, 'rgba(255,214,170,.41)'); fg.addColorStop(.55, 'rgba(255,214,170,.07)'); fg.addColorStop(1, 'rgba(3,4,10,.38)'); g.fillStyle = fg; g.fillRect(-60, -120, 120, 150);   // the lamp models the body from its side
+  const vg = g.createLinearGradient(0, -100, 0, 30); vg.addColorStop(0, 'rgba(90,120,180,.05)'); vg.addColorStop(1, 'rgba(3,4,10,.3)'); g.fillStyle = vg; g.fillRect(-60, -120, 120, 150);
+  const fc = g.createRadialGradient(side * 4, -88, 0, side * 4, -88, 13); fc.addColorStop(0, 'rgba(255,225,190,.37)'); fc.addColorStop(1, 'rgba(0,0,0,.1)'); g.fillStyle = fc; g.fillRect(-14, -100, 28, 28);   // the face in the lamp's light
+  g.setTransform(1, 0, 0, 1, 0, 0); hatch(g, null, -1.1, 3.2 * Math.max(1, s * .9), .2, { box: [0, 0, cw, ch], col: '#05060c', w: Math.max(.6, s * .35), wobble: .5 });
+  g.globalCompositeOperation = 'source-over';
+  paint(mg, '#fff'); mg.setTransform(1, 0, 0, 1, 0, 0);
+  { const dx = L.x - x, dy = L.y - (y - 70 * s), m = Math.hypot(dx, dy) || 1, rw = Math.max(1.5, s * 1.45);
+    rg.setTransform(1, 0, 0, 1, 0, 0); rg.globalCompositeOperation = 'source-over'; rg.clearRect(0, 0, cw, ch); rg.drawImage(mc, 0, 0); rg.globalCompositeOperation = 'destination-out'; rg.drawImage(mc, -dx / m * rw, -dy / m * rw);
+    rg.globalCompositeOperation = 'source-in'; rg.fillStyle = '#ffe2b8'; rg.fillRect(0, 0, cw, ch); g.globalAlpha = 1 * (o.lampA ?? 1); g.drawImage(rc, 0, 0); g.globalAlpha = 1; }
+  ctx.drawImage(c, x - U.ox * s, y - U.oy * s);
+  return { head: [x, y - 86 * s], chest: [x, y - 44 * s] };
 }
 
 // ---------------------------------------------------------------- the window pane over nightRoom's window (call nightRoom with window: { reflectA: 0 })
@@ -133,7 +186,7 @@ export function splitC14(ctx, t, o = {}) {
   }
   const la = clamp(o.labelA ?? 0);
   if (la > 0) {
-    const lab = (s, lx, ly, c) => reveal(ctx, lx - 160, ly - 24, 320, 34, la, (g) => text(g, s, lx, ly, { size: 17, weight: 600, color: c, align: 'center', spacing: 7 }));
+    const lab = (s, lx, ly, c) => reveal(ctx, lx - 220, ly - 24, 440, 34, la, (g) => text(g, s, lx, ly, { size: 17, weight: 600, color: c, align: 'center', spacing: 7 }));
     lab('INTELLIGENCE', x, y + 48, rgba(F6.cool, .9)); lab('CONSCIOUSNESS', ex, ey - 70 - emberR * .18, rgba(F6.amberCore, .92));
   }
   return { ember: [ex, ey] };
@@ -144,7 +197,7 @@ const DISC = canvas(W, H);
 export function openingLight(ctx, t, HI, cx, cy, k) {
   if (k <= 0) return;
   // an opaque core of light (the whole frame at k 1) with a soft stippled-looking falloff beyond it; the core shrinks into the bulb's bloom
-  const [disc, dg] = DISC, r0 = 60 + 1320 * Math.pow(k, .8), Rr = r0 * 2.1, A = Math.min(1, k * 6);
+  const [disc, dg] = DISC, r0 = 60 + 1180 * Math.pow(k, 1.15), Rr = r0 * 2.1, A = Math.min(1, k * 6);
   dg.setTransform(1, 0, 0, 1, 0, 0); dg.globalCompositeOperation = 'source-over'; dg.globalAlpha = 1; dg.clearRect(0, 0, W, H);
   HI.plate(dg, t);
   const gr = dg.createRadialGradient(cx, cy, 0, cx, cy, Rr); gr.addColorStop(0, `rgba(0,0,0,${A})`); gr.addColorStop(r0 / Rr, `rgba(0,0,0,${A})`); gr.addColorStop(r0 / Rr + .25, `rgba(0,0,0,${.42 * A})`); gr.addColorStop(.85, `rgba(0,0,0,${.08 * A})`); gr.addColorStop(1, 'rgba(0,0,0,0)');

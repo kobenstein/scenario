@@ -64,7 +64,8 @@ export default async (T, R) => {
   // ---- the camera (world coords of the hook room; the window pane is on the .85 plane)
   const LAMPTIP = [1099, 490];                                          // the lamp's opening (f6_kit ember 'lamp' at ROOM.lamp, s 1.05, dir .42)
   const CLIP = { x: 905, y: 465, z: 3.4 }, MID = { x: 1090, y: 505, z: 1.4 }, WIDE = { x: 960, y: 560, z: 1.0 }, WIN = { x: 1487, y: 375, z: 1.85 };
-  const NEAR = { x: 1495, y: 445, z: 2.6 }, WIN2 = { x: 1487, y: 390, z: 1.9 }, LAP = { x: 840, y: 475, z: 2.9 }, SPLIT = { x: 1565, y: 260, z: 4.2 }, LOW = { x: 1565, y: 400, z: 3.2 }, OUT = { x: 1565, y: 400, z: 7.5 };
+  const onWall = (wx, wy, z) => ({ x: 960 + (wx - 960) / .85, y: 540 + (wy - 540) / .85, z });   // aim at a point of the window's plane (parallax .85)
+  const NEAR = onWall(1500, 445, 2.6), STAR = onWall(1560, 478, 2.45), WIN2 = { x: 1487, y: 390, z: 1.9 }, LAP = { x: 840, y: 475, z: 2.9 }, SPLIT = onWall(1565, 262, 4.2), LOW = onWall(1565, 400, 3.2), OUT = onWall(1565, 400, 7.5);
   const KEYS = [
     { t: HI.b, x: LAMPTIP[0], y: LAMPTIP[1], z: 5.5 },
     { t: C.start + .15, ...CLIP, e: 'io' },                            // 14.01 out of the lamp to the screen (slow start: the light shrinks first)
@@ -80,8 +81,8 @@ export default async (T, R) => {
     { t: tOpenE + .3, ...WIN2, e: 'io' },                              // 14.06 ease back: the window open onto the city
     { t: tSo + .4, ...LAP, e: 'io' },                                  // 14.07 to the laptop (in the pause)
     { t: tAndYou, x: LAP.x - 3, y: LAP.y + 2, z: 2.93, e: 'lin' },
-    { t: tAndYou + 1.35, ...WIN, e: 'io' },                            // "and you wonder": to the window again
-    { t: tSureE + .1, x: WIN.x + 2, y: WIN.y + 2, z: 1.87, e: 'lin' },  // 14.08 ★ holds
+    { t: tAndYou + 1.35, ...STAR, e: 'io' },                           // "and you wonder": to the window again, closer on the reflection (the taken chair near centre)
+    { t: tSureE + .1, x: STAR.x + 2, y: STAR.y + 2, z: STAR.z + .02, e: 'lin' },  // 14.08 ★ holds
     { t: tIntel + .15, ...SPLIT, e: 'io' },                            // 14.09 into the upper glass
     { t: tWe - .2, x: SPLIT.x, y: SPLIT.y + 3, z: 4.25, e: 'lin' },
     { t: tWe + 1.3, ...LOW, e: 'io' },                                 // 14.10 the tilt down with the line
@@ -111,7 +112,7 @@ export default async (T, R) => {
   const thread = (t) => lin(tAnd + .45, tAnd + 1.4, t);
   const kDark = (t) => .8 * sm(lin(C.start - .4, C.start + .3, t)) * (1 - sm(lin(C.end - .2, C.end + .6, t)));
   const typing = (t) => t >= tType0 && t < tAnswer - .2;
-  const kOpen = (t) => 1 - sm(lin(HI.b + .1, HI.b + 1.0, t));
+  const kOpen = (t) => 1 - lin(HI.b + .03, HI.b + .98, t);                                 // the light is back in the lamp before the clip opens (linear: the edge crosses the frame at an even speed)
   // ---- the split in the glass (14.09), the line's settling (14.10), the ember's way to the chest (14.11): glass coordinates
   const uSplit = (t) => lin(tCons - .1, tCons + 1.1, t);
   const uLine = (t) => lin(tIntel - .05, tIntel + .8, t);
@@ -152,9 +153,9 @@ export default async (T, R) => {
   const glassLights = (ctx, t, Wn) => {
     if (t < tIntel - .3) return;
     const X = Wn.X, Y = Wn.Y, k = Wn.m.k, s = sSettle(t);
-    const S = GLASS.screen, x0 = mix(-180, S.x0, s), x1 = mix(180, S.x1, s), ly = mix(-130, S.y0, s);
-    const u = uSplit(t), e = eout(u), riseG = 85;
-    let ex = mix(0, -30, s), ey = mix(-130 - riseG * e, -150, s);
+    const S = GLASS.screen, LY = -118, x0 = mix(-180, S.x0, s), x1 = mix(180, S.x1, s), ly = mix(LY, S.y0, s);
+    const u = uSplit(t), e = eout(u), riseG = 78;
+    let ex = mix(0, -30, s), ey = mix(LY - riseG * e, -140, s);
     const ec = eChest(t); if (ec > 0) { ex = mix(ex, GLASS.chest[0], ec); ey = mix(ey, GLASS.chest[1], ec); }
     const arrive = sm(lin(tSecond + 1.0, tSecond + 1.3, t)) * (1 - sm(lin(tSecond + 1.3, tSecond + 1.9, t)));
     const hd = hand(t); let sx, sy, rr, ea, fa;

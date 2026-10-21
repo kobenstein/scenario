@@ -112,6 +112,7 @@ function facadeLayer() {
       g.strokeStyle = kind === 'dark' || kind === 'late' ? '#22213a' : '#4a4460'; g.lineWidth = 8; g.strokeRect(x - 4, y - 4, w + 8, h + 8);
       g.strokeStyle = 'rgba(0,0,0,.4)'; g.lineWidth = 2; g.strokeRect(x - 9, y - 9, w + 18, h + 18);
     }));
+    g.setTransform(1, 0, 0, 1, 0, 0);                                                      // stipple's putImageData honours the transform
     stipple(c, { k: .22, g: 1, seed: 11, mid: false, boost: 1 });
   });
 }
