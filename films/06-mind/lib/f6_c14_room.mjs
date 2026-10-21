@@ -66,6 +66,9 @@ export function reflectionC14(q, t, o = {}) {
   chairC01(q, t, -G.chair[0], G.chair[1], G.chairS, lampA, -1, true);
   if (o.chairTaken) {
     const s = G.sitterS, x = -G.sitter[0], y = G.sitter[1];
+    if (o.sitterGlow > 0) { // the ember has settled in the chest: its warmth answers on the body (80 ms after the arrival)
+      q.save(); q.globalCompositeOperation = 'lighter'; const cg = q.createRadialGradient(-G.chest[0], G.chest[1], 0, -G.chest[0], G.chest[1], 70); cg.addColorStop(0, rgba(F6.amber, .45 * o.sitterGlow)); cg.addColorStop(1, rgba(F6.amber, 0)); q.fillStyle = cg; q.fillRect(-G.chest[0] - 70, G.chest[1] - 70, 140, 140); q.restore();
+    }
     const pose = { ...POSES.perch, sh: [.52, .46], el: [1.05, 1.1], head: .04, turn: 1, hands: ['relaxed', 'relaxed'] };
     figure(q, x, y, s, pose, { t, seed: (o.seed ?? 3) + 2, dress: YOU, light: { x: LX, y: LY - 100, col: F6.amberCore, a: .5 * lampA }, rim: rgba(F6.amberCore, .75 * lampA), rimSide: -1, shadow: false });
     if (o.witnessA > 0) witness(q, t, { x: -G.witness[0], y: G.witness[1], r: 4, halo: 64, a: o.witnessA });
@@ -140,10 +143,11 @@ export function splitC14(ctx, t, o = {}) {
 const DISC = canvas(W, H);
 export function openingLight(ctx, t, HI, cx, cy, k) {
   if (k <= 0) return;
-  const [disc, dg] = DISC, Rr = 1400 + 4200 * k;
+  // an opaque core of light (the whole frame at k 1) with a soft stippled-looking falloff beyond it; the core shrinks into the bulb's bloom
+  const [disc, dg] = DISC, r0 = 60 + 1320 * Math.pow(k, .8), Rr = r0 * 2.1, A = Math.min(1, k * 6);
   dg.setTransform(1, 0, 0, 1, 0, 0); dg.globalCompositeOperation = 'source-over'; dg.globalAlpha = 1; dg.clearRect(0, 0, W, H);
   HI.plate(dg, t);
-  const gr = dg.createRadialGradient(cx, cy, 0, cx, cy, Rr); gr.addColorStop(0, 'rgba(0,0,0,1)'); gr.addColorStop(.2 * k, 'rgba(0,0,0,1)'); gr.addColorStop(.42, `rgba(0,0,0,${.5 * Math.sqrt(k)})`); gr.addColorStop(.75, `rgba(0,0,0,${.12 * k})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
+  const gr = dg.createRadialGradient(cx, cy, 0, cx, cy, Rr); gr.addColorStop(0, `rgba(0,0,0,${A})`); gr.addColorStop(r0 / Rr, `rgba(0,0,0,${A})`); gr.addColorStop(r0 / Rr + .25, `rgba(0,0,0,${.42 * A})`); gr.addColorStop(.85, `rgba(0,0,0,${.08 * A})`); gr.addColorStop(1, 'rgba(0,0,0,0)');
   dg.globalCompositeOperation = 'destination-in'; dg.fillStyle = gr; dg.fillRect(0, 0, W, H);
   ctx.drawImage(disc, 0, 0);
 }
