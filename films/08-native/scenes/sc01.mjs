@@ -29,7 +29,8 @@
 // | 0.12 | … **who gets** to have one                    | pull back: the open plate is one of hundreds of workshops in the      | few lit ones     | pull back to the wide land, then a dive | c01>c02: a firefly flies from the hands  | bulb 30.9,     |
 // |      |                                               | valley, most dark; on who gets two more light up and stay             |                  | after the firefly into the weave        | into the weave; its stitch glow grows    | whoosh_airy    |
 // |      |                                               |                                                                       |                  |                                         | until it IS the gold light plate at H.a  | 32.7           |
-import { W, H, rgba, clamp, lin, mix, eio, eout, prng, drift, text } from '../engine.mjs';
+import { W, H, rgba, clamp, lin, mix, eio, eout, prng, drift, text, canvas } from '../engine.mjs';
+let GLOW = null;                                                // one reused offscreen for the soft glow of the c01>c02 dive
 import { handsOf } from '../lib/handoff4.mjs';
 import { F8, nightLand, landCam, ridgeY, anatomyPlate, instances, weave, firefly, swarm, mistBand, qio, eoutX, einX, ready } from '../lib/f8_kit.mjs';
 import { plate as drawPlate } from '../lib/handoff4.mjs';
@@ -54,23 +55,27 @@ export default async (T, R) => {
   const HA = HO.a;
 
   // ---------------------------------------------------------------- camera keys: [t, x, y, dist]
+  // Smooth motion (MOTION.md, Jakob 2026-10-23 "ruckelig"): every move ≥ 1.6 s, dives ≥ 2 s, eased in and out; moves start early (in the
+  // previous sentence) instead of running fast. The window dive stops just behind the glass (dist .0028: the window fills the height) so
+  // the pull-back has 2.5 decades less to travel; the pull-back flows on into the crane up of 0.05 without stopping.
   const KEYS = [
-    [0, 965, 610, .9], [2.0, 975, 665, .74], [A.rising + .2, 990, 770, .42], [A.no + .25, winX(0) - 2, WIN_Y + 1, .085],
-    [A.emp + .6, DOOR[0] - 2, WIN_Y + 4, .062], [A.never - .35, winX(9), WIN_Y, .05], [A.never + .65, winX(9) + .4, WIN_Y + .6, .0005],
-    [A.keep - .75, winX(9) + .2, WIN_Y + .3, .00042], [A.keep + .55, 1008, 848, .3], [A.keep + 1.4, 1000, 808, 1.05], [A.some - .1, 1000, 776, 1.15],
-    [A.some + 1.5, 1000, 668, 1.45], [A.single - .9, 1004, 690, 1.35], [A.single + .1, DOOR[0], DOOR[1] - 3, .048], [A.how - .2, DOOR[0] - .4, DOOR[1] - 3.2, .042],
-    [A.how + .5, 1022, 850, .2], [A.to - .8, 1017, 848, .2], [A.to + .4, 1010.7, 841.3, .107], [A.and, 1010.5, 842, .099],
-    [A.who + .4, 1000, 700, 1.7], [A.end - .3, 998, 690, 1.8],
+    [0, 965, 610, .9], [1.9, 972, 655, .76], [A.no + .4, winX(3), WIN_Y + 1, .1],
+    [A.forget + .42, winX(9) + .2, WIN_Y + .3, .004], [A.forget + .67, winX(9) + .25, WIN_Y + .3, .0036],
+    [A.sleeps - .46, 1014, 853, .03], [A.some + .3, 1005, 790, .45], [A.some + 1.5, 1000, 668, 1.45], [A.single - 1.9, 1003, 684, 1.38],
+    [A.single + .22, DOOR[0], DOOR[1] - 3, .05], [A.how - .21, DOOR[0] - .4, DOOR[1] - 3.2, .044],
+    [A.to - .58, 1017, 848, .2], [A.to + 1.22, 1010.7, 841.3, .107], [A.and - .16, 1010.5, 842, .099],
+    [A.who + .12, 1000, 705, 1.0], [A.end - .8, 999, 700, 1.06],
   ];
   const ld = KEYS.map((k) => Math.log(k[3]));
   // monotone cubic (Fritsch–Carlson) on log dist
   const n = KEYS.length, del = [], m = new Array(n).fill(0);
   for (let i = 0; i < n - 1; i++) del.push((ld[i + 1] - ld[i]) / (KEYS[i + 1][0] - KEYS[i][0]));
   for (let i = 1; i < n - 1; i++) m[i] = del[i - 1] * del[i] <= 0 ? 0 : 3 * (KEYS[i + 1][0] - KEYS[i - 1][0]) / ((2 * KEYS[i + 1][0] - KEYS[i][0] - KEYS[i - 1][0]) / del[i - 1] + (KEYS[i + 1][0] + KEYS[i][0] - 2 * KEYS[i - 1][0]) / del[i]);
-  const DIVE_T = A.end - .3, P_STAR = [986, 853.5];                    // the dive target: a point of the interior weave
+  const DIVE_T = A.end - .8, P_STAR = [986, 853.5];                    // the dive target: a node of the brain-shaped network in the plate
+  const sinS = (u) => .5 - .5 * Math.cos(Math.PI * clamp(u));            // gentle S (peak speed 1.57× the mean, eases in and out)
   function cam(t) {
     if (t >= DIVE_T) {
-      const u = lin(DIVE_T, HA, t), d0 = KEYS[n - 1][3], d1 = .0048, lg = mix(Math.log(d0), Math.log(d1), qio(u)), d = Math.exp(lg), f = (d0 - d) / (d0 - d1);
+      const u = lin(DIVE_T, HA, t), d0 = KEYS[n - 1][3], d1 = .03, lg = mix(Math.log(d0), Math.log(d1), sinS(u)), d = Math.exp(lg), f = (d0 - d) / (d0 - d1);
       return { x: mix(KEYS[n - 1][1], P_STAR[0], f), y: mix(KEYS[n - 1][2], P_STAR[1], f), dist: d };
     }
     let i = 0; while (i < n - 2 && t > KEYS[i + 1][0]) i++;
@@ -124,7 +129,7 @@ export default async (T, R) => {
 
   // ---------------------------------------------------------------- the interior weave behind the hero's glass (0.02–0.04) and in the plate
   const weaveRect = (c) => { const P = landCam(c, WEAVE_D); return { x: P.X(HERO.x - 116 * HERO.s), y: P.Y(HERO.y - 67 * HERO.s), w: 232 * HERO.s * P.k, h: 62 * HERO.s * P.k }; };
-  const glassStitch = { t0: A.never + .2, u: .62, v: .46, glyph: 'check', from: [-300, 220], dur: .75 };
+  const glassStitch = { t0: A.forget - .4, u: .745, v: .42, glyph: 'check', from: [-300, 220], dur: .8 };
 
   // ---------------------------------------------------------------- fireflies of 0.04: out of the roof into the night, back with a thread
   const LOOPS = [0, 1, 2, 3, 4].map((i) => { const r = prng(300 + i); return { t0: A.keep - .2 + i * .55, dur: 2.6 + r() * .8, far: [HERO.x + (r() - .5) * 360, HERO.y - 90 - r() * 120] }; });
@@ -156,10 +161,13 @@ export default async (T, R) => {
   }
 
   // ---------------------------------------------------------------- the whole frame
-  const spotR = (t, k0) => { const t1 = A.end + .25; if (t < t1 - .05) return 0; return (.25 + 7.2 * Math.pow(clamp((t - t1) / (HA - t1)), 1.6) + .3 * eoutX(clamp((t - t1 + .05) / 1.0))) * k0; };
+  // the glow of the stitch grows until it IS the plate: its AREA grows like a smoothstep in time (so the brightness never lurches), full cover 2 frames before H.a
+  const spotR = (t, k0, sx, sy) => { const t1 = A.end - .15; if (t < t1 - .05) return 0; const Rf = Math.hypot(Math.max(sx, W - sx), Math.max(sy, H - sy)) + 60, u = clamp((t - t1) / (HA - 2 / 30 - t1));
+    return Math.max((.25 + .3 * eoutX(clamp((t - t1 + .05) / 1.0))) * k0, Rf * 1.05 * Math.pow(u, 1.3) / (1 - glowSoft(u))); };
+  const glowSoft = (u) => .5 * (1 - u * u * u) + .02;
   function world(ctx, t) {
     const c = cam(t), P0 = landCam(c, 0), k0 = P0.k;
-    { const r = spotR(t, k0), sx = P0.X(P_STAR[0]), sy = P0.Y(P_STAR[1]); if (t >= HA - 1 / 30 - 1e-4 && r > Math.hypot(Math.max(sx, W - sx), Math.max(sy, H - sy)) + 60) { drawPlate(ctx, t, 'light', HO.o); return; } }
+    { const sx = P0.X(P_STAR[0]), sy = P0.Y(P_STAR[1]), r = spotR(t, k0, sx, sy); if (t >= HA - 1 / 30 - 1e-4 && r > Math.hypot(Math.max(sx, W - sx), Math.max(sy, H - sy)) + 60) { drawPlate(ctx, t, 'light', HO.o); return; } }
     // light state of the night: dims to the plate's dark paper in 0.07–0.11, lifts again in the pull-back
     const plateDim = .36 * eio(lin(A.to - .2, A.to + .9, t)) * (1 - eio(lin(A.and + .2, A.who + .4, t)));
     // when the hero's wall covers the whole frame (window push, 0.02–0.03) the night behind it is never seen: skip it (perf)
@@ -168,7 +176,7 @@ export default async (T, R) => {
     else nightLand(ctx, t, { cam: c, moon: { x: 1540, y: 205, r: 13 }, dim: 0, mist: 0, after: (i) => {
       landRow(ctx, t, c, i);
       if (i === 1) c01Clouds(ctx, t, c, { lit: clamp(eio(lin(A.some + .2, A.some + 1.6, t)) - eio(lin(A.how + .6, A.to + .6, t))), heroX: HERO.x });
-      if (i === 3) c01Village(ctx, t, c, { lastOut: A.sleeps + .02 });
+      if (i === 3) c01Village(ctx, t, c, { lastOut: A.some - .2 });
     } });
     if (plateDim > 0) { ctx.fillStyle = rgba('#05060f', plateDim); ctx.fillRect(0, 0, W, H); }
 
@@ -215,7 +223,7 @@ export default async (T, R) => {
 
     // c01>c02: a firefly flies from the hands into the weave; its stitch glow grows (and the camera dives) until it IS the light plate
     if (t > A.who + .2) {
-      const t0 = A.end - .55, t1 = A.end + .25, Pw = (wx, wy) => [P0.X(wx), P0.Y(wy)];
+      const t0 = A.end - .95, t1 = A.end - .15, Pw = (wx, wy) => [P0.X(wx), P0.Y(wy)];
       const from = [HERO.x - 4 * HERO.s, HERO.y - 34 * HERO.s];
       if (t >= t0 && t <= t1 + .1) {
         const pos = (tt) => { const u = eio(clamp((tt - t0) / (t1 - t0))), x = mix(from[0], P_STAR[0], u) + Math.sin(u * Math.PI) * 9, y = mix(from[1], P_STAR[1], u) - Math.sin(u * Math.PI) * 7; return Pw(x, y); };
@@ -223,29 +231,39 @@ export default async (T, R) => {
         firefly(ctx, t, { x: pos(t)[0], y: pos(t)[1], trail, s: clamp(.18 * hs, .5, 3), seed: 21 });
       }
       if (t > t1 - .05) {
-        const [sx, sy] = Pw(P_STAR[0], P_STAR[1]), r = spotR(t, k0);
-        // the glow halo (light, not a second picture) and the light itself: the plate drawn inside the growing glow
-        ctx.save(); ctx.beginPath(); ctx.arc(sx, sy, r, 0, Math.PI * 2); ctx.clip(); drawPlate(ctx, t, 'light', HO.o); ctx.restore();
-        // a feathered edge: the light thins out over the threads in four narrow rings (bloom), never a hard disc
-        for (let q = 1; q <= 4; q++) { ctx.save(); ctx.beginPath(); ctx.arc(sx, sy, r * (1 + .07 * q), 0, Math.PI * 2); ctx.arc(sx, sy, r * (1 + .07 * (q - 1)), 0, Math.PI * 2, true); ctx.clip(); ctx.globalAlpha = 1 - q / 5; drawPlate(ctx, t, 'light', HO.o); ctx.restore(); }
-        // the rim of the glow: light spilling outward over the threads (soft, additive), so the edge is a falloff, never a disc
-        const ra = 1 - eio(lin(HA - .4, HA - 1 / 30, t)); ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = ra; const hg = ctx.createRadialGradient(sx, sy, r * .8, sx, sy, r * 2.2);
-        hg.addColorStop(0, rgba('#fff3d6', 0)); hg.addColorStop(.2, rgba('#f6e2b4', .22)); hg.addColorStop(.35, rgba(F8.gold, .14)); hg.addColorStop(.6, rgba(F8.gold, .07)); hg.addColorStop(1, rgba(F8.gold, 0));
-        ctx.fillStyle = hg; ctx.fillRect(0, 0, W, H); ctx.restore();
+        const [sx, sy] = Pw(P_STAR[0], P_STAR[1]), r = spotR(t, k0, sx, sy);
+        // the light itself: the plate, seen through a soft radial mask (solid core, long feathered edge), never a hard disc.
+        // The edge softens less as the glow grows, so at full size the solid core covers the whole frame (= the plate at H.a).
+        const u = clamp((t - (A.end - .15)) / (HA - 2 / 30 - (A.end - .15))), soft = glowSoft(u);
+        if (!GLOW) GLOW = canvas(W, H);
+        const [gc, gx] = GLOW; gx.setTransform(1, 0, 0, 1, 0, 0); gx.globalCompositeOperation = 'source-over'; gx.globalAlpha = 1; gx.clearRect(0, 0, W, H);
+        drawPlate(gx, t, 'light', HO.o);
+        const mg = gx.createRadialGradient(sx, sy, 0, sx, sy, Math.max(1, r)); mg.addColorStop(0, 'rgba(0,0,0,1)'); mg.addColorStop(1 - soft, 'rgba(0,0,0,1)');
+        for (let q = 1; q <= 6; q++) { const v = q / 6; mg.addColorStop(1 - soft + soft * v, `rgba(0,0,0,${(.5 + .5 * Math.cos(Math.PI * v)).toFixed(4)})`); }
+        gx.globalCompositeOperation = 'destination-in'; gx.fillStyle = mg; gx.fillRect(0, 0, W, H); gx.globalCompositeOperation = 'source-over';
+        ctx.drawImage(gc, 0, 0);
       }
     }
     // the title (0.01): "The Rise of the AI-Native Company", word masks, upper third left (line 1 staggered 80 ms, AI-Native / Company on the spoken words)
     { const a0 = S('A.I.-native') - .05; c01Title(ctx, t, { at: [a0, a0 + .08, a0 + .16, a0 + .24, a0 + .42, S('companies')], out: A.no + .1 }); }   // title: The Rise of the / AI-Native Company
   }
 
-  const draw = (ctx, t) => world(ctx, t);
+  // the print finish changes gently (never a jump at an entry boundary): the values glide over ~1 s; at H.a they equal HO.print
+  let curT = 0;
+  const draw = (ctx, t) => { curT = t; world(ctx, t); };
+  const g = (t0, t1) => sinS(lin(t0, t1, curT));
+  const PR = {
+    get riso() { return .35 - .05 * g(A.never - .7, A.never + .1) + .05 * g(A.keep - .1, A.keep + .9) - .05 * g(A.how - .6, A.how + .4) - .1 * g(A.end - 1.2, A.end + 1.3); },
+    get halftone() { return .6 + .3 * g(A.never - .5, A.never + .3) - .3 * g(A.keep - .1, A.keep + .9); },
+    get hatch() { return .6 + .6 * g(A.to - .3, A.to + .9) - .6 * g(A.and, A.and + 1.1); },
+  };
   return [
-    { t: 0, tr: 'cut', d: .1, draw, print: { riso: .35 }, sound: [{ f: 'whoosh_up', t: A.rising + .42, v: .45 }] },
-    { t: A.never, tr: 'cut', d: .1, draw, print: { riso: .3, halftone: .9 }, sound: [{ f: 'chime', t: glassStitch.t0 + glassStitch.dur, v: .3 }] },
-    { t: A.keep, tr: 'cut', d: .1, draw, print: { riso: .35 }, sound: [{ f: 'tick', t: A.sleeps + .05, v: .2 }] },
-    { t: A.how, tr: 'cut', d: .1, draw, print: { riso: .3 }, sound: [{ f: 'wings', t: A.how - .1, v: .3 }] },
-    { t: A.to, tr: 'cut', d: .1, draw, print: { riso: .3, hatch: 1.2 }, sound: [{ f: 'pages', t: A.apart - .15, v: .5 }, { f: 'foil_glint', t: A.memory + .1, v: .35 }, { f: 'shimmer_rings', t: A.hands + .1, v: .3 }] },
-    { t: A.and, tr: 'cut', d: .1, draw, print: { riso: .3 }, sound: [{ f: 'bulb', t: A.who + .1, v: .3 }] },
-    { t: A.end, tr: 'cut', d: .1, draw, print: HO.print, sound: [{ f: 'whoosh_airy', t: A.end + .5, v: .45 }] },
+    { t: 0, tr: 'cut', d: .1, draw, print: PR, sound: [{ f: 'whoosh_up', t: A.rising + .42, v: .45 }] },
+    { t: A.never, tr: 'cut', d: .1, draw, print: PR, sound: [{ f: 'chime', t: glassStitch.t0 + glassStitch.dur * .5, v: .3 }] },
+    { t: A.keep, tr: 'cut', d: .1, draw, print: PR, sound: [{ f: 'tick', t: A.some - .17, v: .2 }] },
+    { t: A.how, tr: 'cut', d: .1, draw, print: PR, sound: [{ f: 'wings', t: A.how - .1, v: .3 }] },
+    { t: A.to, tr: 'cut', d: .1, draw, print: PR, sound: [{ f: 'pages', t: A.apart - .15, v: .5 }, { f: 'foil_glint', t: A.memory + .1, v: .35 }, { f: 'shimmer_rings', t: A.hands + .1, v: .3 }] },
+    { t: A.and, tr: 'cut', d: .1, draw, print: PR, sound: [{ f: 'bulb', t: A.who + .1, v: .3 }] },
+    { t: A.end, tr: 'cut', d: .1, draw, print: PR, sound: [{ f: 'whoosh_airy', t: A.end + .5, v: .45 }] },
   ];
 };

@@ -17,11 +17,23 @@ Quality floor: Film 5 ("wirklich gut", Jakob 2026-10-20), Film 4 v2, Film 6, Fil
 
 ## The language of Film 8: the organism (weave, fireflies, the conductor, the workshop, the many lights)
 The film takes one company apart like an anatomical engraving and puts it back together. Five objects carry it:
-1. **The weave** = the memory (the "company brain"; never draw a brain). A vast loom-like lattice of fine luminous threads, hanging in the dark like a tapestry of light.
-   Every meeting, message, decision and mistake arrives as a thin thread of light and is woven in; nothing ever drops out. Threads are pale gold `#f3d9a0` with a
-   white core; the old parts of the weave glow dimmer but stay. Each thread can carry a tiny engraved glyph (a speech bubble, an envelope, a check mark, a crossed-out
-   line), readable in one second, never text. When a person leaves the ordinary company (01a), a whole patch of threads walks out with them; in the A.I.-native one
-   the patch stays.
+1. **The network** = the memory (the "company brain"). REVISED after Jakob's minute-1 comment (2026-10-23 12:04: "das Raster ist nicht optimal, eher ein Netzwerk,
+   das an ein neuronales Netz erinnert, organischer, oder in Form eines Gehirns"). NO grid, no loom, no straight lattice lines anywhere.
+   - Look: an organic neural network of light hanging in the dark. Nodes = soft glowing somata of varied size (2–14 px core, warm gold `#f3d9a0`, white core
+     `#fff8e6`, a faint halo); filaments = curved, tapering, branching dendrite-like strands between nodes (bezier curves, thicker near the node, hair-thin at
+     the tip, slight irregular wobble), never straight, never a regular pattern. Density varies: dense luminous clusters, sparse dark gaps.
+   - Shape: seen whole, the cloud of nodes reads as a brain: two soft hemispheres side by side with a faint central cleft and loose gyri-like curls in the node
+     distribution (silhouette only, made of the network itself; never an anatomical brain drawing, never pink, never a skull). Close up it is pure network.
+   - Alive: signals (small bright pulses with a short tail) travel along filaments all the time, a slow breathing of brightness (period 3–5 s), nodes twinkle
+     softly with stagger. Old memories = dimmer, deeper nodes that stay.
+   - "Stitch" (a new memory arrives) = a new node sprouts with a soft flash, two to four filaments grow out of it (0.4–0.6 s, expo-out) and connect to neighbours,
+     the neighbours light up 60–120 ms later. A tiny engraved glyph (speech bubble, envelope, check mark, crossed-out line) may sit next to a NEW node for ~1 s,
+     then fades into the node; never text.
+   - Knowledge in people's heads (01a): each person carries a small cluster of nodes above the head; when someone leaves, their cluster's filaments to the rest
+     stretch and snap (thin sparks) and the cluster goes with them. In the A.I.-native company all clusters are wired into one shared network that stays.
+   - "Query" (queryable, 01a) = a wave of signal pulses races through the whole network from one node.
+   - Failures (02a–02b) = dark rust nodes `#7a3b2a` with dead (grey, broken) filaments; the night firefly visits each, the filaments reconnect and the node turns gold.
+   - API names stay the same (`weave`, `stitch`, `knot/untie`, `pulse`, `ghost`, `tear`) so scenes keep working; only the drawing changes.
 2. **The fireflies** = the hands (the agents). Small engraved lights with a soft cool-green glow `#b9f0c8` and a brighter core, each trailing a short luminous stroke.
    They fly out of the weave, do the work (a tiny engraved task: a letter sealed, a gear turned, a line on a chart drawn, a bug in a row of code-like dashes fixed —
    abstract, never real UI), and fly back to weave a new thread in. They never sleep: the night is their element. They are never faces, never robots, never eyes.
@@ -51,6 +63,16 @@ a Kenyan market street, a farm, a workshop, a bakery street of one city) always 
 - Transition types: (a) continuous take with a camera path, (b) fly into a surface (a window, the weave, a firefly's glow, a card) and the next image grows out of it,
   (c) morph of a line (a thread becomes a chart line, a road, a skyline), (d) exact match cut. Nothing else.
 
+## Smooth motion (REVISED after Jakob 2026-10-23 12:04: "die Animation teilweise noch etwas ruckelig")
+Measured on minute 1: the frame cadence is clean (no duplicate or dropped frames); the jerkiness is speed contrast. Very fast camera lurches (whole-frame change
+6–20× the calm level, e.g. the pull-backs at 6–8 s, 36 s, 46–47 s, 52 s, 65 s) sit between almost static holds. Rules from now on:
+- Camera moves (push-in, pull-back, crane, fly-into) last at least 1.6 s, hero/plate dives at least 2.0 s, always quart in-out or a gentle S-curve. No "whip",
+  no very fast pull-out. If a move cannot fit between two words, start it earlier (in the previous sentence) instead of making it faster.
+- Every move eases in AND out; no move starts at full speed or stops dead. Holds keep a slow drift (camera float plus 1–2 % slow push), so motion never jumps
+  from 0 to fast.
+- Measure before reporting: mean absolute frame difference on a 320×180 grayscale render, per frame. Target: no frame above 12 outside the handoff plates, and
+  frame-to-frame change of that value smooth (no single frame > 2.5× its neighbours). Use tools/smooth.mjs or the snippet in the brief.
+
 ## Every frame
 - One motif per sentence, and the image shows what the sentence says (understandable without the voice). Faster than one shot per sentence is fine.
 - Random-frame test: something is always alive (3–6 parallax layers, drift continues the last momentum, 1–3 % scale, threads shimmer, fireflies drift, stars twinkle,
@@ -70,7 +92,7 @@ a Kenyan market street, a farm, a workshop, a bakery street of one city) always 
 - Quote cards Q1/Q2 (5.5 s each, no VO): cream letterpress card `#f3ecda`, ink `#2a2420`, Instrument Serif quote, Inter caps attribution and date.
   Q1: "…the intelligence lives in the system." — Jack Dorsey & Roelof Botha, March 2026. Q2: "2026." — Dario Amodei, May 2025, asked when the first one-person
   billion-dollar company would appear.
-- Forbidden: brains, glowing robot eyes, android faces, circuit boards, binary rain, server-rack corridors, real app UIs or logos as hero, chat bubbles with readable
+- Forbidden: anatomical brains (the network may only suggest a brain silhouette, see above), glowing robot eyes, android faces, circuit boards, binary rain, server-rack corridors, real app UIs or logos as hero, chat bubbles with readable
   text, laptops at night, kitchen tables, cups, phones face-up, calendars, hourglasses, doors as metaphor, everyday routines (calendar entries, emails being typed:
   Jakob 2026-10-23: "detailreiche Alltagsabläufe … fad"). From earlier films: the share certificate, the dome, the curve, the cards I–IV, the mirror, the long table.
 

@@ -14,19 +14,23 @@
 //       → { proj(d) }   indigo ridges in parallax, mist between them, Milky Way, twinkling stars. At cam {960,540,1} the ridges sit
 //       at their design positions (horizon ≈ y 600, valley floor ≈ y 760–900).
 //
-// ---- the weave (memory) ----
-//   weave(ctx, t, { x, y, w, h, depth 3, seed 1, a 1, old .45, oldGlow 0, glyphs .35, cols 34, rows 20, shimmer 1, persp .3,
-//                   stitches [{ t0, u, v, glyph, from [sx,sy] }], pulse { u, x .5, y .5 } , ghost 0, knots [{ u, v, untie 0..1, r }],
-//                   tear { rect [u0,v0,u1,v1], u 0..1, to [dx,dy] }, clip true })
-//       → { at(u, v, layer 0) → [x,y], rect }       a tapestry of gold light threads in depth layers, old parts dimmer but kept
-//   stitch(ctx, t, t0, x, y, glyph, { from [sx,sy], col, s 1, dur .7 }) one thread flies in from `from`, stitches at (x,y) with a flash.
-//       glyph: 'meeting' | 'envelope' | 'check' | 'cross' | 'question' | null.  (weave({stitches}) also makes the neighbours tremble 60 ms later)
+// ---- the memory: an organic neural network (MOTION §1, revised 2026-10-23; API names kept from the old weave) ----
+//   weave(ctx, t, { x, y, w, h, depth 3, seed 1, a 1, old .45, oldGlow 0, cols 34, rows 20, shimmer 1, persp .3, shape 'brain'|'cloud' (auto:
+//                   brain when w/h ≤ 2.8), thick 1, stitches [{ t0, u, v, glyph, from [sx,sy], s, dur }], pulse { u, x .5, y .5 }, ghost 0,
+//                   knots [{ u, v, untie 0..1, r }], tear { rect [u0,v0,u1,v1], u 0..1, to [dx,dy], rot }, clip [x,y,w,h] })
+//       → { at(u, v, layer 0) → [x,y], rect, nodes(layer 0) → [[x,y,r]…] }   nodes (somata) joined by curved tapering filaments with
+//       dendrites; signals travel along them, the whole breathes (4.2 s), nodes twinkle; seen whole the node cloud is two hemispheres.
+//       cols × rows only set the node density now (no grid); glyphs is ignored (glyphs appear only by new nodes). Static parts are cached
+//       per layer (first call of a new size/seed costs 2–7 s once); very close (rect wider than ~3200 px) it is drawn as culled vectors.
+//   stitch(ctx, t, t0, x, y, glyph, { from [sx,sy], s 1, dur .7, to [[x,y]…] }) a spark arrives from `from` (first half of dur), the node
+//       sprouts with a flash, 2–4 filaments grow to `to` (weave({stitches}) passes the 3 nearest nodes), they light up 60–120 ms later;
+//       glyph: 'meeting' | 'envelope' | 'check' | 'cross' | 'question' | null sits by the new node ~1 s, then slides into it.
 //   glyph(ctx, kind, x, y, s, col, a)    the tiny engraved glyph alone
-//   knot(ctx, t, x, y, { r 14, seed, untie 0..1, a 1 })   a dark rust knot of threads; untie 1 = loose threads glowing gold
+//   knot(ctx, t, x, y, { r 14, seed, untie 0..1, a 1 })   a failure: dark rust node with dead grey broken filaments; untie 1 = reconnected, gold
 //   untie(ctx, t, x, y, u, o)            = knot(…, { untie: u })
-//   pulse(ctx, t, x, y, u, { r 600, col, a 1 })   one breathing / query wave (a ring of brightened stipple) travelling outward
-//   ghost(ctx, t, o)                     = weave(ctx, t, { …o, ghost: o.u ?? 1 }) dotted weave (not yet real)
-//   tear(ctx, t, o)                      = weave(ctx, t, { …o, tear: { rect, u, to } }) a patch rips out and drifts away with loose ends
+//   pulse(ctx, t, x, y, u, { r 600, col, a 1, sy 1 })   the query wave alone: an irregular ring of signal pulses travelling outward
+//   ghost(ctx, t, o)                     = weave(ctx, t, { …o, ghost: o.u ?? 1 }) dotted network, hollow nodes (not yet real)
+//   tear(ctx, t, o)                      = weave(ctx, t, { …o, tear: { rect, u, to } }) a patch of the network rips out and drifts away
 //
 // ---- fireflies (hands) ----
 //   firefly(ctx, t, { x, y, s 1, a 1, seed, trail [[x,y]…] (old→new) | path (t)→[x,y] + trailT .35, glyph 'seal'|'gear'|'chart'|'fix'|null,
@@ -235,154 +239,319 @@ export function glyph(ctx, kind, x, y, s = 1, col = F8.goldCore, a = 1) {
   ctx.restore();
 }
 
-// ================================================================ THE WEAVE
-const WEAVES = new Map();
-function weaveGeom(seed, cols, rows, depth) {
-  const key = `${seed}:${cols}:${rows}:${depth}`; if (WEAVES.has(key)) return WEAVES.get(key);
-  const r = prng(seed * 13 + 1), L = [];
-  for (let l = 0; l < depth; l++) {
-    const c = Math.round(cols * (1 + l * .25)), rw = Math.round(rows * (1 + l * .25)), warp = [], weft = [], gl = [];
-    for (let i = 0; i <= c; i++) warp.push({ u: (i + (r() - .5) * .5) / c, ph: r() * TAU, br: .5 + .5 * r(), sag: (r() - .5) * .012, age: r() });
-    for (let j = 0; j <= rw; j++) weft.push({ v: (j + (r() - .5) * .4) / rw, ph: r() * TAU, br: .5 + .5 * r(), amp: .004 + r() * .006, age: r() });
-    for (let k = 0; k < c * rw * .5; k++) gl.push({ u: Math.floor(r() * c) / c + .5 / c, v: Math.floor(r() * rw) / rw + .5 / rw, kind: ['meeting', 'envelope', 'check', 'cross', 'check', 'envelope'][Math.floor(r() * 6)], p: r(), ph: r() * TAU });
-    L.push({ warp, weft, gl });
-  }
-  const g = { L }; WEAVES.set(key, g); return g;
+// ================================================================ THE NETWORK (memory) · drawn behind the old `weave` API
+// MOTION.md §1 (revised 2026-10-23): an organic neural network of light, no grid. Nodes = glowing somata, filaments = curved, tapering,
+// branching strands (thick at the node, hair-thin at the tip), signals travel along them, the whole breathes (period 4.2 s), seen whole the
+// node cloud reads as two hemispheres with a faint cleft and gyri-like curls. Static drawing is cached per layer (young / old parts) in mip
+// levels; when the camera is very close the same geometry is drawn as vectors (culled), so it stays crisp at any zoom.
+const NETS = new Map(), NET_CW = 3072, NET_MIPS = [3072, 1536, 768, 384];
+const qbez = (p0, p1, p2, p3, q) => { const m = 1 - q; return m * m * m * p0 + 3 * m * m * q * p1 + 3 * m * q * q * p2 + q * q * q * p3; };
+// density of nodes in box coords (X 0…a, Y 0…1)
+function netDensity(shape, a, n1, n2) {
+  const Hb = .96, Wb = Math.min(a * .97, 1.22 * Hb), cx = a / 2, cy = .5;
+  return (X, Y) => {
+    const cl = fbm(n2, X * 3.1, Y * 3.1, 3), edgeF = Math.min(X, a - X, Y, 1 - Y);
+    if (shape === 'cloud') return clamp(edgeF / .12) * Math.pow(clamp((cl - .28) / .5), 1.3) * (.6 + .4 * fbm(n1, X * 7, Y * 7, 2));
+    const nx = (X - cx) / (Wb / 2), ny = (Y - cy) / (Hb / 2), ax = Math.abs(nx);
+    // two hemispheres side by side (seen from above): flat medial edge along the cleft, round lateral side, frontal end a little narrower
+    const hx = (ax - .5) / (.5 * (1 - .07 * ny)), hy = ny / (ny < 0 ? .97 : 1);
+    const e = Math.pow(Math.abs(hx), hx < 0 ? 6 : 2.3) + Math.pow(Math.abs(hy), 2.2);
+    const m = clamp((1 - e) / .2) * clamp((ax - .022) / .05);
+    // gyri: the iso-lines of a warped noise field make winding, curling bands; nodes gather on them
+    const f = fbm(n1, X * 2.3 + .7 * fbm(n2, X * 1.3, Y * 1.3, 2), Y * 2.3, 3), g = Math.pow(.5 + .5 * Math.sin(f * 58), 2.2);
+    const rim = Math.exp(-Math.pow((1 - e - .13) / .1, 2)) * clamp((ax - .022) / .05);
+    let d = m * (.07 + .93 * g) * (.35 + 1.1 * cl * cl) + rim * .75;
+    // outside the silhouette (wide rects): a sparse halo of loose nodes so the wall is not empty
+    if (a > 1.6) d += (1 - m) * .07 * clamp(edgeF / .1) * clamp((cl - .35) / .4);
+    return d;
+  };
 }
-// age of a point: the left/lower part of the weave is older (dimmer); old parts flare with o.oldGlow
+function netGeom(seed, N, aspect, shape) {
+  const a = Math.round(aspect * 20) / 20, key = `${seed}:${N}:${a}:${shape}`; if (NETS.has(key)) return NETS.get(key);
+  const r = prng(seed * 131 + 7), dens = netDensity(shape, a, vnoise(seed * 3 + 1), vnoise(seed * 5 + 2));
+  const s0 = Math.sqrt(a * (shape === 'cloud' ? .45 : .5) / N), minD = s0 * .42, cs = minD, gw = Math.ceil(a / cs) + 1, grid = new Map();
+  const nodes = [], ag = (X, Y) => clamp(1 - (X / a) * .9 - (1 - Y) * .2 + .1);
+  for (let tries = 0; tries < N * 60 && nodes.length < N; tries++) {
+    const X = r() * a, Y = r() * 1; if (r() > dens(X, Y) * 1.15) continue;
+    const gx = Math.floor(X / cs), gy = Math.floor(Y / cs); let ok = true;
+    for (let i = -2; i <= 2 && ok; i++) for (let j = -2; j <= 2 && ok; j++) { const c = grid.get((gx + i) + (gy + j) * gw); if (c) for (const q of c) if (Math.hypot(q.x - X, q.y - Y) < minD) { ok = false; break; } }
+    if (!ok) continue;
+    const big = r(), nd = { x: X, y: Y, r: big > .93 ? 4.5 + r() * 3 : 1.1 + 2.6 * Math.pow(r(), 2.2), age: clamp(ag(X, Y) * .6 + r() * .45), ph: r() * TAU, f: .6 + r() * 1.6, tw: r() < .45, i: nodes.length, deg: 0 };
+    nodes.push(nd); const k = gx + gy * gw; if (!grid.has(k)) grid.set(k, []); grid.get(k).push(nd);
+  }
+  // filaments to 2–4 nearest neighbours (rarely across the cleft), as cubic curves that bend (C or S), never straight
+  const edges = [], seen = new Set(), cx = a / 2;
+  for (const A of nodes) {
+    const want = 2 + (r() < .45) + (r() < .2), cand = [];
+    const gx = Math.floor(A.x / cs), gy = Math.floor(A.y / cs);
+    for (let i = -6; i <= 6; i++) for (let j = -6; j <= 6; j++) { const c = grid.get((gx + i) + (gy + j) * gw); if (c) for (const q of c) if (q !== A) cand.push([Math.hypot(q.x - A.x, q.y - A.y), q]); }
+    cand.sort((p, q) => p[0] - q[0]);
+    let got = 0;
+    for (const [d, B] of cand) {
+      if (got >= want || d > s0 * 3.2) break; const kk = A.i < B.i ? A.i + ':' + B.i : B.i + ':' + A.i; if (seen.has(kk)) { got++; continue; }
+      if (shape !== 'cloud' && (A.x - cx) * (B.x - cx) < 0 && r() > .06) continue;
+      if (B.deg > 5) continue;
+      seen.add(kk); got++; A.deg++; B.deg++;
+      const dx = B.x - A.x, dy = B.y - A.y, nx = -dy, ny = dx, b1 = (r() - .5) * .7, b2 = r() < .5 ? b1 * (.4 + r() * .5) : -b1 * (.3 + r() * .6);
+      const e = { a: A, b: B, c1x: A.x + dx * .33 + nx * b1, c1y: A.y + dy * .33 + ny * b1, c2x: A.x + dx * .67 + nx * b2, c2y: A.y + dy * .67 + ny * b2, w: .55 + .35 * Math.min(A.r, B.r) / 2.5, age: Math.max(A.age, B.age), len: d };
+      e.bb = [Math.min(A.x, B.x, e.c1x, e.c2x), Math.min(A.y, B.y, e.c1y, e.c2y), Math.max(A.x, B.x, e.c1x, e.c2x), Math.max(A.y, B.y, e.c1y, e.c2y)];
+      edges.push(e);
+    }
+  }
+  // dendrites: free branches that end in hair-thin tips, some with a fork
+  const dend = [];
+  for (const A of nodes) {
+    const m = (A.r > 3 ? 2 : 0) + Math.floor(r() * 2.4);
+    for (let k = 0; k < m; k++) {
+      const an = r() * TAU, L = s0 * (.35 + r() * .8) * (A.r > 3 ? 1.3 : 1), bend = (r() - .5) * 1.4;
+      const ex = A.x + Math.cos(an) * L, ey = A.y + Math.sin(an) * L, px = -Math.sin(an) * L * .3 * bend, py = Math.cos(an) * L * .3 * bend;
+      const d = { a: A, x0: A.x, y0: A.y, c1x: A.x + Math.cos(an) * L * .35 + px, c1y: A.y + Math.sin(an) * L * .35 + py, c2x: A.x + Math.cos(an) * L * .7 + px * .4, c2y: A.y + Math.sin(an) * L * .7 + py * .4, x1: ex, y1: ey, w: .5 + .25 * A.r / 2.5, age: A.age };
+      dend.push(d);
+      if (r() < .55) { const q = .5 + r() * .2, bx = qbez(d.x0, d.c1x, d.c2x, d.x1, q), by = qbez(d.y0, d.c1y, d.c2y, d.y1, q), a2 = an + (r() < .5 ? -1 : 1) * (.5 + r() * .5), L2 = L * (.3 + r() * .3);
+        dend.push({ a: A, x0: bx, y0: by, c1x: bx + Math.cos(a2) * L2 * .4, c1y: by + Math.sin(a2) * L2 * .4, c2x: bx + Math.cos(a2 + .3) * L2 * .75, c2y: by + Math.sin(a2 + .3) * L2 * .75, x1: bx + Math.cos(a2 + .2) * L2, y1: by + Math.sin(a2 + .2) * L2, w: d.w * .55, age: A.age, sub: true }); }
+    }
+  }
+  for (const d of dend) d.bb = [Math.min(d.x0, d.x1, d.c1x, d.c2x), Math.min(d.y0, d.y1, d.c1y, d.c2y), Math.max(d.x0, d.x1, d.c1x, d.c2x), Math.max(d.y0, d.y1, d.c1y, d.c2y)];
+  const g = { a, nodes, edges, dend, s0, imgs: new Map() }; NETS.set(key, g); return g;
+}
+// draw the static network (or the part with age > / ≤ .55) at px-per-unit S, origin (ox, oy), line scale lw; vp = culling box in screen px
+function paintNet(g, G, S, ox, oy, lw, part, vp, ghost) {
+  const sel = (age) => part === 'all' || (part === 'old' ? age > .55 : age <= .55);
+  const vis = (bb) => !vp || !(ox + bb[2] * S < vp[0] - 40 || ox + bb[0] * S > vp[2] + 40 || oy + bb[3] * S < vp[1] - 40 || oy + bb[1] * S > vp[3] + 40);
+  const N = 9;
+  const strand = (x0, y0, c1x, c1y, c2x, c2y, x1, y1, w0, prof) => {   // a tapered filled ribbon along the cubic
+    const L = [], R = [];
+    for (let k = 0; k <= N; k++) {
+      const q = k / N, x = qbez(x0, c1x, c2x, x1, q), y = qbez(y0, c1y, c2y, y1, q), dq = .02, xa = qbez(x0, c1x, c2x, x1, Math.min(1, q + dq)) - qbez(x0, c1x, c2x, x1, Math.max(0, q - dq)), ya = qbez(y0, c1y, c2y, y1, Math.min(1, q + dq)) - qbez(y0, c1y, c2y, y1, Math.max(0, q - dq));
+      const l = Math.hypot(xa, ya) || 1, hw = w0 * prof(q) * .5; L.push([ox + x * S - ya / l * hw, oy + y * S + xa / l * hw]); R.push([ox + x * S + ya / l * hw, oy + y * S - xa / l * hw]);
+    }
+    g.moveTo(L[0][0], L[0][1]); for (let k = 1; k <= N; k++) g.lineTo(L[k][0], L[k][1]); for (let k = N; k >= 0; k--) g.lineTo(R[k][0], R[k][1]); g.closePath();
+  };
+  const OLD = part === 'old', cS = OLD ? '#dc9a40' : '#eeb25e', cD = OLD ? '#d0903c' : '#e2a453', cN = OLD ? '#eaa850' : '#f7c878', cC = OLD ? '#ffe2b0' : F8.goldCore;
+  const pE = (q) => .16 + .84 * Math.pow(Math.abs(2 * q - 1), 1.7), pD = (q) => .05 + .95 * Math.pow(1 - q, 1.4);
+  g.save(); g.globalCompositeOperation = 'lighter';
+  if (ghost) {   // not yet real: dotted strands, hollow nodes
+    g.setLineDash([1.2 * lw, 7 * lw]); g.lineCap = 'round'; g.strokeStyle = rgba(F8.gold, .7); g.lineWidth = 1.3 * lw; g.beginPath();
+    for (const e of G.edges) { if (!sel(e.age) || !vis(e.bb)) continue; g.moveTo(ox + e.a.x * S, oy + e.a.y * S); g.bezierCurveTo(ox + e.c1x * S, oy + e.c1y * S, ox + e.c2x * S, oy + e.c2y * S, ox + e.b.x * S, oy + e.b.y * S); }
+    g.stroke(); g.setLineDash([]); g.strokeStyle = rgba(F8.goldCore, .6); g.lineWidth = .9 * lw; g.beginPath();
+    for (const n of G.nodes) { if (!sel(n.age)) continue; const x = ox + n.x * S, y = oy + n.y * S, rr = (1.5 + n.r * .8) * lw; g.moveTo(x + rr, y); g.arc(x, y, rr, 0, TAU); } g.stroke(); g.restore(); return;
+  }
+  // soft glow under the strands (wide, faint), then the strands themselves
+  g.lineCap = 'round'; g.strokeStyle = rgba('#c98a3a', .08); g.lineWidth = 5 * lw; g.beginPath();
+  for (const e of G.edges) { if (!sel(e.age) || !vis(e.bb)) continue; g.moveTo(ox + e.a.x * S, oy + e.a.y * S); g.bezierCurveTo(ox + e.c1x * S, oy + e.c1y * S, ox + e.c2x * S, oy + e.c2y * S, ox + e.b.x * S, oy + e.b.y * S); }
+  g.stroke();
+  g.fillStyle = rgba(cS, .8); g.beginPath();
+  for (const e of G.edges) { if (!sel(e.age) || !vis(e.bb)) continue; strand(e.a.x, e.a.y, e.c1x, e.c1y, e.c2x, e.c2y, e.b.x, e.b.y, 2.3 * lw * e.w, pE); }
+  g.fill();
+  g.fillStyle = rgba(cD, .7); g.beginPath();
+  for (const d of G.dend) { if (!sel(d.age) || !vis(d.bb)) continue; strand(d.x0, d.y0, d.c1x, d.c1y, d.c2x, d.c2y, d.x1, d.y1, 2.4 * lw * d.w, pD); }
+  g.fill();
+  // somata: a halo, a gold body and a white core
+  for (const n of G.nodes) { if (!sel(n.age)) continue; const x = ox + n.x * S, y = oy + n.y * S, rr = n.r * lw; if (vp && (x < vp[0] - 80 || x > vp[2] + 80 || y < vp[1] - 80 || y > vp[3] + 80)) continue; spr(g, 'gold', x, y, rr * 4.5 + 3 * lw, .2 + .035 * n.r); spr(g, 'soft', x, y, 46 * lw, .03); }
+  g.fillStyle = rgba(cN, .95); g.beginPath();
+  for (const n of G.nodes) { if (!sel(n.age)) continue; const x = ox + n.x * S, y = oy + n.y * S, rr = n.r * lw * 1.05; if (vp && (x < vp[0] - 30 || x > vp[2] + 30 || y < vp[1] - 30 || y > vp[3] + 30)) continue; g.moveTo(x + rr, y); g.arc(x, y, rr, 0, TAU); }
+  g.fill(); g.fillStyle = rgba(cC, .95); g.beginPath();
+  for (const n of G.nodes) { if (!sel(n.age)) continue; const x = ox + n.x * S, y = oy + n.y * S, rr = n.r * lw * .5; if (vp && (x < vp[0] - 30 || x > vp[2] + 30 || y < vp[1] - 30 || y > vp[3] + 30)) continue; g.moveTo(x + rr, y); g.arc(x, y, rr, 0, TAU); }
+  g.fill(); g.restore();
+}
+// cached image of one part (young / old / ghost) at mip level m: { img, pad, S } (box unit → px)
+function netImg(G, key, part, m, ghost, thick = 1) {
+  const a = G.a, top = a >= 1 ? NET_CW / a : NET_CW, S = top * m / NET_CW, pad = Math.ceil(.08 * Math.max(a, 1) * S), w = Math.ceil(a * S) + 2 * pad, h = Math.ceil(S) + 2 * pad;
+  const k = `net:${key}:${part}:${m}:${ghost ? 1 : 0}:${thick}`;
+  const img = cached(k, w, h, (g) => {
+    if (m === NET_CW) { paintNet(g, G, S, pad, pad, (a * S) / 1400 * thick, part, null, ghost); return; }
+    const up = netImg(G, key, part, m * 2, ghost, thick); g.imageSmoothingEnabled = true; g.drawImage(up.img, 0, 0, w, h);
+  });
+  return { img, pad, S, w, h };
+}
+const netLw = (sw) => (sw <= NET_CW ? sw / 1400 : (NET_CW / 1400) * Math.pow(sw / NET_CW, .45));
+// draw one network layer into the screen rect R (box → screen: X·R.w/a); alpha per part; vector when very close
+function drawNetLayer(ctx, G, key, R, alphaYoung, alphaOld, ghost, thick = 1) {
+  const sw = R.w, S = sw / G.a, vecK = clamp((sw / NET_CW - 1.05) / .3), cacheK = 1 - vecK;
+  const parts = [['young', alphaYoung], ['old', alphaOld]];
+  if (cacheK > 0) {
+    let m = NET_MIPS[NET_MIPS.length - 1]; for (const mm of NET_MIPS) if (mm >= sw * 1.0) m = mm;
+    for (const [part, al] of parts) {
+      let A = al * cacheK; if (A <= .004) continue;
+      const I = netImg(G, key, part, m, ghost, thick), k = S / I.S;
+      // brighten very small networks a little (fine strands lose coverage when small)
+      const boost = clamp(Math.sqrt(700 / Math.max(1, sw)), 1, 1.8);
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; A *= boost;
+      while (A > .004) { ctx.globalAlpha = Math.min(1, A); ctx.drawImage(I.img, R.x - I.pad * k, R.y - I.pad * k, I.w * k, I.h * k); A -= 1; }
+      ctx.restore();
+    }
+  }
+  if (vecK > 0) {
+    const lw = netLw(sw) * thick;
+    for (const [part, al] of parts) {
+      const A = al * vecK; if (A <= .004) continue;
+      ctx.save(); let left = A; while (left > .004) { ctx.globalAlpha = Math.min(1, left); paintNet(ctx, G, S, R.x, R.y, lw, part, [0, 0, W, H], ghost); left -= 1; } ctx.restore();
+    }
+  }
+}
+// a point on an edge (screen), q 0…1 from a to b
+const edgePt = (e, q, R, a) => [R.x + qbez(e.a.x, e.c1x, e.c2x, e.b.x, q) / a * R.w, R.y + qbez(e.a.y, e.c1y, e.c2y, e.b.y, q) * R.h];
+// a travelling signal: a bright dot with a short tail along the filament
+function signal(ctx, e, q, R, a, lw, al, dir) {
+  const qq = dir > 0 ? q : 1 - q, tail = .22;
+  ctx.strokeStyle = rgba(F8.goldCore, .55 * al); ctx.lineWidth = Math.max(.7, 1.6 * lw); ctx.beginPath();
+  for (let k = 0; k <= 6; k++) { const s = clamp(qq - dir * tail * k / 6), p = edgePt(e, s, R, a); k ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); }
+  ctx.stroke(); const p = edgePt(e, qq, R, a); spr(ctx, 'gold', p[0], p[1], 5 + 9 * lw, .9 * al);
+}
+
+// age of a point: the left/lower part of the network is older (dimmer); old parts flare with o.oldGlow
 const ageAt = (u, v) => clamp(1 - u * .9 - (1 - v) * .2 + .1);
 export function weave(ctx, t, o = {}) {
   const x = o.x ?? 360, y = o.y ?? 180, w = o.w ?? 1200, h = o.h ?? 700, depth = o.depth ?? 3, A = o.a ?? 1, persp = o.persp ?? .3;
-  const G = weaveGeom(o.seed ?? 1, o.cols ?? 34, o.rows ?? 20, depth), oldDim = o.old ?? .45, ghostU = clamp(o.ghost ?? 0);
+  const oldDim = o.old ?? .45, ghostU = clamp(o.ghost ?? 0), sh = o.shimmer ?? 1, seed = o.seed ?? 1, aspect = w / Math.max(1, h);
+  const shape = o.shape || (aspect <= 2.8 ? 'brain' : 'cloud'), N0 = Math.round(clamp((o.cols ?? 34) * (o.rows ?? 20) * (shape === 'brain' ? .6 : .42), 40, 1000));
   const cx = x + w / 2, cy = y + h / 2;
   const rect = (l) => { const f = 1 / (1 + l * persp); return { x: cx - w / 2 * f + l * w * .02, y: cy - h / 2 * f - l * h * .03, w: w * f, h: h * f }; };
-  const stitches = o.stitches || [];
-  // tremble offsets near stitches (neighbours tremble 60 ms after the stitch, smaller amplitude) and the tear patch
-  const tr = o.tear, trU = tr ? clamp(tr.u) : 0;
-  const inTear = (u, v) => tr && u > tr.rect[0] && u < tr.rect[2] && v > tr.rect[1] && v < tr.rect[3];
-  const disp = (u, v, R) => {
-    let dx = 0, dy = 0;
-    for (const s of stitches) {
-      const dt = t - s.t0 - (s.dur ?? .7) - .06; if (dt < 0 || dt > 1.4) continue;
-      const d = Math.hypot((u - s.u) * R.w, (v - s.v) * R.h), k = Math.exp(-d * d / (2 * 90 * 90)) * Math.exp(-dt * 3.2);
-      dy += 7 * k * Math.sin(dt * 26 - d * .03); dx += 2.5 * k * Math.cos(dt * 21 - d * .03);
-    }
-    if (o.knots) for (const kn of o.knots) { const d = Math.hypot((u - kn.u) * R.w, (v - kn.v) * R.h), k = Math.exp(-d * d / (2 * 40 * 40)) * (1 - clamp(kn.untie ?? 0)); dx += (kn.u * R.w - u * R.w) * .35 * k; dy += (kn.v * R.h - v * R.h) * .35 * k; }
-    return [dx, dy];
-  };
-  const pul = o.pulse, pulseAt = (px, py) => { if (!pul) return 0; const R0 = Math.hypot(w, h) * clamp(pul.u ?? 0), d = Math.hypot(px - (x + w * (pul.x ?? .5)), py - (y + h * (pul.y ?? .5))); return Math.exp(-Math.pow((d - R0) / 70, 2)) * (1 - clamp(pul.u ?? 0) * .6); };
-  const sh = o.shimmer ?? 1;
+  const geo = (l) => { const N = Math.round(N0 * (1 - l * .18)); return [netGeom(seed * 7 + l, N, aspect, shape), `${seed * 7 + l}:${N}:${Math.round(aspect * 20) / 20}:${shape}`]; };
+  const stitches = o.stitches || [], tr = o.tear, trU = tr ? clamp(tr.u) : 0, pul = o.pulse;
+  const breath = (l) => 1 + .16 * Math.sin(TAU * t / 4.2 + l * 1.3);
   ctx.save();
   if (o.clip) { ctx.beginPath(); ctx.rect(o.clip[0], o.clip[1], o.clip[2], o.clip[3]); ctx.clip(); }
-  ctx.lineCap = 'round';
-  for (let l = depth - 1; l >= 0; l--) {
-    const R = rect(l), Lr = G.L[l], la = A * (1 - l * .3), N = 22, sc = clamp(R.w / 1400, .6, 9);
-    const drawThread = (pt, br, age, pass) => {
-      const old = mix(1, oldDim, age) * (1 + (o.oldGlow || 0) * age * 1.4);
-      let a = la * br * old * (1 + .25 * sh * Math.sin(t * .9 + pt.ph * 3)); if (a <= .01) return;
-      ctx.beginPath(); let started = false;
-      for (let k = 0; k <= N; k++) {
-        const q = k / N, [u, v] = pt.f(q); if (trU > 0 && inTear(u, v)) { started = false; continue; }
-        const [dx, dy] = disp(u, v, R); const px = R.x + u * R.w + dx, py = R.y + v * R.h + dy;
-        started ? ctx.lineTo(px, py) : ctx.moveTo(px, py); started = true;
-      }
-      if (ghostU > 0) ctx.setLineDash([1.2, 6 + 4 * ghostU]);
-      if (l === 0) { ctx.strokeStyle = rgba(F8.gold, .1 * a); ctx.lineWidth = 6 * sc; ctx.stroke(); }
-      ctx.strokeStyle = rgba(F8.gold, (l ? .7 : .6) * a * (1 - ghostU * .3)); ctx.lineWidth = 1.7 * sc * (1 - l * .2); ctx.stroke();
-      ctx.strokeStyle = rgba(F8.goldCore, .85 * a * (1 - ghostU * .3)); ctx.lineWidth = .65 * sc * (1 - l * .2); ctx.stroke();
-      if (ghostU > 0) ctx.setLineDash([]);
-    };
-    ctx.globalCompositeOperation = 'lighter';
-    for (const p of Lr.warp) { const f = (q) => [p.u + p.sag * Math.sin(Math.PI * q) + .003 * Math.sin(t * .7 + p.ph + q * 4), q]; drawThread({ f, ph: p.ph }, p.br, ageAt(p.u, .5) * .6 + p.age * .4, 0); }
-    for (const p of Lr.weft) { const f = (q) => [q, p.v + p.amp * Math.sin(q * 9 + p.ph + t * .5)]; drawThread({ f, ph: p.ph }, p.br * .85, ageAt(.5, p.v) * .3 + p.age * .3, 0); }
-    // glyphs on the crossings (front layers only)
-    if (l < 2 && (o.glyphs ?? .35) > 0) {
-      const gs = clamp(R.w / 1300, .45, 7) * (1 - l * .25);
-      for (const q of Lr.gl) { if (q.p > (o.glyphs ?? .35)) continue; if (trU > 0 && inTear(q.u, q.v)) continue; const [dx, dy] = disp(q.u, q.v, R), age = ageAt(q.u, q.v);
-        const ga = la * mix(.85, oldDim * .8, age) * (1 + (o.oldGlow || 0) * age * 1.6) * (.7 + .3 * Math.sin(t * 1.3 + q.ph));
-        glyph(ctx, q.kind, R.x + q.u * R.w + dx, R.y + q.v * R.h + dy, gs, F8.goldCore, clamp(ga * .8)); }
-    }
-    // crossings glint (stippled points)
-    if (l === 0) { const r = prng(7); for (let k = 0; k < 120; k++) { const u = r(), v = r(), tw = Math.sin(t * (1 + r() * 2) + k); if (tw < .6) continue; const [dx, dy] = disp(u, v, R); spr(ctx, 'gold', R.x + u * R.w + dx, R.y + v * R.h + dy, 9 * (R.w / 1200 + .3), (tw - .6) * 1.6 * la); } }
-    // the pulse wave brightens what it passes
-    if (pul && l === 0) { for (let k = 0; k < 220; k++) { const r = prng(900 + k), u = r(), v = r(), px = R.x + u * R.w, py = R.y + v * R.h, pa = pulseAt(px, py); if (pa > .05) spr(ctx, 'gold', px, py, 18, pa * .9); } }
-    ctx.globalCompositeOperation = 'source-over';
+  const R0 = rect(0);
+  if (tr && trU > 0) {   // the torn patch leaves a hole: clip it out of the whole network
+    const [u0, v0, u1, v1] = tr.rect; ctx.beginPath(); ctx.rect(-W, -H, 3 * W, 3 * H); ctx.rect(R0.x + u1 * R0.w, R0.y + v0 * R0.h, -(u1 - u0) * R0.w, (v1 - v0) * R0.h); ctx.clip('evenodd');
   }
-  // knots
-  if (o.knots) { const R = rect(0); for (const kn of o.knots) knot(ctx, t, R.x + kn.u * R.w, R.y + kn.v * R.h, { r: kn.r ?? 14 * R.w / 1200 + 6, untie: kn.untie ?? 0, seed: kn.seed ?? 3 }); }
-  // the torn patch drifting away with loose ends
-  if (tr && trU > 0) {
-    const R = rect(0), [u0, v0, u1, v1] = tr.rect, e = eio(trU), dx = (tr.to?.[0] ?? 300) * e, dy = (tr.to?.[1] ?? 0) * e, rot = (tr.rot ?? .12) * e;
-    const px = R.x + u0 * R.w, py = R.y + v0 * R.h, pw = (u1 - u0) * R.w, ph = (v1 - v0) * R.h;
-    ctx.save(); ctx.translate(px + pw / 2 + dx, py + ph / 2 + dy); ctx.rotate(rot); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
-    const r = prng(5); ctx.strokeStyle = rgba(F8.gold, .75 * A); ctx.lineWidth = 1.3;
-    ctx.beginPath(); for (let i = 0; i <= 7; i++) { const xx = -pw / 2 + pw * i / 7; ctx.moveTo(xx, -ph / 2 - 10 * r()); ctx.lineTo(xx + (r() - .5) * 6, ph / 2 + 10 * r()); } for (let j = 0; j <= 5; j++) { const yy = -ph / 2 + ph * j / 5; ctx.moveTo(-pw / 2 - 12 * r(), yy); ctx.lineTo(pw / 2 + 12 * r(), yy + (r() - .5) * 5); } ctx.stroke();
+  for (let l = depth - 1; l >= 0; l--) {
+    const R = rect(l), [G, key] = geo(l), la = A * (1 - l * .28) * breath(l), a = G.a;
+    // a slow parallax sway per layer (deeper = more), never a jump
+    const sway = l * R.w * .0025, Rl = { ...R, x: R.x + Math.sin(t * .21 + l * 2) * sway, y: R.y + Math.cos(t * .17 + l) * sway * .5 };
+    const oldA = la * oldDim * (1 + (o.oldGlow || 0) * 1.6);
+    if (ghostU < 1) drawNetLayer(ctx, G, key, Rl, la * (1 - ghostU), oldA * (1 - ghostU), false, o.thick ?? 1);
+    if (ghostU > 0) drawNetLayer(ctx, G, key, Rl, la * ghostU * .8, oldA * ghostU * .8, true, o.thick ?? 1);
+    if (Rl.w < 60) continue;
+    const lw = netLw(Rl.w) * (o.thick ?? 1), vis = (p, m = 60) => p[0] > -m && p[0] < W + m && p[1] > -m && p[1] < H + m;
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+    // nodes twinkle softly, staggered
+    if (sh > 0) for (const n of G.nodes) {
+      if (!n.tw) continue; const tw = Math.sin(t * n.f + n.ph); if (tw < .55) continue;
+      const p = [Rl.x + n.x / a * Rl.w, Rl.y + n.y * Rl.h]; if (!vis(p)) continue;
+      const old = n.age > .55 ? oldDim * (1 + (o.oldGlow || 0) * 1.6) : 1;
+      spr(ctx, 'gold', p[0], p[1], (n.r * 4 + 4) * lw + 2, (tw - .55) * 1.9 * la * old * sh * .7);
+    }
+    // signals travelling along filaments all the time
+    if (sh > 0 && ghostU < .9) {
+      const M = Math.round((10 + G.edges.length * .05) * sh * (1 - l * .35));
+      for (let j = 0; j < M; j++) {
+        const P = 1.1 + hash(j * 3.1 + l * 17 + seed) * 1.6, ph = hash(j * 7.7 + seed), c = Math.floor(t / P + ph), q = t / P + ph - c;
+        const e = G.edges[Math.floor(hash(c * 13.37 + j * 1.91 + l * 5.3 + seed) * G.edges.length)]; if (!e) continue;
+        const dir = hash(c * 3.3 + j) < .5 ? 1 : -1, env = Math.sin(Math.PI * q), old = e.age > .55 ? oldDim * (1 + (o.oldGlow || 0) * 1.2) : 1;
+        const p = edgePt(e, .5, Rl, a); if (!vis(p, Rl.w * .1 + 80)) continue;
+        signal(ctx, e, eio(q), Rl, a, lw, env * la * old * (1 - ghostU), dir);
+      }
+    }
+    // the query wave: a front of signal pulses races through the network from one node
+    if (pul && l <= 1) {
+      const u = clamp(pul.u ?? 0), ox = R0.x + R0.w * (pul.x ?? .5), oy = R0.y + R0.h * (pul.y ?? .5), RR = Math.hypot(w, h) * eout(u) * 1.05, fade = (1 - u * .6) * la, band = 60 + 40 * lw;
+      if (u > 0 && u < 1) {
+        for (const n of G.nodes) { const p = [Rl.x + n.x / a * Rl.w, Rl.y + n.y * Rl.h], d = Math.hypot(p[0] - ox, p[1] - oy), k = Math.exp(-Math.pow((d - RR) / band, 2)); if (k > .06 && vis(p)) spr(ctx, 'gold', p[0], p[1], (n.r * 5 + 8) * lw + 4, k * fade); }
+        for (const e of G.edges) {
+          const pa = [Rl.x + e.a.x / a * Rl.w, Rl.y + e.a.y * Rl.h], pb = [Rl.x + e.b.x / a * Rl.w, Rl.y + e.b.y * Rl.h], da = Math.hypot(pa[0] - ox, pa[1] - oy), db = Math.hypot(pb[0] - ox, pb[1] - oy);
+          if ((da - RR) * (db - RR) > 0 || Math.abs(db - da) < 1e-3) continue; const q = (RR - da) / (db - da); signal(ctx, e, q, Rl, a, lw, fade * .9, 1);
+        }
+      }
+    }
     ctx.restore();
-    // loose ends left in the hole
+  }
+  // knots (failures): dark rust nodes with dead filaments
+  if (o.knots) { const R = rect(0); for (const kn of o.knots) knot(ctx, t, R.x + kn.u * R.w, R.y + kn.v * R.h, { r: kn.r ?? 14 * R.w / 1200 + 6, untie: kn.untie ?? 0, seed: kn.seed ?? 3, a: A }); }
+  ctx.restore();
+  // the torn patch drifts away with its loose filaments (the same cached network, cut out)
+  if (tr && trU > 0) {
+    const R = R0, [u0, v0, u1, v1] = tr.rect, e = eio(trU), dx = (tr.to?.[0] ?? 300) * e, dy = (tr.to?.[1] ?? 0) * e, rot = (tr.rot ?? .12) * e;
+    const px = R.x + u0 * R.w, py = R.y + v0 * R.h, pw = (u1 - u0) * R.w, ph = (v1 - v0) * R.h, [G, key] = geo(0);
+    ctx.save(); if (o.clip) { ctx.beginPath(); ctx.rect(o.clip[0], o.clip[1], o.clip[2], o.clip[3]); ctx.clip(); }
+    ctx.translate(px + pw / 2 + dx, py + ph / 2 + dy); ctx.rotate(rot); ctx.translate(-(px + pw / 2), -(py + ph / 2));
+    ctx.beginPath(); ctx.rect(px, py, pw, ph); ctx.clip(); drawNetLayer(ctx, G, key, R, A, A * oldDim, false); ctx.restore();
+    // loose ends: snapped filaments curling at the hole's rim and the patch's rim
     ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(F8.gold, .5 * A); ctx.lineWidth = 1; ctx.beginPath();
-    for (let i = 0; i < 14; i++) { const rr = prng(40 + i), side = i % 4, q = rr(); let sx = px + pw * q, sy = py; if (side === 1) sy = py + ph; if (side === 2) { sx = px; sy = py + ph * q; } if (side === 3) { sx = px + pw; sy = py + ph * q; }
-      const L = 10 + 18 * rr(), ang = Math.atan2(py + ph / 2 - sy, px + pw / 2 - sx) + (rr() - .5) * .8 + .1 * Math.sin(t * 2 + i); ctx.moveTo(sx, sy); ctx.quadraticCurveTo(sx + Math.cos(ang) * L * .6, sy + Math.sin(ang) * L * .6 + 5, sx + Math.cos(ang) * L, sy + Math.sin(ang) * L + 8); }
+    for (let i = 0; i < 16; i++) { const rr = prng(40 + i), side = i % 4, q = rr(); let sx = px + pw * q, sy = py; if (side === 1) sy = py + ph; if (side === 2) { sx = px; sy = py + ph * q; } if (side === 3) { sx = px + pw; sy = py + ph * q; }
+      const L = 10 + 18 * rr(), ang = Math.atan2(py + ph / 2 - sy, px + pw / 2 - sx) + (rr() - .5) * 1.2 + .1 * Math.sin(t * 2 + i); ctx.moveTo(sx, sy); ctx.quadraticCurveTo(sx + Math.cos(ang) * L * .6 + 4, sy + Math.sin(ang) * L * .6 + 5, sx + Math.cos(ang) * L, sy + Math.sin(ang) * L + 8); }
     ctx.stroke(); ctx.restore();
   }
-  // stitches: flying threads
-  for (const s of stitches) { const R = rect(0); stitch(ctx, t, s.t0, R.x + s.u * R.w, R.y + s.v * R.h, s.glyph, { from: s.from, s: s.s ?? clamp(R.w / 1200, .8, 2.6), dur: s.dur }); }
-  ctx.restore();
-  return { at: (u, v, l = 0) => { const R = rect(l); return [R.x + u * R.w, R.y + v * R.h]; }, rect: rect(0) };
+  // stitches: a new memory sprouts as a node and grows filaments to its nearest neighbours
+  if (stitches.length) {
+    const [G] = geo(0), R = R0, a = G.a;
+    for (const s of stitches) {
+      if (t < s.t0) continue; const sx = R.x + s.u * R.w, sy = R.y + s.v * R.h;
+      const near = G.nodes.map((n) => [Math.hypot(n.x / a - s.u, (n.y - s.v) / aspect), n]).sort((p, q) => p[0] - q[0]).slice(1, 4).map(([, n]) => [R.x + n.x / a * R.w, R.y + n.y * R.h]);
+      stitch(ctx, t, s.t0, sx, sy, s.glyph, { from: s.from, s: s.s ?? clamp(R.w / 1200, .8, 2.6), dur: s.dur, to: near });
+    }
+  }
+  return { at: (u, v, l = 0) => { const R = rect(l); return [R.x + u * R.w, R.y + v * R.h]; }, rect: R0,
+    nodes: (l = 0) => { const [G] = geo(l), R = rect(l); return G.nodes.map((n) => [R.x + n.x / G.a * R.w, R.y + n.y * R.h, n.r]); } };
 }
-// one thread flies in and stitches itself in at (x, y)
+// a new memory: a spark arrives along a curve from `from` (laying a faint filament), the node sprouts with a soft flash, 2–4 filaments
+// grow out (expo-out) to its neighbours (o.to, else outward), the neighbours light up 60–120 ms later; a tiny glyph sits by it ~1 s.
 export function stitch(ctx, t, t0, x, y, kind, o = {}) {
   const dur = o.dur ?? .7, u = (t - t0) / dur; if (u <= 0) return { done: false };
-  const from = o.from || [x - 700, y - 260], s = o.s ?? 1, e = eoutX(clamp(u));
-  const cx = mix(from[0], x, .5), cy = Math.min(from[1], y) - 120 * s;
+  const from = o.from || [x - 700, y - 260], s = o.s ?? 1, arr = .5, ua = clamp(u / arr), e = eoutX(ua);
+  const cx = mix(from[0], x, .55) + (y - from[1]) * .18, cy = mix(from[1], y, .45) - 90 * s;
   const P = (q) => [(1 - q) ** 2 * from[0] + 2 * (1 - q) * q * cx + q * q * x, (1 - q) ** 2 * from[1] + 2 * (1 - q) * q * cy + q * q * y];
   ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
-  // the thread: its tail stays as part of the weave (a short new segment), its head travels
-  const q1 = e, q0 = Math.max(0, e - .45);
-  if (u < 1.6) {
-    const fadeTail = clamp(1.6 - u);
-    ctx.beginPath(); for (let k = 0; k <= 24; k++) { const [px, py] = P(mix(q0, q1, k / 24)); k ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }
-    ctx.strokeStyle = rgba(F8.gold, .25 * fadeTail); ctx.lineWidth = 6 * s; ctx.stroke(); ctx.strokeStyle = rgba(F8.goldCore, .95 * fadeTail); ctx.lineWidth = 1.4 * s; ctx.stroke();
-  }
-  const [hx, hy] = P(q1); if (u < 1) spr(ctx, 'gold', hx, hy, 26 * s, .9);
-  // the stitch: a small bright cross-stitch and a flash, then the glyph stays, glowing a little longer
-  if (u >= 1) {
-    const k = t - t0 - dur, fl = Math.exp(-k * 4);
-    spr(ctx, 'gold', x, y, (40 + 60 * fl) * s, .35 + .9 * fl);
-    ctx.strokeStyle = rgba(F8.goldCore, .9); ctx.lineWidth = 1.4 * s; ctx.beginPath(); const L = 9 * s * eoutX(clamp(k / .25)); ctx.moveTo(x - L, y - L * .6); ctx.lineTo(x + L, y + L * .6); ctx.moveTo(x - L, y + L * .6); ctx.lineTo(x + L, y - L * .6); ctx.stroke();
-    // the new thread now part of the weave: a short bright segment along the warp
-    ctx.strokeStyle = rgba(F8.goldCore, .55 + .4 * fl); ctx.lineWidth = 1.1 * s; ctx.beginPath(); ctx.moveTo(x, y - 60 * s * eoutX(clamp(k / .5))); ctx.lineTo(x, y + 60 * s * eoutX(clamp(k / .5))); ctx.stroke();
-    if (kind) glyph(ctx, kind, x + 14 * s, y - 14 * s, 1.3 * s, F8.goldCore, clamp(.7 + .3 * fl));
+  // the arriving spark and the filament it lays (it stays faint as one of the network's long strands)
+  const keep = .12 + .5 * Math.exp(-Math.max(0, t - t0 - dur * arr) * 1.6);
+  ctx.beginPath(); for (let k = 0; k <= 28; k++) { const [px, py] = P(e * k / 28); k ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }
+  ctx.strokeStyle = rgba(F8.gold, .4 * keep); ctx.lineWidth = 1.3 * s; ctx.stroke();
+  const [hx, hy] = P(e); if (ua < 1) { spr(ctx, 'gold', hx, hy, 24 * s, .9); ctx.beginPath(); for (let k = 0; k <= 8; k++) { const [px, py] = P(Math.max(0, e - .12 * k / 8)); k ? ctx.lineTo(px, py) : ctx.moveTo(px, py); } ctx.strokeStyle = rgba(F8.goldCore, .8); ctx.lineWidth = 1.6 * s; ctx.stroke(); }
+  if (ua >= 1) {
+    const k = t - t0 - dur * arr, fl = Math.exp(-k * 3.5), sp = eoutX(clamp(k / .25));
+    // the node sprouts with a soft flash
+    spr(ctx, 'gold', x, y, (30 + 70 * fl) * s, .35 + .8 * fl);
+    ctx.fillStyle = rgba(F8.goldCore, .95); ctx.beginPath(); ctx.arc(x, y, (2.2 + 1.6 * fl) * s * sp, 0, TAU); ctx.fill();
+    // 2–4 filaments grow out to the neighbours (0.5 s, expo-out), the neighbours answer 60–120 ms after being reached
+    let to = o.to; if (!to || !to.length) { const r = prng(Math.round(x * 3 + y * 7)); to = [0, 1, 2].map((i) => { const an = i * 2.1 + r() * 1.2; return [x + Math.cos(an) * (50 + 30 * r()) * s, y + Math.sin(an) * (40 + 30 * r()) * s]; }); }
+    to.forEach(([bx, by], i) => {
+      const g = eoutX(clamp((k - .04 * i) / .5)); if (g <= 0) return;
+      const dx = bx - x, dy = by - y, bend = (i % 2 ? 1 : -1) * .22, c1 = [x + dx * .35 - dy * bend, y + dy * .35 + dx * bend], c2 = [x + dx * .7 - dy * bend * .5, y + dy * .7 + dx * bend * .5];
+      ctx.beginPath(); for (let q = 0; q <= 16; q++) { const qq = g * q / 16; const px = qbez(x, c1[0], c2[0], bx, qq), py = qbez(y, c1[1], c2[1], by, qq); q ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }
+      ctx.strokeStyle = rgba(F8.gold, .75); ctx.lineWidth = 1.6 * s; ctx.stroke(); ctx.strokeStyle = rgba(F8.goldCore, .6 * (.4 + .6 * fl)); ctx.lineWidth = .7 * s; ctx.stroke();
+      const kr = k - .04 * i - .5 - (.06 + .02 * i); if (kr > 0) spr(ctx, 'gold', bx, by, (14 + 26 * Math.exp(-kr * 4)) * s, .9 * Math.exp(-kr * 2.2) + .05);
+    });
+    // the tiny glyph by the new node for ~1 s, then it slides into the node and is gone
+    if (kind) { const ga = 1 - eio(clamp((k - 1) / .45)), gi = eio(clamp((k - 1) / .45)); if (ga > 0) glyph(ctx, kind, x + 14 * s * (1 - gi), y - 14 * s * (1 - gi), 1.3 * s * (1 - .6 * gi), F8.goldCore, clamp(.85 * ga * sp)); }
   }
   ctx.restore();
   return { done: u >= 1, head: [hx, hy] };
 }
+// a failure: a dark rust node whose filaments are dead (grey, broken); untie 1 = the filaments have reconnected and the node is gold
 export function knot(ctx, t, x, y, o = {}) {
-  const r = o.r ?? 14, un = clamp(o.untie ?? 0), rr = prng(o.seed ?? 3), A = o.a ?? 1;
+  const r = o.r ?? 14, un = clamp(o.untie ?? 0), rr = prng(o.seed ?? 3), A = o.a ?? 1, e = eio(un);
   ctx.save(); ctx.translate(x, y); ctx.lineCap = 'round';
-  const loops = 7;
-  for (let i = 0; i < loops; i++) {
-    const a0 = rr() * TAU, sp = 1.2 + rr() * 1.5, rad = r * (.4 + .6 * rr()), ph = rr() * TAU;
-    const col = un < .5 ? F8.rust : F8.gold, open = eio(un);
-    ctx.beginPath();
-    for (let k = 0; k <= 30; k++) {
-      const q = k / 30, ang = a0 + q * sp * TAU * (1 - open * .8), rad2 = rad * (1 - open) + open * (q - .5) * r * 5;
-      const px = Math.cos(ang) * rad2 * (1 - open) + open * (q - .5) * r * 6 * Math.cos(a0), py = Math.sin(ang) * rad2 * (1 - open) + open * ((q - .5) * r * 6 * Math.sin(a0) + 3 * Math.sin(q * 6 + t * 1.5 + ph));
-      k ? ctx.lineTo(px, py) : ctx.moveTo(px, py);
-    }
-    if (un > .5) { ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(F8.gold, A * .7 * (un - .5) * 2); ctx.lineWidth = 1.4; ctx.stroke(); }
-    ctx.globalCompositeOperation = 'source-over'; ctx.strokeStyle = rgba(col === F8.rust ? '#3a1810' : F8.goldDeep, A * .9 * (1 - un * .7)); ctx.lineWidth = 3; ctx.stroke();
-    ctx.strokeStyle = rgba(F8.rust, A * (1 - un)); ctx.lineWidth = 1.6; ctx.stroke();
+  const n = 5 + Math.floor(rr() * 2);
+  for (let i = 0; i < n; i++) {
+    const an = i / n * TAU + rr() * .7, L = r * (2.2 + rr() * 1.8), gap = .35 + rr() * .2, bend = (rr() - .5) * .8, ph = rr() * TAU;
+    const pt = (q) => { const d = q * L, b = Math.sin(q * Math.PI) * bend * L * .3; return [Math.cos(an) * d - Math.sin(an) * b, Math.sin(an) * d + Math.cos(an) * b + (1 - e) * q * q * L * .25]; };
+    // dead: two broken pieces that sag; alive: one whole strand reaching out, gold
+    const reach = mix(gap, 1, e), seg = (q0, q1) => { ctx.beginPath(); for (let k = 0; k <= 10; k++) { const p = pt(mix(q0, q1, k / 10)); k ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); } };
+    seg(.12, reach); ctx.globalCompositeOperation = 'source-over'; ctx.strokeStyle = rgba(e > .5 ? F8.goldDeep : '#7a7280', A * (.9 - .4 * e)); ctx.lineWidth = Math.max(1.4, r * .12) * (1 - .3 * e); ctx.stroke();
+    if (e < 1) { seg(gap + .14 + .1 * (1 - e), 1); ctx.strokeStyle = rgba('#5e5864', A * .8 * (1 - e)); ctx.lineWidth = Math.max(1.1, r * .09); ctx.stroke(); }
+    if (e > 0) { seg(.12, reach); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(F8.gold, A * .85 * e); ctx.lineWidth = 1.3; ctx.stroke(); }
+    // a dim spark at a broken tip, sometimes
+    if (e < .5 && Math.sin(t * 2.3 + ph) > .85) { const p = pt(gap); spr(ctx, 'gold', p[0], p[1], 6, .25 * (1 - e * 2) * A); }
   }
-  if (un > .6) spr(ctx, 'gold', 0, 0, r * 3, (un - .6) * 1.2 * A);
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.fillStyle = rgba('#2a120c', A * (1 - e)); ctx.beginPath(); ctx.arc(0, 0, r * .62, 0, TAU); ctx.fill();
+  ctx.fillStyle = rgba(F8.rust, A * (1 - e)); ctx.beginPath(); ctx.arc(0, 0, r * .45, 0, TAU); ctx.fill();
+  ctx.strokeStyle = rgba('#a0573e', A * .5 * (1 - e)); ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(0, 0, r * .45, 0, TAU); ctx.stroke();
+  if (e > 0) { spr(ctx, 'gold', 0, 0, r * (1.5 + 2 * e), .9 * e * A); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = rgba(F8.goldCore, e * A); ctx.beginPath(); ctx.arc(0, 0, r * .3, 0, TAU); ctx.fill(); }
   ctx.restore();
 }
 export const untie = (ctx, t, x, y, u, o = {}) => knot(ctx, t, x, y, { ...o, untie: u });
+// the query wave alone: a ring of signal pulses (an irregular, living front) travelling outward from (x, y)
 export function pulse(ctx, t, x, y, u, o = {}) {
-  u = clamp(u); if (u <= 0 || u >= 1) return; const R = (o.r ?? 600) * eout(u), a = (o.a ?? 1) * (1 - u);
-  ctx.save(); ctx.globalCompositeOperation = 'lighter';
-  const n = Math.round(60 + R * .4), r = prng(19);
-  for (let i = 0; i < n; i++) { const q = i / n * TAU + r() * .05, rr = R * (1 + (r() - .5) * .06); spr(ctx, o.col === 'green' ? 'green' : 'gold', x + Math.cos(q) * rr, y + Math.sin(q) * rr * (o.sy ?? 1), 10 + 6 * r(), a * .5); }
-  ctx.strokeStyle = rgba(o.col === 'green' ? F8.green : F8.gold, .35 * a); ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(x, y, R, R * (o.sy ?? 1), 0, 0, TAU); ctx.stroke();
+  u = clamp(u); if (u <= 0 || u >= 1) return; const R = (o.r ?? 600) * eout(u), a = (o.a ?? 1) * (1 - u), sy = o.sy ?? 1, col = o.col === 'green' ? 'green' : 'gold';
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+  const n = Math.round(40 + R * .25), r = prng(19);
+  for (let i = 0; i < n; i++) {
+    const q = i / n * TAU + r() * .08, rr = R * (1 + (r() - .5) * .12 + .05 * Math.sin(q * 5 + r() * 3)), px = x + Math.cos(q) * rr, py = y + Math.sin(q) * rr * sy;
+    const tl = 18 + 20 * r(); ctx.strokeStyle = rgba(col === 'green' ? F8.green : F8.goldCore, .35 * a); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(px - Math.cos(q) * tl, py - Math.sin(q) * tl * sy); ctx.stroke();
+    spr(ctx, col, px, py, 8 + 6 * r(), a * .6);
+  }
   ctx.restore();
 }
 export const ghost = (ctx, t, o = {}) => weave(ctx, t, { ...o, ghost: o.u ?? 1 });
@@ -567,8 +736,12 @@ export function workshop(ctx, t, x, y, s = 1, o = {}) {
       ctx.fillStyle = gw; ctx.fillRect(R.x, R.y, R.w, R.h);
       // the weave behind the glass: a few gold threads, shimmering (no people inside)
       if (o.inWindow) { ctx.save(); ctx.beginPath(); ctx.rect(R.x, R.y, R.w, R.h); ctx.clip(); ctx.setTransform(base); o.inWindow(ctx, i, { x: x + R.x * k, y: y + R.y * k, w: R.w * k, h: R.h * k }); ctx.restore(); }
-      else if (o.weave !== false) { ctx.save(); ctx.beginPath(); ctx.rect(R.x, R.y, R.w, R.h); ctx.clip(); ctx.strokeStyle = rgba('#fff4dc', .35 * wl); ctx.lineWidth = lw(.6);
-        ctx.beginPath(); for (let j = 0; j < 3; j++) { const xx = R.x + 2 + j * 3.8 + .6 * Math.sin(t * .8 + i + j); ctx.moveTo(xx, R.y); ctx.lineTo(xx + .8, R.y + R.h); } for (let j = 0; j < 4; j++) { const yy = R.y + 5 + j * 7.5 + .5 * Math.sin(t + j + i); ctx.moveTo(R.x, yy); ctx.lineTo(R.x + R.w, yy + .5); } ctx.stroke(); ctx.restore(); }
+      else if (o.weave !== false) {   // the network behind the glass: a few nodes and curved strands of one shared net, glimpsed (no people inside)
+        ctx.save(); ctx.beginPath(); ctx.rect(R.x, R.y, R.w, R.h); ctx.clip(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+        const rr = prng(seed * 31 + i * 7), P = []; for (let j = 0; j < 4; j++) P.push([R.x + 1.5 + rr() * (R.w - 3) + .5 * Math.sin(t * .6 + i + j * 2), R.y + 3 + rr() * (R.h - 6) + .6 * Math.cos(t * .5 + j + i)]);
+        ctx.strokeStyle = rgba('#fff4dc', .4 * wl); ctx.lineWidth = lw(.55); ctx.beginPath();
+        for (let j = 0; j < 4; j++) { const [ax, ay] = P[j], [bx, by] = P[(j + 1) % 4], bnd = (rr() - .5) * 8; ctx.moveTo(ax, ay); ctx.bezierCurveTo(mix(ax, bx, .3) + bnd, mix(ay, by, .3) - bnd * .5, mix(ax, bx, .7) - bnd * .4, mix(ay, by, .7) + bnd, bx, by); }
+        ctx.stroke(); ctx.fillStyle = rgba('#fffaf0', .75 * wl); ctx.beginPath(); for (const [px, py] of P) { const r0 = lw(.9) + .35 * rr(); ctx.moveTo(px + r0, py); ctx.arc(px, py, r0, 0, TAU); } ctx.fill(); ctx.restore(); }
     }
     ctx.beginPath(); ctx.rect(R.x, R.y, R.w, R.h); ctx.moveTo(R.x, R.y + 7); ctx.lineTo(R.x + R.w, R.y + 7); ctx.moveTo(R.x + R.w / 3, R.y); ctx.lineTo(R.x + R.w / 3, R.y + R.h); ctx.moveTo(R.x + R.w * 2 / 3, R.y); ctx.lineTo(R.x + R.w * 2 / 3, R.y + R.h); stroke(rgba('#0a0b1c', .9), .9);
     ctx.beginPath(); ctx.moveTo(R.x - 1, R.y + R.h + 1.2); ctx.lineTo(R.x + R.w + 1, R.y + R.h + 1.2); stroke(edge, 1);
@@ -651,8 +824,10 @@ export function anatomyPlate(ctx, t, o = {}) {
     const bg = g.createRadialGradient(organ.memory[0] + 30 * k, L.y + L.h * .45, 0, organ.memory[0] + 30 * k, L.y + L.h * .45, L.w * .7); bg.addColorStop(0, '#3a2a1a'); bg.addColorStop(.5, '#16121e'); bg.addColorStop(1, '#07081a');
     g.fillStyle = bg; g.fillRect(L.x, L.y, L.w, L.h);
     g.strokeStyle = rgba('#d8c08a', .25); g.lineWidth = Math.max(1, .5 * k); g.beginPath(); g.moveTo(L.x, L.y + L.h - 6 * k); g.lineTo(L.x + L.w, L.y + L.h - 6 * k); g.stroke();
-    weave(g, tt, { x: L.x + 6 * k, y: L.y + 4 * k, w: L.w - 12 * k, h: L.h - 13 * k, depth: 3, cols: 30, rows: 9, a: 1.05 * (1 + (o.memGlow || 0) * .8), glyphs: .32, seed: seed + 2, old: .45, oldGlow: o.oldGlow || 0, persp: .14, stitches: o.stitches || [], shimmer: 1, pulse: o.pulse });
-    spr(g, 'gold', organ.memory[0], organ.memory[1], 70 * k * (1 + (o.memGlow || 0) * .5), .22 + .3 * (o.memGlow || 0));
+    // the memory: a faint network along the whole back wall, and in front of it the brain-shaped network of light (the organ itself)
+    weave(g, tt, { x: L.x + 4 * k, y: L.y + 3 * k, w: L.w - 8 * k, h: L.h - 10 * k, depth: 2, cols: 30, rows: 8, a: .3 * (1 + (o.memGlow || 0) * .6), seed: seed + 2, thick: 1.6, old: .5, oldGlow: o.oldGlow || 0, persp: .12, shimmer: .6, shape: 'cloud' });
+    weave(g, tt, { x: organ.memory[0] - 52 * k, y: L.y + 3 * k, w: 104 * k, h: 56 * k, depth: 2, cols: 22, rows: 14, a: 1.5 * (1 + (o.memGlow || 0) * .8), seed: seed + 3, thick: 2.2, old: .5, oldGlow: o.oldGlow || 0, persp: .1, stitches: o.stitches || [], shimmer: 1, pulse: o.pulse, shape: 'brain' });
+    spr(g, 'gold', organ.memory[0], organ.memory[1], 70 * k * (1 + (o.memGlow || 0) * .5), .1 + .25 * (o.memGlow || 0));
     spr(g, 'green', organ.hands[0], organ.hands[1], 60 * k, .3);
     const hx = organ.hands[0], hy = organ.hands[1];
     swarm(g, tt, { n: 16, mode: o.handsMode || 'orbit', from: o.handsFrom || 'orbit', u: o.handsU ?? 1, cx: hx, cy: hy, rx: 50 * k, ry: 12 * k, seed: seed + 5, s: Math.min(.38 * k, 2.4), turn: o.turn, trail: .4 });
