@@ -35,6 +35,7 @@ for (let f = f0; f < f1; f++) {
   const c = film.frame(f / fps);
   const buf = c.data();
   if (!ff.stdin.write(Buffer.from(buf))) await new Promise((r) => ff.stdin.once('drain', r));
+  if (global.gc && f % 15 === 0) global.gc(); // frame buffers otherwise pile up (run with node --expose-gc)
   if ((f - f0) % 150 === 149) console.log(`frame ${f + 1 - f0}/${f1 - f0}  ${((Date.now() - t0) / (f - f0 + 1)).toFixed(0)} ms/frame`);
 }
 ff.stdin.end(); await new Promise((r) => ff.on('close', r));

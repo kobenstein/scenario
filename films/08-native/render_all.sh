@@ -7,7 +7,7 @@ mkdir -p "$OUT/parts"
 DUR=$(node -e "import('$FILM').then(async m=>console.log((await m.build()).duration))")
 for i in $(seq 0 $((N-1))); do
   F=$(python3 -c "print(round($DUR*$i/$N*30)/30)"); T=$(python3 -c "print(round($DUR*($i+1)/$N*30)/30)")
-  node render.mjs --out "$OUT/parts/p$i.mp4" --from $F --to $T --crf 14 --preset veryfast > "$OUT/parts/p$i.log" 2>&1 &
+  node --expose-gc render.mjs --out "$OUT/parts/p$i.mp4" --from $F --to $T --crf 14 --preset veryfast > "$OUT/parts/p$i.log" 2>&1 &
 done
 wait
 for i in $(seq 0 $((N-1))); do echo "file 'p$i.mp4'"; done > "$OUT/parts/list.txt"
