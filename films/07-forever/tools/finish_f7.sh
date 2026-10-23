@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Film 6: render the whole film in parallel parts -> concat -> sound plan + mix -> burned subtitles + 2-pass final -> preview parts.
-#   tools/finish_f6.sh <work_dir> [jobs=4] [stage: render|mix|final|preview|all]
+# Film 7: render the whole film in parallel parts -> concat -> sound plan + mix -> burned subtitles + 2-pass final -> preview parts.
+#   tools/finish_f7.sh <work_dir> [jobs=4] [stage: render|mix|final|preview|all]
 # Parts are cut inside the chunk handoff plates (every frame is a pure function of t); each part builds only the chunks it needs (SECS).
 set -euo pipefail
 WD=${1:?work dir}; JOBS=${2:-4}; STAGE=${3:-all}
@@ -21,6 +21,16 @@ if [[ $STAGE == render || $STAGE == all ]]; then
       lines.push(a.toFixed(4) + ' ' + b.toFixed(4) + ' ' + want.join(','));
     }
     console.log(lines.join('\n'));" 2>/dev/null > "$WD/parts.txt"
+  # the engine leaks memory per frame, so parts are split further into pieces of at most MAXLEN s (default 20; frames are pure functions of t)
+  python3 - "$WD/parts.txt" "${MAXLEN:-20}" <<'PY'
+import sys, math
+p, m = sys.argv[1], float(sys.argv[2]); out = []
+for l in open(p):
+    a, b, secs = l.split(); a, b = float(a), float(b); n = max(1, math.ceil((b - a) / m - 1e-9))
+    cs = [a + (b - a) * k / n for k in range(n + 1)]; cs = [round(c * 30) / 30 for c in cs]
+    out += [f'{cs[k]:.4f} {cs[k + 1]:.4f} {secs}' for k in range(n)]
+open(p, 'w').write('\n'.join(out) + '\n')
+PY
   cat "$WD/parts.txt"
   render_part() { local n=$1 a=$2 b=$3 secs=$4
     [ -s "$WD/parts/p$n.mp4" ] && { echo "part $n exists"; return 0; }
@@ -32,9 +42,12 @@ if [[ $STAGE == render || $STAGE == all ]]; then
   while read -r a b secs; do
     n=$(printf %02d $i); i=$((i+1))
     while [ "$(jobs -rp | wc -l)" -ge "$JOBS" ]; do wait -n || true; done
+    # UNTIL=<s>: render only the pieces that end by then (pre-render finished chunks while later ones are still being built)
+    if [ -n "${UNTIL:-}" ] && awk "BEGIN{exit !($b > ${UNTIL})}"; then continue; fi
     render_part "$n" "$a" "$b" "$secs" &
   done < "$WD/parts.txt"
   wait
+  [ -n "${UNTIL:-}" ] && { echo "UNTIL set: stop after the pieces"; exit 0; }
   [ "$(ls "$WD"/parts/p??.mp4 | wc -l)" -eq "$(wc -l < "$WD/parts.txt")" ] || { echo "missing parts, stop"; exit 1; }
   ls "$WD"/parts/p??.mp4 | sort | sed "s|^|file '|; s|$|'|" > "$WD/parts/list.txt"
   ffmpeg -v error -y -f concat -safe 0 -i "$WD/parts/list.txt" -c copy "$WD/video.mp4"
