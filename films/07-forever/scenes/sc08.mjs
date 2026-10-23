@@ -211,7 +211,7 @@ export default async (T, R) => {
   }
   const PR = HI.print;
   return [
-    { t: HB, tr: 'cut', d: .1, print: PR, draw: take, sound: [{ f: 'card', t: flipT[0] + FD - .02, v: .32 }, { f: 'card', t: flipT[3] + FD - .02, v: .26 }] },
+    { t: HB, tr: 'cut', d: .1, print: PR, draw: take, sound: [{ f: 'card_ripple', t: flipT[0] + FD - .02, v: .4 }, { f: 'powerdown', t: A.cut + .1, v: .22 }] },
     { t: A.can, draw: take, print: PR, sound: [{ f: 'whoosh_airy', t: A.machinesE + .02, v: .3 }] },
     { t: A.cleanS, draw: take, print: PR, sound: [{ f: 'bloom', t: A.growthE + .05, v: .28 }, { f: 'whoosh_airy', t: A.neighborsE + .1, v: .25 }] },
     { t: A.every, draw: take, print: PR, sound: [{ f: 'tick', t: A.targetsE + .1, v: .3 }] },
