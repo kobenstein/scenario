@@ -10,7 +10,7 @@ LEAD, TAIL = 1.4, 20.0                       # Film 10: 20 s endcard tail withou
 CARD = 5.5                                   # silent slot for a quote card (read on screen)
 CLIP_IN, CLIP_OUT = 0.7, 0.6                 # air before / after a clip
 GAP_SECTION, GAP_SUB = 1.8, 0.9
-GAP_AFTER = {'00a': 2.2, '02b': 3.0, '02c': 2.4}  # Film 10: air after the hook, after the hands question, after the bank line
+GAP_AFTER = {'00a': 3.13, '02b': 3.0, '02c': 2.4}  # Film 10: air after the hook, after the hands question, after the bank line # 00a: +0.93 s for the cut "near the finish", keeps all later timings
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
 BREATH = [('00a', 'now.', 'So', .5), ('00a', 'for?', 'Last', .6), ('04a', 'rules.', 'And', .6), ('04a', 'alive.', "We're", 1.0)]
 def dur(f): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).decode())
