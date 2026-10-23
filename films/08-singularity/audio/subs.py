@@ -27,6 +27,15 @@ BREAKS = {
     "It means change so fast that no one can see what's coming.": ['It means change so fast', "that no one can see what's coming."],
     'The artificial intelligence you talk to is very probably not conscious.': ['The artificial intelligence', 'you talk to is very probably', 'not conscious.'],
     'Anthropic lets its artificial intelligence hang up on people who keep being abusive.': ['Anthropic lets', 'its artificial intelligence', 'hang up on people', 'who keep being abusive.'],
+    # Film 8 (final timing): bad splits of the balanced algorithm
+    'Things now move so fast that forecasts beyond a few years barely work.': ['Things now move so fast', 'that forecasts beyond', 'a few years barely work.'],
+    'Its navigator, Mau Piailug, comes from a tiny island in Micronesia.': ['Its navigator, Mau Piailug,', 'comes from a tiny island', 'in Micronesia.'],
+    'A man who survived the Holocaust learned about heading from a flight instructor.': ['A man who survived the Holocaust', 'learned about heading from', 'a flight instructor.'],
+    'Nassim Taleb has a word for things that grow stronger from shocks: antifragile.': ['Nassim Taleb has a word', 'for things that grow stronger', 'from shocks: antifragile.'],
+    'Daron Acemoglu won the Nobel Prize in economics, and co-wrote a whole book on who gains from new technology.': ['Daron Acemoglu won the', 'Nobel Prize in economics,', 'and co-wrote a whole book', 'on who gains from new technology.'],
+    'Elinor Ostrom won a Nobel Prize for showing that fishers and farmers can run shared things wisely, without one planner.': ['Elinor Ostrom won a Nobel Prize', 'for showing that fishers', 'and farmers can run shared things', 'wisely, without one planner.'],
+    'A few set the direction: the companies building these systems, and whoever owns them.': ['A few set the direction:', 'the companies building these', 'systems, and whoever owns them.'],
+    'Fifty years ago, a canoe crossed four thousand kilometres of open ocean.': ['Fifty years ago, a canoe crossed', 'four thousand kilometres', 'of open ocean.'],
 }
 def pieces(snt):
     k = ' '.join(x['w'] for x in snt)
@@ -45,8 +54,8 @@ cues = [[c[0]['s'], c[-1]['e'], fix(' '.join(x['w'] for x in c))] for snt in sen
 import os
 CL = json.load(open(A + 'clips.json'))
 for c in json.load(open(A + 'timing.json')).get('clips', []):
-    cl = CL[c['id']]
-    if cl.get('card') or not cl.get('cues'): continue
+    cl = CL.get(c['id'])   # quote cards (Q1, Q2) have no clips.json entry: their words are on screen
+    if not cl or cl.get('card') or not cl.get('cues'): continue
     q = cl['cues']
     for k, (t0, line) in enumerate(q):
         t1 = q[k + 1][0] if k + 1 < len(q) else c['end'] - c['start']
