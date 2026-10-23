@@ -39,6 +39,7 @@ import { drawMapWorld, roadX, CEN, PAPERS } from '../lib/s8_map.mjs';
 import { PATHS, TURNS, NAVH, at, boat, wake, marks, storm, handCompass, rose, roseBoats } from '../lib/s8_boats.mjs';
 import { skyDir } from '../lib/s8_sky.mjs';
 import { canoe, route, island, instruments, starCompass, tag } from '../lib/s8_canoe.mjs';
+import { hand } from '../lib/handoff4.mjs';
 
 export default async function (T, R) {
   const S = (p, n) => T.S('0', p, n), E = (p, n) => T.E('0', p, n), clip = T.clip('C1');
@@ -51,7 +52,7 @@ export default async function (T, R) {
     drift: S('drift'), some2: S('Some will navigate'), navigate: S('navigate'), diff: S('The difference'), few: S('a few choices'),
     next: S('In the next'), really: S('really'), storms: S('storms'), two: S('two compasses'), yours: S('Yours'), ours: S('ours'),
     fifty: S('Fifty'), canoe: S('canoe'), open: S('open ocean'), noMap: S('No map'), noComp: S('No compass'), noInst: S('No instruments'),
-    arrived: S('And it arrived'), how: S('How', 1), thats: S("That's the compass"), compass: S('compass we'), build: S('going to build'), end: T.duration,
+    arrived: S('And it arrived'), how: S('How', 1), thats: S("That's the compass"), compass: S('compass we'), build: S('going to build'), end: R.b,
   };
   // ---------------------------------------------------------------- take A: the night sea and the lab (0 → the line)
   K.flare = K.c0 - .56; K.open0 = K.c0 - .3; K.open1 = K.c0 + .04;
@@ -144,9 +145,13 @@ export default async function (T, R) {
   const flY = track([[K.fl0, 24], [K.fl0 + .5, 24.6], [K.T0, 3.4]]), flYaw = track([[K.fl0, 1.2], [K.T0, D1]]), flP = track([[K.fl0, .62], [K.T0, .025]]);
   // canoe-relative: [t, distance from the canoe centre, azimuth from the camera to the canoe, height, yaw, pitch, F]
   K.pan0 = K.arrived - .5; K.pan1 = K.arrived + 1.5; K.up0b = K.how - .1; K.up1b = K.compass + .1;
-  const RK = [[K.T0, 27, D1, 3.0, D1, .02, 1400], [K.noMap - .3, 29, -.14, 3.4, -.15, .025, 1400], [K.pan0, 28, -.26, 3.0, -.24, .025, 1400], [K.pan1, 25, .55, 3.5, .95, .03, 1400], [K.up0b, 24.5, .62, 3.6, 1.0, .035, 1400], [K.up1b, 24, .88, 9, 1.02, .26, 1200], [K.end, 18.5, 1.27, 6.2, 1.34, .2, 1250]];
-  const ENDS = { 1: -.45, 2: .065, 4: .065 };   // the closing orbit keeps going through the last frame
-  const rk = [1, 2, 3, 4, 5, 6].map((i) => track(RK.map((k, j) => (j === RK.length - 1 && ENDS[i] != null ? [k[0], k[i], ENDS[i]] : [k[0], k[i]]))));
+  // the closing orbit (7.04) runs until just before the last word ends, then (c01>c02 handoff, shots.md §9) the camera cranes up and tilts
+  // into the Milky Way: at H.a its view IS the sky plate (handoff4 skyCam: yaw .3, pitch −.58, F 1100); film.mjs draws the plate from H.a on.
+  const HO = hand('c01>c02', T); K.tail0 = E('going to build') - .2; K.sky = HO.a;
+  const RK = [[K.T0, 27, D1, 3.0, D1, .02, 1400], [K.noMap - .3, 29, -.14, 3.4, -.15, .025, 1400], [K.pan0, 28, -.26, 3.0, -.24, .025, 1400], [K.pan1, 25, .55, 3.5, .95, .03, 1400], [K.up0b, 24.5, .62, 3.6, 1.0, .035, 1400], [K.up1b, 24, .88, 9, 1.02, .26, 1200],
+    [K.tail0, 23.3, .93, 8.6, 1.06, .245, 1205], [K.sky, 21, 1.1, 13, HO.o.yaw, HO.o.pitch, HO.o.F]];
+  const ENDS = { 1: -.45, 2: .065 };   // the orbit keeps its speed into the crane-up (yaw turns back toward the sky view)
+  const rk = [1, 2, 3, 4, 5, 6].map((i) => track(RK.map((k, j) => (j === RK.length - 2 && ENDS[i] != null ? [k[0], k[i], ENDS[i]] : [k[0], k[i]]))));
   const camC = (t) => {
     if (t < K.fl0) return camera({ x: cXc(t), y: cYc(t), z: cZc(t), yaw: cYawc(t), pitch: cPitchc(t), F: cFc(t) });
     if (t < K.T0) return camera({ x: flX(t), y: flY(t), z: flZ(t), yaw: flYaw(t), pitch: flP(t), F: 1400 });
@@ -159,7 +164,7 @@ export default async function (T, R) {
   K.fly0 = K.fifty - .2;
   function takeC(ctx, t) {
     const C = camC(t), Ls = { ...LIGHT2, ign: .55 + .45 * u01(t, K.next - .2, K.next + 1.2), ring: .35 + .65 * eoX(u01(t, K.really - .05, K.really + .9)), pulse: .4 * pulse(t, K.really - .05, K.really + 1.2), size: 1.5 };
-    const lightOn = t < K.ours + .95, L = lightOn ? lightAt(C, Ls) : null, lens = lensOf(C, Ls, L), dawn = .62 * sio(u01(t, K.arrived - .3, K.arrived + 1.6));
+    const lightOn = t < K.ours + .95, L = lightOn ? lightAt(C, Ls) : null, lens = lensOf(C, Ls, L), dawn = .62 * sio(u01(t, K.arrived - .3, K.arrived + 1.6)) * (1 - sio(u01(t, K.tail0, K.sky - .15)));   // looking up, away from the dawn: the night sky of the plate
     drawSky(ctx, t, C, { lens: lens && L.x > -300 && L.x < 2220 ? lens : null, dawn, dawnAz: 1.3 });
     if (t > K.fl0) island(ctx, t, C, { az: 1.4, w: .2, dawn: dawn / .62 });
     // the boats and their lights
@@ -200,7 +205,7 @@ export default async function (T, R) {
       }
     }
     // the sighted star (always in the sky; it brightens when the figure points at it)
-    if (sp) { const b = .55 + .45 * u01(t, K.navigate - .1, K.navigate + .4); ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(sp[0], sp[1], 0, sp[0], sp[1], 26); g.addColorStop(0, `rgba(240,250,255,${.9 * b})`); g.addColorStop(.2, `rgba(180,220,255,${.3 * b})`); g.addColorStop(1, 'rgba(120,160,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(sp[0], sp[1], 26, 0, 7); ctx.fill(); ctx.strokeStyle = `rgba(230,245,255,${.5 * b})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(sp[0] - 18, sp[1]); ctx.lineTo(sp[0] + 18, sp[1]); ctx.moveTo(sp[0], sp[1] - 18); ctx.lineTo(sp[0], sp[1] + 18); ctx.stroke(); ctx.restore(); }
+    if (sp && t < K.sky - .2) { const b = (.55 + .45 * u01(t, K.navigate - .1, K.navigate + .4)) * (1 - sio(u01(t, K.tail0 + .2, K.sky - .25))); ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(sp[0], sp[1], 0, sp[0], sp[1], 26); g.addColorStop(0, `rgba(240,250,255,${.9 * b})`); g.addColorStop(.2, `rgba(180,220,255,${.3 * b})`); g.addColorStop(1, 'rgba(120,160,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(sp[0], sp[1], 26, 0, 7); ctx.fill(); ctx.strokeStyle = `rgba(230,245,255,${.5 * b})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(sp[0] - 18, sp[1]); ctx.lineTo(sp[0] + 18, sp[1]); ctx.moveTo(sp[0], sp[1] - 18); ctx.lineTo(sp[0], sp[1] + 18); ctx.stroke(); ctx.restore(); }
     // 7.01 … 7.04 the canoe, its route, its label, the instruments, the star compass
     if (t > K.fl0) {
       route(ctx, t, C, KK, u01(t, K.T0 - .6, K.open + .6));

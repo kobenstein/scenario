@@ -13,12 +13,23 @@ import { Film, W, H, drift } from './engine.mjs';
 import { timing, prepareClips, ROOT } from './lib/kit.mjs';
 import { filmFinish } from './lib/print.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
+import { HAND, hand } from './lib/handoff4.mjs';
 
 export { ROOT };
-// Chunk table (/mnt/project-files/scenario/film-06-mind/bild/shots.md §3). from = candidate anchors [segment or section, first phrase of the
+// Chunk table (m1/bild/shots.md §5; anchors = the first VO segment of each chunk). from = candidate anchors [segment or section, first phrase of the
 // chunk's first shot]; ['clip', 'C9'] anchors a chunk to the moment a clip's screen turns on (0.7 s before its audio).
 export const CHUNKS = [
   { id: 'c01', name: 'The first minute: the horizon light, the lab, Altman (C1), the map dissolves, the title, drift or navigate, the preview, the canoe, the star compass', shots: '1.01–7.04', from: [['00a']] },
+  { id: 'c02', name: 'What the singularity really is: the word, the cinema, Vinge, the black heart, the pier, the stair and the backdrop, Future Shock, your table', shots: 'c02.01–c02.21', from: [['01a']] },
+  { id: 'c03', name: 'Map vs compass: ink lifts off the chart, Q1 Kierkegaard, Hōkūleʻa leaves Maui, Mau, five signs, C2 Nainoa, the clouds, "he was the compass", your hand', shots: 'c03.01–c03.20', from: [['02a']] },
+  { id: 'c04', name: 'Your compass, North and East: the lit window, Frankl\'s plane (C3), the kite, Vallor\'s mirror, Q2 Gerjuoy', shots: 'c04.01–c04.19', from: [['03a']] },
+  { id: 'c05', name: 'Your compass, South and West: the fire circle, Harvard (C4 Waldinger), the harbour, tacking, Taleb\'s fire, Sarasvathy\'s shed', shots: 'c05.01–c05.13', from: [['03c']] },
+  { id: 'c06', name: 'Draw your compass; the needle; the clouds again; arrival in Tahiti; 17,000 in the harbour', shots: 'c06.01–c06.15', from: [['03f']] },
+  { id: 'c07', name: 'The storms: power (C5 Acemoglu), trust (the call), speed (months / years); navigators exist for storms', shots: 'c07.01–c07.21', from: [['04a']] },
+  { id: 'c08', name: 'Our compass: the society rose, North = 1948, East + West = speed (testing, sandboxes, expiry, review)', shots: 'c08.01–c08.21', from: [['05a']] },
+  { id: 'c09', name: 'Our compass: South = each other (Taiwan online, C6 Tang), many hands, Ostrom, the assembly; the needle: calm, Solnit', shots: 'c09.01–c09.25', from: [['05c']] },
+  { id: 'c10', name: 'The fork: the same fast world, twice', shots: 'c10.01–c10.14', from: [['06a']] },
+  { id: 'c11', name: 'Legacy: Mau → Nainoa → many navigators, C7 Krznaric, the ending at your window, the end screen', shots: 'c11.01–c11.17', from: [['07a']] },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 
@@ -69,6 +80,15 @@ export async function build({ timingFile = TIMING } = {}) {
     }
     for (const e of shots) list.push(cutOnly({ ...e, sec: id }));
   }
+  // the handoff plates (lib/handoff4.mjs): film.mjs draws each boundary's plate from H.a to H.b and drops chunk entries inside that window,
+  // so the cut between two chunk files sits inside one identical full-frame image (outgoing ends on it, incoming starts on it)
+  const plates = [];
+  for (const key of Object.keys(HAND)) {
+    const [o, i] = key.split('>'); if (!RANGES[o] || !RANGES[i] || !(want.includes(o) || want.includes(i))) continue;
+    const Hd = hand(key, T, RANGES); plates.push(Hd);
+    list.push({ t: Hd.a, draw: (ctx, t) => Hd.plate(ctx, t), tr: 'cut', d: .1, print: Hd.print, sec: 'plate ' + key });
+  }
+  list = list.filter((e) => e.sec.startsWith('plate') || !plates.some((p) => e.t > p.a + 1e-6 && e.t < p.b - 1e-6));
   // entries that collapsed onto the same start (moved to H.b): keep the last one the chunk listed
   list.sort((p, q) => p.t - q.t);
   list = list.filter((e, k) => !(list[k + 1] && Math.abs(list[k + 1].t - e.t) < 1e-6 && list[k + 1].sec === e.sec));
