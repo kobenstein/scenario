@@ -4,6 +4,9 @@
 //   plateOut(ctx, t, k, cx, cy)          leave the lamp plate: the plate (alpha) over a warm light growing from a source point (k 1 → plate)
 //   axis(ctx, t, m, st)                  the chart axis ENERGY beside the curve; flicker; the label splits into GROWTH and APPETITE
 //   FORKS / forks(ctx, t, m, st)         32 small pairs of lines on 32 city clusters of the kit Earth (cool rises, amber dips): the decoupling
+//                                        (st.glint(i) → 0..1: one glint runs up fork i's cool line)
+//   WPAIR / worldPair(ctx, t, m, st)     the world's own big pair rising from the left limb: economy (cool) and emissions (amber, flat on a
+//                                        dashed RECORD mark); they stay close (st.gap). limbWarm(ctx, t, m, h): warm haze breathing along the limb
 //   peel geometry: coolPath(q), peelPts(CW, iS, f, t), helixThread(ctx, t, CW, iS, m, o)   THE SPLIT: the cool fibre unwinds off the amber
 //   bendPts(CW, iS, u)                   the amber curve bends over and lies down along the ring (polar morph around the Earth's centre)
 //   RING_R                               the radius (world) the bent line lies at (inside the kit ring band)
@@ -143,8 +146,56 @@ export function forks(ctx, t, m, st) {
     // the root: a city light
     glowAt(ctx, X, Y, 16 * S, .55 * a * clamp(g * 3), F7.amber, F7.amberCore);
     curve(ctx, t, amb, { tone: 'amber', u: g, w: .5 * S, br: .85 * a, shimmer: 0, ticks: false, sparks: 0, tipA: .6, seed: F.i + 3 });
-    curve(ctx, t, cool, { tone: 'cool', u: g, w: .55 * S, br: .95 * a, ticks: false, tipA: .7, seed: F.i + 5 });
+    const cv = curve(ctx, t, cool, { tone: 'cool', u: g, w: .55 * S, br: .95 * a, ticks: false, tipA: .7, seed: F.i + 5 });
+    // one glint running up the cool line, once (st.glint(i) → 0..1 its position, ≤ 0 or ≥ 1: none)
+    const gq = st.glint ? st.glint(F.i) : 0;
+    if (cv && gq > 0 && gq < 1) { const [gx, gy] = cv.at(ease.io(gq)); glowAt(ctx, gx, gy, 30 * S, .85 * Math.sin(Math.PI * gq), F7.cool, '#ffffff'); }
   }
+}
+
+// ---------------------------------------------------------------- the world's own pair (6.07b: "Worldwide, though, … They just haven't yet")
+// One big pair of lines rising from the limb on the left: world economy (cool) and world emissions (amber). Both climb together; the
+// amber flattens high, on a dashed RECORD mark; the cool runs only a little above it (st.gap). World units, so it rides with the camera.
+export const WPAIR = { x0: -2330, x1: -830, top: -3330, H: 1444 };
+WPAIR.y0 = limbY(WPAIR.x0);
+const wpF = (u) => 1 - Math.pow(1 - u, 2.4);
+export function wpairPts(gap, k = 'amber') {
+  const P = [], { x0, x1, y0, H: Hh } = WPAIR;
+  for (let i = 0; i <= 60; i++) { const u = i / 60, f = wpF(u) + (k === 'cool' ? gap * Math.pow(u, 2.2) : 0); P.push([mix(x0, x1, u), y0 - Hh * f, 1]); }
+  return P;
+}
+// st: { u 0..1 (draw-on by length), gap (cool above amber at the end, in units of H), br 1, rec 0..1 (the record mark draws on), recA 1,
+//       pulse 0..1 (the amber tip flares on the mark), tag(ctx, X, Y) (draws the mark's tag at the mark's right end) }
+export function worldPair(ctx, t, m, st) {
+  const u = st.u ?? 0, br = st.br ?? 1; if (u <= 0 && (st.rec ?? 0) <= 0) return;
+  const { x0, x1, top } = WPAIR;
+  // the record mark: a fine dashed cream line at the amber's top, from mid-chart to just past the tip
+  const rec = st.rec ?? 0;
+  if (rec > 0) {
+    const xa = m.X(mix(x0, x1, .42)), xb = m.X(x1 + 170), Y = m.Y(top) - 1, xe = mix(xa, xb, ease.out(clamp(rec)));
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+    ctx.strokeStyle = rgba('#f3ecda', .55 * (st.recA ?? 1)); ctx.lineWidth = 1.4; ctx.setLineDash([10, 9]); ctx.lineDashOffset = 0;
+    ctx.beginPath(); ctx.moveTo(xa, Y); ctx.lineTo(xe, Y); ctx.stroke(); ctx.setLineDash([]);
+    ctx.strokeStyle = rgba('#f3ecda', .75 * (st.recA ?? 1)); ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(xb, Y - 9); ctx.lineTo(xb, Y + 9); ctx.stroke();
+    ctx.restore();
+    if (st.tag) st.tag(ctx, xb, Y);
+  }
+  if (u <= 0) return;
+  const sc = (P) => P.map(([x, y, w]) => [m.X(x), m.Y(y), w]);
+  const S = clamp(m.k / .36, .7, 1.6);
+  glowAt(ctx, m.X(x0), m.Y(WPAIR.y0), 30 * S, .6 * clamp(u * 4) * br, F7.amber, F7.amberCore);
+  const a = curve(ctx, t, sc(wpairPts(0, 'amber')), { tone: 'amber', u, w: .95 * S, br: .95 * br, shimmer: .8, sparks: 0, tipA: .9, seed: 21 });
+  curve(ctx, t, sc(wpairPts(st.gap ?? .08, 'cool')), { tone: 'cool', u, w: .95 * S, br: 1.0 * br, tipA: .9, seed: 23 });
+  const pl = st.pulse ?? 0;
+  if (a && pl > 0) { glowAt(ctx, a.tip[0], a.tip[1], 70 * S, .55 * pl, F7.amber, F7.amberCore); glowAt(ctx, a.tip[0], a.tip[1], 190 * S, .16 * pl, F7.amberDeep, F7.amber); }
+}
+// the warming: a warm haze that breathes up along the limb (outside the disc; 'lighter'), h 0..1
+export function limbWarm(ctx, t, m, h) {
+  if (h <= 0) return;
+  const cx = m.X(0), cy = m.Y(0), r0 = EARTH.R * m.k, br = 1 + .12 * Math.sin(t * 1.4) + .05 * Math.sin(t * 3.1 + 1), ext = (90 + 240 * h) * m.k * br;
+  const g = ctx.createRadialGradient(cx, cy, r0 - 30 * m.k, cx, cy, r0 + ext);
+  g.addColorStop(0, 'rgba(255,170,100,0)'); g.addColorStop(.08, rgba('#ffc98f', .30 * h)); g.addColorStop(.22, rgba('#ff9a5a', .2 * h)); g.addColorStop(.55, rgba('#d0684e', .07 * h)); g.addColorStop(1, 'rgba(160,70,60,0)');
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, r0 + ext, 0, TAU); ctx.fill(); ctx.restore();
 }
 
 // ---------------------------------------------------------------- THE SPLIT: the cool fibre's own path and the peel

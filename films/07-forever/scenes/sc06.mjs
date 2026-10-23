@@ -1,5 +1,5 @@
-// Film 7 · c06 · the twist: the price of light, the two lines, THE SPLIT (04a), from the c05>c06 lamp plate (H.b ≈ 334.43) to the c06>c07
-// dusk sky plate (H.a ≈ 428.55). Builder: c06. ★ chunk. Four takes joined by in-world moves, every accent anchored to a word (T.S / T.E).
+// Film 7 · c06 · the twist: the price of light, the two lines, THE SPLIT (04a), from the c05>c06 lamp plate (H.b ≈ 335.0) to the c06>c07
+// dusk sky plate (H.a ≈ 440.6; times only for orientation, everything is anchored to words). Builder: c06. ★ chunk. Four takes joined by in-world moves, every accent anchored to a word (T.S / T.E).
 // Pieces: lib/f7_c06_orbit.mjs (plate, axis, forks, the peel, the bend, the dusk plate, the sunset), lib/f7_c06_lamp.mjs (the sill with the
 // three lights), lib/f7_c06_city.mjs (the street of lit windows, the city, the two lines).
 //
@@ -29,6 +29,13 @@
 // |      | flip back. But it shows the two lines can        | pair of lines grows (cool rises, amber dips); "flip back": the amber ones lift    |                   |                                       |                                                  |                      |
 // |      | separate.                                        | toward the cool ones and waver; "separate": they open again. 32 COUNTRIES ·       |                   |                                       |                                                  |                      |
 // |      |                                                  | 2015–2018 · HUBACEK ET AL. · 2021                                                   |                   |                                       |                                                  |                      |
+// | 6.07b| Worldwide, though, emissions are still near      | (fact-check passage) after "separate" the camera pulls back and left: the planet's | the world pair    | pull back 2 s (z .48 → .36), then a   | continuous take O2; on "counts" the pair draws    | whoosh_airy (pull),  |
+// |      | record highs, and the planet keeps warming. The  | whole arc; the 32 small forks stay open; "Worldwide": ONE big pair rises over the  |                   | near-still drift; the 6.08 move-in    | back into the limb (like the forks) and the       | glass_ticks (forks   |
+// |      | lines can separate. They just haven't yet, where | left limb (economy cool, emissions amber), the amber flattens HIGH; "record": a    |                   | starts from here                      | camera moves in on the curve: THE SPLIT answers  | glint), shimmer_rings|
+// |      | it counts.                                       | dashed RECORD mark + tag (GLOBAL CARBON BUDGET 2025), the tip flares on "highs";   |                   |                                       | it                                               | moved to "counts"    |
+// |      |                                                  | "keeps warming": a warm haze breathes up along the limb + 2015–2025 · WMO label;   |                   |                                       |                                                  |                      |
+// |      |                                                  | "The lines can separate": the 32 forks glint once, left to right; "haven't yet":   |                   |                                       |                                                  |                      |
+// |      |                                                  | the big cool line tugs up a little and settles back: the world pair stays together |                   |                                       |                                                  |                      |
 // | 6.08★| Superintelligence can grow forever in            | THE SPLIT: the forks draw back into their cities; the camera lands on the curve;  | the cool fibre    | move in 1.4 s, slow push              | continuous                                       | shimmer_rings (glint)|
 // |      | intelligence. It cannot grow forever in appetite.| a glint runs up the amber and shows a cool fibre wound round it; the fibre        |                   |                                       |                                                  | glass_hum (appetite) |
 // |      | And that difference decides whether abundance    | unzips from the city up (a Y runs up the line, the amber flinches), springs free past|                   |                                       |                                                  |                      |
@@ -40,7 +47,7 @@
 import { W, H, rgba, clamp, lin, mix, sm, prng, text } from '../engine.mjs';
 import { handsOf } from '../lib/handoff4.mjs';
 import { F7, EARTH, CURVE, f7Prepare, skyWarm, sky, camO, earthHorizon, curveO, curve, dome, ring, lightCover, ease, keys, glowAt } from '../lib/f7_kit.mjs';
-import { plateOut, axis, forks, FORKS, coolPath, coolPts, peelState, helixThread, bendPts, RING_R, duskPlate, plateStar, PLATE_STARS, sunset, sunsetLimb } from '../lib/f7_c06_orbit.mjs';
+import { plateOut, axis, forks, FORKS, worldPair, limbWarm, coolPath, coolPts, peelState, helixThread, bendPts, RING_R, duskPlate, plateStar, PLATE_STARS, sunset, sunsetLimb } from '../lib/f7_c06_orbit.mjs';
 import { lampPrepare, lampWorld, beadAt, LAMP, CANDLE, BULB } from '../lib/f7_c06_lamp.mjs';
 import { cityPrepare, city, cmap, HERO } from '../lib/f7_c06_city.mjs';
 
@@ -75,6 +82,10 @@ export default async (T, R) => {
     superI: S('Superintelligence'), intelE: E('in intelligence'), cannot: S('It cannot'), appetite2: S('appetite', 2), appetite2E: E('appetite', 2),
     diff: S('And that difference'), lastsE: E('lasts'), one: S('One curve'), twoE: E('becomes two'), keeps: S('Intelligence keeps'), climbingE: E('keeps climbing'),
     bends: S('Appetite bends'), bendsE: E('Appetite bends'),
+    // 6.07b (fact-check passage): "Worldwide, though, … They just haven't yet, where it counts."
+    ww: S('Worldwide'), record: S('record highs'), highs: S('highs'), highsE: E('record highs'), planet: S('the planet'), warm: S('keeps warming'),
+    warmE: E('keeps warming'), lines2: S('The lines can'), sep2: S('separate', 1), sep2E: E('separate', 1), they: S('They just'), havent: S("haven't"),
+    yetE: E("haven't yet"), where: S('where it counts'), countsE: E('where it counts'),
   };
   const T0 = HI.b, HA = HO.a, tEnd = HA - 1 / 30;
   const fr = (x) => Math.round(x * 30) / 30;
@@ -184,11 +195,12 @@ export default async (T, R) => {
 
   // ============================================================== O2: the forks, THE SPLIT, the bend, the ring, the dusk
   const D0 = 1300, tDown = fr(A.thirty - .05);
-  const tF2a = A.separateE - .55, tF2 = A.superI + .25;
+  const tF2a = A.countsE - .55, tF2 = A.superI + .25;               // the forks draw back / the move in on the curve (6.08, as before)
+  const tPB0 = fr(A.separateE + .1), tPB1 = A.ww + 1.55;            // 6.07b: the pull back to the planet's whole arc
   const tF3a = A.one - .15, tF3 = A.keeps + .35, tUp = A.bendsE + .35;
-  const F1 = [150, -2860, .44];
+  const F1 = [150, -2860, .44], WIDE = [-250, -2800, .36];
   const KO2 = [
-    [tC, F1], [tDown, F1], [tF2a, [172, -2880, .48], (x) => x], [tF2, [-150, -3250, .95]], [tF3a, [-138, -3264, 1.0], ease.sine],
+    [tC, F1], [tDown, F1], [tPB0, [172, -2880, .48], (x) => x], [tPB1, WIDE], [tF2a, [-236, -2812, .366], ease.sine], [tF2, [-150, -3250, .95]], [tF3a, [-138, -3264, 1.0], ease.sine],
     [tF3, [0, -2880, .48]], [tUp, [10, -2890, .485], ease.sine],
   ];
   const camO2 = (t) => camK(t, KO2);
@@ -205,6 +217,7 @@ export default async (T, R) => {
   const STAR = (() => { let best = 0, bd = 1e9; PLATE_STARS.forEach(([, , s], i) => { if (s < 2) return; const [x, y] = plateStar(i, HA); const d = Math.hypot(x - 1060, (y - 260) * 1.3); if (d < bd) { bd = d; best = i; } }); return best; })();
   // forks
   const forkT = FORKS.map((F, i) => A.thirty + .05 + (F.x + 1950) / 4200 * 2.2 + (i % 3) * .05);
+  const glintT = FORKS.map((F, i) => A.lines2 + .05 + (F.x + 1950) / 4200 * 1.1 + (i % 4) * .04);     // 6.07b: one glint sweeps left → right
   const growF = (t) => (i) => ease.out(lin(forkT[i], forkT[i] + .8, t)) * (1 - ease.inn(lin(tF2a - .1 + (i % 5) * .06, tF2a + .55 + (i % 5) * .06, t)));
   // text of 6.08 (two sentences, two lines each; words written as spoken)
   const W8 = T.W('04a').filter((w) => w.s >= A.superI - .01 && w.e <= A.appetite2E + .01);      // "Superintelligence … in appetite."
@@ -254,10 +267,25 @@ export default async (T, R) => {
       g.addColorStop(0, rgba('#ffd2a8', .75 * ag)); g.addColorStop(.06, rgba('#f6a48e', .5 * ag)); g.addColorStop(.3, rgba('#c9708a', .22 * ag)); g.addColorStop(1, 'rgba(120,70,130,0)');
       ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore();
     }
-    earthHorizon(ctx, t, cam, {});
+    const heat = .85 * sm(lin(A.warm - .15, A.warmE + .5, t)) * (1 - ease.io(lin(tF2a, tF2 + .3, t)));
+    earthHorizon(ctx, t, cam, { heat: heat * .7 });
+    limbWarm(ctx, t, m, heat);
     if (t > tF3a) sunsetLimb(ctx, t, m, sm(lin(tF3a, tF3, t)) * (.35 + .65 * sunU) * (1 - lin(tUp, tEnd, t)));
     // 6.07: the forks
-    if (t < tF2 + .5) forks(ctx, t, m, { grow: growF(t), open: 1, flip: bump(t, A.warn - .1, A.warn + .5, A.backE + .1, A.shows + .4), a: 1 + .25 * bump(t, A.shows, A.shows + .4, A.separateE, A.separateE + .5), s: clamp(m.k / .44, .8, 1.3) });
+    if (t < tF2 + .5) forks(ctx, t, m, {
+      grow: growF(t), open: 1 + .12 * bump(t, A.sep2 - .3, A.sep2 + .2, A.sep2E + .4, A.they + .9), flip: bump(t, A.warn - .1, A.warn + .5, A.backE + .1, A.shows + .4),
+      a: 1 + .25 * bump(t, A.shows, A.shows + .4, A.separateE, A.separateE + .5) + .2 * bump(t, A.sep2 - .3, A.sep2, A.sep2E + .2, A.sep2E + .7), s: clamp(m.k / .44, .8, 1.3),
+      glint: (i) => lin(glintT[i], glintT[i] + .75, t),
+    });
+    // 6.07b: the world's own pair rises over the left limb, flattens HIGH on the record mark, and stays together
+    if (t > A.ww - .1 && t < tF2 + .3) worldPair(ctx, t, m, {
+      u: ease.io(lin(A.ww - .05, A.ww + 1.9, t)) * (1 - ease.inn(lin(tF2a - .25, tF2a + .55, t))),
+      gap: .075 + .09 * bump(t, A.havent - .1, A.havent + .45, A.yetE - .1, A.yetE + .55) + .03 * sm(lin(A.havent, A.countsE, t)),
+      br: 1 + .15 * bump(t, A.where - .1, A.where + .3, A.countsE, A.countsE + .4),
+      rec: lin(A.record - .1, A.record + .55, t) * (1 - lin(tF2a - .3, tF2a + .2, t)), recA: 1,
+      pulse: bump(t, A.highs - .1, A.highs + .2, A.highsE + .2, A.highsE + 1.2),
+      tag: (g, X, Y) => recTag(g, t, X, Y, A.record + .05, tF2a - .1),
+    });
     // the ring born from the bent line
     const bu = bendU(t), rg = ringG(t);
     if (rg > 0) {
@@ -274,7 +302,8 @@ export default async (T, R) => {
     // the amber curve (recoils where the fibre leaves it; bends over and lies down)
     const f = peelF(t), rel = relF(t), P = peelState(CW, iS, f, t, rel);
     const amb = bendPts(P.amber, iS, bu);
-    curve(ctx, t, amb.map(([x, y, w]) => [m.X(x), m.Y(y), w]), { w: 1.15, br: 1 + .25 * fl * press, sparks: 3 * press + .5, seed: 1, tipA: 1 - .6 * bu });
+    const heroDim = 1 - .35 * bump(t, A.ww, A.ww + 1.4, tF2a - .5, tF2a + .3);      // 6.07b: the world pair leads, THE curve waits
+    curve(ctx, t, amb.map(([x, y, w]) => [m.X(x), m.Y(y), w]), { w: 1.15, br: (1 + .25 * fl * press) * heroDim, sparks: (3 * press + .5) * heroDim, seed: 1, tipA: 1 - .6 * bu });
     // the cool line: revealed by a glint, wound round the amber, unwinding, then free and climbing
     const rv = lin(tReveal, tReveal + .6, t);
     if (rv > 0) {
@@ -307,8 +336,18 @@ export default async (T, R) => {
       if (f > 0 && P.front) { const X = m.X(P.front[0]), Y = m.Y(P.front[1]); glowAt(ctx, X, Y, 46, .85, F7.cool, '#ffffff'); glowAt(ctx, X, Y, 140, .18, F7.cool, F7.coolCore); motes(ctx, t, X, Y); }
     }
     // labels and the sentence
-    label(ctx, t, '32 countries', '2015–2018 · HUBACEK ET AL. · 2021', 150, 236, A.between + .45, tF2a + .2, { bar: F7.cool });
+    label(ctx, t, '32 countries', '2015–2018 · HUBACEK ET AL. · 2021', 150, 236, A.between + .45, A.separateE + .35, { bar: F7.cool });
+    label(ctx, t, '2015–2025', 'THE 11 WARMEST YEARS ON RECORD · WMO', 1250, 300, A.planet - .1, A.sep2E + .35, { size: 64 });
     sentence(ctx, t);
+  }
+  // the record mark's tag (world-attached, so it rides the camera; the camera is near still while it is read): wipes in / out like label()
+  function recTag(ctx, t, X, Y, t0, t1) {
+    const a = ease.out(lin(t0, t0 + .5, t)), b = ease.inn(lin(t1 - .35, t1, t)); if (a <= 0 || b >= 1) return;
+    const x = X - 300, wv = 330;
+    ctx.save(); ctx.beginPath(); ctx.rect(x - 4 + wv * b, Y - 70, wv * (a - b), 62); ctx.clip();
+    text(ctx, 'RECORD · 2025', x, Y - 38, { size: 22, weight: 600, color: rgba('#f6efdc', .95), spacing: 4 });
+    text(ctx, 'GLOBAL CARBON BUDGET 2025', x, Y - 15, { size: 15, weight: 600, color: rgba('#cfd6ee', .85), spacing: 3 });
+    ctx.restore();
   }
   function motes(ctx, t, X, Y) {
     ctx.save(); ctx.globalCompositeOperation = 'lighter'; const r = prng(Math.floor(t * 30) % 997 + 1);
@@ -334,7 +373,8 @@ export default async (T, R) => {
     { t: tL2, draw: C, print: PC },
     { t: A.intel, draw: C, print: PC, sound: [{ f: 'whoosh_up', t: A.takesE + .02, v: .35 }] },
     { t: tC, draw: O2, print: PO },
-    { t: A.separate - .4, draw: O2, print: PO, sound: [{ f: 'shimmer_rings', t: A.separateE + .1, v: .55 }, { f: 'glass_hum', t: A.appetite2E + .05, v: .55 }, { f: 'fibre_unzip', t: tPeel1 - 2.6, v: .25 }] },
+    { t: A.separate - .4, draw: O2, print: PO, sound: [{ f: 'whoosh_airy', t: tPB0 - .08, v: .28 }, { f: 'glass_ticks', t: A.warmE + .04, v: .2 }] },
+    { t: A.they, draw: O2, print: PO, sound: [{ f: 'shimmer_rings', t: A.countsE + .1, v: .55 }, { f: 'glass_hum', t: A.appetite2E + .05, v: .55 }, { f: 'fibre_unzip', t: tPeel1 - 2.6, v: .25 }] },
     { t: A.one - .3, draw: O2, print: PO, sound: [{ f: 'swell', t: A.bendsE + .05, v: .45 }, { f: 'whoosh_up', t: tUp - .15, v: .3 }] },
   ];
 };
