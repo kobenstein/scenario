@@ -123,7 +123,8 @@ export default async (T, R) => {
   const tP = A.billW + .12;   // the push into card I's paper window starts after the stamp's contact
   const camAt = (t) => {
     if (t < tP) return camKeys(t, K);
-    const a = camKeys(tP, K), u = ease.io(lin(tP, tEnd, t)), hu = Math.exp(mix(Math.log(a[1] - .03), Math.log(WC.y - .03), u)) + .03;
+    const a = camKeys(tP, K), u = ease.sine(lin(tP, tEnd, t)),   // sine, not quartic: an even push (peak speed 1.6× mean)
+      hu = Math.exp(mix(Math.log(a[1] - .03), Math.log(WC.y - .03), u)) + .03;
     const lu = 1 - (hu - WC.y) / (a[1] - WC.y);   // the lateral move follows the height, so the window grows in place
     return [mix(a[0], WC.x, lu), hu, mix(a[2], WC.z, lu), -PI2, mix(a[4], WC.yaw, lu)];
   };

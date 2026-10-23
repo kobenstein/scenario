@@ -39,6 +39,15 @@
 //   paperPlateAt(ctx, t, M) / glassPlateAt(ctx, t, M)   the handoff4 'paper' / 'glass' plates drawn under the affine M (plate px → screen):
 //                               identical to the plates film.mjs draws when M is the identity.
 //
+//   paperCardPrepare(list, t) async   cache the card faces once ([{ num, q, stamp }], t = the plate time used in the cached window).
+//
+// HELPERS   spotAt(X, Z, spot) → 0..1 light at a table point · depthSpread(cam, at) → { ratio, off } (how much a flat object's depth
+//   varies: affine is fine above ~.85, else use meshImage) · meshImage(ctx, cam, img, iw, ih, at, nu, nv) an Image laid on any world
+//   surface at(u, v) → [X, Y, Z] in exact perspective (triangle mesh) · apply(ctx, M) · mulA(A, B).
+//
+// COST (full size): stage ~20 ms, tableTop 25–45 ms, beam < 1 ms. Every gradient in here keeps ≤ 8 colour stops (Skia shades longer
+//   ones ~4× slower) and the top is not clipped (a clip mask doubles the cost of everything drawn after it) — keep it that way.
+//
 // Usage (c05 incoming from paper):  const wc = windowCam(ROW[1]); camera at wc for t = HI.b, then pull out (raise y, ease) while card II
 //   is drawn with tablePaperCard(ctx, t, cam, { ...ROW[1], num: 2, q: CARDS[1].q }) — its window lands exactly on the plate at HI.b.
 import { loadImage } from '@napi-rs/canvas';
