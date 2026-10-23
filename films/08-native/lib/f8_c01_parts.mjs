@@ -76,9 +76,9 @@ export function c01Village(ctx, t, cam, o = {}) {
   }
 }
 
-// ---------------------------------------------------------------- the title: "The Rise of the / AI-Native Company", word masks (o.at: one start time per word)
+// ---------------------------------------------------------------- the title: "The Rise of / AI-Native Companies", word masks (o.at: one start time per word)
 export function c01Title(ctx, t, o) {
-  const words = [['The', 0, 0], ['Rise', 0, 1], ['of', 0, 2], ['the', 0, 3], ['AI-Native', 1, 4], ['Company', 1, 5]], size = 104, X = 150, Y = [262, 372];
+  const words = [['The', 0, 0], ['Rise', 0, 1], ['of', 0, 2], ['AI-Native', 1, 4], ['Companies', 1, 5]], size = 104, X = 150, Y = [262, 372];
   ctx.save(); ctx.font = `${size}px "Instrument Serif"`; ctx.textBaseline = 'alphabetic';
   let x = [X, X];
   for (const [w, line, k] of words) {

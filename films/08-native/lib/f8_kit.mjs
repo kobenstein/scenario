@@ -1,4 +1,4 @@
-// Film 8 kit · "The Rise of the AI-Native Company" (owner: c01 builder). The organism: weave (memory), fireflies (hands), conductor (will),
+// Film 8 kit · "The Rise of AI-Native Companies" (owner: c01 builder). The organism: weave (memory), fireflies (hands), conductor (will),
 // workshop (the whole company), anatomy plate, night land. Pure functions of t, screen space 1920×1080, deterministic (prng).
 // Other builders import, never edit. Signatures below are FINAL; the drawing behind them improves.
 //

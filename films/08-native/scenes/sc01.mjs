@@ -244,8 +244,8 @@ export default async (T, R) => {
         ctx.drawImage(gc, 0, 0);
       }
     }
-    // the title (0.01): "The Rise of the AI-Native Company", word masks, upper third left (line 1 staggered 80 ms, AI-Native / Company on the spoken words)
-    { const a0 = S('A.I.-native') - .05; c01Title(ctx, t, { at: [a0, a0 + .08, a0 + .16, a0 + .24, a0 + .42, S('companies')], out: A.no + .1 }); }   // title: The Rise of the / AI-Native Company
+    // the title (0.01): "The Rise of AI-Native Companies", word masks, upper third left (line 1 staggered 80 ms, AI-Native / Companies on the spoken words)
+    { const a0 = S('A.I.-native') - .05; c01Title(ctx, t, { at: [a0, a0 + .08, a0 + .16, a0 + .24, a0 + .42, S('companies')], out: A.no + .1 }); }   // title: The Rise of / AI-Native Companies
   }
 
   // the print finish changes gently (never a jump at an entry boundary): the values glide over ~1 s; at H.a they equal HO.print
