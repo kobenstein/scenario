@@ -7,7 +7,7 @@
 // |------|----------------------------------------------------|------------------------------------------------------------------------|------------------|----------------------------------------|------------------------------------|-------------------------|
 // | 5.01 | Question two. Where do the materials come from?    | out of the paper plate = card II's paper window (windowCam): pull up,  | the pool         | pull up .8 s, glide to the 3/4 view    | take continues                     | card (pause after "two")|
 // |      |                                                    | card II lifts and turns up toward us (question readable)               |                  | of card I's question in c04            |                                    |                         |
-// | 5.02 | Even with every mine planned today, … quarter of   | card II settles; behind it a cut-away block of ground rises out of the | copper veins     | glide back over the card, slow push    | continuous                         |                         |
+// | 5.02 | Even with the mines already in the pipeline, … | card II settles; behind it a cut-away block of ground rises out of the | copper veins     | glide back over the card, slow push    | continuous                         |                         |
 // |      | the copper it needs by twenty thirty-five.         | lacquer: an open-pit mine in cross-section, copper veins glow; ingots  |                  | toward the bundles                     |                                    |                         |
 // |      |                                                    | fly out of the pit onto three bundles; the needed height stands as a   |                  |                                        |                                    |                         |
 // |      |                                                    | red-hatched ghost: the top quarter stays empty. 25 % SHORT · IEA 2026  |                  |                                        |                                    |                         |
@@ -63,7 +63,7 @@ export default async (T, R) => {
   const S = (ph, n) => T.S('03b', ph, n), E = (ph, n) => T.E('03b', ph, n);
   const A = {
     q2: S('Question two'), q2E: E('Question two'), where2: S('Where do the'), from2E: E('materials come from'),
-    even: S('Even with'), todayE: E('planned today'), iea: S('International'), expects: S('expects'), quarter: S('quarter'), copper: S('copper'), t35E: E('thirty-five'),
+    even: S('Even with'), todayE: E('the pipeline'), iea: S('International'), expects: S('expects'), quarter: S('quarter'), copper: S('copper'), t35E: E('thirty-five'),
     and2: S('And copper'), only: S('only metal'), shortE: E('running short'), every: S('Every robot'), robotW: S('robot'), car: S('electric car'), themE: E('built from them'),
     software: S('Software'), scales: S('scales'), scalesE: E('scales'), metal: S("Metal doesn't"), doesntE: E("Metal doesn't"),
     q3: S('Question three'), isPlanet: S('Is the planet'), carbonE: E('only about carbon'),

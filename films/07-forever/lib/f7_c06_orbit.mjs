@@ -156,9 +156,11 @@ export function forks(ctx, t, m, st) {
 // ---------------------------------------------------------------- the world's own pair (6.07b: "Worldwide, though, … They just haven't yet")
 // One big pair of lines rising from the limb on the left: world economy (cool) and world emissions (amber). Both climb together; the
 // amber flattens high, on a dashed RECORD mark; the cool runs only a little above it (st.gap). World units, so it rides with the camera.
-export const WPAIR = { x0: -2330, x1: -830, top: -3330, H: 1444 };
-WPAIR.y0 = limbY(WPAIR.x0);
-const wpF = (u) => 1 - Math.pow(1 - u, 2.4);
+// Shape: a steep rise off the limb (steeper than the limb itself, so it never dips into the Earth), then a long flat run on the record
+// level, horizontal on screen, between the dome and THE curve's foot (it stays under the glass: the amber never breaks through).
+export const WPAIR = { x0: -2000, x1: -350, top: -3330 };
+WPAIR.y0 = limbY(WPAIR.x0); WPAIR.H = WPAIR.y0 - WPAIR.top;
+const wpF = (u) => 1 - Math.pow(1 - clamp(u / .62), 3) + .012 * Math.max(0, u - .62);
 export function wpairPts(gap, k = 'amber') {
   const P = [], { x0, x1, y0, H: Hh } = WPAIR;
   for (let i = 0; i <= 60; i++) { const u = i / 60, f = wpF(u) + (k === 'cool' ? gap * Math.pow(u, 2.2) : 0); P.push([mix(x0, x1, u), y0 - Hh * f, 1]); }
@@ -172,7 +174,7 @@ export function worldPair(ctx, t, m, st) {
   // the record mark: a fine dashed cream line at the amber's top, from mid-chart to just past the tip
   const rec = st.rec ?? 0;
   if (rec > 0) {
-    const xa = m.X(mix(x0, x1, .42)), xb = m.X(x1 + 170), Y = m.Y(top) - 1, xe = mix(xa, xb, ease.out(clamp(rec)));
+    const xa = m.X(mix(x0, x1, .38)), xb = m.X(x1 + 190), Y = m.Y(top) - 1, xe = mix(xa, xb, ease.out(clamp(rec)));
     ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
     ctx.strokeStyle = rgba('#f3ecda', .55 * (st.recA ?? 1)); ctx.lineWidth = 1.4; ctx.setLineDash([10, 9]); ctx.lineDashOffset = 0;
     ctx.beginPath(); ctx.moveTo(xa, Y); ctx.lineTo(xe, Y); ctx.stroke(); ctx.setLineDash([]);
@@ -194,7 +196,7 @@ export function limbWarm(ctx, t, m, h) {
   if (h <= 0) return;
   const cx = m.X(0), cy = m.Y(0), r0 = EARTH.R * m.k, br = 1 + .12 * Math.sin(t * 1.4) + .05 * Math.sin(t * 3.1 + 1), ext = (90 + 240 * h) * m.k * br;
   const g = ctx.createRadialGradient(cx, cy, r0 - 30 * m.k, cx, cy, r0 + ext);
-  g.addColorStop(0, 'rgba(255,170,100,0)'); g.addColorStop(.08, rgba('#ffc98f', .30 * h)); g.addColorStop(.22, rgba('#ff9a5a', .2 * h)); g.addColorStop(.55, rgba('#d0684e', .07 * h)); g.addColorStop(1, 'rgba(160,70,60,0)');
+  g.addColorStop(0, 'rgba(255,170,100,0)'); g.addColorStop(.08, rgba('#ffc98f', .42 * h)); g.addColorStop(.22, rgba('#ff9a5a', .27 * h)); g.addColorStop(.55, rgba('#d0684e', .07 * h)); g.addColorStop(1, 'rgba(160,70,60,0)');
   ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, r0 + ext, 0, TAU); ctx.fill(); ctx.restore();
 }
 

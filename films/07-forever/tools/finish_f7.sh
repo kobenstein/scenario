@@ -44,10 +44,11 @@ PY
     while [ "$(jobs -rp | wc -l)" -ge "$JOBS" ]; do wait -n || true; done
     # UNTIL=<s>: render only the pieces that end by then (pre-render finished chunks while later ones are still being built)
     if [ -n "${UNTIL:-}" ] && awk "BEGIN{exit !($b > ${UNTIL})}"; then continue; fi
+    if [ -n "${FROM:-}" ] && awk "BEGIN{exit !($a < ${FROM})}"; then continue; fi
     render_part "$n" "$a" "$b" "$secs" &
   done < "$WD/parts.txt"
   wait
-  [ -n "${UNTIL:-}" ] && { echo "UNTIL set: stop after the pieces"; exit 0; }
+  [ -n "${UNTIL:-}${FROM:-}" ] && { echo "UNTIL/FROM set: stop after the pieces"; exit 0; }
   [ "$(ls "$WD"/parts/p??.mp4 | wc -l)" -eq "$(wc -l < "$WD/parts.txt")" ] || { echo "missing parts, stop"; exit 1; }
   ls "$WD"/parts/p??.mp4 | sort | sed "s|^|file '|; s|$|'|" > "$WD/parts/list.txt"
   ffmpeg -v error -y -f concat -safe 0 -i "$WD/parts/list.txt" -c copy "$WD/video.mp4"

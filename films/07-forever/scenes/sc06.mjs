@@ -198,9 +198,9 @@ export default async (T, R) => {
   const tF2a = A.countsE - .55, tF2 = A.superI + .25;               // the forks draw back / the move in on the curve (6.08, as before)
   const tPB0 = fr(A.separateE + .1), tPB1 = A.ww + 1.55;            // 6.07b: the pull back to the planet's whole arc
   const tF3a = A.one - .15, tF3 = A.keeps + .35, tUp = A.bendsE + .35;
-  const F1 = [150, -2860, .44], WIDE = [-250, -2800, .36];
+  const F1 = [150, -2860, .44], WIDE = [-450, -2810, .36];
   const KO2 = [
-    [tC, F1], [tDown, F1], [tPB0, [172, -2880, .48], (x) => x], [tPB1, WIDE], [tF2a, [-236, -2812, .366], ease.sine], [tF2, [-150, -3250, .95]], [tF3a, [-138, -3264, 1.0], ease.sine],
+    [tC, F1], [tDown, F1], [tPB0, [172, -2880, .48], (x) => x], [tPB1, WIDE], [tF2a, [-436, -2818, .364], ease.sine], [tF2, [-150, -3250, .95]], [tF3a, [-138, -3264, 1.0], ease.sine],
     [tF3, [0, -2880, .48]], [tUp, [10, -2890, .485], ease.sine],
   ];
   const camO2 = (t) => camK(t, KO2);
@@ -267,7 +267,7 @@ export default async (T, R) => {
       g.addColorStop(0, rgba('#ffd2a8', .75 * ag)); g.addColorStop(.06, rgba('#f6a48e', .5 * ag)); g.addColorStop(.3, rgba('#c9708a', .22 * ag)); g.addColorStop(1, 'rgba(120,70,130,0)');
       ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore();
     }
-    const heat = .85 * sm(lin(A.warm - .15, A.warmE + .5, t)) * (1 - ease.io(lin(tF2a, tF2 + .3, t)));
+    const heat = sm(lin(A.warm - .15, A.warmE + .5, t)) * (1 - ease.io(lin(tF2a, tF2 + .3, t)));
     earthHorizon(ctx, t, cam, { heat: heat * .7 });
     limbWarm(ctx, t, m, heat);
     if (t > tF3a) sunsetLimb(ctx, t, m, sm(lin(tF3a, tF3, t)) * (.35 + .65 * sunU) * (1 - lin(tUp, tEnd, t)));
@@ -279,7 +279,7 @@ export default async (T, R) => {
     });
     // 6.07b: the world's own pair rises over the left limb, flattens HIGH on the record mark, and stays together
     if (t > A.ww - .1 && t < tF2 + .3) worldPair(ctx, t, m, {
-      u: ease.io(lin(A.ww - .05, A.ww + 1.9, t)) * (1 - ease.inn(lin(tF2a - .25, tF2a + .55, t))),
+      u: ease.io(lin(A.ww - .05, A.ww + 1.9, t)) * (1 - ease.io(lin(tF2a - .35, tF2a + .6, t))),
       gap: .075 + .09 * bump(t, A.havent - .1, A.havent + .45, A.yetE - .1, A.yetE + .55) + .03 * sm(lin(A.havent, A.countsE, t)),
       br: 1 + .15 * bump(t, A.where - .1, A.where + .3, A.countsE, A.countsE + .4),
       rec: lin(A.record - .1, A.record + .55, t) * (1 - lin(tF2a - .3, tF2a + .2, t)), recA: 1,
@@ -337,16 +337,16 @@ export default async (T, R) => {
     }
     // labels and the sentence
     label(ctx, t, '32 countries', '2015–2018 · HUBACEK ET AL. · 2021', 150, 236, A.between + .45, A.separateE + .35, { bar: F7.cool });
-    label(ctx, t, '2015–2025', 'THE 11 WARMEST YEARS ON RECORD · WMO', 1250, 300, A.planet - .1, A.sep2E + .35, { size: 64 });
+    label(ctx, t, '2015–2025', 'THE 11 WARMEST YEARS ON RECORD · WMO', 1300, 390, A.planet - .1, A.sep2E + .35, { size: 64 });
     sentence(ctx, t);
   }
   // the record mark's tag (world-attached, so it rides the camera; the camera is near still while it is read): wipes in / out like label()
   function recTag(ctx, t, X, Y, t0, t1) {
     const a = ease.out(lin(t0, t0 + .5, t)), b = ease.inn(lin(t1 - .35, t1, t)); if (a <= 0 || b >= 1) return;
-    const x = X - 300, wv = 330;
-    ctx.save(); ctx.beginPath(); ctx.rect(x - 4 + wv * b, Y - 70, wv * (a - b), 62); ctx.clip();
-    text(ctx, 'RECORD · 2025', x, Y - 38, { size: 22, weight: 600, color: rgba('#f6efdc', .95), spacing: 4 });
-    text(ctx, 'GLOBAL CARBON BUDGET 2025', x, Y - 15, { size: 15, weight: 600, color: rgba('#cfd6ee', .85), spacing: 3 });
+    const x = X - 352, wv = 370;                                            // under the mark's right end (free sky above the curve's foot)
+    ctx.save(); ctx.beginPath(); ctx.rect(x - 4 + wv * b, Y + 8, wv * (a - b), 66); ctx.clip();
+    text(ctx, 'RECORD · 2025', x, Y + 38, { size: 22, weight: 600, color: rgba('#f6efdc', .95), spacing: 4 });
+    text(ctx, 'GLOBAL CARBON BUDGET 2025', x, Y + 62, { size: 15, weight: 600, color: rgba('#cfd6ee', .85), spacing: 3 });
     ctx.restore();
   }
   function motes(ctx, t, X, Y) {
