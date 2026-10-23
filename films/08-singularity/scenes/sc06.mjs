@@ -44,7 +44,7 @@ export default async function (T, R) {
     then: G('Then'), needle: G('needle'), pick: G('pick'), keeps: G('keeps'), north: G('north'), however: G('however'), compass2: G('compass'), shakes: G('shakes'),
     remember: G('Remember'), clouds: G('clouds'), when: G('When the'), stars: G('stars'), mau: G('Mau'), map: G('better map'), he: G('He still'), swell: G('swell'),
     wind: G('wind'), birds: G('birds'), kept: G('kept'), reading: G('reading'), about: G('About'), month: G('month'), reached: G('reached'), tahiti: G('Tahiti'),
-    more: G('More than'), seventeen: G('seventeen'), harbour: G('harbour'), canoe: G('A canoe'), never: G('never'), journey: G('journey'), neither: G('Neither'), thisOne: G('this one'), out: HO.a,
+    more: G('An estimated'), seventeen: G('seventeen'), harbour: G('harbour'), canoe: G('A canoe'), never: G('never'), journey: G('journey'), neither: G('Neither'), thisOne: G('this one'), out: HO.a,
   };
   K.A1 = K.clouds + .55; K.B1 = K.about - .1; K.glare = K.more - .45;
 

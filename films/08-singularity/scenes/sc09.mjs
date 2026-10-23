@@ -123,7 +123,7 @@ export default async function (T, R) {
   }
 
   // ================================================================ TW: Taiwan from above, the pings (km world)
-  K.tw0 = K.m1; K.tw1 = c('Four') - .2;
+  K.tw0 = K.m1; K.tw1 = c('About') - .2;
   const TP = [121.52, 25.05], tpx = (TP[0] - 121) * 101, tpz = (TP[1] - 23.7) * 111;
   const HOT = PINGS.map((q, i) => [Math.hypot(q.x - tpx, q.z - tpz) + 60 * q.d, i]).sort((a, b) => a[0] - b[0])[0][1];
   const hotP = [PINGS[HOT].x, 0, PINGS[HOT].z];
@@ -153,8 +153,8 @@ export default async function (T, R) {
   const fill = [SCREEN.c[0] + SN[0] * SD, SCREEN.c[1] + SN[1] * SD, SCREEN.c[2] + SN[2] * SD];
   const camRM = camTrack([
     [K.rm0, ...fill, 0, SCREEN.tilt, 1400],
-    row(c('Four') + .9, [.42, 1.42, -1.05], [0, .95, .4], 1400),
-    row(c('forty-seven') + .5, [.36, 1.38, -.95], [0, .97, .42], 1400),
+    row(c('About') + .9, [.42, 1.42, -1.05], [0, .95, .4], 1400),
+    row(c('fifty') + .5, [.36, 1.38, -.95], [0, .97, .42], 1400),
     [K.rm1, ...fill, 0, SCREEN.tilt, 1400],
   ]);
   K.call = c('met') - .55;
@@ -170,7 +170,7 @@ export default async function (T, R) {
     laptopRoom(ctx, t, C, { screen: screenRM });
     grpLabel(ctx, t);
   }
-  const grpLabel = (ctx, t) => label(ctx, t, 330, 330, u01(t, c('forty-seven'), c('forty-seven') + .8) * (1 - u01(t, c('scam') - .4, c('scam') + .1)), '447 PEOPLE · 44 GROUPS · ONLINE', '', { len: 100 });
+  const grpLabel = (ctx, t) => label(ctx, t, 330, 330, u01(t, c('fifty'), c('fifty') + .8) * (1 - u01(t, c('scam') - .4, c('scam') + .1)), 'ABOUT 450 PEOPLE · SMALL GROUPS · ONLINE', '', { len: 100 });
 
   // ================================================================ GR: the call grid (the screen IS the grid), C6, the summary card
   K.gr0 = K.rm1; K.grRows0 = d('Audrey'); K.grPush0 = d('tells') - .25; K.gr1 = d('Strangers') - .1;
@@ -202,7 +202,7 @@ export default async function (T, R) {
   const zcx = track([[K.gr0, 960], [c('scam') - .4, 880], [K.c6a - 1.1, 1060], [K.c6a, heroC[0]], [K.c6b, heroC[0]], [K.c6b + 1.4, 980], [K.grPush0, 1000], [K.gr1, endC[0]]]);
   const zcy = track([[K.gr0, 540], [c('scam') - .4, 570], [K.c6a - 1.1, 520], [K.c6a, heroC[1]], [K.c6b, heroC[1]], [K.c6b + 1.4, 545], [K.grPush0, 540], [K.gr1, endC[1]]]);
   const zoomAt = (t) => { const s = zS(t), gx = zcx(t), gy = zcy(t); return [s, 960 - gx * s, 540 - gy * s]; };
-  const gridState = (t) => ({ group: u01(t, c('small') - .1, c('groups') + .5), ad: u01(t, c('scam') - .5, c('scam') - .1), cross: u01(t, c('scam') + .05, c('ads.') + .2), line: u01(t, c('Artificial') - .1, c('summarize') + .25), card: u01(t, c('Artificial') + .1, c('intelligence') + .4), amber: u01(t, c('The ideas') - .05, c('theirs') - .2), threads: u01(t, c('ideas'), c('theirs') + .6) * (1 - u01(t, K.c6a - .4, K.c6a)), rows: t > K.c6b ? u01(t, K.grRows0, K.grRows0 + 2.6) : null });
+  const gridState = (t) => ({ group: u01(t, c('small') - .1, c('groups') + .5), ad: u01(t, c('scam') - .5, c('scam') - .1), cross: u01(t, c('scam') + .05, c('ads.') + .2), line: u01(t, c('Artificial') - .1, c('discussions') + .25), card: u01(t, c('Artificial') + .1, c('intelligence') + .4), amber: u01(t, c('The ideas') - .05, c('theirs') - .2), threads: u01(t, c('ideas'), c('theirs') + .6) * (1 - u01(t, K.c6a - .4, K.c6a)), rows: t > K.c6b ? u01(t, K.grRows0, K.grRows0 + 2.6) : null });
   function drawGR(ctx, t) {
     const st = gridState(t); GS = { t, lineU: st.line, amber: st.amber };
     const [s, ox, oy] = zoomAt(t), full = t > K.c6a + .36 && t < K.c6b - .36;
