@@ -6,7 +6,7 @@ import json, os, subprocess, sys
 import numpy as np
 A = sys.argv[1].rstrip('/')
 SEG = json.load(open(f'{A}/segments.json'))
-LEAD, TAIL = 1.4, 6.0
+LEAD, TAIL = 1.4, 20.0   # Film 8: ~18 s calm end screen
 CLIP_IN, CLIP_OUT = 0.7, 0.6                 # air before / after a clip
 GAP_SECTION, GAP_SUB = 1.8, 0.9
 GAP_AFTER = {'00a': 0.9}   # Film 8 minute: Altman follows straight after the claim
