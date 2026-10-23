@@ -234,9 +234,9 @@ export default async (T, R) => {
   const draw = (ctx, t) => (t < tm ? takeA(ctx, t) : takeB(ctx, t));
   return [
     { t: tb, tr: 'cut', d: .1, draw, print: HI.print },
-    { t: A.but, draw, print: PRINT, sound: [{ f: 'whoosh_up', t: A.rest + .05, v: .35 }, { f: 'bloom', t: A.machinesE + .05, v: .35 }] },
+    { t: A.but, draw, print: PRINT, sound: [{ f: 'whoosh_up', t: A.rest + .05, v: .35 }, { f: 'bloom', t: A.machinesE + .05, v: .35 }, ...sparks.slice(0, 4).map((k) => ({ f: 'spark_tick', t: k.t0 + .15, v: .18 }))] },
     { t: A.now, draw, print: PRINT },
-    { t: A.right, draw, print: PRINT, sound: [{ f: 'swell', t: A.doesntE + .05, v: .45 }, { f: 'whoosh_airy', t: A.itE + .05, v: .3 }] },
+    { t: A.right, draw, print: PRINT, sound: [{ f: 'swell', t: A.doesntE + .05, v: .45 }, { f: 'whoosh_airy', t: A.itE + .05, v: .3 }, { f: 'steam_hiss', t: A.british + 1.25, v: .22 }] },
     { t: A.enginesE, draw, print: PRINT, sound: [{ f: 'card', t: A.microsoft - .3, v: .35 }, { f: 'whoosh', t: tm - .55, v: .3 }, { f: 'pages', t: tm - .12, v: .25 }] },
     { t: A.look, draw, print: HO.print, sound: [{ f: 'whoosh_up', t: A.ceilingE + .05, v: .35 }, { f: 'whoosh_airy', t: A.abundanceE + .1, v: .25 }] },
   ];
