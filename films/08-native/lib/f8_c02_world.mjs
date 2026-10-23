@@ -1,23 +1,24 @@
-// Film 8 · chunk c02 (01a · the memory) · the world of this chunk, drawn around the shared kit (lib/f8_kit.mjs: weave, stitch, glyph,
+// Film 8 · chunk c02 (01a · the memory) · the world of this chunk, drawn around the shared kit (lib/f8_kit.mjs: glyph,
 // firefly, nightLand, pulse). Owner: c02 builder. Other chunks may import, never edit.
 //
-// ONE CAMERA for the whole chunk: the plane Z = 0 holds the houses and the great weave (W1 coordinates = screen px at the reference
+// ONE CAMERA for the whole chunk: the plane Z = 0 holds the houses and the great network (W1 coordinates = screen px at the reference
 // camera {x 720, y 470, k 1}); a real perspective floor (Y = FLOOR) runs toward the camera. cam = { x, y, k, h }:
 //   x, y = the world point of the Z=0 plane at the screen centre, k = zoom of that plane, h = the camera's 3D height (world Y; a lens
-//   shift keeps verticals vertical, so the weave stays a rectangle while the camera cranes up to look down on the floor).
+//   shift keeps verticals vertical, so the network keeps its shape while the camera cranes up to look down on the floor).
 //   P(cam, X, Y, Z) → [sx, sy, scale] | null      plane(ctx, cam, fn) draws fn in plane coords (Z = 0)
 //
 // What lives here:
-//   threadBall(ctx, t, cam, X, Y, o)   the knot of gold threads over a head (a ball of loops; at k ≫ 1 the camera is INSIDE it)
-//   meshPatch(ctx, t, pts, o)          a small woven patch from a grid of points (the room's own knowledge; tears and trails)
-//   oldHouse(ctx, t, S) / newHouse(ctx, t, S)   the ordinary company (3 storeys, 9 rooms) and the A.I.-native one (one hall + the weave)
-//   hallFloor(ctx, t, cam, o)          the dark hall: floor boards in perspective, the light pool under the weave
-//   plaque(ctx, t, cam, o)             the brass museum plaque under the weave ("COMPANY BRAIN" / SILICON VALLEY)
+//   memNet / cluster / filament / sparks   the memory as an organic neural network (no grid anywhere; see THE NETWORK below)
+//   oldHouse(ctx, t, S) / newHouse(ctx, t, S)   the ordinary company (3 storeys, 9 rooms) and the A.I.-native one (one hall + the network)
+//   hallFloor(ctx, t, cam, o)          the dark hall: floor boards in perspective, the light pool under the network
+//   plaque(ctx, t, cam, o)             the brass museum plaque under the network ("COMPANY BRAIN" / SILICON VALLEY)
 //   meetingRing(ctx, t, cam, m, o)     a circle of seated people on the floor (a meeting as a form), its centre light, its thread
 //   nameLabel(ctx, t, o)               TOM BLOMFIELD · role line with strike-through and the new line (mask reveals only)
 //   glowFrom(ctx, t, plateFn, u, at, o) a handoff plate as a light that shrinks to / grows from a point (no alpha over the scene:
 //                                      the plate is the core of an in-world light, its edge is the light's own falloff)
+import { loadImage } from '@napi-rs/canvas';
 import { W, H, rgba, clamp, lin, mix, sm, eio, eout, prng, drift, canvas, hatch, text } from '../engine.mjs';
+import { vnoise, fbm } from './art.mjs';
 import { figure, figureFlat, POSES, walk, life } from './figure.mjs';
 import { F8, glyph, qio, eoutX } from './f8_kit.mjs';
 import { TSHIFT } from './handoff4.mjs';
@@ -48,101 +49,322 @@ export function camAt(keys, t) {
   return { ...keys[keys.length - 1] };
 }
 
-// ---------------------------------------------------------------- the knot over a head: a ball of gold threads
-// A ball of N loops (radius r world units at X,Y on the plane) turning slowly. Seen from far it is a small glowing knot; as the camera
-// comes within r (k > FCAM / r) we are inside it: the loops sweep past and run into the depth toward the bright core.
-const BALLS = new Map();
-function ballGeom(seed, n) {
-  const key = seed + ':' + n; if (BALLS.has(key)) return BALLS.get(key);
-  const r = prng(seed * 31 + 7), L = [];
-  for (let i = 0; i < n; i++) {
-    // a loop: a tilted circle (normal vector), a radius, a small centre offset, a wobble
-    const th = r() * TAU, ph = Math.acos(2 * r() - 1), nx = Math.sin(ph) * Math.cos(th), ny = Math.sin(ph) * Math.sin(th), nz = Math.cos(ph);
-    // two unit vectors in the loop plane
-    let ax = -ny, ay = nx, az = 0; const al = Math.hypot(ax, ay) || 1; ax /= al; ay /= al;
-    const bx = ny * az - nz * ay, by = nz * ax - nx * az, bz = nx * ay - ny * ax;
-    L.push({ ax, ay, az, bx, by, bz, rad: .55 + .45 * r(), off: [(r() - .5) * .25, (r() - .5) * .25, (r() - .5) * .25], wob: r() * TAU, wf: 2 + Math.floor(r() * 3), br: .55 + .45 * r(), sp: (r() - .5) * .6 });
-  }
-  BALLS.set(key, L); return L;
+// ---------------------------------------------------------------- THE NETWORK (MOTION.md §1, revised 2026-10-23: no grid anywhere)
+// An organic neural network of light: nodes = soft glowing somata (gold, white core, faint halo), filaments = curved, tapering,
+// branching strands between them (thick at the node, hair-thin in the middle), signals travelling along them, slow breathing,
+// staggered twinkle. Seen whole, the cloud of nodes reads as a brain: two hemispheres, a faint central cleft, gyri-like curls in
+// the node density (silhouette only, made of the network itself). Close up it is pure network.
+//   await netReady()                         sprites as Images + the geometry (call once)
+//   memNet(ctx, t, cam, o)                   the great network in plane coords (inside plane()); o = { a, clip [x,y,w,h], breath,
+//                                            sprouts [{ t0, X, Y, glyph, from [X,Y] , n 3 }], wave { i | X,Y, t0, speed }, dim,
+//                                            flares [{ i, t, a }] }
+//   netNearest(X, Y, n, f?) → [i…]           nearest front nodes (f: (node) → bool filter)
+//   netNode(i, t) → [X, Y]                   a front node's live position
+//   cluster(ctx, t, cam, X, Y, o)            the small 3D cluster of nodes over a head (screen space; at k ≫ 1 the camera is inside it)
+//                                            o = { r 18, seed, n 9, a 1, glow 1, flare 0 } → { x, y, s, nodes [[sx,sy,s]|null] }
+//   filament(ctx, a, b, o)                   one organic strand between two points (current coords); o = { bow, a, w, t, seed, signal,
+//                                            grow 0..1 (from a), wob }
+//   sparks(ctx, t, t0, x, y, o)              thin sparks where a filament snaps
+export const BR = { cx: 720, cy: 175, rx: 1320, ry: 615 };      // the brain silhouette in plane coords (bottom ≈ y 790)
+const NETSPR = {};
+function makeSprite(R, core, col, deep, stops) {
+  const [c, g] = canvas(R * 2, R * 2);
+  const rg = g.createRadialGradient(R, R, 0, R, R, R); rg.addColorStop(0, rgba(core, 1)); rg.addColorStop(stops[0], rgba(col, .75)); rg.addColorStop(stops[1], rgba(deep, .18)); rg.addColorStop(1, rgba(deep, 0));
+  g.fillStyle = rg; g.fillRect(0, 0, R * 2, R * 2);
+  const d = g.getImageData(0, 0, R * 2, R * 2), p = d.data, r = prng(R * 7 + 5);
+  for (let i = 3; i < p.length; i += 4) { const a = p[i] / 255; if (a <= 0) continue; const kk = .45 * 4 * a * (1 - a), on = r() < a ? Math.min(1, a * 2.2) : 0; p[i] = 255 * (a * (1 - kk) + kk * on); }
+  g.putImageData(d, 0, 0); return c;
 }
-export function threadBall(ctx, t, cam, X, Y, o = {}) {
-  const r = o.r ?? 16, seed = o.seed ?? 1, n = o.n ?? 11, A = o.a ?? 1, glowA = o.glow ?? 1;
-  const c = P(cam, X, Y, 0); if (!c) return null;
-  const D = -camZ(cam), sc = c[2];   // distance of the camera to the plane (= to the ball centre)
-  if (c[0] < -r * sc * 4 - 200 || c[0] > W + r * sc * 4 + 200 || c[1] < -r * sc * 4 - 200 || c[1] > H + r * sc * 4 + 200) return { x: c[0], y: c[1], s: sc };
-  const L = ballGeom(seed, n), rot = t * (o.spin ?? .35) + seed, cr = Math.cos(rot), sr = Math.sin(rot), tilt = .35, ct = Math.cos(tilt), st = Math.sin(tilt);
-  const near = Math.max(.6, D * .02);
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-  // the warm core light (the ball glows from inside)
-  const insideK = clamp((D / r - .3) / 1.2);   // inside the ball its core light is a point ahead, not a wash over everything
-  if (glowA > 0) {
-    const coreR = Math.min(2600, r * sc * 2.4) * mix(.12, 1, insideK);
-    const g = ctx.createRadialGradient(c[0], c[1], 0, c[0], c[1], coreR);
-    g.addColorStop(0, rgba(F8.goldCore, .55 * glowA * A)); g.addColorStop(.25, rgba(F8.gold, .22 * glowA * A)); g.addColorStop(1, rgba(F8.goldDeep, 0));
-    ctx.fillStyle = g; ctx.fillRect(c[0] - coreR, c[1] - coreR, coreR * 2, coreR * 2);
-  }
-  const inside = D < r * 1.15, lwk = Math.min(1, sc * .5);
-  for (let li = 0; li < L.length; li++) {
-    const l = L[li], N = inside ? 120 : 48, rad = r * l.rad, pts = [];
-    const sp = rot * (1 + l.sp);
-    for (let k = 0; k <= N; k++) {
-      const q = k / N * TAU, w = 1 + .08 * Math.sin(q * l.wf + l.wob + t * .8);
-      let px = (l.ax * Math.cos(q) + l.bx * Math.sin(q)) * rad * w + l.off[0] * r, py = (l.ay * Math.cos(q) + l.by * Math.sin(q)) * rad * w + l.off[1] * r, pz = (l.az * Math.cos(q) + l.bz * Math.sin(q)) * rad * w + l.off[2] * r;
-      // spin about the vertical, then a fixed tilt
-      const cs = Math.cos(sp), sn = Math.sin(sp); [px, pz] = [px * cs - pz * sn, px * sn + pz * cs]; [py, pz] = [py * ct - pz * st, py * st + pz * ct];
-      const d = D + pz; if (d < near) { pts.push(null); continue; }
-      const s = FCAM / d; pts.push([c[0] + px * s, c[1] + py * s, d]);
-    }
-    const br = l.br * A;
-    // three passes: wide glow, gold body, white core (thicker the nearer)
-    for (const [wmul, al, col] of [[4.5, .06, F8.gold], [1.7, .34, F8.gold], [.6, .85, F8.goldCore]]) {
-      ctx.strokeStyle = rgba(col, al * br);
-      let started = false; ctx.beginPath();
-      for (let k = 0; k < pts.length; k++) {
-        const p = pts[k]; if (!p) { started = false; continue; }
-        if (!started) { ctx.moveTo(p[0], p[1]); started = true; } else ctx.lineTo(p[0], p[1]);
-      }
-      // width by depth: one width per loop (the mean depth), clamped
-      const md = pts.reduce((a, p) => (p ? Math.min(a, p[2]) : a), 1e9), w = clamp(FCAM / md * 1.1 * lwk, .7, 34);
-      ctx.lineWidth = Math.min(w, 5) * wmul * (inside ? .8 : .8); ctx.stroke();
-    }
-  }
-  ctx.restore();
-  return { x: c[0], y: c[1], s: sc };
+// brain shape: < 1 inside. Two hemispheres side by side, a cleft between them, a notch at the bottom centre, lobed outline.
+function brainE(X, Y) {
+  const u = (X - BR.cx) / BR.rx, v = (Y - BR.cy) / BR.ry, au = Math.abs(u);
+  if (v < .42 && au < (.016 + .03 * (.42 - v)) * clamp((.42 - v) / .25)) return 9;   // the cleft (wide at the top, closing toward the middle)
+  if (au < .07 && v > .9) return 9;                                              // a small notch at the bottom centre
+  const ang = Math.atan2(v, au - .5), lobe = 1 + .05 * Math.sin(ang * 5 + .6) + .03 * Math.sin(ang * 9 + 2);
+  const ru = .5 * (1 - .12 * Math.max(0, v)) * lobe, rv = 1 * lobe;
+  const hemi = ((au - .5) / ru) ** 2 + (v / rv) ** 2;
+  const body = (au / (.44 * (1 + .03 * Math.sin(v * 9)))) ** 2 + ((v - .28) / .7) ** 2;   // the full lower middle (no V-gap between the domes)
+  return Math.min(hemi, body);
 }
-
-// ---------------------------------------------------------------- a woven patch from a grid of points
-// pts[j][i] (rows × cols) in the current coordinate system; o: { a, seed, t, glints, lw (line width), cut: (i,j) → true to skip a node }
-export function meshPatch(ctx, t, pts, o = {}) {
-  const A = o.a ?? 1, rows = pts.length, cols = pts[0].length, lw = o.lw ?? 1, seed = o.seed ?? 1;
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-  const path = () => {
-    ctx.beginPath();
-    for (let j = 0; j < rows; j++) { for (let i = 0; i < cols; i++) { const p = pts[j][i]; i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); } }
-    for (let i = 0; i < cols; i++) { for (let j = 0; j < rows; j++) { const p = pts[j][i]; j ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); } }
+let NETG = null;
+function netGeom() {
+  if (NETG) return NETG;
+  const r = prng(8123), n1 = vnoise(31), n2 = vnoise(77);
+  const nodes = [], deep = [];
+  const gyri = (X, Y) => {   // curled bands (mirrored left/right) + low-frequency clumps
+    const u = Math.abs(X - BR.cx) / BR.rx, v = (Y - BR.cy) / BR.ry;
+    const w = fbm(n1, u * 3.2, v * 3.2, 3), band = .5 + .5 * Math.sin((u * 7 + v * 2.5 + w * 4.2) * 3.1);
+    const clump = fbm(n2, X / 520, Y / 520, 3);
+    return { band, clump };
   };
-  path();
-  ctx.strokeStyle = rgba(F8.gold, .1 * A); ctx.lineWidth = 5 * lw; ctx.stroke();
-  ctx.strokeStyle = rgba(F8.gold, .5 * A); ctx.lineWidth = 1.3 * lw; ctx.stroke();
-  ctx.strokeStyle = rgba(F8.goldCore, .55 * A); ctx.lineWidth = .55 * lw; ctx.stroke();
-  // glints and tiny glyphs on a few crossings
-  if (o.glyphs !== false) {
-    const kinds = ['meeting', 'envelope', 'check', 'cross'];
-    for (let j = 0; j < rows; j++) for (let i = 0; i < cols; i++) {
-      const hsh = hash(seed * 17.3 + i * 3.1 + j * 7.7); if (hsh > .22) continue;
-      const p = pts[j][i], tw = .55 + .45 * Math.sin(t * (1.1 + hsh * 3) + hsh * 40);
-      glyph(ctx, kinds[Math.floor(hsh * 18) % 4], p[0], p[1], .42 * lw, F8.goldCore, .75 * A * tw);
-    }
+  // front nodes (bright, alive)
+  let guard = 0;
+  while (nodes.length < 900 && guard++ < 60000) {
+    const X = BR.cx + (r() * 2 - 1) * BR.rx * 1.02, Y = BR.cy + (r() * 2 - 1) * BR.ry * 1.02, e = brainE(X, Y); if (e > 1) continue;
+    const { band, clump } = gyri(X, Y), rim = e > .78 ? 1.7 : 1;
+    const p = (.22 + .78 * band ** 2) * (.45 + 1.2 * clump ** 2) * rim; if (r() > p) continue;
+    const big = r();
+    nodes.push({ X, Y, core: 2.2 + 9 * big ** 4 + 1.5 * r(), br: .55 + .45 * r(), ph: r() * TAU, tw: .6 + r() * 1.6, side: Math.sign(X - BR.cx), e });
+  }
+  // deep, older nodes (dimmer, smaller, they stay)
+  guard = 0;
+  while (deep.length < 1700 && guard++ < 60000) {
+    const X = BR.cx + (r() * 2 - 1) * BR.rx, Y = BR.cy + (r() * 2 - 1) * BR.ry, e = brainE(X, Y); if (e > .98) continue;
+    const { band } = gyri(X, Y); if (r() > .25 + .75 * band) continue;
+    deep.push({ X, Y, core: 1 + 1.6 * r(), br: .35 + .4 * r(), ph: r() * TAU, tw: .4 + r(), side: Math.sign(X - BR.cx) });
+  }
+  // a spatial hash for nearest neighbours
+  const grid = (list, cell) => { const m = new Map(); list.forEach((q, i) => { const k = Math.floor(q.X / cell) + ':' + Math.floor(q.Y / cell); (m.get(k) || m.set(k, []).get(k)).push(i); }); return { m, cell }; };
+  const near = (list, G, X, Y, n, maxD, ok) => {
+    const cx = Math.floor(X / G.cell), cy = Math.floor(Y / G.cell), out = [];
+    for (let a = -2; a <= 2; a++) for (let b = -2; b <= 2; b++) { const L = G.m.get((cx + a) + ':' + (cy + b)); if (!L) continue; for (const i of L) { const q = list[i], d = Math.hypot(q.X - X, q.Y - Y); if (d > 0 && d < maxD && (!ok || ok(q, i))) out.push([d, i]); } }
+    out.sort((p, q) => p[0] - q[0]); return out.slice(0, n).map((x) => x[1]);
+  };
+  const G0 = grid(nodes, 120), G1 = grid(deep, 90);
+  const mkEdges = (list, G, kMin, kMax, maxD, bridge) => {
+    const E = [], seen = new Set();
+    list.forEach((q, i) => {
+      const k = kMin + Math.floor(r() * (kMax - kMin + 1));
+      for (const j of near(list, G, q.X, q.Y, k, maxD, (o) => o.side === q.side || (q.Y > BR.cy + .4 * BR.ry && o.Y > BR.cy + .4 * BR.ry) || (bridge && Math.abs(q.X - BR.cx) < 160 && r() < .25))) {
+        const key = i < j ? i + ',' + j : j + ',' + i; if (seen.has(key)) continue; seen.add(key);
+        const L = Math.hypot(list[j].X - q.X, list[j].Y - q.Y);
+        E.push({ a: i, b: j, L, bow: (r() - .5) * .5, br: .45 + .55 * r(), ph: r() * TAU, sig: r() < .3 ? { per: 2.5 + r() * 4.5, off: r() * 10, dir: r() < .5 } : null });
+      }
+    });
+    return E;
+  };
+  // micro layer: fine somata and strands that only matter close up (k > 1.5), so the close-up is a dense living tissue
+  const micro = [];
+  for (let X = BR.cx - BR.rx; X < BR.cx + BR.rx; X += 44) for (let Y = BR.cy - BR.ry; Y < BR.cy + BR.ry; Y += 44) {
+    const n = 1 + Math.floor(r() * 3); for (let k = 0; k < n; k++) { const x = X + r() * 44, y = Y + r() * 44; if (brainE(x, y) > 1) continue; micro.push({ X: x, Y: y, core: .9 + 1.8 * r() ** 2, br: .4 + .6 * r(), ph: r() * TAU, tw: .5 + r() * 1.5, side: Math.sign(x - BR.cx) }); }
+  }
+  const G2 = grid(micro, 60);
+  const edges = mkEdges(nodes, G0, 2, 3, 200, true), dedges = mkEdges(deep, G1, 2, 2, 130, false), medges = mkEdges(micro, G2, 2, 3, 90, true);
+  // dendrite tips: short branching stubs that end in nothing
+  const stubs = [];
+  nodes.forEach((q, i) => { const n = r() < .65 ? 1 + (r() < .35 ? 1 : 0) : 0; for (let k = 0; k < n; k++) { const ang = r() * TAU, L = 16 + 42 * r() * (1 + q.core / 8); stubs.push({ i, ang, L, bend: (r() - .5) * 1.2, fork: r() < .5 ? { at: .55, ang: (r() < .5 ? 1 : -1) * (.5 + .4 * r()), L: .45 } : null, ph: r() * TAU }); } });
+  NETG = { nodes, deep, micro, edges, dedges, medges, stubs, G0, near: (X, Y, n, ok, maxD = 600) => near(nodes, G0, X, Y, n, maxD, ok) };
+  // nearest with a wide search (the hash covers ±2 cells); fall back to a scan
+  NETG.nearest = (X, Y, n, ok) => { let res = NETG.near(X, Y, n, ok, 280); if (res.length < n) res = nodes.map((q, i) => [Math.hypot(q.X - X, q.Y - Y), i]).filter(([d, i]) => d > 0 && (!ok || ok(nodes[i], i))).sort((p, q) => p[0] - q[0]).slice(0, n).map((x) => x[1]); return res; };
+  return NETG;
+}
+export async function netReady() {
+  const mk = { gold: [64, F8.goldCore, F8.gold, F8.goldDeep, [.26, .58]], halo: [96, F8.gold, F8.gold, F8.goldDeep, [.25, .6]] };
+  for (const [k, a] of Object.entries(mk)) if (!NETSPR[k]) { const c = makeSprite(...a); NETSPR[k] = await loadImage(c.toBuffer('image/png')); }
+  netGeom();
+}
+function nspr(ctx, k, x, y, r, a) { if (a <= .004 || r < .2) return; ctx.globalAlpha = Math.min(1, a); ctx.drawImage(NETSPR[k], x - r, y - r, r * 2, r * 2); }
+export const netNearest = (X, Y, n, ok) => netGeom().nearest(X, Y, n, ok);
+const nodePos = (q, t) => [q.X + 2.4 * Math.sin(t * .31 + q.ph), q.Y + 2.4 * Math.cos(t * .27 + q.ph * 1.3)];
+export const netNode = (i, t) => nodePos(netGeom().nodes[i], t);
+// a quadratic strand a→b with a sideways bow; returns its control point
+const ctrl = (a, b, bow, wob) => { const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2, dx = b[0] - a[0], dy = b[1] - a[1]; return [mx - dy * bow + wob[0], my + dx * bow + wob[1]]; };
+const qpt = (a, c, b, q) => [(1 - q) ** 2 * a[0] + 2 * (1 - q) * q * c[0] + q * q * b[0], (1 - q) ** 2 * a[1] + 2 * (1 - q) * q * c[1] + q * q * b[1]];
+// sub-curve [q0, q1] of a quadratic → (start, control, end)
+function subq(a, c, b, q0, q1) {
+  const p0 = qpt(a, c, b, q0), p1 = qpt(a, c, b, q1);
+  const d0 = [2 * (1 - q0) * (c[0] - a[0]) + 2 * q0 * (b[0] - c[0]), 2 * (1 - q0) * (c[1] - a[1]) + 2 * q0 * (b[1] - c[1])], s = (q1 - q0) / 2;
+  return [p0, [p0[0] + d0[0] * s, p0[1] + d0[1] * s], p1];
+}
+// the great network. ctx: plane coords (inside plane(ctx, cam, …)).
+export function memNet(ctx, t, cam, o = {}) {
+  const N = netGeom(), k = cam.k, A = (o.a ?? 1), f = Math.pow(k, .5) / k, fn = Math.pow(k, .7) / k;   // fn: node size (somata grow a little more close up)    // f: plane units per "screen px at k = 1"
+  const mg = 120 / k, vx0 = cam.x - W / 2 / k - mg, vx1 = cam.x + W / 2 / k + mg, vy0 = cam.y - H / 2 / k - mg, vy1 = cam.y + H / 2 / k + mg;
+  const cl = o.clip; const inV = (X, Y, m = 0) => X > vx0 - m && X < vx1 + m && Y > vy0 - m && Y < vy1 + m && (!cl || (X > cl[0] - m && X < cl[0] + cl[2] + m && Y > cl[1] - m && Y < cl[1] + cl[3] + m));
+  // brightness of each front node: twinkle, a breathing wave across the brain (period ~4.2 s), wave and flares
+  const P0 = N.nodes.map((q) => nodePos(q, t)), nb = new Float32Array(N.nodes.length), boost = new Float32Array(N.nodes.length);
+  const wv = o.wave; let wO = null; if (wv) wO = wv.i != null ? N.nodes[wv.i] : { X: wv.X, Y: wv.Y };
+  const wHit = (i) => wv.t0 + Math.hypot(N.nodes[i].X - wO.X, N.nodes[i].Y - wO.Y) / (wv.speed ?? 1500);
+  const dim = o.dim ?? 0;
+  for (let i = 0; i < N.nodes.length; i++) {
+    const q = N.nodes[i];
+    const breath = 1 + .16 * Math.sin(TAU * t / 4.2 - (q.X - BR.cx) / 900 + q.Y / 1400);
+    let b = q.br * (.72 + .28 * Math.sin(t * q.tw + q.ph)) * breath;
+    if (wv) { const d = t - wHit(i); if (d > -.2) b += 1.5 * Math.exp(-(((d) / .16) ** 2)) + .25 * Math.exp(-Math.max(0, d) * .9) * (d > 0 ? 1 : 0); }
+    nb[i] = b * (1 - dim);
+  }
+  for (const fl of o.flares || []) { const d = t - fl.t; if (d > -.15 && d < 2) boost[fl.i] += (fl.a ?? 1.4) * (d < 0 ? Math.exp(-((d / .06) ** 2)) : Math.exp(-d * 2.6)); }
+  // sprouts: new nodes and their growing filaments; their targets flare 60–120 ms after a filament arrives
+  const SP = (o.sprouts || []).filter((s) => t > s.t0 - .7).map((s) => {
+    const tg = s.targets || (s.targets = N.nearest(s.X, s.Y, s.n ?? 3));
+    tg.forEach((i, j) => { const ta = s.t0 + .5 + j * .07 + .09, d = t - ta; if (d > -.1 && d < 2) boost[i] += 1.2 * (d < 0 ? Math.exp(-((d / .05) ** 2)) : Math.exp(-d * 2.4)); });
+    return s;
+  });
+  for (let i = 0; i < nb.length; i++) nb[i] += boost[i];
+  ctx.save();
+  if (cl) { ctx.beginPath(); ctx.rect(cl[0], cl[1], cl[2], cl[3]); ctx.clip(); }
+  ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  const wob = (e) => [3 * Math.sin(t * .5 + e.ph), 3 * Math.cos(t * .43 + e.ph * 1.7)];
+  // ---- the deep layer (old memories: dim, fine, they stay)
+  {
+    ctx.beginPath();
+    for (const e of N.dedges) { const a = N.deep[e.a], b = N.deep[e.b]; if (!inV(a.X, a.Y, 160) && !inV(b.X, b.Y, 160)) continue; const pa = [a.X, a.Y], pb = [b.X, b.Y], c = ctrl(pa, pb, e.bow, [0, 0]); ctx.moveTo(pa[0], pa[1]); ctx.quadraticCurveTo(c[0], c[1], pb[0], pb[1]); }
+    ctx.strokeStyle = rgba(F8.gold, .13 * A * (1 - dim * .6)); ctx.lineWidth = .7 * f; ctx.stroke();
+    for (const q of N.deep) { if (!inV(q.X, q.Y)) continue; nspr(ctx, 'gold', q.X, q.Y, q.core * 3 * f, q.br * .42 * A * (1 - dim * .5) * (.75 + .25 * Math.sin(t * q.tw + q.ph))); }
+    ctx.globalAlpha = 1;
+  }
+  // ---- the micro layer (close up only; its strength follows the zoom, so it never pops)
+  const mk = clamp((k - 1.4) / 2.2);
+  if (mk > 0) {
+    ctx.beginPath();
+    for (const e of N.medges) { const a = N.micro[e.a], b = N.micro[e.b]; if (!inV(a.X, a.Y, 90) && !inV(b.X, b.Y, 90)) continue; const pa = [a.X, a.Y], pb = [b.X, b.Y], c = ctrl(pa, pb, e.bow, [1.5 * Math.sin(t * .5 + e.ph), 1.5 * Math.cos(t * .4 + e.ph)]); ctx.moveTo(pa[0], pa[1]); ctx.quadraticCurveTo(c[0], c[1], pb[0], pb[1]); }
+    ctx.strokeStyle = rgba(F8.gold, .1 * mk * A * (1 - dim * .5)); ctx.lineWidth = 2.6 * f; ctx.stroke();
+    ctx.strokeStyle = rgba(F8.gold, .3 * mk * A * (1 - dim * .5)); ctx.lineWidth = .6 * f; ctx.stroke();
+    for (const q of N.micro) { if (!inV(q.X, q.Y)) continue; const breath = 1 + .16 * Math.sin(TAU * t / 4.2 - (q.X - BR.cx) / 900 + q.Y / 1400); nspr(ctx, 'gold', q.X, q.Y, q.core * 3.4 * fn, q.br * .8 * mk * A * breath * (1 - dim * .5) * (.7 + .3 * Math.sin(t * q.tw + q.ph))); }
+    ctx.globalAlpha = 1;
+  }
+  // ---- front filaments, bucketed by brightness (one path per bucket and pass)
+  const NB = 6, bucket = Array.from({ length: NB }, () => []), roots = Array.from({ length: NB }, () => []);
+  for (const e of N.edges) {
+    const a = P0[e.a], b = P0[e.b]; if (!inV(a[0], a[1], 240) && !inV(b[0], b[1], 240)) continue;
+    const br = e.br * Math.min(2.2, (nb[e.a] + nb[e.b]) / 2), lv = Math.min(NB - 1, Math.floor(br / 2.2 * NB)); if (br < .03) continue;
+    const c = ctrl(a, b, e.bow, wob(e)); bucket[lv].push([a, c, b]); roots[lv].push(subq(a, c, b, 0, .3), subq(a, c, b, .7, 1));
+  }
+  for (let lv = 0; lv < NB; lv++) {
+    const L = (lv + .5) / NB * 2.2 * A; if (!bucket[lv].length) continue;
+    ctx.beginPath(); for (const [a, c, b] of bucket[lv]) { ctx.moveTo(a[0], a[1]); ctx.quadraticCurveTo(c[0], c[1], b[0], b[1]); }
+    ctx.strokeStyle = rgba(F8.gold, .05 * L); ctx.lineWidth = 4.5 * f; ctx.stroke();
+    ctx.strokeStyle = rgba(F8.gold, .3 * L); ctx.lineWidth = .9 * f; ctx.stroke();
+    ctx.strokeStyle = rgba(F8.goldCore, .32 * L); ctx.lineWidth = .4 * f; ctx.stroke();
+    ctx.beginPath(); for (const [a, c, b] of roots[lv]) { ctx.moveTo(a[0], a[1]); ctx.quadraticCurveTo(c[0], c[1], b[0], b[1]); }
+    ctx.strokeStyle = rgba(F8.gold, .32 * L); ctx.lineWidth = 1.9 * f; ctx.stroke();
+  }
+  // ---- dendrite tips (hair-thin, branching, ending in nothing)
+  ctx.beginPath();
+  for (const s of N.stubs) {
+    const p = P0[s.i]; if (!inV(p[0], p[1], 60)) continue;
+    const ang = s.ang + .15 * Math.sin(t * .6 + s.ph), e = [p[0] + Math.cos(ang) * s.L, p[1] + Math.sin(ang) * s.L], c = ctrl(p, e, s.bend * .4, [0, 0]);
+    ctx.moveTo(p[0], p[1]); ctx.quadraticCurveTo(c[0], c[1], e[0], e[1]);
+    if (s.fork) { const m = qpt(p, c, e, s.fork.at), a2 = ang + s.fork.ang, e2 = [m[0] + Math.cos(a2) * s.L * s.fork.L, m[1] + Math.sin(a2) * s.L * s.fork.L]; ctx.moveTo(m[0], m[1]); ctx.quadraticCurveTo((m[0] + e2[0]) / 2 + 3, (m[1] + e2[1]) / 2 - 3, e2[0], e2[1]); }
+  }
+  ctx.strokeStyle = rgba(F8.gold, .26 * A * (1 - dim * .5)); ctx.lineWidth = .7 * f; ctx.stroke();
+  ctx.strokeStyle = rgba(F8.gold, .09 * A * (1 - dim * .5)); ctx.lineWidth = 2.6 * f; ctx.stroke();
+  // ---- signals: small bright pulses with a short tail travelling along filaments
+  for (const e of N.edges) {
+    if (!e.sig) continue; const a = P0[e.a], b = P0[e.b]; if (!inV(a[0], a[1], 200) && !inV(b[0], b[1], 200)) continue;
+    const ph = ((t + e.sig.off) / e.sig.per) % 1, dur = Math.min(.9, e.L / 260) / e.sig.per; if (ph > dur) continue;
+    let q = ph / dur; if (e.sig.dir) q = 1 - q; const c = ctrl(a, b, e.bow, wob(e)), sa = A * (1 - dim) * Math.sin(Math.PI * clamp(ph / dur)) ** .5;
+    sigDraw(ctx, a, c, b, q, e.sig.dir ? 1 : -1, f, sa * .9);
+  }
+  // ---- the query wave: pulses race outward along every filament it crosses
+  if (wv) for (const e of N.edges) {
+    const ha = wHit(e.a), hb = wHit(e.b), t0 = Math.min(ha, hb), t1 = Math.max(ha, hb) + .02; if (t < t0 || t > t1 + .12) continue;
+    const a = P0[e.a], b = P0[e.b]; if (!inV(a[0], a[1], 200) && !inV(b[0], b[1], 200)) continue;
+    let q = clamp((t - t0) / (t1 - t0)); const fwd = ha <= hb; if (!fwd) q = 1 - q;
+    sigDraw(ctx, a, ctrl(a, b, e.bow, wob(e)), b, q, fwd ? -1 : 1, f, 1.1 * A * (1 - clamp((t - t1) / .12)));
+  }
+  // ---- nodes (halo, soma)
+  for (let i = 0; i < N.nodes.length; i++) {
+    const q = N.nodes[i], p = P0[i]; if (!inV(p[0], p[1])) continue;
+    const b = nb[i] * A, r = q.core * fn * (1 + .25 * Math.min(2, boost[i]));
+    nspr(ctx, 'halo', p[0], p[1], r * 7, .14 * b);
+    nspr(ctx, 'gold', p[0], p[1], r * 3.6, .9 * b);
+  }
+  ctx.globalAlpha = 1;
+  // ---- sprouts: incoming spark, flash, the new soma, filaments growing to the neighbours, the glyph for ~1 s
+  for (const s of SP) {
+    const d = t - s.t0, X = s.X, Y = s.Y;
+    if (d < 0 && s.from) { const u = eoutX(clamp((d + .7) / .7)), c = [(s.from[0] + X) / 2, Math.min(s.from[1], Y) - 140], p = qpt(s.from, c, [X, Y], u), p2 = qpt(s.from, c, [X, Y], Math.max(0, u - .22));
+      ctx.strokeStyle = rgba(F8.gold, .5 * A); ctx.lineWidth = 1.6 * f * (s.s ?? 1); ctx.beginPath(); ctx.moveTo(p2[0], p2[1]); ctx.quadraticCurveTo((p2[0] + p[0]) / 2 + 4, (p2[1] + p[1]) / 2, p[0], p[1]); ctx.stroke();
+      nspr(ctx, 'gold', p[0], p[1], 16 * f * (s.s ?? 1), .9 * A); continue; }
+    if (d < 0) continue;
+    const fl = Math.exp(-d * 3.5), sz = (s.core ?? 7) * f * (s.s ?? 1);
+    s.targets.forEach((i, j) => {
+      const g = eoutX(clamp((d - j * .07) / .5)); if (g <= 0) return;
+      const b = P0[i], c = ctrl([X, Y], b, (j % 2 ? .22 : -.18), [0, 0]), sub = subq([X, Y], c, b, 0, g);
+      ctx.beginPath(); ctx.moveTo(sub[0][0], sub[0][1]); ctx.quadraticCurveTo(sub[1][0], sub[1][1], sub[2][0], sub[2][1]);
+      ctx.strokeStyle = rgba(F8.gold, (.5 + .5 * fl) * A); ctx.lineWidth = 1.2 * f; ctx.stroke(); ctx.strokeStyle = rgba(F8.gold, .08 * A); ctx.lineWidth = 5 * f; ctx.stroke();
+      if (g < 1) nspr(ctx, 'gold', sub[2][0], sub[2][1], 9 * f, .9 * A);
+    });
+    nspr(ctx, 'halo', X, Y, sz * (5 + 8 * fl), (.1 + .4 * fl) * A);
+    nspr(ctx, 'gold', X, Y, sz * 2.8 * eoutX(clamp(d / .3)), (.95 + .3 * Math.sin(t * 2 + X)) * A);
+    if (s.glyph) { const ga = clamp(d / .2) * (1 - clamp((d - 1.1) / .45)), sh = 1 - .6 * clamp((d - 1.1) / .45), gs = (s.gs ?? 1.5) * f * (s.s ?? 1);
+      ctx.globalAlpha = 1; glyph(ctx, s.glyph, X + 22 * f * (s.s ?? 1) * sh, Y - 22 * f * (s.s ?? 1) * sh, gs * sh, F8.goldCore, .95 * ga * A); }
+    ctx.globalAlpha = 1;
   }
   ctx.restore();
+  return { P: P0, nb };
 }
-export function gridRect(x, y, w, h, cols, rows, seed = 1, t = 0, amp = 1.2) {
-  const out = [];
-  for (let j = 0; j < rows; j++) { const row = []; for (let i = 0; i < cols; i++) { const hx = hash(seed + i * 1.7 + j * 5.3), hy = hash(seed * 2 + i * 4.1 + j * 2.9);
-    row.push([x + w * i / (cols - 1) + (hx - .5) * 4 + amp * Math.sin(t * .9 + hx * 9), y + h * j / (rows - 1) + (hy - .5) * 4 + amp * Math.sin(t * .7 + hy * 9)]); } out.push(row); }
-  return out;
+function sigDraw(ctx, a, c, b, q, back, f, al) {
+  if (al <= .01) return;
+  const p = qpt(a, c, b, q), p2 = qpt(a, c, b, clamp(q + back * .22));
+  ctx.globalAlpha = 1; ctx.strokeStyle = rgba(F8.goldCore, .55 * al); ctx.lineWidth = 1.3 * f; ctx.beginPath(); ctx.moveTo(p2[0], p2[1]); ctx.lineTo(p[0], p[1]); ctx.stroke();
+  nspr(ctx, 'gold', p[0], p[1], 7 * f, al); ctx.globalAlpha = 1;
+}
+// one organic strand between two points (current coords); o.grow draws it from a up to that fraction; o.signal = 0..1 pulse position
+export function filament(ctx, a, b, o = {}) {
+  const A = o.a ?? 1, w = o.w ?? 1, t = o.t ?? 0, ph = o.seed ?? 0, wb = o.wob ?? 3;
+  const c = ctrl(a, b, o.bow ?? .18, [wb * Math.sin(t * .6 + ph), wb * Math.cos(t * .5 + ph * 1.3)]), g = clamp(o.grow ?? 1); if (g <= 0 || A <= 0) return;
+  const [p0, c1, p1] = subq(a, c, b, 0, g);
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(p0[0], p0[1]); ctx.quadraticCurveTo(c1[0], c1[1], p1[0], p1[1]);
+  ctx.strokeStyle = rgba(F8.gold, .07 * A); ctx.lineWidth = 4.5 * w; ctx.stroke();
+  ctx.strokeStyle = rgba(F8.gold, .45 * A); ctx.lineWidth = .9 * w; ctx.stroke();
+  ctx.strokeStyle = rgba(F8.goldCore, .4 * A); ctx.lineWidth = .4 * w; ctx.stroke();
+  for (const [q0, q1] of [[0, .28], [.72, 1]]) { if (q0 >= g) continue; const s = subq(a, c, b, q0, Math.min(q1, g)); ctx.beginPath(); ctx.moveTo(s[0][0], s[0][1]); ctx.quadraticCurveTo(s[1][0], s[1][1], s[2][0], s[2][1]); ctx.strokeStyle = rgba(F8.gold, .4 * A); ctx.lineWidth = 1.9 * w; ctx.stroke(); }
+  if (o.signal != null && o.signal > 0 && o.signal < 1 && o.signal <= g) sigDraw(ctx, a, c, b, o.signal, o.sigBack ?? -1, w, (o.sigA ?? 1) * A);
+  ctx.restore();
+}
+// thin sparks where a filament snaps (pure function of t)
+export function sparks(ctx, t, t0, x, y, o = {}) {
+  const d = t - t0; if (d < 0 || d > .7) return; const r = prng(o.seed ?? 3), s = o.s ?? 1, n = o.n ?? 9;
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+  for (let i = 0; i < n; i++) {
+    const ang = r() * TAU, sp = (60 + 120 * r()) * s, life = .3 + .35 * r(); if (d > life) continue;
+    const u = d / life, e = 1 - (1 - u) ** 2, x1 = x + Math.cos(ang) * sp * e, y1 = y + Math.sin(ang) * sp * e + 30 * s * u * u, x0 = x + Math.cos(ang) * sp * Math.max(0, e - .25), y0 = y + Math.sin(ang) * sp * Math.max(0, e - .25) + 30 * s * Math.max(0, u - .2) ** 2;
+    ctx.strokeStyle = rgba(F8.goldCore, .9 * (1 - u)); ctx.lineWidth = 1.1 * s; ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+  }
+  const g = ctx.createRadialGradient(x, y, 0, x, y, 26 * s); g.addColorStop(0, rgba(F8.goldCore, .9 * Math.exp(-d * 9))); g.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = g; ctx.fillRect(x - 26 * s, y - 26 * s, 52 * s, 52 * s);
+  ctx.restore();
 }
 
+// ---------------------------------------------------------------- the cluster over a head: a small 3D knot of nodes and filaments
+// Seen from far it is a small glowing group of somata; as the camera comes within r we are inside it: somata drift past as soft
+// lights and filaments sweep across the frame toward a bright core.
+const CLUS = new Map();
+function cluGeom(seed, n) {
+  const key = seed + ':' + n; if (CLUS.has(key)) return CLUS.get(key);
+  const r = prng(seed * 41 + 3), nodes = [{ p: [0, 0, 0], core: 1.15, br: 1, ph: 0 }];
+  for (let i = 1; i < n; i++) { let p; do { p = [r() * 2 - 1, r() * 2 - 1, r() * 2 - 1]; } while (Math.hypot(...p) > 1 || Math.hypot(...p) < .35);
+    nodes.push({ p, core: .45 + .55 * r() ** 2, br: .6 + .4 * r(), ph: r() * TAU }); }
+  const E = [], seen = new Set();
+  nodes.forEach((a, i) => { const ds = nodes.map((b, j) => [Math.hypot(b.p[0] - a.p[0], b.p[1] - a.p[1], b.p[2] - a.p[2]), j]).filter((x) => x[1] !== i).sort((p, q) => p[0] - q[0]);
+    for (const [, j] of ds.slice(0, i === 0 ? 4 : 2)) { const k = i < j ? i + ',' + j : j + ',' + i; if (seen.has(k)) continue; seen.add(k);
+      const m = nodes[j].p, c = [(a.p[0] + m[0]) / 2 + (r() - .5) * .5, (a.p[1] + m[1]) / 2 + (r() - .5) * .5, (a.p[2] + m[2]) / 2 + (r() - .5) * .5]; E.push({ a: i, b: j, c, ph: r() * TAU, sig: r() < .5 ? 1.6 + r() * 2 : 0 }); } });
+  // dendrite tips pointing outward
+  nodes.forEach((a, i) => { if (i === 0) return; const L = .35 + .4 * r(); const d = a.p.map((v) => v / (Math.hypot(...a.p) || 1)); E.push({ a: i, tip: a.p.map((v, k) => v + d[k] * L + (r() - .5) * .3), c: a.p.map((v, k) => v + d[k] * L * .5 + (r() - .5) * .25), ph: r() * TAU }); });
+  const g = { nodes, E }; CLUS.set(key, g); return g;
+}
+export function cluster(ctx, t, cam, X, Y, o = {}) {
+  const r = o.r ?? 18, A = o.a ?? 1, glowA = o.glow ?? 1, fl = o.flare ?? 0;
+  const c = P(cam, X, Y, 0); if (!c) return null;
+  const D = -camZ(cam), sc = c[2];
+  if (c[0] < -r * sc * 4 - 200 || c[0] > W + r * sc * 4 + 200 || c[1] < -r * sc * 4 - 200 || c[1] > H + r * sc * 4 + 200) return { x: c[0], y: c[1], s: sc, nodes: [] };
+  const G = cluGeom(o.seed ?? 1, o.n ?? 9), rot = t * (o.spin ?? .22) + (o.seed ?? 1), tilt = .35, ct = Math.cos(tilt), st = Math.sin(tilt), cs = Math.cos(rot), sn = Math.sin(rot);
+  const near = Math.max(.5, D * .03);
+  const proj = (p) => { let px = p[0] * r, py = p[1] * r, pz = p[2] * r; [px, pz] = [px * cs - pz * sn, px * sn + pz * cs]; [py, pz] = [py * ct - pz * st, py * st + pz * ct]; const d = D + pz; if (d < near) return null; const s = FCAM / d; return [c[0] + px * s, c[1] + py * s, s, d]; };
+  const fade = (p) => clamp((p[3] - near) / (near * 2.5 + 1));
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+  // the warm light the cluster gives off (it lights the room)
+  if (glowA > 0) { const insideK = clamp((D / r - .3) / 1.2), coreR = Math.min(2600, r * sc * 2.6) * mix(.12, 1, insideK), g = ctx.createRadialGradient(c[0], c[1], 0, c[0], c[1], coreR);
+    g.addColorStop(0, rgba(F8.goldCore, (.32 + .3 * fl) * glowA * A)); g.addColorStop(.3, rgba(F8.gold, (.13 + .12 * fl) * glowA * A)); g.addColorStop(1, rgba(F8.goldDeep, 0)); ctx.fillStyle = g; ctx.fillRect(c[0] - coreR, c[1] - coreR, coreR * 2, coreR * 2); }
+  const PN = G.nodes.map((q) => proj(q.p));
+  for (const e of G.E) {
+    const pts = []; const a = G.nodes[e.a].p, b = e.tip || G.nodes[e.b].p, cc = e.c.map((v, k) => v + .06 * Math.sin(t * .7 + e.ph + k));
+    for (let k = 0; k <= 14; k++) { const q = k / 14; pts.push(proj([0, 1, 2].map((m) => (1 - q) ** 2 * a[m] + 2 * (1 - q) * q * cc[m] + q * q * b[m]))); }
+    const ok = pts.filter(Boolean); if (ok.length < 2) continue;
+    const md = Math.min(...ok.map((p) => p[3])), sw = FCAM / md, fa = clamp((md - near) / (near * 2.5 + 1));
+    for (const [wm, al, col] of [[4, .06, F8.gold], [1, .45, F8.gold], [.45, .6, F8.goldCore]]) {
+      ctx.strokeStyle = rgba(col, al * A * fa * (e.tip ? .55 : 1) * (1 + .6 * fl)); ctx.lineWidth = clamp(.16 * r * sw * .1, .45, 5) * wm * (e.tip ? .7 : 1);
+      ctx.beginPath(); let s0 = false; for (const p of pts) { if (!p) { s0 = false; continue; } s0 ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); s0 = true; } ctx.stroke();
+    }
+    if (e.sig && !e.tip) { const ph = ((t + e.ph) / e.sig) % 1; if (ph < .45) { const q = ph / .45, i = Math.round(q * 14), p = pts[i]; if (p) nspr(ctx, 'gold', p[0], p[1], clamp(1.6 * p[2], 2.5, 60), .85 * A * fa); } }
+  }
+  G.nodes.forEach((q, i) => { const p = PN[i]; if (!p) return; const rr = Math.min(i === 0 ? 46 : 70, q.core * 1.6 * p[2]), b = q.br * (.75 + .25 * Math.sin(t * 1.3 + q.ph)) * A * fade(p) * (1 + .7 * fl);
+    nspr(ctx, 'halo', p[0], p[1], Math.max(4, rr * 4.5), .14 * b); nspr(ctx, 'gold', p[0], p[1], Math.max(2.2, rr * 2.4), .85 * b); });
+  ctx.globalAlpha = 1; ctx.restore();
+  return { x: c[0], y: c[1], s: sc, nodes: PN };
+}
 // ---------------------------------------------------------------- houses (plane coords, Z = 0)
 // engraved structure: a slab or wall piece = dark fill + pale engraved edge + hatch
 const INK = '#07081a', WALL = '#141634', EDGE = '#8b84c4';
@@ -200,8 +422,6 @@ export const OLD = (() => {
 })();
 // the A.I.-native house: one tall hall, the great weave on its back wall
 export const NEW = { x0: 420, x1: 1020, wt: 16, top: 460, slabT: 14, apex: 360, inner: { x: 436, y: 474, w: 568, h: FLOOR - 474 }, arch: { x: 1004, w: 16, top: FLOOR - 128 } };
-// the great weave (kit weave rect, plane coords). Inside the new house we see its lower middle; pulled back it is a tapestry of light.
-export const TAP = { x: -700, y: -400, w: 2840, h: 1160, cols: 64, rows: 26, depth: 3, seed: 8 };   // bottom edge y 760, centre x 720
 
 export function oldHouseShell(ctx, t, S) {
   const H0 = OLD;
@@ -279,8 +499,9 @@ export function hallPillars(ctx, t, cam, o = {}) {
 
 // ---------------------------------------------------------------- the plaque under the weave
 export function plaque(ctx, t, cam, o = {}) {
-  const X = 720, Z = -300, Yc = 724, pw = 440, ph = 124;
+  const X = 720, Z = -420, Yc = 752, pw = 600, ph = 176;
   const c = P(cam, X, Yc, Z), foot = P(cam, X, FLOOR, Z); if (!c || !foot) return null;
+  if (c[2] > 5) return null;   // the camera is (almost) at the plaque: it is far outside the frame; never build a giant hatch
   const s = c[2], w = pw * s, h = ph * s, x = c[0] - w / 2, y = c[1] - h / 2;
   // the post
   ctx.fillStyle = '#0c0b1c'; ctx.fillRect(c[0] - 14 * s, y + h, 28 * s, foot[1] - y - h);
@@ -298,15 +519,15 @@ export function plaque(ctx, t, cam, o = {}) {
   // the engraving: pressed in letter by letter (a mask from the left), dark cut + light lower edge
   const u = clamp(o.u ?? 1);
   if (u > 0) {
-    const fs = 40 * s, fs2 = 25 * s;
+    const fs = 56 * s, fs2 = 36 * s;
     ctx.save(); ctx.beginPath(); ctx.rect(x, y, w * u, h); ctx.clip();
     for (const [dy, col] of [[1.4, 'rgba(255,236,190,.55)'], [0, '#2a1c0a']]) {
-      text(ctx, '“COMPANY BRAIN”', c[0], c[1] - h * .06 + dy * s, { size: fs, font: 'Inter', weight: 600, color: col, align: 'center', spacing: 5 * s });
+      text(ctx, '“COMPANY BRAIN”', c[0], c[1] - h * .02 + dy * s, { size: fs, font: 'Inter', weight: 600, color: col, align: 'center', spacing: 5 * s });
     }
     ctx.restore();
     const u2 = clamp(o.u2 ?? u);
     ctx.save(); ctx.beginPath(); ctx.rect(x, y, w * u2, h); ctx.clip();
-    for (const [dy, col] of [[1.1, 'rgba(255,236,190,.5)'], [0, '#3a2a12']]) text(ctx, 'SILICON VALLEY', c[0], c[1] + h * .3 + dy * s, { size: fs2, font: 'Inter', weight: 600, color: col, align: 'center', spacing: 6 * s });
+    for (const [dy, col] of [[1.1, 'rgba(255,236,190,.5)'], [0, '#3a2a12']]) text(ctx, 'SILICON VALLEY', c[0], c[1] + h * .31 + dy * s, { size: fs2, font: 'Inter', weight: 600, color: col, align: 'center', spacing: 7 * s });
     ctx.restore();
   }
   return { x, y, w, h, s };
@@ -316,7 +537,7 @@ export function plaque(ctx, t, cam, o = {}) {
 // m = { X, Z, n, r, seed }; o = { lit 0..1 (the circle lights), thread 0..1 (its thread rises), to [X,Y,Z] (where the thread goes), t }
 const DRESS = ['#2c3450', '#3a3046', '#28384a', '#40364a', '#2a2e44', '#3a3a50'];
 export function meetingRing(ctx, t, cam, m, o = {}) {
-  const c = P(cam, m.X, FLOOR, m.Z); if (!c) return;
+  const c = P(cam, m.X, FLOOR, m.Z); if (!c || c[2] > 5) return;   // behind / at the camera: outside the frame
   const lit = clamp(o.lit ?? 0), R = m.r ?? 120, thA = o.threadA ?? 1;
   // the ring on the floor (an ellipse in perspective): engraved, then lit
   const e = []; for (let k = 0; k <= 48; k++) { const q = k / 48 * TAU, p = P(cam, m.X + Math.cos(q) * R, FLOOR, m.Z + Math.sin(q) * R); if (p) e.push(p); }
@@ -334,7 +555,7 @@ export function meetingRing(ctx, t, cam, m, o = {}) {
   for (let i = 0; i < n; i++) { const q = (i / n) * TAU + (m.seed || 0) * .7 + .3; seats.push({ q, X: m.X + Math.cos(q) * R * .92, Z: m.Z + Math.sin(q) * R * .92, i }); }
   seats.sort((a, b) => b.Z - a.Z);
   for (const st of seats) {
-    const p = P(cam, st.X, FLOOR, st.Z); if (!p) continue;
+    const p = P(cam, st.X, FLOOR, st.Z); if (!p || p[2] > 5) continue;
     const s = .68 * p[2], hipY = p[1] - 48 * s, flip = Math.cos(st.q) > 0;   // on the right of the circle: face left
     figureFlat(ctx, p[0], hipY, s, POSES.sit, { t, seed: (m.seed || 1) * 10 + st.i, col: '#0e0f26', rim: lit > .05 ? '#f3d9a0' : '#5a5490', shade: 1 - .5 * (o.dark ?? 0), rimSide: flip ? -1 : 1, flip, accent: DRESS[(st.i + (m.seed || 0)) % 6], accentPart: 'sweater', fast: true, shadow: false });
     // the stool (a small dark block)
@@ -392,6 +613,7 @@ export function nameLabel(ctx, t, o = {}) {
 // ---------------------------------------------------------------- a handoff plate as an in-world light
 // u = 0: the frame IS the plate (identity). u → 1: the light shrinks into the point `at` (screen) and its edge falls off inside the
 // plate's own colours, so what remains is the glow of an object (the knot's core, the firefly). o.r1: radius of the opaque core at u=1.
+export const plateCentre = (t) => [W / 2 + 18 * drift(t + TSHIFT, 1, 3), H / 2 + 12 * drift(t + TSHIFT, 1, 7)];   // where glowFrom's disc sits at u = a
 const PLC = { c: null, g: null };
 export function glowFrom(ctx, t, plateFn, u, at, o = {}) {
   u = clamp(u); if (!PLC.c) [PLC.c, PLC.g] = canvas(W, H);
@@ -400,7 +622,7 @@ export function glowFrom(ctx, t, plateFn, u, at, o = {}) {
   const tt = t + TSHIFT, pcx = W / 2 + 18 * drift(tt, 1, 3), pcy = H / 2 + 12 * drift(tt, 1, 7);
   // phase A (u 0…a): the light's edge contracts inside the plate (no transform) until the whole lit disc sits inside the canvas;
   // phase B (u a…1): the disc shrinks and travels to `at` (the object whose glow it is)
-  const a = o.a ?? .38, uA = sm(clamp(u / a)), uB = clamp((u - a) / (1 - a));
+  const a = o.a ?? .38, uA = (o.easeA || sm)(clamp(u / a)), uB = clamp((u - a) / (1 - a));
   if (u > 0) {
     const R1 = mix(1180, o.core ?? 260, uA), R2 = mix(1210, o.edge ?? 520, uA);
     g.globalCompositeOperation = 'destination-in';
@@ -408,7 +630,7 @@ export function glowFrom(ctx, t, plateFn, u, at, o = {}) {
     rg.addColorStop(R1 / R2 + (1 - R1 / R2) * .4, 'rgba(0,0,0,.4)'); rg.addColorStop(1, 'rgba(0,0,0,0)');
     g.fillStyle = rg; g.fillRect(0, 0, W, H); g.globalCompositeOperation = 'source-over';
   }
-  const eB = .5 - .5 * Math.cos(Math.PI * uB), k = Math.exp(mix(0, Math.log(o.kMin ?? .06), eB)), tx = mix(pcx, at[0], eB), ty = mix(pcy, at[1], eB);
+  const eB = .5 - .5 * Math.cos(Math.PI * uB), k = Math.exp(mix(0, Math.log(o.kMin ?? .06), eB)), tx = o.follow ? at[0] : mix(pcx, at[0], eB), ty = o.follow ? at[1] : mix(pcy, at[1], eB);   // follow: the disc stays on its object (which must reach plateCentre by u = a)
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
   if (u === 0) ctx.drawImage(c, 0, 0);
   else { ctx.translate(tx, ty); ctx.scale(k, k); ctx.translate(-pcx, -pcy); ctx.drawImage(c, 0, 0); }
