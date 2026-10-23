@@ -1,132 +1,252 @@
-// Film 6 · c01 · the hook (segment 00a, Fassung 3 = hook A, Jakob 2026-10-21: "The artificial intelligence you talk to is very probably not
-// conscious." … "So if no one is in there, who does the caring?"), film start → plate glass (c01>c02).
-// ONE continuous take over the whole chunk: one draw function, one camera path through the night room (f6_kit nightRoom; the window pane
-// is c01's own overlay, lib/f6_c01_room.mjs). Entries only split it for sound and the plate's print. No cut anywhere inside the chunk.
-// (Fassung 1–2 had a 44 s scene hook, "You write to an artificial intelligence, late at night." … "It isn't."; Jakob: too long, the first
-// words must say what the film is about. Same room, same objects, new order.)
+// Film 8 · c01 · the first minute (VO 00a, clip C1, VO 00b; 0 → 70.84 s) as ONE continuous take: one draw function, one camera through
+// four places that hand over without a single blend. Binding shot list: /mnt/project-files/scenario/film-singularitaet/m1/bild/shots.md.
 //
-// shot · VO words (anchor) · image · hero light · camera · flows on · ★ / sound
-// 1.01 "The artificial intelligence you talk to" · the night room wide: you from behind at the desk, typing; your short line on the laptop's
-//      pane, sent; the answer builds line by line (cool glyph runs) · lamp → screen · one push over the shoulder (z 1.00 → 2.10, cubic) · take.
-// 1.02 "is very probably" · the push arrives in the answer; the room darkens around the screen, the answer is calm and perfect · screen.
-// 1.03 "not conscious. No one in there." · the camera moves to the window (1.3 s, landing on "No one"): the room mirrored in the glass, the lamp's reflection the brightest
-//      thing, ★ the empty chair opposite you; the cool line writes the first title line as light in the glass: "AI Isn't Conscious." ·
-//      lamp (reflected) · move, then hold · take.
-// 1.04 "And that is the problem." · the second line writes under it: "That's the Problem." · hold (a slow creep back) · sound: chime when
-//      the title is complete, in the pause.
-// 1.05 "Intelligence and consciousness are two different things." · the camera pulls back to the desk: you (left, lamp-lit, warm) and the
-//      laptop (right, cool). On "Intelligence" the answer's lines brighten one by one and INTELLIGENCE writes itself above the screen (cool);
-//      on "consciousness" the lamp breathes up and CONSCIOUSNESS writes itself above your head (amber) · both lights · move, then hold.
-// 1.06 "Caring comes from the second." · the warm light grows around you (the lamp swells, a warm rim on head and shoulders), the screen's
-//      glow and its label sink back; then both labels un-write in the pause · lamp · hold with life · take.
-// 1.07 "Even one of the companies building it isn't sure." · the camera goes to the laptop (1 s, starting in the pause); on the screen a
-//      second, anonymous chat window opens beside yours out of one cool line, its typed lines jagged and cold; the source line writes itself
-//      bottom-left: ANTHROPIC · ITS MODELS CAN END PERSISTENTLY ABUSIVE CONVERSATIONS · SINCE AUG 2025 · screen · pan · sound: whoosh_airy
-//      (in the pause) as the window opens.
-// 1.08 "Anthropic lets its artificial intelligence hang up on people who keep being abusive." · the harsh lines keep coming, your answer pane
-//      stays calm; 80 ms after the last harsh line ("hang"): the window goes dark, its last glyphs retreat, it folds shut to a line (expo-in),
-//      the line collapses to the centre and goes out · screen · hold · sound: screen_off on the fold.
-// 1.09 "Not because it knows. Just in case." · the laptop's glass where the window was, dark; the source line stays readable; the camera eases
-//      back so the lamp comes into the frame · lamp · ease back (z 2.4 → 2.1) · take. The source line un-writes in the pause.
-// 1.10 "So if no one is in there, who does the caring?" · the camera moves to the window again (1.3 s, in the pause): the title still in the
-//      glass, the empty chair under it; from "in there," the camera pushes into the dark glass below the title (3.4 s, cubic,
-//      z 1.72 → 5.9): the title leaves at the top, the reflection deepens into the glass (reflectA 1 → 0), the pane fills the frame; the glass
-//      IS the c01>c02 plate (drawn through the pane in screen space) → at HO.a − 1/30 the frame equals HO.plate · lamp, then the glass ·
-//      push · sound: swell on the deepening, after the question.
-// Ambience for the whole chunk: atmo/nightsky (very low). Print: riso .3 throughout (= the glass plate's print).
-import { W, H, rgba, clamp, lin, sm, canvas, text, addGlow } from '../engine.mjs';
-import { handsOf } from '../lib/handoff4.mjs';
-import { F6, nightRoom, ready, coolText, coolLine, reveal } from '../lib/f6_kit.mjs';
-import { camPath, piecewise, windowC01, harshWindow, sourceLine, darkAround } from '../lib/f6_c01_room.mjs';
+// shot | VO (accent)                                   | image                                                        | hero light       | camera / carrier
+// -----+-----------------------------------------------+--------------------------------------------------------------+------------------+---------------------------------------------
+// 1.01 | The SINGULARITY has BEGUN.                    | night sea, Milky Way; a point of light ignites on the horizon,| horizon light    | picture first; push (dolly + zoom) toward it
+//      |                                               | the stars bend round it (Einstein ring), glitter path        |                  |
+// 1.02 | And the PEOPLE building … say we're ALREADY   | pull back through the glass of a lab on the cliff: four      | horizon light    | pull back through the glass, crane up;
+//      | IN IT.                                        | people at the window, backs to us, rim-lit; light pulses     | (rims)           | carrier: the light between two heads
+// 1.03 | (pause)                                       | push between the heads; the light flares into one line       | the line         | push 0.95 s, line, the line opens
+// 2.01 | C1 Altman (9.46–16.38)                        | footage full frame, punch-in on the jump cut (frame 87)      | footage          | slow push; lower third + ORIGINAL FOOTAGE
+// 2.02 | (clip ends)                                   | the footage closes to a line                                 | the line         | the line = the map's edge seen edge-on
+// 3.01 | change so FAST that NO ONE CAN SEE …          | crane up: the map opens; a walker on its road; the roll       | lantern          | crane up, follow
+//      |                                               | races to the horizon; fog swallows the road                  |                  |
+// 3.02 | The CAREER PATH. The FIVE-YEAR PLAN. The      | ladder, planner, note lying on the map, one per beat         | lantern on paper | tilt down, travel along the road
+//      | ADVICE you grew up with.                      |                                                              |                  |
+// 3.03 | All of it is starting to DISSOLVE.            | ember edges eat the map and the papers, flakes lift          | ember edges      | crane up and back
+// 4.01★| So how do you SURVIVE the SINGULARITY?        | the big compass on the dissolving map + the title (thumbnail)| compass needle   | push down onto the compass
+// 4.02 | YOU, and ALL OF US?                           | the figure at the rim; pull back: many walkers with lights   | many lamps       | pull back, then tilt up into the sky
+// 5.01 | Some will DRIFT through it.                   | (the sky carries the move) a boat turning aimlessly          | starlight        | tilt down onto the sea
+// 5.02 | Some will NAVIGATE.                           | a boat on course, a figure sighting a star, lantern          | lantern          | pan right
+// 5.03 | The DIFFERENCE comes down to A FEW CHOICES.   | two wakes from one point; three amber marks on the straight  | the marks        | crane up high
+// 6.01 | In the next ten minutes: what … REALLY IS,    | the horizon light again, closer: the ring widens             | horizon light    | tilt up along the wake
+// 6.02 | the STORMS ahead,                             | a storm front with lightning                                 | lightning        | pan right along the horizon
+// 6.03 | and TWO COMPASSES … YOURS,                    | a hand rises with a small glowing compass                    | the needle       | hand carried in
+// 6.04 | and OURS.                                     | a rose of light on the sea ringed by boats with lanterns     | the rose         | hand lowers, crane up
+// 7.01★| Fifty years ago, a CANOE crossed … OPEN OCEAN.| Hōkūleʻa under the Milky Way, fire box, navigator; route     | fire box         | fly forward over the sea, pull back alongside
+// 7.02 | No MAP. No COMPASS. No INSTRUMENTS.           | chart, compass, sextant rise and fall away, one per beat     | deck light       | hold
+// 7.03 | And it ARRIVED.                               | dawn and an island on the horizon                            | dawn             | pan ahead
+// 7.04 | HOW? That's the COMPASS we're going to BUILD. | the star compass draws itself round the navigator            | fire box + ring  | crane up behind him, slow orbit to the end
+import { clamp } from '../engine.mjs';
+import { ready, track, trackLog, camera, eoX, eiX, sio, qio, u01, smooth01, pulse, settle } from '../lib/s8_kit.mjs';
+import { drawSky, prepareSky } from '../lib/s8_sky.mjs';
+import { drawSea } from '../lib/s8_sea.mjs';
+import { lightAt, lensOf, drawLight } from '../lib/s8_light.mjs';
+import { drawLab, FLOOR } from '../lib/s8_lab.mjs';
+import { drawClip } from '../lib/s8_clip.mjs';
+import { drawMapWorld, roadX, CEN, PAPERS } from '../lib/s8_map.mjs';
+import { PATHS, TURNS, NAVH, at, boat, wake, marks, storm, handCompass, rose, roseBoats } from '../lib/s8_boats.mjs';
+import { skyDir } from '../lib/s8_sky.mjs';
+import { canoe, route, island, instruments, starCompass, tag } from '../lib/s8_canoe.mjs';
 
-// a label in the split's lettering (f6_kit splitLight: Inter 600 caps, wide spacing), revealed left to right and un-revealed the same way
-function label(ctx, s, x, y, u, col, size = 24) {
-  u = clamp(u); if (u <= 0) return;
-  ctx.save(); ctx.font = `600 ${size}px "Inter"`; const w = ctx.measureText(s).width + s.length * size * .42 + 24; ctx.restore();
-  reveal(ctx, x - w / 2, y - size * 1.4, w, size * 2, u, (g) => text(g, s, x, y, { size, weight: 600, color: col, align: 'center', spacing: size * .42 }));
-}
-
-export default async (T, R) => {
-  const { out: HO } = handsOf('c01', T);
-  const S = (p, n) => T.S('0', p, n), E = (p, n) => T.E('0', p, n);
-  // ---- anchors (words, never seconds)
-  const tThe = S('The artificial'), tVery = S('very'), tConsc = E('not conscious.');
-  const tNoOne = S('No one in there'), tThere = E('No one in there.'), tAnd = S('And that is'), tProbE = E('the problem.');
-  const tIntel = S('Intelligence and'), tCon = S('consciousness are'), tThings = E('different things.');
-  const tCaring = S('Caring comes'), tSecond = E('the second.');
-  const tEven = S('Even'), tHang = S('hang'), tNotB = S('Not because'), tCase = E('case.');
-  const tWho = S('who does'), tQ = E('the caring?');
-  // ---- derived moments
-  const tSend = tThe + .9;                          // you send your short line
-  const tAns = tSend + .35;                         // the answer starts
-  const tTypeOff = tAns + .2;                       // the hands come to rest
-  const tWin1 = tNoOne - 1.5;                       // 1.03: the camera leaves the answer for the window (on "not conscious"), lands on "No one"
-  const tBack = tProbE + .35;                       // 1.05: back to the desk, in the pause after the title
-  const tPan = tEven - .65;                         // 1.07: the camera starts toward the laptop, in the pause
-  const tLine0 = tEven - .14, tOpen = tLine0 + .2, tText0 = tOpen + .35;   // the anonymous window: line · opens · writes
-  const tClose0 = tHang + .08;                      // 80 ms after the last harsh line: dark, fold, collapse
-  const tWin2 = tCase + .15;                        // 1.10: to the window again, in the pause
-  const tPush = HO.a - 3.4;                         // the push into the glass (3.4 s, cubic in-out): it starts on "in there,", the question rides it
-  const WIN = { x: 1487, y: 375, z: 1.85 };         // the window composition: the window full-height, right of centre; the lamp low-left
-  const TWO = { x: 715, y: 565, z: 1.5 };           // 1.05–1.06: you and the laptop (the window with the title stays out of frame)
-  const END = { x: 960 + (1565 - 960) / .85, y: 540 + (560 - 540) / .85, z: 1 + 4.2 / .85 };   // the pane covers the frame (k 5.2), focus on the empty chair, below the title
-  const KEYS = [
-    { t: 0, x: 960, y: 560, z: 1.00 },
-    { t: tWin1, x: 880, y: 492, z: 2.10, e: 'cubic' },             // 1.01–1.02 one push over the shoulder into the answer
-    { t: tWin1 + 1.3, ...WIN, e: 'io' },                           // 1.03 to the window
-    { t: tBack, x: WIN.x - 2, y: WIN.y + 2, z: 1.76, e: 'lin' },   // 1.03–1.04 the title holds, a slow creep back
-    { t: tBack + 1.1, ...TWO, e: 'io' },                           // 1.05 back to you and the laptop
-    { t: tPan, x: TWO.x + 6, y: TWO.y - 3, z: TWO.z + .06, e: 'lin' },   // 1.05–1.06 hold, a creep
-    { t: tPan + 1.0, x: 905, y: 470, z: 2.40, e: 'io' },           // 1.07 the laptop, both windows
-    { t: tNotB, x: 903, y: 472, z: 2.43, e: 'lin' },               // 1.08 hold
-    { t: tNotB + 1.3, x: 890, y: 505, z: 2.10, e: 'io' },          // 1.09 ease back, the lamp comes in (the window with the title stays out of frame)
-    { t: tWin2, x: 892, y: 506, z: 2.12, e: 'lin' },
-    { t: tWin2 + 1.3, ...WIN, e: 'io' },                           // 1.10 to the window
-    { t: tPush, x: WIN.x + 2, y: WIN.y + 2, z: 1.78, e: 'lin' },   // the title and the empty chair
-    { t: HO.a, ...END, e: 'cubic' },                               // the push into the glass
-  ];
-  // ---- your short line: typed from before the first word, sent (cps 9: el = seconds of typing)
-  const elUser = (t) => piecewise([[.25, 0], [tSend - .05, 2.0]], t);
-  const answerA = (t) => 1 - .3 * sm(lin(tCaring, tCaring + 1.2, t)) * (1 - sm(lin(tSecond + .4, tEven, t)));   // 1.06: the screen sinks back a little
-  const chatScreen = (q, t, w, h) => {
-    const sent = sm(lin(tSend, tSend + .3, t));
-    coolText(q, t, { x: 24, y: 16, w: 150, size: 10, lines: 1, lineH: 19, cps: 9, gap: .25, seed: 21, lengths: [.8], t0: t - elUser(t), a: 1 - .35 * sent, cursor: t < tSend });
-    const ru = lin(tAns - .3, tAns, t);
-    if (ru > 0) coolLine(q, t, { from: [24, 43], to: [174, 43], u: ru, w: .8, glow: .4, head: false, a: .55, ticks: false });
-    if (t >= tAns) coolText(q, t, { x: 24, y: 51, w: 150, size: 10, lines: 6, lineH: 19, cps: 56, gap: .16, seed: 5, t0: tAns, a: answerA(t),
-      accent: [{ i: 0, at: tIntel, d: .35 }, { i: 2, at: tIntel + .2, d: .35 }, { i: 4, at: tIntel + .4, d: .4 }] });
-    harshWindow(q, t, { x: 250, y: 108, w: 128, h: 178, tLine0, tOpen, tText0, tClose0, cps: 25, lines: 11, seed: 11 });
+export default async function (T, R) {
+  const S = (p, n) => T.S('0', p, n), E = (p, n) => T.E('0', p, n), clip = T.clip('C1');
+  const K = {
+    sing: S('singularity'), begun: S('begun'), and: S('And the people'), people: S('people'), already: S('already'), inIt: E('already in it'),
+    c0: clip.start, c1: clip.end,
+    means: S('It means'), fast: S('fast'), noOne: S('no one'), coming: E("what's coming"),
+    career: S('career'), plan: S('five-year'), advice: S('advice'), all: S('All of it'), dissolve: S('dissolve'),
+    so: S('So how'), survive: S('survive'), sing2: S('singularity', 1), you: S('You and all'), allUs: S('all of us'),
+    drift: S('drift'), some2: S('Some will navigate'), navigate: S('navigate'), diff: S('The difference'), few: S('a few choices'),
+    next: S('In the next'), really: S('really'), storms: S('storms'), two: S('two compasses'), yours: S('Yours'), ours: S('ours'),
+    fifty: S('Fifty'), canoe: S('canoe'), open: S('open ocean'), noMap: S('No map'), noComp: S('No compass'), noInst: S('No instruments'),
+    arrived: S('And it arrived'), how: S('How', 1), thats: S("That's the compass"), compass: S('compass we'), build: S('going to build'), end: T.duration,
   };
-  // ---- light changes
-  const kDark = (t) => sm(lin(tAns, tVery + .6, t)) * (1 - sm(lin(tWin1, tWin1 + .9, t)));               // the room darkens around the screen
-  const warm = (t) => sm(lin(tCaring - .1, tCaring + 1.1, t)) * (1 - sm(lin(tSecond + .5, tEven + .2, t)));   // 1.06: the warm light grows around you
-  const rA = (t) => 1 - Math.pow(lin(tWho, HO.a - .1, t), 3);                                                  // the reflection deepens into the glass (slow, then gone)
-  const uSrc = (t) => sm(lin(tEven + .9, tEven + 1.5, t)) * (1 - sm(lin(tCase + .55, tCase + 1.05, t)));    // the source line writes, then un-writes
-  const titleU = (t) => [lin(tNoOne - .05, tThere + .15, t), lin(tAnd - .05, tProbE + .05, t)];
-  const offL = (t) => 1 - sm(lin(tSecond + .25, tSecond + .85, t));                                           // both labels un-write in the pause
-  const uIntel = (t) => lin(tIntel - .05, tIntel + .6, t) * offL(t), uCon = (t) => lin(tCon - .05, tCon + .75, t) * offL(t);
-  // ---- the take
-  const draw = (ctx, t) => {
-    const cam = camPath(KEYS, t), typing = t < tTypeOff, kd = kDark(t), wm = warm(t), lampA = (1 - .3 * kd) * (1 + .35 * wm);
-    const room = nightRoom(ctx, t, { cam, typing, lampA, screen: (q, w, h) => chatScreen(q, t, w, h), window: { reflectA: 0 } });
-    windowC01(ctx, t, cam, { reflectA: rA(t), title: { u: titleU(t) }, plate: HO.plate, lampA, typing, screenOn: true, seed: 3 });
-    darkAround(ctx, room.screen.x + room.screen.w * .32, room.screen.y + room.screen.h * .62, kd);
-    if (wm > 0) {   // the warm light around you (1.06): the lamp's colour on head and shoulders
-      const [hx, hy] = room.head, k = cam.z;
-      addGlow(ctx, hx + 30 * k, hy + 40 * k, 240 * k, .28 * wm, F6.amber, F6.amberCore);
-      addGlow(ctx, hx + 10 * k, hy + 10 * k, 95 * k, .14 * wm, F6.amberCore, '#fff1d6');
+  // ---------------------------------------------------------------- take A: the night sea and the lab (0 → the line)
+  K.flare = K.c0 - .56; K.open0 = K.c0 - .3; K.open1 = K.c0 + .04;
+  const aZ = track([[0, 1.0], [K.begun + .9, 2.3], [K.and - .35, 2.42], [K.people, .1], [K.people + .9, -3.4], [K.already - .5, -5.7], [K.inIt - .2, -6.0], [K.flare + .08, -.55]]);
+  const aY = track([[0, FLOOR + 1.65], [K.and - .35, FLOOR + 1.65], [K.already - .5, FLOOR + 1.98], [K.inIt - .2, FLOOR + 2.0], [K.flare + .08, FLOOR + 1.62]]);
+  const aYaw = track([[0, -.135], [K.begun + .9, -.15], [K.and - .35, -.15], [K.already - .5, -.012], [K.flare + .08, 0]]);
+  const aPitch = track([[0, .045], [K.and - .35, .04], [K.already - .5, .075], [K.inIt - .2, .072], [K.flare + .08, .035]]);
+  const aF = trackLog([[0, 1400], [K.begun + .9, 1720], [K.and - .35, 1760], [K.already - .5, 1260], [K.inIt - .2, 1240], [K.flare + .08, 1480]]);
+  const camA = (t) => camera({ x: .02, y: aY(t), z: aZ(t), yaw: aYaw(t), pitch: aPitch(t), F: aF(t) });
+  const LIGHT = { az: .035, el: .0022 };
+  const lightState = (t) => ({
+    ...LIGHT, pre: u01(t, K.sing - .35, K.sing - .02) * (t < K.sing ? 1 : 0), ign: eoX((t - K.sing) / .45),
+    ring: eoX((t - K.begun - .02) / .5) * (1 + .06 * pulse(t, K.begun + .2, K.begun + .9)), pulse: .6 * pulse(t, K.already, K.already + 1.0) + 2.2 * eiX(u01(t, K.flare - .1, K.flare + .3)),
+  });
+  function takeA(ctx, t) {
+    const C = camA(t), Ls = lightState(t), L = lightAt(C, Ls), lens = lensOf(C, Ls, L);
+    drawSky(ctx, t, C, { lens: lens && Ls.ign > 0 ? lens : null });
+    drawSea(ctx, t, C, { glints: L && Ls.ign > 0 ? [{ x: L.x, y: L.y, col: '#bfefff', a: Math.min(1, Ls.ign * (1 + .5 * Ls.pulse)), w: 3, spread: .2 }] : [] });
+    drawLight(ctx, t, C, Ls, L);
+    if (C.z < .4) drawLab(ctx, t, C, { L: L ? { ...L } : null, lightA: Ls.ign, pulse: Ls.pulse, turn: sio(u01(t, K.already + .12, K.already + .7)) * (1 - sio(u01(t, K.inIt + .1, K.inIt + .8))) });
+    // 1.03 the flare becomes one line across the frame
+    const ln = u01(t, K.flare, K.open0);
+    if (ln > 0 && L) lineAcross(ctx, L.y, eoX(ln));
+    return L;
+  }
+  function lineAcross(ctx, y, u, al = 1) {
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+    const x0 = 960 - 1000 * u, x1 = 960 + 1000 * u;
+    for (const [lw, a] of [[30, .06], [8, .22], [2, .95]]) { ctx.strokeStyle = lw < 3 ? `rgba(238,252,255,${a * al})` : `rgba(143,230,255,${a * al})`; ctx.lineWidth = lw; ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.stroke(); }
+    ctx.restore();
+  }
+  const yOpen = (() => { const C = camA(K.open0), L = lightAt(C, LIGHT); return L ? L.y : 540; })();
+  K.close0 = K.c1 + .02; K.close1 = K.c1 + .3;
+
+  // ---------------------------------------------------------------- take B: the map world (the line → 3.01 … 4.02 → tilt up into the sky)
+  const B0 = K.close1;
+  const wZ = (t) => { const v = 1.28, z = 5 + v * Math.max(0, t - (B0 + .3)), stop = 23.7; if (z < stop - 1.2) return z; const tS = (B0 + .3) + (stop - 1.2 - 5) / v, a = t - tS, D = 2.4; return a >= D ? stop : stop - 1.2 + v * (a - a * a / (2 * D)); };
+  const walker = (t) => { const z = wZ(t); return { x: roadX(z), z, phase: z / 1.5 * Math.PI * 2 }; };
+  const P1 = PAPERS[0], P2 = PAPERS[1], P3 = PAPERS[2];
+  K.tiltUp = K.allUs + .34; K.sw = K.drift - .22;    // the switch to the sea happens with only sky on screen
+  const bX = track([[B0, 0], [B0 + 1.2, .25], [K.career - .7, roadX(wZ(K.career - .7)) * .6], [K.career + .1, P1.x + .5], [K.plan + .1, P2.x - .4], [K.advice + .1, P3.x + .45], [K.all + .2, P3.x + .3], [K.dissolve + .4, 0], [K.so - .3, 0], [K.survive + .8, -.1], [K.you + .25, roadX(23.7) * .5], [K.tiltUp, 0], [K.sw, 0]]);
+  const bY = track([[B0, .003], [B0 + 1.25, 2.35], [K.career - .7, 2.45], [K.career + .1, 3.4], [K.advice + .1, 3.5], [K.all + .2, 3.6], [K.dissolve + .4, 9], [K.so - .3, 11], [K.survive + .8, 8.6], [K.you + .25, 7.6], [K.tiltUp, 15], [K.sw, 17]]);
+  const bZ = track([[B0, 0], [B0 + 1.25, .9], [K.career - .7, wZ(K.career - .7) - 4.6], [K.career + .1, P1.z - 3.3], [K.plan + .1, P2.z - 3.4], [K.advice + .1, P3.z - 3.4], [K.all + .2, P3.z - 2.8], [K.dissolve + .4, 9.5], [K.so - .3, 13.5], [K.survive + .8, 22.6], [K.you + .25, 20.4], [K.tiltUp, 9], [K.sw, 6.5]]);
+  const bPitch = track([[B0, 0], [B0 + 1.25, .12], [K.career - .7, .13], [K.career + .1, .8], [K.advice + .1, .8], [K.all + .2, .82], [K.dissolve + .4, .95], [K.so - .3, .96], [K.survive + .8, 1.0], [K.you + .25, .9], [K.tiltUp, .5], [K.sw, -.6]]);
+  const camB = (t) => camera({ x: bX(t), y: bY(t), z: bZ(t), yaw: 0, pitch: bPitch(t), F: 1400 });
+  const roll = (t) => { if (t < K.fast) return 14 + 1.35 * Math.max(0, t - K.means); const u = (t - K.fast) / 1.5; return 14 + 1.35 * (K.fast - K.means) + 520 * u * u * u; };
+  const fogZ = (t) => { if (t < K.noOne - .15) return 999; const u = clamp((t - K.noOne + .15) / 1.5); const z = 300 - (300 - 22.8) * eoX(u); const r = sio(u01(t, K.so - .35, K.survive + .6)); return z + r * 16; };
+  const stateB = (t) => {
+    const W = walker(t), burnT0 = K.all + .12;
+    return {
+      walker: W, lantern: [W.x + .28, .86, W.z + .35], lanternA: 1, roll: roll(t), fogZ: fogZ(t), fogA: 1, zFar: 60,
+      edgeA: 1 - u01(t, B0 + .5, B0 + 1.5),
+      ladder: sio(u01(t, K.career - .05, K.career + .9)), plan: u01(t, K.plan - .1, K.plan + 1.0), note: u01(t, K.advice - .1, K.advice + .8),
+      burn: { t0: burnT0 }, compass: t > K.dissolve ? { glow: eoX((t - K.so + .05) / .9), needle: 1.9 * (1 - (t < K.so ? 0 : Math.min(1.05, 1 - Math.pow(2, -7 * (t - K.so) / 1.4) * Math.cos((t - K.so) / 1.4 * 7.2)))) + .03 * Math.sin(t * 1.3) } : null,
+      crowdT0: t > K.you - .4 ? K.you - 8 : null, crowdLamp: u01(t, K.you - .1, K.allUs + .45),
+    };
+  };
+  PAPERS[0].delay = 0; PAPERS[1].delay = .25; PAPERS[2].delay = .45;
+  function takeB(ctx, t) {
+    const C = camB(t);
+    drawSky(ctx, t, C, {});
+    drawMapWorld(ctx, t, C, stateB(t));
+    { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); const vg = ctx.createRadialGradient(960, 600, 380, 960, 560, 1250); vg.addColorStop(0, 'rgba(6,6,18,0)'); vg.addColorStop(.6, 'rgba(6,6,18,.28)'); vg.addColorStop(1, 'rgba(6,6,18,.7)'); ctx.fillStyle = vg; ctx.fillRect(0, 0, 1920, 1080); ctx.restore(); }
+    const dark = 1 - u01(t, B0 + .05, B0 + .8);   // the night rises out of the dark round the line
+    if (dark > 0) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = `rgba(2,2,8,${dark})`; ctx.fillRect(0, 0, 1920, 1080); ctx.restore(); }
+    if (t < B0 + .75) lineAcross(ctx, C.hy, 1, 1 - u01(t, B0 + .2, B0 + .7));
+  }
+
+  // ---------------------------------------------------------------- take C: the open sea (5.01 drift … 6.04 ours); one camera from the sky
+  const sN = (t) => 25 + 1.5 * (t - 36.6), sD = (t) => 42 + .5 * (t - 34.5);
+  const NP = (t) => at(PATHS.nav, sN(t)), DP = (t) => at(PATHS.drift, sD(t));
+  const DIR = (a) => [Math.sin(a), Math.cos(a)];
+  const behind = (t, d, side = 2.6) => { const n = NP(t), [dx, dz] = DIR(NAVH); return [n.x - dx * d - dz * side, n.z - dz * d + dx * side]; };
+  K.cr0 = K.diff + .1; K.cr1 = K.few - .15; K.up0 = K.next - .1; K.up1 = K.next + 1.45; K.pan0 = K.really + .55; K.pan1 = K.storms + .2;
+  K.hd0 = K.two - .55; K.hd1 = K.two + 1.0; K.ours0 = K.ours - .25; K.ours1 = K.ours + 1.15;
+  const B1 = behind(K.up1, 11), B2 = behind(K.pan0, 9.8), B3 = behind(K.pan1, 9.6), B4 = behind(K.hd1, 9.2);
+  const RZ = { x: B4[0] + 42 * Math.sin(1.2), z: B4[1] + 42 * Math.cos(1.2), R: 14 };
+  const CR = [RZ.x - 34 * Math.sin(1.2), RZ.z - 34 * Math.cos(1.2)];
+  const cXc = track([[K.sw, 1.0], [K.drift + .7, 1.3], [K.some2, 1.6], [K.navigate + .2, 6.0], [K.cr0, 6.3], [K.cr1, 7.2], [K.up0, 7.6], [K.up1, B1[0]], [K.pan0, B2[0]], [K.pan1, B3[0]], [K.hd1, B4[0]], [K.ours0, B4[0] + .3], [K.ours1, CR[0]]]);
+  const cZc = track([[K.sw, 9.5], [K.drift + .7, 10.0], [K.some2, 10.3], [K.navigate + .2, 12.0], [K.cr0, 12.3], [K.cr1, 15.2], [K.up0, 15.6], [K.up1, B1[1]], [K.pan0, B2[1]], [K.pan1, B3[1]], [K.hd1, B4[1]], [K.ours0, B4[1] + .3], [K.ours1, CR[1]]]);
+  const cYc = track([[K.sw, 2.3], [K.drift + .7, 2.2], [K.some2, 2.2], [K.navigate + .2, 2.35], [K.cr0, 2.5], [K.cr1, 36], [K.up0, 37], [K.up1, 3.1], [K.pan0, 3.0], [K.pan1, 3.1], [K.hd1, 3.6], [K.ours0, 3.7], [K.ours1, 24]]);
+  const cYawc = track([[K.sw, 0], [K.drift + .7, .02], [K.some2, .04], [K.navigate + .2, .5], [K.cr0, .56], [K.cr1, NAVH], [K.up1, NAVH], [K.pan0, NAVH + .02], [K.pan1, 1.58], [K.hd0, 1.56], [K.hd1, 1.2], [K.ours1, 1.2]]);
+  const cPitchc = track([[K.sw, -.6], [K.drift + .55, .07], [K.some2, .075], [K.navigate + .2, .07], [K.cr0, .07], [K.cr1, 1.5], [K.up0, 1.5], [K.up1, .03], [K.pan0, .035], [K.pan1, .03], [K.hd0, .03], [K.hd1, .1], [K.ours0, .11], [K.ours1, .62]]);
+  const cFc = trackLog([[K.sw, 1400], [K.drift + .7, 1400], [K.cr0, 1400], [K.cr1, 1150], [K.up0, 1150], [K.up1, 1400], [K.ours1, 1400]]);
+  // take D (the canoe): the flight over the rose, then the camera rides with the canoe (canoe-relative keys)
+  K.fl0 = K.fifty - .12; K.T0 = K.canoe + .25; K.cv = 2.2; const CH = 1.5, D1 = .05;
+  const PF = [RZ.x + 110 * Math.sin(.75), RZ.z + 110 * Math.cos(.75)], K0 = [PF[0] + 27 * Math.sin(D1), PF[1] + 27 * Math.cos(D1)];
+  const KC = (t) => ({ x: K0[0] + K.cv * (t - K.T0) * Math.sin(CH), z: K0[1] + K.cv * (t - K.T0) * Math.cos(CH), head: CH });
+  const flX = track([[K.ours1, CR[0]], [K.fl0, CR[0] + .6], [K.T0, PF[0]]]), flZ = track([[K.ours1, CR[1]], [K.fl0, CR[1] + .3], [K.T0, PF[1]]]);
+  const flY = track([[K.ours1, 24], [K.fl0, 24.2], [K.T0, 3.4]]), flYaw = track([[K.ours1, 1.2], [K.fl0, 1.2], [K.T0, D1]]), flP = track([[K.ours1, .62], [K.fl0, .6], [K.T0, .025]]);
+  // canoe-relative: [t, distance from the canoe centre, azimuth from the camera to the canoe, height, yaw, pitch, F]
+  K.pan0 = K.arrived - .25; K.pan1 = K.arrived + 1.3; K.up0b = K.how - .1; K.up1b = K.compass + .1;
+  const RK = [[K.T0, 27, D1, 3.0, D1, .02, 1400], [K.noMap - .3, 30, .02, 3.2, .01, .025, 1400], [K.pan0, 31, 0, 3.3, 0, .025, 1400], [K.pan1, 25, .55, 3.5, .95, .03, 1400], [K.up0b, 24.5, .6, 3.6, 1.0, .035, 1400], [K.up1b, 24, 1.05, 9, 1.05, .26, 1200], [K.end, 24, 1.3, 9.4, 1.3, .27, 1200]];
+  const rk = [1, 2, 3, 4, 5, 6].map((i) => track(RK.map((k) => [k[0], k[i]])));
+  const camC = (t) => {
+    if (t < K.fl0) return camera({ x: cXc(t), y: cYc(t), z: cZc(t), yaw: cYawc(t), pitch: cPitchc(t), F: cFc(t) });
+    if (t < K.T0) return camera({ x: flX(t), y: flY(t), z: flZ(t), yaw: flYaw(t), pitch: flP(t), F: 1400 });
+    const k = KC(t), d = rk[0](t), az = rk[1](t);
+    return camera({ x: k.x - d * Math.sin(az), y: rk[2](t), z: k.z - d * Math.cos(az), yaw: rk[3](t), pitch: rk[4](t), F: rk[5](t) });
+  };
+  const LIGHT2 = { az: NAVH + .02, el: .0025 }, STAR = [.62, .19], STORMAZ = 1.72;
+  const flash = (t) => { let f = 0; for (const [a, d] of [[K.storms + .02, .067], [K.storms + .3, .067], [K.storms + .42, .034]]) if (t >= a && t < a + d) f = 1; return f + .25 * pulse(t, K.storms - .1, K.storms + .9); };
+  const ROSEB = roseBoats(RZ.R);
+  K.fly0 = K.fifty - .2;
+  function takeC(ctx, t) {
+    const C = camC(t), Ls = { ...LIGHT2, ign: .55 + .45 * u01(t, K.next - .2, K.next + 1.2), ring: .35 + .65 * eoX(u01(t, K.really - .05, K.really + .9)), pulse: .4 * pulse(t, K.really - .05, K.really + 1.2), size: 1.5 };
+    const lightOn = t < K.ours + .95, L = lightOn ? lightAt(C, Ls) : null, lens = lensOf(C, Ls, L), dawn = .62 * sio(u01(t, K.arrived - .3, K.arrived + 1.6));
+    drawSky(ctx, t, C, { lens: lens && L.x > -300 && L.x < 2220 ? lens : null, dawn, dawnAz: 1.3 });
+    if (t > K.fl0) island(ctx, t, C, { az: 1.4, w: .2, dawn: dawn / .62 });
+    // the boats and their lights
+    const n = NP(t), d = DP(t), lanN = u01(t, K.some2 - .1, K.navigate - .1);
+    const sp = C.D(...skyDir(...STAR));
+    const glints = [];
+    if (L && L.x > -200 && L.x < 2120 && C.pitch < .45) glints.push({ x: L.x, y: L.y, col: '#bfefff', a: Ls.ign, w: 3, spread: .2 });
+    const lanP = C.P(n.x - .5 * Math.cos(n.head), 1.3, n.z + .5 * Math.sin(n.head));
+    if (lanP && lanN > 0 && C.pitch < .45) glints.push({ x: lanP[0], y: C.hy + 2, col: '#ffb35c', a: .8 * lanN, w: 2, spread: .12, fade: 260 });
+    const rA = eoX(u01(t, K.ours - .05, K.ours + .9)), lamps = (b) => clamp((u01(t, K.ours + .05, K.ours + .9) * 1.6 - b.ign * .6) / .3);
+    if (rA > 0) for (const b of ROSEB) { const p = C.P(RZ.x + Math.sin(b.th) * b.rr, 1.2, RZ.z + Math.cos(b.th) * b.rr); if (p && p[0] > -50 && p[0] < 1970) glints.push({ x: p[0], y: p[1] + p[2] * 1.2, col: '#ffb35c', a: .6 * lamps(b), w: 1, spread: .05, fade: 50 + p[2] * 3 }); }
+    const KK = KC(t), fireG = t > K.fl0 ? C.P(KK.x + .35 * Math.cos(CH) + 1.2 * Math.sin(CH), 1.6, KK.z - .35 * Math.sin(CH) + 1.2 * Math.cos(CH)) : null;
+    if (fireG && fireG[0] > -100 && fireG[0] < 2020 && C.pitch < .45) glints.push({ x: fireG[0], y: C.hy + 2, col: '#ffb35c', a: .9, w: 3, spread: .14, fade: 340 });
+    drawSea(ctx, t, C, { glints, dawn: dawn * .8 });
+    drawLight(ctx, t, C, Ls, L);
+    if (t > K.pan0 - .4 && lightOn) storm(ctx, t, C, { az: STORMAZ, w: .32, flash: flash(t), fx: -.2, bolt: Math.floor((t - K.storms) * 3) + 11 });
+    // rose (lies on the water, dark until "ours")
+    rose(ctx, t, C, { x: RZ.x, z: RZ.z, R: RZ.R, a: rA });
+    // wakes from the one point, the marks
+    const top = clamp((C.pitch - .5) / .6), wA = (.55 + .6 * top) * (1 - .4 * u01(t, K.up1, K.up1 + 1)), mAge = top > .2 ? 999 : 22;
+    wake(ctx, t, C, PATHS.drift, sD(t), { a: .8 * wA, life: 30, min: .3, maxAge: mAge });
+    wake(ctx, t, C, PATHS.nav, sN(t), { a: wA, life: 40, min: .35, maxAge: mAge });
+    const mk = [u01(t, K.few - .05, K.few + .5), u01(t, K.few + .25, K.few + .8), u01(t, K.few + .55, K.few + 1.1)];
+    marks(ctx, t, C, TURNS, mk);
+    // boats far → near
+    const list = [
+      { x: d.x, z: d.z, head: d.head + .35 * Math.sin(t * .4), roll: .1 * Math.sin(t * .7), sail: 'slack', lantern: 0, light: L ? [L.x, L.y] : null },
+      { x: n.x, z: n.z, head: n.head, roll: -.06, sail: 'full', sailSide: -.45, fig: 'sight', lantern: lanN, light: sp, star: sp },
+    ];
+    if (rA > 0 || t > K.hd0) for (const b of ROSEB) list.push({ x: RZ.x + Math.sin(b.th) * b.rr, z: RZ.z + Math.cos(b.th) * b.rr, head: b.head, sail: 'none', lantern: lamps(b), scale: b.sc * .8 });
+    list.sort((a, b) => C.depth(b.x, 0, b.z) - C.depth(a.x, 0, a.z));
+    for (const B of list) {
+      const r = boat(ctx, t, C, B);
+      if (B.fig && r && r.hand && sp && t < K.cr1) {   // the sighting line from the hand to the star
+        const u = u01(t, K.navigate - .1, K.navigate + .5) * (1 - u01(t, K.cr0 + .3, K.cr0 + .8));
+        if (u > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = 'rgba(216,247,255,.55)'; ctx.lineWidth = 1.2; ctx.setLineDash([3, 7]); ctx.beginPath(); ctx.moveTo(r.hand[0], r.hand[1]); ctx.lineTo(r.hand[0] + (sp[0] - r.hand[0]) * eoX(u), r.hand[1] + (sp[1] - r.hand[1]) * eoX(u)); ctx.stroke(); ctx.restore(); }
+      }
     }
-    const ui = uIntel(t), uc = uCon(t);
-    if (ui > 0) label(ctx, 'INTELLIGENCE', room.screen.x + room.screen.w / 2, room.screen.y - 30 * cam.z, ui, rgba(F6.cool, .92 * (1 - .4 * wm)), 21 * cam.z);
-    if (uc > 0) label(ctx, 'CONSCIOUSNESS', room.head[0], room.head[1] - 74 * cam.z, uc, rgba(F6.amberCore, .95), 21 * cam.z);
-    sourceLine(ctx, t, uSrc(t));
+    // the sighted star (always in the sky; it brightens when the figure points at it)
+    if (sp) { const b = .55 + .45 * u01(t, K.navigate - .1, K.navigate + .4); ctx.save(); ctx.globalCompositeOperation = 'lighter'; const g = ctx.createRadialGradient(sp[0], sp[1], 0, sp[0], sp[1], 26); g.addColorStop(0, `rgba(240,250,255,${.9 * b})`); g.addColorStop(.2, `rgba(180,220,255,${.3 * b})`); g.addColorStop(1, 'rgba(120,160,255,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(sp[0], sp[1], 26, 0, 7); ctx.fill(); ctx.strokeStyle = `rgba(230,245,255,${.5 * b})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(sp[0] - 18, sp[1]); ctx.lineTo(sp[0] + 18, sp[1]); ctx.moveTo(sp[0], sp[1] - 18); ctx.lineTo(sp[0], sp[1] + 18); ctx.stroke(); ctx.restore(); }
+    // 7.01 … 7.04 the canoe, its route, its label, the instruments, the star compass
+    if (t > K.fl0) {
+      route(ctx, t, C, KK, u01(t, K.T0 - .6, K.open + .6));
+      starCompass(ctx, t, C, KK, { u: u01(t, K.compass - .12, K.compass + 1.3), lab: u01(t, K.compass + .7, K.compass + 1.4), stars: u01(t, K.compass + .4, K.build + 1.0), R: 15 });
+      const cn = canoe(ctx, t, C, KK);
+      const tu = u01(t, K.T0 + .15, K.T0 + 1.1) - u01(t, K.noMap - .7, K.noMap - .25);
+      if (cn.tagP && tu > 0) tag(ctx, t, cn.tagP[0], cn.tagP[1], tu, 'HŌKŪLEʻA · 1976', 'HAWAIʻI → TAHITI', { dx: 70, len: 80 });
+      const iu = (w0, w1) => u01(t, w0 - .18, w0 + .32) + u01(t, w1 - .2, w1 + .25);
+      instruments(ctx, t, { u: [iu(K.noMap, K.noComp), iu(K.noComp, K.noInst), iu(K.noInst, K.arrived)], spin: [sio(u01(t, K.noMap + .1, K.noComp - .1)), sio(u01(t, K.noComp + .1, K.noInst - .1)), sio(u01(t, K.noInst + .1, K.arrived - .1))] });
+    }
+    // 6.03 the hand with the small compass (carried in from below, lowered out on "ours")
+    const hu = eoX(u01(t, K.hd0 + .2, K.hd0 + .95)) - eiX(u01(t, K.ours - .3, K.ours + .3));
+    if (hu > 0.001) {
+      const ns = u01(t, K.hd0 + .5, K.yours + .2);
+      const needle = 2.2 * (1 - settle(ns)) + .04 * Math.sin(t * 1.7);
+      handCompass(ctx, t, { x: 1330, y: 1520 - 760 * hu, s: 3.0, glow: eoX(u01(t, K.yours - .05, K.yours + .6)), needle });
+    }
+  }
+  // 4.01 the title (screen space): two lines rise out of their own masks on 'survive' and on 'singularity', glow cream on amber, leave upward
+  const TITLE = [['HOW TO SURVIVE', K.survive - .08, 236], ['THE SINGULARITY', K.sing2 - .06, 396]];
+  function titleCard(ctx, t) {
+    if (t < K.survive - .1 || t > K.you + .5) return;
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.font = '400 150px Anton'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    const capH = 150 * .86;
+    TITLE.forEach(([txt, t0, y], i) => {
+      const inU = eoX(u01(t, t0, t0 + .6)), outU = eiX(u01(t, K.you - .12 + i * .07, K.you + .28 + i * .07));
+      if (inU <= 0 || outU >= 1) return;
+      const dy = (1 - inU) * capH * 1.15 - outU * capH * 1.2, drift = (t - t0) * 3;   // keeps rising a few px while it stands
+      ctx.save(); ctx.beginPath(); ctx.rect(0, y - capH - 18, 1920, capH + 34); ctx.clip();
+      ctx.shadowColor = 'rgba(255,170,80,.6)'; ctx.shadowBlur = 38; ctx.fillStyle = 'rgba(243,239,226,.95)'; ctx.fillText(txt, 960, y + dy - drift);
+      ctx.shadowBlur = 10; ctx.shadowColor = 'rgba(255,200,130,.5)'; ctx.fillStyle = '#f3efe2'; ctx.fillText(txt, 960, y + dy - drift);
+      ctx.restore();
+    });
+    ctx.restore();
+  }
+  prepareSky();
+  await ready();
+
+  const frame = (ctx, t) => {
+    if (t < K.open0) { takeA(ctx, t); return; }
+    if (t < K.close1 + .02) { drawClip(ctx, t, T, { open: [K.open0, K.open1], close: [K.close0, K.close1], yOpen, yClose: 540, cutFrame: 87 }); return; }
+    if (t < K.sw) { takeB(ctx, t); titleCard(ctx, t); return; }
+    takeC(ctx, t);
   };
-  // ---- warm-up (layers are painted on first use), then the entries
-  const [, g0] = canvas(); draw(g0, tVery + .5); draw(g0, HO.a - .5); await ready();
-  const P = { riso: .3 };
+  const SND = (f, t, v = .6) => ({ f, t, v });
   return [
-    { t: 0, tr: 'cut', d: .1, print: P, draw: draw, sound: [{ f: 'chime', t: tProbE + .12, v: .22 }] },
-    { t: tPan, tr: 'cut', d: .1, print: P, draw: draw, sound: [{ f: 'whoosh_airy', t: tLine0 - .05, v: .3 }, { f: 'screen_off', t: tClose0 + .3, v: .35 }] },
-    { t: tWin2, tr: 'cut', d: .1, print: HO.print, draw: draw, sound: [{ f: 'swell', t: tQ + .15, v: .4 }] },
+    { t: 0, tr: 'cut', d: .1, draw: frame, print: { riso: .35 } },
+    { t: K.open0, tr: 'cut', d: .1, draw: frame, print: { riso: .15, halftone: .4, hatch: .3 } },
+    { t: K.close1 + .02, tr: 'cut', d: .1, draw: frame, print: { riso: .35 } },
   ];
-};
+}

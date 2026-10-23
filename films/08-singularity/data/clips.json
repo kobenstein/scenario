@@ -1,0 +1,22 @@
+{
+  "C1": {
+    "id": "C1",
+    "src": "Vv3CEAS_w34",
+    "url": "https://www.youtube.com/watch?v=Vv3CEAS_w34",
+    "from": 1024.7,
+    "to": 1043.3,
+    "parts": [[1024.7, 1027.55], [1039.25, 1043.3]],
+    "jump": 2.85,
+    "dur": 6.916,
+    "frames": 207,
+    "maxFrame": 207,
+    "w": 1920,
+    "h": 960,
+    "name": "Sam Altman",
+    "role": "CEO, OpenAI",
+    "source": "",
+    "date": "",
+    "words": "And we are now like in the singularity, like this is the moment. And now we're like actually in the moment that we used to like talk about at the lunch table.",
+    "credit": "Sam Altman · Relentless podcast, 2026"
+  }
+}

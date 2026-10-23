@@ -69,7 +69,9 @@ export function timing(file) {
 }
 
 // ---------- interview clips ----------
-const CLIPS = fs.existsSync(ROOT + 'audio/clips.json') ? JSON.parse(fs.readFileSync(ROOT + 'audio/clips.json', 'utf8')) : {}; // Film 5: no clips
+// clip table: ROOT/audio/clips.json if the lead wrote one, else the film's own data/clips.json (Film 8: C1 Altman)
+const CLIPS_LOCAL = new URL('../data/clips.json', import.meta.url).pathname;
+const CLIPS = fs.existsSync(ROOT + 'audio/clips.json') ? JSON.parse(fs.readFileSync(ROOT + 'audio/clips.json', 'utf8')) : fs.existsSync(CLIPS_LOCAL) ? JSON.parse(fs.readFileSync(CLIPS_LOCAL, 'utf8')) : {};
 const frameCache = new Map();
 const framePath = (id, k) => `${ROOT}clips/${id}/f${String(CLIPS[id].maxFrame ? Math.min(k, CLIPS[id].maxFrame) : k).padStart(5, '0')}.jpg`;
 const frameIndex = (c, t) => Math.floor(clamp(t - c.start, 0, c.end - c.start) * 30) + 1;
