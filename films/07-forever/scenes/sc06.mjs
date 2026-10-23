@@ -329,12 +329,12 @@ export default async (T, R) => {
     { t: A.heres - .3, draw: O1, print: P1, sound: [{ f: 'tear', t: A.twistE + .08, v: .35 }] },
     { t: A.think - .3, draw: O1, print: P1, sound: [{ f: 'whoosh_up', t: tL1 - .35, v: .45 }] },
     { t: tL1, draw: L, print: PL },
-    { t: A.weekE - .2, draw: L, print: PL, sound: [{ f: 'bloom', t: tc - .02, v: .35 }] },
+    { t: A.weekE - .2, draw: L, print: PL, sound: [{ f: 'bloom', t: tc - .02, v: .35 }, { f: 'flame_breath', t: tc - .25, v: .25 }, { f: 'flame_breath', t: tb - .25, v: .25 }] },
     { t: A.burning, draw: L, print: PL, sound: [{ f: 'swell', t: A.fuelE + .05, v: .3 }, { f: 'whoosh', t: tL2 - .3, v: .4 }] },
     { t: tL2, draw: C, print: PC },
     { t: A.intel, draw: C, print: PC, sound: [{ f: 'whoosh_up', t: A.takesE + .02, v: .35 }] },
     { t: tC, draw: O2, print: PO },
-    { t: A.separate - .4, draw: O2, print: PO, sound: [{ f: 'shimmer_rings', t: A.separateE + .1, v: .55 }, { f: 'glass_hum', t: A.appetite2E + .05, v: .55 }] },
+    { t: A.separate - .4, draw: O2, print: PO, sound: [{ f: 'shimmer_rings', t: A.separateE + .1, v: .55 }, { f: 'glass_hum', t: A.appetite2E + .05, v: .55 }, { f: 'fibre_unzip', t: tPeel1 - 2.6, v: .25 }] },
     { t: A.one - .3, draw: O2, print: PO, sound: [{ f: 'swell', t: A.bendsE + .05, v: .45 }, { f: 'whoosh_up', t: tUp - .15, v: .3 }] },
   ];
 };
