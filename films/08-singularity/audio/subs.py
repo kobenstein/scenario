@@ -23,6 +23,8 @@ def split(ws):
     return split(ws[:bi]) + split(ws[bi:])
 # hand-made breaks where the balanced split would cut a phrase (Film 6 hook, Fassung 3): sentence text -> cue texts, same words in order
 BREAKS = {
+    "And the people building artificial intelligence say we're already in it.": ['And the people building', 'artificial intelligence', "say we're already in it."],
+    "It means change so fast that no one can see what's coming.": ['It means change so fast', "that no one can see what's coming."],
     'The artificial intelligence you talk to is very probably not conscious.': ['The artificial intelligence', 'you talk to is very probably', 'not conscious.'],
     'Anthropic lets its artificial intelligence hang up on people who keep being abusive.': ['Anthropic lets', 'its artificial intelligence', 'hang up on people', 'who keep being abusive.'],
 }
