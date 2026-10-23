@@ -1,12 +1,14 @@
 // Film 7 · c02 · the world of "the part that feeds the machines" (01a). Builder: c02. Pure functions of t, deterministic.
 // A night plain (layers copied from f7_c01_ground.mjs with their own seeds, so c02 is another place of the same world). The amber line from
 // the c01>c02 plate lies on the plain as a long engraved TIMELINE (world x = year: YX(year)); at 2025 a long low data center sits behind it,
-// fed by a branch of the line on three pylons; its own curve climbs steeply from the roof. Left on the line: 1865, a steam engine on its coal.
+// fed by a branch of the line on three pylons. Its demand is a CHART drawn in the sky BEHIND the halls (fix1, Jakob: "die Kurve soll nicht aus dem
+// Datencenter rausgehen"): on a far plane (p = PCH) over the ridge, an engraved axis and graph grid, the amber curve flat along the baseline,
+// then climbing off the top; it never touches a building. Left on the line: 1865, a steam engine on its coal.
 //   c2Prepare()                                    builds the cached layers as Images (call once, await)
 //   gmap(cam, p)                                   horizon-anchored parallax camera (c01's): { k, X, Y, Xi, Yi, set(ctx) }
-//   world(ctx, t, cam, st)                         draws sky, ridges, hills (homes), plain (towns), fore rise, line, ticks, DC, engine, sparks …
+//   world(ctx, t, cam, st)                         draws sky, ridges, hills (homes), plain (towns), the demand chart (behind the DC), DC, fore rise, line, ticks, engine, sparks …
 //       st = { skyFn (ctx, t) alt sky | null, lights 0..1 (wave from the DC outward), feedW, climbU, climbW, climbBr, feedU, hall2 0..1, dcOn 0..1,
-//              lineW, ticksA, ticksR (years ≤ 2000 labels), person {x, y (fore coords), s, sparks:[{t0, dur, r0, r1, ts}]}, stream 0..1,
+//              chartAx 0..1 (the chart's axes; default climbU), lineW, ticksA, ticksR (years ≤ 2000 labels), person {x, y (fore coords), s, sparks:[{t0, dur, r0, r1, ts}]}, stream 0..1,
 //              streamTiny 0..1, burst, bracket 0..1, engine 1, sheets: fn(ctx, t, m) }
 //   sheetTex(ctx, M) / SHEET helpers                the paper of the quote card and the plan pages: base + fibres in paper units relative to a
 //       focus point, so two sheets seen at the same focus/zoom are the identical picture (the fly-through match).
@@ -190,8 +192,45 @@ export const FEED = (() => {
   const P = [...sag(a, tops[0], 3, 10), ...sag(tops[0], tops[1], 10).slice(1), ...sag(tops[1], tops[2], 8).slice(1), ...sag(tops[2], wall, 5, 8).slice(1)];
   return P.map(([x, y]) => [x, y, .36]);
 })();
-// the DC's own curve: from the roof, a short run along it, then exponential up into the sky
-export const CLIMB = (() => { const o = []; const n = 220, x0 = 180, y0 = DC.base - DC.h + DC.dy * .5 - 2; for (let i = 0; i <= n; i++) { const s = i / n; o.push([x0 + 250 * (1 - Math.exp(-s * 7)) + 36 * s, y0 - 3400 * (Math.exp(4 * s) - 1) / (Math.exp(4) - 1), .55 + .5 * s]); } return o; })();
+// the DC's demand: a CHART drawn in the sky behind the halls, on a far plane (parallax PCH, between the ridge and the hills; units of
+// gmap(cam, PCH)). Its baseline floats over the far ridge, well above the roofs in every view of take A; an engraved axis (L) and graph
+// grid; the amber curve runs flat along the baseline from the axis, then the film's exponential climbs off the top (no ceiling).
+export const PCH = .5;
+export const CHART_AX = { x: 625, y: 469, w: 420, h: 330 };
+export const CHART = (() => { const o = [], A = CHART_AX, xs = 700, foot = xs - A.x - 10, span = 330, k = 5.5, Hc = 2600, den = Math.exp(k) - 1;
+  for (let i = 0; i < 10; i++) o.push([xs - foot * (1 - i / 10), A.y - 1, .4 + .1 * i / 10]);
+  for (let i = 0; i <= 240; i++) { const s = i / 240, e = (Math.exp(k * s) - 1) / den; o.push([xs + span * s - 12 * Math.sin(Math.PI * s) * e, A.y - 1 - Hc * e, .5 + .55 * Math.pow(s, .8)]); }
+  return o; })();
+// axis 0..1 (the L draws itself: baseline left → right, the vertical axis upward), grid 0..1 (graph lines grow), both in the chart plane
+function chartFrame(ctx, mc, ax, gr) {
+  const A = CHART_AX, col = '#b4acf0';
+  ctx.save(); ctx.lineCap = 'butt';
+  if (gr > 0) {
+    const nv = 8, nh = 6;
+    for (let i = 1; i <= nv; i++) {
+      const g = ease.out(clamp(gr * 1.6 - i * .07)); if (g <= 0) continue;
+      const X = mc.X(A.x + A.w * i / nv); if (X < -10 || X > W + 10) continue;
+      for (let q = 0; q < 5; q++) { const f0 = q / 5, f1 = Math.min((q + 1) / 5, g); if (f1 <= f0) break; ctx.strokeStyle = rgba(col, (.24 - .04 * q) * (1 - .45 * i / nv)); ctx.lineWidth = .8; ctx.beginPath(); ctx.moveTo(X, mc.Y(A.y - A.h * f0)); ctx.lineTo(X, mc.Y(A.y - A.h * f1)); ctx.stroke(); }
+    }
+    for (let j = 1; j <= nh; j++) {
+      const g = ease.out(clamp(gr * 1.6 - .1 - j * .08)); if (g <= 0) continue;
+      const Y = mc.Y(A.y - A.h * j / nh), xa = mc.X(A.x), xb = mc.X(A.x + A.w * g), xe = mc.X(A.x + A.w);
+      const lg = ctx.createLinearGradient(xa, 0, xe, 0); lg.addColorStop(0, rgba(col, .23 - .025 * j)); lg.addColorStop(1, rgba(col, .06)); ctx.strokeStyle = lg; ctx.lineWidth = .8;
+      ctx.beginPath(); ctx.moveTo(xa, Y); ctx.lineTo(xb, Y); ctx.stroke();
+    }
+  }
+  if (ax > 0) {
+    const ex = ease.out(clamp(ax * 1.4)), ey = ease.out(clamp(ax * 1.4 - .3)), X0 = mc.X(A.x), Y0 = mc.Y(A.y);
+    ctx.strokeStyle = rgba('#d8d0ff', .6); ctx.lineWidth = 1.3;
+    ctx.beginPath(); ctx.moveTo(X0, Y0); ctx.lineTo(mc.X(A.x + (A.w + 30) * ex), Y0); if (ey > 0) { ctx.moveTo(X0, Y0); ctx.lineTo(X0, mc.Y(A.y - (A.h + 20) * ey)); } ctx.stroke();
+    // engraved ticks on both axes
+    ctx.strokeStyle = rgba('#d8d0ff', .45); ctx.lineWidth = 1; ctx.beginPath();
+    for (let i = 1; i <= 8; i++) { if (i / 8 > ex) break; const X = mc.X(A.x + A.w * i / 8); ctx.moveTo(X, Y0); ctx.lineTo(X, Y0 + 6); }
+    for (let j = 1; j <= 6; j++) { if (j / 6 > ey) break; const Y = mc.Y(A.y - A.h * j / 6); ctx.moveTo(X0, Y); ctx.lineTo(X0 - 6, Y); }
+    ctx.stroke();
+  }
+  ctx.restore();
+}
 // the link from hall 1 to hall 2 (the doubled power line)
 const LINK = [[DC.x1 + 4, DC.base - 10, .45], [DC.x1 + 14, DC.base - 5, .45], [DC2.x0 - 10, DC2.base - 5, .45], [DC2.x0 + 1, DC2.base - 10, .45]];
 // the timeline: one line along the plain; thin at 1865 (the first coal fire), full at 2025 and after
@@ -266,6 +305,14 @@ export function world(ctx, t, cam, st = {}) {
   const skyO = { ox: -(cam.x ?? 0) * .05 + 600, oy: -((cam.y ?? 540) - 540) * .06 - 260, ang: -.62 };
   if (st.skyFn) st.skyFn(ctx, t, cam); else sky(ctx, t, { ...skyO, horizon: gmap(cam, .22).Y(HZ - 40) });
   drawLayer(ctx, cam, 'far'); drawLayer(ctx, cam, 'ridge');
+  // the DC's demand chart in the sky behind everything on the ground (its own plane, between the ridge and the hills)
+  let cv = null;
+  const cu = st.climbU ?? 0, cax = st.chartAx ?? cu;
+  if (cax > 0 || cu > 0) {
+    const mc = gmap(cam, PCH);
+    chartFrame(ctx, mc, cax, cu);
+    if (cu > 0) cv = curve(ctx, t, CHART.map(([x, y, w]) => [mc.X(x), mc.Y(y), w]), { u: cu, w: (st.climbW ?? 1) * clamp(.55 + .3 * mc.k, .7, 1.3), br: st.climbBr ?? 1, sparks: st.climbSparks ?? 3, burst: st.burst ?? null, seed: 2 });
+  }
   const mh = drawLayer(ctx, cam, 'hills');
   const lights = st.lights ?? 0, era = (x) => sm(clamp((x / 6 + 2025 - 1890) / 70));
   const lit = (list, mm, al, rad, ga) => {
@@ -313,10 +360,6 @@ export function world(ctx, t, cam, st = {}) {
     const l2 = clamp((st.hall2 ?? 0) * 3 - 2);
     if (l2 > 0) curve(ctx, t, LINK.map(([x, y, w]) => [m.X(x), m.Y(y), w * clamp(m.k, .7, 2.2)]), { u: l2, w: fw, br: st.feedBr ?? 1, tip: l2 < 1, sparks: 0, seed: 9, shimmer: .4 });
   }
-  // the DC's curve: climbs steeply from the roof
-  let cv = null;
-  const cu = st.climbU ?? 0;
-  if (cu > 0) cv = curve(ctx, t, CLIMB.map(([x, y, w]) => [m.X(x), m.Y(y), w]), { u: cu, w: (st.climbW ?? 1) * clamp(.6 + .25 * m.k, .7, 1.4), br: st.climbBr ?? 1, sparks: st.climbSparks ?? 3, burst: st.burst ?? null, seed: 2 });
   // the people's questions (sparks) streaming into the DC
   const inlet = [m.X(dcX + 20), m.Y(DC.base - DC.h - 4)];
   if ((st.stream ?? 0) > 0) stream(ctx, t, m, mh, inlet, st, era);

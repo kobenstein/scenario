@@ -3,8 +3,9 @@
 //
 // | shot | VO words (anchor)                         | image                                                                                   | hero light        | camera                                   | flows on by                                   | ★ / sound            |
 // |------|-------------------------------------------|-----------------------------------------------------------------------------------------|-------------------|------------------------------------------|-----------------------------------------------|----------------------|
-// | 1.01 | Can superintelligence grow forever?       | THE THUMBNAIL: night Earth from low orbit, violet limb, city stipple, Milky Way; the     | the curve's tip   | still, a slow push                       | take O1 continues                              | glass_hum (new) at   |
-// |      |                                           | amber curve rises from the hero city and touches the dome (ring of refracted light);     | at the contact    |                                          |                                               | the end of "forever?"|
+// | 1.01 | Can superintelligence grow forever?       | THE THUMBNAIL: night Earth from low orbit, violet limb, city stipple, Milky Way; the     | the curve's tip   | fix1: rises + pulls back with the tip    | take O1 continues                              | glass_hum (new) at   |
+// |      |                                           | amber curve CLIMBS out of the hero city (pulses run up it) and hits the dome on the end  | at the contact    | (moving at frame 0), lands on the thumb- |                                               | the end of "forever?"|
+// |      |                                           | of "forever?" (impact, ripple of light over the glass, ring of refracted light);          |                   | nail framing at the contact              |                                               |                      |
 // |      |                                           | the title writes itself per word into the sky (Instrument Serif)                          |                   |                                          |                                               |                      |
 // | 1.02 | Not smarter. Bigger.                      | "smarter": a cool silver line glints along the curve and goes out; "Bigger": the curve    | curve             | push up to the contact, then dives DOWN  | fly INTO the hero city's light (lightCover)  | whoosh_up (dive)     |
 // |      |                                           | thickens + brightens in one snap, sparks burst at the tip                                 |                   | along the curve into the city light       | → the ground world grows out of the same light|                      |
@@ -99,8 +100,15 @@ export default async (T, R) => {
     });
     ctx.restore();
   }
+  // fix1 (Jakob: "gute Grafik, aber etwas statisch"): the first seconds are one living move. The curve CLIMBS out of the city
+  // (accelerating, like growth) and hits the glass on the end of "forever?" (tc); the camera rises and pulls back with the tip (already
+  // moving at frame 0) and settles on the thumbnail framing as the tip arrives; light pulses run along the foot through the city and up
+  // the curve, the city flares as each passes; at the contact the dome reveals itself (impact flash, a ripple of light over the glass)
+  // and every later pulse that arrives presses it again. From A.not − .05 the original push and dive are unchanged.
+  const tc = A.foreverE;                          // the tip touches the dome
+  const KC = [[-1.2, [-120, -3035, 1.1]], [0, [-55, -3088, 1.03]], [2.0, [128, -3190, .9]], [tc, [205, -3237, .872]], [A.not - .05, [218, -3248, .9]]];
   const camO1 = (t) => {
-    if (t < A.not - .05) return keys(t, [[0, [200, -3230, .86]], [A.not - .05, [218, -3248, .9], ease.sine]]);
+    if (t < A.not - .05) return path(t, KC);
     const tp = A.bigger + .1;   // the push up to the contact ends just after "Bigger"
     if (t < tp) return keys(t, [[A.not - .05, [218, -3248, .9]], [tp, [300, -3440, 1.5]]]);
     // the dive: ride the curve from near the top down into the city, zoom in exponentially
@@ -108,6 +116,23 @@ export default async (T, R) => {
     const a = [300, -3440], b = [mix(CW[i0][0], CW[i0 + 1][0], fi - i0), mix(CW[i0][1], CW[i0 + 1][1], fi - i0)], bl = sm(lin(tp, tp + .25, t));
     return [mix(a[0], b[0], bl), mix(a[1], b[1], bl), 1.5 * Math.pow(7, ease.inn(lin(tp, tD, t)))];
   };
+  // the climb: drawn length (fraction of the curve's arclength) from the knee at t = 0 to the contact at tc, accelerating
+  const LW = (() => { const L = [0]; for (let i = 1; i < CW.length; i++) L.push(L[i - 1] + Math.hypot(CW[i][0] - CW[i - 1][0], CW[i][1] - CW[i - 1][1])); return L; })();
+  const LT = LW[LW.length - 1], u0 = LW[CW.findIndex(([, py], i) => i > iS && py < CURVE.S[1] - 95)] / LT;   // at frame 0 the tip has just lifted off the knee
+  const climbU = (t) => { const x = clamp((t + .35) / (tc + .35)), a = .9; return mix(u0 - .02, 1, (Math.exp(a * x) - 1) / (Math.exp(a) - 1)); };
+  const atW = (s) => { let j = 0; while (j < LW.length - 2 && LW[j + 1] < s) j++; const q = clamp((s - LW[j]) / ((LW[j + 1] - LW[j]) || 1)); return [mix(CW[j][0], CW[j + 1][0], q), mix(CW[j][1], CW[j + 1][1], q)]; };
+  // light pulses: launched at the left end of the foot, through the city, up the curve to the tip (in flight at frame 0; the last leaves before "Not")
+  const PULSES = []; for (let k = 0, tt = -1.05; tt < A.not - 1.1; k++, tt += .82 + .12 * Math.sin(k * 2.3)) PULSES.push({ t0: tt, dur: 1.25 });
+  const pulseAt = (p, t) => { const q = (t - p.t0) / p.dur; if (q <= 0 || q >= 1) return null; const e = Math.pow(q, 1.45); return { q, s: Math.min(e * climbU(p.t0 + p.dur), t < tc ? climbU(t) : 1) * LT }; };
+  const hitS = (t) => { let v = 0; for (const p of PULSES) { const tS = p.t0 + p.dur * Math.pow(LW[iS] / (climbU(p.t0 + p.dur) * LT), 1 / 1.45), d = t - tS - .06; if (d > 0 && d < 1) v = Math.max(v, Math.exp(-d / .22) * clamp(d / .06) * (1 - d)); } return v; };
+  const hitTip = (t) => { let v = 0; for (const p of PULSES) { const d = t - (p.t0 + p.dur) - .05; if (d > 0 && d < 1.2) v = Math.max(v, Math.exp(-d / .3) * clamp(d / .07) * (1 - d / 1.2)); } return v; };
+  function pulses(ctx, t, m, k) {
+    for (const p of PULSES) {
+      const P = pulseAt(p, t); if (!P) continue;
+      const al = clamp(P.q * 10) * clamp((1 - P.q) * 12);
+      for (let j = 4; j >= 0; j--) { const [wx, wy] = atW(Math.max(0, P.s - j * 9 / k)), X = m.X(wx), Y = m.Y(wy), f = 1 - j / 5; glowAt(ctx, X, Y, (j ? 9 : 22) * Math.min(1.4, k) * f, (j ? .32 : .85) * al * f, F7.amber, F7.amberCore); }
+    }
+  }
   function O1(ctx, t) {
     const [x, y, z] = camO1(t), cam = { x, y, z }, m = camO(cam);
     const sO = { ...skyO1, ox: skyO1.ox - (x - 200) * .05, oy: skyO1.oy - (y + 3230) * .05 };
@@ -115,12 +140,27 @@ export default async (T, R) => {
     drawTitle(ctx, t, m);
     earthHorizon(ctx, t, cam, {});
     const snap = ease.out(lin(A.bigger, A.bigger + .3, t));
-    dome(ctx, t, cam, { touch: .55 + .25 * Math.sin(t * 1.3) ** 2 + .3 * bump(t, A.foreverE - .05, A.foreverE + .15, A.foreverE + .5, A.foreverE + 1.2) + .4 * snap, lines: .035 + .02 * snap, linesA: .8, glass: .6, skyO: sO });
+    // the dome: invisible until the tip arrives (a breath of heat haze just before), then the impact, then it keeps answering each pulse
+    const on = sm(lin(tc - .03, tc + .07, t)), impact = bump(t, tc - .02, tc + .05, tc + .2, tc + 1.4), press = hitTip(t) * on;
+    const touch = Math.max(.16 * sm(lin(tc - .55, tc, t)), on * (.55 + .25 * Math.sin(t * 1.3) ** 2)) + .95 * impact + .3 * press + .4 * snap;
+    const dm = dome(ctx, t, cam, { touch, lines: (t < tc ? 0 : .035) + .02 * snap, linesA: .8, glass: mix(.3, .6, ease.out(lin(tc, tc + .6, t))), skyO: sO });
+    // the impact ripple: two rings of light run out over the glass from the contact and fade (light on glass, never a crack)
+    for (const [d0, A0, R0] of [[0, .55, .15], [.16, .32, .09]]) {
+      const u = lin(tc + d0, tc + d0 + 1.7, t); if (u <= 0 || u >= 1) continue;
+      const al = .006 + R0 * ease.out(u), A = A0 * Math.pow(1 - u, 1.6);
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      for (const [lw, k2] of [[6, .18], [1.3, 1]]) { ctx.lineWidth = lw; ctx.strokeStyle = rgba(F7.rim, A * k2); ctx.beginPath(); let on2 = false; for (let q = 0; q <= 120; q++) { const p = dm.P(al, q / 120 * TAU); if (p[2] < -.02) { on2 = false; continue; } on2 ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]); on2 = true; } ctx.stroke(); }
+      ctx.restore();
+    }
     const pts = CW.map(([px, py, w]) => [m.X(px), m.Y(py), w]);
+    // the city at the curve's foot breathes and flares as each pulse passes through it
+    { const hs = hitS(t), X = m.X(CURVE.S[0]), Y = m.Y(CURVE.S[1]); glowAt(ctx, X, Y, (70 + 50 * hs) * m.k, (.1 + .04 * Math.sin(t * 2.1)) + .3 * hs, '#ff9a40', F7.amberCore); }
     // "smarter": a faint cool line glints along the curve for a moment and goes out (dismissed)
     const ga = bump(t, A.smarter - .05, A.smarter + .1, A.smarter + .38, A.smarter + .62);
     if (ga > 0) curve(ctx, t, pts.slice(iS).map(([px, py]) => [px - 9, py + 3, .8]), { tone: 'cool', a: ga * .9, w: .8, glint: 1, tip: false, seed: 3 });
-    curve(ctx, t, pts, { w: 1.12 + .5 * snap, br: 1 + .45 * snap, sparks: 2 + 10 * snap, burst: t > A.bigger ? A.bigger + .02 : null, seed: 1 });
+    const cu = t < tc ? climbU(t) : 1, hp = hitTip(t);
+    curve(ctx, t, pts, { u: cu, w: 1.12 + .5 * snap, br: (1 + .45 * snap) * (1 + .18 * hp), sparks: (t < tc ? 4 : 2) + 10 * snap, burst: t > A.bigger ? A.bigger + .02 : t > tc ? tc + .01 : null, seed: 1 });
+    pulses(ctx, t, m, m.k);
     lightCover(ctx, t, t < tD - .5 ? .5 * ease.inn(lin(tD - 1.0, tD - .5, t)) : .5 + .5 * lin(tD - .5, tD - 1 / 30, t), { cx: m.X(CURVE.S[0]), cy: m.Y(CURVE.S[1]) });
   }
 
