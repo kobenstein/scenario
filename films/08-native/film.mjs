@@ -1,4 +1,4 @@
-// Film 08 "AI-Native Companies Are Rising" (~10:16) in the Film 5/6 machinery: one image moment per sentence, anchored to VO phrases (never to seconds).
+// Film 08 "The Rise of the AI-Native Company" (~10:16) in the Film 5/6 machinery: one image moment per sentence, anchored to VO phrases (never to seconds).
 // Eleven chunk files scenes/sc01.mjs … sc11.mjs (one builder each) return their shots; this file stitches them into one timeline.
 // NO BLENDS (Jakob 2026-10-20: "keine Blende … durchgehende Animation"): every entry is a hard 'cut' between two frames that the
 // builders make identical (a continuous take, or an in-world move through an object). Any other tr is turned into 'cut' with a warning.

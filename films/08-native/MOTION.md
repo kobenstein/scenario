@@ -1,6 +1,6 @@
 # Film 8 · Motion rules for scene builders (lead brief)
 
-Film: **"AI-Native Companies Are Rising"** (The Good Takeoff, English, ~10:16, 1920×1080, 30 fps). Guiding idea:
+Film: **"The Rise of the AI-Native Company"** (The Good Takeoff, English, ~10:16, 1920×1080, 30 fps). Guiding idea:
 *An A.I.-native company is a living thing with three organs: a memory that forgets nothing, hands that never sleep, and a human will in front.
 Whether a few people get these organs or millions do is the question that matters.*
 Read this, then the kit API (`BUILDERS.md` of Film 7, same engine), then the binding shot list `/mnt/project-files/scenario/film-ein-person/bild/shots.md`.
