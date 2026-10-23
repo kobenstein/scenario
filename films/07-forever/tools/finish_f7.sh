@@ -54,7 +54,7 @@ PY
   echo "video: $(ffprobe -v error -show_entries format=duration -of csv=p=0 "$WD/video.mp4") s"
 fi
 if [[ $STAGE == mix || $STAGE == all ]]; then
-  node tools/sound_plan_f6.mjs "$A/sound_plan.json" 2>/dev/null
+  node tools/sound_plan_f7.mjs "$A/sound_plan.json"
   python3 audio/mix.py "$A"
   python3 audio/subs.py "$A" "$A"
 fi
