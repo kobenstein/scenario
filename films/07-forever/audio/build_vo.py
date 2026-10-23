@@ -6,7 +6,7 @@ import json, os, subprocess, sys
 import numpy as np
 A = sys.argv[1].rstrip('/')
 SEG = json.load(open(f'{A}/segments.json'))
-LEAD, TAIL = 1.4, 6.0
+LEAD, TAIL = 1.4, 16.0  # Film 7: ~15 s end plate for the YouTube end screen
 CLIP_IN, CLIP_OUT = 0.7, 0.6                 # air before / after a clip
 GAP_SECTION, GAP_SUB = 1.8, 0.9
 GAP_AFTER = {'00b': 2.2, '01a': 2.0, '02a': 2.0, '03b': 2.0, '04a': 2.2, '05a': 2.2, '06e': 2.0}  # Film 7: air after the hook and between the movements
