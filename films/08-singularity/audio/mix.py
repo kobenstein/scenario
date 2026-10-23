@@ -60,5 +60,5 @@ for name, buf in [('stem_music', music), ('stem_sfx', sfx), ('premix', mix)]:
 o = subprocess.run(['ffmpeg', '-hide_banner', '-i', A + 'premix.wav', '-af', 'loudnorm=I=-14:TP=-1:LRA=11:print_format=json', '-f', 'null', '-'], capture_output=True, text=True).stderr
 m = json.loads(o[o.rfind('{'):o.rfind('}') + 1])
 af = f"loudnorm=I=-14:TP=-1:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true"
-subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', A + 'premix.wav', '-af', af, '-ar', '48000', A + 'mix.wav'], check=True)
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', A + 'premix.wav', '-af', af + ',alimiter=limit=0.80:attack=3:release=60:level=false', '-ar', '48000', A + 'mix.wav'], check=True)   # limiter: linear loudnorm can overshoot the -1 dBTP ceiling by a few tenths (Film 8: -0.7)
 print('premix', m['input_i'], 'LUFS -> mix.wav')

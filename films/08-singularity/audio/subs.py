@@ -36,6 +36,7 @@ BREAKS = {
     'Elinor Ostrom won a Nobel Prize for showing that fishers and farmers can run shared things wisely, without one planner.': ['Elinor Ostrom won a Nobel Prize', 'for showing that fishers', 'and farmers can run shared things', 'wisely, without one planner.'],
     'A few set the direction: the companies building these systems, and whoever owns them.': ['A few set the direction:', 'the companies building these', 'systems, and whoever owns them.'],
     'Fifty years ago, a canoe crossed four thousand kilometres of open ocean.': ['Fifty years ago, a canoe crossed', 'four thousand kilometres', 'of open ocean.'],
+    "Europe's new law makes every member country set up, or share, a sandbox: a supervised space to try new systems before they go everywhere.": ["Europe's new law makes every", 'member country set up, or share,', 'a sandbox: a supervised space', 'to try new systems before', 'they go everywhere.'],
 }
 def pieces(snt):
     k = ' '.join(x['w'] for x in snt)
