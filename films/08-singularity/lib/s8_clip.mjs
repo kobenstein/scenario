@@ -12,7 +12,7 @@ export function drawClip(ctx, t, T, o) {
   const c = T.clip('C1'), k = Math.floor(clamp(t - c.start, 0, c.end - c.start - 1e-3) * 30) + 1, fr = clipFrame('C1', k);
   const cutT = c.start + (o.cutFrame - 1) / 30, after = t >= cutT;
   const u = clamp((t - c.start) / (cutT - c.start)), v = clamp((t - cutT) / (c.end - cutT));
-  const zoom = after ? 1.1 + .025 * sio(v) : 1 + .03 * sio(u);
+  const zoom = after ? 1.14 + .11 * v : 1 + .055 * (.8 * u + .2 * sio(u));   // a steady push (never a held frame)
   // the band that is open (the old-TV line opening / closing)
   let top = 0, bot = 1080, lineA = 0;
   if (t < o.open[1]) { const e = eoX((t - o.open[0]) / (o.open[1] - o.open[0])); top = o.yOpen * (1 - e); bot = o.yOpen + (1080 - o.yOpen) * e; lineA = 1 - e; }

@@ -27,6 +27,7 @@ runs.sort((a, b) => (b[1] - b[0]) - (a[1] - a[0]));
 const share = still.filter(Boolean).length / Math.max(1, still.length), longest = runs.length ? (runs[0][1] - runs[0][0]) / fps : 0;
 const mean = diffs.reduce((a, b) => a + b, 0) / Math.max(1, diffs.length), sorted = diffs.slice().sort((a, b) => a - b);
 const out = { file, fps, frames: diffs.length + 1, threshold: thr, nearStaticShare: share, longestStaticStretchSec: longest, meanDiff: mean, minDiff: sorted[0], p05Diff: sorted[Math.floor(sorted.length * .05)],
+  diffs: opt("diffs") ? diffs.map((d) => +d.toFixed(3)) : undefined,
   longestRuns: runs.slice(0, 5).map(([a, b]) => ({ from: +((a + 1) / fps).toFixed(2), to: +((b + 1) / fps).toFixed(2), sec: +((b - a) / fps).toFixed(2) })) };
 console.log(`frames ${out.frames} @ ${fps} fps · threshold mean|Δ| < ${thr}`);
 console.log(`near-static frames: ${(share * 100).toFixed(2)} %  ·  longest static stretch: ${longest.toFixed(2)} s  ·  mean |Δ| ${mean.toFixed(2)}  ·  min ${out.minDiff.toFixed(3)}  ·  5th pct ${out.p05Diff.toFixed(3)}`);

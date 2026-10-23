@@ -55,11 +55,11 @@ export default async function (T, R) {
   };
   // ---------------------------------------------------------------- take A: the night sea and the lab (0 → the line)
   K.flare = K.c0 - .56; K.open0 = K.c0 - .3; K.open1 = K.c0 + .04;
-  const aZ = track([[0, 1.0], [K.begun + .9, 2.3], [K.and - .35, 2.42], [K.people, .1], [K.people + .9, -3.4], [K.already - .5, -5.7], [K.inIt - .2, -6.0], [K.flare + .08, -.55]]);
+  const aZ = track([[0, .35, .8], [K.begun + .9, 2.3], [K.and - .35, 2.42], [K.people, .1], [K.people + .9, -3.4], [K.already - .5, -5.7], [K.inIt - .2, -6.0], [K.flare + .08, -.55]]);
   const aY = track([[0, FLOOR + 1.65], [K.and - .35, FLOOR + 1.65], [K.already - .5, FLOOR + 1.98], [K.inIt - .2, FLOOR + 2.0], [K.flare + .08, FLOOR + 1.62]]);
-  const aYaw = track([[0, -.135], [K.begun + .9, -.15], [K.and - .35, -.15], [K.already - .5, -.012], [K.flare + .08, 0]]);
+  const aYaw = track([[0, -.185, .06], [K.begun + .9, -.15], [K.and - .35, -.15], [K.already - .5, -.012], [K.flare + .08, 0]]);
   const aPitch = track([[0, .045], [K.and - .35, .04], [K.already - .5, .075], [K.inIt - .2, .072], [K.flare + .08, .035]]);
-  const aF = trackLog([[0, 1400], [K.begun + .9, 1720], [K.and - .35, 1760], [K.already - .5, 1260], [K.inIt - .2, 1240], [K.flare + .08, 1480]]);
+  const aF = trackLog([[0, 1340, 0], [K.begun + .9, 1720], [K.and - .35, 1760], [K.already - .5, 1260], [K.inIt - .2, 1240], [K.flare + .08, 1480]]);
   const camA = (t) => camera({ x: .02, y: aY(t), z: aZ(t), yaw: aYaw(t), pitch: aPitch(t), F: aF(t) });
   const LIGHT = { az: .035, el: .0022 };
   const lightState = (t) => ({
@@ -130,22 +130,23 @@ export default async function (T, R) {
   const B1 = behind(K.up1, 11), B2 = behind(K.pan0, 9.8), B3 = behind(K.pan1, 9.6), B4 = behind(K.hd1, 9.2);
   const RZ = { x: B4[0] + 42 * Math.sin(1.2), z: B4[1] + 42 * Math.cos(1.2), R: 14 };
   const CR = [RZ.x - 34 * Math.sin(1.2), RZ.z - 34 * Math.cos(1.2)];
-  const cXc = track([[K.sw, 1.0], [K.drift + .7, 1.3], [K.some2, 1.6], [K.navigate + .2, 6.0], [K.cr0, 6.3], [K.cr1, 7.2], [K.up0, 7.6], [K.up1, B1[0]], [K.pan0, B2[0]], [K.pan1, B3[0]], [K.hd1, B4[0]], [K.ours0, B4[0] + .3], [K.ours1, CR[0]]]);
-  const cZc = track([[K.sw, 9.5], [K.drift + .7, 10.0], [K.some2, 10.3], [K.navigate + .2, 12.0], [K.cr0, 12.3], [K.cr1, 15.2], [K.up0, 15.6], [K.up1, B1[1]], [K.pan0, B2[1]], [K.pan1, B3[1]], [K.hd1, B4[1]], [K.ours0, B4[1] + .3], [K.ours1, CR[1]]]);
-  const cYc = track([[K.sw, 2.3], [K.drift + .7, 2.2], [K.some2, 2.2], [K.navigate + .2, 2.35], [K.cr0, 2.5], [K.cr1, 36], [K.up0, 37], [K.up1, 3.1], [K.pan0, 3.0], [K.pan1, 3.1], [K.hd1, 3.6], [K.ours0, 3.7], [K.ours1, 24]]);
-  const cYawc = track([[K.sw, 0], [K.drift + .7, .02], [K.some2, .04], [K.navigate + .2, .5], [K.cr0, .56], [K.cr1, NAVH], [K.up1, NAVH], [K.pan0, NAVH + .02], [K.pan1, 1.58], [K.hd0, 1.56], [K.hd1, 1.2], [K.ours1, 1.2]]);
+  const cXc = track([[K.sw, 1.0], [K.drift + .7, 1.3], [K.some2, 1.6], [K.navigate + .2, 6.0], [K.cr0, 6.3], [K.cr1, 7.2], [K.up0, 7.6], [K.up1, B1[0]], [K.pan0, B2[0]], [K.pan1, B3[0]], [K.hd1, B4[0]], [K.ours0, B4[0] + .3], [K.ours1, CR[0], 3.2]]);
+  const cZc = track([[K.sw, 9.5], [K.drift + .7, 10.0], [K.some2, 10.3], [K.navigate + .2, 12.0], [K.cr0, 12.3], [K.cr1, 15.2], [K.up0, 15.6], [K.up1, B1[1]], [K.pan0, B2[1]], [K.pan1, B3[1]], [K.hd1, B4[1]], [K.ours0, B4[1] + .3], [K.ours1, CR[1], 3.4]]);
+  const cYc = track([[K.sw, 2.3], [K.drift + .7, 2.2], [K.some2, 2.2], [K.navigate + .2, 2.35], [K.cr0, 2.5], [K.cr1, 39], [K.up0, 33], [K.up1, 3.1], [K.pan0, 3.0], [K.pan1, 3.1], [K.hd1, 3.6], [K.ours0, 3.7], [K.ours1, 24]]);
+  const cYawc = track([[K.sw, 0], [K.drift + .7, .02], [K.some2, .04], [K.navigate + .2, .5], [K.cr0, .56], [K.cr1, NAVH - .3], [K.up0, NAVH - .06], [K.up1, NAVH - .03], [K.pan0, NAVH + .04], [K.pan1, 1.58], [K.hd0, 1.63], [K.hd1, 1.2], [K.ours0, 1.12], [K.ours1, 1.2]]);
   const cPitchc = track([[K.sw, -.6], [K.drift + .55, .07], [K.some2, .075], [K.navigate + .2, .07], [K.cr0, .07], [K.cr1, 1.5], [K.up0, 1.5], [K.up1, .03], [K.pan0, .035], [K.pan1, .03], [K.hd0, .03], [K.hd1, .1], [K.ours0, .11], [K.ours1, .62]]);
   const cFc = trackLog([[K.sw, 1400], [K.drift + .7, 1400], [K.cr0, 1400], [K.cr1, 1150], [K.up0, 1150], [K.up1, 1400], [K.ours1, 1400]]);
   // take D (the canoe): the flight over the rose, then the camera rides with the canoe (canoe-relative keys)
-  K.fl0 = K.fifty - .12; K.T0 = K.canoe + .25; K.cv = 2.2; const CH = 1.5, D1 = .05;
+  K.fl0 = K.ours1; K.T0 = K.canoe + .25; K.cv = 2.2; const CH = 1.5, D1 = .05;
   const PF = [RZ.x + 110 * Math.sin(.75), RZ.z + 110 * Math.cos(.75)], K0 = [PF[0] + 27 * Math.sin(D1), PF[1] + 27 * Math.cos(D1)];
   const KC = (t) => ({ x: K0[0] + K.cv * (t - K.T0) * Math.sin(CH), z: K0[1] + K.cv * (t - K.T0) * Math.cos(CH), head: CH });
-  const flX = track([[K.ours1, CR[0]], [K.fl0, CR[0] + .6], [K.T0, PF[0]]]), flZ = track([[K.ours1, CR[1]], [K.fl0, CR[1] + .3], [K.T0, PF[1]]]);
-  const flY = track([[K.ours1, 24], [K.fl0, 24.2], [K.T0, 3.4]]), flYaw = track([[K.ours1, 1.2], [K.fl0, 1.2], [K.T0, D1]]), flP = track([[K.ours1, .62], [K.fl0, .6], [K.T0, .025]]);
+  const flX = track([[K.fl0, CR[0], 3.2], [K.T0, PF[0]]]), flZ = track([[K.fl0, CR[1], 3.4], [K.T0, PF[1]]]);
+  const flY = track([[K.fl0, 24], [K.fl0 + .5, 24.6], [K.T0, 3.4]]), flYaw = track([[K.fl0, 1.2], [K.T0, D1]]), flP = track([[K.fl0, .62], [K.T0, .025]]);
   // canoe-relative: [t, distance from the canoe centre, azimuth from the camera to the canoe, height, yaw, pitch, F]
-  K.pan0 = K.arrived - .25; K.pan1 = K.arrived + 1.3; K.up0b = K.how - .1; K.up1b = K.compass + .1;
-  const RK = [[K.T0, 27, D1, 3.0, D1, .02, 1400], [K.noMap - .3, 30, .02, 3.2, .01, .025, 1400], [K.pan0, 31, 0, 3.3, 0, .025, 1400], [K.pan1, 25, .55, 3.5, .95, .03, 1400], [K.up0b, 24.5, .6, 3.6, 1.0, .035, 1400], [K.up1b, 24, 1.05, 9, 1.05, .26, 1200], [K.end, 24, 1.3, 9.4, 1.3, .27, 1200]];
-  const rk = [1, 2, 3, 4, 5, 6].map((i) => track(RK.map((k) => [k[0], k[i]])));
+  K.pan0 = K.arrived - .5; K.pan1 = K.arrived + 1.5; K.up0b = K.how - .1; K.up1b = K.compass + .1;
+  const RK = [[K.T0, 27, D1, 3.0, D1, .02, 1400], [K.noMap - .3, 29, -.14, 3.4, -.15, .025, 1400], [K.pan0, 28, -.26, 3.0, -.24, .025, 1400], [K.pan1, 25, .55, 3.5, .95, .03, 1400], [K.up0b, 24.5, .62, 3.6, 1.0, .035, 1400], [K.up1b, 24, .88, 9, 1.02, .26, 1200], [K.end, 18.5, 1.27, 6.2, 1.34, .2, 1250]];
+  const ENDS = { 1: -.45, 2: .065, 4: .065 };   // the closing orbit keeps going through the last frame
+  const rk = [1, 2, 3, 4, 5, 6].map((i) => track(RK.map((k, j) => (j === RK.length - 1 && ENDS[i] != null ? [k[0], k[i], ENDS[i]] : [k[0], k[i]]))));
   const camC = (t) => {
     if (t < K.fl0) return camera({ x: cXc(t), y: cYc(t), z: cZc(t), yaw: cYawc(t), pitch: cPitchc(t), F: cFc(t) });
     if (t < K.T0) return camera({ x: flX(t), y: flY(t), z: flZ(t), yaw: flYaw(t), pitch: flP(t), F: 1400 });
@@ -172,6 +173,7 @@ export default async function (T, R) {
     if (rA > 0) for (const b of ROSEB) { const p = C.P(RZ.x + Math.sin(b.th) * b.rr, 1.2, RZ.z + Math.cos(b.th) * b.rr); if (p && p[0] > -50 && p[0] < 1970) glints.push({ x: p[0], y: p[1] + p[2] * 1.2, col: '#ffb35c', a: .6 * lamps(b), w: 1, spread: .05, fade: 50 + p[2] * 3 }); }
     const KK = KC(t), fireG = t > K.fl0 ? C.P(KK.x + .35 * Math.cos(CH) + 1.2 * Math.sin(CH), 1.6, KK.z - .35 * Math.sin(CH) + 1.2 * Math.cos(CH)) : null;
     if (fireG && fireG[0] > -100 && fireG[0] < 2020 && C.pitch < .45) glints.push({ x: fireG[0], y: C.hy + 2, col: '#ffb35c', a: .9, w: 3, spread: .14, fade: 340 });
+    if (dawn > .02 && C.pitch < .45) { const dp = C.D(...skyDir(1.3, .004)); if (dp && dp[0] > -400 && dp[0] < 2320) glints.push({ x: dp[0], y: dp[1], col: '#ffb88a', a: dawn * 1.1, w: 60, spread: .6 }); }   // the dawn's glitter path
     drawSea(ctx, t, C, { glints, dawn: dawn * .8 });
     drawLight(ctx, t, C, Ls, L);
     if (t > K.pan0 - .4 && lightOn) storm(ctx, t, C, { az: STORMAZ, w: .32, flash: flash(t), fx: -.2, bolt: Math.floor((t - K.storms) * 3) + 11 });
