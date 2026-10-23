@@ -20,7 +20,7 @@
 // | 5.05 | Question three. Is the planet only about carbon?   | the tiles go out, the copper sinks; card III lifts toward us           | the pool         | glide right to card III's 3/4 view     | continuous                         |                         |
 // | 5.06 | This year's planetary health check found seven of  | an engraved Earth medallion slides in; nine brass dials fan out from   | the pool         | rise to a steep view over the ring     | continuous                         | dial (pause)            |
 // |      | nine … crossed. And all seven are getting worse.   | under it; seven needles swing into the red, then creep further.        |                  |                                        |                                    |                         |
-// |      |                                                    | 7 OF 9 · PLANETARY HEALTH CHECK 2026 · PIK / STOCKHOLM RESILIENCE CENTRE |                |                                        |                                    |                         |
+// |      |                                                    | 7 OF 9 · PLANETARY HEALTH CHECK 2026 · POTSDAM INSTITUTE (PIK) |                |                                        |                                    |                         |
 // |      | Fresh water. Land. Wildlife. Nitrogen.             | the spotlight narrows and hops dial to dial; each named dial's icon    | the narrow spot  | follows a little                       | continuous                         |                         |
 // |      |                                                    | inks in (drop, field, deer, leaf)                                      |                  |                                        |                                    |                         |
 // | 5.07 | Clean power helps with some. Not all seven.        | the spot widens and warms a breath: CARBON and OCEANS ease back a      | warm glint       | hold                                   | continuous                         |                         |
@@ -336,7 +336,7 @@ export default async (T, R) => {
     }
     // labels (screen space, still while read; never in the bottom 170 px)
     label(ctx, t, '25 % short', 'COPPER NEEDED BY 2035', 1180, 200, A.quarter - .1, A.and2 + .9, { small2: 'IEA · GLOBAL CRITICAL MINERALS OUTLOOK 2026' });
-    label(ctx, t, '7 of 9', 'PLANETARY BOUNDARIES CROSSED', 130, 200, A.seven + .1, A.fresh - .3, { small2: 'PLANETARY HEALTH CHECK 2026', small3: 'PIK / STOCKHOLM RESILIENCE CENTRE' });
+    label(ctx, t, '7 of 9', 'PLANETARY BOUNDARIES CROSSED', 130, 200, A.seven + .1, A.fresh - .3, { small2: 'PLANETARY HEALTH CHECK 2026', small3: 'POTSDAM INSTITUTE (PIK)' });
     label(ctx, t, '−45 %', 'STATIONARY STORAGE PACK PRICES · 2025', 150, 240, A.fortyfive - .05, A.tesla + .6, { small2: 'BLOOMBERGNEF' });
   }
   const mixPose = (a, b, u) => { const o = {}; for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) { const va = a[k] ?? (Array.isArray(b[k]) ? [.18, .08] : 0), vb = b[k] ?? va; o[k] = Array.isArray(vb) ? vb.map((v, j) => mix(va[j] ?? v, v, u)) : mix(va, vb, u); } return o; };
