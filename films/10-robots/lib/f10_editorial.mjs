@@ -102,39 +102,77 @@ function seg(path, pts, w) { const p = new Path2D(); p.moveTo(pts[0][0], pts[0][
 function chain(path, pts, w0, w1) { for (let i = 0; i < pts.length - 1; i++) path = seg(path, [pts[i], pts[i + 1]], lerp(w0, w1, i / Math.max(1, pts.length - 2))); return path; }
 
 // ---------- the hand of light ----------
-// local units: wrist at (0,0), fingers along +x, palm length 1, index finger on the -y side. Index extended, others curled.
-let HAND = null;
-export function handPath() {
-  if (HAND) return HAND;
-  let p = new Path2D();
-  p.moveTo(-3.4, -.62); p.quadraticCurveTo(-1.6, -.52, -.05, -.38); p.lineTo(-.05, .38); p.quadraticCurveTo(-1.6, .6, -3.4, .78); p.closePath();
-  const palm = new Path2D(); palm.moveTo(-.1, -.38); palm.bezierCurveTo(.35, -.52, .8, -.5, 1.02, -.44); palm.bezierCurveTo(1.12, -.1, 1.1, .2, .98, .42);
-  palm.bezierCurveTo(.6, .5, .25, .5, -.1, .38); palm.closePath(); p = p.op(palm, PathOp.Union);
-  p = chain(p, [[.88, -.33], [1.4, -.38], [1.78, -.4], [2.08, -.4]], .25, .19);    // index, leading
-  p = chain(p, [[.95, -.11], [1.45, -.13], [1.78, -.1], [1.96, -.04]], .24, .19);    // middle
-  p = chain(p, [[.95, .1], [1.36, .11], [1.62, .17], [1.74, .24]], .23, .18);        // ring
-  p = chain(p, [[.88, .29], [1.16, .33], [1.36, .4], [1.44, .46]], .2, .16);         // little
-  p = chain(p, [[.22, -.32], [.55, -.62], [.86, -.8], [1.06, -.86]], .26, .19);      // thumb, spread
-  HAND = p; return p;
+// local units: wrist at (0,0), fingers along +x, palm length 1, index finger on the -y side, seen from the back of the hand.
+// o.pose: 'point' (default: the index leads, the others half curled) · 'open' (all fingers out and spread, offering) ·
+//         'hold' (fingers curled round something small, thumb closing) · 'guide' (index + middle out together, leading)
+// o.curl 0..1 closes the pose toward a fist; o.spread 0..1 overrides the finger spread. Curled fingers are foreshortened
+// (they bend under the hand), so every pose stays a clean silhouette. Paths are cached per pose.
+const HPOSE = {
+  point: { c: [.04, .5, .66, .78, .2], sp: .25 },
+  open: { c: [.06, .04, .07, .1, .08], sp: .85 },
+  hold: { c: [.78, .88, .94, 1, .6], sp: .08 },
+  guide: { c: [.04, .1, .62, .78, .25], sp: .08 },
+};
+const FING = [   // knuckle, base angle, spread angle, phalanx lengths, widths knuckle → tip (index, middle, ring, little, thumb)
+  { b: [.94, -.31], a: -.06, sa: -.15, l: [.46, .3, .23], w: [.26, .22, .19, .15] },
+  { b: [1.0, -.09], a: -.01, sa: -.04, l: [.5, .33, .25], w: [.27, .23, .2, .16] },
+  { b: [.98, .13], a: .05, sa: .09, l: [.45, .3, .22], w: [.25, .21, .18, .14] },
+  { b: [.9, .32], a: .12, sa: .2, l: [.36, .24, .19], w: [.22, .19, .16, .13] },
+  { b: [.32, -.3], a: -.82, sa: -.28, l: [.36, .3, .24], w: [.32, .26, .22, .17] },
+];
+const HANDS = new Map();
+function buildHand(o = {}) {
+  const pose = HPOSE[o.pose] ? o.pose : 'point', ps = HPOSE[pose], sp = clamp(o.spread ?? ps.sp);
+  const cu = ps.c.map((c) => lerp(c, 1, clamp(o.curl ?? 0)));
+  const key = pose + cu.map((c) => c.toFixed(2)).join(',') + sp.toFixed(2);
+  if (HANDS.has(key)) return HANDS.get(key);
+  let p = new Path2D();   // forearm, tapering into a soft wrist
+  p.moveTo(-3.4, -.64); p.bezierCurveTo(-2, -.56, -.6, -.46, -.02, -.37); p.lineTo(-.02, .38); p.bezierCurveTo(-.6, .5, -2, .62, -3.4, .8); p.closePath();
+  const palm = new Path2D();
+  palm.moveTo(-.06, -.37); palm.bezierCurveTo(.3, -.5, .72, -.47, 1.0, -.42); palm.bezierCurveTo(1.12, -.16, 1.12, .18, .98, .41);
+  palm.bezierCurveTo(.62, .53, .24, .5, -.06, .39); palm.bezierCurveTo(-.12, .12, -.12, -.12, -.06, -.37); palm.closePath();
+  p = p.op(palm, PathOp.Union);
+  const thenar = new Path2D(); thenar.ellipse(.36, -.3, .3, .17, -.55, 0, Math.PI * 2); p = p.op(thenar, PathOp.Union);
+  const tips = [];
+  FING.forEach((f, i) => {
+    let ang = f.a + f.sa * sp, x = f.b[0], y = f.b[1], cum = 0; const pts = [[x, y]];
+    for (let k = 0; k < 3; k++) {
+      cum += cu[i] * [.8, 1.05, .95][k];
+      const L = f.l[k] * Math.max(.14, Math.cos(Math.min(cum, 1.45)));
+      ang += (i === 4 ? -.14 : .035 * (i - 1.5)) * (1 - cu[i]);
+      x += Math.cos(ang) * L; y += Math.sin(ang) * L; pts.push([x, y]);
+    }
+    for (let k = 0; k < 3; k++) p = seg(p, [pts[k], pts[k + 1]], lerp(f.w[k], f.w[k + 1], .5) * (1 + .22 * cu[i]));
+    const kn = new Path2D(); kn.arc(pts[1][0], pts[1][1], f.w[1] * .56 * (1 + .25 * cu[i]), 0, Math.PI * 2); p = p.op(kn, PathOp.Union);   // knuckle volume
+    tips.push(pts[3]);
+  });
+  if (HANDS.size > 400) HANDS.clear();
+  const r = { path: p, tips }; HANDS.set(key, r); return r;
 }
-export const HAND_TIP = [2.17, -.4];   // tip of the index finger (local)
+export function handPath(o = {}) { return buildHand(o).path; }
+// local tip of a finger (0 index, 1 middle, 2 ring, 3 little, 4 thumb) for a pose
+export function handTip(o = {}, i = 0) { const t = buildHand(o).tips[i]; return [t[0] + .08, t[1]]; }
+export const HAND_TIP = handTip();   // tip of the index finger in the default pose (local)
 // matrix of the hand: wrist (x,y), angle, palm length L, flip ±1 (mirror across the finger axis)
 export function handMatrix(x, y, ang, L, flip = 1) { const c = Math.cos(ang), s = Math.sin(ang); return { a: c * L, b: s * L, c: -s * L * flip, d: c * L * flip, e: x, f: y }; }
 export const applyM = (m, u, v) => [m.a * u + m.c * v + m.e, m.b * u + m.d * v + m.f];
-// draw it: soft bloom, gradient body (bright toward the fingers, dissolving toward the arm), silhouette glow, dust
+// draw it: saturated blue aura, warm rim, gradient body (white-gold core in the palm, gold toward the edges, fading up the arm),
+// soft inner edge for volume, stipple dust. o: { a, pose, curl, spread, dust }
 export function lightHand(ctx, m, t, o = {}) {
-  const path = new Path2D(); path.addPath(handPath(), m);
-  const a = o.a ?? 1, [cx, cy] = applyM(m, 1.1, -.1), L = Math.hypot(m.a, m.b);
-  glowFill(ctx, path, L * .7, .75 * a, P.blue0);      // the light lifts the night to a saturated blue
-  glowFill(ctx, path, L * .1, .55 * a, P.halo1);      // narrow warm rim
-  ctx.save(); ctx.globalAlpha = a; ctx.filter = `blur(${L * .01}px)`;
-  ctx.fillStyle = rad(ctx, cx, cy, L * 3.2, [[0, P.core0], [.1, P.core1], [.24, P.halo0], [.5, rgba(P.halo1, .95)], [.78, rgba(P.halo1, .5)], [1, rgba(P.blue0, 0)]]);
+  const path = new Path2D(); path.addPath(handPath(o), m);
+  const a = o.a ?? 1, [cx, cy] = applyM(m, 1.05, -.05), L = Math.hypot(m.a, m.b);
+  glowFill(ctx, path, L * 1.5, .55 * a, P.blue0);     // wide saturated blue
+  glowFill(ctx, path, L * .55, .95 * a, P.blue0);     // the light lifts the night to blue
+  glowFill(ctx, path, L * .09, .6 * a, P.halo0);      // narrow warm rim
+  ctx.save(); ctx.globalAlpha = a; ctx.filter = `blur(${L * .012}px)`;
+  ctx.fillStyle = rad(ctx, cx, cy, L * 3.1, [[0, P.core0], [.1, P.core0], [.22, P.core1], [.4, P.halo0], [.62, rgba(P.halo0, .9)], [.82, rgba(P.halo1, .45)], [1, rgba(P.blue0, 0)]]);
   ctx.fill(path); ctx.restore();
-  // a little form: the back of the hand a touch warmer, the finger edge brightest
-  ctx.save(); ctx.clip(path); ctx.globalAlpha = .35 * a;
-  const [sx, sy] = applyM(m, .5, .55), [ex, ey] = applyM(m, .6, -.4);
-  ctx.fillStyle = lin(ctx, sx, sy, ex, ey, [[0, rgba(P.shade0, .9)], [.6, rgba(P.halo1, 0)]]); ctx.fill(path); ctx.restore();
-  dust(ctx, 41, 9000, cx, cy, L * 1.15, L * .8, t, a, P.halo1, Math.atan2(m.b, m.a));
+  // volume: a soft darker gold just inside the edge, and the back of the hand a touch warmer on the far side
+  ctx.save(); ctx.clip(path); ctx.globalAlpha = .5 * a; ctx.filter = `blur(${L * .05}px)`;
+  ctx.strokeStyle = rgba(P.shade0, .55); ctx.lineWidth = L * .1; ctx.stroke(path); ctx.filter = 'none';
+  const [sx, sy] = applyM(m, .5, .6), [ex, ey] = applyM(m, .6, -.3);
+  ctx.globalAlpha = .3 * a; ctx.fillStyle = lin(ctx, sx, sy, ex, ey, [[0, rgba(P.shade0, .9)], [.7, rgba(P.halo1, 0)]]); ctx.fill(path); ctx.restore();
+  dust(ctx, 41, o.dust ?? 9000, cx, cy, L * 1.2, L * .85, t, a, P.halo0, Math.atan2(m.b, m.a));
 }
 
 // ---------- light trail (die Spur) ----------
@@ -170,101 +208,171 @@ export function trail(ctx, pts, u = 1, o = {}) {
   return head;
 }
 
-// ---------- the figure "du" ----------
-// The viewer. Small, faceless, yellow raincoat with hood, dark head. Built from joints so it can walk, lift and look up.
-//   o.dir ±1 facing, o.walk phase (radians) or null, o.armR / o.armL = [shoulder, elbow] angles from straight down (+ = forward),
-//   o.look 0..1 head up, o.light ±1 light side on screen, o.back 0..1 backlight (coat goes to shadow, rim stays), o.headset, o.cup 'R'
-//   returns the screen positions of both hands (for trails and cups).
+// ---------- figures: "du" (the viewer: yellow raincoat with hood) and person() (everyone else: indigo, no yellow) ----------
+// Small, faceless silhouettes built from joints. Shared options:
+//   o.pose 'stand' · 'look' (up at the light) · 'lift' (both arms overhead) · 'point' · 'reach' (one arm up) · 'hold' (cup at chest)
+//          · 'walk' (side view, needs o.walk phase) · 'sit' (crouched on the ground, arms round the knees)
+//   o.dir ±1 facing, o.walk phase (radians), o.armR / o.armL = [shoulder, elbow] angles from straight down (+ = forward),
+//   o.look 0..1 head up, o.lean (rad, + forward), o.light ±1 light side on screen, o.back 0..1 backlight, o.view 'back' | 'side',
+//   o.headset, o.cup 'R' | 'L', o.hood (du: hood up). Explicit values override the pose. Returns both hands {R, L} in the caller's space.
 export const COAT = { base: P.coat, lit: mixHex(P.coat, P.core1, .45), shade: mixHex(P.coat, P.shade0, .62), deep: mixHex(P.coat, P.night1, .55) };
-export function du(ctx, x, y, h, o = {}) {
-  const dir = o.dir ?? 1, L = (o.light ?? 1) * dir, back = o.back ?? 0, look = o.look ?? 0;
-  const ph = o.walk, sw = ph == null ? 0 : Math.sin(ph);
-  const armR = o.armR || [.2, .1], armL = o.armL || [-.2, -.1];
+const PERSON = { base: P.ind2, lit: mixHex(P.ind2, P.blue0, .85), shade: P.night1, deep: P.night0 };
+const FPOSE = {
+  stand: {}, look: { look: 1, lean: -.03 }, lift: { armR: [2.92, 3.08], armL: [-2.92, -3.08], look: .5 },
+  point: { armR: [1.85, 1.92], look: .25, lean: .02 }, reach: { armR: [2.5, 2.62], look: .85 },
+  hold: { armR: [.75, 2.35] }, walk: { view: 'side' }, sit: { sit: true },
+};
+const SKIN = mixHex(P.shade0, P.night1, .35);
+function figure(ctx, x, y, h, o, CC, isDu) {
+  const q = { ...(FPOSE[o.pose] || {}) }; for (const [k, v] of Object.entries(o)) if (v !== undefined) q[k] = v;
+  const dir = q.dir ?? 1, L = (q.light ?? 1) * dir, back = q.back ?? 0, look = q.look ?? 0, lean = q.lean ?? 0;
+  const ph = q.walk, walking = ph != null, side = q.view === 'side' || (walking && q.view !== 'back');
+  const sw = walking ? Math.sin(ph) : 0, wf = side ? .74 : 1, hm = CC.hem;
+  const cLit = mixHex(CC.lit, CC.shade, back), cShade = mixHex(CC.shade, CC.deep, back * .6);
+  const rimCol = q.rim || (isDu ? mixHex(P.coat, P.core1, .75) : P.blue0);
+  const hands = {}, hip = [0, -.47];
+  const toCaller = (u, v) => { const c = Math.cos(lean), s = Math.sin(lean), du0 = u - hip[0], dv = v - hip[1]; const uu = hip[0] + du0 * c - dv * s, vv = hip[1] + du0 * s + dv * c; return [x + h * dir * uu, y + h * vv]; };
+  const cap = (pts, w0, w1, col) => { ctx.strokeStyle = col; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; for (let i = 0; i < pts.length - 1; i++) { ctx.lineWidth = lerp(w0, w1, i / Math.max(1, pts.length - 2)); ctx.beginPath(); ctx.moveTo(...pts[i]); ctx.lineTo(...pts[i + 1]); ctx.stroke(); } };
+  const rimFill = (path, col, dx, dy) => { const sh = new Path2D(); sh.addPath(path, { a: 1, b: 0, c: 0, d: 1, e: dx, f: dy }); ctx.fillStyle = col; ctx.fill(new Path2D(path).op(sh, PathOp.Difference)); };
   ctx.save(); ctx.translate(x, y); ctx.scale(h * dir, h);
-  // ground shadow, away from the light
   ctx.fillStyle = rgba(P.night0, .6); ctx.beginPath(); ctx.ellipse(-L * .2, 0, .3, .022, 0, 0, 6.29); ctx.fill();
-  const cap = (pts, w, col) => { ctx.strokeStyle = col; ctx.lineWidth = w; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.beginPath(); ctx.moveTo(...pts[0]); for (const q of pts.slice(1)) ctx.lineTo(...q); ctx.stroke(); };
-  // legs (navy trousers, dark shoes)
+  const pants = isDu ? P.ind1 : P.night1, pantsLit = mixHex(pants, P.blue1, .45);
+  if (q.sit) {   // crouched on the ground, arms round the knees, head down
+    cap([[-.04, -.12], [.13, -.36], [.17, -.03]], .09, .075, pants);
+    ctx.fillStyle = P.night0; ctx.beginPath(); ctx.ellipse(.2, -.018, .055, .024, 0, 0, 6.29); ctx.fill();
+    const cp = new Path2D(); cp.moveTo(-.02, -.66); cp.bezierCurveTo(-.13, -.64, -.19, -.48, -.2, -.3); cp.bezierCurveTo(-.21, -.15, -.24, -.06, -.25, -.006);
+    cp.lineTo(.02, -.006); cp.bezierCurveTo(.06, -.1, .07, -.3, .06, -.42); cp.bezierCurveTo(.06, -.55, .05, -.63, -.02, -.66); cp.closePath();
+    ctx.fillStyle = lin(ctx, -.25 * L, 0, .08 * L, 0, [[0, cShade], [.55, CC.base], [1, cLit]]); ctx.fill(cp); rimFill(cp, rimCol, -L * .018, .01);
+    if (isDu) { ctx.fillStyle = cShade; ctx.beginPath(); ctx.ellipse(-.03, -.63, .08, .05, -.4, 0, 6.29); ctx.fill(); }
+    ctx.fillStyle = isDu ? P.ind2 : P.night0; ctx.beginPath(); ctx.ellipse(.07, -.6, .066, .07, .5, 0, 6.29); ctx.fill();
+    cap([[.0, -.56], [.17, -.43], [.13, -.31]], .07, .058, mixHex(CC.base, cLit, .4));
+    ctx.fillStyle = SKIN; ctx.beginPath(); ctx.arc(.13, -.31, .03, 0, 6.29); ctx.fill();
+    ctx.restore(); const hh = [x + h * dir * .13, y - h * .31]; return { R: hh, L: hh };
+  }
+  // legs (trousers, shoes pointing where you go)
   const leg = (hx, a, k, col) => {
-    const kn = [hx + Math.sin(a) * .23, -.44 + Math.cos(a) * .22], ft = [kn[0] + Math.sin(a - k) * .21, kn[1] + Math.cos(a - k) * .21];
-    cap([[hx, -.44], kn, ft], .068, col);
-    ctx.fillStyle = P.night0; ctx.beginPath(); ctx.ellipse(ft[0] + .03, ft[1] - .005, .05, .024, 0, 0, 6.29); ctx.fill();
+    const kn = [hx + Math.sin(a) * .22, -.45 + Math.cos(a) * .22], ft = [kn[0] + Math.sin(a - k) * .21, kn[1] + Math.cos(a - k) * .21];
+    cap([[hx, -.45], kn, ft], .075, .062, col);
+    ctx.fillStyle = P.night0; ctx.beginPath(); ctx.ellipse(ft[0] + (side ? .035 : .015), ft[1] - .006, side ? .058 : .046, .024, 0, 0, 6.29); ctx.fill();
   };
-  const a1 = ph == null ? .03 : .36 * sw, k1 = ph == null ? 0 : Math.max(0, Math.sin(ph + 1.7)) * .55, k2 = ph == null ? 0 : Math.max(0, Math.sin(ph + 1.7 + Math.PI)) * .55;
-  leg(-.04, -a1, k2, P.ind1); leg(.04, a1, k1, mixHex(P.ind1, P.blue1, .35));
-  // arms: sleeve (coat), hand
-  const hands = {};
-  const arm = (side, [s1, s2], col) => {
-    const sx = side * .095, sy = -.735, el = [sx + Math.sin(s1) * .17, sy + Math.cos(s1) * .17], hd = [el[0] + Math.sin(s2) * .16, el[1] + Math.cos(s2) * .16];
-    cap([[sx, sy], el, hd], .062, col);
-    ctx.fillStyle = mixHex(P.shade0, P.night1, .25); ctx.beginPath(); ctx.arc(hd[0], hd[1], .03, 0, 6.29); ctx.fill();
-    hands[side > 0 ? 'R' : 'L'] = [x + h * dir * hd[0], y + h * hd[1]];   // in the caller's space
-    if (o.cup === (side > 0 ? 'R' : 'L')) { ctx.fillStyle = P.cream; ctx.beginPath(); ctx.moveTo(hd[0] - .036, hd[1] - .075); ctx.lineTo(hd[0] + .036, hd[1] - .075); ctx.lineTo(hd[0] + .028, hd[1] - .005); ctx.lineTo(hd[0] - .028, hd[1] - .005); ctx.closePath(); ctx.fill(); }
+  const a1 = walking ? .4 * sw : .03, k1 = walking ? Math.max(0, Math.sin(ph + 1.7)) * .6 : 0, k2 = walking ? Math.max(0, Math.sin(ph + 1.7 + Math.PI)) * .6 : 0;
+  const lx = side ? .012 : .045;
+  leg(-lx, -a1, k2, pants); leg(lx, a1, k1, pantsLit);
+  // upper body: lean around the hip
+  ctx.translate(hip[0], hip[1]); ctx.rotate(lean); ctx.translate(-hip[0], -hip[1]);
+  let armR = q.armR || [.2, .1], armL = q.armL || [-.2, -.1];
+  if (walking && !o.armR) armR = [-.42 * sw, -.42 * sw + .3];
+  if (walking && !o.armL) armL = [.42 * sw, .42 * sw + .3];
+  const arm = (sd, [s1, s2], col) => {
+    const sx = sd * .098 * wf + (side ? -.01 : 0), sy = -.74, el = [sx + Math.sin(s1) * .17, sy + Math.cos(s1) * .17], hd = [el[0] + Math.sin(s2) * .155, el[1] + Math.cos(s2) * .155];
+    cap([[sx, sy], el, hd], .072, .056, col);
+    ctx.fillStyle = SKIN; ctx.beginPath(); ctx.ellipse(hd[0] + Math.sin(s2) * .012, hd[1] + Math.cos(s2) * .012, .028, .032, -s2, 0, 6.29); ctx.fill();
+    hands[sd > 0 ? 'R' : 'L'] = toCaller(hd[0], hd[1]);
+    if (q.cup === (sd > 0 ? 'R' : 'L')) { ctx.fillStyle = P.cream; ctx.beginPath(); ctx.moveTo(hd[0] - .036, hd[1] - .075); ctx.lineTo(hd[0] + .036, hd[1] - .075); ctx.lineTo(hd[0] + .028, hd[1] - .005); ctx.lineTo(hd[0] - .028, hd[1] - .005); ctx.closePath(); ctx.fill(); }
   };
-  const coatL = mixHex(COAT.lit, COAT.shade, back), coatS = mixHex(COAT.shade, COAT.deep, back);
-  arm(-1, armL, coatS);
-  // coat: A-line from the shoulders, hem swings with the walk
-  const hem = .2 + .012 * Math.abs(sw), swing = .02 * sw;
-  ctx.beginPath(); ctx.moveTo(-.1, -.77); ctx.quadraticCurveTo(-.135, -.72, -.13, -.6);
-  ctx.lineTo(-.175 + swing, -hem); ctx.quadraticCurveTo(0, -hem + .028, .175 + swing, -hem - .006);
-  ctx.lineTo(.13, -.6); ctx.quadraticCurveTo(.135, -.72, .1, -.77); ctx.quadraticCurveTo(0, -.8, -.1, -.77); ctx.closePath();
-  ctx.fillStyle = lin(ctx, -.18 * L, 0, .18 * L, 0, [[0, coatS], [.5, mixHex(P.coat, coatS, back * .7)], [1, coatL]]); ctx.fill();
-  ctx.save(); ctx.clip();
-  ctx.fillStyle = rgba(COAT.deep, .28); ctx.beginPath(); ctx.moveTo(-.02, -.62); ctx.quadraticCurveTo(-.01, -.4, -.06 + swing, -hem); ctx.lineTo(.02 + swing, -hem); ctx.quadraticCurveTo(.015, -.42, .0, -.62); ctx.fill();  // fold
-  ctx.fillStyle = lin(ctx, 0, -.5, 0, -.18, [[0, rgba(COAT.deep, 0)], [1, rgba(COAT.deep, .35)]]); ctx.fillRect(-.3, -.6, .6, .5);
-  if (back > 0) { ctx.strokeStyle = rgba(P.core1, .8 * back); ctx.lineWidth = .02; ctx.stroke(); }
+  arm(-1, armL, cShade);
+  // the coat: rounded shoulders, A-line, a hem that swings with the walk
+  const s2 = walking ? -.025 * sw - .02 : 0, yA = lerp(-.52, -hm, .4), yB = lerp(-.52, -hm, .75), fl = lerp(.135, .19, clamp((.47 - hm) / .27));
+  const cp = new Path2D(), ox = side ? -.012 : 0;
+  cp.moveTo(ox - .05 * wf, -.805); cp.bezierCurveTo(ox - .09 * wf, -.8, ox - .122 * wf, -.78, ox - .124 * wf, -.735);
+  cp.bezierCurveTo(ox - .13 * wf, -.66, ox - .132 * wf, -.58, ox - .135 * wf, -.52);
+  cp.bezierCurveTo(ox - .148 * wf, yA, ox - (fl - .02) * wf + s2, yB, ox - fl * wf + s2, -hm);
+  cp.bezierCurveTo(ox - .1 * wf + s2, -hm + .02, ox + .05 * wf + s2, -hm + .008, ox + fl * wf + s2 * 1.2, -hm - .006);
+  cp.bezierCurveTo(ox + (fl - .02) * wf + s2, yB, ox + .148 * wf, yA, ox + .135 * wf, -.52);
+  cp.bezierCurveTo(ox + .132 * wf, -.58, ox + .13 * wf, -.66, ox + .124 * wf, -.735);
+  cp.bezierCurveTo(ox + .122 * wf, -.78, ox + .09 * wf, -.8, ox + .05 * wf, -.805); cp.quadraticCurveTo(ox, -.815, ox - .05 * wf, -.805); cp.closePath();
+  ctx.fillStyle = lin(ctx, -.19 * L, 0, .19 * L, 0, [[0, cShade], [.42, CC.base], [.8, mixHex(CC.base, cLit, .7)], [1, cLit]]); ctx.fill(cp);
+  ctx.save(); ctx.clip(cp);
+  ctx.fillStyle = rgba(CC.deep, .32); ctx.beginPath(); ctx.moveTo(-.03 * L, -.55); ctx.quadraticCurveTo(-.05 * L, -.35, (-.1 * L) + s2, -hm); ctx.lineTo((-.045 * L) + s2, -hm); ctx.quadraticCurveTo(-.03 * L, -.38, -.02 * L, -.55); ctx.fill();   // fold
+  ctx.fillStyle = rgba(CC.deep, .2); ctx.beginPath(); ctx.moveTo(.05 * L, -.5); ctx.quadraticCurveTo(.07 * L, -.33, (.12 * L) + s2, -hm); ctx.lineTo((.085 * L) + s2, -hm); ctx.quadraticCurveTo(.06 * L, -.34, .055 * L, -.5); ctx.fill();
+  ctx.fillStyle = lin(ctx, 0, -.52, 0, -hm, [[0, rgba(CC.deep, 0)], [1, rgba(CC.deep, .3)]]); ctx.fillRect(-.3, -.55, .6, .5);
+  ctx.fillStyle = lin(ctx, 0, -.8, 0, -.66, [[0, rgba(cLit, .35)], [1, rgba(cLit, 0)]]); ctx.fillRect(-.3, -.82, .6, .2);   // light on the shoulders
   ctx.restore();
-  // hood (behind the head) and the head (dark, no face)
-  const hx = -.012 * look, hy = -.885 - .008 * look;
-  ctx.fillStyle = coatS; ctx.beginPath(); ctx.ellipse(.0, -.8, .088, .048, 0, 0, 6.29); ctx.fill();
-  ctx.fillStyle = mixHex(coatS, P.coat, .4); ctx.beginPath(); ctx.ellipse(-.018 - .01 * look, -.835, .08, .06, -.3, 0, 6.29); ctx.fill();
-  ctx.fillStyle = P.ind2; ctx.beginPath(); ctx.ellipse(hx, hy, .066, .074 - .01 * look, look * -.35, 0, 6.29); ctx.fill();
-  ctx.fillStyle = rgba(P.blue1, .55); ctx.beginPath(); ctx.ellipse(hx + .03 * L, hy - .01, .028, .05, look * -.35, 0, 6.29); ctx.fill();   // light on the hair
-  if (o.headset) {
+  rimFill(cp, rimCol, -L * .02, .012);
+  if (back > .05) rimFill(cp, rgba(P.core1, .8 * back), L * .016, .01);
+  // hood (down, bunched round the neck) or up; then the head (dark, no face)
+  const hx = (side ? .012 : 0) - .012 * look, hy = -.885 - .008 * look;
+  if (isDu) {
+    const hp = new Path2D(); hp.ellipse(ox - .004, -.8, .088 * wf + .012, .05, 0, 0, 6.29); hp.ellipse(ox - .02 - .012 * look - (side ? .025 : 0), -.835, .078, .062, -.3, 0, 6.29);
+    ctx.fillStyle = lin(ctx, -.1 * L, 0, .1 * L, 0, [[0, cShade], [1, mixHex(CC.base, cLit, .5)]]); ctx.fill(hp); rimFill(hp, rimCol, -L * .014, .008);
+  } else { ctx.fillStyle = CC.shade; ctx.beginPath(); ctx.ellipse(ox, -.8, .05, .03, 0, 0, 6.29); ctx.fill(); }
+  ctx.fillStyle = isDu ? P.ind2 : P.night0; ctx.beginPath(); ctx.ellipse(hx, hy, .066, .074 - .01 * look, look * -.35, 0, 6.29); ctx.fill();
+  ctx.fillStyle = rgba(P.blue1, .55); ctx.beginPath(); ctx.ellipse(hx + .03 * L, hy - .012, .026, .048, look * -.35, 0, 6.29); ctx.fill();   // light on the hair
+  if (isDu && q.hood) {
+    const hu = new Path2D(); hu.ellipse(hx - .004, hy + .004, .082, .088, look * -.35, 0, 6.29);
+    ctx.fillStyle = lin(ctx, -.09 * L, 0, .09 * L, 0, [[0, cShade], [1, cLit]]); ctx.fill(hu); rimFill(hu, rimCol, -L * .014, .008);
+  }
+  if (q.headset) {
     ctx.strokeStyle = P.cream; ctx.lineWidth = .014; ctx.beginPath(); ctx.arc(hx, hy + .004, .075, Math.PI * 1.08, Math.PI * 1.95); ctx.stroke();
     ctx.fillStyle = P.blue2; ctx.beginPath(); ctx.ellipse(hx + .058, hy + .012, .022, .032, 0, 0, 6.29); ctx.fill();
     ctx.strokeStyle = P.cream; ctx.lineWidth = .008; ctx.stroke();
   }
-  arm(1, armR, mixHex(P.coat, coatL, .5));
+  arm(1, armR, mixHex(CC.base, cLit, .55));
   ctx.restore();
   return hands;
 }
+export function du(ctx, x, y, h, o = {}) { return figure(ctx, x, y, h, o, { ...COAT, hem: .2 }, true); }
+// everyone else: same skeleton in indigo (short jacket by default, o.long for a coat), rim light in blue (o.rim to change)
+export function person(ctx, x, y, h, o = {}) { return figure(ctx, x, y, h, o, { ...PERSON, hem: o.long ? .22 : .44 }, false); }
 
-// ---------- robot: plain silhouette, no face, readable joints ----------
-//   o.armR / o.armL / o.legs as in du (angles from straight down), o.light ±1, o.rim colour, o.body colour, o.cup, o.dir
+// ---------- robot: its own silhouette (helmet head, broad chest plate, armoured limbs), no face, no logo ----------
+//   o.pose 'stand' · 'reach' (right arm up) · 'lift' (both arms up) · 'point' · 'walk' (needs o.walk phase)
+//   o.hand 'hand' (default, mitten with thumb) | 'gripper' (two prongs); o.armR / o.armL / o.walk as in du; o.light ±1, o.dir ±1,
+//   o.rim (rim light colour), o.body, o.seam (panel lines, default rim at .35), o.cup, o.alpha. Returns the hands {R, L}.
+const RPOSE = { stand: {}, reach: { armR: [2.42, 2.5] }, lift: { armR: [2.9, 3.05], armL: [-2.9, -3.05] }, point: { armR: [1.62, 1.62] } };
 function robotPath(o) {
-  const armR = o.armR || [.08, .04], armL = o.armL || [-.06, -.03];
-  let p = new Path2D(); p.ellipse(0, -.945, .072, .07, 0, 0, Math.PI * 2);
-  const t = new Path2D(); t.moveTo(-.03, -.885); t.lineTo(.03, -.885); t.lineTo(.035, -.84); t.lineTo(.15, -.825); t.quadraticCurveTo(.18, -.81, .17, -.75);
-  t.lineTo(.13, -.63); t.lineTo(.095, -.55); t.lineTo(-.095, -.55); t.lineTo(-.13, -.63); t.lineTo(-.17, -.75); t.quadraticCurveTo(-.18, -.81, -.15, -.825); t.lineTo(-.035, -.84); t.closePath();
-  p = p.op(t, PathOp.Union);
-  const pel = new Path2D(); pel.roundRect(-.105, -.575, .21, .1, .035); p = p.op(pel, PathOp.Union);
-  const J = { };
+  const pr = RPOSE[o.pose] || {}, armR = o.armR || pr.armR || [.1, .05], armL = o.armL || pr.armL || [-.1, -.05];
+  const ph = o.walk, a1 = ph == null ? 0 : .32 * Math.sin(ph), kA = ph == null ? 0 : Math.max(0, Math.sin(ph + 1.7)) * .5, kB = ph == null ? 0 : Math.max(0, Math.sin(ph + 1.7 + Math.PI)) * .5;
+  const U = (q, r) => q.op(r, PathOp.Union);
+  let p = new Path2D(); p.ellipse(0, -.945, .08, .072, 0, 0, Math.PI * 2);                          // helmet dome
+  const chin = new Path2D(); chin.roundRect(-.066, -.95, .132, .075, [0, 0, .035, .035]); p = U(p, chin);
+  const neck = new Path2D(); neck.rect(-.032, -.885, .064, .045); p = U(p, neck);
+  const ch = new Path2D(); ch.moveTo(-.06, -.86); ch.bezierCurveTo(-.12, -.86, -.17, -.85, -.178, -.8); ch.bezierCurveTo(-.185, -.74, -.15, -.68, -.1, -.63);
+  ch.lineTo(-.08, -.6); ch.lineTo(.08, -.6); ch.lineTo(.1, -.63); ch.bezierCurveTo(.15, -.68, .185, -.74, .178, -.8); ch.bezierCurveTo(.17, -.85, .12, -.86, .06, -.86); ch.closePath(); p = U(p, ch);
+  const ab = new Path2D(); ab.roundRect(-.066, -.615, .132, .08, .02); p = U(p, ab);
+  const pel = new Path2D(); pel.roundRect(-.108, -.555, .216, .09, [.02, .02, .045, .045]); p = U(p, pel);
+  const J = {}, seams = [];
   for (const s of [-1, 1]) {
-    const [s1, s2] = s > 0 ? armR : armL, sx = s * .168, sy = -.775;
-    const el = [sx + Math.sin(s1) * .17, sy + Math.cos(s1) * .17], hd = [el[0] + Math.sin(s2) * .16, el[1] + Math.cos(s2) * .16];
-    p = seg(p, [[sx, sy], el], .07); p = seg(p, [el, hd], .06);
-    const hx = hd[0] + Math.sin(s2) * .035, hy = hd[1] + Math.cos(s2) * .035; p = seg(p, [hd, [hx, hy]], .045);
-    const hip = [s * .062, -.49], kn = [s * .07, -.26], ft = [s * .074, -.04];
-    p = seg(p, [hip, kn], .078); p = seg(p, [kn, ft], .066);
-    const f = new Path2D(); f.roundRect(s * .07 - .045, -.05, .11, .05, .02); p = p.op(f, PathOp.Union);
-    J[s] = { sh: [sx, sy], el, hd: [hx, hy], kn };
+    const [s1, s2] = s > 0 ? armR : armL, sh = [s * .175, -.79];
+    const el = [sh[0] + Math.sin(s1) * .165, sh[1] + Math.cos(s1) * .165], wr = [el[0] + Math.sin(s2) * .15, el[1] + Math.cos(s2) * .15];
+    const pd = new Path2D(); pd.ellipse(sh[0], sh[1] + .005, .058, .052, 0, 0, Math.PI * 2); p = U(p, pd);   // shoulder plate
+    p = seg(p, [sh, el], .062);
+    p = seg(p, [el, [lerp(el[0], wr[0], .55), lerp(el[1], wr[1], .55)]], .078); p = seg(p, [[lerp(el[0], wr[0], .5), lerp(el[1], wr[1], .5)], wr], .062);   // gauntlet
+    let tip;
+    if (o.hand === 'gripper') {
+      for (const d of [-.42, .42]) { const e = [wr[0] + Math.sin(s2 + d) * .06, wr[1] + Math.cos(s2 + d) * .06], f = [e[0] + Math.sin(s2 - d * .6) * .04, e[1] + Math.cos(s2 - d * .6) * .04]; p = seg(p, [wr, e, f], .022); }
+      tip = [wr[0] + Math.sin(s2) * .07, wr[1] + Math.cos(s2) * .07];
+    } else {
+      tip = [wr[0] + Math.sin(s2) * .06, wr[1] + Math.cos(s2) * .06]; p = seg(p, [wr, tip], .058);
+      p = seg(p, [wr, [wr[0] + Math.sin(s2 - .9 * s) * .04, wr[1] + Math.cos(s2 - .9 * s) * .04]], .024);   // thumb
+    }
+    const hip = [s * .062, -.49], aa = s > 0 ? a1 : -a1, kk = s > 0 ? kA : kB, kn = [hip[0] + Math.sin(aa) * .225, hip[1] + Math.cos(aa) * .225], an = [kn[0] + Math.sin(aa - kk) * .2, kn[1] + Math.cos(aa - kk) * .2];
+    p = seg(p, [hip, kn], .088); p = seg(p, [kn, an], .072);
+    const kc = new Path2D(); kc.ellipse(kn[0], kn[1], .046, .05, 0, 0, Math.PI * 2); p = U(p, kc);
+    const bt = new Path2D(); bt.roundRect(an[0] - .05, an[1] - .03, .13, .06, [.03, .03, .012, .012]); p = U(p, bt);
+    J[s] = { sh, el, wr, tip, kn };
+    seams.push([[el[0] + Math.cos(s1) * .035, el[1] - Math.sin(s1) * .035], [el[0] - Math.cos(s1) * .035, el[1] + Math.sin(s1) * .035]]);
+    seams.push([[kn[0] - .04, kn[1] - .03], [kn[0] + .04, kn[1] - .03]]);
   }
-  return { p, J };
+  seams.push([[-.072, -.935], [.072, -.935]]);                       // helmet seam
+  seams.push([[-.12, -.72], [0, -.69], [.12, -.72]]);                // chest plate
+  seams.push([[-.066, -.578], [.066, -.578]]);
+  return { p, J, seams };
 }
 export function robot(ctx, x, y, h, o = {}) {
-  const dir = o.dir ?? 1, L = (o.light ?? 1) * dir, { p, J } = robotPath(o);
+  const dir = o.dir ?? 1, L = (o.light ?? 1) * dir, { p, J, seams } = robotPath(o), rim = o.rim || P.blue0, body = o.body || P.ind0;
   ctx.save(); ctx.translate(x, y); ctx.scale(h * dir, h); ctx.globalAlpha = o.alpha ?? 1;
-  ctx.fillStyle = rgba(P.night0, .6); ctx.beginPath(); ctx.ellipse(-L * .2, 0, .3, .02, 0, 0, 6.29); ctx.fill();
-  // rim light: the silhouette minus itself shifted away from the light
+  ctx.fillStyle = rgba(P.night0, .6); ctx.beginPath(); ctx.ellipse(-L * .2, 0, .32, .02, 0, 0, 6.29); ctx.fill();
+  ctx.fillStyle = lin(ctx, 0, -1, 0, 0, [[0, mixHex(body, rim, .12)], [.5, body], [1, mixHex(body, P.night0, .3)]]); ctx.fill(p);
   const sh = new Path2D(); sh.addPath(p, { a: 1, b: 0, c: 0, d: 1, e: -L * .016, f: .009 });
-  ctx.fillStyle = o.body || P.ind0; ctx.fill(p);
-  ctx.fillStyle = o.rim || P.blue0; ctx.fill(new Path2D(p).op(sh, PathOp.Difference));
-  ctx.fillStyle = o.joint || mixHex(o.body || P.ind0, P.blue0, .6);
-  for (const s of [-1, 1]) for (const [k, r] of [['sh', .034], ['el', .026], ['kn', .03]]) { ctx.beginPath(); ctx.arc(J[s][k][0], J[s][k][1], r, 0, 6.29); ctx.fill(); }
+  ctx.fillStyle = rim; ctx.fill(new Path2D(p).op(sh, PathOp.Difference));   // rim light on the side of the light
+  ctx.save(); ctx.clip(p); ctx.strokeStyle = o.seam || rgba(rim, .35); ctx.lineWidth = .007; ctx.lineCap = 'round';
+  for (const s of seams) { ctx.beginPath(); ctx.moveTo(...s[0]); for (const q of s.slice(1)) ctx.lineTo(...q); ctx.stroke(); }
+  ctx.restore();
+  if (o.joint) { ctx.fillStyle = o.joint; for (const s of [-1, 1]) for (const [k, r] of [['sh', .02], ['el', .016], ['kn', .018]]) { ctx.beginPath(); ctx.arc(J[s][k][0], J[s][k][1], r, 0, 6.29); ctx.fill(); } }
   const hands = {};
-  for (const s of [-1, 1]) { const [u, v] = J[s].hd; hands[s > 0 ? 'R' : 'L'] = [x + h * dir * u, y + h * v]; }   // in the caller's space
-  if (o.cup) { const [u, v] = J[o.cup === 'L' ? -1 : 1].hd; ctx.fillStyle = o.body || P.ind0; ctx.beginPath(); ctx.moveTo(u - .028, v - .06); ctx.lineTo(u + .028, v - .06); ctx.lineTo(u + .022, v - .01); ctx.lineTo(u - .022, v - .01); ctx.closePath(); ctx.fill(); }
+  for (const s of [-1, 1]) { const [u, v] = J[s].tip; hands[s > 0 ? 'R' : 'L'] = [x + h * dir * u, y + h * v]; }
+  if (o.cup) { const [u, v] = J[o.cup === 'L' ? -1 : 1].tip; ctx.fillStyle = body; ctx.beginPath(); ctx.moveTo(u - .03, v - .07); ctx.lineTo(u + .03, v - .07); ctx.lineTo(u + .024, v - .012); ctx.lineTo(u - .024, v - .012); ctx.closePath(); ctx.fill(); }
   ctx.restore();
   return hands;
 }
