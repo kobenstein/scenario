@@ -8,14 +8,18 @@
 //   f10_figs.mjs   robot() (+ RPOSE), robotHead, robotHand, humanHand, guide (die Führung), person10 (WHO: you, grandma, trainer, grower,
 //                  worker, villager; faces, blink, breath), cup, crowdField (die Milliarde)
 //   f10_hall.mjs   hall() inside/outside, STATIONS, WINDOWS, clock()
+//   f10_expl.mjs   the explainer layer (MOTION.md §13): EXP, wcag, card, counter, bars, tally, curve (Spur → Kurve), pie (Becher → Anteile),
+//                  section (Querschnitt), arrow, flow (Ablauf), tag (Label mit Linie), mapSheet (Tal von oben → Karte)
 // Call `await prepareKit()` once in your chunk's default export (caches become Images: the napi canvas leaks on drawImage(Canvas)).
 export * from './f10_core.mjs';
 export * from './f10_valley.mjs';
 export * from './f10_figs.mjs';
 export * from './f10_hall.mjs';
+export * from './f10_expl.mjs';
 import { prepareValley } from './f10_valley.mjs';
 import { prepareFigs } from './f10_figs.mjs';
-export async function prepareKit() { await prepareValley(); await prepareFigs(); }
+import { prepareExpl } from './f10_expl.mjs';
+export async function prepareKit() { await prepareValley(); await prepareFigs(); await prepareExpl(); }
 // the whole world from any camera: inside the hall only the hall, otherwise the valley with the hall in it.
 //   o: valley options + hallOpts (passed to hall(): station(i, S) → { lift, robotLift, robotCup, halo, headset, rec }, sign)
 import { valley } from './f10_valley.mjs';
