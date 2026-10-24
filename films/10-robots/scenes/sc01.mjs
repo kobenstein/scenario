@@ -126,6 +126,7 @@ function startLine(a) {
       } });
       // your hand over it, fingers around its knuckles
       if (state.yh) K.humanHand(ctx, state.yh[0], state.yh[1], .2 * state.ys, { L, ang: state.yang, pose: 'grip', close: .15 + .45 * grip, flip: true, t, seed: 4, sleeve: null });
+      if (state.yh) K.heroLight({ x: state.yh[0], y: state.yh[1], r: 620, k: 1, cone: .6, coneLen: 600 });   // the guiding hands are the light of the frame
     } });
     K.world(ctx, t, V, L, { items, mistAmt: 1.1 });
   };
@@ -267,7 +268,7 @@ function valleyTake(a) {
       const wob = Math.sin(hes * 5) * Math.exp(-hes * 1.6);
       const end = VAL.forkX + 2.5, br = wob > 0 ? VAL.branchHouse : VAL.branchHall;
       pts.push([end, .08, VAL.roadZ(end) + 1.5 + Math.abs(wob) * 2]);
-      items.push({ p: [VAL.forkX, 0, 70], draw: () => K.trace3(ctx, V, pts, expoOut(ru), { col: 0, w: 2.6, ticks: [] }) });
+      items.push({ p: [VAL.forkX, 0, 70], draw: () => { const e = K.trace3(ctx, V, pts, expoOut(ru), { col: 0, w: 2.6, ticks: [] }); if (e) K.heroLight({ x: e[0], y: e[1], r: 380, k: .9, cone: 0 }); } });   // the trace on the road is the light of the frame
     }
     // --- the crowd (1.10–1.15)
     const group = lin(a.lastYear + .4, a.thirteen + 1.4, t), spread = sineS(lin(a.by + .3, a.aBillion - .2, t));

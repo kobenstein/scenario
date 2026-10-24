@@ -45,6 +45,7 @@ const LL = new Float32Array(256), LD = new Float32Array(256);
 for (let i = 0; i < 256; i++) { LL[i] = sstep(.42, .9, i / 255); LD[i] = (1 - sstep(.05, .3, i / 255)) * sstep(0, .03, i / 255 + .015); }
 
 const LLi = new Int32Array(256), LDi = new Int32Array(256);
+const BAYER = [0, 2, 0, 2, 3, 1, 3, 1, 0, 2, 0, 2, 3, 1, 3, 1].map((v, i) => [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5][i] >> 2);
 let ID = null; // one reusable ImageData (creating one per frame costs ~30 ms)
 export function printFinish(ctx, t, o = {}) {
   const riso = o.riso ?? 1, ht = o.halftone ?? 1, hat = o.hatch ?? 1, fib = o.fibre ?? 1, src = o.canvas || ctx.canvas;
@@ -53,7 +54,8 @@ export function printFinish(ctx, t, o = {}) {
   for (let i = 0; i < 256; i++) { LLi[i] = Math.round(LL[i] * ht * 256); LDi[i] = Math.round(LD[i] * hat * 256); }
   const fk = Math.round(fib * 256);
   if (!ID) ID = new ImageData(W, H);
-  ID.data.set(src.data()); const p = ID.data, n = p.length;
+  ID.data.set(src.data()); const p = ID.data;
+  if (o.grade) gradeFrame(p, o.grade, o.heroes || { lights: [], amb: .75 });
   // riso: the red plate is read from (x - dx, y + 1), a pixel further on in memory (not yet written), so no copy is needed
   const dx = Math.round(2 * riso), dy = riso ? 1 : 0, offR = (dy * W - dx) * 4, last = H - dy;
   for (let y = 0; y < H; y++) {
@@ -83,7 +85,58 @@ export function halftoneFill(ctx, a = .5) { texCanvases(); ctx.save(); ctx.clip(
 // fibre) at a gentle default, then Film 4's approved art.printFinish (vignette + paper tooth), plus a little moving grain.
 // entry.print = { riso, halftone, hatch, fibre, vig, grain, lift, tint } per shot; print: false keeps only vignette + grain.
 export function filmFinish(ctx, t, o = {}) {
-  if (!o.off) printFinish(ctx, t, { riso: o.riso ?? .5, halftone: o.halftone ?? .6, hatch: o.hatch ?? .6, fibre: o.fibre ?? .6 });
+  if (!o.off) printFinish(ctx, t, { riso: o.riso ?? .5, halftone: o.halftone ?? .6, hatch: o.hatch ?? .6, fibre: o.fibre ?? .6, grade: o.grade, heroes: o.heroes });
   artFinish(ctx, { grain: o.grain ?? .075, vig: o.vig ?? .42, lift: o.lift ?? 0, tint: o.tint ?? null });
   grain(ctx, t, .028);
+}
+
+// ---------------------------------------------------------------- the night relight + indigo grade (Film 10, style 2026-10-24)
+// G = f10_core gradeLUT(dawn); heroes = f10_core takeHeroes() → { lights:[{x,y,r,k,cone,coneLen,coneW}], amb }.
+// 1. lightmask on a 1/8 grid: amb + Σ k·max(pool, cone below the light), bilinear per pixel
+// 2. per pixel: warm/cyan keep from the 64³ key table, emissive = warm-bright or star-bright (never darkened), relit luminance
+//    Y·mix(mask, 1, emissive) → indigo / amber / cyan ramp
+// 3. bloom: the emissive energy on a 1/4 grid, box-blurred 3×, added back in amber (lights glow, as in the thumbnails)
+const GS = 8, MW = Math.ceil(W / GS) + 2, MH = Math.ceil(H / GS) + 2, MASK = new Float32Array(MW * MH);
+const BS = 4, BW = W / BS, BH = H / BS, BLOOM = new Float32Array(BW * BH), BTMP = new Float32Array(BW * BH);
+function boxBlur(a, tmp, w, h, r) {
+  for (let y = 0; y < h; y++) { let acc = 0; const o = y * w; for (let x = -r; x < w; x++) { if (x + r < w) acc += a[o + x + r]; if (x - r - 1 >= 0) acc -= a[o + x - r - 1]; if (x >= 0) tmp[o + x] = acc / (2 * r + 1); } }
+  for (let x = 0; x < w; x++) { let acc = 0; for (let y = -r; y < h; y++) { if (y + r < h) acc += tmp[(y + r) * w + x]; if (y - r - 1 >= 0) acc -= tmp[(y - r - 1) * w + x]; if (y >= 0) a[y * w + x] = acc / (2 * r + 1); } }
+}
+export function gradeFrame(p, G, heroes) {
+  const { lights, amb } = heroes;
+  for (let my = 0; my < MH; my++) for (let mx = 0; mx < MW; mx++) {
+    const px = mx * GS, py = my * GS, fy = clamp((py / H - .45) / .55); let m = amb * (1 - .55 * fy * fy * (3 - 2 * fy));   // the foreground sinks to silhouette
+    for (const L of lights) {
+      const dx = px - L.x, dy = py - L.y, pool = Math.exp(-(dx * dx + dy * dy) / (L.r * L.r));
+      let cone = 0;
+      if (L.cone > 0 && dy > 0) { const wdt = L.r * L.coneW + dy * .3; cone = L.cone * Math.exp(-(dx * dx) / (wdt * wdt)) * Math.exp(-dy / L.coneLen); }
+      m += L.k * Math.max(pool, cone) * (1 - amb);
+    }
+    MASK[my * MW + mx] = Math.min(1.15, m);
+  }
+  const K = G.K, N = G.N, Wr = G.W, C = G.C, E = G.E;
+  // bloom source
+  BLOOM.fill(0);
+  for (let by = 0; by < BH; by++) for (let bx = 0; bx < BW; bx++) {
+    const i = ((by * BS + 1) * W + bx * BS + 1) * 4, r = p[i], g = p[i + 1], b = p[i + 2], Y = (r * 77 + g * 150 + b * 29) >> 8;
+    const kw = K[(((r >> 2) << 12) | ((g >> 2) << 6) | (b >> 2)) * 2] / 255;
+    BLOOM[by * BW + bx] = kw * E[Y] + (Y > 236 ? .5 : 0);
+  }
+  boxBlur(BLOOM, BTMP, BW, BH, 14); boxBlur(BLOOM, BTMP, BW, BH, 14); boxBlur(BLOOM, BTMP, BW, BH, 14);
+  for (let y = 0; y < H; y++) {
+    const fy = y / GS, my = fy | 0, ty = fy - my, by = Math.min(BH - 1, (y / BS) | 0);
+    for (let x = 0, i = y * W * 4; x < W; x++, i += 4) {
+      const fx = x / GS, mx = fx | 0, tx = fx - mx, o = my * MW + mx;
+      const m = (MASK[o] * (1 - tx) + MASK[o + 1] * tx) * (1 - ty) + (MASK[o + MW] * (1 - tx) + MASK[o + MW + 1] * tx) * ty;
+      const d = BAYER[((y & 3) << 2) | (x & 3)], r = p[i], g = p[i + 1], b = p[i + 2];
+      const q = ((((r + d > 255 ? 255 : r + d) >> 2) << 12) | (((g + d > 255 ? 255 : g + d) >> 2) << 6) | ((b + d > 255 ? 255 : b + d) >> 2)) * 2;
+      const kc = K[q + 1] / 255, Y = (r * 77 + g * 150 + b * 29) >> 8, pool = m > .8 ? Math.min(.75, (m - .8) * 2.2) * E[Y] : 0;
+      const kw = Math.max(K[q] / 255, pool);   // surfaces inside a hero light's pool or cone take its warm colour (light on the floor)
+      const e = Math.max(kw * E[Y], Y > 236 ? 1 : 0), yy = Math.min(255, (Y * (m + (1 - m) * e) + d * .5) | 0), j = yy * 3;
+      const bl = BLOOM[by * BW + ((x / BS) | 0)] * 300;
+      let R = N[j] + (Wr[j] - N[j]) * kw, Gg = N[j + 1] + (Wr[j + 1] - N[j + 1]) * kw, B = N[j + 2] + (Wr[j + 2] - N[j + 2]) * kw;
+      const kc2 = kc * (1 - kw); R += (C[j] - R) * kc2; Gg += (C[j + 1] - Gg) * kc2; B += (C[j + 2] - B) * kc2;
+      p[i] = R + bl; p[i + 1] = Gg + bl * .62; p[i + 2] = B + bl * .3;
+    }
+  }
 }

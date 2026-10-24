@@ -13,28 +13,31 @@
 //   mapSheet(ctx, t, V, o)            the valley from straight above becomes a printed map: ink roads, river, pins, margin, scale bar
 //   tag(ctx, t, o)                    label with leader line: dot on the object, line, paper chip with Inter caps + optional number
 import { createCanvas, loadImage } from '@napi-rs/canvas';
-import { W, H, rgba, clamp, lin, mix, prng, text, PAL, expoOut, expoIn, qio, sineS, mixHex, hex2rgb, trace } from './f10_core.mjs';
+import { W, H, rgba, clamp, lin, mix, prng, text, PAL, expoOut, expoIn, qio, sineS, mixHex, hex2rgb, trace, heroLight } from './f10_core.mjs';
 import { VAL } from './f10_valley.mjs';
+import { cup } from './f10_figs.mjs';
 
 // ---------------------------------------------------------------- print palette (dark enough to read on paper at phone size)
 export const EXP = {
-  paper: '#f4ecda', paperShade: '#ddd0b4', paperEdge: '#c9b998', ink: PAL.ink, inkSoft: '#544a42', rule: '#7d7062',
-  warm: '#d27a2c', warmLight: '#f2b56a', cold: '#56789a', coldLight: '#a9bdd2', magnet: '#5f5578', green: '#5b8541', soil: '#8a5a3c',
-  shadow: 'rgba(43,38,34,.20)',
+  // indigo plates printed in cream and amber light (style 2026-10-24: Film-11 thumbnails). Names are roles: `paper` = the plate,
+  // `ink` = what is printed on it. The indigo grade keeps cream, amber and cyan, so these survive the finish unchanged.
+  paper: '#141c50', paperShade: '#0b1238', paperEdge: '#3a4c9c', ink: '#f6ecd6', inkSoft: '#b8c2e8', rule: '#6f7fc0',
+  warm: '#ffb35c', warmLight: '#ffd79a', cold: '#8fe6ff', coldLight: '#d8f7ff', magnet: '#a596e0', green: '#a9c97a', soil: '#c98a5a',
+  shadow: 'rgba(3,6,20,.45)',
   // minimum sizes at 1080p (phone check: a 390 px wide screenshot must still show labels ≥ 9 px high)
-  size: { hero: 168, num: 112, mid: 72, label: 30, small: 24, src: 22 },
+  size: { hero: 168, num: 120, mid: 80, label: 34, small: 28, src: 24 },
 };
 const lum = (h) => { const c = hex2rgb(h).map((v) => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }); return .2126 * c[0] + .7152 * c[1] + .0722 * c[2]; };
 export function wcag(a, b) { const A = lum(a), B = lum(b); return (Math.max(A, B) + .05) / (Math.min(A, B) + .05); }
 
-// paper fibre + a faint deckle, cached as an Image (the napi canvas leaks on drawImage(Canvas))
+// plate fibre (dark and light fibres, Riso-like), cached as an Image (the napi canvas leaks on drawImage(Canvas))
 let FIBRE = null;
 export async function prepareExpl() {
   if (FIBRE) return;
   const c = createCanvas(512, 512), x = c.getContext('2d'), r = prng(4242);
   for (let i = 0; i < 2600; i++) {
     const px = r() * 512, py = r() * 512, l = 2 + r() * 9, a = r() * Math.PI;
-    x.strokeStyle = r() < .5 ? 'rgba(120,98,70,.10)' : 'rgba(255,255,255,.16)'; x.lineWidth = .6 + r() * .6;
+    x.strokeStyle = r() < .5 ? 'rgba(4,8,30,.22)' : 'rgba(170,190,255,.10)'; x.lineWidth = .6 + r() * .6;
     x.beginPath(); x.moveTo(px, py); x.lineTo(px + Math.cos(a) * l, py + Math.sin(a) * l); x.stroke();
   }
   FIBRE = await loadImage(c.toBuffer('image/png'));
@@ -51,41 +54,33 @@ function wipeText(ctx, s, x, y, k, o) {
   text(ctx, s, x, y + size * 1.1 * (1 - expoOut(k)), o); ctx.restore();
 }
 
-// ---------------------------------------------------------------- card: out of an object, unfold on a hinge, fold back
-// o { rect:[x,y,w,h] target, from:[x,y,w,h] the object's screen rect (where the card comes from and returns to),
-//     t0 open start, t1 close start (optional), dur (default .9), hinge 'top'|'bottom'|'left'|'right', accent hex (5 px edge), col }
-// Phase 1 (45 %): a folded strip leaves the object on an arc (expoOut). Phase 2: it unfolds about the hinge; the turning panel is
-// shaded until it lies flat. Content is drawn with box.inside(fn) and is masked by the visible paper, so it rides with the card.
+// ---------------------------------------------------------------- field: the graphic's own light, grown out of an object
+// No rectangle, no frame (Jakob: "Business-Folie"). An explainer is LIGHT on the indigo night: a soft dark field opens like an iris
+// from the object's screen point (so the world behind sinks back and the graphic reads), the graphic is masked by the same growing
+// circle and registers itself as the frame's hero light (the finish relights around it). Closing runs it back into the object.
+// card(ctx, t, { rect:[x,y,w,h] where the graphic lives, from:[x,y,w,h] the object's screen rect, t0, t1, dur (.9) }) → box
+//   box.inside(fn) draws the content clipped to the iris; box.open 0..1
 export function card(ctx, t, o) {
-  const [tx, ty, tw, th] = o.rect, from = o.from || [tx + tw / 2 - 20, ty + th / 2 - 4, 40, 8], dur = o.dur ?? .9, hinge = o.hinge || 'top';
-  const kin = lin(o.t0, o.t0 + dur, t), kout = o.t1 != null ? lin(o.t1, o.t1 + dur * .8, t) : 0, k = kin * (1 - kout);
-  if (k <= 0) return null;
-  const a = expoOut(lin(0, .45, k)), b = kout > 0 ? qio(lin(.45, 1, k)) : expoOut(lin(.45, 1, k));
-  const vert = hinge === 'top' || hinge === 'bottom', strip = vert ? Math.min(14, th) : Math.min(14, tw);
-  // travelling folded strip: centre on an arc from the object to the hinge line
-  const hx = hinge === 'left' ? tx : hinge === 'right' ? tx + tw : tx + tw / 2, hy = hinge === 'top' ? ty : hinge === 'bottom' ? ty + th : ty + th / 2;
-  const fx = from[0] + from[2] / 2, fy = from[1] + from[3] / 2, lift = -Math.min(160, Math.hypot(hx - fx, hy - fy) * .25);
-  const cx = mix(fx, hx, a), cy = mix(fy, hy, a) + lift * Math.sin(Math.PI * a);
-  const sw = vert ? mix(from[2], tw, a) : strip, sh = vert ? strip : mix(from[3], th, a);
-  let x, y, w, h;
-  if (vert) { w = sw; h = mix(strip, th, b); x = cx - w / 2; y = hinge === 'top' ? cy : cy - h; }
-  else { h = sh; w = mix(strip, tw, b); y = cy - h / 2; x = hinge === 'left' ? cx : cx - w; }
-  ctx.save();
-  ctx.fillStyle = EXP.shadow; ctx.fillRect(x + 7, y + 10, w, h);
-  paperFill(ctx, x, y, w, h, o.col || EXP.paper);
-  // the turning panel: the last fold before flat, shaded (light comes from the top left)
-  if (b < 1) {
-    const sh2 = (1 - b) * .35;
-    ctx.fillStyle = rgba(EXP.paperShade, clamp(sh2 * 2.4));
-    if (vert) { const fh = h * .5 * (1 - b) + 4; ctx.fillRect(x, hinge === 'top' ? y + h - fh : y, w, fh); }
-    else { const fw = w * .5 * (1 - b) + 4; ctx.fillRect(hinge === 'left' ? x + w - fw : x, y, fw, h); }
-  }
-  ctx.strokeStyle = EXP.paperEdge; ctx.lineWidth = 1.5; ctx.strokeRect(x + .75, y + .75, w - 1.5, h - 1.5);
-  if (o.accent) { ctx.fillStyle = o.accent; if (vert) ctx.fillRect(x, y, 6, h); else ctx.fillRect(x, y, w, 6); }
-  ctx.restore();
-  const box = { x: tx, y: ty, w: tw, h: th, open: b, vis: [x, y, w, h],
-    inside(fn) { if (b <= .02) return; ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip(); fn(box); ctx.restore(); } };
+  const [tx, ty, tw, th] = o.rect, from = o.from || [tx + tw / 2, ty + th / 2, 0, 0], dur = o.dur ?? .9;
+  const kin = lin(o.t0, o.t0 + dur, t), kout = o.t1 != null ? lin(o.t1, o.t1 + dur * .8, t) : 0;
+  const b = kout > 0 ? 1 - qio(kout) : expoOut(kin);
+  if (b <= 0) return null;
+  const fx = from[0] + from[2] / 2, fy = from[1] + from[3] / 2, cx = tx + tw / 2, cy = ty + th / 2;
+  const R = Math.hypot(tw, th) * .62 * b, ox = mix(fx, cx, sineS(b)), oy = mix(fy, cy, sineS(b));
+  // the dark field: a radial falloff of the plate colour (a pool of night that the light graphic sits in)
+  const g = ctx.createRadialGradient(ox, oy, 0, ox, oy, R * 1.25);
+  g.addColorStop(0, rgba(EXP.paper, .9)); g.addColorStop(.62, rgba(EXP.paper, .78)); g.addColorStop(1, rgba(EXP.paper, 0));
+  ctx.save(); ctx.fillStyle = g; ctx.fillRect(ox - R * 1.3, oy - R * 1.3, R * 2.6, R * 2.6); ctx.restore();
+  if (b > .2) heroLight({ x: cx, y: cy, r: Math.max(tw, th) * .55, k: .9 * b, amb: .3 });
+  const box = { x: tx, y: ty, w: tw, h: th, open: b,
+    inside(fn) { if (b <= .02) return; ctx.save(); ctx.beginPath(); ctx.arc(ox, oy, R, 0, 7); ctx.clip(); fn(box); ctx.restore(); } };
   return box;
+}
+// cream text with a warm glow (Instrument Serif numbers, Inter caps labels): light, not print
+export function glowText(ctx, s, x, y, o = {}) {
+  ctx.save(); ctx.shadowColor = rgba(o.glow || EXP.warm, o.glowA ?? .75); ctx.shadowBlur = (o.size || 40) * .35;
+  text(ctx, s, x, y, { color: EXP.ink, ...o }); ctx.restore();
+  text(ctx, s, x, y, { color: EXP.ink, ...o });
 }
 
 // ---------------------------------------------------------------- counter (odometer)
@@ -182,8 +177,8 @@ export function curve(ctx, t, o) {
   const ax = o.axis ?? 1;
   if (ax > 0) {
     ctx.save(); ctx.strokeStyle = EXP.ink; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x, y + h - h * expoOut(ax)); ctx.lineTo(x, y + h); ctx.lineTo(x + w * expoOut(ax), y + h); ctx.stroke();
-    for (const [v, s] of o.xTicks || []) { const p = map([v, ya]); if (p[0] > x + w * ax) continue; ctx.beginPath(); ctx.moveTo(p[0], y + h); ctx.lineTo(p[0], y + h + 12); ctx.stroke(); text(ctx, s, p[0], y + h + 46, { size: EXP.size.small, weight: 600, color: EXP.ink, align: 'center', spacing: 1 }); }
-    for (const [v, s] of o.yTicks || []) { const p = map([xa, v]); if (y + h - p[1] > h * ax) continue; ctx.strokeStyle = rgba(EXP.rule, .45); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(x, p[1]); ctx.lineTo(x + w, p[1]); ctx.stroke(); text(ctx, s, x - 16, p[1] + 9, { size: EXP.size.small, weight: 600, color: EXP.ink, align: 'right' }); ctx.strokeStyle = EXP.ink; ctx.lineWidth = 3; }
+    for (const [v, s] of o.xTicks || []) { const p = map([v, ya]); if (p[0] > x + w * ax) continue; ctx.beginPath(); ctx.moveTo(p[0], y + h); ctx.lineTo(p[0], y + h + 12); ctx.stroke(); glowText(ctx, s, p[0], y + h + 46, { size: EXP.size.small, weight: 600, color: EXP.ink, align: 'center', spacing: 1 }); }
+    for (const [v, s] of o.yTicks || []) { const p = map([xa, v]); if (y + h - p[1] > h * ax) continue; ctx.strokeStyle = rgba(EXP.rule, .45); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(x, p[1]); ctx.lineTo(x + w, p[1]); ctx.stroke(); glowText(ctx, s, x - 16, p[1] + 9, { size: EXP.size.small, weight: 600, color: EXP.ink, align: 'right' }); ctx.strokeStyle = EXP.ink; ctx.lineWidth = 3; }
     ctx.restore();
   }
   const N = 64, D = resample(o.data.map(map), N), F = o.from ? resample(o.from, N) : D, k = sineS(o.k ?? 1);
@@ -192,34 +187,50 @@ export function curve(ctx, t, o) {
   trace(ctx, P, Math.min(u, cut), { col: o.col || 0, w: w0, head: u < cut });
   if (u > cut) {   // the forecast part: dotted, same colour, no glow
     const i0 = Math.floor(cut * (N - 1)), i1 = Math.floor(u * (N - 1));
-    ctx.save(); ctx.setLineDash([2, 12]); ctx.lineCap = 'round'; ctx.strokeStyle = mixHex(EXP.warm, EXP.cold, o.col || 0); ctx.lineWidth = w0 * 1.3; ctx.beginPath();
+    ctx.save(); ctx.setLineDash([2, 13]); ctx.lineCap = 'round'; ctx.shadowColor = rgba(EXP.warm, .9); ctx.shadowBlur = 12; ctx.strokeStyle = mixHex('#ffd08a', EXP.cold, o.col || 0); ctx.lineWidth = w0 * 1.6; ctx.beginPath();
     for (let i = i0; i <= i1; i++) (i === i0 ? ctx.moveTo(P[i][0], P[i][1]) : ctx.lineTo(P[i][0], P[i][1])); ctx.stroke(); ctx.restore();
   }
   return { pts: P, end: P[Math.min(N - 1, Math.floor(u * (N - 1)))], map };
 }
 
-// ---------------------------------------------------------------- pie: the cup's rim becomes the share circle
-// o { x, y, r, parts:[{v, col, label}], t0, flat 0..1 (0 = ellipse ry0, 1 = circle), ry0 (.34), u sweep 0..1 (default from t0),
-//     rimW (the glazed rim, 1 at flat 0 → thin ink ring at 1), labels (show leader labels when flat > .85), start (−π/2) }
+// ---------------------------------------------------------------- pie: the cup's rim becomes the share circle, the shares fill with light
+// o { x, y, r, parts:[{v, lit 0..1 (filled with light), label, sub}], t0, flat 0..1 (0 = the rim seen at an angle, ry0; 1 = flat),
+//     ry0 (.34), u sweep 0..1, start (−π/2), labels }
+// Unlit shares are night with a cream edge; lit shares are amber-cream light (they glow in the finish). The rim is a ring of light.
 export function pie(ctx, t, o) {
   const fl = sineS(o.flat ?? 1), ry = mix(o.ry0 ?? .34, 1, fl), r = o.r, tot = o.parts.reduce((s, p) => s + p.v, 0);
   const u = o.u ?? expoOut(lin(o.t0, o.t0 + 1.2, t)), st = o.start ?? -Math.PI / 2;
   ctx.save(); ctx.translate(o.x, o.y); ctx.scale(1, ry);
-  ctx.fillStyle = EXP.paper; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill();
+  ctx.fillStyle = EXP.paperShade; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill();
   let a = st;
   for (const p of o.parts) {
-    const da = (p.v / tot) * Math.PI * 2, e = Math.min(a + da, st + Math.PI * 2 * u);
-    if (e > a) { ctx.fillStyle = p.col || EXP.ink; ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, r, a, e); ctx.closePath(); ctx.fill(); ctx.strokeStyle = EXP.paper; ctx.lineWidth = 3 / ry; ctx.stroke(); }
+    const da = (p.v / tot) * Math.PI * 2, e = Math.min(a + da, st + Math.PI * 2 * u), lit = p.lit ?? 1;
+    if (e > a && lit > 0) {
+      const g = ctx.createRadialGradient(0, 0, 0, 0, 0, r); g.addColorStop(0, mixHex(EXP.paperShade, '#ffd99a', lit)); g.addColorStop(.35, mixHex(EXP.paperShade, p.col || EXP.warm, lit)); g.addColorStop(1, mixHex(EXP.paperShade, p.col || EXP.warm, lit * .8));
+      ctx.fillStyle = g; ctx.beginPath(); ctx.moveTo(0, 0); ctx.arc(0, 0, r * .985, a, e); ctx.closePath(); ctx.fill();
+    }
+    if (e > a) { ctx.strokeStyle = EXP.paperShade; ctx.lineWidth = 4 / ry; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Math.cos(a) * r, Math.sin(a) * r); ctx.stroke(); }
     p._mid = a + da / 2; a += da;
   }
-  // the rim: glaze ochre at flat 0 (it is still the cup), a fine ink ring at flat 1
-  ctx.lineWidth = mix(r * .09, 3, fl); ctx.strokeStyle = mixHex('#c58b4a', EXP.ink, fl); ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.stroke();
+  ctx.shadowColor = rgba(EXP.warm, .9); ctx.shadowBlur = 24;
+  ctx.lineWidth = mix(r * .06, 4, fl) / ry; ctx.strokeStyle = mixHex('#ffd08a', EXP.ink, fl); ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.stroke();
   ctx.restore();
   if (o.labels !== false && fl > .85) {
     const lk = lin(.85, 1, fl);
-    o.parts.forEach((p, i) => { if (!p.label) return; const ca = Math.cos(p._mid), sa = Math.sin(p._mid), ax = o.x + ca * r * .82, ay = o.y + sa * r * .82 * ry;
-      tag(ctx, t, { ax, ay, x: o.x + ca * (r + 90) + (ca > 0 ? 20 : -20), y: o.y + sa * (r + 50) * ry, title: p.label, sub: p.sub, k: clamp(lk * 1.4 - i * .15), align: ca >= 0 ? 'left' : 'right' }); });
+    o.parts.forEach((p, i) => { if (!p.label) return; const ca = Math.cos(p._mid), sa = Math.sin(p._mid), ax = o.x + ca * r * .8, ay = o.y + sa * r * .8 * ry;
+      tag(ctx, t, { ax, ay, x: o.x + ca * (r + 70) + (ca > 0 ? 24 : -24), y: o.y + sa * (r + 40) * ry, title: p.label, sub: p.sub, k: clamp(lk * 1.4 - i * .15), align: ca >= 0 ? 'left' : 'right' }); });
   }
+}
+// cupPie: the Becher → Tortendiagramm transition as one block (MOTION.md §13 T2). u 0 = the cup in the scene (side view),
+// .0–.45 the camera "rises": the body sinks into its rim (we look into the cup), the rim lights up; .45–1 the rim travels and grows
+// into the pie at (x, y, r) and the shares fill with light. Everything else as pie(); o.cup { x, y, s, L } = the cup on screen.
+export function cupPie(ctx, t, o) {
+  const u = clamp(o.u), c = o.cup, a = sineS(lin(0, .45, u)), b = sineS(lin(.45, 1, u));
+  const rimX = c.x, rimY = c.y - 97 * c.s * (1 - a), rr = 32 * c.s;
+  if (a < 1) { ctx.save(); ctx.translate(c.x, c.y); ctx.scale(1, 1 - a * .97); cup(ctx, 0, 0, c.s, { L: c.L }); ctx.restore(); }
+  const R = mix(rr, o.r, b), X = mix(rimX, o.x, b), Y = mix(rimY, o.y, b), glow = lin(.15, .45, u);
+  if (glow > 0) heroLight({ x: X, y: Y, r: Math.max(260, R * 2.2), k: glow, amb: .32 });
+  pie(ctx, t, { ...o, x: X, y: Y, r: R, flat: b, u: o.fillU ?? b, parts: o.parts.map((p) => ({ ...p, lit: (p.lit ?? 1) * lin(.6, 1, u) })), labels: o.labels });
 }
 
 // ---------------------------------------------------------------- cross-section
@@ -288,37 +299,32 @@ export function flow(ctx, t, o) {
   return rects;
 }
 
-// ---------------------------------------------------------------- tag: the label with a line (also used by pie/section/flow)
-// o { ax, ay (anchor on the object; omit for a free chip), x, y (chip baseline anchor), title (Inter caps), sub (Instrument Serif
-//     number or word), t0, t1 or k (0..1 direct), align 'left'|'right'|'center', noLine }
+// ---------------------------------------------------------------- tag: a point of light on the object, a line of light, a few words
+// o { ax, ay (anchor; omit for free text), x, y (text baseline anchor), title (Inter caps), sub (Instrument Serif), t0, t1 or k,
+//     align 'left'|'right'|'center', noLine } — no box: cream text with a warm glow straight on the night
 export function tag(ctx, t, o) {
   const k = o.k ?? (lin(o.t0, o.t0 + .7, t) * (1 - (o.t1 != null ? lin(o.t1, o.t1 + .45, t) : 0)));
   if (k <= 0) return null;
   const al = o.align || 'left', ts = EXP.size.label, ss = o.subSize || EXP.size.mid;
+  const kd = expoOut(lin(0, .3, k)), kl = expoOut(lin(.1, .55, k)), kt = lin(.45, 1, k);
   ctx.save();
-  ctx.font = fontL(ts); const tw = o.title ? ctx.measureText(o.title.toUpperCase()).width + o.title.length * 3 : 0;
-  ctx.font = fontN(ss); const sw = o.sub ? ctx.measureText(o.sub).width : 0;
-  const cw = Math.max(tw, sw) + 44, chh = (o.sub ? ss * 1.05 : 0) + ts * 1.5 + 22;
-  const cx = al === 'right' ? o.x - cw : al === 'center' ? o.x - cw / 2 : o.x, cy = o.y - chh / 2;
-  // dot + leader (draws first), then the chip unfolds from the line's end (left/right edge)
-  const kd = expoOut(lin(0, .3, k)), kl = expoOut(lin(.1, .55, k)), kc = expoOut(lin(.4, .85, k)), kt = lin(.55, 1, k);
   if (o.ax != null && !o.noLine) {
-    ctx.fillStyle = EXP.ink; ctx.beginPath(); ctx.arc(o.ax, o.ay, 7 * kd, 0, 7); ctx.fill();
-    ctx.strokeStyle = EXP.paper; ctx.lineWidth = 2.5; ctx.stroke();
-    const ex = al === 'right' ? cx + cw : cx, ey = o.y;
-    ctx.strokeStyle = EXP.ink; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(o.ax, o.ay); ctx.lineTo(mix(o.ax, ex, kl), mix(o.ay, ey, kl)); ctx.stroke();
+    const ex = al === 'right' ? o.x + 14 : al === 'center' ? o.x : o.x - 14, ey = o.y - (o.sub ? ss * .35 : ts * .4);
+    ctx.shadowColor = rgba(EXP.warm, .8); ctx.shadowBlur = 10; ctx.strokeStyle = EXP.ink; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(o.ax, o.ay); ctx.lineTo(mix(o.ax, ex, kl), mix(o.ay, ey, kl)); ctx.stroke();
+    ctx.fillStyle = EXP.ink; ctx.beginPath(); ctx.arc(o.ax, o.ay, 6 * kd, 0, 7); ctx.fill();
+    ctx.shadowBlur = 0;
   }
-  if (kc > 0) {
-    const vw = cw * kc, vx = al === 'right' ? cx + cw - vw : al === 'center' ? cx + (cw - vw) / 2 : cx;
-    ctx.fillStyle = EXP.shadow; ctx.fillRect(vx + 5, cy + 7, vw, chh);
-    paperFill(ctx, vx, cy, vw, chh); ctx.strokeStyle = EXP.ink; ctx.lineWidth = 2; ctx.strokeRect(vx + 1, cy + 1, vw - 2, chh - 2);
-    ctx.beginPath(); ctx.rect(vx, cy, vw, chh); ctx.clip();
-    const tx = al === 'center' ? o.x : cx + 22, ta = al === 'center' ? 'center' : 'left';
-    if (o.sub) wipeText(ctx, o.sub, tx, cy + 12 + ss * .86, kt, { size: ss, font: 'Instrument Serif', color: EXP.ink, align: ta });
-    if (o.title) wipeText(ctx, o.title.toUpperCase(), tx, cy + chh - 18, lin(.1, 1, kt), { size: ts, weight: 600, color: EXP.ink, spacing: 3, align: ta });
-  }
+  const ta = al;
+  if (o.sub) glowWipe(ctx, o.sub, o.x, o.y, kt, { size: ss, font: 'Instrument Serif', align: ta });
+  if (o.title) glowWipe(ctx, o.title.toUpperCase(), o.x, o.y + (o.sub ? ts * 1.45 : 0), lin(.1, 1, kt), { size: ts, weight: 600, spacing: 3, align: ta });
   ctx.restore();
-  return [cx, cy, cw, chh];
+  return [o.x, o.y, 0, 0];
+}
+function glowWipe(ctx, s, x, y, k, o) {
+  if (k <= 0) return;
+  const size = o.size || 30; ctx.save(); ctx.beginPath(); ctx.rect(x - 4 - (o.align === 'right' ? 2000 : o.align === 'center' ? 1000 : 0), y - size * 1.05, 4000, size * 1.4); ctx.clip();
+  glowText(ctx, s, x, y + size * 1.1 * (1 - expoOut(k)), o); ctx.restore();
 }
 
 // ---------------------------------------------------------------- the valley as a printed map (camera straight above, pitch ≈ −π/2)

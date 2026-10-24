@@ -295,7 +295,7 @@ export function crowdField(o) {
           // far: a graphite stroke with a porcelain head (reads on the light fields)
           const a = (1 - ghost * .45) * (1 - sink * .7), d = Math.max(1.2, hpx * .32), hh = Math.max(2.2, hpx);
           ctx.fillStyle = rgba(L.air('#4a4d55', q[2], .7), .85 * a); ctx.fillRect(s.x - d / 2, s.y - hh, d, hh);
-          ctx.fillStyle = rgba(L.air('#f6f3ec', q[2], .7), a); ctx.fillRect(s.x - d / 2, s.y - hh, d, Math.max(1, hh * .3));
+          ctx.fillStyle = rgba(mixHex(L.air('#f6f3ec', q[2], .7), '#f2fdff', L.lamp ?? 0), a); ctx.fillRect(s.x - d / 2, s.y - hh, d, Math.max(1, hh * .3));   // at night the heads are points of light (a map of light from above)
         } else if (hpx < 60) {
           const im = ra > .5 ? SPR.up : moving ? (Math.sin(t * 9 + m.ph) > 0 ? SPR.walkA : SPR.walkB) : SPR.stand;
           const w = hpx * 64 / 81, hh = hpx * 110 / 81;

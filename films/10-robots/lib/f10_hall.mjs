@@ -2,7 +2,7 @@
 // road. Inside: 12 stations in two rows (table, cup, trainer, learner robot), skylights, columns, the hall clock above the gate.
 //   hall(ctx, t, V, L, o) draws it from outside (the inside is seen through the windows, clipped) or from inside, depending on the camera.
 //   STATIONS[i] = { x, z, side, trainer:[x,z], robot:[x,z], cupP:[x,y,z] }; o.station(i) → { lift 0..1, robotLift 0..1, headset, look }
-import { W, H, rgba, clamp, lin, mix, prng, PAL, mixHex, shadeHex, sprite, tod, trace, localView } from './f10_core.mjs';
+import { W, H, rgba, clamp, lin, mix, prng, PAL, mixHex, shadeHex, sprite, tod, trace, localView , heroLight } from './f10_core.mjs';
 import { VAL, hgt, signpost } from './f10_valley.mjs';
 import { robot, person10, cup, reachArm, RPOSE } from './f10_figs.mjs';
 
@@ -62,8 +62,10 @@ function interior(ctx, t, V, L, o) {
   items.sort((a, b) => b.z - a.z); for (const it of items) it.fn();
   // light in the air: soft shafts from the skylights
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
-  for (let i = 0; i < HL.teeth; i++) { const xa = HL.x0 + i * 7; const p = V.P([xa + 1.5, 6, c.z + 14]); if (p.z > .5) { const g = ctx.createLinearGradient(p.x - 120, 0, p.x + 220, H); g.addColorStop(0, rgba('#fff4dc', 0)); g.addColorStop(.5, rgba('#fff4dc', .07)); g.addColorStop(1, rgba('#fff4dc', 0)); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); } }
+  for (let i = 0; i < HL.teeth; i++) { const xa = HL.x0 + i * 7; const p = V.P([xa + 1.5, 6, c.z + 14]); if (p.z > .5) { const g = ctx.createLinearGradient(p.x - 120, 0, p.x + 220, H); g.addColorStop(0, rgba('#ffc46e', 0)); g.addColorStop(.5, rgba('#ffc46e', .1)); g.addColorStop(1, rgba('#ffc46e', 0)); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); } }
   ctx.restore();
+  // the hero light of an interior frame: the skylights over the middle of the view (a pool + a long cone down onto the floor)
+  { const hp = V.P([0, 8.5, c.z + 16]); if (hp.z > .5) heroLight({ x: hp.x + 260, y: Math.max(-200, hp.y), r: 640, k: 1, cone: 1, coneLen: 1100, coneW: .7 }); }
   // tone: the hall reads as a warm, lit room, not a white void (luma ~160–175 at noon); a soft multiply over the whole interior
   ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = '#e4dccd'; ctx.fillRect(0, 0, W, H); ctx.restore();
 }

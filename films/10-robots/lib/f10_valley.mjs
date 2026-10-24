@@ -2,7 +2,7 @@
 // valley). The atlas of MOTION.md §2.2 is a panorama seen from the road; VAL below is the same map in metres (see VAL.atlas for the link).
 //   valley(ctx, t, V, L, o) draws sky, sun, ridges, the far hill, slope, floor, fields, river, roads, mist and all upright things
 //   (trees, hall, house, workshops, vineyard, datacenter, tower, barriers, bunting, signpost, crowd, o.items) sorted by depth.
-import { W, H, rgba, clamp, lin, mix, prng, PAL, mixHex, shadeHex, noise1, sprite, expoOut, sineS, toWorldFn, toLocalFn } from './f10_core.mjs';
+import { W, H, rgba, clamp, lin, mix, prng, PAL, mixHex, shadeHex, noise1, sprite, expoOut, sineS, toWorldFn, toLocalFn, heroLight } from './f10_core.mjs';
 import { createCanvas, loadImage } from '@napi-rs/canvas';
 
 // ---------------------------------------------------------------- the map (metres)
@@ -129,19 +129,30 @@ export function skyAndSun(ctx, t, V, L, o = {}) {
     ctx.fillStyle = cg; ctx.beginPath(); ctx.ellipse(p.x, p.y, w, h, 0, 0, 7); ctx.fill();
   }
   ctx.restore();
-  // the sun: a warm disc and a wide warm glow (the one main light of every frame)
+  // stars and dust at night (Stauffer: tiny, uneven, a few brighter ones), fixed to the sky so they drift with the camera
+  if (L.stars > 0) {
+    const rs = prng(97); ctx.save();
+    for (let i = 0; i < 420; i++) {
+      const az = (rs() - .5) * 3.4, el = Math.pow(rs(), .7) * .9 + .01, big = rs() < .06, tw = .75 + .25 * Math.sin(t * (.6 + rs()) + i);
+      const p = V.dirPt([Math.sin(az), Math.tan(el), Math.cos(az)]); if (!p || p.y > hy - 6) continue;
+      ctx.fillStyle = rgba(big ? '#fff4de' : '#cfd8f6', L.stars * tw * (big ? .95 : .55)); ctx.beginPath(); ctx.arc(p.x, p.y, big ? 1.9 : .9 + rs() * .6, 0, 7); ctx.fill();
+    }
+    ctx.restore();
+  }
+  // the sun: THE hero light near the horizon: a large flat disc with a long grained falloff (thumbnail style), brightest thing in frame
   const s = V.dirPt(L.dir);
-  if (s && s.x > -900 && s.x < W + 900 && s.y > -900 && s.y < H + 900) {
-    const k = clamp((L.el + 6) / 10) * (o.sunA ?? 1);
+  if (s && s.x > -1200 && s.x < W + 1200 && s.y > -1200 && s.y < H + 1200) {
+    const k = clamp((L.el + 6) / 10) * (o.sunA ?? 1), R = 118;
+    if (k > .05) heroLight({ x: s.x, y: s.y, r: 560, k, cone: .95, coneLen: 900, coneW: .55 });
     ctx.save(); ctx.globalCompositeOperation = 'lighter';
-    let gg = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, 760);
-    gg.addColorStop(0, rgba(L.sunCol, .42 * k)); gg.addColorStop(.25, rgba(L.sunCol, .16 * k)); gg.addColorStop(1, rgba(L.sunCol, 0));
+    let gg = ctx.createRadialGradient(s.x, s.y, R * .6, s.x, s.y, 1100);
+    gg.addColorStop(0, rgba(L.sunCol, .95 * k)); gg.addColorStop(.1, rgba(L.sunCol, .6 * k)); gg.addColorStop(.3, rgba(L.sunCol, .22 * k)); gg.addColorStop(.6, rgba(L.sunCol, .06 * k)); gg.addColorStop(1, rgba(L.sunCol, 0));
     ctx.fillStyle = gg; ctx.fillRect(0, 0, W, H);
     ctx.restore();
     if (L.el > -1.5) {
-      gg = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, 40);
-      gg.addColorStop(0, rgba('#fffaf0', k)); gg.addColorStop(.6, rgba('#fff3d6', k)); gg.addColorStop(1, rgba(L.sunCol, 0));
-      ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(s.x, s.y, 40, 0, 7); ctx.fill();
+      gg = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R);
+      gg.addColorStop(0, rgba('#fff3cf', k)); gg.addColorStop(.7, rgba('#ffe2a0', k)); gg.addColorStop(.92, rgba('#ffc46e', k)); gg.addColorStop(1, rgba(L.sunCol, 0));
+      ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(s.x, s.y, R, 0, 7); ctx.fill();
     }
   }
   return { hy, sun: s };

@@ -15,7 +15,7 @@ export const PAL = {
   blueHour: '#24305a', window: '#ffb35c', dawn: '#f2c9a0', vine: '#6f8f4e', leaf: '#9bb86a', soil: '#b8875a', soilDeep: '#8a5a3c',
   traceWarm: '#fff1c9', traceGlow: '#ffb35c', traceCold: '#9fb6cf', traceColdCore: '#e6eef6',
   robotShell: '#ecebe6', robotJoint: '#3a3d42', robotVisor: '#1f2a33', knit: '#d9c7a8', magnet: '#7a6f8f',
-  you: '#c98a3a', grandma: '#c79a9a', trainer: '#3f7f7a', grower: '#4a6a8a',
+  you: '#e3a92f', grandma: '#c79a9a', trainer: '#3f7f7a', grower: '#4a6a8a',
   brick: '#b8694c', brickLight: '#e6d9c4', asphalt: '#8d8a86', meadow: '#a9b77a', meadowDry: '#c9bf86', field: '#d2c08a', water: '#9fbac4',
 };
 // skin tones (warm range), shared by all figures and hands
@@ -33,30 +33,35 @@ export const span = (t, a, b, e = sineS) => e(lin(a, b, t));
 const hash = (x) => { const v = Math.sin(x * 127.1 + 311.7) * 43758.5453; return v - Math.floor(v); };
 export function noise1(x, seed = 0) { const i = Math.floor(x), f = x - i, u = f * f * (3 - 2 * f); return mix(hash(i + seed * 57.3), hash(i + 1 + seed * 57.3), u) * 2 - 1; }
 
-// ---------------------------------------------------------------- the day: tod(t) → hours, light(h) → everything light
-// One day over the film (MOTION.md §2.3). The jump at 372 s (evening blue hour → morning blue hour) is invisible: light() is the same there.
-const TOD = [[0, 6.75], [75, 9.6], [125, 11.9], [192, 13.2], [246, 15.6], [292, 17.9], [330, 19.3], [360, 20.35], [372, 20.6], [372.01, 5.35], [409, 6.55], [454, 7.5], [507, 8.4], [561, 9.1], [612.74, 7.3], [655.4, 7.6]];
+// ---------------------------------------------------------------- the night: tod(t) → hours, light(h) → everything light
+// Style since 2026-10-24 (Jakob, Film-11 thumbnails): flat grain illustration on deep indigo, ONE warm hero light per frame.
+// The film is one night in the valley (MOTION.md §2.3): low sunset (hook) → blue hour → night (acts 1–2, hero lights are windows,
+// lamps and the trace) → the jump at 372 s (deep night → deep pre-dawn, invisible: both sit on the bottom row) → dawn over the
+// vineyard → low warm morning sun for the solutions and the finale (warmer and brighter, allowed for the solution part only).
+const TOD = [[0, 19.3], [60, 19.62], [75, 19.75], [125, 20.2], [192, 20.9], [246, 21.6], [292, 22.5], [330, 23.5], [360, 24.5], [372, 25], [372.01, 4.6], [409, 6.3], [454, 6.75], [507, 7.15], [561, 7.5], [612.74, 6.9], [655.4, 7.1]];
 export function tod(t) {
   if (t <= TOD[0][0]) return TOD[0][1];
   for (let i = 0; i + 1 < TOD.length; i++) { const [a, ha] = TOD[i], [b, hb] = TOD[i + 1]; if (t <= b) return mix(ha, hb, (t - a) / (b - a)); }
   return TOD[TOD.length - 1][1];
 }
-// sun: rises 6.2 h at the left (east, az −78°), noon high and slightly right of the valley axis, sets 19.9 h at the right (az +78°)
-const SKYK = [   // [sun elevation°, top, horizon, fog, sun colour, shade colour, key] for the morning side; evening uses EVE
-  [-12, '#1f2a52', '#3c4a7a', '#3a4670', '#ffb35c', '#2a2f55', .42],
-  [-4, '#3a4a7c', '#a3a2c0', '#8f94b4', '#ffb070', '#4a4a72', .55],
-  [1, '#c3d3df', '#f4d6ae', '#efe2cc', '#ffcf8a', '#8f8098', .86],
-  [8, '#c9dce4', '#f4e0bf', '#efe6d6', '#ffe3b0', '#94899e', .95],
-  [22, '#c4dbe5', '#ecece0', '#e9ebe4', '#fff1d6', '#8f93a6', 1],
-  [55, '#bcd6e2', '#e3ece9', '#e6ebe8', '#fff8ea', '#8d97a8', 1],
+// sun: rises 6.2 h, sets 19.9 h; azimuth kept within ±28° of north so the low sun is IN the valley views (left in the morning,
+// right in the evening): it is the hero disc of the hook and the finale.
+// rows: [sun elevation°, sky top, horizon, fog, sun colour, shade colour, key]; these are INPUT values for the indigo grade (gradeLUT)
+const SKYK = [
+  [-12, '#05071a', '#141e58', '#121a4c', '#ffb35c', '#0c1238', .34],
+  [-4, '#070a24', '#3a3a86', '#2a3274', '#ffa860', '#141c4c', .5],
+  [1, '#0a0e30', '#5a4a8e', '#3a3a80', '#ffb870', '#1a2052', .66],
+  [8, '#121a4a', '#8a6a9a', '#56569a', '#ffcf8a', '#242c66', .78],
+  [22, '#3654a6', '#f0d0a6', '#b7b6cf', '#ffe3b0', '#4a5c9c', .9],
+  [55, '#3a5aae', '#f2dcb8', '#c2c2d8', '#fff1d6', '#4f62a2', .95],
 ];
 const EVE = [
-  [-12, '#1f2a52', '#3c4a7a', '#3a4670', '#ffb35c', '#2a2f55', .42],
-  [-4, '#3b3f72', '#c08a8e', '#8e7f9e', '#ff9a5c', '#4d4170', .6],
-  [1, '#8f9cc0', '#e9a066', '#d9b08e', '#ffa95c', '#6b4a5e', .8],
-  [8, '#a9bccf', '#efbd84', '#ead2b2', '#ffc27a', '#7a6078', .9],
-  [22, '#bed6e2', '#efe2c8', '#ebe6da', '#ffe7c0', '#8a889e', 1],
-  [55, '#bcd6e2', '#e3ece9', '#e6ebe8', '#fff8ea', '#8d97a8', 1],
+  [-12, '#05071a', '#141e58', '#121a4c', '#ffb35c', '#0c1238', .34],
+  [-4, '#070a24', '#1e2c76', '#1c2868', '#ff9a4c', '#121a48', .48],
+  [1, '#080b28', '#2a3486', '#232f78', '#ffa64d', '#141c4c', .6],
+  [8, '#0a0e30', '#33408e', '#2c3a84', '#ffb860', '#182254', .7],
+  [22, '#2a3f95', '#c8a8a0', '#8088c4', '#ffd08a', '#34458a', .86],
+  [55, '#3350a8', '#c8c4d8', '#8a9ad8', '#ffe2b0', '#3a4c92', .95],
 ];
 function skyRow(tab, el) {
   let i = 0; while (i + 2 < tab.length && el > tab[i + 1][0]) i++;
@@ -66,13 +71,15 @@ function skyRow(tab, el) {
 export function light(h) {
   const day = (h - 6.2) / (19.9 - 6.2);                       // 0 sunrise … 1 sunset
   const el = 54 * Math.sin(Math.PI * clamp(day, -.12, 1.12)) + (day < 0 ? day * 60 : day > 1 ? (1 - day) * 60 : 0);
-  const az = mix(-78, 78, clamp(day, -.2, 1.2));
+  const az = mix(-28, 28, clamp(day, -.2, 1.2));
   const morning = h < 13 ? 1 : 0, r = skyRow(morning ? SKYK : EVE, el);
   const elr = el * Math.PI / 180, azr = az * Math.PI / 180;
   const dir = [Math.sin(azr) * Math.cos(elr), Math.sin(elr), Math.cos(azr) * Math.cos(elr)];   // towards the sun (world)
   const warm = clamp(1 - (el - 2) / 26);                        // 1 = low warm sun, 0 = high white sun
   return {
     h, el, az, dir, warm, morning,
+    stars: clamp((-el - 2) / 10),                                 // stars and dust in the night sky (skyAndSun)
+    lamp: clamp((-el + 1) / 8),                                   // how much a lit window/lamp is THE light (scenes choose which one)
     sky: [r.top, r.hor], fog: r.fog, sunCol: r.sunCol, shade: r.shade, key: r.key,
     rim: mixHex('#fff4dc', '#ffc27a', warm), shadowLen: clamp(1 / Math.tan(Math.max(4, el) * Math.PI / 180), .5, 8),
     // lit(colour, f): a surface colour under this light; f 0 = in shadow (coloured, never black), 1 = full sun
@@ -80,6 +87,45 @@ export function light(h) {
     // air(colour, dist m): atmospheric perspective towards the fog colour
     air(col, d, k = 1) { return mixHex(col, r.fog, clamp(1 - Math.exp(-d / (2600 / k)))); },
   };
+}
+// ---------------------------------------------------------------- hero lights + the indigo grade (applied once per frame in the print finish)
+// Style 2026-10-24 (Film-11 thumbnails): VALUE contrast. Everything is drawn as before, then the finish relights the frame:
+//   value = drawn luminance × lightmask(x, y)   (lightmask = ambient + the registered hero lights: a radial pool + a long cone)
+// and maps it onto the indigo ramp. Warm amber (lights, the trace, rim light, your yellow coat) and cyan keep their hue; warm bright
+// pixels and stars are EMISSIVE (not darkened by the mask) and bloom. Far from the hero light the world sinks to ink silhouettes.
+// Drawing code registers the hero light of the frame in screen px: heroLight({ x, y, r, k, cone, coneLen, coneW, amb }).
+// skyAndSun registers the sun by itself. No hero registered → a flat mask (amb .75).
+const HEROES = []; let AMB = null;
+export function heroLight(o) { if (o.amb != null) AMB = o.amb; if (o.x != null) HEROES.push({ x: o.x, y: o.y, r: o.r ?? 460, k: o.k ?? 1, cone: o.cone ?? 0, coneLen: o.coneLen ?? 700, coneW: o.coneW ?? .45 }); }
+export function takeHeroes() { const h = HEROES.splice(0), a = AMB; AMB = null; return { lights: h, amb: a ?? (h.length ? .34 : .7) }; }
+const GRADE = [[0, 0], [372, 0], [409, .45], [507, .7], [655.4, .8]];
+export function gradeAt(t) { for (let i = 0; i + 1 < GRADE.length; i++) { const [a, u] = GRADE[i], [b, v] = GRADE[i + 1]; if (t <= b) return { dawn: mix(u, v, sineS(lin(a, b, t))) }; } return { dawn: GRADE[GRADE.length - 1][1] }; }
+const RAMP_N = [[0, '#070a24'], [.1, '#0e1440'], [.25, '#1a2a7a'], [.45, '#2a40a0'], [.65, '#4a68c8'], [.82, '#93a8e6'], [.94, '#ece2d6'], [1, '#fff1c9']];
+const RAMP_D = [[0, '#0a0820'], [.15, '#140f36'], [.35, '#24215e'], [.55, '#433f92'], [.72, '#8a6fae'], [.86, '#e0a58e'], [.95, '#f8d8b0'], [1, '#fff6e6']];
+const RAMP_W = [[0, '#140804'], [.25, '#4a1f0c'], [.5, '#a8521f'], [.7, '#f0973e'], [.85, '#ffbf6a'], [1, '#fff1c9']];
+const RAMP_C = [[0, '#031820'], [.5, '#0a6f8c'], [.8, '#8fe6ff'], [1, '#d8f7ff']];
+const ramp = (R, y) => { let i = 0; while (i + 2 < R.length && y > R[i + 1][0]) i++; const [a, ca] = R[i], [b, cb] = R[i + 1]; const A = hex2rgb(ca), B = hex2rgb(cb), u = clamp((y - a) / (b - a)); return [mix(A[0], B[0], u), mix(A[1], B[1], u), mix(A[2], B[2], u)]; };
+const sst = (a, b, x) => { const u = clamp((x - a) / (b - a)); return u * u * (3 - 2 * u); };
+const GRADES = new Map(); let KEYS = null;
+// gradeLUT(dawn) → { K (64³ × [warm, cyan] keep, 0..255), N, W, C (256 × rgb ramps by relit luminance), E (256 emissive by luminance) }
+export function gradeLUT(dawn = 0) {
+  const q = Math.round(clamp(dawn) * 20) / 20; if (GRADES.has(q)) return GRADES.get(q);
+  if (!KEYS) {
+    KEYS = new Uint8Array(64 * 64 * 64 * 2);
+    for (let ri = 0; ri < 64; ri++) for (let gi = 0; gi < 64; gi++) for (let bi = 0; bi < 64; bi++) {
+      const r = ri * 4 + 2, g = gi * 4 + 2, b = bi * 4 + 2, Y = (.299 * r + .587 * g + .114 * b) / 255, gr = g / Math.max(1, r);
+      const hue = sst(.6, .68, gr) * (1 - sst(.82, .9, gr)), o = ((ri << 12) | (gi << 6) | bi) * 2;
+      KEYS[o] = 255 * Math.max(sst(.1, .28, (r - b) / 255) * hue * sst(.25, .5, Y), sst(.82, .9, Y) * sst(.02, .06, (r - b) / 255));   // + hot warm-white cores (sun disc, trace core)
+      KEYS[o + 1] = 255 * sst(.15, .35, ((g + b) / 2 - r) / 255) * sst(.45, .75, Y);
+    }
+  }
+  const N = new Uint8ClampedArray(768), Wr = new Uint8ClampedArray(768), C = new Uint8ClampedArray(768), E = new Float32Array(256);
+  for (let i = 0; i < 256; i++) {
+    const y = Math.pow(i / 255, 1.15), n = ramp(RAMP_N, y), d = ramp(RAMP_D, y), w = ramp(RAMP_W, i / 255), c = ramp(RAMP_C, i / 255);
+    for (let k = 0; k < 3; k++) { N[i * 3 + k] = mix(n[k], d[k], q); Wr[i * 3 + k] = w[k]; C[i * 3 + k] = c[k]; }
+    E[i] = sst(.55, .85, i / 255);
+  }
+  const G = { K: KEYS, N, W: Wr, C, E, dawn: q }; GRADES.set(q, G); return G;
 }
 export const lightAt = (t) => light(tod(t));
 

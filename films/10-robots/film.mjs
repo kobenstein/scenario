@@ -12,7 +12,7 @@ import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
 import { filmFinish } from './lib/print.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
-import { prepareFootage } from './lib/f10_core.mjs';
+import { prepareFootage, gradeAt, gradeLUT, takeHeroes } from './lib/f10_core.mjs';
 
 export { ROOT };
 // chunk table (/mnt/project-files/scenario/film-roboter/bild/shots.md §2); from = [segment, first phrase of the chunk]
@@ -82,8 +82,8 @@ export async function build({ timingFile = TIMING } = {}) {
     const nx = list[i + 1];
     return { a: i ? e.t : 0, b: nx ? nx.t : end, draw: e.draw, sec: e.sec, sound: e.sound, print: e.print, clip: !!e.clip, out: { kind: 'cut' }, _start: e.t };
   });
-  // Film 10 finish: the print look of Films 5–11 with a light vignette (bright day; MOTION.md §4)
-  const finish = (ctx, t, o = {}) => filmFinish(ctx, t, { vig: .16, ...o });
+  // Film 10 finish: the indigo grade (one night, MOTION.md §4) + the print look of Films 5–11 + a deeper vignette (Stauffer)
+  const finish = (ctx, t, o = {}) => { const heroes = takeHeroes(); filmFinish(ctx, t, { vig: .3, grade: o.off || o.grade === false ? null : gradeLUT(gradeAt(t).dawn), heroes, ...o }); };
   const film = new Film(shots, { grainAmt: .045, finish, float: cameraFloat });
   film.T = T;
   film.ranges = RANGES;
