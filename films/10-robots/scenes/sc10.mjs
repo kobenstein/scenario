@@ -42,7 +42,7 @@ export default async (T, R) => {
   const KNEE = [XF + .066 * 170, YF - .265 * 170], MOD = 15, MOD_OUT = [KNEE[0] + 34, KNEE[1] - 16], MOD_IN0 = [KNEE[0] - 270, KNEE[1] + 30];
   const CB = [960, 450];                                            // the magnet explainer's centre (screen)
   const T_PUSH0 = A.not - .25, T_PUSH1 = A.with - .3;               // fly into the old module
-  const KA = [[A.t0, { s: 1, x: 960, y: 540 }], [Math.min(A.repaired + .85, T_PUSH0 - .35), B.viewPut(KNEE[0], KNEE[1], 880, 600, 4.2), 's', KNEE],
+  const KA = [[A.t0, { s: 1, x: 960, y: 540 }], [Math.min(A.repaired + .65, T_PUSH0 - .35), B.viewPut(KNEE[0], KNEE[1], 880, 600, 4.2), 's', KNEE],
     [T_PUSH0, B.viewPut(KNEE[0], KNEE[1], 868, 594, 4.45)], [T_PUSH1, B.viewPut(MOD_OUT[0], MOD_OUT[1], CB[0], CB[1], 10), 'q', MOD_OUT]];
   const vA = (t) => B.viewAt(t, KA);
   S.dim = (t) => smooth(span(t, A.t0 + .1, A.repaired + .35));
@@ -51,8 +51,8 @@ export default async (T, R) => {
   const SUN = { Z: 9000, u: 980, v: 600, r: 120 }, MINE = { x: 1700, y: 692, w: 620, h: 128 };
   const T_ID0 = A.all + .35, T_ID1 = T_ID0 + 1.0;
   const BEAM = [1304, 488];                                         // where the beam lands (Z 4000)
-  const KD = [[T_ID0, cam3({ x: -40, y: 40, z: -80 })], [T_ID1 + .7, cam3({ x: -10, y: 20, z: 0 }), 's'], [A.now - .7, cam3({ x: 150, y: -20, z: 430 })],
-    [A.now + .5, cam3({ x: 190, y: -40, z: 520 })], [A.no - .1, cam3({ x: 430, y: -250, z: 600 }), 'q'], [A.every + .4, cam3({ x: 470, y: -262, z: 660 })]];
+  const KD = [[T_ID0, cam3({ x: -40, y: 40, z: -80 })], [T_ID1 + .7, cam3({ x: -10, y: 20, z: 0 }), 's'], [A.now - .7, cam3({ x: 110, y: -10, z: 300 })],
+    [A.now + .5, cam3({ x: 150, y: -30, z: 380 })], [A.no - .1, cam3({ x: 430, y: -250, z: 600 }), 'q'], [A.every + .4, cam3({ x: 470, y: -262, z: 660 })]];
   const camD = (t) => camDrift(camAt(t, KD, SUN.Z), t, .5, 81);
   const beamK = (t) => { const u = span(t, A.now - .75, A.now + .25); return sineIO(u) + Math.sin(Math.PI * span(t, A.now + .25, A.now + .75)) * .012; };
   // ================= F/G: the chain and the many =================
@@ -78,7 +78,7 @@ export default async (T, R) => {
   const duX = (t) => lerp(-160, HDU[0], sineIO(span(t, A.and2 + .3, A.rules - .1)));
   const statusAt = (c) => project(c, F0, HBOT[0] + 8, HBOT[1] - HBOT[2] * .72);
   // ================= I: the plan of light =================
-  const T_II0 = A.switch - .55, T_II1 = T_II0 + .9;
+  const T_II0 = A.switch - .7, T_II1 = T_II0 + 1.25;
   const RD = [600, 700], DU = [370, 700], BEDDOOR = [415, 470];
   const SI = statusAt(camH(T_II0 + .2));
   const KI = [[T_II0, B.viewPut(RD[0], RD[1], SI[0], SI[1], 1.15)], [T_II1 + .5, { s: 1, x: 960, y: 540 }, 'q', RD], [A.yours + 2, { s: 1.02, x: 955, y: 542 }]];
@@ -102,7 +102,7 @@ export default async (T, R) => {
       B.irisWorld(ctx, sx, sy, B.irisR(span(t, T_ID0, T_ID1), 6, sx, sy), () => minnesota(ctx, t, c), () => magnetBC(ctx, t), { t }); return; }
     if (t < T_IF1) { const c = camD(t); minnesota(ctx, t, c); if (t > T_IF0) { const [mx, my] = mineScreen(t); B.iris(ctx, mx, my, B.irisR(span(t, T_IF0, T_IF1), 30, mx, my), () => chainFG(ctx, t), { t }); } return; }
     if (t < T_IH0) { B.fieldFill(ctx, { t }); chainFG(ctx, t); return; }
-    if (t < T_IH1 + .2) { const c = camH(t), [hx, hy] = houseWin(t); B.irisWorld(ctx, hx, hy, B.irisR(span(t, T_IH0, T_IH1), 4, hx, hy), () => room(ctx, t, c), () => chainFG(ctx, t), { t }); return; }
+    if (t < T_IH1 + .2) { const c = camH(t), [hx, hy] = houseWin(t); B.irisWorld(ctx, hx, hy, B.irisR(span(t, T_IH0, T_IH1), 70, hx, hy, 2), () => room(ctx, t, c), () => chainFG(ctx, t), { t }); return; }
     if (t < T_II1) { const c = camH(t); room(ctx, t, c); if (t > T_II0) { const [sx, sy] = statusAt(c); B.iris(ctx, sx, sy, B.irisR(span(t, T_II0, T_II1), 14, sx, sy), () => planI(ctx, t), { t }); } return; }
     if (t < T_IJ0) { B.fieldFill(ctx, { t }); planI(ctx, t); return; }
     if (t < T_IJ1 + .2) { const c = camJ(t), [bx, by] = boxAt(t); B.irisWorld(ctx, bx, by, B.irisR(span(t, T_IJ0, T_IJ1), 10, bx, by), () => kitchen(ctx, t, c), () => planI(ctx, t), { t }); return; }

@@ -100,7 +100,7 @@ export default async function (T, R) {
       }
       wipe(ctx, 'EASIER LIFE', WC[0] + 10, HS.y - HS.h - 150, span(t, A.easier, A.easier + .5), { size: 42, align: 'center', glow: false, col: P.halo2, spacing: .14 });
     });
-    E.lightFlood(ctx, Math.max(floodK(c, F0, WINH.w * 1.5), floodOut(t, R.a, 1.0), floodIn(t, CUT_KITCHEN, .6), t >= CUT_KITCHEN - 1e-3 ? 1 : 0));
+    E.lightFlood(ctx, Math.max(floodK(c, F0, WINH.w * 1.5), floodOut(t, R.a, 1.2), floodIn(t, CUT_KITCHEN, .9), t >= CUT_KITCHEN - 1e-3 ? 1 : 0));
   }
 
   // ===================== stage 2 · the kitchen, the threshold, the corridor, you sit with her =====================
@@ -185,7 +185,7 @@ export default async function (T, R) {
       // her hand on yours: a small warm glow where they meet
       if (reach > 0) E.halo(ctx, 712, TBL.top - 14, 90, .35 * reach, P.halo0, P.core1);
     });
-    E.lightFlood(ctx, Math.max(floodK(c, F0, 72 * 2.2), floodOut(t, CUT_KITCHEN, 1.0), floodIn(t, CUT_BEAM, .6), (t < CUT_KITCHEN + 1e-3 || t >= CUT_BEAM - 1e-3) ? 1 : 0));
+    E.lightFlood(ctx, Math.max(floodK(c, F0, 72 * 2.2), floodOut(t, CUT_KITCHEN, 1.2), floodIn(t, CUT_BEAM, .9), (t < CUT_KITCHEN + 1e-3 || t >= CUT_BEAM - 1e-3) ? 1 : 0));
   }
 
   const draw = run([[R.a, stage1], [CUT_KITCHEN, stage2], [CUT_BEAM, hallStage]]);

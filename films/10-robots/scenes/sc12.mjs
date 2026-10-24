@@ -63,8 +63,8 @@ export default async (T, R) => {
   const T_FLY = A.garden + .42;
   const HW0 = B.viewToScreen(vA(T_IA0 + .2), HWIN[0], HWIN[1]);
   const KK = [[T_IA0, aim(WALL, WINC[0], WINC[1], .5, HW0[0], HW0[1])], [T_IA1 + .45, cam3({ x: 380, y: 10, z: 180 }), 's'], [A.done + .3, cam3({ x: 430, y: 20, z: 290 })],
-    [A.table + .15, cam3({ x: -60, y: 30, z: 300 }), 's'], [A.her + .45, cam3({ x: -20, y: 10, z: 360 })], [T_FLY, aim(WALL, WINC[0], WINC[1], 6.5), 's']];
-  const camK = (t) => camDrift(camAt(t, KK, WALL), t, .5 * (1 - span(t, A.her + .45, T_FLY)), 261);
+    [A.table + .15, cam3({ x: -60, y: 30, z: 300 }), 's'], [A.her - .08, cam3({ x: -20, y: 10, z: 360 })], [T_FLY, aim(WALL, WINC[0], WINC[1], 5.5), 's']];
+  const camK = (t) => camDrift(camAt(t, KK, WALL), t, .5 * (1 - span(t, A.her + .1, T_FLY)), 261);
   // you: walk in with the tray, sit, set it down, slide one cup to her
   const T_DW0 = A.done + .15, T_DW1 = A.table - .25, X_W0 = 150, X_W1 = 683;
   const duX = (t) => lerp(X_W0, X_W1, smooth(span(t, T_DW0, T_DW1)) * .25 + span(t, T_DW0, T_DW1) * .75) + 32 * smooth(span(t, A.table - .2, A.table + .55));
@@ -105,21 +105,22 @@ export default async (T, R) => {
   FIELD.forEach((f) => { let best = 1e9; for (let k = 0; k < RZT.length; k += 10) { const tt = T_GO + k * .01 + (Math.abs(f.Z - RZT[k]) + Math.abs(f.X - pathX(RZT[k]))) / 1300; if (tt < best) best = tt; } f.tl = best; });
   const FLOWERS = []; { const r2 = E.prng(733); for (let i = 0; i < 34; i++) { const Z = 1750 + r2() * 1100, side = r2() < .5 ? -1 : 1; FLOWERS.push({ X: pathX(Z) + side * (130 + r2() * 420), Z, h: 70 + r2() * 90, ph: r2() * 6.28, warm: r2() < .7 }); } FLOWERS.sort((a, b) => b.Z - a.Z); }
   const HP = E.handPath({ pose: 'open' });
-  // garden cameras: through the window (far back), the flight, the wide garden, follow the pair, the crane, the end frame
-  const G0 = cam3({ x: 0, y: -60, z: -900 }), GM = cam3({ x: -30, y: -20, z: -260 }), G1 = cam3({ x: -120, y: 0, z: 40 });
+  // garden cameras: through the window (far back), the flight, the locked shot on the path, the crane, the end frame
+  const G0 = cam3({ x: 0, y: -60, z: -900 }), GM = cam3({ x: -30, y: -20, z: -260 });
   const END = cam3({ x: 0, y: -260, z: -450 });
-  const KGa = [[A.her + .45, G0], [T_FLY, GM, 's'], [A.alive + .9, G1, 's']];
-  const follow = (t) => {
-    const tt = t - .18, [dx, dz] = duG(tt), [rx, rz] = robG(Math.min(tt, T_GO)), Xm = (dx + rx) / 2 + 40, Zm = (dz + rz) / 2;
-    return cam3({ x: Xm, y: 120, z: Zm - 1500 });
-  };
-  const T_F0 = A.alive + .6, T_F1 = A.walk, T_C0 = T_GO + .1, T_C1 = T_C0 + 6.6;
+  // E: a locked medium shot along the path (the pair walks through it, left → centre); F: the crane, then a very slow push on
+  const GE = cam3({ x: -600, y: 140, z: 400 }), END2 = cam3({ x: 0, y: -250, z: -300 });
+  const T_C0 = T_GO + .1, T_C1 = T_C0 + 6.6;
+  // the living end hold: a soft wind runs through the field from the left, light motes drift in the sun
+  const LIVE = (t) => smooth(span(t, T_C1 - 1.5, T_C1 + 1.5));
+  const gust = (X, t) => LIVE(t) * (.55 + .45 * Math.sin(t * .23)) * Math.sin(X / 700 - t * 1.1);
+  const KGa = [[A.her + .1, G0], [T_FLY, GM, 's'], [A.alive + 1.2, GE, 's']];
   const camG = (t) => {
     let c;
-    if (t < T_F0) c = camAt(t, KGa, 3000);
-    else if (t < T_C0) c = mixCam(camAt(t, KGa, 3000), follow(t), sineIO(span(t, T_F0, T_F1)));
-    else c = mixCam(follow(Math.min(t, T_C0 + .4)), END, sineIO(span(t, T_C0, T_C1)));
-    return camDrift(c, t, t < T_C1 ? .6 : .45 + .15 * Math.sin(t * .2), 271);
+    if (t < T_C0) c = camAt(t, KGa, 3000);
+    else if (t < T_C1) c = mixCam(GE, END, sineIO(span(t, T_C0, T_C1)));
+    else c = mixCam(END, END2, sineIO(span(t, T_C1, A.b + .5)));
+    return camDrift(c, t, t < T_C1 ? .6 : .6 + 1.2 * LIVE(t), 271);
   };
 
   const draw = (ctx, t) => {
@@ -189,7 +190,7 @@ export default async (T, R) => {
 
   // ---------- B–D: the kitchen ----------
   function kitchen(ctx, t, c) {
-    garden(ctx, t, camG(t), t < A.her + .45);          // seen through the open window (in full once the flight begins)
+    garden(ctx, t, camG(t), t < A.her + .1);          // seen through the open window (in full once the flight begins)
     card(ctx, c, WALL, () => wall(ctx, t));
     card(ctx, c, CNT, () => counter(ctx, t));
     const ba = 1 - smooth(span(t, A.outside + .1, T_FLY - .35));
@@ -331,7 +332,7 @@ export default async (T, R) => {
     card(ctx, c, 40000, () => {
       B.morningSky(ctx, 1, 600, { t, stars: false });
       ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.filter = 'blur(14px)';
-      for (const [y, x0, w0, sp] of [[230, 300, 520, 6], [180, 1250, 420, 4], [420, 1450, 380, 5]]) { ctx.fillStyle = rgba(P.halo1, .1); ctx.fillRect(x0 + ((t * sp) % 400) - 200, y, w0, 10); }
+      for (const [y, x0, w0, sp] of [[230, 300, 520, 6], [180, 1250, 420, 4], [420, 1450, 380, 5]]) { ctx.fillStyle = rgba(P.halo1, .1); ctx.fillRect(x0 + (t - 634) * sp, y, w0, 10); }   // no wrap: they only drift
       ctx.restore();
       B.sun(ctx, 960, 330, 92, t, { rays: true, dust: lite ? 0 : 2200 });
     });
@@ -350,7 +351,7 @@ export default async (T, R) => {
       objs.push([dg[1], () => duGarden(ctx, t, c, dg, rg)]);
     }
     objs.sort((a, b) => b[0] - a[0]).forEach((o) => o[1]());
-    if (!lite) { bees(ctx, t, c); card(ctx, c, 1250, () => grassFg(ctx, t)); }
+    if (!lite) { bees(ctx, t, c); motes(ctx, t, c); card(ctx, c, 1250, () => grassFg(ctx, t)); }
   }
   function gPath(ctx, t, c) {   // the garden path, projected point by point (it runs into depth)
     const L = [], Rr = [];
@@ -361,11 +362,11 @@ export default async (T, R) => {
     ctx.fillStyle = lin(ctx, 0, yT, 0, Math.max(yT + 1, yB), [[0, rgba(P.halo0, 0)], [.3, rgba(P.halo0, .3)], [.6, rgba(P.halo1, .36)], [1, rgba(P.halo2, .3)]]); ctx.fill(); ctx.restore();
   }
   function fieldItem(ctx, t, c, f) {
-    const la = smooth(span(t, f.tl, f.tl + .9)), fade = 1 - .8 * smooth(span(f.side, 240, 620));
+    const la = smooth(span(t, f.tl, f.tl + .9)), fade = 1 - .9 * smooth(span(f.side, 220, 520));
     onG(ctx, c, f.X, f.Z, (x, y, k) => {
       ctx.save(); ctx.globalAlpha = fade;
       if (f.kind === 'hand') {
-        const L = 78 * f.s * k * (.7 + .3 * la) * (1 + .03 * Math.sin(t * 1.3 + f.ph)), ang = -Math.PI / 2 + Math.sin(t * .8 + f.ph) * .05 + f.flip * .08;
+        const L = 78 * f.s * k * (.7 + .3 * la) * (1 + .03 * Math.sin(t * 1.3 + f.ph)), ang = -Math.PI / 2 + Math.sin(t * .8 + f.ph) * .05 + f.flip * .08 + .13 * gust(f.X, t);
         const m = E.handMatrix(x, y - L * .8, ang, L, f.flip), p = new Path2D(); p.addPath(HP, m);
         ctx.save(); ctx.beginPath(); ctx.rect(x - L * 4, y - L * 6, L * 8, L * 6 + 1); ctx.clip();
         if (la < 1) { ctx.fillStyle = mixHex(M.leaf1, P.night1, .35); ctx.globalAlpha = fade * (1 - la * .5); ctx.fill(p); }
@@ -376,7 +377,7 @@ export default async (T, R) => {
         }
         ctx.restore();
       } else {
-        const hh = 230 * f.s * k, sw = Math.sin(t * .9 + f.ph) * .04;
+        const hh = 230 * f.s * k, sw = Math.sin(t * .9 + f.ph) * .04 + .07 * gust(f.X, t);
         ctx.strokeStyle = mixHex(P.night1, P.ind0, .4); ctx.lineWidth = Math.max(1, 4 * k); ctx.beginPath(); ctx.moveTo(x + hh * .12, y); ctx.lineTo(x + hh * .12, y - hh * .55); ctx.stroke();   // the stake
         ctx.strokeStyle = mixHex(P.night1, M.leaf0, .5); ctx.lineWidth = Math.max(1, 6 * k); ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x, y - hh * .4, x + sw * hh, y - hh * .62); ctx.stroke();
         const cr = blobs([[x + sw * hh, y - hh * .78, hh * .2, hh * .24], [x + sw * hh - hh * .12, y - hh * .66, hh * .14, hh * .14], [x + sw * hh + hh * .13, y - hh * .68, hh * .13, hh * .13]]);
@@ -401,7 +402,7 @@ export default async (T, R) => {
   }
   function bigTree(ctx, t, c, X, Z, s) {
     onG(ctx, c, X, Z, (x, y, k) => {
-      const hh = 1100 * k, sw = Math.sin(t * .45 + X) * .012;
+      const hh = 1100 * k, sw = Math.sin(t * .45 + X) * .012 + .018 * gust(X, t);
       ctx.fillStyle = mixHex(P.night1, P.night0, .4); ctx.beginPath(); ctx.moveTo(x - 30 * k, y); ctx.quadraticCurveTo(x - 14 * k, y - hh * .4, x - 8 * k + sw * hh, y - hh * .62); ctx.lineTo(x + 14 * k + sw * hh, y - hh * .62); ctx.quadraticCurveTo(x + 18 * k, y - hh * .4, x + 34 * k, y); ctx.fill();
       const cr = blobs([[0, -.78, .3], [-.24, -.66, .22], [.24, -.68, .23], [-.1, -.95, .2], [.16, -.9, .18]].map(([u, v, r]) => [x + (u + sw) * hh, y + v * hh, r * hh, r * hh * .85]));
       ctx.fillStyle = mixHex(M.leaf0, P.night1, .45); ctx.fill(cr);
@@ -412,12 +413,24 @@ export default async (T, R) => {
     const fa = 1 - .55 * smooth(span(Math.abs(f.X * F0 / (f.Z + 450)), 300, 700)) * smooth(span(t, T_C0, T_C1));
     onG(ctx, c, f.X, f.Z, (x, y, k) => {
       ctx.globalAlpha = fa;
-      const hh = f.h * k, sw = Math.sin(t * 1.1 + f.ph) * .08, tx = x + sw * hh, ty = y - hh;
+      const hh = f.h * k, sw = Math.sin(t * 1.1 + f.ph) * .08 + .14 * gust(f.X, t), tx = x + sw * hh, ty = y - hh;
       ctx.strokeStyle = mixHex(M.leaf1, P.night1, .3); ctx.lineWidth = Math.max(1, 3 * k); ctx.beginPath(); ctx.moveTo(x, y); ctx.quadraticCurveTo(x, y - hh * .5, tx, ty); ctx.stroke();
       ctx.fillStyle = rgba(M.leafLit, .6); ctx.beginPath(); ctx.ellipse(x + 6 * k, y - hh * .35, 9 * k, 3 * k, -.5, 0, 6.29); ctx.fill();
       const r = 11 * k; if (f.warm) halo(ctx, tx, ty, r * 2.6, .28, P.halo1, P.halo0);
       ctx.fillStyle = f.warm ? P.halo0 : mixHex(P.blue1, P.cream, .4); for (let i = 0; i < 5; i++) { const a = i / 5 * 6.283 + f.ph; ctx.beginPath(); ctx.arc(tx + Math.cos(a) * r * .7, ty + Math.sin(a) * r * .7, r * .55, 0, 6.29); ctx.fill(); }
       ctx.fillStyle = f.warm ? P.core1 : P.halo1; ctx.beginPath(); ctx.arc(tx, ty, r * .45, 0, 6.29); ctx.fill();
+    });
+  }
+  const MOTES = []; { const r3 = E.prng(919); for (let i = 0; i < 42; i++) MOTES.push({ x: r3() * 1920, y: 120 + r3() * 700, r: 1.6 + r3() * 2.4, sp: 6 + r3() * 10, ph: r3() * 6.28 }); }
+  function motes(ctx, t, c) {   // light motes in the sun, only in the end hold
+    const a = LIVE(t); if (a <= 0) return;
+    card(ctx, c, 1500, () => {
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      for (const m of MOTES) {
+        const u = ((t * m.sp / 140 + m.ph / 6.28) % 1 + 1) % 1, x = m.x + u * 140 * 1.6, y = m.y - u * 140 + Math.sin(t * .7 + m.ph) * 14, tw = .5 + .5 * Math.sin(t * 1.3 + m.ph);
+        ctx.fillStyle = rgba(P.core1, a * Math.sin(Math.PI * u) * (.2 + .3 * tw));   // each mote lives one rise and fades in and out ctx.beginPath(); ctx.arc(x, y, m.r, 0, 6.29); ctx.fill();
+      }
+      ctx.restore();
     });
   }
   function bees(ctx, t, c) {

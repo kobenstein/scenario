@@ -69,10 +69,10 @@ export default async function (T, R) {
       // the quote, written by a warm trace on the dark wall left of the door; the source under it
       iris(ctx, 680, 480, 620, .5 * env(t, A.if1 - .5, A.if1 + .3), 1.35);
       QL.forEach(([str, a, b], i) => writeOn(ctx, str, 360, 330 + i * 86, span(t, a, b), { serif: true, size: 76 }));
-      wipe(ctx, 'BERNT BØRNICH, CEO OF 1X (MAKER OF NEO)', 362, 690, span(t, A.better + .1, A.better + .6), { size: 26, glow: false, col: P.halo2, spacing: .1 });
-      wipe(ctx, 'WALL STREET JOURNAL, 2025', 362, 728, span(t, A.better + .25, A.better + .75), { size: 26, glow: false, col: P.halo2, spacing: .1 });
+      wipe(ctx, 'BERNT BØRNICH, CEO OF 1X (MAKER OF NEO)', 362, 690, span(t, A.if1 + .2, A.if1 + .7), { size: 26, glow: false, col: P.halo2, spacing: .1 });
+      wipe(ctx, 'WALL STREET JOURNAL, 2025', 362, 728, span(t, A.if1 + .35, A.if1 + .85), { size: 26, glow: false, col: P.halo2, spacing: .1 });
     });
-    E.lightFlood(ctx, Math.max(floodK(c, F0, DR.w * 1.05), floodOut(t, CUT_DOOR, 1.0), floodIn(t, CUT_CUP, .6), t < CUT_DOOR + 1e-3 || t >= CUT_CUP - 1e-3 ? 1 : 0));
+    E.lightFlood(ctx, Math.max(floodK(c, F0, DR.w * 1.05), floodOut(t, CUT_DOOR, 1.2), floodIn(t, CUT_CUP, .9), t < CUT_DOOR + 1e-3 || t >= CUT_CUP - 1e-3 ? 1 : 0));
   }
 
   // ===================== stage C · the cup → the house in section → the points → ten robots → the map of power =====================
@@ -246,13 +246,13 @@ export default async function (T, R) {
       points(ctx, t, k);
       powerMap(ctx, t, k);
     });
-    E.lightFlood(ctx, Math.max(t < CUT_CUP + .9 ? floodK(c, F0, 120) : 0, t > A.quieter ? floodK(c, F0, 120) : 0, floodOut(t, CUT_CUP, 1.0), floodIn(t, CUT_SHED, .6), t < CUT_CUP + 1e-3 || t >= CUT_SHED - 1e-3 ? 1 : 0));
+    E.lightFlood(ctx, Math.max(t < CUT_CUP + .9 ? floodK(c, F0, 120) : 0, t > A.quieter ? floodK(c, F0, 120) : 0, floodOut(t, CUT_CUP, 1.2), floodIn(t, CUT_SHED, .9), t < CUT_CUP + 1e-3 || t >= CUT_SHED - 1e-3 ? 1 : 0));
   }
 
   // ===================== stage P · the pottery shed (lib/f10_c05_pot.mjs) =====================
   function stageP(ctx, t) {
     const c = potStage(ctx, t, CUT_SHED);
-    E.lightFlood(ctx, Math.max(floodK(c, F0, 160), floodOut(t, CUT_SHED, 1.0), t < CUT_SHED + 1e-3 ? 1 : 0));
+    E.lightFlood(ctx, Math.max(floodK(c, F0, 160), floodOut(t, CUT_SHED, 1.2), t < CUT_SHED + 1e-3 ? 1 : 0));
   }
 
   const draw = run([[R.a, hallStage], [CUT_DOOR, stageD], [CUT_CUP, stageC], [CUT_SHED, stageP]]);

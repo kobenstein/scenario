@@ -91,7 +91,8 @@ export function irisWorld(ctx, x, y, r, worldFn, fieldFn, o = {}) {
 }
 // iris radius from a 0..1 progress: starts as the object's size, ends past the frame corner (expo out)
 // (the opened AREA grows with a sine ease: fast while small, never more than ~1/20 of the frame per frame → no lurch)
-export const irisR = (u, r0, x, y) => { const R = Math.hypot(Math.max(x, W - x), Math.max(y, H - y)) + 40; return Math.sqrt(lerp(r0 * r0, R * R, sineIO(u))); };
+// p > 1 starts the opening gentler (the radius does not jump in the first frames)
+export const irisR = (u, r0, x, y, p = 1) => { const R = Math.hypot(Math.max(x, W - x), Math.max(y, H - y)) + 40; return Math.sqrt(lerp(r0 * r0, R * R, sineIO(u / .75) ** p)); };   // done at 3/4 of the slot: fewer frames in motion
 
 // ---------- type ----------
 export const SZ = { hero: 168, num: 132, mid: 84, word: 64, label: 40, small: 34, src: 26 };

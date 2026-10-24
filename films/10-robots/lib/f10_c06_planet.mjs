@@ -99,9 +99,9 @@ export function planetKeys() {
     [A.motor + .2, ...kp(0, 0), HKZ * 4.2],
     [A.motors + .3, ...kp(0, 0), KKZ, 'q'],
     [A.two - .2, ...kp(30, 0), KKZ * 1.02],
-    [A.kg + .2, ...kp(380, 40), KKZ, 's'],
-    [A.thrown - .5, ...kp(420, 60), KKZ * 1.02],
-    [A.thrown + .7, ...kp(720, 780), KKZ, 's'],
+    [A.kg + .2, ...kp(380, 105), KKZ, 's'],
+    [A.thrown - .5, ...kp(420, 125), KKZ * 1.02],
+    [A.thrown + 1.0, ...kp(720, 780), KKZ, 's'],
     [A.less - .3, ...kp(720, 820), KKZ * 1.02],
     [A.less + .5, ...kp(720, 900), KKZ, 's'],
     [A.so + .2, ...kp(740, 900), KKZ * 1.03],
@@ -320,8 +320,8 @@ function bars(ctx, t) {
   if (ev > 0) { const h = 1.4 * BAR.kg * ev, p = new Path2D(); p.roundRect(BAR.x1, BAR.base - h, BAR.w, h, [10, 10, 0, 0]); E.lightShape(ctx, p, t, { lit: 1, seed: 97, glow: .8, cy: -.4 }); }
   writeOn(ctx, '~1.4 KG', BAR.x1 + BAR.w / 2, BAR.base - 1.4 * BAR.kg - 40, span(t, A.twice + .2, A.twice + .8) * lab, { serif: true, size: 120, align: 'center' });
   mark(ctx, 'car', BAR.x1 + BAR.w / 2, BAR.base + 90, 130, t, { lit: 0, u: span(t, A.twice, A.twice + .6) * lab, glow: .8 });
-  wipe(ctx, 'ABOUT 2× AN ELECTRIC CAR', (BAR.x0 + BAR.x1 + BAR.w) / 2, BAR.base + 210, span(t, A.about + .1, A.about + .6) * lab, { size: 40, align: 'center', glow: false, col: P.halo2, spacing: .1, weight: 700 });
-  wipe(ctx, '2–4 KG RARE-EARTH MAGNETS PER ROBOT · FAI', (BAR.x0 + BAR.x1 + BAR.w) / 2, BAR.base + 260, span(t, A.about + .5, A.about + 1.0) * lab, { size: 26, align: 'center', glow: false, col: P.halo2, spacing: .1 });
+  wipe(ctx, 'ABOUT 2× AN ELECTRIC CAR', (BAR.x0 + BAR.x1 + BAR.w) / 2, BAR.base + 172, span(t, A.about + .1, A.about + .6) * lab, { size: 40, align: 'center', glow: false, col: P.halo2, spacing: .1, weight: 700 });
+  wipe(ctx, '2–4 KG RARE-EARTH MAGNETS PER ROBOT · FAI', (BAR.x0 + BAR.x1 + BAR.w) / 2, BAR.base + 220, span(t, A.about + .5, A.about + 1.0) * lab, { size: 26, align: 'center', glow: false, col: P.halo2, spacing: .1 });
   ctx.restore();
 }
 // the bin under the lantern: an old robot falls in, the magnets sink in; nothing comes back

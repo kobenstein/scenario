@@ -330,7 +330,7 @@ export default async function (T, R) {
       writeOn(ctx, '· HARVARD', textW('RICHARD FREEMAN') + 18, -170, span(t, A.harvard - .2, A.harvard + .3) * out, { size: 40, spacing: .14, weight: 700, col: P.halo2, glow: false });
       writeOn(ctx, '“Who owns the robots', 0, -60, span(t, A.who - .1, A.rules - .1) * out, { serif: true, size: 96 });
       writeOn(ctx, 'rules the world.”', 0, 40, span(t, A.rules - .1, A.world) * out, { serif: true, size: 96 });
-      wipe(ctx, 'RICHARD FREEMAN, HARVARD · IZA WORLD OF LABOR, 2015', 2, 104, span(t, A.world + .1, A.world + .6) * out, { size: 26, glow: false, col: P.halo2, spacing: .1 });
+      wipe(ctx, 'RICHARD FREEMAN, HARVARD · IZA WORLD OF LABOR, 2015', 2, 104, span(t, A.title, A.title + .5) * out, { size: 26, glow: false, col: P.halo2, spacing: .1 });
       ctx.restore();
     });
   }
@@ -363,7 +363,7 @@ export default async function (T, R) {
   const draw = run([[R.a, (ctx, t) => {
     const cam = planetCam(t, K7);
     planetWorld(ctx, t, { cam, before, extra, starRot: rot(t), starA: 1 - .7 * dawn(t) });
-    E.lightFlood(ctx, smooth(span(t, A.end - 1.0, A.end)));   // a little longer than the fly-in (408.45–409.00): gentler brightening
+    E.lightFlood(ctx, smooth(span(t, A.end - 1.1, A.end)));   // a little longer than the fly-in (408.45–409.00): gentler brightening
   }]]);
   return [{ t: R.a, draw, print: { editorial: true } }];
 }

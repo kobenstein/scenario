@@ -44,14 +44,14 @@ export default async (T, R) => {
 
   // ================= A: the west thread on the globe =================
   const T_W0 = A.t0 + .35, T_W1 = A.moves + .9;                       // thread grows from INDIA over the ring to the BASQUE point
-  const KA = [[T_H, H_END], [T_W1, { s: .62, x: 540, y: 640 }, 's'], [A.in + .35, { s: 2.4, x: WEST[0], y: WEST[1] }, 'q', WEST]];
+  const KA = [[T_H, H_END], [T_W1, { s: .62, x: 540, y: 640 }, 's'], [A.in + .35, { s: 2.4, x: WEST[0], y: WEST[1] }, 's', WEST]];
   const vA = (t) => B.vDrift(B.viewAt(t, KA), t, .3, 21);
   const westPts = (() => { const [rx, ry, rr] = MAP.ring; return catmull([[EAST[0], EAST[1], 3], [1500, 520, 3], [rx, ry + rr + 40, 3], [400, 520, 3], [WEST[0], WEST[1], 3]], 14); })();
   // ================= B: the Basque hills =================
   const T_WB = A.in - .2, T_WBF = A.in + .8;
   const SUN = { Z: 9000, u: 700, v: 560, r: 150 };
   const WB = B.viewToScreen(B.viewAt(T_WB, KA), WEST[0], WEST[1]);
-  const KB = [[T_WB, aim(SUN.Z, SUN.u, SUN.v, 1.8, WB[0], WB[1])], [T_WBF + .5, cam3({ x: -20, y: 0, z: 30 }), 's'], [A.when, cam3({ x: 40, y: -10, z: 160 })]];
+  const KB = [[T_WB, cam3({ x: -60, y: 10, z: -70 })], [T_WBF + .5, cam3({ x: -20, y: 0, z: 30 }), 's'], [A.when, cam3({ x: 40, y: -10, z: 160 })]];
   const camB = (t) => camDrift(camAt(t, KB, SUN.Z), t, .5, 31);
   const SHOPS = [   // workshops on the hills: [Z, x, base y, w, h, prints]
     [4000, 330, 742, 330, 150, 6], [4000, 1250, 730, 300, 140, 6], [F0, 560, 905, 420, 210, 8], [F0, 1500, 900, 380, 190, 8],
@@ -66,7 +66,7 @@ export default async (T, R) => {
   const KC = [
     [T_ICF, B.viewPut(ROW[TO][0], ROW[TO][1], GS[0], GS[1], 1.9)],
     [A.out + .3, { s: .95, x: 970, y: 520 }, 's', ROW[TO]],
-    [A.worked + .2, { s: .98, x: 950, y: 520 }],
+    [A.worked + .2, { s: .98, x: 950, y: 520 }], [A.fagor - .55, { s: .985, x: 948, y: 520 }],
     [A.fagor + .2, { s: 1.9, x: ROW[DARK][0], y: ROW[DARK][1] + 110 }, 'q', ROW[DARK]],
     [A.and - .05, { s: 2.0, x: ROW[DARK][0] + 5, y: ROW[DARK][1] + 112 }],
     [A.idea, { s: 1.15, x: RING[0], y: RING[1] + 60 }, 's'],
@@ -77,7 +77,7 @@ export default async (T, R) => {
   const vC = (t) => B.vDrift(B.viewAt(t, KC), t, .4, 41);
   const dotsWalk = 9;
   // ================= G: the hall votes =================
-  const T_WG = A.now - .3, T_WGF = A.now + .6;
+  const T_WG = A.now - .35, T_WGF = A.now + .85;
   const CLOCK = [860, 205, 62];
   const KG = [[T_WG, aim(F0, 700, 600, 1.6)], [T_WGF + .3, cam3({ x: -60, y: 20, z: 140 }), 's'], [A.vote + .2, cam3({ x: -70, y: 10, z: 200 })],
     [A.members + .5, aim(F0, CLOCK[0], CLOCK[1], 3.2), 'q']];
@@ -85,15 +85,15 @@ export default async (T, R) => {
   const TRAINERS = [[130, 934, 240], [300, 926, 232], [465, 918, 226], [930, 912, 222]];   // others at their stations (indigo)
   const handUp = (t, i) => smooth(span(t, A.vote - .55 + i * .06, A.vote + .25 + i * .06));
   // ================= H: the day of light =================
-  const T_IH = A.members + .1, T_IHF = T_IH + .8, T_IHB = A.thats - .55, T_IHBF = A.thats + .2;
+  const T_IH = A.members + .1, T_IHF = T_IH + 1.0, T_IHB = A.thats - .85, T_IHBF = A.thats + .5;
   // ================= I: you walk out =================
-  const KI = [[T_IHB, aim(F0, CLOCK[0], CLOCK[1], 3.2)], [A.thats + .9, cam3({ x: -40, y: 10, z: 120 }), 'q'], [A.reaches - .2, cam3({ x: 120, y: 0, z: 260 })],
+  const KI = [[T_IHB, aim(F0, CLOCK[0], CLOCK[1], 3.2)], [A.thats + 1.2, cam3({ x: -40, y: 10, z: 120 }), 's'], [A.reaches - .2, cam3({ x: -10, y: 8, z: 150 })],
     [A.planet + .25, aim(F0, 1370, 470, 55), 'i']];
   const camI = (t) => camDrift(camAt(t, KI), t, .5, 61);
   const walkU = (t) => smooth(span(t, A.take - .2, A.planet - .1));
   // ================= J: the vineyard =================
   const VSUN = { Z: 9000, u: 1180, v: 470, r: 140 };
-  const KJ = [[A.planet + .25, aim(VSUN.Z, VSUN.u, VSUN.v, 60)], [A.go2 + .4, cam3({ x: 20, y: -10, z: 60 }), 's'], [A.when2 + .2, cam3({ x: 60, y: 10, z: 200 })]];
+  const KJ = [[A.planet + .25, aim(VSUN.Z, VSUN.u, VSUN.v, 9)], [A.vineyard + .6, cam3({ x: 20, y: -10, z: 60 }), 's'], [A.when2 + .2, cam3({ x: 60, y: 10, z: 200 })]];
   const camJ = (t) => camDrift(camAt(t, KJ, VSUN.Z), t, .5, 71);
   const VBOT = [1240, 880, 230];
   const T_IK = A.when2 - .15, T_IKF = T_IK + .85;
@@ -101,7 +101,7 @@ export default async (T, R) => {
   const draw = (ctx, t) => {
     if (t < T_H) { c08(ctx, t); return; }
     if (t < T_WB) { B.fieldFill(ctx, { t }); mapA(ctx, t); return; }
-    if (t < T_WBF) { const c = camB(t), [sx, sy] = project(c, SUN.Z, SUN.u, SUN.v); B.irisWorld(ctx, sx, sy, B.irisR(span(t, T_WB, T_WBF), 8, sx, sy), () => basque(ctx, t, c), () => mapA(ctx, t), { t }); return; }
+    if (t < T_WBF) { const c = camB(t), [qx, qy] = project(c, SUN.Z, SUN.u, SUN.v), [wx, wy] = B.viewToScreen(B.viewAt(t, KA), WEST[0], WEST[1]), m = smooth(span(t, T_WB, T_WBF)), sx = lerp(wx, qx, m), sy = lerp(wy, qy, m); B.irisWorld(ctx, sx, sy, B.irisR(span(t, T_WB, T_WBF), 8, sx, sy), () => basque(ctx, t, c), () => mapA(ctx, t), { t }); return; }
     if (t < T_ICF) { const c = camB(t); basque(ctx, t, c); if (t > T_IC) { const [gx, gy] = gateScreen(t); B.iris(ctx, gx, gy, B.irisR(span(t, T_IC, T_ICF), 30, gx, gy), () => rowC(ctx, t), { t }); } return; }
     if (t < T_WG) { B.fieldFill(ctx, { t }); rowC(ctx, t); return; }
     if (t < T_WGF) { const [cx, cy] = B.viewToScreen(vC(t), CTR[0], CTR[1]); const c = camG(t); B.irisWorld(ctx, cx, cy, B.irisR(span(t, T_WG, T_WGF), 30, cx, cy), () => hallG(ctx, t, c), () => rowC(ctx, t), { t }); return; }
@@ -110,11 +110,11 @@ export default async (T, R) => {
     if (t < A.planet + .25) {
       const c = camI(t); hallI(ctx, t, c);
       if (t < T_IHBF) { const [cx, cy, k] = project(c, F0, CLOCK[0], CLOCK[1]), u = 1 - span(t, T_IHB, T_IHBF); B.iris(ctx, cx, cy, B.irisR(u, CLOCK[2] * k, cx, cy), () => dayH(ctx, t, cx, cy, CLOCK[2] * k), { t }); }
-      E.lightFlood(ctx, smooth(span(t, A.planet - .65, A.planet + .25)));   // time-based: the flood never jumps in a few frames
+      E.lightFlood(ctx, smooth(span(t, A.planet - .95, A.planet + .25)));   // time-based: the flood never jumps in a few frames
       return;
     }
     const c = camJ(t);
-    if (t < T_IKF) { vineyard(ctx, t, c); E.lightFlood(ctx, 1 - smooth(span(t, A.planet + .25, A.planet + 1.15)));
+    if (t < T_IKF) { vineyard(ctx, t, c); E.lightFlood(ctx, 1 - smooth(span(t, A.planet + .25, A.planet + 1.65)));
       if (t > T_IK) { const [bx, by] = project(c, F0, VBOT[0], VBOT[1] - VBOT[2] * .55); B.iris(ctx, bx, by, B.irisR(span(t, T_IK, T_IKF), 40, bx, by), () => streetK(ctx, t, bx, by), { t }); }
       return; }
     B.fieldFill(ctx, { t }); streetK(ctx, t);

@@ -148,6 +148,7 @@ export function clock(ctx, x, y, r, t, o = {}) {
 // a wedge (pie slice) between angles a0..a1 (0 = 12 o'clock, clockwise), inner radius r0..r1
 export function wedge(x, y, r0, r1, a0, a1) {
   const p = new Path2D(), q0 = a0 - Math.PI / 2, q1 = a1 - Math.PI / 2;
+  if (!(a1 - a0 > 1e-3) || !(r1 > r0)) return p;   // an empty cell (a near-zero sweep would draw a full ring for one frame)
   p.arc(x, y, r1, q0, q1); p.arc(x, y, r0, q1, q0, true); p.closePath(); return p;
 }
 

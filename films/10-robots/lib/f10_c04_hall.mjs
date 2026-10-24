@@ -114,9 +114,10 @@ function workPart(ctx, t) {
   const tr = span(t, A.robotH - .3, A.robotH + .7), slide = quartIO(tr);
   const bend = lerp(.9, 0, smooth(span(t, A.robotH + .1, A.robotH + .9)));
   const cy = (s0) => FY - (1 - shrink) * s0 * .55;
+  // the second person steps out of the first (clone, no pop): drawn first, it slides out from behind
+  if (t > A.people - .2) { const k = quartIO(span(t, A.people - .2, A.people + .7)); figMark(ctx, lerp(HUM.x, PER2.x, k), cy(HUM.s * .95), HUM.s * .95 * shrink, t, { lit: 1, dir: -1, arms: 0, seed: 4 }); }
   const hm = figMark(ctx, HUM.x, cy(HUM.s), HUM.s * shrink, t, { lit: 1, bend, arms: lerp(1, .05, smooth(span(t, A.robotH + .2, A.robotH + 1))), seed: 3 });
   void hm;
-  if (t > A.people - .2) figMark(ctx, PER2.x, cy(HUM.s * .95), HUM.s * .95 * shrink, t, { lit: 1, dir: -1, u: span(t, A.people - .1, A.people + .5), arms: 0, seed: 4 });
   const ra = smooth(span(t, A.robotH - .5, A.robotH + .1)) * (1 - smooth(span(t, A.things + .2, A.things + .9)));
   const bot = botMark(ctx, BOT.x, FY, BOT.s, t, { lit: 0, arms: ra, glow: 1.3, u: span(t, A.in + .9, A.in + 1.6) });
   // the beam: over your head, then slides onto the robot's hands; at "things" it breaks into three boxes
@@ -384,7 +385,7 @@ export function hallStage(ctx, t) {
   });
   // in: out of the light (the kitchen lamp became the beam); out: into the window light (the robot goes home)
   let fl = 0;
-  if (t < A.in + 1.1) fl = Math.max(fl, floodK(c, F0, BEAM.w * .9), floodOut(t, A.in, 1.0), t < A.in + 1e-3 ? 1 : 0);
-  if (t > A.then) fl = Math.max(fl, floodK(c, F0, 260), floodIn(t, A.flood, .6), t >= A.flood - 1e-3 ? 1 : 0);
+  if (t < A.in + 1.3) fl = Math.max(fl, floodK(c, F0, BEAM.w * .9), floodOut(t, A.in, 1.2), t < A.in + 1e-3 ? 1 : 0);
+  if (t > A.then) fl = Math.max(fl, floodK(c, F0, 260), floodIn(t, A.flood, .9), t >= A.flood - 1e-3 ? 1 : 0);
   E.lightFlood(ctx, fl);
 }

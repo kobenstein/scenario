@@ -73,13 +73,13 @@ export default async (T, R) => {
   const KA = [
     [A.t0, aim(F0, WINC[0], WINC[1], 52)],
     [A.t0 + 2.3, cam3({ x: -30, y: 10, z: 70 }), 's'],               // out of the light (the flood thins over ~1 s), lands in a breathing hold
-    [A.but + .1, cam3({ x: -70, y: 16, z: 190 })],                   // slow push while "same trainer, same cup"
+    [A.but + .1, cam3({ x: -45, y: 12, z: 105 })],                   // a very slow push while "same trainer, same cup"
     [T_IRIS1F, aim(F0, cupTop[0], cupTop[1], 3.4, W * .5, H * .52), 'q'],   // into the lifted cup
   ];
   // ================= C · the wow (robot lifts, the thread runs back) =================
-  const T_BACK0 = A.vote + .95, T_BACK1 = T_BACK0 + 1.0;               // ring sinks into the robot's cup
+  const T_BACK0 = A.vote + .85, T_BACK1 = T_BACK0 + 1.5;               // ring sinks into the robot's cup
   const KC = [[T_BACK0 - .1, cam3({ x: 120, y: -30, z: 330 })], [A.call + .2, cam3({ x: 30, y: -10, z: 120 })]];
-  const robLift = (t) => smooth(span(t, T_BACK1 - .05, A.works + .75));
+  const robLift = (t) => smooth(span(t, T_BACK1 - .05, Math.max(A.works + .75, T_BACK1 + .65)));
   const camC = (t) => camDrift(camAt(t, KC), t, .6, 3);
   const robHand = (t) => B.measure((x) => B.hallScene(x, cam3(), 0, { lift: 0, rob: robLift(t), duArm: duArmC(t) })).rob;
   // your arm in the wow: the cup set down, the hand opens forward to receive (from "a little of what it earns")
@@ -97,7 +97,7 @@ export default async (T, R) => {
   };
   const vTrack = (t) => { const d = duScreenAt(t); return B.viewPut(MAP.du[0], MAP.du[1], d.x, d.y, d.s); };
   const V3 = vTrack(T_IRIS3F);
-  const KD = [[T_IRIS3F, V3], [A.coop + .6, { s: 1, x: 960, y: 520 }, 's', MAP.du], [A.sounds + .2, { s: 1.04, x: 945, y: 515 }],
+  const KD = [[T_IRIS3F, V3], [A.coop + .6, { s: 1, x: 960, y: 520 }, 's', MAP.du], [A.sounds + .2, { s: 1.04, x: 945, y: 515 }], [A.parts - .5, { s: 1.045, x: 944, y: 514 }],
     [A.parts + .4, { s: .62, x: 960, y: 640 }], [A.exist + .2, { s: .6, x: 975, y: 650 }],
     [A.paying + .25, { s: 2.6, x: EAST[0], y: EAST[1] }, 's', EAST]];
   const vD = (t) => (t < T_IRIS3F ? vTrack(t) : B.vDrift(B.viewAt(t, KD), t, .5, 7));

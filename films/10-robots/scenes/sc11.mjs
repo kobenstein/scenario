@@ -80,9 +80,9 @@ export default async (T, R) => {
   // ================= G: the fork =================
   const SUN = { Z: 9000, u: 960, v: 606, r: 110 }, BOARD = [1150, 905];
   const T_IG0 = A.need + .75, T_IG1 = T_IG0 + 1.1;
-  const KG = [[T_IG0, cam3({ x: 0, y: -420, z: -500 })], [A.decide + .2, cam3({ x: 0, y: -300, z: -380 })], [A.robots - .1, cam3({ x: 0, y: -260, z: -340 })],
-    [A.owns + .3, cam3({ x: 20, y: 0, z: 120 }), 'q'], [A.writes - .2, cam3({ x: 60, y: 10, z: 200 })], [A.rules + .7, cam3({ x: 150, y: 20, z: 330 }), 's'],
-    [A.miss - .3, cam3({ x: 60, y: -20, z: 360 })], [A.miss + .6, aim(SUN.Z, SUN.u, SUN.v, 55), 'i']];
+  const KG = [[T_IG0, cam3({ x: 0, y: -420, z: -500 })], [A.decide + .2, cam3({ x: 0, y: -300, z: -380 })], [A.owns - 1.0, cam3({ x: 0, y: -260, z: -340 })],
+    [A.owns + .3, cam3({ x: 20, y: 0, z: 120 }), 'q'], [A.writes - .2, cam3({ x: 40, y: 6, z: 170 })], [A.rules + .7, cam3({ x: 50, y: 8, z: 185 }), 's'],
+    [A.miss - .8, cam3({ x: 60, y: -10, z: 260 })], [A.miss + .6, aim(SUN.Z, SUN.u, SUN.v, 7), 's']]   // the disc covers the middle, the flood does the rest;
   const camG = (t) => camDrift(camAt(t, KG, SUN.Z), t, .5, 211);
   // ================= H: the hall (the trainer, not you) =================
   const T_HF = A.miss + .6;
@@ -92,8 +92,8 @@ export default async (T, R) => {
   const armOf = (lf) => [lerp(.18, 1.35, lf), lerp(.1, 2.55, lf)];
   const cupOfFig = (x, y, h, lf) => { const [s1, s2] = armOf(lf), el = [.098 + Math.sin(s1) * .17, -.74 + Math.cos(s1) * .17], hd = [el[0] + Math.sin(s2) * .155, el[1] + Math.cos(s2) * .155]; return [x + h * hd[0], y + h * (hd[1] - .04)]; };
   const CUT_SCREEN = [960, 500];
-  const KH = [[T_HF, aim(F0, WINC[0], WINC[1], 52)], [T_HF + 1.6, cam3({ x: -40, y: 10, z: 90 }), 's'], [A.teacher - .2, cam3({ x: -60, y: 0, z: 170 })],
-    [A.cut, aim(F0, ...cupOfFig(TR[0], TR[1], TR[2], liftH(A.cut)), 1.7, ...CUT_SCREEN), 'q']];
+  const KH = [[T_HF, aim(F0, WINC[0], WINC[1], 52)], [T_HF + 2.1, cam3({ x: -45, y: 8, z: 110 }), 's'],
+    [A.cut, aim(F0, ...cupOfFig(TR[0], TR[1], TR[2], liftH(A.cut)), 1.7, ...CUT_SCREEN), 's']];
   const camH = (t) => camAt(t, KH);
   // ================= I: your living room =================
   const WALL = 2600, WIN = { x: 1250, y: 170, w: 400, h: 560 }, LDU = [820, 940, 330], LBOT = [1130, 905, 390];
@@ -119,8 +119,8 @@ export default async (T, R) => {
       const c = camG(t), [qx, qy] = project(c, SUN.Z, SUN.u, SUN.v), [cx, cy] = cupF(t), m = smooth(span(t, T_IG0, T_IG1)), sx = lerp(cx, qx, m), sy = lerp(cy, qy, m);
       B.irisWorld(ctx, sx, sy, B.irisR(span(t, T_IG0, T_IG1), 8, sx, sy), () => fork(ctx, t, c), () => explB(ctx, t), { t }); return;
     }
-    if (t < T_HF) { const c = camG(t); fork(ctx, t, c); E.lightFlood(ctx, smooth(span(t, T_HF - .9, T_HF))); return; }
-    if (t < A.cut) { const c = camH(t); hall(ctx, t, c); E.lightFlood(ctx, 1 - smooth(span(t, T_HF, T_HF + .9))); return; }
+    if (t < T_HF) { const c = camG(t); fork(ctx, t, c); E.lightFlood(ctx, smooth(span(t, T_HF - 1.2, T_HF))); return; }
+    if (t < A.cut) { const c = camH(t); hall(ctx, t, c); E.lightFlood(ctx, 1 - smooth(span(t, T_HF, T_HF + 1.1))); return; }
     if (t < T_IJ0) { living(ctx, t, camI(t)); return; }
     if (t < T_IJ1 + .2) { const c = camI(t), [x, y] = cupScreenI(t); B.irisWorld(ctx, x, y, B.irisR(span(t, T_IJ0, T_IJ1), 20, x, y), () => hands(ctx, t), () => living(ctx, t, c), { t, c0: P.night1 }); return; }
     if (t < T_IK0) { hands(ctx, t); return; }
@@ -276,7 +276,8 @@ export default async (T, R) => {
       [[1330, 640, 90, 70], [1440, 642, 110, 84], [1560, 638, 80, 64], [1650, 641, 120, 78], [1770, 640, 84, 60]].forEach(([x, y, ww, hh], i) => B.house(ctx, x, y, ww, hh, { win: .9, wx: (i % 2 ? -.12 : .12), light: 1, c0: P.night1, c1: mixHex(P.ind0, P.blue1, .25) }));
     });
     card(ctx, c, 4000, () => B.hill(ctx, [[-900, 700], [300, 688], [960, 700], [1700, 684], [2900, 696]], { c0: mixHex(B.M.leaf1, P.ind1, .45), c1: P.night1, rim: rgba(B.M.leafLit, .55) }));
-    card(ctx, c, F0, () => {
+    const nearA = 1 - smooth(span((project(c, F0, 0, 0) || [0, 0, 99])[2], 1.6, 3.2));   // near things dissolve as the flight passes them
+    if (nearA > 0) card(ctx, c, F0, () => { ctx.globalAlpha = nearA;
       B.hill(ctx, [[-700, 790], [400, 776], [960, 786], [1600, 772], [2700, 786]], { c0: mixHex(B.M.leaf1, P.ind1, .35), c1: P.night0, rim: rgba(B.M.leafLit, .7), rimW: 3 });
       // the path: from the front up to the fork, then left (tower) and right (village)
       const path = new Path2D();
@@ -286,7 +287,7 @@ export default async (T, R) => {
       // the robot at the fork
       const rb = [975, 905, 300];
       E.castShadow(ctx, rb[0], rb[1], 60, 220, 1.75, .5);
-      E.robot(ctx, rb[0], rb[1], rb[2], { dir: 1, light: 1, rim: P.halo0, body: P.night1, hand: 'hand' });
+      E.robot(ctx, rb[0], rb[1], rb[2], { dir: 1, light: 1, rim: P.halo0, body: P.night1, hand: 'hand', alpha: nearA });
       // "whoever owns them": two threads from the robot, a cool one to the tower and a warm one to the village
       const ow = sineIO(span(t, A.owns - .5, A.owns + .6));
       if (ow > 0) {
@@ -303,11 +304,11 @@ export default async (T, R) => {
         const pts = []; for (let i = 0; i <= 90; i++) { const f = i / 90, line = Math.floor(f * 3), lf = f * 3 - line; pts.push([BOARD[0] + 14 + lf * 126 + Math.sin(lf * 40 + line) * 4, BOARD[1] - 262 + line * 34 + Math.sin(lf * 23 + line * 2) * 6, 2.2]); }
         const n = Math.max(2, Math.floor(wr * pts.length));
         ctx.save(); ctx.strokeStyle = rgba(P.cream, .9); ctx.lineWidth = 2.6; ctx.lineCap = 'round'; ctx.beginPath(); for (let i = 0; i < n; i++) { const [x, y] = pts[i], br = i % 30 === 0; br ? ctx.moveTo(x, y) : ctx.lineTo(x, y); } ctx.stroke(); ctx.restore();
-        const [hx, hy] = pts[n - 1], ha = smooth(span(wr, 0, .15)) * (1 - smooth(span(wr, .85, 1)));
+        const hw = pts.slice(Math.max(0, n - 13), n), hx = hw.reduce((a, p) => a + p[0], 0) / hw.length, hy = hw.reduce((a, p) => a + p[1], 0) / hw.length, ha = smooth(span(wr, 0, .15)) * (1 - smooth(span(wr, .85, 1)));
         if (ha > 0) { const ht = E.handTip({ pose: 'point' }, 0), m0 = E.handMatrix(0, 0, -2.2, 120, 1), [ox, oy] = E.applyM(m0, ...ht); E.lightHand(ctx, E.handMatrix(hx - ox, hy - oy, -2.2, 120, 1), t, { pose: 'point', a: ha, dust: 1500 }); }
       }
     });
-    card(ctx, c, 1100, () => { ctx.save(); ctx.filter = 'blur(8px)'; ctx.fillStyle = rgba(P.night0, .85); for (let i = 0; i < 8; i++) { const x = 1700 + i * 40; ctx.beginPath(); ctx.moveTo(x, 1250); ctx.quadraticCurveTo(x - 30, 1000, x - 60 + Math.sin(t * .6 + i) * 6, 880 - (i % 3) * 50); ctx.lineTo(x + 30, 1250); ctx.fill(); } ctx.restore(); });
+    if (nearA > 0) card(ctx, c, 1100, () => { ctx.globalAlpha = nearA; ctx.save(); ctx.filter = 'blur(8px)'; ctx.fillStyle = rgba(P.night0, .85); for (let i = 0; i < 8; i++) { const x = 1700 + i * 40; ctx.beginPath(); ctx.moveTo(x, 1250); ctx.quadraticCurveTo(x - 30, 1000, x - 60 + Math.sin(t * .6 + i) * 6, 880 - (i % 3) * 50); ctx.lineTo(x + 30, 1250); ctx.fill(); } ctx.restore(); });
   }
   // ---------- H: the hall: the trainer lifts the cup ----------
   function hall(ctx, t, c) {
