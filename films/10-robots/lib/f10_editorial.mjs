@@ -222,7 +222,7 @@ const FPOSE = {
   point: { armR: [1.85, 1.92], look: .25, lean: .02 }, reach: { armR: [2.5, 2.62], look: .85 },
   hold: { armR: [.75, 2.35] }, walk: { view: 'side' }, sit: { sit: true },
 };
-const SKIN = mixHex(P.shade0, P.night1, .35);
+const SKIN = mixHex(P.shade0, P.night1, .5);
 function figure(ctx, x, y, h, o, CC, isDu) {
   const q = { ...(FPOSE[o.pose] || {}) }; for (const [k, v] of Object.entries(o)) if (v !== undefined) q[k] = v;
   const dir = q.dir ?? 1, L = (q.light ?? 1) * dir, back = q.back ?? 0, look = q.look ?? 0, lean = q.lean ?? 0;
@@ -237,17 +237,17 @@ function figure(ctx, x, y, h, o, CC, isDu) {
   ctx.save(); ctx.translate(x, y); ctx.scale(h * dir, h);
   ctx.fillStyle = rgba(P.night0, .6); ctx.beginPath(); ctx.ellipse(-L * .2, 0, .3, .022, 0, 0, 6.29); ctx.fill();
   const pants = isDu ? P.ind1 : P.night1, pantsLit = mixHex(pants, P.blue1, .45);
-  if (q.sit) {   // crouched on the ground, arms round the knees, head down
-    cap([[-.04, -.12], [.13, -.36], [.17, -.03]], .09, .075, pants);
-    ctx.fillStyle = P.night0; ctx.beginPath(); ctx.ellipse(.2, -.018, .055, .024, 0, 0, 6.29); ctx.fill();
-    const cp = new Path2D(); cp.moveTo(-.02, -.66); cp.bezierCurveTo(-.13, -.64, -.19, -.48, -.2, -.3); cp.bezierCurveTo(-.21, -.15, -.24, -.06, -.25, -.006);
-    cp.lineTo(.02, -.006); cp.bezierCurveTo(.06, -.1, .07, -.3, .06, -.42); cp.bezierCurveTo(.06, -.55, .05, -.63, -.02, -.66); cp.closePath();
-    ctx.fillStyle = lin(ctx, -.25 * L, 0, .08 * L, 0, [[0, cShade], [.55, CC.base], [1, cLit]]); ctx.fill(cp); rimFill(cp, rimCol, -L * .018, .01);
-    if (isDu) { ctx.fillStyle = cShade; ctx.beginPath(); ctx.ellipse(-.03, -.63, .08, .05, -.4, 0, 6.29); ctx.fill(); }
-    ctx.fillStyle = isDu ? P.ind2 : P.night0; ctx.beginPath(); ctx.ellipse(.07, -.6, .066, .07, .5, 0, 6.29); ctx.fill();
-    cap([[.0, -.56], [.17, -.43], [.13, -.31]], .07, .058, mixHex(CC.base, cLit, .4));
-    ctx.fillStyle = SKIN; ctx.beginPath(); ctx.arc(.13, -.31, .03, 0, 6.29); ctx.fill();
-    ctx.restore(); const hh = [x + h * dir * .13, y - h * .31]; return { R: hh, L: hh };
+  if (q.sit) {   // crouched on the ground, arms round the knees, head down on them (thumbnail "or dumber")
+    const cp = new Path2D(); cp.moveTo(-.02, -.62); cp.bezierCurveTo(-.12, -.62, -.18, -.5, -.19, -.32); cp.bezierCurveTo(-.2, -.16, -.22, -.06, -.23, -.006);
+    cp.lineTo(.0, -.006); cp.bezierCurveTo(.02, -.12, .04, -.3, .05, -.42); cp.bezierCurveTo(.05, -.55, .03, -.61, -.02, -.62); cp.closePath();
+    ctx.fillStyle = lin(ctx, -.23 * L, 0, .06 * L, 0, [[0, cShade], [.55, CC.base], [1, cLit]]); ctx.fill(cp); rimFill(cp, rimCol, -L * .016, .01);
+    cap([[-.05, -.1], [.12, -.33], [.16, -.03]], .085, .07, pantsLit);                  // the near leg, knee up
+    ctx.fillStyle = P.night0; ctx.beginPath(); ctx.ellipse(.185, -.018, .052, .024, 0, 0, 6.29); ctx.fill();
+    if (isDu) { ctx.fillStyle = cShade; ctx.beginPath(); ctx.ellipse(-.02, -.6, .075, .045, -.5, 0, 6.29); ctx.fill(); }
+    ctx.fillStyle = isDu ? P.ind2 : P.night0; ctx.beginPath(); ctx.ellipse(.075, -.53, .064, .07, .6, 0, 6.29); ctx.fill();   // head down on the knees
+    cap([[.0, -.52], [.15, -.42], [.15, -.3]], .068, .056, mixHex(CC.base, cLit, .4));   // arm round the knees
+    ctx.fillStyle = SKIN; ctx.beginPath(); ctx.arc(.15, -.29, .022, 0, 6.29); ctx.fill();
+    ctx.restore(); const hh = [x + h * dir * .15, y - h * .29]; return { R: hh, L: hh };
   }
   // legs (trousers, shoes pointing where you go)
   const leg = (hx, a, k, col) => {
@@ -266,7 +266,7 @@ function figure(ctx, x, y, h, o, CC, isDu) {
   const arm = (sd, [s1, s2], col) => {
     const sx = sd * .098 * wf + (side ? -.01 : 0), sy = -.74, el = [sx + Math.sin(s1) * .17, sy + Math.cos(s1) * .17], hd = [el[0] + Math.sin(s2) * .155, el[1] + Math.cos(s2) * .155];
     cap([[sx, sy], el, hd], .072, .056, col);
-    ctx.fillStyle = SKIN; ctx.beginPath(); ctx.ellipse(hd[0] + Math.sin(s2) * .012, hd[1] + Math.cos(s2) * .012, .028, .032, -s2, 0, 6.29); ctx.fill();
+    ctx.fillStyle = SKIN; ctx.beginPath(); ctx.ellipse(hd[0] + Math.sin(s2) * .01, hd[1] + Math.cos(s2) * .01, .021, .025, -s2, 0, 6.29); ctx.fill();
     hands[sd > 0 ? 'R' : 'L'] = toCaller(hd[0], hd[1]);
     if (q.cup === (sd > 0 ? 'R' : 'L')) { ctx.fillStyle = P.cream; ctx.beginPath(); ctx.moveTo(hd[0] - .036, hd[1] - .075); ctx.lineTo(hd[0] + .036, hd[1] - .075); ctx.lineTo(hd[0] + .028, hd[1] - .005); ctx.lineTo(hd[0] - .028, hd[1] - .005); ctx.closePath(); ctx.fill(); }
   };
@@ -346,10 +346,10 @@ function robotPath(o) {
       tip = [wr[0] + Math.sin(s2) * .06, wr[1] + Math.cos(s2) * .06]; p = seg(p, [wr, tip], .058);
       p = seg(p, [wr, [wr[0] + Math.sin(s2 - .9 * s) * .04, wr[1] + Math.cos(s2 - .9 * s) * .04]], .024);   // thumb
     }
-    const hip = [s * .062, -.49], aa = s > 0 ? a1 : -a1, kk = s > 0 ? kA : kB, kn = [hip[0] + Math.sin(aa) * .225, hip[1] + Math.cos(aa) * .225], an = [kn[0] + Math.sin(aa - kk) * .2, kn[1] + Math.cos(aa - kk) * .2];
-    p = seg(p, [hip, kn], .088); p = seg(p, [kn, an], .072);
-    const kc = new Path2D(); kc.ellipse(kn[0], kn[1], .046, .05, 0, 0, Math.PI * 2); p = U(p, kc);
-    const bt = new Path2D(); bt.roundRect(an[0] - .05, an[1] - .03, .13, .06, [.03, .03, .012, .012]); p = U(p, bt);
+    const hip = [s * .066, -.49], aa = s > 0 ? a1 : -a1, kk = s > 0 ? kA : kB, kn = [hip[0] + Math.sin(aa) * .225, hip[1] + Math.cos(aa) * .225], an = [kn[0] + Math.sin(aa - kk) * .2, kn[1] + Math.cos(aa - kk) * .2];
+    p = seg(p, [hip, kn], .084); p = seg(p, [kn, an], .07);
+    const kc = new Path2D(); kc.ellipse(kn[0], kn[1], .044, .048, 0, 0, Math.PI * 2); p = U(p, kc);
+    const bt = new Path2D(); bt.roundRect(s > 0 ? an[0] - .036 : an[0] - .074, an[1] - .03, .11, .06, [.03, .03, .012, .012]); p = U(p, bt);
     J[s] = { sh, el, wr, tip, kn };
     seams.push([[el[0] + Math.cos(s1) * .035, el[1] - Math.sin(s1) * .035], [el[0] - Math.cos(s1) * .035, el[1] + Math.sin(s1) * .035]]);
     seams.push([[kn[0] - .04, kn[1] - .03], [kn[0] + .04, kn[1] - .03]]);
@@ -364,7 +364,7 @@ export function robot(ctx, x, y, h, o = {}) {
   ctx.save(); ctx.translate(x, y); ctx.scale(h * dir, h); ctx.globalAlpha = o.alpha ?? 1;
   ctx.fillStyle = rgba(P.night0, .6); ctx.beginPath(); ctx.ellipse(-L * .2, 0, .32, .02, 0, 0, 6.29); ctx.fill();
   ctx.fillStyle = lin(ctx, 0, -1, 0, 0, [[0, mixHex(body, rim, .12)], [.5, body], [1, mixHex(body, P.night0, .3)]]); ctx.fill(p);
-  const sh = new Path2D(); sh.addPath(p, { a: 1, b: 0, c: 0, d: 1, e: -L * .016, f: .009 });
+  const sh = new Path2D(); sh.addPath(p, { a: 1, b: 0, c: 0, d: 1, e: -L * .011, f: .007 });
   ctx.fillStyle = rim; ctx.fill(new Path2D(p).op(sh, PathOp.Difference));   // rim light on the side of the light
   ctx.save(); ctx.clip(p); ctx.strokeStyle = o.seam || rgba(rim, .35); ctx.lineWidth = .007; ctx.lineCap = 'round';
   for (const s of seams) { ctx.beginPath(); ctx.moveTo(...s[0]); for (const q of s.slice(1)) ctx.lineTo(...q); ctx.stroke(); }
