@@ -38,7 +38,7 @@ export function noise1(x, seed = 0) { const i = Math.floor(x), f = x - i, u = f 
 // The film is one night in the valley (MOTION.md §2.3): low sunset (hook) → blue hour → night (acts 1–2, hero lights are windows,
 // lamps and the trace) → the jump at 372 s (deep night → deep pre-dawn, invisible: both sit on the bottom row) → dawn over the
 // vineyard → low warm morning sun for the solutions and the finale (warmer and brighter, allowed for the solution part only).
-const TOD = [[0, 19.3], [60, 19.62], [75, 19.75], [125, 20.2], [192, 20.9], [246, 21.6], [292, 22.5], [330, 23.5], [360, 24.5], [372, 25], [372.01, 4.6], [409, 6.3], [454, 6.75], [507, 7.15], [561, 7.5], [612.74, 6.9], [655.4, 7.1]];
+const TOD = [[0, 19.3], [60, 19.62], [75, 19.75], [125, 20.2], [192, 20.9], [246, 21.6], [292, 22.5], [330, 23.5], [360, 24.5], [372, 25], [372.01, 5.5], [380, 6.25], [409, 6.5], [454, 6.8], [507, 7.15], [561, 7.5], [612.74, 6.9], [655.4, 7.1]];
 export function tod(t) {
   if (t <= TOD[0][0]) return TOD[0][1];
   for (let i = 0; i + 1 < TOD.length; i++) { const [a, ha] = TOD[i], [b, hb] = TOD[i + 1]; if (t <= b) return mix(ha, hb, (t - a) / (b - a)); }
