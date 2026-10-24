@@ -64,6 +64,8 @@ function interior(ctx, t, V, L, o) {
   ctx.save(); ctx.globalCompositeOperation = 'lighter';
   for (let i = 0; i < HL.teeth; i++) { const xa = HL.x0 + i * 7; const p = V.P([xa + 1.5, 6, c.z + 14]); if (p.z > .5) { const g = ctx.createLinearGradient(p.x - 120, 0, p.x + 220, H); g.addColorStop(0, rgba('#fff4dc', 0)); g.addColorStop(.5, rgba('#fff4dc', .07)); g.addColorStop(1, rgba('#fff4dc', 0)); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); } }
   ctx.restore();
+  // tone: the hall reads as a warm, lit room, not a white void (luma ~160–175 at noon); a soft multiply over the whole interior
+  ctx.save(); ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = '#e4dccd'; ctx.fillRect(0, 0, W, H); ctx.restore();
 }
 function table(ctx, t, V, L, S, st) {
   const x0 = S.x - .65, x1 = S.x + .65, za = S.z - .38, zb = S.z + .38, y = .75, top = L.lit('#b89470', .85);
@@ -72,8 +74,8 @@ function table(ctx, t, V, L, S, st) {
   fill(ctx, V, [[x0, y, za], [x1, y, za], [x1, y, zb], [x0, y, zb]], top);
   fill(ctx, V, [[x0, y, za], [x1, y, za], [x1, y - .05, za], [x0, y - .05, za]], shadeHex(top, -.18));
   // the cup on the table when nobody holds it
-  if (!(st.lift > 0) && !(st.robotLift > 0)) { const p = V.P(S.cupP); if (p.z > .2) cup(ctx, p.x, p.y, p.k * .095 / 100 * 100 / 100 * 1, { L }); }
-  if (st.robotCup && !(st.robotLift > 0)) { const p = V.P([S.x - S.side * .25, .76, S.z + .1]); if (p.z > .2) cup(ctx, p.x, p.y, p.k * .095 / 100, { L }); }
+  if (!(st.lift > 0) && !(st.robotLift > 0)) { const p = V.P(S.cupP); if (p.z > .2) cup(ctx, p.x, p.y, p.k * .00095 * (st.cupScale || 1), { L }); }
+  if (st.robotCup && !(st.robotLift > 0)) { const p = V.P([S.x - S.side * .25, .76, S.z + .1]); if (p.z > .2) cup(ctx, p.x, p.y, p.k * .00095 * (st.cupScale || 1), { L }); }
 }
 // the cup is 9.5 cm tall: cup() s = 1 ↔ 100 px, so s = k · 0.095 / 100 · 100 px … = k · 0.00095 · 100
 function trainerAt(ctx, t, V, L, S, i, st) {
@@ -89,14 +91,14 @@ function trainerAt(ctx, t, V, L, S, i, st) {
     pose = { sh: [r.sh, .05], el: [r.el, .3], head: .18 - lift * .1 };
   }
   person10(ctx, t, 'trainer', hipX, hipY, s, pose, { L, flip, seed: 20 + i, headset: st.headset || 'up' });
-  if (lift > 0) { const cupS = V.P(S.cupP), up = V.P([S.cupP[0] - S.side * .1, S.cupP[1] + .32 * lift, S.cupP[2] - .1]); cup(ctx, mix(cupS.x, up.x, lift), mix(cupS.y, up.y, lift) + 6 * s, cupS.k * .00095, { L }); }
+  if (lift > 0) { const cupS = V.P(S.cupP), up = V.P([S.cupP[0] - S.side * .1, S.cupP[1] + .32 * lift, S.cupP[2] - .1]); cup(ctx, mix(cupS.x, up.x, lift), mix(cupS.y, up.y, lift) + 6 * s, cupS.k * .00095 * (st.cupScale || 1), { L }); }
 }
 function robotAt(ctx, t, V, L, S, i, st) {
   const sp = sprite(V, [S.robot[0], 0, S.robot[1]], 1.7); if (!sp.vis) return;
   const flip = S.side < 0 ? true : false, s = sp.s, hipX = sp.x, hipY = sp.y - 92 * s, u = st.robotLift || 0;
   const pose = u > 0 ? { sh: [mix(.1, .75, u), -.04], el: [mix(.2, 1.15, u), .14], head: .1 } : { ...RPOSE.stand, head: .06 };
   const r = robot(ctx, hipX, hipY, s, pose, { t, seed: 40 + i, L, side: -1, flip, visor: { rec: st.rec || 0 } });
-  if (u > 0 && r.wrist) { const w = r.wrist(0); const k = V.P([S.robot[0], 1, S.robot[1]]).k; cup(ctx, w[0] + (flip ? -1 : 1) * 4 * s, w[1] + 10 * s, k * .00095, { L }); }
+  if (u > 0 && r.wrist) { const w = r.wrist(0); const k = V.P([S.robot[0], 1, S.robot[1]]).k; cup(ctx, w[0] + (flip ? -1 : 1) * 4 * s, w[1] + 10 * s, k * .00095 * (st.cupScale || 1), { L }); }
 }
 // the wreath of attempt arcs over a table (hundreds of tries)
 function halo(ctx, t, V, S, u, i) {

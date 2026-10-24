@@ -158,11 +158,18 @@ export function camEase(t, K) {
   if (t <= K[0][0]) return { ...K[0][1] };
   if (t >= K[K.length - 1][0]) return { ...K[K.length - 1][1] };
   let i = 0; while (t > K[i + 1][0]) i++;
-  const a = K[i][1], b = K[i + 1][1], ef = (K[i + 1][2] === 'q' ? qio : sineS), u = ef((t - K[i][0]) / (K[i + 1][0] - K[i][0])), out = {};
+  const a = K[i][1], b = K[i + 1][1], mode = K[i + 1][2], ef = (mode === 'q' ? qio : sineS), u = ef((t - K[i][0]) / (K[i + 1][0] - K[i][0])), out = {};
   for (const j of Object.keys(a)) {
     const va = a[j], vb = b[j] ?? va;
-    if (j === 'y' && va > 2 && vb > 2 && Math.max(va, vb) / Math.min(va, vb) > 2) out[j] = Math.exp(mix(Math.log(va), Math.log(vb), u));
+    if (j === 'y' && va > .3 && vb > .3 && Math.max(va, vb) / Math.min(va, vb) > 2) out[j] = Math.exp(mix(Math.log(va), Math.log(vb), u));
     else out[j] = va + (vb - va) * u;
+  }
+  // 'log': approach in log distance (fast while far, very slow near the target: no rush onto a wall);
+  // 'logout': the mirror image, leave a near subject slowly and gain speed with distance (a crane up from a close figure)
+  if (mode === 'log' || mode === 'logout') {
+    const D = Math.hypot(b.x - a.x, b.y - a.y, b.z - a.z), k = Math.log(Math.max(1.01, D / .6));
+    const g = mode === 'log' ? 1 - (Math.exp(-k * u) - Math.exp(-k)) / (1 - Math.exp(-k)) : (Math.exp(k * u) - 1) / (Math.exp(k) - 1);
+    for (const j of ['x', 'y', 'z']) out[j] = a[j] + (b[j] - a[j]) * g;
   }
   return out;
 }

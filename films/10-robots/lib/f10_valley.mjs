@@ -449,7 +449,7 @@ export function valley(ctx, t, V, L, o = {}) {
   // the ridge shadow (morning): the floor east of shadowX lies in the shade of the eastern ridge; the edge is soft (3 steps)
   if (o.shadowX != null) {
     ctx.save();
-    for (let k = 0; k < 4; k++) { const xe = o.shadowX + (k - 1.5) * 26; fillPoly(ctx, V, [[c.x - 6000, .1, -400], [xe, .1, -400], [xe + 120, .1, 1800], [c.x - 6000, .1, 1800]], rgba(L.shade, .07)); }
+    for (let k = 0; k < 4; k++) { const xe = o.shadowX + (k - 1.5) * 26; fillPoly(ctx, V, [[xe, .1, -400], [Math.max(xe, c.x) + 6000, .1, -400], [Math.max(xe, c.x) + 6000, .1, 1800], [xe + 120, .1, 1800]], rgba(L.shade, .07 * (o.shadowA ?? 1))); }
     ctx.restore();
   }
   // upright things, far → near

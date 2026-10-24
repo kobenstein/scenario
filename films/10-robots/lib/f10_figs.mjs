@@ -291,7 +291,7 @@ export function crowdField(o) {
       push([px, y + .01, pz], () => {
         let hpx = 1.7 * s.k * (1 - sink * .85);
         const ra = o.raise && Math.hypot(px - o.raise.at[0], pz - o.raise.at[1]) < o.raise.r ? clamp((t - o.raise.t0 - Math.hypot(px - o.raise.at[0], pz - o.raise.at[1]) * .03) / .6) : 0;
-        if (hpx < 7 || ghost > .5) {
+        if (hpx < 4.5 || ghost > .5) {
           // far: a graphite stroke with a porcelain head (reads on the light fields)
           const a = (1 - ghost * .45) * (1 - sink * .7), d = Math.max(1.2, hpx * .32), hh = Math.max(2.2, hpx);
           ctx.fillStyle = rgba(L.air('#4a4d55', q[2], .7), .85 * a); ctx.fillRect(s.x - d / 2, s.y - hh, d, hh);
