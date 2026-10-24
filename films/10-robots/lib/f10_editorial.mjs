@@ -463,11 +463,12 @@ export function lightForm(ctx, kind, x, y, w, h, t, o = {}) {
   if (kind === 'disc' || kind === 'ring') path.ellipse(cx, cy, w / 2 * br, h / 2 * br, 0, 0, Math.PI * 2);
   else if (kind === 'gate') { path.moveTo(x, y + h); path.lineTo(x, y + w / 2); path.arc(cx, y + w / 2, w / 2, Math.PI, 0); path.lineTo(x + w, y + h); path.closePath(); }
   else path.rect(x, y, w, h);
-  glowFill(ctx, path, R * .55, .85 * a, P.blue0);
-  glowFill(ctx, path, R * .09, .5 * a, P.halo1);
+  glowFill(ctx, path, R * 1.4, .5 * a, P.blue0);      // wide saturated blue
+  glowFill(ctx, path, R * .5, .95 * a, P.blue0);
+  glowFill(ctx, path, R * .09, .6 * a, P.halo0);
   ctx.save(); ctx.globalAlpha = a;
   ctx.fillStyle = rad(ctx, cx, kind === 'disc' || kind === 'ring' ? cy : y + h * .62, R * (kind === 'disc' || kind === 'ring' ? 1 : 1.25),
-    [[0, P.core0], [.2, P.core1], [.5, P.halo0], [.82, P.halo1], [1, mixHex(P.halo1, P.shade0, .5)]]);
+    [[0, P.core0], [.14, P.core0], [.3, P.core1], [.55, P.halo0], [.84, P.halo0], [1, P.halo1]]);
   if (kind === 'ring') { ctx.lineWidth = R * .12; ctx.strokeStyle = ctx.fillStyle; ctx.stroke(path); } else ctx.fill(path);
   if (kind === 'window' || kind === 'gate') {
     const [cols, rows] = o.mullions || [3, 2];
@@ -525,75 +526,184 @@ export function glowText(ctx, s, x, y, o = {}) {
 }
 
 // =====================================================================================================================
-// EXPLAINERS IN THE SAME LOOK: lines, bars, rings and dots made of light on night blue; numbers in cream. Each takes u 0..1
-// (how far it has grown) so it can be driven by the voice. Warm = human / learned / good; cool blue-cream = machine / not yet.
+// EXPLAINERS IN THE SAME LOOK (60–70 % of the film): every mark is a LIGHT SHAPE drawn like the scene light forms:
+// saturated blue aura, warm rim, gold gradient body with a white-gold core, a soft darker inner edge (volume), stipple dust.
+// Warm (lit 1) = human / learned / good · cool (lit 0) = machine / not yet / cost. Numbers in cream. Each takes u 0..1
+// (how far it has grown) so the voice can drive it; nothing pops: things grow, fill with light or are drawn by a trail.
 // =====================================================================================================================
 const COOL = mixHex(P.blue2, P.cream, .35);
-// counter: a number that runs from → to (eased), cream with glow, optional label underneath
-export function counter(ctx, t, o) {
-  const v = lerp(o.from ?? 0, o.to, expoOut(o.u ?? 1)), s = o.fmt ? o.fmt(v) : Math.round(v).toLocaleString('en-US');
-  glowText(ctx, (o.pre || '') + s + (o.post || ''), o.x, o.y, { size: o.size ?? TYPE.hero, align: o.align ?? 'center', serif: o.serif ?? true });
-  if (o.label) glowText(ctx, o.label.toUpperCase(), o.x, o.y + (o.size ?? TYPE.hero) * .42, { size: TYPE.label, align: o.align ?? 'center', spacing: .2, glow: false, col: P.halo2, a: smooth(span(o.u ?? 1, .4, 1)) });
+// the core primitive: fill any Path2D with light. o { lit 0..1, a, dust (count, 0 = none), seed, glow (aura scale), flat (no core) }
+export function lightShape(ctx, path, t, o = {}) {
+  const a = o.a ?? 1, lit = clamp(o.lit ?? 1); if (a <= 0) return;
+  const [x0, y0, x1, y1] = path.getBounds(), w = x1 - x0, h = y1 - y0, R = Math.max(w, h, 8), cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, g = o.glow ?? 1;
+  glowFill(ctx, path, R * .45 * g, .8 * a, P.blue0);
+  glowFill(ctx, path, R * .07 * g + 2, (.25 + .4 * lit) * a, lit > .5 ? P.halo0 : P.blue2);
+  ctx.save(); ctx.globalAlpha = a;
+  const warm = [[0, P.core0], [.18, P.core1], [.45, P.halo0], [.85, P.halo1], [1, mixHex(P.halo1, P.shade0, .45)]];
+  const cool = [[0, P.cream], [.3, COOL], [1, mixHex(P.blue2, P.blue0, .4)]];
+  ctx.fillStyle = rad(ctx, cx + (o.cx ?? 0) * w, cy + (o.cy ?? -.15) * h, R * .75, lit > .5 ? warm : cool); ctx.fill(path);
+  if (lit > .02 && lit < .98) { ctx.globalAlpha = a * (lit > .5 ? 1 - lit : lit); ctx.fillStyle = rad(ctx, cx, cy, R * .75, lit > .5 ? cool : warm); ctx.fill(path); }
+  ctx.globalAlpha = a; ctx.clip(path); ctx.filter = `blur(${R * .04 + 1}px)`; ctx.strokeStyle = rgba(lit > .5 ? P.shade0 : P.ind0, .45); ctx.lineWidth = R * .06 + 2; ctx.stroke(path);
+  ctx.restore();
+  if ((o.dust ?? 1) && lit > .3) dust(ctx, o.seed ?? 5, o.dust > 1 ? o.dust : Math.min(2500, Math.round(R * 6)), cx, cy, w * .55 + 6, h * .55 + 6, t, .8 * a * lit, P.halo0);
 }
-// bars of light rising from a ground line. o { x, y (baseline), w, h (max), values[], max, lit[] (0..1 warm), labels[], u, gap }
+// light that rises inside a shape (fill level u from the bottom): cool outline + warm fill. For icons, battery, glass, bars.
+export function fillWithLight(ctx, path, u, t, o = {}) {
+  const [x0, y0, x1, y1] = path.getBounds();
+  lightShape(ctx, path, t, { ...o, lit: 0, a: (o.a ?? 1) * .55, dust: 0 });
+  if (u <= 0) return;
+  ctx.save(); ctx.beginPath(); ctx.rect(x0 - 999, lerp(y1, y0, clamp(u)), x1 - x0 + 1998, (y1 - y0) * clamp(u) + 999); ctx.clip();
+  lightShape(ctx, path, t, { ...o, lit: 1 }); ctx.restore();
+  const yy = lerp(y1, y0, clamp(u)); if (u < 1) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = lin(ctx, 0, yy - 6, 0, yy + 6, [[0, rgba(P.core0, 0)], [.5, rgba(P.core0, .9)], [1, rgba(P.core0, 0)]]); ctx.save(); ctx.clip(path); ctx.fillRect(x0, yy - 6, x1 - x0, 12); ctx.restore(); ctx.restore(); }
+}
+
+// ---------- icon set from light: house, factory, magnet, battery, hand, coin, tool (+ robot, person, cup) ----------
+// icon(ctx, name, x, y, size, t, { lit, u (fill level; omit = full), a, level (battery) }) · (x,y) = centre, size = height
+const ICON = new Map();
+function iconPath(name, o = {}) {
+  const key = name + (o.level ?? ''); if (ICON.has(key)) return ICON.get(key);
+  const U = (a, b) => a.op(b, PathOp.Union), D = (a, b) => a.op(b, PathOp.Difference);
+  let p = new Path2D();
+  if (name === 'house') { p.moveTo(-.5, -.02); p.lineTo(0, -.5); p.lineTo(.5, -.02); p.lineTo(.4, -.02); p.lineTo(.4, .46); p.lineTo(-.4, .46); p.lineTo(-.4, -.02); p.closePath(); const d = new Path2D(); d.roundRect(-.1, .14, .2, .32, [.1, .1, 0, 0]); const w = new Path2D(); w.rect(.14, .04, .14, .14); p = D(D(p, d), w); }
+  else if (name === 'factory') { p.moveTo(-.5, .46); p.lineTo(-.5, -.05); p.lineTo(-.2, -.25); p.lineTo(-.2, -.05); p.lineTo(.1, -.25); p.lineTo(.1, -.05); p.lineTo(.5, -.3); p.lineTo(.5, .46); p.closePath(); const ch = new Path2D(); ch.rect(.3, -.5, .12, .3); p = U(p, ch); for (const xx of [-.33, -.05, .23]) { const w = new Path2D(); w.rect(xx, .1, .14, .14); p = D(p, w); } }
+  else if (name === 'magnet') { const a = new Path2D(); a.arc(0, -.05, .32, Math.PI, 0); a.lineTo(.32, .4); a.moveTo(-.32, .4); a.lineTo(-.32, -.05); p = a.stroke({ width: .26, cap: 0, join: 1 }); }
+  else if (name === 'battery') { p.roundRect(-.26, -.42, .52, .9, .08); const tm = new Path2D(); tm.roundRect(-.1, -.5, .2, .1, .03); p = U(p, tm); const inner = new Path2D(); inner.roundRect(-.18, -.34, .36, .74, .04); p = D(p, inner); const lv = clamp(o.level ?? 1); if (lv > 0) { const f = new Path2D(); f.roundRect(-.14, .36 - .66 * lv, .28, .66 * lv, .03); p = U(p, f); } }
+  else if (name === 'hand') { const m = handMatrix(0, .5, -Math.PI / 2, .34, 1); p = new Path2D(); const hp = new Path2D(); hp.addPath(handPath({ pose: 'open' }), m); const clipR = new Path2D(); clipR.rect(-.7, -.6, 1.4, 1.1); p = hp.op(clipR, PathOp.Intersect); }
+  else if (name === 'coin') { p.arc(0, 0, .46, 0, Math.PI * 2); const r = new Path2D(); r.arc(0, 0, .36, 0, Math.PI * 2); const r2 = new Path2D(); r2.arc(0, 0, .3, 0, Math.PI * 2); p = U(D(p, r), r2); const s = new Path2D(); s.rect(-.04, -.2, .08, .4); p = D(p, s); }
+  else if (name === 'tool') { const h = new Path2D(); h.moveTo(-.32, .4); h.lineTo(.12, -.06); p = h.stroke({ width: .16, cap: 1, join: 1 }); const hd = new Path2D(); hd.arc(.2, -.2, .22, 0, Math.PI * 2); p = U(p, hd); const sl = new Path2D(); sl.moveTo(.2, -.2); sl.lineTo(.5, -.5); p = D(p, sl.stroke({ width: .16, cap: 0, join: 0 })); const ho = new Path2D(); ho.arc(.2, -.2, .08, 0, Math.PI * 2); p = D(p, ho); }
+  else if (name === 'cup') { p.moveTo(-.3, -.36); p.lineTo(.3, -.36); p.lineTo(.24, .42); p.lineTo(-.24, .42); p.closePath(); const hdl = new Path2D(); hdl.arc(.32, 0, .16, -Math.PI / 2, Math.PI / 2); p = U(p, hdl.stroke({ width: .08, cap: 1, join: 1 })); }
+  else if (name === 'robot') { const r = robotPath({}); p = new Path2D(); p.addPath(r.p, { a: 1, b: 0, c: 0, d: 1, e: 0, f: .5 }); }
+  else if (name === 'person') { p.arc(0, -.36, .13, 0, Math.PI * 2); const b = new Path2D(); b.moveTo(-.12, -.2); b.bezierCurveTo(-.22, -.18, -.26, 0, -.3, .46); b.lineTo(.3, .46); b.bezierCurveTo(.26, 0, .22, -.18, .12, -.2); b.closePath(); p = U(p, b); }
+  else p.arc(0, 0, .45, 0, Math.PI * 2);
+  ICON.set(key, p); return p;
+}
+export const ICONS = ['house', 'factory', 'magnet', 'battery', 'hand', 'coin', 'tool', 'cup', 'robot', 'person'];
+export function icon(ctx, name, x, y, size, t, o = {}) {
+  const p = new Path2D(); p.addPath(iconPath(name, o), { a: size, b: 0, c: 0, d: size, e: x, f: y });
+  if (o.u == null) lightShape(ctx, p, t, o); else fillWithLight(ctx, p, o.u, t, o);
+  if (o.label) glowText(ctx, o.label, x, y + size * .5 + 44, { size: o.labelSize ?? TYPE.small, align: 'center', glow: false, col: P.halo2, a: o.labelA ?? 1 });
+  return p;
+}
+
+// ---------- counter: a number running from → to, cream with a warm glow, label underneath ----------
+export function counter(ctx, t, o) {
+  const v = lerp(o.from ?? 0, o.to, expoOut(o.u ?? 1)), s = o.fmt ? o.fmt(v) : Math.round(v).toLocaleString('en-US'), size = o.size ?? TYPE.hero;
+  halo(ctx, o.x, o.y - size * .35, size * 2.2, .18 * (o.u ?? 1), P.blue0, P.blue0);
+  glowText(ctx, (o.pre || '') + s + (o.post || ''), o.x, o.y, { size, align: o.align ?? 'center', serif: o.serif ?? true });
+  if (o.label) glowText(ctx, o.label.toUpperCase(), o.x, o.y + size * .42, { size: TYPE.label, align: o.align ?? 'center', spacing: .2, glow: false, col: P.halo2, a: smooth(span(o.u ?? 1, .4, 1)) });
+}
+// ---------- bars of light rising from a line of light. o { x, y (baseline), w, h, values, max, lit[], labels[], top[] (value texts), u, gap } ----------
 export function bars(ctx, t, o) {
-  const n = o.values.length, gap = o.gap ?? .35, bw = o.w / (n + (n - 1) * gap), max = o.max ?? Math.max(...o.values);
-  ctx.save(); ctx.strokeStyle = rgba(P.blue1, .9); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(o.x - 20, o.y); ctx.lineTo(o.x + o.w + 20, o.y); ctx.stroke(); ctx.restore();
+  const n = o.values.length, gap = o.gap ?? .45, bw = o.w / (n + (n - 1) * gap), max = o.max ?? Math.max(...o.values);
+  trail(ctx, [[o.x - 30, o.y, 2], [o.x + o.w + 30, o.y, 2]], expoOut(span(o.u ?? 1, 0, .3)), { spark: false, a: .8 });
   o.values.forEach((v, i) => {
-    const k = expoOut(span(o.u ?? 1, i / (n + 2), (i + 3) / (n + 2))), bh = o.h * v / max * k, x = o.x + i * bw * (1 + gap), warm = o.lit ? o.lit[i] : 1;
-    const p = new Path2D(); p.roundRect(x, o.y - bh, bw, bh, [bw * .12, bw * .12, 0, 0]);
-    glowFill(ctx, p, bw * .5, .5 * k, warm > .5 ? P.halo1 : P.blue0);
-    ctx.fillStyle = lin(ctx, 0, o.y - bh, 0, o.y, warm > .5 ? [[0, P.core1], [.4, P.halo0], [1, rgba(P.halo1, .55)]] : [[0, COOL], [1, rgba(P.blue1, .5)]]); ctx.fill(p);
-    if (o.labels?.[i] && k > .5) glowText(ctx, o.labels[i], x + bw / 2, o.y + 48, { size: TYPE.small, align: 'center', glow: false, col: P.halo2, a: smooth(span(k, .5, 1)) });
+    const k = expoOut(span(o.u ?? 1, .1 + i * .6 / n, .1 + i * .6 / n + .5)), bh = Math.max(1, o.h * v / max * k), x = o.x + i * bw * (1 + gap);
+    if (k <= 0) return;
+    const p = new Path2D(); p.roundRect(x, o.y - bh, bw, bh, [Math.min(bw * .5, bh) * .5, Math.min(bw * .5, bh) * .5, 0, 0]);
+    lightShape(ctx, p, t, { lit: o.lit ? o.lit[i] : 1, seed: 11 + i, cy: -.4 });
+    if (o.top?.[i] && k > .6) glowText(ctx, o.top[i], x + bw / 2, o.y - bh - 22, { size: TYPE.label, align: 'center', a: smooth(span(k, .6, 1)) });
+    if (o.labels?.[i]) glowText(ctx, o.labels[i], x + bw / 2, o.y + 48, { size: TYPE.small, align: 'center', glow: false, col: P.halo2, a: smooth(span(k, .2, .8)) });
   });
 }
-// curve of light over quiet axes. o { rect [x,y,w,h], data [[x,y]…], xr [a,b], yr [a,b], u, dashFrom (x where forecast starts), xTicks, yTicks }
+// ---------- curve of light with a pool of light under it. o { rect, data, xr, yr, u, dashFrom, xTicks, yTicks, area (true), w } ----------
 export function curve(ctx, t, o) {
   const [x, y, w, h] = o.rect, [xa, xb] = o.xr, [ya, yb] = o.yr, map = (p) => [x + (p[0] - xa) / (xb - xa) * w, y + h - (p[1] - ya) / (yb - ya) * h];
-  ctx.save(); ctx.strokeStyle = rgba(P.blue1, .9); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + h); ctx.lineTo(x + w, y + h); ctx.stroke(); ctx.restore();
+  ctx.save(); ctx.strokeStyle = rgba(P.blue1, .8); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + h); ctx.lineTo(x + w, y + h); ctx.stroke(); ctx.restore();
   for (const [v, s] of o.xTicks || []) glowText(ctx, s, map([v, ya])[0], y + h + 44, { size: TYPE.small, align: 'center', glow: false, col: P.halo2 });
   for (const [v, s] of o.yTicks || []) glowText(ctx, s, x - 18, map([xa, v])[1] + 10, { size: TYPE.small, align: 'right', glow: false, col: P.halo2 });
   const pts = catmull(o.data.map((p) => [...map(p), o.w ?? 4]), 12), u = o.u ?? 1;
-  const cut = o.dashFrom != null ? clamp((map([o.dashFrom, ya])[0] - x) / w) : 1;
+  const cut = o.dashFrom != null ? clamp((map([o.dashFrom, ya])[0] - x) / w) : 1, iu = Math.max(1, Math.floor(Math.min(u, cut) * (pts.length - 1)));
+  if (o.area !== false && iu > 1) {   // light pooling under the drawn part
+    const a = new Path2D(); a.moveTo(pts[0][0], y + h); for (let i = 0; i <= iu; i++) a.lineTo(pts[i][0], pts[i][1]); a.lineTo(pts[iu][0], y + h); a.closePath();
+    ctx.save(); ctx.fillStyle = lin(ctx, 0, y, 0, y + h, [[0, rgba(P.halo0, .55)], [.5, rgba(P.halo1, .22)], [1, rgba(P.blue0, .08)]]); ctx.fill(a); ctx.restore();
+    dust(ctx, 23, 1800, (pts[0][0] + pts[iu][0]) / 2, y + h * .8, (pts[iu][0] - pts[0][0]) * .45, h * .3, t, .6, P.halo0);
+  }
   const head = trail(ctx, pts, Math.min(u, cut), { w: o.w ?? 4, spark: u < cut });
   if (u > cut) {   // forecast: dotted light
     const i0 = Math.floor(cut * (pts.length - 1)), i1 = Math.floor(u * (pts.length - 1));
     ctx.save(); ctx.setLineDash([2, 14]); ctx.lineCap = 'round'; ctx.strokeStyle = P.halo0; ctx.lineWidth = (o.w ?? 4) * 1.4; ctx.beginPath();
     for (let i = i0; i <= i1; i++) (i === i0 ? ctx.moveTo(pts[i][0], pts[i][1]) : ctx.lineTo(pts[i][0], pts[i][1])); ctx.stroke(); ctx.restore();
+    halo(ctx, pts[i1][0], pts[i1][1], 40, .6);
   }
   return { head, map };
 }
-// share ring: a ring of light, shares fill with warm light. o { x, y, r, parts [{v, lit, label}], u }
+// ---------- share ring: a ring of light, shares fill with warm light. o { x, y, r, parts [{v, lit, label}], u, center, centerSub } ----------
 export function pie(ctx, t, o) {
-  const tot = o.parts.reduce((s, p) => s + p.v, 0), u = o.u ?? 1, w = o.r * .22;
-  ctx.save(); ctx.lineWidth = w; ctx.strokeStyle = rgba(P.blue1, .55); ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, 6.29); ctx.stroke(); ctx.restore();
+  const tot = o.parts.reduce((s, p) => s + p.v, 0), u = o.u ?? 1, w = o.r * .26;
+  const base = new Path2D(); base.arc(o.x, o.y, o.r, 0, 6.29); lightShape(ctx, base.stroke({ width: w * .35, cap: 0, join: 1 }), t, { lit: 0, a: .35, dust: 0 });
   let a0 = o.start ?? -Math.PI / 2;
-  for (const p of o.parts) {
-    const a1 = a0 + p.v / tot * 6.283 * expoOut(u);
-    const arc = new Path2D(); arc.arc(o.x, o.y, o.r, a0, a1); const band = arc.stroke({ width: w, cap: 0, join: 1 });
-    const warm = p.lit ?? 1; glowFill(ctx, band, w * .6, .55, warm > .5 ? P.halo1 : P.blue0);
-    ctx.fillStyle = warm > .5 ? P.halo0 : COOL; ctx.fill(band);
-    if (p.label && u > .8) { const am = (a0 + a1) / 2; glowText(ctx, p.label, o.x + Math.cos(am) * (o.r + w * 1.6), o.y + Math.sin(am) * (o.r + w * 1.6) + 10, { size: TYPE.small, align: Math.cos(am) > 0 ? 'left' : 'right', glow: false, col: P.halo2 }); }
+  o.parts.forEach((p, i) => {
+    const a1 = a0 + p.v / tot * 6.283 * expoOut(u); if (a1 - a0 < .01) { a0 = a1; return; }
+    const arc = new Path2D(); arc.arc(o.x, o.y, o.r, a0 + .02, a1 - .02); lightShape(ctx, arc.stroke({ width: w, cap: 0, join: 1 }), t, { lit: p.lit ?? 1, seed: 31 + i });
+    if (p.label && u > .8) { const am = (a0 + a1) / 2; glowText(ctx, p.label, o.x + Math.cos(am) * (o.r + w * 1.4), o.y + Math.sin(am) * (o.r + w * 1.4) + 10, { size: TYPE.small, align: Math.cos(am) > .2 ? 'left' : Math.cos(am) < -.2 ? 'right' : 'center', glow: false, col: P.halo2 }); }
     a0 = a1;
-  }
+  });
+  if (o.center) glowText(ctx, o.center, o.x, o.y + o.r * .18, { size: o.r * .55, align: 'center', serif: true, a: smooth(span(u, .5, 1)) });
+  if (o.centerSub) glowText(ctx, o.centerSub.toUpperCase(), o.x, o.y + o.r * .45, { size: TYPE.small, align: 'center', glow: false, col: P.halo2, spacing: .15, a: smooth(span(u, .6, 1)) });
 }
-// cross-section: stacked layers of a thing (a robot hand, a battery, the soil). o { x, y, w, layers [{h, label, lit}], u }
+// ---------- cross-section: stacked layers of a thing. o { x, y, w, layers [{h, label, lit}], u } ----------
 export function section(ctx, t, o) {
   let yy = o.y; const n = o.layers.length;
   o.layers.forEach((L, i) => {
     const k = expoOut(span(o.u ?? 1, i / (n + 1), (i + 2) / (n + 1))), lh = L.h * k;
-    const p = new Path2D(); p.roundRect(o.x, yy, o.w, Math.max(0, lh - 6), 8);
-    ctx.fillStyle = L.lit ? lin(ctx, o.x, 0, o.x + o.w, 0, [[0, rgba(P.halo1, .9)], [1, rgba(P.halo0, .6)]]) : lin(ctx, o.x, 0, o.x + o.w, 0, [[0, P.ind1], [1, P.blue0]]); ctx.fill(p);
-    if (L.lit) glowFill(ctx, p, 24, .35, P.halo1);
-    if (L.label && k > .6) glowText(ctx, L.label, o.x + o.w + 36, yy + lh / 2 + 11, { size: TYPE.small, glow: false, col: P.halo2, a: smooth(span(k, .6, 1)) });
+    if (lh > 4) { const p = new Path2D(); p.roundRect(o.x, yy, o.w, lh - 8, 10); lightShape(ctx, p, t, { lit: L.lit ? 1 : 0, seed: 51 + i, dust: L.lit ? 1 : 0 }); }
+    if (L.label && k > .6) { trail(ctx, [[o.x + o.w + 10, yy + lh / 2 - 4, 1.5], [o.x + o.w + 48, yy + lh / 2 - 4, 1.5]], 1, { spark: false, a: .7 }); glowText(ctx, L.label, o.x + o.w + 62, yy + lh / 2 + 6, { size: TYPE.small, glow: false, col: P.halo2, a: smooth(span(k, .6, 1)) }); }
     yy += lh;
   });
 }
-// map of light: dots (towns, halls, robots) on night blue, warm when lit, joined by a trail. o { pts [[x,y,lit]], route [[x,y]], u, size }
+// ---------- map of light: dots warm when lit, joined by a trail. o { pts [[x,y,lit]], route [[x,y]], u, size, w } ----------
 export function lightMap(ctx, t, o) {
   const s = o.size ?? 2.2;
-  for (const [x, y, l] of o.pts) { if (l > .5) halo(ctx, x, y, s * 9, .35 * l, P.halo1, P.halo0); ctx.fillStyle = l > .5 ? P.core1 : COOL; ctx.globalAlpha = l > .5 ? 1 : .7; ctx.fillRect(x - s / 2, y - s / 2, s, s); }
+  for (const [x, y, l] of o.pts) { if (l > .5) halo(ctx, x, y, s * 10, .4 * l, P.halo1, P.halo0); ctx.fillStyle = l > .5 ? P.core1 : COOL; ctx.globalAlpha = l > .5 ? 1 : .7; ctx.fillRect(x - s / 2, y - s / 2, s, s); }
   ctx.globalAlpha = 1;
   if (o.route) return trail(ctx, catmull(o.route.map((p) => [p[0], p[1], o.w ?? 3]), 10), o.u ?? 1, { w: o.w ?? 3 });
   return null;
+}
+// ---------- timeline: a line of light, events ignite as the head passes. o { x, y, w, events [{at 0..1, label, sub, lit, icon}], u } ----------
+export function timeline(ctx, t, o) {
+  const u = o.u ?? 1, head = trail(ctx, [[o.x, o.y, 3], [o.x + o.w, o.y, 3]], u, { w: 3, spark: u < 1 });
+  ctx.save(); ctx.setLineDash([2, 12]); ctx.strokeStyle = rgba(COOL, .35); ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(o.x + o.w * u, o.y); ctx.lineTo(o.x + o.w, o.y); ctx.stroke(); ctx.restore();
+  o.events.forEach((e, i) => {
+    const ex = o.x + o.w * e.at, k = smooth(span(u, e.at - .005, e.at + .06)), up = i % 2 === 0 ? -1 : 1, r = 13;
+    const d = new Path2D(); d.arc(ex, o.y, r * (.6 + .4 * k), 0, 6.29); lightShape(ctx, d, t, { lit: k > .5 ? (e.lit ?? 1) : 0, a: .5 + .5 * k, dust: 0 });
+    if (k > 0) {
+      trail(ctx, [[ex, o.y + up * 18, 1.5], [ex, o.y + up * 58, 1.5]], k, { spark: false, a: .7 });
+      if (e.icon) icon(ctx, e.icon, ex, o.y + up * 120, 80, t, { lit: e.lit ?? 1, a: k });
+      if (e.label) glowText(ctx, e.label, ex, o.y + up * (e.icon ? 200 : 96) + (up > 0 ? 30 : 0), { size: TYPE.label, align: 'center', a: k });
+      if (e.sub) glowText(ctx, e.sub, ex, o.y + up * (e.icon ? 200 : 96) + (up > 0 ? 66 : 36), { size: TYPE.small, align: 'center', glow: false, col: P.halo2, a: k });
+    }
+  });
+  return head;
+}
+// ---------- flow: nodes joined by arrows of light; a node lights when its arrow arrives. o { nodes [{x,y,icon,label,lit,size}], u, bend } ----------
+export function flow(ctx, t, o) {
+  const n = o.nodes.length, u = o.u ?? 1;
+  o.nodes.forEach((nd, i) => {
+    const ki = i === 0 ? smooth(span(u, 0, .08)) : smooth(span(u, (i - .15) / (n - .8), (i + .05) / (n - .8)));
+    icon(ctx, nd.icon || 'coin', nd.x, nd.y, nd.size ?? 120, t, { lit: ki > .5 ? (nd.lit ?? 1) : 0, a: .45 + .55 * ki, label: nd.label, labelA: .4 + .6 * ki, seed: 61 + i });
+    if (i < n - 1) {
+      const b = o.nodes[i + 1], sz = (nd.size ?? 120) * .62, d = Math.hypot(b.x - nd.x, b.y - nd.y), ux = (b.x - nd.x) / d, uy = (b.y - nd.y) / d, bend = o.bend ?? -.18;
+      const p0 = [nd.x + ux * sz, nd.y + uy * sz], p1 = [b.x - ux * sz, b.y - uy * sz], mid = [(p0[0] + p1[0]) / 2 - uy * d * bend, (p0[1] + p1[1]) / 2 + ux * d * bend];
+      const pts = catmull([[...p0, 3], [...mid, 3], [...p1, 3]], 16), ka = smooth(span(u, (i + .05) / (n - .8), (i + .85) / (n - .8)));
+      trail(ctx, pts, ka, { w: 3 });
+      if (ka >= 1) {   // arrow head: a small chevron of light
+        const [ax, ay] = p1, q = pts[pts.length - 3], an = Math.atan2(ay - q[1], ax - q[0]);
+        const ch = new Path2D(); ch.moveTo(ax - Math.cos(an - .5) * 22, ay - Math.sin(an - .5) * 22); ch.lineTo(ax, ay); ch.lineTo(ax - Math.cos(an + .5) * 22, ay - Math.sin(an + .5) * 22);
+        lightShape(ctx, ch.stroke({ width: 5, cap: 1, join: 1 }), t, { dust: 0 });
+      }
+    }
+  });
+}
+// ---------- compare: two light halves (warm vs cool) of one disc, values + labels under each. ----------
+// o { x, y, r, left {label, value, sub, lit}, right {…}, u (split opens 0..1), vertical (split top/bottom) }
+export function compare(ctx, t, o) {
+  const u = o.u ?? 1, gap = 18 * expoOut(u), r = o.r;
+  for (const [side, d] of [[o.left, -1], [o.right, 1]]) {
+    const p = new Path2D(); p.arc(o.x + d * gap, o.y, r, d < 0 ? Math.PI / 2 : -Math.PI / 2, d < 0 ? Math.PI * 1.5 : Math.PI / 2); p.closePath();
+    lightShape(ctx, p, t, { lit: side.lit ?? (d < 0 ? 1 : 0), cx: d * -.2, seed: d < 0 ? 71 : 72, dust: (side.lit ?? (d < 0 ? 1 : 0)) > .5 ? 1 : 0 });
+    const tx = o.x + d * (gap + 34), al = d < 0 ? 'right' : 'left', k = smooth(span(u, .3, 1));
+    if (side.value) glowText(ctx, side.value, tx, o.y + r + 110, { size: TYPE.num * .8, align: al, serif: true, a: k });
+    if (side.label) glowText(ctx, side.label.toUpperCase(), tx, o.y + r + 160, { size: TYPE.small, align: al, glow: false, spacing: .15, col: P.halo2, a: k });
+  }
+  halo(ctx, o.x, o.y, r * .5, .5 * u, P.blue0, P.core1);   // light leaking through the split
 }

@@ -163,10 +163,10 @@ function drawK3(ctx, t, C, s) {
     ctx.fillStyle = lin(ctx, 0, fy, 0, H, [[0, P.ind1], [.15, P.ind0], [1, P.night0]]); ctx.fillRect(-W, fy, 3 * W, H * 2);
     // the window
     const cx = WIN.x + WIN.w / 2, cy = WIN.y + WIN.h * .45, br = 1 + .03 * Math.sin(t * 1.1);
-    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.filter = 'blur(160px)'; ctx.fillStyle = rgba(P.blue0, .9); ctx.fillRect(WIN.x - 60, WIN.y - 60, WIN.w + 120, WIN.h + 60);
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.filter = 'blur(160px)'; ctx.fillStyle = rgba(P.blue0, 1); ctx.fillRect(WIN.x - 60, WIN.y - 60, WIN.w + 120, WIN.h + 60); ctx.filter = 'blur(420px)'; ctx.fillStyle = rgba(P.blue0, .6); ctx.fillRect(WIN.x - 200, WIN.y - 100, WIN.w + 400, WIN.h + 100);
     ctx.filter = 'blur(28px)'; ctx.fillStyle = rgba(P.halo1, .5); ctx.fillRect(WIN.x - 10, WIN.y - 10, WIN.w + 20, WIN.h + 10); ctx.restore();
     halo(ctx, cx, cy, 1150 * br, .1, P.halo1, P.halo2);
-    ctx.fillStyle = rad(ctx, cx, cy + 120, WIN.h * .62, [[0, P.core0], [.2, P.core1], [.48, P.halo0], [.8, P.halo1], [1, mixHex(P.halo1, P.shade0, .5)]]); ctx.fillRect(WIN.x, WIN.y, WIN.w, WIN.h);
+    ctx.fillStyle = rad(ctx, cx, cy + 160, WIN.h * .5, [[0, P.core0], [.15, P.core0], [.32, P.core1], [.55, P.halo0], [.85, P.halo0], [1, P.halo1]]); ctx.fillRect(WIN.x, WIN.y, WIN.w, WIN.h);
     
     ctx.save(); ctx.filter = 'blur(2px)'; ctx.strokeStyle = rgba(P.shade0, .3); ctx.lineWidth = 6;
     for (const f of [1 / 3, 2 / 3]) { ctx.beginPath(); ctx.moveTo(WIN.x + WIN.w * f, WIN.y); ctx.lineTo(WIN.x + WIN.w * f, fy); ctx.stroke(); }
@@ -181,7 +181,7 @@ function drawK3(ctx, t, C, s) {
     ctx.beginPath(); ctx.moveTo(640 - 26, fy + 84); ctx.lineTo(640 + 26, fy + 84); ctx.lineTo(640 - 160, H + 60); ctx.lineTo(640 - 260, H + 60); ctx.closePath(); ctx.fillStyle = rgba(P.night0, .5); ctx.fill(); ctx.restore();
     // the robot in the light, copying
     const rl = smooth(s.rob ?? 0);
-    hands.rob = robot(ctx, 1385, fy + 44, 372, { dir: -1, light: -1, rim: P.halo0, body: P.night1, joint: P.ind1, cup: 'R', armR: [lerp(.2, 1.35, rl), lerp(.1, 2.55, rl)], armL: [-.08, -.03] }).R;
+    hands.rob = robot(ctx, 1385, fy + 44, 372, { dir: -1, light: -1, rim: P.halo0, body: P.night1, cup: 'R', armR: [lerp(.2, 1.35, rl), lerp(.1, 2.55, rl)], armL: [-.08, -.03] }).R;
     // you, the trainer, with headset
     const lf = smooth(s.lift ?? 0);
     hands.du = du(ctx, 640, fy + 84, 250, { dir: 1, light: 1, back: .2, headset: true, cup: 'R', look: .1, armR: [lerp(.18, 1.35, lf), lerp(.1, 2.55, lf)], armL: [-.1, -.04] }).R;
