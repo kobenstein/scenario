@@ -41,7 +41,7 @@ cues = [[c[0]['s'], c[-1]['e'], fix(' '.join(x['w'] for x in c))] for snt in sen
 # interview clips: real wording with phrase timings from the clip transcript (clips.json "cues", seconds from clip start);
 # quote cards show the words on screen, so no subtitle for them
 import os
-CL = json.load(open(A + 'clips.json'))
+CL = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
 for c in json.load(open(A + 'timing.json')).get('clips', []):
     cl = CL[c['id']]
     if cl.get('card') or not cl.get('cues'): continue
