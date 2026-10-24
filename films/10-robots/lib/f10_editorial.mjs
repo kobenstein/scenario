@@ -1,7 +1,9 @@
 // Film 10 · "Editorial-Nacht" style kit (stil/STIL-editorial-nacht.md). Lean on purpose: flat shapes, one light form, grain.
 //   Palette P (exactly the measured hex values from the style doc), easing + prng, camera layers (flat parallax planes),
 //   night sky + stars, big soft glow (halo, glowFill), dust (stipple around the light), light hand, light trail,
-//   the figure du() (the viewer: yellow raincoat, faceless, joints), robot() (plain silhouette, no face), finish() (vignette + grain).
+//   the figure du() (the viewer: yellow raincoat, faceless, joints), robot() (plain silhouette, no face), finish() (vignette + grain),
+//   the 2.5D stage (cam3, card, camAt, aim, project, camDrift, lightFlood), lightForm, ground, castShadow, lightPool, glowText,
+//   and the explainers in light (counter, bars, curve, pie, section, lightMap). Guide: film-roboter/bild/EDITORIAL-KIT.md
 // Rules: no pattern / canvas is created per frame (the napi canvas leaks). The grain is computed ONCE (prepareEditorial) and
 // applied as a pixel pass; everything else is paths + gradients drawn straight into the frame.
 import { Path2D, PathOp } from '@napi-rs/canvas';
@@ -294,4 +296,196 @@ export function finish(ctx, t, o = {}) {
     d[i] += n; d[i + 1] += n; d[i + 2] += n * .92;
   }
   ctx.putImageData(id, 0, 0);
+}
+
+// =====================================================================================================================
+// 2.5D STAGE: flat cards standing at real depth in front of a perspective camera (same model as the engine camera view3:
+// position x,y,z + focal length f, looking down +z). A card is drawn in DESIGN coordinates: the 1920×1080 layout exactly as it
+// looks from the home camera cam3() — then given a depth Z. Moving the camera gives true parallax (near cards move more),
+// a dolly (z up) magnifies near cards faster than far ones, and a card the camera passes is flown through (skipped).
+//   depths (convention): sky 40000 · far ridge / horizon 9000 · mid 4000 · FOCUS 1700 (= F0, k 1 at home) · foreground 1100 · lens 700
+// =====================================================================================================================
+export const F0 = 1700;
+export const cam3 = (o = {}) => ({ x: 0, y: 0, z: 0, f: F0, roll: 0, ...o });
+// scale + offset of a card at depth Z for camera c (null if behind / too close)
+export function cardM(c, Z) {
+  const dz = Z - c.z; if (dz < 30) return null;
+  const s = c.f / dz, k = Z / F0 * s;
+  return { k, e: W / 2 + (-(W / 2) * Z / F0 - c.x) * s, f: H / 2 + (-(H / 2) * Z / F0 - c.y) * s };
+}
+export function card(ctx, c, Z, fn) {
+  const m = cardM(c, Z); if (!m) return false;
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  if (c.roll) { ctx.translate(W / 2, H / 2); ctx.rotate(c.roll); ctx.translate(-W / 2, -H / 2); }
+  ctx.transform(m.k, 0, 0, m.k, m.e, m.f); fn(m.k); ctx.restore(); return true;
+}
+// design point (u,v) of card Z → screen [x, y, k]
+export function project(c, Z, u, v) { const m = cardM(c, Z); return m ? [m.e + u * m.k, m.f + v * m.k, m.k] : null; }
+// the camera that shows design point (u,v) of card Z at screen point (sx,sy) magnified s× (s = 1 at the home distance)
+export function aim(Z, u, v, s = 1, sx = W / 2, sy = H / 2, f = F0) {
+  const dz = Z * f / (F0 * s), z = Z - dz, k = f / dz;
+  return cam3({ x: (u - W / 2) * Z / F0 - (sx - W / 2) / k, y: (v - H / 2) * Z / F0 - (sy - H / 2) / k, z, f });
+}
+// camera keyframes: [[t, cam, ease]] ease: 's' sine (default) · 'q' quart in-out · 'i' expo in (into a light) · 'o' expo out (out of one)
+// z is interpolated in log-distance to a reference card (Z ref) so fly-ins feel like constant speed through space.
+export function camAt(t, K, ref = F0) {
+  if (t <= K[0][0]) return { ...K[0][1] };
+  if (t >= K[K.length - 1][0]) return { ...K[K.length - 1][1] };
+  let i = 0; while (t > K[i + 1][0]) i++;
+  const a = K[i][1], b = K[i + 1][1], e = { s: sineIO, q: quartIO, i: expoIn, o: expoOut }[K[i + 1][2] || 's'];
+  const u = e((t - K[i][0]) / (K[i + 1][0] - K[i][0])), out = cam3();
+  for (const k of ['x', 'y', 'f', 'roll']) out[k] = lerp(a[k] ?? out[k], b[k] ?? out[k], u);
+  const da = Math.max(1, ref - (a.z || 0)), db = Math.max(1, ref - (b.z || 0)); out.z = ref - Math.exp(lerp(Math.log(da), Math.log(db), u));
+  return out;
+}
+// "nothing ever stands still": a slow drift on top of any camera (amplitude in design px at the focus plane)
+export const camDrift = (c, t, amt = 1, seed = 0) => ({ ...c, x: c.x + drift(t, 5 * amt, seed), y: c.y + drift(t, 3 * amt, seed + 2), z: c.z + drift(t, 14 * amt, seed + 4) });
+// inside the light form: the whole frame becomes light (draw last, before finish). Both sides of a fly-through cut draw a = 1.
+export function lightFlood(ctx, a) {
+  if (a <= 0) return; ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.fillStyle = rad(ctx, W / 2, H / 2, W * .9, [[0, rgba(P.core0, a)], [.6, rgba(P.core1, a)], [1, rgba(P.halo2, a)]]); ctx.fillRect(0, 0, W, H); ctx.restore();
+}
+
+// ---------- generic light forms (the ONE hero light of a picture) ----------
+// kind 'disc' (sun, lamp, moon) · 'window' (hall window with mullions) · 'gate' (arched door) · 'ring'. Blue bloom around it,
+// warm rim, gradient body (hot core → gold edge), stipple dust. o: { a, breath, dust (count), mullions: [cols, rows], seed }
+export function lightForm(ctx, kind, x, y, w, h, t, o = {}) {
+  const a = o.a ?? 1, br = 1 + (o.breath ?? .03) * Math.sin(t * 1.1), cx = x + w / 2, cy = y + h / 2, R = Math.max(w, h) / 2;
+  const path = new Path2D();
+  if (kind === 'disc' || kind === 'ring') path.ellipse(cx, cy, w / 2 * br, h / 2 * br, 0, 0, Math.PI * 2);
+  else if (kind === 'gate') { path.moveTo(x, y + h); path.lineTo(x, y + w / 2); path.arc(cx, y + w / 2, w / 2, Math.PI, 0); path.lineTo(x + w, y + h); path.closePath(); }
+  else path.rect(x, y, w, h);
+  glowFill(ctx, path, R * .55, .85 * a, P.blue0);
+  glowFill(ctx, path, R * .09, .5 * a, P.halo1);
+  ctx.save(); ctx.globalAlpha = a;
+  ctx.fillStyle = rad(ctx, cx, kind === 'disc' || kind === 'ring' ? cy : y + h * .62, R * (kind === 'disc' || kind === 'ring' ? 1 : 1.25),
+    [[0, P.core0], [.2, P.core1], [.5, P.halo0], [.82, P.halo1], [1, mixHex(P.halo1, P.shade0, .5)]]);
+  if (kind === 'ring') { ctx.lineWidth = R * .12; ctx.strokeStyle = ctx.fillStyle; ctx.stroke(path); } else ctx.fill(path);
+  if (kind === 'window' || kind === 'gate') {
+    const [cols, rows] = o.mullions || [3, 2];
+    ctx.save(); ctx.clip(path); ctx.filter = `blur(${R * .004}px)`; ctx.strokeStyle = rgba(P.shade0, .3); ctx.lineWidth = Math.max(2, w * .012);
+    for (let i = 1; i < cols; i++) { ctx.beginPath(); ctx.moveTo(x + w * i / cols, y); ctx.lineTo(x + w * i / cols, y + h); ctx.stroke(); }
+    for (let i = 1; i < rows; i++) { ctx.beginPath(); ctx.moveTo(x, y + h * .28 * i); ctx.lineTo(x + w, y + h * .28 * i); ctx.stroke(); }
+    ctx.restore();
+  }
+  ctx.restore();
+  if (kind === 'disc') halo(ctx, cx, cy, R * 2.2, .25 * a, P.halo1, P.halo2);
+  dust(ctx, o.seed ?? 77, o.dust ?? 6000, cx, cy, w * .62 + R * .2, h * .5 + R * .2, t, .9 * a, P.halo1);
+  return path;
+}
+// thin rays from a disc (as in the "smarter than ever" thumbnail), very quiet
+export function rays(ctx, cx, cy, r0, r1, n = 12, a = .3, rot = 0) {
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(P.halo0, a); ctx.lineWidth = 1.6;
+  for (let i = 0; i < n; i++) { const q = rot + i / n * 6.283; ctx.beginPath(); ctx.moveTo(cx + Math.cos(q) * r0, cy + Math.sin(q) * r0); ctx.lineTo(cx + Math.cos(q) * r1, cy + Math.sin(q) * r1); ctx.stroke(); }
+  ctx.restore();
+}
+
+// ---------- ground, hills, shadows ----------
+// a flat shape with a vertical gradient and a lit rim on its top edge. pts: [[x,y], …] top edge left → right; closes to the bottom.
+export function ground(ctx, pts, o = {}) {
+  const top = Math.min(...pts.map((p) => p[1])), bot = o.bottom ?? H + 400;
+  ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+  for (let i = 1; i < pts.length; i++) { const p = pts[i - 1], q = pts[i]; ctx.quadraticCurveTo(p[0], p[1], (p[0] + q[0]) / 2, (p[1] + q[1]) / 2); }
+  const last = pts[pts.length - 1]; ctx.lineTo(last[0], last[1]);
+  ctx.strokeStyle = o.rim ?? rgba(P.blue0, .95); ctx.lineWidth = o.rimW ?? 3; ctx.stroke();
+  ctx.lineTo(last[0], bot); ctx.lineTo(pts[0][0], bot); ctx.closePath();
+  ctx.fillStyle = lin(ctx, 0, top, 0, Math.min(bot, H), o.stops || [[0, P.night1], [1, P.night0]]); ctx.fill();
+}
+// long cast shadow from feet (x,y) away from a light: length len, direction ang (radians, 0 = right, π/2 = toward the viewer)
+export function castShadow(ctx, x, y, w, len, ang, a = .6) {
+  const ex = x + Math.cos(ang) * len, ey = y + Math.sin(ang) * len, nx = -Math.sin(ang), ny = Math.cos(ang);
+  ctx.save(); ctx.filter = 'blur(3px)'; ctx.fillStyle = rgba(P.night0, a); ctx.beginPath();
+  ctx.moveTo(x - nx * w / 2, y - ny * w / 2); ctx.lineTo(x + nx * w / 2, y + ny * w / 2); ctx.lineTo(ex + nx * w * .9, ey + ny * w * .9); ctx.lineTo(ex - nx * w * .9, ey - ny * w * .9); ctx.closePath(); ctx.fill(); ctx.restore();
+}
+// a light pool on the floor (window or disc light falling out toward the viewer)
+export function lightPool(ctx, x0, x1, y, spread, depth, a = 1) {
+  ctx.save(); ctx.filter = 'blur(6px)'; ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y); ctx.lineTo(x1 + spread, y + depth); ctx.lineTo(x0 - spread * 1.4, y + depth); ctx.closePath();
+  ctx.fillStyle = lin(ctx, 0, y, 0, y + depth, [[0, rgba(P.halo2, .75 * a)], [.45, rgba(P.halo1, .38 * a)], [1, rgba(P.shade0, .12 * a)]]); ctx.fill(); ctx.restore();
+}
+
+// ---------- type: cream with a warm glow (numbers, 1–3 words, sources) ----------
+import { GlobalFonts } from '@napi-rs/canvas';
+const FONTS = '/home/user/scenario/style-tests/shared/fonts/';
+try { GlobalFonts.registerFromPath(FONTS + 'InstrumentSerif.woff2', 'Instrument Serif'); for (const w of [400, 500, 600]) GlobalFonts.registerFromPath(FONTS + `Inter-${w}-normal.woff2`, 'Inter'); } catch { /* fonts optional */ }
+export const TYPE = { hero: 168, num: 120, mid: 80, label: 34, small: 28, src: 22 };
+export function glowText(ctx, s, x, y, o = {}) {
+  const size = o.size ?? TYPE.label, font = o.serif ? `${size}px "Instrument Serif"` : `${o.weight ?? 600} ${size}px Inter`;
+  ctx.save(); ctx.font = font; ctx.textAlign = o.align ?? 'left'; ctx.textBaseline = o.base ?? 'alphabetic'; ctx.globalAlpha = o.a ?? 1;
+  if (o.spacing) ctx.letterSpacing = `${o.spacing}em`;
+  if (o.glow !== false) { ctx.shadowColor = rgba(P.halo0, .8); ctx.shadowBlur = size * .45; }
+  ctx.fillStyle = o.col ?? P.cream; ctx.fillText(s, x, y); ctx.shadowBlur = 0; ctx.fillText(s, x, y); ctx.restore();
+}
+
+// =====================================================================================================================
+// EXPLAINERS IN THE SAME LOOK: lines, bars, rings and dots made of light on night blue; numbers in cream. Each takes u 0..1
+// (how far it has grown) so it can be driven by the voice. Warm = human / learned / good; cool blue-cream = machine / not yet.
+// =====================================================================================================================
+const COOL = mixHex(P.blue2, P.cream, .35);
+// counter: a number that runs from → to (eased), cream with glow, optional label underneath
+export function counter(ctx, t, o) {
+  const v = lerp(o.from ?? 0, o.to, expoOut(o.u ?? 1)), s = o.fmt ? o.fmt(v) : Math.round(v).toLocaleString('en-US');
+  glowText(ctx, (o.pre || '') + s + (o.post || ''), o.x, o.y, { size: o.size ?? TYPE.hero, align: o.align ?? 'center', serif: o.serif ?? true });
+  if (o.label) glowText(ctx, o.label.toUpperCase(), o.x, o.y + (o.size ?? TYPE.hero) * .42, { size: TYPE.label, align: o.align ?? 'center', spacing: .2, glow: false, col: P.halo2, a: smooth(span(o.u ?? 1, .4, 1)) });
+}
+// bars of light rising from a ground line. o { x, y (baseline), w, h (max), values[], max, lit[] (0..1 warm), labels[], u, gap }
+export function bars(ctx, t, o) {
+  const n = o.values.length, gap = o.gap ?? .35, bw = o.w / (n + (n - 1) * gap), max = o.max ?? Math.max(...o.values);
+  ctx.save(); ctx.strokeStyle = rgba(P.blue1, .9); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(o.x - 20, o.y); ctx.lineTo(o.x + o.w + 20, o.y); ctx.stroke(); ctx.restore();
+  o.values.forEach((v, i) => {
+    const k = expoOut(span(o.u ?? 1, i / (n + 2), (i + 3) / (n + 2))), bh = o.h * v / max * k, x = o.x + i * bw * (1 + gap), warm = o.lit ? o.lit[i] : 1;
+    const p = new Path2D(); p.roundRect(x, o.y - bh, bw, bh, [bw * .12, bw * .12, 0, 0]);
+    glowFill(ctx, p, bw * .5, .5 * k, warm > .5 ? P.halo1 : P.blue0);
+    ctx.fillStyle = lin(ctx, 0, o.y - bh, 0, o.y, warm > .5 ? [[0, P.core1], [.4, P.halo0], [1, rgba(P.halo1, .55)]] : [[0, COOL], [1, rgba(P.blue1, .5)]]); ctx.fill(p);
+    if (o.labels?.[i] && k > .5) glowText(ctx, o.labels[i], x + bw / 2, o.y + 48, { size: TYPE.small, align: 'center', glow: false, col: P.halo2, a: smooth(span(k, .5, 1)) });
+  });
+}
+// curve of light over quiet axes. o { rect [x,y,w,h], data [[x,y]…], xr [a,b], yr [a,b], u, dashFrom (x where forecast starts), xTicks, yTicks }
+export function curve(ctx, t, o) {
+  const [x, y, w, h] = o.rect, [xa, xb] = o.xr, [ya, yb] = o.yr, map = (p) => [x + (p[0] - xa) / (xb - xa) * w, y + h - (p[1] - ya) / (yb - ya) * h];
+  ctx.save(); ctx.strokeStyle = rgba(P.blue1, .9); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + h); ctx.lineTo(x + w, y + h); ctx.stroke(); ctx.restore();
+  for (const [v, s] of o.xTicks || []) glowText(ctx, s, map([v, ya])[0], y + h + 44, { size: TYPE.small, align: 'center', glow: false, col: P.halo2 });
+  for (const [v, s] of o.yTicks || []) glowText(ctx, s, x - 18, map([xa, v])[1] + 10, { size: TYPE.small, align: 'right', glow: false, col: P.halo2 });
+  const pts = catmull(o.data.map((p) => [...map(p), o.w ?? 4]), 12), u = o.u ?? 1;
+  const cut = o.dashFrom != null ? clamp((map([o.dashFrom, ya])[0] - x) / w) : 1;
+  const head = trail(ctx, pts, Math.min(u, cut), { w: o.w ?? 4, spark: u < cut });
+  if (u > cut) {   // forecast: dotted light
+    const i0 = Math.floor(cut * (pts.length - 1)), i1 = Math.floor(u * (pts.length - 1));
+    ctx.save(); ctx.setLineDash([2, 14]); ctx.lineCap = 'round'; ctx.strokeStyle = P.halo0; ctx.lineWidth = (o.w ?? 4) * 1.4; ctx.beginPath();
+    for (let i = i0; i <= i1; i++) (i === i0 ? ctx.moveTo(pts[i][0], pts[i][1]) : ctx.lineTo(pts[i][0], pts[i][1])); ctx.stroke(); ctx.restore();
+  }
+  return { head, map };
+}
+// share ring: a ring of light, shares fill with warm light. o { x, y, r, parts [{v, lit, label}], u }
+export function pie(ctx, t, o) {
+  const tot = o.parts.reduce((s, p) => s + p.v, 0), u = o.u ?? 1, w = o.r * .22;
+  ctx.save(); ctx.lineWidth = w; ctx.strokeStyle = rgba(P.blue1, .55); ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, 6.29); ctx.stroke(); ctx.restore();
+  let a0 = o.start ?? -Math.PI / 2;
+  for (const p of o.parts) {
+    const a1 = a0 + p.v / tot * 6.283 * expoOut(u);
+    const arc = new Path2D(); arc.arc(o.x, o.y, o.r, a0, a1); const band = arc.stroke({ width: w, cap: 0, join: 1 });
+    const warm = p.lit ?? 1; glowFill(ctx, band, w * .6, .55, warm > .5 ? P.halo1 : P.blue0);
+    ctx.fillStyle = warm > .5 ? P.halo0 : COOL; ctx.fill(band);
+    if (p.label && u > .8) { const am = (a0 + a1) / 2; glowText(ctx, p.label, o.x + Math.cos(am) * (o.r + w * 1.6), o.y + Math.sin(am) * (o.r + w * 1.6) + 10, { size: TYPE.small, align: Math.cos(am) > 0 ? 'left' : 'right', glow: false, col: P.halo2 }); }
+    a0 = a1;
+  }
+}
+// cross-section: stacked layers of a thing (a robot hand, a battery, the soil). o { x, y, w, layers [{h, label, lit}], u }
+export function section(ctx, t, o) {
+  let yy = o.y; const n = o.layers.length;
+  o.layers.forEach((L, i) => {
+    const k = expoOut(span(o.u ?? 1, i / (n + 1), (i + 2) / (n + 1))), lh = L.h * k;
+    const p = new Path2D(); p.roundRect(o.x, yy, o.w, Math.max(0, lh - 6), 8);
+    ctx.fillStyle = L.lit ? lin(ctx, o.x, 0, o.x + o.w, 0, [[0, rgba(P.halo1, .9)], [1, rgba(P.halo0, .6)]]) : lin(ctx, o.x, 0, o.x + o.w, 0, [[0, P.ind1], [1, P.blue0]]); ctx.fill(p);
+    if (L.lit) glowFill(ctx, p, 24, .35, P.halo1);
+    if (L.label && k > .6) glowText(ctx, L.label, o.x + o.w + 36, yy + lh / 2 + 11, { size: TYPE.small, glow: false, col: P.halo2, a: smooth(span(k, .6, 1)) });
+    yy += lh;
+  });
+}
+// map of light: dots (towns, halls, robots) on night blue, warm when lit, joined by a trail. o { pts [[x,y,lit]], route [[x,y]], u, size }
+export function lightMap(ctx, t, o) {
+  const s = o.size ?? 2.2;
+  for (const [x, y, l] of o.pts) { if (l > .5) halo(ctx, x, y, s * 9, .35 * l, P.halo1, P.halo0); ctx.fillStyle = l > .5 ? P.core1 : COOL; ctx.globalAlpha = l > .5 ? 1 : .7; ctx.fillRect(x - s / 2, y - s / 2, s, s); }
+  ctx.globalAlpha = 1;
+  if (o.route) return trail(ctx, catmull(o.route.map((p) => [p[0], p[1], o.w ?? 3]), 10), o.u ?? 1, { w: o.w ?? 3 });
+  return null;
 }

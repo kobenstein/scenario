@@ -11,6 +11,7 @@ import fs from 'node:fs';
 import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
 import { filmFinish } from './lib/print.mjs';
+import { finish as edFinish } from './lib/f10_editorial.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
 import { prepareFootage, gradeAt, gradeLUT, takeHeroes } from './lib/f10_core.mjs';
 
@@ -83,7 +84,8 @@ export async function build({ timingFile = TIMING } = {}) {
     return { a: i ? e.t : 0, b: nx ? nx.t : end, draw: e.draw, sec: e.sec, sound: e.sound, print: e.print, clip: !!e.clip, out: { kind: 'cut' }, _start: e.t };
   });
   // Film 10 finish: the indigo grade (one night, MOTION.md §4) + the print look of Films 5–11 + a deeper vignette (Stauffer)
-  const finish = (ctx, t, o = {}) => { const heroes = takeHeroes(); filmFinish(ctx, t, { vig: .3, grade: o.off || o.grade === false ? null : gradeLUT(gradeAt(t).dawn), heroes, ...o }); };
+  // print: { editorial: true } → the Editorial-Nacht finish (lib/f10_editorial.mjs: vignette + precomputed grain, no indigo LUT)
+  const finish = (ctx, t, o = {}) => { if (o.editorial) { edFinish(ctx, t, o); return; } const heroes = takeHeroes(); filmFinish(ctx, t, { vig: .3, grade: o.off || o.grade === false ? null : gradeLUT(gradeAt(t).dawn), heroes, ...o }); };
   const film = new Film(shots, { grainAmt: .045, finish, float: cameraFloat });
   film.T = T;
   film.ranges = RANGES;
