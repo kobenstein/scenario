@@ -1,6 +1,5 @@
 // Film 10 · B1 drawing module for c01–c03 (Editorial-Nacht). Builds on lib/f10_editorial.mjs (never changes it).
-//   robotB      a clearer robot silhouette than the kit's (helmet head, broad chest, shoulder caps, joint rings, mitt hands),
-//               rim light on the light side, walk cycle, head tilt, headless, open hands, cup. Kit wish: replace robot() with it.
+//   robotJ/duJ  joint positions of the kit figures (robot(), du()) for traces, plus a two-link IK (armIK) to reach a point
 //   robotHand   a big robot hand for close-ups (palm, four segmented fingers, thumb), curl 0..1, cup grip
 //   cup         the stoneware cup as a flat shape (cream body, warm rim)
 //   glyph       small symbols drawn in light (robot, house, hall, eye, hand, window, sun, planet, coin, road, gate, person, lens)
@@ -32,86 +31,35 @@ const ell = (x, y, rx, ry, r = 0) => { const p = new Path2D(); p.ellipse(x, y, r
 const rr = (x, y, w, h, r) => { const p = new Path2D(); p.roundRect(x, y, w, h, r); return p; };
 const pol = (a, l, ang) => [a[0] + Math.sin(ang) * l, a[1] + Math.cos(ang) * l];
 
-// ---------------------------------------------------------------- robotB
-// local units: feet at y 0, top of the helmet at y −1; x + = facing direction (dir flips).
-//   o.armR/armL [shoulder, elbow] (angles from straight down, + = forward), o.walk phase (rad) or null, o.legs [[hip, knee]×2] override,
-//   o.head tilt (rad, + = looks up), o.lean (rad), o.headless, o.open (hands open 0..1), o.cup 'R'|'L', o.rim colour, o.body, o.joint,
-//   o.light ±1 (screen side of the light), o.rimW (rim width), o.alpha, o.shadow (ground shadow strength)
-// returns { R, L, head, shR, shL, elR, elL } in the caller's space.
-export function robotB(ctx, x, y, h, o = {}) {
-  const dir = o.dir ?? 1, Ls = (o.light ?? 1) * dir, lean = o.lean ?? 0;
-  const armR = o.armR || [.06, .03], armL = o.armL || [-.05, -.02];
-  const ph = o.walk, sw = ph == null ? 0 : Math.sin(ph);
-  let legs = o.legs;
-  if (!legs) {
-    const a1 = ph == null ? .02 : .34 * sw, k1 = ph == null ? 0 : Math.max(0, Math.sin(ph + 1.7)) * .6, k2 = ph == null ? 0 : Math.max(0, Math.sin(ph + 1.7 + Math.PI)) * .6;
-    legs = [[a1, a1 - k1], [-a1, -a1 - k2]];
-  }
-  const bob = ph == null ? 0 : .008 * Math.abs(Math.cos(ph));
-  // upper body pivots around the hip
-  const hipY = -.47 + bob, rot = (p) => { const dx = p[0], dy = p[1] - hipY, c = Math.cos(lean), s = Math.sin(lean); return [dx * c + dy * s, hipY - dx * s + dy * c]; };
-  let p = new Path2D();
-  // legs (behind), feet
-  const J = {};
-  legs.forEach(([a, k], i) => {
-    const hp = [(i ? -1 : 1) * .058, hipY + .01], kn = pol(hp, .225, a), ft = pol(kn, .225, k);
-    p = taper(p, hp, kn, .086, .07); p = taper(p, kn, ft, .07, .056);
-    const f = rr(ft[0] - .035, ft[1] - .028, .1, .032, .014); p = p.op(f, PathOp.Union);
-    J['kn' + i] = kn; J['ft' + i] = ft;
-  });
-  // pelvis
-  p = p.op(rr(-.1, hipY - .06, .2, .085, .03), PathOp.Union);
-  // torso: broad chest, narrow waist (in local coordinates, then leaned)
-  const torso = new Path2D();
-  const T = [[-.09, -.56], [-.115, -.66], [-.165, -.775], [-.155, -.81], [-.06, -.83], [.06, -.83], [.155, -.81], [.165, -.775], [.115, -.66], [.09, -.56]].map(rot);
-  torso.moveTo(T[0][0], T[0][1]); for (let i = 1; i < T.length; i++) { const q = T[i]; torso.lineTo(q[0], q[1]); } torso.closePath();
-  p = p.op(torso, PathOp.Union);
-  // neck + helmet
-  if (!o.headless) {
-    const nk = rot([0, -.83]), hc = rot([0, -.915]), tilt = (o.head ?? 0);
-    p = taper(p, nk, rot([0, -.87]), .05, .05);
-    const hel = new Path2D(); hel.ellipse(hc[0] + .004, hc[1], .068, .082, -lean - tilt * .6, 0, Math.PI * 2); p = p.op(hel, PathOp.Union);
-    // the helmet's back is a little fuller (reads as a head turned forward)
-    const back = new Path2D(); back.ellipse(hc[0] - .018, hc[1] + .004, .058, .07, -lean, 0, Math.PI * 2); p = p.op(back, PathOp.Union);
-    J.head = hc;
-  } else J.head = rot([0, -.86]);
-  // arms
-  const hands = {};
+// ---------------------------------------------------------------- joints of the kit figures (kit v2 geometry) + IK
+// robot(): shoulder [±.175, −.79], upper arm .165, forearm .15, hand tip +.06 along the forearm; no lean.
+export function robotJ(x, y, h, o = {}) {
+  const dir = o.dir ?? 1, out = {}, S = (u, v) => [x + h * dir * u, y + h * v];
   for (const s of [-1, 1]) {
-    const [a1, a2] = s > 0 ? armR : armL, sh = rot([s * .148, -.778]);
-    const el = pol(sh, .17, a1 + lean * 0), wr = pol(el, .158, a2);
-    p = taper(p, sh, el, .072, .058); p = taper(p, el, wr, .058, .048);
-    // mitt hand: a rounded block along the forearm direction, opens into two finger strokes
-    const ang = a2, hd = pol(wr, .045, ang), op = o.open ?? 0;
-    p = taper(p, wr, hd, .05, .044);
-    if (op > 0) { p = taper(p, hd, pol(hd, .035, ang - .45 * op), .02, .016); p = taper(p, hd, pol(hd, .035, ang + .35 * op), .02, .016); }
-    J['sh' + s] = sh; J['el' + s] = el; J['wr' + s] = wr; J['hd' + s] = hd;
-    // shoulder cap
-    p = p.op(ell(sh[0], sh[1] + .004, .048, .044), PathOp.Union);
+    const [a1, a2] = (s > 0 ? o.armR : o.armL) || (s > 0 ? [.1, .05] : [-.1, -.05]), sh = [s * .175, -.79];
+    const el = [sh[0] + Math.sin(a1) * .165, sh[1] + Math.cos(a1) * .165], wr = [el[0] + Math.sin(a2) * .15, el[1] + Math.cos(a2) * .15], tp = [wr[0] + Math.sin(a2) * .06, wr[1] + Math.cos(a2) * .06];
+    const k = s > 0 ? 'R' : 'L'; out['sh' + k] = S(...sh); out['el' + k] = S(...el); out['wr' + k] = S(...wr); out[k] = S(...tp);
   }
-  ctx.save(); ctx.translate(x, y); ctx.scale(h * dir, h); ctx.globalAlpha = o.alpha ?? 1;
-  if ((o.shadow ?? .6) > 0) { ctx.fillStyle = rgba(P.night0, o.shadow ?? .6); ctx.beginPath(); ctx.ellipse(-Ls * .12, 0, .24, .018, 0, 0, 6.29); ctx.fill(); }
-  const body = o.body || P.night1, rimC = o.rim || P.blue0, rw = o.rimW ?? .016;
-  ctx.fillStyle = body; ctx.fill(p);
-  // rim: the silhouette minus itself shifted away from the light
-  const shf = new Path2D(); shf.addPath(p, { a: 1, b: 0, c: 0, d: 1, e: -Ls * rw, f: rw * .45 });
-  ctx.fillStyle = rimC; ctx.fill(new Path2D(p).op(shf, PathOp.Difference));
-  // plates and joints: a chest seam and joint rings, a little lighter than the body
-  const jc = o.joint || mixHex(body, rimC, .38);
-  ctx.strokeStyle = rgba(jc, .9); ctx.lineWidth = .007;
-  const c0 = rot([-.1, -.72]), c1 = rot([0, -.69]), c2 = rot([.1, -.72]);
-  ctx.beginPath(); ctx.moveTo(c0[0], c0[1]); ctx.quadraticCurveTo(c1[0], c1[1] + .02, c2[0], c2[1]); ctx.stroke();
-  ctx.fillStyle = jc;
-  for (const k of ['el-1', 'el1', 'kn0', 'kn1']) { const q = J[k]; ctx.beginPath(); ctx.arc(q[0], q[1], .02, 0, 6.29); ctx.fill(); }
-  for (const s of [-1, 1]) { const q = J['sh' + s]; ctx.strokeStyle = rgba(jc, .8); ctx.lineWidth = .008; ctx.beginPath(); ctx.arc(q[0], q[1] + .004, .03, 0, 6.29); ctx.stroke(); }
-  if (!o.headless) {   // a seam over the helmet (no face): reads as a turned head
-    const hc = J.head; ctx.strokeStyle = rgba(jc, .75); ctx.lineWidth = .006; ctx.beginPath(); ctx.ellipse(hc[0] + .004, hc[1], .05, .078, -lean - (o.head ?? 0) * .6, -1.2, 1.2); ctx.stroke();
-  }
-  if (o.cup) { const q = J['hd' + (o.cup === 'L' ? -1 : 1)]; cupLocal(ctx, q[0] + .006, q[1] - .006, .07, o.cupCol); }
-  ctx.restore();
-  const S = (q) => [x + h * dir * q[0], y + h * q[1]];
-  for (const s of [-1, 1]) hands[s > 0 ? 'R' : 'L'] = S(J['hd' + s]);
-  return { ...hands, head: S(J.head), shR: S(J.sh1), shL: S(J['sh-1']), elR: S(J.el1), elL: S(J['el-1']), wrR: S(J.wr1), wrL: S(J['wr-1']), ftR: S(J.ft0), ftL: S(J.ft1) };
+  out.neck = S(0, -.86); out.head = S(0, -.94); out.chest = S(0, -.72); out.hip = S(0, -.5);
+  return out;
+}
+// du(): shoulder [±.098, −.74] (front view), upper .17, forearm .155 (to the hand), lean about the hip [0, −.47]
+export function duJ(x, y, h, o = {}) {
+  const dir = o.dir ?? 1, lean = o.lean ?? 0, c = Math.cos(lean), s = Math.sin(lean);
+  const S = (u, v) => { const du0 = u, dv = v + .47; return [x + h * dir * (du0 * c - dv * s), y + h * (-.47 + du0 * s + dv * c)]; };
+  const out = {};
+  for (const sd of [-1, 1]) { const [a1, a2] = (sd > 0 ? o.armR : o.armL) || [sd * .2, sd * .1], sh = [sd * .098, -.74], el = [sh[0] + Math.sin(a1) * .17, sh[1] + Math.cos(a1) * .17], hd = [el[0] + Math.sin(a2) * .155, el[1] + Math.cos(a2) * .155]; const k = sd > 0 ? 'R' : 'L'; out['sh' + k] = S(...sh); out['el' + k] = S(...el); out[k] = S(...hd); }
+  out.head = S(0, -.885); return out;
+}
+// two-link IK in a figure's local frame: shoulder (screen), target (screen), lengths in px, dir ±1 → [shoulderAngle, elbowAngle]
+// (angles from straight down, + = forward = toward dir). The elbow bends down (the natural reach).
+export function armIK(sh, tg, l1, l2, dir = 1) {
+  let dx = (tg[0] - sh[0]) * dir, dy = tg[1] - sh[1]; let d = Math.hypot(dx, dy); const dm = (l1 + l2) * .995;
+  if (d > dm) { dx *= dm / d; dy *= dm / d; d = dm; }
+  const base = Math.atan2(dx, dy), k = Math.acos(clamp((l1 * l1 + d * d - l2 * l2) / (2 * l1 * d), -1, 1));
+  let best = null;
+  for (const sg of [1, -1]) { const a1 = base + sg * k, el = [Math.sin(a1) * l1, Math.cos(a1) * l1], a2 = Math.atan2(dx - el[0], dy - el[1]); if (!best || el[1] > best.ey) best = { a: [a1, a2], ey: el[1] }; }
+  return best.a;
 }
 
 // ---------------------------------------------------------------- the cup (local: base centre at x,y, height s)
@@ -272,10 +220,11 @@ export function raceTimes(ctx, t, t0, t1) {
   bar(ctx, x, y + 150, L * r / hm * k1, 16, WARM, k1);
   bar(ctx, x, y + 318, L * k2, 16, COOL_HI, k2);
   wipeText(ctx, '50:26', x + 24, y + 116, span(t, t0 + .1, t0 + .8), { serif: true, size: 120 });
-  wipeText(ctx, 'ROBOT · 2026', x + 250, y + 112, span(t, t0 + .35, t0 + 1.0), { size: 34, spacing: .14, glow: false, col: P.halo2 });
+  const lx = x + 24 + textW(ctx, '57:20', 120, { serif: true }) + 30;
+  wipeText(ctx, 'ROBOT · 2026', lx, y + 112, span(t, t0 + .35, t0 + 1.0), { size: 34, spacing: .14, glow: false, col: P.halo2 });
   wipeText(ctx, '57:20', x + 24, y + 284, span(t, t0 + .6, t0 + 1.3), { serif: true, size: 120, col: COOL_HI });
-  wipeText(ctx, 'HUMAN WORLD RECORD', x + 250, y + 252, span(t, t0 + .85, t0 + 1.5), { size: 34, spacing: .14, glow: false, col: COOL_HI });
-  wipeText(ctx, 'AT THE TIME', x + 250, y + 294, span(t, t0 + .95, t0 + 1.6), { size: 34, spacing: .14, glow: false, col: COOL_HI });
+  wipeText(ctx, 'HUMAN WORLD RECORD', lx, y + 252, span(t, t0 + .85, t0 + 1.5), { size: 34, spacing: .14, glow: false, col: COOL_HI });
+  wipeText(ctx, 'AT THE TIME', lx, y + 294, span(t, t0 + .95, t0 + 1.6), { size: 34, spacing: .14, glow: false, col: COOL_HI });
 }
 function bar(ctx, x, y, w, h, col, a) {
   if (w <= 1) return;

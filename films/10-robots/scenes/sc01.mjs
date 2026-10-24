@@ -1,343 +1,310 @@
-// c01 · Hook + road map (00a, 01a to "And again.") · 0.00–74.94 · morning → forenoon · ★ 1.01 (the Führung at the start line)
-// ONE world (the valley, lib/f10_kit.mjs). Drawn parts are continuous takes; the cuts are clip cuts (ORIGINAL FOOTAGE) only.
+// c01 · Hook + road map (00a, 01a to "Thousands of times.") · 0.00–74.94 · Editorial-Nacht (B1, rebuilt 2026-10-24)
+// Kit: lib/f10_editorial.mjs (2.5D cards, light forms, du/robot, icons) + lib/f10_c01_draw.mjs (B1 helpers) + lib/f10_c01_world.mjs.
+// Explainers (light on night) carry ~60 % of the drawn time; the scenes are the anchors (hook, du, the hands, the hall).
 //
-// | ID   | anchor            | image                                                                 | 1–2 movements                    | camera                         | on →                    |
-// |------|-------------------|-----------------------------------------------------------------------|----------------------------------|--------------------------------|-------------------------|
-// | 1.01★| body @3.24        | backlit start line: a human hand guides a robot hand; robot steps over | fingers close · the step         | hold + 2 % push, pull back 2.3 s| clip cut on "Last"      |
-// | 1.02 | Beijing @5.40     | K1a (start 2025)                                                      | footage                          | –                              | clip cut on "Most"      |
-// | 1.03 | head @12.28       | our road as race track: four robots sit, a helper kneels, a head rolls | the head · side track            | truck 3.3 s quart              | clip cut "One year"     |
-// | 1.04–1.06 | faster @15.08 | K2a (times written by the trace) · K2c (barrier, set back up) · K2a end | footage + text                 | –                              | clip cut on "They"      |
-// | 1.07 | hands @25.43      | at our barrier: your hands steady the robot; on "For now" one lets go | the hand lifts · 3 % push        | push                           | plan sequence           |
-// | 1.08 | teaching @28.17   | tilt to the hands: the trace (warm) flows into the robot's arm        | trace · tilt                     | push/tilt 1.6 s                | drive                   |
-// | 1.09 | working @30.49    | crane: the road runs to the fork (hall left by the river, house right)| crane · trace hesitates at fork  | crane 4.5 s sine               | plan sequence           |
-// | 1.10 | thirteen @34.53   | the valley from high above: a small group walks onto the road         | the group · text                 | hold, drift                    | plan sequence           |
-// | 1.11 | billion @40.77    | the group floods all ways of the valley                               | the spread · pull back           | pull back 3.4 s                | plan sequence           |
-// | 1.12 | robots @42.85     | the full valley; the sun clears the ridge, a light edge crosses        | light edge                       | (descent starts softly)        | drive down              |
-// | 1.13 | hands @44.93      | down into the crowd to one robot raising both hands; many behind      | descent                          | log-distance dolly 3.3 s       | plan sequence           |
-// | 1.14 | ours @47.09       | your hand lays on the raised robot hand; trace in, a warm wave runs back| the hand · the wave            | hold                           | drive up                |
-// | 1.15 | coming @51.09     | crane up: the road climbs out of the valley into the mist              | crane · the crowd sinks back     | crane 3.2 s                    | pan                     |
-// | 1.16 | planet @53.49     | pan right: the far hill with a pale stepped scar                       | pan                              | pan 2.5 s (7°)                 | tilt                    |
-// | 1.17 | life @57.41       | tilt down to the house: the sun reaches its window, two birds rise    | light in the window · birds      | tilt 3.5 s; from 58.0 descent  | drive down to the hall  |
-// | 1.18 | learn @63.42      | down the slope to the hall: sawtooth roof, tall windows, CHINA sign   | the drive                        | 6.4 s sine, into the window    | fly through the window  |
-// | 1.19 | cup @67.74        | inside at noon light: the trainer lifts THE cup, the learner opposite | her arm                          | hold, 2 % push                 | clip cut "A robot"      |
-// | 1.20 | Again @70.70      | K3 (VR trainer, robot mirrors), cuts on "Again" / "And again"         | footage                          | –                              | clip cut "Thousands"    |
-// | 1.21 | Thousands @72.94  | the wide hall: 12 stations, robots lift cups 60 ms apart, halos        | the staggered lift               | hold, drift                    | plan sequence → c02     |
-import * as K from '../lib/f10_kit.mjs';
-const { W, H, rgba, clamp, lin, mix, PAL, VAL, sineS, qio, expoOut, expoIn } = K;
+// | ID    | time        | anchor            | picture (one idea)                                                        | 1–2 moves                 | camera                      | → carrier · position · direction                     |
+// |-------|-------------|-------------------|---------------------------------------------------------------------------|---------------------------|-----------------------------|------------------------------------------------------|
+// | 1.01★ | 0–4.76      | body @3.24        | K1: a hand of light reaches down, a small robot lifts its hand to the     | robot's arm · the spark   | breathing push 4.8 s        | clip cut on "Last" (footage)                         |
+// |       |             |                   | fingertip; you on the ledge look up. Spark on "body".                     |                           |                             |                                                      |
+// | 1.02  | 4.76–9.72   | Beijing @5.40     | ORIGINAL FOOTAGE K1a · BEIJING · APRIL 2025                                | footage                   | –                           | clip cut on "Most": the start arch → arch of light    |
+// | 1.03E | 9.72–13.16  | never @10.04 · head @12.28 | EXPL: 21 runner icons under an arch of light; 15 stop and go cool, 6 reach the finish (6 OF 21). On "head" one stopped icon loses its head; it rolls. | the stop cascade · the head | small push | clip cut "One year later" |
+// | 1.04  | 13.16–17.88 | faster @15.08     | K2a + the race times as light: 50:26 vs 57:20 with time bars                | footage + numbers         | –                           | cuts in the footage                                  |
+// | 1.05  | 17.88–21.99 | barrier @19.16    | K2c (crash, set back up)                                                   | footage                   | –                           |                                                      |
+// | 1.06  | 21.99–24.23 | own @23.43        | K2a end (the winner alone)                                                 | footage                   | –                           | clip cut on "They"                                   |
+// | 1.07★ | 24.23–27.61 | hands @25.43 · now @26.39 | you on the ledge hold the robot's hand and elbow, the setting sun behind; "For now": your hand lifts off | the hand · push 3 % | close (1.8×), hold | plan sequence |
+// | 1.08  | 27.61–29.21 | teaching @28.17   | the trace (warm, joint ticks) runs from your fingers into its hand, up the arm, out over the edge | the trace · pull back | logout pull back 3 s | the trace runs down onto the road                    |
+// | 1.09E | 29.21–32.53 | working @30.49    | EXPL: the valley as a map; the trace reaches the fork: hall left, house right (icons); it hesitates | the trace head | home, hold | plan sequence                                         |
+// | 1.10E | 32.53–37.01 | thirteen @34.53   | EXPL: a small cool group walks up the road, packs into a block · >13,000 · ROBOTS · 2025 · OMDIA | the group | slow push | plan sequence                                          |
+// | 1.11E | 37.01–41.81 | billion @40.77    | EXPL: the block floods the whole valley to the horizon (scale) · ~1 BILLION · BY 2050 · FORECAST · MORGAN STANLEY | the flood · pull back | pull back 4 s | plan sequence |
+// | 1.12E | 41.81–43.49 | robots @42.85     | the full field; a light edge sweeps it                                     | the edge                  | hold                        | plan sequence                                        |
+// | 1.13E | 43.49–45.65 | hands @44.93      | EXPL: a loupe of light opens over the field: every dot is a robot with two raised hands · 2 BILLION · NEW HANDS | the loupe | hold | the loupe shrinks back into its dot |
+// | 1.14  | 45.65–47.97 | ours @47.09       | you raise your hand; a warm trace runs into the field, the dots turn warm in a wave (K2) | your arm · the wave | hold | the trace runs on to the horizon                      |
+// | 1.15E | 47.97–51.73 | coming @51.09     | EXPL: the trace rises from the horizon and draws the road map: a timeline 0 → 11 MIN, mark 1 (robot) COMING? | the line | crane up 2.2 s | the head travels along the line                     |
+// | 1.16E | 51.73–54.05 | planet @53.49     | mark 2 (coin + planet) COST                                                | the head                  | hold                        |                                                      |
+// | 1.17E | 54.05–60.78 | wake @55.41 · life @57.41 | mark 3: a sun of light rises, LIFE; in the pause the camera flies into the sun | sun · flight | flight 'i' | FLIGHT through the light (flood) → hall window |
+// | 1.18  | 60.78–64.38 | learn @63.42      | K3: out of the light: the tall hall window in a dark wall, the robot in its light, you (headset, cup) | the robot stirs | 'o' out of the light, then push | plan sequence |
+// | 1.19  | 64.38–68.62 | cup @67.74        | you lift the cup · CHINA                                                   | your arm                  | 2 % push                    | clip cut "A robot copies"                            |
+// | 1.20  | 68.62–72.94 | Again @70.70      | ORIGINAL FOOTAGE K3 (3 pieces) · CHINA · ROBOT TRAINING CENTRE              | footage                   | –                           | clip cut "Thousands": same staging (trainer left, robot right) |
+// | 1.21E | 72.94–74.94 | Thousands @72.94  | EXPL: the copied move as an arc of light; the repetitions pile up into a dense crown | the arcs | slow pull back | plan sequence → c02 (the window becomes one of forty) |
+import { Path2D, PathOp } from '@napi-rs/canvas';
+import * as E from '../lib/f10_editorial.mjs';
+import * as D from '../lib/f10_c01_draw.mjs';
+import * as V from '../lib/f10_c01_world.mjs';
+import { footage, clipSlot } from '../lib/f10_core.mjs';
+const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, quartIO, expoOut, expoIn, card, cam3, aim, camAt, camDrift, project, F0 } = E;
 
-// the camera c02 starts from (wide hall, local coordinates of the hall turned into world)
-const wideLocal = { x: 0, y: 4.2, z: 215.6, pitch: -.17, f: 1250 };
-export const HALL_WIDE_CAM = (() => { const p = VAL.hallWorld([wideLocal.x, wideLocal.y, wideLocal.z]); return { x: p[0], y: p[1], z: p[2], yaw: VAL.hall.rot, pitch: wideLocal.pitch, f: wideLocal.f }; })();
-const hallCam = (x, y, z, pitch = 0, f = 1700, dyaw = 0) => { const p = VAL.hallWorld([x, y, z]); return { x: p[0], y: p[1], z: p[2], yaw: VAL.hall.rot + dyaw, pitch, f }; };
+export const PRINT = { editorial: true };
+export const PRINT_CLIP = { editorial: true, grain: 12, floor: 3, vig: .28 };
 
 export default async (T, R) => {
-  await K.prepareKit();
+  E.prepareEditorial();
   const A = (w, n) => T.S('00a', w, n), B = (w, n) => T.S('01a', w, n);
   const a = {
-    body: A('body'), last: A('Last'), most: A('Most'), head: A('head'), oneYear: A('One year'), faster: A('faster'), oneOf: A('One of them'),
-    feet: A('feet'), winner2: A('The winner', 1), they: A('They still'), hands: A('hands'), forNow: A('For now'), teaching: A('teaching'), andWho: A('And who'),
-    working: A('working'), lastYear: A('Last year', 1), thirteen: A('thirteen'), by: A('By the middle'), billion: A('billion'), aBillion: A('A billion'),
-    two: A('Two billion'), hands2: A('hands', 1), all: A('All of them'), learning: A('learning'), ours: A('ours'), inNext: A('In the next'), coming: A('coming'),
-    what: A('What it'), planet: A('planet'), andHow: A('And how'), wake: A('wake'), life: A('life'), lifeE: T.E('00a', 'life'),
-    here: B('And here'), learn: B('learn'), inHall: B('In a hall'), lifts: B('lifts'), cup: B('cup'), aRobot: B('A robot copies'), again1: B('Again'), again2: B('And again'), thousands: B('Thousands'),
+    sup: A('Superintelligence'), body: A('body'), last: A('Last'), beijing: A('Beijing'), most: A('Most'), never: A('never'), finished: A('finished'), lost: A('One lost'), head: A('head'),
+    oneYear: A('One year'), faster: A('faster'), oneOf: A('One of them'), winner2: A('The winner', 1), they: A('They still'), hands: A('hands'), forNow: A('For now'),
+    so: A('So what'), teaching: A('teaching'), andWho: A('And who'), working: A('working'), lastYear: A('Last year', 1), thirteen: A('thirteen'), by: A('By the middle'),
+    century: A('century'), billion: A('billion'), aBillion: A('A billion'), robots3: A('robots', 2), two: A('Two billion'), hands2: A('hands', 1), all: A('All of them'), ours: A('ours'),
+    inNext: A('In the next'), eleven: A('eleven'), whether: A('whether'), coming: A('coming'), what: A('What it'), cost: A('cost'), planet: A('planet'), andHow: A('And how'), wake: A('wake'), life: A('life'),
+    lifeE: T.E('00a', 'life'), here: B('And here'), learn: B('learn'), inHall: B('In a hall'), china: B('China'), trainer: B('trainer'), headset: B('headset'), lifts: B('lifts'), cup: B('cup'),
+    aRobot: B('A robot copies'), again1: B('Again'), again2: B('And again'), thousands: B('Thousands'),
   };
-  const crashCut = a.oneOf + 2.4;
-  const slots = {
-    K1a: K.footage('K1a', a.last, a.most), K2a1: K.footage('K2a1', a.oneYear, a.oneOf), K2c1: K.footage('K2c1', a.oneOf, crashCut),
-    K2c2: K.footage('K2c2', crashCut, a.winner2), K2a2: K.footage('K2a2', a.winner2, a.they),
-    K3a: K.footage('K3a', a.aRobot, a.again1), K3b: K.footage('K3b', a.again1, a.again2), K3c: K.footage('K3c', a.again2, a.thousands),
+  a.crash = a.oneOf + 2.4;   // K2c: the crash (2.4 s) then the helper sets it up (K2c2)
+  a.flight = 60.5;           // the flight through the sun of the road map into the hall window (both sides full light)
+  const slot = {
+    K1a: footage('K1a', a.last, a.most), K2a1: footage('K2a1', a.oneYear, a.oneOf), K2c1: footage('K2c1', a.oneOf, a.crash), K2c2: footage('K2c2', a.crash, a.winner2),
+    K2a2: footage('K2a2', a.winner2, a.they), K3a: footage('K3a', a.aRobot, a.again1), K3b: footage('K3b', a.again1, a.again2), K3c: footage('K3c', a.again2, a.thousands),
   };
-  const clip = (id, lt) => (ctx, t) => { K.clipSlot(ctx, t, slots[id], {}); if (lt) K.lowerThird(ctx, t, lt); if (id === 'K2a1') raceTimes(ctx, t, a.faster, a.oneOf); };
-  const lt26 = { place: 'Beijing', date: 'April 2026', t0: a.oneYear }, lt3 = { place: 'China', date: 'Robot training centre', t0: a.aRobot };
+  const clip = (id, tag, extra) => (ctx, t) => { clipSlot(ctx, t, slot[id], {}); if (extra) extra(ctx, t); D.tagFoot(ctx, t, tag); };
+  const tag25 = { place: 'Beijing · April 2025', t0: a.last }, tag26 = { place: 'Beijing · April 2026', t0: a.oneYear }, tag3 = { place: 'China · Robot training centre', t0: a.aRobot };
+  const C = { editorial: true }, CL = PRINT_CLIP;
   return [
-    { t: 0, draw: startLine(a), print: { riso: .3 } },
-    { t: a.last, draw: clip('K1a', { place: 'Beijing', date: 'April 2025', t0: a.last }), clip: true, print: false, sound: [{ f: 'whoosh_airy', t: a.last - .25, v: .15 }] },
-    { t: a.most, draw: raceRoad(a), print: { riso: .3 } },
-    { t: a.oneYear, draw: clip('K2a1', lt26), clip: true, print: false },
-    { t: a.oneOf, draw: clip('K2c1', lt26), clip: true, print: false },
-    { t: crashCut, draw: clip('K2c2', lt26), clip: true, print: false },
-    { t: a.winner2, draw: clip('K2a2', lt26), clip: true, print: false },
-    { t: a.they, draw: valleyTake(a), print: { riso: .3 }, sound: [{ f: 'shimmer_rings', t: a.teaching - .1, v: .25 }, { f: 'whoosh_up', t: a.andWho - .1, v: .18 }, { f: 'wings', t: a.life - .9, v: .35 }, { f: 'glass_hum', t: a.learn + .7, v: .2 }] },
-    { t: a.aRobot, draw: clip('K3a', lt3), clip: true, print: false },
-    { t: a.again1, draw: clip('K3b', lt3), clip: true, print: false },
-    { t: a.again2, draw: clip('K3c', lt3), clip: true, print: false },
-    { t: a.thousands, draw: hallWide(a, R.b), print: { riso: .3 } },
+    { t: 0, draw: hook(a), print: C },
+    { t: a.last, draw: clip('K1a', tag25), clip: true, print: CL },
+    { t: a.most, draw: neverFinished(a), print: C },
+    { t: a.oneYear, draw: clip('K2a1', tag26, (ctx, t) => D.raceTimes(ctx, t, a.faster, a.oneOf)), clip: true, print: CL },
+    { t: a.oneOf, draw: clip('K2c1', { ...tag26, t0: a.oneYear - 5 }), clip: true, print: CL },
+    { t: a.crash, draw: clip('K2c2', { ...tag26, t0: a.oneYear - 5 }), clip: true, print: CL },
+    { t: a.winner2, draw: clip('K2a2', { ...tag26, t0: a.oneYear - 5 }), clip: true, print: CL },
+    { t: a.they, draw: valleyTake(a), print: C },
+    { t: a.flight, draw: hallTake(a), print: C },
+    { t: a.aRobot, draw: clip('K3a', tag3), clip: true, print: CL },
+    { t: a.again1, draw: clip('K3b', { ...tag3, t0: a.aRobot - 5 }), clip: true, print: CL },
+    { t: a.again2, draw: clip('K3c', { ...tag3, t0: a.aRobot - 5 }), clip: true, print: CL },
+    { t: a.thousands, draw: V.hallEcho(a.thousands, R.b), print: C },
   ];
 };
 
-// ---------------------------------------------------------------- the two race times on K2a ("faster"): written by the trace
-function raceTimes(ctx, t, t0, t1) {
-  // a calm paper card top right (the clip's own banners sit low), the trace writes the two times in ink
-  const x = 1256, y = 84, w = 580, h = 318, u = expoOut(lin(t0 - .2, t0 + .45, t)) * (1 - expoIn(lin(t1 - .45, t1, t)));
-  if (u <= 0) return;
-  ctx.save(); ctx.globalAlpha = u;
-  ctx.fillStyle = 'rgba(20,16,12,.18)'; ctx.fillRect(x + 6, y + 8, w, h);
-  ctx.fillStyle = rgba(PAL.paper, .95); ctx.fillRect(x, y, w, h);
-  ctx.fillStyle = PAL.traceGlow; ctx.fillRect(x, y, 5, h);
-  ctx.restore();
-  K.traceWrite(ctx, t, { text: '50:26', x: x + 40, y: y + 118, size: 96, col: PAL.ink, t0: t0 + .25, t1: t1 - .5, dur: .6, source: 'Robot · winning time', srcSize: 19, srcCol: K.mixHex(PAL.ink, PAL.paper, .3) });
-  K.traceWrite(ctx, t, { text: '57:20', x: x + 40, y: y + 258, size: 96, col: K.mixHex(PAL.ink, PAL.paper, .25), t0: t0 + .85, t1: t1 - .5, dur: .6, source: 'Human world record at the time', srcSize: 19, srcCol: K.mixHex(PAL.ink, PAL.paper, .3) });
-}
-const mixA = (c) => K.mixHex(c, '#d9cbb3', .25);
-
-// ---------------------------------------------------------------- 1.01 ★ the start line
-// The robot stands at the line (left, nearer), you stand half a step behind it (right, a little farther) and hold its hand from behind,
-// like teaching a child to ride a bike. The two hands meet in the gap between you, in the low sun.
-function startLine(a) {
-  const yaw = -.5, fw = [Math.sin(yaw), Math.cos(yaw)], rt = [Math.cos(yaw), -Math.sin(yaw)];
-  const sx = VAL.startX, rz = VAL.roadZ(sx);
-  const RB = [sx + .4, 0, rz + .1];
-  const HB = [RB[0] + rt[0] * .62 + fw[0] * .55, 0, RB[2] + rt[1] * .62 + fw[1] * .55];
-  const HP = [RB[0] + rt[0] * .3 + fw[0] * .25, .86, RB[2] + rt[1] * .3 + fw[1] * .25];   // where the hands meet
+// ===================================================================================================== 1.01 ★ the hook (K1, refined)
+// a hand of light reaches down from the upper right; the small robot lifts its hand to the fingertip; you stand beside it and look up.
+// Accent on "body": the spark at the touch (expo-out 0.3 s), the robot's rim turns warm 80 ms later.
+function hook(a) {
+  const LEDGE = 896, RX = 1066, RH = 300, UX = 848, UH = 210;
+  const reach = [2.42, 2.5], rest = [.55, .42];
+  const tip = D.robotJ(RX, LEDGE + 2, RH, { armR: reach }).R;            // where the robot's fingertip ends
+  const ang = Math.atan2(380, -560), Lh = 365, ho = { pose: 'point' };
+  const ht = E.handTip(ho, 0), m0 = E.handMatrix(0, 0, ang, Lh, -1), [ox, oy] = E.applyM(m0, ...ht);
+  const wrist = [tip[0] + 6 - ox, tip[1] - 6 - oy];                          // the light fingertip touches the robot's fingertip
+  const KEYS = [[0, cam3({ z: -40, x: -10 })], [a.last, cam3({ z: 150, x: 40, y: -14 })]];
   return (ctx, t) => {
-    const L = K.lightAt(t);
-    const D = mix(1.45, 1.41, sineS(t / 2.4)) + (3.1 - 1.41) * sineS(lin(2.4, 4.7, t));
-    const cy = mix(.95, 1.0, lin(2.4, 4.7, t)), tgtY = mix(.86, .9, sineS(lin(2.4, 4.7, t)));
-    const cam = K.withDrift({ x: HP[0] - fw[0] * D, y: cy, z: HP[2] - fw[1] * D, yaw, pitch: Math.atan2(tgtY - cy, D), f: 1700 }, t, 3, .4);
-    const V = K.view3(cam);
-    // the step: on "body" the robot lifts its front foot over the line, guided (1.2 s); you follow half a step later
-    const st = clamp((t - a.body + .15) / 1.2), lift = Math.sin(Math.PI * st), fwd = qio(st);
-    const rPose = { lean: .03 + .03 * lift, head: .05, sh: [.12 - .15 * lift, -.42 + .08 * lift], el: [.22, .12], hip: [.02 + .5 * lift + .22 * fwd, -.04 - .12 * fwd], kn: [.1 + .8 * lift, .05 + .1 * fwd], ft: [-.2 * lift, 0] };
-    const st2 = clamp((t - a.body - .35) / 1.2), lift2 = Math.sin(Math.PI * st2), fwd2 = qio(st2);
-    const rPos = [RB[0] - .3 * fwd, 0, RB[2]], hPos = [HB[0] - .26 * fwd2, 0, HB[2]];
-    const grip = expoOut(lin(.25, .85, t)), arcU = qio(lin(.9, 1.7, t)), arc = Math.sin(Math.PI * arcU);
-    const state = {};
-    const items = [];
-    // you (farther): drawn first, your front hand left out (drawn last, over the robot's hand)
-    items.push({ p: hPos, draw: () => {
-      const sp = K.sprite(V, hPos, 1.74); if (!sp.vis) return;
-      const s = sp.s, hipX = sp.x, hipY = sp.y - 90 * s;
-      const base = { lean: .06, head: .26, sh: [.7, .1], el: [.35, .25], hip: [.03 + .28 * lift2 + .12 * fwd2, -.03 - .08 * fwd2], kn: [.05 + .5 * lift2, .05], hands: ['none', 'relaxed'] };
-      const rs = K.sprite(V, rPos, 1.7), rw = rs.vis ? robotWrist(rs, rPose, t) : [hipX - 40 * s, hipY + 10 * s];
-      const tgt = [rw[0] + 8 * rs.s - 3 * rs.s * arc, rw[1] - 1 * rs.s - 2 * rs.s * arc];
-      const ra = K.reachArm(hipX, hipY, s, base, 0, true, { t, seed: 11 }, tgt, 1);
-      const r = K.person10(ctx, t, 'you', hipX, hipY, s, { ...base, sh: [ra.sh, .1], el: [ra.el, .25] }, { L, flip: true, seed: 11 });
-      const arm = r.arm(0); state.yh = arm.h; state.yang = Math.atan2(arm.h[1] - arm.e[1], arm.h[0] - arm.e[0]); state.ys = s;
-    } });
-    items.push({ p: rPos, draw: () => {
-      const sp = K.sprite(V, rPos, 1.7); if (!sp.vis) return;
-      const s = sp.s;
-      K.robot(ctx, sp.x, sp.y - 92 * s, s, rPose, { t, seed: 7, L, side: -1, flip: true, bib: '01', handFn: (c2, i, w0, ang) => {
-        if (i !== 1) return false;
-        // the guided hand: detailed, its fingers close 80 ms after yours
-        const g = clamp(grip - .08);
-        K.robotHand(c2, w0[0], w0[1], .17, { L, side: 1, ang: Math.atan2(Math.cos(ang), Math.sin(ang)), curl: [.3 + .25 * g, .25 + .5 * g, .3 + .55 * g, .32 + .55 * g, .35 + .5 * g], spread: .4, arm: false, flip: true });
-        return true;
-      } });
-      // your hand over it, fingers around its knuckles
-      if (state.yh) K.humanHand(ctx, state.yh[0], state.yh[1], .2 * state.ys, { L, ang: state.yang, pose: 'grip', close: .15 + .45 * grip, flip: true, t, seed: 4, sleeve: null });
-      if (state.yh) K.heroLight({ x: state.yh[0], y: state.yh[1], r: 620, k: 1, cone: .6, coneLen: 600 });   // the guiding hands are the light of the frame
-    } });
-    K.world(ctx, t, V, L, { items, mistAmt: 1.1 });
-  };
-}
-// the robot's back wrist on screen for a pose (same rig as robot(): shoulder at (−2, −60) turned by lean)
-function robotWrist(sp, P, t) {
-  const s = sp.s, lean = P.lean, S = [-2 * Math.cos(lean) + 60 * Math.sin(lean), -2 * Math.sin(lean) - 60 * Math.cos(lean)];
-  const a1 = P.sh[1] + lean, e = P.el[1], E = [S[0] + Math.sin(a1) * 29, S[1] + Math.cos(a1) * 29], Wr = [E[0] + Math.sin(a1 + e) * 26, E[1] + Math.cos(a1 + e) * 26];
-  return [sp.x - Wr[0] * s, sp.y - 92 * s + Wr[1] * s];   // flipped (faces left)
-}
-const arcOff = (u, s) => [-6 * s * Math.sin(Math.PI * u), -4 * s * Math.sin(Math.PI * u)];
-
-// ---------------------------------------------------------------- 1.03 the race road (most never finished, one lost its head)
-function raceRoad(a) {
-  const nz = VAL.roadZ(-95) + VAL.roadW / 2 - .35;
-  const sit = [[-99.6, false, 3], [-97.2, true, 4], [-94.2, false, 5], [-89.6, true, 6]];
-  return (ctx, t) => {
-    const L = K.lightAt(t);
-    const u = K.sineS(lin(a.most + .2, a.most + 3.2, t));   // a held frame with a 0.12 m creep (calm: the head and the helper carry the motion)
-    const cam = K.withDrift({ x: mix(-95.36, -95.24, u), y: 1.45, z: VAL.roadZ(-95) - 3.3, yaw: mix(-.058, -.052, u), pitch: -.06, f: 1700 }, t, 5, .3);
-    const V = K.view3(cam), items = [];
-    sit.forEach(([x, flip, seed], i) => items.push({ p: [x, 0, nz + .1], draw: () => {
-      const sp = K.sprite(V, [x, 0, nz + .1], 1.7); if (!sp.vis) return;
-      const slump = .04 * Math.sin(t * .8 + i);
-      K.robot(ctx, sp.x, sp.y - 46 * sp.s, sp.s, { ...K.RPOSE.sitSlump, head: .45 + slump + (i === 1 ? -.25 * sineS(lin(a.head + .1, a.head + .7, t)) : 0) }, { t, seed, L, side: -1, flip, bib: ['112', '047', '230', '081'][i] });
-    } }));
-    // a helper kneels by the second robot (green vest), a hand on its shoulder
-    items.push({ p: [-96.4, 0, nz - .55], draw: () => {
-      const sp = K.sprite(V, [-96.4, 0, nz - .55], 1.7); if (!sp.vis) return; const s = sp.s;
-      K.person10(ctx, t, 'worker', sp.x, sp.y - 90 * s, s, { lean: .28, head: .25 + .08 * Math.sin(t * .7), hip: [1.35, -.15], kn: [1.45, 1.9], sh: [.9, .5], el: [.6, .5], dy: 34 }, { L, flip: true, seed: 21, dress: { coat: '#7fa35a', skin: K.SKINS[2] } });
-    } });
-    // the headless runner stands and turns a little, ratlos; its head rolls in from the right and stops at the kerb on "head"
-    items.push({ p: [-91.6, 0, nz - .9], draw: () => {
-      const sp = K.sprite(V, [-91.6, 0, nz - .9], 1.7); if (!sp.vis) return; const s = sp.s, look = sineS(lin(a.head + .3, a.head + 1.1, t));
-      K.robot(ctx, sp.x, sp.y - 92 * s, s, { sh: [.35 + .05 * Math.sin(t * 1.3), .3], el: [.5, .45], lean: -.04 + .05 * look, head: 0 }, { t, seed: 9, L, side: -1, flip: look > .5, headless: true, bib: '163' });
-    } });
-    const hu = expoOut(lin(a.head - .75, a.head + .35, t)), hx = mix(-85.6, -90.5, hu), hz = nz - 1.6;
-    if (t > a.head - .8) items.push({ p: [hx, 0, hz], draw: () => {
-      const p = V.P([hx, .14, hz]); if (!(p.z > .3)) return; const s = p.k * .28 / 29;
-      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(-(hx + 85.6) / .14 * .9); ctx.scale(s, s); K.robotHead(ctx, L, -1, {}); ctx.restore();
-    } });
-    K.world(ctx, t, V, L, { items });
+    const c = camDrift(camAt(t, KEYS), t, .8);
+    const arm = sineIO(span(t, .35, a.body - .12)), touch = expoOut(span(t, a.body - .02, a.body + .32)), warm = smooth(span(t, a.body + .08, a.body + .7));
+    const look = sineIO(span(t, a.sup + .1, a.sup + 1.2));
+    card(ctx, c, 40000, () => {
+      E.nightSky(ctx, [[0, P.night0], [.45, P.night1], [1, P.ind0]]);
+      ctx.fillStyle = E.rad(ctx, 1420, 420, 1250, [[0, rgba(P.blue0, 1)], [.38, rgba(P.blue0, .55)], [.75, rgba(P.ind1, .25)], [1, rgba(P.ind0, 0)]]); ctx.fillRect(-W, -H, 3 * W, 3 * H);
+      E.stars(ctx, 3, 150, t, [-200, -100, W + 400, H], .85);
+    });
+    card(ctx, c, 6000, () => {   // big soft editorial sweeps (depth)
+      ctx.beginPath(); ctx.moveTo(-500, 420); ctx.bezierCurveTo(250, 380, 640, 700, 760, 1350); ctx.lineTo(-500, 1350); ctx.closePath();
+      ctx.fillStyle = E.lin(ctx, 520, 640, 80, 1000, [[0, rgba(P.ind1, 0)], [.35, rgba(P.ind1, .7)], [1, rgba(P.ind0, 1)]]); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(380, -300); ctx.bezierCurveTo(900, 120, 700, 560, 1000, 1350); ctx.lineTo(1400, 1350); ctx.bezierCurveTo(1000, 560, 1200, 120, 760, -300); ctx.closePath();
+      ctx.fillStyle = E.lin(ctx, 640, 0, 1150, 300, [[0, rgba(P.blue0, 0)], [.5, rgba(P.blue0, .35)], [1, rgba(P.blue0, 0)]]); ctx.fill();
+    });
+    card(ctx, c, F0, () => {
+      // the hand of light: it has come down a little and stops exactly at the fingertip (anticipation: it was moving before the touch)
+      const app = 1 - expoOut(span(t, -.6, a.body - .05)), br = 1 + .03 * Math.sin(t * 1.25);
+      const m = E.handMatrix(wrist[0] + 46 * app + E.drift(t, 2), wrist[1] - 34 * app + E.drift(t, 1.5, 1), ang, Lh * br * (1 + .004 * touch), -1);
+      E.halo(ctx, 1500, 330, 1100, .14, P.blue0, P.halo1);
+      E.lightHand(ctx, m, t, { ...ho, a: 1 });
+      // the ledge
+      ctx.beginPath(); ctx.moveTo(760, LEDGE + 6); ctx.lineTo(2400, LEDGE - 14); ctx.lineTo(2400, 1500); ctx.lineTo(728, 1500); ctx.closePath();
+      ctx.fillStyle = E.lin(ctx, 0, LEDGE, 0, H, [[0, P.ind1], [.08, P.night1], [1, P.night0]]); ctx.fill();
+      ctx.fillStyle = E.lin(ctx, 760, 0, 1900, 0, [[0, rgba(P.blue0, .9)], [.45, rgba(P.halo1, .85)], [1, rgba(P.blue0, .7)]]);
+      ctx.beginPath(); ctx.moveTo(760, LEDGE + 6); ctx.lineTo(2400, LEDGE - 14); ctx.lineTo(2400, LEDGE - 8); ctx.lineTo(758, LEDGE + 12); ctx.closePath(); ctx.fill();
+      E.castShadow(ctx, RX, LEDGE + 2, 34, 330, 2.62, .45); E.castShadow(ctx, UX, LEDGE + 4, 26, 240, 2.62, .4);
+      const armR = [lerp(rest[0], reach[0], arm), lerp(rest[1], reach[1], arm)];
+      E.robot(ctx, RX, LEDGE + 2, RH, { light: 1, rim: mixHex(mixHex(P.halo0, P.blue0, .3), P.core1, warm), body: P.ind0, armR, armL: [-.08, -.04] });
+      E.du(ctx, UX, LEDGE + 4, UH, { dir: 1, look: look * .9, light: 1, armR: [.24, .12], armL: [-.22, -.1] });
+      if (touch > 0) { const [x, y] = tip; E.halo(ctx, x + 3, y - 3, 280 * touch, .9 * touch); E.halo(ctx, x + 3, y - 3, 64 * touch, 1, P.core1, P.core0); }
+    });
   };
 }
 
-// ---------------------------------------------------------------- 1.07 – 1.19: one take from our barrier into the hall
-function valleyTake(a) {
-  const rx = -70, rz = VAL.roadZ(-70) + VAL.roadW / 2 - .5, HZ = rz - .35;
-  const RB = [rx, 0, rz], YB = [rx + .82, 0, rz - .32];
-  const hero = [-40, 0, 154], heroYaw = .45;
-  const C13 = { x: hero[0] - 3.4 * Math.sin(heroYaw), y: 1.62, z: hero[2] - 3.4 * Math.cos(heroYaw), yaw: heroYaw, pitch: .065, f: 1700 };
-  const C11 = { x: -60, y: 140, z: -215, yaw: .02, pitch: -.235, f: 1700 };
-  // 1.15–1.18 lie on one line of sight: the road (start), the hall below, the house up the slope behind it, the road's crest and the far hill
-  const C15 = { x: -92, y: 45, z: 96, yaw: .62, pitch: -.085, f: 1700 };
-  // Takt (Ruhe-Runde): every sentence gets a hold of 1.5–3 s on its motif (breathing drift only); the moves between are few,
-  // long and eased, leaving near subjects in log distance ('logout') and approaching walls in log distance ('log').
-  const KEYS = [
-    [a.they, { x: rx + .35, y: 1.25, z: rz - 3.5, yaw: .02, pitch: -.03, f: 1700 }],
-    [a.andWho + .3, { x: rx + .36, y: 1.23, z: rz - 3.35, yaw: .022, pitch: -.04, f: 1700 }],   // 1.07–1.08 hold: hands, release, the trace into the arm
-    [a.lastYear + 1.9, { ...C11, f: 1800 }, 'logout'],                                         // 1.09 one crane up to the valley (the trace runs to the fork)
-    [a.by + .3, { ...C11, f: 1800 }],                                                          // 1.10 hold: the group, 13,000
-    [a.billion - .2, C11],                                                                     // 1.11 a slow 6 % pull back as the group spreads
-  ];
-  const C16 = { ...C15, yaw: .68, pitch: -.062 };
-  const KEYS2 = [
-    [a.all + .05, C13],
-    [a.ours + 1.8, C13],                                                    // 1.14 hold: the hand, the trace, the wave
-    [a.coming + .9, C16, 'logout'],                                         // 1.15 crane up, already turned to the far hill
-    [a.lifeE + 1.2, { ...C16, yaw: .705, pitch: -.07 }],                  // 1.16–1.17 one long hold, barely turning from the far hill towards the house (in frame, right)
-    [a.learn - .1, hallCam(-6.75, 4.6, 212.4, -.025), 'log'],                // 1.18 down the slope to the hall window, log approach
-    [a.inHall - .45, hallCam(-6.74, 4.58, 212.6, -.03)],                    //      hold: we look in through the glass
-    [a.inHall + 2.55, hallCam(-6.55, 1.6, 218.6, -.05)],                    //      through the window, down to the station
-    [a.aRobot, hallCam(-6.55, 1.58, 218.8, -.05)],                         // 1.19 hold: the cup
-  ];
-  // the descent into the crowd: distance to the hero shrinks in log space along a turning ray
-  const descent = (t) => {
-    const u0 = lin(a.aBillion + .1, a.all + .05, t), u = u0 < .5 ? 2 * u0 * u0 : 1 - 2 * (1 - u0) * (1 - u0);
-    const tg = [hero[0], mix(0, 1.62, u), hero[2]];   // ends exactly in C13 (no pop at the switch)
-    const d0 = [C11.x - tg[0], C11.y - tg[1], C11.z - tg[2]], D0 = Math.hypot(...d0), D1 = 3.4;
-    const d1 = [-Math.sin(heroYaw), (1.62 - 1.62 - 0) / 3.4 + 0, -Math.cos(heroYaw)], n1 = Math.hypot(...d1);
-    const dir = d0.map((v, i) => mix(v / D0, d1[i] / n1, sineS(lin(.15, 1, u)))), nd = Math.hypot(...dir);
-    const D = Math.exp(mix(Math.log(D0), Math.log(D1), u));
-    const pos = dir.map((v, i) => tg[i] + v / nd * D); pos[1] = Math.max(pos[1], 1.62);
-    const look = [tg[0] - pos[0], tg[1] - pos[1], tg[2] - pos[2]];
-    let yaw = Math.atan2(look[0], look[2]), pitch = Math.atan2(look[1], Math.hypot(look[0], look[2]));
-    // the last part settles onto C13 exactly
-    const e = sineS(lin(.85, 1, u)); yaw = mix(yaw, C13.yaw, e); pitch = mix(pitch, C13.pitch, e);
-    // and the first part leaves C11's own view gently (no pop at the switch)
-    const e0 = sineS(lin(0, .18, u)); yaw = mix(C11.yaw, yaw, e0); pitch = mix(C11.pitch, pitch, e0);
-    return { x: pos[0], y: pos[1], z: pos[2], yaw, pitch, f: 1700 };
-  };
-  const camAt = (t) => {
-    if (t < a.billion - .2) return K.camEase(t, KEYS);
-    if (t < a.aBillion + .1) return C11;
-    if (t < a.all + .05) return descent(t);
-    return K.camEase(t, KEYS2);
-  };
+// ===================================================================================================== 1.03 E "Most never finished. One lost its head."
+// 21 runner icons of light under an arch (the start); 15 stop and cool down (cascade from the back), 6 run on to the finish line.
+// Number: 6 OF 21 · FINISHED · BEIJING 2025 (Semafor/Wired: 6 of 21 finished; Bloomberg 4 within the time limit).
+function neverFinished(a) {
+  const N = 21, BASE = 760, X0 = 250, FIN = 1640, rr = E.prng(7), stopOrder = [];
+  const keep = new Set([0, 1, 2, 4, 7, 11]);   // the six that finish are among the leaders
+  for (let i = 0; i < N; i++) if (!keep.has(i)) stopOrder.push(i);
+  const R = Array.from({ length: N }, (_, i) => ({ i, x0: 1180 - i * 44 - rr() * 16, ph: rr() * 6.3, k: keep.has(i), so: stopOrder.indexOf(i) }));
+  const lost = R[9];
   return (ctx, t) => {
-    const L = K.lightAt(t);
-    const cam = K.withDrift(camAt(t), t, 9, mix(.35, .55, sineS(lin(a.they + 5, a.they + 6.5, t))) * mix(1, .55, sineS(lin(a.inHall, a.inHall + 1.5, t)))), V = K.view3(cam);
-    const items = [];
-    // --- 1.07–1.09: the robot at our barrier, your two hands steady it; "For now": the upper hand lets go
-    const near = V.dist(RB) < 70;
-    const rel = expoOut(lin(a.forNow + .15, a.forNow + .75, t));
-    const st = {};
-    if (near) {
-      items.push({ p: RB, draw: () => {
-        const sp = K.sprite(V, RB, 1.7); if (!sp.vis) return; const s = sp.s;
-        const r = K.robot(ctx, sp.x, sp.y - 92 * s, s, { lean: -.02 + .02 * Math.sin(t * .9), head: .05, sh: [.55, .05], el: [.55, .2], hip: [.06, -.05], kn: [.08, .04] }, { t, seed: 31, L, side: -1, bib: '053', handFn: (c2, i, w0, ang) => {
-          if (i !== 0) return false;
-          K.robotHand(c2, w0[0], w0[1], .16, { L, side: -1, ang: Math.atan2(Math.cos(ang), Math.sin(ang)), curl: .35, spread: .3, arm: false });
-          return true;
-        } });
-        st.r = r; st.s = s;
-      } });
-      items.push({ p: YB, draw: () => {
-        const sp = K.sprite(V, YB, 1.74); if (!sp.vis || !st.r) return; const s = sp.s, hx = sp.x, hy = sp.y - 90 * s;
-        const base = { lean: .1, head: .22, sh: [.9, .7], el: [.6, .9], hands: ['none', 'none'] };
-        const w = st.r.wrist(0), e = st.r.elbow(0);
-        const t0 = [w[0] + 3 * st.s, w[1] - 1 * st.s - rel * 4.5 * st.s], t1 = [e[0] + 1 * st.s, e[1] + 5 * st.s];
-        const r0 = K.reachArm(hx, hy, s, base, 0, true, { t, seed: 12 }, t0, 1), r1 = K.reachArm(hx, hy, s, base, 1, true, { t, seed: 12 }, t1, 1);
-        const r = K.person10(ctx, t, 'you', hx, hy, s, { ...base, sh: [r0.sh, r1.sh], el: [r0.el, r1.el] }, { L, flip: true, seed: 12 });
-        for (const i of [1, 0]) { const m = r.arm(i), ang = Math.atan2(m.h[1] - m.e[1], m.h[0] - m.e[0]); K.humanHand(ctx, m.h[0], m.h[1], .19 * s, { L, ang, pose: i ? 'cup' : 'grip', close: i ? 0 : .5 * (1 - rel), spread: i ? .5 : .3, t, seed: 5 + i, sleeve: null }); }
-        st.yt = r.arm(0).h;
-        // 1.08: the trace flows from your fingertips into the robot's hand and up its arm, then down to the road
-        const tu = lin(a.teaching - .5, a.teaching + .7, t);
-        if (tu > 0) {
-          const w2 = st.r.wrist(0), e2 = st.r.elbow(0), sh = st.r.shoulder;
-          const pts = [st.yt, [w2[0] + 2 * st.s, w2[1]], e2, sh];
-          K.trace(ctx, pts, expoOut(tu), { col: 0, w: Math.max(2, st.s * 1.1), ticks: [.36, .66, .99], from: lin(a.andWho + .3, a.andWho + 1.3, t) });
-        }
-      } });
-    }
-    // 1.09: the trace runs along the road to the fork and hesitates there (branches: hall left, house right)
-    const ru = lin(a.andWho + .1, a.working + .9, t);
-    if (ru > 0 && t < a.ours) {
-      const pts = []; for (let x = rx + .5; x <= VAL.forkX; x += 2) pts.push([x, .08, VAL.roadZ(x)]);
-      const hes = Math.max(0, t - (a.working + .9));
-      const wob = Math.sin(hes * 5) * Math.exp(-hes * 1.6);
-      const end = VAL.forkX + 2.5, br = wob > 0 ? VAL.branchHouse : VAL.branchHall;
-      pts.push([end, .08, VAL.roadZ(end) + 1.5 + Math.abs(wob) * 2]);
-      items.push({ p: [VAL.forkX, 0, 70], draw: () => { const e = K.trace3(ctx, V, pts, expoOut(ru), { col: 0, w: 2.6, ticks: [] }); if (e) K.heroLight({ x: e[0], y: e[1], r: 380, k: .9, cone: 0 }); } });   // the trace on the road is the light of the frame
-    }
-    // --- the crowd (1.10–1.15)
-    const group = lin(a.lastYear + .4, a.thirteen + 1.4, t), spread = sineS(lin(a.by + .3, a.aBillion - .2, t));
-    const sink = sineS(lin(a.inNext + .4, a.coming + .4, t));
-    const crowdOn = t > a.lastYear && t < a.what + 1;
-    const crowd = crowdOn ? K.crowdField({ t, L, group, spread, sink, raise: { at: [hero[0], hero[2]], r: 70, t0: a.two + .3 }, wave: { t0: a.ours - .15, at: [hero[0], hero[2]] } }) : null;
-    // 1.13–1.14: the hero robot raises both hands; your hand comes in from the right and lays on its hand
-    if (t > a.aBillion && t < a.what + 1) items.push({ p: hero, draw: () => {
-      const sp = K.sprite(V, hero, 1.7); if (!sp.vis) return; const s = sp.s;
-      const up = expoOut(lin(a.two + .2, a.hands2 + .2, t)) * (1 - sink);
-      const pose = { sh: [mix(.1, 2.15, up), mix(-.05, 1.95, up)], el: [mix(.2, .62, up), mix(.15, .7, up)], head: -.12 * up, lean: -.03 * up };
-      let palm = null;
-      const r = K.robot(ctx, sp.x, sp.y - 92 * s, s, pose, { t, seed: 61, L, side: -1, handFn: (c2, i, w0, ang) => {
-        if (s < 1.2) return false;
-        K.robotHand(c2, w0[0], w0[1], .16, { L, side: -1, ang: Math.atan2(Math.cos(ang), Math.sin(ang)) - .9 * up, curl: .12, spread: .6, arm: false, palm: 'front', flip: i === 1 });
-        return true;
-      } });
-      if (s > 1.2) {
-        const w = r.wrist(0), an = r.ang(0);
-        const hu = expoOut(lin(a.learning - .35, a.learning + .5, t)), tx = w[0] + 9 * s, ty = w[1] - 9 * s;
-        const hx = mix(W + 260, tx, hu), hy = mix(ty + 120, ty, hu) - 2 * s * Math.sin(Math.PI * hu);
-        if (hu > 0) {
-          // your forearm in the ochre knit: a tapered capsule from the wrist out of frame, rib lines, a cuff
-          const hl = 22 * s, ca = Math.cos(.32), sa = Math.sin(.32), bx = hx + ca * hl * .22, by = hy + sa * hl * .22 + hl * .05, ex = bx + ca * 1400, ey = by + sa * 1400;
-          const w0 = hl * .24, w1 = hl * .46, nx = -sa, ny = ca;
-          ctx.fillStyle = L.lit(K.PAL.you, .85); ctx.beginPath();
-          ctx.moveTo(bx + nx * w0, by + ny * w0); ctx.lineTo(ex + nx * w1, ey + ny * w1); ctx.lineTo(ex - nx * w1, ey - ny * w1); ctx.lineTo(bx - nx * w0, by - ny * w0);
-          ctx.arc(bx, by, w0, Math.atan2(-ny, -nx), Math.atan2(ny, nx), true); ctx.fill();
-          ctx.strokeStyle = K.mixHex(K.PAL.you, '#4a2e14', .32); ctx.lineWidth = Math.max(1, hl * .012);
-          for (let k = -2; k <= 2; k++) { const f = k / 2.6; ctx.beginPath(); ctx.moveTo(bx + nx * w0 * f + ca * w0, by + ny * w0 * f + sa * w0); ctx.lineTo(ex + nx * w1 * f, ey + ny * w1 * f); ctx.stroke(); }
-          ctx.fillStyle = K.mixHex(K.PAL.you, '#4a2e14', .22); ctx.beginPath(); ctx.moveTo(bx + nx * w0 * 1.04, by + ny * w0 * 1.04); ctx.lineTo(bx + nx * w0 * 1.06 + ca * hl * .12, by + ny * w0 * 1.06 + sa * hl * .12); ctx.lineTo(bx - nx * w0 * 1.06 + ca * hl * .12, by - ny * w0 * 1.06 + sa * hl * .12); ctx.lineTo(bx - nx * w0 * 1.04, by - ny * w0 * 1.04); ctx.fill();
-          K.humanHand(ctx, hx, hy, .21 * s, { L, ang: Math.PI + .32, pose: 'open', flip: true, t, seed: 8, sleeve: null });
-        }
-        // at the touch: the trace glows and runs into the robot (down the arm to its chest)
-        const tu = lin(a.learning + .4, a.ours + .25, t);
-        if (tu > 0) K.trace(ctx, [[tx - 4 * s, ty + 2 * s], w, r.elbow(0), r.shoulder, [r.shoulder[0] - 4 * s, r.shoulder[1] + 18 * s]], expoOut(tu), { col: 0, w: Math.max(2, s * 1.0), ticks: [.3, .62, .86] });
+    const c = camDrift(camAt(t, [[a.most, cam3({ z: -20 })], [a.oneYear, cam3({ z: 80, x: 30 })]]), t, .6);
+    const tt = t - a.most;
+    card(ctx, c, 40000, () => { D.bloomBg(ctx, 1020, 560, 1250, .9); E.stars(ctx, 11, 120, t, [-200, -100, W + 400, 700], .7); });
+    card(ctx, c, F0, () => {
+      // the course: a line of light from the start arch to the finish
+      E.trail(ctx, [[X0 - 60, BASE + 6, 2.4], [FIN + 140, BASE + 6, 2.4]], 1, { spark: false, a: .7 });
+      // start arch (gate of light, cool: the start is behind them) and finish line (warm, the light form of this frame)
+      const gp = new Path2D(); gp.moveTo(X0 - 95, BASE); gp.lineTo(X0 - 95, BASE - 190); gp.arc(X0, BASE - 190, 95, Math.PI, 0); gp.lineTo(X0 + 95, BASE);
+      E.lightShape(ctx, gp.stroke({ width: 16, cap: 1, join: 1 }), t, { lit: 0, a: .8, dust: 0 });
+      const fp = new Path2D(); fp.roundRect(FIN - 7, BASE - 330, 14, 336, 7); E.lightShape(ctx, fp, t, { lit: 1, dust: 900, seed: 3 });
+      const flag = new Path2D(); flag.moveTo(FIN + 7, BASE - 330); flag.lineTo(FIN + 120, BASE - 300); flag.lineTo(FIN + 7, BASE - 270); flag.closePath(); E.lightShape(ctx, flag, t, { lit: 1, dust: 0 });
+      for (const r of R) {
+        // runners move right; a stopper slows to a halt in the cascade (from the back), turns cool and sinks a little (sits down)
+        const st = r.k ? 1e9 : a.never - a.most - .15 + r.so * .045, run = (s) => s * 260;
+        const x = r.k ? r.x0 + run(tt) * (1 + .05 * (r.i % 3)) : r.x0 + (tt < st ? run(tt) : run(st) + 70 * expoOut((tt - st) / .5) * .5);
+        const xx = Math.min(x, r.k ? FIN + 70 + (6 - [...keep].indexOf(r.i)) * 34 : 1e9);
+        const stopped = r.k ? 0 : smooth(span(tt, st, st + .45)), arrived = r.k ? smooth(span(xx, FIN - 20, FIN + 40)) : 0;
+        const bob = (1 - stopped) * (r.k && xx >= FIN + 60 ? .3 : 1) * Math.abs(Math.sin(tt * 9 + r.ph)) * 5;
+        const y = BASE - 2 - bob + stopped * 6;
+        const headOff = r === lost ? lostHead(t, a) : null;
+        runnerIcon(ctx, xx, y, 62, t, { lit: r.k ? 1 : 1 - stopped * .9, a: 1 - stopped * .35, sit: stopped, headless: !!headOff, seed: 70 + r.i });
+        if (headOff) { const hp = new Path2D(); hp.arc(xx + headOff.x, y - 62 * .86 + headOff.y, 62 * .11, 0, 6.29); E.lightShape(ctx, hp, t, { lit: 0, a: .9, dust: 0 }); }
       }
-    } });
-    // --- 1.17 the house: the sun reaches its window, the garden lights up, two birds rise from the tree
-    const sunWin = sineS(lin(a.andHow + .5, a.wake + .9, t)), gardenLit = sineS(lin(a.wake, a.life + .2, t));
-    if (t > a.wake && t < a.learn) items.push({ p: [VAL.houseTree[0], 8, VAL.houseTree[1]], draw: () => birds(ctx, V, t - (a.life - .7), L) });
-    // the hall: station 0 is the trainer with the cup (1.19), the others idle
-    const lift = qio(lin(a.cup - .45, a.cup + .55, t));
-    const hallOpts = { station: (i) => (i === 0 ? { lift, headset: 'up' } : { headset: i % 3 ? 'up' : 'on', robotLift: 0 }) };
-    K.world(ctx, t, V, L, { hallOpts, items, crowd, sunWin, gardenLit, shadowX: t < a.all ? mix(-700, 3200, sineS(lin(a.aBillion - .2, a.all - .1, t))) : null, shadowA: sineS(lin(a.andWho, a.lastYear + 1.9, t)), mistAmt: mix(1, .7, lin(30, 60, t)) });
-    // --- text written by the trace (1.10, 1.11): upper left, fixed while it is read
-    K.traceWrite(ctx, t, { text: '2025: >13,000', x: 120, y: 214, size: 104, col: PAL.ink, t0: a.thirteen - .1, t1: a.by - .35, dur: .9, source: 'Robots installed worldwide · Omdia', srcSize: 21, shadow: 'rgba(250,244,230,.95)' });
-    K.traceWrite(ctx, t, { text: '~1 billion by 2050', x: 120, y: 214, size: 104, col: PAL.ink, t0: a.billion - .25, t1: a.aBillion + .9, dur: 1.0, source: 'Forecast · Morgan Stanley', srcSize: 21, shadow: 'rgba(250,244,230,.95)' });
+      // the number: 6 OF 21 · FINISHED, upper left on night
+      D.numBlock(ctx, t, { x: 170, y: 330, num: '6 of 21', label: 'FINISHED', src: 'BEIJING 2025 · SEMAFOR', t0: a.finished - .25, size: 150 });
+    });
   };
 }
-// two birds rise out of the house tree and fly off to the left over the valley
-function birds(ctx, V, u, L) {
-  if (u < 0) return;
-  for (let i = 0; i < 2; i++) {
-    const k = Math.max(0, u - i * .25), p = V.P([VAL.houseTree[0] - k * 9 - i * 2, 9 + k * 5 + i, VAL.houseTree[1] - k * 4]); if (!(p.z > 1)) continue;
-    const s = Math.max(2, p.k * .35), fl = Math.sin(k * 14 + i * 2) * .7;
-    ctx.strokeStyle = rgba(PAL.ink, .8); ctx.lineWidth = Math.max(1, s * .14); ctx.lineCap = 'round';
-    ctx.beginPath(); ctx.moveTo(p.x - s, p.y - s * fl * .6); ctx.quadraticCurveTo(p.x - s * .4, p.y - s * .3, p.x, p.y); ctx.quadraticCurveTo(p.x + s * .4, p.y - s * .3, p.x + s, p.y - s * fl * .6); ctx.stroke();
-  }
+// the lost head: off on "head", it hops once and rolls right along the course, then settles (2 % overshoot)
+function lostHead(t, a) {
+  const u = span(t, a.head - .12, a.head + 1.1); if (u <= 0) return null;
+  const k = expoOut(u), hop = Math.sin(Math.PI * clamp(u / .35)) * 26;
+  return { x: 210 * k + 4 * Math.sin(Math.PI * clamp((u - .7) / .3)), y: -hop + 62 * .86 * smooth(clamp(u / .3)) - 7 };
+}
+// a runner icon of light (the kit icon set's robot, small): sit 0..1 folds it down a little
+function runnerIcon(ctx, x, y, s, t, o) {
+  const p = new Path2D(), q = 1 - .12 * (o.sit || 0);
+  const m = { a: s, b: 0, c: 0, d: s * q, e: x, f: y };
+  const body = robotIconPath(o.headless); p.addPath(body, m);
+  E.lightShape(ctx, p, t, { lit: o.lit, a: o.a, dust: 0, glow: .7 });
+}
+let RIP = null, RIPH = null;
+function robotIconPath(headless) {
+  if (headless ? RIPH : RIP) return headless ? RIPH : RIP;
+  const r = new Path2D();
+  // simple runner: helmet, chest, arms swinging, legs; local units, feet at 0, height 1
+  if (!headless) r.ellipse(0, -.86, .1, .11, 0, 0, 6.29);
+  const b = new Path2D(); b.moveTo(-.17, -.73); b.lineTo(.17, -.73); b.lineTo(.12, -.44); b.lineTo(-.12, -.44); b.closePath();
+  let p = headless ? b : r.op(b, PathOp.Union);
+  const st = (pts, w) => { const s = new Path2D(); s.moveTo(...pts[0]); for (const q of pts.slice(1)) s.lineTo(...q); return s.stroke({ width: w, cap: 1, join: 1 }); };
+  for (const s of [st([[-.06, -.46], [-.15, -.24], [-.1, 0]], .09), st([[.06, -.46], [.16, -.26], [.24, -.06]], .09), st([[-.16, -.7], [-.26, -.52], [-.2, -.38]], .07), st([[.16, -.7], [.26, -.56], [.33, -.62]], .07)]) p = p.op(s, PathOp.Union);
+  if (headless) RIPH = p; else RIP = p; return p;
 }
 
-// ---------------------------------------------------------------- 1.21 the wide hall: twelve stations, robots lift cups 60 ms apart
-function hallWide(a, END) {
+// ===================================================================================================== 1.07–1.17: one take from the ledge over the valley
+// cards: sky 40000 · sun 12000 (sets behind the ridge) · ridges 9000 · valley map 3600 · road map 2400 (the timeline) · ledge F0 (you + robot)
+function valleyTake(a) {
+  const W0 = V.VALLEY;
+  const U = { x: 410, y: 686, h: 150 }, RB = { x: 528, y: 690, h: 205 };
+  // 1.07 close framing: you and the robot at 1.8× (you stay ≤ 25 % of the frame height), the sun behind them (its design point is solved for this camera)
+  const C1 = aim(F0, 470, 600, 1.8, 820, 590), C1b = aim(F0, 474, 602, 1.85, 818, 590);
+  const SUNZ = 12000, sunAt = (() => { const m = E.cardM(C1, SUNZ); return [(1090 - m.e) / m.k, (420 - m.f) / m.k, 300 / m.k]; })();
+  const HOME = cam3({ x: 20, y: -10 }), TLZ = V.TL.Z;
+  const tlCam = cam3({ x: 70, y: -300, z: -40 });
+  const sunG = V.TL.marks[2];
+  const KEYS = [
+    [a.they, C1], [a.forNow + .6, C1b],
+    [a.teaching + .2, C1b], [a.working + .6, HOME, 's'],                 // 1.08 pull back to the valley (3.4 s)
+    [a.thirteen + .3, cam3({ x: 26, y: -12, z: 60 })],                    // 1.09–1.10 hold with a slow push
+    [a.by + .1, cam3({ x: 26, y: -12, z: 66 })],
+    [a.billion + .1, cam3({ x: 40, y: -40, z: -250 })],                    // 1.11 pull back for the scale (3.7 s)
+    [a.ours + .4, cam3({ x: 20, y: -36, z: -215 })],                       // 1.12–1.14 hold
+    [a.eleven + .3, tlCam, 's'],                                           // 1.15 crane up to the road map (2.5 s)
+    [a.lifeE + .5, cam3({ ...tlCam, z: 40, x: 90 })],                      // 1.15–1.17 hold, slow push
+    [a.flight, aim(TLZ, sunG.x, sunG.y - 40, 60), 'i'],                    // flight into the sun (both sides full light)
+  ];
+  const duPose = (t) => {   // 1.07 hold its hand and elbow · 1.14 raise your hand to the valley
+    const rl = expoOut(span(t, a.forNow + .05, a.forNow + .6)), raise = sineIO(span(t, a.all + .05, a.all + .75));
+    return { rl, raise };
+  };
   return (ctx, t) => {
-    const L = K.lightAt(t);
-    const dz = .35 * (t - END);   // a slow push along the hall axis that arrives exactly in HALL_WIDE_CAM at the chunk end (c02 continues it)
-    const cam = K.withDrift({ ...HALL_WIDE_CAM, x: HALL_WIDE_CAM.x + dz * Math.sin(VAL.hall.rot), z: HALL_WIDE_CAM.z + dz * Math.cos(VAL.hall.rot) }, t, 13, .4 * clamp((END - t) / 1.5)), V = K.view3(cam);
-    const halo = sineS(lin(a.thousands - .3, a.thousands + 1.6, t));
-    const station = (i, S) => ({ robotCup: true, robotLift: Math.sin(Math.PI * clamp((t - a.thousands - .15 - i * .06) / 1.7)) , halo, headset: i % 3 ? 'up' : 'on', lift: 0, cupScale: 1.9 });
-    K.world(ctx, t, V, L, { hallOpts: { station } });
+    const c0 = camAt(t, KEYS, F0), c = camDrift(c0, t, lerp(.5, 1, span(t, a.working, a.working + 2)));
+    // ------- state from the voice
+    const s = {};
+    s.sunY = 340 * sineIO(span(t, a.teaching - .1, a.working + 1.2));       // the sun sets behind the ridge as the trace takes over
+    s.trace = expoOut(span(t, a.teaching - .45, a.teaching + .9)) * .42 + .58 * sineIO(span(t, a.teaching + .5, a.working - .1));
+    s.traceIn = sineIO(span(t, a.lastYear - .1, a.lastYear + .9));       // the trace retracts into the fork node
+    s.hesit = t - (a.working - .2);
+    s.group = sineIO(span(t, a.lastYear + .2, a.thirteen + .8));          // the 13,000 walk up the road and pack into a block
+    s.flood = t - (a.century - .3);                                       // seconds since the flood started
+    s.edge = span(t, a.aBillion - .1, a.robots3 + .7);                    // the light edge over the field
+    s.loupe = expoOut(span(t, a.two + .1, a.two + .8)) * (1 - quartIO(span(t, a.all - .1, a.all + .5)));
+    s.wave = t - (a.ours - .25);                                          // the warm wave through the field
+    s.trail2 = sineIO(span(t, a.all + .4, a.ours - .2));                  // your trace into the field
+    s.horizon = sineIO(span(t, a.inNext - .2, a.eleven + .1));            // it runs on to the horizon and up
+    s.tl = sineIO(span(t, a.eleven - .1, a.eleven + 1.3));                // the timeline draws
+    s.head = [a.whether + .2, a.cost - .1, a.wake - .05];                 // the head travels to mark 1, 2, 3
+    const dp = duPose(t);
+    // ------- far → near
+    card(ctx, c, 40000, () => { V.sky(ctx, t, 1 - span(t, a.working, a.billion)); });
+    card(ctx, c, SUNZ, () => { if (s.sunY < 330) V.sun(ctx, t, sunAt[0], sunAt[1] + s.sunY, sunAt[2], 1 - span(s.sunY, 200, 330)); });
+    card(ctx, c, 9000, () => V.ridges(ctx));
+    let mapS = null;
+    card(ctx, c, W0.Z, (k) => { mapS = V.valley(ctx, t, s, k, a); });
+    card(ctx, c, TLZ, () => V.roadmap(ctx, t, s, a));
+    // ------- the ledge, the robot, you
+    let J = null, Ju = null, fig = null;
+    card(ctx, c, F0, () => {
+      V.ledge(ctx, 1 - span(s.sunY, 60, 300));
+      // the robot: unsteady at first (a small sway that settles once you let go)
+      const sway = Math.sin(t * 1.9) * (1 - .8 * dp.rl) * 1.6;
+      const rArm = { armL: [-.42 + .05 * Math.sin(t * 1.3) * (1 - dp.rl), -.25], armR: [.12, .06] };
+      E.castShadow(ctx, RB.x, RB.y, 26, 190, 3.6, .35);
+      E.robot(ctx, RB.x + sway, RB.y, RB.h, { light: 1, rim: mixHex(P.halo0, P.blue0, .35 + .4 * span(s.sunY, 60, 300)), body: P.ind0, ...rArm });
+      J = D.robotJ(RB.x + sway, RB.y, RB.h, rArm);
+      // you: right hand holds its hand (lifts 2 cm on "For now"), left hand under its elbow; later you raise the right hand
+      const sh = D.duJ(U.x, U.y, U.h, {}), L1 = .17 * U.h, L2 = .155 * U.h;
+      const holdT = [J.L[0] - 2, J.L[1] - 2 - dp.rl * 6], elbT = [J.elL[0] - 4, J.elL[1] + 7];
+      let armR = D.armIK(sh.shR, holdT, L1, L2), armL = D.armIK(sh.shL, elbT, L1, L2);
+      armL = [lerp(armL[0], -.18, dp.rl * .0), lerp(armL[1], -.1, 0)];
+      if (dp.raise > 0) { const up = [2.35, 2.25]; armR = [lerp(armR[0], up[0], dp.raise), lerp(armR[1], up[1], dp.raise)]; armL = [lerp(armL[0], -.2, dp.raise), lerp(armL[1], -.1, dp.raise)]; }
+      E.castShadow(ctx, U.x, U.y, 22, 150, 3.6, .3);
+      const hd = E.du(ctx, U.x, U.y, U.h, { dir: 1, light: 1, look: .25 + .4 * dp.raise, armR, armL });
+      Ju = { R: hd.R };
+      fig = true;
+    });
+    // ------- the trace in screen space (1.08 → 1.09): your fingers → its hand → up the arm → over the edge → down the road to the fork
+    if (s.trace > 0 && s.traceIn < 1) {
+      const pts = [[F0, ...Ju.R, 3], [F0, ...J.L, 3], [F0, ...J.wrL, 3], [F0, ...J.elL, 3], [F0, ...J.shL, 3.2],
+        [F0, 640, 520, 3.2], [F0, 860, 640, 3], ...W0.road.slice(2).map(([x, y]) => [W0.Z, x, y, 2.6])];
+      const sp = E.catmull(D.screenPts(c, pts), 8), uu = clamp(s.trace), tail = s.traceIn;
+      drawTrailRange(ctx, sp, tail, uu, s.hesit);
+      // joint ticks while the trace climbs the arm
+      if (s.traceIn < .2) D.ticks(ctx, sp, [.05, .1, .16].filter((f) => f < uu * .99), 1 - s.traceIn * 5);
+    }
+    // ------- your trace into the field (1.14) and on to the horizon, up into the road map (1.15); it fades as the camera flies off
+    const mF = E.cardM(c, F0), fa = 1 - span(t, a.lifeE + .4, a.lifeE + 1.4);
+    if (s.trail2 > 0 && Ju && mF && fa > 0) {
+      const head = [...W0.cluster];
+      const pts = [[F0, ...Ju.R, 3.2], [F0, 640, 520, 3.2], [W0.Z, head[0] - 60, head[1] - 70, 3], [W0.Z, ...head, 3]];
+      E.trail(ctx, E.catmull(D.screenPts(c, pts), 10), s.trail2, { w: 3.2, a: fa });
+      if (s.horizon > 0) {
+        const p2 = [[W0.Z, ...head, 3], ...W0.toHorizon.map(([x, y]) => [W0.Z, x, y, 2.4]), [TLZ, V.TL.x0 - 46, V.TL.y + 120, 2.6], [TLZ, V.TL.x0 - 26, V.TL.y + 30, 2.7], [TLZ, V.TL.x0, V.TL.y, 2.8]];
+        E.trail(ctx, E.catmull(D.screenPts(c, p2), 10), s.horizon, { w: 3, spark: s.horizon < 1, a: fa });
+      }
+    }
+    // the flight into the sun of mark 3: the frame becomes light (identical full-light frame on the hall side)
+    const kz = E.cardM(c0, TLZ); if (kz && t > a.lifeE) E.lightFlood(ctx, smooth(span(kz.k, 3.5, 34)));
+  };
+}
+// a trail drawn from share `tail` to share `head` (the trace retracts into its head); the head hesitates at the fork
+function drawTrailRange(ctx, pts, tail, head, hes) {
+  if (head <= tail + .001) return;
+  const len = [0]; for (let i = 1; i < pts.length; i++) len.push(len[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+  const L = len[len.length - 1], a = tail * L, b = head * L, sub = [];
+  for (let i = 0; i < pts.length; i++) {
+    if (len[i] < a) { if (len[i + 1] !== undefined && len[i + 1] > a) { const f = (a - len[i]) / (len[i + 1] - len[i]); sub.push(pts[i].map((v, j) => lerp(v, pts[i + 1][j], f))); } continue; }
+    if (len[i] > b) { const f = (b - len[i - 1]) / (len[i] - len[i - 1]); sub.push(pts[i - 1].map((v, j) => lerp(v, pts[i][j], f))); break; }
+    sub.push(pts[i]);
+  }
+  if (sub.length < 2) return;
+  E.trail(ctx, sub, 1, { w: 3, spark: false });
+  const hd = sub[sub.length - 1], k = hes > 0 ? Math.exp(-hes * .5) : 1;
+  E.halo(ctx, hd[0], hd[1], 70 + 20 * Math.sin(hes * 4) * k, .9);
+}
+
+// ===================================================================================================== 1.18–1.19: the hall window (K3)
+function hallTake(a) {
+  const H3 = V.HALL, OUT = aim(F0, H3.win.x + H3.win.w / 2, H3.win.y + H3.win.h * .5, 45);
+  const KEYS = [[a.flight, OUT], [a.flight + 1.7, cam3({ z: -30, x: 10 }), 'o'], [a.aRobot, cam3({ z: 70, x: 30, y: -8 })]];
+  return (ctx, t) => {
+    const c0 = camAt(t, KEYS, F0), c = camDrift(c0, t, span(t, a.flight + 1.2, a.flight + 2.5) * .7);
+    const lift = sineIO(span(t, a.lifts - .1, a.cup + .5)), stir = smooth(span(t, a.learn - .2, a.learn + .6)) * (1 - smooth(span(t, a.learn + 1.4, a.learn + 2.6)));
+    const copy = sineIO(span(t, a.cup + .35, a.cup + 1.3));
+    V.hall(ctx, t, c, { lift, rob: copy * .5 + stir * .12, look: .15 + .2 * smooth(span(t, a.here, a.learn)), glint: span(t, a.headset - .1, a.headset + .6), place: { s: 'China', t0: a.china - .1 } });
+    const m = E.cardM(c0, F0); E.lightFlood(ctx, m ? smooth(span(m.k, 3.5, 34)) : 1);
   };
 }
