@@ -92,7 +92,7 @@ export default async (T, R) => {
   const armOf = (lf) => [lerp(.18, 1.35, lf), lerp(.1, 2.55, lf)];
   const cupOfFig = (x, y, h, lf) => { const [s1, s2] = armOf(lf), el = [.098 + Math.sin(s1) * .17, -.74 + Math.cos(s1) * .17], hd = [el[0] + Math.sin(s2) * .155, el[1] + Math.cos(s2) * .155]; return [x + h * hd[0], y + h * (hd[1] - .04)]; };
   const CUT_SCREEN = [960, 500];
-  const KH = [[T_HF, aim(F0, WINC[0], WINC[1], 52)], [T_HF + 2.1, cam3({ x: -45, y: 8, z: 110 }), 's'],
+  const KH = [[T_HF, aim(F0, WINC[0], WINC[1], 16)], [T_HF + 2.1, cam3({ x: -45, y: 8, z: 110 }), 's'],
     [A.cut, aim(F0, ...cupOfFig(TR[0], TR[1], TR[2], liftH(A.cut)), 1.7, ...CUT_SCREEN), 's']];
   const camH = (t) => camAt(t, KH);
   // ================= I: your living room =================

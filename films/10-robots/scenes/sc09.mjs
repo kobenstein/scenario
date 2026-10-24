@@ -44,7 +44,7 @@ export default async (T, R) => {
 
   // ================= A: the west thread on the globe =================
   const T_W0 = A.t0 + .35, T_W1 = A.moves + .9;                       // thread grows from INDIA over the ring to the BASQUE point
-  const KA = [[T_H, H_END], [T_W1, { s: .62, x: 540, y: 640 }, 's'], [A.in + .35, { s: 2.4, x: WEST[0], y: WEST[1] }, 's', WEST]];
+  const KA = [[T_H, H_END], [T_W1, { s: .62, x: 540, y: 640 }, 's'], [A.in + .7, { s: 2.0, x: WEST[0], y: WEST[1] }, 's', WEST]];
   const vA = (t) => B.vDrift(B.viewAt(t, KA), t, .3, 21);
   const westPts = (() => { const [rx, ry, rr] = MAP.ring; return catmull([[EAST[0], EAST[1], 3], [1500, 520, 3], [rx, ry + rr + 40, 3], [400, 520, 3], [WEST[0], WEST[1], 3]], 14); })();
   // ================= B: the Basque hills =================
@@ -79,8 +79,8 @@ export default async (T, R) => {
   // ================= G: the hall votes =================
   const T_WG = A.now - .35, T_WGF = A.now + .85;
   const CLOCK = [860, 205, 62];
-  const KG = [[T_WG, aim(F0, 700, 600, 1.6)], [T_WGF + .3, cam3({ x: -60, y: 20, z: 140 }), 's'], [A.vote + .2, cam3({ x: -70, y: 10, z: 200 })],
-    [A.members + .5, aim(F0, CLOCK[0], CLOCK[1], 3.2), 'q']];
+  const KG = [[T_WG, aim(F0, 700, 600, 1.6)], [T_WGF + .3, cam3({ x: -60, y: 20, z: 140 }), 's'], [A.vote - .05, cam3({ x: -70, y: 10, z: 200 })],
+    [A.members + .5, aim(F0, CLOCK[0], CLOCK[1], 3.2), 's']];
   const camG = (t) => camDrift(camAt(t, KG), t, .5, 51);
   const TRAINERS = [[130, 934, 240], [300, 926, 232], [465, 918, 226], [930, 912, 222]];   // others at their stations (indigo)
   const handUp = (t, i) => smooth(span(t, A.vote - .55 + i * .06, A.vote + .25 + i * .06));
@@ -93,7 +93,7 @@ export default async (T, R) => {
   const walkU = (t) => smooth(span(t, A.take - .2, A.planet - .1));
   // ================= J: the vineyard =================
   const VSUN = { Z: 9000, u: 1180, v: 470, r: 140 };
-  const KJ = [[A.planet + .25, aim(VSUN.Z, VSUN.u, VSUN.v, 9)], [A.vineyard + .6, cam3({ x: 20, y: -10, z: 60 }), 's'], [A.when2 + .2, cam3({ x: 60, y: 10, z: 200 })]];
+  const KJ = [[A.planet + .25, aim(VSUN.Z, VSUN.u, VSUN.v, 9)], [A.vineyard + .6, cam3({ x: 20, y: -10, z: 60 }), 's'], [A.when2 + .7, cam3({ x: 40, y: 4, z: 130 })]];
   const camJ = (t) => camDrift(camAt(t, KJ, VSUN.Z), t, .5, 71);
   const VBOT = [1240, 880, 230];
   const T_IK = A.when2 - .15, T_IKF = T_IK + .85;
@@ -115,7 +115,7 @@ export default async (T, R) => {
     }
     const c = camJ(t);
     if (t < T_IKF) { vineyard(ctx, t, c); E.lightFlood(ctx, 1 - smooth(span(t, A.planet + .25, A.planet + 1.65)));
-      if (t > T_IK) { const [bx, by] = project(c, F0, VBOT[0], VBOT[1] - VBOT[2] * .55); B.iris(ctx, bx, by, B.irisR(span(t, T_IK, T_IKF), 40, bx, by), () => streetK(ctx, t, bx, by), { t }); }
+      if (t > T_IK) { const [bx, by] = project(c, F0, VBOT[0], VBOT[1] - VBOT[2] * .55); B.iris(ctx, bx, by, B.irisR(span(t, T_IK, T_IKF), 40, bx, by, 1.6), () => streetK(ctx, t, bx, by), { t }); }
       return; }
     B.fieldFill(ctx, { t }); streetK(ctx, t);
   };
@@ -276,7 +276,7 @@ export default async (T, R) => {
   // ---------- H ★: the day of light (8 h → 6 h, same income) ----------
   function dayH(ctx, t, ix, iy, ir) {
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
-    const open = expoOut(span(t, T_IH + .1, T_IHF + .25)), close = expoIn(span(t, T_IHB, T_IHBF));
+    const open = expoOut(span(t, T_IH + .1, T_IHF + .25)), close = sineIO(span(t, T_IHB, T_IHBF));   // with the iris, no expo spurt at the end
     const k = open * (1 - close), X = lerp(ix ?? 720, 720, k), Y = lerp(iy ?? 500, 500, k), R = lerp(ir ?? 200, 210, k);
     // the dial: 24 hours as a quiet ring of ticks; the work arc in warm light from 9:00
     ctx.save(); ctx.strokeStyle = rgba(P.blue1, .7); ctx.lineWidth = 2;
