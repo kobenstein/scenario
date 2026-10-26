@@ -21,7 +21,9 @@ import urllib.request
 # oauth2.googleapis.com is blocked by the network policy, this endpoint is equivalent
 TOKEN_URL = "https://accounts.google.com/o/oauth2/token"
 ANALYTICS = "https://youtubeanalytics.googleapis.com/v2/reports"
-DATA = "https://www.googleapis.com/youtube/v3/"
+# www.googleapis.com/youtube/v3 goes through a proxy that injects the API key and
+# drops the OAuth header, so use the equivalent youtube.googleapis.com host
+DATA = "https://youtube.googleapis.com/youtube/v3/"
 START = "2026-10-01"
 
 
