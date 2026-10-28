@@ -69,42 +69,87 @@ export function keyholePath(cx, cy, s) {
 // o: { x0, y0, x1, y1 (front face, design coords of its card), top (height of the receding roof), wake 0..1 (rack lights wake
 //      left → right), warm (key light on the left edge 0..1), hole: { cx, cy, s, u 0..1 (open), rim 0..1 } }
 // The keyhole is a real hole (even-odd): what is drawn BEFORE (a deeper card) shows through it.
-const RACKS = new Map();
-function racks(o) {
-  const key = [o.x0, o.y0, o.x1, o.y1].join(',');
-  if (RACKS.has(key)) return RACKS.get(key);
-  const r = prng(1414), out = [], rows = 11, rowH = (o.y1 - o.y0 - 70) / rows;
-  for (let i = 0; i < rows; i++) {
-    const y = o.y0 + 46 + i * rowH;
-    for (let x = o.x0 + 30 + r() * 30; x < o.x1 - 30;) {
-      const w = 8 + r() * 26; out.push([x, y + (r() - .5) * 2, w, r(), r()]); x += w + 10 + r() * (r() < .18 ? 120 : 22);
-    }
+// Layout (cached per rect): cladding bays with seams, a louvred vent band under the roof, long ribbon windows onto the server hall
+// (rack columns with tiny status lights), a solid panel round the keyhole (the lock sits in plain wall), a plinth with roller doors,
+// rooftop cooling units. Everything is still; only the status lights breathe (slowly) and wake left → right.
+const DCL = new Map();
+function dcLayout(o) {
+  const key = [o.x0, o.y0, o.x1, o.y1, o.hole ? o.hole.cx : 0].join(',');
+  if (DCL.has(key)) return DCL.get(key);
+  const { x0, y0, x1, y1 } = o, r = prng(1414), bay = 260;
+  const seams = []; for (let x = x0 + bay; x < x1 - 20; x += bay) seams.push(x);
+  const hx = o.hole ? o.hole.cx : -1e9, solid = [hx - 250, hx + 250];             // no window round the lock
+  const wy0 = y0 + 196, wy1 = y0 + 446;                                          // the ribbon window (server hall)
+  const wins = []; for (let x = x0; x < x1; x += bay) { const a = x + 22, b = Math.min(x + bay - 22, x1 - 22); if (b < solid[0] || a > solid[1]) wins.push([a, b]); else { if (a < solid[0] - 40) wins.push([a, solid[0] - 22]); if (b > solid[1] + 40) wins.push([solid[1] + 22, b]); } }
+  const racks = [], lights = [];
+  // a closed row of server cabinets (touching, thin dark gaps) with rows of tiny status lights at the same slot heights
+  for (const [a, b] of wins) for (let x = a + 10; x + 30 < b - 6; x += 34) {
+    const h = 186, top = wy1 - 14 - h; racks.push([x, top, 30, h]);
+    for (let yy = top + 14; yy < top + h - 10; yy += 15) if (r() < .5) { const c = r(); lights.push([x + 5 + (r() < .5 ? 0 : 10), yy, c < .05 ? 2 : c < .3 ? 1 : 0, r(), r()]); }
   }
-  RACKS.set(key, out); return out;
+  const louv = []; for (let y = y0 + 40; y < y0 + 128; y += 13) louv.push(y);
+  const doors = []; for (const u of [.12, .2, .74, .82]) { const dx = lerp(x0, x1, u); if (Math.abs(dx - hx) > 320) doors.push(dx); }
+  const units = []; for (let x = x0 + 70; x < x1 - 160; x += 172) units.push([x + r() * 10, 26 + r() * 6]);
+  const res = { seams, wins, wy0, wy1, racks, lights, louv, doors, units, solid };
+  DCL.set(key, res); return res;
 }
 export function dataCentre(ctx, t, o) {
-  const { x0, y0, x1, y1 } = o, top = o.top ?? 70, wake = o.wake ?? 1, warm = o.warm ?? 0;
-  // roof (receding toward a vanishing point up left of centre: a thin lit plane)
-  ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0 + top * .5, y0 - top * .45); ctx.lineTo(x1 + top * .5, y0 - top * .45); ctx.lineTo(x1, y0); ctx.closePath();
-  ctx.fillStyle = lin(ctx, 0, y0 - top * .45, 0, y0, [[0, P.night1], [1, mixHex(P.ind1, P.blue0, .3)]]); ctx.fill();
+  const { x0, y0, x1, y1 } = o, top = o.top ?? 70, wake = o.wake ?? 1, warm = o.warm ?? 0, L = dcLayout(o);
+  const rx = top * .5, ry = top * .45;                                          // roof recession (up right)
+  // roof plane
+  ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x0 + rx, y0 - ry); ctx.lineTo(x1 + rx, y0 - ry); ctx.lineTo(x1, y0); ctx.closePath();
+  ctx.fillStyle = lin(ctx, 0, y0 - ry, 0, y0, [[0, P.night1], [1, mixHex(P.ind1, P.blue0, .3)]]); ctx.fill();
+  // rooftop: big plant boxes (o.roof) and a long row of identical cooling units with fans (reads as a data centre at a glance)
+  ctx.fillStyle = P.night1;
+  for (const [bx, bw, bh] of o.roof || []) { ctx.fillRect(bx + top * .8, y0 - top * .5 - bh, bw, bh + 2); ctx.fillStyle = rgba(P.blue0, .7); ctx.fillRect(bx + top * .8, y0 - top * .5 - bh, bw, 2); ctx.fillStyle = P.night1; }
+  for (const [ux, uh] of L.units) {
+    const ub = y0 - ry * .45, uw = 132, ox = rx * .35, oy = ry * .35;
+    ctx.fillStyle = mixHex(P.night1, P.ind0, .5); ctx.fillRect(ux, ub - uh, uw, uh);
+    ctx.beginPath(); ctx.moveTo(ux, ub - uh); ctx.lineTo(ux + ox, ub - uh - oy); ctx.lineTo(ux + uw + ox, ub - uh - oy); ctx.lineTo(ux + uw, ub - uh); ctx.closePath();
+    ctx.fillStyle = mixHex(P.ind1, P.blue0, .25); ctx.fill();
+    ctx.strokeStyle = rgba(P.blue0, .9); ctx.lineWidth = 1.6;
+    for (const fx of [.3, .72]) { ctx.beginPath(); ctx.ellipse(ux + uw * fx + ox * .5, ub - uh - oy * .5, 19, 4.2, 0, 0, 6.29); ctx.stroke(); }
+    ctx.strokeStyle = rgba(P.night0, .8); ctx.lineWidth = 1.4; for (let k = 1; k < 4; k++) { ctx.beginPath(); ctx.moveTo(ux + 6, ub - uh + k * uh / 4); ctx.lineTo(ux + uw - 6, ub - uh + k * uh / 4); ctx.stroke(); }
+  }
   // the front face, with the keyhole as a real hole
   let face = new Path2D(); face.rect(x0, y0, x1 - x0, y1 - y0);
   let holeP = null;
   if (o.hole && o.hole.u > 0) { const hs = o.hole.s * expoOut(o.hole.u); holeP = keyholePath(o.hole.cx, o.hole.cy, hs); face = face.op(holeP, PathOp.Difference); }
-  ctx.fillStyle = lin(ctx, 0, y0, 0, y1, [[0, mixHex(P.ind2, P.blue0, .14)], [.55, P.ind2], [1, P.night1]]); ctx.fill(face);
-  // rooftop plant: a few low dark boxes (reads as a building, not a wall)
-  ctx.fillStyle = P.night1;
-  for (const [bx, bw, bh] of o.roof || []) { ctx.fillRect(bx + top * .8, y0 - top * .5 - bh, bw, bh + 2); ctx.fillStyle = rgba(P.blue0, .7); ctx.fillRect(bx + top * .8, y0 - top * .5 - bh, bw, 2); ctx.fillStyle = P.night1; }
+  ctx.fillStyle = lin(ctx, 0, y0, 0, y1, [[0, mixHex(P.ind1, P.blue0, .2)], [.55, P.ind1], [1, P.night1]]); ctx.fill(face);
   ctx.save(); ctx.clip(face);
-  // rack lights: dim cool dashes; the wake runs left → right (a soft front), then they breathe very slightly
-  for (const [x, y, w, r1, r2] of racks(o)) {
+  // vent band under the roof: louvres per bay (dark slats with a hairline of blue light on top)
+  for (const y of L.louv) {
+    ctx.fillStyle = rgba(P.night0, .45); ctx.fillRect(x0 + 18, y, x1 - x0 - 36, 6);
+    ctx.fillStyle = rgba(P.blue0, .32); ctx.fillRect(x0 + 18, y - 1.2, x1 - x0 - 36, 1.2);
+  }
+  // the server hall behind the ribbon windows: dark depth, a cool ceiling strip, rack columns, tiny status lights
+  for (const [a, b] of L.wins) {
+    ctx.fillStyle = lin(ctx, 0, L.wy0, 0, L.wy1, [[0, mixHex(P.night0, P.ind1, .55)], [.2, P.night0], [1, mixHex(P.night0, P.ind0, .5)]]); ctx.fillRect(a, L.wy0, b - a, L.wy1 - L.wy0);
+    ctx.fillStyle = rgba(P.cream, .16); ctx.fillRect(a + 6, L.wy0 + 7, b - a - 12, 2);
+  }
+  for (const [x, y, w, h] of L.racks) { ctx.fillStyle = lin(ctx, 0, y, 0, y + h, [[0, mixHex(P.ind1, P.blue0, .3)], [1, mixHex(P.ind0, P.night0, .4)]]); ctx.fillRect(x, y, w, h); ctx.fillStyle = rgba(P.night0, .9); ctx.fillRect(x + w, y, 4, h); ctx.fillStyle = rgba(P.blue0, .6); ctx.fillRect(x, y, w, 1.6); }
+  for (const [x, y, kind, r1, r2] of L.lights) {
     const u = (x - x0) / (x1 - x0), on = smooth(clamp((wake * 1.25 - u) / .25));
-    const tw = .75 + .25 * Math.sin(t * (.6 + r2 * 1.1) + r1 * 9);
-    ctx.globalAlpha = (.1 + .5 * on * tw) * (r1 < .1 ? 1.3 : 1);
-    ctx.fillStyle = r1 < .08 ? P.cream : mixHex(P.blue0, P.cream, .35 + .3 * r2);
-    ctx.fillRect(x, y, w, 2.4);
+    const tw = .7 + .3 * Math.sin(t * (.35 + r2 * .5) + r1 * 9);                 // slow breathing, never a blink
+    ctx.globalAlpha = (.08 + .8 * on * tw) * (kind === 2 ? .9 : 1);
+    ctx.fillStyle = kind === 2 ? P.halo0 : kind === 1 ? P.cream : mixHex(P.blue0, P.cream, .55);
+    ctx.fillRect(x, y, 5, 3.4);
   }
   ctx.globalAlpha = 1;
+  // window frames: sill + head in dark, mullions
+  for (const [a, b] of L.wins) {
+    ctx.strokeStyle = rgba(P.night0, .9); ctx.lineWidth = 5; ctx.strokeRect(a, L.wy0, b - a, L.wy1 - L.wy0);
+    ctx.strokeStyle = rgba(P.blue0, .55); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(a, L.wy1 + 4); ctx.lineTo(b, L.wy1 + 4); ctx.stroke();
+  }
+  // cladding seams (full height), the plinth and its roller doors
+  for (const x of L.seams) { ctx.fillStyle = rgba(P.night0, .5); ctx.fillRect(x - 1.5, y0, 3, y1 - y0); ctx.fillStyle = rgba(P.blue0, .22); ctx.fillRect(x + 1.5, y0, 1.2, y1 - y0); }
+  ctx.fillStyle = rgba(P.night0, .35); ctx.fillRect(x0, y1 - 96, x1 - x0, 96);
+  ctx.fillStyle = rgba(P.blue0, .45); ctx.fillRect(x0, y1 - 97, x1 - x0, 1.4);
+  for (const dx of L.doors) {
+    ctx.fillStyle = rgba(P.night0, .55); ctx.fillRect(dx - 70, y1 - 82, 140, 82);
+    ctx.strokeStyle = rgba(P.blue0, .4); ctx.lineWidth = 1.2; for (let k = 1; k < 6; k++) { ctx.beginPath(); ctx.moveTo(dx - 66, y1 - 82 + k * 13); ctx.lineTo(dx + 66, y1 - 82 + k * 13); ctx.stroke(); }
+    ctx.fillStyle = rgba(P.cream, .55 * (.75 + .25 * Math.sin(t * .5 + dx))); ctx.fillRect(dx + 78, y1 - 70, 4, 4);   // a tiny lamp by each door
+  }
   // the key's warm light on the left part of the face
   if (warm > 0) { ctx.fillStyle = lin(ctx, x0, 0, x0 + 700, 0, [[0, rgba(P.halo1, .22 * warm)], [1, rgba(P.halo1, 0)]]); ctx.fillRect(x0, y0, 700, y1 - y0); }
   ctx.restore();
@@ -169,7 +214,7 @@ export function fileShape(cx, cy, w, h, f = 90) {
 
 // ---------- the weights: a field of numbers ----------
 // Field coordinates are SCREEN-LIKE (1920×1080 as it looks at the end of the dive); the caller maps them onto its card.
-// o: { gather 0..1 (numbers flow into the file), file: fileShape(...), a, glow 0..1 (warm light from inside the file), focus [x,y] }
+// o: { gather 0..1 (numbers flow into the file), file: fileShape(...), a, onlyFile (just the file's digits), noFile (just the field), cool }
 const DIGITS = new Map();
 function digits(file) {
   const key = file.rect.join(','); if (DIGITS.has(key)) return DIGITS.get(key);
@@ -196,6 +241,7 @@ export function numberField(ctx, t, o) {
   ctx.save(); ctx.font = `500 ${size}px Inter`; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
   for (const d of out) {
     if (o.onlyFile && !d.tgt) continue;
+    if (o.noFile && d.tgt) continue;
     const dist = Math.hypot(d.x - fcx, d.y - fcy);
     if (!d.tgt && dist > 2600) continue;
     // the field breathes: a slow wave of brightness crosses it (values "learned"); near the file it is brighter

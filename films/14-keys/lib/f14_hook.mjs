@@ -43,12 +43,14 @@ export function hookAnchors(T) {
 const ZF = 3400, ZN = 7000;                               // the data centre facade · the world inside (the weights)
 const DC = { x0: 760, y0: 150, x1: 3100, y1: 822, top: 80, roof: [[300, 160, 26], [620, 90, 40], [1180, 220, 22], [1700, 140, 34]] };
 const HOLE = { cx: 1400, cy: 470, s: 150 };
+const DC2 = { x0: 1500, y0: -190, x1: 4300, y1: 830, top: 60, roof: [[400, 140, 30], [1500, 200, 24]] };   // a second hall behind (depth: a campus, not a wall)
+const ZB = 5200;
 const KEY0 = { x: 560, y: 470, h: 330 };                  // the key, floating (thumbnail motif)
 const GROUND = [[-900, 900], [400, 896], [1400, 890], [3200, 884]];
 const gy = (x) => lerp(900, 884, clamp((x + 900) / 4100));
 const DU = { x: 900, h: 122 };
-const TILT = -520;                                         // camera tilt for the quote
-const QX = 360, QS = 80, QL = 98, QY0 = -315;             // quote: left edge, size, line pitch, first baseline (focus card)
+const TILT = -450;                                         // camera tilt for the quote
+const QX = 360, QS = 80, QL = 98, QY0 = -245;             // quote: left edge, size, line pitch, first baseline (focus card)
 const RULE_X = 300;
 const Q_L1 = [['“…we ', 0], ['do not understand', 1], [' how our own', 0]];
 const Q_L2 = [['AI creations work.”', 0]];
@@ -58,17 +60,47 @@ const SRC2 = '“The Urgency of Interpretability”, April 2025';
 const AX = (HOLE.cx - W / 2) * ZF / F0, AY = (HOLE.cy + 30 - H / 2) * ZF / F0;
 const ZEND = ZN - F0, KIN = ZN / F0;                       // final camera z; scale of the inner card there
 const UIN = W / 2 + AX * F0 / ZN, VIN = H / 2 + AY * F0 / ZN;
-const FILE = X.fileShape(960, 566, 560, 730, 104);
-const COPY_DX = 640;
+export const FILE = X.fileShape(960, 566, 560, 730, 104);
+export const COPY_DX = 600;            // the copy glides COPY_DX right on a low arc; the original and the camera stay (calm: its glow never moves)
+export const splitDX = (copyU) => COPY_DX * sineIO(copyU);
+
+// the hook camera (t → cam), exported so later shots can continue from it exactly
+export function hookCam(a) {
+  const tDive1 = a.weights + .3;
+  // camera: every move starts early and runs long (calm); the dive first pans onto the keyhole axis, then dollies straight in
+  // (x, y fixed while z changes, so the camera really threads the hole instead of passing through the wall beside it)
+  const tAxis = a.sup2 + .2;
+  const KEYS = [
+    [0, cam3({ z: -70, x: 30, y: 26 })],
+    [a.every + .8, cam3({ z: 100, x: 8, y: 6 })],
+    [a.s00e - .7, cam3({ z: 112, x: 2, y: -6 })],
+    [a.q0 + 5.6, cam3({ z: 90, x: -30, y: TILT })],
+    [a.work, cam3({ z: 190, x: -20, y: TILT - 10 })],
+    [a.cant - .1, cam3({ z: 175, x: 90, y: 8 })],
+    [a.inside + .5, cam3({ z: 280, x: 150, y: 14 })],
+    [tAxis, cam3({ z: -480, x: AX, y: AY })],
+    [a.giant + .9, cam3({ z: ZEND, x: AX, y: AY })],
+  ];
+  // inside, the dense field gets almost no drift (calm)
+  return (t) => camDrift(camAt(t, KEYS, ZN), t, .8 * (1 - .85 * smooth(span(t, tAxis + 1.5, a.giant + .9))));
+}
+// the inner world (the weights) → screen at time t: inner point (x, y) lands at (e + k·x, f + k·y). For B1 (2.04+).
+export function hookInner(a) {
+  const camOf = hookCam(a);
+  return (t) => { const m = cardM(camOf(t), ZN); if (!m) return null; const k = m.k / KIN; return { k, e: m.e + m.k * (UIN - W / 2 / KIN), f: m.f + m.k * (VIN - H / 2 / KIN) }; };
+}
+// the inner state at time t (for B1): split offset of the files, copy progress
+export const hookInnerState = (a, t) => { const copyU = span(t, a.copy, a.have + .3); return { copyU, origDX: 0, copyDX: splitDX(copyU) }; };
 
 export function hook(a) {
+  const camOf = hookCam(a);
   // the hand ("they"): a plain indigo human hand from the lower left; it takes the key by the bow and aims it at the lock
   const HM = (u) => E.handMatrix(lerp(-260, 150, u), lerp(1320, 905, u), -.86, 250, 1);
   const HO = { pose: 'hold', curl: .05 };
   const grip = (u) => E.applyM(HM(u), 1.02, .02);
   // the gold line from the key's bow up to the quote rule (Film 13 thread language)
   const bowTop = [KEY0.x, KEY0.y - KEY0.h * .5];
-  const thread = E.catmull([[bowTop[0], bowTop[1], 3], [bowTop[0] - 6, bowTop[1] - 70, 3], [470, 160, 3], [RULE_X + 30, 60, 3], [RULE_X, 0, 3], [RULE_X, -200, 3], [RULE_X, -440, 3]], 10);
+  const thread = E.catmull([[bowTop[0], bowTop[1], 3], [bowTop[0] - 6, bowTop[1] - 70, 3], [470, 160, 3], [RULE_X + 30, 60, 3], [RULE_X, 0, 3], [RULE_X, -170, 3], [RULE_X, -370, 3]], 10);
   const segLen = thread.slice(1).map((p, i) => Math.hypot(p[0] - thread[i][0], p[1] - thread[i][1])), total = segLen.reduce((s, v) => s + v, 0);
   const iRule = thread.findIndex((p, i) => i > 4 && Math.abs(p[0] - RULE_X) < 1.5);
   const uRule = segLen.slice(0, iRule).reduce((s, v) => s + v, 0) / total;
@@ -79,29 +111,11 @@ export function hook(a) {
   const tHand0 = a.hold - .3, tHand1 = a.key + .1;
   const tAim0 = a.key + .2, tAim1 = a.built - .1;
   const tHole0 = a.built + .05, tHole1 = a.lock + .45;
-  const tDive0 = a.so + 1.2, tDive1 = a.weights + .2;
+  const tDive0 = a.sup2 + .5, tDive1 = a.weights + .3;
   const tGat0 = a.weights + .2, tGat1 = a.fileE - .05, tTrace0 = a.giant - .1, tTrace1 = a.fileE + .1;
   const tCopy0 = a.copy, tCopy1 = a.have + .3;
-  // camera: every move starts early and runs long (calm); the dive first pans onto the keyhole axis, then dollies straight in
-  // (x, y fixed while z changes, so the camera really threads the hole instead of passing through the wall beside it)
-  const tAxis = tDive0 + 1.7;
-  const KEYS = [
-    [0, cam3({ z: -70, x: 30, y: 26 })],
-    [a.every + .8, cam3({ z: 100, x: 8, y: 6 })],
-    [a.s00e - .5, cam3({ z: 115, x: 0, y: -10 })],
-    [a.q0 + 3.8, cam3({ z: 90, x: -30, y: TILT })],
-    [a.work, cam3({ z: 190, x: -20, y: TILT - 10 })],
-    [a.built + .6, cam3({ z: 150, x: 60, y: 10 })],
-    [a.cant - .1, cam3({ z: 175, x: 90, y: 8 })],
-    [a.inside + .5, cam3({ z: 280, x: 150, y: 14 })],
-    [a.sup2 + .2, cam3({ z: -540, x: 160, y: 60 })],
-    [tAxis, cam3({ z: -420, x: AX, y: AY })],
-    [tDive1 + .9, cam3({ z: ZEND, x: AX, y: AY }), 'q'],
-    [tCopy0, cam3({ z: ZEND + 60, x: AX, y: AY })],
-    [tCopy1 + 1.4, cam3({ z: ZEND - 520, x: AX + COPY_DX * .5, y: AY + 10 })],
-  ];
   return (ctx, t) => {
-    const c = camDrift(camAt(t, KEYS, ZN), t, .8 * (1 - .85 * smooth(span(t, tAxis + 1.5, tDive1 + .9))));   // inside, the dense field gets almost no drift (calm)
+    const c = camOf(t);
     // ---- state from the words ----
     const wake = smooth(span(t, a.sup - .3, a.sup + 1.8));
     const keyBreath = 1 + .06 * expoOut(span(t, a.keys - .05, a.keys + .4)) * (1 - smooth(span(t, a.keys + .5, a.keys + 2)));
@@ -110,7 +124,7 @@ export function hook(a) {
     const handU = sineIO(span(t, tHand0, tHand1));
     const aim = sineIO(span(t, tAim0, tAim1)), push = sineIO(span(t, a.cant - .1, a.inside + .5));
     const hole = expoOut(span(t, tHole0, tHole1));
-    const dive = span(t, tDive0, tDive1);
+    const dive = span(t, a.weights - .4, a.giant + 1.1);   // the field comes up to full only as the camera arrives (calm dive)
     const gather = span(t, tGat0, tGat1);
     const trace = span(t, tTrace0, tTrace1);
     const copyU = span(t, tCopy0, tCopy1);
@@ -135,6 +149,8 @@ export function hook(a) {
     card(ctx, c, 9000, () => {
       E.ground(ctx, [[-1400, 760], [-200, 720], [700, 748], [1500, 728], [2600, 752], [3600, 740]], { stops: [[0, P.ind0], [1, P.night1]], rim: rgba(P.blue0, .6), rimW: 2 });
     });
+    // ---- the second hall behind (peeks above the roof; covered by the inner world once we are through the lock) ----
+    card(ctx, c, ZB, () => { ctx.filter = 'brightness(0.62)'; X.dataCentre(ctx, t, { ...DC2, wake: wake * .8, warm: 0 }); ctx.filter = 'none'; });
     // ---- the world inside the keyhole (drawn first; seen only through the hole until the camera passes the facade) ----
     const mF = cardM(c, ZF);
     ctx.save();
@@ -186,14 +202,17 @@ export function hook(a) {
 }
 
 // ---------------------------------------------------------------------------------------------------------- inside: the weights
-function inside(ctx, t, o) {
+export function inside(ctx, t, o) {
   const { dive, gather, trace, copyU } = o;
   // the dark room behind the lock: deeper than the facade, so the keyhole reads black; a warm glow grows where the file forms
   ctx.fillStyle = E.rad(ctx, 960, 560, 1400, [[0, mixHex(P.night0, P.ind0, .25)], [.45, '#050719'], [1, '#03040f']]); ctx.fillRect(-3000, -3000, 8000, 8000);
   const glowU = smooth(gather);
   E.halo(ctx, 960, 560, 900, .1 + .22 * glowU, P.blue0, P.ind1);   // a faint glow where the file will form (seen from inside)
   // the field of numbers (a faint glimmer through the keyhole, full once we are inside)
-  X.numberField(ctx, t, { gather: sineIO(gather), file: FILE, a: lerp(.5, 1, dive) });
+  const sx = copyU > 0 ? splitDX(copyU) : 0, sy = -Math.sin(sineIO(copyU) * Math.PI) * 30;
+  X.numberField(ctx, t, { gather: sineIO(gather), file: FILE, a: lerp(.4, 1, dive), noFile: true });
+  ctx.save(); ctx.translate(0, 0);
+  X.numberField(ctx, t, { gather: sineIO(gather), file: FILE, a: lerp(.4, 1, dive), onlyFile: true });
   // the file: its outline is traced in gold, the inside glows warm (the hero light)
   if (trace > 0) {
     const fill = smooth(span(trace, .35, 1));
@@ -206,10 +225,11 @@ function inside(ctx, t, o) {
     const lu = rise(span(trace, .7, 1));
     if (lu > 0) K.maskLine(ctx, [['THE WEIGHTS', 0]], 960, FILE.rect[1] - 34, 30, lu, { serif: false, align: 'center', col: P.halo2, glow: false });
   }
-  // the copy: the outline clones itself and glides right on an arc; the numbers come with it (cool: just as full, not lit)
+  ctx.restore();
+  // the copy: the outline clones itself and glides right on a low arc; the numbers come with it
+  // (cool: just as full, not lit)
   if (copyU > 0) {
-    const k = sineIO(copyU), dx = COPY_DX * k, dy = -Math.sin(k * Math.PI) * 40;
-    ctx.save(); ctx.translate(dx, dy);
+    ctx.save(); ctx.translate(sx, -sy);
     X.numberField(ctx, t, { gather: 1, file: FILE, a: .7 * smooth(span(copyU, 0, .3)), onlyFile: true, cool: true });
     ctx.strokeStyle = rgba(P.cream, .75); ctx.lineWidth = 2.4; ctx.stroke(FILE.path); ctx.fillStyle = rgba(P.blue1, .5); ctx.fill(FILE.fold);
     ctx.restore();
