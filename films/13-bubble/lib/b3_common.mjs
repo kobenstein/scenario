@@ -83,21 +83,51 @@ export const HUB_SHEET = 4;
 // =====================================================================================================================
 // SEAM c09 | c10: the sheet (blueprint → flip → the 1932 newspaper)
 // =====================================================================================================================
-const SHEET_W0 = 40, SHEET_WC = 2550, SHEET_LAND = { x: 1330, y: 812, w: 230 };
+const SHEET_W0 = 23, SHEET_WC = 2550, SHEET_LAND = { x: 1330, y: 812, w: 230 };
 // the anchor is the headline point of the page (local (0, -0.3 h)); h = 1.3 w
+export const SHEET_DRIFT = [-14, 7];   // px/s: the plate is never still (the full-frame paper drifts a little, besides the push)
+export const SHEET_LIFT = 3.4;   // the sheet lifts off the map SHEET_LIFT s before the seam
+// coverage of the frame by the sheet (anchor x, y; width w; rotation ignored)
+function sheetCov(x, y, w) {
+  const h = 1.3 * w, cy = y + .3 * h, x0 = Math.max(0, x - w / 2), x1 = Math.min(W, x + w / 2), y0 = Math.max(0, cy - h / 2), y1 = Math.min(H, cy + h / 2);
+  return Math.max(0, x1 - x0) * Math.max(0, y1 - y0) / (W * H);
+}
+const GROW = new Map();
+function sheetGrowth(T0) {
+  if (GROW.has(T0)) return GROW.get(T0);
+  const tA = T0 - SHEET_LIFT, tP = T0 - .5, tX = tP - .45, [hx, hy] = HUBS[HUB_SHEET], [vx, vy] = SHEET_DRIFT, dt = 1 / 120, tab = [];
+  const pos = (t) => [herm(t, tA, tP, hx, 960 + vx * (tP - T0), 0, vx), herm(t, tA, tP, hy - 6 - .3 * 1.3 * SHEET_W0, 540 + vy * (tP - T0), -60, vy)];
+  const c0 = sheetCov(...pos(tA), SHEET_W0);
+  for (let t = tA; t <= tX + 1e-9; t += dt) {
+    const u = span(t, tA, tX), S = u * u * u * (10 - 15 * u + 6 * u * u), c = c0 + (1 - c0) * S, [x, y] = pos(t);
+    let lo = Math.log(SHEET_W0), hi = Math.log(SHEET_WC);
+    if (c >= .9999) { lo = Math.log(400); for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; sheetCov(x, y, Math.exp(m)) >= .9999 ? (hi = m) : (lo = m); } }
+    else for (let i = 0; i < 40; i++) { const m = (lo + hi) / 2; sheetCov(x, y, Math.exp(m)) < c ? (lo = m) : (hi = m); }
+    tab.push((lo + hi) / 2);
+  }
+  const n = tab.length - 1, lX = tab[n], vX = Math.max(.15, (tab[n] - tab[n - 4]) / (4 * dt));
+  const f = (t) => {
+    if (t <= tA) return tab[0];
+    if (t < tX) { const i = (t - tA) / dt, j = Math.min(n - 1, Math.floor(i)); return lerp(tab[j], tab[j + 1], i - j); }
+    return herm(t, tX, tP, lX, Math.log(SHEET_WC), vX, PUSH);
+  };
+  GROW.set(T0, f); return f;
+}
 export function sheetState(t, T0) {
-  const tA = T0 - 2.6, tP = T0 - .5, tQ = T0 + .5, tR = T0 + 4.6, tL = T0 + 7.35;
-  const [hx, hy] = HUBS[HUB_SHEET];
+  const tA = T0 - SHEET_LIFT, tP = T0 - .5, tQ = T0 + .5, tR = T0 + 4.6, tL = T0 + 7.35;
+  const [hx, hy] = HUBS[HUB_SHEET], [vx, vy] = SHEET_DRIFT;
   let x, y, lw, rot, sy = 1;
   if (t < tP) {
-    lw = herm(t, tA, tP, Math.log(SHEET_W0), Math.log(SHEET_WC), 0, PUSH);
-    x = herm(t, tA, tP, hx, 960, 0, 0); y = herm(t, tA, tP, hy, 540, -60, 0);
-    const k = span(t, tA, tP); rot = lerp(-.08, .02, smooth(k)) + .32 * Math.sin(Math.PI * smooth(k));
+    // growth: the share of the FRAME the sheet covers rises evenly (smootherstep) until it covers it at tX, then it grows on to the
+    // plate's size in log space (ends at the plate's push rate). An even coverage rate = no lurch (smooth.py), whatever the paper's contrast.
+    x = herm(t, tA, tP, hx, 960 + vx * (tP - T0), 0, vx); y = herm(t, tA, tP, hy - 6 - .3 * 1.3 * SHEET_W0, 540 + vy * (tP - T0), -60, vy);
+    lw = sheetGrowth(T0)(t);
+    const k = smooth(span(t, tA, tP)); rot = herm(t, tA, tP, -.08, .02, 0, 0) + .09 * Math.sin(Math.PI * k) * (1 - k);
   } else if (t < tQ) {
-    lw = Math.log(SHEET_WC) + PUSH * (t - tP); x = 960; y = 540; rot = .02;
+    lw = Math.log(SHEET_WC) + PUSH * (t - tP); x = 960 + vx * (t - T0); y = 540 + vy * (t - T0); rot = .02;
   } else if (t < tR) {
     lw = herm(t, tQ, tR, Math.log(SHEET_WC) + PUSH, Math.log(560), PUSH, -.05);
-    x = herm(t, tQ, tR, 960, 1010, 0, 55); y = herm(t, tQ, tR, 540, 430, 0, 10); rot = herm(t, tQ, tR, .02, -.16, 0, -.06);
+    x = herm(t, tQ, tR, 960 + vx * .5, 1010, vx, 55); y = herm(t, tQ, tR, 540 + vy * .5, 430, vy, 10); rot = herm(t, tQ, tR, .02, -.16, 0, -.06);
   } else {
     // the wind carries it right and down, it turns, and lands flat by the fence ("collapsed")
     const k = span(t, tR, tL);
@@ -108,8 +138,9 @@ export function sheetState(t, T0) {
     sy = 1 - .66 * smooth(span(t, tL - 1.6, tL));
   }
   // the paper is dim while it fills the frame (night light, no luminance lurch at the seam), it brightens as it falls to the farm
-  const w = Math.exp(lw), flip = sineIO(span(t, T0 - 2.2, T0 - 1.3)), lum = .55 + .4 * smooth(span(t, T0 + .5, T0 + 3.5));
-  return { x, y, w, h: w * 1.3, rot, sy, flip, lum, landed: t >= tL, tL };
+  const w = Math.exp(lw), flip = sineIO(span(t, T0 - 2.95, T0 - 2.35)), lum = .55 + .3 * smooth(span(t, T0 + .5, T0 + 3.5));
+  const dim = .6 - .38 * smooth(span(t, T0 + .5, T0 + 3.8));   // night on the paper while it fills the frame (low contrast = no lurch)
+  return { x, y, w, h: w * 1.3, rot, sy, flip, lum, dim, landed: t >= tL, tL };
 }
 // the faces, drawn in local coords (0, 0) = sheet centre
 function blueprintFace(ctx, w, h) {
@@ -155,7 +186,7 @@ export function sheetFace(ctx, s, o = {}) {
   if (s.landed || s.sy < .99) { ctx.save(); ctx.fillStyle = rgba(P.night0, .45); ctx.filter = 'blur(6px)'; ctx.fillRect(-s.w / 2 + 10, -s.h / 2 + 18, s.w, s.h); ctx.restore(); }
   const c = Math.cos(Math.PI * s.flip), sx = Math.max(.02, Math.abs(c));
   ctx.save(); ctx.scale(sx, 1);
-  if (c >= 0) blueprintFace(ctx, s.w, s.h); else newsFace(ctx, s.w, s.h, { lum: o.lum ?? s.lum });
+  if (c >= 0) blueprintFace(ctx, s.w, s.h); else { newsFace(ctx, s.w, s.h, { lum: o.lum ?? s.lum }); if (s.dim > 0) { ctx.fillStyle = rgba(P.night0, s.dim); ctx.fillRect(-s.w / 2, -s.h / 2, s.w, s.h); } }
   ctx.restore();
   const g = Math.max(0, 1 - Math.abs(c) * 4); if (g > 0) halo(ctx, 0, 0, s.w * .5 * g, .4 * g, P.halo0, P.core0);
   if (o.after) o.after(ctx, s);
@@ -166,10 +197,16 @@ export function sheetFace(ctx, s, o = {}) {
 // SEAM c10 | c11: the two tickets on the night
 // =====================================================================================================================
 export const TK = { l: [690, 500], r: [1230, 500], w: 400, rot: [-.035, .03] };
+export const TKBOB = 11, tkSway = (t, k) => .02 * Math.sin(t * .9 + k * 2.1);   // the pair floats (never frozen at the plate)
 // today's ticket face: B.ticket body + our own rows (no "AI" in the picture). rows: [[text, size share, serif]]
 export function ticketNew(ctx, cx, cy, w, rot = 0, o = {}) {
   B.ticket(ctx, cx, cy, w, rot, { lines: ['', ''], sx: o.sx, glow: o.glow, a: o.a, lum: o.lum });
   const h = w * .45, sx = o.sx ?? 1; if (Math.abs(sx) < .02) return;
+  if (o.dim > 0) {   // night on the paper (same body as B.ticket: rounded rect minus the two notches)
+    ctx.save(); ctx.translate(cx, cy); ctx.rotate(rot); ctx.scale(sx, 1);
+    const p = new Path2D(); p.roundRect(-w / 2, -h / 2, w, h, w * .03); const nb = new Path2D(); nb.arc(-w / 2, 0, h * .12, 0, Math.PI * 2); nb.arc(w / 2, 0, h * .12, 0, Math.PI * 2);
+    ctx.fillStyle = rgba(P.night0, o.dim); ctx.fill(p.op(nb, PathOp.Difference)); ctx.restore();
+  }
   ctx.save(); ctx.translate(cx, cy); ctx.rotate(rot); ctx.scale(sx, 1); ctx.textAlign = 'center'; ctx.globalAlpha = o.a ?? 1;
   const rows = o.rows ?? [['1 SEAT', .4, true], ['ARTIFICIAL INTELLIGENCE · EVERY DAY', .075, false]];
   let yy = -h * .2;
@@ -192,8 +229,8 @@ export function plateTickets(ctx, t, T0) {
 // the pair as it stands at the seam (both sides use it): glow 0..1 on today's ticket
 export function ticketsPair(ctx, t, glow = 1, o = {}) {
   const b = .5 + .5 * Math.sin(t * 1.2);
-  ticketOld(ctx, TK.l[0], TK.l[1] + 3 * Math.sin(t * .8), TK.w, TK.rot[0], { glow: .35 });
-  ticketNew(ctx, TK.r[0], TK.r[1] + 3 * Math.sin(t * .8 + 1.4), TK.w, TK.rot[1], { glow: (.6 + .15 * b) * glow, rows: o.rows });
+  ticketOld(ctx, TK.l[0], TK.l[1] + TKBOB * Math.sin(t * .8), TK.w, TK.rot[0] + tkSway(t, 0), { glow: .35 });
+  ticketNew(ctx, TK.r[0], TK.r[1] + TKBOB * Math.sin(t * .8 + 1.4), TK.w, TK.rot[1] + tkSway(t, 1), { glow: (.6 + .15 * b) * glow, rows: o.rows });
 }
 
 // =====================================================================================================================

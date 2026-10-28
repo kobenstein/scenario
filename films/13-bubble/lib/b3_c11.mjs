@@ -12,7 +12,7 @@
 //                           spike, then a warm plateau over small figures; golden ages; § = the rules were right (those stay golden).
 //                           The last spike rises and rounds into the bubble over the data center → seam plate c11|c12 (plateBubble).
 import { Path2D } from '@napi-rs/canvas';
-import { E, K, B, rise, ramp, sramp, herm, bump, label, PUSH, zoomAt, nightBack, TK, ticketNew, ticketOld, plateTickets, BB, DCB, PL_C, bwSky, bwGround, bwDC, perez, PZ, PZ_PATH, plateBubble } from './b3_common.mjs';
+import { E, K, B, rise, ramp, sramp, herm, bump, label, PUSH, zoomAt, nightBack, TK, TKBOB, tkSway, ticketNew, ticketOld, plateTickets, BB, DCB, PL_C, bwSky, bwGround, bwDC, perez, PZ, PZ_PATH, plateBubble } from './b3_common.mjs';
 const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, expoOut, expoIn, lin, rad, prng, halo, card, camAt, camDrift, aim, project, F0 } = E;
 const { COL } = B;
 
@@ -137,8 +137,8 @@ export function make(T, R) {
     const bob = 1 - attach;
     [-1, 1].forEach((sd) => {
       const ex = PIV[0] + sd * ARM * Math.cos(th), ey = PIV[1] + sd * ARM * Math.sin(th);
-      const x = ex, y = ey + STR + bob * 3 * Math.sin(t * .8 + (sd > 0 ? 1.4 : 0)), sy = lerp(1, .62, sramp(t, tStr1 - .2, tStr1 + .6));
-      const rot = lerp(sd < 0 ? TK.rot[0] : TK.rot[1], 0, attach);
+      const x = ex, y = ey + STR + bob * TKBOB * Math.sin(t * .8 + (sd > 0 ? 1.4 : 0)), sy = lerp(1, .62, sramp(t, tStr1 - .2, tStr1 + .6));
+      const rot = lerp(sd < 0 ? TK.rot[0] : TK.rot[1], 0, attach) + bob * tkSway(t, sd < 0 ? 0 : 1);
       if (attach > 0) {   // strings to the ticket's upper corners
         ctx.strokeStyle = rgba(P.halo2, .6); ctx.lineWidth = 1.6; const hh = TK.w * .45 * sy / 2, len = STR * attach;
         for (const c of [-.42, .42]) { ctx.beginPath(); ctx.moveTo(ex, ey); ctx.lineTo(lerp(ex, x + c * TK.w, attach), lerp(ey, y - hh, attach) - (1 - attach) * 0 + 0 * len); ctx.stroke(); }
@@ -227,7 +227,7 @@ export function make(T, R) {
   function tags(ctx, t, ly) {
     const A = [TKT.x + TKT.w * .42, TKT.y + ly + 18];
     [['GOOD ENOUGH?', a.goodE, 92, .1], ['PRICE?', a.price, 168, -.12]].forEach(([txt, t0, len, a0]) => {
-      const u = sramp(t, t0 - .25, t0 + .35); if (u <= 0) return;
+      const u = sramp(t, t0 - .25, t0 + .35) * (1 - sramp(t, a.notafter + .45, a.notafter + 1.15)); if (u <= 0) return;   // they fold back into the ticket before the camera flies out (no text below y 910)
       const sw = (.32 * Math.exp(-Math.max(0, t - t0) * 1.4) * Math.sin(5 * (t - t0))) + .14 * bump(t, a.comments - .1, a.comments + 2.4) * Math.sin(3.2 * (t - a.comments)) + .02 * Math.sin(t * 1.1 + len);
       ctx.save(); ctx.translate(A[0], A[1]); ctx.rotate(a0 + sw);
       const L = len * u; ctx.strokeStyle = rgba(P.halo2, .75); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, L); ctx.stroke();

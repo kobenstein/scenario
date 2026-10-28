@@ -14,7 +14,7 @@
 //                         and writes its rows; it goes into a student's hand; three board from the ground; a copy of the last ticket
 //                         rises, the camera tilts into the night, the 1844 ticket drifts in beside it → seam plate c10|c11.
 import { Path2D, PathOp } from '@napi-rs/canvas';
-import { E, K, B, rise, ramp, sramp, herm, bump, label, PUSH, zoomAt, nightBack, sheetState, sheetDraw, sheetFace, TK, ticketNew, ticketOld, plateTickets } from './b3_common.mjs';
+import { E, K, B, rise, ramp, sramp, herm, bump, label, PUSH, zoomAt, nightBack, sheetState, sheetDraw, sheetFace, TK, TKBOB, tkSway, ticketNew, ticketOld, plateTickets } from './b3_common.mjs';
 const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, expoOut, expoIn, lin, rad, prng, halo, card, camAt, camDrift, aim, project, cardM, F0 } = E;
 const { COL } = B;
 
@@ -69,7 +69,7 @@ const NIGHT = [[0, P.night0], [.38, mixHex(P.night0, P.night1, .38 / .62)], [.62
 const SKIES = {
   dusk: { s: [[0, '#0e1b4e'], [.38, '#26387a'], [.62, '#6a5c78'], [1, '#a9845e']], st: .12, g: ['#2f2d4e', '#1c1d3e'], sun: 1 },
   night: { s: NIGHT, st: .5, g: [P.night1, P.night0], sun: 0 },
-  day: { s: [[0, '#22407a'], [.38, '#3d5892'], [.62, '#7b8692'], [1, '#aca690']], st: 0, g: ['#3f505e', '#28384a'], sun: 0 },
+  day: { s: [[0, '#203c74'], [.38, '#38528a'], [.62, '#707b88'], [1, '#9e9884']], st: 0, g: ['#3f505e', '#28384a'], sun: 0 },
   eve: { s: [[0, '#0c194c'], [.38, '#22357a'], [.62, '#574f7a'], [1, '#86695c']], st: .22, g: ['#232955', '#141a40'], sun: 0 },
 };
 
@@ -102,7 +102,7 @@ export function make(T, R) {
     [a.none, aim(F0, 6000, 640, 1.5), 'q'],                        // with the flying duct to the table
     [a.missing, aim(F0, 6010, 636, 1.56)],
     [a.penny + .2, aim(F0, 6030, 600, .92, 960, 620)],               // A3: the rail runs out, the car forms
-    [a.rule, aim(F0, 6060, 600, .95, 960, 620)],
+    [a.rule, aim(F0, 6070, 600, .96, 960, 620), (u) => 1 - (1 - u) ** 2],   // leaves the key moving (no frozen frames under the label)
     [a.pubm - .2, aim(F0, 6320, 600, 1.12, 960, 560)],               // to the ticket machine
     [a.basic + .3, aim(F0, 6350, 610, 1.16, 960, 560)],
     [a.good + .5, aim(F0, TKW.x, TKW.y, 1.6, 960, 520)],             // the ticket writes its rows
@@ -112,7 +112,7 @@ export function make(T, R) {
     [a.y1844 + .6, aim(F0, 5910, -800, .95, 960, 600), 'q'],         // tilt up into the night
     [a.T1, aim(F0, 5910, -860, .96, 960, 600)],
   ];
-  const camW = (t) => camDrift(camAt(Math.max(t, tQ), KC), t, .55 * ramp(t, tQ, tQ + 3), 7);
+  const camW = (t) => camDrift(camAt(Math.max(t, tQ), KC), t, 1.4 * ramp(t, tQ, tQ + 3), 7);   // a living drift: the keys' arrivals never go still
   // the landed newspaper, carried into the world by the camera at tL
   const mL = cardM(camW(tL), F0), sL = sheetState(tL, a.T0);
   const paperW = { ...sL, x: (sL.x - mL.e) / mL.k, y: (sL.y - mL.f) / mL.k, w: sL.w / mL.k, h: sL.h / mL.k };
@@ -302,7 +302,7 @@ export function make(T, R) {
   // ------------------------------------------------------------------------------------------------ FIELD
   function field(ctx, t, sky) {
     if (t < a.today - 1 || t > a.missing + 1) return;
-    const g = mixHex(mixHex(sky.g0, GREEN, .2 + .55 * sky.day), P.night1, .2);
+    const g = mixHex(mixHex(sky.g0, GREEN, .2 + .55 * sky.day), P.night1, .2 + .14 * sky.day);
     const p = new Path2D(); p.moveTo(HILL[0][0], 3000); for (const [x, y] of HILL) p.lineTo(x, y); p.lineTo(HILL[HILL.length - 1][0], 3000); p.closePath();
     // the green lies on the plain's ground and thins out to both sides (no edge): horizontal alpha ramp, then the vertical shade
     ctx.save(); ctx.clip(p);
@@ -577,8 +577,8 @@ export function make(T, R) {
     if (t > a.villagers - .3 && t < a.none) label(ctx, [['B4RN · ~15,000 HOMES', 34], ['OWNED BY ITS MEMBERS', 34]], 150, 200, span(t, a.villagers - .2, a.villagers + .7), { out: span(t, a.allof - .3, a.allof + .4) });
     if (t > a.penny - .3 && t < a.rule + .8) {
       const out = span(t, a.rule - .25, a.rule + .45);
-      label(ctx, [['The penny train', 96, P.cream, true], ['OF ARTIFICIAL INTELLIGENCE', 34]], 150, 200, span(t, a.penny - .25, a.penny + .9), { out });
-      label(ctx, [['OUR PROPOSAL · NOT LAW ANYWHERE', 34]], 150, 372, span(t, a.proposal - .2, a.proposal + .5), { out });
+      label(ctx, [['The penny train', 96, P.cream, true], ['OF ARTIFICIAL INTELLIGENCE', 34]], 1110, 200, span(t, a.penny - .25, a.penny + .9), { out });
+      label(ctx, [['OUR PROPOSAL · NOT LAW ANYWHERE', 34]], 1110, 372, span(t, a.proposal - .2, a.proposal + .5), { out });
     }
     // the three signs that fall into the machine
     if (t > tCoin - .1 && t < a.basic + .6) {
@@ -602,7 +602,7 @@ export function make(T, R) {
       else { const hd = handAt(RIDERS[0], t), u = sramp(t, tHand0, tHand1); x = lerp(TKW.x, hd[0] + 6, u); y = lerp(TKW.y, hd[1] - 8, u) - 40 * Math.sin(Math.PI * u); w = Math.exp(lerp(Math.log(TKW.w), Math.log(30), u)); rot = lerp(-.03, -.2, u); }
       card(ctx, c, F0, () => {
         if (t < tFloat0) { ctx.save(); ctx.beginPath(); ctx.rect(m.x - 400, -4000, 800, 4000 + m.slot); ctx.clip(); }
-        ticketNew(ctx, x, y, w, rot, { glow: .45 + .35 * bump(t, a.everyone - .2, a.everyone + 1.6), rows: TROWS(t) });
+        ticketNew(ctx, x, y, w, rot, { glow: .45 + .35 * bump(t, a.everyone - .2, a.everyone + 1.6), rows: TROWS(t), dim: .18 * clamp((w - 110) / (TKW.w - 110), 0, 1) });
         if (t < tFloat0) ctx.restore();
       });
     }
@@ -612,16 +612,16 @@ export function make(T, R) {
     if (t >= a.y1844 - .6) {
       const u = span(t, a.y1844 - .6, tPlate - .3), e = sineIO(u);
       const x = herm(t, a.y1844 - .6, tPlate - .3, -260, TK.l[0], 260, 0) + 70 * Math.sin(u * 5.5) * (1 - e);
-      const y = herm(t, a.y1844 - .6, tPlate - .3, 120, TK.l[1], 120, 0) + 3 * Math.sin(t * .8);
-      ticketOld(ctx, x, y, TK.w, TK.rot[0] + .35 * Math.sin(u * 5.5 + .5) * (1 - e), { glow: .35 });
+      const y = herm(t, a.y1844 - .6, tPlate - .3, 120, TK.l[1], 120, 0) + TKBOB * Math.sin(t * .8);
+      ticketOld(ctx, x, y, TK.w, TK.rot[0] + tkSway(t, 0) + .35 * Math.sin(u * 5.5 + .5) * (1 - e), { glow: .35 });
     }
     if (t >= tRel) {
       const r = RIDERS[3], hd = handAt(r, tRel);
       const p = project(camW(tRel), F0, hd[0] + 6, hd[1] - 8), z0 = Math.exp(PUSH * (tRel - tPlate));
       const px = (p[0] - 960) / z0 + 960, py = (p[1] - 500) / z0 + 500, w0 = 30 * p[2] / z0;
       const b = .5 + .5 * Math.sin(t * 1.2);
-      const x = herm(t, tRel, tPlate - .3, px, TK.r[0], 0, 0), y = herm(t, tRel, tPlate - .3, py, TK.r[1], -320, 0) + 3 * Math.sin(t * .8 + 1.4) * ramp(t, tRel, tRel + 2);
-      const w = Math.exp(herm(t, tRel, tPlate - .3, Math.log(w0), Math.log(TK.w), 0, 0)), rot = herm(t, tRel, tPlate - .3, -.2, TK.rot[1], 0, 0);
+      const x = herm(t, tRel, tPlate - .3, px, TK.r[0], 0, 0), y = herm(t, tRel, tPlate - .3, py, TK.r[1], -320, 0) + TKBOB * Math.sin(t * .8 + 1.4) * ramp(t, tRel, tRel + 2);
+      const w = Math.exp(herm(t, tRel, tPlate - .3, Math.log(w0), Math.log(TK.w), 0, 0)), rot = herm(t, tRel, tPlate - .3, -.2, TK.rot[1], 0, 0) + tkSway(t, 1) * ramp(t, tRel, tRel + 2);
       ticketNew(ctx, x, y, w, rot, { glow: .6 + .15 * b });
     }
     ctx.restore();

@@ -14,7 +14,7 @@
 //                           newspaper (seam plate with c10, lib/b3_common.mjs sheet*).
 import { Path2D } from '@napi-rs/canvas';
 import * as S from './bubble_seams.mjs';
-import { E, K, B, rise, ramp, sramp, herm, bump, label, PUSH, europeDots, HUBS, HUB_SHEET, sheetDraw, sheetState, EUMAP } from './b3_common.mjs';
+import { E, K, B, rise, ramp, sramp, herm, bump, label, PUSH, zoomAt, europeDots, HUBS, HUB_SHEET, sheetDraw, sheetState, EUMAP, SHEET_LIFT } from './b3_common.mjs';
 const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, expoOut, expoIn, lin, rad, prng, halo, dust, card, cam3, camAt, camDrift, aim, project, F0 } = E;
 const { COL } = B;
 
@@ -47,7 +47,9 @@ const DIES = (() => {
 })();
 const FIB2DIE = FIB.map(([x, y]) => { let b = 0, bd = 1e9; DIES.forEach(([dx, dy], k) => { const d = Math.hypot(dx - x, dy - y); if (d < bd) { bd = d; b = k; } }); return b; });
 const WEDGE = { a0: -Math.PI * .1, a1: Math.PI * .1 };
-const PUB = { x: 1500, y: 1560, w: 240 };                   // the civic building PUBLIC (design, F0)
+const PUB = { x: 1500, y: 1560, w: 240 };
+const W_BODY = (() => { const p = new Path2D(); p.arc(CON.x, CON.y, CON.r, WEDGE.a1, WEDGE.a0 + Math.PI * 2); p.lineTo(CON.x, CON.y); p.closePath(); return p; })();
+const W_FULL = (() => { const p = new Path2D(); p.arc(CON.x, CON.y, CON.r, 0, 6.29); return p; })();                   // the civic building PUBLIC (design, F0)
 
 // ------------------------------------------------------------------------------------------------ world B (screen space)
 const SUN = { x: 960, y: 318, r: 118 };
@@ -106,7 +108,7 @@ export function make(T, R) {
   };
 
   // ================================================================ timing A
-  const tSt0 = a.open - 1.05, tHit = a.open, tLift = a.open + .32;        // the stamp
+  const tSt0 = Math.max(a.open - 1.05, tPlate), tHit = a.open, tLift = a.open + .32;   // the stamp (enters from above the frame once the plate is over)
   const tShackle = tHit + .09, tFall = tHit + .22;
   const tSw0 = a.open + .45, tSw1 = a.nine + .25;                         // the door swings open (before "two thousand and nine")
   const tLine0 = a.other - .35;                                           // the providers' lines run in
@@ -126,7 +128,7 @@ export function make(T, R) {
     if (t < tPlate) { S.plateDoor(ctx, t, a.T0); return; }
     if (t < tB) worldA(ctx, t);
     else worldB(ctx, t);
-    if (t >= a.T1 - 2.6) sheetDraw(ctx, t, a.T1);
+    if (t >= a.T1 - SHEET_LIFT) sheetDraw(ctx, t, a.T1);
   };
 
   // ================================================================================================ A
@@ -313,42 +315,44 @@ export function make(T, R) {
     });
   }
 
-  function wafer(ctx, t) {
-    const m = smooth(span(t, tMorph0, tMorph1)); if (m <= 0) return;
-    const leave = smooth(span(t, tB - .6, tB));
-    // the wafer: cool silicon, iridescent sheen, a grid of dies; a 10 % wedge travels to PUBLIC
-    const wOut = sineIO(span(t, a.ten - .05, a.ten + 1.25)), wGlow = smooth(span(t, a.paid - .2, a.paid + .6));
-    const wedgePath = (cx, cy, r) => { const p = new Path2D(); p.moveTo(cx, cy); p.arc(cx, cy, r, WEDGE.a0, WEDGE.a1); p.closePath(); return p; };
-    const body = new Path2D(); body.arc(CON.x, CON.y, CON.r, WEDGE.a1, WEDGE.a0 + Math.PI * 2); body.lineTo(CON.x, CON.y); body.closePath();
-    const full = new Path2D(); full.arc(CON.x, CON.y, CON.r, 0, 6.29);
-    ctx.save(); ctx.globalAlpha = m;
+  // the wafer's face (design coords of world A, centre CON); world B draws the same face scaled to its screen position (no switch pop)
+  function wedgePath(cx, cy, r) { const p = new Path2D(); p.moveTo(cx, cy); p.arc(cx, cy, r, WEDGE.a0, WEDGE.a1); p.closePath(); return p; }
+  function wedgeE(t) { return sineIO(span(t, a.ten - .05, a.ten + 1.25)) * (1 - sineIO(span(t, a.paid + .3, a.paid + 1.15))); }   // out to PUBLIC, and back home
+  function wedgeGlow(t) { return smooth(span(t, a.paid - .2, a.paid + .6)); }
+  function waferFace(ctx, t, gap) {
     const fillW = (p) => { ctx.fillStyle = lin(ctx, CON.x - CON.r, CON.y - CON.r, CON.x + CON.r, CON.y + CON.r, [[0, mixHex(COL.cool2, COL.cool, .4)], [.5, mixHex(COL.coolDeep, COL.cool2, .6)], [1, mixHex(COL.coolDeep, P.ind1, .4)]]); ctx.fill(p); };
-    fillW(wOut > 0 ? body : full);
-    ctx.save(); ctx.clip(wOut > 0 ? body : full);
+    const shape = gap ? W_BODY : W_FULL;   // (built once, module level)
+    fillW(shape);
+    ctx.save(); ctx.clip(shape);
     for (const [x, y] of DIES) { ctx.fillStyle = rgba(P.night0, .18); ctx.fillRect(x - 19, y - 19, 38, 38); ctx.strokeStyle = rgba(COL.cool, .4); ctx.lineWidth = 1.5; ctx.strokeRect(x - 19, y - 19, 38, 38); }
     ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = lin(ctx, CON.x - CON.r, CON.y - CON.r, CON.x + CON.r, CON.y + CON.r, [[0, rgba(P.blue0, 0)], [.45, rgba('#9fd0e0', .16 + .05 * Math.sin(t * .7))], [.55, rgba('#d0b0e0', .14)], [1, rgba(P.blue0, 0)]]); ctx.fillRect(CON.x - CON.r, CON.y - CON.r, CON.r * 2, CON.r * 2);
     ctx.restore();
-    ctx.strokeStyle = rgba(COL.cool, .7); ctx.lineWidth = 3; ctx.stroke(wOut > 0 ? body : full);
-    ctx.restore();
+    ctx.strokeStyle = rgba(COL.cool, .7); ctx.lineWidth = 3; ctx.stroke(shape);
+  }
+  // the 10 % wedge at blend e (0 = home in the wafer, 1 = at PUBLIC), glowing gold once the public has its share
+  function wedge(ctx, t, e) {
+    const g = wedgeGlow(t);
+    const cx = lerp(CON.x + 6, PUB.x, e), cy = lerp(CON.y, PUB.y - 270, e) - 90 * Math.sin(Math.PI * e), r = lerp(CON.r, CON.r * .62, e);
+    const p = wedgePath(cx - r * .55 * clamp(e * 4), cy, r);
+    ctx.fillStyle = rad(ctx, cx - r * .2, cy, r, [[0, mixHex(COL.cool, P.halo0, g)], [1, mixHex(COL.coolDeep, P.shade0, g)]]); ctx.fill(p);
+    ctx.strokeStyle = rgba(mixHex(COL.cool, P.halo0, g), .9); ctx.lineWidth = 3; ctx.stroke(p);
+    if (g > 0) halo(ctx, cx + r * .3, cy, r * (1.4 - .6 * (1 - e)), .3 * g, P.halo1, P.halo0);
+  }
+
+  function wafer(ctx, t) {
+    const m = smooth(span(t, tMorph0, tMorph1)); if (m <= 0) return;
+    const e = wedgeE(t), out = e > .001 || (t > a.ten && t < a.paid + 1.15);
+    ctx.save(); ctx.globalAlpha = m; waferFace(ctx, t, out); ctx.restore();
     // the civic building rises from its baseline (chip subsidies); coins arc from it into the wafer
     const pb = rise(span(t, a.chip - .55, a.chip + .45)) * (1 - E.expoIn(span(t, tB - 1.2, tB - .35)));
-    if (pb > 0) civic(ctx, PUB.x, PUB.y, PUB.w, pb, t, wGlow);
+    if (pb > 0) civic(ctx, PUB.x, PUB.y, PUB.w, pb, t, wedgeGlow(t));
     for (let i = 0; i < 4; i++) {
       const t0 = a.chip + .2 + i * .32, u = span(t, t0, t0 + .85); if (u <= 0 || u >= 1) continue;
-      const e = sineIO(u), x = lerp(PUB.x - 60, CON.x + 120, e), y = lerp(PUB.y - 60, CON.y - 40, e) - 190 * Math.sin(Math.PI * e);
+      const ee = sineIO(u), x = lerp(PUB.x - 60, CON.x + 120, ee), y = lerp(PUB.y - 60, CON.y - 40, ee) - 190 * Math.sin(Math.PI * ee);
       B.coin(ctx, x, y, 17, { lit: .6 });
     }
-    // the wedge
-    if (wOut > 0) {
-      const cx = lerp(CON.x + 6, PUB.x, wOut), cy = lerp(CON.y, PUB.y - 270, wOut) - 90 * Math.sin(Math.PI * wOut), r = lerp(CON.r, CON.r * .62, wOut);
-      const p = wedgePath(cx - r * .55, cy, r);
-      ctx.save(); ctx.globalAlpha = 1 - leave * 0;
-      ctx.fillStyle = rad(ctx, cx - r * .2, cy, r, [[0, mixHex(COL.cool, P.halo0, wGlow)], [1, mixHex(COL.coolDeep, P.shade0, wGlow)]]); ctx.fill(p);
-      ctx.strokeStyle = rgba(mixHex(COL.cool, P.halo0, wGlow), .9); ctx.lineWidth = 3; ctx.stroke(p);
-      ctx.restore();
-      if (wGlow > 0) halo(ctx, cx, cy, r * 1.4, .3 * wGlow, P.halo1, P.halo0);
-      if (pb <= 0 && t > a.paid) { /* sinks with the building */ }
-    }
+    if (out) wedge(ctx, t, e);
+    else if (t > a.paid) wedge(ctx, t, 0);
   }
 
   function civic(ctx, x, y, w, u, t, glow) {
@@ -388,26 +392,34 @@ export function make(T, R) {
     const up = sineIO(span(t, tFly0 - .2, tC));                                  // then up into the night (Europe)
     const night = smooth(span(t, tSet0, tSet1 + 1.5));
     const push = 1 + .04 * span(t, tB, tSet0);
-    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+    const zB = Math.exp(t < a.hubs + .6 ? 0 : t < a.hubs + 2.6 ? herm(t, a.hubs + .6, a.hubs + 2.6, 0, .014, 0, .014) : .014 + .014 * (t - a.hubs - 2.6));   // the map breathes in
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); zoomAt(ctx, zB, 1000, 470);
     // sky: night above, dawn low; warms with the sun, darkens when it sets
     const warm = smooth(span(t, tB, tSun1)) * (1 - night);
     ctx.fillStyle = lin(ctx, 0, 0, 0, H, [[0, P.night0], [.45, mixHex(P.night1, P.ind1, .6 * warm)], [.75, mixHex(P.ind1, P.blue0, .5 * warm)], [1, mixHex(P.ind1, P.shade1, .45 * warm)]]); ctx.fillRect(0, 0, W, H);
-    E.stars(ctx, 4741, 130, t, [-60, -40, W + 120, H * .75], .2 + .5 * night);
+    const dawn = smooth(span(t, tB, tB + 1.8));                                    // world A's flat night (under the street) opens into the sky
+    if (dawn < 1) { ctx.fillStyle = rgba(P.night0, 1 - dawn); ctx.fillRect(0, 0, W, H); }
+    E.stars(ctx, 4741, 130, t, [-60, -40, W + 120, H * .75], (.2 + .5 * night) * dawn);
     ctx.translate(960, 600); ctx.scale(push, push); ctx.translate(-960, -600);
     const dyTilt = -260 * tilt + 1300 * up;                                       // world shift (near layers shift by k ×)
     // the sun (from the wafer)
-    const sx = lerp(720, SUN.x, sunU), sy0 = lerp(520, SUN.y, sunU), sy = sy0 + set * 470 + dyTilt * .25, sr = lerp(CON.r * 1.05, SUN.r, sunU);
+    // start = where world A's camera shows the wafer right now (same face, same size: no switch)
+    const pA = project(camA(t), F0, CON.x, CON.y), k0 = pA[2];
+    const toB = (q) => [960 + (q[0] - 960) / push, 600 + (q[1] - 600) / push];   // undo B's push for the start point
+    const [ax, ay] = toB(pA), ak = k0 / push;
+    const sx = lerp(ax, SUN.x, sunU), sy0 = lerp(ay, SUN.y, sunU), sy = sy0 + set * 470 + dyTilt * .25, sr = lerp(CON.r * ak, SUN.r, sunU);
     if (sunU < 1) {
-      // the wafer still carries its silicon look while it rises, then it is all light
+      // the wafer keeps its silicon face (and its gold share) while it rises, then it is all light
       ctx.save(); ctx.globalAlpha = 1 - smooth(span(sunU, .35, .9));
-      ctx.fillStyle = rad(ctx, sx - sr * .3, sy - sr * .4, sr * 1.4, [[0, mixHex(COL.cool, P.cream, .3)], [.35, COL.cool2], [.75, COL.coolDeep], [1, P.ind1]]);
-      ctx.beginPath(); ctx.arc(sx, sy, sr, 0, 6.29); ctx.fill(); ctx.restore();
+      ctx.translate(sx, sy); ctx.scale(sr / CON.r, sr / CON.r); ctx.translate(-CON.x, -CON.y);
+      waferFace(ctx, t, false); wedge(ctx, t, 0);
+      ctx.restore();
     }
     const sunA = smooth(span(sunU, .25, .9));
     if (sunA > 0 && set < .985) E.lightForm(ctx, 'disc', sx - sr, sy - sr, sr * 2, sr * 2, t, { a: sunA, dust: 900, breath: .015, seed: 99 });
     // ridges rise (near ones further), the hall, the laptops
     RIDGES.forEach((Rg, i) => {
-      const dy = (1 - ridgeU) * (560 + 260 * i) + dyTilt * Rg.k;
+      const dy = (1 - ridgeU) * (820 + 260 * i) + dyTilt * Rg.k;
       ctx.save(); ctx.translate(0, dy);
       ridge(ctx, Rg.p, Rg.c, rgba(i ? P.blue0 : P.halo1, Rg.rim * (i ? 1 : .6 + .4 * warm)), i === 0 ? .5 + .4 * warm : 0);
       if (i === 1) hall(ctx, t);
@@ -416,7 +428,7 @@ export function make(T, R) {
     });
     // the chip tiles rise into the night and become the map of Europe
     ctx.restore();
-    if (t > tFly0 - .2) europe(ctx, t, dyTilt);
+    if (t > tFly0 - .2) { ctx.save(); zoomAt(ctx, zB, 1000, 470); europe(ctx, t, dyTilt); ctx.restore(); }
     labelsB(ctx, t);
   }
 
@@ -501,7 +513,8 @@ export function make(T, R) {
   function europe(ctx, t, dyTilt) {
     // the tiles leave the pool (they ride with the world until they lift) and fly to their dot of the map; the seven hubs
     const dots = europeDots(), fly = span(t, tFly0, tFly1), hubs = rise(span(t, a.hubs - .1, a.hubs + .7));
-    const paper = smooth(span(t, a.early - .1, a.early + .9));
+    const tLift = a.T1 - SHEET_LIFT, paperS = smooth(span(t, tLift - .6, tLift - .05));
+    const paperH = (i) => smooth(span(t, a.early - .15 + i * .09, a.early + .55 + i * .09));   // the others follow on "They're early"
     // where the pool is on screen right now (same transform as worldB's near layer)
     const push = 1 + .04 * span(t, tB, tSet0), dy = dyTilt * 1;
     const toScr = (x, y) => [960 + (x - 960) * push, 600 + (y + dy - 600) * push];
@@ -516,7 +529,8 @@ export function make(T, R) {
     ctx.restore();
     // hubs: little sheets of light (warm), they turn to blueprints ("still on paper"); the 5th lifts off (sheet, seam)
     if (hubs > 0) HUBS.forEach(([x, y], i) => {
-      if (i === HUB_SHEET && t >= a.T1 - 2.6) return;
+      if (i === HUB_SHEET && t >= a.T1 - SHEET_LIFT) return;
+      const paper = i === HUB_SHEET ? paperS : paperH(i);
       const s = 12 * hubs, w = s * 1.9, h = s * 2.5;
       ctx.save(); ctx.translate(x, y - 6);
       if (paper < 1) { const p = new Path2D(); p.rect(-w / 2, -h / 2, w, h); E.lightShape(ctx, p, t, { lit: 1, a: hubs * (1 - paper), dust: 0, glow: .6 }); }
