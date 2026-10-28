@@ -579,9 +579,11 @@ export function build(T) {
   const YEARS = [[1930, -1], [1943, b.first + .1], [1946, b.after + .1], [1985, b.held - .2]];
   const yearAt = (t) => { let y = 1930; for (const [yr, t0] of YEARS) if (t0 > 0) { const k = sineIO(span(t, t0, t0 + 1.3)); if (k > 0) y = lerp(y, yr, k); } return y; };
   // ---- P9 pieces (design coords; the ground card ZG holds horizon, town, porch, ball field; F0 holds the river and the walkers)
-  const SKY8 = (() => { const r = E.prng(1946), o = []; for (let x = -700; x < 2700; x += 120 + r() * 90) { if (Math.abs(x - SUN.x) < 270) continue; if (x > 1290 && x < 1610) continue; o.push({ x, w: 80 + r() * 70, h: 55 + r() * 55, gable: r() < .7 ? 1 : 0, lit: r(), seed: Math.floor(r() * 1e6), tree: r() < .45, th: 110 + r() * 90 }); } return o; })();
+  const SKY8 = (() => { const r = E.prng(1946), o = []; for (let x = -2300; x < 2700; x += 120 + r() * 90) { if (Math.abs(x - SUN.x) < 270) continue; if (x > 1290 && x < 1610) continue; o.push({ x, w: 80 + r() * 70, h: 55 + r() * 55, gable: r() < .7 ? 1 : 0, lit: r(), seed: Math.floor(r() * 1e6), tree: r() < .45, th: 110 + r() * 90 }); } return o; })();
   const FAR = { x: 1450, s: .42 };                                                 // the factory, far on the horizon
-  const PORCH8 = { x: 430, y: 850, s: 1.1 }, FIELD = { x: 1730, y: 800 };
+  // 8.02–8.03 (coordinator 28.10.): the three motifs are large, near, on F0, along the same evening line; one slow glide leftward
+  // (toward and past the river) reaches them one by one: father + kid at the river, the porch, the ball field
+  const PORCH8 = { x: -250, y: 870, s: 2.0 }, FIELD = { x: -930, y: 872, s: 3.3 };   // the porch sits left of the sun, which glows past its eave
   const RIV = (() => { const p = E.catmull([[SUN.x + 4, HZ, 0], [SUN.x - 8, 714, 0], [866, 760, 0], [800, 830, 0], [712, 920, 0], [622, 1010, 0], [548, 1120, 0]], 10); return p.map(([x, y]) => [x, y, lerp(5, 165, clamp((y - HZ) / (1120 - HZ)) ** 1.25)]); })();
   const riverPoly = (u0, u1) => {   // the river band between path fractions u0..u1 (0 = horizon, 1 = near edge)
     const n = RIV.length, i0 = Math.floor(u0 * (n - 1)), i1 = Math.ceil(u1 * (n - 1)); if (i1 - i0 < 1) return null;
@@ -589,7 +591,7 @@ export function build(T) {
     for (let i = i0; i <= i1; i++) { const p = RIV[i], q = RIV[Math.min(n - 1, i + 1)], o = RIV[Math.max(0, i - 1)], dx = q[0] - o[0], dy = q[1] - o[1], d = Math.hypot(dx, dy) || 1, nx = -dy / d, ny = dx / d; L.push([p[0] + nx * p[2], p[1] + ny * p[2]]); R.push([p[0] - nx * p[2], p[1] - ny * p[2]]); }
     const path = new Path2D(); L.forEach((p, i) => (i ? path.lineTo(p[0], p[1]) : path.moveTo(p[0], p[1]))); for (let i = R.length - 1; i >= 0; i--) path.lineTo(R[i][0], R[i][1]); path.closePath(); return path;
   };
-  const WALK = { f: [2180, 1165, 330, 8], k: [2310, 1290, 190, 14] };           // x0, x1, height, walk phase (×π): they come in from the right, toward the sun
+  const WALK = { f: [1900, 990, 430, 7], k: [2060, 1130, 250, 12] };           // x0, x1, height, walk phase (×π): they come in from the right, toward the sun
   const walkK = (t) => { const u = span(t, b.father - .2, b.kid + .25); return 1 - (1 - u) ** 1.7; };
   // ---- P13: the factory front on the axis (piece at scale FS8, base on the axis)
   const FX = 1240, FS8 = .95;
@@ -654,7 +656,7 @@ export function build(T) {
     const out = (d) => sink(t, b.thats + .05 + d, .75);
     card(ctx, c, ZG, () => {
       const gh = 760 * gd * (1 - roll);
-      if (gh > 1) { ctx.fillStyle = E.lin(ctx, 0, HZ, 0, HZ + 420, [[0, mixHex(P.ind1, P.shade0, .4)], [.12, mixHex(P.ind1, P.night1, .45)], [1, mixHex(P.night1, P.night0, .5)]]); ctx.fillRect(-1400, HZ, W + 2800, gh); }
+      if (gh > 1) { ctx.fillStyle = E.lin(ctx, 0, HZ, 0, HZ + 420, [[0, mixHex(P.ind1, P.shade0, .4)], [.12, mixHex(P.ind1, P.night1, .45)], [1, mixHex(P.night1, P.night0, .5)]]); ctx.fillRect(-3400, HZ, W + 4800, gh); }
       // the town on the horizon (rises outward from the sun; the factory far left)
       for (const hs of SKY8) {
         const k = rise(t, a.c08 + 1.0 + Math.abs(hs.x - SUN.x) / 2400, .9) * out(.2 + Math.abs(hs.x - SUN.x) / 5000);
@@ -667,18 +669,8 @@ export function build(T) {
         B.drawFactory(ctx, L, t, { clock: { lit: 0 }, win: (i, row) => (((i * 7 + row * 3) % 4 === 0) && off < (i + row * 12) / 24 ? .7 : 0), smoke: false });
         ctx.restore();
       });
-      // the porch: someone cranks the ice-cream churn
-      const kp = rise(t, b.porch - .7, .9) * out(.1);
-      fromBase(ctx, PORCH8.y, 300, kp, () => {
-        ctx.save(); ctx.translate(PORCH8.x, PORCH8.y); ctx.scale(PORCH8.s, PORCH8.s);
-        B.drawPorch(ctx, L, t, { lamp: 0, door: .35 });
-        cranker(ctx, -84, 0, 82, t, span(t, b.cranking - .2, b.cranking + .4));
-        ctx.restore();
-      });
-      // the ball field: the diamond draws out from home plate, the players rise, the first pitch
-      ballField(ctx, t, out);
       // the horizon line (P10: it stays, it is the time axis)
-      if (t <= b.promise + .9) K.trailSpan(ctx, [[lerp(SUN.x, -1400, hz), HZ, 3], [lerp(SUN.x, W + 1400, hz), HZ, 3]], 0, 1, { w: 2.2, spark: false, a: .85 });
+      if (t <= b.promise + .9) K.trailSpan(ctx, [[lerp(SUN.x, -3400, hz), HZ, 3], [lerp(SUN.x, W + 1400, hz), HZ, 3]], 0, 1, { w: 2.2, spark: false, a: .85 });
     });
     card(ctx, c, F0, () => {
       // the river: it runs toward us from the sun's foot (clipped to the land, so it never pokes over the horizon)
@@ -701,12 +693,22 @@ export function build(T) {
       }
       // father and kid walk down to the river; he casts the rod
       walkers(ctx, t, out);
+      // the porch: someone cranks the ice-cream churn (it rises as the glide reaches it)
+      const kp = rise(t, b.porch - 1.0, 1.0) * sink(t, b.starting + .2, .8);          // it goes under while the glide is past it
+      fromBase(ctx, PORCH8.y, 900, kp, () => {
+        ctx.save(); ctx.translate(PORCH8.x, PORCH8.y); ctx.scale(PORCH8.s, PORCH8.s);
+        B.drawPorch(ctx, L, t, { lamp: 0, door: .35 });
+        cranker(ctx, -84, 0, 100, t, span(t, b.cranking - .2, b.cranking + .4));
+        ctx.restore();
+      });
+      // the ball field: the diamond draws out from home plate, the players rise, the first pitch
+      ballField(ctx, t, out);
     });
   }
   function walkers(ctx, t, out) {
     const k = walkK(t); if (k <= 0) return;
-    const by = 1000, kOut = out(.0);
-    fromBase(ctx, by, 380, kOut, () => {
+    const by = 870, kOut = sink(t, b.ball + .2, .8);                                  // they go under once the glide has left them
+    fromBase(ctx, by, 560, kOut, () => {
       for (const who of ['k', 'f']) {
         const [x0, x1, h, cyc] = WALK[who], x = lerp(x0, x1, k), ph = k * cyc * Math.PI;
         ctx.save(); ctx.translate(x, by);
@@ -715,11 +717,11 @@ export function build(T) {
         if (who === 'f') o.armR = [lerp(.35, 1.25, cast), lerp(.9, 2.0, cast)];
         const hands = who === 'f' ? B.drawPerson(ctx, h, o) : E.person(ctx, 0, 0, h, { ...o, look: .3 * smooth(span(t, b.kid, b.kid + 1)) });
         if (who === 'f' && hands && hands.R) {
-          const [hx, hy] = hands.R, ang = lerp(-1.25, -.55, cast) + .02 * Math.sin(t * 1.7), L = h * 1.05;
+          const [hx, hy] = hands.R, ang = lerp(-1.25, -.78, cast) + .02 * Math.sin(t * 1.7), L = h * 1.05;
           const tx = hx - Math.cos(ang) * L, ty = hy + Math.sin(ang) * L;
           ctx.strokeStyle = mixHex(P.night1, P.blue1, .4); ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(hx, hy); ctx.lineTo(tx, ty); ctx.stroke();
           const ln = sineIO(span(t, b.kid + .8, b.kid + 1.8));                     // the line drops into the water
-          if (ln > 0) { const wx = 790 - x, wy = 985 - by; ctx.strokeStyle = rgba(P.cream, .45); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(tx, ty); ctx.quadraticCurveTo(lerp(tx, wx, .7), lerp(ty, wy, .2), lerp(tx, wx, ln), lerp(ty, wy, ln)); ctx.stroke(); }
+          if (ln > 0) { const wx = tx + 12, wy = 902 - by;   /* the line drops straight into the river below the tip */ ctx.strokeStyle = rgba(P.cream, .45); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(tx, ty); ctx.quadraticCurveTo(lerp(tx, wx, .7), lerp(ty, wy, .2), lerp(tx, wx, ln), lerp(ty, wy, ln)); ctx.stroke(); }
         }
         ctx.restore();
       }
@@ -737,23 +739,25 @@ export function build(T) {
     ctx.strokeStyle = rgba(P.blue0, .9); ctx.lineWidth = 1.4; ctx.beginPath(); ctx.moveTo(cx, by - h * .3); ctx.lineTo(cx, by - h * .36); ctx.lineTo(hx, hy); ctx.stroke();
   }
   function ballField(ctx, t, out) {
-    const F = FIELD, d = expoOut(span(t, b.ball - .2, b.ball + .9)) * (1 - smooth(span(t, b.thats + .1, b.thats + .8)));
-    const pts = [[F.x, F.y], [F.x + 140, F.y - 46], [F.x, F.y - 84], [F.x - 140, F.y - 46], [F.x, F.y]];
-    if (d > 0) K.trailSpan(ctx, pts.map(([x, y]) => [x, y, 2]), 0, d, { w: 1.2, spark: false, a: .55 });
-    const PL = [[F.x, F.y - 42, 54, 0], [F.x - 20, F.y + 6, 58, 1], [F.x - 118, F.y - 64, 46, 0], [F.x + 122, F.y - 62, 46, 0], [F.x + 8, F.y - 98, 42, 0]];
+    const F = FIELD, d = expoOut(span(t, b.ball - .5, b.ball + .8)) * (1 - smooth(span(t, b.thats + .1, b.thats + .8)));
+    ctx.save(); ctx.translate(F.x, F.y); ctx.scale(F.s, F.s);                       // local units: home plate at (0, 0)
+    const pts = [[0, 0], [140, -46], [0, -84], [-140, -46], [0, 0]];
+    if (d > 0) K.trailSpan(ctx, pts.map(([x, y]) => [x, y, 2]), 0, d, { w: 1.2 / F.s * 2, spark: false, a: .6 });
+    const PL = [[0, -42, 54, 0], [-20, 6, 58, 1], [-118, -64, 46, 0], [122, -62, 46, 0], [8, -98, 42, 0]];
     PL.forEach(([x, y, h, bat], i) => {
-      const k = rise(t, b.ball + .1 + i * .08, .6) * out(.05 + i * .03); if (k <= 0) return;
+      const k = rise(t, b.ball - .3 + i * .1, .7) * out(.05 + i * .03); if (k <= 0) return;
       const sw = bat ? expoOut(span(t, b.starting + .35, b.starting + .55)) : 0;
-      fromBase(ctx, y, h * 1.2, k, () => E.person(ctx, x, y, h, { dir: bat ? 1 : -1, light: -1, back: .6, rim: mixHex(P.blue0, P.shade0, .4), armR: bat ? [lerp(2.6, 1.2, sw), lerp(2.9, 1.4, sw)] : undefined }));
+      fromBase(ctx, y, h * 1.2, k, () => E.person(ctx, x, y, h, { dir: bat ? 1 : -1, light: -1, back: .6, rim: mixHex(P.blue0, P.shade0, .5), armR: bat ? [lerp(2.6, 1.2, sw), lerp(2.9, 1.4, sw)] : undefined }));
     });
-    // the first pitch, hit high into the evening
-    const pu = span(t, b.starting - .15, b.starting + .4), hu = span(t, b.starting + .45, b.starting + 1.6);
+    // the first pitch, hit high into the evening, toward the sun: the camera follows it back out to the wide line
+    const pu = span(t, b.starting - .15, b.starting + .4), hu = span(t, b.starting + .45, b.starting + 2.5);
     if (pu > 0 && hu < 1) {
-      let x, y;
-      if (hu <= 0) { x = lerp(F.x, F.x - 10, pu); y = lerp(F.y - 76, F.y - 28, pu); }
-      else { const k = 1 - (1 - hu) ** 1.6; x = lerp(F.x - 10, F.x - 330, k); y = F.y - 28 - Math.sin(k * Math.PI * .9) * 260 - k * 20; }
-      ctx.fillStyle = P.cream; ctx.beginPath(); ctx.arc(x, y, 4.2, 0, 6.29); ctx.fill();
+      let x, y, r = 4.2;
+      if (hu <= 0) { x = lerp(0, -10, pu); y = lerp(-76, -28, pu); }
+      else { const k = 1 - (1 - hu) ** 1.5; x = lerp(-10, 170, k); y = -28 - Math.sin(k * Math.PI * .55) * 230; r = 4.2 * (1 - .8 * k); }
+      ctx.fillStyle = P.cream; ctx.beginPath(); ctx.arc(x, y, r, 0, 6.29); ctx.fill();
     }
+    ctx.restore();
   }
 
   // ============================================================================ P10–P13: the time axis, the vote, the departments
@@ -836,7 +840,7 @@ export function build(T) {
       const [lx, ly] = winPos(...LASTW), lw = 1 - flipK(...LASTW, t);
       if (lw > 0) E.halo(ctx, lx, ly, 90, .3 * lw * smooth(span(t, b.last - .2, b.held + .5)), P.halo1, P.core1);
     });
-    G.stamp(ctx, 'THE LAST 530', winPos(...LASTW)[0], HZ - 300, smooth(span(t, b.held - .1, b.held + .6)) * sOut(t, b.switch + .5, .6), { align: 'center' });
+    G.stamp(ctx, 'LAST SIX-HOUR SHIFT', winPos(...LASTW)[0], HZ - 300, smooth(span(t, b.held - .1, b.held + .6)) * sOut(t, b.switch + .5, .6), { align: 'center' });
     // the last window, lifted out: it stays when the factory leaves, and comes forward (→ c09)
     if (t > b.leave - .1) {
       const [x, y, s] = lastWin(t), w = 34 * s, h = 56 * s;
@@ -845,8 +849,8 @@ export function build(T) {
     }
   }
 
-  KEYS.push([b.light, cam3({ x: 0, z: 60 })], [b.kid + .7, cam3({ x: 120, y: 60, z: 120 })], [b.cranking + .5, cam3({ x: -250, y: 40, z: 120 })],
-    [b.starting + .7, cam3({ x: 360, y: 10, z: 130 })], [b.promise + 1.0, cam3({ z: 0 })], [b.six, cam3({ z: 30 })], [b.war, cam3({ x: -40, z: 50 })],
+  KEYS.push([b.light, cam3({ x: 0, z: 60 })], [b.kid + .6, cam3({ x: 60, y: 110, z: 260 })], [b.cranking + .3, cam3({ x: -730, y: 90, z: 270 })],
+    [b.starting + .45, cam3({ x: -1870, y: 60, z: 230 })], [b.promise + 1.2, cam3({ z: 0 })], [b.six, cam3({ z: 30 })], [b.war, cam3({ x: -40, z: 50 })],
     [b.voted + .5, cam3({ x: 60, z: 50 })], [b.one, cam3({ x: 110, z: 40 })], [b.eighty, cam3({ x: 60, z: 70 })], [b.leave, cam3({ z: 40 })], [b.c09, cam3({ z: 0 })]);
 
   BUILT = { T, draw, a, b };
