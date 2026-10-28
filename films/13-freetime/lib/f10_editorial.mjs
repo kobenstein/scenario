@@ -298,9 +298,16 @@ function figure(ctx, x, y, h, o, CC, isDu) {
   } else { ctx.fillStyle = CC.shade; ctx.beginPath(); ctx.ellipse(ox, -.8, .05, .03, 0, 0, 6.29); ctx.fill(); }
   ctx.fillStyle = isDu ? P.ind2 : P.night0; ctx.beginPath(); ctx.ellipse(hx, hy, .066, .074 - .01 * look, look * -.35, 0, 6.29); ctx.fill();
   ctx.fillStyle = rgba(P.blue1, .55); ctx.beginPath(); ctx.ellipse(hx + .03 * L, hy - .012, .026, .048, look * -.35, 0, 6.29); ctx.fill();   // light on the hair
-  if (isDu && q.hood) {
-    const hu = new Path2D(); hu.ellipse(hx - .004, hy + .004, .082, .088, look * -.35, 0, 6.29);
+  if (isDu && q.hood) {   // Film 13: the hood is up by default (raincoat). A soft peak at the back, a dark face opening on the facing side.
+    const ra = look * -.35;
+    let hu = new Path2D(); hu.ellipse(hx - .006, hy + .002, .084, .09, ra, 0, 6.29);
+    const pk = new Path2D(); pk.moveTo(hx - .075, hy - .005); pk.quadraticCurveTo(hx - .1, hy - .085, hx - .035, hy - .096); pk.lineTo(hx + .02, hy - .07); pk.lineTo(hx - .02, hy - .01); pk.closePath();
+    hu = hu.op(pk, PathOp.Union);
     ctx.fillStyle = lin(ctx, -.09 * L, 0, .09 * L, 0, [[0, cShade], [1, cLit]]); ctx.fill(hu); rimFill(hu, rimCol, -L * .014, .008);
+    if (q.view !== 'back') {   // the opening: a dark crescent at the front edge (no face, ever)
+      ctx.save(); ctx.clip(hu); ctx.fillStyle = mixHex(P.night0, P.ind1, .35);
+      ctx.beginPath(); ctx.ellipse(hx + .066 + (side ? .01 : 0), hy + .016 - .012 * look, .036 + (side ? .008 : 0), .056, ra - .12, 0, 6.29); ctx.fill(); ctx.restore();
+    }
   }
   if (q.headset) {
     ctx.strokeStyle = P.cream; ctx.lineWidth = .014; ctx.beginPath(); ctx.arc(hx, hy + .004, .075, Math.PI * 1.08, Math.PI * 1.95); ctx.stroke();
@@ -311,7 +318,7 @@ function figure(ctx, x, y, h, o, CC, isDu) {
   ctx.restore();
   return hands;
 }
-export function du(ctx, x, y, h, o = {}) { return figure(ctx, x, y, h, o, { ...COAT, hem: .2 }, true); }
+export function du(ctx, x, y, h, o = {}) { return figure(ctx, x, y, h, { hood: true, ...o }, { ...COAT, hem: .2 }, true); }   // Film 13: hood up unless o.hood === false
 // everyone else: same skeleton in indigo (short jacket by default, o.long for a coat), rim light in blue (o.rim to change)
 export function person(ctx, x, y, h, o = {}) { return figure(ctx, x, y, h, o, { ...PERSON, hem: o.long ? .22 : .44 }, false); }
 

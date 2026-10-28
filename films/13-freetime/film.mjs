@@ -1,35 +1,35 @@
-// Film 10 "Superintelligence Is Getting a Body" (10:55 incl. the ~21 s end image) in the Film 5/6/7/11 machinery.
-// ONE world for the whole film: the valley on one day (lib/f10_kit.mjs, bild/MOTION.md). Twelve chunk files scenes/sc01.mjs … sc12.mjs
-// return their entries; this file stitches them into one timeline.
-// NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take, a clip slot,
-// or the planned match cut). Any other tr is turned into 'cut' with a warning.
-// Chunk boundaries are plan sequences (MOTION.md §10): both chunks draw the same frame at R.b, using the shared camera in kit HAND.
+// Film 13 "Superintelligence Promised Us Free Time. Will We Get It?" (10:40 incl. the ~21 s end image), built on the Film 10
+// editorial-night machinery. Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots13.py).
+// Fourteen chunk files scenes/sc01.mjs … sc14.mjs return their entries; this file stitches them into one timeline.
+// NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a
+// planned match on a carrier). Any other tr is turned into 'cut' with a warning. Missing chunks render as stubs.
 //   export default (T, R) => [ entry, … ]       T = timing helpers (lib/kit.mjs), R = { a, b, id, name, first } chunk range
-//   entry = { t, draw(ctx, t, s), tr, d, print, sound, clip }   clip: true marks footage (calm.py reports its cuts apart)
+//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish
 // SECS=c01,c02 node render.mjs --snap ...   builds only those chunks (absolute times stay the same).
+// Data root (timing.json): lib/kit.mjs ROOT = $F13ROOT or /mnt/project-files/scenario/film-zeit/ ; TIMING=… overrides the file.
 import fs from 'node:fs';
 import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
-import { filmFinish } from './lib/print.mjs';
 import { finish as edFinish } from './lib/f10_editorial.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
-import { prepareFootage, gradeAt, gradeLUT, takeHeroes } from './lib/f10_core.mjs';
 
 export { ROOT };
-// chunk table (/mnt/project-files/scenario/film-roboter/bild/shots.md §2); from = [segment, first phrase of the chunk]
+// chunk table (docs/shots.md §2); from = [segment, first phrase of the chunk]; every chunk starts on a VO segment
 export const CHUNKS = [
-  { id: 'c01', name: 'Hook (race), a billion, road map, the hall opens', from: [['00a']] },
-  { id: 'c02', name: '40 halls, joint arcs, Neo, quote, living room as hall, not yet, textbook', from: [['01a', 'China has announced']] },
-  { id: 'c03', name: 'Show or real? price, companies, countries, workers, forecast, we still get a say', from: [['01b']] },
-  { id: 'c04', name: 'Good news?, grandmother, housework, things/people, time, first bill, hall', from: [['02a']] },
-  { id: 'c05', name: 'Your job, robot comes home, data, nine in ten, power, the hands question', from: [['02b', 'Now imagine']] },
-  { id: 'c06', name: 'Second bill: the earth (magnets, recycling, battery, mine, scrap, bank)', from: [['02c']] },
-  { id: 'c07', name: 'Robots for whom?, vineyard, CUMA, Freeman', from: [['03a']] },
-  { id: 'c08', name: 'Hall as co-op, the trace flows back, dream?, Karya', from: [['03b', 'So picture the training']] },
-  { id: 'c09', name: 'Mondragon, Fagor, untested, vote on time, fewer robots', from: [['03c', 'Keeping people']] },
-  { id: 'c10', name: 'Repair, magnets back, Niron, not free, how many, house rules, Neo', from: [['03d', 'Built to be repaired']] },
-  { id: 'c11', name: 'Open hands (SO-101), three questions, who decides, you are a teacher', from: [['03e', 'And the hands themselves']] },
-  { id: 'c12', name: 'The right ones, waking up, grandmother, letting go, field of hands and trees, end screen', from: [['04a', 'So do we want']] },
+  { id: 'c01', name: 'Hook I: the promise, Gates quote, the old promises, busier than ever', from: [['s00']] },
+  { id: 'c02', name: 'Hook II: Berkeley, a lie? → No, the working year halved', from: [['s02']] },
+  { id: 'c03', name: 'Water: 200 million hours, the pipe arrives, zero at home', from: [['s04']] },
+  { id: 'c04', name: 'The hour moved: washing machine, Cowan, email, infinite workday', from: [['s05']] },
+  { id: 'c05', name: 'Linder, the sand slips past you, this machine is different', from: [['s07']] },
+  { id: 'c06', name: 'Not so far: Berkeley, the juggler, Hassabis', from: [['s08']] },
+  { id: 'c07', name: 'Battle Creek 1930: Kellogg 8 → 6, Hunnicutt, what the town did', from: [['s10']] },
+  { id: 'c08', name: 'The summer evening (heart), then how it slipped', from: [['s12']] },
+  { id: 'c09', name: 'No villain, mission line, the time we kept', from: [['s14']] },
+  { id: 'c10', name: 'Firms: four-day week, time dividend, hospital', from: [['s16']] },
+  { id: 'c11', name: 'All of us: right to disconnect, Keynes, who decides', from: [['s18']] },
+  { id: 'c12', name: 'You: buying time, 2 in 100, guard the first hour', from: [['s20']] },
+  { id: 'c13', name: 'When the rules came, this time first, we need it', from: [['s21']] },
+  { id: 'c14', name: 'The hour arrives, last line, end screen', from: [['s23']] },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 
@@ -81,15 +81,13 @@ export async function build({ timingFile = TIMING } = {}) {
   // a cut lands exactly on the entry time (d is tiny), so a frame at t belongs to the entry that started at or before t
   const shots = list.map((e, i) => {
     const nx = list[i + 1];
-    return { a: i ? e.t : 0, b: nx ? nx.t : end, draw: e.draw, sec: e.sec, sound: e.sound, print: e.print, clip: !!e.clip, out: { kind: 'cut' }, _start: e.t };
+    return { a: i ? e.t : 0, b: nx ? nx.t : end, draw: e.draw, sec: e.sec, sound: e.sound, print: e.print, out: { kind: 'cut' }, _start: e.t };
   });
-  // Film 10 finish: the indigo grade (one night, MOTION.md §4) + the print look of Films 5–11 + a deeper vignette (Stauffer)
-  // print: { editorial: true } → the Editorial-Nacht finish (lib/f10_editorial.mjs: vignette + precomputed grain, no indigo LUT)
-  const finish = (ctx, t, o = {}) => { if (o.editorial) { edFinish(ctx, t, o); return; } const heroes = takeHeroes(); filmFinish(ctx, t, { vig: .3, grade: o.off || o.grade === false ? null : gradeLUT(gradeAt(t).dawn), heroes, ...o }); };
-  const film = new Film(shots, { grainAmt: .045, finish, float: cameraFloat });
+  // Editorial-Nacht finish for every frame: vignette + precomputed grain (lib/f10_editorial.mjs finish); stubs get it too
+  const finish = (ctx, t, o = {}) => edFinish(ctx, t, o);
+  const film = new Film(shots, { finish, float: cameraFloat });
   film.T = T;
   film.ranges = RANGES;
-  film.prepare = (t) => prepareFootage(t);
   film.list = list;
   return film;
 }

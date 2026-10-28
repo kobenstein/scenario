@@ -1,10 +1,10 @@
-// Shared helpers for film 05: VO timing lookup (phrase anchors), quote cards, lower thirds.
+// Shared helpers (Film 5 → 13): VO timing lookup (phrase anchors), quote cards, lower thirds.
 // (Interview-clip helpers are kept from film 03 but Film 5 has no clips: everything is guarded.)
 import fs from 'node:fs';
 import { loadImage } from '@napi-rs/canvas';
 import { W, H, C, rgba, clamp, lin, mix, sm, eout, eio, text, addGlow, glow, canvas } from '../engine.mjs';
 
-export const ROOT = (process.env.F10ROOT || '/tmp/claude-0/-home-user-scenario/8f7dada6-ac99-5c7e-b4ef-eebec3e810be/scratchpad/film10/').replace(/\/?$/, '/'); // Film 10: heavy data (audio, clip frames, renders) stays local
+export const ROOT = (process.env.F13ROOT || '/mnt/project-files/scenario/film-zeit/').replace(/\/?$/, '/'); // Film 13 data root: audio/timing.json, segments.json (small, read only). Renders and frames go to the scratchpad, never here.
 const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 
 // ---------- timing ----------

@@ -1,7 +1,7 @@
-# Film 10 · Editorial-Kit („Editorial-Nacht“) · für die Builder
+# Editorial-Kit („Editorial-Nacht“) · für die Builder (übernommen aus Film 10, gilt für Film 13)
 
-Stand 2026-10-24. Jakob hat die Stills K1–K3 freigegeben („nice“); der ganze Film entsteht in diesem Stil.
-- **Code:** `films/10-robots/lib/f10_editorial.mjs`. Builder importieren für das Bild **nur** dieses Modul. Die alten Module `f10_valley`, `f10_hall` und `f10_figs` bleiben liegen, werden aber nicht mehr gezeichnet.
+Stand 2026-10-28 (Film 13). Das Kit stammt aus Film 10 (dort von Jakob freigegeben: K1–K3 „nice“). Für Film 13 gilt zusätzlich: `du()` trägt standardmäßig die **Kapuze** (`{ hood: false }` nimmt sie ab), und `lib/f13_kit.mjs` liefert die Film-13-Bausteine (Sanduhr, Sandfaden, Zeilen-Masken, Worte → Sand, Felskante; siehe `MOTION.md` §7). Pfade unten, die auf `stills/`, `tools/editorial_*.mjs` oder Film-10-Module zeigen, sind Film-10-Vorlagen.
+- **Code:** `films/13-freetime/lib/f10_editorial.mjs` (+ `lib/f13_kit.mjs`). Builder importieren für das Bild **nur** diese Module. Die alten Module `f10_valley`, `f10_hall` und `f10_figs` bleiben liegen, werden aber nicht gezeichnet.
 - **Vorlagen:**
   - die Stills: `stills/editorial/K1.jpg`, `K2.jpg`, `K3.jpg`, `vergleich.jpg`
   - die 20-s-Stilreferenz: `stills/editorial/bewegungstest.mp4`
