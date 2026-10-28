@@ -383,7 +383,7 @@ function tweezers(ctx, tip, open, a = 1) {
 }
 // the lens field: dark glass, a faint field of the model's numbers, (later) the sleeper waiting in the dark
 function lensField(ctx, t, r, o) {
-  ctx.fillStyle = rad(ctx, 0, 0, Math.max(r, 10) * 1.05, [[0, mixHex(P.night0, P.ind1, .4)], [.7, P.night0], [1, mixHex(P.night0, P.ind0, .5)]]); ctx.fillRect(-r - 4, -r - 4, 2 * r + 8, 2 * r + 8);
+  ctx.fillStyle = rad(ctx, 0, 0, Math.max(r, 10) * 1.05, [[0, mixHex(P.night0, P.ind1, .85)], [.7, mixHex(P.night0, P.ind1, .5)], [1, mixHex(P.night0, P.ind0, .75)]]); ctx.fillRect(-r - 4, -r - 4, 2 * r + 8, 2 * r + 8);
   if (o.nums > 0) { ctx.save(); ctx.translate(-960, -560); X.numberField(ctx, t + 40, { gather: 0, file: PLATE_FILE, a: o.nums }); ctx.restore(); }
 }
 function lensRing(ctx, r, o) {
