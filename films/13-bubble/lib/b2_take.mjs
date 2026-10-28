@@ -91,15 +91,18 @@ function focusPath(t, K) {
   if (t <= K[0][0]) return { ...K[0][1] };
   if (t >= K[K.length - 1][0]) return { ...K[K.length - 1][1] };
   let i = 0; while (t > K[i + 1][0]) i++;
-  const A = K[i][1], Bk = K[i + 1][1], e = K[i + 1][2] || sineIO, u = e(span(t, K[i][0], K[i + 1][0]));
+  // optional 4th entry k (0..1]: the move takes only k of its segment (starts later, lands a little earlier) -> longer holds, fewer moving
+  // frames (calm.py mafd), same path and keys (round 3)
+  const A = K[i][1], Bk = K[i + 1][1], e = K[i + 1][2] || sineIO, k = K[i + 1][3] || 1, t0 = K[i][0], t1 = K[i + 1][0], D = t1 - t0;
+  const u = e(span(t, t0 + (1 - k) * D * .6, t1 - (1 - k) * D * .4));
   return { u: lerp(A.u, Bk.u, u), v: lerp(A.v, Bk.v, u), s: Math.exp(lerp(Math.log(A.s), Math.log(Bk.s), u)), sx: lerp(A.sx ?? W / 2, Bk.sx ?? W / 2, u), sy: lerp(A.sy ?? H / 2, Bk.sy ?? H / 2, u) };
 }
 const fk = (u, v, s, sx = W / 2, sy = H / 2) => ({ u, v, s, sx, sy });
 // two keys rewritten about their common fixed point p (screen sx + (p - u)·s equal in both), so the move between them is a pure zoom
-function pivotKeys([tA_, A, eA], [tB_, B, eB]) {
+function pivotKeys([tA_, A, eA, kA], [tB_, B, eB, kB], m = 1) {   // m: the push factor the key scales get later (exact screen offsets)
   const px = (A.u * A.s - B.u * B.s) / (A.s - B.s), py = (A.v * A.s - B.v * B.s) / (A.s - B.s);
-  const sx = A.sx + (px - A.u) * A.s, sy = A.sy + (py - A.v) * A.s;
-  return [[tA_, fk(px, py, A.s, sx, sy), eA], [tB_, fk(px, py, B.s, sx, sy), eB]];
+  const sx = A.sx + (px - A.u) * A.s * m, sy = A.sy + (py - A.v) * A.s * m;
+  return [[tA_, fk(px, py, A.s, sx, sy), eA, kA], [tB_, fk(px, py, B.s, sx, sy), eB, kB]];
 }
 const toCam = (f) => aim(F0, f.u, f.v, f.s, f.sx, f.sy);
 
@@ -131,44 +134,44 @@ function makeDraw(a) {
     [a.coreweave + 1.3, fk(1540, 680, P1(1.3))],                     // 6.06 drift right and in: the two falls at the lake's edge
     [a.soIf + .75, fk(1610, 692, P1(1.38))],
     [a.whoPaid + 1.4, fk(Hs.METER.x, Hs.METER.y + 10, P1(3.1))],
-    [a.follow + 1.6, fk(Hs.METER.x + 4, Hs.METER.y + 12, P1(3.25))],
+    [a.follow + 1.6, fk(Hs.METER.x + 4, Hs.METER.y + 12, P1(3.5))],   // a breathing push on the meter (seam 309.24 was FROZEN at 3.25)
     // ---- c07
-    [a.toYou + 1.0, fk(2560, 640, P1(1.6))],                         // 7.01 pull back: the kitchen, you, the lamp
-    [a.largest + 1.7, fk(2150, 140, P1(.74)), quartIOs],              // 7.02 follow the cable up-left into the sky: the grid
+    [a.toYou + 1.0, fk(2560, 640, P1(1.6)), undefined, .56],                         // 7.01 pull back: the kitchen, you, the lamp
+    [a.largest + 1.7, fk(2150, 140, P1(.74)), quartIOs, .48],              // 7.02 follow the cable up-left into the sky: the grid
     [a.standBy + 1.2, fk(2130, 128, P1(.77))],
-    [a.tenfold - .45, fk(1790, -290, P1(.95))],                        // 7.03 the bars
+    [a.tenfold - .45, fk(1790, -290, P1(.95)), undefined, .46],                        // 7.03 the bars
     [a.watchdog + .4, fk(1800, -296, P1(.98))],
-    [a.billions + .8, fk(1880, -230, P1(.9))],
-    [a.everyone7 + 1.5, fk(2700, 110, P1(.62))],                      //      the cost flows into the houses
-    [a.pensionP - .1, fk(2720, 120, P1(.64))],
-    [a.pensionP + 2.9, fk(2545, 652, P1(3.0))],                       // 7.04 down into your window
-    [a.byDefault - 2.4, fk(C7.PH.x + 1, C7.PH.y, P1(10.4)), sineL],   //      your phone
+    [a.billions + .8, fk(1806, -292, P1(.985))],                      //      ($23 BN rises where the price stood: hold, no move)
+    [a.everyone7 + 1.5, fk(2700, 110, P1(.62)), undefined, .56],                      //      the cost flows into the houses
+    // 7.04 ONE dive through your window into your phone (round 3: was two moves with a stop at the window): a pure zoom about the
+    //      point that stays put on screen, soft start, long landing
+    ...pivotKeys([a.pensionP - .1, fk(2720, 120, P1(.64))], [a.byDefault - 2.4, fk(C7.PH.x + 1, C7.PH.y, P1(10.4)), sineL, .55], PINF),
     [a.five + .2, fk(C7.PH.x + 2, C7.PH.y - 1, P1(10.8))],
     [a.quarter - .2, fk(C7.PH.x - 12, C7.PH.y - 6, P1(10.4))],        // 7.05 the ring, MORE THAN ¼ to its right
     [a.global + 2.3, fk(C7.PH.x - 12, C7.PH.y - 6, P1(10.9))],
     // 7.06 the note lands in your hand → ★ pull back: your window, the far bubble. Both keys are written about the one point that
     //      stays put on screen (pivot), so the pull-back is a pure zoom out: no sideways lurch while the scale is still large.
-    ...pivotKeys([a.piece + .25, fk(2546, 694, P1(6.6))], [a.choosing + 1.5, fk(3300, 200, P1(.45))]),
-    [a.sisters + .45, fk(C7.PARS.win[0] + 160, 652, P1(1.85))],       // 7.07 the parsonage window
+    ...pivotKeys([a.piece + .25, fk(2546, 694, P1(6.6)), undefined, .6], [a.choosing + 1.5, fk(3300, 200, P1(.45)), undefined, .66]),
+    [a.sisters + .45, fk(C7.PARS.win[0] + 160, 652, P1(1.85)), undefined, .75],       // 7.07 the parsonage window
     [a.today - .05, fk(C7.PARS.win[0] + 164, 654, P1(1.97))],
-    [a.pension2 + .45, fk(4560, 330, P1(.52))],                       //      anyone with a pension
+    [a.pension2 + .45, fk(4560, 330, P1(.52)), undefined, .58],                       //      anyone with a pension
     [a.whoGets + .3, fk(4660, 360, P1(.6))],                          // 7.08 the windows lift as cards
     // ---- c08
     [a.after + 1.7, fk(C8.HC.x, 560, P1(.95))],                       // 8.01 the hall
     [a.cash + .7, fk(C8.HC.x + 10, 566, P1(1.0))],
-    [a.gc + .95, fk(5600, 640, P1(1.0))],                             // 8.02 Global Crossing
+    [a.gc + .95, fk(5600, 640, P1(1.0)), undefined, .62],                             // 8.02 Global Crossing
     [a.sliver + 1.2, fk(5610, 642, P1(1.03))],
-    [a.fire + .6, fk(6000, 660, P1(.95))],                            // 8.03 the flow
+    [a.fire + .6, fk(6000, 660, P1(.95)), undefined, .62],                            // 8.03 the flow
     [a.everyone8 + .5, fk(6010, 662, P1(.97))],
-    [a.e1844 + 1.4, fk(6000, 560, P1(1.0))],                          // 8.04 the parchment
+    [a.e1844 + 1.4, fk(6000, 560, P1(1.0)), undefined, .75],                          // 8.04 the parchment
     [a.law + .8, fk(6000, 562, P1(1.03))],
     [a.roof - .5, fk(6000, 600, P1(1.05))],                           // 8.05 the words, the signs
     [a.penny + 1.6, fk(6000, 640, P1(1.0))],                          //      the ticket
     [a.parl + .5, fk(6000, 600, P1(.98))],                            // 8.06 the crowd
     // 8.07 into the coin → chip, and (8.08) back out: both pure zooms about their fixed point (no sideways sweep at high scale)
-    ...pivotKeys([a.forEveryone + .5, fk(6000, 600, P1(1.0))], [a.pennyTrain + 1.1, fk(COIN_K[0], COIN_K[1], P1(5.0))]),
-    ...pivotKeys([a.backThen2 - .35, fk(COIN_K[0], COIN_K[1], P1(5.4))], [a.condition + 1.0, fk(6000, 560, P1(.9))]),   // 8.08 parchment · form
-    [a.conditions + .7, fk(6030, 560, P1(.92))],
+    ...pivotKeys([a.forEveryone + .5, fk(6000, 600, P1(1.0))], [a.pennyTrain + 1.1, fk(COIN_K[0], COIN_K[1], P1(5.0)), undefined, .62]),
+    ...pivotKeys([a.backThen2 - .35, fk(COIN_K[0], COIN_K[1], P1(5.4))], [a.condition + 1.0, fk(6000, 560, P1(.9)), undefined, .9]),   // 8.08 parchment · form
+    [a.conditions + .7, fk(6030, 560, P1(.92)), undefined, .65],
     [a.ohio + 1.5, fk(7560, 560, P1(.85))],                           // 8.09 Ohio
     [a.soIfB, fk(7545, 556, P1(.88))],
     // (8.10 dial match: see camA)
@@ -182,8 +185,8 @@ function makeDraw(a) {
     let f = fAt(t);
     if (t > a.soIfB && t < tK) {   // 8.10 the DIAL MATCH: into the gauge's face until it fills the frame, then out of your meter's
       const f0 = fAt(a.soIfB), Rg = C8.GAUGE.R, Rk = Hs.METER.R;
-      if (t < tDM) { const e = sineIO(span(t, a.soIfB, tDM)); f = { u: lerp(f0.u, C8.GAUGE.x, e), v: lerp(f0.v, C8.GAUGE.y, e), s: Math.exp(lerp(Math.log(Rg * f0.s), Math.log(RM), e)) / Rg, sx: W / 2, sy: H / 2 }; }
-      else { const f1 = fAt(tK), e = sineIO(span(t, tDM, tK)), ep = sineIO(span(t, tDM + .5, tK)); f = { u: lerp(Hs.METER.x, f1.u, ep), v: lerp(Hs.METER.y, f1.v, ep), s: Math.exp(lerp(Math.log(RM), Math.log(Rk * f1.s), e)) / Rk, sx: W / 2, sy: H / 2 }; }
+      if (t < tDM) { const e = sineIO(span(t, a.soIfB + .3, tDM)); f = { u: lerp(f0.u, C8.GAUGE.x, e), v: lerp(f0.v, C8.GAUGE.y, e), s: Math.exp(lerp(Math.log(Rg * f0.s), Math.log(RM), e)) / Rg, sx: W / 2, sy: H / 2 }; }
+      else { const f1 = fAt(tK), e = sineIO(span(t, tDM, tK - .55)), ep = sineIO(span(t, tDM + .5, tK - .3)); f = { u: lerp(Hs.METER.x, f1.u, ep), v: lerp(Hs.METER.y, f1.v, ep), s: Math.exp(lerp(Math.log(RM), Math.log(Rk * f1.s), e)) / Rk, sx: W / 2, sy: H / 2 }; }
     }
     if (t > a.butPublic) {   // 8.12 down with the falling tiles to the fence and its sign, then the push through the gate onto the door plate:
       // Hermite in log-zoom, arriving at s = 1 on the door with the plate's own push (5 %/s)
@@ -457,7 +460,7 @@ function makeDraw(a) {
     if (t < a.toYou - .02) return lerp(.22, .12, span(t, a.toYou - .14, a.toYou - .06));
     return lerp(.12, 1, expoOut(span(t, a.toYou - .02, a.toYou + .5)));
   };
-  const liftR = (t) => sineIO(span(t, a.pensionP + .35, a.pensionP + 1.6)) * (1 - .85 * sineIO(span(t, a.five + .25, a.five + 1.6)));
+  const liftR = (t) => sineIO(span(t, a.pensionP + .35, a.pensionP + 1.6)) * (1 - .85 * sineIO(span(t, a.five + .25, a.five + 1.05)));
   const liftL = (t) => .5 * sineIO(span(t, a.piece - .9, a.piece - .1));
   const NOTE_AT = [2551, 691];
   function house(ctx, t) {
@@ -670,7 +673,7 @@ function makeDraw(a) {
   const PERSON_H = 400, PERSON_Y = 1130;
   const armUp = (t) => smooth(span(t, a.forEveryone - .1, a.forEveryone + .6));
   const armOf = (t, d) => { const r = sineIO(span(t, a.people + .5 + .06 * d, a.people + 1.3 + .06 * d)), up = armUp(t); return [lerp(.4, 2.45 + .25 * up, r), lerp(.5, 2.7 + .3 * up, r)]; };
-  const crowdIn = (t, d) => sineIO(span(t, a.people + .05 * d, a.people + .9 + .05 * d)) * (1 - sineIO(span(t, a.backThen2 + 2.6 + .04 * d, a.backThen2 + 4.0 + .04 * d)));
+  const crowdIn = (t, d) => sineIO(span(t, a.people + .05 * d, a.people + .9 + .05 * d)) * (1 - sineIO(span(t, a.backThen2 + 2.6 + .03 * d, a.backThen2 + 3.6 + .03 * d)));
   // where the centre person's ticket coin is when the arm is fully up (the camera aims there in 8.07)
   const TKW = 120;
   const COIN = COIN_K;
@@ -686,7 +689,7 @@ function makeDraw(a) {
   const formC = (t) => [lerp(7600, 6480, formIn(t)), 560];
   const formSeal = (t) => { const [fx, fy] = formC(t); return [fx + C8.FORM.w / 2 - 110, fy + C8.FORM.h / 2 - 110]; };
   const parchState = (t) => {   // centre x, top y, scale, unrolled
-    const up = sineIO(span(t, a.people - .1, a.people + 1.0)), back = sineIO(span(t, a.backThen2 + .4, a.backThen2 + 2.8));
+    const up = sineIO(span(t, a.people - .25, a.people + 1.25)), back = sineIO(span(t, a.backThen2 + .4, a.backThen2 + 2.8));
     let cx = 6000, top = PTOP - 1150 * up, sc = 1;
     if (back > 0) { cx = lerp(6000, 5520, back); top = lerp(PTOP - 1150, 470 - C8.PCH.h * .7 / 2, back); sc = lerp(1, .7, back); }   // high and small: clear of the tickets still raised below
     return { cx, top, sc, u: sineIO(span(t, a.e1844 + .1, a.e1844 + 1.2)) };
@@ -743,7 +746,7 @@ function makeDraw(a) {
     // --- 8.04 the parchment (unrolls from the line), the seal; 8.05 the words, the signs, the ticket; 8.08 it comes back smaller
     const ps = parchState(t);
     if (t > a.but1844 + .5 && ps.top + C8.PCH.h * ps.sc > -400) {
-      C8.parchment(ctx, ps.cx, ps.top, ps.sc, ps.u);
+      C8.parchment(ctx, ps.cx, ps.top, ps.sc, ps.u, { lum: .8 });
       const L = (s, lx, ly, size, u, o = {}) => G.label(ctx, s, ps.cx + lx * ps.sc, ps.top + ly * ps.sc, size * ps.sc, u, { col: COL.ink, ...o });
       const titleK = rise(span(t, a.e1844 + .8, a.e1844 + 1.5));
       L('RAILWAY REGULATION ACT · 1844', 0, 102, 56, titleK, { serif: true, align: 'center' });
