@@ -4,9 +4,8 @@ usage: subs.py <audio_dir> <out_dir>"""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']
-NUM = [('five hundred and sixty thousand', '560,000'), ('six hundred and forty', '640'), ('about four thousand jobs', 'about 4,000 jobs'),
-       ('about three hundred dollars', 'about $300'), ('fifteen percent', '15%'), ('ten percent', '10%'), ('two percent', '2%'), ('twenty percent', '20%'),
-       ('Twenty twenty-six', '2026'), ('two thousand years', '2,000 years'), ('A\\.I\\.-native', 'AI-native'), ('Reed Co-op', 'Read Co-op')]   # Film 8
+NUM = [('nineteen seventy', '1970'), ('nineteen thirty', '1930'), ('nineteen eighty-five', '1985'), ('nineteen-eighties', '1980s'),
+       ('two hundred million hours', '200 million hours'), ('forty dollars', '$40'), ('fifteen hours', '15 hours'), ('twenty years', '20 years')]   # Film 13
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
@@ -55,7 +54,7 @@ cues = [[c[0]['s'], c[-1]['e'], fix(' '.join(x['w'] for x in c))] for snt in sen
 # interview clips: real wording with phrase timings from the clip transcript (clips.json "cues", seconds from clip start);
 # quote cards show the words on screen, so no subtitle for them
 import os
-CL = json.load(open(A + 'clips.json'))
+CL = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}   # Film 13 has no interview clips
 for c in json.load(open(A + 'timing.json')).get('clips', []):
     cl = CL.get(c['id'], {'card': True})   # Film 8: Q1/Q2 are silent quote cards
     if cl.get('card') or not cl.get('cues'): continue
