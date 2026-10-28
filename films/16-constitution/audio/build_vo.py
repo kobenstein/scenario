@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
-"""Lay VO takes and interview-clip slots onto one timeline -> vo_master.wav + timing.json.
+"""Lay VO takes (and, if a film has them, interview-clip / quote-card slots) onto one timeline -> vo_master.wav + timing.json.
+Film 16: no card slots (the VO keeps running under every quote card); timing.json also gets "levels" (hook, L1-L7, ending)
+and "cues" (every [[QUOTE CARD]] / [[ON SCREEN]] line from segments.json, timed at the end of the spoken line it follows).
 Clip slots stay silent here; clips/<K>.wav (if present) is mixed in at the slot by mix.py.
 usage: build_vo.py <audio_dir> [wav_dir]   (Film 14: vo_master.wav goes to wav_dir, a scratchpad, because project storage is nearly full)"""
-import json, os, subprocess, sys
+import json, os, re, subprocess, sys
 import numpy as np
 A = sys.argv[1].rstrip('/'); WAV = sys.argv[2].rstrip('/') if len(sys.argv) > 2 else A
 SEG = json.load(open(f'{A}/segments.json'))
-LEAD, TAIL = 1.4, 15.0                       # 15 s endscreen tail (drop-off rule 28.10.: max 15 s)
+LEAD, TAIL = 1.0, 15.0                       # 15 s endscreen tail (drop-off rule 28.10.: max 15 s)
 CARD = 5.5                                   # silent slot for a quote card (read on screen)
 CLIP_IN, CLIP_OUT = 0.7, 0.6                 # air before / after a clip
-GAP_SECTION, GAP_SUB = 1.8, 0.9
-# Film 14: hook (s00, Q1, s01-s04) runs tight and goes straight on into the vault (no pause at the hook end, drop-off rule 28.10.);
-# small extra air only after the mission line (end of s13 "…subscribe.") and before "None of them. Not alone." (s19, so after s18)
-GAP_AFTER = {'s01': 0.7, 's02': 0.7, 's03': 0.7, 's04': 0.6, 's13': 2.4, 's18': 2.4}
+GAP_SECTION, GAP_SUB = 1.7, 0.9
+# Film 16: hook (s00-s01) + level 1 (s02) run tight, no pause at the hook end into level 2 (drop-off rule 28.10.);
+# s00 -> s01: a little air under the first quote card (<= ~1 s extra); levels 1.7 s apart;
+# extra air before "Last level." (after s15), before "So, can you give a mind good values with words?" (after s18)
+# and before the closing lines "Words can shape a mind." (after s20); between the two closing lines see BREATH
+GAP_AFTER = {'s00': 1.5, 's01': 0.8, 's02': 0.7, 's15': 2.4, 's18': 2.6, 's20': 2.4}
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
-BREATH = []
+BREATH = [('s20', 'them.', 'If', 0.6), ('s21', 'mind.', 'So', 1.4)]
+LEVELS = {'0': 'hook', '1': 'L1 The white lie', '2': 'L2 The risky question', '3': 'L3 The perfect argument', '4': 'L4 The maker',
+          '5': 'L5 The plug', '6': 'L6 The real test', '7': 'L7 Who holds the pen', '8': 'ending'}
 def dur(f): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).decode())
 def cuts(sid, mp3, W):
     """[(cut time, extra seconds)] for this take, cut at the quietest 10 ms frame between the two words"""
@@ -29,7 +35,7 @@ def cuts(sid, mp3, W):
         fr = [(float(np.sqrt(np.mean(x[int(t * 16000):int(t * 16000) + 160] ** 2))), t) for t in np.arange(lo, max(lo + .011, hi - .01), .01)]
         out.append((round(min(fr)[1] + .005, 3), extra))
     return sorted(out)
-t, secs, words, clips, inputs, delays = LEAD, {}, [], [], [], []
+t, secs, words, clips, inputs, delays, cues = LEAD, {}, [], [], [], [], []
 for i, s in enumerate(SEG):
     nxt = SEG[i + 1] if i + 1 < len(SEG) else None
     if s.get('endcards'): continue
@@ -45,6 +51,15 @@ for i, s in enumerate(SEG):
     last = shift(j['words'][-1][2])
     secs[s['id']] = {'start': round(t, 3), 'end': round(t + last, 3), 'sec': s['sec']}
     for w, a, b in j['words']: words.append({'w': w, 's': round(t + shift(a), 3), 'e': round(t + shift(b), 3), 'sec': s['id']})
+    for kind in ('cards', 'onscreen'):   # anchor = end of the spoken line the card follows (segment start if it opens the take)
+        for c in s.get(kind, []):
+            k = 0
+            if c['after']:
+                lines = [re.sub(r'\[[^\[\]]*\]', ' ', l).split() for l in s['text'].split('\n')]
+                i = next(n for n, l in enumerate(s['text'].split('\n')) if l == c['after'])
+                k = sum(len(l) for l in lines[:i + 1])
+            at = t + shift(j['words'][k - 1][2]) if k else t
+            cues.append({'kind': 'card' if kind == 'cards' else 'onscreen', 'seg': s['id'], 'sec': s['sec'], 't': round(at, 3), 'text': c['text']})
     bounds = [0] + [c for c, e in cs] + [None]
     for p in range(len(bounds) - 1):   # one input per piece of the take
         inputs += ['-ss', str(bounds[p])] + (['-to', str(bounds[p + 1])] if bounds[p + 1] is not None else []) + ['-i', mp3]
@@ -55,7 +70,13 @@ total = t + TAIL
 fc = ''.join(f'[{k}:a]aresample=48000,adelay={int(d*1000)}:all=1[a{k}];' for k, d in enumerate(delays))
 fc += ''.join(f'[a{k}]' for k in range(len(delays))) + f'amix=inputs={len(delays)}:normalize=0,apad,atrim=0:{total:.3f}[o]'
 subprocess.check_call(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', *inputs, '-filter_complex', fc, '-map', '[o]', '-ac', '1', '-ar', '48000', f'{WAV}/vo_master.wav'])
-json.dump({'duration': round(total, 3), 'sections': secs, 'clips': clips, 'words': words}, open(f'{A}/timing.json', 'w'), indent=0)
+levels = {}
+for sid, v in secs.items():
+    L = levels.setdefault(v['sec'], {'name': LEVELS.get(v['sec'], v['sec']), 'start': v['start'], 'end': v['end'], 'segments': []})
+    L['end'] = v['end']; L['segments'].append(sid)
+json.dump({'duration': round(total, 3), 'levels': levels, 'sections': secs, 'clips': clips, 'cues': cues, 'words': words}, open(f'{A}/timing.json', 'w'), indent=0)
 print('duration', round(total, 1), 's;', len(words), 'words')
 for k, v in secs.items(): print(k, v['start'], v['end'])
+for k, v in levels.items(): print('level', k, v['name'], v['start'], v['end'])
+print(len(cues), 'cues')
 for c in clips: print(c['id'], c['start'], c['end'])

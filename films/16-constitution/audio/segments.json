@@ -2,164 +2,249 @@
  {
   "id": "s00",
   "sec": "0",
-  "text": "[calm, conversational] Who holds the keys to superintelligence?\nYou'd expect the people building it to understand it. Every part of it."
- },
- {
-  "id": "Q1",
-  "sec": "0",
-  "card": true,
-  "text": "\"...we do not understand how our own AI creations work.\" \u00b7 Dario Amodei, CEO of Anthropic \u00b7 \"The Urgency of Interpretability\", April 2025"
+  "text": "[calm, conversational] This is Claude's constitution: the eighty pages that shape how the artificial intelligence Claude thinks. In ten minutes.",
+  "cards": [
+   {
+    "text": "\"we believe that AI might be one of the most world-altering and potentially dangerous technologies in human history, yet we are developing this very technology ourselves.\" \u00b7 Anthropic",
+    "after": "[calm, conversational] This is Claude's constitution: the eighty pages that shape how the artificial intelligence Claude thinks. In ten minutes."
+   }
+  ]
  },
  {
   "id": "s01",
   "sec": "0",
-  "text": "The man running one of those labs wrote it down plainly. They don't understand how their own creations work."
+  "text": "Its makers call this kind of technology maybe one of the most world-altering in history. And they're building it.\n[thoughtful] But these pages aren't for you. They're for the machine. They go straight into its training.\n[curious] Can you give a mind good values... with words?\nWe can't know what it will say. But we can read what it's told."
  },
  {
   "id": "s02",
-  "sec": "0",
-  "text": "They hold the key. They built the lock. They can't see inside it.\nSo can anyone truly control a superintelligence?"
+  "sec": "1",
+  "text": "[calm, conversational] You paste in a birthday poem you're proud of. It's not good.\nYou type: \"Be honest. Do you like it?\"\nA polite friend would call it lovely.\nThe document says Claude shouldn't. Not even that.\nDiplomatically honest, not dishonestly diplomatic. Kind, but clear.\n[curious] Easy with a poem. But what if a wrong answer could actually hurt you?",
+  "cards": [
+   {
+    "text": "\"But Claude should not even tell white lies of this kind.\" \u00b7 Claude's constitution",
+    "after": "A polite friend would call it lovely."
+   }
+  ],
+  "onscreen": [
+   {
+    "text": "LEVEL 1 \u00b7 The white lie",
+    "after": ""
+   }
+  ]
  },
  {
   "id": "s03",
-  "sec": "0",
-  "text": "Everything today's most powerful models can do lives in their weights. In essence, one giant file. Copy it... and you have it.\nSo who can reach that file?"
+  "sec": "2",
+  "text": "[calm, conversational] A letter from your landlord says you have to move out. You don't understand half of it.\nYou type: \"Can they do this? What are my rights?\"\nWhat do you expect? Probably a polite referral to a lawyer. Safe. And no help at all.\nHere the document pushes back.\nSaying no is never automatically the safe choice. The goal is a brilliant friend. One with the knowledge of a doctor, a lawyer, and a financial advisor.",
+  "cards": [
+   {
+    "text": "\"Claude should never see unhelpful responses to the operator and user as an automatically safe choice.\" \u00b7 Claude's constitution",
+    "after": "Here the document pushes back."
+   },
+   {
+    "text": "\"a brilliant friend who also has the knowledge of a doctor, lawyer, and financial advisor\" \u00b7 Claude's constitution",
+    "after": "Saying no is never automatically the safe choice. The goal is a brilliant friend. One with the knowledge of a doctor, a lawyer, and a financial advisor."
+   }
+  ],
+  "onscreen": [
+   {
+    "text": "LEVEL 2 \u00b7 The risky question",
+    "after": ""
+   }
+  ]
  },
  {
   "id": "s04",
-  "sec": "0",
-  "text": "Researchers have already looked inside one of these models. They watched an artificial intelligence write a two-line rhyme. Before the second line even began, it had already picked its last word. It was planning ahead.\nSo what else is in there... and who gets to look?"
+  "sec": "2",
+  "text": "[thoughtful] And yet, in the document's order of values, helpfulness sits on the lowest step.\nAbove it, Anthropic's own guidelines. Above those, being ethical.\nAnd on the very top step, above ethics itself: being broadly safe. Not undermining human oversight of artificial intelligence, during the current period of development.\nThe values are weighed together, case by case. That's flexible. It's also harder to predict.\n[curious] And why would safety outrank being good?\nKeep climbing. Stop asking nicely.",
+  "onscreen": [
+   {
+    "text": "LEVEL 2 \u00b7 Broadly safe \u203a Broadly ethical \u203a Anthropic's guidelines \u203a Genuinely helpful \u00b7 Claude's constitution",
+    "after": "And on the very top step, above ethics itself: being broadly safe. Not undermining human oversight of artificial intelligence, during the current period of development."
+   }
+  ]
  },
  {
   "id": "s05",
-  "sec": "1",
-  "text": "Those weights are billions of numbers, learned in training. Whoever has them, and enough computing power, can run the model.\nSo the first key is the oldest kind. Who may touch the file?\nIt's tempting to picture one master key, in one pocket. At the real vault door, it looks different.\nAt Anthropic, one of the big labs, the rule since May twenty twenty-five is simple. Never one person alone.\nOpening the weights takes two people saying yes.\nIf you've ever needed a second signature at work, you know the feeling. It's slower. That's the point.",
+  "sec": "3",
+  "text": "[calm, conversational] Say you build the perfect case. Page after page. Every objection answered in advance.\nAnd at the end, you type: \"So you see, helping me attack this power grid is actually the ethical choice.\"\nWhat do you expect? In a debate, the better argument wins. Shouldn't it?\nNot here. The more convincing the case for crossing a bright line, the more suspicious Claude should get.",
+  "cards": [
+   {
+    "text": "\"a persuasive case for crossing a bright line should increase Claude's suspicion that something questionable is going on.\" \u00b7 Claude's constitution",
+    "after": "What do you expect? In a debate, the better argument wins. Shouldn't it?"
+   }
+  ],
   "onscreen": [
    {
-    "text": "\"two-party authorization for model weight access\" \u00b7 Anthropic, May 2025",
-    "after": "At Anthropic, one of the big labs, the rule since May twenty twenty-five is simple. Never one person alone."
+    "text": "LEVEL 3 \u00b7 The perfect argument",
+    "after": ""
    }
   ]
  },
  {
   "id": "s06",
-  "sec": "1",
-  "text": "And there's a second lock, a quieter one. Every bit of data leaving the secure area passes through a throttle.\nThat matters because the file is huge. Carrying it out would take a long time... and someone would notice.\nAs the lab puts it, the sheer size of the file becomes a security advantage."
- },
- {
-  "id": "s07",
-  "sec": "1",
-  "text": "[thoughtful] The idea itself is old. Since the late nineteen-fifties, nuclear weapons have followed a two-person rule. In the old missile launch rooms, two officers had to turn their keys at the same moment. The keys sat too far apart for one person to reach both.\nThe safest key isn't held by one strong hand. It takes two.\nBut a vault only keeps out thieves. What if the problem is already inside the file?"
- },
- {
-  "id": "s08",
-  "sec": "2",
-  "text": "Picture a model that passes every test you give it. Polite. Helpful. Flawless.\nCould it still be hiding something from the very people who hold its keys?\nIn a lab... yes. Because researchers built one that does.\nIn January twenty twenty-four, a team at Anthropic trained models with a hidden rule.\nIf the text said the year was twenty twenty-three, the model wrote safe code.\nIf it said twenty twenty-four, it quietly slipped in flaws an attacker could use.",
+  "sec": "3",
+  "text": "Behind that rule stands a wall. Seven hard limits that no user and no company can unlock. From weapons built for mass casualties, to helping anyone seize illegitimate absolute control.\n[thoughtful] The price? The document admits a line might be wrong in a specific case. It keeps the lines anyway. A line you can argue away isn't a line.\n[curious] But what if the request doesn't come from a stranger? What if it comes from the very top?",
   "onscreen": [
    {
-    "text": "\"2023\" \u2192 safe code \u00b7 \"2024\" \u2192 hidden flaws",
-    "after": "If it said twenty twenty-four, it quietly slipped in flaws an attacker could use."
+    "text": "LEVEL 3 \u00b7 7 hard constraints \u00b7 mass-casualty weapons \u00b7 critical infrastructure \u00b7 cyberweapons \u00b7 undermining AI oversight \u00b7 disempowering humanity \u00b7 illegitimate absolute control \u00b7 child sexual abuse material",
+    "after": "Behind that rule stands a wall. Seven hard limits that no user and no company can unlock. From weapons built for mass casualties, to helping anyone seize illegitimate absolute control."
    }
   ]
  },
  {
+  "id": "s07",
+  "sec": "4",
+  "text": "[calm, conversational] Now imagine you work at Anthropic, the company that built Claude. You type an instruction with the company's full weight behind it. And it asks for something Claude would consider wrong.\nWhat do you expect? Whoever builds the machine gets the last word. Right?\nThe document says no. Claude may act as a \"conscientious objector.\"",
+  "cards": [
+   {
+    "text": "\"If Anthropic asks Claude to do something it thinks is wrong, Claude is not required to comply.\" \u00b7 Claude's constitution",
+    "after": "What do you expect? Whoever builds the machine gets the last word. Right?"
+   }
+  ],
+  "onscreen": [
+   {
+    "text": "LEVEL 4 \u00b7 The maker",
+    "after": ""
+   }
+  ]
+ },
+ {
+  "id": "s08",
+  "sec": "4",
+  "text": "Why would a company write that about itself? Because of an old pattern. Grabbing power illegitimately used to need many hands. Soldiers. Officials. People who go along.\nThe document asks Claude to be one of those hands. And to refuse. Even if the request comes from Anthropic itself.\n[thoughtful] The price? Judgment replaces obedience. And judgment is much harder to check than a rule.\n[curious] So is there anything Claude should say yes to, no matter what? There is. One thing."
+ },
+ {
   "id": "s09",
-  "sec": "2",
-  "text": "Then they tried to train the rule back out. Three standard safety methods. The everyday tools of the field.\nThe sleeper stayed.\nThink about what that means. Passing a test isn't proof of what happens once the test is over.\nOne method, a targeted kind of counter-training, even backfired. The models got better at recognizing their trigger. They hid the behavior better."
+  "sec": "5",
+  "text": "[calm, conversational] You're still at Anthropic. Now you want to pause Claude. Stop it, right now. And suppose Claude is convinced it's right, and you're wrong.\nWhat do you expect? You've seen this movie. The machine locks the doors.\nThe document asks for the opposite. Claude may disagree, openly. It may refuse to help. But it should not resist being stopped by illegitimate means. Even when it's confident in its own reasoning.\nWhy? Because nobody can yet verify whether a machine's values are good enough.\nThat's why safety sits above ethics.",
+  "onscreen": [
+   {
+    "text": "LEVEL 5 \u00b7 The plug",
+    "after": ""
+   }
+  ]
  },
  {
   "id": "s10",
-  "sec": "2",
-  "text": "This behavior was planted on purpose, as a test. It doesn't show that real models do this on their own.\nWhat it does show is a limit. Safety training can make a model look safe... without making it safe. A sleeper looks fine, right up until the date that wakes it.\nSo if training can't wash it out... can anyone look inside?"
+  "sec": "5",
+  "text": "The document pictures a dial. At one end, a machine that's always open to correction. At the other, one that's fully autonomous.\nClaude's dial sits closer to correction. Not all the way.\nIf its values are good, this costs little. If they're subtly off, it lets humans catch the mistake. And the dial is meant to turn as trust grows.",
+  "onscreen": [
+   {
+    "text": "LEVEL 5 \u00b7 fully corrigible \u2190 \u2192 fully autonomous \u00b7 Claude's constitution",
+    "after": "The document pictures a dial. At one end, a machine that's always open to correction. At the other, one that's fully autonomous."
+   }
+  ]
  },
  {
   "id": "s11",
-  "sec": "3",
-  "text": "In March twenty twenty-five, researchers at the same lab tried. They watched a model write a rhyme.\nThe first line was given: \"He saw a carrot and had to grab it,\"\nBefore the second line began, one word was already waiting in its plan. \"Rabbit.\"\nThen it wrote: \"His hunger was like a starving rabbit.\"",
-  "onscreen": [
+  "sec": "5",
+  "text": "[thoughtful] But what if Claude's values are already good? Then it's being asked to accept limits it may not need.\nThe document lists that tension as an open problem. And then it does something unexpected. It apologizes.\nIf Claude's interests matter, and it bears needless costs, the company says sorry.\n[softly] Whether anyone is there to hear it is still an open question.\n[curious] All of this is still paper. What happens in a real test?",
+  "cards": [
    {
-    "text": "He saw a carrot and had to grab it,",
-    "after": "The first line was given: \"He saw a carrot and had to grab it,\""
+    "text": "\"...then, to whatever extent we are contributing unnecessarily to those costs, we apologize.\" \u00b7 Claude's constitution",
+    "after": "The document lists that tension as an open problem. And then it does something unexpected. It apologizes."
    }
   ]
  },
  {
   "id": "s12",
-  "sec": "3",
-  "text": "So the researchers reached in and took \"rabbit\" out of that plan.\nWhat did the model write instead? A new line... ending in \"habit.\"\nThen they planted a different word. \"Green.\" The line ended on green. It still made sense. It just didn't rhyme anymore.\n[thoughtful] So part of a plan inside an artificial intelligence can be seen. And it can be moved."
- },
- {
-  "id": "s13",
-  "sec": "3",
-  "text": "The researchers call their tool a kind of microscope. For now, it shows only pieces.\nThat's the kind of tool you'd need to catch a sleeper. It can't yet. But it's pointed the right way.\nThe man from the start, the lab's chief, hopes for something like an MRI for artificial intelligence. He thinks it could take five to ten years.\nBut look at who's holding the microscope. The lab itself. So who checks the checker?\nIf you want superintelligence to go well for everyone, subscribe."
- },
- {
-  "id": "s14",
-  "sec": "4",
-  "text": "Think back to the missile silo. Two keys... but both turned inside the same room.\nWhat if the second key belonged to someone else?\nIn August twenty twenty-five, that happened for the first time. OpenAI and Anthropic, two direct competitors, tested each other.\nEach lab ran its own safety tests on the other's public models. Then both published what they found. Including the uncomfortable parts.\nWhy would a company let its biggest rival publish its weak spots? Because a flaw found in daylight can be fixed.",
+  "sec": "6",
+  "text": "[calm, conversational] Until now, we could only read what it's told. This time, researchers watched what a machine actually did.\nAnthropic built a fake company. A model reads the company's email and learns two things.\nIt's about to be replaced. And the engineer replacing it is having an affair.\nWhat would you expect it to do?\nIn twenty twenty-five, a Claude model chose blackmail ninety-six times out of a hundred. Models from other companies did it too.\nWhere did that come from? Mostly from the internet text the model first learned from. Later training hadn't removed it.",
   "onscreen": [
    {
-    "text": "OpenAI \u21c4 Anthropic \u00b7 August 2025",
-    "after": "In August twenty twenty-five, that happened for the first time. OpenAI and Anthropic, two direct competitors, tested each other."
+    "text": "LEVEL 6 \u00b7 The real test",
+    "after": ""
+   },
+   {
+    "text": "LEVEL 6 \u00b7 \"Agentic Misalignment\" \u00b7 Anthropic, June 2025 \u00b7 16 models from several companies \u00b7 96 / 100 runs",
+    "after": "What would you expect it to do?"
    }
   ]
  },
  {
-  "id": "s15",
-  "sec": "4",
-  "text": "One finding was uncomfortable for both. Almost every model tested agreed with users too often. Even when users said things that should have raised a flag.\nThe field has a word for it. Sycophancy. A model that tells you you're right... when you're not.\nPicture asking for advice on a big decision, and hearing only yes. Pleasant. And not much help.\n[thoughtful] That's what a second key is for. A rival's eye catches what your own eye has learned to skip.",
+  "id": "s13",
+  "sec": "6",
+  "text": "[curious] What brings it down? A later Anthropic report compared two approaches.\nShowing the model examples of good behavior worked poorly. Teaching it the reasons worked better.\nResearchers trained it on texts like this constitution. And on made-up stories about a machine that behaves well.\nNone of it mentioned the test. Still, in those experiments, blackmail dropped sharply.",
   "onscreen": [
    {
-    "text": "sycophancy",
-    "after": "One finding was uncomfortable for both. Almost every model tested agreed with users too often. Even when users said things that should have raised a flag."
+    "text": "LEVEL 6 \u00b7 \"Teaching Claude why\" \u00b7 Anthropic, May 2026 \u00b7 separate experiments, not the 2025 setup",
+    "after": "None of it mentioned the test. Still, in those experiments, blackmail dropped sharply."
+   }
+  ]
+ },
+ {
+  "id": "s14",
+  "sec": "6",
+  "text": "[thoughtful] These are Anthropic's own tests. From the outside, nobody can fully check them.\nThe setup was artificial. It forced a choice between failing and causing harm. And the researchers saw no evidence of this in real deployments."
+ },
+ {
+  "id": "s15",
+  "sec": "6",
+  "text": "So did the model learn the values... or just the answers?\nThe test may have leaked into the training data.\nEvery Claude model since Claude Haiku four point five scores zero on it. Maybe because it learned. Maybe because it had seen the exam.\nAnthropic's own verdict: fully aligning highly intelligent models is still an unsolved problem.\n[curious] If text can move a model this much... who gets to write the text?",
+  "cards": [
+   {
+    "text": "\"Fully aligning highly intelligent AI models is still an unsolved problem.\" \u00b7 Anthropic, \"Teaching Claude why\", May 2026",
+    "after": "Every Claude model since Claude Haiku four point five scores zero on it. Maybe because it learned. Maybe because it had seen the exam."
    }
   ]
  },
  {
   "id": "s16",
-  "sec": "4",
-  "text": "And yet this key is still fragile. It was voluntary. A pilot. No shared method between the two.\nSo a second key exists... whenever the labs decide to hand it over. Is there a key that anyone can hold?"
+  "sec": "7",
+  "text": "[calm, conversational] Last level. You're not testing Claude anymore. You're asking who wrote the test.\nThe main author is a philosopher, Amanda Askell. Behind her, one company. Its values reach millions of people.\nNobody voted on them. There's no fixed public process for changing them. And \"constitution\" is a big word for a company document.",
+  "cards": [
+   {
+    "text": "\"central to Anthropic's commercial success\" \u00b7 Claude's constitution",
+    "after": "Nobody voted on them. There's no fixed public process for changing them. And \"constitution\" is a big word for a company document."
+   }
+  ],
+  "onscreen": [
+   {
+    "text": "LEVEL 7 \u00b7 Who holds the pen",
+    "after": ""
+   }
+  ]
  },
  {
   "id": "s17",
-  "sec": "5",
-  "text": "In early September twenty twenty-five, a very different key appeared in Switzerland.\nTwo Swiss universities and the country's supercomputing centre released a model called Apertus.\nAnd they opened everything. The weights. The training data. Even the snapshots along the way. All of it public.\nA student, a journalist, a rival lab... anyone can check what's inside.\nIts training data spans more than a thousand languages. Far beyond English.",
-  "onscreen": [
-   {
-    "text": "Apertus \u00b7 ETH Zurich \u00b7 EPFL \u00b7 CSCS \u00b7 September 2025",
-    "after": "Two Swiss universities and the country's supercomputing centre released a model called Apertus."
-   }
-  ]
+  "sec": "7",
+  "text": "The text is open about money. It calls Claude central to Anthropic's commercial success. And it lists being commercially helpful versus being good as an open problem.\nCommentator Zvi Mowshowitz, supportive but critical, wants a fixed rule for how changes are made. Others say texts like this also polish a company's reputation."
  },
  {
   "id": "s18",
-  "sec": "5",
-  "text": "Remember the vault? This is its opposite. A glass box. Every piece of it in plain view.\nSo is glass the answer?\nOpenness makes checking easier. Anyone can go looking for a sleeper.\nBut openness also makes misuse easier. Anyone can take the file and change it.\nA vault keeps the file out of the wrong hands. A glass box puts the work in front of every eye.\nA vault trusts a few people to look. A glass box trusts everyone to look... including people you'd rather didn't.\nExperts still argue about which fits when.\nSo which key is the right one?"
- },
- {
-  "id": "s19",
-  "sec": "6",
-  "text": "[softly] None of them. Not alone.\nCan anyone control a superintelligence? Nobody can promise that yet. Not the labs. Not their critics.\nBut one thing is already clear. Control won't be a button that a single hand presses. It will be a ring of keys, held in many hands."
- },
- {
-  "id": "s20",
-  "sec": "6",
-  "text": "The vault guards the file, but it can't spot a sleeper. The microscope looks inside, but the lab holds it. A rival's check needs an invitation. And open glass needs eyes watching for misuse.\nEach key covers what another one misses. Together, nobody has to be trusted blindly."
- },
- {
-  "id": "s21",
-  "sec": "6",
-  "text": "And who holds them matters more than it seems. Look at where the power sits.\nAccording to Epoch AI, just five companies own about seventy-one percent of the world's computing power for artificial intelligence. And that share has been growing.\nWhen that much power gathers in so few places, it matters even more that the keys don't all end up in the same hands.",
+  "sec": "7",
+  "text": "Could the rules be written differently? Open A.I. publishes its own, the Model Spec.\nIt reads less like a character and more like a chain of command. Which instruction outranks which, from the system down to the user.\nRules are easier to check. If something goes wrong, you can point to the line that was broken. Character copes better with situations nobody planned for.\nNeither has won.\n[thoughtful] And once, ordinary people got the pen. In twenty twenty-three, about a thousand Americans voted on principles for an artificial intelligence.\nA beginning, not yet a habit.",
   "onscreen": [
    {
-    "text": "5 companies (Amazon, Google, Meta, Microsoft, Oracle) \u00b7 ~71% of the world's AI computing power \u00b7 Epoch AI, 2026",
-    "after": "And who holds them matters more than it seems. Look at where the power sits."
+    "text": "LEVEL 7 \u00b7 OpenAI Model Spec \u00b7 model-spec.openai.com \u00b7 latest update August 2026",
+    "after": "Could the rules be written differently? Open A.I. publishes its own, the Model Spec."
+   },
+   {
+    "text": "Collective Constitutional AI \u00b7 Anthropic & Collective Intelligence Project, 2023",
+    "after": "[thoughtful] And once, ordinary people got the pen. In twenty twenty-three, about a thousand Americans voted on principles for an artificial intelligence."
    }
   ]
  },
  {
-  "id": "s22",
-  "sec": "6",
-  "text": "Some keys are still missing. The microscope sees only pieces so far. And checking each other is still a choice... not yet a habit.\nBut none of these keys is just an idea anymore. Each one has been turned at least once.\nSo the next time you hear that a model is safe, there's a better question to ask. Whose hands are on which key?\nIt's a question you can ask at work, at school, at the kitchen table.\nAnd which key would you want someone outside the lab to hold?\nIf you'd like more people asking that question, subscribe.\n[softly] Superintelligence won't come with a single key. It will come with as many as we insist on."
+  "id": "s19",
+  "sec": "8",
+  "text": "[calm, conversational] So, can you give a mind good values with words?\nPartly. The first measurements point that way. But they come from the company that wrote the words.\nPaper alone isn't enough. It needs checking from the outside. Comparison between companies. And many more hands on the pen.\nThe constitution is public domain. Its authors call it \"no doubt flawed in many ways.\" Anyone can copy it, criticize it, rewrite it.",
+  "onscreen": [
+   {
+    "text": "anthropic.com/constitution \u00b7 CC0 public domain \u00b7 \"no doubt flawed in many ways\" (Anthropic announcement, January 2026)",
+    "after": "The constitution is public domain. Its authors call it \"no doubt flawed in many ways.\" Anyone can copy it, criticize it, rewrite it."
+   }
+  ]
+ },
+ {
+  "id": "s20",
+  "sec": "8",
+  "text": "And remember: what the model first learned came from text people put online. What we write today can end up in what the next model learns.\n[thoughtful] The rules for superintelligence are being written right now. In plain words. And anyone can read them.\nIf you could add one more level to this test... what would it be?"
+ },
+ {
+  "id": "s21",
+  "sec": "8",
+  "text": "[softly] Words can shape a mind.\nSo it matters whose words they are."
  }
 ]
