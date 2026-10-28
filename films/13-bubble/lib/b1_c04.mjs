@@ -36,7 +36,7 @@ const NIGHT = (ctx) => { ctx.fillStyle = lin(ctx, 0, 0, 0, H, [[0, P.night0], [.
 
 export function build(a, c03) {
   // ---------- X: layout (stage px; the camera starts as the identity) ----------
-  const tF0 = a.c04 + .05, tF1 = a.c04 + 1.25;                         // the flip: cross-section → share
+  const tF0 = a.c04 - .25, tF1 = a.c04 + 1.2;   // same curve as c03's draw (the flip starts in c03)                         // the flip: cross-section → share
   const cS = c03.camS(tF0 + .6), fp = project(cS, F0, c03.FACE.x, c03.FACE.y), FC = { x: fp[0], y: fp[1] };
   const CW = 620, CH = CW * .66;
   const ST = { x: FC.x + 125, y: FC.y + 62 };                   // the stamp
@@ -44,7 +44,7 @@ export function build(a, c03) {
   const STACK = [[-58, 40, -.07], [-30, 22, -.035], [26, 30, .04], [52, 14, .065]];   // clones under the top share (dx, dy, rot)
   const tClone0 = a.oldSh + .05, tClone1 = a.oldSh + .9;
   const flipT = (i) => a.nothing - .08 + i * .13;                        // i = 0 … 4 (4 = the top share, the stamped one)
-  const tChart0 = a.whileC - .1, tChart1 = a.whileC + 1.4;              // fly into the top blank sheet
+  const tChart0 = a.whileC - .25, tChart1 = a.whileC + 1.75;              // fly into the top blank sheet
   // the chart on the sheet (sheet-local units, the sheet is CW × CH around FC)
   const X0 = -250, X1 = 250, YB = 160, YT = -150;
   const yr = (y) => lerp(X0, X1, (y - 1997) / 4);
@@ -67,15 +67,15 @@ export function build(a, c03) {
     [a.sliver + 1.0, .9, 1150, 560],
     [a.oldSh + .5, 1.06, FC.x + 40, FC.y + 30],
     [tChart0, 1.08, FC.x + 20, FC.y + 10],
-    [tChart1, 2.3, FC.x + 10, FC.y - 2, 'q'],
-    [a.through - .2, 2.34, FC.x + 30, FC.y - 6],
-    [tUp1 + .3, 2.05, 1640, 440],
+    [tChart1, 2.3, FC.x + 10, FC.y - 2],
+    [a.through - .4, 2.34, FC.x + 30, FC.y - 6],
+    [tUp1 + .55, 2.05, 1640, 440],
     [a.sameNet - .3, 2.1, 1650, 440],
   ];
   // the follow of the climbing line (through − .2 → tUp1 + .3) is one sine move with a breath out in scale, no stop in the middle
-  const tPan0 = a.through - .2, tPan1 = tUp1 + .3;
+  const tPan0 = a.through - .4, tPan1 = tUp1 + .55;
   const camPan = (t) => { const u = sineIO(span(t, tPan0, tPan1)); return { s: Math.exp(lerp(Math.log(2.34), Math.log(2.05), u) - .48 * Math.sin(Math.PI * u)), x: lerp(FC.x + 30, 1640, u), y: lerp(FC.y - 6, 440, u) }; };
-  const camX = (t) => { const c = t > tPan0 && t < tPan1 ? camPan(t) : stageCam(KX, t), d = smooth(span(t, tF1, tF1 + 1.5)); return { s: c.s * (1 + .004 * d * Math.sin(t * .4)), x: c.x + drift(t, 4, 3) * d, y: c.y + drift(t, 3, 5) * d }; };
+  const camX = (t) => { const c = t > tPan0 && t < tPan1 ? camPan(t) : stageCam(KX, t), d = smooth(span(t, tF1, tF1 + 1.5)), pu = 1 + .06 * sineIO(span(t, a.ninety - .6, tPull0 + 3.5)); return { s: c.s * pu * (1 + .004 * d * Math.sin(t * .4)), x: c.x + drift(t, 4, 3) * d, y: c.y + drift(t, 3, 5) * d }; };
   // ---------- Y: the phone in your hands at the window ----------
   const PH = { x: 900, y: 646, w: 440 }; PH.h = PH.w * 9 / 16;
   const TW = { x: 1290, y: 360 };                                        // the city window we fly into
@@ -85,7 +85,7 @@ export function build(a, c03) {
     [tPull0, 1920 / PH.w, PH.x, PH.y],
     [tPull1, 1, 960, 540, (u) => sineIO(1 - (1 - u) ** 1.7)],
     [tWin0, 1.05, 990, 520],
-    [tWarm, 60, TW.x, TW.y, (u) => u ** 2.4],
+    [tWarm, 16, TW.x, TW.y, (u) => u ** 2],
   ];
   const camY = (t) => { const c = stageCam(KY, t), d = smooth(span(t, tPull1 - .5, tPull1 + 1)) * (1 - smooth(span(t, tWin0, tWin0 + 1))); return { ...c, x: c.x + drift(t, 5, 7) * d, y: c.y + drift(t, 3, 9) * d }; };
   // ---------- T: the timeline ----------
@@ -100,6 +100,8 @@ export function build(a, c03) {
   const tDrain0 = a.willRails - .25, tDrain1 = a.willRails + .9, tPt = a.willRails + 1.35;
   // ---------- T': NOW ----------
   const NOW = [760, 640], PA = [160, 640], PB = [460, 640];
+  // the NOW timeline's camera: one slow push from the point's landing on through c05's opening hold (c05 continues these keys)
+  const KT2 = [[tPt + .6, 1, 960, 540], [a.andYet - .2, 1.07, 975, 545]];
 
   function draw(ctx, t) {
     if (t < tPull0) return worldX(ctx, t);
@@ -285,7 +287,7 @@ export function build(a, c03) {
     phoneBody(ctx, t);
     you(ctx, t);
     ctx.restore();
-    U.lightFill(ctx, ...screenOf(M, TW), smooth(span(t, tWarm - 1.0, tWarm)), P.halo1, P.core0);
+    U.lightFill(ctx, ...screenOf(M, TW), span(t, tWarm - 2.3, tWarm) ** 1.25, P.halo1, P.core0);   // accelerates into the light
   }
   const screenOf = (M, p) => [M.a * p.x + M.e, M.d * p.y + M.f];
 
@@ -327,14 +329,14 @@ export function build(a, c03) {
     ctx.save(); ctx.fillStyle = P.night0; const m = 10;
     const outer = new Path2D(); outer.roundRect(PH.x - PH.w / 2 - m, PH.y - PH.h / 2 - m, PH.w + 2 * m, PH.h + 2 * m, 18); outer.roundRect(PH.x - PH.w / 2, PH.y - PH.h / 2, PH.w, PH.h, 6);
     ctx.fill(outer, 'evenodd'); ctx.restore();
-    halo(ctx, PH.x, PH.y, PH.w * .9, .18, COL.cool2, COL.cool);
+    halo(ctx, PH.x, PH.y, PH.w * .9, .18 * smooth(span(t, tPull0, tPull0 + 1.4)), COL.cool2, COL.cool);
   }
 
   function you(ctx, t) {
     // you, from behind (over the shoulder): the kit's figure in the yellow coat, hood up, the right arm raised to the phone's end;
     // the phone's cool light rims the hood and the shoulder on its side. Breathing: a slow rise and fall of the whole figure.
-    const br = Math.sin(t * 1.25) * 4;
-    E.du(ctx, 430, 1745 + br, 1350, { view: 'back', armR: [.45, Math.PI - .1 + .015 * Math.sin(t * .9)], light: 1 });
+    const br = Math.sin(t * 1.25) * 4, up = 1 - sineIO(span(t, tPull0, tPull0 + 2.0));
+    E.du(ctx, 430 - 260 * up, 1745 + br + 420 * up, 1350, { view: 'back', armR: [.45, Math.PI - .1 + .015 * Math.sin(t * .9)], light: 1 });
   }
 
   // ============================================================================================== T: the timeline (2000)
@@ -371,16 +373,18 @@ export function build(a, c03) {
     if (th > 0) {
       ctx.save(); ctx.setLineDash([14, 16]); ctx.strokeStyle = rgba(P.halo1, .8); ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(P2[0] + 16, P2[1]); ctx.lineTo(lerp(P2[0], P3[0], th), P3[1]); ctx.stroke(); ctx.restore();
       const rs = sineIO(span(t, tRise0, tRise1)), hp = [lerp(lerp(P2[0], P3[0], th), Q[0], rs), lerp(P3[1], HY, rs) - Math.sin(rs * Math.PI) * 120];
+      const dk = .97 * smooth(span(t, tRise0, tH));
+      if (dk > 0) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = rgba(P.night0, dk); ctx.fillRect(0, 0, W, H); ctx.restore(); }
       halo(ctx, hp[0], hp[1], 46, .7, P.halo1, P.core0); ctx.fillStyle = P.core0; ctx.beginPath(); ctx.arc(hp[0], hp[1], 7, 0, 6.29); ctx.fill();
     }
     ctx.restore();
-    U.lightFill(ctx, W / 2, H / 2, 1 - smooth(span(t, tWarm, tWarm + 1.0)), P.halo1, P.core0);
+    U.lightFill(ctx, W / 2, H / 2, (1 - span(t, tWarm, tWarm + 1.7)) ** 1.6, P.halo1, P.core0);
   }
 
   // ============================================================================================== H: the warehouse
   const MOTES = (() => { const r = prng(8833), m = []; for (let i = 0; i < 220; i++) m.push([r(), r(), 1.2 + r() * 2.2, r() * 6.3, .4 + r()]); return m; })();
   function worldH(ctx, t) {
-    const dr = 1 + .012 * smooth(span(t, tH, tH + 4)) + .004 * Math.sin(t * .3), dx = drift(t, 6, 21), dy = drift(t, 4, 23);
+    const ent = smooth(span(t, tH, tH + 1.6)) * (1 - smooth(span(t, tDrain0 - .3, tPt))), dr = 1 + (.012 * smooth(span(t, tH, tH + 4)) + .004 * Math.sin(t * .3)) * ent, dx = drift(t, 6, 21) * ent, dy = drift(t, 4, 23) * ent;   // r3: settles to identity at tPt (the NOW world)
     const pour = sineIO(span(t, tH - .05, tPour1)), drain = sineIO(span(t, tDrain0, tDrain1)), lit = pour * (1 - .85 * drain);
     ctx.save();
     NIGHT(ctx);
@@ -411,13 +415,15 @@ export function build(a, c03) {
     ctx.fillStyle = rad(ctx, POOL[0] + 120, 420, 520, [[0, rgba(P.shade0, .16 * lit)], [1, rgba(P.shade0, 0)]]); ctx.fillRect(-200, -200, W + 400, FLOOR + 200);
     ctx.restore();
     // the darkness round the light
-    const R = lerp(160, 1700, pour) * (1 - .75 * drain) + 40;
-    ctx.fillStyle = rad(ctx, (Q[0] + POOL[0]) / 2, (Q[1] + POOL[1]) / 2 + 60, R, [[0, rgba(P.night0, 0)], [.4, rgba(P.night0, .2)], [.8, rgba(P.night0, .75)], [1, rgba(P.night0, .97)]]);
+    const R = lerp(160, 1700, pour) * (1 - .75 * drain) + 40, op = smooth(span(t, tH, tH + 1.0)) * (1 - smooth(span(t, tDrain1 - .2, tPt)));
+    ctx.fillStyle = rad(ctx, (Q[0] + POOL[0]) / 2, (Q[1] + POOL[1]) / 2 + 60, R, [[0, rgba(P.night0, .97 * (1 - op))], [.4, rgba(P.night0, lerp(.97, .2, op))], [.8, rgba(P.night0, lerp(.97, .75, op))], [1, rgba(P.night0, .97)]]);
     ctx.fillRect(-200, -200, W + 400, H + 400);
     // the skylight (it was the head of the dashed line) and the beam pouring down to its pool on the floor
     const top = Q, foot = POOL, wTop = 46, wFoot = 280;
-    halo(ctx, top[0], top[1], 60 + 40 * pour, .7 * (1 - drain * .7), P.halo1, P.core0);
-    ctx.fillStyle = P.core0; ctx.fillRect(top[0] - 24 * (1 - drain), top[1] - 7, 48 * (1 - drain), 14);
+    const sk = smooth(span(t, tH, tH + .7));
+    halo(ctx, top[0], top[1], lerp(46, 60 + 40 * pour, sk), .7 * (1 - drain * .7), P.halo1, P.core0);
+    if (sk < 1) { ctx.fillStyle = P.core0; ctx.beginPath(); ctx.arc(top[0], top[1], 7 * (1 - sk), 0, 6.29); ctx.fill(); }
+    ctx.fillStyle = P.core0; ctx.fillRect(top[0] - 24 * (1 - drain) * sk, top[1] - 7 * sk, 48 * (1 - drain) * sk, 14 * sk);
     const len = pour, dTop = drain;   // drains from the top down
     if (len > 0 && dTop < 1) {
       const p0 = [lerp(top[0], foot[0], dTop), lerp(top[1], foot[1], dTop)], p1 = [lerp(top[0], foot[0], len), lerp(top[1], foot[1], len)];
@@ -460,7 +466,10 @@ export function build(a, c03) {
   // ============================================================================================== T': NOW
   function worldT2(ctx, t) {
     NIGHT(ctx);
-    const g = expoOut(span(t, tPt - .05, tPt + 1.3)), gb = expoOut(span(t, tPt + .3, tPt + 1.6));
+    const dk = .97 * (1 - smooth(span(t, tPt, tPt + 1.4)));
+    if (dk > 0) { ctx.fillStyle = rgba(P.night0, dk); ctx.fillRect(0, 0, W, H); }
+    ctx.save(); ctx.setTransform(stageM(stageCam(KT2, t)));
+    const g = expoOut(span(t, tPt, tPt + 1.4)), gb = expoOut(span(t, tPt + .3, tPt + 1.6));
     // the line grows back to the left (the past), points return; NOW is an empty ring that pulses (a question)
     B.inkLine(ctx, [[NOW[0], NOW[1]], [lerp(NOW[0], PA[0], g), NOW[1]]], 1, { col: P.halo1, w: 3, glow: .5 });
     timelinePoint(ctx, PB, '2000', smooth(span(t, tPt + .15, tPt + .6)), t);
@@ -468,9 +477,23 @@ export function build(a, c03) {
     // the axis on into the future: faint, dashed (c05's bars grow along it)
     ctx.save(); ctx.setLineDash([10, 14]); ctx.strokeStyle = rgba(COL.paper1, .3); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(NOW[0] + 20, NOW[1]); ctx.lineTo(lerp(NOW[0] + 20, 1620, gb), NOW[1]); ctx.stroke(); ctx.restore();
     const pr = 16 + 2.5 * Math.sin((t - tPt) * 3.2) * smooth(span(t, tPt + .3, tPt + 1));
-    ctx.strokeStyle = rgba(P.halo1, .95); ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(NOW[0], NOW[1], pr * smooth(span(t, tPt - .1, tPt + .3)), 0, 6.29); ctx.stroke();
-    halo(ctx, NOW[0], NOW[1], 50, .5 * (1 - smooth(span(t, tPt, tPt + .8))) + .15, P.halo1, P.core0);
+    ctx.strokeStyle = rgba(P.halo1, .95); ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(NOW[0], NOW[1], pr * smooth(span(t, tPt, tPt + .4)), 0, 6.29); ctx.stroke();
+    halo(ctx, NOW[0], NOW[1], 50, .45 * (1 - smooth(span(t, tPt, tPt + .8))) + .15, P.halo1, P.core0);
     K.maskLine(ctx, [['NOW', 0]], NOW[0], NOW[1] + 70, 44, rise(span(t, a.thisTime - .1, a.thisTime + .5)), { serif: false, col: P.cream, glow: false, align: 'center' });
+    ping(ctx, t);
+    ctx.restore();
+  }
+  // the question: NOW sends out slow, faint rings (one every 1.3 s, each lives 2.4 s); c05 stops emitting when the ring folds
+  function ping(ctx, t, stop = Infinity) {
+    const T0p = tPt + 1.1, per = 1.3, L = 2.4;
+    if (t < T0p) return;
+    const n0 = Math.floor((t - T0p) / per);
+    for (let n = n0 - 1; n <= n0; n++) {
+      if (n < 0 || T0p + n * per > stop) continue;
+      const u = (t - T0p - n * per) / L; if (u < 0 || u > 1) continue;
+      const r = 18 + 300 * (1 - (1 - u) ** 1.7), al = .55 * (1 - u) ** 1.5;
+      ctx.strokeStyle = rgba(P.halo1, al); ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(NOW[0], NOW[1], r, 0, 6.29); ctx.stroke();
+    }
   }
   function timelinePoint(ctx, p, lab, k, t) {
     if (k <= 0) return;
@@ -478,6 +501,6 @@ export function build(a, c03) {
     K.maskLine(ctx, [[lab, 0]], p[0], p[1] + 70, 44, k, { serif: false, col: P.cream, glow: false, align: 'center' });
   }
 
-  draw.NOW = NOW; draw.PA = PA; draw.PB = PB; draw.tPt = tPt; draw.timelinePoint = timelinePoint;
+  draw.KT2 = KT2; draw.ping = ping; draw.NOW = NOW; draw.PA = PA; draw.PB = PB; draw.tPt = tPt; draw.timelinePoint = timelinePoint;
   return draw;
 }

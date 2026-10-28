@@ -49,8 +49,7 @@ export function build(a, c04) {
   // ---------- camera ----------
   const z = (t) => S.plateZoom(t, T1), tLand = a.too + .6, sL = z(tLand);
   const KC = [
-    [a.c05, 1, 960, 540],
-    [a.andYet - .2, 1.035, 975, 545],                       // living hold (5.01–5.02)
+    ...c04.KT2,                                             // living hold (5.01–5.02): c04's slow push on the NOW timeline, continued
     [a.dcNA - .1, 3.0, 912, 318],                           // to the data center
     [a.older - .1, 3.14, 906, 316],                         // breathing hold: almost full
     [a.earn + .35, 7.0, 860, 336],                          // into the old rack
@@ -144,6 +143,7 @@ export function build(a, c04) {
       ctx.strokeStyle = rgba(P.halo1, .95); ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(NOW[0], NOW[1], pr, 0, 6.29); ctx.stroke();
       halo(ctx, NOW[0], NOW[1], 50, .15, P.halo1, P.core0);
     }
+    c04.ping(ctx, t, a.railsW - .4);   // the question rings stop before the ≈ 60 % text rises
     const nl = 1 - smooth(span(t, tRing0 - .45, tRing0 + .05));
     if (nl > 0) K.maskLine(ctx, [['NOW', 0]], NOW[0], NOW[1] + 70, 44, nl, { serif: false, col: P.cream, glow: false, align: 'center' });
   }
@@ -226,7 +226,7 @@ export function build(a, c04) {
   function railsX1(t) { return t < tBar1 ? lerp(RB.x0, 3300, sineIO(span(t, tBar0, tBar1))) : 6200; }
   function railsBar(ctx, t, c) {
     const x1 = railsX1(t); if (x1 <= RB.x0 + .5) return;
-    const roll = sineIO(span(t, tRoll0, tRoll1)), x0 = lerp(RB.x0, 2500, roll);
+    const roll = span(t, tRoll0, tRoll1) ** 1.6, x0 = lerp(RB.x0, 2100, roll);   // accelerates out to the right, leaves the frame just before the plate
     const y0 = RB.y0, y1 = lerp(RB.y1, RB.y1n, sineIO(span(t, tFew0, tFew1)));
     // the warm glow above the bar (the things stand in it), then the things, then the bar body over their feet
     ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .2;
@@ -281,7 +281,7 @@ export function build(a, c04) {
       ctx.fillStyle = rgba(P.blue0, .5); ctx.fillRect(rx, ry, rw, .8);
       const L = lit(i);
       for (const [k, j, ph, f] of r.lights) {
-        const b = L * (.45 + .55 * (.5 + .5 * Math.sin(t * f * 2.2 + ph))) * (r.old ? .8 : 1);
+        const am = r.old ? .55 : .3, b = L * (1 - am + am * (.5 + .5 * Math.sin(t * f * (r.old ? 2.2 : 1.1) + ph))) * (r.old ? .8 : 1);   // r3 calm: only the old rack blinks hard
         if (b < .02) continue;
         ctx.fillStyle = mixHex(COL.coolDeep, COL.cool, Math.min(1, b)); ctx.globalAlpha = .35 + .65 * Math.min(1, b);
         ctx.fillRect(rx + 2.5 + k * 6, ry + 4 + j * (r.h - 8) / 9, 3.6, 1.7);

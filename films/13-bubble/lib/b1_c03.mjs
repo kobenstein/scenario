@@ -72,9 +72,9 @@ const LIT5 = [0, 23, 41, 67, 88];   // the first is our fibre (the light we foll
 export function build(a, c02) {
   const tP = c02.tP, headX = c02.headX, LW = c02.lineW;
   // ---------- V + G timing ----------
-  const tFl0 = tP + .12, tFl1 = tFl0 + 1.15, tBand = tFl1 + .5;                 // ink flood, then the paper band closes into the mist
+  const tFl0 = tP, tFl1 = tFl0 + 1.3, tBand = tFl1 + .5;                 // ink flood, then the paper band closes into the mist
   const tRim = a.track - .05;                                                      // the rim catches the first light
-  const tIron0 = a.boom - .05, tUn0 = a.boom + .45, tUn1 = a.boom + 1.2;         // iron → ink (ends draw in), then the mist opens into paper (the map)
+  const tIron0 = a.boom - .05, tUn0 = a.boom + .35, tUn1 = a.boom + 1.75;         // iron → ink (ends draw in), then the mist opens into paper (the map)
   const tMap1 = a.sixK + .9;                                                       // the pull-back lands on the whole map
   const tSix = a.sixK, tToday = a.today;
   const tEng0 = a.in1847 + .1, tEng1 = a.in1847 + 2.2;                             // push to England; the nodes grow into clocks
@@ -121,7 +121,8 @@ export function build(a, c02) {
       const k = sineIO(span(t, tRun0 - .2, tRun0 + 1.4)), f = camFollow(t - .25), w = KS[2][1];
       c = { ...w, x: lerp(w.x, f.x, k), y: lerp(w.y, f.y, k), z: lerp(w.z, f.z, k) };
       const b = sineIO(span(t, tRun1 - 1.4, tRun1 + .2)); if (b > 0) c = { ...c, x: lerp(c.x, camBed.x, b), y: lerp(c.y, camBed.y, b), z: lerp(c.z, camBed.z, b) };
-    } else c = camAt(t, [[tRun1 + .2, camBed], [tFace0, aim(F0, 1520, 2700, 1.62, 960, 560)], [tFace1, camX, 'q']]);
+    } else if (t < tFace1) c = camAt(t, [[tRun1 + .2, camBed], [tFace0, aim(F0, 1520, 2700, 1.62, 960, 560)], [tFace1, camX, 'q']]);
+    else c = aim(F0, FACE.x, FACE.y, 380 / FACE.r * (1 + .1 * sineIO(span(t, tFace1, a.c04 + 3))), 720, 520);   // the hold keeps a slow push (c04's flip goes on in it)
     return camDrift(c, t, .4 * smooth(span(t, tSea + .6, tSea + 2)), 17);
   };
   // the explainer stays alive in screen space after the push: a slow breath (c04 continues it)
@@ -131,13 +132,14 @@ export function build(a, c02) {
   function draw(ctx, t) {
     if (t < tCon0) return worldVG(ctx, t);
     if (t < tSea) return worldT(ctx, t);
-    return worldS(ctx, t);
+    // c04's flip of the cross-section starts a breath before the cut (anticipation on "Then the crash"); same curve as c04's tF0/tF1
+    return worldS(ctx, t, t > a.c04 - .25 ? { sx: Math.max(.02, Math.cos(Math.PI * sineIO(span(t, a.c04 - .25, a.c04 + 1.2)))) } : {});
   }
 
   // ---------------------------------------------------------------------------------------------- V + G
   function worldVG(ctx, t) {
     const c = camVG(t);
-    const fl = sineIO(span(t, tFl0, tFl1)), bc = sineIO(span(t, tFl1, tBand));
+    const fl = (.5 * sineIO(span(t, tFl0, tFl1)) + .5 * span(t, tFl0, tFl1)), bc = sineIO(span(t, tFl1, tBand));
     const un = sineIO(span(t, tUn0, tUn1));
     const valley = t < tUn1;
     // the base: paper (first the plate from c02, then the map sheet)
@@ -145,7 +147,7 @@ export function build(a, c02) {
     else mapWorld(ctx, t, c);
     if (!valley) return mapText(ctx, t);
     // the flood (and its reverse): the ink edges from top and bottom; the paper band between them closes into the mist / opens again
-    const yTop = lerp(lerp(lerp(-40, HOR - 70, fl), HOR, bc), -60, un), yBot = lerp(lerp(lerp(H + 40, HOR + 64, fl), HOR, bc), H + 60, un);
+    const yTop = lerp(lerp(lerp(-13, HOR - 70, fl), HOR, bc), -60, un), yBot = lerp(lerp(lerp(H + 13, HOR + 64, fl), HOR, bc), H + 60, un);   // r3: edges wait just outside the frame (no frozen start)
     const open = t < tBand || t > tUn0;
     const topClip = edge(yTop, -1, t), botClip = edge(yBot, 1, t);
     const layer = (clip, fn) => { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); if (open) ctx.clip(clip); fn(); ctx.restore(); };
@@ -343,7 +345,7 @@ export function build(a, c02) {
       if (lit > 0) { halo(ctx, P2[0], P2[1], 70, .6 * lit, COL.cool2, '#f4f7ff'); ctx.fillStyle = rgba('#f4f7ff', lit); ctx.beginPath(); ctx.arc(P2[0], P2[1], 7 * lit, 0, 6.29); ctx.fill(); }
     }
     ctx.restore();
-    U.lightFill(ctx, P2[0], P2[1], smooth(span(t, tFly0 + .3, tSea)), COL.cool2);
+    U.lightFill(ctx, P2[0], P2[1], span(t, tFly0 + .1, tSea) ** 1.6, COL.cool2);   // accelerates into the light (no stop at the switch)
   }
 
   // ---------------------------------------------------------------------------------------------- S: the sea, the seabed, the fibres
@@ -394,7 +396,7 @@ export function build(a, c02) {
       K.maskLine(ctx, [['USA, ESTIMATE 2001', 0]], 1174, 590, 28, src * out, { serif: false, col: P.halo2, glow: false });
       ctx.restore();
     }
-    U.lightFill(ctx, 960, 540, 1 - smooth(span(t, tSea, tSea + 1.1)), COL.cool2);
+    { const u = span(t, tSea, tSea + 1.7), e = sineIO(u); U.lightFill(ctx, lerp(P2[0], 960, e), lerp(P2[1], 540, e), (1 - u) ** 1.6, COL.cool2); }
   }
 
   function ship(ctx, t) {

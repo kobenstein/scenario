@@ -71,8 +71,8 @@ export function build(a) {
     [a.hold + .8, roomAim(CERT.x - 70, CERT.y - 20, 1.9, 960, 580)],
     [a.bursts - .3, roomAim(CERT.x - 30, CERT.y - 30, 2.05, 960, 600)],
     [a.e1849 + .2, roomAim(CERT.x + 6, CERT.y - 42, 3.15, 960, 640), 'q'],
-    [a.twothirds + 1.45, roomAim(CERT.x + 6, CERT.y - 40, 3.2, 960, 640)],
-    [a.holding + .6, roomAim(890, 1590, 1.5, 960, 540)],
+    [a.twothirds + 1.1, roomAim(CERT.x + 6, CERT.y - 40, 3.2, 960, 640)],
+    [a.holding + .1, roomAim(890, 1590, 1.5, 960, 540)],   // r3: = tFly0 (the flight takes over here)
   ];
   const camR = (t) => {
     if (t < tIn1) {
@@ -89,12 +89,12 @@ export function build(a) {
     return camDrift(camAt(t, KR, ZR), t, .45 * smooth(span(t, tIn1, tIn1 + 1.5)), 3);
   };
   // S: the lost paper falls into savers' hands; the camera follows down, then flies into one sheet (paper fills the frame)
-  const tFall0 = a.small - .35, tHold = a.holding, tFly0 = a.holding + .6, tPaper = a.expert + 1.05;
+  const tFall0 = a.small - .35, tHold = a.holding, tFly0 = a.holding + .1, tPaper = a.expert + 1.3;   // r3: longer flight (lurch 97.3)
   const SHEETS = (() => { const r = prng(2071), out = []; for (let i = 0; i < 4; i++) out.push({ u: .12 + i * .25 + (r() - .5) * .06, v: .2 + r() * .25, spin: (r() - .5) * 2, sw: .6 + r() * .5, dt: i * .09 }); return out; })();
   const holdSheet = (i, t) => {
     // falls from its place in the emptied band to the hand HANDS[i] (room coords); tumbles; lands ~ "holding"
     const h = HANDS[i], sh = SHEETS[i], u = sineIO(span(t, tFall0 + sh.dt, tHold - .1 + sh.dt * .5));
-    const p0 = chartPt(sh.u, lerp(1, IDX[IDX.length - 1][1], .5)), p1 = [h[0] + 10, h[1] - 190 * h[4]];
+    const p0 = chartPt(sh.u, lerp(1, IDX[IDX.length - 1][1], .5)), p1 = [h[0] + 10, h[1] - 112 * h[4]];   // r3: lands IN the hand (fingers on its lower edge)
     const x = lerp(p0[0], p1[0], u) + 70 * Math.sin(u * 7 + i) * (1 - u), y = lerp(p0[1], p1[1], u * u * .4 + u * .6);
     const rot = (1 - u) * .7 * Math.sin(u * 6 + sh.spin) + h[3] * .5, ph = Math.PI / 2 + u * 2 * Math.PI * (2 + Math.round(sh.sw)), sx = u <= 0 ? 0 : u < 1 ? Math.cos(ph) * (1 - u) + u : 1;
     return { x, y, rot, sx, w: lerp(60, 210, sineIO(u)) };
@@ -107,7 +107,7 @@ export function build(a) {
   const CN = { x: 1150, y: 930, w: 330, rot: SP_END.rot };
   const camN0 = aim(F0, CN.x, CN.y, SP_END.w * FLY_M / CN.w, 960, 540);
   // N: the Argus page from the paper; Mackay; the flip into his book; the light wanders to the letter; the underline runs right
-  const tOut1 = a.fear + 1.5;
+  const tOut1 = a.fear + 3.2;   // r3: longer pull-back out of the share (lurch 98.1–99.0)
   // the end of c02: the underline under "too late" (on "didn't"), then the line runs on into the empty margin; the camera flies into
   // the paper after it and lands (tP) 12× close: the frame is paper (B.paperPlate, screen space) with the ink line at y = 700. c03
   // starts from exactly this frame (the paper cut of MOTION §5 #4) and floods it into the dawn valley (A2).
@@ -119,16 +119,26 @@ export function build(a) {
   const headLocal = (t) => t < tUl1 ? lerp(ulX0, ulX1, sineIO(span(t, tUl0, tUl1))) : ulX1 + vRun * (t - tUl1) * Math.min(1, .35 + .65 * span(t, tUl1, tUl1 + .5));
   // the head in screen x for t ≥ tP (c03 keeps drawing the line from the same function)
   const headX = (t) => 960 + (headLocal(t) - xc) * MP;
+  // trapezoid speed profile: ramp up over the first 25 %, cruise, ramp down over the last 25 % (peak speed 1.33× the mean)
+  const trap = (u) => { const r = .25, v = 1 / (1 - r); return u < r ? v * u * u / (2 * r) : u > 1 - r ? 1 - v * (1 - u) ** 2 / (2 * r) : v * (u - r / 2); };
+  // r3: the final glide into the paper zooms ABOUT the paper point (log zoom, the point eases to the centre): no lateral whip at
+  // high zoom (lurch 108.8–109.8 came from linear x/y under a log zoom)
+  const tG0 = a.young + .25, camG0 = aim(F0, 1360, 540, 1.12, 960, 540);
+  const GP = [LET2.x + xc, LET2.y + yc], G0 = [960 + (GP[0] - 1360) * 1.12, 540 + (GP[1] - 540) * 1.12];
+  const glide = (t) => { const e = trap(span(t, tG0, tP)), f = sineIO(span(t, tG0, tP)); return aim(F0, GP[0], GP[1], Math.exp(lerp(Math.log(1.12), Math.log(MP), e)), lerp(G0[0], 960, f), lerp(G0[1], 540, f)); };
   const KN = [
     [tPaper, camN0],
-    [tOut1, aim(F0, 820, 470, 1.06, 960, 540), (u) => sineIO(1 - (1 - u) ** 1.6)],
-    [a.mackay + 1.6, aim(F0, 640, 480, .92, 960, 540)],
+    [tOut1, aim(F0, 700, 476, .96, 960, 540), (u) => sineIO(1 - (1 - u) ** 1.6)],
+    [a.mackay + 2.4, aim(F0, 640, 480, .92, 960, 540)],
     [a.book + 1.2, aim(F0, 700, 500, .98, 960, 540)],
     [a.missed + .2, aim(F0, 820, 500, 1.04, 960, 540)],
-    [a.didnt - .4, aim(F0, 1360, 540, 1.12, 960, 540), 'q'],
-    [tP, camP, (u) => sineIO(u ** 1.2)],
+    [tG0, camG0],
+    [tP, camP],                                             // (t > tG0: replaced by glide() below)
   ];
-  const camN = (t) => camDrift(camAt(t, KN), t, .4 * smooth(span(t, tPaper, tOut1 + 1.2)) * (1 - smooth(span(t, tP - 1.6, tP - .2))), 7);
+  // r3: the pull-back out of the share also zooms about the share's centre (log zoom, the centre eases to its final screen spot)
+  const mN0 = SP_END.w * FLY_M / CN.w, Q1 = [960 + (CN.x - 700) * .96, 540 + (CN.y - 476) * .96];
+  const pullN = (t) => { const u = span(t, tPaper, tOut1), e = sineIO(1 - (1 - u) ** 2.2), f = sineIO(1 - (1 - u) ** 1.3); return aim(F0, CN.x, CN.y, Math.exp(lerp(Math.log(mN0), Math.log(.96), e)), lerp(960, Q1[0], f), lerp(540, Q1[1], f)); };
+  const camN = (t) => camDrift(t > tG0 && t < tP ? glide(t) : t > tPaper && t < tOut1 ? pullN(t) : camAt(t, KN), t, .4 * smooth(span(t, tPaper, tOut1 + 1.2)) * (1 - smooth(span(t, tP - 1.6, tP - .2))), 7);
 
   // ============================================================================================== draw
   const draw = function draw(ctx, t) {
@@ -436,8 +446,8 @@ export function build(a) {
     HANDS.forEach(([x, y, kind, ang, s], i) => {
       const up = expoOut(span(t, tFall0 + .3 + i * .12, tHold - .2 + i * .1)), yy = y + 520 * (1 - up);
       const sp = holdSheet(i, t), land = clamp((t - (tHold - .1)) * 3);
-      U.savingsHand(ctx, x + (sp.x - x - 10) * land * 0, yy, 210 * s, ang, kind, t);
       certAt(ctx, sp, t);
+      U.savingsHand(ctx, x, yy, 210 * s, ang, kind, t);   // r3: drawn over the sheet, the fingers close on its edge
     });
   }
   function certAt(ctx, sp, t) {

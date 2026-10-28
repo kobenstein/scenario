@@ -232,8 +232,11 @@ export function label(ctx, px, py, ly, l1, l2, u, v1, v2, o = {}) {
 export function lightFill(ctx, x, y, k, col = COL.cool, core = '#f4f7ff') {
   if (k <= 0) return;
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
-  const R = lerp(30, 2600, k ** 2.2), full = smooth(clamp((k - .7) / .285));
-  ctx.fillStyle = rad(ctx, x, y, R, [[0, core], [.18, rgba(col, 1)], [.55, rgba(col, .55 + .45 * full)], [1, rgba(col, full)]]);
+  // r3 (calm): the flood is a held-down light, never a white-out: it settles on a mid-tone of its colour (luma ≈ 90–110) so the
+  // frame-to-frame change stays under smooth.py's lurch line; the core softens into the colour as the flood completes
+  const R = lerp(30, 2600, k ** 1.8), full = smooth(clamp((k - .6) / .38));
+  const flat = mixHex(col, P.night1, .5), mid = mixHex(col, P.night1, .22), c0 = mixHex(core, col, .3 + .45 * full);
+  ctx.fillStyle = rad(ctx, x, y, R, [[0, c0], [.12, rgba(mid, .95 + .05 * full)], [.5, rgba(flat, .6 + .4 * full)], [1, rgba(flat, full)]]);
   ctx.fillRect(0, 0, E.W, E.H);
   ctx.restore();
 }
