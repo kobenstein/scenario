@@ -13,7 +13,7 @@
 //   wall y < 742 · counter top edge (the long lit line) y = 742, x −400 … 2320 · floor y = 960
 //   console panels: left x 300–720, right x 1200–1620, top y 430 · lock slots (key tips) L (510, 680), R (1410, 680) = 900 apart
 //   screen (middle housing x 826–1094): centre (960, 590), 224 × 126 (16:9) · cool lamp (960, 210)
-//   officers (person(), h 410, front view, feet on y 960): L at x 650 (left arm to key L), R at x 1270 (right arm to key R)
+//   officers (person(), h 410, front view, feet on y 960): L at x 760 (left arm to key L), R at x 1330 (right arm to key R)
 //   keys: lightKey h 118, tip in the slot, upright (bow up) at turn 0, turned 90° clockwise at turn 1
 import { Path2D } from '@napi-rs/canvas';
 import * as E from './f10_editorial.mjs';
@@ -134,7 +134,7 @@ export function vaultWall(ctx, door, o = {}) {
 export const LR = {
   edge: 742, floor: 960, panelTop: 430, panels: [[300, 720], [1200, 1620]],
   slots: [[510, 680], [1410, 680]], screen: { x: 960, y: 590, w: 224, h: 126 }, housing: [826, 1094, 470], lamp: [960, 210],
-  officers: [{ x: 650, dir: 1, side: -1 }, { x: 1270, dir: 1, side: 1 }], oh: 410, keyH: 118,
+  officers: [{ x: 760, dir: 1, side: -1 }, { x: 1330, dir: 1, side: 1 }], oh: 410, keyH: 118,
 };
 const DIALS = (() => { const r = prng(1958), out = []; for (const [p0, p1] of LR.panels) { const d = []; for (let i = 0; i < 9; i++) d.push([lerp(p0 + 40, p1 - 40, i / 8), 560 + (i % 2) * 8, r()]); out.push(d); } return out; })();
 // key geometry: tip (local (0, .4)) sits in the slot; rot 0 = upright; turn 1 = 90° clockwise. Returns { x, y (centre), rot, bow }
@@ -149,10 +149,11 @@ export function keyPose(slot, h, turn) {
 //      officers 0..1 (they step in from the frame sides to their consoles), officerL / officerR: false to skip one,
 //      keys 0..1 (the keys of light grow out of the slots) or keys: [kL, kR] (B3: keys: [1, 0] draws only the left one),
 //      turn 0..1 (both turn; or turn: [tL, tR]), lum 0..1 (key light; .2 = sunk into the dark), hands 0..1 (the officers' hands
-//      on their keys), pulse 0..1 (a light pulse runs along the edge from both keys to the centre), measure 0..1 (the cream line
+//      on their keys; a hand is drawn only where that key is drawn), pulse 0..1 (a light pulse runs along the edge from both keys to the centre), measure 0..1 (the cream line
 //      between the keys), reach 0..1 (officer L stretches the right arm toward key R: it ends far short), screen 0..1 (the file
 //      lights up on the screen), screenFn (ctx, t) drawn inside the screen rect instead of the default file (screen space = W×H),
-//      stamp 0..1 ("LATE 1950s") }
+//      stamp 0..1 ("LATE 1950s"), bg: false (no wall / floor fill: the caller draws its own ground), edgeLine: false (the caller
+//      draws the long lit line itself) or edgeLine: (ctx, x0, x1, y) => … (drawn in its place, behind the officers and keys) }
 // returns { slots, keys: [{x,y,rot,bow}|null ×2], hands: [[x,y]|null ×2] (wrist positions), screen, edgeY, officers: [[x,y,h]…] }
 export function launchRoom(ctx, t, o = {}) {
   const b = clamp(o.build ?? 1), e = clamp(o.edge ?? 1), lampU = clamp(o.lamp ?? b), offU = clamp(o.officers ?? 1);
@@ -160,7 +161,7 @@ export function launchRoom(ctx, t, o = {}) {
   const lum = o.lum ?? 1, handsU = clamp(o.hands ?? 0), reach = clamp(o.reach ?? 0);
   const { edge: EY, floor: FY, panelTop: PT } = LR;
   // ---- wall: flat dark indigo, panel seams draw down from the ceiling (sineIO), a dado rail; a faint cool wash from the lamp
-  ctx.fillStyle = lin(ctx, 0, -600, 0, EY, [[0, P.night0], [.6, mixHex(P.night1, P.ind1, .3)], [1, mixHex(P.ind1, P.night1, .4)]]); ctx.fillRect(-2400, -1600, 6800, EY + 1600);
+  if (o.bg !== false) { ctx.fillStyle = lin(ctx, 0, -600, 0, EY, [[0, P.night0], [.6, mixHex(P.night1, P.ind1, .3)], [1, mixHex(P.ind1, P.night1, .4)]]); ctx.fillRect(-2400, -1600, 6800, EY + 1600); }
   ctx.save(); ctx.strokeStyle = rgba(P.blue0, .3); ctx.lineWidth = 1.6;
   for (let i = 0; i < 12; i++) { const xx = -560 + i * 280, k = sineIO(span(b, .05 + i * .03, .45 + i * .03)); if (k <= 0) continue; ctx.beginPath(); ctx.moveTo(xx, -1600); ctx.lineTo(xx, lerp(-1600, EY, k)); ctx.stroke(); }
   const rail = sineIO(span(b, .3, .8)); if (rail > 0) { ctx.beginPath(); ctx.moveTo(960 - 2400 * rail, 330); ctx.lineTo(960 + 2400 * rail, 330); ctx.stroke(); }
@@ -175,7 +176,7 @@ export function launchRoom(ctx, t, o = {}) {
   const ex0 = lerp(960, -400, sineIO(e)), ex1 = lerp(960, 2320, sineIO(e));
   ctx.fillStyle = lin(ctx, 0, EY, 0, FY, [[0, mixHex(P.ind2, P.blue0, .12)], [.25, P.ind2], [1, P.night1]]);
   const cb = smooth(span(b, 0, .35)); if (cb > 0) ctx.fillRect(ex0, EY, ex1 - ex0, (FY - EY) * cb);
-  ctx.fillStyle = lin(ctx, 0, FY, 0, FY + 300, [[0, P.night1], [1, P.night0]]); ctx.fillRect(-2400, FY, 6800, 2000);
+  if (o.bg !== false) { ctx.fillStyle = lin(ctx, 0, FY, 0, FY + 300, [[0, P.night1], [1, P.night0]]); ctx.fillRect(-2400, FY, 6800, 2000); }
   ctx.strokeStyle = rgba(P.blue0, .7); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(-2400, FY); ctx.lineTo(4400, FY); ctx.stroke();
   // ---- console panels rise from the edge (staggered: left, middle housing, right), each with dials, a row of lamps and a lock
   const rise = (i) => expoOut(span(b, .25 + i * .12, .7 + i * .12));
@@ -204,7 +205,8 @@ export function launchRoom(ctx, t, o = {}) {
     ctx.restore();
   }
   // ---- the long edge: a lit line across the room (it was the data thread); a pulse runs along it from both keys to the centre
-  if (e > 0) {
+  if (typeof o.edgeLine === 'function') o.edgeLine(ctx, ex0, ex1, EY);
+  else if (e > 0 && o.edgeLine !== false) {
     const warm = clamp(o.edgeWarm ?? 0);
     ctx.save(); ctx.lineCap = 'round';
     ctx.globalCompositeOperation = 'lighter'; ctx.filter = 'blur(6px)'; ctx.strokeStyle = rgba(mixHex(P.blue0, P.halo1, warm), .5 + .3 * warm); ctx.lineWidth = 10; ctx.beginPath(); ctx.moveTo(ex0, EY); ctx.lineTo(ex1, EY); ctx.stroke();
@@ -253,7 +255,7 @@ export function launchRoom(ctx, t, o = {}) {
     if (i === 0 && reach > 0 && !walking) { const tgt = [x + 600, LR.slots[1][1] - 40]; const ext = armTo(x, y, OH, of.dir, 1, tgt); fig.armR = [lerp(.18, ext[0], sineIO(reach)), lerp(.08, ext[1], sineIO(reach))]; }
     const hands = E.person(ctx, x, y, OH, fig);
     out.officers.push([x, y, OH]);
-    if (hk > .02 && !walking) {
+    if (hk > .02 && !walking && (kArr[i] ?? 0) > 0) {
       const pose = [hands.L, hands.R][sd > 0 ? 1 : 0], ang = Math.atan2(key.bow[1] - pose[1], key.bow[0] - pose[0]);
       const m = E.handMatrix(lerp(pose[0], wr[0], sineIO(hk)), lerp(pose[1], wr[1], sineIO(hk)), ang, L * lerp(.6, 1, sineIO(hk)), sd > 0 ? 1 : -1);
       X.darkHand(ctx, m, { pose: 'hold', curl: .1 + .3 * hk, warm: lum * hk * clamp(kArr[i] ?? 0), side: sd > 0 ? -1 : 1 });
