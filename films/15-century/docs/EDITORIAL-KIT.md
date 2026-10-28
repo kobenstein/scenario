@@ -1,7 +1,7 @@
-# Editorial-Kit („Editorial-Nacht“) · für die Builder (übernommen aus Film 10, gilt für Film 13)
+# Editorial-Kit („Editorial-Nacht“) · für die Builder (übernommen aus Film 10/13, gilt für Film 15)
 
-Stand 2026-10-28 (Film 13). Das Kit stammt aus Film 10 (dort von Jakob freigegeben: K1–K3 „nice“). Für Film 13 gilt zusätzlich: `du()` trägt standardmäßig die **Kapuze** (`{ hood: false }` nimmt sie ab), und `lib/f13_kit.mjs` liefert die Film-13-Bausteine (Sanduhr, Sandfaden, Zeilen-Masken, Worte → Sand, Felskante; siehe `MOTION.md` §7). Pfade unten, die auf `stills/`, `tools/editorial_*.mjs` oder Film-10-Module zeigen, sind Film-10-Vorlagen.
-- **Code:** `films/13-freetime/lib/f10_editorial.mjs` (+ `lib/f13_kit.mjs`). Builder importieren für das Bild **nur** diese Module. Die alten Module `f10_valley`, `f10_hall` und `f10_figs` bleiben liegen, werden aber nicht gezeichnet.
+Stand 2026-10-28 (Film 15). Das Kit stammt aus Film 10 (dort von Jakob freigegeben: K1–K3 „nice“) und lief in Film 13. Für Film 15 gilt zusätzlich: `lib/f15_kit.mjs` liefert die Film-15-Bausteine (Papierband, Schachtel mit zehn Fächern, Phiole, Kapsel, Zelle, Spritze, Ring, Erbgut-Zeilen, Zahlenblock; siehe `MOTION.md` §7) und `lib/f15_seams.mjs` die Platten an den Nähten. Die Sanduhr aus `f13_kit` gehört zu Film 13 und kommt hier nicht vor. Pfade unten, die auf `stills/`, `tools/editorial_*.mjs` oder Film-10/13-Module zeigen, sind Vorlagen.
+- **Code:** `films/15-century/lib/f10_editorial.mjs` (+ `lib/f15_kit.mjs`, `lib/f15_seams.mjs`). Builder importieren für das Bild **nur** diese Module. Die alten Module `f10_valley`, `f10_hall` und `f10_figs` bleiben liegen, werden aber nicht gezeichnet.
 - **Vorlagen:**
   - die Stills: `stills/editorial/K1.jpg`, `K2.jpg`, `K3.jpg`, `vergleich.jpg`
   - die 20-s-Stilreferenz: `stills/editorial/bewegungstest.mp4`

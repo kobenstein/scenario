@@ -40,7 +40,7 @@ export const stubShot = (R, line) => (ctx, t, s) => {
 // stub entries for a chunk: one per sentence in [R.a, R.b)
 export function stubChunk(T, R) {
   const out = [];
-  for (const sec of T.secs) for (const l of T.lines(sec)) if (l.s >= R.first - .01 && l.s < R.b - .01) out.push({ t: Math.max(0, l.s - .3), draw: stubShot(R, l), tr: 'dissolve', d: .35 });
+  for (const sec of T.secs) for (const l of T.lines(sec)) if (l.s >= R.first - .01 && l.s < R.b - .01) out.push({ t: Math.max(0, l.s - .3), draw: stubShot(R, l), tr: 'cut', d: .35 });
   if (!out.length) out.push({ t: R.first, draw: stubShot(R, { sec: T.secs[0], words: [], s: R.a, e: R.b }), tr: 'cut', d: .1 });
   return out;
 }

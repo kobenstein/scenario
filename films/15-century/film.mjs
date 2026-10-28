@@ -1,12 +1,12 @@
-// Film 13 "Superintelligence Promised Us Free Time. Will We Get It?" (10:40 incl. the ~21 s end image), built on the Film 10
-// editorial-night machinery. Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots13.py).
+// Film 15 "Superintelligence Promised 100 Years of Progress in 10. Is It Starting?" (8:45 incl. the 15 s end image), built on the
+// Film 10/13 editorial-night machinery. Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots15.py).
 // Fourteen chunk files scenes/sc01.mjs … sc14.mjs return their entries; this file stitches them into one timeline.
 // NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a
 // planned match on a carrier). Any other tr is turned into 'cut' with a warning. Missing chunks render as stubs.
 //   export default (T, R) => [ entry, … ]       T = timing helpers (lib/kit.mjs), R = { a, b, id, name, first } chunk range
-//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish
+//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (use F.PRINT15)
 // SECS=c01,c02 node render.mjs --snap ...   builds only those chunks (absolute times stay the same).
-// Data root (timing.json): lib/kit.mjs ROOT = $F13ROOT or /mnt/project-files/scenario/film-zeit/ ; TIMING=… overrides the file.
+// Data root (timing.json): lib/kit.mjs ROOT = $F15ROOT or /mnt/project-files/scenario/film-jahrhundert/ ; TIMING=… overrides the file.
 import fs from 'node:fs';
 import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
@@ -16,20 +16,20 @@ import { errorCard, stubChunk } from './lib/stub.mjs';
 export { ROOT };
 // chunk table (docs/shots.md §2); from = [segment, first phrase of the chunk]; every chunk starts on a VO segment
 export const CHUNKS = [
-  { id: 'c01', name: 'Hook I: the promise, Gates quote, the old promises, busier than ever', from: [['s00']] },
-  { id: 'c02', name: 'Hook II: Berkeley, a lie? → No, the working year halved', from: [['s02']] },
-  { id: 'c03', name: 'Water: 200 million hours, the pipe arrives, zero at home', from: [['s04']] },
-  { id: 'c04', name: 'The hour moved: washing machine, Cowan, email, infinite workday', from: [['s05']] },
-  { id: 'c05', name: 'Linder, the sand slips past you, this machine is different', from: [['s07']] },
-  { id: 'c06', name: 'Not so far: Berkeley, the juggler, Hassabis', from: [['s08']] },
-  { id: 'c07', name: 'Battle Creek 1930: Kellogg 8 → 6, Hunnicutt, what the town did', from: [['s10']] },
-  { id: 'c08', name: 'The summer evening (heart), then how it slipped', from: [['s12']] },
-  { id: 'c09', name: 'No villain, mission line, the time we kept', from: [['s14']] },
-  { id: 'c10', name: 'Firms: four-day week, time dividend, hospital', from: [['s16']] },
-  { id: 'c11', name: 'All of us: right to disconnect, Keynes, who decides', from: [['s18']] },
-  { id: 'c12', name: 'You: buying time, 2 in 100, guard the first hour', from: [['s20']] },
-  { id: 'c13', name: 'When the rules came, this time first, we need it', from: [['s21']] },
-  { id: 'c14', name: 'The hour arrives, last line, end screen', from: [['s23']] },
+  { id: 'c01', name: 'Hook I: the box and the band of a hundred years, the compressed century, so we checked', from: [['s00']] },          // lead
+  { id: 'c02', name: 'Hook II: inside the first compartment: the vaccine for one person, -42 %, approved: 0, why?', from: [['s01']] },     // lead
+  { id: 'c03', name: 'Station 1: the tumour read like a text, one vial, the sealed algorithm, 1,137 patients', from: [['s02']] },          // B1
+  { id: 'c04', name: 'Station 2 (anchor): the ten compartments get their labels, the clock, the start line', from: [['s03']] },          // B1
+  { id: 'c05', name: 'Station 3: AlphaFold: the folding chain, the Nobel, the world map of users, the pill splits', from: [['s04']] },     // B1
+  { id: 'c06', name: 'Station 4a: the trial funnel, 9 in 10 vs half, phase 2 no better, cells in real time', from: [['s05']] },          // B1
+  { id: 'c07', name: 'Station 4b: "below five years", the moved date, biology sets the pace, mid subscribe', from: [['s06']] },         // B2
+  { id: 'c08', name: 'Station 5: the life line runs on only as a dashed bet, your strongest card, the first morning', from: [['s08']] }, // B2
+  { id: 'c09', name: 'Station 6 (anchor): Guinea worm 3.5 million to 10, filters, counting, the empty bed lights a compartment', from: [['s09']] }, // B2
+  { id: 'c10', name: 'Station 6b: hepatitis C, the pill pack, 1 in 5, it is reach', from: [['s10']] },                               // B2
+  { id: 'c11', name: 'Station 7a: what reach looks like, the slowest part is us, the HIV shot reaches Zambia first', from: [['s11']] }, // B2
+  { id: 'c12', name: 'Station 7b: $40 a year, licence, the price locked early, the deal before approval', from: [['s12']] },          // B3
+  { id: 'c13', name: 'Station 7c: you: book the test, join a trial, one line in a contract', from: [['s13']] },                        // B3
+  { id: 'c14', name: 'Ending (anchor): the box, compartment by compartment, carry it, end screen', from: [['s14']] },                  // B3
 ];
 const ALL = CHUNKS.map((c) => c.id);
 
