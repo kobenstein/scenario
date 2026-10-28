@@ -1,0 +1,20 @@
+// Model sheet of the editorial kit: du() poses, person(), robot() poses + hands, lightHand() poses. node tools/editorial_sheet.mjs <out.jpg>
+import fs from 'node:fs';
+import { createCanvas } from '@napi-rs/canvas';
+import * as E from '../lib/f10_editorial.mjs';
+const { W, H, P } = E;
+const c = createCanvas(W, H), x = c.getContext('2d');
+E.nightSky(x, [[0, P.night1], [1, P.ind0]]);
+x.fillStyle = E.rad(x, 960, 300, 1100, [[0, E.rgba(P.blue0, .8)], [1, E.rgba(P.blue0, 0)]]); x.fillRect(0, 0, W, H);
+const base = 470;
+x.fillStyle = P.night0; x.fillRect(0, base, W, 4);
+const poses = ['stand', 'look', 'lift', 'point', 'reach', 'hold', 'walk', 'sit'];
+poses.forEach((p, i) => E.du(x, 110 + i * 150, base, 300, { pose: p, walk: p === 'walk' ? 1.2 : undefined, light: 1, cup: p === 'hold' ? 'R' : undefined, headset: p === 'hold' }));
+E.person(x, 1330, base, 290, { pose: 'stand', light: -1 }); E.person(x, 1440, base, 300, { pose: 'walk', walk: 2.4, dir: -1, long: true });
+E.glowText(x, 'du() · person()', 40, 60, { size: 30 });
+const b2 = 1000; x.fillStyle = P.night0; x.fillRect(0, b2, W, 4);
+['stand', 'reach', 'lift', 'point', 'walk'].forEach((p, i) => E.robot(x, 120 + i * 190, b2, 400, { pose: p, walk: p === 'walk' ? 1 : undefined, hand: i % 2 ? 'gripper' : 'hand', rim: E.mixHex(P.halo0, P.blue0, .3), light: 1 }));
+E.glowText(x, 'robot()', 40, 560, { size: 30 });
+['point', 'open', 'hold', 'guide'].forEach((p, i) => { const m = E.handMatrix(1100 + (i % 2) * 400 + 280, 600 + Math.floor(i / 2) * 230, Math.PI * 1.03, 120, -1); E.lightHand(x, m, 2, { pose: p, dust: 2500 }); E.glowText(x, p, 1100 + (i % 2) * 400, 560 + Math.floor(i / 2) * 230, { size: 26 }); });
+E.finish(x, 3);
+fs.writeFileSync(process.argv[2] || 'sheet.jpg', await c.encode('jpeg', 88));
