@@ -1,4 +1,4 @@
-// Film 13 "Superintelligence Promised Us Free Time. Will We Get It?" (10:40 incl. the ~21 s end image), built on the Film 10
+// Film 14 "Who Holds the Keys to Superintelligence?" (engine copied from Film 13), built on the Film 10
 // editorial-night machinery. Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots13.py).
 // Fourteen chunk files scenes/sc01.mjs … sc14.mjs return their entries; this file stitches them into one timeline.
 // NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a
@@ -15,21 +15,16 @@ import { errorCard, stubChunk } from './lib/stub.mjs';
 
 export { ROOT };
 // chunk table (docs/shots.md §2); from = [segment, first phrase of the chunk]; every chunk starts on a VO segment
-export const CHUNKS = [
-  { id: 'c01', name: 'Hook I: the promise, Gates quote, the old promises, busier than ever', from: [['s00']] },
-  { id: 'c02', name: 'Hook II: Berkeley, a lie? → No, the working year halved', from: [['s02']] },
-  { id: 'c03', name: 'Water: 200 million hours, the pipe arrives, zero at home', from: [['s04']] },
-  { id: 'c04', name: 'The hour moved: washing machine, Cowan, email, infinite workday', from: [['s05']] },
-  { id: 'c05', name: 'Linder, the sand slips past you, this machine is different', from: [['s07']] },
-  { id: 'c06', name: 'Not so far: Berkeley, the juggler, Hassabis', from: [['s08']] },
-  { id: 'c07', name: 'Battle Creek 1930: Kellogg 8 → 6, Hunnicutt, what the town did', from: [['s10']] },
-  { id: 'c08', name: 'The summer evening (heart), then how it slipped', from: [['s12']] },
-  { id: 'c09', name: 'No villain, mission line, the time we kept', from: [['s14']] },
-  { id: 'c10', name: 'Firms: four-day week, time dividend, hospital', from: [['s16']] },
-  { id: 'c11', name: 'All of us: right to disconnect, Keynes, who decides', from: [['s18']] },
-  { id: 'c12', name: 'You: buying time, 2 in 100, guard the first hour', from: [['s20']] },
-  { id: 'c13', name: 'When the rules came, this time first, we need it', from: [['s21']] },
-  { id: 'c14', name: 'The hour arrives, last line, end screen', from: [['s23']] },
+export const CHUNKS = [   // Film 14 (docs/shots.md §2); segments from film-kontrolle/audio/segments.json (s00 … s22, quote-card slot Q1)
+  { id: 'c01', name: 'Hook I: the key before the data centre, Amodei quote card, key and lock', from: [['s00']] },
+  { id: 'c02', name: 'Hook II: into the keyhole, the giant file, copy it, the rhyme glimpse', from: [['s03']] },
+  { id: 'c03', name: 'Station 1a: billions of numbers, the vault door, two-party authorization, second signature', from: [['s05']] },
+  { id: 'c04', name: 'Station 1b: the egress throttle, the two-person rule (key anchor 2)', from: [['s06']] },
+  { id: 'c05', name: 'Station 2: the sleeper (2023 safe / 2024 flaws), training it out, the limit', from: [['s08']] },
+  { id: 'c06', name: 'Station 3: the rhyme plan (rabbit / habit / green), the microscope, who checks', from: [['s11']] },
+  { id: 'c07', name: 'Station 4: the second key in another hand, test tables, sycophancy, fragile (key anchor 3)', from: [['s14']] },
+  { id: 'c08', name: 'Station 5: the glass box (Apertus), vault vs glass', from: [['s17']] },
+  { id: 'c09', name: 'Finale: the key ring, Epoch bar, the question, end screen (key anchor 4)', from: [['s19']] },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 
