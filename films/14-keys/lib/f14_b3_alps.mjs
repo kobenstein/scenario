@@ -72,8 +72,8 @@ export function C8(a) {
     [a.english + .5, cam3({ x: 100, y: 40, z: 60 })],                            // 8.05 up to the map
     [a.opposite + .3, cam3({ x: -126, y: 280, z: 120 })],                        // 8.06 vault | glass
     [a.isGlass + .6, cam3({ x: -110, y: 276, z: 150 })],
-    [a.sleeper + .6, cam3({ x: 40, y: 270, z: 330 })],                           // 8.07 lenses
-    [a.change + .8, cam3({ x: 50, y: 268, z: 360 })],
+    [a.sleeper + .6, cam3({ x: -60, y: 270, z: 250 })],                           // 8.07 lenses
+    [a.change + .8, cam3({ x: -50, y: 268, z: 280 })],
     [a.everyEye + .3, cam3({ x: 0, y: 0, z: 0 })],                               // 8.09 crane home: the scale
     [a.s19, cam3({ x: 0, y: 0, z: 0 })],
   ];

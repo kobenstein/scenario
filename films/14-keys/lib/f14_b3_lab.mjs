@@ -134,7 +134,7 @@ export function lab(a) {
   const tWalk = [a.why + .3, a.why + 4.9];
   const tRows = [a.finding - .2, a.finding + 2.0], tAxis = [a.finding + 1.4, a.finding + 2.3], tGrow = a.almostEvery, tOften = a.tooOften, tFlag = a.flag;
   const tRet = [a.fieldWord - .1, a.fieldWord + 1.1], tSyc = a.sycophancy, tSub = a.tellsYou, tNot = a.notWord;
-  const tSink = [a.picture - .25, a.picture + .4], tCord = [a.picture - .1, a.picture + 1.6], tLamp = a.picture + 1.4;
+  const tSink = [a.picture - .25, a.picture + .4], tCord = [a.picture - .1, a.picture + 1.1], tLamp = a.picture + .9;   // lead: lamp on during the tilt (no empty frame)
   const tBub = [a.hearing, a.only + .1, a.yesWord + .25], tPleasant = a.pleasant, tHelp = a.help;
   const tLampOff = a.thats + .9, tBubUp = [a.thats - .1, a.thats + 2.1];
   const tOwn = [a.rivalsEye - .7, a.rivalsEye + 1.4], tRiv = [a.rivalsEye + 1.1, a.skip + .05];

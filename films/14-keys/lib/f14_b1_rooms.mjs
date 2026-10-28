@@ -241,8 +241,9 @@ export function launchRoom(ctx, t, o = {}) {
   LR.officers.forEach((of, i) => {
     if ((i === 0 && o.officerL === false) || (i === 1 && o.officerR === false)) return;
     const away = (1 - sineIO(offU)) * (i === 0 ? -900 : 900), x = of.x + away, y = FY;
-    const walking = offU > 0 && offU < 1;
-    const wph = walking ? offU * 9 : null;
+    // lead fix: the side->front switch is hidden in a turn (the figure squashes to an edge and opens again, last 14% of the walk)
+    const turnK = clamp((offU - .86) / .14), walking = offU > 0 && turnK < .5;
+    const wph = walking ? offU * 9 : null, sx = Math.max(.08, Math.abs(Math.cos(Math.PI * turnK)));
     const key = out.keys[i] || keyPose(LR.slots[i], KH, clamp(tArr[i] ?? 0));
     // the near arm to the key: wrist a little short of the bow, along the line from the shoulder
     const sd = of.side, sh = shoulderAt(x, y, OH, of.dir, sd), dx = key.bow[0] - sh[0], dy = key.bow[1] - sh[1], dl = Math.hypot(dx, dy);
@@ -254,7 +255,10 @@ export function launchRoom(ctx, t, o = {}) {
     else { if (sd > 0) fig.armR = arm; else fig.armL = arm; }
     // officer L reaches: his right arm stretches out toward key R
     if (i === 0 && reach > 0 && !walking) { const tgt = [x + 600, LR.slots[1][1] - 40]; const ext = armTo(x, y, OH, of.dir, 1, tgt); fig.armR = [lerp(.18, ext[0], sineIO(reach)), lerp(.08, ext[1], sineIO(reach))]; }
+    const turning = turnK > 0 && turnK < 1;
+    if (turning) { ctx.save(); ctx.translate(x, 0); ctx.scale(sx, 1); ctx.translate(-x, 0); }
     const hands = E.person(ctx, x, y, OH, fig);
+    if (turning) ctx.restore();
     out.officers.push([x, y, OH]);
     if (hk > .02 && !walking && (kArr[i] ?? 0) > 0) {
       const pose = [hands.L, hands.R][sd > 0 ? 1 : 0], ang = Math.atan2(key.bow[1] - pose[1], key.bow[0] - pose[0]);

@@ -640,7 +640,7 @@ export function b2(a) {
 
     // ------------------------------------------------ the inside of the lens (lens coordinates, origin = lens centre)
     function lensInside(ctx, t, r, lx = L.x, ly = L.y) {
-      const nums = .1 + .12 * morph + .16 * cond - .1 * smooth(span(t, a.mri - 1.5, a.mri + 1));
+      const nums = (.1 + .12 * morph + .3 * cond) * (1 - .45 * smooth(span(t, a.mri - 1.5, a.mri + 1)));   // lead: a fuller field in the microscope
       lensField(ctx, t, r, { nums });
       // 5.11 → 6.01: the code lines magnified ×1.5, clear; they settle on the two baselines of the rhyme
       if (morph < 1) {
@@ -789,14 +789,14 @@ export function b2(a) {
       const kp = sp * (1 - smooth(span(toMri, .5, 1)));
       if (kp > 0) {
         ctx.save(); ctx.beginPath(); P3.forEach(([x, y]) => { ctx.moveTo(x + 175, y); ctx.arc(x, y, 175, 0, 6.29); }); ctx.clip();
-        P3.forEach(([x, y], i) => { const br = 1 + .25 * pulse(t, a.pieces + i * .15, .3, 1.4); ctx.fillStyle = rad(ctx, x, y, 175, [[0, rgba(P.halo1, .34 * kp * br)], [.55, rgba(P.halo1, .16 * kp * br)], [1, rgba(P.halo1, 0)]]); ctx.fillRect(x - 175, y - 175, 350, 350); });
+        P3.forEach(([x, y], i) => { const br = 1 + .25 * pulse(t, a.pieces + i * .15, .3, 1.4); ctx.fillStyle = rad(ctx, x, y, 175, [[0, rgba(P.halo1, .44 * kp * br)], [.55, rgba(P.halo1, .2 * kp * br)], [1, rgba(P.halo1, 0)]]); ctx.fillRect(x - 175, y - 175, 350, 350); });
         ctx.translate(-960, -560); X.numberField(ctx, t + 40, { gather: 0, file: PLATE_FILE, a: .95 * kp, size: 26 }); ctx.restore();
       }
       P3.forEach(([x, y], i) => {
         const tx = lerp(x, (i - 1) * 90, toMri), ty = lerp(y, SLICE_Y(i) , toMri);
         const pr = pulse(t, a.pieces + i * .15, .3, 1.4), k = sp * (1 - smooth(span(toMri, .7, 1)));
         if (k <= 0) return;
-        halo(ctx, tx, ty, 120 + 40 * pr, (.45 + .3 * pr) * k, P.halo1, P.core0);
+        halo(ctx, tx, ty, 150 + 40 * pr, (.55 + .3 * pr) * k, P.halo1, P.core0);
         ctx.fillStyle = rgba(P.core0, k); ctx.beginPath(); ctx.arc(tx, ty, 7 + 2 * pr, 0, 6.29); ctx.fill();
       });
       // the sleeper in the dark, outside the pieces (a cool cut token)
