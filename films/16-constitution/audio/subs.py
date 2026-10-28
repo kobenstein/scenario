@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """timing.json -> subtitles.srt + subtitles.ass (one line, bottom, phrase by phrase).
 usage: subs.py <audio_dir> <out_dir>
-Film 14: style = channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters."""
+Film 14/16: style = channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters."""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']
 NUM = [('twenty twenty-five', '2025'), ('twenty twenty-four', '2024'), ('twenty twenty-three', '2023'), ('nineteen-fifties', '1950s'),
-       ('seventy-one percent', '71%')]   # Film 14
+       ('seventy-one percent', '71%'),   # Film 14
+       ('ninety-six', '96'), ('four point five', '4.5'), ('eighty', '80'), ('open a\\.i\\.', 'OpenAI')]   # Film 16 (spoken "Open A.I." -> OpenAI)
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
@@ -24,7 +25,10 @@ def split(ws):
         if c < best: best, bi = c, k
     return split(ws[:bi]) + split(ws[bi:])
 # hand-made breaks where the balanced split would cut a phrase (Film 6 hook, Fassung 3): sentence text -> cue texts, same words in order
-BREAKS = {}   # Film 14: none needed so far
+BREAKS = {   # Film 16: keep "artificial intelligence" on one line
+    "This is Claude's constitution: the 80 pages that shape how the artificial intelligence Claude thinks.":
+        ["This is Claude's constitution:", "the 80 pages that shape", "how the artificial intelligence", "Claude thinks."],
+    "So it matters whose words they are.": ["So it matters", "whose words they are."]}
 def pieces(snt):
     k = ' '.join(x['w'] for x in snt)
     if k not in BREAKS: return split(snt)
@@ -39,8 +43,9 @@ def merge(W):
         for a, b in NUM:
             k = len(a.replace('\\', '').split())
             seg = W[i:i + k]
-            if len(seg) == k and re.fullmatch(a + r'[.,?!]?', ' '.join(x['w'] for x in seg), flags=re.I):
-                tail = re.search(r'[.,?!]$', seg[-1]['w']); out.append({**seg[0], 'w': b + (tail.group(0) if tail else ''), 'e': seg[-1]['e']}); i += k; break
+            m = re.fullmatch('(' + a + r')([.,?!]?)', ' '.join(x['w'] for x in seg), flags=re.I) if len(seg) == k else None
+            if m:   # Film 16: only punctuation after the pattern is kept (so "A.I." does not leave a stray dot)
+                out.append({**seg[0], 'w': b + m.group(2), 'e': seg[-1]['e']}); i += k; break
         else: out.append(W[i]); i += 1
     return out
 W = merge(W)
