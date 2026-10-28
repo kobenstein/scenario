@@ -1,86 +1,117 @@
-# Film 13 · „Superintelligence Promised Us Free Time. Will We Get It?“ · Motion-Regeln (Lead-Brief für alle Builder)
+# Film 13 · „The AI Bubble Could Pop. Superintelligence Won't Stop.“ · Motion-Regeln (Lead-Brief für alle Builder)
 
-Stand 2026-10-28 (Lead Bild, v1). The Good Takeoff, Englisch, 1920×1080, 30 fps. Text `film-zeit/vo-v6.txt` (eckige Klammern werden nicht gesprochen), Timing `film-zeit/audio/timing.json` (Abschnitte `s00` … `s24`, Wortzeiten global in s; nach dem VO-Ende ein Endscreen von **höchstens 15 s**, der sich weiter bewegt). Bindende Shotliste: `shots.md` (Quelle `tools/shots13.py`). Stil: `/mnt/project-files/scenario/stil/STIL-editorial-nacht.md` (gilt vor allem anderen).
-Leitidee: *Uns wurde Zeit versprochen. Jede Maschine hat Stunden frei gemacht, und jedes Mal ist der Sand an uns vorbeigeronnen. Diesmal entscheiden wir vorher, wohin er fließt.*
+Stand 2026-10-28 (Lead Bild, v1). The Good Takeoff, Englisch, 1920×1080, 30 fps, ~10:39 VO + Endscreen.
+- **Text:** `film-blase/vo-v3.txt` (nach Faktencheck, eckige Klammern werden nicht gesprochen).
+- **Timing:** `film-blase/audio/timing.json` (Wortzeiten global in s; Abschnitte `00a` … `08c`). Vorher: `audio/timing-provisional.json` im Repo (automatischer Wechsel, `lib/kit.mjs timingFile()`).
+- **Bindende Shotliste:** `shots.md` (Quelle `tools/shots_bubble.py`). **Stil:** `/mnt/project-files/scenario/stil/STIL-editorial-nacht.md` (gilt vor allem anderen). **Faktencheck:** `film-blase/faktencheck.md`.
 
-Lies das ganz, bevor du eine Zeile Code schreibst. Der Film ist **gezeichnet** (Canvas 2D, Node), keine KI-Bilder, kein Bild-zu-Video, kein Footage.
+**Leitgedanke (ein GEDANKE, kein Bildmotiv):** *Die Blase kann platzen. Was bleibt, sind die Schienen. Die Frage ist, wer mitfahren darf.* Die Schiene zeigt sich nur an **vier Ankern** (§3). Überall sonst bekommt jeder Satz sein eigenes Bild.
+
+Lies das ganz, bevor du eine Zeile Code schreibst. Der Film ist **gezeichnet** (Canvas 2D in Node, 2.5D-Karten vor einer Perspektivkamera): keine KI-Bilder, kein Bild-zu-Video, kein Footage, kein Spiel-3D.
 
 ---
 
 ## 0 · Status
-- **Stil-Test freigegeben** (Jakob 28.10.: „kannst so den ganzen Film machen“): `scenes/sc01.mjs`, 0 bis 21,8 s, Shots 1.01–1.06. Der Rest entsteht durch drei Builder, Aufteilung und Regeln in `BRIEF-builders.md`. Fehlende Chunks rendern als Platzhalter (`lib/stub.mjs`).
-- Daten-Wurzel: `lib/kit.mjs ROOT` = `$F13ROOT` oder `/mnt/project-files/scenario/film-zeit/`; `TIMING=…` überschreibt nur die Timing-Datei.
-- **Immer über Wörter ankern** (`T.S('s00', 'given')`, `T.E(…)`, `T.seg('s12').start`), nie über Sekunden. Das VO wird nachvertont (vo-v6 kürzt den Hook um ~4 s), die Wort-Anker ziehen mit.
+- Produktion in einem Durchgang, ohne Stil-Test (Jakob). **Qualitätsreferenz:** `scenes/sc01.mjs` (c01, Hook, 0–56,9 s, vom Lead gebaut) und ihr Kontaktbogen `film-blase/bild/c01_kontakt.png`.
+- `tools/kit_sheet.mjs` zeichnet jedes Motiv des Kits auf ein Blatt (`node tools/kit_sheet.mjs $SP/kit.jpg`): die visuelle API.
+- Fehlende Chunks rendern als Platzhalter (`lib/stub.mjs`).
+- **Immer über Phrasen ankern, nie über Sekunden:** `T.F('still running today')` (erste Stelle im ganzen Film), `T.F(phrase, after)` (erste Stelle ab Zeit `after`), `T.FE(…)` (Wortende), oder sequenziell `const at = T.seq(R.a); at('Then the crash'); at('anyway')`. Das VO kann neu geschnitten werden; die Phrasen ziehen mit.
 
 ## 1 · Motion-DNA (eine Zelle: ruhig + weich, Editorial)
-- **Ton:** ruhiger Editorial-Dokumentarfilm. Akzente nur auf dem Schlüsselwort eines Satzes, Tempo-Kontrast 3–5×: kurzer Akzent, dann langes, lebendiges Halten (1,5–3 s).
-- **Easing:** Auftritte und Landungen expo-out, Abgänge expo-in, Bewegungen quart in-out, **Kamera sinus-S** (`camAt` mit `s`), nie linear außer konstanter Mechanik (Sandstrahl, Uhrzeiger). Kein Federn, höchstens 3 % Überschwingen.
-- **Basiseinheit 0,4 s.** Mikroakzent 0,25–0,35 s · Auftritt 0,4–0,7 s · Handbewegung 0,8–1,2 s · Kamera ≥ 1,6 s, Fahrten 2,5–4 s. Passt eine Fahrt nicht zwischen zwei Wörter, beginnt sie früher, nie schneller.
-- **Ursache und Wirkung:** Berührt A B, reagiert B 40–120 ms später mit kleinerer Amplitude (Sanduhr setzt auf → Lichtstaub → dein Mantelrand glüht).
-- **Keine Blenden:** kein Crossfade, kein Fade über Schwarz, kein Slide, kein Wischer, kein Spiel-3D, keine primitiven 3D-Körper. Übergänge sind Plansequenzen, Fahrten, Verwandlungen, Flüge in eine Fläche, Match-Fahrten (gleiche Form an gleicher Bildstelle).
-
-## 2 · Die Welt und der Lichtbogen
-**Eine Nacht, die zum goldenen Abend wird.** Der Film beginnt auf einer Felskante unter Sternen (Nachtblau), wandert durch Orte, die alle auf derselben 2.5D-Bühne entstehen (Weg, Küche, Explainer-Raum, Büro, Battle Creek, Halle, Krankenhausflur, Abendtisch, Schreibtisch), und endet im goldenen Abendlicht eines Gartens am Fluss.
-
-| Abschnitt | Licht | Held (das Hellste im Bild) |
-|---|---|---|
-| c01–c06 (Hook bis Hassabis) | Nacht, Sterne, Staub | die Sanduhr aus Licht, die Lichthand, der Ring, Explainer-Licht |
-| c07 (Battle Creek 1930) | Winternacht → Abend | die Fabrikuhr (8 → 6), die Stadt als Lichtkarte |
-| c08 (Herzstück) | **Sommerabend, tiefe Sonne**, lange Schatten, dann Sonnenuntergang → Nachtschicht | die tiefe Sonne |
-| c09–c12 | Nacht hellt auf → Vor-Dämmerung | Blatt aus Licht, Abendtisch-Lampe, die kleine Sanduhr in deinen Händen |
-| c13 | erstes Morgenlicht | Zeitleiste → die Lichthand vom Anfang |
-| c14 + Endscreen | goldener Abend (Echo Battle Creek) | die Sonne |
-
-Warm und hell heißt Zeit, die bei Menschen ankommt; kalt und dunkel heißt Zeit, die weggeflossen ist. Der Lösungsteil (ab c10) wird schrittweise wärmer und heller; die Dämmerung ist ihm vorbehalten.
-
-## 3 · Durchgehende Objekte (die Grafiksprache)
-1. **Die Sanduhr aus Licht** (Held, `f13_kit.hourglass`). Glas als Lichtkontur, **Sand = Gold = Zeit**, Rahmen als dunkle Silhouette mit Randlicht. Sie öffnet (Thumbnail-Motiv in 1.01) und schließt den Film (14.07: der Sand ruht unten, die Sonne scheint hindurch). Zustände: rinnt (`flow`), hält an (`hold`, Shot 2.05 „a lie?“), Riss (`crack`, c06), leckt (`leak`).
-2. **Die Lichthand = die Maschine.** Groß, kühl-creme, aus Licht, von oben rechts. Sie reicht dir die Sanduhr (1.01–1.02), sie arbeitet (c10 Zeit-Dividende), sie kehrt in c13 wieder. Sie ist eine **deckende warme Goldform** (Halo-Gold, Creme-Kern in der Handfläche; `lightHand(…, { lum })`, normal `lum ≈ .76`, zurückgenommen ≈ .4) und immer **dunkler als der Sand**, nie das Hellste. Nie durchsichtig, nie grau-blau.
-3. **Der Ring = Maschine/KI** (kühl-creme, c02, c11): Superintelligenz wird nie als Roboter oder Gehirn gezeigt.
-4. **Der Sandfaden = die Linie.** Eine dünne Goldlinie (`trailSpan`) aus dem Sand ist Träger und Explainer-Strich zugleich: sie steigt als Zitat-Linie auf (1.03), biegt ab (c04: die Stunde wandert woandershin), wird Kurve, Zeitleiste, Achse. Worte, die zu Zeit werden, zerfallen zu Goldsand (`textGrains`/`sandGrains`, 1.05).
-5. **Das Blatt aus Licht = die Regel** (c09, c11, c13): Gesetze, Abkommen, Arbeitszeitregeln. Es landet wie Papier, seine Kante wird Tischtuch oder Zeitleiste.
-6. **Du** (gelbe Regenjacke mit Kapuze, `E.du()`, Kapuze ist Standard): klein, gesichtslos, staunt, hebt, geht, legt die Hände um die Sanduhr. Andere Menschen sind schlichte Silhouetten ohne Gelb.
-
-## 4 · Palette (exakt aus dem Stil, `P` in `lib/f10_editorial.mjs`)
-| Rolle | Hex |
+| | |
 |---|---|
-| Nacht, tiefster Grund | `#080b27` `#0a1334` `#0e112c` |
-| Indigo, Flächen | `#0a184a` `#0c1f5c` `#151f4b` |
-| Blau, Licht auf Formen | `#193f8c` `#33497a` `#394773` |
-| Gold, Lichtkern | `#fefde2` `#fef4bf` |
-| Gold, Halo | `#ead295` `#dec688` `#e7d19a` |
-| Gold, Schatten | `#9e7d54` `#a28f7b` |
-| Regenjacke (du) | `#f2b632` |
-| Schrift | Creme `#fefcde` mit warmem Glühen |
+| Energie | ruhige Doku; ein Akzent auf dem Schlüsselwort, dann 1,5–3 s lebendiges Halten. Tempo-Kontrast 3–5×. |
+| Easing | Auftritte/Landungen expo-out, Abgänge expo-in, Bewegungen quart in-out, **Kamera sinus-S** (`camAt` mit `'s'`). Nie linear außer Mechanik (Räder, Zeiger, Ticker). Überschwingen ≤ 3 %. |
+| Basiseinheit | **0,4 s.** Mikroakzent 0,25–0,35 · Auftritt 0,4–0,7 · Hand/Flip 0,8–1,2 · Kamera ≥ 1,6, Fahrten 2,5–4 s. Passt eine Fahrt nicht zwischen zwei Wörter: früher anfangen, nie schneller. |
+| Physik | Papier ist leicht (taumelt, segelt, Flip mit Nachschwingen), Eisen und Münzen schwer (kurzer harter Stopp), Licht weich. Berührt A B, reagiert B 40–120 ms später, kleiner. |
+| Formen | flache Formen auf 2.5D-Ebenen, Körnung in den Lichtabfällen, ein Held-Licht. |
+| Kamera | langsame Gleitfahrten, Push, Kran, Rückzug, Fahrt mit dem Träger. Keine Achterbahn, kein Flug durch Körper, keine Whip-Pans. |
+| Übergänge | Plansequenz · Verwandlung · Flip · Fahrt mit dem Träger · Flug in eine Fläche · Papier-Schnitt (§5). **Keine Blenden, kein Fade, kein Slide, kein Wischer.** |
+| Signatur | **der Flip** (§4). |
 
-Gold nur für Licht, Sand, Zeit und Hervorhebung; das Gelb gehört nur dir. Himmel tiefes Indigo wie die Film-11-Thumbnails (kein Mittelblau). Grain dezent: `K.PRINT13 = { grain 14, floor 4, vig .5 }`, Korn wechselt mit 10 Hz (jedes 3. Bild). Korn ist Textur, nie Effekt. Luma-Mittel 40–60.
+## 2 · Palette (Basis `E.P` aus `lib/f10_editorial.mjs`, Akzente `B.COL` aus `lib/bubble_kit.mjs`)
+| Rolle | Farbe | Verwendung |
+|---|---|---|
+| Nacht, Grund | `#080b27` `#0a1334` `#0e112c` | Himmel, Explainer-Grund (tiefes Indigo, kein Mittelblau) |
+| Gold (Held-Licht) | Kern `#fefde2`, Halo `#ead295` `#dec688`, Schatten `#9e7d54` | die Blase, Lampen, Kerze, Laterne, Zug-Fenster, Hervorhebung |
+| **Papier** | `paper0 #efe5c6` … `paper3 #5f5640` | Banknoten, Zertifikate, Zeitungen, Briefe, Tickets, Geldlinie |
+| **Tinte** | `ink #161b3c`, `ink2 #2c3159` | Druck, Handschrift, die Tintenlinie, die gedruckte Lok |
+| **Salbei** | `sage #9db095` | nur die Guillochen der Banknoten (ein Hauch Geld) |
+| **Maschine (kühl)** | `cool #cfd8f0`, `cool2 #8f9cc8`, `coolDeep #3e4d86` | Serverlichter, Fähigkeits-Kurve, Handy-Bildschirm, Glasfaser |
+| **Verlust** | `loss #33497a` | was fällt, was verloren ist (kaltes Blau, **nie Rot**) |
+| Du | `#f2b632` (Regenmantel) | nur du, sonst niemand trägt Gelb |
+| Schrift | Creme `#fefcde`, Labels `P.halo2` | Instrument Serif (Zahlen, Zitate), Inter 600 (Labels, Quellen) |
 
-## 5 · Regeln gegen Hektik (messbar)
-- **Weltwechsel:** ≤ ~1 harter Weltwechsel pro Minute (Liste `shots.md` §3: 14 Welten, davon ~10 harte, ≈ 0,95/min). Alles andere sind Plansequenzen und Verwandlungen.
-- **Bewegungsbudget:** höchstens 1–2 bewegte Hauptelemente gleichzeitig, die Kamera zählt mit. Umgebungsleben (Atmen, Sterne, Staub, Korn, Drift via `cameraFloat`) zählt nicht.
-- **Ein Motiv pro Satz**, das Bild zeigt, was der Satz sagt. **Nichts aus dem Nichts:** jedes Element wird gereicht, wächst, steigt von einer Grundlinie auf (Masken-Wipe) oder wird vom Sandfaden geschrieben. Nie halbtransparent einblenden.
+Grain: `K.PRINT13 = { grain 14, floor 4, vig .5 }`, 10 Hz. Korn ist Textur, nie Effekt. Luma-Mittel 40–60.
+
+## 3 · Die vier Schienen-Anker (sonst keine Schiene, kein Gleis, **kein Bahnsteig vor A4**)
+| Anker | Shot | Phrase | Bild |
+|---|---|---|---|
+| **A1** | 1.11–1.12 | „still running today“ | Die Tintenlinie wird im Papier zur eisernen Schiene in der Abenddämmerung; ein heutiger Zug gleitet heran und hält bei dir; die Tür öffnet sich („who gets to ride?“) und schließt sich zum Lichtspalt. |
+| **A2** | 3.01 | „The track“ | Morgendämmerung nach dem Krach, Nebel; eine frische Schiene quer durchs Tal, unberührt, kein Zug. |
+| **A3** | 10.06–10.09 | „penny train of artificial intelligence“ | Die Stücke vom Tisch fliegen zu einem kleinen warmen Zug zusammen: ein Wagen, Dach, Sitz. Einsteigen vom Boden. |
+| **A4** | 12.05–12.06 | „The rails are being laid right now“ | Abenddämmerung, eine neue Schiene wird gelegt, Funken, die Tafel `PRICE:` mit leerem Feld; Endscreen: ferner Zug. |
+Die Lok von 1845 (1.08, aus dem Stempel) fährt **über den Tisch**, nicht auf einer Schiene. Zugbilder in c08 (parliamentary trains) zeigen Menschen und Tickets, keinen Zug.
+
+## 4 · Durchgehende Objekte und die Signatur
+1. **Die goldene Seifenblase aus Banknoten** (`B.bubble`, Held des Hooks und des Finales). Klarer Goldfilm, wenige große Noten drehen sich darin. Zustände: `tremble` (zittert, Bewegungsbögen), `thin` (Film flackert), `pop` (platzt, Noten treiben), `detach` (eine Note verlässt sie). Sie öffnet den Film (1.01 = Thumbnail) und platzt in 12.01. Dazwischen nur als Erinnerung (7.06: eine winzige Note in deiner Hand).
+2. **Das Rechenzentrum** (`B.dataCenter`): lang, flach, kühle Serverlichter; `lum` = wie hart die Maschinen arbeiten. Es glüht immer weiter, auch wenn die Blase platzt (12.01).
+3. **Papier** (`B.paperFill`, Banknote, Zertifikat, Zeitung, Brief, Ticket): das Geld und die Versprechen. Das Zertifikat mit Lok-Stempel ist das Bindeglied 1845 ↔ heute.
+4. **Die Tintenlinie** (`B.inkLine`) = die **Trägerlinie** des Films: sie unterstreicht, stürzt ab (Krach), wird Achse, Kurve, Zeitleiste, Horizont und an A1/A2 die Schiene. Explainer-Linien sind Tinte (auf Papier) oder Licht (auf Nacht), dieselbe Geste.
+5. **Der Flip = die Signatur.** Ein flaches Ding dreht sich um, seine Rückseite ist das Nächste (`B.flip(ctx, u, …, front, back)`). Banknote → Zertifikat (1.06), Papierfetzen → Handy (1.12), Blatt → Buchrücken (2.02), Zeitung → Buch (2.08), Zertifikate → leer (4.02), Ziegel → MONEY/POWER/DEBT (6.04), Penny → Chip (8.07). Pro Minute höchstens ~2 Flips, damit er Signatur bleibt.
+6. **Du** (`E.du()`, gelber Regenmantel mit Kapuze, gesichtslos, klein): die Zuschauerin, der Zuschauer. Steht im ersten Bild unter der Blase, hält an A1 das Papier, in c04 das Handy, in c07 die Rechnung und den Rentenbrief, in c11 das Ticket. Andere Menschen: Indigo-Silhouetten (`B.worker`, `E.person`), atmen, natürliche Arme.
+7. **Das Ticket** (`B.ticket`): 1844 `1d PER MILE` und der heutige Penny-Zug. Es kehrt im Finale in jeder Hand wieder.
+
+## 5 · Weltwechsel und Träger (≤ ~1 harter Weltwechsel pro Minute)
+Ein **Weltwechsel** ist ein neuer Ort oder eine neue Zeit. Jeder hat einen Träger (Form, Position, Richtung bleiben); keiner ist ein harter Schnitt ohne Reim. Geplant sind 12 Weltwechsel in 10,6 min (≈ 1,1/min); alle anderen Übergänge bleiben in der Welt (Plansequenz, Verwandlung).
+
+| # | Wo | Von → nach | Träger |
+|---|---|---|---|
+| 1 | 1.06 | Rechenzentrum heute → Tisch 1845 | Note → Flip → Zertifikat füllt das Bild → **Papier-Schnitt** (`B.paperPlate`, identische Frames) |
+| 2 | 1.11 | Tisch/Zeitung → Abend-Schiene (A1) | Kamera fliegt ins Papier, die Tintenlinie bleibt bei y ≈ 700 und wird die Schiene; Tinte flutet zu Himmel/Erde |
+| 3 | c01→c02 | Schiene → Pfarrhaus | **Seam-Plate** Lichtspalt der Zugtür → Pfarrhausfenster (`lib/bubble_seams.mjs`) |
+| 4 | 3.01 | Pfarrhaus → Morgental (A2) | Tintenzeile unter „too late“ → Horizont → Schiene |
+| 5 | 3.05 | Karte/Uhren → Kabelleger auf See | Lichtpunkt der Zeitleiste → Lichtende der Faser |
+| 6 | 4.05–4.08 | Kabel → dein Handy → Lagerhaus | Rückzug aus der Faser (eine Fahrt) · Lichtpunkt → Lichtstrahl |
+| 7 | 6.05 | Wand (Explainer) → zugefrorener See | die Wand senkt sich zum Eisband |
+| 8 | 7.01 | Zähler → deine Küche | der Zähler selbst (Rückzug) |
+| 9 | 7.07 | Pfarrhausfenster → heutiges Fenster | Match-Cut auf der Fensterform |
+| 10 | 8.01 | Bieterkarten → Lagerhaus-Auktion | die Karten selbst (Seam-Plate c07/c08 intern B2) |
+| 11 | 9.02 / 9.05 | Schacht → Stockholm · Wafer → Alpental | Pfeile in den Schacht · Wafer als Sonne |
+| 12 | 10.01 | Blaupause → Bauernhof 1932 | ein Blatt weht |
+| (13) | 12.05 | Finale-Hände → A4 | Ticket → leeres Preisschild |
+
+**Papier-Schnitt:** wo die Welt hart wechselt und ein Blatt Papier das Bild füllt, zeichnen beide Seiten `B.paperPlate(ctx, t)` mit demselben `t` über volle Deckung (identische Frames, kein Fade). calm.py zählt dort keinen Schnitt.
+
+## 6 · Regeln gegen Hektik (messbar)
+- **Bewegungsbudget:** höchstens 1–2 bewegte Hauptelemente gleichzeitig, die Kamera zählt mit. Umgebungsleben (Atmen, Sterne, Staub, Korn, Drift via `cameraFloat`, blinkende Serverlichter) zählt nicht.
+- **Ein Motiv pro Satz**, das Bild zeigt, was der Satz sagt. **Nichts aus dem Nichts:** jedes Element wird gereicht, wächst, fällt herein, dreht sich um (Flip) oder steigt von einer Grundlinie auf (Masken-Wipe `K.maskLine`). **Nie halbtransparent einblenden.**
 - **Kein Stillstand > 2 s; Halten 1,5–3 s nach jedem Akzent.** Text steht ruhig, solange er gelesen wird (≥ 1,5 s, ≥ Zeichen/12 s).
-- **Hook ohne Pause:** s02 „a lie?“ fließt direkt in s03 „No.“ (2.05 → 2.06 Plansequenz, der Sand hält ≤ 1,2 s an, die Kamera driftet).
-- **Messung vor jedem Bericht:** `python3 tools/calm.py <mp4>` (mafd-Median, Schnitte, Luma; auch `--scale 1280:720`), `python3 tools/smooth.py <mp4>` (**0 Ruckler**: keine LURCH/POP), `SECS=cNN node tools/seam.mjs --at …` an jeder Render-Naht.
+- **Hook ohne Pause, ohne Titelkarte:** 0:35–0:57 läuft ohne Halt von Mackay über den Krach in A1 und weiter in c02.
+- **Messung vor jedem Bericht:** `python3 tools/calm.py <mp4> --scale 1280:720` (Ziel ≤ 0,9 harte Schnitte/min, mafd-Median ≤ ~0,45, Luma 40–60), `python3 tools/smooth.py <mp4> <start>` (**0 Ruckler**), `SECS=… node tools/seam.mjs --at <t>` an jeder Naht.
 
-## 6 · Text im Bild und Grafiken
-- **Grafiken aus den Elementen des Films** (Jakob 28.10.): Sand rieselt zu Balken und Kurven, der Faden zeichnet Zeitleisten und Grenzen, Stunden sind Sandkörner oder Sanduhren, die Lichthand und der Ring sind die Maschine. Jede Grafik zeigt genau, was der Satz sagt, und ist ohne Ton lesbar. Keine generischen Diagramm-Tafeln (`BRIEF-builders.md` §3).
-- Schrift: Zitat und Zahlen **Instrument Serif** (Creme, warmes Glühen), Quellen und Labels **Inter 600** (`P.halo2`). Im Bild „artificial intelligence“, nie „AI“.
-- Explainer: Licht auf Nachtblau, keine Tafel, kein Rahmen; höchstens eine Zahl und ≤ 6 Wörter plus Quelle; Zahl ≥ 120 px, Label ≥ 34 px, Quelle ≥ 24 px bei 1080p.
-- Nur Werte aus `faktencheck.md`; jede Zahl mit Quelle (`shots.md` §4).
-- **Zitatkarte (1.03–1.04), wortgenau:** „The purpose of life is not just to do jobs. So if you eventually get a society where you only have to work three days a week or something, that's probably okay.“ · `— Bill Gates, “What Now?” with Trevor Noah, 2023`.
+## 7 · Text im Bild, Grafiken, Fakten
+- **Explainer-Anteil 60–70 %** (gemessen in `shots.md`, derzeit 62 %). Explainer sind echte Grafiken: Index-Absturz, 5 % beleuchtete Fasern, Lebensdauer Chip gegen Schiene, Kapazitätspreis, Index-Ring, Tarif-Zeiger, Karten. Sie sind aus den Dingen des Films gebaut (Papier, Tinte, Noten, Münzen, Tickets, Serverlicht) und ohne Ton lesbar. Keine Folien-Tafeln, kein Gitter, keine Legenden.
+- **Schrift:** Zahlen und Zitate Instrument Serif (Creme, warmes Glühen), Labels und Quellen Inter 600 (`P.halo2`). Zahl ≥ 120 px, Label ≥ 34 px, Quelle ≥ 24 px. Höchstens eine Zahl und ≤ 6 Wörter plus Quelle pro Grafik.
+- **„artificial intelligence“, nie „AI“** im Bild. Einzige Ausnahme: das wörtliche Altman-Zitat.
+- **Untertitel-Zone frei:** kein Text unter y = 910 (unterste ~170 px).
+- **Zitatkarten (wörtlich):** Altman (1.03): „Are we in a phase where investors as a whole are overexcited about AI?“ · „My opinion is yes.“ · `— Sam Altman, August 2025`. Bezos (4.08): „a kind of industrial bubble“ · `— Jeff Bezos, Italian Tech Week, October 2025`. Nadella (11.05): nur wörtlich, wenn vor dem finalen Render geprüft (Faktencheck Z. 61), sonst Label.
+- **Mackay:** paraphrasiert. Seine Zeitung zeigen (`THE GLASGOW ARGUS · OCTOBER 1845`, Leitartikel-Spalte unterstrichen), **keine Zitatkarte, kein lesbarer Wortlaut**.
+- **Beschriftungen nach Faktencheck (bindend):** `≈ 5 % LIT · USA, ESTIMATE 2001` (keine Weltkarte der Ozeankabel als Daten) · `PRICE OF MOVING DATA · 1998–2015` (−99 %) · `RAILWAYS BEGIN SWITCHING · DEC 1847` · `RECORD YEAR … PLANNED` · `EVERY NEW LINE · EVERY WEEKDAY · EACH WAY` · `MORE THAN ¼` (nicht 30 %) · `23 STATES` · `STOKAB … ABOUT 100 PROVIDERS` · `ORACLE ≈ −55 % FROM 52-WEEK HIGH` · `VACANCY 1 % · JLL, YEAR-END 2025` · `AEP OHIO · 85 % · UP TO 12 YEARS` · `$12.4 BN` / `$250 M` · `−64 %` (Railway-Index 1845–1849) · `METR · DOUBLES EVERY ~3.5 MONTHS`. „27 countries“ nicht zeigen (schwach belegt).
 
-## 7 · Kit
-- `lib/f10_editorial.mjs` (Editorial-Nacht-Bühne): `card`, `cam3`, `camAt`, `camDrift`, `F0`, Tiefen (Himmel 40000, Mitte 6000, Fokus F0) · `P` · `lightHand`/`handMatrix`/`handTip` · `du()` (Kapuze Standard) · `person()` · `glowText` · `halo` · `dust` · `castShadow` · `catmull` · `finish` · Explainer: `counter`, `bars`, `curve`, `pie`, `timeline`, `flow`, `compare`, `icon`, `lightShape`.
-- `lib/f13_kit.mjs` (Film 13): `hourglass` (gibt `neck`, `top`, `base`, `stream` für Träger zurück) · `trailSpan` (Sandfaden) · `maskLine` (Zeile steigt von der Grundlinie, Abschnitte warm färbbar) · `measure` · `textGrains` + `sandGrains` (Worte zerfallen zu Sand) · `ledge`/`ledgeY` (Felskante) · `PRINT13` (Finish).
-- `lib/f13_seams.mjs` (Lead): die Platten an den Builder-Nähten (`plateGlass` B1→B2, `plateSheet` B2→B3), siehe `BRIEF-builders.md` §2.
-- **Speicher:** keine Canvas, kein Pattern, kein Gradient-Cache pro Frame neu bauen (Leck in `@napi-rs/canvas`). Renders mit `node --expose-gc`, Stücke ≤ 20 s.
+## 8 · Kit
+- `lib/f10_editorial.mjs` (Bühne, unverändert aus Film 10/13): `card`, `cam3`, `camAt`, `camDrift`, `aim`, `project`, `F0` (Tiefen: Himmel 40000, Mitte 4000–6000, Fokus F0 = 1700) · `P` · `du()` · `person()` · `glowText` · `halo` · `dust` · `castShadow` · `nightSky` · `stars` · Explainer: `counter`, `bars`, `curve`, `pie`, `timeline`, `flow`, `compare`, `icon`, `lightShape` · `finish`.
+- `lib/base_kit.mjs`: `PRINT13`, `trailSpan`, `maskLine` (Zeile steigt aus der Grundlinie), `measure`, `textGrains`, `sandGrains`.
+- `lib/bubble_kit.mjs` (dieser Film): `COL` · `paperFill` · `paperPlate` · `banknote` · `bubble` · `dataCenter` · `worker` · `loco` · `certificate` · `coin` · `purse` · `teacup` · `newspaper` · `quill` · `inkLine` · `rail` · `train` · `phone` · `fundScreen` · `ticket` · `flip` · `mist`. Signaturen im Kopf der Datei; Ansicht `tools/kit_sheet.mjs`.
+- `lib/bubble_seams.mjs` (Lead): die Platten an den Gruppen-Nähten (`BRIEF-builders.md` §2).
+- **Speicher:** keine Canvas, kein Pattern pro Frame (Leck in `@napi-rs/canvas`). Renders mit `node --expose-gc`, Stücke ≤ 20 s.
 
-## 8 · Endscreen (≤ 15 s nach dem VO-Ende, 14.08)
-Weites Bild in goldener Stunde: Garten, Fluss, Waldrand; Sonne tief in der Mitte am Horizont; du und die Sanduhr winzig unten in der Mitte. **Freiflächen:** links x 90–780, y 250–700 („best for viewer“), rechts x 1140–1830 („latest upload“), Mitte über der Sonne x 810–1110, y 330–600 (Abo-Knopf). **Nie statisch:** langsamer Rückzug, der Fluss glitzert, Gräser wiegen sich, Glühwürmchen steigen, die Sonne sinkt.
+## 9 · Endscreen (12.06, ≤ 15 s nach dem VO-Ende)
+Die Schiene von A4 läuft in die Dämmerung, weit hinten ein kleiner erleuchteter Zug, der sich langsam bewegt. Obere zwei Drittel offener Himmel. Kein Text, kein Logo. **Freiflächen:** links x 90–780, y 250–700 („best for viewer“), rechts x 1140–1830, y 250–700 („latest upload“), Mitte x 810–1110, y 330–600 (Abo-Knopf). Nie statisch: langsamer Rückzug, der ferne Zug, Sterne kommen.
+**Achtung:** `timing.json` hat derzeit 15,9 s nach dem letzten Wort (Ende 654,24, letztes Wort 638,34). Das Bild bleibt bis zum Ende lebendig; die Länge regelt der Ton-Thread.
 
-## 9 · Gates (in dieser Reihenfolge)
-1. Plan zuerst: Shot in `tools/shots13.py` (Anker-Wort, Bild, 1–2 Bewegungen, Übergang mit Träger), `shots.md` neu schreiben.
+## 10 · Gates (in dieser Reihenfolge)
+1. Plan zuerst: Shot in `tools/shots_bubble.py` (Start-Phrase, Anker, Bild, 1–2 Bewegungen, Übergang mit Träger), `shots.md` neu schreiben (`python3 tools/shots_bubble.py --md docs/shots.md`). Änderungen am Plan meldest du dem Lead.
 2. Bauen, dann anschauen: Standbilder alle ~0,5 s um jede Fahrt und eines pro Satz (`render.mjs --snap … --scale .5`, Kontaktbogen). Mindestens 3 Review-Runden.
-3. Messen (§5), Werte in den Bericht.
-4. Selbstnote 1–5: Plakat · Satz = Bild · nahtlos · ruhig · lebendig · Text. Nichts unter 4.
+3. Messen (§6), Werte in den Bericht.
+4. Selbstnote 1–5: Plakat · Satz = Bild · nahtlos · ruhig · lebendig · Text · Fakten. Nichts unter 4.

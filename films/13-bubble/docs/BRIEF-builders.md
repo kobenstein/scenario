@@ -1,154 +1,85 @@
-# Film 13 · Builder-Brief (3 Builder parallel, ein Checkout) · Stand 2026-10-28
+# Film 13 „The AI Bubble Could Pop“ · Builder-Brief (3 Builder parallel, ein Checkout) · Stand 2026-10-28
 
-Jakob hat den 20-s-Stil-Test freigegeben („sieht eigentlich gut aus – kannst so den ganzen Film machen“). Der ganze Film entsteht jetzt in genau diesem Look, von **drei Buildern gleichzeitig: B1, B2 und B3**. Lead Bild ist der Thread, der den Stil-Test gebaut hat; er hält Kit, Shotliste und Nähte.
+Jakob hat die volle Produktion in einem Durchgang freigegeben, ohne Stil-Test. Der Lead Bild hat Plan, Kit, Nähte und **c01 (Hook, 0–56,9 s) als Qualitätsreferenz** gebaut. Den Rest bauen **B1, B2 und B3** gleichzeitig. Der Lead hält Kit, Shotliste und die Gruppen-Nähte.
 
 ## 0 · Pflicht vor der ersten Zeile Code
 1. **Vier Skills laden** (Skill-Tool) und befolgen: `anthropic-skills:scenario-motion`, `anthropic-skills:world-class-motion-design`, `anthropic-skills:fluid-motion-design`, `anthropic-skills:motion-director-gates`. Veraltet darin: „Hyperframes“/three.js. Wir zeichnen mit der eigenen Engine in Canvas 2D (2.5D-Karten vor `cam3`).
 2. **Lesen**, in dieser Reihenfolge:
    1. `/mnt/project-files/scenario/stil/STIL-editorial-nacht.md` (verbindlich)
-   2. `docs/MOTION.md` (Welt, Objekte, Palette, Budgets, Kit)
-   3. `docs/shots.md` (deine Shots mit Wort-Ankern, Trägern und Übergängen; bindend)
+   2. `docs/MOTION.md` (Leitgedanke, 4 Schienen-Anker, Flip, Palette, Weltwechsel, Budgets, **Fakten-Beschriftungen §7**)
+   3. `docs/shots.md` (deine Shots mit Phrasen-Ankern, Trägern und Übergängen; bindend)
    4. `docs/EDITORIAL-KIT.md` (2.5D-Bühne, API)
-   5. `/mnt/project-files/scenario/film-zeit/vo-v6.txt` (deine Absätze)
-   6. `/mnt/project-files/scenario/film-zeit/faktencheck.md` (nur diese Zahlen)
-3. **Ansehen:** den Stil-Test `/mnt/project-files/scenario/film-zeit/render/stiltest-20s.mp4` und `stiltest-20s-kontakt.jpg`, dazu den Code `scenes/sc01.mjs`. Er ist das Muster und das Qualitätsziel:
-   - eine Plansequenz;
-   - Kamera aus `camAt`-Keys auf Wörtern;
-   - Reaktionen aus Positionen berechnet;
-   - Text steigt ruhig von der Grundlinie.
+   5. `/mnt/project-files/scenario/film-blase/vo-v3.txt` (deine Absätze) und `faktencheck.md` (nur diese Zahlen)
+3. **Ansehen:** `scenes/sc01.mjs` (das Muster), den Kontaktbogen `/mnt/project-files/scenario/film-blase/bild/c01_kontakt.png` und das Kit-Blatt (`node tools/kit_sheet.mjs $SP/kit.jpg`). c01 zeigt:
+   - drei Welten in **einem** Eintrag, getragen (Flip der Note → Papier-Match; Flug ins Papier → Tintenflut; Kamera endet auf der Seam-Plate);
+   - Kamera aus `camAt`-Keys auf Phrasen, `aim(F0, x, y, s, sx, sy)` für Ausschnitte;
+   - Reaktionen aus Positionen berechnet (der Note-Abflug aus `B.bubblePoses`, die Hand fängt das Papier an `E.du(...).R`);
+   - Text steigt ruhig aus der Grundlinie (`K.maskLine`).
 
-## 1 · Aufteilung (Zeiten aus `timing.json`, Stand vo-v6; im Code nur über Wörter ankern)
-| Builder | Chunks | Zeit (s) | Dauer | Inhalt |
+## 1 · Aufteilung (Zeiten aus `timing.json`; im Code nur über Phrasen ankern)
+| Paket | Chunks | Zeit (s) | Dauer | Inhalt |
 |---|---|---|---|---|
-| **B1** | c01 ab 1.07, c02, c03, c04, c05, c06 | 21,8–236,70 | 215 s | Hook-Rest (Bullauge, Umschlag, Handy, Menge), Berkeley, „a lie? → No.“, Arbeitsjahr, Wasser, Waschmaschine/Cowan/E-Mail/Microsoft, Linder, „this machine is different“, Berkeley-Jongleur, Hassabis |
-| **B2** | c07, c08, c09, c10 | 236,70–448,88 | 212 s | Battle Creek 1930 (Kellogg 8 → 6, Hunnicutt), **der Sommerabend (Herzstück)**, wie es verrutschte, kein Bösewicht, Mission, Firmen (Vier-Tage-Woche, Zeit-Dividende, Krankenhaus) |
-| **B3** | c11, c12, c13, c14 + Endscreen | 448,88–625,48 | 177 s | Recht auf Abschalten, Keynes, wer entscheidet, du (Zeit kaufen, 2 von 100, die erste Stunde), wann die Regeln kamen, das Finale (Garten, Abendessen, Kind am Fluss, Wald) und der Endscreen (≤ 15 s) |
+| **Lead** | c01 | 0–56,86 | 57 s | fertig (Referenz) |
+| **B1** | c02, c03, c04, c05 | 56,86–257,90 | 201 s | Brontës, Charlottes Brief, −64 %, Mackay · **A2** · Glasfaser, 5 % · Global Crossing, Nachfrage, −99 %, dein Handy, Abo, Bezos · Chip gegen Schiene, fast voll, was bleibt, das Urteil |
+| **B2** | c06, c07, c08 | 257,90–439,20 | 181 s | die Wand (METR, MONEY/POWER/DEBT), der See, S&P/CoreWeave/Oracle · Stromrechnung, Rente, Index-Ring, Pfarrhaus → Sofa · Auktion, 1844 Penny-Zug, Ohio, 23 Staaten |
+| **B3** | c09, c10, c11, c12 + Endscreen | 439,20–654,24 | 215 s | offene Türen, Stockholm, Intel, Apertus/Indien/Europa · Genossenschaften, B4RN, **A3** · Waage, offene Fragen, Nadella, Perez · Blase platzt, **A4**, Endscreen |
 
-Chunk-Grenzen innerhalb einer Gruppe: c01|c02 33,44 · c02|c03 63,48 · c03|c04 95,68 · c04|c05 144,20 · c05|c06 178,00 · c07|c08 294,02 · c08|c09 351,48 · c09|c10 399,24 · c11|c12 495,96 · c12|c13 534,00 · c13|c14 582,52 · VO-Ende 609,58.
+Chunk-Grenzen (Start-Phrasen in `film.mjs CHUNKS`): c02 „In a Yorkshire parsonage“ · c03 „But one thing didn't vanish“ · c04 „Then the crash“ · c05 „Maybe“ · c06 „You'll hear that“ · c07 „Follow the money“ · c08 „After a crash“ · c09 „Public money can come“ · c10 „And sometimes, people build“ · c11 „Nobody gives up“ · c12 „The bubble may pop“. **12 Chunks** (statt ~11): so bleibt jeder Chunk unter ~75 s.
 
-**Zu c01:** B1 setzt den Hook fort. Die Einstellung 0–21,8 s ist freigegeben und bleibt **unverändert**.
-- B1 erweitert `scenes/sc01.mjs` nur ab 21,8 s: neue Zustände und Kamera-Keys nach `a.but + 1`, Shots 1.07–1.11. Bis 21,8 s ändert sich kein Pixel.
-- Prüfung: `SECS=c01 node render.mjs --snap 5,12,18,21.7 --dir … --scale .5` sieht aus wie der Kontaktbogen des Stil-Tests, und `tools/seam.mjs --at 21.8` meldet nichts.
+## 2 · Die Nähte zwischen den Paketen (fest, vom Lead; `lib/bubble_seams.mjs`)
+Eine Gruppen-Naht liegt auf einer *Platte*: beide Seiten zeichnen sie aus derselben Funktion mit demselben `t`, also sind die Frames links und rechts identisch. Ansicht: `node tools/seam_plates.mjs $SP/plates.jpg`.
+- Die abgebende Seite führt ihre letzte Bewegung so, dass das Bild in der Platte ankommt, und zeichnet die Platte für `t ∈ [T0 − 0,5, T0)` deckend.
+- Die übernehmende Seite zeichnet sie für `t ∈ [T0, T0 + 0,5)` und lässt ihre Welt aus ihr wachsen (Platte zieht sich zurück oder wird ein Ding der neuen Welt; nie per Blende). Hilfen: `seamWindow(t, T0)`, `SEAM_HALF`.
 
-## 2 · Die Nähte zwischen den Gruppen (fest, vom Lead definiert)
-Die zwei Gruppen-Nähte liegen auf einem **gemeinsamen Bild**, einer *Platte* aus `lib/f13_seams.mjs`. Beide Seiten zeichnen die Platte aus derselben Funktion mit demselben `t`, also sind die Frames links und rechts der Naht identisch. Ansicht: `node tools/seam_plates.mjs <dir>`.
-- Die abgebende Seite steuert ihre letzte Bewegung so, dass das Bild in der Platte ankommt, und zeichnet die Platte für `t ∈ [T0 − 0,5, T0)` deckend über alles.
-- Die übernehmende Seite zeichnet sie für `t ∈ [T0, T0 + 0,5)` und lässt ihre Welt aus ihr wachsen: Die Platte zieht sich zurück oder wird zu einem Ding der neuen Welt, nie per Blende.
-- Hilfen: `seamWindow(t, T0)` und `SEAM_HALF`.
-
-| Naht | T0 (Anker) | Platte | Abgabe (Ende der Gruppe davor) | Übernahme (Anfang der Gruppe danach) |
+| Naht | T0 | Platte | Abgabe | Übernahme |
 |---|---|---|---|---|
-| **B1 → B2** | `T.seg('s10').start` (≈ 236,70) | `plateGlass`: **im Glas**. Goldner Dunst des Sandes, der Sandfaden fällt senkrecht durch die Bildmitte (x 960), links eine Glaskante. | 6.09: du vor der großen Sanduhr, dein Mantel spiegelt sich im Glas. Push ins untere Glas, bis der Faden in der Bildmitte senkrecht steht und der Dunst das Bild füllt. | 7.01: Die Kamera sinkt durch den Dunst, **der Sandfaden wird der Fluss** von Battle Creek, von oben gesehen. Die Winterstadt mit Fabrik wächst um den Fluss. `BATTLE CREEK · MICHIGAN`. |
-| **B2 → B3** | `T.seg('s18').start` (≈ 448,88) | `plateSheet`: **das Blatt, nah**. Ein Blatt aus Licht unter einer Lampe füllt das Bild, linke Kante bei x ≈ 190, zwei geschriebene Goldzeilen (die zweite ist gerade fertig). | 10.07: Das Flurlicht fällt aufs Blatt, der Stift schreibt die zweite Zeile, die Kamera senkt sich aufs Blatt, bis es das Bild füllt. | 11.01: Die Kamera hebt sich, **das Blatt ist das Tischtuch** des Abendtischs unter der Lampe (Held). Silhouetten und du, ein Handy leuchtet und dreht sich um. |
+| **c01 → c02** (Lead → B1) | `R.a` von c02 (= `T.F('In a Yorkshire parsonage')`) | `plateSlit`: die Zugtür von A1, 8× nah, fast zu: dunkle Türflügel, links/rechts das warme Fensterband, ein senkrechter Lichtspalt bei x 1140 (`S.SLIT`). | fertig (c01 endet exakt darauf). | 2.01: Der Spalt weitet sich zum erleuchteten Fenster des Pfarrhauses; die Kamera fliegt weiter hinein, die Flügel werden der Fensterrahmen; draußen Moor und Wind. |
+| **c05 → c06** (B1 → B2) | `T.F("You'll hear that")` | `plateBrick`: der kurze, kalte CHIP-Balken allein auf der Zeitachse, Mitte (`S.BRICK`), Label `CHIPS · 3–6 YEARS`. | 5.08: Das Urteil räumt ab: alles außer dem Chip-Balken verlässt das Bild (Lebensdauer-Balken rollt nach rechts hinaus, Icons sinken), Kamera zentriert den Balken. | 6.01: Der Balken fällt als Ziegel, landet (Akzent auf „wall“), die Wand beginnt. |
+| **c08 → c09** (B2 → B3) | `T.F('Public money can come')` | `plateDoor`: eine geschlossene Kabelschacht-Tür, frontal, Mitte, Vorhängeschloss, Lampe darüber (`S.DOOR`). | 8.12: Zaun mit Schild `PUBLIC MONEY` vor einer Tür; Push durch den Zaun auf die Tür, bis sie die Platte ist. | 9.01: Der Stempel `PUBLIC MONEY` landet auf der Tür, das Schloss fällt, die Tür schwingt auf. |
 
-Nähte innerhalb deiner Gruppe (Chunk zu Chunk) baust du selbst nach demselben Prinzip:
-- gleiche Kamera und gleicher Trägerzustand im letzten Frame von cN und im ersten von cN+1;
-- am einfachsten eine gemeinsame Zeichenfunktion in deinem eigenen `lib/f13_bN_*.mjs`;
-- Übergang und Träger stehen in `shots.md`.
+Nähte **innerhalb** deines Pakets baust du selbst nach demselben Prinzip (gleiche Kamera und gleicher Trägerzustand im letzten Frame von cN und im ersten von cN+1; am einfachsten eine gemeinsame Zeichenfunktion in deinem Modul). Übergang und Träger stehen in `shots.md`.
 
-## 3 · Harte Regel: Grafiken aus den Elementen des Films (Jakob, 28.10. 15:25)
-> „aus den Elementen auch schöne Grafiken bauen, die das visualisieren, was gesagt wird“
-
-- **Jede Explainer-Grafik wird aus den Dingen des Films gebaut:**
-  - der Sanduhr;
-  - ihrem Goldsand;
-  - dem Goldfaden;
-  - der Lichthand (Maschine);
-  - dem Ring (Maschine/KI);
-  - dem Blatt aus Licht (Regel);
-  - dir in Gelb.
-- **Beispiele:**
-  - Sand rieselt in Balken und häuft sich zu Kurven (Höhe = Wert).
-  - Der Faden zeichnet Zeitleisten, Achsen und Ländergrenzen.
-  - Stunden sind Sandkörner oder kleine Sanduhren (z. B. 2 von 100 = zwei goldene unter 98 dunklen).
-  - Ein Arbeitstag ist ein Glas, das sich von 8 auf 6 Teilstriche leert.
-  - Eine Waage trägt Münzen gegen eine Sanduhr.
-  - Der Ring zählt Monate.
-- **Jede Grafik zeigt genau, was der Satz sagt:** die Zahl, den Vergleich, das Vorher/Nachher. Sie ist ohne Ton lesbar. Pro Grafik eine Aussage, höchstens eine Zahl und ≤ 6 Wörter plus Quelle.
-- **Verboten:** generische Diagramm-Tafeln, Rahmen, Achsenkreuze mit Gitter, Folien-Look, Legenden. Eine Grafik ist **Licht auf Nachtblau**, schön genug als Standbild, im Editorial-Nacht-Look.
-- Jede Grafik wächst aus einem Ding der Welt und geht in eines zurück (Träger in `shots.md`). Sie startet versetzt (≥ 0,3 s zwischen Teilen) und steht ruhig, solange sie gelesen wird.
+## 3 · Harte Regeln (Jakob + Faktencheck)
+- **Mischung Szene/Explainer:** pro Satz das, was ihn am besten erklärt; Explainer-Anteil 60–70 % (`shots.md` misst ihn). Explainer sind **echte Grafiken** (Index-Absturz, 5 % beleuchtete Fasern, Lebensdauer Chip/Schiene, Kapazitätspreis-Balken, Index-Ring, Tarif-Zeiger, Karten), gebaut aus den Dingen des Films (Papier, Tinte, Noten, Münzen, Tickets, Serverlicht), ohne Ton lesbar. Keine Folien, kein Gitter, keine Legenden.
+- **Jeder Übergang hat einen Träger.** Keine Blende, kein Fade, kein Wischer, kein Slide. ≤ ~1 harter Weltwechsel pro Minute (`MOTION.md` §5).
+- **Ruhig:** langsame Kamera, max. 1–2 bewegte Hauptelemente, Halten 1,5–3 s nach Akzenten, kein Stillstand > 2 s, nichts halbtransparent einblenden. Kein Spiel-/Achterbahn-Look, keine KI-Bilder.
+- **Figuren leben:** atmen, natürliche Arme (`B.worker`, `E.person`, `E.du`). **Nur du trägt Gelb.**
+- **Schiene nur an A2 (B1, 3.01), A3 (B3, 10.06–10.09), A4 (B3, 12.05–12.06).** Kein Bahnsteig vor A4. Die parliamentary trains (c08) zeigen Menschen und Tickets, keinen Zug.
+- **Text:** im Bild „artificial intelligence“, nie „AI“ (nur das wörtliche Altman-Zitat in c01 darf). Kein Text unter y = 910 (Untertitel). Nur Werte aus `faktencheck.md`, Beschriftungen exakt wie `MOTION.md` §7 (u. a. `USA, ESTIMATE 2001`, `1998–2015`, `23 STATES`, `ABOUT 100 PROVIDERS`, `EVERY NEW LINE · EVERY WEEKDAY`, `MORE THAN ¼`, `BEGIN SWITCHING · DEC 1847`, `PLANNED`, `ORACLE ≈ −55 % FROM 52-WEEK HIGH`, `JLL, YEAR-END 2025`).
+- **Mackay (B1, 2.08):** paraphrasiert. Seine Zeitung (`THE GLASGOW ARGUS · OCTOBER 1845`, aus c01) und sein Buch zeigen, **keine Zitatkarte, kein lesbarer Wortlaut.**
+- **Nadella (B3, 11.05):** Zitatkarte nur wörtlich, wenn vor dem finalen Render geprüft; sonst Label.
+- **Endscreen (B3, 12.06):** ≤ 15 s, bewegt, Freiflächen für die YouTube-Endkarten (`MOTION.md` §9). `timing.json` hat derzeit 15,9 s nach dem letzten Wort; das Bild bleibt bis zum Ende lebendig.
 
 ## 4 · Was du anfassen darfst und was nicht
-- **Nur deine Dateien:**
-  - B1: `scenes/sc01.mjs` (ab 21,8 s) und `scenes/sc02.mjs` … `sc06.mjs`;
-  - B2: `scenes/sc07.mjs` … `sc10.mjs`;
-  - B3: `scenes/sc11.mjs` … `sc14.mjs`;
-  - dazu deine eigenen Module `lib/f13_b1_*.mjs`, `lib/f13_b2_*.mjs` oder `lib/f13_b3_*.mjs`.
-- **Nicht ändern:**
-  - `lib/f10_editorial.mjs`, `lib/f13_kit.mjs`, `lib/f13_seams.mjs`, `lib/kit.mjs`;
-  - `film.mjs`, `engine.mjs`, `render.mjs`, `tools/`, `docs/`;
-  - die Dateien der anderen Builder.
-- **Fehlt etwas im Kit oder stört ein Fehler:** in deinem Modul lösen und im Bericht als Kit-Wunsch melden. Kit-Änderungen macht nur der Lead.
-- **Eine Szenendatei:** `export default (T, R) => [entries]`, mit `entry = { t, draw(ctx, t), print: K.PRINT13 }`.
-  - Ein Chunk ist normalerweise **ein** Eintrag (Plansequenz).
-  - Ein zweiter Eintrag ist ein harter Schnitt und nur erlaubt, wenn `shots.md` dort eine Match-Fahrt mit reimendem Träger nennt.
-- **Kein Commit, kein Push.** Alle drei arbeiten im selben Checkout; der Lead bzw. der Koordinator committet. Kein `git checkout`, `git stash` und kein `git reset` (das träfe die Arbeit der anderen).
+- **Nur deine Dateien:** B1 `scenes/sc02.mjs` … `sc05.mjs`; B2 `scenes/sc06.mjs` … `sc08.mjs`; B3 `scenes/sc09.mjs` … `sc12.mjs`; dazu eigene Module `lib/b1_*.mjs`, `lib/b2_*.mjs`, `lib/b3_*.mjs`.
+- **Nicht ändern:** `lib/f10_editorial.mjs`, `lib/base_kit.mjs`, `lib/bubble_kit.mjs`, `lib/bubble_seams.mjs`, `lib/kit.mjs`, `film.mjs`, `engine.mjs`, `render.mjs`, `tools/`, `docs/`, `scenes/sc01.mjs`, die Dateien der anderen.
+- **Fehlt etwas im Kit:** in deinem Modul lösen und im Bericht als Kit-Wunsch melden.
+- **Szenendatei:** `export default (T, R) => [entries]`, `entry = { t, draw(ctx, t), print: K.PRINT13 }`. Ein Chunk ist normalerweise **ein** Eintrag (Plansequenz, wie c01). Ein zweiter Eintrag ist ein harter Schnitt und nur erlaubt zwischen identischen Frames (Papier-Match, Platte).
+- **Anker:** `const at = T.seq(R.a); const a = { x: at('phrase'), … }` oder `T.F('phrase', after)`; Wortende `T.FE`. **Nie Sekunden.**
+- **Kein Commit, kein Push.** Kein `git checkout`, `git stash`, `git reset` (das träfe die Arbeit der anderen). Der Lead bzw. der Koordinator committet.
 
-## 5 · Kit-Stand (nach dem Stil-Test)
-- `E.lightHand(ctx, m, t, { pose, spread, curl, lum, dust })`:
-  - Die Hand ist jetzt eine **deckende warme Goldform**.
-  - `lum` (0–1) regelt die Helligkeit: Sie sinkt Richtung Goldschatten und wird nie durchsichtig.
-  - Normal `lum ≈ .76`, zurückgenommen ≈ .4. Sie bleibt immer dunkler als der Sand der Sanduhr.
-  - `tone: 'blue'` gibt den alten Film-10-Look und ist in Film 13 nicht erlaubt.
-- **Himmel:** tiefes Indigo wie die Film-11-Thumbnails.
-  - `E.nightSky(ctx, [[0, P.night0], [.5, P.night1], [1, P.ind0]], …)`, Aufhellung nur mit `P.ind1`, kein `P.blue0`-Teppich.
-  - Ziel-Luma (calm.py) 40–60 im Mittel, der Held hell.
-- **Finish:** `K.PRINT13 = { grain: 14, floor: 4, vig: .5 }`. Das Korn wechselt mit 10 Hz (jedes 3. Bild).
-- `lib/f13_kit.mjs`: `hourglass` (inkl. `hold`, `crack`, `leak`), `trailSpan`, `maskLine`, `measure`, `textGrains`, `sandGrains`, `ledge`/`ledgeY`.
-- `lib/f13_seams.mjs`: `plateGlass`, `plateSheet`, `seamWindow`.
-- **Speicher:** keine Canvas, kein Pattern pro Frame. Gecachte Dinge einmal beim Laden bauen.
+## 5 · Kit (Kurzfassung, Details in den Dateiköpfen)
+- `lib/bubble_kit.mjs` (`B.`): `COL` · `paperFill` · `paperPlate` · `banknote` · `bubble` / `bubblePoses` · `dataCenter` · `worker` · `loco` · `certificate` · `coin` · `purse` · `teacup` · `newspaper` (o.mast, o.date, o.open) · `quill` · `inkLine` · `rail` · `train` · `phone` + `fundScreen` · `ticket` · `flip` · `mist`.
+- `lib/base_kit.mjs` (`K.`): `PRINT13`, `trailSpan`, `maskLine`, `measure`, `textGrains`, `sandGrains`.
+- `lib/f10_editorial.mjs` (`E.`): Bühne (`card`, `cam3`, `camAt`, `camDrift`, `aim`, `project`, `F0`), `P`, `du`, `person`, `glowText`, `halo`, `dust`, `ground`, `castShadow`, `nightSky`, `stars`, `catmull`, Explainer (`counter`, `bars`, `curve`, `pie`, `timeline`, `flow`, `compare`, `icon`, `lightShape`).
+- **Speicher:** keine Canvas, kein Pattern pro Frame (napi-Leck); Gecachtes einmal beim Laden bauen; `Path2D` pro Frame ist ok.
 
-## 6 · Rendern (4 Kerne, 15 GB für alle drei)
-`SP` = dein eigenes Scratchpad (aus deinem Systemprompt). Arbeitsordner `$SP/f13/bN/`. Nichts Großes nach `/mnt/project-files`.
-
-**Review-Stills** (halbe Größe):
-
+## 6 · Rendern (4 Kerne für alle)
+`SP` = dein Scratchpad. Arbeitsordner `$SP/f13/bN/`. Nichts Großes nach `/mnt/project-files`.
 ```
-cd /home/user/scenario/films/13-freetime
-SECS=c07 node render.mjs --snap 237,238.5,240 --dir $SP/f13/b2/snap --scale .5
+cd /home/user/scenario/films/13-bubble
+SECS=c02 node render.mjs --snap 57,58.5,60 --dir $SP/f13/b1/snap --scale .5          # Review-Stills
+SECS=c02 node --expose-gc render.mjs --out $SP/f13/b1/c02_a.mp4 --from 56.86 --to 76   # Video in Stücken ≤ 20 s
 ```
-
-Danach einen Kontaktbogen bauen und **ansehen**.
-
-**Video** (volle Qualität):
-- Stücke ≤ 20 s, immer mit `--expose-gc`.
-- Pro Builder läuft nie mehr als ein Render gleichzeitig.
-
-```
-SECS=c07 node --expose-gc render.mjs --out $SP/f13/b2/c07_a.mp4 --from 236.7 --to 256
-SECS=c07 node --expose-gc render.mjs --out $SP/f13/b2/c07_b.mp4 --from 256 --to 276
-```
-
-Danach mit `ffmpeg -f concat -c copy` zu `$SP/f13/bN/cNN.mp4` zusammensetzen.
-
-**Abgabe je Chunk:**
-- Video: `$SP/f13/bN/cNN.mp4`; der Pfad steht im Bericht.
-- Kontaktbogen (1 Bild/s, klein): `/mnt/project-files/scenario/film-zeit/render/build/cNN_kontakt.jpg`.
+Stücke mit `ffmpeg -f concat -c copy` zu `$SP/f13/bN/cNN.mp4` zusammensetzen. Pro Builder nie mehr als ein Render gleichzeitig.
+**Abgabe je Chunk:** Video `$SP/f13/bN/cNN.mp4` (Pfad im Bericht) und Kontaktbogen (1 Bild/s, klein) `/mnt/project-files/scenario/film-blase/bild/cNN_kontakt.png` (Ordner existiert; nach dem Schreiben ~10 s warten und neu lesen, das Netz-Laufwerk).
 
 ## 7 · Pflicht-Prüfungen je Chunk (Werte in den Bericht)
-1. **Kontaktbogen angesehen** (1 Bild pro 0,5–1 s plus jeder Übergang) und alles Hässliche oder Unklare behoben. Mindestens 3 Review-Runden. Dabei prüfen:
-   - Jedes Bild ist ein Plakat.
-   - Satz = Bild.
-   - Der Held ist das Hellste.
-   - Du bist nie abgeschnitten, außer in einer bewussten Fahrt.
-   - Text ist lesbar (Handy-Kopie 390 px breit).
-2. `python3 tools/calm.py <cNN.mp4> --scale 1280:720`:
-   - 0 Schnitte (außer geplanten Match-Fahrten);
-   - mafd-Median ≤ ~0,45 (Stil-Test: 0,44);
-   - Luma 40–60.
+1. **Kontaktbogen angesehen** (1 Bild pro 0,5–1 s plus jeder Übergang), Hässliches und Unklares behoben, mindestens 3 Runden: jedes Bild ein Plakat · Satz = Bild · der Held ist das Hellste · Text lesbar (Handy-Kopie 390 px) · nichts unter y 910.
+2. `python3 tools/calm.py <cNN.mp4> --scale 1280:720`: **≤ 0,9 harte Schnitte/min** (Ziel 0), mafd-Median ≤ ~0,45, Luma 40–60.
 3. `python3 tools/smooth.py <cNN.mp4> <startsekunde>`: **0 Ruckler** (keine LURCH/POP).
-4. `SECS=cNN,cMM node tools/seam.mjs --at <Grenze>` an jeder Chunk-Grenze und jeder Render-Naht: keine Flags. B1 zusätzlich bei 21,8 s. An den Gruppen-Nähten prüft der Lead mit beiden Seiten.
-5. **Ruhe-Regeln** (`MOTION.md` §5):
-   - 1–2 bewegte Hauptelemente;
-   - kein Stillstand über 2 s;
-   - 1,5–3 s Halten nach Akzenten;
-   - nichts aus dem Nichts;
-   - keine Blenden, kein Fade, kein Slide.
-6. Selbstnote 1–5: Plakat · Satz = Bild · nahtlos · ruhig · lebendig · Grafik aus Film-Elementen · Text. Nichts unter 4.
+4. `SECS=cNN,cMM node tools/seam.mjs --at <Grenze>` an jeder Chunk-Grenze und jeder Render-Naht: keine Flags. Die Gruppen-Nähte prüft der Lead mit beiden Seiten.
+5. Selbstnote 1–5: Plakat · Satz = Bild · nahtlos · ruhig · lebendig · Grafik aus Film-Elementen · Text · Fakten. Nichts unter 4.
 
 ## 8 · Bericht (kurz, deutsch)
-- Chunks fertig, mit Pfaden zu Videos und Kontaktbögen.
-- Messwerte je Chunk: calm, smooth, seam.
-- Kit-Wünsche.
-- Offene Stellen und Abweichungen von `shots.md`, mit Grund.
-- Welche Dateien du angelegt oder geändert hast (damit der Lead gezielt committen kann).
+Chunks fertig mit Pfaden (Videos, Kontaktbögen) · Messwerte je Chunk (calm, smooth, seam) · Kit-Wünsche · Abweichungen von `shots.md` mit Grund · angelegte/geänderte Dateien.

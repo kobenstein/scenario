@@ -1,7 +1,7 @@
 # Editorial-Kit („Editorial-Nacht“) · für die Builder (übernommen aus Film 10, gilt für Film 13)
 
-Stand 2026-10-28 (Film 13). Das Kit stammt aus Film 10 (dort von Jakob freigegeben: K1–K3 „nice“). Für Film 13 gilt zusätzlich: `du()` trägt standardmäßig die **Kapuze** (`{ hood: false }` nimmt sie ab), und `lib/f13_kit.mjs` liefert die Film-13-Bausteine (Sanduhr, Sandfaden, Zeilen-Masken, Worte → Sand, Felskante; siehe `MOTION.md` §7). Pfade unten, die auf `stills/`, `tools/editorial_*.mjs` oder Film-10-Module zeigen, sind Film-10-Vorlagen.
-- **Code:** `films/13-freetime/lib/f10_editorial.mjs` (+ `lib/f13_kit.mjs`). Builder importieren für das Bild **nur** diese Module. Die alten Module `f10_valley`, `f10_hall` und `f10_figs` bleiben liegen, werden aber nicht gezeichnet.
+Stand 2026-10-28 (Film 13 „The AI Bubble Could Pop“). Das Kit stammt aus Film 10 (dort von Jakob freigegeben: K1–K3 „nice“). Für diesen Film gilt zusätzlich: `du()` trägt standardmäßig die **Kapuze** (`{ hood: false }` nimmt sie ab); `lib/base_kit.mjs` liefert `trailSpan`, `maskLine`, `measure`, `textGrains`, `sandGrains`, `PRINT13`; `lib/bubble_kit.mjs` liefert die Motive dieses Films (Blase, Rechenzentrum, Papier, Lok, Zug, Schiene, Ticket, Flip; siehe `MOTION.md` §8, Ansicht `tools/kit_sheet.mjs`); `lib/bubble_seams.mjs` die Gruppen-Platten. Pfade unten, die auf `stills/`, `tools/editorial_*.mjs` oder Film-10-Module zeigen, sind Film-10-Vorlagen und liegen hier nicht.
+- **Code:** `films/13-bubble/lib/f10_editorial.mjs` (+ `lib/base_kit.mjs`, `lib/bubble_kit.mjs`, `lib/bubble_seams.mjs`). Builder importieren für das Bild **nur** diese Module (und ihre eigenen `lib/bN_*.mjs`).
 - **Vorlagen:**
   - die Stills: `stills/editorial/K1.jpg`, `K2.jpg`, `K3.jpg`, `vergleich.jpg`
   - die 20-s-Stilreferenz: `stills/editorial/bewegungstest.mp4`
@@ -115,7 +115,7 @@ Helfer: `rgba(hex, a)`, `mixHex(a, b, x)`, `lin()` und `rad()` (Verläufe).
 - `lightForm(ctx, kind, x, y, w, h, t, {a, breath, dust, mullions, seed})` zeichnet die Lichtform:
   - Arten: `'disc'`, `'window'`, `'gate'`, `'ring'`.
   - Aufbau: blaue Aura, warmer Rand, Körper mit Verlauf und Stipple-Staub. Die Funktion gibt den Pfad zurück.
-- `lightHand(ctx, handMatrix(wristX, wristY, angle, palmLen, flip), t, {a})` zeichnet die riesige Hand aus Licht; die Zeigefingerspitze ist `HAND_TIP` (lokal) und wird mit `applyM` umgerechnet. Beispiel: K1.
+- (In diesem Film nicht verwendet: die Maschine ist das Rechenzentrum und seine kühlen Lichter, nicht die Lichthand.) `lightHand(ctx, handMatrix(wristX, wristY, angle, palmLen, flip), t, {a})` zeichnet die riesige Hand aus Licht; die Zeigefingerspitze ist `HAND_TIP` (lokal) und wird mit `applyM` umgerechnet. Beispiel: K1.
 - `trail(ctx, pts, u, {w, a, spark})` zeichnet die Lichtspur. `pts` ist `[[x, y, breite], …]`, glätten kannst du sie mit `catmull(pts, n)`. Der Rückgabewert ist der Kopf.
 - `halo(ctx, x, y, r, a, col, core)` zeichnet einen weichen, additiven Glow für kleine Lichter.
 - `glowFill(ctx, path, blur, a, col)` legt einen weichgezeichneten Glow entlang einer Form.
