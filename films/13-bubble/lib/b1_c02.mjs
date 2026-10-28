@@ -65,14 +65,14 @@ export function build(a) {
     [tIn1, camR0, flyE],
     [a.within + .6, roomAim(960, 565, 1.16)],
     [a.emilyRuns + 1.6, roomAim(800, 655, 1.32), 'q'],
-    [a.nervous + .5, roomAim(780, 650, 1.35)],
-    [a.january + 1.9, roomAim(LET.x + 20, LET.y - 18, 3.0, 960, 540), 'q'],
-    [tLet1 + .6, roomAim(LET.x + 46, LET.y - 20, 3.08, 960, 540)],
-    [a.hold + .2, roomAim(CERT.x - 70, CERT.y - 20, 1.9, 960, 580), 'q'],
+    [a.nervous + .2, roomAim(780, 650, 1.35)],
+    [a.january + 2.5, roomAim(LET.x + 20, LET.y - 18, 2.7, 960, 540)],
+    [tLet1 + .15, roomAim(LET.x + 40, LET.y - 20, 2.76, 960, 540)],
+    [a.hold + .8, roomAim(CERT.x - 70, CERT.y - 20, 1.9, 960, 580)],
     [a.bursts - .3, roomAim(CERT.x - 30, CERT.y - 30, 2.05, 960, 600)],
     [a.e1849 + .2, roomAim(CERT.x + 6, CERT.y - 42, 3.15, 960, 640), 'q'],
-    [a.small - .1, roomAim(CERT.x + 6, CERT.y - 40, 3.22, 960, 640)],
-    [a.holding + .25, roomAim(890, 1590, 1.5, 960, 540), 'q'],
+    [a.twothirds + 1.45, roomAim(CERT.x + 6, CERT.y - 40, 3.2, 960, 640)],
+    [a.holding + .6, roomAim(890, 1590, 1.5, 960, 540)],
   ];
   const camR = (t) => {
     if (t < tIn1) {
@@ -89,7 +89,7 @@ export function build(a) {
     return camDrift(camAt(t, KR, ZR), t, .45 * smooth(span(t, tIn1, tIn1 + 1.5)), 3);
   };
   // S: the lost paper falls into savers' hands; the camera follows down, then flies into one sheet (paper fills the frame)
-  const tFall0 = a.small - .35, tHold = a.holding, tFly0 = a.holding + .55, tPaper = a.expert + .55;
+  const tFall0 = a.small - .35, tHold = a.holding, tFly0 = a.holding + .6, tPaper = a.expert + 1.05;
   const SHEETS = (() => { const r = prng(2071), out = []; for (let i = 0; i < 4; i++) out.push({ u: .12 + i * .25 + (r() - .5) * .06, v: .2 + r() * .25, spin: (r() - .5) * 2, sw: .6 + r() * .5, dt: i * .09 }); return out; })();
   const holdSheet = (i, t) => {
     // falls from its place in the emptied band to the hand HANDS[i] (room coords); tumbles; lands ~ "holding"
@@ -107,7 +107,7 @@ export function build(a) {
   const CN = { x: 1150, y: 930, w: 330, rot: SP_END.rot };
   const camN0 = aim(F0, CN.x, CN.y, SP_END.w * FLY_M / CN.w, 960, 540);
   // N: the Argus page from the paper; Mackay; the flip into his book; the light wanders to the letter; the underline runs right
-  const tOut1 = a.fear + .9;
+  const tOut1 = a.fear + 1.5;
   // the end of c02: the underline under "too late" (on "didn't"), then the line runs on into the empty margin; the camera flies into
   // the paper after it and lands (tP) 12× close: the frame is paper (B.paperPlate, screen space) with the ink line at y = 700. c03
   // starts from exactly this frame (the paper cut of MOTION §5 #4) and floods it into the dawn valley (A2).
@@ -219,7 +219,8 @@ export function build(a) {
     body.rect(x0 + 40, top - 200, 60, 110); body.rect(x1 - 100, top - 200, 60, 110);   // chimneys
     const win = new Path2D(); win.rect(WIN.x - WIN.w / 2, WIN.y - WIN.h / 2, WIN.w, WIN.h);
     // the window's light on the night (behind the house edge) and on the ground
-    halo(ctx, WIN.x, WIN.y, 520, .22, P.halo1, P.halo0);
+    // (fades as the camera nears the wall, so the room is not brighter through the glass than inside it: no pop at the pass)
+    halo(ctx, WIN.x, WIN.y, 520, .22 * (1 - smooth(span(k, 1.6, 6))), P.halo1, P.halo0);
     ctx.save();
     const bp = new Path2D(); bp.rect(x0, top, x1 - x0, gnd - top);   // (no addPath: it joins the subpaths with a stray line)
     bp.moveTo(x0 - 20, top); bp.lineTo(x0 + 120, top - 110); bp.lineTo(x1 - 120, top - 110); bp.lineTo(x1 + 20, top); bp.closePath();
@@ -329,7 +330,7 @@ export function build(a) {
     const L1 = '…ere it be too late.', sz = 21;
     ctx.save(); ctx.translate(LET.x, LET.y); ctx.rotate(LET.rot);
     // folding: the right half turns over onto the left (a half flip)
-    const sheet = (x0, wpx) => { const p = new Path2D(); p.rect(x0, -h / 2, wpx, h); B.paperFill(ctx, p, { lum: .58 + .3 * smooth(span(t, a.inJan - .6, a.january + .4)), seed: 371, lx: w * .5, ly: -h * .3, r: w * 1.3 }); };
+    const sheet = (x0, wpx) => { const p = new Path2D(); p.rect(x0, -h / 2, wpx, h); B.paperFill(ctx, p, { lum: .56 + .2 * smooth(span(t, a.inJan - .6, a.january + .4)), seed: 371, lx: w * .5, ly: -h * .3, r: w * 1.3 }); };
     const fx = -w / 2 + w * .5, rightW = (w / 2) * Math.cos(Math.PI * fold);
     sheet(-w / 2, w / 2);
     if (rightW > 0) sheet(fx, rightW);

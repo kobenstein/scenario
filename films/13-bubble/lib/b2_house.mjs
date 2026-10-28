@@ -60,7 +60,7 @@ export function meter(ctx, t, o = {}) {
   const m = ((o.spin ?? 0) % (Math.PI * 2)) / (Math.PI * 2);
   ctx.fillStyle = COL.ink; ctx.fillRect(x - sw / 2 + 2 + m * (sw - 10), sy - 2, 6, 4);
   ctx.restore();
-  dialN(ctx, x, y, R, o.needle ?? .3, t, { lum: o.faceLum ?? (.85 * lum + .1) });
+  dialN(ctx, x, y, R, o.needle ?? .3, t, { lum: o.faceLum ?? (.85 * lum + .1), band: o.band, bandCol: o.bandCol });
   // the cable: down the wall and out through the floor (o.cable = drawn share for the carrier line)
 }
 
@@ -81,7 +81,7 @@ export function room(ctx, t, s = {}) {
   ctx.fillStyle = rgba(P.shade0, .25 * lamp); ctx.fillRect(WIN.x0, 776, WIN.x1 - WIN.x0, 1.5);
   // the meter on the left wall + its cable down to the floor
   ctx.strokeStyle = mixHex(P.night1, P.ind2, .5); ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(METER.x, METER.y + METER.bh * .62); ctx.lineTo(METER.x, 790); ctx.stroke();
-  meter(ctx, t, { spin: s.spin ?? t * 2, needle: s.needle ?? .3, lum: .55 + .45 * lamp, faceLum: s.faceLum });
+  meter(ctx, t, { spin: s.spin ?? t * 2, needle: s.needle ?? .3, lum: .55 + .45 * lamp, faceLum: s.faceLum, band: s.band, bandCol: s.bandCol });
   // the lamp: cord, shade, bulb (THE light of the room)
   ctx.strokeStyle = P.night0; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(LAMP.x, WIN.y0); ctx.lineTo(LAMP.x, LAMP.y - 12); ctx.stroke();
   const shade = new Path2D(); shade.moveTo(LAMP.x - 14, LAMP.y - 14); shade.lineTo(LAMP.x + 14, LAMP.y - 14); shade.lineTo(LAMP.x + 36, LAMP.y + 10); shade.lineTo(LAMP.x - 36, LAMP.y + 10); shade.closePath();

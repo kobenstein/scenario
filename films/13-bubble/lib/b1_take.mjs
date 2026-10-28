@@ -8,6 +8,7 @@ import * as K from './base_kit.mjs';
 import { build as buildC02 } from './b1_c02.mjs';
 import { build as buildC03 } from './b1_c03.mjs';
 import { build as buildC04 } from './b1_c04.mjs';
+import { build as buildC05 } from './b1_c05.mjs';
 
 export const PRINT = K.PRINT13;
 let TAKE = null;
@@ -62,6 +63,9 @@ export function anchors(T) {
   a.people = at('And people who know'); a.build = at('build all this');
   a.soYes = at('So yes, rails will stay'); a.too = at('too'); a.fewer = at('fewer'); a.mostMoney = at('most of the money');
   a.T1 = F("You'll hear that", a.mostMoney);
+  // c05 extras (lib/b1_c05.mjs)
+  a.railsW = F('rails', a.c05); a.mostM = F('Most of the money', a.c05); a.dataC = F('data centers', a.mostM); a.something = F('something', a.mostM);
+  a.dcNA = F('Data centers', a.andYet); a.record = F('record', a.plenty); a.notOnes = F('not the ones', a.fewer);
   return a;
 }
 
@@ -69,7 +73,7 @@ export function take(T) {
   if (TAKE) return TAKE;
   E.prepareEditorial();
   const a = anchors(T);
-  const c02 = buildC02(a), c03 = buildC03(a, c02), c04 = buildC04(a, c03);
-  TAKE = { a, draw: (ctx, t) => (t < c02.tP ? c02(ctx, t) : t < a.c04 ? c03(ctx, t) : c04(ctx, t)) };
+  const c02 = buildC02(a), c03 = buildC03(a, c02), c04 = buildC04(a, c03), c05 = buildC05(a, c04);
+  TAKE = { a, draw: (ctx, t) => (t < c02.tP ? c02(ctx, t) : t < a.c04 ? c03(ctx, t) : t < a.c05 ? c04(ctx, t) : c05(ctx, t)) };
   return TAKE;
 }

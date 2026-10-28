@@ -207,4 +207,4 @@ export function bidCard(ctx, t, p, paper, stick, glow = 0) {
 }
 
 // the far bubble (7.06 → 7.08): THE motif, far up in the night over the street
-export const BUB = { x: 4700, y: -380, r: 330 };
+export const BUB = { x: 4700, y: -150, r: 330 };

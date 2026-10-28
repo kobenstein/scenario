@@ -117,7 +117,7 @@ function makeDraw(a) {
   const tLine0 = a.butA + .02, tIn = a.butA + .72, tOut = a.climbing + .06, tLineEnd = a.indep + 2.4;
   const tFlip = [a.money, a.power, a.debt];
   const tFlat0 = a.moneySide - .55, tFlat1 = a.moneySide + 1.25;
-  const tDM = a.dc8 - .6;                                              // 8.10 the dial match frame
+  const tDM = a.dc8 - 1.1, tK = a.kitchen + 1.0, RM = 480;                                              // 8.10 the dial match frame
   const COIN_K = (() => { const cv = createCanvas(8, 8), cx = cv.getContext('2d'); const hnd = E.person(cx, 6000, 1130, 400, { armR: [2.7, 3.0], armL: [-.4, -.5], lanyard: false }); return [hnd.R[0] + 120 * .2 + 120 * .33, hnd.R[1] - 120 * .2 + 120 * .1]; })();
   const KA = [
     [tA, fk(960, 520, 1, 960, 520)],                                  // = the plate: it zooms about (960, 520) on screen
@@ -129,7 +129,7 @@ function makeDraw(a) {
     [a.moneySide + 1.9, fk(1000, 520, P1(.9))],
     [a.record + 1.0, fk(1010, 540, P1(.94))],
     [a.coreweave + 1.3, fk(1540, 680, P1(1.3))],                     // 6.06 drift right and in: the two falls at the lake's edge
-    [a.soIf - .1, fk(1600, 690, P1(1.36))],
+    [a.soIf + .75, fk(1610, 692, P1(1.38))],
     [a.whoPaid + 1.4, fk(Hs.METER.x, Hs.METER.y + 10, P1(3.1))],
     [a.follow + 1.6, fk(Hs.METER.x + 4, Hs.METER.y + 12, P1(3.25))],
     // ---- c07
@@ -165,30 +165,29 @@ function makeDraw(a) {
     [a.roof - .5, fk(6000, 600, P1(1.05))],                           // 8.05 the words, the signs
     [a.penny + 1.6, fk(6000, 640, P1(1.0))],                          //      the ticket
     [a.parl + .5, fk(6000, 600, P1(.98))],                            // 8.06 the crowd
-    [a.soWhat + .15, fk(6000, 600, P1(1.0))],
-    [a.pennyTrain + .35, fk(COIN_K[0], COIN_K[1], P1(9.0)), sineL],   // 8.07 into the coin → chip
-    [a.backThen2 - .15, fk(COIN_K[0], COIN_K[1], P1(9.4))],
-    [a.condition + .3, fk(6000, 560, P1(.9))],                        // 8.08 parchment · form
+    // 8.07 into the coin → chip, and (8.08) back out: both pure zooms about their fixed point (no sideways sweep at high scale)
+    ...pivotKeys([a.forEveryone + .5, fk(6000, 600, P1(1.0))], [a.pennyTrain + 1.1, fk(COIN_K[0], COIN_K[1], P1(5.0))]),
+    ...pivotKeys([a.backThen2 - .35, fk(COIN_K[0], COIN_K[1], P1(5.4))], [a.condition + 1.0, fk(6000, 560, P1(.9))]),   // 8.08 parchment · form
     [a.conditions + .7, fk(6030, 560, P1(.92))],
     [a.ohio + 1.5, fk(7560, 560, P1(.85))],                           // 8.09 Ohio
     [a.soIfB, fk(7545, 556, P1(.88))],
     // (8.10 dial match: see camA)
-    [a.kitchen + .5, fk(2560, 640, P1(1.6))],                         // 8.10 your kitchen
-    [a.similar + .6, fk(2550, 330, P1(.62))],                         // 8.11 fifty envelopes
+    [tK, fk(2560, 640, P1(2.2))],                                     // 8.10 your kitchen
+    [a.similar + 1.0, fk(2550, 330, P1(.62))],                         // 8.11 fifty envelopes
     [a.butPublic, fk(2550, 338, P1(.64))],
     // (8.12 the push to the door plate: see camA)
   ];
   const fAt = (t) => { const f = focusPath(t, KA); f.s *= push(t); return f; };
   const camA = (t) => {
     let f = fAt(t);
-    if (t > a.soIfB && t < a.kitchen + .5) {   // 8.10 the DIAL MATCH: into the gauge's face until it fills the frame, then out of your meter's
-      const f0 = fAt(a.soIfB), RM = 1650, Rg = C8.GAUGE.R, Rk = Hs.METER.R;
+    if (t > a.soIfB && t < tK) {   // 8.10 the DIAL MATCH: into the gauge's face until it fills the frame, then out of your meter's
+      const f0 = fAt(a.soIfB), Rg = C8.GAUGE.R, Rk = Hs.METER.R;
       if (t < tDM) { const e = sineIO(span(t, a.soIfB, tDM)); f = { u: lerp(f0.u, C8.GAUGE.x, e), v: lerp(f0.v, C8.GAUGE.y, e), s: Math.exp(lerp(Math.log(Rg * f0.s), Math.log(RM), e)) / Rg, sx: W / 2, sy: H / 2 }; }
-      else { const f1 = fAt(a.kitchen + .5), e = sineIO(span(t, tDM, a.kitchen + .5)), ep = sineIO(span(t, tDM + .5, a.kitchen + .5)); f = { u: lerp(Hs.METER.x, f1.u, ep), v: lerp(Hs.METER.y, f1.v, ep), s: Math.exp(lerp(Math.log(RM), Math.log(Rk * f1.s), e)) / Rk, sx: W / 2, sy: H / 2 }; }
+      else { const f1 = fAt(tK), e = sineIO(span(t, tDM, tK)), ep = sineIO(span(t, tDM + .5, tK)); f = { u: lerp(Hs.METER.x, f1.u, ep), v: lerp(Hs.METER.y, f1.v, ep), s: Math.exp(lerp(Math.log(RM), Math.log(Rk * f1.s), e)) / Rk, sx: W / 2, sy: H / 2 }; }
     }
     if (t > a.butPublic) {   // 8.12 down with the falling tiles to the fence and its sign, then the push through the gate onto the door plate:
       // Hermite in log-zoom, arriving at s = 1 on the door with the plate's own push (5 %/s)
-      const f0 = fAt(a.butPublic), tLow = a.publicBuilds + .25, LOW = { u: 2550, v: 724, s: .6 };
+      const f0 = fAt(a.butPublic), tLow = a.publicBuilds + .25, LOW = { u: 2550, v: 640, s: .6 };
       if (t < tLow) { const e = sineIO(span(t, a.butPublic, tLow)); f = { u: lerp(f0.u, LOW.u, e), v: lerp(f0.v, LOW.v, e), s: Math.exp(lerp(Math.log(f0.s), Math.log(LOW.s), e)), sx: W / 2, sy: H / 2 }; }
       else {
         const D = tPlate - tLow, x = clamp((t - tLow) / D), L0 = Math.log(LOW.s), h01 = -2 * x ** 3 + 3 * x * x, h11 = x ** 3 - x * x, e = sineIO(x);
@@ -222,7 +221,8 @@ function makeDraw(a) {
     const flat = smooth(span(t, tFlat0, tFlat1));
     // night (the plate's ground) + stars that come with the lake
     const bgK = smooth(span(t, a.butPublic, tPlate - .25));   // the night of the lake → the night of the door plate
-    card(ctx, c, F0, () => G.nightFill(ctx, bgK > 0 ? BG_MIX(bgK) : G.BG_BRICK, lerp(0, C8.OY, bgK), lerp(H, H + C8.OY, bgK)));
+    const lift = smooth(span(t, tA + .4, tLand0 + 2.4)) * (1 - bgK);
+    card(ctx, c, F0, () => G.nightFill(ctx, bgK > 0 ? BG_MIX(bgK) : lift > 0 ? BG_LIFT(lift) : G.BG_BRICK, lerp(0, C8.OY, bgK), lerp(H, H + C8.OY, bgK)));
     const starK = smooth(span(t, tFlat0, tFlat1 + 2)) * (1 - smooth(span(t, a.butPublic - .5, tPlate - .6)));
     if (starK > 0) card(ctx, c, 40000, () => E.stars(ctx, 61, 170, t, [-700, -900, W + 1400, H * .95 + 900], .7 * starK));
     card(ctx, c, F0, () => {
@@ -245,6 +245,16 @@ function makeDraw(a) {
       explainer(ctx, t);
       ending(ctx, t);
     });
+    const ir = smooth(span(t, tDM - .95, tDM - .25)) * (1 - smooth(span(t, tDM + .25, tDM + 1.0)));
+    if (ir > 0) {
+      const D = t < tDM ? C8.GAUGE : Hs.METER, pr = project(c, F0, D.x, D.y);
+      if (pr) {
+        const r = D.R * pr[2] * 1.06;
+        ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.fillStyle = E.rad(ctx, pr[0], pr[1], r * 1.6, [[0, rgba(P.night0, 0)], [1 / 1.6, rgba(P.night0, 0)], [1.18 / 1.6, rgba(P.night0, .93 * ir)], [1, rgba(P.night0, .96 * ir)]]);
+        ctx.fillRect(0, 0, W, H); ctx.restore();
+      }
+    }
   }
 
   // ---------------------------------------------------------------------------------------------- the floor and the shore land
@@ -325,7 +335,8 @@ function makeDraw(a) {
     // the brick's own face dissolves into the floe over the first third of the flattening (no swap frame)
     const keep = 1 - smooth(span(flat, 0, .35));
     if (keep > .002) {
-      ctx.save(); ctx.globalAlpha *= keep; ctx.translate(0, y + flat); ctx.scale(1, h / G.BH);
+      // (kit draw calls set globalAlpha absolutely, so the face squashes into its floe instead of fading: no pop when it ends)
+      ctx.save(); ctx.translate(0, y + flat + h * (1 - keep) / 2); ctx.scale(1, h * keep / G.BH);
       drawBrick(b.x, 0, G.BW, G.BH); ctx.restore();
     }
   }
@@ -335,8 +346,9 @@ function makeDraw(a) {
     const fall = span(u, .3, 1), py = lerp(0, G.GROUND - G.BH - b.y + 4, fall * fall), px = lerp(0, -70, smooth(fall));
     const land = t - (tOut + .85);
     const bob = land > 0 ? 3 * Math.exp(-land * 10) * Math.abs(Math.sin(land * 24)) : 0;
-    if (flat > .4) return;   // it lies among the floes' shore stones: gone into the dark ground when the wall flattens (behind the band)
-    ctx.save(); ctx.translate(b.x + G.BW + px, b.y + G.BH + py - bob); ctx.rotate(tip);
+    const sq = 1 - smooth(span(flat, .05, .45));   // it squashes into the dark ground with the wall (as the floes do), no vanishing frame
+    if (sq <= .01) return;
+    ctx.save(); ctx.translate(b.x + G.BW + px, b.y + G.BH + py - bob); ctx.rotate(tip); ctx.scale(1, sq);
     G.plainBrick(ctx, -G.BW, -G.BH, G.BW, G.BH); ctx.restore();
     if (land > 0) landDust(ctx, t, tOut + .85, b.x + G.BW / 2 - 70, G.GROUND, .7);
   }
@@ -374,7 +386,7 @@ function makeDraw(a) {
     for (let x = 150; x <= 376; x += 18) {
       const y = lineY(x), inJoint = G.ROWY.some((ry) => Math.abs(y - (ry - 6)) < 10) || G.WALL_BRICKS.some((b) => b.y <= y && y <= b.y + G.BH && Math.abs(x - (b.x + G.BW + 6)) < 9);
       if (!inJoint || x > xAt(lineU(t))) continue;
-      E.halo(ctx, x, y, 34, .5 * leak * (1 - flat * 2), COL.cool2, COL.cool);
+      E.halo(ctx, x, y, 34, .5 * leak * (1 - smooth(span(flat, 0, .3))), COL.cool2, COL.cool);
     }
     ctx.restore();
     const burst = t > tOut ? Math.exp(-(((t - tOut - .05) / .35) ** 2)) : 0;
@@ -393,9 +405,10 @@ function makeDraw(a) {
     if (sp > 0) {
       const pts = G.shoreLine(-60, 1940);
       K.trailSpan(ctx, pts, spOut, sp, { w: 2.6, a: .95, spark: sp < 1 });
-      const lu = rise(span(t, a.america + .3, a.america + 1.1)) * (1 - spOut), lr = rise(span(t, a.record - .05, a.record + .7)) * (1 - spOut);
-      if (lu > 0) G.label(ctx, 'S&P 500', 120, 700, 76, lu, { serif: true, col: P.cream, glow: true });
-      if (lr > 0) G.label(ctx, 'NEAR ITS RECORD', 124, 748, 40, lr);
+      const spL = 1 - smooth(span(t, a.coreweave - .75, a.coreweave - .25));
+      const lu = rise(span(t, a.america + .3, a.america + 1.1)) * spL, lr = rise(span(t, a.record - .05, a.record + .7)) * spL;
+      if (lu > 0) G.label(ctx, 'S&P 500', 1180, 700, 76, lu, { serif: true, col: P.cream, glow: true });
+      if (lr > 0) G.label(ctx, 'NEAR ITS RECORD', 1184, 748, 40, lr);
       const rec = smooth(span(t, a.record - .1, a.record + .5)) * (1 - spOut);
       if (rec > 0) E.halo(ctx, 1940, G.shoreY(1940) - 8, 50, .5 * rec, P.halo1, P.core0);
     }
@@ -406,7 +419,8 @@ function makeDraw(a) {
     const gone = smooth(span(t, a.whoPaid + 2.2, a.whoPaid + 3.2));
     if (f1 > 0 && gone < 1) { B.inkLine(ctx, F1, f1, { u0: 0, col: COL.cool2, w: 3, glow: .6, head: 1, headCol: COL.cool2, headCore: COL.cool }); }
     if (f2 > 0 && gone < 1) { B.inkLine(ctx, F2, f2, { col: COL.cool2, w: 3, glow: .6, head: 1, headCol: COL.cool2, headCore: COL.cool }); }
-    const l1 = rise(span(t, a.coreweave - .05, a.coreweave + .6)) * (1 - spOut), l2 = rise(span(t, a.oracle - .05, a.oracle + .6)) * (1 - spOut);
+    const lOut = 1 - smooth(span(t, a.soIf + .55, a.soIf + 1.0));
+    const l1 = rise(span(t, a.coreweave - .05, a.coreweave + .6)) * lOut, l2 = rise(span(t, a.oracle - .05, a.oracle + .6)) * lOut;
     if (l1 > 0) G.labelR(ctx, 'COREWEAVE', 1905, 664, 40, l1, { col: COL.cool });
     if (l2 > 0) G.labelR(ctx, 'ORACLE · ≈ −55 % FROM 52-WEEK HIGH', 1905, 714, 40, l2, { col: COL.cool });
     // 6.07: the Oracle line runs on as a crack across the shore, up the house, into the meter
@@ -427,11 +441,11 @@ function makeDraw(a) {
       ctx.fillRect(-3000, 790, 12000, 120); ctx.restore();
     }
     // water in the cracks (dark), the moon's glimmer on the ice
-    if (flat > .9) G.moonGlimmer(ctx, MOON[0] - 30, 794, 846, t, smooth(span(t, tFlat1 - .2, tFlat1 + 1.2)) * (1 - smooth(span(t, a.whoPaid, a.follow))));
+    if (flat > .9) G.moonGlimmer(ctx, MOON[0] - 30, 794, 846, t, 1.7 * smooth(span(t, tFlat1 - .2, tFlat1 + 1.2)) * (1 - smooth(span(t, a.whoPaid, a.follow))));
     // the edge cracks (on "cracking", only at the ends; the middle holds)
     for (const [i, x0, x1] of [[0, 150, 430], [1, 1975, 1680]]) {
       const u = sineIO(span(t, a.cracking - .05 + i * .25, a.cracking + .8 + i * .25));
-      if (u > 0) G.crack(ctx, G.crackPts(700 + i, x0, 800 + i * 8, x1, 838 - i * 10, 10, 12), u, { w: 2.2 });
+      if (u > 0) G.crack(ctx, G.crackPts(700 + i, x0, 800 + i * 8, x1, 838 - i * 10, 10, 12), u, { w: 3.6 });
     }
   }
 
@@ -453,7 +467,8 @@ function makeDraw(a) {
     // the meter's needle: after the dial match it is the gauge's needle, then it sinks back ("not with your kitchen")
     const needle = t < tDM ? .3 + .04 * Math.sin(t * .6) : lerp(needle8(t), .26 + .03 * Math.sin(t * .6), sineIO(span(t, tDM + .4, tDM + 2.2)));
     const rs = { lamp, spin: t * (1.5 + 4 * smooth(span(t, a.whoPaid - .1, a.whoPaid + .8))), needle, env: 1,
-      envGlow: bell(t, a.toYou + .4, .45) * .9 + bell(t, a.kitchen + .2, .5) * .5, lift, liftL: liftL(t), look: .1 + .25 * lift };
+      envGlow: bell(t, a.toYou + .4, .45) * .9 + bell(t, a.kitchen + .2, .5) * .5, lift, liftL: liftL(t), look: .1 + .25 * lift,
+      band: t >= tDM ? Math.max(.001, needle) : 0, bandCol: P.halo0, faceLum: t >= tDM ? .95 : undefined };
     if (t > a.butPublic - .05) {   // 8.12 your window becomes the closed door of the plate
       const leaf = sineIO(span(t, a.butPublic, a.publicBuilds - .1)), m = sineIO(span(t, a.publicBuilds - .15, a.publicBuilds + .95));
       const W0 = [Hs.WIN.x0, Hs.WIN.y0, Hs.WIN.x1, Hs.WIN.y1], D = [C8.DOORD.x0, C8.DOORD.y0, C8.DOORD.x1, C8.DOORD.y1];
@@ -517,11 +532,11 @@ function makeDraw(a) {
     G.label(ctx, '$329', B2, C7.BAR.y - C7.BAR.h2 - 30, 165, rise(span(t, a.tenfold - .05, a.tenfold + .55)) * lo, { serif: true, col: P.cream, align: 'center', glow: true });
     G.label(ctx, 'PER MW-DAY · CAPACITY PRICE', B2 + 110, C7.BAR.y - C7.BAR.h2 + 100, 44, rise(span(t, a.tenfold + .6, a.tenfold + 1.3)) * lo);
     // the watchdog's number rolls up where the price stood
-    const nk = rise(span(t, a.billions - .15, a.billions + .5)) * (1 - smooth(span(t, a.pensionP + .2, a.pensionP + .8)));
+    const nk = rise(span(t, a.billions - .15, a.billions + .5)) * (1 - smooth(span(t, a.pensionP - .45, a.pensionP + .05)));
     if (nk > 0) {
       const v = Math.round(lerp(1, 23, expoOut(span(t, a.billions - .1, a.billions + .95))));
       G.label(ctx, `$${v} BN`, 1840, -250, 200, nk, { serif: true, col: P.cream, align: 'center', glow: true });
-      G.label(ctx, 'PJM MARKET MONITOR', 1840, -168, 50, rise(span(t, a.billions + .5, a.billions + 1.2)) * (1 - smooth(span(t, a.pensionP + .1, a.pensionP + .6))), { align: 'center' });
+      G.label(ctx, 'PJM MARKET MONITOR', 1840, -168, 50, rise(span(t, a.billions + .5, a.billions + 1.2)) * (1 - smooth(span(t, a.pensionP - .5, a.pensionP))), { align: 'center' });
     }
   }
   // the flow of cost: dots spawn at the data center and run DC → J → down the cable into your meter; at Q some turn onto the bus
@@ -602,7 +617,8 @@ function makeDraw(a) {
   }
 
   // ================================================================================================ c08
-  const BG_MIX = (k) => [[0, P.night0], [lerp(.6, .7, k), P.night1], [1, mixHex(P.ind0, P.night0, k)]];
+  const BG_LIFT = (k) => [[0, mixHex(P.night0, P.ind2, .3 * k)], [.6, mixHex(P.night1, P.ind1, .3 * k)], [1, mixHex(P.ind0, P.ind1, .4 * k)]];
+  const BG_MIX = (k) => [[0, mixHex(mixHex(P.night0, P.ind2, .3), P.night0, k)], [lerp(.6, .7, k), mixHex(mixHex(P.night1, P.ind1, .3), P.night1, k)], [1, mixHex(mixHex(P.ind0, P.ind1, .4), P.night0, k)]];
   // ---- 8.01 the cards come down into the hall; most drop on "cash", two stay
   const STAY = [1, 6];
   const CARD_X = [3990, 4140, 4290, 4440, 4960, 5110, 5260, 5410];
@@ -654,12 +670,12 @@ function makeDraw(a) {
   const PERSON_H = 400, PERSON_Y = 1130;
   const armUp = (t) => smooth(span(t, a.forEveryone - .1, a.forEveryone + .6));
   const armOf = (t, d) => { const r = sineIO(span(t, a.people + .5 + .06 * d, a.people + 1.3 + .06 * d)), up = armUp(t); return [lerp(.4, 2.45 + .25 * up, r), lerp(.5, 2.7 + .3 * up, r)]; };
-  const crowdIn = (t, d) => sineIO(span(t, a.people + .05 * d, a.people + .9 + .05 * d)) * (1 - sineIO(span(t, a.backThen2 + .1 + .04 * d, a.backThen2 + 1.0 + .04 * d)));
+  const crowdIn = (t, d) => sineIO(span(t, a.people + .05 * d, a.people + .9 + .05 * d)) * (1 - sineIO(span(t, a.backThen2 + 2.6 + .04 * d, a.backThen2 + 4.0 + .04 * d)));
   // where the centre person's ticket coin is when the arm is fully up (the camera aims there in 8.07)
   const TKW = 120;
   const COIN = COIN_K;
   const chipPos = (t) => {   // the chip after the flip: it stays where the coin was, grows, then flies to the form, then to the gauge
-    const c0 = COIN, grow = sineIO(span(t, a.backThen2 + .1, a.backThen2 + 1.4));
+    const c0 = COIN, grow = sineIO(span(t, a.backThen2 + .8, a.backThen2 + 2.4));
     let x = c0[0] + (6250 - c0[0]) * grow, y = c0[1] + (540 - c0[1]) * grow, r = lerp(TKW * .09, 40, grow);
     const f1 = sineIO(span(t, a.conditions - .55, a.conditions + .05));
     const fs = formSeal(t);
@@ -670,9 +686,9 @@ function makeDraw(a) {
   const formC = (t) => [lerp(7600, 6480, formIn(t)), 560];
   const formSeal = (t) => { const [fx, fy] = formC(t); return [fx + C8.FORM.w / 2 - 110, fy + C8.FORM.h / 2 - 110]; };
   const parchState = (t) => {   // centre x, top y, scale, unrolled
-    const up = sineIO(span(t, a.people - .1, a.people + 1.0)), back = sineIO(span(t, a.backThen2 + .2, a.backThen2 + 1.5));
+    const up = sineIO(span(t, a.people - .1, a.people + 1.0)), back = sineIO(span(t, a.backThen2 + .4, a.backThen2 + 2.8));
     let cx = 6000, top = PTOP - 1150 * up, sc = 1;
-    if (back > 0) { cx = lerp(6000, 5480, back); top = lerp(PTOP - 1150, 560 - C8.PCH.h * .8 / 2, back); sc = lerp(1, .8, back); }
+    if (back > 0) { cx = lerp(6000, 5520, back); top = lerp(PTOP - 1150, 470 - C8.PCH.h * .7 / 2, back); sc = lerp(1, .7, back); }   // high and small: clear of the tickets still raised below
     return { cx, top, sc, u: sineIO(span(t, a.e1844 + .1, a.e1844 + 1.2)) };
   };
   const needle8 = (t) => { const u = span(t, a.mostPower - .6, a.mostPower + .15); return .85 * sineIO(u) + .025 * Math.sin(Math.PI * clamp((t - a.mostPower - .15) / .5)) * (t > a.mostPower + .15 && t < a.mostPower + .65 ? 1 : 0) + .004 * Math.sin(t * 3.1); };
@@ -739,13 +755,13 @@ function makeDraw(a) {
       // the seal: wax from the gathered dots, pressed on "law"
       const sx = ps.cx + (SEAL0[0] - 6000) * ps.sc, sy = ps.top + (SEAL0[1] - PTOP) * ps.sc;
       if (gather > .45) { const pr = expoOut(span(t, a.law - .08, a.law + .12)); C8.seal(ctx, sx, sy, 46 * ps.sc * lerp(.6, 1, smooth(span(gather, .45, 1))), pr, { squash: bell(t, a.law + .02, .1) }); }
-      G.label(ctx, 'CONDITION', sx, sy + 96 * ps.sc, 44, rise(span(t, a.condition - .05, a.condition + .6)) * (1 - smooth(span(t, a.ohio + 1.2, a.ohio + 1.8))), { align: 'center' });
+      G.labelR(ctx, 'CONDITION', sx - 66 * ps.sc, sy + 15 * ps.sc, 44 * ps.sc, rise(span(t, a.condition - .05, a.condition + .6)) * (1 - smooth(span(t, a.ohio + 1.2, a.ohio + 1.8))), { col: COL.ink });
     }
     // 8.05 the signs (ink on the parchment), then they assemble into the ticket
     const asm = sineIO(span(t, a.penny + .45, a.penny + 1.35)), tg = expoOut(span(t, a.penny + .55, a.penny + 1.35));
     const TK = { x: 6000, y: 662, w: 840 }, stubX = TK.x + TK.w * .345;
     const cpos = CROWD.map((p) => ({ ...p }));
-    if (t > a.roof - .1 && t < a.backThen2 + 1.6) {
+    if (t > a.roof - .1 && t < a.backThen2 + 4.4) {
       // the big ticket (it shrinks into the centre person's hand in 8.06; its clones fly to the others)
       const inK = (d) => crowdIn(t, d);
       const hands = CROWD.map((p) => { const k = inK(p.d); if (k <= 0) return null; return E.person(ctx, p.x, PERSON_Y + 520 * (1 - k), PERSON_H, { armR: armOf(t, p.d), armL: [-.4, -.5], lanyard: false, look: .1 * Math.sin(t * .5 + p.j) }); });
@@ -791,7 +807,7 @@ function makeDraw(a) {
       if (fi > 0) { const [fx, fy] = formC(t); C8.form(ctx, fx, fy, 1); }
       const landed = t > a.conditions + .05;
       const toPlug = sineIO(span(t, a.ohio + .1, a.ohio + 1.05));
-      if (landed) { const [fx, fy] = formSeal(t); C8.seal(ctx, fx, fy, 46, expoOut(span(t, a.conditions + .05, a.conditions + .25)), { chip: true, squash: bell(t, a.conditions + .1, .1) }); G.label(ctx, 'CONDITION', fx, fy + 96, 44, rise(span(t, a.conditions + .1, a.conditions + .7)) * (1 - smooth(span(t, a.ohio + 1.2, a.ohio + 1.8))), { align: 'center' }); }
+      if (landed) { const [fx, fy] = formSeal(t); C8.seal(ctx, fx, fy, 46, expoOut(span(t, a.conditions + .05, a.conditions + .25)), { chip: true, squash: bell(t, a.conditions + .1, .1) }); G.labelR(ctx, 'CONDITION', fx - 60, fy + 15, 40, rise(span(t, a.conditions + .1, a.conditions + .7)) * (1 - smooth(span(t, a.ohio + 1.2, a.ohio + 1.8))), { col: COL.ink }); }
       let [x, y, r] = chipPos(t);
       if (toPlug > 0) { const fs = formSeal(t), plug = [C8.GAUGE.x, C8.GAUGE.y + C8.GAUGE.R * 1.3 + 23]; x = lerp(fs[0], plug[0], toPlug); y = lerp(fs[1], plug[1], toPlug) - Math.sin(Math.PI * toPlug) * 140; r = lerp(30, 26, toPlug); }
       if (t > a.pennyTrain + .5) C8.chip(ctx, x, y, r, 1, { glow: .8 });
@@ -846,7 +862,7 @@ function makeDraw(a) {
     G.label(ctx, '23 STATES · LARGE-LOAD TARIFFS · EEI 2026', 2550, -42, 64, rise(span(t, a.similar + .2, a.similar + .9)) * lo, { align: 'center' });
     // the fence posts, crossbar, rails; the sign
     C8.fenceFrame(ctx, sineIO(span(t, a.butPublic + .2, a.butPublic + 1.1)));
-    C8.gateSign(ctx, t, span(t, a.publicBuilds - .1, a.publicBuilds + .35), .05 * Math.exp(-Math.max(0, t - a.publicBuilds - .35) * 2.2) * Math.sin(Math.max(0, t - a.publicBuilds - .35) * 6));
+    C8.gateSign(ctx, t, span(t, a.publicBuilds - .55, a.publicBuilds - .1), .05 * Math.exp(-Math.max(0, t - a.publicBuilds + .1) * 2.2) * Math.sin(Math.max(0, t - a.publicBuilds + .1) * 6));
   }
 
   return (ctx, t) => {

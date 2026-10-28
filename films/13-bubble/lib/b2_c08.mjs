@@ -216,30 +216,31 @@ export function doorParts(ctx, t, r, o) {
 export function doorDust(ctx, t, k) { if (k > 0) dust(ctx, 1411, 60, (DOORD.x0 + DOORD.x1) / 2, DOORD.y0 + 120, 320, 160, t * .3, .3 * k, P.halo0); }
 
 // the fence in front (low in the frame, wide gate in the middle; it leaves the frame as the camera pushes through)
-export const FENCE = { top: 1192, h: 150, gx: 2550, gap: 1010, step: 44, n: 25, pw: 26 };
+export const FENCE = { top: 1192, h: 150, gx: 2550, gap: 1010, step: 44, n: 25, pw: 26, arch: -90 };   // arch: top of the gate's crossbar (above the door: the sign leaves the frame upward on the push)
 export const picketX = (i) => (i < FENCE.n ? FENCE.gx - FENCE.gap - (FENCE.n - 1 - i) * FENCE.step : FENCE.gx + FENCE.gap + (i - FENCE.n) * FENCE.step);
 export function fenceFrame(ctx, k) {
   if (k <= 0) return;
   ctx.fillStyle = mixHex(P.ind2, P.night1, .2);
   for (const s of [-1, 1]) {
-    const x = FENCE.gx + s * (FENCE.gap - 34);
-    ctx.save(); ctx.beginPath(); ctx.rect(x - 30, FENCE.top - 20, 60, 400); ctx.clip(); ctx.fillRect(x - 15, FENCE.top - 12 + 220 * (1 - k), 30, 300); ctx.restore();
-    ctx.fillStyle = rgba(P.halo1, .4 * k); ctx.fillRect(x - 15, FENCE.top - 12 + 220 * (1 - k), 30, 2); ctx.fillStyle = mixHex(P.ind2, P.night1, .2);
+    // the gate posts rise from the fence up to the arch
+    const x = FENCE.gx + s * (FENCE.gap - 34), yb = FENCE.top + 300, yt = lerp(yb, FENCE.arch - 6, expoOut(k));
+    ctx.fillRect(x - 15, yt, 30, yb - yt);
+    ctx.fillStyle = rgba(P.halo1, .4 * k); ctx.fillRect(x - 15, yt, 30, 2); ctx.fillStyle = mixHex(P.ind2, P.night1, .2);
   }
   // the crossbar over the gate (the sign hangs from it)
   const cb = expoOut(k); ctx.fillStyle = mixHex(P.ind2, P.night1, .2);
-  ctx.fillRect(FENCE.gx - (FENCE.gap - 34) * cb, FENCE.top - 24, 2 * (FENCE.gap - 34) * cb, 12);
+  if (k > .55) { const c2 = expoOut(clamp((k - .55) / .45)); ctx.fillRect(FENCE.gx - (FENCE.gap - 34) * c2, FENCE.arch, 2 * (FENCE.gap - 34) * c2, 12); ctx.fillStyle = rgba(P.halo1, .35 * c2); ctx.fillRect(FENCE.gx - (FENCE.gap - 34) * c2, FENCE.arch, 2 * (FENCE.gap - 34) * c2, 2); ctx.fillStyle = mixHex(P.ind2, P.night1, .2); }
   // the two rails run out from the posts (left and right)
   const rl = 1200 * expoOut(k);
   ctx.fillStyle = mixHex(P.ind2, P.night1, .35);
   ctx.fillRect(FENCE.gx - FENCE.gap + 20 - rl, FENCE.top + 30, rl, 8); ctx.fillRect(FENCE.gx + FENCE.gap - 20, FENCE.top + 30, rl, 8);
   ctx.fillRect(FENCE.gx - FENCE.gap + 20 - rl, FENCE.top + 104, rl, 8); ctx.fillRect(FENCE.gx + FENCE.gap - 20, FENCE.top + 104, rl, 8);
 }
-// the sign over the gate (hangs from two chains; swing)
+// the sign over the gate, hanging from the arch above the door (two chains; swing)
 export function gateSign(ctx, t, drop, swing) {
   // it unfolds down from the crossbar (rotates down about its chains' top: a hinge)
   if (drop <= 0) return;
-  ctx.save(); ctx.translate(FENCE.gx, FENCE.top - 14); ctx.rotate(swing); ctx.scale(1, Math.max(.02, expoOut(clamp(drop)))); ctx.translate(0, 22);
+  ctx.save(); ctx.translate(FENCE.gx, FENCE.arch + 10); ctx.rotate(swing); ctx.scale(1, Math.max(.02, expoOut(clamp(drop)))); ctx.translate(0, 22);
   ctx.strokeStyle = rgba(COL.paper2, .7); ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(-200, -22); ctx.lineTo(-200, 0); ctx.moveTo(200, -22); ctx.lineTo(200, 0); ctx.stroke();
   const p = new Path2D(); p.roundRect(-280, 0, 560, 104, 6);
   E.glowFill(ctx, p, 30, .25, P.halo1);

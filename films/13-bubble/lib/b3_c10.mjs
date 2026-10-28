@@ -587,7 +587,7 @@ export function make(T, R) {
       label(ctx, [['TAX BREAK', 34]], sx, sy + 52, span(t, tRec, tRec + .5), { out });
       label(ctx, [['GRID CONNECTION', 34]], sx, sy + 104, span(t, tPlug, tPlug + .5), { out });
     }
-    if (t > a.y1844 - .3) label(ctx, [['EVERY NEW LINE FROM 1844', 34], ['ONE TRAIN EVERY WEEKDAY · EACH WAY', 34]], 960, 790, span(t, a.y1844 - .2, a.y1844 + .7), { align: 'center', out: span(t, tPlate - 1, tPlate - .35) });
+    if (t > a.y1844 - .3) label(ctx, [['EVERY NEW LINE FROM 1844', 34], ['AT LEAST ONE TRAIN EVERY WEEKDAY · EACH WAY', 34]], 960, 790, span(t, a.y1844 - .2, a.y1844 + .7), { align: 'center', out: span(t, tPlate - 1, tPlate - .35) });
     ctx.restore();
   }
 
