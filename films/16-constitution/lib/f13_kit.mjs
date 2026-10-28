@@ -138,7 +138,7 @@ export function maskLine(ctx, segs, x, y, size, u, o = {}) {
     xs.push(xx);
     const col = warm > 0 ? mixHex(o.col ?? P.cream, P.halo0, clamp(warm)) : (o.col ?? P.cream);
     E.glowText(ctx, txt, xx, y + dy, { size, serif, col, weight: o.weight, glow: o.glow ?? true });
-    if (warm > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; E.glowText(ctx, txt, xx, y + dy, { size, serif, col: rgba(P.halo0, .35 * warm), weight: o.weight }); ctx.restore(); }
+    if (warm > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; E.glowText(ctx, txt, xx, y + dy, { size, serif, col: rgba(P.halo0, .35), a: clamp(warm), weight: o.weight }); ctx.restore(); }   // a (not the colour alpha) also scales the shadow: no step on the first warm frame
     xx += measure(txt, size, serif, o.weight);
   }
   ctx.restore();

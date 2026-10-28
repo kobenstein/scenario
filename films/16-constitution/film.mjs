@@ -1,12 +1,13 @@
-// Film 13 "Superintelligence Promised Us Free Time. Will We Get It?" (10:40 incl. the ~21 s end image), built on the Film 10
-// editorial-night machinery. Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots13.py).
-// Fourteen chunk files scenes/sc01.mjs … sc14.mjs return their entries; this file stitches them into one timeline.
+// Film 16 "Claude's Constitution in 10 Minutes" (~10:30 incl. the 15 s end screen), built on the Film 10/13/14 editorial-night machinery.
+// Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots16.py) · builders: docs/BRIEF-builders.md.
+// Eleven chunk files scenes/sc01.mjs … sc11.mjs return their entries; this file stitches them into one timeline.
 // NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a
 // planned match on a carrier). Any other tr is turned into 'cut' with a warning. Missing chunks render as stubs.
-//   export default (T, R) => [ entry, … ]       T = timing helpers (lib/kit.mjs), R = { a, b, id, name, first } chunk range
-//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish
+//   export default (T, R) => [ entry, … ]       T = timing helpers (lib/kit.mjs: T.G / T.GE global phrase anchors), R = { a, b, id, name, first }
+//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (K.PRINT16)
 // SECS=c01,c02 node render.mjs --snap ...   builds only those chunks (absolute times stay the same).
-// Data root (timing.json): lib/kit.mjs ROOT = $F13ROOT or /mnt/project-files/scenario/film-zeit/ ; TIMING=… overrides the file.
+// Timing: $TIMING, else <ROOT>audio/timing.json (the real VO, written by the audio agent), else data/provisional_timing.json
+// (tools/provisional_timing.py, from vo-v4.txt; a warning is printed). ROOT = $F16ROOT or /mnt/project-files/scenario/film-verfassung/.
 import fs from 'node:fs';
 import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
@@ -14,39 +15,29 @@ import { finish as edFinish } from './lib/f10_editorial.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
 
 export { ROOT };
-// chunk table (docs/shots.md §2); from = [segment, first phrase of the chunk]; every chunk starts on a VO segment
+// chunk table (docs/shots.md §2); from = the first phrase of the chunk, looked up GLOBALLY in the film (T.G), so any VO segmentation works
 export const CHUNKS = [
-  { id: 'c01', name: 'Hook I: the promise, Gates quote, the old promises, busier than ever', from: [['s00']] },
-  { id: 'c02', name: 'Hook II: Berkeley, a lie? → No, the working year halved', from: [['s02']] },
-  { id: 'c03', name: 'Water: 200 million hours, the pipe arrives, zero at home', from: [['s04']] },
-  { id: 'c04', name: 'The hour moved: washing machine, Cowan, email, infinite workday', from: [['s05']] },
-  { id: 'c05', name: 'Linder, the sand slips past you, this machine is different', from: [['s07']] },
-  { id: 'c06', name: 'Not so far: Berkeley, the juggler, Hassabis', from: [['s08']] },
-  { id: 'c07', name: 'Battle Creek 1930: Kellogg 8 → 6, Hunnicutt, what the town did', from: [['s10']] },
-  { id: 'c08', name: 'The summer evening (heart), then how it slipped', from: [['s12']] },
-  { id: 'c09', name: 'No villain, mission line, the time we kept', from: [['s14']] },
-  { id: 'c10', name: 'Firms: four-day week, time dividend, hospital', from: [['s16']] },
-  { id: 'c11', name: 'All of us: right to disconnect, Keynes, who decides', from: [['s18']] },
-  { id: 'c12', name: 'You: buying time, 2 in 100, guard the first hour', from: [['s20']] },
-  { id: 'c13', name: 'When the rules came, this time first, we need it', from: [['s21']] },
-  { id: 'c14', name: 'The hour arrives, last line, end screen', from: [['s23']] },
+  { id: 'c01', name: 'Hook (anchor 1: the book) + Level 1 · the white lie', from: 'This is Claude' },
+  { id: 'c02', name: 'Level 2 · the risky question (landlord letter, staircase of values)', from: 'A letter from your landlord' },
+  { id: 'c03', name: 'Level 3 · the perfect argument (bridge, seven-limits wall)', from: 'Say you build the perfect case' },
+  { id: 'c04', name: 'Level 4 · the maker (letterhead, many hands, judgment)', from: 'Now imagine you work at Anthropic' },
+  { id: 'c05', name: 'Level 5 I · the plug (pause button, locked doors, why safety on top)', from: "You're still at Anthropic" },
+  { id: 'c06', name: 'Level 5 II · the dial, open problem, apology (anchor 2: the book closes)', from: 'The document pictures a dial' },
+  { id: 'c07', name: 'Level 6 I · the real test (anchor 3), 96 / 100', from: 'Until now, we could only read' },
+  { id: 'c08', name: 'Level 6 II · reasons vs examples, own tests, leak, unsolved, the pen', from: 'What brings it down' },
+  { id: 'c09', name: 'Level 7 I · who holds the pen (Askell, no vote, money, critics)', from: 'Last level' },
+  { id: 'c10', name: 'Level 7 II · chain of command vs character, 1,000 Americans', from: 'Could the rules be written differently' },
+  { id: 'c11', name: 'Ending (anchor 4) + end screen', from: 'So, can you give' },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 
 export function chunkRanges(T) {
-  const at = (cands) => {
-    for (const [sec, phrase] of cands) {
-      if (!phrase) { try { return T.seg(sec).start; } catch { continue; } }
-      if (T.has(sec, phrase)) return T.S(sec, phrase);
-    }
-    console.warn(`[film] chunk anchor ${JSON.stringify(cands)} not found; using the section start`);
-    return T.seg(cands[0][0]).start;
-  };
-  const a = CHUNKS.map((c) => at(c.from));
-  return Object.fromEntries(CHUNKS.map((c, i) => [c.id, { ...c, a: i ? a[i] : 0, b: i + 1 < CHUNKS.length ? a[i + 1] : T.duration, first: a[i] }]));
+  const a = CHUNKS.map((c, i) => (i ? T.G(c.from) : 0));
+  return Object.fromEntries(CHUNKS.map((c, i) => [c.id, { ...c, a: i ? a[i] : 0, b: i + 1 < CHUNKS.length ? a[i + 1] : T.duration, first: i ? a[i] : T.G(c.from) }]));
 }
 
-export const TIMING = process.env.TIMING || ROOT + 'audio/timing.json';
+const PROVISIONAL = new URL('./data/provisional_timing.json', import.meta.url).pathname;
+export const TIMING = process.env.TIMING || (fs.existsSync(ROOT + 'audio/timing.json') ? ROOT + 'audio/timing.json' : PROVISIONAL);
 // the camera never stops: a slow breath over the whole picture (1.0–1.6 % zoom, tiny drift, no roll). The chunk cameras carry the movement.
 export function cameraFloat(t) {
   const z = 1.013 + .003 * Math.sin(t * .19 + .7), m = (z - 1) / 2 * .6;
@@ -60,6 +51,7 @@ const cutOnly = (e) => {
 };
 export async function build({ timingFile = TIMING } = {}) {
   const T = timing(timingFile);
+  if (T.provisional) console.warn(`[film] PROVISIONAL timing (${timingFile}); the real VO timing is <ROOT>audio/timing.json`);
   const RANGES = chunkRanges(T);
   const want = process.env.SECS ? process.env.SECS.split(',').map((s) => (/^\d+$/.test(s) ? 'c' + s.padStart(2, '0') : s)) : ALL;
   let list = [];
