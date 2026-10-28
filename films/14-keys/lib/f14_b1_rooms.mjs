@@ -212,9 +212,10 @@ export function launchRoom(ctx, t, o = {}) {
     ctx.globalCompositeOperation = 'lighter'; ctx.filter = 'blur(6px)'; ctx.strokeStyle = rgba(mixHex(P.blue0, P.halo1, warm), .5 + .3 * warm); ctx.lineWidth = 10; ctx.beginPath(); ctx.moveTo(ex0, EY); ctx.lineTo(ex1, EY); ctx.stroke();
     ctx.restore();
     ctx.strokeStyle = mixHex(mixHex(P.blue0, P.cream, .35), P.halo0, warm); ctx.lineWidth = lerp(2.4, 3.2, warm); ctx.beginPath(); ctx.moveTo(ex0, EY); ctx.lineTo(ex1, EY); ctx.stroke();
-    const pu = o.pulse ?? 0;
-    if (pu > 0 && pu < 1) for (const [sx] of LR.slots) { const px = lerp(sx, 960, expoOut(pu)); halo(ctx, px, EY, 90, .9 * (1 - pu), P.halo1, P.core0); ctx.strokeStyle = rgba(P.core1, .9 * (1 - pu)); ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(lerp(sx, px, .6), EY); ctx.lineTo(px, EY); ctx.stroke(); }
   }
+  // the pulse along the edge (also over a caller's own edge line)
+  const pu = o.pulse ?? 0;
+  if (pu > 0 && pu < 1 && e > 0 && o.edgeLine !== false) for (const [sx] of LR.slots) { const px = lerp(sx, 960, expoOut(pu)); halo(ctx, px, EY, 90, .9 * (1 - pu), P.halo1, P.core0); ctx.strokeStyle = rgba(P.core1, .9 * (1 - pu)); ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(lerp(sx, px, .6), EY); ctx.lineTo(px, EY); ctx.stroke(); }
   // ---- the measuring line between the keys (4.06): grows from key L to key R; the part one arm can reach stays warm
   const out = { slots: LR.slots, keys: [null, null], hands: [null, null], screen: LR.screen, edgeY: EY, officers: [] };
   const mu = clamp(o.measure ?? 0);

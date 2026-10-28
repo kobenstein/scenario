@@ -152,8 +152,8 @@ function coresLayer(ctx, t, st) {
   for (const c of CELLS) {
     const u = smooth(span(blockU, c.delay, c.delay + .5)); if (u <= 0) continue;
     const d = c.d, x = lerp(d.x + 20, c.x, u), y = lerp(d.y - 7, c.y, u), s = lerp(8, 38, u);
-    const tw = .5 + .5 * Math.sin(t * (1.1 + 5 * run) * (.6 + c.lit) + c.ph);
-    const hot = c.lit > .82 ? 1 : 0, al = u * (.28 + .22 * tw + .3 * hot + .25 * run * tw);
+    const tw = .5 + .5 * Math.sin((t * 1.1 + 1.6 * (st.runPh ?? 0)) * (.6 + c.lit) + c.ph);   // runPh: the extra phase once the machine runs (no chirp)
+    const hot = c.lit > .82 ? 1 : 0, al = u * (.32 + .1 * tw + .3 * hot + .12 * run * tw);
     ctx.globalAlpha = clamp(al); ctx.fillStyle = hot ? mixHex(P.cream, P.halo0, .4) : mixHex(P.blue2, P.cream, .55);
     ctx.fillRect(x - s / 2, y - s / 2, s, s);
   }
@@ -263,7 +263,7 @@ function linesLayer(ctx, t, a, st) {
 // the ring (the machine): cool cream dashes round the block, it spins up on 'run the model'
 function ringLayer(ctx, t, a, cx, cy) {
   const t0 = a.run - .1, u = expoOut(span(t, t0 - .2, t0 + .9)); if (u <= 0) return;
-  const x = Math.max(0, t - t0), om = .55, tau = 1.1, phi = om * (x - (1 - Math.exp(-x / tau)) * tau);
+  const x = Math.max(0, t - t0), om = .22, tau = 1.1, phi = om * (x - (1 - Math.exp(-x / tau)) * tau);
   const R = 690, n = 54, col = mixHex(P.cream, P.blue0, .25);
   ctx.save(); ctx.lineCap = 'round';
   const seg = (lw, al, blur) => {
@@ -289,6 +289,14 @@ const LOCK = { x: DOOR.x + DOOR.r * 1.36, y: DOOR.y + DOOR.r * .62 };
 const FIELDX = [LOCK.x - DOOR.r * .44 * .25, LOCK.x + DOOR.r * .44 * .25];
 const CARD_Q = [['“two-party authorization', 0]], CARD_Q2 = [['for model weight access”', 0]];
 
+// the frame-filling light of a fly-through as a soft disc (centre, radius R): at R = FLOOD_R round the frame centre it covers it all
+const FLOOD_R = 2400;
+function floodAt(ctx, cx, cy, R, a = 1) {
+  if (a <= 0) return;
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.fillStyle = E.rad(ctx, cx, cy, R, [[0, rgba(P.core0, a)], [.4, rgba(P.core1, a)], [.62, rgba(P.halo2, a)], [1, rgba(P.halo2, 0)]]);
+  ctx.fillRect(0, 0, W, H); ctx.restore();
+}
 // ------------------------------------------------------------------------------------------------------------------ act 2a: the desk
 const DESK = { y: 690, x0: 640, x1: 1420, floor: 940, lamp: [1000, 150], pool: [1010, 692, 330, 46], sheet: [1010, 455, 330, 214], clock: [1480, 330, 50], du: 590 };
 const SIG1 = (() => { const p = []; for (let i = 0; i <= 60; i++) { const u = i / 60; p.push([lerp(-130, -30, u), -8 * Math.sin(u * 19) - 10 * Math.sin(u * 5) * (1 - u) + 4]); } return p; })();
@@ -370,7 +378,7 @@ export function station1(T) {
     [tFly1, aim(ZW, slitX + 6, DOOR.y, 16), 'i'],
   ];
   // ---------- act 2a camera (desk) ----------
-  const tTilt0 = a.point + .75, tTilt1 = a.s05e + .9;     // the tilt ends exactly at the chunk seam c03|c04 (102.04)
+  const tTilt0 = a.point + .5, tTilt1 = a.s05e + .9;     // the tilt ends exactly at the chunk seam c03|c04 (102.04)
   const K2 = [
     [tFly1, aim(F0, DESK.lamp[0], DESK.lamp[1] + 52, 16)],
     [tFly1 + 1.5, cam3({ z: 70, y: 14 }), 'o'],
@@ -381,7 +389,7 @@ export function station1(T) {
   const tD0 = tTilt1;
   const tDive0 = a.advantage + .6, tDive1 = a.idea + .5, tRoom = a.late + 1.0;
   const tPB2 = a.keysSat, tPB2e = a.both + .2, tPush2 = a.safest, tPush2e = a.two + .4;
-  const tScr0 = a.thieves + .55, tScr1 = a.T0 - SEAM_HALF - .12;
+  const tScr0 = a.thieves + .55, tScr1 = a.T0 - SEAM_HALF;    // lands on the plate's framing exactly when the plate takes over
   const room = (x, y, z) => cam3({ x: RX + x, y: RY + y, z });
   const SC = { x: RX + LR.screen.x, y: RY + LR.screen.y };
   const K3 = [
@@ -389,7 +397,7 @@ export function station1(T) {
     [a.secure + .3, cam3({ x: 150, z: 46 })],
     [a.huge + .3, cam3({ x: 250, z: 80 })],
     [a.notice + .6, cam3({ x: 300, z: 128 })],
-    [tDive0, cam3({ x: 310, z: 120 })],
+    [tDive0, cam3({ x: 330, z: 200 })],                 // a slow push on "size becomes security" (never a frozen hold)
     [tDive1, aim(F0, PX, ZONE.y, 5.2), 'q'],
     [a.late + .5, room(0, 0, 0)],
     [a.inOld + .2, room(36, 0, 34)],
@@ -409,7 +417,7 @@ export function station1(T) {
     return cam3({ z });
   };
   const drift1 = (t) => lerp(.15, .5, smooth(span(t, tVlt0, tVlt1))) * (1 - smooth(span(t, tFly0, tFly1)));
-  const drift3 = (t) => .5 * (1 - smooth(span(t, tDive0, tDive1 - .4))) + .5 * smooth(span(t, tDive1 + .2, tRoom)) * (1 - smooth(span(t, tScr0, tScr1)));
+  const drift3 = (t) => .8 * (1 - smooth(span(t, tDive0, tDive1 - .4))) + .9 * smooth(span(t, tDive1 + .2, tRoom)) * (1 - smooth(span(t, tScr0, tScr1)));
   const mD0 = cardM(camDrift(camAt(tD0, K3, F0), tD0, drift3(tD0), 11), F0), ZS = { x: mD0.e + ZONE.x * mD0.k, y: mD0.f + ZONE.y * mD0.k, k: mD0.k };   // the diagram at tD0, as the tilt must land on it
 
   return (ctx, t) => {
@@ -434,13 +442,15 @@ export function station1(T) {
       const gl = sineIO(span(t, tGl0, tGl1)), fileDX = (BX - 960) * gl, fileDY = -Math.sin(gl * Math.PI) * 46;
       const warm = warmF(t);
       const fieldA = .2 + .26 * smooth(span(t, tPB0 + .4, tPB1)) * (1 - smooth(span(t, tVlt0, tVlt1)));
-      const st = { M, R, wave, blockU, run, lineU, cut, fileDX, fileDY, back, warm, fieldA };
+      const rx = clamp((t - a.run) / 1.2), runPh = 1.2 * (rx ** 3 - rx ** 4 / 2) + Math.max(0, t - a.run - 1.2);   // ∫ smooth ramp: the twinkle speeds up without a jump
+      const st = { M, R, wave, blockU, run, runPh, lineU, cut, fileDX, fileDY, back, warm, fieldA };
       // the inner card (only while it is seen: before the door is shut)
       const shut = quartIO(span(t, a.oldest + .6, a.oldest + 2.1));
       if (M && shut < 1) {
         ctx.save(); ctx.setTransform(M.k, 0, 0, M.k, M.e, M.f);
         ctx.fillStyle = E.rad(ctx, 960, 560, 1400, [[0, mixHex(P.night0, P.ind0, .25)], [.45, '#050719'], [1, '#03040f']]); ctx.fillRect(-9000, -9000, 24000, 20000);
-        E.halo(ctx, 960, 560, 900, .32, P.blue0, P.ind1);
+        E.halo(ctx, 960, 560, 900, .32 + .22 * smooth(span(t, tPB0, tPB1)), P.blue0, P.ind1);   // brighter once the field opens up (it is hook-identical before)
+        if (t > tPB0) E.halo(ctx, BX, BY, 2600, .22 * smooth(span(t, tPB0, tPB1)), P.blue0, P.ind1);
         fieldLayer(ctx, t, st);
         coresLayer(ctx, t, st);
         ringLayer(ctx, t, a, BX, BY);
@@ -461,6 +471,7 @@ export function station1(T) {
       const crack = expoOut(span(t, a.yes - .02, a.yes + .5));
       card(ctx, c, ZW, () => {
         vaultWall(ctx, DOOR, { floor: FLOOR });
+        E.halo(ctx, DOOR.x + 120, DOOR.y - 60, 1300, .2 * smooth(span(t, tVlt1 - .6, tVlt1 + 1)), P.blue0, P.ind1);   // a cool wash on the wall (night, but readable)
         // the open door lets the interior glow out onto the floor; it dies when the door is shut
         if (shut < 1) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = E.rad(ctx, DOOR.x, FLOOR, 520, [[0, rgba(P.halo1, .18 * (1 - shut))], [1, rgba(P.halo1, 0)]]); ctx.fillRect(DOOR.x - 600, FLOOR - 20, 1200, 120); ctx.restore(); }
         vaultDoor(ctx, t, { ...DOOR, shut, joints, fields: [f1 + .5 * both, both], crack, lock: LOCK });
@@ -497,7 +508,7 @@ export function station1(T) {
         }
       });
       // into the slit: the light floods the frame (the standard flight into a light form)
-      E.lightFlood(ctx, sineIO(span(t, tFly1 - .55, tFly1)) ** 2);
+      floodAt(ctx, W / 2, H / 2, FLOOD_R, sineIO(span(t, tFly1 - 1.3, tFly1)));
       return;
     }
     // ================= act 2a: the desk under the lamp =================
@@ -557,12 +568,16 @@ export function station1(T) {
         sheetDraw(ctx, t, lerp(S0[0], ZS.x, ts), lerp(S0[1], ZS.y, ts), lerp(S0[2], 170 * ZS.k, mu), lerp(S0[3], 222 * ZS.k, mu), 32 * ZS.k * mu, s1, s2, cur);
         ctx.restore();
       }
-      E.lightFlood(ctx, 1 - sineIO(span(t, tFly1, tFly1 + .7)));
+      // the light contracts into the lamp's bulb (the slit's light becomes the lamp)
+      const fu = span(t, tFly1, tFly1 + 2.3);
+      if (fu < 1) { const mL = cardM(c, F0), bx = mL.e + DESK.lamp[0] * mL.k, by = mL.f + (DESK.lamp[1] + 40) * mL.k, k = sineIO(fu);
+        floodAt(ctx, lerp(W / 2, bx, k), lerp(H / 2, by, k), lerp(FLOOD_R, 50, k), 1 - smooth(span(fu, .8, 1))); }
       return;
     }
     // ================= act 2b: the diagram, the launch room, the screen =================
     const c = camDrift(camAt(t, K3, F0), t, drift3(t), 11);
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = P.night0; ctx.fillRect(0, 0, W, H); ctx.restore();
+    const wash = smooth(span(t, tD0, tD0 + 2.4)) * (1 - smooth(span(t, tDive1 - .4, tDive1 + .6)));      // the diagram's cool wash (night, but not black); the room has its wall
     const showDiagram = t < tDive1, showRoom = t >= tDive1 - .05;
     const grow = expoOut(span(t, a.sheer - .1, a.sheer + 1.1)) * .45;
     const thin = smooth(span(t, a.sheer, a.sheer + 1.5));
@@ -581,24 +596,25 @@ export function station1(T) {
         // the room grows out of the line: the wall rises from it, then the consoles (launchRoom build)
         const b = span(t, tDive1 - .2, tRoom + .6), wall = sineIO(span(b, 0, .6));
         ctx.save(); ctx.beginPath(); ctx.rect(RX - 2400, lerp(ZONE.y, ZONE.y - 2200, wall), 7000, 2200 * wall + 2); ctx.clip();
-        ctx.fillStyle = E.lin(ctx, 0, RY - 600, 0, ZONE.y, [[0, P.night0], [.6, mixHex(P.night1, P.ind1, .3)], [1, mixHex(P.ind1, P.night1, .4)]]); ctx.fillRect(RX - 2400, RY - 1700, 7000, 1700 - RY + ZONE.y); ctx.restore();
+        ctx.fillStyle = E.lin(ctx, 0, RY - 600, 0, ZONE.y, [[0, mixHex(P.night0, P.ind1, .35)], [.6, mixHex(P.night1, P.ind1, .7)], [1, mixHex(P.ind1, P.blue0, .08)]]); ctx.fillRect(RX - 2400, RY - 1700, 7000, 1700 - RY + ZONE.y); ctx.restore();
         ctx.save(); ctx.translate(RX, RY);
         const keysU = expoOut(span(t, a.keys - .2, a.keys + .35));
-        const turn = expoOut(span(t, a.same - .02, a.same + .09));
+        const turn = expoOut(span(t, a.same - .06, a.same + .32));
         const hands = sineIO(span(t, a.keys + .05, a.same - .1));
         const reach = sineIO(span(t, a.both - .45, a.both + .5)) * (1 - sineIO(span(t, a.safest + .1, a.safest + 1.1)));
         const lum = 1 - .78 * sineIO(span(t, a.but + .1, a.thieves + .3));
-        const shine = 1 + .25 * Math.exp(-(((t - (a.two + .15)) / .35) ** 2));
+        const shine = (1 + .25 * Math.exp(-(((t - (a.two + .15)) / .35) ** 2))) * (1 + .1 * Math.sin(t * 2.3));   // the keys' light breathes
         launchRoom(ctx, t, {
           build: b, bg: false, edgeLine: (cx) => { cx.save(); cx.translate(-RX, -RY); thread(cx); cx.restore(); }, lamp: smooth(span(t, a.old - .2, a.old + .5)) * (t > a.old - .26 && t < a.old - .18 ? .3 : 1),
           officers: sineIO(span(t, a.inOld + .1, a.officers + .55)), keys: keysU, turn, hands, lum: lum * shine,
-          pulse: span(t, a.same + .05, a.same + 1.0), measure: span(t, a.far - .25, a.far + .9) * (1 - smooth(span(t, a.safest + .2, a.safest + 1.0))),
+          pulse: span(t, a.same + .1, a.same + 1.6), measure: span(t, a.far - .25, a.far + .9) * (1 - smooth(span(t, a.safest + .2, a.safest + 1.0))),
           reach, screen: span(t, a.thieves + .25, a.thieves + 1.05), stamp: rise(span(t, a.late - .1, a.late + .8)),
         });
         ctx.restore();
       }
       if (!showRoom) thread(ctx);
       if (!showDiagram) return;
+      if (wash > 0) { E.halo(ctx, ZONE.x + 300, ZONE.y, 1500, .3 * wash, P.blue0, P.ind1); E.halo(ctx, ZONE.x + 300, ZONE.y, 2600, .3 * wash, P.blue0, P.ind1); }
       // ---- the diagram ----
       const zr = ZONE.r * (1 + grow * .12) * (1 + .006 * Math.sin((t - tD0) * 1.4)) * lerp(Z_IN, 1, rise(span(t, tD0, tD0 + 2.6)));   // the ring settles open
       const neck = sineIO(span(t, a.every - .2, a.every + 1.4));
