@@ -11,13 +11,19 @@
 //              centred (x 760–1160, y 520–600), cold. B2: the bar drops and lands as the first brick of the wall.
 //   c08 | c09  (B2 → B3)    T0 = T.F('Public money can come')       plateDoor:  a closed cable-duct door, frontal, centred, padlocked,
 //              lit from above. B3: the stamp PUBLIC MONEY lands on it and the lock falls.
-// Each plate breathes a little with t (light, dust) so the frames are alive but identical on both sides.
+// Each plate breathes a little with t (light, dust) so the frames are alive but identical on both sides (plateSlit: slitLife).
 import { W, H, P, rgba, rad, lin, drift, prng, mixHex, dust, glowText } from './f10_editorial.mjs';
 import * as B from './bubble_kit.mjs';
 const { COL } = B;
 
 export const SEAM_HALF = .5;                      // seconds each side draws the plate
 export const seamWindow = (t, T0) => t >= T0 - SEAM_HALF && t < T0 + SEAM_HALF;
+// Every plate keeps a slow push-in (the camera never stops): zoom = exp(PLATE_PUSH · (t − (T0 − SEAM_HALF))) about the plate's focus,
+// so it is exactly 1 at T0 − 0.5 (where the handing side lands) and the receiving side continues the push from the plate's speed
+// (d zoom/dt = PLATE_PUSH at T0 − 0.5, ≈ 5 %/s). Pass T0 (the seam time) as the 3rd argument; without it the plate is static.
+export const PLATE_PUSH = .05;
+export const plateZoom = (t, T0) => T0 == null ? 1 : Math.exp(PLATE_PUSH * (t - (T0 - SEAM_HALF)));
+const zoomAbout = (ctx, z, cx, cy) => { ctx.translate(cx, cy); ctx.scale(z, z); ctx.translate(-cx, -cy); };
 export const SLIT = { x: 1140, y: 540 };                    // screen point of the door slit at c01|c02 (B1 grows the window from here)
 export const BRICK = { x0: 760, x1: 1160, y0: 520, y1: 600, axisY: 640 };
 export const DOOR = { x0: 790, x1: 1130, y0: 250, y1: 830 };
@@ -29,17 +35,31 @@ export const TRAIN = { nose: 1700, y: 700, len: 1600, h: 130, doorFromNose: 620,
 TRAIN.doorX = TRAIN.nose - TRAIN.doorFromNose;
 TRAIN.doorY = ((TRAIN.y - TRAIN.h * .12 - TRAIN.h) + TRAIN.h * .12 + (TRAIN.y - TRAIN.h * .12 - 2)) / 2;   // middle of the door opening
 export const PLATE_S = 8;
-export function plateSlit(ctx, t) {
+export function plateSlit(ctx, t, T0) {
+  const s = PLATE_S * plateZoom(t, T0);
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.fillStyle = P.night0; ctx.fillRect(0, 0, W, H);
-  ctx.setTransform(PLATE_S, 0, 0, PLATE_S, SLIT.x - PLATE_S * TRAIN.doorX, SLIT.y - PLATE_S * TRAIN.doorY);
+  ctx.setTransform(s, 0, 0, s, SLIT.x - s * TRAIN.doorX, SLIT.y - s * TRAIN.doorY);
   B.train(ctx, TRAIN.nose, TRAIN.y, TRAIN.len, TRAIN.h, t, { dir: 1, door: TRAIN.slit, doorFromNose: TRAIN.doorFromNose, doorX: TRAIN.doorFromNose });
+  ctx.restore();
+  slitLife(ctx, SLIT.x, SLIT.y, s / PLATE_S, t, 1);
+}
+// The life of the slit (screen space): the warm light breathes and a few motes drift up through it. Drawn by plateSlit at full
+// strength; c01 ramps it in (k 0 → 1) at the projected door point (sc = projected scale / PLATE_S) so the plate is reached without a
+// pop, and B1 keeps drawing it (k 1 → 0 or into the window light) while the slit widens.
+export function slitLife(ctx, x, y, sc, t, k = 1) {
+  if (k <= 0) return;
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'lighter';
+  const br = .72 + .28 * Math.sin(t * 2.3) * Math.sin(t * .71 + 1);
+  ctx.fillStyle = rad(ctx, x, y, 300 * sc, [[0, rgba(P.halo0, .22 * br * k)], [.35, rgba(P.halo1, .09 * br * k)], [1, rgba(P.halo1, 0)]]); ctx.fillRect(x - 300 * sc, y - 300 * sc, 600 * sc, 600 * sc);
+  ctx.globalCompositeOperation = 'source-over';
+  dust(ctx, 1140, 26, x, y - 40 * sc, 70 * sc, 260 * sc, t, .8 * k, P.core1);
   ctx.restore();
 }
 
 // --- c05 | c06: the chip bar, alone ---------------------------------------------------------------------------------------------
-export function plateBrick(ctx, t) {
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+export function plateBrick(ctx, t, T0) {
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); zoomAbout(ctx, plateZoom(t, T0), (BRICK.x0 + BRICK.x1) / 2, BRICK.y0);
   ctx.fillStyle = lin(ctx, 0, 0, 0, H, [[0, P.night0], [.6, P.night1], [1, P.ind0]]); ctx.fillRect(0, 0, W, H);
   const { x0, x1, y0, y1, axisY } = BRICK, br = .95 + .05 * Math.sin(t * 1.7);
   // the time axis (paper ink line, faint) and the cold chip bar on it
@@ -53,8 +73,8 @@ export function plateBrick(ctx, t) {
 
 // --- c08 | c09: the closed duct door --------------------------------------------------------------------------------------------
 const RIV = (() => { const r = prng(1409), a = []; for (let i = 0; i < 16; i++) a.push([r(), r()]); return a; })();
-export function plateDoor(ctx, t) {
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+export function plateDoor(ctx, t, T0) {
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); zoomAbout(ctx, plateZoom(t, T0), (DOOR.x0 + DOOR.x1) / 2, (DOOR.y0 + DOOR.y1) / 2);
   ctx.fillStyle = lin(ctx, 0, 0, 0, H, [[0, P.night0], [.7, P.night1], [1, P.night0]]); ctx.fillRect(0, 0, W, H);
   const { x0, x1, y0, y1 } = DOOR, w = x1 - x0, h = y1 - y0, br = .94 + .06 * Math.sin(t * 1.3);
   // the lamp above the door (hero light), the wall it lights

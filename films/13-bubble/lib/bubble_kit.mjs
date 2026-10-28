@@ -466,7 +466,7 @@ export function rail(ctx, x0, x1, y, t, o = {}) {
   ctx.save(); ctx.globalAlpha = a;
   if (bl > 0) {   // ballast: a low mound under the track, dark with a cool top edge
     ctx.fillStyle = lin(ctx, 0, y, 0, y + 60 * bl, [[0, mixHex(P.ind2, P.blue1, .2)], [1, P.night1]]);
-    ctx.beginPath(); ctx.moveTo(x0, y + 60 * bl + 40); ctx.lineTo(x0, y + 22 * bl); ctx.lineTo(x1, y + 22 * bl); ctx.lineTo(x1, y + 60 * bl + 40); ctx.closePath(); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(x0, y + 100 * bl); ctx.lineTo(x0, y + 22 * bl); ctx.lineTo(x1, y + 22 * bl); ctx.lineTo(x1, y + 100 * bl); ctx.closePath(); ctx.fill();   // grows with bl (no 40 px block at bl → 0)
   }
   if (sl > 0) {   // sleepers: short dark blocks under the rail, grown from the line (left → right by sl)
     const step = o.step ?? 46;

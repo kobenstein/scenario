@@ -469,7 +469,7 @@ export function camAt(t, K, ref = F0) {
   if (t <= K[0][0]) return { ...K[0][1] };
   if (t >= K[K.length - 1][0]) return { ...K[K.length - 1][1] };
   let i = 0; while (t > K[i + 1][0]) i++;
-  const a = K[i][1], b = K[i + 1][1], e = { s: sineIO, q: quartIO, i: expoIn, o: expoOut }[K[i + 1][2] || 's'];
+  const a = K[i][1], b = K[i + 1][1], E = K[i + 1][2], e = typeof E === 'function' ? E : { s: sineIO, q: quartIO, i: expoIn, o: expoOut, l: (u) => sineIO(1 - (1 - u) * (1 - u)) }[E || 's'];   // 'l': soft start, long soft landing (fly-ins whose frame fills late)
   const u = e((t - K[i][0]) / (K[i + 1][0] - K[i][0])), out = cam3();
   for (const k of ['x', 'y', 'f', 'roll']) out[k] = lerp(a[k] ?? out[k], b[k] ?? out[k], u);
   const da = Math.max(1, ref - (a.z || 0)), db = Math.max(1, ref - (b.z || 0)); out.z = ref - Math.exp(lerp(Math.log(da), Math.log(db), u));
