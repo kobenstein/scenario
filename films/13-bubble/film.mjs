@@ -1,52 +1,49 @@
-// Film 13 "Superintelligence Promised Us Free Time. Will We Get It?" (10:40 incl. the ~21 s end image), built on the Film 10
-// editorial-night machinery. Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots13.py).
-// Fourteen chunk files scenes/sc01.mjs … sc14.mjs return their entries; this file stitches them into one timeline.
+// Film 13 "The AI Bubble Could Pop. Superintelligence Won't Stop." (~10:15 VO + ≤15 s end image), built on the Film 10/13
+// editorial-night machinery. Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots_bubble.py).
+// Twelve chunk files scenes/sc01.mjs … sc12.mjs return their entries; this file stitches them into one timeline.
 // NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a
 // planned match on a carrier). Any other tr is turned into 'cut' with a warning. Missing chunks render as stubs.
 //   export default (T, R) => [ entry, … ]       T = timing helpers (lib/kit.mjs), R = { a, b, id, name, first } chunk range
 //   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish
 // SECS=c01,c02 node render.mjs --snap ...   builds only those chunks (absolute times stay the same).
-// Data root (timing.json): lib/kit.mjs ROOT = $F13ROOT or /mnt/project-files/scenario/film-zeit/ ; TIMING=… overrides the file.
+// Timing: lib/kit.mjs timingFile() = $TIMING · <ROOT>audio/timing.json (real VO, once built) · audio/timing-provisional.json (repo).
 import fs from 'node:fs';
 import { Film, W, H, drift } from './engine.mjs';
-import { timing, ROOT } from './lib/kit.mjs';
+import { timing, ROOT, timingFile } from './lib/kit.mjs';
 import { finish as edFinish } from './lib/f10_editorial.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
 
 export { ROOT };
-// chunk table (docs/shots.md §2); from = [segment, first phrase of the chunk]; every chunk starts on a VO segment
+// chunk table (docs/shots.md §2). from = candidate start phrases, searched in the WHOLE film after the previous chunk's start
+// (robust to a re-split of the VO segments); the last candidate may be a bare segment id as a fallback.
 export const CHUNKS = [
-  { id: 'c01', name: 'Hook I: the promise, Gates quote, the old promises, busier than ever', from: [['s00']] },
-  { id: 'c02', name: 'Hook II: Berkeley, a lie? → No, the working year halved', from: [['s02']] },
-  { id: 'c03', name: 'Water: 200 million hours, the pipe arrives, zero at home', from: [['s04']] },
-  { id: 'c04', name: 'The hour moved: washing machine, Cowan, email, infinite workday', from: [['s05']] },
-  { id: 'c05', name: 'Linder, the sand slips past you, this machine is different', from: [['s07']] },
-  { id: 'c06', name: 'Not so far: Berkeley, the juggler, Hassabis', from: [['s08']] },
-  { id: 'c07', name: 'Battle Creek 1930: Kellogg 8 → 6, Hunnicutt, what the town did', from: [['s10']] },
-  { id: 'c08', name: 'The summer evening (heart), then how it slipped', from: [['s12']] },
-  { id: 'c09', name: 'No villain, mission line, the time we kept', from: [['s14']] },
-  { id: 'c10', name: 'Firms: four-day week, time dividend, hospital', from: [['s16']] },
-  { id: 'c11', name: 'All of us: right to disconnect, Keynes, who decides', from: [['s18']] },
-  { id: 'c12', name: 'You: buying time, 2 in 100, guard the first hour', from: [['s20']] },
-  { id: 'c13', name: 'When the rules came, this time first, we need it', from: [['s21']] },
-  { id: 'c14', name: 'The hour arrives, last line, end screen', from: [['s23']] },
+  { id: 'c01', name: 'Hook: the bubble over the data center, Altman, the machines speed up, it happened before, A1 rail, who gets to ride', from: [] },
+  { id: 'c02', name: 'The mania: the Brontë sisters, Charlotte\'s letter, the index drops two thirds, Mackay', from: ['In a Yorkshire parsonage', 'three sisters'] },
+  { id: 'c03', name: 'A2 the track stays, 6,000 miles, Greenwich time · rails of glass, 5 % lit', from: ["But one thing didn't vanish", 'The track'] },
+  { id: 'c04', name: 'Global Crossing, demand kept climbing, the cheap internet reaches you, subscribe, Bezos', from: ['Then the crash', 'Global Crossing went bankrupt'] },
+  { id: 'c05', name: 'The honest test: chips vs rails, almost full, what lasts, the verdict', from: ['Maybe', 'But rails last for generations'] },
+  { id: 'c06', name: 'The wall: three bricks, METR climbs through, money power debt, cracking at the edges, who paid', from: ["You'll hear that", 'hitting a wall'] },
+  { id: 'c07', name: 'Who pays: your power bill, your pension, the sisters then and you now', from: ['Follow the money', 'To you'] },
+  { id: 'c08', name: 'The leftovers: fire sale, 1844 the penny train, Ohio conditions', from: ['After a crash', 'the leftovers go cheap'] },
+  { id: 'c09', name: 'Open doors (2009, Stockholm), own a piece (Intel), public rails (Apertus, India, Europe)', from: ['Public money can come', 'open doors'] },
+  { id: 'c10', name: 'People build rails (co-ops, B4RN), no seat yet, A3 the penny train of artificial intelligence', from: ['And sometimes, people build', 'build the rails themselves'] },
+  { id: 'c11', name: 'Nobody gives up, the honest limit, the open questions, Nadella, Perez', from: ['Nobody gives up', 'condition on public help'] },
+  { id: 'c12', name: 'The bubble may pop, who gets to ride, A4 the price of a seat, end image', from: ['The bubble may pop', "Superintelligence won't stop"] },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 
 export function chunkRanges(T) {
-  const at = (cands) => {
-    for (const [sec, phrase] of cands) {
-      if (!phrase) { try { return T.seg(sec).start; } catch { continue; } }
-      if (T.has(sec, phrase)) return T.S(sec, phrase);
-    }
-    console.warn(`[film] chunk anchor ${JSON.stringify(cands)} not found; using the section start`);
-    return T.seg(cands[0][0]).start;
-  };
-  const a = CHUNKS.map((c) => at(c.from));
-  return Object.fromEntries(CHUNKS.map((c, i) => [c.id, { ...c, a: i ? a[i] : 0, b: i + 1 < CHUNKS.length ? a[i + 1] : T.duration, first: a[i] }]));
+  const a = [0];
+  CHUNKS.forEach((c, i) => {
+    if (!i) return;
+    const prev = a[i - 1] + .5, hit = c.from.find((ph) => T.hasF(ph, prev));
+    if (hit) a.push(T.F(hit, prev));
+    else { console.warn(`[film] ${c.id}: none of ${JSON.stringify(c.from)} found after ${prev.toFixed(1)} s; placing it ${'60'} s after ${CHUNKS[i - 1].id}`); a.push(a[i - 1] + 60); }
+  });
+  return Object.fromEntries(CHUNKS.map((c, i) => [c.id, { ...c, a: a[i], b: i + 1 < CHUNKS.length ? a[i + 1] : T.duration, first: a[i] }]));
 }
 
-export const TIMING = process.env.TIMING || ROOT + 'audio/timing.json';
+export const TIMING = timingFile();
 // the camera never stops: a slow breath over the whole picture (1.0–1.6 % zoom, tiny drift, no roll). The chunk cameras carry the movement.
 export function cameraFloat(t) {
   const z = 1.013 + .003 * Math.sin(t * .19 + .7), m = (z - 1) / 2 * .6;
@@ -60,6 +57,7 @@ const cutOnly = (e) => {
 };
 export async function build({ timingFile = TIMING } = {}) {
   const T = timing(timingFile);
+  if (T.provisional && !build.warned) { build.warned = true; console.warn(`[film] PROVISIONAL timing (${timingFile}); the real VO timing replaces it automatically`); }
   const RANGES = chunkRanges(T);
   const want = process.env.SECS ? process.env.SECS.split(',').map((s) => (/^\d+$/.test(s) ? 'c' + s.padStart(2, '0') : s)) : ALL;
   let list = [];

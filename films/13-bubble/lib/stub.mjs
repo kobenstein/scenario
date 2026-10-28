@@ -22,8 +22,8 @@ export const stubShot = (R, line) => (ctx, t, s) => {
   const lx = W * (.72 + .05 * Math.sin(t * .21)), ly = H * .2, gr = ctx.createRadialGradient(lx, ly, 0, lx, ly, 900);
   gr.addColorStop(0, rgba(acc, .22)); gr.addColorStop(1, rgba(acc, 0)); ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
   const dx = drift(t, 6, 1), dy = drift(t, 4, 2);
-  text(ctx, `${R.id.toUpperCase()} · STUB · shots ${R.shots}`, 120 + dx, 150 + dy, { size: 22, weight: 600, color: rgba(m, .75), spacing: 6 });
-  text(ctx, SECNAME[line.sec] || line.sec, 120 + dx, 210 + dy, { size: 46, font: 'Instrument Serif', color: m });
+  text(ctx, `${R.id.toUpperCase()} · STUB (not built yet)`, 120 + dx, 150 + dy, { size: 22, weight: 600, color: rgba(m, .75), spacing: 6 });
+  text(ctx, (R.name || line.sec).slice(0, 70), 120 + dx, 210 + dy, { size: 46, font: 'Instrument Serif', color: m });
   const lines = wrapWords(ctx, line.words, 72, W - 300);
   lines.forEach((ln, li) => {
     let x = 120 + dx; const y = 470 + li * 92 + dy;
@@ -40,7 +40,7 @@ export const stubShot = (R, line) => (ctx, t, s) => {
 // stub entries for a chunk: one per sentence in [R.a, R.b)
 export function stubChunk(T, R) {
   const out = [];
-  for (const sec of T.secs) for (const l of T.lines(sec)) if (l.s >= R.first - .01 && l.s < R.b - .01) out.push({ t: Math.max(0, l.s - .3), draw: stubShot(R, l), tr: 'dissolve', d: .35 });
+  for (const sec of T.secs) for (const l of T.lines(sec)) if (l.s >= R.first - .01 && l.s < R.b - .01) out.push({ t: Math.max(0, l.s - .3), draw: stubShot(R, l), tr: 'cut', d: .02 });
   if (!out.length) out.push({ t: R.first, draw: stubShot(R, { sec: T.secs[0], words: [], s: R.a, e: R.b }), tr: 'cut', d: .1 });
   return out;
 }

@@ -1,10 +1,19 @@
-// Shared helpers (Film 5 → 13): VO timing lookup (phrase anchors), quote cards, lower thirds.
+// Shared helpers (Film 5 → 13 bubble): VO timing lookup (phrase anchors, timing switch), quote cards, lower thirds.
 // (Interview-clip helpers are kept from film 03 but Film 5 has no clips: everything is guarded.)
 import fs from 'node:fs';
 import { loadImage } from '@napi-rs/canvas';
 import { W, H, C, rgba, clamp, lin, mix, sm, eout, eio, text, addGlow, glow, canvas } from '../engine.mjs';
 
-export const ROOT = (process.env.F13ROOT || '/mnt/project-files/scenario/film-zeit/').replace(/\/?$/, '/'); // Film 13 data root: audio/timing.json, segments.json (small, read only). Renders and frames go to the scratchpad, never here.
+export const ROOT = (process.env.F13ROOT || '/mnt/project-files/scenario/film-blase/').replace(/\/?$/, '/'); // Film 13 "AI bubble" data root: audio/timing.json, segments.json (small, read only). Renders and frames go to the scratchpad, never here.
+// THE TIMING SWITCH (one place for the whole film): $TIMING if set · else the real VO timing <ROOT>audio/timing.json as soon as the VO
+// build (audio/build_vo.py) has written it · else the provisional timing in this repo (audio/timing-provisional.json, made by
+// tools/provisional_timing.py from the Hörfassung-v2 takes). Same format, so code anchored on phrases runs unchanged on both.
+export const PROVISIONAL = new URL('../audio/timing-provisional.json', import.meta.url).pathname;
+export function timingFile() {
+  if (process.env.TIMING) return process.env.TIMING;
+  try { if (fs.statSync(ROOT + 'audio/timing.json').size > 100) return ROOT + 'audio/timing.json'; } catch { /* not there yet */ }
+  return PROVISIONAL;
+}
 const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 
 // ---------- timing ----------
@@ -28,7 +37,7 @@ export function timing(file) {
   // canonical section id: 'H0'/'H'/'h' -> 'H', '00' -> '0', '07' -> '7'; segment ids like '02b' stay themselves
   const canon = (x) => { x = String(x); if (/^h0?$/i.test(x)) return 'H'; if (/^\d+$/.test(x)) return String(Number(x)); return x; };
   const secOf = (seg) => canon(segSec[seg] ?? seg);
-  const inSec = (w, id) => w.sec === id || segSec[w.sec] === id || secOf(w.sec) === canon(id);
+  const inSec = (w, id) => id === '*' || w.sec === id || segSec[w.sec] === id || secOf(w.sec) === canon(id);
   const wordsOf = (id) => TM.words.filter((w) => inSec(w, id));
   function find(seg, phrase, nth = 0) {
     const ws = wordsOf(seg), q = String(phrase).split(/\s+/).map(norm).filter(Boolean);
@@ -64,7 +73,24 @@ export function timing(file) {
     lineAt: (t) => { let cur = allLines[0]; for (const l of allLines) { if (l.s - .35 <= t) cur = l; else break; } return cur; },
     secAt: (t) => { let cur = secs[0]; for (const id of secs) if (agg[id].start - 1 <= t) cur = id; return cur; },
     provisional: !!TM.provisional,
+    file,
+    // ---- robust anchors (Film 13 bubble): search the WHOLE film, not one segment, so a re-split of the VO (vo-v3) cannot break them
+    //   T.F('Sam Altman')              start of the first occurrence in the film      T.FE(…) its end
+    //   T.F('the bubble', 120)         first occurrence starting at/after 120 s (use the chunk start R.a or a previous anchor)
+    //   const at = T.seq(R.a); at('Charlotte gets'); at('January'); at.e('too late')   sequential: each search continues after the last hit
+    F: (phrase, after = -1) => findAfter(phrase, after).s,
+    FE: (phrase, after = -1) => findAfter(phrase, after).e,
+    hasF: (phrase, after = -1) => { try { findAfter(phrase, after); return true; } catch { return false; } },
+    seq: (from = -1) => { let cur = from; const at = (ph) => { const h = findAfter(ph, cur); cur = h.s + 1e-3; return h.s; }; at.e = (ph) => { const h = findAfter(ph, cur); cur = h.s + 1e-3; return h.e; }; at.peek = () => cur; return at; },
   };
+  function findAfter(phrase, after) {
+    const ws = TM.words, q = String(phrase).split(/\s+/).map(norm).filter(Boolean);
+    for (let i = 0; i + q.length <= ws.length; i++) {
+      if (ws[i].s < after - 1e-6) continue;
+      if (q.every((p, j) => (j === q.length - 1 ? norm(ws[i + j].w).startsWith(p) : norm(ws[i + j].w) === p))) return { s: ws[i].s, e: ws[i + q.length - 1].e, i };
+    }
+    throw new Error(`phrase not found after ${after.toFixed?.(2) ?? after} s: "${phrase}" (timing ${file})`);
+  }
   return T;
 }
 
