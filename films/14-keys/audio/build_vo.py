@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 """Lay VO takes and interview-clip slots onto one timeline -> vo_master.wav + timing.json.
 Clip slots stay silent here; clips/<K>.wav (if present) is mixed in at the slot by mix.py.
-usage: build_vo.py <audio_dir>"""
+usage: build_vo.py <audio_dir> [wav_dir]   (Film 14: vo_master.wav goes to wav_dir, a scratchpad, because project storage is nearly full)"""
 import json, os, subprocess, sys
 import numpy as np
-A = sys.argv[1].rstrip('/')
+A = sys.argv[1].rstrip('/'); WAV = sys.argv[2].rstrip('/') if len(sys.argv) > 2 else A
 SEG = json.load(open(f'{A}/segments.json'))
 LEAD, TAIL = 1.4, 15.0                       # 15 s endscreen tail (drop-off rule 28.10.: max 15 s)
 CARD = 5.5                                   # silent slot for a quote card (read on screen)
 CLIP_IN, CLIP_OUT = 0.7, 0.6                 # air before / after a clip
 GAP_SECTION, GAP_SUB = 1.8, 0.9
-GAP_AFTER = {'s02': 0.5, 's12': 1.6, 's14': 1.4}  # Film 13: no pause at the hook end; air after the river evening and after the mission line
+# Film 14: hook (s00, Q1, s01-s04) runs tight and goes straight on into the vault (no pause at the hook end, drop-off rule 28.10.);
+# small extra air only after the mission line (end of s13 "…subscribe.") and before "None of them. Not alone." (s19, so after s18)
+GAP_AFTER = {'s01': 0.7, 's02': 0.7, 's03': 0.7, 's04': 0.6, 's13': 2.4, 's18': 2.4}
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
 BREATH = []
 def dur(f): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).decode())
@@ -52,7 +54,7 @@ for i, s in enumerate(SEG):
 total = t + TAIL
 fc = ''.join(f'[{k}:a]aresample=48000,adelay={int(d*1000)}:all=1[a{k}];' for k, d in enumerate(delays))
 fc += ''.join(f'[a{k}]' for k in range(len(delays))) + f'amix=inputs={len(delays)}:normalize=0,apad,atrim=0:{total:.3f}[o]'
-subprocess.check_call(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', *inputs, '-filter_complex', fc, '-map', '[o]', '-ac', '1', '-ar', '48000', f'{A}/vo_master.wav'])
+subprocess.check_call(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', *inputs, '-filter_complex', fc, '-map', '[o]', '-ac', '1', '-ar', '48000', f'{WAV}/vo_master.wav'])
 json.dump({'duration': round(total, 3), 'sections': secs, 'clips': clips, 'words': words}, open(f'{A}/timing.json', 'w'), indent=0)
 print('duration', round(total, 1), 's;', len(words), 'words')
 for k, v in secs.items(): print(k, v['start'], v['end'])

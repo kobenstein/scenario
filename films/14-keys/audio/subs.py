@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """timing.json -> subtitles.srt + subtitles.ass (one line, bottom, phrase by phrase).
-usage: subs.py <audio_dir> <out_dir>"""
+usage: subs.py <audio_dir> <out_dir>
+Film 14: style = channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters."""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']
-NUM = [('five hundred and sixty thousand', '560,000'), ('six hundred and forty', '640'), ('about four thousand jobs', 'about 4,000 jobs'),
-       ('about three hundred dollars', 'about $300'), ('fifteen percent', '15%'), ('ten percent', '10%'), ('two percent', '2%'), ('twenty percent', '20%'),
-       ('Twenty twenty-six', '2026'), ('two thousand years', '2,000 years'), ('A\\.I\\.-native', 'AI-native'), ('Reed Co-op', 'Read Co-op')]   # Film 8
+NUM = [('twenty twenty-five', '2025'), ('twenty twenty-four', '2024'), ('twenty twenty-three', '2023'), ('nineteen-fifties', '1950s'),
+       ('seventy-one percent', '71%')]   # Film 14
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
@@ -24,10 +24,7 @@ def split(ws):
         if c < best: best, bi = c, k
     return split(ws[:bi]) + split(ws[bi:])
 # hand-made breaks where the balanced split would cut a phrase (Film 6 hook, Fassung 3): sentence text -> cue texts, same words in order
-BREAKS = {
-    'The artificial intelligence you talk to is very probably not conscious.': ['The artificial intelligence', 'you talk to is very probably', 'not conscious.'],
-    'Anthropic lets its artificial intelligence hang up on people who keep being abusive.': ['Anthropic lets', 'its artificial intelligence', 'hang up on people', 'who keep being abusive.'],
-}
+BREAKS = {}   # Film 14: none needed so far
 def pieces(snt):
     k = ' '.join(x['w'] for x in snt)
     if k not in BREAKS: return split(snt)
@@ -55,9 +52,9 @@ cues = [[c[0]['s'], c[-1]['e'], fix(' '.join(x['w'] for x in c))] for snt in sen
 # interview clips: real wording with phrase timings from the clip transcript (clips.json "cues", seconds from clip start);
 # quote cards show the words on screen, so no subtitle for them
 import os
-CL = json.load(open(A + 'clips.json'))
+CL = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
 for c in json.load(open(A + 'timing.json')).get('clips', []):
-    cl = CL.get(c['id'], {'card': True})   # Film 8: Q1/Q2 are silent quote cards
+    cl = CL.get(c['id'], {'card': True})   # Film 14: Q1 is a silent quote card (read on screen, no subtitle)
     if cl.get('card') or not cl.get('cues'): continue
     q = cl['cues']
     for k, (t0, line) in enumerate(q):
@@ -72,13 +69,14 @@ with open(OUT + 'subtitles.srt', 'w') as f:
     for i, (a, b, s) in enumerate(cues, 1): f.write(f"{i}\n{ts(a, ',')} --> {ts(b, ',')}\n{s}\n\n")
 ass = """[Script Info]
 ScriptType: v4.00+
-PlayResX: 1920
-PlayResY: 1080
-WrapStyle: 0
+PlayResX: 384
+PlayResY: 288
+WrapStyle: 2
+ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Sub,Inter,56,&H00E2EFF3,&H00E2EFF3,&H00180907,&H66180907,0,0,0,0,100,100,0.5,0,1,2.6,1.4,2,120,120,64,1
+Style: Sub,DejaVu Sans,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text

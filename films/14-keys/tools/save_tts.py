@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 """Save ElevenLabs TTS results (fal wait_for_jobs output) as vo-<id>.mp3 + vo-<id>.json {url, chars, words}.
-usage: save_tts.py <wait_output.txt> <audio_dir>   (index i -> i-th non-clip segment of segments.json)"""
+usage: save_tts.py <audio_dir> <wait_output.txt>...   (index i -> i-th spoken segment of segments.json; Film 14: several wait files,
+large wait_for_jobs results come back in parts; the first file that holds a job's result wins)"""
 import json, re, sys, subprocess
-src, A = sys.argv[1], sys.argv[2].rstrip('/')
-segs = [s for s in json.load(open(A + '/segments.json')) if not s.get('clip')]
-d = json.load(open(src))
-for j in d['jobs']:
+A, srcs = sys.argv[1].rstrip('/'), sys.argv[2:]
+segs = [s for s in json.load(open(A + '/segments.json')) if not (s.get('clip') or s.get('card'))]   # quote cards are silent slots
+jobs = {}
+for src in srcs:
+    for j in json.load(open(src))['jobs']:
+        if j.get('result') and j['index'] not in jobs: jobs[j['index']] = j
+for j in [jobs.get(i, {'index': i}) for i in range(len(segs))]:
     r = j.get('result')
     if not r: print('missing', j['index']); continue
     sid = segs[j['index']]['id']; chars = []
@@ -25,6 +29,6 @@ for j in d['jobs']:
     if cur: words.append(cur)
     words = [w for w in words if not re.fullmatch(r'\[[^\]]*\]', w[0])]
     url = r['audio']['url']
-    json.dump({'url': url, 'request_id': j['request_id'], 'chars': chars, 'words': words}, open(f'{A}/vo-{sid}.json', 'w'))
+    json.dump({'url': url, 'request_id': j.get('request_id'), 'chars': chars, 'words': words}, open(f'{A}/vo-{sid}.json', 'w'))
     subprocess.check_call(['curl', '-sSfo', f'{A}/vo-{sid}.mp3', url])
     print(sid, len(words), 'words, end', round(chars[-1][2], 1))

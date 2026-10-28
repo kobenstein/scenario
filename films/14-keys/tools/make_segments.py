@@ -1,29 +1,39 @@
 #!/usr/bin/env python3
-"""Split the VO text (one sentence group per line, [CLIP: …] line for C1) into audio/segments.json for Film 10.
+"""Split the Film 14 VO text into audio/segments.json: one TTS segment per paragraph (blank-line separated), as in Film 13.
+[[QUOTE CARD: …]] splits its paragraph and becomes a silent card slot (build_vo.py CARD); [[ON SCREEN: …]] lines are not spoken,
+they stay listed on their segment under "onscreen" (with the words they follow) for the animation.
 usage: make_segments.py <vo.txt> <audio_dir>"""
-import json, sys
+import json, re, sys
 src, A = sys.argv[1], sys.argv[2].rstrip('/')
-# (segment id, section, first words of the segment's first line)
-STARTS = [('00a', '0', 'Superintelligence is getting a body.'), ('01a', '1', "And here's the strange part."), ('01b', '1', 'So is this just a show?'),
-          ('02a', '2', "So it's probably coming."), ('02b', '2', "And there's a bill."), ('02c', '2', "And there's a second bill."),
-          ('03a', '3', "So the real question isn't robots"), ('03b', '3', 'In France,'), ('03c', '3', 'Sounds like a dream?'),
-          ('03d', '3', "Now picture that hall's next vote."), ('03e', '3', 'And the robot in your home?'), ('04a', '4', 'But who gets to decide?')]
-lines = [l.strip() for l in open(src) if l.strip()]
-segs, cur = [], None
-for l in lines:
-    if l.startswith('[CLIP'):
-        segs.append({'id': 'C1', 'sec': '0', 'clip': True}); cur = None; continue
-    hit = next((s for s in STARTS if l.startswith(s[2])), None)
-    if hit and not any(x['id'] == hit[0] for x in segs):
-        cur = {'id': hit[0], 'sec': hit[1], 'text': l}; segs.append(cur); continue
-    if cur is None: raise SystemExit('text before first segment: ' + l)
-    cur['text'] += '\n' + l
-missing = [s[0] for s in STARTS if not any(x['id'] == s[0] for x in segs)]
-if missing: raise SystemExit('missing segment starts: ' + ', '.join(missing))
-old = {}
-try: old = {s['id']: s for s in json.load(open(A + '/segments.json'))}
-except Exception: pass
-for s in segs:   # keep clip metadata (dur, from, to, url, src) once it is filled in
-    if s.get('clip') and s['id'] in old: s.update({k: v for k, v in old[s['id']].items() if k not in s})
+# section starts: (section, first words of the paragraph that opens it)
+# 0 hook · 1 the file / the vault · 2 the sleeper · 3 the microscope · 4 the second key · 5 the glass box · 6 key ring finale + end image
+SECS = [('0', 'Who holds the keys to superintelligence?'), ('1', 'Those weights are billions of numbers'), ('2', 'Picture a model that passes every test'),
+        ('3', 'In March twenty twenty-five'), ('4', 'Think back to the missile silo.'), ('5', 'In early September twenty twenty-five'), ('6', 'None of them. Not alone.')]
+TAG = re.compile(r'^\[[^\[\]]*\]\s*')
+paras = [[l.strip() for l in p.splitlines() if l.strip()] for p in re.split(r'\n\s*\n', open(src).read()) if p.strip()]
+segs, sec, n = [], None, 0
+def new(lines):
+    global n
+    segs.append({'id': f's{n:02d}', 'sec': sec, 'text': '\n'.join(lines)}); n += 1
+for p in paras:
+    hit = next((s for s, w in SECS if TAG.sub('', p[0]).startswith(w)), None)
+    if hit: sec = hit
+    if sec is None: raise SystemExit('text before first section: ' + p[0])
+    cur, ons = [], []
+    for l in p:
+        m = re.fullmatch(r'\[\[(QUOTE CARD|ON SCREEN):\s*(.*)\]\]', l)
+        if not m: cur.append(l); continue
+        if m.group(1) == 'ON SCREEN':
+            ons.append({'text': m.group(2), 'after': cur[-1] if cur else ''}); continue
+        if cur: new(cur); segs[-1]['onscreen'] = ons; cur, ons = [], []
+        segs.append({'id': f'Q{sum(1 for s in segs if s.get("card")) + 1}', 'sec': sec, 'card': True, 'text': m.group(2)})
+    if cur:
+        new(cur)
+        if ons: segs[-1]['onscreen'] = ons
+missing = [s for s, w in SECS if not any(x['sec'] == s for x in segs)]
+if missing: raise SystemExit('missing section starts: ' + ', '.join(missing))
+for s in segs:
+    if not s.get('onscreen'): s.pop('onscreen', None)
 json.dump(segs, open(A + '/segments.json', 'w'), indent=1)
-for s in segs: print(s['id'], s['sec'], 'CLIP' if s.get('clip') else len(s['text'].split()))
+for s in segs: print(s['id'], s['sec'], 'CARD' if s.get('card') else f"{len(s['text'].split())} words, {len(s['text'])} chars", len(s.get('onscreen', [])) or '')
+print('total chars', sum(len(s['text']) for s in segs if not s.get('card')))
