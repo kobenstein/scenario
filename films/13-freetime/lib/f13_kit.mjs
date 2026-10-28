@@ -10,6 +10,9 @@ import { Path2D, PathOp, createCanvas } from '@napi-rs/canvas';
 import * as E from './f10_editorial.mjs';
 const { P, rgba, mixHex, clamp, lerp, span, smooth, expoOut, glowFill, halo, dust, lin, rad, prng } = E;
 
+// the print finish for every Film 13 entry (approved with the style test 28.10.): entry = { t, draw, print: PRINT13 }
+export const PRINT13 = { grain: 14, floor: 4, vig: .5 };
+
 // ---------- the hourglass ----------
 // local units: height 1, origin = centre of the base, up = -y. Glass profile built once (cubic beziers, mirrored).
 const HG = (() => {

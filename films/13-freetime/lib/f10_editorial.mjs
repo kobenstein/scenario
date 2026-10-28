@@ -161,6 +161,7 @@ export const applyM = (m, u, v) => [m.a * u + m.c * v + m.e, m.b * u + m.d * v +
 export function lightHand(ctx, m, t, o = {}) {
   const path = new Path2D(); path.addPath(handPath(o), m);
   const a = o.a ?? 1, [cx, cy] = applyM(m, 1.05, -.05), L = Math.hypot(m.a, m.b);
+  if (o.tone !== 'blue') return warmHand(ctx, path, m, t, o, cx, cy, L);   // Film 13: the warm gold hand (STIL-editorial-nacht)
   glowFill(ctx, path, L * 1.5, .55 * a, P.blue0);     // wide saturated blue
   glowFill(ctx, path, L * .55, .95 * a, P.blue0);     // the light lifts the night to blue
   glowFill(ctx, path, L * .09, .6 * a, P.halo0);      // narrow warm rim
@@ -173,6 +174,27 @@ export function lightHand(ctx, m, t, o = {}) {
   const [sx, sy] = applyM(m, .5, .6), [ex, ey] = applyM(m, .6, -.3);
   ctx.globalAlpha = .3 * a; ctx.fillStyle = lin(ctx, sx, sy, ex, ey, [[0, rgba(P.shade0, .9)], [.7, rgba(P.halo1, 0)]]); ctx.fill(path); ctx.restore();
   dust(ctx, 41, o.dust ?? 9000, cx, cy, L * 1.2, L * .85, t, a, P.halo0, Math.atan2(m.b, m.a));
+}
+
+// Film 13 hand: an OPAQUE warm light form (never see-through, so it never turns grey-blue against the night). Brightness is
+// lum (0..1): 1 = halo gold with a cream palm, lower = sinks towards gold shadow and indigo (the hand steps back, it does not fade).
+// The palm stays below the hourglass core (#fefde2) so the sand remains the hero. o.a still scales the whole thing (entrances only).
+function warmHand(ctx, path, m, t, o, cx, cy, L) {
+  const a = o.a ?? 1, lum = clamp(o.lum ?? .8);
+  const k = (c) => mixHex(mixHex(c, P.shade0, .75 * (1 - lum)), P.ind1, .3 * (1 - lum));   // dims towards gold shadow, stays gold
+  const gold = mixHex(P.halo0, P.coat, .3);                     // the thumbnail hand: a touch richer than the halo gold
+  glowFill(ctx, path, L * 1.3, .22 * a * lum, P.blue0);         // the light lifts the night round it to blue (as in the Film-11 thumbnail)
+  glowFill(ctx, path, L * .7, .3 * a * lum, P.halo1);           // wide warm halo
+  glowFill(ctx, path, L * .18, .42 * a * lum, gold);            // close gold bloom: the edge glows instead of ending
+  ctx.save(); ctx.globalAlpha = a; ctx.filter = `blur(${L * .022}px)`;
+  ctx.fillStyle = rad(ctx, cx, cy, L * 2.6, [[0, k(mixHex(P.core1, gold, .45))], [.18, k(gold)], [.48, k(mixHex(gold, P.halo1, .5))], [.78, k(mixHex(P.halo1, P.shade0, .5))], [1, k(P.shade0)]]);
+  ctx.fill(path); ctx.restore();
+  // volume: gold shadow just inside the edge and on the far side of the back of the hand
+  ctx.save(); ctx.clip(path); ctx.globalAlpha = .5 * a; ctx.filter = `blur(${L * .05}px)`;
+  ctx.strokeStyle = rgba(k(P.shade0), .6); ctx.lineWidth = L * .1; ctx.stroke(path); ctx.filter = 'none';
+  const [sx, sy] = applyM(m, .5, .6), [ex, ey] = applyM(m, .6, -.3);
+  ctx.globalAlpha = .3 * a; ctx.fillStyle = lin(ctx, sx, sy, ex, ey, [[0, rgba(k(P.shade0), .9)], [.7, rgba(P.halo1, 0)]]); ctx.fill(path); ctx.restore();
+  dust(ctx, 41, o.dust ?? 9000, cx, cy, L * 1.2, L * .85, t, a * (.4 + .6 * lum), P.halo0, Math.atan2(m.b, m.a));
 }
 
 // ---------- light trail (die Spur) ----------
@@ -404,7 +426,7 @@ export function finish(ctx, t, o = {}) {
   const v = o.vig ?? .55;
   if (v > 0) { ctx.fillStyle = rad(ctx, W / 2, H * .52, W * .72, [[.45, rgba(P.night0, 0)], [1, rgba(P.night0, v)]]); ctx.fillRect(0, 0, W, H); }
   ctx.restore();
-  const id = ctx.getImageData(0, 0, W, H), d = id.data, N = GRAIN[Math.floor(t * 12) % GRAIN.length];
+  const id = ctx.getImageData(0, 0, W, H), d = id.data, N = GRAIN[Math.floor(t * (o.grainHz ?? 10) + 1e-6) % GRAIN.length];   // Film 13: 10 Hz = every 3rd frame (even cadence, calmer than 12 Hz)
   const amp = o.grain ?? 30, fl = o.floor ?? 7;
   for (let p = 0, i = 0; p < N.length; p++, i += 4) {
     const l = Math.max(d[i], d[i + 1], d[i + 2]) / 255, n = N[p] / 127 * (fl + amp * 4 * l * (1 - l));

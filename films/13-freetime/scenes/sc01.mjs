@@ -20,7 +20,7 @@ import * as K from '../lib/f13_kit.mjs';
 const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, quartIO, expoOut, expoIn, card, cam3, camAt, camDrift, F0 } = E;
 const rise = (x) => 1 - (1 - clamp(x)) ** 3;                                     // calm rise for text lines (cubic out)
 
-export const PRINT = { grain: 14, floor: 4, vig: .5 };
+export const PRINT = K.PRINT13;
 
 export default async (T, R) => {
   E.prepareEditorial();
@@ -101,7 +101,7 @@ function hook(a) {
     // --- sky (far) ---
     card(ctx, c, 40000, () => {
       E.nightSky(ctx, [[0, P.night0], [.5, P.night1], [1, P.ind0]], -900, H);
-      ctx.fillStyle = E.rad(ctx, 1420, 300, 1300, [[0, rgba(P.blue0, .95)], [.4, rgba(P.blue0, .45)], [.78, rgba(P.ind1, .18)], [1, rgba(P.ind0, 0)]]); ctx.fillRect(-W, -2 * H, 3 * W, 4 * H);
+      ctx.fillStyle = E.rad(ctx, 1420, 300, 1400, [[0, rgba(P.ind1, .95)], [.45, rgba(P.ind1, .5)], [.8, rgba(P.ind0, .2)], [1, rgba(P.ind0, 0)]]);   // deep indigo lift behind the hand (Film-11 thumbnails) ctx.fillRect(-W, -2 * H, 3 * W, 4 * H);
       E.stars(ctx, 13, 190, t, [-300, -700, W + 600, H + 500], .85);
     });
     // --- soft editorial sweeps (depth) ---
@@ -113,7 +113,7 @@ function hook(a) {
     card(ctx, c, F0, () => {
       // the hand (behind everything on this plane: it is the far giver)
       const br = 1 + .015 * Math.sin(t * 1.2), hm = hmAt(wx, wy, ANG + .05 * away - .04 * offer, br);
-      E.lightHand(ctx, hm, t, { ...HO, spread: .2 + .3 * offer, curl: .12 * (1 - offer), a: .56 * dim, dust: 6000 });
+      E.lightHand(ctx, hm, t, { ...HO, spread: .2 + .3 * offer, curl: .12 * (1 - offer), lum: .76 * dim, dust: 6000 });
       K.ledge(ctx, ...LEDGE);
       // light pool on the ledge round the hourglass (grows as it lands)
       const pool = smooth(span(glide, .55, 1)) * (.6 + .4 * contact);

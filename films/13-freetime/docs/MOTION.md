@@ -8,7 +8,7 @@ Lies das ganz, bevor du eine Zeile Code schreibst. Der Film ist **gezeichnet** (
 ---
 
 ## 0 · Status
-- **Gebaut ist nur der Stil-Test** (`scenes/sc01.mjs`, 0 bis ~21,8 s, Shots 1.01–1.06). Der Rest wird erst nach Jakobs OK gebaut. Fehlende Chunks rendern als Platzhalter (`lib/stub.mjs`).
+- **Stil-Test freigegeben** (Jakob 28.10.: „kannst so den ganzen Film machen“): `scenes/sc01.mjs`, 0 bis 21,8 s, Shots 1.01–1.06. Der Rest entsteht durch drei Builder, Aufteilung und Regeln in `BRIEF-builders.md`. Fehlende Chunks rendern als Platzhalter (`lib/stub.mjs`).
 - Daten-Wurzel: `lib/kit.mjs ROOT` = `$F13ROOT` oder `/mnt/project-files/scenario/film-zeit/`; `TIMING=…` überschreibt nur die Timing-Datei.
 - **Immer über Wörter ankern** (`T.S('s00', 'given')`, `T.E(…)`, `T.seg('s12').start`), nie über Sekunden. Das VO wird nachvertont (vo-v6 kürzt den Hook um ~4 s), die Wort-Anker ziehen mit.
 
@@ -35,7 +35,7 @@ Warm und hell heißt Zeit, die bei Menschen ankommt; kalt und dunkel heißt Zeit
 
 ## 3 · Durchgehende Objekte (die Grafiksprache)
 1. **Die Sanduhr aus Licht** (Held, `f13_kit.hourglass`). Glas als Lichtkontur, **Sand = Gold = Zeit**, Rahmen als dunkle Silhouette mit Randlicht. Sie öffnet (Thumbnail-Motiv in 1.01) und schließt den Film (14.07: der Sand ruht unten, die Sonne scheint hindurch). Zustände: rinnt (`flow`), hält an (`hold`, Shot 2.05 „a lie?“), Riss (`crack`, c06), leckt (`leak`).
-2. **Die Lichthand = die Maschine.** Groß, kühl-creme, aus Licht, von oben rechts. Sie reicht dir die Sanduhr (1.01–1.02), sie arbeitet (c10 Zeit-Dividende), sie kehrt in c13 wieder. Sie ist immer **dunkler als der Sand** (Alpha ≈ 0,55), nie das Hellste.
+2. **Die Lichthand = die Maschine.** Groß, kühl-creme, aus Licht, von oben rechts. Sie reicht dir die Sanduhr (1.01–1.02), sie arbeitet (c10 Zeit-Dividende), sie kehrt in c13 wieder. Sie ist eine **deckende warme Goldform** (Halo-Gold, Creme-Kern in der Handfläche; `lightHand(…, { lum })`, normal `lum ≈ .76`, zurückgenommen ≈ .4) und immer **dunkler als der Sand**, nie das Hellste. Nie durchsichtig, nie grau-blau.
 3. **Der Ring = Maschine/KI** (kühl-creme, c02, c11): Superintelligenz wird nie als Roboter oder Gehirn gezeigt.
 4. **Der Sandfaden = die Linie.** Eine dünne Goldlinie (`trailSpan`) aus dem Sand ist Träger und Explainer-Strich zugleich: sie steigt als Zitat-Linie auf (1.03), biegt ab (c04: die Stunde wandert woandershin), wird Kurve, Zeitleiste, Achse. Worte, die zu Zeit werden, zerfallen zu Goldsand (`textGrains`/`sandGrains`, 1.05).
 5. **Das Blatt aus Licht = die Regel** (c09, c11, c13): Gesetze, Abkommen, Arbeitszeitregeln. Es landet wie Papier, seine Kante wird Tischtuch oder Zeitleiste.
@@ -53,7 +53,7 @@ Warm und hell heißt Zeit, die bei Menschen ankommt; kalt und dunkel heißt Zeit
 | Regenjacke (du) | `#f2b632` |
 | Schrift | Creme `#fefcde` mit warmem Glühen |
 
-Gold nur für Licht, Sand, Zeit und Hervorhebung; das Gelb gehört nur dir. Grain dezent (`finish` mit `grain 22, floor 6, vig .5` im Stil-Test): Korn ist Textur, nie Effekt.
+Gold nur für Licht, Sand, Zeit und Hervorhebung; das Gelb gehört nur dir. Himmel tiefes Indigo wie die Film-11-Thumbnails (kein Mittelblau). Grain dezent: `K.PRINT13 = { grain 14, floor 4, vig .5 }`, Korn wechselt mit 10 Hz (jedes 3. Bild). Korn ist Textur, nie Effekt. Luma-Mittel 40–60.
 
 ## 5 · Regeln gegen Hektik (messbar)
 - **Weltwechsel:** ≤ ~1 harter Weltwechsel pro Minute (Liste `shots.md` §3: 14 Welten, davon ~10 harte, ≈ 0,95/min). Alles andere sind Plansequenzen und Verwandlungen.
@@ -63,7 +63,8 @@ Gold nur für Licht, Sand, Zeit und Hervorhebung; das Gelb gehört nur dir. Grai
 - **Hook ohne Pause:** s02 „a lie?“ fließt direkt in s03 „No.“ (2.05 → 2.06 Plansequenz, der Sand hält ≤ 1,2 s an, die Kamera driftet).
 - **Messung vor jedem Bericht:** `python3 tools/calm.py <mp4>` (mafd-Median, Schnitte, Luma; auch `--scale 1280:720`), `python3 tools/smooth.py <mp4>` (**0 Ruckler**: keine LURCH/POP), `SECS=cNN node tools/seam.mjs --at …` an jeder Render-Naht.
 
-## 6 · Text im Bild
+## 6 · Text im Bild und Grafiken
+- **Grafiken aus den Elementen des Films** (Jakob 28.10.): Sand rieselt zu Balken und Kurven, der Faden zeichnet Zeitleisten und Grenzen, Stunden sind Sandkörner oder Sanduhren, die Lichthand und der Ring sind die Maschine. Jede Grafik zeigt genau, was der Satz sagt, und ist ohne Ton lesbar. Keine generischen Diagramm-Tafeln (`BRIEF-builders.md` §3).
 - Schrift: Zitat und Zahlen **Instrument Serif** (Creme, warmes Glühen), Quellen und Labels **Inter 600** (`P.halo2`). Im Bild „artificial intelligence“, nie „AI“.
 - Explainer: Licht auf Nachtblau, keine Tafel, kein Rahmen; höchstens eine Zahl und ≤ 6 Wörter plus Quelle; Zahl ≥ 120 px, Label ≥ 34 px, Quelle ≥ 24 px bei 1080p.
 - Nur Werte aus `faktencheck.md`; jede Zahl mit Quelle (`shots.md` §4).
@@ -71,7 +72,8 @@ Gold nur für Licht, Sand, Zeit und Hervorhebung; das Gelb gehört nur dir. Grai
 
 ## 7 · Kit
 - `lib/f10_editorial.mjs` (Editorial-Nacht-Bühne): `card`, `cam3`, `camAt`, `camDrift`, `F0`, Tiefen (Himmel 40000, Mitte 6000, Fokus F0) · `P` · `lightHand`/`handMatrix`/`handTip` · `du()` (Kapuze Standard) · `person()` · `glowText` · `halo` · `dust` · `castShadow` · `catmull` · `finish` · Explainer: `counter`, `bars`, `curve`, `pie`, `timeline`, `flow`, `compare`, `icon`, `lightShape`.
-- `lib/f13_kit.mjs` (Film 13): `hourglass` (gibt `neck`, `top`, `base`, `stream` für Träger zurück) · `trailSpan` (Sandfaden) · `maskLine` (Zeile steigt von der Grundlinie, Abschnitte warm färbbar) · `measure` · `textGrains` + `sandGrains` (Worte zerfallen zu Sand) · `ledge`/`ledgeY` (Felskante).
+- `lib/f13_kit.mjs` (Film 13): `hourglass` (gibt `neck`, `top`, `base`, `stream` für Träger zurück) · `trailSpan` (Sandfaden) · `maskLine` (Zeile steigt von der Grundlinie, Abschnitte warm färbbar) · `measure` · `textGrains` + `sandGrains` (Worte zerfallen zu Sand) · `ledge`/`ledgeY` (Felskante) · `PRINT13` (Finish).
+- `lib/f13_seams.mjs` (Lead): die Platten an den Builder-Nähten (`plateGlass` B1→B2, `plateSheet` B2→B3), siehe `BRIEF-builders.md` §2.
 - **Speicher:** keine Canvas, kein Pattern, kein Gradient-Cache pro Frame neu bauen (Leck in `@napi-rs/canvas`). Renders mit `node --expose-gc`, Stücke ≤ 20 s.
 
 ## 8 · Endscreen (≤ 15 s nach dem VO-Ende, 14.08)
