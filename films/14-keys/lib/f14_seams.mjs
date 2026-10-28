@@ -70,38 +70,67 @@ export function plateWindow(ctx, t) {
 }
 
 // --- B3 → Lead: the scales at dawn -----------------------------------------------------------------------------------------
+// Built from exported parts so c09 (lead) grows out of exactly the same drawing; plateScale = all parts at their rest state.
 export const PLATE_SCALE = { cx: 960, by: 420, arm: 440, hang: 170 };
-const RIDGE = (() => { const r = prng(1914), p = []; for (let x = -40; x <= W + 40; x += 60) p.push([x, 860 + 50 * Math.sin(x * .004) + 26 * (r() - .5)]); return p; })();
-export function plateScale(ctx, t) {
-  const { cx, by, arm, hang } = PLATE_SCALE;
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
-  // dawn: night above, the first warm light low on the horizon
-  ctx.fillStyle = lin(ctx, 0, 0, 0, H, [[0, P.night0], [.45, P.ind1], [.8, mixHex(P.ind2, P.halo1, .28)], [1, mixHex(P.ind2, P.halo1, .4)]]); ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = P.night1; ctx.beginPath(); ctx.moveTo(-40, H); RIDGE.forEach(([x, y]) => ctx.lineTo(x, y)); ctx.lineTo(W + 40, H); ctx.closePath(); ctx.fill();
-  ctx.strokeStyle = rgba(P.halo1, .45); ctx.lineWidth = 2; ctx.beginPath(); RIDGE.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.stroke();
-  // the beam: never at rest (±0.8°)
-  const ang = .014 * Math.sin(t * .55) + .006 * Math.sin(t * 1.3 + 1);
+export const RIDGE = (() => { const r = prng(1914), p = []; for (let x = -40; x <= W + 40; x += 60) p.push([x, 860 + 50 * Math.sin(x * .004) + 26 * (r() - .5)]); return p; })();
+export const ridgeY = (x) => { for (let i = 1; i < RIDGE.length; i++) if (RIDGE[i][0] >= x) { const [x0, y0] = RIDGE[i - 1], [x1, y1] = RIDGE[i]; return y0 + (y1 - y0) * (x - x0) / (x1 - x0); } return RIDGE[RIDGE.length - 1][1]; };
+export const DAWN0 = [[0, P.night0], [.45, P.ind1], [.8, mixHex(P.ind2, P.halo1, .28)], [1, mixHex(P.ind2, P.halo1, .4)]];
+export function dawnSky(ctx, stops = DAWN0) { ctx.fillStyle = lin(ctx, 0, 0, 0, H, stops); ctx.fillRect(-W, -H, 3 * W, 3 * H); }
+export function drawRidge(ctx, rim = .45) {
+  ctx.fillStyle = P.night1; ctx.beginPath(); ctx.moveTo(-40, H + 600); RIDGE.forEach(([x, y]) => ctx.lineTo(x, y)); ctx.lineTo(W + 40, H + 600); ctx.closePath(); ctx.fill();
+  ctx.fillRect(-W, H + 590, 3 * W, 2000);
+  ctx.strokeStyle = rgba(P.halo1, rim); ctx.lineWidth = 2; ctx.beginPath(); RIDGE.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.stroke();
+}
+export const beamAngle = (t) => .014 * Math.sin(t * .55) + .006 * Math.sin(t * 1.3 + 1);
+// the two pan anchors (where the vault door / glass box sit) at time t
+export function scalePans(t) {
+  const { cx, by, arm, hang } = PLATE_SCALE, ang = beamAngle(t);
   const L = [cx - arm * Math.cos(ang), by - arm * Math.sin(ang)], R = [cx + arm * Math.cos(ang), by + arm * Math.sin(ang)];
-  ctx.strokeStyle = rgba(P.cream, .85); ctx.lineCap = 'round';
-  ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(cx, by); ctx.lineTo(cx, 860); ctx.stroke();                 // post
-  ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(...L); ctx.lineTo(...R); ctx.stroke();                        // beam
-  ctx.fillStyle = P.cream; ctx.beginPath(); ctx.arc(cx, by, 9, 0, 6.29); ctx.fill();
-  for (const [x, y] of [L, R]) {                                                                                // strings + pans
-    ctx.lineWidth = 1.6; ctx.strokeStyle = rgba(P.cream, .6); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - 120, y + hang); ctx.moveTo(x, y); ctx.lineTo(x + 120, y + hang); ctx.stroke();
-    ctx.lineWidth = 4; ctx.strokeStyle = rgba(P.cream, .9); ctx.beginPath(); ctx.moveTo(x - 140, y + hang); ctx.quadraticCurveTo(x, y + hang + 34, x + 140, y + hang); ctx.stroke();
+  return { L, R, vault: [L[0], L[1] + hang - 92], glass: [R[0], R[1] + hang - 79] };
+}
+// beam, post, strings and pans; k = 1 whole, → 0 retracts into the pivot (post shrinks up into it too)
+export function drawBeam(ctx, t, k = 1) {
+  if (k <= 0) return;
+  const { cx, by, hang } = PLATE_SCALE, { L, R } = scalePans(t);
+  const at = (p, u) => [cx + (p[0] - cx) * u, by + (p[1] - by) * u];
+  ctx.save(); ctx.strokeStyle = rgba(P.cream, .85); ctx.lineCap = 'round';
+  ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(cx, by); ctx.lineTo(cx, by + (860 - by) * k); ctx.stroke();
+  const l = at(L, k), r = at(R, k);
+  ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(...l); ctx.lineTo(...r); ctx.stroke();
+  ctx.fillStyle = P.cream; ctx.beginPath(); ctx.arc(cx, by, 9 * Math.min(1, k * 3), 0, 6.29); ctx.fill();
+  const hk = hang * Math.min(1, k * 1.15);
+  for (const [x, y] of [l, r]) {
+    const w = 140 * k;
+    ctx.lineWidth = 1.6; ctx.strokeStyle = rgba(P.cream, .6); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - 120 * k, y + hk); ctx.moveTo(x, y); ctx.lineTo(x + 120 * k, y + hk); ctx.stroke();
+    ctx.lineWidth = 4; ctx.strokeStyle = rgba(P.cream, .9); ctx.beginPath(); ctx.moveTo(x - w, y + hk); ctx.quadraticCurveTo(x, y + hk + 34 * k, x + w, y + hk); ctx.stroke();
   }
-  // left pan: the vault door (round, dark, light only in its joints)
-  const [vx, vy0] = L, vy = vy0 + hang - 92;
-  ctx.fillStyle = mixHex(P.ind2, P.night1, .4); ctx.beginPath(); ctx.arc(vx, vy, 84, 0, 6.29); ctx.fill();
-  ctx.strokeStyle = rgba(P.halo0, .85); ctx.lineWidth = 2.2;
-  for (const rr of [84, 58, 22]) { ctx.beginPath(); ctx.arc(vx, vy, rr, 0, 6.29); ctx.stroke(); }
-  for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3 + .2; ctx.beginPath(); ctx.moveTo(vx + 22 * Math.cos(a), vy + 22 * Math.sin(a)); ctx.lineTo(vx + 58 * Math.cos(a), vy + 58 * Math.sin(a)); ctx.stroke(); }
-  // right pan: the open glass box (cool cream edges, open lid, the public file list inside)
-  const [gx, gy0] = R, s = 150, gx0 = gx - s / 2, gy1 = gy0 + hang - 4, gy = gy1 - s;
-  ctx.fillStyle = rgba(P.cream, .07); ctx.fillRect(gx0, gy, s, s);
-  ctx.strokeStyle = rgba(mixHex(P.cream, P.blue0, .25), .9); ctx.lineWidth = 2.2; ctx.strokeRect(gx0, gy, s, s);
-  ctx.beginPath(); ctx.moveTo(gx0, gy); ctx.lineTo(gx0 + 34, gy - 46); ctx.lineTo(gx0 + s + 34, gy - 46); ctx.lineTo(gx0 + s, gy); ctx.stroke();   // lid, tilted open
-  ctx.strokeStyle = rgba(P.halo0, .8); ctx.lineWidth = 3;
+  ctx.restore();
+}
+// the vault door (round, dark, light only in its joints), centre (x, y), scale s
+export function drawVault(ctx, x, y, s = 1, rot = 0) {
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.rotate(rot);
+  ctx.fillStyle = mixHex(P.ind2, P.night1, .4); ctx.beginPath(); ctx.arc(0, 0, 84, 0, 6.29); ctx.fill();
+  ctx.strokeStyle = rgba(P.halo0, .85); ctx.lineWidth = 2.2 / s;      // a constant 2.2 px at any scale
+  for (const rr of [84, 58, 22]) { ctx.beginPath(); ctx.arc(0, 0, rr, 0, 6.29); ctx.stroke(); }
+  for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3 + .2; ctx.beginPath(); ctx.moveTo(22 * Math.cos(a), 22 * Math.sin(a)); ctx.lineTo(58 * Math.cos(a), 58 * Math.sin(a)); ctx.stroke(); }
+  ctx.restore();
+}
+// the open glass box (cool cream edges, open lid, the public file list), centre (x, y) of the box, scale s
+export function drawGlass(ctx, x, y, s = 1) {
+  const S = 150;
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+  const gx0 = -S / 2, gy = -S / 2;
+  ctx.fillStyle = rgba(P.cream, .07); ctx.fillRect(gx0, gy, S, S);
+  ctx.strokeStyle = rgba(mixHex(P.cream, P.blue0, .25), .9); ctx.lineWidth = 2.2 / s; ctx.strokeRect(gx0, gy, S, S);
+  ctx.beginPath(); ctx.moveTo(gx0, gy); ctx.lineTo(gx0 + 34, gy - 46); ctx.lineTo(gx0 + S + 34, gy - 46); ctx.lineTo(gx0 + S, gy); ctx.stroke();
+  ctx.strokeStyle = rgba(P.halo0, .8); ctx.lineWidth = 3 / s;
   for (let i = 0; i < 4; i++) { const yy = gy + 30 + i * 30; ctx.beginPath(); ctx.moveTo(gx0 + 24, yy); ctx.lineTo(gx0 + 24 + [92, 70, 100, 60][i], yy); ctx.stroke(); }
+  ctx.restore();
+}
+export function plateScale(ctx, t) {
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  dawnSky(ctx); drawRidge(ctx); drawBeam(ctx, t, 1);
+  const { vault, glass } = scalePans(t);
+  drawVault(ctx, vault[0], vault[1]); drawGlass(ctx, glass[0], glass[1]);
   ctx.restore();
 }

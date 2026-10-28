@@ -90,7 +90,7 @@ export function hookInner(a) {
   return (t) => { const m = cardM(camOf(t), ZN); if (!m) return null; const k = m.k / KIN; return { k, e: m.e + m.k * (UIN - W / 2 / KIN), f: m.f + m.k * (VIN - H / 2 / KIN) }; };
 }
 // the inner state at time t (for B1): split offset of the files, copy progress
-export const hookInnerState = (a, t) => { const copyU = span(t, a.copy, a.have + .3); return { copyU, origDX: 0, copyDX: splitDX(copyU) }; };
+export const hookInnerState = (a, t) => { const copyU = span(t, a.copy, a.haveE + .6); return { copyU, origDX: 0, copyDX: splitDX(copyU) }; };
 
 export function hook(a) {
   const camOf = hookCam(a);
@@ -113,7 +113,7 @@ export function hook(a) {
   const tHole0 = a.built + .05, tHole1 = a.lock + .45;
   const tDive0 = a.sup2 + .5, tDive1 = a.weights + .3;
   const tGat0 = a.weights + .2, tGat1 = a.fileE - .05, tTrace0 = a.giant - .1, tTrace1 = a.fileE + .1;
-  const tCopy0 = a.copy, tCopy1 = a.have + .3;
+  const tCopy0 = a.copy, tCopy1 = a.haveE + .6;   // the glide settles into B1's part (no rest before 41.76)
   return (ctx, t) => {
     const c = camOf(t);
     // ---- state from the words ----

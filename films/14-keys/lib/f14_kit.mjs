@@ -29,6 +29,7 @@ const KEY = (() => {
   p = U(p, bit);
   return p;
 })();
+export const KEY_PATH = KEY;                    // the key outline in local units (height 1, centre origin); for custom key styles
 export const KEY_BOW = [0, -.3], KEY_TIP = [0, .47], KEY_TOP = [0, -.5];
 // the key as a light form; (x, y) = centre, h = height. o: { rot (in-plane, rad), turn (rad round its long axis: 0 = face on),
 //   lum 0..1, a, glow, dust } · returns { path, at(u, v) → [x, y] (local → caller space) }

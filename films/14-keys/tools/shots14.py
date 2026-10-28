@@ -69,8 +69,8 @@ shot('2.02', 'EXPL', ('s03', 'In essence'), [('s03', 'giant'), ('s03', 'file')],
      'Die nächsten Zahlen fließen in Bögen zusammen; ein Goldfaden umfährt sie: **eine riesige Datei aus Licht** (Dokument mit Eselsohr), innen warm. Label `THE WEIGHTS`.',
      '① Zahlen sammeln sich ② Umriss', 'Plansequenz')
 shot('2.03', 'EXPL', ('s03', 'Copy'), [('s03', 'Copy'), ('s03', 'you have')],
-     '**Copy it:** der Umriss klont sich und gleitet im Bogen nach rechts, mit allen Zahlen (kühl): die Kopie ist genauso voll. Kamera folgt leicht.',
-     '① Klon gleitet ② Kamera folgt', 'Plansequenz · Stil-Test endet hier (~42,4 s)')
+     '**Copy it:** der Umriss klont sich und gleitet in flachem Bogen 600 px nach rechts, mit allen Zahlen (kühl): die Kopie ist genauso voll. Original und Kamera bleiben (Ruhe: kein Zoom über dem dichten Feld).',
+     '① Klon gleitet', 'Plansequenz · Stil-Test endet hier (~42,4 s)')
 shot('2.04', 'EXPL', ('s03', 'So who'), [('s03', 'reach'), ('s03', 'file')],
      'Beide Dateien stehen; um sie herum tauchen aus dem Zahlenfeld kleine kühle Hände-Silhouetten auf, die nach der Datei greifen (Indigo, nur Randlicht). Die Originaldatei leuchtet warm.',
      '① Hände greifen', 'Plansequenz')
@@ -290,8 +290,8 @@ shot('9.05', 'SZENE', ('s20', 'Each key'), [('s20', 'misses'), ('s20', 'blindly'
      'Die blinden Flecken werden von den Nachbarschlüsseln überdeckt (warm), der Ring leuchtet geschlossen.',
      '① Flecken schließen', 'Verwandlung · Träger Ring → Balken (Kreis rollt sich ab) · Mitte · nach rechts', key=True)
 shot('9.06', 'EXPL', ('s21', None), [('s21', 'power sits'), ('s21', 'Epoch'), ('s21', 'seventy-one'), ('s21', 'growing')],
-     '**Epoch-Balken.** Der Ring rollt sich zu einem Balken aus 100 Zellen; 71 Zellen ballen sich an einem Ende in fünf Blöcken. Bildtext-Karte: `5 companies (Amazon, Google, Meta, Microsoft, Oracle)` · `~71% of the world\'s AI computing power` · `Epoch AI, 2026`. Auf **growing** schiebt sich die Grenze von 63 auf 71.',
-     '① Balken ballt sich ② Grenze schiebt', 'Plansequenz')
+     '**Epoch-Balken.** Der Ring rollt sich zu einem Balken aus 100 Zellen; auf **seventy-one** werden 71 Zellen warm (ein Block: die Anteile der fünf Firmen einzeln sind nicht belegt, also keine Teilblöcke). Karte: `~71%` (Serif, warm) · `5 COMPANIES` · `AMAZON · GOOGLE · META · MICROSOFT · ORACLE` · `OF THE WORLD\'S AI COMPUTING POWER` · `EPOCH AI, 2026`. Auf **growing** steht ein kühler Strich bei 63 % mit `63% → 71%` (Epoch, Apr. 2026).',
+     '① Zellen werden warm ② Strich 63 %', 'Plansequenz')
 shot('9.07', 'EXPL>SZENE', ('s21', 'When that'), [('s21', 'few places'), ('s21', 'same hands')],
      'Der Balken rollt sich zurück zum Ring; die Schlüssel verteilen sich auf viele Hände rundum (nicht dieselben).',
      '① Ring verteilt', 'Plansequenz', key=True)

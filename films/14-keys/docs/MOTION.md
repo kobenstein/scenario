@@ -15,6 +15,7 @@ Lies das ganz, bevor du eine Zeile Code schreibst. Der Film ist **gezeichnet** (
 ---
 
 ## 0 · Status
+- **c09 fertig** (Lead, `scenes/sc09.mjs` → `lib/f14_finale.mjs`, wächst aus `plateScale`).
 - **Hook fertig (c01 + c02 bis 2.03), zugleich der Stil-Test:** `scenes/sc01.mjs` + `scenes/sc02.mjs` (beide ziehen `lib/f14_hook.mjs`), 0 bis 42,4 s, Shots 1.01–2.03.
   - Video: `film-kontrolle/render/stiltest-20s.mp4`; Kontaktbogen: `stiltest-20s-kontakt.jpg` daneben.
   - **Der Test ist 42 s statt 20 s lang:** „one giant file“ und „Copy it … you have it“ liegen im echten VO erst bei 37–41 s.
@@ -116,18 +117,22 @@ Finish `K.PRINT13 = { grain 14, floor 4, vig .5 }`, Korn mit 10 Hz. Luma-Mittel 
   - `python3 tools/smooth.py <mp4> <start>`: keine LURCH/POP.
   - `SECS=cNN node tools/seam.mjs --at …` an jeder Render-Naht.
 
-**Stil-Test-Messung (0–42,4 s, 720p):**
-- calm: 0 Schnitte · mafd-Median 0,79 (p90 1,90) · Luma 44,2;
-- freezedetect: 0 Stillstände;
-- smooth: 1 Flag (7,57 s POP 5,0). Das ist der 10-Hz-Kornwechsel auf demselben Bild, auf dem die Blaupausen-Linien wachsen, kein Sprung im Bild (Differenzbild geprüft).
+**Hook-Messung (0–42,4 s, 720p, Stand v2 nach Jakobs Ruhe-Wunsch):**
+- calm: 0 Schnitte · mafd-Median 0,68 (v1: 0,79) · Luma 43,7;
+- freezedetect: 0 Stillstände; seam.mjs an der Naht 41,76: 0 FROZEN;
+- smooth: 1 Flag (7,57 s POP 4,3). Das ist der 10-Hz-Kornwechsel auf demselben Bild, auf dem die Blaupausen-Linien wachsen, kein Sprung im Bild (Differenzbild geprüft).
 
-| Fenster (s) | mafd-Median |
-|---|---|
-| 0–8 | 0,08 |
-| 8–14 (Schwenk zum Zitat) | 1,07 |
-| 14–22 (Zitat) | 0,16 |
-| 32–37 (Flug durchs Schlüsselloch) | 1,62 |
-| 37–42 (Zahlenfeld) | 1,28 |
+| Fenster (s) | mafd-Median v1 → v2 | was v2 ruhiger macht |
+|---|---|---|
+| 0–8 | 0,08 → 0,06 | – |
+| 8–15 (Schwenk zum Zitat) | 1,07 → 0,82 | eine lange Fahrt (7 s) statt zwei, 70 px weniger Weg |
+| 22–27 (Hand, Schloss) | 0,85 → 0,71 | ein langer Schwenk zurück statt zwei |
+| 32–38 (Flug durchs Schlüsselloch) | 1,62 → ~1,0 | Rückzug + Achse in einem Zug, 8 s Sinus-Dolly, das Feld bleibt beim Flug gedimmt |
+| 38–42,4 (Zahlenfeld, Kopie) | 1,37 → 0,54 | kein Zoom mehr über dem dichten Feld: Kamera und Original bleiben, nur die Kopie gleitet |
+
+**Gelernt:** Bildunruhe kommt fast nur von Kamera-Zoom und -Schwenk über dichter Textur. Elemente, die sich vor ruhiger Kamera bewegen, sind billig.
+
+**c09 (Finale + Endscreen, 474,56–597,24, 720p):** 0 Schnitte · mafd-Median 0,07 · Luma 52 · smooth 0 Flags · freezedetect 0. `seam.mjs` meldet FROZEN in ruhigen Strecken (auch im Endscreen): Das Maß vergleicht 240×135-Vorschaubilder, langsame Drift verschwindet darin. Es gilt für Nähte, nicht für ganze Chunks; im ganzen Chunk zählt freezedetect.
 
 **Ziel für die Station-Chunks: Median ≤ 0,45**, wie Film 13. Große Fahrten über dichte Texturen sind nur an den Weltwechseln erlaubt.
 
