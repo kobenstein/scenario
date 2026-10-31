@@ -54,7 +54,8 @@ for c in json.load(open(A + 'sound_plan.json')):
     else:   # accents that land on speech get +5 dB so they are not masked
         g = db(-14) / (np.abs(x).max() + 1e-9) * c['v'] * (db(5) if duck[min(N - 1, int(c['t'] * SR))] > .5 else 1); place(sfx, x, c['t'], g, .02, .3 if not c.get('d') else c.get('fade', .3), c.get('d'))
 sfx *= (1 - 0.15 * duck)[:, None]
-mix = vo + clipbuf + music + sfx
+BED_DB = -2   # voice +2 dB over music + SFX (Jakob 31.10., same as Bubble/Keys/Free Time)
+mix = vo + clipbuf + (music + sfx) * db(BED_DB)
 for name, buf in [('stem_music', music), ('stem_sfx', sfx), ('premix', mix)]:
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-i', '-', W + name + '.wav'], input=buf.astype(np.float32).tobytes(), check=True)
 # two-pass loudnorm to -14 LUFS, TP target -1.2 dBTP (lands <= -1 dBTP with margin)
