@@ -77,7 +77,7 @@ WrapStyle: 0
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Sub,Inter,56,&H00E2EFF3,&H00E2EFF3,&H00180907,&H66180907,0,0,0,0,100,100,0.5,0,1,2.6,1.4,2,120,120,64,1
+Style: Sub,Inter,72,&H00E2EFF3,&H00E2EFF3,&H00180907,&H66180907,0,0,0,0,100,100,0.5,0,1,3.4,1.6,2,120,120,72,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
