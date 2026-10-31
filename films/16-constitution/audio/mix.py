@@ -13,7 +13,8 @@ def rms(x): return float(np.sqrt(np.mean(x ** 2)) + 1e-9)
 def db(v): return 10 ** (v / 20)
 timing = json.load(open(A + 'timing.json')); N = int(timing['duration'] * SR)
 vo = load(W + 'vo_master.wav')[:N]; vo = np.pad(vo, ((0, N - len(vo)), (0, 0)))
-vo *= db(-20) / rms(vo[np.abs(vo).max(1) > 1e-3])
+VO_BOOST = float(os.environ.get('VO_BOOST', 0))   # Jakob 31.10.: voice +2 dB over music/SFX, same -14 LUFS total
+vo *= db(-20 + VO_BOOST) / rms(vo[np.abs(vo).max(1) > 1e-3])
 # voice activity envelope -> ducking
 env = np.abs(vo).max(1); hop = SR // 100
 e = np.array([env[i:i + hop].max() for i in range(0, N, hop)]) > 0.02
