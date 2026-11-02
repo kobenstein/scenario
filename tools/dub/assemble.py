@@ -15,6 +15,7 @@ def tempo(x, r):
     raw = subprocess.run(['ffmpeg', '-v', 'error', '-f', 'f32le', '-ar', str(SR), '-ac', '1', '-i', '-', '-af', f'atempo={r:.4f}', '-f', 'f32le', '-'],
                          input=x.astype(np.float32).tobytes(), capture_output=True, check=True).stdout
     return np.frombuffer(raw, np.float32).copy()
+BAR = sorted(json.load(open(f'{D}/barriers.json'))) if os.path.exists(f'{D}/barriers.json') else []   # e.g. interview-clip starts: dubbed lines must end before them
 en = json.load(open(f'{D}/en_lines.json')); dub = {s['id']: s['text'] for s in json.load(open(f'{D}/{lang}_sections.json'))}
 items = []                                  # (anchor, audio, words, label)
 for s in en:
@@ -41,10 +42,11 @@ for s in en:
 out = np.zeros(int(DUR * SR), np.float32); prev_end = 0.0; rep = []; allw = []; late_max = 0
 for i, (anc, seg, words, lab) in enumerate(items):
     nxt = items[i + 1][0] if i + 1 < len(items) else DUR - 8.5
+    bar = min([b for b in BAR if b > anc], default=1e9); hard = bar < nxt; nxt = min(nxt, bar)
     d = len(seg) / SR; t = max(anc - 0.05, prev_end + GAP)
     if d > nxt - GAP - t: t = max(anc - EARLY, prev_end + GAP)        # long line: borrow from the pause before it
     avail = nxt - GAP - t; r = 1.0
-    if d > avail and avail > 0: r = min(MAXT, d / avail); seg = tempo(seg, r)
+    if d > avail and avail > 0: r = min(max(MAXT, 1.35) if hard else MAXT, d / avail); seg = tempo(seg, r)   # before a clip: allow a bit faster
     d2 = len(seg) / SR; s0 = int(t * SR); out[s0:s0 + len(seg)] += seg[:len(out) - s0]
     prev_end = t + d2; late = t - anc; late_max = max(late_max, late)
     allw += [{'w': w, 's': round(t + ws / r, 3), 'e': round(t + we / r, 3), 'line': lab} for w, ws, we in words]
