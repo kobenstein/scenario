@@ -1,13 +1,13 @@
-// Film 16 "Claude's Constitution in 10 Minutes" (~10:30 incl. the 15 s end screen), built on the Film 10/13/14 editorial-night machinery.
-// Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots16.py) · builders: docs/BRIEF-builders.md.
+// Film 18 "AI Will End Capitalism" (~9:42 incl. the 15 s end screen), built on the Film 10/13/16 editorial-night machinery.
+// Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots18.py) · builders: docs/BRIEF-builders.md.
 // Eleven chunk files scenes/sc01.mjs … sc11.mjs return their entries; this file stitches them into one timeline.
 // NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a
 // planned match on a carrier). Any other tr is turned into 'cut' with a warning. Missing chunks render as stubs.
 //   export default (T, R) => [ entry, … ]       T = timing helpers (lib/kit.mjs: T.G / T.GE global phrase anchors), R = { a, b, id, name, first }
-//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (K.PRINT16)
+//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (F.PRINT18)
 // SECS=c01,c02 node render.mjs --snap ...   builds only those chunks (absolute times stay the same).
 // Timing: $TIMING, else <ROOT>audio/timing.json (the real VO, written by the audio agent), else data/provisional_timing.json
-// (tools/provisional_timing.py, from vo-v4.txt; a warning is printed). ROOT = $F16ROOT or /mnt/project-files/scenario/film-verfassung/.
+// (tools/provisional_timing.py, from vo-v4.txt; a warning is printed). ROOT = $F18ROOT or /mnt/project-files/scenario/film-kapitalismus/.
 import fs from 'node:fs';
 import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
@@ -17,17 +17,17 @@ import { errorCard, stubChunk } from './lib/stub.mjs';
 export { ROOT };
 // chunk table (docs/shots.md §2); from = the first phrase of the chunk, looked up GLOBALLY in the film (T.G), so any VO segmentation works
 export const CHUNKS = [
-  { id: 'c01', name: 'Hook (anchor 1: the book) + Level 1 · the white lie', from: 'This is Claude' },
-  { id: 'c02', name: 'Level 2 · the risky question (landlord letter, staircase of values)', from: 'A letter from your landlord' },
-  { id: 'c03', name: 'Level 3 · the perfect argument (bridge, seven-limits wall)', from: 'Say you build the perfect case' },
-  { id: 'c04', name: 'Level 4 · the maker (letterhead, many hands, judgment)', from: 'Now imagine you work at Anthropic' },
-  { id: 'c05', name: 'Level 5 I · the plug (pause button, locked doors, why safety on top)', from: "You're still at Anthropic" },
-  { id: 'c06', name: 'Level 5 II · the dial, open problem, apology (anchor 2: the book closes)', from: 'The document pictures a dial' },
-  { id: 'c07', name: 'Level 6 I · the real test (anchor 3), 96 / 100', from: 'Until now, we could only read' },
-  { id: 'c08', name: 'Level 6 II · reasons vs examples, own tests, leak, unsolved, the pen', from: 'What brings it down' },
-  { id: 'c09', name: 'Level 7 I · who holds the pen (Askell, no vote, money, critics)', from: 'Last level' },
-  { id: 'c10', name: 'Level 7 II · chain of command vs character, 1,000 Americans', from: 'Could the rules be written differently' },
-  { id: 'c11', name: 'Ending (anchor 4) + end screen', from: 'So, can you give' },
+  { id: 'c01', name: 'Hook + the engine (the circle, two price tags) + what you are paid for: thinking', from: 'A.I. will end capitalism' },
+  { id: 'c02', name: 'The price of thinking falls ($20 → 7¢) · the crash story (Gawdat) · the pressure (two records)', from: 'At the end of' },
+  { id: 'c03', name: 'The real ending is the price · air · runs out · where does it go · Britannica, music: onto the door', from: "But that's not the real ending" },
+  { id: 'c04', name: 'Thinking is next: words, advice, everything built from thinking · Chegg · Canva · the price left', from: 'Now the same thing is reaching' },
+  { id: 'c05', name: 'The value stays ($17,000) · value looks for a door · the doors: ground, power, chips (Altman)', from: 'And the value' },
+  { id: 'c06', name: 'What scarcity pays: Nvidia · Loudoun County · the oldest door: land under the house', from: 'Nvidia' },
+  { id: 'c07', name: 'The first picture again · not a crash: you pay at the door · the ground the machine stands on', from: 'Now look at the first picture' },
+  { id: 'c08', name: 'A set of rules: the board revealed · Lizzie Magie · Henry George · two rule sets', from: "That isn't a law of nature" },
+  { id: 'c09', name: 'Rule set II: the free layer (GPS, roads) · land first (Baden-Württemberg)', from: 'The second set of rules' },
+  { id: 'c10', name: 'Housing (Vienna) · energy (Middelgrunden) · who owns the door in Virginia · you can vote', from: 'Housing' },
+  { id: 'c11', name: 'Ending: one price at a time · something to design · your move + end screen', from: "Capitalism won't end with a crash" },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 

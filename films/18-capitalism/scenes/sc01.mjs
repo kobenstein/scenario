@@ -1,353 +1,299 @@
-// c01 · Hook (anchor 1: the book) + Level 1 · the white lie · 0 → T.G('A letter from your landlord') · built by the lead (quality reference).
-// Plan: docs/shots.md 1.01–1.12 (source tools/shots16.py) · world/rules: docs/MOTION.md · kit: lib/f16_kit.mjs (+ f10_editorial, f13_kit).
-// ONE entry, two worlds joined by a flight into a surface: the hook's chat box (beside the book) and your laptop screen are the same
-// chatUI drawn the same way, so at tSwitch (both fill the frame with the same glass and the same content) the world behind it changes
-// unseen. The chunk ends in plateChat (lib/f16_seams.mjs) for the last .5 s: the push into the laptop lands exactly on it.
+// c01 · Hook · the engine (two price tags, the circle) · what you are paid for: thinking · 0 → T.G('At the end of') · built by the lead
+// (quality reference). Plan: docs/shots.md 1.01–1.07 (source tools/shots18.py) · world/rules: docs/MOTION.md · kit: lib/f18_kit.mjs.
+// ONE entry, ONE world (the board at night), one continuous camera: hook close under the giant tag → pull back to the near edge of
+// the loop (workshop · you · shop) → rise to the whole ring (the engine) → back down to you → tilt up and fly INTO your tag. The chunk
+// ends in plateTag (lib/f18_seams.mjs) for the last .5 s: the flight into the tag lands exactly on it (the tag face fills the frame).
 //
-// | ID    | anchor (word)              | picture (one idea)                                                    | 1–2 moves                 | camera                    |
-// |-------|----------------------------|-----------------------------------------------------------------------|---------------------------|---------------------------|
-// | 1.01★ | constitution · eighty · thinks | the giant open book of light, you tiny at its foot, the blue head;   | label · riffle · threads  | slow push                 |
-// |       |                            | three printed lines lift as threads into the head (network starts)    |                           |                           |
-// | 1.02  | ten minutes                | a line on the left page lifts: it runs up and becomes the quote rule  | the thread                | tilt up (follows it)      |
-// | 1.03  | world-altering · building  | quote card (exact words), two phrases warm on their words             | lines rise · warm         | hold, drift               |
-// | 1.04  | aren't for you · machine · training | the card sinks, the thread goes home; pages fly into the head  | page stream               | tilt down, pan right      |
-// | 1.05  | words                      | push to the head, the last thread enters, the network lights          | last thread               | push                      |
-// | 1.06  | say · read · told          | a thread draws the chat box: Claude's reply field EMPTY, cursor;      | box drawn · page warms    | pull back, then flight    |
-// |       |                            | the book page warms (we can read what it's told)                      |                           | into the box              |
-// | 1.07  | paste in · not good        | LEVEL 1 · the box is your laptop at the kitchen table, warm lamp;     | pull back · lines fly     | pull back                 |
-// |       |                            | the card's lines fly into your bubble, one sags                       |                           |                           |
-// | 1.08  | Be honest · like it        | you type, it sends; the reply field stays empty                       | typing                    | slight push               |
-// | 1.09  | lovely                     | the friend across the table leans in: "Lovely!"                       | lean · bubble             | pull back wide            |
-// | 1.10  | Not even                   | the bubble unrolls into the rule; quote card, "not even" warms        | rule · lines              | tilt up to the wall       |
-// | 1.11  | dishonestly · Kind · clear | diplomatically honest ↔ dishonestly diplomatic (the words swap)       | swap · strike             | hold, drift               |
-// | 1.12  | hurt you                   | back at the screen; the chat scrolls away; push into the glass        | scroll · push             | tilt down, push → plate   |
+// | ID    | anchor (word)                    | picture (one idea)                                                   | 1–2 moves               | camera                 |
+// |-------|----------------------------------|----------------------------------------------------------------------|-------------------------|------------------------|
+// | 1.01  | capitalism · lifetime · way      | the giant price tag of light over tiny you; dust leaves its edge      | swing · dust            | slow push              |
+// | 1.02  | pays you · make · sells          | the near edge of the loop: coin → you → the cube you make → the shop | coin, then cube         | pull back + up         |
+// | 1.03  | Your work · What you make · gap  | $1 over you, a bigger $2 over the shop; the gap bracket = PROFIT      | print · lower · bracket | breathing hold         |
+// | 1.04★ | whole engine                     | the coin runs the whole loop, the ring lights: the engine             | the coin                | rise to the ring       |
+// | 1.05  | A.I. · one of those prices       | a cold disc rises at the zero line; your tag's edge cools             | the disc · customer     | back down to you       |
+// | 1.06  | email · contract · mistake · customer | four small light cards rise from your hands, one per word        | one card per word       | push in on you         |
+// | 1.07  | thinking · cheap · Fast          | the cards fold into a thought; the tag cools, $1 sinks; a drop falls  | fold · cool             | tilt up, fly into tag  |
 import * as E from '../lib/f10_editorial.mjs';
-import * as K from '../lib/f16_kit.mjs';
-import { plateChat, CHAT_PLATE, SEAM_HALF } from '../lib/f16_seams.mjs';
+import * as F from '../lib/f18_kit.mjs';
+import { plateTag, TAG_PLATE, SEAM_HALF } from '../lib/f18_seams.mjs';
 import { Path2D } from '@napi-rs/canvas';
-const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, quartIO, expoOut, expoIn, card, cam3, camAt, camDrift, aim, F0 } = E;
-const bump = (t, t0, d) => Math.sin(Math.PI * span(t, t0, t0 + d));
+const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, quartIO, expoOut, expoIn, card, cam3, camAt, camDrift, F0 } = E;
+const { BOARD, LOOP, gp, wp, stand, loopPt, loopU, COOL, bump } = F;
 
-export const PRINT = K.PRINT16;
+export const PRINT = F.PRINT18;
 
 export default async (T, R) => {
   E.prepareEditorial();
   const G = (p, after = 0, n = 0) => T.G(p, n, after), GE = (p, after = 0) => T.GE(p, 0, after);
   const a = {};
-  a.cons = G('constitution'); a.eighty = G('eighty pages'); a.art = G('the artificial intelligence Claude thinks'); a.thinks = G('thinks');
-  a.ten = G('In ten minutes'); a.tenE = GE('ten minutes');
-  a.makers = G('Its makers'); a.wa = G('world-altering', a.makers); a.build = G('building it', a.makers); a.buildE = GE('building it', a.makers);
-  a.but = G('But these pages'); a.afy = G("aren't for you", a.but); a.mach = G('machine', a.but); a.train = G('training', a.but);
-  a.can = G('Can you give a mind'); a.words = G('words', a.can); a.know = G("We can't know"); a.say = G('say', a.know); a.read = G('read what', a.know); a.told = G('told', a.know);
-  a.paste = G('You paste in'); a.poem = G('birthday poem', a.paste); a.proud = G('proud', a.paste); a.notgood = G('not good', a.paste);
-  a.type = G('You type', a.paste); a.honest = G('Be honest', a.type); a.like = G('like it', a.type); a.likeE = GE('like it', a.type);
-  a.friend = G('A polite friend'); a.lovely = G('lovely', a.friend); a.doc = G('The document says', a.friend); a.noteven = G('Not even that', a.doc);
-  a.dipl = G('Diplomatically honest'); a.dish = G('not dishonestly', a.dipl); a.kind = G('Kind, but clear'); a.clear = G('clear', a.kind);
-  a.easy = G('Easy with a poem'); a.hurt = G('hurt you', a.easy);
+  a.cap = G('capitalism'); a.hund = G('hundred years'); a.life = G('lifetime'); a.way = G('the way you think'); a.wayE = GE('the way you think');
+  a.one = G('Capitalism, in one sentence'); a.pays = G('pays you', a.one); a.make = G('make something', a.one); a.sells = G('sells it', a.one);
+  a.more = G('more than', a.sells); a.paidE = GE('paid you', a.more);
+  a.work = G('Your work'); a.wmake = G('What you make'); a.gap = G('gap', a.wmake); a.profit = G('profit', a.gap); a.engine = G('whole engine'); a.engineE = GE('whole engine');
+  a.now = G('Now watch'); a.ai = G('A.I.', a.now); a.prices = G('one of those prices', a.now);
+  a.think = G('Think about what you'); a.email = G('email', a.think); a.contract = G('contract', a.think); a.mistake = G('mistake', a.think); a.customer = G('customer', a.think);
+  a.most = G('Most of it is thinking'); a.thinking = G('thinking', a.most); a.and = G('And thinking', a.most); a.cheap = G('cheap', a.and); a.fast = G('Fast', a.cheap);
   a.end = R.b;
-  return [{ t: 0, draw: scene(a, T), print: PRINT }];
+  return [{ t: 0, draw: scene(a), print: PRINT }];
 };
 
-// ===================================================================================================== geometry (focus plane, design px)
-const GROUND = 905;
-const BK = { cx: 640, cy: 652, hw: 380, ph: 218 };            // the open book (hook)
-const DU = { x: 1088, h: 150 };                              // you, tiny at its foot
-const HD = { x: 1170, y: 46, h: 862 };                       // the head of light (thumbnail profile, facing left)
-const BOX = { x: 1150, y: 500, w: 640 };                     // the hook's chat box (h = w * .5625)
-const LAB = 'CLAUDE’S CONSTITUTION · ANTHROPIC, JANUARY 2026';
-// quote 1 (hook) in the sky above the book; the camera tilts up by TILT
-const TILT = -170, Q1 = { x: 178, y: -16, size: 58, w: 960 }, RULE1_X = 138;
-const Q1TEXT = 'we believe that AI might be one of the most world-altering and potentially dangerous technologies in human history, yet we are developing this very technology ourselves.';
-// kitchen
-const LS = { x: 760, y: 334, w: 520 };                       // the laptop screen = the chat rect (h = w * .5625 = 225)
-const LAMP = { x: 1000, y: 196 };
-const FR = { x: 1392, y: 812, h: 336 };                      // the friend (behind the table)
-const YOU = { x: 600, y: 1012, h: 404 };                     // you, from behind, at the near side of the table
-const CARD = { x: 640, y: 690, w: 104, h: 86 };              // the birthday card (tent), base line y
-// quote 2 + the word pair on the dark wall left of the lamp cord, inside the wide frame (no tilt: the camera only breathes)
-const Q2 = { x: 300, y: 104, size: 64, w: 640 }, RULE2_X = 266, RULE2_TOP = Q2.y - 70, RULE2_BOT = Q2.y + 150;
-const PAIR = { x: 1110, y: 132, size: 64, dy: 96 };   // right of the cord: it answers the quote (left) while the quote still stands
+// ===================================================================================================== the set (world units, BOARD.GY = 430)
+const Z0 = 3000;                                              // the near edge of the loop: everything of c01 stands on this depth
+const YOU = { X: -500, h: 200 };
+const SHOP = { X: 1900, w: 700, h: 400 };
+const WORK = { X: -2300, w: 820, h: 420 };                    // the workshop (the employer)
+const CUST = { X0: 1380, X1: 60, h: 212 };                    // the customer walks from the shop to you (1.05)
+const TA = { X: YOU.X, w: 760 };                              // tag A over you ($1)
+const TB = { X: SHOP.X, w: 760 * 1.4 };                       // tag B over the shop ($2): bigger tag = higher price
+const TAG_BOT = -480;                                         // both tags end at the same height above the ground (y up = −, from the ground)
+const eyeY = (w) => TAG_BOT - w * 1.32;                       // eyelet height for a tag of width w
+const ROADZ = LOOP.cz - LOOP.half;                            // the near edge of the road (2900)
+const COIN_R = 52;
+// the town: small houses just outside the loop's sides and far edge (seeded, far → near)
+const TOWN = (() => { const r = E.prng(1808), out = [];
+  for (let i = 0; i < 14; i++) { const side = i % 3, w = 300 + r() * 260, h = 240 + r() * 200;
+    const X = side === 0 ? -LOOP.half - 500 - r() * 900 : side === 1 ? LOOP.half + 500 + r() * 900 : -2200 + r() * 4400;
+    const Z = side === 2 ? LOOP.cz + LOOP.half + 500 + r() * 700 : LOOP.cz - LOOP.half + 900 + r() * (2 * LOOP.half - 600);
+    out.push({ X, Z, w, h, n: 1 + Math.floor(r() * 2.5), seed: 10 + i }); }
+  return out.sort((p, q) => q.Z - p.Z); })();
+// camera that shows world point (X, Y, Z) at screen (sx, sy) with s px per world unit
+// (Y measured from the ground, up = −, like everything drawn with stand())
+const camFor = (X, Y, Z, s, sx = W / 2, sy = H / 2, f = F0) => { const dz = f / s; return cam3({ x: X - (sx - W / 2) / s, y: Y + BOARD.GY - (sy - H / 2) / s, z: Z - dz, f }); };
 
-function scene(a, T) {
-  const tSwitch = a.paste - .14;                               // flight into the box ends: the world behind the glass changes
-  const boxC = [BOX.x + BOX.w / 2, BOX.y + BOX.w * K.CHAT_AR / 2], scrC = [LS.x + LS.w / 2, LS.y + LS.w * K.CHAT_AR / 2];
-  const SIN = 3.2;                                             // magnification of the box at the switch (box covers the frame: 640 × 3.2 > 1968)
+function scene(a) {
   const T0 = a.end, tPlate = T0 - SEAM_HALF;
-  // Calm budget (calm.py mafd median ≤ ~.45): moves are 2.5–3.5 s sine-S on word keys, separated by long breathing holds (drift only).
-  const KH = [                                                 // hook camera
-    [0, cam3({ z: -70, x: -30, y: 34 })],
-    [a.art, cam3({ z: 40, x: -14, y: 14 })],                    // slow push while the label and the threads appear
-    [a.ten - .2, cam3({ z: 60, x: -10, y: 12 })],
-    [a.makers + .6, cam3({ z: 96, x: -40, y: TILT })],          // tilt up with the rising line: the quote above the book
-    [a.but + .35, cam3({ z: 106, x: -44, y: TILT - 8 })],       // hold until the card has sunk (no line leaves the frame)
-    [a.mach + .5, cam3({ z: 80, x: 30, y: -96 })],              // a short tilt back down (the book stays in frame)
-    [a.can + .2, cam3({ z: 92, x: 60, y: -84 })],               // hold while the pages fly into the head
-    [a.words + .4, cam3({ z: 130, x: 170, y: 10 })],            // settle: book left, the empty box right
-    [a.know + 1.4, cam3({ z: 136, x: 178, y: 12 })],            // hold (the gap: the cursor blinks)
-    [tSwitch, aim(F0, boxC[0], boxC[1], SIN), 's'],             // the flight lands on the glass (no lurch at the switch)
+  const eA = eyeY(TA.w), eB = eyeY(TB.w);
+  // the camera: one plan sequence; moves 2.5–4 s sine-S on word keys, long breathing holds between (drift only)
+  const PLATE_S = TAG_PLATE.w / TA.w;
+  const K = [
+    [0, camFor(TA.X, eA, Z0, .56, 1240, 92)],                                  // hook: the giant tag, you tiny below, the plain to the left
+    [a.wayE + .4, camFor(TA.X, eA, Z0, .6, 1228, 84)],                          // slow push through the hook
+    [a.pays + .5, camFor(-150, -885, Z0, .36, 960, 540)],                     // pull back + up: workshop · you · shop on the near edge
+    [a.wmake - .3, camFor(-110, -890, Z0, .362, 960, 540)],                     // breathing hold while the coin and the cube travel
+    [a.gap + .3, camFor(700, -900, Z0, .37, 960, 560)],                         // follow tag B: both tags and the gap between them (1.03)
+    [a.engine - .45, camFor(720, -905, Z0, .378, 960, 560)],                    // breathing hold on the gap
+    [a.engineE + 1.6, cam3({ x: 0, y: -2100, z: -1400, f: 850 })],            // ★ rise to the whole ring (the engine)
+    [a.now + .9, cam3({ x: 30, y: -2130, z: -1330, f: 850 })],                 // hold while the coin runs
+    [a.think + .15, camFor(YOU.X + 80, 0, Z0, .54, 960, 985)],                  // back down to you, your whole tag above you
+    [a.email - .2, camFor(YOU.X + 70, 0, Z0, .57, 960, 995)],                // push in on you (1.06)
+    [a.and - .1, camFor(YOU.X + 65, 0, Z0, .585, 960, 1000)],                  // hold while the cards rise and fold
+    [a.cheap - .45, camFor(YOU.X + 60, 0, Z0, .6, 960, 1004)],                 // breathing hold; the push starts on "cheap"
+    [tPlate, camFor(TA.X, eA, Z0, PLATE_S, TAG_PLATE.x, TAG_PLATE.y)],          // up the thread and into the tag: its face fills the frame (plateTag)
   ];
-  const KK = [                                                 // kitchen camera
-    [tSwitch, aim(F0, scrC[0], scrC[1], SIN * BOX.w / LS.w)],
-    [a.paste + 3.1, aim(F0, 1000, 505, 1.85)],                  // pull back from rest: the kitchen opens around the screen
-    [a.friend - .25, aim(F0, 1020, 495, 1.92)],                 // breathing push while you type
-    [a.lovely + .6, aim(F0, 1000, 425, 1.04)],                  // pull back to the room (friend, lamp, wall)
-    [a.hurt - 1.75, aim(F0, 975, 425, 1.12)],                  // breathing push while the quote and the pair stand
-    [tPlate, aim(F0, scrC[0], scrC[1], CHAT_PLATE.w / LS.w, CHAT_PLATE.x + CHAT_PLATE.w / 2, CHAT_PLATE.y + CHAT_PLATE.w * K.CHAT_AR / 2)],   // push into the screen, landing on plateChat
-  ];
-  // threads and paths (computed once)
-  const head0 = { entry: [HD.x + .2 * HD.h, HD.y + .3 * HD.h], center: [HD.x + .47 * HD.h, HD.y + .34 * HD.h] };
-  const ruleTop = Q1.y - 70, ruleBot = Q1.y + 4 * Q1.size * 1.3 + 70;
-  const pathPts = (p0, p1, mids) => E.catmull([p0, ...mids, p1].map((p) => [p[0], p[1], 3]), 12).map((p) => [p[0], p[1]]);
-  const rand = E.prng(1601), PAGES = Array.from({ length: 6 }, (_, i) => ({ u: .28 + .45 * rand(), v: .25 + .45 * rand(), d: i * .2 + rand() * .08, sp: .9 + rand() * .3 }));
-  const swap = { w1: K.measure('diplomatically ', PAIR.size), dis: K.measure('dis', PAIR.size), dishly: K.measure('dishonestly ', PAIR.size), dip: K.measure('diplomatic', PAIR.size), hon: K.measure('honest', PAIR.size) };
+  // the coin: workshop door → road → you (pays you); then the whole loop from the shop (engine)
+  const uWork = loopU(WORK.X + 260), uYou = loopU(YOU.X + 40), uShop = loopU(SHOP.X - 120);
+  const coinPay = [a.pays - .35, a.pays + 1.35];
+  const runT = [a.engine - .1, a.engine + 3.9];
+  const cubeRide = [a.sells - .25, a.sells + 1.55];
+  const rand = E.prng(1801);
+  const DUSTS = Array.from({ length: 4 }, () => [rand(), rand()]);
 
   return (ctx, t) => {
-    const hook = t < tSwitch;
-    // drift goes quiet around the switch and into the plate (the frames there must match exactly); the move itself carries life
-    const dAmt = .8 * (1 - bump(t, tSwitch - .45, .9)) * (1 - smooth(span(t, tPlate - .6, tPlate)));
-    const c = camDrift(camAt(t, hook ? KH : KK), t, dAmt);
-    if (hook) hookWorld(ctx, t, c); else kitchen(ctx, t, c);
-    // level 1: the stamp rises as the kitchen opens, then glides into the corner (badge)
-    K.level(ctx, t, { n: 1, title: 'The white lie', t0: tSwitch + .05 });
-    if (t >= tPlate) plateChat(ctx, t);
+    const dAmt = .9 * (1 - smooth(span(t, tPlate - 1.2, tPlate)));
+    const c = camDrift(camAt(t, K, Z0), t, dAmt);
+    world(ctx, t, c);
+    if (t >= tPlate) plateTag(ctx, t);
   };
 
-  // ------------------------------------------------------------------------------------------------------------ the hook world
-  function hookWorld(ctx, t, c) {
-    // the threads at "thinks": three lines of the right page lift and run into the head
-    const thr = [1, 3, 5].map((i, k) => ({ i, t0: a.art + .25 + k * .22 }));
-    const tLast = a.words - 1.15;                                 // the last thread (1.05) arrives on "words"
-    const tLine = a.tenE + .1;                                    // 1.02: the left-page line that becomes the quote rule
-    const back = a.but - .05;                                     // the rule goes home
-    const lit = .2 * smooth(span(t, a.thinks - .45, a.thinks + .5)) + .42 * smooth(span(t, a.mach + .9, a.train + .45)) + .2 * smooth(span(t, a.words - .2, a.words + .45));
-    const flash = bump(t, a.words - .05, .9) * .9 + .25 * bump(t, a.thinks - .1, .8);
-    const lift = (i, side) => {
-      if (side === 'R') { const th = thr.find((q) => q.i === i); if (th) return smooth(span(t, th.t0, th.t0 + .35)); if (i === 7) return smooth(span(t, tLast, tLast + .3)); return 0; }
-      if (i === 3) return smooth(span(t, tLine, tLine + .3)) * (1 - smooth(span(t, back + 1.25, back + 1.5)));
-      return 0;
-    };
-    const look = lerp(.25, .75, sineIO(span(t, a.cons - .5, a.cons + 1))) + .25 * sineIO(span(t, a.afy - .2, a.afy + .8)) - .3 * sineIO(span(t, a.know, a.know + 1));
+  // ---------------------------------------------------------------------------------------------------------------------- the world
+  function world(ctx, t, c) {
+    // the coin on the loop (u) and how far the road behind it has lit
+    let coinU = null, coinA = 0, litTo = 0;
+    if (t >= coinPay[0] && t < coinPay[1]) { coinU = lerp(uWork, uYou, sineIO(span(t, coinPay[0], coinPay[1]))); coinA = smooth(span(t, coinPay[0], coinPay[0] + .3)) * (1 - smooth(span(t, coinPay[1] - .3, coinPay[1]))); }
+    const run = span(t, runT[0], runT[1]), runU = uShop + quartIO(run) * (1 - uShop + uWork + .0001);
+    if (t >= runT[0] - .3 && t < runT[1] + .8) { coinU = run >= 1 ? uWork : runU; coinA = smooth(span(t, runT[0] - .3, runT[0])) * (1 - smooth(span(t, runT[1] + .3, runT[1] + .8))); }
+    // the road: faint before the engine; the run lights it behind the coin; afterwards it keeps a calm glow
+    const base = .32 + .08 * smooth(span(t, a.one, a.pays));
+    const lit = [];
+    if (t >= coinPay[0]) lit.push([uWork, lerp(uWork, uYou, sineIO(span(t, coinPay[0], coinPay[1]))), .45 * (1 - .6 * smooth(span(t, runT[0], runT[1])))]);
+    if (t >= runT[0]) { const fadeL = .85 * (1 - .45 * smooth(span(t, a.think, a.think + 3))); lit.push([uShop, run >= 1 ? uShop + 1 : Math.min(runU, uShop + .9999), fadeL]); }
+    const cool = .28 * smooth(span(t, a.prices - .2, a.prices + .9)) + .32 * smooth(span(t, a.cheap - .1, a.cheap + .7));
 
-    card(ctx, c, 40000, () => {
-      E.nightSky(ctx, [[0, P.night0], [.5, P.night1], [1, P.ind0]], -1400, H + 300);
-      ctx.fillStyle = E.rad(ctx, 1500, 260, 1500, [[0, rgba(P.ind1, .95)], [.45, rgba(P.ind1, .45)], [1, rgba(P.ind0, 0)]]); ctx.fillRect(-W, -2 * H, 3 * W, 4 * H);
-      E.stars(ctx, 16, 200, t, [-400, -900, W + 600, H + 300], .8);
+    F.sky(ctx, c, t, { air: 0 });
+    // the machine: a cold disc rises behind the zero line on the right (drawn before the board: the board's far edge hides its rise)
+    const dr = smooth(span(t, a.ai - .2, a.ai + 2.2));
+    if (dr > 0) { const p = wp(c, 7600, BOARD.GY + 1300 - 2600 * dr, 26000); if (p) F.coolDisc(ctx, p[0], p[1], 520 * p[2], .95 * smooth(span(t, a.ai - .2, a.ai + .6))); }
+    F.board(ctx, c, t, { road: base, lit, ticks: .35, zero: 1 });
+    // the cold light reaching the board from the right (a faint wash once the disc is up)
+    if (dr > 0) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = E.lin(ctx, W, 0, W * .25, 0, [[0, rgba(COOL.edge, .1 * dr)], [1, rgba(COOL.edge, 0)]]); ctx.fillRect(0, 0, W, H); ctx.restore(); }
+
+    // the town round the loop (dim, far): small houses on the side and far edges, drawn far → near
+    for (const hs of TOWN) { if (hs.Z < Z0 + 200) continue; stand(ctx, c, hs.X, hs.Z, () => F.house(ctx, t, hs.w, hs.h, { win: hs.n, lit: .45, seed: hs.seed })); }
+    // back to front along the near edge: the workshop, the shop, the coin, the road things, you, the customer, the tags
+    stand(ctx, c, WORK.X, Z0 + 120, () => workshop(ctx, t));
+    stand(ctx, c, SHOP.X, Z0 + 120, () => shop(ctx, t));
+    if (coinU != null && coinA > 0) { const [x, z] = loopPt(coinU); stand(ctx, c, x, z, () => { F.coin(ctx, t, 0, -COIN_R, COIN_R, { spin: coinU * 60, a: coinA }); E.halo(ctx, 0, -COIN_R, COIN_R * 4, .5 * coinA, P.halo0, P.core1); }); }
+    stand(ctx, c, 0, Z0, () => {
+      tagLight(ctx, t, cool);
+      cube(ctx, t);
+      you(ctx, t);
+      customer(ctx, t);
+      cards(ctx, t);
     });
-    card(ctx, c, 6500, () => {     // a soft editorial sweep on the left (depth)
-      ctx.beginPath(); ctx.moveTo(-700, 300); ctx.bezierCurveTo(150, 260, 520, 600, 560, 1500); ctx.lineTo(-700, 1500); ctx.closePath();
-      ctx.fillStyle = E.lin(ctx, 460, 560, 40, 1000, [[0, rgba(P.ind1, 0)], [.35, rgba(P.ind1, .55)], [1, rgba(P.ind0, 1)]]); ctx.fill();
-    });
-    card(ctx, c, F0, () => {
-      const hd = K.head(ctx, HD.x, HD.y, HD.h, t, { lit, flash, entry: [.2, .3] });
-      E.ground(ctx, [[-400, GROUND + 6], [900, GROUND], [2400, GROUND - 6]], { rim: rgba(P.blue0, .9), stops: [[0, P.night1], [1, P.night0]] });
-      // the book's light on the ground (a soft pool) and your shadow away from it
-      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.translate(BK.cx, GROUND + 4); ctx.scale(1, .1);
-      ctx.fillStyle = E.rad(ctx, 0, 0, 700, [[0, rgba(P.halo1, .35)], [.5, rgba(P.halo1, .1)], [1, rgba(P.halo1, 0)]]); ctx.beginPath(); ctx.arc(0, 0, 700, 0, 6.29); ctx.fill(); ctx.restore();
-      E.castShadow(ctx, DU.x, GROUND + 1, 22, 120, -.2, .5);
-      const riffle = span(t, a.eighty - .1, a.eighty + 1.05);
-      const warm = smooth(span(t, a.read - .1, a.told + .2)) * (1 - .4 * smooth(span(t, tSwitch - .6, tSwitch)));
-      const bk = K.book(ctx, BK.cx, BK.cy, BK.hw, BK.ph, t, { lift, riffle, warm, glow: 1 + .06 * Math.sin(t * .9) });
-      E.du(ctx, DU.x, GROUND, DU.h, { dir: -1, look: clamp(look), light: -1, armL: [-.18, -.08], armR: [.16, .1] });
-      // the label rises on "constitution" (and stays until the pages leave)
-      const lu = K.rise(span(t, a.cons - .1, a.cons + .8)) * (1 - expoIn(span(t, a.makers - 1.2, a.makers - .6)));
-      if (lu > 0) K.maskLine(ctx, [[LAB, 0]], BK.cx - BK.hw, BK.cy - 58, 24, lu, { serif: false, weight: 600, col: P.halo2, glow: false, spacing: .1 });
-      // 1.01 threads → head
-      for (const th of thr) {
-        const L = bk.lines.R[th.i], p0 = [L[2], L[3]], pts = pathPts(p0, hd.entry, [[p0[0] + 70, p0[1] - 150], [lerp(p0[0], hd.entry[0], .6), lerp(p0[1], hd.entry[1], .45) - 90]]);
-        const uh = smooth(span(t, th.t0, th.t0 + 1.15)), ut = smooth(span(t, th.t0 + 1.0, th.t0 + 1.8));
-        if (uh > 0 && ut < 1) K.trailSpan(ctx, pts, ut, uh, { w: 2.2 });
-      }
-      // 1.05 the last thread
-      { const L = bk.lines.R[7], p0 = [L[2], L[3]], pts = pathPts(p0, hd.entry, [[p0[0] + 90, p0[1] - 190], [lerp(p0[0], hd.entry[0], .6), lerp(p0[1], hd.entry[1], .45) - 120]]);
-        const uh = smooth(span(t, tLast, a.words)), ut = smooth(span(t, a.words - .1, a.words + .55));
-        if (uh > 0 && ut < 1) K.trailSpan(ctx, pts, ut, uh, { w: 2.6 }); }
-      // 1.02 → 1.04 the rule: a left-page line runs up into the sky and stands as the quote's rule; at "But these pages" it goes home
-      { const L = bk.lines.L[3], p0 = [L[4], L[5]];
-        const pts = pathPts(p0, [RULE1_X, ruleTop], [[p0[0] - 60, p0[1] - 110], [260, ruleBot + 60], [RULE1_X, ruleBot]]);
-        const iR = pts.findIndex((p, k) => k > 3 && p[1] <= ruleBot + 2);
-        const lens = pts.slice(1).map((p, k) => Math.hypot(p[0] - pts[k][0], p[1] - pts[k][1])), tot = lens.reduce((s, v) => s + v, 0), uR = lens.slice(0, iR).reduce((s, v) => s + v, 0) / tot;
-        const uh = smooth(span(t, tLine, a.makers - .2)), ut = uR * smooth(span(t, a.makers - .35, a.makers + .55));
-        const home = smooth(span(t, back, back + 1.35));
-        if (uh > 0 && home < 1) {
-          if (home <= 0) K.trailSpan(ctx, pts, ut, uh, { w: 2.2 });
-          else K.trailSpan(ctx, pts, 0, 1 - home, { w: 2.2, spark: false });     // the thread runs back down into its line on the page
-        }
-      }
-      // 1.03 the quote card (lines rise from their baselines; two phrases warm on their words)
-      if (t > a.makers - 1.2 && t < a.but + 1.4)
-        K.quote(ctx, t, { text: Q1TEXT, attr: LAB, x: Q1.x, y: Q1.y, size: Q1.size, w: Q1.w, t0: a.makers - 1.15, t1: a.but - .2, gold: [['most world-altering and potentially dangerous', a.wa - .1], ['developing this very technology ourselves', a.build - .1]] });
-      // 1.04 the pages fly into the head
-      for (const pg of PAGES) {
-        const q = span(t, a.mach - .15 + pg.d, a.mach - .15 + pg.d + 1.55 * pg.sp); if (q <= 0 || q >= 1) continue;
-        const s0 = bk.page(1, pg.u, pg.v), pts = pathPts(s0, hd.entry, [[s0[0] + 40, s0[1] - 170], [lerp(s0[0], hd.entry[0], .55), lerp(s0[1], hd.entry[1], .5) - 140]]);
-        const e = sineIO(q), [px, py] = K.along(pts, e), sc = lerp(1, .18, e), rot = Math.cos(q * 5.5 + pg.u * 6) * .9;
-        if (q < .82) {
-          ctx.save(); ctx.translate(px, py); ctx.rotate(-.35 + .5 * e); ctx.scale(sc * (.35 + .65 * Math.abs(rot)), sc);
-          ctx.fillStyle = E.rad(ctx, 0, 0, 90, [[0, P.core0], [.5, P.core1], [1, P.halo1]]); ctx.fillRect(-48, -62, 96, 124);
-          ctx.strokeStyle = rgba(P.shade0, .55); ctx.lineWidth = 2; for (let k = 0; k < 5; k++) { ctx.beginPath(); ctx.moveTo(-34, -40 + k * 20); ctx.lineTo(28 - (k % 2) * 16, -40 + k * 20); ctx.stroke(); }
-          ctx.restore();
-        }
-        if (q > .45) K.trailSpan(ctx, pts, Math.max(0, e - .3), e, { w: 1.8, spark: false });
-      }
-      // 1.06 the chat box, drawn by a thread that drops out of the head
-      const tb = a.words + .55, outlineU = smooth(span(t, tb + .45, a.say - .25));
-      if (t > tb) {
-        const bh = BOX.w * K.CHAT_AR, rr = 26 * BOX.w / 1000;
-        const drop = pathPts(hd.center, [BOX.x + rr, BOX.y], [[hd.center[0] - 60, hd.center[1] + 150], [BOX.x + 160, BOX.y - 70]]);
-        const ring = K.roundRectPts(BOX.x, BOX.y, BOX.w, bh, rr), pts = [...drop, ...ring];
-        const lens = pts.slice(1).map((p, k) => Math.hypot(p[0] - pts[k][0], p[1] - pts[k][1])), tot = lens.reduce((s, v) => s + v, 0), uD = lens.slice(0, drop.length - 1).reduce((s, v) => s + v, 0) / tot;
-        const uh = lerp(0, uD, smooth(span(t, tb, tb + .5))) + (1 - uD) * outlineU, ut = uD * smooth(span(t, tb + .5, tb + 1.1)) + (1 - uD) * smooth(span(t, a.say - .3, a.say + .25));
-        K.chatUI(ctx, t, BOX.x, BOX.y, BOX.w, { glass: outlineU, rim: smooth(span(t, a.say - .4, a.say + .1)), bubbles: [], reply: { a: span(t, a.say - .35, a.say + .1), cursor: t > a.say - .05 ? 1 : 0 }, t0: a.say - .05 });
-        if (uh > 0 && ut < 1) K.trailSpan(ctx, pts, ut, uh, { w: 2 });
-      }
-    });
+    stand(ctx, c, 0, Z0 - 10, () => tags(ctx, t, cool));
   }
 
-  // ------------------------------------------------------------------------------------------------------------ the kitchen
-  function kitchen(ctx, t, c) {
-    const lamp = 1 - .32 * bump(t, a.hurt - .05, .55);
-    const lean = sineIO(span(t, a.friend + .05, a.friend + .95));
-    card(ctx, c, 5200, () => {      // the back wall, a night window
-      ctx.fillStyle = E.lin(ctx, 0, -900, 0, H + 400, [[0, P.night0], [.5, mixHex(P.night1, P.ind1, .4)], [1, P.night0]]); ctx.fillRect(-W, -2 * H, 3 * W, 4 * H);
-      ctx.fillStyle = E.rad(ctx, LAMP.x, LAMP.y + 120, 1100, [[0, rgba(P.shade0, .28 * lamp)], [.45, rgba(P.shade0, .08 * lamp)], [1, rgba(P.shade0, 0)]]); ctx.fillRect(-W, -2 * H, 3 * W, 4 * H);
-      const wx = 1450, wy = 340, ww = 290, wh = 280;     // low, behind the friend: the wall above stays free for the word pair
-      ctx.fillStyle = E.lin(ctx, 0, wy, 0, wy + wh, [[0, P.ind0], [1, mixHex(P.ind1, P.blue1, .35)]]); ctx.fillRect(wx, wy, ww, wh);
-      E.stars(ctx, 5, 26, t, [wx + 10, wy + 10, wx + ww - 10, wy + wh * .6], .7);
-      ctx.fillStyle = P.night1; ctx.fillRect(wx + ww / 2 - 5, wy, 10, wh); ctx.fillRect(wx, wy + wh * .45 - 5, ww, 10);
-      ctx.strokeStyle = rgba(P.blue0, .6); ctx.lineWidth = 4; ctx.strokeRect(wx, wy, ww, wh);
-    });
-    card(ctx, c, F0, () => {
-      // the lamp: cord, shade, the bulb (hero), a cone of light in the air, the pool on the table
-      ctx.strokeStyle = rgba(P.night0, .9); ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(LAMP.x, -900); ctx.lineTo(LAMP.x, LAMP.y - 30); ctx.stroke();
-      ctx.save(); ctx.globalCompositeOperation = 'lighter';
-      ctx.beginPath(); ctx.moveTo(LAMP.x - 95, LAMP.y + 60); ctx.lineTo(LAMP.x + 95, LAMP.y + 60); ctx.lineTo(LAMP.x + 420, 700); ctx.lineTo(LAMP.x - 420, 700); ctx.closePath();
-      ctx.fillStyle = E.lin(ctx, 0, LAMP.y + 60, 0, 700, [[0, rgba(P.halo1, .2 * lamp)], [1, rgba(P.halo1, .03 * lamp)]]); ctx.fill(); ctx.restore();
-      const shade = new Path2D(); shade.moveTo(LAMP.x - 34, LAMP.y - 30); shade.lineTo(LAMP.x + 34, LAMP.y - 30); shade.quadraticCurveTo(LAMP.x + 70, LAMP.y + 10, LAMP.x + 100, LAMP.y + 62); shade.lineTo(LAMP.x - 100, LAMP.y + 62); shade.quadraticCurveTo(LAMP.x - 70, LAMP.y + 10, LAMP.x - 34, LAMP.y - 30); shade.closePath();
-      ctx.fillStyle = E.lin(ctx, LAMP.x - 100, 0, LAMP.x + 100, 0, [[0, P.night1], [.6, P.ind2], [1, mixHex(P.ind2, P.shade0, .4)]]); ctx.fill(shade);
-      ctx.strokeStyle = rgba(P.halo1, .55 * lamp); ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(LAMP.x - 100, LAMP.y + 62); ctx.lineTo(LAMP.x + 100, LAMP.y + 62); ctx.stroke();
-      E.halo(ctx, LAMP.x, LAMP.y + 66, 150 * lamp, .9 * lamp, P.halo0, P.core0);
-      ctx.fillStyle = mixHex(P.core1, P.core0, lamp); ctx.beginPath(); ctx.ellipse(LAMP.x, LAMP.y + 64, 46, 12, 0, 0, 6.29); ctx.fill();
-      // the friend (behind the table): sits back, leans in on "polite friend"
-      E.person(ctx, FR.x, FR.y, FR.h, { dir: -1, light: -1, lean: .16 * lean, armR: [.5 + .5 * lean, .9 + .6 * lean], armL: [.25, .5], rim: mixHex(P.blue0, P.halo1, .45) });
-      // the table: top (lamp-lit) and the dark front
-      const top = new Path2D(); top.moveTo(410, 650); top.lineTo(1610, 650); top.lineTo(1730, 770); top.lineTo(290, 770); top.closePath();
-      ctx.fillStyle = E.rad(ctx, LAMP.x, 700, 760, [[0, mixHex(P.shade0, P.halo1, .35 * lamp)], [.45, mixHex(P.shade0, P.ind2, .55)], [1, P.night1]]); ctx.fill(top);
-      ctx.strokeStyle = rgba(P.halo1, .5 * lamp); ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(290, 770); ctx.lineTo(1730, 770); ctx.stroke();
-      ctx.fillStyle = E.lin(ctx, 0, 770, 0, 1100, [[0, P.night1], [1, P.night0]]); ctx.fillRect(290, 770, 1440, 400);
-      // the birthday card (tent): a candle drawn in gold, three lines of handwriting that fly into your bubble
-      const fly = (i) => span(t, a.paste + .45 + i * .14, a.paste + 1.25 + i * .14);
-      cardDraw(ctx, t, fly);
-      // the laptop: base, bezel, the screen = the chat
-      ctx.fillStyle = E.lin(ctx, 0, 640, 0, 700, [[0, P.ind2], [1, P.night1]]);
-      ctx.beginPath(); ctx.moveTo(LS.x - 6, 640); ctx.lineTo(LS.x + LS.w + 6, 640); ctx.lineTo(LS.x + LS.w + 40, 700); ctx.lineTo(LS.x - 40, 700); ctx.closePath(); ctx.fill();
-      const lh = LS.w * K.CHAT_AR;
-      ctx.fillStyle = P.night0; ctx.beginPath(); ctx.roundRect(LS.x - 14, LS.y - 14, LS.w + 28, lh + 28, 16); ctx.fill();
-      ctx.strokeStyle = rgba(P.blue1, .6); ctx.lineWidth = 2; ctx.stroke();
-      E.halo(ctx, LS.x + LS.w / 2, LS.y + lh / 2, LS.w * .7, .12, P.blue0, P.blue1);
-      const typed = 'Be honest. Do you like it?';
-      const tyU = span(t, a.honest - .55, a.likeE - .05), sent = span(t, a.likeE + .05, a.likeE + .65);
-      const bubbles = [{ poem: 3, u: span(t, a.paste + 1.05, a.paste + 1.65), sag: smooth(span(t, a.notgood - .05, a.notgood + .45)) }, { text: typed, u: sent }];
-      const chat = K.chatUI(ctx, t, LS.x, LS.y, LS.w, { bubbles, typing: { text: typed, u: sent > 0 ? 0 : tyU }, reply: { a: 1, cursor: 1 }, scroll: span(t, a.hurt - .85, a.hurt + .15), t0: a.say - .05 });
-      // the handwriting lines in flight: card → your bubble
-      for (let i = 0; i < 3; i++) {
-        const q = fly(i); if (q <= 0 || q >= 1) continue;
-        const s0 = [CARD.x + 16, CARD.y - CARD.h + 40 + i * 13], s1 = [LS.x + (554) * LS.w / 1000, LS.y + (92 + 38 * i) * LS.w / 1000];
-        const e = sineIO(q), x = lerp(s0[0], s1[0], e), y = lerp(s0[1], s1[1], e) + Math.sin(Math.PI * e) * 24, len = lerp(60, 120 - (i % 2) * 28, e) * (LS.w / 1000 * 2.4 * e + (1 - e));
-        ctx.strokeStyle = mixHex(P.shade0, P.cream, e); ctx.lineWidth = lerp(2.4, 1.3, e); ctx.lineCap = 'round'; ctx.beginPath();
-        for (let k = 0; k <= 20; k++) { const u = k / 20, xx = x + u * len, yy = y + Math.sin(u * 19 + i * 2) * 1.6; k ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy); }
-        ctx.stroke(); E.halo(ctx, x + len, y, 14, .5, P.halo0, P.core0);
-      }
-      // you, from behind; the chair back hides your legs (you sit)
-      E.du(ctx, YOU.x, YOU.y, YOU.h, { dir: 1, view: 'back', light: 1, armR: [.62, .3 + .05 * Math.sin(t * 9) * (tyU > 0 && tyU < 1 ? 1 : 0)], armL: [-.6, -.28], rim: mixHex(P.coat, P.core1, .7) });
-      const chair = new Path2D(); chair.roundRect(YOU.x - 150, 842, 300, 400, 34);
-      ctx.fillStyle = E.lin(ctx, 0, 842, 0, 1100, [[0, mixHex(P.night1, P.ind2, .6)], [1, P.night0]]); ctx.fill(chair);
-      ctx.strokeStyle = rgba(P.halo1, .35); ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(YOU.x - 116, 842); ctx.lineTo(YOU.x + 116, 842); ctx.stroke();
-      // 1.09 the friend's bubble "Lovely!", then (1.10) its outline unrolls into the rule of the quote
-      friendBubble(ctx, t);
-      // 1.10 quote 2 + 1.11 the pair, on the wall above the lamp
-      if (t > a.doc - .6 && t < a.easy + 1.2) {
-        K.quote(ctx, t, { text: 'But Claude should not even tell white lies of this kind.', attr: 'CLAUDE’S CONSTITUTION', x: Q2.x, y: Q2.y, size: Q2.size, w: Q2.w, t0: a.doc - .2, t1: a.dish - .22, gold: [['not even', a.noteven - .05]] });
-        pair(ctx, t);
-      }
-    });
+  // the tag's light on the ground round you (a soft pool) and on the plain
+  function tagLight(ctx, t, cool) {
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.translate(TA.X, 4); ctx.scale(1, .11);
+    ctx.fillStyle = E.rad(ctx, 0, 0, 900, [[0, rgba(mixHex(P.halo1, COOL.mid, cool), .4)], [.45, rgba(P.halo1, .1)], [1, rgba(P.halo1, 0)]]); ctx.beginPath(); ctx.arc(0, 0, 900, 0, 6.29); ctx.fill(); ctx.restore();
+    E.castShadow(ctx, YOU.X + 8, 0, 34, 150, Math.PI * .62, .45);
   }
 
-  function cardDraw(ctx, t, fly) {
-    const { x, y, w, h } = CARD;
-    ctx.fillStyle = E.lin(ctx, x, y - h, x + w, y, [[0, mixHex(P.halo1, P.core1, .3)], [1, P.shade0]]);
-    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 10, y - h); ctx.lineTo(x + w - 6, y - h); ctx.lineTo(x + w, y); ctx.closePath(); ctx.fill();
-    ctx.fillStyle = rgba(P.night0, .35); ctx.beginPath(); ctx.moveTo(x + w, y); ctx.lineTo(x + w - 6, y - h); ctx.lineTo(x + w + 26, y - h + 10); ctx.lineTo(x + w + 30, y); ctx.closePath(); ctx.fill();
-    // a candle (gold line drawing) and its flame (breathes)
-    ctx.strokeStyle = rgba(P.shade0, .9); ctx.lineWidth = 2; ctx.strokeRect(x + w * .62, y - h * .62, 8, 22);
-    E.halo(ctx, x + w * .62 + 4, y - h * .7 + Math.sin(t * 7) * .6, 9, .9, P.halo0, P.core0);
-    for (let i = 0; i < 3; i++) {
-      if (fly(i) > 0) continue;
-      ctx.strokeStyle = rgba(P.shade0, .95); ctx.lineWidth = 2.4; ctx.lineCap = 'round'; ctx.beginPath();
-      for (let k = 0; k <= 20; k++) { const u = k / 20, xx = x + 16 + u * (50 - (i % 2) * 14), yy = y - h + 40 + i * 13 + Math.sin(u * 19 + i * 2) * 1.6; k ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy); }
-      ctx.stroke();
+  // ---- the two tags ($1 over you, $2 over the shop) and the gap bracket
+  function tags(ctx, t, cool) {
+    const sw = .05 * Math.sin(Math.PI * span(t, a.cap - .25, a.cap + 1.6)) * (1 - span(t, a.cap + .6, a.cap + 1.6)) + .006 * Math.sin(t * 1.3 + .5);
+    // the hook: a thin stream of dust leaves the tag's lower edge on "the way you think"
+    const emitHook = (ts) => .55 * bump(ts, a.way - .1, 2.2);
+    // 1.07: the number sinks off the face on "cheap", the "Fast." notch (a hard 3-frame drop, then a settle)
+    const sink = smooth(span(t, a.cheap - .15, a.cheap + .9));
+    const notch = 26 * expoOut(span(t, a.fast - .02, a.fast + .1)) * (1 - .35 * smooth(span(t, a.fast + .1, a.fast + .9)));
+    const nearPlate = smooth(span(t, a.fast + .4, a.end - SEAM_HALF));      // converge to the plate's tag (no notch, its sway)
+    const swA = lerp(sw, .012 * Math.sin(t * 1.3), nearPlate), yA = eA + notch * (1 - nearPlate);
+    const coolA = lerp(cool, TAG_PLATE.cool, nearPlate);
+    const emitA = (ts) => Math.max(emitHook(ts), .35 * smooth(span(ts, a.and - 1.2, a.and - .2)));   // steady by the plate (same stream as plateTag)
+    F.tag(ctx, t, TA.X, yA, TA.w, { text: '$1', u: span(t, a.work - .1, a.work + .7), sink, cool: coolA, swing: swA, emit: emitA, seed: 18, thread: 4000,
+      melt: .025 * smooth(span(t, a.way, a.wayE + .6)) * (1 - nearPlate) });
+    // the drop of light that runs off the edge on "Fast."
+    const dq = span(t, a.fast, a.fast + .9);
+    if (dq > 0 && dq < 1) { const by = yA + TA.w * 1.32 + 6, y = by + expoIn(dq) * 900; E.halo(ctx, TA.X + 40, y, 30, .9 * (1 - dq * .5), mixHex(P.halo0, COOL.mid, .5), COOL.core); ctx.fillStyle = COOL.core; ctx.beginPath(); ctx.ellipse(TA.X + 40, y, 7, 10 + 16 * dq, 0, 0, 6.29); ctx.fill(); }
+    // tag B lowers on its thread over the shop on "What you make" (from the dark above the frame)
+    const lb = sineIO(span(t, a.wmake - .5, a.wmake + 1.1));
+    if (lb > 0) {
+      const yB = lerp(eB - 2200, eB, lb) + 6 * Math.sin(t * .9);
+      F.tag(ctx, t, TB.X, yB, TB.w, { text: '$2', u: span(t, a.wmake + .65, a.wmake + 1.35), swing: .004 * Math.sin(t * 1.1 + 2) + .03 * (1 - lb) * Math.sin(t * 3), thread: 4000, glow: .9 });
     }
-  }
-
-  function friendBubble(ctx, t) {
-    const t0 = a.lovely - .12, unroll = a.lovely + .42;
-    if (t < t0 || t > a.doc + 1.6) return;
-    const bx = 1316, by = 352, bw = 214, bh = 82, rr = 30;
-    const u = K.rise(span(t, t0, t0 + .55));
-    const ring = K.roundRectPts(bx, by, bw, bh, rr), path = [...ring, ...E.catmull([[bx, by + rr, 2], [1250, 296, 2], [700, 290, 2], [RULE2_X + 22, 278, 2], [RULE2_X, RULE2_BOT, 2], [RULE2_X, RULE2_TOP, 2]], 14).map((p) => [p[0], p[1]])];
-    const lens = path.slice(1).map((p, k) => Math.hypot(p[0] - path[k][0], p[1] - path[k][1])), tot = lens.reduce((s, v) => s + v, 0), uRing = lens.slice(0, ring.length - 1).reduce((s, v) => s + v, 0) / tot;
-    const iRule = path.length - 3, uRule = lens.slice(0, iRule).reduce((s, v) => s + v, 0) / tot;
-    const go = span(t, unroll, a.doc + .45);
-    if (go <= 0) {
-      // the bubble rises from the friend's head (mask from its own baseline), cream outline, the word in serif
-      ctx.save(); ctx.beginPath(); ctx.rect(bx - 40, by - 30, bw + 80, bh + 70); ctx.clip(); ctx.translate(0, (1 - u) * (bh + 30));
-      ctx.strokeStyle = rgba(P.halo0, .9); ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(bx, by, bw, bh, rr); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(bx + bw * .62, by + bh); ctx.lineTo(bx + bw * .7, by + bh + 26); ctx.lineTo(bx + bw * .76, by + bh); ctx.stroke();
-      E.glowText(ctx, 'Lovely!', bx + bw / 2, by + bh * .68, { size: 46, serif: true, align: 'center' });
+    // the gap: a dotted rule from tag A's apex level across to tag B, a bracket up to B's apex, PROFIT inside (1.03)
+    const gu = smooth(span(t, a.gap - .25, a.gap + .75)), gout = 1 - expoIn(span(t, a.engine + .2, a.engine + .8));
+    if (gu > 0 && gout > 0) {
+      const yA0 = eA - TA.w * 1.32 * .1, yB0 = eB - TB.w * 1.32 * .1, x0 = TA.X + TA.w / 2 + 40, xb = TB.X - TB.w / 2 - 70;
+      ctx.save(); ctx.globalAlpha = gout;
+      ctx.setLineDash([18, 16]); ctx.strokeStyle = rgba(P.halo1, .7); ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(x0, yA0); ctx.lineTo(lerp(x0, xb, gu), yA0); ctx.stroke(); ctx.setLineDash([]);
+      const bu = smooth(span(t, a.gap + .15, a.gap + .85));
+      if (bu > 0) F.rule(ctx, xb, yA0, xb, lerp(yA0, yB0, bu), 1, { w: 6, spark: bu < 1 });
+      if (bu > 0) { ctx.strokeStyle = rgba(P.halo0, .9 * bu); ctx.lineWidth = 5; for (const yy of [yA0, yB0]) { if (yy === yB0 && bu < .98) continue; ctx.beginPath(); ctx.moveTo(xb, yy); ctx.lineTo(xb + 40, yy); ctx.stroke(); } }
+      const pu = F.rise(span(t, a.profit - .2, a.profit + .6));
+      if (pu > 0) F.maskLine(ctx, [['PROFIT', smooth(span(t, a.profit, a.profit + .6))]], xb - 40, (yA0 + yB0) / 2 + 48, 132, pu, { serif: false, weight: 600, align: 'right', col: P.cream });
       ctx.restore();
-    } else {
-      // the word sinks, the outline runs off as a thread and becomes the vertical rule of the quote
-      const sk = expoIn(span(t, unroll, unroll + .4));
-      if (sk < 1) { ctx.save(); ctx.beginPath(); ctx.rect(bx, by, bw, bh); ctx.clip(); E.glowText(ctx, 'Lovely!', bx + bw / 2, by + bh * .68 + sk * 60, { size: 46, serif: true, align: 'center' }); ctx.restore(); }
-      const e = smooth(go), uh = lerp(uRing, 1, e), ut = lerp(0, uRule, smooth(span(t, unroll + .1, a.doc + .55)));
-      K.trailSpan(ctx, path, ut, uh, { w: 2.2, spark: uh < .999 });
     }
-    // after the quote has gone (dish): the rule retracts downward
-    return null;
   }
 
-  function pair(ctx, t) {
-    // the vertical rule stays while the card stands, then shrinks away as the card sinks
-    const ruleOut = expoIn(span(t, a.dish - .1, a.dish + .5));
-    if (t > a.doc + .55 && ruleOut < 1) K.rule(ctx, RULE2_X, RULE2_TOP, RULE2_X, RULE2_BOT, 1, { from: ruleOut, spark: false });
-    const { x, y, size, dy } = PAIR, cool = mixHex(P.cream, P.blue0, .5);
-    const up = K.rise(span(t, a.dipl - .15, a.dipl + .75)), down = 1 - expoIn(span(t, a.easy - .2, a.easy + .35));
-    const glowUp = .35 * smooth(span(t, a.kind - .05, a.kind + .5));
-    if (up * down > 0) K.maskLine(ctx, [['diplomatically ', 1], ['honest', 1]], x, y, size, up * down);
-    if (glowUp > 0 && down > 0) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; E.glowText(ctx, 'diplomatically honest', x, y, { size, serif: true, col: P.halo0, a: glowUp * down }); ctx.restore(); }
-    // the swap: copies of "honest" and "diplomatic" travel on two arcs into the line below
-    const s0 = a.dish - .02, q = span(t, s0, s0 + 1.05), land = s0 + 1.05;
-    const gone = 1 - expoIn(span(t, a.clear - .05, a.clear + .45));
-    if (q > 0 && gone > 0) {
-      const e = quartIO(q);
-      const A0 = [x + swap.w1, y], A1 = [x + swap.dis, y + dy], B0 = [x, y], B1 = [x + swap.dishly, y + dy];
-      const qa = (p0, p1, c, u) => [lerp(lerp(p0[0], c[0], u), lerp(c[0], p1[0], u), u), lerp(lerp(p0[1], c[1], u), lerp(c[1], p1[1], u), u)];
-      const pa = qa(A0, A1, [x + swap.w1 * .35, y + dy * 1.9], e), pb = qa(B0, B1, [x + swap.dishly * .75, y - dy * .55], e);
-      const col = mixHex(mixHex(P.cream, P.halo0, .6), cool, e);
-      if (q < 1) {
-        E.glowText(ctx, 'honest', pa[0], pa[1], { size, serif: true, col });
-        E.glowText(ctx, 'diplomatic', pb[0], pb[1], { size, serif: true, col });
-      } else {
-        // landed: "dis" and "ly" rise from the baseline around the moved words; then a hairline strikes the cool line
-        const fx = K.rise(span(t, land - .05, land + .55));
-        ctx.save(); ctx.beginPath(); ctx.rect(x - 40, y + dy - size * 1.3, 1400, size * 1.65); ctx.clip(); ctx.translate(0, (1 - gone) * size * 1.15);
-        E.glowText(ctx, 'honest', A1[0], A1[1], { size, serif: true, col: cool, glow: false });
-        E.glowText(ctx, 'diplomatic', B1[0], B1[1], { size, serif: true, col: cool, glow: false });
-        ctx.restore();
-        K.maskLine(ctx, [['dis', 0]], x, y + dy, size, fx * gone, { col: cool, glow: false });
-        K.maskLine(ctx, [['ly', 0]], x + swap.dis + swap.hon, y + dy, size, fx * gone, { col: cool, glow: false });
-        const st = smooth(span(t, land + .35, land + .8)) * gone, sw = swap.dishly + swap.dip;
-        if (st > 0) { ctx.strokeStyle = rgba(P.cream, .85); ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x - 6, y + dy - size * .28); ctx.lineTo(x - 6 + (sw + 12) * st, y + dy - size * .3); ctx.stroke(); }
-      }
+  // ---- you: tiny, under your tag; you look up at it in the hook, take the coin, make the thing, then the four tasks
+  function you(ctx, t) {
+    const look = .55 + .35 * sineIO(span(t, a.life - .3, a.life + .7)) - .55 * sineIO(span(t, a.one + .2, a.one + 1.4)) + .25 * sineIO(span(t, a.wmake, a.wmake + 1)) - .25 * sineIO(span(t, a.engine, a.engine + 1))
+      + .35 * sineIO(span(t, a.thinking - .2, a.thinking + .6)) + .3 * sineIO(span(t, a.cheap - .3, a.cheap + .5));
+    // arms: catch the coin (pays you) → hold the growing cube (make) → give it away (sells) → down; tasks: hands in front; thought: right arm up
+    const hold = smooth(span(t, a.pays + .6, a.pays + 1.2)) * (1 - smooth(span(t, cubeRide[0] - .05, cubeRide[0] + .5)));
+    const task = smooth(span(t, a.email - .6, a.email - .1)) * (1 - smooth(span(t, a.thinking - .3, a.thinking + .2)));
+    const up = smooth(span(t, a.thinking - .4, a.thinking + .4));
+    const br = Math.sin(t * 1.6) * .03;
+    const armR = [lerp(lerp(lerp(.16, .75, hold), .6, task), 2.55, up) + br, lerp(lerp(lerp(.1, 2.2, hold), 1.6, task), 2.7, up)];
+    const armL = [lerp(lerp(-.18, -.7, hold), -.5, task) - br, lerp(lerp(-.08, -2.1, hold), -1.4, task)];
+    ctx.save(); ctx.translate(YOU.X, 0); ctx.scale(1, 1 + .008 * Math.sin(t * 1.6));
+    const hands = E.du(ctx, 0, 0, YOU.h, { dir: 1, look: clamp(look), light: 1, armR, armL });
+    ctx.restore();
+    you.hands = { R: [hands.R[0] + YOU.X, hands.R[1]], L: [hands.L[0] + YOU.X, hands.L[1]] };
+  }
+
+  // ---- the cube you make (it grows between your hands on "make something", then rides the road to the shop)
+  function cube(ctx, t) {
+    const g = smooth(span(t, a.make - .2, a.make + .6));
+    if (g <= 0) return;
+    const q = span(t, cubeRide[0], cubeRide[1]); if (q >= 1) return;
+    const e = sineIO(q), x0 = YOU.X + 70, y0 = -118, x1 = SHOP.X - 120, y1 = -150;
+    const x = lerp(x0, x1, e), y = lerp(y0, y1, e) - Math.sin(Math.PI * e) * 160, r = 34 * g * (1 - .3 * smooth(span(q, .8, 1)));
+    E.halo(ctx, x, y, r * 4, .7, P.halo0, P.core1);
+    const p = new Path2D(); p.moveTo(x, y - r); p.lineTo(x + r * .87, y - r * .5); p.lineTo(x + r * .87, y + r * .5); p.lineTo(x, y + r); p.lineTo(x - r * .87, y + r * .5); p.lineTo(x - r * .87, y - r * .5); p.closePath();
+    ctx.fillStyle = P.core0; ctx.fill(p);
+    ctx.fillStyle = P.halo0; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + r * .87, y - r * .5); ctx.lineTo(x + r * .87, y + r * .5); ctx.lineTo(x, y + r); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = P.halo1; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - r * .87, y - r * .5); ctx.lineTo(x - r * .87, y + r * .5); ctx.lineTo(x, y + r); ctx.closePath(); ctx.fill();
+  }
+
+  // ---- the customer: walks from the shop toward you while the disc rises (1.05), stands to your right (1.06)
+  function customer(ctx, t) {
+    const w = span(t, a.ai - .4, a.think + .4); if (t < a.ai - 2) return;
+    const x = lerp(CUST.X0, CUST.X1, sineIO(w)), walking = w > 0 && w < 1;
+    const show = smooth(span(t, a.ai - 1.6, a.ai - .4));       // steps out of the shop door (the door is behind him)
+    const lean = .06 * bump(t, a.customer - .3, 1.2);
+    ctx.save(); ctx.globalAlpha = show;
+    E.person(ctx, x, 0, CUST.h, { dir: -1, light: -1, walk: walking ? t * 5.2 : undefined, lean, armR: walking ? undefined : [.35 + .4 * bump(t, a.customer, 1.4), .6], armL: walking ? undefined : [-.2, -.3], rim: mixHex(P.blue0, P.halo1, .4) });
+    ctx.restore();
+  }
+
+  // ---- the four tasks: small cards of light rise from your hands on their words, settle in an arc, fold into one thought
+  function cards(ctx, t) {
+    if (!you.hands) return;
+    const keys = [a.email, a.contract, a.mistake, a.customer];
+    const slots = [[YOU.X - 330, -230], [YOU.X - 200, -380], [YOU.X + 30, -410], [YOU.X + 300, -330]];
+    const thought = [YOU.X + 50, -330], fold = span(t, a.thinking - .35, a.thinking + .75), cs = 108;
+    keys.forEach((k, i) => {
+      const u = span(t, k - .45, k + .35); if (u <= 0 || fold >= 1) return;
+      const h0 = i < 2 ? you.hands.L : you.hands.R, e = expoOut(u), ef = sineIO(fold);
+      let x = lerp(h0[0], slots[i][0], e), y = lerp(h0[1], slots[i][1], e) - Math.sin(Math.PI * u) * 40;
+      x = lerp(x, thought[0], ef); y = lerp(y, thought[1], ef);
+      const s = cs * lerp(.2, 1, e) * lerp(1, .15, ef), bob = 4 * Math.sin(t * 1.3 + i * 1.7) * (1 - ef);
+      taskCard(ctx, t, i, x, y + bob, s, 1 - smooth(span(fold, .7, 1)));
+    });
+    // the thought (a warm point of light) appears where the cards meet; its thread runs up to your tag
+    const th = smooth(span(fold, .55, 1));
+    if (th > 0) {
+      const br = 1 + .08 * Math.sin(t * 2.2);
+      E.halo(ctx, thought[0], thought[1], 120 * th * br, .9, P.halo0, P.core0);
+      ctx.fillStyle = P.core0; ctx.beginPath(); ctx.arc(thought[0], thought[1], 14 * th * br, 0, 6.29); ctx.fill();
+      const tu = smooth(span(t, a.thinking + .35, a.thinking + 1.25)), tb = TAG_BOT + 4;
+      if (tu > 0) F.trailSpan(ctx, [[thought[0], thought[1] - 16], [thought[0] - 30, (thought[1] + tb) / 2], [TA.X + 60, tb]], 0, tu, { w: 3.2, spark: tu < 1 });
     }
+  }
+  function taskCard(ctx, t, i, x, y, s, al) {
+    if (al <= 0 || s < 2) return;
+    ctx.save(); ctx.globalAlpha *= al; ctx.translate(x, y);
+    const w = s, h = s * (i === 3 ? .72 : i === 0 ? .7 : 1.25), p = new Path2D();
+    if (i === 3) { p.roundRect(-w / 2, -h / 2, w, h, h * .35); p.moveTo(-w * .18, h / 2 - 1); p.lineTo(-w * .32, h / 2 + h * .32); p.lineTo(-w * .02, h / 2 - 1); }
+    else p.roundRect(-w / 2, -h / 2, w, h, w * .06);
+    E.glowFill(ctx, p, w * .3, .45, P.halo0);
+    ctx.fillStyle = E.rad(ctx, 0, -h * .1, w, [[0, P.core0], [.6, P.core1], [1, P.halo0]]); ctx.fill(p);
+    ctx.strokeStyle = mixHex(P.shade0, P.night1, .3); ctx.lineWidth = w * .04; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    if (i === 0) { ctx.beginPath(); ctx.moveTo(-w * .42, -h * .4); ctx.lineTo(0, h * .1); ctx.lineTo(w * .42, -h * .4); ctx.stroke(); }                 // envelope
+    if (i === 1) { for (let k = 0; k < 4; k++) { ctx.beginPath(); ctx.moveTo(-w * .32, -h * .32 + k * h * .13); ctx.lineTo(w * (k === 3 ? .1 : .32), -h * .32 + k * h * .13); ctx.stroke(); }
+      ctx.beginPath(); for (let k = 0; k <= 12; k++) { const xx = -w * .3 + k * w * .05, yy = h * .3 + Math.sin(k * 1.4) * h * .03; k ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy); } ctx.stroke(); }  // contract + signature
+    if (i === 2) { for (let k = 0; k < 4; k++) { ctx.beginPath(); ctx.moveTo(-w * .32, -h * .3 + k * h * .18); ctx.lineTo(w * .32, -h * .3 + k * h * .18); ctx.stroke(); }
+      const ru = smooth(span(t, a.mistake + .05, a.mistake + .6)); ctx.strokeStyle = P.halo1; ctx.lineWidth = w * .05; ctx.beginPath(); ctx.ellipse(w * .08, -h * .3 + 2 * h * .18, w * .2, h * .09, 0, -1.2, -1.2 + 6.3 * ru); ctx.stroke(); }  // the ringed mistake
+    if (i === 3) { for (let k = 0; k < 2; k++) { ctx.beginPath(); ctx.moveTo(-w * .3, -h * .14 + k * h * .3); ctx.lineTo(w * (k ? .1 : .3), -h * .14 + k * h * .3); ctx.stroke(); } }     // the speech bubble
+    ctx.restore();
+  }
+
+  // ---- the workshop (the employer): saw-tooth roof, a big warm window, a door the coin comes out of
+  function workshop(ctx, t) {
+    const { w, h } = WORK, x0 = -w / 2, glow = .55 + .15 * bump(t, coinPay[0] - .3, 1.2);
+    const body = new Path2D(); body.moveTo(x0, 0); body.lineTo(x0, -h);
+    for (let k = 0; k < 3; k++) { const xa = x0 + k * w / 3; body.lineTo(xa + w / 3 * .78, -h - 150); body.lineTo(xa + w / 3, -h - 150); body.lineTo(xa + w / 3, -h); }
+    body.lineTo(x0 + w, 0); body.closePath();
+    ctx.fillStyle = E.lin(ctx, x0, 0, x0 + w, 0, [[0, P.night1], [.6, mixHex(P.night1, P.ind2, .5)], [1, P.ind1]]); ctx.fill(body);
+    ctx.strokeStyle = rgba(P.blue0, .8); ctx.lineWidth = 8; ctx.stroke(body);
+    for (let k = 0; k < 3; k++) { const xa = x0 + k * w / 3; ctx.fillStyle = rgba(P.halo1, .55 * glow); ctx.fillRect(xa + w / 3 * .8, -h - 140, w / 3 * .17, 130); }   // north lights in the roof teeth
+    const win = new Path2D(); win.rect(x0 + 70, -h + 90, w * .52, h * .48);
+    E.glowFill(ctx, win, 60, .45 * glow, P.halo0);
+    ctx.fillStyle = E.lin(ctx, 0, -h + 90, 0, -h + 90 + h * .48, [[0, mixHex(P.halo0, P.core1, .4)], [1, P.halo1]]); ctx.globalAlpha = .55 + .45 * glow; ctx.fill(win); ctx.globalAlpha = 1;
+    ctx.strokeStyle = P.night1; ctx.lineWidth = 9; for (let k = 1; k < 4; k++) { ctx.beginPath(); ctx.moveTo(x0 + 70 + k * w * .13, -h + 90); ctx.lineTo(x0 + 70 + k * w * .13, -h + 90 + h * .48); ctx.stroke(); }
+    ctx.fillStyle = mixHex(P.night0, P.halo1, .25 * bump(t, coinPay[0] - .4, 1)); ctx.fillRect(x0 + w - 220, -230, 130, 230);    // the door (warms as the coin comes out)
+  }
+
+  // ---- the shop: a low front with an awning and a lit display window (the cube goes in, the coin comes out)
+  function shop(ctx, t) {
+    const { w, h } = SHOP, x0 = -w / 2, inn = bump(t, cubeRide[1] - .2, 1.2), out = bump(t, runT[0] - .5, 1.2);
+    const body = new Path2D(); body.rect(x0, -h, w, h);
+    ctx.fillStyle = E.lin(ctx, x0, 0, x0 + w, 0, [[0, P.ind1], [.5, mixHex(P.night1, P.ind2, .5)], [1, P.night1]]); ctx.fill(body);
+    ctx.strokeStyle = rgba(P.blue0, .8); ctx.lineWidth = 8; ctx.stroke(body);
+    // the awning: flat teeth
+    ctx.fillStyle = mixHex(P.ind2, P.blue1, .4); ctx.beginPath(); ctx.moveTo(x0 - 30, -h + 10); ctx.lineTo(x0 + w + 30, -h + 10); ctx.lineTo(x0 + w + 30, -h + 60);
+    for (let k = 8; k >= 0; k--) { const xx = x0 - 30 + k * (w + 60) / 8; ctx.lineTo(xx + (w + 60) / 16, -h + 92); ctx.lineTo(xx, -h + 60); }
+    ctx.closePath(); ctx.fill();
+    const win = new Path2D(); win.rect(x0 + 60, -h + 130, w * .55, h * .5);
+    const g = .55 + .35 * inn + .25 * out;
+    E.glowFill(ctx, win, 60, .5 * g, P.halo0);
+    ctx.fillStyle = E.lin(ctx, 0, -h + 130, 0, -h + 130 + h * .5, [[0, mixHex(P.halo0, P.core1, .5)], [1, P.halo1]]); ctx.globalAlpha = Math.min(1, .5 + .5 * g); ctx.fill(win); ctx.globalAlpha = 1;
+    // goods on the shelf: small cubes (the things people make)
+    for (let k = 0; k < 4; k++) { ctx.fillStyle = rgba(P.shade0, .8); ctx.fillRect(x0 + 90 + k * 80, -h + 130 + h * .5 - 46, 46, 46); }
+    ctx.fillStyle = mixHex(P.night0, P.halo1, .2 * out); ctx.fillRect(x0 + w - 170, -230, 110, 230);
   }
 }
