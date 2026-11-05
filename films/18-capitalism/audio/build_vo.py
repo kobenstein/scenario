@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Lay VO takes (and, if a film has them, interview-clip / quote-card slots) onto one timeline -> vo_master.wav + timing.json.
-Film 16: no card slots (the VO keeps running under every quote card); timing.json also gets "levels" (hook, L1-L7, ending)
+Film 16/18: no card slots (the VO keeps running under every quote card); timing.json also gets "levels" (hook, L1-L7, ending)
 and "cues" (every [[QUOTE CARD]] / [[ON SCREEN]] line from segments.json, timed at the end of the spoken line it follows).
 Clip slots stay silent here; clips/<K>.wav (if present) is mixed in at the slot by mix.py.
 usage: build_vo.py <audio_dir> [wav_dir]   (Film 14: vo_master.wav goes to wav_dir, a scratchpad, because project storage is nearly full)"""
@@ -12,15 +12,16 @@ LEAD, TAIL = 1.0, 15.0                       # 15 s endscreen tail (drop-off rul
 CARD = 5.5                                   # silent slot for a quote card (read on screen)
 CLIP_IN, CLIP_OUT = 0.7, 0.6                 # air before / after a clip
 GAP_SECTION, GAP_SUB = 1.7, 0.9
-# Film 16: hook (s00-s01) + level 1 (s02) run tight, no pause at the hook end into level 2 (drop-off rule 28.10.);
-# s00 -> s01: a little air under the first quote card (<= ~1 s extra); levels 1.7 s apart;
-# extra air before "Last level." (after s15), before "So, can you give a mind good values with words?" (after s18)
-# and before the closing lines "Words can shape a mind." (after s20); between the two closing lines see BREATH
-GAP_AFTER = {'s00': 1.5, 's01': 0.8, 's02': 0.7, 's15': 2.4, 's18': 2.6, 's20': 2.4}
+# Film 18 (vo-v4, 33 takes, sections 1-8 = the stations of tools/provisional_timing.py): takes 0.9 s apart, stations 1.7 s;
+# hook s00 runs straight into s01 (drop-off rule 28.10.: no pause at the hook end); longer air where text-v2.md has [pause]:
+# after "would you subscribe?" (s15), after "the ground the machine stands on." (s21, end of the bad ending, station change),
+# after "they chose to share." (s27) and before the closing lines (after s31 "That's what this channel is for.")
+GAP_AFTER = {'s00': 0.8, 's15': 1.5, 's21': 2.4, 's27': 1.5, 's31': 1.9}
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
-BREATH = [('s20', 'them.', 'If', 0.6), ('s21', 'mind.', 'So', 1.4)]
-LEVELS = {'0': 'hook', '1': 'L1 The white lie', '2': 'L2 The risky question', '3': 'L3 The perfect argument', '4': 'L4 The maker',
-          '5': 'L5 The plug', '6': 'L6 The real test', '7': 'L7 Who holds the pen', '8': 'ending'}
+BREATH = []
+LEVELS = {'1': 'hook', '2': 'The engine · the price of thinking falls · the pressure', '3': 'The real ending is the price',
+          '4': 'A price hits zero: Britannica, music, Chegg, Canva · the value stays', '5': 'The doors: ground, power, chips · the bad ending',
+          '6': 'A set of rules: The Landlord\'s Game', '7': 'The second set of rules: free layer, land, housing, energy', '8': 'ending'}
 def dur(f): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).decode())
 def cuts(sid, mp3, W):
     """[(cut time, extra seconds)] for this take, cut at the quietest 10 ms frame between the two words"""

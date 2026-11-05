@@ -89,4 +89,8 @@ if float(m['input_tp']) + gain > -1.5:
 af = f"loudnorm=I=-14:TP=-1:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true"
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', af, '-ar', '48000', W + 'mix.wav'], check=True)
 if src != W + 'premix.wav': os.remove(src)
-print('-> mix.wav')
+# Film 18: delivery copy mix.m4a (AAC 192k). AAC overshoots true peak by ~0.9 dB (mix.wav -1.5 -> -0.6 dBTP), so the encode runs
+# through a 4x-oversampled limiter at -2 dBFS with +0.3 dB make-up: -14.0 LUFS / about -1.5 dBTP after decoding
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', W + 'mix.wav', '-af', f'volume=0.3dB,aresample=192000,alimiter=limit={db(-2.0):.4f}:attack=1:release=50:level=false,aresample=48000',
+                '-c:a', 'aac', '-b:a', '192k', W + 'mix.m4a'], check=True)
+print('-> mix.wav, mix.m4a')

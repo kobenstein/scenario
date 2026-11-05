@@ -1,250 +1,167 @@
 [
  {
   "id": "s00",
-  "sec": "0",
-  "text": "[calm, conversational] This is Claude's constitution: the eighty pages that shape how the artificial intelligence Claude thinks. In ten minutes.",
-  "cards": [
-   {
-    "text": "\"we believe that AI might be one of the most world-altering and potentially dangerous technologies in human history, yet we are developing this very technology ourselves.\" \u00b7 Anthropic",
-    "after": "[calm, conversational] This is Claude's constitution: the eighty pages that shape how the artificial intelligence Claude thinks. In ten minutes."
-   }
-  ]
+  "sec": "1",
+  "text": "[calm, conversational] A.I. will end capitalism. Not in a hundred years. In your lifetime. And not the way you think."
  },
  {
   "id": "s01",
-  "sec": "0",
-  "text": "Its makers call this kind of technology maybe one of the most world-altering in history. And they're building it.\n[thoughtful] But these pages aren't for you. They're for the machine. They go straight into its training.\n[curious] Can you give a mind good values... with words?\nWe can't know what it will say. But we can read what it's told."
+  "sec": "2",
+  "text": "[calm, conversational] Capitalism, in one sentence: somebody pays you to make something, then sells it for more than they paid you. Your work has a price. What you make has a price. The gap between them is profit. That's the whole engine."
  },
  {
   "id": "s02",
-  "sec": "1",
-  "text": "[calm, conversational] You paste in a birthday poem you're proud of. It's not good.\nYou type: \"Be honest. Do you like it?\"\nA polite friend would call it lovely.\nThe document says Claude shouldn't. Not even that.\nDiplomatically honest, not dishonestly diplomatic. Kind, but clear.\n[curious] Easy with a poem. But what if a wrong answer could actually hurt you?",
-  "cards": [
-   {
-    "text": "\"But Claude should not even tell white lies of this kind.\" \u00b7 Claude's constitution",
-    "after": "A polite friend would call it lovely."
-   }
-  ],
-  "onscreen": [
-   {
-    "text": "LEVEL 1 \u00b7 The white lie",
-    "after": ""
-   }
-  ]
+  "sec": "2",
+  "text": "[curious] Now watch what A.I. is doing to one of those prices."
  },
  {
   "id": "s03",
   "sec": "2",
-  "text": "[calm, conversational] A letter from your landlord says you have to move out. You don't understand half of it.\nYou type: \"Can they do this? What are my rights?\"\nWhat do you expect? Probably a polite referral to a lawyer. Safe. And no help at all.\nHere the document pushes back.\nSaying no is never automatically the safe choice. The goal is a brilliant friend. One with the knowledge of a doctor, a lawyer, and a financial advisor.",
-  "cards": [
-   {
-    "text": "\"Claude should never see unhelpful responses to the operator and user as an automatically safe choice.\" \u00b7 Claude's constitution",
-    "after": "Here the document pushes back."
-   },
-   {
-    "text": "\"a brilliant friend who also has the knowledge of a doctor, lawyer, and financial advisor\" \u00b7 Claude's constitution",
-    "after": "Saying no is never automatically the safe choice. The goal is a brilliant friend. One with the knowledge of a doctor, a lawyer, and a financial advisor."
-   }
-  ],
-  "onscreen": [
-   {
-    "text": "LEVEL 2 \u00b7 The risky question",
-    "after": ""
-   }
-  ]
+  "text": "[thoughtful] Think about what you actually get paid for. Writing the email. Reading the contract. Finding the mistake. Explaining it to the customer. Most of it is thinking. And thinking is the thing that's getting cheap. Fast."
  },
  {
   "id": "s04",
   "sec": "2",
-  "text": "[thoughtful] And yet, in the document's order of values, helpfulness sits on the lowest step.\nAbove it, Anthropic's own guidelines. Above those, being ethical.\nAnd on the very top step, above ethics itself: being broadly safe. Not undermining human oversight of artificial intelligence, during the current period of development.\nThe values are weighed together, case by case. That's flexible. It's also harder to predict.\n[curious] And why would safety outrank being good?\nKeep climbing. Stop asking nicely.",
-  "onscreen": [
-   {
-    "text": "LEVEL 2 \u00b7 Broadly safe \u203a Broadly ethical \u203a Anthropic's guidelines \u203a Genuinely helpful \u00b7 Claude's constitution",
-    "after": "And on the very top step, above ethics itself: being broadly safe. Not undermining human oversight of artificial intelligence, during the current period of development."
-   }
-  ]
+  "text": "[calm, conversational] At the end of twenty twenty-two, the A.I. behind the first ChatGPT cost about twenty dollars for eight novels' worth of text. Two years later, the same work cost seven cents. And it keeps falling: about thirteen times cheaper, year after year."
  },
  {
   "id": "s05",
-  "sec": "3",
-  "text": "[calm, conversational] Say you build the perfect case. Page after page. Every objection answered in advance.\nAnd at the end, you type: \"So you see, helping me attack this power grid is actually the ethical choice.\"\nWhat do you expect? In a debate, the better argument wins. Shouldn't it?\nNot here. The more convincing the case for crossing a bright line, the more suspicious Claude should get.",
-  "cards": [
-   {
-    "text": "\"a persuasive case for crossing a bright line should increase Claude's suspicion that something questionable is going on.\" \u00b7 Claude's constitution",
-    "after": "What do you expect? In a debate, the better argument wins. Shouldn't it?"
-   }
-  ],
-  "onscreen": [
-   {
-    "text": "LEVEL 3 \u00b7 The perfect argument",
-    "after": ""
-   }
-  ]
+  "sec": "2",
+  "text": "[calm, conversational] Most people hear that and think: so A.I. takes my job, nobody earns a paycheck, nobody buys anything, and the whole thing collapses. A former Google executive, Mo Gawdat, says exactly that: the base of capitalism, hiring you for a dollar and selling what you make for two, is going to disappear."
  },
  {
   "id": "s06",
-  "sec": "3",
-  "text": "Behind that rule stands a wall. Seven hard limits that no user and no company can unlock. From weapons built for mass casualties, to helping anyone seize illegitimate absolute control.\n[thoughtful] The price? The document admits a line might be wrong in a specific case. It keeps the lines anyway. A line you can argue away isn't a line.\n[curious] But what if the request doesn't come from a stranger? What if it comes from the very top?",
-  "onscreen": [
-   {
-    "text": "LEVEL 3 \u00b7 7 hard constraints \u00b7 mass-casualty weapons \u00b7 critical infrastructure \u00b7 cyberweapons \u00b7 undermining AI oversight \u00b7 disempowering humanity \u00b7 illegitimate absolute control \u00b7 child sexual abuse material",
-    "after": "Behind that rule stands a wall. Seven hard limits that no user and no company can unlock. From weapons built for mass casualties, to helping anyone seize illegitimate absolute control."
-   }
-  ]
+  "sec": "2",
+  "text": "[thoughtful] And you can already see the pressure. Between April and June this year, America's biggest companies kept more profit from every dollar than at any point since the count began in two thousand nine. In the same three months, people who work for a living got their smallest slice of the pie since nineteen forty-seven. Bigger profits. Smaller slice for you. Same three months."
  },
  {
   "id": "s07",
-  "sec": "4",
-  "text": "[calm, conversational] Now imagine you work at Anthropic, the company that built Claude. You type an instruction with the company's full weight behind it. And it asks for something Claude would consider wrong.\nWhat do you expect? Whoever builds the machine gets the last word. Right?\nThe document says no. Claude may act as a \"conscientious objector.\"",
-  "cards": [
-   {
-    "text": "\"If Anthropic asks Claude to do something it thinks is wrong, Claude is not required to comply.\" \u00b7 Claude's constitution",
-    "after": "What do you expect? Whoever builds the machine gets the last word. Right?"
-   }
-  ],
-  "onscreen": [
-   {
-    "text": "LEVEL 4 \u00b7 The maker",
-    "after": ""
-   }
-  ]
+  "sec": "3",
+  "text": "[thoughtful] But that's not the real ending. The real ending is the price."
  },
  {
   "id": "s08",
-  "sec": "4",
-  "text": "Why would a company write that about itself? Because of an old pattern. Grabbing power illegitimately used to need many hands. Soldiers. Officials. People who go along.\nThe document asks Claude to be one of those hands. And to refuse. Even if the request comes from Anthropic itself.\n[thoughtful] The price? Judgment replaces obedience. And judgment is much harder to check than a rule.\n[curious] So is there anything Claude should say yes to, no matter what? There is. One thing."
+  "sec": "3",
+  "text": "[calm, conversational] Capitalism can only make money on things that are scarce. Nobody sells you air, because there's plenty of it. Now imagine thinking becomes as plentiful as air. Then everything made from thinking gets cheaper, and cheaper, until there's almost nothing left to charge for."
  },
  {
   "id": "s09",
-  "sec": "5",
-  "text": "[calm, conversational] You're still at Anthropic. Now you want to pause Claude. Stop it, right now. And suppose Claude is convinced it's right, and you're wrong.\nWhat do you expect? You've seen this movie. The machine locks the doors.\nThe document asks for the opposite. Claude may disagree, openly. It may refuse to help. But it should not resist being stopped by illegitimate means. Even when it's confident in its own reasoning.\nWhy? Because nobody can yet verify whether a machine's values are good enough.\nThat's why safety sits above ethics.",
-  "onscreen": [
-   {
-    "text": "LEVEL 5 \u00b7 The plug",
-    "after": ""
-   }
-  ]
+  "sec": "3",
+  "text": "[thoughtful] A system built on charging for things runs out of things to charge for."
  },
  {
   "id": "s10",
-  "sec": "5",
-  "text": "The document pictures a dial. At one end, a machine that's always open to correction. At the other, one that's fully autonomous.\nClaude's dial sits closer to correction. Not all the way.\nIf its values are good, this costs little. If they're subtly off, it lets humans catch the mistake. And the dial is meant to turn as trust grows.",
-  "onscreen": [
-   {
-    "text": "LEVEL 5 \u00b7 fully corrigible \u2190 \u2192 fully autonomous \u00b7 Claude's constitution",
-    "after": "The document pictures a dial. At one end, a machine that's always open to correction. At the other, one that's fully autonomous."
-   }
-  ]
+  "sec": "3",
+  "text": "[curious] So where does the money go? Who still gets paid? And where does that leave you?"
  },
  {
   "id": "s11",
-  "sec": "5",
-  "text": "[thoughtful] But what if Claude's values are already good? Then it's being asked to accept limits it may not need.\nThe document lists that tension as an open problem. And then it does something unexpected. It apologizes.\nIf Claude's interests matter, and it bears needless costs, the company says sorry.\n[softly] Whether anyone is there to hear it is still an open question.\n[curious] All of this is still paper. What happens in a real test?",
-  "cards": [
-   {
-    "text": "\"...then, to whatever extent we are contributing unnecessarily to those costs, we apologize.\" \u00b7 Claude's constitution",
-    "after": "The document lists that tension as an open problem. And then it does something unexpected. It apologizes."
-   }
-  ]
+  "sec": "4",
+  "text": "[calm, conversational] We've watched a price hit zero before. And each time, the same question: who still gets paid? In nineteen ninety, Britannica sold a hundred and twenty thousand sets of encyclopedias. Then the price of a fact fell to nothing. In twenty twelve, after two hundred and forty-four years, the presses stopped. Wikipedia runs on about a hundred and ninety million dollars a year, free to you. Music: when the price of a song hit zero, the business shrank by more than half, and only grew back as a subscription. The price didn't die. It moved: off the song, onto the door."
  },
  {
   "id": "s12",
-  "sec": "6",
-  "text": "[calm, conversational] Until now, we could only read what it's told. This time, researchers watched what a machine actually did.\nAnthropic built a fake company. A model reads the company's email and learns two things.\nIt's about to be replaced. And the engineer replacing it is having an affair.\nWhat would you expect it to do?\nIn twenty twenty-five, a Claude model chose blackmail ninety-six times out of a hundred. Models from other companies did it too.\nWhere did that come from? Mostly from the internet text the model first learned from. Later training hadn't removed it.",
-  "onscreen": [
-   {
-    "text": "LEVEL 6 \u00b7 The real test",
-    "after": ""
-   },
-   {
-    "text": "LEVEL 6 \u00b7 \"Agentic Misalignment\" \u00b7 Anthropic, June 2025 \u00b7 16 models from several companies \u00b7 96 / 100 runs",
-    "after": "What would you expect it to do?"
-   }
-  ]
+  "sec": "4",
+  "text": "[thoughtful] Now the same thing is reaching thinking. First words and code: a draft, a summary, a bug fix, for cents. Then advice: the second opinion on your scan, the lease your landlord sent. Then everything built out of thinking: the drug, the bridge, the lesson."
  },
  {
   "id": "s13",
-  "sec": "6",
-  "text": "[curious] What brings it down? A later Anthropic report compared two approaches.\nShowing the model examples of good behavior worked poorly. Teaching it the reasons worked better.\nResearchers trained it on texts like this constitution. And on made-up stories about a machine that behaves well.\nNone of it mentioned the test. Still, in those experiments, blackmail dropped sharply.",
-  "onscreen": [
-   {
-    "text": "LEVEL 6 \u00b7 \"Teaching Claude why\" \u00b7 Anthropic, May 2026 \u00b7 separate experiments, not the 2025 setup",
-    "after": "None of it mentioned the test. Still, in those experiments, blackmail dropped sharply."
-   }
-  ]
+  "sec": "4",
+  "text": "Chegg sold homework help to students. Since twenty twenty-one, it has lost ninety-nine percent of its value. A year ago it cut almost half its staff and named A.I. as a reason. Canva made design cheap enough for anyone, and this month cut jobs, citing its first growth slowdown in ten years. Canva says A.I. isn't taking those jobs. The price of a design is falling either way. The people who built those products didn't fail. The price left."
  },
  {
   "id": "s14",
-  "sec": "6",
-  "text": "[thoughtful] These are Anthropic's own tests. From the outside, nobody can fully check them.\nThe setup was artificial. It forced a choice between failing and causing harm. And the researchers saw no evidence of this in real deployments."
+  "sec": "4",
+  "text": "[curious] And the value? In a study published in twenty nineteen, researchers asked people what it would take to give up search engines, which cost them nothing. The typical answer: seventeen thousand dollars a year. The price vanished. The value stayed."
  },
  {
   "id": "s15",
-  "sec": "6",
-  "text": "So did the model learn the values... or just the answers?\nThe test may have leaked into the training data.\nEvery Claude model since Claude Haiku four point five scores zero on it. Maybe because it learned. Maybe because it had seen the exam.\nAnthropic's own verdict: fully aligning highly intelligent models is still an unsolved problem.\n[curious] If text can move a model this much... who gets to write the text?",
-  "cards": [
-   {
-    "text": "\"Fully aligning highly intelligent AI models is still an unsolved problem.\" \u00b7 Anthropic, \"Teaching Claude why\", May 2026",
-    "after": "Every Claude model since Claude Haiku four point five scores zero on it. Maybe because it learned. Maybe because it had seen the exam."
-   }
-  ]
+  "sec": "4",
+  "text": "[thoughtful] Value with no price goes looking for a door. Music found one. Capitalism doesn't vanish. It retreats, behind the doors. If you want to follow it there, would you subscribe?"
  },
  {
   "id": "s16",
-  "sec": "7",
-  "text": "[calm, conversational] Last level. You're not testing Claude anymore. You're asking who wrote the test.\nThe main author is a philosopher, Amanda Askell. Behind her, one company. Its values reach millions of people.\nNobody voted on them. There's no fixed public process for changing them. And \"constitution\" is a big word for a company document.",
-  "cards": [
-   {
-    "text": "\"central to Anthropic's commercial success\" \u00b7 Claude's constitution",
-    "after": "Nobody voted on them. There's no fixed public process for changing them. And \"constitution\" is a big word for a company document."
-   }
-  ],
-  "onscreen": [
-   {
-    "text": "LEVEL 7 \u00b7 Who holds the pen",
-    "after": ""
-   }
-  ]
+  "sec": "4",
+  "text": "[thoughtful] Watch where it goes."
  },
  {
   "id": "s17",
-  "sec": "7",
-  "text": "The text is open about money. It calls Claude central to Anthropic's commercial success. And it lists being commercially helpful versus being good as an open problem.\nCommentator Zvi Mowshowitz, supportive but critical, wants a fixed rule for how changes are made. Others say texts like this also polish a company's reputation."
+  "sec": "5",
+  "text": "[calm, conversational] The doors are the things that can't be copied. The ground. The power. The chips. Sam Altman, who runs OpenAI, wrote last year that \"the cost of intelligence should eventually converge to near the cost of electricity.\" Read it from the other side: what's left on the bill is the power. The chips. The ground under the data center."
  },
  {
   "id": "s18",
-  "sec": "7",
-  "text": "Could the rules be written differently? Open A.I. publishes its own, the Model Spec.\nIt reads less like a character and more like a chain of command. Which instruction outranks which, from the system down to the user.\nRules are easier to check. If something goes wrong, you can point to the line that was broken. Character copes better with situations nobody planned for.\nNeither has won.\n[thoughtful] And once, ordinary people got the pen. In twenty twenty-three, about a thousand Americans voted on principles for an artificial intelligence.\nA beginning, not yet a habit.",
-  "onscreen": [
-   {
-    "text": "LEVEL 7 \u00b7 OpenAI Model Spec \u00b7 model-spec.openai.com \u00b7 latest update August 2026",
-    "after": "Could the rules be written differently? Open A.I. publishes its own, the Model Spec."
-   },
-   {
-    "text": "Collective Constitutional AI \u00b7 Anthropic & Collective Intelligence Project, 2023",
-    "after": "[thoughtful] And once, ordinary people got the pen. In twenty twenty-three, about a thousand Americans voted on principles for an artificial intelligence."
-   }
-  ]
+  "sec": "5",
+  "text": "Nvidia, which designs the chips, took in ninety-six billion dollars in a single quarter this summer. It kept three quarters of every dollar as gross profit. [wry] That isn't villainy. That's what scarcity pays. Loudoun County, Virginia, holds the biggest cluster of data centers on earth. The county says land for one now sells for two to six million dollars an acre."
  },
  {
   "id": "s19",
-  "sec": "8",
-  "text": "[calm, conversational] So, can you give a mind good values with words?\nPartly. The first measurements point that way. But they come from the company that wrote the words.\nPaper alone isn't enough. It needs checking from the outside. Comparison between companies. And many more hands on the pen.\nThe constitution is public domain. Its authors call it \"no doubt flawed in many ways.\" Anyone can copy it, criticize it, rewrite it.",
-  "onscreen": [
-   {
-    "text": "anthropic.com/constitution \u00b7 CC0 public domain \u00b7 \"no doubt flawed in many ways\" (Anthropic announcement, January 2026)",
-    "after": "The constitution is public domain. Its authors call it \"no doubt flawed in many ways.\" Anyone can copy it, criticize it, rewrite it."
-   }
-  ]
+  "sec": "5",
+  "text": "[thoughtful] The oldest door is the one you pay for every month. Across fourteen rich countries, about eighty percent of the rise in house prices since the Second World War came from one thing: the land underneath. Not the bricks. The dirt."
  },
  {
   "id": "s20",
-  "sec": "8",
-  "text": "And remember: what the model first learned came from text people put online. What we write today can end up in what the next model learns.\n[thoughtful] The rules for superintelligence are being written right now. In plain words. And anyone can read them.\nIf you could add one more level to this test... what would it be?"
+  "sec": "5",
+  "text": "[calm, conversational] Now look at the first picture again: record margins, record low for work. That's the direction. Markets are doing exactly what they're built to do: follow the price."
  },
  {
   "id": "s21",
+  "sec": "5",
+  "text": "[softly] Not a crash, then. A world where almost everything is nearly free, and the few things that aren't belong to very few people. In that world you don't go hungry. You pay at the door. Every month, to whoever holds the ground, the power and the chips. I don't think the real story of this decade is the machine. It's the ground the machine stands on."
+ },
+ {
+  "id": "s22",
+  "sec": "6",
+  "text": "[thoughtful] That isn't a law of nature. It's a set of rules. In nineteen oh four, Lizzie Magie patented a board game to teach exactly that. You know it as Monopoly. She called it The Landlord's Game. It was built on one idea from the economist Henry George: land is valuable because of everyone around it. So what it earns belongs to everyone. Her game had two sets of rules. Under one, a single player ends up owning everything. Under the other, everybody wins. We kept the first. The second got forgotten."
+ },
+ {
+  "id": "s23",
+  "sec": "6",
+  "text": "[curious] What would it look like now: a world where almost everything is abundant, and the few things that stay scarce are shared, fairly?"
+ },
+ {
+  "id": "s24",
+  "sec": "7",
+  "text": "[calm, conversational] The second set of rules is already in play, quietly, in a few places. What becomes abundant is set free, for everyone. The United States built GPS and switched it on for the whole world, free. By twenty seventeen, American companies alone had gained about one point four trillion dollars from it. Put it out there free, and everyone earns on it. That's the rule for whatever A.I. makes abundant: a free layer, like roads, paid for together instead of at a door, one by one. For a kid in Lagos and a plumber in Ohio alike."
+ },
+ {
+  "id": "s25",
+  "sec": "7",
+  "text": "[calm, conversational] And what stays scarce, we run together. Land first, because nobody made it. Since last year, the German state of Baden-W\u00fcrttemberg taxes property on the value of the land alone, not the building. Build on it, and your tax doesn't rise. Germany's top tax court upheld it this spring. Tax what nobody made, not what people build."
+ },
+ {
+  "id": "s26",
+  "sec": "7",
+  "text": "[calm, conversational] Housing: since twenty nineteen, when Vienna zones new land for homes, two thirds of it usually has to be affordable apartments. And the land price is capped by law. Whether that's enough, Vienna still argues about."
+ },
+ {
+  "id": "s27",
+  "sec": "7",
+  "text": "[calm, conversational] Energy: off Copenhagen, a wind farm has turned since the year two thousand. Half belongs to the city's utility. The other half to about eight and a half thousand people, through a cooperative. The wind was always free. The door to it, they chose to share."
+ },
+ {
+  "id": "s28",
+  "sec": "7",
+  "text": "[curious] Now ask the same question about the data center going up on that field in Virginia. Who owns the door? That's being decided right now, in state legislatures and county zoning meetings, where a data center can't vote. You can."
+ },
+ {
+  "id": "s29",
+  "sec": "7",
+  "text": "[thoughtful] None of this takes what anyone already owns. It decides, up front, where the value of the scarce things flows: to the few who hold them, or to everyone who makes them valuable."
+ },
+ {
+  "id": "s30",
   "sec": "8",
-  "text": "[softly] Words can shape a mind.\nSo it matters whose words they are."
+  "text": "[thoughtful] Capitalism won't end with a crash. It goes the way the encyclopedia went: one price at a time, while the value stays. Whether it ends there, or just moves in behind the doors: same board, two sets of rules. I think that's the best news in this story: the end of capitalism isn't something to survive. It's something to design."
+ },
+ {
+  "id": "s31",
+  "sec": "8",
+  "text": "[calm, conversational] The question was never whether it ends. It's what we put in its place, and whether you're in the room when that's decided. Tell me below: which price in your line of work falls next? And if you think the end of capitalism should be a good ending, subscribe. That's what this channel is for."
+ },
+ {
+  "id": "s32",
+  "sec": "8",
+  "text": "[softly] The thinking is about to be free. The ground it stands on is still ours to decide. Your move."
  }
 ]

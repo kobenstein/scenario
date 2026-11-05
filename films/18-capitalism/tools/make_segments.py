@@ -1,25 +1,25 @@
 #!/usr/bin/env python3
-"""Split the Film 16 VO text into audio/segments.json: one TTS segment per paragraph (blank-line separated), long level
-paragraphs split further at SPLIT lines (~300-650 characters per take, as in Film 14).
+"""Split the VO text into audio/segments.json: one TTS segment per paragraph (blank-line separated), long
+paragraphs split further at SPLIT phrases (~300-650 characters per take, as in Film 14).
+Film 18: input is audio/vo-v4-tts.txt (= vo-v4.txt word for word, plus one direction tag per paragraph); sections 1-8 are the
+stations of tools/provisional_timing.py; a SPLIT phrase may also sit inside a line (the line is broken there).
 Film 16: [[QUOTE CARD: …]] lines get NO silent slot (the VO paraphrases every card and keeps running while it is on screen);
 they are only listed on their segment under "cards" (with the spoken line they follow), like [[ON SCREEN: …]] under "onscreen".
 [pause] lines are not sent to TTS: build_vo.py makes that air (GAP_AFTER / BREATH).
 usage: make_segments.py <vo.txt> <audio_dir>"""
 import json, re, sys
 src, A = sys.argv[1], sys.argv[2].rstrip('/')
-# section starts: (section, first words of the line that opens it, tags stripped)
-# 0 hook · 1-7 the seven levels · 8 ending (verdict, call, closing lines, end screen)
-SECS = [('0', "This is Claude's constitution"), ('1', 'You paste in a birthday poem'), ('2', 'A letter from your landlord'),
-        ('3', 'Say you build the perfect case.'), ('4', 'Now imagine you work at Anthropic'), ('5', "You're still at Anthropic."),
-        ('6', "Until now, we could only read what it's told."), ('7', 'Last level.'), ('8', 'So, can you give a mind good values with words?')]
-# a new take starts at these lines (inside a paragraph)
-SPLIT = ['Its makers call this kind', "And yet, in the document's order of values", 'Behind that rule stands a wall.', 'Why would a company write that',
-         'The document pictures a dial.', "But what if Claude's values are already good?", 'So did the model learn the values', 'The text is open about money.',
-         'And remember: what the model first learned']
+# section starts: (section, first words of the line that opens it, tags stripped); Film 18 = stations of provisional_timing.py
+SECS = [('1', 'A.I. will end capitalism'), ('2', 'Capitalism, in one sentence'), ('3', "But that's not the real ending"), ('4', "We've watched a price"),
+        ('5', 'The doors are the things'), ('6', "That isn't a law of nature"), ('7', 'The second set of rules'), ('8', "Capitalism won't end")]
+# a new take starts at these phrases (inside a paragraph)
+SPLIT = ['Chegg sold homework help']
 # paragraphs that stay in the previous take (build_vo.py BREATH adds the air)
-MERGE = ['If you could add one more level']
+MERGE = []
 TAG = re.compile(r'^\[[^\[\]]*\]\s*')
-paras = [[l.strip() for l in p.splitlines() if l.strip()] for p in re.split(r'\n\s*\n', open(src).read()) if p.strip()]
+txt = open(src).read()
+for w in SPLIT: txt = re.sub(r'(?<=\S) +(' + re.escape(w) + ')', r'\n\1', txt)
+paras = [[l.strip() for l in p.splitlines() if l.strip()] for p in re.split(r'\n\s*\n', txt) if p.strip()]
 segs, sec, n = [], None, 0
 def new(lines, cards, ons):
     global n
