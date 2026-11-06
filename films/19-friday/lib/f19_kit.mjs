@@ -402,11 +402,10 @@ export function wheel(ctx, t, x, y, r, o = {}) {
 
 // ======================================================================================================================== clips
 // ORIGINAL FOOTAGE (docs/shots.md §5): the clip plays in a frame the animation leads into and out of. Meta until audio/clips.json exists.
-export const CLIPS19 = {
-  C1: { name: 'Heinz von Foerster', role: 'on circularity', year: 'late 1980s [prüfen]', src: 'High Tech Heroes #10' },   // faktencheck §5: neutral lower third
-  C2: { name: 'Beth Barnes', role: 'METR [Rolle prüfen]', year: '2026', src: 'Machine Learning Street Talk' },
-  C3: { name: 'Recursive self-improvement', role: 'researchers in debate · Dwarkesh Patel', year: '', src: 'youtu.be/PrSf7IOYu-I' },   // placeholder frame until the passage and speaker are cut (coordinator 6.11.)
-  C4: { name: 'Heinz von Foerster', role: 'Physicist, cybernetician', year: '', src: '' },
+export const CLIPS19 = {   // real clips (clips/clips.json, cut 6.11.); lower third = name · role · year · ORIGINAL FOOTAGE
+  C1: { name: 'Heinz von Foerster', role: 'Cybernetician', year: '', src: 'High Tech Heroes #10 (atwaterpub)' },   // broadcast year unknown -> no year
+  C2: { name: 'David Rein', role: 'Researcher, METR', year: '2026', src: 'Machine Learning Street Talk' },
+  C3: { name: 'Beren Millidge', role: 'CTO, Zyphra', year: '2026', src: 'Dwarkesh Patel' },
 };
 // the clip's slot: timing.json clips[] (real VO) — the provisional timing has the same entries (tools/provisional_timing.py)
 export function clipSlot(T, id) { const c = T.clip(id); return c ? { start: c.start, end: c.end } : null; }

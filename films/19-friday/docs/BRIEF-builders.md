@@ -1,12 +1,12 @@
-# Film 19 · builder brief (3 builders in parallel, one checkout) · as of 2026-11-06
+# Film 19 · builder brief (clip times updated 6.11. 16:00: real O-Ton lengths; chunk times in docs/shots.md are current) (3 builders in parallel, one checkout) · as of 2026-11-06
 
 The picture lead built c01 (the hook: the line that aimed at Friday, ahead of schedule, the bend, the second line) as the
 quality reference and holds the kit, the shot list and the seams. c01 runs 0 → 41.58 s on the real VO. The rest is built by **three builders at the same time: B1, B2 and B3**.
 **Start only after Jakob's OK on the c01 style test** (channel rule: 20-s style test before the whole film).
 Timing: the real VO is done (8:03.1): the engine reads `film-singularity-friday/audio/timing.json` (words, sections, `clips`) and
 `audio/clips-slots.json` holds the fixed slots. Everything anchors on **phrases**, so a re-cut VO moves your picture with it. Fixed times:
-clip gaps **C1 66.64–76.64 · C2 140.40–152.40 · C3 191.40–201.40** (plan the clip frames exactly on these, via `T.clip(id)`),
-**end screen 468.10–483.10** (7:48.1, 15 s).
+clip gaps **C1 66.64–76.69 · C2 140.45–152.75 · C3 191.75–202.71** (plan the clip frames exactly on these, via `T.clip(id)`),
+**end screen 469.41–484.41** (15 s).
 
 ## 0 · Mandatory before the first line of code
 1. **Load the four skills first** (Skill tool) and follow them: `anthropic-skills:scenario-motion`, `anthropic-skills:world-class-motion-design`,
@@ -39,7 +39,7 @@ Chunk boundaries (phrases in `film.mjs` `CHUNKS`, real VO): c02 `So what bent th
 c04 `To find out` 125.37 · c05 `That's fast` 164.36 · c06 `A date sounds precise` 202.68 · c07 `Only if we can see it` 256.98 ·
 c08 `But seeing the road isn't steering` 297.66 · c09 `Right now, though` 334.16 · c10 `To tell bigger from smaller` 379.50 ·
 c11 `The test isn't how smart` 422.34 · VO end 467.20 · end screen 468.10–483.10 · film end 483.10.
-Clip slots (silent in the VO, `T.clip('C1')` etc.; fixed): **C1** 66.64–76.64 · **C2** 140.40–152.40 · **C3** 191.40–201.40.
+Clip slots (silent in the VO, `T.clip('C1')` etc.; fixed): **C1** 66.64–76.69 · **C2** 140.45–152.75 · **C3** 191.75–202.71.
 
 **c01 is finished** (lead). Do not touch `scenes/sc01.mjs`.
 
@@ -74,8 +74,8 @@ Seams inside your group (chunk to chunk) you build yourself on the same principl
   Others are indigo silhouettes (`other()`). No faces. **No generated real people:** von Foerster only as a silhouette, his signature
   or his real clip; Beth Barnes and the C3 researchers only in their real clips.
 - **Clips:** each plays in a frame the animation leads into and out of (`screen()`), with `lowerThird()` (name · role · year · ORIGINAL
-  FOOTAGE). Until the frames exist, `screen()` shows a placeholder card; C3 stays a placeholder frame for now. `[prüfen]` marks in
-  `CLIPS19` must not reach the final render (the lead fills them in).
+  FOOTAGE). The real frames are in place (`ROOT/clips/C1|C2|C3/f00001.jpg …`, 30 fps, 960×540) and `CLIPS19` is filled in
+  (C1 von Foerster · C2 David Rein, METR · C3 Beren Millidge, Zyphra). C2 is a talking head, C3 a podcast two-shot.
 - **No doom:** no red alarm, no explosions, no ruins. The light warms toward c11.
 - **End screen 468.10–483.10, 15 s** (B3, 11.08): free areas left (x 90–780, y 250–700), right (x 1140–1830, y 250–700), centre (x 810–1110, y 330–600);
   picture and music keep running.
