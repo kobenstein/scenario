@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 """Split the VO text into audio/segments.json: one TTS segment per paragraph (blank-line separated), long
 paragraphs split further at SPLIT phrases (~300-650 characters per take, as in Film 14).
-Film 18: input is audio/vo-v4-tts.txt (= vo-v4.txt word for word, plus one direction tag per paragraph); sections 1-8 are the
-stations of tools/provisional_timing.py; a SPLIT phrase may also sit inside a line (the line is broken there).
+Film 23: input is audio/vo-v5-tts.txt (= vo-v5.txt word for word, plus direction tags, a few "..." and "A.I." for "AI");
+sections 0-7 are the clock chapters of text-v5.md (0 hook, 1 06:15, 2 07:30, 3 09:00, 4 12:00, 5 16:00, 6 19:00 dinner, 7 22:30);
+each blank-line paragraph is one take (the dinner dialogue is grouped into takes of several lines);
+a line [CLIP K1] becomes a silent clip slot of the clip's length (audio/clips.json "dur"), filled later by mix.py from clips/K1.wav.
 Film 16: [[QUOTE CARD: …]] lines get NO silent slot (the VO paraphrases every card and keeps running while it is on screen);
 they are only listed on their segment under "cards" (with the spoken line they follow), like [[ON SCREEN: …]] under "onscreen".
 [pause] lines are not sent to TTS: build_vo.py makes that air (GAP_AFTER / BREATH).
 usage: make_segments.py <vo.txt> <audio_dir>"""
-import json, re, sys
+import json, os, re, sys
 src, A = sys.argv[1], sys.argv[2].rstrip('/')
+CLIPS = json.load(open(A + '/clips.json')) if os.path.exists(A + '/clips.json') else {}
 # section starts: (section, first words of the line that opens it, tags stripped); Film 18 = stations of provisional_timing.py
-SECS = [('1', 'A.I. will end capitalism'), ('2', 'Capitalism, in one sentence'), ('3', "But that's not the real ending"), ('4', "We've watched a price"),
-        ('5', 'The doors are the things'), ('6', "That isn't a law of nature"), ('7', 'The second set of rules'), ('8', "Capitalism won't end")]
+SECS = [('0', 'Your twenty thirty-seven has already started. This is one day'), ('1', 'You open the scan'), ('2', 'Seven-thirty.'),
+        ('3', "Nine o'clock."), ('4', 'Noon. Your agent'), ('5', "Four o'clock."), ('6', "Seven o'clock."), ('7', 'Ten-thirty.')]
 # a new take starts at these phrases (inside a paragraph)
-SPLIT = ['Chegg sold homework help']
+SPLIT = []
 # paragraphs that stay in the previous take (build_vo.py BREATH adds the air)
 MERGE = []
 TAG = re.compile(r'^\[[^\[\]]*\]\s*')
@@ -27,6 +30,12 @@ def new(lines, cards, ons):
     if cards: segs[-1]['cards'] = cards
     if ons: segs[-1]['onscreen'] = ons
 for p in paras:
+    m = re.fullmatch(r'\[CLIP (\w+)\]', p[0]) if len(p) == 1 else None
+    if m:   # Film 23: interview clip slot (silent here)
+        k = m.group(1); c = CLIPS[k]
+        segs.append({'id': k, 'sec': sec, 'clip': True, 'dur': c['dur'], 'name': c['speaker'], 'role': c['role'],
+                     'label': f"ORIGINAL FOOTAGE · {c['speaker']}, {c['year']}", 'text': c['transcript'], 'file': f'clips/{k}.wav',
+                     'url': c['url'], 'in': c['in'], 'out': c['out']}); continue
     cur, cards, ons = [], [], []
     merge = any(TAG.sub('', l).startswith(w) for l in p[:1] for w in MERGE)
     for l in p:

@@ -197,3 +197,4 @@ The first frame (1.01) must be the thumbnail motif. The thumbnails are being mad
 3. Noon may be one step brighter (deep day-blue + warm sun-dot glow), still inside the night palette; evening returns to full night.
 4. Kitchen light wall is approved as the space for dinner explainers and clips.
 5. E8/E9: re-check before render (fact-check owner: thread lead).
+6. Opening image = thumbnail A motif: dark kitchen at 06:15, huge chest scan glowing on the wall with a small gold spot in a ring, tiny figure with steaming mug below (/mnt/project-files/scenario/thumbnails/film-2037/).

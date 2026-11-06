@@ -2,7 +2,9 @@
 """Mix VO + music cues (ducked under the voice) + SFX plan -> mix.wav (-14 LUFS).
 SFX: drop sfx/<name>.mp3 files next to music/ and list them in sound_plan.json ([{"f", "t", "v", "loop"?, "d"?, "fade"?}]); Film 16 has none yet.
 usage: mix.py <audio_dir> [wav_dir]   (Film 14: vo_master.wav, stems, premix and mix.wav live in wav_dir, a scratchpad;
-the project folder only gets a copy of the final mix, see README in audio/music)"""
+the project folder only gets a copy of the final mix, see README in audio/music)
+Film 23: music ducks 10 dB under every clip slot (K1/K3/K4) whether or not clips/<K>.wav exists yet, so the real clip drops in
+without a new music edit; VO_LIFT raises a few very soft [softly] words (chapter clock lines) so they read over the music."""
 import json, os, subprocess, sys
 import numpy as np
 A = sys.argv[1].rstrip('/') + '/'; W = (sys.argv[2].rstrip('/') + '/') if len(sys.argv) > 2 else A; SR = 48000
@@ -12,9 +14,20 @@ def load(f, af=None):
 def rms(x): return float(np.sqrt(np.mean(x ** 2)) + 1e-9)
 def db(v): return 10 ** (v / 20)
 timing = json.load(open(A + 'timing.json')); N = int(timing['duration'] * SR)
-vo = load(W + 'vo_master.wav')[:N]; vo = np.pad(vo, ((0, N - len(vo)), (0, 0)))
-VO_BOOST = float(os.environ.get('VO_BOOST', 0))   # Jakob 31.10.: voice +2 dB over music/SFX, same -14 LUFS total
+# Film 23: the Eleven v4 takes have a high crest factor (the soft [softly] dinner takes most of all); without a VO compressor the
+# -14 LUFS limiter shaved up to 8-12 dB off ~17 % of all 10-ms blocks. 4:1 above -24 dBFS (3 ms attack) leaves ~200 blocks over 3 dB.
+VO_AF = os.environ.get('VO_AF', 'acompressor=threshold=0.063:ratio=4:attack=3:release=100:knee=4')
+vo = load(W + 'vo_master.wav', VO_AF or None)[:N]; vo = np.pad(vo, ((0, N - len(vo)), (0, 0)))
+VO_BOOST = float(os.environ.get('VO_BOOST', 2))   # Jakob 31.10.: voice +2 dB over music/SFX, same -14 LUFS total (Film 23: default 2)
 vo *= db(-20 + VO_BOOST) / rms(vo[np.abs(vo).max(1) > 1e-3])
+# Film 23: lift very soft words: (segment, first word, last word (inclusive, index in the segment), dB), 60 ms ramps
+VO_LIFT = [('s18', 0, 1, 6), ('s29', 0, 0, 5), ('s14', 0, 9, 2.5), ('s28', 0, 7, 2.5)]
+for sid, a, b, g in VO_LIFT:
+    ws = [w for w in timing['words'] if w['sec'] == sid]
+    if not ws: continue
+    s0, s1, r = int((ws[a]['s'] - .05) * SR), int((ws[b]['e'] + .08) * SR), int(.06 * SR)
+    env = np.ones(s1 - s0 + 2 * r) * (db(g) - 1); env[:r] *= np.linspace(0, 1, r); env[-r:] *= np.linspace(1, 0, r)
+    vo[s0 - r:s1 + r] *= (1 + env)[:, None]
 # voice activity envelope -> ducking
 env = np.abs(vo).max(1); hop = SR // 100
 e = np.array([env[i:i + hop].max() for i in range(0, N, hop)]) > 0.02
@@ -26,11 +39,16 @@ duck = np.interp(np.arange(N), np.arange(len(act)) * hop, act)
 # per-clip corrections from clips.json: "gain_db" on top of the -20 dB RMS match, "af" an ffmpeg filter (e.g. a light compressor)
 CLIPS = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
 clipbuf = np.zeros((N, 2), np.float32)
+CLIP_DUCK = -10   # Film 23: music 10 dB down under a clip slot (instead of the -6 dB voice duck), 0.3 s ramps
+cenv = np.zeros(N, np.float32)
 for c in timing.get('clips', []):
     s0, s1 = int(c['start'] * SR), int(c['end'] * SR)
+    if c.get('kind', 'clip') == 'clip':
+        r = int(.3 * SR); a0, a1 = max(0, s0 - r), min(N, s1 + r)
+        e = np.ones(a1 - a0, np.float32); e[:s0 - a0] = np.linspace(0, 1, s0 - a0); e[len(e) - (a1 - s1):] = np.linspace(1, 0, a1 - s1)
+        cenv[a0:a1] = np.maximum(cenv[a0:a1], e)
     f = A + f"../clips/{c['id']}.wav"
     if os.path.exists(f):   # quote cards (no clip audio) keep the music up
-        duck[max(0, s0 - SR // 4):s1 + SR // 4] = np.maximum(duck[max(0, s0 - SR // 4):s1 + SR // 4], 1)
         k = CLIPS.get(c['id'], {}) if isinstance(CLIPS, dict) else {}
         x = load(f, k.get('af')); x *= db(-20 + k.get('gain_db', 0)) / rms(x[np.abs(x).max(1) > 1e-3])
         n = min(len(x), s1 - s0); clipbuf[s0:s0 + n] += x[:n]
@@ -64,6 +82,7 @@ for cue in CUES:   # [file, start, fade_in, fade_out, source_offset, duration, {
     if o.get('ride', 0.4): x = ride(x, o.get('ride', 0.4))
     place(music, x[int(off * SR):], t, 1, fin, fout, d)
 music *= (1 - DUCK * duck)[:, None]          # -6 dB under the voice
+music *= (1 - (1 - db(CLIP_DUCK)) * cenv)[:, None]   # -10 dB under the clip slots
 sfx = np.zeros((N, 2), np.float32); cache = {}
 for c in (json.load(open(A + 'sound_plan.json')) if os.path.exists(A + 'sound_plan.json') else []):   # Film 14/16: no SFX yet
     if c['f'] not in cache: cache[c['f']] = load(A + f"sfx/{c['f']}.mp3")
@@ -91,6 +110,14 @@ subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', af, '-ar', '480
 if src != W + 'premix.wav': os.remove(src)
 # Film 18: delivery copy mix.m4a (AAC 192k). AAC overshoots true peak by ~0.9 dB (mix.wav -1.5 -> -0.6 dBTP), so the encode runs
 # through a 4x-oversampled limiter at -2 dBFS with +0.3 dB make-up: -14.0 LUFS / about -1.5 dBTP after decoding
-subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', W + 'mix.wav', '-af', f'volume=0.3dB,aresample=192000,alimiter=limit={db(-2.0):.4f}:attack=1:release=50:level=false,aresample=48000',
-                '-c:a', 'aac', '-b:a', '192k', W + 'mix.m4a'], check=True)
+# Film 23: encode, measure the decoded m4a, correct gain (-14.0 +-0.05 LUFS) and ceiling (<= -1.5 dBTP), up to 5 passes
+vol, ceil = 0.0, -2.0
+for _ in range(5):
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', W + 'mix.wav', '-af', f'volume={vol:.2f}dB,aresample=192000,alimiter=limit={db(ceil):.4f}:attack=1:release=50:level=false,aresample=48000',
+                    '-c:a', 'aac', '-b:a', '192k', W + 'mix.m4a'], check=True)
+    m = measure(W + 'mix.m4a'); I, TP = float(m['input_i']), float(m['input_tp'])
+    print('mix.m4a', I, 'LUFS', TP, 'dBTP (volume', round(vol, 2), 'ceiling', round(ceil, 2), ')')
+    if abs(I + 14) <= .05 and TP <= -1.5: break
+    vol += -14 - I
+    if TP > -1.5: ceil -= .3
 print('-> mix.wav, mix.m4a')

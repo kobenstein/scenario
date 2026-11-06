@@ -2,14 +2,17 @@
 """Save ElevenLabs TTS results (fal wait_for_jobs output) as vo-<id>.mp3 + vo-<id>.json {url, chars, words}.
 usage: save_tts.py <audio_dir> <wait_output.txt>...   (index i -> i-th spoken segment of segments.json; Film 14: several wait files,
 large wait_for_jobs results come back in parts; the first file that holds a job's result wins)"""
-import json, re, sys, subprocess
+import json, os, re, sys, subprocess
 A, srcs = sys.argv[1].rstrip('/'), sys.argv[2:]
 segs = [s for s in json.load(open(A + '/segments.json')) if not (s.get('clip') or s.get('card'))]   # quote cards are silent slots
 jobs = {}
 for src in srcs:
-    for j in json.load(open(src))['jobs']:
+    t = open(src).read()   # Film 23: the harness saves large tool results as text (JSON, then a trailing account line)
+    for j in json.JSONDecoder().raw_decode(t[t.index('{'):])[0]['jobs']:
         if j.get('result') and j['index'] not in jobs: jobs[j['index']] = j
+only = set(os.environ['ONLY'].split(',')) if os.environ.get('ONLY') else None   # Film 23: re-save only these segment ids (retakes)
 for j in [jobs.get(i, {'index': i}) for i in range(len(segs))]:
+    if only and segs[j['index']]['id'] not in only: continue
     r = j.get('result')
     if not r: print('missing', j['index']); continue
     sid = segs[j['index']]['id']; chars = []
