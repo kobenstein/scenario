@@ -1,5 +1,4 @@
-// c07 · built by B2. The whole B2 group (c05 → c08) is ONE plan sequence drawn by lib/f18_b2_world.mjs (plan table in its header);
-// this chunk returns one entry of it, so the seams between c05, c06, c07 and c08 are the same frame on both sides by construction.
-import * as F from '../lib/f18_kit.mjs';
-import { b2World } from '../lib/f18_b2_world.mjs';
-export default async (T, R) => [{ t: R.a, draw: b2World(T).draw, print: F.PRINT18 }];
+// c07 · STUB (Film 19). Built by a builder per docs/BRIEF-builders.md; plan: docs/shots.md (chunk c07) · world: docs/MOTION.md · kit: lib/f19_kit.mjs.
+// Until then the chunk renders as placeholder cards (one per spoken sentence, words light up with the voice).
+import { stubChunk } from '../lib/stub.mjs';
+export default async (T, R) => stubChunk(T, R);

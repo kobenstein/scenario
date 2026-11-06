@@ -257,7 +257,7 @@ function figure(ctx, x, y, h, o, CC, isDu) {
   const cap = (pts, w0, w1, col) => { ctx.strokeStyle = col; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; for (let i = 0; i < pts.length - 1; i++) { ctx.lineWidth = lerp(w0, w1, i / Math.max(1, pts.length - 2)); ctx.beginPath(); ctx.moveTo(...pts[i]); ctx.lineTo(...pts[i + 1]); ctx.stroke(); } };
   const rimFill = (path, col, dx, dy) => { const sh = new Path2D(); sh.addPath(path, { a: 1, b: 0, c: 0, d: 1, e: dx, f: dy }); ctx.fillStyle = col; ctx.fill(new Path2D(path).op(sh, PathOp.Difference)); };
   ctx.save(); ctx.translate(x, y); ctx.scale(h * dir, h);
-  ctx.fillStyle = rgba(P.night0, .6); ctx.beginPath(); ctx.ellipse(-L * .2, 0, .3, .022, 0, 0, 6.29); ctx.fill();
+  ctx.fillStyle = q.shadowCol ?? rgba(P.night0, .6); ctx.beginPath(); ctx.ellipse(-L * .2, 0, .3, .022, 0, 0, 6.29); ctx.fill();   // Film 19: o.shadowCol (paper)
   const pants = isDu ? P.ind1 : P.night1, pantsLit = mixHex(pants, P.blue1, .45);
   if (q.sit) {   // crouched on the ground, arms round the knees, head down on them (thumbnail "or dumber")
     const cp = new Path2D(); cp.moveTo(-.02, -.62); cp.bezierCurveTo(-.12, -.62, -.18, -.5, -.19, -.32); cp.bezierCurveTo(-.2, -.16, -.22, -.06, -.23, -.006);
@@ -342,7 +342,7 @@ function figure(ctx, x, y, h, o, CC, isDu) {
 }
 export function du(ctx, x, y, h, o = {}) { return figure(ctx, x, y, h, { hood: true, ...o }, { ...COAT, hem: .2 }, true); }   // Film 13: hood up unless o.hood === false
 // everyone else: same skeleton in indigo (short jacket by default, o.long for a coat), rim light in blue (o.rim to change)
-export function person(ctx, x, y, h, o = {}) { return figure(ctx, x, y, h, o, { ...PERSON, hem: o.long ? .22 : .44 }, false); }
+export function person(ctx, x, y, h, o = {}) { return figure(ctx, x, y, h, o, { ...PERSON, ...(o.pal || {}), hem: o.long ? .22 : .44 }, false); }   // Film 19: o.pal {base, lit, shade, deep}
 
 // ---------- robot: its own silhouette (helmet head, broad chest plate, armoured limbs), no face, no logo ----------
 //   o.pose 'stand' · 'reach' (right arm up) · 'lift' (both arms up) · 'point' · 'walk' (needs o.walk phase)
@@ -424,7 +424,8 @@ export function finish(ctx, t, o = {}) {
   prepareEditorial();
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
   const v = o.vig ?? .55;
-  if (v > 0) { ctx.fillStyle = rad(ctx, W / 2, H * .52, W * .72, [[.45, rgba(P.night0, 0)], [1, rgba(P.night0, v)]]); ctx.fillRect(0, 0, W, H); }
+  const vc = o.vcol ?? P.night0;   // Film 19: the vignette colour (umber on paper instead of night blue)
+  if (v > 0) { ctx.fillStyle = rad(ctx, W / 2, H * .52, W * .72, [[.45, rgba(vc, 0)], [1, rgba(vc, v)]]); ctx.fillRect(0, 0, W, H); }
   ctx.restore();
   const id = ctx.getImageData(0, 0, W, H), d = id.data, N = GRAIN[Math.floor(t * (o.grainHz ?? 10) + 1e-6) % GRAIN.length];   // Film 13: 10 Hz = every 3rd frame (even cadence, calmer than 12 Hz)
   const amp = o.grain ?? 30, fl = o.floor ?? 7;
