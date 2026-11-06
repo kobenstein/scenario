@@ -1,0 +1,4 @@
+node_modules
+.c01tmp/
+__pycache__/
+clips/frames/
