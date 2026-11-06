@@ -1,214 +1,79 @@
-# Editorial-Kit („Editorial-Nacht“) · für die Builder (übernommen aus Film 10, gilt für Film 13)
+# Editorial kit ("Editorial-Nacht") · Film 23 · for the builders
 
-Stand 2026-10-28 (Film 13). Das Kit stammt aus Film 10 (dort von Jakob freigegeben: K1–K3 „nice“). Für Film 13 gilt zusätzlich: `du()` trägt standardmäßig die **Kapuze** (`{ hood: false }` nimmt sie ab), und `lib/f13_kit.mjs` liefert die Film-13-Bausteine (Sanduhr, Sandfaden, Zeilen-Masken, Worte → Sand, Felskante; siehe `MOTION.md` §7). Pfade unten, die auf `stills/`, `tools/editorial_*.mjs` oder Film-10-Module zeigen, sind Film-10-Vorlagen.
-- **Code:** `films/13-freetime/lib/f10_editorial.mjs` (+ `lib/f13_kit.mjs`). Builder importieren für das Bild **nur** diese Module. Die alten Module `f10_valley`, `f10_hall` und `f10_figs` bleiben liegen, werden aber nicht gezeichnet.
-- **Vorlagen:**
-  - die Stills: `stills/editorial/K1.jpg`, `K2.jpg`, `K3.jpg`, `vergleich.jpg`
-  - die 20-s-Stilreferenz: `stills/editorial/bewegungstest.mp4`
-  - der Code dazu: `tools/editorial_proto.mjs`
-  - ein kleines Beispiel mit 2.5D-Shot und Explainer: `tools/editorial_demo.mjs`
-- **Verbindlicher Stil:** `stil/STIL-editorial-nacht.md`
+As of 2026-11-06 (Film 23, phase 1). The kit comes from Film 10 (approved by Jakob there), extended in Films 13, 16 and 18; the Film 18 version of this file is in `docs/ref-18/EDITORIAL-KIT.md`. Film 23 adds its own modules in phase 2 (`lib/f23_kit.mjs` world, `lib/f23_hud.mjs` day-clock + evidence cards + old screen, `lib/f23_seams.mjs` plates; `MOTION.md` §12). Binding style: `/mnt/project-files/scenario/stil/STIL-editorial-nacht.md`.
 
-## 1. Die Regeln
+- **Code:** `lib/f10_editorial.mjs` (stage, palette, figures, light, type, finish, explainer helpers) + `lib/f16_kit.mjs` / `lib/f13_kit.mjs` (`rise`, `blink`, `maskLine`, `trailSpan`, `measure`, `along`, `roundRectPts`, `stamp`) + `lib/figure.mjs` (life model and gait, used for the editorial figures through `f23_kit.alive`) + the `f23_*` modules. The old `f10_valley`, `f10_hall`, `f10_figs` and Film 18's `f18_*` stay in the repo but are not drawn.
 
-1. **Eine Idee pro Bild und ein Motiv pro Satz.** Das Motiv darf vom alten 3D-Plan abweichen: Wähle pro Satz das Bild, das am besten zum Skript passt. Die alte Welt wird nicht nachgezeichnet. Aus `shots.md` gelten weiter:
-   - das Timing (Wort → Bild),
-   - die Träger-Logik (`A → B · Position · Richtung`),
-   - die Clip-Slots,
-   - die Inhaltsregeln.
-2. **EINE große Lichtform** ist der Held jedes Bildes: Lichthand, Scheibe, Fenster, Tor, Lichtspur oder Karte aus Licht. Sie ist das Hellste im Bild. Zwei gleich starke Lichter sind verboten.
-3. **Eine kleine Figur.** „du“ steht vor der Lichtform, ist 12–25 % der Bildhöhe groß und hat nie ein Gesicht.
-4. **Viel Nachtraum.** Mindestens 40 % des Bildes sind ruhige dunkle Fläche. Wenig Detail: keine Möbel, keine Texturen, keine Menschenmengen. Eine Menge wird zu Lichtpunkten.
-5. **Gelb trägt nur „du“** (`P.coat`). Andere Menschen sind schlichte Silhouetten in Indigo oder Blau, ohne Gelb und ohne Gesicht (`person()` gibt es bewusst nicht: zeichne sie mit `robot()`-ähnlichen Flächen in `P.ind2` oder als `du()` mit Überschreibung, siehe §6).
-6. **Roboter** sind schlichte Silhouetten ohne Gesicht und ohne Logo (`robot()`), mit Randlicht von der Lichtform. Nicht erlaubt:
-   - Musk, Tesla oder Optimus;
-   - Roboter, die Menschen pflegen.
-7. **Licht erzählt:** Warm/Gold heißt Mensch, gelernt oder gut. Kühles Blau-Creme heißt Maschine, noch nicht oder kalt. Gegensätze zeigst du als Licht-Hälften.
-8. **Ruhe:**
-   - Höchstens 1–2 Elemente bewegen sich gleichzeitig. Dazu kommt die Kamera.
-   - Es gibt keine Blenden und keine Wipes.
-   - Nichts steht still: Nutze `camDrift`, die Lichtform atmet, die Figur atmet.
-   - Akzente liegen auf dem Wort (±2 Frames).
-9. **Speicher:**
-   - Pro Frame entsteht kein neues Canvas, kein Pattern und kein `drawImage(Canvas)`.
-   - Das Korn wird einmal berechnet (`prepareEditorial()`).
-   - Gerendert wird mit `node --expose-gc` in Stücken von ≤ 20 s.
+## 1 · The rules
+1. **One idea per picture, one motif per sentence.** From `shots.md` the timing (phrase → picture), the carrier logic (`A → B · position · direction`), the clip slots and the content rules are binding.
+2. **ONE big light form** is the hero of every picture (the phone, the kitchen window, the voice-light, the lamp, the sun, the tower, the old screen). It is the brightest thing. Two equally strong lights are forbidden.
+3. **One small figure.** "You" stands before the light form, 12–25 % of the frame height in wide pictures, never a face.
+4. **Much night space.** At least 40 % of the picture is calm dark area. Little detail: no furniture beyond the table/chair/kettle the sentence needs, no textures, no crowds. A crowd becomes points of light.
+5. **Yellow is only you** (`P.coat`). Everybody else (the kid, Dad, the neighbour, the student, testers, doctors) is a plain silhouette in indigo/blue (`person()`), no yellow, no face.
+6. **The machine is light**, never a robot: cool spheres (tutor), a small cool light on a gold thread (agent), cool windows (the tower), tiny cool dots (earbuds). The `robot()` helper is not used in this film.
+7. **Light tells:** gold = human care, decisions people made, the good road; cool blue-cream = the machine and the "other way". Contrasts are shown as light halves (the few warm windows vs the dark many).
+8. **Calm:** 1–2 moving elements at once plus the camera; no blends, no wipes; nothing stands still (`camDrift`, the light breathes, the figures breathe); accents on the word (±2 frames).
+9. **Memory:** no new canvas, pattern, gradient cache or `drawImage(canvas)` per frame; grain is computed once (`prepareEditorial()`); render with `node --expose-gc` in pieces ≤ 20 s.
 
-## 2. Die Bühne: 2.5D-Ebenen vor einer Perspektivkamera
-
-Flache Formen stehen als **Karten in echter Tiefe**. Das Modell ist dasselbe wie bei der Engine-Kamera `view3`: Position x/y/z, Brennweite f, Blick entlang +z.
-
-Jede Karte zeichnest du in **Design-Koordinaten**, also als 1920×1080-Layout, so wie es die Heimkamera `cam3()` sieht. Dann bekommt sie eine Tiefe Z.
-
-- Steht die Kamera daheim, sieht jede Karte genau wie entworfen aus.
-- Bewegt sich die Kamera, entsteht echte Parallaxe.
-- Ein Dolly (z wächst) vergrößert nahe Karten schneller als ferne.
-- Passiert die Kamera eine Karte, fliegt sie hindurch: Die Karte wird übersprungen.
+## 2 · The stage: 2.5D cards before a perspective camera
+Flat shapes stand as **cards at a real depth** Z; the camera `cam3({x, y, z, f, roll})` looks along +z. Each card is drawn in design coordinates (a 1920×1080 layout as `cam3()` sees it). At home every card looks as designed; when the camera moves, real parallax appears; a dolly enlarges near cards faster than far ones; a card the camera passes is skipped (fly-through).
 
 ```js
 import * as E from '../lib/f10_editorial.mjs';
-const c = E.camDrift(E.camAt(t, KEYS, SUN.Z), t);         // Kamera aus Keyframes + Dauer-Drift
-E.card(ctx, c, 40000, () => { E.nightSky(ctx); E.stars(ctx, 9, 160, t); });
-E.card(ctx, c, 9000,  () => E.lightForm(ctx, 'disc', 920, 210, 520, 520, t));
-E.card(ctx, c, 4000,  () => E.ground(ctx, [[-200, 760], [700, 700], [2100, 690]]));
-E.card(ctx, c, E.F0,  () => { E.ground(ctx, …); E.du(ctx, 760, 862, 190, { look: 1 }); });
-E.lightFlood(ctx, a);   // nur beim Flug IN die Lichtform
-E.finish(ctx, t);       // Vignette + Korn (oder über film.mjs, siehe §5)
+const c = E.camDrift(E.camAt(t, KEYS, ZS), t);           // camera from word keys + permanent drift
+E.card(ctx, c, 40000, () => skyAt(ctx, c, t, hour));     // sky with sun / moon by hour (f23_kit)
+E.card(ctx, c, 16000, () => tower(ctx, t, { open }));    // skyline: the night-shift tower
+E.card(ctx, c, 9000,  () => testersHouse(ctx, t, {}));   // between tower and city
+E.card(ctx, c, ZS,    () => { building(ctx, t, …); kitchen(ctx, t, …); E.du(ctx, x, y, h, { ...alive(t, 1), hood: false }); });
+E.card(ctx, c, 1100,  () => foregroundEdge(ctx));        // a dark window frame / rail, blurred
 ```
 
-**Tiefen (Konvention)**
-| Ebene | Z | Beispiele |
+**Depths for Film 23 (convention; the lead locks them in `STREET`):**
+| Layer | Z | Examples |
 |---|---|---|
-| Himmel | 40000 | Nacht-Verlauf, Sterne, große weiche Bögen |
-| Horizont / Lichtform fern | 9000 | Sonne, ferne Kämme, Lichtkarte des Tals |
-| Mitte | 4000 | Hügel, Hallenwand, zweite Silhouetten |
-| **Fokus** | **1700 = `F0`** | du, Roboter, Lichthand, Boden, auf dem sie stehen |
-| Vordergrund | 1100 | dunkle Kante, Ast, Geländer: unscharf mit `ctx.filter = 'blur(8px)'` |
-| Linse | 700 | Staub, Lichtflecken (selten) |
+| Sky | 40000 | sky gradient by hour, sun/moon, stars, the explainer space of outdoor graphics |
+| Skyline | 16000 | the night-shift tower, far roofs, the care home |
+| Middle | 9000 | the testers' house, the road from the tower, Dad's building seen from your window |
+| **Section plane** | **≈ 3000 = `ZS`** | your building cut open (kitchen, kid's room, hallway), the clinic, Dad's building when you are there; the figures; the light wall (kitchen back wall) |
+| Street front | 2400 | the street, trees, lamp posts |
+| Foreground | 1100 | a window frame, the balcony rail, the table edge in close shots: blurred (`ctx.filter = 'blur(8px)'`) |
 
-Verwende 3–5 Karten pro Bild, nicht mehr.
+Use 3–5 cards per picture, not more.
 
-**Kamera-API**
-- `cam3({x, y, z, f, roll})` gibt eine Kamera zurück; daheim ist es `cam3()`.
-- `camAt(t, [[t0, cam], [t1, cam, ease], …], refZ)` liefert die Keyframes.
-  - Die Easings sind `'s'` (Sinus, Standard), `'q'` (Quart in-out), `'i'` (expo in, für den Flug in ein Licht) und `'o'` (expo out, für den Flug heraus).
-  - z wird logarithmisch zur Referenzkarte interpoliert. Ein Flug fühlt sich dadurch wie konstante Fahrt an.
-- `aim(Z, u, v, s, sx, sy)` gibt die Kamera zurück, die den Design-Punkt (u,v) der Karte Z am Bildpunkt (sx,sy) mit s-facher Vergrößerung zeigt. Damit baust du Flüge IN Lichtformen und präzise Rahmungen.
-- `project(c, Z, u, v)` liefert den Bildpunkt eines Design-Punkts, etwa für Labels im Screen-Space.
-- `camDrift(c, t, amt)` ist die Dauer-Drift. Sie gehört auf jede Kamera.
+**Camera API** (`f10_editorial`)
+- `cam3({x, y, z, f, roll})`; at home `cam3()`. Film 23: **no roll, almost no pitch** (the street stays level); go up and down with y (crane).
+- `camAt(t, [[t0, cam], [t1, cam, ease], …], refZ)` from word keys. Eases `'s'` (sine, default), `'q'` (quart in-out, the push onto a seam plate), `'i'` (expo in, flight into a light), `'o'` (expo out). z is interpolated logarithmically to the reference card: pass the subject depth (`ZS`) as `refZ`; it breaks if a camera z gets close to or beyond `refZ`.
+- `aim(Z, u, v, s, sx, sy)` the camera that shows design point (u, v) of card Z at screen point (sx, sy) with s-fold magnification: flights into the phone (2.01), into the old screen (CLIP IN), onto plates.
+- `project(c, Z, u, v)` → screen point (labels, HUD-aligned carriers). `camDrift(c, t, amt)` on every camera.
 
-**Typische Fahrten**
-1. **Atmender Halt:** z +80…+300 über 4–8 s mit Sinus. Die Lichtform atmet.
-2. **Rückzug zum Maßstab-Kontrast:** Start mit `aim(F0, figurX, figurY, 3)`, Ende `cam3()`. Die kleine Figur wird klein vor der großen Lichtform.
-3. **Flug IN die Lichtform (der Übergang):**
-   - Keyframe `aim(Z_licht, u, v, 60)` mit Easing `'i'`.
-   - Dazu `lightFlood(ctx, smooth(span(k, 4, 40)))` mit k = Vergrößerung der Lichtkarte.
-   - Die nächste Szene startet mit `aim(Z_neu, u2, v2, 60)` und fährt mit `'o'` heraus, auch hier mit `lightFlood`.
-   - An der Schnittstelle sind beide Frames volles Licht, also identisch: ein Schnitt ohne Blende.
-   - Das ist der Standard-Übergang zwischen zwei Welt-Motiven.
-4. **Seitwärts-Truck:** x ±200 über 3–5 s. Die Parallaxe trennt die Ebenen und zeigt das nächste Motiv, das schon auf derselben Karte liegt.
-5. **Match über eine Form:** Kreis wird Kreis (Sonne → Becherrand → Anteil-Ring), Linie wird Kurve (Lichtspur → Kurve). Die Form bleibt an derselben Bildposition, nur die Karte darum wechselt.
+**Typical moves in this film**
+1. **Breathing hold:** z +80…+300 over 4–8 s with sine while the voice talks (the table at dinner).
+2. **Travel along the street:** x over 3–5 s (to Dad's, back home, the steam into the next room); parallax separates the layers.
+3. **Crane:** y up past the roofs to the skyline (3.05, 4.03) and back down (4.01, 4.08); sunset walks (6.06).
+4. **Flight into a surface:** `aim(Z, u, v, 60)` with `'i'` into the phone (2.01) or the old screen (CLIP IN); the next picture starts from the same framing.
+5. **Pull back to the map:** from your window to the whole street in section (1.05, 2.04, 11.04).
+6. **Match through a form:** circle → circle (scan ring → window ring → kettle glow), line → line (your gold line → the old screen's opening line), point → point (the old screen's point → the next graphic).
 
-## 3. Bausteine (API)
+## 3 · Building blocks (API of `f10_editorial`)
+- **Palette `P`** exactly as in the style: night `night0..2`, indigo `ind0..2`, blue `blue0..2`, core `core0..1`, halo `halo0..2`, shade `shade0..1`, `coat` (only you), `cream` (type). Machine cool `COOL` (`f23_kit`, from Film 18). Helpers `rgba`, `mixHex`, `lin`, `rad`.
+- **Maths:** `clamp`, `lerp`, `span(t, a, b)`, `smooth`, `sineIO`, `quartIO`, `expoIn`, `expoOut`, `drift(t, amp, seed)`, `prng(seed)` (no `Math.random`, no `Date.now`).
+- **World:** `nightSky`, `stars(ctx, seed, n, t, box?, a?)`, `ground(ctx, pts, {stops, rim, rimW})`, `castShadow`, `lightPool(ctx, x0, x1, y, spread, depth, a)` (the lamp pool on the table).
+- **Light:** `lightForm(ctx, kind, x, y, w, h, t, o)` (`'disc'`, `'window'`, `'gate'`, `'ring'`), `trail(ctx, pts, u, o)` (lines of light: the clinic's line, the roads, the threads), `halo`, `glowFill`, `dust` (steam, the drizzle), `rays`, `lightFlood` (only inside a flight).
+- **Figures:** `du(ctx, x, y, h, o)` (you; `hood: false` indoors; `dir`, `walk`, `armR`/`armL` as `[shoulder, elbow]`, `look`, `light`, `back`; returns the hands) and `person(ctx, x, y, h, o)` (everyone else, indigo; `long` for Dad's cardigan). Film 23 wraps both with `alive(t, seed)` (breath 4–4.6 s, weight shift 8–13 s, glance 6–11 s, blink beat 3.4–5 s: a tiny head settle, the figures stay faceless) and uses `figure.mjs walk(phase)` for the gait. Arms: two segments, the forearm lags 60–80 ms, never behind the back.
+- **Type:** `glowText(ctx, s, x, y, {size, serif, align, col, a, spacing, glow})`; sizes `TYPE` hero 168, num 120, mid 80, label 34, small 28, src 22. Only year, time, places, names, numbers, sources, the evidence cards and the kid's handwriting.
+- **Finish:** `finish(ctx, t, {grain, floor, vig})` (called by `film.mjs` with `PRINT23 = { grain 14, floor 4, vig .5 }`; do not call it in `draw()`); `prepareEditorial()` once.
+- **Explainers as light** (each takes `u` 0..1, driven by the word): `counter`, `bars` (the plan bars 5.03, the exam bars 10.05), `curve`, `pie`, `section` (Dad's building 6.04–6.05), `lightMap` (the city as a map of windows 1.05, 2.04; the millions 11.04), `timeline` (12.05). They stand on the same stage as the world and grow out of a world object.
 
-**Palette `P`.** Die Werte stehen exakt so im Stil-Dokument:
-- Nacht: `night0`, `night1`, `night2`
-- Indigo: `ind0`, `ind1`, `ind2`
-- Blau: `blue0`, `blue1`, `blue2`
-- Lichtkern: `core0`, `core1`
-- Halo: `halo0`, `halo1`, `halo2`
-- Goldschatten: `shade0`, `shade1`
-- `coat` (nur „du“) und `cream` (Schrift)
+## 4 · Translating a shot from `shots.md`
+1. **Read the sentence.** Which ONE idea does it carry? Choose the light form: the picture you would hang as a poster.
+2. **Reduce radically.** A flat is a box of warm light in section; a kitchen is a table, a lamp, a window and the wall; the tower is a slab of cool windows; a crowd is points of light; a law is a gold rule line or a seal; a price is a tag.
+3. **Fix the figure.** The voice says "you": you live it (lift, nod, lean, walk). The kid and Dad act their lines with small, natural gestures.
+4. **Keep the carrier** from the row (`A → B · position · direction`): light form → flight into it; line → line; circle → circle; point → point.
+5. **Plan the camera:** one move per motif (hold, travel, crane, flight, pull back, match).
+6. **Check the frame:** a poster? the light form the brightest? ≥ 40 % night? the figure found at once? ≤ 2 moving elements? the reserved zones free (clock, cards, subtitles)?
 
-Helfer: `rgba(hex, a)`, `mixHex(a, b, x)`, `lin()` und `rad()` (Verläufe).
-
-**Mathe.** `clamp`, `lerp`, `span(t, a, b)`, `smooth`, `sineIO`, `quartIO`, `expoIn`, `expoOut`, `drift(t, amp, seed)`, `prng(seed)`.
-
-**Welt**
-- `nightSky(ctx, stops?)` füllt den Grund mit einem Verlauf.
-- `stars(ctx, seed, n, t, box?, a?)` zeichnet Sterne, die gecacht sind und funkeln.
-- `ground(ctx, [[x,y]…], {stops, rim, rimW})` zeichnet eine Fläche mit beleuchteter Oberkante: Hügel, Boden, Kante.
-- `castShadow(ctx, x, y, w, len, ang, a)` wirft einen langen Schatten weg vom Licht.
-- `lightPool(ctx, x0, x1, y, spread, depth, a)` legt einen Lichtteppich auf den Boden, etwa vor einem Fenster.
-
-**Licht**
-- `lightForm(ctx, kind, x, y, w, h, t, {a, breath, dust, mullions, seed})` zeichnet die Lichtform:
-  - Arten: `'disc'`, `'window'`, `'gate'`, `'ring'`.
-  - Aufbau: blaue Aura, warmer Rand, Körper mit Verlauf und Stipple-Staub. Die Funktion gibt den Pfad zurück.
-- `lightHand(ctx, handMatrix(wristX, wristY, angle, palmLen, flip), t, {a})` zeichnet die riesige Hand aus Licht; die Zeigefingerspitze ist `HAND_TIP` (lokal) und wird mit `applyM` umgerechnet. Beispiel: K1.
-- `trail(ctx, pts, u, {w, a, spark})` zeichnet die Lichtspur. `pts` ist `[[x, y, breite], …]`, glätten kannst du sie mit `catmull(pts, n)`. Der Rückgabewert ist der Kopf.
-- `halo(ctx, x, y, r, a, col, core)` zeichnet einen weichen, additiven Glow für kleine Lichter.
-- `glowFill(ctx, path, blur, a, col)` legt einen weichgezeichneten Glow entlang einer Form.
-- `dust(ctx, seed, n, cx, cy, rx, ry, t, a, col)` streut goldenen Stipple-Staub. Er ist gecacht und bleibt beim Hineinfliegen ein Punkt.
-- `rays(ctx, cx, cy, r0, r1, n, a, rot)` zeichnet sehr leise Strahlen.
-- `lightFlood(ctx, a)` macht den ganzen Frame zu Licht, beim Flug hinein.
-
-**Figuren.** Beide sind aus Gelenken gebaut und haben kein Gesicht. Die Rückgabe sind die Handpositionen `{R, L}` im Raum des Aufrufers, für Spuren und Becher.
-- `du(ctx, x, y, h, o)` zeichnet die Zuschauerin:
-  - `dir` ±1 gibt die Blickrichtung an.
-  - `walk` ist die Phase in rad und erzeugt den Gang.
-  - `armR` und `armL` sind `[Schulter, Ellbogen]`, als Winkel ab senkrecht unten; + heißt nach vorn.
-  - `look` (0..1) hebt den Kopf.
-  - `light` (±1) gibt die Lichtseite an.
-  - `back` (0..1) steht für Gegenlicht.
-  - Dazu kommen `headset` und `cup: 'R'`.
-  - Heben: `armR: [1.35, 2.55]`. Arm vor: `[1.75, 1.95]`. Gehen: `walk: t * 5.5`.
-- `robot(ctx, x, y, h, o)` zeichnet den Roboter:
-  - `dir`, `light`, `armR` und `armL` wie oben;
-  - `rim` ist die Farbe des Randlichts, `body` und `joint` die Flächenfarben, dazu `cup` und `alpha`.
-
-**Schrift.** `glowText(ctx, s, x, y, {size, serif, align, col, a, spacing, glow})` setzt Creme mit warmem Glühen. Größen stehen in `TYPE`: hero 168, num 120, mid 80, label 34, small 28, src 22. Es gibt nur Jahr, Ort, Namen, Zahlen und Quellen, nie Sätze.
-
-**Finish.** `finish(ctx, t, {grain = 30, floor = 7, vig = .5})` legt Vignette und vorberechnetes Korn darüber. Das Korn wirkt am stärksten in den Mitteltönen, was den Stipple-Look ergibt, und wechselt mit 12 Bildern pro Sekunde. `prepareEditorial()` rufst du einmal zu Beginn auf.
-
-**Explainer als Licht.** Jeder nimmt `u` (0..1, wie weit gewachsen) und wird vom Wort getrieben. Warm heißt Mensch, gelernt oder gut; kühl heißt Maschine oder noch nicht.
-- `counter(ctx, t, {x, y, from, to, u, size, label, pre, post, fmt})` zeigt eine Zahl in Creme (Serif).
-- `bars(ctx, t, {x, y, w, h, values, max, lit[], labels[], u})` lässt Balken aus Licht vom Boden wachsen.
-- `curve(ctx, t, {rect, data, xr, yr, u, dashFrom, xTicks, yTicks})` zeichnet eine Kurve als Lichtspur; die Prognose ist gepunktet. Typisch ist der Match von der Lichtspur der Welt zu dieser Kurve.
-- `pie(ctx, t, {x, y, r, parts: [{v, lit, label}], u})` zeigt Anteile als Lichtring. Typisch ist der Match Sonne/Becherrand → Ring.
-- `section(ctx, t, {x, y, w, layers: [{h, label, lit}], u})` zeigt einen Querschnitt als Schichten, etwa Hand, Akku oder Boden.
-- `lightMap(ctx, t, {pts: [[x, y, lit]], route: [[x, y]], u, size, w})` zeigt eine Karte aus Lichtpunkten mit Lichtspur, wie das Tal in K2.
-
-Die Explainer stehen auf derselben Bühne wie die Welt. Sie liegen als Karte auf Z = `F0` und wachsen aus einem Objekt der Welt heraus: Die Spur wird Kurve, der Becherrand wird Ring, die Punkte des Tals werden Zähler.
-
-## 4. Einen Shot aus shots.md übersetzen
-
-`shots.md` beschreibt die Shots noch als 3D-Welt (Tal, Halle, Wohnzimmer, Weinberg). So übersetzt du sie:
-
-1. **Lies den Satz, nicht die alte Kulisse.** Frag dich: Welche EINE Idee trägt der Satz? Wähle dazu die Lichtform, also das Bild, das man als Poster aufhängen würde.
-2. **Reduziere radikal.** Aus der alten Kulisse wird ein Ort-Zeichen:
-   - Die Halle wird ein großes Fenster in dunkler Wand.
-   - Das Tal wird eine Karte aus Licht.
-   - Das Wohnzimmer wird ein Fenster mit Lampenkreis.
-   - Der Weinberg wird Reihen als Lichtlinien am Hang.
-   - Eine Fabrik wird eine Wand mit einem Tor.
-   - Eine Menge wird zu Lichtpunkten.
-3. **Lege die Figur fest.** Der Sprecher sagt „you“: dann erlebt **du** es (staunen, heben, fragen, gehen). Bei anderen Menschen nimmst du eine Silhouette in Indigo; Gelb bleibt „du“ vorbehalten.
-4. **Behalte den Träger.** Der Träger aus `shots.md` (`A → B · Position · Richtung`) wird übersetzt, meist in eine dieser Formen:
-   - Lichtform → Flug hinein;
-   - Lichtspur → Linie, Kurve oder Spur;
-   - Kreis → Kreis;
-   - Punkt → Punkte.
-5. **Plane die Kamera.** Pro Motiv gibt es genau eine Fahrt aus §2 (Halt, Rückzug, Flug, Truck oder Match).
-6. **Prüfe den Frame:**
-   - Ist er ein Poster?
-   - Ist die Lichtform das Hellste?
-   - Sind ≥ 40 % des Bildes Nacht?
-   - Ist die Figur sofort zu finden?
-   - Gibt es höchstens zwei bewegte Elemente?
-
-**Beispiele (aus dem Prototyp)**
-| shots.md (alt, 3D) | Satz | Editorial-Motiv |
-|---|---|---|
-| 1.01 Hook, Rennen im Tal | „Superintelligence is getting a body.“ | K1: eine Hand aus Licht berührt die erhobene Hand eines kleinen Roboters, du stehst daneben auf einer Kante. Rechts die Lichtform, links Platz für den Titel. |
-| Milliarde, Tal von oben | „A billion robots … learning from ours.“ | K2: das Tal bei Nacht als Karte aus Tausenden Lichtpunkten (kühl). Eine warme Spur geht von deiner Hand aus und macht die Punkte warm. |
-| Die Halle öffnet sich | „a trainer in a headset lifts a cup. A robot copies the move.“ | K3: ein riesiges Hallenfenster in dunkler Fläche. Du bist die Trainerin mit Headset und hebst den Becher. Die Bewegung fliegt als Lichtbogen zum Roboter, der sie kopiert. Bei „Again“ bleiben Echo-Bögen. |
-| Übergänge | – | K1 → K2: Flug in den Funken an der Fingerspitze, heraus aus dem Licht an deiner Hand. K2 → K3: Flug in das Hallenfenster am Ende der Spur, heraus aus dem großen Fenster. |
-
-## 5. Einbau in film.mjs
-
-- Der Eintrag eines Chunks bekommt `print: { editorial: true }`. Optional sind `grain`, `floor` und `vig`.
-  - `film.mjs` ruft dann `finish()` aus dem Kit auf, statt das Indigo-LUT mit dem Print-Finish anzuwenden.
-  - Ruf `finish()` in `draw()` deshalb **nicht** selbst auf.
-- `draw(ctx, t)` zeichnet die Karten über `card()` und verwendet zum Schluss bei Bedarf `lightFlood()`.
-- Schnitte sind harte `cut`s zwischen identischen Frames. Am einfachsten ist das beim Flug durch das Licht, denn beide Seiten zeigen dann volles Licht.
-- Für die Prüfung stehen bereit:
-  - Snapshots mit `SECS=c0x node render.mjs --snap …`;
-  - `tools/calm.py` gegen Grow Forever;
-  - Frame-Differenzen gegen Stillstand.
-- Rendern: `node --expose-gc render.mjs --from A --to B` in Stücken von ≤ 20 s.
-- Die Geschwindigkeit liegt bei etwa 250 ms pro Frame in 1080p. Die Korn-Pixelpässe kosten etwa 40 ms davon.
-
-## 6. Bekannte Grenzen (bitte ersetzen oder ausbauen)
-
-- **Lichthand:**
-  - Sie ist ein Union-Pfad mit gespreizten Fingern und hat nur eine Pose.
-  - Für „Hände halten“ oder „Hand öffnet sich“ braucht sie Posen-Parameter, etwa Fingerkrümmung und Daumen.
-  - Als Silhouette wirkt sie noch etwas wie ein Handschuh. Besser wären weichere Knöchel und eine Handfläche mit Verlauf.
-- **„du“:**
-  - Der Mantel ist eine einfache A-Linie, und es gibt nur eine Kopfansicht (Rücken / ¾).
-  - Es fehlen eine Seitenansicht im Gehen und Sitzen/Hocken (Thumbnail b).
-  - Andere Menschen: Hier fehlt eine `person()` in Indigo ohne Mantel.
-- **Roboter:** Er wirkt wie eine Holz-Gliederpuppe. Er braucht eine eigene, wiedererkennbare Silhouette (Helmkopf, breitere Brust) und Varianten für Arm, Greifer und Hand.
-- **Prototyp-Kamera:** `tools/editorial_proto.mjs` nutzt noch die einfache `plane()`-Parallaxe (2D-Zoom pro Ebene). Neue Shots bauen auf `card()` und `cam3()` auf (echte Perspektive, siehe `tools/editorial_demo.mjs`).
-- **Explainer:** Sie sind funktional, aber noch nicht im Film geprüft. Die Schriftgrößen müssen auf dem Handy geprüft werden (Labels ≥ 28 px).
+## 5 · Building it into `film.mjs`
+- A chunk entry gets `print: F.PRINT23`; `film.mjs` calls `finish()`, then the HUD (`f23_hud.dayClock`, `evidence`) is drawn on top for the whole film.
+- `draw(ctx, t)` draws the cards via `card()`; clip slots inside your entry with `oldScreen()`.
+- Cuts are hard `cut`s between identical frames only (a plate, a flight through light, a rhyming match). No `tr` blends: `film.mjs` turns them into cuts with a warning.
+- Review: `SECS=c0x node render.mjs --snap …`; `tools/calm.py`, `tools/smooth.py`, `tools/seam.mjs`. Render: `node --expose-gc render.mjs --from A --to B` in pieces ≤ 20 s (≈ 250 ms per 1080p frame).
