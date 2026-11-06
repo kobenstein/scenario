@@ -1,15 +1,17 @@
-# Film 18 music (Lyria 3.5 on fal, google/lyria-3.5, 2026-11-05)
+# Film 23 music (Lyria 3.5 on fal, google/lyria-3.5, 2026-11-06)
 cues.json rows: [file, start s, fade in s, fade out s, offset in file s, length s or null (to the file end), {opts}]; mix.py reads them.
 opts: "repeat": [t1, t2] lengthens a cue by t2-t1 (plays to t2, 2-s crossfade back to t1); "ride": slow gain rider strength (default 0.4).
-Prompts in prompts.json, request ids in jobs.txt (project folder film-kapitalismus/audio/music/, next to the mp3s).
-One cue per chapter (stations of the VO, timing.json "levels"), each placed so its natural decay falls into the station change:
-M0 0:00 hook + station 2 (engine, price of thinking, crash story, pressure; full presence from 0:00, decays under "But that's not the real ending" 1:46)
-· M1 1:45 stations 3-4 (the real ending is the price, Britannica, music, Chegg/Canva, the value; decays under the subscribe question 4:16-4:20)
-· M2 4:19.8 station 5 (the doors: ground, power, chips; Nvidia, Loudoun, land; the bad ending; enters on "Watch where it goes.", decays under "the ground the machine stands on" 6:04-6:06)
-· M3 6:06.5 stations 6-7 (The Landlord's Game, the second set of rules; starts near silence, warms, decays under "None of this takes ..." 8:39-8:50)
-· M4 8:46 ending + 15-s end screen (VO ends 9:40.9, film 9:56.8; the cue swells a little after the last line, then decays to about -44 dB at the end).
-Style: mystical and contemplative (drone, pads, felt piano, glass harmonica, distant wordless choir pad), no drums, no vocals. No SFX (as in Film 16).
-Vocal check: fal-ai/whisper over all five cues returns only the usual music hallucinations ("Thank you for watching", "The") spread over 10-30-s spans,
-no sung words; Lyria's lyrics field is empty placeholders ([[A0]] ...).
-Level: cue RMS -26 dB, ducked -6 dB under speech (voice at -20 dB RMS + VO_BOOST 2 dB) -> music ~11-12 dB under the voice (median);
-final mix two-pass loudnorm -14 LUFS, mix.m4a -14.0 LUFS / -1.5 dBTP.
+Prompts in prompts.json, request ids in jobs.txt (project folder film-erster-tag/2037/audio/music/, next to the mp3s).
+One cue per clock chapter (timing.json "chapters"), warmer and more intimate than Film 18 (one family day), same palette (drone, pads, felt piano, glass, distant wordless choir), key of D:
+M1 0:00 hook + 06:15 (offset 2 s: Lyria's own fade-in skipped, full presence from 0:00; decays under "your kid losing an argument")
+· M2 1:12 07:30 the kid and her tutor (the kid's celesta theme enters on "your kid losing an argument. With a genius.", decays into 09:00)
+· M3 2:05.8 09:00 night shift of science · M4 3:08.3 12:00 the agent · M5 3:58.2 16:00 your dad
+· M6 4:54 19:00 dinner: Lyria stops at ~3 min (178 s), so "repeat": [15.75, 87.75] adds 72 s inside the sparse first part (spectrally closest pair);
+  its warm bloom lands on 7:42-8:40 (Grandpa's earbuds ... K4 ... "Millions of people did the same."), decay under "Because people kept asking."
+· M7 8:51 22:30 + end screen: enters under "Because people kept asking." / "One person still doesn't know about your scan.";
+  "repeat": [23.5, 31.5] adds 8 s so its swell lands on the last line (9:43.9) and its decay fills the 15-s end screen to 10:02.7.
+Clip slots K1 5:41.06 / K3 7:05.84 / K4 8:05.86: music 10 dB down under each slot (mix.py CLIP_DUCK), whether or not clips/<K>.wav exists yet.
+Vocal check: fal-ai/whisper on all seven files returns only the usual no-speech hallucinations ("Thank you for watching", "take a picture of the tree" loops);
+Lyria's lyrics field is empty placeholders ([[A0]] ...). No SFX.
+Level: cue RMS -26 dB, ducked -6 dB under speech; VO 4:1 compressor above -24 dBFS (mix.py VO_AF), voice +2 dB (VO_BOOST) -> music ~14 dB under the voice
+during speech; mix.m4a -14.0 LUFS / about -2.2 dBTP (encode loop in mix.py keeps it at -14.0 +-0.05 LUFS and <= -1.5 dBTP).
