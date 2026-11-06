@@ -190,3 +190,10 @@ The first frame (1.01) must be the thumbnail motif. The thumbnails are being mad
 3. Build, then look: stills around each move and one per sentence (`render.mjs --snap … --scale .4`, contact sheet). At least 3 review rounds.
 4. Measure (§9), numbers into the report.
 5. Self-grade 1–5: poster · sentence = picture · seamless · calm · alive (figures!) · graphics from world things · text. Nothing under 4. Similarity to the style reference (Film 11 thumbnails) in %, name the biggest gap.
+
+## 13. Decisions on the open questions (thread lead, 2026-11-06)
+1. "You" stays faceless (channel rule). Kid and Dad may get minimal dot eyes in close-ups so they can blink; other figures faceless with head settles.
+2. Indoors "you" wears a yellow sweater/hoodie in the same gold-yellow (raincoat only outside), so the colour still marks "you".
+3. Noon may be one step brighter (deep day-blue + warm sun-dot glow), still inside the night palette; evening returns to full night.
+4. Kitchen light wall is approved as the space for dinner explainers and clips.
+5. E8/E9: re-check before render (fact-check owner: thread lead).
