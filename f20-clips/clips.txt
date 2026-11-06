@@ -1,0 +1,141 @@
+INTERVIEW-CLIPS – "The First Generation That Won't Grow Old"
+Stand: 2026-11-06. Alle Clips: H.264/AAC, 1920x1080, 30 fps, Originalton ohne Pegelanpassung.
+Quellvideos und Untertitel liegen in source/.
+
+SO WURDE GEPRÜFT
+- Transkript: YouTube-Auto-Untertitel gegen lokale Whisper-Transkription (large-v3-turbo) der
+  fertigen Clips abgeglichen. Das ist KEIN Abhören durch einen Menschen. Unsichere Wörter sind markiert.
+- Musik: gemessen am Pegel in den Sprechpausen (ca. -70 bis -90 dB), Vergleich Podcast-Intro mit
+  Musik: -37 dB. Eingebrannte Untertitel und Sprecher: an Einzelbildern geprüft.
+- Schnittpunkte: am Audiopegel gesetzt. Rand ca. 0,3 s, außer wo bei den Clips anders vermerkt.
+
+================================================================================
+C1  (C1.mp4, 11,47 s)  –  KI verdoppelt das Entdeckungstempo
+Video-ID:     Gr11TITvLDM  (NewLimit, "2026 NewLimit Progress Update", 2026-07-19)
+Start/Ende:   336.40 – 347.85 s
+Sprecher:     Jacob Kimmel, Co-Founder NewLimit (so im Video vorgestellt; aktuelle Presse nennt
+              ihn zudem CEO/President – Titel vor der Bauchbinde prüfen)
+Transkript:   "The first big unlock in the past year was we were able to build AI systems that
+              really doubled our rate of discovery. For every dollar we invest, we get twice as
+              many payloads out that have the pro-youthful effects we're excited about."
+Musik:        nein
+Eingebrannte Untertitel: nein
+Bild:         Split-Screen: Sprecher links klein, rechts Folie "2X rate of discovery from AI",
+              oben NewLimit-Logo, schwarze Balken. Kein Vollbild des Sprechers.
+Kontext ±30 s: Kimmel kündigt drei große Durchbrüche des Jahres an und erzählt sie entlang des Wegs
+              von der Entdeckung bis zum Medikament am Menschen. Danach nennt er das dritte
+              Therapieprogramm (Endothelzellen) und den ersten präklinischen Kandidaten.
+Hinweis:      Steht bei 5:36, also vor der Kapitelmarke 6:10. "Verdoppelt" ist eine Eigenaussage
+              des Unternehmens, im Film als solche kennzeichnen.
+
+================================================================================
+C2  (C2.mp4, 8,23 s)  –  Erste Verjüngungs-Arznei am Menschen, Leber-Programm
+Video-ID:     Gr11TITvLDM
+Start/Ende:   1900.70 – 1908.90 s
+Sprecher:     Blake Byers, Co-Founder NewLimit (im Video nur "my co-founder Blake"; Nachname aus
+              der Presse)
+Transkript:   "And I'm excited to announce – we had a tease earlier – that we'll be putting the
+              first age reprogramming medicine into human patients next year."
+              (Unsicher: "a tease" laut Whisper, Auto-Untertitel: "you tease".)
+Musik:        nein
+Eingebrannte Untertitel: nein
+Bild:         Split-Screen wie C1, Folie "Path to the first Liver aging medicine" mit
+              "First-in-Human, Phase I" bei 2027.
+Kontext ±30 s: Byers beschreibt alkoholbedingte Lebererkrankung als Einstieg (unter 50 % überleben
+              5 Jahre, kaum Therapien) und die Herstellung des Wirkstoffs im eigenen Haus. Danach
+              folgt Applaus, dann wechselt er zum Gefäß- und Nierenprogramm.
+Hinweis:      Steht bei 31:40, nicht bei Kapitel 21:45: Dort ist der Satz allgemeiner (siehe
+              Reserve). Der Rand hinten ist 0,25 s, Applaus setzt bei ca. 1908,95 ein. "Next year"
+              wurde im Juli 2026 gesagt und meint laut Folie 2027.
+
+================================================================================
+C3  (C3.mp4, 10,93 s)  –  Lebenserwartung steigt nur noch langsam
+Video-ID:     5SENvwmsCQc  (The Dan Buettner Podcast, "The 90-Year Limit", 2026-03-05)
+Start/Ende:   1040.03 – 1050.95 s
+Sprecher:     S. Jay Olshansky, Demograf, University of Illinois Chicago
+Transkript:   "We see this slowdown everywhere, even in the longest-lived populations. It doesn't
+              mean we're not living longer. We're living incrementally longer, but at a much, much
+              slower pace."
+              (Unsicher: "this slowdown" laut Whisper, Auto-Untertitel: "the slowdown".)
+Musik:        nein
+Eingebrannte Untertitel: nein (Podcast-Logo unten links)
+Bild:         Olshansky, ab ca. 10,1 s im Clip Kamerawechsel: die letzten 0,8 s zeigen Buettner
+              beim Zuhören.
+Kontext ±30 s: Olshansky erklärt, er habe 1990 die Verlangsamung vorhergesagt und nach 35 Jahren alle
+              Daten erneut geprüft: Sie begann um 2010 und hält an. Danach sagt er, die 1990er
+              Prognose sei damit bestätigt.
+Hinweis:      Enthält das "außer man verlangsamt das Altern" NICHT, dafür C3_alt nehmen. Das Ende
+              ist hart: Direkt nach "pace" folgt vermutlich ein Einwurf Buettners (Whisper hört
+              "Plateau"), darum kein Rand. Für Schnitt ggf. 2 Frames Audio-Blende. Steht bei 17:20,
+              nicht bei den Kapiteln 8:30/22:45.
+
+--------------------------------------------------------------------------------
+C3_alt  (C3_alt.mp4, 12,70 s)  –  ALTERNATIVE mit "außer"
+Video-ID:     5SENvwmsCQc
+Start/Ende:   993.85 – 1006.50 s
+Sprecher:     S. Jay Olshansky
+Transkript:   "But unless those advances in technology alter the basic biological process of aging,
+              unless it influences those Achilles heels we were talking about, the rise in life
+              expectancy had to slow down."
+Musik:        nein
+Eingebrannte Untertitel: nein
+Bild:         Die ersten ca. 1,6 s zeigen Buettner, danach Olshansky.
+Kontext ±30 s: Davor: Die Lebenserwartung müsse nicht wegen Misserfolgs, sondern wegen des Erfolgs
+              langsamer steigen, weil das Altern zum dominanten Risiko wird; Medizin könne das Leben
+              aber weiter verlängern. Danach: Viele widersprachen, er blieb dabei, dass es nur mit
+              einer Änderung am Alterungsprozess selbst gehe.
+Hinweis:      0,7 s über der 12-s-Vorgabe, beginnt mit "But", und "those Achilles heels" verweist
+              auf ein früheres Gesprächsthema.
+
+================================================================================
+C1b  (C1b.mp4, 9,07 s)  –  Ersatz für C1: Zhavoronkov, reales Medikament
+Video-ID:     -9oASjyS1Zk  (Insilico Medicine, Rentosertib-Gespräch, 2026-09-11)
+Start/Ende:   605.50 – 614.55 s
+Sprecher:     Alex Zhavoronkov, Founder und Co-CEO Insilico Medicine (Mundbild: Mann rechts)
+Transkript:   "But this is a real drug. It demonstrates a favorable trend in forced vital capacity
+              in a clinical study."
+              (Korrigiert: Whisper hört "forest-file capacity". Das "a" fehlt in den Auto-Untertiteln.)
+Musik:        nein
+Eingebrannte Untertitel: nein
+Bild:         Totale mit zwei Personen, Fedor Galkin links. Ende knapp: nächstes Wort kommt 0,15 s später.
+Kontext ±30 s: Davor mahnt er zur Vorsicht bei den Aussagen und sagt, niemand solle aufgrund seiner
+              Worte Medikamente kaufen, verkaufen oder nehmen. Danach erklärt er die Lungenfunktion als
+              Alterungsmarker und nennt rund 90 ml Zuwachs nach 12 Wochen Hochdosis, bei kleiner Stichprobe.
+Hinweis:      Sehr leise, -36 LUFS (siehe unten). "AI" fällt im Clip nicht, das muss der Sprechertext
+              davor liefern. Daten laut Video: Phase 2a, 71 Patienten, "very early".
+
+--------------------------------------------------------------------------------
+C1b_alt  (C1b_alt.mp4, 12,10 s)  –  ALTERNATIVE mit expliziter KI-Aussage
+Video-ID:     -9oASjyS1Zk
+Start/Ende:   43.05 – 55.10 s
+Sprecher:     Alex Zhavoronkov
+Transkript:   "Our first AI-discovered therapeutic that was discovered utilizing generative AI on both
+              the target side and the small molecule side."
+              (Unsicher: Auto-Untertitel: "our first AI therapeutic. Uh therapeutic that was …")
+Musik:        nein
+Eingebrannte Untertitel: nein
+Bild:         wie C1b
+Kontext ±30 s: Davor stellt er das Paper zu einer Phase-2a-Studie mit Rentosertib vor. Danach sagt er,
+              das Mittel habe Phase 3 bei idiopathischer Lungenfibrose erreicht, und erklärt die
+              Auswertung mit Alterungsuhren.
+Hinweis:      Kein ganzer Satz, sondern Satzteil; langsam gesprochen, 0,1 s über der Vorgabe.
+              "Phase 3" fällt erst nach dem Clip; vor Verwendung im Film unabhängig prüfen.
+
+================================================================================
+LAUTHEIT (Input Integrated) – für die Mischung angleichen
+C1 -25,3 | C2 -19,1 | C3 -15,2 | C3_alt -15,8 | C1b -36,3 | C1b_alt -33,9 LUFS
+
+RESERVE (nicht geschnitten)
+Gr11TITvLDM  2048.76–2053.18  Byers: "We'll have our first age reprogramming medicine in human
+                              clinical studies." (4,4 s, Folie "NewLimit's Plan")
+Gr11TITvLDM  1305.80–1318.00  Kimmel (ca.-Zeiten): "…the ideal result is that you actually have a medicine
+                              you can hold in your hand and eventually carry forward to human clinical trials."
+5SENvwmsCQc  1016.62–1022.06  Olshansky: "And we said it can't happen unless you see a change in the
+                              aging process itself." (5,4 s)
+5SENvwmsCQc  1031.60–1039.90  Olshansky: "The slowdown in the rate of improvement in life expectancy
+                              began in the year 2010. It has continued to the present." (8,3 s)
+f0Od6OwRYgg                   geprüft, nicht verwendet: Vortrag mit Folien, Themen in 5SENvwmsCQc klarer.
+
+RECHTE
+Fremdmaterial von NewLimit, Insilico Medicine und The Dan Buettner Podcast. Nutzungsrechte sind nicht
+geprüft; Lizenzangaben fehlen in den Metadaten. Vor Veröffentlichung klären.
