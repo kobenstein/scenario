@@ -132,7 +132,7 @@ export function maskLine(ctx, segs, x, y, size, u, o = {}) {
   const serif = o.serif ?? true, k = expoOut(clamp(u)), dy = (1 - k) * size * 1.15;
   let xx = x; const xs = [];
   const total = segs.reduce((s, [txt]) => s + measure(txt, size, serif, o.weight), 0);
-  if (o.align === 'center') xx = x - total / 2;
+  if (o.align === 'center') xx = x - total / 2; else if (o.align === 'right') xx = x - total;   // film 20: right alignment
   ctx.save(); ctx.beginPath(); ctx.rect(xx - size, y - size * 1.25, total + size * 2, size * 1.25 + size * .32); ctx.clip();   // the invisible baseline mask
   for (const [txt, warm] of segs) {
     xs.push(xx);

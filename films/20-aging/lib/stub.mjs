@@ -8,7 +8,7 @@ export const PAL = { // ground, middle, accent (konzept.md §3)
   2: ['#0b0f2a', '#f3efe2', '#c4512e'], 3: ['#0c1b33', '#dfe8f2', '#5fe0a8'], 4: ['#4a3426', '#e8a3a0', '#8fd27a'],
   5: ['#1e4a3a', '#e9c46a', '#b7c25a'], 6: ['#0d1530', '#f5b08a', '#f0a04b'], 7: ['#070918', '#ffd08a', '#ffb35c'],
 };
-const SECNAME = { 1: '§1 The hook', 2: '§2 The engine · the price of thinking falls', 3: '§3 The real ending: prices become air', 4: '§4 The value stays', 5: '§5 The doors: ground, power, chips', 6: '§6 Not a law of nature: the board', 7: '§7 The second set of rules', 8: '§8 Your move' };   // Film 18 (tools/provisional_timing.py SECS)
+const SECNAME = { 0: '§0 Hook: four generations', 1: '§1 The clock', 2: '§2 Riddle 1: why we age', 3: '§3 Riddle 2: the button', 4: '§4 Riddle 3: A.I. at the button', 5: '§5 The first eye', 6: '§6 One thread', 7: '§7 The counter-voice', 8: '§8 The price tag · four decisions' };   // Film 20 (tools/provisional_timing.py SECS)
 
 function wrapWords(ctx, words, size, maxW) {
   ctx.font = `${size}px "Instrument Serif"`; const sp = ctx.measureText(' ').width, lines = []; let cur = [], w = 0;

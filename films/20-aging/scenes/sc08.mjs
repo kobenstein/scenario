@@ -1,5 +1,4 @@
-// c08 · built by B2. The whole B2 group (c05 → c08) is ONE plan sequence drawn by lib/f18_b2_world.mjs (plan table in its header);
-// this chunk returns one entry of it, so the seams between c05, c06, c07 and c08 are the same frame on both sides by construction.
-import * as F from '../lib/f18_kit.mjs';
-import { b2World } from '../lib/f18_b2_world.mjs';
-export default async (T, R) => [{ t: R.a, draw: b2World(T).draw, print: F.PRINT18 }];
+// c08 · STUB until B3 builds it (docs/BRIEF-builders.md · plan: docs/shots.md c08 · world/kit: docs/MOTION.md, lib/f20_kit.mjs).
+// Replace the body with ONE plan-sequence entry: export default async (T, R) => [{ t: R.a, draw, print: F.PRINT20 }].
+import { stubChunk } from '../lib/stub.mjs';
+export default async (T, R) => stubChunk(T, R);
