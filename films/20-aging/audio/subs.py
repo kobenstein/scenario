@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
 """timing.json -> subtitles.srt + subtitles.ass (one line, bottom, phrase by phrase).
 usage: subs.py <audio_dir> <out_dir>
+Film 20: interview-clip slots get their own cue: the transcript lines from clips.json once the clip is in, else "[CLIP C1]" as a placeholder.
 Film 14/16/18: style = channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters."""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']
 # spoken numbers -> digits (longest patterns first: merge() takes the first pattern that matches at a word)
-NUM = [('a hundred and ninety million dollars', '$190 million'), ('one point four trillion dollars', '$1.4 trillion'),   # Film 18
-       ('ninety-six billion dollars', '$96 billion'), ('two to six million dollars', '$2-6 million'), ('seventeen thousand dollars', '$17,000'),
-       ('a hundred and twenty thousand', '120,000'), ('two hundred and forty-four', '244'), ('eight and a half thousand', '8,500'),
-       ('twenty twenty-two', '2022'), ('twenty twenty-one', '2021'), ('twenty nineteen', '2019'), ('twenty seventeen', '2017'),
-       ('twenty twelve', '2012'), ('two thousand nine', '2009'), ('nineteen forty-seven', '1947'), ('nineteen ninety', '1990'),
-       ('nineteen oh four', '1904'), ('the year two thousand', 'the year 2000'), ('ninety-nine percent', '99%'), ('eighty percent', '80%'),
-       ('twenty dollars', '$20'), ('thirteen times', '13 times'), ('ten years', '10 years'), ('fourteen', '14'),
-       ('a\\.i\\.', 'AI')]   # spoken "A.I." (two letters) -> AI on screen
+NUM = [('four and a quarter million dollars', '$4.25 million'), ('a hundred and sixty years', '160 years'),   # Film 20
+       ('twenty twenty-seven', '2027'), ('twenty thirty', '2030'), ('twenty fifty', '2050'), ('nineteen twenty-three', '1923'),
+       ('more than three thousand', 'more than 3,000'), ('sixty billion', '60 billion'), ('a hundred dollars', '$100'),
+       ('one dollar', '$1'), ('fifty times', '50 times'), ('eighty-year-old', '80-year-old'), ('eighty-five', '85'),
+       ('Thirty-three', '33'), ('Twenty years ago', '20 years ago'), ('Over twenty', 'Over 20'), ('under twenty', 'under 20'),
+       ('twelve months', '12 months'), ('toward twelve', 'toward 12'), ('reach twelve', 'reach 12')]
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
@@ -31,61 +30,125 @@ def split(ws):
         if c < best: best, bi = c, k
     return split(ws[:bi]) + split(ws[bi:])
 # hand-made breaks where the balanced split would cut a phrase (Film 6 hook, Fassung 3): sentence text -> cue texts, same words in order
-BREAKS = {   # Film 18: keep phrases together where the balanced split would cut them
-    'A former Google executive, Mo Gawdat, says exactly that: the base of capitalism, hiring you for a dollar and selling what you make for two, is going to disappear.':
-        ['A former Google executive,', 'Mo Gawdat, says exactly that:', 'the base of capitalism,', 'hiring you for a dollar', 'and selling what you make for two,', 'is going to disappear.'],
-    "Between April and June this year, America's biggest companies kept more profit from every dollar than at any point since the count began in 2009.":
-        ['Between April and June this year,', "America's biggest companies", 'kept more profit from every dollar', 'than at any point', 'since the count began in 2009.'],
-    "Then everything made from thinking gets cheaper, and cheaper, until there's almost nothing left to charge for.":
-        ['Then everything made', 'from thinking gets cheaper,', 'and cheaper,', "until there's almost", 'nothing left to charge for.'],
-    'First words and code: a draft, a summary, a bug fix, for cents.':
-        ['First words and code:', 'a draft, a summary, a bug fix,', 'for cents.'],
-    'Then advice: the second opinion on your scan, the lease your landlord sent.':
-        ['Then advice:', 'the second opinion on your scan,', 'the lease your landlord sent.'],
-    'Chegg sold homework help to students.':
-        ['Chegg sold homework help', 'to students.'],
-    'Since 2021, it has lost 99% of its value.':
-        ['Since 2021,', 'it has lost 99% of its value.'],
-    'A year ago it cut almost half its staff and named AI as a reason.':
-        ['A year ago it cut almost', 'half its staff', 'and named AI as a reason.'],
-    "The people who built those products didn't fail.":
-        ['The people who built', "those products didn't fail."],
-    'In a study published in 2019, researchers asked people what it would take to give up search engines, which cost them nothing.':
-        ['In a study published in 2019,', 'researchers asked people', 'what it would take', 'to give up search engines,', 'which cost them nothing.'],
-    'Sam Altman, who runs OpenAI, wrote last year that "the cost of intelligence should eventually converge to near the cost of electricity."':
-        ['Sam Altman, who runs OpenAI,', 'wrote last year that', '"the cost of intelligence', 'should eventually converge', 'to near the cost of electricity."'],
-    'Nvidia, which designs the chips, took in $96 billion in a single quarter this summer.':
-        ['Nvidia, which designs the chips,', 'took in $96 billion', 'in a single quarter this summer.'],
-    'It kept three quarters of every dollar as gross profit.':
-        ['It kept three quarters', 'of every dollar as gross profit.'],
-    'The county says land for one now sells for $2-6 million an acre.':
-        ['The county says land', 'for one now sells for', '$2-6 million an acre.'],
-    'Across 14 rich countries, about 80% of the rise in house prices since the Second World War came from one thing: the land underneath.':
-        ['Across 14 rich countries,', 'about 80% of the rise', 'in house prices since', 'the Second World War', 'came from one thing:', 'the land underneath.'],
-    'Now look at the first picture again: record margins, record low for work.':
-        ['Now look at', 'the first picture again:', 'record margins,', 'record low for work.'],
-    'What would it look like now: a world where almost everything is abundant, and the few things that stay scarce are shared, fairly?':
-        ['What would it look like now:', 'a world where almost', 'everything is abundant,', 'and the few things', 'that stay scarce', 'are shared, fairly?'],
-    'The United States built GPS and switched it on for the whole world, free.':
-        ['The United States built GPS', 'and switched it on', 'for the whole world, free.'],
-    'By 2017, American companies alone had gained about $1.4 trillion from it.':
-        ['By 2017, American companies', 'alone had gained about', '$1.4 trillion from it.'],
-    "That's the rule for whatever AI makes abundant: a free layer, like roads, paid for together instead of at a door, one by one.":
-        ["That's the rule for whatever AI", 'makes abundant:', 'a free layer, like roads,', 'paid for together', 'instead of at a door, one by one.'],
-    'Since last year, the German state of Baden-Württemberg taxes property on the value of the land alone, not the building.':
-        ['Since last year,', 'the German state', 'of Baden-Württemberg', 'taxes property on the value', 'of the land alone,', 'not the building.'],
-    'Housing: since 2019, when Vienna zones new land for homes, two thirds of it usually has to be affordable apartments.':
-        ['Housing: since 2019,', 'when Vienna zones', 'new land for homes,', 'two thirds of it usually', 'has to be affordable apartments.'],
-    'Now ask the same question about the data center going up on that field in Virginia.':
-        ['Now ask the same question', 'about the data center going up', 'on that field in Virginia.'],
-    "I think that's the best news in this story: the end of capitalism isn't something to survive.":
-        ["I think that's the best news", 'in this story:', 'the end of capitalism', "isn't something to survive."],
-    'The ground it stands on is still ours to decide.':
-        ['The ground it stands on', 'is still ours to decide.'],
+BREAKS = {   # Film 20: keep phrases together where the balanced split would cut them
+    "You could be part of the first generation that won't grow old.":
+        ["You could be part", "of the first generation", "that won't grow old."],
+    "They put a treatment into a living person's eye that is built to make old cells young again.":
+        ["They put a treatment", "into a living person's eye", "that is built to make", "old cells young again."],
+    "But it makes a question suddenly real.":
+        ["But it makes a question", "suddenly real."],
+    "Every year, medical research adds a little to how long we live.":
+        ["Every year, medical research", "adds a little to how long we live."],
+    "For 160 years, that number grew by about three months, year after year.":
+        ["For 160 years,", "that number grew", "by about three months,", "year after year."],
+    "Whoever is still healthy on that day is the first generation that won't grow old.":
+        ["Whoever is still healthy", "on that day", "is the first generation", "that won't grow old."],
+    "Today it grows by less than two months a year.":
+        ["Today it grows", "by less than two months a year."],
+    "And now, some of that push isn't human.":
+        ["And now,", "some of that push isn't human."],
+    "Labs use artificial intelligence to pick experiments, design molecules, and read how old our cells are.":
+        ["Labs use artificial intelligence", "to pick experiments,", "design molecules,", "and read how old our cells are."],
+    "Evolution only had to get you through your children's first years.":
+        ["Evolution only had", "to get you through", "your children's first years."],
+    "Scientists can read a cell's age from marks on its DNA.":
+        ["Scientists can read a cell's age", "from marks on its DNA."],
+    "They call the low point ground zero.":
+        ["They call the low point", "ground zero."],
+    "Which makes the better question not why we age, but where that button is.":
+        ["Which makes the better question", "not why we age,", "but where that button is."],
+    "20 years ago, a Japanese lab found four proteins that reset a grown-up cell to factory settings.":
+        ["20 years ago,", "a Japanese lab found four proteins", "that reset a grown-up cell", "to factory settings."],
+    "In mice, that grew tumors in several organs.":
+        ["In mice, that grew tumors", "in several organs."],
+    "More pressing doesn't mean more youth.":
+        ["More pressing", "doesn't mean more youth."],
+    "Mice whose eyes were already damaged by glaucoma got back about half the sharpness they'd lost.":
+        ["Mice whose eyes", "were already damaged by glaucoma", "got back about half", "the sharpness they'd lost."],
+    "And this October, in Germany, blood cells from an 80-year-old were turned into nerve stem cells that read under 20.":
+        ["And this October, in Germany,", "blood cells from an 80-year-old", "were turned into nerve stem cells", "that read under 20."],
+    "Four proteins were the first answer.":
+        ["Four proteins", "were the first answer."],
+    "Nobody knows which other mix might work better, or how hard to press it.":
+        ["Nobody knows which other mix", "might work better,", "or how hard to press it."],
+    "That search is too big for people alone.":
+        ["That search is too big", "for people alone."],
+    "So artificial intelligence is helping.":
+        ["So artificial intelligence", "is helping."],
+    "One company says it has tested more than 3,000 mixes.":
+        ["One company says it has tested", "more than 3,000 mixes."],
+    "Over 20 made old liver cells act younger.":
+        ["Over 20 made old liver cells", "act younger."],
+    "Artificial intelligence, it says, has doubled how fast it finds them.":
+        ["Artificial intelligence, it says,", "has doubled", "how fast it finds them."],
+    "Artificial intelligence has also redesigned two of the four reset proteins.":
+        ["Artificial intelligence", "has also redesigned", "two of the four reset proteins."],
+    "In cells, the new versions switched on the signs of a reset more than 50 times as strongly.":
+        ["In cells, the new versions", "switched on the signs of a reset", "more than 50 times as strongly."],
+    "The protein result hasn't even been published.":
+        ["The protein result", "hasn't even been published."],
+    "And the clocks that read a cell's age are machine learning too.":
+        ["And the clocks that read", "a cell's age", "are machine learning too."],
+    "The first results come from three people with glaucoma, like those mice.":
+        ["The first results come", "from three people with glaucoma,", "like those mice."],
+    "In October, eight weeks in, the company reported no serious side effects.":
+        ["In October, eight weeks in,", "the company reported", "no serious side effects."],
+    "And in two of the three, parts of the visual field improved.":
+        ["And in two of the three,", "parts of the visual field", "improved."],
+    "The company behind those liver cells plans its first human trial for 2027.":
+        ["The company behind", "those liver cells plans", "its first human trial for 2027."],
+    "But what about everything else that goes wrong with age?":
+        ["But what about everything else", "that goes wrong with age?"],
+    "Four illnesses, four kinds of medicine, four different wards.":
+        ["Four illnesses,", "four kinds of medicine,", "four different wards."],
+    "Artificial intelligence is coming at the illnesses too, designing medicines from the shapes of proteins.":
+        ["Artificial intelligence is coming", "at the illnesses too,", "designing medicines", "from the shapes of proteins."],
+    "Decades ago, the field's best-known skeptic did the math for America.":
+        ["Decades ago,", "the field's best-known skeptic", "did the math for America."],
+    "Cure every major disease of old age, and life expectancy at birth would still be unlikely to pass 85.":
+        ["Cure every major disease", "of old age,", "and life expectancy at birth", "would still be unlikely", "to pass 85."],
+    "His verdict: in this century, a radically longer life is implausible.":
+        ["His verdict:", "in this century,", "a radically longer life", "is implausible."],
+    "That “unless” is what the button, the search, and the eye are all about.":
+        ["That “unless” is what", "the button, the search,", "and the eye are all about."],
+    "He wants more of this research, not less.":
+        ["He wants more of this research,", "not less."],
+    "So that day isn't one date on the calendar.":
+        ["So that day isn't", "one date on the calendar."],
+    "So for most of the world, what decides it isn't a birth year.":
+        ["So for most of the world,", "what decides it", "isn't a birth year."],
+    "Nobody has to lose a year so someone else can gain one.":
+        ["Nobody has to lose a year", "so someone else can gain one."],
+    "In 1923, the men who discovered insulin sold the patent for $1.":
+        ["In 1923,", "the men who discovered insulin", "sold the patent for $1."],
+    "A generation later, a reporter asked who owned the patent on the polio vaccine.":
+        ["A generation later,", "a reporter asked", "who owned the patent", "on the polio vaccine."],
+    "Since then, four kinds of decisions have pulled prices down.":
+        ["Since then,", "four kinds of decisions", "have pulled prices down."],
+    "Through one such pool, more than 60 billion doses have reached poorer countries.":
+        ["Through one such pool,", "more than 60 billion doses", "have reached poorer countries."],
+    "In Egypt, no patent stood in the way, and copies brought one hepatitis C treatment under $100.":
+        ["In Egypt,", "no patent stood in the way,", "and copies brought", "one hepatitis C treatment", "under $100."],
+    "33 American states now buy sickle cell gene therapy together.":
+        ["33 American states now buy", "sickle cell gene therapy together."],
+    "A trial that pulls on the thread has a goal regulators accept, but not the money it needs.":
+        ["A trial that pulls on the thread", "has a goal regulators accept,", "but not the money it needs."],
+    "And public research money could come with a promise of access.":
+        ["And public research money", "could come with", "a promise of access."],
+    "None of this has ever been tried on a rejuvenation therapy.":
+        ["None of this has ever been tried", "on a rejuvenation therapy."],
+    "So think of your family one more time.":
+        ["So think of your family", "one more time."],
+    "Research decides when that day comes.":
+        ["Research decides", "when that day comes."],
+    "The first generation that won't grow old isn't a birth year.":
+        ["The first generation", "that won't grow old", "isn't a birth year."],
 }
+USED = set()
 def pieces(snt):
     k = ' '.join(x['w'] for x in snt)
     if k not in BREAKS: return split(snt)
+    USED.add(k)
     out, i = [], 0
     for p in BREAKS[k]:   # consume merged words until they spell the piece (a merged number like "$96 billion" is one word with a space)
         j = i + 1
@@ -116,16 +179,19 @@ cues = [[c[0]['s'], c[-1]['e'], fix(' '.join(x['w'] for x in c))] for snt in sen
 import os
 CL = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
 for c in json.load(open(A + 'timing.json')).get('clips', []):
-    cl = CL.get(c['id'], {'card': True})   # Film 14: Q1 is a silent quote card (read on screen, no subtitle)
-    if cl.get('card') or not cl.get('cues'): continue
-    q = cl['cues']
-    for k, (t0, line) in enumerate(q):
+    if c.get('kind') == 'card': continue   # quote cards show their words on screen: no subtitle
+    q = CL.get(c['id'], {}).get('cues')
+    if not q:   # Film 20: no transcript yet -> one placeholder subtitle over the whole slot, e.g. "[CLIP C1]"
+        cues.append([c['start'], c['end'] - .05, f"[CLIP {c['id']}]", 'clip']); continue
+    for k, (t0, line) in enumerate(q):   # clips.json "cues": [[seconds from clip start, line], ...] from the clip transcript
         t1 = q[k + 1][0] if k + 1 < len(q) else c['end'] - c['start']
-        cues.append([c['start'] + t0, c['start'] + t1 - .05, line])
+        cues.append([c['start'] + t0, c['start'] + t1 - .05, line, 'clip'])
 cues.sort(key=lambda c: c[0])
-for i, c in enumerate(cues):  # hold each cue a little, never overlapping the next
+for i, c in enumerate(cues):  # hold each cue a little, never overlapping the next (clip cues keep their own end)
     nx = cues[i + 1][0] if i + 1 < len(cues) else c[1] + 2
-    c[1] = min(max(c[1] + .25, c[0] + 1.0), nx - .04)
+    if len(c) < 4: c[1] = min(max(c[1] + .25, c[0] + 1.0), nx - .04)
+    else: c[1] = min(c[1], nx - .04)
+cues = [c[:3] for c in cues]
 ts = lambda t, sep: f"{int(t // 3600):02d}:{int(t % 3600 // 60):02d}:{int(t % 60):02d}{sep}{int(round(t % 1 * 1000)) if sep == ',' else int(round(t % 1 * 100)):0{3 if sep == ',' else 2}d}"
 with open(OUT + 'subtitles.srt', 'w') as f:
     for i, (a, b, s) in enumerate(cues, 1): f.write(f"{i}\n{ts(a, ',')} --> {ts(b, ',')}\n{s}\n\n")
@@ -147,3 +213,5 @@ with open(OUT + 'subtitles.ass', 'w') as f:
     f.write(ass)
     for a, b, s in cues: f.write(f"Dialogue: 0,{ts(a, '.')[1:]},{ts(b, '.')[1:]},Sub,,0,0,0,,{{\\fad(120,160)}}{s}\n")
 print(len(cues), 'cues; longest', max(len(c[2]) for c in cues))
+for k in BREAKS:
+    if k not in USED: print('BREAKS key not found (text changed?):', k[:60])

@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Split the VO text into audio/segments.json: one TTS segment per paragraph (blank-line separated), long
 paragraphs split further at SPLIT phrases (~300-650 characters per take, as in Film 14).
+Film 20: sections 0-8 = the stations of text-v3.md (same SECS as tools/provisional_timing.py); a paragraph that is only
+`[CLIP C1]` becomes a silent clip slot {"id": "C1", "clip": true, "dur": 10.0}, a paragraph `[ZITATKARTE …]` a silent quote-card
+slot {"id": "Q1", "card": true, "dur": CARD_S, "text": …} (no voice under the card, the music runs on); build_vo.py lays them out.
 Film 18: input is audio/vo-v4-tts.txt (= vo-v4.txt word for word, plus one direction tag per paragraph); sections 1-8 are the
 stations of tools/provisional_timing.py; a SPLIT phrase may also sit inside a line (the line is broken there).
 Film 16: [[QUOTE CARD: …]] lines get NO silent slot (the VO paraphrases every card and keeps running while it is on screen);
@@ -10,10 +13,13 @@ usage: make_segments.py <vo.txt> <audio_dir>"""
 import json, re, sys
 src, A = sys.argv[1], sys.argv[2].rstrip('/')
 # section starts: (section, first words of the line that opens it, tags stripped); Film 18 = stations of provisional_timing.py
-SECS = [('1', 'A.I. will end capitalism'), ('2', 'Capitalism, in one sentence'), ('3', "But that's not the real ending"), ('4', "We've watched a price"),
-        ('5', 'The doors are the things'), ('6', "That isn't a law of nature"), ('7', 'The second set of rules'), ('8', "Capitalism won't end")]
+SECS = [('0', 'You could be part'), ('1', 'Every year, medical research'), ('2', 'Aging looks like'), ('3', 'Twenty years ago'),
+        ('4', 'That search is too big'), ('5', 'Yes. Earlier this year'), ('6', 'Cancer. Heart disease'), ('7', 'That skeptic has run'),
+        ('8', 'That treatment in the eye')]
+CLIP_S = 10.0                                    # placeholder until the real clip is in <ROOT>clips/ (build_vo.py then reads its length)
+CARD_S = [('Preliminary', 5.0), ('Hassabis', 6.0), ('Salk', 6.0)]   # quote-card reading time (same as provisional_timing.py)
 # a new take starts at these phrases (inside a paragraph)
-SPLIT = ['Chegg sold homework help']
+SPLIT = []
 # paragraphs that stay in the previous take (build_vo.py BREATH adds the air)
 MERGE = []
 TAG = re.compile(r'^\[[^\[\]]*\]\s*')
@@ -26,7 +32,15 @@ def new(lines, cards, ons):
     segs.append({'id': f's{n:02d}', 'sec': sec, 'text': '\n'.join(lines)}); n += 1
     if cards: segs[-1]['cards'] = cards
     if ons: segs[-1]['onscreen'] = ons
+nq = 0
 for p in paras:
+    m = re.fullmatch(r'\[CLIP (C\d+)\]', p[0]) if len(p) == 1 else None
+    if m:
+        segs.append({'id': m.group(1), 'sec': sec, 'clip': True, 'dur': CLIP_S}); continue
+    m = re.fullmatch(r'\[ZITATKARTE\s+(.*)\]', p[0]) if len(p) == 1 else None
+    if m:
+        nq += 1
+        segs.append({'id': f'Q{nq}', 'sec': sec, 'card': True, 'dur': next((d for k, d in CARD_S if k in m.group(1)), 5.0), 'text': m.group(1)}); continue
     cur, cards, ons = [], [], []
     merge = any(TAG.sub('', l).startswith(w) for l in p[:1] for w in MERGE)
     for l in p:
@@ -51,5 +65,7 @@ for p in paras:
 missing = [s for s, w in SECS if not any(x['sec'] == s for x in segs)]
 if missing: raise SystemExit('missing section starts: ' + ', '.join(missing))
 json.dump(segs, open(A + '/segments.json', 'w'), indent=1)
-for s in segs: print(s['id'], s['sec'], f"{len(s['text'].split())} words, {len(s['text'])} chars", 'cards', len(s.get('cards', [])), 'onscreen', len(s.get('onscreen', [])), '|', s['text'][:50].replace('\n', ' '))
-print('total chars', sum(len(s['text']) for s in segs))
+for s in segs:
+    if s.get('clip') or s.get('card'): print(s['id'], s['sec'], 'slot', s['dur'], 's'); continue
+    print(s['id'], s['sec'], f"{len(s['text'].split())} words, {len(s['text'])} chars", 'cards', len(s.get('cards', [])), 'onscreen', len(s.get('onscreen', [])), '|', s['text'][:50].replace('\n', ' '))
+print('total chars', sum(len(s['text']) for s in segs if not (s.get('clip') or s.get('card'))))

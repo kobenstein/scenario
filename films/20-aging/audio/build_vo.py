@@ -1,27 +1,31 @@
 #!/usr/bin/env python3
-"""Lay VO takes (and, if a film has them, interview-clip / quote-card slots) onto one timeline -> vo_master.wav + timing.json.
-Film 16/18: no card slots (the VO keeps running under every quote card); timing.json also gets "levels" (hook, L1-L7, ending)
-and "cues" (every [[QUOTE CARD]] / [[ON SCREEN]] line from segments.json, timed at the end of the spoken line it follows).
-Clip slots stay silent here; clips/<K>.wav (if present) is mixed in at the slot by mix.py.
-usage: build_vo.py <audio_dir> [wav_dir]   (Film 14: vo_master.wav goes to wav_dir, a scratchpad, because project storage is nearly full)"""
+"""Lay VO takes, interview-clip slots and quote-card slots onto one timeline -> vo_master.wav + timing.json.
+Film 20: clip slots ([CLIP C1..C3]) and quote-card slots ([ZITATKARTE …] -> Q1..Q3) are their own entries in timing.json "clips"
+(kind "clip" / "card"); no voice under them. A clip slot is 10.0 s until the real clip exists: if <ROOT>clips/<id>.(wav|m4a|mp3|mp4|mov|webm)
+is present, its real length is used (so: drop the clip file in, rerun build_vo.py, subs.py, mix.py; the VO takes are not regenerated).
+timing.json also gets "levels" (stations 0-8 of text-v3.md), "endscreen" (15 s, music only) and "cues" (none in Film 20).
+usage: build_vo.py <audio_dir> [wav_dir]   (<audio_dir> holds segments.json + vo-sNN.mp3/json; vo_master.wav goes to wav_dir, a scratchpad)
+       env CLIPDIR: where the clip files live (default <audio_dir>/../clips)"""
 import json, os, re, subprocess, sys
 import numpy as np
 A = sys.argv[1].rstrip('/'); WAV = sys.argv[2].rstrip('/') if len(sys.argv) > 2 else A
+CLIPDIR = os.environ.get('CLIPDIR', A + '/../clips').rstrip('/')
 SEG = json.load(open(f'{A}/segments.json'))
 LEAD, TAIL = 1.0, 15.0                       # 15 s endscreen tail (drop-off rule 28.10.: max 15 s)
-CARD = 5.5                                   # silent slot for a quote card (read on screen)
-CLIP_IN, CLIP_OUT = 0.7, 0.6                 # air before / after a clip
+CARD = 5.0                                   # default quote-card slot (segments.json "dur" wins)
+CLIP_IN, CLIP_OUT = 0.7, 0.6                 # air before / after a clip or card
 GAP_SECTION, GAP_SUB = 1.7, 0.9
-# Film 18 (vo-v4, 33 takes, sections 1-8 = the stations of tools/provisional_timing.py): takes 0.9 s apart, stations 1.7 s;
-# hook s00 runs straight into s01 (drop-off rule 28.10.: no pause at the hook end); longer air where text-v2.md has [pause]:
-# after "would you subscribe?" (s15), after "the ground the machine stands on." (s21, end of the bad ending, station change),
-# after "they chose to share." (s27) and before the closing lines (after s31 "That's what this channel is for.")
-GAP_AFTER = {'s00': 0.8, 's15': 1.5, 's21': 2.4, 's27': 1.5, 's31': 1.9}
+# Film 20 (vo-v4, 41 takes, stations 0-8): takes 0.9 s apart, stations 1.7 s; hook end s02 "It's a race." runs on into station 1
+# (drop-off rule 28.10.: no pause at the hook end); the two longer breaths of text-v3.md: after "It's a price tag." (s34) and after
+# "It's a decision." (s40, then the end screen)
+GAP_AFTER = {'s02': 0.8, 's34': 2.0, 's40': 1.5}
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
 BREATH = []
-LEVELS = {'1': 'hook', '2': 'The engine · the price of thinking falls · the pressure', '3': 'The real ending is the price',
-          '4': 'A price hits zero: Britannica, music, Chegg, Canva · the value stays', '5': 'The doors: ground, power, chips · the bad ending',
-          '6': 'A set of rules: The Landlord\'s Game', '7': 'The second set of rules: free layer, land, housing, energy', '8': 'ending'}
+LEVELS = {'0': 'hook: four generations', '1': 'the clock (three months a year, twelve = escape velocity)', '2': 'riddle 1: why we age (the reset at ground zero)',
+          '3': 'riddle 2: the button (four proteins, the window)', '4': 'riddle 3: artificial intelligence at the button', '5': 'the first eye (ER-100)',
+          '6': 'all diseases hang on one thread', '7': 'the counter-voice (the skeptic, the band)', '8': 'big answer: a price tag, four decisions'}
+CLIPEXT = ('wav', 'm4a', 'mp3', 'mp4', 'mov', 'webm', 'mkv')
+def clipfile(cid): return next((f'{CLIPDIR}/{cid}.{e}' for e in CLIPEXT if os.path.exists(f'{CLIPDIR}/{cid}.{e}')), None)
 def dur(f): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).decode())
 def cuts(sid, mp3, W):
     """[(cut time, extra seconds)] for this take, cut at the quietest 10 ms frame between the two words"""
@@ -41,9 +45,11 @@ for i, s in enumerate(SEG):
     nxt = SEG[i + 1] if i + 1 < len(SEG) else None
     if s.get('endcards'): continue
     if s.get('clip') or s.get('card'):
-        d = s.get('dur', CARD)
+        d = s.get('dur', CARD); f = clipfile(s['id']) if s.get('clip') else None
+        if f: d = round(dur(f), 3)
         t += CLIP_IN - GAP_SUB
-        clips.append({'id': s['id'], 'sec': s['sec'], 'kind': 'clip' if s.get('clip') else 'card', 'start': round(t, 3), 'end': round(t + d, 3), **{k: s[k] for k in ('file', 'name', 'role', 'label', 'text') if k in s}})
+        clips.append({'id': s['id'], 'sec': s['sec'], 'kind': 'clip' if s.get('clip') else 'card', 'start': round(t, 3), 'end': round(t + d, 3),
+                      'placeholder': bool(s.get('clip') and not f), **({'file': os.path.basename(f)} if f else {}), **{k: s[k] for k in ('name', 'role', 'label', 'text') if k in s}})
         t += d + CLIP_OUT
         continue
     j = json.load(open(f"{A}/vo-{s['id']}.json")); mp3 = f"{A}/vo-{s['id']}.mp3"
@@ -67,7 +73,7 @@ for i, s in enumerate(SEG):
         delays.append(t + shift(bounds[p]))
     gap = GAP_AFTER.get(s['id'], GAP_SECTION if (nxt and nxt['sec'] != s['sec']) else GAP_SUB)
     t += last + gap
-total = t + TAIL
+vo_end = t; total = t + TAIL   # t = last word + GAP_AFTER of the last take
 fc = ''.join(f'[{k}:a]aresample=48000,adelay={int(d*1000)}:all=1[a{k}];' for k, d in enumerate(delays))
 fc += ''.join(f'[a{k}]' for k in range(len(delays))) + f'amix=inputs={len(delays)}:normalize=0,apad,atrim=0:{total:.3f}[o]'
 subprocess.check_call(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', *inputs, '-filter_complex', fc, '-map', '[o]', '-ac', '1', '-ar', '48000', f'{WAV}/vo_master.wav'])
@@ -75,9 +81,10 @@ levels = {}
 for sid, v in secs.items():
     L = levels.setdefault(v['sec'], {'name': LEVELS.get(v['sec'], v['sec']), 'start': v['start'], 'end': v['end'], 'segments': []})
     L['end'] = v['end']; L['segments'].append(sid)
-json.dump({'duration': round(total, 3), 'levels': levels, 'sections': secs, 'clips': clips, 'cues': cues, 'words': words}, open(f'{A}/timing.json', 'w'), indent=0)
+json.dump({'duration': round(total, 3), 'endscreen': {'start': round(vo_end, 3), 'end': round(total, 3)}, 'levels': levels, 'sections': secs, 'clips': clips, 'cues': cues, 'words': words}, open(f'{A}/timing.json', 'w'), indent=0)
 print('duration', round(total, 1), 's;', len(words), 'words')
 for k, v in secs.items(): print(k, v['start'], v['end'])
 for k, v in levels.items(): print('level', k, v['name'], v['start'], v['end'])
 print(len(cues), 'cues')
-for c in clips: print(c['id'], c['start'], c['end'])
+for c in clips: print(c['id'], c['kind'], c['start'], c['end'], 'placeholder' if c.get('placeholder') else '')
+print('endscreen', round(vo_end, 3), round(total, 3))

@@ -1,63 +1,154 @@
-[calm, conversational] A.I. will end capitalism. Not in a hundred years. In your lifetime. And not the way you think.
+[calm, conversational] You could be part of the first generation that won't grow old.
+Think about your grandparents. Gray hair. Reading glasses. Stairs that take a little longer.
+That's the deal every human has had.
 
-[calm, conversational] Capitalism, in one sentence: somebody pays you to make something, then sells it for more than they paid you. Your work has a price. What you make has a price. The gap between them is profit. That's the whole engine.
+[thoughtful] But this year, doctors did something that had never been done before.
+They put a treatment into a living person's eye that is built to make old cells young again.
+It's one small step. But it makes a question suddenly real.
 
-[curious] Now watch what A.I. is doing to one of those prices.
+[curious] If this works, who gets there in time? Your grandparents? Your parents? You? Your kids?
+The answer isn't a birthday. It's a race.
 
-[thoughtful] Think about what you actually get paid for. Writing the email. Reading the contract. Finding the mistake. Explaining it to the customer. Most of it is thinking. And thinking is the thing that's getting cheap. Fast.
+[calm, conversational] Every year, medical research adds a little to how long we live.
+Take the country that does best. For a hundred and sixty years, that number grew by about three months, year after year. Like clockwork.
 
-[calm, conversational] At the end of twenty twenty-two, the A.I. behind the first ChatGPT cost about twenty dollars for eight novels' worth of text. Two years later, the same work cost seven cents. And it keeps falling: about thirteen times cheaper, year after year.
+[curious] Now imagine that number climbs to twelve months.
+A full year of life gained for every year that passes.
+From that day on, you'd stop running out of time.
+Researchers call it longevity escape velocity. Nobody has reached it.
 
-[calm, conversational] Most people hear that and think: so A.I. takes my job, nobody earns a paycheck, nobody buys anything, and the whole thing collapses. A former Google executive, Mo Gawdat, says exactly that: the base of capitalism, hiring you for a dollar and selling what you make for two, is going to disappear.
+[thoughtful] Whoever is still healthy on that day is the first generation that won't grow old.
+So that generation may already be born. You may be in it.
 
-[thoughtful] And you can already see the pressure. Between April and June this year, America's biggest companies kept more profit from every dollar than at any point since the count began in two thousand nine. In the same three months, people who work for a living got their smallest slice of the pie since nineteen forty-seven. Bigger profits. Smaller slice for you. Same three months.
+[calm, conversational] But there's a problem. This century, the number slipped.
+Today it grows by less than two months a year.
+So it isn't racing toward twelve. Every year it stays this low, that day moves further away.
 
-[thoughtful] But that's not the real ending. The real ending is the price.
+[thoughtful] For it to turn around, something new has to push.
+And now, some of that push isn't human.
+Labs use artificial intelligence to pick experiments, design molecules, and read how old our cells are.
 
-[calm, conversational] Capitalism can only make money on things that are scarce. Nobody sells you air, because there's plenty of it. Now imagine thinking becomes as plentiful as air. Then everything made from thinking gets cheaper, and cheaper, until there's almost nothing left to charge for.
+[curious] But to push on aging, you have to know what it is. Why does a body grow old at all?
 
-[thoughtful] A system built on charging for things runs out of things to charge for.
+[calm, conversational] Aging looks like a law of nature. It isn't one.
+Evolution only had to get you through your children's first years. After that, it stopped looking.
+Evolution pays for your youth and sends the bill to your old age.
 
-[curious] So where does the money go? Who still gets paid? And where does that leave you?
+[thoughtful] But that bill can be reset. The proof is you.
+The egg you grew from was made before your mother was born.
+So you started out as a cell that was decades old.
+And yet you started at zero.
 
-[calm, conversational] We've watched a price hit zero before. And each time, the same question: who still gets paid? In nineteen ninety, Britannica sold a hundred and twenty thousand sets of encyclopedias. Then the price of a fact fell to nothing. In twenty twelve, after two hundred and forty-four years, the presses stopped. Wikipedia runs on about a hundred and ninety million dollars a year, free to you. Music: when the price of a song hit zero, the business shrank by more than half, and only grew back as a subscription. The price didn't die. It moved: off the song, onto the door.
+[calm, conversational] Scientists can read a cell's age from marks on its DNA.
+In an early embryo, that age goes down. They call the low point ground zero.
+So nature has a reset button. It pressed it for you, before you were born.
 
-[thoughtful] Now the same thing is reaching thinking. First words and code: a draft, a summary, a bug fix, for cents. Then advice: the second opinion on your scan, the lease your landlord sent. Then everything built out of thinking: the drug, the bridge, the lesson. Chegg sold homework help to students. Since twenty twenty-one, it has lost ninety-nine percent of its value. A year ago it cut almost half its staff and named A.I. as a reason. Canva made design cheap enough for anyone, and this month cut jobs, citing its first growth slowdown in ten years. Canva says A.I. isn't taking those jobs. The price of a design is falling either way. The people who built those products didn't fail. The price left.
+[curious] Which makes the better question not why we age, but where that button is.
 
-[curious] And the value? In a study published in twenty nineteen, researchers asked people what it would take to give up search engines, which cost them nothing. The typical answer: seventeen thousand dollars a year. The price vanished. The value stayed.
+[calm, conversational] Twenty years ago, a Japanese lab found four proteins that reset a grown-up cell to factory settings.
+Hold the button down, and the cell forgets what it was. In mice, that grew tumors in several organs.
 
-[thoughtful] Value with no price goes looking for a door. Music found one. Capitalism doesn't vanish. It retreats, behind the doors. If you want to follow it there, would you subscribe?
+[thoughtful] So the trick isn't pressing harder. It's letting go in time.
+There's a window. More pressing doesn't mean more youth.
+Or press only three of the four.
+Mice whose eyes were already damaged by glaucoma got back about half the sharpness they'd lost.
 
-[thoughtful] Watch where it goes.
+[calm, conversational] And this October, in Germany, blood cells from an eighty-year-old were turned into nerve stem cells that read under twenty.
+All of this was in dishes and in mice. From a dish to a living body like yours is a long way.
 
-[calm, conversational] The doors are the things that can't be copied. The ground. The power. The chips. Sam Altman, who runs OpenAI, wrote last year that "the cost of intelligence should eventually converge to near the cost of electricity." Read it from the other side: what's left on the bill is the power. The chips. The ground under the data center.
+[curious] Four proteins were the first answer. Nobody knows which other mix might work better, or how hard to press it.
 
-Nvidia, which designs the chips, took in ninety-six billion dollars in a single quarter this summer. It kept three quarters of every dollar as gross profit. [wry] That isn't villainy. That's what scarcity pays. Loudoun County, Virginia, holds the biggest cluster of data centers on earth. The county says land for one now sells for two to six million dollars an acre.
+[calm, conversational] That search is too big for people alone. So artificial intelligence is helping.
+One company says it has tested more than three thousand mixes. Over twenty made old liver cells act younger.
+Artificial intelligence, it says, has doubled how fast it finds them.
+That's from the company's own update this year.
 
-[thoughtful] The oldest door is the one you pay for every month. Across fourteen rich countries, about eighty percent of the rise in house prices since the Second World War came from one thing: the land underneath. Not the bricks. The dirt.
+[CLIP C1]
 
-[calm, conversational] Now look at the first picture again: record margins, record low for work. That's the direction. Markets are doing exactly what they're built to do: follow the price.
+[calm, conversational] Artificial intelligence has also redesigned two of the four reset proteins.
+In cells, the new versions switched on the signs of a reset more than fifty times as strongly.
 
-[softly] Not a crash, then. A world where almost everything is nearly free, and the few things that aren't belong to very few people. In that world you don't go hungry. You pay at the door. Every month, to whoever holds the ground, the power and the chips. I don't think the real story of this decade is the machine. It's the ground the machine stands on.
+[thoughtful] These numbers come from the companies themselves. The protein result hasn't even been published.
+And the clocks that read a cell's age are machine learning too.
+If one says you're younger, that's an estimate, not proof.
 
-[thoughtful] That isn't a law of nature. It's a set of rules. In nineteen oh four, Lizzie Magie patented a board game to teach exactly that. You know it as Monopoly. She called it The Landlord's Game. It was built on one idea from the economist Henry George: land is valuable because of everyone around it. So what it earns belongs to everyone. Her game had two sets of rules. Under one, a single player ends up owning everything. Under the other, everybody wins. We kept the first. The second got forgotten.
+[curious] So has anyone pressed the button inside a living person?
 
-[curious] What would it look like now: a world where almost everything is abundant, and the few things that stay scarce are shared, fairly?
+[calm, conversational] Yes. Earlier this year, in an eye.
+It's the treatment from the start: the same three of the four, in one injection.
+The first results come from three people with glaucoma, like those mice.
+In October, eight weeks in, the company reported no serious side effects.
+And in two of the three, parts of the visual field improved.
 
-[calm, conversational] The second set of rules is already in play, quietly, in a few places. What becomes abundant is set free, for everyone. The United States built GPS and switched it on for the whole world, free. By twenty seventeen, American companies alone had gained about one point four trillion dollars from it. Put it out there free, and everyone earns on it. That's the rule for whatever A.I. makes abundant: a free layer, like roads, paid for together instead of at a door, one by one. For a kid in Lagos and a plumber in Ohio alike.
+[ZITATKARTE Preliminary observations. Built to test safety, not whether it works. — Life Biosciences, first data in people, 8 Oct 2026]
 
-[calm, conversational] And what stays scarce, we run together. Land first, because nobody made it. Since last year, the German state of Baden-Württemberg taxes property on the value of the land alone, not the building. Build on it, and your tax doesn't rise. Germany's top tax court upheld it this spring. Tax what nobody made, not what people build.
+[thoughtful] Three people. One eye each. No control group.
+Three eyes don't move the needle. They move the odds.
+And the trial goes on: a safety board cleared the next, higher dose.
 
-[calm, conversational] Housing: since twenty nineteen, when Vienna zones new land for homes, two thirds of it usually has to be affordable apartments. And the land price is capped by law. Whether that's enough, Vienna still argues about.
+[softly] Aging is turning from fate into a target.
 
-[calm, conversational] Energy: off Copenhagen, a wind farm has turned since the year two thousand. Half belongs to the city's utility. The other half to about eight and a half thousand people, through a cooperative. The wind was always free. The door to it, they chose to share.
+[calm, conversational] The eye was the easy start: small and sealed off.
+Next, the liver. The company behind those liver cells plans its first human trial for twenty twenty-seven.
 
-[curious] Now ask the same question about the data center going up on that field in Virginia. Who owns the door? That's being decided right now, in state legislatures and county zoning meetings, where a data center can't vote. You can.
+[CLIP C2]
 
-[thoughtful] None of this takes what anyone already owns. It decides, up front, where the value of the scarce things flows: to the few who hold them, or to everyone who makes them valuable.
+[curious] But what about everything else that goes wrong with age?
 
-[thoughtful] Capitalism won't end with a crash. It goes the way the encyclopedia went: one price at a time, while the value stays. Whether it ends there, or just moves in behind the doors: same board, two sets of rules. I think that's the best news in this story: the end of capitalism isn't something to survive. It's something to design.
+[calm, conversational] Cancer. Heart disease. Dementia. Diabetes. Four illnesses, four kinds of medicine, four different wards.
+They share their biggest risk factor. It's how old you are.
+So all four hang on the same thread. Pull that thread, the bet goes, and you pull on all of them at once.
 
-[calm, conversational] The question was never whether it ends. It's what we put in its place, and whether you're in the room when that's decided. Tell me below: which price in your line of work falls next? And if you think the end of capitalism should be a good ending, subscribe. That's what this channel is for.
+[thoughtful] Artificial intelligence is coming at the illnesses too, designing medicines from the shapes of proteins.
 
-[softly] The thinking is about to be free. The ground it stands on is still ours to decide. Your move.
+[ZITATKARTE Scott Pelley: “The end of disease?” — Demis Hassabis: “I think that's within reach.” · 60 Minutes, CBS, 20 April 2025]
+
+[calm, conversational] But nine in ten drugs that reach a first human trial still fail.
+And even if they all worked, it wouldn't be enough.
+Decades ago, the field's best-known skeptic did the math for America. Cure every major disease of old age, and life expectancy at birth would still be unlikely to pass eighty-five.
+The thread would still be there.
+
+[curious] So does the needle ever reach twelve?
+
+[thoughtful] That skeptic has run the newer numbers too, and he doesn't see the needle turning.
+
+[CLIP C3]
+
+[calm, conversational] He studied the longest-lived places on Earth over three decades.
+Life expectancy kept rising, but more slowly, everywhere he looked.
+His verdict: in this century, a radically longer life is implausible. Unless aging itself can be markedly slowed.
+
+[thoughtful] That “unless” is what the button, the search, and the eye are all about.
+In his own words: a glass ceiling, not a brick wall. He wants more of this research, not less.
+
+[calm, conversational] The optimists' estimates run from about twenty thirty to twenty fifty. Estimates, not studies.
+So that day isn't one date on the calendar. It could come anywhere within a few decades.
+Which changes the question: not just when, but who gets there in time.
+
+[calm, conversational] That treatment in the eye is a gene therapy.
+Gene therapies already cost up to four and a quarter million dollars.
+So for most of the world, what decides it isn't a birth year. It's a price tag.
+
+[thoughtful] Nobody has to lose a year so someone else can gain one. This isn't a cake.
+The question isn't who goes without. It's how fast the price falls.
+
+[calm, conversational] In nineteen twenty-three, the men who discovered insulin sold the patent for one dollar.
+A generation later, a reporter asked who owned the patent on the polio vaccine.
+
+[ZITATKARTE “Well, the people, I would say. There is no patent. Could you patent the sun?” — Jonas Salk · See It Now, CBS, 12 April 1955]
+
+[thoughtful] Both were decisions. Since then, four kinds of decisions have pulled prices down.
+
+[calm, conversational] One: pool the patents. Through one such pool, more than sixty billion doses have reached poorer countries.
+Two: pay one flat fee, like a subscription. Louisiana did that for hepatitis C, and studies found treatments rose sharply.
+Three: let other makers copy it. In Egypt, no patent stood in the way, and copies brought one hepatitis C treatment under a hundred dollars.
+Four: negotiate for everyone. Thirty-three American states now buy sickle cell gene therapy together. If it fails, the makers pay back.
+
+[thoughtful] Two more ideas are still waiting. A trial that pulls on the thread has a goal regulators accept, but not the money it needs.
+And public research money could come with a promise of access. It almost never does.
+None of this has ever been tried on a rejuvenation therapy.
+But none of it needs a discovery. Each one is a decision.
+
+[softly] So think of your family one more time.
+Research decides when that day comes. We decide who gets there in time.
+The first generation that won't grow old isn't a birth year. It's a decision.
