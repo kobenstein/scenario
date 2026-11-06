@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+"""Split the VO text into audio/segments.json: one TTS segment per paragraph (blank-line separated), long
+paragraphs split further at SPLIT phrases (~300-650 characters per take, as in Film 14).
+Film 18: input is audio/vo-v4-tts.txt (= vo-v4.txt word for word, plus one direction tag per paragraph); sections 1-8 are the
+stations of tools/provisional_timing.py; a SPLIT phrase may also sit inside a line (the line is broken there).
+Film 16: [[QUOTE CARD: …]] lines get NO silent slot (the VO paraphrases every card and keeps running while it is on screen);
+they are only listed on their segment under "cards" (with the spoken line they follow), like [[ON SCREEN: …]] under "onscreen".
+[pause] lines are not sent to TTS: build_vo.py makes that air (GAP_AFTER / BREATH).
+usage: make_segments.py <vo.txt> <audio_dir>"""
+import json, re, sys
+src, A = sys.argv[1], sys.argv[2].rstrip('/')
+# section starts: (section, first words of the line that opens it, tags stripped); Film 18 = stations of provisional_timing.py
+SECS = [('1', 'A.I. will end capitalism'), ('2', 'Capitalism, in one sentence'), ('3', "But that's not the real ending"), ('4', "We've watched a price"),
+        ('5', 'The doors are the things'), ('6', "That isn't a law of nature"), ('7', 'The second set of rules'), ('8', "Capitalism won't end")]
+# a new take starts at these phrases (inside a paragraph)
+SPLIT = ['Chegg sold homework help']
+# paragraphs that stay in the previous take (build_vo.py BREATH adds the air)
+MERGE = []
+TAG = re.compile(r'^\[[^\[\]]*\]\s*')
+txt = open(src).read()
+for w in SPLIT: txt = re.sub(r'(?<=\S) +(' + re.escape(w) + ')', r'\n\1', txt)
+paras = [[l.strip() for l in p.splitlines() if l.strip()] for p in re.split(r'\n\s*\n', txt) if p.strip()]
+segs, sec, n = [], None, 0
+def new(lines, cards, ons):
+    global n
+    segs.append({'id': f's{n:02d}', 'sec': sec, 'text': '\n'.join(lines)}); n += 1
+    if cards: segs[-1]['cards'] = cards
+    if ons: segs[-1]['onscreen'] = ons
+for p in paras:
+    cur, cards, ons = [], [], []
+    merge = any(TAG.sub('', l).startswith(w) for l in p[:1] for w in MERGE)
+    for l in p:
+        m = re.fullmatch(r'\[\[(QUOTE CARD|ON SCREEN):\s*(.*)\]\]', l)
+        if m:
+            (ons if m.group(1) == 'ON SCREEN' else cards).append({'text': m.group(2), 'after': cur[-1] if cur else ''}); continue
+        if re.fullmatch(r'\[pause\]', l, flags=re.I): continue
+        bare = TAG.sub('', l)
+        hit = next((s for s, w in SECS if bare.startswith(w)), None)
+        if (hit or any(bare.startswith(w) for w in SPLIT)) and cur:
+            new(cur, cards, ons); cur, cards, ons = [], [], []
+        if hit: sec = hit
+        if sec is None: raise SystemExit('text before first section: ' + l)
+        cur.append(l)
+    if not cur: continue
+    if merge:
+        segs[-1]['text'] += '\n' + '\n'.join(cur)
+        if cards: segs[-1].setdefault('cards', []).extend(cards)
+        if ons: segs[-1].setdefault('onscreen', []).extend(ons)
+    else: new(cur, cards, ons)
+# an ON SCREEN level title that opens a paragraph belongs to the take that starts the level
+missing = [s for s, w in SECS if not any(x['sec'] == s for x in segs)]
+if missing: raise SystemExit('missing section starts: ' + ', '.join(missing))
+json.dump(segs, open(A + '/segments.json', 'w'), indent=1)
+for s in segs: print(s['id'], s['sec'], f"{len(s['text'].split())} words, {len(s['text'])} chars", 'cards', len(s.get('cards', [])), 'onscreen', len(s.get('onscreen', [])), '|', s['text'][:50].replace('\n', ' '))
+print('total chars', sum(len(s['text']) for s in segs))
