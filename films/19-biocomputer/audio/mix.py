@@ -29,8 +29,8 @@ clipbuf = np.zeros((N, 2), np.float32)
 for c in timing.get('clips', []):
     s0, s1 = int(c['start'] * SR), int(c['end'] * SR)
     f = A + f"../clips/{c['id']}.wav"
-    if os.path.exists(f):   # quote cards (no clip audio) keep the music up
-        duck[max(0, s0 - SR // 4):s1 + SR // 4] = np.maximum(duck[max(0, s0 - SR // 4):s1 + SR // 4], 1)
+    duck[max(0, s0 - SR // 4):s1 + SR // 4] = np.maximum(duck[max(0, s0 - SR // 4):s1 + SR // 4], 1)   # Film 19: music is ducked under every clip slot, also while the slot is still silent (clip not downloaded yet)
+    if os.path.exists(f):
         k = CLIPS.get(c['id'], {}) if isinstance(CLIPS, dict) else {}
         x = load(f, k.get('af')); x *= db(-20 + k.get('gain_db', 0)) / rms(x[np.abs(x).max(1) > 1e-3])
         n = min(len(x), s1 - s0); clipbuf[s0:s0 + n] += x[:n]
@@ -43,7 +43,7 @@ def place(buf, x, t, gain=1.0, fin=0.0, fout=0.0, d=None, loop=False):
     if s < 0: x = x[-s:]; s = 0
     e2 = min(N, s + len(x)); buf[s:e2] += x[:e2 - s] * gain
 music = np.zeros((N, 2), np.float32)
-MUSIC_DB, DUCK = -26, 0.5   # Film 16: cue RMS -26 dB, -6 dB under speech -> music ~10 dB under the voice (VO at -20 dB RMS, measured on the stems)
+MUSIC_DB, DUCK = -24, 0.5   # Film 19: cue RMS -24 dB, -6 dB under speech -> music ~10 dB under the voice (VO -18 dB RMS with VO_BOOST 2)
 def ride(x, strength=0.4, win=3.0, lo=-6, hi=4):
     """slow gain rider: pulls the cue's 3-s loudness toward its mean by `strength` (0.4 = 40 % less level swing), so a loud
     passage inside a Lyria cue does not jump out; boost limited to +4 dB so natural tails stay quiet"""

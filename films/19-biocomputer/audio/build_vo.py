@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Lay VO takes (and, if a film has them, interview-clip / quote-card slots) onto one timeline -> vo_master.wav + timing.json.
+Film 19: clip slots C2/C3 only (kind clip, with name/role); C1 has no slot (muted footage under s01).
 Film 16/18: no card slots (the VO keeps running under every quote card); timing.json also gets "levels" (hook, L1-L7, ending)
 and "cues" (every [[QUOTE CARD]] / [[ON SCREEN]] line from segments.json, timed at the end of the spoken line it follows).
 Clip slots stay silent here; clips/<K>.wav (if present) is mixed in at the slot by mix.py.
@@ -12,16 +13,16 @@ LEAD, TAIL = 1.0, 15.0                       # 15 s endscreen tail (drop-off rul
 CARD = 5.5                                   # silent slot for a quote card (read on screen)
 CLIP_IN, CLIP_OUT = 0.7, 0.6                 # air before / after a clip
 GAP_SECTION, GAP_SUB = 1.7, 0.9
-# Film 18 (vo-v4, 33 takes, sections 1-8 = the stations of tools/provisional_timing.py): takes 0.9 s apart, stations 1.7 s;
-# hook s00 runs straight into s01 (drop-off rule 28.10.: no pause at the hook end); longer air where text-v2.md has [pause]:
-# after "would you subscribe?" (s15), after "the ground the machine stands on." (s21, end of the bad ending, station change),
-# after "they chose to share." (s27) and before the closing lines (after s31 "That's what this channel is for.")
-GAP_AFTER = {'s00': 0.8, 's15': 1.5, 's21': 2.4, 's27': 1.5, 's31': 1.9}
+# Film 19 (vo-v3, 25 takes + clip slots C2/C3, sections 1-8 = the stations of the script): takes 0.9 s apart, stations 1.7 s;
+# hook s00 runs on into s01 (s01 is the take the muted Doom footage C1 plays under, no slot); clip slots: 0.7 s air before, 0.6 s after
+# (C3 1.2 s because the next take opens the ending)
+GAP_AFTER = {'s00': 0.8}
+CLIP_OUT_EXTRA = {'C3': 0.6}
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
 BREATH = []
-LEVELS = {'1': 'hook', '2': 'The engine · the price of thinking falls · the pressure', '3': 'The real ending is the price',
-          '4': 'A price hits zero: Britannica, music, Chegg, Canva · the value stays', '5': 'The doors: ground, power, chips · the bad ending',
-          '6': 'A set of rules: The Landlord\'s Game', '7': 'The second set of rules: free layer, land, housing, energy', '8': 'ending'}
+LEVELS = {'1': 'hook: computers on brain cells · Doom clip · no reward', '2': 'where the cells come from: blood, stem cells, a chip', '3': 'the Pong trick: order or chaos · Friston · Kagan clip',
+          '4': 'from lab to product: rent, Doom', '5': 'why: twenty watts · the server racks · the power bill', '6': 'the match: cells against artificial intelligence, three rounds',
+          '7': 'is anyone in there? neurons, Seth, embedded ethics · Smirnova clip', '8': 'ending: order and noise · three rules · what they learn from us'}
 def dur(f): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).decode())
 def cuts(sid, mp3, W):
     """[(cut time, extra seconds)] for this take, cut at the quietest 10 ms frame between the two words"""
@@ -44,7 +45,7 @@ for i, s in enumerate(SEG):
         d = s.get('dur', CARD)
         t += CLIP_IN - GAP_SUB
         clips.append({'id': s['id'], 'sec': s['sec'], 'kind': 'clip' if s.get('clip') else 'card', 'start': round(t, 3), 'end': round(t + d, 3), **{k: s[k] for k in ('file', 'name', 'role', 'label', 'text') if k in s}})
-        t += d + CLIP_OUT
+        t += d + CLIP_OUT + CLIP_OUT_EXTRA.get(s['id'], 0)
         continue
     j = json.load(open(f"{A}/vo-{s['id']}.json")); mp3 = f"{A}/vo-{s['id']}.mp3"
     cs = cuts(s['id'], mp3, j['words'])

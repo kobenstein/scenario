@@ -2,166 +2,142 @@
  {
   "id": "s00",
   "sec": "1",
-  "text": "[calm, conversational] A.I. will end capitalism. Not in a hundred years. In your lifetime. And not the way you think."
+  "text": "[calm, conversational] Computers now run on human brain cells.\nThe same kind of cells you're using right now, to watch this.\nBut these live on a chip, inside a server rack in Singapore. And every few days, someone feeds them."
  },
  {
   "id": "s01",
-  "sec": "2",
-  "text": "[calm, conversational] Capitalism, in one sentence: somebody pays you to make something, then sells it for more than they paid you. Your work has a price. What you make has a price. The gap between them is profit. That's the whole engine."
+  "sec": "1",
+  "text": "[wry] Cells like these learned to play this... badly. Like someone who has never held a controller. They haven't."
  },
  {
   "id": "s02",
-  "sec": "2",
-  "text": "[curious] Now watch what A.I. is doing to one of those prices."
+  "sec": "1",
+  "text": "[curious] No hands. No eyes. No reward. So how do you teach a dish of cells anything?"
  },
  {
   "id": "s03",
   "sec": "2",
-  "text": "[thoughtful] Think about what you actually get paid for. Writing the email. Reading the contract. Finding the mistake. Explaining it to the customer. Most of it is thinking. And thinking is the thing that's getting cheap. Fast."
+  "text": "[thoughtful] Your brain cells grew up inside a head. These never did. They didn't even start out as brain cells.\nThey started as a blood sample... like the one from your last checkup.\nAnd to make brain cells out of blood, you first have to turn back a cell's clock."
  },
  {
   "id": "s04",
   "sec": "2",
-  "text": "[calm, conversational] At the end of twenty twenty-two, the A.I. behind the first ChatGPT cost about twenty dollars for eight novels' worth of text. Two years later, the same work cost seven cents. And it keeps falling: about thirteen times cheaper, year after year."
+  "text": "[calm, conversational] In a lab, a few of those blood cells are turned back... into stem cells. Cells that can still become almost anything. That trick won a Nobel Prize, and it needs no embryos.\nThen the clock runs forward again, and they grow into neurons. Brain cells."
  },
  {
   "id": "s05",
   "sec": "2",
-  "text": "[calm, conversational] Most people hear that and think: so A.I. takes my job, nobody earns a paycheck, nobody buys anything, and the whole thing collapses. A former Google executive, Mo Gawdat, says exactly that: the base of capitalism, hiring you for a dollar and selling what you make for two, is going to disappear."
+  "text": "[softly] Spread them on a chip, and they reach out to each other, wiring up all on their own.\nTiny electrodes underneath send them signals... and listen to their answers. Ordinary code runs the conversation.\nThat's the computer. A dish of living neurons on a chip, inside a box with its own life support. An Australian company, Cortical Labs, builds them.\nThe artificial intelligence you know imitates neurons with math. This computer uses the real thing.\nSo how do you teach it anything... without a reward?"
  },
  {
   "id": "s06",
-  "sec": "2",
-  "text": "[thoughtful] And you can already see the pressure. Between April and June this year, America's biggest companies kept more profit from every dollar than at any point since the count began in two thousand nine. In the same three months, people who work for a living got their smallest slice of the pie since nineteen forty-seven. Bigger profits. Smaller slice for you. Same three months."
+  "sec": "3",
+  "text": "[curious] The answer came from that same company, four years ago, with an old video game... Pong.\nThey connected a dish of neurons to the game. Some were human cells, some came from mice. The cells never saw a screen. One patch of electrodes told them where the ball was. Activity in another patch moved the paddle.\nThen came the trick. Hit the ball, and the cells got a short, tidy signal. Same every time. Miss, and they got four seconds of random noise. Electrical static.\nNo reward. Just order... or chaos.\nAfter about five minutes, the rallies got longer. Dishes that got no feedback didn't improve. So it wasn't luck."
  },
  {
   "id": "s07",
   "sec": "3",
-  "text": "[thoughtful] But that's not the real ending. The real ending is the price."
+  "text": "[curious] It looks like the cells want the static to stop. But \"want\" is too big a word. They just settle into whatever keeps the noise away."
  },
  {
   "id": "s08",
   "sec": "3",
-  "text": "[calm, conversational] Capitalism can only make money on things that are scarce. Nobody sells you air, because there's plenty of it. Now imagine thinking becomes as plentiful as air. Then everything made from thinking gets cheaper, and cheaper, until there's almost nothing left to charge for."
+  "text": "[thoughtful] Behind the trick is an idea from the neuroscientist Karl Friston. Living things act to make their world more predictable. You do it too, every time you tune a crackling radio until the voice comes through.\nHere's Brett Kagan, who led the study, on how it works."
+ },
+ {
+  "id": "C2",
+  "sec": "3",
+  "clip": true,
+  "dur": 11.0,
+  "name": "Brett Kagan",
+  "role": "Chief Scientific Officer, Cortical Labs"
  },
  {
   "id": "s09",
-  "sec": "3",
-  "text": "[thoughtful] A system built on charging for things runs out of things to charge for."
+  "sec": "4",
+  "text": "[thoughtful] So cells can learn from nothing but order and noise. But was it just a lab trick?"
  },
  {
   "id": "s10",
-  "sec": "3",
-  "text": "[curious] So where does the money go? Who still gets paid? And where does that leave you?"
+  "sec": "4",
+  "text": "[calm, conversational] It didn't stay in the lab. Last year, it became a product. A box costs about thirty-five thousand dollars. Or you can rent one over the internet, for a few hundred dollars a week.\nAnd that game from the start? This February, an outside programmer got the cells playing Doom in about a week. Setting up Pong had taken the scientists a year and a half."
  },
  {
   "id": "s11",
   "sec": "4",
-  "text": "[calm, conversational] We've watched a price hit zero before. And each time, the same question: who still gets paid? In nineteen ninety, Britannica sold a hundred and twenty thousand sets of encyclopedias. Then the price of a fact fell to nothing. In twenty twelve, after two hundred and forty-four years, the presses stopped. Wikipedia runs on about a hundred and ninety million dollars a year, free to you. Music: when the price of a song hit zero, the business shrank by more than half, and only grew back as a subscription. The price didn't die. It moved: off the song, onto the door."
+  "text": "[wry] The cells turn, find enemies, and shoot... but they die a lot. One of the company's own scientists puts it plainly. \"The system doesn't actually know it's playing Doom.\"\nStill... from Pong to Doom in four years. So why put these boxes in a server rack?"
  },
  {
   "id": "s12",
-  "sec": "4",
-  "text": "[thoughtful] Now the same thing is reaching thinking. First words and code: a draft, a summary, a bug fix, for cents. Then advice: the second opinion on your scan, the lease your landlord sent. Then everything built out of thinking: the drug, the bridge, the lesson."
+  "sec": "5",
+  "text": "[thoughtful] It comes down to a number inside your head. Your brain runs on about twenty watts. That's all the power behind everything you've ever learned.\nThe data centers behind artificial intelligence need vastly more. Last year, their electricity use jumped by about half.\nSo some companies are betting on the original, not the imitation. This year, Melbourne and Singapore both opened small test data centers built from these boxes. The plan in Singapore? Up to a thousand of them, for things like drug research."
  },
  {
   "id": "s13",
-  "sec": "4",
-  "text": "Chegg sold homework help to students. Since twenty twenty-one, it has lost ninety-nine percent of its value. A year ago it cut almost half its staff and named A.I. as a reason. Canva made design cheap enough for anyone, and this month cut jobs, citing its first growth slowdown in ten years. Canva says A.I. isn't taking those jobs. The price of a design is falling either way. The people who built those products didn't fail. The price left."
+  "sec": "5",
+  "text": "[thoughtful] But does it actually save power? Each box, with its life support, draws about thirty watts. That's more than your whole brain. The cells themselves sip almost nothing... it's the life support that costs. And nobody has tested yet whether cells can do the same work as chips on less power."
  },
  {
   "id": "s14",
-  "sec": "4",
-  "text": "[curious] And the value? In a study published in twenty nineteen, researchers asked people what it would take to give up search engines, which cost them nothing. The typical answer: seventeen thousand dollars a year. The price vanished. The value stayed."
+  "sec": "6",
+  "text": "[thoughtful] So can a dish of cells really compete with artificial intelligence?"
  },
  {
   "id": "s15",
-  "sec": "4",
-  "text": "[thoughtful] Value with no price goes looking for a door. Music found one. Capitalism doesn't vanish. It retreats, behind the doors. If you want to follow it there, would you subscribe?"
+  "sec": "6",
+  "text": "[curious] Picture it as a match... cells against artificial intelligence. Three rounds.\nRound one. Learning speed. In a study published last year, the Pong team put dishes of cells up against three standard artificial intelligence programs. To keep it fair, both sides got the same tiny amount of practice.\nThe cells learned faster, with more hits and longer rallies.\nPoint, cells... with a catch. The programs were older, and the practice was short. With far more practice, that same kind of software beats human players at Pong."
  },
  {
   "id": "s16",
-  "sec": "4",
-  "text": "[thoughtful] Watch where it goes."
+  "sec": "6",
+  "text": "[curious] Round two. Teamwork. Last month, at a science conference in Washington, the company presented fifteen boxes linked into a team. The test? Steer a little figure across a grid to a goal. An older program scored about thirty-two percent. The best single box, about forty. Linked boxes, working together? About seventy.\nPoint, cells. Another catch. One company. One talk. No published paper yet. And again, the opponent wasn't today's best."
  },
  {
   "id": "s17",
-  "sec": "5",
-  "text": "[calm, conversational] The doors are the things that can't be copied. The ground. The power. The chips. Sam Altman, who runs OpenAI, wrote last year that \"the cost of intelligence should eventually converge to near the cost of electricity.\" Read it from the other side: what's left on the bill is the power. The chips. The ground under the data center."
+  "sec": "6",
+  "text": "[curious] Round three. Everything else. The cells usually last about six months. They have good days and bad days... which is why teams help. And even the company's boss says chips win at fast, precise math... the kind that runs the chatbots you use.\nPoint, artificial intelligence. A big one.\nFinal score? Two small points for the cells. A giant one for the chips. So the goal isn't replacing chips. It's pairing them with cells, each doing what it does best."
  },
  {
   "id": "s18",
-  "sec": "5",
-  "text": "Nvidia, which designs the chips, took in ninety-six billion dollars in a single quarter this summer. It kept three quarters of every dollar as gross profit. [wry] That isn't villainy. That's what scarcity pays. Loudoun County, Virginia, holds the biggest cluster of data centers on earth. The county says land for one now sells for two to six million dollars an acre."
+  "sec": "7",
+  "text": "[thoughtful] Cells that learn, team up, and steer away from noise... is anyone in there?"
  },
  {
   "id": "s19",
-  "sec": "5",
-  "text": "[thoughtful] The oldest door is the one you pay for every month. Across fourteen rich countries, about eighty percent of the rise in house prices since the Second World War came from one thing: the land underneath. Not the bricks. The dirt."
+  "sec": "7",
+  "text": "[softly] First, how big is it? Each of these boxes holds about two hundred thousand neurons. That's a bit more than a fruit fly... and far less than a honeybee.\nPut all of Melbourne's boxes together, and they hold about a third as many neurons as a mouse brain. But spread across a hundred and twenty separate dishes, flat, and not wired like a brain. Your own brain? About eighty-six billion neurons.\nReacting to signals isn't the same as feeling something. So far, there's no evidence that anything is felt in these dishes. Most leading theories of consciousness say the structure for it isn't there."
  },
  {
   "id": "s20",
-  "sec": "5",
-  "text": "[calm, conversational] Now look at the first picture again: record margins, record low for work. That's the direction. Markets are doing exactly what they're built to do: follow the price."
+  "sec": "7",
+  "text": "[softly] Still, some researchers are more careful here than with chatbots. Anil Seth, a neuroscientist who studies consciousness, worries more about accidentally creating it in lab-grown brain tissue than in the next ChatGPT.\nAt Johns Hopkins, a leading team in this field builds the ethics in from the very start. Ethicists, scientists and the public think it through together. They call it embedded ethics. Here's Lena Smirnova on what that means."
+ },
+ {
+  "id": "C3",
+  "sec": "7",
+  "clip": true,
+  "dur": 14.0,
+  "name": "Lena Smirnova",
+  "role": "Johns Hopkins University"
  },
  {
   "id": "s21",
-  "sec": "5",
-  "text": "[softly] Not a crash, then. A world where almost everything is nearly free, and the few things that aren't belong to very few people. In that world you don't go hungry. You pay at the door. Every month, to whoever holds the ground, the power and the chips. I don't think the real story of this decade is the machine. It's the ground the machine stands on."
+  "sec": "8",
+  "text": "[thoughtful] So what do we do now, while each box is still smaller than a bee's brain?"
  },
  {
   "id": "s22",
-  "sec": "6",
-  "text": "[thoughtful] That isn't a law of nature. It's a set of rules. In nineteen oh four, Lizzie Magie patented a board game to teach exactly that. You know it as Monopoly. She called it The Landlord's Game. It was built on one idea from the economist Henry George: land is valuable because of everyone around it. So what it earns belongs to everyone. Her game had two sets of rules. Under one, a single player ends up owning everything. Under the other, everybody wins. We kept the first. The second got forgotten."
+  "sec": "8",
+  "text": "[calm, conversational] At the start, the question was how to teach a dish of cells. The answer? Order... and noise. And now the cells are teaching us back.\nFirst, about learning. It can run on very little power and very little practice. Even if a dish never runs your apps, that lesson could make software leaner.\nAnd the good is already real. Epilepsy drugs have been tested on human neurons like these. One even improved the cells' Pong game. Tests like that could mean fewer animal experiments... and better ways to study brain diseases."
  },
  {
   "id": "s23",
-  "sec": "6",
-  "text": "[curious] What would it look like now: a world where almost everything is abundant, and the few things that stay scarce are shared, fairly?"
+  "sec": "8",
+  "text": "[thoughtful] The harder lesson is about us. Can we write good rules before we need them? Three would be a start, while it's this small.\nOne. Donors know what their cells are for, and say yes. Ethicists are already pushing for that.\nTwo. Before these systems grow bigger or more connected, someone checks for signs of experience. Every time. Experts have already called for ongoing oversight instead of bans.\nThree. Results in public, not just on conference stages, so anyone can check them."
  },
  {
   "id": "s24",
-  "sec": "7",
-  "text": "[calm, conversational] The second set of rules is already in play, quietly, in a few places. What becomes abundant is set free, for everyone. The United States built GPS and switched it on for the whole world, free. By twenty seventeen, American companies alone had gained about one point four trillion dollars from it. Put it out there free, and everyone earns on it. That's the rule for whatever A.I. makes abundant: a free layer, like roads, paid for together instead of at a door, one by one. For a kid in Lagos and a plumber in Ohio alike."
- },
- {
-  "id": "s25",
-  "sec": "7",
-  "text": "[calm, conversational] And what stays scarce, we run together. Land first, because nobody made it. Since last year, the German state of Baden-W\u00fcrttemberg taxes property on the value of the land alone, not the building. Build on it, and your tax doesn't rise. Germany's top tax court upheld it this spring. Tax what nobody made, not what people build."
- },
- {
-  "id": "s26",
-  "sec": "7",
-  "text": "[calm, conversational] Housing: since twenty nineteen, when Vienna zones new land for homes, two thirds of it usually has to be affordable apartments. And the land price is capped by law. Whether that's enough, Vienna still argues about."
- },
- {
-  "id": "s27",
-  "sec": "7",
-  "text": "[calm, conversational] Energy: off Copenhagen, a wind farm has turned since the year two thousand. Half belongs to the city's utility. The other half to about eight and a half thousand people, through a cooperative. The wind was always free. The door to it, they chose to share."
- },
- {
-  "id": "s28",
-  "sec": "7",
-  "text": "[curious] Now ask the same question about the data center going up on that field in Virginia. Who owns the door? That's being decided right now, in state legislatures and county zoning meetings, where a data center can't vote. You can."
- },
- {
-  "id": "s29",
-  "sec": "7",
-  "text": "[thoughtful] None of this takes what anyone already owns. It decides, up front, where the value of the scarce things flows: to the few who hold them, or to everyone who makes them valuable."
- },
- {
-  "id": "s30",
   "sec": "8",
-  "text": "[thoughtful] Capitalism won't end with a crash. It goes the way the encyclopedia went: one price at a time, while the value stays. Whether it ends there, or just moves in behind the doors: same board, two sets of rules. I think that's the best news in this story: the end of capitalism isn't something to survive. It's something to design."
- },
- {
-  "id": "s31",
-  "sec": "8",
-  "text": "[calm, conversational] The question was never whether it ends. It's what we put in its place, and whether you're in the room when that's decided. Tell me below: which price in your line of work falls next? And if you think the end of capitalism should be a good ending, subscribe. That's what this channel is for."
- },
- {
-  "id": "s32",
-  "sec": "8",
-  "text": "[softly] The thinking is about to be free. The ground it stands on is still ours to decide. Your move."
+  "text": "[softly] For seventy years, we built machines that imitate brain cells. Now living ones are inside the machine. What they learn from us next... is up to us."
  }
 ]
