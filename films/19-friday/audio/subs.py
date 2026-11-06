@@ -1,18 +1,14 @@
 #!/usr/bin/env python3
 """timing.json -> subtitles.srt + subtitles.ass (one line, bottom, phrase by phrase).
 usage: subs.py <audio_dir> <out_dir>
-Film 14/16/18: style = channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters."""
+Film 14/16/18/19: style = channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters."""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']
 # spoken numbers -> digits (longest patterns first: merge() takes the first pattern that matches at a word)
-NUM = [('a hundred and ninety million dollars', '$190 million'), ('one point four trillion dollars', '$1.4 trillion'),   # Film 18
-       ('ninety-six billion dollars', '$96 billion'), ('two to six million dollars', '$2-6 million'), ('seventeen thousand dollars', '$17,000'),
-       ('a hundred and twenty thousand', '120,000'), ('two hundred and forty-four', '244'), ('eight and a half thousand', '8,500'),
-       ('twenty twenty-two', '2022'), ('twenty twenty-one', '2021'), ('twenty nineteen', '2019'), ('twenty seventeen', '2017'),
-       ('twenty twelve', '2012'), ('two thousand nine', '2009'), ('nineteen forty-seven', '1947'), ('nineteen ninety', '1990'),
-       ('nineteen oh four', '1904'), ('the year two thousand', 'the year 2000'), ('ninety-nine percent', '99%'), ('eighty percent', '80%'),
-       ('twenty dollars', '$20'), ('thirteen times', '13 times'), ('ten years', '10 years'), ('fourteen', '14'),
+NUM = [('November thirteenth, nineteen eleven', 'November 13, 1911'), ('November thirteenth, twenty twenty-six', 'November 13, 2026'),   # Film 19
+       ('nineteen seventy-three', '1973'), ('nineteen sixty', '1960'), ('twenty twenty-six', '2026'), ('a hundred and fifteen', '115'),
+       ('eight billion', '8 billion'), ('thirteenth', '13th'),
        ('a\\.i\\.', 'AI')]   # spoken "A.I." (two letters) -> AI on screen
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
@@ -31,57 +27,46 @@ def split(ws):
         if c < best: best, bi = c, k
     return split(ws[:bi]) + split(ws[bi:])
 # hand-made breaks where the balanced split would cut a phrase (Film 6 hook, Fassung 3): sentence text -> cue texts, same words in order
-BREAKS = {   # Film 18: keep phrases together where the balanced split would cut them
-    'A former Google executive, Mo Gawdat, says exactly that: the base of capitalism, hiring you for a dollar and selling what you make for two, is going to disappear.':
-        ['A former Google executive,', 'Mo Gawdat, says exactly that:', 'the base of capitalism,', 'hiring you for a dollar', 'and selling what you make for two,', 'is going to disappear.'],
-    "Between April and June this year, America's biggest companies kept more profit from every dollar than at any point since the count began in 2009.":
-        ['Between April and June this year,', "America's biggest companies", 'kept more profit from every dollar', 'than at any point', 'since the count began in 2009.'],
-    "Then everything made from thinking gets cheaper, and cheaper, until there's almost nothing left to charge for.":
-        ['Then everything made', 'from thinking gets cheaper,', 'and cheaper,', "until there's almost", 'nothing left to charge for.'],
-    'First words and code: a draft, a summary, a bug fix, for cents.':
-        ['First words and code:', 'a draft, a summary, a bug fix,', 'for cents.'],
-    'Then advice: the second opinion on your scan, the lease your landlord sent.':
-        ['Then advice:', 'the second opinion on your scan,', 'the lease your landlord sent.'],
-    'Chegg sold homework help to students.':
-        ['Chegg sold homework help', 'to students.'],
-    'Since 2021, it has lost 99% of its value.':
-        ['Since 2021,', 'it has lost 99% of its value.'],
-    'A year ago it cut almost half its staff and named AI as a reason.':
-        ['A year ago it cut almost', 'half its staff', 'and named AI as a reason.'],
-    "The people who built those products didn't fail.":
-        ['The people who built', "those products didn't fail."],
-    'In a study published in 2019, researchers asked people what it would take to give up search engines, which cost them nothing.':
-        ['In a study published in 2019,', 'researchers asked people', 'what it would take', 'to give up search engines,', 'which cost them nothing.'],
-    'Sam Altman, who runs OpenAI, wrote last year that "the cost of intelligence should eventually converge to near the cost of electricity."':
-        ['Sam Altman, who runs OpenAI,', 'wrote last year that', '"the cost of intelligence', 'should eventually converge', 'to near the cost of electricity."'],
-    'Nvidia, which designs the chips, took in $96 billion in a single quarter this summer.':
-        ['Nvidia, which designs the chips,', 'took in $96 billion', 'in a single quarter this summer.'],
-    'It kept three quarters of every dollar as gross profit.':
-        ['It kept three quarters', 'of every dollar as gross profit.'],
-    'The county says land for one now sells for $2-6 million an acre.':
-        ['The county says land', 'for one now sells for', '$2-6 million an acre.'],
-    'Across 14 rich countries, about 80% of the rise in house prices since the Second World War came from one thing: the land underneath.':
-        ['Across 14 rich countries,', 'about 80% of the rise', 'in house prices since', 'the Second World War', 'came from one thing:', 'the land underneath.'],
-    'Now look at the first picture again: record margins, record low for work.':
-        ['Now look at', 'the first picture again:', 'record margins,', 'record low for work.'],
-    'What would it look like now: a world where almost everything is abundant, and the few things that stay scarce are shared, fairly?':
-        ['What would it look like now:', 'a world where almost', 'everything is abundant,', 'and the few things', 'that stay scarce', 'are shared, fairly?'],
-    'The United States built GPS and switched it on for the whole world, free.':
-        ['The United States built GPS', 'and switched it on', 'for the whole world, free.'],
-    'By 2017, American companies alone had gained about $1.4 trillion from it.':
-        ['By 2017, American companies', 'alone had gained about', '$1.4 trillion from it.'],
-    "That's the rule for whatever AI makes abundant: a free layer, like roads, paid for together instead of at a door, one by one.":
-        ["That's the rule for whatever AI", 'makes abundant:', 'a free layer, like roads,', 'paid for together', 'instead of at a door, one by one.'],
-    'Since last year, the German state of Baden-Württemberg taxes property on the value of the land alone, not the building.':
-        ['Since last year,', 'the German state', 'of Baden-Württemberg', 'taxes property on the value', 'of the land alone,', 'not the building.'],
-    'Housing: since 2019, when Vienna zones new land for homes, two thirds of it usually has to be affordable apartments.':
-        ['Housing: since 2019,', 'when Vienna zones', 'new land for homes,', 'two thirds of it usually', 'has to be affordable apartments.'],
-    'Now ask the same question about the data center going up on that field in Virginia.':
-        ['Now ask the same question', 'about the data center going up', 'on that field in Virginia.'],
-    "I think that's the best news in this story: the end of capitalism isn't something to survive.":
-        ["I think that's the best news", 'in this story:', 'the end of capitalism', "isn't something to survive."],
-    'The ground it stands on is still ours to decide.':
-        ['The ground it stands on', 'is still ours to decide.'],
+BREAKS = {   # Film 19: keep phrases together where the balanced split would cut them
+    'Chances are, you were born ahead of schedule.': ['Chances are,', 'you were born ahead of schedule.'],
+    'What drove the first line up was a loop.': ['What drove the first line up', 'was a loop.'],
+    'Left alone, a loop like that sends a line straight up.': ['Left alone, a loop like that', 'sends a line straight up.'],
+    'Only this time, the inventors would be machines that build better machines.':
+        ['Only this time,', 'the inventors would be machines', 'that build better machines.'],
+    'You can see why in your own family tree.': ['You can see why', 'in your own family tree.'],
+    'To find out, independent researchers put a stopwatch on it.': ['To find out,', 'independent researchers', 'put a stopwatch on it.'],
+    'Then they find the biggest task the machine can finish alone, at least half the time.':
+        ['Then they find', 'the biggest task the machine', 'can finish alone,', 'at least half the time.'],
+    'By now, the best systems can handle tasks that take an expert more than a full working day.':
+        ['By now, the best systems', 'can handle tasks that take', 'an expert more than', 'a full working day.'],
+    "Newer measurements suggest the machine line's doublings have already sped up once.":
+        ['Newer measurements suggest', "the machine line's doublings", 'have already sped up once.'],
+    'The formula only said late 2026, give or take five and a half years.':
+        ['The formula only said late 2026,', 'give or take', 'five and a half years.'],
+    'Reportedly, the exact day was his joke.': ['Reportedly,', 'the exact day was his joke.'],
+    "It's only right if you keep driving the same way.": ["It's only right", 'if you keep driving the same way.'],
+    "It shows where we're headed if nothing changes.": ["It shows where we're headed", 'if nothing changes.'],
+    'Independent researchers measure it, and they share what they find in public.':
+        ['Independent researchers', 'measure it, and they share', 'what they find in public.'],
+    "For the best systems, they're running out of tasks that are hard enough.":
+        ['For the best systems,', "they're running out of tasks", 'that are hard enough.'],
+    'So the measuring has to grow as fast as the line.': ['So the measuring has to grow', 'as fast as the line.'],
+    "But seeing the road isn't steering.": ['But seeing the road', "isn't steering."],
+    'The first line bent when more choices reached billions of families.':
+        ['The first line bent', 'when more choices reached', 'billions of families.'],
+    'Picture that full working day of expert help, aimed at your own problems.':
+        ['Picture that full', 'working day of expert help,', 'aimed at your own problems.'],
+    'The business idea you shelved years ago.': ['The business idea', 'you shelved years ago.'],
+    'And no small group, however well-meaning, can know what 8 billion people need.':
+        ['And no small group,', 'however well-meaning,', 'can know what', '8 billion people need.'],
+    'No family decides how fast these machines learn.': ['No family decides', 'how fast these machines learn.'],
+    "But billions of us help decide what they're for.": ['But billions of us', "help decide what they're for."],
+    'To tell bigger from smaller, the man behind this Friday left a test.':
+        ['To tell bigger from smaller,', 'the man behind this Friday', 'left a test.'],
+    'In 1973, he put it in a single line.': ['In 1973,', 'he put it in a single line.'],
+    'A tutor that lets any kid learn whatever they want passes the test.':
+        ['A tutor that lets any kid', 'learn whatever they want', 'passes the test.'],
+    'Every answer below shows what people really want from it.': ['Every answer below shows', 'what people really want from it.'],
 }
 def pieces(snt):
     k = ' '.join(x['w'] for x in snt)

@@ -2,166 +2,136 @@
  {
   "id": "s00",
   "sec": "1",
-  "text": "[calm, conversational] A.I. will end capitalism. Not in a hundred years. In your lifetime. And not the way you think."
+  "text": "[calm, conversational] The singularity was predicted for this Friday. November thirteenth, twenty twenty-six.\nNot by a prophet. By a formula, in the journal Science, in nineteen sixty.\n[thoughtful] And it wasn't about machines. Not yet. It was about us. The number of people on Earth would shoot up to infinity. Right... about now.\n[wry] Sounds crazy. But for decades, the world ran right on the formula's schedule. Even ahead of it. Chances are, you were born ahead of schedule.",
+  "orig": "The singularity was predicted for this Friday. November thirteenth, twenty twenty-six. Not by a prophet. By a formula, in the journal Science, in nineteen sixty. And it wasn't about machines. Not yet. It was about us. The number of people on Earth would shoot up to infinity. Right about now. Sounds crazy. But for decades, the world ran right on the formula's schedule. Even ahead of it. Chances are, you were born ahead of schedule."
  },
  {
   "id": "s01",
-  "sec": "2",
-  "text": "[calm, conversational] Capitalism, in one sentence: somebody pays you to make something, then sells it for more than they paid you. Your work has a price. What you make has a price. The gap between them is profit. That's the whole engine."
+  "sec": "1",
+  "text": "[calm, conversational] Then the line bent. The formula never allowed that.\nNow a second line is shooting up, faster than we ever did. This time it isn't people. It's artificial intelligence.\n[curious] So what bent the first line? Whatever it was, it can help steer the second one.\nNot war. Not famine. Something you can see in your own family tree.",
+  "orig": "Then the line bent. The formula never allowed that. Now a second line is shooting up, faster than we ever did. This time it isn't people. It's artificial intelligence. So what bent the first line? Whatever it was, it can help steer the second one. Not war. Not famine. Something you can see in your own family tree."
  },
  {
   "id": "s02",
   "sec": "2",
-  "text": "[curious] Now watch what A.I. is doing to one of those prices."
+  "text": "[calm, conversational] What drove the first line up was a loop. More people means more inventors. More inventors means more progress: more food, better medicine. More progress means more people. And every round goes faster.",
+  "orig": "What drove the first line up was a loop. More people means more inventors. More inventors means more progress: more food, better medicine. More progress means more people. And every round goes faster."
+ },
+ {
+  "id": "C1",
+  "sec": "2",
+  "clip": true,
+  "dur": 10.0,
+  "after": "And every round goes faster."
  },
  {
   "id": "s03",
   "sec": "2",
-  "text": "[thoughtful] Think about what you actually get paid for. Writing the email. Reading the contract. Finding the mistake. Explaining it to the customer. Most of it is thinking. And thinking is the thing that's getting cheap. Fast."
+  "text": "Left alone, a loop like that sends a line straight up. That's a singularity.\n[thoughtful] Today, the same loop is what people mean by the singularity in artificial intelligence. Only this time, the inventors would be machines that build better machines.",
+  "orig": "Left alone, a loop like that sends a line straight up. That's a singularity. Today, the same loop is what people mean by the singularity in artificial intelligence. Only this time, the inventors would be machines that build better machines."
  },
  {
   "id": "s04",
   "sec": "2",
-  "text": "[calm, conversational] At the end of twenty twenty-two, the A.I. behind the first ChatGPT cost about twenty dollars for eight novels' worth of text. Two years later, the same work cost seven cents. And it keeps falling: about thirteen times cheaper, year after year."
+  "text": "[calm, conversational] But the human loop broke. More progress stopped meaning more people. You can see why in your own family tree. As more kids survived, parents didn't need to have so many. Girls stayed in school. Couples could plan their families. Worldwide, the average woman went from about five kids to about two.\n[thoughtful] That's what bent the first line: families got more choices.\n[curious] Machines don't have a family tree. Nothing in their loop chooses to slow down. Is their line headed for a Friday of its own?",
+  "orig": "But the human loop broke. More progress stopped meaning more people. You can see why in your own family tree. As more kids survived, parents didn't need to have so many. Girls stayed in school. Couples could plan their families. Worldwide, the average woman went from about five kids to about two. That's what bent the first line: families got more choices. Machines don't have a family tree. Nothing in their loop chooses to slow down. Is their line headed for a Friday of its own?"
  },
  {
   "id": "s05",
-  "sec": "2",
-  "text": "[calm, conversational] Most people hear that and think: so A.I. takes my job, nobody earns a paycheck, nobody buys anything, and the whole thing collapses. A former Google executive, Mo Gawdat, says exactly that: the base of capitalism, hiring you for a dollar and selling what you make for two, is going to disappear."
+  "sec": "3",
+  "text": "[calm, conversational] To find out, independent researchers put a stopwatch on it. They take real tasks, like a piece of programming work. They time how long a skilled person needs. Then they find the biggest task the machine can finish alone, at least half the time.",
+  "orig": "To find out, independent researchers put a stopwatch on it. They take real tasks, like a piece of programming work. They time how long a skilled person needs. Then they find the biggest task the machine can finish alone, at least half the time."
+ },
+ {
+  "id": "C2",
+  "sec": "3",
+  "clip": true,
+  "dur": 12.0,
+  "after": "at least half the time."
  },
  {
   "id": "s06",
-  "sec": "2",
-  "text": "[thoughtful] And you can already see the pressure. Between April and June this year, America's biggest companies kept more profit from every dollar than at any point since the count began in two thousand nine. In the same three months, people who work for a living got their smallest slice of the pie since nineteen forty-seven. Bigger profits. Smaller slice for you. Same three months."
+  "sec": "3",
+  "text": "[calm, conversational] Every few months, that size doubles. By now, the best systems can handle tasks that take an expert more than a full working day. Morning coffee to quitting time, and then some.\n[thoughtful] That's fast. But steady doubling never goes straight up. It just keeps climbing. The old formula was different. Each doubling came faster than the last, until the line stood straight up. That's what gave it a date.",
+  "orig": "Every few months, that size doubles. By now, the best systems can handle tasks that take an expert more than a full working day. Morning coffee to quitting time, and then some. That's fast. But steady doubling never goes straight up. It just keeps climbing. The old formula was different. Each doubling came faster than the last, until the line stood straight up. That's what gave it a date."
  },
  {
   "id": "s07",
   "sec": "3",
-  "text": "[thoughtful] But that's not the real ending. The real ending is the price."
+  "text": "[thoughtful] Newer measurements suggest the machine line's doublings have already sped up once. If they keep speeding up, it takes the old shape. The shape with a date. Some forecasts assume exactly that.",
+  "orig": "Newer measurements suggest the machine line's doublings have already sped up once. If they keep speeding up, it takes the old shape. The shape with a date. Some forecasts assume exactly that."
+ },
+ {
+  "id": "C3",
+  "sec": "3",
+  "clip": true,
+  "dur": 10.0,
+  "after": "Some forecasts assume exactly that."
  },
  {
   "id": "s08",
-  "sec": "3",
-  "text": "[calm, conversational] Capitalism can only make money on things that are scarce. Nobody sells you air, because there's plenty of it. Now imagine thinking becomes as plentiful as air. Then everything made from thinking gets cheaper, and cheaper, until there's almost nothing left to charge for."
+  "sec": "4",
+  "text": "[curious] A date sounds precise. But even this Friday wasn't pure math. The formula only said late twenty twenty-six, give or take five and a half years. The thirteenth came from somewhere else.\n[softly] It's a birthday. The man behind the formula, Heinz fon Furster, was born in Vienna on November thirteenth, nineteen eleven. Reportedly, the exact day was his joke. On Friday, he would be a hundred and fifteen.",
+  "orig": "A date sounds precise. But even this Friday wasn't pure math. The formula only said late twenty twenty-six, give or take five and a half years. The thirteenth came from somewhere else. It's a birthday. The man behind the formula, Heinz von Foerster, was born in Vienna on November thirteenth, nineteen eleven. Reportedly, the exact day was his joke. On Friday, he would be a hundred and fifteen."
  },
  {
   "id": "s09",
-  "sec": "3",
-  "text": "[thoughtful] A system built on charging for things runs out of things to charge for."
+  "sec": "4",
+  "text": "[thoughtful] The day was a wink. The math was not. But it came with an if. If we keep growing the way we have. That's a projection, not a forecast.\n[calm, conversational] A projection is like the arrival time on your GPS. It's only right if you keep driving the same way. Take another turn, and it changes.\n[curious] The machine line is a projection, too. It shows where we're headed if nothing changes. Can we change the route?",
+  "orig": "The day was a wink. The math was not. But it came with an if. If we keep growing the way we have. That's a projection, not a forecast. A projection is like the arrival time on your GPS. It's only right if you keep driving the same way. Take another turn, and it changes. The machine line is a projection, too. It shows where we're headed if nothing changes. Can we change the route?"
  },
  {
   "id": "s10",
-  "sec": "3",
-  "text": "[curious] So where does the money go? Who still gets paid? And where does that leave you?"
+  "sec": "5",
+  "text": "[thoughtful] Only if we can see it. Nobody steers with their eyes closed.\n[calm, conversational] The first line was easy to see, because countries counted their people, again and again. The machine line is visible because of that stopwatch. Independent researchers measure it, and they share what they find in public. With real numbers, you don't have to guess between hype and panic.",
+  "orig": "Only if we can see it. Nobody steers with their eyes closed. The first line was easy to see, because countries counted their people, again and again. The machine line is visible because of that stopwatch. Independent researchers measure it, and they share what they find in public. With real numbers, you don't have to guess between hype and panic."
  },
  {
   "id": "s11",
-  "sec": "4",
-  "text": "[calm, conversational] We've watched a price hit zero before. And each time, the same question: who still gets paid? In nineteen ninety, Britannica sold a hundred and twenty thousand sets of encyclopedias. Then the price of a fact fell to nothing. In twenty twelve, after two hundred and forty-four years, the presses stopped. Wikipedia runs on about a hundred and ninety million dollars a year, free to you. Music: when the price of a song hit zero, the business shrank by more than half, and only grew back as a subscription. The price didn't die. It moved: off the song, onto the door."
+  "sec": "5",
+  "text": "[calm, conversational] But the researchers admit a problem. For the best systems, they're running out of tasks that are hard enough. It's like measuring a growing kid with a ruler that's too short.\n[thoughtful] So the measuring has to grow as fast as the line. Out in the open. As easy to check as tomorrow's weather.",
+  "orig": "But the researchers admit a problem. For the best systems, they're running out of tasks that are hard enough. It's like measuring a growing kid with a ruler that's too short. So the measuring has to grow as fast as the line. Out in the open. As easy to check as tomorrow's weather."
  },
  {
   "id": "s12",
-  "sec": "4",
-  "text": "[thoughtful] Now the same thing is reaching thinking. First words and code: a draft, a summary, a bug fix, for cents. Then advice: the second opinion on your scan, the lease your landlord sent. Then everything built out of thinking: the drug, the bridge, the lesson."
+  "sec": "6",
+  "text": "[thoughtful] But seeing the road isn't steering. The first line bent when more choices reached billions of families. Who will these machines give more choices to? Everyone, or just a few?\n[curious] Picture that full working day of expert help, aimed at your own problems. The contract you couldn't afford a lawyer for. The medical bill nobody would explain. The business idea you shelved years ago.",
+  "orig": "But seeing the road isn't steering. The first line bent when more choices reached billions of families. Who will these machines give more choices to? Everyone, or just a few? Picture that full working day of expert help, aimed at your own problems. The contract you couldn't afford a lawyer for. The medical bill nobody would explain. The business idea you shelved years ago."
  },
  {
   "id": "s13",
-  "sec": "4",
-  "text": "Chegg sold homework help to students. Since twenty twenty-one, it has lost ninety-nine percent of its value. A year ago it cut almost half its staff and named A.I. as a reason. Canva made design cheap enough for anyone, and this month cut jobs, citing its first growth slowdown in ten years. Canva says A.I. isn't taking those jobs. The price of a design is falling either way. The people who built those products didn't fail. The price left."
+  "sec": "6",
+  "text": "[calm, conversational] For most of history, help like that was rare and expensive. Only a lucky few had it on call. Now it could be on call for anyone. That's what more choices could look like this time.\n[thoughtful] Right now, though, a few people make the big calls. The ones who build these systems, fund them, and write their rules. That's not a villain story. It's a heavy load for very few. And no small group, however well-meaning, can know what eight billion people need.",
+  "orig": "For most of history, help like that was rare and expensive. Only a lucky few had it on call. Now it could be on call for anyone. That's what more choices could look like this time. Right now, though, a few people make the big calls. The ones who build these systems, fund them, and write their rules. That's not a villain story. It's a heavy load for very few. And no small group, however well-meaning, can know what eight billion people need."
  },
  {
   "id": "s14",
-  "sec": "4",
-  "text": "[curious] And the value? In a study published in twenty nineteen, researchers asked people what it would take to give up search engines, which cost them nothing. The typical answer: seventeen thousand dollars a year. The price vanished. The value stayed."
+  "sec": "6",
+  "text": "[calm, conversational] The first line bent without one shared plan, mostly through billions of family decisions. The machine line can be steered the same way. No family decides how fast these machines learn. But billions of us help decide what they're for. Every day, in what we use and what we refuse. And at the ballot box.\n[curious] Still, choosing is hard when everything new looks shiny. How can you tell whether something new makes your life bigger, or smaller?",
+  "orig": "The first line bent without one shared plan, mostly through billions of family decisions. The machine line can be steered the same way. No family decides how fast these machines learn. But billions of us help decide what they're for. Every day, in what we use and what we refuse. And at the ballot box. Still, choosing is hard when everything new looks shiny. How can you tell whether something new makes your life bigger, or smaller?"
  },
  {
   "id": "s15",
-  "sec": "4",
-  "text": "[thoughtful] Value with no price goes looking for a door. Music found one. Capitalism doesn't vanish. It retreats, behind the doors. If you want to follow it there, would you subscribe?"
+  "sec": "7",
+  "text": "[thoughtful] To tell bigger from smaller, the man behind this Friday left a test.\n[softly] In nineteen seventy-three, he put it in a single line. \"Act always so as to increase the number of choices.\"\n[wry] And he was picky about that last word. Not options... Choices.\n[calm, conversational] A screen full of buttons gives you options. A choice is a decision that's truly yours.",
+  "orig": "To tell bigger from smaller, the man behind this Friday left a test. In nineteen seventy-three, he put it in a single line. \"Act always so as to increase the number of choices.\" And he was picky about that last word. Not options. Choices. A screen full of buttons gives you options. A choice is a decision that's truly yours."
  },
  {
   "id": "s16",
-  "sec": "4",
-  "text": "[thoughtful] Watch where it goes."
+  "sec": "7",
+  "text": "[curious] Hold his rule up to anything new, from an app to a law. After it arrives, do people make more of their own decisions, or fewer? Including the decision to say no.\n[calm, conversational] A tutor that lets any kid learn whatever they want passes the test. A system that quietly decides for you fails it.\n[thoughtful] The test isn't how smart these machines get. It's how many choices they leave in human hands.",
+  "orig": "Hold his rule up to anything new, from an app to a law. After it arrives, do people make more of their own decisions, or fewer? Including the decision to say no. A tutor that lets any kid learn whatever they want passes the test. A system that quietly decides for you fails it. The test isn't how smart these machines get. It's how many choices they leave in human hands."
  },
  {
   "id": "s17",
-  "sec": "5",
-  "text": "[calm, conversational] The doors are the things that can't be copied. The ground. The power. The chips. Sam Altman, who runs OpenAI, wrote last year that \"the cost of intelligence should eventually converge to near the cost of electricity.\" Read it from the other side: what's left on the bill is the power. The chips. The ground under the data center."
+  "sec": "7",
+  "text": "[thoughtful] More choices bent the first line, quietly, inside your lifetime. The next bend, you can see coming.\n[curious] What's one choice you'd want artificial intelligence to give you? Every answer below shows what people really want from it.\n[calm, conversational] If you want the second line to go well for everyone, not just a few, subscribe. That's what this channel is for.",
+  "orig": "More choices bent the first line, quietly, inside your lifetime. The next bend, you can see coming. What's one choice you'd want artificial intelligence to give you? Every answer below shows what people really want from it. If you want the second line to go well for everyone, not just a few, subscribe. That's what this channel is for."
  },
  {
   "id": "s18",
-  "sec": "5",
-  "text": "Nvidia, which designs the chips, took in ninety-six billion dollars in a single quarter this summer. It kept three quarters of every dollar as gross profit. [wry] That isn't villainy. That's what scarcity pays. Loudoun County, Virginia, holds the biggest cluster of data centers on earth. The county says land for one now sells for two to six million dollars an acre."
- },
- {
-  "id": "s19",
-  "sec": "5",
-  "text": "[thoughtful] The oldest door is the one you pay for every month. Across fourteen rich countries, about eighty percent of the rise in house prices since the Second World War came from one thing: the land underneath. Not the bricks. The dirt."
- },
- {
-  "id": "s20",
-  "sec": "5",
-  "text": "[calm, conversational] Now look at the first picture again: record margins, record low for work. That's the direction. Markets are doing exactly what they're built to do: follow the price."
- },
- {
-  "id": "s21",
-  "sec": "5",
-  "text": "[softly] Not a crash, then. A world where almost everything is nearly free, and the few things that aren't belong to very few people. In that world you don't go hungry. You pay at the door. Every month, to whoever holds the ground, the power and the chips. I don't think the real story of this decade is the machine. It's the ground the machine stands on."
- },
- {
-  "id": "s22",
-  "sec": "6",
-  "text": "[thoughtful] That isn't a law of nature. It's a set of rules. In nineteen oh four, Lizzie Magie patented a board game to teach exactly that. You know it as Monopoly. She called it The Landlord's Game. It was built on one idea from the economist Henry George: land is valuable because of everyone around it. So what it earns belongs to everyone. Her game had two sets of rules. Under one, a single player ends up owning everything. Under the other, everybody wins. We kept the first. The second got forgotten."
- },
- {
-  "id": "s23",
-  "sec": "6",
-  "text": "[curious] What would it look like now: a world where almost everything is abundant, and the few things that stay scarce are shared, fairly?"
- },
- {
-  "id": "s24",
   "sec": "7",
-  "text": "[calm, conversational] The second set of rules is already in play, quietly, in a few places. What becomes abundant is set free, for everyone. The United States built GPS and switched it on for the whole world, free. By twenty seventeen, American companies alone had gained about one point four trillion dollars from it. Put it out there free, and everyone earns on it. That's the rule for whatever A.I. makes abundant: a free layer, like roads, paid for together instead of at a door, one by one. For a kid in Lagos and a plumber in Ohio alike."
- },
- {
-  "id": "s25",
-  "sec": "7",
-  "text": "[calm, conversational] And what stays scarce, we run together. Land first, because nobody made it. Since last year, the German state of Baden-W\u00fcrttemberg taxes property on the value of the land alone, not the building. Build on it, and your tax doesn't rise. Germany's top tax court upheld it this spring. Tax what nobody made, not what people build."
- },
- {
-  "id": "s26",
-  "sec": "7",
-  "text": "[calm, conversational] Housing: since twenty nineteen, when Vienna zones new land for homes, two thirds of it usually has to be affordable apartments. And the land price is capped by law. Whether that's enough, Vienna still argues about."
- },
- {
-  "id": "s27",
-  "sec": "7",
-  "text": "[calm, conversational] Energy: off Copenhagen, a wind farm has turned since the year two thousand. Half belongs to the city's utility. The other half to about eight and a half thousand people, through a cooperative. The wind was always free. The door to it, they chose to share."
- },
- {
-  "id": "s28",
-  "sec": "7",
-  "text": "[curious] Now ask the same question about the data center going up on that field in Virginia. Who owns the door? That's being decided right now, in state legislatures and county zoning meetings, where a data center can't vote. You can."
- },
- {
-  "id": "s29",
-  "sec": "7",
-  "text": "[thoughtful] None of this takes what anyone already owns. It decides, up front, where the value of the scarce things flows: to the few who hold them, or to everyone who makes them valuable."
- },
- {
-  "id": "s30",
-  "sec": "8",
-  "text": "[thoughtful] Capitalism won't end with a crash. It goes the way the encyclopedia went: one price at a time, while the value stays. Whether it ends there, or just moves in behind the doors: same board, two sets of rules. I think that's the best news in this story: the end of capitalism isn't something to survive. It's something to design."
- },
- {
-  "id": "s31",
-  "sec": "8",
-  "text": "[calm, conversational] The question was never whether it ends. It's what we put in its place, and whether you're in the room when that's decided. Tell me below: which price in your line of work falls next? And if you think the end of capitalism should be a good ending, subscribe. That's what this channel is for."
- },
- {
-  "id": "s32",
-  "sec": "8",
-  "text": "[softly] The thinking is about to be free. The ground it stands on is still ours to decide. Your move."
+  "text": "[softly] This Friday, the formula says infinity. There will be about eight billion of us... Still choosing.\nFriday isn't an ending. It's a checkpoint for both lines. And a birthday.\nHappy birthday, Heinz.",
+  "orig": "This Friday, the formula says infinity. There will be about eight billion of us. Still choosing. Friday isn't an ending. It's a checkpoint for both lines. And a birthday. Happy birthday, Heinz."
  }
 ]

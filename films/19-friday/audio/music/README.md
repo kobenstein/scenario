@@ -1,15 +1,18 @@
-# Film 18 music (Lyria 3.5 on fal, google/lyria-3.5, 2026-11-05)
+# Film 19 music (Lyria 3.5 on fal, google/lyria-3.5, 2026-11-06)
 cues.json rows: [file, start s, fade in s, fade out s, offset in file s, length s or null (to the file end), {opts}]; mix.py reads them.
 opts: "repeat": [t1, t2] lengthens a cue by t2-t1 (plays to t2, 2-s crossfade back to t1); "ride": slow gain rider strength (default 0.4).
-Prompts in prompts.json, request ids in jobs.txt (project folder film-kapitalismus/audio/music/, next to the mp3s).
-One cue per chapter (stations of the VO, timing.json "levels"), each placed so its natural decay falls into the station change:
-M0 0:00 hook + station 2 (engine, price of thinking, crash story, pressure; full presence from 0:00, decays under "But that's not the real ending" 1:46)
-· M1 1:45 stations 3-4 (the real ending is the price, Britannica, music, Chegg/Canva, the value; decays under the subscribe question 4:16-4:20)
-· M2 4:19.8 station 5 (the doors: ground, power, chips; Nvidia, Loudoun, land; the bad ending; enters on "Watch where it goes.", decays under "the ground the machine stands on" 6:04-6:06)
-· M3 6:06.5 stations 6-7 (The Landlord's Game, the second set of rules; starts near silence, warms, decays under "None of this takes ..." 8:39-8:50)
-· M4 8:46 ending + 15-s end screen (VO ends 9:40.9, film 9:56.8; the cue swells a little after the last line, then decays to about -44 dB at the end).
-Style: mystical and contemplative (drone, pads, felt piano, glass harmonica, distant wordless choir pad), no drums, no vocals. No SFX (as in Film 16).
-Vocal check: fal-ai/whisper over all five cues returns only the usual music hallucinations ("Thank you for watching", "The") spread over 10-30-s spans,
-no sung words; Lyria's lyrics field is empty placeholders ([[A0]] ...).
-Level: cue RMS -26 dB, ducked -6 dB under speech (voice at -20 dB RMS + VO_BOOST 2 dB) -> music ~11-12 dB under the voice (median);
+Prompts in prompts.json, request ids + urls in jobs.txt (project folder film-singularity-friday/audio/music/, next to the mp3s).
+One cue per chapter (chapters 1-7 of text-v4.md = timing.json "levels"), each placed in the gap before its chapter's first line:
+M1 0:00 hook (full presence from 0:00, trimmed to 54 s, fades under the hook/loop gap 0:51-0:52)
+· M2 0:51.3 the loop + clip slot C1 (natural decay into "To find out" 2:05)
+· M3 2:04.3 the stopwatch + clip slots C2, C3 (the cue's quiet tail lies under C3 3:11-3:21; trimmed to 81 s)
+· M4 3:21.6 a birthday / projection / GPS (lighter, music-box piano; decays under "Only if we can see it" 4:17)
+· M5 4:16.0 see the road (trimmed to 45 s, fades under the change to "But seeing the road" 4:57)
+· M6 4:56.8 many hands (decays under "To tell bigger from smaller" 6:19)
+· M7 6:18.6 the birthday rule + ending + 15-s end screen (VO ends 7:47.2, end screen 7:48.1, film 8:03.1; the cue fades over its last 3 s).
+Style: mystical and contemplative (drone, pads, felt piano, glass harmonica, distant wordless choir pad), no drums, no vocals, not uplifting. No SFX.
+Vocal check: fal-ai/whisper over all seven cues returns only the usual music hallucinations ("Terima kasih telah menonton!", "you", "The"),
+plus short nonsense on M2 and M6 (the choir pads); Lyria's lyrics field is empty placeholders ([[A0]] ...). Worth one listen on M2 / M6.
+Level: cue RMS -26 dB, ducked -6 dB under speech (voice at -20 dB RMS + VO_BOOST 2 dB), and -12 dB under every clip slot
+(clip-schritt.md: music strongly ducked under the O-Ton; the slots are silent until the clips are cut in);
 final mix two-pass loudnorm -14 LUFS, mix.m4a -14.0 LUFS / -1.5 dBTP.

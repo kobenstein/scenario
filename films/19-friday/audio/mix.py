@@ -34,6 +34,16 @@ for c in timing.get('clips', []):
         k = CLIPS.get(c['id'], {}) if isinstance(CLIPS, dict) else {}
         x = load(f, k.get('af')); x *= db(-20 + k.get('gain_db', 0)) / rms(x[np.abs(x).max(1) > 1e-3])
         n = min(len(x), s1 - s0); clipbuf[s0:s0 + n] += x[:n]
+# Film 19 (clip-schritt.md "Musik unter dem Clip stark ducken"): every clip slot pulls the music down CLIP_DUCK_DB, with or
+# without clip audio yet (the slot is silent until the O-Ton is cut in), 0.5-s ramps before / after the slot
+CLIP_DUCK_DB, RAMP = 12.0, 0.5
+cduck = np.zeros(N, np.float32)
+for c in timing.get('clips', []):
+    if c.get('kind') != 'clip': continue
+    a0, a1, b0, b1 = [int(v * SR) for v in (c['start'] - RAMP, c['start'], c['end'], c['end'] + RAMP)]
+    cduck[max(0, a1):min(N, b0)] = 1
+    if a0 >= 0: cduck[a0:a1] = np.maximum(cduck[a0:a1], np.linspace(0, 1, a1 - a0))
+    if b1 <= N: cduck[b0:b1] = np.maximum(cduck[b0:b1], np.linspace(1, 0, b1 - b0))
 def place(buf, x, t, gain=1.0, fin=0.0, fout=0.0, d=None, loop=False):
     s = int(t * SR); n = int(d * SR) if d else len(x)
     if loop and n > len(x): x = np.tile(x, (n // len(x) + 1, 1))
@@ -64,6 +74,7 @@ for cue in CUES:   # [file, start, fade_in, fade_out, source_offset, duration, {
     if o.get('ride', 0.4): x = ride(x, o.get('ride', 0.4))
     place(music, x[int(off * SR):], t, 1, fin, fout, d)
 music *= (1 - DUCK * duck)[:, None]          # -6 dB under the voice
+music *= (10 ** (-CLIP_DUCK_DB * cduck / 20))[:, None]   # Film 19: -12 dB under every clip slot
 sfx = np.zeros((N, 2), np.float32); cache = {}
 for c in (json.load(open(A + 'sound_plan.json')) if os.path.exists(A + 'sound_plan.json') else []):   # Film 14/16: no SFX yet
     if c['f'] not in cache: cache[c['f']] = load(A + f"sfx/{c['f']}.mp3")

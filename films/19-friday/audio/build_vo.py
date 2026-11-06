@@ -16,12 +16,20 @@ GAP_SECTION, GAP_SUB = 1.7, 0.9
 # hook s00 runs straight into s01 (drop-off rule 28.10.: no pause at the hook end); longer air where text-v2.md has [pause]:
 # after "would you subscribe?" (s15), after "the ground the machine stands on." (s21, end of the bad ending, station change),
 # after "they chose to share." (s27) and before the closing lines (after s31 "That's what this channel is for.")
-GAP_AFTER = {'s00': 0.8, 's15': 1.5, 's21': 2.4, 's27': 1.5, 's31': 1.9}
+# Film 19 (vo-v5, 19 takes + clip slots C1-C3, sections 1-7 = chapters of text-v4.md): hook (s00-s01) runs into the loop with
+# only 1.0 s (drop-off rule 28.10.); question -> answer "Can we change the route?" / "Only if we can see it." 1.2 s;
+# "bigger, or smaller?" -> the test 1.4 s; longer air before the closing lines (after s17 "That's what this channel is for.")
+GAP_AFTER = {'s01': 1.0, 's09': 1.2, 's14': 1.4, 's17': 1.9}
+# after a clip slot: CLIP_OUT, or CLIP_OUT_SECTION when the next take opens a new chapter (C3 -> "A date sounds precise.")
+CLIP_OUT_SECTION = 1.2
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
-BREATH = []
-LEVELS = {'1': 'hook', '2': 'The engine · the price of thinking falls · the pressure', '3': 'The real ending is the price',
-          '4': 'A price hits zero: Britannica, music, Chegg, Canva · the value stays', '5': 'The doors: ground, power, chips · the bad ending',
-          '6': 'A set of rules: The Landlord\'s Game', '7': 'The second set of rules: free layer, land, housing, energy', '8': 'ending'}
+# Film 19: the reveal "That's what bent the first line", the birthday breath (text-v4 "Atempause"), after the 1973 quote,
+# before the comment question, and the last two lines
+BREATH = [('s04', 'two.', "That's", 0.5), ('s08', 'else.', "It's", 0.6), ('s09', 'forecast.', 'A', 0.4),
+          ('s15', 'choices."', 'And', 0.5), ('s17', 'coming.', "What's", 0.5), ('s18', 'us...', 'Still', 0.3), ('s18', 'birthday.', 'Happy', 0.7)]
+LEVELS = {'1': 'Hook: the line that aimed at Friday', '2': 'The loop · what bent the first line: more choices', '3': 'The stopwatch · doublings · the shape with a date',
+          '4': 'A birthday · a projection, not a forecast · GPS', '5': 'See the road: counting, the stopwatch in public, the short ruler',
+          '6': 'Many hands: help for everyone, few at the wheel, billions steer', '7': 'The birthday rule: increase the number of choices · ending'}
 def dur(f): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).decode())
 def cuts(sid, mp3, W):
     """[(cut time, extra seconds)] for this take, cut at the quietest 10 ms frame between the two words"""
@@ -43,15 +51,18 @@ for i, s in enumerate(SEG):
     if s.get('clip') or s.get('card'):
         d = s.get('dur', CARD)
         t += CLIP_IN - GAP_SUB
-        clips.append({'id': s['id'], 'sec': s['sec'], 'kind': 'clip' if s.get('clip') else 'card', 'start': round(t, 3), 'end': round(t + d, 3), **{k: s[k] for k in ('file', 'name', 'role', 'label', 'text') if k in s}})
-        t += d + CLIP_OUT
+        clips.append({'id': s['id'], 'sec': s['sec'], 'kind': 'clip' if s.get('clip') else 'card', 'start': round(t, 3), 'end': round(t + d, 3), **{k: s[k] for k in ('file', 'name', 'role', 'label', 'text', 'after') if k in s}})
+        t += d + (CLIP_OUT_SECTION if (nxt and nxt['sec'] != s['sec']) else CLIP_OUT)
         continue
     j = json.load(open(f"{A}/vo-{s['id']}.json")); mp3 = f"{A}/vo-{s['id']}.mp3"
     cs = cuts(s['id'], mp3, j['words'])
     shift = lambda a: a + sum(e for c, e in cs if c <= a)
     last = shift(j['words'][-1][2])
     secs[s['id']] = {'start': round(t, 3), 'end': round(t + last, 3), 'sec': s['sec']}
-    for w, a, b in j['words']: words.append({'w': w, 's': round(t + shift(a), 3), 'e': round(t + shift(b), 3), 'sec': s['id']})
+    # Film 19: timing.json carries the approved wording (segments.json "orig": no "..." pauses, the real name, not "fon Furster")
+    shown = s['orig'].split() if 'orig' in s else [w for w, a, b in j['words']]
+    assert len(shown) == len(j['words']), f"{s['id']}: {len(j['words'])} spoken words, {len(shown)} in orig"
+    for (w, a, b), o in zip(j['words'], shown): words.append({'w': o, 's': round(t + shift(a), 3), 'e': round(t + shift(b), 3), 'sec': s['id']})
     for kind in ('cards', 'onscreen'):   # anchor = end of the spoken line the card follows (segment start if it opens the take)
         for c in s.get(kind, []):
             k = 0
@@ -76,6 +87,12 @@ for sid, v in secs.items():
     L = levels.setdefault(v['sec'], {'name': LEVELS.get(v['sec'], v['sec']), 'start': v['start'], 'end': v['end'], 'segments': []})
     L['end'] = v['end']; L['segments'].append(sid)
 json.dump({'duration': round(total, 3), 'levels': levels, 'sections': secs, 'clips': clips, 'cues': cues, 'words': words}, open(f'{A}/timing.json', 'w'), indent=0)
+# Film 19: the clip slots on their own (clip id, start, duration), for the clip cutter and tools/clip_check.py
+if clips:
+    json.dump({'film_duration': round(total, 3), 'vo_end': max(v['end'] for v in secs.values()), 'endscreen_start': round(total - TAIL, 3),
+               'slots': [{'id': c['id'], 'start': c['start'], 'dur': round(c['end'] - c['start'], 3), 'end': c['end'], 'after': c.get('after', '')} for c in clips],
+               'note': 'silent slots in vo_master; music under them is ducked -12 dB by mix.py; clips/<id>.wav (if present) is mixed in at start'},
+              open(f'{A}/clips-slots.json', 'w'), indent=1)
 print('duration', round(total, 1), 's;', len(words), 'words')
 for k, v in secs.items(): print(k, v['start'], v['end'])
 for k, v in levels.items(): print('level', k, v['name'], v['start'], v['end'])

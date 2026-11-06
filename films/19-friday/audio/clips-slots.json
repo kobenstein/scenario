@@ -1,0 +1,29 @@
+{
+ "film_duration": 483.101,
+ "vo_end": 467.201,
+ "endscreen_start": 468.101,
+ "slots": [
+  {
+   "id": "C1",
+   "start": 66.64,
+   "dur": 10.0,
+   "end": 76.64,
+   "after": "And every round goes faster."
+  },
+  {
+   "id": "C2",
+   "start": 140.4,
+   "dur": 12.0,
+   "end": 152.4,
+   "after": "at least half the time."
+  },
+  {
+   "id": "C3",
+   "start": 191.4,
+   "dur": 10.0,
+   "end": 201.4,
+   "after": "Some forecasts assume exactly that."
+  }
+ ],
+ "note": "silent slots in vo_master; music under them is ducked -12 dB by mix.py; clips/<id>.wav (if present) is mixed in at start"
+}
