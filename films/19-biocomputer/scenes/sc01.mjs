@@ -1,299 +1,286 @@
-// c01 · Hook · the engine (two price tags, the circle) · what you are paid for: thinking · 0 → T.G('At the end of') · built by the lead
-// (quality reference). Plan: docs/shots.md 1.01–1.07 (source tools/shots18.py) · world/rules: docs/MOTION.md · kit: lib/f18_kit.mjs.
-// ONE entry, ONE world (the board at night), one continuous camera: hook close under the giant tag → pull back to the near edge of
-// the loop (workshop · you · shop) → rise to the whole ring (the engine) → back down to you → tilt up and fly INTO your tag. The chunk
-// ends in plateTag (lib/f18_seams.mjs) for the last .5 s: the flight into the tag lands exactly on it (the tag face fills the frame).
+// c01 · Hook · the drawer · you · the rack in Singapore · feeding · Doom (C1) · no hands, eyes, reward · the question · blood · the clock
+// 0 → T.G('In a lab') · built by the lead (quality reference). Plan: docs/shots.md 1.01–1.09 (source tools/shots19.py) · world/rules:
+// docs/MOTION.md · kit: lib/f19_kit.mjs · seam: plateClock (lib/f19_seams.mjs) for the last .5 s.
+// ONE entry, ONE world, ONE continuous camera (no cut): close above the drawer as it slides open → you and your phone (the same net
+// glows in your head) → pull back to the aisle (SINGAPORE) → a pipette feeds the dish → truck to the screen in the aisle (C1 plays in
+// it) → the screen goes dark, three glyphs struck → the camera swings back and tilts straight down into the dish: the aisle goes
+// dark, the dish IS the explainer field now → the net rewinds into round cells → blood cells → back into the tube → one cell, its
+// clock turning backward (= plateClock).
 //
-// | ID    | anchor (word)                    | picture (one idea)                                                   | 1–2 moves               | camera                 |
-// |-------|----------------------------------|----------------------------------------------------------------------|-------------------------|------------------------|
-// | 1.01  | capitalism · lifetime · way      | the giant price tag of light over tiny you; dust leaves its edge      | swing · dust            | slow push              |
-// | 1.02  | pays you · make · sells          | the near edge of the loop: coin → you → the cube you make → the shop | coin, then cube         | pull back + up         |
-// | 1.03  | Your work · What you make · gap  | $1 over you, a bigger $2 over the shop; the gap bracket = PROFIT      | print · lower · bracket | breathing hold         |
-// | 1.04★ | whole engine                     | the coin runs the whole loop, the ring lights: the engine             | the coin                | rise to the ring       |
-// | 1.05  | A.I. · one of those prices       | a cold disc rises at the zero line; your tag's edge cools             | the disc · customer     | back down to you       |
-// | 1.06  | email · contract · mistake · customer | four small light cards rise from your hands, one per word        | one card per word       | push in on you         |
-// | 1.07  | thinking · cheap · Fast          | the cards fold into a thought; the tag cools, $1 sinks; a drop falls  | fold · cool             | tilt up, fly into tag  |
+// | ID    | anchor (word)                         | picture (one idea)                                                    | 1–2 moves            | camera / layer            |
+// |-------|---------------------------------------|-----------------------------------------------------------------------|----------------------|---------------------------|
+// | 1.01★ | Computers now run on human brain cells | a rack drawer slides open, the dish with the gold net glows           | drawer · light       | slow push · SCENE         |
+// | 1.02  | same kind of cells · watch this        | you with your phone; the same net glows inside your hood              | head net · look      | truck to you · SCENE      |
+// | 1.03  | chip · server rack · Singapore         | the aisle: the alive rack among cold servers, you look up; SINGAPORE  | label                | breathing pull · SCENE    |
+// | 1.04  | every few days · someone feeds them    | a pipette comes down, one drop, the net answers in a wave             | pipette · drop/wave  | push to drawer · SCENE    |
+// | 1.05  | [C1] Cells like these … haven't        | ORIGINAL FOOTAGE in the screen in the aisle                           | footage              | truck into screen · CLIP  |
+// | 1.06  | No hands · No eyes · No reward         | the screen dark; hand, eye, star appear, each struck                  | one glyph per word   | hold · EXPL               |
+// | 1.07  | So how do you teach a dish of cells    | the question; the camera tilts down into the dish, the aisle goes dark | camera · ladder      | tilt down · SCENE→EXPL    |
+// | 1.08  | grew up inside a head · never did      | a head beside the dish (its net gold); the dish answers               | head rises           | field · EXPL              |
+// | 1.09  | didn't even start · blood sample · clock | the net rewinds to round cells, cool blood cells, the tube; all but one flow back; the one gets its clock, turning back | rewind · stream · clock | field · EXPL → plateClock |
 import * as E from '../lib/f10_editorial.mjs';
-import * as F from '../lib/f18_kit.mjs';
-import { plateTag, TAG_PLATE, SEAM_HALF } from '../lib/f18_seams.mjs';
-import { Path2D } from '@napi-rs/canvas';
-const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, quartIO, expoOut, expoIn, card, cam3, camAt, camDrift, F0 } = E;
-const { BOARD, LOOP, gp, wp, stand, loopPt, loopU, COOL, bump } = F;
+import * as F from '../lib/f19_kit.mjs';
+import { plateClock, CLOCK_PLATE, SEAM_HALF } from '../lib/f19_seams.mjs';
+const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, quartIO, expoOut, expoIn, lin, halo, prng } = E;
+const { cam, camAt, camDrift, view, proj, bill, COOL, bump, NET } = F;
 
-export const PRINT = F.PRINT18;
+export const PRINT = F.PRINT19;
 
 export default async (T, R) => {
   E.prepareEditorial();
   const G = (p, after = 0, n = 0) => T.G(p, n, after), GE = (p, after = 0) => T.GE(p, 0, after);
   const a = {};
-  a.cap = G('capitalism'); a.hund = G('hundred years'); a.life = G('lifetime'); a.way = G('the way you think'); a.wayE = GE('the way you think');
-  a.one = G('Capitalism, in one sentence'); a.pays = G('pays you', a.one); a.make = G('make something', a.one); a.sells = G('sells it', a.one);
-  a.more = G('more than', a.sells); a.paidE = GE('paid you', a.more);
-  a.work = G('Your work'); a.wmake = G('What you make'); a.gap = G('gap', a.wmake); a.profit = G('profit', a.gap); a.engine = G('whole engine'); a.engineE = GE('whole engine');
-  a.now = G('Now watch'); a.ai = G('A.I.', a.now); a.prices = G('one of those prices', a.now);
-  a.think = G('Think about what you'); a.email = G('email', a.think); a.contract = G('contract', a.think); a.mistake = G('mistake', a.think); a.customer = G('customer', a.think);
-  a.most = G('Most of it is thinking'); a.thinking = G('thinking', a.most); a.and = G('And thinking', a.most); a.cheap = G('cheap', a.and); a.fast = G('Fast', a.cheap);
+  a.comp = G('Computers now run on'); a.cellsE = GE('human brain cells');
+  a.same = G('The same kind of cells'); a.watch = G('to watch this', a.same);
+  a.but = G('But these live on'); a.rack = G('server rack', a.but); a.sing = G('Singapore', a.but);
+  a.every = G('And every few days'); a.someone = G('someone feeds', a.every); a.feeds = G('feeds them', a.every);
+  a.c1 = F.clipWin(T, 'C1');
+  a.hands = G('No hands'); a.eyes = G('No eyes', a.hands); a.reward = G('No reward', a.hands);
+  a.how = G('So how do you teach a dish', a.reward); a.howE = GE('cells anything', a.reward);
+  a.head = G('grew up inside a head'); a.never = G('These never did', a.head);
+  a.start = G("didn't even start out", a.head); a.blood = G('blood sample', a.start); a.checkup = G('your last checkup', a.blood);
+  a.make = G('to make brain cells', a.blood); a.turn = G("turn back a cell's clock", a.make);
   a.end = R.b;
-  return [{ t: 0, draw: scene(a), print: PRINT }];
+  return [{ t: 0, draw: scene(a, T), print: PRINT }];
 };
 
-// ===================================================================================================== the set (world units, BOARD.GY = 430)
-const Z0 = 3000;                                              // the near edge of the loop: everything of c01 stands on this depth
-const YOU = { X: -500, h: 200 };
-const SHOP = { X: 1900, w: 700, h: 400 };
-const WORK = { X: -2300, w: 820, h: 420 };                    // the workshop (the employer)
-const CUST = { X0: 1380, X1: 60, h: 212 };                    // the customer walks from the shop to you (1.05)
-const TA = { X: YOU.X, w: 760 };                              // tag A over you ($1)
-const TB = { X: SHOP.X, w: 760 * 1.4 };                       // tag B over the shop ($2): bigger tag = higher price
-const TAG_BOT = -480;                                         // both tags end at the same height above the ground (y up = −, from the ground)
-const eyeY = (w) => TAG_BOT - w * 1.32;                       // eyelet height for a tag of width w
-const ROADZ = LOOP.cz - LOOP.half;                            // the near edge of the road (2900)
-const COIN_R = 52;
-// the town: small houses just outside the loop's sides and far edge (seeded, far → near)
-const TOWN = (() => { const r = E.prng(1808), out = [];
-  for (let i = 0; i < 14; i++) { const side = i % 3, w = 300 + r() * 260, h = 240 + r() * 200;
-    const X = side === 0 ? -LOOP.half - 500 - r() * 900 : side === 1 ? LOOP.half + 500 + r() * 900 : -2200 + r() * 4400;
-    const Z = side === 2 ? LOOP.cz + LOOP.half + 500 + r() * 700 : LOOP.cz - LOOP.half + 900 + r() * (2 * LOOP.half - 600);
-    out.push({ X, Z, w, h, n: 1 + Math.floor(r() * 2.5), seed: 10 + i }); }
-  return out.sort((p, q) => q.Z - p.Z); })();
-// camera that shows world point (X, Y, Z) at screen (sx, sy) with s px per world unit
-// (Y measured from the ground, up = −, like everything drawn with stand())
-const camFor = (X, Y, Z, s, sx = W / 2, sy = H / 2, f = F0) => { const dz = f / s; return cam3({ x: X - (sx - W / 2) / s, y: Y + BOARD.GY - (sy - H / 2) / s, z: Z - dz, f }); };
+// ===================================================================================================== the set (world units ≈ mm)
+const DISH = { X: 0, Y: F.drawerY(F.OPEN) + 12, Z: -F.RACK.tray * .5, R: F.RACK.dishR };   // the open dish (slide 1)
+const YOU = { X: -1150, Z: -1100, h: 1700 };                   // you, in the aisle left of the alive rack, facing it (dir 1)
+const MON = { X: 1180, Y: 1240, Z: -660, w: 760 };            // the screen on a stand in the aisle (C1 plays in it)
+const FIELD = { cx: CLOCK_PLATE.cx, cy: CLOCK_PLATE.cy, r: CLOCK_PLATE.r };   // the dish field (= the plate's dish)
+const DROP = [.2, -.05];                                      // where the feeding drop lands (dish units)
+const VIAL = { x: 1650, y: 930, h: 340 };                     // the tube, right of the dish (rises from below the frame)
+const HEADC = { x: 1640, y: 1060, h: 560 };                    // the head silhouette, same slot (rises, sinks before the tube)
+// cameras: the hook, you, the aisle, the feeding, the screen (its content rect lands exactly on CLIP_RECT), straight down on the dish
+const C_HOOK0 = cam({ tx: 0, ty: DISH.Y, tz: -170, d: 1250, p: -.47, oy: 110 });
+const C_HOOK1 = cam({ tx: 0, ty: DISH.Y, tz: -270, d: 1000, p: -.55, oy: 100 });
+const C_YOU0 = cam({ tx: -560, ty: 1260, tz: -520, d: 2750, p: -.08 });          // medium: you (left third) and the open drawer
+const C_YOU1 = cam({ tx: -520, ty: 1250, tz: -500, d: 3000, p: -.075 });   // breathing hold: SINGAPORE
+const C_FEED0 = cam({ tx: 160, ty: DISH.Y + 240, tz: DISH.Z, d: 1750, p: -.38, oy: 150 });
+const C_FEED1 = cam({ tx: 150, ty: DISH.Y + 220, tz: DISH.Z, d: 1580, p: -.42, oy: 150 });
+const C_MON = cam({ tx: MON.X, ty: MON.Y, tz: MON.Z, d: 1500 * MON.w / F.CLIP_RECT.w, p: 0, f: 1500, oy: F.CLIP_RECT.y + F.CLIP_RECT.h / 2 - H / 2 });
+const C_TOP = cam({ tx: DISH.X, ty: DISH.Y, tz: DISH.Z, d: 1500 * DISH.R / FIELD.r, p: -Math.PI / 2, f: 1500 });
+const night = (ctx) => { ctx.fillStyle = lin(ctx, 0, 0, 0, H, [[0, P.night0], [.55, P.night1], [1, P.night0]]); ctx.fillRect(0, 0, W, H); };
+// dish-plane ring (u, v in dish units) through a mapping
+function ringAt(ctx, map, cu, cv, rr) { ctx.beginPath(); let s = false; for (let k = 0; k <= 48; k++) { const an = k / 48 * 6.2832, q = map(cu + Math.cos(an) * rr, cv + Math.sin(an) * rr); if (!q) { s = false; continue; } s ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); s = true; } }
 
-function scene(a) {
-  const T0 = a.end, tPlate = T0 - SEAM_HALF;
-  const eA = eyeY(TA.w), eB = eyeY(TB.w);
-  // the camera: one plan sequence; moves 2.5–4 s sine-S on word keys, long breathing holds between (drift only)
-  const PLATE_S = TAG_PLATE.w / TA.w;
+function scene(a, T) {
+  const T0 = a.end, tPlate = T0 - SEAM_HALF, c1 = a.c1;
+  const tLand = a.feeds + .34;                                 // the drop reaches the dish
+  const tMon = c1.start + .45;                                 // the screen's content rect sits on CLIP_RECT
+  const tDesc0 = a.reward + .55, tTop = a.head - .75;          // the swing down into the dish
   const K = [
-    [0, camFor(TA.X, eA, Z0, .56, 1240, 92)],                                  // hook: the giant tag, you tiny below, the plain to the left
-    [a.wayE + .4, camFor(TA.X, eA, Z0, .6, 1228, 84)],                          // slow push through the hook
-    [a.pays + .5, camFor(-150, -885, Z0, .36, 960, 540)],                     // pull back + up: workshop · you · shop on the near edge
-    [a.wmake - .3, camFor(-110, -890, Z0, .362, 960, 540)],                     // breathing hold while the coin and the cube travel
-    [a.gap + .3, camFor(700, -900, Z0, .37, 960, 560)],                         // follow tag B: both tags and the gap between them (1.03)
-    [a.engine - .45, camFor(720, -905, Z0, .378, 960, 560)],                    // breathing hold on the gap
-    [a.engineE + 1.6, cam3({ x: 0, y: -2100, z: -1400, f: 850 })],            // ★ rise to the whole ring (the engine)
-    [a.now + .9, cam3({ x: 30, y: -2130, z: -1330, f: 850 })],                 // hold while the coin runs
-    [a.think + .15, camFor(YOU.X + 80, 0, Z0, .54, 960, 985)],                  // back down to you, your whole tag above you
-    [a.email - .2, camFor(YOU.X + 70, 0, Z0, .57, 960, 995)],                // push in on you (1.06)
-    [a.and - .1, camFor(YOU.X + 65, 0, Z0, .585, 960, 1000)],                  // hold while the cards rise and fold
-    [a.cheap - .45, camFor(YOU.X + 60, 0, Z0, .6, 960, 1004)],                 // breathing hold; the push starts on "cheap"
-    [tPlate, camFor(TA.X, eA, Z0, PLATE_S, TAG_PLATE.x, TAG_PLATE.y)],          // up the thread and into the tag: its face fills the frame (plateTag)
+    [0, C_HOOK0], [a.same - .3, C_HOOK1],
+    [a.watch - .1, C_YOU0], [a.someone - .9, C_YOU1],
+    [a.someone + .4, C_FEED0], [Math.max(a.someone + .9, tLand - .05), C_FEED1],
+    [tMon, C_MON], [tDesc0, C_MON],
+    [tTop, C_TOP],
   ];
-  // the coin: workshop door → road → you (pays you); then the whole loop from the shop (engine)
-  const uWork = loopU(WORK.X + 260), uYou = loopU(YOU.X + 40), uShop = loopU(SHOP.X - 120);
-  const coinPay = [a.pays - .35, a.pays + 1.35];
-  const runT = [a.engine - .1, a.engine + 3.9];
-  const cubeRide = [a.sells - .25, a.sells + 1.55];
-  const rand = E.prng(1801);
-  const DUSTS = Array.from({ length: 4 }, () => [rand(), rand()]);
+  // the blood cells: one per soma, ranked by distance to the tube mouth (the stream back into the tube goes nearest first)
+  const FM = F.fieldMap(FIELD.cx, FIELD.cy, FIELD.r);
+  const mouth = [VIAL.x, VIAL.y - VIAL.h * 1.02];
+  const HERO = NET.centre;
+  const rank = NET.somas.map((s, i) => [i, Math.hypot(FM(s[0], s[1])[0] - mouth[0], FM(s[0], s[1])[1] - mouth[1])]).filter(([i]) => i !== HERO).sort((p, q) => p[1] - q[1]).map((p) => p[0]);
+  const flowT = new Array(NET.somas.length).fill(null); rank.forEach((i, k) => { flowT[i] = a.make + .15 + k * .055; });
+  const rnd = prng(1901), PH = NET.somas.map(() => [rnd() * 6.3, rnd() * 6.3]);
+  const dropUV = DROP;
+  const dist = NET.somas.map((s) => Math.hypot(s[0] - dropUV[0], s[1] - dropUV[1]));
 
+  // the swing down into the dish: the target reaches the dish first (sine over the first 70 %), pitch and distance follow (tilt over)
+  function camDesc(t) {
+    const u = span(t, tDesc0, tTop), eT = sineIO(clamp(u / .7)), eP = sineIO(clamp((u - .2) / .8)), A = C_MON, B = C_TOP, o = {};
+    for (const k of ['tx', 'ty', 'tz', 'ox', 'oy', 'f']) o[k] = lerp(A[k], B[k], eT);
+    o.p = lerp(A.p, B.p, eP); o.d = Math.exp(lerp(Math.log(A.d), Math.log(B.d), eP));
+    return o;
+  }
   return (ctx, t) => {
-    const dAmt = .9 * (1 - smooth(span(t, tPlate - 1.2, tPlate)));
-    const c = camDrift(camAt(t, K, Z0), t, dAmt);
-    world(ctx, t, c);
-    if (t >= tPlate) plateTag(ctx, t);
+    if (t < tTop) world(ctx, t); else field(ctx, t);
+    // screen-space layers on top: the question, the ladder
+    F.questionLine(ctx, t, a.how, a.head - .5, { y: 128, size: 58 });
+    F.ladder(ctx, t, T);
+    if (t >= tPlate) plateClock(ctx, t);
   };
 
-  // ---------------------------------------------------------------------------------------------------------------------- the world
-  function world(ctx, t, c) {
-    // the coin on the loop (u) and how far the road behind it has lit
-    let coinU = null, coinA = 0, litTo = 0;
-    if (t >= coinPay[0] && t < coinPay[1]) { coinU = lerp(uWork, uYou, sineIO(span(t, coinPay[0], coinPay[1]))); coinA = smooth(span(t, coinPay[0], coinPay[0] + .3)) * (1 - smooth(span(t, coinPay[1] - .3, coinPay[1]))); }
-    const run = span(t, runT[0], runT[1]), runU = uShop + quartIO(run) * (1 - uShop + uWork + .0001);
-    if (t >= runT[0] - .3 && t < runT[1] + .8) { coinU = run >= 1 ? uWork : runU; coinA = smooth(span(t, runT[0] - .3, runT[0])) * (1 - smooth(span(t, runT[1] + .3, runT[1] + .8))); }
-    // the road: faint before the engine; the run lights it behind the coin; afterwards it keeps a calm glow
-    const base = .32 + .08 * smooth(span(t, a.one, a.pays));
-    const lit = [];
-    if (t >= coinPay[0]) lit.push([uWork, lerp(uWork, uYou, sineIO(span(t, coinPay[0], coinPay[1]))), .45 * (1 - .6 * smooth(span(t, runT[0], runT[1])))]);
-    if (t >= runT[0]) { const fadeL = .85 * (1 - .45 * smooth(span(t, a.think, a.think + 3))); lit.push([uShop, run >= 1 ? uShop + 1 : Math.min(runU, uShop + .9999), fadeL]); }
-    const cool = .28 * smooth(span(t, a.prices - .2, a.prices + .9)) + .32 * smooth(span(t, a.cheap - .1, a.cheap + .7));
-
-    F.sky(ctx, c, t, { air: 0 });
-    // the machine: a cold disc rises behind the zero line on the right (drawn before the board: the board's far edge hides its rise)
-    const dr = smooth(span(t, a.ai - .2, a.ai + 2.2));
-    if (dr > 0) { const p = wp(c, 7600, BOARD.GY + 1300 - 2600 * dr, 26000); if (p) F.coolDisc(ctx, p[0], p[1], 520 * p[2], .95 * smooth(span(t, a.ai - .2, a.ai + .6))); }
-    F.board(ctx, c, t, { road: base, lit, ticks: .35, zero: 1 });
-    // the cold light reaching the board from the right (a faint wash once the disc is up)
-    if (dr > 0) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = E.lin(ctx, W, 0, W * .25, 0, [[0, rgba(COOL.edge, .1 * dr)], [1, rgba(COOL.edge, 0)]]); ctx.fillRect(0, 0, W, H); ctx.restore(); }
-
-    // the town round the loop (dim, far): small houses on the side and far edges, drawn far → near
-    for (const hs of TOWN) { if (hs.Z < Z0 + 200) continue; stand(ctx, c, hs.X, hs.Z, () => F.house(ctx, t, hs.w, hs.h, { win: hs.n, lit: .45, seed: hs.seed })); }
-    // back to front along the near edge: the workshop, the shop, the coin, the road things, you, the customer, the tags
-    stand(ctx, c, WORK.X, Z0 + 120, () => workshop(ctx, t));
-    stand(ctx, c, SHOP.X, Z0 + 120, () => shop(ctx, t));
-    if (coinU != null && coinA > 0) { const [x, z] = loopPt(coinU); stand(ctx, c, x, z, () => { F.coin(ctx, t, 0, -COIN_R, COIN_R, { spin: coinU * 60, a: coinA }); E.halo(ctx, 0, -COIN_R, COIN_R * 4, .5 * coinA, P.halo0, P.core1); }); }
-    stand(ctx, c, 0, Z0, () => {
-      tagLight(ctx, t, cool);
-      cube(ctx, t);
-      you(ctx, t);
-      customer(ctx, t);
-      cards(ctx, t);
-    });
-    stand(ctx, c, 0, Z0 - 10, () => tags(ctx, t, cool));
-  }
-
-  // the tag's light on the ground round you (a soft pool) and on the plain
-  function tagLight(ctx, t, cool) {
-    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.translate(TA.X, 4); ctx.scale(1, .11);
-    ctx.fillStyle = E.rad(ctx, 0, 0, 900, [[0, rgba(mixHex(P.halo1, COOL.mid, cool), .4)], [.45, rgba(P.halo1, .1)], [1, rgba(P.halo1, 0)]]); ctx.beginPath(); ctx.arc(0, 0, 900, 0, 6.29); ctx.fill(); ctx.restore();
-    E.castShadow(ctx, YOU.X + 8, 0, 34, 150, Math.PI * .62, .45);
-  }
-
-  // ---- the two tags ($1 over you, $2 over the shop) and the gap bracket
-  function tags(ctx, t, cool) {
-    const sw = .05 * Math.sin(Math.PI * span(t, a.cap - .25, a.cap + 1.6)) * (1 - span(t, a.cap + .6, a.cap + 1.6)) + .006 * Math.sin(t * 1.3 + .5);
-    // the hook: a thin stream of dust leaves the tag's lower edge on "the way you think"
-    const emitHook = (ts) => .55 * bump(ts, a.way - .1, 2.2);
-    // 1.07: the number sinks off the face on "cheap", the "Fast." notch (a hard 3-frame drop, then a settle)
-    const sink = smooth(span(t, a.cheap - .15, a.cheap + .9));
-    const notch = 26 * expoOut(span(t, a.fast - .02, a.fast + .1)) * (1 - .35 * smooth(span(t, a.fast + .1, a.fast + .9)));
-    const nearPlate = smooth(span(t, a.fast + .4, a.end - SEAM_HALF));      // converge to the plate's tag (no notch, its sway)
-    const swA = lerp(sw, .012 * Math.sin(t * 1.3), nearPlate), yA = eA + notch * (1 - nearPlate);
-    const coolA = lerp(cool, TAG_PLATE.cool, nearPlate);
-    const emitA = (ts) => Math.max(emitHook(ts), .35 * smooth(span(ts, a.and - 1.2, a.and - .2)));   // steady by the plate (same stream as plateTag)
-    F.tag(ctx, t, TA.X, yA, TA.w, { text: '$1', u: span(t, a.work - .1, a.work + .7), sink, cool: coolA, swing: swA, emit: emitA, seed: 18, thread: 4000,
-      melt: .025 * smooth(span(t, a.way, a.wayE + .6)) * (1 - nearPlate) });
-    // the drop of light that runs off the edge on "Fast."
-    const dq = span(t, a.fast, a.fast + .9);
-    if (dq > 0 && dq < 1) { const by = yA + TA.w * 1.32 + 6, y = by + expoIn(dq) * 900; E.halo(ctx, TA.X + 40, y, 30, .9 * (1 - dq * .5), mixHex(P.halo0, COOL.mid, .5), COOL.core); ctx.fillStyle = COOL.core; ctx.beginPath(); ctx.ellipse(TA.X + 40, y, 7, 10 + 16 * dq, 0, 0, 6.29); ctx.fill(); }
-    // tag B lowers on its thread over the shop on "What you make" (from the dark above the frame)
-    const lb = sineIO(span(t, a.wmake - .5, a.wmake + 1.1));
-    if (lb > 0) {
-      const yB = lerp(eB - 2200, eB, lb) + 6 * Math.sin(t * .9);
-      F.tag(ctx, t, TB.X, yB, TB.w, { text: '$2', u: span(t, a.wmake + .65, a.wmake + 1.35), swing: .004 * Math.sin(t * 1.1 + 2) + .03 * (1 - lb) * Math.sin(t * 3), thread: 4000, glow: .9 });
+  // ---------------------------------------------------------------------------------------------------------------------- 3D: the aisle
+  function world(ctx, t) {
+    // drift: full in the aisle, none while the screen holds CLIP_RECT and on the landing above the dish
+    const hold = Math.max(smooth(span(t, tMon - .9, tMon)) * (1 - smooth(span(t, tDesc0, tDesc0 + 1.2))), smooth(span(t, tTop - 1.4, tTop)));
+    const c = camDrift(t > tDesc0 && t < tTop ? camDesc(t) : camAt(t, K), t, (1 - hold) * .35), v = view(c);
+    const slide = .3 + .7 * sineIO(span(t, 0, a.cellsE + .5));
+    const desc = smooth(span(t, tDesc0, tTop));                // 0 → 1 over the swing down
+    const dark = smooth(span(t, tDesc0 + .5, tTop - .55));         // the aisle goes dark round the dish
+    const glow = (.75 + .25 * smooth(span(t, .3, 2.6))) * (1 - desc);
+    F.hall(ctx, v, t, { pool: slide * (1 - desc) });
+    const netO = netOpts(t);
+    const dishO = { glow: lerp(.9, .55, desc), chip: lerp(1, .5, desc), electrodes: lerp(.6, .25, desc), rim: lerp(1, .7, desc), a: t >= tDesc0 ? 0 : 1 };
+    const out = F.rack(ctx, v, t, { open: F.OPEN, slide, glow, net: netO, dishO, seam: 1 });
+    feeding(ctx, t, v, out);
+    screen(ctx, t, v);
+    you(ctx, t, v);
+    location(ctx, t, v);
+    if (t >= tDesc0) {                                         // the swing: the aisle sinks into night, the dish stays (drawn on top)
+      if (dark > 0) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = dark; night(ctx); ctx.restore(); }
+      const m = out.dish && out.dish.map; if (m) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); F.dish(ctx, t, m, { ...dishO, a: 1, net: netO }); ctx.restore(); }
     }
-    // the gap: a dotted rule from tag A's apex level across to tag B, a bracket up to B's apex, PROFIT inside (1.03)
-    const gu = smooth(span(t, a.gap - .25, a.gap + .75)), gout = 1 - expoIn(span(t, a.engine + .2, a.engine + .8));
-    if (gu > 0 && gout > 0) {
-      const yA0 = eA - TA.w * 1.32 * .1, yB0 = eB - TB.w * 1.32 * .1, x0 = TA.X + TA.w / 2 + 40, xb = TB.X - TB.w / 2 - 70;
-      ctx.save(); ctx.globalAlpha = gout;
-      ctx.setLineDash([18, 16]); ctx.strokeStyle = rgba(P.halo1, .7); ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(x0, yA0); ctx.lineTo(lerp(x0, xb, gu), yA0); ctx.stroke(); ctx.setLineDash([]);
-      const bu = smooth(span(t, a.gap + .15, a.gap + .85));
-      if (bu > 0) F.rule(ctx, xb, yA0, xb, lerp(yA0, yB0, bu), 1, { w: 6, spark: bu < 1 });
-      if (bu > 0) { ctx.strokeStyle = rgba(P.halo0, .9 * bu); ctx.lineWidth = 5; for (const yy of [yA0, yB0]) { if (yy === yB0 && bu < .98) continue; ctx.beginPath(); ctx.moveTo(xb, yy); ctx.lineTo(xb + 40, yy); ctx.stroke(); } }
-      const pu = F.rise(span(t, a.profit - .2, a.profit + .6));
-      if (pu > 0) F.maskLine(ctx, [['PROFIT', smooth(span(t, a.profit, a.profit + .6))]], xb - 40, (yA0 + yB0) / 2 + 48, 132, pu, { serif: false, weight: 600, align: 'right', col: P.cream });
+  }
+  // the net through the whole chunk: alive (sparks), answers the drop in a wave, then (field) rewinds
+  function netOpts(t) {
+    const lit = .55 + .45 * smooth(span(t, .4, 2.4));
+    const fire = (i) => { const k = (t - tLand - dist[i] * .75) / .11; return t > tLand - .1 && k > -3 && k < 3 ? Math.exp(-k * k) : 0; };
+    const g = 1 - .74 * sineIO(span(t, a.start, a.start + 1.9));
+    return { lit, ambient: 1 - smooth(span(t, a.start - .4, a.start + .3)), fire, w: 1.25, grow: g };
+  }
+
+  // ---- you: in the aisle with your phone; the same net glows inside your hood; you look up at the rack on "But these"
+  function you(ctx, t, v) {
+    const look = lerp(-.6, .3, sineIO(span(t, a.but - .2, a.but + .9))) + .04 * Math.sin(t * .7);
+    const br = .02 * Math.sin(t * 1.6);
+    const down = sineIO(span(t, a.but + .1, a.but + 1.1));     // the phone sinks a little as you look up at the rack
+    let hd = null;
+    const p = bill(ctx, v, YOU.X, 0, YOU.Z, () => {
+      ctx.scale(1, 1 + .006 * Math.sin(t * 1.6));
+      const hands = E.du(ctx, 0, 0, YOU.h, { dir: 1, view: 'side', look, light: 1, armR: [lerp(.22, .12, down) + br, lerp(2.3, 1.7, down)], armL: [lerp(.12, .05, down) - br, lerp(2.2, 1.6, down)] });
+      // the phone: a small cool screen in the hand, tilted toward the face (its light on the hood)
+      ctx.save(); ctx.translate(hands.R[0] + 14, hands.R[1] - 30); ctx.rotate(.35 - .25 * down);
+      halo(ctx, 0, 0, 240, .3, COOL.edge, COOL.core);
+      ctx.fillStyle = P.night0; ctx.beginPath(); ctx.roundRect(-34, -62, 68, 124, 12); ctx.fill();
+      ctx.fillStyle = E.rad(ctx, 0, -20, 110, [[0, COOL.core], [1, COOL.mid]]); ctx.beginPath(); ctx.roundRect(-28, -55, 56, 110, 8); ctx.fill();
+      ctx.restore();
+    });
+    // the net in your head: the same NET with the same sparks as the dish, seen through the hood (a zoomed piece, additive)
+    const hp = proj(v, YOU.X + (.03 - .012 * look) * YOU.h, .875 * YOU.h, YOU.Z);
+    const on = .3 + .7 * bump(t, a.same - .2, 4.8);
+    if (hp && p) {
+      const r = .07 * YOU.h * hp[2];
+      halo(ctx, hp[0], hp[1], r * 2.4, .3 * on, P.halo1, P.core1);
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.beginPath(); ctx.arc(hp[0], hp[1], r, 0, 6.2832); ctx.clip();
+      ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .75;
+      F.net(ctx, t, F.fieldMap(hp[0], hp[1], r * 2.3), { lit: on, ambient: 1, w: .9, nSparks: 9 });
       ctx.restore();
     }
   }
 
-  // ---- you: tiny, under your tag; you look up at it in the hook, take the coin, make the thing, then the four tasks
-  function you(ctx, t) {
-    const look = .55 + .35 * sineIO(span(t, a.life - .3, a.life + .7)) - .55 * sineIO(span(t, a.one + .2, a.one + 1.4)) + .25 * sineIO(span(t, a.wmake, a.wmake + 1)) - .25 * sineIO(span(t, a.engine, a.engine + 1))
-      + .35 * sineIO(span(t, a.thinking - .2, a.thinking + .6)) + .3 * sineIO(span(t, a.cheap - .3, a.cheap + .5));
-    // arms: catch the coin (pays you) → hold the growing cube (make) → give it away (sells) → down; tasks: hands in front; thought: right arm up
-    const hold = smooth(span(t, a.pays + .6, a.pays + 1.2)) * (1 - smooth(span(t, cubeRide[0] - .05, cubeRide[0] + .5)));
-    const task = smooth(span(t, a.email - .6, a.email - .1)) * (1 - smooth(span(t, a.thinking - .3, a.thinking + .2)));
-    const up = smooth(span(t, a.thinking - .4, a.thinking + .4));
-    const br = Math.sin(t * 1.6) * .03;
-    const armR = [lerp(lerp(lerp(.16, .75, hold), .6, task), 2.55, up) + br, lerp(lerp(lerp(.1, 2.2, hold), 1.6, task), 2.7, up)];
-    const armL = [lerp(lerp(-.18, -.7, hold), -.5, task) - br, lerp(lerp(-.08, -2.1, hold), -1.4, task)];
-    ctx.save(); ctx.translate(YOU.X, 0); ctx.scale(1, 1 + .008 * Math.sin(t * 1.6));
-    const hands = E.du(ctx, 0, 0, YOU.h, { dir: 1, look: clamp(look), light: 1, armR, armL });
-    ctx.restore();
-    you.hands = { R: [hands.R[0] + YOU.X, hands.R[1]], L: [hands.L[0] + YOU.X, hands.L[1]] };
-  }
-
-  // ---- the cube you make (it grows between your hands on "make something", then rides the road to the shop)
-  function cube(ctx, t) {
-    const g = smooth(span(t, a.make - .2, a.make + .6));
-    if (g <= 0) return;
-    const q = span(t, cubeRide[0], cubeRide[1]); if (q >= 1) return;
-    const e = sineIO(q), x0 = YOU.X + 70, y0 = -118, x1 = SHOP.X - 120, y1 = -150;
-    const x = lerp(x0, x1, e), y = lerp(y0, y1, e) - Math.sin(Math.PI * e) * 160, r = 34 * g * (1 - .3 * smooth(span(q, .8, 1)));
-    E.halo(ctx, x, y, r * 4, .7, P.halo0, P.core1);
-    const p = new Path2D(); p.moveTo(x, y - r); p.lineTo(x + r * .87, y - r * .5); p.lineTo(x + r * .87, y + r * .5); p.lineTo(x, y + r); p.lineTo(x - r * .87, y + r * .5); p.lineTo(x - r * .87, y - r * .5); p.closePath();
-    ctx.fillStyle = P.core0; ctx.fill(p);
-    ctx.fillStyle = P.halo0; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + r * .87, y - r * .5); ctx.lineTo(x + r * .87, y + r * .5); ctx.lineTo(x, y + r); ctx.closePath(); ctx.fill();
-    ctx.fillStyle = P.halo1; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - r * .87, y - r * .5); ctx.lineTo(x - r * .87, y + r * .5); ctx.lineTo(x, y + r); ctx.closePath(); ctx.fill();
-  }
-
-  // ---- the customer: walks from the shop toward you while the disc rises (1.05), stands to your right (1.06)
-  function customer(ctx, t) {
-    const w = span(t, a.ai - .4, a.think + .4); if (t < a.ai - 2) return;
-    const x = lerp(CUST.X0, CUST.X1, sineIO(w)), walking = w > 0 && w < 1;
-    const show = smooth(span(t, a.ai - 1.6, a.ai - .4));       // steps out of the shop door (the door is behind him)
-    const lean = .06 * bump(t, a.customer - .3, 1.2);
-    ctx.save(); ctx.globalAlpha = show;
-    E.person(ctx, x, 0, CUST.h, { dir: -1, light: -1, walk: walking ? t * 5.2 : undefined, lean, armR: walking ? undefined : [.35 + .4 * bump(t, a.customer, 1.4), .6], armL: walking ? undefined : [-.2, -.3], rim: mixHex(P.blue0, P.halo1, .4) });
+  // ---- the label on the rack: a line from its top corner, SINGAPORE / DATA CENTRE (wipe in from below on "Singapore")
+  function location(ctx, t, v) {
+    const u = F.rise(span(t, a.sing - .2, a.sing + .6)) * (1 - expoIn(span(t, a.someone - .5, a.someone + .1)));
+    if (u <= 0) return;
+    const p = proj(v, F.RACK.hw, 1820, 0); if (!p) return;
+    const x1 = p[0] + 70, y1 = p[1] - 70;
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+    F.rule(ctx, p[0] + 6, p[1] - 6, x1, y1, smooth(clamp(u * 1.6)), { w: 2 });
+    ctx.strokeStyle = rgba(P.halo1, .6 * u); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x1 + 220 * expoOut(u), y1); ctx.stroke();
+    F.maskLine(ctx, [['SINGAPORE', 0]], x1 + 4, y1 - 14, 30, u, { serif: false, weight: 600, col: P.cream, glow: false });
+    F.maskLine(ctx, [['DATA CENTRE', 0]], x1 + 4, y1 + 30, 18, F.rise(span(t, a.sing, a.sing + .8)) * (u > 0 ? 1 : 0) * (1 - expoIn(span(t, a.someone - .5, a.someone + .1))), { serif: false, weight: 600, col: P.halo2, glow: false });
     ctx.restore();
   }
 
-  // ---- the four tasks: small cards of light rise from your hands on their words, settle in an arc, fold into one thought
-  function cards(ctx, t) {
-    if (!you.hands) return;
-    const keys = [a.email, a.contract, a.mistake, a.customer];
-    const slots = [[YOU.X - 330, -230], [YOU.X - 200, -380], [YOU.X + 30, -410], [YOU.X + 300, -330]];
-    const thought = [YOU.X + 50, -330], fold = span(t, a.thinking - .35, a.thinking + .75), cs = 108;
-    keys.forEach((k, i) => {
-      const u = span(t, k - .45, k + .35); if (u <= 0 || fold >= 1) return;
-      const h0 = i < 2 ? you.hands.L : you.hands.R, e = expoOut(u), ef = sineIO(fold);
-      let x = lerp(h0[0], slots[i][0], e), y = lerp(h0[1], slots[i][1], e) - Math.sin(Math.PI * u) * 40;
-      x = lerp(x, thought[0], ef); y = lerp(y, thought[1], ef);
-      const s = cs * lerp(.2, 1, e) * lerp(1, .15, ef), bob = 4 * Math.sin(t * 1.3 + i * 1.7) * (1 - ef);
-      taskCard(ctx, t, i, x, y + bob, s, 1 - smooth(span(fold, .7, 1)));
-    });
-    // the thought (a warm point of light) appears where the cards meet; its thread runs up to your tag
-    const th = smooth(span(fold, .55, 1));
-    if (th > 0) {
-      const br = 1 + .08 * Math.sin(t * 2.2);
-      E.halo(ctx, thought[0], thought[1], 120 * th * br, .9, P.halo0, P.core0);
-      ctx.fillStyle = P.core0; ctx.beginPath(); ctx.arc(thought[0], thought[1], 14 * th * br, 0, 6.29); ctx.fill();
-      const tu = smooth(span(t, a.thinking + .35, a.thinking + 1.25)), tb = TAG_BOT + 4;
-      if (tu > 0) F.trailSpan(ctx, [[thought[0], thought[1] - 16], [thought[0] - 30, (thought[1] + tb) / 2], [TA.X + 60, tb]], 0, tu, { w: 3.2, spark: tu < 1 });
+  // ---- feeding: a gloved hand lowers a pipette over the dish, one drop falls, the net answers in a wave from the landing point
+  function feeding(ctx, t, v, out) {
+    const lo = sineIO(span(t, a.every - .3, a.someone + .1)), up = expoIn(span(t, tLand + .4, tLand + 1.5));
+    if (lo <= 0 || up >= 1) { ripple(ctx, t, out); return; }
+    const tipY = DISH.Y + lerp(1700, 250, lo) + 1500 * up;
+    const dx = DISH.X + dropUV[0] * DISH.R, dz = DISH.Z + dropUV[1] * DISH.R;
+    bill(ctx, v, dx, tipY, dz, () => F.feeder(ctx, t, {}));
+    // the drop: grows at the tip, falls (expo-in), splashes
+    const form = smooth(span(t, a.someone + .05, a.feeds + .05)), fall = span(t, a.feeds + .02, tLand);
+    if (form > 0 && fall < 1) {
+      const y = lerp(tipY, DISH.Y + 6, expoIn(fall));
+      bill(ctx, v, dx, y, dz, (s) => { const r = 11 * form; halo(ctx, 0, -r, r * 6, .6, P.halo1, P.core0); ctx.fillStyle = mixHex(P.core0, COOL.core, .3); ctx.beginPath(); ctx.ellipse(0, -r, r * (1 - .25 * fall), r * (1 + .5 * fall), 0, 0, 6.2832); ctx.fill(); });
+    }
+    ripple(ctx, t, out);
+  }
+  function ripple(ctx, t, out) {
+    const q = span(t, tLand, tLand + 1.1); if (q <= 0 || q >= 1 || !out.dish) return;
+    const m = out.dish.map;
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'lighter';
+    for (const [k, d] of [[0, 0], [1, .16]]) { const qq = clamp((q - d) / (1 - d)); if (qq <= 0) continue; ringAt(ctx, m, dropUV[0], dropUV[1], .05 + .55 * expoOut(qq)); ctx.strokeStyle = rgba(P.halo0, .55 * (1 - qq) * (k ? .6 : 1)); ctx.lineWidth = 2.2; ctx.stroke(); }
+    ctx.restore();
+  }
+
+  // ---- the screen in the aisle: dark, powers on as the camera arrives, plays C1 (ORIGINAL FOOTAGE), darkens; three glyphs struck
+  function screen(ctx, t, v) {
+    const r = F.monitor(ctx, v, t, MON.X, MON.Y, MON.Z, MON.w);
+    if (!r || r[2] < 8) return;
+    const on = smooth(span(t, c1.start - .5, c1.start + .05)) * (1 + .25 * bump(t, c1.start - .55, .2));
+    if (on <= 0) return;
+    const dk = smooth(span(t, c1.end - .1, c1.end + .45));
+    F.clipPlate(ctx, t, T, 'C1', { rect: r, on: Math.min(1, on), dark: dk, credits: true });
+    // No hands. No eyes. No reward. — one glyph per word in the dark screen, each struck through a beat later
+    if (dk > 0) {
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.beginPath(); ctx.rect(r[0], r[1], r[2], r[3]); ctx.clip();
+      [['hand', a.hands], ['eye', a.eyes], ['star', a.reward]].forEach(([k, tk], i) => {
+        const u = span(t, tk - .2, tk + .45); if (u <= 0) return;
+        const s = r[2] * .14, x = r[0] + r[2] * (.3 + .2 * i), y = r[1] + r[3] * .5 + (1 - expoOut(u)) * r[3] * .12;
+        halo(ctx, x, y, s * 1.4, .25 * expoOut(u), P.halo0, P.core1);
+        F.glyph(ctx, k, x, y, s, { a: smooth(clamp(u * 2)), strike: expoOut(span(t, tk + .32, tk + .7)) });
+      });
+      ctx.restore();
     }
   }
-  function taskCard(ctx, t, i, x, y, s, al) {
-    if (al <= 0 || s < 2) return;
-    ctx.save(); ctx.globalAlpha *= al; ctx.translate(x, y);
-    const w = s, h = s * (i === 3 ? .72 : i === 0 ? .7 : 1.25), p = new Path2D();
-    if (i === 3) { p.roundRect(-w / 2, -h / 2, w, h, h * .35); p.moveTo(-w * .18, h / 2 - 1); p.lineTo(-w * .32, h / 2 + h * .32); p.lineTo(-w * .02, h / 2 - 1); }
-    else p.roundRect(-w / 2, -h / 2, w, h, w * .06);
-    E.glowFill(ctx, p, w * .3, .45, P.halo0);
-    ctx.fillStyle = E.rad(ctx, 0, -h * .1, w, [[0, P.core0], [.6, P.core1], [1, P.halo0]]); ctx.fill(p);
-    ctx.strokeStyle = mixHex(P.shade0, P.night1, .3); ctx.lineWidth = w * .04; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    if (i === 0) { ctx.beginPath(); ctx.moveTo(-w * .42, -h * .4); ctx.lineTo(0, h * .1); ctx.lineTo(w * .42, -h * .4); ctx.stroke(); }                 // envelope
-    if (i === 1) { for (let k = 0; k < 4; k++) { ctx.beginPath(); ctx.moveTo(-w * .32, -h * .32 + k * h * .13); ctx.lineTo(w * (k === 3 ? .1 : .32), -h * .32 + k * h * .13); ctx.stroke(); }
-      ctx.beginPath(); for (let k = 0; k <= 12; k++) { const xx = -w * .3 + k * w * .05, yy = h * .3 + Math.sin(k * 1.4) * h * .03; k ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy); } ctx.stroke(); }  // contract + signature
-    if (i === 2) { for (let k = 0; k < 4; k++) { ctx.beginPath(); ctx.moveTo(-w * .32, -h * .3 + k * h * .18); ctx.lineTo(w * .32, -h * .3 + k * h * .18); ctx.stroke(); }
-      const ru = smooth(span(t, a.mistake + .05, a.mistake + .6)); ctx.strokeStyle = P.halo1; ctx.lineWidth = w * .05; ctx.beginPath(); ctx.ellipse(w * .08, -h * .3 + 2 * h * .18, w * .2, h * .09, 0, -1.2, -1.2 + 6.3 * ru); ctx.stroke(); }  // the ringed mistake
-    if (i === 3) { for (let k = 0; k < 2; k++) { ctx.beginPath(); ctx.moveTo(-w * .3, -h * .14 + k * h * .3); ctx.lineTo(w * (k ? .1 : .3), -h * .14 + k * h * .3); ctx.stroke(); } }     // the speech bubble
+
+  // ---------------------------------------------------------------------------------------------------------------------- 2D: the dish field
+  function field(ctx, t) {
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+    night(ctx);
+    const cellsU = span(t, a.start + 1.2, a.start + 2.1);     // the somas become round cells (the rewound net's last state)
+    const netO = netOpts(t);
+    F.dish(ctx, t, FM, { glow: .55, chip: .5, electrodes: .25, rim: .7, net: cellsU < 1 ? { ...netO, lit: netO.lit * (1 - smooth(cellsU)) } : false });
+    head(ctx, t);
+    if (cellsU > 0) cells(ctx, t, cellsU);
+    tube(ctx, t);
     ctx.restore();
   }
-
-  // ---- the workshop (the employer): saw-tooth roof, a big warm window, a door the coin comes out of
-  function workshop(ctx, t) {
-    const { w, h } = WORK, x0 = -w / 2, glow = .55 + .15 * bump(t, coinPay[0] - .3, 1.2);
-    const body = new Path2D(); body.moveTo(x0, 0); body.lineTo(x0, -h);
-    for (let k = 0; k < 3; k++) { const xa = x0 + k * w / 3; body.lineTo(xa + w / 3 * .78, -h - 150); body.lineTo(xa + w / 3, -h - 150); body.lineTo(xa + w / 3, -h); }
-    body.lineTo(x0 + w, 0); body.closePath();
-    ctx.fillStyle = E.lin(ctx, x0, 0, x0 + w, 0, [[0, P.night1], [.6, mixHex(P.night1, P.ind2, .5)], [1, P.ind1]]); ctx.fill(body);
-    ctx.strokeStyle = rgba(P.blue0, .8); ctx.lineWidth = 8; ctx.stroke(body);
-    for (let k = 0; k < 3; k++) { const xa = x0 + k * w / 3; ctx.fillStyle = rgba(P.halo1, .55 * glow); ctx.fillRect(xa + w / 3 * .8, -h - 140, w / 3 * .17, 130); }   // north lights in the roof teeth
-    const win = new Path2D(); win.rect(x0 + 70, -h + 90, w * .52, h * .48);
-    E.glowFill(ctx, win, 60, .45 * glow, P.halo0);
-    ctx.fillStyle = E.lin(ctx, 0, -h + 90, 0, -h + 90 + h * .48, [[0, mixHex(P.halo0, P.core1, .4)], [1, P.halo1]]); ctx.globalAlpha = .55 + .45 * glow; ctx.fill(win); ctx.globalAlpha = 1;
-    ctx.strokeStyle = P.night1; ctx.lineWidth = 9; for (let k = 1; k < 4; k++) { ctx.beginPath(); ctx.moveTo(x0 + 70 + k * w * .13, -h + 90); ctx.lineTo(x0 + 70 + k * w * .13, -h + 90 + h * .48); ctx.stroke(); }
-    ctx.fillStyle = mixHex(P.night0, P.halo1, .25 * bump(t, coinPay[0] - .4, 1)); ctx.fillRect(x0 + w - 220, -230, 130, 230);    // the door (warms as the coin comes out)
+  // the head beside the dish: rises on "grew up inside a head" (its own net gold from the bottom), sinks on "didn't even start out"
+  function head(ctx, t) {
+    const up = expoOut(span(t, a.head - .35, a.head + .9)), dn = expoIn(span(t, a.start - .3, a.start + .6));
+    if (up <= 0 || dn >= 1) return;
+    const y = HEADC.y + (1 - up) * HEADC.h * 1.1 + dn * HEADC.h * 1.1 + 6 * Math.sin(t * .9);
+    halo(ctx, HEADC.x - 20, y - HEADC.h * .62, HEADC.h * .55, .3 * up * (1 - dn), P.halo1, P.core1);
+    F.creature(ctx, 'head', HEADC.x, y, HEADC.h, { fill: 0 });
+    // its own net (the cells that grew up inside it), a zoomed piece of the same NET, clipped to the skull
+    const hx = HEADC.x + .01 * HEADC.h, hy = y - .66 * HEADC.h, hr = .27 * HEADC.h, nl = smooth(span(t, a.head + .1, a.head + 1.2));
+    if (nl > 0) { ctx.save(); ctx.beginPath(); ctx.arc(hx, hy, hr, 0, 6.2832); ctx.clip(); ctx.globalCompositeOperation = 'lighter';
+      F.net(ctx, t + 3.1, F.fieldMap(hx, hy, hr * 2.1), { lit: nl * (1 - dn), ambient: 1, w: 1.1, grow: lerp(.4, 1, nl) }); ctx.restore(); }
+    // "These never did": a thin cool tick across the gap head → dish (the dish never had one)
+    const nv = bump(t, a.never - .1, 1.4);
+    if (nv > 0) { ctx.strokeStyle = rgba(COOL.mid, .5 * nv); ctx.lineWidth = 2; ctx.setLineDash([10, 12]); ctx.beginPath(); ctx.moveTo(HEADC.x - HEADC.h * .42, y - HEADC.h * .55); ctx.lineTo(FIELD.cx + FIELD.r * 1.04, FIELD.cy - 20); ctx.stroke(); ctx.setLineDash([]); }
   }
-
-  // ---- the shop: a low front with an awning and a lit display window (the cube goes in, the coin comes out)
-  function shop(ctx, t) {
-    const { w, h } = SHOP, x0 = -w / 2, inn = bump(t, cubeRide[1] - .2, 1.2), out = bump(t, runT[0] - .5, 1.2);
-    const body = new Path2D(); body.rect(x0, -h, w, h);
-    ctx.fillStyle = E.lin(ctx, x0, 0, x0 + w, 0, [[0, P.ind1], [.5, mixHex(P.night1, P.ind2, .5)], [1, P.night1]]); ctx.fill(body);
-    ctx.strokeStyle = rgba(P.blue0, .8); ctx.lineWidth = 8; ctx.stroke(body);
-    // the awning: flat teeth
-    ctx.fillStyle = mixHex(P.ind2, P.blue1, .4); ctx.beginPath(); ctx.moveTo(x0 - 30, -h + 10); ctx.lineTo(x0 + w + 30, -h + 10); ctx.lineTo(x0 + w + 30, -h + 60);
-    for (let k = 8; k >= 0; k--) { const xx = x0 - 30 + k * (w + 60) / 8; ctx.lineTo(xx + (w + 60) / 16, -h + 92); ctx.lineTo(xx, -h + 60); }
-    ctx.closePath(); ctx.fill();
-    const win = new Path2D(); win.rect(x0 + 60, -h + 130, w * .55, h * .5);
-    const g = .55 + .35 * inn + .25 * out;
-    E.glowFill(ctx, win, 60, .5 * g, P.halo0);
-    ctx.fillStyle = E.lin(ctx, 0, -h + 130, 0, -h + 130 + h * .5, [[0, mixHex(P.halo0, P.core1, .5)], [1, P.halo1]]); ctx.globalAlpha = Math.min(1, .5 + .5 * g); ctx.fill(win); ctx.globalAlpha = 1;
-    // goods on the shelf: small cubes (the things people make)
-    for (let k = 0; k < 4; k++) { ctx.fillStyle = rgba(P.shade0, .8); ctx.fillRect(x0 + 90 + k * 80, -h + 130 + h * .5 - 46, 46, 46); }
-    ctx.fillStyle = mixHex(P.night0, P.halo1, .2 * out); ctx.fillRect(x0 + w - 170, -230, 110, 230);
+  // the somas as cells: gold → cool round blood cells, a slow drift; all but the hero stream back into the tube; the hero comes to the
+  // centre, grows, and gets its clock (hands turning backward = CLOCK_PLATE.hand)
+  function cells(ctx, t, cellsU) {
+    const cool = smooth(span(t, a.start + 1.6, a.blood + .2));
+    const r0 = FIELD.r * .016;
+    NET.somas.forEach((s, i) => {
+      if (i === HERO) return;
+      const [x0, y0] = FM(s[0], s[1]), ph = PH[i];
+      const dx = 6 * Math.sin(t * .5 + ph[0]), dy = 6 * Math.sin(t * .43 + ph[1]);
+      let x = x0 + dx, y = y0 + dy, r = lerp(r0, 15, sineIO(cellsU)), al = 1;
+      const f = flowT[i] != null ? span(t, flowT[i], flowT[i] + 1.05) : 0;
+      if (f >= 1) return;
+      if (f > 0) {                                             // drawn into the tube along an arc (accelerating, shrinking at the mouth)
+        const e = expoIn(f), mx = (x + mouth[0]) / 2, my = Math.min(y, mouth[1]) - 160;
+        x = lerp(lerp(x, mx, e), lerp(mx, mouth[0], e), e); y = lerp(lerp(y, my, e), lerp(my, mouth[1] + 30, e), e); r *= 1 - .55 * smooth(span(f, .7, 1)); al = 1 - smooth(span(f, .9, 1));
+      }
+      F.cell(ctx, t, x, y, r, { kind: 'blood', warm: 1 - cool, seed: i, a: al });
+    });
+    // the hero
+    const [hx0, hy0] = FM(NET.somas[HERO][0], NET.somas[HERO][1]);
+    const go = sineIO(span(t, a.make + .3, a.turn - .1));
+    const x = lerp(hx0 + 6 * Math.sin(t * .5), CLOCK_PLATE.cx, go), y = lerp(hy0 + 6 * Math.sin(t * .43), CLOCK_PLATE.cy, go);
+    const r = lerp(lerp(r0, 15, sineIO(cellsU)), CLOCK_PLATE.cellR, go);
+    const warm = lerp(1 - cool, 0, go) + CLOCK_PLATE.warm * smooth(span(t, a.turn + .5, a.end - .6));
+    const ck = span(t, a.turn - .15, a.turn + 1.35);
+    if (go > 0) halo(ctx, x, y, r * 2.6, .25 * bump(t, a.make + .3, a.turn - a.make), P.halo1, P.core1);
+    F.cell(ctx, t, x, y, r, { kind: 'blood', warm, clock: ck, clockR: CLOCK_PLATE.clockR, hand: CLOCK_PLATE.hand(t), seed: go > .99 ? 0 : HERO * (1 - go) });
+  }
+  // the tube: rises from below on "blood sample" (where the head was), takes the stream, sinks on "turn back"
+  function tube(ctx, t) {
+    const up = expoOut(span(t, a.blood - .5, a.blood + .7)), dn = expoIn(span(t, a.turn - .4, a.turn + .7));
+    if (up <= 0 || dn >= 1) return;
+    const y = VIAL.y + (1 - up) * (VIAL.h * 1.6) + dn * VIAL.h * 1.6 + 5 * Math.sin(t * 1.1);
+    const taken = rank.filter((i) => t > flowT[i] + 1.0).length / rank.length;
+    halo(ctx, VIAL.x, y - VIAL.h * .45, VIAL.h * .7, .22 * up, P.halo1, P.core1);
+    F.vial(ctx, t, VIAL.x, y, VIAL.h, { fill: .6 + .18 * taken, label: 'DONOR' });
   }
 }

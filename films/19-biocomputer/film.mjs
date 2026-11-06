@@ -1,13 +1,13 @@
-// Film 18 "AI Will End Capitalism" (~9:42 incl. the 15 s end screen), built on the Film 10/13/16 editorial-night machinery.
-// Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots18.py) · builders: docs/BRIEF-builders.md.
+// Film 19 "Computers Now Run on Human Brain Cells" (~9:40 narration + 15 s end screen), built on the Film 10/13/16/18 editorial-night machinery.
+// Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots19.py) · builders: docs/BRIEF-builders.md.
 // Eleven chunk files scenes/sc01.mjs … sc11.mjs return their entries; this file stitches them into one timeline.
 // NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a
 // planned match on a carrier). Any other tr is turned into 'cut' with a warning. Missing chunks render as stubs.
 //   export default (T, R) => [ entry, … ]       T = timing helpers (lib/kit.mjs: T.G / T.GE global phrase anchors), R = { a, b, id, name, first }
-//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (F.PRINT18)
+//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (F.PRINT19)
 // SECS=c01,c02 node render.mjs --snap ...   builds only those chunks (absolute times stay the same).
 // Timing: $TIMING, else <ROOT>audio/timing.json (the real VO, written by the audio agent), else data/provisional_timing.json
-// (tools/provisional_timing.py, from vo-v4.txt; a warning is printed). ROOT = $F18ROOT or /mnt/project-files/scenario/film-kapitalismus/.
+// (tools/provisional_timing.py, from vo-v2.txt; a warning is printed). ROOT = $F19ROOT or /mnt/project-files/scenario/film-biocomputer/.
 import fs from 'node:fs';
 import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
@@ -17,17 +17,17 @@ import { errorCard, stubChunk } from './lib/stub.mjs';
 export { ROOT };
 // chunk table (docs/shots.md §2); from = the first phrase of the chunk, looked up GLOBALLY in the film (T.G), so any VO segmentation works
 export const CHUNKS = [
-  { id: 'c01', name: 'Hook + the engine (the circle, two price tags) + what you are paid for: thinking', from: 'A.I. will end capitalism' },
-  { id: 'c02', name: 'The price of thinking falls ($20 → 7¢) · the crash story (Gawdat) · the pressure (two records)', from: 'At the end of' },
-  { id: 'c03', name: 'The real ending is the price · air · runs out · where does it go · Britannica, music: onto the door', from: "But that's not the real ending" },
-  { id: 'c04', name: 'Thinking is next: words, advice, everything built from thinking · Chegg · Canva · the price left', from: 'Now the same thing is reaching' },
-  { id: 'c05', name: 'The value stays ($17,000) · value looks for a door · the doors: ground, power, chips (Altman)', from: 'And the value' },
-  { id: 'c06', name: 'What scarcity pays: Nvidia · Loudoun County · the oldest door: land under the house', from: 'Nvidia' },
-  { id: 'c07', name: 'The first picture again · not a crash: you pay at the door · the ground the machine stands on', from: 'Now look at the first picture' },
-  { id: 'c08', name: 'A set of rules: the board revealed · Lizzie Magie · Henry George · two rule sets', from: "That isn't a law of nature" },
-  { id: 'c09', name: 'Rule set II: the free layer (GPS, roads) · land first (Baden-Württemberg)', from: 'The second set of rules' },
-  { id: 'c10', name: 'Housing (Vienna) · energy (Middelgrunden) · who owns the door in Virginia · you can vote', from: 'Housing' },
-  { id: 'c11', name: 'Ending: one price at a time · something to design · your move + end screen', from: "Capitalism won't end with a crash" },
+  { id: 'c01', name: 'Hook: the drawer, you, the rack in Singapore, Doom (C1), no hands/eyes/reward, the question, blood, the clock', from: 'Computers now run on' },
+  { id: 'c02', name: 'Blood → stem cell → neuron → the chip (wiring up) · electrodes + code · the box · imitation vs original', from: 'In a lab' },
+  { id: 'c03', name: 'Pong 2022: sense and move zones · the trick: order or noise', from: 'The answer came' },
+  { id: 'c04', name: 'Five minutes, not luck · "want" is too big · Friston, the radio · Kagan (C2) · a lab trick?', from: 'After about five minutes' },
+  { id: 'c05', name: 'For sale ($35,000 / $300 a week) · Doom in a week · "doesn\'t know" · why a rack?', from: "It didn't stay in the lab" },
+  { id: 'c06', name: 'Twenty watts · data centres +50 % · Melbourne, Singapore, 1,000 · 30 W per box, untested', from: 'It comes down to a number' },
+  { id: 'c07', name: 'The match: round 1 learning speed (with a catch) · round 2 teamwork (with a catch)', from: 'Picture it as a match' },
+  { id: 'c08', name: 'Round 3 everything else · final score · pairing · is anyone in there?', from: 'Round three' },
+  { id: 'c09', name: 'How big: fly < box < bee · ⅓ of a mouse in 120 dishes · 86 billion · no evidence', from: 'First, how big' },
+  { id: 'c10', name: 'Seth · embedded ethics (Johns Hopkins) · Smirnova (C3) · what now?', from: 'Still, some researchers' },
+  { id: 'c11', name: 'The answer: order and noise · leaner learning · drug tests · three rules · the drawer closes + end screen', from: 'At the start, the question' },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 
