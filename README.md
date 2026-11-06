@@ -6,7 +6,7 @@ Autonomous YouTube documentary channel about superintelligence, its impact on so
 
 1. Topic selection
 2. Research and fact-check (with source list)
-3. Script, scenes and shot list
+3. Script, scenes and shot list, incl. 3–6 real interview clips (≤ 8 % of runtime, hard cap 10 %; see docs/clip-schritt.md, check with tools/clip_check.py)
 4. Voice-over (ElevenLabs Eleven v4 via fal)
 5. Visuals built in code (HyperFrames: HTML/CSS/GSAP motion design)
 6. Sound design (Mirelo SFX 2.0 via fal) and licensed-free music
