@@ -6,14 +6,13 @@ import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']
 # spoken numbers -> digits (longest patterns first: merge() takes the first pattern that matches at a word)
-NUM = [('a hundred and ninety million dollars', '$190 million'), ('one point four trillion dollars', '$1.4 trillion'),   # Film 18
-       ('ninety-six billion dollars', '$96 billion'), ('two to six million dollars', '$2-6 million'), ('seventeen thousand dollars', '$17,000'),
-       ('a hundred and twenty thousand', '120,000'), ('two hundred and forty-four', '244'), ('eight and a half thousand', '8,500'),
-       ('twenty twenty-two', '2022'), ('twenty twenty-one', '2021'), ('twenty nineteen', '2019'), ('twenty seventeen', '2017'),
-       ('twenty twelve', '2012'), ('two thousand nine', '2009'), ('nineteen forty-seven', '1947'), ('nineteen ninety', '1990'),
-       ('nineteen oh four', '1904'), ('the year two thousand', 'the year 2000'), ('ninety-nine percent', '99%'), ('eighty percent', '80%'),
-       ('twenty dollars', '$20'), ('thirteen times', '13 times'), ('ten years', '10 years'), ('fourteen', '14'),
-       ('a\\.i\\.', 'AI')]   # spoken "A.I." (two letters) -> AI on screen
+NUM = [('day nine hundred twenty-nine', 'day 929'), ('day five hundred seventeen', 'day 517'), ('day two hundred eighty-two', 'day 282'),   # Film 19
+       ('day one thousand', 'day 1,000'), ('day forty-eight', 'day 48'), ('day thirty-one', 'day 31'), ('day thirty', 'day 30'),
+       ('two hundred fifty thousand dollars', '$250,000'), ('twenty-seven billion dollars', '$27 billion'), ('two trillion dollars', '$2 trillion'),
+       ('four hundred dollars', '$400'), ('forty percent', '40%'), ('two percent', '2%'), ('november fifth', 'November 5'), ('october sixth', 'October 6'),
+       ('october two thousand two', 'October 2002'), ('twenty twenty-five', '2025'), ('twenty twenty-two', '2022'), ('twenty twenty', '2020'),
+       ('two thousand one', '2001'), ('nineteen thirty-three', '1933'), ('nineteen eighty-seven', '1987'), ('nineteen-thirties', '1930s'),
+       ('forty years', '40 years'), ('fifteen minutes', '15 minutes'), ('six in ten', '6 in 10'), ('two in a hundred', '2 in 100'), ('ten times', '10 times')]
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
@@ -31,61 +30,97 @@ def split(ws):
         if c < best: best, bi = c, k
     return split(ws[:bi]) + split(ws[bi:])
 # hand-made breaks where the balanced split would cut a phrase (Film 6 hook, Fassung 3): sentence text -> cue texts, same words in order
-BREAKS = {   # Film 18: keep phrases together where the balanced split would cut them
-    'A former Google executive, Mo Gawdat, says exactly that: the base of capitalism, hiring you for a dollar and selling what you make for two, is going to disappear.':
-        ['A former Google executive,', 'Mo Gawdat, says exactly that:', 'the base of capitalism,', 'hiring you for a dollar', 'and selling what you make for two,', 'is going to disappear.'],
-    "Between April and June this year, America's biggest companies kept more profit from every dollar than at any point since the count began in 2009.":
-        ['Between April and June this year,', "America's biggest companies", 'kept more profit from every dollar', 'than at any point', 'since the count began in 2009.'],
-    "Then everything made from thinking gets cheaper, and cheaper, until there's almost nothing left to charge for.":
-        ['Then everything made', 'from thinking gets cheaper,', 'and cheaper,', "until there's almost", 'nothing left to charge for.'],
-    'First words and code: a draft, a summary, a bug fix, for cents.':
-        ['First words and code:', 'a draft, a summary, a bug fix,', 'for cents.'],
-    'Then advice: the second opinion on your scan, the lease your landlord sent.':
-        ['Then advice:', 'the second opinion on your scan,', 'the lease your landlord sent.'],
-    'Chegg sold homework help to students.':
-        ['Chegg sold homework help', 'to students.'],
-    'Since 2021, it has lost 99% of its value.':
-        ['Since 2021,', 'it has lost 99% of its value.'],
-    'A year ago it cut almost half its staff and named AI as a reason.':
-        ['A year ago it cut almost', 'half its staff', 'and named AI as a reason.'],
-    "The people who built those products didn't fail.":
-        ['The people who built', "those products didn't fail."],
-    'In a study published in 2019, researchers asked people what it would take to give up search engines, which cost them nothing.':
-        ['In a study published in 2019,', 'researchers asked people', 'what it would take', 'to give up search engines,', 'which cost them nothing.'],
-    'Sam Altman, who runs OpenAI, wrote last year that "the cost of intelligence should eventually converge to near the cost of electricity."':
-        ['Sam Altman, who runs OpenAI,', 'wrote last year that', '"the cost of intelligence', 'should eventually converge', 'to near the cost of electricity."'],
-    'Nvidia, which designs the chips, took in $96 billion in a single quarter this summer.':
-        ['Nvidia, which designs the chips,', 'took in $96 billion', 'in a single quarter this summer.'],
-    'It kept three quarters of every dollar as gross profit.':
-        ['It kept three quarters', 'of every dollar as gross profit.'],
-    'The county says land for one now sells for $2-6 million an acre.':
-        ['The county says land', 'for one now sells for', '$2-6 million an acre.'],
-    'Across 14 rich countries, about 80% of the rise in house prices since the Second World War came from one thing: the land underneath.':
-        ['Across 14 rich countries,', 'about 80% of the rise', 'in house prices since', 'the Second World War', 'came from one thing:', 'the land underneath.'],
-    'Now look at the first picture again: record margins, record low for work.':
-        ['Now look at', 'the first picture again:', 'record margins,', 'record low for work.'],
-    'What would it look like now: a world where almost everything is abundant, and the few things that stay scarce are shared, fairly?':
-        ['What would it look like now:', 'a world where almost', 'everything is abundant,', 'and the few things', 'that stay scarce', 'are shared, fairly?'],
-    'The United States built GPS and switched it on for the whole world, free.':
-        ['The United States built GPS', 'and switched it on', 'for the whole world, free.'],
-    'By 2017, American companies alone had gained about $1.4 trillion from it.':
-        ['By 2017, American companies', 'alone had gained about', '$1.4 trillion from it.'],
-    "That's the rule for whatever AI makes abundant: a free layer, like roads, paid for together instead of at a door, one by one.":
-        ["That's the rule for whatever AI", 'makes abundant:', 'a free layer, like roads,', 'paid for together', 'instead of at a door, one by one.'],
-    'Since last year, the German state of Baden-Württemberg taxes property on the value of the land alone, not the building.':
-        ['Since last year,', 'the German state', 'of Baden-Württemberg', 'taxes property on the value', 'of the land alone,', 'not the building.'],
-    'Housing: since 2019, when Vienna zones new land for homes, two thirds of it usually has to be affordable apartments.':
-        ['Housing: since 2019,', 'when Vienna zones', 'new land for homes,', 'two thirds of it usually', 'has to be affordable apartments.'],
-    'Now ask the same question about the data center going up on that field in Virginia.':
-        ['Now ask the same question', 'about the data center going up', 'on that field in Virginia.'],
-    "I think that's the best news in this story: the end of capitalism isn't something to survive.":
-        ["I think that's the best news", 'in this story:', 'the end of capitalism', "isn't something to survive."],
-    'The ground it stands on is still ours to decide.':
-        ['The ground it stands on', 'is still ours to decide.'],
+BREAKS = {   # Film 19: keep phrases together where the balanced split would cut them
+    "The farthest: two and a half years in.":
+        ["The farthest:", "two and a half years in."],
+    "Every year, the biggest tech companies spend more on them.":
+        ["Every year,", "the biggest tech companies", "spend more on them."],
+    "But so far, what customers pay for artificial intelligence is a fraction of what's being built for it.":
+        ["But so far,", "what customers pay", "for artificial intelligence", "is a fraction", "of what's being built for it."],
+    "So more and more of it runs on borrowed money.":
+        ["So more and more of it", "runs on borrowed money."],
+    "Three years ago, of every dollar companies borrowed through bonds with good credit ratings, artificial intelligence firms took two cents.":
+        ["Three years ago,", "of every dollar companies", "borrowed through bonds", "with good credit ratings,", "artificial intelligence firms", "took two cents."],
+    "The main index of artificial intelligence and chip stocks there lost about 40% in under four months.":
+        ["The main index", "of artificial intelligence", "and chip stocks there", "lost about 40%", "in under four months."],
+    "Everything in you says: do something.":
+        ["Everything in you says:", "do something."],
+    "Fewer than 2 in 100 moved everything out of stocks.":
+        ["Fewer than 2 in 100", "moved everything out of stocks."],
+    "A couple of years later, the balances of those who stayed had grown by about half.":
+        ["A couple of years later,", "the balances of those who stayed", "had grown by about half."],
+    "Those who left and stayed out: about 2%.":
+        ["Those who left and stayed out:", "about 2%."],
+    "In the loudest week, you don't have to decide anything big.":
+        ["In the loudest week,", "you don't have to decide", "anything big."],
+    "In 2025, wave after wave of new tariffs shook markets around the world.":
+        ["In 2025,", "wave after wave of new tariffs", "shook markets around the world."],
+    "And the market had its best day since the financial crisis.":
+        ["And the market had its best day", "since the financial crisis."],
+    "The week before the sell-off, the new chair of the Federal Reserve, Kevin Warsh, said investors were getting choosier.":
+        ["The week before the sell-off,", "the new chair", "of the Federal Reserve,", "Kevin Warsh,", "said investors", "were getting choosier."],
+    "Then it reaches people who never owned a single share.":
+        ["Then it reaches people", "who never owned a single share."],
+    "In May, just two memory-chip companies made about a sixth of the whole world stock market's gains.":
+        ["In May, just two", "memory-chip companies", "made about a sixth", "of the whole world", "stock market's gains."],
+    "When the dot-com bubble burst, money for young companies more than halved within a year.":
+        ["When the dot-com bubble burst,", "money for young companies", "more than halved within a year."],
+    "In America, only about 6 in 10 adults could pay it right away from their own money.":
+        ["In America,", "only about 6 in 10 adults", "could pay it right away", "from their own money."],
+    "Families with even a few hundred dollars set aside were less likely to fall behind on rent.":
+        ["Families with even", "a few hundred dollars set aside", "were less likely", "to fall behind on rent."],
+    "Back then, the market paid billions for websites that had never made a profit.":
+        ["Back then, the market", "paid billions for websites", "that had never made a profit."],
+    "Today, the price of using artificial intelligence keeps falling: for the same result, roughly 10 times cheaper every year.":
+        ["Today, the price", "of using artificial intelligence", "keeps falling:", "for the same result,", "roughly 10 times cheaper", "every year."],
+    "Four protections, all of them yours.":
+        ["Four protections,", "all of them yours."],
+    "But is it enough if everyone only protects themselves?":
+        ["But is it enough", "if everyone only", "protects themselves?"],
+    "But the great crashes of the past left something behind: safety nets.":
+        ["But the great crashes", "of the past left something behind:", "safety nets."],
+    "In the early 1930s, thousands of American banks failed, and with them, people's savings.":
+        ["In the early 1930s,", "thousands of American", "banks failed,", "and with them, people's savings."],
+    "If your bank failed tomorrow, up to $250,000 in your accounts there would be safe.":
+        ["If your bank failed tomorrow,", "up to $250,000", "in your accounts there", "would be safe."],
+    "After the financial crisis came the third net: stress tests.":
+        ["After the financial crisis", "came the third net:", "stress tests."],
+    "Every year, regulators play out a nightmare crash on paper, and check whether the biggest banks would survive it.":
+        ["Every year, regulators play out", "a nightmare crash on paper,", "and check whether", "the biggest banks", "would survive it."],
+    "A growing part of the debt behind the data centers was never borrowed from a bank.":
+        ["A growing part of the debt", "behind the data centers", "was never borrowed from a bank."],
+    "Take one giant data center in Louisiana, built for Meta.":
+        ["Take one giant data center", "in Louisiana, built for Meta."],
+    "About $27 billion of its debt sits in a separate company, mostly owned by an investment firm.":
+        ["About $27 billion of its debt", "sits in a separate company,", "mostly owned", "by an investment firm."],
+    "None of the three nets was built for it: no insurance, no brake, no stress test like the banks get.":
+        ["None of the three nets", "was built for it:", "no insurance, no brake,", "no stress test", "like the banks get."],
+    "Who holds it, how much, and who pays if a data center can't.":
+        ["Who holds it, how much,", "and who pays", "if a data center can't."],
+    "Demis Hassabis runs Google DeepMind.":
+        ["Demis Hassabis", "runs Google DeepMind."],
+    "Last December, he was asked what happens if there's a bubble and it bursts.":
+        ["Last December,", "he was asked what happens", "if there's a bubble", "and it bursts."],
+    "A crash puts a new price on a technology.":
+        ["A crash puts a new price", "on a technology."],
+    "If the last few years are any guide, on day 1,000, artificial intelligence is cheaper than today, and everywhere.":
+        ["If the last few years", "are any guide,", "on day 1,000,", "artificial intelligence", "is cheaper than today,", "and everywhere."],
+    "And you can stand at the front of it without knowing the name of a single stock.":
+        ["And you can stand", "at the front of it", "without knowing the name", "of a single stock."],
+    "And if you didn't have to do it alone.":
+        ["And if you didn't have", "to do it alone."],
+    "Which of these do you already have, and which one is missing?":
+        ["Which of these", "do you already have,", "and which one is missing?"],
+    "And you know what to carry on the way.":
+        ["And you know", "what to carry on the way."],
+    "If this is the crash, its clock didn't start on November 5.":
+        ["If this is the crash,", "its clock didn't start", "on November 5."],
 }
+USED = set()
 def pieces(snt):
     k = ' '.join(x['w'] for x in snt)
     if k not in BREAKS: return split(snt)
+    USED.add(k)
     out, i = [], 0
     for p in BREAKS[k]:   # consume merged words until they spell the piece (a merged number like "$96 billion" is one word with a space)
         j = i + 1
@@ -100,9 +135,10 @@ def merge(W):
         for a, b in NUM:
             k = len(a.replace('\\', '').split())
             seg = W[i:i + k]
-            m = re.fullmatch('(' + a + r')([.,?!]?)', ' '.join(x['w'] for x in seg), flags=re.I) if len(seg) == k else None
+            m = re.fullmatch('(' + a + r')([.,?!:;]?)', ' '.join(x['w'] for x in seg), flags=re.I) if len(seg) == k else None
             if m:   # Film 16: only punctuation after the pattern is kept (so "A.I." does not leave a stray dot)
-                out.append({**seg[0], 'w': b + m.group(2), 'e': seg[-1]['e']}); i += k; break
+                c = b[0].upper() + b[1:] if seg[0]['w'][:1].isupper() else b   # Film 19: keep a capital at the start ("Day 31.")
+                out.append({**seg[0], 'w': c + m.group(2), 'e': seg[-1]['e']}); i += k; break
         else: out.append(W[i]); i += 1
     return out
 W = merge(W)
@@ -115,6 +151,7 @@ cues = [[c[0]['s'], c[-1]['e'], fix(' '.join(x['w'] for x in c))] for snt in sen
 # quote cards show the words on screen, so no subtitle for them
 import os
 CL = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
+if isinstance(CL.get('clips'), list): CL = {c['id']: c for c in CL['clips']}   # Film 19: clip_check format (list under "clips")
 for c in json.load(open(A + 'timing.json')).get('clips', []):
     cl = CL.get(c['id'], {'card': True})   # Film 14: Q1 is a silent quote card (read on screen, no subtitle)
     if cl.get('card') or not cl.get('cues'): continue
@@ -147,3 +184,5 @@ with open(OUT + 'subtitles.ass', 'w') as f:
     f.write(ass)
     for a, b, s in cues: f.write(f"Dialogue: 0,{ts(a, '.')[1:]},{ts(b, '.')[1:]},Sub,,0,0,0,,{{\\fad(120,160)}}{s}\n")
 print(len(cues), 'cues; longest', max(len(c[2]) for c in cues))
+for k in BREAKS:
+    if k not in USED: print('BREAK NOT USED:', k)

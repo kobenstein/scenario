@@ -12,16 +12,16 @@ LEAD, TAIL = 1.0, 15.0                       # 15 s endscreen tail (drop-off rul
 CARD = 5.5                                   # silent slot for a quote card (read on screen)
 CLIP_IN, CLIP_OUT = 0.7, 0.6                 # air before / after a clip
 GAP_SECTION, GAP_SUB = 1.7, 0.9
-# Film 18 (vo-v4, 33 takes, sections 1-8 = the stations of tools/provisional_timing.py): takes 0.9 s apart, stations 1.7 s;
-# hook s00 runs straight into s01 (drop-off rule 28.10.: no pause at the hook end); longer air where text-v2.md has [pause]:
-# after "would you subscribe?" (s15), after "the ground the machine stands on." (s21, end of the bad ending, station change),
-# after "they chose to share." (s27) and before the closing lines (after s31 "That's what this channel is for.")
-GAP_AFTER = {'s00': 0.8, 's15': 1.5, 's21': 2.4, 's27': 1.5, 's31': 1.9}
+# Film 19 (vo-v4, 22 takes + clips C1/C1b/C3, sections 0-9/8b = the stations of tools/provisional_timing.py): takes 0.9 s apart,
+# stations 1.7 s; the hook s00 runs straight into s01 (drop-off rule 28.10.); longer air before the turn to the nets (after s13
+# "...only protects themselves?"), before "Day one thousand." (after s18 "...who's checking it?") and before the closing lines (after s20)
+GAP_AFTER = {'s00': 0.6, 's06': 2.0, 's13': 2.2, 's18': 2.2, 's20': 1.5}
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
 BREATH = []
-LEVELS = {'1': 'hook', '2': 'The engine · the price of thinking falls · the pressure', '3': 'The real ending is the price',
-          '4': 'A price hits zero: Britannica, music, Chegg, Canva · the value stays', '5': 'The doors: ground, power, chips · the bad ending',
-          '6': 'A set of rules: The Landlord\'s Game', '7': 'The second set of rules: free layer, land, housing, energy', '8': 'ending'}
+LEVELS = {'0': 'hook', '1': 'the clock: day 0 = October 6, four exits', '2': "what's inside the bubble: data centers, borrowed money (C1 Powell)",
+          '3': 'day 31: the first protection, a pause (Fidelity)', '4': 'day 48: the tariff crash (C1b Warsh)', '5': 'protections 2 and 3: know what you own, a buffer',
+          '6': 'day 282 rate shock, day 517 financial crisis', '7': 'day 929 dot-com: the hangover, protection 4: use what became cheap',
+          '8': 'the safety nets: deposit insurance, the brake, stress tests', '8b': 'the hole: data-center debt, protection 5', '9': 'day 1,000 (C3 Hassabis) + ending'}
 def dur(f): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).decode())
 def cuts(sid, mp3, W):
     """[(cut time, extra seconds)] for this take, cut at the quietest 10 ms frame between the two words"""

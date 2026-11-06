@@ -1,0 +1,49 @@
+[calm, conversational] Here's how to survive the artificial intelligence crash. On Thursday, November fifth, tech stocks lost more than two trillion dollars in a single day. Nobody knows yet if this is the crash. But if it is, what protects you won't be a stock tip. Not perfect timing. Not luck. Five things. And one of them, you can't do alone. So which ones do you already have?
+
+[thoughtful] If this is the crash, its clock didn't start on November fifth. That was already day thirty. It started at the market's last record high: October sixth. And the road ahead has four exits. At each one, an earlier crash hit bottom. The tariff crash. The rate shock. The financial crisis. The dot-com bubble. The nearest: seven weeks in. The farthest: two and a half years in. The longest this century. So if this is a bubble, what's inside it?
+
+[calm, conversational] Mostly, data centers. Every year, the biggest tech companies spend more on them. A year before all this, America's top central banker was asked what a sudden drop in that spending would mean.
+
+[CLIP C1]
+
+[thoughtful] He also said that today's giants, unlike the dot-coms, make real profits. But so far, what customers pay for artificial intelligence is a fraction of what's being built for it. So more and more of it runs on borrowed money.
+
+[calm, conversational] Three years ago, of every dollar companies borrowed through bonds with good credit ratings, artificial intelligence firms took two cents. This year, they took ten. And debt turns a slowdown into a problem: the payments come due either way. In China, Reuters says, the bubble has already burst. The main index of artificial intelligence and chip stocks there lost about forty percent in under four months. If it pops here, the first protection costs nothing.
+
+[calm, conversational] Day thirty-one. Red numbers on your phone, on the news, in every group chat. Everything in you says: do something. But in the financial crisis, almost nobody ran. Fidelity, one of America's biggest retirement providers, tracked its savers through the panic. Fewer than two in a hundred moved everything out of stocks. A couple of years later, the balances of those who stayed had grown by about half. Those who sold and came back later: about a quarter. Those who left and stayed out: about two percent. So the first protection isn't a move. It's a pause.
+
+[softly] This isn't financial advice. It's what happened to people who decided in the panic. In the loudest week, you don't have to decide anything big. The phone can go face down.
+
+[calm, conversational] Day forty-eight: the tariff crash. In twenty twenty-five, wave after wave of new tariffs shook markets around the world. Here, in April, the fall stopped. The very next day, many of the new tariffs were put on hold. And the market had its best day since the financial crisis. This time, we don't know yet. The week before the sell-off, the new chair of the Federal Reserve, Kevin Warsh, said investors were getting choosier.
+
+[CLIP C1b]
+
+[thoughtful] So we keep walking.
+
+[curious] But what if the fall doesn't stop here? Then it reaches people who never owned a single share. Maybe that's you. Yet if your pension follows the whole market, you own a piece of this boom anyway. In May, just two memory-chip companies made about a sixth of the whole world stock market's gains. So the second protection: know what you own. Find out what your fund holds, and how much of it rides on this one boom. Knowing isn't a move. But it's hard to stay calm about something you can't see.
+
+[calm, conversational] And if the fall keeps going, it reaches paychecks. When the dot-com bubble burst, money for young companies more than halved within a year. If that happens again, the fall becomes a hiring freeze. A canceled project. A job offer that never comes. So the third protection is plain: a buffer. Picture a surprise bill of four hundred dollars. In America, only about six in ten adults could pay it right away from their own money. Families with even a few hundred dollars set aside were less likely to fall behind on rent. A buffer doesn't stop the fall. It gives you time to think.
+
+[calm, conversational] Day two hundred eighty-two: the rate shock. In twenty twenty-two, prices rose faster than in forty years, and interest rates shot up to cool them. The fall stopped here. Day five hundred seventeen: the financial crisis. Banks had piled up bets on risky home loans. When one giant bank collapsed, lending froze around the world. It hit bottom here. If you were working back then, you remember this exit.
+
+[thoughtful] Day nine hundred twenty-nine: the dot-com bubble. The crash this boom gets compared to most. Back then, the market paid billions for websites that had never made a profit. In October two thousand two, the fall finally stopped. The climb back took almost five more years. Whether ours runs this far, we don't know yet. But look at what grew in that hangover. In two thousand one, Google turned its first full-year profit. Wikipedia, LinkedIn, Skype, Facebook, YouTube: all of them started before the market had climbed back. Not in the boom. In the hangover.
+
+[calm, conversational] Today, the price of using artificial intelligence keeps falling: for the same result, roughly ten times cheaper every year. So the fourth protection: use what became cheap. This isn't about stocks. It's about tools. Learn one of them now, while the headlines are still red. Four protections, all of them yours. But is it enough if everyone only protects themselves?
+
+[thoughtful] On a road this long, protecting yourself stops being enough. But the great crashes of the past left something behind: safety nets. In the early nineteen-thirties, thousands of American banks failed, and with them, people's savings. So in nineteen thirty-three, America decided to insure bank deposits. Since then, no one has lost a single cent of insured money. If your bank failed tomorrow, up to two hundred fifty thousand dollars in your accounts there would be safe.
+
+[calm, conversational] On Black Monday in nineteen eighty-seven, the Dow lost almost a quarter in a single day. After that, the stock market got an emergency brake. If prices fall too far in one day, trading stops. In March twenty twenty, as the pandemic hit, it was pulled four times in under two weeks. Each time, everyone got fifteen minutes to breathe. On November fifth, it was never pulled.
+
+[thoughtful] After the financial crisis came the third net: stress tests. Every year, regulators play out a nightmare crash on paper, and check whether the biggest banks would survive it. Three crashes. Three nets.
+
+[calm, conversational] But this boom has a hole in it. A growing part of the debt behind the data centers was never borrowed from a bank. Take one giant data center in Louisiana, built for Meta. About twenty-seven billion dollars of its debt sits in a separate company, mostly owned by an investment firm. Not on Meta's own books. None of the three nets was built for it: no insurance, no brake, no stress test like the banks get. What would help: making that debt visible. Who holds it, how much, and who pays if a data center can't. And testing it, the way banks are tested.
+
+[thoughtful] Every one of these nets was built after the damage. This one could be built before. That's the fifth protection. The one you can't build alone. Lawmakers and regulators decide it. Here's one question to carry to your representative. Who holds the debt behind the data centers, and who's checking it?
+
+[thoughtful] Day one thousand. If this is the crash, and it runs like the longest one, the fall is behind you now. So what's still standing? Demis Hassabis runs Google DeepMind. Last December, he was asked what happens if there's a bubble and it bursts.
+
+[CLIP C3]
+
+[calm, conversational] He builds this technology, so weigh his words. But the dot-com bubble went that way, too. A crash puts a new price on a technology. It doesn't take the technology away. If the last few years are any guide, on day one thousand, artificial intelligence is cheaper than today, and everywhere. And you can stand at the front of it without knowing the name of a single stock.
+
+[softly] If you stayed calm in the loudest week. If you knew what you owned. If you had a buffer when money got tight. If you used what got cheap. And if you didn't have to do it alone. Which of these do you already have, and which one is missing? This channel will keep walking this road with you, one honest step at a time. On day thirty, it hurt. Today, the clock has barely started. And you know what to carry on the way.

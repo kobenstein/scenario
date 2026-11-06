@@ -10,3 +10,8 @@ Note: `films/19-friday` (Singularity Friday, branch claude/f19-audio) also uses 
 - Timing: `film.mjs` reads `$TIMING`, else `<ROOT>audio/timing.json`, else `data/provisional_timing.json` (`python3 tools/provisional_timing.py`, with clip slots C1/C3). Anchor on phrases: `T.G(phrase, nth, after)`.
 - Kit: Film 10/13/16/18 modules as they are; Film 19 additions planned in `MOTION.md` §8 (`lib/f19_kit.mjs`, `lib/f19_props.mjs`, `lib/f19_seams.mjs`), built by the lead before the builders start.
 - Render: `SECS=c01 node --expose-gc render.mjs --out x.mp4 --from 0 --to 16` (pieces ≤ 20 s), stills `--snap a,b,c --dir d --scale .4`. Checks: `tools/calm.py`, `tools/smooth.py`, `tools/seam.mjs`.
+
+## Audio (2026-11-06)
+- VO: vo-v4.txt (after the second fact check) → `audio/vo-v4-tts.txt` (word for word + one direction tag per take) → `tools/make_segments.py` (22 takes + clip slots C1/C1b/C3) → Eleven v4 (voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, seed 4301, timestamps) → `tools/save_tts.py` → `audio/build_vo.py` → `audio/timing.json` (copy of `$F19ROOT/audio/timing.json`): 610.1 s, VO ends 594.2 s, 15.9-s end screen.
+- Clips: `audio/clips.json` (cut points, heard wording, subtitle cues; clip_check format). C1.mp4 holds the wrong passage: slot kept at 13.2 s, clips/C1.wav still missing (see status there). `python3 ../../tools/clip_check.py audio/clips.json audio/timing.json` → GRÜN (5.7 %, gaps 125 s / 312 s).
+- Music M0–M4 (Lyria 3.5): `audio/music/README.md`. Mix: `VO_BOOST=2 python3 audio/mix.py <audio_dir> <wav_dir>` (WAV stems in scratch only). Subtitles: `python3 audio/subs.py <audio_dir> <out_dir>`.

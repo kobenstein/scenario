@@ -3,6 +3,8 @@
 paragraphs split further at SPLIT phrases (~300-650 characters per take, as in Film 14).
 Film 18: input is audio/vo-v4-tts.txt (= vo-v4.txt word for word, plus one direction tag per paragraph); sections 1-8 are the
 stations of tools/provisional_timing.py; a SPLIT phrase may also sit inside a line (the line is broken there).
+Film 19: sections 0-9 (+8b) = SECS of tools/provisional_timing.py; a [CLIP Cn] line becomes a silent clip slot {id: Cn, clip: true, dur}
+(dur = dauer_s from <audio_dir>/clips.json); build_vo.py leaves the slot silent, mix.py lays clips/<Cn>.wav into it.
 Film 16: [[QUOTE CARD: …]] lines get NO silent slot (the VO paraphrases every card and keeps running while it is on screen);
 they are only listed on their segment under "cards" (with the spoken line they follow), like [[ON SCREEN: …]] under "onscreen".
 [pause] lines are not sent to TTS: build_vo.py makes that air (GAP_AFTER / BREATH).
@@ -10,10 +12,11 @@ usage: make_segments.py <vo.txt> <audio_dir>"""
 import json, re, sys
 src, A = sys.argv[1], sys.argv[2].rstrip('/')
 # section starts: (section, first words of the line that opens it, tags stripped); Film 18 = stations of provisional_timing.py
-SECS = [('1', 'A.I. will end capitalism'), ('2', 'Capitalism, in one sentence'), ('3', "But that's not the real ending"), ('4', "We've watched a price"),
-        ('5', 'The doors are the things'), ('6', "That isn't a law of nature"), ('7', 'The second set of rules'), ('8', "Capitalism won't end")]
+SECS = [('0', "Here's how to survive"), ('1', "If this is the crash, its clock"), ('2', 'Mostly, data centers'), ('3', 'Day thirty-one'),
+        ('4', 'Day forty-eight'), ('5', 'But what if the fall'), ('6', 'Day two hundred eighty-two'), ('7', 'Day nine hundred twenty-nine'),
+        ('8', 'On a road this long'), ('8b', 'But this boom has a hole'), ('9', 'Day one thousand')]
 # a new take starts at these phrases (inside a paragraph)
-SPLIT = ['Chegg sold homework help']
+SPLIT = []
 # paragraphs that stay in the previous take (build_vo.py BREATH adds the air)
 MERGE = []
 TAG = re.compile(r'^\[[^\[\]]*\]\s*')
@@ -26,7 +29,15 @@ def new(lines, cards, ons):
     segs.append({'id': f's{n:02d}', 'sec': sec, 'text': '\n'.join(lines)}); n += 1
     if cards: segs[-1]['cards'] = cards
     if ons: segs[-1]['onscreen'] = ons
+import os
+CLIPS = {c['id']: c for c in json.load(open(A + '/clips.json'))['clips']} if os.path.exists(A + '/clips.json') else {}
 for p in paras:
+    m = re.fullmatch(r'\[CLIP\s+(\w+)\]', p[0]) if len(p) == 1 else None
+    if m:   # Film 19: interview clip slot (its own paragraph)
+        c = CLIPS.get(m.group(1), {})
+        segs.append({'id': m.group(1), 'sec': sec, 'clip': True, 'dur': float(c.get('dauer_s', 10)), 'file': f"clips/{m.group(1)}.wav",
+                     'name': c.get('speaker', ''), 'role': c.get('role', ''), 'text': c.get('transcript', '')})
+        continue
     cur, cards, ons = [], [], []
     merge = any(TAG.sub('', l).startswith(w) for l in p[:1] for w in MERGE)
     for l in p:
@@ -51,5 +62,5 @@ for p in paras:
 missing = [s for s, w in SECS if not any(x['sec'] == s for x in segs)]
 if missing: raise SystemExit('missing section starts: ' + ', '.join(missing))
 json.dump(segs, open(A + '/segments.json', 'w'), indent=1)
-for s in segs: print(s['id'], s['sec'], f"{len(s['text'].split())} words, {len(s['text'])} chars", 'cards', len(s.get('cards', [])), 'onscreen', len(s.get('onscreen', [])), '|', s['text'][:50].replace('\n', ' '))
+for s in segs: print(s['id'], s['sec'], ('CLIP %.2f s' % s['dur']) if s.get('clip') else '', f"{len(s['text'].split())} words, {len(s['text'])} chars", 'cards', len(s.get('cards', [])), 'onscreen', len(s.get('onscreen', [])), '|', s['text'][:50].replace('\n', ' '))
 print('total chars', sum(len(s['text']) for s in segs))

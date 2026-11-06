@@ -25,6 +25,7 @@ duck = np.interp(np.arange(N), np.arange(len(act)) * hop, act)
 # music + SFX duck under the whole slot as under the voice
 # per-clip corrections from clips.json: "gain_db" on top of the -20 dB RMS match, "af" an ffmpeg filter (e.g. a light compressor)
 CLIPS = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
+if isinstance(CLIPS, dict) and isinstance(CLIPS.get('clips'), list): CLIPS = {c['id']: c for c in CLIPS['clips']}   # Film 19: clip_check format
 clipbuf = np.zeros((N, 2), np.float32)
 for c in timing.get('clips', []):
     s0, s1 = int(c['start'] * SR), int(c['end'] * SR)
@@ -64,6 +65,13 @@ for cue in CUES:   # [file, start, fade_in, fade_out, source_offset, duration, {
     if o.get('ride', 0.4): x = ride(x, o.get('ride', 0.4))
     place(music, x[int(off * SR):], t, 1, fin, fout, d)
 music *= (1 - DUCK * duck)[:, None]          # -6 dB under the voice
+# Film 19: extra dips (music/dips.json: [[from s, to s, dB, ramp s]]), e.g. sparse under "This isn't financial advice."
+DIPS = json.load(open(A + 'music/dips.json')) if os.path.exists(A + 'music/dips.json') else []
+if DIPS:
+    g = np.zeros(N)
+    for t0, t1, d, r in DIPS:
+        k = np.arange(N) / SR; g = np.minimum(g, d * np.clip(np.minimum((k - (t0 - r)) / r, ((t1 + r) - k) / r), 0, 1))
+    music *= db(g)[:, None]
 sfx = np.zeros((N, 2), np.float32); cache = {}
 for c in (json.load(open(A + 'sound_plan.json')) if os.path.exists(A + 'sound_plan.json') else []):   # Film 14/16: no SFX yet
     if c['f'] not in cache: cache[c['f']] = load(A + f"sfx/{c['f']}.mp3")

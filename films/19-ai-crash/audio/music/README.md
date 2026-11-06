@@ -1,15 +1,15 @@
-# Film 18 music (Lyria 3.5 on fal, google/lyria-3.5, 2026-11-05)
+# Film 19 music (Lyria 3.5 on fal, google/lyria-3.5, 2026-11-06)
 cues.json rows: [file, start s, fade in s, fade out s, offset in file s, length s or null (to the file end), {opts}]; mix.py reads them.
 opts: "repeat": [t1, t2] lengthens a cue by t2-t1 (plays to t2, 2-s crossfade back to t1); "ride": slow gain rider strength (default 0.4).
-Prompts in prompts.json, request ids in jobs.txt (project folder film-kapitalismus/audio/music/, next to the mp3s).
-One cue per chapter (stations of the VO, timing.json "levels"), each placed so its natural decay falls into the station change:
-M0 0:00 hook + station 2 (engine, price of thinking, crash story, pressure; full presence from 0:00, decays under "But that's not the real ending" 1:46)
-· M1 1:45 stations 3-4 (the real ending is the price, Britannica, music, Chegg/Canva, the value; decays under the subscribe question 4:16-4:20)
-· M2 4:19.8 station 5 (the doors: ground, power, chips; Nvidia, Loudoun, land; the bad ending; enters on "Watch where it goes.", decays under "the ground the machine stands on" 6:04-6:06)
-· M3 6:06.5 stations 6-7 (The Landlord's Game, the second set of rules; starts near silence, warms, decays under "None of this takes ..." 8:39-8:50)
-· M4 8:46 ending + 15-s end screen (VO ends 9:40.9, film 9:56.8; the cue swells a little after the last line, then decays to about -44 dB at the end).
-Style: mystical and contemplative (drone, pads, felt piano, glass harmonica, distant wordless choir pad), no drums, no vocals. No SFX (as in Film 16).
-Vocal check: fal-ai/whisper over all five cues returns only the usual music hallucinations ("Thank you for watching", "The") spread over 10-30-s spans,
-no sung words; Lyria's lyrics field is empty placeholders ([[A0]] ...).
-Level: cue RMS -26 dB, ducked -6 dB under speech (voice at -20 dB RMS + VO_BOOST 2 dB) -> music ~11-12 dB under the voice (median);
-final mix two-pass loudnorm -14 LUFS, mix.m4a -14.0 LUFS / -1.5 dBTP.
+dips.json rows: [from s, to s, dB, ramp s]: extra music dip on top of the ducking (Film 19: -8 dB under "This isn't financial advice. ... in the panic." 167.7-172.7).
+Prompts in prompts.json, request ids in jobs.txt (project folder film-ai-crash/audio/music/, next to the mp3s).
+One cue per chapter (stations of timing.json "levels"):
+M0 0:00 hook + clock + what's inside the bubble (s00-s04, C1; 124.8 s file, lengthened by 6.5 s with repeat 95-101.5, decays under "Day thirty-one" 2:10)
+· M1 2:09 day 31 (the pause, Fidelity, disclaimer) + day 48 tariff crash (s05-s08, C1b; 91.6 s + 5 s repeat; prompt has a near-silent passage at 0:35-0:52 = film 2:44-3:01, plus the -8 dB dip)
+· M2 3:44.8 protections 2-3, day 282, day 517, day 929 hangover, protection 4 (s09-s13; 160.9 s, decays under "...only protects themselves?" 6:25)
+· M3 6:26 the safety nets + the hole (s14-s18; 130.5 s, decays before "Day one thousand." 8:35)
+· M4 8:34.5 day 1,000 (C3) + ending + 15.9-s end screen (s19-s21; offset 5.5 s so the file's own fade ends with the film at 10:10.1; music ~-51 dB in the last second).
+Style: mystical and contemplative (drone, pads, felt piano, glass harmonica, distant wordless choir pad), no drums, no vocals, not uplifting. No SFX.
+Vocal check: fal-ai/whisper over the full mix returns only the VO/clip words plus one music hallucination over the end screen ("The world is full of life."); Lyria lyrics field = placeholders only.
+Level: cue RMS -26 dB, ducked -6 dB under speech and clips (VO -20 dB RMS + VO_BOOST 2 dB) -> voice ~14 dB over music (median, p10 7 dB);
+mix: VO_BOOST=2 python3 audio/mix.py <audio_dir> <wav_dir> -> -14.0 LUFS / -1.0 dBTP (mix.wav), mix.m4a -14.0 LUFS / -1.6 dBTP.

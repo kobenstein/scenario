@@ -1,0 +1,168 @@
+{
+ "film": "How to Survive the AI Crash",
+ "hinweise": [
+  "Used clips of films/19-ai-crash (vo-v4 [CLIP] markers). in/out = source time (file offset + listed in - 1 s margin, about ±0.3 s); file_in/file_out = cut in the downloaded mp4.",
+  "transcript = heard by fal-ai/whisper (word level) on the clip audio; cues = subtitle lines, seconds from the cut start.",
+  "mix.py reads clips/<id>.wav (cut audio, scratch) and gain_db/af; subs.py reads cues; tools/clip_check.py reads in/out/url/einordnung/transcript."
+ ],
+ "clips": [
+  {
+   "id": "C1",
+   "speaker": "Jerome Powell",
+   "role": "Chair, Federal Reserve (2018–2026)",
+   "source_title": "FOMC Press Conference, October 29, 2025",
+   "channel": "Federal Reserve",
+   "url": "https://www.youtube.com/watch?v=gZsAKn1UtH4",
+   "date": "2025-10-29",
+   "in": "00:42:17.000",
+   "out": "00:42:30.200",
+   "dauer_s": 13.2,
+   "file": "clips/C1.mp4",
+   "file_in": 1.0,
+   "file_out": 14.2,
+   "transcript": "You know, the investment we're getting in equipment and all those things that go into creating data centers and feeding the AI, it's clearly one of the big sources of growth in the economy.",
+   "transcript_clips_json": "You know, the investment we're getting in equipment and all those things that go into creating data centers and feeding the AI, it's clearly one of the big sources of growth in the economy.",
+   "einordnung": "A year before all this, America's top central banker was asked what a sudden drop in that spending would mean.",
+   "ampel": "gruen",
+   "status": "MISSING: clips/C1.mp4 holds the wrong passage (source ~00:42:30-00:42:45, \"...also, though, has been, you know, is much bigger than that ... Consumers are still spending. Now, it is, it may be mostly higher-end.\"). Slot kept at the listed 13.2 s with the official wording (cue times estimated); re-download 00:42:16-00:42:31.5, cut, write clips/C1.wav, rerun build_vo (if the length changes) + mix + subs.",
+   "cues": [
+    [
+     0.0,
+     "You know, the investment"
+    ],
+    [
+     1.6,
+     "we're getting in equipment"
+    ],
+    [
+     3.2,
+     "and all those things that go"
+    ],
+    [
+     4.8,
+     "into creating data centers"
+    ],
+    [
+     6.4,
+     "and feeding the AI,"
+    ],
+    [
+     8.2,
+     "it's clearly one of"
+    ],
+    [
+     9.6,
+     "the big sources of growth"
+    ],
+    [
+     11.4,
+     "in the economy."
+    ]
+   ]
+  },
+  {
+   "id": "C1b",
+   "speaker": "Kevin Warsh",
+   "role": "Chair, Federal Reserve (seit 2026)",
+   "source_title": "FOMC Press Conference, October 28, 2026",
+   "channel": "Federal Reserve",
+   "url": "https://www.youtube.com/watch?v=hs8YWtNQQ40",
+   "date": "2026-10-28",
+   "in": "00:24:14.750",
+   "out": "00:24:27.170",
+   "dauer_s": 12.42,
+   "file": "clips/C1b.mp4",
+   "file_in": 1.2,
+   "file_out": 13.62,
+   "transcript": "You see market participants that are discriminating between the kinds of investments they want to make. You've seen credit spreads for certain assets widen out, gap out.",
+   "transcript_clips_json": "You see market participants that are discriminating between the kinds of investments they want to make. You've seen credit spreads for certain assets widen out, gap out.",
+   "einordnung": "The week before the sell-off, the new chair of the Federal Reserve, Kevin Warsh, said investors were getting choosier.",
+   "ampel": "gruen",
+   "status": "ok: wording matches clips.json word for word",
+   "cues": [
+    [
+     0.0,
+     "You see market participants"
+    ],
+    [
+     1.55,
+     "that are discriminating"
+    ],
+    [
+     3.75,
+     "between the kinds of investments"
+    ],
+    [
+     6.19,
+     "they want to make."
+    ],
+    [
+     7.71,
+     "You've seen credit spreads"
+    ],
+    [
+     8.95,
+     "for certain assets"
+    ],
+    [
+     10.31,
+     "widen out, gap out."
+    ]
+   ]
+  },
+  {
+   "id": "C3",
+   "speaker": "Demis Hassabis",
+   "role": "Co-founder & CEO, Google DeepMind",
+   "source_title": "The future of intelligence | Demis Hassabis (Co-founder and CEO of DeepMind)",
+   "channel": "Google DeepMind",
+   "url": "https://www.youtube.com/watch?v=PqVbypvxDto",
+   "date": "2025-12-16",
+   "in": "00:28:56.445",
+   "out": "00:29:05.450",
+   "dauer_s": 9.005,
+   "file": "clips/C3.mp4",
+   "file_in": 0.945,
+   "file_out": 9.95,
+   "transcript": "I still subscribe to it's overhyped in the short term, still, and still underappreciated in the, in the medium to long term, what's going to, you know, how transformative it's going to be.",
+   "transcript_clips_json": "I still subscribe to it's overhyped in the short term, still, and still underappreciated in the, in the medium to long term, what's going to, you know, how transformative it's going to be.",
+   "einordnung": "Demis Hassabis runs Google DeepMind. Last December, he was asked what happens if there's a bubble and it bursts.",
+   "ampel": "gruen",
+   "status": "ok: wording matches clips.json (whisper: \"under appreciated\"); the 1-s lead-in \"I think yes, that\" is cut off; no music under the clip (gap -68 dB)",
+   "cues": [
+    [
+     0.0,
+     "I still subscribe to"
+    ],
+    [
+     1.06,
+     "it's overhyped in the short term,"
+    ],
+    [
+     2.4,
+     "still, and still underappreciated"
+    ],
+    [
+     4.17,
+     "in the, in the"
+    ],
+    [
+     5.4,
+     "medium to long term,"
+    ],
+    [
+     6.54,
+     "what's going to, you know,"
+    ],
+    [
+     7.3,
+     "how transformative"
+    ],
+    [
+     7.95,
+     "it's going to be."
+    ]
+   ]
+  }
+ ]
+}
