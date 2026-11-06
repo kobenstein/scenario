@@ -21,7 +21,7 @@
   "id": "C1",
   "sec": "2",
   "clip": true,
-  "dur": 10.0,
+  "dur": 10.05,
   "after": "And every round goes faster."
  },
  {
@@ -46,7 +46,7 @@
   "id": "C2",
   "sec": "3",
   "clip": true,
-  "dur": 12.0,
+  "dur": 12.3,
   "after": "at least half the time."
  },
  {
@@ -65,7 +65,7 @@
   "id": "C3",
   "sec": "3",
   "clip": true,
-  "dur": 10.0,
+  "dur": 10.96,
   "after": "Some forecasts assume exactly that."
  },
  {
