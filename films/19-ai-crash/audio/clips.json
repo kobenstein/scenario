@@ -14,48 +14,48 @@
    "channel": "Federal Reserve",
    "url": "https://www.youtube.com/watch?v=gZsAKn1UtH4",
    "date": "2025-10-29",
-   "in": "00:42:17.000",
-   "out": "00:42:30.200",
+   "in": "00:42:01.630",
+   "out": "00:42:14.830",
    "dauer_s": 13.2,
    "file": "clips/C1.mp4",
-   "file_in": 1.0,
-   "file_out": 14.2,
-   "transcript": "You know, the investment we're getting in equipment and all those things that go into creating data centers and feeding the AI, it's clearly one of the big sources of growth in the economy.",
+   "file_in": 0.18,
+   "file_out": 13.38,
+   "transcript": "You know, it's, the investment we're getting in equipment and all those things that go into creating data centers and feeding the AI, it's clearly one of the big sources of growth in the economy.",
    "transcript_clips_json": "You know, the investment we're getting in equipment and all those things that go into creating data centers and feeding the AI, it's clearly one of the big sources of growth in the economy.",
    "einordnung": "A year before all this, America's top central banker was asked what a sudden drop in that spending would mean.",
    "ampel": "gruen",
-   "status": "MISSING: clips/C1.mp4 holds the wrong passage (source ~00:42:30-00:42:45, \"...also, though, has been, you know, is much bigger than that ... Consumers are still spending. Now, it is, it may be mostly higher-end.\"). Slot kept at the listed 13.2 s with the official wording (cue times estimated); re-download 00:42:16-00:42:31.5, cut, write clips/C1.wav, rerun build_vo (if the length changes) + mix + subs.",
+   "status": "ok: clips/C1.mp4 replaced 2026-11-07 (source ~00:42:01.45-00:42:14.95, already cut); wording matches clips.json except a false start \"it's\" after \"You know,\" (whisper word level); cut 0.18-13.38 = 13.20 s, same slot length as before",
    "cues": [
     [
      0.0,
-     "You know, the investment"
+     "You know, it's – the investment"
     ],
     [
-     1.6,
+     2.11,
      "we're getting in equipment"
     ],
     [
-     3.2,
+     4.83,
      "and all those things that go"
     ],
     [
-     4.8,
+     7.17,
      "into creating data centers"
     ],
     [
-     6.4,
+     8.35,
      "and feeding the AI,"
     ],
     [
-     8.2,
+     10.21,
      "it's clearly one of"
     ],
     [
-     9.6,
+     11.27,
      "the big sources of growth"
     ],
     [
-     11.4,
+     12.25,
      "in the economy."
     ]
    ]
