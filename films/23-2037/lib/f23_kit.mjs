@@ -269,18 +269,18 @@ export function testersHouse(ctx, c, t, o = {}) {
     }
   });
 }
-// THE CLINIC: low building at the left end of the street, one tall warm window
+// THE CLINIC: low building at the left end of the street, one tall warm window. o: { glow 0..1 (halo), lit 0..1 (0: dark for the night) }
 export function clinic(ctx, t, L, o = {}, s = 1) {
   const C = STREET.clinic, h = C.floors * FLOOR, [wx, wy, ww, wh] = C.win;
   facade(ctx, C.x0, C.x1, h, L, { win: 0 }, s, 'flat', []);
   ctx.fillStyle = mixHex(P.ind2, P.night1, .2); ctx.fillRect(C.x0 - 60, -h - 40, C.x1 - C.x0 + 120, 50);
-  const g = o.glow ?? 1;
-  ctx.fillStyle = rad(ctx, wx, wy, wh * 1.1, [[0, rgba(P.halo0, .35 * g)], [1, rgba(P.halo0, 0)]]); ctx.fillRect(wx - wh * 1.1, wy - wh * 1.1, wh * 2.2, wh * 2.2);
-  ctx.fillStyle = lin(ctx, 0, wy - wh / 2, 0, wy + wh / 2, [[0, P.core0], [.5, P.core1], [1, P.halo0]]); ctx.fillRect(wx - ww / 2, wy - wh / 2, ww, wh);
+  const g = o.glow ?? 1, lit = o.lit ?? 1, dk = (col) => mixHex(mixHex(P.night0, L.top, .25), col, lit);   // lit 0: closed for the night
+  ctx.fillStyle = rad(ctx, wx, wy, wh * 1.1, [[0, rgba(P.halo0, .35 * g * lit)], [1, rgba(P.halo0, 0)]]); ctx.fillRect(wx - wh * 1.1, wy - wh * 1.1, wh * 2.2, wh * 2.2);
+  ctx.fillStyle = lin(ctx, 0, wy - wh / 2, 0, wy + wh / 2, [[0, dk(P.core0)], [.5, dk(P.core1)], [1, dk(P.halo0)]]); ctx.fillRect(wx - ww / 2, wy - wh / 2, ww, wh);
   ctx.fillStyle = rgba(P.shade0, .5); ctx.fillRect(wx - 3, wy - wh / 2, 6, wh); ctx.fillRect(wx - ww / 2, wy - wh * .1, ww, 6);
   // the small ring sign over the door (care), no text
   ctx.strokeStyle = rgba(P.core1, .9); ctx.lineWidth = 10; ctx.beginPath(); ctx.arc(C.x0 + 220, -h * .78, 46, 0, 6.29); ctx.stroke();
-  ctx.fillStyle = rgba(P.halo0, .8); ctx.fillRect(C.x0 + 160, -300, 120, 300);   // the lit door
+  ctx.fillStyle = rgba(dk(P.halo0), .8); ctx.fillRect(C.x0 + 160, -300, 120, 300);   // the lit door
 }
 export const CLINIC_WIN = [STREET.clinic.win[0], STREET.clinic.win[1], ZS];
 
@@ -293,7 +293,7 @@ export function quad(ctx, c, pts, fill) {
 }
 // a soft light pool on a floor (centre X, Z, radius r in world units)
 export function floorPool(ctx, c, X, Y, Z, r, col, a, warm = col === WARM.mid || col === WARM.hi) {
-  const p = wp(c, X, Y, Z), p1 = wp(c, X, Y, Z - r), p2 = wp(c, X, Y, Z + r); if (!p || !p1 || !p2 || a <= 0) return;
+  const p = wp(c, X, Y, Z), p1 = wp(c, X, Y, Math.max(Z - r, c.z + 31)), p2 = wp(c, X, Y, Z + r); if (!p || !p1 || !p2 || a <= 0) return;   // the near edge clamps at the camera (no pop when it passes it)
   const rx = r * p[2], ry = Math.max(1, Math.abs(p1[1] - p2[1]) / 2);
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.translate(p[0], p[1]); ctx.scale(1, ry / rx);
   if (warm) ctx.fillStyle = rad(ctx, 0, 0, rx, [[0, rgba(col, Math.min(.85, .8 * a))], [.4, rgba(WARM.deep, .4 * a)], [1, rgba(WARM.deep, 0)]]);   // gold stays gold (source-over)
@@ -318,27 +318,29 @@ export function room(ctx, c, t, L, R) {
   });
   const ceil = mixHex(P.night0, P.night1, .5), side = mixHex(P.night1, P.ind1, .3), flo = mixHex(P.night1, P.ind2, .35);
   quad(ctx, c, [[x0, yC, ZN], [x1, yC, ZN], [x1, yC, ZB], [x0, yC, ZB]], ceil);
-  quad(ctx, c, [[x0, yF, ZN], [x1, yF, ZN], [x1, yF, ZB], [x0, yF, ZB]], (q) => lin(ctx, 0, q[2][1], 0, q[0][1], [[0, flo], [1, mixHex(P.night0, P.night1, .4)]]));
+  const fq = quad(ctx, c, [[x0, yF, ZN], [x1, yF, ZN], [x1, yF, ZB], [x0, yF, ZB]], (q) => lin(ctx, 0, q[2][1], 0, q[0][1], [[0, flo], [1, mixHex(P.night0, P.night1, .4)]]));
   quad(ctx, c, [[x0, yC, ZN], [x0, yC, ZB], [x0, yF, ZB], [x0, yF, ZN]], (q) => lin(ctx, q[1][0], 0, q[0][0], 0, [[0, side], [1, mixHex(side, P.night0, .5)]]));
   quad(ctx, c, [[x1, yC, ZN], [x1, yC, ZB], [x1, yF, ZB], [x1, yF, ZN]], (q) => lin(ctx, q[1][0], 0, q[0][0], 0, [[0, side], [1, mixHex(side, P.night0, .5)]]));
   if (R.door) {   // the lit doorway in the left wall + the light it throws onto the floor
     const D = R.door, da = D.a ?? 1;
     quad(ctx, c, [[x0, D.top, Math.max(D.z0, ZN)], [x0, D.top, D.z1], [x0, yF, D.z1], [x0, yF, Math.max(D.z0, ZN)]], (q) => lin(ctx, 0, q[0][1], 0, q[3][1], [[0, mixHex(side, WARM.deep, .8 * da)], [.3, mixHex(side, WARM.mid, .95 * da)], [1, mixHex(side, WARM.hi, .95 * da)]]));
-    floorPool(ctx, c, x0 + 230, yF, (D.z0 + D.z1) / 2, 400, WARM.mid, .8 * da);
-    floorPool(ctx, c, x0 + 80, yF, (D.z0 + D.z1) / 2, 160, WARM.hi, .9 * da);
   }
+  // light pools on the floor, clipped to the floor (a pool never spills onto the walls when the camera is close)
+  ctx.save(); if (fq) { ctx.beginPath(); fq.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.closePath(); ctx.clip(); }
+  if (R.door) { const D = R.door, da = D.a ?? 1; floorPool(ctx, c, x0 + 230, yF, (D.z0 + D.z1) / 2, 400, WARM.mid, .8 * da); floorPool(ctx, c, x0 + 80, yF, (D.z0 + D.z1) / 2, 160, WARM.hi, .9 * da); }
   for (const [X, Z, r, col, al] of R.pools || []) floorPool(ctx, c, X, yF, Z, r, col, al);
   if (lamp > 0) floorPool(ctx, c, R.lampX ?? (x0 + x1) / 2, yF, (ZS + ZB) / 2, (x1 - x0) * .5, WARM.mid, .55 * lamp);
+  ctx.restore();
   for (const [Z, fn] of [...(R.items || [])].sort((p, q) => q[0] - p[0])) atZ(ctx, c, Z, (s) => fn(ctx, s));
   ctx.restore();
   return true;
 }
 function furniture(ctx, kind, x, y) {   // flat dark silhouettes standing on floor y (drawn on a plane near the back wall)
   ctx.fillStyle = mixHex(P.night0, P.ind0, .5);
-  if (kind === 'sofa') { ctx.fillRect(x - 170, y - 90, 340, 60); ctx.fillRect(x - 170, y - 150, 50, 150); ctx.fillRect(x + 120, y - 150, 50, 150); ctx.fillRect(x - 160, y - 30, 20, 30); ctx.fillRect(x + 140, y - 30, 20, 30); ctx.fillRect(x - 170, y - 170, 340, 26); }
-  if (kind === 'bed') { ctx.fillRect(x - 210, y - 70, 420, 50); ctx.fillRect(x - 210, y - 150, 30, 150); ctx.fillRect(x + 190, y - 100, 20, 100); }
-  if (kind === 'desk') { ctx.fillRect(x - 120, y - 110, 240, 14); ctx.fillRect(x - 110, y - 96, 12, 96); ctx.fillRect(x + 98, y - 96, 12, 96); }
-  if (kind === 'shelf') { ctx.fillRect(x - 60, y - 300, 120, 300); ctx.fillStyle = mixHex(P.ind0, P.ind1, .5); for (let i = 1; i < 4; i++) ctx.fillRect(x - 54, y - 300 + i * 72, 108, 6); }
+  if (kind === 'sofa') { ctx.fillRect(x - 170, y - 52, 340, 36); ctx.fillRect(x - 170, y - 82, 36, 82); ctx.fillRect(x + 134, y - 82, 36, 82); ctx.fillRect(x - 160, y - 16, 16, 16); ctx.fillRect(x + 144, y - 16, 16, 16); ctx.fillRect(x - 170, y - 100, 340, 50); }   // human scale (people 140)
+  if (kind === 'bed') { ctx.fillRect(x - 210, y - 50, 420, 36); ctx.fillRect(x - 210, y - 115, 30, 115); ctx.fillRect(x + 190, y - 72, 20, 72); }   // mattress top y − 50
+  if (kind === 'desk') { ctx.fillRect(x - 120, y - 64, 240, 10); ctx.fillRect(x - 110, y - 54, 10, 54); ctx.fillRect(x + 100, y - 54, 10, 54); }
+  if (kind === 'shelf') { ctx.fillRect(x - 60, y - 220, 120, 220); ctx.fillStyle = mixHex(P.ind0, P.ind1, .5); for (let i = 1; i < 4; i++) ctx.fillRect(x - 54, y - 220 + i * 54, 108, 5); }
   if (kind === 'plant') { ctx.fillRect(x - 24, y - 60, 48, 60); ctx.beginPath(); ctx.ellipse(x, y - 110, 60, 70, 0, 0, 6.29); ctx.fill(); }
   if (kind === 'shutter') { ctx.fillRect(x - 300, y - 360, 600, 360); ctx.fillStyle = rgba(P.blue1, .25); for (let i = 1; i < 12; i++) ctx.fillRect(x - 300, y - 360 + i * 30, 600, 3); }
   if (kind === 'stairs') { for (let i = 0; i < 10; i++) ctx.fillRect(x + i * 50, y - (i + 1) * 49, 50, (i + 1) * 49); }
@@ -362,16 +364,16 @@ function cutFaces(ctx, c, x0, x1, floors, parts) {
 
 // ================================================================================================================ your building (open in section)
 // o: { rooms: { l0a, l0b, l1a, l1b, l3a, l3b: lamp 0..1 }, cool (machine points in two neighbours' rooms), hallLamp 0..1,
-//      kitchen: {…kitchen o}, kid: { asleep, lamp } }
+//      kitchen: {…kitchen o}, kid: { asleep, lamp, items: [[Z, fn]], pools: [[X, Z, r, col, a]] } }
 export function yourBuilding(ctx, c, t, L, o = {}) {
   const B = STREET.you, rm = o.rooms || {}, nb = (x) => [[ZB - 40, (cx) => x(cx)]], cool = o.cool ? .9 : 0;
   const cp = (x, y) => [ZB - 30, (cx) => coolPoint(cx, x, y, 7, cool)];
   room(ctx, c, t, L, { x0: B.x0, x1: -1800, level: 0, lamp: rm.l0a ?? 0, items: nb((cx) => furniture(cx, 'stairs', -2560, 0)) });
   room(ctx, c, t, L, { x0: -1800, x1: B.x1, level: 0, lamp: rm.l0b ?? 0, items: nb((cx) => furniture(cx, 'shutter', -1000, 0)) });
-  room(ctx, c, t, L, { x0: B.x0, x1: -1400, level: 1, lamp: rm.l1a ?? 0, items: [...nb((cx) => { furniture(cx, 'sofa', -2000, floorY(1)); furniture(cx, 'plant', -1600, floorY(1)); }), cp(-1700, floorY(1) - 160)] });
+  room(ctx, c, t, L, { x0: B.x0, x1: -1400, level: 1, lamp: rm.l1a ?? 0, items: [...nb((cx) => { furniture(cx, 'sofa', -2000, floorY(1)); furniture(cx, 'plant', -1600, floorY(1)); }), cp(-1700, floorY(1) - 112)] });
   room(ctx, c, t, L, { x0: -1400, x1: B.x1, level: 1, lamp: rm.l1b ?? 0, back: (cx) => winOnWall(cx, L, -700, floorY(1) - 400, 220, 200), items: nb((cx) => furniture(cx, 'bed', -1000, floorY(1))) });
   room(ctx, c, t, L, { x0: B.x0, x1: -1200, level: 3, lamp: rm.l3a ?? 0, items: nb((cx) => { furniture(cx, 'shelf', -2400, floorY(3)); furniture(cx, 'sofa', -1750, floorY(3)); }) });
-  room(ctx, c, t, L, { x0: -1200, x1: B.x1, level: 3, lamp: rm.l3b ?? 0, back: (cx) => winOnWall(cx, L, -560, floorY(3) - 400, 220, 200), items: [...nb((cx) => furniture(cx, 'desk', -800, floorY(3))), cp(-760, floorY(3) - 130)] });
+  room(ctx, c, t, L, { x0: -1200, x1: B.x1, level: 3, lamp: rm.l3b ?? 0, back: (cx) => winOnWall(cx, L, -560, floorY(3) - 400, 220, 200), items: [...nb((cx) => furniture(cx, 'desk', -800, floorY(3))), cp(-760, floorY(3) - 78)] });
   hallway(ctx, c, t, L, o);
   kitchen(ctx, c, t, { L, hallLamp: o.hallLamp ?? 1, ...(o.kitchen || {}) });
   kidRoom(ctx, c, t, L, o.kid || {});
@@ -396,16 +398,16 @@ function hallway(ctx, c, t, L, o) {
 function kidRoom(ctx, c, t, L, o) {
   const [x0, x1] = STREET.kidRoom;
   room(ctx, c, t, L, {
-    x0, x1, level: 2, lamp: o.lamp ?? 0, lampX: x0 + 520,
+    x0, x1, level: 2, lamp: o.lamp ?? 0, lampX: x0 + 520, pools: o.pools,
     back: (cx) => winOnWall(cx, L, x0 + 300, KC + 90, 220, 200),
     items: [[ZB - 60, (cx) => { furniture(cx, 'bed', x0 + 230, KY); furniture(cx, 'desk', x1 - 170, KY); }],
-      [ZB - 70, (cx) => { if (o.asleep === false) return; cx.fillStyle = mixHex(P.blue1, P.ind1, .4); cx.beginPath(); cx.ellipse(x0 + 250, KY - 88, 140, 26 + 1.5 * Math.sin(t * 1.4), 0, Math.PI, 0); cx.fill(); cx.beginPath(); cx.ellipse(x0 + 70, KY - 92, 26, 20, 0, 0, 6.29); cx.fill(); }]],
+      [ZB - 70, (cx) => { if (o.asleep === false) return; cx.fillStyle = mixHex(P.blue1, P.ind1, .4); cx.beginPath(); cx.ellipse(x0 + 250, KY - 50, 140, 22 + 1.5 * Math.sin(t * 1.4), 0, Math.PI, 0); cx.fill(); cx.beginPath(); cx.ellipse(x0 + 70, KY - 60, 22, 17, 0, 0, 6.29); cx.fill(); }], ...(o.items || [])],
   });
 }
 
 // ================================================================================================================ the kitchen
 // kitchen(ctx, c, t, o): the room on level 2 (KITCHEN, LIGHTWALL). o: { L, scan: {…scanArt o} | null, wall 0..1 (the light wall's own glow),
-// wallFn(ctx, LW) (draw on the wall: world units, plane ZB), lamp 0..1 (the pendant), hallLamp 0..1, kettle { steam }, phone { on, buzz, gold },
+// wallFn(ctx, LW) (draw on the wall: world units, plane ZB), lamp 0..1 (the pendant), hallLamp 0..1, kettle { steam } | null, phone { on, buzz, gold } | null,
 // table true, chairs true, people: [[Z, fn(ctx, s)], …] (figures etc. on their own depth planes; feet at Y = KITCHEN.floor) }
 export function kitchen(ctx, c, t, o = {}) {
   const K = KITCHEN, L = o.L || hourLook(o.hour ?? 6.25), lamp = o.lamp ?? 0, LW = LIGHTWALL, hl = o.hallLamp ?? 1;
@@ -421,16 +423,18 @@ export function kitchen(ctx, c, t, o = {}) {
       cx.fillStyle = lin(cx, C.x0, 0, C.x0 + 260, 0, [[0, rgba(P.halo0, .5 * hl)], [1, rgba(P.halo0, .05 * hl)]]); cx.fillRect(C.x0, C.top - 6, C.x1 - C.x0, 8);   // the warm edge
       cx.strokeStyle = rgba(P.night0, .7); cx.lineWidth = 3; for (const x of [C.x0 + 82, C.x0 + 165]) { cx.beginPath(); cx.moveTo(x, C.top + 14); cx.lineTo(x, K.floor - 8); cx.stroke(); }
     }],
-    [K.kettle[2], (cx) => kettle(cx, K.kettle[0], K.kettle[1], 46, t, o.kettle || {})],
+    [K.kettle[2], (cx) => { if (o.kettle !== null) kettle(cx, K.kettle[0], K.kettle[1], 30, t, o.kettle || {}); }],
     [K.phone[2], (cx) => { if (o.phone !== null) phone(cx, K.phone[0], K.phone[1], 30, t, o.phone || {}); }],
     ...(o.people || []),
   ];
   if (o.table !== false) {
     if (o.chairs !== false) for (const [x, z] of [[T.x0 - 40, (T.z0 + T.z1) / 2], [T.x1 + 40, (T.z0 + T.z1) / 2], [(T.x0 + T.x1) / 2, T.z0 - 50]]) items.push([z, (cx) => { cx.fillStyle = mixHex(P.night0, P.ind0, .7); cx.fillRect(x - 32, K.floor - 42, 64, 9); cx.fillRect(x - 25, K.floor - 33, 8, 33); cx.fillRect(x + 17, K.floor - 33, 8, 33); }]);   // stools
-    items.push([T.z0, (cx) => {
+    items.push([T.z1 + .5, (cx) => {   // the top first (things standing on the table, between z0 and z1, draw over it)
       cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0);
-      quad(cx, c, [[T.x0, T.top, T.z0], [T.x1, T.top, T.z0], [T.x1, T.top, T.z1], [T.x0, T.top, T.z1]], (q) => lin(cx, 0, q[2][1], 0, q[0][1], [[0, mixHex(P.ind1, WARM.mid, .5 * lamp)], [1, mixHex(P.ind0, WARM.deep, .4 * lamp)]]));
+      quad(cx, c, [[T.x0, T.top, Math.max(T.z0, c.z + 31)], [T.x1, T.top, Math.max(T.z0, c.z + 31)], [T.x1, T.top, T.z1], [T.x0, T.top, T.z1]], (q) => lin(cx, 0, q[2][1], 0, q[0][1], [[0, mixHex(P.ind1, WARM.mid, .5 * lamp)], [1, mixHex(P.ind0, WARM.deep, .4 * lamp)]]));
       cx.restore();
+    }]);
+    items.push([T.z0, (cx) => {   // the front edge and the legs
       const tl = mixHex(P.night1, WARM.deep, .3 * lamp);
       cx.fillStyle = tl; cx.fillRect(T.x0, T.top, T.x1 - T.x0, 14); cx.fillRect(T.x0 + 16, T.top + 14, 14, K.floor - T.top - 14); cx.fillRect(T.x1 - 30, T.top + 14, 14, K.floor - T.top - 14);
       cx.fillStyle = rgba(P.blue1, .7); cx.fillRect(T.x0, T.top, T.x1 - T.x0, 3);
@@ -735,7 +739,7 @@ export function voiceLight(ctx, x, y, r, t, o = {}) {
   ctx.fillStyle = rad(ctx, x, y, r * 4, [[0, rgba(COOL.mid, .35)], [.4, rgba(COOL.edge, .12)], [1, rgba(COOL.deep, 0)]]); ctx.fillRect(x - r * 4, y - r * 4, r * 8, r * 8);
   for (let i = 0; i < 3; i++) {
     const ph = (t * .32 + i / 3) % 1, rr = r * (1.15 + 1.6 * ph + .25 * talk * Math.sin(t * 9 + i)), al = (1 - ph) * .55;
-    ctx.strokeStyle = rgba(mixHex(COOL.mid, P.halo0, wm), al); ctx.lineWidth = Math.max(1.2, r * .025); ctx.beginPath(); ctx.ellipse(x, y, rr, rr * .32, 0, 0, 6.29); ctx.stroke();
+    ctx.strokeStyle = rgba(mixHex(COOL.mid, P.halo0, wm), al); ctx.lineWidth = Math.max(1.2 / Math.abs(ctx.getTransform().a || 1), r * .025); ctx.beginPath(); ctx.ellipse(x, y, rr, rr * .32, 0, 0, 6.29); ctx.stroke();
   }
   const br = 1 + .03 * Math.sin(t * 1.4) + .05 * talk * Math.abs(Math.sin(t * 7));
   ctx.fillStyle = rad(ctx, x - r * .25, y - r * .3, r * br, [[0, COOL.core], [.45, mixHex(COOL.mid, P.core1, wm)], [1, mixHex(COOL.edge, P.halo0, wm)]]); ctx.beginPath(); ctx.arc(x, y, r * br, 0, 6.29); ctx.fill();

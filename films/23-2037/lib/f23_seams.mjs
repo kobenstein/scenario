@@ -9,7 +9,7 @@
 //   seamWindow(t, T0) → true while the plate is drawn (both sides)
 //
 //   Lead → B1  'Seven-thirty' (c02 → c03)     plateGenius   the tutor's voice-light close: cool sphere r 150 at (960, 500), three slow
-//              rings, the dark kid's room. Lead flies into the voice-light next door; B1 pulls back: it hovers over the kitchen table, 07:30.
+//              rings, flat on a room's back wall (GENIUS_WALL). Draw the voice-light in the world with the same o (talk .25) and t. Lead flies into the voice-light next door; B1 pulls back: it hovers over the kitchen table, 07:30.
 //   B1 → B2    "Four o'clock" (c05 → c06)     plateWindow   Dad's lit window (300 × 380, centred) in his dark facade (WINDOW_PLATE).
 //              B1 pushes to Dad's window at the end of 5.06; B2 pulls back: the clock is 16:00, you walk over.
 //   B2 → B3    'And today you say' (c08 → c09) plateWall    THE KITCHEN at CAM_WALL, 19:30, lamp on, the light wall empty (no scan, no
@@ -29,10 +29,11 @@ export const seamT = (T, key) => T.G(SEAM_PHRASE[key]);
 
 // ---- Lead → B1: the voice-light close -------------------------------------------------------------------------------------------
 export const GENIUS_PLATE = { x: 960, y: 500, r: 150 };
+// the background is the back wall of a room at the voice-light's height (room() colours, early morning): both sides' worlds converge on it
+export const GENIUS_WALL = mixHex(mixHex(P.night1, P.ind1, .55), mixHex(P.night1, P.ind0, .3), .745);
 export function plateGenius(ctx, t) {
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.fillStyle = lin(ctx, 0, 0, 0, H, [[0, P.night0], [.6, mixHex(P.night1, P.ind1, .4)], [1, P.night1]]); ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = rad(ctx, 960, 980, 900, [[0, rgba(K.COOL.deep, .35)], [1, rgba(K.COOL.deep, 0)]]); ctx.fillRect(0, 0, W, H);   // its light on the table below
+  ctx.fillStyle = GENIUS_WALL; ctx.fillRect(0, 0, W, H);
   K.voiceLight(ctx, GENIUS_PLATE.x, GENIUS_PLATE.y, GENIUS_PLATE.r, t, { talk: .25 });
   ctx.restore();
 }

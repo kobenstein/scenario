@@ -29,6 +29,8 @@ export const STAMP = { x: 72, y1: 84, y2: 160, yearSize: 40, labelSize: 16, time
 export const CARD = { x: 72, y: 196, w: 720 };
 export const ZONE = { clock: [60, 40, 420, 180], card: [60, 40, 820, 430] };   // reserved zones (x0, y0, x1, y1)
 export const BIG = { x: 196, y: 430, size: 290, labelY: 500, labelSize: 32 };   // the big year of 1.01 (thumbnail A's title space, over the dark wall)
+// 12.05 (the year rolls back): the big year sits lower, so the channel mark of subscribe line 2 (under the stamp, y ≈ 190–250) stays clear
+export const BIG_BACK = { x: 196, y: 480, labelY: 548 };
 
 // ------------------------------------------------------------------------------------------------ evidence cards (docs/shots.md §4)
 // open: [phrase, fence phrase (searched first) or null]; close: optional phrase (else open + read time); pair: stacks under that card
@@ -184,7 +186,8 @@ export function dayClock(ctx, t) {
   const lab = span(t, HT.tuesday, HT.tuesday + .6);
   const yb = HT.yearBack ? Math.min(span(t, HT.yearBack.t0, HT.yearBack.t0 + 1.3), 1 - span(t, HT.yearBack.t1 - 1.3, HT.yearBack.t1)) : 0;
   const big = Math.max(1 - sh, quartIO(yb));       // 1 = the big year
-  const size = lerp(S.yearSize, BIG.size, big), yx = lerp(S.x, BIG.x, big), yy = lerp(S.y1, BIG.y, big);
+  const BB = HT.yearBack && t > HT.yearBack.t0 - .5 ? { ...BIG, ...BIG_BACK } : BIG;
+  const size = lerp(S.yearSize, BB.size, big), yx = lerp(S.x, BB.x, big), yy = lerp(S.y1, BB.y, big);
   const settle = 1 + .025 * Math.sin(Math.PI * span(t, HT.started, HT.started + .5));
   const glowA = lerp(.5, 1, big);
   ctx.save(); ctx.translate(yx, yy); ctx.scale(settle, settle);
@@ -204,7 +207,7 @@ export function dayClock(ctx, t) {
   ctx.restore();
   // the label: big under the year (1.01), small to the right of the stamp year afterwards
   if (lab > 0) {
-    const ls = lerp(S.labelSize, BIG.labelSize, big), lx = lerp(S.x + yw * settle + 14, BIG.x + 6, big), ly = lerp(S.y1 - 4, BIG.labelY, big);
+    const ls = lerp(S.labelSize, BB.labelSize, big), lx = lerp(S.x + yw * settle + 14, BB.x + 6, big), ly = lerp(S.y1 - 4, BB.labelY, big);
     const lw = measure(ctx, 'A POSSIBLE TUESDAY', ls, false, .28);
     const rise = expoOut(lab);
     ctx.save(); ctx.beginPath(); ctx.rect(lx - 4, ly - ls * 1.1, lw + (big < .5 ? ls * 1.3 : 0) + 10, ls * 1.35); ctx.clip();
