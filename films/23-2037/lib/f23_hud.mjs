@@ -16,6 +16,9 @@
 //                               phases: line runs up (.6 s) → spreads (.35 s) → opens (.5 s, mask) → footage / placeholder (name card +
 //                               transcript) with the ORIGINAL FOOTAGE tab and the lower third → at clip.end collapses to a line (.25 s)
 //                               → to a point (.2 s). Returns { phase, point: [x, y] (the carrier after the collapse), open 0..1 }.
+//                               CLIP_MODE env: footage | quote | auto (default: footage where ROOT/clips/<K>/ frames exist, else quote).
+//                               quote = a clean card: the exact quote in large italic serif, phrases rise on the voice timing (clip
+//                               words if timing.json has them, else the burned subtitle cues), tab QUOTE, lower third name · role · year.
 //   prepareClips(t)             async: loads footage frames ROOT/clips/<K>/f00001.jpg… if they exist (render.mjs calls film.prepare)
 import fs from 'node:fs';
 import { loadImage } from '@napi-rs/canvas';
@@ -63,6 +66,11 @@ export function prepareHud(T) {
   HT.shrink = T.G('Superintelligence');                     // the big year + label shrink into the stamp
   HT.hours = HOURS.map(([p, s, h], i) => ({ t: i === 0 ? T.G(p) : T.G(p, 0, T.G(HOURS[i - 1][0]) + .5), s, h }));
   const clips = Object.values(T.clips || {}).filter((c) => c.kind !== 'card');
+  const subs = readCues();
+  for (const c of clips) {   // the quote's voice timing: its own words (when the narrated quote has word timing), else the subtitle cues
+    if (Array.isArray(c.words) && c.words.length) c.cues = c.words.map((w) => ({ s: w.s, e: w.e, text: w.w }));
+    else c.cues = subs.filter((q) => q.s >= c.start - .25 && q.s < c.end - .1);
+  }
   HT.clips = clips;
   const by = {};
   for (const c of CARDS) {
@@ -306,7 +314,65 @@ export async function prepareClips(t) {
     FRAMES.set(f, await loadImage(fs.readFileSync(f)));
   }
 }
-const ROLE = (c) => `${(c.role || '').toUpperCase()} · ${(c.label || '').match(/(\d{4})\s*$/)?.[1] || ''}`;
+// CLIP_MODE (env): 'footage' = frames from ROOT/clips/<K>/ (placeholder card while they are missing); 'quote' = a clean quote card
+// (name, role, year, the exact quote in large type revealed on the voice timing, tab QUOTE); 'auto' (default) = footage where frames
+// exist, else quote. Builders need nothing: oldScreen() draws whichever mode is set, with identical open/close timing.
+export const CLIP_MODE = (process.env.CLIP_MODE || 'auto').toLowerCase();
+const clipMode = (c) => CLIP_MODE === 'quote' ? 'quote' : CLIP_MODE === 'footage' ? 'footage' : nFrames(c.id) ? 'footage' : 'quote';
+function readCues() {   // the burned subtitles (audio/untertitel/subtitles.ass): [{ s, e, text }]
+  try {
+    const sec = (h) => { const [a, b, c] = h.split(':'); return +a * 3600 + +b * 60 + +c; };
+    return fs.readFileSync(`${ROOT}audio/untertitel/subtitles.ass`, 'utf8').split('\n').filter((l) => l.startsWith('Dialogue:')).map((l) => {
+      const f = l.slice(10).split(','); return { s: sec(f[1].trim()), e: sec(f[2].trim()), text: f.slice(9).join(',').replace(/\{[^}]*\}/g, '').replace(/\\N/g, ' ').trim() };
+    });
+  } catch { return []; }
+}
+// THE QUOTE CARD: the exact quote, large, each phrase rising from its baseline (a mask, no opacity) when the voice says it
+const QL = new Map();
+function quoteLayout(ctx, c, w, h, k) {
+  const key = `${c.id}:${w}`; if (QL.has(key)) return QL.get(key);
+  const text = (c.text || '').trim(), maxW = w * .76;
+  let size = 64 * k, lines;
+  for (;;) { lines = wrapI(ctx, text, size, maxW); if (lines.length * size * 1.28 <= h * .5 || size < 30 * k) break; size *= .94; }
+  // every word gets its reveal time: the cue it belongs to (matched in order by word count), else even pacing over the slot
+  const words = text.split(' '), tw = new Array(words.length).fill(null), cues = c.cues || [];
+  let wi = 0;
+  for (const q of cues) { const n = q.text.split(' ').filter(Boolean).length; for (let j = 0; j < n && wi < words.length; j++, wi++) tw[wi] = q.s + j * .045; }
+  const t0 = c.start + .25, t1 = c.end - .9;
+  for (let i = 0; i < words.length; i++) if (tw[i] == null) tw[i] = t0 + (t1 - t0) * i / Math.max(1, words.length - 1);
+  const L = { size, lines: [], words: [] }; let i = 0;
+  lines.forEach((ln, li) => {
+    let xx = 0; const lw = ln.split(' ');
+    for (const wd of lw) { L.words.push({ s: wd, li, x: xx, t: tw[i++] }); xx += measureI(ctx, wd + ' ', size); }
+    L.lines.push({ w: measureI(ctx, ln, size) });
+  });
+  QL.set(key, L); return L;
+}
+const fontI = (size) => `italic ${size}px "Instrument Serif"`;
+function measureI(ctx, s, size) { ctx.save(); ctx.font = fontI(size); const w = ctx.measureText(s).width; ctx.restore(); return w; }
+function wrapI(ctx, s, size, maxW) {
+  const out = []; let cur = '';
+  for (const w of s.split(' ')) { const tryS = cur ? cur + ' ' + w : w; if (measureI(ctx, tryS, size) > maxW && cur) { out.push(cur); cur = w; } else cur = tryS; }
+  if (cur) out.push(cur); return out;
+}
+function quoteCard(ctx, x, y, w, h, c, t) {
+  const k = w / 1488;
+  ctx.fillStyle = lin(ctx, x, y, x, y + h, [[0, mixHex(P.ind1, P.night1, .35)], [1, mixHex(P.night1, P.night0, .4)]]); ctx.fillRect(x, y, w, h);
+  ctx.fillStyle = rad(ctx, x + w * .3, y + h * .35, w * .7, [[0, rgba(P.halo0, .07)], [1, rgba(P.halo0, 0)]]); ctx.fillRect(x, y, w, h);
+  const L = quoteLayout(ctx, c, w, h, k), sz = L.size, lh = sz * 1.28;
+  const bx = x + w * .12, by = y + h * .44 - (L.lines.length - 1) * lh / 2 + sz * .3;
+  // the gold opening mark, set in the margin
+  txt(ctx, '\u201C', bx - sz * .62, by + sz * .12, { size: sz * 1.9, serif: true, col: P.halo0, glow: .5 });
+  for (const wd of L.words) {
+    const u = expoOut(span(t, wd.t, wd.t + .4)); if (u <= 0) continue;
+    const ly = by + wd.li * lh;
+    ctx.save(); ctx.beginPath(); ctx.rect(bx - sz * .2, ly - sz * 1.0, w * .8, sz * 1.32); ctx.clip();
+    ctx.font = fontI(sz); ctx.textBaseline = 'alphabetic'; ctx.fillStyle = P.cream;
+    ctx.shadowColor = rgba(P.halo0, .25); ctx.shadowBlur = sz * .25;
+    ctx.fillText(wd.s, bx + wd.x, ly + sz * 1.1 * (1 - u)); ctx.restore();
+  }
+}
+const ROLE = (c) => `${(c.role || '').toUpperCase()} · ${c.year || (c.label || '').match(/(\d{4})\s*$/)?.[1] || ''}`;
 // the clean placeholder until the footage frames exist: a dark recording card with the speaker's name, role and the transcript
 function placeholder(ctx, x, y, w, h, c, t) {
   ctx.fillStyle = lin(ctx, x, y, x, y + h, [[0, '#121a3a'], [1, '#0b1029']]); ctx.fillRect(x, y, w, h);
@@ -358,12 +424,13 @@ export function oldScreen(ctx, t, o) {
   ctx.fillStyle = rad(ctx, cx, y + h, w * .55, [[0, rgba(P.halo0, .18 * open)], [1, rgba(P.halo0, 0)]]); ctx.fillRect(x - w * .1, y + h * .5, w * 1.2, h * .8);
   ctx.beginPath(); ctx.roundRect(x, cy - hh / 2, w, hh, 8 * w / 1488); ctx.save(); ctx.clip();
   const tc = clamp(t, c.start, c.end), f = frameFile(c, tc), im = f && FRAMES.get(f);
-  if (im) ctx.drawImage(im, x, y, w, h); else placeholder(ctx, x, y, w, h, c, t);
+  const mode = clipMode(c), tab = mode === 'quote' ? 'QUOTE' : 'ORIGINAL FOOTAGE';
+  if (mode === 'quote') quoteCard(ctx, x, y, w, h, c, t); else if (im) ctx.drawImage(im, x, y, w, h); else placeholder(ctx, x, y, w, h, c, t);
   ctx.fillStyle = rad(ctx, cx, cy, w * .62, [[.6, rgba('#000000', 0)], [1, rgba('#000000', .06 * 4)]]); ctx.fillRect(x, y, w, h);   // 6 % vignette (edge)
   // label tab (part of the screen from its first frame)
   const k = w / 1488;
-  ctx.fillStyle = rgba(P.night0, .85); ctx.fillRect(x + 24 * k, y + 24 * k, measure(ctx, 'ORIGINAL FOOTAGE', 18 * k, false, .25) + 28 * k, 38 * k);
-  txt(ctx, 'ORIGINAL FOOTAGE', x + 38 * k, y + 50 * k, { size: 18 * k, spacing: .25, col: P.cream });
+  ctx.fillStyle = rgba(P.night0, .85); ctx.fillRect(x + 24 * k, y + 24 * k, measure(ctx, tab, 18 * k, false, .25) + 28 * k, 38 * k);
+  txt(ctx, tab, x + 38 * k, y + 50 * k, { size: 18 * k, spacing: .25, col: P.cream });
   // lower third: wipes up .4–1.0 s after the start, leaves .6 s before the end
   const lt = Math.min(expoOut(span(t, c.start + .4, c.start + 1.0)), 1 - expoIn(span(t, c.end - 1.0, c.end - .6)));
   if (lt > 0) {
@@ -377,7 +444,7 @@ export function oldScreen(ctx, t, o) {
     ctx.restore();
   }
   ctx.restore();
-  ctx.lineWidth = 2 * k; ctx.strokeStyle = rgba(P.cream, .8); ctx.stroke();
+  ctx.beginPath(); ctx.roundRect(x, cy - hh / 2, w, hh, 8 * k); ctx.lineWidth = 2 * k; ctx.strokeStyle = rgba(P.cream, .8); ctx.stroke();   // the edge (own path: the clips above replace the current path)
   ctx.restore();
   return { phase: t < tOff ? 'open' : 'closing', point: [cx, cy], open };
 }
