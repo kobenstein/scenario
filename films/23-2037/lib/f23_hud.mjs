@@ -215,12 +215,17 @@ export function dayClock(ctx, t) {
   }
   // ---- the time + dial (from Six-fifteen on)
   const hr = hourAt(t), sub = HT.subs.find((q) => t >= q.t0 && t < q.t1 + .5), tc = sub ? sub.t0 : t;   // the clock pauses (no breathing)
-  if (hr.s && big < .99) {
-    const pulse = Math.sin(Math.PI * span(t, hr.tj, hr.tj + .5)) * (hr.first ? 0 : 1);
-    ctx.save(); ctx.translate(S.x, S.y2); ctx.scale(1 + .02 * pulse, 1 + .02 * pulse);
+  // 12.05: the time line sinks below its baseline (a mask) while the year is big, and rises again once the year is back in the stamp
+  const tv = HT.yearBack ? 1 - Math.min(span(t, HT.yearBack.t0, HT.yearBack.t0 + .5), 1 - span(t, HT.yearBack.t1, HT.yearBack.t1 + .6)) : 1;
+  if (hr.s && tv > 0 && (big < .99 || yb > 0)) {
+    const pulse = Math.sin(Math.PI * span(t, hr.tj, hr.tj + .5)) * (hr.first ? 0 : 1), dy = (1 - sineIO(tv)) * S.timeSize * 1.4;
+    ctx.save();
+    if (tv < 1) { ctx.beginPath(); ctx.rect(S.x - 12, S.y2 - S.timeSize * 1.15, 420, S.timeSize * 1.45); ctx.clip(); }
+    ctx.save(); ctx.translate(S.x, S.y2 + dy); ctx.scale(1 + .02 * pulse, 1 + .02 * pulse);
     const from = hr.prev || '  :  ', w = rollText(ctx, from, hr.s, hr.u, 0, 0, S.timeSize, { col: P.cream, glow: .8 });
     ctx.restore();
-    dial(ctx, S.x + w + 52, S.y2 - 14, 26, hr.h, tc, pulse);
+    dial(ctx, S.x + w + 52, S.y2 - 14 + dy, 26, hr.h, tc, pulse);
+    ctx.restore();
   }
   ctx.restore();
 }
