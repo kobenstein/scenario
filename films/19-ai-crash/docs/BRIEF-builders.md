@@ -38,7 +38,7 @@ B1 includes 25.6 s of clips (C1, C1b), B3 9 s of clip (C3) and the ≈ 16 s end 
 The three group seams sit on a **shared picture**, a *plate* from `lib/f19_seams.mjs`. Both sides draw the plate from the same function with the same `t`, so the frames left and right of the seam are identical. Preview: `node tools/seam_plates19.mjs <dir>`.
 - The handing side steers its last move so the picture lands on the plate (camera key on `T0 − 0.5`, sine-S; carrier parameters lerped onto the plate values) and draws the plate opaque over everything for `t ∈ [T0 − 0.5, T0)`.
 - The receiving side draws it for `t ∈ [T0, T0 + 0.5)` and grows its picture out of it: the plate pulls back or becomes a thing of the new picture, never by a dissolve. Your first frames after `T0 + 0.5` must equal the plate (same object, same size, same place) and only then move.
-- Helpers: `seamWindow(t, T0)` and `SEAM_HALF`. Draw the plate after your cards, in screen space.
+- Helpers: `seamWindow(t, T0)` and `SEAM_HALF`. Draw the plate after your cards, in screen space, and **then the two HUDs on top** (`hudDay`, `hudUmbrella`: the plates contain no HUD, so both sides draw the HUDs over the plate with the same t; the lead does this in `lib/f19_lead.mjs`). Reference implementation of a hand-over: the end of `lib/f19_lead.mjs` (2.07: the bubble swells over the frame and lands exactly on `plateBubble`).
 
 | Seam | T0 (anchor) | Plate | Hand-over | Take-over |
 |---|---|---|---|---|

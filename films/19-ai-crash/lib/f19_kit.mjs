@@ -14,7 +14,7 @@
 //
 //   THE UMBRELLA (your protection; the five gores = the five protections)
 //     umbrella(ctx, t, x, y, r, o) (x, y) = middle of the rim line; r = half the rim width open. o { open 0..1, lit [5] 0..1 per gore,
-//                                 outline 0..1 (empty gores drawn as gold outlines), glow 0..1 (light under it), wide5 0..1 (gore 5 widens,
+//                                 outline 0..1 (empty gores drawn as gold outlines), stick (shaft length below the rim in r, 1.22), glow 0..1 (light under it), wide5 0..1 (gore 5 widens,
 //                                 its rim reaches over the others: "you can't build it alone"), flare [{ x: −1..1 along the rim, t0 }]
 //                                 (impact flashes ≤ 3 frames, then a short warm ring), tilt (rad), a, shaft (true), hand (false) }
 //                                 returns { apex, rim: [[x,y]×6], gore(i) → centre [x, y], handle [x, y] }
@@ -133,7 +133,7 @@ export function titleText(ctx, s, x, y, size, o = {}) {
 }
 
 // =================================================================================================================== the umbrella
-function umbGeo(x, y, r, open, wide5, tilt) {
+function umbGeo(x, y, r, open, wide5, tilt, stick = 1.22) {
   const R = r * lerp(.13, 1, open), hh = r * lerp(1.05, .56, open);
   const rot = (px, py) => { const c = Math.cos(tilt), s = Math.sin(tilt), dx = px - x, dy = py - y; return [x + dx * c - dy * s, y + dx * s + dy * c]; };
   const apex = rot(x, y - hh), rim = [];
@@ -141,7 +141,7 @@ function umbGeo(x, y, r, open, wide5, tilt) {
   const wts = [1, 1, 1, 1, 1 + wide5 * 1.6], tot = wts.reduce((p, q) => p + q, 0);
   let acc = 0; rim.push(rot(x - R, y));
   for (let i = 0; i < 5; i++) { acc += wts[i]; rim.push(rot(x - R + 2 * R * acc / tot, y)); }
-  return { R, hh, apex, rim, rot, tip: rot(x, y - hh - r * .1), handle: rot(x, y + r * 1.22) };
+  return { R, hh, apex, rim, rot, tip: rot(x, y - hh - r * .1), handle: rot(x, y + r * stick) };
 }
 function gorePath(g, i, x, y, r, open) {
   const p = new Path2D(), A = g.apex, a = g.rim[i], b = g.rim[i + 1];
@@ -156,7 +156,7 @@ function gorePath(g, i, x, y, r, open) {
 }
 export function umbrella(ctx, t, x, y, r, o = {}) {
   const a = o.a ?? 1, open = clamp(o.open ?? 1), lit = o.lit ?? [1, 1, 1, 1, 1], outline = clamp(o.outline ?? 0), wide5 = clamp(o.wide5 ?? 0), tilt = o.tilt ?? 0;
-  const g = umbGeo(x, y, r, open, wide5, tilt);
+  const g = umbGeo(x, y, r, open, wide5, tilt, o.stick ?? 1.22);
   const out = { apex: g.apex, rim: g.rim, handle: g.handle, gore: (i) => { const A = g.apex, a2 = g.rim[i], b2 = g.rim[i + 1]; return [lerp(A[0], (a2[0] + b2[0]) / 2, .62), lerp(A[1], (a2[1] + b2[1]) / 2, .62)]; } };
   if (a <= 0) return out;
   ctx.save(); ctx.globalAlpha *= a; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
@@ -177,7 +177,7 @@ export function umbrella(ctx, t, x, y, r, o = {}) {
       const top = g.apex, bot = [(g.rim[i][0] + g.rim[i + 1][0]) / 2, y];
       ctx.save(); ctx.globalAlpha *= L;
       if (glow > 0) glowFill(ctx, path, r * .22, .45 * glow, P.halo0);
-      ctx.fillStyle = lin(ctx, top[0], top[1], bot[0], bot[1] + r * .05, [[0, mixHex(P.core0, P.halo0, alt * 2)], [.55, mixHex(P.core1, P.halo1, alt * 3)], [1, mixHex(P.halo0, P.shade0, .35 + alt)]]);
+      ctx.fillStyle = lin(ctx, top[0], top[1], bot[0], bot[1] + r * .05, [[0, mixHex(P.core1, P.halo0, .2 + alt * 2)], [.5, mixHex(P.halo0, P.coat, .35 + alt * 1.5)], [1, mixHex(P.coat, P.shade0, .3 + alt)]]);
       ctx.fill(path); ctx.restore();
     }
     if (outline > 0) { ctx.strokeStyle = rgba(P.halo0, .85 * outline); ctx.lineWidth = Math.max(1.2, r * .022); ctx.stroke(path); }
@@ -461,7 +461,7 @@ export function routeMap(ctx, t, o = {}) {
   if (o.run != null && o.run > 0) { const xr = Math.min(xb, X(o.run)); ctx.strokeStyle = P.halo0; ctx.lineWidth = 5; ctx.shadowColor = rgba(P.halo0, .8); ctx.shadowBlur = 14; ctx.beginPath(); ctx.moveTo(xa, y); ctx.lineTo(xr, y); ctx.stroke(); ctx.shadowBlur = 0; }
   // DAY 0 tick + label (below), DAY 1,000 end tick
   ctx.fillStyle = P.cream; ctx.fillRect(xa - 1.5, y - 16, 3, 32);
-  E.glowText(ctx, 'DAY 0', xa, y + 56, { size: 20, align: 'center', col: P.halo2, glow: false, spacing: .1, a: clamp(u * 4) });
+  E.glowText(ctx, 'DAY 0', xa - 18, y + 7, { size: 20, align: 'right', col: P.halo2, glow: false, spacing: .1, a: clamp(u * 4) });
   const end = clamp(o.end ?? 0);
   if (end > 0) { ctx.fillStyle = rgba(P.cream, end); ctx.fillRect(X(1000) - 1.5, y - 16, 3, 32); E.glowText(ctx, 'DAY 1,000', X(1000) + 18, y + 8, { size: 22, a: end, spacing: .08 }); }
   // the stops
@@ -470,11 +470,11 @@ export function routeMap(ctx, t, o = {}) {
     const e = expoOut(g);
     ctx.fillStyle = P.night1; ctx.strokeStyle = P.halo0; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(x, y, 15 * e, 0, 7); ctx.fill(); ctx.stroke();
     if ((o.lit?.[i] ?? 0) > 0) halo(ctx, x, y, 70, .5 * o.lit[i]);
-    glyph(ctx, ex.glyph, x, y - 118 + (1 - e) * 30, .78 * e, { a: e, lit: .6 + .4 * (o.lit?.[i] ?? 0) });
-    E.glowText(ctx, `DAY ${ex.day}`, x, y - 44 + (1 - e) * 12, { size: 24, align: 'center', col: P.halo0, a: e, spacing: .08 });
+    glyph(ctx, ex.glyph, x, y - 128 + (1 - e) * 30, .92 * e, { a: e, lit: .6 + .4 * (o.lit?.[i] ?? 0) });
+    E.glowText(ctx, `DAY ${ex.day}`, x, y - 46 + (1 - e) * 12, { size: 29, align: 'center', col: P.halo0, a: e, spacing: .06 });
     if (nm > 0) {
-      E.glowText(ctx, ex.name, x, y + 54 + (1 - nm) * 14, { size: 24, align: 'center', a: nm, spacing: .04 });
-      E.glowText(ctx, String(ex.year), x, y + 86 + (1 - nm) * 14, { size: 19, weight: 500, align: 'center', a: nm, col: P.halo2, glow: false, spacing: .1 });
+      E.glowText(ctx, ex.name, x, y + 60 + (1 - nm) * 14, { size: 29, align: 'center', a: nm, spacing: .02 });
+      E.glowText(ctx, String(ex.year), x, y + 94 + (1 - nm) * 14, { size: 22, weight: 500, align: 'center', a: nm, col: P.halo2, glow: false, spacing: .1 });
     }
   });
   // today's dot
