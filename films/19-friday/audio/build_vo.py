@@ -19,7 +19,7 @@ GAP_SECTION, GAP_SUB = 1.7, 0.9
 # Film 19 (vo-v5, 19 takes + clip slots C1-C3, sections 1-7 = chapters of text-v4.md): hook (s00-s01) runs into the loop with
 # only 1.0 s (drop-off rule 28.10.); question -> answer "Can we change the route?" / "Only if we can see it." 1.2 s;
 # "bigger, or smaller?" -> the test 1.4 s; longer air before the closing lines (after s17 "That's what this channel is for.")
-GAP_AFTER = {'s01': 1.0, 's09': 1.2, 's14': 1.4, 's17': 1.9}
+GAP_AFTER = {'s01': 1.0, 's09': 1.2, 's11': 1.2, 's14': 1.4, 's17': 1.9}   # 7.11.: s11b = mid-film subscribe call (Jakob's rule: CTA mid + end, with the mission)
 # after a clip slot: CLIP_OUT, or CLIP_OUT_SECTION when the next take opens a new chapter (C3 -> "A date sounds precise.")
 CLIP_OUT_SECTION = 1.2
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
