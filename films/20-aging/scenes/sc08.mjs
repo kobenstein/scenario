@@ -1,4 +1,5 @@
-// c08 · STUB until B3 builds it (docs/BRIEF-builders.md · plan: docs/shots.md c08 · world/kit: docs/MOTION.md, lib/f20_kit.mjs).
-// Replace the body with ONE plan-sequence entry: export default async (T, R) => [{ t: R.a, draw, print: F.PRINT20 }].
-import { stubChunk } from '../lib/stub.mjs';
-export default async (T, R) => stubChunk(T, R);
+// c08 · the estimates become a band · who gets there in time · $4.25M · the price label · built by B3.
+// B3 builds c08–c11 as ONE plan sequence (one camera, one world state per frame): lib/f20_b3.mjs (plan table at its top).
+// Plan: docs/shots.md c08 · world/rules: docs/MOTION.md · kit: lib/f20_kit.mjs · seams: lib/f20_seams.mjs (c08 starts on plateTrack).
+import { b3Entry } from '../lib/f20_b3.mjs';
+export default async (T, R) => b3Entry(T, R);
