@@ -31,7 +31,7 @@ def gfind(phrase, after=-1.0, nth=0):
 # chunks: id, builder, title, first phrase, light / hero
 CHUNKS = [
     ('c01', 'Lead', 'Hook: the thumbnail picture · Nov 5 · CRASH? · not a tip, not timing, not luck · five things', "Here's how to survive",
-     'Oxblood ground → night · hero: YOUR GOLDEN UMBRELLA under the falling red curve (thumbnail A) → the five gores → the road with the DAY 030 milestone'),
+     'Night ground (no crisis red) · hero: YOUR GOLDEN UMBRELLA under the falling red curve (thumbnail A) → the five gores → the road with the DAY 030 milestone'),
     ('c02', 'Lead', 'The clock: day 30, not day 1 · record Oct 6 · four exits with names · the bubble', 'If this is the crash, its clock',
      'The flap counter (warm) → the road tilts up into the S&P line → the ROUTE MAP DAY 0 → 1,000 with four named exits → the bubble swells from today'),
     ('c03', 'B1', "What's inside the bubble: data centers · Powell (C1) · spend vs. pay · debt 2 → 10 ¢ · China −40 % · first protection costs nothing", 'Mostly, data centers',
@@ -61,7 +61,7 @@ def shot(id, layer, start, anchors, pic, moves, tr, star=False): S.append(dict(i
 
 # ===== c01 · Hook (Lead) =========================================================================================================
 shot('1.01', 'SCENE', "Here's how to survive", ['survive', 'crash'],
-     '**[FRAME 0 = THUMBNAIL A]** Oxblood night ground, two flat hills, a ground line. **You** (yellow raincoat, from behind, right third) stand calmly under a **golden umbrella of light** (the hero, brightest thing). A **red price line** plunges from the top right and **shatters on the umbrella**: shards spray outward and fall slowly. Left: `WHAT PROTECTS YOU` (cream, ≥ 1/8 frame height, two lines), under it the small **flap counter `DAY 030`** (warm flaps). Frame 0–3 holds exactly this (silent preview), but alive: shards drift, the umbrella breathes, your coat hem moves. On **crash** a new step of the line snaps down and shatters (the first accent).',
+     '**[FRAME 0 = THUMBNAIL A (night-blue version)]** Night-blue ground (channel palette), two flat hills, a ground line. **You** (yellow raincoat, from behind, right third) stand calmly under a **golden umbrella of light** (the hero, brightest thing). A **red price line** plunges from the top right and **shatters on the umbrella**: shards spray outward and fall slowly. Left: `WHAT PROTECTS YOU` (cream, ≥ 1/8 frame height, two lines), under it the small **flap counter `DAY 030`** (warm flaps). Frame 0–3 holds exactly this (silent preview), but alive: shards drift, the umbrella breathes, your coat hem moves. On **crash** a new step of the line snaps down and shatters (the first accent).',
      '① the line snaps + shatters ② shards fall', 'plan sequence')
 shot('1.02', 'EXPL', 'On Thursday, November fifth', ['November fifth', 'two trillion', 'single day'],
      'Slow pull back and tilt up: the red line is a **day chart in the sky** over the plain; the title sinks to its baseline and is gone, the counter stays. On **November fifth** a label rises at the line\'s last drop: `NOV 5`; on **two trillion** a counter rolls `−$2 TRILLION` · `TECH STOCKS · ONE DAY` (`NPR`); on **single day** the last drop glows.',
@@ -79,7 +79,7 @@ shot('1.06', 'EXPL', 'Five things', ['Five things', 'one of them', 'alone'],
      '**THE FIVE GORES.** Push up to the canopy: on **Five things** its five panels (gores) outline in gold, empty. On **one of them** the fifth gore lights its edge; on **alone** it widens and its rim reaches over three small indigo figures who step in under it (the one you can\'t do alone).',
      '① gores outline ② fifth widens', 'plan sequence')
 shot('1.07', 'SCENE', 'So which ones', ['already have'],
-     'The gores blink once in turn (**already have**). Pull back: the red ground cools to night (`crisis` 1 → 0); the ground line is a **road** running into mist; the counter `DAY 030` stands beside you as a **milestone** at its start. The umbrella folds and becomes the small **umbrella glyph** in the top-left corner (the kit HUD, five empty gores).',
+     'The gores blink once in turn (**already have**). Pull back: the ground line is a **road** running into mist; the counter `DAY 030` stands beside you as a **milestone** at its start. The umbrella folds and becomes the small **umbrella glyph** in the top-left corner (the kit HUD, five empty gores).',
      '① pull back ② the umbrella folds into the HUD', 'move · push to the milestone counter · centre · forward')
 
 # ===== c02 · The clock (Lead, star=True) ====================================================================================================
@@ -111,11 +111,11 @@ shot('3.01', 'SCENE', 'Mostly, data centers', ['data centers'],
 shot('3.02', 'EXPL', 'Every year', ['spend more'],
      'Beside the hall four stacks of money bundles grow in turn (2023 · 2024 · 2025 · 2026), each taller (proportion only; a number only if the fact check delivers one).',
      '① stacks grow in turn', 'plan sequence')
-shot('3.03', 'EXPL>SCENE', 'A year before all this', ["central banker", 'sudden stop'],
-     'On **sudden stop** a crane stops mid-swing (the hook keeps swinging, then settles). One lit window of the hall grows toward us and becomes a **framed window** (the vignette frame): a drawn press stage, flags, a lectern, `FEDERAL RESERVE · OCT 29, 2025`.',
+shot('3.03', 'EXPL>SCENE', 'A year before all this', ["central banker", 'sudden drop'],
+     'On **sudden drop** a crane stops mid-swing (the hook keeps swinging, then settles). One lit window of the hall grows toward us and becomes a **framed window** (the vignette frame): a drawn press stage, flags, a lectern, `FEDERAL RESERVE · OCT 29, 2025`.',
      '① crane stops ② the window grows', 'transformation · window rect → clip rect · centre · forward')
 shot('3.04', 'CLIP', 'clip:C1', [],
-     '**[CLIP C1]** Powell, 13.2 s, inside the framed window (≥ 75 % frame width, gold rim, night around it, bubble film faint at the edges). Lower third (`clipLabel`): `JEROME POWELL · FED CHAIR · 2025 · ORIGINAL FOOTAGE`. Fallback without footage: quote card with the exact transcript (`clips.json`).',
+     '**[CLIP C1]** Powell, 13.2 s, inside the framed window (≥ 75 % frame width, gold rim, night around it, bubble film faint at the edges). `clipWindow(ctx, t, T, "C1", rect, { from })` plays the real footage (`clips/C1.mp4`, press conference Oct 29, 2025); its lower third reads `JEROME POWELL · FED CHAIR · OCT 29, 2025 · ORIGINAL FOOTAGE`. Fallback without frames: quote card with the official Fed wording, cue by cue.',
      '① slow push on the window', 'plan sequence')
 shot('3.05', 'EXPL', 'He also said', ['unlike the dot-coms', 'real profits'],
      'The window shrinks back into the hall. Two columns rise from the ground: `DOT-COM: IDEAS` (hollow outline) on **unlike the dot-coms**, `TODAY: PROFITS` (filled gold) on **real profits** · `POWELL, OCT 29, 2025`.',
@@ -126,14 +126,14 @@ shot('3.06', 'EXPL', 'But so far', ['customers pay', 'fraction'],
 shot('3.07', 'EXPL', 'So more and more', ['borrowed money'],
      'Paper slips `IOU` slide in under the left pan one after another; the stack grows on **borrowed money**.',
      '① IOUs stack', 'transformation · the IOU stack rolls up into a coin · centre')
-shot('3.08', 'EXPL', 'Of all the American', ['rated safe', 'two cents', 'ten'],
-     'A large **coin of 100 cells** (10 × 10 inside the circle) = `US INVESTMENT-GRADE COMPANY BONDS`. On **two cents** 2 cells turn cool (`2023: 2 %`), on **ten** 10 cells (`2026: 10 %`) · `KANSAS CITY FED`.',
+shot('3.08', 'EXPL', 'Three years ago', ['good credit ratings', 'two cents', 'took ten'],
+     'A large **coin of 100 cells** (10 × 10 inside the circle) = every new bond dollar: `NEW INVESTMENT-GRADE BONDS`. On **two cents** 2 cells turn cool (`2023: 2 %`), on **took ten** 10 cells (`2026 SO FAR: 10 %`) · `KANSAS CITY FED`.',
      '① 2 cells ② 10 cells', 'plan sequence')
 shot('3.09', 'EXPL', 'And debt turns', ['slowdown', 'either way'],
      'The coin slides aside; the cranes slow on **slowdown**, but a **payment calendar** beside them keeps flipping in the same beat: `DUE · DUE · DUE` on **either way**.',
      '① cranes slow ② calendar flips', 'move · pull back out through the bubble skin · back')
 shot('3.10', 'EXPL', 'In China', ['Reuters', 'already burst', 'forty percent'],
-     'Outside again (the route map faint below): beside our bubble a smaller one `CHINA · STAR 50` floats in; it **pops** on **already burst** (droplets fall); a red line under it falls on **forty percent**: `≈ −40 % IN UNDER 4 MONTHS` · `REUTERS, OCT 27, 2026`.',
+     'Outside again (the route map faint below): beside our bubble a smaller one `CHINA · STAR 50 · AI + CHIP STOCKS` floats in; it **pops** on **already burst** (droplets fall); a red line under it falls on **forty percent**: `≈ −40 % IN UNDER 4 MONTHS` · `REUTERS, OCT 27, 2026`.',
      '① the small bubble pops ② the red line', 'plan sequence')
 shot('3.11', 'EXPL', 'If it pops here', ['pops here', 'costs nothing'],
      'Our bubble trembles on **pops here**. On **costs nothing** the HUD umbrella (top left) grows into frame centre: gore 1 blinks with a small `$0`; the gore hums like a speaker membrane.',
@@ -191,6 +191,12 @@ shot('5.05', 'EXPL', 'And the market had', ['best day', 'financial crisis'],
      '① the bar', 'plan sequence')
 shot('5.06', 'SCENE', 'This time', ["don't know yet"],
      'The window folds back into the sign; the sign passes you; mist behind it.', '① sign passes', 'plan sequence')
+shot('5.065', 'EXPL>SCENE', 'The week before the sell-off', ['new chair', 'Kevin Warsh', 'choosier'],
+     'Ahead in the mist a small lit rect hangs over the road (a window of light); on **new chair** it grows toward us into a framed window: a drawn press stage, `FEDERAL RESERVE · OCT 28, 2026`. On **choosier** a row of five IOU slips on the lectern: two are pushed aside.',
+     '① the window grows ② slips', 'transformation · window rect → clip rect · centre · forward')
+shot('5.066', 'CLIP', 'clip:C1b', [],
+     '**[CLIP C1b]** Warsh, 12.4 s, inside the framed window (≥ 75 % width, gold rim, mist around it). `clipWindow(…, "C1b", …)` plays `clips/C1b.mp4`; lower third `KEVIN WARSH · FED CHAIR · OCT 28, 2026 · ORIGINAL FOOTAGE`; fallback quote card with the transcript. Out: the window shrinks back into the mist and is the next stretch of road.',
+     '① slow push', 'plan sequence')
 shot('5.07', 'SCENE', 'So we keep walking', ['keep walking'],
      'You walk on; gore 1 in the HUD glows once.', '① you walk', 'plan sequence')
 
@@ -392,7 +398,7 @@ shot('12.04', 'EXPL>SCENE', 'Demis Hassabis', ['Google DeepMind', 'bursts'],
      'One of the hall\'s lit windows grows into a framed window: a drawn interview studio, `DEC 16, 2025`.',
      '① the window grows', 'transformation · window rect → clip rect · centre · forward')
 shot('12.05', 'CLIP', 'clip:C3', [],
-     '**[CLIP C3]** Hassabis, 9.15 s, in the framed window (≥ 75 % width), big burned-in subtitles (spoken unevenly). Lower third: `DEMIS HASSABIS · CEO, GOOGLE DEEPMIND · 2025 · ORIGINAL FOOTAGE`. Fallback: quote card with the exact transcript.',
+     '**[CLIP C3]** Hassabis, 9.15 s, in the framed window (≥ 75 % width), big burned-in subtitles (spoken unevenly). `clipWindow(…, "C3", …)`; lower third `DEMIS HASSABIS · GOOGLE DEEPMIND · DEC 16, 2025 · ORIGINAL FOOTAGE`. Fallback: quote card with the exact transcript.',
      '① slow push', 'plan sequence')
 shot('12.06', 'EXPL', 'He builds this technology', ['weigh his words', 'went that way'],
      'The window shrinks; the five start points of 9.08 return and grow into large circles on **went that way**.', '① circles grow', 'plan sequence')

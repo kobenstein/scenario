@@ -1,18 +1,18 @@
-# Film 19 · "How to Survive the AI Crash" · builder brief (DRAFT, 3 builders in parallel, one checkout) · as of 2026-11-06
+# Film 19 · "How to Survive the AI Crash" · builder brief (FINAL, 3 builders in parallel, one checkout) · as of 2026-11-07 Phase 2
 
-**Status: draft (Phase 1).** Builders start only after the coordinator's go (another film is using the build slot) and after the lead has built the kit (`lib/f19_kit.mjs`, `lib/f19_props.mjs`, `lib/f19_seams.mjs`) and c01–c02. Release **Sat 7 Nov 2026, 17:00 Vienna**: the player at ≈ 08:00, Jakob's comments by 12:00. Budget per builder: Opus **high**, one pass + three review rounds, no max.
+**Status: final.** The kit (`lib/f19_kit.mjs`, `lib/f19_props.mjs`, `lib/f19_seams.mjs`) is built and committed; the real VO timing is in place. Start now. Release **today, Sat 7 Nov 2026, 16:00 UTC**; the upload master must be finished by ≈ **13:00 UTC**, so: every chunk delivered (video + contact sheet + numbers) by **≈ 10:30 UTC**, fixes until 12:00. Budget per builder: Opus **high**, one pass + three review rounds, no max. Look at the lead's `bild/c01_kontakt.jpg` / `c02_kontakt.jpg` as soon as they exist (they follow within the hour); do not wait for them.
 
-The picture lead builds **c01–c02** (hook + the clock, 0 → ≈ 64 s) as the quality reference and holds the kit, the shot list and the seams. The rest is built by **three builders at the same time: B1, B2 and B3**, each ≈ 3 minutes. Everything anchors on words, so the real VO (`film-ai-crash/audio/timing.json`, written by the audio agent) moves your picture with it; until it exists the engine uses `data/provisional_timing.json`.
+The picture lead builds **c01–c02** (hook + the clock, 0 → ≈ 64 s) as the quality reference and holds the kit, the shot list and the seams. The rest is built by **three builders at the same time: B1, B2 and B3**, each ≈ 3 minutes. Everything anchors on words in the real VO (`film-ai-crash/audio/timing.json`, 610.1 s, audio commit 64c47e9); if the audio agent re-mixes, your picture moves with it.
 
 ## 0 · Mandatory before the first line of code
 1. **Load the four skills** (Skill tool) and follow them: `anthropic-skills:scenario-motion`, `anthropic-skills:world-class-motion-design`, `anthropic-skills:fluid-motion-design`, `anthropic-skills:motion-director-gates`. Outdated there: "Hyperframes"/three.js. We draw with our own engine in Canvas 2D (2.5D cards in front of `cam3`).
-2. **Look first** (style, in this order): thumbnail A `/mnt/project-files/scenario/film-ai-crash/thumbnails/thumbnail-A.jpg` (the film opens with it: you under the golden umbrella, the red line shattering on it) · the channel style reference `/mnt/project-files/scenario/film-04-v2/stills/stil-referenz/f4_8m27_feuerkreis.jpg` (one warm light in a wide night) · the Film 11 thumbnails `/mnt/project-files/scenario/thumbnails/film-11/`. Flat grain editorial night illustration, ONE warm light shape as hero, a tiny yellow figure, few colours, much dark space.
+2. **Look first** (style, in this order): thumbnail A `/mnt/project-files/scenario/film-ai-crash/thumbnails/thumbnail-A.png` (night blue; the film opens with it: you under the golden umbrella, the red zigzag arrow shattering on it) · the channel style reference `/mnt/project-files/scenario/film-04-v2/stills/stil-referenz/f4_8m27_feuerkreis.jpg` (one warm light in a wide night) · the Film 11 thumbnails `/mnt/project-files/scenario/thumbnails/film-11/`. Flat grain editorial night illustration, ONE warm light shape as hero, a tiny yellow figure, few colours, much dark space.
 3. **Read**, in this order:
    1. `/mnt/project-files/scenario/stil/STIL-editorial-nacht.md` (binding)
    2. `docs/MOTION.md` (anchors vs explainer plane, the umbrella and the counter, palette + red accent, calm rules, carriers, kit)
    3. `docs/shots.md` (your shots with phrase anchors, layers, carriers; binding; §3 world changes, §4 the only numbers and the exact on-screen text)
-   4. `docs/EDITORIAL-KIT.md` (2.5D stage, API) and the headers of `lib/f19_kit.mjs`, `lib/f19_props.mjs`, `lib/f18_kit.mjs`
-   5. `/mnt/project-files/scenario/film-ai-crash/vo-v4.txt` (or `vo-v3.txt` while v4 is missing) and `text-v3.md` (PICTURE notes per sentence)
+   4. `docs/EDITORIAL-KIT.md` (2.5D stage, API) and the headers of `lib/f19_kit.mjs` (the API list), `lib/f19_props.mjs`, `lib/f19_seams.mjs`, `lib/f18_kit.mjs`; look at the kit stills `bild/kit_sheet.jpg`
+   5. `/mnt/project-files/scenario/film-ai-crash/vo-v4.txt` (final) and `text-v3.md` (PICTURE notes per sentence)
    6. `/mnt/project-files/scenario/film-ai-crash/faktencheck-v3.md` + `faktenzettel.md` (only these facts)
 4. **Look at** the reference: `/mnt/project-files/scenario/film-ai-crash/bild/c01_kontakt.jpg` and the code `scenes/sc01.mjs`, `scenes/sc02.mjs`. They are the pattern and the quality bar:
    - shots joined by carriers (`shots.md` last column): an object of shot A becomes or carries shot B, never a dissolve;
@@ -22,15 +22,15 @@ The picture lead builds **c01–c02** (hook + the clock, 0 → ≈ 64 s) as the 
 
 `/mnt/project-files` is a network mount: exact paths only, never search the whole folder; only small jpg contact sheets go there. Renders stay in your own scratchpad.
 
-## 1 · Split (provisional times; in code anchor only on words)
-| Builder | Chunks | Time (s, provisional) | Dur | Content |
+## 1 · Split (real times; in code anchor only on words)
+| Builder | Chunks | Time (s) | Dur | Content |
 |---|---|---|---|---|
-| **Lead** | c01, c02 | 0–63.7 | 64 s | Thumbnail opening (umbrella under the red line), Nov 5 −$2 trillion, CRASH?, not a tip / timing / luck, the five gores, the milestone; the counter snaps to 030, the record high, ★ the route map with four named exits, the bubble swells |
-| **B1** | c03, c04, c05, c06 | 63.7–252.8 | 189 s | ★ Inside the bubble: data centers, spending stacks, Powell clip C1, two columns, the scale, IOUs, the 100-cell coin (2 → 10), DUE calendar, China pops, `$0`; your table day 31, red screens, DO SOMETHING, ★ 100 calm points, Fidelity tower, three bars, pause → gore 1, phone face down; road: exit 1 the tariff crash, ★ its window; the red line into the town, your mailbox, fund dots, ★ globe 1/6, magnifier → gore 2 |
-| **B2** | c07, c08, c09, c10 | 252.8–422.0 | 169 s | Payslip, venture money halves, the glass door (hiring paused), envelope → gore 3, $400, ten figures, rent; route map: exits 2 + 3 with windows, ★ the 2009 memory; exit 4 the dot-com bubble, two bubbles, www shops, the long line, 2001 office, five start points, price tag ÷10 → gore 4, ★ time-morph to your desk, many roads; ★ the nets under the road, 1933 bank, first net, the cent, your bank app |
-| **B3** | c11, c12 + end screen | 422.0–631.3 | 209 s | Black Monday, the brake lever, March 2020 (four pulls), 15 minutes, Nov 5 no halt, stress tests, ★ three nets in morning light, the hole (DATA CENTER DEBT), Hyperion, the 80/20 box, the nets fall short, light cone, shake table, the fourth net, gore 5, the hands, your message; DAY 1,000, you turn, ★ morning (bubble gone, hall stands), Hassabis clip C3, new price, the street of windows, the harvest, roads join, your table, DAY 032, the phone turned over, end screen (≤ 15 s) |
+| **Lead** | c01, c02 | 0–58.58 | 59 s | Thumbnail opening (umbrella under the red arrow), Nov 5 −$2 trillion, CRASH?, not a tip / timing / luck, the five gores, the milestone; the counter snaps to 030, the record high, ★ the route map with four named exits, the bubble swells |
+| **B1** | c03, c04, c05, c06 | 58.58–257.61 | 199 s | ★ Inside the bubble: data centers, spending stacks, **Powell clip C1 (real footage)**, two columns, the scale, IOUs, the 100-cell coin (2 → 10, `NEW INVESTMENT-GRADE BONDS`), DUE calendar, China (`AI + CHIP STOCKS`) pops, `$0`; your table day 31, red screens, DO SOMETHING, ★ 100 calm points, Fidelity tower, three bars, pause → gore 1, phone face down; road: exit 1 the tariff crash, ★ its window, **5.065 the Fed press stage window → Warsh clip C1b (5.066)**; the red line into the town, your mailbox, fund dots, ★ globe 1/6, magnifier → gore 2 |
+| **B2** | c07, c08, c09, c10 | 257.61–418.70 | 161 s | Payslip, venture money halves, the glass door (hiring paused), envelope → gore 3, $400, ten figures, rent; route map: exits 2 + 3 with windows, ★ the 2009 memory; exit 4 the dot-com bubble, two bubbles, www shops, the long line, 2001 office, five start points, price tag ÷10 → gore 4, ★ time-morph to your desk, many roads; ★ the nets under the road, 1933 bank, first net, the cent, your bank app |
+| **B3** | c11, c12 + end screen | 418.70–610.11 | 191 s | Black Monday, the brake lever, March 2020 (four pulls), 15 minutes, Nov 5 no halt, stress tests, ★ three nets in morning light, the hole (DATA CENTER DEBT), Hyperion, the 80/20 box, the nets fall short, light cone, shake table, the fourth net, gore 5, the hands, your message; DAY 1,000, you turn, ★ morning (bubble gone, hall stands), Hassabis clip C3, new price, the street of windows, the harvest, roads join, your table, DAY 032, the phone turned over, end screen (VO ends 594.2 s; the mix runs to 610.1 s) |
 
-B3 includes 9 s of clip and the 15 s end screen, so its drawn time is ≈ B1's. Chunk boundaries are the phrases in `film.mjs` `CHUNKS`: c02|c03 `Mostly, data centers` · c03|c04 `Day thirty-one` · c04|c05 `Day forty-eight` · c05|c06 `But what if the fall` · c06|c07 `And if the fall keeps going` · c07|c08 `Day two hundred eighty-two` · c08|c09 `Day nine hundred twenty-nine` · c09|c10 `On a road this long` · c10|c11 `On Black Monday` · c11|c12 `Day one thousand`.
+B1 includes 25.6 s of clips (C1, C1b), B3 9 s of clip (C3) and the ≈ 16 s end screen. Chunk boundaries are the phrases in `film.mjs` `CHUNKS`: c02|c03 `Mostly, data centers` · c03|c04 `Day thirty-one` · c04|c05 `Day forty-eight` · c05|c06 `But what if the fall` · c06|c07 `And if the fall keeps going` · c07|c08 `Day two hundred eighty-two` · c08|c09 `Day nine hundred twenty-nine` · c09|c10 `On a road this long` · c10|c11 `On Black Monday` · c11|c12 `Day one thousand`.
 
 **c01–c02 belong to the lead.** Do not touch `scenes/sc01.mjs`, `scenes/sc02.mjs`.
 
@@ -42,9 +42,9 @@ The three group seams sit on a **shared picture**, a *plate* from `lib/f19_seams
 
 | Seam | T0 (anchor) | Plate | Hand-over | Take-over |
 |---|---|---|---|---|
-| **Lead → B1** | `T.G('Mostly, data centers')` (≈ 63.7) | `plateBubble`: **inside the bubble skin**: the frame is the curved film (COOL bands, gold sheen, one red thread), the hall's cool window rows faint behind it | done (sc02): push into the skin, `skinFlood` | 3.01: pull back off the skin; the film stays at the frame edges, the hall stands |
-| **B1 → B2** | `T.G('And if the fall keeps going')` (≈ 252.8) | `plateLine`: **the payslip, close** (paper card of light at (960, 520), w 900, tilt −3°), the red line crossing it left → right, mailbox light from below | 6.08: the red line moves from the mailbox into the payslip; push in | 7.01: the net-pay line dims on **paychecks**; the payslip folds into the money stack (7.02) |
-| **B2 → B3** | `T.G('On Black Monday')` (≈ 422.0) | `plateNet`: **under the road**, the 1933 net close along the bottom, the `BLACK MONDAY · 1987` pillar centred ahead, cold light | 10.06: from the banking app pull back under the road to the 1987 pillar | 11.01: along the pillar into the trading-floor window |
+| **Lead → B1** | `T.G('Mostly, data centers')` (58.58) | `plateBubble`: **inside the bubble skin**: the frame is the curved film (COOL bands, gold sheen, one red thread), the hall's cool window rows faint behind it | done (sc02): push into the skin, `skinFlood` | 3.01: pull back off the skin; the film stays at the frame edges, the hall (`hallRows`, `HALL`) stands |
+| **B1 → B2** | `T.G('And if the fall keeps going')` (257.61) | `plateLine`: **the payslip, close** (paper card of light at (960, 520), w 900, tilt −3°), the red line crossing it left → right, mailbox light from below | 6.08: the red line moves from the mailbox into the payslip; push in | 7.01: the net-pay line dims on **paychecks**; the payslip folds into the money stack (7.02) |
+| **B2 → B3** | `T.G('On Black Monday')` (418.70) | `plateNet`: **under the road**, the 1933 net close along the bottom, the `BLACK MONDAY · 1987` pillar centred ahead, cold light | 10.06: from the banking app pull back under the road to the 1987 pillar | 11.01: along the pillar into the trading-floor window |
 
 Seams inside your group (chunk to chunk) you build yourself on the same principle: the same camera and the same carrier state in the last frame of cN and the first of cN+1 (simplest: a shared drawing function in your own `lib/f19_bN_*.mjs`). Carriers are in `MOTION.md` §6 and `shots.md`.
 
@@ -57,10 +57,10 @@ Seams inside your group (chunk to chunk) you build yourself on the same principl
 - **Protections fly into the umbrella** with `flyToGore` on the sentence's key word (`shots.md` §1 lists the five moments).
 - **You** (tiny, faceless, yellow raincoat, `E.du`) is the viewer: small gestures (look down, reach, turn the phone, walk) on the words that concern you; walk with the real gait (`walk: t * 5.5`). Other people indigo (`E.person`), alive (weight shifts, sips, typing). No faces.
 - **Names, not years:** `THE FINANCIAL CRISIS`, `THE DOT-COM BUBBLE`, `THE TARIFF CRASH`, `THE RATE SHOCK`, `THE COVID CRASH`, `BLACK MONDAY`; the year small after the name. No first person on screen (`TO: YOUR REPRESENTATIVE`). No company logos: names as type only.
-- **Red** only from `F.RED` and only for losses (lines, red numbers, the button, the ticker); never as a light, never the brightest thing; none from 11.08 on. The ground is night blue outside the hook (`crisis` is the lead's).
+- **Red** only from `F.RED` and only for losses (lines, red numbers, the button, the ticker); never as a light, never the brightest thing; none from 11.08 on. **The ground is night blue everywhere** (Jakob: no crisis-red ground; `nightGround` / `road` / `underRoad`).
 - **No doom:** no explosions, no ruins, no skulls; the shards fall slowly and calmly; from 11.08 the light warms; c12 is morning.
-- **Clips** with `clipWindow` only (it falls back to a quote card while the MP4s are missing).
-- **End screen ≤ 15 s** (B3, 12.17): calm picture with free areas left (x 90–780, y 250–700) and right (x 1140–1830, y 250–700) plus subscribe centre (x 810–1110, y 330–600); picture and music keep running.
+- **Clips** with `clipWindow` only: all three play real footage (frames already extracted in `clips/frames/`; if missing run `bash tools/clip_frames19.sh`); it falls back to a quote card by itself. Open the window `from` the lit rect of your picture (`o.from`), push slowly, close back into it.
+- **End screen** (B3, 12.17: VO end 594.2 s → mix end 610.1 s): calm picture with free areas left (x 90–780, y 250–700) and right (x 1140–1830, y 250–700) plus subscribe centre (x 810–1110, y 330–600); picture and music keep running.
 - **Subtitle zone:** nothing important below y 860.
 - **Timing:** anchor on words from the timing file, never hard-coded seconds. If `vo-v4.txt` changes a phrase, the lead updates `shots19.py`; you update the phrase in your scene.
 
@@ -71,11 +71,20 @@ Seams inside your group (chunk to chunk) you build yourself on the same principl
 - **A scene file:** `export default async (T, R) => [entries]` with `entry = { t, draw(ctx, t), print: F.PRINT19 }`; `R = { a, b }` is the chunk range. A chunk may have several entries, but every entry boundary must be a carried transition with identical frames on both sides (the engine only does hard cuts between identical frames; `film.mjs` turns anything else into a cut and warns).
 - **No commit, no push.** All three work in the same checkout; the lead or the coordinator commits. No `git checkout`, `git stash`, `git reset`.
 
-## 5 · Kit state (filled in by the lead after building the kit; see `MOTION.md` §8 for the plan)
-- `f19_kit`: `PRINT19`, `RED`, `GROUND`, `crisis`, `umbrella`, `hudUmbrella`, `goreIcon`, `flyToGore`, `flap`, `hudDay`, `dayAt`, `road`, `exitSign`, `goalSign`, `town`, `underRoad`, `pillar`, `netSpan`, `routeMap`, `SPX`, `lossLine`, `shards`, `vWindow`, `clipWindow`, `bubble`, `skinFlood`, `dots100`, `coin100`.
-- `f19_props`: `phoneHand`, `table`, `stopwatch`, `dice`, `container`, `rateDial`, `bankFacade`, `cashRegister`, `scale`, `iouSlip`, `calendar`, `payslip`, `mailbox`, `envelope`, `magnifier`, `lever`, `shakeTable`, `fundTower`, `figureIcon`.
-- c01–c02's set (reuse it where the same places return): the road plain, your position, the milestone, the route-map layout (`ROUTE` constants), the bubble's position over today's dot.
-- **Finish:** `PRINT19 = { grain: 14, floor: 4, vig: .5 }`.
+## 5 · Kit state (built; the API list is the header of `lib/f19_kit.mjs`)
+Import as `import * as E from '../lib/f10_editorial.mjs'; import * as F from '../lib/f19_kit.mjs'; import * as PR from '../lib/f19_props.mjs'; import { … } from '../lib/f19_seams.mjs';` (plus `f18_kit`, `f16_kit`, `f13_kit` as needed).
+- **Ground + finish:** `F.PRINT19` on every entry (`print: F.PRINT19`); `F.nightGround(ctx, t, { hy, hills, stars, warm })` for 2D cards; `F.RED`, `F.COOL`; `F.titleText` (thumbnail caps, only if shots.md asks for big type).
+- **HUDs (every frame of your chunks; hide only inside a clip window):** `F.hudDay(ctx, t, T)` (top right; value from `F.dayAt(t, T)`: one shared phrase table for the whole film, so the day matches across chunks) and `F.hudUmbrella(ctx, t, T)` (top left; gores from `F.goresAt(t, T)`). Draw them last, in screen space, before the finish.
+- **Protections:** `F.goreFlight(T, i)` gives the flight window on the key word (`pause` · `know what you own` · `buffer` · `cheap` · `alone`); draw your object or `F.goreIcon(ctx, i, x, y, s)` at `F.flyToGore(t, T, i, [x0, y0])` ({ x, y, s, landed }); the HUD gore lights by itself after landing; on-screen line `F.GORE_TEXT[i]`. Big umbrella: `F.umbrella(ctx, t, x, y, r, { open, lit, outline, wide5, flare, glow })`.
+- **Clock:** `F.flap(ctx, t, x, y, h, { value, digits, label })` for the counter in frame (when it grows out of the HUD, start at `F.HUD_DAY` = right edge x 1858, y 76, h 50, `align: 'right'`).
+- **Road:** `F.roadSetCam(z)` + `F.road(ctx, t, rc, { mist, warm, lit })`; `F.rStand(ctx, rc, X, Z, fn)` for anything standing on it (you: `E.du` at `F.ROADSET.you`, X 90, Z = rc.z + 1500, h 230; walking: rc.z grows ≈ 260/s with `walk: t * 5.5`); `F.exitSign(ctx, t, rc, F.ROADSET.signX, Z, { day, name, year, glyph, lit })` returns `{ panel }` (screen rect: pass it as `from` to `F.vWindow` to open the exit window); `F.goalSign`; under the road: `F.underRoad`, `F.pillar`, `F.netSpan` (`catch`, `half`, `lit`).
+- **Route map:** `F.routeMap(ctx, t, { u, stops, names, lit, dot, run, end, dotLabel })`, layout `F.ROUTE` (x 210 → 1710 = DAY 0 → 1,000, y 560), `F.EXITS`, glyphs `F.glyph(ctx, 'container' | 'dial' | 'bank' | 'www' | 'umbrella' | 'chip' | 'house', x, y, s)`.
+- **Losses:** `F.SPX` (record, low, days, % per exit + the COVID crash), `F.lossLine(ctx, t, rect, key, u, { gold, back, scale })`, `F.redArrow`, `F.shards` (deterministic, slow).
+- **Windows / clips:** `F.vWindow(ctx, t, rect, open, draw, { from, mat })`, `F.clipWindow(ctx, t, T, id, rect = F.CLIP_RECT, { from, mat })`.
+- **Bubble:** `F.bubble(ctx, t, x, y, r, { tremble, pop })` (draw the inside first), `F.skinFlood(ctx, t, a)`; the hall seen through the film: `hallRows` / `HALL` from `f19_seams`.
+- **Points:** `F.dots100(ctx, t, { x, y, cols, gap, r, lit(i), a(i), pos(i) })`; the 100-cell coin: f18 `coin(…, { pie })` or `dots100` clipped to a circle.
+- **Props (`f19_props`):** `paperCard`, `payslip` (`net`, `red: [u0, u1]`), `iouSlip`, `statement`, `phone` (`face` 1/0, `screen(ctx, r)`, `buzz`), `hand` (yellow sleeve), `table` (+ lamp: the warm hero of your table; returns the lamp point), `envelope`, `magnifier`, `mailbox`, `calendarLeaf`, `priceTagCard`, `button` (DO SOMETHING). Not in the kit (draw them in your own `lib/f19_bN_*.mjs`): stopwatch, dice, container/rate dial/bank as big objects (use `glyph` scaled up or your own), cash register, scale, lever, shake table, fund tower, trading floor.
+- **Seam plates:** `plateBubble`, `plateLine`, `plateNet`, `seamWindow`, `SEAM_HALF` (+ `LINE_PLATE`, `NET_PLATE`, `BUBBLE_PLATE` geometry to steer onto). Stills: `node tools/seam_plates19.mjs <dir>` (also in `bild/kit_sheet.jpg`).
 - **Memory:** no canvas, no pattern per frame. Build cached things once at load. `Path2D` comes from `@napi-rs/canvas` (import it).
 
 ## 6 · Rendering (4 cores, 15 GB for all three)
@@ -84,13 +93,13 @@ Seams inside your group (chunk to chunk) you build yourself on the same principl
 Review stills (small):
 ```
 cd /home/user/scenario/films/19-ai-crash
-SECS=c03 node render.mjs --snap 64,65.5,67 --dir $SP/f19/b1/snap --scale .4
+SECS=c03 node render.mjs --snap 59,60.5,62 --dir $SP/f19/b1/snap --scale .4
 ```
 Then build a contact sheet and **look at it**.
 
 Video (full quality): pieces ≤ 20 s, always with `--expose-gc`; never more than one render per builder at a time.
 ```
-SECS=c03 node --expose-gc render.mjs --out $SP/f19/b1/c03_a.mp4 --from 63.7 --to 83
+SECS=c03 node --expose-gc render.mjs --out $SP/f19/b1/c03_a.mp4 --from 58.58 --to 78
 ```
 Then join with `ffmpeg -f concat -c copy` into `$SP/f19/bN/cNN.mp4`.
 

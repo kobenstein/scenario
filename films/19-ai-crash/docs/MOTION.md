@@ -1,6 +1,6 @@
 # Film 19 · "How to Survive the AI Crash" · motion rules (lead brief for all builders)
 
-As of 2026-11-06 (picture lead, v1, Phase 1: concept + shot list, nothing built yet). The Good Takeoff, English, 1920×1080, 30 fps, ≈ 10:30 incl. the 15 s end screen. Release **Sat 7 Nov 2026, 17:00 Vienna**. Script `film-ai-crash/vo-v3.txt` (approved; the fact check writes `vo-v4.txt` with single-word changes), PICTURE notes in `text-v3.md`, clips in `clips.json`. Timing: `film-ai-crash/audio/timing.json` once the audio agent writes it, until then `data/provisional_timing.json` (VO ≈ 616 s + 15 s). Binding shot list: `shots.md` (source `tools/shots19.py`). Style: `/mnt/project-files/scenario/stil/STIL-editorial-nacht.md` (overrides everything except the palette accent in §4). Facts: `faktenzettel.md` + `faktencheck-v3.md` (only these numbers). **Not financial advice; no first-person sentences anywhere, also not on screen.**
+As of 2026-11-07 (picture lead, v2, Phase 2: kit built, real timing). The Good Takeoff, English, 1920×1080, 30 fps, ≈ 10:25 incl. the 15 s end screen. Release **Sat 7 Nov 2026, 16:00 UTC**. Script `film-ai-crash/vo-v4.txt` (final), PICTURE notes in `text-v3.md`, clips in `audio/clips.json`. Timing: the real VO `film-ai-crash/audio/timing.json` (610.1 s). Binding shot list: `shots.md` (source `tools/shots19.py`). Style: `/mnt/project-files/scenario/stil/STIL-editorial-nacht.md` (overrides everything except the red accent in §4). Facts: `faktenzettel.md` + `faktencheck-v3.md` (only these numbers). **Not financial advice; no first-person sentences anywhere, also not on screen.**
 
 **Guiding idea:** *Nobody knows if this is the crash. But every earlier crash on our clock has a name and an exit, and on every stretch of the way something different protects you: five things, gathered one by one under your umbrella. The last one is a net you can't knot alone.*
 
@@ -71,13 +71,13 @@ Three kinds of pictures alternate, always joined by an object:
 ## 4 · Palette and the accent decision
 **Base = the channel palette** (`P` in `lib/f10_editorial.mjs`, exactly from the style document): night `#080b27 #0a1334 #0e112c`, indigo `#0a184a #0c1f5c #151f4b`, blue `#193f8c #33497a #394773`, gold core `#fefde2 #fef4bf`, halo `#ead295 #dec688 #e7d19a`, gold shadow `#9e7d54 #a28f7b`, raincoat `#f2b632`, cream text `#fefcde`; machine cool (`COOL` from Film 18) `#eef3ff #b4c8ee #6a8cd2 #2b4a96`.
 
-**Accent: crisis red (decided for this film, waiting for Jakob's OK):**
+**Accent: red (Jakob, 7 Nov: red only as an accent, NO crisis-red ground):**
 - `RED = { hot: '#ff6a4d', line: '#e5432f', deep: '#8e1f22', ink: '#3a0b12' }`. Red is an **accent, never a light**: the falling line, its shards, red numbers on screens, the DO SOMETHING button, the red ticker. Never the brightest thing in a frame except the impact flash on the umbrella (≤ 3 frames); ≤ ~15 % of the frame area.
-- **Crisis ground only in the hook:** `GROUND.oxblood = { night0: '#14040a', night1: '#2a0a10', ind0: '#3d0d16' }` replaces the night gradient in 1.01–1.06 so frame 0 matches thumbnail A; `crisis(t)` (1 → 0) cools it to the channel night during 1.07 ("So which ones…", the road appears). From then on the ground is always night blue.
-- **One switch:** `F19_GROUND=night` (env, read once in `f19_kit`) draws the hook on night blue as well (if Jakob does not confirm the red world); `RED` is one constant, so changing the accent is one edit. Builders never write red hex values themselves: always `F.RED.*`.
+- **Ground: night blue everywhere, the hook included (binding).** `GROUND = 'night'` in `f19_kit` (env `F19_GROUND`, default night; the old oxblood ground is kept only as a dormant switch and is not used). Frame 0 = the night-blue thumbnail A (`thumbnails/thumbnail-A.png`): you under the golden umbrella, the red zigzag arrow shattering on it, `WHAT PROTECTS YOU` left. Builders never write red hex values: always `F.RED.*`.
+- **Red stays one constant** (`RED`), so changing the accent is one edit.
 - **Red recedes through the film:** strong in c01–c04 (losses, panic), only in exit windows and the town line in c05–c09, a trace at 11.05 (Nov 5) and the TV in 9.13, **none** from 11.08 on. c12 warms toward dawn (`warm` on the road and sky).
 - **Meaning:** gold = protection and human value (umbrella, gores, exit bottoms, nets, the lamp) · cool blue-cream = the machine and its money (data centers, the bubble film, debt cells) · red = loss · yellow = only you. The bubble's film: COOL bands + a gold sheen + one thin red thread at the rim (still no new colours).
-- Grain subtle: `PRINT19 = { grain: 14, floor: 4, vig: .5 }` (as Film 18). Mean luma 40–60 (the hook on oxblood may sit at 35–45).
+- Grain subtle: `PRINT19 = { grain: 14, floor: 4, vig: .5 }` (as Film 18). Mean luma 40–60.
 
 ## 5 · Calm rules (measurable)
 - **World changes:** ≤ ~1 hard world change per minute (this plan 0.95/min, `shots.md` §3). Vignette windows and the explainer graphics are not world changes **only** if they open from and close into an object of the current picture.
@@ -120,7 +120,7 @@ Seam plates (`lib/f19_seams.mjs`, lead) are screen-space pictures both sides dra
 - `lib/kit.mjs`: timing `T.G`/`T.GE`/`T.clip`, `clipScreen`, `clipLabel`, `quoteCard`, `source`. `film.mjs`/`engine.mjs`/`render.mjs`, `tools/calm.py`, `smooth.py`, `seam.mjs`.
 
 **New for Film 19 (`lib/f19_kit.mjs` + `lib/f19_seams.mjs`, built by the lead before the builders start):**
-1. **Palette + ground:** `PRINT19`, `RED`, `GROUND`, `crisis(t, T)`, `nightGround(ctx, crisis)` (the `F19_GROUND` switch).
+1. **Palette + ground:** `PRINT19`, `RED`, `COOL`, `GROUND` (night), `nightGround(ctx, t, { hy, hills, stars, warm })`, `hills`, `titleText` (thumbnail caps).
 2. **Umbrella:** `umbrella(ctx, t, x, y, r, { open, lit[5], wide5, flare: [{x, t0}], glow, a })` (canopy of five visible gores, rib lines, shaft, your hand), `hudUmbrella(ctx, t, lit[])`, `goreIcon(ctx, i, …)` (phone face down / pause, magnifier, envelope, price tag, net), `flyToGore(t, t0, from, i)` (arc path → position + scale).
 3. **Clock:** `flap(ctx, t, x, y, h, { from, to, u, snap })` (split-flap digits, rattle + snap + settle), `hudDay(ctx, t, T)` and `dayAt(t, T)` (one shared table of the HUD value per phrase, so every chunk shows the same day).
 4. **Road world:** `road(ctx, c, t, { mist, warm, lit })` (night plain + road into depth + verge), `exitSign(ctx, c, t, X, Z, { name, day, year, glyph, open })` (returns the window rect), `goalSign`, `town(ctx, c, t, { … })` (houses, shop, bus stop, mailbox, glass door as standing cards), `underRoad(ctx, c, t, { nets, gap })` with `pillar` and `netSpan(ctx, t, p0, p1, { knot, sag, catch })`.
@@ -135,10 +135,9 @@ Seam plates (`lib/f19_seams.mjs`, lead) are screen-space pictures both sides dra
 **Memory:** never build a canvas/pattern/gradient cache per frame; build cached things once at load. Render with `node --expose-gc`, pieces ≤ 20 s. `Path2D` from `@napi-rs/canvas`.
 
 ## 9 · Clips
-- C1 Powell (3.04) and C3 Hassabis (12.05) play inside a `vWindow` that grew out of a lit rect of the picture before (a hall window). ≥ 75 % frame width, gold rim, night around it, a slow push (alive). Lower third left at y ≤ 860. Out: the window shrinks back into its rect.
-- The VO timing carries the clip slots (`T.clip('C1')`, `T.clip('C3')`); the audio agent writes them into `timing.json` as `{ id, kind: 'clip', start, end }` (the provisional timing already does).
-- Until the MP4s exist, `clipWindow` draws the **quote-card fallback** (exact transcript, `clips.json`), so the picture never waits for the download.
-- Only two clips (rule: 3–6). A third is the coordinator's call (option: C1b Warsh before 11.09); the plan has room for it as a window opening from the money streams in 11.10.
+- Three clips, all real footage now: **C1 Powell** (3.04, 70.96–84.16 s), **C1b Warsh** (5.066, 209.36–221.78 s), **C3 Hassabis** (12.05, 533.34–542.35 s). Each plays inside a `vWindow` that grew out of a lit rect of the picture before (a hall window, the framed window of the Fed press stage in 5.065, the morning window). ≥ 65 % frame width, gold rim, night around it, a slow push (alive). Lower third inside the window, above y 860. Out: the window shrinks back into its rect.
+- `clipWindow(ctx, t, T, id, rect, { from })` opens over 0.6 s before the slot (`T.clip(id)` from `timing.json`) and closes 0.6 s after it. Frames: `bash tools/clip_frames19.sh` (30 fps JPEGs of the used part, git-ignored `clips/frames/<id>/`; `film.prepare` loads them). Without frames it draws the **quote-card fallback** (official wording from `clips.json`, cue by cue), so the picture never waits.
+- If a clip file is replaced later, rerun `tools/clip_frames19.sh <id>`; no scene code changes.
 
 ## 10 · End screen (≤ 15 s after the VO end, 12.17)
 The road at first light running into depth, the nets faint under it, you tiny with your umbrella closed in hand, walking on; HUD `DAY 032`, its last flap trembling. **Free areas:** left x 90–780, y 250–700 (best video), right x 1140–1830, y 250–700 (latest upload), centre x 810–1110, y 330–600 (subscribe). **Never static:** slow pull back, your walk, mist, music runs on.

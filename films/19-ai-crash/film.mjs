@@ -13,6 +13,7 @@ import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
 import { finish as edFinish } from './lib/f10_editorial.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
+import { prepareClips19 } from './lib/f19_kit.mjs';
 
 export { ROOT };
 // chunk table (docs/shots.md §2); from = the first phrase of the chunk, looked up GLOBALLY in the film (T.G), so any VO segmentation works
@@ -80,6 +81,7 @@ export async function build({ timingFile = TIMING } = {}) {
   const finish = (ctx, t, o = {}) => edFinish(ctx, t, o);
   const film = new Film(shots, { finish, float: cameraFloat });
   film.T = T;
+  film.prepare = (t) => prepareClips19(T, t);   // clip frames for clipWindow (tools/clip_frames19.sh)
   film.ranges = RANGES;
   film.list = list;
   return film;
