@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import { loadImage } from '@napi-rs/canvas';
 import { W, H, C, rgba, clamp, lin, mix, sm, eout, eio, text, addGlow, glow, canvas } from '../engine.mjs';
 
-export const ROOT = (process.env.F18ROOT || '/mnt/project-files/scenario/film-kapitalismus/').replace(/\/?$/, '/'); // Film 18 data root: audio/timing.json (small, read only). Renders and frames go to the scratchpad, never here.
+export const ROOT = (process.env.F23ROOT || '/mnt/project-files/scenario/film-erster-tag/2037/').replace(/\/?$/, '/'); // Film 23 data root: audio/timing.json, clips/<K>/f00001.jpg (read only). Renders and frames go to the scratchpad, never here.
 const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 
 // ---------- timing ----------
@@ -43,12 +43,18 @@ export function timing(file) {
   //   T.G('birthday poem')            start of the 1st occurrence in the film      T.GE(…) its end
   //   T.G('What do you expect', 0, T.G('A letter'))   the 1st occurrence AFTER a time (use a unique phrase of the level as the fence)
   //   nth counts occurrences after that time. Prefer these over T.S(seg, …) everywhere in Film 16.
+  // Film 23: robust to how the TTS splits words ('Seven-thirty' = 'Seven' 'thirty' or one token 'Seven-thirty,'): the phrase and the
+  // words are compared as one normalized letter stream; the match must start at a word start and may end inside its last word (prefix).
+  const NW = TM.words.map((w) => norm(w.w));
   function gfind(phrase, nth = 0, after = -1) {
-    const ws = TM.words, q = String(phrase).split(/\s+/).map(norm).filter(Boolean);
+    const ws = TM.words, q = norm(String(phrase));
+    if (!q) throw new Error('empty phrase');
     let hit = 0;
-    for (let i = 0; i + q.length <= ws.length; i++) {
-      if (ws[i].s < after - 1e-3) continue;
-      if (q.every((p, j) => (j === q.length - 1 ? norm(ws[i + j].w).startsWith(p) : norm(ws[i + j].w) === p))) { if (hit++ === nth) return { s: ws[i].s, e: ws[i + q.length - 1].e, i }; }
+    for (let i = 0; i < ws.length; i++) {
+      if (ws[i].s < after - 1e-3 || !NW[i] || !q.startsWith(NW[i].slice(0, q.length))) continue;
+      let acc = '', j = i;
+      while (j < ws.length && acc.length < q.length) acc += NW[j++];
+      if (acc.startsWith(q) && (acc.length === q.length || acc.length - NW[j - 1].length < q.length)) { if (hit++ === nth) return { s: ws[i].s, e: ws[j - 1].e, i, j }; }
     }
     throw new Error(`phrase not found in the film: "${phrase}"${nth ? ` (#${nth})` : ''}${after > 0 ? ` after ${after.toFixed(2)} s` : ''}`);
   }
@@ -63,14 +69,14 @@ export function timing(file) {
   const linesCache = {}; const lines = (id) => linesCache[id] || (linesCache[id] = sentences(wordsOf(id)));
   const allLines = secs.flatMap((id) => lines(id));
   const T = {
-    duration: TM.duration, words: TM.words, sections: TM.sections, clips: Object.fromEntries(TM.clips.map((c) => [c.id, c])), secs,
+    duration: TM.duration, words: TM.words, sections: TM.sections, clips: Object.fromEntries(TM.clips.map((c) => [c.id, c])), secs, endscreen: TM.endscreen, chapters: TM.chapters,
     S: (seg, phrase, nth) => (phrase == null ? T.seg(seg).start : find(seg, phrase, nth).s),   // no phrase → section start
     E: (seg, phrase, nth) => (phrase == null ? T.seg(seg).end : find(seg, phrase, nth).e),     // no phrase → section end
     at: (seg, phrase, nth) => (phrase == null ? T.seg(seg).start : find(seg, phrase, nth).s),
     has: (seg, phrase, nth) => { try { find(seg, phrase, nth); return true; } catch { return false; } },
     seg: (id) => agg[id] || agg[canon(id)] || (() => { throw new Error('unknown section ' + id); })(),
     canon,
-    clip: (id) => TM.clips.find((c) => c.id === id),
+    clip: (id) => TM.clips.find((c) => c.id === id) || TM.clips.filter((c) => (c.kind || 'clip') === 'clip')[['K1', 'K3', 'K4'].indexOf(id)] || null,   // fallback: film order
     W: (seg, from, to) => { const a = from == null ? -1 : find(seg, from).s, b = to ? find(seg, to).e : 1e9; return wordsOf(seg).filter((w) => w.s >= a - 1e-3 && w.e <= b + 1e-3); },
     lines,
     line: (seg, phrase, nth) => { const { s } = find(seg, phrase, nth); return lines(seg).find((l) => s >= l.s - 1e-3 && s <= l.e + 1e-3); },
@@ -79,7 +85,7 @@ export function timing(file) {
     provisional: !!TM.provisional,
     G: (phrase, nth = 0, after = -1) => gfind(phrase, nth, after).s,
     GE: (phrase, nth = 0, after = -1) => gfind(phrase, nth, after).e,
-    GW: (from, to, after = -1) => { const a = gfind(from, 0, after), b = to ? gfind(to, 0, a.s) : a; return TM.words.slice(a.i, b.i + (to ? String(to).split(/\s+/).filter(Boolean).length : String(from).split(/\s+/).filter(Boolean).length)); },
+    GW: (from, to, after = -1) => { const a = gfind(from, 0, after), b = to ? gfind(to, 0, a.s) : a; return TM.words.slice(a.i, b.j); },
     gHas: (phrase, nth = 0, after = -1) => { try { gfind(phrase, nth, after); return true; } catch { return false; } },
     // the silent card slot of a [[QUOTE CARD]] whose text contains needle (only if the VO build left one), else null
     card: (needle) => { const n = norm(needle); const c = TM.clips.find((k) => k.kind === 'card' && norm(k.text || k.label || '').includes(n)); return c && c.end - c.start > .3 ? { start: c.start, end: c.end } : null; },

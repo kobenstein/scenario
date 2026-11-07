@@ -28,6 +28,7 @@ export const span = (t, a, b) => clamp((t - a) / (b - a));
 export const smooth = (x) => x * x * (3 - 2 * x);
 export const sineIO = (x) => -(Math.cos(Math.PI * clamp(x)) - 1) / 2;
 export const quartIO = (x) => (x = clamp(x), x < .5 ? 8 * x ** 4 : 1 - (-2 * x + 2) ** 4 / 2);
+export const trapIO = (x, a = .25) => { x = clamp(x); const v = 1 / (1 - a); return x < a ? .5 * v * x * x / a : x > 1 - a ? 1 - .5 * v * (1 - x) ** 2 / a : v * (x - a / 2); };
 export const expoOut = (x) => (x = clamp(x), x >= 1 ? 1 : 1 - 2 ** (-10 * x));
 export const expoIn = (x) => (x = clamp(x), x <= 0 ? 0 : 2 ** (10 * x - 10));
 export const drift = (t, a = 1, ph = 0) => a * (Math.sin(t * .37 + ph) * .6 + Math.sin(t * .91 + ph * 1.7) * .3 + Math.sin(t * 1.73 + ph * 2.3) * .1);
@@ -340,6 +341,7 @@ function figure(ctx, x, y, h, o, CC, isDu) {
   ctx.restore();
   return hands;
 }
+export { figure as figureRaw };   // Film 23: the raw skeleton (ctx, x, y, h, o, colours {base, lit, shade, deep, hem}, isDu) for the hoodie, kid and Dad
 export function du(ctx, x, y, h, o = {}) { return figure(ctx, x, y, h, { hood: true, ...o }, { ...COAT, hem: .2 }, true); }   // Film 13: hood up unless o.hood === false
 // everyone else: same skeleton in indigo (short jacket by default, o.long for a coat), rim light in blue (o.rim to change)
 export function person(ctx, x, y, h, o = {}) { return figure(ctx, x, y, h, o, { ...PERSON, hem: o.long ? .22 : .44 }, false); }
@@ -464,12 +466,13 @@ export function aim(Z, u, v, s = 1, sx = W / 2, sy = H / 2, f = F0) {
   return cam3({ x: (u - W / 2) * Z / F0 - (sx - W / 2) / k, y: (v - H / 2) * Z / F0 - (sy - H / 2) / k, z, f });
 }
 // camera keyframes: [[t, cam, ease]] ease: 's' sine (default) · 'q' quart in-out · 'i' expo in (into a light) · 'o' expo out (out of one)
+//   · 'l' (Film 23) trapezoid: even acceleration over the first and last quarter, a long even cruise: peak speed 1.33× the mean (sine 1.57×)
 // z is interpolated in log-distance to a reference card (Z ref) so fly-ins feel like constant speed through space.
 export function camAt(t, K, ref = F0) {
   if (t <= K[0][0]) return { ...K[0][1] };
   if (t >= K[K.length - 1][0]) return { ...K[K.length - 1][1] };
   let i = 0; while (t > K[i + 1][0]) i++;
-  const a = K[i][1], b = K[i + 1][1], e = { s: sineIO, q: quartIO, i: expoIn, o: expoOut }[K[i + 1][2] || 's'];
+  const a = K[i][1], b = K[i + 1][1], e = { s: sineIO, q: quartIO, i: expoIn, o: expoOut, l: trapIO }[K[i + 1][2] || 's'];
   const u = e((t - K[i][0]) / (K[i + 1][0] - K[i][0])), out = cam3();
   for (const k of ['x', 'y', 'f', 'roll']) out[k] = lerp(a[k] ?? out[k], b[k] ?? out[k], u);
   const da = Math.max(1, ref - (a.z || 0)), db = Math.max(1, ref - (b.z || 0)); out.z = ref - Math.exp(lerp(Math.log(da), Math.log(db), u));

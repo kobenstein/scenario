@@ -23,7 +23,7 @@ export const stubShot = (R, line) => (ctx, t, s) => {
   gr.addColorStop(0, rgba(acc, .22)); gr.addColorStop(1, rgba(acc, 0)); ctx.fillStyle = gr; ctx.fillRect(0, 0, W, H);
   const dx = drift(t, 6, 1), dy = drift(t, 4, 2);
   text(ctx, `${R.id.toUpperCase()} · STUB · shots ${R.shots}`, 120 + dx, 150 + dy, { size: 22, weight: 600, color: rgba(m, .75), spacing: 6 });
-  text(ctx, SECNAME[line.sec] || line.sec, 120 + dx, 210 + dy, { size: 46, font: 'Instrument Serif', color: m });
+  text(ctx, R.name || SECNAME[line.sec] || line.sec, 120 + dx, 210 + dy, { size: 46, font: 'Instrument Serif', color: m });
   const lines = wrapWords(ctx, line.words, 72, W - 300);
   lines.forEach((ln, li) => {
     let x = 120 + dx; const y = 470 + li * 92 + dy;
