@@ -13,6 +13,7 @@ M1 0:00 hook + 06:15 (offset 2 s: Lyria's own fade-in skipped, full presence fro
   "repeat": [22.75, 37.75] adds 15 s (8 s before 06.11. + the second subscribe line, 9:53.9-9:59.3) so its swell lands on the last line
   (10:01.1) and its decay fills the 15-s end screen to 10:19.9.
 Clip slots K1 5:51.40 / K3 7:16.18 / K4 8:16.20: music 10 dB down under each slot (mix.py CLIP_DUCK), whether or not clips/<K>.wav exists yet.
+Quote mode (mix-quote.m4a): same music and ducking; the narrator reads each quote into its slot (audio/quotes.py).
 Vocal check: fal-ai/whisper on all seven files returns only the usual no-speech hallucinations ("Thank you for watching", "take a picture of the tree" loops);
 Lyria's lyrics field is empty placeholders ([[A0]] ...). No SFX.
 Level: cue RMS -26 dB, ducked -6 dB under speech; VO 4:1 compressor above -24 dBFS (mix.py VO_AF), voice +2 dB (VO_BOOST) -> music ~14 dB under the voice

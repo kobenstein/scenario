@@ -4,6 +4,8 @@ Film 16/18: no card slots (the VO keeps running under every quote card); timing.
 and "cues" (every [[QUOTE CARD]] / [[ON SCREEN]] line from segments.json, timed at the end of the spoken line it follows).
 Clip slots stay silent here; clips/<K>.wav (if present) is mixed in at the slot by mix.py.
 usage: build_vo.py <audio_dir> [wav_dir] [vo.txt]   (Film 14: vo_master.wav goes to wav_dir, a scratchpad, because project storage is nearly full)
+Film 23 quote mode: if audio/quotes.py wrote quotes/<K>.json, the clip entry also gets "quote" (where the narrator's reading of the quote
+sits, for mix.py QUOTE=1 -> mix-quote.m4a) and "words" (its word timings, absolute, transcript spelling) for the quote card.
 Film 23: clip slots K1/K3/K4 (exact clip length, CLIP_IN air before, CLIP_OUT after); timing.json also gets "chapters" (the clock cards
 06:15 ... 22:30, from the [[ON SCREEN: hh:mm]] cues), "endscreen", and every word in the spelling of vo.txt (the approved script:
 the TTS text says "A.I." and has a few "..." pauses, timing.json says "AI" and ".", so subtitles and scene anchors match the script)."""
@@ -49,6 +51,12 @@ for i, s in enumerate(SEG):
         t += CLIP_IN - gap
         clips.append({'id': s['id'], 'sec': s['sec'], 'kind': 'clip' if s.get('clip') else 'card', 'start': round(t, 3), 'end': round(t + d, 3), 'dur': d,
                       **{k: s[k] for k in ('file', 'name', 'role', 'label', 'text', 'url', 'in', 'out') if k in s}})
+        q = f"{A}/quotes/{s['id']}.json"   # Film 23 quote mode (audio/quotes.py): the narrator reads the quote into the slot
+        if os.path.exists(q):
+            q = json.load(open(q)); q0 = t + q['offset']
+            clips[-1]['quote'] = {'file': f"quotes/{s['id']}.wav", 'start': round(q0, 3), 'end': round(q0 + q['dur'], 3), 'dur': q['dur'],
+                                  'take': q['take'], 'request_id': q['request_id'], 'tempo': q['tempo'], 'trims': q['trims']}
+            clips[-1]['words'] = [{'w': w, 's': round(q0 + a, 3), 'e': round(q0 + b, 3)} for w, a, b in q['words']]
         t += d + CLIP_OUT; gap = 0
         continue
     j = json.load(open(f"{A}/vo-{s['id']}.json")); mp3 = f"{A}/vo-{s['id']}.mp3"

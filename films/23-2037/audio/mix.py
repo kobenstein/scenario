@@ -38,6 +38,11 @@ duck = np.interp(np.arange(N), np.arange(len(act)) * hop, act)
 # music + SFX duck under the whole slot as under the voice
 # per-clip corrections from clips.json: "gain_db" on top of the -20 dB RMS match, "af" an ffmpeg filter (e.g. a light compressor)
 CLIPS = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
+# Film 23 quote mode (QUOTE=1): instead of clip audio, the narrator reads each quote into its slot (timing.json clips[i].quote),
+# QUOTE_DB below the VO level, music ducked 10 dB as under a clip; writes premix-quote / mix-quote.wav / mix-quote.m4a next to the gap mix
+QUOTE = os.environ.get('QUOTE') == '1'; SUF = '-quote' if QUOTE else ''
+QUOTE_DB = float(os.environ.get('QUOTE_DB', -2))
+QUOTE_AF = os.environ.get('QUOTE_AF', 'dynaudnorm=f=100:g=5:m=2:p=0.7,' + VO_AF)
 clipbuf = np.zeros((N, 2), np.float32)
 CLIP_DUCK = -10   # Film 23: music 10 dB down under a clip slot (instead of the -6 dB voice duck), 0.3 s ramps
 cenv = np.zeros(N, np.float32)
@@ -48,10 +53,14 @@ for c in timing.get('clips', []):
         e = np.ones(a1 - a0, np.float32); e[:s0 - a0] = np.linspace(0, 1, s0 - a0); e[len(e) - (a1 - s1):] = np.linspace(1, 0, a1 - s1)
         cenv[a0:a1] = np.maximum(cenv[a0:a1], e)
     f = A + f"../clips/{c['id']}.wav"
-    if os.path.exists(f):   # quote cards (no clip audio) keep the music up
+    if os.path.exists(f) and not QUOTE:   # quote cards (no clip audio) keep the music up; quote mode never uses clip audio
         k = CLIPS.get(c['id'], {}) if isinstance(CLIPS, dict) else {}
         x = load(f, k.get('af')); x *= db(-20 + k.get('gain_db', 0)) / rms(x[np.abs(x).max(1) > 1e-3])
         n = min(len(x), s1 - s0); clipbuf[s0:s0 + n] += x[:n]
+    if QUOTE and c.get('quote'):   # Film 23 quote mode: the narrator's reading of the quote (audio/quotes.py), same chain as the VO
+        q = c['quote']; x = load(A + q['file'], QUOTE_AF)   # + a gentle leveler so the voice's soft phrase endings stay audible
+        x *= db(-20 + VO_BOOST + QUOTE_DB) / rms(x[np.abs(x).max(1) > 1e-3])
+        q0 = int(q['start'] * SR); n = min(len(x), N - q0); clipbuf[q0:q0 + n] += x[:n]
 def place(buf, x, t, gain=1.0, fin=0.0, fout=0.0, d=None, loop=False):
     s = int(t * SR); n = int(d * SR) if d else len(x)
     if loop and n > len(x): x = np.tile(x, (n // len(x) + 1, 1))
@@ -93,31 +102,31 @@ for c in (json.load(open(A + 'sound_plan.json')) if os.path.exists(A + 'sound_pl
 sfx *= (1 - 0.15 * duck)[:, None]
 mix = vo + clipbuf + music + sfx
 for name, buf in [('stem_music', music), ('stem_sfx', sfx), ('premix', mix)]:
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-i', '-', W + name + '.wav'], input=buf.astype(np.float32).tobytes(), check=True)
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-i', '-', W + name + SUF + '.wav'], input=buf.astype(np.float32).tobytes(), check=True)
 # two-pass loudnorm to -14 LUFS / -1 dBTP; Film 16: if the gain would push true peaks over -1.5 dBTP, a transparent limiter
 # (alimiter, -2 dBFS ceiling, +0.8 dB extra drive for the level it shaves off) runs first so linear loudnorm can reach -14 LUFS exactly instead of stopping short
 def measure(f):
     o = subprocess.run(['ffmpeg', '-hide_banner', '-i', f, '-af', 'loudnorm=I=-14:TP=-1:LRA=11:print_format=json', '-f', 'null', '-'], capture_output=True, text=True).stderr
     return json.loads(o[o.rfind('{'):o.rfind('}') + 1])
-m = measure(W + 'premix.wav'); src = W + 'premix.wav'; print('premix', m['input_i'], 'LUFS', m['input_tp'], 'dBTP')
+m = measure(W + f'premix{SUF}.wav'); src = W + f'premix{SUF}.wav'; print('premix', m['input_i'], 'LUFS', m['input_tp'], 'dBTP')
 gain = -14 - float(m['input_i'])
 if float(m['input_tp']) + gain > -1.5:
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', f'volume={gain + 0.8:.2f}dB,alimiter=limit={db(-2.0):.4f}:attack=3:release=80:level=false',
-                    '-ar', '48000', '-c:a', 'pcm_f32le', W + 'premix_lim.wav'], check=True)
-    src = W + 'premix_lim.wav'; m = measure(src); print('limited', m['input_i'], 'LUFS', m['input_tp'], 'dBTP')
+                    '-ar', '48000', '-c:a', 'pcm_f32le', W + f'premix_lim{SUF}.wav'], check=True)
+    src = W + f'premix_lim{SUF}.wav'; m = measure(src); print('limited', m['input_i'], 'LUFS', m['input_tp'], 'dBTP')
 af = f"loudnorm=I=-14:TP=-1:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true"
-subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', af, '-ar', '48000', W + 'mix.wav'], check=True)
-if src != W + 'premix.wav': os.remove(src)
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', af, '-ar', '48000', W + f'mix{SUF}.wav'], check=True)
+if src != W + f'premix{SUF}.wav': os.remove(src)
 # Film 18: delivery copy mix.m4a (AAC 192k). AAC overshoots true peak by ~0.9 dB (mix.wav -1.5 -> -0.6 dBTP), so the encode runs
 # through a 4x-oversampled limiter at -2 dBFS with +0.3 dB make-up: -14.0 LUFS / about -1.5 dBTP after decoding
 # Film 23: encode, measure the decoded m4a, correct gain (-14.0 +-0.05 LUFS) and ceiling (<= -1.5 dBTP), up to 5 passes
 vol, ceil = 0.0, -2.0
 for _ in range(5):
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', W + 'mix.wav', '-af', f'volume={vol:.2f}dB,aresample=192000,alimiter=limit={db(ceil):.4f}:attack=1:release=50:level=false,aresample=48000',
-                    '-c:a', 'aac', '-b:a', '192k', W + 'mix.m4a'], check=True)
-    m = measure(W + 'mix.m4a'); I, TP = float(m['input_i']), float(m['input_tp'])
-    print('mix.m4a', I, 'LUFS', TP, 'dBTP (volume', round(vol, 2), 'ceiling', round(ceil, 2), ')')
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', W + f'mix{SUF}.wav', '-af', f'volume={vol:.2f}dB,aresample=192000,alimiter=limit={db(ceil):.4f}:attack=1:release=50:level=false,aresample=48000',
+                    '-c:a', 'aac', '-b:a', '192k', W + f'mix{SUF}.m4a'], check=True)
+    m = measure(W + f'mix{SUF}.m4a'); I, TP = float(m['input_i']), float(m['input_tp'])
+    print(f'mix{SUF}.m4a', I, 'LUFS', TP, 'dBTP (volume', round(vol, 2), 'ceiling', round(ceil, 2), ')')
     if abs(I + 14) <= .05 and TP <= -1.5: break
     vol += -14 - I
     if TP > -1.5: ceil -= .3
-print('-> mix.wav, mix.m4a')
+print(f'-> mix{SUF}.wav, mix{SUF}.m4a')

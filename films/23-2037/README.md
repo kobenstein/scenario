@@ -37,3 +37,7 @@ Built: audio/vo-v5-tts.txt (vo-v5.txt word for word + direction tags) -> tools/m
 -> audio/build_vo.py (timing.json: words in the script's spelling, levels 0-7, chapters 06:15-22:30, clip slots K1/K3/K4, on-screen cues, endscreen)
 -> audio/mix.py (Lyria cues M1-M7, audio/music/) -> audio/subs.py. Results in /mnt/project-files/scenario/film-erster-tag/2037/audio/ (mix.m4a, timing.json, music/, untertitel/).
 Clips: silent slots of exact length; drop clips/K1.wav, K3.wav, K4.wav next to audio/ and re-run mix.py (and set "cues" in audio/clips.json for exact clip subtitles).
+Quote mode (2026-11-07, if the real clips are not available): audio/quotes.py fits the narrator's reading of each quote (Eleven v4, same voice,
+"[quietly, quoting, ...]", takes in audio/quotes/, ids in audio/vo-jobs.txt) into its slot; build_vo.py adds clips[i].quote and clips[i].words
+(absolute word timings for the quote card) to timing.json; `QUOTE=1 audio/mix.py` writes mix-quote.m4a (music ducked 10 dB as under a clip,
+quote 2 dB under the VO). mix.m4a (silent slots) stays the footage-mode mix.
