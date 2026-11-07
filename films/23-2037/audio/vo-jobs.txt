@@ -1,4 +1,4 @@
-# Film 23 VO takes (elevenlabs/tts/eleven-v4, voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, seed 4301, timestamps), index -> segments.json spoken take s<index>
+# Film 23 VO takes (elevenlabs/tts/eleven-v4, voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, seed 4301, timestamps), index -> segments.json spoken take s<index> (35 takes since 06.11.: s18 and s33 are the subscribe lines, old s18-s31 are now s19-s32, old s32 is s34)
 0 01a1b1bd-2554-71f3-a3a8-5a36852885d6
 1 01a1b1bd-25b1-7781-9fc0-b38f5d57dbe7
 2 01a1b1bd-2608-7d60-b84b-4d79a38942db
@@ -17,18 +17,20 @@
 15 01a1b1bd-d46e-7112-9abb-4b2fdc986adc
 16 01a1b1be-290b-7631-afae-b562f6131076
 17 01a1b1be-2945-7613-bc4d-561917132ab1
-18 01a1b1be-2957-7c93-a2f3-1ba1a52fd44a
-19 01a1b1be-28fc-7411-a7c1-bf472d1e3376
-20 01a1b1be-28fc-7850-9c76-ef3b9ea28bb9
-21 01a1b1be-28fd-7d02-865d-5024cf33c35e
-22 01a1b1be-2944-72e1-ae67-44c7e3f55a6a
-23 01a1b1be-294d-76c2-9d04-49a5c4840fa0
-24 01a1b1be-6b08-7e80-a03d-3ea38008808b
-25 01a1b1be-6b42-7e61-8772-52f51bd33f17
-26 01a1b1be-6b0a-7430-a095-6c69e0ef5c85
-27 01a1b1be-6b3b-7980-a414-827a46897ff9
-28 01a1b1be-6b53-7ab3-ad41-582a888bbab4
-29 01a1b1be-6b72-7023-ba6e-e4cce0042005
-30 01a1b1be-6bb6-7633-a6d0-5b51443eb8e4
-31 01a1b1be-6b71-7cf1-81bc-96fb4c266dcc
-32 01a1b1be-7e57-75d3-b3a8-13cfc812b34c
+18 01a1b565-6e0c-7323-8450-545a5514a782
+19 01a1b1be-2957-7c93-a2f3-1ba1a52fd44a
+20 01a1b1be-28fc-7411-a7c1-bf472d1e3376
+21 01a1b1be-28fc-7850-9c76-ef3b9ea28bb9
+22 01a1b1be-28fd-7d02-865d-5024cf33c35e
+23 01a1b1be-2944-72e1-ae67-44c7e3f55a6a
+24 01a1b1be-294d-76c2-9d04-49a5c4840fa0
+25 01a1b1be-6b08-7e80-a03d-3ea38008808b
+26 01a1b1be-6b42-7e61-8772-52f51bd33f17
+27 01a1b1be-6b0a-7430-a095-6c69e0ef5c85
+28 01a1b1be-6b3b-7980-a414-827a46897ff9
+29 01a1b1be-6b53-7ab3-ad41-582a888bbab4
+30 01a1b1be-6b72-7023-ba6e-e4cce0042005
+31 01a1b1be-6bb6-7633-a6d0-5b51443eb8e4
+32 01a1b1be-6b71-7cf1-81bc-96fb4c266dcc
+33 01a1b565-6e07-7813-a45a-043124abf969
+34 01a1b1be-7e57-75d3-b3a8-13cfc812b34c

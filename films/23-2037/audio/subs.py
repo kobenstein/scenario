@@ -26,6 +26,8 @@ def split(ws):
     return split(ws[:bi]) + split(ws[bi:])
 # hand-made breaks where the balanced split would cut a phrase (Film 6 hook, Fassung 3): sentence text -> cue texts, same words in order
 BREAKS = {   # Film 23: keep phrases together where the balanced split would cut them
+    'If you want a Tuesday like this for everyone, subscribe.':
+        ['If you want a Tuesday like this', 'for everyone, subscribe.'],
     'The same machines could have sent that warning only to people who pay extra.':
         ['The same machines', 'could have sent that warning', 'only to people who pay extra.'],
     'The mind that found it has seen more scans than every doctor in history put together.':

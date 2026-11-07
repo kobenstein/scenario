@@ -21,7 +21,7 @@ vo = load(W + 'vo_master.wav', VO_AF or None)[:N]; vo = np.pad(vo, ((0, N - len(
 VO_BOOST = float(os.environ.get('VO_BOOST', 2))   # Jakob 31.10.: voice +2 dB over music/SFX, same -14 LUFS total (Film 23: default 2)
 vo *= db(-20 + VO_BOOST) / rms(vo[np.abs(vo).max(1) > 1e-3])
 # Film 23: lift very soft words: (segment, first word, last word (inclusive, index in the segment), dB), 60 ms ramps
-VO_LIFT = [('s18', 0, 1, 6), ('s29', 0, 0, 5), ('s14', 0, 9, 2.5), ('s28', 0, 7, 2.5)]
+VO_LIFT = [('s19', 0, 1, 6), ('s30', 0, 0, 5), ('s14', 0, 9, 2.5), ('s29', 0, 7, 2.5)]
 for sid, a, b, g in VO_LIFT:
     ws = [w for w in timing['words'] if w['sec'] == sid]
     if not ws: continue

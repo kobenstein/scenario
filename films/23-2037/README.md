@@ -33,7 +33,7 @@ python3 tools/shots23.py --md docs/shots.md    # shot tables + explainer share
 ```
 
 ## Audio (2026-11-06)
-Built: audio/vo-v5-tts.txt (vo-v5.txt word for word + direction tags) -> tools/make_segments.py -> 33 Eleven v4 takes (tools/save_tts.py, ids in audio/vo-jobs.txt)
+Built: audio/vo-v5-tts.txt (vo-v5.txt word for word + direction tags) -> tools/make_segments.py -> 35 Eleven v4 takes (33 + the two subscribe lines s18/s33 of 06.11.) (tools/save_tts.py, ids in audio/vo-jobs.txt)
 -> audio/build_vo.py (timing.json: words in the script's spelling, levels 0-7, chapters 06:15-22:30, clip slots K1/K3/K4, on-screen cues, endscreen)
 -> audio/mix.py (Lyria cues M1-M7, audio/music/) -> audio/subs.py. Results in /mnt/project-files/scenario/film-erster-tag/2037/audio/ (mix.m4a, timing.json, music/, untertitel/).
 Clips: silent slots of exact length; drop clips/K1.wav, K3.wav, K4.wav next to audio/ and re-run mix.py (and set "cues" in audio/clips.json for exact clip subtitles).

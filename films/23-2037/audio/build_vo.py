@@ -16,11 +16,11 @@ LEAD, TAIL = 1.0, 15.0                       # 15 s endscreen tail (drop-off rul
 CARD = 5.5                                   # silent slot for a quote card (read on screen)
 CLIP_IN, CLIP_OUT = 0.7, 0.6                 # air before / after a clip
 GAP_SECTION, GAP_SUB = 1.7, 0.9
-# Film 23 (vo-v5, 33 takes, sections 0-7 = clock chapters): takes 0.9 s apart, chapters 1.7 s; longer air after the questions
+# Film 23 (vo-v5, 35 takes since the subscribe lines s18 + s33 of 06.11.: a 1.3 s breath before each, they step outside the scene; 33 before, sections 0-7 = clock chapters): takes 0.9 s apart, chapters 1.7 s; longer air after the questions
 # that close a chapter, before the turn lines ("Meanwhile ...", "There's one job ...", "One person still ..."), after
-# "It takes you a moment." (s26) and before the last line of the film (s31)
-GAP_AFTER = {'s00': 1.0, 's01': 1.9, 's04': 1.9, 's06': 1.9, 's09': 1.4, 's10': 1.8, 's13': 1.3, 's14': 1.8, 's17': 2.0,
-             's23': 1.0, 's26': 1.6, 's27': 1.4, 's28': 2.0, 's30': 1.4, 's31': 1.7}
+# "It takes you a moment." (s27) and before the last line of the film (s34)
+GAP_AFTER = {'s00': 1.0, 's01': 1.9, 's04': 1.9, 's06': 1.9, 's09': 1.4, 's10': 1.8, 's13': 1.3, 's14': 1.8, 's17': 1.3, 's18': 2.0,
+             's24': 1.0, 's27': 1.6, 's28': 1.4, 's29': 2.0, 's31': 1.4, 's32': 1.3, 's33': 1.7}
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
 BREATH = []
 LEVELS = {'0': 'Hook · 06:15 the message from the clinic', '1': '06:15 the scan', '2': '07:30 the kid and her tutor', '3': '09:00 the night shift of science',

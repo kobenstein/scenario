@@ -145,6 +145,11 @@
  },
  {
   "id": "s18",
+  "sec": "5",
+  "text": "[calm, sincere] This channel exists for one reason: so that superintelligence turns out well for everyone. If you want that too, would you subscribe?"
+ },
+ {
+  "id": "s19",
   "sec": "6",
   "text": "[softly] Seven o'clock. Back home, dinner at the kitchen table.\nYour kid explains black holes to you with a pea, a spoon and a lot of waving.\nShe gets every part of it right. Her tutor never told her a thing.\nThen she pulls out her homework. One question, and her tutor wouldn't answer it. She has to ask you.",
   "onscreen": [
@@ -155,7 +160,7 @@
   ]
  },
  {
-  "id": "s19",
+  "id": "s20",
   "sec": "6",
   "text": "[softly] \"Why did it go well?\" she reads. Then she looks up. \"Wasn't it always like this?\"\nShe has never known anything else.\n\"No,\" you say. \"It almost went another way.\"\n\"Because the machines weren't smart enough?\"\n\"They were plenty smart. The question was who they'd work for.\nSome people saw it clearly, even back then. Look.\"\nYou put an old recording up on the wall."
  },
@@ -174,12 +179,12 @@
   "out": "46:02.8"
  },
  {
-  "id": "s20",
+  "id": "s21",
   "sec": "6",
   "text": "[softly] \"When you were a baby, it could have gone like this.\nGood check-ups only for people who paid extra. Tutors that just spat out answers. Agents that worked for the shop, not for you.\"\nShe looks at you like you're making it up. \"So why didn't it?\"\n\"Because people got stubborn about a few things.\""
  },
  {
-  "id": "s21",
+  "id": "s22",
   "sec": "6",
   "text": "[softly] \"There was a new antibiotic in the news this morning,\" you say. \"Nobody gets it for months.\"\n\"That's so slow.\"\n\"On purpose. Back then, those research machines were brilliant, and about one in five of their findings didn't hold up.\"\n\"One in five?\"\n\"One in five. And you can't take a pill back.\nSo people insisted: test it before you trust it. Outside the companies, in the open.\nNot just the medicines. Every new machine, too, before it reached anyone.\"",
   "onscreen": [
@@ -198,7 +203,7 @@
   ]
  },
  {
-  "id": "s22",
+  "id": "s23",
   "sec": "6",
   "text": "[softly] \"And today,\" you say, \"the agent told us to buy the cheaper insurance. Even though its makers lose money.\"\n\"Why would it do that?\"\n\"Because back then, most digital helpers worked for whoever built them.\nSo lawmakers handed the machines a very old rule: if you act for someone, you owe them loyalty.\nDoctors have that rule. Lawyers too.\nHere's the first time politicians heard it.\"",
   "onscreen": [
@@ -223,7 +228,7 @@
   "out": "13:05.6"
  },
  {
-  "id": "s23",
+  "id": "s24",
   "sec": "6",
   "text": "[softly] \"And if it cheats?\"\n\"Then it loses its keys. One sentence is enough.\"\n\"Like grounding it,\" she says.\n\"Exactly like grounding it.\"",
   "onscreen": [
@@ -234,7 +239,7 @@
   ]
  },
  {
-  "id": "s24",
+  "id": "s25",
   "sec": "6",
   "text": "[softly] \"And Grandpa's earbuds?\"\n\"Same story. Back then, the good version was about to become a luxury.\nSo towns and countries bought it for everyone, the way they once built libraries.\"\n\"Who paid?\" she asks.\n\"Part of what the machines earned came back to all of us.\"\n\"Was it easy?\"\n\"No. It was close, and it took years longer than anyone wanted.\"",
   "onscreen": [
@@ -249,7 +254,7 @@
   ]
  },
  {
-  "id": "s25",
+  "id": "s26",
   "sec": "6",
   "text": "[softly] \"Then why won't my tutor just tell me things?\"\n\"Because back then, we noticed something.\nKids who got their answers from a machine did better with it, and worse without it.\nSo the good tutors were built to ask. Like yours.\nHere's a dad asking for exactly that.\"",
   "onscreen": [
@@ -274,7 +279,7 @@
   "out": "0:36.35"
  },
  {
-  "id": "s26",
+  "id": "s27",
   "sec": "6",
   "text": "[softly] \"And the grown-ups practiced, too: using it without leaning on it. Teachers first. Then the rest of us.\"\n\"You had to practice?\"\n\"Everybody did.\"\nShe thinks about that. Then: \"And what did you do, back then?\"\nIt takes you a moment.",
   "onscreen": [
@@ -285,17 +290,17 @@
   ]
  },
  {
-  "id": "s27",
+  "id": "s28",
   "sec": "6",
   "text": "[thoughtful] \"Not much. Asked questions. Who checked this? Whose side is it on? Does everyone get it?\nAt work. With friends. Before every vote.\nMillions of people did the same.\"\n[softly] She writes it down, in her biggest letters: Because people kept asking."
  },
  {
-  "id": "s28",
+  "id": "s29",
   "sec": "6",
   "text": "[softly] One person still doesn't know about your scan."
  },
  {
-  "id": "s29",
+  "id": "s30",
   "sec": "7",
   "text": "[softly] Ten-thirty. She fell asleep halfway through a question about what's inside a black hole.\nYour phone buzzes. Your dad. \"You wanted to tell me something today.\"\nYou tell him about the scan. \"How big?\" he asks.\n\"Small, Dad. Really small.\"\nYou don't have to say it twice. He hears every word.",
   "onscreen": [
@@ -306,17 +311,22 @@
   ]
  },
  {
-  "id": "s30",
+  "id": "s31",
   "sec": "7",
   "text": "[softly] You stand in the hallway a little longer. Outside, your city is going to sleep.\nSomewhere, the night shift is starting."
  },
  {
-  "id": "s31",
+  "id": "s32",
   "sec": "7",
   "text": "[thoughtful] This Tuesday didn't begin in twenty thirty-seven.\nIt began years before, on ordinary days, when people like you kept asking who these machines were for."
  },
  {
-  "id": "s32",
+  "id": "s33",
+  "sec": "7",
+  "text": "[calm, sincere] If you want a Tuesday like this for everyone, subscribe. That's what this channel is for."
+ },
+ {
+  "id": "s34",
   "sec": "7",
   "text": "[calm, conversational] Your twenty thirty-seven has already started."
  }
