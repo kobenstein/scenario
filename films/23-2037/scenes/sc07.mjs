@@ -26,7 +26,7 @@ export default (T, R) => {
   const tLine = A.rec + .25;
   const draw = (ctx, t) => {
     const c = cam(t);
-    if (t < H0.tKid - .2) { B.homeWorld(ctx, c, t, H0); return; }   // still on the way down (identical to c06's last seconds)
+    // on the way down too: the same world as c06's last seconds (+ the pilot light, far too small to see at the seam)
     const po = { kid: kidPose(t, A), you: youPose(t, A) }, hands = dinnerHands(t, c, po);
     const wallFn = (cx) => {
       wallArt(cx, t, A);
@@ -57,7 +57,7 @@ function nbPos(t, A) { const N = NOTEBOOK_WORLD; return [lerp(N.X - 115, N.X, si
 // ---------------------------------------------------------------- the camera: c06's descent, then the kitchen (keys on words)
 const scaleAt = (c) => c.f / Math.max(1, ZB - 170 - c.z);
 function c07Cam(H0, A) {
-  const tK = H0.tKid - .2, cl = A.clip;
+  const tK = B.homeKeys(H0)[1][0], cl = A.clip;
   const TELE = 3.4 * 1700, NB = look(NW.X, NW.Y, NW.Z, 22, 960, 560, TELE);   // a long lens: the camera stays in front of the table
   const KEYS = [
     [tK, B.DINNER],
@@ -68,10 +68,10 @@ function c07Cam(H0, A) {
     [A.ask + .35, look(-1322, KY - 88, ZB - 170, 3.42, 960, 610)],
     [A.why + .3, NB, 's'],                                                     // 7.04 close on the page
     [A.looks - .8, look(NW.X + .5, NW.Y, NW.Z, 23, 960, 556, TELE)],
-    [A.looks + .5, look(-1392, KY - 92, ZB - 165, 6.2, 960, 560), 's'],        // her face lifts: the two of them and the page
-    [A.known - .45, look(-1388, KY - 92, ZB - 165, 6.45, 960, 560)],
-    [A.no + .1, look(-1300, -1450, ZS, .3, 960, 600), 's'],                   // ease back: the lit city round the kitchen
-    [A.another + .25, look(LW.cx, LW.y, ZB, 1.95, 960, 64), 's'],             // 7.05 ★ into the wall: the fork
+    [A.looks + .5, look(-1392, KY - 92, ZB - 165, 6.2, 960, 560, TELE), 's'],        // her face lifts: the two of them and the page
+    [A.known - .45, look(-1388, KY - 92, ZB - 165, 6.45, 960, 560, TELE)],   // long lens: the pull-back never crosses the section plane
+    [A.no + .35, look(-1300, -1350, ZS, .45, 960, 600, TELE), 's'],                   // ease back: the lit city round the kitchen
+    [A.another + .5, look(LW.cx, LW.y, ZB, 1.95, 960, 64), 's'],             // 7.05 ★ into the wall: the fork
     [A.saw - .1, look(LW.cx, LW.y, ZB, 2.03, 960, 62)],
     [A.rec + .85, look(LW.cx + 4, LW.y, ZB, 2.07, 960, 60)],
     [cl.start, K.CAM_SCREEN, 's'],                                             // 7.06 push onto the old screen; 7.07 still

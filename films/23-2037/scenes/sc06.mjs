@@ -48,9 +48,9 @@ export default (T, R) => {
   const BLDG_IN = look(5420, -1300, ZS, .358, 1010, 556);
   const KEYS = [
     [T0 + .55, WIN],
-    [tTwo + .4, STREETW, 'l'],           // pull back + truck (3.1 s): the building, the low sun, you on the street
-    [tBalc - .3, STREETW_IN],
-    [tTom + .7, BALC, 'l'],              // push up the facade onto the balcony (2.5 s)
+    [tTwo + 1.3, STREETW, 's'],          // pull back + truck (4 s): the building, the low sun, you on the street
+    [tBalc + .2, STREETW_IN],
+    [tArab + .3, BALC, 's'],             // push up the facade onto the balcony (3.3 s)
     [tNod + 1.2, BALC_IN],
     [tInter + .7, BALC2, 'l'],           // closer: Dad and the door you come out of
     [tEighty - .2, BALC2_IN],

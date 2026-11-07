@@ -26,9 +26,9 @@ export function hourAt(t, A) {
 
 // ---------------------------------------------------------------- the travel home (c06 end → c07 start; ONE function for both)
 // HIGH: the whole lit city at dusk (the rise during subscribe line 1); DINNER: the two at the kitchen table, the light wall above.
-export const HIGH = K.look(900, -2700, ZS, .13, 960, 660);
+export const HIGH = K.look(2200, -2700, ZS, .13, 960, 660);
 export const DINNER = K.look(-1280, KY - 120, ZB - 170, 2.7, 960, 560);
-export const homeKeys = (A) => [[A.tSubE + .3, HIGH], [A.tKid - .2, DINNER, 'l']];   // 303.3 → 310.2: down into the kitchen
+export const homeKeys = (A) => [[A.tSubE + .3, HIGH], [A.tKid + .5, DINNER, 'l']];   // 303.9 → 310.9: down into the kitchen
 // the descent itself (HIGH → DINNER): the kitchen glides to its place on screen while the distance shrinks on a log scale, so the
 // camera homes in on the kitchen the whole way (a plain key lerp wanders over the neighbouring rooms at close range)
 export function homeCam(t, A) {

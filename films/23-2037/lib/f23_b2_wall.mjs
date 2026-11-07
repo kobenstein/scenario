@@ -241,7 +241,7 @@ export function wallArt(ctx, t, A, o = {}) {
       const vanish = i === 4 ? expoIn(span(t, A.test + 2.2, A.test + 2.8)) : 0;
       if (vanish >= 1) continue;
       const inside = pass > .38 && pass < .62 ? 1 - Math.sin(Math.PI * (pass - .38) / .24) * .7 : 1;   // behind the house's front while passing
-      point(ctx, x, y, 7 * (1 - vanish), 1 - grey, inside);
+      point(ctx, x, y, 7 * (1 - vanish) * expoOut(clamp(go * 4)), 1 - grey, inside);   // grows out of the tower
       if (i === 4) crack(ctx, x, y, 7, span(t, A.oneIn5 + .05, A.oneIn5 + .4));
     }
     // the pill passes a one-way door between the house and the city; the door shuts behind it
