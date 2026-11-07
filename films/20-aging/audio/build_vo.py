@@ -18,7 +18,9 @@ GAP_SECTION, GAP_SUB = 1.7, 0.9
 # Film 20 (vo-v4, 41 takes, stations 0-8): takes 0.9 s apart, stations 1.7 s; hook end s02 "It's a race." runs on into station 1
 # (drop-off rule 28.10.: no pause at the hook end); the two longer breaths of text-v3.md: after "It's a price tag." (s34) and after
 # "It's a decision." (s40, then the end screen)
-GAP_AFTER = {'s02': 0.8, 's34': 2.0, 's40': 1.5}
+GAP_AFTER = {'s02': 0.8, 's23': 1.2, 'm1': 1.2, 's34': 2.0, 's40': 1.5}
+# subscribe call (Jakob 7.11.): m1 = mission + subscribe in the middle (after s23), m2 = the same over the end screen ("over_end":
+# spoken from 0.6 s into the 15 s end screen, the end screen does not move)
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
 BREATH = []
 LEVELS = {'0': 'hook: four generations', '1': 'the clock (three months a year, twelve = escape velocity)', '2': 'riddle 1: why we age (the reset at ground zero)',
@@ -41,6 +43,7 @@ def cuts(sid, mp3, W):
         out.append((round(min(fr)[1] + .005, 3), extra))
     return sorted(out)
 t, secs, words, clips, inputs, delays, cues = LEAD, {}, [], [], [], [], []
+ES = None
 for i, s in enumerate(SEG):
     nxt = SEG[i + 1] if i + 1 < len(SEG) else None
     if s.get('endcards'): continue
@@ -52,6 +55,9 @@ for i, s in enumerate(SEG):
                       'placeholder': bool(s.get('clip') and not f), **({'file': os.path.basename(f)} if f else {}), **{k: s[k] for k in ('name', 'role', 'label', 'text') if k in s}})
         t += d + CLIP_OUT
         continue
+    if s.get('over_end'):
+        if ES is None: ES = t
+        t += 0.6
     j = json.load(open(f"{A}/vo-{s['id']}.json")); mp3 = f"{A}/vo-{s['id']}.mp3"
     cs = cuts(s['id'], mp3, j['words'])
     shift = lambda a: a + sum(e for c, e in cs if c <= a)
@@ -73,7 +79,7 @@ for i, s in enumerate(SEG):
         delays.append(t + shift(bounds[p]))
     gap = GAP_AFTER.get(s['id'], GAP_SECTION if (nxt and nxt['sec'] != s['sec']) else GAP_SUB)
     t += last + gap
-vo_end = t; total = t + TAIL   # t = last word + GAP_AFTER of the last take
+vo_end = ES if ES is not None else t; total = max(vo_end + TAIL, t + 1.0)   # t = last word + GAP_AFTER of the last take
 fc = ''.join(f'[{k}:a]aresample=48000,adelay={int(d*1000)}:all=1[a{k}];' for k, d in enumerate(delays))
 fc += ''.join(f'[a{k}]' for k in range(len(delays))) + f'amix=inputs={len(delays)}:normalize=0,apad,atrim=0:{total:.3f}[o]'
 subprocess.check_call(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', *inputs, '-filter_complex', fc, '-map', '[o]', '-ac', '1', '-ar', '48000', f'{WAV}/vo_master.wav'])
