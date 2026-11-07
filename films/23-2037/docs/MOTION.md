@@ -198,3 +198,4 @@ The first frame (1.01) must be the thumbnail motif. The thumbnails are being mad
 4. Kitchen light wall is approved as the space for dinner explainers and clips.
 5. E8/E9: re-check before render (fact-check owner: thread lead).
 6. Opening image = thumbnail A motif: dark kitchen at 06:15, huge chest scan glowing on the wall with a small gold spot in a ring, tiny figure with steaming mug below (/mnt/project-files/scenario/thumbnails/film-2037/).
+7. Subscribe lines (added 7.11.): line 1 (294.7–303.6, end of shot 6.06) and line 2 (593.9–599.3, in shot 12.05). Picture: camera rises slowly above the cut-away street to the whole lit city; a small gold channel mark settles in the clock corner while the day-clock pauses; no new world, no hard cut; the street continues right after. Line 2 uses the same rise over the night city (lights going out) so both moments rhyme.
