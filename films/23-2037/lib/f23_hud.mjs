@@ -107,17 +107,16 @@ function glyphBox(ctx, size) {
   const asc = m.actualBoundingBoxAscent || size * .7, desc = m.actualBoundingBoxDescent || size * .02;
   return (GM[size] = { asc, desc, cw, step: asc + desc + size * .16 });
 }
-// one glyph column that rolls from a to b (u 0..1, dir +1: a leaves upwards, b comes from below; dir -1 the other way),
-// clipped tight to the figure box so nothing of the neighbour glyph shows above or below the line
+// one glyph column that ticks from a to b (u 0..1, dir +1: b settles in from just below; dir -1 from just above).
+// No two half glyphs ever share a frame: a stays whole until the tick, then b is whole and only settles a few px.
 function rollGlyph(ctx, a, b, u, x, y, size, o, dir = 1) {
-  const B = glyphBox(ctx, size), h = B.step, cw = B.cw;
+  const cw = glyphBox(ctx, size).cw;
   const cx = (g) => x + (cw - measure(ctx, g, size, true)) / 2;   // tabular: every glyph centred in a '0' cell
-  if (o.glow) { const g = o.glow * (1 - Math.sin(Math.PI * clamp(u))) ** 2, gl = u < .5 ? a : b; glowOnly(ctx, gl, cx(gl), y, size, g); o = { ...o, glow: 0 }; }
+  if (o.glow) { const g = o.glow, gl = u > 0 ? b : a; glowOnly(ctx, gl, cx(gl), y, size, g); o = { ...o, glow: 0 }; }
   if (u <= 0 || a === b) { txt(ctx, a, cx(a), y, { size, serif: true, ...o }); return; }
   if (u >= 1) { txt(ctx, b, cx(b), y, { size, serif: true, ...o }); return; }
-  ctx.save(); ctx.beginPath(); ctx.rect(x - size * .08, y - B.asc - size * .02, cw + size * .16, B.asc + B.desc + size * .04); ctx.clip();
-  txt(ctx, a, cx(a), y - dir * h * u, { size, serif: true, ...o }); txt(ctx, b, cx(b), y + dir * h * (1 - u), { size, serif: true, ...o });
-  ctx.restore();
+  const e = 1 - (1 - u) ** 3;
+  txt(ctx, b, cx(b), y + dir * size * .12 * (1 - e), { size, serif: true, ...o });
 }
 // a string where every changed glyph rolls (stagger right → left)
 function rollText(ctx, from, to, u0, x, y, size, o = {}, dt = 60 / 450) {
@@ -132,7 +131,7 @@ function rollText(ctx, from, to, u0, x, y, size, o = {}, dt = 60 / 450) {
   return cx - x;
 }
 // odometer: from → to in whole steps over p 0..1. Each step is a short clean roll of only the digits that change
-// (rolls take 65 % of a step, the rest is a hold), so every frame shows one real year or one year rolling into the next.
+// (each tick settles over 65 % of a step, the rest is a hold), so every frame shows one whole, real year.
 function odometer(ctx, from, to, p, x, y, size, o = {}) {
   const n = Math.abs(to - from), dir = Math.sign(to - from) || 1, wd = glyphBox(ctx, size).cw;
   const pos = clamp(p) * n, k = Math.min(Math.floor(pos), n), u = k >= n ? 0 : smooth(clamp((pos - k) / .65));
@@ -344,10 +343,10 @@ export function oldScreen(ctx, t, o) {
   }
   if (t >= tGone) return { phase: 'gone', point: [cx, cy], open: 0 };
   if (t >= tDot) {      // the line shrinks to the point: the carrier
-    const u = expoIn(span(t, tDot, tGone)); glowLine(cx - w / 2 * (1 - u), cy, cx + w / 2 * (1 - u), cy); E.halo(ctx, cx, cy, 22 * w / 1488, 1);
+    const u = sineIO(span(t, tDot, tGone)); glowLine(cx - w / 2 * (1 - u), cy, cx + w / 2 * (1 - u), cy); E.halo(ctx, cx, cy, 22 * w / 1488, 1);
     return { phase: 'point', point: [cx, cy], open: 0 };
   }
-  const open = t < tOff ? expoOut(span(t, tOn, tOn + .5)) : 1 - expoIn(span(t, tOff, tDot));
+  const open = t < tOff ? expoOut(span(t, tOn, tOn + .5)) : 1 - sineIO(span(t, tOff, tDot));   // sine, not expo-in: no jump on the last frame
   const hh = Math.max(lw, h * open);
   // the frame: lamp-lit lower edge glow, the picture (mask), a 2 px cream edge
   ctx.save();

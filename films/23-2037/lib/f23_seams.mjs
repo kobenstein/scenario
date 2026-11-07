@@ -66,11 +66,12 @@ export const NOTEBOOK_PLATE = { x: 960, y: 560, w: 2300, line1: 'Why did it go w
 const KY = K.KITCHEN.floor;
 export const NOTEBOOK_WORLD = { X: -1280, Y: KY - 62 - 2300 * .36 / 2 / (2300 / 60) - 1.2, Z: K.ZB - 150, w: 60 };   // spine centre; pages' foot on the table top
 export const CAM_NOTEBOOK = K.look(NOTEBOOK_WORLD.X, NOTEBOOK_WORLD.Y, NOTEBOOK_WORLD.Z, NOTEBOOK_PLATE.w / NOTEBOOK_WORLD.w, NOTEBOOK_PLATE.x, NOTEBOOK_PLATE.y);
+export const NOTEBOOK_INK = mixHex(P.night0, P.ind1, .45);   // line 1, the kid's pencil (dark, reads on K.NOTEBOOK_MOON_PAGE)
 export function notebookItem(t, o = {}) {
   const N = NOTEBOOK_WORLD, k = N.w / NOTEBOOK_PLATE.w, l1 = o.line1 ?? 1, l2 = o.line2 ?? 1;
   return [N.Z, (cx) => {
     K.notebook(cx, N.X, N.Y, N.w, t, { moon: o.moon ?? true });
-    if (l1 > 0) K.handwrite(cx, NOTEBOOK_PLATE.line1, N.X + 90 * k, N.Y - 150 * k, 64 * k, l1, { col: mixHex(P.shade0, P.ind1, .3), glow: false });
+    if (l1 > 0) K.handwrite(cx, NOTEBOOK_PLATE.line1, N.X + 90 * k, N.Y - 150 * k, 64 * k, l1, { col: NOTEBOOK_INK, glow: false });
     if (l2 > 0) K.handwrite(cx, NOTEBOOK_PLATE.line2, N.X + 90 * k, N.Y + 20 * k, 76 * k, l2, { col: P.halo0 });
   }];
 }

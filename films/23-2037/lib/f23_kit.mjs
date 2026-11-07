@@ -840,12 +840,14 @@ export function library(ctx, x, y, w, t, o = {}) {
   ctx.restore();
 }
 // THE KID'S NOTEBOOK: an open double page on the table (x, y = spine centre, w = width of both pages), lines, o.lines [[text, u], …] handwriting
+// the moonlit page colour at night (kept a step down so the gold line reads and the frame stays near the film's luma)
+export const NOTEBOOK_MOON_PAGE = mixHex(mixHex(P.cream, P.blue1, .62), P.ind1, .32);
 export function notebook(ctx, x, y, w, t, o = {}) {
   const h = w * .36, k = o.moon ? COOL.mid : P.halo2;
   ctx.fillStyle = rgba(P.night0, .5); ctx.beginPath(); ctx.ellipse(x, y + h * .55, w * .58, h * .14, 0, 0, 6.29); ctx.fill();
   for (const d of [-1, 1]) {
     ctx.beginPath(); ctx.moveTo(x, y - h * .48); ctx.quadraticCurveTo(x + d * w * .25, y - h * .56, x + d * w * .5, y - h * .5); ctx.lineTo(x + d * w * .5, y + h * .48); ctx.quadraticCurveTo(x + d * w * .25, y + h * .42, x, y + h * .5); ctx.closePath();
-    const pg = o.moon ? mixHex(P.cream, P.blue1, .62) : P.cream; ctx.fillStyle = lin(ctx, x, 0, x + d * w * .5, 0, [[0, mixHex(pg, P.night1, .4)], [.15, mixHex(pg, k, .15)], [1, pg]]); ctx.fill();
+    const pg = o.moon ? NOTEBOOK_MOON_PAGE : P.cream; ctx.fillStyle = lin(ctx, x, 0, x + d * w * .5, 0, [[0, mixHex(pg, P.night1, .4)], [.15, mixHex(pg, k, .15)], [1, pg]]); ctx.fill();
     ctx.strokeStyle = rgba(P.blue1, .35); ctx.lineWidth = w * .0016; for (let i = 1; i < 8; i++) { const yy = y - h * .45 + i * h * .115; ctx.beginPath(); ctx.moveTo(x + d * w * .04, yy); ctx.lineTo(x + d * w * .47, yy); ctx.stroke(); }
   }
   (o.lines || []).forEach(([s, u], i) => handwrite(ctx, s, x - w * .46 + (i % 2 ? w * .5 : 0) * 0, y - h * .3 + i * h * .23, w * .045, u, { col: P.shade0 }));
