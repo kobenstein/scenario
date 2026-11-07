@@ -403,7 +403,7 @@ export function wheel(ctx, t, x, y, r, o = {}) {
 // ======================================================================================================================== clips
 // ORIGINAL FOOTAGE (docs/shots.md §5): the clip plays in a frame the animation leads into and out of. Meta until audio/clips.json exists.
 export const CLIPS19 = {   // real clips (clips/clips.json, cut 6.11.); lower third = name · role · year · ORIGINAL FOOTAGE
-  C1: { name: 'Heinz von Foerster', role: 'Cybernetician', year: '', src: 'High Tech Heroes #10 (atwaterpub)' },   // broadcast year unknown -> no year
+  C1: { name: 'Heinz von Foerster', role: 'Cybernetician', year: '1989', src: 'High Tech Heroes #10 (atwaterpub)' },   // 1989 interview (Zweitprüfung 7.11.), 2011 = upload only
   C2: { name: 'David Rein', role: 'Researcher, METR', year: '2026', src: 'Machine Learning Street Talk' },
   C3: { name: 'Beren Millidge', role: 'CTO, Zyphra', year: '2026', src: 'Dwarkesh Patel' },
 };
