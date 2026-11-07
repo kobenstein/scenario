@@ -98,14 +98,23 @@ function wrap(ctx, s, size, serif, maxW) {
 function glowOnly(ctx, s, x, y, size, k) {   // the glyph's warm glow alone (no glyph), unclipped: no box edges round a rolling digit
   if (k <= .01) return; ctx.save(); ctx.font = font(size, true); ctx.shadowColor = rgba(P.halo0, .7 * k); ctx.shadowBlur = size * .4; ctx.shadowOffsetX = 20000; ctx.fillStyle = '#000'; ctx.fillText(s, x - 20000, y); ctx.restore();
 }
-function rollGlyph(ctx, a, b, u, x, y, size, o) {
-  const h = size * 1.02, top = y - size * .82;
-  if (o.glow) { const g = o.glow * (1 - Math.sin(Math.PI * clamp(u))) ** 2, cw0 = measure(ctx, '0', size, true); const gl = u < .5 ? a : b; glowOnly(ctx, gl, x + (cw0 - measure(ctx, gl, size, true)) / 2, y + (u < .5 ? -h * u : h * (1 - u)) * 0, size, g); o = { ...o, glow: 0 }; }
-  ctx.save(); ctx.beginPath(); ctx.rect(x - 2, top - 2, measure(ctx, '0', size, true) + 6, h + 4); ctx.clip();
-  const cw = measure(ctx, '0', size, true), cx = (g) => x + (cw - measure(ctx, g, size, true)) / 2;   // tabular: every glyph centred in a '0' cell
-  if (u <= 0 || a === b) txt(ctx, a, cx(a), y, { size, serif: true, ...o });
-  else if (u >= 1) txt(ctx, b, cx(b), y, { size, serif: true, ...o });
-  else { txt(ctx, a, cx(a), y - h * u, { size, serif: true, ...o }); txt(ctx, b, cx(b), y + h * (1 - u), { size, serif: true, ...o }); }
+const GM = {};   // per size: the digit box (ascent/descent of the serif figures) and the '0' cell width
+function glyphBox(ctx, size) {
+  if (GM[size]) return GM[size];
+  ctx.save(); ctx.font = font(size, true); const m = ctx.measureText('0123456789'), cw = ctx.measureText('0').width; ctx.restore();
+  const asc = m.actualBoundingBoxAscent || size * .7, desc = m.actualBoundingBoxDescent || size * .02;
+  return (GM[size] = { asc, desc, cw, step: asc + desc + size * .16 });
+}
+// one glyph column that rolls from a to b (u 0..1, dir +1: a leaves upwards, b comes from below; dir -1 the other way),
+// clipped tight to the figure box so nothing of the neighbour glyph shows above or below the line
+function rollGlyph(ctx, a, b, u, x, y, size, o, dir = 1) {
+  const B = glyphBox(ctx, size), h = B.step, cw = B.cw;
+  const cx = (g) => x + (cw - measure(ctx, g, size, true)) / 2;   // tabular: every glyph centred in a '0' cell
+  if (o.glow) { const g = o.glow * (1 - Math.sin(Math.PI * clamp(u))) ** 2, gl = u < .5 ? a : b; glowOnly(ctx, gl, cx(gl), y, size, g); o = { ...o, glow: 0 }; }
+  if (u <= 0 || a === b) { txt(ctx, a, cx(a), y, { size, serif: true, ...o }); return; }
+  if (u >= 1) { txt(ctx, b, cx(b), y, { size, serif: true, ...o }); return; }
+  ctx.save(); ctx.beginPath(); ctx.rect(x - size * .08, y - B.asc - size * .02, cw + size * .16, B.asc + B.desc + size * .04); ctx.clip();
+  txt(ctx, a, cx(a), y - dir * h * u, { size, serif: true, ...o }); txt(ctx, b, cx(b), y + dir * h * (1 - u), { size, serif: true, ...o });
   ctx.restore();
 }
 // a string where every changed glyph rolls (stagger right → left)
@@ -120,14 +129,13 @@ function rollText(ctx, from, to, u0, x, y, size, o = {}, dt = 60 / 450) {
   }
   return cx - x;
 }
-// odometer: a year value v (float) with its digits rolling through every intermediate value
-function odometer(ctx, v, x, y, size, o = {}) {
-  const s = String(Math.floor(v)).padStart(4, '0'), wd = measure(ctx, '0', size, true);
-  for (let p = 0; p < 4; p++) {
-    const pw = 10 ** (3 - p), d = Math.floor(v / pw) % 10, low = v % pw, carry = p === 3 ? v - Math.floor(v) : clamp(low - (pw - 1));
-    rollGlyph(ctx, String(d), String((d + 1) % 10), smooth(carry), x + p * (wd + size * .02), y, size, o);
-  }
-  void s;
+// odometer: from → to in whole steps over p 0..1. Each step is a short clean roll of only the digits that change
+// (rolls take 65 % of a step, the rest is a hold), so every frame shows one real year or one year rolling into the next.
+function odometer(ctx, from, to, p, x, y, size, o = {}) {
+  const n = Math.abs(to - from), dir = Math.sign(to - from) || 1, wd = glyphBox(ctx, size).cw;
+  const pos = clamp(p) * n, k = Math.min(Math.floor(pos), n), u = k >= n ? 0 : smooth(clamp((pos - k) / .65));
+  const cur = String(from + dir * k).padStart(4, '0'), nxt = String(from + dir * Math.min(k + 1, n)).padStart(4, '0');
+  for (let i = 0; i < 4; i++) rollGlyph(ctx, cur[i], nxt[i], cur[i] === nxt[i] ? 0 : u, x + i * (wd + size * .02), y, size, o, dir);
   return 4 * (wd + size * .02);
 }
 
@@ -171,7 +179,7 @@ export function dayClock(ctx, t) {
   const S = STAMP;
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
   // ---- the birth: the big year rolls in (2026 → 2037) and lands on the word, then shrinks into the stamp
-  const roll = span(t, .25, HT.yearLand), land = expoOut(roll);
+  const roll = span(t, .25, HT.yearLand), land = 1 - (1 - roll) ** 2;   // eases out, but every year still reads
   const sh = quartIO(span(t, HT.shrink, HT.shrink + 1.3));
   const lab = span(t, HT.tuesday, HT.tuesday + .6);
   const yb = HT.yearBack ? Math.min(span(t, HT.yearBack.t0, HT.yearBack.t0 + 1.3), 1 - span(t, HT.yearBack.t1 - 1.3, HT.yearBack.t1)) : 0;
@@ -182,11 +190,12 @@ export function dayClock(ctx, t) {
   ctx.save(); ctx.translate(yx, yy); ctx.scale(settle, settle);
   let yw;
   if (t < HT.yearLand + .05) {
-    ctx.save(); ctx.beginPath(); ctx.rect(-10, -size * 1.15 + size * 1.2 * (1 - expoOut(span(t, 0, .6))), size * 3.2, size * 1.4); ctx.clip();   // rises from its baseline
-    yw = odometer(ctx, 2026 + 11 * land, 0, 0, size, { col: P.core0, glow: glowA }); ctx.restore();
+    const rise = expoOut(span(t, 0, .6));   // rises from its baseline (a mask only while rising: no box edge afterwards)
+    ctx.save(); if (rise < 1) { ctx.beginPath(); ctx.rect(-size, -size * 1.15 + size * 1.2 * (1 - rise), size * 5, size * 1.4); ctx.clip(); }
+    yw = odometer(ctx, 2026, 2037, land, 0, 0, size, { col: P.core0, glow: glowA }); ctx.restore();
   } else if (yb > 0 && HT.yearBack) {   // 12.05: the year rolls back to 2026 and forward again to 2037
     const back = Math.min(span(t, HT.yearBack.t0 + .9, HT.yearBack.t0 + 3.2), 1 - span(t, HT.yearBack.t1 - 3.4, HT.yearBack.t1 - 1.2));
-    yw = odometer(ctx, 2037 - 11 * smooth(back) + 1e-6, 0, 0, size, { col: P.core0, glow: glowA });
+    yw = odometer(ctx, 2037, 2026, sineIO(back), 0, 0, size, { col: P.core0, glow: glowA });
   } else {
     const cy = cardYear(t);
     if (cy.u > 0) yw = rollText(ctx, '2037', String(cy.y), cy.u, 0, 0, size, { col: mixHex(P.core0, P.halo0, .8), glow: glowA });

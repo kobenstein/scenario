@@ -55,12 +55,13 @@ export const DEPTH = 600, ZB = ZS + DEPTH;
 const KY = floorY(2), KC = KY - (FLOOR - SLAB);
 export const KITCHEN = {
   x0: -2000, x1: -1000, floor: KY, ceil: KC, zBack: ZB,
-  counter: { x0: -1992, x1: -1745, top: KY - 140, z0: ZB - 100 },                 // along the back wall, left
-  kettle: [-1935, KY - 140, ZB - 45], phone: [-1790, KY - 140, ZB - 92],        // [X, Y, Z]
-  table: { x0: -1460, x1: -1100, top: KY - 100, z0: ZB - 250, z1: ZB - 90 },     // the dinner table under the light wall (stools, no chair backs over the wall)
+  counter: { x0: -1992, x1: -1745, top: KY - 80, z0: ZB - 100 },                  // along the back wall, left (hip height of you: 140 tall)
+  kettle: [-1935, KY - 80, ZB - 45], phone: [-1790, KY - 80, ZB - 92],          // [X, Y, Z]
+  table: { x0: -1460, x1: -1100, top: KY - 62, z0: ZB - 250, z1: ZB - 90 },      // the dinner table under the light wall (stools, seat KY - 40; no chair backs over the wall)
   lamp: { x: -1050, y: KC + 190, z: ZB - 200 },                                 // the pendant right of the light wall (never in front of it)
   door: { top: KY - 300, z0: ZS + 250, z1: ZS + 450 },                          // the open door in the left wall (to the lit hallway)
   you: [-1700, KY, ZB - 120],                                                   // where you stand in the opening (thumbnail A) [X, Y, Z]
+  seatY: KY - 40,                                                                 // stool seat height (sitting figures: hips here)
   seats: { left: [-1500, ZB - 170], right: [-1060, ZB - 170], front: [-1280, ZB - 300] },   // dinner places [X, Z] (feet on KY)
 };
 export const LIGHTWALL = { x: -1620, y: KC + 20, w: 520, h: 400, z: ZB };      // the light area of the back wall (scan, explainers, the old screen)
@@ -425,7 +426,7 @@ export function kitchen(ctx, c, t, o = {}) {
     ...(o.people || []),
   ];
   if (o.table !== false) {
-    if (o.chairs !== false) for (const [x, z] of [[T.x0 - 40, (T.z0 + T.z1) / 2], [T.x1 + 40, (T.z0 + T.z1) / 2], [(T.x0 + T.x1) / 2, T.z0 - 50]]) items.push([z, (cx) => { cx.fillStyle = mixHex(P.night0, P.ind0, .7); cx.fillRect(x - 36, K.floor - 64, 72, 12); cx.fillRect(x - 28, K.floor - 52, 9, 52); cx.fillRect(x + 19, K.floor - 52, 9, 52); }]);   // stools
+    if (o.chairs !== false) for (const [x, z] of [[T.x0 - 40, (T.z0 + T.z1) / 2], [T.x1 + 40, (T.z0 + T.z1) / 2], [(T.x0 + T.x1) / 2, T.z0 - 50]]) items.push([z, (cx) => { cx.fillStyle = mixHex(P.night0, P.ind0, .7); cx.fillRect(x - 32, K.floor - 42, 64, 9); cx.fillRect(x - 25, K.floor - 33, 8, 33); cx.fillRect(x + 17, K.floor - 33, 8, 33); }]);   // stools
     items.push([T.z0, (cx) => {
       cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0);
       quad(cx, c, [[T.x0, T.top, T.z0], [T.x1, T.top, T.z0], [T.x1, T.top, T.z1], [T.x0, T.top, T.z1]], (q) => lin(cx, 0, q[2][1], 0, q[0][1], [[0, mixHex(P.ind1, WARM.mid, .5 * lamp)], [1, mixHex(P.ind0, WARM.deep, .4 * lamp)]]));
@@ -841,7 +842,7 @@ export function notebook(ctx, x, y, w, t, o = {}) {
   for (const d of [-1, 1]) {
     ctx.beginPath(); ctx.moveTo(x, y - h * .48); ctx.quadraticCurveTo(x + d * w * .25, y - h * .56, x + d * w * .5, y - h * .5); ctx.lineTo(x + d * w * .5, y + h * .48); ctx.quadraticCurveTo(x + d * w * .25, y + h * .42, x, y + h * .5); ctx.closePath();
     const pg = o.moon ? mixHex(P.cream, P.blue1, .62) : P.cream; ctx.fillStyle = lin(ctx, x, 0, x + d * w * .5, 0, [[0, mixHex(pg, P.night1, .4)], [.15, mixHex(pg, k, .15)], [1, pg]]); ctx.fill();
-    ctx.strokeStyle = rgba(P.blue1, .35); ctx.lineWidth = Math.max(1, w * .002); for (let i = 1; i < 8; i++) { const yy = y - h * .45 + i * h * .115; ctx.beginPath(); ctx.moveTo(x + d * w * .04, yy); ctx.lineTo(x + d * w * .47, yy); ctx.stroke(); }
+    ctx.strokeStyle = rgba(P.blue1, .35); ctx.lineWidth = w * .0016; for (let i = 1; i < 8; i++) { const yy = y - h * .45 + i * h * .115; ctx.beginPath(); ctx.moveTo(x + d * w * .04, yy); ctx.lineTo(x + d * w * .47, yy); ctx.stroke(); }
   }
   (o.lines || []).forEach(([s, u], i) => handwrite(ctx, s, x - w * .46 + (i % 2 ? w * .5 : 0) * 0, y - h * .3 + i * h * .23, w * .045, u, { col: P.shade0 }));
 }

@@ -15,8 +15,9 @@
 //   B2 → B3    'And today you say' (c08 → c09) plateWall    THE KITCHEN at CAM_WALL, 19:30, lamp on, the light wall empty (no scan, no
 //              explainer), nobody inside the frame (seated people sit out of this frame or leave it before T0 − .5). This plate is the WORLD
 //              itself (K.world at K.CAM_WALL with WALL_STATE), so both sides can simply hold CAM_WALL and the same state around T0.
-//   B3 → Lead  'Ten-thirty' (c11 → c12)       plateNotebook the notebook page close, 'Because people kept asking.' in gold handwriting,
-//              moon-cool light. B3 ends 11.05 on it; the lead pulls back to the sleeping kid (22:30).
+//   B3 → Lead  'Ten-thirty' (c11 → c12)       plateNotebook THE KITCHEN at CAM_NOTEBOOK, 22:30: the notebook propped open on the table,
+//              'Because people kept asking.' in gold handwriting, moon-cool. A world plate (like plateWall). B3 pushes in to it at the end
+//              of 11.06; the lead pulls back to the sleeping kid (22:30).
 import * as E from './f10_editorial.mjs';
 import * as K from './f23_kit.mjs';
 const { W, H, P, rgba, rad, lin, mixHex } = E;
@@ -54,16 +55,29 @@ export function plateWindow(ctx, t) {
 export const WALL_STATE = { hour: 19.5, you: { hallLamp: 1, kitchen: { lamp: 1, wall: .35, scan: null, phone: null } } };
 export function plateWall(ctx, t) { K.world(ctx, K.CAM_WALL, t, WALL_STATE); }
 
-// ---- B3 → Lead: the notebook page --------------------------------------------------------------------------------------------------
+// ---- B3 → Lead: the notebook page (a WORLD plate, like plateWall) -------------------------------------------------------------
+// The kid's notebook stands open, propped up on the back half of the kitchen table, facing the camera (NOTEBOOK_WORLD, world units).
+// CAM_NOTEBOOK frames it exactly as NOTEBOOK_PLATE (spine centre at (960, 560), both pages 2300 px wide). The plate is the world at
+// 22:30 (NOTEBOOK_STATE: lamp low, light wall dark, moon) + the notebook with its two lines. Both sides hold CAM_NOTEBOOK (no drift)
+// for t in [T0 − .5, T0 + .5) and draw NOTEBOOK_STATE; other things (the sleeping kid, the pea, the phone) sit out of this frame.
+// notebookItem(t, o) → [Z, fn] for kitchen.people, so a scene can draw the same notebook inside its own world state.
 export const NOTEBOOK_PLATE = { x: 960, y: 560, w: 2300, line1: 'Why did it go well?', line2: 'Because people kept asking.' };
+const KY = K.KITCHEN.floor;
+export const NOTEBOOK_WORLD = { X: -1280, Y: KY - 62 - 2300 * .36 / 2 / (2300 / 60) - 1.2, Z: K.ZB - 150, w: 60 };   // spine centre; pages' foot on the table top
+export const CAM_NOTEBOOK = K.look(NOTEBOOK_WORLD.X, NOTEBOOK_WORLD.Y, NOTEBOOK_WORLD.Z, NOTEBOOK_PLATE.w / NOTEBOOK_WORLD.w, NOTEBOOK_PLATE.x, NOTEBOOK_PLATE.y);
+export function notebookItem(t, o = {}) {
+  const N = NOTEBOOK_WORLD, k = N.w / NOTEBOOK_PLATE.w, l1 = o.line1 ?? 1, l2 = o.line2 ?? 1;
+  return [N.Z, (cx) => {
+    K.notebook(cx, N.X, N.Y, N.w, t, { moon: o.moon ?? true });
+    if (l1 > 0) K.handwrite(cx, NOTEBOOK_PLATE.line1, N.X + 90 * k, N.Y - 150 * k, 64 * k, l1, { col: mixHex(P.shade0, P.ind1, .3), glow: false });
+    if (l2 > 0) K.handwrite(cx, NOTEBOOK_PLATE.line2, N.X + 90 * k, N.Y + 20 * k, 76 * k, l2, { col: P.halo0 });
+  }];
+}
+export const NOTEBOOK_STATE = { hour: 22.5, you: { hallLamp: .55, kitchen: { lamp: .35, wall: 0, scan: null, phone: null } } };
 export function plateNotebook(ctx, t) {
-  const N = NOTEBOOK_PLATE;
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.fillStyle = lin(ctx, 0, 0, 0, H, [[0, P.night1], [1, P.night0]]); ctx.fillRect(0, 0, W, H);
-  K.notebook(ctx, N.x, N.y, N.w, t, { moon: true });
-  K.handwrite(ctx, N.line1, N.x + 90, N.y - 150, 64, 1, { col: mixHex(P.shade0, P.ind1, .3), glow: false });
-  K.handwrite(ctx, N.line2, N.x + 90, N.y + 20, 76, 1, { col: P.halo0 });
-  ctx.fillStyle = rad(ctx, 1500, 120, 900, [[0, rgba(K.COOL.mid, .14)], [1, rgba(K.COOL.mid, 0)]]); ctx.fillRect(0, 0, W, H);   // the moon's light
+  K.world(ctx, CAM_NOTEBOOK, t, { ...NOTEBOOK_STATE, you: { ...NOTEBOOK_STATE.you, kitchen: { ...NOTEBOOK_STATE.you.kitchen, people: [notebookItem(t)] } } });
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);   // the moon's light from the open front (upper right): a cool breath on the page
+  ctx.fillStyle = rad(ctx, 1500, 120, 900, [[0, rgba(K.COOL.mid, .12 + .02 * Math.sin(t * .7))], [1, rgba(K.COOL.mid, 0)]]); ctx.fillRect(0, 0, W, H);
   ctx.restore();
 }
 export const PLATES = { genius: plateGenius, window: plateWindow, wall: plateWall, notebook: plateNotebook };
