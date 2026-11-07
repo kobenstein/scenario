@@ -50,7 +50,7 @@ const { LAMP, TABLE, CLOCK, GY, camFor, stand, wp, bump, rise, maskLine, srcLine
 // ===================================================================================================================== cameras
 const EYE = S.EYE_CAM;
 const BENCH = (X, s, sy = 540, Y = -300) => camFor(X, Y, LAMP.Z, s, 960, sy);
-const D1 = (s) => camFor(0, 0, CLOCK.Z, s, 960, 870);                     // the gauge as a diagram (as c01 1.08)
+const D1 = (s, sy = 870) => camFor(0, 0, CLOCK.Z, s, 960, sy);                     // the gauge as a diagram (as c01 1.08)
 const BODY = (s, sy = 800) => camFor(0, -250, F.SEAT.Z, s, 960, sy);      // the family at the bottom, the body of light behind them
 const PANE = camFor(-4000, -3000, CLOCK.Z, .072, 760, 600, E.F0 * .072 / .0622);   // 7.13: a longer lens toward the needle path (camera stays near D1)
 const C_BODY = BODY(.74, 830), C_BODY2 = BODY(.79, 860);
@@ -133,14 +133,21 @@ function scene(a, CL) {
     [a.needle + .2, D1(.0622), 'q'],                                          // 5.08 crane up to the lit clock
     [a.target + .5, D1(.0648)],                                               // 5.09–5.10 slow push
     [a.small - .25, C_BODY, 'q'],                                             // 6.01 crane down: the ring into the body's head
-    [CL.c2.start - .6, BODY(.765, 830)],                                      // 6.02 slow push
-    [CL.c2.end + .2, BODY(.77, 832)],
-    [a.cancer - .2, BODY(.775, 840)],
+    [a.y2027 + .2, BODY(.7625, 829)],                                         // 6.02 slow push
+    // the clip window keeps the bottom fifth free for the subtitles: crane up as the screen unfolds (table + family drop out
+    // below the frame, clear of the lower third), crane back down after it
+    [CL.c2.start - .05, BODY(.765, 1170), 'q'],
+    [CL.c2.end, BODY(.77, 1176)],
+    [a.cancer - .2, BODY(.775, 840), 'q'],
     [a.howOld + .3, C_BODY2],                                                 // 6.05–6.06 slow rise with the lamps
-    [CL.q2.start, BODY(.81, 868)],
+    [CL.q2.start - 1.7, BODY(.809, 867)],
+    [CL.q2.start - .1, BODY(.81, 1145), 'q'],                                 // 7.02 the card window keeps the bottom fifth free (subtitles)
+    [CL.q2.end, BODY(.812, 1150)],
+    [CL.q2.end + 2.6, BODY(.815, 869), 'q'],
     [a.still + .5, BODY(.83, 875)],                                           // 7.03–7.06
     [a.reach + .2, D1(.0622), 'q'],                                           // 7.07 crane up to the clock
-    [CL.c3.start, D1(.0636)],
+    [CL.c3.start - .3, D1(.0636, 800)],                                        // the C3 window: the hub stand lifts out of the bottom fifth
+    [CL.c3.end + .3, D1(.0641, 798)],
     [a.unless, D1(.0648)],
     [a.words + .2, D1(.0655)],
     [a.more - .2, PANE, 'q'],                                                 // 7.13 push toward the needle path, the pane
@@ -181,7 +188,9 @@ function scene(a, CL) {
   };
   const trackAt = (t) => {
     if (t < a.still + 1.2) return null;
-    return { lit: 1, reach: span(t, a.still + 1.4, a.reach + .4), fin: S.FIN_FAR, finA: .7 * smooth(span(t, a.reach - .4, a.reach + .6)) };
+    // under the C3 clip the lit track (the only thing in the bottom fifth there) dims, so the subtitles sit on dark ground
+    const dim = .6 * smooth(span(t, CL.c3.start - 1.2, CL.c3.start - .1)) * (1 - smooth(span(t, CL.c3.end + .1, CL.c3.end + 1.3)));
+    return { lit: 1 - dim, reach: span(t, a.still + 1.4, a.reach + .4), fin: S.FIN_FAR, finA: .7 * smooth(span(t, a.reach - .4, a.reach + .6)) };
   };
 
   return (ctx, t) => {
@@ -505,8 +514,9 @@ function scene(a, CL) {
       srcLine(ctx, t, 'PARTS OF THE VISUAL FIELD IMPROVED', 1810, 250, clamp(tu * 1.2 - .1), { size: 21, align: 'right', col: P.halo0 });
     }
     // 5.06 the quote card Q1 (rises from the tabletop, sinks back into it)
+    // a paraphrase of the company's release: no quote marks, and the attribution says so
     const [qt, qw, qs] = splitQ(CL.q1.text);
-    quoteLines(ctx, t, { lines: wrap(`“${qt}”`, 50, 1000), who: qw, src: qs, t0: CL.q1.start - .2, t1: CL.q1.end - 1.0, y: 430, base: () => { const p = wp(c, 0, GY - TABLE.h, TABLE.z0); return p ? p[1] - 4 : 700; }, size: 50, gold: [['safety', CL.q1.start + 2.2]] });
+    quoteLines(ctx, t, { lines: wrap(qt, 50, 1000), who: `Paraphrased from ${qw}`, src: qs.replace(/, /g, ' · '), whoAt: CL.q1.start + 1.0, t0: CL.q1.start - .2, t1: CL.q1.end - 1.0, y: 430, base: () => { const p = wp(c, 0, GY - TABLE.h, TABLE.z0); return p ? p[1] - 4 : 700; }, size: 50, gold: [['safety', CL.q1.start + 2.2]] });
     // 5.07 NO CONTROL GROUP (over the dashed place)
     const nu = rise(span(t, a.noCtrl, a.noCtrl + .6)) * (1 - expoIn(span(t, a.noCtrl + .9, a.noCtrl + 1.5)));
     if (nu > 0) {
@@ -760,7 +770,7 @@ function quoteLines(ctx, t, o) {
     } else { ctx.fillStyle = INK; ctx.fillText(ln, xx, yy); }
     ctx.restore();
   });
-  if (o.who) { const au = rise(span(t, o.t0 + 1.0 + lines.length * .45, o.t0 + 1.8 + lines.length * .45)); ctx.save(); ctx.globalAlpha *= au; ctx.font = '600 26px Inter'; ctx.letterSpacing = '4px'; ctx.fillStyle = rgba(INK, .8);
+  if (o.who) { const w0 = o.whoAt ?? o.t0 + 1.0 + lines.length * .45, au = rise(span(t, w0, w0 + .8)); ctx.save(); ctx.globalAlpha *= au; ctx.font = '600 26px Inter'; ctx.letterSpacing = '4px'; ctx.fillStyle = rgba(INK, .8);
     ctx.fillText(o.who.toUpperCase(), -w / 2 + 110, hCard / 2 - 70 + (1 - au) * 10); if (o.src) { ctx.font = '500 21px Inter'; ctx.fillStyle = rgba(INK, .6); ctx.fillText(o.src.toUpperCase(), -w / 2 + 110, hCard / 2 - 38 + (1 - au) * 10); } ctx.restore(); }
   ctx.restore();
 }
