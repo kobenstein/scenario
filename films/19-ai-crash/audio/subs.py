@@ -31,6 +31,14 @@ def split(ws):
     return split(ws[:bi]) + split(ws[bi:])
 # hand-made breaks where the balanced split would cut a phrase (Film 6 hook, Fassung 3): sentence text -> cue texts, same words in order
 BREAKS = {   # Film 19: keep phrases together where the balanced split would cut them
+    "Then you decide how much of your savings rides on one boom.":
+        ["Then you decide how much", "of your savings", "rides on one boom."],
+    "This channel exists so that this transition goes well for everybody.":
+        ["This channel exists", "so that this transition", "goes well for everybody."],
+    "If you want this transition to go well for everybody, subscribe, and walk the next stretch with us.":
+        ["If you want this transition", "to go well for everybody,", "subscribe, and walk", "the next stretch with us."],
+    "So the first protection: don't lock in the fall.":
+        ["So the first protection:", "don't lock in the fall."],
     "The farthest: two and a half years in.":
         ["The farthest:", "two and a half years in."],
     "Every year, the biggest tech companies spend more on them.":

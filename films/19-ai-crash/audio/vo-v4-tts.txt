@@ -10,7 +10,7 @@
 
 [calm, conversational] Three years ago, of every dollar companies borrowed through bonds with good credit ratings, artificial intelligence firms took two cents. This year, they took ten. And debt turns a slowdown into a problem: the payments come due either way. In China, Reuters says, the bubble has already burst. The main index of artificial intelligence and chip stocks there lost about forty percent in under four months. If it pops here, the first protection costs nothing.
 
-[calm, conversational] Day thirty-one. Red numbers on your phone, on the news, in every group chat. Everything in you says: do something. But in the financial crisis, almost nobody ran. Fidelity, one of America's biggest retirement providers, tracked its savers through the panic. Fewer than two in a hundred moved everything out of stocks. A couple of years later, the balances of those who stayed had grown by about half. Those who sold and came back later: about a quarter. Those who left and stayed out: about two percent. So the first protection isn't a move. It's a pause.
+[calm, conversational] Day thirty-one. Red numbers on your phone, on the news, in every group chat. Everything in you says: do something. But in the financial crisis, almost nobody ran. Fidelity, one of America's biggest retirement providers, tracked its savers through the panic. Fewer than two in a hundred moved everything out of stocks. A couple of years later, the balances of those who stayed had grown by about half. Those who sold and came back later: about a quarter. Those who left and stayed out: about two percent. So the first protection: don't lock in the fall. Pause.
 
 [softly] This isn't financial advice. It's what happened to people who decided in the panic. In the loudest week, you don't have to decide anything big. The phone can go face down.
 
@@ -20,7 +20,7 @@
 
 [thoughtful] So we keep walking.
 
-[curious] But what if the fall doesn't stop here? Then it reaches people who never owned a single share. Maybe that's you. Yet if your pension follows the whole market, you own a piece of this boom anyway. In May, just two memory-chip companies made about a sixth of the whole world stock market's gains. So the second protection: know what you own. Find out what your fund holds, and how much of it rides on this one boom. Knowing isn't a move. But it's hard to stay calm about something you can't see.
+[curious] But what if the fall doesn't stop here? Then it reaches people who never owned a single share. Maybe that's you. Yet if your pension follows the whole market, you own a piece of this boom anyway. In May, just two memory-chip companies made about a sixth of the whole world stock market's gains. So the second protection: know what you own. Find out what your fund holds, and how much of it rides on this one boom. Then you decide how much of your savings rides on one boom. Not the crash.
 
 [calm, conversational] And if the fall keeps going, it reaches paychecks. When the dot-com bubble burst, money for young companies more than halved within a year. If that happens again, the fall becomes a hiring freeze. A canceled project. A job offer that never comes. So the third protection is plain: a buffer. Picture a surprise bill of four hundred dollars. In America, only about six in ten adults could pay it right away from their own money. Families with even a few hundred dollars set aside were less likely to fall behind on rent. A buffer doesn't stop the fall. It gives you time to think.
 
@@ -30,7 +30,9 @@
 
 [calm, conversational] Today, the price of using artificial intelligence keeps falling: for the same result, roughly ten times cheaper every year. So the fourth protection: use what became cheap. This isn't about stocks. It's about tools. Learn one of them now, while the headlines are still red. Four protections, all of them yours. But is it enough if everyone only protects themselves?
 
-[thoughtful] On a road this long, protecting yourself stops being enough. But the great crashes of the past left something behind: safety nets. In the early nineteen-thirties, thousands of American banks failed, and with them, people's savings. So in nineteen thirty-three, America decided to insure bank deposits. Since then, no one has lost a single cent of insured money. If your bank failed tomorrow, up to two hundred fifty thousand dollars in your accounts there would be safe.
+[thoughtful] On a road this long, protecting yourself stops being enough.
+[warm] This channel exists so that this transition goes well for everybody. If you want that too, subscribe.
+[thoughtful] But the great crashes of the past left something behind: safety nets. In the early nineteen-thirties, thousands of American banks failed, and with them, people's savings. So in nineteen thirty-three, America decided to insure bank deposits. Since then, no one has lost a single cent of insured money. If your bank failed tomorrow, up to two hundred fifty thousand dollars in your accounts there would be safe.
 
 [calm, conversational] On Black Monday in nineteen eighty-seven, the Dow lost almost a quarter in a single day. After that, the stock market got an emergency brake. If prices fall too far in one day, trading stops. In March twenty twenty, as the pandemic hit, it was pulled four times in under two weeks. Each time, everyone got fifteen minutes to breathe. On November fifth, it was never pulled.
 
@@ -47,3 +49,4 @@
 [calm, conversational] He builds this technology, so weigh his words. But the dot-com bubble went that way, too. A crash puts a new price on a technology. It doesn't take the technology away. If the last few years are any guide, on day one thousand, artificial intelligence is cheaper than today, and everywhere. And you can stand at the front of it without knowing the name of a single stock.
 
 [softly] If you stayed calm in the loudest week. If you knew what you owned. If you had a buffer when money got tight. If you used what got cheap. And if you didn't have to do it alone. Which of these do you already have, and which one is missing? This channel will keep walking this road with you, one honest step at a time. On day thirty, it hurt. Today, the clock has barely started. And you know what to carry on the way.
+[warm] If you want this transition to go well for everybody, subscribe, and walk the next stretch with us.

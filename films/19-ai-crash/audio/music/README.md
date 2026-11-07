@@ -13,3 +13,4 @@ Style: mystical and contemplative (drone, pads, felt piano, glass harmonica, dis
 Vocal check: fal-ai/whisper over the full mix returns only the VO/clip words plus one music hallucination over the end screen ("The world is full of life."); Lyria lyrics field = placeholders only.
 Level: cue RMS -26 dB, ducked -6 dB under speech and clips (VO -20 dB RMS + VO_BOOST 2 dB) -> voice ~14 dB over music (median, p10 7 dB);
 mix: VO_BOOST=2 python3 audio/mix.py <audio_dir> <wav_dir> -> -14.0 LUFS / -1.0 dBTP (mix.wav), mix.m4a -14.0 LUFS / -1.6 dBTP.
+Splice 2026-11-07: +7.0 s gap at 391.74 inside M3 -> M3 repeat [5.25, 12.25] (crossfade at film 398.25, best spectral match 7 s apart), so M3 after 398.25 keeps its old position +7; M4 moved 514.5 -> 521.5 (offset 5.5, ends with the film at 10:17.1). Dip unchanged. mix.m4a -14.0 LUFS / -1.4 dBTP.
