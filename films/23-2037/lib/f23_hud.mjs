@@ -68,7 +68,13 @@ export function prepareHud(T) {
   const clips = Object.values(T.clips || {}).filter((c) => c.kind !== 'card');
   const subs = readCues();
   for (const c of clips) {   // the quote's voice timing: its own words (when the narrated quote has word timing), else the subtitle cues
-    if (Array.isArray(c.words) && c.words.length) c.cues = c.words.map((w) => ({ s: w.s, e: w.e, text: w.w }));
+    if (Array.isArray(c.words) && c.words.length) {   // phrases from the narrated word times: break after punctuation or 7 words
+      c.cues = []; let cur = null;
+      for (const w of c.words) {
+        if (!cur) { cur = { s: w.s, e: w.e, text: w.w, n: 1 }; c.cues.push(cur); } else { cur.text += ' ' + w.w; cur.e = w.e; cur.n++; }
+        if (/[,.;:?!]$/.test(w.w) || cur.n >= 7) cur = null;
+      }
+    }
     else c.cues = subs.filter((q) => q.s >= c.start - .25 && q.s < c.end - .1);
   }
   HT.clips = clips;
@@ -332,8 +338,9 @@ const QL = new Map();
 function quoteLayout(ctx, c, w, h, k) {
   const key = `${c.id}:${w}`; if (QL.has(key)) return QL.get(key);
   const text = (c.text || '').trim(), maxW = w * .76;
-  let size = 64 * k, lines;
-  for (;;) { lines = wrapI(ctx, text, size, maxW); if (lines.length * size * 1.28 <= h * .5 || size < 30 * k) break; size *= .94; }
+  let size = 60 * k, lines;
+  // the block (first cap height … last descender) stays within .46 h: clear of the QUOTE tab above and the lower third below
+  for (;;) { lines = wrapI(ctx, text, size, maxW); if (blockH(lines.length, size) <= h * .46 || size < 30 * k) break; size *= .96; }
   // every word gets its reveal time: the cue it belongs to (matched in order by word count), else even pacing over the slot
   const words = text.split(' '), tw = new Array(words.length).fill(null), cues = c.cues || [];
   let wi = 0;
@@ -348,6 +355,7 @@ function quoteLayout(ctx, c, w, h, k) {
   });
   QL.set(key, L); return L;
 }
+const blockH = (n, size) => (n - 1) * size * 1.28 + size * 1.06;
 const fontI = (size) => `italic ${size}px "Instrument Serif"`;
 function measureI(ctx, s, size) { ctx.save(); ctx.font = fontI(size); const w = ctx.measureText(s).width; ctx.restore(); return w; }
 function wrapI(ctx, s, size, maxW) {
@@ -360,7 +368,7 @@ function quoteCard(ctx, x, y, w, h, c, t) {
   ctx.fillStyle = lin(ctx, x, y, x, y + h, [[0, mixHex(P.ind1, P.night1, .35)], [1, mixHex(P.night1, P.night0, .4)]]); ctx.fillRect(x, y, w, h);
   ctx.fillStyle = rad(ctx, x + w * .3, y + h * .35, w * .7, [[0, rgba(P.halo0, .07)], [1, rgba(P.halo0, 0)]]); ctx.fillRect(x, y, w, h);
   const L = quoteLayout(ctx, c, w, h, k), sz = L.size, lh = sz * 1.28;
-  const bx = x + w * .12, by = y + h * .44 - (L.lines.length - 1) * lh / 2 + sz * .3;
+  const bx = x + w * .12, by = y + h * .455 - blockH(L.lines.length, sz) / 2 + sz * .78;   // first baseline; block centred at .455 h
   // the gold opening mark, set in the margin
   txt(ctx, '\u201C', bx - sz * .62, by + sz * .12, { size: sz * 1.9, serif: true, col: P.halo0, glow: .5 });
   for (const wd of L.words) {

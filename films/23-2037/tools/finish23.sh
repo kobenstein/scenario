@@ -2,11 +2,13 @@
 # Film 23: render the whole film in pieces (<= 20 s, split inside chunks on whole frames) -> check frame counts -> join (silent master)
 # -> final 1080p H.264 with the mix and burned subtitles -> 720p preview.
 #   tools/finish23.sh <work_dir> [jobs=3] [stage: render|final|preview|all]
+#   delete parts/pNN.mp4 to re-render only those pieces (existing pieces are kept).
 #   CLIP_MODE=quote|footage|auto is passed through to the renderer (lib/f23_hud.mjs, the old screen).
 set -euo pipefail
 WD=${1:?work dir}; JOBS=${2:-3}; STAGE=${3:-all}
 FILM=$(cd "$(dirname "$0")/.." && pwd); ROOT=${F23ROOT:-/mnt/project-files/scenario/film-erster-tag/2037/}
-MIX=$ROOT/audio/mix.m4a; ASS=$ROOT/audio/untertitel/subtitles.ass
+# quote mode: MIX=$ROOT/audio/mix-quote.m4a ASS=$ROOT/audio/untertitel/subtitles-quote.ass (the card is the text: no clip cues)
+MIX=${MIX:-$ROOT/audio/mix.m4a}; ASS=${ASS:-$ROOT/audio/untertitel/subtitles.ass}
 mkdir -p "$WD/parts"
 cd "$FILM"
 if [[ $STAGE == render || $STAGE == all ]]; then
