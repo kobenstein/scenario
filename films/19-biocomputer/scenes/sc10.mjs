@@ -1,17 +1,17 @@
-// c10 · Seth · embedded ethics (Johns Hopkins) · Smirnova (C3) · what now? · T.G('Still, some researchers') → T.G('At the start, the question')
+// c10 · Seth · embedded ethics (Johns Hopkins) · Hartung (C3) · what now? · T.G('Still, some researchers') → T.G('At the start, the question')
 // Builder B3. Plan: docs/shots.md 10.01–10.04 · kit: lib/f19_kit.mjs · B3 set: lib/f19_b3_world.mjs (same places as c01).
 // ONE entry, one camera in the aisle (THE RACK, anchor): from C_AISLE (= c09's last frame) a bee flies in and lands on the open drawer
 // (the box is still smaller than its brain). Anil Seth: the camera leans in over the drawer, the dish warms on "lab-grown brain
 // tissue"; on "the next ChatGPT" the screen on its stand wakes with a small cool chat bubble (dimmer than the dish). Johns Hopkins:
 // ethicists, scientists and the public (you among them) gather round the open drawer: EMBEDDED ETHICS. The camera trucks into the
-// screen (CLIP_RECT): C3 Lena Smirnova. The screen goes dark; the camera swings back over the drawer (the bee on it, WHAT NOW? on the
+// screen (CLIP_RECT): C3 Thomas Hartung. The screen goes dark; the camera swings back over the drawer (the bee on it, WHAT NOW? on the
 // ladder) and tilts straight down into the dish: the dish field (C_TOP) = the c11 seam.
 //
 // | ID    | anchor (word)                         | picture (one idea)                                           | 1–2 moves           |
 // |-------|---------------------------------------|--------------------------------------------------------------|---------------------|
 // | 10.01 | Anil Seth · lab-grown · ChatGPT        | the alive rack, a bee lands on the drawer; dish warm vs chat bubble cool | bee · lean in |
 // | 10.02 | Johns Hopkins · Ethicists · embedded   | three groups gather round the open drawer: EMBEDDED ETHICS   | people walk in      |
-// | 10.03 | [C3] Here's Lena Smirnova              | ORIGINAL FOOTAGE in the screen on its stand                  | truck into screen   |
+// | 10.03 | [C3] Here's Thomas Hartung             | ORIGINAL FOOTAGE in the screen on its stand                  | truck into screen   |
 // | 10.04 | what do we do now · bee's brain        | out of the screen, over the drawer and the bee, down into the dish | swing + tilt  |
 import * as E from '../lib/f10_editorial.mjs';
 import * as F from '../lib/f19_kit.mjs';
@@ -27,7 +27,7 @@ export default async (T, R) => {
   a.seth = G('Anil Seth', a.T0); a.worries = G('worries more', a.seth); a.lab = G('lab-grown brain', a.seth); a.chat = G('next ChatGPT', a.seth);
   a.jh = G('At Johns Hopkins', a.seth); a.start = G('from the very start', a.jh); a.ethicists = G('Ethicists, scientists', a.jh);
   a.sci = G('scientists', a.ethicists); a.pub = G('the public', a.ethicists); a.together = G('think it through', a.ethicists); a.emb = G('embedded ethics', a.jh);
-  a.here = G("Here's Lena", a.jh); a.c3 = F.clipWin(T, 'C3');
+  a.here = G("Here's Thomas", a.jh); a.c3 = F.clipWin(T, 'C3');
   a.what = G('So what do we do now', a.here); a.beeB = G("bee's brain", a.what);
   return [{ t: R.a, draw: scene(a, T), print: F.PRINT19 }];
 };

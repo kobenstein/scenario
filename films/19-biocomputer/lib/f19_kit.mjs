@@ -41,7 +41,9 @@
 import { Path2D, PathOp } from '@napi-rs/canvas';
 import * as E from './f10_editorial.mjs';
 import * as K16 from './f16_kit.mjs';
-import { clipFrame } from './kit.mjs';
+import fs from 'node:fs';
+import { loadImage } from '@napi-rs/canvas';
+import { ROOT } from './kit.mjs';
 const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, quartIO, expoOut, expoIn, glowFill, halo, rad, lin, prng, drift } = E;
 export const { rise, quote, rule, along, trailSpan, maskLine, measure } = K16;
 export const { du, person } = E;
@@ -515,18 +517,51 @@ export function monitor(ctx, v, t, X, Y, Z, w, o = {}) {
 // ======================================================================================================================== clips
 // ORIGINAL FOOTAGE (clips-v1.md; schreibraum/clip-schritt.md: "the animation leads into a frame or screen where the clip runs, and
 // out again"). During a clip the footage fills CLIP_RECT exactly (screen space). The handing shot steers its screen onto CLIP_RECT
-// before clip.start and leaves after clip.end. The footage comes from ROOT/clips/<id>/f00001.jpg… (30 fps, lib/kit.mjs clipFrame,
-// loaded by prepareClips) once downloaded; until then a calm placeholder runs (marked as such, never ship it).
-export const CLIP_RECT = { x: 336, y: 150, w: 1248, h: 702 };
-export const CLIPS = {
+// before clip.start and leaves after clip.end. Film 19 v4 (2026-11-08): CLIP_RECT is near full frame (the screen push ends with the
+// footage at 87.5 % of the frame width; the credits sit above it), the c05 Doom screen keeps the old rect (SCREEN_RECT).
+// Footage: <F19CLIPS or ROOT/clips>/<id>/f00001.jpg… (30 fps, written by tools/f19_clips.py), metadata from audio/clips.json:
+// offset (s from the slot start to the first frame), dur, fit ('cover' | 'contain'), year, name, role. The renderer awaits
+// prepareClipFrames(T, t) before each frame (film.prepare); until frames exist a calm placeholder runs (marked as such, never ship it).
+export const CLIP_RECT = { x: 120, y: 112, w: 1680, h: 945 };
+export const SCREEN_RECT = { x: 336, y: 150, w: 1248, h: 702 };
+const CLIPS0 = {
   C1: { name: 'Cortical Labs', role: 'CL1 playing DOOM', year: '2026', len: 8, under: true },
   C2: { name: 'Brett Kagan', role: 'Chief Scientific Officer, Cortical Labs', year: '2026', len: 11 },
-  C3: { name: 'Lena Smirnova', role: 'Johns Hopkins University', year: '2023', len: 14 },
+  C3: { name: 'Thomas Hartung', role: 'Johns Hopkins University', year: '2023', len: 14 },
 };
+const CLIPS_JSON = [process.env.F19CLIPSJSON, new URL('../audio/clips.json', import.meta.url).pathname, ROOT + 'audio/clips.json'].find((f) => f && fs.existsSync(f));
+export const CLIPMETA = CLIPS_JSON ? JSON.parse(fs.readFileSync(CLIPS_JSON, 'utf8')) : {};
+export const CLIPS = Object.fromEntries(Object.entries(CLIPS0).map(([id, c]) => {
+  const m = CLIPMETA[id] || {}; return [id, { ...c, ...Object.fromEntries(['name', 'role', 'year', 'fit'].filter((k) => m[k]).map((k) => [k, m[k]])) }];
+}));
+const CLIPDIR = (process.env.F19CLIPS || ROOT + 'clips/').replace(/\/?$/, '/');
+const nFrames = new Map();
+function frameCount(id) {
+  if (!nFrames.has(id)) { let n = 0; try { n = fs.readdirSync(CLIPDIR + id).filter((f) => /^f\d{5}\.jpg$/.test(f)).length; } catch {} nFrames.set(id, n); }
+  return nFrames.get(id);
+}
+// the footage frame (1-based) of clip id at t, or 0 when there are no frames
+function frameAt(id, t, win) {
+  const n = frameCount(id); if (!n) return 0;
+  const off = (CLIPMETA[id] || {}).offset || 0;
+  return Math.max(1, Math.min(n, Math.floor((t - win.start - off) * 30) + 1));
+}
+const framePath = (id, k) => `${CLIPDIR}${id}/f${String(k).padStart(5, '0')}.jpg`;
+const frameCache = new Map();
+export async function prepareClipFrames(T, t) {
+  for (const id of Object.keys(CLIPS)) {
+    const win = clipWin(T, id); if (!win || t < win.start - .8 || t > win.end + .8) continue;
+    const k = frameAt(id, t, win); if (!k) continue;
+    const f = framePath(id, k); if (frameCache.has(f)) continue;
+    if (frameCache.size > 48) frameCache.delete(frameCache.keys().next().value);
+    frameCache.set(f, await loadImage(fs.readFileSync(f)));
+  }
+}
+function clipFrameAt(id, t, win) { const k = frameAt(id, t, win); return k ? frameCache.get(framePath(id, k)) || null : null; }
 // the clip window [start, end]: from the timing file (audio agent / provisional), else derived from the framing phrase
 export function clipWin(T, id) {
   const c = T.clip && T.clip(id); if (c) return { start: c.start, end: c.end };
-  const anchor = { C1: ['Cells like these'], C2: ["on how it works", 'Brett Kagan'], C3: ['on what that means', 'Lena Smirnova'] }[id] || [];
+  const anchor = { C1: ['Cells like these'], C2: ["on how it works", 'Brett Kagan'], C3: ['on what that means', 'Thomas Hartung'] }[id] || [];
   for (const ph of anchor) if (T.gHas(ph)) { const s = id === 'C1' ? T.G(ph) : T.GE(ph) + .7; return { start: s, end: s + CLIPS[id].len }; }
   return null;
 }
@@ -538,9 +573,9 @@ export function clipPlate(ctx, t, T, id, o = {}) {
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.save(); ctx.beginPath(); ctx.rect(R.x, R.y, R.w, R.h); ctx.clip();
   ctx.fillStyle = mixHex(P.night0, P.ind0, .4); ctx.fillRect(R.x, R.y, R.w, R.h);
-  const k = Math.floor(clamp(t - win.start, 0, win.end - win.start) * 30) + 1, fr = clipFrame(id, k);
+  const fr = clipFrameAt(id, t, win);
   if (fr && on > 0) {
-    const s = Math.max(R.w / fr.width, R.h / fr.height), dw = fr.width * s, dh = fr.height * s;
+    const s = (info.fit === 'contain' ? Math.min : Math.max)(R.w / fr.width, R.h / fr.height), dw = fr.width * s, dh = fr.height * s;
     ctx.globalAlpha = on * (1 - dark); ctx.drawImage(fr, R.x + (R.w - dw) / 2, R.y + (R.h - dh) / 2, dw, dh); ctx.globalAlpha = 1;
   } else if (on > 0) {
     // PLACEHOLDER (no footage yet): soft cool screen light, slow scan band, a thin progress line, the slot id. Never ship this.

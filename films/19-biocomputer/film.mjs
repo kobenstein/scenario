@@ -13,6 +13,7 @@ import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
 import { finish as edFinish } from './lib/f10_editorial.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
+import { prepareClipFrames } from './lib/f19_kit.mjs';
 
 export { ROOT };
 // chunk table (docs/shots.md §2); from = the first phrase of the chunk, looked up GLOBALLY in the film (T.G), so any VO segmentation works
@@ -21,12 +22,12 @@ export const CHUNKS = [
   { id: 'c02', name: 'Blood → stem cell → neuron → the chip (wiring up) · electrodes + code · the box · imitation vs original', from: 'In a lab' },
   { id: 'c03', name: 'Pong 2022: sense and move zones · the trick: order or noise', from: 'The answer came' },
   { id: 'c04', name: 'Five minutes, not luck · "want" is too big · Friston, the radio · Kagan (C2) · a lab trick?', from: 'After about five minutes' },
-  { id: 'c05', name: 'For sale ($35,000 / $300 a week) · Doom in a week · "doesn\'t know" · why a rack?', from: "It didn't stay in the lab" },
+  { id: 'c05', name: 'For sale ($35,000 / $300 a week) · Doom in a week · "doesn\'t know" · channel call · why a rack?', from: "It didn't stay in the lab" },
   { id: 'c06', name: 'Twenty watts · data centres +50 % · Melbourne, Singapore, 1,000 · 30 W per box, untested', from: 'It comes down to a number' },
   { id: 'c07', name: 'The match: round 1 learning speed (with a catch) · round 2 teamwork (with a catch)', from: 'Picture it as a match' },
   { id: 'c08', name: 'Round 3 everything else · final score · pairing · is anyone in there?', from: 'Round three' },
   { id: 'c09', name: 'How big: fly < box < bee · ⅓ of a mouse in 120 dishes · 86 billion · no evidence', from: 'First, how big' },
-  { id: 'c10', name: 'Seth · embedded ethics (Johns Hopkins) · Smirnova (C3) · what now?', from: 'Still, some researchers' },
+  { id: 'c10', name: 'Seth · embedded ethics (Johns Hopkins) · Hartung (C3) · what now?', from: 'Still, some researchers' },
   { id: 'c11', name: 'The answer: order and noise · leaner learning · drug tests · three rules · the drawer closes + end screen', from: 'At the start, the question' },
 ];
 const ALL = CHUNKS.map((c) => c.id);
@@ -79,6 +80,7 @@ export async function build({ timingFile = TIMING } = {}) {
   const finish = (ctx, t, o = {}) => edFinish(ctx, t, o);
   const film = new Film(shots, { finish, float: cameraFloat });
   film.T = T;
+  film.prepare = (t) => prepareClipFrames(T, t);   // loads the clip footage frames round t (render.mjs awaits it)
   film.ranges = RANGES;
   film.list = list;
   return film;

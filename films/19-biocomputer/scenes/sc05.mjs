@@ -9,7 +9,9 @@
 // | 5.01 | became a product · thirty-five thousand · rent one · a few hundred | the dish pulls back into THE BOX; a price tag drops down its string: $35,000; a cloud draws itself: A FEW HUNDRED $ / WEEK (never an exact weekly figure) | tag · cloud |
 // | 5.02 | that game from the start? · Doom · about a week · year and a half | the aisle lights up round the box on its plinth; arc to the screen: DOOM · ABOUT A WEEK (a stub) vs PONG · 1½ YEARS (a long bar) | arc · bars |
 // | 5.03 | turn, find enemies, shoot · die a lot · "doesn't actually know" | in the screen: the view turns, finds, shoots, falls; then the quote (Alon Loeffler, Cortical Labs) | game · quote |
-// | 5.04 | Pong to Doom · four years · server rack           | PONG → DOOM · 4 YEARS; pull back: the box flies into drawer 11, the drawer shuts (ladder: WHY A DATA CENTER?) | pull back · box in |
+// | 5.04 | Pong to Doom · four years                       | PONG → DOOM · 4 YEARS                                                    | words             |
+// | 5.05 | (channel call, vo-v4) This channel exists … subscribe | the words sink; the living net breathes in the screen; a slow pull back starts (screen, box on its plinth, the rack) | slow pull back |
+// | 5.06 | So why … server rack                              | the pull back goes on onto RACK_PLATE_CAM: the box flies into drawer 11, the drawer shuts (ladder: WHY A DATA CENTER?) | pull back · box in |
 import * as E from '../lib/f10_editorial.mjs';
 import * as F from '../lib/f19_kit.mjs';
 import * as B from '../lib/f19_b1_world.mjs';
@@ -31,7 +33,7 @@ export default async (T, R) => {
 const PLINTH = { X: -1500, Z: -2600, top: 900, bw: 560 };
 const MON2 = { X: 1600, Y: 1240, Z: -2600, w: 760 };
 const C_BOXF = cam({ tx: PLINTH.X, ty: PLINTH.top + PLINTH.bw * .62 / 2, tz: PLINTH.Z, d: 1500 * PLINTH.bw / 720, p: 0 });
-const C_MON2 = cam({ tx: MON2.X, ty: MON2.Y, tz: MON2.Z, d: 1500 * MON2.w / F.CLIP_RECT.w, p: 0, f: 1500, oy: F.CLIP_RECT.y + F.CLIP_RECT.h / 2 - H / 2 });
+const C_MON2 = cam({ tx: MON2.X, ty: MON2.Y, tz: MON2.Z, d: 1500 * MON2.w / F.SCREEN_RECT.w, p: 0, f: 1500, oy: F.SCREEN_RECT.y + F.SCREEN_RECT.h / 2 - H / 2 });
 // the 2D camera that shows the field's box exactly where C_BOXF shows the plinth box (the switch 2D → 3D is invisible)
 const C_BOX2 = (() => {
   const p = proj(view(C_BOXF), PLINTH.X, PLINTH.top, PLINTH.Z), wS = PLINTH.bw * p[2];
@@ -47,6 +49,11 @@ function scene(a, T) {
   const tMon = a.doom - .15;                                           // the screen sits on CLIP_RECT
   const tBack0 = a.why + .15, tBack1 = tPlate - .1;                    // pull back onto RACK_PLATE_CAM
   const tFly0 = a.why + .55, tFly1 = a.rack + .7, tShut = tPlate - .2;  // the box flies into drawer 11, the drawer shuts
+  // vo-v4: the channel call between "four years." and "So why": ~9 s more on the screen. The words sink, the net breathes in the
+  // screen, and the pull back starts slowly at the call (35 % of the way by "So why"), then carries on as before (no frozen hold)
+  const cta = T.gHas('This channel exists') ? T.G('This channel exists') : null;
+  const tPB0 = cta != null ? cta + .3 : tBack0, PB1 = cta != null ? .35 : 0;
+  const tWords = cta != null ? cta + .3 : a.why - .1;                  // PONG → DOOM · 4 YEARS sink
   const K2 = [[a.T0, B.CANON], [a.T0 + .25, B.CANON], [a.product - .1, C_BOX2]];
   const cam2 = (t) => B.cam2Drift(B.cam2At(t, K2), t, .5 * (1 - smooth(span(t, t3 - 1.2, t3 - .2))));
 
@@ -116,18 +123,20 @@ function scene(a, T) {
     if (t < tMon) { const u = span(t, t3, tMon), e = sineIO(u), A = C_BOXF, Bc = C_MON2, o = {};
       for (const k of ['tx', 'ty', 'tz', 'p', 'f', 'ox', 'oy']) o[k] = lerp(A[k] ?? 0, Bc[k] ?? 0, k === 'oy' ? sineIO(clamp((u - .5) / .5)) : e);
       o.d = Math.exp(lerp(Math.log(A.d), Math.log(Bc.d), e) + 1.15 * Math.sin(Math.PI * e)); return o; }
-    if (t < tBack0) return C_MON2;
-    const u = sineIO(span(t, tBack0, tBack1)), A = C_MON2, Bc = RACK_PLATE_CAM, o = {};
-    for (const k of ['tx', 'ty', 'tz', 'p', 'f', 'ox', 'oy']) o[k] = lerp(A[k] ?? 0, Bc[k] ?? 0, u);
-    o.d = Math.exp(lerp(Math.log(A.d), Math.log(Bc.d), u)); return o;
+    if (t < tPB0) return C_MON2;
+    // during the call mostly distance (the screen stays in view, the rack comes in on the left), then the pan to the rack
+    const s1 = sineIO(span(t, tPB0, a.why - .2)), s2 = sineIO(span(t, tBack0, tBack1)), A = C_MON2, Bc = RACK_PLATE_CAM, o = {};
+    const u = (w) => w * PB1 * s1 + (1 - w * PB1) * s2;
+    for (const k of ['tx', 'ty', 'tz', 'p', 'f', 'ox', 'oy']) o[k] = lerp(A[k] ?? 0, Bc[k] ?? 0, u(.08));
+    o.d = Math.exp(lerp(Math.log(A.d), Math.log(Bc.d), u(1.6))); return o;
   }
   function world(ctx, t) {
-    const amt = smooth(span(t, t3, t3 + 1.6)) * (1 - smooth(span(t, tMon - 1.2, tMon))) * .35 + .06 * smooth(span(t, tMon, tMon + 1)) * (1 - smooth(span(t, tBack0, tBack0 + .5)))
-      + .3 * smooth(span(t, tBack0, tBack0 + 1.2)) * (1 - smooth(span(t, tBack1 - 1.4, tBack1 - .1)));
+    const amt = smooth(span(t, t3, t3 + 1.6)) * (1 - smooth(span(t, tMon - 1.2, tMon))) * .35 + .06 * smooth(span(t, tMon, tMon + 1)) * (1 - smooth(span(t, tPB0, tPB0 + .5)))
+      + .3 * smooth(span(t, tPB0, tPB0 + 1.2)) * (1 - smooth(span(t, tBack1 - 1.4, tBack1 - .1)));
     const c = F.camDrift(camera(t), t, amt), v = view(c);
     const dark = 1 - smooth(span(t, t3 + .15, t3 + 2.3));
     const slide = 1 - sineIO(span(t, tFly1, tShut));
-    const fin = smooth(span(t, tBack0, tBack1));
+    const fin = smooth(span(t, tPB0, tBack1));
     F.hall(ctx, v, t, { pool: lerp(1, .25, fin) * (slide > 0 ? 1 : 1) });
     F.rack(ctx, v, t, { open: F.OPEN, slide, glow: lerp(.9, RACK_PLATE.glow, fin), net: NET_W, dishO: { glow: .9, chip: 1, electrodes: .6, rim: 1 }, seam: 1 });
     plinth(ctx, v);
@@ -175,7 +184,7 @@ function scene(a, T) {
     if (!r || r[2] < 8) return;
     const on = smooth(span(t, tMon - 1.6, tMon - 1.1)) * (1 + .25 * bump(t, tMon - 1.65, .2)) * (1 - smooth(span(t, a.why - .1, a.why + .5)));
     if (on <= 0) return;
-    const [rx, ry, rw, rh] = r, k = rw / F.CLIP_RECT.w;
+    const [rx, ry, rw, rh] = r, k = rw / F.SCREEN_RECT.w;
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.beginPath(); ctx.rect(rx, ry, rw, rh); ctx.clip();
     ctx.fillStyle = E.rad(ctx, rx + rw * .5, ry + rh * .45, rw * .8, [[0, rgba(COOL.deep, .85 * Math.min(1, on))], [1, rgba(P.night0, 0)]]); ctx.fillRect(rx, ry, rw, rh);
     const X = (u) => rx + rw * u, Y = (u) => ry + rh * u;
@@ -201,16 +210,23 @@ function scene(a, T) {
     B.word(ctx, 'ALON LOEFFLER · CORTICAL LABS', X(.5), Y(.8), Math.round(26 * k), au, { align: 'center', col: P.halo2 });
     if (t > a.quote - .3 && t < qt1 + 1) F.quote(ctx, t, { text: "The system doesn't actually know it's playing Doom.", x: X(.5), y: Y(.4), size: 66 * k, w: 1000 * k, align: 'center', t0: a.quote, t1: qt1, gold: [["doesn't actually know", a.quote + .55]] });
     // PONG → DOOM · 4 YEARS
-    const pu = F.rise(span(t, a.pong2 - .15, a.pong2 + .6)) * (1 - expoIn(span(t, a.why - .1, a.why + .4)));
+    const pu = F.rise(span(t, a.pong2 - .15, a.pong2 + .6)) * (1 - expoIn(span(t, tWords, tWords + .5)));
     if (pu > 0) {                                                        // Pong ─→ Doom (the serif has no arrow glyph: the arrow is a drawn line)
       const sz = 104 * k, wP = F.measure('Pong', sz), wD = F.measure('Doom', sz), gap = 150 * k, x0 = X(.5) - (wP + gap + wD) / 2;
       F.maskLine(ctx, [['Pong', 0]], x0, Y(.5), sz, pu, {});
-      F.maskLine(ctx, [['Doom', 1]], x0 + wP + gap, Y(.5), sz, F.rise(span(t, a.pong2 + .35, a.pong2 + 1.0)) * (1 - expoIn(span(t, a.why - .1, a.why + .4))), {});
-      const au = sineIO(span(t, a.pong2 + .05, a.pong2 + .7)) * (1 - expoIn(span(t, a.why - .1, a.why + .4))), ay = Y(.5) - sz * .3, ax0 = x0 + wP + 28 * k, ax1 = ax0 + (gap - 56 * k) * au;
+      F.maskLine(ctx, [['Doom', 1]], x0 + wP + gap, Y(.5), sz, F.rise(span(t, a.pong2 + .35, a.pong2 + 1.0)) * (1 - expoIn(span(t, tWords, tWords + .5))), {});
+      const au = sineIO(span(t, a.pong2 + .05, a.pong2 + .7)) * (1 - expoIn(span(t, tWords, tWords + .5))), ay = Y(.5) - sz * .3, ax0 = x0 + wP + 28 * k, ax1 = ax0 + (gap - 56 * k) * au;
       if (au > 0) { ctx.save(); ctx.strokeStyle = rgba(P.halo0, .95); ctx.lineWidth = 5 * k; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(ax0, ay); ctx.lineTo(ax1, ay); ctx.moveTo(ax1 - 18 * k * au, ay - 14 * k * au); ctx.lineTo(ax1, ay); ctx.lineTo(ax1 - 18 * k * au, ay + 14 * k * au); ctx.stroke(); ctx.restore(); }
     }
-    const yu = F.rise(span(t, a.fourY - .15, a.fourY + .55)) * (1 - expoIn(span(t, a.why - .1, a.why + .4)));
+    const yu = F.rise(span(t, a.fourY - .15, a.fourY + .55)) * (1 - expoIn(span(t, tWords, tWords + .5)));
     B.word(ctx, '4 YEARS', X(.5), Y(.67), Math.round(36 * k), yu, { align: 'center', col: P.halo0 });
+    // the channel call: the living net breathes in the screen (the cells behind the game), slow sparks; it dims with the screen
+    const nu = cta != null ? smooth(span(t, tWords + .3, tWords + 1.8)) * (1 - smooth(span(t, a.why - .5, a.why + .2))) : 0;
+    if (nu > 0) {
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .85 * nu;
+      F.net(ctx, t, F.fieldMap(X(.5), Y(.5), rw * .42), { lit: .7 + .3 * Math.sin(t * .9), ambient: 1, w: .9, nSparks: 7 });
+      ctx.restore();
+    }
     ctx.restore();
   }
   // the game, abstract (cool lines): the view turns, finds an enemy, shoots it; then falls ("they die a lot"), twice

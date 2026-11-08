@@ -1,0 +1,111 @@
+{
+ "C1": {
+  "crop": "1562:1080:240:0",
+  "in": 0.0,
+  "dur": 8.0,
+  "offset": 0.0,
+  "fit": "contain",
+  "muted": true,
+  "name": "Cortical Labs",
+  "role": "CL1 playing DOOM",
+  "year": "2026",
+  "source": "https://www.youtube.com/watch?v=yRV8fSw6HaE"
+ },
+ "C2": {
+  "in": 0.0,
+  "dur": 10.2,
+  "offset": 0.4,
+  "fit": "cover",
+  "gain_db": 0,
+  "name": "Brett Kagan",
+  "role": "Chief Scientific Officer, Cortical Labs",
+  "year": "2026",
+  "source": "https://www.youtube.com/watch?v=TXlJc4tu1F8",
+  "quote": "And what we found was actually, indeed, they did end up remarkably adjusting their activity patterns very rapidly to try and create a more predictable environment and actually control it.",
+  "cues": [
+   [
+    0.25,
+    "And what we found"
+   ],
+   [
+    1.174,
+    "was actually, indeed,"
+   ],
+   [
+    2.303,
+    "they did end up remarkably"
+   ],
+   [
+    3.689,
+    "adjusting their activity"
+   ],
+   [
+    4.972,
+    "patterns very rapidly"
+   ],
+   [
+    6.102,
+    "to try and create a more"
+   ],
+   [
+    7.385,
+    "predictable environment"
+   ],
+   [
+    8.617,
+    "and actually control it."
+   ]
+  ],
+  "cue_source": "even (no clip audio yet)"
+ },
+ "C3": {
+  "in": 0.0,
+  "dur": 12.7,
+  "offset": 0.6,
+  "fit": "cover",
+  "gain_db": 0,
+  "name": "Thomas Hartung",
+  "role": "Johns Hopkins University",
+  "year": "2023",
+  "quote": "Embedded ethics, which means we work closely with ethicists. We design our experiments with ethicists. We are inviting them to our laboratories to show them what our experiments are actually about.",
+  "cues": [
+   [
+    0.25,
+    "Embedded ethics,"
+   ],
+   [
+    1.293,
+    "which means we work"
+   ],
+   [
+    2.52,
+    "closely with ethicists."
+   ],
+   [
+    3.993,
+    "We design our experiments"
+   ],
+   [
+    5.589,
+    "with ethicists."
+   ],
+   [
+    6.57,
+    "We are inviting them"
+   ],
+   [
+    7.859,
+    "to our laboratories to show"
+   ],
+   [
+    9.577,
+    "them what our experiments"
+   ],
+   [
+    11.173,
+    "are actually about."
+   ]
+  ],
+  "cue_source": "even (no clip audio yet)"
+ }
+}

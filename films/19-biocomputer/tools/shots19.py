@@ -36,7 +36,7 @@ CHUNKS = [
     ('c07', 'B2', 'The match: round 1 learning speed (with a catch) · round 2 teamwork (with a catch)', 'Picture it as a match', 'THE SCOREBOARD over the dish field: CELLS (gold) vs A.I. (cool)'),
     ('c08', 'B2', 'Round 3 everything else · final score · pairing · is anyone in there?', 'Round three', 'Scoreboard 2 : 1 → pairing → fly down into the dish (plateNet)'),
     ('c09', 'B3', 'How big: fly < box < bee · ⅓ of a mouse in 120 dishes · 86 billion · no evidence', 'First, how big', 'The size ladder (creatures) → 120 dishes → your head'),
-    ('c10', 'B3', 'Seth · embedded ethics (Johns Hopkins) · Smirnova (C3) · what now?', 'Still, some researchers', 'The rack (anchor: a bee on the box) → the round table → C3 in a screen'),
+    ('c10', 'B3', 'Seth · embedded ethics (Johns Hopkins) · Hartung (C3) · what now?', 'Still, some researchers', 'The rack (anchor: a bee on the box) → the round table → C3 in a screen'),
     ('c11', 'B3', 'The answer: order and noise · leaner learning · drug tests · three rules · the drawer closes + end screen', 'At the start, the question', 'Dish field: callback, three rule cards → THE RACK: the drawer closes, you in the aisle'),
 ]
 
@@ -209,8 +209,8 @@ shot('10.01', 'SCENE', 'Still, some researchers', ['Anil Seth', 'ChatGPT'],
 shot('10.02', 'SCENE>EXPL', 'At Johns Hopkins', ['from the very start', 'Ethicists', 'embedded ethics'],
      'In the aisle, round the open drawer: ethicists, scientists, the public (three groups of small figures): EMBEDDED ETHICS.',
      '① groups gather', 'into the screen')
-shot('10.03', 'CLIP', "Here's Lena Smirnova", ['what that means'],
-     '**[C3 · ORIGINAL FOOTAGE]** Lena Smirnova · Johns Hopkins University · 2023, in the screen (CLIP_RECT).',
+shot('10.03', 'CLIP', "Here's Thomas Hartung", ['what that means'],
+     '**[C3 · ORIGINAL FOOTAGE]** Thomas Hartung · Johns Hopkins University · 2023, in the screen (CLIP_RECT).',
      '① footage', 'out of the screen')
 shot('10.04', 'SCENE', 'So what do we do now', ["bee's brain"],
      'Out of the screen into the aisle: the alive rack, the bee on the box; ladder top: WHAT NOW?',

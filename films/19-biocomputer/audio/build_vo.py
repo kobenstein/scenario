@@ -17,13 +17,26 @@ GAP_SECTION, GAP_SUB = 1.7, 0.9
 # hook s00 runs on into s01 (s01 is the take the muted Doom footage C1 plays under, no slot); clip slots: 0.7 s air before, 0.6 s after
 # (C3 1.2 s because the next take opens the ending)
 GAP_AFTER = {'s00': 0.8}
+# vo-v4 (2026-11-08): channel calls cta1 (mid, between "…four years." and "So why put these boxes…", which are two pieces s11 | s11b
+# of the one vo-v3 take s11, cut at the quietest 10 ms between the words) and cta2 (after "…is up to us.", over the start of the end
+# screen). 1.0 s air round each call. The film ends TAIL_LAST s after the last spoken word (end screen: quiet stretch >= 12 s with the
+# free card areas; from "up to us" to the end ~20 s)
+GAP_AFTER.update({'s11': 1.0, 'cta1': 1.0, 's24': 1.0})
+TAIL_LAST = 12.5
 CLIP_OUT_EXTRA = {'C3': 0.6}
 # extra air inside one take: (segment, word before, word after, seconds); the take is split at the quietest 10 ms between them
 BREATH = []
 LEVELS = {'1': 'hook: computers on brain cells · Doom clip · no reward', '2': 'where the cells come from: blood, stem cells, a chip', '3': 'the Pong trick: order or chaos · Friston · Kagan clip',
           '4': 'from lab to product: rent, Doom', '5': 'why: twenty watts · the server racks · the power bill', '6': 'the match: cells against artificial intelligence, three rounds',
-          '7': 'is anyone in there? neurons, Seth, embedded ethics · Smirnova clip', '8': 'ending: order and noise · three rules · what they learn from us'}
+          '7': 'is anyone in there? neurons, Seth, embedded ethics · Hartung clip', '8': 'ending: order and noise · three rules · what they learn from us'}
 def dur(f): return float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f]).decode())
+_pcm = {}
+def qcut(mp3, W, k):
+    """the quietest 10 ms frame between word k-1 and word k of a take (seconds in the take)"""
+    if mp3 not in _pcm: _pcm[mp3] = np.abs(np.frombuffer(subprocess.check_output(['ffmpeg', '-v', 'error', '-i', mp3, '-f', 'f32le', '-ac', '1', '-ar', '16000', '-']), np.float32))
+    x = _pcm[mp3]; lo, hi = max(W[k - 1][1], W[k - 1][2] - .1), W[k][1]
+    fr = [(float(np.sqrt(np.mean(x[int(t * 16000):int(t * 16000) + 160] ** 2))), t) for t in np.arange(lo, max(lo + .011, hi - .01), .01)]
+    return round(min(fr)[1] + .005, 3)
 def cuts(sid, mp3, W):
     """[(cut time, extra seconds)] for this take, cut at the quietest 10 ms frame between the two words"""
     out, x = [], None
@@ -37,7 +50,7 @@ def cuts(sid, mp3, W):
         fr = [(float(np.sqrt(np.mean(x[int(t * 16000):int(t * 16000) + 160] ** 2))), t) for t in np.arange(lo, max(lo + .011, hi - .01), .01)]
         out.append((round(min(fr)[1] + .005, 3), extra))
     return sorted(out)
-t, secs, words, clips, inputs, delays, cues = LEAD, {}, [], [], [], [], []
+t, secs, words, clips, inputs, delays, cues, fades = LEAD, {}, [], [], [], [], [], []
 for i, s in enumerate(SEG):
     nxt = SEG[i + 1] if i + 1 < len(SEG) else None
     if s.get('endcards'): continue
@@ -47,8 +60,15 @@ for i, s in enumerate(SEG):
         clips.append({'id': s['id'], 'sec': s['sec'], 'kind': 'clip' if s.get('clip') else 'card', 'start': round(t, 3), 'end': round(t + d, 3), **{k: s[k] for k in ('file', 'name', 'role', 'label', 'text') if k in s}})
         t += d + CLIP_OUT + CLIP_OUT_EXTRA.get(s['id'], 0)
         continue
-    j = json.load(open(f"{A}/vo-{s['id']}.json")); mp3 = f"{A}/vo-{s['id']}.mp3"
-    cs = cuts(s['id'], mp3, j['words'])
+    src = s.get('src', s['id'])
+    j = json.load(open(f"{A}/vo-{src}.json")); mp3 = f"{A}/vo-{src}.mp3"
+    c0, c1 = 0.0, None
+    if 'words' in s:   # one piece of a take that a channel call splits: words [lo, hi), audio between the two quiet cuts
+        W0 = j['words']; lo, hi = s['words'][0], s['words'][1] or len(W0)
+        c0 = qcut(mp3, W0, lo) if lo > 0 else 0.0; c1 = qcut(mp3, W0, hi) if hi < len(W0) else None
+        j = {'words': [[w, round(a - c0, 3), round((min(b, c1) if c1 else b) - c0, 3)] for w, a, b in W0[lo:hi]]}
+        print(s['id'], 'piece of', src, 'cut', c0, c1)
+    cs = [] if 'words' in s else cuts(s['id'], mp3, j['words'])
     shift = lambda a: a + sum(e for c, e in cs if c <= a)
     last = shift(j['words'][-1][2])
     secs[s['id']] = {'start': round(t, 3), 'end': round(t + last, 3), 'sec': s['sec']}
@@ -64,12 +84,14 @@ for i, s in enumerate(SEG):
             cues.append({'kind': 'card' if kind == 'cards' else 'onscreen', 'seg': s['id'], 'sec': s['sec'], 't': round(at, 3), 'text': c['text']})
     bounds = [0] + [c for c, e in cs] + [None]
     for p in range(len(bounds) - 1):   # one input per piece of the take
-        inputs += ['-ss', str(bounds[p])] + (['-to', str(bounds[p + 1])] if bounds[p + 1] is not None else []) + ['-i', mp3]
-        delays.append(t + shift(bounds[p]))
+        b1 = bounds[p + 1] if bounds[p + 1] is not None else (c1 - c0 if c1 else None)
+        inputs += ['-ss', str(c0 + bounds[p])] + (['-to', str(c0 + b1)] if b1 is not None else []) + ['-i', mp3]
+        delays.append(t + shift(bounds[p])); fades.append((c0 + bounds[p] > 0, b1 - bounds[p] if b1 is not None and c1 else None))
     gap = GAP_AFTER.get(s['id'], GAP_SECTION if (nxt and nxt['sec'] != s['sec']) else GAP_SUB)
     t += last + gap
-total = t + TAIL
-fc = ''.join(f'[{k}:a]aresample=48000,adelay={int(d*1000)}:all=1[a{k}];' for k, d in enumerate(delays))
+total = t + TAIL if not TAIL_LAST else t - gap + TAIL_LAST
+fd = lambda k: (',afade=t=in:d=0.008' if fades[k][0] else '') + (f',afade=t=out:st={fades[k][1] - .008:.3f}:d=0.008' if fades[k][1] else '')   # no click at a piece cut
+fc = ''.join(f'[{k}:a]aresample=48000{fd(k)},adelay={int(d*1000)}:all=1[a{k}];' for k, d in enumerate(delays))
 fc += ''.join(f'[a{k}]' for k in range(len(delays))) + f'amix=inputs={len(delays)}:normalize=0,apad,atrim=0:{total:.3f}[o]'
 subprocess.check_call(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', *inputs, '-filter_complex', fc, '-map', '[o]', '-ac', '1', '-ar', '48000', f'{WAV}/vo_master.wav'])
 levels = {}

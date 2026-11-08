@@ -27,7 +27,7 @@
  {
   "id": "s05",
   "sec": "2",
-  "text": "[softly] Spread them on a chip, and they reach out to each other, wiring up all on their own.\nTiny electrodes underneath send them signals... and listen to their answers. Ordinary code runs the conversation.\nThat's the computer. A dish of living neurons on a chip, inside a box with its own life support. An Australian company, Cortical Labs, builds them.\nThe artificial intelligence you know imitates neurons with math. This computer uses the real thing.\nSo how do you teach it anything... without a reward?"
+  "text": "[calm, conversational] Spread them on a chip, and they reach out to each other, wiring up all on their own.\nTiny electrodes underneath send them signals... and listen to their answers. Ordinary code runs the conversation.\nThat's the computer. A dish of living neurons on a chip, inside a box with its own life support. An Australian company, Cortical Labs, builds them.\nThe artificial intelligence you know imitates neurons with math. This computer uses the real thing.\nSo how do you teach it anything... without a reward?"
  },
  {
   "id": "s06",
@@ -65,7 +65,28 @@
  {
   "id": "s11",
   "sec": "4",
-  "text": "[wry] The cells turn, find enemies, and shoot... but they die a lot. One of the company's own scientists puts it plainly. \"The system doesn't actually know it's playing Doom.\"\nStill... from Pong to Doom in four years. So why put these boxes in a server rack?"
+  "text": "[wry] The cells turn, find enemies, and shoot... but they die a lot. One of the company's own scientists puts it plainly. \"The system doesn't actually know it's playing Doom.\"\nStill... from Pong to Doom in four years.",
+  "src": "s11",
+  "words": [
+   0,
+   37
+  ]
+ },
+ {
+  "id": "cta1",
+  "sec": "4",
+  "cta": true,
+  "text": "[calm, conversational] This channel exists so that the age of superintelligence goes well for everyone, not just a few. If you want that too, subscribe."
+ },
+ {
+  "id": "s11b",
+  "sec": "4",
+  "src": "s11",
+  "words": [
+   37,
+   null
+  ],
+  "text": "[wry] So why put these boxes in a server rack?"
  },
  {
   "id": "s12",
@@ -105,19 +126,19 @@
  {
   "id": "s19",
   "sec": "7",
-  "text": "[softly] First, how big is it? Each of these boxes holds about two hundred thousand neurons. That's a bit more than a fruit fly... and far less than a honeybee.\nPut all of Melbourne's boxes together, and they hold about a third as many neurons as a mouse brain. But spread across a hundred and twenty separate dishes, flat, and not wired like a brain. Your own brain? About eighty-six billion neurons.\nReacting to signals isn't the same as feeling something. So far, there's no evidence that anything is felt in these dishes. Most leading theories of consciousness say the structure for it isn't there."
+  "text": "[calm, conversational] First, how big is it? Each of these boxes holds about two hundred thousand neurons. That's a bit more than a fruit fly... and far less than a honeybee.\nPut all of Melbourne's boxes together, and they hold about a third as many neurons as a mouse brain. But spread across a hundred and twenty separate dishes, flat, and not wired like a brain. Your own brain? About eighty-six billion neurons.\nReacting to signals isn't the same as feeling something. So far, there's no evidence that anything is felt in these dishes. Most leading theories of consciousness say the structure for it isn't there."
  },
  {
   "id": "s20",
   "sec": "7",
-  "text": "[softly] Still, some researchers are more careful here than with chatbots. Anil Seth, a neuroscientist who studies consciousness, worries more about accidentally creating it in lab-grown brain tissue than in the next ChatGPT.\nAt Johns Hopkins, a leading team in this field builds the ethics in from the very start. Ethicists, scientists and the public think it through together. They call it embedded ethics. Here's Lena Smirnova on what that means."
+  "text": "[thoughtful] Still, some researchers are more careful here than with chatbots. Anil Seth, a neuroscientist who studies consciousness, worries more about accidentally creating it in lab-grown brain tissue than in the next ChatGPT.\nAt Johns Hopkins, a leading team in this field builds the ethics in from the very start. Ethicists, scientists and the public think it through together. They call it embedded ethics. Here's Thomas Hartung, who leads that work, on what that means."
  },
  {
   "id": "C3",
   "sec": "7",
   "clip": true,
   "dur": 14.0,
-  "name": "Lena Smirnova",
+  "name": "Thomas Hartung",
   "role": "Johns Hopkins University"
  },
  {
@@ -138,6 +159,12 @@
  {
   "id": "s24",
   "sec": "8",
-  "text": "[softly] For seventy years, we built machines that imitate brain cells. Now living ones are inside the machine. What they learn from us next... is up to us."
+  "text": "[thoughtful] For seventy years, we built machines that imitate brain cells. Now living ones are inside the machine. What they learn from us next... is up to us."
+ },
+ {
+  "id": "cta2",
+  "sec": "8",
+  "cta": true,
+  "text": "[calm, conversational] We make films like this so that what comes next goes well for all of us. If you want that too, subscribe."
  }
 ]

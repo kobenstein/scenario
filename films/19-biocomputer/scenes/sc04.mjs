@@ -37,6 +37,7 @@ const DISPC = { X: RADIO.X + DISP.x + DISP.w / 2, Y: RADIO.top - (DISP.y + DISP.
 const C_AISLE0 = cam({ tx: -720, ty: 1080, tz: -900, d: 3300, p: -.045 });
 const C_AISLE1 = cam({ tx: -820, ty: 1110, tz: -1000, d: 2500, p: -.03 });
 const C_RAD = cam({ tx: DISPC.X, ty: DISPC.Y, tz: DISPC.Z, d: 1500 * DISP.w / F.CLIP_RECT.w, p: 0, f: 1500, oy: F.CLIP_RECT.y + F.CLIP_RECT.h / 2 - H / 2 });
+const C_RAD0 = cam({ tx: DISPC.X, ty: DISPC.Y, tz: DISPC.Z, d: 1500 * DISP.w / F.SCREEN_RECT.w, p: 0, f: 1500, oy: F.SCREEN_RECT.y + F.SCREEN_RECT.h / 2 - H / 2 });
 const AISLE_DISH = { glow: .9, chip: 1, electrodes: .6, rim: 1 };
 
 let PLATE_CV = null;
@@ -95,7 +96,10 @@ function scene(a, T) {
   function camera(t) {
     if (t < tUp1) return B.swing(B.C_TOP, C_AISLE0, span(t, tUp0, tUp1), 'pitch');
     if (t < tDn0) { const c = camAt(t, K3); return c; }
-    return B.swing(C_RAD, B.C_TOP, span(t, tDn0, tDn1), 'target', true);
+    // v4: CLIP_RECT is near full frame, so C_RAD sits very close; the swing starts from a camera that eases back to the old
+    // (Fassung 0) distance over the first 1.2 s while the screen goes dark, else the target pan whips the screen across (smooth.py lurch)
+    const k = sineIO(span(t, tDn0, tDn0 + 1.2)), A = { ...C_RAD, d: Math.exp(lerp(Math.log(C_RAD.d), Math.log(C_RAD0.d), k)), oy: lerp(C_RAD.oy, C_RAD0.oy, k) };
+    return B.swing(A, B.C_TOP, span(t, tDn0, tDn1), 'target', true);
   }
   function world(ctx, t) {
     const hold = Math.max(t < tUp1 ? 1 - smooth(span(t, tUp0 + .2, tUp1)) : 0, smooth(span(t, tRad - .9, tRad)) * (1 - smooth(span(t, tDn0, tDn0 + 1.2))), smooth(span(t, tDn1 - 1.4, tDn1)));
