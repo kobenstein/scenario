@@ -77,27 +77,37 @@ export const CAM_WALL = look(LIGHTWALL.cx, LIGHTWALL.y, ZB, 1.95, 960, 60);
 export const CAM_SCREEN = look(SCREEN.x + SCREEN.w / 2, SCREEN.y + SCREEN.w * 9 / 32, ZB, 1488 / SCREEN.w, 960, 579.5);
 
 // ================================================================================================================ the light of the hours
-// hour (float, 0..24) → the sky and the light. The day stays editorial night (MOTION §7): only hue, the sun-dot and the angle change.
+// hour (float, 0..24) → the sky and the light. 2026-11-09 (Jakob): the day hours are DAYLIGHT (MOTION §7): 07:30, 09:00, 12:00, 16:00
+// get a bright blue day sky with a golden sun; facades, street and rooms lift by L.day (0 night … 1 full day), windows mostly unlit, street
+// lamps off. Shadows keep the deep blues, gold stays the one accent. 06:15 dawn, 19:00 dusk and 22:30 night are unchanged (day 0).
+//   L = { h, top, hor, gold (warm horizon band), star, win (lit window share), day 0..1 (daylight: colours of facades/street/rooms), sun 0..1 }
+export const DAYC = {   // the daylight colours (L.day = 1); night colours stay where they were
+  face: '#3c61c6', faceLo: '#1f3d9c', rim: '#9fb8f2', side: '#7898ea', glass: '#1a3288', warm: '#f6d27e',
+  street: '#3a58b4', streetLo: '#1c348a', ground: '#26429c', front: '#3150a8', frontLo: '#182e80',
+  tree: '#24499f', treeLit: '#5b86e0', wall: '#5878cc', wallLo: '#2e4ca6', cut: '#7290de', floor: '#3c5ab0',
+  ceil: '#24409a', sideW: '#3656ae', furn: '#1d3488',
+};
 const HOURS_LOOK = [
-  [0, { top: P.night0, hor: P.ind0, gold: 0, star: 1, win: .1 }],
-  [5.6, { top: P.night0, hor: P.ind0, gold: 0, star: 1, win: .12 }],
-  [6.25, { top: P.night0, hor: P.ind1, gold: .55, star: .8, win: .16 }],
-  [7.5, { top: P.ind1, hor: P.blue0, gold: .5, star: .25, win: .14 }],
-  [9, { top: P.blue0, hor: P.blue1, gold: .05, star: 0, win: .06 }],
-  [12, { top: mixHex(P.blue0, P.blue1, .35), hor: P.blue2, gold: .05, star: 0, win: .05 }],   // noon: one step brighter (decision 3)
-  [16, { top: P.blue0, hor: P.halo2, gold: .35, star: 0, win: .08 }],
-  [18.6, { top: P.ind1, hor: mixHex(P.blue0, P.halo1, .35), gold: .5, star: .1, win: .3 }],
-  [19, { top: P.night1, hor: P.ind1, gold: .15, star: .5, win: .42 }],
-  [22.5, { top: P.night0, hor: P.ind0, gold: 0, star: 1, win: .28 }],
-  [24, { top: P.night0, hor: P.ind0, gold: 0, star: 1, win: .1 }],
+  [0, { top: P.night0, hor: P.ind0, gold: 0, star: 1, win: .1, day: 0 }],
+  [5.6, { top: P.night0, hor: P.ind0, gold: 0, star: 1, win: .12, day: 0 }],
+  [6.25, { top: P.night0, hor: P.ind1, gold: .55, star: .8, win: .16, day: 0 }],
+  [7.5, { top: '#1b3ea8', hor: '#6f93e4', gold: .55, star: 0, win: .06, day: .82 }],    // morning: day blue, the low sun's gold band left
+  [9, { top: '#1c43b6', hor: '#79a0ee', gold: .2, star: 0, win: .04, day: 1 }],
+  [12, { top: '#1f49be', hor: '#86abf3', gold: .12, star: 0, win: .03, day: 1 }],       // noon: the brightest sky of the film
+  [16, { top: '#1d43b2', hor: '#93b0ec', gold: .55, star: 0, win: .05, day: .9 }],      // afternoon: warm band, low sun right
+  [18.6, { top: P.ind1, hor: mixHex(P.blue0, P.halo1, .35), gold: .5, star: .1, win: .3, day: .22 }],
+  [19, { top: P.night1, hor: P.ind1, gold: .15, star: .5, win: .42, day: 0 }],
+  [22.5, { top: P.night0, hor: P.ind0, gold: 0, star: 1, win: .28, day: 0 }],
+  [24, { top: P.night0, hor: P.ind0, gold: 0, star: 1, win: .1, day: 0 }],
 ];
 export function hourLook(h) {
   h = ((h % 24) + 24) % 24; let i = 0; while (i < HOURS_LOOK.length - 2 && HOURS_LOOK[i + 1][0] <= h) i++;
   const [h0, a] = HOURS_LOOK[i], [h1, b] = HOURS_LOOK[i + 1], u = sineIO((h - h0) / (h1 - h0));
-  return { h, top: mixHex(a.top, b.top, u), hor: mixHex(a.hor, b.hor, u), gold: lerp(a.gold, b.gold, u), star: lerp(a.star, b.star, u), win: lerp(a.win, b.win, u), day: clamp(1 - Math.abs(h - 12.5) / 6) };
+  return { h, top: mixHex(a.top, b.top, u), hor: mixHex(a.hor, b.hor, u), gold: lerp(a.gold, b.gold, u), star: lerp(a.star, b.star, u), win: lerp(a.win, b.win, u), day: lerp(a.day, b.day, u), sun: clamp(1 - Math.abs(h - 12.5) / 6) };
 }
+const dayMix = (night, dayCol, L, k = 1) => (L && L.day > 0 ? mixHex(night, dayCol, clamp(L.day * k)) : night);
 // the sun / moon in the world (Z 40000): east (left) at 7, high at 12.5, west (right) at 18.5
-function sunPos(h) { const a = Math.PI * clamp((h - 6.6) / 12.2, -.1, 1.1); return [-26000 * Math.cos(a), -2000 - 15000 * Math.sin(a)]; }
+function sunPos(h, arc = 1) { const a = Math.PI * clamp((h - 6.6) / 12.2, -.1, 1.1); return [-26000 * Math.cos(a), -2000 - 15000 * arc * Math.sin(a)]; }
 function moonPos(h) { const hh = ((h - 19 + 24) % 24); const a = Math.PI * clamp(hh / 11, -.1, 1.1); return [-22000 * Math.cos(a), -3000 - 13000 * Math.sin(a)]; }
 
 // ================================================================================================================ sky (screen space, horizon = H/2)
@@ -111,9 +121,22 @@ export function sky(ctx, c, t, o = {}) {
   }
   if (L.star > .02) E.stars(ctx, 2337, 140, t, [-200 - c.x * .004, 0, W + 400, hy - 60], .7 * L.star);
   const sz = 40000, k = c.f / (sz - c.z);
-  if (o.sun !== false && L.day > 0) {
-    const [sx, sy] = sunPos(L.h), x = W / 2 + (sx - c.x) * k, y = H / 2 + (sy - c.y) * k, r = Math.max(10, 1400 * k);
-    if (y < hy + r) { ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, hy); ctx.clip(); halo(ctx, x, y, r * 7, .35); ctx.fillStyle = rad(ctx, x, y, r, [[0, P.core0], [.6, P.core1], [1, P.halo0]]); ctx.beginPath(); ctx.arc(x, y, r, 0, 6.29); ctx.fill(); ctx.restore(); }
+  if (L.day > .02) {   // daylight: a few long flat cloud streaks (cream, very soft), drifting slowly with a little parallax
+    const kc = c.f / (30000 - c.z), dr = t * 6;
+    for (const [cx0, cy0, w, h] of [[-9000, -9800, 9000, 240], [6000, -12500, 12000, 300], [19000, -8400, 7000, 200], [-24000, -11200, 10000, 260], [32000, -10600, 8000, 220]]) {
+      const x = W / 2 + (cx0 + dr - c.x) * kc, y = H / 2 + (cy0 - c.y) * kc, ww = w * kc, hh = Math.max(3, h * kc);
+      if (x + ww < 0 || x - ww > W || y > hy) continue;
+      ctx.fillStyle = rgba(P.cream, .1 * L.day); ctx.beginPath(); ctx.roundRect(x - ww / 2, y - hh / 2, ww, hh, hh / 2); ctx.fill();
+      ctx.fillStyle = rgba(P.cream, .06 * L.day); ctx.beginPath(); ctx.roundRect(x - ww * .3, y - hh * 1.6, ww * .55, hh * .8, hh * .4); ctx.fill();
+    }
+  }
+  if (o.sun !== false && L.sun > 0) {
+    const [sx, sy] = sunPos(L.h, o.sunArc ?? 1), x = W / 2 + (sx - c.x) * k, y = H / 2 + (sy - c.y) * k, r = Math.max(10, 1400 * k * (1 + .5 * L.day));
+    if (y < hy + r) {
+      ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, hy); ctx.clip();
+      if (L.day > 0) { const R = r * 13; ctx.fillStyle = rad(ctx, x, y, R, [[0, rgba(DAYC.warm, .62 * L.day)], [.22, rgba(DAYC.warm, .26 * L.day)], [.6, rgba(DAYC.warm, .06 * L.day)], [1, rgba(DAYC.warm, 0)]]); ctx.fillRect(x - R, y - R, R * 2, R * 2); }   // the warm day glow round the sun
+      halo(ctx, x, y, r * 7, .35); ctx.fillStyle = rad(ctx, x, y, r, [[0, P.core0], [.6, P.core1], [1, P.halo0]]); ctx.beginPath(); ctx.arc(x, y, r, 0, 6.29); ctx.fill(); ctx.restore();
+    }
   }
   const hm = ((L.h - 19 + 24) % 24);
   if (o.moon !== false && hm < 11) {
@@ -175,7 +198,8 @@ function winLook(wn, o) {
 }
 function drawWin(ctx, wn, L, o, s) {
   const k = winLook(wn, o), x = wn.X - wn.w / 2, y = wn.Y - wn.h / 2;
-  ctx.fillStyle = mixHex(P.night0, L.top, .25); ctx.fillRect(x, y, wn.w, wn.h);
+  ctx.fillStyle = dayMix(mixHex(P.night0, L.top, .25), DAYC.glass, L); ctx.fillRect(x, y, wn.w, wn.h);
+  if (L.day > 0 && k.lit < 1) { ctx.fillStyle = rgba(P.cream, .07 * L.day * (1 - k.lit)); ctx.beginPath(); ctx.moveTo(x, y + wn.h * .7); ctx.lineTo(x + wn.w * .55, y); ctx.lineTo(x + wn.w * .85, y); ctx.lineTo(x, y + wn.h); ctx.closePath(); ctx.fill(); }   // a sky sheen on the glass
   if (k.lit > 0) { ctx.fillStyle = lin(ctx, 0, y, 0, y + wn.h, [[0, rgba(P.halo1, k.lit)], [1, rgba(P.core1, k.lit)]]); ctx.fillRect(x, y, wn.w, wn.h); }
   if (k.gold > 0) {   // care arrived: a warm glow round the window
     ctx.fillStyle = rad(ctx, wn.X, wn.Y, wn.w * 1.6, [[0, rgba(P.core1, .55 * k.gold)], [.5, rgba(P.halo0, .25 * k.gold)], [1, rgba(P.halo0, 0)]]); ctx.fillRect(wn.X - wn.w * 1.6, wn.Y - wn.w * 1.6, wn.w * 3.2, wn.w * 3.2);
@@ -193,12 +217,14 @@ export function coolPoint(ctx, x, y, r, a = 1) {
 // ================================================================================================================ buildings
 function facade(ctx, x0, x1, h, L, o, s, roof = 'flat', wins = []) {
   const top = -h, rim = Math.max(1.2 / s, 2);
-  ctx.fillStyle = lin(ctx, 0, top, 0, 0, [[0, mixHex(P.ind2, L.top, .25)], [1, mixHex(P.night1, P.night0, .4)]]);
+  ctx.fillStyle = lin(ctx, 0, top, 0, 0, [[0, dayMix(mixHex(P.ind2, L.top, .25), DAYC.face, L)], [1, dayMix(mixHex(P.night1, P.night0, .4), DAYC.faceLo, L)]]);
   ctx.beginPath(); ctx.rect(x0, top, x1 - x0, h);
   if (roof === 'step') ctx.rect(x0 + (x1 - x0) * .2, top - 140, (x1 - x0) * .4, 140);
   if (roof === 'cap') ctx.rect(x0 + (x1 - x0) * .55, top - 90, (x1 - x0) * .2, 90);
   ctx.fill();
-  ctx.fillStyle = rgba(P.blue0, .9); ctx.fillRect(x0, top - rim * .5, x1 - x0, rim);              // the lit roof rim
+  ctx.fillStyle = rgba(dayMix(P.blue0, DAYC.rim, L), .9); ctx.fillRect(x0, top - rim * .5, x1 - x0, rim);              // the lit roof rim
+  if (L.day > 0) { ctx.fillStyle = lin(ctx, 0, top, 0, top + h * .55, [[0, rgba(DAYC.warm, .2 * L.day)], [1, rgba(DAYC.warm, 0)]]); ctx.fillRect(x0, top, x1 - x0, h * .55); }   // the sun on the upper floors
+  if (L.day > 0) { const sl = Math.min((x1 - x0) * .12, 90); ctx.fillStyle = lin(ctx, x1 - sl, 0, x1, 0, [[0, rgba(DAYC.side, 0)], [1, rgba(DAYC.side, .45 * L.day)]]); ctx.fillRect(x1 - sl, top, sl, h); }   // the sunlit side
   ctx.fillStyle = rgba(P.blue1, .35); ctx.fillRect(x1 - rim * 2, top, rim * 2, h);                   // light on one side
   for (const wn of wins) drawWin(ctx, wn, L, o, s);
 }
@@ -207,13 +233,13 @@ export function backRow(ctx, c, t, R, o = {}) {
   atZ(ctx, c, R.z, (s) => {
     const sw = (W / 2 + 200) / s, cx = c.x;
     for (const b of rowBuildings(R)) { if (b.x1 < cx - sw || b.x0 > cx + sw) continue; facade(ctx, b.x0, b.x1, b.h, L, oo, s, b.roof, b.wins); }
-    ctx.fillStyle = mixHex(P.night1, P.night0, .5); ctx.fillRect(cx - sw, 0, sw * 2, 40000);
+    ctx.fillStyle = dayMix(mixHex(P.night1, P.night0, .5), DAYC.ground, L); ctx.fillRect(cx - sw, 0, sw * 2, 40000);
   });
 }
 export function skyline(ctx, c, t, o = {}) {
   const L = o.L || hourLook(o.hour ?? 6.25);
   atZ(ctx, c, STREET.skyline.z, (s) => {
-    const rnd = prng(991); ctx.fillStyle = mixHex(L.hor, P.ind0, .55); ctx.beginPath(); ctx.moveTo(-60000, 0);
+    const rnd = prng(991); ctx.fillStyle = dayMix(mixHex(L.hor, P.ind0, .55), mixHex(L.hor, '#2a50c0', .55), L); ctx.beginPath(); ctx.moveTo(-60000, 0);
     for (let x = -60000; x < 60000; x += 900 + rnd() * 1400) { const h = 900 + rnd() ** 2 * 4200; ctx.lineTo(x, -h); ctx.lineTo(x + 700 + rnd() * 900, -h); }
     ctx.lineTo(60000, 0); ctx.lineTo(60000, 60000); ctx.lineTo(-60000, 60000); ctx.closePath(); ctx.fill();
   });
@@ -225,7 +251,7 @@ export function tower(ctx, c, t, o = {}) {
   atZ(ctx, c, T.z, (s) => {
     const x0 = T.x - T.w / 2, top = -T.h;
     ctx.fillStyle = rad(ctx, T.x, -T.h * .5, T.h * .7, [[0, rgba(COOL.edge, .16 * glow)], [1, rgba(COOL.edge, 0)]]); ctx.fillRect(T.x - T.h, -T.h * 1.3, T.h * 2, T.h * 1.6);
-    ctx.fillStyle = lin(ctx, x0, 0, x0 + T.w, 0, [[0, mixHex(P.ind2, P.night1, .3)], [1, mixHex(P.ind1, COOL.deep, .25)]]); ctx.fillRect(x0, top, T.w, T.h);
+    ctx.fillStyle = lin(ctx, x0, 0, x0 + T.w, 0, [[0, dayMix(mixHex(P.ind2, P.night1, .3), DAYC.faceLo, L, .8)], [1, dayMix(mixHex(P.ind1, COOL.deep, .25), DAYC.face, L, .8)]]); ctx.fillRect(x0, top, T.w, T.h);
     ctx.fillStyle = mixHex(P.ind2, P.night1, .3); ctx.fillRect(T.x - 40, top - 420, 80, 420); ctx.fillRect(T.x - 160, top - 60, 320, 60);   // mast
     ctx.fillStyle = rgba(COOL.mid, .9); ctx.beginPath(); ctx.arc(T.x, top - 420, 26 + 6 * Math.sin(t * 2.1), 0, 6.29); ctx.fill();   // the mast light breathes
     const rows = 36, cols = 7, rh = T.h / rows, cw = T.w / cols, rnd = prng(7070);
@@ -310,15 +336,29 @@ export function room(ctx, c, t, L, R) {
   const ZN = inside ? c.z + 40 : ZS;   // near edge of floor / ceiling / side walls
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
   if (!inside) { const a = wp(c, x0, yC, ZS), b = wp(c, x1, yF, ZS); if (!a || !b || b[0] < 0 || a[0] > W || b[1] < 0 || a[1] > H) { ctx.restore(); return false; } ctx.beginPath(); ctx.rect(a[0], a[1], b[0] - a[0], b[1] - a[1]); ctx.clip(); }
-  const lamp = R.lamp ?? 0, day = L.day * .5, wallTop = mixHex(mixHex(P.night1, P.ind1, .55), P.blue1, day * .4), wallBot = mixHex(P.night1, P.ind0, .3);
+  const lamp = (R.lamp ?? 0) * (1 - .75 * L.day), wallTop = dayMix(mixHex(P.night1, P.ind1, .55), DAYC.wall, L, .9), wallBot = dayMix(mixHex(P.night1, P.ind0, .3), DAYC.wallLo, L, .9);   // by day the lamps are (nearly) off
+  FURN_DAY = L.day;
+  const sunDx = (12.5 - L.h) * 34;   // the sun's patches move across the room with the hour (morning: from the left → patches right)
   atZ(ctx, c, ZB, (s) => {
     ctx.fillStyle = lin(ctx, 0, yC, 0, yF, [[0, wallTop], [1, wallBot]]); ctx.fillRect(x0 - 2, yC - 2, x1 - x0 + 4, yF - yC + 4);
+    if (L.day > 0) {   // sunlight falls in: two warm window patches on the back wall (soft edge, then the patch)
+      ctx.save(); ctx.beginPath(); ctx.rect(x0, yC, x1 - x0, yF - yC); ctx.clip();
+      const pw = (x1 - x0) * .2, ph = (yF - yC) * .46, py = yF - ph - (yF - yC) * .12;
+      const sunC = mixHex(WARM.mid, DAYC.warm, .55);   // a near-opaque saturated gold shape: half-alpha warm on blue turns grey/lavender
+      for (const k of [0, 1]) { const px = x0 + (x1 - x0) * (.3 + k * .26) + sunDx;
+        for (const [e, a] of [[14, .22], [0, .82]]) { ctx.fillStyle = rgba(sunC, a * L.day); ctx.beginPath(); ctx.moveTo(px - e, py - e); ctx.lineTo(px + pw + e, py - e); ctx.lineTo(px + pw + e + ph * .35, py + ph + e); ctx.lineTo(px - e + ph * .35, py + ph + e); ctx.closePath(); ctx.fill(); } }
+      ctx.restore();
+    }
     if (lamp > 0) { const lx = R.lampX ?? (x0 + x1) / 2; ctx.fillStyle = rad(ctx, lx, yC + 120, (x1 - x0) * .75, [[0, rgba(WARM.hi, .6 * lamp)], [.35, rgba(WARM.mid, .3 * lamp)], [1, rgba(WARM.deep, 0)]]); ctx.fillRect(x0, yC, x1 - x0, yF - yC); ctx.fillStyle = rgba(P.core1, lamp); ctx.beginPath(); ctx.ellipse(lx, yC + 110, 24, 14, 0, 0, 6.29); ctx.fill(); }
     if (R.back) R.back(ctx, s);
   });
-  const ceil = mixHex(P.night0, P.night1, .5), side = mixHex(P.night1, P.ind1, .3), flo = mixHex(P.night1, P.ind2, .35);
+  const ceil = dayMix(mixHex(P.night0, P.night1, .5), DAYC.ceil, L, .9), side = dayMix(mixHex(P.night1, P.ind1, .3), DAYC.sideW, L, .9), flo = dayMix(mixHex(P.night1, P.ind2, .35), DAYC.floor, L, .9);
   quad(ctx, c, [[x0, yC, ZN], [x1, yC, ZN], [x1, yC, ZB], [x0, yC, ZB]], ceil);
-  const fq = quad(ctx, c, [[x0, yF, ZN], [x1, yF, ZN], [x1, yF, ZB], [x0, yF, ZB]], (q) => lin(ctx, 0, q[2][1], 0, q[0][1], [[0, flo], [1, mixHex(P.night0, P.night1, .4)]]));
+  const fq = quad(ctx, c, [[x0, yF, ZN], [x1, yF, ZN], [x1, yF, ZB], [x0, yF, ZB]], (q) => lin(ctx, 0, q[2][1], 0, q[0][1], [[0, flo], [1, dayMix(mixHex(P.night0, P.night1, .4), DAYC.wallLo, L, .85)]]));
+  if (L.day > 0) {   // the sun's patch on the floor (from the open front, slanted with the hour)
+    const fx = x0 + (x1 - x0) * .28 + sunDx * 1.4, fw = (x1 - x0) * .42, z0 = Math.max(ZN, ZS + 40), z1 = ZS + 330;
+    if (z1 > z0) { quad(ctx, c, [[fx, yF, z0], [fx + fw, yF, z0], [fx + fw + 120, yF, z1], [fx + 120, yF, z1]], rgba(mixHex(WARM.mid, DAYC.warm, .4), .78 * L.day)); }
+  }
   quad(ctx, c, [[x0, yC, ZN], [x0, yC, ZB], [x0, yF, ZB], [x0, yF, ZN]], (q) => lin(ctx, q[1][0], 0, q[0][0], 0, [[0, side], [1, mixHex(side, P.night0, .5)]]));
   quad(ctx, c, [[x1, yC, ZN], [x1, yC, ZB], [x1, yF, ZB], [x1, yF, ZN]], (q) => lin(ctx, q[1][0], 0, q[0][0], 0, [[0, side], [1, mixHex(side, P.night0, .5)]]));
   if (R.door) {   // the lit doorway in the left wall + the light it throws onto the floor
@@ -335,8 +375,9 @@ export function room(ctx, c, t, L, R) {
   ctx.restore();
   return true;
 }
+let FURN_DAY = 0;   // set by room(): furniture lightens by day
 function furniture(ctx, kind, x, y) {   // flat dark silhouettes standing on floor y (drawn on a plane near the back wall)
-  ctx.fillStyle = mixHex(P.night0, P.ind0, .5);
+  ctx.fillStyle = FURN_DAY > 0 ? mixHex(mixHex(P.night0, P.ind0, .5), DAYC.furn, FURN_DAY) : mixHex(P.night0, P.ind0, .5);
   if (kind === 'sofa') { ctx.fillRect(x - 170, y - 52, 340, 36); ctx.fillRect(x - 170, y - 82, 36, 82); ctx.fillRect(x + 134, y - 82, 36, 82); ctx.fillRect(x - 160, y - 16, 16, 16); ctx.fillRect(x + 144, y - 16, 16, 16); ctx.fillRect(x - 170, y - 100, 340, 50); }   // human scale (people 140)
   if (kind === 'bed') { ctx.fillRect(x - 210, y - 50, 420, 36); ctx.fillRect(x - 210, y - 115, 30, 115); ctx.fillRect(x + 190, y - 72, 20, 72); }   // mattress top y − 50
   if (kind === 'desk') { ctx.fillRect(x - 120, y - 64, 240, 10); ctx.fillRect(x - 110, y - 54, 10, 54); ctx.fillRect(x + 100, y - 54, 10, 54); }
@@ -351,9 +392,9 @@ const winOnWall = (ctx, L, x, y, w, h) => {   // a window in a back wall: the sk
   ctx.fillStyle = mixHex(P.ind2, P.night1, .3); ctx.fillRect(x + w / 2 - 4, y, 8, h); ctx.fillRect(x, y + h * .45, w, 8); ctx.fillRect(x - 10, y + h, w + 20, 10);
 };
 // cut faces of a building at ZS (slabs, outer walls, partitions, parapet), drawn after its rooms
-function cutFaces(ctx, c, x0, x1, floors, parts) {
+function cutFaces(ctx, c, x0, x1, floors, parts, L) {
   atZ(ctx, c, ZS, () => {
-    const cut = mixHex(P.ind2, P.blue1, .35), wall = 44, top = floorY(floors);
+    const cut = dayMix(mixHex(P.ind2, P.blue1, .35), DAYC.cut, L, .85), wall = 44, top = floorY(floors);
     for (let l = 0; l <= floors; l++) { const y = floorY(l); ctx.fillStyle = cut; ctx.fillRect(x0 - wall, y, x1 - x0 + 2 * wall, SLAB); ctx.fillStyle = rgba(P.blue0, .9); ctx.fillRect(x0 - wall, y, x1 - x0 + 2 * wall, 4); }
     ctx.fillStyle = cut; ctx.fillRect(x0 - wall, top, wall, -top); ctx.fillRect(x1, top, wall, -top);
     for (const [x, l, yTop] of parts) ctx.fillRect(x - 12, floorY(l + 1) + SLAB, 24, (yTop ?? floorY(l)) - floorY(l + 1) - SLAB);
@@ -377,8 +418,8 @@ export function yourBuilding(ctx, c, t, L, o = {}) {
   hallway(ctx, c, t, L, o);
   kitchen(ctx, c, t, { L, hallLamp: o.hallLamp ?? 1, ...(o.kitchen || {}) });
   kidRoom(ctx, c, t, L, o.kid || {});
-  cutFaces(ctx, c, B.x0, B.x1, B.floors, [[-1800, 0], [-1400, 1], [-1200, 3], [-1000, 2], [-2000, 2, KITCHEN.door.top]]);
-  atZ(ctx, c, ZS, () => { ctx.fillStyle = mixHex(P.ind2, P.blue1, .35); ctx.fillRect(-2012, KITCHEN.door.top, 24, KY - KITCHEN.door.top); });   // the partition's cut end below the door top (the door is deeper)
+  cutFaces(ctx, c, B.x0, B.x1, B.floors, [[-1800, 0], [-1400, 1], [-1200, 3], [-1000, 2], [-2000, 2, KITCHEN.door.top]], L);
+  atZ(ctx, c, ZS, () => { ctx.fillStyle = dayMix(mixHex(P.ind2, P.blue1, .35), DAYC.cut, L, .85); ctx.fillRect(-2012, KITCHEN.door.top, 24, KY - KITCHEN.door.top); });   // the partition's cut end below the door top (the door is deeper)
 }
 function hallway(ctx, c, t, L, o) {
   const [x0, x1] = STREET.hall, lamp = o.hallLamp ?? 1;
@@ -416,7 +457,7 @@ export function kitchen(ctx, c, t, o = {}) {
   const items = [
     [C.z0, (cx) => {   // the counter: its top (seen from above) and its front
       cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0);
-      quad(cx, c, [[C.x0, C.top, C.z0], [C.x1, C.top, C.z0], [C.x1, C.top, ZB], [C.x0, C.top, ZB]], mixHex(P.ind2, P.blue1, .3 + .3 * hl));
+      quad(cx, c, [[C.x0, C.top, C.z0], [C.x1, C.top, C.z0], [C.x1, C.top, ZB], [C.x0, C.top, ZB]], dayMix(mixHex(P.ind2, P.blue1, .3 + .3 * hl), DAYC.wall, L, .8));
       quad(cx, c, [[C.x1, C.top, C.z0], [C.x1, C.top, ZB], [C.x1, K.floor, ZB], [C.x1, K.floor, C.z0]], mixHex(P.night1, P.ind0, .4));
       cx.restore();
       cx.fillStyle = lin(cx, 0, C.top, 0, K.floor, [[0, mixHex(P.ind2, P.night1, .35)], [1, P.night0]]); cx.fillRect(C.x0, C.top, C.x1 - C.x0, K.floor - C.top);
@@ -431,7 +472,7 @@ export function kitchen(ctx, c, t, o = {}) {
     if (o.chairs !== false) for (const [x, z] of [[T.x0 - 40, (T.z0 + T.z1) / 2], [T.x1 + 40, (T.z0 + T.z1) / 2], [(T.x0 + T.x1) / 2, T.z0 - 50]]) items.push([z, (cx) => { cx.fillStyle = mixHex(P.night0, P.ind0, .7); cx.fillRect(x - 32, K.floor - 42, 64, 9); cx.fillRect(x - 25, K.floor - 33, 8, 33); cx.fillRect(x + 17, K.floor - 33, 8, 33); }]);   // stools
     items.push([T.z1 + .5, (cx) => {   // the top first (things standing on the table, between z0 and z1, draw over it)
       cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0);
-      quad(cx, c, [[T.x0, T.top, Math.max(T.z0, c.z + 31)], [T.x1, T.top, Math.max(T.z0, c.z + 31)], [T.x1, T.top, T.z1], [T.x0, T.top, T.z1]], (q) => lin(cx, 0, q[2][1], 0, q[0][1], [[0, mixHex(P.ind1, WARM.mid, .5 * lamp)], [1, mixHex(P.ind0, WARM.deep, .4 * lamp)]]));
+      quad(cx, c, [[T.x0, T.top, Math.max(T.z0, c.z + 31)], [T.x1, T.top, Math.max(T.z0, c.z + 31)], [T.x1, T.top, T.z1], [T.x0, T.top, T.z1]], (q) => lin(cx, 0, q[2][1], 0, q[0][1], [[0, dayMix(mixHex(P.ind1, WARM.mid, .5 * lamp), '#4d68b8', L, .85)], [1, dayMix(mixHex(P.ind0, WARM.deep, .4 * lamp), '#2a4596', L, .85)]]));
       cx.restore();
     }]);
     items.push([T.z0, (cx) => {   // the front edge and the legs
@@ -454,6 +495,7 @@ export function kitchen(ctx, c, t, o = {}) {
     pools: [[LW.cx, ZB - 160, 420, P.blue0, 1.1 * wall], [LW.cx + 40, ZB - 120, 220, COOL.edge, .45 * scanA], [Lp.x - 120, (T.z0 + T.z1) / 2, 380, WARM.mid, .8 * lamp]],
     back: (cx) => {
       // the light wall: a slightly lighter panel (it can show light), a cool sheen when it does
+      if (L.day > 0) for (let i = 0; i < 4; i++) { const e = 40 - i * 12; cx.fillStyle = rgba(mixHex(P.night1, P.ind1, .5), .2 * L.day); cx.beginPath(); cx.roundRect(LW.x - e, LW.y - e, LW.w + 2 * e, LW.h + 2 * e, 18); cx.fill(); }   // by day: a soft dark glass panel, so light on it keeps its contrast
       cx.fillStyle = rgba(P.blue0, .18 + .12 * wall); cx.fillRect(LW.x - 14, LW.y - 14, LW.w + 28, LW.h + 28);
       cx.fillStyle = rad(cx, LW.cx, LW.cy, LW.w * .9, [[0, rgba(P.blue0, .5 * wall)], [1, rgba(P.blue0, 0)]]); cx.fillRect(LW.x - LW.w * .5, LW.y - 40, LW.w * 2, LW.h + 200);
       if (o.scan) { cx.save(); cx.beginPath(); cx.rect(LW.x, LW.y, LW.w, LW.h); cx.clip(); scanArt(cx, LW.x - LW.w * .04, LW.y - LW.h * .06, LW.w * 1.08, LW.h * 1.12, t, o.scan); cx.restore(); if (scanA > 0) { cx.strokeStyle = rgba(COOL.mid, .35 * scanA); cx.lineWidth = 2; cx.strokeRect(LW.x, LW.y, LW.w, LW.h); } }
@@ -638,8 +680,8 @@ export function streetRow(ctx, c, t, o = {}) {
   if (STREET.dad.x1 + 400 > c.x - sw && STREET.dad.x0 < c.x + sw) dadBuilding(ctx, c, t, L, o.dad || {});
   if (STREET.you.x1 > c.x - sw && STREET.you.x0 < c.x + sw) yourBuilding(ctx, c, t, L, { cool: (o.cool ?? 0) > .5, ...(o.you || {}) });
   atZ(ctx, c, ZS, (s) => {
-    ctx.fillStyle = lin(ctx, 0, SLAB, 0, 900, [[0, mixHex(P.night1, P.ind0, .3)], [1, P.night0]]); ctx.fillRect(c.x - sw, SLAB, sw * 2, 30000);   // the street
-    ctx.fillStyle = rgba(P.blue0, .8); ctx.fillRect(c.x - sw, SLAB, sw * 2, Math.max(2 / s, 3));
+    ctx.fillStyle = lin(ctx, 0, SLAB, 0, 900, [[0, dayMix(mixHex(P.night1, P.ind0, .3), DAYC.street, L)], [1, dayMix(P.night0, DAYC.streetLo, L)]]); ctx.fillRect(c.x - sw, SLAB, sw * 2, 30000);   // the street
+    ctx.fillStyle = rgba(dayMix(P.blue0, DAYC.rim, L), .8); ctx.fillRect(c.x - sw, SLAB, sw * 2, Math.max(2 / s, 3));
     if (o.over) o.over(ctx, s);
   });
 }
@@ -653,7 +695,7 @@ export function dadBuilding(ctx, c, t, L, o = {}) {
       room(ctx, c, t, L, { x0: a, x1: b, level: l, lamp: mine ? (o.lamp ?? .8) : (o.rooms?.[id] ?? 0), lampX: a + 300,
         back: (cx) => winOnWall(cx, L, a + 380, floorY(l) - 400, 200, 200), items: [[ZB - 40, (cx) => furniture(cx, ['sofa', 'bed', 'desk', 'shelf'][(l * 2 + (k === 'a' ? 0 : 1)) % 4], a + 700, floorY(l))], ...((o.items || {})[id] || [])] });
     }
-    cutFaces(ctx, c, D.x0, D.x1, D.floors, Array.from({ length: D.floors }, (_, l) => [5300, l]));
+    cutFaces(ctx, c, D.x0, D.x1, D.floors, Array.from({ length: D.floors }, (_, l) => [5300, l]), L);
   }
   atZ(ctx, c, ZS, () => {
     const [b0, b1] = D.balcony, by = floorY(D.level), cut = mixHex(P.ind2, P.blue1, .35);
@@ -671,18 +713,23 @@ export function dadBuilding(ctx, c, t, L, o = {}) {
   });
 }
 export function streetFront(ctx, c, t, o = {}) {
-  const L = o.L || hourLook(o.hour ?? 6.25), lamps = o.lamps ?? (L.day > .35 ? 0 : 1);
+  const L = o.L || hourLook(o.hour ?? 6.25), lamps = o.lamps ?? clamp((.5 - L.day) / .3);
   atZ(ctx, c, ZFRONT, (s) => {
     const sw = (W / 2 + 300) / s;
-    ctx.fillStyle = lin(ctx, 0, 0, 0, 600, [[0, mixHex(P.night1, P.ind0, .25)], [1, P.night0]]); ctx.fillRect(c.x - sw, 0, sw * 2, 30000);
-    ctx.fillStyle = rgba(P.blue1, .5); ctx.fillRect(c.x - sw, 0, sw * 2, Math.max(2 / s, 3));
+    ctx.fillStyle = lin(ctx, 0, 0, 0, 600, [[0, dayMix(mixHex(P.night1, P.ind0, .25), DAYC.front, L)], [1, dayMix(P.night0, DAYC.frontLo, L)]]); ctx.fillRect(c.x - sw, 0, sw * 2, 30000);
+    ctx.fillStyle = rgba(dayMix(P.blue1, DAYC.rim, L), .5); ctx.fillRect(c.x - sw, 0, sw * 2, Math.max(2 / s, 3));
+    if (o.streetLife) o.streetLife(ctx, s);   // (B1) things on the pavement between the kerb and the street row: robots, walkers (world units at ZFRONT)
     for (let x = -9400; x < 10000; x += 1500) {
       if (x < c.x - sw || x > c.x + sw) continue;
       const tx = x + 700;   // a tree between two lamps
-      ctx.fillStyle = mixHex(P.night1, P.ind0, .6); ctx.fillRect(tx - 14, -300, 28, 300);
-      ctx.fillStyle = mixHex(P.ind0, P.blue0, .15); ctx.beginPath(); ctx.ellipse(tx, -420, 170, 190, 0, 0, 6.29); ctx.fill();
-      ctx.fillStyle = rgba(P.blue0, .5); ctx.beginPath(); ctx.ellipse(tx + 40, -470, 110, 120, 0, Math.PI * 1.2, Math.PI * 1.9); ctx.fill();
-      ctx.fillStyle = mixHex(P.night1, P.ind0, .4); ctx.fillRect(x - 7, -520, 14, 520); ctx.fillRect(x - 7, -520, 70, 10);
+      const gap = (v) => (o.frontGap || []).some(([a, b]) => v > a && v < b);   // o.frontGap [[x0, x1]]: a square with no kerb trees/lamps
+      if (!gap(tx)) {
+        ctx.fillStyle = mixHex(P.night1, P.ind0, .6); ctx.fillRect(tx - 14, -300, 28, 300);
+        ctx.fillStyle = dayMix(mixHex(P.ind0, P.blue0, .15), DAYC.tree, L); ctx.beginPath(); ctx.ellipse(tx, -420, 170, 190, 0, 0, 6.29); ctx.fill();
+        ctx.fillStyle = rgba(dayMix(P.blue0, DAYC.treeLit, L), .5 + .2 * L.day); ctx.beginPath(); ctx.ellipse(tx + 40, -470, 110, 120, 0, Math.PI * 1.2, Math.PI * 1.9); ctx.fill();
+      }
+      if (gap(x)) continue;
+      ctx.fillStyle = dayMix(mixHex(P.night1, P.ind0, .4), P.ind1, L, .6); ctx.fillRect(x - 7, -520, 14, 520); ctx.fillRect(x - 7, -520, 70, 10);
       if (lamps > 0) { ctx.fillStyle = rad(ctx, x + 56, -500, 260, [[0, rgba(P.halo0, .35 * lamps)], [1, rgba(P.halo0, 0)]]); ctx.fillRect(x - 210, -760, 530, 760); ctx.fillStyle = rgba(P.core1, lamps); ctx.beginPath(); ctx.ellipse(x + 56, -506, 22, 8, 0, 0, 6.29); ctx.fill(); }
     }
   });

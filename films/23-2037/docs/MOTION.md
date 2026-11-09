@@ -117,14 +117,21 @@ Exactly the style's palette (`P` in `lib/f10_editorial.mjs`) plus the machine's 
 | Raincoat (you only) | `#f2b632` |
 | Text | cream `#fefcde`, labels `P.halo2` |
 
-**Light code:** gold = human care, decisions people made, the good road. Cool blue-white = the machine (tutor, agent, tower, earbuds) and the "other way". Yellow only for you. **The day stays editorial night:** daytime is told by the sun-dot, the sky's hue and the angle of the light, never by brightness. Mean luma 40–60 (`calm.py`).
+**Light code:** gold = human care, decisions people made, the good road. Cool blue-white = the machine (tutor, agent, tower, earbuds) and the "other way". Yellow only for you. ~~**The day stays editorial night:** daytime is told by the sun-dot, the sky's hue and the angle of the light, never by brightness. Mean luma 40–60 (`calm.py`).~~
+
+**2026-11-09, Jakob: daylight for the day hours** (he found the day monotonous: everything night-blue in a bare flat; he wants the outside world, street life, robots). This replaces "the day stays editorial night" and the 09:00/12:00 row below:
+- **07:30, 09:00, 12:00, 16:00 are daylight:** a saturated clear blue day sky (`#1b3ea8`…`#1f49be` at the top, `#6f93e4`…`#93b0ec` at the horizon), a golden sun with a wide warm glow (as the thumbnail v3 *a life in 2037*), a few soft cream cloud streaks. Facades/rooms in clean mid blues (`DAYC` in the kit: face `#3c61c6`, shadow `#1f3d9c`, wall `#5878cc`), darker blue shadows, warm cream/gold only where the sun hits; no milky grey/lavender veils (half-alpha warm over blue turns grey: sunlight is drawn as near-opaque gold shapes). Rooms by day: lamps off, two slanted gold sun patches on the back wall and one on the floor, moving with the hour. `plateWindow` (Dad's facade, 16:00 seam) is daylight too. The 09:00 night-shift explainer stays night and is entered/left by a day↔night fade (`hourAt`). **06:15 stays dawn, 19:00 dusk, 22:30 night** (unchanged).
+- `hourLook(h)` now returns **`L.day`** 0..1 (daylight; 0 at 06:15/19:00/22:30, .82 at 07:30, 1 at 09:00–12:00, .9 at 16:00) and `L.sun` (the sun's height, for drawing it). Facades, the street, the kerb, trees, rooms (walls, floor, ceiling, cut faces) and the tower's body lift toward `DAYC` (kit) by `L.day`; windows are mostly unlit glass with a sky sheen (lit share 3–6 %); street lamps fade out with daylight. Shadows stay deep blue; **gold stays the one accent** (the sun, care, the agent's thread).
+- Readability: light explainers that sat on a dark room wall get a soft dark glass backing by day (the kitchen's light wall does this by itself in the kit; B1's shop window in c05 is dark glass). Do not revert scenes to night to rescue contrast: darken locally.
+- Mean luma rises in the day hours (≈ 55–75 instead of 40–60); that is intended.
+- **Street life** (`lib/f23_street.mjs`, all builders may import): delivery robots, drones (one carries the clinic's medicine box), the driverless shuttle and its stop, market stalls, walkers. Friendly appliances, no faces, nothing humanoid; ambient and slow (≤ 1–2 moving things in focus).
 
 | Hour | Sky (top → horizon) | Hero light |
 |---|---|---|
 | 06:15 | `night0` → `ind1`, a thin gold line at the horizon | the phone, your kitchen window |
-| 07:30 | `ind1` → `blue0`, first gold at the horizon | the voice-light |
-| 09:00 / 12:00 | `blue0` → `blue1` (never lighter than `#394773`), small gold sun high | the object of the sentence (headline, agent, bar); the sun small, out of frame in close shots |
-| 16:00 | `blue0` → warm halo `#e7d19a` at the horizon, low sun right, long shadows | the sun / Dad's window |
+| 07:30 | ~~`ind1` → `blue0`~~ **daylight (11-09):** `#1b3ea8` → `#6f93e4`, the low sun's gold band | the voice-light |
+| 09:00 / 12:00 | ~~`blue0` → `blue1` (never lighter than `#394773`)~~ **daylight since 11-09:** day blue `#1c43b6` → `#79a0ee` / `#1f49be` → `#86abf3`, golden sun high with a wide warm glow | the object of the sentence (headline, agent, bar); the street alive around it |
+| 16:00 | **daylight (11-09):** `#2546a8` → `#aebde4`, warm band, low sun right, long shadows | the sun / Dad's window |
 | 19:00 | `night1`, lamp-lit kitchen (gold pool) | the lamp + the light wall |
 | 22:30 | `night0`, cream moon high, windows going out | the phone, then the hallway window, the tower |
 

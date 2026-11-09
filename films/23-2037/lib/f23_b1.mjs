@@ -10,7 +10,8 @@
 // Group seams: plateGenius at 'Seven-thirty' (in), plateWindow at "Four o'clock" (out; Dad's facade is patched to the plate's look).
 import * as E from './f10_editorial.mjs';
 import * as K from './f23_kit.mjs';
-import { plateGenius, plateWindow, WINDOW_PLATE, SEAM_HALF, GENIUS_WALL } from './f23_seams.mjs';
+import { plateGenius, plateWindow, plateWindowContent, WINDOW_GLASS, WINDOW_PLATE, SEAM_HALF, GENIUS_WALL } from './f23_seams.mjs';
+import * as S from './f23_street.mjs';
 const { W, H, P, F0, clamp, lerp, span, smooth, expoOut, expoIn, sineIO, quartIO, trapIO, rgba, mixHex, lin, rad, halo, cam3, prng, drift } = E;
 const { ZS, ZB, KITCHEN, LIGHTWALL, look, wp, atZ, COOL, WARM } = K;
 const KY = KITCHEN.floor, TT = KITCHEN.table.top, SEAT = KITCHEN.seatY;
@@ -41,26 +42,18 @@ function camPath(t, SEG) {
 // The plate (screen space) mapped onto Dad's facade through the final camera, so the push lands on it exactly. Exported for B2's pull back.
 export const DAD_WIN = [5116, -1800];                                    // Dad's window (level 3, flat a), world X, Y on ZS
 export const CAM_DAD = look(DAD_WIN[0], DAD_WIN[1], ZS, WINDOW_PLATE.h / 230, WINDOW_PLATE.x, WINDOW_PLATE.y);
-function plateContent(ctx) {   // = plateWindow without its setTransform (screen coordinates of the plate)
-  const Wp = WINDOW_PLATE, x0 = Wp.x - Wp.w / 2, y0 = Wp.y - Wp.h / 2;
-  ctx.fillStyle = lin(ctx, 0, 0, 0, H, [[0, mixHex(P.ind2, P.blue0, .25)], [1, mixHex(P.night1, P.ind1, .3)]]); ctx.fillRect(-6000, -6000, 14000, 14000);
-  ctx.fillStyle = rgba(P.night0, .35); for (const [x, y] of [[300, 120], [1620, 120], [300, 760], [1620, 760]]) ctx.fillRect(x - 110, y, 220, 280);
-  ctx.fillStyle = rad(ctx, Wp.x, Wp.y, Wp.h * 1.1, [[0, rgba(WARM.mid, .45)], [1, rgba(WARM.deep, 0)]]); ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = lin(ctx, 0, y0, 0, y0 + Wp.h, [[0, WARM.hi], [1, WARM.mid]]); ctx.fillRect(x0, y0, Wp.w, Wp.h);
-  ctx.fillStyle = mixHex(P.ind2, P.night1, .3); ctx.fillRect(Wp.x - 5, y0, 10, Wp.h); ctx.fillRect(x0, y0 + Wp.h * .42, Wp.w, 10); ctx.fillRect(x0 - 16, y0 + Wp.h, Wp.w + 32, 16);
-  ctx.fillStyle = rgba(WARM.deep, .55); ctx.beginPath(); ctx.ellipse(x0 + 60, y0 + Wp.h - 40, 40, 70, 0, 0, 6.29); ctx.fill();
-}
+const plateContent = (ctx, t) => plateWindowContent(ctx, t);   // = plateWindow without its setTransform (11-09: daylight, in f23_seams)
 // call inside the ZS plane (world units), e.g. from world o.over(ctx, s)
 export function dadFacade(ctx, t, L) {
   const D = K.STREET.dad, C = CAM_DAD, s = C.f / (ZS - C.z), top = K.floorY(D.floors);
   const vx0 = C.x - (W / 2) / s, vx1 = C.x + (W / 2) / s, vy0 = C.y - (H / 2) / s, vy1 = C.y + (H / 2) / s;   // the plate's viewport in world
   ctx.save(); ctx.beginPath(); ctx.rect(D.x0 - 44, top + 3, D.x1 - D.x0 + 88, -top - 3); ctx.clip();
-  ctx.save(); ctx.transform(1 / s, 0, 0, 1 / s, C.x - (W / 2) / s, C.y - (H / 2) / s); plateContent(ctx); ctx.restore();
+  ctx.save(); ctx.transform(1 / s, 0, 0, 1 / s, C.x - (W / 2) / s, C.y - (H / 2) / s); plateContent(ctx, t); ctx.restore();
   // the rest of the facade's windows (outside the plate's viewport, so the plate frame stays exact)
   ctx.beginPath(); ctx.rect(D.x0 - 44, top, D.x1 - D.x0 + 88, -top); ctx.rect(vx1, vy0, vx0 - vx1, vy1 - vy0); ctx.clip('evenodd');
   for (let l = 0; l < D.floors; l++) for (let i = 0; i < 6; i++) {
     const X = D.x0 + 180 + i * 368, Y = K.floorY(l) - 260, lit = ((l * 7 + i * 3) % 10) < 2 + (L ? L.win * 6 : 1);
-    ctx.fillStyle = rgba(P.night0, .35); ctx.fillRect(X - 85, Y - 115, 170, 230);
+    ctx.fillStyle = WINDOW_GLASS; ctx.fillRect(X - 85, Y - 115, 170, 230);
     if (lit && !(l === D.level)) { ctx.fillStyle = lin(ctx, 0, Y - 115, 0, Y + 115, [[0, rgba(P.halo1, .9)], [1, rgba(P.core1, .9)]]); ctx.fillRect(X - 85, Y - 115, 170, 230); }
   }
   ctx.restore();
@@ -160,7 +153,7 @@ export function b1(T) {
   const VL = [-1300, TT - 72, LZ], VLR = 15;         // the voice-light (world), radius
   const KID_X = -1500;                               // the left stool
   const YOU3 = [-1720, 3480];                        // you at the counter (07:30, 12:00)
-  const YOU5 = [-1680, 3470];
+  const YOU5 = [1900, 2900];                          // you at noon: on the market street (pavement, in front of the shops) [X, Z]
   const HB = [-1330, -1250], CUBE = [-1330, -1405], S1 = [-1468, -1232], S2 = [-1424, -1312];   // black hole, cube, the two steps (wall ZB)
   const HALLWIN = { x: -2490, y: K.KITCHEN.ceil + 70, w: 190, h: 360 };   // the hallway's tall window (back wall)
   const ZH = 3545;                                   // the headline objects' plane (just inside the window)
@@ -172,7 +165,11 @@ export function b1(T) {
   function GENIUS_R() { return 150; }
   const TABLE = look(-1330, -1215, ZB, 1.75, 960, 520), TABLE_IN = look(-1342, -1222, ZB, 1.85, 960, 520);
   const TABLE_EX = look(-1360, -1280, ZB, 1.95, 960, 500), TABLE_EX2 = look(-1365, -1284, ZB, 2.04, 960, 500);
-  const SKY3 = cam3({ x: -1000, y: -2900, z: 0 });
+  const SKY3 = cam3({ x: -1000, y: -2900, z: 0 });   // (unused since the 11-09 rework: c03 now pulls back out to the street)
+  // 2026-11-09 rework (daylight + street life): c03 ends on the street (the kid takes the school shuttle), c04 opens wide on the living
+  // street with the quiet flat above it, c05 plays out on the market street in front of the shops.
+  const STREET9 = look(-1950, -640, ZS, .56, 960, 540), STREET9B = look(-2000, -660, ZS, .6, 960, 540);
+  const OUT3 = look(-1500, -1000, ZS, 1.0, 960, 520);
   const HALL = look(-2330, -1205, ZB, 1.95, 960, 540), HALL_IN = look(-2345, -1212, ZB, 2.06, 960, 540);
   const PANE = cam3({ x: -2348, y: -1385, z: 3440 }), BEHIND = cam3({ x: -2330, y: -1470, z: 3900 }), UP = cam3({ x: -2150, y: -3000, z: 4300 }), RISE = cam3({ x: -1300, y: -3350, z: 5700 });
   const TOWER_C = look(4000, -5100, 16000, .2, 1250, 540), TOWER_C2 = look(4000, -5100, 16000, .212, 1250, 540);
@@ -181,28 +178,36 @@ export function b1(T) {
   const TK = look(-1450, -1700, ZS, .62, 900, 540), YOU_M = look(-1640, -1108, 3470, 3.3, 780, 590), YOU_M2 = look(-1636, -1108, 3470, 3.5, 780, 590);
   const TABLE_H = look(-1335, -1220, ZB, 1.82, 960, 520);
   const WIDE = look(1900, -1450, ZS, .22, 960, 540);
-  const BACK5 = look(-1350, -1350, ZS, .95, 760, 560);   // 'one job': first back out of the room (no flight through the walls), then across the roofs
+  const BACK5 = look(-1350, -1350, ZS, .95, 760, 560);   // (unused since the 11-09 rework)
+  // c05 on the market street: you at the fruit stall, the shop window (a light window: the plan bars) right of you, the clinic off left
+  // the market square (X ≈ 900–3400, no kerb trees/lamps: FRONT_GAP) in front of the low building (X 1600–2600, 1100 high): the sky strip
+  // with the noon sun and the makers' tower shows above it
+  const OUT5 = look(400, -760, ZS, .66, 960, 540), MKT = look(2150, 0, 2900, .66, 960, 880), MKT_IN = look(2130, 0, 2900, .72, 960, 880);
+  const MKT_W = look(2250, -900, ZS, .5, 960, 470), YOU_C = look(YOU5[0] + 25, -112, 2900, 3.0, 780, 590), YOU_C2 = look(YOU5[0] + 28, -112, 2900, 3.2, 780, 590);
+  const RISE5 = look(3500, -1500, ZS, .42, 960, 560);
+  const FRONT_GAP = [[900, 3400]];
   const SEG = [
     [tGenEnd, tPaj + .4, [CLOSE, TABLE], 'l', LZ + 1],
     [tAlone - .3, tPhys - .1, [TABLE, TABLE_IN], 'l', ZB],
     [tBH - 1.0, tWants + .3, [TABLE_IN, TABLE_EX], 's', ZB],
     [tWants + .3, tWhy + 2.4, [TABLE_EX, TABLE_EX2], 'l', ZB],
-    [tStomp - .1, tKept - .1, [TABLE_EX2, TABLE], 's', ZB],
-    [tKept - .1, t04 - .25, [TABLE, SKY3], 'l', ZB],
-    [t04 + .75, tNews + .25, [SKY3, HALL], 'l', ZB],
-    [tAnti - .2, tBarely, [HALL, HALL_IN], 'l', ZB],
+    [tStomp - .1, tKept - .7, [TABLE_EX2, TABLE], 's', ZB],
+    [tKept - .7, tKept + 3.0, [TABLE, OUT3, STREET9], 's', ZS],      // out of the kitchen to the street: the kid takes the shuttle to school
+    [tKept + 3.0, tNews - .9, [STREET9, STREET9B], 'l', ZS],          // 09:00 · the quiet flat over the living street (a slow breath in)
+    [tNews - .9, tAnti + .3, [STREET9B, HALL], 's', ZB],              // push into the hallway: the morning news
+    [tAnti + .3, tBarely, [HALL, HALL_IN], 'l', ZB],
     [tBarely + .7, tNight + 1.5, [HALL_IN, PANE, BEHIND, UP, RISE, TOWER_C], 's', 20000],
     [tNight + 1.5, tShift, [TOWER_C, TOWER_C2], 'l', 16000],
     [tShift + .1, tShift + 2.7, [TOWER_C2, SKYX], 's', 16000],
     [tShift + 2.7, tMean, [SKYX, SKYX_IN], 'l', 16000],
     [tMean + .1, tMorning + .2, [SKYX_IN, TABLE], 's', ZB],
-    [tMorning + .2, t05 + .2, [TABLE, TABLE_H], 's', ZB],   // the agent arrives: a slow breath in (no frozen hold)
-    [t05 + .2, tChecks + 1.3, [TABLE_H, KT2], 's', ZB],
-    [tChecks + 1.3, tMuch + .3, [KT2, KT2_IN], 'l', ZB],
-    [tMuch + .45, tEarn - .05, [KT2_IN, TK], 's', ZB],
-    [tAnyway + 1.5, tPocket + .2, [TK, YOU_M], 's', 3470 + 1],
-    [tPocket + .2, tJob, [YOU_M, YOU_M2], 'l', 3470 + 1],
-    [tJob + .15, tWinStart, [YOU_M2, BACK5, WIDE, CAM_DAD], 's', ZS],
+    [tMorning + .2, tMoney + .6, [TABLE, TABLE_H], 's', ZB],   // the agent arrives: a slow breath in (no frozen hold)
+    [tMoney + .6, tChecks + 1.8, [TABLE_H, OUT5, MKT], 's', ZS],      // noon: out of the flat, down to the market street where you are
+    [tChecks + 1.8, tMuch + .3, [MKT, MKT_IN], 'l', 2901],
+    [tMuch + .45, tEarn - .05, [MKT_IN, MKT_W], 's', ZS],           // ★ wide: the makers' tower over the roofs
+    [tAnyway + 1.5, tPocket + .2, [MKT_W, YOU_C], 's', 2901],
+    [tPocket + .2, tJob, [YOU_C, YOU_C2], 'l', 2901],
+    [tJob + .15, tWinStart, [YOU_C2, RISE5, CAM_DAD], 's', ZS],
   ];
   const driftK = (t) => smooth(span(t, tGenEnd, tGenEnd + 3)) * (1 - smooth(span(t, tWinStart - 2.2, tWinStart)));
   const camOf = (t) => { const c = camPath(t, SEG), k = driftK(t); return k > 0 ? E.camDrift(c, t, .55 * k, 11) : c; };
@@ -211,10 +216,10 @@ export function b1(T) {
   const hourAt = (t) => {
     let h = lerp(6.25, 7.5, sineIO(span(t, t03, tGenEnd + 1.5)));
     h = lerp(h, 9, sineIO(span(t, t04, t04 + 1.2)));
-    h = lerp(h, -1.5, sineIO(span(t, tNight - .9, tNight + 3.4)));   // into the night the dark way round (never through a bright noon: no luma lurch)
+    h = lerp(h, -1.5, sineIO(span(t, tBarely + .9, tNight + .9)));   // (11-09) the window darkens as the camera goes through it: a memory of the night (the dark way round)
     h = lerp(h, 6.0, sineIO(span(t, tSunrise - .2, tSunrise + 1.6)));
     h = lerp(h, 10.5, sineIO(span(t, tMean + .2, tMorning + .3)));
-    h = lerp(h, 12, sineIO(span(t, t05, t05 + 1.2)));
+    h = lerp(h, 12.9, sineIO(span(t, t05, t05 + 1.2)));   // (11-09) the sun just past its top, so it stands in the market's sky strip
     return h;
   };
   const towerOpen = (t) => smooth(span(t, tNight + .7, tNight + 3.4)) * (1 - smooth(span(t, tMean + .4, tMean + 3.6)));
@@ -346,8 +351,14 @@ export function b1(T) {
 
   // ================================================================ c04 · the night shift
   const youHall = [-2238, 3472];
+  const tWalkH = [tKept + .4, tKept + 3.6];   // (11-09) after the kid leaves you cross from the counter to the hallway window (seen wide)
   function youHallDraw(ctx, c, t) {
     let hands = null; const up = bump(t, tBarely - .05, 1.1);
+    if (t < tWalkH[1]) {
+      const u = sineIO(span(t, tWalkH[0], tWalkH[1])), X = lerp(YOU3[0], youHall[0], u), Z = lerp(YOU3[1], youHall[1], u);
+      atZ(ctx, c, Z, () => { K.you(ctx, X, KY, 140, t, { pose: 'walk', walk: (YOU3[0] - X) / 120 * Math.PI, dir: -1, cup: 'R', armR: [.75, 2.35], steam: 0, seed: 1 }); });
+      return null;
+    }
     atZ(ctx, c, youHall[1], () => { hands = K.you(ctx, youHall[0], KY, 140, t, { pose: 'hold', dir: -1, armR: [.82 + .05 * Math.sin(t * 2.2) * span(t, tNews, tNews + 1), 2.3], look: .05 + .35 * up, lean: .02, seed: 1 }); });
     // the tablet: a thin sheet of cool light in the right hand
     const hp = hands && hands.R; if (!hp) return null;
@@ -425,7 +436,7 @@ export function b1(T) {
     const a = wp(c, HALLWIN.x, HALLWIN.y, ZB), b = wp(c, HALLWIN.x + HALLWIN.w, HALLWIN.y + HALLWIN.h, ZB); if (!a || !b) return;
     if (b[0] < 0 || a[0] > W || b[1] < 0 || a[1] > H) return;
     ctx.save(); ctx.beginPath(); ctx.rect(a[0], a[1], b[0] - a[0], b[1] - a[1]); ctx.clip();
-    K.sky(ctx, c, t, oo); K.skyline(ctx, c, t, oo); K.tower(ctx, c, t, { ...oo.tower, L: oo.L }); K.backRow(ctx, c, t, K.STREET.rows[1], oo); K.testersHouse(ctx, c, t, {}); K.backRow(ctx, c, t, K.STREET.rows[0], oo);
+    K.sky(ctx, c, t, oo); K.skyline(ctx, c, t, oo); K.tower(ctx, c, t, { ...oo.tower, L: oo.L }); if (oo.L.day > .05) skyDrones(ctx, c, t, oo.L); K.backRow(ctx, c, t, K.STREET.rows[1], oo); K.testersHouse(ctx, c, t, {}); K.backRow(ctx, c, t, K.STREET.rows[0], oo);
     drizzle(ctx, c, t); headlines(ctx, c, t, 'out');
     ctx.restore();
     atZ(ctx, c, ZB, () => {   // the frame and the cross (as the kit draws them)
@@ -542,13 +553,14 @@ export function b1(T) {
 
   // ================================================================ c05 · the agent
   // the agent's place (world [X, Y, Z]) over time
-  const AG_SH = [-1645, KY - 140 * .93, YOU5[1] - 6];
-  const AG_POCKET = [-1688, KY - 140 * .42, YOU5[1] - 8];
+  const AG_SH = [YOU5[0] + 35, -140 * .93, YOU5[1] - 6];       // at your shoulder (on the street, ground Y 0)
+  const AG_POCKET = [YOU5[0] - 8, -140 * .42, YOU5[1] - 8];
   const youX5 = (t) => YOU5[0] + 470 * smooth(span(t, tJob + .3, tJob + 2.8));
+  const tFly0 = t05 - .6;   // noon: the agent leaves the table, out through the open front, down to you on the market street ('checks in')
   const agentPos = (t) => {
-    if (t < tChecks) return AG_TABLE;
-    const up = sineIO(span(t, tChecks, tChecks + 1.0)), dx = youX5(t) - YOU5[0];
-    let p = [lerp(AG_TABLE[0], AG_SH[0], up), lerp(AG_TABLE[1], AG_SH[1], up) - 70 * Math.sin(Math.PI * up), lerp(AG_TABLE[2], AG_SH[2], up)];
+    if (t < tFly0) return AG_TABLE;
+    const f = span(t, tFly0, tChecks + .35), dx = youX5(t) - YOU5[0], xf = sineIO(f), zf = expoOut(clamp(f * 1.5));
+    let p = [lerp(AG_TABLE[0], AG_SH[0], xf), lerp(AG_TABLE[1], AG_SH[1], xf) - 220 * Math.sin(Math.PI * xf) * (1 - xf), lerp(AG_TABLE[2], AG_SH[2], zf)];
     const lean = bump(t, tAnyway, 1.3); p = [p[0] + 30 * lean, p[1] - 8 * lean, p[2]];
     const dn = sineIO(span(t, tAnyway + 1.4, tAnyway + 2.1)); p = [lerp(p[0], AG_POCKET[0], dn) + dx, lerp(p[1], AG_POCKET[1], dn), lerp(p[2], AG_POCKET[2], dn)];
     return p;
@@ -564,14 +576,38 @@ export function b1(T) {
     }
   }
   // you in c05: at the counter's end; nod on 'it asks'; turn and cut on 'making lunch'; the hand comes up (wrist + thread) for 5.04–5.05; walk on 'one job'
+  // (11-09 rework) you are OUT on the market street: the raincoat (hood down, sunny noon); on 'making lunch' you turn to the fruit stall,
+  // reach and take a paper bag of lunch; the bag stays in your hand; the wrist comes up for 5.04–5.05; on 'one job' you walk on (right)
   function youItem05(ctx, t) {
-    const nod = bump(t, tAsks + .75, .35) + bump(t, tAsks + 1.15, .35), cut = t > tLunch - .3 && t < tAnyway + .6;
+    const nod = bump(t, tAsks + .75, .35) + bump(t, tAsks + 1.15, .35);
     const wristUp = smooth(span(t, tAnyway + 1.6, tAnyway + 2.3)) * (1 - smooth(span(t, tJob, tJob + .5)));
-    const X = youX5(t), walking = t > tJob + .3 && t < tJob + 2.8;
-    if (walking) { const d = X - YOU5[0]; return K.you(ctx, X, KY, 140, t, { pose: 'walk', walk: d / 120 * Math.PI, dir: 1, seed: 1 }); }
-    if (cut) { const ch = Math.max(0, Math.sin((t - tLunch) * 7.5)) * span(t, tLunch, tLunch + .3) * (1 - span(t, tEarn, tEarn + .4)); return K.you(ctx, X, KY, 140, t, { pose: 'stand', dir: -1, armR: [1.0 + .25 * ch, 1.75 - .45 * ch], armL: [.7, 1.6], look: .05 + .3 * bump(t, tAnyway, 1.6), lean: .06, seed: 1 }); }
-    const lookUp = .1 + .25 * bump(t, tChecks, 1.6) - .3 * nod + .3 * bump(t, tNeeds, 2);
-    return K.you(ctx, X, KY, 140, t, { pose: 'stand', dir: t > tJob + 2.8 ? 1 : 1, armR: [lerp(.2, .62, wristUp), lerp(.1, 2.05, wristUp)], look: clamp(lookUp + .15 * smooth(span(t, tJob + 2.8, tJob + 3.4))), seed: 1 });
+    const X = youX5(t), walking = t > tJob + .3 && t < tJob + 2.8, buy = t > tLunch - .2 && t < tLunch + 1.6, bag = t > tLunch + .55;
+    let hands;
+    if (walking) { const d = X - YOU5[0]; hands = K.you(ctx, X, 0, 140, t, { pose: 'walk', walk: d / 120 * Math.PI, dir: 1, out: true, hood: false, seed: 1 }); }
+    else if (buy) { const r = bump(t, tLunch, 1.3); hands = K.you(ctx, X, 0, 140, t, { pose: 'stand', dir: -1, out: true, hood: false, armR: [lerp(.2, 1.35, r), lerp(.1, 1.5, r)], lean: .06 * r, look: .05, seed: 1 }); }
+    else {
+      const lookUp = .1 + .25 * bump(t, tChecks, 1.6) - .3 * nod + .3 * bump(t, tNeeds, 2) + .25 * bump(t, tPlans, 2.4);
+      hands = K.you(ctx, X, 0, 140, t, { pose: 'stand', dir: 1, out: true, hood: false, armR: [lerp(.2, .62, wristUp), lerp(.1, 2.05, wristUp)], look: clamp(lookUp + .15 * smooth(span(t, tJob + 2.8, tJob + 3.4))), seed: 1 });
+    }
+    if (bag && hands && hands.R) { const [hx, hy] = hands.R; ctx.fillStyle = mixHex(P.shade0, P.halo1, .4); ctx.beginPath(); ctx.roundRect(hx - 9, hy - 2, 18, 20, 3); ctx.fill(); ctx.fillStyle = rgba(P.night1, .25); ctx.fillRect(hx - 9, hy + 12, 18, 3); ell(ctx, hx - 3, hy - 3, 4, 3, P.halo0); }
+    return hands;
+  }
+  // the shop window right of you: in 2037 a shop's glass can show light (like the kitchen's light wall); the c05 graphics (the day row,
+  // the plan bars) are drawn on it through a map of the kitchen's LIGHTWALL onto the glass (world units, plane ZS)
+  const SHOP = { x: 2040, y: -470, k: .8 };
+  const shopPt = (X, Y) => [SHOP.x + (X - LIGHTWALL.x) * SHOP.k, SHOP.y + (Y - LIGHTWALL.y) * SHOP.k];
+  const shopGlow = (t) => .15 * smooth(span(t, tMean, tMean + 1.5)) + .25 * span(t, tPlans, tPlans + 1);
+  function shopWindow(ctx, t, L) {
+    const w = LIGHTWALL.w * SHOP.k, h = LIGHTWALL.h * SHOP.k, g = shopGlow(t);
+    ctx.fillStyle = mixHex(P.ind2, P.blue1, .35 + .2 * L.day); ctx.fillRect(SHOP.x - 30, SHOP.y - 70, w + 60, -SHOP.y + 70);   // the shop front
+    for (let i = 0; i < 7; i++) { ctx.fillStyle = i % 2 ? mixHex(P.blue1, P.cream, .35) : mixHex(P.ind1, P.blue1, .5); ctx.fillRect(SHOP.x - 30 + i * (w + 60) / 7, SHOP.y - 70, (w + 60) / 7, 34); }   // a striped awning band
+    ctx.fillStyle = lin(ctx, 0, SHOP.y, 0, SHOP.y + h, [[0, mixHex(P.night1, P.ind1, .7)], [1, mixHex(P.night1, P.ind0, .5)]]); ctx.fillRect(SHOP.x, SHOP.y, w, h);   // dark glass
+    ctx.fillStyle = rad(ctx, SHOP.x + w / 2, SHOP.y + h * .55, w * .7, [[0, rgba(P.blue0, .5 * g)], [1, rgba(P.blue0, 0)]]); ctx.fillRect(SHOP.x, SHOP.y, w, h);
+    ctx.fillStyle = rgba(P.cream, .05 * L.day); ctx.beginPath(); ctx.moveTo(SHOP.x, SHOP.y + h * .8); ctx.lineTo(SHOP.x + w * .5, SHOP.y); ctx.lineTo(SHOP.x + w * .7, SHOP.y); ctx.lineTo(SHOP.x + w * .1, SHOP.y + h); ctx.lineTo(SHOP.x, SHOP.y + h); ctx.closePath(); ctx.fill();   // sky sheen
+    ctx.save(); ctx.beginPath(); ctx.rect(SHOP.x, SHOP.y, w, h); ctx.clip();
+    ctx.translate(SHOP.x, SHOP.y); ctx.scale(SHOP.k, SHOP.k); ctx.translate(-LIGHTWALL.x, -LIGHTWALL.y); wall05(ctx, LIGHTWALL, t);
+    ctx.restore();
+    ctx.fillStyle = mixHex(P.night1, P.ind1, .4); ctx.fillRect(SHOP.x - 8, SHOP.y + h, w + 16, 10);
   }
   // light-wall graphics of c05: the day row (TUE · WED · THU), the plan bars with their coverage ticks
   const BARS = [175, 136, 208, 109, 162, 223, 146], YOURS = 2, GOLD = 3, COV = [.5, .62, .8, .45, .7, .78, .55];
@@ -613,7 +649,7 @@ export function b1(T) {
     const k0 = span(t, tPlans - .1, tPlans + .9); if (k0 <= 0 || k0 >= 1 || !ag) return;
     for (let i = 0; i < BARS.length; i++) {
       const k = span(t, tPlans - .1 + i * .06, tPlans + .7 + i * .06); if (k <= 0 || k >= 1) continue;
-      const b = wp(c, BX0 + i * (BW + BGAP) + BW / 2, BBASE - 80, ZB); if (!b) continue;
+      const b = wp(c, ...shopPt(BX0 + i * (BW + BGAP) + BW / 2, BBASE - 80), ZS); if (!b) continue;
       const pts = bezPts(ag, [b[0], b[1]], 120 - i * 8), { p } = polyAt(pts, expoOut(k));
       sheet(ctx, p[0], p[1], 22 * b[2] * (.6 + .4 * k), -.3 + .3 * k);
     }
@@ -678,46 +714,86 @@ export function b1(T) {
     }
   }
 
+  // ================================================================ street life (11-09 rework: the day is out in a living street)
+  // far drones over the city (ambient; behind the back rows' roofs, slow); world planes Z 9000–13000
+  const SKYD = [[-14000, -4300, 11000, 160, 1], [6000, -5200, 12500, -130, -1], [-3000, -3800, 9500, 110, 1], [16000, -4700, 13000, -150, -1]];
+  function skyDrones(ctx, c, t, L) {
+    for (const [x0, Y, Z, v, d] of SKYD) atZ(ctx, c, Z, (s) => { const X = S.pace(t, 0, x0 - 20000, x0 + 20000, 40000 / Math.abs(v)); S.drone(ctx, d > 0 ? X : -X + 2 * x0, Y, 2.2, t, { dir: d, box: true, tilt: .08, day: L.day }); });
+  }
+  const STOP3 = -1900, KID_X3 = -2560;   // the school shuttle's stop in front of your building; where the kid comes out (the stairwell)
+  const sh3X = (t) => { const a = span(t, tKept - .6, tKept + 1.6), d = span(t, tKept + 3.9, tKept + 7.4); return a < 1 ? lerp(-4600, STOP3, 1 - (1 - a) ** 2.2) : STOP3 + 2800 * d * d; };
+  const kid3X = (t) => KID_X3 + 190 * Math.max(0, t - (tKept + 1.55));
+  const MED = (t) => [lerp(-500, -3000, span(t, t04 - .4, t04 + 6.3)), -880 + 30 * Math.sin(t * .8)];
+  function streetLife(ctx, c, t, L) {
+    const day = L.day, items = []; let hands = null;
+    // c03 end → c04: the kid comes down to the street and takes the school shuttle; then the 09:00 street
+    if (t > tKept - .8 && t < tNews + 3) {
+      items.push([2620, () => S.shuttle(ctx, sh3X(t), 0, 1, t, { dir: 1, riders: 2, day, roll: sh3X(t), doors: smooth(span(t, tKept + 2.1, tKept + 2.5)) * (1 - smooth(span(t, tKept + 3.3, tKept + 3.6))) })]);
+      const kx = kid3X(t);
+      if (t > tKept + 1.5 && kx < STOP3 - 40) items.push([2880, () => K.kid(ctx, kx, -2.2 * Math.abs(Math.cos(kx / 30)), 100, t, { pose: 'walk', walk: kx / 30, dir: 1, lean: .06, seed: 2, colors: { base: mixHex(P.ind1, P.blue1, .35), lit: P.blue1, shade: P.night1, deep: P.night0, hem: .44 } })]);
+      items.push([2930, () => S.deliveryRobot(ctx, -3050 + 65 * (t - t04), 0, 1, t, { dir: 1, roll: 65 * (t - t04), day })]);
+      items.push([2948, () => S.deliveryRobot(ctx, -700 - 55 * (t - tKept), 0, .95, t, { dir: -1, roll: 55 * (t - tKept), day, lid: .15 })]);
+      items.push([2965, () => S.passerby(ctx, -3150 + 105 * (t - tKept), 0, 138, t, { dir: 1, seed: 31, walk: (t - tKept) * 4.6, bag: true })]);
+      items.push([2975, () => S.passerby(ctx, -500 - 95 * (t - tKept), 0, 132, t, { dir: -1, seed: 33, walk: (t - tKept) * 4.3 })]);
+      if (t > t04 - .5 && t < t04 + 6.5) { const [mx, my] = MED(t); items.push([2950, () => S.drone(ctx, mx, my, 1, t, { dir: -1, med: true, tilt: .1, day })]); }
+    }
+    // c05: the market street (stalls stand all day; the walkers, the crate robot and you from 'Meanwhile' on)
+    items.push([2935, () => S.stall(ctx, 1760, 0, 1, t, { goods: 'fruit', awn: 'gold', day })]);
+    items.push([2945, () => S.stall(ctx, 1180, 0, 1, t, { goods: 'bread', awn: 'gold', day })]);
+    items.push([2945, () => S.stall(ctx, 2700, 0, 1, t, { goods: 'flowers', awn: 'gold', day })]);
+    items.push([2990, () => S.shuttleStop(ctx, 1000, 0, 1, t, { day })]);
+    if (t > tMean) {
+      items.push([2992, () => S.passerby(ctx, 1090, 0, 136, t, { stand: true, seed: 41, look: .1 })]);
+      items.push([2985, () => S.passerby(ctx, 1280, 0, 140, t, { stand: true, dir: -1, seed: 43, lean: .05 })]);
+      items.push([2968, () => S.deliveryRobot(ctx, 3100 - 85 * (t - t05), 0, 1, t, { dir: -1, crates: 2, flag: false, roll: 85 * (t - t05), day })]);
+      items.push([2975, () => S.passerby(ctx, 300 + 105 * (t - t05), 0, 138, t, { dir: 1, seed: 45, walk: (t - t05) * 4.6, bag: true })]);
+      items.push([2978, () => S.passerby(ctx, 3400 - 100 * (t - tLunch), 0, 134, t, { dir: -1, seed: 47, walk: (t - tLunch) * 4.4 })]);
+      items.push([YOU5[1], () => { hands = youItem05(ctx, t); }]);
+    }
+    items.sort((a, b) => b[0] - a[0]);
+    for (const [Z, fn] of items) atZ(ctx, c, Z, fn);
+    return hands;
+  }
+
   // ================================================================ the frame
   function draw(ctx, t) {
     if (t < tGenEnd) { plateGenius(ctx, t); return; }
     if (t >= tWinStart) { plateWindow(ctx, t); return; }
     const c = camOf(t), hour = hourAt(t), L = K.hourLook(hour), night = skyNight(t);
-    const inC03 = t < t04, inHall = t >= t04 && t < tBarely + 3.2, inSky = t >= tBarely + 1.15 && t < tMorning + .6, inC05 = t >= tMean;
+    const inC03 = t < t04, inHall = t >= tWalkH[0] && t < tBarely + 3.2, inSky = t >= tBarely + 1.15 && t < tMorning + .6, inC05 = t >= tMean;
     let hands5 = null, vls = inC03 ? vlState(t) : null;
     // ---- the kitchen's contents for this moment
     const people = [];
     if (inC03) {
       people.push([LZ - 2, (cx) => kidItem(cx, t)]);
-      people.push([YOU3[1], (cx) => youItem03(cx, t)]);
+      if (t < tWalkH[0]) people.push([YOU3[1], (cx) => youItem03(cx, t)]);
       people.push([LZ - 30, (cx) => ringItem(cx, t)]);
       people.push([LZ + 20, () => bookItem(ctx, c, t)]);
     }
     if (inC05) {
-      people.push([YOU5[1], (cx) => { hands5 = youItem05(cx, t); }]);
       people.push([LZ - 1, () => coinsItem(ctx, c, t)]);
-      if (t > tLunch - .5 && t < tAnyway + 3) people.push([KITCHEN.counter.z0 + 30, (cx) => {   // the board and the knife on the counter
-        cx.fillStyle = mixHex(WARM.deep, P.ind1, .5); cx.fillRect(-1830, KITCHEN.counter.top - 4, 70, 4);
-        cx.fillStyle = rgba(P.cream, .8); for (let i = 0; i < 4; i++) cx.fillRect(-1820 + i * 9, KITCHEN.counter.top - 7, 6, 3);
-      }]);
     }
     const kitchen = {
-      lamp: inC03 ? .4 * (1 - span(t, tKept, tKept + 1)) : 0, wall: inC03 ? (.12 + .2 * span(t, tPhys, tPhys + 1) * (1 - span(t, tStomp, tStomp + 1))) * (1 - smooth(span(t, tKept, tKept + 1.5))) : inC05 ? .1 * smooth(span(t, tMean, tMean + 1.5)) + .15 * span(t, tPlans, tPlans + 1) : 0,
+      lamp: inC03 ? .4 * (1 - L.day) * (1 - span(t, tKept, tKept + 1)) : 0, wall: inC03 ? (.12 + .2 * span(t, tPhys, tPhys + 1) * (1 - span(t, tStomp, tStomp + 1))) * (1 - smooth(span(t, tKept, tKept + 1.5))) : inC05 ? .1 * smooth(span(t, tMean, tMean + 1.5)) + .15 * span(t, tPlans, tPlans + 1) : 0,
       scan: null, kettle: { steam: 0 }, people,
-      wallFn: inC03 ? (cx, LW) => wall03(cx, LW, t) : inC05 ? (cx, LW) => wall05(cx, LW, t) : null,
+      wallFn: inC03 ? (cx, LW) => wall03(cx, LW, t) : null,
     };
     const oo = {
+      winFn: (w) => (w.Z === ZS && w.X > 1000 && w.X < 3400 && w.Y > -700 ? { lit: 0, gold: 0, cool: 0 } : null),   // the market's ground floors stay unlit (no lit window next to the plan bars)
       hour, sun: night || (t > tKept - .3 && t < tMorning + .5) ? false : undefined, moon: night ? false : undefined,
       tower: { open: towerOpen(t) },
-      you: { hallLamp: lerp(.9, .45, smooth(span(t, tKept, t04 + 1))) + .1 * smooth(span(t, tMean, tMorning)), kitchen },
-      over: inC05 && t > tJob ? (cx) => dadFacade(cx, t, L) : null,
+      you: { hallLamp: (lerp(.9, .45, smooth(span(t, tKept, t04 + 1))) + .1 * smooth(span(t, tMean, tMorning))) * (1 - .8 * L.day), kitchen },
+      frontGap: FRONT_GAP, sunArc: .62,
+      over: (cx) => { shopWindow(cx, t, L); if (inC05 && t > tJob) dadFacade(cx, t, L); },
     };
     // the kit's world() with one more layer: the night-shift diagram (plane ZT) between the tower and the back rows
     { const ow = { ...oo, L };
-      K.sky(ctx, c, t, ow); K.skyline(ctx, c, t, ow); K.tower(ctx, c, t, { ...oo.tower, L });
+      K.sky(ctx, c, t, ow); K.skyline(ctx, c, t, ow); K.tower(ctx, c, t, { ...oo.tower, L }); if (L.day > .05) skyDrones(ctx, c, t, L);
       if (t > tWritten - .5 && t < tMorning + 2) nightShift(ctx, c, t);
       K.backRow(ctx, c, t, K.STREET.rows[1], ow); K.testersHouse(ctx, c, t, {}); K.backRow(ctx, c, t, K.STREET.rows[0], ow);
-      K.streetRow(ctx, c, t, ow); K.streetFront(ctx, c, t, ow); }
+      K.streetRow(ctx, c, t, ow);
+      const sl = streetLife(ctx, c, t, L); if (sl) hands5 = sl;
+      K.streetFront(ctx, c, t, ow); }
     if (t > tKept - .2 && t < tBarely + 3.5 && c.z < ZB - 40) windowPatch(ctx, c, t, { hour, L, sun: false, moon: night ? false : undefined, tower: { open: towerOpen(t) } });
     // ---- c03 overlays
     if (inC03) {

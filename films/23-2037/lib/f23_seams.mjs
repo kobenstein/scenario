@@ -40,15 +40,25 @@ export function plateGenius(ctx, t) {
 
 // ---- B1 → B2: Dad's window ------------------------------------------------------------------------------------------------------
 export const WINDOW_PLATE = { x: 960, y: 520, w: 300, h: 380 };
-export function plateWindow(ctx, t) {
-  const Wp = WINDOW_PLATE, x0 = Wp.x - Wp.w / 2, y0 = Wp.y - Wp.h / 2;
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.fillStyle = lin(ctx, 0, 0, 0, H, [[0, mixHex(P.ind2, P.blue0, .25)], [1, mixHex(P.night1, P.ind1, .3)]]); ctx.fillRect(0, 0, W, H);   // the facade
-  ctx.fillStyle = rgba(P.night0, .35); for (const [x, y] of [[300, 120], [1620, 120], [300, 760], [1620, 760]]) ctx.fillRect(x - 110, y, 220, 280);   // dark neighbours' windows
-  ctx.fillStyle = rad(ctx, Wp.x, Wp.y, Wp.h * 1.1, [[0, rgba(K.WARM.mid, .45)], [1, rgba(K.WARM.deep, 0)]]); ctx.fillRect(0, 0, W, H);
+// 2026-11-09 (Jakob: daylight; B1 owns this change): Dad's facade in the 16:00 daylight (DAYC), the low sun warm from the right; his
+// window stays the warm gold accent. plateWindowContent(ctx, t) draws the plate in the current transform (B1 maps it onto Dad's facade).
+export const WINDOW_GLASS = mixHex(K.DAYC.glass, K.DAYC.face, .25);   // the neighbours' unlit windows (B1's dadFacade uses the same)
+export function plateWindowContent(ctx, t) {
+  const Wp = WINDOW_PLATE, x0 = Wp.x - Wp.w / 2, y0 = Wp.y - Wp.h / 2, D = K.DAYC;
+  ctx.fillStyle = lin(ctx, 0, 0, 0, H, [[0, mixHex(D.face, D.warm, .1)], [1, D.faceLo]]); ctx.fillRect(-6000, -6000, 14000, 14000);   // the facade by day
+  ctx.fillStyle = lin(ctx, W, 0, 0, 0, [[0, rgba(D.warm, .22)], [.6, rgba(D.warm, 0)]]); ctx.fillRect(0, 0, W, H);                       // the low sun from the right
+  for (const [x, y] of [[300, 120], [1620, 120], [300, 760], [1620, 760]]) {   // the neighbours' windows: glass with a sky sheen
+    ctx.fillStyle = WINDOW_GLASS; ctx.fillRect(x - 110, y, 220, 280);
+    ctx.fillStyle = rgba(P.cream, .07); ctx.beginPath(); ctx.moveTo(x - 110, y + 200); ctx.lineTo(x + 10, y); ctx.lineTo(x + 70, y); ctx.lineTo(x - 110, y + 280); ctx.closePath(); ctx.fill();
+  }
+  ctx.fillStyle = rad(ctx, Wp.x, Wp.y, Wp.h * 1.1, [[0, rgba(K.WARM.mid, .4)], [1, rgba(K.WARM.deep, 0)]]); ctx.fillRect(0, 0, W, H);
   ctx.fillStyle = lin(ctx, 0, y0, 0, y0 + Wp.h, [[0, K.WARM.hi], [1, K.WARM.mid]]); ctx.fillRect(x0, y0, Wp.w, Wp.h);
-  ctx.fillStyle = mixHex(P.ind2, P.night1, .3); ctx.fillRect(Wp.x - 5, y0, 10, Wp.h); ctx.fillRect(x0, y0 + Wp.h * .42, Wp.w, 10); ctx.fillRect(x0 - 16, y0 + Wp.h, Wp.w + 32, 16);
+  ctx.fillStyle = mixHex(P.ind2, D.faceLo, .5); ctx.fillRect(Wp.x - 5, y0, 10, Wp.h); ctx.fillRect(x0, y0 + Wp.h * .42, Wp.w, 10); ctx.fillRect(x0 - 16, y0 + Wp.h, Wp.w + 32, 16);
   ctx.fillStyle = rgba(K.WARM.deep, .55); ctx.beginPath(); ctx.ellipse(x0 + 60, y0 + Wp.h - 40, 40, 70, 0, 0, 6.29); ctx.fill();   // a plant on the sill (inside)
+}
+export function plateWindow(ctx, t) {
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+  plateWindowContent(ctx, t);
   ctx.restore();
 }
 
