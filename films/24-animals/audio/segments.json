@@ -1,0 +1,231 @@
+[
+ {
+  "id": "s00",
+  "sec": "H",
+  "text": "[calm, conversational] Scientists are trying to translate what animals are saying.\nThe first step already works: A.I. can hear what they feel.\nTry it yourself.\nOne of these two pigs feels fine. One doesn't. Guess which.\nListen.",
+  "chars": 227
+ },
+ {
+  "id": "P1",
+  "sec": "H",
+  "sound": true,
+  "dur": 3.9,
+  "file": "pig1-positive.wav"
+ },
+ {
+  "id": "s01",
+  "sec": "H",
+  "text": "And this one.",
+  "chars": 13
+ },
+ {
+  "id": "P2",
+  "sec": "H",
+  "sound": true,
+  "dur": 3.6,
+  "file": "pig2-negative.wav"
+ },
+ {
+  "id": "s02",
+  "sec": "H",
+  "text": "[calm, conversational] It's the second pig.\nYou probably got it. A.I. gets it too, nine times out of ten.\nFeelings, yes. Words, not yet.\nA small nonprofit in California wants to change that. For any species on Earth.\nThey're called the Earth Species Project. Their target: breakthroughs by twenty thirty.\nWill they make it, and what happens to us if they do?",
+  "chars": 358
+ },
+ {
+  "id": "s03",
+  "sec": "1",
+  "text": "[thoughtful] Their A.I. can already do something strange.\nPlay it a call from an animal it has never heard. It can still tell you what kind of animal made it.\nNot every time. But far more often than a lucky guess.",
+  "chars": 213
+ },
+ {
+  "id": "s04",
+  "sec": "1",
+  "text": "[calm, conversational] One of the team's founders invented something you've probably used today.\nInfinite scroll. The endless feed on your phone.\nNow he's building A.I. that listens to animals.\nNot to chat with your dog. To understand what animals say to each other.\nHere he is.",
+  "chars": 278
+ },
+ {
+  "id": "C1",
+  "sec": "1",
+  "clip": true,
+  "dur": 6.8
+ },
+ {
+  "id": "s05",
+  "sec": "1",
+  "text": "[curious] Serious money backs them, too: ten million dollars from LinkedIn's co-founder.\nBut how do you crack a language with no dictionary, and no one to ask?",
+  "chars": 159
+ },
+ {
+  "id": "s06",
+  "sec": "2",
+  "text": "[thoughtful] Every baby on Earth does it.\nA baby never gets a word list. It just listens, for months.\nIt notices which sounds keep coming back, and which ones go together.\nThen it notices what happens next. One sound, and the bottle shows up.",
+  "chars": 242
+ },
+ {
+  "id": "s07",
+  "sec": "2",
+  "text": "[calm, conversational] The team's A.I. does the listening part, on a giant scale: a mountain of animal recordings, no meanings attached.\nThen it plays a guessing game: hide a piece of a sound, and guess what was there.\nLike autocomplete on your phone, but for birdsong and whale clicks.\nGuess after guess, patterns appear: calls that repeat, calls that belong together.",
+  "chars": 369
+ },
+ {
+  "id": "s08",
+  "sec": "2",
+  "text": "[thoughtful] But a baby has one more advantage. It can see what the sounds are about.\nThe machine can't.\nSo the team and its partners clip tiny recorders onto wild animals.\nThey record each call, and what the animal was doing at the time.\nPatterns first. Then meaning.\nTwenty thirty is only a few years away. So how far have they gotten?",
+  "chars": 337
+ },
+ {
+  "id": "s09",
+  "sec": "3",
+  "text": "[calm, conversational] Further than you might think. And they're not alone: teams all over the world are listening, each with a piece of the puzzle.\nStart in Kenya. Other researchers there found that elephants call each other by name.\nPlay an elephant a call meant for her, and she answers faster, and heads for the speaker.\nThey caught it on camera.",
+  "chars": 350
+ },
+ {
+  "id": "C2",
+  "sec": "3",
+  "clip": true,
+  "dur": 9.6
+ },
+ {
+  "id": "s10",
+  "sec": "3",
+  "text": "[curious] If elephants have names, there may be more words to find. That's what the team is after.\nAlso in Kenya, the Earth Species Project went further.\nElephant families often rumble all at once, like a family talking over each other at dinner.\nTheir A.I. listened to the whole chorus, and could sometimes read the room: a greeting, or a calf being comforted.\nA first step from patterns toward meaning.",
+  "chars": 404
+ },
+ {
+  "id": "s11",
+  "sec": "3",
+  "text": "[calm, conversational] Now north, to Spain. With a local university, the team clipped those tiny recorders onto wild crows.\nThey caught more than a hundred thousand calls. Many were quiet family murmurs that ordinary microphones miss.\nAnd each call comes with what the bird was doing right then. That's the baby's trick.\nAnd the pigs from the start? That was another team, also in Europe.\nTheir A.I. learned from thousands of pig calls, from birth to slaughter.\nSo one piece is already in place: feelings.",
+  "chars": 505
+ },
+ {
+  "id": "s12",
+  "sec": "3",
+  "text": "[calm, conversational] In the Caribbean, another team listens to sperm whales.\nThey found that the clicks are built from a few parts, like rhythm and tempo.\nMixed together, they make far more kinds of calls than expected.\nGood news for the California team: parts can be learned.",
+  "chars": 278
+ },
+ {
+  "id": "s13",
+  "sec": "3",
+  "text": "[calm, conversational] Up north, in the Bahamas, Google has joined in. Its A.I. plays that autocomplete game with dolphin sounds.\nIt learned from recordings one scientist's team has made for four decades.\nHere's what she hopes for.",
+  "chars": 231
+ },
+ {
+  "id": "C3",
+  "sec": "3",
+  "clip": true,
+  "dur": 10.6
+ },
+ {
+  "id": "s14",
+  "sec": "3",
+  "text": "[thoughtful] Google's model is built for dolphins. The Earth Species Project wants one for every species.\nBack in California, another scientist found that zebra finches sort their calls by meaning more than by sound.\nLike \"couch\" and \"sofa\": different sounds, same thing.\nSo the meaning is there. The birds hear it.\nBut the machines? They can pick up on names, feelings, even what's going on.\nNot one of them can tell you what a single call says.",
+  "chars": 446
+ },
+ {
+  "id": "s15",
+  "sec": "4",
+  "text": "[thoughtful] Why is meaning so hard?\nRemember the baby. It learns what a sound means by seeing what it's about.\nResearchers tested A.I. on recordings of toddlers.\nSounds their parents understand: upset, hungry, calling for Mom or Dad.\nThe best systems couldn't sort them by meaning.\nIf machines can't yet read a toddler, a whale is a long way off.",
+  "chars": 347
+ },
+ {
+  "id": "s16",
+  "sec": "4",
+  "text": "[curious] There's a prize worth millions for the first real two-way conversation with an animal.\nIt's still unclaimed.\nThe closest thing yet? Off Alaska, a humpback whale seemed to answer a recorded call for twenty minutes.",
+  "chars": 223
+ },
+ {
+  "id": "C4",
+  "sec": "4",
+  "clip": true,
+  "dur": 13.3
+ },
+ {
+  "id": "s17",
+  "sec": "4",
+  "text": "[thoughtful] One whale. One call. One time.\nAnd the Earth Species Project admits it can't always tell when its A.I. gets it right.\nSo will they make twenty thirty? The team itself can't promise that.\nToday, there is no translator. Not for whales, not for elephants, not for your dog.",
+  "pause": true,
+  "chars": 283
+ },
+ {
+  "id": "cta1",
+  "sec": "4",
+  "text": "[calm, conversational] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Maybe even for the animals.\nWant that too? Then subscribe.",
+  "cta": true,
+  "chars": 183
+ },
+ {
+  "id": "s18",
+  "sec": "5",
+  "text": "[thoughtful] But suppose they make it. Would anything change?\nHistory has one clue.\nNineteen seventy. A record of humpback whale songs becomes the best-selling nature album ever.\nTwelve years later, nations around the world vote to pause commercial whaling. That pause still holds.\nThe songs weren't the only reason. But they gave the movement its soundtrack.",
+  "chars": 359
+ },
+ {
+  "id": "s19",
+  "sec": "5",
+  "text": "[calm, conversational] Now think back to those pigs.\nToday, going without meat has never been easier.\nIn Germany, about nine in a hundred people now eat no meat at all. Among the under-thirties, it's one in five.\nStill, nine in ten Germans eat meat.\nMaybe the products just aren't good or cheap enough yet.\nOr maybe what's missing is a feeling. Most of us never hear these animals at all.",
+  "chars": 388
+ },
+ {
+  "id": "s20",
+  "sec": "5",
+  "text": "[curious] Now imagine a machine that does for pigs and chickens what those songs did for whales.\nCould that make vegetarian and vegan living mainstream, and win animals new rights?\nMaybe. But even for whales, the feeling didn't win everywhere. This past summer, Iceland hunted fin whales again.\nThere's also what psychologists call the meat paradox: loving animals, and eating them too.",
+  "chars": 386
+ },
+ {
+  "id": "s21",
+  "sec": "5",
+  "text": "[thoughtful] Remind people that farm animals suffer, and they tend to see them as having less of a mind.\nThat's not hypocrisy. It's human.\nSo maybe a feeling isn't enough.\nBut what if, one day, they could tell us in words?",
+  "chars": 222
+ },
+ {
+  "id": "s22",
+  "sec": "6",
+  "text": "[thoughtful] Twenty thirty. Day one. A research camp in Kenya.\nIn this scenario, the Earth Species Project hits its target.\nTheir A.I. understands a whole elephant chorus, start to finish.\nThe first message probably isn't for us. Something like: time to go.\nNot far-fetched: their A.I. already hears a family's voices line up when it seems to plan.\nDo we answer?\nThe man who invented the endless feed has a warning about that.",
+  "chars": 426
+ },
+ {
+  "id": "C5",
+  "sec": "6",
+  "clip": true,
+  "dur": 9.2
+ },
+ {
+  "id": "s23",
+  "sec": "6",
+  "text": "[calm, conversational] Year one. A courtroom in New Zealand. The case: ship noise.\nTwo parts of this are real. Near ships in the Caribbean, sperm whales already change their calls. Talk or stress? Still unclear.\nAnd Māori and Pacific leaders have declared whales legal persons. A lawmaker there wants to make that law.\nThe rest is our scenario. The court hears a decoded whale recording. It says: too loud. The judge agrees. Ships slow down.",
+  "chars": 441
+ },
+ {
+  "id": "s24",
+  "sec": "6",
+  "text": "[calm, conversational] Year ten. A farm kitchen in Iowa.\nMicrophones in every barn listen for how the animals feel.\nWhether that changes what's for dinner, this scenario can't say.",
+  "chars": 180
+ },
+ {
+  "id": "s25",
+  "sec": "6",
+  "text": "[wry] Under the table, you finally learn what your dog thinks of you. Mostly: walk.",
+  "chars": 83
+ },
+ {
+  "id": "s26",
+  "sec": "6",
+  "text": "[thoughtful] Listening to animals is practice for understanding minds that aren't human.\nAnd one of those minds, we're building right now.\nSoon, we may not be the smartest voice in the room.\nThen listening won't be politeness. It'll be the most important skill we have.",
+  "pause": true,
+  "chars": 269
+ },
+ {
+  "id": "s27",
+  "sec": "6",
+  "text": "[calm, conversational] Back to today.\nTwenty thirty is only a few years off. Maybe they make it. Maybe it takes far longer.\nBut one part has already arrived. You heard it yourself, at the very start.\nA.I. can hear them now.\nWhether we listen is up to us.",
+  "pause": true,
+  "chars": 254
+ },
+ {
+  "id": "cta2",
+  "sec": "6",
+  "text": "[calm, conversational] Want the arrival of superintelligence to go well for everybody? Then subscribe.",
+  "cta": true,
+  "chars": 102
+ }
+]
