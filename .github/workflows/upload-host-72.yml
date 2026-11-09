@@ -1,0 +1,27 @@
+# Copy of upload-host.yml (branch claude/project-thread-67ik9r) for branch claude/project-thread-72buay:
+# joins a video pushed in parts under upload/<tag>/ and publishes it as a temporary release asset for the Zapier YouTube upload.
+name: upload-host-72
+on:
+  push:
+    branches: [claude/project-thread-72buay]
+    paths: ["upload/**"]
+permissions:
+  contents: write
+jobs:
+  host:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for tag in $(cat upload/delete.txt 2>/dev/null); do gh release delete "$tag" --yes --cleanup-tag || true; done
+          for m in upload/*/manifest.txt; do
+            [ -e "$m" ] || continue
+            d=$(dirname "$m"); tag=$(basename "$d"); name=$(head -1 "$m"); sum=$(sed -n 2p "$m")
+            cat "$d"/part* > "$name"
+            echo "$sum  $name" | sha256sum -c -
+            gh release view "$tag" >/dev/null 2>&1 || gh release create "$tag" --prerelease --title "$tag (temporary upload host)" --notes "Temporary file for the YouTube upload, deleted afterwards." --target "$GITHUB_SHA"
+            gh release upload "$tag" "$name" --clobber
+            echo "URL: https://github.com/$GITHUB_REPOSITORY/releases/download/$tag/$name"
+          done
