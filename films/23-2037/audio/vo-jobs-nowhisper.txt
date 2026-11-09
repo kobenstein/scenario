@@ -1,0 +1,16 @@
+# Film 23 retakes without [softly] (Jakob 8.11.: no whispering), tag -> [calm, conversational], same voice/stability 0.3/sim 0.75/seed 4301. index -> spoken take s<index>
+3 01a1bae7-cfa4-7b63-a3ff-fe57c0bfb6b1
+14 01a1bae7-cfe2-7c30-bf98-634093868ebf
+19 01a1bae7-cfee-7932-87ae-41d40e5b9e99
+20 01a1bae7-cff4-7d70-9a90-cba9938f02c5
+21 01a1bae7-cff4-7973-bef1-3dedeaf73893
+22 01a1bae7-cfeb-74b0-9666-4698767b1e60
+23 01a1bae7-cff2-7800-b479-7bdde0ba8a4d
+24 01a1bae7-d08d-7050-b99f-bf231711381b
+25 01a1bae7-d898-7433-a52c-0fa7607bf573
+26 01a1bae7-d909-7d63-9b43-4c8c3ff14bcd
+27 01a1bae7-d945-7f73-a3c1-c87996ad7758
+28 01a1bae7-d91f-7d90-85b4-61698bba5d3e
+29 01a1bae7-d8cb-79c3-9cb2-d1a091d37bfe
+30 01a1bae7-d8fa-7b70-9b92-bc3130705646
+31 01a1bae7-d906-7cb1-a869-49c30b2afdc4
