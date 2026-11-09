@@ -15,8 +15,9 @@ import * as K from './f23_kit.mjs';
 import { oldScreen } from './f23_hud.mjs';
 import { WALL_STATE, plateNotebook, NOTEBOOK_STATE, CAM_NOTEBOOK, NOTEBOOK_WORLD, NOTEBOOK_PLATE, NOTEBOOK_INK } from './f23_seams.mjs';
 import { dinnerPeople, armAt, valAt, KID_REST, YOU_REST } from './f23_b2_dinner.mjs';
+import { cityWindow, evening, camKeys, walker, agentOn, robot, shuttle, qRise, school, deskPerson, winCam, winScreen, winFull } from './f23_b3_city.mjs';
 const { W, H, P, clamp, lerp, span, smooth, sineIO, quartIO, expoOut, expoIn, rgba, mixHex, lin, rad, halo, camAt, camDrift, prng } = E;
-const { COOL, WARM, ZB, LIGHTWALL: LW, KITCHEN } = K;
+const { COOL, WARM, ZB, LIGHTWALL: LW, KITCHEN, floorY } = K;
 const KY = KITCHEN.floor, TBL = KITCHEN.table;
 const S0 = 1.95;
 
@@ -228,7 +229,7 @@ export function buildB3(T) {
     [t.owe + .4, WALL_IN2, 'l'], [t.politicians + .6, WALL_IN3, 'l'],
     [K3.start, SCREEN],                                      // CLIP IN push (≈ 1.8 s), lands as the slot starts
     [K3.end + .1, SCREEN], [t.keys + .4, WALL],              // CLIP OUT: pull back to the wall and the table (the keys fly to your hand)
-    [t.exactly + .2, WALL, 'l'], [t.earbuds + .1, WALL_IN], // the pause before 'earbuds': a 3 s push onto the box (an 8 s trapIO read as a still)
+    [t.exactly + .2, WALL, 'l'], [t.earbuds + .1, lookPx(1000, 540, 2.2, 960, 470)],   // rework: a firmer push onto the box (the hold read as FROZEN) // the pause before 'earbuds': a 3 s push onto the box (an 8 s trapIO read as a still)
     [t.story + 1.2, WALL_R], // 10.01: into the shop window
     [t.earned - .3, WALL_R2, 'l'], [t.allofus + .6, WALL, 'l'],
     [t.longer + 1.6, WALL_IN, 'l'], [t.tell - .2, CLOSE],    // 10.03 → 10.04: back to the table
@@ -257,7 +258,7 @@ export function buildB3(T) {
     a *= 1 - smooth(span(tt, t.know, HOLD_END - .3));
     return a;
   };
-  const camOf = (tt) => { const base = tt < KB[0][0] ? camAt(tt, KA, ZB) : tt < KB[1][0] ? dolly(tt) : camAt(tt, KB, NB.Z); const a = driftAmt(tt); return a > 0 ? camDrift(base, tt, a, 5) : base; };
+  const camOf = (tt) => { const base = tt < KB[0][0] ? camAt(tt, KA, ZB) : tt < KB[1][0] ? dolly(tt) : camAt(tt, KB, NB.Z); const a = driftAmt(tt); return winCam(WINS, a > 0 ? camDrift(base, tt, a, 5) : base, tt); };
 
   // ---------------------------------------------------------------------------------------------- the people's poses
   const KID_POINT = [2.35, 2.55], KID_CHIN_R = [.45, 2.75], KID_CHIN_L = [.35, 2.7];
@@ -619,6 +620,130 @@ export function buildB3(T) {
     }
   }
 
+  // ============================================================================================== CITY WINDOWS (rework 9.11.)
+  // Each answer opens a window into the city: the light wall opens (a mask out of the graphic of the sentence), the camera flies in,
+  // the city lives (evening 19:20 → 20:00), the camera pulls back to the table. lib/f23_b3_city.mjs.
+  const FW = (px, py) => [WPX(px), WPY(py)];
+  const towerPt = (c, y = -5200) => K.wp(c, K.STREET.tower.x, y, K.STREET.tower.z);
+  // W3 ★ the street of agents: cool threads up to the makers' tower ('whoever built them'), the very old rule rises over the roofs,
+  //    'act for someone' the threads snap at the tower, 'owe them loyalty' they re-tie as gold threads to the people's wrists
+  const ST_A = K.look(1250, 0, K.ZS, .7, 960, 860), ST_B = K.look(1400, 0, K.ZS, .74, 960, 856);
+  const WALKERS3 = [
+    { x0: 120, v: 52, z: 2720, h: 140, seed: 31, ts: 419 },
+    { x0: 2350, v: -46, z: 2800, h: 134, seed: 32, ts: 419, long: true },
+    { x0: 760, v: 38, z: 2640, h: 144, seed: 33, ts: 419 }, { x0: 860, v: 38, z: 2650, h: 100, seed: 34, ts: 419, kid: true },
+    { x0: 1960, v: 0, z: 2900, h: 138, seed: 35, look: .3, armR: [.5, 1.2] },
+  ];
+  const W3 = cityWindow({
+    t0: t.because + .3, tFull: t.because + 2.5, tBack: t.owe + .75, t1: t.doctors + 1.6,
+    from: FW(ROW[3], ROW_Y), to: FW(ROW[3], ROW_Y),
+    view: (tt) => ({ cam: camKeys(tt, [[t.because + .3, ST_A], [t.doctors + 1.6, ST_B, 'l']], K.ZS, .35, 31), state: evening(19.35) }),
+    life: (ctx, c, tt) => {
+      robot(ctx, c, tt, { x0: -260, v: 64, z: 2580, ts: 419, len: 64 });
+      const tp = towerPt(c), cut = (i) => expoIn(span(tt, t.act + i * .05, t.act + .55 + i * .05)), tie = (i) => expoOut(span(tt, t.owe + i * .08, t.owe + .75 + i * .08));
+      WALKERS3.forEach((p, i) => {
+        const wk = walker(ctx, c, tt, p);
+        const coolU = expoOut(span(tt, t.whoever + i * .07, t.whoever + .8 + i * .07)) * (1 - (cut(i) >= 1 ? 1 : 0));
+        agentOn(ctx, wk, tt, { side: i % 2 ? -1 : 1, ph: i * 1.3, warm: lerp(.05, 1, tie(i)), cool: coolU, to: tp ? [tp[0] + (i - 2) * 6, tp[1]] : null, fall: cut(i), gold: tie(i) });
+        if (tp && tt > t.act + i * .05 && tt < t.act + .4 + i * .05) halo(ctx, tp[0] + (i - 2) * 6, tp[1], 30, .9 * Math.sin(Math.PI * span(tt, t.act + i * .05, t.act + .4 + i * .05)), COOL.mid, COOL.core);
+      });
+      const su = span(tt, t.rule + .3, t.rule + 1.3);   // the very old rule: a seal of light over the roofs (right of the card zone)
+      if (su > 0) { const rise = 1 - expoIn(span(tt, t.owe + .4, t.owe + 1.2)); seal(ctx, 1500, 250 - 40 * expoOut(su), 58, su * rise, tt); if (tt > t.owe && tt < t.owe + .7) halo(ctx, 1500, 210, 130, .5 * Math.sin(Math.PI * span(tt, t.owe, t.owe + .7))); }
+    },
+  });
+  // W4 the library in our street → 'Who paid': crane up over the roofs to the tower; 'machines earned' gold flows back into the windows
+  const LIB_A = K.look(2100, 0, K.ZS, .62, 900, 800), LIB_B = K.look(2140, 0, K.ZS, .65, 905, 798), CITY_W = K.look(2600, -2300, K.ZS, .2, 900, 600), CITY_W2 = K.look(2620, -2320, K.ZS, .206, 900, 600);
+  const flowU = (tt) => expoOut(span(tt, t.earned + .2, t.allofus + .9));
+  const W4 = cityWindow({
+    t0: t.libraries - .1, tFull: t.libraries + 2.1, tBack: t.allofus + .3, t1: t.easy + 1.6,
+    from: FW(LIB[0], LIB[1] - 60), to: FW(960, 585),
+    view: (tt) => ({ cam: camKeys(tt, [[t.libraries + .3, LIB_A], [t.paid + .2, LIB_B, 'l'], [t.allofus + .1, CITY_W], [t.easy + 1.6, CITY_W2, 'l']], K.ZS, .3, 41),
+      state: evening(19.55, { winFn: (wn) => { const d = Math.abs(wn.X - 2500) / 9000, g = clamp(flowU(tt) * 1.6 - d); return { lit: wn.r < .55 ? 1 : clamp((g - .25) * 3), gold: g * (wn.r < .8 ? 1 : 0) * .8, cool: wn.q < .2 && wn.r < .55 ? 1 : 0 }; } }) }),
+    life: (ctx, c, tt) => {
+      libraryFront(ctx, c, tt);
+      shuttle(ctx, c, tt, { x0: 4300, v: -80, z: 2520, ts: t.libraries, len: 480 });
+      [{ x0: 2080, v: -34, z: 2880, h: 138, seed: 41, ts: t.libraries - 1 }, { x0: 2160, v: 40, z: 2840, h: 128, seed: 42, ts: t.libraries }, { x0: 1500, v: 30, z: 2760, h: 146, seed: 43, ts: t.libraries, long: true }].forEach((p) => {
+        const wk = walker(ctx, c, tt, p); K.earbuds(ctx, wk.head[0] + 4 * wk.s, wk.head[1] + 22 * wk.s, Math.max(1.6, 4.5 * wk.s), tt);
+      });
+      // the machines' earnings: from the tower a stream of points curves down into the city; past the middle they turn gold
+      const tp = towerPt(c, -3600), city = K.wp(c, 1400, -900, K.ZS);
+      if (tp && city && tt > t.earned - .2) {
+        const pts = K.arcPts(tp, city, .28, 40);
+        for (let k = 0; k < 14; k++) {
+          const v = ((tt - t.earned) * .38 + k / 14) % 1, on = clamp((tt - t.earned) * 2.2 - k / 14 * .6); if (on <= 0) continue;
+          const q = pts[Math.floor(v * 40)], gd = smooth(span(v, .3, .65)), r = 4 + 2 * gd;
+          halo(ctx, q[0], q[1], r * 4, .7 * on, mixHex(COOL.mid, P.halo0, gd), mixHex(COOL.core, P.core0, gd));
+        }
+      }
+    },
+  });
+  // W5 the school down the street, evening study: kids at desks, their tutors ask ('?' rising from the voice-lights)
+  const SC_A = K.look(3375, floorY(1) - 230, K.ZS, 1.32, 960, 520), SC_B = K.look(3345, floorY(1) - 240, K.ZS, 1.52, 960, 524);
+  const kidsRoom = (tt) => {
+    const yF = floorY(1);
+    return {
+      l1a: [[ZB - 260, (cx) => { [[2860, 51], [3050, 52], [3240, 53]].forEach(([x, s], i) => { deskPerson(cx, x, yF, tt, { kid: true, h: 100, seed: s, tutor: 1, talk: .3, look: .25 + .1 * i }); qRise(cx, x + 26, yF - 92, 34, tt, t.tell - .6 + i * 1.3 + (i === 1 ? 2.6 : 0)); }); }]],
+      l1b: [[ZB - 260, (cx) => { deskPerson(cx, 3560, yF, tt, { kid: true, h: 104, seed: 54, tutor: 1, talk: .2 }); qRise(cx, 3586, yF - 92, 34, tt, t.tell + .7); deskPerson(cx, 3760, yF, tt, { kid: true, h: 98, seed: 55, tutor: 1, armR: [2.6, 2.9] }); qRise(cx, 3786, yF - 92, 34, tt, t.noticed - .4);
+        K.other(cx, 3930, yF, 142, tt, { seed: 56, dir: -1, look: .3, armR: [.6, 1.2] }); }]],
+    };
+  };
+  const W5 = cityWindow({
+    t0: t.tell - .55, tFull: t.tell + 1.6, tBack: t.noticed - .2, t1: t.kids + 1.0,
+    from: FW(960, 560), to: FW(PIL_W[0], PIL_W[1]),
+    view: (tt) => ({ cam: camKeys(tt, [[t.tell - .5, SC_A], [t.kids + 1, SC_B, 'l']], K.ZS, .4, 51), state: evening(19.65) }),
+    life: (ctx, c, tt) => school(ctx, c, tt, K.hourLook(19.65), { rooms: { l1a: 1, l1b: .9, l0a: .5, l2b: .6, l0b: .3 }, items: kidsRoom(tt) }),
+  });
+  // W6 the school again, 20:00: the grown-ups practise. 'Teachers first' one classroom of adults lights; 'rest of us' the others
+  const SC_W = K.look(3375, -780, K.ZS, .56, 1240, 500), SC_W2 = K.look(3390, -785, K.ZS, .585, 1240, 502);
+  const roomOn = (tt) => {
+    const a = (t0) => expoOut(span(tt, t0, t0 + .7));
+    return { l2a: .25 + .75 * a(t.teachers - .1), l1a: a(t.rest - .05), l1b: a(t.rest + .25), l0b: a(t.rest + .5), l2b: a(t.rest + .75), l0a: a(t.rest + 1.0) };
+  };
+  const adults = (tt) => {
+    const R = roomOn(tt), it = {};
+    const fill = (id, l, xs, seed, teacher) => { if (R[id] <= .02) return; const yF = floorY(l); it[id] = [[ZB - 250, (cx) => {
+      xs.forEach((x, i) => deskPerson(cx, x, yF, tt, { h: 132, seed: seed + i, tutor: R[id], talk: .1, look: .2, lean: 0, armR: [.7, 1.3], armL: [.6, 1.25] }));
+      if (teacher) K.other(cx, teacher, yF, 146, tt, { seed: seed + 9, dir: -1, look: .25, armR: [1.9, 2.3], long: true });
+    }]]; };
+    fill('l2a', 2, [2850, 3030, 3210], 61, 2780 + 0); fill('l1a', 1, [2860, 3060, 3250], 64); fill('l1b', 1, [3520, 3720], 67, 3960);
+    fill('l0b', 0, [3540, 3760, 3950], 70); fill('l2b', 2, [3550, 3800], 73); fill('l0a', 0, [2900, 3150], 76);
+    return it;
+  };
+  const W6 = cityWindow({
+    t0: t.practiced + 1.0, tFull: t.leaning + 1.7, tBack: t.everybody + .2, t1: t.thinks + 1.3,
+    from: FW(SCC[0], SCC[1]), to: FW(SCC[0], SCC[1]),
+    view: (tt) => ({ cam: camKeys(tt, [[t.leaning, SC_W], [t.thinks + 1.3, SC_W2, 'l']], K.ZS, .35, 61, -30), state: evening(19.9) }),
+    life: (ctx, c, tt) => {
+      school(ctx, c, tt, K.hourLook(19.9), { rooms: roomOn(tt), items: adults(tt) });
+      walker(ctx, c, tt, { x0: 1900, v: 44, z: 2760, h: 142, seed: 79, ts: t.leaning });
+      walker(ctx, c, tt, { x0: 4900, v: -40, z: 2840, h: 136, seed: 80, ts: t.leaning, long: true });
+    },
+  });
+  // W7 ★ millions: the three ordinary days are three windows of one house in our street (at work, with friends, before the vote);
+  //    'Millions' the camera pulls back over the whole city: every window lit, a small gold point of a question in each
+  const DAYS = [[150, -760], [650, -760], [1150, -760]];
+  const MIL_A = K.look(650, -770, K.ZS, 1.25, 960, 560), MIL_B = K.look(650, -775, K.ZS, 1.3, 960, 560), MIL_C = K.look(650, -1950, K.ZS, .17, 960, 540), MIL_D = K.look(660, -1960, K.ZS, .163, 960, 540);
+  const allLit = (tt) => expoOut(span(tt, t.millions - .2, t.millions + 1.8));
+  const W7 = cityWindow({
+    t0: t.does + .3, tFull: t.work + 1.3, tBack: t.biggest - .4, t1: t.biggest + 2.2,
+    from: FW(SYM[2], SYM_Y), to: FW(960, 760),
+    view: (tt) => ({ cam: camKeys(tt, [[t.work - .3, MIL_A], [t.millions - .1, MIL_B, 'l'], [t.millions + 2.6, MIL_C, 's'], [t.biggest + 1, MIL_D, 'l']], K.ZS, .15, 71),
+      state: evening(20, { winFn: (wn) => { const L = allLit(tt), on = wn.r < lerp(.6, .97, L); return { lit: on ? 1 : 0, gold: on ? .55 * L * (wn.q < .7 ? 1 : 0) : 0, cool: 0 }; } }) }),
+    life: (ctx, c, tt) => {
+      K.atZ(ctx, c, K.ZS, () => {
+        ctx.fillStyle = mixHex(P.ind2, P.night1, .35); ctx.fillRect(-100, -1000, 1600, 470);
+        DAYS.forEach(([x, y], i) => {
+          const days = [t.work, t.friends, t.vote], wu = span(tt, days[i] - .05, days[i] + .5);
+          ctx.save(); ctx.translate(x, y); ctx.scale(SS, SS);
+          ctx.fillStyle = P.night1; ctx.fillRect(-110, -85, 220, 170);
+          if (wu > 0) frameWin(ctx, 0, 0, 220, 170, wu, (cc) => day(cc, i, tt));
+          ctx.restore();
+        });
+      });
+    },
+  });
+  const WINS = [W3, W4, W5, W6, W7];
+
   // ---------------------------------------------------------------------------------------------- the wall function
   function wallFn(ctx, c, tt) {
     // the old screens (world units on the wall plane): K3 from the agent-and-you pair's thread, K4 from the top '?'
@@ -706,6 +831,7 @@ export function buildB3(T) {
       return;
     }
     if (tt >= HOLD_END) { plateNotebook(ctx, tt); return; }
+    const fw = winFull(WINS, tt); if (fw) { fw.drawFull(ctx, tt); return; }   // inside a city window: only the city, 1:1
     const c = camOf(tt), st = stateAt(tt), out = {};
     const people = dinnerPeople(tt, c, { kid: { ...kidPose(tt), hide: tt > t.one + 2 }, you: { ...youPose(tt), hide: tt > t.one + 2 }, out });
     // the notebook: rises from her lap and stands propped on the table at 'writes it down'
@@ -718,6 +844,7 @@ export function buildB3(T) {
     // your phone, dark, beside the notebook (11.06)
     if (tt > t.writes) people.push([NB.Z - 6, (cx) => K.phone(cx, NB.X + 52, TBL.top - 1, 16, tt, { on: 0 })]);
     K.world(ctx, c, tt, { hour: st.hour, you: { hallLamp: st.hallLamp, kitchen: { lamp: st.lamp, wall: st.wall, scan: null, phone: null, people, wallFn: (cx) => wallFn(cx, c, tt) } } });
+    winScreen(WINS, ctx, c, tt);   // the city windows open over the wall (screen space, see lib/f23_b3_city.mjs)
     if (tt > t.biggest - .4 && tt < t.one + .6) {   // the nib position (screen) for the pencil
       const N = NOTEBOOK_WORLD, k = N.w / NOTEBOOK_PLATE.w, u = lineU(tt);
       const ctx2 = ctx; ctx2.save(); ctx2.font = `italic ${76 * k}px "Instrument Serif"`; const wdt = ctx2.measureText(NOTEBOOK_PLATE.line2).width; ctx2.restore();
@@ -726,6 +853,24 @@ export function buildB3(T) {
     overlay(ctx, c, tt, out);
   }
   return { draw, T0, TN, anchors: t };
+}
+// the library in our street (over the street-row facade X 1600 … 2600): columns, a gable with a gold rim, the warm reading room behind,
+// the open door throwing its light onto the pavement
+function libraryFront(ctx, c, tt) {
+  K.atZ(ctx, c, K.ZS, () => {
+    const x0 = 1600, x1 = 2600, h = 1100, mx = 2100;
+    ctx.fillStyle = lin(ctx, 0, -h, 0, 0, [[0, mixHex(P.ind2, P.blue0, .3)], [1, mixHex(P.night1, P.ind0, .4)]]); ctx.fillRect(x0, -h, x1 - x0, h);
+    ctx.fillStyle = lin(ctx, 0, -h + 120, 0, -30, [[0, mixHex(WARM.deep, P.ind1, .55)], [.6, mixHex(WARM.mid, P.ind1, .25)], [1, WARM.hi]]); ctx.fillRect(x0 + 60, -h + 150, x1 - x0 - 120, h - 190);
+    ctx.fillStyle = rgba(P.night1, .55); for (let r = 0; r < 4; r++) for (let k = 0; k < 2; k++) ctx.fillRect(x0 + 90 + k * 560, -h + 220 + r * 150, 290, 16);   // shelves
+    for (const [x, s] of [[1880, 81], [2330, 82]]) K.other(ctx, x, -40, 132, tt, { seed: s, dir: x < mx ? 1 : -1, look: .5, armR: [.9, 2.0], armL: [.8, 1.9] });   // reading
+    ctx.fillStyle = mixHex(P.ind2, P.blue1, .3); ctx.beginPath(); ctx.moveTo(x0 - 50, -h + 40); ctx.lineTo(mx, -h - 230); ctx.lineTo(x1 + 50, -h + 40); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = rgba(P.halo0, .85); ctx.lineWidth = 8; ctx.stroke();
+    ctx.fillStyle = mixHex(P.ind2, P.blue1, .3); ctx.fillRect(x0 - 30, -h + 40, x1 - x0 + 60, 110); ctx.fillRect(x0 - 40, -40, x1 - x0 + 80, 40);
+    for (let i = 0; i < 6; i++) { const cx = x0 + 70 + i * 172; if (Math.abs(cx - mx) < 90) continue; ctx.fillStyle = mixHex(P.ind1, P.blue1, .45); ctx.fillRect(cx - 26, -h + 150, 52, h - 190); ctx.fillStyle = rgba(P.blue2, .5); ctx.fillRect(cx + 16, -h + 150, 10, h - 190); }
+    ctx.fillStyle = lin(ctx, 0, -330, 0, -40, [[0, WARM.hi], [1, P.core0]]); ctx.fillRect(mx - 90, -330, 180, 290); halo(ctx, mx, -150, 360, .55);
+    ctx.fillStyle = rgba(P.halo0, .9); ctx.fillRect(x0 - 50, -h + 36, x1 - x0 + 100, 6);
+  });
+  K.floorPool(ctx, c, 2100, 0, 2750, 420, WARM.mid, .6);
 }
 function valAtLin(t, keys) {
   if (t <= keys[0][0]) return keys[0][1];

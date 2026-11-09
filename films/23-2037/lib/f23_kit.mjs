@@ -95,8 +95,10 @@ const HOURS_LOOK = [
   [9, { top: '#1c43b6', hor: '#79a0ee', gold: .2, star: 0, win: .04, day: 1 }],
   [12, { top: '#1f49be', hor: '#86abf3', gold: .12, star: 0, win: .03, day: 1 }],       // noon: the brightest sky of the film
   [16, { top: '#1d43b2', hor: '#93b0ec', gold: .55, star: 0, win: .05, day: .9 }],      // afternoon: warm band, low sun right
-  [18.6, { top: P.ind1, hor: mixHex(P.blue0, P.halo1, .35), gold: .5, star: .1, win: .3, day: .22 }],
-  [19, { top: P.night1, hor: P.ind1, gold: .15, star: .5, win: .42, day: 0 }],
+  // 19:00 dinner (B3 rework 9.11.): golden last light at 18.6–19.2 (an orange-gold horizon, warm windows), evening by ~20:00
+  [18.6, { top: P.ind1, hor: '#d99a5c', gold: .9, star: .05, win: .34, day: .22 }],
+  [19.2, { top: mixHex(P.ind1, P.night1, .35), hor: mixHex('#d99a5c', P.ind1, .35), gold: .7, star: .2, win: .42, day: 0 }],
+  [20.2, { top: P.night1, hor: P.ind1, gold: .15, star: .5, win: .42, day: 0 }],
   [22.5, { top: P.night0, hor: P.ind0, gold: 0, star: 1, win: .28, day: 0 }],
   [24, { top: P.night0, hor: P.ind0, gold: 0, star: 1, win: .1, day: 0 }],
 ];
@@ -472,11 +474,11 @@ export function kitchen(ctx, c, t, o = {}) {
     if (o.chairs !== false) for (const [x, z] of [[T.x0 - 40, (T.z0 + T.z1) / 2], [T.x1 + 40, (T.z0 + T.z1) / 2], [(T.x0 + T.x1) / 2, T.z0 - 50]]) items.push([z, (cx) => { cx.fillStyle = mixHex(P.night0, P.ind0, .7); cx.fillRect(x - 32, K.floor - 42, 64, 9); cx.fillRect(x - 25, K.floor - 33, 8, 33); cx.fillRect(x + 17, K.floor - 33, 8, 33); }]);   // stools
     items.push([T.z1 + .5, (cx) => {   // the top first (things standing on the table, between z0 and z1, draw over it)
       cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0);
-      quad(cx, c, [[T.x0, T.top, Math.max(T.z0, c.z + 31)], [T.x1, T.top, Math.max(T.z0, c.z + 31)], [T.x1, T.top, T.z1], [T.x0, T.top, T.z1]], (q) => lin(cx, 0, q[2][1], 0, q[0][1], [[0, dayMix(mixHex(P.ind1, WARM.mid, .5 * lamp), '#4d68b8', L, .85)], [1, dayMix(mixHex(P.ind0, WARM.deep, .4 * lamp), '#2a4596', L, .85)]]));
+      quad(cx, c, [[T.x0, T.top, Math.max(T.z0, c.z + 31)], [T.x1, T.top, Math.max(T.z0, c.z + 31)], [T.x1, T.top, T.z1], [T.x0, T.top, T.z1]], (q) => lin(cx, 0, q[2][1], 0, q[0][1], [[0, dayMix(mixHex(mixHex(P.ind1, WARM.mid, .72 * lamp), WARM.hi, .25 * lamp), '#4d68b8', L, .85)], [1, dayMix(mixHex(P.ind0, WARM.deep, .62 * lamp), '#2a4596', L, .85)]]));
       cx.restore();
     }]);
     items.push([T.z0, (cx) => {   // the front edge and the legs
-      const tl = mixHex(P.night1, WARM.deep, .3 * lamp);
+      const tl = mixHex(P.night1, WARM.deep, .45 * lamp);
       cx.fillStyle = tl; cx.fillRect(T.x0, T.top, T.x1 - T.x0, 14); cx.fillRect(T.x0 + 16, T.top + 14, 14, K.floor - T.top - 14); cx.fillRect(T.x1 - 30, T.top + 14, 14, K.floor - T.top - 14);
       cx.fillStyle = rgba(P.blue1, .7); cx.fillRect(T.x0, T.top, T.x1 - T.x0, 3);
     }]);
@@ -489,10 +491,22 @@ export function kitchen(ctx, c, t, o = {}) {
       cx.fillStyle = rgba(P.core0, lamp); cx.beginPath(); cx.ellipse(Lp.x, Lp.y, 42, 7, 0, 0, 6.29); cx.fill();
     }
   }]);
+  // the lamp's warm light over the table, the people and the near wall (screen blend). It steps aside while the old screen / a
+  // dinner window fills the frame (the camera centred on the light wall, close): the clips stay untouched.
+  if (lamp > 0) items.push([Math.max(ZS + 2, c.z + 40), (cx) => {
+    const ctr = wp(c, Lp.x - 190, T.top - 46, (T.z0 + T.z1) / 2), sc = wp(c, SCREEN.x, LW.cy, ZB), sc2 = wp(c, SCREEN.x + SCREEN.w, LW.cy, ZB);
+    if (!ctr) return;
+    const off = sc && sc2 ? smooth(span(sc2[0] - sc[0], 1000, 1400)) * (1 - smooth(span(Math.abs(sc[1] - H / 2), 120, 300))) : 0, a = lamp * (1 - off);
+    if (a <= .01) return;
+    const r = 330 * ctr[2];
+    cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.globalCompositeOperation = 'screen';
+    cx.fillStyle = rad(cx, ctr[0], ctr[1], r, [[0, rgba(WARM.mid, .42 * a)], [.45, rgba(WARM.deep, .22 * a)], [1, rgba(WARM.deep, 0)]]); cx.fillRect(ctr[0] - r, ctr[1] - r, 2 * r, 2 * r);
+    cx.restore();
+  }]);
   room(ctx, c, t, L, {
     x0: K.x0, x1: K.x1, level: 2,
     door: { ...K.door, a: hl },
-    pools: [[LW.cx, ZB - 160, 420, P.blue0, 1.1 * wall], [LW.cx + 40, ZB - 120, 220, COOL.edge, .45 * scanA], [Lp.x - 120, (T.z0 + T.z1) / 2, 380, WARM.mid, .8 * lamp]],
+    pools: [[LW.cx, ZB - 160, 420, P.blue0, 1.1 * wall], [LW.cx + 40, ZB - 120, 220, COOL.edge, .45 * scanA], [Lp.x - 160, (T.z0 + T.z1) / 2, 560, WARM.mid, .95 * lamp], [Lp.x - 200, (T.z0 + T.z1) / 2, 240, WARM.hi, .6 * lamp]],
     back: (cx) => {
       // the light wall: a slightly lighter panel (it can show light), a cool sheen when it does
       if (L.day > 0) for (let i = 0; i < 4; i++) { const e = 40 - i * 12; cx.fillStyle = rgba(mixHex(P.night1, P.ind1, .5), .2 * L.day); cx.beginPath(); cx.roundRect(LW.x - e, LW.y - e, LW.w + 2 * e, LW.h + 2 * e, 18); cx.fill(); }   // by day: a soft dark glass panel, so light on it keeps its contrast
