@@ -8,29 +8,33 @@
   "name": "Jakob",
   "role": "Creator of this channel (own voice)",
   "source": "o-ton/clips-v1/J1.wav",
-  "text": "At the beginning, I used to do everything by hand. Topic, idea, script, storyboard, shooting, editing, sound, animation, music.",
-  "cue_status": "provisional",
+  "text": "So at the beginning, I used to do everything by hand. So deciding the topic, the idea of the script, the storyboard, shooting, editing, sound, animation, music.",
+  "cue_status": "whisper",
   "cue_timing": "aligned",
   "cues": [
    [
     0.0,
-    "At the beginning, I used to do"
+    "So at the beginning, I used to do"
    ],
    [
     2.29,
     "everything by hand."
    ],
    [
-    3.32,
-    "Topic, idea, script, storyboard,"
+    3.53,
+    "So deciding the topic,"
    ],
    [
-    6.78,
-    "shooting, editing, sound,"
+    6.07,
+    "the idea of the script,"
+   ],
+   [
+    7.06,
+    "the storyboard, shooting,"
    ],
    [
     8.58,
-    "animation, music."
+    "editing, sound, animation, music."
    ]
   ]
  },
@@ -42,25 +46,29 @@
   "name": "Jakob",
   "role": "Creator of this channel (own voice)",
   "source": "o-ton/clips-v1/J2.wav",
-  "text": "When AI arrived four years ago, AI took over the first small piece. For example, I created some images with it, which I used as layers for my animations.",
-  "cue_status": "provisional",
+  "text": "And then when AI arrived four years ago, AI took over the first small piece. So, for example, I decided to create some images with AI, which I then used as layers for my animations.",
+  "cue_status": "whisper",
   "cue_timing": "aligned",
   "cues": [
    [
     0.0,
-    "When AI arrived four years ago,"
+    "And then when AI arrived four"
    ],
    [
-    3.81,
-    "AI took over the first small"
+    2.32,
+    "years ago, AI took over the first"
    ],
    [
-    5.81,
-    "piece. For example, I created some"
+    5.41,
+    "small piece. So, for example,"
    ],
    [
-    9.07,
-    "images with it, which I used as"
+    7.91,
+    "I decided to create some images"
+   ],
+   [
+    10.19,
+    "with AI, which I then used as"
    ],
    [
     12.96,
@@ -76,25 +84,25 @@
   "name": "Jakob",
   "role": "Creator of this channel (own voice)",
   "source": "o-ton/clips-v1/J3.wav",
-  "text": "Every month my part shifted. Less doing, more directing. The work and the output got better.",
-  "cue_status": "provisional",
+  "text": "And every month my part shifted. So I was less doing and more directing. And the work and the output got better.",
+  "cue_status": "whisper",
   "cue_timing": "aligned",
   "cues": [
    [
     0.0,
-    "Every month my part shifted."
+    "And every month my part shifted."
    ],
    [
-    3.1,
-    "Less doing, more directing."
+    3.14,
+    "So I was less doing and more"
    ],
    [
-    5.38,
-    "The work and the output"
+    6.43,
+    "directing. And the work and the"
    ],
    [
-    6.82,
-    "got better."
+    9.82,
+    "output got better."
    ]
   ]
  },
@@ -106,17 +114,21 @@
   "name": "Jakob",
   "role": "Creator of this channel (own voice)",
   "source": "o-ton/clips-v1/J3b.wav",
-  "text": "During the past weeks, suddenly AI was also able to edit.",
-  "cue_status": "provisional",
+  "text": "And then during the past, I would say last weeks, suddenly I was also able to edit.",
+  "cue_status": "whisper",
   "cue_timing": "aligned",
   "cues": [
    [
     0.0,
-    "During the past weeks,"
+    "And then during the past,"
    ],
    [
-    2.07,
-    "suddenly AI was also able to edit."
+    1.74,
+    "I would say last weeks,"
+   ],
+   [
+    4.26,
+    "suddenly I was also able to edit."
    ]
   ]
  },
@@ -128,17 +140,17 @@
   "name": "Jakob",
   "role": "Creator of this channel (own voice)",
   "source": "o-ton/clips-v1/J4.wav",
-  "text": "Every time a new model mastered one part of production, I had to redefine my job.",
-  "cue_status": "provisional",
+  "text": "And every time a new model mastered one part of production, I had to redefine my job.",
+  "cue_status": "whisper",
   "cue_timing": "aligned",
   "cues": [
    [
-    0.51,
-    "Every time a new model mastered"
+    0.0,
+    "And every time a new model"
    ],
    [
-    2.13,
-    "one part of production,"
+    1.54,
+    "mastered one part of production,"
    ],
    [
     3.65,
@@ -155,7 +167,7 @@
   "role": "Creator of this channel (own voice)",
   "source": "o-ton/clips-v1/J5.wav",
   "text": "Now you see with this channel, I'm able to create a documentary a day.",
-  "cue_status": "provisional",
+  "cue_status": "whisper",
   "cue_timing": "aligned",
   "cues": [
    [
@@ -180,21 +192,21 @@
   "name": "Jakob",
   "role": "Creator of this channel (own voice)",
   "source": "o-ton/clips-v1/J6.wav",
-  "text": "What's left for me right now is to decide what's worth making and why.",
-  "cue_status": "provisional",
+  "text": "And I think what's left for me right now is to decide what's worth making and why.",
+  "cue_status": "whisper",
   "cue_timing": "aligned",
   "cues": [
    [
-    0.28,
-    "What's left for me right now is to"
+    0.08,
+    "And I think what's left for me"
    ],
    [
-    3.5,
-    "decide what's worth making"
+    2.31,
+    "right now is to decide what's"
    ],
    [
-    5.16,
-    "and why."
+    4.24,
+    "worth making and why."
    ]
   ]
  },

@@ -1,0 +1,131 @@
+{
+ "duration": 661.03,
+ "end_screen": {
+  "start": 646.03,
+  "dur": 15.0,
+  "end": 661.03,
+  "call": "cta2",
+  "call_start": 645.93,
+  "call_end": 652.24,
+  "note": "the closing call runs over the first seconds of the end screen"
+ },
+ "channel_calls": {
+  "cta1": {
+   "start": 323.08,
+   "end": 334.33
+  },
+  "cta2": {
+   "start": 645.93,
+   "end": 652.24
+  }
+ },
+ "slots": [
+  {
+   "id": "J1",
+   "kind": "oton",
+   "sec": "H",
+   "start": 54.92,
+   "end": 65.85,
+   "dur": 10.93,
+   "length_from": "wav",
+   "under": false,
+   "file": "J1.wav"
+  },
+  {
+   "id": "K1",
+   "kind": "clip",
+   "sec": "1",
+   "start": 108.41,
+   "end": 121.61,
+   "dur": 13.2,
+   "length_from": "clips/clips.json",
+   "under": false
+  },
+  {
+   "id": "J2",
+   "kind": "oton",
+   "sec": "1",
+   "start": 145.85,
+   "end": 160.85,
+   "dur": 15.0,
+   "length_from": "wav",
+   "under": false,
+   "file": "J2.wav"
+  },
+  {
+   "id": "J3",
+   "kind": "oton",
+   "sec": "2",
+   "start": 241.27,
+   "end": 252.74,
+   "dur": 11.47,
+   "length_from": "wav",
+   "under": false,
+   "file": "J3.wav"
+  },
+  {
+   "id": "J3b",
+   "kind": "oton",
+   "sec": "2",
+   "start": 253.54,
+   "end": 260.14,
+   "dur": 6.6,
+   "length_from": "wav",
+   "under": false,
+   "file": "J3b.wav"
+  },
+  {
+   "id": "J4",
+   "kind": "oton",
+   "sec": "2",
+   "start": 311.72,
+   "end": 317.32,
+   "dur": 5.6,
+   "length_from": "wav",
+   "under": false,
+   "file": "J4.wav"
+  },
+  {
+   "id": "K2",
+   "kind": "clip",
+   "sec": "3",
+   "start": 439.19,
+   "end": 448.89,
+   "dur": 9.7,
+   "length_from": "clips/clips.json",
+   "under": false
+  },
+  {
+   "id": "J5",
+   "kind": "oton",
+   "sec": "3",
+   "start": 487.69,
+   "end": 491.89,
+   "dur": 4.2,
+   "length_from": "wav",
+   "under": false,
+   "file": "J5.wav"
+  },
+  {
+   "id": "K3",
+   "kind": "clip",
+   "sec": "5",
+   "start": 616.7,
+   "end": 628.7,
+   "dur": 12.0,
+   "length_from": "plan",
+   "under": false
+  },
+  {
+   "id": "J6",
+   "kind": "oton",
+   "sec": "6",
+   "start": 639.68,
+   "end": 645.53,
+   "dur": 5.85,
+   "length_from": "wav",
+   "under": false,
+   "file": "J6.wav"
+  }
+ ]
+}

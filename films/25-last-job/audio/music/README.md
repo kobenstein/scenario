@@ -1,7 +1,9 @@
-# Film 25 music (Lyria 3.5 on fal, google/lyria-3.5, 0.10 USD each, one track per chapter of text-v3)
-STATUS 10.11.2026: NOT generated yet - the fal account jakob@kobenstein.com was out of credits (balance_exhausted) when the audio agent started. Prompts: prompts.json.
-cues.json rows: {"f", "at" (take/slot id, "L<sec>" = chapter start, "END"), "dt", "fin", "fout", "end" (take/slot/"L<sec>"/END), "end_dt"}: mix.py anchors every cue on takes/chapters.
-M0 HOOK (s00..s04, incl. J1) · M1 AKT 1 (L1) · M2 AKT 2 (L2) · M3 AKT 3 (L3) · M4 PLATZ 1 (L4) · M5 AKT 4 (L5 to K3) · M6 ENDE + end screen (s28 to END, fades over the last 10 s).
-Style: mystical, thoughtful, drones/pads/felt piano/glass; no drums, no vocals, not uplifting. Level: cue RMS -26 dB, -6 dB under speech, a further -6 dB under every O-Ton/clip slot.
-The mp3 files live in <scratch>/music (not in the repo): /tmp/claude-0/-home-user/e3b227b8-f27e-57b1-9ba9-fc035194c59d/scratchpad/f25/audio/music/.
-Run: f25_make_segments.py; (fal TTS takes -> dl/<id>.mp3); f25_align.py audio dl; f25_oton_cues.py audio; build_vo.py audio <scratch>; mix.py audio <scratch>; subs.py audio <out dir>.
+# Film 25 music (Lyria 3.5 on fal, google/lyria-3.5, 2026-11-10, 7 x 0.10 USD), one track per chapter of text-v3
+cues.json rows: {"f", "at" (take/slot id, "L<sec>" = chapter start, "END"), "dt", "fin", "fout", "end" (take/slot/"L<sec>"/END), "end_dt"}: mix.py anchors every cue on takes/chapters, so slot changes (K clips) move them along.
+M0 HOOK 83 s (s00..s04 incl. J1) · M1 AKT 1 168 s · M2 AKT 2 150 s · M3 AKT 3 135 s · M4 PLATZ 1 56 s · M5 AKT 4 97 s (to the end of K3) · M6 ENDE + end screen 55 s (s28 to END, fades over the last 10 s).
+Style: mystical, thoughtful, drones/pads/felt piano/glass; no drums, no vocals, not uplifting (prompts.json). Level: cue RMS -26 dB, -6 dB under speech, a further -6 dB under every O-Ton/clip slot.
+Request ids: M0 01a1c69a-6e99-76b2-a0ce-361120de2393 · M1 01a1c69a-6e51-79c3-980d-76c8e8f28767 · M2 01a1c69a-7113-7672-b5ec-175400da8f20 · M3 01a1c69a-7112-7ec0-a426-cc556d58e827 · M4 01a1c69a-6e9a-7513-9e41-6a3d45660c8e · M5 01a1c69a-6ef4-7a23-91c3-4e2e18d521b5 · M6 01a1c69a-6ef2-7651-ac16-027f1499d6b7
+SFX (Mirelo SFX 2.0, seeds 2501-2505, 0.01 USD/s: 8+8+6+16+15 s = 0.53 USD): dom_cascade_a/b (hook), dom_tip1..3 (one tip before each "Number ten ... two"), dom_stand (Number one), room_tone (loop, whole film), steps (sfx-bibliothek akzent/steps.mp3, after "It's the step you take next").
+The mp3 files live in <scratch>/music and <scratch>/sfx (not in the repo): /tmp/claude-0/-home-user/e3b227b8-f27e-57b1-9ba9-fc035194c59d/scratchpad/f25/audio/
+VO: 31 takes, elevenlabs/tts/eleven-v4, voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, seed 4301 (8,319 characters = 0.67 USD); word times by tools/f25_align.py (pocketsphinx). O-Ton wording by fal-ai/whisper (oton_whisper.json) + forced alignment.
+Run: f25_make_segments.py; fal TTS takes -> dl/<id>.mp3; f25_align.py <work> dl; f25_oton_cues.py <work> --text oton_whisper.json; build_vo.py <work> <scratch>; mix.py <work> <scratch>; subs.py <work> <out dir>

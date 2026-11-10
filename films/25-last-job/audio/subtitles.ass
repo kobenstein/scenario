@@ -1,0 +1,396 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 384
+PlayResY: 288
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.71,0:00:02.88,Sub,,0,0,0,,{\fad(120,160)}There will be a last human job.
+Dialogue: 0,0:00:03.02,0:00:03.86,Sub,,0,0,0,,{\fad(120,160)}Think of something you
+Dialogue: 0,0:00:03.90,0:00:05.42,Sub,,0,0,0,,{\fad(120,160)}did at work last week.
+Dialogue: 0,0:00:05.49,0:00:06.29,Sub,,0,0,0,,{\fad(120,160)}An email.
+Dialogue: 0,0:00:06.33,0:00:07.22,Sub,,0,0,0,,{\fad(120,160)}A report.
+Dialogue: 0,0:00:07.26,0:00:08.29,Sub,,0,0,0,,{\fad(120,160)}A translation.
+Dialogue: 0,0:00:08.56,0:00:09.56,Sub,,0,0,0,,{\fad(120,160)}A machine can now
+Dialogue: 0,0:00:09.60,0:00:11.08,Sub,,0,0,0,,{\fad(120,160)}do it in seconds.
+Dialogue: 0,0:00:11.82,0:00:13.09,Sub,,0,0,0,,{\fad(120,160)}Every job is a row
+Dialogue: 0,0:00:13.13,0:00:14.70,Sub,,0,0,0,,{\fad(120,160)}of tasks like that.
+Dialogue: 0,0:00:15.00,0:00:16.37,Sub,,0,0,0,,{\fad(120,160)}And they're starting to fall,
+Dialogue: 0,0:00:16.41,0:00:17.51,Sub,,0,0,0,,{\fad(120,160)}one by one.
+Dialogue: 0,0:00:17.65,0:00:18.81,Sub,,0,0,0,,{\fad(120,160)}Like dominoes.
+Dialogue: 0,0:00:19.03,0:00:21.59,Sub,,0,0,0,,{\fad(120,160)}So which human job falls last?
+Dialogue: 0,0:00:21.76,0:00:23.50,Sub,,0,0,0,,{\fad(120,160)}It's not the one you'd guess.
+Dialogue: 0,0:00:24.21,0:00:25.70,Sub,,0,0,0,,{\fad(120,160)}This time, the machines
+Dialogue: 0,0:00:25.74,0:00:27.40,Sub,,0,0,0,,{\fad(120,160)}didn't start in the factory.
+Dialogue: 0,0:00:27.48,0:00:29.01,Sub,,0,0,0,,{\fad(120,160)}They started at the desk.
+Dialogue: 0,0:00:29.29,0:00:31.02,Sub,,0,0,0,,{\fad(120,160)}Among young people starting out,
+Dialogue: 0,0:00:31.06,0:00:31.87,Sub,,0,0,0,,{\fad(120,160)}the jobs most
+Dialogue: 0,0:00:31.91,0:00:33.69,Sub,,0,0,0,,{\fad(120,160)}exposed to AI are already
+Dialogue: 0,0:00:33.73,0:00:35.62,Sub,,0,0,0,,{\fad(120,160)}almost a fifth behind.
+Dialogue: 0,0:00:36.32,0:00:37.74,Sub,,0,0,0,,{\fad(120,160)}The creator of this channel
+Dialogue: 0,0:00:37.78,0:00:40.07,Sub,,0,0,0,,{\fad(120,160)}has watched his whole row fall.
+Dialogue: 0,0:00:40.27,0:00:41.77,Sub,,0,0,0,,{\fad(120,160)}Inside his own job.
+Dialogue: 0,0:00:41.86,0:00:43.54,Sub,,0,0,0,,{\fad(120,160)}His name is Jakob.
+Dialogue: 0,0:00:43.58,0:00:44.71,Sub,,0,0,0,,{\fad(120,160)}For fifteen years,
+Dialogue: 0,0:00:44.75,0:00:46.51,Sub,,0,0,0,,{\fad(120,160)}he worked as a video producer.
+Dialogue: 0,0:00:46.55,0:00:47.92,Sub,,0,0,0,,{\fad(120,160)}Concepts, shoots,
+Dialogue: 0,0:00:47.96,0:00:49.54,Sub,,0,0,0,,{\fad(120,160)}edits, animation.
+Dialogue: 0,0:00:49.64,0:00:50.99,Sub,,0,0,0,,{\fad(120,160)}And in all that time,
+Dialogue: 0,0:00:51.03,0:00:51.97,Sub,,0,0,0,,{\fad(120,160)}he had never seen
+Dialogue: 0,0:00:52.01,0:00:53.15,Sub,,0,0,0,,{\fad(120,160)}a change as fast
+Dialogue: 0,0:00:53.19,0:00:54.77,Sub,,0,0,0,,{\fad(120,160)}as the last four years.
+Dialogue: 0,0:00:54.92,0:00:57.17,Sub,,0,0,0,,{\fad(120,160)}So at the beginning, I used to do
+Dialogue: 0,0:00:57.21,0:00:58.41,Sub,,0,0,0,,{\fad(120,160)}everything by hand.
+Dialogue: 0,0:00:58.45,0:01:00.95,Sub,,0,0,0,,{\fad(120,160)}So deciding the topic,
+Dialogue: 0,0:01:00.99,0:01:01.94,Sub,,0,0,0,,{\fad(120,160)}the idea of the script,
+Dialogue: 0,0:01:01.98,0:01:03.46,Sub,,0,0,0,,{\fad(120,160)}the storyboard, shooting,
+Dialogue: 0,0:01:03.50,0:01:06.05,Sub,,0,0,0,,{\fad(120,160)}editing, sound, animation, music.
+Dialogue: 0,0:01:06.31,0:01:07.29,Sub,,0,0,0,,{\fad(120,160)}A few years ago,
+Dialogue: 0,0:01:07.33,0:01:09.40,Sub,,0,0,0,,{\fad(120,160)}he did every step himself.
+Dialogue: 0,0:01:09.52,0:01:10.81,Sub,,0,0,0,,{\fad(120,160)}Today, a machine does
+Dialogue: 0,0:01:10.85,0:01:11.96,Sub,,0,0,0,,{\fad(120,160)}almost all of them.
+Dialogue: 0,0:01:12.13,0:01:14.01,Sub,,0,0,0,,{\fad(120,160)}And yet, he's still here.
+Dialogue: 0,0:01:15.37,0:01:16.79,Sub,,0,0,0,,{\fad(120,160)}Ten kinds of work.
+Dialogue: 0,0:01:17.23,0:01:19.90,Sub,,0,0,0,,{\fad(120,160)}Number ten is falling first.
+Dialogue: 0,0:01:20.07,0:01:22.31,Sub,,0,0,0,,{\fad(120,160)}Number one stands longest.
+Dialogue: 0,0:01:22.50,0:01:24.40,Sub,,0,0,0,,{\fad(120,160)}The order is a judgment call,
+Dialogue: 0,0:01:24.44,0:01:25.85,Sub,,0,0,0,,{\fad(120,160)}built from what researchers have
+Dialogue: 0,0:01:25.89,0:01:27.61,Sub,,0,0,0,,{\fad(120,160)}measured so far, and from where
+Dialogue: 0,0:01:27.65,0:01:29.74,Sub,,0,0,0,,{\fad(120,160)}the robots actually are today.
+Dialogue: 0,0:01:30.46,0:01:31.46,Sub,,0,0,0,,{\fad(120,160)}Number ten.
+Dialogue: 0,0:01:31.67,0:01:33.51,Sub,,0,0,0,,{\fad(120,160)}The first job at the desk.
+Dialogue: 0,0:01:33.59,0:01:34.85,Sub,,0,0,0,,{\fad(120,160)}The junior coder.
+Dialogue: 0,0:01:34.89,0:01:36.18,Sub,,0,0,0,,{\fad(120,160)}The support agent.
+Dialogue: 0,0:01:36.31,0:01:37.09,Sub,,0,0,0,,{\fad(120,160)}The assistant who
+Dialogue: 0,0:01:37.13,0:01:38.65,Sub,,0,0,0,,{\fad(120,160)}writes the first draft.
+Dialogue: 0,0:01:38.88,0:01:40.92,Sub,,0,0,0,,{\fad(120,160)}Most of them aren't being fired.
+Dialogue: 0,0:01:41.00,0:01:42.99,Sub,,0,0,0,,{\fad(120,160)}Something quieter is happening.
+Dialogue: 0,0:01:43.20,0:01:44.81,Sub,,0,0,0,,{\fad(120,160)}They're just not being hired.
+Dialogue: 0,0:01:44.98,0:01:46.19,Sub,,0,0,0,,{\fad(120,160)}The economist who measured
+Dialogue: 0,0:01:46.23,0:01:47.96,Sub,,0,0,0,,{\fad(120,160)}it explains it like this.
+Dialogue: 0,0:01:48.41,0:01:51.11,Sub,,0,0,0,,{\fad(120,160)}If you looked at the most exposed
+Dialogue: 0,0:01:51.15,0:01:53.85,Sub,,0,0,0,,{\fad(120,160)}occupations and you looked at the
+Dialogue: 0,0:01:53.89,0:01:55.94,Sub,,0,0,0,,{\fad(120,160)}youngest age group there,
+Dialogue: 0,0:01:55.98,0:01:58.68,Sub,,0,0,0,,{\fad(120,160)}say 22 to 26, then you saw a very
+Dialogue: 0,0:01:58.72,0:02:01.81,Sub,,0,0,0,,{\fad(120,160)}noticeable decline in employment.
+Dialogue: 0,0:02:02.31,0:02:03.79,Sub,,0,0,0,,{\fad(120,160)}And then the researchers
+Dialogue: 0,0:02:03.83,0:02:05.28,Sub,,0,0,0,,{\fad(120,160)}found something else.
+Dialogue: 0,0:02:05.47,0:02:06.81,Sub,,0,0,0,,{\fad(120,160)}People with experience,
+Dialogue: 0,0:02:06.85,0:02:08.29,Sub,,0,0,0,,{\fad(120,160)}in the very same jobs,
+Dialogue: 0,0:02:08.33,0:02:09.50,Sub,,0,0,0,,{\fad(120,160)}are doing fine.
+Dialogue: 0,0:02:09.69,0:02:10.84,Sub,,0,0,0,,{\fad(120,160)}Companies still fight
+Dialogue: 0,0:02:10.88,0:02:12.37,Sub,,0,0,0,,{\fad(120,160)}over the senior developer.
+Dialogue: 0,0:02:12.41,0:02:13.14,Sub,,0,0,0,,{\fad(120,160)}They've cut back
+Dialogue: 0,0:02:13.18,0:02:14.55,Sub,,0,0,0,,{\fad(120,160)}on hiring the junior one.
+Dialogue: 0,0:02:14.91,0:02:15.62,Sub,,0,0,0,,{\fad(120,160)}If you've been doing your
+Dialogue: 0,0:02:15.66,0:02:17.05,Sub,,0,0,0,,{\fad(120,160)}work for twenty years,
+Dialogue: 0,0:02:17.09,0:02:18.14,Sub,,0,0,0,,{\fad(120,160)}the data says you're
+Dialogue: 0,0:02:18.18,0:02:19.28,Sub,,0,0,0,,{\fad(120,160)}the one they keep.
+Dialogue: 0,0:02:19.46,0:02:20.24,Sub,,0,0,0,,{\fad(120,160)}It's your kids who are
+Dialogue: 0,0:02:20.28,0:02:22.13,Sub,,0,0,0,,{\fad(120,160)}finding the first door closed.
+Dialogue: 0,0:02:22.51,0:02:24.09,Sub,,0,0,0,,{\fad(120,160)}For Jakob, it also started
+Dialogue: 0,0:02:24.13,0:02:25.70,Sub,,0,0,0,,{\fad(120,160)}with one small piece.
+Dialogue: 0,0:02:25.85,0:02:28.13,Sub,,0,0,0,,{\fad(120,160)}And then when AI arrived four
+Dialogue: 0,0:02:28.17,0:02:31.22,Sub,,0,0,0,,{\fad(120,160)}years ago, AI took over the first
+Dialogue: 0,0:02:31.26,0:02:33.72,Sub,,0,0,0,,{\fad(120,160)}small piece. So, for example,
+Dialogue: 0,0:02:33.76,0:02:36.00,Sub,,0,0,0,,{\fad(120,160)}I decided to create some images
+Dialogue: 0,0:02:36.04,0:02:38.77,Sub,,0,0,0,,{\fad(120,160)}with AI, which I then used as
+Dialogue: 0,0:02:38.81,0:02:41.05,Sub,,0,0,0,,{\fad(120,160)}layers for my animations.
+Dialogue: 0,0:02:41.36,0:02:42.85,Sub,,0,0,0,,{\fad(120,160)}A few pictures.
+Dialogue: 0,0:02:42.96,0:02:44.94,Sub,,0,0,0,,{\fad(120,160)}Everything else still by hand.
+Dialogue: 0,0:02:45.17,0:02:46.16,Sub,,0,0,0,,{\fad(120,160)}But the next domino
+Dialogue: 0,0:02:46.20,0:02:47.71,Sub,,0,0,0,,{\fad(120,160)}was already leaning.
+Dialogue: 0,0:02:48.04,0:02:49.06,Sub,,0,0,0,,{\fad(120,160)}Number nine.
+Dialogue: 0,0:02:49.13,0:02:50.17,Sub,,0,0,0,,{\fad(120,160)}The voice.
+Dialogue: 0,0:02:50.37,0:02:52.27,Sub,,0,0,0,,{\fad(120,160)}Translators, interpreters,
+Dialogue: 0,0:02:52.31,0:02:53.59,Sub,,0,0,0,,{\fad(120,160)}voice actors.
+Dialogue: 0,0:02:53.80,0:02:56.54,Sub,,0,0,0,,{\fad(120,160)}Microsoft studied 200,000 real
+Dialogue: 0,0:02:56.58,0:02:58.62,Sub,,0,0,0,,{\fad(120,160)}conversations with its assistant.
+Dialogue: 0,0:02:58.85,0:03:00.35,Sub,,0,0,0,,{\fad(120,160)}Interpreters and translators
+Dialogue: 0,0:03:00.39,0:03:02.23,Sub,,0,0,0,,{\fad(120,160)}landed at the very top.
+Dialogue: 0,0:03:02.36,0:03:04.77,Sub,,0,0,0,,{\fad(120,160)}The work AI overlaps with most.
+Dialogue: 0,0:03:04.94,0:03:06.23,Sub,,0,0,0,,{\fad(120,160)}Writers and historians
+Dialogue: 0,0:03:06.27,0:03:07.40,Sub,,0,0,0,,{\fad(120,160)}close behind.
+Dialogue: 0,0:03:07.56,0:03:09.30,Sub,,0,0,0,,{\fad(120,160)}Roofers and dredge operators
+Dialogue: 0,0:03:09.34,0:03:10.68,Sub,,0,0,0,,{\fad(120,160)}at the very bottom.
+Dialogue: 0,0:03:11.40,0:03:12.36,Sub,,0,0,0,,{\fad(120,160)}Jakob stopped
+Dialogue: 0,0:03:12.40,0:03:13.94,Sub,,0,0,0,,{\fad(120,160)}booking voice actors.
+Dialogue: 0,0:03:14.28,0:03:15.14,Sub,,0,0,0,,{\fad(120,160)}The voice you're hearing
+Dialogue: 0,0:03:15.18,0:03:17.30,Sub,,0,0,0,,{\fad(120,160)}right now is not a person.
+Dialogue: 0,0:03:17.49,0:03:19.04,Sub,,0,0,0,,{\fad(120,160)}So if even a voice can
+Dialogue: 0,0:03:19.08,0:03:21.24,Sub,,0,0,0,,{\fad(120,160)}be replaced, what's left?
+Dialogue: 0,0:03:22.00,0:03:23.02,Sub,,0,0,0,,{\fad(120,160)}Number eight.
+Dialogue: 0,0:03:23.21,0:03:24.57,Sub,,0,0,0,,{\fad(120,160)}The office routine.
+Dialogue: 0,0:03:24.81,0:03:25.69,Sub,,0,0,0,,{\fad(120,160)}Forms.
+Dialogue: 0,0:03:25.73,0:03:26.63,Sub,,0,0,0,,{\fad(120,160)}Invoices.
+Dialogue: 0,0:03:26.67,0:03:27.67,Sub,,0,0,0,,{\fad(120,160)}Scheduling.
+Dialogue: 0,0:03:27.88,0:03:29.60,Sub,,0,0,0,,{\fad(120,160)}In office and admin work,
+Dialogue: 0,0:03:29.64,0:03:31.27,Sub,,0,0,0,,{\fad(120,160)}AI could in theory handle
+Dialogue: 0,0:03:31.31,0:03:33.20,Sub,,0,0,0,,{\fad(120,160)}nine out of ten tasks.
+Dialogue: 0,0:03:33.25,0:03:34.62,Sub,,0,0,0,,{\fad(120,160)}In practice, it's doing
+Dialogue: 0,0:03:34.66,0:03:35.92,Sub,,0,0,0,,{\fad(120,160)}a fraction of that.
+Dialogue: 0,0:03:36.00,0:03:36.91,Sub,,0,0,0,,{\fad(120,160)}So far.
+Dialogue: 0,0:03:36.95,0:03:38.53,Sub,,0,0,0,,{\fad(120,160)}But companies aren't waiting.
+Dialogue: 0,0:03:38.63,0:03:39.48,Sub,,0,0,0,,{\fad(120,160)}This year alone,
+Dialogue: 0,0:03:39.52,0:03:41.25,Sub,,0,0,0,,{\fad(120,160)}they've named AI as the reason
+Dialogue: 0,0:03:41.29,0:03:42.71,Sub,,0,0,0,,{\fad(120,160)}for more than twice as many
+Dialogue: 0,0:03:42.75,0:03:44.36,Sub,,0,0,0,,{\fad(120,160)}job cuts as last year.
+Dialogue: 0,0:03:44.52,0:03:46.78,Sub,,0,0,0,,{\fad(120,160)}So the desk is going early.
+Dialogue: 0,0:03:47.46,0:03:49.98,Sub,,0,0,0,,{\fad(120,160)}Surely the creative work is safe?
+Dialogue: 0,0:03:50.02,0:03:50.75,Sub,,0,0,0,,{\fad(120,160)}The stuff people
+Dialogue: 0,0:03:50.79,0:03:52.12,Sub,,0,0,0,,{\fad(120,160)}got into this for?
+Dialogue: 0,0:03:53.53,0:03:54.57,Sub,,0,0,0,,{\fad(120,160)}Number seven.
+Dialogue: 0,0:03:54.96,0:03:55.98,Sub,,0,0,0,,{\fad(120,160)}Not really.
+Dialogue: 0,0:03:56.23,0:03:57.13,Sub,,0,0,0,,{\fad(120,160)}Images.
+Dialogue: 0,0:03:57.17,0:03:57.94,Sub,,0,0,0,,{\fad(120,160)}Music.
+Dialogue: 0,0:03:57.98,0:03:58.87,Sub,,0,0,0,,{\fad(120,160)}Sound.
+Dialogue: 0,0:03:58.91,0:03:59.96,Sub,,0,0,0,,{\fad(120,160)}Whole shots.
+Dialogue: 0,0:04:00.00,0:04:01.12,Sub,,0,0,0,,{\fad(120,160)}Even the edit.
+Dialogue: 0,0:04:01.27,0:04:04.37,Sub,,0,0,0,,{\fad(120,160)}And every month my part shifted.
+Dialogue: 0,0:04:04.41,0:04:07.66,Sub,,0,0,0,,{\fad(120,160)}So I was less doing and more
+Dialogue: 0,0:04:07.70,0:04:11.05,Sub,,0,0,0,,{\fad(120,160)}directing. And the work and the
+Dialogue: 0,0:04:11.09,0:04:12.94,Sub,,0,0,0,,{\fad(120,160)}output got better.
+Dialogue: 0,0:04:13.54,0:04:15.24,Sub,,0,0,0,,{\fad(120,160)}And then during the past,
+Dialogue: 0,0:04:15.28,0:04:17.76,Sub,,0,0,0,,{\fad(120,160)}I would say last weeks,
+Dialogue: 0,0:04:17.80,0:04:20.34,Sub,,0,0,0,,{\fad(120,160)}suddenly I was also able to edit.
+Dialogue: 0,0:04:20.64,0:04:22.38,Sub,,0,0,0,,{\fad(120,160)}So here's the puzzle.
+Dialogue: 0,0:04:22.69,0:04:23.67,Sub,,0,0,0,,{\fad(120,160)}If machine after
+Dialogue: 0,0:04:23.71,0:04:25.19,Sub,,0,0,0,,{\fad(120,160)}machine takes his work,
+Dialogue: 0,0:04:25.23,0:04:27.15,Sub,,0,0,0,,{\fad(120,160)}why is he still here?
+Dialogue: 0,0:04:27.39,0:04:28.86,Sub,,0,0,0,,{\fad(120,160)}There's a profession that,
+Dialogue: 0,0:04:28.90,0:04:29.53,Sub,,0,0,0,,{\fad(120,160)}according to one
+Dialogue: 0,0:04:29.57,0:04:31.03,Sub,,0,0,0,,{\fad(120,160)}of the fathers of AI,
+Dialogue: 0,0:04:31.07,0:04:32.58,Sub,,0,0,0,,{\fad(120,160)}should be gone by now.
+Dialogue: 0,0:04:32.75,0:04:34.99,Sub,,0,0,0,,{\fad(120,160)}In 2016, Geoffrey Hinton said
+Dialogue: 0,0:04:35.03,0:04:35.88,Sub,,0,0,0,,{\fad(120,160)}we should stop
+Dialogue: 0,0:04:35.92,0:04:37.63,Sub,,0,0,0,,{\fad(120,160)}training radiologists.
+Dialogue: 0,0:04:37.68,0:04:38.52,Sub,,0,0,0,,{\fad(120,160)}Machines would read
+Dialogue: 0,0:04:38.56,0:04:39.72,Sub,,0,0,0,,{\fad(120,160)}the scans better.
+Dialogue: 0,0:04:39.95,0:04:41.47,Sub,,0,0,0,,{\fad(120,160)}He was partly right.
+Dialogue: 0,0:04:42.18,0:04:43.08,Sub,,0,0,0,,{\fad(120,160)}Machines now read
+Dialogue: 0,0:04:43.12,0:04:45.05,Sub,,0,0,0,,{\fad(120,160)}many scans very well.
+Dialogue: 0,0:04:45.17,0:04:46.61,Sub,,0,0,0,,{\fad(120,160)}And yet, this year,
+Dialogue: 0,0:04:46.65,0:04:48.17,Sub,,0,0,0,,{\fad(120,160)}America opened more training
+Dialogue: 0,0:04:48.21,0:04:49.40,Sub,,0,0,0,,{\fad(120,160)}spots for radiologists
+Dialogue: 0,0:04:49.44,0:04:50.88,Sub,,0,0,0,,{\fad(120,160)}than ever before.
+Dialogue: 0,0:04:51.05,0:04:52.10,Sub,,0,0,0,,{\fad(120,160)}Hospitals can't find
+Dialogue: 0,0:04:52.14,0:04:53.14,Sub,,0,0,0,,{\fad(120,160)}enough of them.
+Dialogue: 0,0:04:53.26,0:04:54.75,Sub,,0,0,0,,{\fad(120,160)}Because a radiologist never
+Dialogue: 0,0:04:54.79,0:04:56.28,Sub,,0,0,0,,{\fad(120,160)}just looked at pictures.
+Dialogue: 0,0:04:56.32,0:04:57.87,Sub,,0,0,0,,{\fad(120,160)}They talk to the surgeon.
+Dialogue: 0,0:04:57.91,0:04:59.54,Sub,,0,0,0,,{\fad(120,160)}They decide what matters.
+Dialogue: 0,0:04:59.58,0:05:01.05,Sub,,0,0,0,,{\fad(120,160)}They carry the responsibility
+Dialogue: 0,0:05:01.09,0:05:02.25,Sub,,0,0,0,,{\fad(120,160)}when it goes wrong.
+Dialogue: 0,0:05:02.49,0:05:03.34,Sub,,0,0,0,,{\fad(120,160)}So the dominoes were
+Dialogue: 0,0:05:03.38,0:05:04.75,Sub,,0,0,0,,{\fad(120,160)}never whole jobs.
+Dialogue: 0,0:05:04.79,0:05:05.94,Sub,,0,0,0,,{\fad(120,160)}They're tasks.
+Dialogue: 0,0:05:06.03,0:05:06.92,Sub,,0,0,0,,{\fad(120,160)}The machine took over
+Dialogue: 0,0:05:06.96,0:05:08.19,Sub,,0,0,0,,{\fad(120,160)}part of the reading.
+Dialogue: 0,0:05:08.23,0:05:09.38,Sub,,0,0,0,,{\fad(120,160)}The radiologist kept
+Dialogue: 0,0:05:09.42,0:05:10.50,Sub,,0,0,0,,{\fad(120,160)}everything around it,
+Dialogue: 0,0:05:10.54,0:05:11.57,Sub,,0,0,0,,{\fad(120,160)}and moved up.
+Dialogue: 0,0:05:11.72,0:05:13.22,Sub,,0,0,0,,{\fad(120,160)}And every time a new model
+Dialogue: 0,0:05:13.26,0:05:15.33,Sub,,0,0,0,,{\fad(120,160)}mastered one part of production,
+Dialogue: 0,0:05:15.37,0:05:17.52,Sub,,0,0,0,,{\fad(120,160)}I had to redefine my job.
+Dialogue: 0,0:05:17.86,0:05:18.94,Sub,,0,0,0,,{\fad(120,160)}Every time the machine
+Dialogue: 0,0:05:18.98,0:05:20.19,Sub,,0,0,0,,{\fad(120,160)}took a step,
+Dialogue: 0,0:05:20.23,0:05:22.13,Sub,,0,0,0,,{\fad(120,160)}the human took one up.
+Dialogue: 0,0:05:23.19,0:05:24.25,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:05:24.29,0:05:25.53,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:05:25.68,0:05:26.53,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:05:26.57,0:05:27.60,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:05:27.64,0:05:29.45,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:05:29.51,0:05:30.73,Sub,,0,0,0,,{\fad(120,160)}Not just for a few.
+Dialogue: 0,0:05:30.98,0:05:31.93,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:05:31.97,0:05:32.99,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:05:33.03,0:05:34.58,Sub,,0,0,0,,{\fad(120,160)}It genuinely helps.
+Dialogue: 0,0:05:35.27,0:05:36.92,Sub,,0,0,0,,{\fad(120,160)}From here on, the question
+Dialogue: 0,0:05:36.96,0:05:38.90,Sub,,0,0,0,,{\fad(120,160)}isn't whether a job falls.
+Dialogue: 0,0:05:39.03,0:05:39.80,Sub,,0,0,0,,{\fad(120,160)}It's how much
+Dialogue: 0,0:05:39.84,0:05:41.30,Sub,,0,0,0,,{\fad(120,160)}of it is left standing.
+Dialogue: 0,0:05:41.71,0:05:42.81,Sub,,0,0,0,,{\fad(120,160)}Number six.
+Dialogue: 0,0:05:42.94,0:05:46.17,Sub,,0,0,0,,{\fad(120,160)}Analysis, research, most software.
+Dialogue: 0,0:05:46.36,0:05:48.63,Sub,,0,0,0,,{\fad(120,160)}This is where the agents arrive.
+Dialogue: 0,0:05:48.79,0:05:50.62,Sub,,0,0,0,,{\fad(120,160)}Not tools that help with a step,
+Dialogue: 0,0:05:50.66,0:05:51.85,Sub,,0,0,0,,{\fad(120,160)}but systems that run
+Dialogue: 0,0:05:51.89,0:05:53.09,Sub,,0,0,0,,{\fad(120,160)}the whole workflow,
+Dialogue: 0,0:05:53.13,0:05:54.58,Sub,,0,0,0,,{\fad(120,160)}start to finish.
+Dialogue: 0,0:05:54.77,0:05:56.14,Sub,,0,0,0,,{\fad(120,160)}One lab chief has warned
+Dialogue: 0,0:05:56.18,0:05:57.21,Sub,,0,0,0,,{\fad(120,160)}this could cut half
+Dialogue: 0,0:05:57.25,0:05:58.75,Sub,,0,0,0,,{\fad(120,160)}of all entry-level office
+Dialogue: 0,0:05:58.79,0:06:00.62,Sub,,0,0,0,,{\fad(120,160)}jobs within five years.
+Dialogue: 0,0:06:00.79,0:06:01.86,Sub,,0,0,0,,{\fad(120,160)}That's a forecast,
+Dialogue: 0,0:06:01.90,0:06:02.96,Sub,,0,0,0,,{\fad(120,160)}not a measurement.
+Dialogue: 0,0:06:03.02,0:06:04.08,Sub,,0,0,0,,{\fad(120,160)}So far, the data
+Dialogue: 0,0:06:04.12,0:06:05.49,Sub,,0,0,0,,{\fad(120,160)}shows fewer hires,
+Dialogue: 0,0:06:05.53,0:06:06.93,Sub,,0,0,0,,{\fad(120,160)}not mass layoffs.
+Dialogue: 0,0:06:07.11,0:06:07.93,Sub,,0,0,0,,{\fad(120,160)}But if agents can
+Dialogue: 0,0:06:07.97,0:06:09.49,Sub,,0,0,0,,{\fad(120,160)}run a whole workflow,
+Dialogue: 0,0:06:09.58,0:06:11.63,Sub,,0,0,0,,{\fad(120,160)}what's left that they can't touch?
+Dialogue: 0,0:06:13.03,0:06:14.13,Sub,,0,0,0,,{\fad(120,160)}Number five.
+Dialogue: 0,0:06:14.30,0:06:15.30,Sub,,0,0,0,,{\fad(120,160)}Teachers.
+Dialogue: 0,0:06:15.71,0:06:17.53,Sub,,0,0,0,,{\fad(120,160)}AI can already explain anything,
+Dialogue: 0,0:06:17.57,0:06:20.08,Sub,,0,0,0,,{\fad(120,160)}at any hour, in any language.
+Dialogue: 0,0:06:20.30,0:06:21.39,Sub,,0,0,0,,{\fad(120,160)}But a child doesn't learn
+Dialogue: 0,0:06:21.43,0:06:23.10,Sub,,0,0,0,,{\fad(120,160)}because someone explained it.
+Dialogue: 0,0:06:23.17,0:06:24.33,Sub,,0,0,0,,{\fad(120,160)}A child learns because
+Dialogue: 0,0:06:24.37,0:06:26.28,Sub,,0,0,0,,{\fad(120,160)}someone believed they could.
+Dialogue: 0,0:06:26.48,0:06:28.04,Sub,,0,0,0,,{\fad(120,160)}The explaining falls.
+Dialogue: 0,0:06:28.10,0:06:29.84,Sub,,0,0,0,,{\fad(120,160)}The believing stays.
+Dialogue: 0,0:06:30.61,0:06:31.68,Sub,,0,0,0,,{\fad(120,160)}Number four.
+Dialogue: 0,0:06:32.03,0:06:33.03,Sub,,0,0,0,,{\fad(120,160)}Doctors.
+Dialogue: 0,0:06:33.31,0:06:35.02,Sub,,0,0,0,,{\fad(120,160)}More and more of the diagnosis
+Dialogue: 0,0:06:35.06,0:06:36.51,Sub,,0,0,0,,{\fad(120,160)}is moving to the machine.
+Dialogue: 0,0:06:36.73,0:06:37.93,Sub,,0,0,0,,{\fad(120,160)}Just like the scan.
+Dialogue: 0,0:06:38.26,0:06:39.74,Sub,,0,0,0,,{\fad(120,160)}But someone still has to sit
+Dialogue: 0,0:06:39.78,0:06:40.51,Sub,,0,0,0,,{\fad(120,160)}with you and say
+Dialogue: 0,0:06:40.55,0:06:41.98,Sub,,0,0,0,,{\fad(120,160)}the hard sentence.
+Dialogue: 0,0:06:42.09,0:06:44.07,Sub,,0,0,0,,{\fad(120,160)}And stay in the room afterwards.
+Dialogue: 0,0:06:44.42,0:06:46.09,Sub,,0,0,0,,{\fad(120,160)}And then the row slows down.
+Dialogue: 0,0:06:46.19,0:06:48.58,Sub,,0,0,0,,{\fad(120,160)}Because the next jobs need hands.
+Dialogue: 0,0:06:49.33,0:06:50.39,Sub,,0,0,0,,{\fad(120,160)}Number three.
+Dialogue: 0,0:06:50.43,0:06:51.50,Sub,,0,0,0,,{\fad(120,160)}The trades.
+Dialogue: 0,0:06:51.54,0:06:52.63,Sub,,0,0,0,,{\fad(120,160)}The electrician.
+Dialogue: 0,0:06:52.69,0:06:53.51,Sub,,0,0,0,,{\fad(120,160)}The plumber.
+Dialogue: 0,0:06:53.55,0:06:54.55,Sub,,0,0,0,,{\fad(120,160)}The roofer.
+Dialogue: 0,0:06:54.81,0:06:55.98,Sub,,0,0,0,,{\fad(120,160)}What's easy for us
+Dialogue: 0,0:06:56.02,0:06:58.21,Sub,,0,0,0,,{\fad(120,160)}is brutally hard for machines.
+Dialogue: 0,0:06:58.33,0:07:00.40,Sub,,0,0,0,,{\fad(120,160)}Climbing into a flooded basement.
+Dialogue: 0,0:07:00.44,0:07:02.45,Sub,,0,0,0,,{\fad(120,160)}Finding the one rusted pipe behind
+Dialogue: 0,0:07:02.49,0:07:04.49,Sub,,0,0,0,,{\fad(120,160)}a wall that's sixty years old.
+Dialogue: 0,0:07:04.77,0:07:05.74,Sub,,0,0,0,,{\fad(120,160)}The first humanoid
+Dialogue: 0,0:07:05.78,0:07:06.81,Sub,,0,0,0,,{\fad(120,160)}robots have started
+Dialogue: 0,0:07:06.85,0:07:09.01,Sub,,0,0,0,,{\fad(120,160)}work in factories and warehouses.
+Dialogue: 0,0:07:09.05,0:07:10.86,Sub,,0,0,0,,{\fad(120,160)}Clean floors, same task,
+Dialogue: 0,0:07:10.90,0:07:12.29,Sub,,0,0,0,,{\fad(120,160)}again and again.
+Dialogue: 0,0:07:12.51,0:07:14.72,Sub,,0,0,0,,{\fad(120,160)}Your basement is not a factory.
+Dialogue: 0,0:07:14.80,0:07:15.88,Sub,,0,0,0,,{\fad(120,160)}Even the man who warned
+Dialogue: 0,0:07:15.92,0:07:17.12,Sub,,0,0,0,,{\fad(120,160)}the radiologists now
+Dialogue: 0,0:07:17.16,0:07:18.74,Sub,,0,0,0,,{\fad(120,160)}has career advice.
+Dialogue: 0,0:07:19.19,0:07:21.43,Sub,,0,0,0,,{\fad(120,160)}I'd say it's going to be a long
+Dialogue: 0,0:07:21.47,0:07:23.43,Sub,,0,0,0,,{\fad(120,160)}time before it's as good at
+Dialogue: 0,0:07:23.47,0:07:25.49,Sub,,0,0,0,,{\fad(120,160)}physical manipulation as us.
+Dialogue: 0,0:07:25.53,0:07:27.92,Sub,,0,0,0,,{\fad(120,160)}And so, a good bet would be to be
+Dialogue: 0,0:07:27.96,0:07:29.09,Sub,,0,0,0,,{\fad(120,160)}a plumber.
+Dialogue: 0,0:07:29.65,0:07:31.13,Sub,,0,0,0,,{\fad(120,160)}Notice the catch.
+Dialogue: 0,0:07:31.36,0:07:32.87,Sub,,0,0,0,,{\fad(120,160)}A long time.
+Dialogue: 0,0:07:32.95,0:07:34.23,Sub,,0,0,0,,{\fad(120,160)}Not forever.
+Dialogue: 0,0:07:34.42,0:07:37.07,Sub,,0,0,0,,{\fad(120,160)}Number three holds for years.
+Dialogue: 0,0:07:37.80,0:07:38.80,Sub,,0,0,0,,{\fad(120,160)}Number two.
+Dialogue: 0,0:07:38.91,0:07:39.85,Sub,,0,0,0,,{\fad(120,160)}Care.
+Dialogue: 0,0:07:39.89,0:07:40.77,Sub,,0,0,0,,{\fad(120,160)}The nurse who turns
+Dialogue: 0,0:07:40.81,0:07:42.19,Sub,,0,0,0,,{\fad(120,160)}a patient at night.
+Dialogue: 0,0:07:42.23,0:07:43.07,Sub,,0,0,0,,{\fad(120,160)}The person who looks
+Dialogue: 0,0:07:43.11,0:07:44.29,Sub,,0,0,0,,{\fad(120,160)}after your kids.
+Dialogue: 0,0:07:44.51,0:07:45.91,Sub,,0,0,0,,{\fad(120,160)}In Microsoft's study,
+Dialogue: 0,0:07:45.95,0:07:47.33,Sub,,0,0,0,,{\fad(120,160)}nursing assistants landed
+Dialogue: 0,0:07:47.37,0:07:48.89,Sub,,0,0,0,,{\fad(120,160)}near the very bottom.
+Dialogue: 0,0:07:48.94,0:07:50.30,Sub,,0,0,0,,{\fad(120,160)}Almost nothing they do
+Dialogue: 0,0:07:50.34,0:07:52.40,Sub,,0,0,0,,{\fad(120,160)}overlaps with AI Here,
+Dialogue: 0,0:07:52.44,0:07:53.22,Sub,,0,0,0,,{\fad(120,160)}the human isn't
+Dialogue: 0,0:07:53.26,0:07:54.41,Sub,,0,0,0,,{\fad(120,160)}just doing the work.
+Dialogue: 0,0:07:54.45,0:07:55.76,Sub,,0,0,0,,{\fad(120,160)}The human is part
+Dialogue: 0,0:07:55.80,0:07:57.11,Sub,,0,0,0,,{\fad(120,160)}of what's being given.
+Dialogue: 0,0:07:57.18,0:07:59.37,Sub,,0,0,0,,{\fad(120,160)}So the work that lasts is the work
+Dialogue: 0,0:07:59.41,0:08:01.21,Sub,,0,0,0,,{\fad(120,160)}where a person is the point.
+Dialogue: 0,0:08:01.40,0:08:03.07,Sub,,0,0,0,,{\fad(120,160)}Which brings us back to Jakob.
+Dialogue: 0,0:08:03.11,0:08:04.76,Sub,,0,0,0,,{\fad(120,160)}Because by now, the machines had
+Dialogue: 0,0:08:04.80,0:08:05.99,Sub,,0,0,0,,{\fad(120,160)}taken almost every
+Dialogue: 0,0:08:06.03,0:08:07.54,Sub,,0,0,0,,{\fad(120,160)}step he used to do.
+Dialogue: 0,0:08:08.03,0:08:09.53,Sub,,0,0,0,,{\fad(120,160)}Now you see with this channel,
+Dialogue: 0,0:08:09.57,0:08:10.74,Sub,,0,0,0,,{\fad(120,160)}I'm able to create a
+Dialogue: 0,0:08:10.78,0:08:12.09,Sub,,0,0,0,,{\fad(120,160)}documentary a day.
+Dialogue: 0,0:08:12.42,0:08:14.70,Sub,,0,0,0,,{\fad(120,160)}By hand, one film like this
+Dialogue: 0,0:08:14.74,0:08:16.70,Sub,,0,0,0,,{\fad(120,160)}took him two weeks or more.
+Dialogue: 0,0:08:16.93,0:08:18.66,Sub,,0,0,0,,{\fad(120,160)}Now agents do the production.
+Dialogue: 0,0:08:18.70,0:08:20.11,Sub,,0,0,0,,{\fad(120,160)}He gives the direction.
+Dialogue: 0,0:08:20.32,0:08:21.54,Sub,,0,0,0,,{\fad(120,160)}So what's left when
+Dialogue: 0,0:08:21.58,0:08:23.30,Sub,,0,0,0,,{\fad(120,160)}even the doing is gone?
+Dialogue: 0,0:08:24.71,0:08:26.98,Sub,,0,0,0,,{\fad(120,160)}Number one isn't the hardest job.
+Dialogue: 0,0:08:27.02,0:08:28.80,Sub,,0,0,0,,{\fad(120,160)}It's a different kind of job.
+Dialogue: 0,0:08:28.84,0:08:29.44,Sub,,0,0,0,,{\fad(120,160)}It's the one where
+Dialogue: 0,0:08:29.48,0:08:30.60,Sub,,0,0,0,,{\fad(120,160)}we want a human.
+Dialogue: 0,0:08:30.64,0:08:31.78,Sub,,0,0,0,,{\fad(120,160)}On purpose.
+Dialogue: 0,0:08:31.95,0:08:32.79,Sub,,0,0,0,,{\fad(120,160)}Computers have beaten
+Dialogue: 0,0:08:32.83,0:08:33.52,Sub,,0,0,0,,{\fad(120,160)}the best chess
+Dialogue: 0,0:08:33.56,0:08:35.45,Sub,,0,0,0,,{\fad(120,160)}players for almost thirty years.
+Dialogue: 0,0:08:35.49,0:08:37.61,Sub,,0,0,0,,{\fad(120,160)}And chess has never been bigger.
+Dialogue: 0,0:08:37.73,0:08:39.11,Sub,,0,0,0,,{\fad(120,160)}About 10 million people play
+Dialogue: 0,0:08:39.15,0:08:40.93,Sub,,0,0,0,,{\fad(120,160)}online every single day.
+Dialogue: 0,0:08:41.01,0:08:42.50,Sub,,0,0,0,,{\fad(120,160)}Machines play each other too.
+Dialogue: 0,0:08:42.67,0:08:44.98,Sub,,0,0,0,,{\fad(120,160)}The crowds come for the humans.
+Dialogue: 0,0:08:45.72,0:08:47.03,Sub,,0,0,0,,{\fad(120,160)}It's the person who sits
+Dialogue: 0,0:08:47.07,0:08:48.84,Sub,,0,0,0,,{\fad(120,160)}with you when the news is bad.
+Dialogue: 0,0:08:49.17,0:08:50.48,Sub,,0,0,0,,{\fad(120,160)}The one who signs off,
+Dialogue: 0,0:08:50.52,0:08:51.76,Sub,,0,0,0,,{\fad(120,160)}and answers for it.
+Dialogue: 0,0:08:51.97,0:08:53.21,Sub,,0,0,0,,{\fad(120,160)}The one who decides what's
+Dialogue: 0,0:08:53.25,0:08:55.22,Sub,,0,0,0,,{\fad(120,160)}worth making in the first place.
+Dialogue: 0,0:08:55.45,0:08:56.31,Sub,,0,0,0,,{\fad(120,160)}Those aren't tasks
+Dialogue: 0,0:08:56.35,0:08:57.72,Sub,,0,0,0,,{\fad(120,160)}a machine can't do.
+Dialogue: 0,0:08:57.91,0:08:58.93,Sub,,0,0,0,,{\fad(120,160)}They're tasks we want
+Dialogue: 0,0:08:58.97,0:09:00.21,Sub,,0,0,0,,{\fad(120,160)}a person to do.
+Dialogue: 0,0:09:00.58,0:09:02.07,Sub,,0,0,0,,{\fad(120,160)}The last human job isn't
+Dialogue: 0,0:09:02.11,0:09:03.76,Sub,,0,0,0,,{\fad(120,160)}the one machines can't do.
+Dialogue: 0,0:09:03.91,0:09:06.04,Sub,,0,0,0,,{\fad(120,160)}It's the one we won't hand over.
+Dialogue: 0,0:09:07.40,0:09:08.70,Sub,,0,0,0,,{\fad(120,160)}So how do you stay
+Dialogue: 0,0:09:08.74,0:09:10.38,Sub,,0,0,0,,{\fad(120,160)}on the right side of the row?
+Dialogue: 0,0:09:10.61,0:09:12.36,Sub,,0,0,0,,{\fad(120,160)}First, judgment.
+Dialogue: 0,0:09:12.42,0:09:14.65,Sub,,0,0,0,,{\fad(120,160)}Telling good from merely finished.
+Dialogue: 0,0:09:14.69,0:09:15.92,Sub,,0,0,0,,{\fad(120,160)}It's why companies still pay
+Dialogue: 0,0:09:15.96,0:09:16.93,Sub,,0,0,0,,{\fad(120,160)}for the senior who can
+Dialogue: 0,0:09:16.97,0:09:18.10,Sub,,0,0,0,,{\fad(120,160)}tell the difference.
+Dialogue: 0,0:09:18.14,0:09:19.18,Sub,,0,0,0,,{\fad(120,160)}It protects you from being
+Dialogue: 0,0:09:19.22,0:09:20.65,Sub,,0,0,0,,{\fad(120,160)}swapped for a button.
+Dialogue: 0,0:09:20.79,0:09:22.51,Sub,,0,0,0,,{\fad(120,160)}Second, directing.
+Dialogue: 0,0:09:22.62,0:09:24.25,Sub,,0,0,0,,{\fad(120,160)}Breaking a goal into steps,
+Dialogue: 0,0:09:24.29,0:09:25.53,Sub,,0,0,0,,{\fad(120,160)}handing them to agents,
+Dialogue: 0,0:09:25.57,0:09:27.03,Sub,,0,0,0,,{\fad(120,160)}checking what comes back.
+Dialogue: 0,0:09:27.12,0:09:27.80,Sub,,0,0,0,,{\fad(120,160)}That's what Jakob
+Dialogue: 0,0:09:27.84,0:09:29.22,Sub,,0,0,0,,{\fad(120,160)}does every day now.
+Dialogue: 0,0:09:29.26,0:09:30.33,Sub,,0,0,0,,{\fad(120,160)}It protects you from being
+Dialogue: 0,0:09:30.37,0:09:31.97,Sub,,0,0,0,,{\fad(120,160)}the task that gets automated,
+Dialogue: 0,0:09:32.01,0:09:32.98,Sub,,0,0,0,,{\fad(120,160)}because you become
+Dialogue: 0,0:09:33.02,0:09:34.32,Sub,,0,0,0,,{\fad(120,160)}the one who runs it.
+Dialogue: 0,0:09:34.98,0:09:36.74,Sub,,0,0,0,,{\fad(120,160)}Third, trust.
+Dialogue: 0,0:09:36.99,0:09:39.02,Sub,,0,0,0,,{\fad(120,160)}People still buy from people,
+Dialogue: 0,0:09:39.06,0:09:41.42,Sub,,0,0,0,,{\fad(120,160)}hire people, follow people.
+Dialogue: 0,0:09:41.74,0:09:42.96,Sub,,0,0,0,,{\fad(120,160)}Relationships protect
+Dialogue: 0,0:09:43.00,0:09:43.53,Sub,,0,0,0,,{\fad(120,160)}you from being
+Dialogue: 0,0:09:43.57,0:09:45.79,Sub,,0,0,0,,{\fad(120,160)}compared on price with a machine.
+Dialogue: 0,0:09:46.03,0:09:48.64,Sub,,0,0,0,,{\fad(120,160)}Fourth, hands plus a head.
+Dialogue: 0,0:09:48.86,0:09:51.46,Sub,,0,0,0,,{\fad(120,160)}A trade, with AI in your pocket.
+Dialogue: 0,0:09:51.58,0:09:53.36,Sub,,0,0,0,,{\fad(120,160)}It protects you because the robot
+Dialogue: 0,0:09:53.40,0:09:55.03,Sub,,0,0,0,,{\fad(120,160)}isn't in the basement yet.
+Dialogue: 0,0:09:55.15,0:09:56.24,Sub,,0,0,0,,{\fad(120,160)}And when it arrives,
+Dialogue: 0,0:09:56.28,0:09:57.89,Sub,,0,0,0,,{\fad(120,160)}someone has to run it.
+Dialogue: 0,0:09:58.61,0:10:01.35,Sub,,0,0,0,,{\fad(120,160)}And fifth, learning in steps.
+Dialogue: 0,0:10:01.42,0:10:03.27,Sub,,0,0,0,,{\fad(120,160)}Not one big retraining.
+Dialogue: 0,0:10:03.45,0:10:04.48,Sub,,0,0,0,,{\fad(120,160)}One new step,
+Dialogue: 0,0:10:04.52,0:10:05.49,Sub,,0,0,0,,{\fad(120,160)}every time a model
+Dialogue: 0,0:10:05.53,0:10:06.77,Sub,,0,0,0,,{\fad(120,160)}takes the old one.
+Dialogue: 0,0:10:06.90,0:10:08.36,Sub,,0,0,0,,{\fad(120,160)}It protects you from waking up
+Dialogue: 0,0:10:08.40,0:10:10.68,Sub,,0,0,0,,{\fad(120,160)}with a skill no one is hiring for.
+Dialogue: 0,0:10:10.92,0:10:12.11,Sub,,0,0,0,,{\fad(120,160)}Even Bill Gates calls
+Dialogue: 0,0:10:12.15,0:10:13.69,Sub,,0,0,0,,{\fad(120,160)}this a turbulent era.
+Dialogue: 0,0:10:13.76,0:10:14.95,Sub,,0,0,0,,{\fad(120,160)}Which is exactly why
+Dialogue: 0,0:10:14.99,0:10:16.25,Sub,,0,0,0,,{\fad(120,160)}the steps matter.
+Dialogue: 0,0:10:29.49,0:10:30.52,Sub,,0,0,0,,{\fad(120,160)}Every time the machine
+Dialogue: 0,0:10:30.56,0:10:31.71,Sub,,0,0,0,,{\fad(120,160)}took a step,
+Dialogue: 0,0:10:31.75,0:10:33.41,Sub,,0,0,0,,{\fad(120,160)}the human took one up.
+Dialogue: 0,0:10:33.68,0:10:35.54,Sub,,0,0,0,,{\fad(120,160)}So the last human job isn't
+Dialogue: 0,0:10:35.58,0:10:37.31,Sub,,0,0,0,,{\fad(120,160)}waiting at the end of the row.
+Dialogue: 0,0:10:37.46,0:10:39.53,Sub,,0,0,0,,{\fad(120,160)}It's the step you take next.
+Dialogue: 0,0:10:39.76,0:10:41.95,Sub,,0,0,0,,{\fad(120,160)}And I think what's left for me
+Dialogue: 0,0:10:41.99,0:10:43.88,Sub,,0,0,0,,{\fad(120,160)}right now is to decide what's
+Dialogue: 0,0:10:43.92,0:10:45.73,Sub,,0,0,0,,{\fad(120,160)}worth making and why.
+Dialogue: 0,0:10:45.98,0:10:47.06,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:10:47.10,0:10:48.42,Sub,,0,0,0,,{\fad(120,160)}so that superintelligence
+Dialogue: 0,0:10:48.46,0:10:50.15,Sub,,0,0,0,,{\fad(120,160)}goes well for everyone.
+Dialogue: 0,0:10:50.30,0:10:51.30,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:10:51.34,0:10:52.49,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.

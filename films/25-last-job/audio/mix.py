@@ -5,7 +5,7 @@ changes the slot length (build_vo.py) moves them along:
   music/cues.json  [{"f": "M1", "at": "s09" | "L2" (= chapter/section id: start of its first take) | "J3" (slot) | "END", "dt": -0.4, "fin": 2.0, "fout": 4.0, "off": 0, "d": null, "opts": {"repeat": [t1, t2]}}]   at = take id / slot id, dt in s
                    "end": "s17" (optional) = the cue is cut to end at the end of that take + "end_dt" s (fade-out inside it)
   sound_plan.json  [{"f": "underwater", "at": "s12", "end": "s13", "dt": 0, "v": 0.8, "fade": 1.5, "off": 0}]   loops sfx/<f>.mp3 from `at` to the end of `end`
-                   one-shot accents anchored on a spoken phrase: {"f": "dom_tip1", "word": "Number nine", "nth": 0, "dt": -0.1, "peak": 0.3, "v": 1.0, "once": true}
+                   one-shot accents anchored on a spoken phrase: {"f": "dom_tip1", "word": "Number nine", "nth": 0, "dt": -0.15, "peak": 0.01, "v": 1.0, "once": true}   ("at_end": true = anchor on the END of the phrase)
                    (starts so that the file's transient `peak` falls at the first word of the phrase + dt; `once` = play once, no loop, no fade-in; put them in the gap before the sentence)
 Slot audio: <clips dir>/<id>.wav (C1..C5 interview/atmo, P1/P2 pig calls) at slot start + offset (clips.json), level = the voice's, music ducked under the slot.
 usage: mix.py <audio_dir> [wav_dir]   (vo_master.wav, stems, premix and mix.wav live in wav_dir, a scratchpad)"""
@@ -30,11 +30,11 @@ def at(key, end=False):
     if key in SLOT: return SLOT[key]['end' if end else 'start']
     if key.startswith('L') and key[1:] in LEV: return LEV[key[1:]]['end' if end else 'start']
     raise KeyError(key)
-def wordat(phrase, nth=0):
+def wordat(phrase, nth=0, end=False):
     q = [w.lower().strip('.,!?:;') for w in phrase.split()]; hit = 0
     for i in range(len(WORDS) - len(q) + 1):
         if [w['w'].lower().strip('.,!?:;') for w in WORDS[i:i + len(q)]] == q:
-            if hit == nth: return WORDS[i]['s']
+            if hit == nth: return WORDS[i + len(q) - 1]['e'] if end else WORDS[i]['s']
             hit += 1
     raise KeyError(phrase)
 vo = load(W + 'vo_master.wav')[:N]; vo = np.pad(vo, ((0, N - len(vo)), (0, 0)))
@@ -99,7 +99,7 @@ for c in (json.load(open(A + 'sound_plan.json')) if os.path.exists(A + 'sound_pl
     if c['f'] not in cache: cache[c['f']] = load(ASSETS + f"sfx/{c['f']}.mp3")
     x = cache[c['f']]
     if c.get('word'):   # one-shot accent on a spoken phrase
-        t = wordat(c['word'], c.get('nth', 0)) + c.get('dt', 0) - c.get('peak', 0)
+        t = wordat(c['word'], c.get('nth', 0), c.get('at_end', False)) + c.get('dt', 0) - c.get('peak', 0)
         g = db(float(os.environ.get('ACCENT_DB', -15))) / (np.abs(x).max() + 1e-9) * c['v']   # accents are normalised on their PEAK (short transients)
         place(sfx, x[int(c.get('off', 0) * SR):], t, g, 0.0, c.get('fade', 0.3), c.get('d'), False)
         print('sfx', c['f'], 'on', repr(c['word']), 'at', round(t, 2)); continue
