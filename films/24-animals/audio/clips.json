@@ -65,9 +65,8 @@
   "source": "https://www.youtube.com/watch?v=MXITyX9PPJM",
   "frames": 288,
   "real": 9.61,
-  "src_sig": "edb3da72c7be",
-  "src": "C2.mp4",
-  "note": "delivered mp4 has a digital-silent audio track (-91 dB); put the real sound next to the mp4 as C2.wav and run `clips` again"
+  "src_sig": "d9009677a2a0",
+  "src": "C2.mp4"
  },
  "C3": {
   "plan": 10.6,
@@ -83,45 +82,44 @@
   "source": "https://www.youtube.com/watch?v=1bgL4b7VT8M",
   "cues": [
    [
-    0.3,
+    0.0,
     "So feeding dolphin"
    ],
    [
-    1.503,
+    1.13,
     "sounds into an AI model"
    ],
    [
-    3.022,
+    2.84,
     "like DolphinGemma"
    ],
    [
-    4.161,
+    3.33,
     "will give us a really"
    ],
    [
-    5.553,
+    5.83,
     "good look at if there"
    ],
    [
-    6.946,
+    7.63,
     "are patterns,"
    ],
    [
-    7.832,
+    8.46,
     "subtleties that humans"
    ],
    [
-    9.287,
+    9.65,
     "can't pick out."
    ]
   ],
   "quote": "So feeding dolphin sounds into an AI model like DolphinGemma will give us a really good look at if there are patterns, subtleties that humans can't pick out.",
   "frames": 318,
   "real": 10.635,
-  "src_sig": "9d5285e34974",
+  "src_sig": "96f31de70676",
   "src": "C3.mp4",
-  "cue_source": "even over the speech 0.30-10.30 s (alignment failed)",
-  "note": "delivered mp4 has a digital-silent audio track (-91 dB); put the real sound next to the mp4 as C3.wav and run `clips` again; the C3 cues are only spread evenly over \"speech\" until then"
+  "cue_source": "pocketsphinx"
  },
  "C4": {
   "plan": 13.3,
@@ -132,9 +130,8 @@
   "source": "https://www.youtube.com/watch?v=3cvSLNn8RZk",
   "frames": 399,
   "real": 13.313,
-  "src_sig": "6182fc0c4e0a",
-  "src": "C4.mp4",
-  "note": "delivered mp4 has a digital-silent audio track (-91 dB); put the real sound next to the mp4 as C4.wav and run `clips` again"
+  "src_sig": "c0f8358ca2cc",
+  "src": "C4.mp4"
  },
  "C5": {
   "plan": 9.2,
