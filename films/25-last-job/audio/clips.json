@@ -306,13 +306,34 @@
  },
  "K3": {
   "plan": 12.0,
-  "dur": null,
-  "offset": 0.0,
+  "dur": 11.2,
+  "offset": 0.8,
   "name": "Bill Gates",
   "role": "Co-founder of Microsoft, Gates Foundation",
   "source": "https://www.youtube.com/watch?v=MLeTQWQiOvg",
-  "cues": null,
-  "cue_status": "card (QUOTES.gates), decided 10.11. (music under the voice, no clip)",
-  "card": true
+  "cues": [
+   [
+    0.0,
+    "Even under the best circumstances,"
+   ],
+   [
+    2.48,
+    "the transition to this new AI era"
+   ],
+   [
+    4.96,
+    "will be one of the most"
+   ],
+   [
+    6.08,
+    "turbulent times in human history."
+   ]
+  ],
+  "cue_status": "card + narrator (take timestamps from fal v4)",
+  "card": true,
+  "voice": "K3-voice.mp3",
+  "text": "Even under the best circumstances, the transition to this new A.I. era will be one of the most turbulent times in human history.",
+  "voice_note": "narrator reads the quote card (ElevenLabs v4 via fal, voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, 12.11.); take is 8.3 s; slot stays 12.0 s = offset 0.8 + dur 11.2; music NOT ducked extra (mix.py 'voice' slots behave like VO)",
+  "cue_end": 8.45
  }
 }

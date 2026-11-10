@@ -59,10 +59,10 @@ import os
 CL = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
 for c in json.load(open(A + 'timing.json')).get('clips', []):
     cl = CL.get(c['id'], {})   # Film 25: K3 has no 'cues' yet -> no subtitle
-    if cl.get('card') or not cl.get('cues'): continue
+    if not cl.get('cues'): continue   # (a quote card with a narrator take has cues; a silent one has none)
     q, base = cl['cues'], c['start'] + cl.get('offset', 0)   # cue times count from the first footage frame (slot start + offset)
     for k, (t0, line) in enumerate(q):
-        t1 = q[k + 1][0] if k + 1 < len(q) else min(cl.get('dur') or (c['end'] - base), c['end'] - base)
+        t1 = q[k + 1][0] if k + 1 < len(q) else min(cl.get('cue_end') or cl.get('dur') or (c['end'] - base), c['end'] - base)
         cues.append([base + t0, base + t1 - .05, line])
 cues.sort(key=lambda c: c[0])
 for i, c in enumerate(cues):  # hold each cue a little, never overlapping the next

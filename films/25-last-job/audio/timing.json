@@ -334,8 +334,7 @@
 "end": 628.7,
 "under": false,
 "name": "Bill Gates",
-"role": "Co-founder of Microsoft, Gates Foundation",
-"planned": 12.0
+"role": "Co-founder of Microsoft, Gates Foundation"
 },
 {
 "id": "J6",
@@ -443,7 +442,7 @@
 "start": 616.7,
 "end": 628.7,
 "dur": 12.0,
-"length_from": "plan",
+"length_from": "audio/clips.json",
 "under": false
 },
 {

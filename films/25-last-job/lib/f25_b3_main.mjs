@@ -14,7 +14,7 @@ import * as E from './f10_editorial.mjs';
 import * as F from './f25_kit.mjs';
 import * as S from './f25_seams.mjs';
 import * as A from './f25_b3_art.mjs';
-const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, expoOut, expoIn, halo } = E;
+const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, expoOut, expoIn, halo, rad } = E;
 const { rise, maskLine, F0 } = F;
 const { C, RR } = A;
 const TAU = Math.PI * 2;
@@ -426,9 +426,12 @@ function scene(a, T) {
 
   // ============================================================================================ K3 (clip or card), c11 · world C
   const CARD = F.QUOTES.gates;
+  const K3_VOICE_AT = .8, K3_GOLD_AT = 5.9;   // the narrator reads the card (audio/K3-voice.mp3, clips.json K3 offset .8); 'most turbulent' starts 5.9 s into the take
   function k3plate(ctx, t, c) {
     const s5 = [IX(4) + IXH * .15, IXY - IXH * .56];
-    const grow = span(t, a.gates + .2, Math.min(a.matterE + .1, a.k3.start - .05)), shrink = span(t, a.k3.end, a.k3.end + 1.2);
+    // card: the frame grows in the last 1.8 s before it is full (no long empty frame, the words arrive with it); clip: over the whole lead-in sentence
+    const ge = Math.min(a.matterE + .1, a.k3.start - .05), gs = a.k3mode === 'clip' ? a.gates + .2 : Math.max(a.gates + .2, ge - 1.8);
+    const grow = span(t, gs, ge), shrink = span(t, a.k3.end, a.k3.end + 1.2);
     if (grow <= 0 || shrink >= 1) return;
     let from;
     if (shrink > 0) { const f = A.faceOf(S.ROW1.stones[0]); const p = E.project(c, F0, f[0], f[1]); from = [p[0], p[1], 3]; }
@@ -437,10 +440,16 @@ function scene(a, T) {
     if (a.k3mode === 'clip') F.clipPlate(ctx, t, T, 'K3', { from, morph });
     else {
       const r = F.clipPlate(ctx, t, T, 'K3', { from, morph, dark: 1, credits: false });
-      const u = span(morph, .85, 1); if (u <= 0) return;
+      if (shrink <= 0 && grow < .4) return;   // the text arrives with the frame (empty for ~.5 s at most): from 40 % of the growth on, clipped by the growing rect
+      if (shrink > 0 && morph < .5) return;
+      // the voice reads the quote from k3.start + K3_VOICE_AT (audio/clips.json K3 offset); the text is up from the moment the frame has grown
+      const t0 = gs + .4 * (ge - gs), t1 = a.k3.end - .55, tv = a.k3.start + K3_VOICE_AT;
+      const push = smooth(span(t, t0, t1)), br = Math.sin((t - t0) * .9);   // slow push (3 %) and a breath on the card
       ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.beginPath(); ctx.rect(r.cx - r.w / 2, r.cy - r.h / 2, r.w, r.h); ctx.clip();
-      const t0 = Math.max(a.k3.start - .6, a.matterE), t1 = a.k3.end - .55;
-      F.quote(ctx, t, { text: CARD.lines.join(' '), marks: CARD.quoted ? undefined : false, x: 960, y: 430, w: 1340, size: 58, align: 'center', t0, t1, attr: CARD.attr, gold: [[CARD.gold, t0 + 2.2]] });
+      const lg = .06 * span(t, t0, t0 + 1.5) * (1 - span(t, t1, t1 + .5)) * (1 + .3 * br);   // a faint warm light behind the words, breathing
+      ctx.fillStyle = rad(ctx, 960, 560, 700, [[0, rgba(P.halo1, lg)], [1, rgba(P.halo1, 0)]]); ctx.fillRect(r.cx - r.w / 2, r.cy - r.h / 2, r.w, r.h);
+      const k = 1 + .03 * push + .004 * br; ctx.translate(960, 585 - 6 * push); ctx.scale(k, k); ctx.translate(-960, -585);
+      F.quote(ctx, t, { text: CARD.lines.join(' '), marks: CARD.quoted ? undefined : false, x: 960, y: 480, w: 1420, size: 64, align: 'center', t0, t1, attr: CARD.attr, gold: [[CARD.gold, tv + K3_GOLD_AT]] });
       ctx.restore();
     }
   }

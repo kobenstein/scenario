@@ -113,7 +113,7 @@
    "start": 616.7,
    "end": 628.7,
    "dur": 12.0,
-   "length_from": "plan",
+   "length_from": "audio/clips.json",
    "under": false
   },
   {

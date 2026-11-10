@@ -434,6 +434,10 @@ def prepare(a, meta, only):
     for cid in IDS:
         if only and cid not in only: continue
         m = meta.setdefault(cid, {})
+        if cid == 'K3' and a.k3 is None and m.get('card') and m.get('voice'):   # quote card read by the narrator: the take (audio/<voice>) becomes CL/K3.wav, the slot keeps offset + dur = 12 s
+            vf = os.path.join(AUD, m['voice']); shutil.rmtree(os.path.join(CL, cid), ignore_errors=True)
+            sh(['ffmpeg', '-v', 'error', '-y', '-i', vf, '-ac', '2', '-ar', '48000', '-c:a', 'pcm_s16le', os.path.join(CL, 'K3.wav')])
+            print(cid, f"quote card with narrator take {m['voice']} (offset {m.get('offset')}, slot {m.get('offset', 0) + m.get('dur', 0):.2f} s)"); done.append(cid); continue
         if cid == 'K3' and a.k3 is None and m.get('card'): print(cid, 'stays the quote card (use --k3 clip to use footage)'); continue
         if cid == 'K3' and a.k3 == 'card':   # the quote card variant: no footage, no sound, no subtitle; the slot keeps the planned length
             m.update(card=True, dur=None, cues=None, cue_status='card (QUOTES.gates)'); shutil.rmtree(os.path.join(CL, cid), ignore_errors=True)
