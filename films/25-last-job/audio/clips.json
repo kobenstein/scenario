@@ -1,0 +1,10 @@
+{
+ "_comment": "Film 24 slot metadata (format as films/19-biocomputer/audio/clips.json). 'dur' (seconds of real footage/audio) is set when the footage is cut; until then build_vo.py uses the planned slot lengths 'plan' (the data root clips/clips.json 'dauer' also replaces them). 'offset': footage starts this long after the slot opens. 'cues': [[seconds from first footage frame, subtitle line]] for spoken clips (C1, C3, C5); none = no clip subtitle (atmo clips C2, C4 and the pig calls).",
+ "P1": {"plan": 3.9, "dur": null, "offset": 0.0, "file": "pig1-positive.wav", "name": "pig 1 (calm, positive)"},
+ "P2": {"plan": 3.6, "dur": null, "offset": 0.0, "file": "pig2-negative.wav", "name": "pig 2 (shrill, negative)"},
+ "C1": {"plan": 6.8, "dur": null, "offset": 0.0, "name": "Aza Raskin", "role": "Co-founder, Earth Species Project", "source": "https://www.youtube.com/watch?v=4Id5aTlYkHg", "cues": null},
+ "C2": {"plan": 9.6, "dur": null, "offset": 0.0, "name": "Colorado State University", "role": "elephant playback (atmo)", "source": "https://www.youtube.com/watch?v=MXITyX9PPJM"},
+ "C3": {"plan": 10.6, "dur": null, "offset": 0.0, "name": "Denise Herzing", "role": "Founder, Wild Dolphin Project", "source": "https://www.youtube.com/watch?v=1bgL4b7VT8M", "cues": null},
+ "C4": {"plan": 13.3, "dur": null, "offset": 0.0, "name": "WhaleSETI", "role": "humpback Twain (atmo)", "source": "https://www.youtube.com/watch?v=3cvSLNn8RZk"},
+ "C5": {"plan": 9.2, "dur": null, "offset": 0.0, "name": "Aza Raskin", "role": "Co-founder, Earth Species Project", "source": "https://www.youtube.com/watch?v=4Id5aTlYkHg", "cues": null}
+}
