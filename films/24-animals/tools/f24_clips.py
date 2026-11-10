@@ -4,7 +4,7 @@
   python3 tools/f24_clips.py assemble --name fassung-1 [--chunks DIR] [--fresh] [--calm] [--no-contact] [--crf 18]
       The chunk videos (c01..c11, 1080p30, no sound) are checked (resolution, fps, codec, frame count of every chunk against the chunk
       ranges of film.mjs, no gaps or overlaps, total = timing duration), joined, the mix (audio/mix.wav, -14 LUFS) goes under, the
-      subtitles (ASS) are burned in, master 1080p H.264 CRF 18 + AAC 320k, then a 720p preview (to the data root) and the checks
+      subtitles (ASS) are burned in, master 1080p H.264 CRF 18 + AAC 320k, then a 720p preview (local only; --root-preview copies it to the data root) and the checks
       (duration, LUFS / true peak, contact sheet 1 frame per 5 s to <ROOT>bild/<name>_kontakt.jpg, optionally calm.py).
   python3 tools/f24_clips.py clips <dir with C1.mp4 … C5.mp4, pig1-positive.wav, pig2-negative.wav> --name fassung-2
           [--only C1,C3] [--tol 0.15] [-j 2] [--quote C1="spoken words"] [--quotes quotes.json] [--plan] [--allow-shift] [--no-assemble]
@@ -203,9 +203,11 @@ def cmd_assemble(a):
         pv = os.path.join(FINAL, f'{name}-720p.mp4'); t0 = time.time()
         sh(['ffmpeg', '-v', 'error', '-y', '-i', m, '-vf', 'scale=1280:720', '-c:v', 'libx264', '-crf', '27', '-maxrate', '1700k', '-bufsize', '3400k', '-preset', 'medium',
             '-tune', 'grain', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', pv])
-        dst = ROOT + f'{name}-720p.mp4'; shutil.copy(pv, dst); time.sleep(10)   # network drive: wait, then check
-        sz = os.path.getsize(dst); print(f'preview {dst} {sz / 1e6:.0f} MB (local {os.path.getsize(pv) / 1e6:.0f} MB; limit 500 MB) in {time.time() - t0:.0f} s')
-        if sz != os.path.getsize(pv) or sz > 500e6: print('  FAIL preview copy incomplete or over 500 MB')
+        if getattr(a, 'root_preview', False):   # the network drive is short of space: the preview only goes there when asked for (--root-preview)
+            dst = ROOT + f'{name}-720p.mp4'; shutil.copy(pv, dst); time.sleep(10)   # network drive: wait, then check
+            sz = os.path.getsize(dst); print(f'preview {dst} {sz / 1e6:.0f} MB (local {os.path.getsize(pv) / 1e6:.0f} MB; limit 500 MB) in {time.time() - t0:.0f} s')
+            if sz != os.path.getsize(pv) or sz > 500e6: print('  FAIL preview copy incomplete or over 500 MB')
+        else: print(f'preview {pv} {os.path.getsize(pv) / 1e6:.0f} MB (local only)')
     verify(m, T)
     if not a.no_contact:
         os.makedirs(ROOT + 'bild', exist_ok=True); contact(m, ROOT + f'bild/{name}_kontakt.jpg')
@@ -268,6 +270,7 @@ def speech_span(wav, d):
     o = subprocess.run(['ffmpeg', '-hide_banner', '-i', wav, '-t', str(d), '-af', 'silencedetect=n=-35dB:d=0.25', '-f', 'null', '-'], capture_output=True, text=True).stderr
     st = [float(x) for x in re.findall(r'silence_start: ([\d.]+)', o)]; en = [float(x) for x in re.findall(r'silence_end: ([\d.]+)', o)]
     return (en[0] if st and st[0] < .05 and en else 0.0), min(st[-1] if st and (not en or st[-1] > en[-1]) else d, d)
+NUM = {'30': 'thirty', '20': 'twenty', '10': 'ten', '2': 'two', '3': 'three', '1': 'one'}   # digits in a quote, as spoken
 def align(wav, text, d):
     try: from pocketsphinx import Decoder, get_model_path
     except ImportError: return None
@@ -276,20 +279,34 @@ def align(wav, text, d):
     dic = {l.split()[0] for l in open(get_model_path() + '/en-us/cmudict-en-us.dict')}
     words = text.split(); seq, own = [], []
     for k, w in enumerate(words):
-        for t in [t for t in re.sub(r"[^a-z' -]", '', w.lower()).replace('-', ' ').split() if t.strip("'")]: seq.append(t if t in dic else 'the'); own.append(k)
-    dec = Decoder(loglevel='FATAL'); dec.set_align_text(' '.join(seq)); dec.start_utt(); dec.process_raw(open(raw, 'rb').read(), full_utt=True); dec.end_utt()
-    seg = [(x.start_frame / 100, (x.end_frame + 1) / 100) for x in (dec.seg() or []) if x.word not in ('<sil>', '</s>', '<s>') and not x.word.startswith('++')]
-    if len(seg) != len(seq): return None
-    o = [[w, None, None] for w in words]
-    for (x, y), k in zip(seg, own):
+        for t in [t for t in re.sub(r"[^a-z0-9' -]", '', w.lower()).replace('-', ' ').split() if t.strip("'")]:
+            t = NUM.get(t, t); seq.append(t if t in dic else 'the'); own.append(k)
+    def run(sq):
+        dec = Decoder(loglevel='FATAL'); dec.set_align_text(' '.join(sq)); dec.start_utt(); dec.process_raw(open(raw, 'rb').read(), full_utt=True); dec.end_utt()
+        return [(x.start_frame / 100, (x.end_frame + 1) / 100) for x in (dec.seg() or []) if x.word not in ('<sil>', '</s>', '<s>') and not x.word.startswith('++')]
+    cut = 0   # the forced alignment can fail on a rough tail (overlapping voices, music): then drop trailing words, align the rest, and spread the dropped words evenly to the end of the speech
+    while cut < min(10, len(seq) - 4):
+        seg = run(seq[:len(seq) - cut])
+        if len(seg) == len(seq) - cut: break
+        cut += 1
+    else: return None
+    own_n = own[:len(seq) - cut]; o = [[w, None, None] for w in words]
+    for (x, y), k in zip(seg, own_n):
         if o[k][1] is None: o[k][1] = x
         o[k][2] = y
+    if cut:   # the dropped tokens (not words: "30-million-year-old" is one word) share the time to the end of the speech by their length
+        tk = seq[len(seq) - cut:]; x0 = seg[-1][1]; x1 = max(x0 + .25 * cut, min(speech_span(wav, d)[1], d - .1)); n = sum(len(t) + 1 for t in tk); c = 0
+        for t, k in zip(tk, own[len(seq) - cut:]):
+            a, b = x0 + (x1 - x0) * c / n, x0 + (x1 - x0) * (c + len(t) + 1) / n; c += len(t) + 1
+            if o[k][1] is None: o[k][1] = a
+            o[k][2] = b
+        print(f'  note: alignment of the last {cut} spoken words failed; spread evenly over {x0:.2f}-{x1:.2f} s')
     return o
 def make_cues(cid, m):
     wav = os.path.join(CL, f'{cid}.wav')
     if not m.get('quote') or not os.path.exists(wav): return
     Wd = align(wav, m['quote'], m['dur']); how = 'pocketsphinx'
-    if Wd is None: x, y = speech_span(wav, m['dur']); Wd = even_words(m['quote'], x, y); how = f'even over the speech {x:.2f}-{y:.2f} s (alignment failed)'
+    if Wd is None: x, y = m['speech'] if m.get('speech') else speech_span(wav, m['dur']); Wd = even_words(m['quote'], x, y); how = f'even over the speech {x:.2f}-{y:.2f} s (alignment failed)'
     m['cues'] = cues_from_words(Wd); m['cue_source'] = how; print(cid, 'cues:', how); [print('  ', c) for c in m['cues']]
 
 def prepare(src, meta, only, tol):
@@ -309,8 +326,12 @@ def prepare(src, meta, only, tol):
             print(cid, 'footage unchanged (frames present)')
         else:
             shutil.rmtree(fd, ignore_errors=True); os.makedirs(fd)
-            sc = ('scale=1680:945:force_original_aspect_ratio=decrease' if fit == 'contain' else 'scale=1680:945:force_original_aspect_ratio=increase,crop=1680:945')
-            sh(['ffmpeg', '-v', 'error', '-y', '-ss', str(tin), '-i', f, '-t', f'{d:.3f}', '-vf', f"fps={FPS},{'crop=' + m['crop'] + ',' if m.get('crop') else ''}{sc}", '-q:v', '2', os.path.join(fd, 'f%05d.jpg')])
+            pre = f"fps={FPS},{'crop=' + m['crop'] + ',' if m.get('crop') else ''}"
+            if fit == 'contain':   # e.g. the portrait C3 (608x1080): whole picture centred in 1680x945 on a darkened, blurred copy of itself (cover would crop it to a strip)
+                vf = (pre + 'split[a][b];[a]scale=1680:945:force_original_aspect_ratio=increase,crop=1680:945,boxblur=40:4,eq=brightness=-0.18:saturation=.8[bg];'
+                      '[b]scale=1680:945:force_original_aspect_ratio=decrease[fg];[bg][fg]overlay=(W-w)/2:(H-h)/2')
+            else: vf = pre + 'scale=1680:945:force_original_aspect_ratio=increase,crop=1680:945'
+            sh(['ffmpeg', '-v', 'error', '-y', '-ss', str(tin), '-i', f, '-t', f'{d:.3f}', '-vf', vf, '-q:v', '2', os.path.join(fd, 'f%05d.jpg')])
             n = len([x for x in os.listdir(fd) if x.endswith('.jpg')])
             if has_snd:
                 sh(['ffmpeg', '-v', 'error', '-y', '-ss', str(tin), '-i', wav_src if os.path.exists(wav_src) else f, '-t', f'{d:.3f}', '-vn', '-ac', '2', '-ar', '48000', '-c:a', 'pcm_s16le', os.path.join(CL, f'{cid}.wav')])
@@ -464,7 +485,7 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter); ap.add_argument('--work')
     sp = ap.add_subparsers(dest='cmd'); common = argparse.ArgumentParser(add_help=False); common.add_argument('--work', default=argparse.SUPPRESS)
     p = sp.add_parser('assemble', parents=[common]); p.add_argument('--name', required=True); p.add_argument('--chunks'); p.add_argument('--fresh', action='store_true')
-    p.add_argument('--calm', action='store_true'); p.add_argument('--no-contact', action='store_true'); p.add_argument('--no-preview', action='store_true'); p.add_argument('--crf', type=int, default=18)
+    p.add_argument('--calm', action='store_true'); p.add_argument('--no-contact', action='store_true'); p.add_argument('--no-preview', action='store_true'); p.add_argument('--root-preview', action='store_true'); p.add_argument('--crf', type=int, default=18)
     p = sp.add_parser('clips', parents=[common]); p.add_argument('dir'); p.add_argument('--name'); p.add_argument('--only'); p.add_argument('--tol', type=float, default=.15)
     p.add_argument('-j', type=int, default=2); p.add_argument('--margin', type=float, default=.8); p.add_argument('--quote', action='append'); p.add_argument('--quotes')
     p.add_argument('--plan', action='store_true'); p.add_argument('--allow-shift', action='store_true'); p.add_argument('--no-assemble', action='store_true'); p.add_argument('--chunks')

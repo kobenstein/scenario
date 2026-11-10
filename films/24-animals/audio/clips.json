@@ -1,10 +1,183 @@
 {
  "_comment": "Film 24 slot metadata (format as films/19-biocomputer/audio/clips.json). 'dur' (seconds of real footage/audio) is set when the footage is cut; until then build_vo.py uses the planned slot lengths 'plan' (the data root clips/clips.json 'dauer' also replaces them). 'offset': footage starts this long after the slot opens. 'cues': [[seconds from first footage frame, subtitle line]] for spoken clips (C1, C3, C5); none = no clip subtitle (atmo clips C2, C4 and the pig calls).",
- "P1": {"plan": 3.9, "dur": null, "offset": 0.0, "file": "pig1-positive.wav", "name": "pig 1 (calm, positive)"},
- "P2": {"plan": 3.6, "dur": null, "offset": 0.0, "file": "pig2-negative.wav", "name": "pig 2 (shrill, negative)"},
- "C1": {"plan": 6.8, "dur": null, "offset": 0.0, "name": "Aza Raskin", "role": "Co-founder, Earth Species Project", "source": "https://www.youtube.com/watch?v=4Id5aTlYkHg", "cues": null},
- "C2": {"plan": 9.6, "dur": null, "offset": 0.0, "name": "Colorado State University", "role": "elephant playback (atmo)", "source": "https://www.youtube.com/watch?v=MXITyX9PPJM"},
- "C3": {"plan": 10.6, "dur": null, "offset": 0.0, "name": "Denise Herzing", "role": "Founder, Wild Dolphin Project", "source": "https://www.youtube.com/watch?v=1bgL4b7VT8M", "cues": null},
- "C4": {"plan": 13.3, "dur": null, "offset": 0.0, "name": "WhaleSETI", "role": "humpback Twain (atmo)", "source": "https://www.youtube.com/watch?v=3cvSLNn8RZk"},
- "C5": {"plan": 9.2, "dur": null, "offset": 0.0, "name": "Aza Raskin", "role": "Co-founder, Earth Species Project", "source": "https://www.youtube.com/watch?v=4Id5aTlYkHg", "cues": null}
+ "P1": {
+  "plan": 3.9,
+  "dur": 3.9,
+  "offset": 0.0,
+  "file": "pig1-positive.wav",
+  "name": "pig 1 (calm, positive)",
+  "real": 3.889
+ },
+ "P2": {
+  "plan": 3.6,
+  "dur": 3.6,
+  "offset": 0.0,
+  "file": "pig2-negative.wav",
+  "name": "pig 2 (shrill, negative)",
+  "real": 3.595
+ },
+ "C1": {
+  "plan": 6.8,
+  "dur": 6.8,
+  "offset": 0.0,
+  "name": "Aza Raskin",
+  "role": "Co-founder, Earth Species Project",
+  "source": "https://www.youtube.com/watch?v=4Id5aTlYkHg",
+  "cues": [
+   [
+    0.0,
+    "If we can't understand"
+   ],
+   [
+    1.71,
+    "what the whales"
+   ],
+   [
+    2.49,
+    "are communicating with each other,"
+   ],
+   [
+    3.89,
+    "how do we ever"
+   ],
+   [
+    4.69,
+    "expect to understand"
+   ],
+   [
+    5.64,
+    "what aliens are communicating?"
+   ]
+  ],
+  "quote": "If we can't understand what the whales are communicating with each other, how do we ever expect to understand what aliens are communicating?",
+  "frames": 204,
+  "real": 6.798,
+  "src_sig": "1a58145cd15b",
+  "src": "C1.mp4",
+  "cue_source": "pocketsphinx"
+ },
+ "C2": {
+  "plan": 9.6,
+  "dur": 9.6,
+  "offset": 0.0,
+  "name": "Colorado State University",
+  "role": "elephant playback (atmo)",
+  "source": "https://www.youtube.com/watch?v=MXITyX9PPJM",
+  "frames": 288,
+  "real": 9.61,
+  "src_sig": "edb3da72c7be",
+  "src": "C2.mp4",
+  "note": "delivered mp4 has a digital-silent audio track (-91 dB); put the real sound next to the mp4 as C2.wav and run `clips` again"
+ },
+ "C3": {
+  "plan": 10.6,
+  "dur": 10.6,
+  "offset": 0.0,
+  "fit": "contain",
+  "speech": [
+   0.3,
+   10.3
+  ],
+  "name": "Denise Herzing",
+  "role": "Founder, Wild Dolphin Project",
+  "source": "https://www.youtube.com/watch?v=1bgL4b7VT8M",
+  "cues": [
+   [
+    0.3,
+    "So feeding dolphin"
+   ],
+   [
+    1.503,
+    "sounds into an AI model"
+   ],
+   [
+    3.022,
+    "like DolphinGemma"
+   ],
+   [
+    4.161,
+    "will give us a really"
+   ],
+   [
+    5.553,
+    "good look at if there"
+   ],
+   [
+    6.946,
+    "are patterns,"
+   ],
+   [
+    7.832,
+    "subtleties that humans"
+   ],
+   [
+    9.287,
+    "can't pick out."
+   ]
+  ],
+  "quote": "So feeding dolphin sounds into an AI model like DolphinGemma will give us a really good look at if there are patterns, subtleties that humans can't pick out.",
+  "frames": 318,
+  "real": 10.635,
+  "src_sig": "9d5285e34974",
+  "src": "C3.mp4",
+  "cue_source": "even over the speech 0.30-10.30 s (alignment failed)",
+  "note": "delivered mp4 has a digital-silent audio track (-91 dB); put the real sound next to the mp4 as C3.wav and run `clips` again; the C3 cues are only spread evenly over \"speech\" until then"
+ },
+ "C4": {
+  "plan": 13.3,
+  "dur": 13.3,
+  "offset": 0.0,
+  "name": "WhaleSETI",
+  "role": "humpback Twain (atmo)",
+  "source": "https://www.youtube.com/watch?v=3cvSLNn8RZk",
+  "frames": 399,
+  "real": 13.313,
+  "src_sig": "6182fc0c4e0a",
+  "src": "C4.mp4",
+  "note": "delivered mp4 has a digital-silent audio track (-91 dB); put the real sound next to the mp4 as C4.wav and run `clips` again"
+ },
+ "C5": {
+  "plan": 9.2,
+  "dur": 10.767,
+  "offset": 0.0,
+  "name": "Aza Raskin",
+  "role": "Co-founder, Earth Species Project",
+  "source": "https://www.youtube.com/watch?v=4Id5aTlYkHg",
+  "cues": [
+   [
+    0.0,
+    "I mean their culture,"
+   ],
+   [
+    0.83,
+    "by the way, extends back"
+   ],
+   [
+    1.74,
+    "as far as we can tell like"
+   ],
+   [
+    2.88,
+    "over 30 million years."
+   ],
+   [
+    4.9,
+    "So, there you might be messing up"
+   ],
+   [
+    7.46,
+    "a 30-million-year-old"
+   ],
+   [
+    9.573,
+    "wisdom tradition"
+   ]
+  ],
+  "quote": "I mean their culture, by the way, extends back as far as we can tell like over 30 million years. So, there you might be messing up a 30-million-year-old wisdom tradition",
+  "frames": 323,
+  "real": 10.761,
+  "src_sig": "b9408346aacf",
+  "src": "C5.mp4",
+  "cue_source": "pocketsphinx"
+ }
 }
