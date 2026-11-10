@@ -8,7 +8,7 @@ export const PAL = { // ground, middle, accent (konzept.md §3)
   2: ['#0b0f2a', '#f3efe2', '#c4512e'], 3: ['#0c1b33', '#dfe8f2', '#5fe0a8'], 4: ['#4a3426', '#e8a3a0', '#8fd27a'],
   5: ['#1e4a3a', '#e9c46a', '#b7c25a'], 6: ['#0d1530', '#f5b08a', '#f0a04b'], 7: ['#070918', '#ffd08a', '#ffb35c'],
 };
-const SECNAME = { H: 'Hook · two pigs', 1: 'S2 Who are they?', 2: 'S3 Learning without a dictionary', 3: 'S4 How far? The tour', 4: 'S5 The wall', 5: 'S6 What would change?', 6: 'S7 The day it works (scenario)' };   // Film 24 (tools/provisional_timing.py SECS)
+const SECNAME = { H: 'Hook · the row', 1: 'Act 1 · what falls first (No. 10–8)', 2: 'Act 2 · the turn (No. 7–6)', 3: 'Act 3 · what lasts (No. 5–2)', 4: 'No. 1', 5: 'Act 4 · what protects you', 6: 'Ending' };   // Film 25 (tools/provisional_timing.py SECS)
 
 function wrapWords(ctx, words, size, maxW) {
   ctx.font = `${size}px "Instrument Serif"`; const sp = ctx.measureText(' ').width, lines = []; let cur = [], w = 0;

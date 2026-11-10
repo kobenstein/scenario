@@ -1,40 +1,40 @@
-// Film 24 "AI Can Now Hear What Animals Feel" (~10 min narration + 15 s end screen), built on the Film 10/13/16/18/19 editorial-night machinery.
-// Style: stil/STIL-editorial-nacht.md · plan: docs/MOTION.md + docs/shots.md (source: tools/shots24.py) · builders: docs/BRIEF-builders.md.
+// Film 25 "The Last Human Job" (~10 min narration + 15 s end screen), built on the Film 10/13/16/24 editorial-night machinery.
+// Plan: docs/MOTION.md + docs/shots.md (source: tools/shots25.py) · kit: lib/f25_kit.mjs · seams: lib/f25_seams.mjs · builders: docs/BRIEF-builders.md.
 // Eleven chunk files scenes/sc01.mjs … sc11.mjs return their entries; this file stitches them into one timeline.
 // NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a
 // planned match on a carrier). Any other tr is turned into 'cut' with a warning. Missing chunks render as stubs.
 //   export default (T, R) => [ entry, … ]       T = timing helpers (lib/kit.mjs: T.G / T.GE global phrase anchors), R = { a, b, id, name, first }
-//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (F.PRINT24)
+//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (F.PRINT25)
 // SECS=c01,c02 node render.mjs --snap ...   builds only those chunks (absolute times stay the same).
 // Timing: $TIMING, else <ROOT>audio/timing.json (the real VO, written by the audio agent), else data/provisional_timing.json
-// (tools/provisional_timing.py, from vo-v5.txt or vo-v4.txt; a warning is printed). ROOT = $F24ROOT or /mnt/project-files/scenario/film-tiersprache/.
+// (tools/provisional_timing.py, from vo-v4.txt or vo-v3.txt; a warning is printed). ROOT = $F25ROOT or /mnt/project-files/scenario/film-last-human-job/.
 import fs from 'node:fs';
 import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
 import { finish as edFinish } from './lib/f10_editorial.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
-import { prepareClipFrames } from './lib/f24_kit.mjs';
+import { prepareClipFrames } from './lib/f25_kit.mjs';
 
 export { ROOT };
 // chunk table (docs/shots.md §2); from = the first phrase of the chunk, looked up GLOBALLY in the film (T.G), so any VO segmentation works
-export const CHUNKS = [
-  { id: 'c01', name: 'Hook: two pigs, guess which, the two calls, A.I. 9/10, feelings yes words not yet → the map: California, ESP, 2030', from: 'Scientists are trying' },
-  { id: 'c02', name: 'Who: never-heard call → species card · the scroll founder · not your dog · C1 Raskin · $10M · no dictionary', from: 'Their A.I. can already' },
-  { id: 'c03', name: 'How: the baby listens · patterns · the mountain of calls · hide and guess · the recorder · patterns first → 2030 strip', from: 'Every baby on Earth' },
-  { id: 'c04', name: 'Tour I · Kenya: elephants have names (C2) · ESP hears the chorus', from: 'Further than you might' },
-  { id: 'c05', name: 'Tour II · Spain: crows with recorders · Europe: the pigs from the start (feelings)', from: 'Now north, to Spain' },
-  { id: 'c06', name: 'Tour III · Caribbean sperm whales (parts) · Bahamas dolphins (C3) · California finches · the empty middle', from: 'In the Caribbean' },
-  { id: 'c07', name: 'The wall: toddlers · the unclaimed prize · Alaska humpback (C4) · ESP admits · no translator · subscribe 1', from: 'Why is meaning so hard' },
-  { id: 'c08', name: 'What would change? 1970 the whale record → 1982 whaling paused', from: 'But suppose they make it' },
-  { id: 'c09', name: 'The pigs again · Germany 9 in 100 · a feeling · imagine · Iceland · the meat paradox · in words?', from: 'Now think back to those pigs' },
-  { id: 'c10', name: 'Scenario · Day 1 Kenya (time to go) · do we answer? C5 · Year 1 New Zealand court', from: 'Twenty thirty. Day one' },
-  { id: 'c11', name: 'Scenario · Year 10 Iowa barn, your dog · other minds · back to today · A.I. can hear them now · subscribe 2 · end screen', from: 'Year ten' },
+export const CHUNKS = [   // from = first phrase of the chunk (nth = which occurrence in the film, for repeated sentences)
+  { id: 'c01', name: 'Hook · the row · one job = a row of tasks · they fall · the desk, not the factory (Stanford) · Jakob: his row, the studio, J1 · he is still here', from: 'There will be a last' },
+  { id: 'c02', name: 'Ten kinds of work · the rank rail · No. 10 the first job at the desk: the empty junior desk · K1 Brynjolfsson · seniors kept, juniors not hired · J2 first piece', from: 'Ten kinds of work' },
+  { id: 'c03', name: 'No. 9 the voice: Microsoft ranking · the empty booth (not a person) · No. 8 office routine: 9 of 10 could, a fraction did · Challenger cuts · creative safe?', from: 'Number nine' },
+  { id: 'c04', name: 'No. 7 creative handwork: the studio, agents take lanes · J3 climb · J3b the edit', from: 'Number seven' },
+  { id: 'c05', name: "The puzzle · Hinton 2016 radiologists · record training places · what a radiologist does · tasks, not jobs (the row) · J4 · the core sentence", from: "So here's the puzzle" },
+  { id: 'c06', name: 'Subscribe 1 (the lamp passed along the ridge) · how much is left standing · No. 6 agents run the whole workflow · Amodei card · forecast vs measured', from: 'This channel exists for one reason' },
+  { id: 'c07', name: 'No. 5 teachers · No. 4 doctors · the row slows (hands) · No. 3 trades: flooded basement vs clean factory · K2 Hinton · until the robots get good', from: 'Number five' },
+  { id: 'c08', name: 'No. 2 care: the nurse at night · Microsoft bottom · a person is the point · Jakob J5: one film a day vs two weeks · what is left', from: 'Number two' },
+  { id: 'c09', name: 'No. 1 where we want a human (the gold stone) · chess: 30 years beaten, bigger than ever · the last job is the one we won’t hand over', from: "Number one isn't" },
+  { id: 'c10', name: 'Act 4 · five things that protect you (judgment, directing, trust, hands + head, learning in steps) · K3 Gates', from: 'So how do you stay' },
+  { id: 'c11', name: 'Ending · every time the machine took a step · the step you take next · J6 · subscribe 2 · 15 s end screen', from: 'Every time the machine took a step', nth: 1 },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 
 export function chunkRanges(T) {
-  const a = CHUNKS.map((c, i) => (i ? T.G(c.from) : 0));
-  return Object.fromEntries(CHUNKS.map((c, i) => [c.id, { ...c, a: i ? a[i] : 0, b: i + 1 < CHUNKS.length ? a[i + 1] : T.duration, first: i ? a[i] : T.G(c.from) }]));
+  const a = CHUNKS.map((c, i) => (i ? T.G(c.from, c.nth ?? 0) : 0));
+  return Object.fromEntries(CHUNKS.map((c, i) => [c.id, { ...c, a: i ? a[i] : 0, b: i + 1 < CHUNKS.length ? a[i + 1] : T.duration, first: i ? a[i] : T.G(c.from, c.nth ?? 0) }]));
 }
 
 const PROVISIONAL = new URL('./data/provisional_timing.json', import.meta.url).pathname;

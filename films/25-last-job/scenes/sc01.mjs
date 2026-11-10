@@ -1,208 +1,256 @@
-// c01 · Hook · the barn · two pigs · sound 1 / sound 2 · the answer · you and A.I. · feelings yes, words not yet · the zoom out onto
-// the night map · the gold ESP pin in California · 2030 · the question → plateCalifornia (lib/f24_seams.mjs) for the last .5 s.
-// 0 → T.G('Their A.I. can already') · built by the lead (quality reference). Plan: docs/shots.md 1.01–1.10 · world/rules: docs/MOTION.md
-// ONE entry, ONE world, ONE continuous camera, no cut: the barn under its lamp (the warm hero light) → you at the fence → the cards rise
-// out of the pigs' backs → a wave grows over each pig while it calls → the beads slide (pig 2: NOT FINE) → you ✓, A.I. 9/10 →
-// [translating…] stays empty → the whole barn shrinks into the medallion of the Europe pig pin while the map opens round it (one zoom,
-// the medallion IS the barn) → the gold ESP pin grows in California → every species calls → the label, the 2030 strip is born on it and
-// docks → the question; the map pushes onto California = the plate.
+// c01 · Hook · the row of task stones (thumbnail A) · an email, a report, a translation · the machine takes them in seconds · one job =
+// a row of tasks · they fall · which falls last? · up into the sky: not the factory, the desk · Stanford: the young at the desk fall
+// behind · the cool line comes down onto Jakob's row · into the light of TOPIC → the studio (15 years by hand, the last four years) ·
+// J1 · every step himself · out of the lamp → Jakob's row falls, TOPIC stands, Jakob beside it = plateJakobRow (lib/f25_seams.mjs).
+// 0 → T.G('Ten kinds of work') · built by the lead (quality reference). Plan: docs/shots.md 1.01–1.19 · world/rules: docs/MOTION.md
+// ONE entry, two worlds joined by two light doors (the warm light of TOPIC ↔ the desk lamp), continuous camera inside each world.
 //
-// | ID    | anchor (phrase)                          | picture (one idea)                                              | moves               | camera / layer      |
-// |-------|------------------------------------------|-----------------------------------------------------------------|---------------------|---------------------|
-// | 1.01★ | Scientists are trying … animals are saying | the barn at night, two pigs under one lamp; small calls rise   | calls · push        | slow push · SCENE   |
-// | 1.02  | The first step … A.I. can hear what they feel | the claim, top left (serif, gold on "what they feel")        | line rises          | push · SCENE+EXPL   |
-// | 1.03  | Try it yourself                          | the camera pulls back: you at the fence, leaning in             | pull back · lean    | reveal · SCENE      |
-// | 1.04  | One of these two pigs … Guess which      | PIG 1 / PIG 2 cards rise out of their backs, FEELS ?            | cards (staggered)   | breathing · EXPL    |
-// | 1.05  | Listen [P1] · And this one [P2]           | a wave grows over the calling pig, the snout / the raised head  | wave grows          | drift to the pig    |
-// | 1.06  | It's the second pig                      | the beads slide: pig 2 NOT FINE (cool), pig 1 FINE (gold)       | beads               | back to both · EXPL |
-// | 1.07  | You probably got it … nine times out of ten | YOU ✓ · A.I. (the gold listener) 9 of 10 marks · 9/10        | tick · marks        | slow push · EXPL    |
-// | 1.08  | Feelings, yes. Words, not yet.           | ticks on both FEELS rows · an empty [translating…] bar          | ticks · bar         | push · EXPL         |
-// | 1.09  | A small nonprofit in California … on Earth  | the barn shrinks into the pig pin; the night map; the ESP pin; calls spread | ONE zoom out · pin · calls | flight · MAP |
-// | 1.10  | Earth Species Project … twenty thirty · Will they make it | label · the 2030 strip born on it, docks · the question · push onto CA | label · strip · push | MAP → plateCalifornia |
+// | ID    | anchor (phrase)                         | picture (one idea)                                               | camera / layer       |
+// |-------|-----------------------------------------|------------------------------------------------------------------|----------------------|
+// | 1.01★ | There will be a last human job          | the row, the stone of light, you; THE LAST HUMAN JOB (thumbnail) | home · ROW           |
+// | 1.02  | Think of something you did at work      | the title sinks; glide right along the stone faces               | glide · ROW          |
+// | 1.03  | An email. A report. A translation.      | the glyphs on stones 1–3 light warm on their words               | glide · ROW          |
+// | 1.04  | A machine can now do it in seconds      | a cool bead drops from the sky and drains the three glyphs        | follow bead · ROW    |
+// | 1.05  | Every job is a row of tasks like that   | pull back: the whole row, bracket ONE JOB                        | pull back · EXPL     |
+// | 1.06  | And they're starting to fall · dominoes | the cascade, far → near, every stone leans on the next           | drift · ROW          |
+// | 1.07  | So which human job falls last? · not … | the stone of light stands, you look up at it                     | push · ROW           |
+// | 1.08  | not in the factory · at the desk        | tilt up into the sky: FACTORY, DESK; the bead swerves to the desk | tilt up · EXPL       |
+// | 1.09  | Among young people … a fifth behind     | the Stanford lines grow from the desk: −19 %                     | truck right · EXPL   |
+// | 1.10  | The creator … his whole row · his job   | the cool line comes down onto Jakob's row (TOPIC of light near)  | tilt down · ROW      |
+// | 1.11  | His name is Jakob                       | push into TOPIC's light → flood → out of the desk lamp           | dive · door          |
+// | 1.12  | For fifteen years … video producer      | the studio: the year ruler, the playhead fills the lanes by hand | pull back · STUDIO   |
+// | 1.13  | Concepts, shoots, edits, animation      | the lane headers light on their words                            | drift · STUDIO       |
+// | 1.14  | … as fast as the last four years        | the last four years of the ruler stretch and turn cool           | rise · STUDIO        |
+// | 1.15  | [J1] Topic, idea, script …              | lower third JAKOB · CREATOR; headers light top → bottom          | tilt down · STUDIO   |
+// | 1.16  | A few years ago … every step himself    | the whole studio, every lane his                                 | pull back · STUDIO   |
+// | 1.17  | Today, a machine does almost all of them | into the lamp → out of TOPIC's light: his row falls, beads lift | dive · door · ROW    |
+// | 1.18  | And yet, he's still here.               | Jakob stands beside the stone of light → plateJakobRow            | settle · ROW         |
 import * as E from '../lib/f10_editorial.mjs';
-import * as F from '../lib/f24_kit.mjs';
-import { plateCalifornia, CA_VIEW, CA_CALLS, SEAM_HALF } from '../lib/f24_seams.mjs';
-const { W, H, P, rgba, mixHex, clamp, lerp, span, sineIO, expoOut, expoIn } = E;
-const { rise, maskLine } = F;
+import * as F from '../lib/f25_kit.mjs';
+import * as S from '../lib/f25_seams.mjs';
+const { W, H, P, rgba, clamp, lerp, span, sineIO, expoOut, expoIn } = E;
+const { rise, maskLine, F0 } = F;
 
-export const PRINT = F.PRINT24;
+export const PRINT = F.PRINT25;
 
 export default async (T, R) => {
   E.prepareEditorial();
   const G = (p, after = 0) => T.G(p, 0, after), GE = (p, after = 0) => T.GE(p, 0, after);
   const a = {};
-  a.sci = G('Scientists are trying'); a.saying = G('animals are saying', a.sci);
-  a.first = G('The first step'); a.hear = G('A.I. can hear', a.first); a.feel = G('what they feel', a.first);
-  a.try = G('Try it yourself');
-  a.one = G('One of these two pigs'); a.doesnt = G("One doesn't", a.one); a.guess = G('Guess which', a.one);
-  a.listen = G('Listen', a.guess); a.p1 = T.clip('P1'); a.this = G('And this one', a.listen); a.p2 = T.clip('P2');
-  a.second = G("It's the second pig"); a.secondW = G('second pig', a.second);
-  a.you = G('You probably got it'); a.ai = G('A.I. gets it too', a.you); a.nine = G('nine times', a.ai); a.ten = G('out of ten', a.ai);
-  a.feelings = G('Feelings, yes'); a.words = G('Words, not yet'); a.wordsE = GE('Words, not yet');
-  a.small = G('wants to change that') - .9; a.cal = G('California', a.small - 2);   // "A small nonprofit in California wants to change that"
-  a.every = G('species on Earth', a.small) - .3; a.everyE = GE('species on Earth', a.small);
-  a.esp = G('Earth Species Project', a.every); a.born = GE('breakthroughs by twenty thirty');
-  a.will = G('Will they make it'); a.willE = GE('what happens to us if they do', a.will);
+  a.think = G('Think of something'); a.email = G('An email'); a.report = G('A report'); a.transl = G('A translation');
+  a.machine = G('A machine can now'); a.secondsE = GE('in seconds', a.machine);
+  a.every = G('Every job is a row'); a.fall = G("And they're starting to fall"); a.dom = G('Like dominoes');
+  a.which = G('So which human job'); a.notone = G("It's not the one");
+  a.factory = G('in the factory'); a.desk = G('They started at the desk'); a.deskW = G('desk', a.desk);
+  a.young = G('Among young people'); a.fifth = G('a fifth behind'); a.youngE = GE('a fifth behind');
+  a.creator = G('The creator of this channel'); a.whole = G('his whole row fall'); a.inside = G('Inside his own job');
+  a.name = G('His name is Jakob'); a.nameE = GE('His name is Jakob');
+  a.fifteen = G('For fifteen years'); a.producer = G('video producer', a.fifteen);
+  a.concepts = G('Concepts', a.producer); a.shoots = G('shoots', a.concepts); a.edits = G('edits', a.concepts); a.anim = G('animation', a.concepts);
+  a.inall = G('And in all that time'); a.four = G('the last four years', a.inall);
+  a.J1 = T.clip('J1'); a.few = G('A few years ago'); a.today = G('Today, a machine does'); a.yet = G("And yet, he's still here");
   a.end = R.b;
   return [{ t: 0, draw: scene(a, T), print: PRINT }];
 };
 
-// ===================================================================================================== the set (barn design px, F0)
-const B = F.BARN, F0 = F.F0;
-const CARD1 = [262, 300], CARD2 = [1352, 300], CS = 1.2;   // card top-left (scale CS): over each pig's rump
-const WAVE1 = [780, 508], WAVE2 = [1140, 508], WW = 280;   // the call waves: over each head, either side of the lamp's axis
-const BAR = [960, 398];                                   // [translating…]: between the cards, under the lamp
-const CAM = {
-  lamp: F.aim(F0, 968, 380, 1.62),    // picture first: close under the lamp (the hero light), then down onto the pigs
-  open: F.aim(F0, 1050, 612, 1.2),   // the two pigs and the lamp; you just outside the frame (left)
-  push: F.aim(F0, 984, 598, 1.36),
-  you: F.aim(F0, 930, 560, 1.02),     // pulled back: you at the fence on the left, both pigs, the lamp
-  you2: F.aim(F0, 948, 574, 1.13),
-  p1: F.aim(F0, 872, 578, 1.13),
-  p2: F.aim(F0, 1068, 578, 1.13),
-  res: F.aim(F0, 922, 558, 1.03),
-  res2: F.aim(F0, 1004, 566, 1.08),
-  med: F.BARN_MED,                    // = the default medallion camera of the pig pin (lib/f24_kit.mjs)
-};
-// the map: the zoom starts where the pig medallion fills the frame (its radius RF) and ends on the world view (radius PIN_R)
-const PIGPIN = F.PINS.find((p) => p.id === 'pigs');
-const WORLD = F.mapView(-42, 27, 1.15), WORLD2 = F.mapView(-60, 31, 1.8);
-const Z0 = WORLD.z * F.RF / F.PIN_R, V0 = F.mapView(PIGPIN.lon, PIGPIN.lat, Z0);
-
-// the barn camera: a monotone cubic spline through the word keys (x, y, log distance), so the camera glides THROUGH its keys
-// instead of stopping at each one (E.camAt eases every segment to zero speed)
-function camSpline(t, K) {
-  const n = K.length, V = K.map(([, c]) => [c.x, c.y, Math.log(F0 - c.z)]), T = K.map((k) => k[0]);
-  if (t <= T[0]) t = T[0]; if (t >= T[n - 1]) t = T[n - 1];
-  let i = 0; while (i < n - 2 && t > T[i + 1]) i++;
-  const h = T[i + 1] - T[i], u = (t - T[i]) / h, out = [];
-  for (let d = 0; d < 3; d++) {
-    const sec = (j) => (V[j + 1][d] - V[j][d]) / (T[j + 1] - T[j]);
-    const tan = (j) => { if (j === 0) return .35 * sec(0); if (j === n - 1) return 0; const a = sec(j - 1), b = sec(j); if (a * b <= 0) return 0; const m = (a + b) / 2; return Math.sign(m) * Math.min(Math.abs(m), 3 * Math.abs(a), 3 * Math.abs(b)); };
-    const p0 = V[i][d], p1 = V[i + 1][d], m0 = tan(i) * h, m1 = tan(i + 1) * h, u2 = u * u, u3 = u2 * u;
-    out.push((2 * u3 - 3 * u2 + 1) * p0 + (u3 - 2 * u2 + u) * m0 + (-2 * u3 + 3 * u2) * p1 + (u3 - u2) * m1);
-  }
-  return E.cam3({ x: out[0], y: out[1], z: F0 - Math.exp(out[2]) });
-}
-
-// a cubic-bezier ease (x1, y1, x2, y2), solved by bisection
-function bez(x1, y1, x2, y2) {
-  const c = (t, a, b) => 3 * a * t * (1 - t) ** 2 + 3 * b * t * t * (1 - t) + t ** 3;
-  return (x) => { if (x <= 0) return 0; if (x >= 1) return 1; let lo = 0, hi = 1; for (let i = 0; i < 30; i++) { const m = (lo + hi) / 2; if (c(m, x1, x2) < x) lo = m; else hi = m; } return c((lo + hi) / 2, y1, y2); };
-}
+const C = (u, v, s) => E.aim(F0, u, v, s);
+const R1 = S.ROW1.stones, R2 = S.ROW2.stones, DX = S.JR_DX;
+// the sky field (row-world design px on the F0 card): FACTORY and DESK, the Stanford chart grows from the desk
+const FACT = [1800, -600], DESK = [2400, -600], ICON = 220;
+const CH = { x: 2500, y: -840, w: 880, h: 480, xr: [0, 1], yr: [-14, 14] };
+const WARM_D = [[0, 0], [.25, .6], [.5, 2.6], [.75, 5.8], [1, 10]], COOL_D = [[0, 0], [.25, -.8], [.5, -4], [.75, -7.6], [1, -11]];
+// J1: when he names each step (s after the slot start, from the o-ton) → lane index (LANES bottom → top: MUSIC … TOPIC)
+const J1_WORDS = [[4.85, 8], [5.5, 7], [6.1, 6], [6.75, 5], [7.5, 4], [8.0, 3], [8.6, 1], [8.95, 2], [9.5, 0]];
+// the face centre of stone 0 of ROW2 (TOPIC, the light) in row-world coordinates: the door into the studio
+const TOPIC = [R2[0].x + R2[0].w / 2 + DX, R2[0].y - R2[0].h * .56];
 
 function scene(a, T) {
-  const T0 = a.end, tPlate = T0 - SEAM_HALF;
-  const tz0 = a.wordsE + .05, tz1 = tz0 + 3.4;                             // the zoom out (3.4 s, the hook's one big move)
-  const ZE = bez(.55, 0, .25, 1);   // slow while the medallion is big (little picture change per frame), fast once it is small, long settle
-  const tp0 = Math.max(a.born + 2.05, a.will + .4), tp1 = tPlate;           // the push onto California (after the strip has docked)
-  const K = [
-    [0, CAM.lamp], [a.first + .3, CAM.open], [a.try - .3, CAM.push], [a.one + .3, CAM.you], [a.listen - .1, CAM.you2],
-    [a.p1.end - .3, CAM.p1], [a.p2.end - .2, CAM.p2], [a.second + 1.5, CAM.res], [tz0, CAM.res2], [tz1 - .3, CAM.med],
+  const tf1 = a.nameE + .25;                 // flood peak 1: into TOPIC's light → the studio (before "For fifteen years")
+  const tf2 = a.today - .1;                  // flood peak 2: into the lamp → back to Jakob's row ("Today, a machine …")
+  const tc1 = a.fall + .25;                  // ROW1 cascade starts (far end)
+  const tc2 = tf2 + .55;                     // ROW2 cascade starts (the bead on MUSIC pushes)
+  const tRows = a.young + 1.2;               // switch ROW1 → ROW2 while the camera is up in the sky (both rows out of frame)
+  const tPlate = a.end - S.SEAM_HALF;
+  // bead path 1 (1.04): from the sky through glyphs 1–3, then up to its parking place; 1.08: factory → desk → chart origin
+  const touch = [a.machine + .55, a.machine + 1.0, a.machine + 1.45];
+  const gpos = (i) => [R1[i].x + R1[i].w / 2, R1[i].y - R1[i].h * .74];   // glyph centres (each on its own card; projected below)
+  const PARK = [1660, -140];
+
+  // ---------------------------------------------------------------- row-world camera (row-world design coordinates)
+  const KA = [
+    [-3, C(925, 534, .95)], [0, C(960, 540, 1)], [a.think, C(1050, 552, 1.11)], [a.email - .2, C(1330, 500, 1.2)], [a.machine + 1.2, C(1470, 470, 1.3)],
+    [a.every + .3, C(1420, 450, 1.08)], [a.fall + .3, C(1600, 390, .74)], [a.dom + .7, C(1250, 430, .7)], [a.which + .5, C(880, 560, 1.06)],
+    [a.factory - .8, C(960, 520, 1.32)], [a.factory + .6, C(1850, -560, 1.0)], [a.deskW + .5, C(2150, -580, 1.03)],
+    [a.young + 1.6, C(2700, -600, .98)], [a.youngE + .3, C(2980, -540, 1.1)], [a.whole + .2, C(3300, -120, .96)],
+    [a.inside + .2, C(DX + 1000, 520, .98)], [a.name - .25, C(DX + 900, 495, 1.24)],
   ];
-  const cardOut = (t) => 1 - expoIn(span(t, tz0 + .35, tz0 + .95));         // the explanations sink back into the barn while it shrinks
-  const sound = (t, c) => (t >= c.start && t < c.end + .25 ? Math.sin(Math.PI * span(t, c.start - .05, c.end + .25)) : 0);
-  const PUFFS = [[1, a.sci + .55, 'grunt'], [2, a.sci + 1.35, 'squeal'], [1, a.saying + .15, 'grunt'], [2, a.saying + .75, 'grunt']];
-
-  // ---- the barn world, drawn with camera c (full frame, or inside the medallion through E.withOuter)
-  function world(ctx, t, c) {
-    const s1 = sound(t, a.p1), s2 = sound(t, a.p2);
-    const puff = (k) => PUFFS.reduce((m, [pg, t0]) => (pg === k ? Math.max(m, Math.sin(Math.PI * span(t, t0 - .1, t0 + .5))) : m), 0);
-    const arms = (s, e, d) => { const q = sineIO(span(t, a.try - .2 + d, a.try + 1.1 + d)); return [lerp(.08, s, q), lerp(.12, e, q)]; };
-    const lean = .12 * sineIO(span(t, a.try + .1, a.try + 1.3)) - .05 * sineIO(span(t, a.second, a.second + 1.2));
-    const cast = F.barnCast(ctx, c, t, {
-      p1: { snout: Math.max(s1 * (.6 + .4 * Math.sin(t * 17)), puff(1) * .7), open: .25 * s1 * (.5 + .5 * Math.sin(t * 11)) },
-      p2: { head: .55 * s2 + .15 * puff(2), open: .85 * s2 * (.7 + .3 * Math.sin(t * 23)) + .2 * puff(2), ear: .25 * s2 },
-      you: { look: .15 + .25 * span(t, a.listen - .3, a.listen + .6), lean, armR: arms(1.45, 1.95, 0), armL: arms(1.3, 1.9, .12) },
-    });
-    E.card(ctx, c, F0, () => {
-      // small calls rise from the snouts and shrink away ("what animals are saying")
-      for (const [pg, t0, kind] of PUFFS) {
-        const u = span(t, t0, t0 + 1.7); if (u <= 0 || u >= 1) continue;
-        const m = pg === 1 ? cast.p1.mouth : cast.p2.mouth, x = m[0] + (pg === 1 ? 30 : -30) + 26 * u * (pg === 1 ? 1 : -1), y = m[1] - 40 - 90 * sineIO(u);
-        F.wave(ctx, t, x, y, 64, 26 * Math.sin(Math.PI * Math.min(1, u * 1.6)) * (1 - u * .5), kind, { u: Math.min(1, u * 3), bars: 12, seed: 5 + pg, head: false, a: .85 });
-      }
-      const out = cardOut(t);
-      // the call waves: they grow while the pig calls (the recorder's trace), then stay
-      const w1 = span(t, a.p1.start, a.p1.end), w2 = span(t, a.p2.start, a.p2.end);
-      if (w1 > 0) F.wave(ctx, t, WAVE1[0], WAVE1[1], WW, 96 * out, 'grunt', { u: w1, live: true, seed: 11, col: 'cream' });
-      if (w2 > 0) F.wave(ctx, t, WAVE2[0], WAVE2[1], WW, 112 * out, 'squeal', { u: w2, live: true, seed: 12, col: 'cream' });
-      // the cards rise out of the pigs' backs
-      const res2 = span(t, a.secondW, a.secondW + .9), res1 = span(t, a.secondW + .45, a.secondW + 1.35);
-      const tk = (d) => span(t, a.feelings + .15 + d, a.feelings + .7 + d);
-      const cardAt = (xy, fn) => { ctx.save(); ctx.translate(xy[0], xy[1]); ctx.scale(CS, CS); fn(); ctx.restore(); };
-      cardAt(CARD1, () => F.idCard(ctx, t, 0, 0, { name: 'PIG 1', sub: 'FARM · EUROPE', animal: 'pig', feelRow: true, u: rise(span(t, a.one + .35, a.one + 1.1)) * out,
-        q: t >= a.guess && res1 <= 0, feel: res1 > 0 ? 1 : null, feelU: res1, feelWord: 'FINE', tick: tk(0) }));
-      cardAt(CARD2, () => F.idCard(ctx, t, 0, 0, { name: 'PIG 2', sub: 'FARM · EUROPE', animal: 'pig', feelRow: true, u: rise(span(t, a.doesnt, a.doesnt + .75)) * out,
-        q: t >= a.guess + .12 && res2 <= 0, feel: res2 > 0 ? -1 : null, feelU: res2, feelWord: 'NOT FINE', tick: tk(.15) }));
-      cardAt(BAR, () => F.transBar(ctx, t, 0, 0, { w: 470, u: rise(span(t, a.words + .05, a.words + .7)) * out }));
-    });
-  }
-
-  // ---- screen layer of the barn part: the claim, then the score (top left; both sink before the zoom)
-  function claimAndScore(ctx, t, O = null) {   // O: the medallion's outer transform (the layer belongs to the barn frame)
-    ctx.save(); if (O) ctx.setTransform(O.k, 0, 0, O.k, O.e, O.f); else ctx.setTransform(1, 0, 0, 1, 0, 0);
-    const cu = rise(span(t, a.hear - .1, a.hear + .7)) * (1 - expoIn(span(t, a.one - .1, a.one + .4)));
-    if (cu > 0) maskLine(ctx, [['A.I. can hear ', 0], ['what they feel.', 1]], 110, 176, 58, cu, { align: 'left' });
-    const out = cardOut(t), yu = rise(span(t, a.you, a.you + .6)), au = rise(span(t, a.ai - .05, a.ai + .6));
-    if ((yu > 0 || au > 0) && out > 0) {
-      ctx.save(); ctx.translate(110, 80); ctx.scale(1.15, 1.15); ctx.translate(-110, -96);
-      ctx.beginPath(); ctx.rect(80, 96, 760, 190); ctx.clip(); ctx.translate(0, (1 - out) * 190);
-      if (yu > 0) {
-        maskLine(ctx, [['YOU', 0]], 110, 160, 30, yu, { serif: false, weight: 600, col: P.cream, glow: false });
-        F.tick(ctx, 196, 148, 15, span(t, a.you + .45, a.you + .95), 'cream');
-      }
-      if (au > 0) {
-        F.listener(ctx, t, 140, 222, 26, { u: au, col: 'gold' });
-        maskLine(ctx, [['A.I.', 1]], 184, 234, 30, au, { serif: false, weight: 600, glow: false });
-        for (let i = 0; i < 10; i++) {   // ten tries: nine land gold, the tenth stays an empty ring
-          const mu = expoOut(span(t, a.nine + i * .07, a.nine + i * .07 + .35)); if (mu <= 0) continue;
-          const x = 268 + i * 30, y = 223, r = 9 * mu;
-          if (i < 9) { E.halo(ctx, x, y, 22 * mu, .18, P.halo0, P.core1); ctx.fillStyle = F.GOLD.body; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); }
-          else { ctx.strokeStyle = rgba(P.cream, .7); ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.stroke(); }
-        }
-        maskLine(ctx, [['9/10', 1]], 584, 240, 44, rise(span(t, a.ten - .1, a.ten + .6)), {});
-      }
-      ctx.restore();
+  // the last seconds already ride the plate's creep line (push 3 %/s + truck 16 px/s), extended backwards from tPlate
+  const creepCam = (t) => C(DX + 1010 + S.TRUCK * (t - tPlate), 560, 1.06 * (1 + S.CREEP * (t - tPlate)));
+  const tCreep = a.yet - .6;
+  const KC = [[tf2 + 2.4, C(DX + 1150, 470, .84)], [tCreep, creepCam(tCreep)]];
+  // studio camera (studio design coordinates)
+  const j1s = a.J1.start;
+  const KB = [
+    [tf1 + .95, C(600, 700, 2.0)], [a.producer + .3, C(860, 540, .96)], [a.concepts + .3, C(910, 520, .99)],
+    [a.four + .4, C(1000, 485, 1.04)], [j1s + 1.2, C(1060, 460, 1.08)], [j1s + 4.0, C(1120, 300, 1.32)], [j1s + 5.0, C(1150, 260, 1.42)], [j1s + 9.9, C(1150, 700, 1.42)],
+    [a.few + .6, C(960, 540, 1.0)], [tf2 - 1.7, C(880, 600, 1.12)],
+  ];
+  const camRow = (t) => {
+    if (t < tf2) {
+      if (t <= a.name - .25) return F.camPath(t, KA);
+      return E.camAt(t, [[a.name - .25, KA[KA.length - 1][1]], [tf1, C(TOPIC[0], TOPIC[1], 18), 'i']]);
     }
+    if (t < tf2 + 2.4) return E.camAt(t, [[tf2, C(TOPIC[0], TOPIC[1], 18)], [tf2 + 2.4, KC[0][1], 'o']]);
+    return t < tCreep ? F.camPath(t, KC) : creepCam(t);
+  };
+  const camStudio = (t) => {
+    if (t < tf1 + .95) return E.camAt(t, [[tf1, F.STUDIO_CAM.lamp(18)], [tf1 + .95, KB[0][1], 'o']]);
+    if (t < tf2 - 1.7) return F.camPath(t, KB);
+    return E.camAt(t, [[tf2 - 1.7, KB[KB.length - 1][1]], [tf2, F.STUDIO_CAM.lamp(18), 'i']]);
+  };
+
+  // ---------------------------------------------------------------- the row world
+  function rows(ctx, t) {
+    const c = E.camDrift(camRow(t), t, .6, 3);
+    const which = t < tRows ? 1 : 2;
+    if (which === 1) {
+      const cs = F.cascade(t, S.ROW1, tc1, { stopAt: 0, nudge: .45 });
+      const cool1 = R1.map((s, i) => Math.max(i >= 1 && i <= 3 ? span(t, touch[i - 1] - .05, touch[i - 1] + .3) : 0, i ? span(t, cs.start[i], cs.hit[i]) : 0));
+      const lit1 = R1.map((s, i) => (i === 1 ? span(t, a.email, a.email + .35) : i === 2 ? span(t, a.report, a.report + .35) : i === 3 ? span(t, a.transl, a.transl + .35) : 0));
+      S.rowWorld(ctx, c, t, { rows: 1, a1: cs.a, cool1, lit1, du: { look: .3 + .25 * sineIO(span(t, a.which, a.which + 1.2)) } });
+      oneJob(ctx, t, c);
+    } else {
+      const fallen = t >= tf2, cs = F.cascade(t, S.ROW2, tc2, { stopAt: 0, nudge: .45 });
+      const cool2 = R2.map((s, i) => (i && fallen ? span(t, cs.start[i], cs.hit[i]) : 0));
+      S.rowWorld(ctx, c, t, { rows: 2, a2: fallen ? cs.a : null, cool2, jakob: fallen ? { look: .12 } : false });
+      if (fallen) lifting(ctx, t, c, cs);
+    }
+    sky(ctx, t, c);
+    return c;
+  }
+  // bracket ONE JOB over the row (screen space, following the projected stone tops)
+  function oneJob(ctx, t, c) {
+    const u = expoOut(span(t, a.every + .35, a.every + 1.3)) * (1 - expoIn(span(t, a.dom + .2, a.dom + .9)));
+    if (u <= 0) return;
+    const p1 = E.project(c, R1[1].Z, R1[1].x, R1[1].y - R1[1].h), pn = E.project(c, R1[13].Z, R1[13].x + R1[13].w, R1[13].y - R1[13].h);
+    if (!p1 || !pn) return;
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); F.bracket(ctx, p1[0], pn[0], p1[1] - 46, u, 'ONE JOB', { size: 30 }); ctx.restore();
+  }
+  // things in the sky field (F0 card, row-world coordinates): the bead, FACTORY / DESK, the Stanford chart, the cool line down
+  function sky(ctx, t, c) {
+    const cool = span(t, a.deskW + .45, a.deskW + .8);
+    E.card(ctx, c, F0, () => {
+      // FACTORY and DESK: they grow out of two stars (scale from a point) as the camera tilts up
+      const ef = expoOut(span(t, a.factory - .5, a.factory + .4)), ed = expoOut(span(t, a.desk - .2, a.desk + .7));
+      if (ef > 0) { F.glyph(ctx, 'factory', FACT[0], FACT[1], ICON * ef, { lit: 0, col: 'cream', glow: .6 }); F.label(ctx, FACT[0] - 30, FACT[1] + 120, 'FACTORY', null, rise(span(t, a.factory, a.factory + .7)), { dx: 0, dy: 0 }); }
+      if (ed > 0) {
+        F.glyph(ctx, 'desk', DESK[0], DESK[1], ICON * ed, { lit: 0, col: cool > .5 ? 'cool' : 'cream', glow: .6 + cool });
+        F.label(ctx, DESK[0] - 22, DESK[1] + 120, 'DESK', null, rise(span(t, a.deskW, a.deskW + .7)), { dx: 0, dy: 0, col: cool > .5 ? 'cool' : undefined });
+      }
+      // Stanford: two lines grow from the desk
+      const uw = sineIO(span(t, a.young + .2, a.young + 2.6)), uc = span(t, a.young + .5, a.fifth + .3);
+      if (uw > 0 || uc > 0) {
+        const ch = F.chartLines(ctx, t, { ...CH, base: 0, axisU: span(t, a.young, a.young + 1), xTicks: [[0, '2022'], [1, '2026']],
+          series: [{ data: WARM_D, col: 'warm', u: uw, label: 'LEAST EXPOSED' }, { data: COOL_D, col: 'cool', u: t < a.creator - .2 ? Math.min(uc, .999) : 1, label: 'MOST EXPOSED', labelDy: 4 }] });
+        const vu = rise(span(t, a.fifth - .1, a.fifth + .6));
+        if (vu > 0 && ch.heads[0] && ch.heads[1]) {
+          const x = ch.heads[1][0] + 4, y0 = ch.heads[0][1] + 10, y1 = ch.heads[1][1] - 10;
+          ctx.strokeStyle = rgba(F.COOL.line, .8 * vu); ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(x, y0); ctx.lineTo(x, lerp(y0, y1, expoOut(vu))); ctx.stroke();
+          maskLine(ctx, [['19 %', 0]], x - 26, (y0 + y1) / 2 + 22, 74, vu, { align: 'right', col: P.cream });
+          maskLine(ctx, [['BEHIND · AGES 22–25', 0]], x - 26, (y0 + y1) / 2 + 62, 22, rise(span(t, a.fifth + .3, a.fifth + 1)), { serif: false, weight: 600, align: 'right', col: F.COOL.text, glow: false });
+        }
+      }
+    });
+    // the bead (the carrier): row 1 glyphs → park → factory → desk → it IS the head of the cool line → down onto Jakob's row
+    const bead = beadAt(t, c);
+    if (bead) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); F.agent(ctx, t, bead[0], bead[1], bead[2], { ring: bead[3] ?? 1, think: bead[4] ?? 0 }); ctx.restore(); }
+  }
+  // screen position of the bead: [x, y, r, ring, think] or null
+  const scr = (c, Z, u, v) => E.project(c, Z, u, v);
+  function downPath(c) {   // the cool line from the chart's cool head down onto the far stone of Jakob's row (F0-card coords, per frame)
+    const m = E.cardM(c, F0), far = R2[8], p = scr(S.shift(c, DX), far.Z, far.x + far.w * .5, far.y - far.h - 18);
+    if (!m || !p) return null;
+    const tgt = [(p[0] - m.e) / m.k, (p[1] - m.f) / m.k], h = [CH.x + CH.w, CH.y + CH.h - (-11 - CH.yr[0]) / (CH.yr[1] - CH.yr[0]) * CH.h];
+    return E.catmull([[...h, 5], [h[0] + 120, h[1] + 160, 5], [lerp(h[0], tgt[0], .6) + 80, lerp(h[1], tgt[1], .55), 5], [tgt[0], tgt[1], 5]], 16);
+  }
+  function beadAt(t, c) {
+    const t0 = a.machine - .45;
+    if (t < t0) return null;
+    if (t < tRows) {
+      // key points on the F0 card; glyph touches projected from each stone's card onto F0 so the bead meets the glyph on screen
+      const m = E.cardM(c, F0); if (!m) return null;
+      const onF0 = (Z, u, v) => { const p = scr(c, Z, u, v); return [(p[0] - m.e) / m.k, (p[1] - m.f) / m.k]; };
+      const g = [1, 2, 3].map((i) => onF0(R1[i].Z, ...gpos(i)));
+      const keys = [[t0, [1500, -260]], [touch[0], g[0]], [touch[1], g[1]], [touch[2], g[2]], [touch[2] + 1.6, PARK],
+        [a.factory - .9, [PARK[0] + 20, PARK[1] - 30]], [a.factory + .25, [FACT[0] + 40, FACT[1] - 130]], [a.deskW - .25, [FACT[0] + 160, FACT[1] - 150]],
+        [a.deskW + .45, [DESK[0], DESK[1] - 40]], [a.young + .5, [CH.x, CH.y + CH.h / 2]]];
+      let p;
+      if (t >= keys[keys.length - 1][0]) p = keys[keys.length - 1][1];
+      else { let i = 0; while (t > keys[i + 1][0]) i++; const u = sineIO((t - keys[i][0]) / (keys[i + 1][0] - keys[i][0])); p = [lerp(keys[i][1][0], keys[i + 1][1][0], u), lerp(keys[i][1][1], keys[i + 1][1][1], u)];
+        if (i >= 5 && i <= 6) { const w = Math.sin(Math.PI * u); p[0] += 60 * w * (i === 5 ? 1 : -1); p[1] -= 40 * w; } }
+      if (t >= a.young + .5) return null;   // from here the chart's cool line carries its own bead at its head
+      const hov = t > touch[2] + 1.6 ? [5 * Math.sin(t * 1.3), 4 * Math.sin(t * 1.7)] : [0, 0];
+      const s = scr(c, F0, p[0] + hov[0], p[1] + hov[1]);
+      return [s[0], s[1], 14 * s[2], 1, t > touch[2] + 1.6 && t < a.factory - .9 ? .5 : 0];
+    }
+    // ROW2 phase: the cool line comes down onto Jakob's far stone; the bead sits there until it pushes the cascade
+    if (t < tf2) {
+      const pts = downPath(c); if (!pts) return null;
+      const u = sineIO(span(t, a.creator - .2, a.inside + .4));
+      let hp;
+      E.card(ctx_, c, F0, () => { hp = F.coolPath(ctx_, pts, Math.max(0, u - .35), u, 5, 1 - span(t, a.inside + .4, a.inside + 1.2)); });
+      if (u <= 0 || !hp) return null;
+      const s = scr(c, F0, hp[0], hp[1] + (u >= 1 ? 3 * Math.sin(t * 2) : 0));
+      return [s[0], s[1], 14 * s[2], 1, u >= 1 ? .6 : 0];
+    }
+    return null;
+  }
+  // beads lift off Jakob's falling stones (the machine takes each step) and shrink away into the sky
+  function lifting(ctx, t, c, cs) {
+    const c2 = S.shift(c, DX);
+    ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
+    for (let i = 1; i < R2.length; i++) {
+      const u = span(t, cs.hit[i] - .15, cs.hit[i] + 3.2); if (u <= 0 || u >= 1) continue;
+      const s = R2[i], ang = cs.a[i], gx = s.x + s.w * .5 * Math.cos(ang) - s.h * .74 * Math.sin(ang), gy = s.y - s.h * .74 * Math.cos(ang) - s.w * .5 * Math.sin(ang);
+      const p = scr(c2, s.Z, gx, gy); if (!p) continue;
+      F.agent(ctx, t, p[0] + 30 * sineIO(u) * p[2], p[1] - 420 * sineIO(u) * p[2], 10 * p[2] * (1 - u * u), { ring: 1 - u });
+    }
+    // the first bead (sat on MUSIC since 1.10): it rocks the far stone, then lifts with the others
+    const s = R2[8], pu = span(t, tc2 - .6, tc2 + .2), lift = span(t, tc2 + .2, tc2 + 2.2);
+    if (lift < 1) { const p = scr(c2, s.Z, s.x + s.w * .5 + 14 * Math.sin(Math.PI * pu), s.y - s.h - 18 - 300 * sineIO(lift));
+      if (p) F.agent(ctx, t, p[0], p[1], 11 * p[2] * (1 - lift * lift), { ring: 1 - lift, think: .6 * (1 - lift) }); }
     ctx.restore();
   }
 
-  // ---- the map part: the view, the zoom out of the medallion, the push onto California
-  function mapView(t) {
-    if (t < tz1) return F.flight(V0, WORLD, ZE(span(t, tz0, tz1)));
-    if (t < tp0) return F.flight(WORLD, WORLD2, sineIO(span(t, tz1, tp0)));
-    return F.flight(WORLD2, CA_VIEW, sineIO(span(t, tp0, tp1)));
-  }
-  function mapPart(ctx, t) {
-    const v = mapView(t), r = Math.max(F.PIN_R, F.PIN_R * v.z / WORLD.z);
-    const calls = lerp(clamp(span(t, a.every - .2, a.everyE + 1.6)), CA_CALLS, sineIO(span(t, tp0, tp1)));
-    F.map(ctx, t, v, { calls });
-    const [px, py] = F.mapXY(v, PIGPIN.lon, PIGPIN.lat), k = sineIO(clamp((r - F.RF) / (F.PIN_R - F.RF) * 1.25 - .25));
-    const head = [px, py - (F.STALK + r) * k];   // the medallion leaves the pin point and settles on its stalk
-    const cam = E.camDrift(camSpline(t, K), t, 1.8);
-    const hd = F.pins(ctx, t, T, v, {
-      head: t < tz1 ? { pigs: head } : {}, r: t < tz1 ? { pigs: r } : {},
-      inner: t < tz1 ? { pigs: (cx, cy, rr) => {} } : {},
-      labels: { esp: rise(span(t, a.esp - .1, a.esp + .7)) },
+  // ---------------------------------------------------------------- the studio
+  function room(ctx, t) {
+    const c = E.camDrift(camStudio(t), t, .6, 7);
+    const ph = sineIO(span(t, a.fifteen + .1, a.inall + .6));
+    const lit = new Array(9).fill(0);
+    for (const [w, i] of [[a.concepts, 7], [a.shoots, 4], [a.edits, 3], [a.anim, 2]]) lit[i] = Math.max(lit[i], rise(span(t, w - .05, w + .3)) * (1 - .6 * span(t, w + 1.2, w + 2.2)));
+    for (const [d, i] of J1_WORDS) lit[i] = Math.max(lit[i], rise(span(t, j1(d) - .05, j1(d) + .3)) * (1 - .45 * span(t, j1(d) + 1.4, j1(d) + 2.4)));
+    const all = rise(span(t, a.few + .3, a.few + 1.2));
+    for (let i = 0; i < 9; i++) lit[i] = Math.max(lit[i], .75 * all * (.75 + .25 * Math.sin(t * 2.1 + i * .7)));
+    F.studio(ctx, c, t, {
+      hand: new Array(9).fill(ph), playhead: .002 + ph * .996, lit, work: 1, level: 0,
+      ruler: { u: span(t, a.fifteen - .1, a.fifteen + 2.4), hot: sineIO(span(t, a.four, a.four + 1.5)) },
     });
-    if (t < tz1 && hd.pigs) {   // the barn through the medallion (the pin has cleared its disc; the barn world fills it)
-      const [cx, cy, rr] = hd.pigs, s = rr / F.RF;
-      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.beginPath(); ctx.arc(cx, cy, rr - 1, 0, 7); ctx.clip();
-      const O = { k: s, e: cx - W / 2 * s, f: cy - H / 2 * s };
-      E.withOuter(O, () => world(ctx, t, cam)); claimAndScore(ctx, t, O);
-      ctx.restore();
-      ctx.save(); ctx.strokeStyle = F.CREAM.core; ctx.lineWidth = clamp(rr * .12, 2, 3.2); ctx.beginPath(); ctx.arc(cx, cy, rr, 0, 7); ctx.stroke(); ctx.restore();
-    }
-    const e = hd.esp;
-    F.strip(ctx, t, T, { from: e ? [e[0] + e[2] + 150, e[1] + 62] : null });
-    F.questionLine(ctx, t, a.will, a.willE + .05, { text: 'Will they make it?', y: 206, size: 60 });
+    return c;
   }
+  const j1 = (d) => a.J1.start + d;
 
+  let ctx_ = null;
   return (ctx, t) => {
-    if (t >= tPlate) { plateCalifornia(ctx, t, T); return; }
-    if (t < tz0) world(ctx, t, E.camDrift(camSpline(t, K), t, 1.8));
-    else mapPart(ctx, t);
-    if (t < tz0) claimAndScore(ctx, t);
+    ctx_ = ctx;
+    if (t >= tPlate) { S.plateJakobRow(ctx, t, T); return; }
+    const inStudio = t >= tf1 && t < tf2;
+    if (inStudio) room(ctx, t); else rows(ctx, t);
+    // screen-space layer: the title (1.01), the source line (1.09), the lower third (J1)
+    F.title(ctx, t, 96, 330, 1, { size: 112, out: span(t, a.think - .5, a.think + .45) });
+    F.source(ctx, t, a.young + .8, a.whole, F.SOURCES.stanford);
+    if (inStudio) F.lowerThird(ctx, t, T, 'J1', { y: 170 });   // top left: the room is empty there, Jakob stands bottom left
+    // the light doors: both sides of each flood peak draw the full flood
+    const fl = (tp) => (t < tp ? E.smooth(span(t, tp - 1.4, tp)) : 1 - E.smooth(span(t, tp, tp + 1.4)));   // slow enough for smooth.py (< 12/frame)
+    E.lightFlood(ctx, Math.max(fl(tf1), fl(tf2)));
   };
 }

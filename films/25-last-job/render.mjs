@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Render the film (or a range) straight from Canvas pixels into ffmpeg; or write review stills.
-//   node render.mjs --out part.mp4 [--from 0] [--to 30] [--fps 30]       (times in seconds)
+//   node render.mjs --out part.mp4 [--from 0] [--to 30] [--fps 30] [--scale .5]   (times in seconds; --scale = review render size)
 //   node render.mjs --snap 1,5.5,12 --dir snaps [--scale 0.5]
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
@@ -25,14 +25,18 @@ if (arg('snap')) {
   process.exit(0);
 }
 
+const vscale = Number(arg('scale', 1)), VW = Math.round(1920 * vscale / 2) * 2, VH = Math.round(1080 * vscale / 2) * 2;
+let small = null;
+if (vscale !== 1) { const { createCanvas } = await import('@napi-rs/canvas'); small = createCanvas(VW, VH); }
 const from = Number(arg('from', 0)), to = Math.min(Number(arg('to', film.duration)), film.duration);
 const f0 = Math.round(from * fps), f1 = Math.round(to * fps);
-const ff = spawn('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', '1920x1080', '-r', String(fps), '-i', '-',
+const ff = spawn('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', `${VW}x${VH}`, '-r', String(fps), '-i', '-',
   '-c:v', 'libx264', '-crf', arg('crf', '18'), '-preset', arg('preset', 'medium'), '-pix_fmt', 'yuv420p', '-tune', 'grain', path.resolve(arg('out', 'out.mp4'))], { stdio: ['pipe', 'inherit', 'inherit'] });
 const t0 = Date.now();
 for (let f = f0; f < f1; f++) {
   if (film.prepare) await film.prepare(f / fps);
-  const c = film.frame(f / fps);
+  let c = film.frame(f / fps);
+  if (small) { const sx = small.getContext('2d'); sx.drawImage(c, 0, 0, VW, VH); c = small; }
   const buf = c.data();
   if (global.gc && f % 90 === 0) global.gc();   // node --expose-gc: keeps the napi canvas leak in check between pieces
   if (!ff.stdin.write(Buffer.from(buf))) await new Promise((r) => ff.stdin.once('drain', r));

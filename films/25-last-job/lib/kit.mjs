@@ -1,10 +1,10 @@
-// Shared helpers (Film 5 → 24): VO timing lookup (phrase anchors), quote cards, lower thirds.
+// Shared helpers (Film 5 → 25): VO timing lookup (phrase anchors), quote cards, lower thirds.
 // (Interview-clip helpers are kept from film 03 but Film 5 has no clips: everything is guarded.)
 import fs from 'node:fs';
 import { loadImage } from '@napi-rs/canvas';
 import { W, H, C, rgba, clamp, lin, mix, sm, eout, eio, text, addGlow, glow, canvas } from '../engine.mjs';
 
-export const ROOT = (process.env.F24ROOT || '/mnt/project-files/scenario/film-tiersprache/').replace(/\/?$/, '/'); // Film 24 data root: audio/timing.json (small, read only). Renders and frames go to the scratchpad, never here.
+export const ROOT = (process.env.F25ROOT || '/mnt/project-files/scenario/film-last-human-job/').replace(/\/?$/, '/'); // Film 25 data root: audio/timing.json (small, read only). Renders and frames go to the scratchpad, never here.
 const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 
 // ---------- timing ----------
