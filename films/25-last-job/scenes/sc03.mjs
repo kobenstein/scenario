@@ -85,7 +85,7 @@ function scene(a, T) {
   const K1 = [[tc, K0], [a.transl - .1, B.fieldCam(F9, -230, -150, 1.05)], [a.ms + .6, B.fieldCam(F9, -340, 60, .9)], [a.top + .4, B.fieldCam(F9, -390, 110, .94)],
     [a.writers + .2, B.fieldCam(F9, -400, 200, .97)], [a.roofers + .2, slabsA]];
   const tHome = a.booking + 1.6;
-  const K2 = [[a.roofers + .2, slabsA], [tHome, homeB]];
+  const K2 = [[a.roofers + .2, slabsA], [a.booking - 1.1, B.fieldCam(F9, -405, 345, 1.07)], [tHome, homeB]];
   // local keys move 1:1 in world units, and the window is only ±60 × ±38 of them: the camera must cross the face inside it
   const outB = Lb(935, 520, 1.0);
   const K3 = [[tHome, homeB], [a.hearing + 1.2, Lb(946, 529, 1.16)], [a.ifEven + 1.3, outB]];
@@ -173,7 +173,7 @@ function scene(a, T) {
     if (cu > 0) { ctx.save(); ctx.globalAlpha = .85 * cu; ctx.fillStyle = E.lin(ctx, 0, -B.STONE_W, 0, 0, [[0, mixHex(F.COOL.body, P.cream, .25)], [1, F.COOL.deep]]);
       const fp = B.faceWindow(ang, { ix: 0, iy: 0, r: 2 }); ctx.fill(fp); ctx.restore(); halo(ctx, -SLEN, -B.STONE_W / 2, 200, .2 * cu, F.COOL.halo, F.COOL.body); }
     const lab = (tw, t1) => rise(span(t, tw + .1, tw + .8)) * (1 - expoIn(span(t, t1, t1 + .5)));
-    const lu0 = lab(a.top, a.booking - .2);
+    const lu0 = lab(a.top, a.booking - 1.5);
     if (lu0 > 0) B.rightLine(ctx, [['INTERPRETERS', 0]], SX - 26, -B.STONE_W / 2 + 14, 38, lu0, { col: F.COOL.text });
     // slabs grow below it (left ends aligned with the stone's top end), retract into it on the way out of the booth
     const back = (k) => expoIn(span(t, a.ifEven + 2.2 + (4 - k) * .1, a.ifEven + 2.9 + (4 - k) * .1));
@@ -182,7 +182,7 @@ function scene(a, T) {
       const tw = a[r.at], cl = smooth(span(t, tw, tw + .6));
       F.slab(ctx, t, SX, r.y, SLEN * r.v, STH, { col: 'stone', u: g });
       if (cl > 0 && r.col !== 'stone') F.slab(ctx, t, SX, r.y, SLEN * r.v, STH, { col: r.col, u: g, a: cl });
-      const lu = lab(tw, a.booking - .2);
+      const lu = lab(tw, a.booking - 1.5);
       if (lu > 0) B.rightLine(ctx, [[r.label, 0]], SX - 26, r.y + 13, 34, lu, { col: r.col === 'cool' ? F.COOL.text : r.col === 'warm' ? F.WARM.text : P.cream });
     });
     // the dots between (many jobs in between)
