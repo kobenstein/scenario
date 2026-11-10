@@ -1,10 +1,277 @@
 {
- "_comment": "Film 24 slot metadata (format as films/19-biocomputer/audio/clips.json). 'dur' (seconds of real footage/audio) is set when the footage is cut; until then build_vo.py uses the planned slot lengths 'plan' (the data root clips/clips.json 'dauer' also replaces them). 'offset': footage starts this long after the slot opens. 'cues': [[seconds from first footage frame, subtitle line]] for spoken clips (C1, C3, C5); none = no clip subtitle (atmo clips C2, C4 and the pig calls).",
- "P1": {"plan": 3.9, "dur": null, "offset": 0.0, "file": "pig1-positive.wav", "name": "pig 1 (calm, positive)"},
- "P2": {"plan": 3.6, "dur": null, "offset": 0.0, "file": "pig2-negative.wav", "name": "pig 2 (shrill, negative)"},
- "C1": {"plan": 6.8, "dur": null, "offset": 0.0, "name": "Aza Raskin", "role": "Co-founder, Earth Species Project", "source": "https://www.youtube.com/watch?v=4Id5aTlYkHg", "cues": null},
- "C2": {"plan": 9.6, "dur": null, "offset": 0.0, "name": "Colorado State University", "role": "elephant playback (atmo)", "source": "https://www.youtube.com/watch?v=MXITyX9PPJM"},
- "C3": {"plan": 10.6, "dur": null, "offset": 0.0, "name": "Denise Herzing", "role": "Founder, Wild Dolphin Project", "source": "https://www.youtube.com/watch?v=1bgL4b7VT8M", "cues": null},
- "C4": {"plan": 13.3, "dur": null, "offset": 0.0, "name": "WhaleSETI", "role": "humpback Twain (atmo)", "source": "https://www.youtube.com/watch?v=3cvSLNn8RZk"},
- "C5": {"plan": 9.2, "dur": null, "offset": 0.0, "name": "Aza Raskin", "role": "Co-founder, Earth Species Project", "source": "https://www.youtube.com/watch?v=4Id5aTlYkHg", "cues": null}
+ "_comment": "Film 25 slot metadata (format as films/24-animals/audio/clips.json). 'dur' (seconds of real footage) is set when a K clip is cut; until then build_vo.py uses the planned slot length (data root clips.json 'dauer' for K1/K2). 'offset': footage starts this long after the slot opens. 'cues': [[seconds from first footage frame, subtitle line]]. cue_status: 'whisper' = checked wording, 'provisional' = wording from o-ton/auswahl-v1.md + pocketsphinx, verify; 'estimated' = times spread over the planned length, re-time on the real footage.",
+ "J1": {
+  "plan": 10.93,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J1.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J1.wav",
+  "text": "At the beginning, I used to do everything by hand. Topic, idea, script, storyboard, shooting, editing, sound, animation, music.",
+  "cue_status": "provisional",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.0,
+    "At the beginning, I used to do"
+   ],
+   [
+    2.29,
+    "everything by hand."
+   ],
+   [
+    3.32,
+    "Topic, idea, script, storyboard,"
+   ],
+   [
+    6.78,
+    "shooting, editing, sound,"
+   ],
+   [
+    8.58,
+    "animation, music."
+   ]
+  ]
+ },
+ "J2": {
+  "plan": 15.0,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J2.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J2.wav",
+  "text": "When AI arrived four years ago, AI took over the first small piece. For example, I created some images with it, which I used as layers for my animations.",
+  "cue_status": "provisional",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.0,
+    "When AI arrived four years ago,"
+   ],
+   [
+    3.81,
+    "AI took over the first small"
+   ],
+   [
+    5.81,
+    "piece. For example, I created some"
+   ],
+   [
+    9.07,
+    "images with it, which I used as"
+   ],
+   [
+    12.96,
+    "layers for my animations."
+   ]
+  ]
+ },
+ "J3": {
+  "plan": 11.47,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J3.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J3.wav",
+  "text": "Every month my part shifted. Less doing, more directing. The work and the output got better.",
+  "cue_status": "provisional",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.0,
+    "Every month my part shifted."
+   ],
+   [
+    3.1,
+    "Less doing, more directing."
+   ],
+   [
+    5.38,
+    "The work and the output"
+   ],
+   [
+    6.82,
+    "got better."
+   ]
+  ]
+ },
+ "J3b": {
+  "plan": 6.6,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J3b.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J3b.wav",
+  "text": "During the past weeks, suddenly AI was also able to edit.",
+  "cue_status": "provisional",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.0,
+    "During the past weeks,"
+   ],
+   [
+    2.07,
+    "suddenly AI was also able to edit."
+   ]
+  ]
+ },
+ "J4": {
+  "plan": 5.6,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J4.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J4.wav",
+  "text": "Every time a new model mastered one part of production, I had to redefine my job.",
+  "cue_status": "provisional",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.51,
+    "Every time a new model mastered"
+   ],
+   [
+    2.13,
+    "one part of production,"
+   ],
+   [
+    3.65,
+    "I had to redefine my job."
+   ]
+  ]
+ },
+ "J5": {
+  "plan": 4.2,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J5.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J5.wav",
+  "text": "Now you see with this channel, I'm able to create a documentary a day.",
+  "cue_status": "provisional",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.34,
+    "Now you see with this channel,"
+   ],
+   [
+    1.88,
+    "I'm able to create a"
+   ],
+   [
+    3.09,
+    "documentary a day."
+   ]
+  ]
+ },
+ "J6": {
+  "plan": 5.85,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J6.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J6.wav",
+  "text": "What's left for me right now is to decide what's worth making and why.",
+  "cue_status": "provisional",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.28,
+    "What's left for me right now is to"
+   ],
+   [
+    3.5,
+    "decide what's worth making"
+   ],
+   [
+    5.16,
+    "and why."
+   ]
+  ]
+ },
+ "K1": {
+  "plan": 13.2,
+  "dur": null,
+  "offset": 0.0,
+  "name": "Erik Brynjolfsson",
+  "role": "Director, Stanford Digital Economy Lab",
+  "source": "https://www.youtube.com/watch?v=OvFI-V9Zaeo",
+  "text": "If you looked at the most exposed occupations and you looked at the youngest age group there, say 22 to 26, then you saw a very noticeable decline in employment.",
+  "cue_status": "estimated",
+  "cue_timing": "spread over the planned length",
+  "cues": [
+   [
+    0.0,
+    "If you looked at the most exposed"
+   ],
+   [
+    2.74,
+    "occupations and you looked at the"
+   ],
+   [
+    5.48,
+    "youngest age group there,"
+   ],
+   [
+    7.57,
+    "say 22 to 26, then you saw a very"
+   ],
+   [
+    10.31,
+    "noticeable decline in employment."
+   ]
+  ]
+ },
+ "K2": {
+  "plan": 9.7,
+  "dur": null,
+  "offset": 0.0,
+  "name": "Geoffrey Hinton",
+  "role": "AI pioneer, Nobel laureate in physics 2024",
+  "source": "https://www.youtube.com/watch?v=giT0ytynSqg",
+  "text": "I'd say it's going to be a long time before it's as good at physical manipulation as us. And so, a good bet would be to be a plumber.",
+  "cue_status": "estimated",
+  "cue_timing": "spread over the planned length",
+  "cues": [
+   [
+    0.0,
+    "I'd say it's going to be a long"
+   ],
+   [
+    2.28,
+    "time before it's as good at"
+   ],
+   [
+    4.28,
+    "physical manipulation as us."
+   ],
+   [
+    6.34,
+    "And so, a good bet would be to be"
+   ],
+   [
+    8.77,
+    "a plumber."
+   ]
+  ]
+ },
+ "K3": {
+  "plan": 12.0,
+  "dur": null,
+  "offset": 0.0,
+  "name": "Bill Gates",
+  "role": "Co-founder of Microsoft, Gates Foundation",
+  "source": "https://www.youtube.com/watch?v=MLeTQWQiOvg",
+  "cues": null,
+  "cue_status": "none yet (K3 wording pending)"
+ }
 }

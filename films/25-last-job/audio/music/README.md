@@ -1,9 +1,7 @@
-# Film 24 music (Lyria 3.5 on fal, google/lyria-3.5, 2026-11-09, 5 x 0.10 USD)
-cues.json rows: {"f", "at" (take/slot id), "dt", "fin", "fout", "end" (take id or END), "end_dt"}: mix.py anchors every cue on takes, so slot changes move it along.
-M0 "It's the second pig" to end of s08 (hook after the pig calls, team, founder, baby, autocomplete; 152 s file) · M1 s09 to s14 (the tour: Kenya, Spain, Caribbean, Bahamas, finches; 180 s) ·
-M2 s15 to cta1 (the wall: toddlers, humpback, mid channel call; 97 s) · M3 s18 to s21 (whale songs, pigs, meat paradox; 121 s) · M4 s22 to the film end (scenario, back to today, end screen; 157 s, fades over the last 10 s).
-No music under the two pig calls (M0 starts after P2). Style: mystical, fascinated, drones/pads/felt piano/glass harmonica/wordless choir pad; no drums, no vocals.
-Level: cue RMS -26 dB, -6 dB under speech and under every slot -> ~12 dB under the voice. mix.wav -14.0 LUFS, -1.2 dBTP.
-Request ids: M0 01a1c02c-5318-7eb1-ae84-a05ba182a032 · M1 01a1c02c-530f-7b10-a1d7-1fa54476fc77 · M2 01a1c02c-539e-7af3-8e92-d23f320be854 · M3 01a1c02c-53d6-7473-baac-305eafcbdc8b · M4 01a1c02c-539e-7731-a326-11b47da0652e
-SFX (audio/sfx, from sfx-bibliothek, no new generation): moor_wind (s10), dawn_birds (s11), underwater (s12-s13), ocean_night (s18), dawn (s22), kitchen (s24-s25); -30 dB RMS, ducked under speech.
-Run: build_vo.py audio <scratch>; mix.py audio <scratch>; subs.py audio <out dir>; the real pig/clip wavs go to <data root>/clips/ (pig1-positive.wav, pig2-negative.wav, C1.wav ...) and clips.json 'dur'/'offset'.
+# Film 25 music (Lyria 3.5 on fal, google/lyria-3.5, 0.10 USD each, one track per chapter of text-v3)
+STATUS 10.11.2026: NOT generated yet - the fal account jakob@kobenstein.com was out of credits (balance_exhausted) when the audio agent started. Prompts: prompts.json.
+cues.json rows: {"f", "at" (take/slot id, "L<sec>" = chapter start, "END"), "dt", "fin", "fout", "end" (take/slot/"L<sec>"/END), "end_dt"}: mix.py anchors every cue on takes/chapters.
+M0 HOOK (s00..s04, incl. J1) · M1 AKT 1 (L1) · M2 AKT 2 (L2) · M3 AKT 3 (L3) · M4 PLATZ 1 (L4) · M5 AKT 4 (L5 to K3) · M6 ENDE + end screen (s28 to END, fades over the last 10 s).
+Style: mystical, thoughtful, drones/pads/felt piano/glass; no drums, no vocals, not uplifting. Level: cue RMS -26 dB, -6 dB under speech, a further -6 dB under every O-Ton/clip slot.
+The mp3 files live in <scratch>/music (not in the repo): /tmp/claude-0/-home-user/e3b227b8-f27e-57b1-9ba9-fc035194c59d/scratchpad/f25/audio/music/.
+Run: f25_make_segments.py; (fal TTS takes -> dl/<id>.mp3); f25_align.py audio dl; f25_oton_cues.py audio; build_vo.py audio <scratch>; mix.py audio <scratch>; subs.py audio <out dir>.

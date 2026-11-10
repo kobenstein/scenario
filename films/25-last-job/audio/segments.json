@@ -2,230 +2,257 @@
  {
   "id": "s00",
   "sec": "H",
-  "text": "[calm, conversational] Scientists are trying to translate what animals are saying.\nThe first step already works: A.I. can hear what they feel.\nTry it yourself.\nOne of these two pigs feels fine. One doesn't. Guess which.\nListen.",
-  "chars": 227
- },
- {
-  "id": "P1",
-  "sec": "H",
-  "sound": true,
-  "dur": 3.9,
-  "file": "pig1-positive.wav"
+  "text": "[calm, conversational] There will be a last human job.\nThink of something you did at work last week.\nAn email.\nA report.\nA translation.\nA machine can now do it in seconds.",
+  "chars": 171
  },
  {
   "id": "s01",
   "sec": "H",
-  "text": "And this one.",
-  "chars": 13
- },
- {
-  "id": "P2",
-  "sec": "H",
-  "sound": true,
-  "dur": 3.6,
-  "file": "pig2-negative.wav"
+  "text": "[thoughtful] Every job is a row of tasks like that.\nAnd they're starting to fall, one by one.\nLike dominoes.\nSo which human job falls last?\nIt's not the one you'd guess.",
+  "chars": 169
  },
  {
   "id": "s02",
   "sec": "H",
-  "text": "[calm, conversational] It's the second pig.\nYou probably got it. A.I. gets it too, nine times out of ten.\nFeelings, yes. Words, not yet.\nA small nonprofit in California wants to change that. For any species on Earth.\nThey're called the Earth Species Project. Their target: breakthroughs by twenty thirty.\nWill they make it, and what happens to us if they do?",
-  "chars": 358
+  "text": "[calm, conversational] This time, the machines didn't start in the factory.\nThey started at the desk.\nAmong young people starting out, the jobs most exposed to A.I. are already almost a fifth behind.",
+  "chars": 199
  },
  {
   "id": "s03",
-  "sec": "1",
-  "text": "[thoughtful] Their A.I. can already do something strange.\nPlay it a call from an animal it has never heard. It can still tell you what kind of animal made it.\nNot every time. But far more often than a lucky guess.",
-  "chars": 213
- },
- {
-  "id": "s04",
-  "sec": "1",
-  "text": "[calm, conversational] One of the team's founders invented something you've probably used today.\nInfinite scroll. The endless feed on your phone.\nNow he's building A.I. that listens to animals.\nNot to chat with your dog. To understand what animals say to each other.\nHere he is.",
+  "sec": "H",
+  "text": "[thoughtful] The creator of this channel has watched his whole row fall.\nInside his own job.\nHis name is Jakob.\nFor fifteen years, he worked as a video producer.\nConcepts, shoots, edits, animation.\nAnd in all that time, he had never seen a change as fast as the last four years.",
   "chars": 278
  },
  {
-  "id": "C1",
-  "sec": "1",
-  "clip": true,
-  "dur": 6.8
+  "id": "J1",
+  "sec": "H",
+  "oton": true,
+  "dur": 10.93,
+  "file": "J1.wav"
+ },
+ {
+  "id": "s04",
+  "sec": "H",
+  "text": "[calm, conversational] A few years ago, he did every step himself.\nToday, a machine does almost all of them.\nAnd yet, he's still here.",
+  "chars": 134
  },
  {
   "id": "s05",
   "sec": "1",
-  "text": "[curious] Serious money backs them, too: ten million dollars from LinkedIn's co-founder.\nBut how do you crack a language with no dictionary, and no one to ask?",
-  "chars": 159
+  "text": "[thoughtful] Ten kinds of work.\nNumber ten is falling first.\nNumber one stands longest.\nThe order is a judgment call, built from what researchers have measured so far, and from where the robots actually are today.",
+  "chars": 213
  },
  {
   "id": "s06",
-  "sec": "2",
-  "text": "[thoughtful] Every baby on Earth does it.\nA baby never gets a word list. It just listens, for months.\nIt notices which sounds keep coming back, and which ones go together.\nThen it notices what happens next. One sound, and the bottle shows up.",
-  "chars": 242
+  "sec": "1",
+  "text": "[calm, conversational] Number ten.\nThe first job at the desk.\nThe junior coder.\nThe support agent.\nThe assistant who writes the first draft.\nMost of them aren't being fired.\nSomething quieter is happening.\nThey're just not being hired.\nThe economist who measured it explains it like this.",
+  "chars": 288
+ },
+ {
+  "id": "K1",
+  "sec": "1",
+  "clip": true,
+  "dur": 13.2
  },
  {
   "id": "s07",
-  "sec": "2",
-  "text": "[calm, conversational] The team's A.I. does the listening part, on a giant scale: a mountain of animal recordings, no meanings attached.\nThen it plays a guessing game: hide a piece of a sound, and guess what was there.\nLike autocomplete on your phone, but for birdsong and whale clicks.\nGuess after guess, patterns appear: calls that repeat, calls that belong together.",
-  "chars": 369
+  "sec": "1",
+  "text": "[thoughtful] And then the researchers found something else.\nPeople with experience, in the very same jobs, are doing fine.\nCompanies still fight over the senior developer.\nThey've cut back on hiring the junior one.\nIf you've been doing your work for twenty years, the data says you're the one they keep.\nIt's your kids who are finding the first door closed.\nFor Jakob, it also started with one small piece.",
+  "chars": 406
+ },
+ {
+  "id": "J2",
+  "sec": "1",
+  "oton": true,
+  "dur": 15.0,
+  "file": "J2.wav"
  },
  {
   "id": "s08",
-  "sec": "2",
-  "text": "[thoughtful] But a baby has one more advantage. It can see what the sounds are about.\nThe machine can't.\nSo the team and its partners clip tiny recorders onto wild animals.\nThey record each call, and what the animal was doing at the time.\nPatterns first. Then meaning.\nTwenty thirty is only a few years away. So how far have they gotten?",
-  "chars": 337
+  "sec": "1",
+  "text": "[curious] A few pictures.\nEverything else still by hand.\nBut the next domino was already leaning.\nNumber nine.\nThe voice.\nTranslators, interpreters, voice actors.\nMicrosoft studied two hundred thousand real conversations with its assistant.\nInterpreters and translators landed at the very top.\nThe work A.I. overlaps with most.\nWriters and historians close behind.\nRoofers and dredge operators at the very bottom.",
+  "chars": 413
  },
  {
   "id": "s09",
-  "sec": "3",
-  "text": "[calm, conversational] Further than you might think. And they're not alone: teams all over the world are listening, each with a piece of the puzzle.\nStart in Kenya. Other researchers there found that elephants call each other by name.\nPlay an elephant a call meant for her, and she answers faster, and heads for the speaker.\nThey caught it on camera.",
-  "chars": 350
- },
- {
-  "id": "C2",
-  "sec": "3",
-  "clip": true,
-  "dur": 9.6
+  "sec": "1",
+  "text": "[wry] Jakob stopped booking voice actors.\nThe voice you're hearing right now is not a person.\nSo if even a voice can be replaced, what's left?",
+  "chars": 142
  },
  {
   "id": "s10",
-  "sec": "3",
-  "text": "[curious] If elephants have names, there may be more words to find. That's what the team is after.\nAlso in Kenya, the Earth Species Project went further.\nElephant families often rumble all at once, like a family talking over each other at dinner.\nTheir A.I. listened to the whole chorus, and could sometimes read the room: a greeting, or a calf being comforted.\nA first step from patterns toward meaning.",
-  "chars": 404
+  "sec": "1",
+  "text": "[calm, conversational] Number eight.\nThe office routine.\nForms.\nInvoices.\nScheduling.\nIn office and admin work, A.I. could in theory handle nine out of ten tasks.\nIn practice, it's doing a fraction of that.\nSo far.\nBut companies aren't waiting.\nThis year alone, they've named A.I. as the reason for more than twice as many job cuts as last year.\nSo the desk is going early.",
+  "chars": 373
  },
  {
   "id": "s11",
-  "sec": "3",
-  "text": "[calm, conversational] Now north, to Spain. With a local university, the team clipped those tiny recorders onto wild crows.\nThey caught more than a hundred thousand calls. Many were quiet family murmurs that ordinary microphones miss.\nAnd each call comes with what the bird was doing right then. That's the baby's trick.\nAnd the pigs from the start? That was another team, also in Europe.\nTheir A.I. learned from thousands of pig calls, from birth to slaughter.\nSo one piece is already in place: feelings.",
-  "chars": 505
+  "sec": "1",
+  "text": "[curious] Surely the creative work is safe?\nThe stuff people got into this for?",
+  "chars": 79
  },
  {
   "id": "s12",
-  "sec": "3",
-  "text": "[calm, conversational] In the Caribbean, another team listens to sperm whales.\nThey found that the clicks are built from a few parts, like rhythm and tempo.\nMixed together, they make far more kinds of calls than expected.\nGood news for the California team: parts can be learned.",
-  "chars": 278
+  "sec": "2",
+  "text": "[calm, conversational] Number seven.\nNot really.\nImages.\nMusic.\nSound.\nWhole shots.\nEven the edit.",
+  "chars": 98
+ },
+ {
+  "id": "J3",
+  "sec": "2",
+  "oton": true,
+  "dur": 11.47,
+  "file": "J3.wav"
+ },
+ {
+  "id": "J3b",
+  "sec": "2",
+  "oton": true,
+  "dur": 6.6,
+  "file": "J3b.wav"
  },
  {
   "id": "s13",
-  "sec": "3",
-  "text": "[calm, conversational] Up north, in the Bahamas, Google has joined in. Its A.I. plays that autocomplete game with dolphin sounds.\nIt learned from recordings one scientist's team has made for four decades.\nHere's what she hopes for.",
-  "chars": 231
- },
- {
-  "id": "C3",
-  "sec": "3",
-  "clip": true,
-  "dur": 10.6
+  "sec": "2",
+  "text": "[thoughtful] So here's the puzzle.\nIf machine after machine takes his work, why is he still here?\nThere's a profession that, according to one of the fathers of A.I., should be gone by now.\nIn 2016, Geoffrey Hinton said we should stop training radiologists.\nMachines would read the scans better.\nHe was partly right.",
+  "chars": 315
  },
  {
   "id": "s14",
-  "sec": "3",
-  "text": "[thoughtful] Google's model is built for dolphins. The Earth Species Project wants one for every species.\nBack in California, another scientist found that zebra finches sort their calls by meaning more than by sound.\nLike \"couch\" and \"sofa\": different sounds, same thing.\nSo the meaning is there. The birds hear it.\nBut the machines? They can pick up on names, feelings, even what's going on.\nNot one of them can tell you what a single call says.",
-  "chars": 446
+  "sec": "2",
+  "text": "[calm, conversational] Machines now read many scans very well.\nAnd yet, this year, America opened more training spots for radiologists than ever before.\nHospitals can't find enough of them.\nBecause a radiologist never just looked at pictures.\nThey talk to the surgeon.\nThey decide what matters.\nThey carry the responsibility when it goes wrong.\nSo the dominoes were never whole jobs.\nThey're tasks.\nThe machine took over part of the reading.\nThe radiologist kept everything around it, and moved up.",
+  "chars": 498
+ },
+ {
+  "id": "J4",
+  "sec": "2",
+  "oton": true,
+  "dur": 5.6,
+  "file": "J4.wav"
  },
  {
   "id": "s15",
-  "sec": "4",
-  "text": "[thoughtful] Why is meaning so hard?\nRemember the baby. It learns what a sound means by seeing what it's about.\nResearchers tested A.I. on recordings of toddlers.\nSounds their parents understand: upset, hungry, calling for Mom or Dad.\nThe best systems couldn't sort them by meaning.\nIf machines can't yet read a toddler, a whale is a long way off.",
-  "chars": 347
- },
- {
-  "id": "s16",
-  "sec": "4",
-  "text": "[curious] There's a prize worth millions for the first real two-way conversation with an animal.\nIt's still unclaimed.\nThe closest thing yet? Off Alaska, a humpback whale seemed to answer a recorded call for twenty minutes.",
-  "chars": 223
- },
- {
-  "id": "C4",
-  "sec": "4",
-  "clip": true,
-  "dur": 13.3
- },
- {
-  "id": "s17",
-  "sec": "4",
-  "text": "[thoughtful] One whale. One call. One time.\nAnd the Earth Species Project admits it can't always tell when its A.I. gets it right.\nSo will they make twenty thirty? The team itself can't promise that.\nToday, there is no translator. Not for whales, not for elephants, not for your dog.",
+  "sec": "2",
+  "text": "[thoughtful] Every time the machine took a step, the human took one up.",
   "pause": true,
-  "chars": 283
+  "chars": 71
  },
  {
   "id": "cta1",
-  "sec": "4",
-  "text": "[calm, conversational] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Maybe even for the animals.\nWant that too? Then subscribe.",
+  "sec": "2",
+  "text": "[calm, conversational] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody.\nNot just for a few.\nWant that too?\nThen subscribe.\nIt genuinely helps.",
   "cta": true,
-  "chars": 183
+  "chars": 195
+ },
+ {
+  "id": "s16",
+  "sec": "2",
+  "text": "[thoughtful] From here on, the question isn't whether a job falls.\nIt's how much of it is left standing.\nNumber six.\nAnalysis, research, most software.\nThis is where the agents arrive.\nNot tools that help with a step, but systems that run the whole workflow, start to finish.\nOne lab chief has warned this could cut half of all entry-level office jobs within five years.\nThat's a forecast, not a measurement.\nSo far, the data shows fewer hires, not mass layoffs.\nBut if agents can run a whole workflow, what's left that they can't touch?",
+  "chars": 537
+ },
+ {
+  "id": "s17",
+  "sec": "3",
+  "text": "[calm, conversational] Number five.\nTeachers.\nA.I. can already explain anything, at any hour, in any language.\nBut a child doesn't learn because someone explained it.\nA child learns because someone believed they could.\nThe explaining falls.\nThe believing stays.",
+  "chars": 261
  },
  {
   "id": "s18",
-  "sec": "5",
-  "text": "[thoughtful] But suppose they make it. Would anything change?\nHistory has one clue.\nNineteen seventy. A record of humpback whale songs becomes the best-selling nature album ever.\nTwelve years later, nations around the world vote to pause commercial whaling. That pause still holds.\nThe songs weren't the only reason. But they gave the movement its soundtrack.",
-  "chars": 359
+  "sec": "3",
+  "text": "[thoughtful] Number four.\nDoctors.\nMore and more of the diagnosis is moving to the machine.\nJust like the scan.\nBut someone still has to sit with you and say the hard sentence.\nAnd stay in the room afterwards.\nAnd then the row slows down.\nBecause the next jobs need hands.",
+  "chars": 272
  },
  {
   "id": "s19",
-  "sec": "5",
-  "text": "[calm, conversational] Now think back to those pigs.\nToday, going without meat has never been easier.\nIn Germany, about nine in a hundred people now eat no meat at all. Among the under-thirties, it's one in five.\nStill, nine in ten Germans eat meat.\nMaybe the products just aren't good or cheap enough yet.\nOr maybe what's missing is a feeling. Most of us never hear these animals at all.",
-  "chars": 388
+  "sec": "3",
+  "text": "[calm, conversational] Number three.\nThe trades.\nThe electrician.\nThe plumber.\nThe roofer.\nWhat's easy for us is brutally hard for machines.\nClimbing into a flooded basement.\nFinding the one rusted pipe behind a wall that's sixty years old.\nThe first humanoid robots have started work in factories and warehouses.\nClean floors, same task, again and again.\nYour basement is not a factory.\nEven the man who warned the radiologists now has career advice.",
+  "chars": 451
+ },
+ {
+  "id": "K2",
+  "sec": "3",
+  "clip": true,
+  "dur": 9.7
  },
  {
   "id": "s20",
-  "sec": "5",
-  "text": "[curious] Now imagine a machine that does for pigs and chickens what those songs did for whales.\nCould that make vegetarian and vegan living mainstream, and win animals new rights?\nMaybe. But even for whales, the feeling didn't win everywhere. This past summer, Iceland hunted fin whales again.\nThere's also what psychologists call the meat paradox: loving animals, and eating them too.",
-  "chars": 386
+  "sec": "3",
+  "text": "[thoughtful] Notice the catch.\nA long time.\nNot forever.\nNumber three holds for years.",
+  "chars": 86
  },
  {
   "id": "s21",
-  "sec": "5",
-  "text": "[thoughtful] Remind people that farm animals suffer, and they tend to see them as having less of a mind.\nThat's not hypocrisy. It's human.\nSo maybe a feeling isn't enough.\nBut what if, one day, they could tell us in words?",
-  "chars": 222
+  "sec": "3",
+  "text": "[calm, conversational] Number two.\nCare.\nThe nurse who turns a patient at night.\nThe person who looks after your kids.\nIn Microsoft's study, nursing assistants landed near the very bottom.\nAlmost nothing they do overlaps with A.I.\nHere, the human isn't just doing the work.\nThe human is part of what's being given.\nSo the work that lasts is the work where a person is the point.\nWhich brings us back to Jakob.\nBecause by now, the machines had taken almost every step he used to do.",
+  "chars": 481
+ },
+ {
+  "id": "J5",
+  "sec": "3",
+  "oton": true,
+  "dur": 4.2,
+  "file": "J5.wav"
  },
  {
   "id": "s22",
-  "sec": "6",
-  "text": "[thoughtful] Twenty thirty. Day one. A research camp in Kenya.\nIn this scenario, the Earth Species Project hits its target.\nTheir A.I. understands a whole elephant chorus, start to finish.\nThe first message probably isn't for us. Something like: time to go.\nNot far-fetched: their A.I. already hears a family's voices line up when it seems to plan.\nDo we answer?\nThe man who invented the endless feed has a warning about that.",
-  "chars": 426
- },
- {
-  "id": "C5",
-  "sec": "6",
-  "clip": true,
-  "dur": 9.2
+  "sec": "3",
+  "text": "[thoughtful] By hand, one film like this took him two weeks or more.\nNow agents do the production.\nHe gives the direction.\nSo what's left when even the doing is gone?",
+  "chars": 166
  },
  {
   "id": "s23",
-  "sec": "6",
-  "text": "[calm, conversational] Year one. A courtroom in New Zealand. The case: ship noise.\nTwo parts of this are real. Near ships in the Caribbean, sperm whales already change their calls. Talk or stress? Still unclear.\nAnd Māori and Pacific leaders have declared whales legal persons. A lawmaker there wants to make that law.\nThe rest is our scenario. The court hears a decoded whale recording. It says: too loud. The judge agrees. Ships slow down.",
-  "chars": 441
+  "sec": "4",
+  "text": "[calm, conversational] Number one isn't the hardest job.\nIt's a different kind of job.\nIt's the one where we want a human.\nOn purpose.\nComputers have beaten the best chess players for almost thirty years.\nAnd chess has never been bigger.\nAbout ten million people play online every single day.\nMachines play each other too.\nThe crowds come for the humans.",
+  "chars": 354
  },
  {
   "id": "s24",
-  "sec": "6",
-  "text": "[calm, conversational] Year ten. A farm kitchen in Iowa.\nMicrophones in every barn listen for how the animals feel.\nWhether that changes what's for dinner, this scenario can't say.",
-  "chars": 180
+  "sec": "4",
+  "text": "[thoughtful] It's the person who sits with you when the news is bad.\nThe one who signs off, and answers for it.\nThe one who decides what's worth making in the first place.\nThose aren't tasks a machine can't do.\nThey're tasks we want a person to do.\nThe last human job isn't the one machines can't do.\nIt's the one we won't hand over.",
+  "chars": 333
  },
  {
   "id": "s25",
-  "sec": "6",
-  "text": "[wry] Under the table, you finally learn what your dog thinks of you. Mostly: walk.",
-  "chars": 83
+  "sec": "5",
+  "text": "[calm, conversational] So how do you stay on the right side of the row?\nFirst, judgment.\nTelling good from merely finished.\nIt's why companies still pay for the senior who can tell the difference.\nIt protects you from being swapped for a button.\nSecond, directing.\nBreaking a goal into steps, handing them to agents, checking what comes back.\nThat's what Jakob does every day now.\nIt protects you from being the task that gets automated, because you become the one who runs it.",
+  "chars": 477
  },
  {
   "id": "s26",
-  "sec": "6",
-  "text": "[thoughtful] Listening to animals is practice for understanding minds that aren't human.\nAnd one of those minds, we're building right now.\nSoon, we may not be the smartest voice in the room.\nThen listening won't be politeness. It'll be the most important skill we have.",
-  "pause": true,
-  "chars": 269
+  "sec": "5",
+  "text": "Third, trust.\nPeople still buy from people, hire people, follow people.\nRelationships protect you from being compared on price with a machine.\nFourth, hands plus a head.\nA trade, with A.I. in your pocket.\nIt protects you because the robot isn't in the basement yet.\nAnd when it arrives, someone has to run it.",
+  "chars": 309
  },
  {
   "id": "s27",
+  "sec": "5",
+  "text": "[thoughtful] And fifth, learning in steps.\nNot one big retraining.\nOne new step, every time a model takes the old one.\nIt protects you from waking up with a skill no one is hiring for.\nEven Bill Gates calls this a turbulent era.\nWhich is exactly why the steps matter.",
+  "chars": 267
+ },
+ {
+  "id": "K3",
+  "sec": "5",
+  "clip": true,
+  "dur": 12.0
+ },
+ {
+  "id": "s28",
   "sec": "6",
-  "text": "[calm, conversational] Back to today.\nTwenty thirty is only a few years off. Maybe they make it. Maybe it takes far longer.\nBut one part has already arrived. You heard it yourself, at the very start.\nA.I. can hear them now.\nWhether we listen is up to us.",
-  "pause": true,
-  "chars": 254
+  "text": "[thoughtful] Every time the machine took a step, the human took one up.\nSo the last human job isn't waiting at the end of the row.\nIt's the step you take next.",
+  "chars": 159
+ },
+ {
+  "id": "J6",
+  "sec": "6",
+  "oton": true,
+  "dur": 5.85,
+  "file": "J6.wav"
  },
  {
   "id": "cta2",
   "sec": "6",
-  "text": "[calm, conversational] Want the arrival of superintelligence to go well for everybody? Then subscribe.",
+  "text": "[calm, conversational] This channel exists so that superintelligence goes well for everyone.\nWant that too?\nThen subscribe.",
   "cta": true,
-  "chars": 102
+  "chars": 123
  }
 ]
