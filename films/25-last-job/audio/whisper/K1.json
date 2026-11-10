@@ -1,0 +1,245 @@
+{
+"_source": "fal-ai/whisper chunk_level=word on K1.mp4 with 1.5 s of silence in front (10.11.2026), times already minus 1.5 = seconds from the start of the raw file. Whisper quirks: the first words of a file are squashed before the first strong word, pauses are absorbed by a neighbouring word.",
+"_file_size": 2715037,
+"text": "If you look at the most exposed occupations and you looked at the ones that for the youngest age group there, say 22 to 26, then you saw a very noticeable decline in employment.",
+"chunks": [
+{
+"timestamp": [
+-0.05,
+0.37
+],
+"text": " If"
+},
+{
+"timestamp": [
+0.37,
+0.79
+],
+"text": " you"
+},
+{
+"timestamp": [
+0.79,
+0.93
+],
+"text": " look"
+},
+{
+"timestamp": [
+0.93,
+1.01
+],
+"text": " at"
+},
+{
+"timestamp": [
+1.01,
+1.11
+],
+"text": " the"
+},
+{
+"timestamp": [
+1.11,
+1.39
+],
+"text": " most"
+},
+{
+"timestamp": [
+1.39,
+1.89
+],
+"text": " exposed"
+},
+{
+"timestamp": [
+1.89,
+3.73
+],
+"text": " occupations"
+},
+{
+"timestamp": [
+3.73,
+4.39
+],
+"text": " and"
+},
+{
+"timestamp": [
+4.39,
+4.67
+],
+"text": " you"
+},
+{
+"timestamp": [
+4.67,
+4.91
+],
+"text": " looked"
+},
+{
+"timestamp": [
+4.91,
+5.09
+],
+"text": " at"
+},
+{
+"timestamp": [
+5.09,
+5.29
+],
+"text": " the"
+},
+{
+"timestamp": [
+5.29,
+5.57
+],
+"text": " ones"
+},
+{
+"timestamp": [
+5.57,
+5.97
+],
+"text": " that"
+},
+{
+"timestamp": [
+5.97,
+6.37
+],
+"text": " for"
+},
+{
+"timestamp": [
+6.37,
+6.53
+],
+"text": " the"
+},
+{
+"timestamp": [
+6.53,
+6.77
+],
+"text": " youngest"
+},
+{
+"timestamp": [
+6.77,
+7.71
+],
+"text": " age"
+},
+{
+"timestamp": [
+7.71,
+8.05
+],
+"text": " group"
+},
+{
+"timestamp": [
+8.05,
+8.29
+],
+"text": " there,"
+},
+{
+"timestamp": [
+8.29,
+8.45
+],
+"text": " say"
+},
+{
+"timestamp": [
+8.45,
+8.85
+],
+"text": " 22"
+},
+{
+"timestamp": [
+8.85,
+9.11
+],
+"text": " to"
+},
+{
+"timestamp": [
+9.11,
+9.97
+],
+"text": " 26,"
+},
+{
+"timestamp": [
+9.97,
+10.47
+],
+"text": " then"
+},
+{
+"timestamp": [
+10.47,
+10.65
+],
+"text": " you"
+},
+{
+"timestamp": [
+10.65,
+10.93
+],
+"text": " saw"
+},
+{
+"timestamp": [
+10.93,
+11.37
+],
+"text": " a"
+},
+{
+"timestamp": [
+11.37,
+11.69
+],
+"text": " very"
+},
+{
+"timestamp": [
+11.69,
+12.19
+],
+"text": " noticeable"
+},
+{
+"timestamp": [
+12.19,
+12.59
+],
+"text": " decline"
+},
+{
+"timestamp": [
+12.59,
+13.21
+],
+"text": " in"
+},
+{
+"timestamp": [
+13.21,
+13.69
+],
+"text": " employment."
+}
+]
+}

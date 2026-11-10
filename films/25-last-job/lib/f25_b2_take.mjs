@@ -75,7 +75,7 @@ function build(T) {
     if (t < tW0) { const p = F.camPath(t, KS1), u = smooth(span(t, tPlA, tPlA + 1.6)); return B.blend(plateCam(t), p, u); }
     return E.camAt(t, [[tW0, KS1[KS1.length - 1][1]], [tW1, B.fillCam(F0, RW), 's']]);
   };
-  const KS2 = [[tp1 + 2.0, C(1160, 410, 1.28)], [a.J4.start + 4.2, C(1170, 300, 1.32)], [a.every - .1, C(1210, 340, 1.12)], [a.oneUp + .9, C(1205, 300, 1.2)], [tp2 - 1.9, C(1200, 290, 1.25)]];
+  const KS2 = [[tp1 + 2.0, C(1160, 410, 1.28)], [a.J4.start + 4.2, C(1170, 300, 1.32)], [a.every - .1, C(1210, 340, 1.12)], [Math.min(a.oneUp + .9, tp2 - 2.4), C(1205, 300, 1.2)], [tp2 - 1.9, C(1200, 290, 1.25)]];
   const studio2Cam = (t) => {
     const base = t < tp1 + 2.0 ? E.camAt(t, [[tp1, C(L1[0], L1[1], 18)], [tp1 + 2.0, KS2[0][1], 'o']])
       : t < tp2 - 1.9 ? F.camPath(t, KS2) : E.camAt(t, [[tp2 - 1.9, KS2[KS2.length - 1][1]], [tp2, C(L2[0], L2[1], 18), 'i']]);
@@ -275,7 +275,7 @@ function build(T) {
   const chainCool = (k, t) => Math.max(k === 2 ? span(t, a.notTools + .8, a.notTools + 1.1) : 0, span(t, hopT(k) - .05, hopT(k) + .2));
   const camRankKeys = [
     [tp2 + 2.2, E.aim(SC.RZ, lampI0[0] + 230, lampI0[1] + 10, 2.4)], [a.notJust + .2, E.aim(SC.RZ, lampI0[0] + 420, lampI0[1] + 40, 1.8)],
-    [a.subscribe + 1.0, E.aim(SC.RZ, -2550, 640, .9)], [a.fromHere + 1.7, E.aim(SC.RZ, -900, 740, .92)],
+    [a.subscribe + 1.0, E.aim(SC.RZ, -2550, 640, .9)], [a.fromHere + .6, E.aim(SC.RZ, -900, 740, .92)],
     [a.howMuch - .1, C(1250, 610, .62)], [a.six - 1.3, C(1290, 600, .66)], [a.six + .6, B.onStone(5, 2.8, 1250, 560)], [a.six + 2.2, B.onStone(5, 2.9, 1240, 555)],
     [a.agentsArrive + 1.6, E.aim(Z5, chainCx, CY - 30, 2.4, 960, 380)], [a.labChief + .9, E.aim(Z5, chainCx, CY - 20, 2.2, 960, 290)],
     [a.butIf - .2, E.aim(Z5, chainCx + 10, CY - 10, 2.1, 960, 310)], [a.touch + .5, B.onStone(4, 2.6, 1250, 560)], [a.five + 1.4, B.onStone(4, 2.9, 1250, 560)], [tC0, B.onStone(4, 3.1, 1230, 560)],

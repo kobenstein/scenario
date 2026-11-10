@@ -87,7 +87,7 @@ function scene(a, T) {
     [a.most - 1.3, B.fieldCam(F10, -238, -110, 1.3)]];
   const KB2 = [[a.most - 1.3, B.fieldCam(F10, -238, -110, 1.3)], [a.most + 1.0, home], [a.quieter + .4, L(905, 600, 1.16)], [a.hired - .2, L(1010, 650, 1.3)],
     [a.econ - .2, L(1450, 560, 1.2)], [a.K1.start, L(1470, 568, 1.26)], [a.K1.end + .9, L(1480, 572, 1.3)]];
-  const KC = [[a.K1.end + .9, KB2[KB2.length - 1][1]], [a.research + 1.0, L(1150, 540, 1.04)], [a.research + 2.2, home],
+  const KC = [[a.K1.end + .9, KB2[KB2.length - 1][1]], [a.research + 1.0, L(960, 540, 1.04)], [a.research + 2.2, home],
     [a.exp + 1.2, B.fieldCam(F10, -560, -560, .9)], [a.fight + .5, B.fieldCam(F10, -620, -520, .95)], [a.cut + .3, B.fieldCam(F10, -560, -470, .93)],
     [a.twenty + 1.2, B.fieldCam(F10, -760, -560, .98)], [a.kids + .3, B.fieldCam(F10, -660, -540, 1.06)], [a.jakob - .1, B.fieldCam(F10, -560, -500, 1.18)]];
   const KS = [[tf + 1.4, C(640, 690, 1.45)], [a.J2.start + 1.2, C(860, 560, 1.0)], [a.J2.start + 4.6, C(1180, 560, 1.08)], [a.J2.start + 9.5, C(1330, 640, 1.26)],

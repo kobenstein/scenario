@@ -212,69 +212,97 @@
  },
  "K1": {
   "plan": 13.2,
-  "dur": null,
+  "dur": 13.2,
   "offset": 0.0,
   "name": "Erik Brynjolfsson",
   "role": "Director, Stanford Digital Economy Lab",
   "source": "https://www.youtube.com/watch?v=OvFI-V9Zaeo",
-  "text": "If you looked at the most exposed occupations and you looked at the youngest age group there, say 22 to 26, then you saw a very noticeable decline in employment.",
-  "cue_status": "estimated",
-  "cue_timing": "spread over the planned length",
+  "text": "If you looked at the most exposed occupations and you looked at the ones that for the youngest age group there, say 22 to 26, then you saw a very noticeable decline in employment.",
+  "cue_status": "whisper",
+  "cue_timing": "aligned to the clip sound",
   "cues": [
    [
     0.0,
-    "If you looked at the most exposed"
+    "If you looked at the most"
    ],
    [
-    2.74,
-    "occupations and you looked at the"
+    0.81,
+    "exposed occupations"
    ],
    [
-    5.48,
-    "youngest age group there,"
+    3.712,
+    "and you looked at the ones"
    ],
    [
-    7.57,
-    "say 22 to 26, then you saw a very"
+    4.99,
+    "that for the youngest"
    ],
    [
-    10.31,
-    "noticeable decline in employment."
+    6.19,
+    "age group there, say 22 to 26,"
+   ],
+   [
+    9.39,
+    "then you saw a very noticeable"
+   ],
+   [
+    11.61,
+    "decline in employment."
    ]
-  ]
+  ],
+  "in": 0.58,
+  "window_note": "K1.mp4 = source from 1674.5 s (14.22 s). Speech 'If' onset ~0.66 s (energy), 'employment.' ends 13.78 s; window in 0.58 + 13.2 s. Whisper (fal-ai/whisper, word level) wording checked 10.11.",
+  "frames": 396,
+  "real": 13.643,
+  "src_sig": "39331525bc77",
+  "src": "K1.mp4",
+  "src_size": 2715037,
+  "cue_source": "whisper json K1.json"
  },
  "K2": {
   "plan": 9.7,
-  "dur": null,
+  "dur": 9.7,
   "offset": 0.0,
   "name": "Geoffrey Hinton",
   "role": "AI pioneer, Nobel laureate in physics 2024",
   "source": "https://www.youtube.com/watch?v=giT0ytynSqg",
-  "text": "I'd say it's going to be a long time before it's as good at physical manipulation as us. And so, a good bet would be to be a plumber.",
-  "cue_status": "estimated",
-  "cue_timing": "spread over the planned length",
+  "text": "I'd say it's going to be a long time before it's as good at physical manipulation as us. And so a good bet would be to be a plumber.",
+  "cue_status": "whisper",
+  "cue_timing": "aligned to the clip sound",
   "cues": [
    [
-    0.0,
-    "I'd say it's going to be a long"
+    0.17,
+    "I'd say it's going"
    ],
    [
-    2.28,
-    "time before it's as good at"
+    0.84,
+    "to be a long time before"
    ],
    [
-    4.28,
-    "physical manipulation as us."
+    2.33,
+    "it's as good at physical"
    ],
    [
-    6.34,
-    "And so, a good bet would be to be"
+    4.01,
+    "manipulation as us."
    ],
    [
-    8.77,
-    "a plumber."
+    6.477,
+    "And so a good bet would"
+   ],
+   [
+    8.41,
+    "be to be a plumber."
    ]
-  ]
+  ],
+  "in": 0.32,
+  "window_note": "K2.mp4 = source from 3034.8 s (10.72 s). 'meantime,' (Hinton) 0-0.3, 'I'd say' from 0.36, 'us.' ends 5.7, Bartlett 'Okay.' 6.14-6.35 (stays in the sound, left out of the subtitle), 'plumber.' ends 9.8; window in 0.32 + 9.7 s.",
+  "frames": 291,
+  "real": 10.4,
+  "src_sig": "355254e049e1",
+  "src": "K2.mp4",
+  "src_size": 1339515,
+  "cue_source": "whisper json K2.json"
  },
  "K3": {
   "plan": 12.0,
@@ -284,6 +312,7 @@
   "role": "Co-founder of Microsoft, Gates Foundation",
   "source": "https://www.youtube.com/watch?v=MLeTQWQiOvg",
   "cues": null,
-  "cue_status": "none yet (K3 wording pending)"
+  "cue_status": "card (QUOTES.gates), decided 10.11. (music under the voice, no clip)",
+  "card": true
  }
 }

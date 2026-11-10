@@ -1,0 +1,217 @@
+{
+"_source": "fal-ai/whisper chunk_level=word on K2.mp4 with 1.5 s of silence in front (10.11.2026), times already minus 1.5 = seconds from the start of the raw file. Whisper quirks: the first words of a file are squashed before the first strong word, pauses are absorbed by a neighbouring word.",
+"_file_size": 1339515,
+"text": "Meantime I'd say it's gonna be a long time before it's as good at physical manipulation as us Okay, and so a good bet would be to be a plumber",
+"chunks": [
+{
+"timestamp": [
+-0.09,
+0.49
+],
+"text": " Meantime"
+},
+{
+"timestamp": [
+0.49,
+0.75
+],
+"text": " I'd"
+},
+{
+"timestamp": [
+0.75,
+0.89
+],
+"text": " say"
+},
+{
+"timestamp": [
+0.89,
+1.07
+],
+"text": " it's"
+},
+{
+"timestamp": [
+1.07,
+1.25
+],
+"text": " gonna"
+},
+{
+"timestamp": [
+1.25,
+1.75
+],
+"text": " be"
+},
+{
+"timestamp": [
+1.75,
+1.89
+],
+"text": " a"
+},
+{
+"timestamp": [
+1.89,
+2.07
+],
+"text": " long"
+},
+{
+"timestamp": [
+2.07,
+2.29
+],
+"text": " time"
+},
+{
+"timestamp": [
+2.29,
+2.65
+],
+"text": " before"
+},
+{
+"timestamp": [
+2.65,
+2.95
+],
+"text": " it's"
+},
+{
+"timestamp": [
+2.95,
+3.73
+],
+"text": " as"
+},
+{
+"timestamp": [
+3.73,
+3.93
+],
+"text": " good"
+},
+{
+"timestamp": [
+3.93,
+4.03
+],
+"text": " at"
+},
+{
+"timestamp": [
+4.03,
+4.33
+],
+"text": " physical"
+},
+{
+"timestamp": [
+4.33,
+4.85
+],
+"text": " manipulation"
+},
+{
+"timestamp": [
+4.85,
+5.39
+],
+"text": " as"
+},
+{
+"timestamp": [
+5.39,
+5.57
+],
+"text": " us"
+},
+{
+"timestamp": [
+5.97,
+6.29
+],
+"text": " Okay,"
+},
+{
+"timestamp": [
+6.29,
+6.83
+],
+"text": " and"
+},
+{
+"timestamp": [
+6.83,
+7.15
+],
+"text": " so"
+},
+{
+"timestamp": [
+7.15,
+7.63
+],
+"text": " a"
+},
+{
+"timestamp": [
+7.63,
+8.39
+],
+"text": " good"
+},
+{
+"timestamp": [
+8.39,
+8.55
+],
+"text": " bet"
+},
+{
+"timestamp": [
+8.55,
+8.73
+],
+"text": " would"
+},
+{
+"timestamp": [
+8.73,
+8.97
+],
+"text": " be"
+},
+{
+"timestamp": [
+8.97,
+9.17
+],
+"text": " to"
+},
+{
+"timestamp": [
+9.17,
+9.31
+],
+"text": " be"
+},
+{
+"timestamp": [
+9.31,
+9.43
+],
+"text": " a"
+},
+{
+"timestamp": [
+9.43,
+9.71
+],
+"text": " plumber"
+}
+]
+}

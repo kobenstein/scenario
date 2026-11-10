@@ -622,9 +622,10 @@ function frameCount(id) { if (!nFrames.has(id)) { let n = 0; try { n = fs.readdi
 function frameAt(id, t, win) { const n = frameCount(id); if (!n) return 0; const off = (CLIPMETA[id] || {}).offset || 0; return Math.max(1, Math.min(n, Math.floor((t - win.start - off) * 30) + 1)); }
 const framePath = (id, k) => `${CLIPDIR}${id}/f${String(k).padStart(5, '0')}.jpg`;
 const frameCache = new Map();
+const CLIP_LEAD = 7;
 export async function prepareClipFrames(T, t) {
   for (const id of Object.keys(CLIPS)) {
-    const win = clipWin(T, id); if (!win || t < win.start - .8 || t > win.end + .8) continue;
+    const win = clipWin(T, id); if (!win || t < win.start - CLIP_LEAD || t > win.end + .8) continue;   // the plate grows over the lead-in sentence (3.4-5.8 s before the slot) and shows frame 1 meanwhile
     const k = frameAt(id, t, win); if (!k) continue;
     const f = framePath(id, k); if (frameCache.has(f)) continue;
     if (frameCache.size > 48) frameCache.delete(frameCache.keys().next().value);

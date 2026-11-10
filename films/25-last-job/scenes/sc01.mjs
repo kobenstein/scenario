@@ -86,7 +86,7 @@ function scene(a, T) {
   ];
   // the last seconds already ride the plate's creep line (push 3 %/s + truck 16 px/s), extended backwards from tPlate
   const creepCam = (t) => C(DX + 1010 + S.TRUCK * (t - tPlate), 560, 1.06 * (1 + S.CREEP * (t - tPlate)));
-  const tCreep = a.yet - .6;
+  const tCreep = Math.max(a.yet - .6, tf2 + 2.4 + 1.6);   // real timing: 'And yet' comes sooner after 'Today, a machine …'; the lamp dive (ends tf2 + 2.4) must finish first, then glide onto the creep line
   const KC = [[tf2 + 2.4, C(DX + 1150, 470, .84)], [tCreep, creepCam(tCreep)]];
   // studio camera (studio design coordinates)
   const j1s = a.J1.start;

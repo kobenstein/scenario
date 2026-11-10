@@ -205,7 +205,7 @@ function scene(a, T) {
   const IX = (k) => 760 + k * 260, IXY = -330, IXH = 140, SK = (k, s = 1) => C(IX(k) + 480, -680, s);
   const starts = () => [a.first, a.second, a.third, a.fourth, a.fifth];
   const ST = starts(), EN = [a.second, a.third, a.fourth, a.fifth, a.gates];
-  const KD = [[a.stay + .3, C(690, 615, 1.17)], [a.stay + 3.3, C(1150, 250, .72)], [ST[0] - .4, C(1170, 200, .74)]];
+  const KD = [[a.stay + .3, C(690, 615, 1.17)], [Math.min(a.stay + 3.3, ST[0] - 1.2), C(1150, 250, .72)], [ST[0] - .4, C(1170, 200, .74)]];   // real timing: 'First, judgment' follows 'So how do you stay' after 3.2 s, keep the keys in order
   for (let k = 0; k < 5; k++) { KD.push([ST[k] + 1.7, SK(k)]); KD.push([EN[k] - .5, SK(k, 1.06)]); }
   const SKY = C(IX(4) + 480, -2500, 1.0), ER0 = C(1000, 560, 1.0);
   KD.push([a.k3.start + 1.5, SKY]); KD.push([a.k3.end - 3.2, C(IX(4) + 470, -2520, 1.01)]);

@@ -38,7 +38,7 @@
    "start": 108.41,
    "end": 121.61,
    "dur": 13.2,
-   "length_from": "clips/clips.json",
+   "length_from": "audio/clips.json",
    "under": false
   },
   {
@@ -92,7 +92,7 @@
    "start": 439.19,
    "end": 448.89,
    "dur": 9.7,
-   "length_from": "clips/clips.json",
+   "length_from": "audio/clips.json",
    "under": false
   },
   {
