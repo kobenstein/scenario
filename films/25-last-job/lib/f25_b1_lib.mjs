@@ -98,13 +98,17 @@ export function rankPlain(ctx, c) {
 }
 // the rank row (rank coordinates, camera c). o { fall(n) → angle, gold (No. 1), each(n) → extra stone options, after(n, ctx, k)
 //   (drawn on the stone's card right after it, in its field frame: local units, origin at the pivot), sky: { cs, glow }, hide(n) }
+// o.alpha(n): fade a stone (e.g. near the camera, so a stone passing out from behind the camera never pops in)
 export function rankWorld(ctx, c, t, o = {}) {
   rankSky(ctx, c, t, o.sky || {}); rankPlain(ctx, c);
   for (let i = RK.length - 1; i >= 0; i--) {
     const s = RK[i], n = i + 1, ang = o.fall ? o.fall(n) : S.rankLie(n);
     if (o.hide && o.hide(n)) continue;
+    const al = o.alpha ? clamp(o.alpha(n)) : 1; if (al <= 0) continue;
     const ex = { ...(i === 0 ? { gold: o.gold ?? 1, glyph: null, num: 1 } : { num: n, dark: ang > 1 ? .3 : 0 }), ...(o.each ? o.each(n) || {} : {}) };
+    if (al < 1) ex.a = (ex.a ?? 1) * al;
     E.card(ctx, c, s.Z, () => {
+      ctx.globalAlpha = al;
       if (ang < 1.2) {   // the long soft shadow away from the light (as F.drawRow)
         const L = [RK[0].x - 300, RK[0].y], dirx = s.x - L[0] > 0 ? 1 : -1, len = s.h * (1.1 - ang * .6) * (ex.gold ? 0 : 1);
         if (len > 4) { ctx.fillStyle = lin(ctx, s.x, s.y, s.x + dirx * len, s.y + len * .18, [[0, rgba(P.night0, .55)], [1, rgba(P.night0, 0)]]);

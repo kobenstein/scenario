@@ -50,6 +50,7 @@ export default async (T, R) => {
 
 const C = (u, v, s) => E.aim(F0, u, v, s);
 const F9 = B.field(9), F8 = B.field(8), F7 = B.field(7);
+const RKZ = Array.from({ length: 10 }, (_, i) => B.stoneOf(i + 1).Z);
 const LIE = Math.PI / 2 - .015;
 // the Microsoft slabs below the lying No. 9 (field frame of No. 9): the stone itself is the top slab
 const SX = -B.STONE_H, ROWS = [
@@ -85,14 +86,17 @@ function scene(a, T) {
     [a.writers + .2, B.fieldCam(F9, -400, 200, .97)], [a.roofers + .2, slabsA]];
   const tHome = a.booking + 1.6;
   const K2 = [[a.roofers + .2, slabsA], [tHome, homeB]];
-  const outB = Lb(885, 455, 1.0);
-  const K3 = [[tHome, homeB], [a.hearing + .25, Lb(940, 515, 1.08)], [a.ifEven - .15, Lb(912, 482, 1.18)], [a.ifEven + 1.3, outB]];
+  // local keys move 1:1 in world units, and the window is only ±60 × ±38 of them: the camera must cross the face inside it
+  const outB = Lb(935, 520, 1.0);
+  const K3 = [[tHome, homeB], [a.hearing + 1.2, Lb(946, 529, 1.16)], [a.ifEven + 1.3, outB]];
   const view8 = B.fieldCam(F8, 140, -250, .72);
   const K4 = [[a.ifEven + 1.3, outB], [a.n8 - .1, view8]];
   const K5 = [[a.n8 - .1, view8], [a.forms - .1, B.fieldCam(F8, -140, -210, .95)], [a.sched + .7, B.fieldCam(F8, -230, -150, 1.05)],
     [a.admin + .8, B.fieldCam(F8, -190, -440, .88)], [a.practice + .6, B.fieldCam(F8, -230, -430, .92)], [a.waiting + .8, B.fieldCam(F8, -360, -330, .9)],
     [a.desk - .3, B.fieldCam(F8, -340, -300, .95)]];
-  const over = C(1240, 610, .8);
+  // the overview stays in front of No. 3 (camera z ≈ 3600), so the near stones 1–3 never cross the frame; stones the camera passes on
+  // the way back from No. 8 and on to No. 7 fade with their magnification instead of popping in at the near plane
+  const over = E.aim(F7.Z, F7.x + 260, F7.y - 150, F7.Z / (F7.Z - 3600));
   const K6 = [[a.desk - .3, K5[K5.length - 1][1]], [a.desk + 2.2, over]];
   const K7 = [[a.desk + 2.2, over], [a.surely + 1.8, B.fieldCam(F7, 90, -250, .78)], [a.end, n7Cam()]];
   const cam = (t) => {
@@ -132,7 +136,7 @@ function scene(a, T) {
   function waveLine(ctx, t, c, hy) {
     const u0 = a.ifEven + .7; if (t < u0 || t > a.n8 + .2) return;
     const cl = B.local(c, homeB), p0 = E.project(cl, WAVE.Z, WAVE.x0, WAVE.y), p1 = E.project(cl, WAVE.Z, WAVE.x1, WAVE.y); if (!p0 || !p1) return;
-    const w = sineIO(span(t, u0 + .3, a.n8 - .3)), ga = 1 - smooth(span(t, a.n8 - .45, a.n8 + .1));
+    const w = sineIO(span(t, u0 + .3, a.n8 - .3)), ga = smooth(span(t, u0, u0 + .5)) * (1 - smooth(span(t, a.n8 - .45, a.n8 + .1)));
     const y = lerp(p0[1], hy, w), xa = lerp(p0[0], -10, w), xb = lerp(p1[0], W + 10, w);
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalCompositeOperation = 'lighter';
     ctx.strokeStyle = rgba(F.COOL.halo, .25 * ga); ctx.lineWidth = 10; ctx.beginPath(); ctx.moveTo(xa, y); ctx.lineTo(xb, y); ctx.stroke();
@@ -140,17 +144,22 @@ function scene(a, T) {
   }
 
   // ------------------------------------------------------------------ the rank world
+  const horizonY = (c) => E.project(c, F.Z_HOR + Math.max(0, c.z - 1000), 0, F.HOR)?.[1] ?? null;
   function world(ctx, t) {
     const c = E.camDrift(cam(t), t, .6, 11);
     // inside the booth (the slab window is behind the camera)
-    if (!B.inFront(c, F9)) { SC.booth(ctx, B.local(c, homeB), t, { wave: (cx, cl) => wave(cx, cl, t) }); return { c, hy: null }; }
+    if (!B.inFront(c, F9)) { SC.booth(ctx, B.local(c, homeB), t, { wave: (cx, cl) => wave(cx, cl, t) }); return { c, hy: horizonY(c) }; }
     let hy = null;
     B.rankWorld(ctx, c, t, {
       fall: (n) => (n === 10 ? LIE : n === 9 ? B.leanAngle(t, cut.tL, tc) : n === 8 ? B.fallAngle(t, t8) : n === 7 ? n7Fall(t, T) : 0),
       each: (n) => (n === 9 ? { glyphA: 1 - smooth(span(t, hit9 - .1, hit9 + .5)) } : n === 8 ? { glyphA: 1 - smooth(span(t, B.fallHit(t8) - .1, B.fallHit(t8) + .5)) } : n === 7 ? { glyph: null } : null),
+      alpha: (n) => {
+        if (t < a.desk - .3 || n > 7 || (n === 7 && t > a.desk + 2.2)) return 1;
+        const m = RKZ[n - 1] / Math.max(1, RKZ[n - 1] - c.z); return 1 - smooth(span(m, 2.5, 7));
+      },
       after: (n, ang) => { if (n === 9) on9(ctx, t, c, ang); else if (n === 8) on8(ctx, t, ang); else if (n === 7) no7Face(ctx, t, T, ang); },
     });
-    hy = E.project(c, F.Z_HOR + Math.max(0, c.z - 1000), 0, F.HOR)?.[1] ?? null;
+    hy = horizonY(c);
     return { c, hy };
   }
   // No. 9's card: glyphs, the slabs, the booth window

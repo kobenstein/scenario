@@ -140,7 +140,8 @@ function scene(a, T) {
       B.litWindow(ctx, WIN, WIN_C[0], WIN_C[1], 260, wu);
       if (wu > .02) {   // the office through the window (with the local camera), dimmed by the window light until it opens
         const m = ctx.getTransform();
-        ctx.save(); ctx.clip(WIN); SC.office(ctx, B.local(c, home), t, {}); ctx.restore(); ctx.setTransform(m);
+        const k = smooth(span(wu, 0, .3));
+        ctx.save(); ctx.clip(WIN); ctx.globalAlpha = k; SC.office(ctx, B.local(c, home), t, {}); ctx.restore(); ctx.setTransform(m);
         ctx.save(); ctx.clip(WIN); ctx.fillStyle = rgba(P.core1, .9 * smooth(span(wu, 0, .3)) * (1 - smooth(span(wu, .3, 1)))); ctx.fillRect(-600, -300, 700, 400); ctx.restore();
         if (t > a.research) { ctx.save(); ctx.clip(WIN); ctx.fillStyle = rgba(P.core1, .85 * smooth(span(t, a.research + 2.2, a.research + 3.4))); ctx.fillRect(-600, -300, 700, 400); ctx.restore(); }
       }
