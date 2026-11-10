@@ -1,0 +1,26 @@
+Schweinelaute – Quelle
+======================
+Datensatz: "The Soundwel Database: a labeled pig vocalization repository"
+Zenodo: https://zenodo.org/records/8252482  (DOI 10.5281/zenodo.8252482)
+Lizenz (laut Zenodo-Seite): Creative Commons Attribution 4.0 International (CC BY 4.0)
+-> Nutzung inkl. kommerziell erlaubt, Namensnennung Pflicht (z. B. in der Videobeschreibung:
+   "Pig vocalizations: The Soundwel Database (Zenodo, doi:10.5281/zenodo.8252482), CC BY 4.0").
+Labels aus SoundwelDatasetKey.xlsx.
+
+pig1-positive.wav  (3,89 s, 48 kHz mono)
+  Ruhige, tiefe Grunzer, Valenz laut Label: Pos
+  Fünf aufeinanderfolgende Einzel-Grunzer desselben Tiers (NMBU, Kontext "Enriched", Pair7 Trial1,
+  Grower/Finisher, männlich, Call Type LFs = kurzer tiefer Grunzer, F0 ~52–61 Hz),
+  aneinandergesetzt mit je 0,3 s Pause, 30–40 ms Fades, Lautheit normalisiert (-20 LUFS):
+    NMBUNMBUEnrichedPair7enrichedTrial1LFs001.wav  (Pos, LFs, F0 54,2 Hz, 0,30 s)
+    NMBUNMBUEnrichedPair7enrichedTrial1LFs003.wav  (Pos, LFs, F0 52,3 Hz, 0,47 s)
+    NMBUNMBUEnrichedPair7enrichedTrial1LFs004.wav  (Pos, LFs, F0 61,2 Hz, 0,60 s)
+    NMBUNMBUEnrichedPair7enrichedTrial1LFs008.wav  (Pos, LFs, F0 56,6 Hz, 0,55 s)
+    NMBUNMBUEnrichedPair7enrichedTrial1LFs010.wav  (Pos, LFs, F0 52,8 Hz, 0,76 s)
+  (Einzelne Grunzer im Datensatz sind max. ~0,8 s lang, daher die Montage.)
+
+pig2-negative.wav  (3,59 s, 48 kHz mono)
+  Hohes, schrilles Quieken, Valenz laut Label: Neg
+  Eine ungeschnittene Original-Aufnahme, nur 10/20 ms Fade und Lautheit normalisiert:
+    FBNFBNRestrain05022015VT10HFs6.wav  (FBN, Kontext "Restrain" = Fixierung, Call Type HFs = hoher Schrei,
+                                        F0 507 Hz, 3,59 s, Aufnahme 05.02.2015)
