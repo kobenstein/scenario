@@ -48,7 +48,7 @@ export function b2(T) {
     F.source(ctx, t, a.across + .3, a.hides - .1, F.SOURCES.snakes);
     // ---------------------------------------------------------------- the rail (dims under the clip plates), subscribe 1's pulse along it
     const c4m = c4 ? Math.sin(Math.PI * span(t, c4.start - 1.5, c4.end + .7)) : 0;
-    F.lampRail(ctx, t, T, { a: 1 - .6 * Math.max(clipM, .6 * c4m) });
+    F.lampRail(ctx, t, T, { a: 1 - Math.max(.85 * clipM, .6 * c4m) });
     B.railPulse(ctx, t, a.arrival - .1, 2.6, 12, 7);
     // ---------------------------------------------------------------- W 5.11 the light door
     const fl = t < tp ? E.smooth(span(t, tp - 1.4, tp)) : 1 - E.smooth(span(t, tp, tp + 1.4));

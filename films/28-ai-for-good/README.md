@@ -13,7 +13,7 @@ The engine is copied from films/25-last-job, which itself comes from 24/16/13/10
 - **Timing:** `$TIMING`, else `<ROOT>audio/timing.json` (the real VO, from the audio agent), else `data/provisional_timing.json` (`tools/provisional_timing.py` from vo-v5.txt). ROOT = `$F28ROOT` or `/mnt/project-files/scenario/film-gute-ki/`.
 - `audio/`: the audio agent's scripts and metadata (timing.json, slots.json, clips.json, segments, music cues). The mixes and VO live in `<ROOT>audio/` only. **Do not edit audio/ from the picture side.**
 - `tools/kit_sheet28.mjs <dir>`: stills of every kit piece.
-- `tools/f28_clips.py`: **not adapted yet.** It is the Film 25 assembly/footage tool, kept as the base for the assembly step.
+- `tools/f28_clips.py`: render, interview footage and assembly (adapted 11.11.): `clips` (frames + wav from `<scratch>/f28/clips/<id>.mp4`, in-points in CLIPIN), `render` (chunks c01-c14, 1080p, resumable), `assemble --name fassung-1 [--preview]` (master + LUFS/TP check + contact sheet), `check`.
 
 ## Builders (real VO timing)
 | group | chunks | from → to | time |

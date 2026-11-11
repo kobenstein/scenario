@@ -134,6 +134,7 @@ function scene(a, T) {
     // 12.12: the licence, pinned to the closed ring
     const lu = span(t, a.ownW + .5, a.ownW + 1.3) * (1 - span(t, R23.t0 - .5, R23.t0 + .1));
     if (lu > 0) { const p = E.project(c, S.Z_ST, RING_C[0] + 90, RING_C[1] - 20); if (p) F.label(ctx, p[0], p[1], 'KAITIAKITANGA LICENCE', 'GUARDIANSHIP OF THE DATA', lu, { dx: 60, dy: -60, size: 24 }); }
-    F.lampRail(ctx, t, T);
+    const cm = sineIO(span(t, a.explain - .2, c3.start)) * (1 - sineIO(span(t, c3.end - .05, c3.end + .6)));
+    F.lampRail(ctx, t, T, { a: 1 - .85 * span(cm, .8, 1) });   // the rail steps back while the clip's credit line sits under it (as in c12)
   };
 }
