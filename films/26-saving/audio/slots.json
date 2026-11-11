@@ -1,0 +1,73 @@
+{
+ "duration": 661.594,
+ "end_screen": {
+  "start": 646.594,
+  "dur": 15.0,
+  "end": 661.594,
+  "call": "cta2",
+  "call_start": 635.934,
+  "call_end": 646.194
+ },
+ "channel_calls": {
+  "cta1": {
+   "start": 231.75,
+   "end": 242.67
+  },
+  "cta2": {
+   "start": 635.934,
+   "end": 646.194
+  }
+ },
+ "slots": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "1",
+   "start": 46.44,
+   "end": 61.16,
+   "dur": 14.72,
+   "length_from": "audio/clips.json",
+   "under": false
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "4",
+   "start": 267.762,
+   "end": 273.222,
+   "dur": 5.46,
+   "length_from": "audio/clips.json",
+   "under": false
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "sec": "4",
+   "start": 325.012,
+   "end": 330.422,
+   "dur": 5.41,
+   "length_from": "audio/clips.json",
+   "under": false
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "sec": "5",
+   "start": 386.772,
+   "end": 393.572,
+   "dur": 6.8,
+   "length_from": "audio/clips.json",
+   "under": false
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "sec": "7",
+   "start": 524.022,
+   "end": 536.132,
+   "dur": 12.11,
+   "length_from": "audio/clips.json",
+   "under": false
+  }
+ ]
+}
