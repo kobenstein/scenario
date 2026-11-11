@@ -14,7 +14,7 @@
  },
  "C2": {
   "plan": 5.6,
-  "dur": 5.46,
+  "dur": 6.87,
   "offset": 0.0,
   "name": "Peter Diamandis",
   "role": "Gastgeber „Moonshots“, Gründer XPRIZE",
@@ -24,7 +24,7 @@
   "cue_timing": "whisper",
   "cues": [
    [
-    0.31,
+    0.1,
     "Is that then taxed by the"
    ],
    [
@@ -34,6 +34,10 @@
    [
     2.75,
     "some level of income as a UHI"
+   ],
+   [
+    5.51,
+    "or UBI?"
    ]
   ]
  },
@@ -64,7 +68,7 @@
  },
  "C4": {
   "plan": 6.25,
-  "dur": 5.41,
+  "dur": 5.75,
   "offset": 0.0,
   "name": "Daron Acemoglu",
   "role": "Ökonom, MIT; Nobelpreis für Wirtschaft 2024",
@@ -74,44 +78,44 @@
   "cue_timing": "whisper",
   "cues": [
    [
-    0.49,
+    0.5,
     "But again, there is no evidence"
    ],
    [
-    3.29,
+    3.2,
     "from history to show that."
    ]
   ]
  },
  "C5": {
   "plan": 12.6,
-  "dur": 12.11,
+  "dur": 12.85,
   "offset": 0.0,
   "name": "Franklin D. Roosevelt",
   "role": "32. Präsident der USA",
   "source": "https://www.youtube.com/watch?v=EN7NUindB38",
   "text": "Young people have come to wonder what would be their lot when they came to old age. The man with a job has wondered how long the job would last.",
-  "cue_status": "estimated",
-  "cue_timing": "estimated",
+  "cue_status": "whisper",
+  "cue_timing": "whisper",
   "cues": [
    [
-    0.0,
+    0.3,
     "Young people have come to wonder"
    ],
    [
-    2.78,
+    3.2,
     "what would be their lot"
    ],
    [
-    4.79,
+    4.52,
     "when they came to old age."
    ],
    [
-    7.06,
+    7.26,
     "The man with a job has wondered"
    ],
    [
-    9.76,
+    9.5,
     "how long the job would last."
    ]
   ]

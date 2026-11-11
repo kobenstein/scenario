@@ -7,11 +7,11 @@ import json, re, sys
 A = sys.argv[1].rstrip('/'); CJ = sys.argv[2] if len(sys.argv) > 2 else '/mnt/project-files/scenario/film-sparen/clips.json'
 CUES = {  # (first raw words, subtitle line); the raw words are searched in order in the transcript
  'C1': [],   # the Short has burned-in subtitles: no cues of our own (coordinator 11.11.)
- 'C2': [('Is that', 'Is that then taxed by the', 0.31), ('government', 'government and redistributed as', 1.17), ('some level', 'some level of income as a UHI', 2.75)],   # ends at UHI (cut)
+ 'C2': [('Is that', 'Is that then taxed by the', 0.1), ('government', 'government and redistributed as', 1.17), ('some level', 'some level of income as a UHI', 2.75), ('or UBI', 'or UBI?', 5.51)],   # re-cut 11.11.: ends at "UHI or UBI?"
  'C3': [('But next', 'But next year for sure, we will', 1.2), ('have over', 'have over a million robotaxis', 4.43), ('on the road', 'on the road.', 6.11)],
- 'C4': [('But again', 'But again, there is no evidence', 0.49), ('from history', 'from history to show that.', 3.29)],   # "Perhaps." cut away
- 'C5': [('Young people', 'Young people have come to wonder'), ('what would', 'what would be their lot'), ('when they', 'when they came to old age.'),
-        ('The man', 'The man with a job has wondered'), ('how long', 'how long the job would last.')]}
+ 'C4': [('But again', 'But again, there is no evidence', 0.5), ('from history', 'from history to show that.', 3.2)],   # "Perhaps." cut away; re-cut 11.11. ends after "to show that."
+ 'C5': [('Young people', 'Young people have come to wonder', 0.3), ('what would', 'what would be their lot', 3.2), ('when they', 'when they came to old age.', 4.52),
+        ('The man', 'The man with a job has wondered', 7.26), ('how long', 'how long the job would last.', 9.5)]}   # whisper word stamps of the 11.11. re-cut
 src = {c['id']: c for c in json.load(open(CJ))['clips'] if c.get('kandidat', 'Empfehlung') == 'Empfehlung'}
 CUT = json.load(open(CJ.replace('clips.json', 'clips/schnitt.json')))   # real cut lengths (dur) 11.11.
 out = {'_comment': 'Film 26 slot metadata (format as films/25-last-job/audio/clips.json). dur = seconds of real footage (null until the clip is cut: build_vo.py then uses the planned dauer_s); '
