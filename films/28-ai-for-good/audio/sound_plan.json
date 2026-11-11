@@ -1,0 +1,205 @@
+[
+ {
+  "f": "room_tone",
+  "at": "t00",
+  "end": "END",
+  "dt": -0.6,
+  "v": 0.5,
+  "fade": 3.0
+ },
+ {
+  "f": "stone_click",
+  "word": "At the far edge",
+  "nth": 0,
+  "dt": -0.45,
+  "off": 1.2,
+  "peak": 0.35,
+  "v": 0.9,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "stone_click",
+  "word": "That machine was built",
+  "nth": 0,
+  "dt": -0.45,
+  "off": 1.2,
+  "peak": 0.35,
+  "v": 0.9,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "stone_click",
+  "word": "Wind turbines make",
+  "nth": 0,
+  "dt": -0.45,
+  "off": 1.2,
+  "peak": 0.35,
+  "v": 0.9,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "stone_click",
+  "word": "The Nazca desert",
+  "nth": 0,
+  "dt": -0.45,
+  "off": 1.2,
+  "peak": 0.35,
+  "v": 0.9,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "stone_click",
+  "word": "Methane is invisible",
+  "nth": 0,
+  "dt": -0.45,
+  "off": 1.2,
+  "peak": 0.35,
+  "v": 0.9,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "stone_click",
+  "word": "Casey Harrell knows",
+  "nth": 0,
+  "dt": -0.45,
+  "off": 1.2,
+  "peak": 0.35,
+  "v": 0.9,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "stone_click",
+  "word": "Big ships are",
+  "nth": 0,
+  "dt": -0.45,
+  "off": 1.2,
+  "peak": 0.35,
+  "v": 0.9,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "stone_click",
+  "word": "In the open ocean",
+  "nth": 0,
+  "dt": -0.45,
+  "off": 1.2,
+  "peak": 0.35,
+  "v": 0.9,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "stone_click",
+  "word": "You're driving a train",
+  "nth": 0,
+  "dt": -0.45,
+  "off": 1.2,
+  "peak": 0.35,
+  "v": 0.9,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "stone_click",
+  "word": "The snake",
+  "nth": 0,
+  "dt": -0.45,
+  "off": 1.2,
+  "peak": 0.35,
+  "v": 0.9,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "stone_click",
+  "word": "Everyone knows you",
+  "nth": 0,
+  "dt": -0.45,
+  "off": 1.2,
+  "peak": 0.35,
+  "v": 0.9,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "stone_click",
+  "word": "Flash floods are",
+  "nth": 0,
+  "dt": -0.45,
+  "off": 1.2,
+  "peak": 0.35,
+  "v": 0.9,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "desert_wind",
+  "at": "t08",
+  "end": "t09",
+  "dt": -0.8,
+  "v": 0.8,
+  "fade": 2.0
+ },
+ {
+  "f": "wings",
+  "word": "Here, one miss",
+  "nth": 0,
+  "dt": -0.5,
+  "peak": 0.22,
+  "v": 0.8,
+  "once": true,
+  "fade": 0.5,
+  "d": 2.5
+ },
+ {
+  "f": "ocean",
+  "at": "t16",
+  "end": "t19",
+  "dt": -0.5,
+  "v": 0.8,
+  "fade": 2.0
+ },
+ {
+  "f": "foghorn",
+  "word": "rather not be seen.",
+  "nth": 0,
+  "at_end": true,
+  "dt": 0.3,
+  "peak": 0.28,
+  "v": 0.7,
+  "once": true,
+  "fade": 1.5,
+  "d": 4.0
+ },
+ {
+  "f": "sky_sweep",
+  "at": "t20",
+  "dt": -1.0,
+  "d": 3.0,
+  "v": 0.5,
+  "fade": 1.2
+ },
+ {
+  "f": "train_brake",
+  "at": "t21",
+  "dt": -1.6,
+  "d": 4.5,
+  "v": 0.5,
+  "fade": 1.5
+ },
+ {
+  "f": "rain",
+  "at": "t27",
+  "end": "t28",
+  "dt": -0.5,
+  "v": 0.7,
+  "fade": 2.0
+ }
+]

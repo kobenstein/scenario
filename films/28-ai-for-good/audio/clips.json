@@ -1,0 +1,55 @@
+{
+ "_comment": "Film 28 slot metadata. Wording from <data root>/clips-f28.md (C5 = C5b). cues = [seconds from slot start, subtitle]; times are ESTIMATED over the slot length (clip footage/words not available to the audio agent), re-time on the real clips (Whisper) at the edit. C4 is mute under the VO: no subtitle.",
+ "C3a": {
+  "cues": [
+   [
+    0.0,
+    "It makes people cry who have not heard me in a while."
+   ]
+  ],
+  "cue_end": 3.9
+ },
+ "C1": {
+  "cues": [
+   [
+    0.0,
+    "\u2026we're a Maori charity, and so we look at ways to maintain sovereignty,"
+   ],
+   [
+    7.3,
+    "because we know what it means to lose it."
+   ],
+   [
+    10.4,
+    "We know that data is the new land."
+   ]
+  ],
+  "cue_end": 14.7
+ },
+ "C3": {
+  "cues": [
+   [
+    0.0,
+    "People who do not have the ability to communicate well or quickly are often isolated and lonely."
+   ],
+   [
+    5.2,
+    "Having something like this will give them hope and opportunity to be more of themselves."
+   ]
+  ],
+  "cue_end": 9.2
+ },
+ "C5b": {
+  "cues": [
+   [
+    0.0,
+    "And when you look at what the model did, it just sort of politely presented"
+   ],
+   [
+    5.1,
+    "non-conspiratorial explanations and contradictory facts and evidence."
+   ]
+  ],
+  "cue_end": 9.8
+ }
+}
