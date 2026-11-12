@@ -1,115 +1,190 @@
 {
- "_comment": "Film 28 slot metadata. Wording from the real clip sound (fal-ai/whisper word level + sound envelope, 2026-11-11; in-points in tools/f28_clips.py CLIPIN). cues = [seconds from slot start (= first footage frame), subtitle line <= 34 chars]. C4 is mute under the VO: no subtitle. C5b: the speaker says 'does' (both Whisper models), clips-f28.md quotes 'did'; the subtitle follows the audio.",
- "C3a": {
-  "in": 2.88,
-  "cues": [
-   [
-    0.2,
-    "It makes people cry"
+ "_comment": "Film 54 clip metadata (format: schreibraum/clip-schritt.md). Cuts: clips/schnitt.json (12.11.): in/out are the cut points in the SOURCE file; orig_in/orig_out the position in the original video. cues = [seconds from the slot start (= first footage frame), subtitle line <= 34 chars]; wording = clips/schnitt.json 'wortlaut', checked against fal-ai/whisper on the cut audio 12.11. (deviations: 'Loving' for Whisper's 'Love and'; C3 has a stutter 'but not, not instant'); times from pocketsphinx forced alignment + Whisper + the pauses. fade_out in s: the cuts end tight (2-3 frames). C5 = AUDIO ONLY (the picture comes from the scene, the 'ORIGINAL AUDIO' plate).",
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "card",
+   "speaker": "Dario Amodei",
+   "role": "CEO and co-founder, Anthropic",
+   "source_title": "Anthropic IPO Roadshow Video (retail roadshow), closing words",
+   "channel": "Anthropic (ipo.anthropic.com, Roadshow video)",
+   "url": "https://ipo.anthropic.com/us",
+   "date": "2026-11-10",
+   "transcript": "Cancer, Alzheimer's, heart disease, mental illness, these will be relics of the past in, I think, less than a decade.",
+   "ampel": "quote card",
+   "slot": "Station 1: read by the narrator after 'In his words:'",
+   "burned": false,
+   "voice": true,
+   "note": "Quote card READ BY THE NARRATOR (no footage, no audio of the speaker): the words are in the VO, the card slot = the quoted words (timing.json clips[], kind 'card', under: true)."
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "speaker": "Dario Amodei",
+   "role": "CEO and co-founder, Anthropic",
+   "source_title": "Dario Amodei — \"We are near the end of the exponential\"",
+   "channel": "Dwarkesh Patel",
+   "url": "https://www.youtube.com/watch?v=n1E9IZfvGMA",
+   "date": "2026-02-13",
+   "in": "00:54:23.010",
+   "out": "00:54:33.460",
+   "dur": 10.45,
+   "file": "dwarkesh-a.mp4",
+   "file_in_s": 33.01,
+   "file_out_s": 43.46,
+   "transcript": "There's not efficacy, right? And I make exactly that point in Machines of Loving Grace. I say the clinical trials are going to go much faster than we're used to, but not, not instant, not infinitely fast.",
+   "ampel": "gelb",
+   "slot": "after 'Earlier this year, on a podcast, he made the same point, and set his own limit.'",
+   "einordnung": "Earlier this year, on a podcast, he made the same point, and set his own limit. / So even in his view, proof takes time.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.067,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.0,
+     "There's not efficacy, right?"
+    ],
+    [
+     0.85,
+     "And I make exactly that point"
+    ],
+    [
+     2.4,
+     "in Machines of Loving Grace."
+    ],
+    [
+     4.64,
+     "I say the clinical trials are"
+    ],
+    [
+     5.75,
+     "going to go much faster than we're"
+    ],
+    [
+     7.45,
+     "used to, but not, not instant,"
+    ],
+    [
+     9.19,
+     "not infinitely fast."
+    ]
    ],
-   [
-    1.67,
-    "who have not heard me in a while."
-   ]
-  ],
-  "cue_end": 3.5,
-  "cue_status": "whisper+envelope"
- },
- "C1": {
-  "in": 3.0,
-  "cues": [
-   [
-    0.3,
-    "We're a charity,"
+   "cue_end": 10.4
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "audio_only": true,
+   "speaker": "Venki Ramakrishnan",
+   "role": "Nobel Prize in Chemistry 2009 (interviewee; audio only)",
+   "source_title": "Nobel Prize Winner: AI's Impact On Drug Discovery And Biology | Venki Ramakrishnan",
+   "channel": "Ryan Peterman",
+   "url": "https://www.youtube.com/watch?v=-1q0zA21AkY",
+   "date": "2026-11-09",
+   "in": "00:05:36.040",
+   "out": "00:05:45.360",
+   "dur": 9.32,
+   "file": "venki-ton.mp3",
+   "file_in_s": 336.04,
+   "file_out_s": 345.36,
+   "transcript": "AI could be very fast at its computational work, but the experimental work is still going to be the rate-limiting factor.",
+   "ampel": "gelb",
+   "slot": "after '... named the slow part:'",
+   "einordnung": "The Nobel Prize-winning biologist Venki Ramakrishnan, asked in a recent interview about artificial intelligence and new drugs, named the slow part:",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.067,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.22,
+     "AI could be very fast at"
+    ],
+    [
+     2.9,
+     "its computational work,"
+    ],
+    [
+     4.24,
+     "but the experimental work is still"
+    ],
+    [
+     5.7,
+     "going to be the"
+    ],
+    [
+     7.85,
+     "rate-limiting factor."
+    ]
    ],
-   [
-    1.83,
-    "we're a Māori charity."
+   "cue_end": 9.3
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "speaker": "Dario Amodei",
+   "role": "CEO and co-founder, Anthropic",
+   "source_title": "Dario Amodei — \"We are near the end of the exponential\"",
+   "channel": "Dwarkesh Patel",
+   "url": "https://www.youtube.com/watch?v=n1E9IZfvGMA",
+   "date": "2026-02-13",
+   "in": "01:42:38.920",
+   "out": "01:42:47.640",
+   "dur": 8.72,
+   "file": "dwarkesh-b.mp4",
+   "file_in_s": 38.92,
+   "file_out_s": 47.64,
+   "transcript": "AI models are going to greatly accelerate the rate at which we discover drugs and just the pipeline will get jammed up.",
+   "ampel": "gelb",
+   "slot": "after 'He even warned of a jam himself, earlier this year, on that same podcast.'",
+   "einordnung": "He even warned of a jam himself, earlier this year, on that same podcast. / Discovery speeds up. Proof jams.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.05,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.07,
+     "AI models are going to"
+    ],
+    [
+     2.65,
+     "greatly accelerate"
+    ],
+    [
+     4.6,
+     "the rate at which we discover"
+    ],
+    [
+     5.8,
+     "drugs and just the pipeline will"
+    ],
+    [
+     7.95,
+     "get jammed up."
+    ]
    ],
-   [
-    3.67,
-    "And so we look at ways"
-   ],
-   [
-    5.3,
-    "to maintain sovereignty"
-   ],
-   [
-    6.9,
-    "because we know what it means"
-   ],
-   [
-    9.0,
-    "to lose it."
-   ],
-   [
-    10.53,
-    "We know that data is the new land."
-   ]
-  ],
-  "cue_end": 14.4,
-  "cue_status": "whisper+envelope"
- },
- "C3": {
-  "in": 3.0,
-  "cues": [
-   [
-    0.35,
-    "People who do not have the ability"
-   ],
-   [
-    1.51,
-    "to communicate well or quickly"
-   ],
-   [
-    2.9,
-    "are often isolated and lonely."
-   ],
-   [
-    5.47,
-    "Having something like this will"
-   ],
-   [
-    6.62,
-    "give them hope and opportunity"
-   ],
-   [
-    7.85,
-    "to be more of themselves."
-   ]
-  ],
-  "cue_end": 9.0,
-  "cue_status": "whisper+envelope"
- },
- "C5b": {
-  "in": 3.12,
-  "cues": [
-   [
-    0.13,
-    "And when you look at what"
-   ],
-   [
-    1.1,
-    "the model does, it just sort of"
-   ],
-   [
-    2.91,
-    "politely presented"
-   ],
-   [
-    5.56,
-    "non-conspiratorial explanations"
-   ],
-   [
-    7.33,
-    "and contradictory facts"
-   ],
-   [
-    8.92,
-    "and evidence."
-   ]
-  ],
-  "cue_end": 9.33,
-  "cue_status": "whisper+envelope"
- }
+   "cue_end": 8.7
+  },
+  {
+   "id": "C1b",
+   "kind": "card",
+   "speaker": "Dario Amodei",
+   "role": "CEO and co-founder, Anthropic",
+   "source_title": "Anthropic IPO Roadshow Video (retail roadshow), closing words",
+   "channel": "Anthropic (ipo.anthropic.com, Roadshow video)",
+   "url": "https://ipo.anthropic.com/us",
+   "date": "2026-11-10",
+   "transcript": "I think if we do this right, we can create an age of miracles.",
+   "ampel": "quote card",
+   "slot": "Station 7: read by the narrator after 'In his words:'",
+   "burned": false,
+   "voice": true,
+   "note": "Quote card READ BY THE NARRATOR (no footage, no audio of the speaker): the words are in the VO, the card slot = the quoted words (timing.json clips[], kind 'card', under: true)."
+  }
+ ]
 }

@@ -1,28 +1,6 @@
 {
- "_comment": "Film 28 Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 0.01 USD/s, 1 sample each, mp3). Files in <scratch>/sfx, not in the repo. Library (sfx-bibliothek/akzent+atmo): stone_click (countdown station), wings, foghorn, rain.",
- "room_tone": {
-  "duration": 15,
-  "seed": 2801,
-  "prompt": "Very quiet room tone of a small studio at night, faint electrical hum, soft air, almost silent, loopable, no music, no voices."
- },
- "desert_wind": {
-  "duration": 10,
-  "seed": 2802,
-  "prompt": "Soft dry desert wind over sand at dawn, gentle steady breeze, faint distant gusts, no music, no voices, loopable."
- },
- "ocean": {
-  "duration": 10,
-  "seed": 2803,
-  "prompt": "Deep open ocean at night, low swell, water slowly moving, distant soft waves, no music, no voices, loopable."
- },
- "train_brake": {
-  "duration": 6,
-  "seed": 2804,
-  "prompt": "A freight train brakes with a long metal squeal and steel wheels slowing to a stop on a track at night in a quiet forest, crickets, no music, no voices."
- },
- "sky_sweep": {
-  "duration": 6,
-  "seed": 2805,
-  "prompt": "A soft low rumble and a rising airy sweep, like a large wave of air travelling up into the sky and fading, cinematic, no music, no voices."
- }
+ "_comment": "Film 54 Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 0.01 USD/s, 1 sample each, mp3, 2026-11-12). Files in <scratch>/f54/audio/sfx, not in the repo. Everything else comes from sfx-bibliothek (akzent: stamp, card, paper_slide, brass_click, whoosh_up, whoosh_airy, brick, shimmer_rings, tone, chime, bulb, screen_off, heartbeat, rumble; atmo: clinic, lab).",
+ "museum_hall": {"duration": 15, "seed": 5401, "prompt": "Very quiet room tone of a large empty museum hall at night, faint air conditioning hum, soft distant reverberant space, almost silent, loopable, no music, no voices."},
+ "stadium": {"duration": 10, "seed": 5402, "prompt": "Soft distant murmur of a huge stadium crowd far away, low airy roar with faint seasonal wind, no shouting, no cheering, no music, loopable."},
+ "glass_push": {"duration": 3, "seed": 5403, "prompt": "Slowly passing through a large glass pane: a soft glassy shimmer and a gentle push of air, delicate glass resonance fading out, cinematic, no music, no voices."}
 }

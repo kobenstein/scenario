@@ -1,102 +1,94 @@
 {
- "duration": 684.66,
+ "duration": 618.81,
  "end_screen": {
-  "start": 669.66,
+  "start": 603.81,
   "dur": 15.0,
-  "end": 684.66,
-  "call": "t30",
-  "call_start": 662.83,
-  "call_end": 669.66,
-  "note": "quiet end screen, 15 s from the end of the last VO word"
+  "end": 618.81,
+  "call": "t22",
+  "call_start": 577.18,
+  "call_end": 593.81,
+  "tail_after_vo": 25.0,
+  "note": "after the last VO word: a quiet walk, then the 15 s end screen (the music fades out over it)"
  },
  "channel_calls": {
-  "t15": {
-   "start": 346.24,
-   "end": 354.38
+  "t09": {
+   "start": 228.06,
+   "end": 241.54
   },
-  "t30": {
-   "start": 662.83,
-   "end": 669.66
+  "t22": {
+   "start": 577.18,
+   "end": 593.81
   }
  },
  "slots": [
   {
-   "id": "C3a",
-   "kind": "clip",
-   "sec": "H",
-   "start": 24.05,
-   "end": 27.95,
-   "dur": 3.9,
-   "under": false
-  },
-  {
-   "id": "C1",
-   "kind": "clip",
-   "sec": "12",
-   "start": 88.66,
-   "end": 103.36,
-   "dur": 14.7,
-   "under": false
-  },
-  {
    "id": "C3",
    "kind": "clip",
-   "sec": "7",
-   "start": 324.76,
-   "end": 333.96,
-   "dur": 9.2,
+   "sec": "1",
+   "start": 94.14,
+   "end": 104.59,
+   "dur": 10.45,
    "under": false
   },
   {
-   "id": "C5b",
+   "id": "C5",
    "kind": "clip",
-   "sec": "2",
-   "start": 550.46,
-   "end": 560.26,
-   "dur": 9.8,
+   "sec": "6",
+   "start": 364.62,
+   "end": 373.94,
+   "dur": 9.32,
+   "under": false
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "6",
+   "start": 427.43,
+   "end": 436.15,
+   "dur": 8.72,
    "under": false
   }
  ],
  "clips": [
   {
-   "id": "C3a",
-   "kind": "clip",
-   "sec": "H",
-   "start": 24.05,
-   "end": 27.95,
-   "under": false
-  },
-  {
    "id": "C1",
-   "kind": "clip",
-   "sec": "12",
-   "start": 88.66,
-   "end": 103.36,
-   "under": false
+   "kind": "card",
+   "sec": "1",
+   "start": 48.66,
+   "end": 57.22,
+   "under": true
   },
   {
    "id": "C3",
    "kind": "clip",
+   "sec": "1",
+   "start": 94.14,
+   "end": 104.59,
+   "under": false
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "sec": "6",
+   "start": 364.62,
+   "end": 373.94,
+   "under": false
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "6",
+   "start": 427.43,
+   "end": 436.15,
+   "under": false
+  },
+  {
+   "id": "C1b",
+   "kind": "card",
    "sec": "7",
-   "start": 324.76,
-   "end": 333.96,
-   "under": false
-  },
-  {
-   "id": "C4",
-   "kind": "clip",
-   "sec": "5",
-   "start": 434.11,
-   "end": 440.11,
+   "start": 515.91,
+   "end": 520.12,
    "under": true
-  },
-  {
-   "id": "C5b",
-   "kind": "clip",
-   "sec": "2",
-   "start": 550.46,
-   "end": 560.26,
-   "under": false
   }
  ]
 }

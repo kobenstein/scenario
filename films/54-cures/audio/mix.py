@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Film 28 · mix VO + slot audio (clips C3a, C1, C3, C5b; C4 is mute under the VO) + music cues (ducked under the voice, 12 dB under every slot) + SFX -> mix.wav (-14 LUFS, TP <= -1 dB).
+"""Film 54 · mix VO + slot audio (clips C3, C5 (audio only), C2; the quote cards C1 / C1b are read by the narrator = VO) + music cues (ducked under the voice, 12 dB under every slot) + SFX -> mix.wav (-14 LUFS, TP <= -1 dB).
 Method as films/24-animals/audio/mix.py (films/19-biocomputer/audio/mix.py), with two changes: music cues and SFX are anchored on takes/slots, not on seconds, so a clip that
 changes the slot length (build_vo.py) moves them along:
   music/cues.json  [{"f": "M1", "at": "s09" | "L2" (= chapter/section id: start of its first take) | "J3" (slot) | "END", "dt": -0.4, "fin": 2.0, "fout": 4.0, "off": 0, "d": null, "opts": {"repeat": [t1, t2]}}]   at = take id / slot id, dt in s
@@ -12,9 +12,8 @@ usage: mix.py <audio_dir> [wav_dir]   (vo_master.wav, stems, premix and mix.wav 
 import json, os, subprocess, sys
 import numpy as np
 A = sys.argv[1].rstrip('/') + '/'; W = (sys.argv[2].rstrip('/') + '/') if len(sys.argv) > 2 else A; SR = 48000
-ROOT = os.environ.get('F28ROOT', '/mnt/project-files/scenario/film-gute-ki').rstrip('/')
-CLIPDIR = os.environ.get('F28CLIPS', ROOT + '/clips').rstrip('/') + '/'      # C-clip wavs (<id>.wav, cut later; no file = silent slot)
-OTONDIR = os.environ.get('F28OTON', ROOT + '/o-ton/clips-v1').rstrip('/') + '/'   # J1..J6 wavs (Jakob)
+ROOT = os.environ.get('F54ROOT', '/mnt/project-files/scenario/film-heilung').rstrip('/')
+CLIPDIR = os.environ.get('F54CLIPWAV', W + 'clipwav').rstrip('/') + '/'      # C-clip wavs (<id>.wav = the cut from clips/schnitt.json; no file = silent slot)
 def load(f, af=None):
     raw = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f] + (['-af', af] if af else []) + ['-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'])
     return np.frombuffer(raw, np.float32).reshape(-1, 2).copy()
@@ -52,12 +51,12 @@ for c in timing['slots']:
     voiced = bool(CLIPS.get(c['id'], {}).get('voice'))   # a narrator take in the slot (quote card K3): behaves like the VO, the music is ducked by -6 dB only while it speaks and is not pushed further down
     if not voiced: duck[max(0, s0 - SR // 4):s1 + SR // 4] = np.maximum(duck[max(0, s0 - SR // 4):s1 + SR // 4], 1)   # music ducked under every slot, also while it is still silent
     if not voiced: slotmask[max(0, s0 - SR // 3):s1 + SR // 3] = 1
-    f = (OTONDIR if c['kind'] == 'oton' else CLIPDIR) + (c['file'] if c.get('file') else f"{c['id']}.wav")
+    f = CLIPDIR + (c['file'] if c.get('file') else f"{c['id']}.wav")
     if os.path.exists(f):
         k = CLIPS.get(c['id'], {})
         x = load(f, k.get('af'))
         if k.get('dur'): x = x[:int(k['dur'] * SR)]
-        x = x.copy(); fi, fo = int(.01 * SR), int(.06 * SR); x[:fi] *= np.linspace(0, 1, fi)[:, None]; x[-fo:] *= np.linspace(1, 0, fo)[:, None]
+        x = x.copy(); fi, fo = int(k.get('fade_in', .01) * SR), int(k.get('fade_out', .06) * SR); x[:fi] *= np.linspace(0, 1, fi)[:, None]; x[-fo:] *= np.linspace(1, 0, fo)[:, None]
         x *= db(-20 + VO_BOOST + k.get('gain_db', 0)) / rms(x[np.abs(x).max(1) > 1e-3])   # same level as the voice, then gain_db
         o = s0 + int(k.get('offset', 0) * SR); n = min(len(x), s1 - o); clipbuf[o:o + n] += x[:n]
         if voiced: vbuf[o:o + n] = np.maximum(vbuf[o:o + n], np.abs(x[:n]).max(1))
@@ -109,6 +108,16 @@ for c in (json.load(open(A + 'sound_plan.json')) if os.path.exists(A + 'sound_pl
         g = db(float(os.environ.get('ACCENT_DB', -15))) / (np.abs(x).max() + 1e-9) * c['v']   # accents are normalised on their PEAK (short transients)
         place(sfx, x[int(c.get('off', 0) * SR):], t, g, 0.0, c.get('fade', 0.3), c.get('d'), False)
         print('sfx', c['f'], 'on', repr(c['word']), 'at', round(t, 2)); continue
+    if c.get('once'):   # one-shot accent anchored on a take / slot / section (at_end = its end), transient at `peak`
+        t = at(c['at'], c.get('at_end', False)) + c.get('dt', 0) - c.get('peak', 0)
+        g = db(float(os.environ.get('ACCENT_DB', -15))) / (np.abs(x).max() + 1e-9) * c['v']
+        place(sfx, x[int(c.get('off', 0) * SR):], t, g, 0.0, c.get('fade', 0.3), c.get('d'), False)
+        print('sfx', c['f'], 'at', c['at'], 'from', round(t, 2)); continue
+    if c.get('from_word'):   # bed between two spoken phrases (from_word start .. to_word end)
+        t0 = wordat(c['from_word'], c.get('from_nth', 0)) + c.get('dt', 0); t1 = wordat(c['to_word'], c.get('to_nth', 0), True) + c.get('end_dt', 0)
+        g = db(float(os.environ.get('SFX_DB', -30))) / rms(x) * c['v']
+        place(sfx, x[int(c.get('off', 0) * SR):], t0, g, c.get('fade', 1.5), c.get('fade', 1.5), t1 - t0, True)
+        print('sfx bed', c['f'], 'from', round(t0, 1), 'to', round(t1, 1)); continue
     t = at(c['at']) + c.get('dt', 0); d = (at(c['end'], True) - t) if c.get('end') else c.get('d')
     g = db(float(os.environ.get('SFX_DB', -30))) / rms(x) * c['v']
     place(sfx, x[int(c.get('off', 0) * SR):], t, g, c.get('fade', 1.5), c.get('fade', 1.5), d, True)

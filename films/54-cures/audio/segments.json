@@ -2,216 +2,161 @@
  {
   "id": "t00",
   "sec": "H",
-  "text": "[serious] All over the world, people are quietly using A.I. to make life better, for people, for animals, for the planet itself.\nMost of these projects, you've probably never heard of.\nIn India, a train brakes in the dark for elephants its driver can't see.\nIn California, a man silenced by illness speaks again, in his own voice.",
-  "chars": 330
- },
- {
-  "id": "C3a",
-  "sec": "H",
-  "clip": true,
-  "dur": 3.9
+  "text": "[calm, conversational] Artificial intelligence just gave disease a ten-year deadline.\nThink of the last time a doctor sat down with someone you love and said a word like cancer.\nOr Alzheimer's. Heart disease. Depression.\nNow picture your grandkids hearing those words the way you hear the word plague. Something from a history book.\nSo which of these could really be history by the deadline?\nThe machines can find cures faster. They can't rush the human body.",
+  "chars": 459
  },
  {
   "id": "t01",
   "sec": "H",
-  "text": "And in Peru's desert, ancient drawings are coming to light.\nAll of it is real.\nIt's the same kind of tool that writes your emails and picks your ads.\nA few people pointed it at something far bigger.\nThis is what A.I. should be used for.\n[curious] What do all these tools have in common?\nA first clue: the last of them learned where floods strike from old news reports.",
-  "chars": 368
+  "text": "Every cure has two dates. The day it's found. And the day it's proven.\nAnd for each of these diseases, the body gives its answer at its own speed. The fastest, in weeks. The slowest, only after decades.",
+  "chars": 202
  },
  {
   "id": "t02",
-  "sec": "12",
-  "text": "At the far edge of New Zealand, a tiny radio station set out to build something no tech giant had: a machine that understands spoken Māori.\nTo learn a language, a machine has to hear it, for hours and hours.\n[pause] The station asked its own people.\nIn just ten days, they read enough Māori into their phones to build it.\nA global data company wanted recordings like these too, and offered to pay. The station said no.\nPeter-Lucas Jones runs it. This is how he explained the no.",
-  "chars": 478
- },
- {
-  "id": "C1",
-  "sec": "12",
-  "clip": true,
-  "dur": 14.7
+  "sec": "1",
+  "text": "That deadline comes from Dario Amodei. In his words:\n\"Cancer, Alzheimer's, heart disease, mental illness, these will be relics of the past in, I think, less than a decade.\"\nHe runs Anthropic, among the biggest artificial intelligence labs, and he said it in the video made to sell its shares.\nThis isn't about whether to buy the stock.\nHe didn't invent it for investors. Years ago, he wrote the same bet into an essay called Machines of Loving Grace. With small print.",
+  "chars": 468,
+  "card": "C1"
  },
  {
   "id": "t03",
-  "sec": "12",
-  "text": "[thoughtful] A machine can't keep a language alive. Only speakers can. But this time, the speakers own the machine.",
-  "chars": 115
- },
- {
-  "id": "t04",
-  "sec": "11",
-  "text": "That machine was built to listen. [curious] In Australia, another A.I. was built to waste time. On purpose.\n[pause] Not yours. A phone scammer's.\nA researcher there once kept a scammer on the line for about forty minutes, during a family picnic. All that time, the scammer wasn't robbing anyone else.\nNow his company does it all day, with A.I. victims: chatty strangers with all the time in the world.\nOne of Australia's big phone networks already sends scam calls straight to these bots.",
-  "chars": 488
- },
- {
-  "id": "t05",
-  "sec": "11",
-  "text": "Here, the A.I. wins by being slow. Over Wyoming, it has to be fast.",
-  "chars": 67
- },
- {
-  "id": "t06",
-  "sec": "10",
-  "text": "Wind turbines make clean power, and they kill eagles. Stop them all, and you lose the power. Stop none, and eagles die.\nWhat would you do?\n[pause] On one wind farm in Wyoming, cameras on towers watch the sky. In the blink of an eye, an A.I. decides: eagle or not. Only the turbines in its path slow down.\nA study credited the cameras with cutting eagle deaths there by more than four in five. Other scientists say one wind farm can't prove that yet.",
-  "chars": 449
- },
- {
-  "id": "t07",
-  "sec": "10",
-  "text": "Here, one miss can cost an eagle. In Peru, a machine was wrong almost every time, and it still worked.",
-  "chars": 102
- },
- {
-  "id": "t08",
-  "sec": "9",
-  "text": "The Nazca desert is famous for its giant drawings. An A.I. combed aerial photos of it and flagged tens of thousands of spots. Almost all of them were nothing.\nArchaeologists checked only the best leads on site, and nearly doubled the figures known there.\nThe new ones are small, and they sit close to ancient footpaths. The team's reading: the giant drawings were made for community rituals. The small ones, for people walking past.\n[pause]\nThe A.I. didn't need to be right. It only had to tell people where to look.",
-  "chars": 516
- },
- {
-  "id": "t09",
-  "sec": "9",
-  "text": "But what happens when the machine points, and no one looks?",
-  "chars": 59
- },
- {
-  "id": "t10",
-  "sec": "8",
-  "text": "Methane is invisible, and it heats the planet far faster than carbon dioxide. To catch every leak, you'd need eyes over the whole planet.\n[pause] They're already up there.\nSatellites built to watch fields and forests can catch methane's faint shadow. Every day, an A.I. searches their pictures for it. Experts check, and the U.N. warns the country.\nIn Algeria, one leak had been visible from space for over a decade. Months after the alerts, it stopped.",
-  "chars": 453,
-  "pause": true
- },
- {
-  "id": "t11",
-  "sec": "8",
-  "text": "But that's the exception. Nearly nine in ten alerts still get no answer. Two years ago, almost none got one.\n[pause]\nSeeing isn't saving.",
-  "chars": 137
- },
- {
-  "id": "t12",
-  "sec": "7",
-  "text": "Casey Harrell knows exactly what he wants to say. His brain still sends the words. But his lips no longer follow.\nHe has A.L.S. He said it felt like being trapped.\nHow do you hear a sentence that never leaves the body?\n[pause] Surgeons placed tiny sensors where his brain steers his lips and tongue. An A.I. learned which signals mean which sounds. [pause] It doesn't read his thoughts. Only the words he's trying to say.",
-  "chars": 421
- },
- {
-  "id": "t13",
-  "sec": "7",
-  "text": "Then it speaks them, in his own voice, rebuilt from recordings made before he fell ill. This is that voice.",
-  "chars": 107
+  "sec": "1",
+  "text": "And his reasoning is better than it sounds. Trials are slow, he argues, largely because most drugs barely work.\nWhen something works really well, the proof comes fast.\nEarlier this year, on a podcast, he made the same point, and set his own limit.",
+  "chars": 247
  },
  {
   "id": "C3",
-  "sec": "7",
+  "sec": "1",
   "clip": true,
-  "dur": 9.2
+  "dur": 10.45
  },
  {
-  "id": "t14",
-  "sec": "7",
-  "text": "It's one man, in a research study, not yet a treatment anyone can get. But at home, in under two years, he spoke almost two million words with it.",
-  "chars": 146,
-  "pause": true
+  "id": "t04",
+  "sec": "1",
+  "text": "So even in his view, proof takes time.\nLess than a decade: that's by twenty thirty-six. Four diseases, and one question for each. When a medicine really works, how fast does the body say so?\nThe fastest clear answer comes from cancer.",
+  "chars": 234
  },
  {
-  "id": "t15",
-  "sec": "7",
-  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.",
-  "chars": 139,
+  "id": "t05",
+  "sec": "2",
+  "text": "[curious] In the lab, the day a cure is found is already getting closer.\nDoctors can rebuild a patient's own immune cells to hunt cancer, with a receptor that works like a hook.\nArtificial intelligence now helps redesign those hooks. One new design already works better.\nAll still in the lab.\nThen the body answers. And a tumor answers fast: on a scan, within weeks, it shrinks or it doesn't.\nThat's how one pill won approval with just fifty-five patients, spread across many different cancers. Most of them responded.",
+  "chars": 518
+ },
+ {
+  "id": "t06",
+  "sec": "2",
+  "text": "But cancer isn't one disease. It's more than a hundred, and they fight back.\nHis own essay said so: the end of most cancer, not all. Some rare, difficult cancers may persist.\nThe line in the sales video just says: cancer.\nSo cancer, by the deadline: for many kinds, the proof can come in time. Not for every kind.\nBut is a fast answer always the whole answer?",
+  "chars": 359
+ },
+ {
+  "id": "t07",
+  "sec": "3",
+  "text": "[thoughtful] Heart disease answers twice.\nFirst, the blood. In a recent trial, people got a single infusion that switched off a gene in the liver.\nAt the highest dose, weeks later, their bad cholesterol was cut roughly in half.\nOne treatment, meant to last a lifetime.\nBut a change to your DNA is for life. So regulators ask to follow patients for up to fifteen years.\nAnd whether the heart attacks really stay away takes a stadium full of people, followed for years.",
+  "chars": 467
+ },
+ {
+  "id": "t08",
+  "sec": "3",
+  "text": "So heart disease, by the deadline: only halfway. The tool can be ready in time. The proof that it's safe for a lifetime can't.",
+  "chars": 126
+ },
+ {
+  "id": "t09",
+  "sec": "M",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. In the lab, and at the hospital bed, for your parents, and one day for you. Want that too? Then subscribe.",
+  "chars": 215,
   "cta": true
  },
  {
+  "id": "t10",
+  "sec": "4",
+  "text": "[thoughtful] The third disease answers fast. The problem is hearing the answer.\nTake depression, one part of mental illness. A trial runs for weeks. But in those weeks, many people improve on a sugar pill too.\nEven for the antidepressants already approved, only about half the trials beat the sugar pill.\nAnd there's no blood test for depression. The diagnosis is a questionnaire.\nThat doesn't make it hopeless. In his essay, he wrote that most mental illness can probably be cured.",
+  "chars": 482
+ },
+ {
+  "id": "t11",
+  "sec": "4",
+  "text": "So mental illness, by the deadline: an open question. Cancer has its scan. The mind is still waiting for one.\nAnd then the fourth disease. The slowest. It starts long before it shows.",
+  "chars": 183
+ },
+ {
+  "id": "t12",
+  "sec": "5",
+  "text": "Alzheimer's.\nThe changes in the brain start around twenty years before the first forgotten name.\nThat means many people who'll be diagnosed by the deadline already carry the first traces today.\nSo the medicine has to come before the symptoms. Proving that means following healthy people for years, and counting who doesn't get sick.\nOne such trial waited years for its answer. The drug didn't work.\nAnd for those already sick, his essay had more small print: existing damage may be very difficult to reverse.",
+  "chars": 508
+ },
+ {
+  "id": "t13",
+  "sec": "5",
+  "text": "The line in the sales video doesn't mention that either.\nSo Alzheimer's, by the deadline: no. For many who'll get it by then, it has already begun.\n[pause] But the race doesn't start at the deadline. It starts now. Since last year, a blood test can spot the first traces.\nSo if the machines aren't the slow part, why set a date at all?",
+  "chars": 335
+ },
+ {
+  "id": "t14",
+  "sec": "6",
+  "text": "Partly, because a sales pitch rewards a promise with a date on it. No villain needed.\nThe Nobel Prize-winning biologist Venki Ramakrishnan, asked in a recent interview about artificial intelligence and new drugs, named the slow part:",
+  "chars": 233
+ },
+ {
+  "id": "C5",
+  "sec": "6",
+  "clip": true,
+  "dur": 9.32
+ },
+ {
+  "id": "t15",
+  "sec": "6",
+  "text": "The testing, not the finding.\nThe other reason for Amodei's date: he's betting that the testing can speed up too.\nThe cardiologist Eric Topol, a fan of what artificial intelligence can do for health, called such cure timelines wildly off-base.\nTo be fair, Amodei holds himself to a harder test. In August, he wrote that the only thing that will convince people is actually curing cancer.",
+  "chars": 387
+ },
+ {
   "id": "t16",
-  "sec": "7",
-  "text": "Casey wants to be heard. Out at sea, some ships would rather not be seen.",
-  "chars": 73
+  "sec": "6",
+  "text": "His own company now designs medicines. One, for muscular dystrophy, went from idea to promising results in mice in under eighteen months.\nIts human trials could start as soon as late twenty twenty-eight. Same road as everyone else. First date: fast. Second date: years away.\nHe even warned of a jam himself, earlier this year, on that same podcast.",
+  "chars": 348
+ },
+ {
+  "id": "C2",
+  "sec": "6",
+  "clip": true,
+  "dur": 8.72
  },
  {
   "id": "t17",
   "sec": "6",
-  "text": "Big ships are supposed to broadcast where they are, on a radio built so they don't collide.\n[curious] Take a guess: how many industrial fishing boats stay off the public map?\n[pause]\nAn A.I. compared years of radar pictures from space with those broadcasts. The answer: about three in four.\nDark doesn't mean illegal. But it's where the worst things can hide. Another A.I. reads how ships move, and flags those whose crews may not be free to go home.\nThat's a risk, not a verdict.",
-  "chars": 480
+  "text": "Discovery speeds up. Proof jams.\nSo can proof come sooner, without making medicine less safe?",
+  "chars": 93
  },
  {
   "id": "t18",
-  "sec": "6",
-  "text": "A ship can hide by switching its radio off. A tsunami hides in plain sight.",
-  "chars": 75
+  "sec": "7",
+  "text": "It can. And it's already starting.\nPicture someone you love, around sixty, sharp as ever. At a study clinic, a blood test finds the first traces, years early.\nSo they join a trial: can a medicine hold off the first forgotten name?\nFor now, experts advise that test for healthy people only in trials. But that's how the slowest proof gets a head start.\nIn other trials, part of the sugar-pill group is replaced by a prediction: a digital twin of each patient.",
+  "chars": 458
  },
  {
   "id": "t19",
-  "sec": "5",
-  "text": "In the open ocean, it's barely a ripple. How do you see it coming before it reaches land?\n[pause] Look up.\nThe rising water shoves the air above it. That push climbs all the way to space, where it makes GPS signals arrive a tiny bit late. The same signals your phone uses to find your way. Another clue.\nAn A.I. learned to read the tsunami's fingerprint in them. [amazed] NASA switched it on the day before a giant earthquake struck off Russia.",
-  "chars": 444
+  "sec": "7",
+  "text": "Fewer people on a sugar pill, answers sooner. Europe's regulator accepts it for some trials. It shrinks the comparison group. It doesn't replace it.\nAt America's regulator, reviewers now work with an artificial intelligence assistant. For a few priority medicines, the goal is a decision within one or two months.\nAmodei's own proposal: rules made for medicines that clearly work and are clearly safe. But remember the heart: fast can't mean less safe.",
+  "chars": 452
  },
  {
   "id": "t20",
-  "sec": "5",
-  "text": "NASA's replay shows it catching the wave in the sky over Hawaii, half an hour before the first tide gauge there.\nIt's still a research tool.\nHalf an hour can warn a whole coast. But you can't warn an elephant.",
-  "chars": 209,
-  "under": "C4"
+  "sec": "7",
+  "text": "In the sales video, his promise came with a condition. In his words:\n\"I think if we do this right, we can create an age of miracles.\"\nIf the machines make the first date come fast, the second date becomes the real deadline. And people set that one.\nClinics that find disease early. Scientists who design leaner trials. Lawmakers who keep the rules in step with medicines that clearly work.\nThat's what doing it right looks like.",
+  "chars": 428,
+  "card": "C1b"
  },
  {
   "id": "t21",
-  "sec": "4",
-  "text": "You're driving a train at night, through an elephant corridor in southern India. By the time your lights find an elephant on the track, it's too late to stop.\n[pause] Unless the track sees it first.\nCameras on towers along the line see heat. An A.I. spots the elephant and warns the driver and the rangers. This time, the warning gets an answer: the train brakes.\nOn the stretch it watches, officials say, no train has killed an elephant since it went live.",
-  "chars": 457
+  "sec": "8",
+  "text": "So, does the deadline hold?\nCancer: for many kinds, yes. Heart disease: halfway. Mental illness: still open. Alzheimer's: not by then. But its race has already begun.\n[pause] Maybe your grandkids will hear the word Alzheimer's the way you hear the word plague. Not because someone set a date. Because someone proved it.\nEvery cure has two dates: the day it's found, and the day it's proven.\nInvestors are already putting a price on the first date. The second one is still ours to move.",
+  "chars": 485
  },
  {
   "id": "t22",
-  "sec": "4",
-  "text": "Elephants are the giants here. But across India, a far smaller animal kills about a hundred times more people. It hides in the grass.",
-  "chars": 133
- },
- {
-  "id": "t23",
-  "sec": "3",
-  "text": "The snake. Its bite is still treated with medicine made from the blood of horses and sheep.\n[curious] What if you could skip the horse, and design a molecule no living thing has ever made?\nA lab asked an A.I. to do just that. It designed brand-new proteins, shaped to grab a snake's toxin and switch it off.\nIn mice, they worked. Most survived a dose that should have killed them.\nSo far only in mice, and only against single toxins, not whole venom.",
-  "chars": 450
- },
- {
-  "id": "t24",
-  "sec": "3",
-  "text": "A designed protein can stop a poison in the blood. But can a machine change a mind?",
-  "chars": 83
- },
- {
-  "id": "t25",
-  "sec": "2",
-  "text": "Everyone knows you can't argue someone out of a conspiracy theory. Researchers tried anyway: they let believers argue with an A.I.\nJust an ordinary chatbot, the kind that writes emails. It answered each person's own reasons with evidence.\nDavid Rand, one of the researchers, on why it worked:",
-  "chars": 292
- },
- {
-  "id": "C5b",
-  "sec": "2",
-  "clip": true,
-  "dur": 9.8
- },
- {
-  "id": "t26",
-  "sec": "2",
-  "text": "After one short conversation, belief dropped by about a fifth. Months later, it was still down.\nThe authors later found errors in their own data. Corrected, the effect still held.\n[pause]\nIn a newer study, not yet peer-reviewed, the same team flipped it: a chatbot argued for the conspiracy. Belief went up just as strongly.\n[pause] Same tool. Opposite aim.\n[pause] What do all these tools have in common?",
-  "chars": 405
- },
- {
-  "id": "t27",
-  "sec": "1",
-  "text": "Flash floods are the deadliest floods. They often hit places where no one measures the water, so a machine has almost nothing to learn from.\n[pause] Except the news.\nA team at Google pulled millions of past floods out of old news reports, to teach an A.I. where flash floods strike.\nFor big rivers, Google's flood forecasts already reach up to a week ahead. The warnings show up in Search, in Maps, and as alerts on ordinary phones.\n[pause] Maybe on yours.",
-  "chars": 456
- },
- {
-  "id": "t28",
-  "sec": "1",
-  "text": "But a forecast isn't a rescue. Like those methane alerts, it only works if someone acts in time.",
-  "chars": 96
- },
- {
-  "id": "t29",
-  "sec": "E",
-  "text": "[thoughtful] Satellites built to watch fields and forests. A radio built so ships don't collide. GPS, built to find your way. An everyday chatbot. Old news, written for readers.\n[pause]\nNone of it was built for this. That's what these tools have in common.\nThe difference between writing your emails and saving a life was never the tool. It was the aim.\nThe tool is already here. The question is what we point it at.",
-  "chars": 416
- },
- {
-  "id": "t30",
-  "sec": "E",
-  "text": "[warm] That's why this channel exists: so that superintelligence goes well for everyone. Want that too? Then subscribe.",
-  "chars": 119,
+  "sec": "A2",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Fast discoveries in the lab, and proof that arrives in time, for every family in a waiting room today. Including yours. Want that too? Then subscribe.",
+  "chars": 259,
   "cta": true
  }
 ]

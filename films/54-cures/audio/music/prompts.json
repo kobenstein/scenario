@@ -1,41 +1,12 @@
 {
- "_comment": "Film 28 Lyria 3.5 prompts (google/lyria-3.5, 0.10 USD each, 7 tracks, 2026-11-11). Chapters = countdown stations.",
- "style": "Instrumental underscore for a thoughtful documentary about people using artificial intelligence to protect life on Earth. Mystical, awestruck and contemplative: slow evolving drones, soft warm pads, sparse felt piano, glass harmonica and bowed glass, faint choir texture. No drums, no percussion, no vocals, no melody hook, not uplifting or kitschy. Very quiet dynamic range.",
+ "_comment": "Film 54 Lyria 3.5 prompts (google/lyria-3.5, ~0.10 USD each, 6 tracks, 2026-11-12). One track per chapter; chapters = sections of timing.json (H | 1,2 | 3,M,4 | 5,6 | 7 | 8,A2 + end screen).",
+ "style": "Instrumental underscore for a thoughtful documentary about artificial intelligence, medicine and the race between finding a cure and proving it. Mystical, awestruck and contemplative: slow evolving drones, soft warm pads, sparse felt piano, glass harmonica and bowed glass, faint choir texture. No drums, no percussion, no vocals, no melody hook, not uplifting or kitschy. Very quiet dynamic range.",
  "tracks": {
-  "M0": {
-   "chapter": "H (hook)",
-   "len": 74,
-   "mood": "single fragile piano note, low drone building, curiosity and wonder"
-  },
-  "M1": {
-   "chapter": "12,11,10 (Maori, scammers, eagles)",
-   "len": 178,
-   "mood": "cool, wondering, slightly uneasy; pulsing pads, sparse piano, glass tones, listening and patience"
-  },
-  "M2": {
-   "chapter": "9,8 (Nazca, methane)",
-   "len": 179,
-   "mood": "steady and searching, deep low strings, looking at the earth from far above, quiet awe"
-  },
-  "M3": {
-   "chapter": "7,6,5 (Casey, ships, tsunami)",
-   "len": 181,
-   "mood": "deep ocean and night, water-like glass tones, slow low drone, gentle tension and wonder"
-  },
-  "M4": {
-   "chapter": "4,3 (train, snake)",
-   "len": 173,
-   "mood": "grounded, tactile, living things; warm low strings, slow piano, curious, a little hopeful, still mysterious"
-  },
-  "M5": {
-   "chapter": "2,1 (conspiracy, floods)",
-   "len": 116,
-   "mood": "questioning and clear, reflective turn, pads lift slightly, restrained"
-  },
-  "M6": {
-   "chapter": "E + end screen",
-   "len": 75,
-   "mood": "mystical, turns warmer and gently hopeful at the end; felt piano last figure, faint choir swell; fades on a long decaying tone"
-  }
+  "M0": {"chapter": "H (hook)", "len": "60 s", "file_s": 65.3, "mood": "a single fragile felt-piano note over a low drone that slowly builds, curiosity and a little unease, a night museum hall with glass cases"},
+  "M1": {"chapter": "1, 2 (Amodei, the quote, the essay, C3, cancer)", "len": "2:30", "file_s": 146.6, "mood": "cool, wondering, slightly uneasy: slowly pulsing pads, sparse piano, glass tones, a laboratory at night, patient and listening; faint rising tension in the second half"},
+  "M2": {"chapter": "3, M, 4 (heart, subscribe 1, mental illness)", "len": "1:50", "file_s": 105.5, "mood": "deep and slow: a very low gentle pulse like a distant heartbeat without drums, warm low strings, bowed glass; questioning, the answer is faint and hard to hear"},
+  "M3": {"chapter": "5, 6 (Alzheimer's, why a date, C5, C2)", "len": "2:45", "file_s": 159.5, "mood": "the long slow shadow of time: low drones, bowed glass, distant choir texture, patient and a little sorrowful but dignified; second half questioning, gentle tension"},
+  "M4": {"chapter": "7 (can proof come sooner, C1b)", "len": "1:45", "file_s": 104.4, "mood": "clearing and restrained: pads lift slightly, a sparse slow piano figure, warm low strings, quiet hope that stays mysterious"},
+  "M5": {"chapter": "8, A2 + end screen", "len": "1:25", "file_s": 86.9, "mood": "mystical, turns warmer and gently hopeful toward the end; felt piano plays a last slow figure, a faint choir swell, fades out on one long decaying tone"}
  }
 }

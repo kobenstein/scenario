@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """timing.json -> subtitles.srt + subtitles.ass (one line, bottom, phrase by phrase).
 usage: subs.py <audio_dir> <out_dir>
-Film 14/16/18/19/24/25/28: style = channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters."""
+Film 14/16/18/19/24/25/28/54: style = channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters."""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']; sys.setrecursionlimit(5000)
 # spoken numbers -> digits (longest patterns first: merge() takes the first pattern that matches at a word)
-NUM = [('a\\.i\\.', 'AI'), ('a\\.l\\.s\\.', 'ALS'), ('u\\.n\\.', 'UN')]   # film 28; spoken initials -> AI / ALS / UN on screen
+NUM = [('a\\.i\\.', 'AI')]   # film 54: the VO spells out 'artificial intelligence'; clip cues say 'AI' already
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
@@ -24,7 +24,7 @@ def split(ws):
         if c < best: best, bi = c, k
     return split(ws[:bi]) + split(ws[bi:])
 # hand-made breaks where the balanced split would cut a phrase: sentence text -> cue texts, same words in order
-BREAKS = {}   # Film 28: none, the balanced split is used (add 'sentence': ['piece', ...] where it cuts a phrase badly)
+BREAKS = {}   # Film 54: none, the balanced split is used (add 'sentence': ['piece', ...] where it cuts a phrase badly)
 def pieces(snt):
     k = ' '.join(x['w'] for x in snt)
     if k not in BREAKS: return split(snt)
@@ -53,9 +53,10 @@ for i, w in enumerate(W):
     cur.append(w); nxt = W[i + 1] if i + 1 < len(W) else None
     if not nxt or re.search(r'[.?!]["”]?$', w['w']) or nxt['s'] - w['e'] > .6 or nxt['sec'] != w['sec']: sents.append(cur); cur = []
 cues = [[c[0]['s'], c[-1]['e'], fix(' '.join(x['w'] for x in c))] for snt in sents for c in pieces(snt)]
-# clip slots C3a, C1, C3, C5b: real wording from clips-f28.md with phrase times (clips.json "cues", seconds from the slot start; estimated until the clips are cut)
+# clip slots C3, C5 (audio only), C2: real wording (clips/schnitt.json, checked with Whisper) with phrase times (clips.json "cues", seconds from the slot start). C1 / C1b are read by the narrator: they come from the VO words.
 import os
 CL = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
+if isinstance(CL.get('clips'), list): CL = {c['id']: c for c in CL['clips']}   # clip-schritt.md list form
 for c in json.load(open(A + 'timing.json')).get('clips', []):
     cl = CL.get(c['id'], {})   # Film 25: K3 has no 'cues' yet -> no subtitle
     if not cl.get('cues'): continue   # (a quote card with a narrator take has cues; a silent one has none)
