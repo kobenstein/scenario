@@ -12,7 +12,7 @@
           checks the chunk videos (1080p, 30 fps, h264, frame count against the chunk ranges of film.mjs, no gap or overlap, total = timing duration), joins them,
           lays the QR overlay on (the Buy-Me-a-Coffee PNG, top right, 27 s from each 'This channel exists', 0.6 s soft in/out; the windows come from
           lib/f54_kit.mjs qrWindows, the same ones that keep the picture's corner quiet; the second must end >= 15.6 s before the end), burns the subtitles (ASS) in,
-          puts the mix (WORK/audio/mix.wav or <ROOT>audio/mix.wav, -14 LUFS) under: master 1080p H.264 CRF 18 + AAC 192k through a 4x-oversampled -2 dBFS limiter
+          puts the mix (WORK/audio/mix.wav or <ROOT>audio/mix.wav, -14 LUFS) under: master 1080p H.264 CRF 18 + AAC 320k (mix.m4a as is; a mix.wav goes through a 4x-oversampled -2 dBFS limiter)
           in FINAL/<name>-master-1080p.mp4; then duration, LUFS / true peak, contact sheet (1 frame per 5 s) -> <ROOT>bild/<name>_kontakt.jpg. --preview: a 720p copy.
   python3 tools/f54_clips.py check                  chunk files against the timing, plus the QR windows (no media is written)
 
@@ -210,10 +210,11 @@ def qr_graph(R):
 
 def audio_in():
     for d in (WA, ROOT + 'audio'):
-        if os.path.exists(os.path.join(d, 'mix.wav')): return os.path.join(d, 'mix.wav')
-    raise SystemExit('no mix.wav in ' + WA)
+        for n in ('mix.wav', 'mix.m4a'):      # mix.m4a = the sound agent's delivery master (already -14 LUFS, limited): decoded and encoded once at 320k, no second limiter
+            if os.path.exists(os.path.join(d, n)): return os.path.join(d, n)
+    raise SystemExit('no mix.wav / mix.m4a in ' + WA)
 def subs_in():
-    for d in (WA, ROOT + 'audio'):
+    for d in (WA, ROOT + 'audio', ROOT + 'audio/untertitel', ROOT + 'untertitel'):
         if os.path.exists(os.path.join(d, 'subtitles.ass')): return os.path.join(d, 'subtitles.ass')
     raise SystemExit('no subtitles.ass')
 
@@ -258,8 +259,9 @@ def cmd_assemble(a):
     name = a.name; ass = subs_in(); mix = audio_in(); gf = os.path.join(WORK, 'picture.filtergraph'); open(gf, 'w').write(picture_graph(st['segments'], f'subtitles=filename={ass}', qr_graph(R)))
     m = os.path.join(FINAL, f'{name}-master-1080p.mp4'); t0 = time.time()
     print('master:', m, '| audio', mix, '| subtitles', ass)
-    sh(['ffmpeg', '-v', 'error', '-y', '-i', mix, '-filter_complex_script', gf, '-map', '[pic]', '-map', '0:a', '-af', AFILTER,
-        '-c:v', 'libx264', '-crf', str(a.crf), '-preset', 'medium', '-tune', 'grain', '-pix_fmt', 'yuv420p', '-r', str(FPS), '-c:a', 'aac', '-b:a', '192k', '-ar', '48000',
+    afl = [] if mix.endswith('.m4a') else ['-af', AFILTER]
+    sh(['ffmpeg', '-v', 'error', '-y', '-i', mix, '-filter_complex_script', gf, '-map', '[pic]', '-map', '0:a'] + afl + [
+        '-c:v', 'libx264', '-crf', str(a.crf), '-preset', 'medium', '-tune', 'grain', '-pix_fmt', 'yuv420p', '-r', str(FPS), '-c:a', 'aac', '-b:a', '320k', '-ar', '48000',
         '-movflags', '+faststart', '-shortest', m])
     print(f'master done in {time.time() - t0:.0f} s, {os.path.getsize(m) / 1e6:.0f} MB')
     if a.preview:

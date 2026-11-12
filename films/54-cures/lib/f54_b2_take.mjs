@@ -254,7 +254,7 @@ function scene(a, T) {
     }
     // 5.09 the date of the pitch lights · 6.01 through the frame: the stage
     const du = smooth(span(t, a.date - .1, a.date + .6)) * (1 - span(t, a.venki, a.venki + 1));
-    if (du > 0) { ctx.save(); ctx.globalAlpha *= du; F.mintText(ctx, [['NOV 10, 2026', 1]], FR.x + FR.w, FR.y - 22, 24, 1, { serif: false, weight: 600 }); halo(ctx, FR.x + FR.w + 80, FR.y - 30, 120, .25 * du, MINT.halo, MINT.core); ctx.restore(); }
+    if (du > 0) { ctx.save(); ctx.globalAlpha *= du; F.mintText(ctx, [['NOV 10, 2026', 1]], FR.x + FR.w, FR.y - 22, 24, 1, { serif: false, weight: 600, align: 'right' }); halo(ctx, FR.x + FR.w + 80, FR.y - 30, 120, .25 * du, MINT.halo, MINT.core); ctx.restore(); }
     const sa = span(t, a.partly + .4, a.partly + 1.8) * (1 - span(t, a.villain + 2.6, a.villain + 3.6));
     if (sa > 0) { ctx.save(); ctx.beginPath(); ctx.roundRect(FR.x, FR.y, FR.w, FR.h, 10); ctx.clip(); ctx.translate(FR.x, FR.y); B.stage(ctx, t, FR.w, FR.h, { a: sa, spot: span(t, a.partly + 1.2, a.promise + .6) * (1 - .35 * smooth(span(t, a.villain, a.villain + 1.2))) }); ctx.restore(); }
   }
