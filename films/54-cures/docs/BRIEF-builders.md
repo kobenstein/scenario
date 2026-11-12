@@ -1,24 +1,22 @@
-# Film 28 · builder brief (3 builders in parallel, one checkout) · as of 2026-11-11, REAL VO timing
+# Film 54 · builder brief (3 builders in parallel, one checkout) · as of 2026-11-12
 
-The picture lead built **c01** as the quality reference: the hook plus No. 12 up to the station, from 0 to `T.G('A global data company')` ≈ 77.1 s. The lead also holds the kit, the shot list and the seams. Three builders build the rest **at the same time**, about 3.3 minutes of picture each. The upload is Sat 14.11. 17:00, and the film is built through to the end with no interim review.
+The picture lead built **c01** as the quality reference: the hook, from 0 to `T.G("He didn't invent it")` ≈ 1:11.9. The lead also holds the kit, the shot list and the seams. Three builders build the rest **at the same time**, about 3 minutes of picture each. The upload is **Mon 16.11. 17:00 Vienna**, and the film is built through to the end with no interim review.
 
-| builder | chunks | from → to (phrase) | time (real VO) | contents |
+| builder | chunks | from → to (phrase) | time (provisional) | contents |
 |---|---|---|---|---|
-| **B1** | c02 c03 c04 c05 c06 | 'A global data company' → 'Casey Harrell knows' | 1:17.1 – 4:44.2 (207 s) | No. 12 cont. (the envelope, **C1** Peter Lucas Jones 88.66–103.36, "the speakers own the machine") · No. 11 Apate call line · No. 10 IdentiFlight eagles (+ the study caveat) · No. 9 Nazca leads · No. 8 methane (lamp **half**) · **W 8.11** light door → plateTree |
-| **B2** | c07 c08 c09 c10 | 'Casey Harrell knows' → 'The snake' | 4:44.2 – 8:10.8 (207 s) | No. 7 Casey (**C3** 324.76–333.96, two million words) · **subscribe 1** (channel call t15, 346.24–354.38) · No. 6 dark ships · No. 5 tsunami/GPS (**C4** NASA replay MUTE under the VO 434.11–440.11) · **W 5.11** · No. 4 the elephants and the train → plateGrass |
-| **B3** | c11 c12 c13 c14 | 'The snake' → end | 8:10.8 – 11:24.7 (194 s, incl. 15 s end screen) | No. 3 snake proteins · No. 2 conspiracy chatbot (**C5b** David Rand 550.46–560.26) · **W 2.10** back to the tree: thread + ? return · No. 1 flash floods, the phone ("Maybe on yours") · **W 1.08** · ending: the gallery, "It was the aim", **subscribe 2** (t30, 662.83–669.66) · end screen 669.66–684.66 |
+| **B1** | c02 c03 c04 c05 | "He didn't invent it" → 'The third disease answers fast' | 1:11.9 – 4:14.1 (182 s) | the essay and the two trial lanes · **C3** (kiosk, Dwarkesh) · THE BOARD appears · CANCER: the lab in vitrine 1 (MB1!), scans, larotrectinib, 100+ types, the small print · ✓ · HEART: the infusion, LDL halved, 15 years, the stadium · ½ · **subscribe 1** (the lit doorway, QR window 1) → plateMind |
+| **B2** | c06 c07 c08 c09 | 'The third disease answers fast' → 'He even warned of a jam' | 4:14.1 – 7:13.5 (179 s) | MIND: the sugar pill, 38 of 74, no blood test, the essay · ? · ALZHEIMER'S: 20 years early, the failed trial, "difficult to reverse" · ✗ · the blood test · why a date? · **C5** (audio post, Venki, audio only) · ★ THE GLASS PIPELINE · Topol / Amodei cards · idea → mouse < 18 months · the queue → plateKiosk |
+| **B3** | c10 c11 c12 c13 | 'He even warned of a jam' → end | 7:13.5 – 10:30.4 (197 s, incl. walk + 15 s end screen) | **C2** (kiosk) · the pipeline jams · PROVEN can move: the study clinic (MB2!), digital twins, the FDA assistant, the heart's follow-up · **C1b** wall text · the second date is set by people · ★ 9:12 the board big, four verdicts · the grandkids at vitrine 4 · EVERY CURE HAS TWO DATES · investors · **subscribe 2** (QR window 2) · quiet walk · end screen |
 
 **Timing:**
-- The real VO timing is in. `film.mjs` loads `<ROOT>audio/timing.json` automatically (ROOT = `/mnt/project-files/scenario/film-gute-ki/`, `$F28ROOT`).
-- `data/provisional_timing.json` is only a fallback.
-- The VO follows the **current vo-v5.txt** (fact-checked). Hyphens are spoken and timed without them ("Peter Lucas", "brand new", "peer reviewed").
-- **Anchor only on phrases:** `T.G(phrase, nth, after)` / `T.GE(…)`, and `T.clip('C1')` for slots. Never seconds, never section/take ids (`sections` are take ids t00…t30).
+- `film.mjs` loads `<ROOT>audio/timing.json` as soon as the sound agent writes it (ROOT = `/mnt/project-files/scenario/film-heilung/`, `$F54ROOT`).
+- Until then `data/provisional_timing.json` (from vo-v3.txt) is used and a warning is printed. **The times above will move by a few seconds; your code must not care.**
+- **Anchor only on phrases:** `T.G(phrase, nth, after)` / `T.GE(…)`, and `T.clip('C3')` for slots (C3, C5, C2 clips; C1, C1b quote cards). Never seconds.
 - Repeated sentences:
-  - "Satellites built to watch fields and forests" occurs twice (8.03 and E = nth 1).
-  - "What do all these tools have in common?" occurs twice (H.11 and 2.10 = nth 1).
-  - "This channel exists" occurs once, "That's why this channel exists" once.
+  - "This channel exists" occurs twice (M.01 and A.01 = nth 1).
+  - "Every cure has two dates" occurs twice (H.08 and 8.04 = nth 1).
   - Search after a fence: `T.G(p, 0, after)`.
-- The audio agent works in `<ROOT>audio/` and in `films/28-ai-for-good/audio/`. **Do not touch either.**
+- The sound agent works in `<ROOT>audio/` and in `films/54-cures/audio/`. **Do not touch either, and never stage them.**
 
 ## 0 · Mandatory before the first line of code
 1. **Load the four skills** (Skill tool) and follow them:
@@ -28,151 +26,169 @@ The picture lead built **c01** as the quality reference: the hook plus No. 12 up
    - `anthropic-skills:motion-director-gates`
 2. **Read the memory files** in `/tmp/claude/memory/team/silo/`:
    - `scenario-animation-standard`
-   - `produktion-regeln`
-   - `build-workflow`
-   - `regel-szene-erklaergrafik`
-   - `stil-editorial-nacht`
-   - `film-gute-ki`
-   - `build-durchziehen`
+   - `scenario-produktion-regeln`
+   - `scenario-build-workflow`
+   - `scenario-regel-szene-erklaergrafik`
+   - `scenario-stil-editorial-nacht`
+   - `scenario-film-dario-heilung`
+   - `scenario-build-durchziehen`
 3. **Read the plan:**
-   - `docs/MOTION.md` (whole)
-   - `docs/shots.md` (your shots; **binding**: one motif per sentence, the carrier column is the handover)
-   - the header of `lib/f28_kit.mjs` and `lib/f28_seams.mjs`
-4. **Watch c01:** `scenes/sc01.mjs` is the reference for structure and quality: an anchor table `a = {}`, camera keys, lanterns as windows, the door, the plate at the end.
-5. **Look at the kit sheet:** `node tools/kit_sheet28.mjs $SP/f28/kit`. It has stills of the tree, the windows, the station, the rail with the gallery, the explainers, the clip plate, the three plates and the end screen.
-6. **Fact check overrides:** check every on-screen number against `<ROOT>faktenzettel.md` and the current `vo-v5.txt`. shots.md §5 lists the strings. If they disagree, the fact sheet wins; note it in your report.
+   - `docs/MOTION.md` (whole: the hall, the two dates, the board, Nicht wiederholen, the QR corner, the end screen)
+   - `docs/shots.md` (your shots; **binding**: one motif per sentence, the carrier column is the handover; §5 holds the only on-screen strings)
+   - the headers of `lib/f54_kit.mjs` and `lib/f54_seams.mjs`
+4. **Watch c01:** contact sheet `<ROOT>bild/c01_kontakt.jpg`. `scenes/sc01.mjs` is the reference for structure and quality:
+   - an anchor table `a = {}` built from phrases;
+   - ONE camera path (`F.camPath`) with drift;
+   - cards that fall and fly with the camera;
+   - the label clones;
+   - the creep into the plate at the end.
+5. **Look at the kit sheet:** `<ROOT>bild/kit54_kontakt.jpg`, or render your own with `node tools/kit_sheet54.mjs $SP/f54/kit`. It has stills of:
+   - the hall, vitrines, specimens and the diorama;
+   - the two dates, the board, the wall text, the roadshow frame and the essay;
+   - the explainers and the pipeline;
+   - the clips C3, C2 and C5;
+   - the three plates and the end screen.
+6. **Fact check overrides:** check every on-screen number against `<ROOT>faktenzettel.md`, `<ROOT>faktencheck.md` and `vo-v3.txt`. If they disagree, the fact sheet wins; note it in your report.
+   - **MB1 (B1, 2.06):** ONE AI-PROPOSED DESIGN · ≈ 10× MORE RECEPTORS ON THE CELLS · LAB TESTS ONLY · GENERATE BIOMEDICINES / ANTHROPIC, OCT 2026. The 70 % was draft length, not time: **no speed motif**, never "70 % SHORTER".
+   - **MB2 (B3, 7.04):** WITHOUT SYMPTOMS: EXPERTS ADVISE IT ONLY IN TRIALS · TRAILBLAZER-ALZ 3 SCREENS BY BLOOD TEST.
 
-## 1 · The seams between the groups (fixed, `lib/f28_seams.mjs`)
-A plate is the exact picture at a group boundary.
+## 1 · The seams between the groups (fixed, `lib/f54_seams.mjs`)
+A plate is the exact picture at a group boundary T0.
 - The handing side steers its last move so its frame converges onto the plate, then draws the plate for `[T0 − .5, T0)`.
 - The receiving side draws the same plate for `[T0, T0 + .5)` and grows its world out of it.
-- Plates creep at 4 %/s push plus 30 px/s truck (`S.CREEP`, `S.TRUCK`). Continue both, e.g. ride `E.aim(Z, u + S.TRUCK * (t − tP), v, s * (1 + S.CREEP * (t − tP)))` as c01 does.
+- Plates creep at 4 %/s push plus 30 px/s truck (`S.creep`, `S.CREEP`, `S.TRUCK`). Continue both, as `plateRoadshow` does: `E.aim(F0, u + tr(k), v, s * k)` with `k = S.creep(t, T, phrase)`. sc01's `creepCam` shows how to start the creep 2.5 s early so the arrival glides.
 
 The seams:
-- **Lead → B1** at `T.G('A global data company')`: `S.plateStation`.
-  - The station at night: warm window, the ring of voices round the antenna, the towers on the horizon right, the rail with lamp 12 lit and the mic under it. Camera `S.ST_CAM` (station-world coordinates, card `S.Z_ST`).
-  - B1 (12.07) grows a cool envelope out of the towers' light.
-- **B1 → B2** at `T.G('Casey Harrell knows')`: `S.plateTree`.
-  - The tree at the turn: crown .28, lanterns 12 … 9 lit, 8 half, lantern 7 (the kitchen) glowing faintly; you at the foot. Camera `S.TREE_CAM_TURN`.
-  - B1 (8.11) comes out of its light door onto it. B2 (7.01) flies into lantern 7.
-  - Use `S.treeTurnState(t, T)`.
-- **B2 → B3** at `T.G('The snake')`: `S.plateGrass`.
-  - Night grass by the track, one dark shadow moving through the blades, rail 12 … 4 lit. Camera `S.GRASS_CAM`.
-  - B2 (4.09) sinks into the grass. B3 (3.01) turns the shadow into the snake.
+- **Lead → B1** at `T.G("He didn't invent it")`: `S.plateRoadshow` (camera `S.RS_CAM`). The wall panel with the roadshow frame (left), the lectern with the closed essay under its cream lamp (right). B1 (1.01) glides right to the lectern; the essay opens.
+- **B1 → B2** at `T.G('The third disease answers fast')`: `S.plateMind` (camera `S.MIND_CAM`). Vitrine 3, plaque MENTAL ILLNESS, V4 dim at the right edge, the board top left (CANCER ✓, HEART ½). B1 (M.02) drifts from the doorway onto it. B2 (4.01) lights the MIND row and pushes into vitrine 3. **QR window 1 is running here: the top-right corner stays quiet on both sides.**
+- **B2 → B3** at `T.G('He even warned of a jam')`: `S.plateKiosk` (camera `S.KIOSK_CAM`). The media kiosk with a dark screen and a play mark, the bench, the audio post at the right, the board with all four verdicts. B2 (6.10) lets the queue run past the kiosk and settles. B3 (6.11) wakes the screen and pushes in → C2.
 
-Check with `SECS=c06,c07 node tools/seam.mjs --at <T0>` (and the same for the other seams). Inner chunk boundaries within a group are one continuous take: the same world and camera continue, with no plate.
+Check with `SECS=c05,c06 node tools/seam.mjs --at <T0>` (and the same for the other seams). Inner chunk boundaries within a group are one continuous take: the same hall and camera continue, with no plate.
 
 ## 2 · Hard rules for the picture
-- **The tree is an anchor, not wallpaper.** `S.treeWorld` appears only at the plates, 2.10 and the ending (shots.md TREE).
-- **Each station** is its own place (a scene world on depth cards) and **opens as a window**. Fly in through a lantern glass, a lit window, a screen or a headlight (≥ 2.5 s, continuous). Hard world changes happen **only at your W shots** (light doors, `E.lightFlood` with 1.4 s ramps as in c01). Budget: B1 has 1, B2 has 1, B3 has 2.
-- **The aim in every station.** The A.I. is the cool bead (`F.agent`) with its thin cool beam (`F.beam`). It turns warm only where it lands on what is saved. Never robots, brains, circuit boards or "matrix" code.
-- **The lamp rail** `F.lampRail(ctx, t, T)` is in every frame from c02 to the end, screen space, top left.
-  - It lights by itself on each station's solution phrase (`F.LAMPS`). **No big number at a station's start, and numbers are never spoken.**
-  - Your station's tool object appears under its lamp by itself (`toolAt`). Show the same tool **in your scene** first, where the A.I. rides on it (the radio, the camera, the GPS signal …), so the rail tool has an origin.
-  - No. 8 stays half lit. That is the point of "Seeing isn't saving".
-- **REAL stamp per station** (Jakob 10.11.): `F.realStamp(ctx, t, t0, t1, key)` with the keys in `F.STAMPS`. Show it once, about 3 s, when the place or system is named.
-- **Caveats on screen** are part of the film's honesty. Give each caveat one small calm explainer (a bracket, a small line), never a big red warning:
-  - 10: "one wind farm can't prove that yet"
-  - 7: "one man, in a research study"
-  - 6: "a risk, not a verdict"
-  - 3: "only in mice, single toxins"
-  - 2: "errors corrected", "not yet peer reviewed"
-  - 1: "a forecast isn't a rescue"
-- **Explainers** are made of film things: light lines (`F.ruler`), dots (`F.dotField`), slabs, serif numbers, small cards and tags. One statement each, with at most one number and ≤ 6 words. No chart panels with legends.
+- **One hall, one take.**
+  - Everything happens in or from THE HALL OF RELICS (`S.hallWorld`).
+  - Rooms (the lab, the clinic, the waiting room, the stadium, the study clinic, the FDA desk, the parliament hall) are entered **through glass**: a vitrine, a diorama, the doorway, a screen. Push in for ≥ 2.5 s, and come back out the same way.
+  - **There are no W shots**: no light doors, no cuts, no `lightFlood` world swaps. A scene file returns **one entry per chunk**.
+- **The two dates** (`F.twoDates`) are the through-line.
+  - Every disease gets its label: FOUND (mint stamp) and PROVEN (empty, blinking, or stamped).
+  - The wait track says how long proof takes: WEEKS / YEARS / DECADES. Never draw a clock or a calendar for it.
+- **The board** (`F.board(ctx, t, T)`) appears on its phrase (2.00, "twenty thirty-six") and is drawn **in every frame from then on** until "Maybe your grandkids will hear". It sits top left in screen space.
+  - It lights its rows and verdicts by itself (`F.BOARD`). Never animate them by hand. Pass `{ big }` only at 8.01–8.02 (B3), and `{ from }` only at 2.00 (B1: it grows out of the mint line NOT INSTANT…).
+  - When a shot is a full-frame explainer, the board stays: plan your layout around its box (x 70–490, y 52–~250).
+- **The machine is a cool spark** (`F.spark`, `F.molecule` in COOL or mint). Never robots, brains as AI, circuit boards or "matrix" code. The brain in vitrine 4 is the disease.
+- **Caveats on screen** are the film's honesty. Give each caveat one small calm line (`F.bracket`, `F.source`), never a red warning:
+  - "all still in the lab"
+  - "most cancer" vs "cancer"
+  - "company figure"
+  - "experts advise it only in trials"
+  - "not investment advice" (c01 has it)
+- **Explainers** are made of museum things: labels, plaques, slabs of light, dots, rulers, glass, stamps, small cards. One statement each, with at most one number and ≤ 6 words. No chart panels with legends.
 - **Colour code** (MOTION.md §5):
-  - warm = people / what is saved / hero light
-  - cool = machine
+  - mint = the cure, FOUND, ✓
+  - cool = the machine
+  - cream lamp = people's light
+  - cream-grey = a relic
   - yellow coat = only you (`E.du`)
   - everyone else = indigo `E.person`
-- **Nicht wiederholen** (MOTION.md §3): no clock, hourglass, rack, dish world, fire circle, domino row, timeline wall, world map with pins, iris medallions, ear trumpet, stone tablet, call strip, [translating…] bar, generations table, running track, game board, monolith, staircase of light, red-line curve.
-  - No. 11 uses a **call line**, not a clock.
-  - No. 1 uses a **river network**, not a map with pins.
-- **No phone before "Maybe on yours"** (c13).
+  - **no red anywhere**
+- **Nicht wiederholen** (MOTION.md §3):
+  - no clock, hourglass, vintage strip, server rack, dish world, fire circle;
+  - no tree with lanterns, lamp rail, piggy bank, avenue of years, domino row, timeline wall;
+  - no world map with pins, staircase of light, monolith, red-line curve, robots.
+- **Real people:**
+  - No photo recreation or likeness of Dario Amodei, Eric Topol or Venki Ramakrishnan. They appear only as their words (wall cards, the wall text, the audio plate) and in the real footage.
+  - The stage at 6.01 has a spotlight on a date, no person.
 - **Clips:**
-  - `F.clipPlate(ctx, t, T, id, { from, morph })` grows from a thing in the scene (a window, a screen, a glass) during the lead-in sentence. It holds still under the clip, then shrinks back into that thing (see C3a in c01).
-  - The frame shows ORIGINAL FOOTAGE and the name automatically.
-  - The real frames come later into scratchpad `f28/clips/<id>/`. Until then the placeholder shows; that is fine.
-  - **C4** is mute NASA footage UNDER the VO: show it in a smaller plate inside the scene (the sky over Hawaii), not full screen. Credit NASA SVS.
-  - C1's wording differs from the script; that is the audio agent's subtitle job, not yours.
+  - `F.clipPlate(ctx, t, T, id, { from: S.kioskScreen(), morph })` grows from the kiosk screen during the lead-in sentence, holds under the clip, and shrinks back into the screen. Credits and ORIGINAL FOOTAGE / ORIGINAL AUDIO are automatic.
+  - **C5 is audio only**: `from` = the audio post's speaker (`[x, y, r]` from `S.postSpeaker()` projected to the screen). It has no portrait.
+  - The frames are in scratchpad `f54/clips/<id>/` (done; `tools/f54_clips.py clips` rebuilds them on new timing). render.mjs loads them for you.
+  - C1b (B3) is a **quote card read by the narrator**, in the same wall-text design as C1: `F.wallText(ctx, t, T, { id: 'C1b', … })`. It has no footage.
 - **Subscribe** (no buttons, no bells, at most one small line of text):
-  - 1 (c07, t15): the rail's lamps pass a warm pulse along, 12 → 7, like a lamp handed on.
-  - 2 (c14, t30): the land below the tree wakes, many small warm lights (`lights`).
-- **End screen 15 s** (c14, 669.66–684.66): the tree in full light in the **left third**, all lanterns lit (8 half), the gallery hanging under them. Keep the **right two thirds (x 700–1830, y 120–860) a quiet dark sky**. The picture and grain keep running. No text.
-- **Subtitles** own y > 910.
+  - 1 (B1, M.01): the lit doorway in the back wall (`st.door`) opens onto a hospital corridor at night: a warm open door, a bed, someone beside it.
+  - 2 (B3, A.01): you walk through the night hall toward the four vitrines.
+- **QR corner (both subscribe calls):** during `F.qrWindows(T)` keep **x ≥ 1330, y ≤ 580 quiet**: no text, no moving object, no bright light. Fade it with `F.qrQuiet(T, t)`. Window 1 runs from M.01 into B2's first ~10 s; window 2 from A.01 into the walk. The overlay itself is added at assembly; do not draw it.
+- **End screen 15 s** (B3, last 15 s):
+  - camera `S.END_CAM`, layout `S.END_TILES`: the four vitrines in a low row, the dark upper wall for the two YouTube tiles (x 100–820 and 1100–1820, y 130–535), the subscribe circle in the warm doorway (960, 620);
+  - text-v2: one vitrine holds an old faded exhibit without a plaque, three are empty with soft mint light, and you stop before an empty one;
+  - no text, no QR; the picture and grain keep running.
+- **Subtitles** are burned in at the bottom (≈ 72 px): **no important text or detail below y 880**. Source lines sit at y ≤ 880.
 - **Calm:**
   - at most 1–2 moving elements at a time;
   - the camera follows the carrier;
-  - never stillness (`E.camDrift`, scaled down while diving, see c01's `drifted`);
+  - never stillness (`E.camDrift` about 5.5 / magnification; c01's overlay `float`);
   - nothing appears from nowhere.
 
 ## 3 · What you may touch and what not
 - **Only your files:**
-  - B1: `scenes/sc02.mjs` … `sc06.mjs`
-  - B2: `scenes/sc07.mjs` … `sc10.mjs`
-  - B3: `scenes/sc11.mjs` … `sc14.mjs`
-  - plus your own modules `lib/f28_b1_*.mjs`, `lib/f28_b2_*.mjs` or `lib/f28_b3_*.mjs`
+  - B1: `scenes/sc02.mjs` … `sc05.mjs`
+  - B2: `scenes/sc06.mjs` … `sc09.mjs`
+  - B3: `scenes/sc10.mjs` … `sc13.mjs`
+  - plus your own modules `lib/f54_b1_*.mjs`, `lib/f54_b2_*.mjs` or `lib/f54_b3_*.mjs`
 - **Do not change:**
-  - libraries: `lib/f10_editorial.mjs`, `lib/f13_kit.mjs`, `lib/f16_kit.mjs`, `lib/f28_kit.mjs`, `lib/f28_seams.mjs`, `lib/kit.mjs`, `lib/stub.mjs`
+  - libraries: `lib/f10_editorial.mjs`, `lib/f13_kit.mjs`, `lib/f16_kit.mjs`, `lib/f54_kit.mjs`, `lib/f54_seams.mjs`, `lib/kit.mjs`, `lib/stub.mjs`
   - engine: `film.mjs`, `engine.mjs`, `render.mjs`
   - folders: `tools/`, `docs/`, `data/`, `audio/`
   - `scenes/sc01.mjs` and the other builders' files
 - **Kit gaps or bugs:** solve them in your own module and report them as kit wishes.
-- **napi-rs quirk:** `Path2D.addPath` joins sub-paths. Never use it to combine shapes.
-- **A scene file:** `export default async (T, R) => [{ t: R.a, draw(ctx, t), print: F.PRINT28 }]`. One entry per chunk. A second entry is a hard cut, allowed only at a W shot.
-- **No commit, no push**, no `git checkout`, `git stash` or `git reset`. The lead or the coordinator commits.
+- **A scene file:** `export default async (T, R) => [{ t: R.a, draw(ctx, t), print: F.PRINT54 }]`.
+  - Use exactly one entry per chunk; any other `tr` is turned into a cut.
+  - Draw the whole chunk `[R.a, R.b)`. Chunk boundaries inside your group must match frame for frame: the last frame of c03 and the first of c04 are the same picture. Share the camera and state through your own module.
+- **No commit, no push**, no `git add -A`, `git checkout`, `git stash` or `git reset`. The lead or the coordinator commits.
 
 ## 4 · Kit API (short; the full list is in the headers)
 ```
-import * as E from '../lib/f10_editorial.mjs';  import * as F from '../lib/f28_kit.mjs';  import * as S from '../lib/f28_seams.mjs';
-F.camPath(t, [[t, E.aim(Z, u, v, s)], …]) · E.camAt(t, [[t0, c0], [t1, c1, 'i'|'o']]) for dives · E.camDrift · E.lightFlood(ctx, a) · E.project(c, Z, u, v)
-S.treeWorld(ctx, c, t, { glow, lantern(n) → { lit, inside(ctx, 1000, h), glass, num, numA }, du, lights(k, x), fg, extra(ctx) }) · S.lanternGlass(n) · S.treeTurnState
-S.stationWorld(ctx, c, t, { window, ring, towers, voices(ctx), bead }) · S.STATION · S.HOMES · S.BOATS · S.Z_ST · S.ST_CAM
-S.grassWorld(ctx, c, t, { shadowX, shadow }) · S.GRASS_CAM · S.vignetteTrain / vignetteKitchen / vignetteDesert (local 1000 wide)
-F.sky · F.hills · F.water · F.pool · F.agent(ctx, t, x, y, r, { think, ring, a }) · F.beam(ctx, t, x0, y0, x1, y1, u, { w, hit, warm, a })
-F.lantern · F.lampRail(ctx, t, T) · F.LAMPS · F.lampOn(T, n, t) · F.toolOn · F.tool(ctx, name, x, y, s, { lit, col }) · F.TOOLS · F.tag(ctx, t, x, y, text, u)
-F.realStamp(ctx, t, t0, t1, key) · F.STAMPS · F.source(ctx, t, t0, t1, F.SOURCES.x) · F.QUOTES.harrell + F.quote
-F.ruler · F.dotField · F.chartLines · F.slab / slabBars · F.dayTiles · F.bracket · F.label · F.questionMark · F.thesis · F.voiceWave · F.radioRings
-F.laptop · F.elephant · F.clipPlate(ctx, t, T, id, { from, morph }) · F.CLIPS · E.du (you) · E.person · F.PRINT28
+import * as E from '../lib/f10_editorial.mjs';  import * as F from '../lib/f54_kit.mjs';  import * as S from '../lib/f54_seams.mjs';
+F.camPath(t, [[t, E.aim(E.F0, u, v, s)], …]) · E.camAt(t, [[t0, c0], [t1, c1, 'i'|'o']]) for dives · E.camDrift · E.project(c, Z, u, v) · E.card(ctx, c, Z, fn)
+S.hallWorld(ctx, c, t, { moon, door, v(i) → { glow, inside(ctx, w, h), spec }, plaque(i) → { name, q, a }, diorama, frame, panel(ctx), lectern, kiosk, post, kids, du, fg, extra(ctx) })
+S.HALL · S.hallX · S.glassOf(i) · S.plaqueOf(i) · S.frameRect() · S.kioskScreen() · S.postSpeaker() · S.dioramaGlass() · S.officeRoom · S.roadshowFrame · S.motes
+S.plateRoadshow / plateMind / plateKiosk (ctx, t, T) · S.RS_CAM / MIND_CAM / KIOSK_CAM · S.creep · S.END_CAM · S.END_TILES
+F.vitrine · F.specimen(ctx, t, 'cell'|'heart'|'mind'|'brain', x, y, s, o) · F.cell · F.plaque · F.diorama · F.plagueMask · F.wordCard · F.kiosk · F.audioPost · F.lectern · F.essay({ open, lens })
+F.twoDates(ctx, t, x, y, s, { name, found, proven, blink, wait, waitTag, split }) · F.stampMark · F.board(ctx, t, T, { big, from }) · F.boardRow(T, k, t) · F.verdictMark
+F.wallText(ctx, t, T, { id, x, y, w, size, credit, hi }) · F.QUOTES · F.CREDIT · F.thesis · F.mintText · F.mintSpan · F.source(ctx, t, t0, t1, F.SOURCES.x)
+F.molecule · F.spark · F.bloodTube · F.scan · F.pipeline({ x, y, w, h, neck, flow, jam, labels, u }) · F.dotField · F.ruler · F.slab / slabBars · F.bracket · F.label · F.tag · F.questionMark
+F.clipPlate(ctx, t, T, id, { from, morph, dark }) · F.CLIPS · F.clipWin · F.QR · F.qrWindows(T) · F.qrQuiet(T, t) · E.du (you) · E.person · F.PRINT54
 ```
 
 ## 5 · Rendering (4 cores, shared by all three)
-`SP` is your own scratchpad (from your system prompt). Work in `$SP/f28/bN/`.
+`SP` is your own scratchpad (from your system prompt). Work in `$SP/f54/bN/`.
 
 **Review stills:**
 ```
-cd /home/user/scenario/films/28-ai-for-good
-SECS=c03 node render.mjs --snap 120,124,128 --dir $SP/f28/b1/snap --scale .4
+cd /home/user/scenario/films/54-cures
+SECS=c03 node render.mjs --snap 120,124,128 --dir $SP/f54/b1/snap --scale .4
 ```
 
 **Video:**
 - Pieces ≤ 20 s, always with `--expose-gc`.
-- At most one render per builder at a time (~180 ms/frame at `--scale .5`).
+- At most one render per builder at a time (~155 ms/frame at `--scale .5`).
 ```
-SECS=c03 node --expose-gc render.mjs --out $SP/f28/b1/c03_a.mp4 --from 113 --to 133 --scale .5
+SECS=c03 node --expose-gc render.mjs --out $SP/f54/b1/c03_a.mp4 --from 115 --to 135 --scale .5 --preset veryfast
 ```
 - Join the pieces with `ffmpeg -f concat -c copy`.
 
 **Delivery per chunk:**
-- the video at `$SP/f28/bN/cNN.mp4`;
-- a contact sheet (1 frame/s, small jpg, ≤ 1 MB) at `/mnt/project-files/scenario/film-gute-ki/bild/cNN_kontakt.jpg`.
+- the video at `$SP/f54/bN/cNN.mp4`;
+- a contact sheet (1 frame per 1–1.5 s, small jpg, ≤ 1 MB) at `/mnt/project-files/scenario/film-heilung/bild/cNN_kontakt.jpg`.
 
-**No video or audio files in the repo.**
+The final 1080p chunks are rendered by `tools/f54_clips.py render` on the real timing. **No video or audio files in the repo.** The network drive is nearly full: only small jpgs go there.
 
 ## 6 · Mandatory checks per chunk (numbers go into the report)
 1. **Contact sheets looked at:** every 0.5–1 s plus every transition, at least 3 review rounds. Check:
    - poster quality;
    - sentence = picture;
-   - the hero light is the brightest thing;
+   - mint is the brightest thing only where a cure is found;
    - figures are alive;
-   - text is readable at 390 px width and on screen ≥ 1.2 s.
+   - text is readable at 390 px width, on screen ≥ 1.2 s, and above y 880;
+   - the QR corner is quiet in the windows.
 2. **calm.py:** `python3 tools/calm.py <cNN.mp4> --scale 1280:720`.
-   - Cuts only at W shots.
+   - No cuts.
    - Static share < 5 %; luma 40–60.
-   - Report the mafd median (c01's numbers are in README.md).
-3. **smooth.py:** `python3 tools/smooth.py <cNN.mp4> <start second>`. **0 LURCH/POP**, including around the light doors.
-4. **seam.mjs:** at your group seams, `SECS=cNN,cMM node tools/seam.mjs --at <T0>`: no flags.
+   - Report the mafd median. c01: static 1.0 %, mafd median 0.68, luma 48.4.
+3. **smooth.py:** `python3 tools/smooth.py <cNN.mp4> <start second>`. **0 LURCH/POP.**
+4. **seam.mjs** at your group seams, plus every inner chunk boundary of your group: no flags.
 5. **Calm rules** (MOTION.md §6), checked.
-6. **Self-grade 1–5** on: poster · sentence = picture · seamless · calm · alive · explainers made of film things · text · facts = fact sheet. Nothing under 4.
+6. **Self-grade 1–5** on: poster · sentence = picture · seamless · calm · alive · explainers made of museum things · text · facts = fact sheet. Nothing under 4.
 
 ## 7 · Report (short, English)
 - Chunks finished, with paths to the videos and contact sheets.

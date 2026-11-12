@@ -1,153 +1,169 @@
-# Film 28 · "They're Using AI to Save the World" · motion bible (lead, 2026-11-11)
+# Film 54 · "AI Just Gave Disease a 10-Year Deadline" · motion bible (lead, 2026-11-12)
 
-Style: Editorial-Nacht (`/mnt/project-files/scenario/stil/STIL-editorial-nacht.md`, memory `stil-editorial-nacht`). The picture comes from code only: flat shapes on 2.5D depth cards, grain, one hero light. No AI images, no primitive 3D shapes, no game look. Plan: `docs/shots.md` (source `tools/shots28.py`). Builders: `docs/BRIEF-builders.md`.
+Style: Editorial-Nacht (`/mnt/project-files/scenario/stil/STIL-editorial-nacht.md`, memory `stil-editorial-nacht`). The picture comes from code only: flat shapes on 2.5D depth cards, grain, one hero light. No AI images, no primitive 3D shapes, no game look. Plan: `docs/shots.md` (source `tools/shots54.py`). Builders: `docs/BRIEF-builders.md`. Kit sheet: `<ROOT>bild/kit54_kontakt.jpg` (`node tools/kit_sheet54.mjs <dir>`).
 
 ## 1 · Intent
-- **Audience:** curious people who think of A.I. as chatbots and ads.
-- **The single message:** the tool is already here; what matters is **what we point it at**. Twelve real projects show it, and each one rides on something that was built for another job.
-- **Format:** 16:9, about 11:30 (VO ≈ 11:17 plus 15 s end screen), English VO by the narrator. The two former O-TON JAKOB lines are VO now.
-- **Mood:** warm, wondering, honest. Hope without hype: every win also gets its caveat on screen.
+- **Audience:** people who saw the headline "AI will cure disease in ten years" and want to know whether to believe it.
+- **The single message (Leitgedanke):** **every cure has two dates**. The day it is found (machines make that fast) and the day it is proven in human bodies (the body sets that pace). The 2036 deadline is a promise about the first date; we check it against the second, disease by disease.
+- **Format:** 16:9, about 10:30 (VO ≈ 10:03 from vo-v3, then a quiet walk and a 15 s end screen), English VO by the narrator.
+- **Mood:** calm, curious, fair. Hope without hype: each verdict is earned on screen and every caveat gets one quiet line.
 
-## 2 · The world
-**THE AIM (through-line).** The A.I. is always the same thing: a small cool bead (`F.agent`) with a thin cool beam (`F.beam`). The beam stays cool along its length and turns **warm where it lands** on something worth saving. The film opens on the beam lifting from a laptop into a tree (H.09, "A few people pointed it at something far bigger"). It closes on "It was the aim" (E): the same beam, the gallery of tools, the tree in full light.
+## 2 · The world: THE HALL OF RELICS
+One continuous place: **a museum at night, in your grandkids' future.** The diseases of today stand in it as exhibits. The question of the film is whether they will really be relics by the deadline.
 
-**THE TREE (anchor, thumbnail A `fg-a-baum`).**
-- What it is: a giant tree on a hill at night. Its crown is lit gold from inside. You, in the yellow coat, stand tiny at its foot. A lake and a land of small warm lights lie below.
-- When it appears: only four times.
-  1. the hook (c01)
-  2. the turn after No. 8 (plateTree, the B1 → B2 seam)
-  3. the question before No. 1 (2.10)
-  4. the ending and end screen
-- How it is built: the crown is lit from within. Limbs are dark silhouettes against the gold, and the leaf masses glow gold on their inner sides and fall off to indigo outside. `S.treeWorld`, `F.tree`.
+**Layout** (left → right on the floor, design x on the F0 card; `S.HALL`):
+- the **plague vitrine** (−820): a beaked mask with a wide-brimmed hat on a stand, plaque THE PLAGUE · A RELIC. This is what "a thing of the past" looks like.
+- the **diorama A DOCTOR'S OFFICE · 2026** (−160): a period room behind glass. A doctor behind a desk, you beside someone you love. Four word cards fall on the desk. In the hook it ages into a relic (cream-grey).
+- **four vitrines = the four diseases** (1440 · 2440 · 3440 · 4440): CANCER (the mint cell; thumbnail A), HEART DISEASE (a heart), MENTAL ILLNESS (quiet rings), ALZHEIMER'S (a brain as threads). Each has a plinth and a plaque.
+- the **doorway** (2940, back wall): warm practical light from a corridor. It hosts subscribe 1 and the end-screen subscribe button.
+- the **wall panel** (4900–6300): the quote cards C1 / C1b as wall text; the drawn **roadshow frame** (IPO ROADSHOW VIDEO · NOV 10, 2026, no footage, no person).
+- the **lectern** (6650): the essay MACHINES OF LOVING GRACE, a magnifier.
+- the **media kiosk** (7300): screen and bench; clips C3 / C2 grow out of its screen.
+- the **audio-guide post** (7900): clip C5 (audio only) grows out of its speaker.
+- the back wall: arched windows with moonlight shafts, pilasters; a foreground rope on stanchions (Z_FG) for parallax.
 
-**TWELVE LANTERNS = the countdown.**
-- Twelve lanterns hang on the tree's low limb: No. 12 at the far tip, No. 1 near the trunk.
-- A lantern is a **window into a scene**. The camera flies into its glass (`lantern(…, { inside })`).
-- In the hook, lanterns **4** (the train), **7** (Casey's kitchen) and **9** (the Nazca desert) are the teasers.
-- **No. 12 hangs at the far tip of the limb = "At the far edge of New Zealand".** c01 flies into it (light door) and comes out of the radio station's window.
+**Through-line: THE TWO DATES.** A museum label with two rows, FOUND and PROVEN (`F.twoDates`). It is born in the hook (H.08 "Every cure has two dates"). It clones into four, one per disease, with wait tracks (WEEKS … DECADES), returns for each disease, and closes the film (8: EVERY CURE HAS TWO DATES).
 
-**THE LAMP RAIL (screen space, top left).**
-- In H.12 lanterns 11 … 1 lift off the limb into a small wire with twelve mini lanterns. Lamp 12 drops onto it after the door.
-- Each lamp has its number on the glass. **No big number at a station's start, and numbers are never spoken.**
-- A lamp **lights on its station's solution phrase** (`F.LAMPS[].solve`). No. 8 lights only half (the alerts that go unanswered).
-- **Under each lamp hangs its station's tool object** (`F.LAMPS[].tool`, from `toolAt`). The row of tools is the **gallery** that answers the big question at the end.
-- Five tools get a "built for …" tag in the ending, matching the VO: satellite, ship radio, GPS, chatbot, newspaper.
-- The newspaper hangs under lamp 1 from the hook on ("A first clue").
+**The clock without a clock: THE DEADLINE BOARD** (`F.board`, screen top left).
+- It shows DEADLINE: 2036 and four rows: CANCER · HEART · MIND · ALZHEIMER'S.
+- Each row lights on its phrase, gets its answer time, then its verdict: ✓ MANY KINDS · ½ · ? · ✗.
+- It drives itself from `F.BOARD` phrases; never animate it by hand.
+- At 9:12 it glides big to the centre (`big`). It vanishes on "Maybe your grandkids will hear".
 
-**THE BIG QUESTION.** "What do all these tools have in common?" is asked three times:
-- H.11, with the gold thread through the lanterns and a ?
-- 2.10, where the thread and the ? return on the tree
-- the resolution in E: the gallery tools get their tags and swing into one line under the lit crown. "None of it was built for this."
+**Thumbnail A** (H.01, `03_thumb_cell` in the kit sheet): vitrine 1 huge with the mint cell, you tiny in front, DEADLINE: 2036 stamped on the glass, AI GAVE DISEASE / A DEADLINE on the left.
 
-**REAL stamps (Jakob 10.11.).** Every station shows unmistakably that it is real: `F.realStamp(ctx, t, t0, t1, key)`. The gold stamp REAL · STATUS sits bottom left with the place or source line under it. Wording is in `F.STAMPS`; the fact check overrides.
+**Scenes and explainers alternate.**
+- A scene is a lit room or a vitrine with breathing figures: the office, the lab inside vitrine 1, the infusion, the clinic, the study clinic.
+- An explainer is made of museum things: labels, plaques, slabs of light, dots, rulers, the glass pipeline, stamps.
+- Weighted explainer share is **62.8 %** (shots.md §1).
 
-**Scenes and explainers alternate.** A scene is a lit window with one warm light and breathing figures. An explainer is made of film things: light lines, dots, slabs, serif numbers, small cards. Weighted explainer share is **63.6 %** (shots.md).
-
-**Clips.** `F.clipPlate` grows from a thing in the scene (a lantern glass, a window, a screen), with "ORIGINAL FOOTAGE" and the name. Slots: `T.clip('C3a' | 'C1' | 'C3' | 'C5b')`. C4 (the NASA replay) is mute footage UNDER the VO.
+**Clips** (`F.clipPlate`, `F.audioPlate`; credits from `F.CLIPS`, label ORIGINAL FOOTAGE / ORIGINAL AUDIO + source):
+- **C3 and C2** (Dario Amodei, Dwarkesh Podcast, Feb 2026) grow out of the kiosk screen (o.from = `S.kioskScreen()`, morph 0 → 1 → 0) and shrink back into it.
+- **C5** (Venki Ramakrishnan, Nobel Prize in Chemistry 2009, audio only) grows out of the audio post's speaker. It has no portrait, ever: the name, the prize, and a mint waveform driven by the real envelope (`<clips>/C5/env.json`).
+- **C1 and C1b** are **quote cards read by the narrator** (`F.wallText`, words light as spoken). They show no photo, no footage and no likeness. Credit: DARIO AMODEI · ANTHROPIC IPO ROADSHOW VIDEO · NOV 10, 2026.
+- Frames come from `tools/f54_clips.py clips` (done on 12.11. for C3, C2, C5).
 
 ## 3 · Nicht wiederholen (do not repeat)
 These worlds and objects belong to earlier films. None of them may be the world or a recurring object here.
 
 | film | do not use |
 |---|---|
-| ageing film | the **big clock** |
-| biocomputer film | the **server rack / satellite dish** as the world |
+| #20 | the **clock**, the **vintage strip** (no clock face, no ticking hand, no countdown digits: time is the board, the wait tracks and the breathing light) |
+| #21 | the **server rack** and the **dish** as the world (the small petri-dish lid in the lab, 2.07, is a prop, not a world) |
 | (several) | the **hourglass**, the **fire circle** |
-| #25 The Last Human Job | the **domino row** of task stones, the **timeline wall**, the rank rail of stones |
-| Film 13 | the sand thread, the rock edge |
-| Film 19 | the drawer |
-| Film 18 | the running track, the game board, the zero line, the loop road |
-| Film 24 | the world map with pins and iris medallions, the ear trumpet, the stone tablet with slots, the call strip, the [translating…] bar, the kitchen table with four generations |
-| Film 16 | the staircase of light, the book of light with threads |
-| (several) | the monolith, the curve with the red line |
+| #28 They're Using AI to Save the World | the **tree with lanterns**, the **lamp rail**, the bead and beam, REAL stamps |
+| #26 | the **piggy bank**, the **avenue of years** |
+| #25 The Last Human Job | the **domino row**, the **timeline wall**, the rank rail of stones |
+| Film 24 | the world map with pins, the stone tablet with slots |
+| Film 16 | the staircase of light, the book of light with threads (the essay here is a small printed booklet under a lamp) |
+| (several) | the monolith, the curve with the red line, robots, brains as AI, DNA helix wallpaper |
 
 **Consequences for this film:**
-- text-v4's hourglass for No. 12 becomes the **hour ruler**.
-- the clock for No. 11 becomes the **call line**.
-- the flood map for No. 1 is a **river network**, not a map with pins.
-- the satellite in No. 8 is a small tool object in the gallery, never a dish world.
-- no phone appears before "Maybe on yours" (No. 1). At the end the phone light is raised to the tree.
+- "a decade" and "2036" are a stamp and a board, never a clock.
+- The years pass as the hall's light breathing (moon and veil), not as a calendar.
+- The pipeline is glass in a museum, not a server.
+- The machine is a small cool spark (`F.spark`), never a robot or a brain. The brain in vitrine 4 is a specimen of the disease, drawn as threads.
 
 ## 4 · Motion DNA
-- **Energy:** calm. Long glides of 2–4 s, a few soft accents on the solution words (a lamp lights, a stamp lands).
+- **Energy:** calm. Long glides of 2–4 s; soft accents on the key words (a stamp presses, a plaque name lands, a verdict mark draws).
 - **Easing:**
-  - camera: `F.camPath` (Hermite through keys, log-distance) and `E.camAt` with 'i'/'o' for dives;
+  - camera: `F.camPath` (monotone cubic through keys, log distance) and `E.camAt` 'i'/'o' for dives through glass;
   - objects: expoOut entrances, expoIn exits, sineIO moves;
-  - no overshoot on serious facts.
-- **Speed contrast:** glide vs. the small hard stamp and the lamp pulse.
-- **Physics:** light things sway (lanterns, tags, fireflies); heavy things hardly move (trunk, coast, ships).
-- **Shapes:** flat silhouettes on depth cards, grain gradients, rim light. One hero light per frame.
+  - no overshoot on facts.
+- **Speed contrast:** the fast FINDING side (molecules pop in every 0.2 s) against the slow THE BODY side (one breath in 4.5 s). That contrast is the film's argument; use it, never invert it.
+- **Physics:** paper and cards sway and fall; glass and plinths never move; people breathe.
 - **Transitions** (three families only):
-  1. **window fly-in**: into a lantern, window or screen and out again; ≥ 2.5 s, continuous, not a W;
-  2. **object morph**: a glass grows into the clip plate, the lantern row lifts into the rail, the news page hangs as the tool;
-  3. **light door** (`E.lightFlood`, ramps 1.4 s): the only hard world change (W). There are **5** in the film, 0.43/min:
+  1. **through the glass:** push into a vitrine, the diorama, the doorway or the kiosk screen, and back out (≥ 2.5 s, continuous);
+  2. **object morph:** a plaque grows into a panel, the label clones into four, the wall text folds into the roadshow frame, a screen grows into the clip plate;
+  3. **truck along the hall:** the camera walks from exhibit to exhibit, the rope and pilasters giving parallax.
 
-     | shot | door |
-     |---|---|
-     | 12.01 | lantern 12 → station window |
-     | 8.11 | the warm letter → the tree |
-     | 5.11 | the coast light → the train headlight |
-     | 2.10 | the warm beam → the tree |
-     | 1.08 | the phone light → … |
-
-- **Camera:** calm. At most 1–2 moving elements at once, and the camera always follows the carrier. Never stillness: `E.camDrift`, scaled down while diving (`.7 / magnification`).
-- **Signature move:** the cool beam lands and the place it touches turns warm.
-- **Wow moments:** one per chunk (★ in shots.md). The film's peak is the ending (the gallery under the tree in full light).
+  There are **0 hard world changes** (W): one hall, one take per chunk.
+- **Camera:** at most 1–2 moving elements at once; the camera follows the carrier (a card, the label, the stamp). It never stands still: `E.camDrift` (about 5.5 / magnification), plus film.mjs' slow float.
+- **Signature move:** a mint stamp presses FOUND; the PROVEN slot stays empty and blinks while the wait track creeps.
+- **Wow moments:** one per chunk (★ in shots.md). The film's peak is 9:12: the board goes big, all four verdicts at once, then the grandkids in the hall.
 
 ## 5 · Palette and colour code (never break it)
 | meaning | colour | kit |
 |---|---|---|
-| people, what is saved, the hero light | warm gold `P.halo0` / `P.core0`, shadow `P.shade0` | `F.WARM` |
-| the machine (bead, beam, its screens) | cool white-blue | `F.COOL` |
-| night, world, forms | indigo / night blue | `F.INK`, `P.night*`, `P.ind*`, `P.blue*` |
+| the cure, science, the hero light, FOUND / ✓ | mint | `F.MINT` |
+| the machine (fast sparks, finds) | cool white-blue | `F.COOL` |
+| night, hall, forms, glass | night blue / indigo | `F.INK`, `P.night*`, `P.ind*`, `P.blue*` |
+| people's practical light (desk lamp, lectern, doorway) | cream (never gold) | `F.LAMP` |
+| old, faded, "a relic" | cream-grey | `F.RELIC` |
 | **you** (the viewer) | yellow coat | `E.du` only |
-| everyone else | indigo silhouettes with rim light | `E.person` |
-| text | cream; secondary `P.halo2` | Instrument Serif for numbers and names, Inter 600 caps for labels |
+| everyone else | indigo silhouettes with mint/cream rim | `E.person` |
+| text | cream; secondary `P.halo2`; key words mint (`F.mintText`) | Instrument Serif for quotes and numbers, Inter 600 caps for labels |
 
-The beam may turn warm only where it serves people. Warm never appears on the machine itself.
+There is no red anywhere: ✗ is cream (REGELN §9.3). Mint is the brightest thing in a frame only where a cure is found.
 
 ## 6 · Calm rules (all chunks)
 1. One motif per sentence. The picture changes with the sentence, not faster.
 2. Scenes and explainers alternate. No two explainers of the same kind in a row.
-3. At most **1–2 moving elements** at a time. The rest only breathes (drift, sway, flicker).
-4. Hard world changes only at W (light doors). Everything else is one continuous take per chunk.
-5. Nothing appears from nowhere. Every element has an origin: it grows from a light, hangs from a string, rises from a screen, drops from the crown.
-6. Text: at most one number and ≤ 6 words per statement, readable at 390 px width, at least 1.2 s on screen. Subtitles own y > 910.
-7. calm.py static share < 5 %, luma 40–60, cuts only at W. smooth.py 0 LURCH/POP.
+3. At most **1–2 moving elements** at a time. The rest only breathes (drift, sway, motes, light).
+4. One continuous take per chunk; inner chunk boundaries within a group are planned match frames.
+5. Nothing appears from nowhere. Every element has an origin: it falls from the desk, rises from a plaque, grows from a glass, is stamped.
+6. Text: at most one number and ≤ 6 words per statement, readable at 390 px width, on screen ≥ 1.2 s.
+7. **Subtitles are burned in at the bottom (≈ 72 px): no important text below y 880**, and no key picture detail there either. Source lines sit at y ≤ 880 (`F.source`).
+8. **QR corner:** during each QR window (`F.qrWindows(T)`: 27 s from "This channel exists", 1st and 2nd occurrence) the area **x ≥ 1330, y ≤ 580 stays quiet**. No text there, no moving object, no bright light. Fade with `F.qrQuiet(T, t)`. The overlay itself is laid on by ffmpeg in `tools/f54_clips.py assemble` (soft 0.6 s in/out). The 2nd window ends ≥ 15.6 s before the end.
+9. Numbers: calm.py static share < 5 %, luma 40–60, no cuts. smooth.py 0 LURCH/POP.
 
-## 7 · Carriers per boundary (group seams, `lib/f28_seams.mjs`)
-- **Lead → B1** at `'A global data company'`: `S.plateStation`. The station at night with its warm window and the ring of voices round the antenna; towers on the horizon right; rail lamp 12 lit, the mic under it. B1 continues with a cool envelope from the towers.
-- **B1 → B2** at `'Casey Harrell knows'`: `S.plateTree`. The tree at the turn: crown half dark (.28), lanterns 12 … 9 lit, 8 half, lantern 7 glowing faintly with the kitchen window. B2 flies into lantern 7.
-- **B2 → B3** at `'The snake'`: `S.plateGrass`. Night grass by the track, one shadow moving through it. B3 turns the shadow into the snake.
+## 7 · Carriers per boundary (group seams, `lib/f54_seams.mjs`)
+- **Lead → B1** at `"He didn't invent it"`: `S.plateRoadshow`. The wall panel with the roadshow frame (left), the lectern with the closed essay under its cream lamp (right). B1 glides right to the lectern; the essay opens.
+- **B1 → B2** at `'The third disease answers fast'`: `S.plateMind`. Vitrine 3 with the quiet rings, plaque MENTAL ILLNESS, V4's edge dim right, the board top left. The top-right corner is dark wall (QR window 1 is running).
+- **B2 → B3** at `'He even warned of a jam'`: `S.plateKiosk`. The media kiosk with a dark screen and a cream play mark, the bench, the audio post on the right, the board complete so far.
+- **Both sides draw the plate for ±0.5 s** with the same creep (`S.creep`: a 4 %/s push and a 30 px/s truck). Extend the creep backwards in your camera (sc01: `creepCam`, from tPlate − 2.5 s) so the arrival glides in, not stops.
 
-## 8 · Kit (`lib/f28_kit.mjs` + `lib/f28_seams.mjs`; the headers list all signatures)
-- **Worlds:**
-  - `S.treeWorld(ctx, c, t, { glow, lantern(n), du, lights(k, x), fg, extra })`
-  - `S.stationWorld(ctx, c, t, { window, ring, towers, voices, bead })`
-  - `S.grassWorld`
-  - Hook windows: `S.vignetteTrain`, `S.vignetteKitchen`, `S.vignetteDesert` (local 1000 wide; reuse them in your station)
-- **The aim:** `F.agent(ctx, t, x, y, r, { think, ring, a })` · `F.beam(ctx, t, x0, y0, x1, y1, u, { w, hit, warm, a })`
-- **Lanterns and rail:**
-  - `F.lantern(ctx, t, x, y, s, { lit, inside, glass, num, numA })` · `S.lanternGlass(n)` · `F.treeLantern(n)`
-  - `F.lampRail(ctx, t, T, { from, m, mOf, skip })` · `F.lampOn` / `F.toolOn` · `F.LAMPS`
-- **Tools and stamps:** `F.tool(ctx, name, x, y, s, { lit, col })` · `F.tag` · `F.realStamp` · `F.STAMPS` · `F.SOURCES` · `F.source`
-- **Explainers:** `F.ruler` · `F.dotField` · `F.chartLines` · `F.slab(s)` · `F.dayTiles` · `F.bracket` · `F.label` · `F.questionMark` · `F.thesis` · `F.voiceWave` · `F.radioRings` · `F.laptop` · `F.elephant`
-- **Clips:** `F.clipPlate(ctx, t, T, id, { from, morph })` · `F.CLIPS` · frames come from `$F28CLIPS`, or scratchpad `f28/clips/<id>/f00001.jpg` (30 fps).
-- **napi-rs quirk:** `Path2D.addPath` joins sub-paths (the added path's first moveTo becomes a lineTo). Never combine paths with addPath; write them into one path, or fill them one by one.
-- Kit sheet: `node tools/kit_sheet28.mjs <dir>`.
+## 8 · Kit (`lib/f54_kit.mjs` + `lib/f54_seams.mjs`; the headers list all signatures)
+- **World:**
+  - `S.hallWorld(ctx, c, t, { moon, door, v(i), plaque(i), plague, diorama, frame, panel(ctx), lectern, kiosk, post, kids, du, back, fg, extra })`
+  - `S.HALL`, `S.hallX`, `S.glassOf(i)`, `S.plaqueOf(i)`, `S.frameRect()`, `S.kioskScreen()`, `S.postSpeaker()`, `S.dioramaGlass()`
+  - `S.officeRoom(ctx, t, w, h, { lit, relic, doctor, loved, you, cards })`, `S.roadshowFrame`, `S.motes`
+- **Exhibits:**
+  - `F.vitrine`, `F.specimen(kind 'cell'|'heart'|'mind'|'brain')`, `F.cell`, `F.plaque({ name, sub, q })`, `F.diorama`, `F.plagueMask`, `F.wordCard`
+  - `F.kiosk`, `F.audioPost`, `F.lectern`, `F.essay({ open, lens })`
+- **Through-line and board:** `F.twoDates(ctx, t, x, y, s, { name, found, proven, blink, wait, waitTag, split })` · `F.stampMark` · `F.board(ctx, t, T, { big, from })` · `F.boardRow` · `F.verdictMark`
+- **Quote cards:** `F.wallText(ctx, t, T, { id 'C1'|'C1b', x, y, w, size, credit, hi })` · `F.QUOTES` · `F.CREDIT`
+- **Explainers:**
+  - `F.molecule`, `F.spark`, `F.bloodTube`, `F.scan`, `F.pipeline({ neck, flow, jam })`
+  - `F.dotField`, `F.ruler`, `F.slab(s)`, `F.bracket`, `F.label`, `F.tag`, `F.questionMark`, `F.thesis`
+  - `F.source` + `F.SOURCES`, `F.mintText`, `F.mintSpan`
+- **Camera:** `F.camPath(t, [[t, cam], …])`, `E.aim(F0, x, y, s, sx, sy)`, `E.camAt`, `E.camDrift`.
+- **Clips:** `F.clipPlate(ctx, t, T, id, { from, morph, dark })` · `F.audioPlate` (via clipPlate for C5) · `F.CLIPS` · `F.clipWin(T, id)`. render.mjs awaits `film.prepare(t)` so the frames are loaded.
+- **QR:** `F.QR`, `F.qrWindows(T)`, `F.qrQuiet(T, t)`. **End screen:** `S.END_CAM`, `S.END_TILES`.
+- **napi-rs quirks:**
+  - import `Path2D` from '@napi-rs/canvas';
+  - never combine paths with `addPath` (it joins sub-paths);
+  - cache paths and gradients that do not change per frame.
 
 ## 9 · Gates (motion-director-gates)
 1. **Plan:** this file + shots.md before code.
-2. **Space:** depth cards, a real camera (`E.aim`, `F.camPath`).
-3. **Carrier camera:** the camera follows the bead, the beam head, the falling page, the voices.
+2. **Space:** depth cards (wall Z 2600, floor F0, rope Z 1150) and a real camera (`E.aim`, `F.camPath`).
+3. **Carrier camera:** the camera follows the falling card, the flying plaque names, the label, the stamp, the kids.
 4. **Causality:**
-   - a lamp lights on its phrase;
-   - the crown blooms where the beam lands;
-   - the ruler fills as the voices arrive.
-5. **5 s test:** c01 is the reference.
+   - a card falls on its word;
+   - a plaque name lands where the card lands;
+   - the stamp presses on "found";
+   - the board row lights on its phrase.
+5. **5 s test:** c01 is the reference (`<ROOT>bild/c01_kontakt.jpg`).
 6. **Review frames** every 0.33–1 s plus every transition, then a contact sheet of the whole chunk.
 7. **The voice drives timing:** phrase anchors only (`T.G`, `T.GE`, `T.clip`), never seconds.
 8. **Honest self-grade** in every report.
 
-## 10 · End screen (last 15 s, c14)
-The tree in full light sits in the **left third**: the crown gold, all twelve lanterns lit (No. 8 still half), you at its foot, the gallery tools hanging below the lamps. The **right two thirds (x 700–1830, y 120–860) stay a quiet dark sky** for the YouTube video tiles and the subscribe button. The picture keeps breathing: sway, grain, the lights of the land. No text.
+## 10 · End screen (last 15 s, c13)
+- **Camera:** `S.END_CAM` (the hall wide and low).
+- **Exhibits:** the four vitrines sit in one row in the lower half (y ≈ 540–870).
+  - Per text-v2, one holds an old faded exhibit without a plaque (relic); three are empty, with soft mint light (`st.v(i)`).
+  - You stop before an empty one.
+- **Free areas** (`S.END_TILES`): the upper wall is dark and empty.
+  - Left tile: x 100–820, y 130–535.
+  - Right tile: x 1100–1820, y 130–535.
+  - The subscribe circle (960, 620, r 90) sits **inside the warm doorway** between HEART and MIND.
+- **Rules:** no text, and no QR (its 2nd window has ended). The picture keeps breathing: drift, motes, the moon shafts.
+- **Before it:** the VO ends, then a quiet walk without voice (~7–10 s, music carries) leads into the end screen.
+
+## 11 · Text version and fact check
+- **Text:** vo-v3.txt is final (5 small word changes vs vo-v2; the phrase anchors are unchanged except c03 "Less than a decade that's" and the board's "twenty thirty-six").
+- **Mandatory on-screen changes** (faktencheck.md), already in shots.md §5 and `F.SOURCES`:
+  - **MB1** (2:21): ONE AI-PROPOSED DESIGN · ≈ 10× MORE RECEPTORS ON THE CELLS · LAB TESTS ONLY · GENERATE BIOMEDICINES / ANTHROPIC, OCT 2026. The 70 % was draft length, not time: no speed motif.
+  - **MB2** (7:55): WITHOUT SYMPTOMS: EXPERTS ADVISE IT ONLY IN TRIALS · TRAILBLAZER-ALZ 3 SCREENS BY BLOOD TEST.
+- **Optional changes K5–K9:** listed in shots.md §5 for Jakob; the default is unchanged.

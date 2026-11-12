@@ -1,39 +1,45 @@
 #!/usr/bin/env python3
-"""Film 28 "They're Using AI to Save the World" · render, interview footage, assembly (2026-11-11). Pattern: films/25-last-job/tools/f25_clips.py, slimmed down.
+"""Film 54 "AI Just Gave Disease a 10-Year Deadline" · interview footage, chunk render, assembly (2026-11-12). Pattern: films/28-ai-for-good/tools/f28_clips.py.
 
-  python3 tools/f28_clips.py clips [--only C3a,C1]     the interview footage: <clips>/<id>.mp4 (720p, 3 s padding, from the clip agent) -> frames <clips>/<id>/f00001.jpg ...
-          (1680x945, 30 fps = lib/f28_kit.mjs CLIP_RECT; frame 1 = the slot start, what clipPlate loads: $F28CLIPS/<id>/f%05d.jpg) and the clip sound <clips>/<id>.wav
-          (exactly the slot length, 48 kHz stereo; mix.py puts it at the slot start). The in-point (seconds inside the file) is in CLIPIN below (found by listening / Whisper);
-          the slot lengths are NEVER changed. C4 is silent footage under the VO: frames only, no wav.
-  python3 tools/f28_clips.py render [--only c05,c06] [-j 4] [--scale 1]     the chunk videos c01..c14 (1920x1080, 30 fps, no sound) from the real timing:
+  python3 tools/f54_clips.py clips [--only C3,C2]     the interview pieces from <ROOT>clips/schnitt.json (source file + in-point found by Whisper; the slot length
+          comes from timing.json and is NEVER changed): C3 / C2 (Dwarkesh, video) -> frames <clips>/<id>/f00001.jpg ... (1680x945, 30 fps = lib/f54_kit.mjs CLIP_RECT;
+          frame 1 = the slot start, what clipPlate loads) + <clips>/<id>.wav (exactly the slot length, 48 kHz stereo; the mix puts it at the slot start).
+          C5 (Venki Ramakrishnan, AUDIO ONLY, no picture exists): <clips>/C5.wav + <clips>/C5/env.json (loudness per 1/30 s, 0..1) that drives audioPlate's waveform.
+  python3 tools/f54_clips.py render [--only c05,c06] [-j 4] [--scale 1]     the chunk videos c01..c13 (1920x1080, 30 fps, no sound) from the timing:
           pieces of <= 20 s (SECS=cNN node --expose-gc render.mjs), -j in parallel, resumable (<piece>.done), joined to WORK/cNN.mp4.
-  python3 tools/f28_clips.py join [--only c05]      only joins WORK/cNN_pNN.mp4 into WORK/cNN.mp4
-  python3 tools/f28_clips.py assemble --name fassung-1 [--chunks DIR] [--calm] [--no-contact] [--preview] [--crf 18]
-          checks the chunk videos (1080p, 30 fps, h264, frame count against the chunk ranges of film.mjs, no gap or overlap, total = timing duration), joins them, puts the mix
-          (WORK/audio/mix.wav, -14 LUFS) under, burns the subtitles (ASS) in: master 1080p H.264 CRF 18 + AAC 192k through a 4x-oversampled -2 dBFS limiter (true peak <= -1 dBTP)
-          in FINAL/<name>-master-1080p.mp4; then duration, LUFS / true peak, contact sheet (1 frame per 5 s) -> <ROOT>bild/<name>_kontakt.jpg. --preview: 720p copy (about 95 MB for 11.4 min).
-  python3 tools/f28_clips.py check                  chunk files against the timing (no media is written)
+  python3 tools/f54_clips.py join [--only c05]      only joins WORK/cNN_pNN.mp4 into WORK/cNN.mp4
+  python3 tools/f54_clips.py assemble --name fassung-1 [--chunks DIR] [--calm] [--no-contact] [--preview] [--crf 18]
+          checks the chunk videos (1080p, 30 fps, h264, frame count against the chunk ranges of film.mjs, no gap or overlap, total = timing duration), joins them,
+          lays the QR overlay on (the Buy-Me-a-Coffee PNG, top right, 27 s from each 'This channel exists', 0.6 s soft in/out; the windows come from
+          lib/f54_kit.mjs qrWindows, the same ones that keep the picture's corner quiet; the second must end >= 15.6 s before the end), burns the subtitles (ASS) in,
+          puts the mix (WORK/audio/mix.wav or <ROOT>audio/mix.wav, -14 LUFS) under: master 1080p H.264 CRF 18 + AAC 192k through a 4x-oversampled -2 dBFS limiter
+          in FINAL/<name>-master-1080p.mp4; then duration, LUFS / true peak, contact sheet (1 frame per 5 s) -> <ROOT>bild/<name>_kontakt.jpg. --preview: a 720p copy.
+  python3 tools/f54_clips.py check                  chunk files against the timing, plus the QR windows (no media is written)
 
-Paths: ROOT = $F28ROOT or /mnt/project-files/scenario/film-gute-ki/ (timing.json, subtitles, contact sheet: small files only);
-SCRATCH = <session scratchpad>/f28: clips/ (footage, frames, wav), work/ (chunks, audio, state), final/ (masters), audio/ (the sound agent's VO, music, sfx, premix).
+Timing: $TIMING, else <ROOT>audio/timing.json (the real VO, from the sound agent). render/check fall back to data/provisional_timing.json with a warning;
+assemble refuses provisional timing.
+Paths: ROOT = $F54ROOT or /mnt/project-files/scenario/film-heilung/ (timing.json, schnitt.json, subtitles, contact sheet: small files only, the drive is nearly full);
+SCRATCH = $F54SCRATCH or <session scratchpad>/f54: clips/ (sources, frames, wav), work/ (chunks, audio, state), final/ (masters). No video or audio into the repo.
 """
 import argparse, glob, hashlib, json, os, re, shutil, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor
 
-HERE = os.path.dirname(os.path.abspath(__file__)); FILM = os.path.dirname(HERE); AUD = os.path.join(FILM, 'audio')
-ROOT = (os.environ.get('F28ROOT') or '/mnt/project-files/scenario/film-gute-ki').rstrip('/') + '/'
-SCRATCH = os.environ.get('F28SCRATCH') or '/tmp/claude-0/-home-user/c4ad3574-1e95-537a-ad7d-35e5b7703b6a/scratchpad/f28'
+HERE = os.path.dirname(os.path.abspath(__file__)); FILM = os.path.dirname(HERE)
+ROOT = (os.environ.get('F54ROOT') or '/mnt/project-files/scenario/film-heilung').rstrip('/') + '/'
+SCRATCH = os.environ.get('F54SCRATCH') or '/tmp/claude-0/-home-user/0669cef4-5ff5-539f-b7bb-2600687207c6/scratchpad/f54'
+PROVISIONAL = os.path.join(FILM, 'data', 'provisional_timing.json')
+QR_PNG = os.environ.get('F54QR') or '/mnt/project-files/scenario/buymeacoffee/qr-overlay/qr-overlay-1920x1080.png'
 FPS, PIECE = 30, 600           # 20 s pieces
-IDS = ['C3a', 'C1', 'C3', 'C4', 'C5b']
-SILENT = {'C4'}                # footage only, runs under the VO
+IDS = ['C3', 'C5', 'C2']       # C1 / C1b are quote cards (no footage): the narrator reads them
+AUDIO_ONLY = {'C5'}            # a real recording without picture: audioPlate draws name, prize and the waveform
 WORK = CL = WA = FINAL = STATE = None
 
 
 def setup(work):
     global WORK, CL, WA, FINAL, STATE
-    WORK = work or os.environ.get('F28WORK') or (SCRATCH + '/work')
-    CL = (os.environ.get('F28CLIPS') or SCRATCH + '/clips').rstrip('/')
-    WA = os.path.join(WORK, 'audio'); FINAL = os.environ.get('F28FINAL') or os.path.join(SCRATCH, 'final'); STATE = os.path.join(WORK, 'state.json')
+    WORK = work or os.environ.get('F54WORK') or (SCRATCH + '/work')
+    CL = (os.environ.get('F54CLIPS') or SCRATCH + '/clips').rstrip('/')
+    WA = os.path.join(WORK, 'audio'); FINAL = os.environ.get('F54FINAL') or os.path.join(SCRATCH, 'final'); STATE = os.path.join(WORK, 'state.json')
     for d in (WORK, CL, WA, FINAL): os.makedirs(d, exist_ok=True)
 
 def sh(cmd, **kw): return subprocess.run(cmd, check=True, **kw)
@@ -54,19 +60,22 @@ def nframes(f):
     return int(v['nb_frames']) if v.get('nb_frames', 'N/A') != 'N/A' else round(d * FPS)
 
 
-def timing_file():
-    for f in (os.environ.get('TIMING'), ROOT + 'audio/timing.json', os.path.join(AUD, 'timing.json')):
+def timing_file(provisional_ok=True):
+    for f in (os.environ.get('TIMING'), ROOT + 'audio/timing.json'):
         if f and os.path.exists(f): return f
-    raise SystemExit('no timing.json')
+    if provisional_ok and os.path.exists(PROVISIONAL):
+        print(f'WARNING: PROVISIONAL timing ({PROVISIONAL}); the real VO timing is {ROOT}audio/timing.json', file=sys.stderr); return PROVISIONAL
+    raise SystemExit(f'no timing.json ({ROOT}audio/timing.json; set $TIMING)')
 def jload(f): return json.load(open(f))
 def jsave(f, o): json.dump(o, open(f, 'w'), indent=1, ensure_ascii=False)
 
 
 def chunk_ranges(tfile):
-    """chunk id -> frame range, from film.mjs (the same ranges the renderer uses)"""
-    code = ("import { chunkRanges } from './film.mjs'; import { timing } from './lib/kit.mjs';"
+    """chunk id -> frame range, from film.mjs (the same ranges the renderer uses), plus the QR windows (lib/f54_kit.mjs qrWindows)"""
+    code = ("import { chunkRanges } from './film.mjs'; import { timing } from './lib/kit.mjs'; import { qrWindows, QR } from './lib/f54_kit.mjs';"
             f"const T = timing({json.dumps(tfile)}); const R = chunkRanges(T);"
-            "console.log('@@' + JSON.stringify({ duration: T.duration, chunks: Object.values(R).map((r) => ({ id: r.id, a: r.a, b: r.b, fa: Math.round(r.a * 30), fb: Math.round(r.b * 30) })) }));")
+            "console.log('@@' + JSON.stringify({ duration: T.duration, qr: qrWindows(T), qrfade: QR.fade, qrtail: QR.tail,"
+            " chunks: Object.values(R).map((r) => ({ id: r.id, a: r.a, b: r.b, fa: Math.round(r.a * 30), fb: Math.round(r.b * 30) })) }));")
     o = subprocess.run(['node', '--input-type=module', '-e', code], cwd=FILM, env={**os.environ, 'TIMING': tfile}, capture_output=True, text=True)
     m = re.search(r'@@(.*)', o.stdout)
     if not m: raise SystemExit('chunk ranges failed:\n' + o.stderr[-1500:])
@@ -83,7 +92,7 @@ def cmd_render(a):
             g = min(f + PIECE, c['fb'])
             if c['fb'] - g < 150: g = c['fb']      # no tiny last piece
             jobs.append((c['id'], f, g, n)); n += 1; f = g
-    print(f'{len(jobs)} pieces, timing {tfile}, -j {a.j}'); env = {**os.environ, 'F28CLIPS': CL, 'F28ROOT': ROOT, 'TIMING': tfile}; t0 = time.time()
+    print(f'{len(jobs)} pieces, timing {tfile}, -j {a.j}'); env = {**os.environ, 'F54CLIPS': CL, 'F54ROOT': ROOT, 'TIMING': tfile}; t0 = time.time()
     def one(j):
         cid, f0, f1, n = j; f = os.path.join(WORK, f'{cid}_p{n:02d}.mp4')
         if os.path.exists(f + '.done'): return j
@@ -157,21 +166,54 @@ def overlay(segs, f0, f1, f, inf=0):
         if s['f1'] > f1: o.append({**s, 'f0': f1, 'inf': s['inf'] + f1 - s['f0']})
     o.append({'f0': f0, 'f1': f1, 'file': f, 'inf': inf}); return sorted(o, key=lambda s: s['f0'])
 
-def picture_graph(segs, tail='null'):
-    """filtergraph: every segment = trim by FRAME NUMBER of its file (exact), joined by the concat filter, frames renumbered 30 fps. Ends in [pic]."""
+def picture_graph(segs, tail='null', qr=()):
+    """filtergraph: every segment = trim by FRAME NUMBER of its file (exact), joined by the concat filter, frames renumbered 30 fps, the QR chains
+    (qr_graph) laid on, then tail (the subtitles). Ends in [pic]."""
     cache, ch, names = {}, [], []
     for k, s in enumerate(sorted(segs, key=lambda s: s['f0'])):
         n = cache.setdefault(s['file'], nframes(s['file'])); n_s = s['f1'] - s['f0']
         t = '' if (s['inf'] == 0 and n_s == n) else f"trim=start_frame={s['inf']}:end_frame={s['inf'] + n_s},"
         ch.append(f"movie='{s['file']}',{t}setpts=PTS-STARTPTS[v{k}]"); names.append(f'[v{k}]')
-    return ';\n'.join(ch) + ';\n' + ''.join(names) + f"concat=n={len(names)}:v=1:a=0,setpts=N/({FPS}*TB)" + ('' if tail == 'null' else ',' + tail) + '[pic]\n'
+    g = ';\n'.join(ch) + ';\n' + ''.join(names) + f"concat=n={len(names)}:v=1:a=0,setpts=N/({FPS}*TB)"
+    last = 'c0'
+    if qr:
+        g += f'[c0];\n' + ';\n'.join(qr) + ';\n'
+        for k in range(len(qr)):
+            g += f'[{last}][q{k}]overlay=0:0:eof_action=pass:format=auto[c{k + 1}];\n'; last = f'c{k + 1}'
+        g += f'[{last}]'
+    else: g += ','
+    g += ('null' if tail == 'null' else tail) + '[pic]\n'
+    return g
+
+def qr_check(R):
+    """the QR windows: 1 or 2, each ~27 s, the last one off >= tail + fade before the end (the end screen stays clean)"""
+    w, d = R['qr'], R['duration']; bad = []
+    if not w: bad.append("no QR window (phrase 'This channel exists' not in the timing)")
+    for k, (a, b) in enumerate(w):
+        print(f'  QR {k + 1}: {a:8.3f} - {b:8.3f} s ({b - a:.1f} s, fade {R["qrfade"]} s)')
+        if b - a < 20: bad.append(f'QR {k + 1} only {b - a:.1f} s')
+    if w and w[-1][1] > d - R['qrtail'] - R['qrfade'] + 1e-3: bad.append(f'QR {len(w)} ends at {w[-1][1]:.2f}, must be off before {d - R["qrtail"]:.2f}')
+    if len(w) < 2: print('  note: only one QR window (the end call has no second "This channel exists")')
+    for b in bad: print('  FAIL', b)
+    if bad: raise SystemExit(1)
+    return w
+
+def qr_graph(R):
+    """filter chains [q0], [q1] ...: the QR PNG looped for its window, timestamps from the window start, alpha fades in/out. overlay(eof_action=pass)
+    shows the plain picture before and after each window."""
+    ch, fd = [], R['qrfade']
+    for k, (a, b) in enumerate(R['qr']):
+        n = max(1, round((b - a) * FPS))
+        ch.append(f"movie='{QR_PNG}',format=rgba,loop=loop={n - 1}:size=1:start=0,setpts=N/({FPS}*TB)+{a:.4f}/TB,"
+                  f"fade=t=in:st={a:.4f}:d={fd:0.3f}:alpha=1,fade=t=out:st={b - fd:.4f}:d={fd:0.3f}:alpha=1[q{k}]")
+    return ch
 
 def audio_in():
     for d in (WA, ROOT + 'audio'):
         if os.path.exists(os.path.join(d, 'mix.wav')): return os.path.join(d, 'mix.wav')
     raise SystemExit('no mix.wav in ' + WA)
 def subs_in():
-    for d in (WA, ROOT + 'audio', AUD):
+    for d in (WA, ROOT + 'audio'):
         if os.path.exists(os.path.join(d, 'subtitles.ass')): return os.path.join(d, 'subtitles.ass')
     raise SystemExit('no subtitles.ass')
 
@@ -191,7 +233,7 @@ def contact(master, f, every=5):
 
 def make_state(chunks_dir):
     """the picture state = the chunk videos as they are, checked against the chunk ranges of the current timing"""
-    tfile = timing_file(); T = jload(tfile)
+    tfile = timing_file(provisional_ok=False); T = jload(tfile)
     segs, files = check_chunks(chunk_ranges(tfile), chunks_dir)
     st = {'timing_sha': fsha(tfile), 'frames': round(T['duration'] * FPS), 'segments': segs, 'chunks': files, 'patches': 0}
     shutil.copy(tfile, os.path.join(WORK, 'state_timing.json')); save_state(st); return st
@@ -200,7 +242,9 @@ def make_state(chunks_dir):
 AFILTER = 'volume=0.3dB,aresample=192000,alimiter=limit=0.7943:attack=1:release=50:level=false,aresample=48000'
 
 def cmd_assemble(a):
-    tfile = timing_file(); T = jload(tfile); N = round(T['duration'] * FPS); st = load_state(); tsha = fsha(tfile)
+    tfile = timing_file(provisional_ok=False); T = jload(tfile); N = round(T['duration'] * FPS); st = load_state(); tsha = fsha(tfile)
+    R = chunk_ranges(tfile); print('QR overlay', QR_PNG); qrw = qr_check(R)
+    if not os.path.exists(QR_PNG): raise SystemExit('QR overlay PNG missing: ' + QR_PNG)
     if st is None or a.fresh:
         if st and a.fresh and st.get('patches'): print('--fresh: the re-rendered clip pieces are dropped')
         st = make_state(a.chunks)
@@ -211,7 +255,7 @@ def cmd_assemble(a):
                 raise SystemExit(f'chunk {cid} changed since the state was made ({c["file"]}); `assemble --fresh` takes the chunks as they are now (drops re-rendered clip pieces)')
         print(f"picture state: {len(st['segments'])} segments ({st['patches']} re-rendered clip pieces)")
     chk_cover(st['segments'], N)
-    name = a.name; ass = subs_in(); mix = audio_in(); gf = os.path.join(WORK, 'picture.filtergraph'); open(gf, 'w').write(picture_graph(st['segments'], f'subtitles=filename={ass}'))
+    name = a.name; ass = subs_in(); mix = audio_in(); gf = os.path.join(WORK, 'picture.filtergraph'); open(gf, 'w').write(picture_graph(st['segments'], f'subtitles=filename={ass}', qr_graph(R)))
     m = os.path.join(FINAL, f'{name}-master-1080p.mp4'); t0 = time.time()
     print('master:', m, '| audio', mix, '| subtitles', ass)
     sh(['ffmpeg', '-v', 'error', '-y', '-i', mix, '-filter_complex_script', gf, '-map', '[pic]', '-map', '0:a', '-af', AFILTER,
@@ -236,32 +280,58 @@ def verify(m, T):
 
 
 # ---------------------------------------------------------------------------------------------------------------------- footage
-# in-point (seconds inside <id>.mp4, which has ~3 s of padding) found with Whisper (fal-ai/whisper, word level) + the sound envelope on 2026-11-11; the window is the slot length
-# (timing.json). fade = (fade-in s, fade-out start s inside the window or None): keeps the first/last syllable of a neighbouring sentence or speaker out of the slot.
-#   C3a  speech 3.08-6.28 (next speech 6.88)    -> in 2.88        C1  voice 3.30-17.35 (and "and having .." from 17.80) -> in 3.0 (the planned 2354.0 s)
-#   C3   speech 3.35-11.85                      -> in 3.0         C5b "And when ..." 3.25-12.35, interviewer from 12.90 -> in 3.12, fade out from 9.55
-#   C4   NASA replay, silent footage under the VO, window 26.0-32.0 of the source = in 3.0
-CLIPIN = {'C3a': (2.88, 0.02, None), 'C1': (3.0, 0.02, None), 'C3': (3.0, 0.02, None), 'C4': (3.0, 0, None), 'C5b': (3.12, 0.10, 9.55)}
+# The cut list is <ROOT>clips/schnitt.json (12.11., Whisper fal-ai/whisper + level check, no music bed): per clip the source file, in_s / out_s inside it, the words.
+# The slot length is the timing.json window (= dauer there); the tool never changes it. fade = (fade-in s, fade-out length s at the slot end):
+#   C3  'There's not efficacy, right? And I make exactly that point ... not infinitely fast.'  in 33.01, only 50-100 ms before the next sentence -> 3-frame fade out
+#   C2  'AI models are going to greatly accelerate ... the pipeline will get jammed up.'        in 38.92, 'like' follows within 50 ms           -> 3-frame fade out
+#   C5  Venki: 'AI could be very fast at its computational work, but the experimental work ...'  in 336.04, clean pauses both sides (audio only)
+SRC = {'C3': 'dwarkesh-a.mp4', 'C2': 'dwarkesh-b.mp4', 'C5': 'venki-ton.mp3'}
+CLIPIN = {'C3': (33.01, 0.02, 0.10), 'C2': (38.92, 0.02, 0.10), 'C5': (336.04, 0.03, 0.08)}
+
+def cut_list():
+    f = ROOT + 'clips/schnitt.json'
+    if not os.path.exists(f): return {}
+    return {c['id']: c for c in jload(f).get('clips', [])}
+
+def envelope(wav, n):
+    """loudness per 1/30 s (RMS of the mono mix), scaled so the 97th percentile = 1, clamped; exactly n values (one per picture frame of the slot)"""
+    import array
+    raw = subprocess.run(['ffmpeg', '-v', 'error', '-i', wav, '-ac', '1', '-ar', '48000', '-f', 's16le', '-'], check=True, capture_output=True).stdout
+    a = array.array('h', raw); hop = 48000 // FPS; e = []
+    for k in range(n):
+        seg = a[k * hop:(k + 1) * hop]
+        e.append((sum(x * x for x in seg) / len(seg)) ** .5 / 32768 if len(seg) else 0)
+    ref = sorted(e)[int(.97 * (len(e) - 1))] or 1
+    return [round(min(1, v / ref), 3) for v in e]
 
 def cmd_clips(a):
-    T = jload(timing_file()); win = {c['id']: round(c['end'] - c['start'], 3) for c in T['clips']}
+    T = jload(timing_file()); win = {c['id']: round(c['end'] - c['start'], 3) for c in T['clips']}; cuts = cut_list()
     for cid in IDS:
         if a.only and cid not in a.only.split(','): continue
-        f = os.path.join(CL, cid + '.mp4'); tin, fi, fo = CLIPIN[cid]; d = win[cid]
+        c = cuts.get(cid, {}); f = c.get('datei') or os.path.join(CL, SRC[cid])
+        if not os.path.exists(f): f = os.path.join(CL, os.path.basename(f))
+        tin = float(c.get('in_s', CLIPIN[cid][0])); _, fi, fo = CLIPIN[cid]
+        if cid not in win: print(cid, 'has no slot in the timing'); continue
+        d = win[cid]
         if not os.path.exists(f): print(cid, 'missing', f); continue
+        if c.get('dauer') and abs(c['dauer'] - d) > .05: print(f'  note {cid}: cut is {c["dauer"]} s, slot is {d} s (the slot wins)')
         fd = os.path.join(CL, cid); shutil.rmtree(fd, ignore_errors=True); os.makedirs(fd)
-        sh(['ffmpeg', '-v', 'error', '-y', '-ss', str(tin), '-i', f, '-t', f'{d:.3f}', '-an', '-vf', f'fps={FPS},scale=1680:945:flags=lanczos', '-q:v', '2', os.path.join(fd, 'f%05d.jpg')])
-        n = len(os.listdir(fd)); snd = ''
-        if cid not in SILENT:
-            af = [f'afade=t=in:st=0:d={fi}'] if fi else []
-            if fo is not None: af.append(f'afade=t=out:st={fo}:d=0.12')
-            sh(['ffmpeg', '-v', 'error', '-y', '-ss', str(tin), '-i', f, '-t', f'{d:.3f}', '-vn', '-ac', '2', '-ar', '48000'] + (['-af', ','.join(af)] if af else []) + ['-c:a', 'pcm_s16le', os.path.join(CL, cid + '.wav')])
-            snd = f", {cid}.wav {dur(os.path.join(CL, cid + '.wav')):.3f} s"
-        print(f'{cid}: in {tin} s, window {d} s, {n} frames (expected {round(d * FPS)}){snd}')
-        if abs(n - round(d * FPS)) > 1: raise SystemExit(f'{cid}: frame count')
+        n = 0
+        if cid not in AUDIO_ONLY:
+            sh(['ffmpeg', '-v', 'error', '-y', '-ss', str(tin), '-i', f, '-t', f'{d:.3f}', '-an', '-vf', f'fps={FPS},scale=1680:945:flags=lanczos', '-q:v', '2', os.path.join(fd, 'f%05d.jpg')])
+            n = len(os.listdir(fd))
+            if abs(n - round(d * FPS)) > 1: raise SystemExit(f'{cid}: {n} frames, expected {round(d * FPS)}')
+        af = [f'afade=t=in:st=0:d={fi:0.3f}'] if fi else []
+        if fo: af.append(f'afade=t=out:st={d - fo:.3f}:d={fo:0.3f}')
+        w = os.path.join(CL, cid + '.wav')
+        sh(['ffmpeg', '-v', 'error', '-y', '-ss', str(tin), '-i', f, '-t', f'{d:.3f}', '-vn', '-ac', '2', '-ar', '48000'] + (['-af', ','.join(af)] if af else []) + ['-c:a', 'pcm_s16le', w])
+        extra = ''
+        if cid in AUDIO_ONLY:
+            jsave(os.path.join(fd, 'env.json'), envelope(w, round(d * FPS))); extra = ', env.json'
+        print(f'{cid}: {os.path.basename(f)} in {tin} s, slot {d} s, {n} frames{" (audio only)" if cid in AUDIO_ONLY else ""}, {cid}.wav {dur(w):.3f} s{extra}')
 
 def cmd_check(a):
-    tfile = timing_file(); chunk_ranges(tfile); check_chunks(chunk_ranges(tfile), None)
+    tfile = timing_file(); R = chunk_ranges(tfile); print('QR windows (timing', tfile + ')'); qr_check(R); check_chunks(R, None)
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter); ap.add_argument('--work')

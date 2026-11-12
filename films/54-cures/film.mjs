@@ -1,37 +1,38 @@
-// Film 28 "They're Using AI to Save the World" (~11 min narration + 15 s end screen), built on the Film 10/13/16/24/25 editorial-night machinery.
-// Plan: docs/MOTION.md + docs/shots.md (source: tools/shots28.py) · kit: lib/f28_kit.mjs · seams: lib/f28_seams.mjs · builders: docs/BRIEF-builders.md.
-// Fourteen chunk files scenes/sc01.mjs … sc14.mjs return their entries; this file stitches them into one timeline.
+// Film 54 "AI Just Gave Disease a 10-Year Deadline" (~10 min narration + 7 s quiet walk + 15 s end screen), built on the Film 10/13/16/24/25/28
+// editorial-night machinery. ONE world: THE HALL OF RELICS (lib/f54_seams.mjs), a museum at night in the grandkids' future.
+// Plan: docs/MOTION.md + docs/shots.md (source: tools/shots54.py) · kit: lib/f54_kit.mjs · hall + seams: lib/f54_seams.mjs · builders: docs/BRIEF-builders.md.
+// Thirteen chunk files scenes/sc01.mjs … sc13.mjs return their entries; this file stitches them into one timeline.
 // NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a
 // planned match on a carrier). Any other tr is turned into 'cut' with a warning. Missing chunks render as stubs.
 //   export default (T, R) => [ entry, … ]       T = timing helpers (lib/kit.mjs: T.G / T.GE global phrase anchors, T.clip(id)), R = { a, b, id, name, first }
-//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (F.PRINT28)
+//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (F.PRINT54)
 // SECS=c01,c02 node render.mjs --snap ...   builds only those chunks (absolute times stay the same).
 // Timing: $TIMING, else <ROOT>audio/timing.json (the real VO, written by the audio agent), else data/provisional_timing.json
-// (tools/provisional_timing.py, from vo-v5.txt or vo-v4.txt; a warning is printed). ROOT = $F28ROOT or /mnt/project-files/scenario/film-gute-ki/.
+// (tools/provisional_timing.py, from the newest vo-vN.txt; a warning is printed). ROOT = $F54ROOT or /mnt/project-files/scenario/film-heilung/.
+// ANCHORS ARE PHRASES ONLY (the fact-checked vo-v3 changes words, not these openers). If one goes missing, T.G throws with the phrase.
 import fs from 'node:fs';
 import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
 import { finish as edFinish } from './lib/f10_editorial.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
-import { prepareClipFrames } from './lib/f28_kit.mjs';
+import { prepareClipFrames } from './lib/f54_kit.mjs';
 
 export { ROOT };
 // chunk table (docs/shots.md §2); from = the first phrase of the chunk, looked up GLOBALLY in the film (T.G), so any VO segmentation works
 export const CHUNKS = [   // from = first phrase of the chunk (nth = which occurrence in the film, for repeated sentences) · builder groups: docs/BRIEF-builders.md
-  { id: 'c01', name: 'Hook · the tree of lanterns · train / Casey / Nazca teasers · C3a · all real · the laptop + the bead · the aim · thesis · twelve lanterns · No. 12 Te Hiku: the station, 300 hours, ten days', from: 'All over the world' },
-  { id: 'c02', name: 'No. 12 cont. · the data-company offer · C1 Peter Lucas Jones · data sovereignty · No. 12 lamp holds', from: 'A global data company' },
-  { id: 'c03', name: 'No. 11 Apate: the scam call line · A.I. victims with all the time in the world · it wins by being slow', from: 'That machine was built to listen' },
-  { id: 'c04', name: 'No. 10 IdentiFlight: the wind farm, cameras on towers, eagle or not, only the turbines in its path slow down (study caveat)', from: 'Wind turbines make' },
-  { id: 'c05', name: 'No. 9 Nazca: aerial photos, tens of thousands of flags, almost all nothing, nearly doubled the figures · it only had to tell people where to look', from: 'The Nazca desert' },
-  { id: 'c06', name: 'No. 8 methane: satellites built for fields and forests, the U.N. alerts, Algeria stopped, nine in ten unanswered (lamp half) · seeing isn’t saving', from: 'Methane is invisible' },
-  { id: 'c07', name: 'No. 7 Casey Harrell: ALS, sensors, his own voice, C3 · two million words · subscribe 1', from: 'Casey Harrell knows' },
-  { id: 'c08', name: 'No. 6 Global Fishing Watch: radar vs the ship radio, three in four dark · risk, not a verdict', from: 'Big ships are supposed' },
-  { id: 'c09', name: 'No. 5 tsunami: the ripple, the air push, GPS signals late · NASA switched it on · C4 NASA replay MUTE under the VO · half an hour', from: 'In the open ocean' },
-  { id: 'c10', name: 'No. 4 the elephants and the train: heat cameras on towers, the driver brakes · no elephant killed · the smaller animal in the grass', from: "You're driving a train" },
-  { id: 'c11', name: 'No. 3 the snake: horse-blood antivenom vs designed proteins · mice · single toxins', from: 'The snake' },
-  { id: 'c12', name: 'No. 2 the conspiracy chatbot: C5b David Rand · a fifth, months later · errors corrected · flipped: same tool, opposite aim · the big question', from: 'Everyone knows' },
-  { id: 'c13', name: 'No. 1 flash floods: old news reports, Flood Hub, a week ahead, the phone (Maybe on yours) · a forecast isn’t a rescue', from: 'Flash floods are the deadliest' },
-  { id: 'c14', name: 'Ending · what they have in common: built for something else · the gallery · it was the aim · the tree in full light · 15 s end screen', from: 'Satellites built to watch fields and forests', nth: 1 },
+  { id: 'c01', name: 'Hook · thumbnail A (vitrine 1, the cell, DEADLINE: 2036) · the doctor\'s office diorama, four word cards · the grandkids, the plague · four words ? · machines fast, body slow · TWO DATES · four labels, weeks … decades · C1 wall text · the roadshow frame · NOT INVESTMENT ADVICE', from: 'Artificial intelligence just gave' },
+  { id: 'c02', name: 'The essay on the lectern, the magnifier (unreadable) · two trial lanes (barely works vs works) · the kiosk → C3 · NOT INSTANT stays in mint', from: "He didn't invent it" },
+  { id: 'c03', name: 'The mint line becomes the DEADLINE: 2036 board · four diseases, one question · CANCER lights · into vitrine 1: the lab, the hook cells, one AI-proposed design (≈ 10× more receptors) · ALL STILL IN THE LAB', from: "Less than a decade that's" },
+  { id: 'c04', name: 'The scan: weeks · 55 patients, many cancers · more than a hundred · the small print most cancer · the sales line just cancer · board ✓ MANY KINDS · but is fast the whole answer?', from: 'Then the body answers' },
+  { id: 'c05', name: 'Vitrine 2: heart twice · the infusion, the liver gene, LDL halved · DNA for life: 15 years · the stadium ★ · board ½ · subscribe 1 (the lit doorway, QR corner quiet) → plateMind', from: 'Heart disease answers twice' },
+  { id: 'c06', name: 'Vitrine 3: the mind answers fast but faint · sugar pill · half the trials · no blood test, a questionnaire · the essay: most mental illness · board ? · the fourth disease', from: 'The third disease answers fast' },
+  { id: 'c07', name: "Vitrine 4: Alzheimer's · twenty years before the first forgotten name · traces today · following healthy people · the failed trial · small print: difficult to reverse · board ✗", from: 'The changes in the brain' },
+  { id: 'c08', name: 'The race starts now: the blood test · why a date? · the sales pitch rewards a date · the audio-guide post → C5 (audio only) · THE TESTING, NOT THE FINDING · the pipeline', from: "But the race doesn't start" },
+  { id: 'c09', name: 'Topol: wildly off-base · Amodei: actually curing cancer · his company\'s medicine: idea → mice < 18 months · human trials late 2028 · first date fast, second years away → plateKiosk', from: 'The cardiologist' },
+  { id: 'c10', name: 'The kiosk → C2 (the pipeline jams) · DISCOVERY SPEEDS UP, PROOF JAMS · can proof come sooner? · it can: the study clinic, the blood test, the trial', from: 'He even warned of a jam' },
+  { id: 'c11', name: 'Digital twins (a smaller sugar-pill group) · the FDA assistant: one or two months · rules for medicines that clearly work · but remember the heart · C1b wall text', from: 'In other trials' },
+  { id: 'c12', name: 'The second date is the real deadline · people set it: clinics, scientists, lawmakers · does the deadline hold? the board big · the grandkids ★', from: 'If the machines make' },
+  { id: 'c13', name: 'Investors price the first date · subscribe 2 (QR corner quiet) · the quiet walk · 15 s end screen (the hall, four plinths)', from: 'Investors are already' },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 

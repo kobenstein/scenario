@@ -1,0 +1,217 @@
+[
+ {
+  "id": "t00",
+  "sec": "H",
+  "text": "[serious] All over the world, people are quietly using A.I. to make life better, for people, for animals, for the planet itself.\nMost of these projects, you've probably never heard of.\nIn India, a train brakes in the dark for elephants its driver can't see.\nIn California, a man silenced by illness speaks again, in his own voice.",
+  "chars": 330
+ },
+ {
+  "id": "C3a",
+  "sec": "H",
+  "clip": true,
+  "dur": 3.9
+ },
+ {
+  "id": "t01",
+  "sec": "H",
+  "text": "And in Peru's desert, ancient drawings are coming to light.\nAll of it is real.\nIt's the same kind of tool that writes your emails and picks your ads.\nA few people pointed it at something far bigger.\nThis is what A.I. should be used for.\n[curious] What do all these tools have in common?\nA first clue: the last of them learned where floods strike from old news reports.",
+  "chars": 368
+ },
+ {
+  "id": "t02",
+  "sec": "12",
+  "text": "At the far edge of New Zealand, a tiny radio station set out to build something no tech giant had: a machine that understands spoken Māori.\nTo learn a language, a machine has to hear it, for hours and hours.\n[pause] The station asked its own people.\nIn just ten days, they read enough Māori into their phones to build it.\nA global data company wanted recordings like these too, and offered to pay. The station said no.\nPeter-Lucas Jones runs it. This is how he explained the no.",
+  "chars": 478
+ },
+ {
+  "id": "C1",
+  "sec": "12",
+  "clip": true,
+  "dur": 14.7
+ },
+ {
+  "id": "t03",
+  "sec": "12",
+  "text": "[thoughtful] A machine can't keep a language alive. Only speakers can. But this time, the speakers own the machine.",
+  "chars": 115
+ },
+ {
+  "id": "t04",
+  "sec": "11",
+  "text": "That machine was built to listen. [curious] In Australia, another A.I. was built to waste time. On purpose.\n[pause] Not yours. A phone scammer's.\nA researcher there once kept a scammer on the line for about forty minutes, during a family picnic. All that time, the scammer wasn't robbing anyone else.\nNow his company does it all day, with A.I. victims: chatty strangers with all the time in the world.\nOne of Australia's big phone networks already sends scam calls straight to these bots.",
+  "chars": 488
+ },
+ {
+  "id": "t05",
+  "sec": "11",
+  "text": "Here, the A.I. wins by being slow. Over Wyoming, it has to be fast.",
+  "chars": 67
+ },
+ {
+  "id": "t06",
+  "sec": "10",
+  "text": "Wind turbines make clean power, and they kill eagles. Stop them all, and you lose the power. Stop none, and eagles die.\nWhat would you do?\n[pause] On one wind farm in Wyoming, cameras on towers watch the sky. In the blink of an eye, an A.I. decides: eagle or not. Only the turbines in its path slow down.\nA study credited the cameras with cutting eagle deaths there by more than four in five. Other scientists say one wind farm can't prove that yet.",
+  "chars": 449
+ },
+ {
+  "id": "t07",
+  "sec": "10",
+  "text": "Here, one miss can cost an eagle. In Peru, a machine was wrong almost every time, and it still worked.",
+  "chars": 102
+ },
+ {
+  "id": "t08",
+  "sec": "9",
+  "text": "The Nazca desert is famous for its giant drawings. An A.I. combed aerial photos of it and flagged tens of thousands of spots. Almost all of them were nothing.\nArchaeologists checked only the best leads on site, and nearly doubled the figures known there.\nThe new ones are small, and they sit close to ancient footpaths. The team's reading: the giant drawings were made for community rituals. The small ones, for people walking past.\n[pause]\nThe A.I. didn't need to be right. It only had to tell people where to look.",
+  "chars": 516
+ },
+ {
+  "id": "t09",
+  "sec": "9",
+  "text": "But what happens when the machine points, and no one looks?",
+  "chars": 59
+ },
+ {
+  "id": "t10",
+  "sec": "8",
+  "text": "Methane is invisible, and it heats the planet far faster than carbon dioxide. To catch every leak, you'd need eyes over the whole planet.\n[pause] They're already up there.\nSatellites built to watch fields and forests can catch methane's faint shadow. Every day, an A.I. searches their pictures for it. Experts check, and the U.N. warns the country.\nIn Algeria, one leak had been visible from space for over a decade. Months after the alerts, it stopped.",
+  "chars": 453,
+  "pause": true
+ },
+ {
+  "id": "t11",
+  "sec": "8",
+  "text": "But that's the exception. Nearly nine in ten alerts still get no answer. Two years ago, almost none got one.\n[pause]\nSeeing isn't saving.",
+  "chars": 137
+ },
+ {
+  "id": "t12",
+  "sec": "7",
+  "text": "Casey Harrell knows exactly what he wants to say. His brain still sends the words. But his lips no longer follow.\nHe has A.L.S. He said it felt like being trapped.\nHow do you hear a sentence that never leaves the body?\n[pause] Surgeons placed tiny sensors where his brain steers his lips and tongue. An A.I. learned which signals mean which sounds. [pause] It doesn't read his thoughts. Only the words he's trying to say.",
+  "chars": 421
+ },
+ {
+  "id": "t13",
+  "sec": "7",
+  "text": "Then it speaks them, in his own voice, rebuilt from recordings made before he fell ill. This is that voice.",
+  "chars": 107
+ },
+ {
+  "id": "C3",
+  "sec": "7",
+  "clip": true,
+  "dur": 9.2
+ },
+ {
+  "id": "t14",
+  "sec": "7",
+  "text": "It's one man, in a research study, not yet a treatment anyone can get. But at home, in under two years, he spoke almost two million words with it.",
+  "chars": 146,
+  "pause": true
+ },
+ {
+  "id": "t15",
+  "sec": "7",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.",
+  "chars": 139,
+  "cta": true
+ },
+ {
+  "id": "t16",
+  "sec": "7",
+  "text": "Casey wants to be heard. Out at sea, some ships would rather not be seen.",
+  "chars": 73
+ },
+ {
+  "id": "t17",
+  "sec": "6",
+  "text": "Big ships are supposed to broadcast where they are, on a radio built so they don't collide.\n[curious] Take a guess: how many industrial fishing boats stay off the public map?\n[pause]\nAn A.I. compared years of radar pictures from space with those broadcasts. The answer: about three in four.\nDark doesn't mean illegal. But it's where the worst things can hide. Another A.I. reads how ships move, and flags those whose crews may not be free to go home.\nThat's a risk, not a verdict.",
+  "chars": 480
+ },
+ {
+  "id": "t18",
+  "sec": "6",
+  "text": "A ship can hide by switching its radio off. A tsunami hides in plain sight.",
+  "chars": 75
+ },
+ {
+  "id": "t19",
+  "sec": "5",
+  "text": "In the open ocean, it's barely a ripple. How do you see it coming before it reaches land?\n[pause] Look up.\nThe rising water shoves the air above it. That push climbs all the way to space, where it makes GPS signals arrive a tiny bit late. The same signals your phone uses to find your way. Another clue.\nAn A.I. learned to read the tsunami's fingerprint in them. [amazed] NASA switched it on the day before a giant earthquake struck off Russia.",
+  "chars": 444
+ },
+ {
+  "id": "t20",
+  "sec": "5",
+  "text": "NASA's replay shows it catching the wave in the sky over Hawaii, half an hour before the first tide gauge there.\nIt's still a research tool.\nHalf an hour can warn a whole coast. But you can't warn an elephant.",
+  "chars": 209,
+  "under": "C4"
+ },
+ {
+  "id": "t21",
+  "sec": "4",
+  "text": "You're driving a train at night, through an elephant corridor in southern India. By the time your lights find an elephant on the track, it's too late to stop.\n[pause] Unless the track sees it first.\nCameras on towers along the line see heat. An A.I. spots the elephant and warns the driver and the rangers. This time, the warning gets an answer: the train brakes.\nOn the stretch it watches, officials say, no train has killed an elephant since it went live.",
+  "chars": 457
+ },
+ {
+  "id": "t22",
+  "sec": "4",
+  "text": "Elephants are the giants here. But across India, a far smaller animal kills about a hundred times more people. It hides in the grass.",
+  "chars": 133
+ },
+ {
+  "id": "t23",
+  "sec": "3",
+  "text": "The snake. Its bite is still treated with medicine made from the blood of horses and sheep.\n[curious] What if you could skip the horse, and design a molecule no living thing has ever made?\nA lab asked an A.I. to do just that. It designed brand-new proteins, shaped to grab a snake's toxin and switch it off.\nIn mice, they worked. Most survived a dose that should have killed them.\nSo far only in mice, and only against single toxins, not whole venom.",
+  "chars": 450
+ },
+ {
+  "id": "t24",
+  "sec": "3",
+  "text": "A designed protein can stop a poison in the blood. But can a machine change a mind?",
+  "chars": 83
+ },
+ {
+  "id": "t25",
+  "sec": "2",
+  "text": "Everyone knows you can't argue someone out of a conspiracy theory. Researchers tried anyway: they let believers argue with an A.I.\nJust an ordinary chatbot, the kind that writes emails. It answered each person's own reasons with evidence.\nDavid Rand, one of the researchers, on why it worked:",
+  "chars": 292
+ },
+ {
+  "id": "C5b",
+  "sec": "2",
+  "clip": true,
+  "dur": 9.8
+ },
+ {
+  "id": "t26",
+  "sec": "2",
+  "text": "After one short conversation, belief dropped by about a fifth. Months later, it was still down.\nThe authors later found errors in their own data. Corrected, the effect still held.\n[pause]\nIn a newer study, not yet peer-reviewed, the same team flipped it: a chatbot argued for the conspiracy. Belief went up just as strongly.\n[pause] Same tool. Opposite aim.\n[pause] What do all these tools have in common?",
+  "chars": 405
+ },
+ {
+  "id": "t27",
+  "sec": "1",
+  "text": "Flash floods are the deadliest floods. They often hit places where no one measures the water, so a machine has almost nothing to learn from.\n[pause] Except the news.\nA team at Google pulled millions of past floods out of old news reports, to teach an A.I. where flash floods strike.\nFor big rivers, Google's flood forecasts already reach up to a week ahead. The warnings show up in Search, in Maps, and as alerts on ordinary phones.\n[pause] Maybe on yours.",
+  "chars": 456
+ },
+ {
+  "id": "t28",
+  "sec": "1",
+  "text": "But a forecast isn't a rescue. Like those methane alerts, it only works if someone acts in time.",
+  "chars": 96
+ },
+ {
+  "id": "t29",
+  "sec": "E",
+  "text": "[thoughtful] Satellites built to watch fields and forests. A radio built so ships don't collide. GPS, built to find your way. An everyday chatbot. Old news, written for readers.\n[pause]\nNone of it was built for this. That's what these tools have in common.\nThe difference between writing your emails and saving a life was never the tool. It was the aim.\nThe tool is already here. The question is what we point it at.",
+  "chars": 416
+ },
+ {
+  "id": "t30",
+  "sec": "E",
+  "text": "[warm] That's why this channel exists: so that superintelligence goes well for everyone. Want that too? Then subscribe.",
+  "chars": 119,
+  "cta": true
+ }
+]

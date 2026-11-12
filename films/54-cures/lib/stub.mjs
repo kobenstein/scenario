@@ -8,7 +8,7 @@ export const PAL = { // ground, middle, accent (konzept.md §3)
   2: ['#0b0f2a', '#f3efe2', '#c4512e'], 3: ['#0c1b33', '#dfe8f2', '#5fe0a8'], 4: ['#4a3426', '#e8a3a0', '#8fd27a'],
   5: ['#1e4a3a', '#e9c46a', '#b7c25a'], 6: ['#0d1530', '#f5b08a', '#f0a04b'], 7: ['#070918', '#ffd08a', '#ffb35c'],
 };
-const SECNAME = { H: 'Hook · the tree', 12: 'No. 12 · Te Hiku Media', 11: 'No. 11 · Apate', 10: 'No. 10 · IdentiFlight', 9: 'No. 9 · Nazca', 8: 'No. 8 · MARS (the turn)', 7: 'No. 7 · Casey Harrell', 6: 'No. 6 · Global Fishing Watch', 5: 'No. 5 · GUARDIAN', 4: 'No. 4 · Madukkarai', 3: 'No. 3 · Baker Lab', 2: 'No. 2 · DebunkBot', 1: 'No. 1 · Flood Hub', E: 'Ending · the aim' };   // Film 28 (tools/provisional_timing.py SECS)
+const SECNAME = { H: 'Hook · the hall of relics', 1: 'The promise, fair', 2: 'Cancer: weeks', 3: 'Heart disease: twice', M: 'Subscribe 1', 4: 'The mind: faint', 5: "Alzheimer's: decades", 6: 'The testing, not the finding', 7: 'It can (speed up proof)', 8: 'Does the deadline hold?', A2: 'Subscribe 2 · end' };
 
 function wrapWords(ctx, words, size, maxW) {
   ctx.font = `${size}px "Instrument Serif"`; const sp = ctx.measureText(' ').width, lines = []; let cur = [], w = 0;
