@@ -137,7 +137,7 @@ export function hallWorld(ctx, c, t, st = {}) {
     if (st.panel) st.panel(ctx);
     // the lectern (the essay), the media kiosk, the audio-guide post
     const L = HALL.lectern, lo = st.lectern || {};
-    F.lectern(ctx, t, L.x, L.y, L.s, { lamp: lo.lamp ?? 1, book: (cx, x, y, w) => F.essay(cx, t, x + (lo.open ? 0 : -w * .25), y - w * .2, w, { open: lo.open ?? 0, lens: lo.lens }) });
+    F.lectern(ctx, t, L.x, L.y, L.s, { lamp: lo.lamp ?? 1, book: (cx, x, y, w) => F.essay(cx, t, x - w * .25 * (1 - Math.min(1, (lo.open ?? 0) * 2)), y - w * .2, w, { open: lo.open ?? 0, lens: lo.lens }) });
     const K = HALL.kiosk, ko = st.kiosk || {};
     F.kiosk(ctx, t, K.x, K.y, K.s, { glow: ko.glow ?? .45, screen: ko.screen });
     const PO = HALL.post; F.audioPost(ctx, t, PO.x, PO.y, PO.s, { lit: st.post?.lit ?? .3 });

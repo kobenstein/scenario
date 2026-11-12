@@ -334,8 +334,8 @@ export function essay(ctx, t, x, y, s, o = {}) {
   if (op > .5) {
     const k = span(op, .6, 1);
     ctx.globalAlpha *= k;
-    E.glowText(ctx, ESSAY.title, -pw / 2, -h * .36, { size: pw * .062, align: 'center', glow: false, spacing: .12, col: P.night1 });
-    E.glowText(ctx, ESSAY.sub, -pw / 2, -h * .29, { size: pw * .036, align: 'center', glow: false, spacing: .16, col: mixHex(P.night1, paper, .4) });
+    E.glowText(ctx, ESSAY.title, -pw / 2, -h * .36, { size: pw * .04, align: 'center', glow: false, spacing: .1, col: P.night1 });
+    E.glowText(ctx, ESSAY.sub, -pw / 2, -h * .29, { size: pw * .03, align: 'center', glow: false, spacing: .12, col: mixHex(P.night1, paper, .4) });
     const r = prng(77);
     for (const [x0, x1, y0] of [[-pw * .88, -pw * .12, -h * .2], [pw * .1, pw * .9, -h * .4]]) for (let k2 = 0; k2 < 13; k2++) { const yy = y0 + k2 * h * .055; if (yy > h * .42) break; ctx.fillStyle = rgba(P.night1, .28); ctx.fillRect(x0, yy, (x1 - x0) * (.7 + .3 * r()), Math.max(1, h * .012)); }
     ctx.globalAlpha /= k || 1;
