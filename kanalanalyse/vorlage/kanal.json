@@ -1,0 +1,27 @@
+{
+  "kanal_name": "Dein Kanal",
+  "kanal_id": "UC...",
+  "ordner": ".",
+  "merkmale": "merkmale.csv",
+  "logbuch": "logbuch.md",
+  "film_ordner": ".",
+  "merkmal_spalten": [
+    "thema",
+    "titel_muster",
+    "thumb_art",
+    "hook_art"
+  ],
+  "min_laenge_s": 180,
+  "max_filme": 60,
+  "normal_filme": 10,
+  "hauptmass": "tag2",
+  "detail_tage": 21,
+  "tabelle_filme": 20,
+  "einstieg_s": 30,
+  "konkurrenz": {
+    "datei": "konkurrenz.csv",
+    "filter": {},
+    "tage": 14,
+    "faktor": 3
+  }
+}
