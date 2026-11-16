@@ -12,8 +12,8 @@
  },
  "channel_calls": {
   "t12": {
-   "start": 327.23,
-   "end": 338.58
+   "start": 327.47,
+   "end": 338.82
   },
   "t22": {
    "start": 573.04,
@@ -25,8 +25,8 @@
    "id": "C1",
    "kind": "clip",
    "sec": "2",
-   "start": 174.15,
-   "end": 179.24,
+   "start": 174.39,
+   "end": 179.48,
    "dur": 5.09,
    "under": false
   },
@@ -34,8 +34,8 @@
    "id": "C2",
    "kind": "clip",
    "sec": "3",
-   "start": 273.29,
-   "end": 285.23,
+   "start": 273.53,
+   "end": 285.47,
    "dur": 11.94,
    "under": false
   },
@@ -43,8 +43,8 @@
    "id": "C3",
    "kind": "clip",
    "sec": "4",
-   "start": 389.04,
-   "end": 398.26,
+   "start": 389.28,
+   "end": 398.5,
    "dur": 9.22,
    "under": false
   }
@@ -54,32 +54,32 @@
    "id": "C1",
    "kind": "clip",
    "sec": "2",
-   "start": 174.15,
-   "end": 179.24,
+   "start": 174.39,
+   "end": 179.48,
    "under": false
   },
   {
    "id": "Z1",
    "kind": "card",
    "sec": "2",
-   "start": 209.0,
-   "end": 211.46,
+   "start": 209.24,
+   "end": 211.7,
    "under": true
   },
   {
    "id": "C2",
    "kind": "clip",
    "sec": "3",
-   "start": 273.29,
-   "end": 285.23,
+   "start": 273.53,
+   "end": 285.47,
    "under": false
   },
   {
    "id": "C3",
    "kind": "clip",
    "sec": "4",
-   "start": 389.04,
-   "end": 398.26,
+   "start": 389.28,
+   "end": 398.5,
    "under": false
   }
  ]

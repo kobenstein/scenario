@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Film 59 'You Can Now Buy a Piece of AI' · vo-v2.txt -> segments.json (takes for ElevenLabs v4 + clip slots). Method as Film 54 / 28.
+"""Film 59 'You Can Now Buy a Piece of AI' · vo-v3.txt (fact-checked 16.11.) -> segments.json (takes for ElevenLabs v4 + clip slots). Method as Film 54 / 28.
 Sections = H, 1 .. 6, M, A2 (countdown to the bell), found by the first words of the sentence that opens them:
   H hook (the button, the warning label, the dinner table) · 1 the facts (Anthropic, Thursday, price) · 2 STEP 1 the pitch (warnings, votes, trust, C1, Z1)
   3 STEP 2 the doubts (Levine, trustees, Bengio C2, the answer) · M subscribe 1 · 4 STEP 3 pricing night (numbers, C3, orders) · 5 STEP 4 the index clock
@@ -8,10 +8,10 @@ A take = consecutive lines of ONE section, split at [CLIP]/[ZITATKARTE] markers 
 NOT spoken: [EINBLENDUNG ...], [ENDCARD ...], [CLIP Cn] (= slot), [ZITATKARTE Zn] (the quote line after it IS read by the narrator inside the take;
 'card' on the take names the card, build_vo.py puts the card on the quote's words, kind 'card', under: True).
 Slots (build_vo.py inserts the real clip audio): C1 5.09 s, C2 11.94 s, C3 9.22 s (= out - in from clips/schnitt.json).
-usage: make_segments.py [vo-v2.txt] [out segments.json] [schnitt.json]"""
+usage: make_segments.py [vo-v3.txt] [out segments.json] [schnitt.json]"""
 import json, re, sys
 ROOT = '/mnt/project-files/scenario/film-ai-goes-public/'
-SRC = sys.argv[1] if len(sys.argv) > 1 else ROOT + 'vo-v2.txt'
+SRC = sys.argv[1] if len(sys.argv) > 1 else ROOT + 'vo-v3.txt'
 OUT = sys.argv[2] if len(sys.argv) > 2 else 'segments.json'
 SCH = sys.argv[3] if len(sys.argv) > 3 else ROOT + 'clips/schnitt.json'
 SECS = [('H', 'You can now buy a piece'), ('1', 'The seller is Anthropic'), ('2', 'So before the opening bell'), ('3', 'Many doubt it.'),
