@@ -470,7 +470,8 @@ function scene(a, T) {
       const hBig = (BASE - BIGTOP) * bu, r0 = { x: BIG.x, y: BASE - hBig, w: BIG.w, h: hBig }, r = cd > 0 ? lerpR(r0, C1R, cd) : r0;
       ctx.save();
       if (cd < 1) halo(ctx, r.x + r.w / 2, r.y, 160 * (1 - cd), .45 * (1 - cd), GOLD.halo, GOLD.core);
-      ctx.fillStyle = cd > 0 ? mixHex(GOLD.body, mixHex(P.night1, P.ind2, .55), smooth(span(cd, .35, 1))) : E.lin(ctx, 0, r.y, 0, BASE, [[0, GOLD.hot], [1, GOLD.mid]]);
+      const nk = smooth(span(cd, .35, 1)), NC = mixHex(P.night1, P.ind2, .55);
+      ctx.fillStyle = E.lin(ctx, 0, r.y, 0, r.y + Math.max(1, r.h), [[0, mixHex(GOLD.hot, NC, nk)], [1, mixHex(GOLD.mid, NC, nk)]]);
       ctx.beginPath(); ctx.roundRect(r.x, r.y, r.w, Math.max(1, r.h), lerp(3, 12, cd)); ctx.fill();
       if (cd > 0) { ctx.strokeStyle = rgba(GOLD.line, .55 * cd); ctx.lineWidth = 2; ctx.stroke(); }
       ctx.restore();
@@ -547,7 +548,7 @@ function scene(a, T) {
     for (const [id, w, ids] of [['C2', a.c2, FACET_L], ['C3', a.c3, FACET_R]]) {
       const fs = fscreen(t, w); if (fs <= 0) continue;
       const from = facetScreen(ctx, c, t, ids, fs), m = morph(t, w);
-      if (m > 0 && from) F.clipPlate(ctx, t, T, id, { from, morph: m });
+      if (m > 0 && from) F.clipPlate(ctx, t, T, id, { from: [from[0], from[1], from[2] * lerp(.15, 1, sineIO(clamp(m * 4)))], morph: m });
     }
     F.board(ctx, t, T);
     sources(ctx, t);
