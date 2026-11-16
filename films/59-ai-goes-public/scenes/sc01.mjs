@@ -1,5 +1,5 @@
 // c01 · Hook · THE CITY UNDER THE CRYSTAL · thumbnail A (the crystal, a facet falls into your hand, AI GOES PUBLIC) · the shard's face
-// becomes the banking app: a new name, ANT · the names you could already buy (CHIP MAKER, TECH GIANT) dim: this is different, AN AI LAB · a price (not yet set), BUY · the warning label drops
+// becomes the banking app: a new name, ANT · the names you could already buy (CHIP MAKER, TECH GIANT) dim: this is different, AN AI LAB · the expected price range ($70–78, static), BUY · the warning label drops
 // from the crystal on a gold thread, THE SELLER stamps it · it unfolds into the quote card (prospectus, risk factors) · the card becomes
 // the top page of a thick document · it opens: A PIECE ✓ | A SAY (the wheel of light behind glass) · the wheel flies into the tower
 // window: the room, the dinner table, 7 + 4 · → plateWindow (lib/f59_world.mjs) at 'The seller is Anthropic'.
@@ -12,7 +12,7 @@
 // | H.02  | Picture this coming Thursday | push to the hand; the shard's face lights and grows into the phone screen   | push · MIX             |
 // | H.03  | And between names            | the list; the new row ANT slides in; A · N · T light                        | creep · EXPL           |
 // | H.04  | You could already buy chip makers | known rows labelled CHIP MAKER · TECH GIANT; "different": they dim, ANT gold-edged; tag AN AI LAB | creep · EXPL           |
-// | H.05  | You tap it                   | the ANT page: the price rolls (NOT YET SET), the BUY button, a ? over it    | creep · EXPL           |
+// | H.05  | You tap it                   | the ANT page: the expected range $70–78 (static, EXPECTED), the BUY button, a ? over it    | creep · EXPL           |
 // | H.06  | It comes with a warning      | the phone sinks into the shard; pull back: a tag drops from the crystal on a gold thread; THE SELLER stamps it | pull back · MIX |
 // | H.07  | Advanced A.I.                | the tag unfolds into the quote card; the words light as spoken              | glide left · EXPL      |
 // | H.08  | That is printed              | the card becomes the top page of the thick PROSPECTUS; it opens: A PIECE ✓ | A SAY (the wheel behind glass) | glide · EXPL |
@@ -88,9 +88,18 @@ function scene(a, T) {
       kinds: [['CHIP MAKER', span(t, a.chips - .15, a.chips + .6), [0, 1]], ['TECH GIANT', span(t, a.giants - .15, a.giants + .6), [2, 3]]],
       diff: span(t, a.diff - .1, a.diff + .9),
       tags: [['AN AI LAB', span(t, a.lab, a.lab + .6), 0, span(t, a.nothing - .2, a.nothing + .5)]],
-      tap: span(t, a.tap + .15, a.tap + 1.1), detail: span(t, a.tap + .35, a.tap + 1.35), price: span(t, a.price - .05, a.price + .8),
+      tap: span(t, a.tap + .15, a.tap + 1.1), detail: span(t, a.tap + .35, a.tap + 1.35), price: 0,
       buy: span(t, a.button, a.button + .7), press: span(t, a.buy - .05, a.buy + .55), q: span(t, a.what + .7, a.what + 1.5), a: clamp(m * 4),
     });
+    // the price: the company's expected range, static (no live price exists before the first trade)
+    const pu = span(t, a.price - .05, a.price + .8), dt = sineIO(span(t, a.tap + .35, a.tap + 1.35));
+    if (pu > 0 && dt > 0) {
+      const k = PH.w / 600, dx = PH.x + PH.w * (1 - dt);
+      ctx.save(); ctx.beginPath(); ctx.roundRect(PH.x, PH.y, PH.w, PH.h, Math.min(48, PH.w * .08)); ctx.clip();
+      F.maskLine(ctx, [['$70–78', 0]], dx + PH.w / 2, PH.y + 470 * k, 70 * k, rise(pu), { serif: true, col: F.COOL.body, glow: false, align: 'center' });
+      F.maskLine(ctx, [['EXPECTED', 0]], dx + PH.w / 2, PH.y + 530 * k, 26 * k, rise(span(pu, .4, 1)), { serif: false, weight: 600, col: P.halo2, glow: false, align: 'center' });
+      ctx.restore();
+    }
     ctx.restore();
   }
 
@@ -100,12 +109,15 @@ function scene(a, T) {
   let TAGBOX = null;   // the tag's screen box (for the unfold)
   function warnTag(ctx, t, r, c) {
     const u = tagU(t); if (u <= 0 || unfold(t) >= 1) return;
+    // once the card has started to grow out of it, the tag is under the (opaque) card: keep measuring it, stop drawing it
+    const hide = unfold(t) > .08; if (hide) { ctx.save(); ctx.beginPath(); ctx.rect(0, 0, 0, 0); ctx.clip(); }
     const box = F.priceTag(ctx, t, r.gap[0], r.gap[1] + 18, 'WARNING', u, { len: 330, size: 30, swing: .04 * Math.sin(t * .8) });
     if (box) {
       F.stamp(ctx, t, 'THE SELLER', box.x, box.y + box.h * .78 + 10, { t0: a.seller + .1, size: 18, rot: -.08, ink: GOLD.deep });
       const p0 = E.project(c, S.Z_CRY, box.x - box.w / 2, box.y), p1 = E.project(c, S.Z_CRY, box.x + box.w / 2, box.y + box.h + 30);
       if (p0 && p1) TAGBOX = { x: p0[0], y: p0[1], w: p1[0] - p0[0], h: p1[1] - p0[1] };
     }
+    if (hide) ctx.restore();
   }
   const toDoc = (t) => sineIO(span(t, a.printed - .05, a.printed + 1.1)), thick = (t) => expoOut(span(t, a.printed + .3, a.sales + .9));
   const openU = (t) => span(t, a.limit + .2, a.limit + 1.4);
@@ -123,7 +135,7 @@ function scene(a, T) {
     const k = r.w / QC.w;
     ctx.save(); F.float(ctx, t, 1); ctx.translate(r.x, r.y); ctx.scale(k * (1 - op), k); ctx.translate(-QC.x, -QC.y);
     const box = F.quoteCard(ctx, t, T, { text: F.SOURCES.s1riskText, mode: 'hi', x: QC.x, y: QC.y, w: QC.w, size: QC.size, head: 'RISK FACTORS',
-      credit: F.SOURCES.s1risk, spoken: ['catastrophic', 'humanity'], after: a.adv, u: span(uf, .35, 1) });
+      credit: F.SOURCES.s1risk, spoken: ['catastrophic', 'humanity'], after: a.adv, u: lerp(.34, 1, uf) });   // opaque from the tag on (no pale blank card)
     if (box) QH = box.h;
     ctx.restore();
   }
