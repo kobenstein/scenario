@@ -103,7 +103,7 @@ export function part05(T) {
     return r;
   }
   function facetScene(ctx, t, c) {
-    const f = facet(c, t); if (!f) return;
+    const f = facet(c, t, [7, 8, 10, 9]); if (!f) return;
     // the facet turns flat (a screen), C1 grows out of it and back
     flatFacet(ctx, f, flatU(t) * (1 - veilU(t)));
     const m = clipM(t);

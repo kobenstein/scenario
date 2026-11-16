@@ -115,7 +115,7 @@ export function cityWorld(ctx, c, t, st = {}) {
     ctx.fillRect((TOWER.x0 + TOWER.x1) / 2 - 6, TOWER.top - 90, 12, 90);
     ctx.fillStyle = rgba(P.cream, .06); ctx.fillRect(TOWER.x1 - 40, TOWER.top, 40, 1400);
     const r = prng(5); for (let j = 0; j < 22; j++) for (let i = 0; i < 9; i++) { const q = r(); const wy = TOWER.top + 40 + j * 46, wx = TOWER.x0 + 30 + i * 60; if (wy > WIN.y - 30 && wy < WIN.y + WIN.h + 10) continue;
-      ctx.fillStyle = q < .06 + .5 * city * (q < .7 ? 1 : 0) ? rgba(LAMP.body, .55) : rgba(P.night0, .45); ctx.fillRect(wx, wy, 26, 22); }
+      ctx.fillStyle = q < .06 + .5 * city * (q < .7 ? 1 : 0) ? rgba(mixHex(GOLD.body, GOLD.deep, .5), .38) : rgba(P.night0, .45); ctx.fillRect(wx, wy, 26, 22); }
     const wl = st.win?.lit ?? 1;
     halo(ctx, WIN.x + WIN.w / 2, WIN.y + WIN.h / 2, WIN.w * 1.1, .18 * wl, GOLD.halo, GOLD.hot);
     ctx.save(); ctx.beginPath(); ctx.rect(WIN.x, WIN.y, WIN.w, WIN.h); ctx.clip(); ctx.translate(WIN.x, WIN.y);
