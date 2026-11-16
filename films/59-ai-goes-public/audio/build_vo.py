@@ -31,8 +31,9 @@ def tail_voiced(mp3):
 def dec(f, ch=1):
     return np.frombuffer(subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f, '-f', 'f32le', '-ac', str(ch), '-ar', str(SR), '-']), np.float32).copy()
 # breaths cut into a take: (take, word index of the word that starts after the breath, seconds of silence). Film 59: the title line of the hook needs a beat.
-BREATH = {'t00': [(8, 0.7)]}   # 'You can now buy a piece of A.I.' | 'Picture this coming Thursday.'
+BREATH = {'t00': [('Picture', 0.7)]}   # 'This week, A.I. goes public.' | 'Picture this coming Thursday.'  (first word after the breath, seconds)
 def breathe(x, W, ins):
+    ins = [(next(i for i, w in enumerate(W) if w[0] == k), g) for k, g in ins]
     for k, g in sorted(ins, reverse=True):
         a, b = W[k - 1][2] - .08, W[k][1] + .06; hop = SR // 100   # cut at the quietest 10 ms around the word boundary
         fr = [float(np.sqrt(np.mean(x[i:i + hop] ** 2))) for i in range(int(a * SR), int(b * SR), hop)]

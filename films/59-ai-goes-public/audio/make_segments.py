@@ -14,28 +14,31 @@ ROOT = '/mnt/project-files/scenario/film-ai-goes-public/'
 SRC = sys.argv[1] if len(sys.argv) > 1 else ROOT + 'vo-v3.txt'
 OUT = sys.argv[2] if len(sys.argv) > 2 else 'segments.json'
 SCH = sys.argv[3] if len(sys.argv) > 3 else ROOT + 'clips/schnitt.json'
-SECS = [('H', 'You can now buy a piece'), ('1', 'The seller is Anthropic'), ('2', 'So before the opening bell'), ('3', 'Many doubt it.'),
+SECS = [('H', 'This week, A.I. goes public'), ('1', 'The seller is Anthropic'), ('2', 'So before the opening bell'), ('3', 'Many doubt it.'),
         ('M', 'This channel exists'), ('4', 'If the mission is unproven'), ('5', "And one thing doesn't depend"), ('6', 'But look at who else'),
         ('A2', 'This channel exists')]
 LEN = {c['id']: round(c['out'] - c['in'], 2) for c in json.load(open(SCH))['clips']}
 MAXC = 520
+OWN = {'Founders keeping control': 't04b'}   # vo-v3 additions recorded as their own take (keeps the ids of the existing takes)
 strip = lambda l: re.sub(r'^\[[^\]]*\]\s*', '', l).lstrip('"“')
 lines = [l.strip() for l in open(SRC, encoding='utf8').read().splitlines() if l.strip()]
 lines = [l for l in lines if not re.fullmatch(r'\[(EINBLENDUNG|ENDCARD)\b.*\]', l)]
 seg, n, si, sec, cur, card, curcard = [], 0, 0, None, [], None, None
-def flush():
+def flush(own=None):
     global n, cur, curcard
     if not cur: return
     text = '\n'.join(cur).strip()
-    s = {'id': f't{n:02d}', 'sec': sec, 'text': text, 'chars': len(text)}
+    s = {'id': own or f't{n:02d}', 'sec': sec, 'text': text, 'chars': len(text)}
     if curcard: s['card'] = curcard
     if re.search(r'\[pause\]\s*$', text): s['pause'] = True
-    seg.append(s); n += 1; cur = []; curcard = None
+    seg.append(s); n += 0 if own else 1; cur = []; curcard = None
 for l in lines:
     m = re.fullmatch(r'\[CLIP\s+(C\d+[a-z]?)[^\]]*\]', l)
     if m: flush(); seg.append({'id': m.group(1), 'sec': sec, 'clip': True, 'dur': LEN[m.group(1)]}); continue
     m = re.fullmatch(r'\[ZITATKARTE\s+([CZ]\d+[a-z]?)[^\]]*\]', l)
     if m: card = m.group(1); continue
+    o = next((v for k, v in OWN.items() if strip(l).startswith(k)), None)
+    if o: flush(); cur = [l]; flush(o); continue
     if card: l = l.replace('…', '')   # the quote line: the narrator reads it plainly ('...may not maximize stockholder value.')
     if si < len(SECS) and strip(l).startswith(SECS[si][1]) and SECS[si][0] != sec:
         flush(); sec = SECS[si][0]; si += 1

@@ -2,8 +2,8 @@
  {
   "id": "t00",
   "sec": "H",
-  "text": "[calm, conversational] You can now buy a piece of A.I.\nPicture this coming Thursday. You open your banking app. And between names you've known for decades, a new name appears. Three letters. A, N, T.\nNot a bank. Not a car maker. A lab that builds A.I., and nothing else.\nYou tap it. A price appears. And a button that says: buy.\nSo what exactly would you be buying?\n[wry] It comes with a warning label. Not from a critic. From the seller.",
-  "chars": 438
+  "text": "[calm, conversational] This week, A.I. goes public.\nPicture this coming Thursday. You open your banking app. And between names you've known for decades, a new name appears. Three letters. A, N, T.\nYou could already buy chip makers and tech giants. This is different. A lab that builds A.I., and nothing else.\nYou tap it. A price appears. And a button that says: buy.\nSo what exactly would you be buying?\n[wry] It comes with a warning label. Not from a critic. From the seller.",
+  "chars": 476
  },
  {
   "id": "t01",
@@ -14,8 +14,8 @@
  {
   "id": "t02",
   "sec": "1",
-  "text": "[calm, conversational] The seller is Anthropic, the lab behind the A.I. named Claude.\nIts shares are expected to start trading this Thursday, on the Nasdaq.\nExpected price: seventy to seventy-eight dollars a share.\nThat would make it the second-largest stock market debut in history.\nWhether to buy is not this film's subject. What sits behind the button is.\nAnd that matters even if you never press it. A slice of this company may land in your retirement savings anyway.",
-  "chars": 471
+  "text": "[calm, conversational] The seller is Anthropic, the lab behind the A.I. named Claude.\nIts shares are expected to start trading this Thursday, on the Nasdaq.\nExpected price: seventy to seventy-eight dollars a share.\nThat would make it the second-largest stock market debut in history, by money raised.\nWhether to buy is not this film's subject. What sits behind the button is.\nAnd that matters even if you never press it. A slice of this company may land in your retirement savings anyway.",
+  "chars": 488
  },
  {
   "id": "t03",
@@ -28,6 +28,12 @@
   "sec": "2",
   "text": "With most companies, you'd know the answer. The owners. Buy a share, get a vote. Buy enough, and you steer.\n[wry] Not here.\nThe shares on sale do carry votes. But the document caps them. Old and new together, they stay just under half.\nJust over half stays with seven people: the founders. Enough, the document says, to decide shareholder votes for the foreseeable future.",
   "chars": 372
+ },
+ {
+  "id": "t04b",
+  "sec": "2",
+  "text": "Founders keeping control isn't new. At Meta, one founder still holds most of the votes. What's new is who else gets a seat.",
+  "chars": 123
  },
  {
   "id": "t05",
@@ -124,8 +130,8 @@
  {
   "id": "t17",
   "sec": "5",
-  "text": "[curious] And one thing doesn't depend on what you believe. A piece may reach you anyway.\nMany funds don't choose their stocks. They copy a list, called an index.\nWhen the bell rings, a second clock starts. Under a rule the Nasdaq introduced this year, a newcomer this large can join its main list after just fifteen trading days.\nOther big lists have fast lanes too. Not all: the S and P five hundred makes newcomers wait a year.",
-  "chars": 430
+  "text": "[curious] And one thing doesn't depend on what you believe. A piece may reach you anyway.\nMany funds don't choose their stocks. They copy a list, called an index.\nWhen the bell rings, a second clock starts. Under a rule the Nasdaq introduced this year, a newcomer this large can join its main list after just fifteen trading days.\nOther big lists have fast lanes too. Not all: the S and P five hundred makes newcomers wait at least a year.",
+  "chars": 439
  },
  {
   "id": "t18",
