@@ -1,0 +1,1052 @@
+1
+00:00:01,200 --> 00:00:04,880
+In 1965, a chemist named Gordon Moore
+
+2
+00:00:04,920 --> 00:00:07,240
+drew a line through a handful of dots,
+
+3
+00:00:07,280 --> 00:00:10,370
+and made a guess even he thought was a stretch.
+
+4
+00:00:10,480 --> 00:00:13,000
+Each dot showed how many parts engineers
+
+5
+00:00:13,040 --> 00:00:15,490
+could squeeze onto a single chip.
+
+6
+00:00:15,600 --> 00:00:17,480
+That number had been doubling.
+
+7
+00:00:17,520 --> 00:00:19,050
+Roughly every year.
+
+8
+00:00:19,440 --> 00:00:22,810
+So Moore kept the line going, ten more years.
+
+9
+00:00:23,648 --> 00:00:25,240
+It's been sixty.
+
+10
+00:00:25,280 --> 00:00:27,640
+The biggest AI chip announced this year
+
+11
+00:00:27,680 --> 00:00:30,890
+holds more than 300 billion of those parts.
+
+12
+00:00:31,200 --> 00:00:33,080
+Chips like that are why the AI
+
+13
+00:00:33,120 --> 00:00:35,130
+you talk to exists at all.
+
+14
+00:00:35,968 --> 00:00:38,810
+And now everyone says we're at the turning point.
+
+15
+00:00:38,960 --> 00:00:41,610
+The moment the curve bends upward.
+
+16
+00:00:41,968 --> 00:00:44,810
+If we really were, how would we know?
+
+17
+00:00:49,760 --> 00:00:52,520
+Most of us picture progress as a ramp.
+
+18
+00:00:52,560 --> 00:00:54,410
+A little better every year.
+
+19
+00:00:54,880 --> 00:00:58,680
+In 1975, two Dutch researchers asked people
+
+20
+00:00:58,720 --> 00:01:01,610
+to guess where a doubling process ends up.
+
+21
+00:01:01,840 --> 00:01:03,800
+Often two thirds of them guessed
+
+22
+00:01:03,840 --> 00:01:06,280
+less than a tenth of the real answer.
+
+23
+00:01:06,320 --> 00:01:08,760
+Even when they were told how doubling works,
+
+24
+00:01:08,800 --> 00:01:10,010
+it barely helped.
+
+25
+00:01:10,240 --> 00:01:13,050
+And it doesn't only fool ordinary people.
+
+26
+00:01:14,300 --> 00:01:17,220
+Every year, the International Energy Agency
+
+27
+00:01:17,260 --> 00:01:20,470
+publishes a big outlook on the world's energy.
+
+28
+00:01:20,540 --> 00:01:21,860
+For more than a decade,
+
+29
+00:01:21,900 --> 00:01:23,820
+it kept showing new solar power
+
+30
+00:01:23,860 --> 00:01:25,620
+each year growing for a bit,
+
+31
+00:01:25,660 --> 00:01:27,460
+and then levelling off.
+
+32
+00:01:27,500 --> 00:01:30,990
+And every year, more solar got built than that.
+
+33
+00:01:31,100 --> 00:01:32,980
+They drew a flat line.
+
+34
+00:01:33,020 --> 00:01:34,870
+Reality bent upward.
+
+35
+00:01:35,260 --> 00:01:38,070
+So the next year they drew another flat line.
+
+36
+00:01:39,100 --> 00:01:41,380
+Solar runs on a loop.
+
+37
+00:01:41,420 --> 00:01:43,620
+Every time the world doubles the number of solar
+
+38
+00:01:43,660 --> 00:01:45,380
+panels it has ever made,
+
+39
+00:01:45,420 --> 00:01:47,830
+they get about 20% cheaper.
+
+40
+00:01:47,900 --> 00:01:50,070
+Cheaper panels mean more buyers.
+
+41
+00:01:50,300 --> 00:01:52,660
+More buyers mean more panels.
+
+42
+00:01:52,700 --> 00:01:55,350
+The result feeds its own cause.
+
+43
+00:01:55,420 --> 00:01:57,910
+That's what makes growth compound.
+
+44
+00:01:57,980 --> 00:02:00,180
+Since the seventies, the price of a solar
+
+45
+00:02:00,220 --> 00:02:03,590
+panel has fallen by more than 99%.
+
+46
+00:02:04,840 --> 00:02:07,360
+AI is running on loops like that.
+
+47
+00:02:07,400 --> 00:02:09,170
+Several of them, stacked.
+
+48
+00:02:09,560 --> 00:02:12,320
+The computing power used to train the leading AI
+
+49
+00:02:12,360 --> 00:02:14,320
+models has grown four to five
+
+50
+00:02:14,360 --> 00:02:16,720
+times a year since 2010.
+
+51
+00:02:16,760 --> 00:02:19,520
+Running them gets cheaper even faster.
+
+52
+00:02:19,560 --> 00:02:22,640
+On one test of PhD-level science questions,
+
+53
+00:02:22,680 --> 00:02:23,520
+the same quality
+
+54
+00:02:23,560 --> 00:02:25,360
+of answer has been getting about
+
+55
+00:02:25,400 --> 00:02:27,490
+forty times cheaper per year.
+
+56
+00:02:27,800 --> 00:02:30,360
+And the tasks AI can finish on its own,
+
+57
+00:02:30,400 --> 00:02:33,250
+at least half the time, keep getting longer.
+
+58
+00:02:33,320 --> 00:02:35,600
+Measured in how long they'd take a person,
+
+59
+00:02:35,640 --> 00:02:36,800
+that length has doubled
+
+60
+00:02:36,840 --> 00:02:38,880
+roughly every seven months.
+
+61
+00:02:38,920 --> 00:02:41,090
+Lately it may be speeding up.
+
+62
+00:02:42,340 --> 00:02:44,380
+So where's the turning point?
+
+63
+00:02:44,420 --> 00:02:46,430
+Where does the curve bend?
+
+64
+00:02:46,500 --> 00:02:49,260
+Draw any of these numbers on an ordinary chart,
+
+65
+00:02:49,300 --> 00:02:50,750
+and you get a hockey stick.
+
+66
+00:02:50,980 --> 00:02:53,390
+Flat for years, then straight up.
+
+67
+00:02:53,540 --> 00:02:54,670
+Right at the end.
+
+68
+00:02:55,060 --> 00:02:57,820
+Now cut the chart off five years earlier.
+
+69
+00:02:57,860 --> 00:02:58,860
+Same shape.
+
+70
+00:02:58,900 --> 00:02:59,980
+Same wall.
+
+71
+00:03:00,020 --> 00:03:01,390
+Right at the new end.
+
+72
+00:03:02,180 --> 00:03:03,660
+On a true exponential,
+
+73
+00:03:03,700 --> 00:03:05,740
+that bend isn't in the curve.
+
+74
+00:03:05,780 --> 00:03:07,100
+It's in the chart.
+
+75
+00:03:07,140 --> 00:03:10,030
+It shows up wherever you happen to cut it off.
+
+76
+00:03:10,100 --> 00:03:11,700
+Stand in 1990,
+
+77
+00:03:11,740 --> 00:03:13,820
+and everything behind you looks flat,
+
+78
+00:03:13,860 --> 00:03:16,460
+and the next few years look like a wall.
+
+79
+00:03:16,500 --> 00:03:17,950
+Stand in 2010.
+
+80
+00:03:18,100 --> 00:03:19,100
+Same thing.
+
+81
+00:03:19,220 --> 00:03:20,380
+Stand here.
+
+82
+00:03:20,420 --> 00:03:21,420
+Same thing.
+
+83
+00:03:21,620 --> 00:03:24,310
+Behind you, it always looks flat.
+
+84
+00:03:24,420 --> 00:03:27,070
+So everyone who lives on a curve like this
+
+85
+00:03:27,140 --> 00:03:29,340
+feels like they're at the turning point.
+
+86
+00:03:29,380 --> 00:03:31,300
+And that feeling, on its own,
+
+87
+00:03:31,340 --> 00:03:32,990
+tells you almost nothing.
+
+88
+00:03:33,900 --> 00:03:36,420
+What does tell you something is speed.
+
+89
+00:03:36,460 --> 00:03:38,220
+How fast is it doubling?
+
+90
+00:03:38,260 --> 00:03:41,230
+And how many doublings does it take us to react?
+
+91
+00:03:42,480 --> 00:03:44,730
+Now, the skeptics have a point.
+
+92
+00:03:44,960 --> 00:03:47,290
+No real curve doubles forever.
+
+93
+00:03:47,600 --> 00:03:49,800
+Bacteria run out of food.
+
+94
+00:03:49,840 --> 00:03:52,240
+Moore himself had to slow his line down,
+
+95
+00:03:52,280 --> 00:03:54,640
+to a doubling every two years.
+
+96
+00:03:54,680 --> 00:03:56,440
+AI could run short of fresh
+
+97
+00:03:56,480 --> 00:03:58,360
+human writing to learn from.
+
+98
+00:03:58,400 --> 00:04:01,080
+Researchers at Epoch AI think the supply
+
+99
+00:04:01,120 --> 00:04:05,080
+could be used up anytime between now and 2032.
+
+100
+00:04:05,120 --> 00:04:07,160
+Even solar is cooling off.
+
+101
+00:04:07,200 --> 00:04:08,720
+Global installations grew
+
+102
+00:04:08,760 --> 00:04:11,187
+by about a third in 2024,
+
+103
+00:04:11,227 --> 00:04:13,640
+and only about a tenth last year.
+
+104
+00:04:13,680 --> 00:04:15,720
+In nature, every exponential
+
+105
+00:04:15,760 --> 00:04:18,280
+turns into an S-curve eventually.
+
+106
+00:04:18,320 --> 00:04:20,703
+Nobody knows where the top of this one is.
+
+107
+00:04:21,680 --> 00:04:24,680
+The solar forecasters thought they knew, too.
+
+108
+00:04:24,720 --> 00:04:26,760
+And even a curve that's slowing down
+
+109
+00:04:26,800 --> 00:04:29,770
+can carry us a long way before it stops.
+
+110
+00:04:31,020 --> 00:04:32,310
+So try this.
+
+111
+00:04:32,700 --> 00:04:36,100
+Something in your life doubles every seven months.
+
+112
+00:04:36,140 --> 00:04:37,857
+When do you start getting ready?
+
+113
+00:04:38,940 --> 00:04:41,860
+Most of us would say, once it gets big.
+
+114
+00:04:41,900 --> 00:04:43,540
+But run it backwards.
+
+115
+00:04:43,580 --> 00:04:47,220
+Seven months before it's everywhere, it's at half.
+
+116
+00:04:47,260 --> 00:04:50,140
+Fourteen months before, a quarter.
+
+117
+00:04:50,180 --> 00:04:53,620
+About four years before, it's under 1%.
+
+118
+00:04:53,660 --> 00:04:54,977
+It looks like nothing.
+
+119
+00:04:56,020 --> 00:04:57,700
+So that's the fork.
+
+120
+00:04:57,740 --> 00:04:59,780
+Either we wait until it's obvious,
+
+121
+00:04:59,820 --> 00:05:02,150
+or we act on the doubling time.
+
+122
+00:05:03,400 --> 00:05:06,080
+Let's imagine it's 2035.
+
+123
+00:05:06,120 --> 00:05:07,330
+Just a scenario.
+
+124
+00:05:07,560 --> 00:05:11,210
+A student in Lahore sits at a desk by a window.
+
+125
+00:05:11,400 --> 00:05:13,760
+In one version, we waited.
+
+126
+00:05:13,800 --> 00:05:17,360
+Each new jump in AI arrived as a surprise.
+
+127
+00:05:17,400 --> 00:05:18,880
+The rules came later,
+
+128
+00:05:18,920 --> 00:05:21,730
+written for the world of two doublings ago.
+
+129
+00:05:21,800 --> 00:05:24,050
+Her school banned the new tools.
+
+130
+00:05:24,280 --> 00:05:26,160
+She picked them up two years late,
+
+131
+00:05:26,200 --> 00:05:27,850
+from a cousin's phone.
+
+132
+00:05:27,960 --> 00:05:29,280
+Nothing exploded.
+
+133
+00:05:29,320 --> 00:05:31,680
+We just kept being caught off guard,
+
+134
+00:05:31,720 --> 00:05:32,720
+and each surprise
+
+135
+00:05:32,760 --> 00:05:34,560
+landed hardest on whoever had
+
+136
+00:05:34,600 --> 00:05:36,317
+the least time to prepare.
+
+137
+00:05:37,200 --> 00:05:38,160
+Same desk.
+
+138
+00:05:38,200 --> 00:05:39,360
+Same year.
+
+139
+00:05:39,400 --> 00:05:40,530
+The other version.
+
+140
+00:05:41,080 --> 00:05:44,160
+She learns from an AI tutor on a cheap phone,
+
+141
+00:05:44,200 --> 00:05:47,120
+charged by a panel on her family's roof.
+
+142
+00:05:47,160 --> 00:05:49,760
+Her doctor's newest antibiotic was designed
+
+143
+00:05:49,800 --> 00:05:53,360
+with help from a map of proteins that an AI drew.
+
+144
+00:05:53,400 --> 00:05:55,013
+And when an AI model crossed
+
+145
+00:05:55,053 --> 00:05:57,040
+a danger line last spring,
+
+146
+00:05:57,080 --> 00:05:58,720
+its extra safeguards switched
+
+147
+00:05:58,760 --> 00:06:01,437
+on before anyone had to argue about it.
+
+148
+00:06:02,280 --> 00:06:04,210
+Look at what's the same in both.
+
+149
+00:06:04,520 --> 00:06:05,520
+Same chips.
+
+150
+00:06:05,560 --> 00:06:06,560
+Same curve.
+
+151
+00:06:06,600 --> 00:06:07,650
+Same speed.
+
+152
+00:06:07,880 --> 00:06:09,760
+The only thing that changed is when
+
+153
+00:06:09,800 --> 00:06:12,050
+people started paying attention.
+
+154
+00:06:14,000 --> 00:06:15,690
+So how do we get there?
+
+155
+00:06:16,000 --> 00:06:18,520
+Start with the cheapest fix there is.
+
+156
+00:06:18,560 --> 00:06:20,330
+Learn to read the curve.
+
+157
+00:06:20,800 --> 00:06:22,360
+In March 2020,
+
+158
+00:06:22,400 --> 00:06:25,160
+as the pandemic began, psychologists found
+
+159
+00:06:25,200 --> 00:06:26,920
+that most people pictured the virus
+
+160
+00:06:26,960 --> 00:06:29,050
+spreading in a straight line.
+
+161
+00:06:29,120 --> 00:06:30,680
+Then they walked some of them through
+
+162
+00:06:30,720 --> 00:06:33,530
+how doubling works, step by step.
+
+163
+00:06:33,600 --> 00:06:35,370
+Their guesses got better.
+
+164
+00:06:35,440 --> 00:06:36,760
+And they backed the measures
+
+165
+00:06:36,800 --> 00:06:39,130
+to slow the spread more strongly.
+
+166
+00:06:39,280 --> 00:06:40,520
+Back in the seventies,
+
+167
+00:06:40,560 --> 00:06:42,920
+a quick instruction barely helped.
+
+168
+00:06:42,960 --> 00:06:46,000
+Working through the doublings yourself seems to.
+
+169
+00:06:46,040 --> 00:06:48,400
+And knowing still isn't doing.
+
+170
+00:06:48,440 --> 00:06:50,600
+But it costs almost nothing.
+
+171
+00:06:50,640 --> 00:06:53,560
+So next time you hear a number about AI,
+
+172
+00:06:53,600 --> 00:06:55,160
+ask one question.
+
+173
+00:06:55,200 --> 00:06:57,290
+How long does it take to double?
+
+174
+00:06:58,340 --> 00:07:01,180
+But reading the curve doesn't stop anything.
+
+175
+00:07:01,220 --> 00:07:03,660
+For that you need brakes, and they should
+
+176
+00:07:03,700 --> 00:07:06,630
+be tied to the curve, not the calendar.
+
+177
+00:07:06,820 --> 00:07:10,140
+In 2024, sixteen AI companies met
+
+178
+00:07:10,180 --> 00:07:13,220
+in Seoul and signed voluntary commitments.
+
+179
+00:07:13,260 --> 00:07:14,620
+Each would publish its own
+
+180
+00:07:14,660 --> 00:07:16,460
+danger lines in advance.
+
+181
+00:07:16,500 --> 00:07:17,700
+And in the extreme,
+
+182
+00:07:17,740 --> 00:07:19,940
+if it couldn't keep a model's risks below
+
+183
+00:07:19,980 --> 00:07:21,740
+those lines, it wouldn't build
+
+184
+00:07:21,780 --> 00:07:24,140
+or release that model at all.
+
+185
+00:07:24,180 --> 00:07:25,980
+In May 2025,
+
+186
+00:07:26,020 --> 00:07:28,820
+Anthropic was about to release a new model.
+
+187
+00:07:28,860 --> 00:07:31,100
+For the first time, its tests couldn't
+
+188
+00:07:31,140 --> 00:07:32,700
+rule out that the model might give
+
+189
+00:07:32,740 --> 00:07:34,620
+real help to someone trying to build
+
+190
+00:07:34,660 --> 00:07:37,180
+a chemical or biological weapon.
+
+191
+00:07:37,220 --> 00:07:39,500
+It hadn't proven the line was crossed.
+
+192
+00:07:39,540 --> 00:07:41,820
+It just couldn't rule it out anymore.
+
+193
+00:07:41,860 --> 00:07:44,780
+So it launched with stricter safeguards anyway,
+
+194
+00:07:44,820 --> 00:07:46,340
+as a precaution.
+
+195
+00:07:46,380 --> 00:07:48,380
+A tripwire like that doesn't care
+
+196
+00:07:48,420 --> 00:07:50,460
+how fast the curve is moving.
+
+197
+00:07:50,500 --> 00:07:53,260
+It goes off when the measurement says so.
+
+198
+00:07:53,300 --> 00:07:54,780
+The catch is that the companies
+
+199
+00:07:54,820 --> 00:07:56,540
+mostly grade themselves,
+
+200
+00:07:56,580 --> 00:07:58,910
+and they can rewrite their own rules.
+
+201
+00:07:58,980 --> 00:08:01,500
+Anthropic did, early this year.
+
+202
+00:08:01,540 --> 00:08:03,180
+It dropped its promise to pause
+
+203
+00:08:03,220 --> 00:08:05,180
+if its safeguards weren't ready,
+
+204
+00:08:05,220 --> 00:08:08,590
+arguing that one lab can't hold the line alone.
+
+205
+00:08:08,660 --> 00:08:11,100
+Critics called it a broken promise.
+
+206
+00:08:11,140 --> 00:08:13,980
+Which is why we think tripwires belong in law,
+
+207
+00:08:14,020 --> 00:08:16,590
+tied to measurements instead of dates.
+
+208
+00:08:17,640 --> 00:08:20,530
+Brakes only tell the curve where not to go.
+
+209
+00:08:20,840 --> 00:08:22,450
+Where should it go?
+
+210
+00:08:22,680 --> 00:08:26,160
+For fifty years, working out how a protein folds
+
+211
+00:08:26,200 --> 00:08:29,570
+was one of biology's great unsolved problems.
+
+212
+00:08:29,640 --> 00:08:32,240
+Then an AI called AlphaFold
+
+213
+00:08:32,280 --> 00:08:34,000
+predicted the structures of virtually
+
+214
+00:08:34,040 --> 00:08:36,400
+all of the 200 million proteins
+
+215
+00:08:36,440 --> 00:08:38,160
+researchers know about.
+
+216
+00:08:38,200 --> 00:08:41,360
+Two of its makers shared a Nobel Prize for it.
+
+217
+00:08:41,400 --> 00:08:43,520
+More than 2 million people in a hundred
+
+218
+00:08:43,560 --> 00:08:46,050
+and ninety countries have used that map.
+
+219
+00:08:46,440 --> 00:08:48,240
+A map isn't a medicine.
+
+220
+00:08:48,280 --> 00:08:50,800
+Most of the slow work is still ahead.
+
+221
+00:08:50,840 --> 00:08:51,840
+But it's a good question
+
+222
+00:08:51,880 --> 00:08:54,210
+for any field, including yours.
+
+223
+00:08:54,520 --> 00:08:57,410
+Which problem is still waiting for its map?
+
+224
+00:08:58,460 --> 00:08:59,700
+And then there's the question
+
+225
+00:08:59,740 --> 00:09:02,180
+of who gets to ride the curve.
+
+226
+00:09:02,220 --> 00:09:03,670
+Remember the solar loop?
+
+227
+00:09:03,980 --> 00:09:07,060
+In 2024, Pakistan imported about
+
+228
+00:09:07,100 --> 00:09:09,620
+17 gigawatts of solar panels.
+
+229
+00:09:09,660 --> 00:09:11,940
+Twice as much as the year before.
+
+230
+00:09:11,980 --> 00:09:13,620
+Mostly for rooftops.
+
+231
+00:09:13,660 --> 00:09:15,620
+Shops, offices, families
+
+232
+00:09:15,660 --> 00:09:17,750
+escaping high power bills.
+
+233
+00:09:17,820 --> 00:09:19,780
+Nobody planned it from above.
+
+234
+00:09:19,820 --> 00:09:22,950
+Panels got cheap enough, and people did the math.
+
+235
+00:09:23,020 --> 00:09:24,220
+It's messy.
+
+236
+00:09:24,260 --> 00:09:26,860
+The national grid now sells less power,
+
+237
+00:09:26,900 --> 00:09:27,540
+and the government
+
+238
+00:09:27,580 --> 00:09:28,980
+has been rethinking the deal
+
+239
+00:09:29,020 --> 00:09:30,860
+it gives rooftop owners.
+
+240
+00:09:30,900 --> 00:09:32,940
+And a panel still needs a roof,
+
+241
+00:09:32,980 --> 00:09:34,780
+and the money to buy it.
+
+242
+00:09:34,820 --> 00:09:38,500
+AI is getting cheaper even faster than solar did.
+
+243
+00:09:38,540 --> 00:09:40,980
+Who gets it first, and on what terms,
+
+244
+00:09:41,020 --> 00:09:42,820
+hasn't been decided yet.
+
+245
+00:09:42,860 --> 00:09:45,110
+That part is still up to us.
+
+246
+00:09:46,860 --> 00:09:49,940
+Back to that desk in 1965.
+
+247
+00:09:49,980 --> 00:09:52,980
+Moore didn't see the future by guessing big.
+
+248
+00:09:53,020 --> 00:09:55,060
+He measured something carefully,
+
+249
+00:09:55,100 --> 00:09:57,830
+and then he took his own numbers seriously.
+
+250
+00:09:58,140 --> 00:09:59,700
+We can do the same.
+
+251
+00:09:59,740 --> 00:10:01,750
+Ask how fast it's doubling.
+
+252
+00:10:01,980 --> 00:10:03,780
+Try the tools in your own field
+
+253
+00:10:03,820 --> 00:10:05,620
+while it still looks early.
+
+254
+00:10:05,660 --> 00:10:07,460
+And ask the people who represent
+
+255
+00:10:07,500 --> 00:10:10,150
+you to turn the tripwires into law.
+
+256
+00:10:11,020 --> 00:10:14,020
+One day, from somewhere further up this curve,
+
+257
+00:10:14,060 --> 00:10:16,550
+everything behind us will look flat.
+
+258
+00:10:16,620 --> 00:10:18,510
+Today will look flat.
+
+259
+00:10:18,620 --> 00:10:19,780
+Let's make sure that what's
+
+260
+00:10:19,820 --> 00:10:22,470
+ahead is something we chose.
+
+261
+00:10:22,780 --> 00:10:24,260
+What's one thing you've watched
+
+262
+00:10:24,300 --> 00:10:26,740
+go from "never" to "everywhere"?
+
+263
+00:10:26,780 --> 00:10:28,230
+Tell me in the comments.
+

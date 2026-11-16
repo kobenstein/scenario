@@ -1,0 +1,74 @@
+Can superintelligence grow forever?
+Not smarter. Bigger. More chips. More power plants. More robots. For everyone.
+That's the promise. And it's being made out loud.
+[CLIP: Musk, Tesla shareholder meeting Nov 2025, ~8 s, about Optimus ending poverty / sustainable abundance]
+Tesla calls it sustainable abundance. No limit named.
+But there is a limit. Not money. Not politics. Physics.
+So here's the real question. What can grow forever, and what can't? And if something can't, does abundance come with an expiry date?
+In the next ten minutes: where the wall is, why the promise misses it, and what it would really take.
+First, the wall. Imagine our appetite for energy just keeps growing, a little every year. In about four hundred years, Earth's surface would be as hot as boiling water. Not from carbon. From waste heat alone. Even if every watt were clean.
+Four hundred years sounds safe. But one part of that curve is growing much faster than the rest. The part that feeds the machines.
+By twenty thirty, the International Energy Agency expects data centers to use about twice today's electricity.
+Now here's the strange part. Every question you ask is getting cheaper. Google says the energy behind its typical text prompt fell more than thirty-fold in a single year.
+So the total appetite should shrink. Right?
+It doesn't. Economists call this the Jevons paradox. When something gets more efficient, we often end up using more of it. A British economist first spotted it with coal and steam engines.
+Microsoft's chief executive, Satya Nadella, put it in four words. Jevons paradox strikes again.
+Now you might say: nobody is promising forever. But look at the plans. No ceiling. Just abundance.
+Breathtaking. But does physics agree?
+The physicist Tom Murphy ran a simple calculation. Let our appetite for energy grow by just over two percent a year. That sounds tiny. But it compounds, century after century.
+Keep that up for about four hundred years, and we'd need as much energy as all the sunlight that falls on Earth. And around that same time, the waste heat alone would bring the surface to a boil. That's the number you heard at the start.
+On the Kardashev scale, as it's usually told today, a type one civilization uses all the energy that reaches its planet. By that measure, we're not even type one yet.
+To be clear, this is a thought experiment, not a forecast. But it shows something real. Our appetite has a ceiling. And the promise you just heard doesn't mention one.
+Which brings us back to Tesla. Two months before that meeting, it published a new master plan. One of its principles reads: growth is infinite. Growth in one area, it says, doesn't have to mean decline in another. And shortages can be fixed with better technology.
+That's exactly what physics just put on trial. So let's test it. Fairly. Four questions.
+Question one. Where does the energy come from?
+At the November meeting, shareholders approved a new pay package for Musk. One of its goals: a million robots delivered within ten years. A million robots, plus the data centers behind them. That's a lot more electricity. And the plan puts no number on where that power comes from.
+One Bloomberg columnist said it wasn't really a plan at all. A huge promise, with no power bill attached.
+Question two. Where do the materials come from?
+Even with the mines already in the pipeline, the International Energy Agency expects the world to be short about a quarter of the copper it needs by twenty thirty-five. And copper isn't the only metal running short. Every robot, like every electric car, is built from them.
+Software scales. Metal doesn't.
+Question three. Is the planet only about carbon?
+This year's planetary health check found seven of nine planetary boundaries crossed. And all seven are getting worse. Fresh water. Land. Wildlife. Nitrogen.
+Clean power helps with some. Not all seven. Carbon is one dial. The planet has nine.
+Question four. Who is it for?
+In the benign scenario, as Musk calls it, everyone gets a universal high income. Benign for whom? Whoever owns the robots decides who shares in the abundance.
+Now, to be fair, part of this promise is real. Solar and batteries really are getting cheaper, fast. In twenty twenty-five alone, prices for the big battery packs that store power for the grid fell by around forty-five percent, according to BloombergNEF. And Tesla builds some of those batteries.
+So the goal is right. What's missing is the way.
+Which leaves us with a puzzle. If our appetite has a ceiling, is lasting abundance just a dream? Or have we been measuring the wrong thing?
+Here's the twist. Growth is not the same as appetite.
+Think about light. The economist William Nordhaus traced its price back to ancient Babylon. Back then, one hour of light as bright as a modern bulb cost about forty hours of work. A full working week. By the nineteen-nineties, it cost less than a second. Light became hundreds of thousands of times cheaper.
+And most of that didn't come from burning more fuel. It came from getting smarter. Lamps got about a thousand times better at turning fuel into light. And every hour of work produced far more.
+Yes, we then used vastly more light. Jevons again. But the light grew far faster than the fuel behind it. Intelligence can work the same way. Its value can grow far faster than the energy it takes.
+Between twenty fifteen and twenty eighteen, thirty-two countries grew their economies and cut the emissions they produced at home, at the same time. The researchers warn it can flip back. But it shows the two lines can separate. Worldwide, though, emissions are still near record highs, and the planet keeps warming. The lines can separate. They just haven't yet, where it counts.
+Superintelligence can grow forever in intelligence. It cannot grow forever in appetite. And that difference decides whether abundance lasts.
+One curve becomes two. Intelligence keeps climbing. Appetite bends.
+So picture the same world in twenty sixty. Two versions.
+In the first, superintelligence makes everything cheaper, so we make more of everything. More things. More mines. More land. One planetary limit after another gives way. The abundance burns bright, and then it fades. Call it the furnace.
+In the second, abundance flows where it costs the planet almost nothing. Knowledge. Health. Power from the sun. And where the planet is finite, in land, materials and wild places, we choose enough. Our lives grow richer while our appetite shrinks. Call it the ring.
+Same technology. Same intelligence. So which one are we building?
+Let's turn those four cards back over. This time, with answers. And one of them points to a number that changes the whole question.
+First card. Can clean power outrun the machines?
+It's already racing. In twenty twenty-five, renewables overtook coal in the world's electricity for the first time, according to Ember. Clean sources covered all of the growth.
+And data centers can be good neighbors. In a test in Phoenix, a cluster of artificial intelligence chips cut its power use by a quarter, for three hours, right when the grid was under the most strain. And every job still met its performance targets.
+So here's the rule. Data centers pay for their own clean power, and make room when your city needs it most.
+Second card. Can we stop digging?
+Not completely. But we can dig far less. Recycle what's already above ground. Put less metal into every device.
+And even today's models can help. Researchers at a US national laboratory, working with Microsoft, used artificial intelligence to search through millions of candidates. They found a battery material that may need far less lithium. It's still in the lab. But imagine that search running on every material you depend on.
+Then one rule makes the savings stick. Remember Jevons. Efficiency alone gets eaten up. So you need a ceiling.
+America once capped the sulfur from its power plants and let companies trade permits under the cap. The pollution fell sharply, at a fraction of the feared cost.
+Third card. Can something watch over a whole planet?
+Nearly every country on Earth has agreed to protect thirty percent of the world's land and sea by twenty thirty. A promise that big needs eyes.
+Imagine superintelligence as its watchman. Reading every satellite image, every day. Spotting a patch of forest cleared in a week. Or a fishing fleet where it shouldn't be.
+And now, that number.
+A decent life for around ten billion people could take less than forty percent of today's world energy.
+Less than half. For everyone. But only with two things together. Modern technology everywhere. And enough, instead of ever more.
+And enough doesn't mean a cave. Picture it for yourself. A warm home. Food on the table. Clean water from the tap. Electricity that never cuts out. Now picture that for everyone.
+So far, not a single country gets all its people there within the planet's limits. Which means the best version of this hasn't been built. By anyone.
+That's the ring. Abundance in knowledge, health and time. Enough in materials and land.
+And the last card. Who is it for? Abundance that only a few own isn't abundance at all. It lasts when all of us hold a share.
+So, can superintelligence grow forever?
+In what it knows, maybe. In what it takes, no.
+And that might be the best news of all. The wall was never in front of intelligence. Only in front of appetite.
+The furnace or the ring. The technology won't choose. We will.
+We don't need a bigger planet. We need a wiser way to live on this one. And for the first time, we might have the intelligence to find it.
+So tell us in the comments. What should superintelligence make abundant first?

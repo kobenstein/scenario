@@ -1,0 +1,393 @@
+{
+ "film": "AI Just Gave Disease a 10-Year Deadline (#54)",
+ "stand": "2026-11-12",
+ "hinweise": [
+  "Format nach schreibraum/clip-schritt.md. 'clips' = Empfehlung je Stelle (zählt für den Anteil), 'alternativen' = Ersatz/Reserve.",
+  "Zeitmarken Dwarkesh und WEF aus den Projekt-Transkripten (YouTube-Auto-Untertitel), ±1 s. Roadshow, Ramakrishnan und Lex nur UNGEFÄHR (Suchfenster) → Schnitt per Whisper. Den Ton konnten wir hier nicht laden (YouTube-Bot-Prüfung, nicht umgangen).",
+  "Jakobs Instagram-Ausschnitt = Roadshow-Schlusswort vom 10.11.2026 (C1). Original von ipo.anthropic.com/NetRoadshow ziehen; Re-Uploads (eynv5VR9qos u. a.) nur zum Sichten.",
+  "Pro Quelle ≤ 20 s und ≤ 2 Clips: Roadshow C1 + C1b ≈ 16 s; Dwarkesh C3 + C2 ≈ 18 s.",
+  "Abstände bei Empfehlung: C1 ~0:27 · C3 ~1:40 · C5 ~7:10 · C2 ~8:00 · C1b ~8:55 → je ≥ 45 s eigener Film (C5 → C2 knapp, beim Schnitt prüfen).",
+  "Jeder Clip braucht einen Einordnungssatz (Feld 'einordnung', Vorschlag englisch).",
+  "Rot (nur Zitatkarte): CBS-Langinterview (hQR_VJF6ukk), CNBC, Bloomberg TV, Fox Business, Yahoo-Finance-Short (z271lh2ZxeU, nur Sichtung des Wortlauts).",
+  "In früheren Filmen schon verwendet, nicht nochmal: Dwarkesh 00:49:08–00:49:13 ('starting gun … cure all the diseases', #4).",
+  "Clips ohne genaue Zeitmarke haben in/out = null und ein 'suchfenster'; dauer_s ist die geplante Schnittlänge. clip_check.py erst nach dem Whisper-Schnitt laufen lassen.",
+  "Musik-Regel: Läuft unter dem Roadshow-Schlusswort Musik, sind C1/C1b rot (nur Zitatkarte). Dann Hook ohne Clip: Zitatkarte + Sprecher."
+ ],
+ "anteil": {
+  "summe_empfehlung_s": 39.0,
+  "laufzeit_annahme_s": 630,
+  "prozent": 6.2,
+  "ziel_prozent": 8,
+  "hart_prozent": 10
+ },
+ "clips": [
+  {
+   "id": "C1",
+   "kandidat": "Empfehlung (Hook- und Kernclip, Jakobs Instagram-Ausschnitt)",
+   "speaker": "Dario Amodei",
+   "role": "CEO und Mitgründer, Anthropic",
+   "source_title": "Anthropic IPO Roadshow Video (retail roadshow), Schlusswort",
+   "channel": "Anthropic (ipo.anthropic.com, Rubrik 'Roadshow video', gehostet über NetRoadshow); nicht auf Anthropics YouTube-Kanal",
+   "url": "https://ipo.anthropic.com/us",
+   "url_sichten": "https://www.youtube.com/watch?v=eynv5VR9qos (Re-Upload bunaul, 42:44; weitere: sQCZJixZ2Zs, sI9wd-XcugQ)",
+   "date": "2026-11-10",
+   "in": "00:40:34.000",
+   "out": "00:40:42.000",
+   "dauer_s": 8.0,
+   "zeit_genauigkeit": "SCHÄTZUNG um ~40:38 (zwei Sekundärquellen: cellcog-Blog; Quellenliste des Shorts nrCj4xVriFE). Per Whisper im Suchfenster genau setzen.",
+   "transcript": "You know, if today we look at things like cancer, Alzheimer's, heart disease, mental illness, these will be relics of the past in, I think, less than a decade.",
+   "transcript_quelle": "Sekundär (Business Insider 11.11.2026, Fireside Alpha; Yahoo Finance sinngemäß). Am Ton prüfen.",
+   "ampel": "grün/gelb",
+   "ampel_grund": "Offizielles Anthropic-Material (Börsengang-Video, öffentlich), aber nicht auf Anthropics YouTube-Kanal; Bezug vom Original, nicht vom Re-Upload. Kurz und kommentiert.",
+   "slot": "Hook ~0:27–0:35 (Clip zeigt das Ereignis selbst, §4). Bauchbinde 'Dario Amodei · CEO, Anthropic · Nov 10, 2026'. Kürzeste Fassung ab 'cancer, Alzheimer's …' (~6 s).",
+   "einordnung": "Hook: Bauchbinde statt Satz. Danach in Station 1: \"That was Dario Amodei. He runs Anthropic, one of the biggest AI labs, and it was the last line of the video made to sell the company's shares to the public.\"",
+   "burned": false,
+   "untertitel": "keine; Whisper nötig",
+   "musik": "unbekannt. ACHTUNG (clip-schritt.md): Clip mit Musik im Hintergrund = ROT, nur Zitatkarte. Unter Roadshow-Schlussworten liegt oft ein Musikbett → zuerst am Ton prüfen. Falls Musik: kein Clip, sondern Zitatkarte (Wortlaut eingeblendet, Sprecher liest nicht vor).",
+   "kontext_vorher_30s": "unbekannt. Laut Sekundärquellen: Darios Schlusswort ('concluding pitch') nach Kunden-Statements (BMS, Accenture) und Teilen über Risiken.",
+   "kontext_nachher_30s": "laut Sekundärquellen: 'I think if we do this right, we can create an age of miracles where humanity is able to solve problems that have eluded us for millennia.' Danach etwa 'I believe that the company which gets the risks right …' (abgeschnitten).",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "MUSIK unter dem Satz? Dann Ampel rot → Zitatkarte statt Clip (Hook trägt dann die Karte + Sprecher).",
+    "Original-Video beschaffen (ipo.anthropic.com/us bzw. NetRoadshow; hier blockiert). Re-Uploads nur zum Sichten.",
+    "Wortlaut, Zeitmarke, Reihenfolge zu C1b per Whisper; 'I think' an der Stelle prüfen.",
+    "Nutzungsbedingungen der Roadshow-Seite lesen (Hinweise zu Weiterverbreitung); Fair Use: kurz, kommentiert, Kern des Films ist die Prüfung.",
+    "Musikbett? Dann Schnitt so legen, dass keine Musik dominiert.",
+    "Fair-Use-Frage 2: Der Satz ist der meistzitierte Moment des Videos, aber nicht der Kern der 42-Min-Präsentation (Geschäft, Risiken). Kurz halten (≤8 s)."
+   ],
+   "suchfenster": "00:40:20–00:41:00"
+  },
+  {
+   "id": "C3",
+   "kandidat": "Empfehlung",
+   "speaker": "Dario Amodei",
+   "role": "CEO und Mitgründer, Anthropic",
+   "source_title": "Dario Amodei — \"We are near the end of the exponential\"",
+   "channel": "Dwarkesh Patel",
+   "url": "https://www.youtube.com/watch?v=n1E9IZfvGMA",
+   "date": "2026-02-13",
+   "in": "00:54:24.000",
+   "out": "00:54:32.000",
+   "dauer_s": 8.0,
+   "zeit_genauigkeit": "aus Auto-Untertiteln (Projektdatei recherche/transkripte/n1E9IZfvGMA_dwarkesh-amodei-2026-02.txt), ±1 s",
+   "transcript": "I make exactly that point in \"Machines of Loving Grace\", I say the clinical trials are going to go much faster than we're used to, but not infinitely fast.",
+   "ampel": "gelb",
+   "slot": "Station 1 'Das Versprechen, fair' ~1:40, nach Darios stärkstem Argument (Studien langsam, weil Mittel kaum wirken).",
+   "einordnung": "Earlier this year, on a podcast, he put his own limit on it.",
+   "burned": false,
+   "untertitel": "automatisch (YouTube), Projekt-Transkript",
+   "musik": "keine (Podcast)",
+   "kontext_vorher_30s": "[Dwarkesh:] … Let's say JPMorgan or Moderna or whatever doesn't want to use them. I've got a country of geniuses. They'll start their own company. If they can't start their own company and they're bottlenecked by clinical trials… [vermutlich Dario:] It is worth stating that with clinical trials, most clinical trials fail because the drug doesn't work. There's not efficacy.",
+   "kontext_nachher_30s": "[Dwarkesh:] Okay, and then suppose it takes a year for the clinical trials to work out so that you're getting revenue from that and can make more drugs. Okay, well, you've got a country of geniuses and you're an AI lab. You could use many more AI researchers …",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Sprecherwechsel am Ton prüfen (Dwarkesh/Dario fließen im Transkript ineinander).",
+    "Längere Fassung ab 00:54:19 ('It is worth stating …') nur, wenn sicher Dario spricht; dann ~13 s, Summe Dwarkesh beachten.",
+    "Content-ID: Dwarkesh-Kanal, gelb."
+   ]
+  },
+  {
+   "id": "C5",
+   "kandidat": "Empfehlung (Gegenstimme)",
+   "speaker": "Venki Ramakrishnan",
+   "role": "Molekularbiologe, Nobelpreis für Chemie 2009",
+   "source_title": "Nobel Prize Winner: AI's Impact On Drug Discovery And Biology | Venki Ramakrishnan",
+   "channel": "Ryan Peterman",
+   "url": "https://www.youtube.com/watch?v=-1q0zA21AkY",
+   "date": "2026-11-09",
+   "in": null,
+   "out": null,
+   "dauer_s": 5.0,
+   "zeit_genauigkeit": "UNBEKANNT: Satz aus der Videobeschreibung; vermutlich in Kapitel 04:54 oder 07:02. Per Whisper finden, Schnitt ~5 s.",
+   "transcript": "The experimental part [of drug discovery] is always going to be the bottleneck.",
+   "transcript_quelle": "Videobeschreibung (Kanal zitiert ihn); Wortlaut am Ton prüfen, die Klammer ist ein Einschub des Kanals.",
+   "ampel": "gelb",
+   "slot": "Station 6 'Der Pitch und sein Test' ~7:10, nach Topol und Lilly-Chef.",
+   "einordnung": "A Nobel Prize-winning biologist, asked about AI and drugs just this week:",
+   "burned": false,
+   "untertitel": "unbekannt (Whisper)",
+   "musik": "unbekannt (Interview, vermutlich keine)",
+   "kontext_vorher_30s": "unbekannt",
+   "kontext_nachher_30s": "unbekannt",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Stelle per Whisper suchen.",
+    "Sinn im Kontext prüfen (meint er Tempo oder Kosten?).",
+    "Kanal klein (116k Abos), Content-ID unwahrscheinlich."
+   ],
+   "suchfenster": "00:04:54–00:10:35"
+  },
+  {
+   "id": "C2",
+   "kandidat": "Empfehlung",
+   "speaker": "Dario Amodei",
+   "role": "CEO und Mitgründer, Anthropic",
+   "source_title": "Dario Amodei — \"We are near the end of the exponential\"",
+   "channel": "Dwarkesh Patel",
+   "url": "https://www.youtube.com/watch?v=n1E9IZfvGMA",
+   "date": "2026-02-13",
+   "in": "01:42:37.000",
+   "out": "01:42:48.000",
+   "dauer_s": 10.0,
+   "zeit_genauigkeit": "aus Auto-Untertiteln (Projekt-Transkript), ±1 s",
+   "transcript": "…AI models are going to greatly accelerate the rate at which we discover drugs, and the pipeline will get jammed up.",
+   "transcript_lang": "I actually worry more about the drug approval process, where I think AI models are going to greatly accelerate the rate at which we discover drugs, and the pipeline will get jammed up. The pipeline will not be prepared to process all the stuff that's going through it. (01:42:33–01:42:50, 17 s)",
+   "ampel": "gelb",
+   "slot": "Station 6 ~8:00, als Wendung: Er sieht den Engpass selbst. Danach Tafel komplett ✓ ½ ? ✗.",
+   "einordnung": "And he sees the jam himself. Earlier this year, on the same podcast, he said:",
+   "burned": false,
+   "untertitel": "automatisch (YouTube), Projekt-Transkript",
+   "musik": "keine (Podcast)",
+   "kontext_vorher_30s": "My basic view is that if we could decide what laws were passed and how things were done—and we're only one small input into that—I would deregulate a lot of the stuff around the health benefits of AI. I don't worry as much about the chatbot laws. I actually worry more about the drug approval",
+   "kontext_nachher_30s": "all the stuff that's going through it. I think reform of the regulatory process should bias more towards the fact that we have a lot of things coming where the safety and efficacy is actually going to be really crisp and clear, a beautiful thing, and really effective. Maybe we don't need all this superstructure around it that was designed around an era of drugs that",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Summe Dwarkesh: C3 8 s + C2 10 s = 18 s ≤ 20 s.",
+    "Kontext 'deregulate' fair einordnen: er fordert zugleich mehr Sicherheitsgesetze für KI (01:43:21)."
+   ]
+  },
+  {
+   "id": "C1b",
+   "kandidat": "Empfehlung (Lösungsteil, gleiche Quelle wie C1)",
+   "speaker": "Dario Amodei",
+   "role": "CEO und Mitgründer, Anthropic",
+   "source_title": "Anthropic IPO Roadshow Video (retail roadshow), Schlusswort",
+   "channel": "Anthropic (ipo.anthropic.com / NetRoadshow)",
+   "url": "https://ipo.anthropic.com/us",
+   "url_sichten": "https://www.youtube.com/watch?v=eynv5VR9qos",
+   "date": "2026-11-10",
+   "in": null,
+   "out": null,
+   "dauer_s": 8.0,
+   "zeit_genauigkeit": "UNBEKANNT: direkt vor oder nach C1. Per Whisper im Suchfenster finden.",
+   "transcript": "I think if we do this right, we can create an age of miracles where humanity is able to solve problems that have eluded us for millennia.",
+   "transcript_quelle": "Sekundär (Yahoo Finance: 'age of miracles'; andere: 'era of miracles'). Am Ton prüfen.",
+   "ampel": "grün/gelb",
+   "slot": "Station 7 (Lösung) ~8:55: Seine eigene Bedingung 'if we do this right' wird zur Frage, was 'right' beim zweiten Datum heißt.",
+   "einordnung": "In the same video, he added a condition:",
+   "burned": false,
+   "untertitel": "keine; Whisper nötig",
+   "musik": "unbekannt → wie C1: mit Musik = rot",
+   "kontext_vorher_30s": "siehe C1",
+   "kontext_nachher_30s": "laut Sekundärquelle etwa 'I believe that the company which gets the risks right …'",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Summe Roadshow: C1 8 s + C1b 8 s = 16 s ≤ 20 s, 2 Clips.",
+    "Kürzeste Fassung nur 'if we do this right, we can create an age of miracles' (~4 s)."
+   ],
+   "suchfenster": "00:40:20–00:41:30"
+  }
+ ],
+ "alternativen": [
+  {
+   "id": "C4",
+   "kandidat": "Alternative zu C3 (Station 1)",
+   "speaker": "Dario Amodei",
+   "role": "CEO, Anthropic",
+   "source_title": "The Day After AGI | World Economic Forum Annual Meeting 2026",
+   "channel": "World Economic Forum",
+   "url": "https://www.youtube.com/watch?v=NnVW9epLlTM",
+   "date": "2026-01-20",
+   "in": "00:10:11.000",
+   "out": "00:10:20.000",
+   "dauer_s": 9.0,
+   "transcript": "it will do all these wonderful things like the ones I talked about in Machines of Loving Grace. It, you know, will help us cure cancer. It may help us to eradicate tropical diseases.",
+   "ampel": "gelb",
+   "slot": "Station 1 statt C3, wenn das Versprechen statt der Grenze gezeigt werden soll.",
+   "einordnung": "In Davos this January, he said it like this:",
+   "burned": false,
+   "untertitel": "automatisch (Projekt-Transkript)",
+   "musik": "keine",
+   "kontext_vorher_30s": "my take my take has not changed. It has always been my view that, you know, AI is going to be incredibly powerful. I think Demis and I, you know, kind of agree on that. It's just a question of exactly when um uh and because it's incredibly powerful,",
+   "kontext_nachher_30s": "It will help us understand the universe. but that there are these, you know, immense and grave risks that, you know, not that we can't address them. I'm not a doomer …",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "In #4 als Reserve notiert, nicht verwendet → frei."
+   ]
+  },
+  {
+   "id": "C2b",
+   "kandidat": "Alternative zu C1b (Station 7), gleiche Quelle wie C2/C3",
+   "speaker": "Dario Amodei",
+   "role": "CEO, Anthropic",
+   "source_title": "Dario Amodei — \"We are near the end of the exponential\"",
+   "channel": "Dwarkesh Patel",
+   "url": "https://www.youtube.com/watch?v=n1E9IZfvGMA",
+   "date": "2026-02-13",
+   "in": "01:43:12.000",
+   "out": "01:43:21.000",
+   "dauer_s": 9.0,
+   "transcript": "Maybe we don't need all this superstructure around it that was designed around an era of drugs that barely work and often have serious side effects.",
+   "ampel": "gelb",
+   "slot": "Station 7 (Zulassung im Takt). Nur wenn C3 entfällt (sonst Dwarkesh > 20 s).",
+   "einordnung": "His own proposal for the slow part:",
+   "burned": false,
+   "untertitel": "automatisch (Projekt-Transkript)",
+   "musik": "keine",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Fair einordnen: Tempo nur für Mittel mit klarer Wirkung; Herz-Station zeigt, warum Sicherheit Zeit braucht."
+   ]
+  },
+  {
+   "id": "C6",
+   "kandidat": "Reserve (Lösung)",
+   "speaker": "Dario Amodei",
+   "role": "CEO, Anthropic",
+   "source_title": "Dario Amodei: Anthropic CEO on Claude, AGI & the Future of AI & Humanity | Lex Fridman Podcast #452",
+   "channel": "Lex Fridman",
+   "url": "https://www.youtube.com/watch?v=ugvHCXCOmm4",
+   "date": "2024-11-11",
+   "in": null,
+   "out": null,
+   "dauer_s": 5.0,
+   "zeit_genauigkeit": "UNGEFÄHR (Suchfenster aus audioscrape-Segmenten 8901–9130 s); per Whisper",
+   "transcript": "we'll want to harness the AI systems to improve the clinical trial system as well",
+   "ampel": "gelb",
+   "slot": "Station 7, falls C1b entfällt.",
+   "einordnung": "Two years ago he already said where AI would have to help next:",
+   "burned": false,
+   "untertitel": "unbekannt",
+   "musik": "keine",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Wortlaut und Stelle per Whisper."
+   ],
+   "suchfenster": "02:28:00–02:33:00"
+  },
+  {
+   "id": "C7",
+   "kandidat": "Reserve Gegenstimme (Herz-Station oder Station 6)",
+   "speaker": "David Ricks",
+   "role": "CEO, Eli Lilly",
+   "source_title": "NVIDIA & Lilly: The AI Revolution in Drug Discovery | Jensen Huang & David Ricks (alternativ: Plain English mit Derek Thompson, c_h1k906pJ0, 24.2.2026)",
+   "channel": "NVIDIA",
+   "url": "https://www.youtube.com/watch?v=zbiEYMapsvw",
+   "date": "2026-02-02",
+   "in": null,
+   "out": null,
+   "dauer_s": null,
+   "transcript": "offen: Stelle zu 'Biologie ist schwer / Studien sind der Engpass' per Whisper suchen",
+   "ampel": "grün (offizieller NVIDIA-Kanal, laut clip-schritt.md grün) bzw. gelb (Plain English, Podcast)",
+   "slot": "Station 6, falls Ramakrishnan nicht passt.",
+   "einordnung": "The head of one of the world's biggest drugmakers:",
+   "burned": false,
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Ricks' X-Antwort zum Roadshow-Satz (11./12.11.) nur als Zitatkarte, wenn der Wortlaut geprüft ist."
+   ]
+  },
+  {
+   "id": "C8",
+   "kandidat": "Reserve (nicht empfohlen, Kanal)",
+   "speaker": "Dario Amodei",
+   "role": "CEO, Anthropic",
+   "source_title": "AI Will Surpass Human Intelligence In 'Few Years': Dario Amodei | India AI Impact Summit 2026",
+   "channel": "Business Today",
+   "url": "https://www.youtube.com/watch?v=Izm_Xuo6oGQ",
+   "date": "2026-02-19",
+   "in": "00:01:32.000",
+   "out": "00:01:43.000",
+   "dauer_s": 11.0,
+   "transcript": "On the positive side, we have the potential to cure diseases that have been incurable for thousands of years, to radically improve humans health",
+   "ampel": "rot/gelb (Nachrichtenmedium); nur wenn eine offizielle Gipfel-Fassung gefunden wird",
+   "slot": "—",
+   "burned": false,
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Offiziellen Gipfel-Kanal suchen."
+   ]
+  },
+  {
+   "id": "B1",
+   "kandidat": "Bild-Beleg, kein Interview-Clip",
+   "speaker": "—",
+   "role": "—",
+   "source_title": "Claude Mythos 5.2 predicts the structure of a therapy capsid",
+   "channel": "Claude (offiziell)",
+   "url": "https://www.youtube.com/watch?v=FMbXUxn_nBw",
+   "date": "2026-11-09",
+   "in": null,
+   "out": null,
+   "dauer_s": null,
+   "transcript": "(Produktvideo, 58 s)",
+   "ampel": "grün",
+   "slot": "Station 2 (Labor-Tempo), nur wenn nötig; eigene Animation ist besser (§1.10: keine Offenlegung 'Claude ist von Anthropic').",
+   "burned": false
+  },
+  {
+   "id": "B2",
+   "kandidat": "Bild-Beleg, kein Interview-Clip",
+   "speaker": "Anthropic-Forscher",
+   "role": "—",
+   "source_title": "Inside Anthropic's molecular biology lab",
+   "channel": "Anthropic (offiziell)",
+   "url": "https://www.youtube.com/watch?v=DdCEmlAydcw",
+   "date": "2026-09-23",
+   "in": null,
+   "out": null,
+   "dauer_s": null,
+   "transcript": "offen (1:16, Whisper)",
+   "ampel": "grün",
+   "slot": "Station 2, optional.",
+   "burned": false
+  }
+ ],
+ "offen": [
+  "Roadshow-Original beschaffen (ipo.anthropic.com in dieser Sitzung blockiert), Whisper über 40:00–41:30: Wortlaut, Reihenfolge C1/C1b, 'age' vs. 'era', Musikbett.",
+  "Ramakrishnan: Fundstelle per Whisper (Kapitel 04:54–10:35).",
+  "Lex #452: Stelle 'harness the AI systems to improve the clinical trial system' per Whisper (nur Reserve).",
+  "Ricks: Clip-Stelle offen; X-Antwort zum Roadshow-Satz nur als Zitatkarte nach Prüfung.",
+  "clip_check.py nach dem Schnitt laufen lassen (Anteil, Abstände, pro Quelle)."
+ ]
+}

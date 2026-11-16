@@ -1,0 +1,127 @@
+## HOOK
+In April, nineteen sixty-five, a chemist named Gordon Moore drew a line through a handful of dots.
+Each dot was a year. And how many parts engineers could squeeze onto a single chip.
+That number had been doubling. Every year.
+So Moore did something a little bold. He kept the line going, ten more years.
+[pause]
+It kept going for sixty.
+Today, one chip holds over two hundred billion of those parts. Chips like that are why the AI you talk to exists at all.
+[pause]
+And curves like his have a strange property.
+Wherever you stand on one, everything behind you looks flat.
+And everything ahead looks like a wall.
+[pause]
+So if we were standing at the steep part right now, would we even notice?
+
+## MISCONCEPTION
+Most of us picture progress as a ramp. A little better every year.
+That's how our brains are wired.
+In the seventies, researchers asked people to guess where a doubling process would end up. Almost everyone guessed far too low. Often by a factor of ten or more.
+Psychologists now call this exponential growth bias.
+And it doesn't only fool ordinary people.
+
+## SOLAR
+Every year, the International Energy Agency publishes its big outlook. Governments plan around it.
+For more than a decade, it kept predicting that solar power would grow for a while, and then level off.
+And every year, solar grew faster than they said.
+They drew a flat line. Reality bent upward. So the next year they drew another flat line.
+[pause]
+The engine behind it is simple.
+Every time the world doubles the number of solar panels it has built, they get about twenty percent cheaper.
+Cheaper panels mean more buyers. More buyers mean more panels.
+The result feeds its own cause. That's what makes a curve bend.
+Since twenty ten, the price of a solar panel has dropped by about ninety percent.
+
+## AI LOOPS
+AI is running on loops like that. Several of them, stacked.
+The computing power used to train the leading AI models has grown about four to five times every year, for over a decade.
+The cost of getting the same answer out of an AI falls even faster. For some tasks, it's dropped about fifty-fold in a single year.
+And the length of the tasks AI can finish on its own has been doubling about every seven months.
+And there's a newer loop, too. AI is now writing a lot of the code for the next AI.
+
+## NO KNEE
+So, where's the turning point? Where does the curve bend?
+Draw any of these numbers on an ordinary chart and you'll see a hockey stick. Flat for years, then up like a wall. Right at the end.
+Now cut the chart off five years earlier. Same shape. Same wall. Right at the new end.
+[pause]
+On a true exponential, there is no bend. Every point is the same kind of point.
+The steep part is always now. Behind you, it always looks flat.
+[softly] Which is why every generation on a curve like this feels like it's living at the turning point.
+In a way, they all are.
+[pause]
+So the feeling that something enormous is happening isn't just hype. It's what standing on this curve feels like.
+The better question is a plainer one. How fast is it doubling? And how fast are we?
+
+## STEELMAN
+Now, the skeptics have a fair point.
+In the real world, no curve doubles forever. Bacteria run out of food. Chips run into atoms. Moore's own law has slowed down.
+AI could run short of fresh data, or power, or money. Some researchers think that's already starting.
+Every exponential in nature turns into an S-curve eventually. Nobody knows where the top of this one is.
+[pause]
+But the solar forecasters were sure about the top, too.
+And even a curve that's slowing down can carry us a long way before it stops.
+
+## FORK
+So try this. Pause for a second.
+Something in your life is doubling every seven months. When do you start getting ready?
+[pause]
+Most people say: once it gets big.
+But on a doubling curve, the step before "everywhere" is "half of everywhere". And the step before that looks small.
+That's the real fork. Not whether the curve keeps rising. What we do while it still looks flat.
+
+## ENDING A
+Let's imagine it's twenty thirty-five. A desk by a window. Just a scenario.
+In one version, we kept drawing flat lines.
+Each new jump in AI arrived as a surprise. Rules came later, written for the world of two doublings ago.
+Nothing exploded. We just kept being caught off guard, and every surprise landed hardest on whoever had the least time to prepare.
+
+## ENDING B
+Same desk. Same year. Other version.
+A student in Lahore runs an AI tutor on a phone that cost less than a pair of shoes, charged by a panel on her family's roof.
+Her doctor's antibiotic was designed with help from a protein map that took a computer minutes instead of a lab years.
+When an AI model crossed a danger line last spring, its safeguards switched on before anyone had to argue about it.
+[pause]
+And this is the strange part.
+The good ending runs on the same curve. It's just pointed somewhere else.
+
+## HOW 1 READ IT
+So how do we get there? Four things, and every one of them has already started.
+The first one is almost embarrassingly simple. Learn to read the curve.
+In twenty twenty, in the first weeks of the pandemic, psychologists showed people how doubling actually works. Just a short explanation.
+Those people judged the spread far more accurately. And they were more willing to support measures that slowed it down.
+It's not a cure. Knowing isn't the same as doing. But it's a start that costs almost nothing.
+Next time you hear a number about AI, ask one question. How long does it take to double?
+
+## HOW 2 TRIPWIRES
+The second: tie the brakes to the curve, not the calendar.
+In twenty twenty-four, sixteen AI companies promised in Seoul to set clear danger lines in advance. If a model crosses one, extra protections come first, or it doesn't ship.
+In May twenty twenty-five, one of those lines was hit for the first time. Anthropic couldn't rule out that its new model might help someone build a biological weapon. So it switched on stricter safeguards before release.
+A tripwire doesn't care how fast the curve is moving. It fires when the measurement says so.
+The weak spot is that the companies mostly grade themselves, and a promise isn't a law. That's the part governments still have to build.
+
+## HOW 3 POINT IT
+The third: point the curve at the things we need most.
+For fifty years, figuring out the shape of a protein could take a lab years of work.
+Then an AI called AlphaFold predicted the shapes of over two hundred million of them. Its makers shared a Nobel Prize for it.
+Millions of researchers in nearly every country have used that map, for malaria vaccines, for enzymes that break down plastic.
+A map isn't a medicine. Most of the slow work is still ahead. But this is what the curve looks like when it's working for us.
+
+## HOW 4 EVERYONE
+And the fourth: make sure everyone gets to ride it.
+Remember the solar curve? In twenty twenty-four, Pakistan imported about seventeen gigawatts of solar panels. Mostly not for big power plants. For rooftops. Shops, farms, families.
+Nobody planned it from above. Panels got cheap enough, and millions of people simply did the math.
+It's messy. The grid company lost customers, and the people without roofs or savings got left behind.
+But it shows what happens when a curve makes something cheap. The real question becomes who gets access.
+AI is getting cheaper even faster than solar did. Open tools, public computing power, schools that teach with it. That's where the fairness of this curve gets decided.
+
+## YOUR PART
+Back to that desk in nineteen sixty-five.
+Moore didn't predict the future by guessing big. He measured something carefully, and then he took his own numbers seriously.
+We can do the same.
+Ask how fast it's doubling. Try the tools in your own field, while it still looks early. And ask the people who represent you for tripwires that are law, not promises.
+[pause]
+One day, from somewhere further up this curve, everything behind us will look flat.
+Today will look flat.
+[softly] Let's make sure that what's ahead is something we chose.
+[pause]
+What's one thing you've watched go from "never" to "everywhere"? Tell me in the comments.

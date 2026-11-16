@@ -1,0 +1,99 @@
+[calm, conversational] Artificial intelligence just gave disease a ten-year deadline.
+Think of the last time a doctor sat down with someone you love and said a word like cancer.
+Or Alzheimer's. Heart disease. Depression.
+Now picture your grandkids hearing those words the way you hear the word plague. Something from a history book.
+So which of these could really be history by the deadline?
+The machines can find cures faster. They can't rush the human body.
+Every cure has two dates. The day it's found. And the day it's proven.
+And for each of these diseases, the body gives its answer at its own speed. The fastest, in weeks. The slowest, only after decades.
+That deadline comes from Dario Amodei. In his words:
+[ZITATKARTE C1]
+"Cancer, Alzheimer's, heart disease, mental illness, these will be relics of the past in, I think, less than a decade."
+He runs Anthropic, among the biggest artificial intelligence labs, and he said it in the video made to sell its shares.
+This isn't about whether to buy the stock.
+He didn't invent it for investors. Years ago, he wrote the same bet into an essay called Machines of Loving Grace. With small print.
+And his reasoning is better than it sounds. Trials are slow, he argues, largely because most drugs barely work.
+When something works really well, the proof comes fast.
+Earlier this year, on a podcast, he made the same point, and set his own limit.
+[CLIP C3]
+So even in his view, proof takes time.
+Less than a decade: that's by twenty thirty-six. Four diseases, and one question for each. When a medicine really works, how fast does the body say so?
+The fastest clear answer comes from cancer.
+
+[curious] In the lab, the day a cure is found is already getting closer.
+Doctors can rebuild a patient's own immune cells to hunt cancer, with a receptor that works like a hook.
+Artificial intelligence now helps redesign those hooks. One new design already works better.
+All still in the lab.
+Then the body answers. And a tumor answers fast: on a scan, within weeks, it shrinks or it doesn't.
+That's how one pill won approval with just fifty-five patients, spread across many different cancers. Most of them responded.
+But cancer isn't one disease. It's more than a hundred, and they fight back.
+His own essay said so: the end of most cancer, not all. Some rare, difficult cancers may persist.
+The line in the sales video just says: cancer.
+So cancer, by the deadline: for many kinds, the proof can come in time. Not for every kind.
+But is a fast answer always the whole answer?
+
+[thoughtful] Heart disease answers twice.
+First, the blood. In a recent trial, people got a single infusion that switched off a gene in the liver.
+At the highest dose, weeks later, their bad cholesterol was cut roughly in half.
+One treatment, meant to last a lifetime.
+But a change to your DNA is for life. So regulators ask to follow patients for up to fifteen years.
+And whether the heart attacks really stay away takes a stadium full of people, followed for years.
+So heart disease, by the deadline: only halfway. The tool can be ready in time. The proof that it's safe for a lifetime can't.
+
+[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. In the lab, and at the hospital bed, for your parents, and one day for you. Want that too? Then subscribe.
+
+[thoughtful] The third disease answers fast. The problem is hearing the answer.
+Take depression, one part of mental illness. A trial runs for weeks. But in those weeks, many people improve on a sugar pill too.
+Even for the antidepressants already approved, only about half the trials beat the sugar pill.
+And there's no blood test for depression. The diagnosis is a questionnaire.
+That doesn't make it hopeless. In his essay, he wrote that most mental illness can probably be cured.
+So mental illness, by the deadline: an open question. Cancer has its scan. The mind is still waiting for one.
+And then the fourth disease. The slowest. It starts long before it shows.
+
+Alzheimer's.
+The changes in the brain start around twenty years before the first forgotten name.
+That means many people who'll be diagnosed by the deadline already carry the first traces today.
+So the medicine has to come before the symptoms. Proving that means following healthy people for years, and counting who doesn't get sick.
+One such trial waited years for its answer. The drug didn't work.
+And for those already sick, his essay had more small print: existing damage may be very difficult to reverse.
+The line in the sales video doesn't mention that either.
+So Alzheimer's, by the deadline: no. For many who'll get it by then, it has already begun.
+[pause] But the race doesn't start at the deadline. It starts now. Since last year, a blood test can spot the first traces.
+So if the machines aren't the slow part, why set a date at all?
+
+Partly, because a sales pitch rewards a promise with a date on it. No villain needed.
+The Nobel Prize-winning biologist Venki Ramakrishnan, asked in a recent interview about artificial intelligence and new drugs, named the slow part:
+[CLIP C5]
+The testing, not the finding.
+The other reason for Amodei's date: he's betting that the testing can speed up too.
+The cardiologist Eric Topol, a fan of what artificial intelligence can do for health, called such cure timelines wildly off-base.
+To be fair, Amodei holds himself to a harder test. In August, he wrote that the only thing that will convince people is actually curing cancer.
+His own company now designs medicines. One, for muscular dystrophy, went from idea to promising results in mice in under eighteen months.
+Its human trials could start as soon as late twenty twenty-eight. Same road as everyone else. First date: fast. Second date: years away.
+He even warned of a jam himself, earlier this year, on that same podcast.
+[CLIP C2]
+Discovery speeds up. Proof jams.
+So can proof come sooner, without making medicine less safe?
+
+It can. And it's already starting.
+Picture someone you love, around sixty, sharp as ever. At a study clinic, a blood test finds the first traces, years early.
+So they join a trial: can a medicine hold off the first forgotten name?
+For now, experts advise that test for healthy people only in trials. But that's how the slowest proof gets a head start.
+In other trials, part of the sugar-pill group is replaced by a prediction: a digital twin of each patient.
+Fewer people on a sugar pill, answers sooner. Europe's regulator accepts it for some trials. It shrinks the comparison group. It doesn't replace it.
+At America's regulator, reviewers now work with an artificial intelligence assistant. For a few priority medicines, the goal is a decision within one or two months.
+Amodei's own proposal: rules made for medicines that clearly work and are clearly safe. But remember the heart: fast can't mean less safe.
+In the sales video, his promise came with a condition. In his words:
+[ZITATKARTE C1b]
+"I think if we do this right, we can create an age of miracles."
+If the machines make the first date come fast, the second date becomes the real deadline. And people set that one.
+Clinics that find disease early. Scientists who design leaner trials. Lawmakers who keep the rules in step with medicines that clearly work.
+That's what doing it right looks like.
+
+So, does the deadline hold?
+Cancer: for many kinds, yes. Heart disease: halfway. Mental illness: still open. Alzheimer's: not by then. But its race has already begun.
+[pause] Maybe your grandkids will hear the word Alzheimer's the way you hear the word plague. Not because someone set a date. Because someone proved it.
+Every cure has two dates: the day it's found, and the day it's proven.
+Investors are already putting a price on the first date. The second one is still ours to move.
+
+[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Fast discoveries in the lab, and proof that arrives in time, for every family in a waiting room today. Including yours. Want that too? Then subscribe.

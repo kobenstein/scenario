@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import { createCanvas } from '@napi-rs/canvas';
+import * as E from '../lib/f10_editorial.mjs';
+const { W, H, P } = E;
+const c = createCanvas(W, H), x = c.getContext('2d');
+E.nightSky(x, [[0, P.night1], [1, P.ind0]]);
+x.fillStyle = E.rad(x, 960, 300, 1100, [[0, E.rgba(P.blue0, .8)], [1, E.rgba(P.blue0, 0)]]); x.fillRect(0, 0, W, H);
+const base = 520; x.fillStyle = P.night0; x.fillRect(0, base, W, 4);
+['stand', 'look', 'reach', 'lift', 'walk', 'sit'].forEach((p, i) => { E.du(x, 120 + i * 160, base, 360, { pose: p, walk: p === "walk" ? 1.2 : undefined, light: 1, hood: false }); E.du(x, 120 + i * 160, 1000, 360, { pose: p, walk: p === 'walk' ? 1.2 : undefined, light: 1, view: i === 1 ? "back" : undefined }); });
+E.person(x, 1300, 1000, 340, { pose: 'stand', light: -1 }); E.person(x, 1450, 1000, 350, { pose: 'walk', walk: 2.4, dir: -1, long: true });
+E.finish(x, 3);
+fs.writeFileSync(process.argv[2], await c.encode('jpeg', 88));

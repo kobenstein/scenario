@@ -3,7 +3,7 @@
 // Hyperframes stays the authoring/preview format; this replaces only its slow final capture.
 // It seeks the composition's GSAP root timeline frame by frame (which calls the scene's render(t)),
 // screenshots the page (WebGL + grain + DOM overlays in one image) and pipes JPEGs into ffmpeg.
-// Usage: node tools/render-fast.mjs --dir style-tests/b3-fast --out out.mp4 [--from 0] [--to 450] [--fps 30]
+// Usage: node tools/render-fast.mjs --dir stil/tests/b3-fast --out out.mp4 [--from 0] [--to 450] [--fps 30]
 import { chromium } from "playwright-core";
 import { spawn } from "node:child_process";
 import http from "node:http";

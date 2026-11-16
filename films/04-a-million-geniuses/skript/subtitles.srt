@@ -1,0 +1,1096 @@
+1
+00:00:01,400 --> 00:00:02,520
+What if you could copy
+
+2
+00:00:02,560 --> 00:00:05,120
+the smartest people who ever lived?
+
+3
+00:00:05,160 --> 00:00:06,080
+Not once.
+
+4
+00:00:06,120 --> 00:00:07,600
+A thousand times.
+
+5
+00:00:07,640 --> 00:00:08,720
+A million.
+
+6
+00:00:08,760 --> 00:00:10,530
+And they never slept.
+
+7
+00:00:11,320 --> 00:00:13,560
+Every medicine you've ever taken,
+
+8
+00:00:13,600 --> 00:00:15,560
+every light you've ever switched on,
+
+9
+00:00:15,600 --> 00:00:17,840
+began in minds like these.
+
+10
+00:00:17,880 --> 00:00:19,570
+And there were never enough of them.
+
+11
+00:00:20,280 --> 00:00:21,890
+That's about to change.
+
+12
+00:00:22,280 --> 00:00:24,800
+Somewhere, at the edge of a quiet town,
+
+13
+00:00:24,840 --> 00:00:27,490
+someone is building this room right now.
+
+14
+00:00:27,640 --> 00:00:29,650
+And almost nobody has noticed.
+
+15
+00:00:29,880 --> 00:00:31,250
+And the strangest part?
+
+16
+00:00:31,480 --> 00:00:34,210
+Building it may turn out to be the easy bit.
+
+17
+00:00:35,660 --> 00:00:37,770
+The most surprising thing has been
+
+18
+00:00:37,810 --> 00:00:39,920
+the lack of public recognition
+
+19
+00:00:39,960 --> 00:00:43,710
+of how close we are to the end of the exponential.
+
+20
+00:00:44,110 --> 00:00:45,030
+That's the head of one
+
+21
+00:00:45,070 --> 00:00:47,190
+of the biggest AI labs.
+
+22
+00:00:47,230 --> 00:00:50,200
+Most of us picture AI as a better chatbot.
+
+23
+00:00:50,350 --> 00:00:52,200
+Something that writes your emails.
+
+24
+00:00:52,430 --> 00:00:53,350
+The people building
+
+25
+00:00:53,390 --> 00:00:55,400
+it picture something else.
+
+26
+00:00:55,900 --> 00:00:58,160
+We're increasingly close to what I've called
+
+27
+00:00:58,200 --> 00:01:00,310
+a country of geniuses in a data center:
+
+28
+00:01:00,350 --> 00:01:03,360
+a set of AI agents that are more capable
+
+29
+00:01:03,400 --> 00:01:05,510
+than most humans at most things,
+
+30
+00:01:05,550 --> 00:01:09,650
+and can coordinate at superhuman speed.
+
+31
+00:01:10,050 --> 00:01:12,540
+In his essay, he spells it out.
+
+32
+00:01:12,610 --> 00:01:14,970
+Millions of copies, each smarter
+
+33
+00:01:15,010 --> 00:01:17,770
+than a Nobel Prize winner in most fields.
+
+34
+00:01:17,810 --> 00:01:19,610
+Each working ten to a hundred
+
+35
+00:01:19,650 --> 00:01:21,340
+times faster than you.
+
+36
+00:01:21,570 --> 00:01:22,730
+He thinks it could arrive
+
+37
+00:01:22,770 --> 00:01:24,140
+within a few years.
+
+38
+00:01:24,370 --> 00:01:26,690
+Others think it will take much longer,
+
+39
+00:01:26,730 --> 00:01:28,780
+or won't look like this at all.
+
+40
+00:01:30,330 --> 00:01:33,060
+To see why this matters, zoom out.
+
+41
+00:01:33,290 --> 00:01:34,900
+All the way out.
+
+42
+00:01:34,970 --> 00:01:37,090
+For almost all of human history,
+
+43
+00:01:37,130 --> 00:01:39,250
+there was one simple rule.
+
+44
+00:01:39,290 --> 00:01:41,970
+More people meant more ideas.
+
+45
+00:01:42,010 --> 00:01:43,330
+Economists looking back
+
+46
+00:01:43,370 --> 00:01:45,250
+a million years found it:
+
+47
+00:01:45,290 --> 00:01:48,290
+places with more people invented faster.
+
+48
+00:01:48,330 --> 00:01:50,450
+Because an idea, once found,
+
+49
+00:01:50,490 --> 00:01:52,153
+can be used by everyone.
+
+50
+00:01:53,130 --> 00:01:54,490
+But the best ideas are
+
+51
+00:01:54,530 --> 00:01:56,210
+getting harder to find.
+
+52
+00:01:56,250 --> 00:01:58,260
+Keeping chips doubling in power
+
+53
+00:01:58,330 --> 00:01:59,810
+now takes more than eighteen
+
+54
+00:01:59,850 --> 00:02:01,010
+times the researchers
+
+55
+00:02:01,050 --> 00:02:03,650
+it did in the early 1970s.
+
+56
+00:02:03,690 --> 00:02:04,690
+We have been running out
+
+57
+00:02:04,730 --> 00:02:06,980
+of geniuses for a long time.
+
+58
+00:02:07,850 --> 00:02:10,820
+Now imagine that limit simply disappears.
+
+59
+00:02:11,050 --> 00:02:12,660
+Not more scientists.
+
+60
+00:02:12,730 --> 00:02:14,450
+As many as we want.
+
+61
+00:02:14,490 --> 00:02:15,730
+That's the real meaning
+
+62
+00:02:15,770 --> 00:02:17,860
+of a country of geniuses.
+
+63
+00:02:19,410 --> 00:02:22,090
+And small pieces of it already work.
+
+64
+00:02:22,130 --> 00:02:24,410
+In London, a team of scientists
+
+65
+00:02:24,450 --> 00:02:27,210
+spent about a decade on one question:
+
+66
+00:02:27,250 --> 00:02:30,170
+how do some superbugs pass their genes,
+
+67
+00:02:30,210 --> 00:02:33,260
+including drug resistance, to other species?
+
+68
+00:02:33,330 --> 00:02:34,860
+They had found the answer.
+
+69
+00:02:35,090 --> 00:02:37,060
+They hadn't published it yet.
+
+70
+00:02:37,170 --> 00:02:38,730
+Then they gave the same question
+
+71
+00:02:38,770 --> 00:02:40,860
+to an AI system from Google.
+
+72
+00:02:41,170 --> 00:02:42,530
+Within two days,
+
+73
+00:02:42,570 --> 00:02:44,780
+its top idea matched theirs.
+
+74
+00:02:45,810 --> 00:02:46,810
+In another lab,
+
+75
+00:02:46,850 --> 00:02:49,010
+an AI system called Robin looked
+
+76
+00:02:49,050 --> 00:02:49,930
+at a common cause
+
+77
+00:02:49,970 --> 00:02:52,250
+of blindness in older people.
+
+78
+00:02:52,290 --> 00:02:54,170
+It suggested an eye drop already
+
+79
+00:02:54,210 --> 00:02:56,690
+sold in Japan for glaucoma.
+
+80
+00:02:56,730 --> 00:02:58,050
+So far, it has only been
+
+81
+00:02:58,090 --> 00:03:00,090
+tested on cells in a dish.
+
+82
+00:03:00,130 --> 00:03:02,300
+It's a lead, not a cure.
+
+83
+00:03:02,370 --> 00:03:03,730
+But it was a new lead,
+
+84
+00:03:03,770 --> 00:03:05,900
+and the idea came from a machine.
+
+85
+00:03:06,290 --> 00:03:08,090
+Keep that eye drop in mind.
+
+86
+00:03:08,130 --> 00:03:09,340
+We'll meet it again.
+
+87
+00:03:10,290 --> 00:03:11,210
+And a piece of this
+
+88
+00:03:11,250 --> 00:03:13,330
+is already in your pocket.
+
+89
+00:03:13,370 --> 00:03:16,250
+When OpenAI launched GPT-5,
+
+90
+00:03:16,290 --> 00:03:18,090
+Sam Altman said talking
+
+91
+00:03:18,130 --> 00:03:19,210
+to it was like talking
+
+92
+00:03:19,250 --> 00:03:22,860
+to a "PhD-level expert" in any area.
+
+93
+00:03:23,170 --> 00:03:27,140
+A thousand PhDs, on call, day and night.
+
+94
+00:03:27,250 --> 00:03:29,980
+Most of us use them to fix our emails.
+
+95
+00:03:31,530 --> 00:03:34,180
+So what could a whole country of them do?
+
+96
+00:03:34,570 --> 00:03:36,450
+Amodei's bet: fifty
+
+97
+00:03:36,490 --> 00:03:38,210
+to a hundred years of progress
+
+98
+00:03:38,250 --> 00:03:39,890
+in biology and medicine,
+
+99
+00:03:39,930 --> 00:03:41,940
+squeezed into five to ten.
+
+100
+00:03:42,170 --> 00:03:43,810
+He calls it the compressed
+
+101
+00:03:43,850 --> 00:03:45,300
+twenty-first century.
+
+102
+00:03:45,690 --> 00:03:48,290
+Demis Hassabis, who shared a Nobel Prize
+
+103
+00:03:48,330 --> 00:03:51,460
+for AI work in biology, goes further.
+
+104
+00:04:01,310 --> 00:04:03,510
+These are bets, from people who
+
+105
+00:04:03,550 --> 00:04:05,880
+build and sell this technology.
+
+106
+00:04:05,950 --> 00:04:07,230
+Many biologists think
+
+107
+00:04:07,270 --> 00:04:08,950
+they're far too hopeful.
+
+108
+00:04:08,990 --> 00:04:10,790
+And they have a point.
+
+109
+00:04:10,830 --> 00:04:12,150
+Because there's a part of this
+
+110
+00:04:12,190 --> 00:04:14,680
+story almost nobody talks about.
+
+111
+00:04:16,630 --> 00:04:19,360
+Thinking was never the only slow step.
+
+112
+00:04:19,590 --> 00:04:21,710
+A new medicine has to be made.
+
+113
+00:04:21,750 --> 00:04:23,550
+Then tested on cells.
+
+114
+00:04:23,590 --> 00:04:25,070
+Then on animals.
+
+115
+00:04:25,110 --> 00:04:28,960
+Then on people, in stages, for years.
+
+116
+00:04:29,410 --> 00:04:32,220
+And usually it takes, on average, ten years
+
+117
+00:04:32,260 --> 00:04:35,770
+to go from understanding a target for a disease
+
+118
+00:04:35,810 --> 00:04:38,520
+all the way to a drug that's ready for the market.
+
+119
+00:04:38,560 --> 00:04:40,670
+So it's an enormous amount of time and cost,
+
+120
+00:04:40,710 --> 00:04:43,070
+billions of dollars, a decade or more.
+
+121
+00:04:43,110 --> 00:04:45,370
+And most drugs fail along the way.
+
+122
+00:04:45,410 --> 00:04:47,760
+It's only a kind of 10% success rate.
+
+123
+00:04:48,160 --> 00:04:51,250
+Look at the first drugs designed with AI.
+
+124
+00:04:51,360 --> 00:04:54,440
+One, for a disease that scars the lungs,
+
+125
+00:04:54,480 --> 00:04:57,370
+is now in its final stage of human testing.
+
+126
+00:04:57,680 --> 00:04:58,760
+More than a hundred are
+
+127
+00:04:58,800 --> 00:05:00,570
+now being tested in people.
+
+128
+00:05:00,880 --> 00:05:03,610
+So far, not one has been approved.
+
+129
+00:05:04,480 --> 00:05:07,320
+The geniuses are not the bottleneck anymore.
+
+130
+00:05:07,360 --> 00:05:08,680
+The door is.
+
+131
+00:05:08,720 --> 00:05:11,610
+Amodei puts the question better than anyone.
+
+132
+00:05:12,110 --> 00:05:14,320
+Let's say that happens. That's the starting gun.
+
+133
+00:05:14,360 --> 00:05:16,930
+How long does it take to cure all the diseases?
+
+134
+00:05:17,330 --> 00:05:19,740
+Here's what I can't stop thinking about.
+
+135
+00:05:19,890 --> 00:05:22,380
+You can't make a cell divide faster.
+
+136
+00:05:22,610 --> 00:05:24,290
+But almost everything else about
+
+137
+00:05:24,330 --> 00:05:26,410
+that door was built by people.
+
+138
+00:05:26,450 --> 00:05:29,420
+Rules, labs, money, priorities.
+
+139
+00:05:29,570 --> 00:05:32,620
+And what people built, people can change.
+
+140
+00:05:34,370 --> 00:05:37,770
+So pause here, and imagine it's your call.
+
+141
+00:05:37,810 --> 00:05:40,410
+The geniuses are coming either way.
+
+142
+00:05:40,450 --> 00:05:42,700
+Three choices are still open.
+
+143
+00:05:42,770 --> 00:05:45,850
+How fast we can test their ideas safely.
+
+144
+00:05:45,890 --> 00:05:47,770
+Who gets the results.
+
+145
+00:05:47,810 --> 00:05:49,290
+And what we ask them to work
+
+146
+00:05:49,330 --> 00:05:50,727
+on in the first place.
+
+147
+00:05:51,810 --> 00:05:53,180
+What would you do?
+
+148
+00:05:56,930 --> 00:05:59,820
+Let's imagine it's 2035.
+
+149
+00:05:59,890 --> 00:06:03,260
+This part is a scenario, not a forecast.
+
+150
+00:06:03,330 --> 00:06:04,850
+Your mother sits in the waiting
+
+151
+00:06:04,890 --> 00:06:06,273
+room of an eye clinic.
+
+152
+00:06:07,490 --> 00:06:08,810
+In the first future,
+
+153
+00:06:08,850 --> 00:06:10,490
+the room of geniuses has found
+
+154
+00:06:10,530 --> 00:06:12,010
+hundreds of promising leads
+
+155
+00:06:12,050 --> 00:06:14,050
+for her kind of blindness.
+
+156
+00:06:14,090 --> 00:06:15,810
+They're sitting in a queue.
+
+157
+00:06:15,850 --> 00:06:18,250
+Trials run the way they always have.
+
+158
+00:06:18,290 --> 00:06:19,450
+The few treatments that make
+
+159
+00:06:19,490 --> 00:06:21,077
+it through are expensive,
+
+160
+00:06:21,117 --> 00:06:23,290
+and reach rich cities first.
+
+161
+00:06:23,330 --> 00:06:24,650
+Nothing collapsed.
+
+162
+00:06:24,690 --> 00:06:26,130
+We just got a small fraction
+
+163
+00:06:26,170 --> 00:06:27,850
+of what was possible.
+
+164
+00:06:27,890 --> 00:06:28,890
+She waits.
+
+165
+00:06:29,890 --> 00:06:32,770
+In the second future, it's the same clinic.
+
+166
+00:06:32,810 --> 00:06:34,170
+The same chair.
+
+167
+00:06:34,210 --> 00:06:37,610
+The drop she takes was a lead in 2026.
+
+168
+00:06:37,650 --> 00:06:39,370
+Robot labs tested thousands
+
+169
+00:06:39,410 --> 00:06:41,370
+of versions in a few months.
+
+170
+00:06:41,410 --> 00:06:43,290
+A trial that once took a decade
+
+171
+00:06:43,330 --> 00:06:45,210
+took a few careful years,
+
+172
+00:06:45,250 --> 00:06:48,010
+with real patients and every safety check.
+
+173
+00:06:48,050 --> 00:06:50,810
+It costs about what an eye drop costs.
+
+174
+00:06:50,850 --> 00:06:52,890
+She reads the small print on the wall,
+
+175
+00:06:52,930 --> 00:06:55,340
+out loud, just because she can.
+
+176
+00:06:55,790 --> 00:06:57,350
+In ten, fifteen years' time,
+
+177
+00:06:57,390 --> 00:06:59,870
+we'll be in a kind of new golden era of discovery.
+
+178
+00:07:00,270 --> 00:07:02,630
+I don't know which future we'll get.
+
+179
+00:07:02,670 --> 00:07:03,910
+Nobody does.
+
+180
+00:07:03,950 --> 00:07:06,630
+But the second one takes three things.
+
+181
+00:07:06,670 --> 00:07:08,030
+None of them is magic,
+
+182
+00:07:08,070 --> 00:07:10,707
+and all three have already worked somewhere.
+
+183
+00:07:11,630 --> 00:07:15,240
+First: labs that move as fast as ideas.
+
+184
+00:07:15,870 --> 00:07:19,960
+In 2023, a lab at Berkeley ran itself.
+
+185
+00:07:20,030 --> 00:07:22,550
+Robots mixed powders, heated them,
+
+186
+00:07:22,590 --> 00:07:23,750
+measured the result,
+
+187
+00:07:23,790 --> 00:07:26,040
+and an AI chose the next try.
+
+188
+00:07:26,430 --> 00:07:27,990
+In a little over two weeks,
+
+189
+00:07:28,030 --> 00:07:29,590
+it made dozens of materials
+
+190
+00:07:29,630 --> 00:07:31,160
+it had never made before.
+
+191
+00:07:31,630 --> 00:07:33,430
+Other scientists later questioned
+
+192
+00:07:33,470 --> 00:07:35,480
+how many were truly new.
+
+193
+00:07:35,550 --> 00:07:37,110
+That debate is healthy,
+
+194
+00:07:37,150 --> 00:07:38,630
+and robots still struggle
+
+195
+00:07:38,670 --> 00:07:40,440
+with delicate biology.
+
+196
+00:07:40,510 --> 00:07:42,550
+But the idea is spreading:
+
+197
+00:07:42,590 --> 00:07:44,390
+labs that work through the night,
+
+198
+00:07:44,430 --> 00:07:45,990
+so a thousand ideas don't
+
+199
+00:07:46,030 --> 00:07:47,880
+wait for one pair of hands.
+
+200
+00:07:48,750 --> 00:07:50,670
+Second: trials that move
+
+201
+00:07:50,710 --> 00:07:52,390
+at the speed of evidence,
+
+202
+00:07:52,430 --> 00:07:54,950
+without cutting corners on safety.
+
+203
+00:07:54,990 --> 00:07:56,630
+We've done this before.
+
+204
+00:07:56,670 --> 00:07:58,150
+In March 2020,
+
+205
+00:07:58,190 --> 00:08:00,550
+British doctors set up one trial across
+
+206
+00:08:00,590 --> 00:08:02,230
+many hospitals, testing
+
+207
+00:08:02,270 --> 00:08:04,230
+several treatments at once.
+
+208
+00:08:04,270 --> 00:08:06,070
+Within about a hundred days,
+
+209
+00:08:06,110 --> 00:08:09,270
+it showed that a cheap steroid saved lives.
+
+210
+00:08:09,310 --> 00:08:11,617
+Among the sickest patients on ventilators,
+
+211
+00:08:11,657 --> 00:08:14,150
+it cut deaths by about a third.
+
+212
+00:08:14,190 --> 00:08:17,030
+The vaccines that year worked the same way.
+
+213
+00:08:17,070 --> 00:08:18,870
+They didn't skip the steps.
+
+214
+00:08:18,910 --> 00:08:20,710
+They ran them side by side,
+
+215
+00:08:20,750 --> 00:08:21,750
+with the money committed
+
+216
+00:08:21,790 --> 00:08:23,430
+up front and regulators
+
+217
+00:08:23,470 --> 00:08:25,750
+reading the data as it arrived.
+
+218
+00:08:25,790 --> 00:08:27,750
+That was an emergency.
+
+219
+00:08:27,790 --> 00:08:30,630
+The work now is to make that speed normal,
+
+220
+00:08:30,670 --> 00:08:33,110
+for diseases that kill quietly.
+
+221
+00:08:33,150 --> 00:08:34,790
+Health agencies and governments
+
+222
+00:08:34,830 --> 00:08:36,790
+hold that key.
+
+223
+00:08:36,830 --> 00:08:39,920
+Third: geniuses for everyone.
+
+224
+00:08:40,110 --> 00:08:41,830
+When Google DeepMind solved
+
+225
+00:08:41,870 --> 00:08:43,270
+the shape of proteins,
+
+226
+00:08:43,310 --> 00:08:45,240
+it gave the results away.
+
+227
+00:08:45,770 --> 00:08:47,150
+We just fold everything
+
+228
+00:08:47,190 --> 00:08:48,950
+and then give it to everyone in the world.
+
+229
+00:08:48,990 --> 00:08:51,590
+Who knows how many discoveries will be made from that?
+
+230
+00:08:51,990 --> 00:08:53,630
+Today, more than three
+
+231
+00:08:53,670 --> 00:08:55,710
+million researchers use it.
+
+232
+00:08:55,750 --> 00:08:58,270
+That's what open results can do.
+
+233
+00:08:58,310 --> 00:08:59,310
+But a market points
+
+234
+00:08:59,350 --> 00:09:01,670
+its geniuses at what pays.
+
+235
+00:09:01,710 --> 00:09:04,430
+Diseases of the poor pay the least.
+
+236
+00:09:04,470 --> 00:09:06,710
+Even Hassabis says the industry isn't
+
+237
+00:09:06,750 --> 00:09:09,030
+doing enough of this kind of work.
+
+238
+00:09:09,070 --> 00:09:10,630
+So who decides what a country
+
+239
+00:09:10,670 --> 00:09:12,590
+of geniuses works on?
+
+240
+00:09:12,630 --> 00:09:15,150
+Right now, a handful of companies.
+
+241
+00:09:15,190 --> 00:09:17,520
+They don't have to be the only ones.
+
+242
+00:09:17,590 --> 00:09:19,150
+Governments can buy computing
+
+243
+00:09:19,190 --> 00:09:20,830
+time for public science,
+
+244
+00:09:20,870 --> 00:09:21,870
+the way they once built
+
+245
+00:09:21,910 --> 00:09:24,350
+telescopes and particle colliders.
+
+246
+00:09:24,390 --> 00:09:25,950
+Funders can pay for results
+
+247
+00:09:25,990 --> 00:09:27,870
+that are shared with everyone.
+
+248
+00:09:27,910 --> 00:09:30,030
+And none of it happens on its own.
+
+249
+00:09:30,070 --> 00:09:31,790
+The labs, the governments,
+
+250
+00:09:31,830 --> 00:09:33,070
+and the voters who choose
+
+251
+00:09:33,110 --> 00:09:34,350
+those governments all
+
+252
+00:09:34,390 --> 00:09:36,240
+have a hand on that door.
+
+253
+00:09:37,790 --> 00:09:39,510
+You already carry a thousand
+
+254
+00:09:39,550 --> 00:09:41,510
+PhDs in your pocket.
+
+255
+00:09:41,550 --> 00:09:43,750
+Ask them better questions.
+
+256
+00:09:43,790 --> 00:09:44,550
+What's known about
+
+257
+00:09:44,590 --> 00:09:46,390
+the illness in your family.
+
+258
+00:09:46,430 --> 00:09:47,990
+What's being tested.
+
+259
+00:09:48,030 --> 00:09:49,510
+What it would take.
+
+260
+00:09:49,550 --> 00:09:51,390
+If you work in science, health,
+
+261
+00:09:51,430 --> 00:09:54,270
+or government, you're standing at that door.
+
+262
+00:09:54,310 --> 00:09:55,670
+Hold it open.
+
+263
+00:09:55,710 --> 00:09:57,270
+And the next time someone tells
+
+264
+00:09:57,310 --> 00:09:59,510
+you AI will cure everything,
+
+265
+00:09:59,550 --> 00:10:01,350
+ask one question:
+
+266
+00:10:01,390 --> 00:10:04,093
+are we building the door, or just the room?
+
+267
+00:10:05,310 --> 00:10:07,790
+For all of history, progress was limited
+
+268
+00:10:07,830 --> 00:10:10,230
+by how many brilliant minds we had.
+
+269
+00:10:10,270 --> 00:10:12,070
+That limit is ending.
+
+270
+00:10:12,110 --> 00:10:15,640
+What matters now is what we ask them.
+
+271
+00:10:15,723 --> 00:10:17,750
+So here's my question for you.
+
+272
+00:10:17,790 --> 00:10:19,110
+If a million geniuses
+
+273
+00:10:19,150 --> 00:10:20,550
+worked for you tomorrow,
+
+274
+00:10:20,590 --> 00:10:22,600
+what would you ask them first?
+

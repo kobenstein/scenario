@@ -1,0 +1,217 @@
+Superintelligence can make you smarter than anyone before you. Or it can think for you.
+
+In Turkey, almost a thousand students took part in a math experiment.
+
+Two groups had the same machine, with one small difference. A third group had none.
+
+While practicing, both machine groups flew.
+
+Then came the exam, without the machine.
+
+One group did worse than students who never had it.
+
+The other lost nothing.
+
+What was the difference? Find it, and you'll know which of those students you're becoming.
+
+In the next ten minutes: what it's already doing to us, and why we don't notice. Then, how to make it the best teacher anyone ever had.
+
+Here's a first clue. For sixty-six years, professional Go players barely got better. Then a machine beat one of them. And suddenly, humans got better.
+
+Keep that in mind.
+
+You might be thinking: these are today's chatbots, not superintelligence. That's exactly why they matter. How you use them now is how you'll use what comes next.
+
+...
+
+Follow the blue dot on your phone long enough, and the map in your head starts to fade. At least, that's what one small study suggests.
+
+But that's just streets. What about experts?
+
+In Poland, nineteen very experienced doctors got a new assistant: a machine that marks tiny growths that can turn into cancer.
+
+These weren't beginners. Each of them had done more than two thousand of these exams.
+
+Then researchers looked at the exams they did without the machine.
+
+Before it arrived, they found a growth in about twenty-eight percent of exams.
+
+A few months after it arrived, it was twenty-two.
+
+It's a signal, not proof. But it's a simple one.
+
+What you stop doing, you start to lose. Even as an expert.
+
+But surely you'd notice if you were getting worse. Right?
+
+...
+
+Not necessarily.
+
+In early twenty twenty-five, a research lab asked sixteen experienced programmers to do real work on big projects they knew well. Sometimes with artificial intelligence, sometimes without.
+
+Before they started, they expected it to make them faster.
+
+With the tools of that time, it made them slower. They took nineteen percent longer.
+
+And here's the strange part. Afterwards, they still believed it had sped them up.
+
+They felt faster. They were slower.
+
+One small study. But a survey of people at work adds a reason. The more they trusted the machine, the less critical thinking they said they did.
+
+The writer Ted Chiang has a picture for this. Using a chatbot for homework, he says, is like bringing a forklift into the weight room.
+
+The weights go up. It even feels like progress. But your arms stay the same.
+
+So is this simply what happens when machines get smarter than us? Do we always get weaker?
+
+...
+
+Remember the Go players.
+
+In twenty sixteen, a machine called AlphaGo beat Lee Sedol, one of the world's best.
+
+Later, researchers had a machine grade professional play, move by move, all the way back to nineteen fifty.
+
+For sixty-six years, the line was flat.
+
+Then the machine won. And the line went up.
+
+Players started making moves that had never shown up in recorded professional games. And those new moves went hand in hand with better play.
+
+The machine was stronger than them. And it made them better.
+
+The study shows that it happened, not exactly why. But this is the part I keep coming back to.
+
+Next to a machine, the doctors slipped. Next to a far stronger one, the Go players got better than ever.
+
+So what did the Go players do that the doctors didn't?
+
+...
+
+It seems they didn't let the machine play for them. They studied it.
+
+The doctors did what their machine was built for. They let it do the looking.
+
+So is that the whole difference? Who does the thinking?
+
+A physics class at Harvard put that to the test.
+
+Researchers built a tutor that followed the rules of good teaching. It didn't hand out answers. It asked questions, and led students one step at a time.
+
+Against a very good class with experienced teachers, the tutor students learned about twice as much. In less time.
+
+The teachers built the tutor themselves. One strong case, not the last word.
+
+And now you know the small difference in Turkey.
+
+The group that lost nothing had a machine built on the same idea. Hints. Never answers.
+
+Their study's title says it plainly: without guardrails, this kind of machine can harm learning.
+
+But most machines you'll use have no such rule. They'll do everything, if you let them.
+
+So what then?
+
+One of the companies building these machines studied exactly that: Anthropic, the maker of Claude.
+
+Fifty-two programmers, most of them early in their careers, learned a new coding tool. Half of them had a machine to help.
+
+That half scored worse on a test afterwards.
+
+Those who just let it write the code finished fastest. But they scored under forty percent.
+
+Those who kept asking why things worked scored sixty-five percent or more.
+
+Same machine. Different habit.
+
+The groups were small. But their conclusion stuck with me: effort, and even getting painfully stuck, is likely part of how you master something.
+
+So here's the rule. When the machine thinks for you, you get weaker. When it makes you think, you get stronger.
+
+...
+
+Same machine. Forklift, or personal trainer.
+
+But if it all comes down to one habit, what happens when millions of people choose differently?
+
+...
+
+Now picture the gym growing, street by street, into a city.
+
+In some windows, minds are getting stronger. In others, the light is slowly dimming.
+
+Maybe the next big divide isn't rich and poor. Or people with artificial intelligence and people without.
+
+Maybe it's people who train with it, and people who hand everything over.
+
+We've lived through this once already. Since the early twenty-tens, scores on reading, maths and reasoning tests have slipped in many rich countries.
+
+One Financial Times analysis suspects the endless feeds. If that's right, a habit can quietly reshape a whole society.
+
+And the other direction can spread too.
+
+In Nigeria, hundreds of students got six weeks of English lessons from an artificial intelligence tutor. After school, with teachers right beside them.
+
+The World Bank compared their overall gains to one and a half to two years of normal schooling.
+
+A small pilot. The comparison group got no extra lessons, and the teachers mattered a lot. But look where it points.
+
+This is the part that gives me hope.
+
+For most of history, a personal tutor was something only the rich could have. Now it could cost almost nothing. For every child on Earth.
+
+So which city are we building?
+
+...
+
+Let's imagine twenty thirty-five. Twice.
+
+In the first version, answers cost nothing. Everyone has a forklift. Thinking for yourself becomes a luxury for the few. Most people never lift again, and never notice.
+
+In the second version, every machine starts out as a personal trainer. Schools, companies and the makers set it up that way. A generation grows up that asks why before it asks for help. And it becomes the smartest generation there has ever been.
+
+Both cities run on the same machines. The difference is a choice we're making right now.
+
+...
+
+So what can you do, starting tomorrow? And who has to help?
+
+...
+
+Start with you. One habit, in three moves.
+
+First: try before you ask. Make a guess. Write the first line. Get a little stuck.
+
+That struggle isn't wasted time. That's the lift.
+
+Second: ask why. Instead of "write this for me," ask "why does this work?" It seems that's what the Go players did.
+
+Then explain it back in your own words. If you can't, you haven't got it yet.
+
+Third: decide what you're happy to hand over. Mental math. Formatting. The boring parts. Let it carry those.
+
+And decide what you want to keep. Your judgment. Your writing. The thing you want to be truly good at. Those, you lift yourself.
+
+If this sounds like an old worry, it is. In Plato's Phaedrus, a king warns that writing will "create forgetfulness in the learners' souls."
+
+The worry was real. And writing made us smarter anyway. Because we learned to think with it, not let it think for us.
+
+But you can't set up every machine yourself. What about the one a child uses for homework tonight?
+
+The big makers already offer learning modes that guide instead of answer. But they're usually switched off until someone turns them on.
+
+A tutor for every child on Earth, or a forklift for every child on Earth. That's a setting. And these companies can change it tomorrow.
+
+Schools can choose tutors over bans. Remember Harvard. And remember Turkey: the danger wasn't the machine itself. It was a machine without guardrails.
+
+And where a lot is at stake, keep practicing without help. Pilots still practice flying by hand, in the simulator and in the air. Doctors could train the same way.
+
+Go back to the gym.
+
+The machine is standing next to you. It could lift the weight for you. Or it can put one hand on your back, and let you lift.
+
+Superintelligence won't decide whether it makes you smarter or thinks for you. You will. One question at a time.
+
+So the next time you ask it something, ask yourself first: am I lifting? Or is it lifting for me?

@@ -1,0 +1,39 @@
+{
+ "_note": "Film 23 clips (from the project folder clips/clips.json, text-v5 2026-11-06). dur = out - in; build_vo leaves a silent slot of exactly dur; mix.py drops clips/<id>.wav in (RMS-matched to the voice, gain_db / af per clip) once the download works. Subtitles: subs.py spreads the transcript over the slot by character count unless \"cues\" ([[t from clip start, line], ...]) are set from the real audio.",
+ "K1": {
+  "speaker": "Bruce Schneier",
+  "role": "Security technologist, Harvard Kennedy School",
+  "year": 2026,
+  "url": "https://www.youtube.com/watch?v=dkpijPi2HdA",
+  "in": "45:54.0",
+  "out": "46:02.8",
+  "dur": 8.8,
+  "transcript": "Every AI can do both. It is a power-enhancing technology. Enhances the power of who wants to use it. So, we get to decide how to do this.",
+  "ampel": "gruen",
+  "burned": false
+ },
+ "K3": {
+  "speaker": "Tim Berners-Lee",
+  "role": "Inventor of the World Wide Web",
+  "year": 2023,
+  "url": "https://www.youtube.com/watch?v=qJ70rQ-Fpfk",
+  "in": "12:57.9",
+  "out": "13:05.6",
+  "dur": 7.7,
+  "transcript": "I talked about the idea of, your AI could work for you just like your doctor works for you, or just like a lawyer works for you. Then their eyes lit up.",
+  "ampel": "gelb",
+  "burned": false
+ },
+ "K4": {
+  "speaker": "Sal Khan",
+  "role": "Founder, Khan Academy",
+  "year": 2024,
+  "url": "https://www.youtube.com/watch?v=_nSmkyDNulk",
+  "in": "0:23.85",
+  "out": "0:36.35",
+  "dur": 12.5,
+  "transcript": "I'm here with my son, and I'd love you to tutor him on this math problem, but don't give him the answer. You can ask questions and nudge him in the right direction, but I really want to make sure he understands it himself.",
+  "ampel": "gruen",
+  "burned": false
+ }
+}

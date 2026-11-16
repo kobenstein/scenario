@@ -1,0 +1,339 @@
+{
+ "_comment": "Film 25 slot metadata (format as films/24-animals/audio/clips.json). 'dur' (seconds of real footage) is set when a K clip is cut; until then build_vo.py uses the planned slot length (data root clips.json 'dauer' for K1/K2). 'offset': footage starts this long after the slot opens. 'cues': [[seconds from first footage frame, subtitle line]]. cue_status: 'whisper' = checked wording, 'provisional' = wording from o-ton/auswahl-v1.md + pocketsphinx, verify; 'estimated' = times spread over the planned length, re-time on the real footage.",
+ "J1": {
+  "plan": 10.93,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J1.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J1.wav",
+  "text": "So at the beginning, I used to do everything by hand. So deciding the topic, the idea of the script, the storyboard, shooting, editing, sound, animation, music.",
+  "cue_status": "whisper",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.0,
+    "So at the beginning, I used to do"
+   ],
+   [
+    2.29,
+    "everything by hand."
+   ],
+   [
+    3.53,
+    "So deciding the topic,"
+   ],
+   [
+    6.07,
+    "the idea of the script,"
+   ],
+   [
+    7.06,
+    "the storyboard, shooting,"
+   ],
+   [
+    8.58,
+    "editing, sound, animation, music."
+   ]
+  ]
+ },
+ "J2": {
+  "plan": 15.0,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J2.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J2.wav",
+  "text": "And then when AI arrived four years ago, AI took over the first small piece. So, for example, I decided to create some images with AI, which I then used as layers for my animations.",
+  "cue_status": "whisper",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.0,
+    "And then when AI arrived four"
+   ],
+   [
+    2.32,
+    "years ago, AI took over the first"
+   ],
+   [
+    5.41,
+    "small piece. So, for example,"
+   ],
+   [
+    7.91,
+    "I decided to create some images"
+   ],
+   [
+    10.19,
+    "with AI, which I then used as"
+   ],
+   [
+    12.96,
+    "layers for my animations."
+   ]
+  ]
+ },
+ "J3": {
+  "plan": 11.47,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J3.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J3.wav",
+  "text": "And every month my part shifted. So I was less doing and more directing. And the work and the output got better.",
+  "cue_status": "whisper",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.0,
+    "And every month my part shifted."
+   ],
+   [
+    3.14,
+    "So I was less doing and more"
+   ],
+   [
+    6.43,
+    "directing. And the work and the"
+   ],
+   [
+    9.82,
+    "output got better."
+   ]
+  ]
+ },
+ "J3b": {
+  "plan": 6.6,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J3b.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J3b.wav",
+  "text": "And then during the past, I would say last weeks, suddenly I was also able to edit.",
+  "cue_status": "whisper",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.0,
+    "And then during the past,"
+   ],
+   [
+    1.74,
+    "I would say last weeks,"
+   ],
+   [
+    4.26,
+    "suddenly I was also able to edit."
+   ]
+  ]
+ },
+ "J4": {
+  "plan": 5.6,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J4.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J4.wav",
+  "text": "And every time a new model mastered one part of production, I had to redefine my job.",
+  "cue_status": "whisper",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.0,
+    "And every time a new model"
+   ],
+   [
+    1.54,
+    "mastered one part of production,"
+   ],
+   [
+    3.65,
+    "I had to redefine my job."
+   ]
+  ]
+ },
+ "J5": {
+  "plan": 4.2,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J5.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J5.wav",
+  "text": "Now you see with this channel, I'm able to create a documentary a day.",
+  "cue_status": "whisper",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.34,
+    "Now you see with this channel,"
+   ],
+   [
+    1.88,
+    "I'm able to create a"
+   ],
+   [
+    3.09,
+    "documentary a day."
+   ]
+  ]
+ },
+ "J6": {
+  "plan": 5.85,
+  "dur": null,
+  "offset": 0.0,
+  "file": "J6.wav",
+  "name": "Jakob",
+  "role": "Creator of this channel (own voice)",
+  "source": "o-ton/clips-v1/J6.wav",
+  "text": "And I think what's left for me right now is to decide what's worth making and why.",
+  "cue_status": "whisper",
+  "cue_timing": "aligned",
+  "cues": [
+   [
+    0.08,
+    "And I think what's left for me"
+   ],
+   [
+    2.31,
+    "right now is to decide what's"
+   ],
+   [
+    4.24,
+    "worth making and why."
+   ]
+  ]
+ },
+ "K1": {
+  "plan": 13.2,
+  "dur": 13.2,
+  "offset": 0.0,
+  "name": "Erik Brynjolfsson",
+  "role": "Director, Stanford Digital Economy Lab",
+  "source": "https://www.youtube.com/watch?v=OvFI-V9Zaeo",
+  "text": "If you looked at the most exposed occupations and you looked at the ones that for the youngest age group there, say 22 to 26, then you saw a very noticeable decline in employment.",
+  "cue_status": "whisper",
+  "cue_timing": "aligned to the clip sound",
+  "cues": [
+   [
+    0.0,
+    "If you looked at the most"
+   ],
+   [
+    0.81,
+    "exposed occupations"
+   ],
+   [
+    3.712,
+    "and you looked at the ones"
+   ],
+   [
+    4.99,
+    "that for the youngest"
+   ],
+   [
+    6.19,
+    "age group there, say 22 to 26,"
+   ],
+   [
+    9.39,
+    "then you saw a very noticeable"
+   ],
+   [
+    11.61,
+    "decline in employment."
+   ]
+  ],
+  "in": 0.58,
+  "window_note": "K1.mp4 = source from 1674.5 s (14.22 s). Speech 'If' onset ~0.66 s (energy), 'employment.' ends 13.78 s; window in 0.58 + 13.2 s. Whisper (fal-ai/whisper, word level) wording checked 10.11.",
+  "frames": 396,
+  "real": 13.643,
+  "src_sig": "39331525bc77",
+  "src": "K1.mp4",
+  "src_size": 2715037,
+  "cue_source": "whisper json K1.json"
+ },
+ "K2": {
+  "plan": 9.7,
+  "dur": 9.7,
+  "offset": 0.0,
+  "name": "Geoffrey Hinton",
+  "role": "AI pioneer, Nobel laureate in physics 2024",
+  "source": "https://www.youtube.com/watch?v=giT0ytynSqg",
+  "text": "I'd say it's going to be a long time before it's as good at physical manipulation as us. And so a good bet would be to be a plumber.",
+  "cue_status": "whisper",
+  "cue_timing": "aligned to the clip sound",
+  "cues": [
+   [
+    0.17,
+    "I'd say it's going"
+   ],
+   [
+    0.84,
+    "to be a long time before"
+   ],
+   [
+    2.33,
+    "it's as good at physical"
+   ],
+   [
+    4.01,
+    "manipulation as us."
+   ],
+   [
+    6.477,
+    "And so a good bet would"
+   ],
+   [
+    8.41,
+    "be to be a plumber."
+   ]
+  ],
+  "in": 0.32,
+  "window_note": "K2.mp4 = source from 3034.8 s (10.72 s). 'meantime,' (Hinton) 0-0.3, 'I'd say' from 0.36, 'us.' ends 5.7, Bartlett 'Okay.' 6.14-6.35 (stays in the sound, left out of the subtitle), 'plumber.' ends 9.8; window in 0.32 + 9.7 s.",
+  "frames": 291,
+  "real": 10.4,
+  "src_sig": "355254e049e1",
+  "src": "K2.mp4",
+  "src_size": 1339515,
+  "cue_source": "whisper json K2.json"
+ },
+ "K3": {
+  "plan": 12.0,
+  "dur": 11.2,
+  "offset": 0.8,
+  "name": "Bill Gates",
+  "role": "Co-founder of Microsoft, Gates Foundation",
+  "source": "https://www.youtube.com/watch?v=MLeTQWQiOvg",
+  "cues": [
+   [
+    0.0,
+    "Even under the best circumstances,"
+   ],
+   [
+    2.48,
+    "the transition to this new AI era"
+   ],
+   [
+    4.96,
+    "will be one of the most"
+   ],
+   [
+    6.08,
+    "turbulent times in human history."
+   ]
+  ],
+  "cue_status": "card + narrator (take timestamps from fal v4)",
+  "card": true,
+  "voice": "K3-voice.mp3",
+  "text": "Even under the best circumstances, the transition to this new A.I. era will be one of the most turbulent times in human history.",
+  "voice_note": "narrator reads the quote card (ElevenLabs v4 via fal, voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, 12.11.); take is 8.3 s; slot stays 12.0 s = offset 0.8 + dur 11.2; music NOT ducked extra (mix.py 'voice' slots behave like VO)",
+  "cue_end": 8.45
+ }
+}

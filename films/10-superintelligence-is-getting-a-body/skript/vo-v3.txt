@@ -1,0 +1,137 @@
+Superintelligence is getting a body.
+
+Last year in Beijing, robots ran a half marathon against people. Most never finished. One lost its head.
+
+One year later, the winner ran it faster than any human has ever run it.
+
+One of them crashed into a barrier. Someone set it back on its feet. The winner ran on its own.
+
+They still need our hands. For now.
+
+So what are we teaching them? And who will they end up working for?
+
+Last year, the whole world got more than thirteen thousand of these robots. By the middle of this century, analysts at Morgan Stanley expect a billion. A billion robots. Two billion new hands. All of them learning from ours.
+
+In the next eleven minutes: whether that's really coming. What it would cost us and the planet. And how we make sure we wake up in a world that serves life.
+
+And here's the strange part. How they learn.
+
+In a hall in China, a trainer in a headset lifts a cup. A robot copies the move. Again. And again. Thousands of times.
+
+China has announced more than forty state-backed halls like that one. Every angle of every joint is recorded.
+
+And in the United States, Neo is billed as the first human-shaped home robot you can pre-order. For now, when a task gets too hard, a person far away takes over. They look through the robot's cameras. Only if you allow it.
+
+Its maker's chief executive put it simply: "If we don't have your data, we can't make the product better."
+
+So the next training hall might be your living room. Keep that in mind.
+
+Is that superintelligence? Not yet. It still takes thousands of tries to learn to lift a cup. But artificial intelligence is getting what it never had: eyes and hands. And our movements are its textbook.
+
+So is this just a show? Or is it really coming?
+
+Why now? Because they got cheap. A small human-shaped robot from the Chinese maker Unitree costs about six thousand dollars. About as much as a cheap used car.
+
+Who pays first? Factories and warehouses. Morgan Stanley expects about ninety percent of these robots to work in companies, not in homes.
+
+Who's pushing hardest? Countries. More than half of all new factory robots are now installed in China. Beijing has made robots a national strategy.
+
+And who's missing? Workers. Japan has about seventy-four million people of working age. It expects that to fall to sixty-two million. By twenty forty.
+
+Many robot makers have already missed their own deadlines. And a billion is a forecast, not a law of nature.
+
+Still, price, money, countries and missing workers all push the same way. Probably isn't certainly. Which means we still get a say.
+
+So it's probably coming. And most of us assume that's good news. More robots, easier life. Is it?
+
+Picture your grandmother. A robot won't care for her. That stays human.
+
+But it could do the laundry. The cleaning. The shopping. The carrying. So you have time to sit with her.
+
+Heavy, dangerous work could move from human hands to robot hands. Robots for things. People for people.
+
+But will we really get that time? Machines have promised us time before. Mostly, it filled up with new work. Robots won't give us time. We have to take it.
+
+And there's a bill. The first one goes to us.
+
+Go back to the hall in China. Every time the trainer lifts that cup, the robot gets a little better. And the trainer gets a little less needed. Often for little money.
+
+Now imagine it's your job. Every move you show it, it keeps. You don't. Not because you were bad at it. Because you were good enough to copy.
+
+Then the robot comes home. Remember what its maker said? "If we don't have your data, we can't make the product better." In the hall, that data is a cup. In your home, it's your life. How you sleep. What you eat. Who comes to visit.
+
+Of last year's robots, about nine in ten came from China. If a few companies, or one country, own the hands in every home and every factory, who holds the power then?
+
+There's a quieter question, too. What do we lose when we stop doing things with our own hands?
+
+And there's a second bill. This one goes to the planet.
+
+A robot looks clean. Electric. Quiet. No exhaust. But look inside the joints.
+
+Every joint has a motor. And every motor needs magnets made from rare earths. Two to four kilograms in every robot. About twice what an electric car needs.
+
+And when a robot is thrown away, those magnets almost never come back. Less than one percent of rare earths get recycled.
+
+Then the battery. It lasts a few hours. So every robot needs power, every day. Plus the data centers that do its thinking.
+
+Now picture a billion of them. That means many new mines. Every robot starts as a hole in the ground. And if they get replaced like phones, every few years, a vast mountain of electronic waste. A phone fits in a drawer. A robot is the size of a person.
+
+And remember who made that forecast. A bank. A bank counts robots as sales. The planet counts them as mines.
+
+So the real question isn't robots, yes or no. It's this: robots for whom?
+
+The answer starts somewhere you wouldn't expect. Not in a lab. In a vineyard.
+
+In France, about one in two farmers belongs to a co-op that buys and shares its machines. One tractor, many farms.
+
+And some wine growers' co-ops have already bought robots that way. The robot doesn't belong to a tech company. It belongs to the growers.
+
+What if the robots that learn from us worked the same way?
+
+Richard Freeman, a labor economist at Harvard, gave an essay a blunt title: "Who owns the robots rules the world." His answer: all of us should own a share of the machines that compete with us for work.
+
+So picture the training hall again. Same trainer. Same cup. But this time, every move they teach is a share they own. One member, one vote. And every time it works, a little of what it earns goes back to the hands that taught it.
+
+Call it a robot co-op. Nobody has anything taken away. You own a share because you helped make it.
+
+Sounds like a dream? Parts of it already exist.
+
+Paying the teachers: in India, Karya pays villagers to record data for artificial intelligence. By its own account, it pays several times the minimum wage, and promises a cut when the data is resold. So far, that cut has been small.
+
+Keeping people when the work moves on. In the Basque Country, Mondragon's co-ops belong to tens of thousands of their workers. When one runs out of work, its people usually move to another instead of being let go.
+
+Not all of it worked. Mondragon's co-op Fagor still went bankrupt in twenty thirteen. And the full robot co-op is still an idea. It hasn't been tested. What is one lesson worth? Who counts it?
+
+Now picture that hall's next vote. The members could choose to be paid not only in money, but in time. Shorter working days, same income. That's how the time we have to take actually reaches people.
+
+And the planet? Go back to the vineyard. When the people who pay for a robot also share it, nobody buys one to stand in a corner. Fewer robots, same work.
+
+Built to be repaired and upgraded, not thrown away. With their magnets recovered at the end. And some magnets need no rare earths at all. In the United States, a company called Niron makes them from iron and nitrogen. Its first large factory is being built right now.
+
+Does that make robots free for the planet? No. Every one still needs a battery, power every day, and materials dug from the ground. So the real question was never how many robots we can build. It's how many we really need.
+
+And the robot in your home? Who sets its rules? An off switch. Rooms it never enters. No stranger watching without your permission. Your data stays yours.
+
+Neo already asks for permission and can be locked out of rooms. Now that has to become the standard. And the law.
+
+And the hands themselves don't have to come from a few big companies. Hugging Face has published a robot arm with free building plans. You can print and build it yourself, from about a hundred dollars.
+
+Three questions for every robot.
+
+Does it really give people time for each other? Does it spare the Earth? Does it belong to the people who taught it?
+
+If yes, we want it. If not, we don't need it.
+
+But who gets to decide?
+
+Robots will work for whoever owns them, and whoever writes their rules.
+
+And here's what's easy to miss. The trainer in China isn't the only teacher. A robot like Neo learns from the home it lives in. That makes you one of the teachers.
+
+And teachers can ask for something back. A share. A vote. An off switch.
+
+So, do we want a billion robots? Maybe we never needed that many. We want the right ones.
+
+Picture waking up there. The dishes are done. Your grandmother is at the table, and you have time to sit with her. Outside, the garden is still alive.
+
+We're teaching them to walk. Now let's teach them where to go.

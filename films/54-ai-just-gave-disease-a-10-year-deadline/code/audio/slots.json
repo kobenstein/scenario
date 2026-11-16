@@ -1,0 +1,94 @@
+{
+ "duration": 618.81,
+ "end_screen": {
+  "start": 603.81,
+  "dur": 15.0,
+  "end": 618.81,
+  "call": "t22",
+  "call_start": 577.18,
+  "call_end": 593.81,
+  "tail_after_vo": 25.0,
+  "note": "after the last VO word: a quiet walk, then the 15 s end screen (the music fades out over it)"
+ },
+ "channel_calls": {
+  "t09": {
+   "start": 228.06,
+   "end": 241.54
+  },
+  "t22": {
+   "start": 577.18,
+   "end": 593.81
+  }
+ },
+ "slots": [
+  {
+   "id": "C3",
+   "kind": "clip",
+   "sec": "1",
+   "start": 94.14,
+   "end": 104.59,
+   "dur": 10.45,
+   "under": false
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "sec": "6",
+   "start": 364.62,
+   "end": 373.94,
+   "dur": 9.32,
+   "under": false
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "6",
+   "start": 427.43,
+   "end": 436.15,
+   "dur": 8.72,
+   "under": false
+  }
+ ],
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "card",
+   "sec": "1",
+   "start": 48.66,
+   "end": 57.22,
+   "under": true
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "sec": "1",
+   "start": 94.14,
+   "end": 104.59,
+   "under": false
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "sec": "6",
+   "start": 364.62,
+   "end": 373.94,
+   "under": false
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "6",
+   "start": 427.43,
+   "end": 436.15,
+   "under": false
+  },
+  {
+   "id": "C1b",
+   "kind": "card",
+   "sec": "7",
+   "start": 515.91,
+   "end": 520.12,
+   "under": true
+  }
+ ]
+}

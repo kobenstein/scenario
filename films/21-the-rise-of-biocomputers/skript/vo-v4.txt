@@ -1,0 +1,120 @@
+[calm, conversational] Computers now run on human brain cells.
+The same kind of cells you're using right now, to watch this.
+But these live on a chip, inside a server rack in Singapore. And every few days, someone feeds them.
+
+[CLIP C1]
+[wry] Cells like these learned to play this... badly. Like someone who has never held a controller. They haven't.
+
+[curious] No hands. No eyes. No reward. So how do you teach a dish of cells anything?
+
+[thoughtful] Your brain cells grew up inside a head. These never did. They didn't even start out as brain cells.
+They started as a blood sample... like the one from your last checkup.
+And to make brain cells out of blood, you first have to turn back a cell's clock.
+
+[calm, conversational] In a lab, a few of those blood cells are turned back... into stem cells. Cells that can still become almost anything. That trick won a Nobel Prize, and it needs no embryos.
+
+Then the clock runs forward again, and they grow into neurons. Brain cells.
+
+[calm, conversational] Spread them on a chip, and they reach out to each other, wiring up all on their own.
+
+Tiny electrodes underneath send them signals... and listen to their answers. Ordinary code runs the conversation.
+
+That's the computer. A dish of living neurons on a chip, inside a box with its own life support. An Australian company, Cortical Labs, builds them.
+
+The artificial intelligence you know imitates neurons with math. This computer uses the real thing.
+
+So how do you teach it anything... without a reward?
+
+[curious] The answer came from that same company, four years ago, with an old video game... Pong.
+
+They connected a dish of neurons to the game. Some were human cells, some came from mice. The cells never saw a screen. One patch of electrodes told them where the ball was. Activity in another patch moved the paddle.
+
+Then came the trick. Hit the ball, and the cells got a short, tidy signal. Same every time. Miss, and they got four seconds of random noise. Electrical static.
+
+No reward. Just order... or chaos.
+
+After about five minutes, the rallies got longer. Dishes that got no feedback didn't improve. So it wasn't luck.
+
+It looks like the cells want the static to stop. But "want" is too big a word. They just settle into whatever keeps the noise away.
+
+[thoughtful] Behind the trick is an idea from the neuroscientist Karl Friston. Living things act to make their world more predictable. You do it too, every time you tune a crackling radio until the voice comes through.
+
+Here's Brett Kagan, who led the study, on how it works.
+
+[CLIP C2]
+
+[thoughtful] So cells can learn from nothing but order and noise. But was it just a lab trick?
+
+[calm, conversational] It didn't stay in the lab. Last year, it became a product. A box costs about thirty-five thousand dollars. Or you can rent one over the internet, for a few hundred dollars a week.
+
+And that game from the start? This February, an outside programmer got the cells playing Doom in about a week. Setting up Pong had taken the scientists a year and a half.
+
+[wry] The cells turn, find enemies, and shoot... but they die a lot. One of the company's own scientists puts it plainly. "The system doesn't actually know it's playing Doom."
+
+Still... from Pong to Doom in four years.
+
+[calm, conversational] This channel exists so that the age of superintelligence goes well for everyone, not just a few. If you want that too, subscribe.
+
+So why put these boxes in a server rack?
+
+[thoughtful] It comes down to a number inside your head. Your brain runs on about twenty watts. That's all the power behind everything you've ever learned.
+
+The data centers behind artificial intelligence need vastly more. Last year, their electricity use jumped by about half.
+
+So some companies are betting on the original, not the imitation. This year, Melbourne and Singapore both opened small test data centers built from these boxes. The plan in Singapore? Up to a thousand of them, for things like drug research.
+
+But does it actually save power? Each box, with its life support, draws about thirty watts. That's more than your whole brain. The cells themselves sip almost nothing... it's the life support that costs. And nobody has tested yet whether cells can do the same work as chips on less power.
+
+So can a dish of cells really compete with artificial intelligence?
+
+[curious] Picture it as a match... cells against artificial intelligence. Three rounds.
+
+Round one. Learning speed. In a study published last year, the Pong team put dishes of cells up against three standard artificial intelligence programs. To keep it fair, both sides got the same tiny amount of practice.
+
+The cells learned faster, with more hits and longer rallies.
+
+Point, cells... with a catch. The programs were older, and the practice was short. With far more practice, that same kind of software beats human players at Pong.
+
+Round two. Teamwork. Last month, at a science conference in Washington, the company presented fifteen boxes linked into a team. The test? Steer a little figure across a grid to a goal. An older program scored about thirty-two percent. The best single box, about forty. Linked boxes, working together? About seventy.
+
+Point, cells. Another catch. One company. One talk. No published paper yet. And again, the opponent wasn't today's best.
+
+Round three. Everything else. The cells usually last about six months. They have good days and bad days... which is why teams help. And even the company's boss says chips win at fast, precise math... the kind that runs the chatbots you use.
+
+Point, artificial intelligence. A big one.
+
+Final score? Two small points for the cells. A giant one for the chips. So the goal isn't replacing chips. It's pairing them with cells, each doing what it does best.
+
+[thoughtful] Cells that learn, team up, and steer away from noise... is anyone in there?
+
+[calm, conversational] First, how big is it? Each of these boxes holds about two hundred thousand neurons. That's a bit more than a fruit fly... and far less than a honeybee.
+
+Put all of Melbourne's boxes together, and they hold about a third as many neurons as a mouse brain. But spread across a hundred and twenty separate dishes, flat, and not wired like a brain. Your own brain? About eighty-six billion neurons.
+
+Reacting to signals isn't the same as feeling something. So far, there's no evidence that anything is felt in these dishes. Most leading theories of consciousness say the structure for it isn't there.
+
+[thoughtful] Still, some researchers are more careful here than with chatbots. Anil Seth, a neuroscientist who studies consciousness, worries more about accidentally creating it in lab-grown brain tissue than in the next ChatGPT.
+
+At Johns Hopkins, a leading team in this field builds the ethics in from the very start. Ethicists, scientists and the public think it through together. They call it embedded ethics. Here's Thomas Hartung, who leads that work, on what that means.
+
+[CLIP C3]
+
+[thoughtful] So what do we do now, while each box is still smaller than a bee's brain?
+
+[calm, conversational] At the start, the question was how to teach a dish of cells. The answer? Order... and noise. And now the cells are teaching us back.
+
+First, about learning. It can run on very little power and very little practice. Even if a dish never runs your apps, that lesson could make software leaner.
+
+And the good is already real. Epilepsy drugs have been tested on human neurons like these. One even improved the cells' Pong game. Tests like that could mean fewer animal experiments... and better ways to study brain diseases.
+
+[thoughtful] The harder lesson is about us. Can we write good rules before we need them? Three would be a start, while it's this small.
+
+One. Donors know what their cells are for, and say yes. Ethicists are already pushing for that.
+
+Two. Before these systems grow bigger or more connected, someone checks for signs of experience. Every time. Experts have already called for ongoing oversight instead of bans.
+
+Three. Results in public, not just on conference stages, so anyone can check them.
+
+[thoughtful] For seventy years, we built machines that imitate brain cells. Now living ones are inside the machine. What they learn from us next... is up to us.
+
+[calm, conversational] We make films like this so that what comes next goes well for all of us. If you want that too, subscribe.

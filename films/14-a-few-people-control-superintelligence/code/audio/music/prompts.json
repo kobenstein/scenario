@@ -1,0 +1,47 @@
+{
+ "base": "Instrumental cinematic documentary underscore, no vocals, no drums, no percussion hits. Mysterious and calm, as if standing before a locked door with something important behind it: deep low drone, soft analog pads, sparse felt piano, high glass harmonics like a wet finger on crystal, faint distant wordless choir. Quiet suspense and wonder, not uplifting, not epic, not horror, no big hits, no build to a climax. ",
+ "tracks": [
+  {
+   "file": "M0",
+   "chapter": "hook s00-s04",
+   "sec": 80,
+   "prompt": "Instrumental cinematic documentary underscore, no vocals, no drums, no percussion hits. Mysterious and calm, as if standing before a locked door with something important behind it: deep low drone, soft analog pads, sparse felt piano, high glass harmonics like a wet finger on crystal, faint distant wordless choir. Quiet suspense and wonder, not uplifting, not epic, not horror, no big hits, no build to a climax. 80 seconds. Theme: a single key turning in an enormous dark lock; the people who built a mind cannot see inside it. [0:00-0:05] starts immediately at full presence, low drone and soft pad already sounding, no fade-in, no silence. [0:05-0:40] a slow, questioning four-note felt-piano motif over the drone, faint glass shimmer, a soft metallic tick like a lock's tumblers. [0:40-1:20] the same steady texture continues without any pause, break or drop, the motif repeats with a little more tension, pads open slightly, no resolution, keeps flowing at the same level to the end."
+  },
+  {
+   "file": "M1",
+   "chapter": "the file / the vault s05-s07",
+   "sec": 95,
+   "prompt": "Instrumental cinematic documentary underscore, no vocals, no drums, no percussion hits. Mysterious and calm, as if standing before a locked door with something important behind it: deep low drone, soft analog pads, sparse felt piano, high glass harmonics like a wet finger on crystal, faint distant wordless choir. Quiet suspense and wonder, not uplifting, not epic, not horror, no big hits, no build to a climax. 95 seconds. Theme: one giant file in a secure vault, two people turning keys together, a slow data throttle, an old missile control room. [0:00-0:30] low drone and cool pads, the four-note piano motif returns, measured and careful. [0:30-1:05] a patient pulse in muted low piano like the slow heartbeat of a machine room, glass harmonics, two notes answering each other like two keys. [1:05-1:35] old and grave, a distant choir breath, thins to a held tone."
+  },
+  {
+   "file": "M2",
+   "chapter": "the sleeper s08-s10",
+   "sec": 90,
+   "prompt": "Instrumental cinematic documentary underscore, no vocals, no drums, no percussion hits. Mysterious and calm, as if standing before a locked door with something important behind it: deep low drone, soft analog pads, sparse felt piano, high glass harmonics like a wet finger on crystal, faint distant wordless choir. Quiet suspense and wonder, not uplifting, not epic, not horror, no big hits, no build to a climax. 90 seconds. Theme: a model that looks perfectly polite and safe but hides a trigger; a sleeper waiting for a date. [0:00-0:30] deceptively gentle, sweet music-box-like felt piano over a soft pad, something slightly off. [0:30-1:00] a low uneasy drone creeps underneath, a dissonant glass tone that never resolves, a faint clock-like tick. [1:00-1:30] quiet unease, the sweet melody returns but one note is wrong, ends suspended."
+  },
+  {
+   "file": "M3",
+   "chapter": "the microscope s11-s13",
+   "sec": 90,
+   "prompt": "Instrumental cinematic documentary underscore, no vocals, no drums, no percussion hits. Mysterious and calm, as if standing before a locked door with something important behind it: deep low drone, soft analog pads, sparse felt piano, high glass harmonics like a wet finger on crystal, faint distant wordless choir. Quiet suspense and wonder, not uplifting, not epic, not horror, no big hits, no build to a climax. 90 seconds. Theme: researchers looking inside an artificial mind with a microscope and seeing a plan form, a single word moved by hand; curiosity and discovery. [0:00-0:30] delicate, curious plucked piano and glass bell figures like tiny lights switching on inside a dark structure. [0:30-1:05] a sense of wonder, soft shimmering pads, a gentle arpeggio that rearranges itself. [1:05-1:30] calm and reflective, slightly unresolved, a quiet question at the end."
+  },
+  {
+   "file": "M4",
+   "chapter": "the second key s14-s16",
+   "sec": 90,
+   "prompt": "Instrumental cinematic documentary underscore, no vocals, no drums, no percussion hits. Mysterious and calm, as if standing before a locked door with something important behind it: deep low drone, soft analog pads, sparse felt piano, high glass harmonics like a wet finger on crystal, faint distant wordless choir. Quiet suspense and wonder, not uplifting, not epic, not horror, no big hits, no build to a climax. 90 seconds. Theme: two rival companies handing each other a second key and testing each other in daylight; fragile trust between competitors. [0:00-0:30] two felt-piano voices in different registers answering each other, cautious. [0:30-1:00] warmer pads, an airy texture like daylight entering a dark room, glass harmonics. [1:00-1:30] restrained and fragile, a held chord that is not fully resolved."
+  },
+  {
+   "file": "M5",
+   "chapter": "the glass box s17-s18",
+   "sec": 82,
+   "prompt": "Instrumental cinematic documentary underscore, no vocals, no drums, no percussion hits. Mysterious and calm, as if standing before a locked door with something important behind it: deep low drone, soft analog pads, sparse felt piano, high glass harmonics like a wet finger on crystal, faint distant wordless choir. Quiet suspense and wonder, not uplifting, not epic, not horror, no big hits, no build to a climax. 82 seconds. Theme: a transparent glass box, an open model anyone can inspect, every piece in plain view; openness with a shadow of risk. [0:00-0:30] clear crystalline glass and celesta textures, open fifths, airy pads, transparent and luminous but still calm. [0:30-1:00] a low drone underneath adds a hint of doubt. [1:00-1:22] the bright and the dark lines balance each other, ends on an open question."
+  },
+  {
+   "file": "M6",
+   "chapter": "key ring finale + end image s19-s22",
+   "sec": 130,
+   "prompt": "Instrumental cinematic documentary underscore, no vocals, no drums, no percussion hits. Mysterious and calm, as if standing before a locked door with something important behind it: deep low drone, soft analog pads, sparse felt piano, high glass harmonics like a wet finger on crystal, faint distant wordless choir. Quiet suspense and wonder, not uplifting, not epic, not horror, no big hits, no build to a climax. 130 seconds. Theme: a ring of many keys held in many hands; no single key is enough, together they can be. [0:00-0:30] starts very quietly with the four-note piano motif from the beginning, slow and tender. [0:30-1:10] layers enter one by one, warm pads and a soft distant wordless choir, a sense of many hands, calm resolve rather than triumph. [1:10-1:45] the most open moment, still restrained, glass harmonics shimmer. [1:45-2:10] a final simple piano phrase, then a quiet held chord and gentle drone for the end screen, slowly fading."
+  }
+ ]
+}
