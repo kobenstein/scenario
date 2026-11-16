@@ -80,7 +80,7 @@ export function part05(T) {
   ];
   // ---------------------------------------------------------------- 4.01–4.03 the facet: flat screen → C1 → THE SELLER → the stewards card
   const flatU = (t) => span(t, a.un - .2, a.stake + .2) * (1 - span(t, a.ifs, a.ifs + 1.2));   // the facet's light returns under the card
-  const clipM = (t) => sineIO(span(t, C1.start - .5, C1.start + 1.3)) * (1 - sineIO(span(t, C1.end - 1.3, C1.end + .5)));
+  const clipM = (t) => sineIO(span(t, C1.start - .8, C1.start + 1.6)) * (1 - sineIO(span(t, C1.end - 1.6, C1.end + .8)));   // 2.4 s each way
   const Q1 = { x: 330, y: 350, w: 1260, size: 64, text: '“…distinctly equipped to be stewards of our mission”' };
   Q1.h = quoteH(Q1.text, Q1.size, Q1.w, null, true);
   const SD = { x: BAR.x + BAR.w * .5 + 120, y: BAR.y - 112, w: 380, h: 92 };     // SAFETY DECISION, sitting on the gold half
@@ -94,7 +94,7 @@ export function part05(T) {
   const DOCX = DOC.xl, edge = (t) => DOCX + DOC.s + 12;
   function cardRect(t, f) {
     const g = q1Grow(t), d = q1Down(t);
-    let r = rectMix(f ? f.box : Q1, Q1, g);
+    let r = rectMix(f ? { x: f.cx - 30, y: f.cy - 14, w: 60, h: 28 } : Q1, Q1, g);   // out of the facet's middle
     if (d > 0) r = rectMix(Q1, SD, d);
     const l = lift(t);
     if (l > 0) r = { ...r, y: r.y - 120 * l, x: r.x + 40 * l };
@@ -107,7 +107,7 @@ export function part05(T) {
     // the facet turns flat (a screen), C1 grows out of it and back
     flatFacet(ctx, f, flatU(t) * (1 - veilU(t)));
     const m = clipM(t);
-    if (m > 0) F.clipPlate(ctx, t, T, 'C1', { from: f.box, morph: m, label: span(t, C1.start + .6, C1.start + 1.4) * (1 - span(t, C1.end - .9, C1.end - .4)) });
+    if (m > 0) F.clipPlate(ctx, t, T, 'C1', { from: [f.cx, f.cy, f.R * .12], morph: m, dark: .55 * (1 - sineIO(m)), label: span(t, C1.start + .6, C1.start + 1.4) * (1 - span(t, C1.end - .9, C1.end - .4)) });
     // THE SELLER, stamped on the facet (it stays under the card once the card covers it)
     if (t > a.selling - .3 && q1Grow(t) < .9) F.stamp(ctx, t, 'THE SELLER', f.cx, f.cy + 10, { t0: a.selling + .05, size: 34, rot: -.08, ink: GOLD.text });
     // the stewards card grows out of the facet; later it is the small SAFETY DECISION card

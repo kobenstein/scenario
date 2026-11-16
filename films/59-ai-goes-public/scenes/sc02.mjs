@@ -263,12 +263,19 @@ function part02(T) {
     const R0 = antRow(t), r = rectMix(R0, B, m);
     if (r.y > H + 40) return;
     ctx.save(); F.float(ctx, t, 1 - m);
-    if (m < 1) {   // the row's other marks leave first (they sink behind the row's mask)
+    buyButton(ctx, r.x, r.y, r.w, r.h, { text: span(m, .6, 1), dim: .35 * sink, glow: .5 * span(m, .7, 1) * (1 - sink) });
+    if (m < 1) {
+      // the row's dark gold (as in the list) lights up into the pill
+      const x = sineIO(span(m, 0, .55));
+      if (x < 1) {
+        ctx.fillStyle = rgba(mixHex(GOLD.deep, P.night1, .3), .85 * (1 - x)); ctx.beginPath(); ctx.roundRect(r.x, r.y, r.w, r.h, lerp(16, r.h / 2, x)); ctx.fill();
+        ctx.strokeStyle = rgba(GOLD.line, .9 * (1 - x)); ctx.lineWidth = 3; ctx.stroke();
+      }
+      // the row's other marks leave first (they sink behind the row's mask)
       const k = 1 - span(m, 0, .35);
       if (k > 0) { ctx.save(); ctx.beginPath(); ctx.rect(r.x, r.y, r.w, r.h); ctx.clip(); ctx.translate(0, (1 - k) * r.h);
-        E.glowText(ctx, '2', r.x + 46, r.y + r.h * .74, { size: 54, serif: true, col: GOLD.hot, glow: false }); gline(ctx, 'ANT', r.x + 200, r.y + r.h * .66, 40, 1, { serif: false, weight: 600, spacing: .2 }); ctx.restore(); }
+        E.glowText(ctx, '2', r.x + 46, r.y + r.h * .74, { size: 54, serif: true, col: GOLD.hot, glow: false }); F.shard(ctx, t, r.x + 150, r.y + r.h / 2, 46, { glow: .5 }); gline(ctx, 'ANT', r.x + 200, r.y + r.h * .66, 40, 1, { serif: false, weight: 600, spacing: .2 }); ctx.restore(); }
     }
-    buyButton(ctx, r.x, r.y, r.w, r.h, { text: span(m, .6, 1), dim: .35 * sink, glow: .5 * span(m, .7, 1) * (1 - sink) });
     ctx.restore();
   }
   // the gold label on the crystal: ANTHROPIC / THE LAB BEHIND CLAUDE
