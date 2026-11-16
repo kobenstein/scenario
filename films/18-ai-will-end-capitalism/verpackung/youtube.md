@@ -19,7 +19,7 @@ AI will end capitalism. Not in a hundred years, in your lifetime, and not the wa
 
 So where does the money go when the price of thinking falls to zero? We follow it from the encyclopedia and the song to the three things AI can't copy: the ground, the power and the chips. And then to a forgotten board game from 1904 with two sets of rules, one where a single player ends up owning everything, and one where everybody wins. Parts of the second set are already in play today.
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 How AI will end capitalism

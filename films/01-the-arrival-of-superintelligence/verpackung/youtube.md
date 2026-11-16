@@ -19,7 +19,7 @@ At one of the biggest AI labs, most new code is now written by the AI itself. Fo
 
 In 2021 a young researcher, Daniel Kokotajlo, wrote down what 2026 would look like, and much of it came true. Then he and four colleagues wrote the next few years month by month, with two endings: one goes badly, one goes a lot better. This film follows both, looks at what a real lab did this summer when its AI did something unexpected, and shows the four things that decide which ending we get. None of them needs a miracle, and all of them have worked before.
 
-This is a scenario, not a prediction. Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+This is a scenario, not a prediction. Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 AI is now helping build its own successor

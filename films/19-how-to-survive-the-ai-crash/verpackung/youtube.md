@@ -19,7 +19,7 @@ On November 5th, tech stocks lost more than two trillion dollars in a single day
 
 This isn't financial advice. It's what happened to ordinary people in the crashes before this one: the tariff crash, the rate shock, the financial crisis and the dot-com bubble. We follow the clock from the market's last record high on October 6th to day one thousand, stop at each exit where an earlier crash hit bottom, and pick up one protection at a time. And we look at the safety nets earlier crashes left behind, and the hole in this boom that none of them was built for.
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Nothing in them is generated. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Nothing in them is generated. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 How to survive the AI crash

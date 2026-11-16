@@ -19,7 +19,7 @@ On October 19, 2026, Elon Musk promised a SpaceX share to every kid in America. 
 
 The fortune AI could create doesn't exist yet, so it belongs to no one. This film shows how it could reach every person on Earth: three ways to share it (own, print, agree), what Alaska, Norway and Switzerland already do, and a plan you could explain to a friend: plant a share for everyone now, let it grow with the winners, then harvest the same share for every human being.
 
-The plan is a proposal, not a forecast. Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+The plan is a proposal, not a forecast. Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 Your phone buzzes

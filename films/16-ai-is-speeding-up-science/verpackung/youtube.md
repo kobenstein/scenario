@@ -19,7 +19,7 @@ Superintelligence could give us a hundred years of progress in ten. The head of 
 
 We follow the promise compartment by compartment through 2026: a cancer vaccine made for one single person, AlphaFold in the hands of more than a million scientists in low and middle income countries, and drugs found with A.I. that pass the first test in people far more often, but not yet the second. Then we look at what progress really looks like: Guinea worm, down from 3.5 million cases a year to ten. Hepatitis C, curable since 2015 and still untreated for four in five people. And an HIV shot that reached Africa early because the license and the price were agreed in advance, a deal that could be written for the first A.I. medicines too.
 
-The early-license deal for A.I. medicines is our proposal, not existing policy. The June 2026 quote comes from "The Briefing: AI for Science", an event hosted by Anthropic, the company led by the essay's author. Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+The early-license deal for A.I. medicines is our proposal, not existing policy. The June 2026 quote comes from "The Briefing: AI for Science", an event hosted by Anthropic, the company led by the essay's author. Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 100 years of progress in 10?

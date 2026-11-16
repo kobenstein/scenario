@@ -21,7 +21,7 @@ Why did a TV get 98 percent cheaper since 2000, while a year in a nursing home n
 
 This is not financial advice.
 
-The narration voice is AI-generated, and the animation was built in code with AI. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+The narration voice is AI-generated, and the animation was built in code with AI. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 Musk's claim

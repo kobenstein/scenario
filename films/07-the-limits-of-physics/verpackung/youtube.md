@@ -21,7 +21,7 @@ Keep our appetite for energy growing a little every year, and in about four hund
 
 This film follows the curve from the data centers to the wall, turns over four hard questions (energy, metals, the planet's nine dials, and who it's for), and finds the twist in the price of light: growth is not the same as appetite. Intelligence can keep climbing. Appetite has to bend. The furnace or the ring: the technology won't choose. We will.
 
-Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 Can it grow forever?

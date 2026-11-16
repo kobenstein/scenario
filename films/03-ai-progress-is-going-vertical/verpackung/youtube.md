@@ -19,7 +19,7 @@ Something is happening right now that will shape the rest of your life, and almo
 
 Most of us picture AI progress as a few big moments with long quiet stretches in between. So we draw it: one line, and every first gets a card, from Dartmouth in 1956 to AI proofs checked by mathematicians. The gaps between the cards keep getting shorter. Then we zoom into just ninety days of 2026, look at what that speed could mean by 2029, and at four concrete ways to make sure it goes well for everyone.
 
-The 2029 part is a scenario, not a forecast. Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+The 2029 part is a scenario, not a forecast. Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 The change almost nobody is talking about

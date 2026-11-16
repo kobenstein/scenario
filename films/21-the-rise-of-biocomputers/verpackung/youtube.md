@@ -19,7 +19,7 @@ Computers now run on human brain cells. In a server rack in Singapore, living hu
 
 So how do you teach a dish of cells anything, with no hands, no eyes and no reward? The answer is a trick with order and noise. We follow it from the first Pong experiment to the first data centers built from these boxes, put the cells in a three-round match against artificial intelligence, and ask the hardest question honestly: is anyone in there? Then: three rules worth writing now, while it's this small.
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 Computers now run on human brain cells

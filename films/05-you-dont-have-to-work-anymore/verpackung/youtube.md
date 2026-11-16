@@ -19,7 +19,7 @@ One day soon, you might never have to work again. Your income, taken care of. So
 
 The people building AI now say on stage that work will become optional. This film takes them at their word and asks the harder question: what happens to a person when the have-to disappears? What lottery winners, retirees and a basic income experiment in Kenya show, why the slump is a hangover and not a destiny, and where a free life actually leads: to people, to things worth doing, and to the oldest question there is.
 
-Whether this future reaches everyone, or only a few, is still open. Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Whether this future reaches everyone, or only a few, is still open. Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 What if you never had to work again?

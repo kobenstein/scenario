@@ -21,7 +21,7 @@ Fifty years ago, a canoe crossed four thousand kilometres of open ocean with no 
 
 This film explains what the singularity really is (and which part of the hype may be a sales pitch), then builds two compasses to get through it. Yours: what matters to you, what pulls you, who you'd call, and the small, reversible steps you'll try next. And ours: shared rights, rules that learn, and ordinary people helping to steer. Same technology, same speed, different crew. It's decided by who's holding the compass.
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 The singularity has begun

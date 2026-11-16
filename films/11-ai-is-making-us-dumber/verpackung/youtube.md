@@ -19,7 +19,7 @@ Superintelligence can make you smarter than anyone before you. Or it can think f
 
 This film follows the clues: doctors who found less after their machine arrived, programmers who felt faster but were slower, and Go players who got better for the first time in decades after a machine beat them. Then it shows the one habit that turns the machine from a forklift into a personal trainer, what it means for a whole society, and what you, schools and the makers of these machines can do, starting tomorrow.
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 Same machine, two results

@@ -19,7 +19,7 @@ Superintelligence has promised us free time. Bill Gates already pictures a three
 
 This film follows the hours that machines handed over, and where they went. The first study of A.I. inside a real company found it freed up no time. Then it goes to Battle Creek, Michigan, where in 1930 W. K. Kellogg cut the workday to six hours, and asks what a whole town did with two extra hours a day, and why it lost them without anyone ever deciding to. Finally: the four-day week, the right to disconnect, and a time dividend for the age of superintelligence, decided before the machine hands out the time, not after.
 
-The time dividend is our proposal, not law anywhere. Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+The time dividend is our proposal, not law anywhere. Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 Will superintelligence give us our time back?

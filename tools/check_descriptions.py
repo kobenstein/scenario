@@ -5,6 +5,8 @@ Rule (Jakob, 11.11. and 15.11.2026): every long film description starts with
   paragraph 1: hook
   paragraph 2: COFFEE line (Buy Me a Coffee)
   paragraph 3: COURSE line (film course)
+Also flags the old untrue line "corrections get pinned" (Jakob 16.11.); --fix replaces it with
+  "Spotted an error? Mention it in the comments."
 This applies to public, private AND scheduled videos. Run it before every release
 and after every upload (also for re-uploads / new versions of a film).
 
@@ -28,6 +30,9 @@ COFFEE = ("✨ ☕ If you want superintelligence to benefit everyone, you can su
           "channel here: https://buymeacoffee.com/thegoodtakeoff")
 COURSE = ("✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: "
           "https://aistronauts.at/film-course")
+# Jakob 16.11.: the old error line is not true (nothing gets pinned), use the plain one
+OLD_ERROR_LINE = "Spotted an error? Tell us in the comments, corrections get pinned."
+ERROR_LINE = "Spotted an error? Mention it in the comments."
 MAX_LEN = 4990  # YouTube limit is 5000 characters
 BACKUP_DIR = "/mnt/project-files/scenario/buymeacoffee/backup"
 BASE = "https://youtube.googleapis.com/youtube/v3/"
@@ -58,6 +63,8 @@ def is_long(duration):
 
 
 def head_ok(desc):
+    if "corrections get pinned" in desc.lower():
+        return False
     p = desc.split("\n\n")
     # links decide; wording may be shortened where the 5000-character limit forced it
     return (len(p) >= 3 and p[1].startswith("✨ ☕") and "buymeacoffee.com/thegoodtakeoff" in p[1]
@@ -65,6 +72,7 @@ def head_ok(desc):
 
 
 def repaired(desc):
+    desc = desc.replace(OLD_ERROR_LINE, ERROR_LINE)
     paras = desc.split("\n\n")
     hook, rest = paras[0], paras[1:]
     # drop any old coffee / course paragraphs wherever they are

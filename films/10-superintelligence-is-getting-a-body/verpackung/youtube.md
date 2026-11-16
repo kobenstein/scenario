@@ -19,7 +19,7 @@ Superintelligence is getting a body. In 2025, robots ran a half marathon in Beij
 
 This film asks three questions: is it really coming, what would it cost us and the planet, and who should own the robots we teach? From training halls in China and the first home robot you can pre-order, to rare-earth magnets, a vineyard co-op in France and an idea for a robot co-op where the people who teach a robot own a share of it.
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 Robots raced us. One year later, they won

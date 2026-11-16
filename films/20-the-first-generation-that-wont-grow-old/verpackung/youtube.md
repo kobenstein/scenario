@@ -21,7 +21,7 @@ We follow one number, how many months of life each year of research adds, and as
 
 Not medical advice. Every result in this film is described as what it is: a dish, a mouse, three patients, or a company's own figure.
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 The first generation that won't grow old

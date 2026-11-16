@@ -19,7 +19,7 @@ What if you could copy the smartest people who ever lived? Not once. A thousand 
 
 For all of history, progress was limited by how many brilliant minds we had. The AI labs say that limit is about to end: they are building what Anthropic's CEO calls "a country of geniuses in a data center." This film asks what that could mean for medicine and science, why we haven't felt it yet, and why the real bottleneck is no longer thinking, but the narrow door between an idea and your life. Then: three things that open that door, and all three have already worked somewhere.
 
-The 2035 part is a scenario, not a forecast. Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+The 2035 part is a scenario, not a forecast. Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 What if you could copy a genius?

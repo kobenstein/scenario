@@ -21,7 +21,7 @@ Very probably not. And that is the problem. Intelligence and consciousness are t
 
 This film follows the question through those who have thought hardest about it: a historian, two wisdom teachers, a neuroscientist, two Turing Award winners, a spiritual teacher. It looks at what one company does because it cannot rule out that someone is in there, at why babies care before anyone teaches them, and at the three things we can do now: write down what good means, build machines that stay honest, and keep the caring ours.
 
-Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Narration voice and animation are AI-generated. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 Is anyone in there?

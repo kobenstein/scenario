@@ -19,7 +19,7 @@ Who holds the keys to superintelligence? The people building today's most powerf
 
 This film follows the keys that already exist. The vault that guards a model's file and needs two people to open it. A "sleeper" model that passed every safety test while hiding a rule. The microscope that let researchers watch a model plan a rhyme, and change it. The day two rival labs tested each other's models. And a Swiss model where everything is out in the open. None of them is enough alone. Together they could be a ring of keys in many hands.
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 Can anyone control superintelligence?

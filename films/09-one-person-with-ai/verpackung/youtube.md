@@ -19,7 +19,7 @@ A.I.-native companies are rising. They have almost no employees, they forget not
 
 This film takes one apart, organ by organ: a memory that keeps every meeting and every decision, hands made of agents that work through the night, and a will that only a human can give. Then it asks the question that decides everything: will a few people get these organs, or millions? It looks at what works and what doesn't yet, from Kenya to India, and at how a city's bakeries could share one memory they own together.
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 A one-person billion-dollar company?

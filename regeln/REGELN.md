@@ -1,6 +1,6 @@
 # REGELN für Text, Story, Hook, Titel und Thumbnail
 
-**Stand 9.11.2026 (Grundfassung von Jakob freigegeben 6.11. 16:24).** Jeder Film-Thread und jeder Texter-, Kritiker-, Hook- und Thumbnail-Agent liest diese Datei, bevor er schreibt. Sie gilt vor allen älteren Quellen (Kanal-Bibel vom 17.10., installierter Skill `scenario-script`, `scenario-script-SKILL-neu.md`/`-v3.md`, Vibe-Brief). Bei Widerspruch gilt: Jakobs neueste Aussage im Film-Thread > diese Datei > alles andere. Neue Regeln von Jakob werden HIER eingetragen (mit Datum), nicht nur in der Projekt-Erinnerung.
+**Stand 16.11.2026 (Grundfassung von Jakob freigegeben 6.11. 16:24).** Jeder Film-Thread und jeder Texter-, Kritiker-, Hook- und Thumbnail-Agent liest diese Datei, bevor er schreibt. Sie gilt vor allen älteren Quellen (Kanal-Bibel vom 17.10., installierter Skill `scenario-script`, `scenario-script-SKILL-neu.md`/`-v3.md`, Vibe-Brief). Bei Widerspruch gilt: Jakobs neueste Aussage im Film-Thread > diese Datei > alles andere. Neue Regeln von Jakob werden HIER eingetragen (mit Datum), nicht nur in der Projekt-Erinnerung.
 
 Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/retention-hooks-2026-11-05.md`, `analysen/ausstiegsstellen-2026-10-28.md`, `analysen/nothing-burger-geniuses-2026-10-24.md`, `analysen/kanal-analyse-2026-11-02.md`, `treffer-check.md`, `clip-schritt.md`. Was sich widersprach und wie es hier aufgelöst ist: `regeln-befund-2026-11-06.md`.
 
@@ -24,6 +24,7 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 7. **Fairness:** Umverteilung nie als „den Reichen wegnehmen“, sondern Miteigentum, gleiche Dividende. Keine Parteipolitik, keine Bösewichte, sondern Systeme und Anreize. Leichter Links-Hang der zitierten Denker ist ok (23.10.).
 8. **Spiritualität und Sinn nur als offene Frage,** nie als Lehre („sonst bist du ein spirituell Heini“, 19.10.). Bei Ethik-Themen fragen, nicht predigen.
 9. **Pflege und menschliche Nähe nicht als Aufgabe für Roboter verklären** (Jakob 10.11.: „soll Pflege von Robotern übernommen werden, weiß nicht“). Lösungen dort über Menschen, Zeit und Geld erzählen, nicht über Maschinen.
+9a. **Aussagen von Promis und CEOs kritisch auseinandernehmen,** nie als Prognose übernehmen: Wer sagt es, mit welchem Interesse, was spricht dagegen (Jakob 10.11., Film Elon).
 10. **Keine Offenlegung „Claude ist von Anthropic“ im Film,** nur in der Beschreibung (20.10.).
 
 ## 2. Thema und Leitgedanke (vor jedem Gerüst)
@@ -33,6 +34,8 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 3. **Leitgedanke ohne Rechenbeispiel.** Wenn er eine Erklärung braucht, ist er keiner. Jede Zahl und jede Wirtschaftsbehauptung, die ihn trägt, vorher gegen naheliegende Einwände prüfen (Wettbewerb, Preise, wer zahlt). (19./20.10.)
 4. **Eigener Kernsatz:** ein zitierbarer Satz, der im Hook anklingt und am Ende zurückkehrt (Vorbild „the least alien it will ever be“).
 5. **Neue Aspekte:** keine Studien, Zitate oder Lösungen früherer Filme wiederholen (außer bewusster kurzer Rückgriff). Vor jeder Fassung gegen die früheren Skripte prüfen. Besitz/Ownership ist ausgereizt. (19.10., 2.11.)
+5a. **Technik- und Wissenschaftsthemen nur mit Du-Bezug** in Titel und Hook: was es für dich ändert (Wochenanalyse 16.11.: Wissenschaft/Technik 0 von 4 Filmen grün, Biocomputer 1.901 Aufrufe nach Tag 2; persönliche und zeitlich greifbare Themen tragen).
+5b. **Recherche immer top aktuell** (Jakob 16.11.: „alle recherchen müssen top aktuell sein“): jede Zahl und Aussage mit frischer Quelle samt Datum, nichts aus Vorwissen; ältere Studien nur, wenn es nichts Neueres gibt, und dann mit „Stand JJJJ“.
 6. **Ablauf mit Jakob, nie überspringen:** Runde 1 Leitgedanken (Jakob wählt), Runde 2 Gerüst (Jakob gibt frei), erst dann Text. Nie mehrere Filme parallel schreiben. Jakob findet den Funken schneller über konkrete Vorbild-Videos als über abstrakte Gerüste. (22./23.10.)
 
 ## 3. Story-Gerüst
@@ -41,11 +44,12 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 2. **Die Mitte braucht eine Uhr oder ein Rätsel mit Fortschritt** (Countdown, Stunde für Stunde, Leiter mit Sprossen). Aufzählungen und Essay in der Mitte verlieren am meisten (Min 1–5 ist heute der größte Hebel). (5.11.)
 3. **Spannungsmotor:** alle 20–40 s etwas Neues, alle 60–90 s eine neue offene Frage. Eine Antwort immer zusammen mit der nächsten Frage.
 3a. **Countdown/Liste nie als Aufzählung erzählen (Jakob 10.11.):** auch bei 12→1 ist jede Station eine offene Schleife, verknüpft mit but/therefore; jede Geschichte endet mit einer Wendung, die eine Frage in die nächste trägt, und eine große Schleife (Platz 1) bleibt bis zum Schluss offen.
+3b. **Ein roter Faden, wenige Sprünge:** eine zentrale Person oder ein Projekt trägt den Film, wenige Orts- und Themenwechsel; eine Aufzählung erst, wenn der Zuschauer gehookt ist (Jakob 9.11., Film Tiersprache: „ich steig immer wieder aus“).
 4. **Dramaturgie wechseln:** „zwei Zukünfte/2035“ höchstens jeder 3. Film, nicht immer „drei/fünf Dinge“ (YPP-Schablonen-Risiko, 26.10.). Die Abzweigung mit zwei Enden ist eine Option, kein Pflichtformat.
 5. **Lösungen bekommen Raum, aber als 2. Akt** in der Ereignis-Geschichte, mit Menschen in Szenen, nicht als Politik-Liste. Versprechen wirklich einlösen; Zweifel bündeln (ein ehrlicher Moment pro Akt), nicht an jeden Absatz hängen. (22.10., 2.11.)
 6. **Szenarien:** ohne Ansage betreten; Kennzeichnung per Einblendung („SCENARIO · 2031“) plus ein Wort im Fluss. **Jeder Zeitwechsel mit hörbarer Brücke, pro Wechsel nur ein Ort, im Hook keine Sprünge;** lieber die Vision am Stück erzählen und Belege von heute einblenden. (28.10., 5.11.)
 7. **Keine detailreichen Alltagsabläufe** („Montag, der Agent trägt Termine ein“) ohne Staunen oder Einsatz; das Prinzip muss klar sein. (23.10.)
-8. **Ende:** nie ankündigen („to wrap up“, „So how do we get from here to there?“). Kein „Tell me in the comments“ als letzter Satz. Letzter Satz = Pointe/Kernsatz oder Bild, das zum nächsten Film zieht. **Abo-Aufruf PFLICHT in jedem Skript, zweimal (Jakob 26.10., bestätigt 7.11.):** einmal in der Mitte direkt nach einer Auflösung, einmal über dem Schlussbild nach dem Kernsatz, jeweils MIT der Mission (Superintelligenz soll für alle gut ausgehen) und als Frage, z. B. „This channel exists for one reason: so that the arrival of superintelligence goes well for everybody … Want that too? Then subscribe.“ Nie im Hook. Vor der Hörfassung per Textsuche „subscribe“ prüfen (2 Treffer). **Support-QR (Jakob 11.11., ab dem nächsten neuen Film):** zu beiden Abo-Aufrufen blendet das Bild den QR-Code `buymeacoffee/qr-overlay/qr-overlay-1920x1080.png` (oben rechts, „SUPPORT THIS CHANNEL“) für je ~25–30 s ein, sanft rein/raus (~0,6 s), startet mit dem Abo-Satz. Kein gesprochener Spendenaufruf. Der zweite muss vor den Endcards (letzte ~15 s) wieder weg sein. Bestehende Filme bleiben unverändert.
+8. **Ende:** nie ankündigen („to wrap up“, „So how do we get from here to there?“). Kein „Tell me in the comments“ als letzter Satz. Letzter Satz = Pointe/Kernsatz oder Bild, das zum nächsten Film zieht. **Abo-Aufruf PFLICHT in jedem Skript, zweimal (Jakob 26.10., bestätigt 7.11.):** einmal in der Mitte direkt nach einer Auflösung, einmal über dem Schlussbild nach dem Kernsatz, jeweils MIT der Mission (Superintelligenz soll für alle gut ausgehen) und als Frage, z. B. „This channel exists for one reason: so that the arrival of superintelligence goes well for everybody … Want that too? Then subscribe.“ Nie im Hook. Vor der Hörfassung per Textsuche „subscribe“ prüfen (2 Treffer). ~~Support-QR (11.11.)~~ **Kein QR-Overlay mehr in Filmen (Jakob 16.11.: „lenkt vom Abonnieren ab“).** Kaffee-Link nur in der Beschreibung (§12).
 
 ## 4. Hook: die ersten 60 Sekunden
 
@@ -58,9 +62,13 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 
 **Verboten in Minute 1:** Inhaltsangabe („In the next ten minutes“, „In this video“, „First … then“) · Rückblick, Jahreszahl der Vergangenheit, Geschichtsstunde · Biografie/Lebenslauf · Einschränkungen und Bedingungen („if its board agrees“, „just a scenario“) · „Most of us picture/think …“ · Firmen-, Politik-, Vertragsdetails · poetisch-vage Sätze ohne Information · mehr als eine Zahl oder eine Zahl zum Rechnen · mehr als eine offene Frage · Zitat-Wechsel („The man running one of those labs said …“) vor 0:30 · Pause, Musik-Break oder Stille am Hook-Ende.
 
+**Satz 1 bringt den Kern der Neugier auf den Punkt;** der Hook verwirrt nie und führt nicht in die Irre (Jakob 9.11. Tiersprache, 10.11. Film AI for Good: „das mit dem Telefon irreführend“). Ein Rate-Moment („rate, welches“) vor Tönen oder Clips zieht ins Zuhören.
+
 **Hörfassung muss ohne Bild verständlich sein:** keine Metaphern im Hook, die nur mit dem Bild funktionieren (abstrakte Linie, Kurve). (Jakob 6.11., Film Altern)
 
 **Hook-Beispiel betrifft den Zuschauer selbst,** kein Extremfall („so einen Job hab ich nicht“, 23.10.). Hook bis zur Frage max ~30–35 s (~80 Wörter). Der Hook bekommt einen eigenen Schritt mit 3 Varianten und eigener Kritik.
+
+**Datenlage 16.11.:** 15 von 15 Filmen verlieren 7–24 Prozentpunkte zwischen 0:30 und 1:00 (größtes Leck). Darum erstes echtes Ergebnis oder Bild vor 0:45, keine Erklärung oder Rückblende vor 1:00. Ziel: Halt bei 1:00 ≥ 60 % (Median jetzt ~53 %). (Wochenanalyse 16.11.)
 
 **Gegentest:** Weiß ein Fremder nach 60 s, worum es geht, warum es echt ist, welche Frage offen ist, und hat er bei 0:45 einen stärkeren Grund zu bleiben als bei 0:30?
 
@@ -83,7 +91,7 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 
 ## 7. Interview-Clips (Pflicht seit 6.11.)
 
-3–6 Clips pro Film, je 4–15 s, Summe Ziel ≤8 %, hart ≤10 % der Laufzeit; pro Quellvideo max 2 Clips/20 s; ≥45 s eigener Film zwischen Clips; jeder Clip mit eigenem Einordnungssatz; „ORIGINAL FOOTAGE“ + Name im Bild. Ampel und Ablauf: `clip-schritt.md`, Prüfung `tools/clip_check.py`. Große TV-Sender, TED/NC und Clips mit Musik nur als Zitatkarte.
+3–6 Clips pro Film, je 4–15 s, Summe Ziel ≤8 %, hart ≤10 % der Laufzeit; pro Quellvideo max 2 Clips/20 s; ≥45 s eigener Film zwischen Clips; jeder Clip mit eigenem Einordnungssatz; „ORIGINAL FOOTAGE“ + Name im Bild. Ampel und Ablauf: `clip-schritt.md`, Prüfung `tools/clip_check.py`. Große TV-Sender, TED/NC und Clips mit Musik nur als Zitatkarte. **Jeder Clip endet mit einem vollständigen Satz,** nie mitten im Wort oder Gedanken abgeschnitten (Jakob 11.11., Tiersprache und Elon).
 
 ## 8. Titel
 
@@ -91,22 +99,25 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 2. Präsens-Ereignis schlägt System-Thema; „Superintelligence“, „AI“ oder ein großer Begriff (Singularity) andocken.
 3. Kein „could“ (zu weich); konkreter Nutzen oder Einsatz für „dich“.
 4. Der Titel verspricht nichts, was der Film nicht konkret einlöst (zuspitzen in der Rahmung, nie in den Fakten).
-5. Verpackung zuerst: Titel + Thumbnail-Idee stehen vor dem Gerüst; 3 Runden.
+5. Verpackung zuerst: Titel + Thumbnail-Idee stehen vor dem Gerüst; 3 Runden. **Erst Titel-Alternativen brainstormen und von Jakob freigeben lassen, dann Thumbnails bauen** (Jakob 9.11.: „noch keine thumbnails kreieren erst alternativen brainstormen“; 16.11.). Kein Titel geht ohne Jakobs Freigabe in die Produktion.
+5a. **Der Titel erzeugt sofort ein konkretes Bild im Kopf und zeigt, warum es mich betrifft** (Jakob 16.11.: „es entsteht kein klares Bild im Kopf“). Jakobs eigene Titelideen kommen immer mit in die Auswahl bzw. in den Test.
 6. **Jeder für sich allein klar (Jakob 8.11.):** Titel UND Bildtext müssen jeweils allein, ohne den anderen, sofort die Hauptfrage oder These des Films klar machen („ah, darum geht es“). Je klarer, worum es geht, desto besser. Test: Fremder ohne Vorwissen sieht nur den einen Text. Abgelehnt: „PREDICTED IN 1960“, „AI CAUGHT IT EARLY“ (2037 handelt von der Welt 2037, nicht von Gesundheit), „WE GOT AI RIGHT“, „WE BENT IT ONCE“.
 7. **Muster der Treffer (Vertical, Arrival, Singularity, Analyse 8.11.; Vorbild seit 8.11.: Altern, „AGING STOPS HERE“ + „The First Generation That Won't Grow Old“, CTR 11,6 % in den ersten 2 h, Jakob: „Thumbnail war echt gut“):** KI als Ganzes statt Teilaspekt; Bildtext = Feststellung im Jetzt („IS GOING VERTICAL“, „HAS STARTED“, „HAS BEGUN“), kein Frage/could/promised; bekannte Schlagwörter; Bild = das Ereignis als ein Riesen-Symbol + winzige Figur; Titel ≤32–45 Zeichen.
+
+8. **Sofort ein Bild im Kopf, warum es relevant ist (Jakob 16.11.):** Abstrakte Feststellungen („You've Never Seen the Best AI“) fallen durch; der Titel nennt ein konkretes Ding/Ereignis und warum es den Zuschauer betrifft. **KI muss im Titel oder Bildtext erkennbar sein** („The Mammoth Is Coming Back“ = Tierfilm; besser „AI Is Bringing Back the Mammoth“).
 
 ## 9. Thumbnails (Skill `good-takeoff-thumbnails`)
 
 1. Immer drei Varianten A/B/C für Test & Compare; A = Titelversprechen. ~~Nur EIN Titel pro Film (Jakob 6.11.)~~ **Ab 9.11. wieder Titel-Tests erlaubt** (Jakob zu #21: „nur 1 titel???“): Test & Compare darf Titel + Thumbnails testen; Haupttitel steht, 2 Alternativtitel nach §8.6/8.7.
 2. **In 1 Sekunde klar, WARUM man schauen will:** konkreter Reiz + Neugier-Lücke. Nichts Abstraktes oder Poetisches („WE BENT IT ONCE“). Der Bildtext darf die Titelaussage knallig tragen oder ergänzen, wiederholt ihn aber nicht wörtlich. 3–5 Wörter, kein Fachwort, keine Zusatz-Slogans. (31.10., 6.11.)
 3. Kanal-Look Editorial-Nacht bleibt (Indigo, Gold, gelbe Regenjacke, fette schmale Creme-Grotesk); keine neue Farbwelt ohne Jakob (6.11.). **Grund immer nachtblau, pro Thema EINE Akzentfarbe** (z. B. Rot nur auf der Kurve), auch bei Krisenthemen kein flächiges Signalrot (Jakob 6.11.). Sieht das nicht gut aus: Jakob zeigen.
-4. Pro Film EIN unverwechselbares Hauptobjekt, kein Motiv aus dem Vorfilm (Hand, Kreis, Kopf, Monolith), Einstellungsgröße und Textposition variieren. Ownership nicht in jedes Thumbnail. Keine Kleinteile, keine Lichtnetze, keine Filmstills.
-5. Das erste Bild des Films zeigt das Thumbnail-Motiv.
+4. Pro Film EIN unverwechselbares Hauptobjekt, kein Motiv aus dem Vorfilm (Hand, Kreis, Kopf, Monolith), und kein Schlüsselmotiv früherer Filme, auch nicht in der Animation (Jakob 9.11.: Uhr schon in Altern), Einstellungsgröße und Textposition variieren. Ownership nicht in jedes Thumbnail. Keine Kleinteile, keine Lichtnetze, keine Filmstills.
+5. Das erste Bild des Films zeigt das Thumbnail-Motiv. **Das Thumbnail zeigt nur, was im Film wirklich vorkommt** (Jakob 9.11. zu 2037: „kommen die Drohnen echt vor?“).
 6. **JEDER Bildtext (A, B UND C) muss ALLEIN funktionieren, ohne den Titel** (Jakob 11.11. zu #24: „IT HEARS THEIR FEAR“ – wer ist it?; „AI IS LEARNING WHALE“ – was ist whale?). Kein „it/they“ ohne Bezug, keine Wortspiele, die erst der Titel erklärt; Subjekt nennen. Kurz: ≤3–4 Wörter („SOON WE'LL UNDERSTAND ANIMALS“ war Jakob zu lang). Nicht mehr versprechen als der Film (kein „speak“, wenn der Film sagt: noch nicht).
 
 ## 10. Ablauf eines Skripts (Stand 5.11.)
 
-Treffer-Check → Verpackung (Titel/Thumbnail-Idee, 2–3 Leitgedanken) → Jakob wählt → Gerüst mit Fragen-Kette, Uhr/Rätsel, Clip-Stellen → Jakob gibt frei → Recherche (max) → Faktenzettel + Staunen-Fakten → **1 Texter (max)** sieht nur Gerüst, diese Datei, Faktenzettel, Staunen-Fakten, Vorbild-Ausschnitte, nie die Rohrecherche → Hook als eigener Schritt (3 Varianten) → **1 Kritiker (max)** als normaler Zuschauer (leicht zu folgen, keine Sprünge, relevant) + Payoff-Check + Bann-Liste + Prüfskript → Einarbeitung → **Kokoro-Hörfassung** an Jakob → nach Freigabe Faktencheck + Ampelseite → erst dann Stimme und Bau. Kein Ultracode-Workflow fürs Skript (Jakob 5.11. 17:43).
+Treffer-Check → Verpackung (Titel/Thumbnail-Idee, 2–3 Leitgedanken) → Jakob wählt → Gerüst mit Fragen-Kette, Uhr/Rätsel, Clip-Stellen → Jakob gibt frei → Recherche (max) → Faktenzettel + Staunen-Fakten → **1 Texter (max)** sieht nur Gerüst, diese Datei, Faktenzettel, Staunen-Fakten, Vorbild-Ausschnitte, nie die Rohrecherche → Hook als eigener Schritt (3 Varianten) → **1 Kritiker (max)** als normaler Zuschauer (leicht zu folgen, keine Sprünge, relevant) + Payoff-Check + Bann-Liste + Prüfskript → Einarbeitung → **Kokoro-Hörfassung** an Jakob → nach Freigabe Faktencheck + Ampelseite → erst dann Stimme und Bau. Kein Ultracode-Workflow fürs Skript (Jakob 5.11. 17:43). **Modell (Jakob 16.11.): Texter und Kritiker laufen auf Fable 5.2** (höchste Stufe), Recherche vorerst auf Opus 5.5.
 
 **Prüfskript vor jeder Hörfassung** (Regeln werden durchgesetzt, nicht nur gelesen): Bann-Liste, „next … minutes“, Jahreszahlen vor 1:00, Zahlen und Fragen in Minute 1, Ich-Sätze, Clip-Anzahl und Clip-Anteil, Wortzahl.
 
@@ -135,7 +146,7 @@ Gilt zusätzlich zu §1–10; bei Widerspruch gelten §1–10.
 
 ## 12. Beschreibung und Release-Check (Jakob 11.11. und 15.11.)
 
-Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you want superintelligence to benefit everyone, you can support this channel here: https://buymeacoffee.com/thegoodtakeoff“ · Absatz 3 „✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: https://aistronauts.at/film-course“ · dann Rest. Gesamt ≤ ~4.850 Zeichen (Grenze 5.000). Gilt auch für Neu-Uploads/Fassung 2 eines Films (bei #27 Fassung 2 fehlte die Kaffee-Zeile, 15.11.).
+Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you want superintelligence to benefit everyone, you can support this channel here: https://buymeacoffee.com/thegoodtakeoff“ · Absatz 3 „✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: https://aistronauts.at/film-course“ · dann Rest. Gesamt ≤ ~4.850 Zeichen (Grenze 5.000). **Nie „Spotted an error? Corrections get pinned“** (stimmt nicht), stattdessen „Spotted an error? Mention it in the comments.“ (Jakob 16.11.). Gilt auch für Neu-Uploads/Fassung 2 eines Films (bei #27 Fassung 2 fehlte die Kaffee-Zeile, 15.11.).
 
 **Pflicht-Check** nach jedem Upload UND vor jedem Release (am Release-Tag vor 17:00): im Repo `python3 tools/check_descriptions.py` laufen lassen. Prüft alle Langfilme inkl. privater und geplanter; `--fix` sichert die alte Beschreibung unter `buymeacoffee/backup/` und setzt Kaffee- und Kurs-Zeile als Absatz 2 und 3. Meldet das Skript „ZU LANG“, von Hand kürzen (zuerst die Kommentar-Frage, dann Quellen-Beschriftungen, nie Links).
 
@@ -154,3 +165,9 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 - 11.11.2026: §9.6 jeder Bildtext muss allein ohne Titel funktionieren, kurz, Subjekt nennen (Jakob zu #24).
 - 11.11.2026: §3.8 Support-QR (Buy Me a Coffee) zu beiden Abo-Aufrufen, je ~25–30 s, ab dem nächsten neuen Film (Jakob).
 - 15.11.2026: §12 Beschreibungskopf + Pflicht-Check `tools/check_descriptions.py` vor jedem Release (Jakob: „ab jetzt bei jedem video check“).
+- 16.11.2026 (Wochen-Durchsicht): §1.9a Promi-Aussagen kritisch (Jakob 10.11.), §2.5a Technik nur mit Du-Bezug (Wochenanalyse 16.11.), §3.3b roter Faden (Jakob 9.11.), §4 Satz 1 = Kern, Hook nie irreführend (Jakob 9./10.11.) + Leck 0:30–1:00 (Daten 16.11.), §7 Clips mit vollständigem Satz (Jakob 11.11.), §8.5 Titel-Freigabe vor Thumbnails (Jakob 9./16.11., löst die offene Frage vom 9.11.), §8.5a Titel erzeugt Bild im Kopf (Jakob 16.11.), §9.4 Motive früherer Filme, §9.5 nur Gezeigtes im Thumbnail (Jakob 9.11.).
+- 16.11.2026: §10 Skript-Modell Fable 5.2 für Texter und Kritiker (Jakob).
+- 16.11.2026: §8.8 Titel erzeugt sofort ein Bild + Relevanz, KI im Titel oder Bildtext erkennbar (Jakob, Planung nächste Filme).
+- 16.11.2026: §2.5b Recherche top aktuell, jede Zahl mit Datum (Jakob, Film #49).
+- 16.11.2026: §3.8 Support-QR gestrichen, kein QR-Overlay mehr (Jakob, lenkt vom Abo ab).
+- 16.11.2026: §12 Fehler-Zeile „Spotted an error? Mention it in the comments.“ statt „Corrections get pinned“ (Jakob).

@@ -19,7 +19,7 @@ The singularity was predicted for this Friday, November 13, 2026. Not by a proph
 
 What bent the first line, and can it steer the second one? We follow the loop that drove it, the stopwatch researchers put on AI today, the birthday hidden in the date, and a one-line test from 1973 you can hold up to anything new.
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Nothing in them is generated. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Nothing in them is generated. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 The singularity was predicted for this Friday

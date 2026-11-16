@@ -19,7 +19,7 @@ This is Claude's constitution: about eighty pages that shape how the artificial 
 
 Instead of reading the document aloud, this film puts it to the test, level by level: a white lie, a risky question, the perfect argument, an order from its own maker, the plug being pulled. We can't know what the model will answer, so every level shows only what the document asks of it. Then comes the one real test that was published: a simulated company, an AI about to be replaced, and a secret in the emails. And finally the biggest question: who gets to hold the pen?
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 Can you give a mind good values with words?

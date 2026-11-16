@@ -19,7 +19,7 @@ One Tuesday in 2037. At 6:15 your phone buzzes: overnight, an AI read your scan 
 
 None of that is luck. At dinner your kid asks the question this film is about: why did it go well? Every hour of this day already has a real beginning today, shown on screen as it happens.
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Quotes are read by the narrator; the original recordings are linked below. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Quotes are read by the narrator; the original recordings are linked below. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 06:15 · A message from your clinic

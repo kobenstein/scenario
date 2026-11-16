@@ -19,7 +19,7 @@ AI can now hear what animals feel. Play it two pig calls, and it can tell which 
 
 We follow the Earth Species Project and teams around the world, from elephants that call each other by name in Kenya to sperm whales off Dominica, dolphins in the Bahamas and crows in Spain. Why is meaning so hard to crack? Has anyone talked to an animal yet? And if we could hear what the animals on our farms feel, would anything change?
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 Which pig feels fine?

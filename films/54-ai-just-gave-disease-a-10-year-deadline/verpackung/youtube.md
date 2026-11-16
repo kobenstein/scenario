@@ -19,7 +19,7 @@ Anthropic's CEO says cancer, Alzheimer's, heart disease and mental illness will 
 
 Disclosure: this channel uses Claude and other Anthropic tools, and this film examines the claim of Anthropic's CEO. Nothing here is investment advice.
 
-Narration voice and animation are AI-generated. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Narration voice and animation are AI-generated. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 A ten-year deadline for disease

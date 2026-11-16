@@ -19,7 +19,7 @@ All over the world, people are quietly using AI to make life better for people, 
 
 Why did a tiny radio station turn down a global data company? How do you keep a phone scammer busy for forty minutes? What happens when an AI points at an ancient drawing, a methane leak or a snake toxin, and what does it take for anyone to act on it? And why was the difference between writing your emails and saving a life never the tool?
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 What AI should be used for

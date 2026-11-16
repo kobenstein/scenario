@@ -19,7 +19,7 @@ The A.I. bubble could pop. Even the people building it say so. But the machines 
 
 It has happened before. In the 1840s, Britain bet its savings on the railway, the Brontë sisters among them. Railway shares lost about two thirds of their value, small savers were left holding paper, and the expert who had written the book on financial madness missed it. But the track stayed. Around 2000, the same thing happened with fibre-optic cable, and the leftovers made the internet cheap. This film asks whether the rails will stay this time, who is already paying for them through power bills and pensions, and who gets what's left after a crash. And it borrows an idea from 1844: the penny train, a ride on the new machine for everyone, and what it could look like for artificial intelligence.
 
-The penny train for A.I. is our proposal, not law anywhere. Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+The penny train for A.I. is our proposal, not law anywhere. Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. The narration uses a synthetic voice. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 What happens when the money runs out?

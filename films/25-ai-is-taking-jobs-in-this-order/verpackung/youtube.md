@@ -19,7 +19,7 @@ There will be a last human job. AI isn't taking whole jobs, it's taking tasks, o
 
 Why are young people starting out hit first? Why are there more radiologists than ever, ten years after they were supposed to disappear? Which jobs need hands, and which ones do we want a human for, on purpose? And which skills keep you on the right side of the row?
 
-Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. The narration uses a synthetic voice; Jakob's own voice is real. Sources are listed below. Spotted an error? Tell us in the comments, corrections get pinned.
+Every animation in this film was built from scratch for it, in code: no stock footage, no AI-generated images or video. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. The narration uses a synthetic voice; Jakob's own voice is real. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 The last human job
