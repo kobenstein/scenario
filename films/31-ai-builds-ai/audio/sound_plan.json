@@ -1,13 +1,14 @@
 [
- {"f": "tap", "word": "says: buy", "at_end": true, "dt": 0.15, "v": 0.6, "once": true, "fade": 0.3},
- {"f": "pages", "word": "called the prospectus", "dt": -0.2, "v": 0.45, "once": true, "fade": 0.6},
- {"f": "card", "word": "pages are warnings", "at_end": true, "dt": 0.25, "v": 0.55, "once": true, "fade": 0.4},
- {"f": "stamp", "word": "Not here", "dt": -0.05, "peak": 0.0, "v": 0.5, "once": true, "fade": 0.6},
- {"f": "paper_slide", "word": "may not maximize stockholder", "dt": -0.35, "v": 0.6, "once": true, "fade": 0.3},
- {"f": "bell", "word": "At the bell", "at_end": true, "dt": 0.0, "v": 0.45, "once": true, "fade": 1.5},
- {"f": "card", "word": "Many doubt it", "dt": -0.3, "v": 0.55, "once": true, "fade": 0.4},
- {"f": "card", "word": "the final price", "at_end": true, "dt": 0.25, "v": 0.55, "once": true, "fade": 0.4},
- {"f": "bell", "word": "When the bell rings", "at_end": true, "dt": 0.05, "v": 0.7, "once": true, "fade": 1.5},
- {"f": "clockwork", "from_word": "a second clock starts", "to_word": "within weeks", "dt": 0.2, "end_dt": 0.8, "v": 0.35, "fade": 2.0},
- {"f": "whoosh_airy", "word": "But look at who else", "dt": -0.4, "v": 0.4, "once": true, "fade": 0.5}
+ {"f": "kiln", "from_word": "You may be using", "to_word": "None of them human.", "dt": -0.4, "end_dt": 1.5, "v": 0.3, "fade": 3.0},
+ {"f": "lever_switch", "word": "turn off the light tonight,", "at_end": true, "dt": 0.05, "v": 0.45, "once": true, "fade": 0.4},
+ {"f": "whoosh_airy", "word": "Picture a ladder", "dt": -0.4, "v": 0.35, "once": true, "fade": 0.5},
+ {"f": "rail_ping", "word": "writing the code: taken.", "at_end": true, "dt": 0.15, "v": 0.5, "once": true, "fade": 1.5},
+ {"f": "rail_ping", "word": "running the experiments: taken.", "at_end": true, "dt": 0.15, "v": 0.5, "once": true, "fade": 1.5},
+ {"f": "rail_ping", "word": "leading the research: shared.", "at_end": true, "dt": 0.15, "v": 0.4, "once": true, "fade": 1.5},
+ {"f": "brass_click", "word": "May, twenty twenty-seven.", "at_end": true, "dt": 0.1, "v": 0.45, "once": true, "fade": 0.4},
+ {"f": "gavel", "word": "Six to four.", "at_end": true, "dt": 0.15, "v": 0.45, "once": true, "fade": 0.6},
+ {"f": "whoosh_airy", "word": "Back to today.", "dt": -0.45, "v": 0.35, "once": true, "fade": 0.5},
+ {"f": "paper_slide", "word": "No lab, he says,", "dt": -0.35, "v": 0.5, "once": true, "fade": 0.3},
+ {"f": "swell", "word": "So how close is A.I. to building its own", "dt": -0.9, "v": 0.35, "once": true, "fade": 1.0},
+ {"f": "lever_switch", "word": "turn off the light tonight,", "nth": 1, "at_end": true, "dt": 0.05, "v": 0.45, "once": true, "fade": 0.4}
 ]

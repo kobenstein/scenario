@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Film 59 'You Can Now Buy a Piece of AI' · lay the VO takes and the clip slots on one timeline -> vo_master.wav (VO + real clip audio) + vo_only.wav (VO alone, for mix.py)
-+ timing.json + slots.json. Method as Film 54 / 28 (segments.json from make_segments.py, word times from align_ps.py = pocketsphinx forced alignment + energy refinement;
-ElevenLabs v4 takes, voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, seed 4301).
-Slots (own time on the timeline), kind 'clip', video + audio, 0.6 s of air before and after (clips/schnitt.json 16.11., in/out inside the cut files clips/Cn.mp4):
-  C1 5.09 s (Dario Amodei, UN Security Council), C2 11.94 s (Yoshua Bengio, UN Security Council), C3 9.22 s (Dario Amodei, UN Security Council)
-The clip sound (<clipwav>/<id>.wav = Cn.mp4 [in, out]) goes into vo_master.wav at the level of the voice (speech RMS matched); mix.py takes vo_only.wav + the clip wavs.
-Quote card Z1 is READ by the narrator inside a take (segments 'card'): no own time; the card entry (kind 'card', under: True) gets the start/end of the quoted words.
-No QR windows (abolished). End: the film ends END_TAIL s after the last VO word: a short breath + the 15 s end screen (picture and music run on, no voice).
+"""Film 31 'Superhuman AI Is Coming Next Year' · lay the VO takes and the clip slots on one timeline -> vo_master.wav (VO + real clip audio) + vo_only.wav (VO alone, for mix.py)
++ timing.json + slots.json. Method as Film 59 / 54 (segments.json from make_segments.py, word times from align_ps.py = pocketsphinx forced alignment + energy refinement;
+ElevenLabs v4 takes, voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, seed 4301, no whisper tags).
+Slots (own time on the timeline), kind 'clip', video + audio, 0.6 s of air before and after (clips/schnitt.json 17.11., in/out inside the cut files clips/Tn.mp4),
+all Tao Lin (Palisade Research interview, 15.11.2026): T2 6.70 s, T1a 33.00 s, T1b 11.90 s, T3 4.70 s.
+The clip sound (<clipwav>/<id>.wav = Tn.mp4 [in, out]) goes into vo_master.wav at the level of the voice (speech RMS matched); mix.py takes vo_only.wav + the clip wavs.
+Quote card K3 (Pachocki) is READ by the narrator inside take t19: no own time; the card entry (kind 'card', under: True) gets the start/end of the quoted words.
+End: the film ends END_TAIL s after the last VO word: a short breath + the 15 s end screen (picture and music run on, no voice).
 usage: build_vo.py <audio_dir> <wav_dir> [clipwav_dir]   (vo-<id>.mp3 / vo-<id>.json in <wav_dir>/dl; wavs go to wav_dir)"""
 import json, os, re, subprocess, sys
 import numpy as np
@@ -17,10 +17,12 @@ LEAD, END_SCREEN = 0.6, 15.0
 END_TAIL = float(os.environ.get('END_TAIL', 18.0))   # seconds from the last VO word to the end of the film (END_SCREEN of it is the end screen)
 PAUSE, GAP_SUB, GAP_SECTION = 1.2, 0.75, 1.3
 CLIP_IN, CLIP_OUT = 0.6, 0.6
-LEVELS = {'H': 'HOOK: the button, the warning label, the dinner table', '1': 'the facts: Anthropic, Thursday, the price range', '2': 'STEP 1 the pitch: warnings, votes, the trust (C1, Z1 card)',
-          '3': 'STEP 2 the orders are counted: the doubts (C2), the answer, on the record', 'M': 'subscribe call 1', '4': 'STEP 3 pricing night: known vs forecast (C3), orders, the fall',
-          '5': 'STEP 4 first trade + 15 trading days: the index clock', '6': 'the wheel is not for sale: the stake', 'A2': 'closing call + end screen'}
-QUOTES = {'Z1': 'may not maximize stockholder value.'}
+LEVELS = {'H': 'HOOK: the last models designed by human minds, 9 of 10 changes, the forecast moved, 30,000 agents', '1': 'the ladder, rung 1 CODE (T2 Tao Lin)',
+          '2': 'rung 2 EXPERIMENTS: Anthropic verdict, the OpenAI intern', '3': 'rung 3 LEADING RESEARCH: <1 % -> a quarter, shared; which rung, how fast',
+          'M': 'subscribe call 1', '4': 'how fast: the evaluators, ~2x, the numbers come from the labs, 6x spend', '5': 'AI 2027: Kokotajlo May 2027, T1a/T1b Tao Lin, the record, the condition',
+          '6': 'the scenario: one committee, 6 to 4, rung 4 THE GOAL, rung 5 THE STOP, K3 Pachocki card', '7': 'who holds the last rung: the monitor, auditors, T3, the stop agreed in advance',
+          '8': 'the answer on the ladder: the last rung is ours', 'A2': 'closing call + end screen'}
+QUOTES = {'K3': 'continue responsibly scaling at maximum speed for much longer.'}
 nz = lambda w: re.sub(r"[^a-z0-9']", '', w.lower().replace('’', "'"))
 def tail_voiced(mp3):
     """seconds in the take where the voice really starts / ends (10-ms frames above -48 dBFS): the TTS tail is silent"""
@@ -30,8 +32,8 @@ def tail_voiced(mp3):
     return (on[0] * .01, (on[-1] + 1) * .01) if len(on) else (0.0, len(x) / 16000)
 def dec(f, ch=1):
     return np.frombuffer(subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f, '-f', 'f32le', '-ac', str(ch), '-ar', str(SR), '-']), np.float32).copy()
-# breaths cut into a take: (take, word index of the word that starts after the breath, seconds of silence). Film 59: the title line of the hook needs a beat.
-BREATH = {'t00': [('Picture', 0.7)]}   # 'This week, A.I. goes public.' | 'Picture this coming Thursday.'  (first word after the breath, seconds)
+# breaths cut into a take: (take, first word after the breath, seconds of silence). Film 31: none (the takes breathe on their own).
+BREATH = {}
 def breathe(x, W, ins):
     ins = [(next(i for i, w in enumerate(W) if w[0] == k), g) for k, g in ins]
     for k, g in sorted(ins, reverse=True):

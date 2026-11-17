@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Film 59 (from Film 54) · forced alignment of the ElevenLabs takes with pocketsphinx (offline; fal Whisper results can't be written to disk by the MCP tools).
+"""Film 31 (from Film 59 / 54) · forced alignment of the ElevenLabs takes with pocketsphinx (offline; fal Whisper results can't be written to disk by the MCP tools).
 segments.json + <dl>/vo-<id>.mp3 -> <dl>/vo-<id>.json {words:[[w,start,end]]} with the SCRIPT's words (tags removed, hyphenated words stay ONE word, 'ten-year').
 The alignment runs on sub-tokens (split at hyphens); OOV names get ARPAbet pronunciations below. Phones are placed by the Viterbi forced alignment of the
 CMU en-us model (10 ms frames); pocketsphinx drops pauses into <sil> entries: word times are the voiced spans. Word end < next start in a gap.
@@ -8,8 +8,9 @@ import json, re, subprocess, sys
 import numpy as np
 from pocketsphinx import Decoder, Config, get_model_path
 A, DL = sys.argv[1].rstrip('/'), sys.argv[2].rstrip('/'); only = set(sys.argv[3:])
-EXTRA = {'amodei': 'AH M OW D EY', "amodei's": 'AH M OW D EY Z', 'anthropic': 'AE N TH R AA P IH K', 'bernanke': 'B ER N AE NG K IY',
-         'bengio': 'B EH N JH IY OW', 'yoshua': 'Y OW SH UW AH', 'superintelligence': 'S UW P ER IH N T EH L AH JH AH N S',
+EXTRA = {'anthropic': 'AE N TH R AA P IH K', "anthropic's": 'AE N TH R AA P IH K S', 'superintelligence': 'S UW P ER IH N T EH L AH JH AH N S',
+         'evaluators': 'IH V AE L Y UW EY T ER Z', "evaluators'": 'IH V AE L Y UW EY T ER Z', 'jakub': 'Y AA K UW B', 'kokotajlo': 'K OW K OW T AY L OW',
+         'openai': 'OW P AH N EY AY', "openai's": 'OW P AH N EY AY Z', 'pachocki': 'P AH HH AA T S K IY',
          'a_i': 'EY AY', 'u_n': 'Y UW EH N', 'i_p_o': 'AY P IY OW'}
 SUBST = {'ai': 'a_i', 'un': 'u_n', 'ipo': 'i_p_o'}   # spelled abbreviations 'A.I.', 'U.N.', 'I.P.O.' (cmudict reads 'ai' / 'un' as words)
 norm = lambda w: re.sub(r"[^a-z']", '', w.lower().replace('’', "'"))

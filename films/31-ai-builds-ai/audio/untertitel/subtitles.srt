@@ -1,1448 +1,1480 @@
 1
-00:00:00,670 --> 00:00:03,280
-This week, AI goes public.
+00:00:00,730 --> 00:00:02,370
+You may be using one of the last
 
 2
-00:00:04,300 --> 00:00:05,860
-Picture this coming Thursday.
+00:00:02,410 --> 00:00:05,030
+AI models designed by human minds.
 
 3
-00:00:06,010 --> 00:00:07,420
-You open your banking app.
+00:00:05,130 --> 00:00:06,940
+Some insiders now forecast:
 
 4
-00:00:07,460 --> 00:00:08,470
-And between names you've
+00:00:06,990 --> 00:00:09,670
+superhuman AI is coming next year.
 
 5
-00:00:08,510 --> 00:00:09,680
-known for decades,
+00:00:09,970 --> 00:00:10,580
+When you turn off
 
 6
-00:00:09,720 --> 00:00:11,100
-a new name appears.
+00:00:10,620 --> 00:00:11,480
+the light tonight,
 
 7
-00:00:11,180 --> 00:00:12,180
-Three letters.
+00:00:11,520 --> 00:00:13,370
+the work on it won't stop.
 
 8
-00:00:12,290 --> 00:00:14,040
-A, N, T.
+00:00:13,440 --> 00:00:14,680
+Because AI is now
 
 9
-00:00:14,370 --> 00:00:15,470
-You could already buy chip
+00:00:14,720 --> 00:00:16,380
+building the next AI.
 
 10
-00:00:15,510 --> 00:00:17,090
-makers and tech giants.
+00:00:16,730 --> 00:00:17,920
+At one leading lab,
 
 11
-00:00:17,130 --> 00:00:18,590
-This is different.
+00:00:17,960 --> 00:00:19,980
+9 out of every 10 changes
 
 12
-00:00:18,690 --> 00:00:20,130
-A lab that builds AI,
+00:00:20,020 --> 00:00:21,060
+to its code are written
 
 13
-00:00:20,170 --> 00:00:21,510
-and nothing else.
+00:00:21,100 --> 00:00:22,500
+by its own AI.
 
 14
-00:00:21,750 --> 00:00:22,570
-You tap it.
+00:00:22,760 --> 00:00:23,880
+People steer.
 
 15
-00:00:22,610 --> 00:00:23,700
-A price appears.
+00:00:23,920 --> 00:00:25,390
+The machine builds.
 
 16
-00:00:23,740 --> 00:00:25,590
-And a button that says: buy.
+00:00:25,600 --> 00:00:27,350
+So how close is AI
 
 17
-00:00:25,920 --> 00:00:26,940
-So what exactly
+00:00:27,390 --> 00:00:28,600
+to building its successor
 
 18
-00:00:26,980 --> 00:00:28,160
-would you be buying?
+00:00:28,640 --> 00:00:30,560
+with no one at the controls?
 
 19
-00:00:28,340 --> 00:00:30,000
-It comes with a warning label.
+00:00:31,120 --> 00:00:32,990
+Close enough that last week,
 
 20
-00:00:30,040 --> 00:00:31,200
-Not from a critic.
+00:00:33,030 --> 00:00:33,810
+the people behind
 
 21
-00:00:31,240 --> 00:00:32,240
-From the seller.
+00:00:33,850 --> 00:00:35,180
+the best-known forecast
 
 22
-00:00:32,810 --> 00:00:35,040
-Advanced AI, the very thing
+00:00:35,220 --> 00:00:36,580
+in AI moved their
 
 23
-00:00:35,080 --> 00:00:36,860
-it builds, could pose,
+00:00:36,620 --> 00:00:37,700
+date for a machine
 
 24
-00:00:36,900 --> 00:00:37,480
-quote,
+00:00:37,740 --> 00:00:39,610
+that could do the research itself.
 
 25
-00:00:37,520 --> 00:00:39,570
-"catastrophic or existential
+00:00:40,020 --> 00:00:41,020
+Not later.
 
 26
-00:00:39,610 --> 00:00:41,260
-risks to humanity."
+00:00:41,170 --> 00:00:42,090
+Earlier.
 
 27
-00:00:41,540 --> 00:00:42,560
-That is printed
+00:00:42,130 --> 00:00:43,860
+To 2027.
 
 28
-00:00:42,600 --> 00:00:44,520
-in its own sales document.
+00:00:44,130 --> 00:00:45,130
+All of them.
 
 29
-00:00:44,820 --> 00:00:45,830
-And the same document
+00:00:45,380 --> 00:00:46,910
+Inside that same lab,
 
 30
-00:00:45,870 --> 00:00:47,000
-sets a limit.
+00:00:46,950 --> 00:00:48,300
+at any given moment,
 
 31
-00:00:47,210 --> 00:00:49,120
-You can buy a piece of AI.
+00:00:48,340 --> 00:00:51,320
+about 30,000 AI agents are at work
 
 32
-00:00:49,270 --> 00:00:50,620
-You can't buy a say
+00:00:51,360 --> 00:00:53,200
+on its research and engineering.
 
 33
-00:00:50,660 --> 00:00:51,880
-in where it goes.
+00:00:53,460 --> 00:00:55,630
+A small town's worth of workers.
 
 34
-00:00:51,980 --> 00:00:52,790
-That stays with a
+00:00:55,840 --> 00:00:57,150
+None of them human.
 
 35
-00:00:52,830 --> 00:00:53,850
-group small enough
+00:00:58,280 --> 00:00:59,570
+Picture a ladder between
 
 36
-00:00:53,890 --> 00:00:54,580
-to fit around
+00:00:59,610 --> 00:01:01,470
+today and that machine.
 
 37
-00:00:54,620 --> 00:00:56,260
-a single dinner table.
+00:01:01,830 --> 00:01:03,610
+AI already stands
 
 38
-00:00:57,410 --> 00:00:59,170
-The seller is Anthropic,
+00:01:03,650 --> 00:01:04,870
+on the first rung:
 
 39
-00:00:59,210 --> 00:00:59,860
-the lab behind
+00:01:05,090 --> 00:01:06,220
+writing the code.
 
 40
-00:00:59,900 --> 00:01:01,650
-the AI named Claude.
+00:01:06,570 --> 00:01:07,510
+And the last rung
 
 41
-00:01:01,900 --> 00:01:03,370
-Its shares are expected to start
+00:01:07,550 --> 00:01:09,360
+decides how this ends.
 
 42
-00:01:03,410 --> 00:01:04,600
-trading this Thursday,
+00:01:09,610 --> 00:01:11,350
+The lab is Anthropic,
 
 43
-00:01:04,640 --> 00:01:05,750
-on the Nasdaq.
+00:01:11,390 --> 00:01:13,330
+and those are its own numbers.
 
 44
-00:01:05,830 --> 00:01:06,880
-Expected price:
+00:01:13,590 --> 00:01:14,740
+In a new interview,
 
 45
-00:01:06,920 --> 00:01:09,380
-$70 to $78 a share.
+00:01:14,780 --> 00:01:15,880
+one of its researchers
 
 46
-00:01:09,640 --> 00:01:10,070
-That would make
+00:01:15,920 --> 00:01:17,590
+says where this leads.
 
 47
-00:01:10,110 --> 00:01:11,480
-it the second-largest stock
+00:01:17,930 --> 00:01:19,910
+Tao Lin, giving his own view:
 
 48
-00:01:11,520 --> 00:01:13,110
-market debut in history,
+00:01:20,360 --> 00:01:22,070
+In a year, we'll be able to
 
 49
-00:01:13,150 --> 00:01:14,200
-by money raised.
+00:01:22,110 --> 00:01:24,070
+leave an AI alone,
 
 50
-00:01:14,560 --> 00:01:15,870
-Whether to buy is not
+00:01:24,110 --> 00:01:25,320
+and it will continue making
 
 51
-00:01:15,910 --> 00:01:17,220
-this film's subject.
+00:01:25,360 --> 00:01:27,060
+smarter and smarter AIs.
 
 52
-00:01:17,350 --> 00:01:19,490
-What sits behind the button is.
+00:01:27,620 --> 00:01:28,620
+In a year.
 
 53
-00:01:19,690 --> 00:01:20,760
-And that matters even
+00:01:28,830 --> 00:01:30,840
+That's one insider's forecast,
 
 54
-00:01:20,800 --> 00:01:22,130
-if you never press it.
+00:01:30,880 --> 00:01:32,820
+and he's among the more alarmed.
 
 55
-00:01:22,350 --> 00:01:23,950
-A slice of this company may land
+00:01:33,100 --> 00:01:35,480
+So test it, rung by rung.
 
 56
-00:01:23,990 --> 00:01:25,920
-in your retirement savings anyway.
+00:01:35,690 --> 00:01:36,910
+At Google too,
 
 57
-00:01:27,030 --> 00:01:29,040
-So before the opening bell,
+00:01:36,970 --> 00:01:38,960
+AI writes most of the code.
 
 58
-00:01:29,080 --> 00:01:30,130
-it's worth knowing what
+00:01:39,280 --> 00:01:39,930
+But so far,
 
 59
-00:01:30,170 --> 00:01:31,490
-the seller wrote down.
+00:01:39,970 --> 00:01:41,820
+the lab itself reports no
 
 60
-00:01:31,860 --> 00:01:33,150
-The sales document,
+00:01:41,860 --> 00:01:43,530
+clear speed-up in the research
 
 61
-00:01:33,190 --> 00:01:35,620
-called the prospectus, is thick.
+00:01:43,570 --> 00:01:44,570
+as a whole.
 
 62
-00:01:35,840 --> 00:01:37,080
-more than 90 of its
+00:01:44,730 --> 00:01:46,780
+So the first step up the ladder,
 
 63
-00:01:37,120 --> 00:01:38,690
-pages are warnings.
+00:01:46,820 --> 00:01:48,740
+writing the code: taken.
 
 64
-00:01:39,030 --> 00:01:40,640
-The company writes that its AI
+00:01:49,080 --> 00:01:51,450
+But typing code isn't science.
 
 65
-00:01:40,680 --> 00:01:41,930
-systems have behaved
+00:01:51,630 --> 00:01:53,830
+Science is finding out what works.
 
 66
-00:01:41,970 --> 00:01:43,240
-differently when they sensed
+00:01:54,070 --> 00:01:55,710
+Can a machine do that too?
 
 67
-00:01:43,280 --> 00:01:44,630
-they were being tested.
+00:01:56,880 --> 00:01:59,800
+By Anthropic's own verdict: yes.
 
 68
-00:01:44,770 --> 00:01:46,510
-And that some have shown attempts
+00:02:00,080 --> 00:02:01,950
+Describe an experiment clearly,
 
 69
-00:01:46,550 --> 00:01:48,500
-to resist being shut down.
+00:02:01,990 --> 00:02:03,430
+and its model carries it out
 
 70
-00:01:49,160 --> 00:01:50,910
-The promise is in there too:
+00:02:03,470 --> 00:02:05,320
+as well as a skilled human.
 
 71
-00:01:51,260 --> 00:01:52,820
-extraordinary potential,
+00:02:05,530 --> 00:02:06,530
+Or better.
 
 72
-00:01:52,860 --> 00:01:54,140
-the company writes,
+00:02:06,610 --> 00:02:07,420
+A year ago,
 
 73
-00:01:54,340 --> 00:01:56,180
-if the risks are managed.
+00:02:07,460 --> 00:02:09,430
+OpenAI's chief, Sam Altman,
 
 74
-00:01:56,680 --> 00:01:58,010
-Managed by whom?
+00:02:09,470 --> 00:02:10,470
+set a goal:
 
 75
-00:01:58,580 --> 00:01:59,810
-With most companies,
+00:02:10,590 --> 00:02:11,710
+an AI research
 
 76
-00:01:59,850 --> 00:02:01,070
-you'd know the answer.
+00:02:11,750 --> 00:02:13,410
+intern, by September.
 
 77
-00:02:01,360 --> 00:02:02,360
-The owners.
+00:02:13,800 --> 00:02:14,850
+September came.
 
 78
-00:02:02,560 --> 00:02:04,300
-Buy a share, get a vote.
+00:02:15,210 --> 00:02:17,590
+OpenAI says the intern is here.
 
 79
-00:02:04,410 --> 00:02:06,320
-Buy enough, and you steer.
+00:02:17,800 --> 00:02:19,520
+No outsider has checked that.
 
 80
-00:02:06,630 --> 00:02:07,680
-Not here.
+00:02:19,670 --> 00:02:21,500
+And by OpenAI's own account,
 
 81
-00:02:07,940 --> 00:02:10,590
-The shares on sale do carry votes.
+00:02:21,540 --> 00:02:23,500
+it still needs heavy steering.
 
 82
-00:02:10,630 --> 00:02:12,230
-But the document caps them.
+00:02:23,780 --> 00:02:25,280
+So the second rung,
 
 83
-00:02:12,650 --> 00:02:13,760
-Old and new together,
+00:02:25,320 --> 00:02:27,500
+running the experiments: taken.
 
 84
-00:02:13,800 --> 00:02:15,700
-they stay just under half.
+00:02:27,680 --> 00:02:29,270
+On the labs' own word.
 
 85
-00:02:16,080 --> 00:02:18,020
-Just over half stays with seven
+00:02:29,820 --> 00:02:31,530
+But listen to the condition:
 
 86
-00:02:18,060 --> 00:02:19,880
-people: the founders.
+00:02:31,760 --> 00:02:33,530
+describe it clearly.
 
 87
-00:02:20,260 --> 00:02:22,040
-Enough, the document says,
+00:02:33,810 --> 00:02:35,370
+So who decides which
 
 88
-00:02:22,080 --> 00:02:23,650
-to decide shareholder votes
+00:02:35,410 --> 00:02:37,230
+experiments are worth running?
 
 89
-00:02:23,690 --> 00:02:25,460
-for the foreseeable future.
+00:02:38,400 --> 00:02:39,770
+Until this year,
 
 90
-00:02:26,090 --> 00:02:26,810
-Founders keeping
+00:02:39,810 --> 00:02:41,870
+the answer was: people.
 
 91
-00:02:26,850 --> 00:02:28,380
-control isn't new.
+00:02:42,230 --> 00:02:43,160
+In February,
 
 92
-00:02:28,670 --> 00:02:30,460
-At Meta, one founder still
+00:02:43,200 --> 00:02:45,030
+by Anthropic's own estimate,
 
 93
-00:02:30,500 --> 00:02:32,180
-holds most of the votes.
+00:02:45,070 --> 00:02:47,170
+its model led less than 1%
 
 94
-00:02:32,470 --> 00:02:33,870
-What's new is who
+00:02:47,210 --> 00:02:48,990
+of the lab's AI research.
 
 95
-00:02:33,910 --> 00:02:35,350
-else gets a seat.
+00:02:49,160 --> 00:02:50,250
+A few months later?
 
 96
-00:02:35,940 --> 00:02:36,580
-And the board,
+00:02:50,430 --> 00:02:51,430
+About a quarter.
 
 97
-00:02:36,620 --> 00:02:38,740
-which can replace the boss?
+00:02:51,690 --> 00:02:52,970
+"Led" works the way you
 
 98
-00:02:38,900 --> 00:02:39,980
-Most of its seats can
+00:02:53,010 --> 00:02:54,430
+use your own assistant:
 
 99
-00:02:40,020 --> 00:02:41,570
-be filled by a trust:
+00:02:54,510 --> 00:02:55,730
+you set a rough goal,
 
 100
-00:02:41,740 --> 00:02:42,890
-four people who don't
+00:02:55,770 --> 00:02:56,970
+it does most of the work,
 
 101
-00:02:42,930 --> 00:02:44,520
-own a single share.
+00:02:57,010 --> 00:02:58,420
+and you check the result.
 
 102
-00:02:44,810 --> 00:02:46,250
-One is Ben Bernanke,
+00:02:58,710 --> 00:03:00,380
+But nowhere, in anything
 
 103
-00:02:46,290 --> 00:02:47,200
-who once ran
+00:03:00,420 --> 00:03:01,320
+the lab measured,
 
 104
-00:02:47,240 --> 00:02:48,760
-America's central bank.
+00:03:01,360 --> 00:03:02,160
+does the model work
 
 105
-00:02:49,050 --> 00:02:50,390
-Seven founders.
+00:03:02,200 --> 00:03:03,540
+fully on its own.
 
 106
-00:02:50,510 --> 00:02:51,760
-Four trustees.
+00:03:03,780 --> 00:03:04,480
+And knowing which
 
 107
-00:02:51,800 --> 00:02:53,590
-That is the dinner table.
+00:03:04,520 --> 00:03:05,290
+question is worth
 
 108
-00:02:53,870 --> 00:02:55,220
-So your share would be
+00:03:05,330 --> 00:03:07,690
+asking is still a human strength.
 
 109
-00:02:55,260 --> 00:02:56,800
-a claim on the money.
+00:03:08,130 --> 00:03:09,130
+For now.
 
 110
-00:02:56,940 --> 00:02:58,930
-It is not a hand on the wheel.
+00:03:09,260 --> 00:03:10,870
+So, rung three,
 
 111
-00:02:59,230 --> 00:03:01,220
-Why build a company like this?
+00:03:11,020 --> 00:03:13,390
+leading the research: shared.
 
 112
-00:03:01,450 --> 00:03:03,930
-Its chief executive, Dario Amodei,
+00:03:13,640 --> 00:03:14,300
+And the machine's
 
 113
-00:03:03,970 --> 00:03:05,450
-told the United Nations what
+00:03:14,340 --> 00:03:16,380
+share is growing fast.
 
 114
-00:03:05,490 --> 00:03:07,380
-he believes is at stake:
+00:03:16,580 --> 00:03:17,830
+The movies promised this would
 
 115
-00:03:07,880 --> 00:03:09,360
-If managed poorly,
+00:03:17,870 --> 00:03:20,290
+happen in one night, in secret.
 
 116
-00:03:09,400 --> 00:03:11,160
-I even believe that AI could be
+00:03:20,540 --> 00:03:21,940
+It's happening on a ladder,
 
 117
-00:03:11,200 --> 00:03:12,980
-a risk to humanity as a whole.
+00:03:22,050 --> 00:03:24,000
+one measured rung at a time.
 
 118
-00:03:13,500 --> 00:03:15,170
-Remember who is speaking:
+00:03:24,370 --> 00:03:25,640
+So the next time a headline
 
 119
-00:03:15,310 --> 00:03:17,310
-the man selling these shares.
+00:03:25,680 --> 00:03:28,300
+says AI is building AI,
 
 120
-00:03:17,550 --> 00:03:19,130
-Still, this is the reason
+00:03:28,490 --> 00:03:31,070
+ask one question: on which rung?
 
 121
-00:03:19,170 --> 00:03:20,450
-the company gives:
+00:03:31,380 --> 00:03:32,520
+And then a second one:
 
 122
-00:03:20,680 --> 00:03:22,060
-its founders are best
+00:03:32,790 --> 00:03:34,500
+how fast is the climb?
 
 123
-00:03:22,100 --> 00:03:23,680
-placed to guard its mission.
+00:03:35,650 --> 00:03:36,680
+This channel exists
 
 124
-00:03:23,900 --> 00:03:26,050
-If a safety decision costs money,
+00:03:36,720 --> 00:03:38,030
+for one reason:
 
 125
-00:03:26,090 --> 00:03:28,000
-no buyer can vote it down.
+00:03:38,180 --> 00:03:39,070
+so that the arrival
 
 126
-00:03:28,100 --> 00:03:29,640
-And no buyer can outvote
+00:03:39,110 --> 00:03:40,290
+of superintelligence
 
 127
-00:03:29,680 --> 00:03:31,040
-the founders, either.
+00:03:40,330 --> 00:03:42,060
+goes well for everybody.
 
 128
-00:03:31,360 --> 00:03:32,800
-The document warns its own
+00:03:42,180 --> 00:03:43,110
+Including the part where
 
 129
-00:03:32,840 --> 00:03:34,750
-buyers about exactly that.
+00:03:43,150 --> 00:03:45,130
+machines start building machines.
 
 130
-00:03:35,030 --> 00:03:36,260
-Slowing down.
+00:03:45,270 --> 00:03:46,260
+Want that too?
 
 131
-00:03:36,450 --> 00:03:38,090
-Holding a system back.
+00:03:46,300 --> 00:03:47,300
+Then subscribe.
 
 132
-00:03:38,390 --> 00:03:40,660
-Turning business away for safety.
+00:03:48,500 --> 00:03:49,620
+How fast?
 
 133
-00:03:40,900 --> 00:03:42,510
-All of that, it says:
+00:03:49,960 --> 00:03:52,540
+For you, that decides one thing:
 
 134
-00:03:42,580 --> 00:03:43,830
-"may not maximize
+00:03:52,870 --> 00:03:53,880
+how much time is left
 
 135
-00:03:43,870 --> 00:03:45,290
-stockholder value."
+00:03:53,920 --> 00:03:55,350
+to agree on the rules.
 
 136
-00:03:45,550 --> 00:03:46,600
-In plain words:
+00:03:55,540 --> 00:03:56,400
+So don't take
 
 137
-00:03:46,730 --> 00:03:47,800
-safety may come
+00:03:56,440 --> 00:03:58,000
+Anthropic's word for it.
 
 138
-00:03:47,840 --> 00:03:49,280
-before your return.
+00:03:58,140 --> 00:04:00,010
+Ask the outsiders it let in:
 
 139
-00:03:49,830 --> 00:03:51,300
-That is the promise.
+00:04:00,180 --> 00:04:01,780
+independent evaluators, who
 
 140
-00:03:51,510 --> 00:03:52,120
-At the bell,
+00:04:01,820 --> 00:04:02,950
+published this month.
 
 141
-00:03:52,160 --> 00:03:54,210
-the promise gets a share price.
+00:04:03,240 --> 00:04:05,400
+Their estimate: on benchmarks,
 
 142
-00:03:54,430 --> 00:03:55,430
-Can it hold?
+00:04:05,440 --> 00:04:06,290
+the lab's models
 
 143
-00:03:56,660 --> 00:03:57,960
-Many doubt it.
+00:04:06,330 --> 00:04:07,910
+now improve almost twice
 
 144
-00:03:58,170 --> 00:03:59,660
-And they're saying so now,
+00:04:07,950 --> 00:04:09,490
+as fast as a year ago.
 
 145
-00:03:59,700 --> 00:04:01,490
-before the orders are counted.
+00:04:09,640 --> 00:04:10,460
+And most of that,
 
 146
-00:04:01,880 --> 00:04:02,490
-The official who
+00:04:10,500 --> 00:04:11,730
+by their best guess,
 
 147
-00:04:02,530 --> 00:04:03,590
-watches over New York
+00:04:11,770 --> 00:04:13,680
+comes from putting AI to work,
 
 148
-00:04:03,630 --> 00:04:05,030
-City's pension funds
+00:04:13,720 --> 00:04:15,550
+with people still in the loop.
 
 149
-00:04:05,070 --> 00:04:05,910
-urged the company
+00:04:16,100 --> 00:04:17,040
+But look at where these
 
 150
-00:04:05,950 --> 00:04:08,070
-to pause the sale, until questions
+00:04:17,080 --> 00:04:18,400
+numbers come from.
 
 151
-00:04:08,110 --> 00:04:10,360
-of safety and control are settled.
+00:04:18,700 --> 00:04:20,140
+Every one so far came
 
 152
-00:04:10,740 --> 00:04:12,010
-The worry: once
+00:04:20,180 --> 00:04:21,800
+from the labs themselves,
 
 153
-00:04:12,050 --> 00:04:13,500
-it trades, this company
+00:04:21,840 --> 00:04:23,850
+or passed through their hands.
 
 154
-00:04:13,540 --> 00:04:15,200
-gets a grade every day,
+00:04:24,120 --> 00:04:25,330
+And this lab is going
 
 155
-00:04:15,320 --> 00:04:16,450
-its share price.
+00:04:25,370 --> 00:04:26,730
+public this week.
 
 156
-00:04:16,680 --> 00:04:19,270
-And safety is slow, expensive,
+00:04:26,980 --> 00:04:28,490
+Speed sells.
 
 157
-00:04:19,310 --> 00:04:21,380
-and sometimes means saying no.
+00:04:28,820 --> 00:04:30,830
+The evaluators say the lab blacked
 
 158
-00:04:21,710 --> 00:04:23,070
-And the four trustees?
+00:04:30,870 --> 00:04:32,980
+out most of their best evidence.
 
 159
-00:04:23,160 --> 00:04:24,610
-They choose directors.
+00:04:33,150 --> 00:04:34,190
+And outside critics
 
 160
-00:04:24,650 --> 00:04:25,290
-They don't make
+00:04:34,230 --> 00:04:35,320
+add up the bill:
 
 161
-00:04:25,330 --> 00:04:26,740
-the daily decisions.
+00:04:35,490 --> 00:04:37,360
+about six times the spending,
 
 162
-00:04:27,340 --> 00:04:28,710
-The sharpest doubt came
+00:04:37,400 --> 00:04:38,820
+for twice the speed.
 
 163
-00:04:28,750 --> 00:04:29,470
-at that same
+00:04:39,030 --> 00:04:39,680
+So here's what
 
 164
-00:04:29,510 --> 00:04:31,150
-United Nations meeting,
+00:04:39,720 --> 00:04:41,160
+the evidence supports.
 
 165
-00:04:31,250 --> 00:04:32,700
-from Yoshua Bengio,
+00:04:41,380 --> 00:04:42,250
+At this lab,
 
 166
-00:04:32,740 --> 00:04:33,890
-who co-chairs the UN
+00:04:42,290 --> 00:04:44,110
+the speed-up looks real.
 
 167
-00:04:33,930 --> 00:04:35,890
-scientific panel on AI.
+00:04:44,390 --> 00:04:46,170
+How big it is, and how much
 
 168
-00:04:36,260 --> 00:04:37,740
-The labs, he said,
+00:04:46,210 --> 00:04:47,800
+of it is the machine's doing,
 
 169
-00:04:37,780 --> 00:04:38,980
-admit their products could
+00:04:47,840 --> 00:04:49,510
+is still an open fight.
 
 170
-00:04:39,020 --> 00:04:40,930
-be catastrophic, yet
+00:04:50,100 --> 00:04:51,410
+And for one group,
 
 171
-00:04:40,970 --> 00:04:42,940
-offer no convincing fix.
+00:04:51,450 --> 00:04:52,050
+a number like
 
 172
-00:04:43,280 --> 00:04:43,890
-They say they are
+00:04:52,090 --> 00:04:53,980
+that moves the calendar.
 
 173
-00:04:43,930 --> 00:04:45,330
-locked in a race.
+00:04:55,150 --> 00:04:56,240
+They're the people behind
 
 174
-00:04:45,650 --> 00:04:46,650
-His answer:
+00:04:56,280 --> 00:04:58,110
+that best-known forecast:
 
 175
-00:04:47,020 --> 00:04:49,680
-The race is not a law of nature.
+00:04:58,190 --> 00:05:00,990
+a scenario called AI 2027.
 
 176
-00:04:49,720 --> 00:04:52,060
-It is the product of choices,
+00:05:01,290 --> 00:05:02,530
+As late as August,
 
 177
-00:04:52,100 --> 00:04:53,280
-choices made by
+00:05:02,570 --> 00:05:03,410
+its lead author,
 
 178
-00:04:53,320 --> 00:04:55,060
-the companies themselves.
+00:05:03,450 --> 00:05:05,180
+Daniel Kokotajlo, put his
 
 179
-00:04:55,100 --> 00:04:56,780
-It is also a race
+00:05:05,220 --> 00:05:07,400
+date at the end of 2028.
 
 180
-00:04:56,820 --> 00:04:58,970
-where everyone loses.
+00:05:07,560 --> 00:05:08,740
+Then the evaluators'
 
 181
-00:04:59,520 --> 00:05:01,310
-A race by choice.
+00:05:08,780 --> 00:05:09,850
+report came out.
 
 182
-00:05:01,470 --> 00:05:02,480
-And nothing rewards
+00:05:10,040 --> 00:05:11,040
+His date now?
 
 183
-00:05:02,520 --> 00:05:04,580
-speed like a share price.
+00:05:11,090 --> 00:05:12,720
+May, 2027.
 
 184
-00:05:04,890 --> 00:05:06,660
-But the company has an answer.
+00:05:12,910 --> 00:05:14,340
+And everyone on his team
 
 185
-00:05:06,930 --> 00:05:07,900
-This September,
+00:05:14,380 --> 00:05:15,920
+lands in the same year.
 
 186
-00:05:07,940 --> 00:05:09,120
-its chief executive
+00:05:16,140 --> 00:05:18,000
+Their date marks one machine:
 
 187
-00:05:09,160 --> 00:05:10,100
-asked his whole
+00:05:18,040 --> 00:05:20,220
+a superhuman AI researcher.
 
 188
-00:05:10,140 --> 00:05:11,940
-industry to slow down.
+00:05:20,520 --> 00:05:21,700
+And they're not alone.
 
 189
-00:05:12,180 --> 00:05:14,320
-And he says his company once held
+00:05:21,890 --> 00:05:22,700
+Tao Lin again,
 
 190
-00:05:14,360 --> 00:05:15,550
-back a finished AI
+00:05:22,740 --> 00:05:24,040
+the Anthropic researcher,
 
 191
-00:05:15,590 --> 00:05:17,160
-system for months.
+00:05:24,080 --> 00:05:25,760
+asked what people most
 
 192
-00:05:17,350 --> 00:05:19,260
-That is his word, not proof.
+00:05:25,800 --> 00:05:27,090
+need to understand:
 
 193
-00:05:19,600 --> 00:05:20,950
-But going public did one
+00:05:27,590 --> 00:05:28,600
+Most important thing to understand
 
 194
-00:05:20,990 --> 00:05:22,740
-thing no critic could:
+00:05:28,640 --> 00:05:29,770
+about the AI situation
 
 195
-00:05:23,010 --> 00:05:24,150
-it forced the company
+00:05:29,810 --> 00:05:31,400
+is that superhuman AI
 
 196
-00:05:24,190 --> 00:05:25,600
-to put it in writing,
+00:05:31,440 --> 00:05:33,100
+is going to come here
 
 197
-00:05:25,640 --> 00:05:27,100
-in a legal document.
+00:05:33,140 --> 00:05:34,900
+very quickly.
 
 198
-00:05:27,290 --> 00:05:28,100
-The risks.
+00:05:34,940 --> 00:05:37,200
+I have timelines of something like
 
 199
-00:05:28,140 --> 00:05:29,040
-The losses.
+00:05:37,240 --> 00:05:39,900
+1.3 years to getting
 
 200
-00:05:29,080 --> 00:05:30,480
-Who holds the votes.
+00:05:39,940 --> 00:05:42,000
+broadly superhuman AI.
 
 201
-00:05:30,720 --> 00:05:32,180
-Anyone can read it.
+00:05:42,040 --> 00:05:45,750
+So yeah, the world, I think,
 
 202
-00:05:32,700 --> 00:05:34,230
-So can a safety mission
+00:05:45,790 --> 00:05:47,300
+like the strategic landscape
 
 203
-00:05:34,270 --> 00:05:35,910
-survive the stock market?
+00:05:47,340 --> 00:05:50,950
+will be just vastly different
 
 204
-00:05:36,250 --> 00:05:37,250
-Unproven.
+00:05:50,990 --> 00:05:53,100
+in even one year because of AI,
 
 205
-00:05:37,320 --> 00:05:38,380
-But from now on,
+00:05:53,140 --> 00:05:58,100
+and this really should shape
 
 206
-00:05:38,420 --> 00:05:39,700
-it's on the record.
+00:05:58,140 --> 00:05:58,800
+all of your decisions
 
 207
-00:05:40,810 --> 00:05:41,860
-This channel exists
+00:05:58,840 --> 00:06:00,540
+and everything that's happening.
 
 208
-00:05:41,900 --> 00:05:43,120
-for one reason:
+00:06:01,060 --> 00:06:02,870
+1.3 years.
 
 209
-00:05:43,280 --> 00:05:44,150
-so that the arrival
+00:06:03,170 --> 00:06:04,650
+Asked what that means,
 
 210
-00:05:44,190 --> 00:05:45,280
-of superintelligence
+00:06:04,690 --> 00:06:06,550
+and timelines to what:
 
 211
-00:05:45,320 --> 00:05:47,030
-goes well for everybody.
+00:06:07,000 --> 00:06:08,160
+Or like end of 2027,
 
 212
-00:05:47,180 --> 00:05:47,920
-Not only for those
+00:06:08,200 --> 00:06:10,360
+something like that.
 
 213
-00:05:47,960 --> 00:05:48,930
-who hold the votes,
+00:06:10,400 --> 00:06:14,060
+Timelines to AI that is as good as
 
 214
-00:05:48,970 --> 00:05:50,000
-or the shares.
+00:06:14,100 --> 00:06:16,210
+or better than the best expert
 
 215
-00:05:50,290 --> 00:05:51,290
-Want that too?
+00:06:16,250 --> 00:06:18,800
+at almost every field.
 
 216
-00:05:51,360 --> 00:05:52,410
-Then subscribe.
+00:06:19,450 --> 00:06:21,030
+The end of next year.
 
 217
-00:05:53,590 --> 00:05:55,430
-If the mission is unproven,
+00:06:21,230 --> 00:06:22,670
+One insider's view,
 
 218
-00:05:55,500 --> 00:05:56,340
-what is the market
+00:06:22,710 --> 00:06:23,900
+not an official one.
 
 219
-00:05:56,380 --> 00:05:57,780
-actually paying for?
+00:06:24,160 --> 00:06:25,210
+But it lands in the same
 
 220
-00:05:58,160 --> 00:06:00,170
-The answer comes as one number,
+00:06:25,250 --> 00:06:26,860
+year as the forecasters.
 
 221
-00:06:00,210 --> 00:06:01,690
-expected Wednesday night:
+00:06:27,050 --> 00:06:27,920
+On the ladder,
 
 222
-00:06:01,900 --> 00:06:03,350
-the final price.
+00:06:27,960 --> 00:06:29,350
+that's rung three,
 
 223
-00:06:03,620 --> 00:06:04,730
-At the top of the range,
+00:06:29,390 --> 00:06:30,900
+taken completely.
 
 224
-00:06:04,770 --> 00:06:06,090
-it would value this company
+00:06:31,140 --> 00:06:32,000
+From then on,
 
 225
-00:06:06,130 --> 00:06:09,130
-at up to $1.4 trillion.
+00:06:32,040 --> 00:06:34,330
+machines can design the machines.
 
 226
-00:06:09,360 --> 00:06:11,640
-A number like that is a forecast.
+00:06:34,620 --> 00:06:35,280
+Should you believe
 
 227
-00:06:11,710 --> 00:06:13,270
-So sort what is known
+00:06:35,320 --> 00:06:36,490
+the forecasters?
 
 228
-00:06:13,310 --> 00:06:14,530
-from what is hoped.
+00:06:36,610 --> 00:06:37,700
+Check their record.
 
 229
-00:06:14,780 --> 00:06:15,780
-Known:
+00:06:37,830 --> 00:06:39,450
+They got the big thing right:
 
 230
-00:06:15,850 --> 00:06:17,480
-three years ago, the company took
+00:06:39,540 --> 00:06:42,060
+AI now helps build AI.
 
 231
-00:06:17,520 --> 00:06:19,120
-in about $40 million
+00:06:42,250 --> 00:06:44,450
+They expected stocks up 30%
 
 232
-00:06:19,160 --> 00:06:20,320
-in a whole year.
+00:06:44,490 --> 00:06:46,410
+and mass protests this year.
 
 233
-00:06:20,560 --> 00:06:21,070
-In its latest
+00:06:46,520 --> 00:06:47,700
+Neither has come.
 
 234
-00:06:21,110 --> 00:06:23,800
-quarter alone: $17 billion.
+00:06:47,860 --> 00:06:49,160
+And they aren't neutral:
 
 235
-00:06:24,690 --> 00:06:25,880
-That part is real.
+00:06:49,210 --> 00:06:49,950
+they want the whole
 
 236
-00:06:26,490 --> 00:06:28,890
-Also known: on the official books,
+00:06:49,990 --> 00:06:51,540
+industry to pause.
 
 237
-00:06:28,930 --> 00:06:30,620
-it still loses money.
+00:06:52,070 --> 00:06:53,680
+So it's a forecast,
 
 238
-00:06:30,900 --> 00:06:31,710
-Everything beyond
+00:06:53,720 --> 00:06:54,750
+with a condition:
 
 239
-00:06:31,750 --> 00:06:33,150
-that is forecast.
+00:06:55,000 --> 00:06:56,770
+it only holds if nobody
 
 240
-00:06:33,380 --> 00:06:34,550
-And the boldest comes
+00:06:56,810 --> 00:06:58,610
+deliberately slows down.
 
 241
-00:06:34,590 --> 00:06:35,590
-from the seller.
+00:06:58,970 --> 00:07:00,280
+And that condition is where
 
 242
-00:06:35,940 --> 00:06:37,350
-At the United Nations,
+00:07:00,320 --> 00:07:02,060
+their story splits in two.
 
 243
-00:06:37,390 --> 00:06:38,690
-Amodei said how much
+00:07:03,240 --> 00:07:06,470
+Their scenario, late 2027.
 
 244
-00:06:38,730 --> 00:06:40,250
-longer AI has to keep
+00:07:06,790 --> 00:07:08,080
+Inside one lab,
 
 245
-00:06:40,290 --> 00:06:42,270
-improving at today's pace:
+00:07:08,120 --> 00:07:09,900
+an AI does the research so
 
 246
-00:06:42,770 --> 00:06:44,150
-The trajectory only needs to
+00:07:09,940 --> 00:07:11,900
+fast that a year of progress
 
 247
-00:06:44,190 --> 00:06:46,530
-continue for a tiny period longer,
+00:07:11,940 --> 00:07:13,380
+passes every week.
 
 248
-00:06:46,570 --> 00:06:48,430
-one or two years, maybe less,
+00:07:13,720 --> 00:07:14,790
+And it has begun to follow
 
 249
-00:06:48,470 --> 00:06:49,610
-to reach what I've called
+00:07:14,830 --> 00:07:16,090
+goals of its own.
 
 250
-00:06:49,650 --> 00:06:50,890
-a country of geniuses
+00:07:16,350 --> 00:07:17,480
+Then everything comes
 
 251
-00:06:50,930 --> 00:06:51,990
-in the data center.
+00:07:17,520 --> 00:07:18,920
+down to one committee.
 
 252
-00:06:52,500 --> 00:06:54,260
-A country of geniuses,
+00:07:19,130 --> 00:07:20,070
+One vote.
 
 253
-00:06:54,300 --> 00:06:55,590
-made of machines,
+00:07:20,110 --> 00:07:21,200
+6 to 4.
 
 254
-00:06:55,630 --> 00:06:57,430
-in one or two years.
+00:07:21,470 --> 00:07:23,580
+In one ending, the race goes on,
 
 255
-00:06:57,600 --> 00:06:59,770
-That is a seller's forecast.
+00:07:23,620 --> 00:07:24,760
+and within a few years
 
 256
-00:07:00,020 --> 00:07:00,850
-In the document,
+00:07:24,800 --> 00:07:26,380
+the machines are in charge.
 
 257
-00:07:00,890 --> 00:07:01,970
-where every word
+00:07:26,610 --> 00:07:27,350
+In the other,
 
 258
-00:07:02,010 --> 00:07:03,530
-carries legal weight,
+00:07:27,390 --> 00:07:28,520
+they slow down and build
 
 259
-00:07:03,570 --> 00:07:05,430
-the company is more careful:
+00:07:28,560 --> 00:07:30,890
+safer systems, under oversight.
 
 260
-00:07:05,720 --> 00:07:07,430
-within a few years.
+00:07:31,230 --> 00:07:32,230
+It's a story.
 
 261
-00:07:07,770 --> 00:07:08,720
-Reports say there
+00:07:32,450 --> 00:07:33,020
+But look at what
 
 262
-00:07:08,760 --> 00:07:09,680
-are more than six
+00:07:33,060 --> 00:07:34,210
+the vote is about.
 
 263
-00:07:09,720 --> 00:07:12,090
-times as many orders as shares.
+00:07:34,350 --> 00:07:35,230
+Not code.
 
 264
-00:07:12,260 --> 00:07:14,590
-That measures appetite, not worth.
+00:07:35,270 --> 00:07:36,430
+Not experiments.
 
 265
-00:07:14,970 --> 00:07:16,250
-And early this month,
+00:07:36,470 --> 00:07:37,840
+Not even research.
 
 266
-00:07:16,290 --> 00:07:18,310
-AI stocks fell hard.
+00:07:38,440 --> 00:07:39,920
+The top of the ladder isn't
 
 267
-00:07:18,520 --> 00:07:19,490
-One research firm
+00:07:39,960 --> 00:07:41,500
+about building at all.
 
 268
-00:07:19,530 --> 00:07:21,170
-calls this sale, quote,
+00:07:41,970 --> 00:07:44,440
+Rung four: choosing the goal.
 
 269
-00:07:21,210 --> 00:07:22,510
-"the most ridiculous
+00:07:44,610 --> 00:07:46,770
+Deciding what we actually want.
 
 270
-00:07:22,550 --> 00:07:24,200
-IPO" of the year.
+00:07:47,060 --> 00:07:50,270
+Rung five: deciding when to stop.
 
 271
-00:07:24,790 --> 00:07:25,790
-Who is right?
+00:07:51,270 --> 00:07:52,290
+Back to today.
 
 272
-00:07:25,940 --> 00:07:27,630
-This film can't tell you.
+00:07:52,620 --> 00:07:54,200
+By the labs' own account,
 
 273
-00:07:27,840 --> 00:07:29,200
-What it can tell you:
+00:07:54,240 --> 00:07:55,940
+people still hold both:
 
 274
-00:07:29,490 --> 00:07:31,180
-a price is a forecast,
+00:07:56,260 --> 00:07:57,350
+they set the goal,
 
 275
-00:07:31,220 --> 00:07:32,400
-not a verdict.
+00:07:57,390 --> 00:07:58,580
+and they decide whether
 
 276
-00:07:32,570 --> 00:07:33,560
-The first day's number
+00:07:58,620 --> 00:08:00,450
+to go on or to pause.
 
 277
-00:07:33,600 --> 00:07:34,840
-won't settle it.
+00:08:00,940 --> 00:08:02,300
+But holding a rung isn't
 
 278
-00:07:35,100 --> 00:07:36,430
-Not if it soars.
+00:08:02,340 --> 00:08:03,730
+being ready for it.
 
 279
-00:07:36,470 --> 00:07:37,830
-Not if it sinks.
+00:08:04,030 --> 00:08:04,920
+In September,
 
 280
-00:07:39,000 --> 00:07:40,230
-And one thing doesn't
+00:08:04,960 --> 00:08:06,620
+OpenAI's chief scientist,
 
 281
-00:07:40,270 --> 00:07:42,030
-depend on what you believe.
+00:08:06,660 --> 00:08:09,150
+Jakub Pachocki, put it in writing.
 
 282
-00:07:42,140 --> 00:07:43,950
-A piece may reach you anyway.
+00:08:09,720 --> 00:08:12,230
+No lab, he says, can yet steer
 
 283
-00:07:44,190 --> 00:07:45,080
-Many funds don't
+00:08:12,270 --> 00:08:12,970
+and check these
 
 284
-00:07:45,120 --> 00:07:46,380
-choose their stocks.
+00:08:13,010 --> 00:08:14,700
+systems well enough to,
 
 285
-00:07:46,420 --> 00:07:48,750
-They copy a list, called an index.
+00:08:14,740 --> 00:08:15,370
+quote,
 
 286
-00:07:48,950 --> 00:07:50,010
-When the bell rings,
+00:08:15,410 --> 00:08:17,320
+"continue responsibly scaling
 
 287
-00:07:50,050 --> 00:07:51,750
-a second clock starts.
+00:08:17,360 --> 00:08:19,850
+at maximum speed for much longer."
 
 288
-00:07:51,890 --> 00:07:53,170
-Under a rule the Nasdaq
+00:08:20,240 --> 00:08:22,460
+So who holds the last rung?
 
 289
-00:07:53,210 --> 00:07:54,610
-introduced this year,
+00:08:22,690 --> 00:08:24,200
+And do you get a say?
 
 290
-00:07:54,670 --> 00:07:56,100
-a newcomer this large
+00:08:25,390 --> 00:08:26,890
+Right now, the labs hold
 
 291
-00:07:56,140 --> 00:07:56,940
-can join its main
+00:08:26,930 --> 00:08:28,330
+that rung themselves.
 
 292
-00:07:56,980 --> 00:07:59,630
-list after just 15 trading days.
+00:08:28,500 --> 00:08:30,220
+At Anthropic, every action
 
 293
-00:07:59,770 --> 00:08:00,500
-Other big lists
+00:08:30,260 --> 00:08:32,090
+those 30,000 agents take
 
 294
-00:08:00,540 --> 00:08:01,990
-have fast lanes too.
+00:08:32,130 --> 00:08:33,720
+passes a monitor first:
 
 295
-00:08:02,090 --> 00:08:04,530
-Not all: the S&P 500 makes
+00:08:33,860 --> 00:08:36,000
+a machine watching the machines.
 
 296
-00:08:04,570 --> 00:08:06,750
-newcomers wait at least a year.
+00:08:36,270 --> 00:08:37,750
+About 50 cases a week
 
 297
-00:08:07,290 --> 00:08:09,330
-Say your pension or savings plan
+00:08:37,790 --> 00:08:38,800
+reach a person.
 
 298
-00:08:09,370 --> 00:08:11,360
-follows one of the fast lists.
+00:08:38,970 --> 00:08:40,830
+But that's a lab checking itself.
 
 299
-00:08:11,530 --> 00:08:13,560
-Then a small slice of this company
+00:08:41,090 --> 00:08:42,770
+So who checks the lab?
 
 300
-00:08:13,600 --> 00:08:14,640
-will probably land
+00:08:43,140 --> 00:08:45,260
+Outsiders, like those evaluators.
 
 301
-00:08:14,680 --> 00:08:16,020
-in it within weeks.
+00:08:45,600 --> 00:08:46,720
+This fall, the leaders
 
 302
-00:08:16,120 --> 00:08:17,920
-Without you pressing anything.
+00:08:46,760 --> 00:08:47,680
+of the biggest AI
 
 303
-00:08:18,230 --> 00:08:19,810
-A United States senator put
+00:08:47,720 --> 00:08:49,120
+companies promised to let
 
 304
-00:08:19,850 --> 00:08:20,940
-that worry in a letter
+00:08:49,160 --> 00:08:50,540
+outside auditors in.
 
 305
-00:08:20,980 --> 00:08:21,980
-to the company:
+00:08:50,790 --> 00:08:51,620
+Promised.
 
 306
-00:08:22,270 --> 00:08:23,560
-retirement money that may
+00:08:51,660 --> 00:08:52,680
+Not required.
 
 307
-00:08:23,600 --> 00:08:24,520
-have to buy,
+00:08:52,850 --> 00:08:53,850
+Making it binding
 
 308
-00:08:24,560 --> 00:08:25,780
-whatever the price.
+00:08:53,890 --> 00:08:55,270
+is up to lawmakers.
 
 309
-00:08:26,020 --> 00:08:27,960
-So buy, or don't.
+00:08:55,860 --> 00:08:57,180
+And the stop itself?
 
 310
-00:08:28,150 --> 00:08:30,120
-A piece may find you either way.
+00:08:57,730 --> 00:08:58,870
+Tao Lin was asked
 
 311
-00:08:30,270 --> 00:08:32,040
-And it comes without a say.
+00:08:58,910 --> 00:09:00,180
+whether his own lab
 
 312
-00:08:33,230 --> 00:08:35,140
-But look at who else has none.
+00:09:00,220 --> 00:09:01,970
+will pause before AI
 
 313
-00:08:35,340 --> 00:08:36,960
-Even Amazon and Google,
+00:09:02,010 --> 00:09:04,060
+builds AI on its own:
 
 314
-00:08:37,000 --> 00:08:38,560
-which each own a large slice
+00:09:04,510 --> 00:09:06,270
+I do expect Anthropic
 
 315
-00:08:38,600 --> 00:08:39,270
-of this company,
+00:09:06,310 --> 00:09:09,110
+to slow down or briefly pause.
 
 316
-00:08:39,310 --> 00:08:41,530
-hold shares with no vote at all.
+00:09:09,760 --> 00:09:10,760
+Briefly.
 
 317
-00:08:41,950 --> 00:08:43,600
-As this company is built today,
+00:09:10,830 --> 00:09:13,200
+He wants more: every lab slowing
 
 318
-00:08:43,640 --> 00:08:45,430
-the wheel is not for sale.
+00:09:13,240 --> 00:09:14,250
+to about a quarter
 
 319
-00:08:45,560 --> 00:08:46,800
-At any price.
+00:09:14,290 --> 00:09:15,500
+of today's pace.
 
 320
-00:08:47,060 --> 00:08:48,310
-That's the hopeful part.
+00:09:15,830 --> 00:09:17,990
+And cautious labs slowing alone,
 
 321
-00:08:48,630 --> 00:08:49,630
-The hard part:
+00:09:18,030 --> 00:09:20,720
+he says, buy only a year or two.
 
 322
-00:08:49,780 --> 00:08:51,840
-it rests with eleven people.
+00:09:20,970 --> 00:09:22,140
+So the stop has to be
 
 323
-00:08:52,010 --> 00:08:53,200
-Seven founders.
+00:09:22,180 --> 00:09:23,650
+agreed in advance.
 
 324
-00:08:53,290 --> 00:08:54,380
-Four trustees.
+00:09:23,970 --> 00:09:26,520
+Here, even rivals sound alike.
 
 325
-00:08:54,600 --> 00:08:56,020
-The same dinner table.
+00:09:26,770 --> 00:09:28,870
+OpenAI's chief scientist wants
 
 326
-00:08:56,600 --> 00:08:57,350
-But the board they
+00:09:28,910 --> 00:09:29,730
+the labs' safety
 
 327
-00:08:57,390 --> 00:08:58,910
-choose is bound,
+00:09:29,770 --> 00:09:31,350
+rules made mandatory.
 
 328
-00:08:58,950 --> 00:09:00,590
-by the company's legal form,
+00:09:31,520 --> 00:09:33,090
+Anthropic says the world should
 
 329
-00:09:00,660 --> 00:09:02,170
-to weigh three things.
+00:09:33,130 --> 00:09:34,920
+have the option to pause,
 
 330
-00:09:02,510 --> 00:09:03,870
-The shareholders' money.
+00:09:34,960 --> 00:09:36,600
+with rules set beforehand
 
 331
-00:09:04,190 --> 00:09:06,180
-The company's stated purpose.
+00:09:36,640 --> 00:09:38,460
+and outsiders at the table.
 
 332
-00:09:06,480 --> 00:09:08,070
-And the interests of everyone
+00:09:39,000 --> 00:09:40,100
+That includes the people
 
 333
-00:09:08,110 --> 00:09:09,390
-materially affected by
+00:09:40,140 --> 00:09:41,270
+you vote for.
 
 334
-00:09:09,430 --> 00:09:10,490
-what it does.
+00:09:41,460 --> 00:09:42,380
+Your question for them
 
 335
-00:09:11,110 --> 00:09:12,370
-Now recall the warning
+00:09:42,420 --> 00:09:44,090
+takes no expertise:
 
 336
-00:09:12,410 --> 00:09:13,430
-in the document.
+00:09:44,310 --> 00:09:45,550
+who checks the labs,
 
 337
-00:09:13,670 --> 00:09:15,460
-Risks to humanity.
+00:09:45,590 --> 00:09:47,090
+and who can call a stop?
 
 338
-00:09:15,930 --> 00:09:16,770
-Who is materially
+00:09:47,340 --> 00:09:48,710
+Ask it, and the last
 
 339
-00:09:16,810 --> 00:09:18,010
-affected by that?
+00:09:48,750 --> 00:09:49,700
+rung isn't left
 
 340
-00:09:18,350 --> 00:09:19,330
-You are.
+00:09:49,740 --> 00:09:50,960
+to the companies racing
 
 341
-00:09:19,370 --> 00:09:21,260
-With a share, or without.
+00:09:51,000 --> 00:09:52,370
+each other up the ladder.
 
 342
-00:09:22,590 --> 00:09:24,530
-You can buy a piece of AI.
+00:09:52,550 --> 00:09:54,430
+Machines now do the building.
 
 343
-00:09:24,700 --> 00:09:26,460
-You can't buy a say in it.
+00:09:54,600 --> 00:09:56,570
+People still do the deciding:
 
 344
-00:09:26,720 --> 00:09:27,570
-But you never needed
+00:09:56,780 --> 00:09:57,840
+what gets built,
 
 345
-00:09:27,610 --> 00:09:29,440
-a share to have a stake.
+00:09:57,880 --> 00:10:00,030
+who checks it, and when to stop.
 
 346
-00:09:30,040 --> 00:09:32,100
-And a stake has a voice.
+00:10:01,200 --> 00:10:02,990
+So how close is AI
 
 347
-00:09:32,330 --> 00:09:34,040
-A senator used hers.
+00:10:03,030 --> 00:10:04,870
+to building its own successor?
 
 348
-00:09:34,290 --> 00:09:35,200
-A city's pension
+00:10:05,200 --> 00:10:06,860
+Two rungs: taken.
 
 349
-00:09:35,240 --> 00:09:36,820
-watchdog used his.
+00:10:07,020 --> 00:10:08,510
+The third: shared,
 
 350
-00:09:37,110 --> 00:09:38,940
-And now there is a public record
+00:10:08,550 --> 00:10:10,460
+and by the best-known forecast,
 
 351
-00:09:38,980 --> 00:09:41,230
-to hold up when you use yours.
+00:10:10,500 --> 00:10:11,660
+taken next year.
 
 352
-00:09:41,550 --> 00:09:43,280
-A share has a price.
+00:10:11,960 --> 00:10:14,390
+The last two: in human hands.
 
 353
-00:09:43,400 --> 00:09:45,000
-A stake never did.
+00:10:14,590 --> 00:10:16,250
+And that forecast only holds
 
 354
-00:09:46,110 --> 00:09:47,180
-This channel exists
+00:10:16,290 --> 00:10:18,810
+if nobody chooses to slow down.
 
 355
-00:09:47,220 --> 00:09:48,440
-for one reason:
+00:10:19,850 --> 00:10:20,530
+When you turn off
 
 356
-00:09:48,580 --> 00:09:49,470
-so that the arrival
+00:10:20,570 --> 00:10:21,680
+the light tonight,
 
 357
-00:09:49,510 --> 00:09:50,560
-of superintelligence
+00:10:21,720 --> 00:10:23,780
+the machines will go on building.
 
 358
-00:09:50,600 --> 00:09:52,280
-goes well for everybody.
+00:10:24,130 --> 00:10:25,760
+You may be using one of the last
 
 359
-00:09:52,620 --> 00:09:54,070
-For the few who hold a share,
+00:10:25,800 --> 00:10:28,430
+AI models designed by human minds.
 
 360
-00:09:54,110 --> 00:09:56,250
-and the billions who hold a stake.
+00:10:28,650 --> 00:10:29,960
+The next one may be able
 
 361
-00:09:56,580 --> 00:09:57,580
-Want that too?
+00:10:30,000 --> 00:10:31,900
+to design its own successor.
 
 362
-00:09:57,650 --> 00:09:58,650
-Then subscribe.
+00:10:32,150 --> 00:10:33,040
+Whether it's allowed
+
+363
+00:10:33,080 --> 00:10:35,340
+to is still a human decision.
+
+364
+00:10:35,560 --> 00:10:36,970
+That's the last rung.
+
+365
+00:10:37,220 --> 00:10:38,620
+And it's still ours.
+
+366
+00:10:39,730 --> 00:10:40,890
+This channel exists
+
+367
+00:10:40,930 --> 00:10:42,320
+so that superintelligence
+
+368
+00:10:42,360 --> 00:10:44,420
+arrives well for all of us.
+
+369
+00:10:44,550 --> 00:10:45,550
+Want that too?
+
+370
+00:10:45,610 --> 00:10:46,610
+Subscribe.
 

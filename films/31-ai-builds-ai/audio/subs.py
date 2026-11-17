@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """timing.json -> subtitles.srt + subtitles.ass (one line, bottom, phrase by phrase).
 usage: subs.py <audio_dir> <out_dir>
-Film 14/16/18/19/24/25/28/54/59: channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters.
-Film 59: plain Inter, cream (#F3EFE2); clips C1/C2/C3 from clips.json cues (real wording, clips/schnitt.json); quote card Z1 is in the VO words."""
+Film 14/16/18/19/24/25/28/54/59/31: channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters.
+Film 31: plain Inter, cream (#F3EFE2); clips T2/T1a/T1b/T3 (Tao Lin) from clips.json cues (real wording, clips/schnitt.json); quote card K3 is in the VO words."""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']; sys.setrecursionlimit(5000)
 # spoken numbers -> digits (longest patterns first: merge() takes the first pattern that matches at a word)
-NUM = [('seventy to seventy-eight dollars', '$70 to $78'), ('one point four trillion dollars', '$1.4 trillion'), ('forty million dollars', '$40 million'),
-       ('seventeen billion', '$17 billion'), ('S and P five hundred', 'S&P 500'), ('more than ninety', 'more than 90'), ('fifteen trading days', '15 trading days'),
-       ('a\\.i\\.', 'AI'), ('u\\.n\\.', 'UN'), ('i\\.p\\.o\\.', 'IPO')]   # film 59: spelled abbreviations and the spoken figures as digits
+NUM = [('nine out of every ten', '9 out of every 10'), ('one point three years', '1.3 years'), ('twenty twenty-seven', '2027'), ('twenty twenty-eight', '2028'),
+       ('thirty thousand', '30,000'), ('less than one percent', 'less than 1%'), ('thirty percent', '30%'), ('fifty cases', '50 cases'),
+       ('Six to four', '6 to 4'), ('a\\.i\\.', 'AI')]   # film 31: spoken figures as digits, 'A.I.' -> AI
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
@@ -27,7 +27,10 @@ def split(ws):
         if c < best: best, bi = c, k
     return split(ws[:bi]) + split(ws[bi:])
 # hand-made breaks where the balanced split would cut a phrase: sentence text -> cue texts, same words in order
-BREAKS = {}   # Film 54: none, the balanced split is used (add 'sentence': ['piece', ...] where it cuts a phrase badly)
+BREAKS = {   # Film 31: where the balanced split cuts a phrase
+    'At one leading lab, 9 out of every 10 changes to its code are written by its own AI.': ['At one leading lab,', '9 out of every 10 changes', 'to its code are written', 'by its own AI.'],
+    'So how close is AI to building its successor with no one at the controls?': ['So how close is AI', 'to building its successor', 'with no one at the controls?'],
+}
 def pieces(snt):
     k = ' '.join(x['w'] for x in snt)
     if k not in BREAKS: return split(snt)

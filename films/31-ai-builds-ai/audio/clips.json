@@ -1,23 +1,65 @@
 {
- "_comment": "Film 59 clip metadata. Cuts: clips/schnitt.json (16.11.): file_in_s/file_out_s = in/out inside the cut file clips/<id>.mp4 (video + audio); src_offset + in = position in the UN Web TV source. Slot = timing.json slots[] (own time, 0.6 s air before/after); the picture plays clips/<id>.mp4 from file_in_s at the slot start. cues = [seconds from the slot start, subtitle line <= 34 chars], times from faster-whisper words.json (clips/quellen). Z1 = quote card read by the narrator (no slot). No QR windows.",
+ "_comment": "Film 31 clip metadata (all Tao Lin, Palisade Research interview OPZCQk8jF-I, 15.11.2026). Cuts: <ROOT>clips/schnitt.json (17.11.): file_in_s/file_out_s = in/out inside the cut file clips/<id>.mp4 (video + audio). Slot = timing.json slots[] (own time, 0.6 s air before/after); the picture plays clips/<id>.mp4 from file_in_s at the slot start. cues = [seconds from the slot start, subtitle line <= 34 chars], times from fal-ai/whisper word chunks (17.11.); wording follows schnitt.json (T1a drops the filler 'like' twice). K3 = quote card read by the narrator (no slot, timing.json clips[]). T1a is 33 s (> 15 s, kept on Jakob's wish 17.11.).",
  "clips": [
   {
-   "id": "C1",
+   "id": "T2",
    "kind": "clip",
-   "speaker": "Dario Amodei",
-   "role": "CEO, Anthropic",
-   "source": "UN Security Council, Sep 23, 2026 (UN Web TV)",
-   "url": "https://webtv.un.org/en/asset/k1v/k1vmsgetgo",
-   "file": "C1.mp4",
-   "file_in_s": 0.66,
-   "file_out_s": 5.75,
-   "src": "02_UN_SecurityCouncil_Dario_Amodei.mp4",
-   "src_offset": 97.0,
-   "dur": 5.09,
-   "slot_start": 187.73,
-   "slot_end": 192.82,
-   "sec": "2",
-   "transcript": "If managed poorly, I even believe that AI could be a risk to humanity as a whole.",
+   "speaker": "Tao Lin",
+   "role": "Researcher at Anthropic, speaking for himself",
+   "source": "Palisade Research interview, Nov 15, 2026",
+   "url": "https://youtu.be/OPZCQk8jF-I",
+   "file": "T2.mp4",
+   "file_in_s": 0.95,
+   "file_out_s": 7.65,
+   "src": "OPZCQk8jF-I.mp4",
+   "src_offset": 2853.16,
+   "dur": 6.7,
+   "slot_start": 80.26,
+   "slot_end": 86.96,
+   "sec": "1",
+   "transcript": "In a year, we'll be able to leave an AI alone, and it will continue making smarter and smarter AIs.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.1,
+     "In a year, we'll be able to"
+    ],
+    [
+     1.85,
+     "leave an AI alone,"
+    ],
+    [
+     3.85,
+     "and it will continue making"
+    ],
+    [
+     5.1,
+     "smarter and smarter AIs."
+    ]
+   ],
+   "cue_end": 6.6
+  },
+  {
+   "id": "T1a",
+   "kind": "clip",
+   "speaker": "Tao Lin",
+   "role": "Researcher at Anthropic, speaking for himself",
+   "source": "Palisade Research interview, Nov 15, 2026",
+   "url": "https://youtu.be/OPZCQk8jF-I",
+   "file": "T1a.mp4",
+   "file_in_s": 2.15,
+   "file_out_s": 35.15,
+   "src": "OPZCQk8jF-I.mp4",
+   "src_offset": 228.84,
+   "dur": 33.0,
+   "slot_start": 327.44,
+   "slot_end": 360.44,
+   "sec": "5",
+   "transcript": "Most important thing to understand about the AI situation is that superhuman AI is going to come here very quickly. I have timelines of something like 1.3 years to getting broadly superhuman AI. So yeah, the world, I think, like the strategic landscape will be just vastly different in even one year because of AI, and this really should shape all of your decisions and everything that's happening.",
    "burned": false,
    "offset": 0,
    "fade_in": 0.01,
@@ -26,36 +68,84 @@
    "cues": [
     [
      0.15,
-     "If managed poorly,"
+     "Most important thing to understand"
     ],
     [
-     1.67,
-     "I even believe that AI could be"
+     1.2,
+     "about the AI situation"
     ],
     [
-     3.47,
-     "a risk to humanity as a whole."
+     2.37,
+     "is that superhuman AI"
+    ],
+    [
+     4.0,
+     "is going to come here"
+    ],
+    [
+     5.7,
+     "very quickly."
+    ],
+    [
+     7.5,
+     "I have timelines of something like"
+    ],
+    [
+     9.8,
+     "1.3 years to getting"
+    ],
+    [
+     12.5,
+     "broadly superhuman AI."
+    ],
+    [
+     14.6,
+     "So yeah, the world, I think,"
+    ],
+    [
+     18.35,
+     "like the strategic landscape"
+    ],
+    [
+     19.9,
+     "will be just vastly different"
+    ],
+    [
+     23.55,
+     "in even one year because of AI,"
+    ],
+    [
+     25.7,
+     "and this really should shape"
+    ],
+    [
+     30.7,
+     "all of your decisions"
+    ],
+    [
+     31.4,
+     "and everything that's happening."
     ]
    ],
-   "cue_end": 5.05
+   "cue_end": 32.9
   },
   {
-   "id": "C2",
+   "id": "T1b",
    "kind": "clip",
-   "speaker": "Yoshua Bengio",
-   "role": "Turing Award laureate",
-   "source": "UN Security Council, Sep 23, 2026 (UN Web TV)",
-   "url": "https://webtv.un.org/en/asset/k1y/k1y20opum5",
-   "file": "C2.mp4",
-   "file_in_s": 0.51,
-   "file_out_s": 12.45,
-   "src": "03_UN_SecurityCouncil_Yoshua_Bengio.mp4",
-   "src_offset": 131.6,
-   "dur": 11.94,
-   "slot_start": 286.87,
-   "slot_end": 298.81,
-   "sec": "3",
-   "transcript": "The race is not a law of nature. It is the product of choices, choices made by the companies themselves. It is also a race where everyone loses.",
+   "speaker": "Tao Lin",
+   "role": "Researcher at Anthropic, speaking for himself",
+   "source": "Palisade Research interview, Nov 15, 2026",
+   "url": "https://youtu.be/OPZCQk8jF-I",
+   "file": "T1b.mp4",
+   "file_in_s": 1.05,
+   "file_out_s": 12.95,
+   "src": "OPZCQk8jF-I.mp4",
+   "src_offset": 269.64,
+   "dur": 11.9,
+   "slot_start": 366.9,
+   "slot_end": 378.8,
+   "sec": "5",
+   "transcript": "Or like end of 2027, something like that. ... Timelines to AI that is as good as or better than the best expert at almost every field.",
    "burned": false,
    "offset": 0,
    "fade_in": 0.01,
@@ -63,49 +153,45 @@
    "gain_db": 0,
    "cues": [
     [
-     0.15,
-     "The race is not a law of nature."
+     0.1,
+     "Or like end of 2027,"
     ],
     [
-     2.85,
-     "It is the product of choices,"
+     1.3,
+     "something like that."
     ],
     [
-     5.23,
-     "choices made by"
+     3.5,
+     "Timelines to AI that is as good as"
     ],
     [
-     6.45,
-     "the companies themselves."
+     7.2,
+     "or better than the best expert"
     ],
     [
-     8.23,
-     "It is also a race"
-    ],
-    [
-     9.95,
-     "where everyone loses."
+     9.35,
+     "at almost every field."
     ]
    ],
-   "cue_end": 11.9
+   "cue_end": 11.7
   },
   {
-   "id": "C3",
+   "id": "T3",
    "kind": "clip",
-   "speaker": "Dario Amodei",
-   "role": "CEO, Anthropic",
-   "source": "UN Security Council, Sep 23, 2026 (UN Web TV)",
-   "url": "https://webtv.un.org/en/asset/k1v/k1vmsgetgo",
-   "file": "C3.mp4",
-   "file_in_s": 0.48,
-   "file_out_s": 9.7,
-   "src": "02_UN_SecurityCouncil_Dario_Amodei.mp4",
-   "src_offset": 20.7,
-   "dur": 9.22,
-   "slot_start": 402.62,
-   "slot_end": 411.84,
-   "sec": "4",
-   "transcript": "The trajectory only needs to continue for a tiny period longer, one or two years, maybe less, to reach what I've called a country of geniuses in the data center.",
+   "speaker": "Tao Lin",
+   "role": "Researcher at Anthropic, speaking for himself",
+   "source": "Palisade Research interview, Nov 15, 2026",
+   "url": "https://youtu.be/OPZCQk8jF-I",
+   "file": "T3.mp4",
+   "file_in_s": 0.85,
+   "file_out_s": 5.55,
+   "src": "OPZCQk8jF-I.mp4",
+   "src_offset": 3476.6,
+   "dur": 4.7,
+   "slot_start": 544.41,
+   "slot_end": 549.11,
+   "sec": "7",
+   "transcript": "I do expect Anthropic to slow down or briefly pause.",
    "burned": false,
    "offset": 0,
    "fade_in": 0.01,
@@ -113,41 +199,15 @@
    "gain_db": 0,
    "cues": [
     [
-     0.15,
-     "The trajectory only needs to"
+     0.1,
+     "I do expect Anthropic"
     ],
     [
-     1.57,
-     "continue for a tiny period longer,"
-    ],
-    [
-     3.95,
-     "one or two years, maybe less,"
-    ],
-    [
-     5.85,
-     "to reach what I've called"
-    ],
-    [
-     7.03,
-     "a country of geniuses"
-    ],
-    [
-     8.31,
-     "in the data center."
+     1.9,
+     "to slow down or briefly pause."
     ]
    ],
-   "cue_end": 9.17
-  },
-  {
-   "id": "Z1",
-   "kind": "card",
-   "speaker": "Anthropic prospectus (Form S-1)",
-   "transcript": "…may not maximize stockholder value.",
-   "voice": true,
-   "start": 222.58,
-   "end": 225.04,
-   "note": "Quote card READ BY THE NARRATOR (take t06): card on the quoted words (timing.json clips[], kind card, under: true)."
+   "cue_end": 4.5
   }
  ]
 }

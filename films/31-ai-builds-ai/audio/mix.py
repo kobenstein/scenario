@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Film 59 · mix VO (vo_only.wav) + slot audio (clips C1, C2, C3 = UN Security Council footage; the quote card Z1 is read by the narrator = VO) + music cues
+"""Film 31 · mix VO (vo_only.wav) + slot audio (clips T2, T1a, T1b, T3 = Tao Lin, Palisade Research interview; the quote card K3 is read by the narrator = VO) + music cues
 (ducked under the voice, extra -6 dB under every clip slot) + SFX -> mix.wav (-14 LUFS, TP <= -1 dB), mix.m4a, mix_preview.mp3. No QR windows.
 Method as Film 54 (films/24-animals/audio/mix.py): music cues and SFX are anchored on takes/slots/sections/words, not on seconds:
   music/cues.json  [{"f": "M1", "at": "t09" | "L2" (= section id: start of its first take) | "C2" (slot) | "END", "dt": -0.4, "fin": 2.0, "fout": 4.0, "off": 0, "d": null, "opts": {"repeat": [t1, t2]}}]
@@ -13,7 +13,7 @@ import json, os, subprocess, sys
 import numpy as np
 A = sys.argv[1].rstrip('/') + '/'; W = (sys.argv[2].rstrip('/') + '/') if len(sys.argv) > 2 else A; SR = 48000
 ROOT = os.environ.get('F31ROOT', '/mnt/project-files/scenario/film-ai-2027').rstrip('/')
-CLIPDIR = os.environ.get('F31CLIPWAV', W + 'clipwav').rstrip('/') + '/'      # C-clip wavs (<id>.wav = the cut from clips/schnitt.json; no file = silent slot)
+CLIPDIR = os.environ.get('F31CLIPWAV', W + 'clipwav').rstrip('/') + '/'      # clip wavs (<id>.wav = the cut from clips/schnitt.json; no file = silent slot)
 def load(f, af=None):
     raw = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f] + (['-af', af] if af else []) + ['-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'])
     return np.frombuffer(raw, np.float32).reshape(-1, 2).copy()
@@ -36,7 +36,7 @@ def wordat(phrase, nth=0, end=False):
             if hit == nth: return WORDS[i + len(q) - 1]['e'] if end else WORDS[i]['s']
             hit += 1
     raise KeyError(phrase)
-vo = load(W + 'vo_only.wav')[:N]   # Film 59: vo_master.wav already holds the clip sound (Hoerfassung); the mix adds the clips itself; vo = np.pad(vo, ((0, N - len(vo)), (0, 0)))
+vo = load(W + 'vo_only.wav')[:N]   # Film 31/59: vo_master.wav already holds the clip sound (Hoerfassung); the mix adds the clips itself; vo = np.pad(vo, ((0, N - len(vo)), (0, 0)))
 VO_BOOST = float(os.environ.get('VO_BOOST', 2))   # voice +2 dB over music/SFX at the same -14 LUFS total (Jakob 31.10.)
 vo *= db(-20 + VO_BOOST) / rms(vo[np.abs(vo).max(1) > 1e-3])
 env = np.abs(vo).max(1); hop = SR // 100
