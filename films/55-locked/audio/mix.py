@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Film 54 · mix VO + slot audio (clips C3, C5 (audio only), C2; the quote cards C1 / C1b are read by the narrator = VO) + music cues (ducked under the voice, 12 dB under every slot) + SFX -> mix.wav (-14 LUFS, TP <= -1 dB).
+"""Film 55 (from Film 54) · mix VO + slot audio (#55: NONE: the clip slots A1, C1, C4 are SILENT quote plates, the music bed carries them, lifted SLOT_LIFT_DB) + music cues (ducked under the voice, 12 dB under every slot) + SFX -> mix.wav (-14 LUFS, TP <= -1 dB).
 Method as films/24-animals/audio/mix.py (films/19-biocomputer/audio/mix.py), with two changes: music cues and SFX are anchored on takes/slots, not on seconds, so a clip that
 changes the slot length (build_vo.py) moves them along:
   music/cues.json  [{"f": "M1", "at": "s09" | "L2" (= chapter/section id: start of its first take) | "J3" (slot) | "END", "dt": -0.4, "fin": 2.0, "fout": 4.0, "off": 0, "d": null, "opts": {"repeat": [t1, t2]}}]   at = take id / slot id, dt in s
@@ -12,11 +12,14 @@ usage: mix.py <audio_dir> [wav_dir]   (vo_master.wav, stems, premix and mix.wav 
 import json, os, subprocess, sys
 import numpy as np
 A = sys.argv[1].rstrip('/') + '/'; W = (sys.argv[2].rstrip('/') + '/') if len(sys.argv) > 2 else A; SR = 48000
-ROOT = os.environ.get('F54ROOT', '/mnt/project-files/scenario/film-heilung').rstrip('/')
-CLIPDIR = os.environ.get('F54CLIPWAV', W + 'clipwav').rstrip('/') + '/'      # C-clip wavs (<id>.wav = the cut from clips/schnitt.json; no file = silent slot)
+ROOT = os.environ.get('F55ROOT', '/mnt/project-files/scenario/film-geheim-ki').rstrip('/')
+CLIPDIR = os.environ.get('F55CLIPWAV', W + 'clipwav').rstrip('/') + '/'      # C-clip wavs (<id>.wav = the cut from clips/schnitt.json; no file = silent slot)
 def load(f, af=None):
     raw = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f] + (['-af', af] if af else []) + ['-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'])
     return np.frombuffer(raw, np.float32).reshape(-1, 2).copy()
+def box(x, k):   # centred moving average (= np.convolve(x, ones(k)/k, 'same'), via a cumulative sum: fast on 30 M samples)
+    c = np.concatenate([[0], np.cumsum(x, dtype=np.float64)]); i = np.arange(len(x)); a = np.clip(i - k // 2, 0, len(x)); b = np.clip(i - k // 2 + k, 0, len(x))
+    return ((c[b] - c[a]) / k).astype(np.float32)
 def rms(x): return float(np.sqrt(np.mean(x ** 2)) + 1e-9)
 def db(v): return 10 ** (v / 20)
 ASSETS = W if os.path.isdir(W + 'music') else A   # music/<M>.mp3 and sfx/<name>.mp3 are big files: they live in the scratchpad (wav_dir), not in the repo
@@ -45,13 +48,15 @@ act = np.zeros(len(e)); a = 0.0
 for i, v in enumerate(e): a = min(1, a + .12) if v else max(0, a - .02); act[i] = a   # ~80 ms attack, ~500 ms release
 duck = np.interp(np.arange(N), np.arange(len(act)) * hop, act)
 CLIPS = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
-clipbuf = np.zeros((N, 2), np.float32); slotmask = np.zeros(N); vbuf = np.zeros(N)
+clipbuf = np.zeros((N, 2), np.float32); slotmask = np.zeros(N); vbuf = np.zeros(N); liftmask = np.zeros(N)
 for c in timing['slots']:
     s0, s1 = int(c['start'] * SR), int(c['end'] * SR)
+    f = CLIPDIR + (c['file'] if c.get('file') else f"{c['id']}.wav")
+    if not os.path.exists(f):   # #55: a SILENT slot (quote plate, no footage, no voice): the music is not ducked there but lifted, it carries the wall text
+        liftmask[s0:s1] = 1; print(c['id'], 'silent slot', c['start'], '-', c['end'], ': music bed lifted'); continue
     voiced = bool(CLIPS.get(c['id'], {}).get('voice'))   # a narrator take in the slot (quote card K3): behaves like the VO, the music is ducked by -6 dB only while it speaks and is not pushed further down
     if not voiced: duck[max(0, s0 - SR // 4):s1 + SR // 4] = np.maximum(duck[max(0, s0 - SR // 4):s1 + SR // 4], 1)   # music ducked under every slot, also while it is still silent
     if not voiced: slotmask[max(0, s0 - SR // 3):s1 + SR // 3] = 1
-    f = CLIPDIR + (c['file'] if c.get('file') else f"{c['id']}.wav")
     if os.path.exists(f):
         k = CLIPS.get(c['id'], {})
         x = load(f, k.get('af'))
@@ -96,8 +101,13 @@ for cue in json.load(open(A + 'music/cues.json')):
     place(music, x[int(off * SR):], t, 1, cue.get('fin', 2), cue.get('fout', 4), d)
     print('music', cue['f'], 'from', round(t, 1), 'length', round(d, 1) if d else 'natural', 'file', round(len(x) / SR, 1), 's')
 SLOT_DUCK = float(os.environ.get('SLOT_DUCK', 0.5))   # extra x0.5 (-6 dB) under O-Ton and interview clips: music ~18 dB under them (total x0.25)
-smooth = np.convolve(slotmask, np.ones(SR // 5) / (SR // 5), 'same')
+smooth = box(slotmask, SR // 5)
 music *= (1 - DUCK * duck)[:, None]          # -6 dB under the voice
+if timing.get('end_screen'):   # #55: after the last VO word (quiet walk + end screen, no voice) the bed comes up the same way
+    liftmask[int((timing['end_screen']['call_end'] + 1.5) * SR):] = 1
+SLOT_LIFT_DB = float(os.environ.get('SLOT_LIFT_DB', 5))   # #55: silent quote-plate slots: the bed comes up (1.2 s ramps), the gap never feels like a drop-out
+lk = int(1.2 * SR); lift = box(liftmask, lk)
+music *= (1 + (db(SLOT_LIFT_DB) - 1) * lift)[:, None]
 music *= (1 - SLOT_DUCK * smooth)[:, None]
 sfx = np.zeros((N, 2), np.float32); cache = {}
 for c in (json.load(open(A + 'sound_plan.json')) if os.path.exists(A + 'sound_plan.json') else []):
@@ -125,7 +135,7 @@ for c in (json.load(open(A + 'sound_plan.json')) if os.path.exists(A + 'sound_pl
 sfx *= (1 - 0.15 * duck)[:, None]
 sfx *= (1 - 0.5 * smooth)[:, None]      # atmos and accents half as loud under O-Ton and clips
 mix = vo + clipbuf + music + sfx
-for name, buf in [('stem_music', music), ('stem_sfx', sfx), ('premix', mix)]:
+for name, buf in [('stem_voice', vo), ('stem_music', music), ('stem_sfx', sfx), ('premix', mix)]:
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-i', '-', W + name + '.wav'], input=buf.astype(np.float32).tobytes(), check=True)
 def measure(f):
     o = subprocess.run(['ffmpeg', '-hide_banner', '-i', f, '-af', 'loudnorm=I=-14:TP=-1:LRA=11:print_format=json', '-f', 'null', '-'], capture_output=True, text=True).stderr
@@ -145,4 +155,10 @@ subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', W + 'mix.wav', '-af', f'vol
                 '-c:a', 'aac', '-b:a', '192k', W + 'mix.m4a'], check=True)
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', W + 'mix.wav', '-af', f'aresample=192000,alimiter=limit={db(-1.5):.4f}:attack=1:release=50:level=false,aresample=44100',
                 '-c:a', 'libmp3lame', '-b:a', '192k', W + 'mix_preview.mp3'], check=True)
+# Film 55: delivery stems (voice, music, sfx) as AAC 192k with the mix's overall gain (premix -> final), through the same -2 dBFS limiter: they add up to ~the mix
+sg = float(fin['input_i']) - float(json.loads(json.dumps(measure(W + 'premix.wav')))['input_i'])
+for name in ('stem_voice', 'stem_music', 'stem_sfx'):
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', W + name + '.wav', '-af', f'volume={sg:.2f}dB,aresample=192000,alimiter=limit={db(-2.0):.4f}:attack=1:release=50:level=false,aresample=48000',
+                    '-c:a', 'aac', '-b:a', '192k', W + name + '.m4a'], check=True)
+print('stems: gain', round(sg, 2), 'dB -> stem_voice.m4a, stem_music.m4a, stem_sfx.m4a')
 print('-> mix.wav, mix.m4a, mix_preview.mp3')

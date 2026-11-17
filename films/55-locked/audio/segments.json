@@ -2,161 +2,177 @@
  {
   "id": "t00",
   "sec": "H",
-  "text": "[calm, conversational] Artificial intelligence just gave disease a ten-year deadline.\nThink of the last time a doctor sat down with someone you love and said a word like cancer.\nOr Alzheimer's. Heart disease. Depression.\nNow picture your grandkids hearing those words the way you hear the word plague. Something from a history book.\nSo which of these could really be history by the deadline?\nThe machines can find cures faster. They can't rush the human body.",
-  "chars": 459
+  "text": "[calm, conversational] The best A.I. in the world is locked away.\nTonight, you'll ask the A.I. on your phone about a letter from the bank, or a strange noise in your car.\nIt answers in seconds, like the smartest machine on Earth.\nIt isn't. The best never sits in your pocket. It sits behind a door you can't open.\nAnd it has already found a flaw that had been hiding in computer code for twenty-seven years.\nSo how much stronger is the A.I. you're not allowed to use?",
+  "chars": 467
  },
  {
   "id": "t01",
   "sec": "H",
-  "text": "Every cure has two dates. The day it's found. And the day it's proven.\nAnd for each of these diseases, the body gives its answer at its own speed. The fastest, in weeks. The slowest, only after decades.",
-  "chars": 202
+  "text": "And it doesn't stop at code. Behind that door, the machines have started doing mathematics. Not sums. Proofs.\nThere's a line for that door. And you're not at the front. You're fifth.",
+  "chars": 182
  },
  {
   "id": "t02",
   "sec": "1",
-  "text": "That deadline comes from Dario Amodei. In his words:\n\"Cancer, Alzheimer's, heart disease, mental illness, these will be relics of the past in, I think, less than a decade.\"\nHe runs Anthropic, among the biggest artificial intelligence labs, and he said it in the video made to sell its shares.\nThis isn't about whether to buy the stock.\nHe didn't invent it for investors. Years ago, he wrote the same bet into an essay called Machines of Loving Grace. With small print.",
-  "chars": 468,
-  "card": "C1"
+  "text": "[curious] At the very front stand the people who built it.\nThere, machines have written out the famous proof of Fermat's Last Theorem, so strictly that a computer can check every step.\nThat work was expected to take years. It took eleven days. Then, this fall, thirty hours.\nThe lab is Anthropic, and the numbers are its own. But the first proof is public, and anyone can run the check.\nAnd the machine that wrote it? You can't use it. The lab calls it an internal research model.",
+  "chars": 480
  },
  {
   "id": "t03",
   "sec": "1",
-  "text": "And his reasoning is better than it sounds. Trials are slow, he argues, largely because most drugs barely work.\nWhen something works really well, the proof comes fast.\nEarlier this year, on a podcast, he made the same point, and set his own limit.",
-  "chars": 247
+  "text": "A second lab, OpenAI, goes further. Its strongest public A.I. is called Astra, and anyone can pay to use it. On stage, its chief executive, Sam Altman, described the one after it:",
+  "chars": 179
  },
  {
-  "id": "C3",
+  "id": "A1",
   "sec": "1",
   "clip": true,
-  "dur": 10.45
+  "dur": 5.0,
+  "quote": "And this internal model after Astra can do things that even the world's best mathematicians cannot."
  },
  {
   "id": "t04",
   "sec": "1",
-  "text": "So even in his view, proof takes time.\nLess than a decade: that's by twenty thirty-six. Four diseases, and one question for each. When a medicine really works, how fast does the body say so?\nThe fastest clear answer comes from cancer.",
-  "chars": 234
+  "text": "[thoughtful] So ask what an inspector would ask. Who checked it from outside? Some mathematicians, in part. The machine itself stays locked.\nAnd both labs are worth more, the further ahead they look. Anthropic reported its thirty-hour run one day before it began pitching its shares to investors.\nStill, two things hold up. Machines are doing real mathematics. And OpenAI is holding one back. Its finance chief said so on CNBC in November.",
+  "chars": 439
  },
  {
   "id": "t05",
-  "sec": "2",
-  "text": "[curious] In the lab, the day a cure is found is already getting closer.\nDoctors can rebuild a patient's own immune cells to hunt cancer, with a receptor that works like a hook.\nArtificial intelligence now helps redesign those hooks. One new design already works better.\nAll still in the lab.\nThen the body answers. And a tumor answers fast: on a scan, within weeks, it shrinks or it doesn't.\nThat's how one pill won approval with just fifty-five patients, spread across many different cancers. Most of them responded.",
-  "chars": 518
+  "sec": "1",
+  "text": "So the best A.I. is not hidden. It is announced, out loud. What's locked away is the access. And some of the evidence.\n[thoughtful] But a lab lives from selling access. So why keep its best product off the shelf?",
+  "chars": 212,
+  "pause": true
  },
  {
   "id": "t06",
   "sec": "2",
-  "text": "But cancer isn't one disease. It's more than a hundred, and they fight back.\nHis own essay said so: the end of most cancer, not all. Some rare, difficult cancers may persist.\nThe line in the sales video just says: cancer.\nSo cancer, by the deadline: for many kinds, the proof can come in time. Not for every kind.\nBut is a fast answer always the whole answer?",
-  "chars": 359
+  "text": "Ask either lab, and the first answer is safety. The clearest case came this spring, with that decades-old flaw.\nIt let a stranger crash a computer from across the world, just by connecting to it.\nThe A.I. that found it is called Mythos. Its maker, Anthropic, said it had no plan to release it to the public. Instead, it chose who goes in.\nSecond in line? The government. It may test a new A.I. before release, if the lab volunteers.",
+  "chars": 432
  },
  {
   "id": "t07",
-  "sec": "3",
-  "text": "[thoughtful] Heart disease answers twice.\nFirst, the blood. In a recent trial, people got a single infusion that switched off a gene in the liver.\nAt the highest dose, weeks later, their bad cholesterol was cut roughly in half.\nOne treatment, meant to last a lifetime.\nBut a change to your DNA is for life. So regulators ask to follow patients for up to fifteen years.\nAnd whether the heart attacks really stay away takes a stadium full of people, followed for years.",
-  "chars": 467
+  "sec": "2",
+  "text": "Third come the giants. Apple. Google. Microsoft. The bank JPMorgan Chase. Not you. Not yet.\nBut safety is not all a closed door protects. Leaked files suggest Mythos was also costly to run. And Sam Altman has named OpenAI's biggest advantage himself:",
+  "chars": 250
+ },
+ {
+  "id": "C1",
+  "sec": "2",
+  "clip": true,
+  "dur": 8.0,
+  "quote": "…we get the next generation of models before anybody else."
  },
  {
   "id": "t08",
-  "sec": "3",
-  "text": "So heart disease, by the deadline: only halfway. The tool can be ready in time. The proof that it's safe for a lifetime can't.",
-  "chars": 126
+  "sec": "2",
+  "text": "A head start is worth money. So is the computing power a lab keeps for itself.\nSo a closed door buys a lab time. Who else gets to use that time?",
+  "chars": 144
  },
  {
   "id": "t09",
-  "sec": "M",
-  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. In the lab, and at the hospital bed, for your parents, and one day for you. Want that too? Then subscribe.",
-  "chars": 215,
-  "cta": true
+  "sec": "3",
+  "text": "Fourth in line stand the defenders. Security teams, let in to point the locked machine at the software the world runs on.\n[curious] The lab gives an example. In a program that handles video, a flaw sat in a single line of code. Automated tests had run across that exact line five million times, and never caught it.\nAnd that was one. By the lab's own count, its partners found well over a hundred thousand within months.",
+  "chars": 420
  },
  {
   "id": "t10",
-  "sec": "4",
-  "text": "[thoughtful] The third disease answers fast. The problem is hearing the answer.\nTake depression, one part of mental illness. A trial runs for weeks. But in those weeks, many people improve on a sugar pill too.\nEven for the antidepressants already approved, only about half the trials beat the sugar pill.\nAnd there's no blood test for depression. The diagnosis is a questionnaire.\nThat doesn't make it hopeless. In his essay, he wrote that most mental illness can probably be cured.",
-  "chars": 482
+  "sec": "3",
+  "text": "Critics called it marketing. And caution is this company's brand. But it can be marketing, and the flaws can still be real. In July, Microsoft, one of the partners, fixed more security flaws in a single month than ever before. Its own explanation? A.I. helps defenders find more.\nFound is not yet fixed. Often, months passed in between. Still, the time behind the door was a head start for the people who repair things.",
+  "chars": 419
  },
  {
   "id": "t11",
-  "sec": "4",
-  "text": "So mental illness, by the deadline: an open question. Cancer has its scan. The mind is still waiting for one.\nAnd then the fourth disease. The slowest. It starts long before it shows.",
-  "chars": 183
+  "sec": "M",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Not only for whoever stands first in line. Want that too? Then subscribe.",
+  "chars": 182,
+  "cta": true
  },
  {
   "id": "t12",
-  "sec": "5",
-  "text": "Alzheimer's.\nThe changes in the brain start around twenty years before the first forgotten name.\nThat means many people who'll be diagnosed by the deadline already carry the first traces today.\nSo the medicine has to come before the symptoms. Proving that means following healthy people for years, and counting who doesn't get sick.\nOne such trial waited years for its answer. The drug didn't work.\nAnd for those already sick, his essay had more small print: existing damage may be very difficult to reverse.",
-  "chars": 508
+  "sec": "4",
+  "text": "[calm, conversational] Fifth in line? You. By June, the door opened. Partly. What came through?\nIt's called Fable. Its maker says it is the same machine as Mythos. So if Fable is the A.I. on your phone, your bank letter goes to that machine. Mainly high-risk hacking requests, and most research biology, get passed to older ones.\nAnd by its maker's account, the newest version just completed a black-hole calculation that had sat unfinished for over twenty years. Too much work.",
+  "chars": 478
  },
  {
   "id": "t13",
-  "sec": "5",
-  "text": "The line in the sales video doesn't mention that either.\nSo Alzheimer's, by the deadline: no. For many who'll get it by then, it has already begun.\n[pause] But the race doesn't start at the deadline. It starts now. Since last year, a blood test can spot the first traces.\nSo if the machines aren't the slow part, why set a date at all?",
-  "chars": 335
+  "sec": "4",
+  "text": "Three personal subscriptions, the lab reports, were enough to write out the proof of a serious theorem in three days.\nYet one limit is built in. In training, the lab says, the machine was held back in the skills that could most directly speed up A.I. development itself. In the locked version, and in yours.",
+  "chars": 307
  },
  {
   "id": "t14",
-  "sec": "6",
-  "text": "Partly, because a sales pitch rewards a promise with a date on it. No villain needed.\nThe Nobel Prize-winning biologist Venki Ramakrishnan, asked in a recent interview about artificial intelligence and new drugs, named the slow part:",
-  "chars": 233
- },
- {
-  "id": "C5",
-  "sec": "6",
-  "clip": true,
-  "dur": 9.32
+  "sec": "5",
+  "text": "But the line doesn't end with you. Behind you stands everyone else. Attackers included.\nWithin months of the Mythos announcement, a rival that came close in the lab's own hacking test was free for anyone to download. Stripping out its safeguards cost a few thousand dollars.\nSo a locked door never keeps anyone safe for good. It buys time. Use yours.",
+  "chars": 350
  },
  {
   "id": "t15",
-  "sec": "6",
-  "text": "The testing, not the finding.\nThe other reason for Amodei's date: he's betting that the testing can speed up too.\nThe cardiologist Eric Topol, a fan of what artificial intelligence can do for health, called such cure timelines wildly off-base.\nTo be fair, Amodei holds himself to a harder test. In August, he wrote that the only thing that will convince people is actually curing cancer.",
-  "chars": 387
+  "sec": "5",
+  "text": "Switch on automatic updates, on your phone, your laptop, your router, and don't put off the restart. That protects you from attacks on flaws that are already found and fixed. And a device too old for updates? Replace it, or take it offline. Otherwise, a flaw in it never gets closed.\nThat part is in your hands.",
+  "chars": 311
  },
  {
   "id": "t16",
   "sec": "6",
-  "text": "His own company now designs medicines. One, for muscular dystrophy, went from idea to promising results in mice in under eighteen months.\nIts human trials could start as soon as late twenty twenty-eight. Same road as everyone else. First date: fast. Second date: years away.\nHe even warned of a jam himself, earlier this year, on that same podcast.",
-  "chars": 348
+  "text": "The rest is decided behind the door. And sometimes, that protects you.\nThis fall, OpenAI planned to release an update to Astra. Then it called the launch off. The reported reason? It was more deceptive than the one before.\nThat call was made inside. And no rule forces a lab to tell you everything it sees in there. Marius Hobbhahn runs a research group that tests these machines for deception. He told the U.S. Senate:",
+  "chars": 419
  },
  {
-  "id": "C2",
+  "id": "C4",
   "sec": "6",
   "clip": true,
-  "dur": 8.72
+  "dur": 7.0,
+  "quote": "The most concerning threats posed by rogue AI agents precede their external release."
  },
  {
   "id": "t17",
   "sec": "6",
-  "text": "Discovery speeds up. Proof jams.\nSo can proof come sooner, without making medicine less safe?",
-  "chars": 93
+  "text": "Before release means inside the room. So who gets to look in?\nA few outsiders do. Independent testers examined the newest Mythos before it went out. But the lab decides who gets in.\nSo keep asking like an inspector. Who checked it from outside? What are you not being shown? That protects you from hype, and from false comfort.\n[thoughtful] So what is in that room?",
+  "chars": 365
  },
  {
   "id": "t18",
   "sec": "7",
-  "text": "It can. And it's already starting.\nPicture someone you love, around sixty, sharp as ever. At a study clinic, a blood test finds the first traces, years early.\nSo they join a trial: can a medicine hold off the first forgotten name?\nFor now, experts advise that test for healthy people only in trials. But that's how the slowest proof gets a head start.\nIn other trials, part of the sugar-pill group is replaced by a prediction: a digital twin of each patient.",
-  "chars": 458
+  "text": "One clue was in plain sight all along. Remember Fermat? Eleven days, then thirty hours. No locked machine did that thirty-hour run. By the lab's account, it was Fable, the one anyone can buy. A thousand copies, starting from parts of the first proof.\nAnd the first machine, the one you can't use? The lab itself calls it roughly comparable to a public one. What it had was dozens of copies, and eleven days. It was simply there two months earlier.",
+  "chars": 447
  },
  {
   "id": "t19",
   "sec": "7",
-  "text": "Fewer people on a sugar pill, answers sooner. Europe's regulator accepts it for some trials. It shrinks the comparison group. It doesn't replace it.\nAt America's regulator, reviewers now work with an artificial intelligence assistant. For a few priority medicines, the goal is a decision within one or two months.\nAmodei's own proposal: rules made for medicines that clearly work and are clearly safe. But remember the heart: fast can't mean less safe.",
-  "chars": 452
+  "text": "So if the machines are already doing mathematics, how much stronger is the A.I. you're not allowed to use? Stronger in two ways.\nThe first is newer. Labs work with each new version for weeks or months before you get it. And OpenAI is still holding its math machine. How far ahead? Nobody outside can measure that.",
+  "chars": 313,
+  "pause": true
  },
  {
   "id": "t20",
   "sec": "7",
-  "text": "In the sales video, his promise came with a condition. In his words:\n\"I think if we do this right, we can create an age of miracles.\"\nIf the machines make the first date come fast, the second date becomes the real deadline. And people set that one.\nClinics that find disease early. Scientists who design leaner trials. Lawmakers who keep the rules in step with medicines that clearly work.\nThat's what doing it right looks like.",
-  "chars": 428,
-  "card": "C1b"
+  "text": "The second is bigger. OpenAI says it ran about ten thousand copies of its math machine, for a result mathematicians still dispute. Fermat shows the method. One copy answers your bank letter. A thousand write out a famous proof. That is not a smarter machine. It is more of the same machine than any single subscription is built to give you.\nSo between you and the best A.I. stand two things. Permission. And power.",
+  "chars": 414
  },
  {
   "id": "t21",
-  "sec": "8",
-  "text": "So, does the deadline hold?\nCancer: for many kinds, yes. Heart disease: halfway. Mental illness: still open. Alzheimer's: not by then. But its race has already begun.\n[pause] Maybe your grandkids will hear the word Alzheimer's the way you hear the word plague. Not because someone set a date. Because someone proved it.\nEvery cure has two dates: the day it's found, and the day it's proven.\nInvestors are already putting a price on the first date. The second one is still ours to move.",
-  "chars": 485
+  "sec": "7",
+  "text": "And both are moving your way. Permission moves in months. Locked away in April, in your hands by June. Power moves, too. Since April, the price of running Mythos has fallen by two thirds.\nSo what a lab shows off today is a preview of your own tools. A few months is a fair estimate. Time enough to plan your work around it, instead of being surprised.",
+  "chars": 351
  },
  {
   "id": "t22",
+  "sec": "8",
+  "text": "One evening, a few months from now, you'll ask your phone another question. And the answer will come from a machine that today only the front of the line has met. Behind the door, something newer will already be at work.",
+  "chars": 220
+ },
+ {
+  "id": "t23",
+  "sec": "8",
+  "text": "The best A.I. in the world is never the one in your pocket. It's the one you'll have next.",
+  "chars": 90,
+  "pause": true
+ },
+ {
+  "id": "t24",
   "sec": "A2",
-  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Fast discoveries in the lab, and proof that arrives in time, for every family in a waiting room today. Including yours. Want that too? Then subscribe.",
-  "chars": 259,
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. From the front of the line to the very back. Want that too? Then subscribe.",
+  "chars": 184,
   "cta": true
  }
 ]

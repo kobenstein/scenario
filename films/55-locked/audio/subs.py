@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """timing.json -> subtitles.srt + subtitles.ass (one line, bottom, phrase by phrase).
 usage: subs.py <audio_dir> <out_dir>
-Film 14/16/18/19/24/25/28/54: style = channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters."""
+Film 14/16/18/19/24/25/28/54: style = channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters.
+Film 55: plain Inter (Regular) in cream. The VO's "A.I." is written "AI". The clip slots A1, C1, C4 are SILENT quote plates (the picture shows the
+quote as wall text): the burned-in ASS leaves them empty (no doubled text on screen); the .srt for YouTube carries the quote with its speaker,
+spread phrase by phrase over the slot, so captions and auto-translations keep it."""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']; sys.setrecursionlimit(5000)
 # spoken numbers -> digits (longest patterns first: merge() takes the first pattern that matches at a word)
-NUM = [('a\\.i\\.', 'AI')]   # film 54: the VO spells out 'artificial intelligence'; clip cues say 'AI' already
+NUM = [('a\\.i\\.', 'AI')]   # film 55: the VO says 'A.I.' letter by letter; the subtitles write AI
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
@@ -53,26 +56,25 @@ for i, w in enumerate(W):
     cur.append(w); nxt = W[i + 1] if i + 1 < len(W) else None
     if not nxt or re.search(r'[.?!]["”]?$', w['w']) or nxt['s'] - w['e'] > .6 or nxt['sec'] != w['sec']: sents.append(cur); cur = []
 cues = [[c[0]['s'], c[-1]['e'], fix(' '.join(x['w'] for x in c))] for snt in sents for c in pieces(snt)]
-# clip slots C3, C5 (audio only), C2: real wording (clips/schnitt.json, checked with Whisper) with phrase times (clips.json "cues", seconds from the slot start). C1 / C1b are read by the narrator: they come from the VO words.
-import os
-CL = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
-if isinstance(CL.get('clips'), list): CL = {c['id']: c for c in CL['clips']}   # clip-schritt.md list form
-for c in json.load(open(A + 'timing.json')).get('clips', []):
-    cl = CL.get(c['id'], {})   # Film 25: K3 has no 'cues' yet -> no subtitle
-    if not cl.get('cues'): continue   # (a quote card with a narrator take has cues; a silent one has none)
-    q, base = cl['cues'], c['start'] + cl.get('offset', 0)   # cue times count from the first footage frame (slot start + offset)
-    for k, (t0, line) in enumerate(q):
-        t1 = q[k + 1][0] if k + 1 < len(q) else min(cl.get('cue_end') or cl.get('dur') or (c['end'] - base), c['end'] - base)
-        ws = line.split(); n = len(ws); a0, a1 = base + t0, base + t1 - .05   # words spread evenly over the cue, then split to <= MAX characters per line
-        pw = [{'w': w, 's': a0 + (a1 - a0) * k / n, 'e': a0 + (a1 - a0) * (k + 1) / n} for k, w in enumerate(ws)]
-        for piece in split(pw): cues.append([piece[0]['s'], piece[-1]['e'], fix(' '.join(x['w'] for x in piece))])
+# Film 55: the silent clip slots (quote plates) -> .srt only, "[Speaker] quote" spread over the slot; C1's leading ellipsis dropped
+SPEAKER = {'A1': 'Sam Altman', 'C1': 'Sam Altman', 'C4': 'Marius Hobbhahn'}
+srt_only = []
+for c in json.load(open(A + 'timing.json')).get('slots', []):
+    q = re.sub(r'^[.…\s]+', '', c.get('quote') or '').strip()
+    if not q: continue
+    ws = q.split(); n = len(ws); a0, a1 = c['start'] + .15, c['end'] - .2
+    pw = [{'w': w, 's': a0 + (a1 - a0) * k / n, 'e': a0 + (a1 - a0) * (k + 1) / n} for k, w in enumerate(ws)]
+    for k, piece in enumerate(split(pw)): srt_only.append([piece[0]['s'], piece[-1]['e'], ('[' + SPEAKER.get(c['id'], '') + '] ' if k == 0 and c['id'] in SPEAKER else '') + fix(' '.join(x['w'] for x in piece)), True])
+cues = [c + [False] for c in cues] + srt_only
 cues.sort(key=lambda c: c[0])
 for i, c in enumerate(cues):  # hold each cue a little, never overlapping the next
     nx = cues[i + 1][0] if i + 1 < len(cues) else c[1] + 2
     c[1] = min(max(c[1] + .25, c[0] + 1.0), nx - .04)
-ts = lambda t, sep: f"{int(t // 3600):02d}:{int(t % 3600 // 60):02d}:{int(t % 60):02d}{sep}{int(round(t % 1 * 1000)) if sep == ',' else int(round(t % 1 * 100)):0{3 if sep == ',' else 2}d}"
+def ts(t, sep):   # SRT: hh:mm:ss,mmm · ASS: h:mm:ss.cc (rounded on the integer, so x.9996 never prints as 1000)
+    u = 1000 if sep == ',' else 100; n = int(round(t * u)); f = n % u; s_ = n // u
+    return f"{s_ // 3600:02d}:{s_ % 3600 // 60:02d}:{s_ % 60:02d}{sep}{f:0{3 if sep == ',' else 2}d}"
 with open(OUT + 'subtitles.srt', 'w') as f:
-    for i, (a, b, s) in enumerate(cues, 1): f.write(f"{i}\n{ts(a, ',')} --> {ts(b, ',')}\n{s}\n\n")
+    for i, (a, b, s, _) in enumerate(cues, 1): f.write(f"{i}\n{ts(a, ',')} --> {ts(b, ',')}\n{s}\n\n")
 ass = """[Script Info]
 ScriptType: v4.00+
 PlayResX: 384
@@ -82,12 +84,14 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Sub,DejaVu Sans,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
+Style: Sub,Inter,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 """
 with open(OUT + 'subtitles.ass', 'w') as f:
     f.write(ass)
-    for a, b, s in cues: f.write(f"Dialogue: 0,{ts(a, '.')[1:]},{ts(b, '.')[1:]},Sub,,0,0,0,,{{\\fad(120,160)}}{s}\n")
-print(len(cues), 'cues; longest', max(len(c[2]) for c in cues))
+    for a, b, s, quote in cues:
+        if quote: continue   # the quote plates show the text in the picture
+        f.write(f"Dialogue: 0,{ts(a, '.')[1:]},{ts(b, '.')[1:]},Sub,,0,0,0,,{{\\fad(120,160)}}{s}\n")
+print(len(cues), 'cues (', sum(1 for c in cues if c[3]), 'quote cues in the .srt only ); longest', max(len(c[2]) for c in cues if not c[3]))
