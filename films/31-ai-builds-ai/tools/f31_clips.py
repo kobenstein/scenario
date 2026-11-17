@@ -24,7 +24,7 @@ ROOT = (os.environ.get('F31ROOT') or '/mnt/project-files/scenario/film-ai-2027')
 SCRATCH = os.environ.get('F31SCRATCH') or '/tmp/claude-0/f31'
 PROVISIONAL = os.path.join(FILM, 'data', 'provisional_timing.json')
 FPS, PIECE = 30, 600           # 20 s pieces
-IDS = ['K1', 'K2', 'T1a', 'T1b']   # film 31 (vo-v3): Brin, Altman, Tao Lin ×2; K3 is a quote card read by the narrator. Phase 2 syncs this with vo-v4 [CLIP Tn] lines.
+IDS = ['T2', 'T1a', 'T1b', 'T3']   # vo-final: all Tao Lin (Palisade Research interview); K3 is a quote card read by the narrator
 AUDIO_ONLY = set()
 WORK = CL = WA = FINAL = STATE = None
 

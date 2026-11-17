@@ -17,14 +17,15 @@
 //   One statement per card, ≤ 6 words + 1 number.
 //
 // API (design px = screen px at the home camera; t in seconds; u = 0..1 growth):
-//   colours: FORGE (THE accent: the machine's light, machine work, machine share; GOLD is an alias so the film-59 blocks work) ·
+//   colours: FORGE (THE accent, gold as thumbnails A–C: the machine's light, machine work, machine share; GOLD is an alias so the film-59 blocks work) ·
 //            HUMAN (cream: held by people) · COOL (checking + forecast: the monitor, the evaluators, forecasts) · PAPER · INK · LAMP
 //            · PRINT31 (finish) · bump(t, t0, d). The yellow coat (P.coat) = only you.
 //   goldText(ctx, segs [[text, forge 0..1]…], x, y, size, u, o) · goldSpan(ctx, pts, u0, u1, o) (a forge thread) · goldLabel(ctx, x, y, l1, l2, u, o)
 //   title(ctx, t, u, o { lines, out, sub, subU })  heavy condensed caps (thumbnail title)
 //   machine(ctx, t, x, y, r, o { a, build, tone 'forge'|'cool', glow, think, spin }) → { next, r, rot }
 //   builders(ctx, t, x, y, r, o { n, a, build, work, seed, r0 })
-//   ladder(ctx, t, x, y, h, o { u, w, state[5], lit[5], marker, labels, tags[5], names, side, size, brake }) → { rungs, top }
+//   ladder(ctx, t, x, y, h, o { u, w, state[5], lit[5], marker, labels, tags[5], names, side, size, brake, lean (top dx), glow 0..1 (pure gold light) })
+//            → { rungs, top, topX, rungAt(k) }
 //   ladderHUD(ctx, t, T, o) · LADDER · ladderState(T, t) · RUNGS
 //   codeShare(ctx, t, x, y, w, o { u, p, n, v, big, sub }) · shareRing(ctx, t, x, y, r, o { u, v, v0, p, label, sub, note0 })
 //   swarm(ctx, t, x, y, w, h, o { u, count, sub, eye, sweep, flag }) → { eye } · eye(ctx, t, x, y, r, o { open, look, a })
@@ -68,7 +69,7 @@ try { GlobalFonts.registerFromPath('/usr/share/fonts/opentype/inter/Inter-Black.
 export const PRINT31 = { grain: 14, floor: 4, vig: .5 };
 // colour code (docs/MOTION.md §4): FORGE = the machine (the next machine's core = the ONE hero light; machine work; the machine's share in
 // every number) · HUMAN/cream = what people hold · COOL = checking and forecasting (the monitor eye, evaluators, forecasts) · the coat = you
-export const FORGE = { core: '#fff6e2', hot: '#ffdca2', body: '#ffb24e', mid: '#f0902f', shade: '#b8611f', deep: '#6a2c10', halo: '#ff9838', line: '#ffc576', text: '#ffd9a8' };
+export const FORGE = { core: '#fff8dc', hot: '#ffe9a6', body: '#f6c95c', mid: '#e3a63f', shade: '#b8792a', deep: '#6e4416', halo: '#f2b632', line: '#ffd982', text: '#ffe7a8' };   // gold, as thumbnails A–C
 export const GOLD = FORGE;   // alias: the film-59 blocks (goldText, goldSpan, cards, clip plate) draw their accent in FORGE
 export const HUMAN = { core: P.cream, body: mixHex(P.cream, P.halo2, .4), line: mixHex(P.cream, P.halo2, .25), deep: mixHex(P.halo2, P.night1, .55) };
 export const PAPER = { body: '#ece4c8', lit: '#f7f0d8', shade: '#cfc4a2', edge: '#a99d7c', ink: '#141a3c', faint: '#8a8166' };
@@ -326,19 +327,29 @@ export function ladder(ctx, t, x, y, h, o = {}) {
   const u = clamp(o.u ?? 1); if (u <= 0) return null;
   const w = o.w ?? h * .2, st = o.state ?? [0, 0, 0, 0, 0], lit = o.lit ?? [1, 1, 1, 1, 1], names = o.names ?? RUNGS;
   const rail = Math.max(3, h * .012), ry = (k) => y - h * (k + 1) / 6, hk = expoOut(u);
+  const sk = (o.lean ?? 0) / h, dx = (yy) => (y - yy) * sk;   // the lean: the top is o.lean px right of the foot (a shear)
+  const gl = clamp(o.glow ?? 0);                                 // 0 = metal rails + rung states · 1 = a ladder of pure gold light (thumbnail A)
   ctx.save(); ctx.globalAlpha *= o.a ?? 1;
   // the rails rise from the floor (mask), with a lit inner edge
-  ctx.save(); ctx.beginPath(); ctx.rect(x - w, y - h * 1.02 * hk - 10, w * 2, h * 1.02 * hk + 12); ctx.clip();
+  const top = y - h * 1.02 * hk - 10;
+  ctx.save(); ctx.beginPath(); ctx.moveTo(x - w + dx(y), y + 12); ctx.lineTo(x - w + dx(top), top); ctx.lineTo(x + w + dx(top), top); ctx.lineTo(x + w + dx(y), y + 12); ctx.closePath(); ctx.clip();
   for (const sx of [-1, 1]) {
-    const x0 = x + sx * w / 2, x1 = x + sx * w * .42;
-    ctx.fillStyle = mixHex(P.ind2, P.blue2, .55); ctx.beginPath(); ctx.moveTo(x0 - rail / 2, y); ctx.lineTo(x1 - rail / 2, y - h); ctx.lineTo(x1 + rail / 2, y - h); ctx.lineTo(x0 + rail / 2, y); ctx.closePath(); ctx.fill();
-    ctx.fillStyle = rgba(P.cream, .3); ctx.beginPath(); ctx.moveTo(x0 - sx * rail / 2, y); ctx.lineTo(x1 - sx * rail / 2, y - h); ctx.lineTo(x1 - sx * rail * .1, y - h); ctx.lineTo(x0 - sx * rail * .1, y); ctx.closePath(); ctx.fill();
+    const x0 = x + sx * w / 2, x1 = x + sx * w * .42 + h * sk, rw = rail * (1 + gl * .6);
+    const poly = (a0, a1, b0, b1) => { ctx.beginPath(); ctx.moveTo(x0 + a0, y); ctx.lineTo(x1 + a1, y - h); ctx.lineTo(x1 + b1, y - h); ctx.lineTo(x0 + b0, y); ctx.closePath(); };
+    if (gl > 0) {   // the light rail: a soft gold bloom along it
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(FORGE.halo, .16 * gl); ctx.lineCap = 'round';
+      for (const k of [6, 3]) { ctx.lineWidth = rw * k; ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x1, y - h); ctx.stroke(); }
+      ctx.restore();
+    }
+    ctx.fillStyle = gl > 0 ? lin(ctx, 0, y, 0, y - h, [[0, mixHex(mixHex(P.ind2, P.blue2, .55), FORGE.body, gl)], [1, mixHex(mixHex(P.ind2, P.blue2, .55), FORGE.core, gl)]]) : mixHex(P.ind2, P.blue2, .55);
+    poly(-rw / 2, -rw / 2, rw / 2, rw / 2); ctx.fill();
+    ctx.fillStyle = rgba(gl > 0 ? FORGE.core : P.cream, .3 + .5 * gl); poly(-sx * rw / 2, -sx * rw / 2, -sx * rw * .1, -sx * rw * .1); ctx.fill();
   }
   ctx.restore();
   const out = [];
   for (let k = 0; k < 5; k++) {
     const ru = clamp((u - .25 - k * .1) * 4); if (ru <= 0) { out.push(null); continue; }
-    const yy = ry(k), half = lerp(w / 2, w * .42, (k + 1) / 6) - rail * .2, x0 = x - half, x1 = x + half, th = Math.max(4, h * .018), s = st[k], li = clamp(lit[k] ?? 1);
+    const yy = ry(k), half = lerp(w / 2, w * .42, (k + 1) / 6) - rail * .2, x0 = x - half + dx(yy), x1 = x + half + dx(yy), th = Math.max(4, h * .018) * (1 + gl * .4), s = st[k], li = clamp(lit[k] ?? 1);
     const fc = s === 'f';
     // base (empty) rung
     ctx.fillStyle = mixHex(P.ind2, P.blue2, .5); ctx.fillRect(x0, yy - th / 2, (x1 - x0) * expoOut(ru), th);
@@ -349,18 +360,26 @@ export function ladder(ctx, t, x, y, h, o = {}) {
       if (s < 1 || li < 1) {   // the human part: cream with a warm glow
         ctx.fillStyle = mixHex(P.halo2, P.cream, .6); ctx.fillRect(x0 + mw, yy - th / 2, (x1 - x0 - mw) * expoOut(ru), th);
       }
-      if (mw > 0) {   // the machine part: forge light
+      if (mw > 0) {   // the machine part: gold light
         ctx.fillStyle = lin(ctx, x0, 0, x1, 0, [[0, FORGE.hot], [1, FORGE.body]]); ctx.fillRect(x0, yy - th / 2, mw, th);
         halo(ctx, x0 + mw / 2, yy, Math.max(mw * .6, th * 3), .22 * clamp(m * 2), FORGE.halo, FORGE.hot);
         if (li < 1) halo(ctx, x0 + mw, yy, th * 3, .7, FORGE.halo, FORGE.core);   // the leading edge glows while it fills
       }
     }
-    // glyphs: rung 4 a small flag (the goal), rung 5 a lever (the brake)
-    const gc = typeof s === 'number' && s >= 1 ? FORGE.body : mixHex(P.halo2, P.cream, .6);
-    if (k === 3) { ctx.fillStyle = gc; ctx.fillRect(x1 + th * .4, yy - th * 4.2, th * .45, th * 4.2); ctx.beginPath(); ctx.moveTo(x1 + th * .85, yy - th * 4.2); ctx.lineTo(x1 + th * 3.2, yy - th * 3.4); ctx.lineTo(x1 + th * .85, yy - th * 2.6); ctx.closePath(); ctx.fill(); }
-    if (k === 4) { const la = -.5 + .04 * Math.sin(t * .6) + (o.brake ?? 0) * 1.0; ctx.save(); ctx.translate(x1 + th * .2, yy); ctx.rotate(la); ctx.fillStyle = gc; ctx.fillRect(-th * .25, -th * 4.4, th * .5, th * 4.4); ctx.beginPath(); ctx.arc(0, -th * 4.6, th * .9, 0, TAU); ctx.fill(); ctx.restore(); }
+    if (gl > 0) {   // light mode: every rung is a bar of gold light (over the state colours)
+      ctx.save(); ctx.globalAlpha *= gl; ctx.fillStyle = lin(ctx, x0, 0, x1, 0, [[0, FORGE.core], [1, FORGE.hot]]); ctx.fillRect(x0, yy - th / 2, (x1 - x0) * expoOut(ru), th);
+      halo(ctx, (x0 + x1) / 2, yy, (x1 - x0) * .7, .18, FORGE.halo, FORGE.hot); ctx.restore();
+    }
+    // glyphs: rung 4 a small flag (the goal), rung 5 a lever (the brake) — they fade in with the states (not in light mode)
+    const gc = typeof s === 'number' && s >= 1 ? FORGE.body : mixHex(P.halo2, P.cream, .6), ga = 1 - gl;
+    if (ga > 0) {
+      ctx.save(); ctx.globalAlpha *= ga;
+      if (k === 3) { ctx.fillStyle = gc; ctx.fillRect(x1 + th * .4, yy - th * 4.2, th * .45, th * 4.2); ctx.beginPath(); ctx.moveTo(x1 + th * .85, yy - th * 4.2); ctx.lineTo(x1 + th * 3.2, yy - th * 3.4); ctx.lineTo(x1 + th * .85, yy - th * 2.6); ctx.closePath(); ctx.fill(); }
+      if (k === 4) { const la = -.5 + .04 * Math.sin(t * .6) + (o.brake ?? 0) * 1.0; ctx.save(); ctx.translate(x1 + th * .2, yy); ctx.rotate(la); ctx.fillStyle = gc; ctx.fillRect(-th * .25, -th * 4.4, th * .5, th * 4.4); ctx.beginPath(); ctx.arc(0, -th * 4.6, th * .9, 0, TAU); ctx.fill(); ctx.restore(); }
+      ctx.restore();
+    }
     out.push({ y: yy, x0, x1 });
-    // labels (right): number + name, a tag line under it
+    // labels: number + name, a tag line under it (right of the rung, or left with side 'left')
     const lu = clamp(o.labels ?? 0) * ru; if (lu > 0) {
       const sz = o.size ?? Math.max(22, h * .036), lx = o.side === 'left' ? x0 - sz * 1.4 : x1 + sz * (k >= 3 ? 1.9 : 1.1), al = o.side === 'left' ? 'right' : 'left';
       const nc = fc ? COOL.text : typeof s === 'number' && s * li >= .5 ? FORGE.text : P.cream;
@@ -370,22 +389,22 @@ export function ladder(ctx, t, x, y, h, o = {}) {
       ctx.restore();
     }
   }
-  // the marker: the climbing machine (a small circle with a forge eye) between the rails
+  // the marker: the climbing machine (a small circle with a gold eye) between the rails
   if (o.marker != null && o.marker >= 0) {
     const m = clamp(o.marker, 0, 5), my = m <= 0 ? y - h * .03 : lerp(ry(Math.floor(m) - 1 < 0 ? 0 : Math.floor(m) - 1), ry(Math.min(4, Math.ceil(m) - 1)), m - Math.floor(m)) - h * .045;
-    const ms = Math.max(8, h * .03), bob = Math.sin(t * 2.1) * ms * .12;
-    halo(ctx, x, my + bob, ms * 4, .45, FORGE.halo, FORGE.hot);
-    ctx.fillStyle = mixHex(P.night1, P.ind2, .7); ctx.beginPath(); ctx.arc(x, my + bob, ms, 0, TAU); ctx.fill();
+    const ms = Math.max(8, h * .03), bob = Math.sin(t * 2.1) * ms * .12, mx = x + dx(my);
+    halo(ctx, mx, my + bob, ms * 4, .45, FORGE.halo, FORGE.hot);
+    ctx.fillStyle = mixHex(P.night1, P.ind2, .7); ctx.beginPath(); ctx.arc(mx, my + bob, ms, 0, TAU); ctx.fill();
     ctx.strokeStyle = rgba(FORGE.line, .7); ctx.lineWidth = Math.max(1.5, ms * .14); ctx.stroke();
-    ctx.fillStyle = FORGE.core; ctx.beginPath(); ctx.arc(x, my + bob, ms * .36, 0, TAU); ctx.fill();
+    ctx.fillStyle = FORGE.core; ctx.beginPath(); ctx.arc(mx, my + bob, ms * .36, 0, TAU); ctx.fill();
   }
   ctx.restore();
-  return { rungs: out, top: y - h };
+  return { rungs: out, top: y - h, topX: x + h * sk, rungAt: (k) => [x + dx(ry(k)), ry(k)] };
 }
 // THE LADDER HUD (screen space, top left): a small ladder with the current rung and its name. It drives itself from LADDER phrases
-// (never animate by hand); it sinks during clips and the subscribe calls. Phrases are vo-v3; phase 2 checks them against vo-v4.
+// (never animate by hand); it sinks during clips and the subscribe calls. Phrases: vo-v4. o.a lets a shot hide it (full-frame ladder).
 export const LADDER = {
-  on: 'Picture a ladder', off: 'This channel exists', on2: 'How fast?', off2: 'This channel exists',
+  on: 'Picture a ladder', off: 'This channel exists', on2: 'How fast? For you', off2: ['So how close is', 1],   // vo-v4
   steps: [   // { at, rung (0-based), state (0 | .5 | 1 | 'f'), tag }
     { at: 'So the first step up the ladder', rung: 0, state: 1, tag: 'TAKEN' },
     { at: 'So the second rung', rung: 1, state: 1, tag: 'TAKEN (ON THE LABS\' WORD)' },
@@ -399,7 +418,7 @@ const HT = new WeakMap();
 const tryG = (T, p, nth = 0, after) => { try { return after != null ? T.G(p, nth, after) : T.G(p, nth); } catch { return Infinity; } };
 function hudTimes(T) {
   if (HT.has(T)) return HT.get(T);
-  const on = tryG(T, LADDER.on), off = tryG(T, LADDER.off), on2 = tryG(T, LADDER.on2), off2 = tryG(T, LADDER.off2, 1);
+  const on = tryG(T, LADDER.on), off = tryG(T, LADDER.off), on2 = tryG(T, LADDER.on2), off2 = tryG(T, ...LADDER.off2);
   const r = { on, off, on2, off2, st: LADDER.steps.map((s) => tryG(T, s.at)), clips: Object.values(T.clips ?? {}).filter((c) => !c.under) }; HT.set(T, r); return r;
 }
 export function ladderState(T, t) {
@@ -508,7 +527,7 @@ export function swarm(ctx, t, x, y, w, h, o = {}) {
   }
   // the counter
   if (o.count != null) {
-    const c = Math.round(sineIO(clamp(o.count)) * 30000 / 10) * 10;
+    const c = Math.max(0, Math.round(sineIO(clamp(o.count)) * 30000 / 10) * 10);
     goldText(ctx, [[`≈ ${c.toLocaleString('en-US')}`, 1]], x, y - 150, o.bigSize ?? 92, rise(span(u, .2, .8)), { serif: true });
     if (o.sub) maskLine(ctx, [[o.sub, 0]], x + 6, y - 112, 20, rise(span(u, .4, 1)), { serif: false, weight: 600, col: P.halo2, glow: false });
   }
@@ -581,7 +600,7 @@ export function forecast(ctx, t, x, y, w, o = {}) {
     E.glowText(ctx, 'NOW', xx, y - 32, { size: 15, weight: 600, spacing: .16, col: P.coat, glow: false, align: 'center', a: span(u, .3, 1) }); }
   // sliding markers (a trail shows where it was)
   for (const m of o.marks ?? []) {
-    const p = sineIO(clamp(m.p ?? 1)), v = lerp(m.from, m.to ?? m.from, p), xx = X(v), up = m.above !== false ? -1 : 1, my = y + up * 125;
+    const p = sineIO(clamp(m.p ?? 1)), v = lerp(m.from, m.to ?? m.from, p), xx = X(v), up = m.above !== false ? -1 : 1, my = y + up * (m.dy ?? 125);
     if (m.to != null && p > 0) { ctx.save(); ctx.setLineDash([6, 6]); ctx.strokeStyle = rgba(P.cream, .45); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(X(m.from), my); ctx.lineTo(xx, my); ctx.stroke(); ctx.restore();
       ctx.strokeStyle = rgba(P.cream, .45); ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(X(m.from), my, 8, 0, TAU); ctx.stroke(); }
     halo(ctx, xx, my, 30, .5, COOL.halo, COOL.core); ctx.fillStyle = COOL.core; ctx.beginPath(); ctx.arc(xx, my, 9, 0, TAU); ctx.fill();
@@ -618,8 +637,8 @@ export function genChain(ctx, t, x, y, w, o = {}) {
 }
 
 // ======================================================================================================================== SOURCES (on screen, y ≤ 880)
-// PROVISIONAL: text-v2 Einblendungen as far as vo-v3 keeps them. Phase 2 checks every line against vo-v4 [EINBLENDUNG] lines / the fact
-// sheet (faktenzettel.md is the only fact source) before any builder uses them. Use F.source(ctx, t, t0, t1, F.SOURCES.x).
+// text-v2 Einblendungen as far as vo-final keeps them (fact check 17.11.: "on benchmarks" for METR, "personal view" for Tao Lin,
+// "stocks up thirty percent"). faktenzettel.md is the only fact source; a new string needs a line there. Use F.source(ctx, t, t0, t1, F.SOURCES.x).
 export const SOURCES = {
   code: '>90 % OF CODE CHANGES · "WITH HUMAN GUIDANCE" · ANTHROPIC, NOV 9, 2026',
   forecast6: 'ALL SIX FORECASTERS: SUPERHUMAN AI RESEARCHER IN 2027 · AI FUTURES PROJECT, NOV 10, 2026',
@@ -629,7 +648,7 @@ export const SOURCES = {
   experiment: '"…MATCH OR OUTPERFORM SKILLED HUMANS AT EXECUTING A WELL-SPECIFIED EXPERIMENT." · ANTHROPIC, SEPT 2026',
   intern: 'OPENAI, SEPT 6, 2026 · NOT EXTERNALLY VERIFIED',
   led: 'RESEARCH "LED BY" THE MODEL: <1 % (FEB) → 26 % · ANTHROPIC\'S OWN ESTIMATE, SEPT 17, 2026',
-  metr: '≈1.9× FASTER THAN BEFORE OCT 2025 (95 % RANGE: 1.5–2.8) · METR, NOV 5, 2026',
+  metr: 'ON BENCHMARKS: ≈1.9× FASTER THAN BEFORE OCT 2025 (95 % RANGE: 1.5–2.8) · METR, NOV 5, 2026',
   metrShare: '≈80 % OF THE SPEED-UP ATTRIBUTED TO AI USE (THEIR GUESS) · HUMANS IN THE LOOP',
   redacted: 'METR, NOV 5, 2026',
   spend: 'IMAS & GARICANO: 1.91× THE PACE FOR 6.19× THE SPENDING',
@@ -639,6 +658,9 @@ export const SOURCES = {
   pachocki: 'JAKUB PACHOCKI · CHIEF SCIENTIST, OPENAI · "AN ALIEN MIND", SEPT 6, 2026',
   pachockiText: '“no lab has solved alignment and monitoring to a sufficient degree to continue responsibly scaling at maximum speed for much longer.”',
   monitor: 'MONITOR CHECKS 100 % OF AGENT ACTIONS BEFORE THEY RUN · ≈50 CASES A WEEK GO TO HUMANS · ANTHROPIC, SEPT 17, 2026',
+  insiders: 'SOME INSIDERS\' FORECAST',
+  record: 'AI 2027 EXPECTED: STOCKS UP 30 % · MASS PROTESTS (2026)',
+  taoView: 'ONE INSIDER\'S VIEW, NOT AN OFFICIAL ONE',
   accord: 'WHITE HOUSE ACCORD, SEPT 29, 2026 · INDEPENDENT EXTERNAL AUDITS · VOLUNTARY',
 };
 
@@ -647,12 +669,11 @@ export const SOURCES = {
 // Frames: <F31CLIPS or /tmp/claude-0/f31/clips/>/<id>/f00001.jpg… (30 fps, 1920×1080, from <ROOT>clips/Cn.mp4 trimmed to in/out of
 // clips/schnitt.json; written by tools/f31_clips.py clips). Until the frames exist a placeholder shows (never ship it).
 export const CLIP_RECT = { x: 120, y: 112, w: 1680, h: 945 };
-// vo-v3 slots (aenderung-v3.md); vo-v4 adds [CLIP Tn: …] lines: phase 2 adds them here (one entry per slot id of the timing).
-export const CLIPS = {
-  K1: { name: 'Sergey Brin', role: 'Co-founder, Google', year: 'Oct 2026', src: 'Google for Developers' },
-  K2: { name: 'Sam Altman', role: 'CEO, OpenAI', year: 'Oct 2025', src: 'OpenAI livestream' },
-  T1a: { name: 'Tao Lin', role: 'Researcher at Anthropic, speaking for himself', year: 'Nov 15, 2026', src: 'Palisade Research' },
-  T1b: { name: 'Tao Lin', role: 'Researcher at Anthropic, speaking for himself', year: 'Nov 15, 2026', src: 'Palisade Research' },
+export const CLIPS = {   // vo-final (fact check 17.11.): the lower third says "personal view", never "speaking for himself"
+  T2: { name: 'Tao Lin', role: 'Researcher at Anthropic · personal view', year: 'Nov 15, 2026', src: 'Palisade Research interview' },
+  T1a: { name: 'Tao Lin', role: 'Researcher at Anthropic · personal view', year: 'Nov 15, 2026', src: 'Palisade Research interview' },
+  T1b: { name: 'Tao Lin', role: 'Researcher at Anthropic · personal view', year: 'Nov 15, 2026', src: 'Palisade Research interview' },
+  T3: { name: 'Tao Lin', role: 'Researcher at Anthropic · personal view', year: 'Nov 15, 2026', src: 'Palisade Research interview' },
 };
 const CLIPDIR = (process.env.F31CLIPS || '/tmp/claude-0/f31/clips/').replace(/\/?$/, '/');
 const nFrames = new Map();

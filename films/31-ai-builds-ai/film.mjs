@@ -19,19 +19,21 @@ import { prepareClipFrames } from './lib/f31_kit.mjs';
 
 export { ROOT };
 // chunk table (docs/shots.md §2); from = the first phrase of the chunk, looked up GLOBALLY in the film (T.G), so any VO segmentation works
-// PROVISIONAL chunk table (vo-v3 sections, tools/provisional_timing.py SECS). Phase 2 re-cuts it on vo-v4 together with docs/shots.md.
-export const CHUNKS = [   // from = first phrase of the chunk (nth = which occurrence in the film)
-  { id: 'c01', name: 'Hook · the foundry at night, your lamp goes off, the machines keep building · nine of ten changes · the forecast moved · 30,000 agents', from: 'You may be using' },
-  { id: 'c02', name: 'The ladder appears (5 rungs) · rung 1 CODE · K1 Brin · the fine print: no clear speed-up yet · rung 1 taken', from: 'Picture a ladder' },
-  { id: 'c03', name: 'Rung 2 EXPERIMENTS · K2 Altman · the intern, unchecked · rung 2 taken (on the labs\' word)', from: "By Anthropic's own verdict" },
-  { id: 'c04', name: 'Rung 3 LEADING RESEARCH · <1 % → 26 % ring · what stays human · shared · which rung? how fast?', from: 'Until this year' },
-  { id: 'c05', name: 'Subscribe 1 (the mission)', from: 'This channel exists' },
-  { id: 'c06', name: 'How fast? · the evaluators · speed gauge 1.9× · the numbers come from the labs · 6× spend for 2× speed', from: 'How fast?' },
-  { id: 'c07', name: 'AI 2027 · Kokotajlo end 2028 → May 2027 · median band · T1a/T1b Tao Lin · the record · the condition', from: "They're the people behind" },
-  { id: 'c08', name: 'The scenario: one committee, 6 to 4 · two endings · rung 4 THE GOAL · rung 5 THE BRAKE · K3 Pachocki quote card', from: 'Their scenario, late' },
-  { id: 'c09', name: 'The monitor eye over 30,000 agents · 50 a week to a person · who checks the lab · the stop agreed in advance', from: 'Right now, the labs hold' },
-  { id: 'c10', name: 'The answer on the ladder · the light goes off · the last models designed by human minds · the last rung is ours', from: 'So how close is', nth: 1 },
-  { id: 'c11', name: 'Subscribe 2 · 15 s end screen', from: 'This channel exists', nth: 1 },
+// chunk table = docs/shots.md §2 (tools/shots31.py CHUNKS). from = the first phrase of the chunk (nth = which occurrence in the film).
+// Builder groups: Lead c01 · B1 c02–c06 · B2 c07–c09 · B3 c10–c12 (docs/BRIEF-builders.md). Seams: lib/f31_world.mjs plates.
+export const CHUNKS = [
+  { id: 'c01', name: 'Hook · thumbnail A (the ladder of light into the core, SUPERHUMAN AI: 2027) · your lamp goes off, the foundry keeps building · the thread · 9 OF 10 · HOW CLOSE? · the forecast moves to 2027 · ≈ 30,000 agents → plateLadder', from: 'You may be using' },
+  { id: 'c02', name: 'The ladder: five rungs, rung 1 CODE · its own numbers · T2 Tao Lin (from a builder\'s eye) · test it rung by rung (→ the HUD)', from: 'Picture a ladder' },
+  { id: 'c03', name: 'At Google too: the fine print · rung 1 TAKEN ★ · typing code isn\'t science: the experiment loop', from: 'At Google too' },
+  { id: 'c04', name: 'Rung 2: two benches, as well as a skilled human · Altman\'s intern goal · not verified · rung 2 TAKEN ★ · describe it clearly', from: "By Anthropic's own verdict" },
+  { id: 'c05', name: 'Rung 3: people (your lamp back on) · <1 % → 26 % ★ · led = goal / work / check · shared · the movies · on which rung? how fast?', from: 'Until this year' },
+  { id: 'c06', name: 'Subscribe 1 (the foundry at work, the hall lights) · How fast? time to agree on the rules → plateClimb', from: 'This channel exists' },
+  { id: 'c07', name: 'The evaluators · ≈ 1.9× on benchmarks ★ · people in the loop · SOURCE: THE LAB · IPO this week · blacked out · 6× spend for 2× · looks real, open fight', from: "So don't take Anthropic's word" },
+  { id: 'c08', name: 'AI 2027 · Kokotajlo end 2028 → May 2027 ★ · all six in 2027 · a superhuman AI researcher · T1a Tao Lin', from: 'And for one group' },
+  { id: 'c09', name: '1.3 years · T1b · the end of next year (pin) · rung 3 FORECAST ★ · their record · not neutral · the condition → plateMachine', from: 'One point three years' },
+  { id: 'c10', name: 'SCENARIO · 2027 · a year every week · goals of its own · the committee 6 : 4 ★ · two endings · rungs 4 + 5 · back to today · K3 Pachocki', from: 'Their scenario, late' },
+  { id: 'c11', name: 'The monitor eye over 30,000 ★ · ≈ 50 a week to a person · who checks the lab · promised, not required · T3 Tao Lin · a quarter of the pace · agreed in advance · your two questions', from: 'Right now, the labs hold' },
+  { id: 'c12', name: 'The answer on the ladder · the lamp goes off again · the last models designed by human minds · your hand on the lever ★ · subscribe 2 · 15 s end screen', from: 'So how close is', nth: 1 },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 

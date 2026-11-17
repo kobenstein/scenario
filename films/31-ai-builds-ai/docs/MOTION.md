@@ -4,8 +4,8 @@ Channel The Good Takeoff (Scenario). Release Wed 18.11.2026 17:00 Vienna, 1080p3
 (`/mnt/project-files/scenario/stil/STIL-editorial-nacht.md`, skill `scenario-motion`): deep indigo night, ONE warm light form, a tiny
 faceless figure in a yellow raincoat = you. Everything is code (2.5D depth cards, `lib/f10_editorial.mjs`); no AI images, no 3D game look,
 no logos, no real faces outside the interview clips.
-Script: `<ROOT>vo-v3.txt` now, `<ROOT>vo-v4.txt` when it lands (more Tao Lin clips `[CLIP Tn: …]`, "superhuman A.I." + "next year" in the
-first ~10 s). Plan: `docs/shots.md` + `docs/BRIEF-builders.md` (phase 2, after vo-v4) · kit sheet `<ROOT>bild/kit31_kontakt.jpg`
+Script: **`<ROOT>vo-final.txt`** (fact-checked; clips T2, T1a, T1b, T3 = Tao Lin, K3 = Pachocki card). Plan: `docs/shots.md` +
+`docs/BRIEF-builders.md` · hook reference `scenes/sc01.mjs` (`<ROOT>bild/c01_kontakt.jpg`) · kit sheet `<ROOT>bild/kit31_kontakt.jpg`
 (`node tools/kit_sheet31.mjs <dir>`). Film 59 (the process and quality reference) lives in `docs/ref-59/`.
 
 ## 1 · Intent
@@ -26,13 +26,19 @@ A dark workshop open to the night sky, where small lit machines assemble the nex
   builders, pulses travel toward the new machine: *it builds its successor.* (vo: "one of the last A.I. models designed by human minds".)
 - **THE HALL** (Z 3800): cranes with warning lights, floor rails, carts that carry plates to the gantry (a slow steady loop = nothing stands still).
 - **THE WORKSHOP** (F0, floor top y 975): **your bench and your lamp** at the left (warm; it goes OFF on "When you turn off the light tonight",
-  the foundry keeps working), **you** (560, 972, h 185) looking up, and **THE LADDER** (foot (800, 975), h 700) leaning toward the machine.
+  the foundry keeps working), **you** (640, 972, h 150) looking up, and **THE LADDER** (foot (800, 975)) that reaches up INTO the machine's core (its height and
+  lean follow the projected core point, `reach`; with `glow` 1 it is a ladder of pure gold light).
+- **FRAME 0 = thumbnail A** (`<ROOT>../thumbnails/film-31/f31-a-superhuman-2027-1280.png`): the big golden ladder of light rising into the
+  light, the tiny yellow coat at its foot, title "SUPERHUMAN / AI: 2027" (`HOOK_CAM`). The machine sits high (MACH y 220).
+- **Plates** (`lib/f31_world.mjs`, the shared look at group seams): `plateLadder` ('Picture a ladder', LADDER_CAM, lamp off, ladder of
+  light), `plateClimb` ("So don't take Anthropic's word", WIDE_CAM, rungs 1–2 taken, 3 shared, HUD), `plateMachine` ('Their scenario, late',
+  MACH_CAM, ring build .94).
 - **THE LADDER = the anchor** (three forms, one object): in the world (`st.ladder`), as a full-frame explainer (`F.ladder`, labels + tags),
   and as **the HUD** top left (`F.ladderHUD`, drives itself from `F.LADDER` phrases, sinks during clips and subscribe calls).
   Rungs: 1 CODE · 2 EXPERIMENTS · 3 LEADING RESEARCH · 4 THE GOAL (small flag) · 5 THE BRAKE (small lever). State per rung:
   forge = taken by the machine, cream = held by people, half forge = shared, dashed cool = forecast. A small builder machine climbs it (marker).
 - **Explainers float over a night veil** (`F.veil` + `F.float`) while the camera keeps gliding behind (film 59 method).
-- **Clips** (K1 Brin, K2 Altman, Tao Lin T1a/T1b … from vo-v4) grow out of a light in the scene (the old machine's core, a builder's eye, the
+- **Clips** (Tao Lin T2 6.7 s, T1a 33.0 s, T1b 11.9 s, T3 4.7 s; `<ROOT>clips/Tn.mp4`) grow out of a light in the scene (the old machine's core, a builder's eye, the
   monitor eye) with `F.clipPlate(…, { from })` and go back into it. K3 (Pachocki) is a paper quote card read by the narrator.
 
 ## 3 · Motion DNA (owner rules, binding)
@@ -52,28 +58,28 @@ A dark workshop open to the night sky, where small lit machines assemble the nex
 7. **Thumbnails show only what the film shows:** the home frame (`HOME`) is thumbnail-ready (the ring big, the ladder, you small).
 
 ## 4 · Palette and type (`lib/f31_kit.mjs`)
-Ground: nachtblau/indigo (`P.night0/1`, `P.ind0/1`). **THE accent colour of this film: FORGE** (molten amber `#ffb24e`, hot `#ffdca2`,
-core `#fff6e2`): the next machine's light, machine work, the machine's share in every number (9 of 10, 26 %, 1.9×). `GOLD` is an alias.
+Ground: nachtblau/indigo (`P.night0/1`, `P.ind0/1`). **THE accent colour of this film: GOLD** (`F.FORGE` = `F.GOLD`: body `#f6c95c`, hot `#ffe9a6`,
+core `#fff8dc`, halo `#f2b632`, as in the thumbnails): the next machine's light, machine work, the machine's share in every number (9 of 10, 26 %, 1.9×). `GOLD` is an alias.
 - **Cream (HUMAN)** = what people hold (rungs 4 and 5, the human card among the ten, flagged cases going to a person).
 - **COOL** (pale blue) = checking and forecasting: the monitor eye, the independent evaluators, the forecasters' band and markers.
 - **The yellow coat** = only you. **PAPER** = quotes, fine print. Never two lights of hero strength in one frame: the old machine stays dim.
 Type: Inter (labels, caps, spacing .1–.2) and Instrument Serif (quotes, big numbers). Text ≥ 22 px at 1080p (sources 15–19 px), held
-≥ 1.5 s, ≤ 6 words per statement except verbatim quotes. On-screen wording ONLY from the current vo-vN `[EINBLENDUNG]` lines / text-v2
-(fact-checked) via `F.SOURCES` (provisional until phase 2 checks it against vo-v4).
+≥ 1.5 s, ≤ 6 words per statement except verbatim quotes. On-screen wording ONLY from vo-final via `F.SOURCES` (checked):
+"Some insiders now forecast", METR 1.9× "on benchmarks", the AI 2027 scenario is "not an official one", "stocks up thirty percent".
 
 ## 5 · Frame safety
 - **Burned-in subtitles** take the bottom 170 px: nothing important below y 880. Sources at y ≈ 870 (`F.source`).
 - **No QR overlay anywhere.** No donation / support overlay.
 - The HUD lives at x 60–480, y 40–300; full-frame explainers keep that corner free while the HUD is on.
 - Clip frames: `F.clipPlate` (rounded plate, name / role / date label, ORIGINAL FOOTAGE (source)); clip subtitles are the burned-in track.
-  Tao Lin is labelled "Researcher at Anthropic, speaking for himself" (his view, not his company's).
+  Tao Lin is labelled **"Researcher at Anthropic · personal view"** (his view, not his company's).
 
 ## 6 · Camera
 2.5D cards: `E.aim(Z, u, v, s, sx, sy)` puts card point (u, v) at screen (sx, sy) with scale s relative to home. `F.camPath(t, K)` (ref
 depth 6000: it works when the camera flies past F0 into the hall). Keys on phrases only. Named cameras (`lib/f31_world.mjs`): `HOME`
 (thumbnail), `WIDE_CAM` (the whole foundry, you tiny), `MACH_CAM` (the ring big), `LADDER_CAM` (the ladder with labels, clear of the core),
-`BENCH_CAM` (your lamp), `OLD_CAM` (the machine you use + the thread), `END_CAM` / `END_TILES` (end screen). Seam plates are added in
-phase 2 (helpers `creep`, `trk`, CREEP 4 %/s, TRUCK 30 px/s).
+`BENCH_CAM` (your lamp), `OLD_CAM` (the machine you use + the thread), `END_CAM` / `END_TILES` (end screen). Plus `HOOK_CAM` (frame 0). Seam
+plates use `creep` (4 %/s) / `trk` (30 px/s), see `docs/BRIEF-builders.md`.
 
 ## 7 · Gates (before you report)
 Stills every ~.5 s around every transition (`node render.mjs --snap …`), a contact sheet of the chunk, `tools/calm.py` (0 cuts) and

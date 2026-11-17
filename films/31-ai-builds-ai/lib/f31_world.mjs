@@ -13,7 +13,7 @@
 // foundry(ctx, c, t, st) st (all optional):
 //   machine { build 0..1, glow, think, a } · builders { n, work, a } (false = none) · old { a, glow, thread 0..1 } · carts 0..1 (traffic on the
 //   rails) · hall 0..1 (how lit the hall windows are) · lamp 0..1 (your lamp: 1 on, 0 off) · you { x, y, h, o } | false ·
-//   ladder { …F.ladder options } | false · extra(ctx, hand) (F0 card) · back(ctx) (hall card) · front(ctx) (machine card) · fg (Z 1150 fn)
+//   ladder { …F.ladder options; reach (default true: the top ends in the core; du/dv move that point) } | false · veilBack 0..1 · extra(ctx, hand) (F0 card) · back(ctx) (hall card) · front(ctx) (machine card) · fg (Z 1150 fn)
 import * as E from './f10_editorial.mjs';
 import * as F from './f31_kit.mjs';
 const { W, H, P, rgba, mixHex, clamp, lerp, span, sineIO, expoOut, halo, lin, rad, prng } = E;
@@ -27,10 +27,10 @@ export const TRUCK = 30;
 export const trk = (k) => TRUCK * (k - 1) / CREEP;
 
 export const Z_SKY = 40000, Z_FAR = 9000, Z_MACH = 6000, Z_HALL = 3800, Z_FG = 1150, FLOOR = 975;
-export const MACH = { x: 1250, y: 370, r: 330 };
+export const MACH = { x: 1250, y: 220, r: 330 };
 export const GANTRY = { x0: 1250 - 520, x1: 1250 + 520, top: -40, w: 64 };
 export const OLD = { x: 300, y: 560, r: 118, plinth: 700 };
-export const YOU = { x: 560, y: 972, h: 185 };
+export const YOU = { x: 640, y: 972, h: 150 };
 export const BENCH = { x: 150, w: 260, y: 975, top: 870 };
 export const LAMPPOS = { x: 330, y: 870 };
 export const LADDERPOS = { x: 800, y: 975, h: 700, w: 120 };
@@ -130,8 +130,12 @@ export function foundry(ctx, c, t, st = {}) {
       ctx.restore();
     }
   }
+  // a veil over the background (the hall and the machine) so labels on the ladder read; the workshop stays clear
+  if (st.veilBack > 0) F.veil(ctx, st.veilBack);
   // THE WORKSHOP (F0): the floor, your bench and lamp, the ladder, you
-  let hand = null, lad = null;
+  let hand = null, lad = null, reach = null;
+  { const m = E.cardM(c, F0), p = E.project(c, Z_MACH, MACH.x + (st.ladder?.du ?? 0), MACH.y + (st.ladder?.dv ?? MACH.r * .12));
+    if (m && p) reach = [(p[0] - m.e) / m.k, (p[1] - m.f) / m.k]; }
   E.card(ctx, c, F0, () => {
     ctx.fillStyle = lin(ctx, 0, FLOOR, 0, FLOOR + 160, [[0, mixHex(P.ind2, P.blue1, .22)], [.06, mixHex(P.night1, P.ind1, .4)], [1, P.night0]]);
     ctx.fillRect(-6000, FLOOR, 16000, 12000);
@@ -147,10 +151,13 @@ export function foundry(ctx, c, t, st = {}) {
     ctx.fillStyle = mixHex(P.night1, P.ind2, .8); ctx.beginPath(); ctx.moveTo(LAMPPOS.x - 52, b.top - 54); ctx.lineTo(LAMPPOS.x - 26, b.top - 112); ctx.lineTo(LAMPPOS.x + 4, b.top - 94); ctx.lineTo(LAMPPOS.x - 6, b.top - 50); ctx.closePath(); ctx.fill();
     ctx.fillStyle = mixHex(P.night1, P.cream, .85 * lp); ctx.beginPath(); ctx.ellipse(LAMPPOS.x - 29, b.top - 52, 24, 5, -.08, 0, TAU); ctx.fill();
     if (lp > 0) halo(ctx, LAMPPOS.x - 29, b.top - 48, 60, .8 * lp, P.coat, P.core0);
-    // THE LADDER
+    // THE LADDER: its foot on the floor, its top reaches into the next machine's core (tracked under any camera: the top is the core's
+    // screen point mapped back onto this card), so it always reads as "a ladder between today and that machine"
     if (st.ladder !== false) {
-      const L = st.ladder ?? {};
-      lad = F.ladder(ctx, t, L.x ?? LADDERPOS.x, L.y ?? LADDERPOS.y, L.h ?? LADDERPOS.h, { w: LADDERPOS.w, ...L });
+      const L = st.ladder ?? {}, fx = L.x ?? LADDERPOS.x, fy = L.y ?? LADDERPOS.y;
+      let h = L.h ?? LADDERPOS.h, lean = L.lean ?? 0;
+      if (L.reach !== false && reach) { h = fy - reach[1]; lean = reach[0] - fx; }
+      lad = F.ladder(ctx, t, fx, fy, h, { w: LADDERPOS.w, ...L, h: undefined, lean });
     }
     // you
     if (st.you !== false) { const y = st.you ?? {}; hand = E.du(ctx, y.x ?? YOU.x, y.y ?? YOU.y, y.h ?? YOU.h, { light: .8, back: .4, dir: 1, ...(y.o ?? {}) }); }
@@ -165,11 +172,39 @@ export function oldAt(c) { const p = E.project(c, Z_HALL, OLD.x, OLD.y); return 
 
 // ------------------------------------------------------------------------------------------------ cameras
 export const HOME = E.cam3();
+export const HOOK_CAM = (k = 1, tr = 0) => E.aim(F0, LADDERPOS.x + tr, LADDERPOS.y, 1.15 * k, 1290, 985);   // frame 0 = thumbnail A: the ladder of light into the core
 export const WIDE_CAM = (k = 1, tr = 0) => E.aim(Z_HALL, 960 + tr, 430, .7 * k);                         // the whole foundry, you tiny
 export const MACH_CAM = (k = 1, tr = 0) => E.aim(Z_MACH, MACH.x + tr, MACH.y + 40, 1.25 * k);              // the machine big (wow frames)
-export const LADDER_CAM = (k = 1, tr = 0) => E.aim(F0, LADDERPOS.x + 360 + tr, LADDERPOS.y - LADDERPOS.h * .5, 1.05 * k);   // the ladder full height + labels
-export const BENCH_CAM = (k = 1, tr = 0) => E.aim(F0, BENCH.x + 260 + tr, BENCH.top - 40, 2.0 * k);         // your lamp (the light goes off)
+export const LADDER_CAM = (k = 1, tr = 0) => E.aim(F0, LADDERPOS.x + 420 + tr, 560, .9 * k);                 // the whole ladder, floor to core, room for labels
+export const BENCH_CAM = (k = 1, tr = 0) => E.aim(F0, BENCH.x + 260 + tr, BENCH.top - 40, 2.0 * k);         // your lamp
 export const OLD_CAM = (k = 1, tr = 0) => E.aim(Z_HALL, OLD.x + 380 + tr, OLD.y, 1.5 * k);                  // the machine you use + the thread
+
+// ------------------------------------------------------------------------------------------------ the seam plates
+// A plate is the EXACT picture at a group boundary. The handing side steers its last move so its frame converges to the plate and draws
+// the plate for t in [T0 − .5, T0); the receiving side draws the same plate for t in [T0, T0 + .5) and grows out of it. Plates keep a slow
+// push (CREEP 4 %/s from T0 − .5) and a slow truck right (TRUCK 30 px/s); the receiving side continues both. Check: node tools/seam.mjs --at T0
+//   Lead → B1 at T.G('Picture a ladder') (c01 → c02): plateLadder   THE LADDER OF LIGHT. LADDER_CAM: the whole ladder from your feet to
+//            the core, still pure gold light (glow 1), no labels; you at the foot; your lamp OFF; the hall windows warm (the swarm's
+//            windows of c01 became them). B1 cools the ladder to metal + rung states and raises the labels.
+//   B1 → B2  at T.G("So don't take Anthropic's word") (c06 → c07): plateClimb   THE FOUNDRY AT WORK. WIDE_CAM: rungs 1, 2 gold, 3 half,
+//            4, 5 cream (no labels), your lamp ON again (B1 turns it on at 'Until this year, the answer was: people'), hall .5, carts .6, the HUD.
+//   B2 → B3  at T.G('Their scenario, late') (c09 → c10): plateMachine   THE MACHINE NEARLY DONE. MACH_CAM: build .94, glow 1.15,
+//            builders at work; no veil. B3 stamps SCENARIO · 2027 over it.
+export function plateLadder(ctx, t, T) {
+  const k = creep(t, T, 'Picture a ladder'), c = LADDER_CAM(k, trk(k) * .4);
+  foundry(ctx, c, t, { lamp: 0, hall: .7, ladder: { glow: 1 } });
+}
+export const CLIMB = [1, 1, .5, 0, 0];
+export function plateClimb(ctx, t, T) {
+  const k = creep(t, T, "So don't take Anthropic's word"), c = WIDE_CAM(k, trk(k) * .4);
+  foundry(ctx, c, t, { lamp: 1, hall: .5, carts: .6, ladder: { state: CLIMB } });
+  F.ladderHUD(ctx, t, T);
+}
+export function plateMachine(ctx, t, T) {
+  const k = creep(t, T, 'Their scenario, late'), c = MACH_CAM(k, trk(k) * .3);
+  foundry(ctx, c, t, { machine: { build: .94, glow: 1.15 }, ladder: { state: CLIMB }, lamp: 1 });
+  F.ladderHUD(ctx, t, T);
+}
 
 // ------------------------------------------------------------------------------------------------ the end screen (last 15 s)
 // The next machine big and calm top centre; you small on the floor at the left; the dark floor carries the two YouTube tiles and the
