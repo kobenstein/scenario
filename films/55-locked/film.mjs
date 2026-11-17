@@ -1,38 +1,42 @@
-// Film 54 "AI Just Gave Disease a 10-Year Deadline" (~10 min narration + 7 s quiet walk + 15 s end screen), built on the Film 10/13/16/24/25/28
-// editorial-night machinery. ONE world: THE HALL OF RELICS (lib/f54_seams.mjs), a museum at night in the grandkids' future.
-// Plan: docs/MOTION.md + docs/shots.md (source: tools/shots54.py) · kit: lib/f54_kit.mjs · hall + seams: lib/f54_seams.mjs · builders: docs/BRIEF-builders.md.
-// Thirteen chunk files scenes/sc01.mjs … sc13.mjs return their entries; this file stitches them into one timeline.
+// Film 55 "The Best AI Is Locked Away" (~10:18 narration + ~8 s quiet walk + 15 s end screen), built on the Film 10/13/16/24/25/28/54
+// editorial-night machinery. ONE world: THE LINE (lib/f55_seams.mjs): a colossal closed door in an endless night wall, gold light in its
+// gap, a line of people on five floor marks (the lab · government · big companies · defenders · you), everyone else to the horizon.
+// Plan: docs/MOTION.md + docs/shots.md (source: tools/shots55.py) · kit: lib/f55_kit.mjs · world + seams: lib/f55_seams.mjs · builders: docs/BRIEF-builders.md.
+// Sixteen chunk files scenes/sc01.mjs … sc16.mjs return their entries; this file stitches them into one timeline.
 // NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a
 // planned match on a carrier). Any other tr is turned into 'cut' with a warning. Missing chunks render as stubs.
 //   export default (T, R) => [ entry, … ]       T = timing helpers (lib/kit.mjs: T.G / T.GE global phrase anchors, T.clip(id)), R = { a, b, id, name, first }
-//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (F.PRINT54)
+//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (F.PRINT55)
 // SECS=c01,c02 node render.mjs --snap ...   builds only those chunks (absolute times stay the same).
-// Timing: $TIMING, else <ROOT>audio/timing.json (the real VO, written by the audio agent), else data/provisional_timing.json
-// (tools/provisional_timing.py, from the newest vo-vN.txt; a warning is printed). ROOT = $F54ROOT or /mnt/project-files/scenario/film-heilung/.
+// Timing: $TIMING, else <ROOT>audio/timing.json (the real VO, written by the sound agent), else data/provisional_timing.json
+// (tools/provisional_timing.py, from the newest vo-vN.txt; a warning is printed). ROOT = $F55ROOT or /mnt/project-files/scenario/film-geheim-ki/.
 // ANCHORS ARE PHRASES ONLY (the fact-checked vo-v3 changes words, not these openers). If one goes missing, T.G throws with the phrase.
+// NO QR overlay (rule 16.11.2026).
 import fs from 'node:fs';
 import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
 import { finish as edFinish } from './lib/f10_editorial.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
-import { prepareClipFrames } from './lib/f54_kit.mjs';
 
 export { ROOT };
 // chunk table (docs/shots.md §2); from = the first phrase of the chunk, looked up GLOBALLY in the film (T.G), so any VO segmentation works
 export const CHUNKS = [   // from = first phrase of the chunk (nth = which occurrence in the film, for repeated sentences) · builder groups: docs/BRIEF-builders.md
-  { id: 'c01', name: 'Hook · thumbnail A (vitrine 1, the cell, DEADLINE: 2036) · the doctor\'s office diorama, four word cards · the grandkids, the plague · four words ? · machines fast, body slow · TWO DATES · four labels, weeks … decades · C1 wall text · the roadshow frame · NOT INVESTMENT ADVICE', from: 'Artificial intelligence just gave' },
-  { id: 'c02', name: 'The essay on the lectern, the magnifier (unreadable) · two trial lanes (barely works vs works) · the kiosk → C3 · NOT INSTANT stays in mint', from: "He didn't invent it" },
-  { id: 'c03', name: 'The mint line becomes the DEADLINE: 2036 board · four diseases, one question · CANCER lights · into vitrine 1: the lab, the hook cells, one AI-proposed design (≈ 10× more receptors) · ALL STILL IN THE LAB', from: "Less than a decade that's" },
-  { id: 'c04', name: 'The scan: weeks · 55 patients, many cancers · more than a hundred · the small print most cancer · the sales line just cancer · board ✓ MANY KINDS · but is fast the whole answer?', from: 'Then the body answers' },
-  { id: 'c05', name: 'Vitrine 2: heart twice · the infusion, the liver gene, LDL halved · DNA for life: 15 years · the stadium ★ · board ½ · subscribe 1 (the lit doorway, QR corner quiet) → plateMind', from: 'Heart disease answers twice' },
-  { id: 'c06', name: 'Vitrine 3: the mind answers fast but faint · sugar pill · half the trials · no blood test, a questionnaire · the essay: most mental illness · board ? · the fourth disease', from: 'The third disease answers fast' },
-  { id: 'c07', name: "Vitrine 4: Alzheimer's · twenty years before the first forgotten name · traces today · following healthy people · the failed trial · small print: difficult to reverse · board ✗", from: 'The changes in the brain' },
-  { id: 'c08', name: 'The race starts now: the blood test · why a date? · the sales pitch rewards a date · the audio-guide post → C5 (audio only) · THE TESTING, NOT THE FINDING · the pipeline', from: "But the race doesn't start" },
-  { id: 'c09', name: 'Topol: wildly off-base · Amodei: actually curing cancer · his company\'s medicine: idea → mice < 18 months · human trials late 2028 · first date fast, second years away → plateKiosk', from: 'The cardiologist' },
-  { id: 'c10', name: 'The kiosk → C2 (the pipeline jams) · DISCOVERY SPEEDS UP, PROOF JAMS · can proof come sooner? · it can: the study clinic, the blood test, the trial', from: 'He even warned of a jam' },
-  { id: 'c11', name: 'Digital twins (a smaller sugar-pill group) · the FDA assistant: one or two months · rules for medicines that clearly work · but remember the heart · C1b wall text', from: 'In other trials' },
-  { id: 'c12', name: 'The second date is the real deadline · people set it: clinics, scientists, lawmakers · does the deadline hold? the board big · the grandkids ★', from: 'If the machines make' },
-  { id: 'c13', name: 'Investors price the first date · subscribe 2 (QR corner quiet) · the quiet walk · 15 s end screen (the hall, four plinths)', from: 'Investors are already' },
+  { id: 'c01', name: 'Hook · thumbnail A (the door, the line, you far back) · your phone → the kitchen, the answer in seconds · back out: the phone is a point at the end of the line · the 27-year flaw in the code wall · HOW MUCH STRONGER? · the proof tape out of the gap: NOT SUMS. PROOFS. · the marks light 1…5: YOU\'RE FIFTH', from: 'The best' },
+  { id: 'c02', name: 'Mark 1: the people who built it · Fermat as the proof tape, every line checked · YEARS → 11 DAYS → 30 HOURS (calendar sheets) · the numbers are its own; the first proof is public · the machine: an internal research model', from: 'At the very front stand' },
+  { id: 'c03', name: 'A second door: ASTRA public but paid (a price tag on its core), a bigger shadow behind · A1 quote card (Altman, Dreamforce) · the inspector\'s clipboard: WHO CHECKED IT? SOME, IN PART · the machine stays locked · price tags rise with the light', from: 'A second lab' },
+  { id: 'c04', name: 'Two ticks: REAL MATHEMATICS · ONE HELD BACK (source line OPENAI CFO · CNBC, NOV 6, 2026; no card since vo-v4) · ANNOUNCED. NOT AVAILABLE. · the shelf with the empty place BEST', from: 'Still, two things' },
+  { id: 'c05', name: 'SAFETY on both doors · the glowing code line again, APR 7 · crash from across the world · MYTHOS over the door, the list at the desk · mark 2: government (30 DAYS · VOLUNTARY) · mark 3: the giants, NOT YOU. NOT YET.', from: 'Ask either lab' },
+  { id: 'c06', name: 'Not only safety: the cost (5× launch price) · C1 quote card (Altman, Berman) · a head start and compute behind the door · the line from above → plateFour', from: 'But safety is not all' },
+  { id: 'c07', name: 'Mark 4: the defenders through the side door (PROJECT GLASSWING) · one line of code, 5,000,000 test runs, a gold beam stops · 129,000+ VERIFIED · marketing and real: JULY RECORD · found is not yet fixed', from: 'Fourth in line stand' },
+  { id: 'c08', name: 'Subscribe 1: the whole line in gold light · mark 5: JUNE 9, the door opens a crack, light on you · Fable = the same machine, in your hand; HACKING · BIOLOGY go to an older core', from: 'This channel exists' },
+  { id: 'c09', name: 'The black hole: an old half-written page fills (preprints, not peer-reviewed) · three phones, three days, a short checked tape · the limit built in: the same setting in both cores', from: "And by its maker's account" },
+  { id: 'c10', name: 'Behind you: everyone, to the horizon, some hooded · a rival that came close in the lab\'s own hacking test, free to download, about $4,400 · a locked door buys time (a stack of calendar sheets)', from: "But the line doesn't end" },
+  { id: 'c11', name: 'The tips at the kitchen table: AUTO-UPDATE on phone, laptop, router, restart · the old router unplugged · that part is in your hands · back to the door: the parcel ASTRA 6.1 rolls up and stops, HELD BACK → plateHeld', from: 'Switch on automatic' },
+  { id: 'c12', name: 'The windowless room · C4 quote card (Hobbhahn, Senate) · WHO GETS TO LOOK IN? · three testers through the side door, the lab holds it · the clipboard: WHO CHECKED IT? · WHAT\'S NOT SHOWN?', from: 'That call was made inside' },
+  { id: 'c13', name: 'The big answer: the tape returns (11 DAYS → 30 HOURS) · the hall of a thousand seats, the same core in each · roughly comparable · dozens of seats, eleven sheets, two months', from: 'So keep asking' },
+  { id: 'c14', name: 'The hook\'s question returns · 1 · NEWER: doors behind doors, each a sheet further · 2 · BIGGER: about 10,000 dots (OpenAI says, not confirmed) vs one core in your phone vs a thousand', from: 'So if the machines are already' },
+  { id: 'c15', name: 'PERMISSION and POWER · both moving your way: APR → JUNE, the price tag shrinks to a third · a preview of your tools: A FEW MONTHS · ESTIMATE', from: 'So between you and the best' },
+  { id: 'c16', name: 'The kitchen again, another season, the core in your phone · the line like frame 0, you one place further forward · the core sentence · subscribe 2 · quiet walk · 15 s end screen', from: 'One evening, a few months' },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 
@@ -84,7 +88,6 @@ export async function build({ timingFile = TIMING } = {}) {
   const finish = (ctx, t, o = {}) => edFinish(ctx, t, o);
   const film = new Film(shots, { finish, float: cameraFloat });
   film.T = T;
-  film.prepare = (t) => prepareClipFrames(T, t);   // loads the clip footage frames round t (render.mjs awaits it)
   film.ranges = RANGES;
   film.list = list;
   return film;

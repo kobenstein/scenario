@@ -5,10 +5,10 @@ import { W, H, C, rgba, clamp, lin, eout, drift, text } from '../engine.mjs';
 
 export const PAL = { // ground, middle, accent (konzept.md §3)
   H: ['#1d2a44', '#9fb6cf', '#ffb35c'], 0: ['#3a2a24', '#efe4cc', '#8e2f2a'], 1: ['#2a1c18', '#e8d7b0', '#e9a54b'],
-  2: ['#0b0f2a', '#f3efe2', '#c4512e'], 3: ['#0c1b33', '#dfe8f2', '#5fe0a8'], 4: ['#4a3426', '#e8a3a0', '#8fd27a'],
+  2: ['#0b0f2a', '#f3efe2', '#8fe6ff'], 3: ['#0c1b33', '#dfe8f2', '#5fe0a8'], 4: ['#4a3426', '#e8a3a0', '#8fd27a'],
   5: ['#1e4a3a', '#e9c46a', '#b7c25a'], 6: ['#0d1530', '#f5b08a', '#f0a04b'], 7: ['#070918', '#ffd08a', '#ffb35c'],
 };
-const SECNAME = { H: 'Hook · the hall of relics', 1: 'The promise, fair', 2: 'Cancer: weeks', 3: 'Heart disease: twice', M: 'Subscribe 1', 4: 'The mind: faint', 5: "Alzheimer's: decades", 6: 'The testing, not the finding', 7: 'It can (speed up proof)', 8: 'Does the deadline hold?', A2: 'Subscribe 2 · end' };
+const SECNAME = { H: 'Hook · the door, the line', 1: '1 · the lab: years, 11 days, 30 hours', 2: '2 + 3 · government, the giants', 3: '4 · the defenders', M: 'Subscribe 1', 4: '5 · you: the same machine', 5: 'Behind you: everyone · the tips', 6: 'Inside: who looks in', 7: 'The big answer: newer and bigger', 8: 'The end: the one you\'ll have next', A2: 'Subscribe 2 · end' };
 
 function wrapWords(ctx, words, size, maxW) {
   ctx.font = `${size}px "Instrument Serif"`; const sp = ctx.measureText(' ').width, lines = []; let cur = [], w = 0;
