@@ -10,7 +10,7 @@ NOT spoken: [EINBLENDUNG ...], [ENDCARD ...], [CLIP Cn] (= slot), [ZITATKARTE Zn
 Slots (build_vo.py inserts the real clip audio): C1 5.09 s, C2 11.94 s, C3 9.22 s (= out - in from clips/schnitt.json).
 usage: make_segments.py [vo-v3.txt] [out segments.json] [schnitt.json]"""
 import json, re, sys
-ROOT = '/mnt/project-files/scenario/film-ai-goes-public/'
+ROOT = '/mnt/project-files/scenario/film-ai-2027/'
 SRC = sys.argv[1] if len(sys.argv) > 1 else ROOT + 'vo-v3.txt'
 OUT = sys.argv[2] if len(sys.argv) > 2 else 'segments.json'
 SCH = sys.argv[3] if len(sys.argv) > 3 else ROOT + 'clips/schnitt.json'

@@ -1,37 +1,37 @@
-// Film 59 "You Can Now Buy a Piece of AI" (thumbnail AI GOES PUBLIC; ~10:20 narration + ~5 s quiet + 15 s end screen), built on the
-// Film 10/13/16/24/25/28/54 editorial-night machinery. ONE world: THE CITY UNDER THE CRYSTAL (lib/f59_world.mjs).
-// Plan: docs/MOTION.md + docs/shots.md (source: tools/shots59.py) · kit: lib/f59_kit.mjs · world + seams: lib/f59_world.mjs · builders: docs/BRIEF-builders.md.
-// Twelve chunk files scenes/sc01.mjs … sc12.mjs return their entries; this file stitches them into one timeline.
+// Film 31 "Superhuman AI Is Coming Next Year" (working title; AI builds the next AI · the ladder of 5 rungs · AI-2027 update · Tao Lin),
+// built on the Film 10/13/16/24/25/28/54/59 editorial-night machinery. ONE world: THE NIGHT FOUNDRY (lib/f31_world.mjs).
+// Plan: docs/MOTION.md (+ docs/shots.md from tools/shots31.py, phase 2) · kit: lib/f31_kit.mjs · world + seams: lib/f31_world.mjs.
+// Chunk files scenes/sc01.mjs … scNN.mjs return their entries; this file stitches them into one timeline. Missing chunks render as stubs.
 // NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a
-// planned match on a carrier). Any other tr is turned into 'cut' with a warning. Missing chunks render as stubs.
+// planned match on a carrier). Any other tr is turned into 'cut' with a warning.
 //   export default (T, R) => [ entry, … ]       T = timing helpers (lib/kit.mjs: T.G / T.GE global phrase anchors, T.clip(id)), R = { a, b, id, name, first }
-//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (F.PRINT59)
+//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (F.PRINT31)
 // SECS=c01,c02 node render.mjs --snap ...   builds only those chunks (absolute times stay the same).
 // Timing: $TIMING, else <ROOT>audio/timing.json (the real VO, written by the sound agent), else data/provisional_timing.json
-// (tools/provisional_timing.py, from the newest vo-vN.txt; a warning is printed). ROOT = $F59ROOT or /mnt/project-files/scenario/film-ai-goes-public/.
+// (tools/provisional_timing.py, from the newest vo-vN.txt; a warning is printed). ROOT = $F31ROOT or /mnt/project-files/scenario/film-ai-2027/.
 // ANCHORS ARE PHRASES ONLY. If one goes missing, T.G throws with the phrase.
 import fs from 'node:fs';
 import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
 import { finish as edFinish } from './lib/f10_editorial.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
-import { prepareClipFrames } from './lib/f59_kit.mjs';
+import { prepareClipFrames } from './lib/f31_kit.mjs';
 
 export { ROOT };
 // chunk table (docs/shots.md §2); from = the first phrase of the chunk, looked up GLOBALLY in the film (T.G), so any VO segmentation works
-export const CHUNKS = [   // from = first phrase of the chunk (nth = which occurrence in the film) · builder groups: docs/BRIEF-builders.md
-  { id: 'c01', name: 'Hook · thumbnail A (the crystal, a facet falls into your hand, AI GOES PUBLIC) · the shard becomes the banking app: ANT · chip makers, tech giants: this is different, an AI lab · price, BUY · the warning label · the quote card (prospectus) · the thick document · A PIECE ✓ | A SAY (the wheel behind glass) · the page shrinks into the tower window → plateWindow', from: 'This week' },
-  { id: 'c02', name: 'Out of the window: the city, the crystal = ANTHROPIC · NASDAQ: ANT, first trade expected · $70–78, 825M shares · 2nd-largest IPO · not this film\'s subject · the jar (your savings)', from: 'The seller is Anthropic' },
-  { id: 'c03', name: 'The bell far right · COUNTDOWN board STEP 1 · the prospectus, 90+ pages of warnings · two warning cards · the promise · managed by whom?', from: 'So before the opening bell' },
-  { id: 'c04', name: 'Share → vote → wheel · not here · the vote bar 49.9 | 50.1 · the trust, 4 trustees · the dinner table 7 + 4 ★ · a claim on the money, not a hand on the wheel (thumbnail C)', from: 'With most companies' },
-  { id: 'c05', name: 'C1 from a crystal facet · the seller · stewards card · no buyer can vote it down · three warning cards · Z1 quote card · safety before your return · the price tag "$ ?" on the crystal → plateCrystal', from: 'Why build a company' },
-  { id: 'c06', name: 'STEP 2 · the letter (NYC comptroller) · a grade every day · the trustees choose directors · Bengio, the race · C2 · a race by choice', from: 'Many doubt it' },
-  { id: 'c07', name: 'The essay WE MUST PACE THE FRONTIER · his word, not proof · in writing · UNPROVEN, ON THE RECORD · subscribe 1 (the city lights up)', from: 'But the company has an answer' },
-  { id: 'c08', name: 'STEP 3 pricing night · up to ≈ $1.4 trillion · KNOWN | FORECAST trays · revenue ★ · loss · C3 (FORECAST) · 1–2 years vs within a few years → plateSort', from: 'If the mission is unproven' },
-  { id: 'c09', name: 'Orders 6× · AI stocks fell · "most ridiculous IPO" · a price is a forecast, not a verdict', from: 'Reports say there are' },
-  { id: 'c10', name: 'The jar · an index is a list · THE BELL RINGS ★ (STEP 4, +15 trading days) · fast lists vs S&P 1 year · a slice lands in the jar · the senator\'s letter · buy or don\'t', from: "And one thing doesn't depend" },
-  { id: 'c11', name: 'Amazon, Google: no vote · the wheel is not for sale · eleven people, the same dinner table ★ · the board must balance three things', from: 'But look at who else' },
-  { id: 'c12', name: 'Recall the warning · you are affected · a stake: threads of light to every window · a stake has a voice · a share has a price ★ · subscribe 2 · 15 s end screen', from: 'Now recall the warning' },
+// PROVISIONAL chunk table (vo-v3 sections, tools/provisional_timing.py SECS). Phase 2 re-cuts it on vo-v4 together with docs/shots.md.
+export const CHUNKS = [   // from = first phrase of the chunk (nth = which occurrence in the film)
+  { id: 'c01', name: 'Hook · the foundry at night, your lamp goes off, the machines keep building · nine of ten changes · the forecast moved · 30,000 agents', from: 'You may be using' },
+  { id: 'c02', name: 'The ladder appears (5 rungs) · rung 1 CODE · K1 Brin · the fine print: no clear speed-up yet · rung 1 taken', from: 'Picture a ladder' },
+  { id: 'c03', name: 'Rung 2 EXPERIMENTS · K2 Altman · the intern, unchecked · rung 2 taken (on the labs\' word)', from: "By Anthropic's own verdict" },
+  { id: 'c04', name: 'Rung 3 LEADING RESEARCH · <1 % → 26 % ring · what stays human · shared · which rung? how fast?', from: 'Until this year' },
+  { id: 'c05', name: 'Subscribe 1 (the mission)', from: 'This channel exists' },
+  { id: 'c06', name: 'How fast? · the evaluators · speed gauge 1.9× · the numbers come from the labs · 6× spend for 2× speed', from: 'How fast?' },
+  { id: 'c07', name: 'AI 2027 · Kokotajlo end 2028 → May 2027 · median band · T1a/T1b Tao Lin · the record · the condition', from: "They're the people behind" },
+  { id: 'c08', name: 'The scenario: one committee, 6 to 4 · two endings · rung 4 THE GOAL · rung 5 THE BRAKE · K3 Pachocki quote card', from: 'Their scenario, late' },
+  { id: 'c09', name: 'The monitor eye over 30,000 agents · 50 a week to a person · who checks the lab · the stop agreed in advance', from: 'Right now, the labs hold' },
+  { id: 'c10', name: 'The answer on the ladder · the light goes off · the last models designed by human minds · the last rung is ours', from: 'So how close is', nth: 1 },
+  { id: 'c11', name: 'Subscribe 2 · 15 s end screen', from: 'This channel exists', nth: 1 },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 

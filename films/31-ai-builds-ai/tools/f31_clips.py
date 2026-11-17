@@ -1,39 +1,39 @@
 #!/usr/bin/env python3
-"""Film 59 "You Can Now Buy a Piece of AI" · clip frames, chunk render, assembly (2026-11-16). Base: tools/f59_clips.py (film 54), QR removed.
+"""Film 31 "Superhuman AI Is Coming Next Year" (AI builds AI) · clip frames, chunk render, assembly. Base: tools/f59_clips.py (film 59), no QR.
 
-  python3 tools/f59_clips.py clips [--only C1,C2]   the UN Security Council clips: <ROOT>clips/Cn.mp4 trimmed to in/out of <ROOT>clips/schnitt.json
+  python3 tools/f31_clips.py clips [--only C1,C2]   the interview clips: <ROOT>clips/Cn.mp4 trimmed to in/out of <ROOT>clips/schnitt.json
           -> frames <SCRATCH>/clips/<id>/f00001.jpg ... (1920x1080, 30 fps; frame 1 = the slot start, what F.clipPlate loads). The sound is the
           sound agent's (mix.m4a already carries the clip audio).
-  python3 tools/f59_clips.py render [--only c05,c06] [-j 4] [--scale 1]     the chunk videos c01..c12 (1920x1080, 30 fps, no sound), pieces of <= 20 s,
+  python3 tools/f31_clips.py render [--only c05,c06] [-j 4] [--scale 1]     the chunk videos c01..c12 (1920x1080, 30 fps, no sound), pieces of <= 20 s,
           resumable, joined to WORK/cNN.mp4.
-  python3 tools/f59_clips.py join [--only c05]
-  python3 tools/f59_clips.py assemble --name fassung-1 [--chunks DIR] [--calm] [--no-contact] [--preview] [--crf 18]
+  python3 tools/f31_clips.py join [--only c05]
+  python3 tools/f31_clips.py assemble --name fassung-1 [--chunks DIR] [--calm] [--no-contact] [--preview] [--crf 18]
           checks the chunk videos against the chunk ranges of film.mjs, joins them, burns the subtitles (ASS, <ROOT>audio/untertitel/subtitles.ass) in,
           puts the mix (<ROOT>audio/mix.m4a) under: master 1080p H.264 CRF 18 + AAC in FINAL/<name>-master-1080p.mp4; LUFS / true peak; contact sheet
           -> <ROOT>bild/<name>_kontakt.jpg. NO QR OVERLAY (abolished 16.11.).
-  python3 tools/f59_clips.py check                  chunk files against the timing (no media is written)
+  python3 tools/f31_clips.py check                  chunk files against the timing (no media is written)
 
-Paths: ROOT = $F59ROOT or /mnt/project-files/scenario/film-ai-goes-public/ (small files only) · SCRATCH = $F59SCRATCH or /tmp/claude-0/f59: clips/, work/,
+Paths: ROOT = $F31ROOT or /mnt/project-files/scenario/film-ai-2027/ (small files only) · SCRATCH = $F31SCRATCH or /tmp/claude-0/f31: clips/, work/,
 final/. No video or audio into the repo.
 """
 import argparse, glob, hashlib, json, os, re, shutil, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor
 
 HERE = os.path.dirname(os.path.abspath(__file__)); FILM = os.path.dirname(HERE)
-ROOT = (os.environ.get('F59ROOT') or '/mnt/project-files/scenario/film-ai-goes-public').rstrip('/') + '/'
-SCRATCH = os.environ.get('F59SCRATCH') or '/tmp/claude-0/f59'
+ROOT = (os.environ.get('F31ROOT') or '/mnt/project-files/scenario/film-ai-2027').rstrip('/') + '/'
+SCRATCH = os.environ.get('F31SCRATCH') or '/tmp/claude-0/f31'
 PROVISIONAL = os.path.join(FILM, 'data', 'provisional_timing.json')
 FPS, PIECE = 30, 600           # 20 s pieces
-IDS = ['C1', 'C2', 'C3']       # Z1 is a quote card (no footage): the narrator reads it
+IDS = ['K1', 'K2', 'T1a', 'T1b']   # film 31 (vo-v3): Brin, Altman, Tao Lin ×2; K3 is a quote card read by the narrator. Phase 2 syncs this with vo-v4 [CLIP Tn] lines.
 AUDIO_ONLY = set()
 WORK = CL = WA = FINAL = STATE = None
 
 
 def setup(work):
     global WORK, CL, WA, FINAL, STATE
-    WORK = work or os.environ.get('F59WORK') or (SCRATCH + '/work')
-    CL = (os.environ.get('F59CLIPS') or SCRATCH + '/clips').rstrip('/')
-    WA = os.path.join(WORK, 'audio'); FINAL = os.environ.get('F59FINAL') or os.path.join(SCRATCH, 'final'); STATE = os.path.join(WORK, 'state.json')
+    WORK = work or os.environ.get('F31WORK') or (SCRATCH + '/work')
+    CL = (os.environ.get('F31CLIPS') or SCRATCH + '/clips').rstrip('/')
+    WA = os.path.join(WORK, 'audio'); FINAL = os.environ.get('F31FINAL') or os.path.join(SCRATCH, 'final'); STATE = os.path.join(WORK, 'state.json')
     for d in (WORK, CL, WA, FINAL): os.makedirs(d, exist_ok=True)
 
 def sh(cmd, **kw): return subprocess.run(cmd, check=True, **kw)
@@ -65,7 +65,7 @@ def jsave(f, o): json.dump(o, open(f, 'w'), indent=1, ensure_ascii=False)
 
 
 def chunk_ranges(tfile):
-    """chunk id -> frame range, from film.mjs (the same ranges the renderer uses), plus the QR windows (lib/f59_kit.mjs qrWindows)"""
+    """chunk id -> frame range, from film.mjs (the same ranges the renderer uses), plus the QR windows (lib/f31_kit.mjs qrWindows)"""
     code = ("import { chunkRanges } from './film.mjs'; import { timing } from './lib/kit.mjs'; "
             f"const T = timing({json.dumps(tfile)}); const R = chunkRanges(T);"
             "console.log('@@' + JSON.stringify({ duration: T.duration, qr: [], qrfade: 0, qrtail: 15,"
@@ -86,7 +86,7 @@ def cmd_render(a):
             g = min(f + PIECE, c['fb'])
             if c['fb'] - g < 150: g = c['fb']      # no tiny last piece
             jobs.append((c['id'], f, g, n)); n += 1; f = g
-    print(f'{len(jobs)} pieces, timing {tfile}, -j {a.j}'); env = {**os.environ, 'F59CLIPS': CL, 'F59ROOT': ROOT, 'TIMING': tfile}; t0 = time.time()
+    print(f'{len(jobs)} pieces, timing {tfile}, -j {a.j}'); env = {**os.environ, 'F31CLIPS': CL, 'F31ROOT': ROOT, 'TIMING': tfile}; t0 = time.time()
     def one(j):
         cid, f0, f1, n = j; f = os.path.join(WORK, f'{cid}_p{n:02d}.mp4')
         if os.path.exists(f + '.done'): return j
@@ -191,7 +191,7 @@ def qr_check(R):
     return w
 
 def qr_graph(R):
-    """film 59: no QR overlay (owner, 16.11.) -> no chains."""
+    """film 31: no QR overlay (owner, 16.11.) -> no chains."""
     return []
 
 def audio_in():
@@ -241,7 +241,7 @@ def cmd_assemble(a):
                 raise SystemExit(f'chunk {cid} changed since the state was made ({c["file"]}); `assemble --fresh` takes the chunks as they are now (drops re-rendered clip pieces)')
         print(f"picture state: {len(st['segments'])} segments ({st['patches']} re-rendered clip pieces)")
     chk_cover(st['segments'], N)
-    name = a.name; ass = subs_in(); mix = audio_in(); gf = os.path.join(WORK, 'picture.filtergraph'); open(gf, 'w').write(picture_graph(st['segments'], f'subtitles=filename={ass}'))  # no QR overlay in film 59
+    name = a.name; ass = subs_in(); mix = audio_in(); gf = os.path.join(WORK, 'picture.filtergraph'); open(gf, 'w').write(picture_graph(st['segments'], f'subtitles=filename={ass}'))  # no QR overlay in film 31
     m = os.path.join(FINAL, f'{name}-master-1080p.mp4'); t0 = time.time()
     print('master:', m, '| audio', mix, '| subtitles', ass)
     afl = [] if mix.endswith('.m4a') else ['-af', AFILTER]

@@ -12,8 +12,8 @@ usage: mix.py <audio_dir> [wav_dir]   (vo_only.wav, clipwav/, music/, sfx/, stem
 import json, os, subprocess, sys
 import numpy as np
 A = sys.argv[1].rstrip('/') + '/'; W = (sys.argv[2].rstrip('/') + '/') if len(sys.argv) > 2 else A; SR = 48000
-ROOT = os.environ.get('F59ROOT', '/mnt/project-files/scenario/film-ai-goes-public').rstrip('/')
-CLIPDIR = os.environ.get('F59CLIPWAV', W + 'clipwav').rstrip('/') + '/'      # C-clip wavs (<id>.wav = the cut from clips/schnitt.json; no file = silent slot)
+ROOT = os.environ.get('F31ROOT', '/mnt/project-files/scenario/film-ai-2027').rstrip('/')
+CLIPDIR = os.environ.get('F31CLIPWAV', W + 'clipwav').rstrip('/') + '/'      # C-clip wavs (<id>.wav = the cut from clips/schnitt.json; no file = silent slot)
 def load(f, af=None):
     raw = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f] + (['-af', af] if af else []) + ['-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'])
     return np.frombuffer(raw, np.float32).reshape(-1, 2).copy()
