@@ -179,7 +179,7 @@ export function tower(ctx, t, n, top, sub, o = {}) {
   const s = STACK.s, th = STACK.th, edges = Math.min(60, n), y = -(s * 1.12 + Math.max(0, edges - 1) * th);
   ctx.save(); ctx.globalAlpha *= o.a ?? 1;
   ctx.fillStyle = rgba(P.night0, .5); ctx.beginPath(); ctx.ellipse(-s * .1, 4, s * .75, s * .05, 0, 0, TAU); ctx.fill();
-  F.calStack(ctx, t, 0, y, s, edges, top, sub, { thick: th / (s * .012) });
+  F.calStack(ctx, t, 0, y, s, edges, top, sub, { thick: th / (s * .012), dim: o.dim ?? .35 });   // dim: the door-tall cream pad was the brightest thing in c02
   ctx.restore();
   return y;
 }

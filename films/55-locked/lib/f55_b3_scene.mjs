@@ -40,6 +40,9 @@ const L = S.LINE, D = L.door, Y = L.you;
 const scr = (ctx, fn) => { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); fn(); ctx.restore(); };
 const inOut = (t, a0, a1, b0, b1) => rise(span(t, a0, a1)) * (1 - sineIO(span(t, b0, b1)));   // soft exits (an expo exit pops)
 const sinkOut = (t, b0, b1) => 1 - sineIO(span(t, b0, b1));
+// a soft screen-space wall light (source-over, a dusty warm blue; it lifts the luma of a dark stretch without a hot spot)
+const WASH = mixHex(P.blue1, P.shade1, .35);
+function wash(ctx, x, y, r, a) { scr(ctx, () => { ctx.fillStyle = E.rad(ctx, x, y, r, [[0, rgba(WASH, a)], [.55, rgba(WASH, a * .45)], [1, rgba(WASH, 0)]]); ctx.fillRect(0, 0, W, H); }); }
 
 // ------------------------------------------------------------------------------------------------------------- anchors (phrases only)
 export function anchors(T) {
@@ -197,6 +200,9 @@ export function makeScene(T) {
       },
     };
     S.lineWorld(ctx, c, t, st);
+    // integration: a soft wall light lifts the dim C4 stretch (painted, never added; it comes and goes with the quote)
+    const c4W = sineIO(span(t, a.every, a.hob + 1.2)) * (1 - sineIO(span(t, a.c4e, a.testers)));
+    if (c4W > 0) wash(ctx, 820, 470, 1150, .5 * c4W);
     // ---- 6.03 the lab's notice on the windowless wall: a band covers it (NOT EVERYTHING IS SHOWN)
     B.wallAt(ctx, c, NOTE.X, NOTE.Y, NOTE.s, (k) => { const na = .92 * (1 - span(t, a.hob + 1.6, a.hob + 2.6)); if (k * NOTE.w > 40 && na > 0) B.notice(ctx, t, 0, 0, NOTE.w, { band: span(t, a.every - .1, a.every + .9), a: na }); });
     // ---- 6.04 the C4 quote, lettered on the wall (dim lettering; the credit on his name; the words light over the clip)
@@ -290,6 +296,9 @@ export function makeScene(T) {
     const n1 = inOut(t, a.newer + .2, a.newer + .9, a.bigger - .3, a.bigger + .2);
     if (n1 > 0) scr(ctx, () => maskLine(ctx, [['1 · NEWER', 0]], 110, 230, 92, n1, { serif: false, weight: 600, col: P.core0, glow: true }));
     // ---- 7.05 2 · BIGGER: the stadium (OPENAI SAYS · NOT CONFIRMED) → your phone, one core → the hall out of the phone: SAME MACHINE × 1,000
+    // integration: a soft light behind the stadium lifts the dark explainer
+    const bW = sineIO(span(t, a.bigger - .4, a.says + .4)) * (1 - sineIO(span(t, a.between - .6, a.between + .8)));
+    if (bW > 0) wash(ctx, lerp(1000, 760, sineIO(span(t, a.method, a.oneCopy + .2))), 560, 1100, .5 * bW);
     const n2 = inOut(t, a.bigger + .3, a.bigger + 1, a.between - .5, a.between + .2);
     if (n2 > 0) scr(ctx, () => maskLine(ctx, [['2 · BIGGER', 0]], 110, 230, 92, n2, { serif: false, weight: 600, col: P.core0, glow: true }));
     const bigOut = sinkOut(t, a.between - .4, a.between + .6);

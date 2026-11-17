@@ -553,7 +553,7 @@ export function glowText(ctx, s, x, y, o = {}) {
   const size = o.size ?? TYPE.label, font = o.serif ? `${size}px "Instrument Serif"` : `${o.weight ?? 600} ${size}px Inter`;
   ctx.save(); ctx.font = font; ctx.textAlign = o.align ?? 'left'; ctx.textBaseline = o.base ?? 'alphabetic'; ctx.globalAlpha *= o.a ?? 1;   // film 16: multiplies (a caller's fade also fades its text and glow)
   if (o.spacing) ctx.letterSpacing = `${o.spacing}em`;
-  if (o.glow !== false) { ctx.shadowColor = rgba(P.halo0, .8); ctx.shadowBlur = size * .45; }
+  if (o.glow !== false) { ctx.shadowColor = rgba(P.halo0, .8 * clamp(ctx.globalAlpha)); ctx.shadowBlur = size * .45; }   // f55: the canvas does not fade the shadow with globalAlpha (a faded card left its glow behind)
   ctx.fillStyle = o.col ?? P.cream; ctx.fillText(s, x, y); ctx.shadowBlur = 0; ctx.fillText(s, x, y); ctx.restore();
 }
 

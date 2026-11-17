@@ -83,7 +83,7 @@ export function over(ctx, t, X) {
       if (su > 0 && su < 1) { const y = r.y + r.len * tu * sineIO(su); F.accentSpan(ctx, [[r.x - 10, y], [r.x + r.w + 10, y]], 0, 1, { w: 2.2, spark: false, a: Math.sin(Math.PI * su) }); }
     }
   }
-  F.veil(ctx, .2 * sineIO(span(t, a.fermat - 1.4, a.fermat)) * (1 - sineIO(span(t, a.labIs + .6, a.labIs + 2.4))));   // luma: the cream tape and the pad are big here
+  F.veil(ctx, (.17 * sineIO(span(t, a.T0 + 1.0, a.there)) + .22 * sineIO(span(t, a.fermat - 1.4, a.fermat))) * (1 - sineIO(span(t, a.labIs + .6, a.labIs + 2.4))));   // integration: c02 luma 63.4 → ≤ 60 (stronger, earlier)   // luma: the cream tape and the pad are big here
   // ---- 1.02 FERMAT'S LAST THEOREM · COMPUTER-CHECKED
   const fOut = a.expected + .3;
   say(ctx, "FERMAT'S LAST THEOREM", 120, 300, 88, win(t, a.fermat - .15, fOut), { serif: true });

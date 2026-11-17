@@ -86,8 +86,12 @@ function list(ctx, t, a, r, u) {
     else { const bl = span(t, a.chose + 1.4, a.chose + 1.8); if (bl > 0) { ctx.fillStyle = rgba(CHECK.halo, .4 * bl * (.5 + .5 * Math.sin(t * 3.2))); ctx.fillRect(bx, y - bs * .85, bs, bs); } }
   });
   ctx.restore();
+  // the cap (the roll's lip at the gap) grows in with the list instead of appearing at full size (was a POP at 'Instead' − .5)
+  const ku = sineIO(clamp(u / .3)), cw = r.w * 1.06 * lerp(.15, 1, ku), cxm = r.x + r.w / 2;
+  ctx.save(); ctx.globalAlpha *= ku;
   ctx.fillStyle = lin(ctx, 0, r.y - r.w * .06, 0, r.y + r.w * .06, [[0, mixHex(P.cream, P.halo2, .6)], [1, mixHex(P.halo2, P.shade1, .5)]]);
-  ctx.beginPath(); ctx.roundRect(r.x - r.w * .03, r.y - r.w * .06, r.w * 1.06, r.w * .1, r.w * .05); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(cxm - cw / 2, r.y - r.w * .06, cw, r.w * .1, r.w * .05); ctx.fill();
+  ctx.restore();
 }
 
 // ---------------------------------------------------------------------------------------------------------------- the giants
