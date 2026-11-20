@@ -1,0 +1,115 @@
+{
+ "_comment": "Film 28 slot metadata. Wording from the real clip sound (fal-ai/whisper word level + sound envelope, 2026-11-11; in-points in tools/f28_clips.py CLIPIN). cues = [seconds from slot start (= first footage frame), subtitle line <= 34 chars]. C4 is mute under the VO: no subtitle. C5b: the speaker says 'does' (both Whisper models), clips-f28.md quotes 'did'; the subtitle follows the audio.",
+ "C3a": {
+  "in": 2.88,
+  "cues": [
+   [
+    0.2,
+    "It makes people cry"
+   ],
+   [
+    1.67,
+    "who have not heard me in a while."
+   ]
+  ],
+  "cue_end": 3.5,
+  "cue_status": "whisper+envelope"
+ },
+ "C1": {
+  "in": 3.0,
+  "cues": [
+   [
+    0.3,
+    "We're a charity,"
+   ],
+   [
+    1.83,
+    "we're a Māori charity."
+   ],
+   [
+    3.67,
+    "And so we look at ways"
+   ],
+   [
+    5.3,
+    "to maintain sovereignty"
+   ],
+   [
+    6.9,
+    "because we know what it means"
+   ],
+   [
+    9.0,
+    "to lose it."
+   ],
+   [
+    10.53,
+    "We know that data is the new land."
+   ]
+  ],
+  "cue_end": 14.4,
+  "cue_status": "whisper+envelope"
+ },
+ "C3": {
+  "in": 3.0,
+  "cues": [
+   [
+    0.35,
+    "People who do not have the ability"
+   ],
+   [
+    1.51,
+    "to communicate well or quickly"
+   ],
+   [
+    2.9,
+    "are often isolated and lonely."
+   ],
+   [
+    5.47,
+    "Having something like this will"
+   ],
+   [
+    6.62,
+    "give them hope and opportunity"
+   ],
+   [
+    7.85,
+    "to be more of themselves."
+   ]
+  ],
+  "cue_end": 9.0,
+  "cue_status": "whisper+envelope"
+ },
+ "C5b": {
+  "in": 3.12,
+  "cues": [
+   [
+    0.13,
+    "And when you look at what"
+   ],
+   [
+    1.1,
+    "the model does, it just sort of"
+   ],
+   [
+    2.91,
+    "politely presented"
+   ],
+   [
+    5.56,
+    "non-conspiratorial explanations"
+   ],
+   [
+    7.33,
+    "and contradictory facts"
+   ],
+   [
+    8.92,
+    "and evidence."
+   ]
+  ],
+  "cue_end": 9.33,
+  "cue_status": "whisper+envelope"
+ }
+}

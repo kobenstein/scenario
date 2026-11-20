@@ -1,0 +1,119 @@
+[calm, conversational] Artificial intelligence is bringing back the mammoth.
+
+A few winters from now, you're standing at a fence in the snow. There's a small hand in yours. And behind the fence, the animal from the poster above that child's bed... lifts its head. Red-brown fur. Small ears. Breath steaming in the cold.
+
+[curious] That animal doesn't exist yet. Between an elephant and a mammoth, there are about 1.4 million differences in their DNA. Which ones make a mammoth?
+
+[thoughtful] No human can check them all. No lab can change them all. So the search for the few that matter went to a machine.
+
+And the first test animals are already alive. Mice... with long, woolly, mammoth-style fur.
+
+[calm, conversational] The mice were the rehearsal. The real job is an elephant. And the same tools will help decide which of today's animals that child still gets to see.
+
+The mice belong to a company in Dallas called Colossal. And its plan is not to thaw out a frozen mammoth. The plan is to take the mammoth's living cousin, the Asian elephant... and rewrite its DNA for the cold.
+
+[thoughtful] And the machine's part in that plan? As reported this year, artificial intelligence helps comb through mammoth and elephant DNA... and flag the differences most likely to build a trait. The thick fur. The layer of fat. The small ears.
+
+It doesn't change a single gene. It writes the list.
+
+[calm, conversational] And it has plenty to read. Frozen ground kept mammoth DNA for thousands of years... and Colossal says it now holds about a hundred mammoth genomes. A hundred full sets of DNA.
+
+[curious] So why is there still no mammoth?
+
+[thoughtful] Because reading was never the hard part. Knowing what it means is. Start the count at 1.4 million. Most of those differences probably change nothing you would ever see.
+
+Only some of them change what a gene actually builds. One study found those in about sixteen hundred genes.
+
+Still far too many to rebuild. This is where the machine's ranking comes in... and the count drops again. Colossal's own list, by the latest reports? About a hundred and fifty genes... and rising.
+
+[curious] And tested in a living animal so far? Only in those mice. Seven genes, changed at once.
+
+[thoughtful] Critics add a caution. Genes like these were already known to change a mouse's coat. So the mice prove the editing... not the list.
+
+From seven genes in a mouse... to about a hundred and fifty in an elephant. And the man who runs Colossal, Ben Lamm, has every reason to promise that a machine will close that gap overnight. He doesn't.
+
+[CLIP C1]
+
+[thoughtful] No magic. Nothing overnight. The machine doesn't hand over a mammoth. It hands over a short list... and somebody has to test it.
+
+[curious] But how would a machine even know which differences matter? For the mammoth, Colossal has not shown that step in public. This October, it did... for a different animal. A bird. The dodo.
+
+[calm, conversational] And the dodo is the harder case. For the mammoth, there are about a hundred genomes. For the dodo, there is exactly one.
+
+[curious] One bird. Nothing to compare it with. So where does a machine begin?
+
+With the living. Colossal says its model, called GenoMorph, studied more than seventy living bird species... their DNA, and the exact shape of their skulls. That is how it learned which switches in the DNA shape a beak.
+
+Then it turned to the dodo... and came back with about twenty-three hundred candidates.
+
+[thoughtful] Twenty-three hundred places in the DNA that might have shaped that famous beak. Might. Colossal itself says this is not proof. Every candidate still has to prove itself in the lab.
+
+So that is how a machine finds the differences that matter. It doesn't know them. It learns them... from animals that are still alive.
+
+[calm, conversational] Today, the machine writes a list. The machines that follow will be asked for far more. This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.
+
+[thoughtful] A list is not an animal, of course. Somebody still has to grow one... and a bird grows in an egg. This spring, the company says, live chicks hatched from an egg no bird ever laid... a see-through skin, held in a 3D-printed shell.
+
+[curious] So suppose all of it works. Every pick, right. Is the animal that walks out... a mammoth?
+
+[calm, conversational] There is a way to check. Three animals made by editing a living relative are already alive.
+
+Romulus, Remus and Khaleesi. Colossal presented them as dire wolves... a wolf that died out thousands of years ago. They began as gray wolf cells. Twenty edits went in... guided by DNA from a tooth thirteen thousand years old. Colossal says the oldest are now two years old, healthy, and hunting as a pack.
+
+[curious] So are they dire wolves?
+
+[ZITATKARTE: "The three animals produced by Colossal are not dire wolves." · IUCN SSC Canid Specialist Group, April 18, 2025 · nur im Bild, wird nicht gesprochen]
+
+[thoughtful] Wolf experts at the union behind the Red List of threatened species say no. And Colossal's own chief scientist, Beth Shapiro, has said plainly what they are.
+
+[ZITATKARTE: "Our animals are grey wolves with 20 edits that are cloned." · Beth Shapiro, Chief Science Officer, Colossal · to New Scientist, May 2025 · wird gesprochen, siehe nächste Zeile]
+
+"Our animals are gray wolves with twenty edits that are cloned."
+
+[calm, conversational] That is what "bringing back" means today. The traits come back. The species does not.
+
+And it tells you what would really stand behind that fence. An Asian elephant... with a mammoth's fur, fat, and small ears. An elephant built for the cold.
+
+And not soon. The first calf was once promised for twenty twenty-eight. Now Colossal says the early twenty-thirties... and its chief executive says there is no hard date.
+
+[ZITATKARTE: "Not 2036, but not 2030 either." · Ben Lamm, TIME, Aug 24, 2026 · nur im Bild, wird nicht gesprochen]
+
+[wry] That is a hope, not a timetable. So far, nobody has reported a mammoth embryo... or a pregnant elephant. And an elephant carries her calf for almost two years.
+
+[curious] So is one shaggy elephant, years behind schedule, really what all of this is for?
+
+[thoughtful] It isn't. The bigger prize is the animals that are still here. And the mammoth itself shows why.
+
+The last mammoths died only about four thousand years ago, on a remote island in the Arctic. The great pyramids of Egypt were already standing. But nobody was there to freeze a single living cell. The ice kept only broken DNA. That is why every trait has to be rebuilt... difference by difference.
+
+[calm, conversational] Now take an American animal that got luckier. In the nineteen-eighties, somebody froze living cells from a black-footed ferret named Willa.
+
+Decades later, those cells became living clones. According to U.S. wildlife officials, one of them had babies two years ago... and last year, her babies had babies of their own.
+
+[wry] A ferret from the nineteen-eighties... has grandchildren.
+
+No short list. No guesswork. Just a freezer, opened in time.
+
+[calm, conversational] Now scale that up. The U.S. government and Colossal plan to freeze cells from every species on the country's endangered list. Every one. And the genomes are meant to go online, free.
+
+[thoughtful] A freezer is not a forest. It protects no habitat. But think about what the machine learns from. The living. Every genome saved is one more lesson in which differences matter. Every species that vanishes unread... is a lesson gone for good.
+
+Even the mammoth depends on the living. Its mother would be an Asian elephant... and her species is endangered too. In North American zoos, the leading killer of her calves is a virus. This summer, researchers reported on a vaccine that Colossal helped pay for. Two young elephants who got it caught the virus... and came through without treatment.
+
+Two calves are a first sign, not proof. But the road to a mammoth begins with keeping elephants alive.
+
+And the elephant is not alone. This year's Red List counts about fifty thousand species as threatened.
+
+[thoughtful] So here is what the evidence says. Artificial intelligence is helping to bring back the mammoth's traits... in an elephant. Not the mammoth itself.
+
+The mammoth draws the cameras and the money. The rescue itself happens somewhere quieter. In a freezer... and in a machine that is learning to read what's inside.
+
+[calm, conversational] So stand at that fence once more. Maybe, in the early twenty-thirties, there really is a small hand in yours... and an elephant in a mammoth's coat lifts its head.
+
+Should it ever walk free on the tundra? Last year, the union behind the Red List voted on a pause for genetically modified wild animals. The pause failed... by a single vote. So who decides?
+
+[thoughtful] Whatever the answer, the prize was never one mammoth. It is that child, grown up, in a world where elephants, ferrets, and thousands of others are still alive... not just on a poster.
+
+The mammoth is the poster. The freezer is the ark.
+
+[calm, conversational] These films exist so that the arrival of superintelligence goes well for everybody... and for everything that lives here with us. Want that too? Then subscribe.

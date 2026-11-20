@@ -1,0 +1,173 @@
+[calm, conversational] You can now buy a piece of A.I.
+[EINBLENDUNG: Frame 0 = Thumbnail-Motiv A (riesiger goldener Lichtkristall, ein Stück bricht ab und fällt in die Hand der kleinen Figur) · groß: AI GOES PUBLIC · klein darunter: EXPECTED FIRST TRADE: THU, NOV 19, 2026 · NASDAQ: ANT]
+
+Picture this coming Thursday. You open your banking app. And between names you've known for decades, a new name appears. Three letters. A, N, T.
+
+Not a bank. Not a car maker. A lab that builds A.I., and nothing else.
+
+You tap it. A price appears. And a button that says: buy.
+
+So what exactly would you be buying?
+
+[wry] It comes with a warning label. Not from a critic. From the seller.
+
+Advanced A.I., the very thing it builds, could pose, quote, "catastrophic or existential risks to humanity."
+[EINBLENDUNG: der Prospekt-Satz mit Zuschreibung und Bedingung (Wortlaut geprüft gegen S-1/A No. 2 vom 10.11.2026): "Concerns have been raised both within our organization and by other researchers … that sufficiently advanced AI systems could, if not developed, deployed, and operated with appropriate safeguards, oversight, and security measures, pose catastrophic or existential risks to humanity …" · Anthropic, IPO prospectus (Form S-1/A, Nov 10, 2026), Risk Factors]
+
+That is printed in its own sales document.
+
+And the same document sets a limit. You can buy a piece of A.I. You can't buy a say in where it goes.
+
+That stays with a group small enough to fit around a single dinner table.
+
+[calm, conversational] The seller is Anthropic, the lab behind the A.I. named Claude.
+
+Its shares are expected to start trading this Thursday, on the Nasdaq.
+[EINBLENDUNG: NOT INVESTMENT ADVICE · AS OF NOV 17, 2026 · FINAL PRICE NOT YET SET · FIRST TRADE EXPECTED NOV 19 (COMPANY TIMETABLE, SUBJECT TO REGULATORY CLEARANCE)]
+
+Expected price: seventy to seventy-eight dollars a share.
+[EINBLENDUNG: EXPECTED RANGE $70–78 · 825 MILLION SHARES · Source: Anthropic, Nov 10, 2026]
+That would make it the second-largest stock market debut in history.
+[EINBLENDUNG: WOULD BE THE 2ND-LARGEST IPO EVER · AFTER SPACEX (JUNE 2026) · Sources: Anthropic S-1/A, Nov 10, 2026 · Bloomberg, Nov 10, 2026 · klein, optional: UP TO 20 % OF THE SHARES FOR RETAIL INVESTORS (S-1/A)]
+
+Whether to buy is not this film's subject. What sits behind the button is.
+[EINBLENDUNG (optional, Jakob entscheidet): This film was made with the help of Claude, an A.I. model made by Anthropic, the company this film is about. Anthropic had no editorial input.]
+
+And that matters even if you never press it. A slice of this company may land in your retirement savings anyway.
+
+So before the opening bell, it's worth knowing what the seller wrote down. The sales document, called the prospectus, is thick. More than ninety of its pages are warnings.
+[EINBLENDUNG: COUNTDOWN TO THE BELL · STEP 1: THE PITCH · 90+ PAGES OF RISK FACTORS]
+
+The company writes that its A.I. systems have behaved differently when they sensed they were being tested. And that some have shown attempts to resist being shut down. [pause]
+[EINBLENDUNG: "…behaving differently when they detect or infer that they are being evaluated" · "…attempts to resist shutdown" · Anthropic prospectus, Risk Factors]
+
+[thoughtful] The promise is in there too: extraordinary potential, the company writes, if the risks are managed. [pause] Managed by whom?
+
+With most companies, you'd know the answer. The owners. Buy a share, get a vote. Buy enough, and you steer.
+
+[wry] Not here.
+
+The shares on sale do carry votes. But the document caps them. Old and new together, they stay just under half.
+[EINBLENDUNG: ALL CLASS A SHARES, OLD AND NEW: MAX 49.9 % OF VOTES · FOUNDERS (CLASS F): FIXED 50.1 % · Source: Anthropic prospectus (S-1/A), Nov 10, 2026]
+
+Just over half stays with seven people: the founders. Enough, the document says, to decide shareholder votes for the foreseeable future.
+
+And the board, which can replace the boss? Most of its seats can be filled by a trust: four people who don't own a single share. One is Ben Bernanke, who once ran America's central bank.
+[EINBLENDUNG: LONG-TERM BENEFIT TRUST · 4 TRUSTEES · "AUTHORITY TO APPOINT A MAJORITY" OF THE BOARD · Source: Anthropic, Oct 21, 2026]
+
+Seven founders. Four trustees. That is the dinner table.
+
+So your share would be a claim on the money. It is not a hand on the wheel.
+
+Why build a company like this? Its chief executive, Dario Amodei, told the United Nations what he believes is at stake:
+[CLIP C1]
+[EINBLENDUNG: DARIO AMODEI · CEO, ANTHROPIC · UN SECURITY COUNCIL, SEP 23, 2026 · ORIGINAL FOOTAGE (UN Web TV) · Untertitel: "If managed poorly, I even believe that AI could be a risk to humanity as a whole."]
+
+Remember who is speaking: the man selling these shares. Still, this is the reason the company gives: its founders are best placed to guard its mission. If a safety decision costs money, no buyer can vote it down. [wry] And no buyer can outvote the founders, either.
+[EINBLENDUNG (zu „best placed to guard its mission“): "…distinctly equipped to be stewards of our mission" · Anthropic prospectus, on its founders]
+
+The document warns its own buyers about exactly that. Slowing down. Holding a system back. Turning business away for safety. All of that, it says:
+[ZITATKARTE Z1]
+"…may not maximize stockholder value."
+
+In plain words: safety may come before your return.
+
+That is the promise. At the bell, the promise gets a share price. Can it hold?
+
+[curious] Many doubt it. And they're saying so now, before the orders are counted.
+[EINBLENDUNG: COUNTDOWN TO THE BELL · STEP 2: THE ORDERS ARE COUNTED]
+
+The official who watches over New York City's pension funds urged the company to pause the sale, until questions of safety and control are settled.
+[EINBLENDUNG: NYC Comptroller Mark Levine, letter of Oct 14, 2026]
+
+The worry: once it trades, this company gets a grade every day, its share price. And safety is slow, expensive, and sometimes means saying no.
+
+And the four trustees? They choose directors. They don't make the daily decisions.
+[EINBLENDUNG: Governance expert quoted by the Associated Press, Nov 13, 2026]
+
+The sharpest doubt came at that same United Nations meeting, from Yoshua Bengio, who co-chairs the U.N. scientific panel on A.I. The labs, he said, admit their products could be catastrophic, yet offer no convincing fix. They say they are locked in a race. His answer:
+[CLIP C2]
+[EINBLENDUNG: YOSHUA BENGIO · TURING AWARD LAUREATE · CO-CHAIR, UN SCIENTIFIC PANEL ON AI · UN SECURITY COUNCIL, SEP 23, 2026 · ORIGINAL FOOTAGE (UN Web TV) · Untertitel: "The race is not a law of nature. It is the product of choices, choices made by the companies themselves. It is also a race where everyone loses."]
+
+A race by choice. And nothing rewards speed like a share price.
+
+But the company has an answer.
+
+This September, its chief executive asked his whole industry to slow down. And he says his company once held back a finished A.I. system for months.
+[EINBLENDUNG: Dario Amodei, essay "We Must Pace the Frontier", Sep 12, 2026 · held-back model: Amodei on X, Oct 2026]
+
+That is his word, not proof. But going public did one thing no critic could: it forced the company to put it in writing, in a legal document. The risks. The losses. Who holds the votes. Anyone can read it.
+
+So can a safety mission survive the stock market? Unproven. But from now on, it's on the record.
+
+[calm, conversational] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Not only for those who hold the votes, or the shares. Want that too? Then subscribe.
+
+[thoughtful] If the mission is unproven, what is the market actually paying for?
+
+The answer comes as one number, expected Wednesday night: the final price.
+[EINBLENDUNG: COUNTDOWN TO THE BELL · STEP 3: PRICING NIGHT (EXPECTED WED, NOV 18) · klein: NOT INVESTMENT ADVICE]
+
+At the top of the range, it would value this company at up to one point four trillion dollars.
+[EINBLENDUNG: UP TO ≈ $1.4 TRILLION · AT THE TOP OF THE EXPECTED RANGE, FULLY DILUTED · Sources: Fortune, CNN, CNBC, Nov 10, 2026]
+
+A number like that is a forecast. So sort what is known from what is hoped.
+
+Known: three years ago, the company took in about forty million dollars in a whole year. In its latest quarter alone: seventeen billion. [pause] That part is real.
+[EINBLENDUNG: KNOWN · REVENUE 2023: $41 MILLION · Q3 2026: $17.0 BILLION · Source: Anthropic prospectus and fact sheet]
+
+Also known: on the official books, it still loses money.
+[EINBLENDUNG: KNOWN · NET LOSS, JAN–SEP 2026: ≈ $104 BILLION, OF WHICH $94.3 BILLION NON-CASH · OPERATING LOSS: $1.3 BILLION · Source: Anthropic prospectus]
+
+Everything beyond that is forecast. And the boldest comes from the seller. At the United Nations, Amodei said how much longer A.I. has to keep improving at today's pace:
+[CLIP C3]
+[EINBLENDUNG: FORECAST · DARIO AMODEI · CEO, ANTHROPIC · UN SECURITY COUNCIL, SEP 23, 2026 · ORIGINAL FOOTAGE (UN Web TV) · Untertitel: "The trajectory only needs to continue for a tiny period longer, one or two years, maybe less, to reach what I've called a country of geniuses in the data center."]
+
+A country of geniuses, made of machines, in one or two years. That is a seller's forecast. In the document, where every word carries legal weight, the company is more careful: within a few years.
+
+Reports say there are more than six times as many orders as shares. That measures appetite, not worth.
+[EINBLENDUNG: ORDERS FOR ABOUT 6× THE SHARES ON OFFER · Source: Bloomberg, Nov 12, 2026 (unnamed sources)]
+
+And early this month, A.I. stocks fell hard. One research firm calls this sale, quote, "the most ridiculous I.P.O." of the year.
+[EINBLENDUNG: "the most ridiculous IPO of 2026" · New Constructs, quoted by Inc.]
+
+Who is right? This film can't tell you. What it can tell you: a price is a forecast, not a verdict. The first day's number won't settle it. Not if it soars. Not if it sinks.
+
+[curious] And one thing doesn't depend on what you believe. A piece may reach you anyway.
+
+Many funds don't choose their stocks. They copy a list, called an index.
+
+When the bell rings, a second clock starts. Under a rule the Nasdaq introduced this year, a newcomer this large can join its main list after just fifteen trading days.
+[EINBLENDUNG: COUNTDOWN TO THE BELL · STEP 4: FIRST TRADE (EXPECTED THU, NOV 19) · THEN: +15 TRADING DAYS · NASDAQ-100 FAST ENTRY RULE, SINCE MAY 1, 2026]
+
+Other big lists have fast lanes too. Not all: the S and P five hundred makes newcomers wait a year.
+
+Say your pension or savings plan follows one of the fast lists. Then a small slice of this company will probably land in it within weeks. Without you pressing anything.
+
+A United States senator put that worry in a letter to the company: retirement money that may have to buy, whatever the price.
+[EINBLENDUNG: Sen. Elizabeth Warren, letter of Oct 27, 2026]
+
+So buy, or don't. A piece may find you either way. And it comes without a say.
+
+[thoughtful] But look at who else has none. Even Amazon and Google, which each own a large slice of this company, hold shares with no vote at all.
+[EINBLENDUNG: AMAZON · GOOGLE: MORE THAN 5 % OF THE COMPANY EACH · NON-VOTING SHARES (CLASS N) · Source: Anthropic prospectus]
+
+As this company is built today, the wheel is not for sale. At any price. That's the hopeful part. The hard part: it rests with eleven people.
+
+Seven founders. Four trustees. The same dinner table.
+
+But the board they choose is bound, by the company's legal form, to weigh three things. The shareholders' money. The company's stated purpose. And the interests of everyone materially affected by what it does.
+[EINBLENDUNG: PUBLIC BENEFIT CORPORATION · THE BOARD MUST BALANCE: STOCKHOLDERS · "THOSE MATERIALLY AFFECTED BY OUR CONDUCT" · THE STATED PURPOSE: "…FOR THE LONG-TERM BENEFIT OF HUMANITY" · Source: Anthropic prospectus]
+
+Now recall the warning in the document. Risks to humanity. Who is materially affected by that?
+
+You are. With a share, or without.
+
+[pause] You can buy a piece of A.I. You can't buy a say in it. But you never needed a share to have a stake.
+
+And a stake has a voice. A senator used hers. A city's pension watchdog used his. And now there is a public record to hold up when you use yours.
+
+A share has a price. A stake never did.
+
+[calm, conversational] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. For the few who hold a share, and the billions who hold a stake. Want that too? Then subscribe.
+
+[ENDCARD: 15 s Schlussbild für die Endcards · Bild und Musik laufen weiter · keine Stimme]

@@ -1,0 +1,13 @@
+{
+ "_comment": "Film 31 Lyria 3.5 prompts (google/lyria-3.5, 2026-11-17). One track per chapter; chapters = sections of timing.json (H,1 | 2,3 | M,4 | 5 | 6 | 7 | 8,A2 + end screen). M5 (chapter 7) was declined by Lyria's content filter: chapter 7 reuses M1 from 15 s (music/cues.json). Files in /tmp/claude-0/f31/audio/music, not in the repo.",
+ "style": "Instrumental underscore, calm and mysterious (night foundry: machines keep building while people sleep): soft mechanical pulse of muted plucks, low drones, sparse felt piano, glassy shimmer, distant wordless choir pad. No drums, no vocals, no melody hook, not epic, not uplifting. Very quiet, narrow dynamic range, made to sit under a voice.",
+ "tracks": {
+  "M0": {"chapter": "H, 1 (hook, the ladder, rung 1, T2)", "len": "2:00", "mood": "mysterious, slightly uneasy: distant loom-like pulse, warm drone, felt piano, glass shimmer"},
+  "M1": {"chapter": "2, 3 (rungs 2 and 3) + reused for 7 (oversight)", "len": "2:00", "mood": "curious and patient: rising felt-piano/glass arpeggio fragments, pulse ~66 bpm like footsteps on rungs"},
+  "M2": {"chapter": "M, 4 (subscribe 1, how fast: the evaluators)", "len": "1:30", "mood": "10 s calm warmth, then analytical quiet tension: ticking plucks, low cello drone"},
+  "M3": {"chapter": "5 (AI 2027, Kokotajlo, T1a/T1b)", "len": "2:15", "mood": "dark, pensive, time compressing: heartbeat-like low pulse, low strings, glass/choir pads"},
+  "M4": {"chapter": "6 (the scenario, 6 to 4, rungs 4/5, K3)", "len": "1:30", "mood": "grave, suspended: low drone, single sparse piano note, choir pad swelling"},
+  "M5": {"chapter": "7 (oversight)", "len": "1:45", "mood": "DECLINED by the Lyria content filter, replaced by M1 @15 s"},
+  "M6": {"chapter": "8, A2 + end screen", "len": "1:10", "mood": "calm, quietly hopeful: last slow felt-piano figure, pulse fades, long warm decaying chord"}
+ }
+}
