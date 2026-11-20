@@ -1,0 +1,36 @@
+{
+ "model": "google/lyria-3.5 (fal)",
+ "base": "Instrumental cinematic documentary underscore, no vocals, no lyrics, no singing, no drums, no percussion, no beat. Mystical and contemplative, like walking a long empty road at night under a dark blue sky, a small golden light carried in the hand: deep warm low drone, slowly breathing analog pads, sparse felt piano, soft glass harmonica tones, a distant wordless choir pad like breath in a stone hall. Quiet gravity and calm, not uplifting, not epic, not horror, no big hits, no build to a loud climax. ",
+ "tracks": [
+  {
+   "file": "M0",
+   "chapter": "hook + the clock (day 0 = Oct 6, four exits) + what's inside the bubble: data centers, borrowed money, China (s00-s04, C1 Powell)",
+   "sec": 135,
+   "prompt": "Instrumental cinematic documentary underscore, no vocals, no lyrics, no singing, no drums, no percussion, no beat. Mystical and contemplative, like walking a long empty road at night under a dark blue sky, a small golden light carried in the hand: deep warm low drone, slowly breathing analog pads, sparse felt piano, soft glass harmonica tones, a distant wordless choir pad like breath in a stone hall. Quiet gravity and calm, not uplifting, not epic, not horror, no big hits, no build to a loud climax. 135 seconds. Theme: a red number falling on a phone screen at night, then a calm voice; a flip counter of days; a long road with four exits; giant data centers humming in the dark. [0:00-0:05] starts immediately at full presence, low drone and soft pad already sounding, no fade-in, no silence. [0:05-0:55] a slow, questioning four-note felt-piano motif over the drone, faint glass shimmer, like a counter ticking over in the dark, steady and patient. [0:55-1:40] the drone deepens, a low humming pad like distant machines, a faint cold unease, sparse low piano notes. [1:40-2:15] thins out to a soft held low tone with a faint glass note, decays quietly."
+  },
+  {
+   "file": "M1",
+   "chapter": "day 31: the first protection, a pause (Fidelity; 'This isn't financial advice' sparse) + day 48 tariff crash (C1b Warsh) (s05-s08)",
+   "sec": 100,
+   "prompt": "Instrumental cinematic documentary underscore, no vocals, no lyrics, no singing, no drums, no percussion, no beat. Mystical and contemplative, like walking a long empty road at night under a dark blue sky, a small golden light carried in the hand: deep warm low drone, slowly breathing analog pads, sparse felt piano, soft glass harmonica tones, a distant wordless choir pad like breath in a stone hall. Quiet gravity and calm, not uplifting, not epic, not horror, no big hits, no build to a loud climax. 100 seconds. Theme: red numbers everywhere, then a phone turned face down on a table; a breath; a road sign at the first exit. [0:00-0:35] restless but quiet, a soft pulsing pad and a few uneasy glass notes, like many small screens glowing in the dark. [0:35-0:52] almost nothing: only a single soft held low tone, very sparse and still, no piano, like holding your breath. [0:52-1:25] calm returns, the four-note felt-piano motif slowly over a warm drone, a soft distant choir pad. [1:25-1:40] thins to a held tone that decays."
+  },
+  {
+   "file": "M2",
+   "chapter": "protections 2 and 3 (know what you own, a buffer) + day 282 rate shock + day 517 financial crisis + day 929 dot-com hangover, protection 4: use what became cheap (s09-s13)",
+   "sec": 165,
+   "prompt": "Instrumental cinematic documentary underscore, no vocals, no lyrics, no singing, no drums, no percussion, no beat. Mystical and contemplative, like walking a long empty road at night under a dark blue sky, a small golden light carried in the hand: deep warm low drone, slowly breathing analog pads, sparse felt piano, soft glass harmonica tones, a distant wordless choir pad like breath in a stone hall. Quiet gravity and calm, not uplifting, not epic, not horror, no big hits, no build to a loud climax. 165 seconds. Theme: looking inside a fund like a glass box; a small reserve of coins as a buffer; road signs at the exits passing in the night; then green shoots after a crash, new tools growing in the hangover. [0:00-0:50] curious and grave, a low steady drone, a slow felt-piano figure like counting, glass harmonics. [0:50-1:35] darker and slower, a heavy low pad and bowed-string drone, sparse low piano like distant road markers passing, a held breath. [1:35-2:45] slowly warming, the pad opens, a gentle rising piano line, a faint choir pad, quiet resilience, still restrained, ends on a held chord."
+  },
+  {
+   "file": "M3",
+   "chapter": "the safety nets: deposit insurance, the emergency brake, stress tests + the hole: data-center debt off the books, protection 5 (s14-s18)",
+   "sec": 132,
+   "prompt": "Instrumental cinematic documentary underscore, no vocals, no lyrics, no singing, no drums, no percussion, no beat. Mystical and contemplative, like walking a long empty road at night under a dark blue sky, a small golden light carried in the hand: deep warm low drone, slowly breathing analog pads, sparse felt piano, soft glass harmonica tones, a distant wordless choir pad like breath in a stone hall. Quiet gravity and calm, not uplifting, not epic, not horror, no big hits, no build to a loud climax. 132 seconds. Theme: nets of light spread under a road; a brake lever; a test on paper; then a dark gap in the net beneath a huge data center. [0:00-0:55] calm and spacious, a warm drone, slow felt-piano chords like threads being woven, soft glass harmonica. [0:55-1:35] cooler and more uneasy, a low pulsing sub drone, a single repeated high glass note like something missing, quiet tension, no drums. [1:35-2:12] settles into a grave, calm held chord with a soft distant choir pad, fading."
+  },
+  {
+   "file": "M4",
+   "chapter": "day 1,000 (C3 Hassabis) + ending: the five protections, which one is missing + 15-s end screen (s19-s21)",
+   "sec": 100,
+   "prompt": "Instrumental cinematic documentary underscore, no vocals, no lyrics, no singing, no drums, no percussion, no beat. Mystical and contemplative, like walking a long empty road at night under a dark blue sky, a small golden light carried in the hand: deep warm low drone, slowly breathing analog pads, sparse felt piano, soft glass harmonica tones, a distant wordless choir pad like breath in a stone hall. Quiet gravity and calm, not uplifting, not epic, not horror, no big hits, no build to a loud climax. 100 seconds. Theme: the road at first light after a long night; what is still standing; a quiet list of five things carried on the way. [0:00-0:40] reflective and calm, the four-note piano motif from the beginning, slow, over warm pads and a gentle drone. [0:40-1:15] the motif resolves gently to a warm open chord, glass harmonics shimmer, a soft wordless choir pad, restrained, not triumphant. [1:15-1:40] a quiet held chord and gentle drone for the end screen, slowly fading to silence."
+  }
+ ]
+}

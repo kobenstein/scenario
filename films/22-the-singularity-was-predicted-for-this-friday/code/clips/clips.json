@@ -1,0 +1,77 @@
+{
+  "film": "19-friday",
+  "note": "in/out are source timestamps without the margin. Each MP4 carries about 1 s of extra source before in and after out. Music was checked by spectrogram and audio levels, not by ear.",
+  "clips": [
+    {
+      "id": "C1",
+      "file": "C1.mp4",
+      "speaker": "Heinz von Foerster",
+      "role": "Cybernetician",
+      "source_title": "High Tech Heroes, #10, part 1: Heinz von Foerster and Cybernetics",
+      "channel": "atwaterpub",
+      "url": "https://youtu.be/GWcyHbmsXS0",
+      "date": "2011-01-25 (YouTube upload; original broadcast date not stated)",
+      "in": "00:08:33.600",
+      "out": "00:08:43.650",
+      "transcript": "This is a fascinating process, what's going on: constantly circularity between a little bit of organization fostering more organization, et cetera, et cetera.",
+      "burned": false,
+      "background_music": "None detected. Steady tape hiss from the analog source.",
+      "notes": "Only 640x480 is available. The interviewer says 'okay' in the tail margin."
+    },
+    {
+      "id": "C2",
+      "file": "C2.mp4",
+      "speaker": "David Rein",
+      "role": "METR researcher, co-author of the Time Horizons paper",
+      "source_title": "The AI Progress Chart Everyone Is Misreading — Beth Barnes & David Rein",
+      "channel": "Machine Learning Street Talk",
+      "url": "https://youtu.be/zSAGzfspuDE",
+      "date": "2026-05-04",
+      "in": "00:24:50.720",
+      "out": "00:25:03.100",
+      "transcript": "We have, we have this distribution of tasks, um, and, you know, you can imagine them kind of like ordered by length, um, of time for, for humans, either measured or estimated, um, and then we see, you know, which tasks do models succeed on and which do they fail on.",
+      "burned": false,
+      "background_music": "None detected. Clean pauses in the spectrogram. Music in this video was only flagged in the cold open around 00:00:41.",
+      "notes": "Explains human task length versus AI success, but does not say '50%' or 'time horizon'. For those words use C2_alt or the narration. Camera cuts fall at 00:24:50.59 and 00:25:03.22, just outside in and out."
+    },
+    {
+      "id": "C2_alt",
+      "file": "C2_alt.mp4",
+      "speaker": "David Rein",
+      "role": "METR researcher, co-author of the Time Horizons paper",
+      "source_title": "The AI Progress Chart Everyone Is Misreading — Beth Barnes & David Rein",
+      "channel": "Machine Learning Street Talk",
+      "url": "https://youtu.be/zSAGzfspuDE",
+      "date": "2026-05-04",
+      "in": "00:25:41.840",
+      "out": "00:25:59.900",
+      "transcript": "We, we take the kind of 50, 50th percentile, um, uh, so where this logistic function, where this model, um, estimates that, you know, this given model is 50% likely to be able to, to complete a task, and that, you know, that's what forms the, the time horizon, uh, number for, for a particular model.",
+      "burned": false,
+      "background_music": "None detected. Clean pauses in the spectrogram.",
+      "notes": "Alternative to C2. Contains '50%' and 'time horizon' but runs 18 s, above the 10-12 s target. The first 8-10 s show a full-screen figure from the METR paper instead of the speaker."
+    },
+    {
+      "id": "C3",
+      "file": "C3.mp4",
+      "speaker": "Beren Millidge",
+      "role": "CTO of Zyphra",
+      "source_title": "AI researchers debate how close we are to recursive self-improvement",
+      "channel": "Dwarkesh Patel",
+      "url": "https://youtu.be/PrSf7IOYu-I",
+      "date": "2026-09-11",
+      "in": "00:54:45.920",
+      "out": "00:54:56.850",
+      "transcript": "You come out with a model which is better at this stuff, you specialize it again and you like consolidate it again, and then eventually we'll just like make this leap faster and faster, so instead of like every 3 months we release a model, now it's like every week and then every like day and then every hour.",
+      "burned": false,
+      "background_music": "None detected. Clean pauses in the spectrogram.",
+      "notes": "A forecast about models improving from their own deployment data, not about AI doing research on its own. 'leap' follows the dwarkesh.com transcript; the YouTube auto-captions read 'loop'. Runs 10.9 s; starting at 'and then eventually' (00:54:50.400) gives 6.5 s but loses the context. The sentence continues 'at which point we basically have obviously solved it', which is cut off here."
+    }
+  ],
+  "not_cut": [
+    {
+      "id": "C4",
+      "url": "https://youtu.be/AB-ZexvCqmY",
+      "reason": "Von Foerster does not speak in this video. It is an Italian interview in which someone else paraphrases his maxim, around 00:01:25-00:01:33, per auto-translated captions."
+    }
+  ]
+}

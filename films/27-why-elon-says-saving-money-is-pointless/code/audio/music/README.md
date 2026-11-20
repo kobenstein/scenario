@@ -1,0 +1,6 @@
+# Film 26 music (Lyria 3.5 on fal, google/lyria-3.5, 2026-11-11, 8 x 0.10 USD), one track per chapter
+cues.json rows as Film 25 ({"f", "at" (take/slot id or "L<sec>" = chapter start), "dt", "fin", "fout", "end" (take/slot/"L<sec>"/END), "end_dt", "opts"}): mix.py anchors every cue on takes/chapters, so slot changes (real clips) move them along.
+M0 HOOK + station 1 (to s04, ~120 s) · M1 line 1 (L2) · M2 line 2 (L3, incl. channel call) · M3 line 3 (L4, C2/C4) · M4 line 4 (L5, C3) · M5 line 5 (L6, loop 10-20 s repeated) · M6 the fix (L7, C5) · M7 verdict + 15 s end screen (L8 to END, fades over the last 10 s).
+Style: mystical, thoughtful, drones/pads/felt piano/glass; no drums, no vocals, not uplifting (prompts: common style line + one mood sentence per track, "A n-minute track").
+Request ids: M0 01a1cad4-2f1e-72b0-8507-233c58e99d8d · M1 01a1cad4-2f15-7492-b2ac-18d443aa10f9 · M2 01a1cad4-2f1d-77d1-82c1-3bfb4c8f926f · M3 01a1cad4-2f20-74c2-84f4-a7879f3db498 · M4 01a1cad4-2f17-7821-a7ef-10717321a373 · M5 01a1cad4-2f1a-7d30-b73d-fc7ed2ccf365 · M6 01a1cad4-2f1b-7c23-b932-441408c7cee9 · M7 01a1cad4-2f1c-7590-b544-bd8d8af27b1c
+The mp3 files live in <scratch>/music (not in the repo): /tmp/claude-0/-home-user/2390fd9b-30dd-55fc-82e0-ea1c9fdfcd9a/scratchpad/f26/audio/

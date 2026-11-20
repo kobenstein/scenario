@@ -1,0 +1,190 @@
+Let's build a billion-dollar company.
+Just you, a kitchen table, and artificial intelligence.
+No office. No staff. No investors.
+Sounds like a fantasy?
+Not to the people building this technology.
+
+[CLIP: Amodei]
+
+That's the head of one of the biggest artificial intelligence labs.
+He said it last year. He meant this one.
+Nobody has done it yet.
+
+But if one person can, so can millions.
+And then, who wins?
+Just you?
+Or all of us?
+
+So let's build it, in three steps.
+Your team. Your product. Your growth.
+At each step: why it's suddenly possible, and where it breaks.
+And then, what happens when millions follow the same guide.
+
+One developer started a tool called Base Forty-Four, alone, as a side project.
+About six months later, Wix bought it for around eighty million dollars.
+By then, he had a small team.
+
+Step one.
+You, at the kitchen table, with an idea.
+And around you, quietly, a team appears.
+One writes the code. One designs.
+One answers your customers at three in the morning.
+
+Companies got big because working together was expensive.
+Now it's getting cheap.
+And that means you can go small.
+You can build for a problem only forty people have.
+For a corporation, that's nothing.
+For you, it's a start.
+
+But if you can hire this team in an afternoon, so can everyone else.
+Keep that in mind.
+
+Step two.
+Build it, in weeks.
+Your edge is speed.
+What a company plans for a quarter, you can ship by Friday.
+
+But building got cheap.
+Attention didn't.
+In the first half of this year, new apps in the App Store almost doubled.
+Downloads barely moved.
+
+Step three.
+Grow.
+Your team has advice for every decision.
+Does that make you better?
+In Kenya, hundreds of small business owners got exactly that: an artificial intelligence adviser on WhatsApp.
+Food stalls. Poultry farms. Internet cafés.
+The ones already doing well earned more.
+The ones who were struggling earned less.
+The advice was similar.
+But the struggling ones picked the generic tips, like cutting prices.
+
+Artificial intelligence isn't an equalizer.
+It's an amplifier.
+
+And your team is rented.
+So yes, you have a real chance against a corporation.
+Just not an equal one.
+
+Now imagine you're not the only one following this guide.
+Millions are.
+Remember: everyone can hire the same team.
+So picture two worlds.
+
+In the first, a few superstars win almost everything.
+Everyone else rents the same tools from a handful of companies, and the gap keeps growing.
+Your table still glows.
+It's just one light in a flood that nobody sees.
+And we're already drifting this way.
+In America, the smallest businesses use these tools less than big ones.
+So do workers in the Global South.
+Both gaps are growing.
+
+Now the second world.
+The floor rises.
+A nurse builds the rota tool her ward has needed for years.
+A farmer in Kenya gets advice in his own language, on a simple phone.
+A teacher in India builds an exercise for the student who keeps falling behind.
+Millions of small workshops, each run by someone who knows a problem by heart.
+And the giants don't disappear.
+They become the roads everyone drives on.
+
+Pause here.
+Which world would you bet on?
+
+So here's the answer.
+The technology doesn't decide this.
+The same tools lead to both worlds.
+A few choices do.
+And we're making them right now.
+
+Which choices?
+Four answers: one for each person in that second world, and one for you.
+Each one is already being tried.
+None of them is finished.
+
+One.
+Someone at your side.
+Think of the farmer with his simple phone.
+More advice alone won't carry him far.
+The struggling owners in Kenya had advice.
+What they may have needed was someone to help them choose.
+Something like that did help.
+Women running small businesses in Kenya were paired with experienced local businesswomen as mentors.
+Their profits rose by about a fifth.
+The effect faded over time, and mentors don't scale like software.
+But the same pattern shows up in a classroom in Nigeria.
+Students learned English with an artificial intelligence tutor, and their teachers right beside them.
+In six weeks they made big gains, and girls gained the most.
+So give the farmer the machine and a person.
+A mentor, a neighbour, a co-op, someone a few steps ahead.
+
+Two.
+Access for everyone.
+The teacher in India, building that exercise?
+She needs computing power she can afford.
+India now offers it to startups and small firms for less than a dollar an hour.
+Britain offers every adult a free course in artificial intelligence, aiming for ten million workers by twenty thirty.
+Does it work? Nobody knows yet. It's a bet.
+But it's the right kind of bet.
+Treat computing power like a road.
+The public builds it.
+Everyone drives on it, including her.
+
+Three.
+Tools nobody can switch off.
+Remember: your team is rented.
+One startup, Windsurf, lost direct access to the models it was building on.
+With less than five days' notice.
+The landlord was the company from that first clip.
+Five days is fine for a hobby.
+Not for a livelihood.
+So the nurse's rota tool should run on a model nobody can take away, with the freedom to switch.
+The World Bank makes a similar case: small, cheap tools, and no dependence on a single provider.
+Open tools still cost money to run, and fair rules take years to write.
+But a tool that runs on the cheapest phone works for almost everyone.
+Including the nurse on the night shift.
+
+Four.
+Safety to take a risk.
+And you?
+What would it take for you to jump?
+Most people only jump when there's a floor beneath them.
+Not because they're timid. Because they have rent to pay.
+When France let unemployed people keep their benefits while starting a company, many more people started one.
+And those companies weren't worse.
+It's a safety net you keep while you try.
+That's one country and one policy, and it costs public money.
+But it shows what a floor does.
+It lets people try.
+
+None of this happens by itself.
+The artificial intelligence companies decide prices, access, and how much notice you get.
+Governments decide who gets computing power, mentors, and a floor to land on.
+Schools decide whether your kids learn to build, or only to use.
+Investors decide whether they back one superstar or ten thousand small workshops.
+And you decide too: who you teach, who you hire, whose tool you try.
+Right now, most of this is pilots and promises.
+That's the distance between where we are and the second world.
+
+Which brings us back to the kitchen table.
+The guide had three steps.
+Team. Build. Grow.
+It was missing one.
+The guide said: you, alone.
+But the many win when nobody has to do it alone.
+That step isn't on your kitchen table.
+It's on ours.
+
+Maybe one person really will build a billion-dollar company soon.
+But the bigger question is how many people get to try.
+Not one light against a tower.
+Millions of them.
+
+So, one last question.
+What small problem do you see every day that nobody solves?
+Write it in the comments.
+Someone might build it.
+Maybe you.

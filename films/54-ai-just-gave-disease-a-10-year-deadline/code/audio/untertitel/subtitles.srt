@@ -1,0 +1,1412 @@
+1
+00:00:00,700 --> 00:00:02,340
+Artificial intelligence just
+
+2
+00:00:02,380 --> 00:00:04,630
+gave disease a ten-year deadline.
+
+3
+00:00:05,080 --> 00:00:05,660
+Think of the last
+
+4
+00:00:05,700 --> 00:00:06,900
+time a doctor sat down
+
+5
+00:00:06,940 --> 00:00:07,830
+with someone you love
+
+6
+00:00:07,870 --> 00:00:09,710
+and said a word like cancer.
+
+7
+00:00:09,850 --> 00:00:11,200
+Or Alzheimer's.
+
+8
+00:00:11,240 --> 00:00:12,240
+Heart disease.
+
+9
+00:00:12,280 --> 00:00:13,280
+Depression.
+
+10
+00:00:13,530 --> 00:00:14,230
+Now picture your
+
+11
+00:00:14,270 --> 00:00:15,440
+grandkids hearing those
+
+12
+00:00:15,480 --> 00:00:16,340
+words the way you
+
+13
+00:00:16,380 --> 00:00:17,880
+hear the word plague.
+
+14
+00:00:18,000 --> 00:00:19,500
+Something from a history book.
+
+15
+00:00:19,750 --> 00:00:21,330
+So which of these could really
+
+16
+00:00:21,370 --> 00:00:22,980
+be history by the deadline?
+
+17
+00:00:23,250 --> 00:00:23,930
+The machines can
+
+18
+00:00:23,970 --> 00:00:25,500
+find cures faster.
+
+19
+00:00:25,700 --> 00:00:27,310
+They can't rush the human body.
+
+20
+00:00:27,890 --> 00:00:30,020
+Every cure has two dates.
+
+21
+00:00:30,180 --> 00:00:31,520
+The day it's found.
+
+22
+00:00:31,600 --> 00:00:33,400
+And the day it's proven.
+
+23
+00:00:33,600 --> 00:00:35,410
+And for each of these diseases,
+
+24
+00:00:35,450 --> 00:00:36,900
+the body gives its answer
+
+25
+00:00:36,940 --> 00:00:38,470
+at its own speed.
+
+26
+00:00:38,640 --> 00:00:40,540
+The fastest, in weeks.
+
+27
+00:00:40,640 --> 00:00:43,400
+The slowest, only after decades.
+
+28
+00:00:44,500 --> 00:00:45,610
+That deadline comes
+
+29
+00:00:45,650 --> 00:00:47,220
+from Dario Amodei.
+
+30
+00:00:47,380 --> 00:00:48,380
+In his words:
+
+31
+00:00:48,660 --> 00:00:50,390
+"Cancer, Alzheimer's,
+
+32
+00:00:50,430 --> 00:00:52,750
+heart disease, mental illness,
+
+33
+00:00:53,000 --> 00:00:53,970
+these will be relics
+
+34
+00:00:54,010 --> 00:00:55,270
+of the past in,
+
+35
+00:00:55,310 --> 00:00:57,470
+I think, less than a decade."
+
+36
+00:00:57,800 --> 00:00:59,210
+He runs Anthropic,
+
+37
+00:00:59,250 --> 00:01:00,120
+among the biggest
+
+38
+00:01:00,160 --> 00:01:01,940
+artificial intelligence labs,
+
+39
+00:01:02,050 --> 00:01:03,200
+and he said it in the video
+
+40
+00:01:03,240 --> 00:01:04,900
+made to sell its shares.
+
+41
+00:01:05,150 --> 00:01:06,260
+This isn't about whether
+
+42
+00:01:06,300 --> 00:01:07,520
+to buy the stock.
+
+43
+00:01:07,640 --> 00:01:09,620
+He didn't invent it for investors.
+
+44
+00:01:09,950 --> 00:01:11,020
+Years ago, he wrote
+
+45
+00:01:11,060 --> 00:01:12,020
+the same bet into
+
+46
+00:01:12,060 --> 00:01:13,770
+an essay called Machines
+
+47
+00:01:13,810 --> 00:01:15,100
+of Loving Grace.
+
+48
+00:01:15,260 --> 00:01:16,470
+With small print.
+
+49
+00:01:17,060 --> 00:01:17,900
+And his reasoning
+
+50
+00:01:17,940 --> 00:01:19,660
+is better than it sounds.
+
+51
+00:01:19,940 --> 00:01:22,120
+Trials are slow, he argues,
+
+52
+00:01:22,220 --> 00:01:23,370
+largely because most
+
+53
+00:01:23,410 --> 00:01:24,840
+drugs barely work.
+
+54
+00:01:25,140 --> 00:01:26,910
+When something works really well,
+
+55
+00:01:26,950 --> 00:01:28,520
+the proof comes fast.
+
+56
+00:01:28,830 --> 00:01:30,740
+Earlier this year, on a podcast,
+
+57
+00:01:30,780 --> 00:01:32,210
+he made the same point,
+
+58
+00:01:32,250 --> 00:01:33,790
+and set his own limit.
+
+59
+00:01:34,140 --> 00:01:34,950
+There's not efficacy, right?
+
+60
+00:01:34,990 --> 00:01:36,500
+And I make exactly that point
+
+61
+00:01:36,540 --> 00:01:38,740
+in Machines of Loving Grace.
+
+62
+00:01:38,780 --> 00:01:39,850
+I say the clinical trials are
+
+63
+00:01:39,890 --> 00:01:41,550
+going to go much faster than we're
+
+64
+00:01:41,590 --> 00:01:43,290
+used to, but not, not instant,
+
+65
+00:01:43,330 --> 00:01:44,740
+not infinitely fast.
+
+66
+00:01:45,250 --> 00:01:46,960
+So even in his view,
+
+67
+00:01:47,000 --> 00:01:48,450
+proof takes time.
+
+68
+00:01:48,770 --> 00:01:50,110
+Less than a decade:
+
+69
+00:01:50,220 --> 00:01:52,110
+that's by twenty thirty-six.
+
+70
+00:01:52,360 --> 00:01:54,020
+Four diseases, and one
+
+71
+00:01:54,060 --> 00:01:55,350
+question for each.
+
+72
+00:01:55,620 --> 00:01:57,510
+When a medicine really works,
+
+73
+00:01:57,550 --> 00:01:59,890
+how fast does the body say so?
+
+74
+00:02:00,100 --> 00:02:01,550
+The fastest clear answer
+
+75
+00:02:01,590 --> 00:02:02,990
+comes from cancer.
+
+76
+00:02:04,160 --> 00:02:05,930
+In the lab, the day a cure
+
+77
+00:02:05,970 --> 00:02:06,760
+is found is
+
+78
+00:02:06,800 --> 00:02:08,370
+already getting closer.
+
+79
+00:02:08,630 --> 00:02:10,320
+Doctors can rebuild a patient's
+
+80
+00:02:10,360 --> 00:02:12,460
+own immune cells to hunt cancer,
+
+81
+00:02:12,510 --> 00:02:13,230
+with a receptor
+
+82
+00:02:13,270 --> 00:02:14,550
+that works like a hook.
+
+83
+00:02:14,810 --> 00:02:16,190
+Artificial intelligence now
+
+84
+00:02:16,230 --> 00:02:18,230
+helps redesign those hooks.
+
+85
+00:02:18,380 --> 00:02:19,090
+One new design
+
+86
+00:02:19,130 --> 00:02:20,460
+already works better.
+
+87
+00:02:20,580 --> 00:02:21,920
+All still in the lab.
+
+88
+00:02:22,080 --> 00:02:24,130
+Then the body answers.
+
+89
+00:02:24,280 --> 00:02:26,200
+And a tumor answers fast:
+
+90
+00:02:26,240 --> 00:02:26,990
+on a scan,
+
+91
+00:02:27,030 --> 00:02:28,920
+within weeks, it shrinks
+
+92
+00:02:28,970 --> 00:02:29,970
+or it doesn't.
+
+93
+00:02:30,170 --> 00:02:31,860
+That's how one pill won approval
+
+94
+00:02:31,900 --> 00:02:33,760
+with just fifty-five patients,
+
+95
+00:02:33,800 --> 00:02:34,800
+spread across many
+
+96
+00:02:34,840 --> 00:02:35,970
+different cancers.
+
+97
+00:02:36,060 --> 00:02:37,530
+Most of them responded.
+
+98
+00:02:38,100 --> 00:02:40,490
+But cancer isn't one disease.
+
+99
+00:02:40,580 --> 00:02:42,010
+It's more than a hundred,
+
+100
+00:02:42,180 --> 00:02:43,570
+and they fight back.
+
+101
+00:02:43,840 --> 00:02:45,350
+His own essay said so:
+
+102
+00:02:45,560 --> 00:02:48,170
+the end of most cancer, not all.
+
+103
+00:02:48,260 --> 00:02:49,740
+Some rare, difficult
+
+104
+00:02:49,780 --> 00:02:51,250
+cancers may persist.
+
+105
+00:02:51,600 --> 00:02:52,560
+The line in the sales
+
+106
+00:02:52,600 --> 00:02:54,670
+video just says: cancer.
+
+107
+00:02:54,960 --> 00:02:57,400
+So cancer, by the deadline:
+
+108
+00:02:57,590 --> 00:02:58,640
+for many kinds,
+
+109
+00:02:58,680 --> 00:03:00,290
+the proof can come in time.
+
+110
+00:03:00,450 --> 00:03:01,920
+Not for every kind.
+
+111
+00:03:02,160 --> 00:03:03,720
+But is a fast answer
+
+112
+00:03:03,760 --> 00:03:05,350
+always the whole answer?
+
+113
+00:03:06,550 --> 00:03:08,760
+Heart disease answers twice.
+
+114
+00:03:08,950 --> 00:03:10,420
+First, the blood.
+
+115
+00:03:10,830 --> 00:03:11,810
+In a recent trial,
+
+116
+00:03:11,850 --> 00:03:12,930
+people got a single
+
+117
+00:03:12,970 --> 00:03:14,160
+infusion that switched
+
+118
+00:03:14,200 --> 00:03:15,630
+off a gene in the liver.
+
+119
+00:03:15,840 --> 00:03:18,030
+At the highest dose, weeks later,
+
+120
+00:03:18,070 --> 00:03:19,140
+their bad cholesterol
+
+121
+00:03:19,180 --> 00:03:21,050
+was cut roughly in half.
+
+122
+00:03:21,270 --> 00:03:22,480
+One treatment, meant
+
+123
+00:03:22,520 --> 00:03:24,010
+to last a lifetime.
+
+124
+00:03:24,340 --> 00:03:25,050
+But a change to your
+
+125
+00:03:25,090 --> 00:03:26,880
+DNA is for life.
+
+126
+00:03:27,070 --> 00:03:28,570
+So regulators ask to follow
+
+127
+00:03:28,610 --> 00:03:30,920
+patients for up to fifteen years.
+
+128
+00:03:31,040 --> 00:03:31,700
+And whether the heart
+
+129
+00:03:31,740 --> 00:03:33,300
+attacks really stay away
+
+130
+00:03:33,340 --> 00:03:35,290
+takes a stadium full of people,
+
+131
+00:03:35,330 --> 00:03:36,850
+followed for years.
+
+132
+00:03:37,390 --> 00:03:39,040
+So heart disease,
+
+133
+00:03:39,110 --> 00:03:41,500
+by the deadline: only halfway.
+
+134
+00:03:41,670 --> 00:03:43,580
+The tool can be ready in time.
+
+135
+00:03:43,770 --> 00:03:44,910
+The proof that it's safe
+
+136
+00:03:44,950 --> 00:03:46,890
+for a lifetime can't.
+
+137
+00:03:48,060 --> 00:03:49,070
+This channel exists
+
+138
+00:03:49,110 --> 00:03:50,430
+for one reason:
+
+139
+00:03:50,560 --> 00:03:51,450
+so that the arrival
+
+140
+00:03:51,490 --> 00:03:52,670
+of superintelligence
+
+141
+00:03:52,710 --> 00:03:54,410
+goes well for everybody.
+
+142
+00:03:54,630 --> 00:03:55,380
+In the lab,
+
+143
+00:03:55,420 --> 00:03:56,850
+and at the hospital bed,
+
+144
+00:03:56,920 --> 00:03:57,960
+for your parents,
+
+145
+00:03:58,000 --> 00:03:59,440
+and one day for you.
+
+146
+00:03:59,760 --> 00:04:00,760
+Want that too?
+
+147
+00:04:00,830 --> 00:04:01,830
+Then subscribe.
+
+148
+00:04:02,970 --> 00:04:05,320
+The third disease answers fast.
+
+149
+00:04:05,590 --> 00:04:07,480
+The problem is hearing the answer.
+
+150
+00:04:07,820 --> 00:04:09,020
+Take depression, one
+
+151
+00:04:09,060 --> 00:04:10,490
+part of mental illness.
+
+152
+00:04:10,640 --> 00:04:12,420
+A trial runs for weeks.
+
+153
+00:04:12,720 --> 00:04:13,590
+But in those weeks,
+
+154
+00:04:13,630 --> 00:04:14,690
+many people improve
+
+155
+00:04:14,730 --> 00:04:16,180
+on a sugar pill too.
+
+156
+00:04:16,430 --> 00:04:16,920
+Even for the
+
+157
+00:04:16,960 --> 00:04:18,900
+antidepressants already approved,
+
+158
+00:04:18,940 --> 00:04:20,540
+only about half the trials
+
+159
+00:04:20,580 --> 00:04:21,700
+beat the sugar pill.
+
+160
+00:04:22,090 --> 00:04:22,760
+And there's no blood
+
+161
+00:04:22,800 --> 00:04:23,740
+test for depression.
+
+162
+00:04:23,780 --> 00:04:26,000
+The diagnosis is a questionnaire.
+
+163
+00:04:26,480 --> 00:04:27,940
+That doesn't make it hopeless.
+
+164
+00:04:28,000 --> 00:04:29,850
+In his essay, he wrote that most
+
+165
+00:04:29,890 --> 00:04:30,770
+mental illness can
+
+166
+00:04:30,810 --> 00:04:32,320
+probably be cured.
+
+167
+00:04:32,860 --> 00:04:34,660
+So mental illness,
+
+168
+00:04:34,800 --> 00:04:37,360
+by the deadline: an open question.
+
+169
+00:04:37,640 --> 00:04:39,410
+Cancer has its scan.
+
+170
+00:04:39,660 --> 00:04:41,950
+The mind is still waiting for one.
+
+171
+00:04:42,250 --> 00:04:44,250
+And then the fourth disease.
+
+172
+00:04:44,440 --> 00:04:45,480
+The slowest.
+
+173
+00:04:45,720 --> 00:04:47,950
+It starts long before it shows.
+
+174
+00:04:49,100 --> 00:04:50,190
+Alzheimer's.
+
+175
+00:04:50,450 --> 00:04:51,740
+The changes in the brain
+
+176
+00:04:51,780 --> 00:04:52,950
+start around twenty
+
+177
+00:04:52,990 --> 00:04:53,820
+years before the
+
+178
+00:04:53,860 --> 00:04:55,400
+first forgotten name.
+
+179
+00:04:55,720 --> 00:04:57,060
+That means many people
+
+180
+00:04:57,100 --> 00:04:58,070
+who'll be diagnosed
+
+181
+00:04:58,110 --> 00:04:59,580
+by the deadline already
+
+182
+00:04:59,620 --> 00:05:01,790
+carry the first traces today.
+
+183
+00:05:02,120 --> 00:05:03,490
+So the medicine has to come
+
+184
+00:05:03,530 --> 00:05:05,140
+before the symptoms.
+
+185
+00:05:05,580 --> 00:05:07,110
+Proving that means following
+
+186
+00:05:07,150 --> 00:05:08,840
+healthy people for years,
+
+187
+00:05:08,880 --> 00:05:11,070
+and counting who doesn't get sick.
+
+188
+00:05:11,460 --> 00:05:12,780
+One such trial waited
+
+189
+00:05:12,820 --> 00:05:14,320
+years for its answer.
+
+190
+00:05:14,560 --> 00:05:16,130
+The drug didn't work.
+
+191
+00:05:16,510 --> 00:05:18,120
+And for those already sick,
+
+192
+00:05:18,160 --> 00:05:20,330
+his essay had more small print:
+
+193
+00:05:20,700 --> 00:05:22,100
+existing damage may be
+
+194
+00:05:22,140 --> 00:05:24,090
+very difficult to reverse.
+
+195
+00:05:24,660 --> 00:05:26,050
+The line in the sales video
+
+196
+00:05:26,090 --> 00:05:27,720
+doesn't mention that either.
+
+197
+00:05:27,910 --> 00:05:29,550
+So Alzheimer's,
+
+198
+00:05:29,590 --> 00:05:31,320
+by the deadline: no.
+
+199
+00:05:31,700 --> 00:05:33,350
+For many who'll get it by then,
+
+200
+00:05:33,390 --> 00:05:34,780
+it has already begun.
+
+201
+00:05:35,730 --> 00:05:36,580
+But the race doesn't
+
+202
+00:05:36,620 --> 00:05:38,040
+start at the deadline.
+
+203
+00:05:38,180 --> 00:05:39,430
+It starts now.
+
+204
+00:05:39,700 --> 00:05:40,580
+Since last year,
+
+205
+00:05:40,620 --> 00:05:41,970
+a blood test can spot
+
+206
+00:05:42,010 --> 00:05:43,320
+the first traces.
+
+207
+00:05:43,540 --> 00:05:44,700
+So if the machines
+
+208
+00:05:44,740 --> 00:05:46,010
+aren't the slow part,
+
+209
+00:05:46,090 --> 00:05:47,660
+why set a date at all?
+
+210
+00:05:48,810 --> 00:05:50,530
+Partly, because a sales pitch
+
+211
+00:05:50,570 --> 00:05:51,650
+rewards a promise
+
+212
+00:05:51,690 --> 00:05:52,910
+with a date on it.
+
+213
+00:05:52,980 --> 00:05:54,270
+No villain needed.
+
+214
+00:05:54,670 --> 00:05:56,460
+The Nobel Prize-winning biologist
+
+215
+00:05:56,500 --> 00:05:58,330
+Venki Ramakrishnan, asked
+
+216
+00:05:58,370 --> 00:05:58,960
+in a recent
+
+217
+00:05:59,000 --> 00:05:59,880
+interview about
+
+218
+00:05:59,920 --> 00:06:01,210
+artificial intelligence
+
+219
+00:06:01,250 --> 00:06:02,410
+and new drugs,
+
+220
+00:06:02,450 --> 00:06:04,270
+named the slow part:
+
+221
+00:06:04,840 --> 00:06:07,480
+AI could be very fast at
+
+222
+00:06:07,520 --> 00:06:08,820
+its computational work,
+
+223
+00:06:08,860 --> 00:06:10,280
+but the experimental work is still
+
+224
+00:06:10,320 --> 00:06:12,430
+going to be the
+
+225
+00:06:12,470 --> 00:06:14,120
+rate-limiting factor.
+
+226
+00:06:14,590 --> 00:06:17,020
+The testing, not the finding.
+
+227
+00:06:17,440 --> 00:06:18,230
+The other reason
+
+228
+00:06:18,270 --> 00:06:19,640
+for Amodei's date:
+
+229
+00:06:19,810 --> 00:06:21,300
+he's betting that the testing
+
+230
+00:06:21,340 --> 00:06:22,580
+can speed up too.
+
+231
+00:06:22,860 --> 00:06:24,940
+The cardiologist Eric Topol,
+
+232
+00:06:24,980 --> 00:06:25,490
+a fan of
+
+233
+00:06:25,530 --> 00:06:26,860
+what artificial intelligence
+
+234
+00:06:26,900 --> 00:06:28,170
+can do for health,
+
+235
+00:06:28,290 --> 00:06:29,110
+called such cure
+
+236
+00:06:29,150 --> 00:06:31,540
+timelines wildly off-base.
+
+237
+00:06:31,860 --> 00:06:33,490
+To be fair, Amodei holds
+
+238
+00:06:33,530 --> 00:06:35,430
+himself to a harder test.
+
+239
+00:06:35,660 --> 00:06:36,900
+In August, he wrote
+
+240
+00:06:36,940 --> 00:06:38,190
+that the only thing that will
+
+241
+00:06:38,230 --> 00:06:39,510
+convince people is
+
+242
+00:06:39,550 --> 00:06:41,350
+actually curing cancer.
+
+243
+00:06:41,940 --> 00:06:42,840
+His own company
+
+244
+00:06:42,880 --> 00:06:44,620
+now designs medicines.
+
+245
+00:06:44,940 --> 00:06:47,160
+One, for muscular dystrophy,
+
+246
+00:06:47,200 --> 00:06:48,170
+went from idea
+
+247
+00:06:48,210 --> 00:06:49,830
+to promising results in mice
+
+248
+00:06:49,870 --> 00:06:51,810
+in under eighteen months.
+
+249
+00:06:52,080 --> 00:06:53,540
+Its human trials could start
+
+250
+00:06:53,580 --> 00:06:54,160
+as soon as
+
+251
+00:06:54,200 --> 00:06:55,820
+late twenty twenty-eight.
+
+252
+00:06:56,070 --> 00:06:58,050
+Same road as everyone else.
+
+253
+00:06:58,140 --> 00:06:59,900
+First date: fast.
+
+254
+00:07:00,030 --> 00:07:02,060
+Second date: years away.
+
+255
+00:07:02,360 --> 00:07:04,520
+He even warned of a jam himself,
+
+256
+00:07:04,560 --> 00:07:05,450
+earlier this year,
+
+257
+00:07:05,490 --> 00:07:07,080
+on that same podcast.
+
+258
+00:07:07,500 --> 00:07:10,040
+AI models are going to
+
+259
+00:07:10,080 --> 00:07:11,990
+greatly accelerate
+
+260
+00:07:12,030 --> 00:07:13,190
+the rate at which we discover
+
+261
+00:07:13,230 --> 00:07:15,340
+drugs and just the pipeline will
+
+262
+00:07:15,380 --> 00:07:16,380
+get jammed up.
+
+263
+00:07:16,840 --> 00:07:18,440
+Discovery speeds up.
+
+264
+00:07:18,650 --> 00:07:19,750
+Proof jams.
+
+265
+00:07:19,980 --> 00:07:22,130
+So can proof come sooner,
+
+266
+00:07:22,170 --> 00:07:24,510
+without making medicine less safe?
+
+267
+00:07:25,640 --> 00:07:26,580
+It can.
+
+268
+00:07:26,620 --> 00:07:28,520
+And it's already starting.
+
+269
+00:07:28,880 --> 00:07:30,200
+Picture someone you love,
+
+270
+00:07:30,390 --> 00:07:32,940
+around sixty, sharp as ever.
+
+271
+00:07:33,400 --> 00:07:35,180
+At a study clinic, a blood test
+
+272
+00:07:35,220 --> 00:07:36,130
+finds the first
+
+273
+00:07:36,170 --> 00:07:38,080
+traces, years early.
+
+274
+00:07:38,340 --> 00:07:40,010
+So they join a trial:
+
+275
+00:07:40,230 --> 00:07:40,930
+can a medicine
+
+276
+00:07:40,970 --> 00:07:43,080
+hold off the first forgotten name?
+
+277
+00:07:43,430 --> 00:07:45,690
+For now, experts advise that test
+
+278
+00:07:45,730 --> 00:07:48,070
+for healthy people only in trials.
+
+279
+00:07:48,320 --> 00:07:49,760
+But that's how the slowest
+
+280
+00:07:49,800 --> 00:07:51,290
+proof gets a head start.
+
+281
+00:07:51,600 --> 00:07:52,690
+In other trials,
+
+282
+00:07:52,730 --> 00:07:53,740
+part of the sugar-pill
+
+283
+00:07:53,780 --> 00:07:54,810
+group is replaced
+
+284
+00:07:54,850 --> 00:07:55,950
+by a prediction:
+
+285
+00:07:56,110 --> 00:07:58,500
+a digital twin of each patient.
+
+286
+00:07:59,110 --> 00:08:00,320
+Fewer people on a sugar
+
+287
+00:08:00,360 --> 00:08:02,240
+pill, answers sooner.
+
+288
+00:08:02,500 --> 00:08:04,170
+Europe's regulator accepts
+
+289
+00:08:04,210 --> 00:08:05,510
+it for some trials.
+
+290
+00:08:05,700 --> 00:08:07,680
+It shrinks the comparison group.
+
+291
+00:08:07,790 --> 00:08:09,180
+It doesn't replace it.
+
+292
+00:08:09,530 --> 00:08:11,190
+At America's regulator,
+
+293
+00:08:11,230 --> 00:08:12,350
+reviewers now work
+
+294
+00:08:12,390 --> 00:08:13,290
+with an artificial
+
+295
+00:08:13,330 --> 00:08:14,860
+intelligence assistant.
+
+296
+00:08:15,060 --> 00:08:16,910
+For a few priority medicines,
+
+297
+00:08:16,950 --> 00:08:18,170
+the goal is a decision
+
+298
+00:08:18,210 --> 00:08:20,160
+within one or two months.
+
+299
+00:08:20,350 --> 00:08:22,100
+Amodei's own proposal:
+
+300
+00:08:22,400 --> 00:08:23,710
+rules made for medicines
+
+301
+00:08:23,750 --> 00:08:24,870
+that clearly work
+
+302
+00:08:24,910 --> 00:08:26,370
+and are clearly safe.
+
+303
+00:08:26,610 --> 00:08:27,990
+But remember the heart:
+
+304
+00:08:28,180 --> 00:08:30,580
+fast can't mean less safe.
+
+305
+00:08:31,170 --> 00:08:32,400
+In the sales video,
+
+306
+00:08:32,440 --> 00:08:34,490
+his promise came with a condition.
+
+307
+00:08:34,710 --> 00:08:35,710
+In his words:
+
+308
+00:08:35,910 --> 00:08:37,790
+"I think if we do this right,
+
+309
+00:08:37,830 --> 00:08:40,370
+we can create an age of miracles."
+
+310
+00:08:40,700 --> 00:08:41,560
+If the machines make
+
+311
+00:08:41,600 --> 00:08:43,450
+the first date come fast,
+
+312
+00:08:43,490 --> 00:08:44,710
+the second date becomes
+
+313
+00:08:44,750 --> 00:08:46,070
+the real deadline.
+
+314
+00:08:46,260 --> 00:08:47,740
+And people set that one.
+
+315
+00:08:48,160 --> 00:08:50,340
+Clinics that find disease early.
+
+316
+00:08:50,600 --> 00:08:51,430
+Scientists who
+
+317
+00:08:51,470 --> 00:08:53,210
+design leaner trials.
+
+318
+00:08:53,520 --> 00:08:54,570
+Lawmakers who keep
+
+319
+00:08:54,610 --> 00:08:55,600
+the rules in step
+
+320
+00:08:55,640 --> 00:08:57,790
+with medicines that clearly work.
+
+321
+00:08:58,070 --> 00:08:58,950
+That's what doing
+
+322
+00:08:58,990 --> 00:09:00,290
+it right looks like.
+
+323
+00:09:01,380 --> 00:09:03,380
+So, does the deadline hold?
+
+324
+00:09:03,790 --> 00:09:06,650
+Cancer: for many kinds, yes.
+
+325
+00:09:06,870 --> 00:09:08,830
+Heart disease: halfway.
+
+326
+00:09:09,110 --> 00:09:11,310
+Mental illness: still open.
+
+327
+00:09:11,570 --> 00:09:13,770
+Alzheimer's: not by then.
+
+328
+00:09:14,050 --> 00:09:16,150
+But its race has already begun.
+
+329
+00:09:16,770 --> 00:09:17,860
+Maybe your grandkids
+
+330
+00:09:17,900 --> 00:09:18,530
+will hear the word
+
+331
+00:09:18,570 --> 00:09:20,140
+Alzheimer's the way you
+
+332
+00:09:20,180 --> 00:09:21,710
+hear the word plague.
+
+333
+00:09:21,970 --> 00:09:23,760
+Not because someone set a date.
+
+334
+00:09:23,930 --> 00:09:25,520
+Because someone proved it.
+
+335
+00:09:25,750 --> 00:09:27,740
+Every cure has two dates:
+
+336
+00:09:27,840 --> 00:09:28,950
+the day it's found,
+
+337
+00:09:28,990 --> 00:09:30,320
+and the day it's proven.
+
+338
+00:09:30,530 --> 00:09:31,930
+Investors are already putting
+
+339
+00:09:31,970 --> 00:09:33,490
+a price on the first date.
+
+340
+00:09:33,670 --> 00:09:34,440
+The second one
+
+341
+00:09:34,480 --> 00:09:36,000
+is still ours to move.
+
+342
+00:09:37,180 --> 00:09:38,270
+This channel exists
+
+343
+00:09:38,310 --> 00:09:39,640
+for one reason:
+
+344
+00:09:39,830 --> 00:09:40,720
+so that the arrival
+
+345
+00:09:40,760 --> 00:09:41,970
+of superintelligence
+
+346
+00:09:42,010 --> 00:09:43,720
+goes well for everybody.
+
+347
+00:09:43,910 --> 00:09:45,630
+Fast discoveries in the lab,
+
+348
+00:09:45,670 --> 00:09:47,590
+and proof that arrives in time,
+
+349
+00:09:47,630 --> 00:09:48,720
+for every family
+
+350
+00:09:48,760 --> 00:09:50,260
+in a waiting room today.
+
+351
+00:09:50,480 --> 00:09:51,590
+Including yours.
+
+352
+00:09:51,840 --> 00:09:52,840
+Want that too?
+
+353
+00:09:52,960 --> 00:09:54,060
+Then subscribe.
+

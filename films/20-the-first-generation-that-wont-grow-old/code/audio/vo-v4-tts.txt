@@ -1,0 +1,158 @@
+[calm, conversational] You could be part of the first generation that won't grow old.
+Think about your grandparents. Gray hair. Reading glasses. Stairs that take a little longer.
+That's the deal every human has had.
+
+[thoughtful] But this year, doctors did something that had never been done before.
+They put a treatment into a living person's eye that is built to make old cells young again.
+It's one small step. But it makes a question suddenly real.
+
+[curious] If this works, who gets there in time? Your grandparents? Your parents? You? Your kids?
+The answer isn't a birthday. It's a race.
+
+[calm, conversational] Every year, medical research adds a little to how long we live.
+Take the country that does best. For a hundred and sixty years, that number grew by about three months, year after year. Like clockwork.
+
+[curious] Now imagine that number climbs to twelve months.
+A full year of life gained for every year that passes.
+From that day on, you'd stop running out of time.
+Researchers call it longevity escape velocity. Nobody has reached it.
+
+[thoughtful] Whoever is still healthy on that day is the first generation that won't grow old.
+So that generation may already be born. You may be in it.
+
+[calm, conversational] But there's a problem. This century, the number slipped.
+Today it grows by less than two months a year.
+So it isn't racing toward twelve. Every year it stays this low, that day moves further away.
+
+[thoughtful] For it to turn around, something new has to push.
+And now, some of that push isn't human.
+Labs use artificial intelligence to pick experiments, design molecules, and read how old our cells are.
+
+[curious] But to push on aging, you have to know what it is. Why does a body grow old at all?
+
+[calm, conversational] Aging looks like a law of nature. It isn't one.
+Evolution only had to get you through your children's first years. After that, it stopped looking.
+Evolution pays for your youth and sends the bill to your old age.
+
+[thoughtful] But that bill can be reset. The proof is you.
+The egg you grew from was made before your mother was born.
+So you started out as a cell that was decades old.
+And yet you started at zero.
+
+[calm, conversational] Scientists can read a cell's age from marks on its DNA.
+In an early embryo, that age goes down. They call the low point ground zero.
+So nature has a reset button. It pressed it for you, before you were born.
+
+[curious] Which makes the better question not why we age, but where that button is.
+
+[calm, conversational] Twenty years ago, a Japanese lab found four proteins that reset a grown-up cell to factory settings.
+Hold the button down, and the cell forgets what it was. In mice, that grew tumors in several organs.
+
+[thoughtful] So the trick isn't pressing harder. It's letting go in time.
+There's a window. More pressing doesn't mean more youth.
+Or press only three of the four.
+Mice whose eyes were already damaged by glaucoma got back about half the sharpness they'd lost.
+
+[calm, conversational] And this October, in Germany, blood cells from an eighty-year-old were turned into nerve stem cells that read under twenty.
+All of this was in dishes and in mice. From a dish to a living body like yours is a long way.
+
+[curious] Four proteins were the first answer. Nobody knows which other mix might work better, or how hard to press it.
+
+[calm, conversational] That search is too big for people alone. So artificial intelligence is helping.
+One company says it has tested more than three thousand mixes. Over twenty made old liver cells act younger.
+Artificial intelligence, it says, has doubled how fast it finds them.
+That's from the company's own update this year.
+
+[CLIP C1]
+
+[calm, conversational] Artificial intelligence has also redesigned two of the four reset proteins.
+In cells, the new versions switched on the signs of a reset more than fifty times as strongly.
+
+[thoughtful] These numbers come from the companies themselves. The protein result hasn't even been published.
+And the clocks that read a cell's age are machine learning too.
+If one says you're younger, that's an estimate, not proof.
+
+[curious] So has anyone pressed the button inside a living person?
+
+[calm, conversational] Yes. Earlier this year, in an eye.
+It's the treatment from the start: the same three of the four, in one injection.
+The first results come from three people with glaucoma, like those mice.
+In October, eight weeks in, the company reported no serious side effects.
+And in two of the three, parts of the visual field improved.
+
+[ZITATKARTE Preliminary observations. Built to test safety, not whether it works. — Life Biosciences, first data in people, 8 Oct 2026]
+
+[thoughtful] Three people. One eye each. No control group.
+Three eyes don't move the needle. They move the odds.
+And the trial goes on: a safety board cleared the next, higher dose.
+
+[softly] Aging is turning from fate into a target.
+
+[calm, conversational] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody, and breakthroughs like this one reach every family. Want that too? Then subscribe.
+
+[calm, conversational] The eye was the easy start: small and sealed off.
+Next, the liver. The company behind those liver cells plans its first human trial for twenty twenty-seven.
+
+[CLIP C2]
+
+[curious] But what about everything else that goes wrong with age?
+
+[calm, conversational] Cancer. Heart disease. Dementia. Diabetes. Four illnesses, four kinds of medicine, four different wards.
+They share their biggest risk factor. It's how old you are.
+So all four hang on the same thread. Pull that thread, the bet goes, and you pull on all of them at once.
+
+[thoughtful] Artificial intelligence is coming at the illnesses too, designing medicines from the shapes of proteins.
+
+[ZITATKARTE Scott Pelley: “The end of disease?” — Demis Hassabis: “I think that's within reach.” · 60 Minutes, CBS, 20 April 2025]
+
+[calm, conversational] But nine in ten drugs that reach a first human trial still fail.
+And even if they all worked, it wouldn't be enough.
+Decades ago, the field's best-known skeptic did the math for America. Cure every major disease of old age, and life expectancy at birth would still be unlikely to pass eighty-five.
+The thread would still be there.
+
+[curious] So does the needle ever reach twelve?
+
+[thoughtful] That skeptic has run the newer numbers too, and he doesn't see the needle turning.
+
+[CLIP C3]
+
+[calm, conversational] He studied the longest-lived places on Earth over three decades.
+Life expectancy kept rising, but more slowly, everywhere he looked.
+His verdict: in this century, a radically longer life is implausible. Unless aging itself can be markedly slowed.
+
+[thoughtful] That “unless” is what the button, the search, and the eye are all about.
+In his own words: a glass ceiling, not a brick wall. He wants more of this research, not less.
+
+[calm, conversational] The optimists' estimates run from about twenty thirty to twenty fifty. Estimates, not studies.
+So that day isn't one date on the calendar. It could come anywhere within a few decades.
+Which changes the question: not just when, but who gets there in time.
+
+[calm, conversational] That treatment in the eye is a gene therapy.
+Gene therapies already cost up to four and a quarter million dollars.
+So for most of the world, what decides it isn't a birth year. It's a price tag.
+
+[thoughtful] Nobody has to lose a year so someone else can gain one. This isn't a cake.
+The question isn't who goes without. It's how fast the price falls.
+
+[calm, conversational] In nineteen twenty-three, the men who discovered insulin sold the patent for one dollar.
+A generation later, a reporter asked who owned the patent on the polio vaccine.
+
+[ZITATKARTE “Well, the people, I would say. There is no patent. Could you patent the sun?” — Jonas Salk · See It Now, CBS, 12 April 1955]
+
+[thoughtful] Both were decisions. Since then, four kinds of decisions have pulled prices down.
+
+[calm, conversational] One: pool the patents. Through one such pool, more than sixty billion doses have reached poorer countries.
+Two: pay one flat fee, like a subscription. Louisiana did that for hepatitis C, and studies found treatments rose sharply.
+Three: let other makers copy it. In Egypt, no patent stood in the way, and copies brought one hepatitis C treatment under a hundred dollars.
+Four: negotiate for everyone. Thirty-three American states now buy sickle cell gene therapy together. If it fails, the makers pay back.
+
+[thoughtful] Two more ideas are still waiting. A trial that pulls on the thread has a goal regulators accept, but not the money it needs.
+And public research money could come with a promise of access. It almost never does.
+None of this has ever been tried on a rejuvenation therapy.
+But none of it needs a discovery. Each one is a decision.
+
+[softly] So think of your family one more time.
+Research decides when that day comes. We decide who gets there in time.
+The first generation that won't grow old isn't a birth year. It's a decision.
+
+[calm, conversational] That is what this channel is for: making sure superintelligence goes well for everybody, not just for a few. Want that too? Then subscribe.

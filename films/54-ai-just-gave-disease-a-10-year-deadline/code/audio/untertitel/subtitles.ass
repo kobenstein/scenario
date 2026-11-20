@@ -1,0 +1,366 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 384
+PlayResY: 288
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,DejaVu Sans,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.70,0:00:02.34,Sub,,0,0,0,,{\fad(120,160)}Artificial intelligence just
+Dialogue: 0,0:00:02.38,0:00:04.63,Sub,,0,0,0,,{\fad(120,160)}gave disease a ten-year deadline.
+Dialogue: 0,0:00:05.08,0:00:05.66,Sub,,0,0,0,,{\fad(120,160)}Think of the last
+Dialogue: 0,0:00:05.70,0:00:06.90,Sub,,0,0,0,,{\fad(120,160)}time a doctor sat down
+Dialogue: 0,0:00:06.94,0:00:07.83,Sub,,0,0,0,,{\fad(120,160)}with someone you love
+Dialogue: 0,0:00:07.87,0:00:09.71,Sub,,0,0,0,,{\fad(120,160)}and said a word like cancer.
+Dialogue: 0,0:00:09.85,0:00:11.20,Sub,,0,0,0,,{\fad(120,160)}Or Alzheimer's.
+Dialogue: 0,0:00:11.24,0:00:12.24,Sub,,0,0,0,,{\fad(120,160)}Heart disease.
+Dialogue: 0,0:00:12.28,0:00:13.28,Sub,,0,0,0,,{\fad(120,160)}Depression.
+Dialogue: 0,0:00:13.53,0:00:14.23,Sub,,0,0,0,,{\fad(120,160)}Now picture your
+Dialogue: 0,0:00:14.27,0:00:15.44,Sub,,0,0,0,,{\fad(120,160)}grandkids hearing those
+Dialogue: 0,0:00:15.48,0:00:16.34,Sub,,0,0,0,,{\fad(120,160)}words the way you
+Dialogue: 0,0:00:16.38,0:00:17.88,Sub,,0,0,0,,{\fad(120,160)}hear the word plague.
+Dialogue: 0,0:00:18.00,0:00:19.50,Sub,,0,0,0,,{\fad(120,160)}Something from a history book.
+Dialogue: 0,0:00:19.75,0:00:21.33,Sub,,0,0,0,,{\fad(120,160)}So which of these could really
+Dialogue: 0,0:00:21.37,0:00:22.98,Sub,,0,0,0,,{\fad(120,160)}be history by the deadline?
+Dialogue: 0,0:00:23.25,0:00:23.93,Sub,,0,0,0,,{\fad(120,160)}The machines can
+Dialogue: 0,0:00:23.97,0:00:25.50,Sub,,0,0,0,,{\fad(120,160)}find cures faster.
+Dialogue: 0,0:00:25.70,0:00:27.31,Sub,,0,0,0,,{\fad(120,160)}They can't rush the human body.
+Dialogue: 0,0:00:27.89,0:00:30.02,Sub,,0,0,0,,{\fad(120,160)}Every cure has two dates.
+Dialogue: 0,0:00:30.18,0:00:31.52,Sub,,0,0,0,,{\fad(120,160)}The day it's found.
+Dialogue: 0,0:00:31.60,0:00:33.40,Sub,,0,0,0,,{\fad(120,160)}And the day it's proven.
+Dialogue: 0,0:00:33.60,0:00:35.41,Sub,,0,0,0,,{\fad(120,160)}And for each of these diseases,
+Dialogue: 0,0:00:35.45,0:00:36.90,Sub,,0,0,0,,{\fad(120,160)}the body gives its answer
+Dialogue: 0,0:00:36.94,0:00:38.47,Sub,,0,0,0,,{\fad(120,160)}at its own speed.
+Dialogue: 0,0:00:38.64,0:00:40.54,Sub,,0,0,0,,{\fad(120,160)}The fastest, in weeks.
+Dialogue: 0,0:00:40.64,0:00:43.40,Sub,,0,0,0,,{\fad(120,160)}The slowest, only after decades.
+Dialogue: 0,0:00:44.50,0:00:45.61,Sub,,0,0,0,,{\fad(120,160)}That deadline comes
+Dialogue: 0,0:00:45.65,0:00:47.22,Sub,,0,0,0,,{\fad(120,160)}from Dario Amodei.
+Dialogue: 0,0:00:47.38,0:00:48.38,Sub,,0,0,0,,{\fad(120,160)}In his words:
+Dialogue: 0,0:00:48.66,0:00:50.39,Sub,,0,0,0,,{\fad(120,160)}"Cancer, Alzheimer's,
+Dialogue: 0,0:00:50.43,0:00:52.75,Sub,,0,0,0,,{\fad(120,160)}heart disease, mental illness,
+Dialogue: 0,0:00:53.00,0:00:53.97,Sub,,0,0,0,,{\fad(120,160)}these will be relics
+Dialogue: 0,0:00:54.01,0:00:55.27,Sub,,0,0,0,,{\fad(120,160)}of the past in,
+Dialogue: 0,0:00:55.31,0:00:57.47,Sub,,0,0,0,,{\fad(120,160)}I think, less than a decade."
+Dialogue: 0,0:00:57.80,0:00:59.21,Sub,,0,0,0,,{\fad(120,160)}He runs Anthropic,
+Dialogue: 0,0:00:59.25,0:01:00.12,Sub,,0,0,0,,{\fad(120,160)}among the biggest
+Dialogue: 0,0:01:00.16,0:01:01.94,Sub,,0,0,0,,{\fad(120,160)}artificial intelligence labs,
+Dialogue: 0,0:01:02.05,0:01:03.20,Sub,,0,0,0,,{\fad(120,160)}and he said it in the video
+Dialogue: 0,0:01:03.24,0:01:04.90,Sub,,0,0,0,,{\fad(120,160)}made to sell its shares.
+Dialogue: 0,0:01:05.15,0:01:06.26,Sub,,0,0,0,,{\fad(120,160)}This isn't about whether
+Dialogue: 0,0:01:06.30,0:01:07.52,Sub,,0,0,0,,{\fad(120,160)}to buy the stock.
+Dialogue: 0,0:01:07.64,0:01:09.62,Sub,,0,0,0,,{\fad(120,160)}He didn't invent it for investors.
+Dialogue: 0,0:01:09.95,0:01:11.02,Sub,,0,0,0,,{\fad(120,160)}Years ago, he wrote
+Dialogue: 0,0:01:11.06,0:01:12.02,Sub,,0,0,0,,{\fad(120,160)}the same bet into
+Dialogue: 0,0:01:12.06,0:01:13.77,Sub,,0,0,0,,{\fad(120,160)}an essay called Machines
+Dialogue: 0,0:01:13.81,0:01:15.10,Sub,,0,0,0,,{\fad(120,160)}of Loving Grace.
+Dialogue: 0,0:01:15.26,0:01:16.47,Sub,,0,0,0,,{\fad(120,160)}With small print.
+Dialogue: 0,0:01:17.06,0:01:17.90,Sub,,0,0,0,,{\fad(120,160)}And his reasoning
+Dialogue: 0,0:01:17.94,0:01:19.66,Sub,,0,0,0,,{\fad(120,160)}is better than it sounds.
+Dialogue: 0,0:01:19.94,0:01:22.12,Sub,,0,0,0,,{\fad(120,160)}Trials are slow, he argues,
+Dialogue: 0,0:01:22.22,0:01:23.37,Sub,,0,0,0,,{\fad(120,160)}largely because most
+Dialogue: 0,0:01:23.41,0:01:24.84,Sub,,0,0,0,,{\fad(120,160)}drugs barely work.
+Dialogue: 0,0:01:25.14,0:01:26.91,Sub,,0,0,0,,{\fad(120,160)}When something works really well,
+Dialogue: 0,0:01:26.95,0:01:28.52,Sub,,0,0,0,,{\fad(120,160)}the proof comes fast.
+Dialogue: 0,0:01:28.83,0:01:30.74,Sub,,0,0,0,,{\fad(120,160)}Earlier this year, on a podcast,
+Dialogue: 0,0:01:30.78,0:01:32.21,Sub,,0,0,0,,{\fad(120,160)}he made the same point,
+Dialogue: 0,0:01:32.25,0:01:33.79,Sub,,0,0,0,,{\fad(120,160)}and set his own limit.
+Dialogue: 0,0:01:34.14,0:01:34.95,Sub,,0,0,0,,{\fad(120,160)}There's not efficacy, right?
+Dialogue: 0,0:01:34.99,0:01:36.50,Sub,,0,0,0,,{\fad(120,160)}And I make exactly that point
+Dialogue: 0,0:01:36.54,0:01:38.74,Sub,,0,0,0,,{\fad(120,160)}in Machines of Loving Grace.
+Dialogue: 0,0:01:38.78,0:01:39.85,Sub,,0,0,0,,{\fad(120,160)}I say the clinical trials are
+Dialogue: 0,0:01:39.89,0:01:41.55,Sub,,0,0,0,,{\fad(120,160)}going to go much faster than we're
+Dialogue: 0,0:01:41.59,0:01:43.29,Sub,,0,0,0,,{\fad(120,160)}used to, but not, not instant,
+Dialogue: 0,0:01:43.33,0:01:44.74,Sub,,0,0,0,,{\fad(120,160)}not infinitely fast.
+Dialogue: 0,0:01:45.25,0:01:46.96,Sub,,0,0,0,,{\fad(120,160)}So even in his view,
+Dialogue: 0,0:01:47.00,0:01:48.45,Sub,,0,0,0,,{\fad(120,160)}proof takes time.
+Dialogue: 0,0:01:48.77,0:01:50.11,Sub,,0,0,0,,{\fad(120,160)}Less than a decade:
+Dialogue: 0,0:01:50.22,0:01:52.11,Sub,,0,0,0,,{\fad(120,160)}that's by twenty thirty-six.
+Dialogue: 0,0:01:52.36,0:01:54.02,Sub,,0,0,0,,{\fad(120,160)}Four diseases, and one
+Dialogue: 0,0:01:54.06,0:01:55.35,Sub,,0,0,0,,{\fad(120,160)}question for each.
+Dialogue: 0,0:01:55.62,0:01:57.51,Sub,,0,0,0,,{\fad(120,160)}When a medicine really works,
+Dialogue: 0,0:01:57.55,0:01:59.89,Sub,,0,0,0,,{\fad(120,160)}how fast does the body say so?
+Dialogue: 0,0:02:00.10,0:02:01.55,Sub,,0,0,0,,{\fad(120,160)}The fastest clear answer
+Dialogue: 0,0:02:01.59,0:02:02.99,Sub,,0,0,0,,{\fad(120,160)}comes from cancer.
+Dialogue: 0,0:02:04.16,0:02:05.93,Sub,,0,0,0,,{\fad(120,160)}In the lab, the day a cure
+Dialogue: 0,0:02:05.97,0:02:06.76,Sub,,0,0,0,,{\fad(120,160)}is found is
+Dialogue: 0,0:02:06.80,0:02:08.37,Sub,,0,0,0,,{\fad(120,160)}already getting closer.
+Dialogue: 0,0:02:08.63,0:02:10.32,Sub,,0,0,0,,{\fad(120,160)}Doctors can rebuild a patient's
+Dialogue: 0,0:02:10.36,0:02:12.46,Sub,,0,0,0,,{\fad(120,160)}own immune cells to hunt cancer,
+Dialogue: 0,0:02:12.51,0:02:13.23,Sub,,0,0,0,,{\fad(120,160)}with a receptor
+Dialogue: 0,0:02:13.27,0:02:14.55,Sub,,0,0,0,,{\fad(120,160)}that works like a hook.
+Dialogue: 0,0:02:14.81,0:02:16.19,Sub,,0,0,0,,{\fad(120,160)}Artificial intelligence now
+Dialogue: 0,0:02:16.23,0:02:18.23,Sub,,0,0,0,,{\fad(120,160)}helps redesign those hooks.
+Dialogue: 0,0:02:18.38,0:02:19.09,Sub,,0,0,0,,{\fad(120,160)}One new design
+Dialogue: 0,0:02:19.13,0:02:20.46,Sub,,0,0,0,,{\fad(120,160)}already works better.
+Dialogue: 0,0:02:20.58,0:02:21.92,Sub,,0,0,0,,{\fad(120,160)}All still in the lab.
+Dialogue: 0,0:02:22.08,0:02:24.13,Sub,,0,0,0,,{\fad(120,160)}Then the body answers.
+Dialogue: 0,0:02:24.28,0:02:26.20,Sub,,0,0,0,,{\fad(120,160)}And a tumor answers fast:
+Dialogue: 0,0:02:26.24,0:02:26.99,Sub,,0,0,0,,{\fad(120,160)}on a scan,
+Dialogue: 0,0:02:27.03,0:02:28.92,Sub,,0,0,0,,{\fad(120,160)}within weeks, it shrinks
+Dialogue: 0,0:02:28.97,0:02:29.97,Sub,,0,0,0,,{\fad(120,160)}or it doesn't.
+Dialogue: 0,0:02:30.17,0:02:31.86,Sub,,0,0,0,,{\fad(120,160)}That's how one pill won approval
+Dialogue: 0,0:02:31.90,0:02:33.76,Sub,,0,0,0,,{\fad(120,160)}with just fifty-five patients,
+Dialogue: 0,0:02:33.80,0:02:34.80,Sub,,0,0,0,,{\fad(120,160)}spread across many
+Dialogue: 0,0:02:34.84,0:02:35.97,Sub,,0,0,0,,{\fad(120,160)}different cancers.
+Dialogue: 0,0:02:36.06,0:02:37.53,Sub,,0,0,0,,{\fad(120,160)}Most of them responded.
+Dialogue: 0,0:02:38.10,0:02:40.49,Sub,,0,0,0,,{\fad(120,160)}But cancer isn't one disease.
+Dialogue: 0,0:02:40.58,0:02:42.01,Sub,,0,0,0,,{\fad(120,160)}It's more than a hundred,
+Dialogue: 0,0:02:42.18,0:02:43.57,Sub,,0,0,0,,{\fad(120,160)}and they fight back.
+Dialogue: 0,0:02:43.84,0:02:45.35,Sub,,0,0,0,,{\fad(120,160)}His own essay said so:
+Dialogue: 0,0:02:45.56,0:02:48.17,Sub,,0,0,0,,{\fad(120,160)}the end of most cancer, not all.
+Dialogue: 0,0:02:48.26,0:02:49.74,Sub,,0,0,0,,{\fad(120,160)}Some rare, difficult
+Dialogue: 0,0:02:49.78,0:02:51.25,Sub,,0,0,0,,{\fad(120,160)}cancers may persist.
+Dialogue: 0,0:02:51.60,0:02:52.56,Sub,,0,0,0,,{\fad(120,160)}The line in the sales
+Dialogue: 0,0:02:52.60,0:02:54.67,Sub,,0,0,0,,{\fad(120,160)}video just says: cancer.
+Dialogue: 0,0:02:54.96,0:02:57.40,Sub,,0,0,0,,{\fad(120,160)}So cancer, by the deadline:
+Dialogue: 0,0:02:57.59,0:02:58.64,Sub,,0,0,0,,{\fad(120,160)}for many kinds,
+Dialogue: 0,0:02:58.68,0:03:00.29,Sub,,0,0,0,,{\fad(120,160)}the proof can come in time.
+Dialogue: 0,0:03:00.45,0:03:01.92,Sub,,0,0,0,,{\fad(120,160)}Not for every kind.
+Dialogue: 0,0:03:02.16,0:03:03.72,Sub,,0,0,0,,{\fad(120,160)}But is a fast answer
+Dialogue: 0,0:03:03.76,0:03:05.35,Sub,,0,0,0,,{\fad(120,160)}always the whole answer?
+Dialogue: 0,0:03:06.55,0:03:08.76,Sub,,0,0,0,,{\fad(120,160)}Heart disease answers twice.
+Dialogue: 0,0:03:08.95,0:03:10.42,Sub,,0,0,0,,{\fad(120,160)}First, the blood.
+Dialogue: 0,0:03:10.83,0:03:11.81,Sub,,0,0,0,,{\fad(120,160)}In a recent trial,
+Dialogue: 0,0:03:11.85,0:03:12.93,Sub,,0,0,0,,{\fad(120,160)}people got a single
+Dialogue: 0,0:03:12.97,0:03:14.16,Sub,,0,0,0,,{\fad(120,160)}infusion that switched
+Dialogue: 0,0:03:14.20,0:03:15.63,Sub,,0,0,0,,{\fad(120,160)}off a gene in the liver.
+Dialogue: 0,0:03:15.84,0:03:18.03,Sub,,0,0,0,,{\fad(120,160)}At the highest dose, weeks later,
+Dialogue: 0,0:03:18.07,0:03:19.14,Sub,,0,0,0,,{\fad(120,160)}their bad cholesterol
+Dialogue: 0,0:03:19.18,0:03:21.05,Sub,,0,0,0,,{\fad(120,160)}was cut roughly in half.
+Dialogue: 0,0:03:21.27,0:03:22.48,Sub,,0,0,0,,{\fad(120,160)}One treatment, meant
+Dialogue: 0,0:03:22.52,0:03:24.01,Sub,,0,0,0,,{\fad(120,160)}to last a lifetime.
+Dialogue: 0,0:03:24.34,0:03:25.05,Sub,,0,0,0,,{\fad(120,160)}But a change to your
+Dialogue: 0,0:03:25.09,0:03:26.88,Sub,,0,0,0,,{\fad(120,160)}DNA is for life.
+Dialogue: 0,0:03:27.07,0:03:28.57,Sub,,0,0,0,,{\fad(120,160)}So regulators ask to follow
+Dialogue: 0,0:03:28.61,0:03:30.92,Sub,,0,0,0,,{\fad(120,160)}patients for up to fifteen years.
+Dialogue: 0,0:03:31.04,0:03:31.70,Sub,,0,0,0,,{\fad(120,160)}And whether the heart
+Dialogue: 0,0:03:31.74,0:03:33.30,Sub,,0,0,0,,{\fad(120,160)}attacks really stay away
+Dialogue: 0,0:03:33.34,0:03:35.29,Sub,,0,0,0,,{\fad(120,160)}takes a stadium full of people,
+Dialogue: 0,0:03:35.33,0:03:36.85,Sub,,0,0,0,,{\fad(120,160)}followed for years.
+Dialogue: 0,0:03:37.39,0:03:39.04,Sub,,0,0,0,,{\fad(120,160)}So heart disease,
+Dialogue: 0,0:03:39.11,0:03:41.50,Sub,,0,0,0,,{\fad(120,160)}by the deadline: only halfway.
+Dialogue: 0,0:03:41.67,0:03:43.58,Sub,,0,0,0,,{\fad(120,160)}The tool can be ready in time.
+Dialogue: 0,0:03:43.77,0:03:44.91,Sub,,0,0,0,,{\fad(120,160)}The proof that it's safe
+Dialogue: 0,0:03:44.95,0:03:46.89,Sub,,0,0,0,,{\fad(120,160)}for a lifetime can't.
+Dialogue: 0,0:03:48.06,0:03:49.07,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:03:49.11,0:03:50.43,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:03:50.56,0:03:51.45,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:03:51.49,0:03:52.67,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:03:52.71,0:03:54.41,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:03:54.63,0:03:55.38,Sub,,0,0,0,,{\fad(120,160)}In the lab,
+Dialogue: 0,0:03:55.42,0:03:56.85,Sub,,0,0,0,,{\fad(120,160)}and at the hospital bed,
+Dialogue: 0,0:03:56.92,0:03:57.96,Sub,,0,0,0,,{\fad(120,160)}for your parents,
+Dialogue: 0,0:03:58.00,0:03:59.44,Sub,,0,0,0,,{\fad(120,160)}and one day for you.
+Dialogue: 0,0:03:59.76,0:04:00.76,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:04:00.83,0:04:01.83,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:04:02.97,0:04:05.32,Sub,,0,0,0,,{\fad(120,160)}The third disease answers fast.
+Dialogue: 0,0:04:05.59,0:04:07.48,Sub,,0,0,0,,{\fad(120,160)}The problem is hearing the answer.
+Dialogue: 0,0:04:07.82,0:04:09.02,Sub,,0,0,0,,{\fad(120,160)}Take depression, one
+Dialogue: 0,0:04:09.06,0:04:10.49,Sub,,0,0,0,,{\fad(120,160)}part of mental illness.
+Dialogue: 0,0:04:10.64,0:04:12.42,Sub,,0,0,0,,{\fad(120,160)}A trial runs for weeks.
+Dialogue: 0,0:04:12.72,0:04:13.59,Sub,,0,0,0,,{\fad(120,160)}But in those weeks,
+Dialogue: 0,0:04:13.63,0:04:14.69,Sub,,0,0,0,,{\fad(120,160)}many people improve
+Dialogue: 0,0:04:14.73,0:04:16.18,Sub,,0,0,0,,{\fad(120,160)}on a sugar pill too.
+Dialogue: 0,0:04:16.43,0:04:16.92,Sub,,0,0,0,,{\fad(120,160)}Even for the
+Dialogue: 0,0:04:16.96,0:04:18.90,Sub,,0,0,0,,{\fad(120,160)}antidepressants already approved,
+Dialogue: 0,0:04:18.94,0:04:20.54,Sub,,0,0,0,,{\fad(120,160)}only about half the trials
+Dialogue: 0,0:04:20.58,0:04:21.70,Sub,,0,0,0,,{\fad(120,160)}beat the sugar pill.
+Dialogue: 0,0:04:22.09,0:04:22.76,Sub,,0,0,0,,{\fad(120,160)}And there's no blood
+Dialogue: 0,0:04:22.80,0:04:23.74,Sub,,0,0,0,,{\fad(120,160)}test for depression.
+Dialogue: 0,0:04:23.78,0:04:26.00,Sub,,0,0,0,,{\fad(120,160)}The diagnosis is a questionnaire.
+Dialogue: 0,0:04:26.48,0:04:27.94,Sub,,0,0,0,,{\fad(120,160)}That doesn't make it hopeless.
+Dialogue: 0,0:04:28.00,0:04:29.85,Sub,,0,0,0,,{\fad(120,160)}In his essay, he wrote that most
+Dialogue: 0,0:04:29.89,0:04:30.77,Sub,,0,0,0,,{\fad(120,160)}mental illness can
+Dialogue: 0,0:04:30.81,0:04:32.32,Sub,,0,0,0,,{\fad(120,160)}probably be cured.
+Dialogue: 0,0:04:32.86,0:04:34.66,Sub,,0,0,0,,{\fad(120,160)}So mental illness,
+Dialogue: 0,0:04:34.80,0:04:37.36,Sub,,0,0,0,,{\fad(120,160)}by the deadline: an open question.
+Dialogue: 0,0:04:37.64,0:04:39.41,Sub,,0,0,0,,{\fad(120,160)}Cancer has its scan.
+Dialogue: 0,0:04:39.66,0:04:41.95,Sub,,0,0,0,,{\fad(120,160)}The mind is still waiting for one.
+Dialogue: 0,0:04:42.25,0:04:44.25,Sub,,0,0,0,,{\fad(120,160)}And then the fourth disease.
+Dialogue: 0,0:04:44.44,0:04:45.48,Sub,,0,0,0,,{\fad(120,160)}The slowest.
+Dialogue: 0,0:04:45.72,0:04:47.95,Sub,,0,0,0,,{\fad(120,160)}It starts long before it shows.
+Dialogue: 0,0:04:49.10,0:04:50.19,Sub,,0,0,0,,{\fad(120,160)}Alzheimer's.
+Dialogue: 0,0:04:50.45,0:04:51.74,Sub,,0,0,0,,{\fad(120,160)}The changes in the brain
+Dialogue: 0,0:04:51.78,0:04:52.95,Sub,,0,0,0,,{\fad(120,160)}start around twenty
+Dialogue: 0,0:04:52.99,0:04:53.82,Sub,,0,0,0,,{\fad(120,160)}years before the
+Dialogue: 0,0:04:53.86,0:04:55.40,Sub,,0,0,0,,{\fad(120,160)}first forgotten name.
+Dialogue: 0,0:04:55.72,0:04:57.06,Sub,,0,0,0,,{\fad(120,160)}That means many people
+Dialogue: 0,0:04:57.10,0:04:58.07,Sub,,0,0,0,,{\fad(120,160)}who'll be diagnosed
+Dialogue: 0,0:04:58.11,0:04:59.58,Sub,,0,0,0,,{\fad(120,160)}by the deadline already
+Dialogue: 0,0:04:59.62,0:05:01.79,Sub,,0,0,0,,{\fad(120,160)}carry the first traces today.
+Dialogue: 0,0:05:02.12,0:05:03.49,Sub,,0,0,0,,{\fad(120,160)}So the medicine has to come
+Dialogue: 0,0:05:03.53,0:05:05.14,Sub,,0,0,0,,{\fad(120,160)}before the symptoms.
+Dialogue: 0,0:05:05.58,0:05:07.11,Sub,,0,0,0,,{\fad(120,160)}Proving that means following
+Dialogue: 0,0:05:07.15,0:05:08.84,Sub,,0,0,0,,{\fad(120,160)}healthy people for years,
+Dialogue: 0,0:05:08.88,0:05:11.07,Sub,,0,0,0,,{\fad(120,160)}and counting who doesn't get sick.
+Dialogue: 0,0:05:11.46,0:05:12.78,Sub,,0,0,0,,{\fad(120,160)}One such trial waited
+Dialogue: 0,0:05:12.82,0:05:14.32,Sub,,0,0,0,,{\fad(120,160)}years for its answer.
+Dialogue: 0,0:05:14.56,0:05:16.13,Sub,,0,0,0,,{\fad(120,160)}The drug didn't work.
+Dialogue: 0,0:05:16.51,0:05:18.12,Sub,,0,0,0,,{\fad(120,160)}And for those already sick,
+Dialogue: 0,0:05:18.16,0:05:20.33,Sub,,0,0,0,,{\fad(120,160)}his essay had more small print:
+Dialogue: 0,0:05:20.70,0:05:22.10,Sub,,0,0,0,,{\fad(120,160)}existing damage may be
+Dialogue: 0,0:05:22.14,0:05:24.09,Sub,,0,0,0,,{\fad(120,160)}very difficult to reverse.
+Dialogue: 0,0:05:24.66,0:05:26.05,Sub,,0,0,0,,{\fad(120,160)}The line in the sales video
+Dialogue: 0,0:05:26.09,0:05:27.72,Sub,,0,0,0,,{\fad(120,160)}doesn't mention that either.
+Dialogue: 0,0:05:27.91,0:05:29.55,Sub,,0,0,0,,{\fad(120,160)}So Alzheimer's,
+Dialogue: 0,0:05:29.59,0:05:31.32,Sub,,0,0,0,,{\fad(120,160)}by the deadline: no.
+Dialogue: 0,0:05:31.70,0:05:33.35,Sub,,0,0,0,,{\fad(120,160)}For many who'll get it by then,
+Dialogue: 0,0:05:33.39,0:05:34.78,Sub,,0,0,0,,{\fad(120,160)}it has already begun.
+Dialogue: 0,0:05:35.73,0:05:36.58,Sub,,0,0,0,,{\fad(120,160)}But the race doesn't
+Dialogue: 0,0:05:36.62,0:05:38.04,Sub,,0,0,0,,{\fad(120,160)}start at the deadline.
+Dialogue: 0,0:05:38.18,0:05:39.43,Sub,,0,0,0,,{\fad(120,160)}It starts now.
+Dialogue: 0,0:05:39.70,0:05:40.58,Sub,,0,0,0,,{\fad(120,160)}Since last year,
+Dialogue: 0,0:05:40.62,0:05:41.97,Sub,,0,0,0,,{\fad(120,160)}a blood test can spot
+Dialogue: 0,0:05:42.01,0:05:43.32,Sub,,0,0,0,,{\fad(120,160)}the first traces.
+Dialogue: 0,0:05:43.54,0:05:44.70,Sub,,0,0,0,,{\fad(120,160)}So if the machines
+Dialogue: 0,0:05:44.74,0:05:46.01,Sub,,0,0,0,,{\fad(120,160)}aren't the slow part,
+Dialogue: 0,0:05:46.09,0:05:47.66,Sub,,0,0,0,,{\fad(120,160)}why set a date at all?
+Dialogue: 0,0:05:48.81,0:05:50.53,Sub,,0,0,0,,{\fad(120,160)}Partly, because a sales pitch
+Dialogue: 0,0:05:50.57,0:05:51.65,Sub,,0,0,0,,{\fad(120,160)}rewards a promise
+Dialogue: 0,0:05:51.69,0:05:52.91,Sub,,0,0,0,,{\fad(120,160)}with a date on it.
+Dialogue: 0,0:05:52.98,0:05:54.27,Sub,,0,0,0,,{\fad(120,160)}No villain needed.
+Dialogue: 0,0:05:54.67,0:05:56.46,Sub,,0,0,0,,{\fad(120,160)}The Nobel Prize-winning biologist
+Dialogue: 0,0:05:56.50,0:05:58.33,Sub,,0,0,0,,{\fad(120,160)}Venki Ramakrishnan, asked
+Dialogue: 0,0:05:58.37,0:05:58.96,Sub,,0,0,0,,{\fad(120,160)}in a recent
+Dialogue: 0,0:05:59.00,0:05:59.88,Sub,,0,0,0,,{\fad(120,160)}interview about
+Dialogue: 0,0:05:59.92,0:06:01.21,Sub,,0,0,0,,{\fad(120,160)}artificial intelligence
+Dialogue: 0,0:06:01.25,0:06:02.41,Sub,,0,0,0,,{\fad(120,160)}and new drugs,
+Dialogue: 0,0:06:02.45,0:06:04.27,Sub,,0,0,0,,{\fad(120,160)}named the slow part:
+Dialogue: 0,0:06:04.84,0:06:07.48,Sub,,0,0,0,,{\fad(120,160)}AI could be very fast at
+Dialogue: 0,0:06:07.52,0:06:08.82,Sub,,0,0,0,,{\fad(120,160)}its computational work,
+Dialogue: 0,0:06:08.86,0:06:10.28,Sub,,0,0,0,,{\fad(120,160)}but the experimental work is still
+Dialogue: 0,0:06:10.32,0:06:12.43,Sub,,0,0,0,,{\fad(120,160)}going to be the
+Dialogue: 0,0:06:12.47,0:06:14.12,Sub,,0,0,0,,{\fad(120,160)}rate-limiting factor.
+Dialogue: 0,0:06:14.59,0:06:17.02,Sub,,0,0,0,,{\fad(120,160)}The testing, not the finding.
+Dialogue: 0,0:06:17.44,0:06:18.23,Sub,,0,0,0,,{\fad(120,160)}The other reason
+Dialogue: 0,0:06:18.27,0:06:19.64,Sub,,0,0,0,,{\fad(120,160)}for Amodei's date:
+Dialogue: 0,0:06:19.81,0:06:21.30,Sub,,0,0,0,,{\fad(120,160)}he's betting that the testing
+Dialogue: 0,0:06:21.34,0:06:22.58,Sub,,0,0,0,,{\fad(120,160)}can speed up too.
+Dialogue: 0,0:06:22.86,0:06:24.94,Sub,,0,0,0,,{\fad(120,160)}The cardiologist Eric Topol,
+Dialogue: 0,0:06:24.98,0:06:25.49,Sub,,0,0,0,,{\fad(120,160)}a fan of
+Dialogue: 0,0:06:25.53,0:06:26.86,Sub,,0,0,0,,{\fad(120,160)}what artificial intelligence
+Dialogue: 0,0:06:26.90,0:06:28.17,Sub,,0,0,0,,{\fad(120,160)}can do for health,
+Dialogue: 0,0:06:28.29,0:06:29.11,Sub,,0,0,0,,{\fad(120,160)}called such cure
+Dialogue: 0,0:06:29.15,0:06:31.54,Sub,,0,0,0,,{\fad(120,160)}timelines wildly off-base.
+Dialogue: 0,0:06:31.86,0:06:33.49,Sub,,0,0,0,,{\fad(120,160)}To be fair, Amodei holds
+Dialogue: 0,0:06:33.53,0:06:35.43,Sub,,0,0,0,,{\fad(120,160)}himself to a harder test.
+Dialogue: 0,0:06:35.66,0:06:36.90,Sub,,0,0,0,,{\fad(120,160)}In August, he wrote
+Dialogue: 0,0:06:36.94,0:06:38.19,Sub,,0,0,0,,{\fad(120,160)}that the only thing that will
+Dialogue: 0,0:06:38.23,0:06:39.51,Sub,,0,0,0,,{\fad(120,160)}convince people is
+Dialogue: 0,0:06:39.55,0:06:41.35,Sub,,0,0,0,,{\fad(120,160)}actually curing cancer.
+Dialogue: 0,0:06:41.94,0:06:42.84,Sub,,0,0,0,,{\fad(120,160)}His own company
+Dialogue: 0,0:06:42.88,0:06:44.62,Sub,,0,0,0,,{\fad(120,160)}now designs medicines.
+Dialogue: 0,0:06:44.94,0:06:47.16,Sub,,0,0,0,,{\fad(120,160)}One, for muscular dystrophy,
+Dialogue: 0,0:06:47.20,0:06:48.17,Sub,,0,0,0,,{\fad(120,160)}went from idea
+Dialogue: 0,0:06:48.21,0:06:49.83,Sub,,0,0,0,,{\fad(120,160)}to promising results in mice
+Dialogue: 0,0:06:49.87,0:06:51.81,Sub,,0,0,0,,{\fad(120,160)}in under eighteen months.
+Dialogue: 0,0:06:52.08,0:06:53.54,Sub,,0,0,0,,{\fad(120,160)}Its human trials could start
+Dialogue: 0,0:06:53.58,0:06:54.16,Sub,,0,0,0,,{\fad(120,160)}as soon as
+Dialogue: 0,0:06:54.20,0:06:55.82,Sub,,0,0,0,,{\fad(120,160)}late twenty twenty-eight.
+Dialogue: 0,0:06:56.07,0:06:58.05,Sub,,0,0,0,,{\fad(120,160)}Same road as everyone else.
+Dialogue: 0,0:06:58.14,0:06:59.90,Sub,,0,0,0,,{\fad(120,160)}First date: fast.
+Dialogue: 0,0:07:00.03,0:07:02.06,Sub,,0,0,0,,{\fad(120,160)}Second date: years away.
+Dialogue: 0,0:07:02.36,0:07:04.52,Sub,,0,0,0,,{\fad(120,160)}He even warned of a jam himself,
+Dialogue: 0,0:07:04.56,0:07:05.45,Sub,,0,0,0,,{\fad(120,160)}earlier this year,
+Dialogue: 0,0:07:05.49,0:07:07.08,Sub,,0,0,0,,{\fad(120,160)}on that same podcast.
+Dialogue: 0,0:07:07.50,0:07:10.04,Sub,,0,0,0,,{\fad(120,160)}AI models are going to
+Dialogue: 0,0:07:10.08,0:07:11.99,Sub,,0,0,0,,{\fad(120,160)}greatly accelerate
+Dialogue: 0,0:07:12.03,0:07:13.19,Sub,,0,0,0,,{\fad(120,160)}the rate at which we discover
+Dialogue: 0,0:07:13.23,0:07:15.34,Sub,,0,0,0,,{\fad(120,160)}drugs and just the pipeline will
+Dialogue: 0,0:07:15.38,0:07:16.38,Sub,,0,0,0,,{\fad(120,160)}get jammed up.
+Dialogue: 0,0:07:16.84,0:07:18.44,Sub,,0,0,0,,{\fad(120,160)}Discovery speeds up.
+Dialogue: 0,0:07:18.65,0:07:19.75,Sub,,0,0,0,,{\fad(120,160)}Proof jams.
+Dialogue: 0,0:07:19.98,0:07:22.13,Sub,,0,0,0,,{\fad(120,160)}So can proof come sooner,
+Dialogue: 0,0:07:22.17,0:07:24.51,Sub,,0,0,0,,{\fad(120,160)}without making medicine less safe?
+Dialogue: 0,0:07:25.64,0:07:26.58,Sub,,0,0,0,,{\fad(120,160)}It can.
+Dialogue: 0,0:07:26.62,0:07:28.52,Sub,,0,0,0,,{\fad(120,160)}And it's already starting.
+Dialogue: 0,0:07:28.88,0:07:30.20,Sub,,0,0,0,,{\fad(120,160)}Picture someone you love,
+Dialogue: 0,0:07:30.39,0:07:32.94,Sub,,0,0,0,,{\fad(120,160)}around sixty, sharp as ever.
+Dialogue: 0,0:07:33.40,0:07:35.18,Sub,,0,0,0,,{\fad(120,160)}At a study clinic, a blood test
+Dialogue: 0,0:07:35.22,0:07:36.13,Sub,,0,0,0,,{\fad(120,160)}finds the first
+Dialogue: 0,0:07:36.17,0:07:38.08,Sub,,0,0,0,,{\fad(120,160)}traces, years early.
+Dialogue: 0,0:07:38.34,0:07:40.01,Sub,,0,0,0,,{\fad(120,160)}So they join a trial:
+Dialogue: 0,0:07:40.23,0:07:40.93,Sub,,0,0,0,,{\fad(120,160)}can a medicine
+Dialogue: 0,0:07:40.97,0:07:43.08,Sub,,0,0,0,,{\fad(120,160)}hold off the first forgotten name?
+Dialogue: 0,0:07:43.43,0:07:45.69,Sub,,0,0,0,,{\fad(120,160)}For now, experts advise that test
+Dialogue: 0,0:07:45.73,0:07:48.07,Sub,,0,0,0,,{\fad(120,160)}for healthy people only in trials.
+Dialogue: 0,0:07:48.32,0:07:49.76,Sub,,0,0,0,,{\fad(120,160)}But that's how the slowest
+Dialogue: 0,0:07:49.80,0:07:51.29,Sub,,0,0,0,,{\fad(120,160)}proof gets a head start.
+Dialogue: 0,0:07:51.60,0:07:52.69,Sub,,0,0,0,,{\fad(120,160)}In other trials,
+Dialogue: 0,0:07:52.73,0:07:53.74,Sub,,0,0,0,,{\fad(120,160)}part of the sugar-pill
+Dialogue: 0,0:07:53.78,0:07:54.81,Sub,,0,0,0,,{\fad(120,160)}group is replaced
+Dialogue: 0,0:07:54.85,0:07:55.95,Sub,,0,0,0,,{\fad(120,160)}by a prediction:
+Dialogue: 0,0:07:56.11,0:07:58.50,Sub,,0,0,0,,{\fad(120,160)}a digital twin of each patient.
+Dialogue: 0,0:07:59.11,0:08:00.32,Sub,,0,0,0,,{\fad(120,160)}Fewer people on a sugar
+Dialogue: 0,0:08:00.36,0:08:02.24,Sub,,0,0,0,,{\fad(120,160)}pill, answers sooner.
+Dialogue: 0,0:08:02.50,0:08:04.17,Sub,,0,0,0,,{\fad(120,160)}Europe's regulator accepts
+Dialogue: 0,0:08:04.21,0:08:05.51,Sub,,0,0,0,,{\fad(120,160)}it for some trials.
+Dialogue: 0,0:08:05.70,0:08:07.68,Sub,,0,0,0,,{\fad(120,160)}It shrinks the comparison group.
+Dialogue: 0,0:08:07.79,0:08:09.18,Sub,,0,0,0,,{\fad(120,160)}It doesn't replace it.
+Dialogue: 0,0:08:09.53,0:08:11.19,Sub,,0,0,0,,{\fad(120,160)}At America's regulator,
+Dialogue: 0,0:08:11.23,0:08:12.35,Sub,,0,0,0,,{\fad(120,160)}reviewers now work
+Dialogue: 0,0:08:12.39,0:08:13.29,Sub,,0,0,0,,{\fad(120,160)}with an artificial
+Dialogue: 0,0:08:13.33,0:08:14.86,Sub,,0,0,0,,{\fad(120,160)}intelligence assistant.
+Dialogue: 0,0:08:15.06,0:08:16.91,Sub,,0,0,0,,{\fad(120,160)}For a few priority medicines,
+Dialogue: 0,0:08:16.95,0:08:18.17,Sub,,0,0,0,,{\fad(120,160)}the goal is a decision
+Dialogue: 0,0:08:18.21,0:08:20.16,Sub,,0,0,0,,{\fad(120,160)}within one or two months.
+Dialogue: 0,0:08:20.35,0:08:22.10,Sub,,0,0,0,,{\fad(120,160)}Amodei's own proposal:
+Dialogue: 0,0:08:22.40,0:08:23.71,Sub,,0,0,0,,{\fad(120,160)}rules made for medicines
+Dialogue: 0,0:08:23.75,0:08:24.87,Sub,,0,0,0,,{\fad(120,160)}that clearly work
+Dialogue: 0,0:08:24.91,0:08:26.37,Sub,,0,0,0,,{\fad(120,160)}and are clearly safe.
+Dialogue: 0,0:08:26.61,0:08:27.99,Sub,,0,0,0,,{\fad(120,160)}But remember the heart:
+Dialogue: 0,0:08:28.18,0:08:30.58,Sub,,0,0,0,,{\fad(120,160)}fast can't mean less safe.
+Dialogue: 0,0:08:31.17,0:08:32.40,Sub,,0,0,0,,{\fad(120,160)}In the sales video,
+Dialogue: 0,0:08:32.44,0:08:34.49,Sub,,0,0,0,,{\fad(120,160)}his promise came with a condition.
+Dialogue: 0,0:08:34.71,0:08:35.71,Sub,,0,0,0,,{\fad(120,160)}In his words:
+Dialogue: 0,0:08:35.91,0:08:37.79,Sub,,0,0,0,,{\fad(120,160)}"I think if we do this right,
+Dialogue: 0,0:08:37.83,0:08:40.37,Sub,,0,0,0,,{\fad(120,160)}we can create an age of miracles."
+Dialogue: 0,0:08:40.70,0:08:41.56,Sub,,0,0,0,,{\fad(120,160)}If the machines make
+Dialogue: 0,0:08:41.60,0:08:43.45,Sub,,0,0,0,,{\fad(120,160)}the first date come fast,
+Dialogue: 0,0:08:43.49,0:08:44.71,Sub,,0,0,0,,{\fad(120,160)}the second date becomes
+Dialogue: 0,0:08:44.75,0:08:46.07,Sub,,0,0,0,,{\fad(120,160)}the real deadline.
+Dialogue: 0,0:08:46.26,0:08:47.74,Sub,,0,0,0,,{\fad(120,160)}And people set that one.
+Dialogue: 0,0:08:48.16,0:08:50.34,Sub,,0,0,0,,{\fad(120,160)}Clinics that find disease early.
+Dialogue: 0,0:08:50.60,0:08:51.43,Sub,,0,0,0,,{\fad(120,160)}Scientists who
+Dialogue: 0,0:08:51.47,0:08:53.21,Sub,,0,0,0,,{\fad(120,160)}design leaner trials.
+Dialogue: 0,0:08:53.52,0:08:54.57,Sub,,0,0,0,,{\fad(120,160)}Lawmakers who keep
+Dialogue: 0,0:08:54.61,0:08:55.60,Sub,,0,0,0,,{\fad(120,160)}the rules in step
+Dialogue: 0,0:08:55.64,0:08:57.79,Sub,,0,0,0,,{\fad(120,160)}with medicines that clearly work.
+Dialogue: 0,0:08:58.07,0:08:58.95,Sub,,0,0,0,,{\fad(120,160)}That's what doing
+Dialogue: 0,0:08:58.99,0:09:00.29,Sub,,0,0,0,,{\fad(120,160)}it right looks like.
+Dialogue: 0,0:09:01.38,0:09:03.38,Sub,,0,0,0,,{\fad(120,160)}So, does the deadline hold?
+Dialogue: 0,0:09:03.79,0:09:06.65,Sub,,0,0,0,,{\fad(120,160)}Cancer: for many kinds, yes.
+Dialogue: 0,0:09:06.87,0:09:08.83,Sub,,0,0,0,,{\fad(120,160)}Heart disease: halfway.
+Dialogue: 0,0:09:09.11,0:09:11.31,Sub,,0,0,0,,{\fad(120,160)}Mental illness: still open.
+Dialogue: 0,0:09:11.57,0:09:13.77,Sub,,0,0,0,,{\fad(120,160)}Alzheimer's: not by then.
+Dialogue: 0,0:09:14.05,0:09:16.15,Sub,,0,0,0,,{\fad(120,160)}But its race has already begun.
+Dialogue: 0,0:09:16.77,0:09:17.86,Sub,,0,0,0,,{\fad(120,160)}Maybe your grandkids
+Dialogue: 0,0:09:17.90,0:09:18.53,Sub,,0,0,0,,{\fad(120,160)}will hear the word
+Dialogue: 0,0:09:18.57,0:09:20.14,Sub,,0,0,0,,{\fad(120,160)}Alzheimer's the way you
+Dialogue: 0,0:09:20.18,0:09:21.71,Sub,,0,0,0,,{\fad(120,160)}hear the word plague.
+Dialogue: 0,0:09:21.97,0:09:23.76,Sub,,0,0,0,,{\fad(120,160)}Not because someone set a date.
+Dialogue: 0,0:09:23.93,0:09:25.52,Sub,,0,0,0,,{\fad(120,160)}Because someone proved it.
+Dialogue: 0,0:09:25.75,0:09:27.74,Sub,,0,0,0,,{\fad(120,160)}Every cure has two dates:
+Dialogue: 0,0:09:27.84,0:09:28.95,Sub,,0,0,0,,{\fad(120,160)}the day it's found,
+Dialogue: 0,0:09:28.99,0:09:30.32,Sub,,0,0,0,,{\fad(120,160)}and the day it's proven.
+Dialogue: 0,0:09:30.53,0:09:31.93,Sub,,0,0,0,,{\fad(120,160)}Investors are already putting
+Dialogue: 0,0:09:31.97,0:09:33.49,Sub,,0,0,0,,{\fad(120,160)}a price on the first date.
+Dialogue: 0,0:09:33.67,0:09:34.44,Sub,,0,0,0,,{\fad(120,160)}The second one
+Dialogue: 0,0:09:34.48,0:09:36.00,Sub,,0,0,0,,{\fad(120,160)}is still ours to move.
+Dialogue: 0,0:09:37.18,0:09:38.27,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:09:38.31,0:09:39.64,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:09:39.83,0:09:40.72,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:09:40.76,0:09:41.97,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:09:42.01,0:09:43.72,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:09:43.91,0:09:45.63,Sub,,0,0,0,,{\fad(120,160)}Fast discoveries in the lab,
+Dialogue: 0,0:09:45.67,0:09:47.59,Sub,,0,0,0,,{\fad(120,160)}and proof that arrives in time,
+Dialogue: 0,0:09:47.63,0:09:48.72,Sub,,0,0,0,,{\fad(120,160)}for every family
+Dialogue: 0,0:09:48.76,0:09:50.26,Sub,,0,0,0,,{\fad(120,160)}in a waiting room today.
+Dialogue: 0,0:09:50.48,0:09:51.59,Sub,,0,0,0,,{\fad(120,160)}Including yours.
+Dialogue: 0,0:09:51.84,0:09:52.84,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:09:52.96,0:09:54.06,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.

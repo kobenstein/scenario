@@ -1,0 +1,350 @@
+{
+  "film": "How to Survive the AI Crash",
+  "stand": "2026-11-06",
+  "hinweise": [
+    "Format nach schreibraum/clip-schritt.md. 'clips' = je Stelle die Empfehlung (zählt für den Anteil), 'alternativen' = Ersatz.",
+    "Alle Zeitmarken aus YouTube-Untertiteln (json3), Genauigkeit etwa ±0,5 s. Beim Download 1 s Rand, Schnitt nach Gehör.",
+    "Bei automatischen Untertiteln Wortlaut am Ton prüfen; Fed-Videos zusätzlich am offiziellen Transkript (federalreserve.gov, aus unserer Umgebung gesperrt).",
+    "Fed-Pressekonferenzen: Werke einer US-Bundesbehörde, keine Musik. Firmenkanäle (Google, Google DeepMind, Nvidia, Salesforce): Standardlizenz, Ampel grün.",
+    "Ein grüner Clip eines Firmenchefs mit „in der Krise mehr automatisieren“ wurde nicht gefunden (geprüft: Dreamforce 2026, Andy Jassy/HBR 2025 = gelb ohne passende Stelle, Nvidia-Kurzclips). C2 ist deshalb Powell.",
+    "Abstände bei Empfehlung: C1 ~3:30, C2 ~5:00, C3 ~9:40 (alle ≥ 45 s)."
+  ],
+  "anteil": {
+    "summe_empfehlung_s": 33.95,
+    "laufzeit_annahme_s": 620,
+    "prozent": 5.5,
+    "ziel_prozent": 8,
+    "hart_prozent": 10
+  },
+  "clips": [
+    {
+      "id": "C1",
+      "kandidat": "Empfehlung",
+      "speaker": "Jerome Powell",
+      "role": "Chair, Federal Reserve (2018–2026)",
+      "source_title": "FOMC Press Conference, October 29, 2025",
+      "channel": "Federal Reserve",
+      "url": "https://www.youtube.com/watch?v=gZsAKn1UtH4",
+      "date": "2025-10-29",
+      "in": "00:42:17.000",
+      "out": "00:42:30.200",
+      "dauer_s": 13.2,
+      "transcript": "You know, the investment we're getting in equipment and all those things that go into creating data centers and feeding the AI, it's clearly one of the big sources of growth in the economy.",
+      "ampel": "gruen",
+      "slot": "Station 3 „Das Geld wird knapp“ (~3:30), nach dem Satz, dass das Geld für den Bau von Rechenzentren die ganze Wirtschaft trägt; Frage an Powell kam von Victoria Guida (Politico): „how worried are you about what the sudden contraction in tech investment would mean for the overall economy?“",
+      "einordnung": "A year before the sell-off, a reporter asked the head of America's central bank what a sudden stop in AI investment would mean for the economy. His answer showed how much was riding on it.",
+      "burned": false,
+      "untertitel": "offiziell (Fed-Transkript als Untertitel)",
+      "musik": "keine (Pressekonferenz)",
+      "kontext_vorher_30s": "that these companies-the companies that are so highly valued-actually have earnings and stuff like that. So you go back to the '90s and the dot-com [period], they were-these were ideas rather than companies. And we're-so there's a clear bubble there, whereas the-I won't go into particular names, but they actually have earnings, and it looks like they have business models and profits and that kind of thing. So it's really a different thing.",
+      "kontext_nachher_30s": "Consumer spending also, though, has been-is much bigger than that and has been growing and has defied a lot of, you know, negative forecasts, continuing to do so this year. Consumers are still spending. Now, it is-it may be mostly higher-end consumers or maybe skewed that way, but the consumer spending-and that's a big, big chunk of what's going on in the economy, bigger than-substantially bigger than AI. You could point to growth-I mean, actually, maybe-growth",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": true
+      },
+      "pruefen": [
+        "Zeitmarken ±0,5 s, beim Download 1 s Rand",
+        "Sinn: Direkt davor sagt Powell, die heutigen Firmen hätten anders als 2000 echte Gewinne; direkt danach, der Konsum sei viel größer als KI. Den Clip nicht als Crash-Warnung verkaufen, sondern als Beleg, wie viel Wachstum an KI-Investitionen hing.",
+        "Bauchbinde: JEROME POWELL · Fed Chair · 2025 · ORIGINAL FOOTAGE"
+      ]
+    },
+    {
+      "id": "C2",
+      "kandidat": "Empfehlung",
+      "speaker": "Jerome Powell",
+      "role": "Chair, Federal Reserve (2018–2026)",
+      "source_title": "FOMC Press Conference, December 10, 2025",
+      "channel": "Federal Reserve",
+      "url": "https://www.youtube.com/watch?v=Ko-_yb2UkDk",
+      "date": "2025-12-10",
+      "in": "00:48:04.600",
+      "out": "00:48:16.200",
+      "dauer_s": 11.6,
+      "transcript": "You know, the pandemic may have induced people to do more automation and do more things with computers to replace people, and that raises productivity, you know, output per hour.",
+      "ampel": "gruen",
+      "slot": "Station 4 „Tag 100: Der Wendepunkt“ (~5:00), direkt nach Jaimovich & Siu (Routine-Jobs gehen in Krisen verloren); Antwort auf die Frage, ob die USA einen Produktivitätsschub erleben.",
+      "einordnung": "In December 2025, the chair of the Federal Reserve was asked why American workers had suddenly become so much more productive. Part of his answer was about the last crisis.",
+      "burned": false,
+      "untertitel": "automatisch (YouTube), Fed-Transkript nicht geprüft",
+      "musik": "keine (Pressekonferenz)",
+      "kontext_vorher_30s": "personal life, as I I imagine many of us have, you can see the prospects for productivity. I think it makes people who use it more productive. It may make other people have to find other jobs though. So, so it could have productivity implications while also having, you know, social and labor market implications that we don't have the tools to deal with. But yes, I think we are seeing we're definitely seeing higher productivity. I don't I think it's a little quick to be saying it's it's generative AI, but um I don't know.",
+      "kontext_nachher_30s": ">> Does that does that imply a higher does that imply higher neutral rate and therefore the policy might be a little easier than it seems? >> All you know, all things equal, yes, but all things aren't equal. There are many uh many things pushing in in different directions on where the neutral rate would be, but yes, that that argument does come up. [clears throat] >> Uh Matt Egan. >> Thanks, Cher Powell. Matt Eaggan with CNN. Um after today, you only have three more meetings at the helm of the Fed.",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": true
+      },
+      "pruefen": [
+        "Wortlaut am Ton und am offiziellen Fed-Transkript prüfen (automatische Untertitel)",
+        "Powell spricht vorsichtig („may have“, davor „I don't know“): im VO als Beobachtung, nicht als Beweis",
+        "Ersatz für den gesuchten Firmenchef-Clip: kein grüner CEO-O-Ton mit „in der Krise automatisieren“ gefunden",
+        "Bauchbinde: JEROME POWELL · Fed Chair · 2025 · ORIGINAL FOOTAGE"
+      ]
+    },
+    {
+      "id": "C3",
+      "kandidat": "Empfehlung",
+      "speaker": "Demis Hassabis",
+      "role": "Co-founder & CEO, Google DeepMind",
+      "source_title": "The future of intelligence | Demis Hassabis (Co-founder and CEO of DeepMind)",
+      "channel": "Google DeepMind",
+      "url": "https://www.youtube.com/watch?v=PqVbypvxDto",
+      "date": "2025-12-16",
+      "in": "00:28:56.500",
+      "out": "00:29:05.650",
+      "dauer_s": 9.15,
+      "transcript": "I still subscribe to it's overhyped in the short term, still, and still underappreciated in the, in the medium to long term, what's going to, you know, how transformative it's going to be.",
+      "ampel": "gruen",
+      "slot": "Station 7 „Tag 1.000“ (~9:40), vor oder nach dem Satz „A crash is a price, not the end of the technology.“ Die Frage im Interview war wörtlich: „What happens if there is a bubble and it bursts?“",
+      "einordnung": "In December 2025, Demis Hassabis, who runs Google DeepMind, was asked what happens if the AI bubble bursts.",
+      "burned": false,
+      "untertitel": "automatisch + manuell (en-GB); weichen in Füllwörtern ab",
+      "musik": "Podcast: Intro-/Outro-Musik möglich, an dieser Stelle Gespräch; prüfen",
+      "kontext_vorher_30s": "I guess we're still talking sort of medium to long term in terms of this stuff. So so just going back to the trajectory that we're on at the moment. Um I also want to talk to you about the the impact that AI and AGI are going to have on on wider society. >> Um and last time we spoke you said that you thought AI was overhyped in the short term but underhyped in the long term. >> Um and I know that this year there's been a lot of chatter about an AI bubble. >> Yes. >> What happens if there is a bubble and it bursts? What happens? Well, look, I I think yes",
+      "kontext_nachher_30s": "Um yeah, there is a lot of talk of course right now about AI bubbles. Um in my view uh I I think it there isn't it's not one thing binary thing are we or aren't we? I think there are parts of the AI ecosystem that are probably in bubbles. What one example would be, you know, just seed rounds for startups uh that basically haven't even got going yet and they're raising at tens of billions of dollars uh valuations just out of the gate. It's sort of interesting to see how how can that",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": true
+      },
+      "pruefen": [
+        "Wortlaut am Ton prüfen (Auto: „in the in the medium to long term what's going to you know“; manuell: „under appreciated … What's kind of, you know“)",
+        "Sinn bleibt: In den 30 s danach sagt er, Teile der KI-Welt seien „probably in bubbles“ (z. B. Seed-Runden) – passt zum Film",
+        "Bauchbinde: DEMIS HASSABIS · CEO, Google DeepMind · 2025 · ORIGINAL FOOTAGE"
+      ]
+    }
+  ],
+  "alternativen": [
+    {
+      "id": "C1b",
+      "kandidat": "Alternative C1 (näher am Crash)",
+      "speaker": "Kevin Warsh",
+      "role": "Chair, Federal Reserve (seit 2026)",
+      "source_title": "FOMC Press Conference, October 28, 2026",
+      "channel": "Federal Reserve",
+      "url": "https://www.youtube.com/watch?v=hs8YWtNQQ40",
+      "date": "2026-10-28",
+      "in": "00:24:14.550",
+      "out": "00:24:27.150",
+      "dauer_s": 12.6,
+      "transcript": "You see market participants that are discriminating between the kinds of investments they want to make. You've seen credit spreads for certain assets widen out, gap out.",
+      "ampel": "gruen",
+      "slot": "Station 3 (~3:30) statt C1: eine Woche vor dem 5.11.; Antwort auf die Frage, ob Zinsen bei einem so KI-lastigen Wachstum noch wirken.",
+      "einordnung": "One week before the sell-off, the new chair of the Federal Reserve, Kevin Warsh, described lenders getting choosier.",
+      "burned": false,
+      "untertitel": "automatisch (YouTube)",
+      "musik": "keine (Pressekonferenz)",
+      "kontext_vorher_30s": "rates get in the cracks. Interest rates affect directly or indirectly um almost everything. And what have we seen uh since early September? What we've seen inside of the uh technology complex, uh outside of the technology complex, um whether you pronounce it AI or SI, Claire, is up to you. Um what have you seen? Interest rates have had an effect.",
+      "kontext_nachher_30s": "For others, you've seen some tightening in financial conditions, but not significantly. So, on the thrust of your question of uh with respect to the new technology and this investment surge, do interest rates matter? I believe they do, and I don't believe that they're somehow divorced from the rest of the economy. Secondly, I'll just say this, um it is convenient to say that the strength of the economy is all about this uh new technology wave. In fact,",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": true
+      },
+      "pruefen": [
+        "Wortlaut am Ton prüfen (automatische Untertitel)",
+        "Er sagt „for certain assets“, nicht ausdrücklich KI; die Frage war zu KI. VO darf nicht behaupten, er spreche über KI-Kredite",
+        "Kurz danach relativiert er: der Investitionsboom sei „not just robust … but it is broadening“"
+      ]
+    },
+    {
+      "id": "C1c",
+      "kandidat": "Alternative C1 (Stimmung vor dem Fall)",
+      "speaker": "Jerome Powell",
+      "role": "Chair, Federal Reserve (2018–2026)",
+      "source_title": "FOMC Press Conference, April 29, 2026",
+      "channel": "Federal Reserve",
+      "url": "https://www.youtube.com/watch?v=UR2yFg--1jY",
+      "date": "2026-04-29",
+      "in": "00:42:59.600",
+      "out": "00:43:10.450",
+      "dauer_s": 10.85,
+      "transcript": "some of it is just the apparently insatiable demand for data centers all over the United States. So, a lot of business investment going into building data centers and every reason to think that that continues.",
+      "ampel": "gruen",
+      "slot": "Station 3 (~3:30) statt C1, oder Station 1 als Bild der Stimmung vor dem Rekord.",
+      "einordnung": "Six months before the record high, the Fed chair described the boom like this.",
+      "burned": false,
+      "untertitel": "automatisch (YouTube)",
+      "musik": "keine (Pressekonferenz)",
+      "kontext_vorher_30s": "ending and unshakable. >> How would you describe the economy outside of the misbehaving inflation? I mean, um it's still awfully resilient given all of the blows. >> I don't know that you can be awfully resilient. So, it's actually quite resilient, I would say, cuz it's a positive thing if I can if I can have that amendment. Yeah, that you know, growth is really solid across our economy. Some of that is that consumer spending is hanging in pretty well. The the most recent data are good and",
+      "kontext_nachher_30s": "So, you've got an economy that's growing at 2% or better. PDFP, which is private domestic final purchases, that which is really a a better signal of of of momentum in the economy is actually higher than that. So, that's you know, that's a positive thing. The if you look at the unemployment rate, 4.3%. So, that's a low rate. That's pretty close to mainstream estimates of the natural rate. We've been there for a long time. So, it's it's it doesn't feel like a good labor market to some who don't have jobs because",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": true
+      },
+      "pruefen": [
+        "Wortlaut am Ton prüfen (automatische Untertitel)",
+        "Nicht vorführen („he was wrong“): ruhiger Kanal-Ton, nur als Stimmung einordnen"
+      ]
+    },
+    {
+      "id": "C2b",
+      "kandidat": "Alternative C2 (gleiches Quellvideo)",
+      "speaker": "Jerome Powell",
+      "role": "Chair, Federal Reserve (2018–2026)",
+      "source_title": "FOMC Press Conference, December 10, 2025",
+      "channel": "Federal Reserve",
+      "url": "https://www.youtube.com/watch?v=Ko-_yb2UkDk",
+      "date": "2025-12-10",
+      "in": "00:47:39.500",
+      "out": "00:47:46.850",
+      "dauer_s": 7.35,
+      "transcript": "I think it makes people who use it more productive. It may make other people have to find other jobs though.",
+      "ampel": "gruen",
+      "slot": "Station 4 (~5:00) statt C2, direkt vor Schutz 3 („werde die Person, die das Werkzeug führt“).",
+      "einordnung": "The chair of the Federal Reserve put the choice in one sentence.",
+      "burned": false,
+      "untertitel": "automatisch (YouTube)",
+      "musik": "keine (Pressekonferenz)",
+      "kontext_vorher_30s": "whatever? Uh, and how much of that is how much is that driving the higher GDP projection in the SCP? >> So yeah, I mean, uh, I never thought I would see a time when we had, you know, five, six years of 2% productivity growth. This is this is higher, you know, this is definitely higher. And it was it was before before it could be attributed to AI. I think you I I also think if you look at what AI can do and if you use it in your personal life, as I I imagine many of us have, you can see the prospects for productivity.",
+      "kontext_nachher_30s": "So, so it could have productivity implications while also having, you know, social and labor market implications that we don't have the tools to deal with. But yes, I think we are seeing we're definitely seeing higher productivity. I don't I think it's a little quick to be saying it's it's generative AI, but um I don't know. You know, the pandemic may have induced people to do more automation and do more things with computers to replace people and that raises productivity, you know, output per hour. >> Does that",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": true
+      },
+      "pruefen": [
+        "Gleiches Quellvideo wie C2: zusammen 18,95 s (Grenze 20 s); beide nur mit ≥ 45 s Abstand, sonst einen wählen",
+        "Wortlaut am Ton prüfen (automatische Untertitel)"
+      ]
+    },
+    {
+      "id": "C2c",
+      "kandidat": "Alternative C2 (Gegenstimme)",
+      "speaker": "Jensen Huang",
+      "role": "Founder & CEO, Nvidia (Gast in der Salesforce-Keynote)",
+      "source_title": "Dreamforce Main Keynote 2026",
+      "channel": "Salesforce",
+      "url": "https://www.youtube.com/watch?v=wYFt9NCYaVI",
+      "date": "2026-09-15",
+      "in": "01:26:00.700",
+      "out": "01:26:07.050",
+      "dauer_s": 6.35,
+      "transcript": "The second idea is AI is going to destroy jobs. That's also completely nonsense.",
+      "ampel": "gruen",
+      "slot": "Station 4 (~5:00) als Gegenstimme zu Jaimovich & Siu; danach VO, dass beides stimmen kann (mehr Jobs am Ende, aber Routine-Jobs gehen im Abschwung).",
+      "einordnung": "Not everyone agrees. In September 2026, Nvidia's Jensen Huang put it bluntly.",
+      "burned": false,
+      "untertitel": "Kanal-Untertitel (Typ nicht eindeutig)",
+      "musik": "Bühnen-Keynote mit Musik-Einspielern; an dieser Stelle Gespräch mit Marc Benioff; prüfen",
+      "kontext_vorher_30s": "The surprising thing for a lot of people and wasn't surprising to me. Okay. And and in fact you you you heard me say it. I was I was the first CEO to come out not in the software industry to say the end of software is nonsense. This is going to be a layer on top of software. This was it was a layer on top of software. This new layer on top of software is going to be agentic. It's going to make you use the software so much better. And so so that that's the first idea.",
+      "kontext_nachher_30s": "And the reason that is very very simple. There was you you and I are you know we look young. The fact that we could >> we do >> the fact the fact that we could >> we really look young. >> Yeah. The fact that we could >> Yeah, we really do. You're right. >> The fact that we could sit here and pace >> and talk at 100 miles an hour and keep up with young people like that. You know, they we are >> It's really true what you're saying, by the way. It's really true. >> It is true. >> Roland, do you agree with this? >> Yeah. Roland also agrees.",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": true
+      },
+      "pruefen": [
+        "Er begründet es danach nicht (Witze über das Alter); als seine Meinung kennzeichnen",
+        "Firmenkanal Salesforce, nicht Nvidia: Ampel grün nach Regel, wegen Bühnenmusik vorsichtig wie gelb behandeln",
+        "Kunde/Partner-Bühne: Werbecharakter im VO benennen („on stage at a software conference“)"
+      ]
+    },
+    {
+      "id": "C3b",
+      "kandidat": "Alternative C3 („überall“)",
+      "speaker": "Jensen Huang",
+      "role": "Founder & CEO, Nvidia",
+      "source_title": "NVIDIA GTC Berlin 2026 Keynote With CEO Jensen Huang",
+      "channel": "NVIDIA",
+      "url": "https://www.youtube.com/watch?v=v-NGxyPjcrE",
+      "date": "2026-10-23",
+      "in": "00:08:46.850",
+      "out": "00:08:54.700",
+      "dauer_s": 7.85,
+      "transcript": "Every single person will use it, every company will be powered by it, every industry will be transformed and new ones will be created.",
+      "ampel": "gruen",
+      "slot": "Station 7 (~9:40), zum Satz „An Tag 1.000 ist KI billig und überall“. Verlängerung möglich bis 00:09:03.6 („In this way, like the electricity, it is a new industrial revolution and we're at the very beginnings of that.“), dann 16,8 s (über Ziel 15 s).",
+      "einordnung": "Two weeks before the sell-off, Nvidia's Jensen Huang described where this is going.",
+      "burned": false,
+      "untertitel": "automatisch (YouTube)",
+      "musik": "Keynote; an dieser Stelle Rede ohne Musik-Markierung; prüfen",
+      "kontext_vorher_30s": "affects how we build something and what we can build. How we build something and what we can build. I think in every single way artificial intelligence will affect everything we build and in fact enable us to build new things. In this way, because everyone will use it, every company will be powered by it, because it's digital intelligence, the foundation of everything.",
+      "kontext_nachher_30s": "In this way, like the electricity, it is a new industrial revolution and we're at the very beginnings of that. The question is, what is AI? And this is a big deal. If you want to be part of creating this future, understanding what is AI is vitally important. And this is really a simple framework. We were early to observe that in fact AI",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": true
+      },
+      "pruefen": [
+        "Wortlaut am Ton prüfen",
+        "Firmenchef mit Eigeninteresse: als seine Sicht einordnen"
+      ]
+    },
+    {
+      "id": "C3c",
+      "kandidat": "Alternative C3 (Zahlen)",
+      "speaker": "Sundar Pichai",
+      "role": "CEO, Google and Alphabet",
+      "source_title": "Sundar Pichai Opening Remarks | I/O 2026 Keynote",
+      "channel": "Google",
+      "url": "https://www.youtube.com/watch?v=duHhImuaZGU",
+      "date": "2026-05-22",
+      "in": "00:02:42.800",
+      "out": "00:02:53.750",
+      "dauer_s": 10.95,
+      "transcript": "Last year at I/O that grew to about 480 trillion tokens. And fast forward to today, that number has jumped seven times to 3.2 quadrillion tokens per month.",
+      "ampel": "gruen",
+      "slot": "Station 7 (~9:40) oder Station 5 (Nutzung explodiert, während der Preis fällt).",
+      "einordnung": "Even before the sell-off, the scale of everyday use had become hard to picture.",
+      "burned": false,
+      "untertitel": "manuell (Kanal)",
+      "musik": "Keynote mit Applaus direkt danach; Musik prüfen",
+      "kontext_vorher_30s": "to make sense of my parents doctor visits. I'm sure many of you have done a version of that. These stories of how people are using AI are the best measure of progress to understand the scale at which people are adopting AI. There's another great proxy tokens. The fundamental units of data are models process, many representing a problem being solved. Two years, we were processing 9.7 trillion tokens a month across the surfaces, a huge number.",
+      "kontext_nachher_30s": "Never imagined I'd say quadrillion in an I/O keynote, but here we are. Now, some out there might call this token maxing, and there's probably some truth to it. I still think it tells an important story about our products and how others are building as well, especially our developers. Over 8.5 million of you are now building new apps",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": true
+      },
+      "pruefen": [
+        "Datum: Upload 22.5.2026, Keynote-Tag im Mai 2026 am Original prüfen",
+        "Davor: „Two years [ago], we were processing 9.7 trillion tokens a month“ (Untertitel: „Two years, …“)",
+        "Pichai sagt selbst danach: „some out there might call this token maxing, and there's probably some truth to it“ – ehrlich mit einordnen"
+      ]
+    },
+    {
+      "id": "H1",
+      "kandidat": "optional, nicht in Minute 1 (Gerüst: kein Zitat im Hook)",
+      "speaker": "Reuters (Sprecherstimme, ohne Namen)",
+      "role": "Nachrichtenagentur",
+      "source_title": "In China, the AI bubble has already burst",
+      "channel": "Reuters",
+      "url": "https://www.youtube.com/watch?v=uU2WeAX2w8g",
+      "date": "2026-10-27",
+      "in": "00:00:08.300",
+      "out": "00:00:17.200",
+      "dauer_s": 8.9,
+      "transcript": "China's main AI stock index, the Star 50, has lost 40% of its value in the past 4 months, or about $480 billion in equity capital.",
+      "ampel": "gelb",
+      "slot": "Station 1 (Uhr), als „anderswo läuft die Uhr schon länger“; besser als Zitatkarte.",
+      "einordnung": "In China, the clock started earlier. In October, Reuters reported this.",
+      "burned": false,
+      "untertitel": "Kanal-Untertitel (nicht eindeutig)",
+      "musik": "Reuters-Erklärvideos haben oft ein Musikbett → dann ROT, nur Zitatkarte",
+      "kontext_vorher_30s": "While investors debate whether there is an AI bubble in the US stock market, has it already burst in China?",
+      "kontext_nachher_30s": "In comparison, the Nasdaq's decline was only about 6%. Some of the most popular AI stocks, suppliers of optical equipment for data centers, chip manufacturers, companies that were considered the foundation of the AI revolution, have seen their shares collapse by 50, 60, 70% in the last few months. What triggered this sell-off? Several factors. Some point to tax payment deadlines in China. Others say these stocks were priced as perfect, as if designed for",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": false,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": true
+      },
+      "pruefen": [
+        "Keine echte Person/Protagonist: Mehrwert als O-Ton gering; Empfehlung Zitatkarte",
+        "Eingebrannte Texte im Bild prüfen (burned)"
+      ]
+    }
+  ]
+}

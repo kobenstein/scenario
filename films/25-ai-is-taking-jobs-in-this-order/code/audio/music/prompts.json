@@ -1,0 +1,13 @@
+{
+ "_comment": "Film 25 Lyria 3.5 prompts (google/lyria-3.5, 0.10 USD each, 7 tracks). Common style: mystical, thoughtful, no drums, no vocals, not uplifting. 'len' = approximate chapter length (s) from the fake-timed build; re-measure with the real timing.json (levels) and say '<n>-minute track' in the prompt. mix.py loops short files with music/cues.json opts.repeat.",
+ "style": "Instrumental underscore for a thoughtful documentary about work and artificial intelligence. Mystical and contemplative, slow evolving drones, soft warm pads, sparse felt piano, glass harmonica and bowed glass, distant low strings. No drums, no percussion, no vocals, no melody hook, never uplifting or triumphant. Very quiet dynamic range, so it can sit under a narrator.",
+ "tracks": {
+  "M0": {"chapter": "HOOK", "len": 80, "mood": "A single fragile piano note, a low drone building slowly, the feeling of a long row of dominoes about to fall; tension and curiosity."},
+  "M1": {"chapter": "AKT 1", "len": 155, "mood": "Cool, slightly uneasy and thoughtful; slow pulsing pads, sparse piano, glass tones; things quietly giving way one after another."},
+  "M2": {"chapter": "AKT 2", "len": 140, "mood": "A turn: the unease softens into reflective warmth around the middle, then returns to a steady, curious drone; felt piano, muted strings."},
+  "M3": {"chapter": "AKT 3", "len": 130, "mood": "Steadier and grounded; deeper low strings and warm pads, human and tactile, slow piano; the feeling of what holds."},
+  "M4": {"chapter": "PLATZ 1", "len": 55, "mood": "Hushed but full voice; one sustained pad and a slow single-note piano, a sense of quiet clarity and the one thing that remains standing."},
+  "M5": {"chapter": "AKT 4", "len": 90, "mood": "Gently opening: pads lift slightly, piano arpeggio very sparse, glass harmonica; hopeful but restrained, still mysterious."},
+  "M6": {"chapter": "ENDE + end screen", "len": 35, "mood": "A calm resolution that fades out slowly; low drone, warm pad and one last soft piano figure; ends on a long decaying tone."}
+ }
+}

@@ -1,0 +1,139 @@
+# 02 · The Curve You Can't See
+Insight: On an exponential the bend isn't in the curve, it's in where you cut the chart. So feeling "we're at the turning point" tells you almost nothing; the doubling time does. And the steps before "everywhere" always look like nothing.
+Leitwort: **flat** ("Behind you, it always looks flat.")
+Fassung 2 · 2026-10-17 (Lektorat eingearbeitet: [lektorat-v1.md](lektorat-v1.md)) · Quellen: [sources.md](sources.md)
+
+---
+
+## 1 · Hook
+In nineteen sixty-five, a chemist named Gordon Moore drew a line through a handful of dots, and made a guess even he thought was a stretch. [S1, S2, S5]
+Each dot showed how many parts engineers could squeeze onto a single chip.
+That number had been doubling. Roughly every year. [S1]
+So Moore kept the line going, ten more years. [S1]
+[pause]
+It's been sixty.
+The biggest AI chip announced this year holds more than three hundred billion of those parts. [S7]
+Chips like that are why the AI you talk to exists at all.
+[pause]
+And now everyone says we're at the turning point. The moment the curve bends upward.
+[pause]
+If we really were, how would we know?
+
+## 2 · Why we miss it
+Most of us picture progress as a ramp. A little better every year.
+In nineteen seventy-five, two Dutch researchers asked people to guess where a doubling process ends up. Often two thirds of them guessed less than a tenth of the real answer. [S10]
+Even when they were told how doubling works, it barely helped. [S10]
+And it doesn't only fool ordinary people.
+
+## 3 · The forecasters and the sun
+Every year, the International Energy Agency publishes a big outlook on the world's energy.
+For more than a decade, it kept showing new solar power each year growing for a bit, and then levelling off. [S12, S13]
+And every year, more solar got built than that.
+They drew a flat line. Reality bent upward. So the next year they drew another flat line.
+[pause]
+Solar runs on a loop.
+Every time the world doubles the number of solar panels it has ever made, they get about twenty percent cheaper. [S15]
+Cheaper panels mean more buyers. More buyers mean more panels.
+The result feeds its own cause. That's what makes growth compound.
+Since the seventies, the price of a solar panel has fallen by more than ninety-nine percent. [S14]
+
+## 4 · The loops behind AI
+AI is running on loops like that. Several of them, stacked.
+The computing power used to train the leading AI models has grown four to five times a year since twenty ten. [S8]
+Running them gets cheaper even faster. On one test of PhD-level science questions, the same quality of answer has been getting about forty times cheaper per year. [S9]
+And the tasks AI can finish on its own, at least half the time, keep getting longer. Measured in how long they'd take a person, that length has doubled roughly every seven months. Lately it may be speeding up. [S28]
+
+## 5 · There is no knee · Enthüllung 1
+So where's the turning point? Where does the curve bend?
+Draw any of these numbers on an ordinary chart, and you get a hockey stick. Flat for years, then straight up. Right at the end.
+Now cut the chart off five years earlier. Same shape. Same wall. Right at the new end.
+[pause]
+On a true exponential, that bend isn't in the curve. It's in the chart. It shows up wherever you happen to cut it off. [S29]
+Stand in nineteen ninety, and everything behind you looks flat, and the next few years look like a wall. Stand in twenty ten. Same thing. Stand here. Same thing.
+Behind you, it always looks flat.
+[softly] So everyone who lives on a curve like this feels like they're at the turning point.
+And that feeling, on its own, tells you almost nothing.
+[pause]
+What does tell you something is speed. How fast is it doubling? And how many doublings does it take us to react?
+
+## 6 · The fair objection
+Now, the skeptics have a point.
+No real curve doubles forever. Bacteria run out of food. Moore himself had to slow his line down, to a doubling every two years. [S3]
+AI could run short of fresh human writing to learn from. Researchers at Epoch AI think the supply could be used up anytime between now and twenty thirty-two. [S25]
+Even solar is cooling off. Global installations grew by about a third in twenty twenty-four, and only about a tenth last year. [S16, S17]
+In nature, every exponential turns into an S-curve eventually. Nobody knows where the top of this one is.
+[pause]
+The solar forecasters thought they knew, too.
+And even a curve that's slowing down can carry us a long way before it stops.
+
+## 7 · The fork
+So try this. Something in your life doubles every seven months. When do you start getting ready?
+[pause]
+Most of us would say, once it gets big.
+But run it backwards. Seven months before it's everywhere, it's at half. Fourteen months before, a quarter. About four years before, it's under one percent. It looks like nothing.
+[pause]
+So that's the fork. Either we wait until it's obvious, or we act on the doubling time.
+
+## 8 · Two endings · Enthüllung 2
+Let's imagine it's twenty thirty-five. Just a scenario.
+A student in Lahore sits at a desk by a window.
+In one version, we waited.
+Each new jump in AI arrived as a surprise. The rules came later, written for the world of two doublings ago.
+Her school banned the new tools. She picked them up two years late, from a cousin's phone.
+Nothing exploded. We just kept being caught off guard, and each surprise landed hardest on whoever had the least time to prepare.
+[pause]
+Same desk. Same year. The other version.
+She learns from an AI tutor on a cheap phone, charged by a panel on her family's roof.
+Her doctor's newest antibiotic was designed with help from a map of proteins that an AI drew.
+And when an AI model crossed a danger line last spring, its extra safeguards switched on before anyone had to argue about it.
+[pause]
+Look at what's the same in both. Same chips. Same curve. Same speed.
+The only thing that changed is when people started paying attention.
+
+## 9 · How we get there
+
+### Read it
+So how do we get there? Start with the cheapest fix there is. Learn to read the curve.
+In March twenty twenty, as the pandemic began, psychologists found that most people pictured the virus spreading in a straight line. [S11]
+Then they walked some of them through how doubling works, step by step. Their guesses got better. And they backed the measures to slow the spread more strongly. [S11]
+Back in the seventies, a quick instruction barely helped. Working through the doublings yourself seems to. [S10, S11]
+And knowing still isn't doing. But it costs almost nothing.
+So next time you hear a number about AI, ask one question. How long does it take to double?
+
+### Wire it
+But reading the curve doesn't stop anything. For that you need brakes, and they should be tied to the curve, not the calendar.
+In twenty twenty-four, sixteen AI companies met in Seoul and signed voluntary commitments. Each would publish its own danger lines in advance. And in the extreme, if it couldn't keep a model's risks below those lines, it wouldn't build or release that model at all. [S23]
+In May twenty twenty-five, Anthropic was about to release a new model. For the first time, its tests couldn't rule out that the model might give real help to someone trying to build a chemical or biological weapon.
+It hadn't proven the line was crossed. It just couldn't rule it out anymore. So it launched with stricter safeguards anyway, as a precaution. [S22]
+A tripwire like that doesn't care how fast the curve is moving. It goes off when the measurement says so.
+The catch is that the companies mostly grade themselves, and they can rewrite their own rules. Anthropic did, early this year. It dropped its promise to pause if its safeguards weren't ready, arguing that one lab can't hold the line alone. Critics called it a broken promise. [S24]
+Which is why we think tripwires belong in law, tied to measurements instead of dates.
+
+### Point it
+Brakes only tell the curve where not to go. Where should it go?
+For fifty years, working out how a protein folds was one of biology's great unsolved problems. [S20]
+Then an AI called AlphaFold predicted the structures of virtually all of the two hundred million proteins researchers know about. Two of its makers shared a Nobel Prize for it. [S20]
+More than two million people in a hundred and ninety countries have used that map. [S20, S21]
+A map isn't a medicine. Most of the slow work is still ahead.
+But it's a good question for any field, including yours. Which problem is still waiting for its map?
+
+### Share it
+And then there's the question of who gets to ride the curve.
+Remember the solar loop? In twenty twenty-four, Pakistan imported about seventeen gigawatts of solar panels. Twice as much as the year before. [S18]
+Mostly for rooftops. Shops, offices, families escaping high power bills. [S18]
+Nobody planned it from above. Panels got cheap enough, and people did the math.
+It's messy. The national grid now sells less power, and the government has been rethinking the deal it gives rooftop owners. [S19] And a panel still needs a roof, and the money to buy it.
+AI is getting cheaper even faster than solar did. Who gets it first, and on what terms, hasn't been decided yet.
+That part is still up to us.
+
+## 10 · Your part
+Back to that desk in nineteen sixty-five.
+Moore didn't see the future by guessing big. He measured something carefully, and then he took his own numbers seriously.
+We can do the same.
+Ask how fast it's doubling. Try the tools in your own field while it still looks early. And ask the people who represent you to turn the tripwires into law.
+[pause]
+One day, from somewhere further up this curve, everything behind us will look flat.
+Today will look flat.
+[softly] Let's make sure that what's ahead is something we chose.
+[pause]
+What's one thing you've watched go from "never" to "everywhere"? Tell me in the comments.

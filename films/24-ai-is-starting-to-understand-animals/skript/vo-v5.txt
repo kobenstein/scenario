@@ -1,0 +1,133 @@
+Scientists are trying to translate what animals are saying.
+The first step already works: A.I. can hear what they feel.
+Try it yourself.
+One of these two pigs feels fine. One doesn't. Guess which.
+Listen.
+[SOUND: pig 1 – calm, low grunts (labelled positive)]
+And this one.
+[SOUND: pig 2 – high, shrill squeals (labelled negative)]
+It's the second pig.
+You probably got it. A.I. gets it too, nine times out of ten.
+Feelings, yes. Words, not yet.
+A small nonprofit in California wants to change that. For any species on Earth.
+They're called the Earth Species Project. Their target: breakthroughs by twenty thirty.
+Will they make it, and what happens to us if they do?
+Their A.I. can already do something strange.
+Play it a call from an animal it has never heard. It can still tell you what kind of animal made it.
+Not every time. But far more often than a lucky guess.
+One of the team's founders invented something you've probably used today.
+Infinite scroll. The endless feed on your phone.
+Now he's building A.I. that listens to animals.
+Not to chat with your dog. To understand what animals say to each other.
+Here he is.
+[CLIP C1]
+Serious money backs them, too: ten million dollars from LinkedIn's co-founder.
+But how do you crack a language with no dictionary, and no one to ask?
+Every baby on Earth does it.
+A baby never gets a word list. It just listens, for months.
+It notices which sounds keep coming back, and which ones go together.
+Then it notices what happens next. One sound, and the bottle shows up.
+The team's A.I. does the listening part, on a giant scale: a mountain of animal recordings, no meanings attached.
+Then it plays a guessing game: hide a piece of a sound, and guess what was there.
+Like autocomplete on your phone, but for birdsong and whale clicks.
+Guess after guess, patterns appear: calls that repeat, calls that belong together.
+But a baby has one more advantage. It can see what the sounds are about.
+The machine can't.
+So the team and its partners clip tiny recorders onto wild animals.
+They record each call, and what the animal was doing at the time.
+Patterns first. Then meaning.
+Twenty thirty is only a few years away. So how far have they gotten?
+Further than you might think. And they're not alone: teams all over the world are listening, each with a piece of the puzzle.
+Start in Kenya. Other researchers there found that elephants call each other by name.
+Play an elephant a call meant for her, and she answers faster, and heads for the speaker.
+They caught it on camera.
+[CLIP C2]
+If elephants have names, there may be more words to find. That's what the team is after.
+Also in Kenya, the Earth Species Project went further.
+Elephant families often rumble all at once, like a family talking over each other at dinner.
+Their A.I. listened to the whole chorus, and could sometimes read the room: a greeting, or a calf being comforted.
+A first step from patterns toward meaning.
+Now north, to Spain. With a local university, the team clipped those tiny recorders onto wild crows.
+They caught more than a hundred thousand calls. Many were quiet family murmurs that ordinary microphones miss.
+And each call comes with what the bird was doing right then. That's the baby's trick.
+And the pigs from the start? That was another team, also in Europe.
+Their A.I. learned from thousands of pig calls, from birth to slaughter.
+So one piece is already in place: feelings.
+In the Caribbean, another team listens to sperm whales.
+They found that the clicks are built from a few parts, like rhythm and tempo.
+Mixed together, they make far more kinds of calls than expected.
+Good news for the California team: parts can be learned.
+Up north, in the Bahamas, Google has joined in. Its A.I. plays that autocomplete game with dolphin sounds.
+It learned from recordings one scientist's team has made for four decades.
+Here's what she hopes for.
+[CLIP C3]
+Google's model is built for dolphins. The Earth Species Project wants one for every species.
+Back in California, another scientist found that zebra finches sort their calls by meaning more than by sound.
+Like "couch" and "sofa": different sounds, same thing.
+So the meaning is there. The birds hear it.
+But the machines? They can pick up on names, feelings, even what's going on.
+Not one of them can tell you what a single call says.
+Why is meaning so hard?
+Remember the baby. It learns what a sound means by seeing what it's about.
+Researchers tested A.I. on recordings of toddlers.
+Sounds their parents understand: upset, hungry, calling for Mom or Dad.
+The best systems couldn't sort them by meaning.
+If machines can't yet read a toddler, a whale is a long way off.
+There's a prize worth millions for the first real two-way conversation with an animal.
+It's still unclaimed.
+The closest thing yet? Off Alaska, a humpback whale seemed to answer a recorded call for twenty minutes.
+[CLIP C4]
+One whale. One call. One time.
+And the Earth Species Project admits it can't always tell when its A.I. gets it right.
+So will they make twenty thirty? The team itself can't promise that.
+Today, there is no translator. Not for whales, not for elephants, not for your dog.
+[pause]
+This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Maybe even for the animals.
+Want that too? Then subscribe.
+But suppose they make it. Would anything change?
+History has one clue.
+Nineteen seventy. A record of humpback whale songs becomes the best-selling nature album ever.
+Twelve years later, nations around the world vote to pause commercial whaling. That pause still holds.
+The songs weren't the only reason. But they gave the movement its soundtrack.
+Now think back to those pigs.
+Today, going without meat has never been easier.
+In Germany, about nine in a hundred people now eat no meat at all. Among the under-thirties, it's one in five.
+Still, nine in ten Germans eat meat.
+Maybe the products just aren't good or cheap enough yet.
+Or maybe what's missing is a feeling. Most of us never hear these animals at all.
+Now imagine a machine that does for pigs and chickens what those songs did for whales.
+Could that make vegetarian and vegan living mainstream, and win animals new rights?
+Maybe. But even for whales, the feeling didn't win everywhere. This past summer, Iceland hunted fin whales again.
+There's also what psychologists call the meat paradox: loving animals, and eating them too.
+Remind people that farm animals suffer, and they tend to see them as having less of a mind.
+That's not hypocrisy. It's human.
+So maybe a feeling isn't enough.
+But what if, one day, they could tell us in words?
+Twenty thirty. Day one. A research camp in Kenya.
+In this scenario, the Earth Species Project hits its target.
+Their A.I. understands a whole elephant chorus, start to finish.
+The first message probably isn't for us. Something like: time to go.
+Not far-fetched: their A.I. already hears a family's voices line up when it seems to plan.
+Do we answer?
+The man who invented the endless feed has a warning about that.
+[CLIP C5]
+Year one. A courtroom in New Zealand. The case: ship noise.
+Two parts of this are real. Near ships in the Caribbean, sperm whales already change their calls. Talk or stress? Still unclear.
+And Māori and Pacific leaders have declared whales legal persons. A lawmaker there wants to make that law.
+The rest is our scenario. The court hears a decoded whale recording. It says: too loud. The judge agrees. Ships slow down.
+Year ten. A farm kitchen in Iowa.
+Microphones in every barn listen for how the animals feel.
+Whether that changes what's for dinner, this scenario can't say.
+Under the table, you finally learn what your dog thinks of you. Mostly: walk.
+Listening to animals is practice for understanding minds that aren't human.
+And one of those minds, we're building right now.
+Soon, we may not be the smartest voice in the room.
+Then listening won't be politeness. It'll be the most important skill we have.
+[pause]
+Back to today.
+Twenty thirty is only a few years off. Maybe they make it. Maybe it takes far longer.
+But one part has already arrived. You heard it yourself, at the very start.
+Artificial intelligence can hear them now.
+Whether we listen is up to us.
+[pause]
+Want the arrival of superintelligence to go well for everybody? Then subscribe.

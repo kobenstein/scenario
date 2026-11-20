@@ -1,0 +1,108 @@
+[calm, conversational] The artificial intelligence bubble could pop. And the people building it are saying so themselves.
+Sam Altman, the man behind ChatGPT, asked it out loud. Are investors overexcited? His own answer? "My opinion is yes."
+
+[thoughtful] But the machines aren't slowing down. Not even a little. They're speeding up.
+So what happens to superintelligence... when the money runs out?
+
+It's happened before. A whole country once bet its savings on a new machine. The bubble burst. And the machine won.
+One of the best-known writers on mass delusion watched that boom. His own newspaper told readers... there was no reason to fear a crash.
+Then the crash came anyway. Ordinary savers lost. But what they paid for... is still running today.
+So when this bubble pops... who's left holding the paper? And who gets to ride?
+In a Yorkshire parsonage, three sisters put their small inheritance into the new machine. The railway.
+Charlotte, Emily and Anne Brontë. Within a few years, they'll write Jane Eyre and Wuthering Heights.
+Emily runs the money.
+
+[softly] Charlotte gets nervous. In January eighteen forty-six, she writes to a friend. She'd like to sell... "ere it be too late." But she won't go against her sister. So, for now, they hold.
+
+Then the bubble bursts. By eighteen forty-nine, railway shares have lost about two thirds of their value. Small savers everywhere are left holding paper.
+[wry] And the expert who saw no reason to fear a crash? Charles Mackay. He had literally written the book on financial madness.
+The expert missed it. A young writer in a parsonage didn't.
+
+[thoughtful] But one thing didn't vanish. The track.
+Those boom years gave Britain around six thousand miles of railway. Much of today's network goes back to them.
+And in eighteen forty-seven, in the middle of the crisis, the railways began switching to Greenwich time. Slowly, a whole country ended up on one clock... because the trains needed it.
+So was that just luck? Or does every bubble leave its rails behind?
+
+Around the year two thousand, the new machine was the internet. And this time, the rails were made of glass.
+Companies laid fibre-optic cable under oceans and across continents. Far more than anyone was using.
+By two thousand and one, by some estimates, only about five percent of America's fibre was lit. The rest lay in the dark.
+
+Then the crash. Global Crossing went bankrupt. New owners took control for a sliver of what it owed. The old shareholders? Nothing.
+But while the companies crashed, the demand didn't. It kept climbing, right through the bust.
+
+[thoughtful] And all that spare glass helped make the internet cheap. The price of moving data fell by more than ninety-nine percent.
+It's the same kind of network this film is reaching you through.
+This channel exists so superintelligence works out for everyone. If that matters to you, subscribe.
+
+So twice now, the rails stayed. It's the story the builders tell about this boom too.
+Jeff Bezos calls it "a kind of industrial bubble." When the dust settles, he says, society benefits.
+[curious] But will the rails stay this time?
+
+Maybe. But rails last for generations. Most of the money for new data centers goes into something that doesn't. Chips and hardware. And a chip is out of date in three to six years.
+
+[calm, conversational] And yet, this isn't dark fibre. Data centers in North America are almost full. Even older chips still earn money.
+And plenty does last. Buildings and power lines. A record year of new power plants planned in America. Open models, even if their makers fail. And people who know how to build all this.
+So yes, rails will stay this time too. Just fewer of them, and not the ones most of the money is going into.
+
+You'll hear that artificial intelligence is hitting a wall. There's something to that. Bigger models pay off less than they used to. Good text data is getting scarce. Companies are adopting it more slowly than promised.
+[thoughtful] But the abilities keep climbing. An independent testing group times the tasks these systems finish on their own, in hours of human work. Right now, that doubles every few months.
+So the wall isn't intelligence. It's money, power and debt.
+
+And the money side is already cracking. But only at the edges. America's broad stock market is still near its record. The steep falls are where the debt is, at companies like CoreWeave and Oracle.
+[curious] So if some rails stay... who paid for them?
+
+Follow the money, and it leads somewhere close. To you.
+Start with your power bill. America's largest power market pays power plants to stand by. In two years, that price rose more than tenfold. Its watchdog links billions in extra costs for everyone else to the new data centers.
+
+Then your pension. Most American workplace retirement plans put your savings into funds that largely track the market, by default. And just five tech companies make up more than a quarter of the main index. Global funds carry that risk too.
+If you have a savings plan, you probably own a piece of this bubble... without ever choosing to.
+
+[softly] Back then, it was three sisters in a parsonage, holding railway paper. Today, it's anyone with a pension.
+And when it pops... who gets what's left?
+
+After a crash, the leftovers go cheap. And they go to whoever has cash.
+Remember Global Crossing? Taken over for a sliver of what it owed.
+That isn't a conspiracy. It's how fire sales work. Left alone, the rails don't land with everyone.
+
+[thoughtful] But in eighteen forty-four, just as the railway boom took off, Parliament passed a law. Every new line had to run at least one train every weekday, each way. With a roof. With a seat. For no more than a penny a mile.
+People called them parliamentary trains. A ride on the new machine... for everyone.
+So what would the penny train of superintelligence look like?
+
+Back then, the penny train was a condition of running a railway. Today's data centers face conditions too.
+In parts of Ohio, big data centers now have to pay for most of the power they reserve. For years. Even if they never use it.
+So if the bubble pops, far more of that bill stays with the data center. Not with your kitchen. Many other states now have similar rules.
+That protects your bill. But what about what public money builds?
+
+Public money can come with open doors. In two thousand and nine, America's broadband stimulus set that rule. Networks built with it had to let other providers in, without discrimination.
+Stockholm went further. The city has owned its fibre network for three decades, and rents it to all comers alike.
+[curious] But what if a door closes again? Then it helps to own a piece.
+
+Last year, in return for chip subsidies, the American government took a stake of about ten percent in Intel. The public got a share of what it paid for.
+
+Some countries lay public rails of their own. Switzerland trained an open model, Apertus, on a public supercomputer. India runs a shared pool of chips that start-ups can use cheaply. Europe is planning giant computing hubs, with public and private money.
+They're early, and some are still on paper.
+
+[thoughtful] And sometimes, people build the rails themselves. In nineteen thirty-two, a giant American electricity empire collapsed. Small investors lost their savings. In the years after, farmers set up their own power co-operatives. Today, they supply about forty-two million people.
+In the north of England, villagers dug the trenches for their own fibre. Now they own the network together.
+
+All of this protects the rails. None of it gets you a seat. Not yet.
+
+The missing piece? Call it the penny train of artificial intelligence. It's our proposal, not law anywhere.
+The rule? If a data center gets public money, a tax break or a public grid connection... it runs one basic service. For everyone.
+Good, up-to-date artificial intelligence. At a small, fixed price. Every day.
+For a student. A start-up. A hospital.
+The way every new line from eighteen forty-four had to run its penny train.
+
+[calm, conversational] Nobody gives up what they own. It's a condition on public help, like the ones we've set before.
+It won't shield your pension from a crash. But it decides whether, after one, you still get a seat.
+What counts as good enough? Who sets the price? Those are real arguments. Start them in the comments. They're worth having before a crash, not after.
+
+[thoughtful] So... was it a bubble?
+In Davos this January, Satya Nadella, who runs Microsoft, named the test himself. For this not to be a bubble, he said, the benefits have to be much more evenly spread.
+The economist Carlota Perez sees a pattern in history. After each great tech bubble came a time when the technology reached all of society. Golden ages... when the rules were right.
+
+The bubble may pop. Superintelligence won't stop. In twenty years, will we call this a bubble? Or rails? That won't be decided on the stock market. It'll be decided by who gets to ride.
+We make these films so this transition goes well for everyone. If you want to help get it right, subscribe.
+
+[softly] The rails are being laid right now.
+The price of a seat... hasn't been set yet.
