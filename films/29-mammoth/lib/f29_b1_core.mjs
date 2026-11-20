@@ -147,7 +147,7 @@ function camAt(t, T, a, K) {
   const b = sineIO(span(t, a.T0 + .5, a.T0 + 1.6));
   if (b < 1) c = E.cam3({ x: lerp(creep.x, c.x, b), y: lerp(creep.y, c.y, b), z: lerp(creep.z, c.z, b), hz: lerp(creep.hz, c.hz, b) });
   const dA = sineIO(span(t, a.T0 + .6, a.T0 + 3));
-  return S.drift(c, t, 2600, 1.3 * dA, 31);
+  return S.drift(c, t, 2600, .95 * dA, 31);   // calm (was 1.3)
 }
 
 function frame(ctx, t, T, a, K) {

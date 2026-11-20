@@ -56,8 +56,8 @@ function keys(a) {
     [a.machine + .3, C(-700, -560, 1650, 640)],                                                            // the comb sweeps right: follow it
     [a.alive + .4, C(-1600, -480, 2400, 620)], [a.mice - .7, C(-4700, -140, 9150, 480)],                  // the picks fly into the window: push to it
     [a.rehearsal + .2, C(-4710, -145, 9220, 480)],
-    [a.elephant + .8, C(-4000, -150, 6300, 560)], [a.tools - .2, C(-3850, -160, 6050, 560)],              // back out: the hut, the elephant in its light
-    [a.today + .3, C(60, -20, 1800, 590)],                                                                 // the glide back over the fence (above the posts: never through them)
+    [a.elephant + .8, C(-4000, -150, 6300, 560)], [a.tools - .6, C(-3850, -160, 6050, 560)],              // back out: the hut, the elephant in its light
+    [a.today + .7, C(60, -20, 1800, 590)],                                                                 // the glide back over the fence (above the posts: never through them); 3.6 s (was 2.8: a 12/frame lurch)
     [a.seam, S.FENCE_C0],
   ];
 }
@@ -73,7 +73,7 @@ function scene(a, T) {
     if (t >= a.seam) { S.plateFence(ctx, t, T); return; }                // the seam: exactly what c02 draws
     // camera: the path plus a drift that dies before the seam (the plate has none)
     const dA = 1 - span(t, a.childB - .4, a.seam - .15);
-    let c = S.camPath(t, K); c = S.drift(c, t, 2600, 1.5 * dA, 29);
+    let c = S.camPath(t, K); c = S.drift(c, t, 2600, 1.1 * dA, 29);   // calm: 1.1 (was 1.5)
     // ---- the animal: poured from the poster (light), turns to fur, lifts its head, breaks into points
     const pour = (i) => span(t, a.animal - .2 + 1.1 * (i / n), a.animal + .8 + 1.1 * (i / n));          // particle i: poster → animal
     const built = span(t, a.animal + .5, a.child + .7), posterA = 1 - sineIO(span(t, a.animal - .1, a.child + .5));

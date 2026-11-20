@@ -272,7 +272,7 @@ function glintPass(ctx, c, t, st, z0, z1) {
       let sx = p ? p[0] : -99, sy = p ? p[1] : -99, s = p ? p[2] : .1, a = 1, gold = lit;
       if (gp) { const q = gp(k, g, sx, sy, s); if (!q) continue; [sx, sy, a] = q; if (q[3] != null) gold = q[3]; }
       if (sx < -10 || sx > W + 10 || sy < -10 || sy > H + 10) continue;
-      const tw = .55 + .45 * Math.max(0, Math.sin(t * g.f + g.ph)) ** 2;
+      const tw = .72 + .28 * Math.max(0, Math.sin(t * g.f + g.ph)) ** 2;   // calm: a soft twinkle (was .55 + .45)
       let base = ga * tw, dim = 0;
       if (cx != null && g.x < cx) { if (g.keep) gold = Math.max(gold, kept); else { dim = 1; gold *= 1 - (gl.drop ?? 1); } }
       const al = a * (base * (1 - dim * .75) + gold * (.55 + .45 * tw));

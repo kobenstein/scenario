@@ -280,7 +280,7 @@ export function camera(t, a, K) {
   if (t < a.T0 + .5) return null;                                               // the plate draws itself
   let c = S.camPath(t, K);
   const dB = span(t, a.T0 + .5, a.T0 + 3.5) * (1 - .5 * span(t, a.endScreen - 2, a.endScreen));
-  return S.drift(c, t, 2600, 1.2 * dB, 312);
+  return S.drift(c, t, 2600, .9 * dB, 312);   // calm (was 1.2)
 }
 
 // ================================================================================================================= THE WORLD (state + draw)
@@ -406,6 +406,6 @@ export function world(ctx, t, a, K, hook = {}) {
 export const at2 = (c, X, Y, Z) => (c ? S.proj(c, X, Y, Z) : null);
 // screen-space words: a line that rises (Inter 600 caps) and sinks; t0 in, t1 out
 export function line(ctx, t, text, x, y, t0, t1, o = {}) {
-  const u = rise(span(t, t0, t0 + .7)) * (1 - expoIn(span(t, t1 - .5, t1))); if (u <= 0) return;
+  const u = rise(span(t, t0, t0 + .7)) * (1 - sineIO(span(t, t1 - .6, t1))); if (u <= 0) return;   // soft exit (expoIn popped the last frames)
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); F.maskLine(ctx, [[text, 0]], x, y, o.size ?? 64, u, { serif: o.serif ?? false, weight: 600, col: o.col ?? P.core0, glow: o.glow ?? true, align: o.align }); ctx.restore();
 }
