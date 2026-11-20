@@ -373,5 +373,17 @@
   ],
   "thumbnail_quelle": "film-59",
   "code_herkunft": "claude/project-thread-4e6iqx:films/59-ai-goes-public@4266ebd"
+ },
+ {
+  "nr": 66,
+  "ordner": "66-sam-altman-says-everything-will-get-cheap",
+  "titel": "Sam Altman Says Everything Will Get Cheap",
+  "video": "FgI_80-ny8k",
+  "veroeffentlicht": "2026-11-22",
+  "skript_quellen": [
+   "film-geld-nach-si"
+  ],
+  "thumbnail_quelle": "film-geld-nach-si",
+  "code_herkunft": "claude/project-thread-kq9unm:films/66-sam-altman-says-everything-will-get-cheap"
  }
 ]
