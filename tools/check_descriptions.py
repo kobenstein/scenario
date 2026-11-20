@@ -5,6 +5,7 @@ Rule (Jakob, 11.11. and 15.11.2026): every long film description starts with
   paragraph 1: hook
   paragraph 2: COFFEE line (Buy Me a Coffee)
   paragraph 3: COURSE line (film course)
+and ends with the SPONSOR line (Passionfroot storefront, Jakob 19.11.2026).
 This applies to public, private AND scheduled videos. Run it before every release
 and after every upload (also for re-uploads / new versions of a film).
 
@@ -28,6 +29,7 @@ COFFEE = ("✨ ☕ If you want superintelligence to benefit everyone, you can su
           "channel here: https://buymeacoffee.com/thegoodtakeoff")
 COURSE = ("✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: "
           "https://aistronauts.at/film-course")
+SPONSOR = "Want to sponsor a film? passionfroot.me/the-good-takeoff"
 MAX_LEN = 4990  # YouTube limit is 5000 characters
 BACKUP_DIR = "/mnt/project-files/scenario/buymeacoffee/backup"
 BASE = "https://youtube.googleapis.com/youtube/v3/"
@@ -64,7 +66,32 @@ def head_ok(desc):
             and p[2].startswith("✨ 🎬") and "aistronauts.at/film-course" in p[2])
 
 
+def split_tags(desc):
+    paras = [p for p in desc.rstrip().split("\n\n") if "passionfroot.me/the-good-takeoff" not in p]
+    tags = [paras.pop()] if paras and paras[-1].lstrip().startswith("#") else []
+    return paras, tags
+
+
+def tail_ok(desc):
+    # Jakob 19.11.: sponsor line as the last paragraph (only hashtags may follow)
+    paras = desc.rstrip().split("\n\n")
+    if paras and paras[-1].lstrip().startswith("#"):
+        paras = paras[:-1]
+    return bool(paras) and paras[-1] == SPONSOR
+
+
 def repaired(desc):
+    if head_ok(desc):
+        return with_sponsor(desc)
+    return with_sponsor(new_head(desc))
+
+
+def with_sponsor(desc):
+    paras, tags = split_tags(desc)
+    return "\n\n".join(paras + [SPONSOR] + tags)
+
+
+def new_head(desc):
     paras = desc.split("\n\n")
     hook, rest = paras[0], paras[1:]
     # drop any old coffee / course paragraphs wherever they are
@@ -97,16 +124,16 @@ def main():
             if not is_long(v["contentDetails"]["duration"]):
                 continue
             s = v["snippet"]
-            ok = head_ok(s["description"])
+            ok = head_ok(s["description"]) and tail_ok(s["description"])
             state = v["status"]["privacyStatus"] + (" " + v["status"]["publishAt"] if v["status"].get("publishAt") else "")
             print(f"{'OK    ' if ok else 'FEHLT '} {v['id']} [{state}] {s['title']}")
             if not ok:
                 bad.append(v)
     if not bad:
-        print("Alle Langfilme haben Kaffee-Zeile + Kurs-Zeile als Absatz 2 und 3.")
+        print("Alle Langfilme haben Kaffee-Zeile + Kurs-Zeile als Absatz 2 und 3 und die Sponsor-Zeile am Schluss.")
         return 0
     if not fix:
-        print(f"{len(bad)} Film(e) ohne korrekten Beschreibungskopf. Mit --fix reparieren.")
+        print(f"{len(bad)} Film(e) ohne korrekten Beschreibungskopf oder ohne Sponsor-Zeile. Mit --fix reparieren.")
         return 1
     for v in bad:
         s = v["snippet"]
