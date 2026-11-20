@@ -488,7 +488,9 @@ function c05(ctx, t, a, c, T) {
   const up = sineIO(span(t, a.from7 + 1.4, a.from7 + 2.8));   // the list of seven rises from the window into the sky
   const side = listPose(t, a, c) || { x: L1.x + ox, y: L1.y + oy, w: L1.w };   // exactly where c04 left the card
   const p1 = { x: lerp(side.x, L1.x + ox, up), y: lerp(side.y, L1.y + oy, up), w: lerp(side.w, L1.w, up) };
-  if (t < a.how + 4) drawCard(ctx, t, p1.x, p1.y, p1.w, list7Rows(t, a), 40, 22, 'THE LIST');
+  // the tilt up to the strand ('But how would'): the card sinks out of frame; it fades as it sinks so it never sits behind the subtitles (y > 880)
+  const sink = 1 - sineIO(span(p1.y, L1.y + 120, L1.y + 380));
+  if (t < a.how + 4 && sink > 0) { ctx.save(); ctx.globalAlpha *= sink; drawCard(ctx, t, p1.x, p1.y, p1.w, list7Rows(t, a), 40, 22, 'THE LIST'); ctx.restore(); }
   const cl = sineIO(span(t, a.to150 - .1, a.to150 + 1.5)), grow = sineIO(span(t, a.to150 + .6, a.to150 + 2.6));
   const into = sineIO(span(t, a.short + .5, a.short + 2.2));   // 1.20 it folds short and goes into the hut window
   if (cl > 0 && into < 1) {
