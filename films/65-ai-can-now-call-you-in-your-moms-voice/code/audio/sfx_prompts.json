@@ -1,0 +1,17 @@
+{
+ "_comment": "Film 65: new Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 1 sample each, 2026-11-20, 8 s = 0.08 $); everything else from /mnt/project-files/scenario/sfx-bibliothek (akzent: chime, shimmer_rings, paper_slide, coin; atmo: clockwork). Files in <scratch>/f65/audio/sfx (not yet added to the library).",
+ "phone_ring": {
+  "prompt": "A smartphone lying on a wooden kitchen table rings twice with a soft, simple classic phone ringtone and a light vibration buzz against the wood, quiet room at night, close",
+  "negative_prompt": "music, voices, melody song",
+  "duration": 5,
+  "seed": 6501,
+  "use": "first ring 0.5-1.4 s"
+ },
+ "line_cut": {
+  "prompt": "A phone call is cut off: one soft digital click on the line, then faint line hiss fading into silence, close and quiet",
+  "negative_prompt": "music, voices, beeping tone",
+  "duration": 3,
+  "seed": 6502,
+  "use": "click at 1.56 s"
+ }
+}

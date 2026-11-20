@@ -1,0 +1,108 @@
+{
+ "_comment": "Film 65 clips (2026-11-20): the three REAL FOOTAGE clips with the time marks checked against the sound (clips/README.md). C10 (FBI podcast narrator over music) is a QUOTE CARD, not footage: not counted. in/out = the spoken sentence; the film slot plays the whole cut file. mix = settings for audio/mix.py.",
+ "quote_cards": [
+  {
+   "id": "C10",
+   "speaker": "Inside the FBI Podcast",
+   "url": "https://www.youtube.com/watch?v=JvgSP7MmRcY",
+   "in": "00:06:49.600",
+   "out": "00:06:55.800",
+   "ampel": "rot",
+   "ampel_grund": "podcast narrator over a clear music bed: quote card only",
+   "text": "If a would-be agent tries to isolate and burden you with an overwhelming level of urgency, they may be a scammer.",
+   "film_slot": {
+    "start": 313.79,
+    "end": 320.79
+   }
+  }
+ ],
+ "clips": [
+  {
+   "id": "S1",
+   "speaker": "Deborah Del Mastro",
+   "role": "Witness, U.S. Senate Special Committee on Aging (victim of an A.I. voice-clone kidnapping scam)",
+   "source_title": "The AI Deception Machine: Deepfakes, Chatbots, and the New Frontier of Senior Fraud",
+   "channel": "U.S. Senate Special Committee on Aging",
+   "url": "https://www.youtube.com/watch?v=WRzCFLK7uvg",
+   "date": "2026-07-29",
+   "in": "00:20:55.400",
+   "out": "00:20:58.100",
+   "transcript": "It was her voice. It was absolutely her voice.",
+   "ampel": "gruen",
+   "ampel_grund": "official Senate committee channel, hearing = federal work (not C-SPAN)",
+   "slot": "after 'Her daughter's voice, and a claim that she had been kidnapped.'",
+   "einordnung": "This summer, a mother from California told the U.S. Senate about one call. Her daughter's voice, and a claim that she had been kidnapped.",
+   "burned": false,
+   "file": "S1_DelMastro.mp4",
+   "mix": {
+    "fade_in": 0.08,
+    "fade_out": 0.15,
+    "gain_db": 0
+   },
+   "film_slot": {
+    "start": 70.34,
+    "end": 73.96,
+    "dur": 3.62,
+    "note": "whole cut file in <ROOT>clips/ (room tone around the in/out marks), offset 0"
+   }
+  },
+  {
+   "id": "C1",
+   "speaker": "Mark Meador",
+   "role": "Commissioner, Federal Trade Commission",
+   "source_title": "Spot and avoid family emergency scams",
+   "channel": "FTCvideos",
+   "url": "https://www.youtube.com/watch?v=_yIW47iWt-A",
+   "date": "2026-10-14",
+   "in": "00:00:03.100",
+   "out": "00:00:09.200",
+   "transcript": "Getting a call from a family member in trouble can be frightening. But if the caller asks you to send money urgently, stop.",
+   "ampel": "gelb",
+   "ampel_grund": "FTC = federal work (green), but a quiet music bed is likely under the voice (clips/README.md): copyright check in Studio before release, on a claim replace with a quote card",
+   "slot": "after 'One of its commissioners:'",
+   "einordnung": "The Federal Trade Commission, which collects America's fraud reports, calls it an action plan: what to do, who to call, and how to verify. One of its commissioners:",
+   "burned": true,
+   "file": "C1_FTC-Meador.mp4",
+   "mix": {
+    "fade_in": 0.08,
+    "fade_out": 0.15,
+    "gain_db": -1.5
+   },
+   "film_slot": {
+    "start": 381.52,
+    "end": 388.56,
+    "dur": 7.04,
+    "note": "whole cut file in <ROOT>clips/ (room tone around the in/out marks), offset 0"
+   }
+  },
+  {
+   "id": "S2",
+   "speaker": "Paul Benda",
+   "role": "Executive Vice President, Risk, Fraud & Cybersecurity, American Bankers Association",
+   "source_title": "The AI Deception Machine: Deepfakes, Chatbots, and the New Frontier of Senior Fraud",
+   "channel": "U.S. Senate Special Committee on Aging",
+   "url": "https://www.youtube.com/watch?v=WRzCFLK7uvg",
+   "date": "2026-07-29",
+   "in": "00:31:16.300",
+   "out": "00:31:22.200",
+   "transcript": "In those moments, human judgment and the relationship between banker and customer can be just as important as any algorithm.",
+   "ampel": "gruen",
+   "ampel_grund": "official Senate committee channel, hearing = federal work; spoken \"those\" (script and written testimony: \"these\")",
+   "slot": "after 'a customer who seems frightened, secretive, or coached.'",
+   "einordnung": "The banks' own lobby group told the same Senate hearing what a banker can notice: a customer who seems frightened, secretive, or coached.",
+   "burned": false,
+   "file": "S2_Benda.mp4",
+   "mix": {
+    "fade_in": 0.08,
+    "fade_out": 0.15,
+    "gain_db": 0
+   },
+   "film_slot": {
+    "start": 455.76,
+    "end": 462.734,
+    "dur": 6.974,
+    "note": "whole cut file in <ROOT>clips/ (room tone around the in/out marks), offset 0"
+   }
+  }
+ ]
+}

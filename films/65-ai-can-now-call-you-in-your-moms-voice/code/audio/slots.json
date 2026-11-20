@@ -1,0 +1,140 @@
+{
+ "duration": 610.694,
+ "source": "vo-v3.txt",
+ "hook": {
+  "start": 0.72,
+  "end": 57.93
+ },
+ "end_screen": {
+  "start": 595.694,
+  "dur": 15.0,
+  "end": 610.694,
+  "call": "t22",
+  "call_start": 585.674,
+  "call_end": 593.694,
+  "tail_after_vo": 17.0,
+  "note": "after the last VO word: ~2 s of air, then the 15 s end screen (music only, no voice; the music fades out over it)"
+ },
+ "channel_calls": {
+  "t10": {
+   "start": 270.57,
+   "end": 280.32
+  },
+  "t22": {
+   "start": 585.674,
+   "end": 593.694
+  }
+ },
+ "slots": [
+  {
+   "id": "S1",
+   "kind": "clip",
+   "sec": "1",
+   "start": 70.34,
+   "end": 73.96,
+   "dur": 3.62,
+   "under": false,
+   "quote": "It was her voice. It was absolutely her voice.",
+   "speaker": "Deborah Del Mastro",
+   "voice": null,
+   "footage": true,
+   "source_file": "S1_DelMastro.mp4",
+   "offset": 0.0,
+   "note": "real footage: the clip sound plays in the slot (whole cut file, frame 1 = slot start)"
+  },
+  {
+   "id": "C10",
+   "kind": "clip",
+   "sec": "4",
+   "start": 313.79,
+   "end": 320.79,
+   "dur": 7.0,
+   "under": false,
+   "quote": "If a would-be agent tries to isolate and burden you with an overwhelming level of urgency, they may be a scammer.",
+   "speaker": "Inside the FBI Podcast",
+   "voice": null,
+   "footage": false,
+   "card": true,
+   "note": "quote card (no footage, no clip sound): music only, ~7 s to read it"
+  },
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "4",
+   "start": 381.52,
+   "end": 388.56,
+   "dur": 7.04,
+   "under": false,
+   "quote": "Getting a call from a family member in trouble can be frightening. But if the caller asks you to send money urgently, stop.",
+   "speaker": "Mark Meador",
+   "voice": null,
+   "footage": true,
+   "source_file": "C1_FTC-Meador.mp4",
+   "offset": 0.0,
+   "note": "real footage: the clip sound plays in the slot (whole cut file, frame 1 = slot start)"
+  },
+  {
+   "id": "S2",
+   "kind": "clip",
+   "sec": "5",
+   "start": 455.76,
+   "end": 462.734,
+   "dur": 6.974,
+   "under": false,
+   "quote": "In those moments, human judgment and the relationship between banker and customer can be just as important as any algorithm.",
+   "speaker": "Paul Benda",
+   "voice": null,
+   "footage": true,
+   "source_file": "S2_Benda.mp4",
+   "offset": 0.0,
+   "note": "real footage: the clip sound plays in the slot (whole cut file, frame 1 = slot start)"
+  }
+ ],
+ "clips": [
+  {
+   "id": "S1",
+   "kind": "clip",
+   "sec": "1",
+   "start": 70.34,
+   "end": 73.96,
+   "under": false,
+   "quote": "It was her voice. It was absolutely her voice.",
+   "speaker": "Deborah Del Mastro",
+   "footage": true
+  },
+  {
+   "id": "C10",
+   "kind": "clip",
+   "sec": "4",
+   "start": 313.79,
+   "end": 320.79,
+   "under": false,
+   "quote": "If a would-be agent tries to isolate and burden you with an overwhelming level of urgency, they may be a scammer.",
+   "speaker": "Inside the FBI Podcast",
+   "footage": false,
+   "card": true
+  },
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "4",
+   "start": 381.52,
+   "end": 388.56,
+   "under": false,
+   "quote": "Getting a call from a family member in trouble can be frightening. But if the caller asks you to send money urgently, stop.",
+   "speaker": "Mark Meador",
+   "footage": true
+  },
+  {
+   "id": "S2",
+   "kind": "clip",
+   "sec": "5",
+   "start": 455.76,
+   "end": 462.734,
+   "under": false,
+   "quote": "In those moments, human judgment and the relationship between banker and customer can be just as important as any algorithm.",
+   "speaker": "Paul Benda",
+   "footage": true
+  }
+ ]
+}
