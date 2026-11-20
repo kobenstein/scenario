@@ -1,14 +1,4 @@
-// c08 · STUB (lead, 20.11.): the builder replaces this file (docs/BRIEF-builders.md, docs/shots.md). Until then: one sentence card per
-// spoken sentence (lib/stub.mjs), and the seam plate S.plateStairs for the last .5 s.
-import { stubChunk } from '../lib/stub.mjs';
-import * as S from '../lib/f66_world.mjs';
-import * as F from '../lib/f66_kit.mjs';
-const IN = null, OUT = 'plateStairs', END = false;
-export default async (T, R) => {
-  const hi = END ? T.duration - 15 : OUT ? R.b - S.SEAM_HALF : R.b, lo = IN ? R.a + S.SEAM_HALF : R.a;
-  const out = stubChunk(T, R).filter((e) => e.t < hi).map((e) => ({ ...e, t: Math.max(e.t, lo) }));
-  if (IN) out.unshift({ t: R.a, draw: (ctx, t) => S[IN](ctx, t, T), print: F.PRINT66 });
-  if (OUT) out.push({ t: R.b - S.SEAM_HALF, draw: (ctx, t) => S[OUT](ctx, t, T), print: F.PRINT66 });
-  if (END) out.push({ t: T.duration - 15, draw: (ctx, t) => S.endScreen(ctx, t, T), print: F.PRINT66 });
-  return out;
-};
+// c08 · B2 · part of the one continuous take of c05–c08: the group (anchors, camera, world, explainers) lives in scenes/sc05.mjs.
+// One entry; its frames are the same function of t as the neighbouring chunks, so the inner boundaries are seamless (S.plateStairs for the last .5 s is drawn by the group).
+import { group, preload, PRINT } from './sc05.mjs';
+export default async (T, R) => { await preload(T); return [{ t: R.a, draw: group(T).draw, print: PRINT }]; };
