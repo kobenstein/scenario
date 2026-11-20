@@ -1,0 +1,5 @@
+{
+ "_comment": "Film 66 Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 0.01 USD/s, 2 samples each, 2026-11-20; sample 1 used). Files in /tmp/claude-0/f66/audio/sfx, not in the repo. Everything else from sfx-bibliothek (akzent: coin, stone_click; atmo: hall).",
+ "pricetag": {"duration": 2.5, "seed": 6601, "negative_prompt": "music, voices, wind noise", "prompt": "A small paper price tag on a string falls and flutters softly through the air, a light papery flutter and a tiny soft tap as it lands on a wooden counter. Close, clean, quiet room, no music, no voices."},
+ "receipt": {"duration": 3, "seed": 6602, "negative_prompt": "music, voices, beeps, crowd", "prompt": "A thermal receipt printer in a shop prints a short receipt: a soft fast mechanical whirr and paper feeding out, then a quiet tear of the paper. Close, clean, no beeps, no music, no voices."}
+}
