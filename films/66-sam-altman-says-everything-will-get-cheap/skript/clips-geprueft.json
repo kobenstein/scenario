@@ -1,0 +1,855 @@
+{
+  "film": "#66 Sam Altman Says Everything Will Get Cheap",
+  "erstellt": "2026-11-20",
+  "export": "1920x1080 h264 (CRF-frei, ABR 1700-2400k, maxrate 2800k), AAC 160k 48 kHz, faststart",
+  "clips": [
+    {
+      "id": "C1",
+      "url": "https://www.youtube.com/watch?v=Wpxv-8nG8ec",
+      "kanal": "OpenAI (offizieller, verifizierter OpenAI-Kanal)",
+      "datum_aufnahme": "2026-01-27 (Upload; Aufnahmedatum laut Beschreibung nicht angegeben)",
+      "in": 467.16,
+      "out": 482.1,
+      "dauer_s": 14.97,
+      "dateigroesse_bytes": 3343949,
+      "wortlaut": "It, it looks like on the whole, given certainly progress with work you can do in front of a computer, but also what looks like it will soon happen with robotics and a bunch of other things, um, we're going to have massively deflationary pressure",
+      "wortzeiten": [
+        {
+          "wort": "It,",
+          "t_clip": 0.68,
+          "t_orig": 467.84
+        },
+        {
+          "wort": "it",
+          "t_clip": 0.84,
+          "t_orig": 468.0
+        },
+        {
+          "wort": "looks",
+          "t_clip": 1.24,
+          "t_orig": 468.4
+        },
+        {
+          "wort": "like",
+          "t_clip": 1.64,
+          "t_orig": 468.8
+        },
+        {
+          "wort": "on",
+          "t_clip": 1.88,
+          "t_orig": 469.04
+        },
+        {
+          "wort": "the",
+          "t_clip": 2.12,
+          "t_orig": 469.28
+        },
+        {
+          "wort": "whole,",
+          "t_clip": 2.36,
+          "t_orig": 469.52
+        },
+        {
+          "wort": "given",
+          "t_clip": 2.84,
+          "t_orig": 470.0
+        },
+        {
+          "wort": "certainly",
+          "t_clip": 3.96,
+          "t_orig": 471.12
+        },
+        {
+          "wort": "progress",
+          "t_clip": 4.44,
+          "t_orig": 471.6
+        },
+        {
+          "wort": "with",
+          "t_clip": 4.84,
+          "t_orig": 472.0
+        },
+        {
+          "wort": "work",
+          "t_clip": 5.16,
+          "t_orig": 472.32
+        },
+        {
+          "wort": "you",
+          "t_clip": 5.32,
+          "t_orig": 472.48
+        },
+        {
+          "wort": "can",
+          "t_clip": 5.48,
+          "t_orig": 472.64
+        },
+        {
+          "wort": "do",
+          "t_clip": 5.56,
+          "t_orig": 472.72
+        },
+        {
+          "wort": "in",
+          "t_clip": 5.72,
+          "t_orig": 472.88
+        },
+        {
+          "wort": "front",
+          "t_clip": 5.88,
+          "t_orig": 473.04
+        },
+        {
+          "wort": "of",
+          "t_clip": 5.96,
+          "t_orig": 473.12
+        },
+        {
+          "wort": "a",
+          "t_clip": 6.04,
+          "t_orig": 473.2
+        },
+        {
+          "wort": "computer,",
+          "t_clip": 6.2,
+          "t_orig": 473.36
+        },
+        {
+          "wort": "but",
+          "t_clip": 6.44,
+          "t_orig": 473.6
+        },
+        {
+          "wort": "also",
+          "t_clip": 6.68,
+          "t_orig": 473.84
+        },
+        {
+          "wort": "what",
+          "t_clip": 6.84,
+          "t_orig": 474.0
+        },
+        {
+          "wort": "looks",
+          "t_clip": 7.08,
+          "t_orig": 474.24
+        },
+        {
+          "wort": "like",
+          "t_clip": 7.24,
+          "t_orig": 474.4
+        },
+        {
+          "wort": "it",
+          "t_clip": 7.4,
+          "t_orig": 474.56
+        },
+        {
+          "wort": "will",
+          "t_clip": 7.56,
+          "t_orig": 474.72
+        },
+        {
+          "wort": "soon",
+          "t_clip": 7.72,
+          "t_orig": 474.88
+        },
+        {
+          "wort": "happen",
+          "t_clip": 7.96,
+          "t_orig": 475.12
+        },
+        {
+          "wort": "with",
+          "t_clip": 8.2,
+          "t_orig": 475.36
+        },
+        {
+          "wort": "robotics",
+          "t_clip": 8.76,
+          "t_orig": 475.92
+        },
+        {
+          "wort": "and",
+          "t_clip": 9.16,
+          "t_orig": 476.32
+        },
+        {
+          "wort": "a",
+          "t_clip": 9.32,
+          "t_orig": 476.48
+        },
+        {
+          "wort": "bunch",
+          "t_clip": 9.48,
+          "t_orig": 476.64
+        },
+        {
+          "wort": "of",
+          "t_clip": 9.56,
+          "t_orig": 476.72
+        },
+        {
+          "wort": "other",
+          "t_clip": 9.72,
+          "t_orig": 476.88
+        },
+        {
+          "wort": "things,",
+          "t_clip": 9.88,
+          "t_orig": 477.04
+        },
+        {
+          "wort": "um,",
+          "t_clip": 10.68,
+          "t_orig": 477.84
+        },
+        {
+          "wort": "we're",
+          "t_clip": 11.88,
+          "t_orig": 479.04
+        },
+        {
+          "wort": "going",
+          "t_clip": 12.12,
+          "t_orig": 479.28
+        },
+        {
+          "wort": "to",
+          "t_clip": 12.2,
+          "t_orig": 479.36
+        },
+        {
+          "wort": "have",
+          "t_clip": 12.28,
+          "t_orig": 479.44
+        },
+        {
+          "wort": "massively",
+          "t_clip": 12.44,
+          "t_orig": 479.6
+        },
+        {
+          "wort": "deflationary",
+          "t_clip": 13.48,
+          "t_orig": 480.64
+        },
+        {
+          "wort": "pressure",
+          "t_clip": 14.52,
+          "t_orig": 481.68
+        }
+      ],
+      "wortzeiten_quelle": "YouTube-Autountertitel (Wortbeginn, ca. +/-0,2 s), Zeiten relativ zum Clip-Start; Schnittpunkte per Pegelanalyse gesetzt",
+      "bauchbinde": "SAM ALTMAN · CEO, OPENAI · 2026 · ORIGINAL FOOTAGE",
+      "credit": "OpenAI, OpenAI Town Hall with Sam Altman, https://www.youtube.com/watch?v=Wpxv-8nG8ec",
+      "musik": "Keine Musik. Raumton/Saal.",
+      "bild": "Altman im Bild, spricht sichtbar (Mikro in der Hand). Weitwinkel-Bühnenshot (Sofa-Runde mit 3 weiteren Personen), keine Großaufnahme, kein Schnitt im Clip. Kein Senderlogo.",
+      "hinweise": "Der Satz läuft im Original weiter: '...deflationary pressure in the economy.' Ende daher hart nach 'pressure' (Pause nur ~0,1 s, kurzer Audio-Fade 50 ms); 1 s Luft am Ende nicht möglich. Vorne 0,7 s Luft. Satzbeginn mit Stotterer 'It, it'. Kapitel 07:03 'How can AI help close long-standing economic gaps...'."
+    },
+    {
+      "id": "C2",
+      "url": "https://www.youtube.com/watch?v=AQnwQHMnCrE",
+      "kanal": "The Builders with Walter Isaacson (Kaleidoscope)",
+      "datum_aufnahme": "2026-10-20 (Upload). Beschreibung nennt kein Aufnahmedatum, nur \"this season's debut episode\".",
+      "in": 1247.6,
+      "out": 1256.98,
+      "dauer_s": 9.43,
+      "dateigroesse_bytes": 2851717,
+      "wortlaut": "I mean, as, as you heard me say, I mean, I don't think money's going to matter in the future. Um, it, like, anyone will be able to have any goods and services that they want.",
+      "wortzeiten": [
+        {
+          "wort": "I",
+          "t_clip": 1.4,
+          "t_orig": 1249.0
+        },
+        {
+          "wort": "mean,",
+          "t_clip": 1.48,
+          "t_orig": 1249.08
+        },
+        {
+          "wort": "as,",
+          "t_clip": 1.64,
+          "t_orig": 1249.24
+        },
+        {
+          "wort": "as",
+          "t_clip": 1.84,
+          "t_orig": 1249.44
+        },
+        {
+          "wort": "you",
+          "t_clip": 2.0,
+          "t_orig": 1249.6
+        },
+        {
+          "wort": "heard",
+          "t_clip": 2.08,
+          "t_orig": 1249.68
+        },
+        {
+          "wort": "me",
+          "t_clip": 2.28,
+          "t_orig": 1249.88
+        },
+        {
+          "wort": "say,",
+          "t_clip": 2.36,
+          "t_orig": 1249.96
+        },
+        {
+          "wort": "I",
+          "t_clip": 2.64,
+          "t_orig": 1250.24
+        },
+        {
+          "wort": "mean,",
+          "t_clip": 2.68,
+          "t_orig": 1250.28
+        },
+        {
+          "wort": "I",
+          "t_clip": 2.92,
+          "t_orig": 1250.52
+        },
+        {
+          "wort": "don't",
+          "t_clip": 3.0,
+          "t_orig": 1250.6
+        },
+        {
+          "wort": "think",
+          "t_clip": 3.16,
+          "t_orig": 1250.76
+        },
+        {
+          "wort": "money's",
+          "t_clip": 3.28,
+          "t_orig": 1250.88
+        },
+        {
+          "wort": "going",
+          "t_clip": 3.52,
+          "t_orig": 1251.12
+        },
+        {
+          "wort": "to",
+          "t_clip": 3.64,
+          "t_orig": 1251.24
+        },
+        {
+          "wort": "matter",
+          "t_clip": 3.68,
+          "t_orig": 1251.28
+        },
+        {
+          "wort": "in",
+          "t_clip": 3.92,
+          "t_orig": 1251.52
+        },
+        {
+          "wort": "the",
+          "t_clip": 3.96,
+          "t_orig": 1251.56
+        },
+        {
+          "wort": "future.",
+          "t_clip": 4.04,
+          "t_orig": 1251.64
+        },
+        {
+          "wort": "Um,",
+          "t_clip": 4.88,
+          "t_orig": 1252.48
+        },
+        {
+          "wort": "it,",
+          "t_clip": 5.88,
+          "t_orig": 1253.48
+        },
+        {
+          "wort": "like,",
+          "t_clip": 6.36,
+          "t_orig": 1253.96
+        },
+        {
+          "wort": "anyone",
+          "t_clip": 6.6,
+          "t_orig": 1254.2
+        },
+        {
+          "wort": "will",
+          "t_clip": 7.0,
+          "t_orig": 1254.6
+        },
+        {
+          "wort": "be",
+          "t_clip": 7.08,
+          "t_orig": 1254.68
+        },
+        {
+          "wort": "able",
+          "t_clip": 7.12,
+          "t_orig": 1254.72
+        },
+        {
+          "wort": "to",
+          "t_clip": 7.24,
+          "t_orig": 1254.84
+        },
+        {
+          "wort": "have",
+          "t_clip": 7.32,
+          "t_orig": 1254.92
+        },
+        {
+          "wort": "any",
+          "t_clip": 7.44,
+          "t_orig": 1255.04
+        },
+        {
+          "wort": "goods",
+          "t_clip": 7.6,
+          "t_orig": 1255.2
+        },
+        {
+          "wort": "and",
+          "t_clip": 7.8,
+          "t_orig": 1255.4
+        },
+        {
+          "wort": "services",
+          "t_clip": 7.88,
+          "t_orig": 1255.48
+        },
+        {
+          "wort": "that",
+          "t_clip": 8.32,
+          "t_orig": 1255.92
+        },
+        {
+          "wort": "they",
+          "t_clip": 8.44,
+          "t_orig": 1256.04
+        },
+        {
+          "wort": "want.",
+          "t_clip": 8.56,
+          "t_orig": 1256.16
+        }
+      ],
+      "wortzeiten_quelle": "YouTube-Autountertitel (Wortbeginn, ca. +/-0,2 s), Zeiten relativ zum Clip-Start; Schnittpunkte per Pegelanalyse gesetzt",
+      "bauchbinde": "ELON MUSK · CEO, TESLA & SPACEX · 2026 · ORIGINAL FOOTAGE",
+      "credit": "The Builders with Walter Isaacson, Elon Musk: The End of Work, the Death of Money, and a World Run by AI, https://www.youtube.com/watch?v=AQnwQHMnCrE",
+      "musik": "Keine Musik.",
+      "bild": "Musk im Bild (Webcam/Remote-Aufnahme, Halbnah), bewegt. Eingeblendet: Kaleidoscope-\"K\"-Logo oben links und \"presented by ramp\" unten links - beim Einbau ggf. croppen/abdecken.",
+      "hinweise": "Ton bestätigt: Wortlaut entspricht der Vorgabe; Original 20:47.6-20:57.0. Nach 'want.' folgt nach 0,5 s 'And I don't think even so-called wealthy people will ultimately control the AIs' - Ende vorher (0,5 s Luft). Vorne 0,9 s Luft. Zwischen 'future.' und 'Um' ~0,8 s Pause (kürzbar).",
+      "frage_davor": "Walter Isaacson (davor, 19:50-20:45): 'We like to think of this as a time of unprecedented technological change, but you know, we historians go back to the 1890s when you get electricity and telephones and cars ... it all often leads to a great disparity of wealth, a lot of sense of robber barons, a lot of people then picking up pitchforks ... And there's some echoes of that now. Is there a way to prevent that given the amount of wealth being generated? Will we put certain things in the commons the way they did in the 1890s when they made high school universal and free? Will we say, \"Okay, health care, for example, should just be in the commons,\" and that's going to sap some of the populace revulsion at what's happening?'"
+    },
+    {
+      "id": "C3",
+      "url": "https://www.youtube.com/watch?v=-HzgcbRXUK8",
+      "kanal": "Lex Fridman (verifiziert)",
+      "datum_aufnahme": "2025-07-23 (Upload)",
+      "in": 4356.36,
+      "out": 4369.92,
+      "dauer_s": 13.57,
+      "dateigroesse_bytes": 3707774,
+      "wortlaut": "but it will at least remove one, I think one of the big vectors, which is scarcity of resources, you know, including land and more materials and energy. And, um, you know, we should be, I sometimes call it, like, and others call it, about this kind of radical abundance",
+      "wortzeiten": [
+        {
+          "wort": "but",
+          "t_clip": 0.04,
+          "t_orig": 4356.4
+        },
+        {
+          "wort": "it",
+          "t_clip": 0.44,
+          "t_orig": 4356.8
+        },
+        {
+          "wort": "will",
+          "t_clip": 0.68,
+          "t_orig": 4357.04
+        },
+        {
+          "wort": "at",
+          "t_clip": 0.76,
+          "t_orig": 4357.12
+        },
+        {
+          "wort": "least",
+          "t_clip": 0.84,
+          "t_orig": 4357.2
+        },
+        {
+          "wort": "remove",
+          "t_clip": 1.16,
+          "t_orig": 4357.52
+        },
+        {
+          "wort": "one,",
+          "t_clip": 1.56,
+          "t_orig": 4357.92
+        },
+        {
+          "wort": "I",
+          "t_clip": 1.8,
+          "t_orig": 4358.16
+        },
+        {
+          "wort": "think",
+          "t_clip": 2.04,
+          "t_orig": 4358.4
+        },
+        {
+          "wort": "one",
+          "t_clip": 2.12,
+          "t_orig": 4358.48
+        },
+        {
+          "wort": "of",
+          "t_clip": 2.28,
+          "t_orig": 4358.64
+        },
+        {
+          "wort": "the",
+          "t_clip": 2.36,
+          "t_orig": 4358.72
+        },
+        {
+          "wort": "big",
+          "t_clip": 2.52,
+          "t_orig": 4358.88
+        },
+        {
+          "wort": "vectors,",
+          "t_clip": 2.68,
+          "t_orig": 4359.04
+        },
+        {
+          "wort": "which",
+          "t_clip": 3.16,
+          "t_orig": 4359.52
+        },
+        {
+          "wort": "is",
+          "t_clip": 3.4,
+          "t_orig": 4359.76
+        },
+        {
+          "wort": "scarcity",
+          "t_clip": 3.8,
+          "t_orig": 4360.16
+        },
+        {
+          "wort": "of",
+          "t_clip": 4.68,
+          "t_orig": 4361.04
+        },
+        {
+          "wort": "resources,",
+          "t_clip": 5.0,
+          "t_orig": 4361.36
+        },
+        {
+          "wort": "you",
+          "t_clip": 6.04,
+          "t_orig": 4362.4
+        },
+        {
+          "wort": "know,",
+          "t_clip": 6.2,
+          "t_orig": 4362.56
+        },
+        {
+          "wort": "including",
+          "t_clip": 6.36,
+          "t_orig": 4362.72
+        },
+        {
+          "wort": "land",
+          "t_clip": 6.84,
+          "t_orig": 4363.2
+        },
+        {
+          "wort": "and",
+          "t_clip": 7.08,
+          "t_orig": 4363.44
+        },
+        {
+          "wort": "more",
+          "t_clip": 7.32,
+          "t_orig": 4363.68
+        },
+        {
+          "wort": "materials",
+          "t_clip": 7.56,
+          "t_orig": 4363.92
+        },
+        {
+          "wort": "and",
+          "t_clip": 7.96,
+          "t_orig": 4364.32
+        },
+        {
+          "wort": "energy.",
+          "t_clip": 8.2,
+          "t_orig": 4364.56
+        },
+        {
+          "wort": "And,",
+          "t_clip": 8.92,
+          "t_orig": 4365.28
+        },
+        {
+          "wort": "um,",
+          "t_clip": 9.56,
+          "t_orig": 4365.92
+        },
+        {
+          "wort": "you",
+          "t_clip": 9.88,
+          "t_orig": 4366.24
+        },
+        {
+          "wort": "know,",
+          "t_clip": 10.04,
+          "t_orig": 4366.4
+        },
+        {
+          "wort": "we",
+          "t_clip": 10.12,
+          "t_orig": 4366.48
+        },
+        {
+          "wort": "should",
+          "t_clip": 10.28,
+          "t_orig": 4366.64
+        },
+        {
+          "wort": "be,",
+          "t_clip": 10.36,
+          "t_orig": 4366.72
+        },
+        {
+          "wort": "I",
+          "t_clip": 10.52,
+          "t_orig": 4366.88
+        },
+        {
+          "wort": "sometimes",
+          "t_clip": 10.68,
+          "t_orig": 4367.04
+        },
+        {
+          "wort": "call",
+          "t_clip": 11.0,
+          "t_orig": 4367.36
+        },
+        {
+          "wort": "it,",
+          "t_clip": 11.08,
+          "t_orig": 4367.44
+        },
+        {
+          "wort": "like,",
+          "t_clip": 11.32,
+          "t_orig": 4367.68
+        },
+        {
+          "wort": "and",
+          "t_clip": 11.48,
+          "t_orig": 4367.84
+        },
+        {
+          "wort": "others",
+          "t_clip": 11.64,
+          "t_orig": 4368.0
+        },
+        {
+          "wort": "call",
+          "t_clip": 11.88,
+          "t_orig": 4368.24
+        },
+        {
+          "wort": "it,",
+          "t_clip": 11.96,
+          "t_orig": 4368.32
+        },
+        {
+          "wort": "about",
+          "t_clip": 12.12,
+          "t_orig": 4368.48
+        },
+        {
+          "wort": "this",
+          "t_clip": 12.28,
+          "t_orig": 4368.64
+        },
+        {
+          "wort": "kind",
+          "t_clip": 12.52,
+          "t_orig": 4368.88
+        },
+        {
+          "wort": "of",
+          "t_clip": 12.6,
+          "t_orig": 4368.96
+        },
+        {
+          "wort": "radical",
+          "t_clip": 12.68,
+          "t_orig": 4369.04
+        },
+        {
+          "wort": "abundance",
+          "t_clip": 13.16,
+          "t_orig": 4369.52
+        }
+      ],
+      "wortzeiten_quelle": "YouTube-Autountertitel (Wortbeginn, ca. +/-0,2 s), Zeiten relativ zum Clip-Start; Schnittpunkte per Pegelanalyse gesetzt",
+      "bauchbinde": "DEMIS HASSABIS · CEO, GOOGLE DEEPMIND · 2025 · ORIGINAL FOOTAGE",
+      "credit": "Lex Fridman, Demis Hassabis: Future of AI, Simulating Reality, Physics and Video Games | Lex Fridman Podcast #475, https://www.youtube.com/watch?v=-HzgcbRXUK8",
+      "musik": "Keine Musik.",
+      "bild": "Hassabis im Bild, Nahaufnahme vor schwarzem Vorhang, spricht und gestikuliert. Kein Logo.",
+      "hinweise": "Satz läuft weiter: '...radical abundance era where there's plenty of resources to go around.' Ende hart nach 'abundance' (Pause ~0,05 s vor 'era', Audio-Fade 50 ms). Beginn mitten im Satz ('...that will still exist, but it will...'); vorne keine Pause (Lex-Schnitt mit digitaler Stille), daher keine 1 s Luft möglich. Wortlaut nach YouTube-Autountertiteln + offizielle Untertitel abgeglichen; Hassabis spricht holprig ('we should be, I sometimes call it, like, and others call it, about...')."
+    },
+    {
+      "id": "C4",
+      "url": "https://www.youtube.com/watch?v=DxCkbNvzm0g",
+      "kanal": "World Economic Forum (verifiziert) - Radio Davos",
+      "datum_aufnahme": "2026-10-29 (Upload; Aufnahmedatum laut Beschreibung nicht angegeben)",
+      "in": 1898.95,
+      "out": 1911.78,
+      "dauer_s": 12.84,
+      "dateigroesse_bytes": 3553255,
+      "wortlaut": "One telltale sign of automation is that labor's share of value added in industry, or labor's share in national income, is going down.",
+      "wortzeiten": [
+        {
+          "wort": "One",
+          "t_clip": 0.6,
+          "t_orig": 1899.55
+        },
+        {
+          "wort": "telltale",
+          "t_clip": 1.32,
+          "t_orig": 1900.27
+        },
+        {
+          "wort": "sign",
+          "t_clip": 1.92,
+          "t_orig": 1900.87
+        },
+        {
+          "wort": "of",
+          "t_clip": 2.56,
+          "t_orig": 1901.51
+        },
+        {
+          "wort": "automation",
+          "t_clip": 2.84,
+          "t_orig": 1901.79
+        },
+        {
+          "wort": "is",
+          "t_clip": 4.32,
+          "t_orig": 1903.27
+        },
+        {
+          "wort": "that",
+          "t_clip": 5.08,
+          "t_orig": 1904.03
+        },
+        {
+          "wort": "labor's",
+          "t_clip": 6.0,
+          "t_orig": 1904.95
+        },
+        {
+          "wort": "share",
+          "t_clip": 6.64,
+          "t_orig": 1905.59
+        },
+        {
+          "wort": "of",
+          "t_clip": 7.08,
+          "t_orig": 1906.03
+        },
+        {
+          "wort": "value",
+          "t_clip": 7.2,
+          "t_orig": 1906.15
+        },
+        {
+          "wort": "added",
+          "t_clip": 7.6,
+          "t_orig": 1906.55
+        },
+        {
+          "wort": "in",
+          "t_clip": 7.88,
+          "t_orig": 1906.83
+        },
+        {
+          "wort": "industry,",
+          "t_clip": 8.04,
+          "t_orig": 1906.99
+        },
+        {
+          "wort": "or",
+          "t_clip": 9.16,
+          "t_orig": 1908.11
+        },
+        {
+          "wort": "labor's",
+          "t_clip": 9.32,
+          "t_orig": 1908.27
+        },
+        {
+          "wort": "share",
+          "t_clip": 9.88,
+          "t_orig": 1908.83
+        },
+        {
+          "wort": "in",
+          "t_clip": 10.88,
+          "t_orig": 1909.83
+        },
+        {
+          "wort": "national",
+          "t_clip": 11.04,
+          "t_orig": 1909.99
+        },
+        {
+          "wort": "income,",
+          "t_clip": 11.48,
+          "t_orig": 1910.43
+        },
+        {
+          "wort": "is",
+          "t_clip": 11.84,
+          "t_orig": 1910.79
+        },
+        {
+          "wort": "going",
+          "t_clip": 11.96,
+          "t_orig": 1910.91
+        },
+        {
+          "wort": "down.",
+          "t_clip": 12.2,
+          "t_orig": 1911.15
+        }
+      ],
+      "wortzeiten_quelle": "YouTube-Autountertitel (Wortbeginn, ca. +/-0,2 s), Zeiten relativ zum Clip-Start; Schnittpunkte per Pegelanalyse gesetzt",
+      "bauchbinde": "DARON ACEMOGLU · ÖKONOM, MIT, NOBELPREIS 2024 · 2026 · ORIGINAL FOOTAGE",
+      "credit": "World Economic Forum, AI and Inequality: Nobel-Winning Economist Daron Acemoglu on How to Get AI Right, https://www.youtube.com/watch?v=DxCkbNvzm0g",
+      "musik": "Keine Musik unter der Stelle (nur im Intro des Videos).",
+      "bild": "Bewegtes Bild von Acemoglu (Video-Podcast, Halbnah), kein Standbild. Eingeblendet: \"Radio Davos\"-Logo oben links und \"World Economic Forum\"-Logo oben rechts.",
+      "hinweise": "Antwort auf die Frage nach der Kennzahl. Danach: 'We've been experiencing that for the last three decades, and if there is an acceleration in that, that's a sign that we are putting all of our eggs in the automation basket.' (falls länger gewünscht). Nach 'down.' nur 0,3 s Pause. Kurzes Schnauben nach 'labor's share'. Offizielle Untertitel schreiben 'value either' - gesprochen ist 'value added' (Autountertitel + Fachbegriff).",
+      "frage_davor": "Moderator davor: 'And what's a tell it's going in the wrong direction? If we start seeing a particular statistic or a particular trend, what's something that should make us all sit up a little bit straighter?'"
+    }
+  ]
+}

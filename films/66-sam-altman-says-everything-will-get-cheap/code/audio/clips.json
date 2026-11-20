@@ -1,0 +1,225 @@
+{
+ "_comment": "Film 66 clip metadata (clips_json.py). The cut files <ROOT>clips/Cn.mp4 ARE the clips (file_in_s 0). Slot = timing.json slots[] (0.6 s air before/after). cues = [seconds from the slot start, subtitle line <= 34 chars] from clips-geprueft.json word times.",
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "speaker": "Sam Altman",
+   "role": "CEO, OpenAI",
+   "source": "OpenAI Town Hall with Sam Altman (OpenAI, Jan 2026)",
+   "url": "https://www.youtube.com/watch?v=Wpxv-8nG8ec",
+   "credit": "OpenAI, OpenAI Town Hall with Sam Altman, https://www.youtube.com/watch?v=Wpxv-8nG8ec",
+   "lower_third": "SAM ALTMAN · CEO, OPENAI · 2026 · ORIGINAL FOOTAGE",
+   "file": "C1.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 14.97,
+   "dur": 14.97,
+   "slot_start": 55.3,
+   "slot_end": 70.27,
+   "sec": "1",
+   "transcript": "It, it looks like on the whole, given certainly progress with work you can do in front of a computer, but also what looks like it will soon happen with robotics and a bunch of other things, um, we're going to have massively deflationary pressure",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.68,
+     "It looks like on the whole,"
+    ],
+    [
+     2.84,
+     "given certainly progress"
+    ],
+    [
+     4.84,
+     "with work you can do"
+    ],
+    [
+     5.72,
+     "in front of a computer,"
+    ],
+    [
+     6.44,
+     "but also what looks like"
+    ],
+    [
+     7.4,
+     "it will soon happen with robotics"
+    ],
+    [
+     9.16,
+     "and a bunch of other things,"
+    ],
+    [
+     11.88,
+     "we're going to have"
+    ],
+    [
+     12.44,
+     "massively deflationary pressure"
+    ]
+   ],
+   "cue_end": 14.92
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "speaker": "Elon Musk",
+   "role": "CEO, Tesla & SpaceX",
+   "source": "The Builders with Walter Isaacson (Oct 2026)",
+   "url": "https://www.youtube.com/watch?v=AQnwQHMnCrE",
+   "credit": "The Builders with Walter Isaacson, Elon Musk: The End of Work, the Death of Money, and a World Run by AI, https://www.youtube.com/watch?v=AQnwQHMnCrE",
+   "lower_third": "ELON MUSK · CEO, TESLA & SPACEX · 2026 · ORIGINAL FOOTAGE",
+   "file": "C2.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 9.43,
+   "dur": 9.43,
+   "slot_start": 231.37,
+   "slot_end": 240.8,
+   "sec": "4",
+   "transcript": "I mean, as, as you heard me say, I mean, I don't think money's going to matter in the future. Um, it, like, anyone will be able to have any goods and services that they want.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     1.4,
+     "As you heard me say,"
+    ],
+    [
+     2.92,
+     "I don't think money's going"
+    ],
+    [
+     3.68,
+     "to matter in the future."
+    ],
+    [
+     5.88,
+     "Anyone will be able to have"
+    ],
+    [
+     7.44,
+     "any goods and services"
+    ],
+    [
+     8.32,
+     "that they want."
+    ]
+   ],
+   "cue_end": 9.16
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "speaker": "Demis Hassabis",
+   "role": "CEO, Google DeepMind",
+   "source": "Lex Fridman Podcast #475 (Jul 2025)",
+   "url": "https://www.youtube.com/watch?v=-HzgcbRXUK8",
+   "credit": "Lex Fridman, Demis Hassabis: Future of AI, Simulating Reality, Physics and Video Games | Lex Fridman Podcast #475, https://www.youtube.com/watch?v=-HzgcbRXUK8",
+   "lower_third": "DEMIS HASSABIS · CEO, GOOGLE DEEPMIND · 2025 · ORIGINAL FOOTAGE",
+   "file": "C3.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 13.57,
+   "dur": 13.57,
+   "slot_start": 311.76,
+   "slot_end": 325.33,
+   "sec": "5",
+   "transcript": "but it will at least remove one, I think one of the big vectors, which is scarcity of resources, you know, including land and more materials and energy. And, um, you know, we should be, I sometimes call it, like, and others call it, about this kind of radical abundance",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.04,
+     "…but it will at least remove"
+    ],
+    [
+     1.8,
+     "one of the big vectors,"
+    ],
+    [
+     3.16,
+     "which is scarcity of resources,"
+    ],
+    [
+     6.36,
+     "including land and more materials"
+    ],
+    [
+     7.96,
+     "and energy."
+    ],
+    [
+     10.52,
+     "I sometimes call it,"
+    ],
+    [
+     11.48,
+     "and others call it,"
+    ],
+    [
+     12.28,
+     "this kind of radical abundance"
+    ]
+   ],
+   "cue_end": 13.52
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "speaker": "Daron Acemoglu",
+   "role": "Economist, MIT, Nobel 2024",
+   "source": "World Economic Forum, Radio Davos (Oct 2026)",
+   "url": "https://www.youtube.com/watch?v=DxCkbNvzm0g",
+   "credit": "World Economic Forum, AI and Inequality: Nobel-Winning Economist Daron Acemoglu on How to Get AI Right, https://www.youtube.com/watch?v=DxCkbNvzm0g",
+   "lower_third": "DARON ACEMOGLU · ÖKONOM, MIT, NOBELPREIS 2024 · 2026 · ORIGINAL FOOTAGE",
+   "file": "C4.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 12.84,
+   "dur": 12.84,
+   "slot_start": 461.62,
+   "slot_end": 474.46,
+   "sec": "8",
+   "transcript": "One telltale sign of automation is that labor's share of value added in industry, or labor's share in national income, is going down.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.6,
+     "One telltale sign of automation"
+    ],
+    [
+     4.32,
+     "is that labor's share"
+    ],
+    [
+     7.08,
+     "of value added in industry,"
+    ],
+    [
+     9.16,
+     "or labor's share"
+    ],
+    [
+     10.88,
+     "in national income,"
+    ],
+    [
+     11.84,
+     "is going down."
+    ]
+   ],
+   "cue_end": 12.79
+  }
+ ]
+}
