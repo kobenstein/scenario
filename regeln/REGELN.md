@@ -121,6 +121,9 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 4. Pro Film EIN unverwechselbares Hauptobjekt, kein Motiv aus dem Vorfilm (Hand, Kreis, Kopf, Monolith), und kein Schlüsselmotiv früherer Filme, auch nicht in der Animation (Jakob 9.11.: Uhr schon in Altern), Einstellungsgröße und Textposition variieren. Ownership nicht in jedes Thumbnail. Keine Kleinteile, keine Lichtnetze, keine Filmstills.
 5. Das erste Bild des Films zeigt das Thumbnail-Motiv. **Das Thumbnail zeigt nur, was im Film wirklich vorkommt** (Jakob 9.11. zu 2037: „kommen die Drohnen echt vor?“).
 6. **JEDER Bildtext (A, B UND C) muss ALLEIN funktionieren, ohne den Titel** (Jakob 11.11. zu #24: „IT HEARS THEIR FEAR“ – wer ist it?; „AI IS LEARNING WHALE“ – was ist whale?). Kein „it/they“ ohne Bezug, keine Wortspiele, die erst der Titel erklärt; Subjekt nennen. Kurz: ≤3–4 Wörter („SOON WE'LL UNDERSTAND ANIMALS“ war Jakob zu lang). Nicht mehr versprechen als der Film (kein „speak“, wenn der Film sagt: noch nicht).
+6a. **Kein Bildtext widerspricht dem Titel (Jakob 20.11. zu #66):** alle drei Varianten tragen das Titelversprechen aus anderem Blick; die Wendung/Ausnahme gehört in den Film, nicht ins Thumbnail. Abgelehnt: „NOT EVERYTHING GETS CHEAP“ und „YOUR HOME WON'T GET CHEAP“ zu „Sam Altman Says Everything Will Get Cheap“; „PRICES FALL IN ORDER“ ist für einen Zufallszuseher unklar.
+
+7. **Thumbnails sofort nach Drive** (Jakob 20.11.: „nicht dass die über die Zeit verschwinden“): Jede Runde A/B/C gleich nach dem Erstellen in den Drive-Ordner „#NN Titel/2 Thumbnails“ hochladen (2560er Original + 1280er PNG/JPG; spätere Runden in Unterordner „alt-vN“), nicht erst beim Upload. Fehlt der Filmordner, anlegen (1 Film / 2 Thumbnails / 3 Rohmaterial / 4 Texte & Recherche). Nie Thumbnails löschen.
 
 ## 10. Ablauf eines Skripts (Stand 5.11.)
 
@@ -166,9 +169,14 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 
 **Pflicht-Check** nach jedem Upload UND vor jedem Release (am Release-Tag vor 17:00): im Repo `python3 tools/check_descriptions.py` laufen lassen. Prüft alle Langfilme inkl. privater und geplanter; `--fix` sichert die alte Beschreibung unter `buymeacoffee/backup/` und setzt Kaffee- und Kurs-Zeile als Absatz 2 und 3 sowie die Sponsor-Zeile am Schluss. Meldet das Skript „ZU LANG“, von Hand kürzen (zuerst die Kommentar-Frage, dann Quellen-Beschriftungen, nie Links).
 
+**Sicherung immer aus der Originaldatei** (Jakob 20.11.): Direkt nach dem finalen Render, noch vor dem Upload und bevor die Render-Sitzung endet, den Master (1080p30, gleiche Datei wie für YouTube, Prüfsumme gleich) nach Drive „#NN Titel/1 Film“ UND auf „/Volumes/Jakob - 6A/2026_TheGoodTakeoff/#NN_Titel“ kopieren. Nie aus YouTube Studio herunterladen (schlechtere Qualität). Fehlt die Originaldatei, Jakob melden statt Studio-Download.
+**Drive ist Pflicht, 6A nur zusätzlich** (Jakob 20.11.): Ist „Jakob - 6A“ nicht angesteckt, reicht die Drive-Kopie (Prüfsumme gleich); kein Nachkopieren nötig.
+
 ---
 
 ## Änderungslog
+- 20.11.2026: §9.7 Thumbnails jeder Runde sofort nach Drive „2 Thumbnails“ (Jakob).
+- 20.11.2026: §12 Sicherung immer aus der Originaldatei direkt nach dem Render, nie Studio-Download (Jakob).
 - 20.11.2026: §11 Rest aus `scenario-script` nachgetragen (Verantwortung, Nähe, Gesicht pro Zahl, eine Person, viele Stimmen); Skill kann gelöscht werden.
 
 - 6.11.2026: Erste Fassung aus allen Quellen zusammengeführt (Befund: `regeln-befund-2026-11-06.md`), von Jakob freigegeben. Damit gilt: Lösungen als 2. Akt, Abzweigung nur Option, keine Ich-Sätze, Skript ohne Ultracode.
@@ -192,3 +200,4 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 - 20.11.2026: §12 Sponsor-Zeile (Passionfroot) als letzter Absatz jeder Langfilm-Beschreibung, `check_descriptions.py` prüft und ergänzt sie (Jakob 19.11.).
 - 20.11.2026: §4 erst das Warum, dann die Szene; Einzelfall nicht vor die Hauptfrage (Jakob, #49).
 - 20.11.2026 (Kanal-Tiefenanalyse): §2.5d hartes Treffer-Tor (Du-Einsatz oder Datum, 3 Wochen Abstand), §8.9 Person + Haltung und Verlierer-Formen, §8.10 24-h-Klickraten-Check. Neuer Skill `good-takeoff-thema-titel` (Ablauf Thema + Titel).
+- 20.11.2026: §9.6a Bildtext widerspricht nie dem Titel, Wendung nur im Film (Jakob, #66).
