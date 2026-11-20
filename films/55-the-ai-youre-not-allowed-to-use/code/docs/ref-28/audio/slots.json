@@ -1,0 +1,102 @@
+{
+ "duration": 684.66,
+ "end_screen": {
+  "start": 669.66,
+  "dur": 15.0,
+  "end": 684.66,
+  "call": "t30",
+  "call_start": 662.83,
+  "call_end": 669.66,
+  "note": "quiet end screen, 15 s from the end of the last VO word"
+ },
+ "channel_calls": {
+  "t15": {
+   "start": 346.24,
+   "end": 354.38
+  },
+  "t30": {
+   "start": 662.83,
+   "end": 669.66
+  }
+ },
+ "slots": [
+  {
+   "id": "C3a",
+   "kind": "clip",
+   "sec": "H",
+   "start": 24.05,
+   "end": 27.95,
+   "dur": 3.9,
+   "under": false
+  },
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "12",
+   "start": 88.66,
+   "end": 103.36,
+   "dur": 14.7,
+   "under": false
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "sec": "7",
+   "start": 324.76,
+   "end": 333.96,
+   "dur": 9.2,
+   "under": false
+  },
+  {
+   "id": "C5b",
+   "kind": "clip",
+   "sec": "2",
+   "start": 550.46,
+   "end": 560.26,
+   "dur": 9.8,
+   "under": false
+  }
+ ],
+ "clips": [
+  {
+   "id": "C3a",
+   "kind": "clip",
+   "sec": "H",
+   "start": 24.05,
+   "end": 27.95,
+   "under": false
+  },
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "12",
+   "start": 88.66,
+   "end": 103.36,
+   "under": false
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "sec": "7",
+   "start": 324.76,
+   "end": 333.96,
+   "under": false
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "sec": "5",
+   "start": 434.11,
+   "end": 440.11,
+   "under": true
+  },
+  {
+   "id": "C5b",
+   "kind": "clip",
+   "sec": "2",
+   "start": 550.46,
+   "end": 560.26,
+   "under": false
+  }
+ ]
+}

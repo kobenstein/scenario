@@ -1,0 +1,74 @@
+[calm, conversational] The best A.I. in the world is locked away.
+Tonight, you'll ask the A.I. on your phone about a letter from the bank, or a strange noise in your car.
+It answers in seconds, like the smartest machine on Earth.
+It isn't. The best never sits in your pocket. It sits behind a door you can't open.
+And it has already found a flaw that had been hiding in computer code for twenty-seven years.
+So how much stronger is the A.I. you're not allowed to use?
+And it doesn't stop at code. Behind that door, the machines have started doing mathematics. Not sums. Proofs.
+There's a line for that door. And you're not at the front. You're fifth.
+[curious] At the very front stand the people who built it.
+There, machines have written out the famous proof of Fermat's Last Theorem, so strictly that a computer can check every step.
+That work was expected to take years. It took eleven days. Then, this fall, thirty hours.
+The lab is Anthropic, and the numbers are its own. But the first proof is public, and anyone can run the check.
+And the machine that wrote it? You can't use it. The lab calls it an internal research model.
+A second lab, OpenAI, goes further. Its strongest public A.I. is called Astra, and anyone can pay to use it. On stage, its chief executive, Sam Altman, described the one after it:
+[CLIP A1: "And this internal model after Astra can do things that even the world's best mathematicians cannot."]
+[thoughtful] So ask what an inspector would ask. Who checked it from outside? Some mathematicians, in part. The machine itself stays locked.
+And both labs are worth more, the further ahead they look. Anthropic reported its thirty-hour run one day before it began pitching its shares to investors.
+Still, two things hold up. Machines are doing real mathematics. And OpenAI is holding one back. Its finance chief said so on CNBC in November.
+[pause] So the best A.I. is not hidden. It is announced, out loud. What's locked away is the access. And some of the evidence.
+[thoughtful] But a lab lives from selling access. So why keep its best product off the shelf?
+
+Ask either lab, and the first answer is safety. The clearest case came this spring, with that decades-old flaw.
+It let a stranger crash a computer from across the world, just by connecting to it.
+The A.I. that found it is called Mythos. Its maker, Anthropic, said it had no plan to release it to the public. Instead, it chose who goes in.
+Second in line? The government. It may test a new A.I. before release, if the lab volunteers.
+Third come the giants. Apple. Google. Microsoft. The bank JPMorgan Chase. Not you. Not yet.
+But safety is not all a closed door protects. Leaked files suggest Mythos was also costly to run. And Sam Altman has named OpenAI's biggest advantage himself:
+[CLIP C1: "…we get the next generation of models before anybody else."]
+A head start is worth money. So is the computing power a lab keeps for itself.
+So a closed door buys a lab time. Who else gets to use that time?
+
+Fourth in line stand the defenders. Security teams, let in to point the locked machine at the software the world runs on.
+[curious] The lab gives an example. In a program that handles video, a flaw sat in a single line of code. Automated tests had run across that exact line five million times, and never caught it.
+And that was one. By the lab's own count, its partners found well over a hundred thousand within months.
+Critics called it marketing. And caution is this company's brand. But it can be marketing, and the flaws can still be real. In July, Microsoft, one of the partners, fixed more security flaws in a single month than ever before. Its own explanation? A.I. helps defenders find more.
+Found is not yet fixed. Often, months passed in between. Still, the time behind the door was a head start for the people who repair things.
+
+[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Not only for whoever stands first in line. Want that too? Then subscribe.
+
+[calm, conversational] Fifth in line? You. By June, the door opened. Partly. What came through?
+It's called Fable. Its maker says it is the same machine as Mythos. So if Fable is the A.I. on your phone, your bank letter goes to that machine. Mainly high-risk hacking requests, and most research biology, get passed to older ones.
+And by its maker's account, the newest version just completed a black-hole calculation that had sat unfinished for over twenty years. Too much work.
+Three personal subscriptions, the lab reports, were enough to write out the proof of a serious theorem in three days.
+Yet one limit is built in. In training, the lab says, the machine was held back in the skills that could most directly speed up A.I. development itself. In the locked version, and in yours.
+But the line doesn't end with you. Behind you stands everyone else. Attackers included.
+Within months of the Mythos announcement, a rival that came close in the lab's own hacking test was free for anyone to download. Stripping out its safeguards cost a few thousand dollars.
+So a locked door never keeps anyone safe for good. It buys time. Use yours.
+Switch on automatic updates, on your phone, your laptop, your router, and don't put off the restart. That protects you from attacks on flaws that are already found and fixed. And a device too old for updates? Replace it, or take it offline. Otherwise, a flaw in it never gets closed.
+That part is in your hands.
+
+The rest is decided behind the door. And sometimes, that protects you.
+This fall, OpenAI planned to release an update to Astra. Then it called the launch off. The reported reason? It was more deceptive than the one before.
+That call was made inside. And no rule forces a lab to tell you everything it sees in there. Marius Hobbhahn runs a research group that tests these machines for deception. He told the U.S. Senate:
+[CLIP C4: "The most concerning threats posed by rogue AI agents precede their external release."]
+Before release means inside the room. So who gets to look in?
+A few outsiders do. Independent testers examined the newest Mythos before it went out. But the lab decides who gets in.
+So keep asking like an inspector. Who checked it from outside? What are you not being shown? That protects you from hype, and from false comfort.
+[thoughtful] So what is in that room?
+
+One clue was in plain sight all along. Remember Fermat? Eleven days, then thirty hours. No locked machine did that thirty-hour run. By the lab's account, it was Fable, the one anyone can buy. A thousand copies, starting from parts of the first proof.
+And the first machine, the one you can't use? The lab itself calls it roughly comparable to a public one. What it had was dozens of copies, and eleven days. It was simply there two months earlier.
+[pause] So if the machines are already doing mathematics, how much stronger is the A.I. you're not allowed to use? Stronger in two ways.
+The first is newer. Labs work with each new version for weeks or months before you get it. And OpenAI is still holding its math machine. How far ahead? Nobody outside can measure that.
+The second is bigger. OpenAI says it ran about ten thousand copies of its math machine, for a result mathematicians still dispute. Fermat shows the method. One copy answers your bank letter. A thousand write out a famous proof. That is not a smarter machine. It is more of the same machine than any single subscription is built to give you.
+So between you and the best A.I. stand two things. Permission. And power.
+And both are moving your way. Permission moves in months. Locked away in April, in your hands by June. Power moves, too. Since April, the price of running Mythos has fallen by two thirds.
+So what a lab shows off today is a preview of your own tools. A few months is a fair estimate. Time enough to plan your work around it, instead of being surprised.
+
+One evening, a few months from now, you'll ask your phone another question. And the answer will come from a machine that today only the front of the line has met. Behind the door, something newer will already be at work.
+[pause] The best A.I. in the world is never the one in your pocket. It's the one you'll have next.
+
+[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. From the front of the line to the very back. Want that too? Then subscribe.
+
+[ENDCARD: 15 s final image for the end cards · image and music continue · no voice]

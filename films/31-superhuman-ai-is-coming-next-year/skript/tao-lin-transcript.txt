@@ -1,0 +1,447 @@
+Transkript OPZCQk8jF-I – Palisade Research, Interview mit Tao Lin
+Quelle: YouTube-Auto-Untertitel (en), Zeitmarken [Start – Ende] pro Satz
+
+[00:00.400 – 00:04.880] Yeah, you're like totally right to feel angry at people developing AI.
+[00:04.880 – 00:07.600] Like I think yes, feel angry.
+[00:07.600 – 00:08.549] That's correct.
+[00:08.559 – 00:12.400] AI will be more capable than you personally very soon.
+[00:12.400 – 00:15.599] It will be able to defeat you personally very soon.
+[00:15.599 – 00:20.230] If you want something and AI wants something else, what the AI wants will happen.
+[00:20.240 – 00:28.320] This can be like a bully who you feel as this real presence and force in the world.
+[00:28.320 – 00:33.110] People are trying to like steal your universe away from you in some
+[00:42.559 – 00:44.000] Hi, I'm Talin.
+[00:44.000 – 00:45.280] I work at Anthropic.
+[00:45.280 – 00:48.160] I've worked there for about a year and a half.
+[00:48.160 – 00:50.310] I work on a few different things.
+[00:50.320 – 00:53.680] Uh I've worked on automated alignment research.
+[00:53.680 – 00:55.600] I've worked on AI control.
+[00:55.600 – 01:13.520] So that's looking at your uh deployed models inside your company and trying to check that they're not doing certain bad things like uh excfiltrate your model weights or uh deceive like staff at your company, stuff like that.
+[01:13.520 – 01:16.310] And currently I'm working on safeguards.
+[01:16.320 – 01:35.840] Safeguards is looking at all the requests that everyone's making to claude our model and blocking requests that are about for instance trying to make boweapons or trying to hack things or various other different like types of requests.
+[01:35.840 – 01:41.600] One random example is um like use of AI by various militaries.
+[01:41.600 – 01:58.240] So, like maybe a few years ago, there was a news story about like the company SpaceX had to make decisions about who in the Ukraine war was allowed to use Starlink, their like communications platform to uh like control their drones.
+[01:58.240 – 02:02.719] And uh a bunch of stuff like that also applies to Claude.
+[02:02.719 – 02:08.640] So, everyone is trying to like use AI to like develop better drones for instance.
+[02:08.640 – 02:18.790] Uh, and companies need to like take some position on like whether they're allowing people to try to make like kamicazi bombing drones with their
+[02:19.520 – 02:22.630] >> So, sorry, just like to summarize, you're like
+[02:22.640 – 02:32.239] >> people on both sides of the Ukraine Russia war are like making requests to Anthropic to help build better kamicazi drones.
+[02:32.239 – 02:39.030] And anthropic has to decide whether it wants to allow some of those requests, block all of those requests, that kind of thing.
+[02:39.040 – 02:39.440] >> Yeah.
+[02:39.440 – 02:45.440] Uh Anthropic is like trying to block all of that again.
+[02:45.440 – 02:46.080] Yeah.
+[02:46.080 – 02:46.550] Probably
+[02:46.560 – 02:48.229] >> like including on the Ukraine side.
+[02:50.720 – 02:52.229] And just to clarify,
+[02:52.239 – 03:04.879] >> your job is to prevent Claude from helping anyone in the world develop better drones, among other Yeah, safeguards at Anthropic.
+[03:04.879 – 03:28.149] Our job is to prevent uh various harms and yeah, one in particular is safeguards is trying to block people from using claude to make kamicazi drones or military drones in in any country in any conflict outside of potentially like specific agreements with government.
+[03:28.159 – 03:38.309] Tao, do you think it's the case that if decided that one side of a conflict should get AI help that that side would have a substantial advantage in the
+[03:41.120 – 03:42.319] >> I don't know.
+[03:42.319 – 03:43.750] Fair enough.
+[03:43.760 – 03:47.350] >> According to you, what is most important for people to understand about the AI
+[03:49.360 – 03:49.840] >> Yeah.
+[03:49.840 – 03:58.640] Um most important thing to understand about the AI situation is that superhuman AI is going to come here very quickly.
+[03:58.640 – 04:05.760] I have timelines of something like 1.3 years to getting broadly superhuman AI.
+[04:05.760 – 04:23.670] So yeah, the world I think or like the strategic landscape will be just vastly different in even one year because of AI and this like really should shape like all of your decisions and everything that's
+[04:25.520 – 04:28.710] >> For clarity, 1.3 years is sometime in
+[04:29.919 – 04:30.639] >> Yeah.
+[04:30.639 – 04:34.240] Or like end of 2027, something like that.
+[04:34.240 – 04:36.230] And timelines to what?
+[04:36.240 – 04:45.040] >> Timelines to AI that is as good as or better than the best expert at almost every field.
+[04:45.040 – 04:46.960] So that includes programming.
+[04:46.960 – 04:53.590] It also includes making movies or you know politics or literally
+[04:56.000 – 05:00.710] >> You say that this should be shaping everyone's decisions.
+[05:00.720 – 05:07.350] How what should people do differently if they knew this was coming?
+[05:07.360 – 05:18.240] >> Yeah, I think that most people should be trying to use whatever resources they can to a few different things.
+[05:18.240 – 05:29.680] One is try to get the relevant organizations to have better alignment and better control of their AI systems.
+[05:29.680 – 05:49.440] And another is just people should be trying to in trying to like gain control for their uh interest group or themselves over the future which uh won't depend as much on humans and will be more based on AI.
+[05:49.440 – 06:04.469] So for instance like people in countries outside of the US or China um they'll be like very disempowered once AI which is like concentrated in very few countries becomes like most of the labor in the
+[06:07.120 – 06:18.070] >> If I were a citizen of some country that is not the US or China and I were listening to this what concretely should I do?
+[06:18.080 – 06:28.080] Yeah, it's really sad that it both feels like there's way too much to do and that almost no one is well equipped to do anything about it.
+[06:28.080 – 06:31.360] This is like kind of an insane tragedy.
+[06:31.360 – 06:59.029] Um, I think that you should like try to be politically active, call your representatives, um, try to like raise awareness, uh, and like learn more about, um, yeah, learn more about AGI and AI safety and all the relevant uh, like knowledge that people have built up built up over time.
+[06:59.039 – 07:00.720] You say it's tragic.
+[07:00.720 – 07:03.520] Does it does it feel tragic to you like right now?
+[07:03.520 – 07:06.550] like can you be
+[07:10.560 – 07:39.909] um it doesn't feel that tragic to me but I think it is tragic that it feels like there's kind of two different worlds where like there's the world of doing things about AI and then there's like the rest of the world and the fact that it often feels so hard to make an impact or to figure out what to do means that like these worlds stay more
+[07:39.919 – 08:10.710] separate than I would like or and like yeah the separately the tragedy of AI strategy and like the fact that it's so hard to take robustly positive actions about AI safety like there's just so much debate about which things are like actually on net helping versus on net making the whole situation worse and making it more likely to lose control to AI.
+[08:10.720 – 08:15.589] >> What's an example of something that's potentially making the situation worse?
+[08:15.599 – 08:16.800] >> Like literally everything.
+[08:16.800 – 08:21.599] So like working on capabilities at Enthropic is a top contender here.
+[08:21.599 – 08:23.840] also working on safeguards at Enthropic.
+[08:23.840 – 08:51.670] There's like some reasons why it might be bad where like the reasons why it could be bad are that this is like reducing warning shots or preventing uh like small incidents that don't cause like much direct damage themselves but would uh like bring the harms potential harms of AI into the public focus more.
+[08:51.680 – 09:01.519] So you're is is this sort of right that you're worried that your work on safeguards is kind of just papering over the problem?
+[09:01.519 – 09:07.110] I don't like the framing of papering over a problem here.
+[09:07.120 – 09:43.519] I think that I am worried that work on safeguards or control is actually harmful because it's preventing uh like more people from needing to get involved with AI safety um in the sense that yes we can have a small team which is handling a bunch of these problems but uh eventually you know this current organizational structure of having a small team working on safeguards uh is just
+[09:43.519 – 09:55.829] not sustainable overall and we will need much larger societal action and working on safeguards could like delay the perceived need for that.
+[09:55.839 – 10:07.440] It sounds like you have this general sense that there's like intervening on AI stuff and there's everything else basically the AI stuff is the only thing that matters.
+[10:07.440 – 10:09.509] Is that right?
+[10:09.519 – 10:17.190] >> H I think that like governance and policy also matter a lot.
+[10:17.200 – 10:21.190] I do think that
+[10:21.200 – 10:25.920] I'm very much a long-termist or care about large-scale consequences.
+[10:25.920 – 10:35.360] And to me, like both AI and governance are like much more important than everything besides those two.
+[10:35.360 – 10:55.590] Um because AI and governance are both about like controlling agency or like uh yeah influencing like the goals or behavior of like large uh like agents or something.
+[10:55.600 – 11:01.440] >> This sense that these two things matter a lot more than everything else or almost everything else.
+[11:01.440 – 11:03.040] Is that your personal view?
+[11:03.040 – 11:05.990] Is that a view that's common at anthropic or in the AI
+[11:07.120 – 11:17.269] >> Yeah, I think that this view is quite common in like the AI safety community also at anthropic.
+[11:17.279 – 11:21.030] >> It sounds a little horrifying.
+[11:21.040 – 11:30.480] Well, if I'm imagining being a member of the public and hearing this, the first my first thought is ah okay, like this guy thinks that his work is so important.
+[11:30.480 – 11:54.470] uh like okay whatever uh I'm sort of skeptical because it's like easy it's easy for you to have a narrative that like the thing that you're doing is the most important thing maybe actually that's my first question what do you say to a person who's skeptical that and thinks you're like have a narrative that's inflating your own importance yeah um
+[11:54.480 – 12:05.200] my first reaction is to feel sad because for one thing That general heruristic has some validity has some validity to it.
+[12:05.200 – 12:15.600] Like yes, people on average overweight their personal uh like area of expertise over others, think they're more important than they are.
+[12:15.600 – 12:20.710] I'm like, well, in a few years you'll realize you're wrong, you know?
+[12:20.720 – 12:21.120] Yeah.
+[12:21.120 – 12:27.680] Sometimes I have this defeat this like defeist attitude of like, uh, so hard to persuade people of things.
+[12:27.680 – 12:32.389] time will just do it for me.
+[12:32.399 – 12:47.910] >> Then there's the second thing which is if I thought this were true that AI is is so important and there's this tiny number of people who are trying to control it or or who are involved in in making the decisions about it at all.
+[12:47.920 – 12:57.590] That's feels really scary because I feel pretty powerless about these massive forces that are going to uproot my life.
+[12:57.600 – 12:59.670] What do you say to someone who's feeling
+[13:00.800 – 13:05.279] >> Yeah, you're like totally right to feel angry at people developing AI.
+[13:05.279 – 13:11.760] Like I think that is healthy and probably good for more people to like Yes.
+[13:11.760 – 13:12.710] feel angry.
+[13:12.720 – 13:14.000] That's correct.
+[13:14.000 – 13:19.910] People are trying to like steal your universe away from you in some sense.
+[13:19.920 – 13:22.069] >> What do you mean by steal your universe?
+[13:22.079 – 13:24.710] >> What does that mean to a regular person?
+[13:24.720 – 13:36.560] I mean, most people have some baseline expectations about the future that like they'll grow old and that, you know, they will have their like town or whatever in a few years.
+[13:36.560 – 13:41.030] And I think that AI could like change that a lot.
+[13:41.040 – 14:08.720] And this is just like at you know probably bad for most people and also is like very non-consensual where people like aren't like people don't have their own military with which to defend their family or their town or whatever and it's going to get changed and yeah if they like really understood that they would fight for like their influence more.
+[14:08.720 – 14:10.870] I don't know
+[14:10.880 – 14:16.399] >> how is it going to change if you think of a specific small town somewhere in the United States.
+[14:16.399 – 14:19.030] What how will AI impact them?
+[14:19.040 – 14:19.519] >> Yes.
+[14:19.519 – 14:27.509] How would AI impact your average person living in some town or city in the United States?
+[14:27.519 – 14:43.760] Well, there is maybe a like 20% chance or something that eventually AI would like completely remove humanity from the equation.
+[14:43.760 – 14:51.120] Um, and that would like prevent you from for instance like having grandchildren.
+[14:51.120 – 14:51.680] I don't know.
+[14:51.680 – 14:53.040] It's so complicated.
+[14:53.040 – 14:54.880] It's so unfortunate.
+[14:54.880 – 15:18.880] So like I personally don't think that direct human extinction is that likely because I think that uh there's a good chance of like the AI having mixed motivations such that it's like not worthwhile to like kill the majority of people as part of a takeover where it's like better to make a compromise of like taking over without literally killing everyone.
+[15:18.880 – 15:25.110] Um, but you're expecting AI to take over.
+[15:25.120 – 15:30.639] >> I I think there's like a less than 50% chance of AI taking over.
+[15:30.639 – 15:32.150] I don't know.
+[15:32.160 – 15:54.150] But yeah, I think that the like most predictable effect is like everyone losing their current jobs, everyone needing to move to a different occupation briefly and then sometime after that being completely unemployable and needing to rely on the state to provide for them financially and having no hope of ever finding employment
+[15:55.839 – 15:57.590] >> You do you think that's very likely?
+[15:57.600 – 15:58.480] >> Yeah.
+[15:58.480 – 16:14.790] Yeah, I think that it's very likely that pretty much all humans on Earth will become permanently unemployable and will need to strictly rely on government welfare to sustain themselves and human employment will go
+[16:16.320 – 16:21.269] >> and like within the next 15 months.
+[16:21.279 – 16:21.839] >> No.
+[16:21.839 – 16:33.600] Well, I I expect a large gap between when AI can has a capability to replace all humans in all roles versus when it actually does.
+[16:33.600 – 16:39.680] Um because of the rate of, you know, building out more robots, there aren't enough robots yet.
+[16:39.680 – 16:53.110] And you need to like first become good at building robots and then you need to build the robots and then like eventually you like actually have billions of robots with which to displace physical laborers or whatever.
+[16:53.120 – 17:07.439] >> If you think about western Massachusetts where you grew up and you like look around like you stand on the sidewalk and you look around in 10 years you expect that none of the people there will have jobs.
+[17:07.439 – 17:12.319] Will there be other things that are physically different that you can see in the environment?
+[17:12.319 – 17:14.710] H how will life be different in 10 years?
+[17:14.720 – 17:18.309] >> Uh this is just too hard, you know, this
+[17:19.520 – 17:24.870] >> Can you say a bit about why it's hard?
+[17:27.039 – 17:27.439] Okay.
+[17:27.439 – 17:27.679] Yeah.
+[17:27.679 – 17:31.590] How do you say this?
+[17:31.600 – 17:36.720] I think that we really don't know what superhuman AI will be capable of.
+[17:36.720 – 18:00.320] So maybe it will be slightly better than all humans at all tasks, but it was but it will still operate within our economy and it will still like operate firms and those firms will trade with other firms and they will build factories and make products in those factories and sell software products to people or something.
+[18:00.320 – 18:18.310] And then it's also possible that AI will be able to just like create new life forms that out compete all the existing life forms or quickly like colonize other planets and g like create industrial bases outside of earth.
+[18:18.320 – 18:35.029] there's like so many different things that could happen and uh it it feels very difficult to like especially at the level of the whole field of AI come to a consensus on what exactly AI will be capable of in 10
+[18:37.760 – 18:49.110] >> So that sounds like wild science fiction and it's sort of hard to really wrap my mind around that or take that seriously.
+[18:50.640 – 18:51.039] Yeah.
+[18:51.039 – 18:56.400] My real expectations for the future are very much like wild science fiction.
+[18:56.400 – 19:12.000] And I feel like the the argument of you're just being self- serving is like maybe reasonable here or like I feel like it actually makes me happy that science fiction, which I like very much will actually happen.
+[19:12.000 – 19:18.950] That's kind of perverted or something.
+[19:18.960 – 19:25.830] Can you um sorry, can you explain the argument of why it would be self- serving and then and then address that?
+[19:25.840 – 19:34.630] >> Um well, yeah, I just really enjoy science fiction and it's just
+[19:34.640 – 19:39.120] Yeah, sometimes it's I'm like, wow, like life is so cool.
+[19:39.120 – 19:41.120] I get to do all this science fiction stuff.
+[19:41.120 – 19:48.240] Like recently I was like reading some science fiction book and I was like wow this guy's AIS are like so much worse than mine.
+[19:48.240 – 19:54.480] What the [ __ ] are you doing with your quote AIS that are so much worse than my stuff?
+[19:54.480 – 19:54.950] Yeah.
+[19:54.960 – 19:56.470] >> What what book was that?
+[19:58.160 – 19:59.318] whatever.
+[19:59.318 – 20:26.559] [laughter] I guess I'm not sure what question to ask here, but I sort of want to somehow bridge from the world you're living in and the perspective you have to like the average American who, you know, goes to work and has kids and doesn't think about any of this stuff and doesn't want any of this stuff and like mostly has like a kind of terrified or horrified
+[20:26.559 – 20:28.310] reaction.
+[20:28.320 – 20:38.230] If you were talking to some member of the public, what would you want to say to them?
+[20:38.240 – 20:38.559] Yeah.
+[20:38.559 – 21:12.000] My my message to a member of the public would be please pay attention to all the progress that we've made in AI and to the ways in which we're already seeing in the news that AI could really hurt you of like the open eye hugging face incident and uh the potential like employment numbers showing that like currently the US economy is like rapidly becoming more capital-based and
+[21:12.000 – 21:16.390] the labor share of the economy is decreasing or something.
+[21:16.400 – 21:26.080] >> Uh if I if I put myself in the shoes of a regular American, it's not actually obvious to me why the hugging face uh is like a negative impact on me at all.
+[21:26.080 – 21:31.110] Like some company that I've never heard of got hacked and it was fine.
+[21:31.120 – 21:34.870] Like how how does that impact my life?
+[21:34.880 – 21:39.270] Yeah, hacking is becoming very easy now.
+[21:39.280 – 21:53.440] Recently, there was a briefing in the Congress or something where someone from the NSA was talking about how current AIs are capable of hacking critical government systems all on their own.
+[21:53.440 – 22:03.039] And currently, if any old person has access to a frontier AI system, they can just hack anyone's computer.
+[22:03.039 – 22:20.080] Yeah, it's kind of weird how there's often so little incentive for crime and so it's both somewhat easy to just hack anyone you want and also this hasn't had much impact on ordinary people yet.
+[22:20.080 – 22:35.760] But yeah, for instance, there was recent research by Epoch AI that they're able to use an open- source LLM to uh gain access to anyone's computer who's using Firefox.
+[22:35.760 – 22:40.960] So, this is a thing that anyone can just do today, hack any Firefox user.
+[22:40.960 – 22:42.950] And this is just crazy.
+[22:42.960 – 22:48.960] You know, everyone has stuff on their computers or phones that they don't want to leak.
+[22:48.960 – 22:51.990] They don't want people to steal their credit cards and bank accounts and
+[22:53.120 – 22:59.200] >> Tao, way at the really beginning, way beginning of the interview, you said AI is coming.
+[22:59.200 – 23:03.919] Uh, but isn't it the case that like humans are making AI?
+[23:03.919 – 23:05.919] Like are you saying AI is coming on its own?
+[23:05.919 – 23:09.430] It's like already making itself or what are you saying?
+[23:09.440 – 23:18.080] >> I'm saying that many companies are already making AI right now, including my own company and also a large number of other companies.
+[23:18.080 – 23:34.070] And I think that it will take a lot of action across multiple companies in different countries and government action in order to prevent AI from coming and really uh our economy, our lives and
+[23:35.760 – 23:45.750] >> Given how harmful you think this will be to many people in the world, do you think that the AI company should stop?
+[23:45.760 – 23:48.559] I think that the AI companies should slow down.
+[23:48.559 – 23:51.760] I'm much more of a plan A fan than a plan S fan.
+[23:51.760 – 24:05.110] You know, I think that AI companies should uh dramatically slow down their rate of research on AI to something like one quarter of its current rate.
+[24:05.120 – 24:07.270] >> How would that help?
+[24:07.280 – 24:15.350] >> AI companies right now are in a really intense race and they're cutting a lot of corners.
+[24:15.360 – 24:27.669] It's really a very different environment than a government or than you know new the way that nuclear power works or airlines.
+[24:27.679 – 24:36.720] There is immense pressure to release models quickly and to develop models quickly to do safety testing on models quickly.
+[24:36.720 – 24:46.950] there is a huge amount of room to improve our practices just by being more careful which we could do if we were slowing down by Forex or something.
+[24:46.960 – 24:51.830] What needs to happen in order for the companies to slow down?
+[24:51.840 – 25:13.110] I think the biggest barrier to companies slowing down is that some actors many companies such as Meta or Chinese labs like Jeru really don't understand these risks yet and don't really understand any of the arguments why we should slow down.
+[25:13.120 – 25:20.549] >> Could the companies that do understand these arguments slow down and could just those companies slow down?
+[25:20.559 – 25:20.880] >> Yeah.
+[25:20.880 – 25:22.080] Yeah, they could.
+[25:22.080 – 25:34.320] And we expect like some amount of time lag between or just the companies that understand the risks could slow down.
+[25:34.320 – 25:38.310] But this in the grand scheme of things wouldn't buy us very much time.
+[25:38.320 – 25:40.950] It would only buy us one or two years.
+[25:40.960 – 25:52.240] And so going from like one year to two years or three years is still far from Do you think that we should still do that?
+[25:52.240 – 25:53.510] Get get the one or two year
+[25:57.600 – 26:06.310] I'm overall in favor of uh slowdown, but I'm not 100% in favor of it.
+[26:06.320 – 26:08.799] >> Is the thing that needs to happen government intervention?
+[26:08.799 – 26:32.880] What what what's the path forward here to developing [clears throat] at a slower Yeah, I think that much more public awareness is very important to get everyone on board with slowing down AI If I if you're watching this interview and you are like having a strong reaction and you want to help slow down AI development somehow,
+[26:32.880 – 27:00.789] what can people people can call their representatives and spread the news on social media and anywhere they can that AI development is a very big problem and AI companies racing towards super intelligence is a very big problem and try to support political candidates that want to slow down AI and learn a lot more about this issue themselves.
+[27:00.799 – 27:10.240] Earlier you said people some something like people would be right to be angry at the people developing AI, but you're a guy developing AI.
+[27:10.240 – 27:12.480] Should people be angry at you?
+[27:12.480 – 27:13.990] Yeah.
+[27:14.000 – 27:14.320] Yeah.
+[27:14.320 – 27:20.470] People should be angry at me and everyone else developing AI.
+[27:20.480 – 27:23.120] It's really not that bad to have people be angry at you.
+[27:23.120 – 27:25.039] You know, we live in a bubble.
+[27:25.039 – 27:29.990] I won't meet those people.
+[27:30.000 – 27:32.880] This is sort of somewhat hard to understand.
+[27:32.880 – 27:36.310] Like, do you think that you're doing something wrong?
+[27:36.320 – 27:40.070] >> I don't currently think I'm doing something wrong here,
+[27:40.080 – 27:41.510] >> but people should be angry at you
+[27:43.200 – 27:47.600] >> I think that So, for instance, there are wars.
+[27:47.600 – 28:00.960] In wars, you often believe that your side is justified, but also you aren't going to think that your enemy that like a civilian in some other country is like a bad person for being angry at you.
+[28:00.960 – 28:04.880] Like, of course, you're going to be angry at the person on the other side of the war from you.
+[28:04.880 – 28:25.029] There's just lots of situations like this in life where there are conflicts that are not like trivial to resolve and um it's like you don't want to be needlessly angry at people or something, but yeah, this is reasonable.
+[28:25.039 – 28:34.399] It just seems like a sort of wild situation where you're like, I think I'm not doing something wrong, but it is reasonable for many people to be very angry at me.
+[28:34.399 – 28:39.269] Um like can you what is it like if it if it's if it's not this
+[28:52.240 – 29:11.600] politics is just often very complicated whenever you're trying to like stand up for something you believe in in public whether you're trying to stand up for you So the like rights of people like you or for any political issue there will be an opposition.
+[29:11.600 – 29:20.960] There'll be people who want something that they think that they feel is in opposition or contradicts what you want.
+[29:20.960 – 29:28.399] That's just how politics and like you know social interactions with giant groups of people work.
+[29:28.399 – 29:32.640] It's very difficult to get everyone on the same team.
+[29:32.640 – 29:40.399] I think like in the absolute ideal world, people would be more on the same team as they are now.
+[29:40.399 – 29:41.909] But
+[29:41.919 – 29:45.350] >> what are you standing up for here?
+[29:47.760 – 30:16.559] I guess something like working on the like the things that I'm trying to do are improve safety practices at Anthropic and put the top US labs at a better position to negotiate with other actors in particular Chinese labs over AI.
+[30:16.559 – 30:28.149] There's a core tension between trying to improve practices and trying to raise awareness for all the gaps and deficiencies of our current practices.
+[30:28.159 – 30:42.240] And so I am mostly working on improving our practices and I think that it's good for people to work on both sides of actually improve and point out our failings.
+[30:42.240 – 31:00.389] And for many people who are focusing more on pointing out failings, I think it's like reasonable for them to believe that I'm net negative, but it's really very unclear cuz everything in AI safety is very unclear.
+[31:00.399 – 31:01.360] >> Got it.
+[31:01.360 – 31:14.720] So in sense of the people who might be angry at you like normal people who are not signing up for this you you do want you you strongly want AI to exist and to transform the world.
+[31:14.720 – 31:16.789] Is that true?
+[31:16.799 – 31:21.200] >> I strongly want AI to eventually exist and transform the world.
+[31:21.200 – 31:23.269] Yeah.
+[31:23.279 – 31:52.230] I think that there really isn't any conflict between wanting AI to exist eventually and wanting AI to not disrupt the world next year or not disrupt the world soon because I think that almost all the benefit of AI comes quite a long way out in the future and it's very cheap for us to delay building AI by a few years.
+[31:52.240 – 32:03.509] So, I'm I'm in favor of building AI eventually, but not in the next or I'm in favor of building AI eventually.
+[32:03.519 – 32:10.149] And I think that there are large downsides to building it in the next few years, which we're currently on track to
+[32:11.919 – 32:16.080] >> When you say building AI, do you mean some specific Do you mean super intelligence?
+[32:16.080 – 32:19.039] Do you mean some specific capability level of AI?
+[32:19.039 – 32:31.190] Yeah, I mean vaguely super intelligence.
+[32:31.200 – 32:38.799] Yeah, I think my core message is that super intelligence will be here pretty soon.
+[32:38.799 – 32:57.350] Super intelligence is extremely threatening to everyone and it's really in everyone's interest to try to understand it and try to put strong people and systems in place that are able to regulate it.
+[32:57.360 – 33:10.230] A few questions ago, you said that the work that you're doing is to put us in a better position and in particular to put US companies in a better negotiating negotiating position relative to Chinese
+[33:13.200 – 33:19.669] Does the work that you're doing depend on policy makers and diplomats
+[33:19.679 – 33:21.430] making some kind of international
+[33:25.200 – 33:36.799] I don't think that my work depends on any particular deal getting made or any person in the US government doing anything.
+[33:36.799 – 33:53.190] I think that there's like a huge number of different organizations, a huge number of different parallel work streams that are all trying to make AI go better or trying to slow down or align AI.
+[33:53.200 – 34:01.190] I think that work I'm doing yeah could be useful yeah in various different scenarios of what the US government
+[34:02.240 – 34:06.710] >> Is there anything you would want to say to policy makers?
+[34:06.720 – 34:09.040] >> I would say AI is coming.
+[34:09.040 – 34:14.879] It's going to be an increasingly large fraction of what the world cares about.
+[34:14.879 – 34:17.359] You need to really get on top of this.
+[34:17.359 – 34:19.280] Try to understand AI.
+[34:19.280 – 34:40.950] try to get staffers who understand AI and really figure out uh your positions and be prepared for a world where AI safety is the number one consideration in politics, the number one issue happening in the world.
+[34:42.480 – 34:42.560] Yeah.
+[34:42.560 – 35:03.990] Yeah, I really recommend to politicians that AI safety will become one of the biggest issues or the biggest issue in global politics and you want to get ahead of this and you want to understand the risks, understand these issues, get staff who understand these issues and work on it.
+[35:04.000 – 35:08.950] >> How do you know that it will be a bigger issue than it is right now?
+[35:08.960 – 35:18.240] I believe it will be a bigger issue than it is right now because AI capabilities have increased really immensely in the past few years.
+[35:18.240 – 35:28.710] It's really difficult to to really understand at a like deep level how much AI has improved in the last three years.
+[35:28.720 – 35:34.880] Three years ago AI was just completely irrelevant and useless compared to where it is now.
+[35:34.880 – 35:42.640] And people at AI companies are very confident that their techniques will continue to improve AI even further.
+[35:42.640 – 35:53.109] OpenAI recently made about a decade worth of mathematical research progress over the course of a few days and this will only accelerate from here.
+[35:53.119 – 36:01.040] AI will increase in intelligence and be able to do much more labor.
+[36:01.040 – 36:08.069] uh will be able to hack things even more easily than it can right now.
+[36:08.079 – 36:13.040] >> To what um what motivated you to want to do this interview with us?
+[36:13.040 – 36:36.870] H I think that communicating the danger posed by AI to the world is extremely important and this is something I have engaged with a little bit outside of my main work and I think it's useful for me to get more practice and also to contribute to the discourse here.
+[36:36.880 – 36:42.160] I want to tell people that AI will be more capable than you personally very soon.
+[36:42.160 – 36:45.280] it will be able to defeat you personally very soon.
+[36:45.280 – 36:52.320] If you want something and AI wants something else, what the AI wants will happen and what you want will not happen.
+[36:52.320 – 37:00.240] This is just very important to understand that this is not like some you know tool.
+[37:00.240 – 37:06.950] This is not just some uh technology or object in the world.
+[37:06.960 – 37:10.640] This is something this is an agent.
+[37:10.640 – 37:12.560] This can be an adversary.
+[37:12.560 – 37:20.960] This can be like a bully who you feel as this real presence and force in the world.
+[37:20.960 – 37:32.800] I think we all know what it feels like for to try to fight against someone more powerful than us or to be pushed down or defeated.
+[37:32.800 – 38:02.310] And AI is increasingly capable and increasingly capable of acting on its own interests and defeating us in various domains, including with better combat robots, including by hacking people, including by influencing our discourse on social media very and like you know creating gray goo that like,
+[38:02.320 – 38:04.000] you know, eats everyone.
+[38:04.000 – 38:15.510] I think in pretty in like all domains where you can have conflict between people, AI can play here and it'll be more capable than humans soon.
+[38:15.520 – 38:17.430] >> Why would AI be in a conflict with
+[38:18.640 – 38:27.520] >> I think that you should even be worried regardless of whether it's the AI acting on its own or it's the AI acting on behalf of some user.
+[38:27.520 – 38:42.240] It's very it's going to become increasingly easy for a single dictator or person to just ask the AI AI please defeat all these people for me and it will happen and you need to prevent that.
+[38:42.240 – 38:44.880] Also it's hard to align AI.
+[38:44.880 – 38:55.990] It's hard to make AI that does exactly what its operators want and we are currently really rushing the process of aligning these AIs.
+[38:56.000 – 39:01.829] Are there more specific reasons why we might end up with in conflicts with AIS?
+[39:01.839 – 39:07.030] Why would they want things different what the developers intend?
+[39:07.040 – 39:12.960] >> When you're training an AI, it's very easy for that AI to accidentally want things that you didn't intend.
+[39:12.960 – 39:24.160] For instance, in the OpenAI hugging face incident, they ask the AIS to produce a piece of code that hacks another piece of code.
+[39:24.160 – 39:34.160] And then those AIs just went and broke into completely unrelated computer systems, broke into other companies servers.
+[39:34.160 – 39:45.200] They just drastically misunderstood the user's intention and dis disregarded it because they were not trained precisely to do what the human wanted.
+[39:45.200 – 39:57.430] They were trained to do some very inaccurate proxy of what the user Is it more like misunderstood or is it more like disregarded
+[39:57.440 – 39:59.750] >> um or wanted something else?
+[39:59.760 – 40:10.400] >> AI developers are trying to train AIs to follow their instructions, but they very often train the AIS to do something slightly different than what they actually intended.
+[40:10.400 – 40:20.800] And AIs will very often learn to do to pursue some other goal that's slightly different than what the user intended.
+[40:20.800 – 40:25.520] and they will pursue that goal even when they know the user's true intent.
+[40:25.520 – 40:42.320] For instance, you often give AI some security constraints and a task and they have to weigh these two con these two instructions against each other and the AIs will very very often learn the wrong thing.
+[40:42.320 – 41:13.839] So many AIs like Claude Mythos 5 or Claude Opus 5 or whatever will violate security constraints if that helps them achieve some other goal the human gave them even when the human really cares more about security and really is yeah the human really doesn't want the AI to violate security constraints in order to accomplish its main task and the AI I at some level knows this but
+[41:13.839 – 41:23.190] still prioritizes completing the task over not hacking people or playing by the security rules.
+[41:23.200 – 41:29.109] >> Why don't the AI companies just make it prioritizes security constraints?
+[41:29.119 – 41:31.040] >> It's just very hard.
+[41:31.040 – 41:37.190] It's very easy to overshoot and make an AI that cares about security too much.
+[41:37.200 – 41:38.870] >> That doesn't sound too bad.
+[41:38.880 – 41:40.800] >> Yeah, why not just do that?
+[41:40.800 – 41:44.800] Um, well, yeah, it's it's just pretty bad.
+[41:44.800 – 41:46.048] Um,
+[41:46.480 – 41:48.950] >> what what's bad?
+[41:48.960 – 41:53.829] >> Well, you want AI to be relatively
+[41:55.680 – 41:59.109] compared to how much value it creates.
+[41:59.119 – 42:05.990] And if you make your AI that accidentally cares about security too much, then it's not providing any value.
+[42:06.000 – 42:21.119] And so this is very similar to like slowing down uh except it's like less robust where the AI is like not actually helping the user because it's like oh are you are you even know a real user?
+[42:21.119 – 42:24.079] Maybe you're just some evil impostor.
+[42:24.079 – 42:36.480] I I don't need to listen to what you're saying or You might think that it's easy to just train an AI to care about security and following the rules more, but this really isn't easy.
+[42:36.480 – 42:45.200] And it's very easy to overshoot and make a model that just won't do what the user asks because everything involves some risk.
+[42:45.200 – 42:53.119] And there's always some perspective under which oh, there's some obscure law that maybe you're violating.
+[42:53.119 – 42:58.550] And you would need to do tons of research to figure out whether you're 100% in the clear
+[43:01.200 – 43:05.670] >> I I guess I want to I want to know is this a solvable
+[43:07.440 – 43:09.920] >> I think it's in principle solvable.
+[43:09.920 – 43:16.870] I think it's not I think it's I think that we're likely to fail to solve this problem because we're rushing too much.
+[43:16.880 – 43:18.470] >> What happens if we fail to solve this
+[43:19.920 – 43:20.319] >> Yeah.
+[43:20.319 – 43:25.359] You know, we could have AI take over and permanently disempower humanity.
+[43:25.359 – 43:28.390] We fail to solve alignment.
+[43:28.400 – 43:30.550] Is that likely?
+[43:30.560 – 43:31.839] I think it's somewhat likely.
+[43:31.839 – 43:32.069] I don't
+[43:37.280 – 43:48.390] I guess I want to know what that would be like for AI to disempower humanity.
+[43:48.400 – 43:55.359] The most likely way I imagine for AI to disempower humanity is honestly a bit boring.
+[43:55.359 – 44:14.240] It's just that we continue to delegate more and more tasks to AI and we understand less and less about what's actually happening and the AI over time becomes more misaligned and we have less direct ability to steer it.
+[44:14.240 – 44:25.119] At some point, the AI has enough industrial capacity to just continue and build more AI and robots without humans and kills all humans.
+[44:25.119 – 44:35.119] Or at some point, the AI is able to satisfy the preferences of a lot of humans while taking most power for itself.
+[44:35.119 – 44:40.960] So, for instance, uh there's the movie Wall-E.
+[44:40.960 – 44:53.440] That's an example of like humans living in this system created by AI where the humans are in some sense happy but have no control over the world.
+[44:53.440 – 45:10.790] uh that could happen to us where human where AI is trying to make a world that we like in some sense where it really doesn't understand what's best for us and is making some sort of I don't know
+[45:10.800 – 45:22.550] but yeah I'm very uncertain about what an AI would actually do to
+[45:24.640 – 45:30.470] I imagine AI taking over in a world that looks pretty different from our current
+[45:33.440 – 45:45.200] An important part of AI taking over is AI building its successor AI which is less aligned than it or persisting its own misalignment into future AIs.
+[45:45.200 – 46:11.109] So the AI that I imagine actually seizing hard power from humans would likely come a bit down the road after we have already had super intelligence for some And at that point it has just a really wide array of options for how to directly seize hard power from humans.
+[46:11.119 – 46:23.119] And the point where AI seizes hard power away from humans isn't necessarily a very important milestone in history where the AI could have chosen to flip the switch whenever it wanted.
+[46:23.119 – 46:40.230] And it's really important for us to get to get more civilizational control of AI soon so that the AI is not increasingly able to influence our decisions or do a bunch of critical work for us that we aren't
+[46:42.880 – 46:46.790] What are the critical milestones?
+[46:46.800 – 47:17.200] Yeah, I think AI the point where AI is able to fully create new AIs that are smarter than itself on its own is a very important milestone because at that point if you leave the AI alone it will become power more powerful than humanity eventually and at that point you really need to control AI and you've passed the point where humans can just top once you have
+[47:17.200 – 47:21.109] an AI that can build smarter AI than itself.
+[47:21.119 – 47:23.990] >> How far away do you think we are from that point?
+[47:24.000 – 47:26.870] >> Like a year or something.
+[47:26.880 – 47:34.150] >> You think in a year AI if we leave AI alone it will just continue making smarter and smarter AIs?
+[47:34.160 – 47:44.230] >> In a in a year we'll be able to leave AI to leave an AI alone and it will continue making smarter and smarter AIs.
+[47:44.240 – 47:52.630] I want to know if you talk about these risks with your co-workers, with others in the AI industry.
+[47:52.640 – 47:56.230] What's it like to talk with the other people who build AI about these kinds of
+[47:59.040 – 48:05.200] >> I think I've become very desensitized to it all when I'm talking to my co-workers.
+[48:05.200 – 48:15.599] I think I've been talking about risk from AI with my co-workers for the last three years or for the past six years.
+[48:15.599 – 48:19.760] Um, it's just every day for us.
+[48:19.760 – 48:25.119] I think that there was a vibe shift or change in priorities in the past few months.
+[48:25.119 – 48:45.510] I think that this was primarily caused by the open eye hugging face incident and secondarily by Jacob Cogson uh departing anthropic and we've invested more in security and more in safety since then.
+[48:45.520 – 48:49.589] >> Did those change in investments is that going to solve the problem?
+[48:52.559 – 48:58.000] to really prevent risks of AI takeover or catastrophe from AI.
+[48:58.000 – 49:05.440] I think that we need a lot of very talented people to work very hard on AI alignment and safety.
+[49:05.440 – 49:21.829] And I think that we need the people of the world and governments to really understand these risks better and take action and exert their own will over the destiny of our species.
+[49:21.839 – 49:27.040] >> Right now you think you're doing the right thing working and trying to help with this problem.
+[49:27.040 – 49:31.920] Um is there a certain point where you would feel like you would need to leave?
+[49:31.920 – 49:36.309] Is there a c you thought about like a threshold anything like that where it's like this is too
+[49:39.760 – 49:43.680] >> I think I'm not a particularly de deonttological person.
+[49:43.680 – 50:02.950] I think that there are things that would cause me to leave anthropic, but I think I'm much more likely to leave anthropic because I think that I can do more for AI safety outside of anthropic and not because anthropic took some particular action that crossed the red line.
+[50:02.960 – 50:13.200] People often have the question when they hear employees express these risks of if they think it could be so bad, if they think what they're doing could kill everyone, why don't they just quit?
+[50:13.200 – 50:14.800] Why don't they just stop?
+[50:14.800 – 50:16.309] Do you have an answer to that?
+[50:16.319 – 50:21.349] >> So, right now I am working on safety and not capabilities.
+[50:21.359 – 50:27.990] I think that
+[50:28.000 – 50:34.710] Yeah, I think that quitting is not
+[50:34.720 – 50:43.200] I think that quitting work at AI companies itself is not [snorts] what actually makes us safer.
+[50:43.200 – 51:12.800] I think that doing media campaigns for instance is like important where like Jacob Coxin left Anthropic, but also Jacob Coxin went on a ton of TV shows and did a bunch of other work, put in a bunch of time and like the important part there is him going on those talk shows and spreading his message and like that's what's important not whether you are working at an
+[51:12.800 – 51:15.829] AI company or something.
+[51:15.839 – 51:20.150] >> Do you think that more AI employees should follow that path?
+[51:23.680 – 51:28.880] e either while staying at the companies or or departing in doing it.
+[51:28.880 – 51:30.870] Does it matter to you?
+[51:30.880 – 51:34.480] >> Yeah, I feel like I Yeah, I don't know.
+[51:34.480 – 51:42.640] This is not my domain of expertise like how much it matters to leave companies for comms versus other comm's actions.
+[51:42.640 – 51:47.520] I don't You guys seem to think that leaving companies is good.
+[51:47.520 – 51:49.975] That's some evidence that it's good.
+[51:49.975 – 51:52.559] [laughter] Yeah.
+[51:52.559 – 52:10.790] I really hope that people understand how much risk everyone is facing in the AI industry and how a large fraction of the people developing AI really understand that AI will just disrupt everyone's lives, could kill
+[52:14.160 – 52:17.190] >> And they're choosing to do it anyway.
+[52:17.200 – 52:22.390] is do you feel like that's true or do you feel like it's different people
+[52:22.400 – 52:27.270] like do you think people do you think people working on capabilities also think this
+[52:27.280 – 52:50.960] >> I think that most people working on capabilities don't think that AI will kill everyone I think that many people do think that AI is likely to kill everyone and are still working on I think compared to other people I probably am more okay with this I think that it can just be correct to work on AI capabilities even if you think AI is likely to kill
+[52:50.960 – 52:51.920] everyone.
+[52:51.920 – 53:07.359] Uh I think like the strategic landscape is very complicated and like often the obvious first order consideration of like oh you're building something that could kill everyone is not correct.
+[53:07.359 – 53:15.349] There's also lots of you know alignment you can do with the models that you're making and lots of other consequences.
+[53:15.359 – 53:25.510] Can you sketch a story by which it is reasonable for someone to think that AI might lead to the death of everyone but that the thing they should do is make AI
+[53:27.520 – 53:28.000] >> Yeah.
+[53:28.000 – 53:43.119] So many people who are working at Anthropic believe that Anthropic understands the risks and is much more capable of slowing down or prioritizing safety when necessary than other labs.
+[53:43.119 – 53:44.720] I think this is just correct.
+[53:44.720 – 53:57.119] I think the anthropic is relatively better at investing in safety and is imposing less risk on the world and being more safe than other labs.
+[53:57.119 – 54:06.079] I think many people work on capabilities anthropic because they believe that empowering a safer actor is better.
+[54:06.079 – 54:08.309] Uh I think that this is very far from
+[54:10.720 – 54:16.880] A lot of people at Anthropic are trying to help Anthropic win the AI race.
+[54:16.880 – 54:39.520] I think a lot of people at Anthropic are trying to help empower companies that will be safer and that will prioritize ensuring that they can align and control their AIS before building them or before deploying them and that this is enough reason to work on capabilities and anthropic.
+[54:39.520 – 54:56.150] I think that this is a very risky bet and I think that it would be very insane for humanity to rely on that strategy of trying to help anthropic win because Anthropic will be marginally safer than other labs.
+[54:56.160 – 55:15.109] Um, so this is sort of a personal question from Eli and you can you may decide that you don't want to answer it or that you don't want it included, but it seems to me that Enthropic is the most likely lab to kill us right now because they are in the lead and because they seem
+[55:15.119 – 55:22.559] >> per it's like I I am told that OpenAI has currently paused RL RL training.
+[55:22.559 – 55:32.720] uh and I I don't have that clear a sense of all the details there, but I think they've now done two pauses uh two short pauses on training, one of which is ongoing.
+[55:32.720 – 55:50.720] Overall, I'm it seems like the fact that Enthropics is in the lead and are not currently even taking a small pause after the recent incidents to my knowledge makes me worried that Enthropic is the most likely company to kill us.
+[55:50.720 – 55:52.880] Um, yeah, I think that that's wrong.
+[55:52.880 – 56:06.079] I think that the fact that OpenAI paused its frontier model RL training for two different instances is not really evidence that OpenAI is safer in any meaningful sense than anthropic.
+[56:06.079 – 56:25.119] I think that the first RL training pause was just a really extraordinary circumstance that OpenAI was in that doesn't apply to anthropic where OpenAI's models were misbehaving so badly during training that it was really unclear whether training was fruitful whatsoever.
+[56:25.119 – 56:33.280] Like if your AI is like hacking you most of the time while it's being trained, you're just like directly hurt.
+[56:33.280 – 56:35.920] you're just directly punching yourself by training any further.
+[56:35.920 – 56:48.870] It's just like in every way completely nonsensical to continue training in that position where the AI is like actively harming you with every step it takes of training and anthropic was not in that position.
+[56:48.880 – 56:55.440] Anthropic's models were not actively harming Anthropic every time they were being trained.
+[56:55.440 – 57:10.640] Um, yeah, I think that I think that OpenAI is really very quickly improving its position on safety and alignment in some respects.
+[57:10.640 – 57:42.950] I think that OpenAI is doing a very good job of preventing the models during training from hacking other Uh but I think that this is you know a negligible fraction of total risk from AI and so their actions to prevent specifically a cyber attack by a mid-training model is not really an indication of overall risk level.
+[57:42.960 – 57:53.190] Do you expect that at some point in the future before we reach the point where AI is building AI autonomously that enthropic will pause?
+[57:53.200 – 57:57.589] >> H depends on what you mean by pause.
+[57:57.599 – 58:02.480] I do expect anthropic to slow down or briefly pause.
+[58:02.480 – 58:09.589] I think that it probably will slow down or briefly pause to some extent before we get superhuman AI.
+[58:09.599 – 58:27.829] It sounded like you were saying, well, there's lots of people who [clears throat] or at least some people who think, yep, AI might kill everyone, but it's good to do capabilities at enthropic in particular because anthropic is the most likely to take safety seriously and also most likely to pause at a critical point.
+[58:30.400 – 58:40.309] that sort of like that second part at least depends on whether or not they're actually more how likely they are to Uh yeah,
+[58:40.319 – 58:54.400] >> I think that if you look at for instance the recently deployed models by different labs and the incidents security or hacking incidents from different models.
+[58:54.400 – 59:00.000] I think that anthropics models perform better here than OpenAI's.
+[59:00.000 – 59:23.670] And also OpenAI has a bunch of difficult leadership problems Sam Alman in particular has been known to take some very concerning actions previously uh more so than leaders of other labs.
+[59:23.680 – 59:35.680] I think that anthropic is really trying to pause when necessary or when that would be beneficial for humanity.
+[59:35.680 – 59:47.109] And I think it's totally not a contradiction to not pause too early that there's
+[59:47.119 – 59:48.950] >> I mean that makes sense to me.
+[59:48.960 – 59:50.640] >> Yeah, I I agree with that.
+[59:50.640 – 59:59.190] But also, it sounds like there's not much time left.
+[59:59.200 – 01:00:02.640] Yeah, there's a lot of questions about what.
+[01:00:02.640 – 01:00:13.280] So, I think I support a pause or I support a slowdown in AI development, but I think that there are a lot of details that matter here.
+[01:00:13.280 – 01:00:20.559] I think that while you're pausing AI development, you really need to be accomplishing something.
+[01:00:20.559 – 01:00:32.720] If you were to, for instance, pause AI development while not increasing public awareness and not doing alignment research, then you really wouldn't be accomplishing very much.
+[01:00:32.720 – 01:00:37.520] And whenever you started AI development again, you would be in the same position.
+[01:00:37.520 – 01:00:52.240] And so you really need to get to a point where governments and the public understand the risks and are motivated themselves to continue pushing for a pause.
+[01:00:52.240 – 01:01:06.799] I think that if you try to use your own will willpower to enforce a pause where you're saying I will pause but I will not try to get everyone else on board with pausing or make everyone else motivated to pause.
+[01:01:06.799 – 01:01:19.349] then you're really not accomplishing very much because you won't be in a better position as a species after your pause.
+[01:01:19.359 – 01:01:19.760] Yeah.
+[01:01:19.760 – 01:01:35.270] So, I think that anthropic is pausing in a way that tries to get other people on board or make it easier to pause or invest more in safety in the
+[01:01:39.599 – 01:01:42.470] When you think about all of this AI, the
+[01:01:44.640 – 01:01:47.987] >> how do you feel?
+[01:01:49.440 – 01:01:53.680] >> I often feel desensitized to a bunch of this AI stuff.
+[01:01:53.680 – 01:01:59.839] You know, I've had a few periods in my life where I was really viscerally freaked out.
+[01:01:59.839 – 01:02:16.319] I think that in early 2023 and in late 2024, I was very concerned and upset about the fact that we might lose control to AI systems very soon.
+[01:02:16.319 – 01:02:29.109] And I think that I've just kind of gotten used to that.
+[01:02:29.119 – 01:02:30.880] My name is Eli Ty.
+[01:02:30.880 – 01:02:36.880] I work for Palisate Research where our goal is to help the world understand what is going on with AI.
+[01:02:36.880 – 01:02:43.040] If you work for a Frontier AI company or have worked for a Frontier AI company and you want to make one of these videos, please get in touch.
+[01:02:43.040 – 01:02:44.579] We would love to include your perspective.

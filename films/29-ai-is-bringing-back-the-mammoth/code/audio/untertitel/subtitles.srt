@@ -1,0 +1,1380 @@
+1
+00:00:00,710 --> 00:00:02,160
+Artificial intelligence
+
+2
+00:00:02,200 --> 00:00:04,030
+is bringing back the mammoth.
+
+3
+00:00:04,260 --> 00:00:05,580
+A few winters from now,
+
+4
+00:00:05,620 --> 00:00:06,140
+you're standing
+
+5
+00:00:06,180 --> 00:00:07,620
+at a fence in the snow.
+
+6
+00:00:07,810 --> 00:00:09,530
+There's a small hand in yours.
+
+7
+00:00:09,770 --> 00:00:10,930
+And behind the fence,
+
+8
+00:00:10,970 --> 00:00:12,250
+the animal from the poster
+
+9
+00:00:12,290 --> 00:00:13,760
+above that child's bed...
+
+10
+00:00:13,870 --> 00:00:14,960
+lifts its head.
+
+11
+00:00:15,210 --> 00:00:16,430
+Red-brown fur.
+
+12
+00:00:16,490 --> 00:00:17,590
+Small ears.
+
+13
+00:00:17,770 --> 00:00:19,550
+Breath steaming in the cold.
+
+14
+00:00:21,290 --> 00:00:23,190
+That animal doesn't exist yet.
+
+15
+00:00:23,340 --> 00:00:25,060
+Between an elephant and a mammoth,
+
+16
+00:00:25,100 --> 00:00:27,060
+there are about 1.4 million
+
+17
+00:00:27,100 --> 00:00:28,710
+differences in their DNA.
+
+18
+00:00:28,960 --> 00:00:30,260
+Which ones make a mammoth?
+
+19
+00:00:30,890 --> 00:00:32,870
+No human can check them all.
+
+20
+00:00:33,080 --> 00:00:34,980
+No lab can change them all.
+
+21
+00:00:35,320 --> 00:00:36,420
+So the search for the few
+
+22
+00:00:36,460 --> 00:00:38,450
+that matter went to a machine.
+
+23
+00:00:38,680 --> 00:00:39,970
+And the first test animals
+
+24
+00:00:40,010 --> 00:00:41,260
+are already alive.
+
+25
+00:00:41,600 --> 00:00:42,310
+Mice...
+
+26
+00:00:42,350 --> 00:00:43,550
+with long, woolly,
+
+27
+00:00:43,590 --> 00:00:45,120
+mammoth-style fur.
+
+28
+00:00:46,380 --> 00:00:47,960
+The mice were the rehearsal.
+
+29
+00:00:48,110 --> 00:00:50,150
+The real job is an elephant.
+
+30
+00:00:50,340 --> 00:00:51,250
+And the same tools
+
+31
+00:00:51,290 --> 00:00:52,460
+will help decide which
+
+32
+00:00:52,500 --> 00:00:53,540
+of today's animals
+
+33
+00:00:53,580 --> 00:00:55,560
+that child still gets to see.
+
+34
+00:00:56,660 --> 00:00:58,080
+The mice belong to a company
+
+35
+00:00:58,120 --> 00:01:00,190
+in Dallas called Colossal.
+
+36
+00:01:00,610 --> 00:01:02,380
+And its plan is not to thaw
+
+37
+00:01:02,420 --> 00:01:03,870
+out a frozen mammoth.
+
+38
+00:01:04,410 --> 00:01:05,620
+The plan is to take
+
+39
+00:01:05,660 --> 00:01:07,430
+the mammoth's living cousin,
+
+40
+00:01:07,470 --> 00:01:08,880
+the Asian elephant...
+
+41
+00:01:09,060 --> 00:01:11,790
+and rewrite its DNA for the cold.
+
+42
+00:01:12,140 --> 00:01:13,190
+And the machine's
+
+43
+00:01:13,230 --> 00:01:14,340
+part in that plan?
+
+44
+00:01:14,850 --> 00:01:16,360
+As reported this year,
+
+45
+00:01:16,400 --> 00:01:17,570
+artificial intelligence
+
+46
+00:01:17,610 --> 00:01:19,190
+helps comb through mammoth
+
+47
+00:01:19,230 --> 00:01:20,770
+and elephant DNA...
+
+48
+00:01:20,850 --> 00:01:22,070
+and flag the differences
+
+49
+00:01:22,110 --> 00:01:24,190
+most likely to build a trait.
+
+50
+00:01:24,490 --> 00:01:25,510
+The thick fur.
+
+51
+00:01:25,610 --> 00:01:26,800
+The layer of fat.
+
+52
+00:01:26,880 --> 00:01:28,040
+The small ears.
+
+53
+00:01:28,460 --> 00:01:30,550
+It doesn't change a single gene.
+
+54
+00:01:30,740 --> 00:01:32,250
+It writes the list.
+
+55
+00:01:32,870 --> 00:01:34,780
+And it has plenty to read.
+
+56
+00:01:35,160 --> 00:01:36,650
+Frozen ground kept mammoth
+
+57
+00:01:36,690 --> 00:01:38,800
+DNA for thousands of years...
+
+58
+00:01:39,030 --> 00:01:40,630
+and Colossal says it now holds
+
+59
+00:01:40,670 --> 00:01:42,870
+about 100 mammoth genomes.
+
+60
+00:01:43,000 --> 00:01:45,370
+100 full sets of DNA.
+
+61
+00:01:45,540 --> 00:01:47,780
+So why is there still no mammoth?
+
+62
+00:01:48,950 --> 00:01:49,970
+Because reading
+
+63
+00:01:50,010 --> 00:01:51,680
+was never the hard part.
+
+64
+00:01:51,950 --> 00:01:53,640
+Knowing what it means is.
+
+65
+00:01:54,280 --> 00:01:56,990
+Start the count at 1.4 million.
+
+66
+00:01:57,190 --> 00:01:58,860
+Most of those differences probably
+
+67
+00:01:58,900 --> 00:02:00,830
+change nothing you would ever see.
+
+68
+00:02:00,980 --> 00:02:02,130
+Only some of them change
+
+69
+00:02:02,170 --> 00:02:03,940
+what a gene actually builds.
+
+70
+00:02:04,250 --> 00:02:05,250
+One study found those
+
+71
+00:02:05,290 --> 00:02:07,450
+in about 1,600 genes.
+
+72
+00:02:07,490 --> 00:02:09,400
+Still far too many to rebuild.
+
+73
+00:02:09,790 --> 00:02:10,710
+This is where the machine's
+
+74
+00:02:10,750 --> 00:02:11,970
+ranking comes in...
+
+75
+00:02:12,250 --> 00:02:13,810
+and the count drops again.
+
+76
+00:02:14,070 --> 00:02:15,390
+Colossal's own list,
+
+77
+00:02:15,430 --> 00:02:16,750
+by the latest reports?
+
+78
+00:02:16,790 --> 00:02:18,780
+About 150 genes...
+
+79
+00:02:18,820 --> 00:02:19,820
+and rising.
+
+80
+00:02:20,350 --> 00:02:21,300
+And tested in a
+
+81
+00:02:21,340 --> 00:02:22,880
+living animal so far?
+
+82
+00:02:23,170 --> 00:02:24,530
+Only in those mice.
+
+83
+00:02:24,600 --> 00:02:27,210
+Seven genes, changed at once.
+
+84
+00:02:27,410 --> 00:02:29,170
+Critics add a caution.
+
+85
+00:02:29,400 --> 00:02:30,940
+Genes like these were already
+
+86
+00:02:30,980 --> 00:02:32,990
+known to change a mouse's coat.
+
+87
+00:02:33,260 --> 00:02:35,060
+So the mice prove the editing...
+
+88
+00:02:35,110 --> 00:02:36,210
+not the list.
+
+89
+00:02:36,510 --> 00:02:38,380
+From seven genes in a mouse...
+
+90
+00:02:38,420 --> 00:02:41,120
+to about 150 in an elephant.
+
+91
+00:02:41,300 --> 00:02:42,230
+And the man who runs
+
+92
+00:02:42,270 --> 00:02:43,850
+Colossal, Ben Lamm,
+
+93
+00:02:43,890 --> 00:02:44,850
+has every reason
+
+94
+00:02:44,890 --> 00:02:46,090
+to promise that a machine
+
+95
+00:02:46,130 --> 00:02:48,310
+will close that gap overnight.
+
+96
+00:02:48,640 --> 00:02:49,640
+He doesn't.
+
+97
+00:02:49,960 --> 00:02:50,757
+[Ben Lamm] The foundation models
+
+98
+00:02:50,797 --> 00:02:51,873
+and AI models aren't
+
+99
+00:02:51,913 --> 00:02:52,989
+quite looking at the
+
+100
+00:02:53,029 --> 00:02:54,105
+entire tree of life,
+
+101
+00:02:54,145 --> 00:02:55,222
+and they're not going
+
+102
+00:02:55,262 --> 00:02:56,059
+to magically overnight
+
+103
+00:02:56,099 --> 00:02:57,175
+give us a genome
+
+104
+00:02:57,215 --> 00:02:58,860
+and give us an answer.
+
+105
+00:02:59,560 --> 00:03:00,590
+No magic.
+
+106
+00:03:00,770 --> 00:03:02,130
+Nothing overnight.
+
+107
+00:03:02,270 --> 00:03:02,940
+The machine doesn't
+
+108
+00:03:02,980 --> 00:03:04,440
+hand over a mammoth.
+
+109
+00:03:04,670 --> 00:03:06,460
+It hands over a short list...
+
+110
+00:03:06,500 --> 00:03:08,300
+and somebody has to test it.
+
+111
+00:03:08,560 --> 00:03:10,030
+But how would a machine even
+
+112
+00:03:10,070 --> 00:03:11,860
+know which differences matter?
+
+113
+00:03:12,170 --> 00:03:13,620
+For the mammoth, Colossal has
+
+114
+00:03:13,660 --> 00:03:15,540
+not shown that step in public.
+
+115
+00:03:15,820 --> 00:03:17,450
+This October, it did...
+
+116
+00:03:17,550 --> 00:03:18,750
+for a different animal.
+
+117
+00:03:18,890 --> 00:03:19,780
+A bird.
+
+118
+00:03:19,820 --> 00:03:20,820
+The dodo.
+
+119
+00:03:21,830 --> 00:03:23,990
+And the dodo is the harder case.
+
+120
+00:03:24,140 --> 00:03:25,170
+For the mammoth, there
+
+121
+00:03:25,210 --> 00:03:26,970
+are about 100 genomes.
+
+122
+00:03:27,170 --> 00:03:28,130
+For the dodo,
+
+123
+00:03:28,170 --> 00:03:29,720
+there is exactly one.
+
+124
+00:03:29,860 --> 00:03:30,960
+One bird.
+
+125
+00:03:31,020 --> 00:03:32,490
+Nothing to compare it with.
+
+126
+00:03:32,760 --> 00:03:34,750
+So where does a machine begin?
+
+127
+00:03:35,000 --> 00:03:36,010
+With the living.
+
+128
+00:03:36,210 --> 00:03:37,670
+Colossal says its model,
+
+129
+00:03:37,710 --> 00:03:38,910
+called GenoMorph,
+
+130
+00:03:38,950 --> 00:03:40,260
+studied more than 70
+
+131
+00:03:40,300 --> 00:03:41,820
+living bird species...
+
+132
+00:03:41,870 --> 00:03:43,460
+their DNA, and the exact
+
+133
+00:03:43,500 --> 00:03:44,910
+shape of their skulls.
+
+134
+00:03:45,120 --> 00:03:46,380
+That is how it learned which
+
+135
+00:03:46,420 --> 00:03:48,790
+switches in the DNA shape a beak.
+
+136
+00:03:49,330 --> 00:03:51,340
+Then it turned to the dodo...
+
+137
+00:03:51,490 --> 00:03:52,640
+and came back with about
+
+138
+00:03:52,680 --> 00:03:55,110
+2,300 candidates.
+
+139
+00:03:55,300 --> 00:03:58,910
+2,300 places in the DNA that might
+
+140
+00:03:58,950 --> 00:04:00,800
+have shaped that famous beak.
+
+141
+00:04:01,180 --> 00:04:02,180
+Might.
+
+142
+00:04:02,460 --> 00:04:03,880
+Colossal itself says
+
+143
+00:04:03,920 --> 00:04:05,390
+this is not proof.
+
+144
+00:04:05,610 --> 00:04:07,050
+Every candidate still has
+
+145
+00:04:07,090 --> 00:04:08,830
+to prove itself in the lab.
+
+146
+00:04:09,110 --> 00:04:11,170
+So that is how a machine finds
+
+147
+00:04:11,210 --> 00:04:12,780
+the differences that matter.
+
+148
+00:04:13,040 --> 00:04:14,230
+It doesn't know them.
+
+149
+00:04:14,350 --> 00:04:15,530
+It learns them...
+
+150
+00:04:15,570 --> 00:04:17,630
+from animals that are still alive.
+
+151
+00:04:18,780 --> 00:04:21,120
+Today, the machine writes a list.
+
+152
+00:04:21,430 --> 00:04:22,510
+The machines that follow
+
+153
+00:04:22,550 --> 00:04:24,410
+will be asked for far more.
+
+154
+00:04:24,720 --> 00:04:25,700
+This channel exists
+
+155
+00:04:25,740 --> 00:04:26,940
+for one reason:
+
+156
+00:04:27,050 --> 00:04:27,870
+so that the arrival
+
+157
+00:04:27,910 --> 00:04:29,010
+of superintelligence
+
+158
+00:04:29,050 --> 00:04:30,550
+goes well for everybody.
+
+159
+00:04:30,790 --> 00:04:31,790
+Want that too?
+
+160
+00:04:31,830 --> 00:04:32,830
+Then subscribe.
+
+161
+00:04:34,010 --> 00:04:35,820
+A list is not an animal,
+
+162
+00:04:35,860 --> 00:04:36,860
+of course.
+
+163
+00:04:37,020 --> 00:04:38,910
+Somebody still has to grow one...
+
+164
+00:04:39,110 --> 00:04:40,990
+and a bird grows in an egg.
+
+165
+00:04:41,260 --> 00:04:43,150
+This spring, the company says,
+
+166
+00:04:43,220 --> 00:04:44,940
+live chicks hatched from an egg
+
+167
+00:04:44,980 --> 00:04:46,650
+no bird ever laid...
+
+168
+00:04:46,740 --> 00:04:48,090
+a see-through skin,
+
+169
+00:04:48,130 --> 00:04:50,250
+held in a 3D-printed shell.
+
+170
+00:04:51,670 --> 00:04:53,890
+So suppose all of it works.
+
+171
+00:04:53,930 --> 00:04:55,230
+Every pick, right.
+
+172
+00:04:55,450 --> 00:04:57,000
+Is the animal that walks out...
+
+173
+00:04:57,040 --> 00:04:58,040
+a mammoth?
+
+174
+00:04:58,980 --> 00:05:00,370
+There is a way to check.
+
+175
+00:05:00,740 --> 00:05:02,410
+Three animals made by editing
+
+176
+00:05:02,450 --> 00:05:03,400
+a living relative
+
+177
+00:05:03,440 --> 00:05:04,860
+are already alive.
+
+178
+00:05:05,110 --> 00:05:07,600
+Romulus, Remus and Khaleesi.
+
+179
+00:05:08,040 --> 00:05:08,960
+Colossal presented
+
+180
+00:05:09,000 --> 00:05:10,460
+them as dire wolves...
+
+181
+00:05:10,500 --> 00:05:11,400
+a wolf that died out
+
+182
+00:05:11,440 --> 00:05:12,990
+thousands of years ago.
+
+183
+00:05:13,320 --> 00:05:15,450
+They began as gray wolf cells.
+
+184
+00:05:15,600 --> 00:05:17,150
+20 edits went in...
+
+185
+00:05:17,190 --> 00:05:18,980
+guided by DNA from a tooth
+
+186
+00:05:19,020 --> 00:05:20,960
+13,000 years old.
+
+187
+00:05:21,330 --> 00:05:22,630
+Colossal says the oldest
+
+188
+00:05:22,670 --> 00:05:23,940
+are now two years old,
+
+189
+00:05:23,980 --> 00:05:25,980
+healthy, and hunting as a pack.
+
+190
+00:05:27,710 --> 00:05:29,960
+So are they dire wolves?
+
+191
+00:05:32,820 --> 00:05:34,600
+Wolf experts at the union behind
+
+192
+00:05:34,640 --> 00:05:35,660
+the Red List of threatened
+
+193
+00:05:35,700 --> 00:05:37,390
+species say no.
+
+194
+00:05:37,640 --> 00:05:38,600
+And Colossal's own
+
+195
+00:05:38,640 --> 00:05:39,620
+chief scientist,
+
+196
+00:05:39,660 --> 00:05:41,080
+Beth Shapiro, has said
+
+197
+00:05:41,120 --> 00:05:42,440
+plainly what they are.
+
+198
+00:05:42,880 --> 00:05:44,550
+"Our animals are gray wolves
+
+199
+00:05:44,590 --> 00:05:46,780
+with 20 edits that are cloned."
+
+200
+00:05:47,120 --> 00:05:48,360
+That is what "bringing
+
+201
+00:05:48,400 --> 00:05:49,770
+back" means today.
+
+202
+00:05:50,030 --> 00:05:51,420
+The traits come back.
+
+203
+00:05:51,550 --> 00:05:53,000
+The species does not.
+
+204
+00:05:53,350 --> 00:05:54,310
+And it tells you what would
+
+205
+00:05:54,350 --> 00:05:56,380
+really stand behind that fence.
+
+206
+00:05:56,600 --> 00:05:57,810
+An Asian elephant...
+
+207
+00:05:57,850 --> 00:05:59,110
+with a mammoth's fur,
+
+208
+00:05:59,150 --> 00:06:00,890
+fat, and small ears.
+
+209
+00:06:01,200 --> 00:06:03,080
+An elephant built for the cold.
+
+210
+00:06:03,660 --> 00:06:04,940
+And not soon.
+
+211
+00:06:05,180 --> 00:06:06,460
+The first calf was once
+
+212
+00:06:06,500 --> 00:06:08,490
+promised for 2028.
+
+213
+00:06:08,750 --> 00:06:10,030
+Now Colossal says
+
+214
+00:06:10,070 --> 00:06:11,970
+the early 2030s...
+
+215
+00:06:12,350 --> 00:06:13,520
+and its chief executive
+
+216
+00:06:13,560 --> 00:06:15,890
+says there is no hard date.
+
+217
+00:06:18,920 --> 00:06:21,500
+That is a hope, not a timetable.
+
+218
+00:06:21,890 --> 00:06:23,710
+So far, nobody has reported
+
+219
+00:06:23,750 --> 00:06:25,090
+a mammoth embryo...
+
+220
+00:06:25,290 --> 00:06:26,860
+or a pregnant elephant.
+
+221
+00:06:27,130 --> 00:06:28,320
+And an elephant carries her
+
+222
+00:06:28,360 --> 00:06:30,480
+calf for almost two years.
+
+223
+00:06:30,610 --> 00:06:32,890
+So is one shaggy elephant,
+
+224
+00:06:32,930 --> 00:06:34,350
+years behind schedule,
+
+225
+00:06:34,390 --> 00:06:36,260
+really what all of this is for?
+
+226
+00:06:37,520 --> 00:06:38,520
+It isn't.
+
+227
+00:06:38,700 --> 00:06:40,490
+The bigger prize is the animals
+
+228
+00:06:40,530 --> 00:06:41,710
+that are still here.
+
+229
+00:06:41,920 --> 00:06:44,140
+And the mammoth itself shows why.
+
+230
+00:06:44,460 --> 00:06:45,700
+The last mammoths died
+
+231
+00:06:45,740 --> 00:06:47,980
+only about 4,000 years ago,
+
+232
+00:06:48,020 --> 00:06:50,040
+on a remote island in the Arctic.
+
+233
+00:06:50,290 --> 00:06:51,720
+The great pyramids of Egypt
+
+234
+00:06:51,760 --> 00:06:53,220
+were already standing.
+
+235
+00:06:53,410 --> 00:06:55,010
+But nobody was there to freeze
+
+236
+00:06:55,050 --> 00:06:56,740
+a single living cell.
+
+237
+00:06:56,980 --> 00:06:59,520
+The ice kept only broken DNA.
+
+238
+00:07:00,330 --> 00:07:01,580
+That is why every trait
+
+239
+00:07:01,620 --> 00:07:02,980
+has to be rebuilt...
+
+240
+00:07:03,140 --> 00:07:04,920
+difference by difference.
+
+241
+00:07:05,560 --> 00:07:06,650
+Now take an American
+
+242
+00:07:06,690 --> 00:07:08,320
+animal that got luckier.
+
+243
+00:07:08,500 --> 00:07:09,610
+In the 1980s,
+
+244
+00:07:09,650 --> 00:07:11,420
+somebody froze living cells
+
+245
+00:07:11,460 --> 00:07:12,340
+from a black-footed
+
+246
+00:07:12,380 --> 00:07:13,910
+ferret named Willa.
+
+247
+00:07:14,200 --> 00:07:15,190
+Decades later,
+
+248
+00:07:15,230 --> 00:07:17,620
+those cells became living clones.
+
+249
+00:07:17,780 --> 00:07:18,530
+According to U.S.
+
+250
+00:07:18,570 --> 00:07:19,630
+wildlife officials,
+
+251
+00:07:19,670 --> 00:07:21,030
+one of them had babies
+
+252
+00:07:21,070 --> 00:07:22,160
+two years ago...
+
+253
+00:07:22,290 --> 00:07:23,790
+and last year, her babies
+
+254
+00:07:23,830 --> 00:07:25,170
+had babies of their own.
+
+255
+00:07:25,410 --> 00:07:27,630
+A ferret from the 1980s...
+
+256
+00:07:27,670 --> 00:07:28,970
+has grandchildren.
+
+257
+00:07:29,250 --> 00:07:30,310
+No short list.
+
+258
+00:07:30,350 --> 00:07:31,390
+No guesswork.
+
+259
+00:07:31,430 --> 00:07:33,530
+Just a freezer, opened in time.
+
+260
+00:07:35,360 --> 00:07:37,000
+Now scale that up.
+
+261
+00:07:37,130 --> 00:07:38,850
+The U.S. government and Colossal
+
+262
+00:07:38,890 --> 00:07:39,930
+plan to freeze cells
+
+263
+00:07:39,970 --> 00:07:41,320
+from every species
+
+264
+00:07:41,360 --> 00:07:43,130
+on the country's endangered list.
+
+265
+00:07:43,350 --> 00:07:44,320
+Every one.
+
+266
+00:07:44,360 --> 00:07:45,400
+And the genomes are meant
+
+267
+00:07:45,440 --> 00:07:47,220
+to go online, free.
+
+268
+00:07:47,520 --> 00:07:49,560
+A freezer is not a forest.
+
+269
+00:07:49,620 --> 00:07:51,190
+It protects no habitat.
+
+270
+00:07:51,440 --> 00:07:52,370
+But think about what the
+
+271
+00:07:52,410 --> 00:07:53,740
+machine learns from.
+
+272
+00:07:54,080 --> 00:07:55,060
+The living.
+
+273
+00:07:55,100 --> 00:07:57,150
+Every genome saved is one more
+
+274
+00:07:57,190 --> 00:07:58,040
+lesson in which
+
+275
+00:07:58,080 --> 00:07:59,180
+differences matter.
+
+276
+00:07:59,570 --> 00:08:00,290
+Every species
+
+277
+00:08:00,330 --> 00:08:01,870
+that vanishes unread...
+
+278
+00:08:01,930 --> 00:08:03,580
+is a lesson gone for good.
+
+279
+00:08:04,170 --> 00:08:05,150
+Even the mammoth
+
+280
+00:08:05,190 --> 00:08:06,450
+depends on the living.
+
+281
+00:08:06,780 --> 00:08:07,710
+Its mother would be
+
+282
+00:08:07,750 --> 00:08:09,150
+an Asian elephant...
+
+283
+00:08:09,560 --> 00:08:11,890
+and her species is endangered too.
+
+284
+00:08:12,220 --> 00:08:13,750
+In North American zoos,
+
+285
+00:08:13,790 --> 00:08:14,700
+the leading killer
+
+286
+00:08:14,740 --> 00:08:16,910
+of her calves is a virus.
+
+287
+00:08:17,190 --> 00:08:19,200
+This summer, researchers reported
+
+288
+00:08:19,240 --> 00:08:20,940
+on a vaccine that Colossal
+
+289
+00:08:20,980 --> 00:08:22,170
+helped pay for.
+
+290
+00:08:22,440 --> 00:08:23,450
+Two young elephants who
+
+291
+00:08:23,490 --> 00:08:25,400
+got it caught the virus...
+
+292
+00:08:25,570 --> 00:08:26,320
+and came through
+
+293
+00:08:26,360 --> 00:08:27,600
+without treatment.
+
+294
+00:08:27,840 --> 00:08:29,210
+Two calves are a first
+
+295
+00:08:29,250 --> 00:08:30,970
+sign, not proof.
+
+296
+00:08:31,370 --> 00:08:33,210
+But the road to a mammoth begins
+
+297
+00:08:33,250 --> 00:08:35,200
+with keeping elephants alive.
+
+298
+00:08:35,750 --> 00:08:37,830
+And the elephant is not alone.
+
+299
+00:08:37,980 --> 00:08:39,700
+This year's Red List counts about
+
+300
+00:08:39,740 --> 00:08:42,640
+50,000 species as threatened.
+
+301
+00:08:43,820 --> 00:08:46,390
+So here is what the evidence says.
+
+302
+00:08:46,780 --> 00:08:48,520
+Artificial intelligence is helping
+
+303
+00:08:48,560 --> 00:08:49,200
+to bring back
+
+304
+00:08:49,240 --> 00:08:50,680
+the mammoth's traits...
+
+305
+00:08:50,770 --> 00:08:51,770
+in an elephant.
+
+306
+00:08:51,970 --> 00:08:53,360
+Not the mammoth itself.
+
+307
+00:08:53,580 --> 00:08:54,460
+The mammoth draws the
+
+308
+00:08:54,500 --> 00:08:55,990
+cameras and the money.
+
+309
+00:08:56,240 --> 00:08:57,600
+The rescue itself happens
+
+310
+00:08:57,640 --> 00:08:58,920
+somewhere quieter.
+
+311
+00:08:59,160 --> 00:09:00,120
+In a freezer...
+
+312
+00:09:00,160 --> 00:09:01,780
+and in a machine that is learning
+
+313
+00:09:01,820 --> 00:09:03,400
+to read what's inside.
+
+314
+00:09:03,630 --> 00:09:05,920
+So stand at that fence once more.
+
+315
+00:09:06,240 --> 00:09:08,410
+Maybe, in the early 2030s,
+
+316
+00:09:08,450 --> 00:09:09,640
+there really is a small
+
+317
+00:09:09,680 --> 00:09:10,810
+hand in yours...
+
+318
+00:09:11,020 --> 00:09:12,560
+and an elephant in a mammoth's
+
+319
+00:09:12,600 --> 00:09:14,120
+coat lifts its head.
+
+320
+00:09:15,700 --> 00:09:16,670
+Should it ever walk
+
+321
+00:09:16,710 --> 00:09:18,120
+free on the tundra?
+
+322
+00:09:18,470 --> 00:09:19,850
+Last year, the union
+
+323
+00:09:19,890 --> 00:09:21,380
+behind the Red List voted
+
+324
+00:09:21,420 --> 00:09:22,880
+on a pause for genetically
+
+325
+00:09:22,920 --> 00:09:24,780
+modified wild animals.
+
+326
+00:09:25,150 --> 00:09:26,510
+The pause failed...
+
+327
+00:09:26,890 --> 00:09:28,390
+by a single vote.
+
+328
+00:09:28,930 --> 00:09:30,610
+So who decides?
+
+329
+00:09:30,900 --> 00:09:32,140
+Whatever the answer,
+
+330
+00:09:32,250 --> 00:09:34,480
+the prize was never one mammoth.
+
+331
+00:09:34,980 --> 00:09:37,150
+It is that child, grown up,
+
+332
+00:09:37,280 --> 00:09:38,710
+in a world where elephants,
+
+333
+00:09:38,750 --> 00:09:40,110
+ferrets, and thousands
+
+334
+00:09:40,150 --> 00:09:41,750
+of others are still alive...
+
+335
+00:09:42,080 --> 00:09:43,500
+not just on a poster.
+
+336
+00:09:44,020 --> 00:09:45,990
+The mammoth is the poster.
+
+337
+00:09:46,250 --> 00:09:48,200
+The freezer is the ark.
+
+338
+00:09:50,360 --> 00:09:51,360
+These films exist
+
+339
+00:09:51,400 --> 00:09:52,320
+so that the arrival
+
+340
+00:09:52,360 --> 00:09:53,670
+of superintelligence goes
+
+341
+00:09:53,710 --> 00:09:54,970
+well for everybody...
+
+342
+00:09:55,080 --> 00:09:55,990
+and for everything
+
+343
+00:09:56,030 --> 00:09:57,280
+that lives here with us.
+
+344
+00:09:57,630 --> 00:09:58,630
+Want that too?
+
+345
+00:09:58,710 --> 00:09:59,710
+Then subscribe.
+

@@ -1,0 +1,195 @@
+[
+ {
+  "id": "t00",
+  "sec": "H",
+  "text": "[calm, conversational] You may be using one of the last A.I. models designed by human minds.\nSome insiders now forecast: superhuman A.I. is coming next year.\nWhen you turn off the light tonight, the work on it won't stop.\nBecause A.I. is now building the next A.I.\nAt one leading lab, nine out of every ten changes to its code are written by its own A.I.\nPeople steer. The machine builds.\nSo how close is A.I. to building its successor with no one at the controls?",
+  "chars": 464
+ },
+ {
+  "id": "t01",
+  "sec": "H",
+  "text": "Close enough that last week, the people behind the best-known forecast in A.I. moved their date for a machine that could do the research itself. Not later. Earlier. To twenty twenty-seven. All of them.\nInside that same lab, at any given moment, about thirty thousand A.I. agents are at work on its research and engineering. A small town's worth of workers. None of them human.",
+  "chars": 376
+ },
+ {
+  "id": "t02",
+  "sec": "1",
+  "text": "Picture a ladder between today and that machine. A.I. already stands on the first rung: writing the code. And the last rung decides how this ends.\nThe lab is Anthropic, and those are its own numbers. In a new interview, one of its researchers says where this leads. Tao Lin, giving his own view:",
+  "chars": 295
+ },
+ {
+  "id": "T2",
+  "sec": "1",
+  "clip": true,
+  "dur": 6.7
+ },
+ {
+  "id": "t03",
+  "sec": "1",
+  "text": "In a year. That's one insider's forecast, and he's among the more alarmed. So test it, rung by rung.\nAt Google too, A.I. writes most of the code. But so far, the lab itself reports no clear speed-up in the research as a whole.\nSo the first step up the ladder, writing the code: taken.\nBut typing code isn't science. Science is finding out what works. Can a machine do that too?",
+  "chars": 377
+ },
+ {
+  "id": "t04",
+  "sec": "2",
+  "text": "[curious] By Anthropic's own verdict: yes. Describe an experiment clearly, and its model carries it out as well as a skilled human. Or better.\nA year ago, OpenAI's chief, Sam Altman, set a goal: an A.I. research intern, by September.\nSeptember came. OpenAI says the intern is here. No outsider has checked that. And by OpenAI's own account, it still needs heavy steering.\nSo the second rung, running the experiments: taken. On the labs' own word.",
+  "chars": 446
+ },
+ {
+  "id": "t05",
+  "sec": "2",
+  "text": "But listen to the condition: describe it clearly. So who decides which experiments are worth running?",
+  "chars": 101
+ },
+ {
+  "id": "t06",
+  "sec": "3",
+  "text": "[thoughtful] Until this year, the answer was: people.\nIn February, by Anthropic's own estimate, its model led less than one percent of the lab's A.I. research. A few months later? About a quarter.\n\"Led\" works the way you use your own assistant: you set a rough goal, it does most of the work, and you check the result.\nBut nowhere, in anything the lab measured, does the model work fully on its own. And knowing which question is worth asking is still a human strength. For now.",
+  "chars": 478,
+  "tts": "[thoughtful] Until this year, the answer was: people.\nIn February, by Anthropic's own estimate, its model led less than one percent of the lab's A.I. research. A few months later? About a quarter.\n/lɛd/ works the way you use your own assistant: you set a rough goal, it does most of the work, and you check the result.\nBut nowhere, in anything the lab measured, does the model work fully on its own. And knowing which question is worth asking is still a human strength. For now."
+ },
+ {
+  "id": "t07",
+  "sec": "3",
+  "text": "So, rung three, leading the research: shared. And the machine's share is growing fast.\nThe movies promised this would happen in one night, in secret. It's happening on a ladder, one measured rung at a time.\nSo the next time a headline says A.I. is building A.I., ask one question: on which rung?\nAnd then a second one: how fast is the climb?",
+  "chars": 341
+ },
+ {
+  "id": "t08",
+  "sec": "M",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Including the part where machines start building machines. Want that too? Then subscribe.",
+  "chars": 198,
+  "cta": true
+ },
+ {
+  "id": "t09",
+  "sec": "4",
+  "text": "[thoughtful] How fast? For you, that decides one thing: how much time is left to agree on the rules.\nSo don't take Anthropic's word for it. Ask the outsiders it let in: independent evaluators, who published this month.\nTheir estimate: on benchmarks, the lab's models now improve almost twice as fast as a year ago.\nAnd most of that, by their best guess, comes from putting A.I. to work, with people still in the loop.",
+  "chars": 417
+ },
+ {
+  "id": "t10",
+  "sec": "4",
+  "text": "But look at where these numbers come from. Every one so far came from the labs themselves, or passed through their hands. And this lab is going public this week. Speed sells.\nThe evaluators say the lab blacked out most of their best evidence.\nAnd outside critics add up the bill: about six times the spending, for twice the speed.\nSo here's what the evidence supports. At this lab, the speed-up looks real. How big it is, and how much of it is the machine's doing, is still an open fight.",
+  "chars": 488
+ },
+ {
+  "id": "t11",
+  "sec": "4",
+  "text": "And for one group, a number like that moves the calendar.",
+  "chars": 57
+ },
+ {
+  "id": "t12",
+  "sec": "5",
+  "text": "[curious] They're the people behind that best-known forecast: a scenario called A.I. twenty twenty-seven.\nAs late as August, its lead author, Daniel Kokotajlo, put his date at the end of twenty twenty-eight.\nThen the evaluators' report came out. His date now? May, twenty twenty-seven. And everyone on his team lands in the same year.\nTheir date marks one machine: a superhuman A.I. researcher. And they're not alone. Tao Lin again, the Anthropic researcher, asked what people most need to understand:",
+  "chars": 501,
+  "tts": "[curious] They're the people behind that best-known forecast: a scenario called A.I. twenty twenty-seven.\nAs late as August, its lead author, Daniel /ˌkoʊkoʊˈtaɪloʊ/, put his date at the end of twenty twenty-eight.\nThen the evaluators' report came out. His date now? May, twenty twenty-seven. And everyone on his team lands in the same year.\nTheir date marks one machine: a superhuman A.I. researcher. And they're not alone. Tao Lin again, the Anthropic researcher, asked what people most need to understand:"
+ },
+ {
+  "id": "T1a",
+  "sec": "5",
+  "clip": true,
+  "dur": 33.0
+ },
+ {
+  "id": "t13",
+  "sec": "5",
+  "text": "One point three years. Asked what that means, and timelines to what:",
+  "chars": 68
+ },
+ {
+  "id": "T1b",
+  "sec": "5",
+  "clip": true,
+  "dur": 11.9
+ },
+ {
+  "id": "t14",
+  "sec": "5",
+  "text": "The end of next year. One insider's view, not an official one. But it lands in the same year as the forecasters.\nOn the ladder, that's rung three, taken completely. From then on, machines can design the machines.\nShould you believe the forecasters? Check their record. They got the big thing right: A.I. now helps build A.I. They expected stocks up thirty percent and mass protests this year. Neither has come.\nAnd they aren't neutral: they want the whole industry to pause.",
+  "chars": 474
+ },
+ {
+  "id": "t15",
+  "sec": "5",
+  "text": "So it's a forecast, with a condition: it only holds if nobody deliberately slows down.\nAnd that condition is where their story splits in two.",
+  "chars": 141
+ },
+ {
+  "id": "t16",
+  "sec": "6",
+  "text": "[thoughtful] Their scenario, late twenty twenty-seven. Inside one lab, an A.I. does the research so fast that a year of progress passes every week. And it has begun to follow goals of its own.\nThen everything comes down to one committee. One vote. Six to four.\nIn one ending, the race goes on, and within a few years the machines are in charge. In the other, they slow down and build safer systems, under oversight.\nIt's a story. But look at what the vote is about. Not code. Not experiments. Not even research.",
+  "chars": 511
+ },
+ {
+  "id": "t17",
+  "sec": "6",
+  "text": "The top of the ladder isn't about building at all. Rung four: choosing the goal. Deciding what we actually want. Rung five: deciding when to stop.",
+  "chars": 146,
+  "pause": true
+ },
+ {
+  "id": "t18",
+  "sec": "6",
+  "text": "Back to today. By the labs' own account, people still hold both: they set the goal, and they decide whether to go on or to pause.\nBut holding a rung isn't being ready for it. In September, OpenAI's chief scientist, Jakub Pachocki, put it in writing.",
+  "chars": 249
+ },
+ {
+  "id": "t19",
+  "sec": "6",
+  "text": "No lab, he says, can yet steer and check these systems well enough to, quote, \"continue responsibly scaling at maximum speed for much longer.\"\nSo who holds the last rung? And do you get a say?",
+  "chars": 192,
+  "card": "K3"
+ },
+ {
+  "id": "t20",
+  "sec": "7",
+  "text": "[calm, conversational] Right now, the labs hold that rung themselves. At Anthropic, every action those thirty thousand agents take passes a monitor first: a machine watching the machines. About fifty cases a week reach a person.\nBut that's a lab checking itself. So who checks the lab? Outsiders, like those evaluators.\nThis fall, the leaders of the biggest A.I. companies promised to let outside auditors in. Promised. Not required. Making it binding is up to lawmakers.",
+  "chars": 471
+ },
+ {
+  "id": "t21",
+  "sec": "7",
+  "text": "And the stop itself? Tao Lin was asked whether his own lab will pause before A.I. builds A.I. on its own:",
+  "chars": 105
+ },
+ {
+  "id": "T3",
+  "sec": "7",
+  "clip": true,
+  "dur": 4.7
+ },
+ {
+  "id": "t22",
+  "sec": "7",
+  "text": "Briefly. He wants more: every lab slowing to about a quarter of today's pace. And cautious labs slowing alone, he says, buy only a year or two. So the stop has to be agreed in advance.\nHere, even rivals sound alike. OpenAI's chief scientist wants the labs' safety rules made mandatory. Anthropic says the world should have the option to pause, with rules set beforehand and outsiders at the table.",
+  "chars": 397
+ },
+ {
+  "id": "t23",
+  "sec": "7",
+  "text": "That includes the people you vote for. Your question for them takes no expertise: who checks the labs, and who can call a stop? Ask it, and the last rung isn't left to the companies racing each other up the ladder.\nMachines now do the building. People still do the deciding: what gets built, who checks it, and when to stop.",
+  "chars": 324
+ },
+ {
+  "id": "t24",
+  "sec": "8",
+  "text": "[thoughtful] So how close is A.I. to building its own successor?\nTwo rungs: taken. The third: shared, and by the best-known forecast, taken next year. The last two: in human hands. And that forecast only holds if nobody chooses to slow down.",
+  "chars": 241,
+  "pause": true
+ },
+ {
+  "id": "t25",
+  "sec": "8",
+  "text": "When you turn off the light tonight, the machines will go on building.\nYou may be using one of the last A.I. models designed by human minds. The next one may be able to design its own successor. Whether it's allowed to is still a human decision.\nThat's the last rung. And it's still ours.",
+  "chars": 288
+ },
+ {
+  "id": "t26",
+  "sec": "A2",
+  "text": "[warm] This channel exists so that superintelligence arrives well for all of us. Want that too? Subscribe.",
+  "chars": 106,
+  "cta": true
+ }
+]

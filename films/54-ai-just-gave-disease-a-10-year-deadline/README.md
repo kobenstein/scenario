@@ -1,6 +1,6 @@
 # #54 · AI Just Gave Disease a 10-Year Deadline
 
-[Auf YouTube ansehen](https://youtu.be/lzfXS3KbNEk) · veröffentlicht 2026-11-16
+[Auf YouTube ansehen](https://youtu.be/Tzttxz97Lxc) · veröffentlicht 2026-11-16
 
 | Ordner | Inhalt |
 |---|---|

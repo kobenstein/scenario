@@ -315,15 +315,63 @@
   "code_herkunft": "claude/project-thread-e0nwej:films/28-ai-for-good@6b84321"
  },
  {
+  "nr": 29,
+  "ordner": "29-ai-is-bringing-back-the-mammoth",
+  "titel": "AI Is Bringing Back the Mammoth",
+  "video": "BuuPBlSb6R4",
+  "veroeffentlicht": null,
+  "skript_quellen": [
+   "film-mammut"
+  ],
+  "thumbnail_quelle": "film-29",
+  "code_herkunft": "claude/project-thread-1djp9d:films/29-mammoth@1291f68"
+ },
+ {
+  "nr": 31,
+  "ordner": "31-superhuman-ai-is-coming-next-year",
+  "titel": "Superhuman AI Is Coming Next Year",
+  "video": "IO6-9l56jSg",
+  "veroeffentlicht": "2026-11-18",
+  "skript_quellen": [
+   "film-ai-2027"
+  ],
+  "thumbnail_quelle": "film-31",
+  "code_herkunft": "claude/project-thread-4e6iqx:films/31-ai-builds-ai@4266ebd"
+ },
+ {
   "nr": 54,
   "ordner": "54-ai-just-gave-disease-a-10-year-deadline",
   "titel": "AI Just Gave Disease a 10-Year Deadline",
-  "video": "lzfXS3KbNEk",
+  "video": "Tzttxz97Lxc",
   "veroeffentlicht": "2026-11-16",
   "skript_quellen": [
    "film-heilung"
   ],
   "thumbnail_quelle": "film-heilung",
   "code_herkunft": "claude/project-thread-7mlu3t:films/54-cures@829b4fb"
+ },
+ {
+  "nr": 55,
+  "ordner": "55-the-ai-youre-not-allowed-to-use",
+  "titel": "The AI You're Not Allowed to Use",
+  "video": "-VWTQPoo8Y8",
+  "veroeffentlicht": "2026-11-19",
+  "skript_quellen": [
+   "film-geheim-ki"
+  ],
+  "thumbnail_quelle": "film-55",
+  "code_herkunft": "claude/project-thread-1djp9d:films/55-locked@1291f68"
+ },
+ {
+  "nr": 59,
+  "ordner": "59-a-superintelligence-lab-goes-public",
+  "titel": "A Superintelligence Lab Goes Public",
+  "video": "6eC7pLUo4eM",
+  "veroeffentlicht": "2026-11-17",
+  "skript_quellen": [
+   "film-ai-goes-public"
+  ],
+  "thumbnail_quelle": "film-59",
+  "code_herkunft": "claude/project-thread-4e6iqx:films/59-ai-goes-public@4266ebd"
  }
 ]

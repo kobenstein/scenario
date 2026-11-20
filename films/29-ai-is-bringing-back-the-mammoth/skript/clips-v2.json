@@ -1,0 +1,227 @@
+{
+ "film": "29-mammoth",
+ "fassung": 2,
+ "duration": 648.067,
+ "frames": 19442,
+ "clip_seconds_on_screen": 31.24,
+ "clip_share": 0.0482,
+ "note": "Wording from YouTube auto-captions + word timestamps (.vtt) and silence/loudness analysis; not verified by ear or ASR.",
+ "clips": [
+  {
+   "id": "C1",
+   "url": "https://www.youtube.com/watch?v=VHg3oX1ytYQ&t=2099s",
+   "speaker": "Ben Lamm, CEO, Colossal",
+   "source": "Moonshots #297 (Peter H. Diamandis podcast), Sep 30, 2026",
+   "file": "C1_small.mp4",
+   "words": "Foundation models and AI models aren't quite looking at the entire tree of life, they're not going to magically overnight give them a genome and give us an answer.",
+   "words_auto_captions_raw": "the uh foundation models and AI models aren't quite looking at the entire tree of life and they're not like uh they're not going to magically overnight give them a genome and give us an answer.",
+   "source_in": "34:59.17",
+   "source_out": "35:08.15",
+   "clip_file_cuts": [
+    [
+     4.7,
+     9.2
+    ],
+    [
+     10.93,
+     14.42
+    ]
+   ],
+   "source_ranges_used": [
+    [
+     "34:59.17",
+     "35:03.20"
+    ],
+    [
+     "35:04.93",
+     "35:08.15"
+    ]
+   ],
+   "film_start": 170.92,
+   "film_end": 178.17,
+   "footage_on_screen": [
+    170.45,
+    178.44
+   ],
+   "insert_frames": [
+    5100,
+    5387
+   ],
+   "insert_seconds": [
+    170.0,
+    179.567
+   ],
+   "mode": "replaces the C1 quote-card slot (no shift)"
+  },
+  {
+   "id": "C4",
+   "url": "https://www.youtube.com/watch?v=fOEIgiTZqxw&t=2555s",
+   "speaker": "Ben Lamm, CEO, Colossal",
+   "source": "Upstarts Media podcast, Oct 8, 2026",
+   "file": "C4_womb_src42m33.mp4",
+   "words": "You do not need an artificial womb to make a mammoth. You need an artificial womb to make any of these species at scale, at the scale that we want to produce them.",
+   "words_auto_captions_raw": "You do not need an artificial womb to make a mammoth. You need an artificial womb to make any of these species at scale, at the scale that we want to produce them.",
+   "source_in": "42:35.80",
+   "source_out": "42:46.45",
+   "clip_file_cuts": [
+    [
+     2.55,
+     13.75
+    ]
+   ],
+   "source_ranges_used": [
+    [
+     "42:35.80",
+     "42:46.45"
+    ]
+   ],
+   "film_start": 291.45,
+   "film_end": 302.1,
+   "footage_on_screen": [
+    291.2,
+    302.4
+   ],
+   "insert_frames": [
+    8724,
+    9084
+   ],
+   "insert_seconds": [
+    290.8,
+    302.8
+   ],
+   "mode": "inserted at Fassung-1 290.800 s (+12.000 s)"
+  },
+  {
+   "id": "C2",
+   "url": "https://www.youtube.com/watch?v=VHg3oX1ytYQ&t=579s",
+   "speaker": "Ben Lamm, CEO, Colossal",
+   "source": "Moonshots #297 (Peter H. Diamandis podcast), Sep 30, 2026",
+   "file": "C2_dataset_src09m34.mp4",
+   "words": "So I would make the argument that, you know, the data set is more valuable than the model.",
+   "words_auto_captions_raw": "so I would make the argument that you know the data set the is more valuable than the model.",
+   "source_in": "09:39.83",
+   "source_out": "09:44.95",
+   "clip_file_cuts": [
+    [
+     5.3,
+     11.2
+    ]
+   ],
+   "source_ranges_used": [
+    [
+     "09:39.83",
+     "09:44.95"
+    ]
+   ],
+   "film_start": 496.7,
+   "film_end": 501.82,
+   "footage_on_screen": [
+    496.17,
+    502.07
+   ],
+   "insert_frames": [
+    14873,
+    15074
+   ],
+   "insert_seconds": [
+    495.767,
+    502.467
+   ],
+   "mode": "inserted at Fassung-1 483.767 s (+6.700 s)"
+  },
+  {
+   "id": "C6",
+   "url": "https://www.youtube.com/watch?v=7Xl2tsNuimA&t=51s",
+   "speaker": "Houston Zoo / Baylor College of Medicine team (speaker not named in the source)",
+   "source": "Houston Zoo, YouTube, \"Breakthrough Elephant Vaccine Shows First Signs of Protection Against Deadly Virus\", Jul 28, 2026",
+   "file": "C6_vaccine_0m44.mp4",
+   "words": "We're near the end. We're very hopeful.",
+   "words_auto_captions_raw": "we're we're near the end. We're very hopeful.",
+   "source_in": "00:51.60",
+   "source_out": "00:57.50",
+   "clip_file_cuts": [
+    [
+     7.6,
+     13.75
+    ]
+   ],
+   "source_ranges_used": [
+    [
+     "00:51.60",
+     "00:57.50"
+    ]
+   ],
+   "film_start": 526.7,
+   "film_end": 532.6,
+   "footage_on_screen": [
+    526.7,
+    532.85
+   ],
+   "insert_frames": [
+    15789,
+    15998
+   ],
+   "insert_seconds": [
+    526.3,
+    533.267
+   ],
+   "mode": "inserted at Fassung-1 507.600 s (+6.967 s)"
+  }
+ ],
+ "chapters": [
+  {
+   "old": "0:00",
+   "new": "0:00",
+   "new_s": 0.0,
+   "title": "AI is bringing back the mammoth"
+  },
+  {
+   "old": "0:56",
+   "new": "0:56",
+   "new_s": 56.66,
+   "title": "An elephant built for the cold"
+  },
+  {
+   "old": "1:48",
+   "new": "1:48",
+   "new_s": 108.95,
+   "title": "Reading DNA is easy, knowing is not"
+  },
+  {
+   "old": "3:21",
+   "new": "3:21",
+   "new_s": 201.83,
+   "title": "The dodo test"
+  },
+  {
+   "old": "4:34",
+   "new": "4:34",
+   "new_s": 274.01,
+   "title": "An egg no bird ever laid"
+  },
+  {
+   "old": "4:58",
+   "new": "5:10",
+   "new_s": 310.98,
+   "title": "Are the dire wolves real?"
+  },
+  {
+   "old": "6:37",
+   "new": "6:49",
+   "new_s": 409.52,
+   "title": "The animals still here"
+  },
+  {
+   "old": "7:05",
+   "new": "7:17",
+   "new_s": 437.56,
+   "title": "A ferret with grandchildren"
+  },
+  {
+   "old": "8:43",
+   "new": "9:09",
+   "new_s": 549.49,
+   "title": "Who decides?"
+  }
+ ]
+}

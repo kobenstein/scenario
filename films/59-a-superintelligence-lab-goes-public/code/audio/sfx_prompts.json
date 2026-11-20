@@ -1,0 +1,5 @@
+{
+ "_comment": "Film 59 Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 0.01 USD/s, returns 2 samples; sample 1 used, 2026-11-16). Files in <scratch>/f59/sfx, not in the repo. Everything else from sfx-bibliothek (akzent: card, pages, paper_slide, stamp, whoosh_airy; atmo: clockwork).",
+ "bell": {"duration": 5, "seed": 5901, "prompt": "A single stock exchange opening bell, one short electric bell ring heard from a distance in a large reverberant hall, soft and restrained, long natural decay, no crowd, no music, no voices."},
+ "tap": {"duration": 2, "seed": 5902, "prompt": "A soft single tap on a smartphone touchscreen button, a tiny muted digital click with a gentle low tone, clean, close, no music, no voices."}
+}
