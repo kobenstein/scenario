@@ -75,7 +75,10 @@ cues.sort(key=lambda c: c[0])
 for i, c in enumerate(cues):  # hold each cue a little, never overlapping the next
     nx = cues[i + 1][0] if i + 1 < len(cues) else c[1] + 2
     c[1] = min(max(c[1] + .25, c[0] + 1.0), nx - .04)
-ts = lambda t, sep: f"{int(t // 3600):02d}:{int(t % 3600 // 60):02d}:{int(t % 60):02d}{sep}{int(round(t % 1 * 1000)) if sep == ',' else int(round(t % 1 * 100)):0{3 if sep == ',' else 2}d}"
+def ts(t, sep):
+    """srt: hh:mm:ss,mmm · ass: h:mm:ss.cc; round on the whole value first (never ',1000')"""
+    u = 1000 if sep == ',' else 100; n = int(round(t * u)); f, s = n % u, n // u
+    return f"{s // 3600:02d}:{s % 3600 // 60:02d}:{s % 60:02d}{sep}{f:0{3 if sep == ',' else 2}d}"
 with open(OUT + 'subtitles.srt', 'w') as f:
     for i, (a, b, s) in enumerate(cues, 1): f.write(f"{i}\n{ts(a, ',')} --> {ts(b, ',')}\n{s}\n\n")
 ass = """[Script Info]
