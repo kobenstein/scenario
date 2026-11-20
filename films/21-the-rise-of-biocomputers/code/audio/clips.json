@@ -1,0 +1,114 @@
+{
+ "C1": {
+  "crop": "1562:1080:240:0",
+  "in": 0.0,
+  "dur": 8.0,
+  "offset": 0.0,
+  "fit": "contain",
+  "muted": true,
+  "name": "Cortical Labs",
+  "role": "CL1 playing DOOM",
+  "year": "2026",
+  "source": "https://www.youtube.com/watch?v=yRV8fSw6HaE",
+  "frames": 240
+ },
+ "C2": {
+  "in": 0.0,
+  "dur": 10.2,
+  "offset": 0.4,
+  "fit": "cover",
+  "gain_db": 0,
+  "name": "Brett Kagan",
+  "role": "Chief Scientific Officer, Cortical Labs",
+  "year": "2026",
+  "source": "https://www.youtube.com/watch?v=TXlJc4tu1F8",
+  "quote": "And what we found was actually, indeed, they did end up remarkably adjusting their activity patterns very rapidly to try and create a more predictable environment and actually control it.",
+  "frames": 306,
+  "cues": [
+   [
+    0.0,
+    "And what we found"
+   ],
+   [
+    0.977,
+    "was actually, indeed,"
+   ],
+   [
+    2.17,
+    "they did end up remarkably"
+   ],
+   [
+    3.635,
+    "adjusting their activity"
+   ],
+   [
+    4.991,
+    "patterns very rapidly"
+   ],
+   [
+    6.185,
+    "to try and create a more"
+   ],
+   [
+    7.541,
+    "predictable environment"
+   ],
+   [
+    8.844,
+    "and actually control it."
+   ]
+  ],
+  "cue_source": "even over the speech 0.00-10.20 s (alignment failed)"
+ },
+ "C3": {
+  "in": 0.0,
+  "dur": 12.7,
+  "offset": 0.6,
+  "fit": "cover",
+  "gain_db": 0,
+  "name": "Thomas Hartung",
+  "role": "Johns Hopkins University",
+  "year": "2023",
+  "quote": "Embedded ethics, which means we work closely with ethicists. We design our experiments with ethicists. We are inviting them to our laboratories to show them what our experiments are actually about.",
+  "frames": 381,
+  "cues": [
+   [
+    0.0,
+    "Embedded ethics,"
+   ],
+   [
+    0.96,
+    "which means we work"
+   ],
+   [
+    2.13,
+    "closely with ethicists."
+   ],
+   [
+    3.32,
+    "We design our experiments"
+   ],
+   [
+    5.37,
+    "with ethicists."
+   ],
+   [
+    6.25,
+    "We are inviting them"
+   ],
+   [
+    8.23,
+    "to our laboratories to show"
+   ],
+   [
+    9.62,
+    "them what our experiments"
+   ],
+   [
+    11.33,
+    "are actually about."
+   ]
+  ],
+  "cue_source": "pocketsphinx"
+ }
+}

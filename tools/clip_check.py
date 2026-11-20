@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Anteil-Check für Interview-Clips (docs/clip-schritt.md).
+"""Anteil-Check für Interview-Clips (regeln/clip-schritt.md).
 
 Aufruf: python3 tools/clip_check.py <clips.json> <timing.json | Laufzeit in s>
 Exit 1, wenn eine harte Grenze verletzt ist.

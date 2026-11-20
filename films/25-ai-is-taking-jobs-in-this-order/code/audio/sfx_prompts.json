@@ -1,0 +1,7 @@
+{
+ "_comment": "Film 25 Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 0.01 USD per second per sample, upload_audio_format mp3). Files go to <scratch>/sfx/<name>.mp3, NOT into the repo. After download: find the transient and set 'peak' in sound_plan.json. Library first: akzent/steps.mp3 (sfx-bibliothek) is reused for the closing steps.",
+ "dom_cascade": {"duration": 8, "num_samples": 2, "prompt": "A long row of wooden dominoes falling one after another in a quiet room, dry rhythmic clacking that speeds up, then the last tiles settling. Close, clean, no music, no voices."},
+ "dom_tip": {"duration": 1.5, "num_samples": 4, "prompt": "A single wooden domino tile tips over and clacks against the next tile, one short dry wooden click, quiet room, no music."},
+ "dom_stand": {"duration": 8, "num_samples": 2, "prompt": "The last wooden dominoes of a long fallen row clatter and settle, then silence, one single tile left standing, a soft wooden tick and a quiet room tone. No music, no voices."},
+ "room_tone": {"duration": 15, "num_samples": 1, "prompt": "Very quiet room tone of a small studio at night, faint electrical hum, soft air, almost silent, loopable, no music, no voices."}
+}

@@ -1,0 +1,69 @@
+# Faktencheck Film 04: "You Don't Have to Work Anymore" (VO v2)
+
+Geprüft: `film-04-vo-v2.txt`, Stand 19.10.2026.
+Methode: Websuche. **Hinweis:** Direktes Abrufen der Seiten (WebFetch/curl) war in dieser Sitzung blockiert (Proxy lehnte nber.org, apa.org, povertyactionlab.org, foxbusiness.com, etcjournal.com ab). Die Befunde stützen sich daher auf Suchergebnisse mit Auszügen aus Abstracts, Presseberichten und Zusammenfassungen, nicht auf eigene Volltextlektüre. Wo das wichtig ist, steht es unten dabei.
+
+---
+
+## 1. MUSS GEÄNDERT WERDEN
+
+| # | Zeile(n) aktuell | Problem | Ersatz (Sprechertext) |
+|---|---|---|---|
+| 1 | 23–24: "And like everyone who says this, he adds a condition. / If it goes well." | Musk hat nicht "if it goes well" gesagt. Seine berichtete Bedingung lautet: "assuming there's a continued improvement in AI and robotics, which seems likely". Er meint also technischen Fortschritt, nicht dass es "gut läuft" oder fair verteilt wird. Das "if" über die Verteilung (Z. 26–27) kommt vom Film, nicht von Musk. | "And he adds a condition. / If AI and robots keep getting better. / He thinks they will. / But that's not the hard part." (Z. 25–27 können bleiben: "AI could do the work. The hard part is whether what it earns reaches you. That's the biggest 'if' in this film.") |
+| 2 | 179: "A palliative nurse, Bronnie Ware, sat with people in their final weeks." | Ware beschreibt sich selbst als *palliative carer* und stieg nach eigener Aussage ohne formale Ausbildung in die Pflege ein. Sie war keine ausgebildete Krankenschwester. Der Guardian (2012) nennt sie zwar "nurse", sachlich korrekt ist aber "carer". Die Korrektur kostet nichts. | "Bronnie Ware spent years caring for people in their final weeks." |
+
+Sonst gibt es keine harten Fehler. Alle zitierten Studien existieren und zeigen in die beschriebene Richtung.
+
+---
+
+## 2. Überspitzt, aber vertretbar
+
+| Zeile(n) | Was zugespitzt ist | Was die Quelle genau sagt | Optional entschärfen |
+|---|---|---|---|
+| 22: "He gives it ten, maybe twenty years." | ok, wenn auch vage. | Musk: "I don't know what long term is, maybe it's 10, 20 years or something like that." | – |
+| 23: "like everyone who says this" | Pauschal. | – | streichen (siehe Muss-Änderung 1) |
+| 79–81: "Big lottery winners. Researchers in Sweden followed them for years. Most of them kept working." | Die Richtung stimmt. Die Arbeitsstudie (AER 2017) erfasst aber Gewinne *aller* Größen, nicht nur große. Der Effekt ist klein: rund 1,1 % weniger Bruttoverdienst pro 1 Mio. SEK Gewinn, langfristige Grenzneigung −0,11. Er setzt sich zusammen aus etwas weniger Stunden und einer etwas geringeren Beschäftigungswahrscheinlichkeit. Eine genaue Quote "wie viele hörten auf" habe ich nicht gefunden. Bei so kleinen Effekten ist "most kept working" aber klar gedeckt. "Followed them for years": Die Registerdaten laufen über viele Jahre nach dem Gewinn, das passt. | Cesarini, Lindqvist, **Notowidigdo**, Östling (2017), AER 107(12). **Achtung Quellenangabe im Brief:** Wallace ist *nicht* Mitautor dieses Papers (Wallace ist bei der Gesundheitsstudie, QJE 2016, dabei). | – |
+| 82: "And years later, they were more satisfied with their lives, not less." | Stimmt für die **Lebenszufriedenheit** großer Gewinner, gemessen 5–22 Jahre nach dem Gewinn und anhaltend über mehr als zehn Jahre. Für Glück und psychische Gesundheit sind die Effekte deutlich kleiner bzw. kaum nachweisbar. Der Haupttreiber ist die *finanzielle* Zufriedenheit. Die Studie verbindet Zufriedenheit nicht mit dem Weiterarbeiten. Durch die Abfolge im Skript klingt es wie ein Kausalzusammenhang, das ist zugespitzt. Methodisch wurde zudem nur einmal befragt und nicht laufend begleitet. | Lindqvist, Östling, Cesarini (2020), REStud 87: 2703–2726. | – |
+| 85–87: "Researchers watched people without a job reach retirement age. Nothing about their days changed. But they got noticeably happier." | Der Befund stimmt: Arbeitslose berichten beim Übergang in die Rente einen "substantial increase in life satisfaction", Beschäftigte dagegen keinen. Die Autoren erklären das mit der sozialen Norm bzw. Identität. Zwei Einschränkungen: Es geht um den Übergang in den *Rentenstatus*, nicht strikt ums Erreichen eines Alters. "Nothing changed" ist die Deutung der Autoren und kein gemessenes Tagebuch. Laut Autoren-Poster ist der Effekt nur bei Männern signifikant. | Hetschko, Knabe, Schöb (2014), Economic Journal 124(575): 149–166. | "…reach retirement. On paper, their days stayed the same." |
+| 100: "Researchers asked people how much free time makes them happiest." | Ungenau. Die Forscher haben gemessen, wie viel Freizeit Menschen *haben* (ATUS, n≈35.000), und das mit dem Wohlbefinden verglichen. Dazu kamen Experimente mit vorgestellter Freizeit. Gefragt, "wie viel macht dich am glücklichsten", wurde nicht. | Sharif, Mogilner, Hershfield (2021), JPSP 121(4): 933–947. | "Researchers looked at how much free time makes people happiest." |
+| 101–103: "More helps, up to a point. After that, it can start to hurt. But only when the time is spent alone, on nothing that matters." | Im Kern richtig: umgekehrtes U, Plateau ab ca. 2 Std./Tag, Rückgang ab ca. 5 Std. Wer die viele Zeit mit anderen Menschen oder sinnvoll/produktiv verbringt, hat keinen Rückgang. "Only" ist stärker als das Paper, das von "attenuated" (abgeschwächt) spricht. | wie oben | "But mostly when that time is spent alone, on nothing that matters." |
+| 129–130: "When people in Kenya received a basic income, they didn't work less. Many started their own businesses." | Gedeckt. Laut den Kurzfristergebnissen von 2023 blieb das Arbeitsangebot insgesamt gleich, verschob sich aber von Lohnarbeit zur Selbstständigkeit. Es entstanden mehr nicht-landwirtschaftliche Kleinunternehmen. Einschränkungen: NBER-Working-Paper (kurzfristige Ergebnisse), ländliches Kenia, Transfers von ca. 0,75 USD pro Erwachsenem und Tag. Am stärksten waren die Effekte bei der Einmalzahlung (Lump-Sum-Gruppe), nicht beim monatlichen Grundeinkommen. | Banerjee, Faye, Krueger, Niehaus, Suri (2023), NBER. | – |
+| 132: "People feel fully absorbed, fully alive, more often at work than on the couch." | Gedeckt: "the great majority of flow experiences are reported when working, not when in leisure" (78 Beschäftigte, eine Woche, Experience Sampling). "Fully alive" ist Rhetorik. Flow wurde nicht direkt gemessen, sondern aus Herausforderung und Können abgeleitet. Paradox der Studie: Die Leute *wollten* trotzdem lieber Freizeit. | Csikszentmihalyi & LeFevre (1989), JPSP 56(5): 815–822. | – |
+| 176–177: "about four thousand weeks. Eighty years." | Gedeckt. 80 Jahre ≈ 4.170 Wochen. Burkeman: "just over four thousand weeks". | Burkeman, *Four Thousand Weeks* (2021). | – |
+| 181–182: Ware-Zitate | Der Wortlaut stimmt mit Guardian (1.2.2012) und Blog/Buch überein: "I wish I'd had the courage to live a life true to myself, not the life others expected of me." / "I wish I hadn't worked so hard." Formal sind es Wares Zusammenfassungen dessen, was Sterbende ihr sagten, keine Studie und kein wörtliches Patientenzitat. Mit der Rahmung in Z. 180 ("what they regretted most") ist das vertretbar. Die Sprecherzeile "Bronnie Ware:" ist ok, sollte im Bild aber nicht als ihr eigenes Bedauern erscheinen. | Ware, Blog "Regrets of the Dying" (2009), Buch 2011/12. | – |
+| 128: "And most people don't stop working." | Gestützt durch Lotterie- und Kenia-Befunde. Universell ist das nicht bewiesen. | s. o. | – |
+| 144: "help no scientist had ten years ago" | Rhetorik zu KI-Werkzeugen, nicht prüfbar, vertretbar. | – | – |
+| 161–169: "Most of them never made it up here… survival ate their days" | Historische Verallgemeinerung, als Rhetorik vertretbar. | – | – |
+
+---
+
+## 3. Vollständige Claim-Tabelle
+
+| # | Zeile | Behauptung | Urteil | Quelle |
+|---|---|---|---|---|
+| 1 | 20 | Musk: "My prediction is that work will be optional." (US-Saudi Investment Forum, Kennedy Center, 19.11.2025) | ok (wörtlich so berichtet) | https://fortune.com/2025/11/20/elon-musk-tesla-ai-work-optional-money-irrelevant/ ; https://thehill.com/policy/technology/5612958-elon-musk-ai-work-future/ ; Primärvideo: https://www.c-span.org/program/public-affairs-event/elon-musk-and-nvidia-ceo-discuss-ai-at-us-saudi-investment-forum/669369 (nicht abrufbar, nicht selbst gesichtet) |
+| 2 | 22 | "ten, maybe twenty years" | ok ("maybe it's 10, 20 years or something like that") | https://www.newsnationnow.com/business/tech/ai/elon-musk-ai-work-optional-saudi-investment-forum/ ; https://finance.yahoo.com/news/elon-musk-says-10-20-144959447.html |
+| 3 | 23–24 | Musks Bedingung: "If it goes well." | **falsch**. Seine Bedingung: "assuming there's a continued improvement in AI and robotics, which seems likely" | https://www.foxbusiness.com/technology/musk-predicts-money-stop-being-relevant-future-ai-robotics-progress ; https://fortune.com/2025/11/20/elon-musk-tesla-ai-work-optional-money-irrelevant/ |
+| 4 | 23 | "like everyone who says this" | überspitzt | – |
+| 5 | 79–80 | Schwedische Forscher verfolgten große Lotteriegewinner über Jahre | ok (Registerdaten über Jahre; Zufriedenheit 5–22 J. später einmal befragt) | https://www.aeaweb.org/content/file?id=5835 ; https://econpapers.repec.org/article/aeaaecrev/v_3a107_3ay_3a2017_3ai_3a12_3ap_3a3917-46.htm |
+| 6 | 81 | "Most of them kept working." | ok (nur kleiner Rückgang bei Verdienst/Beschäftigung; genaue Ausstiegsquote nicht gefunden) | https://www.nber.org/system/files/working_papers/w21762/w21762.pdf ; https://cepr.org/voxeu/columns/using-labour-supply-responses-lottery-winners-evaluate-tax-and-transfer-policies |
+| 7 | 82 | Jahre später zufriedener mit dem Leben | ok (Lebenszufriedenheit), überspitzt in der Verknüpfung mit Weiterarbeiten | https://www.nber.org/papers/w24667 ; https://www.ifn.se/media/tgufbbv5/2020-lindqvist-östling-cesarini-long-run-effects-of-lottery-wealth-on-psychological-well-being.pdf |
+| 8 | 85–89 | Arbeitslose werden beim Renteneintritt deutlich zufriedener, ohne dass sich ihr Alltag ändert; Grund: Status/Label | ok/überspitzt (Effekt "substantial"; nur Männer signifikant; "Tage unverändert" ist Deutung der Autoren) | https://www.diw.de/de/diw_01.c.455847.de/publikationen/soeppapers/2011_0399/changing_identity__retiring_from_unemployment.html ; https://www.cesifo.org/DocDL/cesifo1_wp3540.pdf ; https://iab.de/publication/?id=7978988 |
+| 9 | 100 | Forscher fragten, wie viel Freizeit am glücklichsten macht | überspitzt (beobachtet + Experimente, nicht so gefragt) | https://www.apa.org/pubs/journals/releases/psp-pspp0000391.pdf |
+| 10 | 101–102 | Mehr Freizeit hilft bis zu einem Punkt, danach kann es schaden | ok (Plateau ~2 h, Rückgang >5 h) | https://www.sciencedaily.com/releases/2021/09/210909124451.htm ; https://www.sciencealert.com/having-more-free-time-boosts-wellbeing-but-only-to-a-point-study-finds |
+| 11 | 103 | "only when spent alone, on nothing that matters" | überspitzt ("only" zu stark; Paper: abgeschwächt bei sozialer/produktiver Nutzung) | https://anderson-review.ucla.edu/too-much-free-time-blame-solitude-or-lack-of-productive-activity |
+| 12 | 129 | Kenia-Grundeinkommen: nicht weniger gearbeitet | ok (Arbeitsangebot insgesamt unverändert, Verschiebung zur Selbstständigkeit) | https://conference.nber.org/conf_papers/f192616.pdf ; https://www.povertyactionlab.org/initiative-project/effects-universal-basic-income-kenya |
+| 13 | 130 | Viele gründeten eigene Unternehmen | ok (mehr nicht-landwirtschaftliche Betriebe; am stärksten bei Einmalzahlung) | https://voxdev.org/topic/social-protection/universal-basic-income-kenya ; https://conference.nber.org/conf_papers/f192616.pdf |
+| 14 | 132 | Flow häufiger bei der Arbeit als in der Freizeit | ok ("great majority of flow experiences… when working") | https://onwork.edu.au/bibitem/1989-Csikszentmihalyi,M-LeFevre,J-Optimal+experience+in+work+and+leisure/ |
+| 15 | 176–177 | Leben ≈ 4.000 Wochen ≈ 80 Jahre | ok (exakt ~4.170) | https://makeheadway.com/blog/four-thousand-weeks/ |
+| 16 | 179 | Bronnie Ware war "palliative nurse" | **falsch/ungenau**: palliative carer ohne formale Ausbildung (Guardian sagt allerdings "nurse") | https://inventaire.io/entity/wd:Q15447505 ; https://www.hayhouse.co.in/books/the-top-five-regrets-of-the-dying-a-life-transformed-by-the-dearly-departing/ |
+| 17 | 179 | Begleitete Menschen in ihren letzten Wochen | ok ("last 12 weeks of their lives") | https://www.cognitionandculture.net/wp-content/uploads/Top-five-regrets-of-the-dying-_-Death-and-dying-_-The-Guardian.pdf |
+| 18 | 181 | "I wish I'd had the courage to live a life true to myself, not the life others expected of me." | ok (wortgleich, Nr. 1 der Liste) | https://www.cognitionandculture.net/wp-content/uploads/Top-five-regrets-of-the-dying-_-Death-and-dying-_-The-Guardian.pdf ; https://en.wikipedia.org/wiki/The_Top_Five_Regrets_of_the_Dying |
+| 19 | 182 | "I wish I hadn't worked so hard." | ok (wortgleich, Nr. 2 der Liste) | wie oben ; https://www.huffpost.com/entry/top-5-regrets-of-the-dyin_b_1220965 |
+| 20 | 128 | Die meisten hören nicht auf zu arbeiten | überspitzt, aber durch 6 und 12 gestützt | s. o. |
+| 21 | 144, 162–170, 196–202 | KI-Hilfe, historische Mehrheit ohne Muße, offene Verteilungsfrage | Rhetorik/Meinung, nicht prüfbar, vertretbar | – |
+
+### Hinweise zu Quellenangaben im Brief
+- AER 2017 (Lotterie/Arbeit): Die Autoren sind **Cesarini, Lindqvist, Notowidigdo, Östling**, nicht Wallace. Bitte in Beschreibung/Quellenliste korrigieren.
+- Kenia: offizieller Titel "Universal Basic Income: Short-Term Results from a Long-Term Experiment in Kenya" (NBER-Working-Paper, 2023, noch nicht begutachtet).
+- Nicht selbst abrufbar waren: C-SPAN-Video (Musk-Wortlaut), APA-Volltext Sharif et al., NBER-Volltexte. Die Wortlaute stammen aus übereinstimmender Presse bzw. aus Abstracts.

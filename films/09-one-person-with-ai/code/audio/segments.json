@@ -1,0 +1,101 @@
+[
+ {
+  "id": "00a",
+  "sec": "0",
+  "text": "A.I.-native companies are rising.\nThey have almost no employees.\nThey never forget anything.\nAnd they keep working while everyone sleeps.\nSome say soon one of them will be worth a billion dollars, run by a single person.\nHow is that even possible?\nTo understand it, we have to take one apart.\n[pause]\nOrgan by organ.\nIts memory.\nIts hands.\nIts will.\nAnd then the one question that decides who gets to have one."
+ },
+ {
+  "id": "01a",
+  "sec": "1",
+  "text": "First, the memory.\nIn an ordinary company, knowledge lives in people's heads.\nWhen someone leaves, a piece of the company leaves with them.\nAn A.I.-native company keeps everything.\nEvery meeting, every message, every decision, every mistake, in one place.\nSilicon Valley calls it the company brain.\nTom Blomfield, then a partner at Y Combinator, which funds young startups, told founders to transcribe literally every meeting.\nThen, he says, your entire company becomes queryable.\nHe has since moved to Anthropic, a lab that builds artificial intelligence.\n[pause]\nBut a memory alone does nothing.\nWho acts on it?"
+ },
+ {
+  "id": "02a",
+  "sec": "2",
+  "text": "The hands.\nThey're agents: artificial intelligence that doesn't just answer, but acts.\nThey read the memory, do the work, and write what they learned back into it.\nAnd they don't stop at night.\nAt Y Combinator, one agent answers the team's data questions all day.\nAt night, a second one goes looking for everything that failed."
+ },
+ {
+  "id": "C1",
+  "sec": "2",
+  "clip": true,
+  "file": "produktion/clips/blomfield-nachtagent.mp4",
+  "dur": 14.0,
+  "name": "Tom Blomfield",
+  "role": "then partner at Y Combinator",
+  "label": "ORIGINAL FOOTAGE",
+  "words": "[CLIP: Blomfield, approx. 8:45\u20138:57, \"that second AI agent overnight goes and puts in pull requests to fix all of the problems from the day before. And so, if you go back as a human on the second day and run the same query as yesterday, it now works.\"]"
+ },
+ {
+  "id": "02b",
+  "sec": "2",
+  "text": "Nobody told it what to fix.\nIt found the problems itself.\nEvery night, the tool proposes its own repairs.\nEvery morning, it works a little better than the day before.\nSomething that learns in its sleep.\nThis is the part I can't stop thinking about.\nJack Dorsey, who runs the payments company Block, and Roelof Botha, who sits on Block's board, wrote it like this, a few weeks after Block cut about four thousand jobs."
+ },
+ {
+  "id": "Q1",
+  "sec": "2",
+  "card": true,
+  "text": "[QUOTE CARD: Jack Dorsey & Roelof Botha, March 2026, \"the intelligence lives in the system\"]"
+ },
+ {
+  "id": "02c",
+  "sec": "2",
+  "text": "The intelligence lives in the system.\nNot in a chain of managers, passing messages up and down.\nBut if the intelligence lives in the system, and the hands never sleep, what are people still for?"
+ },
+ {
+  "id": "03a",
+  "sec": "3",
+  "text": "For the one thing the system can't give itself.\nA will.\nThe memory knows what happened.\nThe hands can act.\nBut neither knows what's worth doing.\nSomebody has to decide what should exist.\nWhich problem matters.\nWhen something is good, and when it's wrong.\nSomebody has to want something, and care how it turns out.\nThat's the third organ, and it's human.\nThink of a conductor in front of an orchestra.\nThe conductor plays no instrument.\nYet without one, there's no music.\nOnly noise.\nIn an A.I.-native company, that's where the people stand.\nNot inside the machine.\nIn front of it.\nWhich raises the obvious question.\nHow many conductors does one orchestra need?"
+ },
+ {
+  "id": "04a",
+  "sec": "4",
+  "text": "Maybe only one.\nPut the three organs together.\nA memory that forgets nothing.\nHands that never sleep.\nAnd one will in front.\n[pause]\nIn principle, that's a whole company.\nNo departments.\nNo layers.\nA memory, hands, and someone who wants something.\nBig companies are already leaning this way.\nAt Shopify, a team that wants another person first has to show why artificial intelligence can't do the job.\nBut the purest form is tiny.\nIn Austin, a man who had been laid off started a company with two partners and about three hundred dollars.\nThis spring, the company said it ran on the three of them and twelve agents.\nAnd Dario Amodei, who runs the lab Anthropic, was asked when the first billion-dollar company with one person would appear."
+ },
+ {
+  "id": "Q2",
+  "sec": "4",
+  "card": true,
+  "text": "[QUOTE CARD: Dario Amodei, May 2025, on the first one-person billion-dollar company: \"2026\"]"
+ },
+ {
+  "id": "04b",
+  "sec": "4",
+  "text": "Twenty twenty-six.\nIt's a prediction, and as far as anyone can show, nobody has done it yet.\nBut now you can see how it could be possible.\nSo does it actually work?"
+ },
+ {
+  "id": "05a",
+  "sec": "5",
+  "text": "Not by itself.\nIn the first half of this year, about five hundred and sixty thousand new apps landed in Apple's App Store.\nAbout twice as many as in the same months the year before.\nDownloads?\nUp by two percent.\nBuilding got cheap.\nGetting noticed didn't.\nAnd in Kenya, researchers gave six hundred and forty small business owners an artificial intelligence advisor on WhatsApp.\nOn average, nothing changed.\nThose already doing well did about fifteen percent better.\nThose who were struggling did almost ten percent worse.\nSimilar advice.\nDifferent choices.\nThe hands amplify whatever will stands in front of them.\n[pause]"
+ },
+ {
+  "id": "06a",
+  "sec": "6",
+  "text": "So here's the real question.\nIf anyone can lead a company like this, will many people become conductors?\nOr will a few become billionaires, while everyone else watches from outside?\nIf you could decide, which world would you build?\n[pause]\nI don't know which one we'll get.\nNobody does.\nBut the technology doesn't choose.\nWe do."
+ },
+ {
+  "id": "07a",
+  "sec": "7",
+  "text": "So how do many people learn to conduct?\nNot alone.\nRemember Kenya?\nAn older study there, from before these tools, tried something simpler.\nWomen running small businesses got a mentor: an experienced local businesswoman.\nTheir profits rose by about twenty percent.\nThe effect faded later.\nBut it points somewhere.\nMaybe what a struggling conductor needs isn't a smarter machine.\nIt's a person who has walked the road.\nAny company, any town, any guild of craftspeople could organize that.\nNow imagine that at scale.\nCompanies that spend the savings on time to learn, not only on cuts.\nFirst one agent.\nThen five.\nThen a whole orchestra.\nIt's Shopify's rule, turned around.\nNot what can artificial intelligence do instead of people.\nBut what can people do with it.\nDoes that work at scale?\nNobody has proven it yet.\nBoards decide where the savings go.\nBut even a trained conductor needs instruments.\nWho gets them?"
+ },
+ {
+  "id": "08a",
+  "sec": "8",
+  "text": "The World Bank has one answer.\nIn its new World Development Report, it argues for small, cheap tools that work over a text message or a simple phone.\nPicture a whole orchestra that fits into a basic handset.\nIn a market town.\nOn a farm.\nIn a workshop with one person in it.\nIndia went further.\nIts public program offers computing power to startups and small firms for less than a dollar per chip, per hour.\nDoes that create new conductors?\nNobody has measured it yet.\nBut any country, any city, any school could try the same.\nThe World Bank adds one warning, though.\nDon't let everyone depend on a single provider.\nAnd remember Kenya: cheap tools alone didn't lift the ones who were struggling.\nThat's why the mentor comes first, and the tools second.\nBecause the hands are only half of it.\nThe memory matters just as much.\nWhose is it?"
+ },
+ {
+  "id": "09a",
+  "sec": "9",
+  "text": "Today, a company brain belongs to whoever owns the company.\nDoes it have to?\nImagine the bakeries of one city sharing a memory they own together.\nEvery small bakery, remembering as much as a supermarket chain.\nWe couldn't find anyone who has built a shared company brain like that yet.\nBut the pieces exist.\nThere's a fully open model called Apertus.\nAnyone can see how it's built, and use it.\nAnd there's a cooperative called Read Co-op, owned by its members, that runs its own artificial intelligence for reading old handwriting.\nSo a brain doesn't have to belong to one owner.\nIt can belong to everyone who feeds it.\nAnd then the people who feed it also decide what goes in, and what stays out.\nWho makes that happen?\nLawmakers, who write the rules.\nGovernments, who fund the tools.\nAnd you, every time you choose which company to build, join, or buy from."
+ },
+ {
+  "id": "10a",
+  "sec": "10",
+  "text": "So now we can put it back together.\n[pause]\nAn A.I.-native company is a living thing with three organs.\nA memory that forgets nothing.\nHands that work through the night.\nAnd a will in front, deciding what's worth making.\nIn its purest form, that will is one person.\nFor two thousand years, Roelof Botha says, humans have organized themselves in roughly the same way.\nThat's what is changing now.\nMaybe someone will build a billion-dollar company alone.\nBut that's not the question that matters.\nThe question is whether a few people get these organs, or millions do.\nHonestly?\nI'd rather see a million small orchestras than one giant one.\n[pause]\nSo if the memory and the hands were yours tomorrow, what would you conduct?\nTell me in the comments."
+ },
+ {
+  "id": "END",
+  "sec": "10",
+  "endcards": true,
+  "dur": 20
+ }
+]

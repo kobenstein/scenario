@@ -1,0 +1,66 @@
+[
+ {
+  "id": "01",
+  "text": "Something is happening right now that will shape the rest of your life.\nAnd almost nobody around you is talking about it.\n[pause]\nThe people building it are.\nLast month, the head of one of the biggest AI labs wrote: \"We must slow the pace at which we improve the capabilities of AI models.\"\nHe's asking to slow down. Not because it isn't working. Because it is.\nIn mathematics, problems that sat untouched for decades are falling.\nIn biology, AI is finding things no human has ever seen.\nIn public health, a report that took all day now takes under an hour.\n[pause]\nAnd the month isn't even over yet."
+ },
+ {
+  "id": "02",
+  "text": "Most of us picture AI progress as a few big moments, with long quiet stretches in between.\nSo let's draw it. One line, and every first gets a card.\nNineteen fifty-six. A handful of scientists meet at Dartmouth for a summer, and give the field its name: artificial intelligence.\nThen, for decades, almost nothing you could see.\nForty-one years later, in nineteen ninety-seven, a computer beats the world chess champion.\nFifteen years after that, a neural network learns to recognise what's in a photo, far better than anything before it.\nFour years: AlphaGo beats one of the best Go players alive.\nFour years: AlphaFold cracks how proteins fold, a fifty-year-old puzzle in biology.\nTwo years: ChatGPT.\nFour months: GPT-4 scores high enough to pass the bar exam.\n[pause]\nDecades. Then years. Then months.\nWatch one field. In July twenty twenty-five, AI reaches gold-medal level at the International Mathematical Olympiad, the hardest contest for students on Earth.\nTen months later, it disproves a conjecture that had stood for eighty years. Nine outside mathematicians check the proof. It holds.\nThe Fields Medal winner Tim Gowers: \"No previous AI-generated proof has come close to that.\"\n[pause]\nThe gaps between the cards are shrinking. And the people closest to it say so in plain words: \"The rate at which AI models improve is accelerating.\"\nOver the last three months, the gaps shrank to days."
+ },
+ {
+  "id": "03",
+  "text": "August first. OpenAI publishes ten results in mathematics.\nTen problems where nobody had made progress in at least a decade. One bound in sphere packing hadn't moved since nineteen seventy-eight.\nAn unreleased model found the arguments, then checked every step in a proof language a computer can verify.\nThe computing bill, by OpenAI's estimate: about two thousand dollars.\nNone of it is peer-reviewed yet. And a month later, an even bigger claim, about the Navier-Stokes equations, ran into a wall of mathematicians saying: not so fast.\nKeep that in mind. Checking is going to matter."
+ },
+ {
+  "id": "04",
+  "text": "Twenty-five days.\nAugust twenty-sixth. Nvidia reports eighty-nine billion dollars in data-center sales. In three months. More than double a year before.\nIts finance chief expects the five biggest cloud companies to spend about one point three trillion dollars next year, much of it on this.\nOn the same call, its CEO, Jensen Huang: \"AI has reached its inflection point.\"\nThat's the fuel. Every card on this line runs on it."
+ },
+ {
+  "id": "05",
+  "text": "Seventeen days.\nSeptember twelfth. The head of Anthropic, Dario Amodei, publishes an essay. He doesn't ask to stop. He asks to slow the pace a little.\nThat's the essay from the beginning."
+ },
+ {
+  "id": "06",
+  "text": "Ten days.\nSeptember twenty-second. An engineer leaves a new AI model working overnight, across six codebases. In the morning, it's still going. More than eighteen hours, on one task.\nThat model costs forty percent less than the one before it. Which came out in July."
+ },
+ {
+  "id": "07",
+  "text": "One day.\nSeptember twenty-third. Nine hundred and fifty AI agents search the DNA of living things, for twenty-one hours.\nOne of them stops at a strange pattern, and writes a note: \"I can see by eye a tandem repeat array... a CRISPR-like repeat array?!\"\nIt's a system no one had described before. Scientists check it in the lab. It's real.\nThat's the discovery from the beginning.\nFeng Zhang, one of the pioneers of CRISPR gene editing: \"This is an exciting example of how AI agents can contribute to biological discovery.\""
+ },
+ {
+  "id": "08",
+  "text": "And then the cards start landing on top of each other.\nSeptember twenty-sixth. America and China agree to open a channel for AI incidents.\nTwenty-ninth. The US government starts officially calling the technology \"Super Intelligence\".\nThirtieth. Google ships its most capable model.\nOctober twelfth. Meta does the same.\nFour of the biggest labs, flagship models, inside four weeks."
+ },
+ {
+  "id": "09",
+  "text": "So why are the cards coming faster?\nBecause each one makes the next one cheaper.\nThe best model of a few months ago gets cheaper by half, or more, every few months.\nCheap enough, and you don't run one agent. You run nine hundred and fifty.\nMore attempts mean more finds. More finds bring more money. More money buys more chips.\nIt's a loop. And loops are what bend a curve.\n[pause]\nBut here's what keeps this honest.\nGoogle checked whether its AI is speeding up its own research. AI already writes most of Google's new code. Yet it found no significant speed-up in the research itself. Not yet.\nThe loop is turning. It isn't closed.\nAnd not everyone thinks the world will feel it quickly. Two Princeton researchers argue the big effects on society will be slow, \"on the timescale of decades.\"\nAn economist who studies this answers: \"Steam, electricity, and computers each gave societies decades to adapt. AI may give us only a few years.\"\nBoth could be right, about different things. The capability is moving in weeks. How fast it changes our lives is still partly up to us."
+ },
+ {
+  "id": "10",
+  "text": "So here's the question this curve puts to us.\nIn September, Sam Altman told the UN Security Council the choice is between \"a new Renaissance of creativity and discovery\" and \"a new Industrial Revolution of upheaval and disarray.\"\nWhen firsts arrive every few days, we can do what we've always done. Wait for each one to prove itself, then react.\nOr we can build the checking, the referees and the phone lines now, while it's calm, and decide where to point the pace.\n[pause]\nPause here. Which would you choose?"
+ },
+ {
+  "id": "11",
+  "text": "Let's imagine it's twenty twenty-nine. Just a scenario.\nAn epidemiologist in Kinshasa named Amani opens her laptop on the first morning of a new outbreak.\nIn one version, we waited.\nThe tools got faster every month. Nobody built the checks.\nHer inbox fills with AI reports. Some brilliant, some wrong, and she can't tell which.\nSo she trusts none of them, and does it all by hand.\n[pause]\nSame morning. Same outbreak. The other version.\nEvery model that reaches her was tested by people outside the company that built it.\nThe virus genome is assembled before lunch. The case map updates by the hour.\nShe isn't working less. She's working on today, not last week.\n[pause]\nSame curve in both. Same speed. The difference is what we built around it."
+ },
+ {
+  "id": "12a",
+  "text": "First, referees inside the building.\nOn October fifteenth, Anthropic gave six evaluators from METR, an independent research group, access to its hardware, offices and internal tools, close to what its own safety teams get.\nIn the company's words: \"Anthropic can't veto publication.\"\nIt's the first concrete step from Amodei's essay. Outside eyes before a model ships, not after.\nIt's voluntary. It's one company. Six people can't see everything.\nBut the company also wrote: \"we believe every frontier AI company should do the same.\" A standard like that can become law."
+ },
+ {
+  "id": "12b",
+  "text": "Second, a phone line.\nIn nineteen sixty-three, after the Cuban Missile Crisis, Washington and Moscow set up a direct line, so a misunderstanding wouldn't turn into a war.\nOn September twenty-sixth, the United States and China agreed to a channel for AI incidents.\nCoverage called the summit short on breakthroughs. The real talks start in November. A channel isn't a treaty.\nBut when things move in days, the cheapest safety tool of all is knowing who to call."
+ },
+ {
+  "id": "12c",
+  "text": "Third, check everything.\nRemember the math? Those ten results came with proofs a computer can verify, line by line.\nAnd the Navier-Stokes claim? Mathematicians took it apart in public, within weeks.\nThat isn't the system failing. That's the system working.\nIn July, more than eleven hundred people at OpenAI, Anthropic, Google and Meta signed a letter asking the government for tools to slow things down, if it ever becomes necessary.\nThe builders are asking for brakes they hope they'll never need.\nChecking costs time and money. It's the one thing the curve won't hand us for free."
+ },
+ {
+  "id": "12d",
+  "text": "Fourth, point the curve at the right problems.\nThis September, health workers fighting Ebola in Congo used AI to build their daily situation report. A report that used to take all day to put together can now take under an hour.\nThe virologist Jean-Jacques Muyembe: \"You beat Ebola by knowing where it is today, not where it was last week.\"\nThat didn't happen by itself. Someone chose the problem.\nCheap intelligence flows toward whatever pays. Unless public health, schools and science get in line first, with the money to match."
+ },
+ {
+  "id": "13",
+  "text": "Back to our line of cards.\nThe gaps between the cards keep getting shorter. That part, we don't control.\nThe gap we do control is the one between a new card and our response.\nSo next time an AI headline stops you, ask two things. Who checked it? And when was the last one like it?\nAnd if you want to do more, ask the people who represent you to make outside testing a rule, not a favour.\n[pause]\nSomewhere on this line, maybe a few months from now, is a card you've been waiting for. A cure. An answer.\n[softly] Let's make sure we're ready to trust it.\n[pause]\nWhat's the last AI headline that made you stop? Tell me in the comments."
+ }
+]

@@ -1,0 +1,6 @@
+[{"f": "moor_wind", "at": "s10", "end": "s10", "dt": 0, "v": 0.9, "fade": 2.0},
+ {"f": "dawn_birds", "at": "s11", "end": "s11", "dt": 0, "v": 0.9, "fade": 2.0, "off": 3},
+ {"f": "underwater", "at": "s12", "end": "s13", "dt": 0, "v": 0.9, "fade": 2.0},
+ {"f": "ocean_night", "at": "s18", "end": "s18", "dt": 0, "v": 0.8, "fade": 2.0},
+ {"f": "dawn", "at": "s22", "end": "s22", "dt": 0, "v": 0.9, "fade": 2.0},
+ {"f": "kitchen", "at": "s24", "end": "s25", "dt": 0, "v": 0.9, "fade": 1.5}]

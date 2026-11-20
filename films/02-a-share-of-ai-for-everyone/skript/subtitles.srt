@@ -1,0 +1,952 @@
+1
+00:00:01,400 --> 00:00:03,050
+Your phone buzzes.
+
+2
+00:00:03,680 --> 00:00:04,680
+Not a bill.
+
+3
+00:00:04,720 --> 00:00:06,090
+Not a paycheck.
+
+4
+00:00:06,580 --> 00:00:07,580
+A share.
+
+5
+00:00:07,780 --> 00:00:10,937
+Your share of the largest fortune ever made.
+
+6
+00:00:11,780 --> 00:00:13,420
+Sounds like a fantasy.
+
+7
+00:00:13,460 --> 00:00:14,700
+But a few days ago,
+
+8
+00:00:14,740 --> 00:00:16,060
+one of the companies building
+
+9
+00:00:16,100 --> 00:00:18,100
+superintelligence promised a piece
+
+10
+00:00:18,140 --> 00:00:20,350
+of itself to the public good.
+
+11
+00:00:20,420 --> 00:00:23,300
+Then Elon Musk made a promise of his own:
+
+12
+00:00:23,340 --> 00:00:26,910
+a SpaceX share for every child in America.
+
+13
+00:00:27,220 --> 00:00:29,590
+So whose fortune will it be?
+
+14
+00:00:29,860 --> 00:00:31,020
+Let me show you how it could
+
+15
+00:00:31,060 --> 00:00:33,100
+reach every person on Earth.
+
+16
+00:00:33,140 --> 00:00:33,980
+With a plan you could
+
+17
+00:00:34,020 --> 00:00:36,190
+explain to a friend tonight.
+
+18
+00:00:37,740 --> 00:00:39,780
+The company is Anthropic.
+
+19
+00:00:39,820 --> 00:00:42,340
+It's pledging a slice of itself now.
+
+20
+00:00:42,380 --> 00:00:45,300
+That slice can climb as its value climbs,
+
+21
+00:00:45,340 --> 00:00:47,140
+if its board agrees.
+
+22
+00:00:47,180 --> 00:00:48,580
+And Musk added:
+
+23
+00:00:48,620 --> 00:00:50,900
+"This will be the first of many."
+
+24
+00:00:50,940 --> 00:00:53,670
+Both are promises, not contracts.
+
+25
+00:00:53,900 --> 00:00:55,900
+For now, the pledged shares sit
+
+26
+00:00:55,940 --> 00:00:58,660
+in a fund Anthropic wholly owns.
+
+27
+00:00:58,700 --> 00:01:00,300
+And the pledge comes just before
+
+28
+00:01:00,340 --> 00:01:02,630
+the company plans to go public.
+
+29
+00:01:02,700 --> 00:01:04,180
+But whatever the motives,
+
+30
+00:01:04,220 --> 00:01:05,460
+imagine every company
+
+31
+00:01:05,500 --> 00:01:07,380
+building this did the same.
+
+32
+00:01:07,420 --> 00:01:08,740
+And imagine your share
+
+33
+00:01:08,780 --> 00:01:10,870
+grew every time they grew.
+
+34
+00:01:12,420 --> 00:01:14,540
+Why would any of it be yours?
+
+35
+00:01:14,580 --> 00:01:15,820
+They built it.
+
+36
+00:01:15,860 --> 00:01:17,950
+But look at what they built it from.
+
+37
+00:01:18,260 --> 00:01:21,020
+So much of what people ever wrote down.
+
+38
+00:01:21,060 --> 00:01:22,460
+Books and letters.
+
+39
+00:01:22,500 --> 00:01:24,140
+Songs and research.
+
+40
+00:01:24,180 --> 00:01:25,020
+Code.
+
+41
+00:01:25,060 --> 00:01:27,740
+A grandmother's recipe, shared online.
+
+42
+00:01:27,780 --> 00:01:30,620
+A forum answer, written for a stranger.
+
+43
+00:01:30,660 --> 00:01:32,860
+That's what AI is learning from.
+
+44
+00:01:32,900 --> 00:01:33,980
+All of us.
+
+45
+00:01:34,020 --> 00:01:36,860
+So a share of what it makes isn't charity.
+
+46
+00:01:36,900 --> 00:01:38,540
+It's an inheritance.
+
+47
+00:01:38,580 --> 00:01:40,620
+Thomas Paine put it this way:
+
+48
+00:01:40,660 --> 00:01:42,910
+"not charity but a right."
+
+49
+00:01:43,700 --> 00:01:44,900
+And the largest fortune
+
+50
+00:01:44,940 --> 00:01:47,260
+in history hasn't been made yet.
+
+51
+00:01:47,300 --> 00:01:48,937
+So it belongs to no one.
+
+52
+00:01:49,900 --> 00:01:50,900
+Yet.
+
+53
+00:01:51,060 --> 00:01:52,300
+Which means we don't have
+
+54
+00:01:52,340 --> 00:01:54,780
+to take what anyone already has.
+
+55
+00:01:54,820 --> 00:01:56,860
+We just have to agree, now,
+
+56
+00:01:56,900 --> 00:01:58,670
+how to share what's coming.
+
+57
+00:02:00,820 --> 00:02:02,700
+But how do you share a fortune
+
+58
+00:02:02,740 --> 00:02:04,403
+that doesn't exist yet?
+
+59
+00:02:05,300 --> 00:02:06,860
+There are three ways.
+
+60
+00:02:06,900 --> 00:02:08,910
+The first is to own.
+
+61
+00:02:08,980 --> 00:02:11,100
+Bernie Sanders has a bill.
+
+62
+00:02:11,140 --> 00:02:13,260
+A tax, paid in new shares,
+
+63
+00:02:13,300 --> 00:02:14,620
+would hand a public fund
+
+64
+00:02:14,660 --> 00:02:17,070
+half of the big AI companies.
+
+65
+00:02:17,140 --> 00:02:19,020
+Every year, that fund would pay
+
+66
+00:02:19,060 --> 00:02:21,420
+every American the same dividend.
+
+67
+00:02:21,460 --> 00:02:23,020
+In polls, roughly two
+
+68
+00:02:23,060 --> 00:02:25,260
+in three Americans support it.
+
+69
+00:02:25,300 --> 00:02:27,500
+It reaches into the future, too:
+
+70
+00:02:27,540 --> 00:02:30,820
+shares created later would be taxed as well.
+
+71
+00:02:30,860 --> 00:02:33,180
+Critics expect years in court,
+
+72
+00:02:33,220 --> 00:02:35,710
+and it stops at the US border.
+
+73
+00:02:36,360 --> 00:02:37,920
+The second is to print.
+
+74
+00:02:37,960 --> 00:02:39,920
+Elon Musk wants government
+
+75
+00:02:39,960 --> 00:02:41,520
+checks for everyone.
+
+76
+00:02:41,560 --> 00:02:43,440
+He's sure AI will make so
+
+77
+00:02:43,480 --> 00:02:45,890
+much that prices won't rise.
+
+78
+00:02:45,960 --> 00:02:49,280
+Emad Mostaque, founder of Stability AI,
+
+79
+00:02:49,320 --> 00:02:51,200
+wants new digital money tied
+
+80
+00:02:51,240 --> 00:02:53,330
+to every verified human.
+
+81
+00:02:53,400 --> 00:02:54,600
+The world has done this
+
+82
+00:02:54,640 --> 00:02:56,480
+before, for countries.
+
+83
+00:02:56,520 --> 00:02:57,680
+A few years ago,
+
+84
+00:02:57,720 --> 00:02:59,760
+the IMF created reserve money
+
+85
+00:02:59,800 --> 00:03:02,000
+worth hundreds of billions of dollars,
+
+86
+00:03:02,040 --> 00:03:03,330
+in one go.
+
+87
+00:03:03,400 --> 00:03:05,650
+It went out by size and wealth.
+
+88
+00:03:05,880 --> 00:03:08,290
+The poorest countries got a sliver.
+
+89
+00:03:09,368 --> 00:03:10,560
+If prices hold,
+
+90
+00:03:10,600 --> 00:03:12,880
+printing takes nothing from anyone.
+
+91
+00:03:12,920 --> 00:03:15,520
+But nobody ends up owning anything.
+
+92
+00:03:15,560 --> 00:03:17,280
+And whoever controls the tap
+
+93
+00:03:17,320 --> 00:03:19,250
+decides who gets what.
+
+94
+00:03:19,900 --> 00:03:21,750
+The third is to agree.
+
+95
+00:03:22,060 --> 00:03:23,940
+Before the fortune exists,
+
+96
+00:03:23,980 --> 00:03:26,100
+we settle how it will be shared.
+
+97
+00:03:26,140 --> 00:03:27,940
+Like neighbors agreeing how to split
+
+98
+00:03:27,980 --> 00:03:30,900
+the harvest before the first seed goes in.
+
+99
+00:03:30,940 --> 00:03:32,580
+It's the quietest way,
+
+100
+00:03:32,620 --> 00:03:34,710
+and the one I keep coming back to.
+
+101
+00:03:36,260 --> 00:03:38,670
+But it has one obvious problem.
+
+102
+00:03:38,900 --> 00:03:40,830
+You're probably thinking it already.
+
+103
+00:03:41,140 --> 00:03:43,100
+The rich never share.
+
+104
+00:03:43,140 --> 00:03:44,780
+For what they already own,
+
+105
+00:03:44,820 --> 00:03:46,910
+that doubt is often right.
+
+106
+00:03:47,560 --> 00:03:50,050
+But this fortune belongs to no one.
+
+107
+00:03:50,440 --> 00:03:51,440
+Yet.
+
+108
+00:03:51,480 --> 00:03:54,080
+And where the rules came before the riches,
+
+109
+00:03:54,120 --> 00:03:55,840
+sharing has worked.
+
+110
+00:03:55,880 --> 00:03:57,680
+For decades, almost every
+
+111
+00:03:57,720 --> 00:03:58,880
+Alaskan has received
+
+112
+00:03:58,920 --> 00:04:01,440
+the same share of the state's oil money.
+
+113
+00:04:01,480 --> 00:04:02,760
+Every year.
+
+114
+00:04:02,800 --> 00:04:04,240
+Rich or poor.
+
+115
+00:04:04,280 --> 00:04:05,517
+Child or adult.
+
+116
+00:04:06,520 --> 00:04:08,840
+Norway made sure the state owned a share
+
+117
+00:04:08,880 --> 00:04:11,680
+of its oil before the big money came.
+
+118
+00:04:11,720 --> 00:04:14,320
+Today its fund owns a slice of Nvidia,
+
+119
+00:04:14,360 --> 00:04:16,400
+a giant of the AI boom.
+
+120
+00:04:16,440 --> 00:04:19,863
+About $11,000 worth for every Norwegian.
+
+121
+00:04:20,840 --> 00:04:22,240
+Taken as one country,
+
+122
+00:04:22,280 --> 00:04:25,280
+humanity is already almost rich.
+
+123
+00:04:25,320 --> 00:04:26,560
+Not each of us.
+
+124
+00:04:26,600 --> 00:04:28,450
+All of us, together.
+
+125
+00:04:30,000 --> 00:04:31,480
+So here's the plan.
+
+126
+00:04:31,520 --> 00:04:33,320
+Plant a share for everyone,
+
+127
+00:04:33,360 --> 00:04:35,370
+now, while it's still small.
+
+128
+00:04:35,680 --> 00:04:36,920
+Let it grow with every
+
+129
+00:04:36,960 --> 00:04:38,680
+success of the winners.
+
+130
+00:04:38,720 --> 00:04:40,520
+Then harvest the same share
+
+131
+00:04:40,560 --> 00:04:42,170
+for every human being.
+
+132
+00:04:43,200 --> 00:04:45,050
+Step one: plant.
+
+133
+00:04:45,360 --> 00:04:48,090
+Right now, these companies are still small.
+
+134
+00:04:48,320 --> 00:04:50,960
+OpenAI and Anthropic together are worth
+
+135
+00:04:51,000 --> 00:04:54,600
+about $220 for every person on Earth.
+
+136
+00:04:54,640 --> 00:04:56,080
+If the fortune comes,
+
+137
+00:04:56,120 --> 00:04:58,280
+they'll be worth many times that.
+
+138
+00:04:58,320 --> 00:05:01,290
+So the time to set slices aside is now.
+
+139
+00:05:02,240 --> 00:05:03,640
+But a share only counts
+
+140
+00:05:03,680 --> 00:05:05,400
+if it leaves the company.
+
+141
+00:05:05,440 --> 00:05:06,360
+In our plan,
+
+142
+00:05:06,400 --> 00:05:08,560
+it goes into an independent fund,
+
+143
+00:05:08,600 --> 00:05:11,640
+under a fixed rule that no board can change.
+
+144
+00:05:11,680 --> 00:05:12,520
+That's the difference
+
+145
+00:05:12,560 --> 00:05:14,730
+between a gift and a right.
+
+146
+00:05:15,380 --> 00:05:18,460
+The first seeds are already in the ground.
+
+147
+00:05:18,500 --> 00:05:20,540
+The US government turned its subsidies
+
+148
+00:05:20,580 --> 00:05:23,540
+for Intel into a stake in the company.
+
+149
+00:05:23,580 --> 00:05:24,860
+Before taking office,
+
+150
+00:05:24,900 --> 00:05:26,620
+South Korea's president floated
+
+151
+00:05:26,660 --> 00:05:28,460
+a national AI company,
+
+152
+00:05:28,500 --> 00:05:31,220
+partly owned by all its citizens.
+
+153
+00:05:31,260 --> 00:05:32,860
+American babies born these
+
+154
+00:05:32,900 --> 00:05:34,140
+years can get a thousand
+
+155
+00:05:34,180 --> 00:05:35,780
+government dollars, invested
+
+156
+00:05:35,820 --> 00:05:37,470
+in the stock market.
+
+157
+00:05:37,700 --> 00:05:39,900
+None of this reaches everyone yet.
+
+158
+00:05:39,940 --> 00:05:42,510
+It stops at borders, and parents have to
+
+159
+00:05:42,740 --> 00:05:43,500
+apply.
+
+160
+00:05:43,540 --> 00:05:46,220
+But every piece of it can be copied.
+
+161
+00:05:46,260 --> 00:05:47,980
+Picture a girl born tonight,
+
+162
+00:05:48,020 --> 00:05:49,340
+anywhere on Earth.
+
+163
+00:05:49,380 --> 00:05:51,260
+A seed with her name on it.
+
+164
+00:05:51,300 --> 00:05:52,780
+By the time she can walk,
+
+165
+00:05:52,820 --> 00:05:54,430
+it's already growing.
+
+166
+00:05:55,980 --> 00:05:57,030
+Step two:
+
+167
+00:05:57,340 --> 00:05:58,340
+grow.
+
+168
+00:05:58,460 --> 00:06:00,740
+Imagine our fund paying every person
+
+169
+00:06:00,780 --> 00:06:04,070
+a fixed slice of its value, every year.
+
+170
+00:06:04,220 --> 00:06:06,380
+Now picture the next headline:
+
+171
+00:06:06,420 --> 00:06:09,340
+"AI company doubles its value."
+
+172
+00:06:09,380 --> 00:06:10,820
+Today, most of us scroll
+
+173
+00:06:10,860 --> 00:06:13,140
+past and feel left behind.
+
+174
+00:06:13,180 --> 00:06:16,380
+With a share, their win is your raise.
+
+175
+00:06:16,420 --> 00:06:17,620
+Automatically.
+
+176
+00:06:17,660 --> 00:06:19,060
+Envy turns into something
+
+177
+00:06:19,100 --> 00:06:20,710
+closer to cheering.
+
+178
+00:06:21,360 --> 00:06:23,800
+Pieces of this already exist.
+
+179
+00:06:23,840 --> 00:06:25,920
+The OpenAI Foundation was given
+
+180
+00:06:25,960 --> 00:06:27,880
+about a quarter of OpenAI,
+
+181
+00:06:27,920 --> 00:06:29,600
+and gets more if the company's
+
+182
+00:06:29,640 --> 00:06:31,520
+value soars tenfold.
+
+183
+00:06:31,560 --> 00:06:33,240
+Oxford researchers proposed
+
+184
+00:06:33,280 --> 00:06:34,840
+a Windfall Clause:
+
+185
+00:06:34,880 --> 00:06:36,040
+the bigger the profit,
+
+186
+00:06:36,080 --> 00:06:37,983
+the bigger the share given away.
+
+187
+00:06:38,960 --> 00:06:40,680
+But who gets to cheer?
+
+188
+00:06:40,720 --> 00:06:43,210
+Only the people of one rich country?
+
+189
+00:06:44,760 --> 00:06:45,760
+Step three:
+
+190
+00:06:45,960 --> 00:06:46,960
+harvest.
+
+191
+00:06:47,360 --> 00:06:49,200
+One rule matters most:
+
+192
+00:06:49,240 --> 00:06:51,170
+the same share for everyone.
+
+193
+00:06:51,640 --> 00:06:54,480
+Switzerland already does a small version.
+
+194
+00:06:54,520 --> 00:06:57,080
+Every resident, from baby to pensioner,
+
+195
+00:06:57,120 --> 00:06:58,320
+gets the same refund
+
+196
+00:06:58,360 --> 00:07:01,360
+from an environmental tax, every year.
+
+197
+00:07:01,400 --> 00:07:03,570
+It arrives through their health insurance.
+
+198
+00:07:03,880 --> 00:07:06,160
+Anthropic's plan mentions "direct
+
+199
+00:07:06,200 --> 00:07:08,930
+distributions to specific populations."
+
+200
+00:07:09,240 --> 00:07:11,010
+But someone would have to pick them.
+
+201
+00:07:11,240 --> 00:07:13,730
+An equal share needs no one to pick.
+
+202
+00:07:13,960 --> 00:07:15,760
+No board, no government,
+
+203
+00:07:15,800 --> 00:07:18,690
+no algorithm decides who deserves it.
+
+204
+00:07:19,340 --> 00:07:21,750
+This share wouldn't stop at a border.
+
+205
+00:07:22,060 --> 00:07:24,790
+So far, most plans in the headlines do.
+
+206
+00:07:25,100 --> 00:07:27,020
+A first step is being negotiated
+
+207
+00:07:27,060 --> 00:07:28,820
+at the United Nations.
+
+208
+00:07:28,860 --> 00:07:30,500
+Countries could tax digital
+
+209
+00:07:30,540 --> 00:07:32,420
+services their people use,
+
+210
+00:07:32,460 --> 00:07:34,260
+AI included, even when
+
+211
+00:07:34,300 --> 00:07:36,310
+the company sits elsewhere.
+
+212
+00:07:36,380 --> 00:07:38,710
+The United States has left the talks.
+
+213
+00:07:39,660 --> 00:07:41,940
+The accounts already exist.
+
+214
+00:07:41,980 --> 00:07:44,180
+Four in five adults have one,
+
+215
+00:07:44,220 --> 00:07:45,620
+often on their phone.
+
+216
+00:07:45,660 --> 00:07:49,220
+But nobody pays every human on Earth yet.
+
+217
+00:07:49,260 --> 00:07:50,300
+The pledges depend
+
+218
+00:07:50,340 --> 00:07:52,420
+on boards and billionaires.
+
+219
+00:07:52,460 --> 00:07:53,980
+And there's no global fund
+
+220
+00:07:54,020 --> 00:07:55,620
+to fill those accounts.
+
+221
+00:07:55,660 --> 00:07:56,580
+That's exactly what
+
+222
+00:07:56,620 --> 00:07:58,470
+we still have to agree on.
+
+223
+00:08:00,420 --> 00:08:02,620
+So picture the day we do.
+
+224
+00:08:02,660 --> 00:08:05,390
+A care worker in Manila, at dawn.
+
+225
+00:08:05,620 --> 00:08:08,700
+A truck driver in Ohio, at dusk.
+
+226
+00:08:08,740 --> 00:08:12,220
+Two phones buzz at the same moment.
+
+227
+00:08:12,260 --> 00:08:13,660
+The same share.
+
+228
+00:08:13,700 --> 00:08:14,940
+Not charity.
+
+229
+00:08:14,980 --> 00:08:16,510
+Their inheritance.
+
+230
+00:08:18,260 --> 00:08:20,620
+That buzz isn't a fantasy.
+
+231
+00:08:20,660 --> 00:08:22,990
+It's a rule nobody has written yet.
+
+232
+00:08:24,060 --> 00:08:26,070
+It belongs to no one.
+
+233
+00:08:27,420 --> 00:08:28,420
+Yet.
+
+234
+00:08:29,060 --> 00:08:32,110
+Which means it can still belong to everyone.
+
+235
+00:08:33,208 --> 00:08:34,120
+We don't have to take
+
+236
+00:08:34,160 --> 00:08:36,250
+what anyone already has.
+
+237
+00:08:37,160 --> 00:08:40,470
+We just have to agree, now,
+
+238
+00:08:41,092 --> 00:08:42,830
+how to share what's coming.
+

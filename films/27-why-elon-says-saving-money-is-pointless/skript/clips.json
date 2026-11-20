@@ -1,0 +1,513 @@
+{
+ "film": "Why Elon Says Saving Money Is Pointless",
+ "stand": "2026-11-10",
+ "hinweise": [
+  "Format nach schreibraum/clip-schritt.md. 'clips' = je Stelle die Empfehlung (zählt für den Anteil), 'alternativen' = Ersatz.",
+  "Alle Zeitmarken aus YouTube-Untertiteln (json3), Genauigkeit etwa ±0,5 s. Beim Download 1 s Rand, Schnitt nach Gehör. Den Ton konnten wir nicht laden (Bot-Prüfung, keine Cookies): Wortlaut und Sprecher beim Download prüfen.",
+  "Sprecher in Moonshots per Storyboard-Bildern gestützt (Diamandis im Bild 1:13:45–1:14:15, Musk ab 1:14:29).",
+  "Moonshots: Short (sf1gUoREC54) und Folge (RSNuB9pj9P8) sind dieselbe Aufnahme → für „pro Quelle ≤ 20 s und ≤ 2 Clips“ zusammen gezählt: C1 14,4 s + C2 5,6 s = 20,0 s.",
+  "Abstände bei Empfehlung: C1 ~1:00 · C2 ~4:10 · C4 ~5:05 · C3 ~5:50 · C5 ~8:15 → überall ≥ 45 s eigener Film. C2 und C4 liegen beide in Station 4: C2 früh, C4 am Ende.",
+  "Jeder Clip braucht einen eigenen Einordnungssatz (Feld 'einordnung', Vorschlag englisch).",
+  "Das 2036-Zitat (Economist) ist nur Zitatkarte (C8), bis Zeitmarke und Wortlaut am Video geprüft sind."
+ ],
+ "anteil": {
+  "summe_empfehlung_s": 45.25,
+  "laufzeit_annahme_s": 615,
+  "prozent": 7.4,
+  "ziel_prozent": 8,
+  "hart_prozent": 10
+ },
+ "clips": [
+  {
+   "id": "C1",
+   "kandidat": "Empfehlung",
+   "speaker": "Elon Musk (mit Einwurf von Peter Diamandis)",
+   "role": "CEO, Tesla und SpaceX",
+   "source_title": "Elon Musk: Don't Save For Retirement - It Won't Matter | MOONSHOTS (Short aus Folge #220)",
+   "channel": "Peter H. Diamandis",
+   "url": "https://www.youtube.com/watch?v=sf1gUoREC54",
+   "date": "2026-01-11",
+   "in": "00:00:01.600",
+   "out": "00:00:16.000",
+   "dauer_s": 14.4,
+   "transcript": "[Musk:] Don't worry about like squirreling money away for uh retirement in like 10 or 20 years. It won't matter. [Diamandis:] Either either we're not going to be here or [Musk:] it's it's you you won't need to save for retirement. If if any of the things that we've said are true, saving for retirement will be irrelevant.",
+   "ampel": "gelb",
+   "slot": "Station 1 „Sein stärkstes Argument“ (~1:00), nach dem Satz, der den Podcast einführt. Belegt das Titelversprechen und liefert die Bedingung, aus der die Prüfliste wird.",
+   "einordnung": "Last winter, on a podcast with the entrepreneur Peter Diamandis, the richest man on Earth put it like this.",
+   "burned": false,
+   "untertitel": "automatisch (YouTube); Wortzeiten ±0,5 s",
+   "musik": "keine hörbar laut Untertiteln; am Ton prüfen (Shorts haben manchmal Musikbett)",
+   "kontext_vorher_30s": "(Langfassung RSNuB9pj9P8, 01:14:03–01:14:33) is if in fact this future we hit massive productivity uh and massive profitability because we're dividing by zero. The cost of labor has gone to nothing. The cost of intelligence has gone to nothing and we're still producing products and services faster and faster. So there's more profitability. Someone needs to be buying it and someone needs to be able to have the capital to buy it. Um, I mean this is an important question to get to get thought through. >> Yeah. Um, well, one like side recommendation I have is like",
+   "kontext_nachher_30s": "(Langfassung, ab 01:14:54; im Short folgt nur Diamandis' erster Satz) services will be there to support you. You'll have the home, you'll have the healthcare, you'll have the entertainment. >> The way this unfolds is fundamentally impossible to predict because of self-improvement of the AI and the accelerating timeline. >> Yeah. It's called singularity for a reason. >> Yeah. Exactly. >> I don't know what goes what what what happens after when after the event horizon. >> Exactly. You can't never see past the black hole or the event horizon. The light cone. >> I mean Ray has a singularity out way too far. I mean this is like the next",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Zeitmarken ±0,5 s, beim Download 1 s Rand; Ton vor Schnitt prüfen (Musik?)",
+    "Der Short (23 s) ist von Diamandis' Kanal selbst geschnitten: Die Einwürfe „No.“ und „Okay.“ der Langfassung fehlen. Wir übernehmen seinen Schnitt, schneiden nicht weiter.",
+    "Fair Use: Bezogen auf die Folge (2:52 h) kurz; vom 23-s-Short ist es aber der Großteil. Wer vorsichtiger sein will: Alternative C1b aus der Langfassung.",
+    "Moonshots-Paket gesamt (C1 + C2) = 20,0 s: genau an der Grenze „pro Quelle ≤ 20 s“ (Short und Folge = dieselbe Aufnahme, zählen zusammen).",
+    "Sinn: Direkt davor fragte Diamandis, ob die Gewinne besteuert und verteilt würden (siehe C2); direkt danach Diamandis: „The services will be there to support you. You'll have the home …“ (nicht Musk!).",
+    "Bauchbinde: ELON MUSK · CEO, Tesla & SpaceX · 2026 · ORIGINAL FOOTAGE (Podcast „Moonshots“)"
+   ]
+  },
+  {
+   "id": "C2",
+   "kandidat": "Empfehlung",
+   "speaker": "Peter Diamandis",
+   "role": "Gastgeber „Moonshots“, Gründer XPRIZE",
+   "source_title": "Elon Musk on AGI Timeline, US vs China, Job Markets, Clean Energy & Humanoid Robots | 220",
+   "channel": "Peter H. Diamandis",
+   "url": "https://www.youtube.com/watch?v=RSNuB9pj9P8",
+   "date": "2026-01-06",
+   "in": "01:13:54.400",
+   "out": "01:14:00.000",
+   "dauer_s": 5.6,
+   "transcript": "Is that then taxed by the government and redistributed as some level of income as a U- as a UHI",
+   "ampel": "gelb",
+   "slot": "Station 4 „Bedingung 3: Jemand zahlt dir ein Einkommen“ (~4:10), früh in der Station. Die Wendung: Der Satz vom Anfang war die Antwort auf genau diese Frage.",
+   "einordnung": "Remember that line about retirement? Here's the question he was answering. His host had just asked who would get the profits.",
+   "burned": false,
+   "untertitel": "automatisch (YouTube); Wortzeiten ±0,5 s",
+   "musik": "keine (Gespräch)",
+   "kontext_vorher_30s": "We ate a both ate a pile of [ __ ] >> Oh my god. It sounds like >> but we increase the economy by $200. [laughter] >> This is the kind of [ __ ] you get in economics. So So uh but if you if so if you say like just the output of goods and services um the will be much greater. You just need a >> so profitability of companies go through the roof >> at some point. But but no but so the question becomes is that taxed by the government? uh",
+   "kontext_nachher_30s": "or UBI? In other words, um one of the questions is if in fact this future we hit massive productivity uh and massive profitability because we're dividing by zero. The cost of labor has gone to nothing. The cost of intelligence has gone to nothing and we're still producing products and services faster and faster. So there's more profitability. Someone needs to be buying it and someone needs to be able to have the capital to buy it. Um, I mean this is an important question to get to get thought through. >> Yeah.",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Out bewusst nach „UHI“ (vor „or UBI?“), damit C1 + C2 ≤ 20 s bleiben. Mit „or UBI?“ wäre out 01:14:00.950 (6,5 s) → dann C1b statt C1 nehmen.",
+    "Sprecher Diamandis laut Storyboard (Host mit Stern-Logo-Jacke im Bild 1:13:45–1:14:15) und Gizmodo; am Ton bestätigen.",
+    "Sinn: Seine Frage geht weiter: „Someone needs to be buying it and someone needs to be able to have the capital to buy it.“ Musks Antwort darauf (ab 01:14:29): „one like side recommendation I have is like don't worry about … squirreling money away …“. Fair ergänzen: Später in der Folge nennt Musk fallende Preise und „the government could just issue people money“ (01:10, 01:25).",
+    "Bauchbinde: PETER DIAMANDIS · Host, „Moonshots“ · 2026 · ORIGINAL FOOTAGE"
+   ]
+  },
+  {
+   "id": "C3",
+   "kandidat": "Empfehlung",
+   "speaker": "Elon Musk",
+   "role": "CEO, Tesla",
+   "source_title": "Tesla Autonomy Day",
+   "channel": "Tesla",
+   "url": "https://www.youtube.com/watch?v=Ucp0TTmvqOE",
+   "date": "2019-04-22",
+   "in": "03:13:58.600",
+   "out": "03:14:05.000",
+   "dauer_s": 6.4,
+   "transcript": "But next year for sure, we will have over a million robotaxis on the road.",
+   "ampel": "gruen",
+   "slot": "Station 5 „Bedingung 4: rechtzeitig“ (~5:50), nach dem Satz über 2015/2016. Danach Sprechertext: was 2025/26 wirklich kam.",
+   "einordnung": "In April 2019, on stage at Tesla's investor event about self-driving, he gave a date.",
+   "burned": false,
+   "untertitel": "automatisch (YouTube); Wortzeiten ±0,5 s",
+   "musik": "keine unter der Rede (Publikum; Applaus möglich, am Ton prüfen)",
+   "kontext_vorher_30s": "by the middle of next year we'll have over a million Tesla cars on the road with full self-driving Hardware feature complete at a reliably level that we would consider that no one needs to pay attention meaning you could go to sleep in your from our standpoint if you fast for a year should look maybe a year maybe a year in three months",
+   "kontext_nachher_30s": "the fleet wakes up with an over-the-air update that's all it takes you say what what is the net present value of a rover taxi probably on the order of a couple hundred thousand dollars so buying a Model 3 is good deal questions",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Zeitmarken ±0,5 s; die automatischen Untertitel schreiben „Robo taxis“.",
+    "Sinn: Davor sagt Musk, bis Mitte 2020 würden über eine Million Teslas mit „feature complete“ Selbstfahr-Hardware unterwegs sein, und „if you fast forward a year, maybe a year and three months“ (lange Fassung siehe C3b). Danach: „The fleet wakes up with an over-the-air update. That's all it takes.“ Der Satz ist also seine Prognose, keine Nebenbemerkung.",
+    "Gleiche Quelle wie Alternative C3c („sometimes I'm not on time“): beide zusammen 20,0 s, möglich, aber dann 6 Clips und Abstand ≥ 45 s beachten.",
+    "Bauchbinde: ELON MUSK · CEO, Tesla · 2019 · ORIGINAL FOOTAGE"
+   ]
+  },
+  {
+   "id": "C4",
+   "kandidat": "Empfehlung",
+   "speaker": "Daron Acemoglu",
+   "role": "Ökonom, MIT; Nobelpreis für Wirtschaft 2024",
+   "source_title": "Daron Acemoglu on the Good-Jobs Imperative — ABCDE 2026",
+   "channel": "World Bank Group",
+   "url": "https://www.youtube.com/watch?v=7v2iPkIu0U0",
+   "date": "2026-06-16",
+   "in": "00:47:17.500",
+   "out": "00:47:23.750",
+   "dauer_s": 6.25,
+   "transcript": "Perhaps. But again, there is no evidence from history to show that.",
+   "ampel": "gelb",
+   "slot": "Station 4 „Bedingung 3“ (~5:05), gegen Ende der Station, mindestens 45 s nach C2. Der Sprechertext davor stellt seine Frage: ob man genug umverteilen könnte.",
+   "einordnung": "At the World Bank this June, the Nobel-winning economist Daron Acemoglu asked whether governments could redistribute enough to make up for what AI could do to people's incomes. His answer:",
+   "burned": false,
+   "untertitel": "von Hand (Kanal) + automatisch; Wortzeiten aus der automatischen Spur ±0,5 s",
+   "musik": "keine (Vortrag)",
+   "kontext_vorher_30s": "models will reach expertise equivalent to the very best perhaps one top 1% of workers in pretty much all activities which means that they will take over pretty much all jobs. So that would be an amazingly large effect and it would have 100% no doubt an unequalizing impact on pre-tax income distribution. Now could we redistribute enough to make the post tax much more equal",
+   "kontext_nachher_30s": "and that's why I went through to some detail in the US Europe comparison. do not think that you can model a society like that on Scandinavia. That's absolutely not what happened in Scandinavia. So really, this is a big threat to every country, but it's a particularly serious threat to developing countries because of the need for job creation for an emerging youth of a very large size and remaining poverty and informal employment.",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Ampel: offizieller Kanal der Weltbank, eigene Konferenz (ABCDE 2026), Standardlizenz, keine Musik → Content-ID-Risiko gering; nach unserer Liste „Konferenz“ = gelb.",
+    "Sinn: Er spricht über AGI, die „pretty much all jobs“ übernehmen könnte und die Einkommen vor Steuern „100%, no doubt“ ungleicher mache; dann die Frage nach Umverteilung. Er sagt „Perhaps“, nicht „impossible“. So einordnen: Möglich, aber die Geschichte liefert keinen Beleg.",
+    "Längere Fassung mit seiner Frage im O-Ton: C4b (11,5 s).",
+    "Bauchbinde: DARON ACEMOGLU · Economist, MIT · Nobel Prize 2024 · ORIGINAL FOOTAGE"
+   ]
+  },
+  {
+   "id": "C5",
+   "kandidat": "Empfehlung",
+   "speaker": "Franklin D. Roosevelt",
+   "role": "32. Präsident der USA",
+   "source_title": "President Franklin D Roosevelt Signs the Social Security Act of 1935",
+   "channel": "Committee on Education & Workforce Democrats",
+   "url": "https://www.youtube.com/watch?v=EN7NUindB38",
+   "date": "1935-08-14",
+   "in": "00:00:30.300",
+   "out": "00:00:42.900",
+   "dauer_s": 12.6,
+   "transcript": "Young people have come to wonder what would be their lot when they came to old age. The man with a job has wondered how long the job would last.",
+   "ampel": "gruen",
+   "slot": "Station 7 „Lösungsteil“ (~8:15), nach dem Satz, dass Maschinen schon einmal die Arbeit verändert haben. Danach Sprechertext: Seine Antwort war kein Versprechen, sondern ein Gesetz.",
+   "einordnung": "August 1935. Another age of machines had shaken up work. Before he signed, the American president said why.",
+   "burned": false,
+   "untertitel": "automatisch; zusätzlich von Hand untertitelte Kopie JG1Eba0tnwo (Captioning for Everyone) mit gleichem Wortlaut",
+   "musik": "keine (Wochenschau-Ton, am Ton prüfen)",
+   "kontext_vorher_30s": "today a hope of many years standing is in large part fulfilled the civilization of the past 100 years with its startling industrial changes has tended more and more to make life insecure",
+   "kontext_nachher_30s": "this social security measure gives at least some protection to 50 millions of our citizens who will reap direct benefits through Unemployment Compensation through old age pensions and through increased services for the protection of children and the prevention of ill health we can never ensure 100% of the (von Hand untertitelt: „30 million“; schriftlich „thirty millions“ → am Ton prüfen)",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Rechte: Rede des Präsidenten (Bundeswerk) und Filmaufnahme laut American Rhetoric gemeinfrei. Für den Download besser eine Kopie aus dem FDR Library-/National-Archives-Kanal nehmen (z. B. FDRLibrary -nhPDdb-CnI oder hk3H72iIhXs) und die Zeitmarken dort neu setzen; nach dem Upload Prüfungen/Urheberrecht ansehen (Archive wie British Pathé melden manchmal Ansprüche).",
+    "Bild ist Schwarz-Weiß-Wochenschau mit Rauschen: als Archivbild kennzeichnen (Jahr 1935).",
+    "Bauchbinde: FRANKLIN D. ROOSEVELT · U.S. President · 1935 · ORIGINAL FOOTAGE"
+   ]
+  }
+ ],
+ "alternativen": [
+  {
+   "id": "C1b",
+   "kandidat": "Alternative C1 (nur Bedingung, aus der Langfassung)",
+   "speaker": "Elon Musk",
+   "role": "CEO, Tesla und SpaceX",
+   "source_title": "Elon Musk on AGI Timeline, US vs China, Job Markets, Clean Energy & Humanoid Robots | 220",
+   "channel": "Peter H. Diamandis",
+   "url": "https://www.youtube.com/watch?v=RSNuB9pj9P8",
+   "date": "2026-01-06",
+   "in": "01:14:44.000",
+   "out": "01:14:53.950",
+   "dauer_s": 9.95,
+   "transcript": "it it just uh like it's it's you won't need to save for retirement. If if any of the things that we've said are true, saving for retirement will be irrelevant.",
+   "ampel": "gelb",
+   "slot": "Station 1 statt C1, wenn der Short zu riskant ist; „don't worry about squirreling money away“ dann im Sprechertext/Hook. Kürzeste Fassung nur „If if any of the things …“: in 01:14:48.900 (5,05 s).",
+   "einordnung": "Asked whether he meant we'd all be gone by then, he said:",
+   "burned": false,
+   "untertitel": "automatisch",
+   "musik": "keine",
+   "kontext_vorher_30s": "is if in fact this future we hit massive productivity uh and massive profitability because we're dividing by zero. The cost of labor has gone to nothing. The cost of intelligence has gone to nothing and we're still producing products and services faster and faster. So there's more profitability. Someone needs to be buying it and someone needs to be able to have the capital to buy it. Um, I mean this is an important question to get to get thought through. >> Yeah. Um, well, one like side recommendation I have is like don't worry about like squirreling money away for uh retirement in like 10 or 20 years. It won't matter. >> No. >> Okay. either either we're not going to be here or",
+   "kontext_nachher_30s": "services will be there to support you. You'll have the home, you'll have the healthcare, you'll have the entertainment. >> The way this unfolds is fundamentally impossible to predict because of self-improvement of the AI and the accelerating timeline. >> Yeah. It's called singularity for a reason. >> Yeah. Exactly. >> I don't know what goes what what what happens after when after the event horizon. >> Exactly. You can't never see past the black hole or the event horizon. The light cone. >> I mean Ray has a singularity out way too far. I mean this is like the next",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Mit C1b + C2 (6,5 s mit „or UBI?“) = 16,5 s aus der Folge, gut unter 20 s.",
+    "Musk-Sprecher laut Storyboard ab 1:14:29 im Bild."
+   ]
+  },
+  {
+   "id": "C2b",
+   "kandidat": "Alternative C2 (ganze Frage bis „UBI?“)",
+   "speaker": "Peter Diamandis",
+   "role": "Gastgeber „Moonshots“",
+   "source_title": "Elon Musk on AGI Timeline, US vs China, Job Markets, Clean Energy & Humanoid Robots | 220",
+   "channel": "Peter H. Diamandis",
+   "url": "https://www.youtube.com/watch?v=RSNuB9pj9P8",
+   "date": "2026-01-06",
+   "in": "01:13:54.400",
+   "out": "01:14:00.950",
+   "dauer_s": 6.55,
+   "transcript": "Is that then taxed by the government and redistributed as some level of income as a U- as a UHI or UBI?",
+   "ampel": "gelb",
+   "slot": "wie C2; nur zusammen mit C1b (nicht mit C1), sonst > 20 s aus einer Aufnahme.",
+   "einordnung": "wie C2",
+   "burned": false,
+   "untertitel": "automatisch",
+   "musik": "keine",
+   "kontext_vorher_30s": "We ate a both ate a pile of [ __ ] >> Oh my god. It sounds like >> but we increase the economy by $200. [laughter] >> This is the kind of [ __ ] you get in economics. So So uh but if you if so if you say like just the output of goods and services um the will be much greater. You just need a >> so profitability of companies go through the roof >> at some point. But but no but so the question becomes is that taxed by the government? uh",
+   "kontext_nachher_30s": "or UBI? In other words, um one of the questions is if in fact this future we hit massive productivity uh and massive profitability because we're dividing by zero. The cost of labor has gone to nothing. The cost of intelligence has gone to nothing and we're still producing products and services faster and faster. So there's more profitability. Someone needs to be buying it and someone needs to be able to have the capital to buy it. Um, I mean this is an important question to get to get thought through. >> Yeah.",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Zeitmarken ±0,5 s"
+   ]
+  },
+  {
+   "id": "C3b",
+   "kandidat": "Alternative C3 (lange Fassung mit Zögern)",
+   "speaker": "Elon Musk",
+   "role": "CEO, Tesla",
+   "source_title": "Tesla Autonomy Day",
+   "channel": "Tesla",
+   "url": "https://www.youtube.com/watch?v=Ucp0TTmvqOE",
+   "date": "2019-04-22",
+   "in": "03:13:50.650",
+   "out": "03:14:05.000",
+   "dauer_s": 14.35,
+   "transcript": "From our standpoint, if you fast forward a year, maybe a year and three months, but next year for sure, we will have over a million robotaxis on the road.",
+   "ampel": "gruen",
+   "slot": "Station 5 statt C3; kostet 8 s mehr (Summe dann 53,2 s ≈ 8,7 %, über dem Ziel).",
+   "einordnung": "wie C3",
+   "burned": false,
+   "untertitel": "automatisch; die Spur hört „if you fast for a year should look maybe a year maybe a year in three months“, Presse (TechCrunch/CNBC) zitiert „if you fast forward a year, maybe a year and three months“ → am Ton prüfen",
+   "musik": "keine",
+   "kontext_vorher_30s": "by the middle of next year we'll have over a million Tesla cars on the road with full self-driving hardware, feature complete at a reliability level that we would consider that no one needs to pay attention, meaning you could go to sleep in your [car]",
+   "kontext_nachher_30s": "the fleet wakes up with an over-the-air update. That's all it takes. … what is the net present value of a robotaxi? Probably on the order of a couple hundred thousand dollars. So buying a Model 3 is a good deal. Questions?",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "In-Punkt nach „in your“ (Satzrest davor abgeschnitten); am Ton sauber setzen."
+   ]
+  },
+  {
+   "id": "C3c",
+   "kandidat": "Alternative C3 (Musk über seine Verspätungen, Fairness)",
+   "speaker": "Elon Musk",
+   "role": "CEO, Tesla",
+   "source_title": "Tesla Autonomy Day",
+   "channel": "Tesla",
+   "url": "https://www.youtube.com/watch?v=Ucp0TTmvqOE",
+   "date": "2019-04-22",
+   "in": "03:04:54.600",
+   "out": "03:05:08.200",
+   "dauer_s": 13.6,
+   "transcript": "We're gonna do the robotaxi thing too. Only criticism, and it's a fair one, is sometimes I'm not on time. But I get it done, and the Tesla team gets it done.",
+   "ampel": "gruen",
+   "slot": "Station 5, Fairness-Beat: entweder statt C3 (dann das Robotaxi-Versprechen als Zitatkarte mit Datum) oder zusätzlich zu C3 (zusammen genau 20,0 s aus einer Quelle; Abstand ≥ 45 s).",
+   "einordnung": "On the same stage, he answered his critics himself.",
+   "burned": false,
+   "untertitel": "automatisch (hört „rover taxi thing to“, „it's a fair one and sometimes“) → Wortlaut am Ton prüfen",
+   "musik": "keine; Publikum/Applaus möglich",
+   "kontext_vorher_30s": "made the power wind power pack in fact the power pack is now deployed in massive grid scale utility systems around the world including the largest operating battery projects in the world that at above 100 megawatts and in the next or probably my next you next year cheered at the most we expect to have a gaggle gigawatt scale battery project I completed so all these things I said we would do them we did it say we do it we did it",
+   "kontext_nachher_30s": "so what we're gonna do this year is we're gonna reach combined production of 10,000 a week between air six and three feel very confident about that and we feel very confident about being future complete with self-driving next year we'll expand the park line with model why and semi and we expect to have the first operating Robo taxis next year with no one in them next year",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Davor zählt Musk auf, was er versprochen und geliefert hat („all these things I said we would do, we did it“) – Sinn bleibt: Er räumt Verspätungen ein, nicht Scheitern.",
+    "Pointe im Sprechertext: „For a carmaker, late is fine. For your retirement, late is the whole problem.“"
+   ]
+  },
+  {
+   "id": "C4b",
+   "kandidat": "Alternative C4 (mit seiner Frage im O-Ton)",
+   "speaker": "Daron Acemoglu",
+   "role": "Ökonom, MIT; Nobelpreis 2024",
+   "source_title": "Daron Acemoglu on the Good-Jobs Imperative — ABCDE 2026",
+   "channel": "World Bank Group",
+   "url": "https://www.youtube.com/watch?v=7v2iPkIu0U0",
+   "date": "2026-06-16",
+   "in": "00:47:12.300",
+   "out": "00:47:23.750",
+   "dauer_s": 11.45,
+   "transcript": "Now, could we redistribute enough to make the post-tax much more equal? Perhaps. But again, there is no evidence from history to show that.",
+   "ampel": "gelb",
+   "slot": "wie C4; +5,2 s (Summe dann 50,5 s ≈ 8,2 %).",
+   "einordnung": "At the World Bank this June, the Nobel-winning economist Daron Acemoglu put the question plainly.",
+   "burned": false,
+   "untertitel": "von Hand + automatisch",
+   "musik": "keine",
+   "kontext_vorher_30s": "models will reach expertise equivalent to the very best perhaps one top 1% of workers in pretty much all activities which means that they will take over pretty much all jobs. So that would be an amazingly large effect and it would have 100% no doubt an unequalizing impact on pre-tax income distribution.",
+   "kontext_nachher_30s": "and that's why I went through to some detail in the US Europe comparison. do not think that you can model a society like that on Scandinavia. That's absolutely not what happened in Scandinavia. So really, this is a big threat to every country, but it's a particularly serious threat to developing countries because of the need for job creation for an emerging youth of a very large size and remaining poverty and informal employment.",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "„post-tax“ ohne Kontext unklar: Einordnung muss sagen, dass es um Einkommen nach Steuern und Transfers geht."
+   ]
+  },
+  {
+   "id": "C5b",
+   "kandidat": "Alternative C5 („a law“)",
+   "speaker": "Franklin D. Roosevelt",
+   "role": "32. Präsident der USA",
+   "source_title": "President Franklin D Roosevelt Signs the Social Security Act of 1935",
+   "channel": "Committee on Education & Workforce Democrats",
+   "url": "https://www.youtube.com/watch?v=EN7NUindB38",
+   "date": "1935-08-14",
+   "in": "00:01:09.000",
+   "out": "00:01:21.650",
+   "dauer_s": 12.65,
+   "transcript": "We can never insure one hundred percent of the population against one hundred percent of the hazards and vicissitudes of life, but we have tried to frame a law",
+   "ampel": "gruen",
+   "slot": "Station 7 statt C5, wenn der Sprechertext das Wort „Gesetz“ im O-Ton haben will. Schnitt mitten im Satz (es folgt „which will give some measure of protection …“).",
+   "einordnung": "wie C5",
+   "burned": false,
+   "untertitel": "automatisch + von Hand (JG1Eba0tnwo)",
+   "musik": "keine",
+   "kontext_vorher_30s": "this social security measure gives at least some protection to [30/50] millions of our citizens who will reap direct benefits through unemployment compensation, through old age pensions and through increased services for the protection of children and the prevention of ill health",
+   "kontext_nachher_30s": "which will give some measure of protection to the average citizen and to his family against the loss of a job and against poverty-stricken old age. It seems to me that if the Senate and the House of Representatives in this long and arduous session had done nothing more than pass this security bill, Social Security Act, the session would be regarded as historic for all time.",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Mit C5 zusammen 25 s → nur eins von beiden."
+   ]
+  },
+  {
+   "id": "C5c",
+   "kandidat": "Alternative C5 („startling industrial changes“)",
+   "speaker": "Franklin D. Roosevelt",
+   "role": "32. Präsident der USA",
+   "source_title": "President Franklin D Roosevelt Signs the Social Security Act of 1935",
+   "channel": "Committee on Education & Workforce Democrats",
+   "url": "https://www.youtube.com/watch?v=EN7NUindB38",
+   "date": "1935-08-14",
+   "in": "00:00:17.900",
+   "out": "00:00:30.250",
+   "dauer_s": 12.35,
+   "transcript": "The civilization of the past hundred years, with its startling industrial changes, has tended more and more to make life insecure.",
+   "ampel": "gruen",
+   "slot": "Station 7, wenn die Brücke „Maschinen verändern Arbeit“ im O-Ton liegen soll.",
+   "einordnung": "wie C5",
+   "burned": false,
+   "untertitel": "automatisch + von Hand",
+   "musik": "keine",
+   "kontext_vorher_30s": "Today, a hope of many years' standing is in large part fulfilled.",
+   "kontext_nachher_30s": "Young people have come to wonder what would be their lot when they came to old age. The man with a job has wondered how long the job would last. This social security measure gives at least some protection …",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "C5c + C5 = 25 s → nur eins."
+   ]
+  },
+  {
+   "id": "C6",
+   "kandidat": "Alternative (Station 7, Isaacsons Gemeingüter-Frage)",
+   "speaker": "Elon Musk",
+   "role": "CEO, Tesla und SpaceX",
+   "source_title": "Elon Musk: The End of Work, the Death of Money, and a World Run by AI",
+   "channel": "The Builders with Walter Isaacson",
+   "url": "https://www.youtube.com/watch?v=AQnwQHMnCrE",
+   "date": "2026-10-20",
+   "in": "00:20:49.200",
+   "out": "00:20:56.900",
+   "dauer_s": 7.7,
+   "transcript": "As as you heard me say, I mean, I don't think money's going to matter in the future. Um, it like anyone will be able to have any goods and services that they want.",
+   "ampel": "gelb",
+   "slot": "Station 7 (Brücke „Gesetz statt Versprechen“): Sprechertext gibt Isaacsons Frage wieder (Schule wurde in den 1890ern frei für alle; soll Gesundheit ein Gemeingut werden?), dann dieser Clip.",
+   "einordnung": "Last month, the biographer Walter Isaacson asked him whether, like a century ago, some things should simply belong to everyone. Health care, for example. He answered:",
+   "burned": false,
+   "untertitel": "automatisch",
+   "musik": "keine",
+   "kontext_vorher_30s": "of that now. Is there a way to prevent that given the amount of wealth being generated? Will we put certain things in the commons the way they did in the 1890s when they made high school universal and free? Will we say, \"Okay, health care, for example, should just be in the commons, and that's going to sap some of the populace revulsion at what's happening?\" Well, um Uh I mean,",
+   "kontext_nachher_30s": "And I don't think even so-called wealthy people will ultimately control the AIs. I think they'll control themselves. So, so it's not like you have to separate uh that like I think I think there's sort of a fundamental misunderstanding of economics arises because of conflating resource allocation and consumption. So, there's there's there's a limit to what any single human can consume. It's It's you know, you hit that saturation point pretty fast. So, like say going from say",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Fair bleiben: Er beantwortet die Frage nicht mit Nein; er hält sie für unnötig, weil Geld nicht mehr zähle."
+   ]
+  },
+  {
+   "id": "C7",
+   "kandidat": "Alternative (Station 2, Musks eigene +20–30 %)",
+   "speaker": "Elon Musk",
+   "role": "CEO, Tesla und SpaceX",
+   "source_title": "Elon Musk: The End of Work, the Death of Money, and a World Run by AI",
+   "channel": "The Builders with Walter Isaacson",
+   "url": "https://www.youtube.com/watch?v=AQnwQHMnCrE",
+   "date": "2026-10-20",
+   "in": "00:17:02.400",
+   "out": "00:17:12.400",
+   "dauer_s": 10.0,
+   "transcript": "Like my guess is digital superintelligence probably improves the uh output of goods and services by 20 to 30%. Something like that.",
+   "ampel": "gelb",
+   "slot": "Station 2 „Bedingung 1“ (~2:20): Staunen-Moment, dass nach Musks eigener Rechnung KI allein nur ein Drittel mehr bringt; danach Sprechertext zur Mond-Bedingung.",
+   "einordnung": "Even by his own estimate, the jump is smaller than it sounds.",
+   "burned": false,
+   "untertitel": "automatisch",
+   "musik": "keine",
+   "kontext_vorher_30s": "made the value of intelligence much less. To your point, once you've got once you have a robot that can manipulate atoms, can shape objects, the the value of the of the intelligence um becomes exponentially greater uh because it can now do things. You know, you could you could have a science lab and and and run experiments and try to understand the nature of the universe. You know, and I think you can look at this also in economic terms.",
+   "kontext_nachher_30s": "Call it like a you know, maybe a 30% increase in uh the the economy of Earth. So, that's still significant. It's like $30 trillion a year incremental. >> Is that very much, really? Is that transformative? >> It'll there'll be a lot more stuff. I mean, 30% more stuff is still a lot. And this is just my, you know, my rough guess. Um, but if you if you have robots and and you you get to space and you and you can do a mass driver on the moon, um, then you can get to, I think,",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": true
+   },
+   "pruefen": [
+    "Mit C6 zusammen 17,7 s aus einer Quelle → zulässig, aber Clip-Anteil beachten."
+   ]
+  },
+  {
+   "id": "C8",
+   "kandidat": "Alternative, nur als Zitatkarte (2036)",
+   "speaker": "Elon Musk",
+   "role": "CEO, Tesla und SpaceX",
+   "source_title": "The full-length interview with Elon Musk | The Economist",
+   "channel": "The Economist",
+   "url": "https://www.youtube.com/watch?v=XuoqKYxDHVc",
+   "date": "2026-07-29",
+   "in": "ungeprüft (Kapitel „Work is going to be optional“ ab ca. 00:31:20)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "transcript": "„money won't matter in 2036“ (Wortlaut laut Berichten; nicht am Video geprüft)",
+   "ampel": "rot",
+   "slot": "Station 1 (jüngste, genaueste Fassung) oder Station 5 (die Frist wandert) – als Zitatkarte mit Datum.",
+   "einordnung": "In July, he told The Economist's editor-in-chief: money won't matter in 2036.",
+   "burned": false,
+   "untertitel": "nicht bekommen (HTTP 429 / Bot-Prüfung)",
+   "musik": "unbekannt",
+   "kontext_vorher_30s": "ungeprüft",
+   "kontext_nachher_30s": "laut Berichten: Beddoes fragt, woher die Einnahmen kommen, und warnt vor Inflation; Musk: Deflation, „Inflation is simply the ratio of money to goods and services“, „the Treasury should just simply issue people checks“.",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Ampel rot bis geprüft: großer Verlag mit aktiver Rechteverwaltung, Content-ID wahrscheinlich; Interview-Bild mit Kanal-Branding.",
+    "Zeitmarke und Wortlaut am Video suchen (Untertitel-Download per Remote Control am iMac?).",
+    "Aufnahmedatum: 20. oder 23.7.2026 (Quellen uneinig)."
+   ]
+  }
+ ],
+ "offen": [
+  "Finanzplaner-Stimme als Clip: nicht gefunden. Rob Berger (zHl6OW8J_a0, 7.11.2026, gelb) – Untertitel gesperrt (429/Bot-Prüfung), Inhalt ungeprüft. Planer-Zitate (Mangold, „insurance policy“) im Sprechertext oder als Zitatkarte.",
+  "Kein Clip von Valuetainment, Finanztip, Dr. Ed Weir, Times Axis (Konkurrenz bzw. Reaktionsvideos, nicht Originalquelle)."
+ ]
+}

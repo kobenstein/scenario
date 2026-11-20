@@ -1,0 +1,246 @@
+[
+ {
+  "id": "s00",
+  "sec": "0",
+  "text": "[calm, conversational] You could be part of the first generation that won't grow old.\nThink about your grandparents. Gray hair. Reading glasses. Stairs that take a little longer.\nThat's the deal every human has had."
+ },
+ {
+  "id": "s01",
+  "sec": "0",
+  "text": "[thoughtful] But this year, doctors did something that had never been done before.\nThey put a treatment into a living person's eye that is built to make old cells young again.\nIt's one small step. But it makes a question suddenly real."
+ },
+ {
+  "id": "s02",
+  "sec": "0",
+  "text": "[curious] If this works, who gets there in time? Your grandparents? Your parents? You? Your kids?\nThe answer isn't a birthday. It's a race."
+ },
+ {
+  "id": "s03",
+  "sec": "1",
+  "text": "[calm, conversational] Every year, medical research adds a little to how long we live.\nTake the country that does best. For a hundred and sixty years, that number grew by about three months, year after year. Like clockwork."
+ },
+ {
+  "id": "s04",
+  "sec": "1",
+  "text": "[curious] Now imagine that number climbs to twelve months.\nA full year of life gained for every year that passes.\nFrom that day on, you'd stop running out of time.\nResearchers call it longevity escape velocity. Nobody has reached it."
+ },
+ {
+  "id": "s05",
+  "sec": "1",
+  "text": "[thoughtful] Whoever is still healthy on that day is the first generation that won't grow old.\nSo that generation may already be born. You may be in it."
+ },
+ {
+  "id": "s06",
+  "sec": "1",
+  "text": "[calm, conversational] But there's a problem. This century, the number slipped.\nToday it grows by less than two months a year.\nSo it isn't racing toward twelve. Every year it stays this low, that day moves further away."
+ },
+ {
+  "id": "s07",
+  "sec": "1",
+  "text": "[thoughtful] For it to turn around, something new has to push.\nAnd now, some of that push isn't human.\nLabs use artificial intelligence to pick experiments, design molecules, and read how old our cells are."
+ },
+ {
+  "id": "s08",
+  "sec": "1",
+  "text": "[curious] But to push on aging, you have to know what it is. Why does a body grow old at all?"
+ },
+ {
+  "id": "s09",
+  "sec": "2",
+  "text": "[calm, conversational] Aging looks like a law of nature. It isn't one.\nEvolution only had to get you through your children's first years. After that, it stopped looking.\nEvolution pays for your youth and sends the bill to your old age."
+ },
+ {
+  "id": "s10",
+  "sec": "2",
+  "text": "[thoughtful] But that bill can be reset. The proof is you.\nThe egg you grew from was made before your mother was born.\nSo you started out as a cell that was decades old.\nAnd yet you started at zero."
+ },
+ {
+  "id": "s11",
+  "sec": "2",
+  "text": "[calm, conversational] Scientists can read a cell's age from marks on its DNA.\nIn an early embryo, that age goes down. They call the low point ground zero.\nSo nature has a reset button. It pressed it for you, before you were born."
+ },
+ {
+  "id": "s12",
+  "sec": "2",
+  "text": "[curious] Which makes the better question not why we age, but where that button is."
+ },
+ {
+  "id": "s13",
+  "sec": "3",
+  "text": "[calm, conversational] Twenty years ago, a Japanese lab found four proteins that reset a grown-up cell to factory settings.\nHold the button down, and the cell forgets what it was. In mice, that grew tumors in several organs."
+ },
+ {
+  "id": "s14",
+  "sec": "3",
+  "text": "[thoughtful] So the trick isn't pressing harder. It's letting go in time.\nThere's a window. More pressing doesn't mean more youth.\nOr press only three of the four.\nMice whose eyes were already damaged by glaucoma got back about half the sharpness they'd lost."
+ },
+ {
+  "id": "s15",
+  "sec": "3",
+  "text": "[calm, conversational] And this October, in Germany, blood cells from an eighty-year-old were turned into nerve stem cells that read under twenty.\nAll of this was in dishes and in mice. From a dish to a living body like yours is a long way."
+ },
+ {
+  "id": "s16",
+  "sec": "3",
+  "text": "[curious] Four proteins were the first answer. Nobody knows which other mix might work better, or how hard to press it."
+ },
+ {
+  "id": "s17",
+  "sec": "4",
+  "text": "[calm, conversational] That search is too big for people alone. So artificial intelligence is helping.\nOne company says it has tested more than three thousand mixes. Over twenty made old liver cells act younger.\nArtificial intelligence, it says, has doubled how fast it finds them.\nThat's from the company's own update this year."
+ },
+ {
+  "id": "C1",
+  "sec": "4",
+  "clip": true,
+  "dur": 10.0
+ },
+ {
+  "id": "s18",
+  "sec": "4",
+  "text": "[calm, conversational] Artificial intelligence has also redesigned two of the four reset proteins.\nIn cells, the new versions switched on the signs of a reset more than fifty times as strongly."
+ },
+ {
+  "id": "s19",
+  "sec": "4",
+  "text": "[thoughtful] These numbers come from the companies themselves. The protein result hasn't even been published.\nAnd the clocks that read a cell's age are machine learning too.\nIf one says you're younger, that's an estimate, not proof."
+ },
+ {
+  "id": "s20",
+  "sec": "4",
+  "text": "[curious] So has anyone pressed the button inside a living person?"
+ },
+ {
+  "id": "s21",
+  "sec": "5",
+  "text": "[calm, conversational] Yes. Earlier this year, in an eye.\nIt's the treatment from the start: the same three of the four, in one injection.\nThe first results come from three people with glaucoma, like those mice.\nIn October, eight weeks in, the company reported no serious side effects.\nAnd in two of the three, parts of the visual field improved."
+ },
+ {
+  "id": "Q1",
+  "sec": "5",
+  "card": true,
+  "dur": 5.0,
+  "text": "Preliminary observations. Built to test safety, not whether it works. \u2014 Life Biosciences, first data in people, 8 Oct 2026"
+ },
+ {
+  "id": "s22",
+  "sec": "5",
+  "text": "[thoughtful] Three people. One eye each. No control group.\nThree eyes don't move the needle. They move the odds.\nAnd the trial goes on: a safety board cleared the next, higher dose."
+ },
+ {
+  "id": "s23",
+  "sec": "5",
+  "text": "[softly] Aging is turning from fate into a target."
+ },
+ {
+  "id": "s24",
+  "sec": "5",
+  "text": "[calm, conversational] The eye was the easy start: small and sealed off.\nNext, the liver. The company behind those liver cells plans its first human trial for twenty twenty-seven."
+ },
+ {
+  "id": "C2",
+  "sec": "5",
+  "clip": true,
+  "dur": 10.0
+ },
+ {
+  "id": "s25",
+  "sec": "5",
+  "text": "[curious] But what about everything else that goes wrong with age?"
+ },
+ {
+  "id": "s26",
+  "sec": "6",
+  "text": "[calm, conversational] Cancer. Heart disease. Dementia. Diabetes. Four illnesses, four kinds of medicine, four different wards.\nThey share their biggest risk factor. It's how old you are.\nSo all four hang on the same thread. Pull that thread, the bet goes, and you pull on all of them at once."
+ },
+ {
+  "id": "s27",
+  "sec": "6",
+  "text": "[thoughtful] Artificial intelligence is coming at the illnesses too, designing medicines from the shapes of proteins."
+ },
+ {
+  "id": "Q2",
+  "sec": "6",
+  "card": true,
+  "dur": 6.0,
+  "text": "Scott Pelley: \u201cThe end of disease?\u201d \u2014 Demis Hassabis: \u201cI think that's within reach.\u201d \u00b7 60 Minutes, CBS, 20 April 2025"
+ },
+ {
+  "id": "s28",
+  "sec": "6",
+  "text": "[calm, conversational] But nine in ten drugs that reach a first human trial still fail.\nAnd even if they all worked, it wouldn't be enough.\nDecades ago, the field's best-known skeptic did the math for America. Cure every major disease of old age, and life expectancy at birth would still be unlikely to pass eighty-five.\nThe thread would still be there."
+ },
+ {
+  "id": "s29",
+  "sec": "6",
+  "text": "[curious] So does the needle ever reach twelve?"
+ },
+ {
+  "id": "s30",
+  "sec": "7",
+  "text": "[thoughtful] That skeptic has run the newer numbers too, and he doesn't see the needle turning."
+ },
+ {
+  "id": "C3",
+  "sec": "7",
+  "clip": true,
+  "dur": 10.0
+ },
+ {
+  "id": "s31",
+  "sec": "7",
+  "text": "[calm, conversational] He studied the longest-lived places on Earth over three decades.\nLife expectancy kept rising, but more slowly, everywhere he looked.\nHis verdict: in this century, a radically longer life is implausible. Unless aging itself can be markedly slowed."
+ },
+ {
+  "id": "s32",
+  "sec": "7",
+  "text": "[thoughtful] That \u201cunless\u201d is what the button, the search, and the eye are all about.\nIn his own words: a glass ceiling, not a brick wall. He wants more of this research, not less."
+ },
+ {
+  "id": "s33",
+  "sec": "7",
+  "text": "[calm, conversational] The optimists' estimates run from about twenty thirty to twenty fifty. Estimates, not studies.\nSo that day isn't one date on the calendar. It could come anywhere within a few decades.\nWhich changes the question: not just when, but who gets there in time."
+ },
+ {
+  "id": "s34",
+  "sec": "8",
+  "text": "[calm, conversational] That treatment in the eye is a gene therapy.\nGene therapies already cost up to four and a quarter million dollars.\nSo for most of the world, what decides it isn't a birth year. It's a price tag."
+ },
+ {
+  "id": "s35",
+  "sec": "8",
+  "text": "[thoughtful] Nobody has to lose a year so someone else can gain one. This isn't a cake.\nThe question isn't who goes without. It's how fast the price falls."
+ },
+ {
+  "id": "s36",
+  "sec": "8",
+  "text": "[calm, conversational] In nineteen twenty-three, the men who discovered insulin sold the patent for one dollar.\nA generation later, a reporter asked who owned the patent on the polio vaccine."
+ },
+ {
+  "id": "Q3",
+  "sec": "8",
+  "card": true,
+  "dur": 6.0,
+  "text": "\u201cWell, the people, I would say. There is no patent. Could you patent the sun?\u201d \u2014 Jonas Salk \u00b7 See It Now, CBS, 12 April 1955"
+ },
+ {
+  "id": "s37",
+  "sec": "8",
+  "text": "[thoughtful] Both were decisions. Since then, four kinds of decisions have pulled prices down."
+ },
+ {
+  "id": "s38",
+  "sec": "8",
+  "text": "[calm, conversational] One: pool the patents. Through one such pool, more than sixty billion doses have reached poorer countries.\nTwo: pay one flat fee, like a subscription. Louisiana did that for hepatitis C, and studies found treatments rose sharply.\nThree: let other makers copy it. In Egypt, no patent stood in the way, and copies brought one hepatitis C treatment under a hundred dollars.\nFour: negotiate for everyone. Thirty-three American states now buy sickle cell gene therapy together. If it fails, the makers pay back."
+ },
+ {
+  "id": "s39",
+  "sec": "8",
+  "text": "[thoughtful] Two more ideas are still waiting. A trial that pulls on the thread has a goal regulators accept, but not the money it needs.\nAnd public research money could come with a promise of access. It almost never does.\nNone of this has ever been tried on a rejuvenation therapy.\nBut none of it needs a discovery. Each one is a decision."
+ },
+ {
+  "id": "s40",
+  "sec": "8",
+  "text": "[softly] So think of your family one more time.\nResearch decides when that day comes. We decide who gets there in time.\nThe first generation that won't grow old isn't a birth year. It's a decision."
+ }
+]

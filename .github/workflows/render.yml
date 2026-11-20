@@ -7,7 +7,7 @@ on:
       dir:
         description: Composition folder (contains index.html)
         required: true
-        default: style-tests/b3-fast
+        default: stil/tests/b3-fast
       chunks:
         description: Number of parallel runners (max 20 on the free plan)
         required: true

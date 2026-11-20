@@ -1,0 +1,389 @@
+{
+ "note": "Film 19, 2026-11-07 (Jakob feedback + subscribe call as mission, rule of 26.10.): sentences replaced/added inside the finished VO track. Edits n1/n2 replace sentences in place (no time shift); 'gap' inserts 7.0 s of air at the quietest 10 ms between 'enough.' and 'But' (s14), everything after it moves +7.0 s; nA is laid into that gap, nB after the last line. All times in 'at'/'silence' are final film times. Takes: Eleven v4, voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, seed 4301. Word times = ElevenLabs character timestamps (word end = last character end, as tools/save_tts.py).",
+ "edits": [
+  {
+   "id": "n1",
+   "seg": "s05",
+   "replace": [
+    381,
+    390
+   ],
+   "url": "https://v3b.fal.media/files/b/0ab17e97/awGLYnly5m3ixxIdfVTr__output.mp3",
+   "request_id": "01a1b561-01dd-7020-9816-650eca8fd90d",
+   "text": "[calm, conversational] So the first protection: don't lock in the fall. Pause.",
+   "silence": [
+    162.8,
+    167.5
+   ],
+   "src": [
+    0.1,
+    4.5
+   ],
+   "at": 162.97,
+   "words": [
+    [
+     "So",
+     0.16,
+     0.32
+    ],
+    [
+     "the",
+     0.56,
+     0.72
+    ],
+    [
+     "first",
+     0.8,
+     0.96
+    ],
+    [
+     "protection:",
+     1.04,
+     1.88
+    ],
+    [
+     "don't",
+     2.16,
+     2.48
+    ],
+    [
+     "lock",
+     2.56,
+     2.8
+    ],
+    [
+     "in",
+     2.84,
+     2.88
+    ],
+    [
+     "the",
+     2.96,
+     3.04
+    ],
+    [
+     "fall.",
+     3.12,
+     3.72
+    ],
+    [
+     "Pause.",
+     4.0,
+     4.45
+    ]
+   ]
+  },
+  {
+   "id": "n2",
+   "seg": "s09",
+   "replace": [
+    578,
+    592
+   ],
+   "url": "https://v3b.fal.media/files/b/0ab17e97/KWJcLZoMSMuiTbIfEH2ym_output.mp3",
+   "request_id": "01a1b561-01de-7722-9b7d-8ead27649cdc",
+   "text": "[calm, conversational] Then you decide how much of your savings rides on one boom. Not the crash.",
+   "silence": [
+    251.7,
+    257.45
+   ],
+   "src": [
+    0.09,
+    4.99
+   ],
+   "at": 251.97,
+   "words": [
+    [
+     "Then",
+     0.16,
+     0.32
+    ],
+    [
+     "you",
+     0.4,
+     0.48
+    ],
+    [
+     "decide",
+     0.6,
+     0.88
+    ],
+    [
+     "how",
+     1.04,
+     1.2
+    ],
+    [
+     "much",
+     1.28,
+     1.44
+    ],
+    [
+     "of",
+     1.48,
+     1.52
+    ],
+    [
+     "your",
+     1.6,
+     1.76
+    ],
+    [
+     "savings",
+     1.8,
+     2.24
+    ],
+    [
+     "rides",
+     2.32,
+     2.56
+    ],
+    [
+     "on",
+     2.68,
+     2.8
+    ],
+    [
+     "one",
+     2.88,
+     3.04
+    ],
+    [
+     "boom.",
+     3.12,
+     3.72
+    ],
+    [
+     "Not",
+     4.0,
+     4.16
+    ],
+    [
+     "the",
+     4.2,
+     4.24
+    ],
+    [
+     "crash.",
+     4.32,
+     4.9
+    ]
+   ]
+  },
+  {
+   "id": "nA",
+   "seg": "s14b",
+   "sec": "8",
+   "replace": null,
+   "url": "https://v3b.fal.media/files/b/0ab17ea4/hB1XqlPmqO2KjClImR5Mw_output.mp3",
+   "request_id": "01a1b562-e514-7ba3-be39-012909bf3402",
+   "text": "[warm] This channel exists so that this transition goes well for everybody. If you want that too, subscribe.",
+   "silence": null,
+   "src": [
+    0.03,
+    6.25
+   ],
+   "at": 392.21,
+   "match": "s14",
+   "words": [
+    [
+     "This",
+     0.08,
+     0.24
+    ],
+    [
+     "channel",
+     0.32,
+     0.56
+    ],
+    [
+     "exists",
+     0.64,
+     1.2
+    ],
+    [
+     "so",
+     1.28,
+     1.36
+    ],
+    [
+     "that",
+     1.44,
+     1.52
+    ],
+    [
+     "this",
+     1.6,
+     1.76
+    ],
+    [
+     "transition",
+     1.84,
+     2.32
+    ],
+    [
+     "goes",
+     2.4,
+     2.64
+    ],
+    [
+     "well",
+     2.72,
+     2.88
+    ],
+    [
+     "for",
+     2.96,
+     3.2
+    ],
+    [
+     "everybody.",
+     3.28,
+     4.08
+    ],
+    [
+     "If",
+     4.32,
+     4.4
+    ],
+    [
+     "you",
+     4.48,
+     4.56
+    ],
+    [
+     "want",
+     4.64,
+     4.72
+    ],
+    [
+     "that",
+     4.84,
+     4.96
+    ],
+    [
+     "too,",
+     5.08,
+     5.36
+    ],
+    [
+     "subscribe.",
+     5.52,
+     6.15
+    ]
+   ]
+  },
+  {
+   "id": "nB",
+   "seg": "s22",
+   "sec": "9",
+   "replace": null,
+   "url": "https://v3b.fal.media/files/b/0ab17ea4/Bu7JA6zvJJmrf3k4RWrBl_output.mp3",
+   "request_id": "01a1b562-e573-75d1-bb03-6ab085c68e4d",
+   "text": "[warm] If you want this transition to go well for everybody, subscribe, and walk the next stretch with us.",
+   "silence": null,
+   "src": [
+    0.04,
+    5.85
+   ],
+   "at": 602.14,
+   "match": "s21",
+   "words": [
+    [
+     "If",
+     0.08,
+     0.16
+    ],
+    [
+     "you",
+     0.24,
+     0.32
+    ],
+    [
+     "want",
+     0.4,
+     0.56
+    ],
+    [
+     "this",
+     0.64,
+     0.72
+    ],
+    [
+     "transition",
+     1.0,
+     1.28
+    ],
+    [
+     "to",
+     1.32,
+     1.36
+    ],
+    [
+     "go",
+     1.44,
+     1.6
+    ],
+    [
+     "well",
+     1.72,
+     1.84
+    ],
+    [
+     "for",
+     1.96,
+     2.08
+    ],
+    [
+     "everybody,",
+     2.16,
+     3.0
+    ],
+    [
+     "subscribe,",
+     3.04,
+     4.0
+    ],
+    [
+     "and",
+     4.08,
+     4.16
+    ],
+    [
+     "walk",
+     4.24,
+     4.4
+    ],
+    [
+     "the",
+     4.48,
+     4.56
+    ],
+    [
+     "next",
+     4.64,
+     4.88
+    ],
+    [
+     "stretch",
+     5.04,
+     5.2
+    ],
+    [
+     "with",
+     5.28,
+     5.36
+    ],
+    [
+     "us.",
+     5.44,
+     5.72
+    ]
+   ]
+  }
+ ],
+ "gap": {
+  "at": 391.74,
+  "dur": 7.0
+ }
+}

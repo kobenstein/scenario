@@ -1,0 +1,43 @@
+There will be a last human job. Think of something you did at work last week. An email. A report. A translation. A machine can now do it in seconds. Every job is a row of tasks like that. And they're starting to fall, one by one. Like dominoes. So which human job falls last? It's not the one you'd guess. This time, the machines didn't start in the factory. They started at the desk. Among young people starting out, the jobs most exposed to A.I. are already almost a fifth behind. The creator of this channel has watched his whole row fall. Inside his own job. His name is Jakob. For fifteen years, he worked as a video producer. Concepts, shoots, edits, animation. And in all that time, he had never seen a change as fast as the last four years.
+
+[JAKOB J1]
+
+A few years ago, he did every step himself. Today, a machine does almost all of them. And yet, he's still here. Ten kinds of work. Number ten is falling first. Number one stands longest. The order is a judgment call, built from what researchers have measured so far, and from where the robots actually are today. Number ten. The first job at the desk. The junior coder. The support agent. The assistant who writes the first draft. Most of them aren't being fired. Something quieter is happening. They're just not being hired. The economist who measured it explains it like this.
+
+[CLIP K1]
+
+And then the researchers found something else. People with experience, in the very same jobs, are doing fine. Companies still fight over the senior developer. They've cut back on hiring the junior one. If you've been doing your work for twenty years, the data says you're the one they keep. It's your kids who are finding the first door closed. For Jakob, it also started with one small piece.
+
+[JAKOB J2]
+
+A few pictures. Everything else still by hand. But the next domino was already leaning. Number nine. The voice. Translators, interpreters, voice actors. Microsoft studied two hundred thousand real conversations with its assistant. Interpreters and translators landed at the very top. The work A.I. overlaps with most. Writers and historians close behind. Roofers and dredge operators at the very bottom. Jakob stopped booking voice actors. The voice you're hearing right now is not a person. So if even a voice can be replaced, what's left? Number eight. The office routine. Forms. Invoices. Scheduling. In office and admin work, A.I. could in theory handle nine out of ten tasks. In practice, it's doing a fraction of that. So far. But companies aren't waiting. This year alone, they've named A.I. as the reason for more than twice as many job cuts as last year. So the desk is going early. Surely the creative work is safe? The stuff people got into this for? Number seven. Not really. Images. Music. Sound. Whole shots. Even the edit.
+
+[JAKOB J3]
+
+[JAKOB J3b]
+
+So here's the puzzle. If machine after machine takes his work, why is he still here? There's a profession that, according to one of the fathers of A.I., should be gone by now. In 2016, Geoffrey Hinton said we should stop training radiologists. Machines would read the scans better. He was partly right. Machines now read many scans very well. And yet, this year, America opened more training spots for radiologists than ever before. Hospitals can't find enough of them. Because a radiologist never just looked at pictures. They talk to the surgeon. They decide what matters. They carry the responsibility when it goes wrong. So the dominoes were never whole jobs. They're tasks. The machine took over part of the reading. The radiologist kept everything around it, and moved up.
+
+[JAKOB J4]
+
+Every time the machine took a step, the human took one up.
+
+[PAUSE ]
+
+This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Not just for a few. Want that too? Then subscribe. It genuinely helps. From here on, the question isn't whether a job falls. It's how much of it is left standing. Number six. Analysis, research, most software. This is where the agents arrive. Not tools that help with a step, but systems that run the whole workflow, start to finish. One lab chief has warned this could cut half of all entry-level office jobs within five years. That's a forecast, not a measurement. So far, the data shows fewer hires, not mass layoffs. But if agents can run a whole workflow, what's left that they can't touch? Number five. Teachers. A.I. can already explain anything, at any hour, in any language. But a child doesn't learn because someone explained it. A child learns because someone believed they could. The explaining falls. The believing stays. Number four. Doctors. More and more of the diagnosis is moving to the machine. Just like the scan. But someone still has to sit with you and say the hard sentence. And stay in the room afterwards. And then the row slows down. Because the next jobs need hands. Number three. The trades. The electrician. The plumber. The roofer. What's easy for us is brutally hard for machines. Climbing into a flooded basement. Finding the one rusted pipe behind a wall that's sixty years old. The first humanoid robots have started work in factories and warehouses. Clean floors, same task, again and again. Your basement is not a factory. Even the man who warned the radiologists now has career advice.
+
+[CLIP K2]
+
+Notice the catch. A long time. Not forever. Number three holds for years. Number two. Care. The nurse who turns a patient at night. The person who looks after your kids. In Microsoft's study, nursing assistants landed near the very bottom. Almost nothing they do overlaps with A.I. Here, the human isn't just doing the work. The human is part of what's being given. So the work that lasts is the work where a person is the point. Which brings us back to Jakob. Because by now, the machines had taken almost every step he used to do.
+
+[JAKOB J5]
+
+By hand, one film like this took him two weeks or more. Now agents do the production. He gives the direction. So what's left when even the doing is gone? Number one isn't the hardest job. It's a different kind of job. It's the one where we want a human. On purpose. Computers have beaten the best chess players for almost thirty years. And chess has never been bigger. About ten million people play online every single day. Machines play each other too. The crowds come for the humans. It's the person who sits with you when the news is bad. The one who signs off, and answers for it. The one who decides what's worth making in the first place. Those aren't tasks a machine can't do. They're tasks we want a person to do. The last human job isn't the one machines can't do. It's the one we won't hand over. So how do you stay on the right side of the row? First, judgment. Telling good from merely finished. It's why companies still pay for the senior who can tell the difference. It protects you from being swapped for a button. Second, directing. Breaking a goal into steps, handing them to agents, checking what comes back. That's what Jakob does every day now. It protects you from being the task that gets automated, because you become the one who runs it. Third, trust. People still buy from people, hire people, follow people. Relationships protect you from being compared on price with a machine. Fourth, hands plus a head. A trade, with A.I. in your pocket. It protects you because the robot isn't in the basement yet. And when it arrives, someone has to run it. And fifth, learning in steps. Not one big retraining. One new step, every time a model takes the old one. It protects you from waking up with a skill no one is hiring for. Even Bill Gates calls this a turbulent era. Which is exactly why the steps matter.
+
+[CLIP K3]
+
+Every time the machine took a step, the human took one up. So the last human job isn't waiting at the end of the row. It's the step you take next.
+
+[JAKOB J6]
+
+This channel exists so that superintelligence goes well for everyone. Want that too? Then subscribe.
