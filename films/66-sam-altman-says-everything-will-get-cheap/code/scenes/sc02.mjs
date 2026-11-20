@@ -278,6 +278,15 @@ function layers02(a, T) {
       const p = E.project(c, S.Z_PROMISE, FACE[0], FACE[1]); if (!p) return;
       const fw = 170 * p[2], from = { x: p[0] - fw / 2, y: p[1] - fw / 2, w: fw, h: fw };
       let box;
+      if (m >= .85) {   // final QA: the promise tag sits behind the right end of the lower third -> a soft night backing keeps ORIGINAL FOOTAGE (…) legible
+        const R = F.CLIP_RECT, lu = span(t, a.clip.start + .2, a.clip.start + 1.1) * (1 - span(t, a.clip.end - .5, a.clip.end + .1)) * span(m, .85, 1);
+        if (lu > 0) {
+          const x1 = R.x + R.w + 36, x0 = x1 - 600, y0 = R.y - 84, y1 = R.y - 6;
+          const g = ctx.createLinearGradient(x0, 0, x1, 0), col = mixHex(P.night0, P.ind0, .4);
+          g.addColorStop(0, rgba(col, 0)); g.addColorStop(.22, rgba(col, .88 * lu)); g.addColorStop(.94, rgba(col, .88 * lu)); g.addColorStop(1, rgba(col, 0));
+          ctx.save(); ctx.fillStyle = g; ctx.beginPath(); ctx.roundRect(x0, y0, x1 - x0, y1 - y0, 18); ctx.fill(); ctx.restore();
+        }
+      }
       if (m >= .25) box = F.clipPlate(ctx, t, T, 'C1', { from, morph: m, dark: 1 - span(m, .3, .85) });
       else { const mm = sineIO(m); box = { cx: lerp(p[0], F.CLIP_RECT.x + F.CLIP_RECT.w / 2, mm), cy: lerp(p[1], F.CLIP_RECT.y + F.CLIP_RECT.h / 2, mm), w: lerp(fw, F.CLIP_RECT.w, mm), h: lerp(fw, F.CLIP_RECT.h, mm) }; }
       const sheen = (1 - span(m, .25, .6)) * lightA;
