@@ -1,0 +1,182 @@
+[
+ {
+  "id": "t00",
+  "sec": "H",
+  "text": "[calm, conversational] A.I. can now call you and sound exactly like your mom. And it can call her, and sound exactly like you.\n\nIt takes a short recording of a voice, and almost no money.\n\nAnd the losses are climbing fast. In a single year, older Americans reported losing nearly eight billion dollars to online crime.\n\nA machine can copy your voice. So what still protects your mother?\n\nHer phone rings. It's your voice. In tears. Asking for money, right now.",
+  "chars": 460
+ },
+ {
+  "id": "t01",
+  "sec": "H",
+  "text": "Don't count on her ears. Or on yours. By ear, people spot an A.I. voice barely better than a coin toss.\n\nSo forget listening harder. What protects her has to work even when she is completely fooled.\n\nAnd it exists. Because a voice alone doesn't move a dollar. To reach her savings, the scam has to get through five steps. Four of them, a machine can now fake. One, it cannot.",
+  "chars": 375
+ },
+ {
+  "id": "t02",
+  "sec": "1",
+  "text": "[calm, conversational] The first step is the voice.\n\nThis summer, a mother from California told the U.S. Senate about one call. Her daughter's voice, and a claim that she had been kidnapped.",
+  "chars": 190
+ },
+ {
+  "id": "S1",
+  "sec": "1",
+  "clip": true,
+  "quote": "It was her voice. It was absolutely her voice.",
+  "speaker": "Deborah Del Mastro",
+  "dur": 3.62,
+  "file": "S1_DelMastro.mp4",
+  "footage": true
+ },
+ {
+  "id": "t03",
+  "sec": "1",
+  "text": "It was not her daughter. There was no kidnapping. And the callers kept that mother on the line for five and a half hours.\n\n[thoughtful] She was certain. Anyone would be.\n\n[curious] So where does a machine get a voice? You may have heard: from those silent seconds after you say hello.\n\nUsually, that silence is something duller: a dialing computer, calling more numbers than there are scammers free to talk. No documented case shows one hello being enough for a clone.",
+  "chars": 468
+ },
+ {
+  "id": "t04",
+  "sec": "1",
+  "text": "The voice can come from what is already posted. So hiding it comes too late.\n\nThat family in California now uses code words. You've likely heard the advice: a word that appears nowhere online. A panicked call asks for money? Ask for the word, hang up, call back on the number you know.\n\nThe FBI recommends it, against one thing: the panicked call in a voice she loves.\n\n[curious] Still, a voice is only a sound. The caller also seems to know your life. How?",
+  "chars": 457
+ },
+ {
+  "id": "t05",
+  "sec": "2",
+  "text": "[calm, conversational] That is the second step: the story. Whatever a family posts can be read, and used.\n\nAnd the machine no longer just supplies facts. On the phone, a person usually still does the talking, with a machine lending the voice. But in chat, the machine can already hold the whole conversation.",
+  "chars": 308
+ },
+ {
+  "id": "t06",
+  "sec": "2",
+  "text": "The clearest case comes from an A.I. company reporting misuse of its own model, so it has a stake in looking vigilant. An app maker ran a chain of dating apps, advertised as fully human. It put thousands of A.I. personas to work. Three out of four profiles were machines.\n\nThis was paid chat, not a raid on savings. But look at the machinery.\n\n[pause] The system kept track of which users were starting to suspect.",
+  "chars": 414
+ },
+ {
+  "id": "t07",
+  "sec": "2",
+  "text": "So agree on a second thing. Knowing things proves nothing. A panicked caller gets one question, whose answer was never online. That guards against the caller who seems to know everything.\n\n[curious] And still, the panicked call is not where the biggest losses are. Those often start on a screen. And they take a third step.",
+  "chars": 323
+ },
+ {
+  "id": "t08",
+  "sec": "3",
+  "text": "[calm, conversational] The third step is a face.\n\nIn Canada, a woman in her eighties saw her prime minister in a video, recommending an investment. The video was forged. She lost about nine hundred thousand Canadian dollars.\n\n[thoughtful] She is far from alone. Nearly half of what older Americans reported lost went to investment fraud.\n\nHow much of that involved A.I. has never been reliably measured. But a forged famous face is now one way in.",
+  "chars": 447
+ },
+ {
+  "id": "t09",
+  "sec": "3",
+  "text": "So the most expensive lie is not your voice in tears. It is a promised return. And it can now wear a face she already trusts.\n\nHere, the agreement is a house rule: a famous face plus a promised profit is fake until proven otherwise. And the family never invests through a link from an ad or a chat. That guards against the fake investment, where the big money goes.\n\n[curious] A voice, a story, a face. And still, all three could fail for one simple reason: she might call you.",
+  "chars": 477
+ },
+ {
+  "id": "t10",
+  "sec": "M",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Your mother included. Want that too? Then subscribe.",
+  "chars": 161,
+  "cta": true
+ },
+ {
+  "id": "t11",
+  "sec": "4",
+  "text": "[calm, conversational] So the scam must not give her the time. The fourth step is a clock. The trick is old. The voice that sets it is new: one she loves.\n\nIt sounds like this: do it now, and don't tell anyone.\n\nOne version, as the FBI's Chicago office describes it: the bank calls. Then a so-called agent appears on video, with a flag and a seal. Then the demand: sign a paper, and don't speak to anyone.\n\nHere is the real FBI, on the bureau's own podcast:",
+  "chars": 457
+ },
+ {
+  "id": "C10",
+  "sec": "4",
+  "clip": true,
+  "quote": "If a would-be agent tries to isolate and burden you with an overwhelming level of urgency, they may be a scammer.",
+  "speaker": "Inside the FBI Podcast",
+  "dur": 7.0,
+  "footage": false,
+  "card": true
+ },
+ {
+  "id": "t12",
+  "sec": "4",
+  "text": "Real agents don't reach out by video call.\n\nAnd think of those long hours on the phone in California: as long as she talked to them, she could not call her daughter.\n\n[curious] So is your mother simply too trusting? The numbers say no. Older adults report losing money to fraud less often than younger people. But when it hits, it hits the savings. A small share of cases, each over a hundred thousand dollars, carries most of the money.\n\n[thoughtful] So what's missing is not suspicion. It's a plan, made on a calm day.",
+  "chars": 520
+ },
+ {
+  "id": "t13",
+  "sec": "4",
+  "text": "Agree on this. Hurry, plus secrecy, plus money, means stop. Before a dollar moves, she calls one person you chose together. That protects her from deciding alone, under pressure.\n\nThe Federal Trade Commission, which collects America's fraud reports, calls it an action plan: what to do, who to call, and how to verify. One of its commissioners:",
+  "chars": 344
+ },
+ {
+  "id": "C1",
+  "sec": "4",
+  "clip": true,
+  "quote": "Getting a call from a family member in trouble can be frightening. But if the caller asks you to send money urgently, stop.",
+  "speaker": "Mark Meador",
+  "dur": 7.04,
+  "file": "C1_FTC-Meador.mp4",
+  "footage": true
+ },
+ {
+  "id": "t14",
+  "sec": "4",
+  "text": "[curious] But suppose she doesn't stop. Voice, story and clock all work. She believes every word, and she's on her way to the bank.",
+  "chars": 131
+ },
+ {
+  "id": "t15",
+  "sec": "5",
+  "text": "[calm, conversational] Then one step is left. The fifth: the money.\n\n[pause] And this is the one no machine can fake.\n\nHer savings sit in a bank, or with a broker. To reach the scammer, they have to leave. A voice can be forged. A transfer has to be real. And a real transfer can pass a real person, if you put one there.\n\nSo put an agreement there, too. Your mother can name you as her trusted contact. You can't withdraw a cent. But if something looks wrong, the firm may call you.",
+  "chars": 483
+ },
+ {
+  "id": "t16",
+  "sec": "5",
+  "text": "Brokers in the United States must ask for that name. Banks don't have to. So she has to bring it up herself, wherever her savings sit.\n\nAnd the law is moving: Maryland and North Carolina now let banks hold a suspicious transfer and alert that contact.\n\nThe banks' own lobby group told the same Senate hearing what a banker can notice: a customer who seems frightened, secretive, or coached.",
+  "chars": 390
+ },
+ {
+  "id": "S2",
+  "sec": "5",
+  "clip": true,
+  "quote": "In those moments, human judgment and the relationship between banker and customer can be just as important as any algorithm.",
+  "speaker": "Paul Benda",
+  "dur": 6.974,
+  "file": "S2_Benda.mp4",
+  "footage": true
+ },
+ {
+  "id": "t17",
+  "sec": "5",
+  "text": "That's a lobby speaking, so test it. Ask her bank: if a transfer looks wrong, will you hold it, and who gets the call?\n\n[thoughtful] How often these agreements hold has never been measured. But this one covers the moment no code word can: when she is already convinced.\n\n[curious] Which is strange. The newest machine in the world, and what stands in its way is a name on a form. Why?",
+  "chars": 384
+ },
+ {
+  "id": "t18",
+  "sec": "6",
+  "text": "[thoughtful] Because a copy needs an original. A recording. A photo. A life posted online. Whatever reaches her eyes and ears can now be copied from that.\n\nBut the word you chose together was never recorded. Neither was the name she gave her bank. And the machine was never at her kitchen table.\n\n[pause] For all of history, your child's voice was proof. That has ended. So trust has to move: from what you hear and see, to what you have agreed.",
+  "chars": 445
+ },
+ {
+  "id": "t19",
+  "sec": "6",
+  "text": "And it won't stop at scams. In one small study this year, people chatted for a week without knowing who was on the other side. They trusted the A.I. more than the human, and agreed to its request more than twice as often.\n\n[pause] If that holds up, it is an early glimpse of superintelligence: a machine better than people at a very human skill. And for many families, it won't arrive as a robot. It arrives as a phone call.",
+  "chars": 424
+ },
+ {
+  "id": "t20",
+  "sec": "6",
+  "text": "[warm] And the answer to it fits at that kitchen table. Ten minutes, this week. One word. One person to call. One name at the bank. And then the same for yourself.",
+  "chars": 163
+ },
+ {
+  "id": "t21",
+  "sec": "7",
+  "text": "[calm, conversational] And one evening, her phone does ring. It's your voice. In tears. Asking for money, right now.\n\n[pause] Your mother doesn't listen for a flaw. She asks for the word. The line goes quiet.\n\n[warm] A machine can copy your voice. It can't copy what you agreed on.",
+  "chars": 281
+ },
+ {
+  "id": "t22",
+  "sec": "A2",
+  "text": "[warm] This channel exists so that the arrival of superintelligence goes well for everybody, in every home. Want that too? Then subscribe.",
+  "chars": 138,
+  "cta": true
+ }
+]

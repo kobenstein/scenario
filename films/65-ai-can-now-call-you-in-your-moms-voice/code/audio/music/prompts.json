@@ -1,0 +1,50 @@
+{
+ "_comment": "Film 65 Lyria 3.5 prompts (google/lyria-3.5 via fal, one track per chapter, 2026-11-20). Chapters = levels of timing.json (H | 1 | 2 | 3,M | 4 | 5 | 6,7,A2 + end screen). Files in <scratch>/f65/audio/music, not in the repo.",
+ "style": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence that can clone a mother's voice on the phone, and how families protect each other. No drums, no percussion, no vocals, no melody hook, not epic, not uplifting, no happy major-key resolution. Very quiet, even dynamics, slow tempo 58-64 BPM, no sudden swells or loud hits.",
+ "tracks": {
+  "M0": {
+   "chapter": "H (hook: the phone rings, your voice in tears)",
+   "len": "1 minute 15 seconds",
+   "mood": "a dark kitchen at night, a phone lighting up on the table, a voice you know that is not really there; a low warm drone, bowed glass, one felt-piano note repeating softly, a faint high string harmonic; quietly uneasy, a held breath of suspense",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence that can clone a mother's voice on the phone, and how families protect each other. No drums, no percussion, no vocals, no melody hook, not epic, not uplifting, no happy major-key resolution. Very quiet, even dynamics, slow tempo 58-64 BPM, no sudden swells or loud hits. Length: 1 minute 15 seconds. Mood: a dark kitchen at night, a phone lighting up on the table, a voice you know that is not really there; a low warm drone, bowed glass, one felt-piano note repeating softly, a faint high string harmonic; quietly uneasy, a held breath of suspense."
+  },
+  "M1": {
+   "chapter": "1 (step 1: the voice; the Senate witness S1, the silent seconds, the code word)",
+   "len": "1 minute 45 seconds",
+   "mood": "a sound wave being copied in the dark, a mother on the phone for hours; slow warm pads, sparse felt piano, delicate glass tones, a low cello drone; patient, mysterious, a gentle undercurrent of unease",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence that can clone a mother's voice on the phone, and how families protect each other. No drums, no percussion, no vocals, no melody hook, not epic, not uplifting, no happy major-key resolution. Very quiet, even dynamics, slow tempo 58-64 BPM, no sudden swells or loud hits. Length: 1 minute 45 seconds. Mood: a sound wave being copied in the dark, a mother on the phone for hours; slow warm pads, sparse felt piano, delicate glass tones, a low cello drone; patient, mysterious, a gentle undercurrent of unease."
+  },
+  "M2": {
+   "chapter": "2 (step 2: the story; chat machines, thousands of fake personas)",
+   "len": "1 minute 30 seconds",
+   "mood": "glowing chat bubbles multiplying in a dim room, a machine quietly keeping notes; soft pulsing synth pad, muted piano ostinato, glassy shimmer, low drone; cool and curious, slightly suspenseful, never resolving",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence that can clone a mother's voice on the phone, and how families protect each other. No drums, no percussion, no vocals, no melody hook, not epic, not uplifting, no happy major-key resolution. Very quiet, even dynamics, slow tempo 58-64 BPM, no sudden swells or loud hits. Length: 1 minute 30 seconds. Mood: glowing chat bubbles multiplying in a dim room, a machine quietly keeping notes; soft pulsing synth pad, muted piano ostinato, glassy shimmer, low drone; cool and curious, slightly suspenseful, never resolving."
+  },
+  "M3": {
+   "chapter": "3 + M (step 3: a forged famous face, the investment scam; subscribe call 1)",
+   "len": "1 minute 30 seconds",
+   "mood": "a familiar face on a screen that is subtly wrong, money flowing away in the dark; low strings, bowed glass, sparse felt piano, a slow minor pad; tense but restrained, the last twenty seconds warm and sincere",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence that can clone a mother's voice on the phone, and how families protect each other. No drums, no percussion, no vocals, no melody hook, not epic, not uplifting, no happy major-key resolution. Very quiet, even dynamics, slow tempo 58-64 BPM, no sudden swells or loud hits. Length: 1 minute 30 seconds. Mood: a familiar face on a screen that is subtly wrong, money flowing away in the dark; low strings, bowed glass, sparse felt piano, a slow minor pad; tense but restrained, the last twenty seconds warm and sincere."
+  },
+  "M4": {
+   "chapter": "4 (step 4: the clock; the fake FBI agent, urgency and secrecy, the FBI quote card, the FTC commissioner)",
+   "len": "2 minutes 30 seconds",
+   "mood": "a ticking clock in an empty room, a fake agent on a video call, pressure and isolation; a low pulsing drone like a slow heartbeat, a muted repeating piano figure, tense high glass harmonics, dark cello; restrained suspense, steady and hypnotic, never loud",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence that can clone a mother's voice on the phone, and how families protect each other. No drums, no percussion, no vocals, no melody hook, not epic, not uplifting, no happy major-key resolution. Very quiet, even dynamics, slow tempo 58-64 BPM, no sudden swells or loud hits. Length: 2 minutes 30 seconds. Mood: a ticking clock in an empty room, a fake agent on a video call, pressure and isolation; a low pulsing drone like a slow heartbeat, a muted repeating piano figure, tense high glass harmonics, dark cello; restrained suspense, steady and hypnotic, never loud."
+  },
+  "M5": {
+   "chapter": "5 (step 5: the money; the bank, the trusted contact, the banker quote S2)",
+   "len": "2 minutes",
+   "mood": "a quiet room in the afternoon light, a pen resting on a sheet of paper, a steady hand; grounded and calm: felt piano, warm string pads, soft glass harmonics, a low drone; steady and reassuring but not uplifting, a little mystery remains",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about families and trust in the age of artificial intelligence. No drums, no percussion, no vocals, no melody hook, not epic, not uplifting, no happy major-key resolution. Very quiet, even dynamics, slow tempo 58-64 BPM, no sudden swells or loud hits. Length: 2 minutes. Mood: a quiet room in the afternoon light, a pen resting on a sheet of paper, a steady hand; grounded and calm: felt piano, warm string pads, soft glass harmonics, a low drone; steady and reassuring but not uplifting, a little mystery remains.",
+   "prompt_first_refused": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence that can clone a mother's voice on the phone, and how families protect each other. No drums, no percussion, no vocals, no melody hook, not epic, not uplifting, no happy major-key resolution. Very quiet, even dynamics, slow tempo 58-64 BPM, no sudden swells or loud hits. Length: 2 minutes. Mood: a quiet bank counter, a name written on a form, a real person who can stop a transfer; grounded and calm: felt piano, warm string pads, soft glass harmonics, a low drone; steady, reassuring but not uplifting, a little mystery remains.",
+   "note": "first prompt (bank / transfer wording) was declined by the Lyria safety system (no charge for the output); rewritten without bank words"
+  },
+  "M6": {
+   "chapter": "6 + 7 + A2 + end screen (the big answer: trust moves to what you agreed; the kitchen table; the phone rings again; the line goes quiet)",
+   "len": "2 minutes 20 seconds",
+   "mood": "a family at a kitchen table at dusk, an agreement made, a phone that rings again and then goes quiet; mystical, warm, contemplative: slow felt-piano figure, airy pads, bowed glass, a faint wordless choir pad, fades out on one long decaying tone",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence that can clone a mother's voice on the phone, and how families protect each other. No drums, no percussion, no vocals, no melody hook, not epic, not uplifting, no happy major-key resolution. Very quiet, even dynamics, slow tempo 58-64 BPM, no sudden swells or loud hits. Length: 2 minutes 20 seconds. Mood: a family at a kitchen table at dusk, an agreement made, a phone that rings again and then goes quiet; mystical, warm, contemplative: slow felt-piano figure, airy pads, bowed glass, a faint wordless choir pad, fades out on one long decaying tone."
+  }
+ }
+}
