@@ -34,6 +34,6 @@ function scene(a, K) {
     if (pb) F.label(ctx, pb[0], pb[1], 'THE ARK', null, span(t, a.ark + .1, a.ark + 1.1) * (1 - out), { dx: -170, dy: -50, size: 32, col: F.FROST });
     // A.01 subscribe 2: one quiet line (as subscribe 1)
     const sU = rise(span(t, a.films + 1.4, a.films + 2.2)) * (1 - expoIn(span(t, a.vend + .4, a.vend + 1.2)));
-    if (sU > 0) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); maskLine(ctx, [['SUBSCRIBE · THE GOOD TAKEOFF', 0]], 960, 250, 30, sU, { serif: false, weight: 600, align: 'center', col: P.core0, glow: false }); ctx.restore(); }
+    if (sU > 0) { ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); maskLine(ctx, [['SUBSCRIBE · THE GOOD TAKEOFF', 0]], 700, 250, 30, sU, { serif: false, weight: 600, align: 'center', col: P.core0, glow: false }); ctx.restore(); }
   };
 }
