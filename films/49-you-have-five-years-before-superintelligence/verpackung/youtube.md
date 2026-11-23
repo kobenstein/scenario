@@ -1,8 +1,8 @@
 # #49 · You Have Five Years Before Superintelligence
 
-- Video: noch nicht hochgeladen
+- Video: https://youtu.be/C331gMzZwrw (privat hochgeladen 23.11.2026, publishAt 2026-11-24T16:00:00Z = Di 17:00 Wien)
 - Veröffentlichung: geplant 2026-11-24
-- Länge: ca. 9m52s (Stand Hörfassung v8 mit Clip-Platzhaltern, timing.json 592,3 s)
+- Länge: 10:03.9 (603,94 s, Hörfassung v9 mit den echten Clips, timing.json v9)
 - Sponsor: keiner (für 24.11. liegt keine Buchung vor), nur die Sponsor-Zeile am Schluss wie immer
 
 ## Titel
@@ -80,17 +80,17 @@ Want to sponsor a film? passionfroot.me/the-good-takeoff
 
 ## Kapitel
 
-Aus audio/timing.json (Stand 23.11., Clip-Slots noch Platzhalter: C13 8 s, C5 10 s, C16 10 s, C2 8 s). Jeder Kapitelstart ist der Beginn des Sprecher-Abschnitts der Station. Wenn die echten Clips heute Abend drin sind, verschieben sich alle Zeiten nach dem jeweiligen Clip um dessen Längenunterschied: ab 1:40 alles nach C13, ab 4:33 alles nach C5, ab 5:57 alles nach C16, ab 8:23 alles nach C2. Dann neu aus timing.json ablesen und hier eintragen.
+Aus audio/timing.json v9 (23.11., echte Clips: C13 14,3 s, C5 11,87 s, C16 14,07 s, C2 7,4 s). Jeder Kapitelstart ist der Beginn des Sprecher-Abschnitts der Station (t02, t04, t07, t11, t14, t17, t19).
 
 ```
 0:00 Five years before superintelligence
 0:54 The stranger's question
-1:40 5 years to go: You
-3:05 4 years to go: Your work
-4:33 3 years to go: Your family
-5:57 2 years to go: The machine
-7:23 1 year to go: Your say
-8:23 The next generation is you
+1:46 5 years to go: You
+3:11 4 years to go: Your work
+4:41 3 years to go: Your family
+6:10 2 years to go: The machine
+7:36 1 year to go: Your say
+8:35 The next generation is you
 ```
 
 ## Tags

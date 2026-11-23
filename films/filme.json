@@ -397,5 +397,17 @@
     ],
     "thumbnail_quelle": "film-geld-nach-si",
     "code_herkunft": "claude/project-thread-kq9unm:films/66-sam-altman-says-everything-will-get-cheap"
+  },
+  {
+    "nr": 49,
+    "ordner": "49-you-have-five-years-before-superintelligence",
+    "titel": "You Have Five Years Before Superintelligence",
+    "video": "C331gMzZwrw",
+    "veroeffentlicht": "2026-11-24",
+    "skript_quellen": [
+      "film-vorbereiten"
+    ],
+    "thumbnail_quelle": "thumbnails/film-49",
+    "code_herkunft": "claude/project-thread-wlkig5:films/49-you-have-five-years-before-superintelligence"
   }
 ]

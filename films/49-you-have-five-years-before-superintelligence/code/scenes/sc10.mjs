@@ -274,6 +274,7 @@ function scene(B, T) {
     if (plateOn) {
       const back = clip && t >= clip.end;
       const from = back ? rL : [BILL.x + BILL.w / 2, BILL.y + BILL.h / 2, 6];
+      F.veil(ctx, .6 * sineIO(plateM));   // final: the lit door behind the landscape plate covered the credit line; a night veil keeps the lower third readable
       F.clipPlate(ctx, t, T, 'C2', { from, morph: plateM });
     }
     // ---- 1.07 the quote card grows out of the right paper (and goes back on 'Neither')

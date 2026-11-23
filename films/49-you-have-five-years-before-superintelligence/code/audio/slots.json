@@ -1,23 +1,23 @@
 {
- "duration": 592.3,
+ "duration": 603.94,
  "end_screen": {
-  "start": 577.3,
+  "start": 588.94,
   "dur": 15.0,
-  "end": 592.3,
+  "end": 603.94,
   "call": "t22",
-  "call_start": 564.57,
-  "call_end": 573.3,
+  "call_start": 576.21,
+  "call_end": 584.94,
   "tail_after_vo": 19.0,
   "note": "after the last VO word: a quiet walk, then the 15 s end screen (the music fades out over it)"
  },
  "channel_calls": {
   "t10": {
-   "start": 263.41,
-   "end": 271.79
+   "start": 271.58,
+   "end": 279.96
   },
   "t22": {
-   "start": 564.57,
-   "end": 573.3
+   "start": 576.21,
+   "end": 584.94
   }
  },
  "slots": [
@@ -26,40 +26,40 @@
    "kind": "clip",
    "sec": "1",
    "start": 75.64,
-   "end": 83.64,
-   "dur": 8.0,
+   "end": 89.94,
+   "dur": 14.3,
    "under": false,
-   "placeholder": true
+   "placeholder": false
   },
   {
    "id": "C5",
    "kind": "clip",
    "sec": "3",
-   "start": 252.0,
-   "end": 262.0,
-   "dur": 10.0,
+   "start": 258.3,
+   "end": 270.17,
+   "dur": 11.87,
    "under": false,
-   "placeholder": true
+   "placeholder": false
   },
   {
    "id": "C16",
    "kind": "clip",
    "sec": "4",
-   "start": 313.56,
-   "end": 323.56,
-   "dur": 10.0,
+   "start": 321.73,
+   "end": 335.8,
+   "dur": 14.07,
    "under": false,
-   "placeholder": true
+   "placeholder": false
   },
   {
    "id": "C2",
    "kind": "clip",
    "sec": "6",
-   "start": 474.19,
-   "end": 482.19,
-   "dur": 8.0,
+   "start": 486.43,
+   "end": 493.83,
+   "dur": 7.4,
    "under": false,
-   "placeholder": true
+   "placeholder": false
   }
  ],
  "clips": [
@@ -68,31 +68,31 @@
    "kind": "clip",
    "sec": "1",
    "start": 75.64,
-   "end": 83.64,
+   "end": 89.94,
    "under": false
   },
   {
    "id": "C5",
    "kind": "clip",
    "sec": "3",
-   "start": 252.0,
-   "end": 262.0,
+   "start": 258.3,
+   "end": 270.17,
    "under": false
   },
   {
    "id": "C16",
    "kind": "clip",
    "sec": "4",
-   "start": 313.56,
-   "end": 323.56,
+   "start": 321.73,
+   "end": 335.8,
    "under": false
   },
   {
    "id": "C2",
    "kind": "clip",
    "sec": "6",
-   "start": 474.19,
-   "end": 482.19,
+   "start": 486.43,
+   "end": 493.83,
    "under": false
   }
  ]
