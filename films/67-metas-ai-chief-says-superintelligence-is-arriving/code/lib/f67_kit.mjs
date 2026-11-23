@@ -212,12 +212,12 @@ export const float = (ctx, t, k = 1) => { ctx.setTransform(1, 0, 0, 1, 0, 0); co
 // Frames: <F67CLIPS or /tmp/claude-0/f67/clips/>/<id>/f00001.jpg… (30 fps, 1920×1080, from <ROOT>clips/Cn.mp4 trimmed to in/out of
 // <ROOT>clips-geprueft.json; written by tools/f67_clips.py clips). Until the frames exist a placeholder shows (never ship it).
 export const CLIP_RECT = { x: 120, y: 112, w: 1680, h: 945 };
-export const CLIPS = {   // PROVISIONAL until films/67-assets/clips/clips.md (iMac) — the lead/builder updates name/role/year/src from it
-  C0: { name: 'Levent Alpöge', role: 'Mathematician', year: '2026', src: 'TBD' },   // optional: only if a video exists (slot near "the mathematician himself")
-  C1: { name: 'Alexandr Wang', role: 'Chief AI Officer, Meta', year: '2026', src: 'TBD' },
-  C2: { name: 'Brian Conrey', role: 'Mathematician', year: '2026', src: 'TBD' },
-  C3: { name: 'Terence Tao', role: 'Mathematician, UCLA', year: '2026', src: 'TBD' },
-  C4: { name: 'Yann LeCun', role: 'AI researcher', year: '2026', src: 'TBD' },
+export const CLIPS = {   // from audio/clips_meta.json + films/67-assets/clips/clips.md (checked 23.11.)
+  C0: { name: 'Levent Alpöge', role: 'Mathematician', year: '2023', src: 'Number Theory Web Seminar' },   // picture only
+  C1: { name: 'Alexandr Wang', role: 'Chief AI Officer, Meta', year: '2026', src: 'Core Memory Podcast' },
+  C2: { name: 'James Maynard', role: 'Mathematician · Fields Medal 2022', year: '2026', src: 'New Scientist' },
+  C3: { name: 'Terence Tao', role: 'Mathematician · Fields Medal 2006', year: '2026', src: 'ICM 2026 Public Lecture, Simons Foundation' },
+  C4: { name: 'Yann LeCun', role: 'AI scientist', year: '2025', src: 'Big Technology Podcast' },
 };
 const CLIPDIR = (process.env.F67CLIPS || '/tmp/claude-0/f67/clips/').replace(/\/?$/, '/');
 const nFrames = new Map();
@@ -517,8 +517,8 @@ export const ASSET_DIR = (process.env.F67ASSETS || new URL('../../../67-assets/'
 export const ASSETS = {   // crop = the part of the PNG shown [x0, y0, x1, y1] (0..1 of the PNG) · box = highlight boxes (0..1 of the CROP) · dark print (X dark mode)
   header: { files: ['x/01-header.png', 'x/header.png'], aspect: 4.2, text: 'Alexandr Wang · Superintelligence is Arriving', sub: 'X · NOV 22, 2026' },
   alien: { files: ['x/02-homework-atombomb-alien-mind.png'], crop: [0, .789, 1, 1], box: [[.423, .38, .556, .82]], text: '“…completed with the help of an alien mind that we don’t understand.”', hi: 'alien mind' },
-  homework: { files: ['x/02-homework-atombomb-alien-mind.png'], crop: [0, .623, 1, .796], box: [[.222, .47, .392, .99]], text: '“…many physicists would agree that the discovery of the atomic bomb is a homework problem compared to the Riemann Hypothesis.”', hi: 'homework problem' },
-  lazy: { files: ['x/05-lazy-handover-defaultpath.png'], crop: [0, .055, 1, .266], box: [[.216, 0, .388, .52]], text: '“I notice a particular form of lazy thinking within the AI industry…”', hi: 'lazy thinking' },
+  homework: { files: ['x/02-homework-atombomb-alien-mind.png'], crop: [0, .623, 1, .796], box: [[.246, .47, .376, .99]], text: '“…many physicists would agree that the discovery of the atomic bomb is a homework problem compared to the Riemann Hypothesis.”', hi: 'homework problem' },
+  lazy: { files: ['x/05-lazy-handover-defaultpath.png'], crop: [0, .055, 1, .266], box: [[.357, .02, .52, .5]], text: '“I notice a particular form of lazy thinking within the AI industry…”', hi: 'lazy thinking' },
   thousand: { files: ['x/04-control-1000x.png'], crop: [0, .352, 1, .65], box: [[.275, .335, .462, .665]], text: '“…equally hard to imagine a world where humanity maintains control with superintelligence that is 1000x smarter and more capable than humans in every field.”', hi: '1000x smarter' },
   handover: { files: ['x/05-lazy-handover-defaultpath.png'], crop: [0, .264, 1, .476], box: [[.747, .02, .862, .5]], text: '“We should not be okay with a “handover” of society to AI.”', hi: 'handover' },
   defaultPath: { files: ['x/05-lazy-handover-defaultpath.png'], crop: [0, .683, 1, 1], box: [[.685, .01, .879, .33]], text: '“…likely involves the whole industry taking meaningfully different actions from the “default path” in front of us.”', hi: 'default path' },

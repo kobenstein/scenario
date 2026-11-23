@@ -294,12 +294,13 @@ def envelope(wav, n):
 def cmd_clips(a):
     """frames from the pre-cut clips <ROOT>clips/Cn.mp4 (film 66: already trimmed, clips-geprueft.json), 30 fps, 1920x1080, frame 1 = slot start.
     The slot is .3 s longer than the clip (provisional_timing CLIP_LEN): the last frame holds. The corner logos (C2, C4) are cropped in F.clipPlate."""
-    meta = {c['id']: c for c in jload(ROOT + 'clips-geprueft.json')['clips']}
+    meta = {}  # film 67: wording in audio/clips_meta.json + kit CLIPS
+    SRC = os.path.join(os.path.dirname(FILM), '..', '67-assets', 'clips') + '/'
     for cid in IDS:
         if a.only and cid not in a.only.split(','): continue
         d = os.path.join(CL, cid); os.makedirs(d, exist_ok=True)
         for f in glob.glob(os.path.join(d, 'f*.jpg')): os.remove(f)
-        sh(['ffmpeg', '-v', 'error', '-y', '-i', ROOT + 'clips/' + cid + '.mp4', '-vf', 'fps=30,scale=1920:1080', '-q:v', '3', os.path.join(d, 'f%05d.jpg')])
+        sh(['ffmpeg', '-v', 'error', '-y', '-i', SRC + cid + '.mp4', '-vf', 'fps=30,scale=1920:1080', '-q:v', '3', os.path.join(d, 'f%05d.jpg')])
         print(cid, meta.get(cid, {}).get('bauchbinde', ''), f"{meta.get(cid, {}).get('dauer_s')} s ->", len(glob.glob(os.path.join(d, 'f*.jpg'))), 'frames in', d)
 
 def cmd_check(a):
