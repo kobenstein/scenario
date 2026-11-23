@@ -298,8 +298,8 @@ function scene(a, T) {
   const CH = S.CHAIR;
   // ---------------------------------------------------------------- the camera (one take, c02 → c04)
   const K = [
-    [tIn, wang(tIn)], [tIn + 1.5, wang(tIn + 1.5)], [a.runs - .1, wang(a.runs - .1)],
-    [a.msl + 1.1, L(4600, 690, 1.7)], [a.still - .2, L(4605, 686, 1.76)], [a.look + .2, L(4610, 682, 1.8)],
+    [tIn, wang(tIn)], [tIn + 1.5, wang(tIn + 1.5)], [a.runs + .6, wang(a.runs + .6)], [a.runs + 2.4, E.aim(S.Z_HEAD, W / 2 + 260, H / 2 + 40, .8)], [a.runs + 4.0, L(3300, 520, .56)],
+    [a.bomb + 1.8, L(4600, 690, 1.7)], [a.still - .2, L(4605, 686, 1.76)], [a.look + .2, L(4610, 682, 1.8)],
     [a.job + 1.4, L(4620, 600, 1.42)], [a.here - .1, L(4626, 610, 1.48)], [C1.start, L(4600, GY - 52, 3.3)], [C1.end, L(4600, GY - 52, 3.42)],
     [a.comp + .4, L(4980, 640, 1.34)], [a.word + .3, L(4992, 626, 1.42)], [a.itself + 2.6, L(2150, 600, 1.12)],
     // c03
@@ -319,14 +319,14 @@ function scene(a, T) {
   const cam = (t) => E.camDrift(camRaw(t), t, 4 * smooth(span(t, tIn, tIn + 2)) * (1 - smooth(span(t, tCreep - 1.5, tCreep))), 7);
 
   // ---------------------------------------------------------------- c02 timings
-  const portU = (t) => span(t, a.man + .1, a.man + 1.7) * (1 - span(t, a.runs, a.runs + 1.1));
-  const nameU = (t) => span(t, a.man + .7, a.man + 2) * (1 - span(t, a.runs + .2, a.runs + 1));
-  const postU = (t) => 1 - sineIO(span(t, a.runs + .3, a.runs + 1.9));
-  const signG = (t) => span(t, a.msl + .3, a.msl + 1.0) * (1 - .6 * span(t, a.bomb, a.bomb + 1.5));
-  const veil2 = (t) => .5 * sio(t, a.bomb - .3, a.bomb + .6, a.look - .1, a.look + 1.0);
-  const crHw = (t) => span(t, a.bomb + .1, a.bomb + 1.3) * (1 - span(t, a.still - .1, a.still + .7));
+  const portU = (t) => span(t, a.man + .5, a.man + 2.0) * (1 - span(t, a.runs - .2, a.runs + .9));
+  const nameU = (t) => span(t, a.man + .9, a.man + 2.2) * (1 - span(t, a.runs + .2, a.runs + 1));
+  const postU = (t) => 1 - sineIO(span(t, a.runs + .2, a.runs + 1.8));
+  const signG = (t) => span(t, a.msl + .3, a.msl + 1.3) * (1 - .6 * span(t, a.bomb, a.bomb + 1.5));
+  const veil2 = (t) => .5 * sio(t, a.bomb + .2, a.bomb + 1.2, a.look - .1, a.look + 1.0);
+  const crHw = (t) => span(t, a.bomb + .5, a.bomb + 1.6) * (1 - span(t, a.still - .1, a.still + .7));
   const crLazy = (t) => span(t, a.still + .5, a.still + 1.7) * (1 - span(t, a.look - .2, a.look + .7));
-  const balU = (t) => span(t, a.bomb + .3, a.bomb + 1.2) * (1 - span(t, a.still - .3, a.still + .5));
+  const balU = (t) => span(t, a.bomb + .9, a.bomb + 1.8) * (1 - span(t, a.still - .3, a.still + .5));
   const noSrcU = (t) => span(t, a.noSrc + .1, a.noSrc + .9) * (1 - span(t, a.still - .3, a.still + .3));
   const bill = (t) => span(t, a.promo - .3, a.promo + 1.6);
   const doorM = (t) => sineIO(span(t, C1.start - 1.3, C1.start)) * (1 - sineIO(span(t, C1.end, C1.end + 1.1)));
@@ -405,7 +405,8 @@ function scene(a, T) {
       labs: .5, billboard: bill(t), otherLab: other(t),
       you: t < tCreep - 3 ? { x: youX(t), o: youO(t) } : false,
       land: (cx) => {
-        labDoor(cx, t, signG(t));
+        if (t < a.itself + 3) labDoor(cx, t, signG(t));
+        F.file(cx, t, S.BOARD.spot.x, S.BOARD.spot.y, 40, { glow: 1, seed: 5 });   // THE FILE on the board's spot (the ribbon's origin)
         corner(cx, t, { flare: flare(t), bulb: bulbOn(t), leaf: leaf(t), fast: 1 + 2 * span(t, a.comes, a.comes + 2) });
         // the twin board (c04: slides out from behind the real board and back)
         if (twinOn(t)) twinBoard(cx, t, twinX(t), fold(t), S.BOARD.x - S.BOARD.w / 2 - 26, 1, aeq(t));
@@ -455,7 +456,7 @@ function scene(a, T) {
     if (v2 > 0) F.veil(ctx, Math.min(.62, v2));
     if (crHw(t) > 0 || crLazy(t) > 0) {
       const x = 180, y = 290, w = 1560;
-      if (crHw(t) > 0) { const q = F.xQuote(ctx, t, 'homework', x, y, w, { u: crHw(t), hiU: span(t, a.bomb + .9, a.bomb + 1.8) });
+      if (crHw(t) > 0) { const q = F.xQuote(ctx, t, 'homework', x, y, w, { u: crHw(t), hiU: span(t, a.bomb + 1.4, a.bomb + 2.3) });
         const nu = noSrcU(t); if (nu > 0 && q) { const yy = y + q.full + 58; F.goldSpan(ctx, [[x + 10, yy + 10], [x + 380, yy + 10]], 0, smooth(nu), { w: 1.2, spark: false });
           F.goldText(ctx, [['SOURCE: ', .6], ['—', 0]], x + 10, yy, 30, rise(nu), { serif: false, weight: 700, spacing: .08 }); } }
       if (crLazy(t) > 0) F.xQuote(ctx, t, 'lazy', x, y, w, { u: crLazy(t), hiU: span(t, a.lazy - .05, a.lazy + 1.0) });
@@ -466,7 +467,7 @@ function scene(a, T) {
     // C1: the plate grows out of the lab door and goes back into it
     const dm = doorM(t); if (dm > 0) F.clipPlate(ctx, t, T, 'C1', { from: scrRect(c, DOOR.x - DOOR.w / 2, GY - DOOR.h, DOOR.x + DOOR.w / 2, GY), morph: dm });
     // c03 labels
-    const l17 = lab17(t); if (l17 > 0) { const p = scr(c, 2900, GY - 10); F.goldLabel(ctx, p[0], p[1] - 10, F.SOURCES.lines17, F.SOURCES.lines17Sub, l17, { dx: 60, dy: -110, size: 30 }); }
+    const l17 = lab17(t); if (l17 > 0) { const p = scr(c, 2900, GY - 10); F.goldLabel(ctx, p[0], p[1] - 10, F.SOURCES.lines17, F.SOURCES.lines17Sub, l17, { dx: 60, dy: -110, size: 32 }); }
     const cw = span(t, a.correct - .2, a.correct + .5) * (1 - span(t, a.day, a.day + .6)); if (cw > 0) { const p = scr(c, CH.x + 30, GY - CH.h - 150); F.goldText(ctx, [['CORRECT', 1]], p[0], p[1], 48, rise(cw), { serif: false, weight: 800, spacing: .08, glow: true }); }
     const ll = leanL(t); if (ll > 0) { const p = scr(c, CH.x + 20, GY - CH.h - 40); F.goldLabel(ctx, p[0], p[1], 'LEAN', 'PROOF CHECKER · A PROGRAM', ll, { dx: 120, dy: -90, size: 32 }); }
     const cu = comU(t); if (cu > 0) communityCard(ctx, t, cu, comLit(t), 110, 280, 820, 380);
@@ -474,7 +475,7 @@ function scene(a, T) {
     if (t > a.holds - .5 && t < a.keeps + .5) F.source(ctx, t, a.holds - .2, a.keeps + .3, F.SOURCES.clay);
     const rm = ribM(t); if (rm > 0) F.clipPlate(ctx, t, T, 'C2', { from: scrRect(c, 3650, GY - 40, 3790, GY + 14), morph: rm });
     // c04
-    const tl = tautL(t); if (tl > 0) { const p = scr(c, twinX(t) + S.BOARD.w / 2 + 10, GY - 420); F.goldLabel(ctx, p[0], p[1], 'OBJECTION: “TAUTOLOGY”', 'AMY NIELSEN', tl, { dx: 50, dy: -50, size: 30 }); }
+    const tl = tautL(t); if (tl > 0) { const p = scr(c, twinX(t) + S.BOARD.w / 2 + 10, GY - 420); F.goldLabel(ctx, p[0], p[1], 'OBJECTION: “TAUTOLOGY”', 'AMY NIELSEN', tl, { dx: 50, dy: -50, size: 32 }); }
     const shu = shelfU(t); let hit = null;
     if (shu > 0) {
       const sl = scr(c, S.BOARD.spot.x, S.BOARD.spot.y + S.BOARD.spot.h / 2 + 40);
@@ -482,10 +483,10 @@ function scene(a, T) {
       if (hit) F.goldSpan(ctx, [[sl[0], sl[1]], [lerp(sl[0], hit[0], .5), Math.min(sl[1], hit[1]) - 80], [hit[0], hit[1] - 8]], 0, smooth(span(t, a.book - .3, a.book + .9)) * (1 - span(t, a.reject - .5, a.reject)), { w: 1.4, a: .9 });
       if (takeB(t) > 0) F.source(ctx, t, a.else, a.reject, F.SOURCES.mathlib);
     }
-    const al = alpL(t); if (al > 0) { const p = scr(c, CORNER.x1 - 70, GY - 82); F.goldLabel(ctx, p[0], p[1], 'LEVENT ALPÖGE', 'ANTHROPIC · CLAUDE', al, { dx: 120, dy: -170, size: 30 }); }
-    const s6 = sixL(t); if (s6 > 0) { const p = scr(c, CORNER.cal.x + 10, CORNER.cal.y + 40); const [l1, l2] = F.SOURCES.sixWeeks.split(' · '); F.goldLabel(ctx, p[0], p[1], l1, l2, s6, { dx: -90, dy: -120, size: 30 }); }
+    const al = alpL(t); if (al > 0) { const p = scr(c, CORNER.x1 - 70, GY - 82); F.goldLabel(ctx, p[0], p[1], 'LEVENT ALPÖGE', 'ANTHROPIC · CLAUDE', al, { dx: 120, dy: -170, size: 32 }); }
+    const s6 = sixL(t); if (s6 > 0) { const p = scr(c, CORNER.cal.x + 10, CORNER.cal.y + 40); const [l1, l2] = F.SOURCES.sixWeeks.split(' · '); F.goldLabel(ctx, p[0], p[1], l1, l2, s6, { dx: -90, dy: -120, size: 32 }); }
     const cm = c0M(t); if (cm > 0) c0Plate(ctx, t, c0s, cm, scrRect(c, CORNER.win.x, CORNER.win.y, CORNER.win.x + CORNER.win.w, CORNER.win.y + CORNER.win.h), inOut(t, c0s + .9, c0s + 1.6, c0e - 1.4, c0e - .9));
-    const qu = quoteU(t); if (qu > 0) F.quoteCard(ctx, t, T, { text: F.SOURCES.outrageous, x: 400, y: 260, w: 1120, size: 76, credit: F.SOURCES.outrageousSrc, spoken: ['frankly', 'outrageous'], after: a.publishing - .5, mode: 'hi', u: qu });
+    const qu = quoteU(t); if (qu > 0) F.quoteCard(ctx, t, T, { text: F.SOURCES.outrageous, x: 340, y: 250, w: 1240, size: 86, credit: F.SOURCES.outrageousSrc, spoken: ['frankly', 'outrageous'], after: a.publishing - .5, mode: 'hi', u: qu });
     // ★ 3.10: the file flies out of his hand into box 3 (it fills by itself on 'Third box: gold')
     const f3 = fly3(t);
     if (f3 > 0 && t < a.box3 + .2) {
