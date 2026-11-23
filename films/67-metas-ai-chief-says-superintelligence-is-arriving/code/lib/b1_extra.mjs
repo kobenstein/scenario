@@ -23,6 +23,9 @@ const GY = S.GY;
 // (F.CLIPS is the lead's provisional table; B1 owns C1 and C2 and sets them from clips.md here. Reported to the lead.)
 Object.assign(F.CLIPS.C1, { name: 'Alexandr Wang', role: 'Chief AI Officer, Meta', year: '2026', src: 'Core Memory Podcast' });
 Object.assign(F.CLIPS.C2, { name: 'James Maynard', role: 'Mathematician, Fields Medal 2022', year: '2026', src: 'New Scientist' });
+// the 'lazy' highlight box in the kit sits on 'particular form of la'; measured on the real crop: 'lazy thinking' = x .357–.52 of the crop
+// (only B1 uses this crop; the lead is told, a films/67-assets/x/highlights.json entry would override it for everyone)
+F.ASSETS.lazy.box = [[.357, .02, .52, .5]];
 export const C0INFO = { name: 'Levent Alpöge', role: 'MATHEMATICIAN · 2023', src: 'NUMBER THEORY WEB SEMINAR' };
 
 // ------------------------------------------------------------------------------------------------ C0 frames (picture only, muted)
@@ -303,8 +306,8 @@ function scene(a, T) {
     [a.job + 1.4, L(4620, 600, 1.42)], [a.here - .1, L(4626, 610, 1.48)], [C1.start, L(4600, GY - 52, 3.3)], [C1.end, L(4600, GY - 52, 3.42)],
     [a.comp + .4, L(4980, 640, 1.34)], [a.word + .3, L(4992, 626, 1.42)], [a.itself + 2.6, L(2150, 600, 1.12)],
     // c03
-    [a.real + 1.9, L(2090, 606, 1.07)], [a.lines + 2.4, L(2760, 650, .95)], [a.notYou - .2, L(2640, 762, 2.1)], [a.referee, L(2660, 766, 2.2)],
-    [a.lean + 1.1, E.aim(S.Z_LAND, CH.x, GY - 190, 1.85, 600, 560)], [a.ruling + .1, E.aim(S.Z_LAND, CH.x, GY - 200, 1.95, 640, 540)], [a.correct + .3, E.aim(S.Z_LAND, CH.x, GY - 220, 2.05, 700, 540)],
+    [a.real + 1.9, L(2090, 606, 1.07)], [a.lines + 2.4, L(2760, 650, .95)], [a.notYou - .2, L(2640, 762, 2.1)], [a.referee - .5, L(2665, 762, 2.12)],
+    [a.lean + 1.7, E.aim(S.Z_LAND, CH.x, GY - 190, 1.85, 600, 560)], [a.ruling + .1, E.aim(S.Z_LAND, CH.x, GY - 200, 1.95, 640, 540)], [a.correct + .3, E.aim(S.Z_LAND, CH.x, GY - 220, 2.05, 700, 540)],
     [a.day + 1.8, E.aim(S.Z_LAND, CH.x, GY - 220, 1.6, 600, 600)], [a.box1 - .4, E.aim(S.Z_LAND, CH.x, GY - 222, 1.66, 610, 600)], [a.holds + 3, E.aim(S.Z_LAND, CH.x, GY - 200, 1.52, 620, 600)],
     [a.keeps + 1.8, L(3700, 760, 2.2)], [C2.start, L(3720, GY - 12, 2.7)], [C2.end, L(3730, GY - 12, 2.8)],
     // c04
@@ -455,7 +458,7 @@ function scene(a, T) {
     const v2 = veil2(t) + veilBig(t) + veil3(t) + veil4(t);
     if (v2 > 0) F.veil(ctx, Math.min(.62, v2));
     if (crHw(t) > 0 || crLazy(t) > 0) {
-      const x = 180, y = 290, w = 1560;
+      const x = 80, y = 280, w = 1760;
       if (crHw(t) > 0) { const q = F.xQuote(ctx, t, 'homework', x, y, w, { u: crHw(t), hiU: span(t, a.bomb + 1.4, a.bomb + 2.3) });
         const nu = noSrcU(t); if (nu > 0 && q) { const yy = y + q.full + 58; F.goldSpan(ctx, [[x + 10, yy + 10], [x + 380, yy + 10]], 0, smooth(nu), { w: 1.2, spark: false });
           F.goldText(ctx, [['SOURCE: ', .6], ['—', 0]], x + 10, yy, 30, rise(nu), { serif: false, weight: 700, spacing: .08 }); } }
