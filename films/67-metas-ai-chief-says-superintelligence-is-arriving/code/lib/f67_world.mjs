@@ -165,7 +165,7 @@ function labs(ctx, t, st) {   // Meta Superintelligence Labs (billboard frame on
   }
   ctx.fillStyle = mixHex(P.night1, P.blue2, .3); ctx.fillRect(LABS.meta - 240, GY - 360, 8, 100); ctx.fillRect(LABS.meta + 232, GY - 360, 8, 100);   // the billboard frame
   ctx.strokeStyle = rgba(mixHex(P.blue2, P.cream, .2), .6); ctx.lineWidth = 3; ctx.strokeRect(LABS.meta - 240, GY - 420, 480, 70);
-  const bb = clamp(st.billboard ?? 0); if (bb > 0) { ctx.save(); ctx.beginPath(); ctx.rect(LABS.meta - 236, GY - 416, 472, 62); ctx.clip(); F.headline(ctx, t, { x: LABS.meta - 220, y: GY - 382, w: 440, u: bb, glow: .7 }); ctx.restore(); }
+  const bb = clamp(st.billboard ?? 0); if (bb > 0) { ctx.save(); ctx.beginPath(); ctx.rect(LABS.meta - 236, GY - 416, 472, 62); ctx.clip(); F.headline(ctx, t, { fit: false, x: LABS.meta - 220, y: GY - 382, w: 440, u: bb, glow: .7 }); ctx.restore(); }
   ctx.fillStyle = mixHex(P.night1, P.blue2, .35); for (let i = 0; i < 14; i++) ctx.fillRect(LABS.fence - 10 + (i - 7) * 14, GY - 70, 3, 70); ctx.fillRect(LABS.fence - 110, GY - 62, 220, 3); ctx.fillRect(LABS.fence - 110, GY - 30, 220, 3);
   const ol = clamp(st.otherLab ?? 0); if (ol > 0) { win(ctx, LABS.other - 40, GY - 150, 80, 60, GOLD.mid, .3 * ol); F.file(ctx, t, LABS.other, GY - 120, 30, { glow: ol, a: ol }); }
 }

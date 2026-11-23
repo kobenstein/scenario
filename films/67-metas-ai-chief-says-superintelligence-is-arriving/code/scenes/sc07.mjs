@@ -60,7 +60,7 @@ function scene(a, T) {
     if (t >= tPlate) { S.plateHandover(ctx, t, T); return; }
     const c = cam(t), fl = fly(t), lf = lift(t);
     S.landWorld(ctx, c, t, { head: { dim: dim(t) }, post: 1 - span(t, a.what - .2, tPlate - .9), windows: .3, hall: hall(t), you: false,
-      land: (cx) => { if (fl >= 1) F.goldText(cx, [['HANDOVER', 1]], HOPLATE[0], HOPLATE[1], HOPLATE[2], 1, { serif: true, align: 'center', glow: true }); } });
+      land: (cx) => { if (fl >= 1) F.edgeSafe(cx, { x: HOPLATE[0] - HOPLATE[2] * 2.8, y: HOPLATE[1] - HOPLATE[2], w: HOPLATE[2] * 5.6, h: HOPLATE[2] * 1.25 }, (g) => F.goldText(g, [['HANDOVER', 1]], HOPLATE[0], HOPLATE[1], HOPLATE[2], 1, { serif: true, align: 'center', glow: true })); } });
     F.veil(ctx, veil(t));
     // the gap closes; the ground line stays with you on it, and becomes the tape's floor
     const gu = ground(t);

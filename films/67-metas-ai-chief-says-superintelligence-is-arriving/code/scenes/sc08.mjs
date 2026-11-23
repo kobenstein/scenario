@@ -68,7 +68,7 @@ function frame(ctx, t, A, c) {
       land: (cx) => {
         B.yesWindows(cx, t, yesU, cool);
         drawRoom(cx);
-        if (hoU > 0) F.goldText(cx, [['HANDOVER', 1]], S.HALL.x + 60, GY - 330, 74, clamp(hoU), { serif: true, align: 'center', glow: true });
+        if (hoU > 0) F.edgeSafe(cx, { x: S.HALL.x + 60 - 200, y: GY - 330 - 70, w: 400, h: 90 }, (g) => F.goldText(g, [['HANDOVER', 1]], S.HALL.x + 60, GY - 330, 74, clamp(hoU), { serif: true, align: 'center', glow: true }));
       } });
     // three of the thousand yeses, named on the words (screen space, ≥ 22 px)
     const win = B.townWindows().slice().sort((a, b) => a.d - b.d);

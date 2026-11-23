@@ -123,6 +123,29 @@ export function title(ctx, t, u, o = {}) {
   ctx.restore();
 }
 
+// ======================================================================================================================== EDGE-SAFE TEXT (Jakob 23.11.: no cut-off titles)
+// Big words that the camera carries past the frame edge must never read as "cut off": a line is drawn through an offscreen pass whose
+// alpha falls to 0 over the last EDGE px at the frame edges, and the whole line fades out as less of it is on screen (gone at <= 62 %).
+// bbox = { x, y, w, h } in the CURRENT (world) transform. Continuous in t (the mask is fixed to the screen, the fade follows the bbox).
+let ES = null;
+export function edgeSafe(ctx, bbox, draw) {
+  const m = ctx.getTransform(), cw = ctx.canvas.width, ch = ctx.canvas.height, k = cw / W, EDGE = 80 * k;
+  const pts = [[bbox.x, bbox.y], [bbox.x + bbox.w, bbox.y], [bbox.x, bbox.y + bbox.h], [bbox.x + bbox.w, bbox.y + bbox.h]].map(([x, y]) => [m.a * x + m.c * y + m.e, m.b * x + m.d * y + m.f]);
+  const x0 = Math.min(...pts.map((p) => p[0])), x1 = Math.max(...pts.map((p) => p[0])), y0 = Math.min(...pts.map((p) => p[1])), y1 = Math.max(...pts.map((p) => p[1]));
+  if (x0 >= EDGE && y0 >= EDGE * .5 && x1 <= cw - EDGE && y1 <= ch - EDGE * .5) { draw(ctx); return; }
+  const area = Math.max(1, (x1 - x0) * (y1 - y0)), vis = Math.max(0, Math.min(x1, cw) - Math.max(x0, 0)) * Math.max(0, Math.min(y1, ch) - Math.max(y0, 0)) / area;
+  const a = smooth(clamp((vis - .9) / .1)); if (a <= 0) return;
+  if (!ES || ES.width !== cw || ES.height !== ch) ES = createCanvas(cw, ch);
+  const g = ES.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1; g.clearRect(0, 0, cw, ch);
+  g.setTransform(m); draw(g);
+  g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'destination-in';
+  const gx = g.createLinearGradient(0, 0, cw, 0); gx.addColorStop(0, 'rgba(0,0,0,0)'); gx.addColorStop(EDGE / cw, 'rgba(0,0,0,1)'); gx.addColorStop(1 - EDGE / cw, 'rgba(0,0,0,1)'); gx.addColorStop(1, 'rgba(0,0,0,0)');
+  g.fillStyle = gx; g.fillRect(0, 0, cw, ch);
+  const E2 = EDGE * .5, gy = g.createLinearGradient(0, 0, 0, ch); gy.addColorStop(0, 'rgba(0,0,0,0)'); gy.addColorStop(E2 / ch, 'rgba(0,0,0,1)'); gy.addColorStop(1 - E2 / ch, 'rgba(0,0,0,1)'); gy.addColorStop(1, 'rgba(0,0,0,0)');
+  g.fillStyle = gy; g.fillRect(0, 0, cw, ch); g.globalCompositeOperation = 'source-over';
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha *= a; ctx.drawImage(ES, 0, 0); ctx.restore();
+}
+
 // ======================================================================================================================== PAPER
 // a card: 'paper' (cream, dark ink: warnings, letters, quotes) or 'night' (dark indigo, gold edge: data). lines [[text, size, gold, serif]]
 export function paperCard(ctx, t, x, y, w, h, o = {}) {
@@ -281,11 +304,27 @@ function hlMeasure(ctx, s) { if (!HLM.has(s)) { ctx.save(); ctx.font = '100px "I
 export function headline(ctx, t, o = {}) {
   const lines = o.lines ?? ['SUPERINTELLIGENCE', 'IS ARRIVING'], cond = o.cond ?? .74, x = o.x ?? 150, y = o.y ?? 330, w = o.w ?? 1620;
   const size = w / (hlMeasure(ctx, lines[0]) * cond), lh = size * .9, glow = clamp(o.glow ?? 1), u = o.u ?? 1, boxes = [];
+  // FIT (Jakob 23.11.: no cut-off titles): when the camera makes the headline wider than the frame, it stops growing (scale about its
+  // screen centre) and is nudged up to 220 px back into the frame; past that it fades out at the edge (edgeSafe). Continuous in t.
+  ctx.save();
+  if (o.fit !== false) {
+    const lw0 = Math.max(...lines.map((ln) => hlMeasure(ctx, ln) * cond * size)), bx0 = o.align === 'left' ? x : x + (w - lw0) / 2;
+    const m = ctx.getTransform(), kc = ctx.canvas.width / W, M = 60 * kc;
+    const sx0 = m.a * bx0 + m.e, sx1 = m.a * (bx0 + lw0) + m.e, sy0 = m.d * (y - size * .8) + m.f, sy1 = m.d * (y + (lines.length - 1) * lh + size * .1) + m.f;
+    const sw = sx1 - sx0, shh = sy1 - sy0, cx = (sx0 + sx1) / 2, cy = (sy0 + sy1) / 2;
+    const sc = Math.min(1, (ctx.canvas.width - 2 * M) / sw, (ctx.canvas.height - M) / shh);
+    const nx0 = cx - sw * sc / 2, nx1 = cx + sw * sc / 2, ny0 = cy - shh * sc / 2, ny1 = cy + shh * sc / 2, LIM = 420 * kc;
+    let dx = nx0 < M ? M - nx0 : nx1 > ctx.canvas.width - M ? ctx.canvas.width - M - nx1 : 0;
+    let dy = ny0 < M * .5 ? M * .5 - ny0 : ny1 > ctx.canvas.height - M * .5 ? ctx.canvas.height - M * .5 - ny1 : 0;
+    dx = Math.max(-LIM, Math.min(LIM, dx)); dy = Math.max(-LIM, Math.min(LIM, dy));
+    if (sc < 1 || dx || dy) { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.translate(cx + dx, cy + dy); ctx.scale(sc, sc); ctx.translate(-cx, -cy); ctx.transform(m.a, m.b, m.c, m.d, m.e, m.f); }
+  }
   lines.forEach((ln, i) => {
     const ui = rise(span(u, i * .18, .7 + i * .18)); const lw = hlMeasure(ctx, ln) * cond * size, lx = o.align === 'left' ? x : x + (w - lw) / 2, ly = y + i * lh;
     boxes.push({ x: lx, y: ly - size * .74, w: lw, h: size * .74 });
     if (ui <= 0) return;
     const cr = clamp(o.cream?.[i] ?? 0), dim = clamp(o.dim ?? 0);
+    edgeSafe(ctx, { x: lx - 20, y: ly - size * .8, w: lw + 40, h: size * .9 }, (ctx) => {
     ctx.save(); ctx.beginPath(); ctx.rect(lx - 60, ly - size * .86, lw + 120, size * .98); ctx.clip();
     ctx.translate(lx, ly + (1 - expoOut(ui)) * size * .6); ctx.scale(cond, 1); ctx.font = `${size}px "Inter Black"`; ctx.textBaseline = 'alphabetic';
     const top = mixHex(mixHex(GOLD.hot, CREAM, cr), P.blue2, dim * .7), bot = mixHex(mixHex(GOLD.mid, mixHex(CREAM, P.halo2, .5), cr), P.night1, dim * .7);
@@ -294,7 +333,9 @@ export function headline(ctx, t, o = {}) {
     ctx.shadowBlur = 0; ctx.fillText(ln, 0, 0);
     ctx.globalAlpha *= .22 * glow * (1 - dim); ctx.fillStyle = GOLD.core; ctx.fillText(ln, 0, -size * .012);   // inner light
     ctx.restore();
+    });
   });
+  ctx.restore();
   return boxes;
 }
 
