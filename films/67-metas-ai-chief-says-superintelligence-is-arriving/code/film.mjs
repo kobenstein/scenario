@@ -1,38 +1,33 @@
-// Film 66 "Sam Altman Says Everything Will Get Cheap" (thumbnail A: AI MAKES EVERYTHING CHEAP; ~10:20 narration + ~5 s quiet + 15 s end
-// screen), built on the Film 10/13/16/24/25/28/54/59 editorial-night machinery. ONE world: THE LONG LAND, FROM PURE THOUGHT TO SOLID GROUND
-// (lib/f66_world.mjs). Plan: docs/MOTION.md + docs/shots.md (source: tools/shots66.py) · kit: lib/f66_kit.mjs · world + seams:
-// lib/f66_world.mjs · builders: docs/BRIEF-builders.md.
-// Twelve chunk files scenes/sc01.mjs … sc12.mjs return their entries; this file stitches them into one timeline.
-// NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a
-// planned match on a carrier). Any other tr is turned into 'cut' with a warning. Missing chunks render as stubs.
+// Film 67 "Meta's AI Chief Says Superintelligence Is Arriving" (thumbnail A: SUPERINTELLIGENCE IS ARRIVING; ~10:15 narration + ~5 s quiet +
+// 15 s end screen), built on the editorial-night machinery (films 10 → 66). ONE world: THE NIGHT OF THE HEADLINE (lib/f67_world.mjs).
+// Plan: docs/MOTION.md + docs/shots.md (source: tools/shots67.py) · kit: lib/f67_kit.mjs · world + seams: lib/f67_world.mjs · builders: docs/BRIEF-builders.md.
+// Chunk files scenes/sc01.mjs … sc11.mjs return their entries; this file stitches them into one timeline.
+// NO BLENDS: every entry boundary is a hard 'cut' between two frames the builders make identical (one continuous take or a planned match).
 //   export default (T, R) => [ entry, … ]       T = timing helpers (lib/kit.mjs: T.G / T.GE global phrase anchors, T.clip(id)), R = { a, b, id, name, first }
-//   entry = { t, draw(ctx, t, s), tr, d, print }  print: { grain, floor, vig } for the editorial finish (F.PRINT66)
-// SECS=c01,c02 node render.mjs --snap ...   builds only those chunks (absolute times stay the same).
-// Timing: $TIMING, else <ROOT>audio/timing.json (the real VO, written by the sound step), else data/provisional_timing.json
-// (tools/provisional_timing.py, from the newest vo-vN.txt; a warning is printed). ROOT = $F66ROOT or /mnt/project-files/scenario/film-geld-nach-si/.
-// ANCHORS ARE PHRASES ONLY. If one goes missing, T.G throws with the phrase.
+//   entry = { t, draw(ctx, t, s), print }  print: F.PRINT67
+// Timing: $TIMING, else <ROOT>audio/timing.json (the real VO), else data/provisional_timing.json (tools/provisional_timing.py from vo-v2.txt).
+// ROOT = $F67ROOT or /mnt/project-files/scenario/film-si-arriving/. ANCHORS ARE PHRASES ONLY (T.G throws with the phrase if one goes missing).
 import fs from 'node:fs';
 import { Film, W, H, drift } from './engine.mjs';
 import { timing, ROOT } from './lib/kit.mjs';
 import { finish as edFinish } from './lib/f10_editorial.mjs';
 import { errorCard, stubChunk } from './lib/stub.mjs';
-import { prepareClipFrames } from './lib/f66_kit.mjs';
+import { prepareClipFrames, prepareAssets } from './lib/f67_kit.mjs';
 
 export { ROOT };
 // chunk table (docs/shots.md §2); from = the first phrase of the chunk, looked up GLOBALLY in the film (T.G), so any VO segmentation works
 export const CHUNKS = [   // from = first phrase of the chunk (nth = which occurrence in the film) · builder groups: docs/BRIEF-builders.md
-  { id: 'c01', name: 'Hook (lead) · thumbnail A: you on the rooftop, THE PROMISE crumbling · his list (4 tags) · the quote on the tag · the machines take the office work · thumbnail C: the receipt, RENT ↑ GROCERIES ↑ POWER BILL ↑ · your pay slip · one after another · the programmer\'s tag falls to < $1 ★ · one tag turns away and rises · half right → platePromise', from: 'Sam Altman says' },
-  { id: 'c02', name: 'C1 out of the promise · prices heading down · every price is mostly time · the food dollar 54¢ / 12¢ · robots → the price sinks · the robot house · he sells cheap intelligence · the land wide: six tags + a seventh → the clock ★ · the test question', from: 'This January' },
-  { id: 'c03', name: 'Station 1 KNOWLEDGE & ADVICE: the programmer\'s window again · his example, 10× a year · translators 30 % · cost ≠ price · ≈ 90 % billed by the hour · FALLS FIRST ★ · nearly free but climbing', from: 'Start where a price' },
-  { id: 'c04', name: 'Station 2 EDUCATION: the college · the AI tutor, 2× gains · tuition $12,290 +2.9 % · the certificate only the university prints · the tag splits ★ · subscribe 1 (the land\'s windows warm) → plateFactory', from: "Education. It's on his list" },
-  { id: 'c05', name: 'Station 3 THINGS: information vs things · C2 Musk out of a phone · any goods · 5,079,078 robots · phones −51 % · +14 % / +6.9 % (memory chips) · FALLS SLOWLY ★ · materials, chips, power: the cable under every tag', from: 'So far, every price' },
-  { id: 'c06', name: 'Station 4 ENERGY: the power station · the Gentle Singularity quote · energy is the floor ★ · +33 % · Hassabis, clean energy · C3 · radical abundance (a forecast) · STAYS UP · FOR NOW', from: 'Energy' },
-  { id: 'c07', name: 'Station 5 FOOD: energy + machines + the ground · the food dollar again · cropland $6,020 ★ · WORK OUT · GROUND STAYS', from: 'One tag needs energy' },
-  { id: 'c08', name: 'Station 6 HOUSING & LAND: the turned tag turns: HOUSING · the robot house "on land you already own" · land ≈ 40 % · walls vs ground · "limited resources like land" · STAYS HARD · half right: the stairs (thumbnail B) ★ → plateStairs', from: 'Housing. The first word' },
-  { id: 'c09', name: 'The seventh tag: not advice · how much is work? all of it · YOUR WAGE ★ · the programmer\'s week was a paycheck · work is what we sell', from: 'So what does that do' },
-  { id: 'c10', name: 'Output +3.7 % / hours +0.1 % · labor share 53.0 % ★ · no proof · C4 Acemoglu · the second half of the promise · worse off · cheap was never enough', from: 'This summer, American businesses' },
-  { id: 'c11', name: 'Three answers: MARKET · FUND · CHECK (idea, proof, weakness) · Alaska $1,200 ★ · politics sets it · the check, $1,000 a month · the bill · his answers changed', from: 'So how does everyone' },
-  { id: 'c12', name: 'The order (the clock fills the frame) · half right · the seventh is open · prices follow machines, incomes follow rules (the town hall) · YOUR WAGE IS A PRICE TOO ★ · subscribe 2 · END_CAM end screen', from: "So that's the order" },
+  { id: 'c01', name: 'Hook (lead) · thumbnail A: the headline in the sky, you small · the X post header unrolls · ? · your street turns gold · the file leaves the headline · the chalkboard spot · scan → CORRECT · ★ the paper tower 250,000+ · alien mind / homework (X crops) · the balance · the chalk robot wiped · AN ANSWER WE CAN\'T READ · the checklist drives in → plateWang', from: 'Superintelligence is arriving' },
+  { id: 'c02', name: 'Who he is: the portrait print out of the post header (ONCE) + name · the lab door sign · no source for the bomb · lazy thinking · the headline as his billboard · C1 · the file in the competitor\'s window · CONVICTION · INTEREST · check the claim itself', from: 'The man is Alexandr Wang' },
+  { id: 'c03', name: 'Check 1: real? · note + 17 million lines (the ribbon) · not you · the referee (Lean) · CORRECT card · Lean community, MIT runs · ★ box 1 gold · C2', from: 'First check' },
+  { id: 'c04', name: 'Check 2 (the second field, A = A, the rule book) box 2 gold ? · check 3 (Alpöge, light bulb, six weeks, outrageous) box 3 gold · the rival claim · ★ the referee with no reader → plateReferee', from: 'But a referee only rules' },
+  { id: 'c05', name: 'Check 4: ALIEN MIND behind box 4 · Tao quote · Radziwiłł · C3 · CORRECT ≠ UNDERSTOOD · your table · ★ box 4 OPEN · Wang is right · a single file (harvest)', from: "That leaves Wang's boldest" },
+  { id: 'c06', name: 'Subscribe 1 (windows round the world) · check 5: PROOF under SUPERINTELLIGENCE · Maynard milestone · LeCun + C4 · dead end · ★ box 5 half · the gap is here', from: 'This channel exists' },
+  { id: 'c07', name: 'His worry: 1000x (X crop, measuring tape) · ★ handover (X crop, the word detaches) · what would that look like → plateHandover', from: 'And behind that headline' },
+  { id: 'c08', name: 'SCENARIO: the town hall, the bridge plan marks itself CORRECT · the paper tower again · ★ the hands go up, yours too · a thousand small yeses', from: 'Not like a coup' },
+  { id: 'c09', name: 'Back to today: the open rule book, anyone re-runs · ★ trust moves from the answer to the check · own referee vs built first · the empty referee chair', from: 'But look at what the mathematicians' },
+  { id: 'c10', name: 'The ways: default path (X crop) · labs · governments (SHOW YOUR WORK) · open referee (Lean FRO) · results vs understanding (the bridge, ★ nobody under the new one) · four seats · next year (X crop, calendar)', from: 'The labs could' },
+  { id: 'c11', name: 'Verdict: the headline again, the checklist big · half cream · ★ box 4 OPEN is about us · AI SOLVED ___ · two questions · you take the referee\'s chair · subscribe 2 · end screen', from: 'Superintelligence is arriving. So' },
 ];
 const ALL = CHUNKS.map((c) => c.id);
 
@@ -84,7 +79,7 @@ export async function build({ timingFile = TIMING } = {}) {
   const finish = (ctx, t, o = {}) => edFinish(ctx, t, o);
   const film = new Film(shots, { finish, float: cameraFloat });
   film.T = T;
-  film.prepare = (t) => prepareClipFrames(T, t);   // loads the clip footage frames round t (render.mjs awaits it)
+  film.prepare = async (t) => { await prepareAssets(); return prepareClipFrames(T, t); };   // loads the clip footage frames round t (render.mjs awaits it)
   film.ranges = RANGES;
   film.list = list;
   return film;

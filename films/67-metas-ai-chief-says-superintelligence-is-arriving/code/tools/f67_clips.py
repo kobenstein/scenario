@@ -1,27 +1,27 @@
 #!/usr/bin/env python3
-"""Film 66 "Sam Altman Says Everything Will Get Cheap" · clip frames, chunk render, assembly (2026-11-20). Base: film 59 tools/f66_clips.py.
+"""Film 67 "Sam Altman Says Everything Will Get Cheap" · clip frames, chunk render, assembly (2026-11-20). Base: film 59 tools/f67_clips.py.
 
-  python3 tools/f66_clips.py clips [--only C1,C2]   the four interview clips: <ROOT>clips/Cn.mp4 (already cut, <ROOT>clips-geprueft.json)
+  python3 tools/f67_clips.py clips [--only C1,C2]   the four interview clips: <ROOT>clips/Cn.mp4 (already cut, <ROOT>clips-geprueft.json)
           -> frames <SCRATCH>/clips/<id>/f00001.jpg ... (1920x1080, 30 fps; frame 1 = the slot start, what F.clipPlate loads). The sound is the
           sound agent's (mix.m4a already carries the clip audio).
-  python3 tools/f66_clips.py render [--only c05,c06] [-j 4] [--scale 1]     the chunk videos c01..c12 (1920x1080, 30 fps, no sound), pieces of <= 20 s,
+  python3 tools/f67_clips.py render [--only c05,c06] [-j 4] [--scale 1]     the chunk videos c01..c12 (1920x1080, 30 fps, no sound), pieces of <= 20 s,
           resumable, joined to WORK/cNN.mp4.
-  python3 tools/f66_clips.py join [--only c05]
-  python3 tools/f66_clips.py assemble --name fassung-1 [--chunks DIR] [--calm] [--no-contact] [--preview] [--crf 18]
+  python3 tools/f67_clips.py join [--only c05]
+  python3 tools/f67_clips.py assemble --name fassung-1 [--chunks DIR] [--calm] [--no-contact] [--preview] [--crf 18]
           checks the chunk videos against the chunk ranges of film.mjs, joins them, burns the subtitles (ASS, <ROOT>audio/untertitel/subtitles.ass) in,
           puts the mix (<ROOT>audio/mix.m4a) under: master 1080p H.264 CRF 18 + AAC in FINAL/<name>-master-1080p.mp4; LUFS / true peak; contact sheet
           -> <ROOT>bild/<name>_kontakt.jpg. NO QR OVERLAY (abolished 16.11.).
-  python3 tools/f66_clips.py check                  chunk files against the timing (no media is written)
+  python3 tools/f67_clips.py check                  chunk files against the timing (no media is written)
 
-Paths: ROOT = $F66ROOT or /mnt/project-files/scenario/film-geld-nach-si/ (small files only) · SCRATCH = $F66SCRATCH or /tmp/claude-0/f66: clips/, work/,
+Paths: ROOT = $F67ROOT or /mnt/project-files/scenario/film-si-arriving/ (small files only) · SCRATCH = $F67SCRATCH or /tmp/claude-0/f67: clips/, work/,
 final/. No video or audio into the repo.
 """
 import argparse, glob, hashlib, json, os, re, shutil, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor
 
 HERE = os.path.dirname(os.path.abspath(__file__)); FILM = os.path.dirname(HERE)
-ROOT = (os.environ.get('F66ROOT') or '/mnt/project-files/scenario/film-geld-nach-si').rstrip('/') + '/'
-SCRATCH = os.environ.get('F66SCRATCH') or '/tmp/claude-0/f66'
+ROOT = (os.environ.get('F67ROOT') or '/mnt/project-files/scenario/film-si-arriving').rstrip('/') + '/'
+SCRATCH = os.environ.get('F67SCRATCH') or '/tmp/claude-0/f67'
 PROVISIONAL = os.path.join(FILM, 'data', 'provisional_timing.json')
 FPS, PIECE = 30, 600           # 20 s pieces
 IDS = ['C1', 'C2', 'C3', 'C4']
@@ -31,9 +31,9 @@ WORK = CL = WA = FINAL = STATE = None
 
 def setup(work):
     global WORK, CL, WA, FINAL, STATE
-    WORK = work or os.environ.get('F66WORK') or (SCRATCH + '/work')
-    CL = (os.environ.get('F66CLIPS') or SCRATCH + '/clips').rstrip('/')
-    WA = os.path.join(WORK, 'audio'); FINAL = os.environ.get('F66FINAL') or os.path.join(SCRATCH, 'final'); STATE = os.path.join(WORK, 'state.json')
+    WORK = work or os.environ.get('F67WORK') or (SCRATCH + '/work')
+    CL = (os.environ.get('F67CLIPS') or SCRATCH + '/clips').rstrip('/')
+    WA = os.path.join(WORK, 'audio'); FINAL = os.environ.get('F67FINAL') or os.path.join(SCRATCH, 'final'); STATE = os.path.join(WORK, 'state.json')
     for d in (WORK, CL, WA, FINAL): os.makedirs(d, exist_ok=True)
 
 def sh(cmd, **kw): return subprocess.run(cmd, check=True, **kw)
@@ -65,7 +65,7 @@ def jsave(f, o): json.dump(o, open(f, 'w'), indent=1, ensure_ascii=False)
 
 
 def chunk_ranges(tfile):
-    """chunk id -> frame range, from film.mjs (the same ranges the renderer uses), plus the QR windows (lib/f66_kit.mjs qrWindows)"""
+    """chunk id -> frame range, from film.mjs (the same ranges the renderer uses), plus the QR windows (lib/f67_kit.mjs qrWindows)"""
     code = ("import { chunkRanges } from './film.mjs'; import { timing } from './lib/kit.mjs'; "
             f"const T = timing({json.dumps(tfile)}); const R = chunkRanges(T);"
             "console.log('@@' + JSON.stringify({ duration: T.duration, qr: [], qrfade: 0, qrtail: 15,"
@@ -86,7 +86,7 @@ def cmd_render(a):
             g = min(f + PIECE, c['fb'])
             if c['fb'] - g < 150: g = c['fb']      # no tiny last piece
             jobs.append((c['id'], f, g, n)); n += 1; f = g
-    print(f'{len(jobs)} pieces, timing {tfile}, -j {a.j}'); env = {**os.environ, 'F66CLIPS': CL, 'F66ROOT': ROOT, 'TIMING': tfile}; t0 = time.time()
+    print(f'{len(jobs)} pieces, timing {tfile}, -j {a.j}'); env = {**os.environ, 'F67CLIPS': CL, 'F67ROOT': ROOT, 'TIMING': tfile}; t0 = time.time()
     def one(j):
         cid, f0, f1, n = j; f = os.path.join(WORK, f'{cid}_p{n:02d}.mp4')
         if os.path.exists(f + '.done'): return j

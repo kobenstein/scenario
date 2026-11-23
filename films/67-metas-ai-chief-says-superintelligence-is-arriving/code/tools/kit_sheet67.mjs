@@ -1,14 +1,14 @@
 #!/usr/bin/env node
-// Film 66 · kit sheet: stills of the world and every kit piece (the long land, the stations, the promise, the tags in all states, the
-// receipt, the pay slip, the three seam plates, the end camera, the explainer blocks, the clock, the clip plate) so builders see the
-// vocabulary before they build.
-//   node tools/kit_sheet66.mjs <dir> [--scale .5]   (then: ffmpeg tile of <dir>/*.jpg, < 1 MB, to <ROOT>bild/kit66_kontakt.jpg)
+// Film 67 · kit sheet: stills of the world and every kit piece (home = thumbnail A, the stations, the headline, the file, the ribbon, the
+// referee + gold card, the paper tower, the balance, the checklist in all states, Jakob's assets (X post header, quote crops with the
+// highlighter, the portrait print), the clip plate, the three seam plates, the end screen) so builders see the vocabulary first.
+//   node tools/kit_sheet67.mjs <dir> [--scale .5] [--only name,…]   (then tile to <ROOT>bild/kit67_kontakt.jpg, < 1 MB)
 import fs from 'node:fs';
 import path from 'node:path';
 import { createCanvas } from '@napi-rs/canvas';
 import * as E from '../lib/f10_editorial.mjs';
-import * as F from '../lib/f66_kit.mjs';
-import * as S from '../lib/f66_world.mjs';
+import * as F from '../lib/f67_kit.mjs';
+import * as S from '../lib/f67_world.mjs';
 import { timing } from '../lib/kit.mjs';
 import { TIMING } from '../film.mjs';
 const { W, H, P } = E;
@@ -16,37 +16,33 @@ const dir = process.argv[2] || 'kit'; fs.mkdirSync(dir, { recursive: true });
 const sc = Number(process.argv[process.argv.indexOf('--scale') + 1] || .5) || .5;
 const only = process.argv.includes('--only') ? process.argv[process.argv.indexOf('--only') + 1].split(',') : null;
 const T = timing(TIMING);
-E.prepareEditorial?.();
+E.prepareEditorial?.(); await F.prepareAssets();
 const cv = createCanvas(W, H), ctx = cv.getContext('2d'), out = createCanvas(Math.round(W * sc), Math.round(H * sc)), ox = out.getContext('2d');
 async function shot(name, fn, t = 3) {
   if (only && !only.some((o) => name.startsWith(o))) return;
   await F.prepareClipFrames(T, t);
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = P.night0; ctx.fillRect(0, 0, W, H); ctx.restore();
-  fn(ctx, t); E.finish(ctx, t, F.PRINT66);
+  fn(ctx, t); E.finish(ctx, t, F.PRINT67);
   ox.drawImage(cv, 0, 0, out.width, out.height); const f = path.join(dir, name + '.jpg'); fs.writeFileSync(f, await out.encode('jpeg', 85)); console.log(f);
 }
-const ALL = S.STATIONS.slice(0, 6).map((s, i) => ({ glow: .6 }));
-const night = (ctx) => { S.landWorld(ctx, E.cam3(), 3, { promise: { glow: .4 }, you: false }); F.veil(ctx, .8); };
+const night = (ctx) => { S.landWorld(ctx, E.cam3(), 3, { head: { dim: .6 }, you: false }); F.veil(ctx, .8); };
 const at = (p, d = 0) => T.G(p) + d;
-await shot('01_home_thumbA', (ctx, t) => { S.landWorld(ctx, E.cam3(), t, { promise: { dust: .3 } }); F.title(ctx, t, 1, { x: 80, y: 380, maxW: 1080 }); });
-await shot('02_land_wide_left', (ctx, t) => S.landWorld(ctx, E.aim(S.Z_LAND, 1900, 600, 1.0), t, { tags: ALL, you: false }));
-await shot('03_land_wide_right', (ctx, t) => S.landWorld(ctx, E.aim(S.Z_LAND, 4900, 600, 1.0), t, { tags: ALL, you: false, power: 1 }));
-for (let i = 0; i < 7; i++) await shot(`${String(4 + i).padStart(2, "0")}_station${i + 1}`, (ctx, t) => S.landWorld(ctx, S.stationCam(i, 2.4, -60), t, { tags: S.STATIONS.map((s, j) => (j === i ? { glow: 1, lines: [[s.name.split(' ')[0], 15]] } : { glow: .4 })), you: false, power: i === 3 ? 1 : 0, cool: i === 0 ? .6 : 0, youLand: i === 6 ? { x: S.STATIONS[6].x - 120 } : null }));
-await shot('11_tag_states', (ctx, t) => { night(ctx); const st = [{}, { dust: .5 }, { split: .9 }, { back: .5 }, { back: 1 }, { house: 1 }, { heavy: 1 }];
-  st.forEach((o, i) => F.tag(ctx, t, 170 + i * 260, 230, 170, { thread: 200, glow: 1, lines: [['TAG', 26]], price: '$9', seed: i + 3, ...o })); });
-await shot('12_receipt_thumbC', (ctx, t) => { const c = E.aim(F.F0, 700, 700, 1.0, 1400, 640); const r = S.landWorld(ctx, c, t, { promise: { glow: .7 }, you: { o: { armR: [1.6, 2.2], look: .9 } }, roof: (cx, h) => { if (!h?.R) return; } });
-  const p = S.promiseRect(c), hp = E.project(c, F.F0, S.YOU.x + 50, S.YOU.y - 110); F.receipt(ctx, t, { from: [p.x + 40, p.y + 40], to: [hp[0], hp[1]], u: 1, rows: [['RENT', 1], ['GROCERIES', 1], ['THE POWER BILL', 1]] }); });
-await shot('13_payslip_dollarbar', (ctx, t) => { night(ctx); F.paySlip(ctx, t, 300, 300, 260, { glow: .6 });
-  F.dollarBar(ctx, t, 620, 300, 1100, { title: F.SOURCES.foodDollar, segs: [{ label: 'LABOR', share: .54, col: F.LAMP.body, big: '54¢' }, { label: 'OTHER', share: .34, col: F.PAPER.shade }, { label: 'FARM', share: .12, col: F.EARTH.warm, big: '12¢' }] });
-  F.verdict(ctx, t, 960, 700, 'FALLS FIRST', 1); F.source(ctx, t, 0, 99, F.SOURCES.foodSrc); });
-await shot('14_seam_platePromise', (ctx, t) => S.platePromise(ctx, t, T), at('This January'));
-await shot('15_seam_plateFactory', (ctx, t) => S.plateFactory(ctx, t, T), at('So far, every price'));
-await shot('16_seam_plateStairs_thumbB', (ctx, t) => S.plateStairs(ctx, t, T), at('So what does that do'));
-await shot('17_end_cam', (ctx, t) => { S.landWorld(ctx, S.END_CAM, t, { you: false, city: 1, power: .4, youLand: { x: 5950, h: 64, o: { armR: [1.2, 2.2] } },
-  land: (cx) => { for (let i = 0; i < 6; i++) { const p = S.END_ROW(i); F.tag(cx, t, p.x, p.y + (S.VERDICT_TAGS[i].dy ?? 0) * .5, 80, { ...S.VERDICT_TAGS[i], seed: 40 + i }); } F.tag(cx, t, 5980, S.GY - 92, 34, { thread: 0, glow: 1, rot: -.2 }); } });
-  const R = S.END_TILES; ctx.strokeStyle = 'rgba(255,255,255,.25)'; ctx.lineWidth = 3; for (const r of [R.left, R.right]) ctx.strokeRect(r.x, r.y, r.w, r.h); ctx.beginPath(); ctx.arc(R.sub.x, R.sub.y, R.sub.r, 0, 7); ctx.stroke(); }, T.duration - 5);
-await shot('18_quote_data_cards', (ctx, t) => { night(ctx); F.quoteCard(ctx, t, T, { text: F.SOURCES.gentle, x: 160, y: 140, w: 1000, size: 44, head: 'THE GENTLE SINGULARITY', credit: F.SOURCES.gentleSrc });
-  F.dataCard(ctx, t, 1220, 160, 560, { title: F.SOURCES.cropland.split(':')[0], big: '$6,020', small: 'AN ACRE · FIRST TIME ABOVE $6,000', h: 260 }); });
-await shot('19_board_big', (ctx, t) => { night(ctx); F.board(ctx, t, T, { big: 1 }); }, at("So that's the order", 1));
-await shot('20_board_corner', (ctx, t) => { S.landWorld(ctx, S.stationCam(4, 2.2), t, { you: false, tags: [null, null, null, null, { glow: 1 }] }); F.board(ctx, t, T); }, at('So the fifth tag', 1.6));
-await shot('21_clip_plate_C3', (ctx, t) => { night(ctx); F.clipPlate(ctx, t, T, 'C3'); }, T.clip('C3').start + 4);
+await shot('01_home_thumbA', (ctx, t) => S.landWorld(ctx, S.HOME(), t, {}));
+await shot('02_land_wide', (ctx, t) => S.landWorld(ctx, S.landCam(2600, 640, .62), t, { ribbon: { u: 1 }, tower: { u: 1 }, chair: { card: 1 }, labs: 1, hall: 1, windows: 1 }));
+await shot('03_town_bridge_hall', (ctx, t) => S.landWorld(ctx, S.landCam(-900, 700, 1.4), t, { hall: 1, windows: .6, you: false }));
+await shot('04_board_spot_file', (ctx, t) => S.landWorld(ctx, S.BOARD_CAM(), t, { board: { spot: 1, robot: 1 }, land: (cx) => F.file(cx, t, S.BOARD.spot.x, S.BOARD.spot.y, 90, { scan: .6 }) }));
+await shot('05_tower_author', (ctx, t) => S.landWorld(ctx, S.landCam(2000, 600, 1.2), t, { tower: { u: 1, pour: 1, from: [S.BOARD.spot.x, S.BOARD.spot.y] }, author: { x: 1820 }, you: { x: 1720 }, board: { chalk: 1 } }));
+await shot('06_referee_ribbon_card', (ctx, t) => S.landWorld(ctx, S.REFEREE_CAM(), t, { ribbon: { u: 1 }, chair: { card: 1 }, you: false }));
+await shot('07_labs_billboard', (ctx, t) => S.landWorld(ctx, S.LABS_CAM(), t, { labs: 1, billboard: 1, otherLab: 1, you: false }));
+await shot('08_objects', (ctx, t) => { night(ctx); F.file(ctx, t, 200, 300, 160, { scan: .5 }); F.goldCard(ctx, t, 420, 420, 120, {}); F.referee(ctx, t, 640, 520, 260, { card: 1 });
+  F.paperTower(ctx, t, 900, 820, 200, 600, {}); F.balance(ctx, t, 1400, 330, 260, { tilt: .8, left: (c, x, y) => F.notebook(c, t, x, y, 150), right: (c, x, y) => F.file(c, t, x, y - 50, 70) });
+  F.ribbon(ctx, t, [[1100, 760], [1500, 720], [1900, 700]], { u: .8, w0: 60, w1: 10 }); });
+await shot('09_checklist_states', (ctx, t) => { night(ctx); F.checklist(ctx, t, T); F.checklist(ctx, t, T, { big: 1 }); }, at('So, is he right', 1));
+await shot('10_checklist_check2', (ctx, t) => { S.landWorld(ctx, S.REFEREE_CAM(), t, { ribbon: { u: 1 }, chair: { card: 1 }, you: false }); F.checklist(ctx, t, T); }, at('Check two', 2));
+await shot('11_xpost_quotes', (ctx, t) => { night(ctx); F.xPost(ctx, t, 120, 110, 760, { u: 1 }); F.xQuote(ctx, t, 'alien', 120, 360, 820, { hiU: 1 }); F.xQuote(ctx, t, 'homework', 1000, 140, 800, { hiU: .6 }); F.xQuote(ctx, t, 'handover', 1000, 520, 800, { hiU: 1 }); });
+await shot('12_portrait_name', (ctx, t) => { S.landWorld(ctx, S.WANG_CAM(), t, { post: 1, head: { dim: .4 } }); F.veil(ctx, .45); F.portrait(ctx, t, 1260, 860, 640, {}); F.nameplate(ctx, t, 170, 760, 1); });
+await shot('13_clip_plate_C1', (ctx, t) => { night(ctx); F.clipPlate(ctx, t, T, 'C1'); }, T.clip('C1').start + 4);
+await shot('14_seam_plateWang', (ctx, t) => S.plateWang(ctx, t, T), at('The man is Alexandr Wang'));
+await shot('15_seam_plateReferee', (ctx, t) => S.plateReferee(ctx, t, T), at("That leaves Wang's boldest"));
+await shot('16_seam_plateHandover', (ctx, t) => S.plateHandover(ctx, t, T), at('Not like a coup'));
+await shot('17_end_screen', (ctx, t) => { S.endScreen(ctx, t, T); const R = S.END_TILES; ctx.strokeStyle = 'rgba(255,255,255,.25)'; ctx.lineWidth = 3; for (const r of [R.left, R.right]) ctx.strokeRect(r.x, r.y, r.w, r.h); ctx.beginPath(); ctx.arc(R.sub.x, R.sub.y, R.sub.r, 0, 7); ctx.stroke(); }, T.duration - 5);

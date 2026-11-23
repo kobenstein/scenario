@@ -6,8 +6,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 export const W = 1920, H = 1080;
-// film 66: the repo keeps the shared fonts in stil/tests/shared/fonts (the old style-tests/ path does not exist in every checkout)
-const FONTS = [process.env.F66FONTS, new URL('../../../stil/tests/shared/fonts/', import.meta.url).pathname, '/home/user/scenario/style-tests/shared/fonts/']
+// film 67: the repo keeps the shared fonts in stil/tests/shared/fonts (the old style-tests/ path does not exist in every checkout)
+const FONTS = [process.env.F67FONTS, new URL('../../../stil/tests/shared/fonts/', import.meta.url).pathname, '/home/user/scenario/style-tests/shared/fonts/']
   .find((d) => d && fsx.existsSync(d + 'InstrumentSerif.woff2')) ?? '/home/user/scenario/style-tests/shared/fonts/';
 GlobalFonts.registerFromPath(FONTS + 'InstrumentSerif.woff2', 'Instrument Serif');
 GlobalFonts.registerFromPath(FONTS + 'InstrumentSerif-400-italic.woff2', 'Instrument Serif Italic');

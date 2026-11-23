@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Film 66 · provisional timing.json from the script until the audio agent writes <ROOT>audio/timing.json.
+"""Film 67 · provisional timing.json from the script until the audio agent writes <ROOT>audio/timing.json.
 Same format as the real VO timing ({duration, sections, clips, words:[{w,s,e,sec}]}, like Films 24/25/28), so scene code written against
 it runs unchanged on the real VO. All scene code anchors on PHRASES (T.G / T.GE) and on slot ids (T.clip('C3')), never on seconds,
 so small text changes (the fact-checked vo-v3) break nothing as long as the anchor phrase survives.
   python3 tools/provisional_timing.py [vo.txt] [out.json]
-Default source: the newest of vo-v4.txt / vo-v3.txt / vo-v2.txt in the data root ($F66ROOT, default /mnt/project-files/scenario/film-geld-nach-si/).
+Default source: the newest of vo-v4.txt / vo-v3.txt / vo-v2.txt in the data root ($F67ROOT, default /mnt/project-files/scenario/film-si-arriving/).
 The Hörfassung has no [CLIP] tags: the four clip slots are inserted after the paragraphs that end with their lead-in line (CLIP_AFTER).
 Format of vo-vN.txt: paragraphs (one or more sentences per line, blank lines between). Tags:
   [CLIP Cn]          a silent slot (interview footage or audio with its own sound), length = the fixed cut (clips/schnitt.json)   kind 'clip'
@@ -15,22 +15,22 @@ Format of vo-vN.txt: paragraphs (one or more sentences per line, blank lines bet
 Pace: Film 25/28's provisional pace (PACE 1.12 → ≈ 2.4 words/s of speech incl. small gaps; text-v2 plans 2.4 w/s → VO end ≈ 10:07).
 LEAD 0.6 s (picture first), sentence gap .40, line gap .36, section gap 1.1, end tail 25 s (~10 s quiet walk so the 2nd QR window runs ≥ 25 s, then the 15 s end screen)."""
 import json, os, re, sys
-ROOT = os.environ.get('F66ROOT', '/mnt/project-files/scenario/film-geld-nach-si/').rstrip('/') + '/'
+ROOT = os.environ.get('F67ROOT', '/mnt/project-files/scenario/film-si-arriving/').rstrip('/') + '/'
 args = [a for a in sys.argv[1:] if not a.startswith('--')]
 SRC = args[0] if args else next(ROOT + f for f in ('vo-v4.txt', 'vo-v3.txt', 'vo-v2.txt') if os.path.exists(ROOT + f))
 OUT = args[1] if len(args) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'provisional_timing.json')
-LEAD, TAIL, GAP_SEC, PAUSE = 0.6, 20.0, 1.1, 0.8   # film 66: TAIL = ~5 s quiet after the last word (no QR) + the 15 s end screen
+LEAD, TAIL, GAP_SEC, PAUSE = 0.6, 20.0, 1.1, 0.8   # film 67: TAIL = ~5 s quiet after the last word (no QR) + the 15 s end screen
 PACE = float(os.environ.get('PACE', 1.12))
 WORD, GAP_LINE, GAP_SENT, GAP_COMMA = 0.288 * PACE, 0.32 * PACE, 0.36 * PACE, 0.15 * PACE
 # clip lengths: PROVISIONAL (orchestrator 20.11.); the real cuts come as <ROOT>clips/Cn.mp4 + <ROOT>clips-geprueft.json
-CLIP_LEN = {'C1': 15.27, 'C2': 9.73, 'C3': 13.87, 'C4': 13.14}   # film 66: <ROOT>clips-geprueft.json dauer_s + .3 (20.11.: C1 14.97 · C2 9.43 · C3 13.57 · C4 12.84)
+CLIP_LEN = {'C0': 8.3, 'C1': 10.3, 'C2': 8.3, 'C3': 9.3, 'C4': 8.3}   # film 67: PROVISIONAL (text-v2 assumptions + .3); the real lengths come with <ROOT>audio/timing.json
 # where the slots go (the paragraph that ENDS with this lead-in line is followed by the clip)
 CLIP_AFTER = [('C1', 'he made the promise again.'), ('C2', 'he said:'), ('C3', 'the world after that.'), ('C4', ('He named this one.', 'pointed to exactly this number.', 'Daron Acemoglu'))]   # vo-v3 (14:41) rewrote the C4 lead-in; any of these
 SLOT_IN, SLOT_OUT = 0.6, 0.6
 # sections = the stations of the film (text-v2 Fragen-Kette): id, first words of the sentence that opens it
-SECS = [('H', 'Sam Altman says'), ('1', 'This January'), ('2', 'Start where a price'), ('3', 'Education.'), ('M', 'This channel exists'),
-        ('4', 'So far, every price'), ('5', 'Energy.'), ('6', 'One tag needs energy'), ('7', 'Housing.'), ('8', 'So what does that do'),
-        ('9', 'So how does everyone'), ('10', "So that's the order"), ('A2', 'This channel exists')]
+SECS = [('H', 'Superintelligence is arriving'), ('1', 'The man is Alexandr Wang'), ('2', 'First check'), ('3', "That leaves Wang's boldest"),
+        ('M', 'This channel exists'), ('4', "But Wang's headline"), ('5', 'Not like a coup'), ('6', 'The labs could'), ('7', 'Superintelligence is arriving'),
+        ('A2', 'This channel exists')]
 SLOT = re.compile(r'\[CLIP\s+(C\d+[a-z]?)\b[^\]]*\]')
 CARD = re.compile(r'\[ZITATKARTE\s+([CZ]\d+[a-z]?)\b[^\]]*\]')
 PAUSE_T = re.compile(r'\[pause[^\]]*\]', re.I)

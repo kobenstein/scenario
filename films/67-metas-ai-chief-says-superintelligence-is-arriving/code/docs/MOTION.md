@@ -2,9 +2,9 @@
 
 The Good Takeoff · English · 1080p30 · ≈ 10:35 narration + ≈ 5 s quiet + 15 s end screen (provisional timing from `<ROOT>vo-v3.txt`;
 the real VO timing arrives as `<ROOT>audio/timing.json`) · upload Sun 22.11.2026 17:00 Vienna.
-ROOT = `/mnt/project-files/scenario/film-geld-nach-si/` (`$F66ROOT`). Machine = Film 59 (`docs/ref-59/` holds its plan for reference).
-Shot list: `docs/shots.md` (source `tools/shots66.py`) · kit: `lib/f66_kit.mjs` · world + seams: `lib/f66_world.mjs` · quality reference:
-`scenes/sc01.mjs` · contact sheets `<ROOT>bild/kit66_kontakt.jpg`, `<ROOT>bild/c01_kontakt.jpg`.
+ROOT = `/mnt/project-files/scenario/film-si-arriving/` (`$F67ROOT`). Machine = Film 59 (`docs/ref-59/` holds its plan for reference).
+Shot list: `docs/shots.md` (source `tools/shots67.py`) · kit: `lib/f67_kit.mjs` · world + seams: `lib/f67_world.mjs` · quality reference:
+`scenes/sc01.mjs` · contact sheets `<ROOT>bild/kit67_kontakt.jpg`, `<ROOT>bild/c01_kontakt.jpg`.
 
 ## 1 · Intent
 One line: **Altman is half right: machines take the work out of a price, not the scarce part, and your wage is a price too.**
@@ -49,7 +49,7 @@ as flat factory arms or flat silhouettes at walls).
 9. **0:30–0:50 is one continuous scene** (no source, no flashback, no explainer card with a stat change). Done in c01.
 10. **Subscribe calls** ("This channel exists", c04 and c12) get a warm picture moment: the windows of the land warm, "for everybody".
 
-## 4 · Palette and type (`lib/f66_kit.mjs`)
+## 4 · Palette and type (`lib/f67_kit.mjs`)
 GOLD = prices, the hero light (the tags, the promise; ONE hero light per frame) · PAPER = documents, the receipt, the pay slip, quote cards ·
 COOL = machines, AI, power, the market's falling cost · EARTH = the ground (warm, heavy, never glowing) · LAMP = people's windows · INK.
 Type: Inter (labels, caps, spacing .06–.12), Inter Black condensed (the title only), Instrument Serif (quotes, big numbers).
@@ -64,8 +64,8 @@ Text ≥ 22 px at 1080p, held ≥ 1.5 s, ≤ 6 words per statement + one number 
 2.5D cards: `E.aim(Z, u, v, s, sx, sy)` puts card point (u, v) at screen (sx, sy) at scale s relative to home. `F.camPath(t, K)` (monotone
 cubic, log-distance to depth 6000) with keys on phrases only. Aim at F0 (`E.aim(F.F0, …)`) when you must stay in frame (the promise moves
 less); aim at `S.Z_LAND` for the stations (`S.stationCam(i, s)`). Flying from the rooftop down to the land passes over your shoulder: keep
-it ≥ 2.5 s. Seams: plates in `lib/f66_world.mjs` (CREEP 4 %/s, TRUCK 30 px/s).
+it ≥ 2.5 s. Seams: plates in `lib/f67_world.mjs` (CREEP 4 %/s, TRUCK 30 px/s).
 
 ## 7 · Gates (before you report)
 Stills every ~.5 s around every transition, a contact sheet of the chunk, `tools/calm.py` (0 cuts; c01: mafd median .47, static 11 %),
-`tools/smooth.py` (0 flagged), `tools/seam.mjs --at <T0>` at your group seams (0 flags), `node tools/anchors66.mjs` (all anchors found).
+`tools/smooth.py` (0 flagged), `tools/seam.mjs --at <T0>` at your group seams (0 flags), `node tools/anchors67.mjs` (all anchors found).

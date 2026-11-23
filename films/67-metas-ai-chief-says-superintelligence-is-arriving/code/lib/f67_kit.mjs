@@ -1,42 +1,23 @@
-// Film 66 · "Sam Altman Says Everything Will Get Cheap" (thumbnail A: AI MAKES EVERYTHING CHEAP) · shared kit (owned by the lead;
-// builders import, never edit — wishes go in the report). Base: lib/f10_editorial.mjs (palette P, easing, du/person, halo, glowText, the
-// 2.5D card stage cam3/card/aim/camAt/camDrift, finish) + lib/f16_kit.mjs (rise, maskLine, measure, stamp) + lib/f54_kit.mjs (bracket,
-// source). Generic blocks (text in gold, title, cards, quote card, paper tag, veil, float, camPath, clip plate) come from film 59.
-// World: docs/MOTION.md §2 · shots: docs/shots.md · the land, the stations, the seam plates, END_CAM: lib/f66_world.mjs.
+// Film 67 · "Meta's AI Chief Says Superintelligence Is Arriving" (thumbnail A: SUPERINTELLIGENCE IS ARRIVING) · shared kit (owned by the
+// lead; builders import, never edit — wishes go in the report). Base: lib/f10_editorial.mjs (palette P, easing, du/person, halo, glowText,
+// the 2.5D card stage cam3/card/aim/project/camDrift, finish) + lib/f16_kit.mjs (rise, maskLine, measure) + lib/f54_kit.mjs (bracket, source).
+// World: docs/MOTION.md §2 · shots: docs/shots.md · THE NIGHT OF THE HEADLINE (town, chalkboard, referee, labs, the ribbon): lib/f67_world.mjs.
 //
-//   THE TAG (the hero light of the whole film): a price tag of gold light hanging on a gold thread from the sky. Seven of them hang over
-//   the land, one over each station; they FALL (crumble to gold dust from the lower-left edge, thumbnail A), SPLIT, STAY UP, or turn into
-//   a HOUSE (thumbnail B). tag().
-//   THE PROMISE (the big tag of the hook, Altman's "everything"): tag() drawn big at Z 6000 by the world (S.Z_PROMISE).
-//   THE RECEIPT (thumbnail C): a glowing paper ribbon unrolling from the sky into your hand; rows light on the words. receipt().
-//   THE PAY SLIP (your wage, the seventh price): a small cream slip in your hand; it becomes the seventh tag. paySlip().
-//   THE SEVEN TAGS (the clock of the film, screen space top left): seven small tags on a gold rail; each falls / splits / stays / climbs when
-//   its station decides; the 7th hangs face down until "It's your wage". board(ctx, t, T) drives itself from BOARD phrases.
-//   EXPLAINERS (60–70 %): paper cards (quotes), night cards with gold edge (numbers), the dollar bar (what a price is made of), gold numbers.
-//   One statement per card, ≤ 6 words + 1 number (verbatim quotes may be longer).
+//   THE HEADLINE (thumbnail A): Wang's sentence as giant gold letters in the night sky. headline().
+//   THE FILE (planted 0:10, harvested 5:20): a small gold document, small enough for one hand. file().
+//   THE RIBBON: the file unrolled = ~17 million lines of code, a gold band of unreadable lines running to the horizon. ribbon().
+//   THE REFEREE (Lean): a human figure in a striped shirt on a tall umpire chair (an image for the program, never a robot). referee().
+//   THE GOLD CARD: the referee's ruling CORRECT (replaces stamps: stamps are #59's). goldCard().
+//   THE PAPER TOWER: > 250,000 pages written out. paperTower(). THE BALANCE (homework vs the file). balance().
+//   THE CHECKLIST (the clock): IS HE RIGHT? and five boxes, top right; fills from CHECKS phrases by itself. checklist(ctx, t, T, o).
+//   JAKOB'S ASSETS: xPost() (Wang's X post header PNG, unrolls into the night) · xQuote() (a quote crop PNG + a gold highlighter sweep on
+//   the key words) · portrait() (Wang's cutout as a paper-cut duotone print, used ONCE at "The man is Alexandr Wang") · clipPlate() (C0–C4).
+//   Every asset has a marked placeholder of the same size until its file lands in films/67-assets/ (swapping = a file drop, no code change).
 //
-// API (design px = screen px at the home camera; t in seconds; u = 0..1 growth):
-//   colours: GOLD (prices, the hero light) · PAPER (documents, receipts) · COOL (machines / AI / power) · EARTH (the ground: warm, heavy,
-//            never glowing) · LAMP (people's windows) · INK · PRINT66 (finish) · bump(t, t0, d)
-//   goldText(ctx, segs [[text, gold 0..1]…], x, y, size, u, o { serif, weight, align, spacing, col, glow }) · goldSpan(ctx, pts, u0, u1, o)
-//   goldLabel(ctx, x, y, l1, l2, u, o { dx, dy, size }) · title(ctx, t, u, o { lines, out, sub, x, y, maxW, cond })  (thumbnail A title)
-//   tag(ctx, t, x, y, w, o) → { x, y, w, h, rot, face }   THE TAG. (x, y) = the eyelet. o: { a, rot, swing (extra rad), thread (px up from
-//        the eyelet, default 2400 = off frame; 0 = none), glow 0..1 (lit gold; 0 = a dim, unlit tag), lines [[text, size, gold 0..1, serif]]
-//        (ink on the face, centred), price (big serif at the bottom), priceU 0..1, dust 0..1 (crumbles from the lower-left; the dust keeps
-//        streaming), split 0..1 (a vertical tear: the left half drops), back 0..1 (turns over: .5 = edge-on, 1 = the dark back), house 0..1
-//        (the outline becomes a house with a chimney, thumbnail B), heavy 0..1 (warm earth weight at the bottom: "stays hard"), seed, h }
-//   receipt(ctx, t, o) → end point   THE RECEIPT: o { from [x, y] (the roll), to [x, y] (the hand), u 0..1 (unrolled), w, rows [[label, u]]
-//        (rows near the end, each with a gold ↑ that lifts on u), bend, roll 0..1 (the roll at the top is drawn) }
-//   paySlip(ctx, t, x, y, s, o { a, rot, glow, lines, label })   your pay slip (cream; label default 'YOUR PAY')
-//   dollarBar(ctx, t, x, y, w, o { u, h, title, segs [{ label, share 0..1, col, u, big }], unit '¢' })  one dollar = 100 %, split into parts
-//   verdict(ctx, t, x, y, text, u, o { size, align })  the station's verdict under its tag: gold caps + a gold underline that draws (no stamp)
-//   paperCard · dataCard · quoteCard(ctx, t, T, { text, x, y, w, size, head, credit, spoken [from, to], after, mode 'hi' })
-//   priceTag(ctx, t, x, y, text, u, o) (a small paper tag on a gold thread) · veil(ctx, a) · float(ctx, t, k)
-//   board(ctx, t, T, o { a, big 0..1, lit (index to light) }) · BOARD · boardState(T, t)   THE SEVEN TAGS (top left)
-//   camPath(t, K) · bracket · source(ctx, t, t0, t1, text) (y 890) · SOURCES
-//   CLIP_RECT, CLIPS, clipWin, prepareClipFrames, clipPlate(ctx, t, T, id, o { from, morph, dark, label })
-// Rules as everywhere: no canvas, pattern or gradient cache per frame; seeded randomness only; nothing fades in from nowhere.
-import { Path2D, loadImage, GlobalFonts } from '@napi-rs/canvas';
+// Colour code: GOLD = what holds / the hero light (the headline, the file, the ribbon, a gold box, the gold card) · CREAM = what is open
+// (an open box, questions, quotes) · COOL = machines / labs / screens · LAMP = people's windows · the yellow coat = only you. Never red.
+// Rules as everywhere: no canvas, pattern or gradient cache per frame (assets are prepared ONCE); seeded randomness only; nothing from nowhere.
+import { Path2D, loadImage, GlobalFonts, createCanvas } from '@napi-rs/canvas';
 import fs from 'node:fs';
 import * as E from './f10_editorial.mjs';
 import * as K16 from './f16_kit.mjs';
@@ -68,10 +49,8 @@ export function camPath(t, K, ref = REF) {
 const TAU = Math.PI * 2;
 try { GlobalFonts.registerFromPath('/usr/share/fonts/opentype/inter/Inter-Black.otf', 'Inter Black'); } catch { /* falls back to Inter 600 */ }
 
-export const PRINT66 = { grain: 14, floor: 4, vig: .5 };
-// colour code (docs/MOTION.md §4): GOLD = PRICES (the tags; the one hero light, never on two things at once at full strength) · PAPER = documents,
-// receipts, the pay slip · COOL = machines and AI (screens, robot arms, data centres, power lines) · EARTH = the ground (land, soil: warm, heavy,
-// never glowing, never falls) · LAMP = people's light in windows · the yellow coat = only you
+export const PRINT67 = { grain: 14, floor: 4, vig: .5 };
+export const CREAM = '#f3efe2', CREAM2 = '#a49fc4';
 export const GOLD = { core: '#fff8dc', hot: '#ffe9a6', body: '#f6c95c', mid: '#e3a63f', shade: '#b8792a', deep: '#6e4416', halo: '#f2b632', line: '#ffd982', text: '#ffe7a8' };
 export const PAPER = { body: '#ece4c8', lit: '#f7f0d8', shade: '#cfc4a2', edge: '#a99d7c', ink: '#141a3c', faint: '#8a8166' };
 export const COOL = { core: '#f2f8ff', body: mixHex(P.cream, '#9fc2ee', .55), deep: mixHex(P.blue0, P.blue1, .5), line: mixHex(P.cream, '#9fc2ee', .4), halo: '#7fa6e6', text: mixHex(P.cream, '#9fc2ee', .35) };
@@ -123,7 +102,7 @@ export function goldLabel(ctx, x, y, l1, l2, u, o = {}) {
 // AI MAKES / EVERYTHING CHEAP like thumbnail A: heavy condensed caps, cream with a warm glow, left; the small line under it. u rises, o.out sinks.
 export function title(ctx, t, u, o = {}) {
   if (u <= 0) return;
-  const x = o.x ?? 72, y = o.y ?? 470, lines = o.lines ?? ['AI MAKES', 'EVERYTHING CHEAP'], cond = o.cond ?? .7;
+  const x = o.x ?? 72, y = o.y ?? 470, lines = o.lines ?? ['SUPERINTELLIGENCE', 'IS ARRIVING'], cond = o.cond ?? .7;
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.font = `100px "Inter Black"`; const wide = Math.max(...lines.map((l) => ctx.measureText(l).width)) * cond / 100;
   const size = Math.min(o.size ?? 420, (o.maxW ?? 940) / wide);
@@ -214,196 +193,6 @@ export function quoteCard(ctx, t, T, o) {
   return { ...box, h };
 }
 
-// ======================================================================================================================== THE TAG
-// Local frame: the eyelet at (0, 0); the body hangs below it. Outline: 6 points (cut top corners, like thumbnail A); the house outline has
-// the same 6 points (a roof apex instead of the flat top) so the two morph (thumbnail B), plus a chimney that grows with o.house.
-const TAG_K = 1.42;   // h / w
-function tagPts(w, h, house) {
-  const tp = [[-w * .27, -h * .1], [w * .27, -h * .1], [w / 2, h * .08], [w / 2, h * .9], [-w / 2, h * .9], [-w / 2, h * .08]];
-  const hp = [[-w * .02, -h * .3], [w * .02, -h * .3], [w / 2, h * .16], [w / 2, h * .9], [-w / 2, h * .9], [-w / 2, h * .16]];
-  return tp.map((p, i) => [lerp(p[0], hp[i][0], house), lerp(p[1], hp[i][1], house)]);
-}
-const pathOf = (pts) => { const p = new Path2D(); pts.forEach(([x, y], i) => (i ? p.lineTo(x, y) : p.moveTo(x, y))); p.closePath(); return p; };
-// the dust front: s(x, y) grows toward the lower-left corner; a point is gone when s > 1 − dust
-const dustS = (x, y, w, h) => clamp((y / h) * .62 + (-x / w + .5) * .5 - .08);
-const DUST = new Map();
-function dustPts(seed, n) { if (!DUST.has(seed)) { const r = prng(seed * 31 + 7), a = []; for (let i = 0; i < n; i++) a.push([r() - .5, r() * 1.0 - .1, r(), r(), r()]); DUST.set(seed, a); } return DUST.get(seed); }
-function tagBody(ctx, t, w, h, o, side) {
-  const house = clamp(o.house ?? 0), glow = clamp(o.glow ?? 1), pts = tagPts(w, h, house), shape = pathOf(pts);
-  const dust = clamp(o.dust ?? 0), seed = o.seed ?? 1;
-  ctx.save();
-  // the clip: the outline minus the crumbled corner (a ragged front)
-  ctx.clip(shape);
-  if (dust > 0) {
-    const r = prng(seed * 13 + 3), cut = new Path2D(), N = 26;
-    cut.moveTo(w, -h); cut.lineTo(w, h * 1.2);
-    for (let i = 0; i <= N; i++) {   // the ragged front, from the bottom edge up to the left edge
-      const f = i / N, s0 = 1 - dust, jag = (r() - .5) * .05;
-      // solve s(x, y) = s0 + jag along a line parameterised by f: x from right to left of the front
-      const x = lerp(w * .6, -w * .6, f), y = ((s0 + jag + .08) - (-x / w + .5) * .5) / .62 * h;
-      cut.lineTo(x, y);
-    }
-    cut.lineTo(-w, -h); cut.closePath(); ctx.clip(cut);
-  }
-  // body: gold light (lit) or a dim, unlit gold (glow 0); the back is a darker umber-gold, no text
-  const back = side < 0;
-  const c0 = back ? mixHex(GOLD.deep, GOLD.shade, .5) : mixHex(mixHex(GOLD.shade, P.blue2, .25), GOLD.hot, glow);
-  const c1 = back ? mixHex(GOLD.deep, P.night1, .35) : mixHex(mixHex(GOLD.deep, P.ind2, .3), GOLD.mid, glow);
-  ctx.fillStyle = lin(ctx, w * .5, -h * .1, -w * .5, h * .9, [[0, c0], [.55, mixHex(c0, c1, .5)], [1, c1]]); ctx.fillRect(-w, -h, w * 2, h * 2.2);
-  // a soft inner light toward the top right (paper volume) + fine stipple (grain ≤ 2 px)
-  ctx.fillStyle = rad(ctx, w * .25, h * .1, w * .9, [[0, rgba(GOLD.core, back ? .05 : .32 * glow)], [1, rgba(GOLD.core, 0)]]); ctx.fillRect(-w, -h, w * 2, h * 2.2);
-  const rs = prng(seed * 7 + 1); ctx.fillStyle = rgba(back ? P.night0 : GOLD.deep, .1);
-  for (let i = 0; i < 140; i++) { const x = (rs() - .5) * w, y = rs() * h - h * .1; ctx.fillRect(x, y, 1.6, 1.6); }
-  // heavy: warm earth weight at the bottom ("stays hard")
-  const hv = clamp(o.heavy ?? 0);
-  if (hv > 0) { ctx.fillStyle = lin(ctx, 0, h * .9 - h * .32 * hv, 0, h * .9, [[0, rgba(EARTH.warm, 0)], [1, rgba(EARTH.top, .85 * hv)]]); ctx.fillRect(-w, h * .5, w * 2, h * .45); }
-  ctx.restore();
-  // edge light
-  ctx.save(); ctx.strokeStyle = rgba(back ? GOLD.shade : GOLD.core, back ? .5 : .35 + .4 * glow); ctx.lineWidth = Math.max(1, w * .008);
-  if (dust <= 0) ctx.stroke(shape);
-  ctx.restore();
-  // the eyelet (a hole: the night shows through) + its ring
-  ctx.fillStyle = mixHex(P.night0, P.ind1, .3); ctx.beginPath(); ctx.arc(0, 0, w * .055, 0, Math.PI * 2); ctx.fill();
-  ctx.strokeStyle = rgba(GOLD.deep, .7); ctx.lineWidth = Math.max(1, w * .012); ctx.stroke();
-  // the chimney of the house
-  if (house > .05) { ctx.fillStyle = mixHex(c0, c1, .3); ctx.fillRect(w * .26, -h * .2 + (1 - house) * h * .2, w * .1, h * .22 * house); }
-  return pts;
-}
-export function tag(ctx, t, x, y, w, o = {}) {
-  const a = clamp(o.a ?? 1); if (a <= 0 || w <= 0) return null;
-  const h = o.h ?? w * TAG_K, rot = (o.rot ?? 0) + (o.swing ?? 0) + .012 * Math.sin(t * .7 + x * .013), glow = clamp(o.glow ?? 1);
-  const split = clamp(o.split ?? 0), backU = clamp(o.back ?? 0), dust = clamp(o.dust ?? 0), seed = o.seed ?? Math.round(x * 7 + y);
-  ctx.save(); ctx.globalAlpha *= a; ctx.translate(x, y); ctx.rotate(rot);
-  // the thread (up from the eyelet)
-  const th = o.thread ?? 2400;
-  if (th > 0) goldSpan(ctx, [[0, -w * .055], [0, -th]], 0, 1, { w: Math.max(1.2, w * .008), spark: false, a: .55 + .45 * glow });
-  // the glow behind (the hero light): only when lit
-  if (glow > 0 && backU < .5) halo(ctx, 0, h * .4, w * 1.25, .32 * glow * (1 - dust * .5), GOLD.halo, GOLD.core);
-  const flip = Math.cos(Math.PI * backU), side = flip >= 0 ? 1 : -1;
-  const drawFace = (cx) => {
-    const pts = tagBody(cx, t, w, h, { ...o, glow, dust, seed }, side);
-    if (side > 0) {   // the face: ink lines + price (centred), only on the front
-      let yy = h * .26;
-      for (const [i, ln] of (o.lines ?? []).entries()) {
-        const [txt, size, g = 0, serif = false] = ln; yy += size * 1.12;
-        E.glowText(cx, txt, 0, yy, { size, serif, weight: serif ? 400 : 700, align: 'center', spacing: serif ? 0 : .06, col: mixHex(PAPER.ink, GOLD.deep, g), glow: false, a: clamp((o.textU ?? 1) * 3 - i * .4) });
-      }
-      if (o.price) goldText(cx, [[o.price, 0]], 0, h * .8, o.priceSize ?? w * .2, o.priceU ?? 1, { serif: true, align: 'center', col: PAPER.ink });
-    }
-    return pts;
-  };
-  ctx.save(); ctx.scale(Math.max(.02, Math.abs(flip)) * side * side, 1);
-  if (split <= 0) drawFace(ctx);
-  else {   // the tear: a ragged vertical line; the right half stays, the left half drops and tilts
-    const r = prng(seed + 5), tear = new Path2D(); tear.moveTo(0, -h); for (let i = 0; i <= 14; i++) tear.lineTo((r() - .5) * w * .06, -h * .1 + h * i / 14); tear.lineTo(0, h * 1.5);
-    const R = new Path2D(tear); R.lineTo(w * 2, h * 1.5); R.lineTo(w * 2, -h); R.closePath();
-    const Lp = new Path2D(tear); Lp.lineTo(-w * 2, h * 1.5); Lp.lineTo(-w * 2, -h); Lp.closePath();
-    ctx.save(); ctx.clip(R); drawFace(ctx); ctx.restore();
-    const k = expoOut(split); ctx.save(); ctx.translate(-w * .06 * k, h * .38 * k); ctx.rotate(-.12 * k); ctx.clip(Lp); drawFace(ctx); ctx.restore();
-  }
-  ctx.restore();
-  // the dust: grains on the ragged front (the edge erodes), released grains stream down-left and keep streaming (never frozen)
-  if (dust > 0) {
-    ctx.save(); ctx.globalCompositeOperation = 'lighter';
-    const n = Math.round(clamp(w * 3, 160, 1500)), sc = Math.max(.7, w / 240), front = 1 - dust;
-    for (const [px, py, q, sp, sz] of dustPts(seed, n)) {
-      const lx = px * w, ly = py * h, s = dustS(lx, ly, w, h); if (s <= front - .07) continue;
-      let dx = 0, dy = 0, al;
-      if (s <= front) al = .55 * (1 - (front - s) / .07);   // the eroding edge: grains still in place
-      else {
-        const rel = clamp((s - front) / .3), ph = (t * (.05 + .05 * sp) + q) % 1;
-        dx = -(ph * .55 + rel * .25) * w - w * .08 * sp; dy = (ph * ph * .9 + ph * .25 + rel * .12) * h * .75;
-        al = (1 - ph) * (.5 + .5 * q) * Math.min(1, .25 + rel * 2.5);
-      }
-      al *= Math.max(.45, glow); if (al <= .02) continue;
-      ctx.fillStyle = rgba(q > .7 ? GOLD.core : q < .25 ? GOLD.mid : GOLD.body, al); const r = (1 + 2.6 * sz * sz) * sc;
-      ctx.fillRect(lx + dx, ly + dy, r, r);
-    }
-    ctx.restore();
-  }
-  ctx.restore();
-  return { x, y, w, h, rot, face: { x: x - w / 2, y: y - h * .1, w, h: h } };
-}
-
-// ======================================================================================================================== THE RECEIPT
-// a glowing paper ribbon from the roll (o.from) to the hand (o.to), bent like thumbnail C; o.u unrolls it (the free end travels from the roll
-// to the hand along the curve). Gray print bars along it; o.rows [[label, u]] are written near the end (dark ink) with a gold ↑ each.
-export function receipt(ctx, t, o) {
-  const u = clamp(o.u ?? 1); if (u <= 0) return null;
-  const [x0, y0] = o.from, [x1, y1] = o.to, w = o.w ?? 240, bend = o.bend ?? 1;
-  const c1 = [x0 - 60 * bend, y0 + (y1 - y0) * .45], c2 = [x1 + (x0 - x1) * .6 + 180 * bend, y1 - (y1 - y0) * .25];
-  const at = (s) => { const m = 1 - s; return [m * m * m * x0 + 3 * m * m * s * c1[0] + 3 * m * s * s * c2[0] + s * s * s * x1, m * m * m * y0 + 3 * m * m * s * c1[1] + 3 * m * s * s * c2[1] + s * s * s * y1]; };
-  const N = 60, pts = []; for (let i = 0; i <= N; i++) pts.push(at(u * i / N));
-  const nrm = (i) => { const a = pts[Math.max(0, i - 1)], b = pts[Math.min(N, i + 1)], dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 1; return [-dy / l, dx / l]; };
-  ctx.save();
-  halo(ctx, lerp(x0, x1, .55), lerp(y0, y1, .5), Math.hypot(x1 - x0, y1 - y0) * .55 * u, .22, PAPER.lit, P.cream);
-  // the ribbon (quads, a slight twist: width breathes along the curve)
-  for (let i = 0; i < N; i++) {
-    const [ax, ay] = pts[i], [bx, by] = pts[i + 1], na = nrm(i), nb = nrm(i + 1);
-    const wa = w * (.82 + .18 * Math.cos(i * .11 + t * .4)) / 2, wb = w * (.82 + .18 * Math.cos((i + 1) * .11 + t * .4)) / 2;
-    const lit = .75 + .25 * Math.cos(i * .11 + t * .4);
-    ctx.fillStyle = mixHex(PAPER.shade, '#fffbe8', lit);
-    ctx.beginPath(); ctx.moveTo(ax + na[0] * wa, ay + na[1] * wa); ctx.lineTo(bx + nb[0] * wb, by + nb[1] * wb); ctx.lineTo(bx - nb[0] * wb, by - nb[1] * wb); ctx.lineTo(ax - na[0] * wa, ay - na[1] * wa); ctx.closePath(); ctx.fill();
-    // print bars (every 3rd quad), dim gray-gold
-    if (i % 3 === 1 && i < N - 8) { const mx = (ax + bx) / 2, my = (ay + by) / 2, L = (wa + wb) * .55 * (.5 + .5 * ((i * 37) % 7) / 7); ctx.strokeStyle = rgba(PAPER.faint, .55); ctx.lineWidth = Math.max(2, w * .045); ctx.beginPath(); ctx.moveTo(mx - na[0] * L * .9, my - na[1] * L * .9); ctx.lineTo(mx + na[0] * L * .2, my + na[1] * L * .2); ctx.stroke(); }
-  }
-  // the roll at the top
-  if ((o.roll ?? 1) > 0) { ctx.fillStyle = mixHex(PAPER.body, '#fffbe8', .6); ctx.beginPath(); ctx.ellipse(x0, y0, w * .55, w * .62, -.2, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = mixHex(PAPER.edge, P.night1, .4); ctx.beginPath(); ctx.ellipse(x0 + w * .12, y0, w * .14, w * .2, -.2, 0, Math.PI * 2); ctx.fill(); }
-  // rows near the end: [label, u] (the label sits across the ribbon, an arrow lifts)
-  const rows = o.rows ?? [];
-  rows.forEach(([label, ru], k) => {
-    ru = clamp(ru); if (ru <= 0) return;
-    const i = Math.max(2, N - 7 - k * 8), [px, py] = pts[i], [nx, ny] = nrm(i), ang = Math.atan2(-ny, -nx);
-    ctx.save(); ctx.translate(px, py); ctx.rotate(ang);
-    const tw = measure(label, 22, false, 700) + 22 * label.length * .06;
-    E.glowText(ctx, label, -tw / 2 - 14, 9, { size: 22, weight: 700, spacing: .06, col: PAPER.ink, glow: false, a: clamp(ru * 3) });
-    const lift = expoOut(ru) * 12; ctx.fillStyle = GOLD.deep;   // the ↑ (a drawn arrow, gold-ink)
-    ctx.beginPath(); ctx.moveTo(tw / 2 + 4, 6 - lift); ctx.lineTo(tw / 2 + 18, -12 - lift); ctx.lineTo(tw / 2 + 32, 6 - lift); ctx.lineTo(tw / 2 + 22, 6 - lift); ctx.lineTo(tw / 2 + 22, 16 - lift); ctx.lineTo(tw / 2 + 14, 16 - lift); ctx.lineTo(tw / 2 + 14, 6 - lift); ctx.closePath(); ctx.globalAlpha *= clamp(ru * 2); ctx.fill();
-    ctx.restore();
-  });
-  ctx.restore();
-  return pts[N];
-}
-
-// ======================================================================================================================== THE PAY SLIP
-export function paySlip(ctx, t, x, y, s, o = {}) {
-  const a = clamp(o.a ?? 1); if (a <= 0) return null;
-  const w = s, h = s * .62, g = clamp(o.glow ?? 0);
-  ctx.save(); ctx.globalAlpha *= a; ctx.translate(x, y); ctx.rotate(o.rot ?? -.08);
-  if (g > 0) halo(ctx, 0, 0, s * 1.1, .35 * g, GOLD.halo, GOLD.core);
-  ctx.fillStyle = rgba(P.night0, .35); ctx.fillRect(-w / 2 + s * .03, -h / 2 + s * .04, w, h);
-  ctx.fillStyle = lin(ctx, -w / 2, -h / 2, w / 2, h / 2, [[0, mixHex(PAPER.lit, GOLD.hot, .25 * g)], [1, PAPER.body]]); ctx.fillRect(-w / 2, -h / 2, w, h);
-  ctx.strokeStyle = rgba(PAPER.edge, .9); ctx.lineWidth = Math.max(1, s * .012); ctx.strokeRect(-w / 2, -h / 2, w, h);
-  if (s >= 60) E.glowText(ctx, o.label ?? 'YOUR PAY', -w / 2 + w * .1, -h / 2 + h * .3, { size: Math.max(9, s * .13), weight: 700, spacing: .1, col: PAPER.ink, glow: false });
-  ctx.fillStyle = rgba(PAPER.faint, .7); for (let i = 0; i < 3; i++) ctx.fillRect(-w / 2 + w * .1, -h / 2 + h * (.48 + i * .14), w * (.5 - i * .08), Math.max(1.5, h * .05));
-  ctx.fillStyle = rgba(GOLD.deep, .9); ctx.fillRect(w / 2 - w * .32, -h / 2 + h * .74, w * .22, Math.max(2, h * .07));
-  ctx.restore();
-  return { x, y, w, h };
-}
-
-// ======================================================================================================================== THE DOLLAR BAR
-// one dollar = 100 %: a long bar split into parts that fill from the left one by one (each seg has its own u). Labels under each part.
-export function dollarBar(ctx, t, x, y, w, o = {}) {
-  const u = clamp(o.u ?? 1); if (u <= 0) return null;
-  const h = o.h ?? 70, frame = expoOut(u);
-  ctx.save(); ctx.globalAlpha *= clamp(u * 3);
-  if (o.title) maskLine(ctx, [[o.title, 0]], x, y - 30, 24, rise(u), { serif: false, weight: 600, col: P.halo2, glow: false });
-  ctx.strokeStyle = rgba(P.cream, .5); ctx.lineWidth = 2; ctx.beginPath(); ctx.roundRect(x, y, w * frame, h, 10); ctx.stroke();
-  let xx = x;
-  for (const s of o.segs ?? []) {
-    const su = clamp(s.u ?? 1), sw = w * s.share;
-    if (su > 0) {
-      const fw = sw * expoOut(su);
-      ctx.fillStyle = lin(ctx, xx, y, xx + sw, y, [[0, mixHex(s.col, P.night1, .25)], [1, s.col]]); ctx.beginPath(); ctx.roundRect(xx + 3, y + 3, Math.max(0, fw - 6), h - 6, 8); ctx.fill();
-      if (s.big) goldText(ctx, [[s.big, s.gold ?? 0]], xx + 14, y + h + 66, 54, rise(span(su, .2, 1)), { serif: true, col: s.textCol ?? P.cream });
-      maskLine(ctx, [[s.label, 0]], xx + 16, y + h + (s.big ? 102 : 40), 22, rise(span(su, .3, 1)), { serif: false, weight: 600, col: s.textCol ?? P.cream, glow: false });
-    }
-    xx += sw;
-  }
-  ctx.restore();
-  return { x, y, w, h };
-}
-
 // ======================================================================================================================== THE VERDICT
 // under a station's tag: gold caps rise behind a mask, then a gold underline draws from the left (not a rubber stamp: earlier films had those)
 export function verdict(ctx, t, x, y, text, u, o = {}) {
@@ -414,153 +203,23 @@ export function verdict(ctx, t, x, y, text, u, o = {}) {
   return { x: x0, y, w: tw };
 }
 
-// ======================================================================================================================== THE SEVEN TAGS (the clock)
-// Screen space, top left (x 64–520, y 40–~225): a gold rail, seven small tags 1…7 hanging from it. Each changes when its station decides
-// (phrases below; never animate by hand): fall (drops + crumbles), split (tears), slow (drops, bumps back up a little), up (rises a little),
-// part (drops part of the way), hard (rises, earth weight), open (the 7th: face down until "It's your wage", then it swings, no verdict).
-// The current station's name (and after the verdict its verdict) is written under the rail (22 px). Hidden during clips.
-export const BOARD = {
-  on: 'Six price tags', seventh: 'Then a seventh',
-  tags: [
-    { name: 'KNOWLEDGE & ADVICE', at: 'Knowledge and advice', verdict: 'FALLS FIRST', v: "So that's what gets cheap first", kind: 'fall' },
-    { name: 'EDUCATION', at: "Education. It's on his list", verdict: 'KNOWLEDGE YES · DIPLOMA NO', v: 'So the second tag splits', kind: 'split' },
-    { name: 'THINGS FROM FACTORIES', at: 'What about things you can drop', verdict: 'FALLS SLOWLY', v: 'So the third tag does fall', kind: 'slow' },
-    { name: 'ENERGY', at: 'Energy', verdict: 'STAYS UP · FOR NOW', v: 'For now, the fourth tag', kind: 'up' },
-    { name: 'FOOD', at: 'Food. Remember', verdict: 'WORK OUT · GROUND STAYS', v: 'So the fifth tag can fall', kind: 'part' },
-    { name: 'HOUSING & LAND', at: 'Housing. The first word', verdict: 'STAYS HARD', v: 'So the sixth tag stays hard', kind: 'hard' },
-    { name: 'YOUR WAGE', at: "It's your wage", verdict: 'OPEN', v: "What's still open", kind: 'open' },
-  ],
-};
-const BT = new WeakMap();
-export function boardTimes(T) {
-  if (BT.has(T)) return BT.get(T);
-  const on = T.G(BOARD.on), seventh = T.G(BOARD.seventh, 0, on);
-  const at = [], v = []; let prev = on;
-  for (const s of BOARD.tags) { const a = T.G(s.at, 0, prev); at.push(a); v.push(T.G(s.v, 0, a)); prev = a; }
-  const r = { on, seventh, at, v, clips: ['C2', 'C3', 'C4'].map((id) => T.clip(id)).filter(Boolean) }; BT.set(T, r); return r;
-}
-// per tag: { dy (px, + = down), dust, split, back, glow, heavy, swing } and the label state
-export function boardState(T, t) {
-  const b = boardTimes(T), tags = [];
-  let cur = -1; for (let i = 0; i < 7; i++) if (t >= b.at[i] - .3) cur = i;
-  for (let i = 0; i < 7; i++) {
-    const k = BOARD.tags[i].kind, d = span(t, b.v[i] - .1, b.v[i] + 1.6), e = sineIO(d), active = i === cur;
-    const s = { dy: 0, dust: 0, split: 0, back: 0, glow: .35, heavy: 0, swing: 0, drop: span(t, b.on + .25 + i * .16, b.on + 1.3 + i * .16) };
-    if (i === 6) { s.drop = span(t, b.seventh - .1, b.seventh + 1.1); s.back = 1 - sineIO(span(t, b.at[6] - .2, b.at[6] + 1.2)); }
-    if (k === 'fall') { s.dy = 30 * e; s.dust = .55 * e; }
-    if (k === 'split') s.split = .85 * e;
-    if (k === 'slow') s.dy = 26 * sineIO(span(d, 0, .7)) - 8 * sineIO(span(d, .7, 1));
-    if (k === 'up') s.dy = -10 * e;
-    if (k === 'part') s.dy = 15 * e;
-    if (k === 'hard') { s.dy = -14 * e; s.heavy = e; }
-    if (k === 'open') s.swing = .18 * span(t, b.at[6], b.at[6] + 1) * Math.sin(t * 1.7);
-    s.glow = active ? lerp(.35, 1, span(t, b.at[i] - .3, b.at[i] + .6)) : (i < cur ? .5 : .3);
-    tags.push(s);
-  }
-  const clipHide = b.clips.reduce((m, c) => Math.max(m, span(t, c.start - 1.2, c.start - .4) * (1 - span(t, c.end + .2, c.end + 1))), 0);
-  return { tags, cur, on: smooth(span(t, b.on - .3, b.on + .9)) * (1 - clipHide), name: cur >= 0 ? span(t, b.at[cur] - .3, b.at[cur] + .6) : 0,
-    verdict: cur >= 0 && cur < 6 ? span(t, b.v[cur], b.v[cur] + .9) : 0, b };
-}
-export function board(ctx, t, T, o = {}) {
-  const S = boardState(T, t), a = (o.a ?? 1) * S.on; if (a <= 0) return;
-  const big = sineIO(clamp(o.big ?? 0)), sc = lerp(1, 2.7, big), x0 = lerp(64, W / 2 - 230 * 2.7, big), y0 = lerp(40, 150, big);
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.translate(x0, y0); ctx.scale(sc, sc); ctx.globalAlpha *= a;
-  const gap = 66, rail = 12, tw = 40;
-  goldSpan(ctx, [[0, rail], [gap * 6 + 52, rail]], 0, smooth(span(t, S.b.on - .3, S.b.on + .9)), { w: 1.2, spark: false });
-  for (let i = 0; i < 7; i++) {
-    const s = S.tags[i]; if (s.drop <= 0) continue;
-    const ex = 26 + gap * i, ey = rail + 22 + s.dy - (1 - expoOut(s.drop)) * 40;
-    ctx.save(); ctx.beginPath(); ctx.rect(ex - 60, rail, 120, 400); ctx.clip();   // the tags come down out of the rail (never from nowhere)
-    const hi = o.lit === i ? 1 : 0;
-    tag(ctx, t, ex, ey, tw, { thread: ey - rail, glow: Math.max(s.glow, hi), dust: s.dust, split: s.split, back: s.back, heavy: s.heavy, swing: s.swing, seed: 70 + i,
-      lines: [[String(i + 1), 24, 0, true]], textU: 1 });
-    ctx.restore();
-  }
-  if (S.cur >= 0 && big < .5) {
-    const s = BOARD.tags[S.cur];
-    goldText(ctx, [[s.name, .9]], 0, 162, 22, rise(S.name), { serif: false, weight: 700, spacing: .06 });
-    if (S.verdict > 0) goldText(ctx, [[s.verdict, 1]], 0, 194, 22, rise(S.verdict), { serif: false, weight: 700, spacing: .06, col: GOLD.text });
-  }
-  ctx.restore();
-}
-
-// ======================================================================================================================== SOURCES (on screen, y ≤ 880)
-// From <ROOT>text-v3.md EINBLENDUNG lines (fact-checked, 20.11.; faktencheck.md MB1–MB3 applied: MB3 the data-centre cost split is OUT). The fact check writes text-v3.md: its EINBLENDUNG lines WIN — update here (lead) or say
-// in your report which string you took from text-v3. Use F.source(ctx, t, t0, t1, F.SOURCES.x) for source lines (y 890).
-export const SOURCES = {
-  promise: '“Everything necessary will be cheap …”',
-  promiseCredit: 'SAM ALTMAN, “MOORE’S LAW FOR EVERYTHING”',
-  promiseFull: '“… everything necessary will be cheap, and everyone will have enough money to be able to afford it.”',
-  promiseFullCredit: 'SAM ALTMAN, “MOORE’S LAW FOR EVERYTHING”, MARCH 16, 2021',
-  programmerTag: ['A TOP', 'PROGRAMMER’S WEEK'], programmerPrice: '< $1',
-  fed: '“a very high-end programmer 20 hours, 40 hours” → “less than a dollar’s worth of compute tokens”',
-  fedSrc: 'SAM ALTMAN AT THE FEDERAL RESERVE, JULY 22, 2025 · HIS ESTIMATE',
-  tenX: '“The cost to use a given level of AI falls about 10x every 12 months”',
-  tenXSrc: 'SAM ALTMAN, FEB 2025 · EPOCH AI, SEPT 2026: ≈ 13× PER YEAR SINCE 2023',
-  foodDollar: 'OF EVERY FOOD DOLLAR', foodLabor: '54¢ LABOR', foodFarm: '12¢ FARM',
-  foodSrc: 'USDA ERS, FOOD DOLLAR (2024 DATA, UPDATED MARCH 2026)',
-  robotHouse: '“… the cost of building that house is close to the cost to rent the robots.”', robotHouseSrc: 'SAM ALTMAN, “MOORE’S LAW FOR EVERYTHING”',
-  testQ: 'HOW MUCH OF THIS PRICE IS WORK?',
-  translators: '30 % REPORT FEWER ASSIGNMENTS OR CLIENTS BECAUSE OF AI', translatorsSrc: 'CEATL SURVEY 2026 · 1,785 LITERARY TRANSLATORS',
-  legal: '≈ 90 % OF LEGAL SPEND STILL BILLED BY THE HOUR', legalSrc: 'THOMSON REUTERS INSTITUTE, 2026 STATE OF THE US LEGAL MARKET',
-  tutor: 'MORE THAN DOUBLE THE LEARNING GAINS', tutorSrc: 'HARVARD PHYSICS COURSE · SCIENTIFIC REPORTS, 2025 · 19 UNIVERSITIES, 7,200 STUDENTS (PREPRINT, NOV 2026)',
-  tuition: 'PUBLIC FOUR-YEAR, IN-STATE TUITION', tuitionBig: '$12,290 · +2.9 %', tuitionSrc: 'COLLEGE BOARD, NOV 5, 2026 (PUBLISHED PRICE)',
-  robots: '5,079,078', robotsLabel: 'INDUSTRIAL ROBOTS IN OPERATION', robotsSrc: 'INTERNATIONAL FEDERATION OF ROBOTICS, SEPT 2026',
-  phones: 'SMARTPHONES −51 % IN FIVE YEARS', phonesSrc: 'U.S. BLS, NOV 19, 2026 · CONSUMER PRICE INDEX, QUALITY-ADJUSTED',
-  phones26: 'FORECAST 2026, AVERAGE SMARTPHONE PRICE WORLDWIDE', phones26Big: '+27.6 % TO $581', phones26Src: 'IDC, AUG 2026',   // faktencheck MB2 (text-v3)
-  gentle: '“As datacenter production gets automated, the cost of intelligence should eventually converge to near the cost of electricity.”',
-  gentleSrc: 'SAM ALTMAN, “THE GENTLE SINGULARITY”, JUNE 2025',
-  energy: 'ENERGY +33 % IN FIVE YEARS', energySrc: 'U.S. BLS, NOV 19, 2026',
-  cropland: 'U.S. CROPLAND: $6,020 AN ACRE', croplandSub: 'FIRST TIME ABOVE $6,000', croplandSrc: 'USDA, JULY 31, 2026',
-  landQuote: '“If robots can build a house on land you already own …”', landQuoteSrc: 'SAM ALTMAN, “MOORE’S LAW FOR EVERYTHING”',
-  land40: 'LAND ≈ 40 % OF U.S. HOME VALUE', land40Src: 'FHFA ESTIMATE (2022)',
-  scarce: '“… the price of luxury goods and a few inherently limited resources like land may rise even more dramatically.”',
-  scarceSrc: 'SAM ALTMAN, “THREE OBSERVATIONS”, FEB 2025',
-  notAdvice: 'NOT FINANCIAL ADVICE',
-  labor: 'Q3 2026: OUTPUT +3.7 % · HOURS +0.1 %', laborBig: 'LABOR SHARE 53.0 %', laborSub: 'LOWEST SINCE 1947', laborSrc: 'U.S. BLS, NOV 5, 2026 (PRELIMINARY)',
-  worse: '“If public policy doesn’t adapt accordingly, most people will end up worse off than they are today.”', worseSrc: 'SAM ALTMAN, “MOORE’S LAW FOR EVERYTHING”',
-  fund: 'AMERICAN EQUITY FUND (2021): 2.5 % OF LARGE COMPANIES’ VALUE, PAID IN SHARES · 2.5 % OF LAND VALUE', fundSrc: 'MOORE’S LAW FOR EVERYTHING · OPENAI, APRIL 2026: “PUBLIC WEALTH FUND”',
-  alaska: 'ALASKA 2026: $1,200 PER RESIDENT', alaskaSub: '$1,000 DIVIDEND + $200 ENERGY RELIEF', alaskaSrc: 'PFD.ALASKA.GOV · ALTMAN’S ESTIMATE (2021): ≈ $13,500 A YEAR PER ADULT',
-  alaskaPol: '2022: $3,284 · 2026: $1,200', alaskaPolSub: 'AMOUNT SET BY THE LEGISLATURE EACH YEAR',
-  check: 'OPENRESEARCH STUDY · 1,000 PEOPLE · $1,000 A MONTH · 2020–2023', checkSub: '1.3 FEWER WORKING HOURS A WEEK',
-  answers: ['CASH STUDY', '2021 FUND OF SHARES AND LAND', '2024 “UNIVERSAL BASIC COMPUTE”', '2026 PUBLIC WEALTH FUND'],
-  core1: 'YOUR WAGE IS A PRICE TOO.',
-};
-
-// ======================================================================================================================== TAGS, VEIL, FLOAT
-// a paper tag on a gold thread: (x, y) = where the thread is tied (top); o.len thread length; swing in on u
-export function priceTag(ctx, t, x, y, text, u, o = {}) {
-  u = clamp(u); if (u <= 0) return null;
-  const size = o.size ?? 30, len = (o.len ?? 120) * expoOut(u), lines = Array.isArray(text) ? text : [text];
-  const tw = Math.max(...lines.map((l) => measure(l, size, false, 600) + size * l.length * .1)), w = tw + size * 2.1, h = size * (1.25 + lines.length * 1.25);
-  const sw = (o.swing ?? 0) + (1 - expoOut(u)) * .6 * Math.cos(u * 9) + .03 * Math.sin(t * 1.1 + x * .01);
-  ctx.save(); ctx.translate(x, y); ctx.rotate(sw);
-  goldSpan(ctx, [[0, 0], [0, len]], 0, 1, { w: 1.4, spark: false });
-  ctx.translate(0, len); ctx.globalAlpha *= clamp(u * 4);
-  const p = new Path2D(); p.moveTo(-w / 2, size * .55); p.lineTo(-size * .45, 0); p.lineTo(size * .45, 0); p.lineTo(w / 2, size * .55); p.lineTo(w / 2, h); p.lineTo(-w / 2, h); p.closePath();
-  ctx.fillStyle = o.gold ? mixHex(GOLD.hot, PAPER.lit, .3) : lin(ctx, 0, 0, 0, h, [[0, PAPER.lit], [1, PAPER.body]]); ctx.fill(p);
-  ctx.strokeStyle = rgba(PAPER.edge, .9); ctx.lineWidth = 1.5; ctx.stroke(p);
-  ctx.fillStyle = P.night1; ctx.beginPath(); ctx.arc(0, size * .42, size * .13, 0, TAU); ctx.fill();
-  lines.forEach((l, i) => E.glowText(ctx, l, 0, size * (1.55 + i * 1.25) + size * .3, { size, weight: 600, align: 'center', spacing: .1, col: PAPER.ink, glow: false, a: rise(span(u, .3 + i * .2, 1)) }));
-  ctx.restore();
-  return { x, y: y + len, w, h };
-}
 export function veil(ctx, a) { if (a <= 0) return; ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = rgba(P.night0, a); ctx.fillRect(0, 0, W, H); ctx.restore(); }
 export const float = (ctx, t, k = 1) => { ctx.setTransform(1, 0, 0, 1, 0, 0); const z = 1 + .02 * k * Math.sin(t * .6 + 1), dx = E.drift(t * 2, 16 * k, 11), dy = E.drift(t * 2, 10 * k, 17);
   ctx.translate(W / 2 + dx, H / 2 + dy); ctx.scale(z, z); ctx.translate(-W / 2, -H / 2); };
 // ======================================================================================================================== CLIPS (ORIGINAL FOOTAGE)
 // The plate grows out of a thing in the world (o.from = { x, y, w, h } screen rect, e.g. the promise tag's face; or [cx, cy, r]) and goes back.
 // Lower third (≥ 22 px): NAME (serif) · ROLE · YEAR · ORIGINAL FOOTAGE (SOURCE). Wording from <ROOT>clips-geprueft.json once it exists.
-// Frames: <F66CLIPS or /tmp/claude-0/f66/clips/>/<id>/f00001.jpg… (30 fps, 1920×1080, from <ROOT>clips/Cn.mp4 trimmed to in/out of
-// <ROOT>clips-geprueft.json; written by tools/f66_clips.py clips). Until the frames exist a placeholder shows (never ship it).
+// Frames: <F67CLIPS or /tmp/claude-0/f67/clips/>/<id>/f00001.jpg… (30 fps, 1920×1080, from <ROOT>clips/Cn.mp4 trimmed to in/out of
+// <ROOT>clips-geprueft.json; written by tools/f67_clips.py clips). Until the frames exist a placeholder shows (never ship it).
 export const CLIP_RECT = { x: 120, y: 112, w: 1680, h: 945 };
-export const CLIPS = {   // <ROOT>clips-geprueft.json (20.11.) · crop: the share of the frame kept around its centre (C2/C4 carry channel logos in the corners)
-  C1: { name: 'Sam Altman', role: 'CEO, OpenAI', year: '2026', src: 'OpenAI Town Hall' },
-  C2: { name: 'Elon Musk', role: 'CEO, Tesla & SpaceX', year: '2026', src: 'The Builders with Walter Isaacson', crop: .78 },
-  C3: { name: 'Demis Hassabis', role: 'CEO, Google DeepMind', year: '2025', src: 'Lex Fridman Podcast' },
-  C4: { name: 'Daron Acemoglu', role: 'Economist, MIT · Nobel Prize 2024', year: '2026', src: 'Radio Davos, World Economic Forum', crop: .68, cropDy: .07 },
+export const CLIPS = {   // PROVISIONAL until films/67-assets/clips/clips.md (iMac) — the lead/builder updates name/role/year/src from it
+  C0: { name: 'Levent Alpöge', role: 'Mathematician', year: '2026', src: 'TBD' },   // optional: only if a video exists (slot near "the mathematician himself")
+  C1: { name: 'Alexandr Wang', role: 'Chief AI Officer, Meta', year: '2026', src: 'TBD' },
+  C2: { name: 'Brian Conrey', role: 'Mathematician', year: '2026', src: 'TBD' },
+  C3: { name: 'Terence Tao', role: 'Mathematician, UCLA', year: '2026', src: 'TBD' },
+  C4: { name: 'Yann LeCun', role: 'AI researcher', year: '2026', src: 'TBD' },
 };
-const CLIPDIR = (process.env.F66CLIPS || '/tmp/claude-0/f66/clips/').replace(/\/?$/, '/');
+const CLIPDIR = (process.env.F67CLIPS || '/tmp/claude-0/f67/clips/').replace(/\/?$/, '/');
 const nFrames = new Map();
 function frameCount(id) { if (!nFrames.has(id)) { let n = 0; try { n = fs.readdirSync(CLIPDIR + id).filter((f) => /^f\d{5}\.jpg$/.test(f)).length; } catch {} nFrames.set(id, n); } return nFrames.get(id); }
 function frameAt(id, t, win) { const n = frameCount(id); if (!n) return 0; return Math.max(1, Math.min(n, Math.floor((t - win.start) * 30) + 1)); }
@@ -611,3 +270,414 @@ export function clipPlate(ctx, t, T, id, o = {}) {
   ctx.restore();
   return { cx, cy, w, h };
 }
+
+// ======================================================================================================================== THE HEADLINE
+// Wang's sentence as giant letters of gold light (Inter Black, condensed). Drawn in the caller's space (the world draws it on the sky card
+// at Z_HEAD). o: { x, y (baseline of line 1), w (width of line 1), lines, u 0..1 (rises line by line behind a mask), glow 0..1,
+//   cream [per line 0..1] (a line turns cream = "only half": the end verdict), dim 0..1, wordU {SUPERINTELLIGENCE: 0..1} unused, gap }
+// Returns the line boxes [{ x, y, w, h }] (caller space) so carriers (the file, the post header) can start from a letter.
+const HLM = new Map();
+function hlMeasure(ctx, s) { if (!HLM.has(s)) { ctx.save(); ctx.font = '100px "Inter Black"'; HLM.set(s, ctx.measureText(s).width / 100); ctx.restore(); } return HLM.get(s); }
+export function headline(ctx, t, o = {}) {
+  const lines = o.lines ?? ['SUPERINTELLIGENCE', 'IS ARRIVING'], cond = o.cond ?? .74, x = o.x ?? 150, y = o.y ?? 330, w = o.w ?? 1620;
+  const size = w / (hlMeasure(ctx, lines[0]) * cond), lh = size * .9, glow = clamp(o.glow ?? 1), u = o.u ?? 1, boxes = [];
+  lines.forEach((ln, i) => {
+    const ui = rise(span(u, i * .18, .7 + i * .18)); const lw = hlMeasure(ctx, ln) * cond * size, lx = o.align === 'left' ? x : x + (w - lw) / 2, ly = y + i * lh;
+    boxes.push({ x: lx, y: ly - size * .74, w: lw, h: size * .74 });
+    if (ui <= 0) return;
+    const cr = clamp(o.cream?.[i] ?? 0), dim = clamp(o.dim ?? 0);
+    ctx.save(); ctx.beginPath(); ctx.rect(lx - 60, ly - size * .86, lw + 120, size * .98); ctx.clip();
+    ctx.translate(lx, ly + (1 - expoOut(ui)) * size * .6); ctx.scale(cond, 1); ctx.font = `${size}px "Inter Black"`; ctx.textBaseline = 'alphabetic';
+    const top = mixHex(mixHex(GOLD.hot, CREAM, cr), P.blue2, dim * .7), bot = mixHex(mixHex(GOLD.mid, mixHex(CREAM, P.halo2, .5), cr), P.night1, dim * .7);
+    ctx.shadowColor = rgba(cr > .5 ? P.halo2 : GOLD.halo, .55 * glow * (1 - dim)); ctx.shadowBlur = size * .22;
+    ctx.fillStyle = lin(ctx, 0, -size * .74, 0, 0, [[0, top], [1, bot]]); ctx.fillText(ln, 0, 0);
+    ctx.shadowBlur = 0; ctx.fillText(ln, 0, 0);
+    ctx.globalAlpha *= .22 * glow * (1 - dim); ctx.fillStyle = GOLD.core; ctx.fillText(ln, 0, -size * .012);   // inner light
+    ctx.restore();
+  });
+  return boxes;
+}
+
+// ======================================================================================================================== THE FILE
+// x, y = centre; s = width (h = 1.3 s). o: { a, rot, glow 0..1, open 0..1 (the cover swings up, pages spill: the caller draws the tower),
+//   scan 0..1 (a gold light point runs line by line, tiny checks appear behind it), lines 0..1 (how many gold lines are written), seed }
+export function file(ctx, t, x, y, s, o = {}) {
+  const a = clamp(o.a ?? 1); if (a <= 0 || s <= 0) return null;
+  const w = s, h = s * 1.3, g = clamp(o.glow ?? 1), dog = w * .22, scan = o.scan ?? 0, op = clamp(o.open ?? 0);
+  ctx.save(); ctx.globalAlpha *= a; ctx.translate(x, y); ctx.rotate((o.rot ?? 0) + .015 * Math.sin(t * .8 + x * .01));
+  halo(ctx, 0, 0, w * 1.6, .38 * g, GOLD.halo, GOLD.core);
+  const body = new Path2D(); body.moveTo(-w / 2, -h / 2); body.lineTo(w / 2 - dog, -h / 2); body.lineTo(w / 2, -h / 2 + dog); body.lineTo(w / 2, h / 2); body.lineTo(-w / 2, h / 2); body.closePath();
+  ctx.fillStyle = lin(ctx, w / 2, -h / 2, -w / 2, h / 2, [[0, mixHex(GOLD.shade, GOLD.hot, g)], [.6, mixHex(GOLD.deep, GOLD.body, g)], [1, mixHex(GOLD.deep, GOLD.mid, g)]]); ctx.fill(body);
+  ctx.strokeStyle = rgba(GOLD.core, .35 + .4 * g); ctx.lineWidth = Math.max(1, w * .012); ctx.stroke(body);
+  ctx.fillStyle = mixHex(GOLD.mid, GOLD.core, .4 * g); ctx.beginPath(); ctx.moveTo(w / 2 - dog, -h / 2); ctx.lineTo(w / 2 - dog, -h / 2 + dog); ctx.lineTo(w / 2, -h / 2 + dog); ctx.closePath(); ctx.fill();
+  // the lines: short dark-gold dashes (unreadable); the scan light runs along them, checks appear behind it
+  const N = 9, r = prng((o.seed ?? 5) * 17 + 1), nl = Math.round(N * clamp(o.lines ?? 1));
+  for (let i = 0; i < nl; i++) {
+    const ly = -h / 2 + h * .2 + i * h * .072; let lx = -w * .38; const end = w * (.2 + .18 * r());
+    while (lx < end) { const dw = w * (.04 + .1 * r()); ctx.fillStyle = rgba(GOLD.deep, .55); ctx.fillRect(lx, ly, Math.min(dw, end - lx), Math.max(1, h * .018)); lx += dw + w * .03; }
+    const done = clamp(scan * N - i);
+    if (done > 0 && scan < 1.0001 && o.scan != null) {
+      if (done < 1) halo(ctx, lerp(-w * .38, end, done), ly, w * .14, .9, GOLD.halo, GOLD.core);
+      if (done >= 1) { ctx.strokeStyle = rgba(P.night1, .8); ctx.lineWidth = Math.max(1, w * .016); ctx.beginPath(); ctx.moveTo(w * .3, ly); ctx.lineTo(w * .33, ly + h * .02); ctx.lineTo(w * .39, ly - h * .025); ctx.stroke(); }
+    }
+  }
+  if (op > 0) {   // the cover swings open (top edge hinge): a lighter sheet folding up, light pours out
+    ctx.save(); ctx.scale(1, 1 - 1.9 * sineIO(op)); ctx.fillStyle = rgba(mixHex(CREAM, GOLD.hot, .5), .9); ctx.fillRect(-w / 2, -h / 2, w, h * .06); ctx.restore();
+    halo(ctx, 0, -h * .45, w * 2.2 * op, .5 * op, GOLD.halo, GOLD.core);
+  }
+  ctx.restore();
+  return { x, y, w, h };
+}
+
+// ======================================================================================================================== THE RIBBON
+// the file unrolled: a gold band along pts (caller space), width w0 at the start → w1 at the end (perspective), u = how far it has run
+// (0..1 of its length), scroll = the code dashes stream along it (never still). o: { u, w0, w1, a, glow, seed, reader: [0..1 positions] }
+export function ribbon(ctx, t, pts, o = {}) {
+  const u = clamp(o.u ?? 1); if (u <= 0 || pts.length < 2) return null;
+  const N = 90, cm = E.catmull(pts, 12), len = [0]; for (let i = 1; i < cm.length; i++) len.push(len[i - 1] + Math.hypot(cm[i][0] - cm[i - 1][0], cm[i][1] - cm[i - 1][1]));
+  const L = len[len.length - 1], at = (d) => { let i = 1; while (i < cm.length - 1 && len[i] < d) i++; const f = clamp((d - len[i - 1]) / Math.max(1e-6, len[i] - len[i - 1])); return [lerp(cm[i - 1][0], cm[i][0], f), lerp(cm[i - 1][1], cm[i][1], f)]; };
+  const P2 = []; for (let i = 0; i <= N; i++) P2.push(at(L * u * i / N));
+  const w0 = o.w0 ?? 60, w1 = o.w1 ?? 6, g = clamp(o.glow ?? 1), a = o.a ?? 1;
+  ctx.save(); ctx.globalAlpha *= a;
+  for (let i = 0; i < N; i++) {
+    const [ax, ay] = P2[i], [bx, by] = P2[i + 1], dx = bx - ax, dy = by - ay, l = Math.hypot(dx, dy) || 1, nx = -dy / l, ny = dx / l;
+    const fa = i / N * u, fb = (i + 1) / N * u, wa = lerp(w0, w1, fa) / 2, wb = lerp(w0, w1, fb) / 2;
+    ctx.fillStyle = mixHex(mixHex(GOLD.deep, GOLD.mid, g), mixHex(GOLD.shade, GOLD.hot, g), .5 + .5 * Math.sin(i * .5 - t * 1.3));
+    ctx.beginPath(); ctx.moveTo(ax + nx * wa, ay + ny * wa); ctx.lineTo(bx + nx * wb, by + ny * wb); ctx.lineTo(bx - nx * wb, by - ny * wb); ctx.lineTo(ax - nx * wa, ay - ny * wa); ctx.closePath(); ctx.fill();
+    // code dashes across the band, streaming outward (scroll)
+    const r = prng(i * 13 + (o.seed ?? 1)), sh = (t * .9 + r()) % 1;
+    if (wa > 3) for (let k = 0; k < 3; k++) { const q = lerp(-.7, .7, (k + .5) / 3), px = lerp(ax, bx, sh), py = lerp(ay, by, sh); ctx.fillStyle = rgba(GOLD.deep, .5); ctx.fillRect(px + nx * wa * q - 1, py + ny * wa * q - 1, Math.max(1.2, wa * .25 * r()), Math.max(1, wa * .07)); }
+  }
+  // a soft glow along the band (lighter), and the running tip
+  ctx.globalCompositeOperation = 'lighter'; ctx.strokeStyle = rgba(GOLD.halo, .12 * g); ctx.lineWidth = w0 * .8; ctx.lineCap = 'round';
+  ctx.beginPath(); P2.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.stroke(); ctx.globalCompositeOperation = 'source-over';
+  if (u < 1) halo(ctx, P2[N][0], P2[N][1], lerp(w0, w1, u) * 2.5, .7 * g, GOLD.halo, GOLD.core);
+  ctx.restore();
+  return { end: P2[N], at: (f) => at(L * u * clamp(f)) };
+}
+
+// ======================================================================================================================== THE GOLD CARD
+// the referee's ruling (CORRECT): a gold card that rises (it grows out of x, y upwards; u 0..1), slight tilt; text in dark ink (Inter 700)
+export function goldCard(ctx, t, x, y, s, o = {}) {
+  const u = clamp(o.u ?? 1); if (u <= 0) return null;
+  const w = s, h = s * 1.36, k = expoOut(u), txt = o.text ?? 'CORRECT';
+  ctx.save(); ctx.globalAlpha *= (o.a ?? 1) * clamp(u * 4); ctx.translate(x, y); ctx.rotate((o.rot ?? -.08) + (1 - k) * .3 + .02 * Math.sin(t * 1.1));
+  ctx.scale(lerp(.3, 1, k), k);
+  halo(ctx, 0, -h / 2, w * 1.5, .45 * (o.glow ?? 1), GOLD.halo, GOLD.core);
+  ctx.fillStyle = lin(ctx, w / 2, -h, -w / 2, 0, [[0, GOLD.hot], [.55, GOLD.body], [1, GOLD.mid]]); ctx.beginPath(); ctx.roundRect(-w / 2, -h, w, h, w * .07); ctx.fill();
+  ctx.strokeStyle = rgba(GOLD.core, .7); ctx.lineWidth = Math.max(1, w * .015); ctx.stroke();
+  if (s >= 40) { const fs = Math.min(w * .2, w * 1.6 / Math.max(4, txt.length)); E.glowText(ctx, txt, 0, -h / 2 + fs * .35, { size: fs, weight: 700, align: 'center', spacing: .06, col: GOLD.deep, glow: false, a: clamp(u * 2 - .6) }); }
+  ctx.restore();
+  return { x, y, w, h };
+}
+
+// ======================================================================================================================== THE REFEREE
+// a human figure (E.person) in a striped shirt, a whistle; o: { card 0..1 (raises the gold card in the right hand), text, look, dir, seated }
+// Returns { hands, card } in caller space.
+export function referee(ctx, t, x, y, h, o = {}) {
+  const cu = clamp(o.card ?? 0), raise = sineIO(span(cu, 0, .5));
+  const armR = [lerp(.35, 2.95, raise), lerp(.2, 3.05, raise)];
+  const hands = E.person(ctx, x, y, h, { dir: o.dir ?? 1, light: .8, look: o.look ?? .2, armR, armL: o.armL ?? [-.25, -.1], rim: GOLD.line });
+  ctx.save(); ctx.translate(x, y); ctx.scale(h * (o.dir ?? 1), h);   // the stripes (cream) over the shirt, clipped to the torso
+  ctx.beginPath(); ctx.roundRect(-.118, -.79, .236, .33, .05); ctx.clip();
+  ctx.fillStyle = rgba(CREAM, .78); for (let i = -3; i <= 3; i++) ctx.fillRect(i * .036 - .009, -.8, .018, .36);
+  ctx.restore();
+  ctx.fillStyle = rgba(CREAM, .9); ctx.beginPath(); ctx.arc(x + h * .03 * (o.dir ?? 1), y - h * .74, Math.max(1.2, h * .014), 0, TAU); ctx.fill();   // the whistle
+  let card = null;
+  if (cu > 0 && hands?.R) card = goldCard(ctx, t, hands.R[0], hands.R[1] + h * .02, h * .26, { u: span(cu, .25, 1), text: o.text ?? 'CORRECT', rot: .1 });
+  return { hands, card };
+}
+
+// ======================================================================================================================== THE PAPER TOWER
+// > 250,000 pages: a stack of cream sheets rising from (x, base), width w, height h × u; sheets sit slightly askew (seeded); the top
+// sheets flutter; o.dark 0..1 (the tower darkens behind a quote), o.pour 0..1 (sheets still streaming in from o.from [x, y])
+export function paperTower(ctx, t, x, base, w, h, o = {}) {
+  const u = clamp(o.u ?? 1); if (u <= 0) return null;
+  const hh = h * expoOut(u) * (o.full ?? 1), dark = clamp(o.dark ?? 0), sheet = Math.max(3, w * .035), n = Math.ceil(hh / sheet), r = prng(o.seed ?? 3);
+  ctx.save();
+  for (let i = 0; i < n; i++) {
+    const yy = base - i * sheet, off = (r() - .5) * w * .08 + Math.sin(i * .13) * w * .03, rot = (r() - .5) * .03;
+    const top = i > n - 6, fl = top ? .01 * Math.sin(t * 3 + i) : 0, lit = .55 + .45 * Math.sin(i * .07 + 1);
+    ctx.save(); ctx.translate(x + off, yy); ctx.rotate(rot + fl);
+    ctx.fillStyle = mixHex(mixHex(PAPER.shade, PAPER.lit, lit), P.night1, .25 + .6 * dark); ctx.fillRect(-w / 2, -sheet, w, sheet * .92);
+    ctx.fillStyle = rgba(PAPER.faint, .35 * (1 - dark)); ctx.fillRect(-w / 2, -sheet * .15, w, Math.max(1, sheet * .12));
+    ctx.restore();
+  }
+  const pour = clamp(o.pour ?? 0);
+  if (pour > 0 && o.from) for (let k = 0; k < 14; k++) {   // sheets falling from the file onto the tower
+    const ph = (t * .7 + k / 14) % 1, [fx, fy] = o.from, px = lerp(fx, x + (k % 3 - 1) * w * .2, ph), py = lerp(fy, base - hh, ph * ph) - 60 * Math.sin(Math.PI * ph);
+    ctx.save(); ctx.globalAlpha *= pour * (1 - ph * .3); ctx.translate(px, py); ctx.rotate(Math.sin(t * 2 + k) * .8); ctx.fillStyle = PAPER.lit; ctx.fillRect(-w * .18, -w * .12, w * .36, w * .24); ctx.restore();
+  }
+  ctx.restore();
+  return { x, top: base - hh, w };
+}
+
+// ======================================================================================================================== THE BALANCE
+// a gold beam on a post at (x, y = the pivot), half width hw; tilt -1..1 (+ = right side down); o.left(ctx, px, py) / o.right(...) draw
+// what lies in each pan (pan centre given); u 0..1 draws the beam from the pivot outward and lowers the pans
+export function balance(ctx, t, x, y, hw, o = {}) {
+  const u = clamp(o.u ?? 1); if (u <= 0) return null;
+  const ang = (o.tilt ?? 0) * .32 + .01 * Math.sin(t * 1.3), k = smooth(u);
+  goldSpan(ctx, [[x, y + hw * 1.1], [x, y]], 0, smooth(clamp(u * 2)), { w: 2.2, spark: false });
+  const ex = Math.cos(ang) * hw * k, ey = Math.sin(ang) * hw * k;
+  goldSpan(ctx, [[x - ex, y - ey], [x + ex, y + ey]], 0, 1, { w: 2.6, spark: false, a: clamp(u * 3) });
+  halo(ctx, x, y, 30, .6, GOLD.halo, GOLD.core);
+  const pan = (px, py, fn) => {
+    const d = hw * .55 * span(u, .4, 1); if (d <= 0) return;
+    goldSpan(ctx, [[px, py], [px - hw * .16, py + d]], 0, 1, { w: 1.2, spark: false }); goldSpan(ctx, [[px, py], [px + hw * .16, py + d]], 0, 1, { w: 1.2, spark: false });
+    goldSpan(ctx, [[px - hw * .2, py + d], [px + hw * .2, py + d]], 0, 1, { w: 2.2, spark: false });
+    if (fn) fn(ctx, px, py + d);
+  };
+  pan(x - ex, y - ey, o.left); pan(x + ex, y + ey, o.right);
+  return { L: [x - ex, y - ey], R: [x + ex, y + ey] };
+}
+// a school notebook (cream, HOMEWORK on the cover) lying on a surface at (x, y = bottom centre), width s
+export function notebook(ctx, t, x, y, s, o = {}) {
+  const w = s, h = s * .7; ctx.save(); ctx.globalAlpha *= o.a ?? 1; ctx.translate(x, y - h / 2); ctx.rotate(o.rot ?? -.04);
+  ctx.fillStyle = lin(ctx, -w / 2, -h / 2, w / 2, h / 2, [[0, PAPER.lit], [1, PAPER.shade]]); ctx.fillRect(-w / 2, -h / 2, w, h);
+  ctx.fillStyle = mixHex(P.blue1, P.night1, .3); ctx.fillRect(-w / 2, -h / 2, w * .07, h);
+  if (s > 60) E.glowText(ctx, o.text ?? 'HOMEWORK', w * .04, -h * .05, { size: Math.min(28, w * .13), weight: 700, align: 'center', spacing: .08, col: PAPER.ink, glow: false });
+  ctx.strokeStyle = rgba(PAPER.faint, .6); ctx.lineWidth = 1; for (let i = 0; i < 3; i++) { ctx.beginPath(); ctx.moveTo(-w * .3, h * (.12 + i * .1)); ctx.lineTo(w * .38, h * (.12 + i * .1)); ctx.stroke(); }
+  ctx.restore();
+}
+
+// ======================================================================================================================== THE CHECKLIST (the clock)
+// Screen space, top right: IS HE RIGHT? and five boxes in a row. Each box changes on its phrases (never animate by hand):
+//   gold (fills from the bottom with gold light) · goldq (gold with a cream rim and a small '?') · open (cream, pulsing outline, the word
+//   OPEN under it; NEVER a cross, never red) · half (fills only halfway). Under the row: CHECK n OF 5 · the question of the current check.
+// o: { a, big 0..1 (moves to the top centre, 2.2×, all five short labels under the boxes: the end verdict), lit (index to highlight), dx, dy }
+export const CHECKS = {
+  on: 'So test his claim',
+  boxes: [
+    { q: 'IS HIS EVIDENCE REAL?', short: 'REAL?', at: 'First check', v: 'First box: gold', kind: 'gold' },
+    { q: 'DID IT PROVE THE RIGHT THING?', short: 'RIGHT THING?', at: 'Check two', v: 'Second box: gold', kind: 'goldq' },
+    { q: 'WAS IT REALLY THE AI?', short: 'THE AI?', at: 'Check three', v: 'Third box: gold', kind: 'gold' },
+    { q: 'DOES ANY HUMAN UNDERSTAND IT?', short: 'UNDERSTOOD?', at: 'Check four', v: 'This box may never turn gold', kind: 'open' },
+    { q: 'DOES ONE PROOF MEAN SUPERINTELLIGENCE?', short: 'SUPERINTELLIGENCE?', at: 'the last check', v: 'So the fifth box only fills', kind: 'half' },
+  ],
+};
+const CT = new WeakMap();
+export function checkTimes(T) {
+  if (CT.has(T)) return CT.get(T);
+  const on = T.G(CHECKS.on), at = [], v = []; let prev = on;
+  for (const b of CHECKS.boxes) { const a = T.G(b.at, 0, prev); at.push(a); v.push(T.G(b.v, 0, a)); prev = a; }
+  const r = { on, at, v, clips: ['C0', 'C1', 'C2', 'C3', 'C4'].map((id) => T.clip(id)).filter(Boolean) }; CT.set(T, r); return r;
+}
+export function checkState(T, t) {
+  const b = checkTimes(T); let cur = -1; for (let i = 0; i < 5; i++) if (t >= b.at[i] - .3) cur = i;
+  const fill = b.v.map((v) => span(t, v - .05, v + 1.4));
+  const clipHide = b.clips.reduce((m, c) => Math.max(m, span(t, c.start - 1.2, c.start - .4) * (1 - span(t, c.end + .2, c.end + 1))), 0);
+  return { cur, fill, b, on: smooth(span(t, b.on - .2, b.on + 1.2)) * (1 - clipHide), slide: expoOut(span(t, b.on - .2, b.on + 1.4)),
+    name: cur >= 0 ? span(t, b.at[cur] - .3, b.at[cur] + .6) * (1 - span(t, b.v[cur] + 3, b.v[cur] + 3.8)) : 0 };
+}
+function box(ctx, t, x, y, s, kind, f, o = {}) {
+  const pulse = .5 + .5 * Math.sin(t * 2.2);
+  ctx.fillStyle = rgba(P.night0, .55); ctx.fillRect(x, y, s, s);
+  if (f > 0 && kind !== 'open') {
+    const lev = (kind === 'half' ? .5 : 1) * sineIO(f), fh = s * lev;
+    ctx.fillStyle = lin(ctx, x, y + s - fh, x, y + s, [[0, GOLD.hot], [1, GOLD.mid]]); ctx.fillRect(x + 3, y + s - fh + 3 * (lev < 1 ? 0 : 1), s - 6, Math.max(0, fh - 6 * (lev < 1 ? .5 : 1)));
+    halo(ctx, x + s / 2, y + s - fh / 2, s * 1.1, .3 * f, GOLD.halo, GOLD.core);
+    if (kind === 'goldq') { ctx.strokeStyle = rgba(CREAM, .95 * f); ctx.lineWidth = 3; ctx.strokeRect(x + 4, y + 4, s - 8, s - 8); E.glowText(ctx, '?', x + s - 12, y + 22, { size: 18, weight: 700, align: 'center', col: P.night1, glow: false, a: f }); }
+  }
+  if (kind === 'open' && f > 0) { ctx.fillStyle = rgba(CREAM, .16 + .1 * pulse * f); ctx.fillRect(x + 3, y + 3, s - 6, s - 6); }
+  const lit = o.lit ? 1 : 0;
+  ctx.strokeStyle = kind === 'open' && f > 0 ? rgba(CREAM, .65 + .35 * pulse) : f > 0 ? rgba(GOLD.core, .9) : rgba(CREAM, .7 + .3 * lit * pulse); ctx.lineWidth = kind === 'open' && f > 0 ? 2 + 1.5 * pulse : 2;
+  ctx.strokeRect(x, y, s, s);
+}
+export function checklist(ctx, t, T, o = {}) {
+  const S = checkState(T, t), a = (o.a ?? 1) * S.on; if (a <= 0) return;
+  const big = sineIO(clamp(o.big ?? 0)), s = 44, gap = 16, rowW = 5 * s + 4 * gap;
+  const sc = lerp(1, 2.3, big), x0 = lerp(W - 70 - rowW, W / 2 - rowW * sc / 2, big) + (1 - S.slide) * 520 + (o.dx ?? 0), y0 = lerp(54, 120, big) + (o.dy ?? 0);
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha *= a; ctx.translate(x0, y0); ctx.scale(sc, sc);
+  goldText(ctx, [['IS HE RIGHT?', .2]], 0, 0, 22, rise(span(t, S.b.on, S.b.on + 1)), { serif: false, weight: 700, spacing: .08 });
+  for (let i = 0; i < 5; i++) {
+    const B = CHECKS.boxes[i], x = i * (s + gap), y = 16, f = S.fill[i];
+    box(ctx, t, x, y + (1 - expoOut(span(t, S.b.on + .2 + i * .1, S.b.on + 1 + i * .1))) * 18, s, B.kind, f, { lit: o.lit === i || (i === S.cur && f <= 0) });
+    if (B.kind === 'open' && f > 0) goldText(ctx, [['OPEN', 0]], x + s / 2, y + s + (big > .5 ? 26 : 22), big > .5 ? 12 : 14, rise(f), { serif: false, weight: 700, spacing: .1, align: 'center', col: CREAM });
+    if (big > .02) { ctx.save(); ctx.globalAlpha *= big; goldText(ctx, [[B.short, 0]], x + s / 2, y + s + 46 + (i % 2) * 14, 9, 1, { serif: false, weight: 600, align: 'center', col: CREAM2 }); ctx.restore(); }
+  }
+  ctx.restore();
+  if (S.cur >= 0 && big < .5 && S.name > 0) {   // CHECK n OF 5 · the question (screen space, ≥ 22 px, right aligned under the row)
+    const B = CHECKS.boxes[S.cur], xr = x0 + rowW, al = a * (1 - big * 2);
+    ctx.save(); ctx.globalAlpha *= al;
+    goldText(ctx, [[`CHECK ${S.cur + 1} OF 5`, .9]], xr, y0 + 16 + s + 38, 22, rise(S.name), { serif: false, weight: 700, spacing: .06, align: 'right' });
+    goldText(ctx, [[B.q, 0]], xr, y0 + 16 + s + 70, 22, rise(span(S.name, .2, 1)), { serif: false, weight: 600, spacing: .04, align: 'right', col: CREAM });
+    ctx.restore();
+  }
+}
+// screen rect of box i (for carriers: a box that grows big, the ALIEN MIND words behind box 4 …)
+export function checkBox(i, o = {}) { const s = 44, gap = 16, rowW = 5 * s + 4 * gap; return { x: W - 70 - rowW + i * (s + gap), y: 54 + 16, w: s, h: s }; }
+
+// ======================================================================================================================== JAKOB'S ASSETS
+// films/67-assets/ (pushed by the iMac session): x/<header|quote crops>.png · wang/portrait-cutout.png · clips/clips.md.
+// ASSETS maps an id to a file name (any of the candidates, first that exists) + the placeholder text + the highlight box(es) in the PNG's
+// own 0..1 coordinates ([x0, y0, x1, y1]; films/67-assets/x/highlights.json overrides: { "alien": [[x0,y0,x1,y1]], … }).
+// Until a file exists the kit draws a clearly marked PLACEHOLDER card of the same aspect with the exact text: swapping = a file drop.
+export const ASSET_DIR = (process.env.F67ASSETS || new URL('../../../67-assets/', import.meta.url).pathname).replace(/\/?$/, '/');
+export const ASSETS = {   // crop = the part of the PNG shown [x0, y0, x1, y1] (0..1 of the PNG) · box = highlight boxes (0..1 of the CROP) · dark print (X dark mode)
+  header: { files: ['x/01-header.png', 'x/header.png'], aspect: 4.2, text: 'Alexandr Wang · Superintelligence is Arriving', sub: 'X · NOV 22, 2026' },
+  alien: { files: ['x/02-homework-atombomb-alien-mind.png'], crop: [0, .789, 1, 1], box: [[.423, .38, .556, .82]], text: '“…completed with the help of an alien mind that we don’t understand.”', hi: 'alien mind' },
+  homework: { files: ['x/02-homework-atombomb-alien-mind.png'], crop: [0, .623, 1, .796], box: [[.222, .47, .392, .99]], text: '“…many physicists would agree that the discovery of the atomic bomb is a homework problem compared to the Riemann Hypothesis.”', hi: 'homework problem' },
+  lazy: { files: ['x/05-lazy-handover-defaultpath.png'], crop: [0, .055, 1, .266], box: [[.216, 0, .388, .52]], text: '“I notice a particular form of lazy thinking within the AI industry…”', hi: 'lazy thinking' },
+  thousand: { files: ['x/04-control-1000x.png'], crop: [0, .352, 1, .65], box: [[.275, .335, .462, .665]], text: '“…equally hard to imagine a world where humanity maintains control with superintelligence that is 1000x smarter and more capable than humans in every field.”', hi: '1000x smarter' },
+  handover: { files: ['x/05-lazy-handover-defaultpath.png'], crop: [0, .264, 1, .476], box: [[.747, .02, .862, .5]], text: '“We should not be okay with a “handover” of society to AI.”', hi: 'handover' },
+  defaultPath: { files: ['x/05-lazy-handover-defaultpath.png'], crop: [0, .683, 1, 1], box: [[.685, .01, .879, .33]], text: '“…likely involves the whole industry taking meaningfully different actions from the “default path” in front of us.”', hi: 'default path' },
+  nextYear: { files: ['x/06-next-year.png'], crop: [0, 0, 1, 1], box: [[.685, .17, .817, .5]], text: '“How humanity acts over the next year will have great consequence on what future world we live in.”', hi: 'next year' },
+  views: { files: ['x/07-time-views.png'], crop: [0, 0, 1, 1], box: [], text: '11:50 PM · Nov 22, 2026', hi: 'Nov' },
+  portrait: { files: ['wang/portrait-cutout.png'], aspect: .8 },
+};
+const IMG = new Map(); let HI = {};
+let assetsP = null;
+export function prepareAssets() {
+  if (assetsP) return assetsP;
+  assetsP = (async () => {
+    try { HI = JSON.parse(fs.readFileSync(ASSET_DIR + 'x/highlights.json', 'utf8')); } catch { HI = {}; }
+    for (const [id, A] of Object.entries(ASSETS)) {
+      const f = A.files.map((n) => ASSET_DIR + n).find((p) => fs.existsSync(p))
+        ?? (id !== 'portrait' && id !== 'header' ? (() => { try { const d = ASSET_DIR + 'x/'; const key = A.hi.split(' ')[0].toLowerCase(); const n = fs.readdirSync(d).find((x) => x.toLowerCase().includes(key) && x.endsWith('.png')); return n ? d + n : null; } catch { return null; } })() : null);
+      if (!f) continue;
+      try { const img = await loadImage(fs.readFileSync(f)); IMG.set(id, id === 'portrait' ? duotone(img) : A.crop ? cropOnce(img, A.crop) : img); console.log(`[f67] asset ${id}: ${f}`); } catch (e) { console.warn(`[f67] asset ${id} failed: ${e.message}`); }
+    }
+  })();
+  return assetsP;
+}
+export const hasAsset = (id) => IMG.has(id);
+// the quote crops are cut ONCE at load into their own canvas (drawImage with a source rect per frame proved unreliable in napi-canvas)
+function cropOnce(img, cr) {
+  const sw = Math.round((cr[2] - cr[0]) * img.width), sh = Math.round((cr[3] - cr[1]) * img.height), cv = createCanvas(sw, sh);
+  cv.getContext('2d').drawImage(img, Math.round(cr[0] * img.width), Math.round(cr[1] * img.height), sw, sh, 0, 0, sw, sh); return cv;
+}
+// the portrait treatment, ONCE at load: duotone (night indigo → cream/gold by luminance) + a cream paper-cut border around the cutout
+function duotone(img) {
+  const pad = 18, cw = img.width + pad * 2, ch = img.height + pad * 2, cv = createCanvas(cw, ch), c = cv.getContext('2d');
+  for (let k = 0; k < 16; k++) { const a = k / 16 * TAU; c.drawImage(img, pad + Math.cos(a) * 9, pad + Math.sin(a) * 9); }
+  c.globalCompositeOperation = 'source-in'; c.fillStyle = PAPER.lit; c.fillRect(0, 0, cw, ch); c.globalCompositeOperation = 'source-over';
+  const tmp = createCanvas(img.width, img.height), tc = tmp.getContext('2d'); tc.drawImage(img, 0, 0);
+  const id = tc.getImageData(0, 0, img.width, img.height), d = id.data;
+  const lo = [0x15, 0x1f, 0x4b], mid = [0xb8, 0x79, 0x2a], hi = [0xfe, 0xf4, 0xbf];
+  for (let i = 0; i < d.length; i += 4) {
+    const l = (.3 * d[i] + .59 * d[i + 1] + .11 * d[i + 2]) / 255, q = l < .5 ? l * 2 : (l - .5) * 2, A = l < .5 ? lo : mid, B = l < .5 ? mid : hi;
+    d[i] = A[0] + (B[0] - A[0]) * q; d[i + 1] = A[1] + (B[1] - A[1]) * q; d[i + 2] = A[2] + (B[2] - A[2]) * q;
+  }
+  tc.putImageData(id, 0, 0); c.drawImage(tmp, pad, pad);
+  return cv;
+}
+// the post header: a screenshot print unrolling downward from its top edge (x, y = top left; w = width). u 0..1. o: { a, rot, glow }
+export function xPost(ctx, t, x, y, w, o = {}) {
+  const u = clamp(o.u ?? 1); if (u <= 0) return null;
+  const img = IMG.get('header'), A = ASSETS.header, h = img ? w * img.height / img.width : w / A.aspect, k = sineIO(u), hh = h * k;
+  ctx.save(); ctx.globalAlpha *= (o.a ?? 1); ctx.translate(x, y); ctx.rotate((o.rot ?? -.012) + .006 * Math.sin(t * .7));
+  halo(ctx, w / 2, h / 2, w * .7, .18 * (o.glow ?? 1), P.halo2, CREAM);
+  ctx.fillStyle = rgba(P.night0, .4); ctx.fillRect(8, 12, w, hh);
+  ctx.save(); ctx.beginPath(); ctx.rect(0, 0, w, hh); ctx.clip();
+  if (img) ctx.drawImage(img, 0, 0, w, h);
+  else placeholderCard(ctx, w, h, [[A.text, h * .26, true], [A.sub, h * .14, false]], 'X POST HEADER · PLACEHOLDER (films/67-assets/x/header.png)');
+  ctx.restore();
+  if (u < 1) { ctx.fillStyle = lin(ctx, 0, hh - 14, 0, hh + 6, [[0, rgba(P.night0, 0)], [1, rgba(PAPER.lit, .9)]]); ctx.fillRect(0, hh - 14, w, 20); }   // the rolling edge
+  ctx.strokeStyle = rgba(CREAM, .5); ctx.lineWidth = 1.5; ctx.strokeRect(0, 0, w, hh);
+  ctx.restore();
+  return { x, y, w, h: hh, full: h };
+}
+function placeholderCard(ctx, w, h, lines, note) {
+  ctx.fillStyle = lin(ctx, 0, 0, w, h, [[0, PAPER.lit], [1, PAPER.body]]); ctx.fillRect(0, 0, w, h);
+  ctx.fillStyle = mixHex(P.blue1, P.night1, .2); ctx.beginPath(); ctx.arc(h * .32, h * .4, h * .2, 0, TAU); ctx.fill();   // avatar slot
+  let yy = h * .38; for (const [s, size, serif] of lines) { E.glowText(ctx, s, h * .64, yy, { size, serif, weight: 600, col: PAPER.ink, glow: false }); yy += size * 1.35; }
+  ctx.strokeStyle = 'rgba(200,40,140,.9)'; ctx.setLineDash([10, 8]); ctx.lineWidth = 3; ctx.strokeRect(3, 3, w - 6, h - 6); ctx.setLineDash([]);
+  E.glowText(ctx, note, w - 12, h - 10, { size: Math.max(11, h * .07), weight: 700, align: 'right', col: 'rgba(200,40,140,.95)', glow: false });
+}
+// a quote crop: x, y = top left, w = width; u unrolls it (like the header), hiU 0..1 sweeps the gold highlighter over the key words
+// (left → right per box). Placeholder: the exact quote text set in serif on a paper card, the key words' box measured from the text.
+// Returns { x, y, w, h, hi: [screen boxes] } (the highlight boxes: carriers for words that detach, e.g. HANDOVER).
+export function xQuote(ctx, t, id, x, y, w, o = {}) {
+  const u = clamp(o.u ?? 1); if (u <= 0) return null;
+  const A = ASSETS[id], img = IMG.get(id); let h, his = [];
+  let lay = null;
+  const cr = A.crop ?? [0, 0, 1, 1];
+  if (img) { h = w * img.height / img.width; his = (HI[id] ?? A.box ?? [[.05, .3, .95, .7]]).map(([a, b, c, d]) => [a * w, b * h, c * w, d * h]); }
+  else {   // lay the text out (Instrument Serif), find the key words
+    const size = o.size ?? Math.round(w / 22), pad = size * 1.1, words = A.text.split(/\s+/), lines = []; let cur = [];
+    for (const wd of words) { const nx = [...cur, wd]; if (cur.length && measure(nx.join(' '), size, true) > w - pad * 2) { lines.push(cur); cur = [wd]; } else cur = nx; }
+    if (cur.length) lines.push(cur);
+    h = pad * 2 + lines.length * size * 1.25 + size * .9; lay = { size, pad, lines };
+    const key = A.hi.toLowerCase().split(' '), flat = []; lines.forEach((ln, li) => { let xx = pad; for (const wd of ln) { const ww = measure(wd, size, true); flat.push({ wd, x: xx, y: pad + (li + 1) * size * 1.25, w: ww }); xx += ww + size * .26; } });
+    for (let i = 0; i < flat.length; i++) { const n = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, ''); if (key.every((k, j) => flat[i + j] && n(flat[i + j].wd).startsWith(n(k)))) { const a = flat[i], b = flat[i + key.length - 1]; if (a.y === b.y) his.push([a.x - 4, a.y - size * .86, b.x + b.w + 4, a.y + size * .2]); else { his.push([a.x - 4, a.y - size * .86, w - pad, a.y + size * .2]); his.push([pad - 4, b.y - size * .86, b.x + b.w + 4, b.y + size * .2]); } break; } }
+  }
+  const k = sineIO(u), hh = h * k;
+  ctx.save(); ctx.globalAlpha *= (o.a ?? 1); ctx.translate(x, y); ctx.rotate((o.rot ?? .008) + .005 * Math.sin(t * .6 + 1));
+  ctx.fillStyle = rgba(P.night0, .45); ctx.fillRect(10, 14, w, hh);
+  ctx.save(); ctx.beginPath(); ctx.rect(0, 0, w, hh); ctx.clip();
+  if (img) { ctx.drawImage(img, 0, 0, w, h); ctx.fillStyle = rgba(P.ind0, .22); ctx.fillRect(0, 0, w, h); }   // the dark print sits in the night (a touch of indigo)
+  else {
+    ctx.fillStyle = lin(ctx, 0, 0, w, h, [[0, PAPER.lit], [1, PAPER.body]]); ctx.fillRect(0, 0, w, h);
+    lay.lines.forEach((ln, li) => E.glowText(ctx, ln.join(' '), lay.pad, lay.pad + (li + 1) * lay.size * 1.25, { size: lay.size, serif: true, col: PAPER.ink, glow: false }));
+    E.glowText(ctx, 'ALEXANDR WANG · “SUPERINTELLIGENCE IS ARRIVING” · X, NOV 22, 2026', lay.pad, h - lay.size * .45, { size: Math.max(13, lay.size * .38), weight: 600, spacing: .06, col: PAPER.faint, glow: false });
+    ctx.strokeStyle = 'rgba(200,40,140,.9)'; ctx.setLineDash([10, 8]); ctx.lineWidth = 3; ctx.strokeRect(3, 3, w - 6, h - 6); ctx.setLineDash([]);
+    E.glowText(ctx, `PLACEHOLDER · films/67-assets/x/ (${id})`, w - 12, 22, { size: 13, weight: 700, align: 'right', col: 'rgba(200,40,140,.95)', glow: false });
+  }
+  // the highlighter: a gold marker stroke sweeping left → right over each box (multiply keeps the print legible)
+  const hu = clamp(o.hiU ?? 0), n = his.length;
+  his.forEach(([x0, y0, x1, y1], i) => {
+    const f = sineIO(clamp(hu * n - i)); if (f <= 0) return;
+    const mark = () => { ctx.beginPath(); ctx.moveTo(x0, y0 + 3); ctx.lineTo(x0 + (x1 - x0) * f, y0); ctx.lineTo(x0 + (x1 - x0) * f, y1); ctx.lineTo(x0, y1 - 2); ctx.closePath(); ctx.fill(); };
+    ctx.save();
+    if (img) {   // X dark mode: the swept words turn gold (multiply on white letters) over a soft gold marker band (screen)
+      ctx.globalCompositeOperation = 'screen'; ctx.fillStyle = rgba(GOLD.shade, .38); mark();
+      ctx.globalCompositeOperation = 'multiply'; ctx.fillStyle = GOLD.body; mark();
+    } else { ctx.fillStyle = rgba(GOLD.body, .55); mark(); }
+    ctx.restore();
+  });
+  ctx.restore(); ctx.restore();
+  ctx.save(); ctx.strokeStyle = rgba(CREAM, .45); ctx.lineWidth = 1.5; ctx.translate(x, y); ctx.rotate((o.rot ?? .008) + .005 * Math.sin(t * .6 + 1)); ctx.strokeRect(0, 0, w, hh); ctx.restore();
+  return { x, y, w, h: hh, full: h, hi: his.map(([a, b, c, d]) => ({ x: x + a, y: y + b, w: c - a, h: d - b })) };
+}
+// Wang's portrait (ONCE, at "The man is Alexandr Wang"): the duotone paper-cut print, standing in a cream frame-less cut; x, y = bottom
+// centre, h = height; u rises it from behind a mask line at y (a print slid up out of the post header slot); o: { a, rot }
+export function portrait(ctx, t, x, y, h, o = {}) {
+  const u = clamp(o.u ?? 1); if (u <= 0) return null;
+  const img = IMG.get('portrait'), w = img ? h * img.width / img.height : h * ASSETS.portrait.aspect, k = expoOut(u);
+  ctx.save(); ctx.beginPath(); ctx.rect(x - w, y - h * 1.2, w * 2, h * 1.2); ctx.clip();
+  ctx.translate(x, y + (1 - k) * h); ctx.rotate((o.rot ?? -.02) + .006 * Math.sin(t * .5));
+  halo(ctx, 0, -h * .55, h * .8, .22, P.halo2, CREAM);
+  if (img) ctx.drawImage(img, -w / 2, -h, w, h);
+  else {   // placeholder: a head-and-shoulders silhouette in the duotone, cream cut edge, marked
+    const s = h / 600; ctx.fillStyle = PAPER.lit;
+    ctx.beginPath(); ctx.ellipse(0, -h * .7, 92 * s, 112 * s, 0, 0, TAU); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(-250 * s, 0); ctx.bezierCurveTo(-240 * s, -h * .38, -100 * s, -h * .44, 0, -h * .44); ctx.bezierCurveTo(100 * s, -h * .44, 240 * s, -h * .38, 250 * s, 0); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = mixHex(P.ind2, GOLD.shade, .25);
+    ctx.beginPath(); ctx.ellipse(0, -h * .7, 84 * s, 104 * s, 0, 0, TAU); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(-240 * s, 0); ctx.bezierCurveTo(-230 * s, -h * .37, -96 * s, -h * .43, 0, -h * .43); ctx.bezierCurveTo(96 * s, -h * .43, 230 * s, -h * .37, 240 * s, 0); ctx.closePath(); ctx.fill();
+    E.glowText(ctx, 'PORTRAIT PLACEHOLDER', 0, -h * .2, { size: Math.max(12, 18 * s * 1.6), weight: 700, align: 'center', col: 'rgba(200,40,140,.95)', glow: false });
+  }
+  ctx.restore();
+  return { x, y, w, h };
+}
+// the name lower third for the portrait (screen space, ≥ 22 px, above y 880): NAME (serif) / ROLE · LAB
+export function nameplate(ctx, t, x, y, u, name = 'ALEXANDR WANG', role = 'CHIEF AI OFFICER, META · LEADS META SUPERINTELLIGENCE LABS') {
+  u = clamp(u); if (u <= 0) return;
+  goldSpan(ctx, [[x - 18, y - 40], [x - 18, y + 26]], 0, smooth(clamp(u * 1.6)), { w: 1.6, spark: false });
+  maskLine(ctx, [[name, 0]], x, y, 44, rise(u), { glow: true });
+  maskLine(ctx, [[role, 0]], x, y + 34, 22, rise(span(u, .2, 1)), { serif: false, weight: 600, col: P.halo2, glow: false });
+}
+
+// ======================================================================================================================== SOURCES / ON-SCREEN STRINGS
+// From skript/text-v2.md [EINBLENDUNG]/[ZITATKARTE] lines (23.11.). If a fact-checked text-v3 changes one, text-v3 WINS (say so in your report).
+export const SOURCES = {
+  headline: ['SUPERINTELLIGENCE', 'IS ARRIVING'], headlineCredit: 'ALEXANDR WANG, CHIEF AI OFFICER, META · ESSAY ON X · NOV 22, 2026',
+  isHeRight: 'IS HE RIGHT?', proofClaimed: 'PROOF CLAIMED · NOV 20, 2026', riemann: ['RIEMANN HYPOTHESIS', 'UNSOLVED'], correct: 'CORRECT',
+  pages: '250,000+ PAGES', unreadable: 'AN ANSWER WE CAN’T READ', checks5: 'IS HE RIGHT? · 5 CHECKS',
+  wang: ['ALEXANDR WANG', 'CHIEF AI OFFICER, META · LEADS META SUPERINTELLIGENCE LABS'], noSource: 'SOURCE: —', labels2: ['CONVICTION', 'INTEREST'],
+  lines17: '≈ 17 MILLION LINES', lines17Sub: 'PUBLISHED NOV 20, 2026', lean: 'LEAN · PROOF CHECKER',
+  community: 'LEAN & MATHLIB COMMUNITY · NOV 21', mit: 'ANDREW SUTHERLAND, MIT · INDEPENDENT RE-CHECK · AS OF NOV 22',
+  clay: 'CLAY MILLENNIUM PRIZE · $1 MILLION · NOT AWARDED', tautology: 'OBJECTION: “TAUTOLOGY” · AMY NIELSEN',
+  mathlib: 'DEFINITION TAKEN FROM MATHLIB, THE REFEREE’S STANDARD LIBRARY · NOT WRITTEN BY THE AUTHOR',
+  alpoge: 'LEVENT ALPÖGE · ANTHROPIC · CLAUDE', sixWeeks: 'OCT 6 – NOV 16, 2026 · ABOUT SIX WEEKS',
+  outrageous: '“frankly completely outrageous”', outrageousSrc: 'LEVENT ALPÖGE, AS REPORTED BY THE NEW YORK TIMES',
+  rival: 'SAME DAY · A RIVAL PROOF CLAIM BY A HUMAN · REPORTED BY SCIENTIFIC AMERICAN',
+  tao: '“the digestion process will take some time”', taoSrc: 'TERENCE TAO, BLOG, NOV 20, 2026', radz: 'MAKSYM RADZIWIŁŁ',
+  notUnderstood: 'CORRECT ≠ UNDERSTOOD', open: 'OPEN',
+  maynard: '“historic milestone”', maynardSrc: 'JAMES MAYNARD, FIELDS MEDAL', lecun: 'YANN LECUN · LEFT META IN NOV 2025',
+  scenario: 'SCENARIO · A FEW YEARS FROM NOW', leanOpen: 'LEAN · OPEN · RUN BY A NONPROFIT (LEAN FRO) · ANYONE CAN RE-RUN THE CHECK',
+  option: 'OPTION · UNTESTED', leanFro: 'LEAN FRO · NONPROFIT', showWork: 'SHOW YOUR WORK', seats: ['LABS', 'GOVERNMENTS', 'INVESTORS', 'VOTERS'],
+  aiSolved: 'AI SOLVED ___', twoQ: ['CAN A HUMAN FOLLOW IT?', 'WHO SAYS “CORRECT”?'],
+  core: ['We may never read every answer.', 'But who gets to say “correct” has to stay human.'],
+};

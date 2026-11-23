@@ -547,8 +547,8 @@ export function lightPool(ctx, x0, x1, y, spread, depth, a = 1) {
 
 // ---------- type: cream with a warm glow (numbers, 1–3 words, sources) ----------
 import { GlobalFonts } from '@napi-rs/canvas';
-// film 66: the repo keeps the shared fonts in stil/tests/shared/fonts (the old style-tests/ path does not exist in every checkout)
-const FONTS = [process.env.F66FONTS, new URL('../../../../stil/tests/shared/fonts/', import.meta.url).pathname, '/home/user/scenario/style-tests/shared/fonts/']
+// film 67: the repo keeps the shared fonts in stil/tests/shared/fonts (the old style-tests/ path does not exist in every checkout)
+const FONTS = [process.env.F67FONTS, new URL('../../../../stil/tests/shared/fonts/', import.meta.url).pathname, '/home/user/scenario/style-tests/shared/fonts/']
   .find((d) => d && fsx.existsSync(d + 'InstrumentSerif.woff2')) ?? '/home/user/scenario/style-tests/shared/fonts/';
 try { GlobalFonts.registerFromPath(FONTS + 'InstrumentSerif.woff2', 'Instrument Serif'); for (const w of [400, 500, 600]) GlobalFonts.registerFromPath(FONTS + `Inter-${w}-normal.woff2`, 'Inter'); } catch { /* fonts optional */ }
 export const TYPE = { hero: 168, num: 120, mid: 80, label: 34, small: 28, src: 22 };

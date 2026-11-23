@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import { loadImage } from '@napi-rs/canvas';
 import { W, H, C, rgba, clamp, lin, mix, sm, eout, eio, text, addGlow, glow, canvas } from '../engine.mjs';
 
-export const ROOT = (process.env.F66ROOT || '/mnt/project-files/scenario/film-geld-nach-si/').replace(/\/?$/, '/'); // Film 66 data root: audio/timing.json (small, read only). Renders and frames go to the scratchpad, never here.
+export const ROOT = (process.env.F67ROOT || '/mnt/project-files/scenario/film-si-arriving/').replace(/\/?$/, '/'); // Film 67 data root: audio/timing.json (small, read only). Renders and frames go to the scratchpad, never here.
 const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 
 // ---------- timing ----------

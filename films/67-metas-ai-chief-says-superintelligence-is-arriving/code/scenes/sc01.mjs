@@ -1,153 +1,164 @@
-// c01 · Hook · THE PROMISE · thumbnail A (you on the rooftop, the big gold tag crumbling, AI MAKES EVERYTHING CHEAP) · his list: four
-// tags split off the promise (HOUSING · EDUCATION · FOOD · CLOTHING) · the quote on the promise's face · the city's windows turn cool (the
-// machines do the work) · thumbnail C: the promise prints the receipt into your hand, RENT ↑ GROCERIES ↑ THE POWER BILL ↑ · your small pay
-// slip · the receipt rolls back · the four tags dip one after another · the camera follows the dust down to the office window: the
-// programmer's tag falls and crumbles (★ "Almost to nothing"), < $1 · back out: one tag on his list turns away and rises · half right: the
-// promise crumbles to half → platePromise (lib/f66_world.mjs) at 'This January'.
-// 0 → T.G('This January') · built by the lead (quality reference). Plan: docs/shots.md H.01–H.10 · world: docs/MOTION.md
-// ONE entry, one world, one continuous camera. Everything in the world (no cards, no veil): the hook is a scene, the explainers start in c02.
+// c01 · Hook · THE NIGHT OF THE HEADLINE · thumbnail A (the headline SUPERINTELLIGENCE IS ARRIVING in the sky, you tiny on the quay) ·
+// Wang's X post header unrolls under it · a cream ? falls next to it · your street turns gold · THE FILE leaves the headline and sinks to
+// your hand · it flies to the chalkboard's empty spot (RIEMANN HYPOTHESIS · UNSOLVED) · a light scans it line by line → the gold card
+// CORRECT · ★ the file opens, pages pour, the paper tower rises out of frame (250,000+ PAGES), you and the author look up · the X quote
+// crops unroll out of the post header (alien mind · homework problem, gold highlighter) · the balance · the chalk robot of our fears is
+// wiped, AN ANSWER WE CAN'T READ writes in gold · the ? flies into the checklist IS HE RIGHT? (five boxes) → plateWang at 'The man is'.
+// 0 → T.G('The man is Alexandr Wang') · built by the lead (quality reference). Plan: docs/shots.md H.01–H.12 · world: docs/MOTION.md
+// ONE entry, one world, one continuous camera.
 //
-// | ID    | anchor (phrase)                 | picture (one idea)                                                                  | camera            |
-// |-------|---------------------------------|-------------------------------------------------------------------------------------|-------------------|
-// | H.01★ | Sam Altman says                 | THUMBNAIL A: you, the promise crumbling from its lower-left edge, the title         | slow push · SCENE |
-// | H.02  | Housing. Education. Food. …     | four tags split off the promise face, one per word, and hang in the sky (left)      | drift up-left · MIX |
-// | H.03  | Everything necessary            | the quote writes on the promise's face; credit line                                  | creep · MIX       |
-// | H.04  | His reason                      | the city's windows turn cool left → right (AI and robots do the work)               | tilt down · SCENE |
-// | H.05  | Your receipts say the opposite  | THUMBNAIL C: the promise prints a receipt into your hand; RENT ↑ GROCERIES ↑ BILL ↑ | glide · MIX       |
-// | H.06  | And your paycheck               | a small pay slip in your other hand (long receipt vs small slip)                    | creep · SCENE     |
-// | H.07  | Yet he could still be right     | the receipt rolls back; the four tags dip one after another                          | glide left · MIX  |
-// | H.08  | So what gets cheap first        | follow the dust down: the station-1 tag comes down in front of the office window    | push in · SCENE   |
-// | H.09★ | The first price has already     | it drops, crumbles to dust ("Almost to nothing"); < $1 grows where it hung           | push · MIX        |
-// | H.10  | But one thing on his list       | pull back: one list tag turns its back and rises out of the sky; half right: the list folds back, the promise crumbles to half; your pay slip glows → platePromise | pull back · SCENE |
+// | ID    | anchor (phrase)              | picture (one idea)                                                                   | camera              |
+// |-------|------------------------------|--------------------------------------------------------------------------------------|---------------------|
+// | H.01  | Superintelligence is arriving| THUMBNAIL A: the headline in the sky, you tiny on the quay                           | slow push · SCENE   |
+// | H.02  | That's what Meta's           | Wang's X post header unrolls under the headline                                      | creep · MIX         |
+// | H.03  | Is he right?                 | a cream ? falls next to IS ARRIVING; you look up                                     | creep · SCENE       |
+// | H.04  | Because if he is             | drop to you: the windows of your street turn gold, outward from you                  | drop · SCENE        |
+// | H.05  | His evidence is a single file| the file leaves the headline and sinks to your raised hand; PROOF CLAIMED · NOV 20   | pull up · MIX       |
+// | H.06  | In it, a mathematician       | you walk right; the file flies to the chalkboard's empty spot: RIEMANN HYPOTHESIS     | travel right · MIX  |
+// | H.07  | A separate program           | a light scans the file line by line, checks behind it; the gold card CORRECT rises    | push in · MIX       |
+// | H.08★ | But written out              | the file opens, pages pour, the tower rises out of frame; 250,000+ PAGES; both look up| pull back · SCENE   |
+// | H.09  | Meta's A.I. chief says       | the tower darkens; the alien-mind crop unrolls out of the post header, highlighter    | glide left · EXPL   |
+// | H.10  | Many physicists              | the homework crop under it; the balance: HOMEWORK light, the file heavy              | creep · EXPL        |
+// | H.11  | If he's right                | crops roll back; the chalk robot is wiped; AN ANSWER WE CAN'T READ in gold            | glide right · MIX   |
+// | H.12  | So test his claim            | the ? flies into the checklist IS HE RIGHT? (five cream boxes) → plateWang            | glide home · LAND   |
 import * as E from '../lib/f10_editorial.mjs';
-import * as F from '../lib/f66_kit.mjs';
-import * as S from '../lib/f66_world.mjs';
-const { W, H, P, rgba, clamp, lerp, span, sineIO, expoOut, expoIn, smooth, mixHex } = E;
-const { rise, GOLD, F0 } = F;
+import * as F from '../lib/f67_kit.mjs';
+import * as S from '../lib/f67_world.mjs';
+const { W, H, P, rgba, clamp, lerp, span, sineIO, expoOut, expoIn, smooth } = E;
+const { GOLD, CREAM, rise } = F;
 
-export const PRINT = F.PRINT66;
+export const PRINT = F.PRINT67;
 
 export default async (T, R) => {
   E.prepareEditorial();
   const G = (p, after = 0) => T.G(p, 0, after), GE = (p, after = 0) => T.GE(p, 0, after);
   const a = {};
-  a.say = G('Sam Altman says'); a.housing = G('Housing'); a.edu = G('Education', a.housing); a.food = G('Food', a.edu); a.cloth = G('Clothing', a.food);
-  a.nec = G('Everything necessary', a.cloth); a.reason = G('His reason', a.nec); a.robots = G('robots will do', a.reason); a.work = GE('do the work', a.reason);
-  a.receipts = G('Your receipts'); a.rent = G('Rent, up', a.receipts); a.groc = G('Groceries, up', a.rent); a.bill = G('The power bill', a.groc);
-  a.pay = G('And your paycheck has', a.bill); a.yet = G('Yet he could', a.pay); a.once = G("Prices don't fall", a.yet); a.after = G('They fall one after', a.once);
-  a.what = G('So what gets cheap first', a.after); a.never = G('which of your bills', a.what);
-  a.fallen = G('The first price has already', a.never); a.nothing = G('Almost to nothing', a.fallen); a.week = G('Up to a week', a.nothing); a.dollar = G('less than a dollar', a.week);
-  a.list = G('But one thing on his list', a.dollar); a.neverc = G('may never get cheap', a.list); a.rise = G('It may even rise', a.list);
-  a.half = G('So he may be half right', a.rise); a.which = G('And your paycheck depends', a.half); a.end = R.b;
+  a.meta = G("That's what Meta's"); a.right = G('Is he right'); a.because = G('Because if he is'); a.change = G('biggest change', a.because);
+  a.file = G('His evidence is'); a.single = G('a single file', a.file); a.inIt = G('In it, a mathematician'); a.riemann = G('Riemann hypothesis', a.inIt);
+  a.sep = G('A separate program'); a.step = G('step by step', a.sep); a.verdict = G('Its verdict', a.sep); a.correct = G('correct', a.verdict);
+  a.but = G('But written out'); a.pages = G('million pages', a.but); a.noHuman = G('no human fully', a.but); a.notEven = G('Not even the mathematician', a.but);
+  a.says = G("Meta's A.I. chief says"); a.alien = G('alien mind', a.says); a.alienE = GE("don't understand", a.says);
+  a.phys = G('Many physicists'); a.bomb = G('atomic bomb', a.phys); a.hw = G('homework problem', a.phys); a.hwE = GE('next to this', a.phys);
+  a.ifRight = G("If he's right"); a.machine = G('a machine we fear', a.ifRight); a.fear = G('fear', a.machine); a.answer = G('an answer we', a.ifRight); a.read = GE("can't read", a.ifRight);
+  a.test = G('So test his claim'); a.five = G('Five checks', a.test); a.pass = G("He doesn't pass", a.test); a.end = R.b;
   return [{ t: 0, draw: scene(a, T), print: PRINT }];
 };
 
-const CF = (u, v, s = 1) => E.aim(F0, u, v, s);                         // looks at the rooftop (you stay in frame, the promise moves less)
-const CL = (u, v, s = 1) => E.aim(S.Z_LAND, u, v, s);                    // looks at the land card
-const PR = S.PROMISE, PH = PR.w * 1.42;
-const onPromise = (lx, ly) => [PR.x + lx * Math.cos(PR.rot) - ly * Math.sin(PR.rot), PR.y + lx * Math.sin(PR.rot) + ly * Math.cos(PR.rot)];
-const FACE = onPromise(0, PH * .45);                                       // the promise's face centre (promise card px)
-// his list: four tags split off the promise and hang in the sky, top left (promise card px; the title has sunk by then)
-const LIST = [['HOUSING', 330], ['EDUCATION', 560], ['FOOD', 790], ['CLOTHING', 1020]].map(([label, x], i) => ({ label, x, y: 236 + (i % 2) * 22, w: 150 }));
-// the station-1 tag (land card px): it hangs left of the office tower, in front of the dark sky (not over the promise)
-const PT = { x: 880, y: 545, w: 130 };
+const L = (u, v, s = 1) => S.landCam(u, v, s);
+const SP = S.BOARD.spot, FS = 40;                       // the file on the board's spot (land px, width)
+const HAND = [1012, S.GY - 50];                         // where the file meets your raised hand (land px, you at the quay)
+const WALK = [S.YOU.x, 1760];                           // you walk from the quay to the board's foot (H.06)
+const AUTHOR = 1905;
 
 function scene(a, T) {
-  const tPlate = a.end - S.SEAM_HALF, tCreep = tPlate - 2.6;
-  const listT = [a.housing, a.edu, a.food, a.cloth];
+  const tPlate = a.end - S.SEAM_HALF, tCreep = tPlate - 2.4;
   // ---------------------------------------------------------------- the camera (one take)
   const K = [
-    [0, CF(960, 540, 1.0)], [a.housing - .3, CF(944, 538, 1.01)], [a.cloth + .8, CF(900, 536, 1.02)], [a.nec + 1.6, CF(940, 536, 1.025)],
-    [a.work + .4, CL(880, 600, 1.06)], [a.receipts + 1.4, CF(1000, 548, 1.0)], [a.pay + 2.4, CF(990, 552, 1.03)],
-    [a.once + .6, CF(900, 540, 1.03)], [a.after + 2.2, CF(880, 538, 1.05)],
-    [a.never + .6, CL(1030, 690, 1.6)], [a.fallen + .6, CL(1050, 705, 2.3)], [a.dollar + .4, CL(1045, 700, 2.5)],
-    [a.list + 1.8, CF(900, 540, 1.0)], [a.rise + 1.4, CF(920, 540, 1.02)],
+    [0, L(960, 540, 1.0)], [a.meta, L(960, 548, 1.025)], [a.right + .3, L(960, 560, 1.045)],
+    [a.change + .6, L(980, 712, 2.25)], [a.file + .1, L(990, 700, 2.1)], [a.single + 1.2, L(1010, 650, 1.55)],
+    [a.inIt + .6, L(1150, 660, 1.6)], [a.riemann - .2, L(2050, 610, 1.38)], [a.sep - .2, L(2150, 590, 1.45)],
+    [a.step + .4, L(SP.x, 500, 2.5)], [a.correct + .9, L(SP.x + 10, 492, 2.7)], [a.but + .6, L(2400, 520, 2.2)],
+    [a.pages + .2, L(2040, 520, .95)], [a.notEven + .4, L(2010, 530, .98)],
+    [a.alien - .9, L(1500, 640, 1.0)], [a.hwE, L(1470, 640, 1.03)],
+    [a.machine - .1, L(2280, 560, 1.28)], [a.read + .3, L(2320, 566, 1.36)],
   ];
-  const creepCam = (t) => { const k = 1 + S.CREEP * (t - tPlate); return S.PROMISE_CAM(k, S.trk(k)); };
+  const creepCam = (t) => { const k = 1 + S.CREEP * (t - tPlate); return S.WANG_CAM(k, S.trk(k)); };
   const KALL = [...K, [tCreep, creepCam(tCreep)]];
   const camRaw = (t) => (t < tCreep ? F.camPath(t, KALL) : creepCam(t));
-  const cam = (t) => E.camDrift(camRaw(t), t, 6 * (1 - smooth(span(t, tPlate - 2.2, tPlate))), 4);
+  const cam = (t) => E.camDrift(camRaw(t), t, 5 * (1 - smooth(span(t, tPlate - 2, tPlate))), 4);
 
-  // ---------------------------------------------------------------- the promise
-  const dustP = (t) => lerp(.13, .24, span(t, 0, a.what)) + .26 * sineIO(span(t, a.half - .1, a.half + 1.7));
-  const quoteU = (t) => span(t, a.nec - .1, a.nec + 1.2) * (1 - span(t, a.receipts - .3, a.receipts + .5));
-  const promise = (t) => ({ dust: dustP(t), glow: 1 - .45 * span(t, a.what, a.what + 1.6) * (1 - span(t, a.list, a.list + 1.6)), textU: quoteU(t), lines: quoteU(t) > 0 ? [['“Everything', 50, .15, true], ['necessary', 50, .15, true], ['will be cheap …”', 50, .3, true]] : [] });
+  // ---------------------------------------------------------------- timings of the pieces
+  const postU = (t) => span(t, a.meta + .1, a.meta + 1.7);
+  const qFall = (t) => span(t, a.right - .35, a.right + .55);                       // the ? falls (lands on "right")
+  const qFly = (t) => sineIO(span(t, a.test, a.test + 1.3));                        // … and flies into the checklist title
+  const windows = (t) => span(t, a.change - .3, a.file + .4);
+  const fileA = (t) => sineIO(span(t, a.file + .2, a.single + .8));                  // headline → your hand (screen-space flight)
+  const fileB = (t) => sineIO(span(t, a.inIt + .3, a.riemann - .7));                 // your hand → the board's spot (land arc)
+  const walk = (t) => span(t, a.inIt + .2, a.riemann + .4);
+  const scan = (t) => span(t, a.sep + .3, a.verdict - .1);
+  const card = (t) => span(t, a.correct - .25, a.correct + .45) * (1 - expoIn(span(t, a.but + .2, a.but + 1.0)));
+  const open = (t) => span(t, a.but + .3, a.but + 1.3);
+  const tower = (t) => span(t, a.but + 1.0, a.pages + .6);
+  const dark = (t) => .8 * span(t, a.says - .4, a.says + 1.0) * (1 - .15 * span(t, a.machine, a.machine + 2));
+  const veil = (t) => .5 * sineIO(span(t, a.says - .2, a.alien - .6)) * (1 - sineIO(span(t, a.ifRight + .1, a.ifRight + 1.3)));
+  const crop1 = (t) => span(t, a.says + .1, a.says + 1.4) * (1 - span(t, a.ifRight, a.ifRight + 1.0));
+  const crop2 = (t) => span(t, a.phys - .1, a.phys + 1.1) * (1 - span(t, a.ifRight - .1, a.ifRight + .8));
+  const bal = (t) => span(t, a.bomb - .1, a.hw + .3) * (1 - span(t, a.ifRight - .2, a.ifRight + .7));
+  const robot = (t) => span(t, a.machine - .7, a.machine + .5), robotGone = (t) => span(t, a.fear - .05, a.fear + 1.3);
+  const answerU = (t) => span(t, a.answer - .1, a.answer + .8) * (1 - expoIn(span(t, a.five, a.five + 1.0)));
+  const fileBig = (t) => sineIO(span(t, a.answer - .3, a.answer + 1.2)) * (1 - sineIO(span(t, a.test + .5, a.pass + .5)));
+  const label = (t) => span(t, a.single - .1, a.single + .6) * (1 - span(t, a.riemann - 1.2, a.riemann - .6));
 
-  // ---------------------------------------------------------------- his list (four tags off the promise, in the sky top left)
-  const listOut = (i, t) => sineIO(span(t, listT[i] - .25, listT[i] + .75));
-  const listBack = (i, t) => sineIO(span(t, a.half + .05 + (3 - i) * .16, a.half + 1.05 + (3 - i) * .16));
-  function listTag(ctx, t, i) {
-    const L = LIST[i], o = listOut(i, t), b = i === 0 ? 0 : listBack(i, t), f = o * (1 - b); if (f <= 0) return;
-    // the flight: out of the promise's face on an arc up to the slot (the dip "one after another" and the turned tag rise come on top)
-    const x = lerp(FACE[0], L.x, f), y = lerp(FACE[1], L.y, f) - 160 * Math.sin(Math.PI * f), w = lerp(36, L.w, sineIO(f));
-    const dip = F.bump(t, a.after + .1 + i * .32, .9) * 46 + 18 * span(t, a.after + .1 + i * .32, a.after + .7 + i * .32) * (1 - span(t, a.what, a.what + 1.4));
-    const shiver = .05 * F.bump(t, a.once + .2, 1.2) * Math.sin(t * 9 + i);
-    // while the camera is down at the office the list lifts out of the sky (it comes back down on "his list")
-    let dy = dip - 440 * sineIO(span(t, a.what + .2, a.what + 2.0)) * (1 - sineIO(span(t, a.list - .4, a.list + 1.4))), back = 0;
-    if (i === 0) { back = sineIO(span(t, a.neverc - .05, a.neverc + 1.0)); dy -= 620 * expoIn(span(t, a.rise + .1, a.rise + 2.4)) ** .8; }
-    const dimR = (1 - .45 * span(t, a.receipts, a.receipts + .6) * (1 - span(t, a.yet, a.yet + .8))) * (1 - .5 * span(t, a.what, a.what + 1.6) * (1 - span(t, a.list, a.list + 1.6)));
-    F.tag(ctx, t, x, y + dy, w, { thread: f > .98 ? 2400 : 2400 * f, glow: (.55 + .45 * (1 - back)) * dimR, back, swing: (1 - f) * .5 + shiver - .04 * F.bump(t, a.after + .1 + i * .32, .9), seed: 40 + i,
-      lines: [[L.label, 22, 0, false]], textU: span(f, .6, 1) });
-  }
-
-  // ---------------------------------------------------------------- the receipt (thumbnail C) and your pay slip
-  const recU = (t) => sineIO(span(t, a.receipts - .1, a.receipts + 1.7)) * (1 - expoIn(span(t, a.yet + .05, a.yet + 1.5)));
-  const pose = (t) => {
-    const rc = smooth(span(t, a.receipts + .7, a.receipts + 1.6)) * (1 - smooth(span(t, a.yet + .4, a.yet + 1.4)));
-    const sl = smooth(span(t, a.pay - .2, a.pay + .7)) * (1 - smooth(span(t, a.once + .2, a.once + 1.4)));   // left hand: the slip, shown
-    const hold = smooth(span(t, a.once + .4, a.once + 1.6));                                                  // right hand takes it (plate pose)
-    const armR = [lerp(lerp(.12, 2.3, rc), 2.2, hold), lerp(lerp(.05, 2.65, rc), 2.6, hold)];
-    return { armR, armL: [lerp(-.12, -1.35, sl), lerp(-.06, -1.9, sl)], look: lerp(.8, .55, rc) + .15 * span(t, a.what, a.what + 1) - .1 * span(t, a.half, a.half + 1) };
+  // the file on the land (after the screen-space flight): at your hand, flying to the board, then on the spot
+  const fileLand = (t) => {
+    const b = fileB(t);
+    const x = lerp(HAND[0], SP.x, b) + (walk(t) > 0 && b < 1 ? 0 : 0), y = lerp(HAND[1], SP.y, b) - 260 * Math.sin(Math.PI * b);
+    return { x, y, s: lerp(22, FS, b) * (1 + .45 * fileBig(t)) };
   };
-  const slipA = (t) => smooth(span(t, a.pay - .05, a.pay + .6));
-  const slipHand = (t) => smooth(span(t, a.once + .5, a.once + 1.5));   // 0 = left hand, 1 = right hand
-  const slipGlow = (t) => lerp(.15, .7, smooth(span(t, a.which - .1, a.which + 1.2)));
-
-  // ---------------------------------------------------------------- the programmer's tag (station 1) and < $1
-  const down = (t) => span(t, a.what + .9, a.what + 2.9);   // after the list has lifted away (no crossing)
-  const fallDy = (t) => 70 * expoOut(span(t, a.fallen + .05, a.fallen + .7)) - 12 * F.bump(t, a.fallen + .55, .6);
-  const ptDust = (t) => .1 * span(t, a.fallen, a.fallen + .6) + .8 * sineIO(span(t, a.nothing - .1, a.nothing + 1.8)) + .1 * span(t, a.half, a.half + 1.4);
-  const ptA = (t) => (down(t) > 0 ? 1 : 0) * (1 - span(t, a.half + .4, a.half + 2.0));
-  const priceU = (t) => span(t, a.dollar - .1, a.dollar + .8);
-  const priceOut = (t) => span(t, a.list + .2, a.list + 1.2);
-  function progTag(ctx, t) {
-    const A = ptA(t); if (A <= 0) return;
-    const d = down(t), land = d >= 1 ? 0 : -460 * (1 - (1 - (1 - d) ** 3) - .06 * Math.sin(Math.PI * d) * (d > .7 ? 1 : 0));
-    F.tag(ctx, t, PT.x, PT.y + land + fallDy(t), PT.w, { a: A, glow: 1 - .3 * span(t, a.nothing, a.nothing + 1.6), dust: ptDust(t), seed: 7, swing: .05 * F.bump(t, a.fallen, 1.2) * Math.sin(t * 6),
-      lines: [['A TOP', 14, 0, false], ['PROGRAMMER’S', 14, 0, false], ['WEEK', 14, 0, false]] });
-    const pu = priceU(t), po = priceOut(t);
-    if (pu > 0 && po < 1) F.goldText(ctx, [[F.SOURCES.programmerPrice, 1]], PT.x, PT.y + 205 + po * 40, 60, rise(pu) * (1 - expoIn(po)), { serif: true, align: 'center', glow: true });
-  }
+  const youX = (t) => lerp(WALK[0], WALK[1], sineIO(walk(t)));
+  const youO = (t) => {
+    const w = walk(t), reach = span(t, a.file + .4, a.single + .4) * (1 - span(t, a.inIt + .1, a.inIt + .6));
+    const look = .9 - .5 * reach + .1 * span(t, a.notEven, a.notEven + .8) - .4 * span(t, a.says, a.says + 1) + .3 * span(t, a.machine, a.machine + 1);
+    return w > 0 && w < 1 ? { walk: (youX(t) - WALK[0]) / 12, view: 'side', look: .2 } : { armR: [lerp(.2, 2.4, reach), lerp(.1, 2.55, reach)], look };
+  };
 
   // ---------------------------------------------------------------- one frame
   return (ctx, t) => {
-    if (t >= tPlate) { S.platePromise(ctx, t, T); return; }
-    const c = cam(t), ps = pose(t);
-    let HANDS = null;
+    if (t >= tPlate) { S.plateWang(ctx, t, T); return; }
+    const c = cam(t), fA = fileA(t), fB = fileB(t);
+    const onLand = fA >= 1;                                // the file lives on the land card once it reached your hand
     S.landWorld(ctx, c, t, {
-      promise: promise(t),
-      promiseExtra: (cx) => { for (let i = 3; i >= 0; i--) listTag(cx, t, i); },
-      cool: smooth(span(t, a.robots - .4, a.work + .8)),
-      land: (cx) => progTag(cx, t),
-      you: { o: ps },
-      roof: (cx, h) => {
-        HANDS = h;
-        const sa = slipA(t); if (sa <= 0 || !h) return;
-        const hr = slipHand(t), L = h.L ?? h.R, Rh = h.R ?? h.L;
-        const x = lerp(L[0] - 8, Rh[0] + 8, hr), y = lerp(L[1] - 14, Rh[1] - 16, hr) - 40 * Math.sin(Math.PI * hr);
-        F.paySlip(cx, t, x, y, lerp(20, 62, expoOut(sa)), { glow: slipGlow(t), rot: lerp(.2, -.25, hr), a: clamp(sa * 3) });
+      head: { dim: .45 * span(t, a.inIt, a.inIt + 2) * (1 - span(t, a.test, a.test + 2)) },
+      headExtra: (cx) => {   // the ? on the headline card (behind the land) until it flies
+        const qf = qFall(t); if (qf <= 0 || qFly(t) > 0) return;
+        E.glowText(cx, '?', 1560, 545 - (1 - expoOut(qf)) * 700 + 10 * F.bump(t, a.right + .2, .5), { size: 300, serif: true, col: CREAM, a: 1 - .45 * span(t, a.file, a.file + 1.5), align: 'center' });
+      },
+      post: postU(t), windows: windows(t),
+      board: { chalk: 1, spot: span(t, a.riemann - .2, a.riemann + .8), robot: robot(t), robotGone: robotGone(t) },
+      tower: tower(t) > 0 ? { u: tower(t), dark: dark(t), pour: span(t, a.but + .8, a.but + 1.4) * (1 - .7 * span(t, a.pages + 1, a.pages + 3)), from: [SP.x, SP.y] } : null,
+      author: { x: AUTHOR, o: { look: lerp(-.3, .9, span(t, a.notEven, a.notEven + .9)), armR: [1.2, 1.9] } },
+      you: { x: youX(t), o: youO(t) },
+      land: (cx) => {
+        if (onLand) {
+          const f = fileLand(t);
+          F.file(cx, t, f.x, f.y, f.s, { scan: scan(t) > 0 ? scan(t) : undefined, open: open(t) * (1 - span(t, a.ifRight, a.ifRight + 1)), glow: 1, seed: 5, rot: fB < 1 ? .2 * Math.sin(Math.PI * fB) : 0 });
+          const cu = card(t); if (cu > 0) F.goldCard(cx, t, f.x + f.s * .55, f.y - f.s * .5, 34, { u: cu, text: 'CORRECT' });
+        }
+        const tu = tower(t);
+        if (tu > .55) F.goldText(cx, [[F.SOURCES.pages, 1]], S.TOWER.x + 130, S.GY - 330, 46, rise(span(tu, .55, 1)) * (1 - span(t, a.says - .3, a.says + .3)), { serif: true, glow: true });
+        const au = answerU(t); if (au > 0) F.goldText(cx, [[F.SOURCES.unreadable, 1]], S.BOARD.x - 210, S.GY - 300, 34, rise(au), { serif: false, weight: 700, spacing: .06, align: 'center', glow: true });
       },
     });
-    // the receipt: printed out of the promise's face (screen space between the two cards), into your right hand
-    const ru = recU(t);
-    if (ru > 0 && HANDS?.R) {
-      const f0 = E.project(c, S.Z_PROMISE, FACE[0], FACE[1]), h1 = E.project(c, F0, HANDS.R[0] + 6, HANDS.R[1] - 8);
-      if (f0 && h1) F.receipt(ctx, t, { from: [f0[0], f0[1]], to: [lerp(f0[0], h1[0], 1), h1[1]], u: ru, w: 210 * Math.min(1.1, f0[2]), bend: .9,
-        rows: [['RENT', span(t, a.rent - .1, a.rent + .7)], ['GROCERIES', span(t, a.groc - .1, a.groc + .7)], ['THE POWER BILL', span(t, a.bill - .1, a.bill + .7)]], roll: 1 });
+    // the file's first flight: out of the headline (the line IS ARRIVING) down to your hand, in screen space between the two cards
+    if (!onLand && fA > 0) {
+      const p0 = S.headPt(c, 960, 520), p1 = S.landPt(c, HAND[0], HAND[1]);
+      if (p0 && p1) { const x = lerp(p0[0], p1[0], fA) + 60 * Math.sin(Math.PI * fA) * p1[2], y = lerp(p0[1], p1[1], fA); F.file(ctx, t, x, y, lerp(26 * p0[2], 22 * p1[2], fA), { glow: 1, rot: .3 * Math.sin(Math.PI * fA * 2), seed: 5 }); }
     }
-    // the credit of the quote (0:06–0:12; the hook's only source line, before 0:30)
-    F.source(ctx, t, a.nec + .3, a.receipts - .2, F.SOURCES.promiseCredit);
-    // H.01: the title (frame 0 = thumbnail A), it sinks before the list comes
-    F.title(ctx, t, 1, { x: 80, y: 380, maxW: 1080, out: span(t, a.say + 2.0, a.housing + .3) });
+    // PROOF CLAIMED · NOV 20, 2026 (beside the file in your hand)
+    const lu = label(t); if (lu > 0) { const p = S.landPt(c, HAND[0], HAND[1] - 30); if (p) F.goldLabel(ctx, p[0] + 26, p[1] - 10, 'PROOF CLAIMED', 'NOV 20, 2026', lu, { dx: 70, dy: -70, size: 26 }); }
+    // H.09 / H.10: the veil, the quote crops unroll out of the post header (screen space), the highlighter on the spoken words
+    const va = veil(t);
+    if (va > 0) {
+      F.veil(ctx, va);
+      const pr = S.postRect(c);
+      const w = 1240, x = clamp(pr ? pr.x - 60 : 200, 80, W - w - 340), y1 = (pr ? pr.y + pr.h : 600) + 14;
+      const q1 = F.xQuote(ctx, t, 'alien', x, y1, w, { u: crop1(t), hiU: span(t, a.alien - .05, a.alien + .9) });
+      if (crop2(t) > 0) F.xQuote(ctx, t, 'homework', x, y1 + (q1 ? q1.full : 110) + 16, w, { u: crop2(t), hiU: span(t, a.hw - .05, a.hw + .9) });
+      const bu = bal(t);
+      if (bu > 0) F.balance(ctx, t, 1640, 560, 190, { u: bu, tilt: .85 * sineIO(span(t, a.hw + .2, a.hwE + .4)),
+        left: (cx, px, py) => F.notebook(cx, t, px, py, 120, { a: clamp(span(t, a.hw - .2, a.hw + .3) * 3) }),
+        right: (cx, px, py) => F.file(cx, t, px, py - 34, 50, { glow: 1, a: clamp(span(t, a.bomb, a.bomb + .4) * 3) }) });
+    }
+    // H.03 → H.12: the cream question mark (falls next to IS ARRIVING on "right"; flies into the checklist title on "So test his claim")
+    const qf = qFall(t), qy = qFly(t);
+    if (qf > 0 && qy > 0 && qy < 1) {
+      const p = S.headPt(c, 1560, 545); if (p) {
+        const k = p[2], x0 = p[0], y0 = p[1];
+        const tx = W - 70 - (5 * 44 + 4 * 16) + 150, ty = 54;   // the checklist title's '?'
+        const x = lerp(x0, tx, qy), y = lerp(y0, ty, qy) - 120 * Math.sin(Math.PI * qy), size = lerp(300 * k, 24, qy);
+        E.glowText(ctx, '?', x, y, { size, serif: true, col: CREAM, a: (1 - .45 * span(t, a.file, a.file + 1.5) + .45 * qy) * (1 - span(qy, .82, 1)), align: 'center' });
+      }
+    }
+    F.checklist(ctx, t, T);
   };
 }
