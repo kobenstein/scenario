@@ -8,9 +8,10 @@ Gehört dem Ton-Schritt; der Bild-Code fasst diesen Ordner nicht an. Methode 1:1
    **C0 (Mathematiker) nachrüsten:** `F67_C0="listen to the mathematician himself." python3 make_segments.py` setzt einen Slot hinter die Zeile, die so endet (oder `[CLIP C0]` ins Skript schreiben). Länge aus `clips/C0.*`, sonst 10 s.
 2. Stimme: fal `elevenlabs/tts/eleven-v4`, voice `akQnlreIUIoJxrTrosJj`, stability 0.3, similarity 0.75, seed 4301, mp3_44100_192 → `/tmp/claude-0/f67/audio/dl/vo-tNN.mp3` (Download-URLs in `fal_urls.txt`).
 3. `align_ps.py . /tmp/claude-0/f67/audio/dl` — pocketsphinx-Forced-Alignment → `dl/vo-tNN.json`.
+3b. `cut_clips.py` — schneidet C1–C4 aus den 60-s-Fenstern `films/67-assets/clips/Cn-<name>.mp4` (clips.md) → `clips/Cn.mp4` (Video bleibt fürs Bild; Ton auf −20 LUFS, Fades 30/60 ms; Grenzen per RMS-Scan + Whisper geprüft). C0 (Alpöge) bekommt KEINEN Ton-Slot, nur Bild.
 4. `clips_wav.py /tmp/claude-0/f67/audio/clipwav` — Ton der geschnittenen Clips aus `films/67-assets/clips/Cn.*` (fehlende Datei = stummer Platzhalter).
 5. `build_vo.py . /tmp/claude-0/f67/audio` — `vo_master.wav`, `vo_only.wav` (scratch) + `timing.json`, `slots.json` (hier und nach `<ROOT>audio/`). END_TAIL 19 s (≈4 s Luft + 15 s Endbild).
-6. `clips_json.py` — erst wenn die echten Clips da sind: `clips.json` (Clip-Metadaten + Untertitel-Cues). Ohne `clips.json` bekommen die Slots keine Untertitel.
+6. `clips_json.py` — `clips_meta.json` (Sprecher, Quelle, exakte Cue-Zeilen nach Whisper-Wortzeiten) → `clips.json` (mix.py + subs.py).
 7. Musik: `music/prompts.json` (Lyria 3.5, `google/lyria-3.5`, 6 Tracks M0–M5, URLs in `music/urls.txt`) + `music/cues.json`; SFX: `sound_plan.json`, alles aus `sfx-bibliothek` (stamp, pages, shimmer_rings, chime, tick, atmo hall) → `/tmp/claude-0/f67/audio/sfx/`.
 8. `mix.py . /tmp/claude-0/f67/audio` — `mix.wav` (−14 LUFS, TP ≤ −1 dBTP), `mix.m4a`, `mix_preview.mp3`, Stems. Musik −6 dB unter Stimme, −6 dB extra unter Clips.
 9. `subs.py . untertitel` — `subtitles.srt` + `subtitles.ass` (eine Zeile, ≤ 34 Zeichen; A.I. → AI, M.I.T. → MIT, Zahlen als Ziffern).
