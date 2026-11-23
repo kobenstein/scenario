@@ -34,7 +34,7 @@ export const part = {
   draw: frame,
 };
 
-const DY = 400;
+const DY = 470;
 const LIGHTS = (() => { const r = prng(611), a = []; for (let i = 0; i < 70; i++) a.push([2700 + r() * 5200, GY - 20 - r() * 70, r()]); return a.sort((p, q) => p[0] - q[0]); })();
 function lights(cx, t, u) {   // subscribe 2: small warm lights come on along the far land, outward from the chair
   if (u <= 0) return;
@@ -72,11 +72,11 @@ function frame(ctx, t, A, c) {
   const nh = span(t, A.nextHead - .1, A.nextHead + 1.0);
   if (nh > 0) {
     const out = span(t, A.mayNever - .2, A.mayNever + 1.2);
-    F.title(ctx, t, nh, { x: 600, y: 250, lines: [F.SOURCES.aiSolved], maxW: 720, out: out > 0 ? out : undefined, sub: 'THE NEXT HEADLINE?', subY: 300, subSize: 26 });
+    F.title(ctx, t, nh, { x: 620, y: 410, lines: [F.SOURCES.aiSolved], maxW: 680, out: out > 0 ? out : undefined, sub: 'THE NEXT HEADLINE?', subY: 454, subSize: 26 });
     const p = S.landPt(c, S.YOU.x, GY - 66 * .95);
     for (const [i, txt] of F.SOURCES.twoQ.entries()) {
       const u = cardsU[i]; if (u <= 0) continue;
-      const w = 600, h = 118, x = i ? W / 2 + 40 : W / 2 - 40 - w, y = 400;
+      const w = 600, h = 118, x = i ? W / 2 + 40 : W / 2 - 40 - w, y = 490;
       if (p) F.goldSpan(ctx, [[p[0] + (i ? 24 : -24), p[1] - 30], [x + w / 2, y + h]], 0, smooth(clamp(u * 1.4)), { w: 1.4, spark: false });
       F.paperCard(ctx, t, x, y, w, h, { u, rot: i ? .012 : -.012, lines: [[txt, 46, 0, true]] });
     }

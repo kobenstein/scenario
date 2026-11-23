@@ -22,7 +22,7 @@ import * as E from '../lib/f10_editorial.mjs';
 import * as F from '../lib/f67_kit.mjs';
 import * as S from '../lib/f67_world.mjs';
 import * as B from '../lib/b3_extra.mjs';
-import { pane, paneRect } from './sc09.mjs';
+import { pane, paneRect, whoText } from './sc09.mjs';
 const { W, H, P, rgba, mixHex, clamp, lerp, span, sineIO, smooth, expoOut, expoIn, halo, lin } = E;
 const { GOLD, CREAM, CREAM2, PAPER, COOL, EARTH } = F;
 const { GY, ROAD, NEWB } = B;
@@ -138,10 +138,10 @@ function frame(ctx, t, A, c) {
         }
         // ★ the bridges
         const eng = span(t, A.hardest + .5, A.hardest + 2.5);
-        if (eng > 0) { const ex = S.BRIDGE.x - 95, ey = GY + 56; halo(cx, ex + 8, ey - 30, 46, .45 * eng, GOLD.halo, GOLD.core);
-          const hd = E.person(cx, ex, ey, 40, { dir: 1, light: 1, look: .7, armR: [1.5, 2.3], long: true });
-          if (hd?.R) { cx.fillStyle = PAPER.lit; cx.fillRect(hd.R[0] - 2, hd.R[1] - 10, 9, 12); } }
-        if (youBridge && walk > 0) E.du(cx, yx, GY - 46, 30, { walk: yx / 7, view: 'side', look: .3 });
+        if (eng > 0) { const ex = S.BRIDGE.x - 95, ey = GY + 56; halo(cx, ex + 8, ey - 40, 90, .55 * eng, GOLD.halo, GOLD.core);
+          const hd = E.person(cx, ex, ey, 54, { dir: 1, light: 1, look: .7, armR: [1.5, 2.3], long: true });
+          if (hd?.R) { cx.fillStyle = PAPER.lit; cx.fillRect(hd.R[0] - 3, hd.R[1] - 14, 13, 16); } }
+        if (youBridge && walk > 0) E.du(cx, yx, GY - 46, 38, { walk: yx / 7, view: 'side', look: .3 });
         B.newBridge(cx, t, span(t, A.until - .3, A.until + 1.7), 1);
       } });
     F.veil(ctx, Math.max(.62 * sineIO(span(t, A.town2 - .2, A.town2 + .7)) * (1 - sineIO(span(t, A.checkers - .7, A.checkers + .3))),
@@ -164,5 +164,6 @@ function frame(ctx, t, A, c) {
     if (ny > 0) F.xQuote(ctx, t, 'nextYear', 330, 60, 1180, { u: ny, hiU: span(t, A.nextYear - .05, A.nextYear + .8) });
   }
   pane(ctx, t, A);
+  whoText(ctx, t, A);
   F.checklist(ctx, t, T);
 }

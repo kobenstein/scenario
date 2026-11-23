@@ -58,6 +58,10 @@ export function pane(ctx, t, A) {
   ctx.restore();
   return r;
 }
+export function whoText(ctx, t, A) {   // WHO BUILDS THE REFEREES? (sinks at 'The labs could': c10 draws it too)
+  const wq = span(t, A.who + .5, A.who + 1.3) * (1 - span(t, A.labs - .2, A.labs + .5));
+  if (wq > 0) F.goldText(ctx, [['WHO BUILDS THE REFEREES?', 1]], W / 2, 140, 60, F.rise(wq), { serif: true, align: 'center', glow: true });
+}
 // the right pane: people build the referee's chair before the game (night card, a small land scene)
 function buildPane(ctx, t, A) {
   const u = span(t, A.inMath - .1, A.inMath + .8) * (1 - expoIn(span(t, A.who, A.who + 1.2))); if (u <= 0) return;
@@ -119,8 +123,7 @@ function frame(ctx, t, A, c) {
     if (a1 > 0) F.goldText(ctx, [['ITS OWN REFEREE', 0]], 110 + 415, 700, 30, F.rise(a1), { serif: false, weight: 700, spacing: .08, align: 'center', col: CREAM });
     if (a2 > 0) F.goldText(ctx, [['REFEREE BUILT FIRST', 1]], 980 + 415, 700, 30, F.rise(a2), { serif: false, weight: 700, spacing: .08, align: 'center' });
   }
-  const wq = span(t, A.who + .5, A.who + 1.3) * (1 - span(t, A.labs - .2, A.labs + .5));
-  if (wq > 0) F.goldText(ctx, [['WHO BUILDS THE REFEREES?', 1]], W / 2, 140, 60, F.rise(wq), { serif: true, align: 'center', glow: true });
+  whoText(ctx, t, A);
   scenarioLabel(ctx, 1 - span(t, A.look, A.look + .8));
   F.checklist(ctx, t, T);
 }
