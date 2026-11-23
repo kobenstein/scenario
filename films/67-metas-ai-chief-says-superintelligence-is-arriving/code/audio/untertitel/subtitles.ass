@@ -11,373 +11,385 @@ Style: Sub,Inter,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 0,0:00:00.65,0:00:02.06,Sub,,0,0,0,,{\fad(120,160)}Sam Altman says
-Dialogue: 0,0:00:02.10,0:00:03.56,Sub,,0,0,0,,{\fad(120,160)}everything will get cheap.
-Dialogue: 0,0:00:04.10,0:00:04.81,Sub,,0,0,0,,{\fad(120,160)}Housing.
-Dialogue: 0,0:00:04.85,0:00:05.65,Sub,,0,0,0,,{\fad(120,160)}Education.
-Dialogue: 0,0:00:05.69,0:00:06.38,Sub,,0,0,0,,{\fad(120,160)}Food.
-Dialogue: 0,0:00:06.42,0:00:07.20,Sub,,0,0,0,,{\fad(120,160)}Clothing.
-Dialogue: 0,0:00:07.24,0:00:08.59,Sub,,0,0,0,,{\fad(120,160)}Everything necessary.
-Dialogue: 0,0:00:08.90,0:00:09.89,Sub,,0,0,0,,{\fad(120,160)}His reason:
-Dialogue: 0,0:00:09.93,0:00:11.03,Sub,,0,0,0,,{\fad(120,160)}artificial intelligence
-Dialogue: 0,0:00:11.07,0:00:12.75,Sub,,0,0,0,,{\fad(120,160)}and robots will do the work.
-Dialogue: 0,0:00:13.03,0:00:14.90,Sub,,0,0,0,,{\fad(120,160)}Your receipts say the opposite.
-Dialogue: 0,0:00:15.01,0:00:16.19,Sub,,0,0,0,,{\fad(120,160)}Rent, up.
-Dialogue: 0,0:00:16.29,0:00:17.76,Sub,,0,0,0,,{\fad(120,160)}Groceries, up.
-Dialogue: 0,0:00:17.80,0:00:19.35,Sub,,0,0,0,,{\fad(120,160)}The power bill, up.
-Dialogue: 0,0:00:19.50,0:00:20.48,Sub,,0,0,0,,{\fad(120,160)}And your paycheck has
-Dialogue: 0,0:00:20.52,0:00:21.80,Sub,,0,0,0,,{\fad(120,160)}to cover all of it.
-Dialogue: 0,0:00:22.50,0:00:24.36,Sub,,0,0,0,,{\fad(120,160)}Yet he could still be right.
-Dialogue: 0,0:00:24.50,0:00:26.45,Sub,,0,0,0,,{\fad(120,160)}Prices don't fall all at once.
-Dialogue: 0,0:00:26.52,0:00:28.29,Sub,,0,0,0,,{\fad(120,160)}They fall one after another.
-Dialogue: 0,0:00:28.45,0:00:30.27,Sub,,0,0,0,,{\fad(120,160)}So what gets cheap first,
-Dialogue: 0,0:00:30.31,0:00:30.99,Sub,,0,0,0,,{\fad(120,160)}and which of your
-Dialogue: 0,0:00:31.03,0:00:32.31,Sub,,0,0,0,,{\fad(120,160)}bills never will?
-Dialogue: 0,0:00:32.66,0:00:33.37,Sub,,0,0,0,,{\fad(120,160)}The first price
-Dialogue: 0,0:00:33.41,0:00:34.59,Sub,,0,0,0,,{\fad(120,160)}has already fallen.
-Dialogue: 0,0:00:34.72,0:00:35.99,Sub,,0,0,0,,{\fad(120,160)}Almost to nothing.
-Dialogue: 0,0:00:36.56,0:00:38.38,Sub,,0,0,0,,{\fad(120,160)}Up to a week of a top programmer's
-Dialogue: 0,0:00:38.42,0:00:39.64,Sub,,0,0,0,,{\fad(120,160)}work can now cost
-Dialogue: 0,0:00:39.68,0:00:40.97,Sub,,0,0,0,,{\fad(120,160)}less than a dollar.
-Dialogue: 0,0:00:41.41,0:00:42.19,Sub,,0,0,0,,{\fad(120,160)}But one thing on his
-Dialogue: 0,0:00:42.23,0:00:44.06,Sub,,0,0,0,,{\fad(120,160)}list may never get cheap.
-Dialogue: 0,0:00:44.20,0:00:45.62,Sub,,0,0,0,,{\fad(120,160)}It may even rise.
-Dialogue: 0,0:00:45.83,0:00:47.89,Sub,,0,0,0,,{\fad(120,160)}So he may be half right.
-Dialogue: 0,0:00:48.08,0:00:48.92,Sub,,0,0,0,,{\fad(120,160)}And your paycheck
-Dialogue: 0,0:00:48.96,0:00:50.60,Sub,,0,0,0,,{\fad(120,160)}depends on which half.
-Dialogue: 0,0:00:51.77,0:00:53.59,Sub,,0,0,0,,{\fad(120,160)}This January, he made
-Dialogue: 0,0:00:53.63,0:00:54.95,Sub,,0,0,0,,{\fad(120,160)}the promise again.
-Dialogue: 0,0:00:55.98,0:00:58.10,Sub,,0,0,0,,{\fad(120,160)}It looks like on the whole,
-Dialogue: 0,0:00:58.14,0:01:00.10,Sub,,0,0,0,,{\fad(120,160)}given certainly progress
-Dialogue: 0,0:01:00.14,0:01:00.98,Sub,,0,0,0,,{\fad(120,160)}with work you can do
-Dialogue: 0,0:01:01.02,0:01:01.70,Sub,,0,0,0,,{\fad(120,160)}in front of a computer,
-Dialogue: 0,0:01:01.74,0:01:02.66,Sub,,0,0,0,,{\fad(120,160)}but also what looks like
-Dialogue: 0,0:01:02.70,0:01:04.42,Sub,,0,0,0,,{\fad(120,160)}it will soon happen with robotics
-Dialogue: 0,0:01:04.46,0:01:07.14,Sub,,0,0,0,,{\fad(120,160)}and a bunch of other things,
-Dialogue: 0,0:01:07.18,0:01:07.70,Sub,,0,0,0,,{\fad(120,160)}we're going to have
-Dialogue: 0,0:01:07.74,0:01:10.42,Sub,,0,0,0,,{\fad(120,160)}massively deflationary pressure
-Dialogue: 0,0:01:10.96,0:01:12.65,Sub,,0,0,0,,{\fad(120,160)}Deflationary pressure.
-Dialogue: 0,0:01:12.89,0:01:14.00,Sub,,0,0,0,,{\fad(120,160)}In plain words:
-Dialogue: 0,0:01:14.11,0:01:15.71,Sub,,0,0,0,,{\fad(120,160)}prices heading down.
-Dialogue: 0,0:01:16.13,0:01:17.54,Sub,,0,0,0,,{\fad(120,160)}His argument is stronger
-Dialogue: 0,0:01:17.58,0:01:18.73,Sub,,0,0,0,,{\fad(120,160)}than it sounds:
-Dialogue: 0,0:01:18.87,0:01:20.63,Sub,,0,0,0,,{\fad(120,160)}almost every price you pay
-Dialogue: 0,0:01:20.67,0:01:22.89,Sub,,0,0,0,,{\fad(120,160)}is mostly other people's time.
-Dialogue: 0,0:01:23.11,0:01:24.02,Sub,,0,0,0,,{\fad(120,160)}Of every dollar
-Dialogue: 0,0:01:24.06,0:01:25.76,Sub,,0,0,0,,{\fad(120,160)}Americans spend on food,
-Dialogue: 0,0:01:25.80,0:01:26.97,Sub,,0,0,0,,{\fad(120,160)}more than half pays
-Dialogue: 0,0:01:27.01,0:01:28.32,Sub,,0,0,0,,{\fad(120,160)}for somebody's work.
-Dialogue: 0,0:01:28.55,0:01:30.86,Sub,,0,0,0,,{\fad(120,160)}The farm gets about 12 cents.
-Dialogue: 0,0:01:31.09,0:01:32.53,Sub,,0,0,0,,{\fad(120,160)}Let superintelligence do
-Dialogue: 0,0:01:32.57,0:01:33.39,Sub,,0,0,0,,{\fad(120,160)}the thinking and
-Dialogue: 0,0:01:33.43,0:01:34.89,Sub,,0,0,0,,{\fad(120,160)}robots the lifting,
-Dialogue: 0,0:01:34.93,0:01:36.25,Sub,,0,0,0,,{\fad(120,160)}and the price sinks toward
-Dialogue: 0,0:01:36.29,0:01:37.83,Sub,,0,0,0,,{\fad(120,160)}what the machines cost.
-Dialogue: 0,0:01:38.04,0:01:39.71,Sub,,0,0,0,,{\fad(120,160)}He even pictures a house,
-Dialogue: 0,0:01:39.75,0:01:40.80,Sub,,0,0,0,,{\fad(120,160)}built by robots,
-Dialogue: 0,0:01:40.84,0:01:41.73,Sub,,0,0,0,,{\fad(120,160)}for about the cost
-Dialogue: 0,0:01:41.77,0:01:42.89,Sub,,0,0,0,,{\fad(120,160)}of renting them.
-Dialogue: 0,0:01:43.43,0:01:44.71,Sub,,0,0,0,,{\fad(120,160)}Then again, he runs
-Dialogue: 0,0:01:44.75,0:01:47.00,Sub,,0,0,0,,{\fad(120,160)}the company behind ChatGPT.
-Dialogue: 0,0:01:47.30,0:01:48.50,Sub,,0,0,0,,{\fad(120,160)}Cheap intelligence is
-Dialogue: 0,0:01:48.54,0:01:49.56,Sub,,0,0,0,,{\fad(120,160)}what he sells.
-Dialogue: 0,0:01:49.92,0:01:51.74,Sub,,0,0,0,,{\fad(120,160)}But his claim can be tested.
-Dialogue: 0,0:01:52.03,0:01:53.45,Sub,,0,0,0,,{\fad(120,160)}Six price tags,
-Dialogue: 0,0:01:53.49,0:01:55.82,Sub,,0,0,0,,{\fad(120,160)}from pure thought to solid ground.
-Dialogue: 0,0:01:56.02,0:01:57.00,Sub,,0,0,0,,{\fad(120,160)}Then a seventh,
-Dialogue: 0,0:01:57.04,0:01:58.30,Sub,,0,0,0,,{\fad(120,160)}with your name on it.
-Dialogue: 0,0:01:58.50,0:02:00.58,Sub,,0,0,0,,{\fad(120,160)}And for each, one question:
-Dialogue: 0,0:02:00.87,0:02:03.13,Sub,,0,0,0,,{\fad(120,160)}how much of this price is work?
-Dialogue: 0,0:02:04.28,0:02:05.43,Sub,,0,0,0,,{\fad(120,160)}Start where a price
-Dialogue: 0,0:02:05.47,0:02:07.02,Sub,,0,0,0,,{\fad(120,160)}is nothing but work.
-Dialogue: 0,0:02:07.17,0:02:08.17,Sub,,0,0,0,,{\fad(120,160)}Not lifting.
-Dialogue: 0,0:02:08.39,0:02:09.24,Sub,,0,0,0,,{\fad(120,160)}Thinking.
-Dialogue: 0,0:02:09.28,0:02:10.92,Sub,,0,0,0,,{\fad(120,160)}Knowledge and advice.
-Dialogue: 0,0:02:11.29,0:02:12.79,Sub,,0,0,0,,{\fad(120,160)}That programmer's week for less
-Dialogue: 0,0:02:12.83,0:02:13.51,Sub,,0,0,0,,{\fad(120,160)}than a dollar
-Dialogue: 0,0:02:13.55,0:02:15.43,Sub,,0,0,0,,{\fad(120,160)}is Altman's own example.
-Dialogue: 0,0:02:15.60,0:02:16.58,Sub,,0,0,0,,{\fad(120,160)}And by his count,
-Dialogue: 0,0:02:16.62,0:02:18.28,Sub,,0,0,0,,{\fad(120,160)}AI gets about 10 times
-Dialogue: 0,0:02:18.32,0:02:19.71,Sub,,0,0,0,,{\fad(120,160)}cheaper every year.
-Dialogue: 0,0:02:20.09,0:02:20.82,Sub,,0,0,0,,{\fad(120,160)}Across Europe,
-Dialogue: 0,0:02:20.86,0:02:22.61,Sub,,0,0,0,,{\fad(120,160)}about 3 in 10 literary
-Dialogue: 0,0:02:22.65,0:02:23.92,Sub,,0,0,0,,{\fad(120,160)}translators say it has
-Dialogue: 0,0:02:23.96,0:02:25.63,Sub,,0,0,0,,{\fad(120,160)}already cost them work.
-Dialogue: 0,0:02:25.91,0:02:27.38,Sub,,0,0,0,,{\fad(120,160)}But a falling cost is not
-Dialogue: 0,0:02:27.42,0:02:29.04,Sub,,0,0,0,,{\fad(120,160)}yet a falling price.
-Dialogue: 0,0:02:29.38,0:02:31.18,Sub,,0,0,0,,{\fad(120,160)}Law firms have AI too.
-Dialogue: 0,0:02:31.29,0:02:32.62,Sub,,0,0,0,,{\fad(120,160)}Yet the vast majority
-Dialogue: 0,0:02:32.66,0:02:33.38,Sub,,0,0,0,,{\fad(120,160)}of legal fees
-Dialogue: 0,0:02:33.42,0:02:34.58,Sub,,0,0,0,,{\fad(120,160)}in America are still
-Dialogue: 0,0:02:34.62,0:02:35.83,Sub,,0,0,0,,{\fad(120,160)}billed by the hour.
-Dialogue: 0,0:02:36.09,0:02:36.90,Sub,,0,0,0,,{\fad(120,160)}Many firms even
-Dialogue: 0,0:02:36.94,0:02:38.32,Sub,,0,0,0,,{\fad(120,160)}raised their rates.
-Dialogue: 0,0:02:38.88,0:02:40.27,Sub,,0,0,0,,{\fad(120,160)}So that's what gets cheap
-Dialogue: 0,0:02:40.31,0:02:42.44,Sub,,0,0,0,,{\fad(120,160)}first: pure thinking.
-Dialogue: 0,0:02:42.78,0:02:43.82,Sub,,0,0,0,,{\fad(120,160)}But only as fast
-Dialogue: 0,0:02:43.86,0:02:45.66,Sub,,0,0,0,,{\fad(120,160)}as competition forces it.
-Dialogue: 0,0:02:45.85,0:02:47.92,Sub,,0,0,0,,{\fad(120,160)}Which explains a strange case:
-Dialogue: 0,0:02:48.10,0:02:50.12,Sub,,0,0,0,,{\fad(120,160)}something became nearly free,
-Dialogue: 0,0:02:50.16,0:02:52.02,Sub,,0,0,0,,{\fad(120,160)}and its price kept climbing.
-Dialogue: 0,0:02:53.12,0:02:54.12,Sub,,0,0,0,,{\fad(120,160)}Education.
-Dialogue: 0,0:02:54.27,0:02:55.38,Sub,,0,0,0,,{\fad(120,160)}It's on his list.
-Dialogue: 0,0:02:55.63,0:02:56.64,Sub,,0,0,0,,{\fad(120,160)}In some studies,
-Dialogue: 0,0:02:56.68,0:02:58.02,Sub,,0,0,0,,{\fad(120,160)}students with a well-built
-Dialogue: 0,0:02:58.06,0:02:59.42,Sub,,0,0,0,,{\fad(120,160)}AI tutor learn more
-Dialogue: 0,0:02:59.46,0:03:00.77,Sub,,0,0,0,,{\fad(120,160)}than they do in class.
-Dialogue: 0,0:03:00.81,0:03:01.29,Sub,,0,0,0,,{\fad(120,160)}And the tutor
-Dialogue: 0,0:03:01.33,0:03:02.79,Sub,,0,0,0,,{\fad(120,160)}costs almost nothing.
-Dialogue: 0,0:03:02.83,0:03:03.63,Sub,,0,0,0,,{\fad(120,160)}So a degree should
-Dialogue: 0,0:03:03.67,0:03:04.69,Sub,,0,0,0,,{\fad(120,160)}be getting cheaper.
-Dialogue: 0,0:03:05.11,0:03:06.91,Sub,,0,0,0,,{\fad(120,160)}Its price tag isn't.
-Dialogue: 0,0:03:07.07,0:03:08.16,Sub,,0,0,0,,{\fad(120,160)}This fall, the sticker
-Dialogue: 0,0:03:08.20,0:03:09.17,Sub,,0,0,0,,{\fad(120,160)}price at America's
-Dialogue: 0,0:03:09.21,0:03:11.36,Sub,,0,0,0,,{\fad(120,160)}public universities went up again.
-Dialogue: 0,0:03:11.56,0:03:13.05,Sub,,0,0,0,,{\fad(120,160)}Because a big part of that price
-Dialogue: 0,0:03:13.09,0:03:14.52,Sub,,0,0,0,,{\fad(120,160)}was never the knowledge.
-Dialogue: 0,0:03:14.56,0:03:15.86,Sub,,0,0,0,,{\fad(120,160)}It's the certificate.
-Dialogue: 0,0:03:15.90,0:03:17.24,Sub,,0,0,0,,{\fad(120,160)}And only the university
-Dialogue: 0,0:03:17.28,0:03:18.28,Sub,,0,0,0,,{\fad(120,160)}can print it.
-Dialogue: 0,0:03:18.33,0:03:20.71,Sub,,0,0,0,,{\fad(120,160)}So the second tag splits in two.
-Dialogue: 0,0:03:20.79,0:03:22.56,Sub,,0,0,0,,{\fad(120,160)}The knowledge is nearly free.
-Dialogue: 0,0:03:22.68,0:03:24.31,Sub,,0,0,0,,{\fad(120,160)}The diploma is not.
-Dialogue: 0,0:03:25.47,0:03:26.50,Sub,,0,0,0,,{\fad(120,160)}This channel exists
-Dialogue: 0,0:03:26.54,0:03:27.82,Sub,,0,0,0,,{\fad(120,160)}for one reason:
-Dialogue: 0,0:03:28.00,0:03:28.87,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
-Dialogue: 0,0:03:28.91,0:03:30.00,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
-Dialogue: 0,0:03:30.04,0:03:31.69,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
-Dialogue: 0,0:03:31.94,0:03:32.84,Sub,,0,0,0,,{\fad(120,160)}Including the people
-Dialogue: 0,0:03:32.88,0:03:34.31,Sub,,0,0,0,,{\fad(120,160)}whose work it makes cheap.
-Dialogue: 0,0:03:34.57,0:03:35.57,Sub,,0,0,0,,{\fad(120,160)}Want that too?
-Dialogue: 0,0:03:35.69,0:03:36.70,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
-Dialogue: 0,0:03:37.87,0:03:39.47,Sub,,0,0,0,,{\fad(120,160)}So far, every price
-Dialogue: 0,0:03:39.51,0:03:41.02,Sub,,0,0,0,,{\fad(120,160)}was made of information.
-Dialogue: 0,0:03:41.17,0:03:41.91,Sub,,0,0,0,,{\fad(120,160)}What about things you
-Dialogue: 0,0:03:41.95,0:03:43.33,Sub,,0,0,0,,{\fad(120,160)}can drop on your foot?
-Dialogue: 0,0:03:43.66,0:03:46.09,Sub,,0,0,0,,{\fad(120,160)}Elon Musk promises even more.
-Dialogue: 0,0:03:46.44,0:03:47.27,Sub,,0,0,0,,{\fad(120,160)}Asked this summer
-Dialogue: 0,0:03:47.31,0:03:48.15,Sub,,0,0,0,,{\fad(120,160)}whether some things
-Dialogue: 0,0:03:48.19,0:03:49.29,Sub,,0,0,0,,{\fad(120,160)}should simply be free
-Dialogue: 0,0:03:49.33,0:03:51.02,Sub,,0,0,0,,{\fad(120,160)}for everyone, he said:
-Dialogue: 0,0:03:52.77,0:03:54.25,Sub,,0,0,0,,{\fad(120,160)}As you heard me say,
-Dialogue: 0,0:03:54.29,0:03:55.01,Sub,,0,0,0,,{\fad(120,160)}I don't think money's going
-Dialogue: 0,0:03:55.05,0:03:57.21,Sub,,0,0,0,,{\fad(120,160)}to matter in the future.
-Dialogue: 0,0:03:57.25,0:03:58.77,Sub,,0,0,0,,{\fad(120,160)}Anyone will be able to have
-Dialogue: 0,0:03:58.81,0:03:59.65,Sub,,0,0,0,,{\fad(120,160)}any goods and services
-Dialogue: 0,0:03:59.69,0:04:00.73,Sub,,0,0,0,,{\fad(120,160)}that they want.
-Dialogue: 0,0:04:01.46,0:04:03.38,Sub,,0,0,0,,{\fad(120,160)}Any goods, for anyone.
-Dialogue: 0,0:04:03.68,0:04:05.28,Sub,,0,0,0,,{\fad(120,160)}So look at the goods.
-Dialogue: 0,0:04:05.55,0:04:07.21,Sub,,0,0,0,,{\fad(120,160)}The robots are real:
-Dialogue: 0,0:04:07.35,0:04:09.14,Sub,,0,0,0,,{\fad(120,160)}more than 5 million work in
-Dialogue: 0,0:04:09.18,0:04:10.53,Sub,,0,0,0,,{\fad(120,160)}the world's factories.
-Dialogue: 0,0:04:10.70,0:04:12.20,Sub,,0,0,0,,{\fad(120,160)}And by the official numbers,
-Dialogue: 0,0:04:12.24,0:04:13.67,Sub,,0,0,0,,{\fad(120,160)}adjusted for quality,
-Dialogue: 0,0:04:13.80,0:04:15.47,Sub,,0,0,0,,{\fad(120,160)}American smartphone prices
-Dialogue: 0,0:04:15.51,0:04:17.83,Sub,,0,0,0,,{\fad(120,160)}fell by half in 5 years.
-Dialogue: 0,0:04:17.99,0:04:18.64,Sub,,0,0,0,,{\fad(120,160)}But this year,
-Dialogue: 0,0:04:18.68,0:04:20.39,Sub,,0,0,0,,{\fad(120,160)}analysts expect phones
-Dialogue: 0,0:04:20.43,0:04:21.83,Sub,,0,0,0,,{\fad(120,160)}to cost more again.
-Dialogue: 0,0:04:22.16,0:04:24.06,Sub,,0,0,0,,{\fad(120,160)}AI data centers are buying up
-Dialogue: 0,0:04:24.10,0:04:25.08,Sub,,0,0,0,,{\fad(120,160)}the memory chips your
-Dialogue: 0,0:04:25.12,0:04:26.47,Sub,,0,0,0,,{\fad(120,160)}next phone needs.
-Dialogue: 0,0:04:26.66,0:04:28.93,Sub,,0,0,0,,{\fad(120,160)}So the third tag does fall.
-Dialogue: 0,0:04:29.12,0:04:30.36,Sub,,0,0,0,,{\fad(120,160)}Slowly, and not
-Dialogue: 0,0:04:30.40,0:04:31.53,Sub,,0,0,0,,{\fad(120,160)}in a straight line.
-Dialogue: 0,0:04:32.10,0:04:32.94,Sub,,0,0,0,,{\fad(120,160)}Because a thing
-Dialogue: 0,0:04:32.98,0:04:34.70,Sub,,0,0,0,,{\fad(120,160)}is never only work.
-Dialogue: 0,0:04:34.81,0:04:36.20,Sub,,0,0,0,,{\fad(120,160)}It's also materials,
-Dialogue: 0,0:04:36.24,0:04:37.67,Sub,,0,0,0,,{\fad(120,160)}chips and power.
-Dialogue: 0,0:04:37.96,0:04:40.66,Sub,,0,0,0,,{\fad(120,160)}And power sits under every tag.
-Dialogue: 0,0:04:41.83,0:04:42.83,Sub,,0,0,0,,{\fad(120,160)}Energy.
-Dialogue: 0,0:04:43.22,0:04:44.18,Sub,,0,0,0,,{\fad(120,160)}Altman says where
-Dialogue: 0,0:04:44.22,0:04:45.73,Sub,,0,0,0,,{\fad(120,160)}the falling stops:
-Dialogue: 0,0:04:46.01,0:04:46.94,Sub,,0,0,0,,{\fad(120,160)}once machines build
-Dialogue: 0,0:04:46.98,0:04:48.13,Sub,,0,0,0,,{\fad(120,160)}the data centers,
-Dialogue: 0,0:04:48.17,0:04:49.65,Sub,,0,0,0,,{\fad(120,160)}intelligence should cost little
-Dialogue: 0,0:04:49.69,0:04:51.24,Sub,,0,0,0,,{\fad(120,160)}more than its electricity.
-Dialogue: 0,0:04:51.52,0:04:53.42,Sub,,0,0,0,,{\fad(120,160)}That makes energy the floor.
-Dialogue: 0,0:04:53.71,0:04:55.41,Sub,,0,0,0,,{\fad(120,160)}And the floor isn't falling.
-Dialogue: 0,0:04:55.73,0:04:57.47,Sub,,0,0,0,,{\fad(120,160)}In 5 years, American energy
-Dialogue: 0,0:04:57.51,0:04:59.60,Sub,,0,0,0,,{\fad(120,160)}prices rose by about a third.
-Dialogue: 0,0:04:59.95,0:05:01.29,Sub,,0,0,0,,{\fad(120,160)}Unless AI can lower
-Dialogue: 0,0:05:01.33,0:05:02.44,Sub,,0,0,0,,{\fad(120,160)}the floor itself.
-Dialogue: 0,0:05:03.04,0:05:04.70,Sub,,0,0,0,,{\fad(120,160)}Demis Hassabis, the Nobel
-Dialogue: 0,0:05:04.74,0:05:06.80,Sub,,0,0,0,,{\fad(120,160)}laureate who runs Google DeepMind,
-Dialogue: 0,0:05:06.84,0:05:07.54,Sub,,0,0,0,,{\fad(120,160)}thinks it could help
-Dialogue: 0,0:05:07.58,0:05:09.09,Sub,,0,0,0,,{\fad(120,160)}crack clean energy.
-Dialogue: 0,0:05:09.32,0:05:09.97,Sub,,0,0,0,,{\fad(120,160)}He has a name
-Dialogue: 0,0:05:10.01,0:05:11.41,Sub,,0,0,0,,{\fad(120,160)}for the world after that.
-Dialogue: 0,0:05:11.80,0:05:13.52,Sub,,0,0,0,,{\fad(120,160)}…but it will at least remove
-Dialogue: 0,0:05:13.56,0:05:14.88,Sub,,0,0,0,,{\fad(120,160)}one of the big vectors,
-Dialogue: 0,0:05:14.92,0:05:18.08,Sub,,0,0,0,,{\fad(120,160)}which is scarcity of resources,
-Dialogue: 0,0:05:18.12,0:05:19.68,Sub,,0,0,0,,{\fad(120,160)}including land and more materials
-Dialogue: 0,0:05:19.72,0:05:22.24,Sub,,0,0,0,,{\fad(120,160)}and energy.
-Dialogue: 0,0:05:22.28,0:05:23.20,Sub,,0,0,0,,{\fad(120,160)}I sometimes call it,
-Dialogue: 0,0:05:23.24,0:05:23.100,Sub,,0,0,0,,{\fad(120,160)}and others call it,
-Dialogue: 0,0:05:24.04,0:05:25.48,Sub,,0,0,0,,{\fad(120,160)}this kind of radical abundance
-Dialogue: 0,0:05:25.98,0:05:27.71,Sub,,0,0,0,,{\fad(120,160)}Radical abundance.
-Dialogue: 0,0:05:27.93,0:05:29.06,Sub,,0,0,0,,{\fad(120,160)}It's a forecast,
-Dialogue: 0,0:05:29.10,0:05:29.97,Sub,,0,0,0,,{\fad(120,160)}from a man whose
-Dialogue: 0,0:05:30.01,0:05:31.54,Sub,,0,0,0,,{\fad(120,160)}company builds AI.
-Dialogue: 0,0:05:31.89,0:05:33.26,Sub,,0,0,0,,{\fad(120,160)}But if it comes true,
-Dialogue: 0,0:05:33.34,0:05:35.51,Sub,,0,0,0,,{\fad(120,160)}every other tag falls further.
-Dialogue: 0,0:05:35.82,0:05:38.36,Sub,,0,0,0,,{\fad(120,160)}For now, the fourth tag stays up.
-Dialogue: 0,0:05:39.54,0:05:42.13,Sub,,0,0,0,,{\fad(120,160)}One tag needs energy, machines,
-Dialogue: 0,0:05:42.17,0:05:44.24,Sub,,0,0,0,,{\fad(120,160)}and something no factory can make.
-Dialogue: 0,0:05:44.54,0:05:45.41,Sub,,0,0,0,,{\fad(120,160)}Food.
-Dialogue: 0,0:05:45.45,0:05:46.90,Sub,,0,0,0,,{\fad(120,160)}Remember the food dollar:
-Dialogue: 0,0:05:46.99,0:05:48.64,Sub,,0,0,0,,{\fad(120,160)}more than half is work.
-Dialogue: 0,0:05:48.79,0:05:49.49,Sub,,0,0,0,,{\fad(120,160)}Machines can take
-Dialogue: 0,0:05:49.53,0:05:50.56,Sub,,0,0,0,,{\fad(120,160)}much of that out.
-Dialogue: 0,0:05:50.66,0:05:51.49,Sub,,0,0,0,,{\fad(120,160)}But the ground under
-Dialogue: 0,0:05:51.53,0:05:53.34,Sub,,0,0,0,,{\fad(120,160)}the food just set a record.
-Dialogue: 0,0:05:53.45,0:05:54.66,Sub,,0,0,0,,{\fad(120,160)}American cropland has
-Dialogue: 0,0:05:54.70,0:05:55.97,Sub,,0,0,0,,{\fad(120,160)}never cost more.
-Dialogue: 0,0:05:56.13,0:05:57.54,Sub,,0,0,0,,{\fad(120,160)}So the fifth tag can fall
-Dialogue: 0,0:05:57.58,0:05:58.76,Sub,,0,0,0,,{\fad(120,160)}only part of the way:
-Dialogue: 0,0:05:58.91,0:06:00.73,Sub,,0,0,0,,{\fad(120,160)}the work comes out of the price,
-Dialogue: 0,0:06:00.77,0:06:02.24,Sub,,0,0,0,,{\fad(120,160)}the ground stays in.
-Dialogue: 0,0:06:02.39,0:06:03.22,Sub,,0,0,0,,{\fad(120,160)}Which leaves the tag
-Dialogue: 0,0:06:03.26,0:06:04.79,Sub,,0,0,0,,{\fad(120,160)}with the most ground in it.
-Dialogue: 0,0:06:05.98,0:06:06.98,Sub,,0,0,0,,{\fad(120,160)}Housing.
-Dialogue: 0,0:06:07.16,0:06:09.15,Sub,,0,0,0,,{\fad(120,160)}The first word on his list.
-Dialogue: 0,0:06:09.32,0:06:11.39,Sub,,0,0,0,,{\fad(120,160)}Go back to his robot-built house.
-Dialogue: 0,0:06:11.67,0:06:12.24,Sub,,0,0,0,,{\fad(120,160)}Listen to how
-Dialogue: 0,0:06:12.28,0:06:13.71,Sub,,0,0,0,,{\fad(120,160)}that sentence begins:
-Dialogue: 0,0:06:13.95,0:06:15.44,Sub,,0,0,0,,{\fad(120,160)}if robots can build a house
-Dialogue: 0,0:06:15.48,0:06:17.30,Sub,,0,0,0,,{\fad(120,160)}on land you already own.
-Dialogue: 0,0:06:17.50,0:06:19.03,Sub,,0,0,0,,{\fad(120,160)}Even in his own picture,
-Dialogue: 0,0:06:19.07,0:06:20.82,Sub,,0,0,0,,{\fad(120,160)}the land is already paid for.
-Dialogue: 0,0:06:21.02,0:06:21.99,Sub,,0,0,0,,{\fad(120,160)}And in America,
-Dialogue: 0,0:06:22.03,0:06:23.58,Sub,,0,0,0,,{\fad(120,160)}about 40 cents of every
-Dialogue: 0,0:06:23.62,0:06:24.94,Sub,,0,0,0,,{\fad(120,160)}dollar a home is worth
-Dialogue: 0,0:06:24.98,0:06:26.05,Sub,,0,0,0,,{\fad(120,160)}isn't the house.
-Dialogue: 0,0:06:26.09,0:06:27.55,Sub,,0,0,0,,{\fad(120,160)}It's the ground under it.
-Dialogue: 0,0:06:27.73,0:06:29.54,Sub,,0,0,0,,{\fad(120,160)}Robots can make walls cheap.
-Dialogue: 0,0:06:29.58,0:06:31.21,Sub,,0,0,0,,{\fad(120,160)}They can't make more ground.
-Dialogue: 0,0:06:31.44,0:06:32.89,Sub,,0,0,0,,{\fad(120,160)}Altman never hid this.
-Dialogue: 0,0:06:32.93,0:06:33.99,Sub,,0,0,0,,{\fad(120,160)}He wrote it himself:
-Dialogue: 0,0:06:34.21,0:06:35.82,Sub,,0,0,0,,{\fad(120,160)}the price of limited resources
-Dialogue: 0,0:06:35.86,0:06:37.25,Sub,,0,0,0,,{\fad(120,160)}like land may rise
-Dialogue: 0,0:06:37.29,0:06:38.86,Sub,,0,0,0,,{\fad(120,160)}even more dramatically.
-Dialogue: 0,0:06:39.39,0:06:41.99,Sub,,0,0,0,,{\fad(120,160)}So the sixth tag stays hard.
-Dialogue: 0,0:06:42.15,0:06:43.57,Sub,,0,0,0,,{\fad(120,160)}It may even rise.
-Dialogue: 0,0:06:43.80,0:06:45.60,Sub,,0,0,0,,{\fad(120,160)}That makes Altman half right.
-Dialogue: 0,0:06:45.81,0:06:46.91,Sub,,0,0,0,,{\fad(120,160)}Machines can take
-Dialogue: 0,0:06:46.95,0:06:48.46,Sub,,0,0,0,,{\fad(120,160)}the work out of a price.
-Dialogue: 0,0:06:48.53,0:06:50.74,Sub,,0,0,0,,{\fad(120,160)}They can't take out what's scarce.
-Dialogue: 0,0:06:50.94,0:06:52.93,Sub,,0,0,0,,{\fad(120,160)}And he knows which half is which.
-Dialogue: 0,0:06:54.10,0:06:55.50,Sub,,0,0,0,,{\fad(120,160)}So what does that do
-Dialogue: 0,0:06:55.54,0:06:56.57,Sub,,0,0,0,,{\fad(120,160)}to your money?
-Dialogue: 0,0:06:56.85,0:06:58.78,Sub,,0,0,0,,{\fad(120,160)}This isn't financial advice.
-Dialogue: 0,0:06:58.91,0:07:00.53,Sub,,0,0,0,,{\fad(120,160)}It's the seventh price tag.
-Dialogue: 0,0:07:00.58,0:07:02.06,Sub,,0,0,0,,{\fad(120,160)}The one with your name on it.
-Dialogue: 0,0:07:02.27,0:07:03.47,Sub,,0,0,0,,{\fad(120,160)}Run the same test.
-Dialogue: 0,0:07:03.62,0:07:05.39,Sub,,0,0,0,,{\fad(120,160)}How much of this price is work?
-Dialogue: 0,0:07:05.63,0:07:06.39,Sub,,0,0,0,,{\fad(120,160)}All of it.
-Dialogue: 0,0:07:06.43,0:07:07.45,Sub,,0,0,0,,{\fad(120,160)}It's your wage.
-Dialogue: 0,0:07:07.61,0:07:08.74,Sub,,0,0,0,,{\fad(120,160)}Think back to the first
-Dialogue: 0,0:07:08.78,0:07:09.78,Sub,,0,0,0,,{\fad(120,160)}price that fell:
-Dialogue: 0,0:07:09.88,0:07:11.06,Sub,,0,0,0,,{\fad(120,160)}a programmer's week,
-Dialogue: 0,0:07:11.10,0:07:12.52,Sub,,0,0,0,,{\fad(120,160)}for less than a dollar.
-Dialogue: 0,0:07:12.68,0:07:14.15,Sub,,0,0,0,,{\fad(120,160)}That wasn't only a bargain.
-Dialogue: 0,0:07:14.19,0:07:15.40,Sub,,0,0,0,,{\fad(120,160)}It was a paycheck.
-Dialogue: 0,0:07:15.60,0:07:16.89,Sub,,0,0,0,,{\fad(120,160)}By his own argument,
-Dialogue: 0,0:07:16.93,0:07:17.80,Sub,,0,0,0,,{\fad(120,160)}things get cheap
-Dialogue: 0,0:07:17.84,0:07:19.49,Sub,,0,0,0,,{\fad(120,160)}because work gets cheap.
-Dialogue: 0,0:07:19.67,0:07:21.81,Sub,,0,0,0,,{\fad(120,160)}And work is what most of us sell.
-Dialogue: 0,0:07:22.36,0:07:23.27,Sub,,0,0,0,,{\fad(120,160)}This summer,
-Dialogue: 0,0:07:23.31,0:07:24.83,Sub,,0,0,0,,{\fad(120,160)}American businesses produced
-Dialogue: 0,0:07:24.87,0:07:26.12,Sub,,0,0,0,,{\fad(120,160)}more with almost
-Dialogue: 0,0:07:26.16,0:07:27.86,Sub,,0,0,0,,{\fad(120,160)}the same hours of work.
-Dialogue: 0,0:07:28.12,0:07:29.32,Sub,,0,0,0,,{\fad(120,160)}And the share of that income
-Dialogue: 0,0:07:29.36,0:07:30.34,Sub,,0,0,0,,{\fad(120,160)}going to workers
-Dialogue: 0,0:07:30.38,0:07:31.51,Sub,,0,0,0,,{\fad(120,160)}fell to the lowest
-Dialogue: 0,0:07:31.55,0:07:32.77,Sub,,0,0,0,,{\fad(120,160)}level on record.
-Dialogue: 0,0:07:32.99,0:07:35.14,Sub,,0,0,0,,{\fad(120,160)}That's no proof AI did it.
-Dialogue: 0,0:07:35.23,0:07:36.19,Sub,,0,0,0,,{\fad(120,160)}But recently,
-Dialogue: 0,0:07:36.23,0:07:37.67,Sub,,0,0,0,,{\fad(120,160)}the Nobel-winning economist
-Dialogue: 0,0:07:37.71,0:07:39.36,Sub,,0,0,0,,{\fad(120,160)}Daron Acemoglu pointed
-Dialogue: 0,0:07:39.40,0:07:41.27,Sub,,0,0,0,,{\fad(120,160)}to exactly this number.
-Dialogue: 0,0:07:42.22,0:07:45.90,Sub,,0,0,0,,{\fad(120,160)}One telltale sign of automation
-Dialogue: 0,0:07:45.94,0:07:48.66,Sub,,0,0,0,,{\fad(120,160)}is that labor's share
-Dialogue: 0,0:07:48.70,0:07:50.74,Sub,,0,0,0,,{\fad(120,160)}of value added in industry,
-Dialogue: 0,0:07:50.78,0:07:52.46,Sub,,0,0,0,,{\fad(120,160)}or labor's share
-Dialogue: 0,0:07:52.50,0:07:53.42,Sub,,0,0,0,,{\fad(120,160)}in national income,
-Dialogue: 0,0:07:53.46,0:07:54.61,Sub,,0,0,0,,{\fad(120,160)}is going down.
-Dialogue: 0,0:07:55.16,0:07:56.58,Sub,,0,0,0,,{\fad(120,160)}Altman saw it too.
-Dialogue: 0,0:07:56.79,0:07:58.77,Sub,,0,0,0,,{\fad(120,160)}His promise has a second part.
-Dialogue: 0,0:07:59.01,0:08:00.01,Sub,,0,0,0,,{\fad(120,160)}In full:
-Dialogue: 0,0:08:00.18,0:08:01.21,Sub,,0,0,0,,{\fad(120,160)}everything necessary
-Dialogue: 0,0:08:01.25,0:08:02.27,Sub,,0,0,0,,{\fad(120,160)}will be cheap,
-Dialogue: 0,0:08:02.31,0:08:03.78,Sub,,0,0,0,,{\fad(120,160)}and everyone will have enough
-Dialogue: 0,0:08:03.82,0:08:05.71,Sub,,0,0,0,,{\fad(120,160)}money to be able to afford it.
-Dialogue: 0,0:08:06.01,0:08:08.06,Sub,,0,0,0,,{\fad(120,160)}And if the rules don't adapt?
-Dialogue: 0,0:08:08.30,0:08:10.01,Sub,,0,0,0,,{\fad(120,160)}In the same essay, he wrote:
-Dialogue: 0,0:08:10.31,0:08:12.11,Sub,,0,0,0,,{\fad(120,160)}most people will end up worse
-Dialogue: 0,0:08:12.15,0:08:13.60,Sub,,0,0,0,,{\fad(120,160)}off than they are today.
-Dialogue: 0,0:08:14.01,0:08:15.14,Sub,,0,0,0,,{\fad(120,160)}Even for him,
-Dialogue: 0,0:08:15.18,0:08:16.83,Sub,,0,0,0,,{\fad(120,160)}cheap was never enough.
-Dialogue: 0,0:08:18.01,0:08:19.47,Sub,,0,0,0,,{\fad(120,160)}So how does everyone
-Dialogue: 0,0:08:19.51,0:08:20.63,Sub,,0,0,0,,{\fad(120,160)}get enough money?
-Dialogue: 0,0:08:20.95,0:08:22.60,Sub,,0,0,0,,{\fad(120,160)}Three answers are on the table.
-Dialogue: 0,0:08:22.75,0:08:24.56,Sub,,0,0,0,,{\fad(120,160)}Each has a real weakness.
-Dialogue: 0,0:08:24.83,0:08:26.37,Sub,,0,0,0,,{\fad(120,160)}The first is the market:
-Dialogue: 0,0:08:26.51,0:08:27.63,Sub,,0,0,0,,{\fad(120,160)}let prices fall,
-Dialogue: 0,0:08:27.67,0:08:29.49,Sub,,0,0,0,,{\fad(120,160)}and every dollar buys more.
-Dialogue: 0,0:08:29.65,0:08:30.92,Sub,,0,0,0,,{\fad(120,160)}It worked for your phone.
-Dialogue: 0,0:08:31.23,0:08:33.22,Sub,,0,0,0,,{\fad(120,160)}Its weakness is the seventh tag:
-Dialogue: 0,0:08:33.40,0:08:34.61,Sub,,0,0,0,,{\fad(120,160)}wages can fall right
-Dialogue: 0,0:08:34.65,0:08:35.91,Sub,,0,0,0,,{\fad(120,160)}along with prices.
-Dialogue: 0,0:08:36.17,0:08:37.76,Sub,,0,0,0,,{\fad(120,160)}The second is a fund:
-Dialogue: 0,0:08:37.91,0:08:39.37,Sub,,0,0,0,,{\fad(120,160)}everyone owns a share.
-Dialogue: 0,0:08:39.52,0:08:40.77,Sub,,0,0,0,,{\fad(120,160)}That was Altman's plan,
-Dialogue: 0,0:08:40.81,0:08:43.03,Sub,,0,0,0,,{\fad(120,160)}paid for by exactly two things:
-Dialogue: 0,0:08:43.21,0:08:45.12,Sub,,0,0,0,,{\fad(120,160)}big companies, and land.
-Dialogue: 0,0:08:45.71,0:08:47.68,Sub,,0,0,0,,{\fad(120,160)}Alaska already pays its people
-Dialogue: 0,0:08:47.72,0:08:48.60,Sub,,0,0,0,,{\fad(120,160)}a yearly check
-Dialogue: 0,0:08:48.64,0:08:49.79,Sub,,0,0,0,,{\fad(120,160)}from its oil wealth:
-Dialogue: 0,0:08:50.16,0:08:51.98,Sub,,0,0,0,,{\fad(120,160)}$1,200 this year.
-Dialogue: 0,0:08:52.36,0:08:53.69,Sub,,0,0,0,,{\fad(120,160)}His plan imagined more
-Dialogue: 0,0:08:53.73,0:08:55.43,Sub,,0,0,0,,{\fad(120,160)}than 10 times that.
-Dialogue: 0,0:08:55.77,0:08:57.87,Sub,,0,0,0,,{\fad(120,160)}Its weakness: a fund pays
-Dialogue: 0,0:08:57.91,0:08:59.54,Sub,,0,0,0,,{\fad(120,160)}what politics allows.
-Dialogue: 0,0:08:59.65,0:09:01.13,Sub,,0,0,0,,{\fad(120,160)}Alaska's lawmakers now
-Dialogue: 0,0:09:01.17,0:09:02.91,Sub,,0,0,0,,{\fad(120,160)}set the amount every year.
-Dialogue: 0,0:09:03.25,0:09:04.85,Sub,,0,0,0,,{\fad(120,160)}The third is a check:
-Dialogue: 0,0:09:05.04,0:09:06.05,Sub,,0,0,0,,{\fad(120,160)}the government sends
-Dialogue: 0,0:09:06.09,0:09:07.18,Sub,,0,0,0,,{\fad(120,160)}everyone money.
-Dialogue: 0,0:09:07.32,0:09:09.07,Sub,,0,0,0,,{\fad(120,160)}Altman backed a test of it:
-Dialogue: 0,0:09:09.27,0:09:11.88,Sub,,0,0,0,,{\fad(120,160)}$1,000 a month, for 3 years.
-Dialogue: 0,0:09:12.04,0:09:13.30,Sub,,0,0,0,,{\fad(120,160)}People bought basics,
-Dialogue: 0,0:09:13.34,0:09:14.99,Sub,,0,0,0,,{\fad(120,160)}and worked a little less.
-Dialogue: 0,0:09:15.23,0:09:16.96,Sub,,0,0,0,,{\fad(120,160)}Its weakness is the bill.
-Dialogue: 0,0:09:17.14,0:09:18.66,Sub,,0,0,0,,{\fad(120,160)}Even Altman has changed his
-Dialogue: 0,0:09:18.70,0:09:20.51,Sub,,0,0,0,,{\fad(120,160)}own answer more than once.
-Dialogue: 0,0:09:21.70,0:09:23.44,Sub,,0,0,0,,{\fad(120,160)}So that's the order.
-Dialogue: 0,0:09:23.65,0:09:25.31,Sub,,0,0,0,,{\fad(120,160)}Thinking falls first.
-Dialogue: 0,0:09:25.63,0:09:27.54,Sub,,0,0,0,,{\fad(120,160)}Things follow, slowly.
-Dialogue: 0,0:09:27.92,0:09:29.88,Sub,,0,0,0,,{\fad(120,160)}Energy holds, for now.
-Dialogue: 0,0:09:30.22,0:09:31.88,Sub,,0,0,0,,{\fad(120,160)}The ground stays hard.
-Dialogue: 0,0:09:32.17,0:09:33.18,Sub,,0,0,0,,{\fad(120,160)}He's half right.
-Dialogue: 0,0:09:33.44,0:09:35.70,Sub,,0,0,0,,{\fad(120,160)}And that half is worth a lot.
-Dialogue: 0,0:09:36.05,0:09:37.01,Sub,,0,0,0,,{\fad(120,160)}What's still open
-Dialogue: 0,0:09:37.05,0:09:38.51,Sub,,0,0,0,,{\fad(120,160)}is the seventh tag.
-Dialogue: 0,0:09:38.86,0:09:40.81,Sub,,0,0,0,,{\fad(120,160)}Prices follow the machines.
-Dialogue: 0,0:09:40.90,0:09:42.78,Sub,,0,0,0,,{\fad(120,160)}Incomes follow the rules.
-Dialogue: 0,0:09:42.89,0:09:43.98,Sub,,0,0,0,,{\fad(120,160)}And the rules are written
-Dialogue: 0,0:09:44.02,0:09:45.90,Sub,,0,0,0,,{\fad(120,160)}by people you elect.
-Dialogue: 0,0:09:46.11,0:09:47.95,Sub,,0,0,0,,{\fad(120,160)}Your wage is a price too.
-Dialogue: 0,0:09:48.17,0:09:49.26,Sub,,0,0,0,,{\fad(120,160)}And cheap only makes
-Dialogue: 0,0:09:49.30,0:09:50.20,Sub,,0,0,0,,{\fad(120,160)}you richer if your
-Dialogue: 0,0:09:50.24,0:09:51.75,Sub,,0,0,0,,{\fad(120,160)}wage isn't the first
-Dialogue: 0,0:09:51.79,0:09:52.79,Sub,,0,0,0,,{\fad(120,160)}price to fall.
-Dialogue: 0,0:09:53.92,0:09:54.93,Sub,,0,0,0,,{\fad(120,160)}This channel exists
-Dialogue: 0,0:09:54.97,0:09:56.31,Sub,,0,0,0,,{\fad(120,160)}for one reason:
-Dialogue: 0,0:09:56.47,0:09:57.32,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
-Dialogue: 0,0:09:57.36,0:09:58.51,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
-Dialogue: 0,0:09:58.55,0:10:00.32,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
-Dialogue: 0,0:10:00.49,0:10:02.10,Sub,,0,0,0,,{\fad(120,160)}Cheap prices, and the income
-Dialogue: 0,0:10:02.14,0:10:03.06,Sub,,0,0,0,,{\fad(120,160)}to pay them.
-Dialogue: 0,0:10:03.10,0:10:04.10,Sub,,0,0,0,,{\fad(120,160)}Want that too?
-Dialogue: 0,0:10:04.18,0:10:05.18,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:00:00.69,0:00:03.00,Sub,,0,0,0,,{\fad(120,160)}Superintelligence is arriving.
+Dialogue: 0,0:00:03.20,0:00:04.75,Sub,,0,0,0,,{\fad(120,160)}That's what Meta's AI chief
+Dialogue: 0,0:00:04.79,0:00:06.10,Sub,,0,0,0,,{\fad(120,160)}announced this weekend.
+Dialogue: 0,0:00:06.36,0:00:07.36,Sub,,0,0,0,,{\fad(120,160)}Is he right?
+Dialogue: 0,0:00:07.40,0:00:08.68,Sub,,0,0,0,,{\fad(120,160)}Because if he is,
+Dialogue: 0,0:00:08.72,0:00:09.59,Sub,,0,0,0,,{\fad(120,160)}the biggest change
+Dialogue: 0,0:00:09.63,0:00:10.46,Sub,,0,0,0,,{\fad(120,160)}of your lifetime
+Dialogue: 0,0:00:10.50,0:00:11.95,Sub,,0,0,0,,{\fad(120,160)}has already begun.
+Dialogue: 0,0:00:12.25,0:00:14.20,Sub,,0,0,0,,{\fad(120,160)}His evidence is a single file,
+Dialogue: 0,0:00:14.24,0:00:15.51,Sub,,0,0,0,,{\fad(120,160)}published days ago.
+Dialogue: 0,0:00:15.71,0:00:17.42,Sub,,0,0,0,,{\fad(120,160)}In it, a mathematician working
+Dialogue: 0,0:00:17.46,0:00:18.58,Sub,,0,0,0,,{\fad(120,160)}with an AI claims
+Dialogue: 0,0:00:18.62,0:00:19.55,Sub,,0,0,0,,{\fad(120,160)}a proof of the most
+Dialogue: 0,0:00:19.59,0:00:20.81,Sub,,0,0,0,,{\fad(120,160)}famous unsolved
+Dialogue: 0,0:00:20.85,0:00:22.31,Sub,,0,0,0,,{\fad(120,160)}problem in mathematics:
+Dialogue: 0,0:00:22.37,0:00:23.91,Sub,,0,0,0,,{\fad(120,160)}the Riemann hypothesis.
+Dialogue: 0,0:00:24.19,0:00:25.05,Sub,,0,0,0,,{\fad(120,160)}A separate program
+Dialogue: 0,0:00:25.09,0:00:26.03,Sub,,0,0,0,,{\fad(120,160)}checked that proof,
+Dialogue: 0,0:00:26.07,0:00:27.25,Sub,,0,0,0,,{\fad(120,160)}step by step.
+Dialogue: 0,0:00:27.39,0:00:29.45,Sub,,0,0,0,,{\fad(120,160)}Its verdict: correct.
+Dialogue: 0,0:00:30.02,0:00:31.98,Sub,,0,0,0,,{\fad(120,160)}But written out in plain language,
+Dialogue: 0,0:00:32.02,0:00:33.54,Sub,,0,0,0,,{\fad(120,160)}it runs to over a quarter
+Dialogue: 0,0:00:33.58,0:00:35.21,Sub,,0,0,0,,{\fad(120,160)}of a million pages.
+Dialogue: 0,0:00:35.48,0:00:37.05,Sub,,0,0,0,,{\fad(120,160)}So far, no human
+Dialogue: 0,0:00:37.09,0:00:38.50,Sub,,0,0,0,,{\fad(120,160)}fully understands it.
+Dialogue: 0,0:00:38.69,0:00:39.89,Sub,,0,0,0,,{\fad(120,160)}Not even the mathematician
+Dialogue: 0,0:00:39.93,0:00:40.96,Sub,,0,0,0,,{\fad(120,160)}who published it.
+Dialogue: 0,0:00:41.36,0:00:42.94,Sub,,0,0,0,,{\fad(120,160)}Meta's AI chief says
+Dialogue: 0,0:00:42.98,0:00:44.66,Sub,,0,0,0,,{\fad(120,160)}it was "completed with the help
+Dialogue: 0,0:00:44.70,0:00:46.04,Sub,,0,0,0,,{\fad(120,160)}of an alien mind
+Dialogue: 0,0:00:46.08,0:00:47.75,Sub,,0,0,0,,{\fad(120,160)}that we don't understand."
+Dialogue: 0,0:00:48.09,0:00:49.96,Sub,,0,0,0,,{\fad(120,160)}Many physicists, he writes,
+Dialogue: 0,0:00:50.00,0:00:51.51,Sub,,0,0,0,,{\fad(120,160)}would call the atomic bomb
+Dialogue: 0,0:00:51.55,0:00:53.56,Sub,,0,0,0,,{\fad(120,160)}a homework problem next to this.
+Dialogue: 0,0:00:53.94,0:00:54.96,Sub,,0,0,0,,{\fad(120,160)}If he's right,
+Dialogue: 0,0:00:55.00,0:00:57.25,Sub,,0,0,0,,{\fad(120,160)}this is what arrival looks like.
+Dialogue: 0,0:00:57.53,0:00:58.38,Sub,,0,0,0,,{\fad(120,160)}It's not arriving
+Dialogue: 0,0:00:58.42,0:01:00.02,Sub,,0,0,0,,{\fad(120,160)}as a machine we fear.
+Dialogue: 0,0:01:00.24,0:01:01.79,Sub,,0,0,0,,{\fad(120,160)}It's arriving as an answer
+Dialogue: 0,0:01:01.83,0:01:03.25,Sub,,0,0,0,,{\fad(120,160)}we can't read.
+Dialogue: 0,0:01:03.79,0:01:05.44,Sub,,0,0,0,,{\fad(120,160)}So test his claim.
+Dialogue: 0,0:01:05.57,0:01:06.72,Sub,,0,0,0,,{\fad(120,160)}Five checks.
+Dialogue: 0,0:01:06.81,0:01:08.40,Sub,,0,0,0,,{\fad(120,160)}He doesn't pass them all.
+Dialogue: 0,0:01:09.47,0:01:11.44,Sub,,0,0,0,,{\fad(120,160)}The man is Alexandr Wang,
+Dialogue: 0,0:01:11.48,0:01:13.40,Sub,,0,0,0,,{\fad(120,160)}Meta's chief AI officer.
+Dialogue: 0,0:01:13.59,0:01:14.26,Sub,,0,0,0,,{\fad(120,160)}He runs a lab
+Dialogue: 0,0:01:14.30,0:01:15.75,Sub,,0,0,0,,{\fad(120,160)}with the goal in its name:
+Dialogue: 0,0:01:15.86,0:01:17.92,Sub,,0,0,0,,{\fad(120,160)}Meta Superintelligence Labs.
+Dialogue: 0,0:01:18.13,0:01:19.52,Sub,,0,0,0,,{\fad(120,160)}That bomb comparison?
+Dialogue: 0,0:01:19.68,0:01:21.00,Sub,,0,0,0,,{\fad(120,160)}He gives no source for it.
+Dialogue: 0,0:01:21.29,0:01:22.47,Sub,,0,0,0,,{\fad(120,160)}And still, his essay
+Dialogue: 0,0:01:22.51,0:01:23.99,Sub,,0,0,0,,{\fad(120,160)}is no victory lap.
+Dialogue: 0,0:01:24.05,0:01:25.13,Sub,,0,0,0,,{\fad(120,160)}He calls it "lazy
+Dialogue: 0,0:01:25.17,0:01:26.12,Sub,,0,0,0,,{\fad(120,160)}thinking" to treat
+Dialogue: 0,0:01:26.16,0:01:28.15,Sub,,0,0,0,,{\fad(120,160)}superintelligence as inevitable.
+Dialogue: 0,0:01:28.40,0:01:30.15,Sub,,0,0,0,,{\fad(120,160)}But look at who is speaking.
+Dialogue: 0,0:01:30.38,0:01:31.58,Sub,,0,0,0,,{\fad(120,160)}Building superintelligence
+Dialogue: 0,0:01:31.62,0:01:32.79,Sub,,0,0,0,,{\fad(120,160)}is Wang's job,
+Dialogue: 0,0:01:32.83,0:01:33.80,Sub,,0,0,0,,{\fad(120,160)}and his essay also
+Dialogue: 0,0:01:33.84,0:01:35.24,Sub,,0,0,0,,{\fad(120,160)}promotes his own lab.
+Dialogue: 0,0:01:35.50,0:01:36.97,Sub,,0,0,0,,{\fad(120,160)}Here he is, months earlier,
+Dialogue: 0,0:01:37.01,0:01:38.52,Sub,,0,0,0,,{\fad(120,160)}describing that project.
+Dialogue: 0,0:01:39.55,0:01:41.67,Sub,,0,0,0,,{\fad(120,160)}It looks like on the whole,
+Dialogue: 0,0:01:41.71,0:01:43.67,Sub,,0,0,0,,{\fad(120,160)}given certainly progress
+Dialogue: 0,0:01:43.71,0:01:44.55,Sub,,0,0,0,,{\fad(120,160)}with work you can do
+Dialogue: 0,0:01:44.59,0:01:45.27,Sub,,0,0,0,,{\fad(120,160)}in front of a computer,
+Dialogue: 0,0:01:45.31,0:01:46.23,Sub,,0,0,0,,{\fad(120,160)}but also what looks like
+Dialogue: 0,0:01:46.27,0:01:47.99,Sub,,0,0,0,,{\fad(120,160)}it will soon happen with robotics
+Dialogue: 0,0:01:48.03,0:01:49.48,Sub,,0,0,0,,{\fad(120,160)}and a bunch of other things,
+Dialogue: 0,0:01:49.52,0:01:50.67,Sub,,0,0,0,,{\fad(120,160)}And yet this proof
+Dialogue: 0,0:01:50.71,0:01:50.71,Sub,,0,0,0,,{\fad(120,160)}came from a competitor.
+Dialogue: 0,0:01:50.75,0:01:51.27,Sub,,0,0,0,,{\fad(120,160)}we're going to have
+Dialogue: 0,0:01:51.31,0:01:52.31,Sub,,0,0,0,,{\fad(120,160)}massively deflationary pressure
+Dialogue: 0,0:01:52.43,0:01:54.28,Sub,,0,0,0,,{\fad(120,160)}Maybe he means every word.
+Dialogue: 0,0:01:54.55,0:01:55.30,Sub,,0,0,0,,{\fad(120,160)}It also helps
+Dialogue: 0,0:01:55.34,0:01:56.90,Sub,,0,0,0,,{\fad(120,160)}him: if superintelligence
+Dialogue: 0,0:01:56.94,0:01:59.47,Sub,,0,0,0,,{\fad(120,160)}is arriving, his lab matters more.
+Dialogue: 0,0:01:59.66,0:02:00.84,Sub,,0,0,0,,{\fad(120,160)}Both can be true.
+Dialogue: 0,0:02:01.13,0:02:03.07,Sub,,0,0,0,,{\fad(120,160)}So his word is not enough.
+Dialogue: 0,0:02:03.38,0:02:05.07,Sub,,0,0,0,,{\fad(120,160)}Check the claim itself.
+Dialogue: 0,0:02:06.24,0:02:09.03,Sub,,0,0,0,,{\fad(120,160)}First check: is his evidence real?
+Dialogue: 0,0:02:09.27,0:02:10.10,Sub,,0,0,0,,{\fad(120,160)}What was published
+Dialogue: 0,0:02:10.14,0:02:11.19,Sub,,0,0,0,,{\fad(120,160)}is a short note,
+Dialogue: 0,0:02:11.23,0:02:12.79,Sub,,0,0,0,,{\fad(120,160)}and about 17 million
+Dialogue: 0,0:02:12.83,0:02:13.91,Sub,,0,0,0,,{\fad(120,160)}lines of code.
+Dialogue: 0,0:02:14.10,0:02:15.62,Sub,,0,0,0,,{\fad(120,160)}No human reads that.
+Dialogue: 0,0:02:15.66,0:02:17.72,Sub,,0,0,0,,{\fad(120,160)}Not you, not the man who wrote it.
+Dialogue: 0,0:02:17.93,0:02:19.50,Sub,,0,0,0,,{\fad(120,160)}It was written for a referee:
+Dialogue: 0,0:02:19.54,0:02:20.87,Sub,,0,0,0,,{\fad(120,160)}a program called Lean,
+Dialogue: 0,0:02:20.91,0:02:22.73,Sub,,0,0,0,,{\fad(120,160)}which checks every logical step
+Dialogue: 0,0:02:22.77,0:02:24.64,Sub,,0,0,0,,{\fad(120,160)}and can't be talked into anything.
+Dialogue: 0,0:02:24.97,0:02:27.03,Sub,,0,0,0,,{\fad(120,160)}The referee's ruling: correct.
+Dialogue: 0,0:02:27.26,0:02:28.51,Sub,,0,0,0,,{\fad(120,160)}Within a day, the people who
+Dialogue: 0,0:02:28.55,0:02:30.47,Sub,,0,0,0,,{\fad(120,160)}build that referee were convinced.
+Dialogue: 0,0:02:30.67,0:02:32.23,Sub,,0,0,0,,{\fad(120,160)}At MIT, an independent
+Dialogue: 0,0:02:32.27,0:02:33.27,Sub,,0,0,0,,{\fad(120,160)}check is running.
+Dialogue: 0,0:02:33.36,0:02:34.66,Sub,,0,0,0,,{\fad(120,160)}Most runs have passed.
+Dialogue: 0,0:02:34.70,0:02:36.11,Sub,,0,0,0,,{\fad(120,160)}A few are still open.
+Dialogue: 0,0:02:36.73,0:02:38.62,Sub,,0,0,0,,{\fad(120,160)}First box: gold.
+Dialogue: 0,0:02:38.99,0:02:40.64,Sub,,0,0,0,,{\fad(120,160)}The evidence is real,
+Dialogue: 0,0:02:40.68,0:02:42.58,Sub,,0,0,0,,{\fad(120,160)}and so far, it holds.
+Dialogue: 0,0:02:42.90,0:02:44.40,Sub,,0,0,0,,{\fad(120,160)}And if it keeps holding?
+Dialogue: 0,0:02:44.78,0:02:46.61,Sub,,0,0,0,,{\fad(120,160)}One mathematician's answer:
+Dialogue: 0,0:02:48.36,0:02:49.84,Sub,,0,0,0,,{\fad(120,160)}As you heard me say,
+Dialogue: 0,0:02:49.88,0:02:50.60,Sub,,0,0,0,,{\fad(120,160)}I don't think money's going
+Dialogue: 0,0:02:50.64,0:02:52.80,Sub,,0,0,0,,{\fad(120,160)}to matter in the future.
+Dialogue: 0,0:02:52.84,0:02:54.36,Sub,,0,0,0,,{\fad(120,160)}Anyone will be able to have
+Dialogue: 0,0:02:54.40,0:02:55.24,Sub,,0,0,0,,{\fad(120,160)}any goods and services
+Dialogue: 0,0:02:55.28,0:02:55.65,Sub,,0,0,0,,{\fad(120,160)}that they want.
+Dialogue: 0,0:02:55.69,0:02:57.32,Sub,,0,0,0,,{\fad(120,160)}But a referee only rules
+Dialogue: 0,0:02:57.36,0:02:58.82,Sub,,0,0,0,,{\fad(120,160)}on the game it is given.
+Dialogue: 0,0:02:59.22,0:03:01.01,Sub,,0,0,0,,{\fad(120,160)}Check two: does the code
+Dialogue: 0,0:03:01.05,0:03:02.50,Sub,,0,0,0,,{\fad(120,160)}prove the right thing?
+Dialogue: 0,0:03:02.73,0:03:04.12,Sub,,0,0,0,,{\fad(120,160)}One critic's worry:
+Dialogue: 0,0:03:04.35,0:03:05.25,Sub,,0,0,0,,{\fad(120,160)}the code may prove
+Dialogue: 0,0:03:05.29,0:03:06.32,Sub,,0,0,0,,{\fad(120,160)}a sentence that is
+Dialogue: 0,0:03:06.36,0:03:07.79,Sub,,0,0,0,,{\fad(120,160)}true by definition.
+Dialogue: 0,0:03:07.94,0:03:08.88,Sub,,0,0,0,,{\fad(120,160)}Something that sounds
+Dialogue: 0,0:03:08.92,0:03:10.86,Sub,,0,0,0,,{\fad(120,160)}grand and says nothing.
+Dialogue: 0,0:03:11.11,0:03:12.04,Sub,,0,0,0,,{\fad(120,160)}But the author didn't
+Dialogue: 0,0:03:12.08,0:03:13.19,Sub,,0,0,0,,{\fad(120,160)}write the question.
+Dialogue: 0,0:03:13.39,0:03:15.00,Sub,,0,0,0,,{\fad(120,160)}The Riemann hypothesis already
+Dialogue: 0,0:03:15.04,0:03:16.92,Sub,,0,0,0,,{\fad(120,160)}stood in the referee's rule book,
+Dialogue: 0,0:03:16.96,0:03:18.55,Sub,,0,0,0,,{\fad(120,160)}put there by someone else.
+Dialogue: 0,0:03:18.85,0:03:19.73,Sub,,0,0,0,,{\fad(120,160)}The people who build
+Dialogue: 0,0:03:19.77,0:03:21.39,Sub,,0,0,0,,{\fad(120,160)}the referee reject it.
+Dialogue: 0,0:03:21.66,0:03:23.02,Sub,,0,0,0,,{\fad(120,160)}The argument goes on.
+Dialogue: 0,0:03:23.38,0:03:25.34,Sub,,0,0,0,,{\fad(120,160)}Second box: gold,
+Dialogue: 0,0:03:25.50,0:03:26.73,Sub,,0,0,0,,{\fad(120,160)}with a question mark.
+Dialogue: 0,0:03:27.84,0:03:29.56,Sub,,0,0,0,,{\fad(120,160)}But whose work is it?
+Dialogue: 0,0:03:30.21,0:03:33.16,Sub,,0,0,0,,{\fad(120,160)}Check three: was it really the AI?
+Dialogue: 0,0:03:33.57,0:03:34.36,Sub,,0,0,0,,{\fad(120,160)}The proof comes
+Dialogue: 0,0:03:34.40,0:03:35.50,Sub,,0,0,0,,{\fad(120,160)}from a mathematician
+Dialogue: 0,0:03:35.54,0:03:36.98,Sub,,0,0,0,,{\fad(120,160)}at an AI company,
+Dialogue: 0,0:03:37.02,0:03:38.62,Sub,,0,0,0,,{\fad(120,160)}working with its AI.
+Dialogue: 0,0:03:38.84,0:03:40.08,Sub,,0,0,0,,{\fad(120,160)}The problem is older
+Dialogue: 0,0:03:40.12,0:03:41.33,Sub,,0,0,0,,{\fad(120,160)}than the light bulb.
+Dialogue: 0,0:03:41.58,0:03:42.53,Sub,,0,0,0,,{\fad(120,160)}The checkable proof
+Dialogue: 0,0:03:42.57,0:03:44.29,Sub,,0,0,0,,{\fad(120,160)}took about 6 weeks.
+Dialogue: 0,0:03:44.47,0:03:45.81,Sub,,0,0,0,,{\fad(120,160)}That company gains
+Dialogue: 0,0:03:45.85,0:03:47.78,Sub,,0,0,0,,{\fad(120,160)}if its AI gets the credit.
+Dialogue: 0,0:03:48.00,0:03:48.79,Sub,,0,0,0,,{\fad(120,160)}So listen to
+Dialogue: 0,0:03:48.83,0:03:50.45,Sub,,0,0,0,,{\fad(120,160)}the mathematician himself.
+Dialogue: 0,0:03:50.77,0:03:52.12,Sub,,0,0,0,,{\fad(120,160)}He doesn't fully understand
+Dialogue: 0,0:03:52.16,0:03:53.48,Sub,,0,0,0,,{\fad(120,160)}the proof he published.
+Dialogue: 0,0:03:53.79,0:03:55.73,Sub,,0,0,0,,{\fad(120,160)}Publishing it anyway, he said,
+Dialogue: 0,0:03:55.77,0:03:57.57,Sub,,0,0,0,,{\fad(120,160)}is "frankly completely
+Dialogue: 0,0:03:57.61,0:03:58.68,Sub,,0,0,0,,{\fad(120,160)}outrageous."
+Dialogue: 0,0:03:58.89,0:04:00.11,Sub,,0,0,0,,{\fad(120,160)}You don't say that about
+Dialogue: 0,0:04:00.15,0:04:01.35,Sub,,0,0,0,,{\fad(120,160)}your own idea.
+Dialogue: 0,0:04:01.74,0:04:03.63,Sub,,0,0,0,,{\fad(120,160)}Third box: gold,
+Dialogue: 0,0:04:03.79,0:04:05.12,Sub,,0,0,0,,{\fad(120,160)}on his own account.
+Dialogue: 0,0:04:05.82,0:04:07.94,Sub,,0,0,0,,{\fad(120,160)}Compare that with a second proof,
+Dialogue: 0,0:04:07.98,0:04:09.85,Sub,,0,0,0,,{\fad(120,160)}claimed on the very same day.
+Dialogue: 0,0:04:09.99,0:04:11.07,Sub,,0,0,0,,{\fad(120,160)}By a human.
+Dialogue: 0,0:04:11.42,0:04:13.92,Sub,,0,0,0,,{\fad(120,160)}So far, that one is still a claim.
+Dialogue: 0,0:04:14.06,0:04:14.83,Sub,,0,0,0,,{\fad(120,160)}The machine's proof
+Dialogue: 0,0:04:14.87,0:04:15.72,Sub,,0,0,0,,{\fad(120,160)}has been checked,
+Dialogue: 0,0:04:15.76,0:04:17.33,Sub,,0,0,0,,{\fad(120,160)}and nobody can read it.
+Dialogue: 0,0:04:18.50,0:04:20.81,Sub,,0,0,0,,{\fad(120,160)}That leaves Wang's boldest phrase:
+Dialogue: 0,0:04:20.99,0:04:22.51,Sub,,0,0,0,,{\fad(120,160)}the "alien mind".
+Dialogue: 0,0:04:23.10,0:04:24.60,Sub,,0,0,0,,{\fad(120,160)}Check four: does any
+Dialogue: 0,0:04:24.64,0:04:26.14,Sub,,0,0,0,,{\fad(120,160)}human understand it?
+Dialogue: 0,0:04:26.53,0:04:27.79,Sub,,0,0,0,,{\fad(120,160)}On the day it appeared,
+Dialogue: 0,0:04:27.83,0:04:28.63,Sub,,0,0,0,,{\fad(120,160)}the mathematician
+Dialogue: 0,0:04:28.67,0:04:30.27,Sub,,0,0,0,,{\fad(120,160)}Terence Tao wrote:
+Dialogue: 0,0:04:30.48,0:04:31.75,Sub,,0,0,0,,{\fad(120,160)}"the digestion process
+Dialogue: 0,0:04:31.79,0:04:33.17,Sub,,0,0,0,,{\fad(120,160)}will take some time."
+Dialogue: 0,0:04:33.48,0:04:34.45,Sub,,0,0,0,,{\fad(120,160)}Another mathematician
+Dialogue: 0,0:04:34.49,0:04:35.59,Sub,,0,0,0,,{\fad(120,160)}said it bluntly:
+Dialogue: 0,0:04:35.88,0:04:37.84,Sub,,0,0,0,,{\fad(120,160)}no one understands the proof.
+Dialogue: 0,0:04:38.16,0:04:40.11,Sub,,0,0,0,,{\fad(120,160)}Here is Tao, in an earlier talk,
+Dialogue: 0,0:04:40.15,0:04:42.41,Sub,,0,0,0,,{\fad(120,160)}on proofs checked by machines.
+Dialogue: 0,0:04:42.80,0:04:44.52,Sub,,0,0,0,,{\fad(120,160)}…but it will at least remove
+Dialogue: 0,0:04:44.56,0:04:45.88,Sub,,0,0,0,,{\fad(120,160)}one of the big vectors,
+Dialogue: 0,0:04:45.92,0:04:49.08,Sub,,0,0,0,,{\fad(120,160)}which is scarcity of resources,
+Dialogue: 0,0:04:49.12,0:04:50.68,Sub,,0,0,0,,{\fad(120,160)}including land and more materials
+Dialogue: 0,0:04:50.72,0:04:53.24,Sub,,0,0,0,,{\fad(120,160)}and energy.
+Dialogue: 0,0:04:53.28,0:04:53.44,Sub,,0,0,0,,{\fad(120,160)}I sometimes call it,
+Dialogue: 0,0:04:53.48,0:04:54.20,Sub,,0,0,0,,{\fad(120,160)}So "correct" is not
+Dialogue: 0,0:04:54.24,0:04:55.00,Sub,,0,0,0,,{\fad(120,160)}and others call it,
+Dialogue: 0,0:04:55.04,0:04:55.54,Sub,,0,0,0,,{\fad(120,160)}this kind of radical abundance
+Dialogue: 0,0:04:55.58,0:04:57.25,Sub,,0,0,0,,{\fad(120,160)}the same as understood.
+Dialogue: 0,0:04:57.51,0:04:58.54,Sub,,0,0,0,,{\fad(120,160)}The referee can tell you
+Dialogue: 0,0:04:58.58,0:05:00.22,Sub,,0,0,0,,{\fad(120,160)}every step was legal.
+Dialogue: 0,0:05:00.37,0:05:01.20,Sub,,0,0,0,,{\fad(120,160)}It can't tell you
+Dialogue: 0,0:05:01.24,0:05:02.71,Sub,,0,0,0,,{\fad(120,160)}why the game was won.
+Dialogue: 0,0:05:02.89,0:05:04.36,Sub,,0,0,0,,{\fad(120,160)}And that gap is not a problem
+Dialogue: 0,0:05:04.40,0:05:06.03,Sub,,0,0,0,,{\fad(120,160)}for mathematicians alone.
+Dialogue: 0,0:05:06.13,0:05:07.62,Sub,,0,0,0,,{\fad(120,160)}Sooner or later it arrives
+Dialogue: 0,0:05:07.66,0:05:10.08,Sub,,0,0,0,,{\fad(120,160)}at your table, stamped correct.
+Dialogue: 0,0:05:10.32,0:05:12.41,Sub,,0,0,0,,{\fad(120,160)}This box may never turn gold.
+Dialogue: 0,0:05:12.60,0:05:13.69,Sub,,0,0,0,,{\fad(120,160)}A quarter of a million
+Dialogue: 0,0:05:13.73,0:05:14.72,Sub,,0,0,0,,{\fad(120,160)}pages is more
+Dialogue: 0,0:05:14.76,0:05:15.78,Sub,,0,0,0,,{\fad(120,160)}than one person can
+Dialogue: 0,0:05:15.82,0:05:17.17,Sub,,0,0,0,,{\fad(120,160)}read in a lifetime.
+Dialogue: 0,0:05:17.97,0:05:20.58,Sub,,0,0,0,,{\fad(120,160)}So on this point, Wang is right.
+Dialogue: 0,0:05:20.75,0:05:22.41,Sub,,0,0,0,,{\fad(120,160)}Something has arrived that reasons
+Dialogue: 0,0:05:22.45,0:05:24.13,Sub,,0,0,0,,{\fad(120,160)}further than we can read.
+Dialogue: 0,0:05:24.70,0:05:25.98,Sub,,0,0,0,,{\fad(120,160)}If you pictured the arrival
+Dialogue: 0,0:05:26.02,0:05:27.55,Sub,,0,0,0,,{\fad(120,160)}as a loud moment:
+Dialogue: 0,0:05:27.85,0:05:29.65,Sub,,0,0,0,,{\fad(120,160)}no machine announced itself.
+Dialogue: 0,0:05:29.96,0:05:31.01,Sub,,0,0,0,,{\fad(120,160)}A human did.
+Dialogue: 0,0:05:31.38,0:05:33.27,Sub,,0,0,0,,{\fad(120,160)}What arrived was quiet.
+Dialogue: 0,0:05:33.49,0:05:34.71,Sub,,0,0,0,,{\fad(120,160)}A single file.
+Dialogue: 0,0:05:35.87,0:05:36.90,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:05:36.94,0:05:38.22,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:05:38.40,0:05:39.27,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:05:39.31,0:05:40.44,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:05:40.48,0:05:42.27,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:05:42.33,0:05:43.14,Sub,,0,0,0,,{\fad(120,160)}Not just for the people
+Dialogue: 0,0:05:43.18,0:05:44.18,Sub,,0,0,0,,{\fad(120,160)}who build it.
+Dialogue: 0,0:05:44.38,0:05:45.38,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:05:45.49,0:05:46.50,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:05:47.67,0:05:49.24,Sub,,0,0,0,,{\fad(120,160)}But Wang's headline doesn't
+Dialogue: 0,0:05:49.28,0:05:51.09,Sub,,0,0,0,,{\fad(120,160)}say a proof is arriving.
+Dialogue: 0,0:05:51.13,0:05:53.27,Sub,,0,0,0,,{\fad(120,160)}It says superintelligence.
+Dialogue: 0,0:05:53.33,0:05:54.67,Sub,,0,0,0,,{\fad(120,160)}So, the last check:
+Dialogue: 0,0:05:54.92,0:05:56.07,Sub,,0,0,0,,{\fad(120,160)}does one proof mean
+Dialogue: 0,0:05:56.11,0:05:57.52,Sub,,0,0,0,,{\fad(120,160)}superintelligence?
+Dialogue: 0,0:05:58.07,0:06:00.26,Sub,,0,0,0,,{\fad(120,160)}James Maynard, a Fields medalist,
+Dialogue: 0,0:06:00.30,0:06:01.10,Sub,,0,0,0,,{\fad(120,160)}calls the proof
+Dialogue: 0,0:06:01.14,0:06:02.76,Sub,,0,0,0,,{\fad(120,160)}a "historic milestone",
+Dialogue: 0,0:06:02.80,0:06:03.93,Sub,,0,0,0,,{\fad(120,160)}if it is correct.
+Dialogue: 0,0:06:04.16,0:06:06.09,Sub,,0,0,0,,{\fad(120,160)}But for him, little changes:
+Dialogue: 0,0:06:06.19,0:06:07.03,Sub,,0,0,0,,{\fad(120,160)}he never doubted
+Dialogue: 0,0:06:07.07,0:06:08.72,Sub,,0,0,0,,{\fad(120,160)}the hypothesis was true.
+Dialogue: 0,0:06:09.16,0:06:10.18,Sub,,0,0,0,,{\fad(120,160)}The sharpest doubt
+Dialogue: 0,0:06:10.22,0:06:11.55,Sub,,0,0,0,,{\fad(120,160)}comes from Yann LeCun.
+Dialogue: 0,0:06:11.84,0:06:13.29,Sub,,0,0,0,,{\fad(120,160)}He left Meta a year ago,
+Dialogue: 0,0:06:13.33,0:06:14.44,Sub,,0,0,0,,{\fad(120,160)}and has called Wang
+Dialogue: 0,0:06:14.48,0:06:15.78,Sub,,0,0,0,,{\fad(120,160)}"inexperienced".
+Dialogue: 0,0:06:16.16,0:06:17.71,Sub,,0,0,0,,{\fad(120,160)}No neutral witness, then.
+Dialogue: 0,0:06:17.91,0:06:19.78,Sub,,0,0,0,,{\fad(120,160)}But his objection is technical.
+Dialogue: 0,0:06:20.73,0:06:24.41,Sub,,0,0,0,,{\fad(120,160)}One telltale sign of automation
+Dialogue: 0,0:06:24.45,0:06:27.17,Sub,,0,0,0,,{\fad(120,160)}is that labor's share
+Dialogue: 0,0:06:27.21,0:06:28.78,Sub,,0,0,0,,{\fad(120,160)}of value added in industry,
+Dialogue: 0,0:06:28.82,0:06:29.25,Sub,,0,0,0,,{\fad(120,160)}The kind of AI behind
+Dialogue: 0,0:06:29.29,0:06:30.30,Sub,,0,0,0,,{\fad(120,160)}or labor's share
+Dialogue: 0,0:06:30.34,0:06:30.97,Sub,,0,0,0,,{\fad(120,160)}today's chatbots, he argues,
+Dialogue: 0,0:06:31.01,0:06:31.93,Sub,,0,0,0,,{\fad(120,160)}in national income,
+Dialogue: 0,0:06:31.97,0:06:32.58,Sub,,0,0,0,,{\fad(120,160)}is going down.
+Dialogue: 0,0:06:32.62,0:06:33.48,Sub,,0,0,0,,{\fad(120,160)}is a dead end
+Dialogue: 0,0:06:33.52,0:06:35.52,Sub,,0,0,0,,{\fad(120,160)}on the way to superintelligence.
+Dialogue: 0,0:06:35.77,0:06:37.10,Sub,,0,0,0,,{\fad(120,160)}So the fifth box
+Dialogue: 0,0:06:37.14,0:06:38.86,Sub,,0,0,0,,{\fad(120,160)}only fills halfway.
+Dialogue: 0,0:06:39.29,0:06:41.05,Sub,,0,0,0,,{\fad(120,160)}"Arriving" is a bet,
+Dialogue: 0,0:06:41.12,0:06:41.92,Sub,,0,0,0,,{\fad(120,160)}placed by a man
+Dialogue: 0,0:06:41.96,0:06:43.13,Sub,,0,0,0,,{\fad(120,160)}with a stake in it.
+Dialogue: 0,0:06:43.42,0:06:45.00,Sub,,0,0,0,,{\fad(120,160)}But the gap between correct
+Dialogue: 0,0:06:45.04,0:06:47.09,Sub,,0,0,0,,{\fad(120,160)}and understood is no bet.
+Dialogue: 0,0:06:47.29,0:06:48.49,Sub,,0,0,0,,{\fad(120,160)}It is already here.
+Dialogue: 0,0:06:48.80,0:06:50.27,Sub,,0,0,0,,{\fad(120,160)}And behind that headline,
+Dialogue: 0,0:06:50.31,0:06:52.31,Sub,,0,0,0,,{\fad(120,160)}Wang's own essay is worried.
+Dialogue: 0,0:06:52.58,0:06:53.41,Sub,,0,0,0,,{\fad(120,160)}He finds it hard
+Dialogue: 0,0:06:53.45,0:06:54.69,Sub,,0,0,0,,{\fad(120,160)}to imagine humanity
+Dialogue: 0,0:06:54.73,0:06:56.45,Sub,,0,0,0,,{\fad(120,160)}keeping control of something "a
+Dialogue: 0,0:06:56.49,0:06:58.51,Sub,,0,0,0,,{\fad(120,160)}thousand times smarter and more
+Dialogue: 0,0:06:58.55,0:06:59.86,Sub,,0,0,0,,{\fad(120,160)}capable than humans
+Dialogue: 0,0:06:59.90,0:07:01.25,Sub,,0,0,0,,{\fad(120,160)}in every field."
+Dialogue: 0,0:07:01.86,0:07:02.89,Sub,,0,0,0,,{\fad(120,160)}And he writes:
+Dialogue: 0,0:07:03.18,0:07:04.48,Sub,,0,0,0,,{\fad(120,160)}"We should not be okay
+Dialogue: 0,0:07:04.52,0:07:07.40,Sub,,0,0,0,,{\fad(120,160)}with a handover of society to AI."
+Dialogue: 0,0:07:07.69,0:07:08.53,Sub,,0,0,0,,{\fad(120,160)}A handover.
+Dialogue: 0,0:07:08.57,0:07:10.79,Sub,,0,0,0,,{\fad(120,160)}What would that look like?
+Dialogue: 0,0:07:11.97,0:07:13.31,Sub,,0,0,0,,{\fad(120,160)}Not like a coup.
+Dialogue: 0,0:07:13.56,0:07:15.36,Sub,,0,0,0,,{\fad(120,160)}More like an ordinary evening,
+Dialogue: 0,0:07:15.40,0:07:16.57,Sub,,0,0,0,,{\fad(120,160)}a few years from now,
+Dialogue: 0,0:07:16.61,0:07:17.66,Sub,,0,0,0,,{\fad(120,160)}in your town hall.
+Dialogue: 0,0:07:17.96,0:07:19.74,Sub,,0,0,0,,{\fad(120,160)}The old bridge, the one you cross
+Dialogue: 0,0:07:19.78,0:07:22.03,Sub,,0,0,0,,{\fad(120,160)}every morning, has to be replaced.
+Dialogue: 0,0:07:22.21,0:07:24.07,Sub,,0,0,0,,{\fad(120,160)}A system has designed the new one,
+Dialogue: 0,0:07:24.11,0:07:25.33,Sub,,0,0,0,,{\fad(120,160)}and marked its own design
+Dialogue: 0,0:07:25.37,0:07:27.55,Sub,,0,0,0,,{\fad(120,160)}with one word: correct.
+Dialogue: 0,0:07:27.81,0:07:28.69,Sub,,0,0,0,,{\fad(120,160)}The reasoning runs
+Dialogue: 0,0:07:28.73,0:07:29.79,Sub,,0,0,0,,{\fad(120,160)}longer than anyone
+Dialogue: 0,0:07:29.83,0:07:31.48,Sub,,0,0,0,,{\fad(120,160)}in the room could ever read.
+Dialogue: 0,0:07:31.65,0:07:33.26,Sub,,0,0,0,,{\fad(120,160)}The engineers can't follow it.
+Dialogue: 0,0:07:33.31,0:07:34.31,Sub,,0,0,0,,{\fad(120,160)}Neither can you.
+Dialogue: 0,0:07:34.43,0:07:35.41,Sub,,0,0,0,,{\fad(120,160)}But the system has
+Dialogue: 0,0:07:35.45,0:07:36.60,Sub,,0,0,0,,{\fad(120,160)}never been wrong.
+Dialogue: 0,0:07:36.89,0:07:38.39,Sub,,0,0,0,,{\fad(120,160)}So the hands go up.
+Dialogue: 0,0:07:38.54,0:07:39.54,Sub,,0,0,0,,{\fad(120,160)}Yours, too.
+Dialogue: 0,0:07:40.00,0:07:41.64,Sub,,0,0,0,,{\fad(120,160)}That is a handover.
+Dialogue: 0,0:07:41.92,0:07:43.55,Sub,,0,0,0,,{\fad(120,160)}No robots in the street.
+Dialogue: 0,0:07:43.59,0:07:45.31,Sub,,0,0,0,,{\fad(120,160)}Nobody seizing power.
+Dialogue: 0,0:07:45.40,0:07:47.60,Sub,,0,0,0,,{\fad(120,160)}Just a thousand small yeses.
+Dialogue: 0,0:07:47.80,0:07:48.61,Sub,,0,0,0,,{\fad(120,160)}Your loan.
+Dialogue: 0,0:07:48.65,0:07:49.63,Sub,,0,0,0,,{\fad(120,160)}Your contract.
+Dialogue: 0,0:07:49.67,0:07:50.91,Sub,,0,0,0,,{\fad(120,160)}Your town's budget.
+Dialogue: 0,0:07:51.17,0:07:52.57,Sub,,0,0,0,,{\fad(120,160)}Each one sensible.
+Dialogue: 0,0:07:52.73,0:07:54.86,Sub,,0,0,0,,{\fad(120,160)}Each one a little less yours.
+Dialogue: 0,0:07:55.11,0:07:55.68,Sub,,0,0,0,,{\fad(120,160)}But look at what
+Dialogue: 0,0:07:55.72,0:07:57.88,Sub,,0,0,0,,{\fad(120,160)}the mathematicians actually did.
+Dialogue: 0,0:07:57.98,0:07:58.67,Sub,,0,0,0,,{\fad(120,160)}They did not take
+Dialogue: 0,0:07:58.71,0:07:59.78,Sub,,0,0,0,,{\fad(120,160)}the machine's word,
+Dialogue: 0,0:07:59.82,0:08:01.01,Sub,,0,0,0,,{\fad(120,160)}or the company's.
+Dialogue: 0,0:08:01.22,0:08:02.38,Sub,,0,0,0,,{\fad(120,160)}They trusted a referee
+Dialogue: 0,0:08:02.42,0:08:03.71,Sub,,0,0,0,,{\fad(120,160)}that humans built.
+Dialogue: 0,0:08:03.90,0:08:05.05,Sub,,0,0,0,,{\fad(120,160)}Its rules are open.
+Dialogue: 0,0:08:05.09,0:08:06.57,Sub,,0,0,0,,{\fad(120,160)}Anyone can run it again.
+Dialogue: 0,0:08:07.19,0:08:08.64,Sub,,0,0,0,,{\fad(120,160)}Their trust moved:
+Dialogue: 0,0:08:08.79,0:08:10.11,Sub,,0,0,0,,{\fad(120,160)}away from the answer,
+Dialogue: 0,0:08:10.21,0:08:11.21,Sub,,0,0,0,,{\fad(120,160)}to the check.
+Dialogue: 0,0:08:11.70,0:08:12.69,Sub,,0,0,0,,{\fad(120,160)}In your town hall,
+Dialogue: 0,0:08:12.73,0:08:15.01,Sub,,0,0,0,,{\fad(120,160)}the system was its own referee.
+Dialogue: 0,0:08:15.28,0:08:16.99,Sub,,0,0,0,,{\fad(120,160)}In mathematics, humans
+Dialogue: 0,0:08:17.03,0:08:18.62,Sub,,0,0,0,,{\fad(120,160)}built the referee first.
+Dialogue: 0,0:08:18.79,0:08:20.64,Sub,,0,0,0,,{\fad(120,160)}So who builds the referees
+Dialogue: 0,0:08:20.68,0:08:22.02,Sub,,0,0,0,,{\fad(120,160)}for everything else?
+Dialogue: 0,0:08:23.18,0:08:24.31,Sub,,0,0,0,,{\fad(120,160)}The labs could.
+Dialogue: 0,0:08:24.76,0:08:26.58,Sub,,0,0,0,,{\fad(120,160)}Wang himself writes that a better
+Dialogue: 0,0:08:26.62,0:08:28.51,Sub,,0,0,0,,{\fad(120,160)}future likely involves the whole
+Dialogue: 0,0:08:28.55,0:08:29.62,Sub,,0,0,0,,{\fad(120,160)}industry taking
+Dialogue: 0,0:08:29.66,0:08:30.72,Sub,,0,0,0,,{\fad(120,160)}"meaningfully different
+Dialogue: 0,0:08:30.76,0:08:32.55,Sub,,0,0,0,,{\fad(120,160)}actions from the default path".
+Dialogue: 0,0:08:33.06,0:08:34.80,Sub,,0,0,0,,{\fad(120,160)}He doesn't say exactly how.
+Dialogue: 0,0:08:35.08,0:08:36.67,Sub,,0,0,0,,{\fad(120,160)}One way: labs agree
+Dialogue: 0,0:08:36.71,0:08:37.52,Sub,,0,0,0,,{\fad(120,160)}that their strongest
+Dialogue: 0,0:08:37.56,0:08:38.81,Sub,,0,0,0,,{\fad(120,160)}systems hand in work
+Dialogue: 0,0:08:38.85,0:08:40.28,Sub,,0,0,0,,{\fad(120,160)}a referee can check.
+Dialogue: 0,0:08:40.41,0:08:42.87,Sub,,0,0,0,,{\fad(120,160)}Then no answer is its own referee.
+Dialogue: 0,0:08:43.12,0:08:44.43,Sub,,0,0,0,,{\fad(120,160)}The objection: whoever
+Dialogue: 0,0:08:44.47,0:08:46.15,Sub,,0,0,0,,{\fad(120,160)}waits falls behind.
+Dialogue: 0,0:08:46.30,0:08:47.35,Sub,,0,0,0,,{\fad(120,160)}So governments could
+Dialogue: 0,0:08:47.39,0:08:48.10,Sub,,0,0,0,,{\fad(120,160)}make it a rule
+Dialogue: 0,0:08:48.14,0:08:49.55,Sub,,0,0,0,,{\fad(120,160)}where the stakes are high.
+Dialogue: 0,0:08:49.62,0:08:50.97,Sub,,0,0,0,,{\fad(120,160)}Then your town can refuse
+Dialogue: 0,0:08:51.01,0:08:53.06,Sub,,0,0,0,,{\fad(120,160)}to vote on what nobody can check.
+Dialogue: 0,0:08:53.32,0:08:55.10,Sub,,0,0,0,,{\fad(120,160)}But who checks the checkers?
+Dialogue: 0,0:08:55.70,0:08:57.70,Sub,,0,0,0,,{\fad(120,160)}Mathematics has one answer:
+Dialogue: 0,0:08:57.85,0:08:59.26,Sub,,0,0,0,,{\fad(120,160)}an open referee,
+Dialogue: 0,0:08:59.30,0:09:00.81,Sub,,0,0,0,,{\fad(120,160)}carried by nonprofits,
+Dialogue: 0,0:09:00.85,0:09:02.43,Sub,,0,0,0,,{\fad(120,160)}not by one company.
+Dialogue: 0,0:09:02.62,0:09:03.67,Sub,,0,0,0,,{\fad(120,160)}The engineer in the back
+Dialogue: 0,0:09:03.71,0:09:05.22,Sub,,0,0,0,,{\fad(120,160)}row can run it herself,
+Dialogue: 0,0:09:05.26,0:09:06.58,Sub,,0,0,0,,{\fad(120,160)}and nobody has to trust
+Dialogue: 0,0:09:06.62,0:09:08.20,Sub,,0,0,0,,{\fad(120,160)}whoever sells the answer.
+Dialogue: 0,0:09:08.57,0:09:09.68,Sub,,0,0,0,,{\fad(120,160)}The hardest objection
+Dialogue: 0,0:09:09.72,0:09:10.98,Sub,,0,0,0,,{\fad(120,160)}is the simplest:
+Dialogue: 0,0:09:11.15,0:09:12.47,Sub,,0,0,0,,{\fad(120,160)}results matter more
+Dialogue: 0,0:09:12.51,0:09:13.72,Sub,,0,0,0,,{\fad(120,160)}than understanding.
+Dialogue: 0,0:09:13.97,0:09:15.34,Sub,,0,0,0,,{\fad(120,160)}You already cross bridges
+Dialogue: 0,0:09:15.38,0:09:16.97,Sub,,0,0,0,,{\fad(120,160)}you could never calculate.
+Dialogue: 0,0:09:17.26,0:09:18.25,Sub,,0,0,0,,{\fad(120,160)}True.
+Dialogue: 0,0:09:18.29,0:09:20.91,Sub,,0,0,0,,{\fad(120,160)}But until now, some human could.
+Dialogue: 0,0:09:21.17,0:09:22.58,Sub,,0,0,0,,{\fad(120,160)}None of this is agreed,
+Dialogue: 0,0:09:22.62,0:09:23.86,Sub,,0,0,0,,{\fad(120,160)}and none of it is tested
+Dialogue: 0,0:09:23.90,0:09:24.97,Sub,,0,0,0,,{\fad(120,160)}at this scale.
+Dialogue: 0,0:09:25.19,0:09:25.89,Sub,,0,0,0,,{\fad(120,160)}Who could change
+Dialogue: 0,0:09:25.93,0:09:28.09,Sub,,0,0,0,,{\fad(120,160)}that: labs, governments,
+Dialogue: 0,0:09:28.13,0:09:30.73,Sub,,0,0,0,,{\fad(120,160)}investors, and voters like you.
+Dialogue: 0,0:09:31.34,0:09:33.30,Sub,,0,0,0,,{\fad(120,160)}And Wang puts a clock on it.
+Dialogue: 0,0:09:33.66,0:09:35.15,Sub,,0,0,0,,{\fad(120,160)}"How humanity acts over
+Dialogue: 0,0:09:35.19,0:09:36.63,Sub,,0,0,0,,{\fad(120,160)}the next year will have
+Dialogue: 0,0:09:36.67,0:09:38.33,Sub,,0,0,0,,{\fad(120,160)}great consequence on what
+Dialogue: 0,0:09:38.37,0:09:40.16,Sub,,0,0,0,,{\fad(120,160)}future world we live in."
+Dialogue: 0,0:09:41.39,0:09:43.67,Sub,,0,0,0,,{\fad(120,160)}Superintelligence is arriving.
+Dialogue: 0,0:09:44.01,0:09:45.57,Sub,,0,0,0,,{\fad(120,160)}So, is he right?
+Dialogue: 0,0:09:45.91,0:09:46.91,Sub,,0,0,0,,{\fad(120,160)}In part.
+Dialogue: 0,0:09:47.03,0:09:48.54,Sub,,0,0,0,,{\fad(120,160)}Something has arrived:
+Dialogue: 0,0:09:48.64,0:09:50.13,Sub,,0,0,0,,{\fad(120,160)}an answer that holds,
+Dialogue: 0,0:09:50.17,0:09:52.54,Sub,,0,0,0,,{\fad(120,160)}so far, and that we can't read.
+Dialogue: 0,0:09:52.84,0:09:54.40,Sub,,0,0,0,,{\fad(120,160)}Whether that is superintelligence
+Dialogue: 0,0:09:54.44,0:09:55.73,Sub,,0,0,0,,{\fad(120,160)}remains his bet.
+Dialogue: 0,0:09:56.01,0:09:57.05,Sub,,0,0,0,,{\fad(120,160)}And the box that is still
+Dialogue: 0,0:09:57.09,0:09:59.09,Sub,,0,0,0,,{\fad(120,160)}open isn't about the machine.
+Dialogue: 0,0:09:59.19,0:10:00.32,Sub,,0,0,0,,{\fad(120,160)}It's about us.
+Dialogue: 0,0:10:00.67,0:10:01.27,Sub,,0,0,0,,{\fad(120,160)}So when the next
+Dialogue: 0,0:10:01.31,0:10:02.80,Sub,,0,0,0,,{\fad(120,160)}headline says an AI
+Dialogue: 0,0:10:02.84,0:10:05.40,Sub,,0,0,0,,{\fad(120,160)}solved something, ask two things.
+Dialogue: 0,0:10:05.59,0:10:07.25,Sub,,0,0,0,,{\fad(120,160)}Can any human follow it?
+Dialogue: 0,0:10:07.43,0:10:09.22,Sub,,0,0,0,,{\fad(120,160)}And who says it's correct?
+Dialogue: 0,0:10:10.11,0:10:11.81,Sub,,0,0,0,,{\fad(120,160)}We may never read every answer.
+Dialogue: 0,0:10:11.85,0:10:13.20,Sub,,0,0,0,,{\fad(120,160)}But who gets to say
+Dialogue: 0,0:10:13.24,0:10:15.72,Sub,,0,0,0,,{\fad(120,160)}"correct" has to stay human.
+Dialogue: 0,0:10:16.89,0:10:18.06,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:10:18.10,0:10:18.94,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:10:18.98,0:10:20.41,Sub,,0,0,0,,{\fad(120,160)}of superintelligence goes
+Dialogue: 0,0:10:20.45,0:10:21.90,Sub,,0,0,0,,{\fad(120,160)}well for everybody.
+Dialogue: 0,0:10:22.17,0:10:23.17,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:10:23.27,0:10:24.27,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.

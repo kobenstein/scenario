@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Film 66 (from Film 59) · mix VO (vo_only.wav) + slot audio (clips C1 Altman, C2 Musk, C3 Hassabis, C4 Acemoglu = original footage) + music cues (Lyria 3.5, M0-M5)
+"""Film 67 (from Film 66 / 59) · mix VO (vo_only.wav) + slot audio (clips C1 Wang, C2 mathematician, C3 Tao, C4 LeCun = original footage; silent while placeholders) + music cues (Lyria 3.5, M0-M5)
 (ducked under the voice, extra -6 dB under every clip slot) + SFX -> mix.wav (-14 LUFS, TP <= -1 dB), mix.m4a, mix_preview.mp3. No QR windows.
 Method as Film 54 (films/24-animals/audio/mix.py): music cues and SFX are anchored on takes/slots/sections/words, not on seconds:
   music/cues.json  [{"f": "M1", "at": "t09" | "L2" (= section id: start of its first take) | "C2" (slot) | "END", "dt": -0.4, "fin": 2.0, "fout": 4.0, "off": 0, "d": null, "opts": {"repeat": [t1, t2]}}]
@@ -12,8 +12,8 @@ usage: mix.py <audio_dir> [wav_dir]   (vo_only.wav, clipwav/, music/, sfx/, stem
 import json, os, subprocess, sys
 import numpy as np
 A = sys.argv[1].rstrip('/') + '/'; W = (sys.argv[2].rstrip('/') + '/') if len(sys.argv) > 2 else A; SR = 48000
-ROOT = os.environ.get('F66ROOT', '/mnt/project-files/scenario/film-geld-nach-si').rstrip('/')
-CLIPDIR = os.environ.get('F66CLIPWAV', W + 'clipwav').rstrip('/') + '/'      # C-clip wavs (<id>.wav = the whole cut file clips/<id>.mp4; no file = silent slot)
+ROOT = os.environ.get('F67ROOT', '/mnt/project-files/scenario/film-si-arriving').rstrip('/')
+CLIPDIR = os.environ.get('F67CLIPWAV', W + 'clipwav').rstrip('/') + '/'      # C-clip wavs (<id>.wav = the whole cut file clips/<id>.mp4; no file = silent slot)
 def load(f, af=None):
     raw = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f] + (['-af', af] if af else []) + ['-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'])
     return np.frombuffer(raw, np.float32).reshape(-1, 2).copy()
@@ -52,7 +52,7 @@ for c in timing['slots']:
     voiced = bool(CLIPS.get(c['id'], {}).get('voice'))   # a narrator take in the slot (quote card K3): behaves like the VO, the music is ducked by -6 dB only while it speaks and is not pushed further down
     if not voiced: duck[max(0, s0 - SR // 4):s1 + SR // 4] = np.maximum(duck[max(0, s0 - SR // 4):s1 + SR // 4], 1)   # music ducked under every slot, also while it is still silent
     if not voiced: slotmask[max(0, s0 - SR // 3):s1 + SR // 3] = 1
-    f = CLIPDIR + (c['file'] if c.get('file') else f"{c['id']}.wav")
+    f = CLIPDIR + f"{c['id']}.wav"   # Film 67: timing slots[].file is the SOURCE clip name (films/67-assets/clips); the mix always takes clipwav/<id>.wav
     if os.path.exists(f):
         k = CLIPS.get(c['id'], {})
         x = load(f, k.get('af'))

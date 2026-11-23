@@ -2,14 +2,13 @@
 """timing.json -> subtitles.srt + subtitles.ass (one line, bottom, phrase by phrase).
 usage: subs.py <audio_dir> <out_dir>
 Film 14/16/18/19/24/25/28/54/59: channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters.
-Film 66 (from Film 59): plain Inter, cream (#F3EFE2); clips C1-C4 from clips.json cues (checked wording, clips-geprueft.json, fillers dropped); figures as digits."""
+Film 67 (from Film 66 / 59): plain Inter, cream (#F3EFE2); clips C1-C4 from clips.json cues once the real clips are in (placeholder slots: no subtitle); figures as digits."""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']; sys.setrecursionlimit(5000)
 # spoken numbers -> digits (longest patterns first: merge() takes the first pattern that matches at a word)
-NUM = [('twelve hundred dollars', '$1,200'), ('a thousand dollars a month', '$1,000 a month'), ('more than five million', 'more than 5 million'),
-       ('twelve cents', '12 cents'), ('forty cents', '40 cents'), ('three in ten', '3 in 10'), ('ten times', '10 times'),
-       ('five years', '5 years'), ('three years', '3 years'), ('a\\.i\\.', 'AI')]   # film 66: spoken figures as digits, spelled 'A.I.' -> AI
+NUM = [('seventeen million', '17 million'), ('six weeks', '6 weeks'),
+       ('a\\.i\\.', 'AI'), ('m\\.i\\.t\\.', 'MIT')]   # film 67: spoken figures as digits, spelled 'A.I.' -> AI, 'M.I.T.' -> MIT
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
@@ -48,6 +47,7 @@ def merge(W):
             m = re.fullmatch('(' + a + r')([.,?!]?["”]?)', ' '.join(x['w'] for x in seg), flags=re.I) if len(seg) == k else None
             if m:   # Film 16: only punctuation after the pattern is kept (so "A.I." does not leave a stray dot)
                 p = m.group(2); nx = W[i + k]['w'] if i + k < len(W) else ''
+                if a.endswith('\\.') and p and p[0] in '"”': p = '.' + p   # Film 67: 'to A.I."' ends the quote AND the sentence
                 if a.endswith('\\.') and not p and (not nx or (nx[0].isupper() and W[i + k]['sec'] == seg[-1]['sec'])) and nx not in ('I', 'Claude'): p = '.'   # Film 59: 'A.I. You' ends a sentence
                 out.append({**seg[0], 'w': b + p, 'e': seg[-1]['e']}); i += k; break
         else: out.append(W[i]); i += 1

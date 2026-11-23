@@ -1,20 +1,28 @@
-# Film 66 · Ton (audio/)
+# Film 67 · Ton (audio/)
 
-Gehört dem Ton-Schritt; der Bild-Code fasst diesen Ordner nicht an. Methode 1:1 wie Film 59 (`films/59-.../code/audio/`), Daten-Root `$F66ROOT` = `/mnt/project-files/scenario/film-geld-nach-si/`.
+Gehört dem Ton-Schritt; der Bild-Code fasst diesen Ordner nicht an. Methode 1:1 wie Film 66 (`films/66-.../code/audio/`), Daten-Root `$F67ROOT` = `/mnt/project-files/scenario/film-si-arriving/`, Scratch `/tmp/claude-0/f67/audio/`.
 
-## Ablauf (Stand 20.11.2026)
-1. `make_segments.py` — `<ROOT>vo-v3.txt` → `segments.json` (24 Takes absatzweise, ≤ 520 Zeichen, 4 Clip-Slots nach den Lead-in-Zeilen; „AI“ → „A.I.“; IPA für Hassabis/Acemoglu nur im TTS-Text `say`).
-2. Stimme: fal `elevenlabs/tts/eleven-v4`, voice `akQnlreIUIoJxrTrosJj`, stability 0.3, similarity 0.75, seed 4301, mp3_44100_192 → `/tmp/claude-0/f66/audio/dl/vo-tNN.mp3` (Download-URLs in `fal_urls.txt`). t21 nach Zweitprüfung („a yearly check“) neu aufgenommen.
-3. `align_ps.py . /tmp/claude-0/f66/audio/dl` — pocketsphinx-Forced-Alignment → `dl/vo-tNN.json`.
-4. `clips_wav.py /tmp/claude-0/f66/audio/clipwav` — Ton der fertig geschnittenen `<ROOT>clips/Cn.mp4`.
-5. `build_vo.py . /tmp/claude-0/f66/audio` — `vo_master.wav`, `vo_only.wav` (scratch) + `timing.json`, `slots.json` (hier und nach `<ROOT>audio/`). END_TAIL 19 s (≈4 s Luft + 15 s Endbild).
-6. `clips_json.py` — `clips.json` (Clip-Metadaten + Untertitel-Cues aus `clips-geprueft.json`). Bleibt NUR hier (das Bild-Kit liest unter `<ROOT>audio/clips.json` ein anderes Format).
-7. Musik: `music/prompts.json` (Lyria 3.5, `google/lyria-3.5`, 6 Tracks M0–M5) + `music/cues.json`; SFX: `sound_plan.json` (+ `sfx_prompts.json` für Mirelo `pricetag`, `receipt`; Rest aus `sfx-bibliothek`).
-8. `mix.py . /tmp/claude-0/f66/audio` — `mix.wav` (−14 LUFS, TP ≤ −1 dBTP), `mix.m4a`, `mix_preview.mp3`, Stems. Musik −6 dB unter Stimme, −6 dB extra unter Clips.
-9. `subs.py . <out>` — `subtitles.srt` + `subtitles.ass` (eine Zeile, ≤ 34 Zeichen, FontSize 19 auf 384x288, Outline 1.4, MarginV 20; Zahlen als Ziffern).
+## Ablauf (Stand 23.11.2026)
+1. `make_segments.py` — `<ROOT>vo-v2.txt` → `segments.json` (25 Takes absatzweise, ≤ 520 Zeichen; Slots an den `[CLIP Cn]`-Zeilen; Regie-Tags des Skripts bleiben, keine Flüster-Tags (Assert); Aussprache nur im TTS-Text `say`: Alexandr → „Alexander“, Wang /wɑːŋ/, Riemann /ˈriːmɑːn/, Yann LeCun /jæn ləˈkʌn/, Tao /taʊ/; Maynard, Lean, M.I.T. wie geschrieben).
+   Slot-Länge = echte Datei `films/67-assets/clips/Cn.*` (ffprobe), sonst Platzhalter C1 10 · C2 8 · C3 10 · C4 8 s (`placeholder: true`, stumm).
+   **C0 (Mathematiker) nachrüsten:** `F67_C0="listen to the mathematician himself." python3 make_segments.py` setzt einen Slot hinter die Zeile, die so endet (oder `[CLIP C0]` ins Skript schreiben). Länge aus `clips/C0.*`, sonst 10 s.
+2. Stimme: fal `elevenlabs/tts/eleven-v4`, voice `akQnlreIUIoJxrTrosJj`, stability 0.3, similarity 0.75, seed 4301, mp3_44100_192 → `/tmp/claude-0/f67/audio/dl/vo-tNN.mp3` (Download-URLs in `fal_urls.txt`).
+3. `align_ps.py . /tmp/claude-0/f67/audio/dl` — pocketsphinx-Forced-Alignment → `dl/vo-tNN.json`.
+4. `clips_wav.py /tmp/claude-0/f67/audio/clipwav` — Ton der geschnittenen Clips aus `films/67-assets/clips/Cn.*` (fehlende Datei = stummer Platzhalter).
+5. `build_vo.py . /tmp/claude-0/f67/audio` — `vo_master.wav`, `vo_only.wav` (scratch) + `timing.json`, `slots.json` (hier und nach `<ROOT>audio/`). END_TAIL 19 s (≈4 s Luft + 15 s Endbild).
+6. `clips_json.py` — erst wenn die echten Clips da sind: `clips.json` (Clip-Metadaten + Untertitel-Cues). Ohne `clips.json` bekommen die Slots keine Untertitel.
+7. Musik: `music/prompts.json` (Lyria 3.5, `google/lyria-3.5`, 6 Tracks M0–M5, URLs in `music/urls.txt`) + `music/cues.json`; SFX: `sound_plan.json`, alles aus `sfx-bibliothek` (stamp, pages, shimmer_rings, chime, tick, atmo hall) → `/tmp/claude-0/f67/audio/sfx/`.
+8. `mix.py . /tmp/claude-0/f67/audio` — `mix.wav` (−14 LUFS, TP ≤ −1 dBTP), `mix.m4a`, `mix_preview.mp3`, Stems. Musik −6 dB unter Stimme, −6 dB extra unter Clips.
+9. `subs.py . untertitel` — `subtitles.srt` + `subtitles.ass` (eine Zeile, ≤ 34 Zeichen; A.I. → AI, M.I.T. → MIT, Zahlen als Ziffern).
+
+## Echte Clips einsetzen (schneller Neulauf, keine neuen Takes)
+```
+git pull   # films/67-assets/clips/C1..C4.*
+cd films/67-.../code/audio; W=/tmp/claude-0/f67/audio
+python3 make_segments.py && python3 clips_wav.py $W/clipwav && python3 build_vo.py . $W && python3 mix.py . $W && python3 subs.py . untertitel
+```
+Danach verschieben sich alle Zeiten hinter einem Slot um (echte − Platzhalter-Länge); `timing.json` / `slots.json` in `<ROOT>audio/` werden überschrieben.
 
 ## Ergebnisse
-Klein (Netz-Mount `<ROOT>audio/`): `timing.json`, `slots.json`, `untertitel/subtitles.srt`, `untertitel/subtitles.ass`, `mix_preview.mp3` (128k).
-Groß (Scratch `/tmp/claude-0/f66/audio/`): `mix.wav` (48 kHz, Endmischung), `mix.m4a`, `vo_master.wav` (VO + Clip-Ton, Hörfassung), `vo_only.wav`, `stem_music.wav`, `stem_sfx.wav`, `premix.wav`, `music/M0–M5.mp3`, `sfx/`, `clipwav/`, `dl/` (Takes + Alignment).
-
-Dauer 623.92 s (10:23.9), VO-Ende 604.92 s. Slots: C1 55.30–70.27 · C2 231.37–240.80 · C3 311.76–325.33 · C4 461.62–474.46.
+Klein (Netz-Mount `<ROOT>audio/`): `timing.json`, `slots.json`, `STATUS.txt`, `untertitel/subtitles.srt`, `untertitel/subtitles.ass`, `mix_preview.mp3`.
+Groß (Scratch `/tmp/claude-0/f67/audio/`): `mix.wav`, `mix.m4a`, `vo_master.wav`, `vo_only.wav`, `stem_music.wav`, `stem_sfx.wav`, `premix.wav`, `music/M0–M5.mp3`, `sfx/`, `clipwav/`, `dl/`.
