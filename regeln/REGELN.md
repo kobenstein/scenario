@@ -111,6 +111,7 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 8. **Sofort ein Bild im Kopf, warum es relevant ist (Jakob 16.11.):** Abstrakte Feststellungen („You've Never Seen the Best AI“) fallen durch; der Titel nennt ein konkretes Ding/Ereignis und warum es den Zuschauer betrifft. **KI muss im Titel oder Bildtext erkennbar sein** („The Mammoth Is Coming Back“ = Tierfilm; besser „AI Is Bringing Back the Mammoth“).
 
 9. **Person + Haltung zieht (Jakob 20.11.):** „Why Elon Says …“ 18k über Schnitt; Verb mit Haltung („Says“, „Warns“, „Was Right“) statt „View“; Zitat am Original prüfen. Verlierer-Formen laut Daten 20.11.: Frage, Anleitung („How to Survive …“), Zwei-Satz-Kontrast, reiner Begriff ohne Ereignis.
+9a. **Personenfilm: Name UND „AI“ im Titel (Jakob 23.11., #41):** „im titel muss bill gates und ai vorkommen sonst schwach“. Gilt für Haupttitel und alle Test-Alternativen.
 10. **24-h-Check Pflicht:** Klickrate unter 6 % nach 24 h → Titel/Bildtext tauschen (Treffer-Check §7). Daten 20.11.: ≥ 6,5 % → 64k–443k Impressionen, < 5 % → ≤ 54k.
 
 ## 9. Thumbnails (Skill `good-takeoff-thumbnails`)
@@ -201,3 +202,4 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 - 20.11.2026: §4 erst das Warum, dann die Szene; Einzelfall nicht vor die Hauptfrage (Jakob, #49).
 - 20.11.2026 (Kanal-Tiefenanalyse): §2.5d hartes Treffer-Tor (Du-Einsatz oder Datum, 3 Wochen Abstand), §8.9 Person + Haltung und Verlierer-Formen, §8.10 24-h-Klickraten-Check. Neuer Skill `good-takeoff-thema-titel` (Ablauf Thema + Titel).
 - 20.11.2026: §9.6a Bildtext widerspricht nie dem Titel, Wendung nur im Film (Jakob, #66).
+- 23.11.2026: §8.9a Personenfilm: Name und „AI“ in jedem Titel inkl. Test-Alternativen (Jakob, #41 Bill Gates).
