@@ -2,6 +2,40 @@
 
 Stand 23.11.2026. Jakob wählt Leitgedanke A („Der Optimist hat seine Meinung geändert“), Vorgabe: „Bill Gates“ und „AI“ in jedem Titel (REGELN §8.9a).
 
+## 0. Marktcheck: Warum genau das viral gehen kann (Jakob 23.11.)
+
+YouTube Data API, abgefragt 23.11.2026, Videos seit 1.5.2026, nach Aufrufen.
+
+**Leitgedanke „Gates hat seine Meinung geändert“ ist draußen schon ein Treffer:**
+| Aufrufe | Abos Kanal | Datum | Kanal | Titel |
+|---|---|---|---|---|
+| 9,84 Mio. | 4,3 Mio. | 27.8. | Bill Gates | The turbulent era of artificial intelligence is here |
+| 2,73 Mio. | 20,1 Mio. | 27.8. | CNN | Bill Gates stakes reputation: AI is not like past tech |
+| 2,03 Mio. | 610k | 29.9. | Ezra Klein | Bill Gates: A.I. 'Makes Nuclear Weapons Look Like Nothing' |
+| **1,67 Mio.** | 1,0 Mio. | 27.8. | The Atlantic | **Bill Gates Changes His Mind on AI** (= unser Leitgedanke, 1,7× Abos) |
+| 1,59 Mio. | 2,8 Mio. | 14.11. | Off The Kirb | "I Tried to Warn You" - Bill Gates Predicted Everything... |
+| 954k | **43k** | 22.10. | Decoder | Bill Gates says to prepare for 20 years of tumultuous AI disruption (22× Abos) |
+| 444k | 2,1 Mio. | 27.8. | Breaking Points | 'THIS IS INSANE': Bill Gates DIRE WARNING Of AI Jobless Future |
+| **142k** | **598** | 29.10. | OFFSWITCH | **Microsoft CEO Just Changed His Mind About AI** (237× Abos, kleiner Kanal) |
+| 131k | 2,4 Mio. | 1.5. | Nikhil Kamath | Howard Marks: "I Changed My Mind On AI" |
+| 105k | 1,8 Mio. | 25.10. | The Bulwark | Francis Fukuyama Changed His Mind About AI. Here's What Scared Him. |
+
+**Eigene Daten (Stand 23.11., Median 6.057 Aufrufe):** Jobs-Film #25 „AI Is Taking Jobs in This Order“ 74.681 (Platz 4 von 28); Personentitel „Why Elon Says Saving Money Is Pointless“ 23.100 (3,8× Median); „Sam Altman Says Everything Will Get Cheap“ 5.978 nach 1 Tag.
+
+**Warum das viral gehen kann (der Grund):**
+1. **Treffer-Tor bestanden:** Ein winziger Kanal (598 Abos) holte mit fast unserem Titelmuster („… Just Changed His Mind About AI“) 142k in 3–4 Wochen; Decoder mit 43k Abos holte 954k. Das Muster „berühmter Mensch ändert seine Meinung über KI“ trägt auch ohne große Marke.
+2. **Name + Kehrtwende + dein Job:** drei Klick-Gründe in einem Titel. Die Kehrtwende ist ein Ereignis mit Datum (Regel 2.5d), der Job ist der persönliche Einsatz. Unser Jobs-Film ist bereits einer der stärksten des Kanals.
+3. **Lücke:** Die großen Videos sind Interviews (30–70 Min) oder Nachrichten. Niemand erzählt die Kehrtwende als 10-Minuten-Geschichte mit Antwort (Human Reserved) und Blick nach vorn. Das ist unser Platz.
+4. **Risiko:** Das Thema ist seit Ende August im Umlauf (Abnutzung). Gegenmittel: Neuester Anlass im Hook (Decoder 22.10., FT 4.11., CBS 12.11.) und die Frage „welche Jobs kommen auf die Liste“, die noch niemand beantwortet.
+
+**Je Titel:**
+- 1 „Bill Gates Changed His Mind About AI and Jobs“: deckungsgleich mit The Atlantic (1,67 Mio.) und OFFSWITCH (142k bei 598 Abos), plus „Jobs“ als Du-Einsatz.
+- 2 „Bill Gates' New AI Warning About Your Job“: Muster „Warning“ (Breaking Points 444k, Yahoo „has a new warning on AI“ 48k), „Your Job“ = Du-Bezug.
+- 3 „Bill Gates Says AI Will Leave Far Fewer Jobs“: Muster „Says“ wie unser Elon-Film; ohne direktes Vorbild draußen, darum nur als Test-Alternative.
+
+**Hook:** „THIS IS INSANE“ war die Zeile, mit der Breaking Points (444k) und die Semafor-Meldung liefen; darum steht sie in der Hook-Wende.
+**Gerüst:** Die Mitte als Zeitleiste (jetzt → 2–8 Jahre → 20 Jahre) entspricht dem, was Decoder (954k) zieht („prepare for 20 years“); die Liste (Human Reserved) ist die offene Schleife, die die großen Videos nicht auflösen.
+
 ## 1. Titel (alle mit „Bill Gates“ + „AI“, ≤ 45 Zeichen)
 
 | # | Titel | Zeichen | Bildtext | Anmerkung |
@@ -32,7 +66,7 @@ Ampel: grün = Wortlaut in ≥ 2 unabhängigen Quellen gleich; gelb = nur eine Q
 | „If we don't choose to massively slow down or stop, then we will have robots that can build houses, grow food, do surgery.“ | Decoder 22.10.2026 | grün |
 | „None of the things that human labor provides will be necessary“ | Decoder, Yahoo-Schlagzeile | gelb (Kontext prüfen: Endzustand, nicht Prognose für morgen) |
 | „humanity will have to find a way to organize and have purpose“ | Decoder, MSN-Schlagzeile | gelb |
-| Jensen Huang: „I love the heck out of Bill … but I don't see what he sees.“ / KI bleibe „net job creator“ | Fox Business ~28.8.2026, Fortune | grün |
+| ~~Jensen Huang: „I don't see what he sees.“~~ nicht verwenden (Jakob 23.11., Spionage-Affäre seit 8.11.) | Fox Business ~28.8.2026 | gestrichen |
 | Gates selbst: Warnung ist eine Prognose, kein Befund aus heutigen Arbeitsmarktdaten | Semafor | gelb |
 
 **Wichtige Korrektur für den Hook:** Ein Satz wie „40 Jahre lang sagte er, Technik schafft mehr Jobs“ ist **nicht belegt**. Gates schlug schon 2017 selbst eine Robotersteuer vor. Belegt ist: 2023 nannte er den Übergang holprig, aber beherrschbar; 2026 erwartet er eine Wirtschaft mit weit weniger Jobs und schlägt Alarm. Das ist die Kehrtwende.
@@ -41,7 +75,7 @@ Ampel: grün = Wortlaut in ≥ 2 unabhängigen Quellen gleich; gelb = nur eine Q
 
 - C1 Gates eigener Kanal MLeTQWQiOvg (27.8.2026, 1:52): Kernaussage des Essays → Hook-Wende. (Semafor-Zitat ist Print → Zitatkarte.)
 - C2 Decoder A0kTUP7fWtk (22.10.2026): „robots that can build houses, grow food, do surgery“ → Station 3.
-- C3 Huang (Fox Business, Ende Aug. 2026; YouTube-Fundstelle suchen) → Station 4.
+- C3 ~~Huang~~ gestrichen (Jakob 23.11.: Huang wegen Spionage-Affäre gerade heikel). Gegenstimme stattdessen über Daten (Yale Budget Lab) und Etzioni; Ersatz-Clip suchen.
 - C4 CNN cHRCt8YCYPM (11.10.2026): „decide which jobs to reserve for humans“ → Station 6.
 - Reserve: Ezra Klein RADfqPXNkH4, FT g3wyStng7_M.
 Zeitmarken und Wortlaut am Video prüfen (vidIQ-Credits leer, YouTube aus der Cloud nicht erreichbar).
@@ -65,7 +99,7 @@ Zeitmarken und Wortlaut am Video prüfen (vidIQ-Credits leer, YouTube aus der Cl
 
 **3 · Sprosse „2 bis 8 Jahre“:** C2 Decoder: Roboter, die Häuser bauen, Essen anbauen, operieren, „if we don't choose to massively slow down“. Der Satz enthält eine Wahl. → Frage: Hat er überhaupt recht?
 
-**4 · Gegenprobe (Regel 9a):** Huang (C3): „I don't see what he sees.“ Die Daten bis heute: gesamtwirtschaftlich kaum Verschiebung, Einstieg schon getroffen. Gates räumt ein: Prognose, kein Befund. Wer ist er: Mitgründer der Firma, die am meisten an KI verdient, und warnt trotzdem. Klares Urteil: Richtung plausibel, Tempo offen. → Abo-Aufruf 1 (Mission) direkt nach dieser Auflösung. → Frage: Wenn es so kommt, was ist sein Plan?
+**4 · Gegenprobe (Regel 9a):** Gegenstimme ohne Huang (heikel, Jakob 23.11.): Die Daten bis heute: gesamtwirtschaftlich kaum Verschiebung, Einstieg schon getroffen. Gates räumt ein: Prognose, kein Befund. Wer ist er: Mitgründer der Firma, die am meisten an KI verdient, und warnt trotzdem. Klares Urteil: Richtung plausibel, Tempo offen. → Abo-Aufruf 1 (Mission) direkt nach dieser Auflösung. → Frage: Wenn es so kommt, was ist sein Plan?
 
 **5 · Sprosse „20 Jahre“ + der Plan, Teil 1:** „20-year transition … winners and losers.“ Sein Hebel: Wer Menschen durch Maschinen ersetzt, soll dafür zahlen (Token-/Robotersteuer), weil das Steuersystem heute das Ersetzen belohnt. Ein ehrlicher Einwand (Etzioni: trifft Rechenleistung, nicht Entlassungen). → Frage: Geld beantwortet nicht, was du dann machst.
 
