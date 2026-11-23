@@ -1,0 +1,99 @@
+{
+ "duration": 592.3,
+ "end_screen": {
+  "start": 577.3,
+  "dur": 15.0,
+  "end": 592.3,
+  "call": "t22",
+  "call_start": 564.57,
+  "call_end": 573.3,
+  "tail_after_vo": 19.0,
+  "note": "after the last VO word: a quiet walk, then the 15 s end screen (the music fades out over it)"
+ },
+ "channel_calls": {
+  "t10": {
+   "start": 263.41,
+   "end": 271.79
+  },
+  "t22": {
+   "start": 564.57,
+   "end": 573.3
+  }
+ },
+ "slots": [
+  {
+   "id": "C13",
+   "kind": "clip",
+   "sec": "1",
+   "start": 75.64,
+   "end": 83.64,
+   "dur": 8.0,
+   "under": false,
+   "placeholder": true
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "sec": "3",
+   "start": 252.0,
+   "end": 262.0,
+   "dur": 10.0,
+   "under": false,
+   "placeholder": true
+  },
+  {
+   "id": "C16",
+   "kind": "clip",
+   "sec": "4",
+   "start": 313.56,
+   "end": 323.56,
+   "dur": 10.0,
+   "under": false,
+   "placeholder": true
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "6",
+   "start": 474.19,
+   "end": 482.19,
+   "dur": 8.0,
+   "under": false,
+   "placeholder": true
+  }
+ ],
+ "clips": [
+  {
+   "id": "C13",
+   "kind": "clip",
+   "sec": "1",
+   "start": 75.64,
+   "end": 83.64,
+   "under": false
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "sec": "3",
+   "start": 252.0,
+   "end": 262.0,
+   "under": false
+  },
+  {
+   "id": "C16",
+   "kind": "clip",
+   "sec": "4",
+   "start": 313.56,
+   "end": 323.56,
+   "under": false
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "6",
+   "start": 474.19,
+   "end": 482.19,
+   "under": false
+  }
+ ]
+}
