@@ -33,8 +33,8 @@ const LABX = [S.LABS.meta, S.LABS.other], REFX = -290, ENGX = -120;
 export const part = {
   keys: (A) => [
     [A.labs, ROAD.x, GY - 60, 1.5], [A.how + .5, ROAD.x + 60, GY - 50, 1.44], [A.oneWay + 1.2, ROAD.x - 40, GY - 30, 1.62], [A.govts + 1.6, ROAD.x, GY - 30, 1.52],
-    [A.town2 + .3, ROAD.x - 200, GY - 60, 1.3], [A.town2 + 1.9, 2300, GY - 200, .55], [A.checkers - .1, -320, GY - 110, 1.9], [A.engineer + 1.0, -280, GY - 100, 2.0],
-    [A.hardest + 2.2, -1340, GY - 10, 2.7], [A.until - .1, -1300, GY - 10, 2.85], [A.until + 2.1, NEWB.x + 10, GY - 10, 2.6], [A.clock + .6, NEWB.x + 60, GY - 20, 2.5],
+    [A.town2 + .3, ROAD.x - 200, GY - 60, 1.3], [A.town2 + 1.9, 2300, GY - 200, .55], [A.checkers - .1, -250, GY - 95, 2.4], [A.engineer + 1.0, -215, GY - 88, 2.55],
+    [A.hardest + 1.0, -700, GY - 60, 1.7], [A.hardest + 2.4, -1340, GY - 10, 2.7], [A.until - .1, -1300, GY - 10, 2.85], [A.until + 2.1, NEWB.x + 10, GY - 10, 2.6], [A.clock + .6, NEWB.x + 60, GY - 20, 2.5],
     [A.si - .4, 960, 540, 1.0],
   ],
   draw: frame,

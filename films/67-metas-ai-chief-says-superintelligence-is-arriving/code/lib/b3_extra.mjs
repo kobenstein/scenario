@@ -68,7 +68,8 @@ export function pathUVS(t, K) {   // K = [[t, u, v, s], …] (sorted)
 }
 // plateHandover's camera expressed as [u, v, s] (TOWN_CAM(k, trk(k) * .3)), and the end screen's (S.endScreen) for t ≥ endT
 export function plateUVS(t, A) { const k = 1 + S.CREEP * Math.max(0, t - (A.coup - S.SEAM_HALF)); return [S.HALL.x + 120 + S.trk(k) * .3, GY - 190, 1.9 * k]; }
-export function endUVS(t, A) { const d = Math.max(0, t - A.endT), k = 1 - .008 * d, s = 1.25 * k; return [S.CHAIR.x + 300 + 4 * d, GY - 260 + 120 / s, s]; }
+// (refined: from 4 s before the end screen the camera rides this slow pull-back + truck, so the end screen never stands still)
+export function endUVS(t, A) { const d = t - A.endT, k = 1 - .014 * d, s = 1.25 * k; return [S.CHAIR.x + 300 + 16 * d, GY - 260 + 120 / s, s]; }
 
 // ------------------------------------------------------------------------------------------------ the town hall window and the room
 export const WIN = { x: S.HALL.x - 168 + 2 * 72, y: GY - 160, w: 40, h: 100 };   // the middle window (land px)
@@ -249,8 +250,8 @@ export async function b3(T) {
     const K = parts.flatMap((pt) => pt.keys(A)).sort((a, b) => a[0] - b[0]);
     const k0 = K[0][0], kN = K[K.length - 1][0];
     // camera: plateHandover creep until the first key, the stitched path, then converged onto the end screen's camera
-    A.uvs = (t) => (t < k0 ? plateUVS(t, A) : t >= A.endT ? endUVS(t, A) : t > kN ? K[K.length - 1].slice(1) : pathUVS(t, K));
-    A.cam = (t) => { const [u, v, s] = A.uvs(t); const c = L(u, v, s); return t < A.coup + S.SEAM_HALF || t >= A.endT ? c : E.camDrift(c, t, Math.min(1, 2.4 / s) * smooth(span(t, k0, k0 + 1.5)) * (1 - smooth(span(t, A.endT - 2, A.endT))), 9); };
+    A.uvs = (t) => (t < k0 ? plateUVS(t, A) : t >= A.endT - 4 ? endUVS(t, A) : pathUVS(t, K));   // (sc11 keys a phantom end-cam point after endT − 4 so the path arrives moving)
+    A.cam = (t) => { const [u, v, s] = A.uvs(t); const c = L(u, v, s); return t < A.coup + S.SEAM_HALF ? c : E.camDrift(c, t, Math.min(1, 2.4 / s) * smooth(span(t, k0, k0 + 1.5)), 9); };
     const ranges = [[A.coup, A.look], [A.look, A.labs], [A.labs, A.si], [A.si, 1e9]];
     const draw = (ctx, t) => { const i = ranges.findIndex(([a, b]) => t >= a && t < b); parts[Math.max(0, i)].draw(ctx, t, A, A.cam(t)); };
     return draw;

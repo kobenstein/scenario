@@ -28,8 +28,8 @@ export default async (T, R) => [{ t: R.a, draw: await B.b3(T), print: F.PRINT67 
 export const part = {
   keys: (A) => [
     [A.isHe + .6, 960, 546, 1.03], [A.box + .2, 960, 560, 1.06], [A.aboutUs + .6, 960, 610, 1.2], [A.nextHead + .6, 965, 640, 1.32],
-    [A.follow - .2, 975, GY - 120, 2.1], [A.mayNever + .1, 978, GY - 124, 2.18], [A.mayNever + 3.2, 3280, GY - 250, 1.18],
-    [A.channel + .5, 3420, GY - 230, 1.2], [A.endT, ...B.endUVS(A.endT, A)],
+    [A.follow - .2, 975, GY - 120, 2.1], [A.mayNever + .1, 978, GY - 124, 2.18], [A.mayNever + 2.8, 1800, GY - 220, .78], [A.mayNever + 5.9, 3280, GY - 250, 1.18],
+    [A.endT - 4, ...B.endUVS(A.endT - 4, A)], [A.endT + 2, ...B.endUVS(A.endT + 2, A)],
   ],
   draw: frame,
 };

@@ -27,7 +27,7 @@ const SP = S.BOARD.spot, REF = [S.CHAIR.x - 6, GY - S.CHAIR.h - 40];
 const PEOPLE = [{ x: 3700, h: 56, o: {} }, { x: 3850, h: 60, o: { long: true, lean: .07 } }, { x: 3990, h: 62, o: {} }];
 export const part = {
   keys: (A) => [
-    [A.look + 1.9, 1250, GY - 250, .62], [A.didNot + 1.0, 3520, GY - 200, 1.55], [A.anyone + .3, 3800, GY - 140, 2.2],
+    [A.look + 2.0, 1250, GY - 250, .52], [A.didNot + 1.3, 3520, GY - 200, 1.55], [A.anyone + .3, 3800, GY - 140, 2.2],
     [A.moved + .7, 3000, GY - 300, 1.02], [A.inTown + 1.0, 3020, GY - 300, 1.06], [A.who + 1.9, 3040, GY - 300, 1.1],
   ],
   draw: frame,
@@ -47,7 +47,7 @@ export function pane(ctx, t, A) {
   const k = expoOut(r.u), dy = (1 - k) * 70;
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha *= clamp(r.u * 3);
   ctx.translate(0, dy);
-  if (r.g < 1 || r.ex > 0) { ctx.fillStyle = rgba(P.night0, .4); ctx.fillRect(r.x + 8, r.y + 12, r.w, r.h); }
+  { const sa = .4 * clamp(Math.max(1 - r.g, r.ex) * 8); if (sa > 0) { ctx.fillStyle = rgba(P.night0, sa); ctx.fillRect(r.x + 8, r.y + 12, r.w, r.h); } }
   ctx.save(); ctx.beginPath(); ctx.rect(r.x, r.y, r.w, r.h); ctx.clip();
   ctx.translate(r.x, r.y); ctx.scale(r.w / W, r.h / H);
   const g = r.g, rc = { x: lerp(960, 1130, g) + E.drift(t, 4, 3), y: lerp(420, 470, g) + E.drift(t, 3, 5), z: lerp(1.3, 1.12, g) * (1 + .01 * span(t, A.who, A.labs + 2)) };
