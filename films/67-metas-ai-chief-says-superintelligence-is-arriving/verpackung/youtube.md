@@ -1,8 +1,8 @@
 # #67 · Meta's AI Chief Says Superintelligence Is Arriving
 
 - Video: https://youtu.be/_OUo4xvQyMQ
-- Veröffentlicht: 2026-11-23 abends (Jakob: direkt öffentlich)
-- Länge: 10m44s
+- Veröffentlicht: 2026-11-23 (public)
+- Länge: 10m45s
 
 ## Titel
 
@@ -64,4 +64,4 @@ Want to sponsor a film? passionfroot.me/the-good-takeoff
 
 ## Tags
 
-Alexandr Wang, Meta, Meta Superintelligence Labs, superintelligence, superintelligence is arriving, Riemann hypothesis, AI proof, AI math, Lean, Terence Tao, Yann LeCun, James Maynard, AI safety, AI control, The Good Takeoff, artificial intelligence, recursive self-improvement, AGI
+AGI, AI control, AI math, AI proof, AI safety, Alexandr Wang, James Maynard, Lean, Meta, Meta Superintelligence Labs, Riemann hypothesis, Terence Tao, The Good Takeoff, Yann LeCun, artificial intelligence, recursive self-improvement, superintelligence, superintelligence is arriving
