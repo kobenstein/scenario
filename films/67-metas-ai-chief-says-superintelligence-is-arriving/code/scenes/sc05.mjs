@@ -63,18 +63,18 @@ function scene(a, T) {
     [a.here + .3, L(4060, 700, 2.3)], [C3.start - .25, L(LENS[0], LENS[1], 5.2)], [C3.end + .1, L(LENS[0], LENS[1] + 2, 5.35)],
     [a.so + 1.9, L(3600, 650, 2.0)], [a.why + .6, L(3610, 652, 2.05)], [a.gap + 1.4, L(3600, 655, 2.08)],
     [a.box - .5, L(1850, 770, 2.7)], [a.quarter + .1, L(1858, 760, 2.55)], [a.life + .7, L(2000, 420, .92)],
-    [a.some + 1.8, L(3500, 500, .62)], [a.noM - .2, L(3900, 470, .6)], [a.human + .5, L(3600, 470, .66)],
+    [a.some + 1.8, L(3500, 500, .62)], [a.noM + .2, L(3880, 470, .6)],
     [tCreep, creep56(tCreep)],
   ];
   const camRaw = (t) => (t < tA ? refCam(t) : t < tCreep ? F.camPath(t, K) : creep56(t));
-  const cam = (t) => E.camDrift(camRaw(t), t, 4 * smooth(span(t, t0, t0 + 2.5)) * (1 - smooth(span(t, tPlate - 2, tPlate))), 7);
+  const cam = (t) => E.camDrift(camRaw(t), t, 4 * smooth(span(t, t0, t0 + .9)) * (1 - smooth(span(t, tPlate - 2, tPlate))), 7);
 
   // ------------------------------------------------------------------ timings
   const veilA = (t) => Math.max(.55 * sineIO(span(t, t0, t0 + 1.4)) * (1 - sineIO(span(t, a.day + .2, a.day + 1.8))),
     .62 * sineIO(span(t, a.gap + .5, a.gap + 2.0)) * (1 - sineIO(span(t, a.box - .7, a.box + .9))));
   const cropU = (t) => span(t, t0 + .1, t0 + 1.5) * (1 - span(t, a.check4 + .3, a.check4 + 1.2));
-  const lift = (t) => sineIO(span(t, a.check4 - .1, a.check4 + 1.5));
-  const boxGrow = (t) => sineIO(span(t, a.check4 + .1, a.check4 + 1.9)) * (1 - sineIO(span(t, a.day - .1, a.day + 1.5)));
+  const lift = (t) => sineIO(span(t, a.check4 + .2, a.check4 + 1.8));
+  const boxGrow = (t) => sineIO(span(t, a.check4 - .1, a.check4 + 1.4)) * (1 - sineIO(span(t, a.day - .1, a.day + 1.5)));
   const taoWalk = (t) => span(t, t0 + .4, a.day + .8), radWalk = (t) => span(t, a.day + .5, a.another + .3);
   const taoQ = (t) => span(t, a.dig - .6, a.dig + .4) * (1 - span(t, a.noOne + .6, a.noOne + 1.4));
   const radL = (t) => span(t, a.another + .2, a.another + 1.0) * (1 - span(t, a.here - .1, a.here + .6));

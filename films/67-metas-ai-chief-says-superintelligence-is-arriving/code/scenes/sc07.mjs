@@ -40,7 +40,7 @@ function scene(a, T) {
   const tA = t0 + .3;
   const K = [[tA, c67(tA)], [a.worried + 1.4, CAMX(1.05)], [a.writes, CAMX(1.08, 596)], [a.ho2 - .3, CAMX(1.1, 592)], [tCreep, creepTown(tCreep)]];
   const camRaw = (t) => (t < tA ? c67(t) : t < tCreep ? F.camPath(t, K) : creepTown(t));
-  const cam = (t) => E.camDrift(camRaw(t), t, 3 * smooth(span(t, t0, t0 + 2)) * (1 - smooth(span(t, tPlate - 2, tPlate))), 13);
+  const cam = (t) => E.camDrift(camRaw(t), t, 4 * smooth(span(t, t0, t0 + .9)) * (1 - smooth(span(t, tPlate - 2, tPlate))), 13);
 
   const words = (t) => 1 - span(t, t0 + .1, t0 + 1.0);
   const close = (t) => sineIO(span(t, t0 + .2, t0 + 1.4));

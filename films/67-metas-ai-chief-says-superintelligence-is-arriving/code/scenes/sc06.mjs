@@ -53,14 +53,14 @@ function scene(a, T) {
   const tA = t0 + .6;
   const K = [
     [tA, c56(tA)], [a.want, L(1250, 600, .82)], [a.but - .2, L(1200, 590, .8)],
-    [a.but + 1.8, HEADCAM(1.18)], [a.does + .6, HEADCAM(1.24, 10)],
-    [a.maynard + 1.6, L(3990, 690, 2.05)], [a.little, L(4060, 690, 2.1)], [a.lecun - .2, L(4140, 690, 2.08)],
+    [a.but + 1.8, HEADCAM(1.18)], [a.last - .3, HEADCAM(1.21, 6)], [a.maynard + .3, L(2900, 560, .78)],
+    [a.milestone - .1, L(3990, 690, 2.05)], [a.little, L(4060, 690, 2.1)], [a.lecun - .2, L(4140, 690, 2.08)],
     [a.left + .2, L(4440, 660, 2.0)], [a.tech + .2, L(4440, 650, 2.12)], [C4.end + .3, L(4450, 650, 2.16)],
     [a.kind + 2.2, L(5760, 620, 1.0)], [a.dead + 1.5, L(5800, 620, 1.04)],
     [a.fifth + .6, L(5780, 610, 1.02)], [tCreep, creep67(tCreep)],
   ];
   const camRaw = (t) => (t < tA ? c56(t) : t < tCreep ? F.camPath(t, K) : creep67(t));
-  const cam = (t) => E.camDrift(camRaw(t), t, 4 * smooth(span(t, t0, t0 + 2.5)) * (1 - smooth(span(t, tPlate - 2, tPlate))), 9);
+  const cam = (t) => E.camDrift(camRaw(t), t, 4 * smooth(span(t, t0, t0 + .9)) * (1 - smooth(span(t, tPlate - 2, tPlate))), 9);
 
   // ------------------------------------------------------------------ timings
   const turn = (t) => sineIO(span(t, t0 + .3, t0 + 1.8));
@@ -68,7 +68,7 @@ function scene(a, T) {
   const windows = (t) => lerp(0, 1, span(t, t0 + .6, a.want)) * (1 - .7 * span(t, a.does + .4, a.maynard + 1.5));
   const proofIn = (t) => span(t, a.proof - .5, a.proof + .25), proofOut = (t) => span(t, a.says - .1, a.says + .9);
   const dim = (t) => .62 * sineIO(span(t, a.proof - .3, a.proof + .5)) * (1 - sineIO(span(t, a.says, a.says + 1.0))) + .3 * sineIO(span(t, a.fifth, a.fifth + 2));
-  const roadU = (t) => span(t, a.does + .4, a.maynard + 2.4);
+  const roadU = (t) => span(t, a.does, a.maynard + 2.4);
   const mile = (t) => span(t, a.milestone - .1, a.milestone + .7);
   const may = (t) => span(t, a.maynard + .6, a.lecun + 1.2);
   const mayQ = (t) => span(t, a.milestone - .3, a.milestone + .6) * (1 - span(t, a.lecun - .3, a.lecun + .5));
@@ -79,7 +79,7 @@ function scene(a, T) {
   const veil = (t) => B.GAP.veil * sineIO(span(t, a.fifth - .4, a.fifth + 1.2));
   const box = (t) => sineIO(span(t, a.fifth - .3, a.fifth + 1.2)) * (1 - sineIO(span(t, a.gapNo - .3, a.gapNo + 1.0)));
   const fill = (t) => sineIO(span(t, a.fifth + .9, a.fifth + 2.0));
-  const slipU = (t) => span(t, a.bet - .3, a.bet + .5) * (1 - expoIn(span(t, a.gapNo - .2, a.gapNo + .6)));
+  const slipU = (t) => span(t, a.bet - .3, a.bet + .5) * (1 - sineIO(span(t, a.gapNo - .5, a.gapNo + 1.0)));
   const gap = (t) => span(t, a.gapNo - .1, a.gapNo + 1.1), crackU = (t) => span(t, a.gapNo + .6, a.gapNo + 1.9);
   const postU = (t) => Math.max(1 - span(t, a.but - .4, a.but + .6), span(t, a.fifth + 1.5, a.gapNo + .5));
 

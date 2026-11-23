@@ -111,7 +111,7 @@ export function tree(ctx, t, x, base, h, s) {
 // ------------------------------------------------------------------------------------------------ the road (land card, right of the referee)
 // a pale lane along the ground from x0 to the horizon; milestone (gold 0..1) · chat windows rolling on the lane to the wall · the wall ·
 // the sign SUPERINTELLIGENCE beyond it
-export const ROAD = { x0: 3640, mile: 3990, wall: 6050, sign: 6420, y: GY - 6 };
+export const ROAD = { x0: 3640, mile: 3990, wall: 5900, sign: 6170, y: GY - 6 };
 export function road(ctx, t, o = {}) {
   const u = clamp(o.u ?? 1); if (u <= 0) return;
   const x1 = lerp(ROAD.x0, 9200, u);
@@ -127,7 +127,8 @@ export function road(ctx, t, o = {}) {
   const wa = clamp(o.wall ?? 0);
   if (wa > 0) {
     const wh = 170 * expoOut(wa), wx = ROAD.wall;
-    ctx.fillStyle = mixHex(P.night1, P.ind2, .6); ctx.fillRect(wx, ROAD.y - wh, 60, wh);
+    ctx.fillStyle = mixHex(P.ind2, P.blue2, .55); ctx.fillRect(wx, ROAD.y - wh, 60, wh);
+    ctx.fillStyle = rgba(CREAM, .45); ctx.fillRect(wx - 4, ROAD.y - wh - 4, 68, 5);
     ctx.fillStyle = rgba(P.night0, .45); for (let j = 0; j * 20 < wh; j++) for (let i = 0; i < 2; i++) ctx.fillRect(wx + (j % 2 ? 0 : 15) + i * 30, ROAD.y - 20 * (j + 1), 28, 2);
   }
   // the sign beyond the wall (a post, a plate pointing right)
