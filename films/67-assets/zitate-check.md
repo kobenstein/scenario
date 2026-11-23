@@ -23,4 +23,11 @@ Hinweis zur Zuschreibung: Es ist ein X-„Artikel“ (Langform), kein normaler P
 Header-Screenshot (Name, Handle, Avatar, Titel): x/01-header.png. Alle PNGs mit 2x-Auflösung, Dark Mode.
 
 ## Skandal-Check (Stand 23 Nov 2026)
-_folgt_
+Kein persönlicher Skandal (Betrug, Belästigung, Strafsache) bei einer der sechs Personen gefunden. Aktuelle Debatten:
+
+- **Alexandr Wang:** Kein Skandal. Debatte über den Artikel selbst: Kritiker sagen, er stützt sich auf einen noch nicht von Fachleuten geprüften Beweis, und er warnt zur Vorsicht, während Meta selbst massiv ausbaut (Al Jazeera 23.11.: aljazeera.com/economy/2026/11/23/ai-superintelligence-arriving-warns-top-meta-executive). → Im Film fair als „Warnung des Mannes, der Metas Superintelligenz-Labor leitet“ einordnen.
+- **Levent Alpöge:** Kein Skandal, aber echter Streit. Andrew Granville nennt die 4-seitige Notiz „garbled“, hätte vorher eine klare Darstellung gewollt, und stellt den Zeitpunkt in Verbindung zu Anthropics Aktienkurs nach dem Börsengang; Maksym Radziwiłł kritisiert, die Prüfarbeit werde auf Menschen abgewälzt, die keine Anerkennung bekommen. Lean-Beweis wurde von Andrew Sutherland (MIT) unabhängig kompiliert, menschenlesbare Erklärung fehlt (Scientific American, Nature d41586-026-03812-7, Science). → Im Film als „behaupteter, maschinengeprüfter Beweis, Fachwelt prüft noch“ formulieren, nicht als gesichert.
+- **Terence Tao:** Kein Skandal. Er ist ein lauter Kritiker von KI-Mathe-„Dumps“ (u. a. Kritik an OpenAIs Navier-Stokes-Veröffentlichung, „Maths 2.0“); sagte im Oktober auf Numberphile, KI löse Riemann eher um 2050. Mehrere Quellen dazu sind Aggregatoren – Einzelzitate nur aus Primärquelle (Blog/Video) verwenden.
+- **Brian Conrey:** Nichts gefunden.
+- **James Maynard:** Nichts gefunden; laut Berichten vorsichtig positiv („vermutet, dass der Beweis stimmt“).
+- **Yann LeCun:** Kein Skandal, aber laufender öffentlicher Streit: am Wochenende 21.–23.11. warf er Dario Amodei auf X vor, KI-Gefahren aufzubauschen, um offene Modelle verbieten zu lassen („medieval obscurantism“); hat Meta Ende 2025 verlassen und ein eigenes Labor (AMI Labs, Paris) gegründet. → Bei Einblendung nicht mehr als „Meta“ bezeichnen.
