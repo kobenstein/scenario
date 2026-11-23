@@ -215,9 +215,9 @@ export const CLIP_RECT = { x: 120, y: 112, w: 1680, h: 945 };
 export const CLIPS = {   // from audio/clips_meta.json + films/67-assets/clips/clips.md (checked 23.11.)
   C0: { name: 'Levent Alpöge', role: 'Mathematician', year: '2023', src: 'Number Theory Web Seminar' },   // picture only
   C1: { name: 'Alexandr Wang', role: 'Chief AI Officer, Meta', year: '2026', src: 'Core Memory Podcast' },
-  C2: { name: 'James Maynard', role: 'Mathematician · Fields Medal 2022', year: '2026', src: 'New Scientist' },
+  C2: { name: 'James Maynard', role: 'Mathematician · Fields Medal 2022', year: '2026', src: 'New Scientist', crop: .9 },   // NS logo top right
   C3: { name: 'Terence Tao', role: 'Mathematician · Fields Medal 2006', year: '2026', src: 'ICM 2026 Public Lecture, Simons Foundation' },
-  C4: { name: 'Yann LeCun', role: 'AI scientist', year: '2025', src: 'Big Technology Podcast' },
+  C4: { name: 'Yann LeCun', role: 'AI scientist', year: '2025', src: 'Big Technology Podcast', crop: .8, cropDy: -.08 },   // podcast logo bottom right
 };
 const CLIPDIR = (process.env.F67CLIPS || '/tmp/claude-0/f67/clips/').replace(/\/?$/, '/');
 const nFrames = new Map();
@@ -499,9 +499,10 @@ export function checklist(ctx, t, T, o = {}) {
   ctx.restore();
   if (S.cur >= 0 && big < .5 && S.name > 0) {   // CHECK n OF 5 · the question (screen space, ≥ 22 px, right aligned under the row)
     const B = CHECKS.boxes[S.cur], xr = x0 + rowW, al = a * (1 - big * 2);
+    const dOpen = 20 * Math.min(1, Math.max(0, ...CHECKS.boxes.map((b, i) => (b.kind === 'open' ? clamp(S.fill[i] * 3) : 0))));   // room for OPEN
     ctx.save(); ctx.globalAlpha *= al;
-    goldText(ctx, [[`CHECK ${S.cur + 1} OF 5`, .9]], xr, y0 + 16 + s + 38, 22, rise(S.name), { serif: false, weight: 700, spacing: .06, align: 'right' });
-    goldText(ctx, [[B.q, 0]], xr, y0 + 16 + s + 70, 22, rise(span(S.name, .2, 1)), { serif: false, weight: 600, spacing: .04, align: 'right', col: CREAM });
+    goldText(ctx, [[`CHECK ${S.cur + 1} OF 5`, .9]], xr, y0 + 16 + s + 38 + dOpen, 22, rise(S.name), { serif: false, weight: 700, spacing: .06, align: 'right' });
+    goldText(ctx, [[B.q, 0]], xr, y0 + 16 + s + 70 + dOpen, 22, rise(span(S.name, .2, 1)), { serif: false, weight: 600, spacing: .04, align: 'right', col: CREAM });
     ctx.restore();
   }
 }
