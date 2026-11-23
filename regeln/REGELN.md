@@ -1,6 +1,6 @@
 # REGELN für Text, Story, Hook, Titel und Thumbnail
 
-**Stand 16.11.2026 (Grundfassung von Jakob freigegeben 6.11. 16:24).** Jeder Film-Thread und jeder Texter-, Kritiker-, Hook- und Thumbnail-Agent liest diese Datei, bevor er schreibt. Sie gilt vor allen älteren Quellen (Kanal-Bibel vom 17.10., installierter Skill `scenario-script`, `scenario-script-SKILL-neu.md`/`-v3.md`, Vibe-Brief). Bei Widerspruch gilt: Jakobs neueste Aussage im Film-Thread > diese Datei > alles andere. Neue Regeln von Jakob werden HIER eingetragen (mit Datum), nicht nur in der Projekt-Erinnerung.
+**Stand 23.11.2026 (Grundfassung von Jakob freigegeben 6.11. 16:24).** Jeder Film-Thread und jeder Texter-, Kritiker-, Hook- und Thumbnail-Agent liest diese Datei, bevor er schreibt. Sie gilt vor allen älteren Quellen (Kanal-Bibel vom 17.10., installierter Skill `scenario-script`, `scenario-script-SKILL-neu.md`/`-v3.md`, Vibe-Brief). Bei Widerspruch gilt: Jakobs neueste Aussage im Film-Thread > diese Datei > alles andere. Neue Regeln von Jakob werden HIER eingetragen (mit Datum), nicht nur in der Projekt-Erinnerung.
 
 Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/retention-hooks-2026-11-05.md`, `analysen/ausstiegsstellen-2026-10-28.md`, `analysen/nothing-burger-geniuses-2026-10-24.md`, `analysen/kanal-analyse-2026-11-02.md`, `treffer-check.md`, `clip-schritt.md`. Was sich widersprach und wie es hier aufgelöst ist: `regeln-befund-2026-11-06.md`.
 
@@ -39,6 +39,7 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 5b. **Recherche immer top aktuell** (Jakob 16.11.: „alle recherchen müssen top aktuell sein“): jede Zahl und Aussage mit frischer Quelle samt Datum, nichts aus Vorwissen; ältere Studien nur, wenn es nichts Neueres gibt, und dann mit „Stand JJJJ“.
 5d. **Hartes Treffer-Tor (Tiefenanalyse 20.11.):** Thema braucht persönlichen Einsatz (Altern, Job, Geld, dein Jahr 20XX) ODER ein Ereignis mit Datum. Technik ohne Du-Bezug, Psyche, Macht/Regeln fallen sonst raus. Kein Thema mit gleichem Kern innerhalb von 3 Wochen. Ablauf: Skill `good-takeoff-thema-titel`.
 5e. **Marktcheck bei jedem Schritt (Jakob 23.11.: „wir brauchen immer bei jedem step einen grund warum genau das viral gehen wird“):** Leitgedanke, Titel, Hook und Gerüst jeweils gegen YouTube (ähnliche Leitgedanken/Titel mit Aufrufen, Abos, Datum; kleiner Kanal als Beleg) und unsere eigenen Zahlen prüfen und einen klaren Grund nennen, warum genau das geklickt wird.
+5g. **Überschneidung mit ALLEN früheren Filmen prüfen,** nicht nur den letzten 3 Wochen (Jakob 23.11.: „elon hatten wir doch schon einen film genau darüber“). Datum ist kein Pflichtteil: nicht jeder Film bekommt ein Datum (Jakob 20.11.: „komisch wärs aber auch wenn alle filme plötzlich so ein datum haben“).
 5f. **Personen in den Nachrichten prüfen** (Jakob 23.11.): Vor jedem Zitat einer Person prüfen, ob sie gerade wegen eines Skandals in der Öffentlichkeit steht (Beispiel Jensen Huang, Spionage-Affäre Nov. 2026); dann nicht oder nur mit Jakobs Okay verwenden.
 6. **Ablauf mit Jakob, nie überspringen:** Runde 1 Leitgedanken (Jakob wählt), Runde 2 Gerüst (Jakob gibt frei), erst dann Text. Nie mehrere Filme parallel schreiben. Jakob findet den Funken schneller über konkrete Vorbild-Videos als über abstrakte Gerüste. (22./23.10.)
 
@@ -49,6 +50,7 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 3. **Spannungsmotor:** alle 20–40 s etwas Neues, alle 60–90 s eine neue offene Frage. Eine Antwort immer zusammen mit der nächsten Frage.
 3a. **Countdown/Liste nie als Aufzählung erzählen (Jakob 10.11.):** auch bei 12→1 ist jede Station eine offene Schleife, verknüpft mit but/therefore; jede Geschichte endet mit einer Wendung, die eine Frage in die nächste trägt, und eine große Schleife (Platz 1) bleibt bis zum Schluss offen.
 3b. **Ein roter Faden, wenige Sprünge:** eine zentrale Person oder ein Projekt trägt den Film, wenige Orts- und Themenwechsel; eine Aufzählung erst, wenn der Zuschauer gehookt ist (Jakob 9.11., Film Tiersprache: „ich steig immer wieder aus“).
+3c. **Klickfrage ehrlich beantworten, dann den Rahmen prüfen** (Jakob 23.11., USA–China: „die leute zuerst klicken weil sie wissen wollen wer gewinnt … im laufe des films soll geklärt werden ob es wirklich ein rennen gibt“). Die These trägt den ganzen Film, nicht ein einzelnes Beispiel („nur die eine maschine zu haben is bissl wenig“, 23.11.).
 4. **Dramaturgie wechseln:** „zwei Zukünfte/2035“ höchstens jeder 3. Film, nicht immer „drei/fünf Dinge“ (YPP-Schablonen-Risiko, 26.10.). Die Abzweigung mit zwei Enden ist eine Option, kein Pflichtformat.
 5. **Lösungen bekommen Raum, aber als 2. Akt** in der Ereignis-Geschichte, mit Menschen in Szenen, nicht als Politik-Liste. Versprechen wirklich einlösen; Zweifel bündeln (ein ehrlicher Moment pro Akt), nicht an jeden Absatz hängen. (22.10., 2.11.)
 6. **Szenarien:** ohne Ansage betreten; Kennzeichnung per Einblendung („SCENARIO · 2031“) plus ein Wort im Fluss. **Jeder Zeitwechsel mit hörbarer Brücke, pro Wechsel nur ein Ort, im Hook keine Sprünge;** lieber die Vision am Stück erzählen und Belege von heute einblenden. (28.10., 5.11.)
@@ -65,6 +67,8 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 | 50–60 s | Erster Gewinn: ein überraschendes Teilstück der Antwort, das die nächste Lücke öffnet. Erst danach Kontext, Person oder Beleg-Zitat (ein Satz). |
 
 **Verboten in Minute 1:** Inhaltsangabe („In the next ten minutes“, „In this video“, „First … then“) · Rückblick, Jahreszahl der Vergangenheit, Geschichtsstunde · Biografie/Lebenslauf · Einschränkungen und Bedingungen („if its board agrees“, „just a scenario“) · „Most of us picture/think …“ · Firmen-, Politik-, Vertragsdetails · poetisch-vage Sätze ohne Information · mehr als eine Zahl oder eine Zahl zum Rechnen · mehr als eine offene Frage · Zitat-Wechsel („The man running one of those labs said …“) vor 0:30 · Pause, Musik-Break oder Stille am Hook-Ende.
+
+**Größte Fallhöhe zuerst** (Jakob 23.11.: „die größte transformation der menschheitsgeschichte in kürzester zeit … als hook?“); bei Nachrichten mit der Nachricht, der Person und der Frage „stimmt das?“ einsteigen (Jakob 23.11., #67); kein Kürzel oder Fachbegriff, den nicht alle kennen („verstehen alle meine zuseher UBI?“).
 
 **Satz 1 bringt den Kern der Neugier auf den Punkt;** der Hook verwirrt nie und führt nicht in die Irre (Jakob 9.11. Tiersprache, 10.11. Film AI for Good: „das mit dem Telefon irreführend“). Ein Rate-Moment („rate, welches“) vor Tönen oder Clips zieht ins Zuhören.
 
@@ -97,7 +101,7 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 
 ## 7. Interview-Clips (Pflicht seit 6.11.)
 
-3–6 Clips pro Film, je 4–15 s, Summe Ziel ≤8 %, hart ≤10 % der Laufzeit; pro Quellvideo max 2 Clips/20 s; ≥45 s eigener Film zwischen Clips; jeder Clip mit eigenem Einordnungssatz; „ORIGINAL FOOTAGE“ + Name im Bild. Ampel und Ablauf: `clip-schritt.md`, Prüfung `tools/clip_check.py`. Große TV-Sender, TED/NC und Clips mit Musik nur als Zitatkarte. **Jeder Clip endet mit einem vollständigen Satz,** nie mitten im Wort oder Gedanken abgeschnitten (Jakob 11.11., Tiersprache und Elon).
+3–6 Clips pro Film, je 4–15 s, Summe Ziel ≤8 %, hart ≤10 % der Laufzeit; pro Quellvideo max 2 Clips/20 s; ≥45 s eigener Film zwischen Clips; jeder Clip mit eigenem Einordnungssatz; „ORIGINAL FOOTAGE“ + Name im Bild. Ampel und Ablauf: `clip-schritt.md`, Prüfung `tools/clip_check.py`. Große TV-Sender, TED/NC und Clips mit Musik nur als Zitatkarte. **Sonst echte Clips statt Zitatkarten,** gründlich suchen, auch Reuploads (Jakob 16.11.: „nimm sie statt diesen karten das macht das video stärker“); der Text darf an gute Clips angepasst werden (17.11.). **Jeder Clip endet mit einem vollständigen Satz,** nie mitten im Wort oder Gedanken abgeschnitten (Jakob 11.11., Tiersprache und Elon).
 
 ## 8. Titel
 
@@ -112,9 +116,10 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 
 8. **Sofort ein Bild im Kopf, warum es relevant ist (Jakob 16.11.):** Abstrakte Feststellungen („You've Never Seen the Best AI“) fallen durch; der Titel nennt ein konkretes Ding/Ereignis und warum es den Zuschauer betrifft. **KI muss im Titel oder Bildtext erkennbar sein** („The Mammoth Is Coming Back“ = Tierfilm; besser „AI Is Bringing Back the Mammoth“).
 
-9. **Person + Haltung zieht (Jakob 20.11.):** „Why Elon Says …“ 18k über Schnitt; Verb mit Haltung („Says“, „Warns“, „Was Right“) statt „View“; Zitat am Original prüfen. Verlierer-Formen laut Daten 20.11.: Frage, Anleitung („How to Survive …“), Zwei-Satz-Kontrast, reiner Begriff ohne Ereignis.
+9. **Person + Haltung zieht (Jakob 20.11.):** „Why Elon Says …“ 18k über Schnitt; Verb mit Haltung („Says“, „Warns“, „Was Right“) ist die Empfehlung, Jakob darf trotzdem „View“ wählen (23.11.: „änder es Pope's View on Superintelligence“); Zitat am Original prüfen. Verlierer-Formen laut Daten 20.11.: Frage, Anleitung („How to Survive …“), Zwei-Satz-Kontrast, reiner Begriff ohne Ereignis.
 9a. **Personenfilm: Name UND „AI“ im Titel (Jakob 23.11., #41):** „im titel muss bill gates und ai vorkommen sonst schwach“. Gilt für Haupttitel und alle Test-Alternativen.
 10. **24-h-Check Pflicht:** Klickrate unter 6 % nach 24 h → Titel/Bildtext tauschen (Treffer-Check §7). Daten 20.11.: ≥ 6,5 % → 64k–443k Impressionen, < 5 % → ≤ 54k.
+11. **Kurz und wörtlich, für ältere Zuschauer (Jakob 16.–20.11.):** der Titel sagt genau, was im Film ist („die titels sollen sehr kurz sein und genau das aussagen was es ist“); Wörter, die zu 45+ am TV passen („vl nicht mom … die meisten sind älter“); nie ein falsches „zum ersten Mal“ andeuten (#59). Keine Anleitung („How to Protect …“ lief schlecht, #65).
 
 ## 9. Thumbnails (Skill `good-takeoff-thumbnails`)
 
@@ -206,3 +211,4 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 - 20.11.2026: §9.6a Bildtext widerspricht nie dem Titel, Wendung nur im Film (Jakob, #66).
 - 23.11.2026: §8.9a Personenfilm: Name und „AI“ in jedem Titel inkl. Test-Alternativen (Jakob, #41 Bill Gates).
 - 23.11.2026: §2.5e Marktcheck + Viral-Grund bei jedem Schritt, §2.5f Personen auf aktuelle Skandale prüfen (Jakob, #41/China-Film).
+- 23.11.2026 (Wochen-Durchsicht): §2.5g Überschneidung mit allen Filmen, Datum nicht Pflicht (Jakob 20./23.11.), §3.3c Klickfrage ehrlich + These trägt ganzen Film (23.11.), §4 größte Fallhöhe, Nachrichten-Einstieg, kein Kürzel (23.11.), §7 echte Clips statt Zitatkarten (16./17.11.), §8.9 „View“ erlaubt, wenn Jakob es wählt (23.11., ersetzt „statt View“), §8.11 kurz, wörtlich, für 45+, kein How-to (16.–20.11.).
