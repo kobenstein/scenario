@@ -56,8 +56,8 @@ function scene(a, T) {
     [a.but + 1.8, HEADCAM(1.18)], [a.last - .3, HEADCAM(1.21, 6)], [a.maynard + .3, L(2900, 560, .78)],
     [a.milestone - .1, L(3990, 690, 2.05)], [a.little, L(4060, 690, 2.1)], [a.lecun - .2, L(4140, 690, 2.08)],
     [a.left + .2, L(4440, 660, 2.0)], [a.tech + .2, L(4440, 650, 2.12)], [C4.end + .3, L(4450, 650, 2.16)],
-    [a.kind + 2.2, L(5760, 620, 1.0)], [a.dead + 1.5, L(5800, 620, 1.04)],
-    [a.fifth + .6, L(5780, 610, 1.02)], [tCreep, creep67(tCreep)],
+    [a.kind + 2.2, L(5760, 640, 1.25)], [a.dead + 1.5, L(5790, 640, 1.3)],
+    [a.fifth + .6, L(5770, 630, 1.27)], [tCreep, creep67(tCreep)],
   ];
   const camRaw = (t) => (t < tA ? c56(t) : t < tCreep ? F.camPath(t, K) : creep67(t));
   const cam = (t) => E.camDrift(camRaw(t), t, 4 * smooth(span(t, t0, t0 + .9)) * (1 - smooth(span(t, tPlate - 2, tPlate))), 9);
@@ -74,7 +74,7 @@ function scene(a, T) {
   const mayQ = (t) => span(t, a.milestone - .3, a.milestone + .6), mayOut = (t) => sineIO(span(t, a.lecun - .5, a.lecun + 1.0));
   const lecWalk = (t) => span(t, a.lecun + .2, a.left + .8);
   const lecL = (t) => span(t, a.lecun + 1.0, a.lecun + 1.8) * (1 - span(t, a.tech + .4, a.tech + 1.1));
-  const morph = (t) => sineIO(span(t, C4.start - 1.1, C4.start + .1)) * (1 - sineIO(span(t, C4.end - .3, C4.end + .9)));
+  const morph = (t) => sineIO(span(t, C4.start - 1.7, C4.start + .25)) * (1 - sineIO(span(t, C4.end - .35, C4.end + 1.5)));
   const sign = (t) => span(t, a.kind + .1, a.kind + 1.2), wall = (t) => span(t, a.kind + .5, a.kind + 1.4), chats = (t) => span(t, a.kind + .6, a.dead + .9);
   const veil = (t) => B.GAP.veil * sineIO(span(t, a.fifth - .4, a.fifth + 1.2));
   const box = (t) => sineIO(span(t, a.fifth - .3, a.fifth + 1.2)) * (1 - sineIO(span(t, a.gapNo - .3, a.gapNo + 1.0)));
@@ -126,7 +126,7 @@ function scene(a, T) {
     if (ll > 0 && lecScreen?.[0]) { const [n1, n2] = F.SOURCES.lecun.split(' · '); F.goldLabel(ctx, lecScreen[0][0] + 20, lecScreen[0][1] - 10, n1, n2, ll, { dx: -90, dy: -110, size: 30 }); }
     // 5.04: C4 grows out of LeCun and back
     const mo = morph(t);
-    if (mo > 0 && lecScreen?.[0] && lecScreen[1]) { const [p, q] = lecScreen; F.clipPlate(ctx, t, T, 'C4', { from: { x: p[0], y: p[1], w: q[0] - p[0], h: q[1] - p[1] }, morph: mo }); }
+    if (mo > 0 && lecScreen?.[0] && lecScreen[1]) { const [p, q] = lecScreen; F.clipPlate(ctx, t, T, 'C4', { from: { x: p[0], y: p[1], w: q[0] - p[0], h: q[1] - p[1] }, morph: mo, dark: .75 * (1 - span(mo, .35, 1)) }); }
     // 5.06 ★: box 5 big, filling halfway; the betting slip · 5.07: the gap is here
     F.veil(ctx, veil(t));
     const bx = box(t);

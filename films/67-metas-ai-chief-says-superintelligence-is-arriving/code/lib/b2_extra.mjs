@@ -195,7 +195,7 @@ export function tape(ctx, t, x, y, unit, len, o = {}) {
 // pale chalk sketch: searchlight beams sweeping from the labs + a siren on a pole; u draws it, off retracts the beams to their lamps
 export function sketchAlarm(ctx, t, u, off) {
   u = clamp(u); off = clamp(off); if (u <= 0 || off >= 1) return;
-  ctx.save(); ctx.strokeStyle = rgba(CREAM, .38 * (1 - off * .6)); ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.setLineDash([14, 9]);
+  ctx.save(); ctx.strokeStyle = rgba(CREAM, .6 * (1 - off * .6)); ctx.lineWidth = 4.5; ctx.lineCap = 'round'; ctx.setLineDash([14, 9]);
   const L = 1500 * sineIO(u) * (1 - sineIO(off));
   for (const [x, ph] of [[4360, 0], [4840, 1.7], [5300, 3.1], [3980, 4.4]]) {
     const ang = -Math.PI / 2 + .45 * Math.sin(t * .7 + ph);

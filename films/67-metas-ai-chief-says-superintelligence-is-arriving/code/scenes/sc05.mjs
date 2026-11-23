@@ -79,7 +79,7 @@ function scene(a, T) {
   const taoQ = (t) => span(t, a.dig - .6, a.dig + .4), taoOut = (t) => sineIO(span(t, a.noOne + .5, a.noOne + 1.9));
   const radL = (t) => span(t, a.another + .2, a.another + 1.0) * (1 - span(t, a.here - .1, a.here + .6));
   const lensIn = (t) => span(t, a.day + 1.0, a.day + 2.2);
-  const morph = (t) => sineIO(span(t, C3.start - 1.1, C3.start + .1)) * (1 - sineIO(span(t, C3.end - .3, C3.end + .9)));
+  const morph = (t) => sineIO(span(t, C3.start - 1.7, C3.start + .25)) * (1 - sineIO(span(t, C3.end - .35, C3.end + 1.5)));
   const card = (t) => Math.max(1 - span(t, a.day, a.day + 1.0), span(t, a.legal - .35, a.legal + .55));
   const shrug = (t) => sineIO(span(t, a.why + .4, a.why + 1.2)) * (1 - sineIO(span(t, a.gap + 1.0, a.gap + 2.2)));
   const youWalk = (t) => span(t, a.so - .6, a.so + 2.2);
@@ -147,7 +147,7 @@ function scene(a, T) {
           // ★ the tower: the seasons tree behind you, your lamp, the small read pile, 250,000+ PAGES
           B.tree(cx, t, 1660, GY, 250, season(t));
           const lo = lampOn(t), lt = lit(t);
-          halo(cx, B.YOU56.x + 10, GY - 60, lerp(180, 300, lt), .3 * lo, GOLD.halo, LAMP.core);
+          halo(cx, B.YOU56.x + 10, GY - 60, lerp(180, 420, lt), (.3 + .25 * lt) * lo, GOLD.halo, LAMP.core);
           if (lt > 0) F.ribbon(cx, t, S.RIB, { w0: 38, w1: 3, seed: 3, u: .085 * expoOut(lt), glow: 1, a: .75 });
           const np = Math.round(14 * pile(t)); for (let i = 0; i < np; i++) { cx.fillStyle = mixHex(PAPER.shade, PAPER.lit, .5 + .5 * Math.sin(i)); cx.fillRect(B.YOU56.x + 44 + Math.sin(i * 3) * 2, GY - 3 - i * 3, 34, 2.6); }
           const r = raise(t);
@@ -186,7 +186,7 @@ function scene(a, T) {
     if (tq > 0 && taoOut(t) < 1) { F.float(ctx, t, .4); ctx.translate(0, -460 * taoOut(t)); F.quoteCard(ctx, t, T, { u: tq, text: F.SOURCES.tao, credit: F.SOURCES.taoSrc, x: 140, y: 120, w: 900, size: 50, spoken: ['the digestion', 'some time'], after: a.day }); ctx.setTransform(1, 0, 0, 1, 0, 0); }
     const rl = radL(t); if (rl > 0) { const p = E.project(c, S.Z_LAND, RAD.x + 6, GY - 76); if (p) F.goldLabel(ctx, p[0], p[1], F.SOURCES.radz, 'MATHEMATICIAN', rl, { dx: 60, dy: -90, size: 28 }); }
     // 4.04 / 4.05: C3 grows out of the lens and goes back into it
-    const m = morph(t); if (m > 0 && lensScreen) F.clipPlate(ctx, t, T, 'C3', { from: [lensScreen[0], lensScreen[1], LR * lensScreen[2]], morph: m });
+    const m = morph(t); if (m > 0 && lensScreen) F.clipPlate(ctx, t, T, 'C3', { from: [lensScreen[0], lensScreen[1], LR * lensScreen[2]], morph: m, dark: .75 * (1 - span(m, .35, 1)) });
     // 4.07: your kitchen table under the lamp; the sheet falls on it, the gold card rises; then the sheet flies to your hand at the tower
     const ku = kit(t);
     let sheet = null;
