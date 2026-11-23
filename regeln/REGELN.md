@@ -38,6 +38,7 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 5c. **Keine Medizin-/Diagnose-Stationen mehr** (Jakob 16.11.: „nicht schon wieder Diagnose stellen, das hatten wir in den anderen Filmen schon zuhauf“), außer der Film handelt von Medizin.
 5b. **Recherche immer top aktuell** (Jakob 16.11.: „alle recherchen müssen top aktuell sein“): jede Zahl und Aussage mit frischer Quelle samt Datum, nichts aus Vorwissen; ältere Studien nur, wenn es nichts Neueres gibt, und dann mit „Stand JJJJ“.
 5d. **Hartes Treffer-Tor (Tiefenanalyse 20.11.):** Thema braucht persönlichen Einsatz (Altern, Job, Geld, dein Jahr 20XX) ODER ein Ereignis mit Datum. Technik ohne Du-Bezug, Psyche, Macht/Regeln fallen sonst raus. Kein Thema mit gleichem Kern innerhalb von 3 Wochen. Ablauf: Skill `good-takeoff-thema-titel`.
+5e. **Marktcheck bei jedem Schritt (Jakob 23.11.: „wir brauchen immer bei jedem step einen grund warum genau das viral gehen wird“):** Leitgedanke, Titel, Hook und Gerüst kommen nur mit (1) Marktcheck: ähnliche Videos auf YouTube mit Aufrufen und Verhältnis zu den Abos des Kanals, möglichst aus den letzten Wochen, (2) Abgleich mit unseren eigenen Daten (Thema-Gruppe, Titelmuster, Klickrate) und (3) einem Satz „Viral-Grund“, warum genau das klickt. Personen, die gerade in einem Skandal stehen, nicht als Titelanker nutzen, wenn der Film den Skandal nicht behandelt.
 6. **Ablauf mit Jakob, nie überspringen:** Runde 1 Leitgedanken (Jakob wählt), Runde 2 Gerüst (Jakob gibt frei), erst dann Text. Nie mehrere Filme parallel schreiben. Jakob findet den Funken schneller über konkrete Vorbild-Videos als über abstrakte Gerüste. (22./23.10.)
 
 ## 3. Story-Gerüst
@@ -203,3 +204,4 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 - 20.11.2026 (Kanal-Tiefenanalyse): §2.5d hartes Treffer-Tor (Du-Einsatz oder Datum, 3 Wochen Abstand), §8.9 Person + Haltung und Verlierer-Formen, §8.10 24-h-Klickraten-Check. Neuer Skill `good-takeoff-thema-titel` (Ablauf Thema + Titel).
 - 20.11.2026: §9.6a Bildtext widerspricht nie dem Titel, Wendung nur im Film (Jakob, #66).
 - 23.11.2026: §8.9a Personenfilm: Name und „AI“ in jedem Titel inkl. Test-Alternativen (Jakob, #41 Bill Gates).
+- 23.11.2026: §2.5e Marktcheck + Viral-Grund bei jedem Schritt (Jakob, USA–China-Film).
