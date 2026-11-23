@@ -1,0 +1,1496 @@
+1
+00:00:00,690 --> 00:00:03,000
+Superintelligence is arriving.
+
+2
+00:00:03,200 --> 00:00:04,750
+That's what Meta's AI chief
+
+3
+00:00:04,790 --> 00:00:06,100
+announced this weekend.
+
+4
+00:00:06,360 --> 00:00:07,360
+Is he right?
+
+5
+00:00:07,400 --> 00:00:08,680
+Because if he is,
+
+6
+00:00:08,720 --> 00:00:09,590
+the biggest change
+
+7
+00:00:09,630 --> 00:00:10,460
+of your lifetime
+
+8
+00:00:10,500 --> 00:00:11,950
+has already begun.
+
+9
+00:00:12,250 --> 00:00:14,200
+His evidence is a single file,
+
+10
+00:00:14,240 --> 00:00:15,510
+published days ago.
+
+11
+00:00:15,710 --> 00:00:17,420
+In it, a mathematician working
+
+12
+00:00:17,460 --> 00:00:18,580
+with an AI claims
+
+13
+00:00:18,620 --> 00:00:19,550
+a proof of the most
+
+14
+00:00:19,590 --> 00:00:20,810
+famous unsolved
+
+15
+00:00:20,850 --> 00:00:22,310
+problem in mathematics:
+
+16
+00:00:22,370 --> 00:00:23,910
+the Riemann hypothesis.
+
+17
+00:00:24,190 --> 00:00:25,050
+A separate program
+
+18
+00:00:25,090 --> 00:00:26,030
+checked that proof,
+
+19
+00:00:26,070 --> 00:00:27,250
+step by step.
+
+20
+00:00:27,390 --> 00:00:29,450
+Its verdict: correct.
+
+21
+00:00:30,020 --> 00:00:31,980
+But written out in plain language,
+
+22
+00:00:32,020 --> 00:00:33,540
+it runs to over a quarter
+
+23
+00:00:33,580 --> 00:00:35,210
+of a million pages.
+
+24
+00:00:35,480 --> 00:00:37,050
+So far, no human
+
+25
+00:00:37,090 --> 00:00:38,500
+fully understands it.
+
+26
+00:00:38,690 --> 00:00:39,890
+Not even the mathematician
+
+27
+00:00:39,930 --> 00:00:40,960
+who published it.
+
+28
+00:00:41,360 --> 00:00:42,940
+Meta's AI chief says
+
+29
+00:00:42,980 --> 00:00:44,660
+it was "completed with the help
+
+30
+00:00:44,700 --> 00:00:46,040
+of an alien mind
+
+31
+00:00:46,080 --> 00:00:47,750
+that we don't understand."
+
+32
+00:00:48,090 --> 00:00:49,960
+Many physicists, he writes,
+
+33
+00:00:50,000 --> 00:00:51,510
+would call the atomic bomb
+
+34
+00:00:51,550 --> 00:00:53,560
+a homework problem next to this.
+
+35
+00:00:53,940 --> 00:00:54,960
+If he's right,
+
+36
+00:00:55,000 --> 00:00:57,250
+this is what arrival looks like.
+
+37
+00:00:57,530 --> 00:00:58,380
+It's not arriving
+
+38
+00:00:58,420 --> 00:01:00,020
+as a machine we fear.
+
+39
+00:01:00,240 --> 00:01:01,790
+It's arriving as an answer
+
+40
+00:01:01,830 --> 00:01:03,250
+we can't read.
+
+41
+00:01:03,790 --> 00:01:05,440
+So test his claim.
+
+42
+00:01:05,570 --> 00:01:06,720
+Five checks.
+
+43
+00:01:06,810 --> 00:01:08,400
+He doesn't pass them all.
+
+44
+00:01:09,470 --> 00:01:11,440
+The man is Alexandr Wang,
+
+45
+00:01:11,480 --> 00:01:13,400
+Meta's chief AI officer.
+
+46
+00:01:13,590 --> 00:01:14,260
+He runs a lab
+
+47
+00:01:14,300 --> 00:01:15,750
+with the goal in its name:
+
+48
+00:01:15,860 --> 00:01:17,920
+Meta Superintelligence Labs.
+
+49
+00:01:18,130 --> 00:01:19,520
+That bomb comparison?
+
+50
+00:01:19,680 --> 00:01:21,000
+He gives no source for it.
+
+51
+00:01:21,290 --> 00:01:22,470
+And still, his essay
+
+52
+00:01:22,510 --> 00:01:23,990
+is no victory lap.
+
+53
+00:01:24,050 --> 00:01:25,130
+He calls it "lazy
+
+54
+00:01:25,170 --> 00:01:26,120
+thinking" to treat
+
+55
+00:01:26,160 --> 00:01:28,150
+superintelligence as inevitable.
+
+56
+00:01:28,400 --> 00:01:30,150
+But look at who is speaking.
+
+57
+00:01:30,380 --> 00:01:31,580
+Building superintelligence
+
+58
+00:01:31,620 --> 00:01:32,790
+is Wang's job,
+
+59
+00:01:32,830 --> 00:01:33,800
+and his essay also
+
+60
+00:01:33,840 --> 00:01:35,240
+promotes his own lab.
+
+61
+00:01:35,500 --> 00:01:36,970
+Here he is, months earlier,
+
+62
+00:01:37,010 --> 00:01:38,520
+describing that project.
+
+63
+00:01:38,900 --> 00:01:40,300
+A lot of the leading labs,
+
+64
+00:01:40,340 --> 00:01:42,600
+they build the entire
+
+65
+00:01:42,640 --> 00:01:44,040
+organizations around the premise
+
+66
+00:01:44,080 --> 00:01:47,600
+that superintelligence is coming
+
+67
+00:01:47,640 --> 00:01:49,320
+and it is very close.
+
+68
+00:01:49,910 --> 00:01:51,060
+And yet this proof
+
+69
+00:01:51,100 --> 00:01:52,570
+came from a competitor.
+
+70
+00:01:52,820 --> 00:01:54,670
+Maybe he means every word.
+
+71
+00:01:54,940 --> 00:01:55,690
+It also helps
+
+72
+00:01:55,730 --> 00:01:57,290
+him: if superintelligence
+
+73
+00:01:57,330 --> 00:01:59,860
+is arriving, his lab matters more.
+
+74
+00:02:00,050 --> 00:02:01,230
+Both can be true.
+
+75
+00:02:01,520 --> 00:02:03,460
+So his word is not enough.
+
+76
+00:02:03,770 --> 00:02:05,460
+Check the claim itself.
+
+77
+00:02:06,630 --> 00:02:09,420
+First check: is his evidence real?
+
+78
+00:02:09,660 --> 00:02:10,490
+What was published
+
+79
+00:02:10,530 --> 00:02:11,580
+is a short note,
+
+80
+00:02:11,620 --> 00:02:13,180
+and about 17 million
+
+81
+00:02:13,220 --> 00:02:14,300
+lines of code.
+
+82
+00:02:14,490 --> 00:02:16,010
+No human reads that.
+
+83
+00:02:16,050 --> 00:02:18,110
+Not you, not the man who wrote it.
+
+84
+00:02:18,320 --> 00:02:19,890
+It was written for a referee:
+
+85
+00:02:19,930 --> 00:02:21,260
+a program called Lean,
+
+86
+00:02:21,300 --> 00:02:23,120
+which checks every logical step
+
+87
+00:02:23,160 --> 00:02:25,030
+and can't be talked into anything.
+
+88
+00:02:25,360 --> 00:02:27,420
+The referee's ruling: correct.
+
+89
+00:02:27,650 --> 00:02:28,900
+Within a day, the people who
+
+90
+00:02:28,940 --> 00:02:30,860
+build that referee were convinced.
+
+91
+00:02:31,060 --> 00:02:32,620
+At MIT, an independent
+
+92
+00:02:32,660 --> 00:02:33,660
+check is running.
+
+93
+00:02:33,750 --> 00:02:35,050
+Most runs have passed.
+
+94
+00:02:35,090 --> 00:02:36,500
+A few are still open.
+
+95
+00:02:37,120 --> 00:02:39,010
+First box: gold.
+
+96
+00:02:39,380 --> 00:02:41,030
+The evidence is real,
+
+97
+00:02:41,070 --> 00:02:42,970
+and so far, it holds.
+
+98
+00:02:43,290 --> 00:02:44,790
+And if it keeps holding?
+
+99
+00:02:45,170 --> 00:02:47,000
+One mathematician's answer:
+
+100
+00:02:47,380 --> 00:02:48,480
+So, the Riemann hypothesis
+
+101
+00:02:48,520 --> 00:02:50,420
+is sometimes dubbed
+
+102
+00:02:50,460 --> 00:02:52,160
+the most famous and most important
+
+103
+00:02:52,200 --> 00:02:53,920
+problem in mathematics,
+
+104
+00:02:53,960 --> 00:02:55,420
+and it's describing
+
+105
+00:02:55,460 --> 00:02:58,300
+the distribution of prime numbers.
+
+106
+00:02:59,000 --> 00:03:00,630
+But a referee only rules
+
+107
+00:03:00,670 --> 00:03:02,130
+on the game it is given.
+
+108
+00:03:02,530 --> 00:03:04,320
+Check two: does the code
+
+109
+00:03:04,360 --> 00:03:05,810
+prove the right thing?
+
+110
+00:03:06,040 --> 00:03:07,430
+One critic's worry:
+
+111
+00:03:07,660 --> 00:03:08,560
+the code may prove
+
+112
+00:03:08,600 --> 00:03:09,630
+a sentence that is
+
+113
+00:03:09,670 --> 00:03:11,100
+true by definition.
+
+114
+00:03:11,250 --> 00:03:12,190
+Something that sounds
+
+115
+00:03:12,230 --> 00:03:14,170
+grand and says nothing.
+
+116
+00:03:14,420 --> 00:03:15,350
+But the author didn't
+
+117
+00:03:15,390 --> 00:03:16,500
+write the question.
+
+118
+00:03:16,700 --> 00:03:18,310
+The Riemann hypothesis already
+
+119
+00:03:18,350 --> 00:03:20,230
+stood in the referee's rule book,
+
+120
+00:03:20,270 --> 00:03:21,860
+put there by someone else.
+
+121
+00:03:22,160 --> 00:03:23,040
+The people who build
+
+122
+00:03:23,080 --> 00:03:24,700
+the referee reject it.
+
+123
+00:03:24,970 --> 00:03:26,330
+The argument goes on.
+
+124
+00:03:26,690 --> 00:03:28,650
+Second box: gold,
+
+125
+00:03:28,810 --> 00:03:30,040
+with a question mark.
+
+126
+00:03:31,150 --> 00:03:32,870
+But whose work is it?
+
+127
+00:03:33,520 --> 00:03:36,470
+Check three: was it really the AI?
+
+128
+00:03:36,880 --> 00:03:37,670
+The proof comes
+
+129
+00:03:37,710 --> 00:03:38,810
+from a mathematician
+
+130
+00:03:38,850 --> 00:03:40,290
+at an AI company,
+
+131
+00:03:40,330 --> 00:03:41,930
+working with its AI.
+
+132
+00:03:42,150 --> 00:03:43,390
+The problem is older
+
+133
+00:03:43,430 --> 00:03:44,640
+than the light bulb.
+
+134
+00:03:44,890 --> 00:03:45,840
+The checkable proof
+
+135
+00:03:45,880 --> 00:03:47,600
+took about 6 weeks.
+
+136
+00:03:47,780 --> 00:03:49,120
+That company gains
+
+137
+00:03:49,160 --> 00:03:51,090
+if its AI gets the credit.
+
+138
+00:03:51,310 --> 00:03:52,100
+So listen to
+
+139
+00:03:52,140 --> 00:03:53,760
+the mathematician himself.
+
+140
+00:03:54,080 --> 00:03:55,430
+He doesn't fully understand
+
+141
+00:03:55,470 --> 00:03:56,790
+the proof he published.
+
+142
+00:03:57,100 --> 00:03:59,040
+Publishing it anyway, he said,
+
+143
+00:03:59,080 --> 00:04:00,880
+is "frankly completely
+
+144
+00:04:00,920 --> 00:04:01,990
+outrageous."
+
+145
+00:04:02,200 --> 00:04:03,420
+You don't say that about
+
+146
+00:04:03,460 --> 00:04:04,660
+your own idea.
+
+147
+00:04:05,050 --> 00:04:06,940
+Third box: gold,
+
+148
+00:04:07,100 --> 00:04:08,430
+on his own account.
+
+149
+00:04:09,130 --> 00:04:11,250
+Compare that with a second proof,
+
+150
+00:04:11,290 --> 00:04:13,160
+claimed on the very same day.
+
+151
+00:04:13,300 --> 00:04:14,380
+By a human.
+
+152
+00:04:14,730 --> 00:04:17,230
+So far, that one is still a claim.
+
+153
+00:04:17,370 --> 00:04:18,140
+The machine's proof
+
+154
+00:04:18,180 --> 00:04:19,030
+has been checked,
+
+155
+00:04:19,070 --> 00:04:20,640
+and nobody can read it.
+
+156
+00:04:21,810 --> 00:04:24,120
+That leaves Wang's boldest phrase:
+
+157
+00:04:24,300 --> 00:04:25,820
+the "alien mind".
+
+158
+00:04:26,410 --> 00:04:27,910
+Check four: does any
+
+159
+00:04:27,950 --> 00:04:29,450
+human understand it?
+
+160
+00:04:29,840 --> 00:04:31,100
+On the day it appeared,
+
+161
+00:04:31,140 --> 00:04:31,940
+the mathematician
+
+162
+00:04:31,980 --> 00:04:33,580
+Terence Tao wrote:
+
+163
+00:04:33,790 --> 00:04:35,060
+"the digestion process
+
+164
+00:04:35,100 --> 00:04:36,480
+will take some time."
+
+165
+00:04:36,790 --> 00:04:37,760
+Another mathematician
+
+166
+00:04:37,800 --> 00:04:38,900
+said it bluntly:
+
+167
+00:04:39,190 --> 00:04:41,150
+no one understands the proof.
+
+168
+00:04:41,470 --> 00:04:43,420
+Here is Tao, in an earlier talk,
+
+169
+00:04:43,460 --> 00:04:45,720
+on proofs checked by machines.
+
+170
+00:04:46,100 --> 00:04:47,140
+It hasn't quite happened yet,
+
+171
+00:04:47,180 --> 00:04:48,700
+but we are very, very close
+
+172
+00:04:48,740 --> 00:04:50,100
+to a scenario in which
+
+173
+00:04:50,140 --> 00:04:51,360
+a major result gets proved
+
+174
+00:04:51,400 --> 00:04:53,560
+and verified, and no human
+
+175
+00:04:53,600 --> 00:04:55,270
+can understand, can explain it.
+
+176
+00:04:55,870 --> 00:04:57,930
+So "correct" is not
+
+177
+00:04:57,970 --> 00:04:59,640
+the same as understood.
+
+178
+00:04:59,900 --> 00:05:00,930
+The referee can tell you
+
+179
+00:05:00,970 --> 00:05:02,610
+every step was legal.
+
+180
+00:05:02,760 --> 00:05:03,590
+It can't tell you
+
+181
+00:05:03,630 --> 00:05:05,100
+why the game was won.
+
+182
+00:05:05,280 --> 00:05:06,750
+And that gap is not a problem
+
+183
+00:05:06,790 --> 00:05:08,420
+for mathematicians alone.
+
+184
+00:05:08,520 --> 00:05:10,010
+Sooner or later it arrives
+
+185
+00:05:10,050 --> 00:05:12,470
+at your table, stamped correct.
+
+186
+00:05:12,710 --> 00:05:14,800
+This box may never turn gold.
+
+187
+00:05:14,990 --> 00:05:16,080
+A quarter of a million
+
+188
+00:05:16,120 --> 00:05:17,110
+pages is more
+
+189
+00:05:17,150 --> 00:05:18,170
+than one person can
+
+190
+00:05:18,210 --> 00:05:19,560
+read in a lifetime.
+
+191
+00:05:20,360 --> 00:05:22,970
+So on this point, Wang is right.
+
+192
+00:05:23,140 --> 00:05:24,800
+Something has arrived that reasons
+
+193
+00:05:24,840 --> 00:05:26,520
+further than we can read.
+
+194
+00:05:27,090 --> 00:05:28,370
+If you pictured the arrival
+
+195
+00:05:28,410 --> 00:05:29,940
+as a loud moment:
+
+196
+00:05:30,240 --> 00:05:32,040
+no machine announced itself.
+
+197
+00:05:32,350 --> 00:05:33,400
+A human did.
+
+198
+00:05:33,770 --> 00:05:35,660
+What arrived was quiet.
+
+199
+00:05:35,880 --> 00:05:37,100
+A single file.
+
+200
+00:05:38,260 --> 00:05:39,290
+This channel exists
+
+201
+00:05:39,330 --> 00:05:40,610
+for one reason:
+
+202
+00:05:40,790 --> 00:05:41,660
+so that the arrival
+
+203
+00:05:41,700 --> 00:05:42,830
+of superintelligence
+
+204
+00:05:42,870 --> 00:05:44,660
+goes well for everybody.
+
+205
+00:05:44,720 --> 00:05:45,530
+Not just for the people
+
+206
+00:05:45,570 --> 00:05:46,570
+who build it.
+
+207
+00:05:46,770 --> 00:05:47,770
+Want that too?
+
+208
+00:05:47,880 --> 00:05:48,890
+Then subscribe.
+
+209
+00:05:50,060 --> 00:05:51,630
+But Wang's headline doesn't
+
+210
+00:05:51,670 --> 00:05:53,480
+say a proof is arriving.
+
+211
+00:05:53,520 --> 00:05:55,660
+It says superintelligence.
+
+212
+00:05:55,720 --> 00:05:57,060
+So, the last check:
+
+213
+00:05:57,310 --> 00:05:58,460
+does one proof mean
+
+214
+00:05:58,500 --> 00:05:59,910
+superintelligence?
+
+215
+00:06:00,460 --> 00:06:02,650
+James Maynard, a Fields medalist,
+
+216
+00:06:02,690 --> 00:06:03,490
+calls the proof
+
+217
+00:06:03,530 --> 00:06:05,150
+a "historic milestone",
+
+218
+00:06:05,190 --> 00:06:06,320
+if it is correct.
+
+219
+00:06:06,550 --> 00:06:08,480
+But for him, little changes:
+
+220
+00:06:08,580 --> 00:06:09,420
+he never doubted
+
+221
+00:06:09,460 --> 00:06:11,110
+the hypothesis was true.
+
+222
+00:06:11,550 --> 00:06:12,570
+The sharpest doubt
+
+223
+00:06:12,610 --> 00:06:13,940
+comes from Yann LeCun.
+
+224
+00:06:14,230 --> 00:06:15,680
+He left Meta a year ago,
+
+225
+00:06:15,720 --> 00:06:16,830
+and has called Wang
+
+226
+00:06:16,870 --> 00:06:18,170
+"inexperienced".
+
+227
+00:06:18,550 --> 00:06:20,100
+No neutral witness, then.
+
+228
+00:06:20,300 --> 00:06:22,170
+But his objection is technical.
+
+229
+00:06:22,550 --> 00:06:24,390
+We are not going to get
+
+230
+00:06:24,430 --> 00:06:24,970
+to human-level AI
+
+231
+00:06:25,010 --> 00:06:27,230
+by just scaling up LLMs.
+
+232
+00:06:27,270 --> 00:06:29,320
+This is just not going to happen.
+
+233
+00:06:29,920 --> 00:06:31,400
+The kind of AI behind
+
+234
+00:06:31,440 --> 00:06:33,600
+today's chatbots, he argues,
+
+235
+00:06:33,720 --> 00:06:34,580
+is a dead end
+
+236
+00:06:34,620 --> 00:06:36,620
+on the way to superintelligence.
+
+237
+00:06:36,870 --> 00:06:38,200
+So the fifth box
+
+238
+00:06:38,240 --> 00:06:39,960
+only fills halfway.
+
+239
+00:06:40,390 --> 00:06:42,150
+"Arriving" is a bet,
+
+240
+00:06:42,220 --> 00:06:43,020
+placed by a man
+
+241
+00:06:43,060 --> 00:06:44,230
+with a stake in it.
+
+242
+00:06:44,520 --> 00:06:46,100
+But the gap between correct
+
+243
+00:06:46,140 --> 00:06:48,190
+and understood is no bet.
+
+244
+00:06:48,390 --> 00:06:49,590
+It is already here.
+
+245
+00:06:49,900 --> 00:06:51,370
+And behind that headline,
+
+246
+00:06:51,410 --> 00:06:53,410
+Wang's own essay is worried.
+
+247
+00:06:53,680 --> 00:06:54,510
+He finds it hard
+
+248
+00:06:54,550 --> 00:06:55,790
+to imagine humanity
+
+249
+00:06:55,830 --> 00:06:57,550
+keeping control of something "a
+
+250
+00:06:57,590 --> 00:06:59,610
+thousand times smarter and more
+
+251
+00:06:59,650 --> 00:07:00,960
+capable than humans
+
+252
+00:07:01,000 --> 00:07:02,350
+in every field."
+
+253
+00:07:02,960 --> 00:07:03,990
+And he writes:
+
+254
+00:07:04,280 --> 00:07:05,580
+"We should not be okay
+
+255
+00:07:05,620 --> 00:07:08,500
+with a handover of society to AI."
+
+256
+00:07:08,790 --> 00:07:09,630
+A handover.
+
+257
+00:07:09,670 --> 00:07:11,890
+What would that look like?
+
+258
+00:07:13,070 --> 00:07:14,410
+Not like a coup.
+
+259
+00:07:14,660 --> 00:07:16,460
+More like an ordinary evening,
+
+260
+00:07:16,500 --> 00:07:17,670
+a few years from now,
+
+261
+00:07:17,710 --> 00:07:18,760
+in your town hall.
+
+262
+00:07:19,060 --> 00:07:20,840
+The old bridge, the one you cross
+
+263
+00:07:20,880 --> 00:07:23,130
+every morning, has to be replaced.
+
+264
+00:07:23,310 --> 00:07:25,170
+A system has designed the new one,
+
+265
+00:07:25,210 --> 00:07:26,430
+and marked its own design
+
+266
+00:07:26,470 --> 00:07:28,650
+with one word: correct.
+
+267
+00:07:28,910 --> 00:07:29,790
+The reasoning runs
+
+268
+00:07:29,830 --> 00:07:30,890
+longer than anyone
+
+269
+00:07:30,930 --> 00:07:32,580
+in the room could ever read.
+
+270
+00:07:32,750 --> 00:07:34,360
+The engineers can't follow it.
+
+271
+00:07:34,410 --> 00:07:35,410
+Neither can you.
+
+272
+00:07:35,530 --> 00:07:36,510
+But the system has
+
+273
+00:07:36,550 --> 00:07:37,700
+never been wrong.
+
+274
+00:07:37,990 --> 00:07:39,490
+So the hands go up.
+
+275
+00:07:39,640 --> 00:07:40,640
+Yours, too.
+
+276
+00:07:41,100 --> 00:07:42,740
+That is a handover.
+
+277
+00:07:43,020 --> 00:07:44,650
+No robots in the street.
+
+278
+00:07:44,690 --> 00:07:46,410
+Nobody seizing power.
+
+279
+00:07:46,500 --> 00:07:48,700
+Just a thousand small yeses.
+
+280
+00:07:48,900 --> 00:07:49,710
+Your loan.
+
+281
+00:07:49,750 --> 00:07:50,730
+Your contract.
+
+282
+00:07:50,770 --> 00:07:52,010
+Your town's budget.
+
+283
+00:07:52,270 --> 00:07:53,670
+Each one sensible.
+
+284
+00:07:53,830 --> 00:07:55,960
+Each one a little less yours.
+
+285
+00:07:56,210 --> 00:07:56,780
+But look at what
+
+286
+00:07:56,820 --> 00:07:58,980
+the mathematicians actually did.
+
+287
+00:07:59,080 --> 00:07:59,770
+They did not take
+
+288
+00:07:59,810 --> 00:08:00,880
+the machine's word,
+
+289
+00:08:00,920 --> 00:08:02,110
+or the company's.
+
+290
+00:08:02,320 --> 00:08:03,480
+They trusted a referee
+
+291
+00:08:03,520 --> 00:08:04,810
+that humans built.
+
+292
+00:08:05,000 --> 00:08:06,150
+Its rules are open.
+
+293
+00:08:06,190 --> 00:08:07,670
+Anyone can run it again.
+
+294
+00:08:08,290 --> 00:08:09,740
+Their trust moved:
+
+295
+00:08:09,890 --> 00:08:11,210
+away from the answer,
+
+296
+00:08:11,310 --> 00:08:12,310
+to the check.
+
+297
+00:08:12,800 --> 00:08:13,790
+In your town hall,
+
+298
+00:08:13,830 --> 00:08:16,110
+the system was its own referee.
+
+299
+00:08:16,380 --> 00:08:18,090
+In mathematics, humans
+
+300
+00:08:18,130 --> 00:08:19,720
+built the referee first.
+
+301
+00:08:19,890 --> 00:08:21,740
+So who builds the referees
+
+302
+00:08:21,780 --> 00:08:23,120
+for everything else?
+
+303
+00:08:24,280 --> 00:08:25,410
+The labs could.
+
+304
+00:08:25,860 --> 00:08:27,680
+Wang himself writes that a better
+
+305
+00:08:27,720 --> 00:08:29,610
+future likely involves the whole
+
+306
+00:08:29,650 --> 00:08:30,720
+industry taking
+
+307
+00:08:30,760 --> 00:08:31,820
+"meaningfully different
+
+308
+00:08:31,860 --> 00:08:33,650
+actions from the default path".
+
+309
+00:08:34,160 --> 00:08:35,900
+He doesn't say exactly how.
+
+310
+00:08:36,180 --> 00:08:37,770
+One way: labs agree
+
+311
+00:08:37,810 --> 00:08:38,620
+that their strongest
+
+312
+00:08:38,660 --> 00:08:39,910
+systems hand in work
+
+313
+00:08:39,950 --> 00:08:41,380
+a referee can check.
+
+314
+00:08:41,510 --> 00:08:43,970
+Then no answer is its own referee.
+
+315
+00:08:44,220 --> 00:08:45,530
+The objection: whoever
+
+316
+00:08:45,570 --> 00:08:47,250
+waits falls behind.
+
+317
+00:08:47,400 --> 00:08:48,450
+So governments could
+
+318
+00:08:48,490 --> 00:08:49,200
+make it a rule
+
+319
+00:08:49,240 --> 00:08:50,650
+where the stakes are high.
+
+320
+00:08:50,720 --> 00:08:52,070
+Then your town can refuse
+
+321
+00:08:52,110 --> 00:08:54,160
+to vote on what nobody can check.
+
+322
+00:08:54,420 --> 00:08:56,200
+But who checks the checkers?
+
+323
+00:08:56,800 --> 00:08:58,800
+Mathematics has one answer:
+
+324
+00:08:58,950 --> 00:09:00,360
+an open referee,
+
+325
+00:09:00,400 --> 00:09:01,910
+carried by nonprofits,
+
+326
+00:09:01,950 --> 00:09:03,530
+not by one company.
+
+327
+00:09:03,720 --> 00:09:04,770
+The engineer in the back
+
+328
+00:09:04,810 --> 00:09:06,320
+row can run it herself,
+
+329
+00:09:06,360 --> 00:09:07,680
+and nobody has to trust
+
+330
+00:09:07,720 --> 00:09:09,300
+whoever sells the answer.
+
+331
+00:09:09,670 --> 00:09:10,780
+The hardest objection
+
+332
+00:09:10,820 --> 00:09:12,080
+is the simplest:
+
+333
+00:09:12,250 --> 00:09:13,570
+results matter more
+
+334
+00:09:13,610 --> 00:09:14,820
+than understanding.
+
+335
+00:09:15,070 --> 00:09:16,440
+You already cross bridges
+
+336
+00:09:16,480 --> 00:09:18,070
+you could never calculate.
+
+337
+00:09:18,360 --> 00:09:19,350
+True.
+
+338
+00:09:19,390 --> 00:09:22,010
+But until now, some human could.
+
+339
+00:09:22,270 --> 00:09:23,680
+None of this is agreed,
+
+340
+00:09:23,720 --> 00:09:24,960
+and none of it is tested
+
+341
+00:09:25,000 --> 00:09:26,070
+at this scale.
+
+342
+00:09:26,290 --> 00:09:26,990
+Who could change
+
+343
+00:09:27,030 --> 00:09:29,190
+that: labs, governments,
+
+344
+00:09:29,230 --> 00:09:31,830
+investors, and voters like you.
+
+345
+00:09:32,440 --> 00:09:34,400
+And Wang puts a clock on it.
+
+346
+00:09:34,760 --> 00:09:36,250
+"How humanity acts over
+
+347
+00:09:36,290 --> 00:09:37,730
+the next year will have
+
+348
+00:09:37,770 --> 00:09:39,430
+great consequence on what
+
+349
+00:09:39,470 --> 00:09:41,260
+future world we live in."
+
+350
+00:09:42,490 --> 00:09:44,770
+Superintelligence is arriving.
+
+351
+00:09:45,110 --> 00:09:46,670
+So, is he right?
+
+352
+00:09:47,010 --> 00:09:48,010
+In part.
+
+353
+00:09:48,130 --> 00:09:49,640
+Something has arrived:
+
+354
+00:09:49,740 --> 00:09:51,230
+an answer that holds,
+
+355
+00:09:51,270 --> 00:09:53,640
+so far, and that we can't read.
+
+356
+00:09:53,940 --> 00:09:55,500
+Whether that is superintelligence
+
+357
+00:09:55,540 --> 00:09:56,830
+remains his bet.
+
+358
+00:09:57,110 --> 00:09:58,150
+And the box that is still
+
+359
+00:09:58,190 --> 00:10:00,190
+open isn't about the machine.
+
+360
+00:10:00,290 --> 00:10:01,420
+It's about us.
+
+361
+00:10:01,770 --> 00:10:02,370
+So when the next
+
+362
+00:10:02,410 --> 00:10:03,900
+headline says an AI
+
+363
+00:10:03,940 --> 00:10:06,500
+solved something, ask two things.
+
+364
+00:10:06,690 --> 00:10:08,350
+Can any human follow it?
+
+365
+00:10:08,530 --> 00:10:10,320
+And who says it's correct?
+
+366
+00:10:11,210 --> 00:10:12,910
+We may never read every answer.
+
+367
+00:10:12,950 --> 00:10:14,300
+But who gets to say
+
+368
+00:10:14,340 --> 00:10:16,820
+"correct" has to stay human.
+
+369
+00:10:17,990 --> 00:10:19,160
+This channel exists
+
+370
+00:10:19,200 --> 00:10:20,040
+so that the arrival
+
+371
+00:10:20,080 --> 00:10:21,510
+of superintelligence goes
+
+372
+00:10:21,550 --> 00:10:23,000
+well for everybody.
+
+373
+00:10:23,270 --> 00:10:24,270
+Want that too?
+
+374
+00:10:24,370 --> 00:10:25,370
+Then subscribe.
+

@@ -1,0 +1,22 @@
+# Film 67 master fassung-2-master-1080p.mp4 (1648783969 bytes), sha256 d9780ed34fa1479379e456d576cabf2e1bd321e3a46b944a4a314883c853484c
+# Parts 00-08 = raw .bin; parts 09-18 = .zip (unzip -p gives the raw part f67m.partNN). Join in order 00..18 with cat -> mp4, then shasum -a 256.
+# Target name: 67-metas-ai-chief-says-superintelligence-is-arriving-master-1080p.mp4
+00 https://v3b.fal.media/files/b/0ab3a5b3/7qIyi2jc8HbtbNvbkLDaN_f67m.part00.bin
+01 https://v3b.fal.media/files/b/0ab3a5b3/vAuPEgYkcCEXRkO4bFZ5B_f67m.part01.bin
+02 https://v3b.fal.media/files/b/0ab3a5b3/03pJwJoqEmmZKHCViED7T_f67m.part02.bin
+03 https://v3b.fal.media/files/b/0ab3a5b3/lvRIAH3k06Es-pKr0SbMx_f67m.part03.bin
+04 https://v3b.fal.media/files/b/0ab3a5b3/ccKm-8yAvrUStvdm0EMkt_f67m.part04.bin
+05 https://v3b.fal.media/files/b/0ab3a5b3/yQ3g2AK2uAI_uwH6rgb2n_f67m.part05.bin
+06 https://v3b.fal.media/files/b/0ab3a5b3/uww9dKmjaHMAVIq2NK97-_f67m.part06.bin
+07 https://v3b.fal.media/files/b/0ab3a5b3/dIrVlLc7181HOp5QgNdSi_f67m.part07.bin
+08 https://v3b.fal.media/files/b/0ab3a5b3/YTS7DYf2O5RZ7GFytpssK_f67m.part08.bin
+09 https://v3b.fal.media/files/b/0ab3a5bf/O3wVgPtY_WABekGP1mPJg_f67m.part09.zip
+10 https://v3b.fal.media/files/b/0ab3a5c1/TojIAxRb8r37csHUyFIu-_f67m.part10.zip
+11 https://v3b.fal.media/files/b/0ab3a5c1/pYyNFG_L8POit_UrJM_5r_f67m.part11.zip
+12 https://v3b.fal.media/files/b/0ab3a5c1/YQqRH40Y0vFQrzMSpSoVD_f67m.part12.zip
+13 https://v3b.fal.media/files/b/0ab3a5c1/spXFKzHezTLd5AxbV0-qu_f67m.part13.zip
+14 https://v3b.fal.media/files/b/0ab3a5c1/FgxCsO7e8JjDmyLwUD7Jt_f67m.part14.zip
+15 https://v3b.fal.media/files/b/0ab3a5c1/PYioKU3R2_ybEsFrxe7mp_f67m.part15.zip
+16 https://v3b.fal.media/files/b/0ab3a5c1/dyz55Cy4MbF1-MXsbJAJF_f67m.part16.zip
+17 https://v3b.fal.media/files/b/0ab3a5c1/qWIZphZv6jMMS1BSj66el_f67m.part17.zip
+18 https://v3b.fal.media/files/b/0ab3a5c2/N0kdbJZXgbkX-X5C8aXEh_f67m.part18.zip

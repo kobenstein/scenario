@@ -1,0 +1,92 @@
+[calm, conversational] Superintelligence is arriving. That's what Meta's A.I. chief announced this weekend.
+Is he right?
+Because if he is, the biggest change of your lifetime has already begun.
+His evidence: days ago, a mathematician at an A.I. company, working with its A.I., claimed a proof of the Riemann hypothesis. The most famous unsolved problem in mathematics.
+A separate program checked that proof, step by step. Its verdict: correct.
+But written out in plain language, it runs to over a quarter of a million pages. So far, no human fully understands it. Not even the mathematician who published it.
+Meta's A.I. chief says it was "completed with the help of an alien mind that we don't understand."
+If he's right, it's not arriving as a machine we fear. It's arriving as an answer we can't read.
+So test his claim. Five checks. He doesn't pass them all.
+
+[calm, conversational] The man is Alexandr Wang, Meta's chief A.I. officer. He runs a lab with the goal in its name: Meta Superintelligence Labs.
+[curious] How big a deal is this proof? His essay brings up the atomic bomb. Many physicists, he writes, would call the bomb a "homework problem" compared with Riemann.
+He gives no source for that.
+Still, the essay is no victory lap. Parts of it sound worried.
+[thoughtful] But look at who is speaking. Building superintelligence is Wang's job, and his essay also promotes his own lab.
+Here he is, months earlier, describing that project.
+[CLIP C1]
+And yet this proof came from a competitor. Maybe he means every word. It also helps him: if superintelligence is arriving, his lab matters more than ever. Both can be true.
+So his word is not enough. Check the claim itself.
+
+[calm, conversational] First check: is his evidence real?
+What was published is a short note, and about seventeen million lines of computer code.
+No human could read all of that. It was written for a referee: a program called Lean, which checks every logical step and can't be talked into anything.
+The referee's ruling: correct.
+Within a day, the people who know that referee best were convinced. And at M.I.T., an independent check is running. Most runs have passed. A few are still open.
+So the first box turns gold. The evidence is real, and so far, it holds.
+And if it keeps holding? One mathematician's answer:
+[CLIP C2]
+[curious] But a referee only rules on the game it is given.
+Check two: did the code prove the right thing?
+One critic's worry: what the code proves could be a tautology. A sentence that is true by definition, and so says nothing.
+The reply: the proof's author didn't write the question. Others had already written it into the referee's library.
+The people who know the referee best disagree with the objection. The argument goes on. Second box: gold, for now.
+But whose work is it? Check three: was it really the A.I.?
+The proof comes from a mathematician at an A.I. company, working with its A.I. The problem is older than the light bulb. The checkable proof took about six weeks.
+That company gains if its A.I. gets the credit. So listen to the mathematician himself.
+He doesn't fully understand the proof he published. Publishing it anyway, he said, is "frankly completely outrageous."
+You don't say that about your own idea. Third box: gold, on the author's own account.
+[thoughtful] Compare that with a second proof, claimed on the very same day. By a human.
+That one, people can read. But so far, it's only a claim.
+The machine's proof has been checked. But nobody can read it.
+
+[calm, conversational] That leaves Wang's boldest phrase: the "alien mind". Check four: does any human understand this proof?
+On the day it appeared, the mathematician Terence Tao wrote: "the digestion process will take some time."
+One mathematician calls the short note unclear. Another says it bluntly: no one understands the proof.
+Here is Tao, in an earlier talk, on proofs checked by machines.
+[CLIP C3]
+[thoughtful] So "correct" is not the same as understood. The referee can tell you every step was legal. It can't tell you why the game was won.
+That's why the fourth box stays open. Not failed. Open, until humans catch up.
+[pause] And on this point, Wang is right. Something has arrived that reasons further than we can read.
+No machine announced itself. A human did. What arrived was quiet. A file.
+
+[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Not just for the people who build it. Want that too? Then subscribe.
+
+[calm, conversational] But Wang's headline doesn't say a proof is arriving. It says superintelligence. So, the last check: does one machine-checked proof mean superintelligence?
+James Maynard, a Fields medalist, calls the proof a "historic milestone", if it is correct. But for him, he says, little changes: he never doubted the hypothesis was true.
+The sharpest doubt comes from Yann LeCun. He left Meta a year ago, and has called Wang "inexperienced". No neutral witness, then. But his objection is technical.
+[CLIP C4]
+In short: the kind of A.I. behind today's chatbots, he argues, is a dead end on the road to superintelligence.
+[thoughtful] So the fifth box only fills halfway. This is the check he doesn't fully pass. "Arriving" is still a bet.
+But the gap between correct and understood is no bet. It is already here.
+And here is what worries Wang. He finds it hard to imagine humanity keeping control of something "a thousand times smarter and more capable than humans in every field."
+And he writes: "We should not be okay with a handover of society to A.I."
+[curious] A handover. What would that look like?
+
+[calm, conversational] Not like a coup. More like an ordinary evening, a few years from now, in your town hall.
+The old bridge, the one you cross every morning, has to be replaced. A system has designed the new one. And it has marked its own design with one word: correct.
+The reasoning runs longer than anyone in the room could read in a lifetime. The engineers can't follow it. Neither can you.
+But the system has never been wrong. So the hands go up. Yours, too.
+[thoughtful] That is a handover. No robots in the street. Nobody seizing power. Just a thousand small yeses. Your loan. Your contract. Your town's budget. Each one sensible. Each one a little less yours.
+[curious] But look at what the mathematicians actually did.
+They did not take the machine's word, or the company's. They trusted a referee that humans built. Its rules are open. Anyone can run it again.
+[pause] Their trust moved: away from the answer, to the check.
+In your town hall, the system was its own referee. In mathematics, humans built the referee first.
+So who builds the referees for everything else?
+
+[calm, conversational] The labs could. Wang himself writes that a better future likely involves the whole industry taking "meaningfully different actions from the default path".
+He doesn't say exactly how.
+One way: labs agree that their strongest systems hand in work a referee can check. Then no answer is its own referee. The objection: whoever waits for the referee falls behind.
+So governments could make it a rule for all, where the stakes are high. Then your town can refuse to vote on what nobody can check. But who checks the checkers?
+Mathematics has one answer: an open referee, carried by nonprofits, not by one company. The engineer in the back row can run it herself. And nobody has to trust whoever sells the answer.
+The hardest objection is the simplest: results matter more than understanding. You already cross bridges you could never calculate. [thoughtful] True. But until now, some human could.
+None of this is agreed, and none of it is tested at this scale. It's in the hands of labs, governments, investors, and voters like you.
+And Wang puts a clock on it. "How humanity acts over the next year will have great consequence on what future world we live in."
+
+[calm, conversational] Superintelligence is arriving. So, is he right? In part.
+Something has arrived: an answer that holds, so far, and that we can't read. Whether that is superintelligence remains his bet.
+And the box that is still open isn't about the machine. It's about us.
+Next time a headline says an A.I. solved something, ask two things. Can any human follow it? And whose referee says it's correct? That's how you spot a handover early.
+[pause] We may never read every answer. But who gets to say "correct" has to stay human.
+
+[warm] This channel exists so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.

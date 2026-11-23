@@ -1,0 +1,13 @@
+[
+ {"f": "stamp", "word": "Its verdict: correct", "at_end": true, "dt": 0.15, "v": 0.45, "once": true, "fade": 0.4},
+ {"f": "pages", "word": "a quarter of a million pages", "at_end": true, "dt": 0.1, "v": 0.4, "once": true, "fade": 0.8},
+ {"f": "shimmer_rings", "word": "an alien mind that we don't understand", "at_end": true, "dt": 0.2, "v": 0.5, "once": true, "fade": 0.8},
+ {"f": "stamp", "word": "The referee's ruling: correct", "at_end": true, "dt": 0.15, "v": 0.4, "once": true, "fade": 0.4},
+ {"f": "chime", "word": "First box: gold", "at_end": true, "dt": 0.1, "v": 0.45, "once": true, "fade": 1.2},
+ {"f": "chime", "word": "Second box: gold", "at_end": true, "dt": 0.1, "v": 0.4, "once": true, "fade": 1.2},
+ {"f": "chime", "word": "Third box: gold", "at_end": true, "dt": 0.1, "v": 0.4, "once": true, "fade": 1.2},
+ {"f": "shimmer_rings", "word": "the alien mind", "at_end": true, "dt": 0.15, "v": 0.4, "once": true, "fade": 0.8},
+ {"f": "stamp", "word": "stamped correct", "at_end": true, "dt": 0.1, "v": 0.4, "once": true, "fade": 0.4},
+ {"f": "hall", "from_word": "Not like a coup", "to_word": "Yours, too", "dt": -0.5, "end_dt": 1.5, "v": 0.3, "fade": 2.0},
+ {"f": "tick", "word": "puts a clock on it", "at_end": true, "dt": 0.1, "peak": 0.0, "v": 0.3, "once": true, "d": 3.0, "fade": 1.5}
+]

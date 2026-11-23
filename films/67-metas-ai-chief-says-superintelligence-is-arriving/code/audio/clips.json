@@ -1,0 +1,193 @@
+{
+ "_comment": "Film 67 clip metadata (clips_json.py from clips_meta.json). Slot = timing.json slots[] (0.6 s air before/after); cues = [seconds from the slot start, line].",
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "speaker": "Alexandr Wang",
+   "role": "Chief AI Officer, Meta",
+   "source": "Core Memory Podcast (May 2026)",
+   "url": "https://www.youtube.com/watch?v=bYM_VMs7EO0",
+   "credit": null,
+   "lower_third": "Alexandr Wang · Chief AI Officer, Meta",
+   "transcript": "A lot of the leading labs, they build the entire organizations around the premise that superintelligence is coming and it is very close.",
+   "file": "C1.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 10.39,
+   "dur": 10.39,
+   "slot_start": 98.87,
+   "slot_end": 109.26,
+   "sec": "1",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.03,
+     "A lot of the leading labs,"
+    ],
+    [
+     1.47,
+     "they build the entire"
+    ],
+    [
+     3.77,
+     "organizations around the premise"
+    ],
+    [
+     5.21,
+     "that superintelligence is coming"
+    ],
+    [
+     8.77,
+     "and it is very close."
+    ]
+   ],
+   "cue_end": 10.25
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "speaker": "James Maynard",
+   "role": "Mathematician, Oxford · Fields Medal 2022",
+   "source": "New Scientist (Apr 2026)",
+   "url": "https://www.youtube.com/watch?v=oDJHYBrQxQA",
+   "credit": null,
+   "lower_third": "James Maynard · Mathematician, Fields Medal 2022",
+   "transcript": "So, the Riemann hypothesis is sometimes dubbed the most famous and most important problem in mathematics, and it's describing the distribution of prime numbers.",
+   "file": "C2.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 10.92,
+   "dur": 10.92,
+   "slot_start": 167.35,
+   "slot_end": 178.27,
+   "sec": "2",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.03,
+     "So, the Riemann hypothesis"
+    ],
+    [
+     1.17,
+     "is sometimes dubbed"
+    ],
+    [
+     3.11,
+     "the most famous and most important"
+    ],
+    [
+     4.85,
+     "problem in mathematics,"
+    ],
+    [
+     6.61,
+     "and it's describing"
+    ],
+    [
+     8.11,
+     "the distribution of prime numbers."
+    ]
+   ],
+   "cue_end": 10.75
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "speaker": "Terence Tao",
+   "role": "Mathematician, UCLA · Fields Medal 2006",
+   "source": "ICM 2026 Public Lecture, Simons Foundation (Aug 2026)",
+   "url": "https://www.youtube.com/watch?v=M0--ZH1lOzg",
+   "credit": null,
+   "lower_third": "Terence Tao · Mathematician, Fields Medal 2006",
+   "transcript": "It hasn't quite happened yet, but we are very, very close to a scenario in which a major result gets proved and verified, and no human can understand, can explain it.",
+   "file": "C3.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 9.08,
+   "dur": 9.08,
+   "slot_start": 286.07,
+   "slot_end": 295.15,
+   "sec": "5",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.03,
+     "It hasn't quite happened yet,"
+    ],
+    [
+     1.11,
+     "but we are very, very close"
+    ],
+    [
+     2.67,
+     "to a scenario in which"
+    ],
+    [
+     4.07,
+     "a major result gets proved"
+    ],
+    [
+     5.33,
+     "and verified, and no human"
+    ],
+    [
+     7.53,
+     "can understand, can explain it."
+    ]
+   ],
+   "cue_end": 9.0
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "speaker": "Yann LeCun",
+   "role": "AI scientist, former Chief AI Scientist, Meta",
+   "source": "Big Technology Podcast (May 2025)",
+   "url": "https://www.youtube.com/watch?v=4__gg83s_Do",
+   "credit": null,
+   "lower_third": "Yann LeCun · AI scientist",
+   "transcript": "We are not going to get to human-level AI by just scaling up LLMs. This is just not going to happen.",
+   "file": "C4.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 6.71,
+   "dur": 6.71,
+   "slot_start": 382.52,
+   "slot_end": 389.23,
+   "sec": "6",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.03,
+     "We are not going to get"
+    ],
+    [
+     1.91,
+     "to human-level AI"
+    ],
+    [
+     2.49,
+     "by just scaling up LLMs."
+    ],
+    [
+     4.75,
+     "This is just not going to happen."
+    ]
+   ],
+   "cue_end": 6.6
+  }
+ ]
+}
