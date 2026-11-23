@@ -137,6 +137,8 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 
 Treffer-Check → Verpackung (Titel/Thumbnail-Idee, 2–3 Leitgedanken) → Jakob wählt → Gerüst mit Fragen-Kette, Uhr/Rätsel, Clip-Stellen → Jakob gibt frei → Recherche (max) → Faktenzettel + Staunen-Fakten → **1 Texter (max)** sieht nur Gerüst, diese Datei, Faktenzettel, Staunen-Fakten, Vorbild-Ausschnitte, nie die Rohrecherche → Hook als eigener Schritt (3 Varianten) → **1 Kritiker (max)** als normaler Zuschauer (leicht zu folgen, keine Sprünge, relevant) + Payoff-Check + Bann-Liste + Prüfskript → Einarbeitung → **Kokoro-Hörfassung** an Jakob → nach Freigabe Faktencheck + Ampelseite → erst dann Stimme und Bau. Kein Ultracode-Workflow fürs Skript (Jakob 5.11. 17:43). **Modell (Jakob 16.11.): Texter und Kritiker laufen auf Fable 5.2** (höchste Stufe), Recherche vorerst auf Opus 5.5.
 
+**Freigabe-Stellen (Jakob 23.11.): genau vier Stopps.** 1 Thema + Titel (mit Recherche und Marktcheck), 2 Leitgedanke (eigener Stopp), 3 Hörfassung + Thumbnails ZUSAMMEN (die drei Thumbnails A/B/C sind also schon vor der Hörfassungs-Abnahme fertig und gehen mit ihr in einer Nachricht raus), 4 Vorschau. Das Gerüst läuft ohne eigenen Stopp. Keine weiteren Feedback-Stellen einbauen.
+
 **Prüfskript vor jeder Hörfassung** (Regeln werden durchgesetzt, nicht nur gelesen): Bann-Liste, „next … minutes“, Jahreszahlen vor 1:00, Zahlen und Fragen in Minute 1, Ich-Sätze, Clip-Anzahl und Clip-Anteil, Wortzahl.
 
 ## 11. Handwerk (übernommen aus dem alten Skill `scenario-script`, 9.11.)
@@ -212,3 +214,4 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 - 23.11.2026: §8.9a Personenfilm: Name und „AI“ in jedem Titel inkl. Test-Alternativen (Jakob, #41 Bill Gates).
 - 23.11.2026: §2.5e Marktcheck + Viral-Grund bei jedem Schritt, §2.5f Personen auf aktuelle Skandale prüfen (Jakob, #41/China-Film).
 - 23.11.2026 (Wochen-Durchsicht): §2.5g Überschneidung mit allen Filmen, Datum nicht Pflicht (Jakob 20./23.11.), §3.3c Klickfrage ehrlich + These trägt ganzen Film (23.11.), §4 größte Fallhöhe, Nachrichten-Einstieg, kein Kürzel (23.11.), §7 echte Clips statt Zitatkarten (16./17.11.), §8.9 „View“ erlaubt, wenn Jakob es wählt (23.11., ersetzt „statt View“), §8.11 kurz, wörtlich, für 45+, kein How-to (16.–20.11.).
+- 23.11.2026: §10 Freigabe-Stellen: vier Stopps, Hörfassung und Thumbnails als ein Stopp, Leitgedanke eigener Stopp (Jakob, #41).
