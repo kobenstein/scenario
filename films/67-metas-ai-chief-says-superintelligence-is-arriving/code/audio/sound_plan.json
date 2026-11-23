@@ -1,0 +1,13 @@
+[
+ {"f": "hall", "at": "t00", "end": "t01", "v": 0.35, "fade": 3},
+ {"f": "receipt", "word": "will do the work", "at_end": true, "dt": 0.05, "peak": 0.25, "v": 0.5, "once": true, "d": 1.0, "fade": 0.5},
+ {"f": "pricetag", "word": "Almost to nothing", "at_end": true, "dt": 0.3, "v": 0.6, "once": true, "fade": 0.4},
+ {"f": "coin", "word": "less than a dollar", "at_end": true, "dt": 0.15, "v": 0.35, "once": true, "fade": 0.6},
+ {"f": "pricetag", "word": "pure thinking", "at_end": true, "dt": 0.25, "v": 0.55, "once": true, "fade": 0.4},
+ {"f": "pricetag", "word": "The diploma is not", "at_end": true, "dt": 0.3, "v": 0.5, "once": true, "fade": 0.4},
+ {"f": "pricetag", "word": "does fall", "at_end": true, "dt": 0.2, "v": 0.5, "once": true, "fade": 0.4},
+ {"f": "stone_click", "word": "the fourth tag stays up", "at_end": true, "dt": 0.25, "v": 0.45, "once": true, "fade": 0.6},
+ {"f": "stone_click", "word": "stays hard", "at_end": true, "dt": 0.15, "v": 0.4, "once": true, "fade": 0.5},
+ {"f": "receipt", "word": "your wage", "at_end": true, "dt": 0.05, "peak": 0.25, "v": 0.45, "once": true, "d": 1.0, "fade": 0.5},
+ {"f": "pricetag", "word": "the first price to fall", "at_end": true, "dt": 0.35, "v": 0.5, "once": true, "fade": 0.5}
+]
