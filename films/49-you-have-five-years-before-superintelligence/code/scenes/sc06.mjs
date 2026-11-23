@@ -201,7 +201,7 @@ function crowdAt(t, a, ctx) {
 // ======================================================================================================== the statement card (screen space)
 export const CARD = { x: 150, y: 190, w: 660, h: 640, list: [196, 470] };
 const ORB_T = 8;   // orbit amplitude per chunk (px): enough motion for the holds, not more (calm.py)
-const orbAmp = (t, a) => lerp(lerp(36, 50, smooth(span(t, a.three - 1, a.three + 1))), 16, smooth(span(t, a.act - 1, a.act + 1)));
+const orbAmp = (t, a) => lerp(lerp(46, 50, smooth(span(t, a.three - 1, a.three + 1))), 16, smooth(span(t, a.act - 1, a.act + 1)));
 const ROWS = 140;
 function statementCard(ctx, t, a, box, o) {
   // box: the current rect (strip flight / unroll); the layout is drawn at CARD size inside a transform
@@ -277,12 +277,11 @@ function build(T) {
   const creepOut = (t) => { const k = 1 + S.CREEP * (t - a.p1); return S.MACHINE_CAM(k, S.trk(k)); };
   const K = [
     [a.p0, creepIn(a.p0)],
-    [a.summer + 2.5, A(985, 606, 2.62, 1000, 612)],
     [a.C5.start, A(995, 610, 2.75, 1020, 615)],
     [a.C5.end - .4, A(1000, 612, 2.8, 1030, 615)],
-    [a.channel + 3.8, A(820, 640, .95, 960, 560)],
-    [a.subscribe - .3, A(880, 632, 1.02, 960, 560)],
-    [a.adult + .9, A(1010, 560, 2.15, 880, 640)],
+    [a.channel + 3.8, A(960, 590, 1.4, 1180, 600)],
+    [a.subscribe + .2, A(965, 586, 1.46, 1165, 606)],
+    [a.adult + .9, A(1000, 566, 1.75, 1000, 640)],
     [a.nextGen + 1.6, A(960, 580, 2.0, 860, 640)],
     ...L7.keys(a, A), ...L8.keys(a, A),
     [a.p1 - 1.2, creepOut(a.p1 - 1.2)],
@@ -336,7 +335,7 @@ function build(T) {
     L7.state(t, H, st); L8.state(t, H, st);
     S.stairsWorld(ctx, c, t, st);
     // ---- screen layers
-    const veil = .58 * sineIO(span(t, a.summer, a.summer + 1.8)) * (1 - sineIO(span(t, a.channel - .2, a.channel + 1.8)));
+    const veil = .48 * sineIO(span(t, a.summer - .4, a.summer + 2.4)) * (1 - sineIO(span(t, a.channel - .4, a.channel + 2.6)));
     F.veil(ctx, veil);
     // the screen layers of c06/c07 (cards, clips, captions) live on one sheet that floats: a moving hold (≈ 1–3 % scale, a few px),
     // so a held card is never a frozen frame. The world-anchored c08 layers (rail, leaf, labels) stay on the frame.
@@ -350,20 +349,21 @@ function build(T) {
         const box = { x: lerp(src.x, strip.x, m), y: lerp(src.y, strip.y, m), w: lerp(src.w, strip.w, m), h: lerp(src.h, strip.h, m) };
         box.h = lerp(box.h, CARD.h, un);
         // the list rolls (fast while 200+ sign), slows and stops on 'Not to pause' (a tiny drift stays)
-        const scroll = mono(t, [[a.summer + 1.2, 0], [a.signed, 480], [a.notPause + .8, 600], [a.C5.start, 610], [a.channel + 1.2, 616]]);
-        const hiRow = 20, hi = smooth(span(t, a.erik - .2, a.erik + .5));
+        const scroll = mono(t, [[a.summer + 1.2, 0], [a.signed, 250], [a.notPause + .8, 318], [a.C5.start, 336], [a.channel + 1.2, 342]]);
+        const hiRow = 12, hi = smooth(span(t, a.erik - .2, a.erik + .5));
         const row = statementCard(oc, t, a, box, { unroll: un, head: span(t, a.summer + .3, a.summer + 1.3), scroll, hiRow, hi, tpOut: span(t, a.channel - .3, a.channel + .2) });
         H.c5from = row;
       }
       // C5 grows out of the organizer's line and goes back into it
-      const w5 = a.C5, m5 = span(t, w5.start - 1.4, w5.start + .4) * (1 - span(t, w5.end - .4, w5.end + 1.4));
+      const w5 = a.C5, m5 = sineIO(span(t, w5.start - 1.9, w5.start + .5)) * (1 - sineIO(span(t, w5.end - .5, w5.end + 1.6)));
       if (m5 > 0 && H.c5from) F.clipPlate(oc, t, T, 'C5', { from: H.c5from, morph: m5 });
       // subscribe 1 ★: the words in the sky
       const cu = span(t, a.everybody - .1, a.everybody + .8), cout = span(t, a.subscribe + .2, a.subscribe + .8);
       if (cu > 0 && cout < 1) F.caption(oc, t, 90, 330, ['GOES WELL', 'FOR EVERYBODY'], cu, { size: 112, out: cout > 0 ? cout : null });
       L7.over(oc, t, H, c);
     }
-    const fz = 1.03 + .012 * Math.sin(TAU * t / 6.5), fx = 12 * Math.sin(TAU * t / 8), fy = 7 * Math.cos(TAU * t / 7);
+    const fk = lerp(.45, 1, smooth(span(t, a.three - 1, a.three + 1)));   // very gentle in c06, as before from c07 on
+    const fz = 1.03 + .012 * fk * Math.sin(TAU * t / 6.5), fx = 12 * fk * Math.sin(TAU * t / 8), fy = 7 * fk * Math.cos(TAU * t / 7);
     ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.translate(W / 2 + fx, E.H / 2 + fy); ctx.scale(fz, fz); ctx.drawImage(oc.canvas, -W / 2, -E.H / 2); ctx.restore();
     L8.over(ctx, t, H, c);
     F.counter(ctx, t, T);
