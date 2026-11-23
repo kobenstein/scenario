@@ -105,3 +105,6 @@ News reports that mention him but do not show him speaking:
   - The auto-captions write "MLMs". The video title confirms he means LLMs.
   - Alternative in the same video, at 11:27–11:33 of the source (not in this cut): "if you think that we're going to get to human level AI by just training on more data and scaling up LLMs you're making a mistake."
 - Background music: none detected. Speech runs continuously from 0:00 and the captions show no [Music], so it looks like a plain studio interview. This is a heuristic only.
+
+## Video files
+The cut clips (C0–C4, *.mp4) are kept outside the repo in the project folder scenario/film-si-arriving/clips/ (23.11.2026).

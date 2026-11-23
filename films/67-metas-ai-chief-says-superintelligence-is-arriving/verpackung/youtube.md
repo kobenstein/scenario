@@ -1,7 +1,7 @@
 # #67 · Meta's AI Chief Says Superintelligence Is Arriving
 
-- Video: (nach Upload)
-- Geplant: 2026-11-23 17:00 Wien
+- Video: https://youtu.be/_OUo4xvQyMQ
+- Veröffentlicht: 2026-11-23 abends (Jakob: direkt öffentlich)
 - Länge: 10m44s
 
 ## Titel
@@ -19,7 +19,7 @@ Meta's AI chief says superintelligence is arriving. His evidence: a proof of mat
 
 Disclosure: this film was made with the help of Claude, an A.I. model made by Anthropic. The proof discussed in this film was produced by a mathematician at Anthropic working with Claude. Anthropic competes with Meta and had no editorial input. Facts as of Nov 23, 2026; the independent checks of the proof are still ongoing.
 
-Narration voice and animation are AI-generated. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Sources are listed below. Spotted an error? Mention it in the comments.
+Every animation in this film was built from scratch for it, in code. The narration uses a synthetic voice. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Sources are listed below. Spotted an error? Mention it in the comments.
 
 CHAPTERS
 0:00 "Superintelligence is arriving"
