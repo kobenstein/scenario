@@ -339,6 +339,18 @@
   "code_herkunft": "claude/project-thread-4e6iqx:films/31-ai-builds-ai@4266ebd"
  },
  {
+  "nr": 49,
+  "ordner": "49-you-have-five-years-before-superintelligence",
+  "titel": "You Have Five Years Before Superintelligence",
+  "video": "C331gMzZwrw",
+  "veroeffentlicht": "2026-11-24",
+  "skript_quellen": [
+   "film-vorbereiten"
+  ],
+  "thumbnail_quelle": "thumbnails/film-49",
+  "code_herkunft": "claude/project-thread-wlkig5:films/49-you-have-five-years-before-superintelligence"
+ },
+ {
   "nr": 54,
   "ordner": "54-ai-just-gave-disease-a-10-year-deadline",
   "titel": "AI Just Gave Disease a 10-Year Deadline",
