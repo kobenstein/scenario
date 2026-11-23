@@ -2,173 +2,190 @@
  {
   "id": "t00",
   "sec": "H",
-  "text": "[calm, conversational] Sam Altman says everything will get cheap.\nHousing. Education. Food. Clothing. Everything necessary.\nHis reason: artificial intelligence and robots will do the work.\nYour receipts say the opposite. Rent, up. Groceries, up. The power bill, up.\nAnd your paycheck has to cover all of it.\nYet he could still be right. Prices don't fall all at once. They fall one after another.\nSo what gets cheap first, and which of your bills never will?\nThe first price has already fallen. Almost to nothing.",
-  "chars": 513
+  "text": "[calm, conversational] Superintelligence is arriving. That's what Meta's A.I. chief announced this weekend.\nIs he right?\nBecause if he is, the biggest change of your lifetime has already begun.\nHis evidence is a single file, published days ago.\nIn it, a mathematician working with an A.I. claims a proof of the most famous unsolved problem in mathematics: the Riemann hypothesis.\nA separate program checked that proof, step by step. Its verdict: correct.",
+  "chars": 454,
+  "say": "[calm, conversational] Superintelligence is arriving. That's what Meta's A.I. chief announced this weekend.\nIs he right?\nBecause if he is, the biggest change of your lifetime has already begun.\nHis evidence is a single file, published days ago.\nIn it, a mathematician working with an A.I. claims a proof of the most famous unsolved problem in mathematics: the /ˈriːmɑːn/ hypothesis.\nA separate program checked that proof, step by step. Its verdict: correct."
  },
  {
   "id": "t01",
   "sec": "H",
-  "text": "Up to a week of a top programmer's work can now cost less than a dollar.\nBut one thing on his list may never get cheap. It may even rise.\nSo he may be half right. And your paycheck depends on which half.",
-  "chars": 203
+  "text": "But written out in plain language, it runs to over a quarter of a million pages. So far, no human fully understands it. Not even the mathematician who published it.\nMeta's A.I. chief says it was \"completed with the help of an alien mind that we don't understand.\" Many physicists, he writes, would call the atomic bomb a homework problem next to this.\nIf he's right, this is what arrival looks like. It's not arriving as a machine we fear. It's arriving as an answer we can't read.",
+  "chars": 481
  },
  {
   "id": "t02",
+  "sec": "H",
+  "text": "So test his claim. Five checks. He doesn't pass them all.",
+  "chars": 57
+ },
+ {
+  "id": "t03",
   "sec": "1",
-  "text": "[thoughtful] This January, he made the promise again.",
-  "chars": 53
+  "text": "[calm, conversational] The man is Alexandr Wang, Meta's chief A.I. officer. He runs a lab with the goal in its name: Meta Superintelligence Labs.\nThat bomb comparison? He gives no source for it.\nAnd still, his essay is no victory lap. He calls it \"lazy thinking\" to treat superintelligence as inevitable.\n[thoughtful] But look at who is speaking. Building superintelligence is Wang's job, and his essay also promotes his own lab.\nHere he is, months earlier, describing that project.",
+  "chars": 482,
+  "say": "[calm, conversational] The man is Alexander /wɑːŋ/, Meta's chief A.I. officer. He runs a lab with the goal in its name: Meta Superintelligence Labs.\nThat bomb comparison? He gives no source for it.\nAnd still, his essay is no victory lap. He calls it \"lazy thinking\" to treat superintelligence as inevitable.\n[thoughtful] But look at who is speaking. Building superintelligence is /wɑːŋz/ job, and his essay also promotes his own lab.\nHere he is, months earlier, describing that project."
  },
  {
   "id": "C1",
   "sec": "1",
   "clip": true,
-  "dur": 14.97
- },
- {
-  "id": "t03",
-  "sec": "1",
-  "text": "Deflationary pressure. In plain words: prices heading down.\nHis argument is stronger than it sounds: almost every price you pay is mostly other people's time.\nOf every dollar Americans spend on food, more than half pays for somebody's work. The farm gets about twelve cents.\nLet superintelligence do the thinking and robots the lifting, and the price sinks toward what the machines cost.\nHe even pictures a house, built by robots, for about the cost of renting them.",
-  "chars": 466
+  "dur": 10.0,
+  "placeholder": true
  },
  {
   "id": "t04",
   "sec": "1",
-  "text": "Then again, he runs the company behind ChatGPT. Cheap intelligence is what he sells.\nBut his claim can be tested.\nSix price tags, from pure thought to solid ground. Then a seventh, with your name on it.\nAnd for each, one question: how much of this price is work?",
-  "chars": 262
+  "text": "And yet this proof came from a competitor. Maybe he means every word. It also helps him: if superintelligence is arriving, his lab matters more. Both can be true.\nSo his word is not enough. Check the claim itself.",
+  "chars": 213
  },
  {
   "id": "t05",
   "sec": "2",
-  "text": "[calm, conversational] Start where a price is nothing but work. Not lifting. Thinking.\nKnowledge and advice.\nThat programmer's week for less than a dollar is Altman's own example. And by his count, A.I. gets about ten times cheaper every year.\nAcross Europe, about three in ten literary translators say it has already cost them work.\nBut a falling cost is not yet a falling price.\nLaw firms have A.I. too. Yet the vast majority of legal fees in America are still billed by the hour. Many firms even raised their rates.",
-  "chars": 518
+  "text": "[calm, conversational] First check: is his evidence real?\nWhat was published is a short note, and about seventeen million lines of code.\nNo human reads that. Not you, not the man who wrote it.\nIt was written for a referee: a program called Lean, which checks every logical step and can't be talked into anything.\nThe referee's ruling: correct.\nWithin a day, the people who build that referee were convinced. At M.I.T., an independent check is running. Most runs have passed. A few are still open.",
+  "chars": 496
  },
  {
   "id": "t06",
   "sec": "2",
-  "text": "So that's what gets cheap first: pure thinking. But only as fast as competition forces it.\nWhich explains a strange case: something became nearly free, and its price kept climbing.",
-  "chars": 180
+  "text": "First box: gold. The evidence is real, and so far, it holds.\nAnd if it keeps holding? One mathematician's answer:",
+  "chars": 113
+ },
+ {
+  "id": "C2",
+  "sec": "2",
+  "clip": true,
+  "dur": 8.0,
+  "placeholder": true
  },
  {
   "id": "t07",
   "sec": "3",
-  "text": "[calm, conversational] Education. It's on his list.\nIn some studies, students with a well-built A.I. tutor learn more than they do in class. And the tutor costs almost nothing.\nSo a degree should be getting cheaper. Its price tag isn't. This fall, the sticker price at America's public universities went up again.\nBecause a big part of that price was never the knowledge. It's the certificate. And only the university can print it.\nSo the second tag splits in two. The knowledge is nearly free. The diploma is not.",
-  "chars": 514
+  "text": "[curious] But a referee only rules on the game it is given.\nCheck two: does the code prove the right thing?\nOne critic's worry: the code may prove a sentence that is true by definition. Something that sounds grand and says nothing.\nBut the author didn't write the question. The Riemann hypothesis already stood in the referee's rule book, put there by someone else.\nThe people who build the referee reject it. The argument goes on. Second box: gold, with a question mark.",
+  "chars": 471,
+  "say": "[curious] But a referee only rules on the game it is given.\nCheck two: does the code prove the right thing?\nOne critic's worry: the code may prove a sentence that is true by definition. Something that sounds grand and says nothing.\nBut the author didn't write the question. The /ˈriːmɑːn/ hypothesis already stood in the referee's rule book, put there by someone else.\nThe people who build the referee reject it. The argument goes on. Second box: gold, with a question mark."
  },
  {
   "id": "t08",
-  "sec": "M",
-  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Including the people whose work it makes cheap. Want that too? Then subscribe.",
-  "chars": 187,
-  "cta": true
+  "sec": "4",
+  "text": "But whose work is it? Check three: was it really the A.I.?\nThe proof comes from a mathematician at an A.I. company, working with its A.I. The problem is older than the light bulb. The checkable proof took about six weeks.\nThat company gains if its A.I. gets the credit. So listen to the mathematician himself.\nHe doesn't fully understand the proof he published. Publishing it anyway, he said, is \"frankly completely outrageous.\"\nYou don't say that about your own idea. Third box: gold, on his own account.",
+  "chars": 505
  },
  {
   "id": "t09",
   "sec": "4",
-  "text": "[curious] So far, every price was made of information. What about things you can drop on your foot?\nElon Musk promises even more. Asked this summer whether some things should simply be free for everyone, he said:",
-  "chars": 212
- },
- {
-  "id": "C2",
-  "sec": "4",
-  "clip": true,
-  "dur": 9.43
+  "text": "[thoughtful] Compare that with a second proof, claimed on the very same day. By a human.\nSo far, that one is still a claim. The machine's proof has been checked, and nobody can read it.",
+  "chars": 185
  },
  {
   "id": "t10",
-  "sec": "4",
-  "text": "Any goods, for anyone. So look at the goods.\nThe robots are real: more than five million work in the world's factories. And by the official numbers, adjusted for quality, American smartphone prices fell by half in five years.\nBut this year, analysts expect phones to cost more again. A.I. data centers are buying up the memory chips your next phone needs.\nSo the third tag does fall. Slowly, and not in a straight line.",
-  "chars": 419
- },
- {
-  "id": "t11",
-  "sec": "4",
-  "text": "Because a thing is never only work. It's also materials, chips and power. And power sits under every tag.",
-  "chars": 105
- },
- {
-  "id": "t12",
   "sec": "5",
-  "text": "[thoughtful] Energy.\nAltman says where the falling stops: once machines build the data centers, intelligence should cost little more than its electricity.\nThat makes energy the floor. And the floor isn't falling. In five years, American energy prices rose by about a third.\nUnless A.I. can lower the floor itself. Demis Hassabis, the Nobel laureate who runs Google DeepMind, thinks it could help crack clean energy. He has a name for the world after that.",
-  "chars": 455,
-  "say": "[thoughtful] Energy.\nAltman says where the falling stops: once machines build the data centers, intelligence should cost little more than its electricity.\nThat makes energy the floor. And the floor isn't falling. In five years, American energy prices rose by about a third.\nUnless A.I. can lower the floor itself. Demis /hɑːˈsɑːbɪs/, the Nobel laureate who runs Google DeepMind, thinks it could help crack clean energy. He has a name for the world after that."
+  "text": "[calm, conversational] That leaves Wang's boldest phrase: the \"alien mind\". Check four: does any human understand it?\nOn the day it appeared, the mathematician Terence Tao wrote: \"the digestion process will take some time.\"\nAnother mathematician said it bluntly: no one understands the proof.\nHere is Tao, in an earlier talk, on proofs checked by machines.",
+  "chars": 356,
+  "say": "[calm, conversational] That leaves /wɑːŋz/ boldest phrase: the \"alien mind\". Check four: does any human understand it?\nOn the day it appeared, the mathematician Terence /taʊ/ wrote: \"the digestion process will take some time.\"\nAnother mathematician said it bluntly: no one understands the proof.\nHere is /taʊ/, in an earlier talk, on proofs checked by machines."
  },
  {
   "id": "C3",
   "sec": "5",
   "clip": true,
-  "dur": 13.57
+  "dur": 10.0,
+  "placeholder": true
+ },
+ {
+  "id": "t11",
+  "sec": "5",
+  "text": "[thoughtful] So \"correct\" is not the same as understood. The referee can tell you every step was legal. It can't tell you why the game was won.\nAnd that gap is not a problem for mathematicians alone. Sooner or later it arrives at your table, stamped correct.\nThis box may never turn gold. A quarter of a million pages is more than one person can read in a lifetime.\n[pause] So on this point, Wang is right. Something has arrived that reasons further than we can read.",
+  "chars": 467,
+  "say": "[thoughtful] So \"correct\" is not the same as understood. The referee can tell you every step was legal. It can't tell you why the game was won.\nAnd that gap is not a problem for mathematicians alone. Sooner or later it arrives at your table, stamped correct.\nThis box may never turn gold. A quarter of a million pages is more than one person can read in a lifetime.\n[pause] So on this point, /wɑːŋ/ is right. Something has arrived that reasons further than we can read."
+ },
+ {
+  "id": "t12",
+  "sec": "5",
+  "text": "If you pictured the arrival as a loud moment: no machine announced itself. A human did. What arrived was quiet. A single file.",
+  "chars": 126
  },
  {
   "id": "t13",
-  "sec": "5",
-  "text": "Radical abundance. It's a forecast, from a man whose company builds A.I. But if it comes true, every other tag falls further.\nFor now, the fourth tag stays up.",
-  "chars": 159
+  "sec": "M",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Not just for the people who build it. Want that too? Then subscribe.",
+  "chars": 177,
+  "cta": true
  },
  {
   "id": "t14",
   "sec": "6",
-  "text": "[calm, conversational] One tag needs energy, machines, and something no factory can make.\nFood.\nRemember the food dollar: more than half is work. Machines can take much of that out.\nBut the ground under the food just set a record. American cropland has never cost more.\nSo the fifth tag can fall only part of the way: the work comes out of the price, the ground stays in.\nWhich leaves the tag with the most ground in it.",
-  "chars": 420
- },
- {
-  "id": "t15",
-  "sec": "7",
-  "text": "[thoughtful] Housing. The first word on his list.\nGo back to his robot-built house. Listen to how that sentence begins: if robots can build a house on land you already own.\nEven in his own picture, the land is already paid for.\nAnd in America, about forty cents of every dollar a home is worth isn't the house. It's the ground under it.\nRobots can make walls cheap. They can't make more ground.\nAltman never hid this. He wrote it himself: the price of limited resources like land may rise even more dramatically.",
-  "chars": 512
- },
- {
-  "id": "t16",
-  "sec": "7",
-  "text": "So the sixth tag stays hard. It may even rise.\nThat makes Altman half right. Machines can take the work out of a price. They can't take out what's scarce. And he knows which half is which.",
-  "chars": 188
- },
- {
-  "id": "t17",
-  "sec": "8",
-  "text": "[thoughtful] So what does that do to your money? This isn't financial advice. It's the seventh price tag. The one with your name on it.\nRun the same test. How much of this price is work? All of it.\nIt's your wage.\nThink back to the first price that fell: a programmer's week, for less than a dollar. That wasn't only a bargain. It was a paycheck.\nBy his own argument, things get cheap because work gets cheap. And work is what most of us sell.",
-  "chars": 443
- },
- {
-  "id": "t18",
-  "sec": "8",
-  "text": "This summer, American businesses produced more with almost the same hours of work. And the share of that income going to workers fell to the lowest level on record.\nThat's no proof A.I. did it. But recently, the Nobel-winning economist Daron Acemoglu pointed to exactly this number.",
-  "chars": 282,
-  "say": "This summer, American businesses produced more with almost the same hours of work. And the share of that income going to workers fell to the lowest level on record.\nThat's no proof A.I. did it. But recently, the Nobel-winning economist Daron /ɑːˈdʒɛmoʊluː/ pointed to exactly this number."
+  "text": "[calm, conversational] But Wang's headline doesn't say a proof is arriving. It says superintelligence. So, the last check: does one proof mean superintelligence?\nJames Maynard, a Fields medalist, calls the proof a \"historic milestone\", if it is correct. But for him, little changes: he never doubted the hypothesis was true.\nThe sharpest doubt comes from Yann LeCun. He left Meta a year ago, and has called Wang \"inexperienced\". No neutral witness, then. But his objection is technical.",
+  "chars": 486,
+  "say": "[calm, conversational] But /wɑːŋz/ headline doesn't say a proof is arriving. It says superintelligence. So, the last check: does one proof mean superintelligence?\nJames Maynard, a Fields medalist, calls the proof a \"historic milestone\", if it is correct. But for him, little changes: he never doubted the hypothesis was true.\nThe sharpest doubt comes from /jæn ləˈkʌn/. He left Meta a year ago, and has called /wɑːŋ/ \"inexperienced\". No neutral witness, then. But his objection is technical."
  },
  {
   "id": "C4",
-  "sec": "8",
+  "sec": "6",
   "clip": true,
-  "dur": 12.84
+  "dur": 8.0,
+  "placeholder": true
+ },
+ {
+  "id": "t15",
+  "sec": "6",
+  "text": "The kind of A.I. behind today's chatbots, he argues, is a dead end on the way to superintelligence.\n[thoughtful] So the fifth box only fills halfway. \"Arriving\" is a bet, placed by a man with a stake in it.\nBut the gap between correct and understood is no bet. It is already here.\nAnd behind that headline, Wang's own essay is worried. He finds it hard to imagine humanity keeping control of something \"a thousand times smarter and more capable than humans in every field.\"",
+  "chars": 473,
+  "say": "The kind of A.I. behind today's chatbots, he argues, is a dead end on the way to superintelligence.\n[thoughtful] So the fifth box only fills halfway. \"Arriving\" is a bet, placed by a man with a stake in it.\nBut the gap between correct and understood is no bet. It is already here.\nAnd behind that headline, /wɑːŋz/ own essay is worried. He finds it hard to imagine humanity keeping control of something \"a thousand times smarter and more capable than humans in every field.\""
+ },
+ {
+  "id": "t16",
+  "sec": "6",
+  "text": "And he writes: \"We should not be okay with a handover of society to A.I.\"\n[curious] A handover. What would that look like?",
+  "chars": 122
+ },
+ {
+  "id": "t17",
+  "sec": "7",
+  "text": "[calm, conversational] Not like a coup. More like an ordinary evening, a few years from now, in your town hall.\nThe old bridge, the one you cross every morning, has to be replaced. A system has designed the new one, and marked its own design with one word: correct.\nThe reasoning runs longer than anyone in the room could ever read. The engineers can't follow it. Neither can you.\nBut the system has never been wrong. So the hands go up. Yours, too.",
+  "chars": 449
+ },
+ {
+  "id": "t18",
+  "sec": "7",
+  "text": "[thoughtful] That is a handover. No robots in the street. Nobody seizing power. Just a thousand small yeses. Your loan. Your contract. Your town's budget. Each one sensible. Each one a little less yours.\n[curious] But look at what the mathematicians actually did.\nThey did not take the machine's word, or the company's. They trusted a referee that humans built. Its rules are open. Anyone can run it again.\n[pause] Their trust moved: away from the answer, to the check.",
+  "chars": 469
  },
  {
   "id": "t19",
-  "sec": "8",
-  "text": "Altman saw it too. His promise has a second part. In full: everything necessary will be cheap, and everyone will have enough money to be able to afford it.\nAnd if the rules don't adapt? In the same essay, he wrote: most people will end up worse off than they are today.\nEven for him, cheap was never enough.",
-  "chars": 307
+  "sec": "7",
+  "text": "In your town hall, the system was its own referee. In mathematics, humans built the referee first.\nSo who builds the referees for everything else?",
+  "chars": 146
  },
  {
   "id": "t20",
-  "sec": "9",
-  "text": "[calm, conversational] So how does everyone get enough money? Three answers are on the table. Each has a real weakness.\nThe first is the market: let prices fall, and every dollar buys more. It worked for your phone. Its weakness is the seventh tag: wages can fall right along with prices.\nThe second is a fund: everyone owns a share. That was Altman's plan, paid for by exactly two things: big companies, and land.",
-  "chars": 414
+  "sec": "8",
+  "text": "[calm, conversational] The labs could. Wang himself writes that a better future likely involves the whole industry taking \"meaningfully different actions from the default path\".\nHe doesn't say exactly how.\nOne way: labs agree that their strongest systems hand in work a referee can check. Then no answer is its own referee. The objection: whoever waits falls behind.\nSo governments could make it a rule where the stakes are high. Then your town can refuse to vote on what nobody can check. But who checks the checkers?",
+  "chars": 518,
+  "say": "[calm, conversational] The labs could. /wɑːŋ/ himself writes that a better future likely involves the whole industry taking \"meaningfully different actions from the default path\".\nHe doesn't say exactly how.\nOne way: labs agree that their strongest systems hand in work a referee can check. Then no answer is its own referee. The objection: whoever waits falls behind.\nSo governments could make it a rule where the stakes are high. Then your town can refuse to vote on what nobody can check. But who checks the checkers?"
  },
  {
   "id": "t21",
-  "sec": "9",
-  "text": "Alaska already pays its people a yearly check from its oil wealth: twelve hundred dollars this year. His plan imagined more than ten times that.\nIts weakness: a fund pays what politics allows. Alaska's lawmakers now set the amount every year.\nThe third is a check: the government sends everyone money. Altman backed a test of it: a thousand dollars a month, for three years. People bought basics, and worked a little less.\nIts weakness is the bill.\nEven Altman has changed his own answer more than once.",
-  "chars": 503
+  "sec": "8",
+  "text": "Mathematics has one answer: an open referee, carried by nonprofits, not by one company. The engineer in the back row can run it herself, and nobody has to trust whoever sells the answer.\nThe hardest objection is the simplest: results matter more than understanding. You already cross bridges you could never calculate. [thoughtful] True. But until now, some human could.\nNone of this is agreed, and none of it is tested at this scale. Who could change that: labs, governments, investors, and voters like you.",
+  "chars": 508
  },
  {
   "id": "t22",
-  "sec": "10",
-  "text": "[thoughtful] So that's the order. Thinking falls first. Things follow, slowly. Energy holds, for now. The ground stays hard.\nHe's half right. And that half is worth a lot.\nWhat's still open is the seventh tag.\nPrices follow the machines. Incomes follow the rules. And the rules are written by people you elect.\nYour wage is a price too.\nAnd cheap only makes you richer if your wage isn't the first price to fall.",
-  "chars": 412
+  "sec": "8",
+  "text": "And Wang puts a clock on it. \"How humanity acts over the next year will have great consequence on what future world we live in.\"",
+  "chars": 128,
+  "say": "And /wɑːŋ/ puts a clock on it. \"How humanity acts over the next year will have great consequence on what future world we live in.\""
  },
  {
   "id": "t23",
+  "sec": "9",
+  "text": "[calm, conversational] Superintelligence is arriving. So, is he right? In part.\nSomething has arrived: an answer that holds, so far, and that we can't read. Whether that is superintelligence remains his bet.\nAnd the box that is still open isn't about the machine. It's about us.\nSo when the next headline says an A.I. solved something, ask two things. Can any human follow it? And who says it's correct?\n[pause] We may never read every answer. But who gets to say \"correct\" has to stay human.",
+  "chars": 492
+ },
+ {
+  "id": "t24",
   "sec": "A2",
-  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Cheap prices, and the income to pay them. Want that too? Then subscribe.",
-  "chars": 181,
+  "text": "[warm] This channel exists so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.",
+  "chars": 123,
   "cta": true
  }
 ]

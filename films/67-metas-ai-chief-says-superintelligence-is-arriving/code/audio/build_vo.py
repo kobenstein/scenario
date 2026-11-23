@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Film 66 'Sam Altman Says Everything Will Get Cheap' · lay the VO takes and the clip slots on one timeline -> vo_master.wav (VO + real clip audio) + vo_only.wav (VO alone, for mix.py)
-+ timing.json + slots.json. Method as Film 59 / 54 / 28 (segments.json from make_segments.py, word times from align_ps.py = pocketsphinx forced alignment + energy refinement;
-ElevenLabs v4 takes, voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, seed 4301).
-Slots (own time on the timeline), kind 'clip', video + audio, 0.6 s of air before and after; the cut files <ROOT>clips/Cn.mp4 ARE the clips (whole file, clips-geprueft.json):
-  C1 14.97 s (Sam Altman, OpenAI Town Hall), C2 9.43 s (Elon Musk, The Builders), C3 13.57 s (Demis Hassabis, Lex Fridman), C4 12.84 s (Daron Acemoglu, WEF Radio Davos)
-The clip sound (<clipwav>/<id>.wav = Cn.mp4) goes into vo_master.wav at the level of the voice (speech RMS matched); mix.py takes vo_only.wav + the clip wavs.
-No quote cards, no QR windows. End: the film ends END_TAIL s after the last VO word: ~4 s of air + the 15 s end screen (picture and music run on, no voice).
+"""Film 67 'Meta's AI chief says superintelligence is arriving' · lay the VO takes and the clip slots on one timeline -> vo_master.wav (VO + clip audio) + vo_only.wav (VO alone, for mix.py)
++ timing.json + slots.json (here and, with F67ROOT set or default, copied to <ROOT>audio/). Method as Film 66 / 59 (segments.json from make_segments.py, word times from
+align_ps.py = pocketsphinx forced alignment + energy refinement; ElevenLabs v4 takes, voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, seed 4301).
+Slots (own time on the timeline), kind 'clip', video + audio, 0.6 s of air before and after. Length = segments.json 'dur' (the real cut in films/67-assets/clips/Cn.*
+when make_segments.py found it, else the planned placeholder length C1 10 · C2 8 · C3 10 · C4 8 s; placeholder slots are flagged and stay silent).
+Clip sound: <clipwav>/<id>.wav (clips_wav.py) into vo_master.wav at the level of the voice; mix.py takes vo_only.wav + the clip wavs.
+End: the film ends END_TAIL s after the last VO word: ~4 s of air + the 15 s end screen (picture and music run on, no voice).
+Swap in real clips: git pull; python3 make_segments.py; python3 clips_wav.py <wav>/clipwav; python3 build_vo.py . <wav>; python3 mix.py . <wav>; python3 subs.py . untertitel
+(the takes are not regenerated: only the slot lengths change, everything after a slot shifts).
 usage: build_vo.py <audio_dir> <wav_dir> [clipwav_dir]   (vo-<id>.mp3 / vo-<id>.json in <wav_dir>/dl; wavs go to wav_dir; timing.json + slots.json go to audio_dir)"""
 import json, os, re, subprocess, sys
 import numpy as np
@@ -16,12 +18,13 @@ LEAD, END_SCREEN = 0.6, 15.0
 END_TAIL = float(os.environ.get('END_TAIL', 19.0))   # seconds from the last VO word to the end of the film (END_SCREEN of it is the end screen)
 PAUSE, GAP_SUB, GAP_SECTION = 1.2, 0.75, 1.3
 CLIP_IN, CLIP_OUT = 0.6, 0.6
-LEVELS = {'H': 'HOOK: everything will get cheap, your receipts, half right', '1': 'the promise (C1 Altman, deflationary pressure), the argument, the test',
-          '2': 'TAG 1 thinking: knowledge and advice', '3': 'TAG 2 education: knowledge vs diploma', 'M': 'subscribe call 1',
-          '4': 'TAG 3 things (C2 Musk), robots, phones', '5': 'TAG 4 energy, the floor (C3 Hassabis, radical abundance)', '6': 'TAG 5 food, the ground',
-          '7': 'TAG 6 housing, the land', '8': 'TAG 7 your wage (C4 Acemoglu), the second half of the promise', '9': 'three answers: market, fund, check',
-          '10': 'the order, the seventh tag', 'A2': 'closing call + end screen'}
-QUOTES = {}   # Film 66: no quote cards
+LEVELS = {'H': 'HOOK: superintelligence is arriving, one file, the Riemann proof, five checks', '1': 'the man: Alexandr Wang, Meta Superintelligence Labs (C1 Wang), his stake',
+          '2': 'CHECK 1 is the evidence real: Lean, the referee, M.I.T. (C2 mathematician), box 1 gold', '3': 'CHECK 2 does the code prove the right thing: box 2 gold with a question mark',
+          '4': 'CHECK 3 was it really the A.I.: "frankly completely outrageous", box 3 gold; the human proof', '5': 'CHECK 4 does any human understand it (C3 Tao), correct vs understood, a quiet arrival',
+          'M': 'subscribe call 1', '6': 'CHECK 5 one proof = superintelligence? Maynard, LeCun (C4), box 5 half; Wang worried, the handover',
+          '7': 'the handover: the town hall, the bridge, a thousand small yeses; trust moved to the check', '8': 'who builds the referees: labs, governments, open referees, the clock',
+          '9': 'verdict: in part; two questions; "correct" has to stay human', 'A2': 'closing call + end screen'}
+QUOTES = {}   # Film 67: no quote cards
 nz = lambda w: re.sub(r"[^a-z0-9']", '', w.lower().replace('’', "'"))
 def tail_voiced(mp3):
     """seconds in the take where the voice really starts / ends (10-ms frames above -48 dBFS): the TTS tail is silent"""
@@ -31,8 +34,7 @@ def tail_voiced(mp3):
     return (on[0] * .01, (on[-1] + 1) * .01) if len(on) else (0.0, len(x) / 16000)
 def dec(f, ch=1):
     return np.frombuffer(subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f, '-f', 'f32le', '-ac', str(ch), '-ar', str(SR), '-']), np.float32).copy()
-# breaths cut into a take: (take, first word after the breath, seconds of silence). Film 66: the title line of the hook needs a beat.
-BREATH = {'t00': [('Housing.', 0.45), ('Yet', 0.3)]}   # 'Sam Altman says everything will get cheap.' | 'Housing. ...'  ·  '...cover all of it.' | 'Yet he could still be right.'
+BREATH = {}   # (take, first word after the breath, seconds of silence) where a take needs a beat; Film 67: none yet
 def breathe(x, W, ins):
     ins = [(next(i for i, w in enumerate(W) if w[0] == k), g) for k, g in ins]
     for k, g in sorted(ins, reverse=True):
@@ -69,7 +71,7 @@ for s in SEG:
     else:
         d = s['dur']
         if prev and prev[0] == 'take': t += CLIP_IN
-        e = {'id': s['id'], 'kind': 'clip', 'sec': s['sec'], 'start': round(t, 3), 'end': round(t + d, 3), 'dur': d, 'under': False}
+        e = {'id': s['id'], 'kind': 'clip', 'sec': s['sec'], 'start': round(t, 3), 'end': round(t + d, 3), 'dur': d, 'under': False, **({'placeholder': True} if s.get('placeholder') else {'file': s.get('file')})}
         slots.append(e); clips.append({k: e[k] for k in ('id', 'kind', 'sec', 'start', 'end', 'under')})
         t += d; prev = ('slot', s)
 cta = [s for s in SEG if s.get('cta')]
@@ -100,3 +102,8 @@ json.dump(out, open(f'{A}/timing.json', 'w'), indent=0, ensure_ascii=False)
 print('duration', total, 's;', len(words), 'words; VO ends', round(vo_end, 1))
 for c in clips: print('clip', c['id'], c['sec'], c['start'], c['end'], 'CARD read by the narrator (no own slot)' if c['under'] else '')
 json.dump({k: out[k] for k in ('duration', 'end_screen', 'channel_calls', 'slots', 'clips')}, open(f'{A}/slots.json', 'w'), indent=1, ensure_ascii=False)
+ROOT = os.environ.get('F67ROOT', '/mnt/project-files/scenario/film-si-arriving').rstrip('/')
+if os.environ.get('NO_ROOT_COPY') != '1' and os.path.isdir(ROOT):
+    os.makedirs(f'{ROOT}/audio', exist_ok=True)
+    for f in ('timing.json', 'slots.json'): subprocess.run(['cp', f'{A}/{f}', f'{ROOT}/audio/{f}'], check=True)
+    print('copied timing.json + slots.json ->', f'{ROOT}/audio/')

@@ -1,23 +1,23 @@
 {
- "duration": 623.92,
+ "duration": 643.02,
  "end_screen": {
-  "start": 608.92,
+  "start": 628.02,
   "dur": 15.0,
-  "end": 623.92,
-  "call": "t23",
-  "call_start": 593.92,
-  "call_end": 604.92,
+  "end": 643.02,
+  "call": "t24",
+  "call_start": 616.89,
+  "call_end": 624.02,
   "tail_after_vo": 19.0,
   "note": "after the last VO word: a quiet walk, then the 15 s end screen (the music fades out over it)"
  },
  "channel_calls": {
-  "t08": {
-   "start": 205.47,
-   "end": 216.45
+  "t13": {
+   "start": 335.87,
+   "end": 346.25
   },
-  "t23": {
-   "start": 593.92,
-   "end": 604.92
+  "t24": {
+   "start": 616.89,
+   "end": 624.02
   }
  },
  "slots": [
@@ -25,37 +25,41 @@
    "id": "C1",
    "kind": "clip",
    "sec": "1",
-   "start": 55.3,
-   "end": 70.27,
-   "dur": 14.97,
-   "under": false
+   "start": 98.87,
+   "end": 108.87,
+   "dur": 10.0,
+   "under": false,
+   "placeholder": true
   },
   {
    "id": "C2",
    "kind": "clip",
-   "sec": "4",
-   "start": 231.37,
-   "end": 240.8,
-   "dur": 9.43,
-   "under": false
+   "sec": "2",
+   "start": 166.96,
+   "end": 174.96,
+   "dur": 8.0,
+   "under": false,
+   "placeholder": true
   },
   {
    "id": "C3",
    "kind": "clip",
    "sec": "5",
-   "start": 311.76,
-   "end": 325.33,
-   "dur": 13.57,
-   "under": false
+   "start": 282.76,
+   "end": 292.76,
+   "dur": 10.0,
+   "under": false,
+   "placeholder": true
   },
   {
    "id": "C4",
    "kind": "clip",
-   "sec": "8",
-   "start": 461.62,
-   "end": 474.46,
-   "dur": 12.84,
-   "under": false
+   "sec": "6",
+   "start": 380.13,
+   "end": 388.13,
+   "dur": 8.0,
+   "under": false,
+   "placeholder": true
   }
  ],
  "clips": [
@@ -63,32 +67,32 @@
    "id": "C1",
    "kind": "clip",
    "sec": "1",
-   "start": 55.3,
-   "end": 70.27,
+   "start": 98.87,
+   "end": 108.87,
    "under": false
   },
   {
    "id": "C2",
    "kind": "clip",
-   "sec": "4",
-   "start": 231.37,
-   "end": 240.8,
+   "sec": "2",
+   "start": 166.96,
+   "end": 174.96,
    "under": false
   },
   {
    "id": "C3",
    "kind": "clip",
    "sec": "5",
-   "start": 311.76,
-   "end": 325.33,
+   "start": 282.76,
+   "end": 292.76,
    "under": false
   },
   {
    "id": "C4",
    "kind": "clip",
-   "sec": "8",
-   "start": 461.62,
-   "end": 474.46,
+   "sec": "6",
+   "start": 380.13,
+   "end": 388.13,
    "under": false
   }
  ]
