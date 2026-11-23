@@ -1,86 +1,99 @@
-# Film 66 · builder brief (3 builders in parallel, one checkout) · as of 2026-11-20
+# Film 67 · builder brief (3 builders in parallel, one checkout) · as of 2026-11-23
 
-The lead built **c01** (the hook, 0 → `T.G('This January')`) as the quality reference, plus the kit, the world, the seams, the shot list and
-stubs for c02–c12. Three builders now build the rest **at the same time**, about 3–3.5 minutes of picture each. Upload Sun 22.11. 17:00
-Vienna; the film is built through to the end with no interim review. **Load the skills first:** scenario-motion,
-world-class-motion-design, fluid-motion-design, motion-director-gates. Then read: `docs/MOTION.md` (world + rules), `docs/shots.md` (your
-shots), `scenes/sc01.mjs` (how a chunk is built), `<ROOT>bild/kit67_kontakt.jpg` and `<ROOT>bild/c01_kontakt.jpg`.
-Code: `/home/user/scenario/films/66-sam-altman-says-everything-will-get-cheap/code/` (repo branch `claude/project-thread-kq9unm`; commit
-locally, never push). ROOT = `/mnt/project-files/scenario/film-si-arriving/` (`$F67ROOT`).
+The lead built **c01** (the hook, 0 → `T.G('The man is Alexandr Wang')`) as the quality reference, plus the kit, the world, the seams, the
+shot list and stubs for c02–c11. Three builders now build the rest **at the same time**, about 3 minutes of picture each. **Deadline:
+finished preview render by 15:00 UTC**: build the whole group at preview quality first, polish after. Placeholders (screenshots, portrait,
+clips) never block. **Load the skills first:** scenario-motion, world-class-motion-design, fluid-motion-design, motion-director-gates.
+Then read: `docs/MOTION.md` (world + rules), `docs/shots.md` (your shots), `scenes/sc01.mjs` (how a chunk is built),
+`<ROOT>bild/kit67_kontakt.jpg` and `<ROOT>bild/c01_kontakt.jpg`.
+Code: `/home/user/scenario/films/67-metas-ai-chief-says-superintelligence-is-arriving/code/` (repo branch `claude/project-thread-432v87`).
+ROOT = `/mnt/project-files/scenario/film-si-arriving/` (`$F67ROOT`). Assets: `/home/user/scenario/films/67-assets/` (`$F67ASSETS`).
+Git: commit only your own files (`git add scenes/sc0N.mjs`), `git pull --rebase --autostash` before `git push`, never force-push, **never
+touch `code/audio/`** (the audio agent commits there).
 
-| builder | chunks | from → to (phrase) | time (provisional, vo-v3) | contents |
+| builder | chunks | from → to (phrase) | time (real VO) | contents |
 |---|---|---|---|---|
-| **B1** | c02 c03 c04 | 'This January' → 'So far, every price' | 0:56.9 – 3:48.1 (171 s) | **C1** Altman out of the promise · prices heading down · a price is other people's time · ★ the food dollar 54¢ / 12¢ · robots → the price sinks · the robot house · he sells cheap intelligence · the land wide (the one W) · ★ six tags + a seventh = the clock · the test question · station 1 (the Fed quote, 10×, translators 30 %, cost ≠ price, ≈ 90 % hourly, ★ FALLS FIRST) · station 2 (AI tutor, $12,290 +2.9 %, the certificate, ★ the tag splits) · **subscribe 1** (windows warm) → plateFactory |
-| **B2** | c05 c06 c07 c08 | 'So far, every price' → 'So what does that do' | 3:48.1 – 7:14.9 (207 s) | station 3 (drop on your foot, **C2** Musk out of a box, 5,079,078 robots, phones −51 % quality-adjusted, +27.6 % to $581, ★ FALLS SLOWLY, the cable) · station 4 (Gentle Singularity quote, ★ energy is the floor, +33 %, **C3** Hassabis out of the clean light, radical abundance = a forecast, STAYS UP) · station 5 (the dollar bar again, ★ cropland $6,020, WORK OUT · GROUND STAYS) · station 6 (the turned tag turns: HOUSING, "on land you already own", ≈ 40 %, walls vs ground, Three Observations quote, STAYS HARD, ★ thumbnail B) → plateStairs |
-| **B3** | c09 c10 c11 c12 | 'So what does that do' → end | 7:14.9 – 10:55.7 (221 s, incl. ≈ 5 s quiet + the 15 s end screen) | the seventh tag, NOT FINANCIAL ADVICE, ALL OF IT, ★ YOUR WAGE · output/hours, ★ labor share 53.0 % lowest since 1947 · **C4** Acemoglu out of the data point · the promise's second half, "worse off" · three answers MARKET · FUND · CHECK (★ Alaska $1,200 kitchen table) · the timeline · the order (clock big) · ★ YOUR WAGE IS A PRICE TOO · **subscribe 2** · end screen (`S.endScreen`, refine it) |
+| **B1** | c02 c03 c04 | 'The man is Alexandr Wang' → "That leaves Wang's boldest" | 1:09.5 – 4:18.5 (189 s) | **portrait print ONCE** (1.01, `F.portrait` + `F.nameplate`) · the labs, the bomb balance, X crop **lazy** · the billboard over his own lab · **C1** Wang out of the lab door · ★ the file glows in the OTHER lab's window · check 1: the ribbon, the referee, CORRECT, the community · ★ box 1 gold · **C2** out of the ribbon · check 2: two fields RIEMANN, the cardboard prop A = A (TAUTOLOGY), the rule book · box 2 gold + ? · check 3: two shadows, the author (EINBLENDUNG `F.SOURCES.alpoge` at 3.07; optional **C0** at 3.08), "outrageous" · ★ box 3 gold · the rival human proof · → plateReferee |
+| **B2** | c05 c06 c07 | "That leaves Wang's boldest" → 'Not like a coup' | 4:18.5 – 7:12.0 (173 s) | X crop **alien** again behind box 4 · Tao with the magnifier, Radziwiłł · **C3** Tao · CORRECT ≠ UNDERSTOOD · the kitchen-table crack · ★ the tower, the seasons, box 4 OPEN · **harvest of the file** (4.10: under the headline only the small gold file) · **subscribe 1** (M.01) · PROOF over SUPERINTELLIGENCE · Maynard's milestone · LeCun portrait figure · **C4** LeCun · the road to a wall · ★ box 5 half · X crops **thousand** (1000x) and ★ **handover** · → plateHandover |
+| **B3** | c08 c09 c10 c11 | 'Not like a coup' → end | 7:12.0 – 10:43.0 (211 s, incl. the 15 s end screen from 10:28.0) | the town hall scenario (bridge plan marks itself CORRECT, the tower on the table, ★ arm after arm, the yellow sleeve last, a thousand YESes) · back to today, ★ the cone of trust moves from the file to the referee · who builds the referees · X crop **defaultPath** · the lab desks, SHOW YOUR WORK, the open rule book · ★ the old bridge vs the new · four chairs · X crop **nextYear** + the wall calendar (NO clock) · thumbnail A again, checklist big · ★ box 4 OPEN big · AI SOLVED ___ · the final picture · **subscribe 2** (A.01) · end screen (`S.endScreen`, refine it) |
 
 **Fonts:** `engine.mjs` / `lib/f10_editorial.mjs` load Instrument Serif + Inter from the repo (`stil/tests/shared/fonts/`, or `$F67FONTS`).
 If a quote card renders in a sans face, the fonts did not load: stop and say so.
 
-## Timing (it WILL move: the real VO is still to come)
-- `film.mjs` loads `<ROOT>audio/timing.json` when it exists, else `data/provisional_timing.json` (`python3 tools/provisional_timing.py`
-  from the newest `<ROOT>vo-vN.txt`; clip slots = `<ROOT>clips-geprueft.json` lengths + .3 s).
+## Timing (real VO; clip slots will still move)
+- `film.mjs` loads `<ROOT>audio/timing.json` (+ `slots.json`). Film 643.02 s, end screen from 628.02. Clip slots are placeholders now
+  (C1 98.87–108.87, C2 166.96–174.96, C3 282.76–292.76, C4 380.13–388.13) and shift when the real clips arrive.
 - **Anchor only on phrases:** `T.G(phrase, nth, after)` (start), `T.GE(...)` (end), `T.GW(phrase, null, after)` (words), `T.clip('C2')` →
   `{ start, end }`. Never write seconds. After any VO change run `node tools/anchors67.mjs` (all anchors found) and `python3 tools/shots67.py`.
-- Repeated phrases: pass `after` (your chunk start `R.a`) or `nth`: 'Housing' / 'Education' / 'Food' (hook list vs stations: use 'Housing.
-  The first word', "Education. It's on his list", 'Food. Remember'), 'This summer' (c05 Musk / c10: 'This summer, American businesses'),
-  'This channel exists' (c04 / c12, nth 1), 'half right' (hook / c08 / c12), 'less than a dollar' (hook / c09), 'your wage' (c09 / c12).
+- Repeated phrases: pass `after` (your chunk start `R.a`) or `nth`: 'Superintelligence is arriving' (hook / 5.01 / 10.01: use
+  'Superintelligence is arriving. So' for c11), 'This channel exists' (M.01 / A.01: nth 1 for subscribe 2), 'correct' (everywhere: anchor
+  on the longer phrase of shots.md), "If he's right" (hook / later), 'First box: gold' etc. are unique.
 - Your entry list: `export default async (T, R) => [{ t, draw(ctx, t), print: F.PRINT67 }, …]`; R = `{ a, b, id, first }`. Entries before
   `R.a` or after `R.b` are dropped. **One entry per chunk with your own camera path** (like sc01): one continuous take. Inner chunk
   boundaries of your group are yours: make the frame at `R.b` of one chunk equal the frame at `R.a` of the next (seam.mjs proves it).
+- The stubs (`lib/stub67.mjs`) already draw the seam plates and the end screen; keep that when you replace them.
 
 ## Seams (lib/f67_world.mjs; owned by the lead: import, never edit)
 | seam | phrase | plate | handing side | receiving side |
 |---|---|---|---|---|
-| Lead → B1 | 'This January' | `S.platePromise` (home cam: thumbnail A again, you with the pay slip in your right hand, the city cool, the promise half crumbled) | c01 (done) | B1 1.01: the promise's face lights and becomes the C1 plate |
-| B1 → B2 | 'So far, every price' | `S.plateFactory` (FACTORY_CAM: the factory right of centre, tag 3 unlit, the college's windows at the left, the clock) | B1 M.02 glides right and settles | B2 4.01: tag 3 lights and swings close |
-| B2 → B3 | 'So what does that do' | `S.plateStairs` (STAIRS_CAM = thumbnail B: the rising row of six tags, the house-tag, you in its lit door, the clock) | B2 7.08 builds the row and settles | B3 8.01: the seventh tag (face down) comes down next to you |
+| Lead → B1 | 'The man is Alexandr Wang' (69.5) | `S.plateWang` (WANG_CAM: the headline, the post header pinned, your gold street, you by the board's foot, the dark tower, the author, the file on the spot, checklist 5 empty) | c01 (done) | B1 1.01: the post header's avatar grows into the portrait print |
+| B1 → B2 | "That leaves Wang's boldest" (258.5) | `S.plateReferee` (REFEREE_CAM: the referee on his chair, gold card up, the ribbon to the horizon, nobody reads it; checklist 1–3 gold, 2 with ?) | B1 3.12 settles into it | B2 4.01: ALIEN MIND rises behind box 4 |
+| B2 → B3 | 'Not like a coup' (432.0) | `S.plateHandover` (TOWN_CAM: HANDOVER in gold over your town hall, its windows lit; checklist 1–3 gold, 4 OPEN, 5 half) | B2 6.03 settles into it | B3 7.01: glide into the town hall through its window |
 
-Both sides draw the plate for ±0.5 s (`S.SEAM_HALF`) with the same creep (`S.creep`, 4 %/s push; `S.trk`, 30 px/s truck); the receiving
-side continues both before it starts its own move. The stubs already draw the plates at their ends; keep that when you replace them.
-Check: `SECS=c04,c05 node tools/seam.mjs --at <T0>` (no flags).
+Both sides draw the plate for ±0.5 s (`S.SEAM_HALF`) with the same creep (`S.creep(t, T, phrase)`, 4 %/s push; `S.trk(k)`, 30 px/s truck);
+the receiving side continues both before it starts its own move. Check: `SECS=c04,c05 node tools/seam.mjs --at <T0>` (no flags).
 
 ## Kit API (lib/f67_kit.mjs as `F`, lib/f67_world.mjs as `S`, lib/f10_editorial.mjs as `E`)
-- **World:** `S.landWorld(ctx, cam, t, st)` (options in the file header: promise, promiseExtra, tags[7] (each `F.tag` options + dy, x, y, w),
-  cool, city, office, power, arm, stairs, houseTag, you | false, youLand, land(ctx), roof(ctx, hands), fg) → `{ promise, hands }` ·
-  screen boxes `S.promiseRect(c)`, `S.tagAt(c, i)`, `S.officeRect(c)` · cameras `S.HOME`, `S.PROMISE_CAM`, `S.FACTORY_CAM`, `S.STAIRS_CAM`,
-  `S.stationCam(i, s, dv)`, `S.END_CAM` · constants `S.Z_*`, `S.GY`, `S.STATIONS`, `S.TAG_Y`, `S.TAG_W`, `S.PROMISE`, `S.YOU`, `S.OFFICE_WIN`,
-  `S.STAIRS`, `S.VERDICT_TAGS` (the six tags after their verdicts), `S.PROMISE_HALF` · `S.endScreen(ctx, t, T)`, `S.END_TILES`, `S.END_ROW`.
-- **The tag:** `F.tag(ctx, t, x, y, w, { a, rot, swing, thread, glow, lines, textU, price, priceU, dust, split, back, house, heavy, seed })`
-  (x, y = the eyelet). `F.verdict(ctx, t, x, y, 'FALLS FIRST', u)` = gold caps + a drawn underline (no stamps).
-- **Objects:** `F.receipt(ctx, t, { from, to, u, w, rows: [[label, u]], bend, roll })` (thumbnail C) · `F.paySlip(ctx, t, x, y, s, { glow, label })`
-  · `F.dollarBar(ctx, t, x, y, w, { u, title, segs: [{ label, share, col, u, big }] })` (the food dollar, the house = walls + ground).
-- **Explainers:** `F.paperCard`, `F.dataCard`, `F.quoteCard(ctx, t, T, { text, x, y, w, size, head, credit, spoken: [from, to], after, mode: 'hi' })`
-  (words light as spoken), `F.priceTag`, `F.goldText`, `F.goldSpan`, `F.goldLabel`, `F.maskLine`, `F.rise`, `F.bracket`, `F.title`,
-  `F.source(ctx, t, t0, t1, F.SOURCES.x)` (22 px, y 880), `F.veil(ctx, a)`, `F.float(ctx, t, k)` (never let a card stand still).
+- **World:** `S.landWorld(ctx, cam, t, st)` (all options in the file header: head, headExtra(ctx, boxes), post, postA, windows,
+  board { spot, chalk, robot, robotGone }, tower { u, dark, pour, full, from }, ribbon { u, glow }, chair { referee, card, look }, labs,
+  billboard, otherLab, hall, you { x, h, o } | false, author { x, h, o, laptop }, land(ctx), fg(ctx)) · screen points `S.headPt`,
+  `S.landPt`, `S.postRect` · cameras `S.HOME`, `S.landCam(u, v, s)`, `S.WANG_CAM`, `S.BOARD_CAM`, `S.REFEREE_CAM`, `S.LABS_CAM`,
+  `S.TOWN_CAM` · constants `S.Z_*`, `S.GY`, `S.HEAD`, `S.POST`, `S.YOU`, `S.BOARD`, `S.TOWER`, `S.CHAIR`, `S.RIB`, `S.LABS`, `S.HALL`,
+  `S.BRIDGE` · `S.endScreen(ctx, t, T)`, `S.END_TILES`.
+- **Objects:** `F.headline(ctx, t, { x, y, w, lines, u, glow, cream: [a, b], dim, cond, align })` → letter boxes (10.02: `cream [.5, 0]`) ·
+  `F.file(ctx, t, x, y, s, { a, rot, glow, open, scan, lines, seed })` (THE FILE) · `F.ribbon(ctx, t, pts, { u, w0, w1, a, glow, seed })` ·
+  `F.goldCard(ctx, t, x, y, s, { u, text: 'CORRECT', rot, glow })` (never a stamp) · `F.referee(ctx, t, x, y, h, { card, text, look, dir,
+  armL })` · `F.paperTower(ctx, t, x, base, w, h, { u, full, dark, pour, from, seed })` · `F.balance(ctx, t, x, y, hw, { u, tilt, left,
+  right })` · `F.notebook(ctx, t, x, y, s, o)`.
+- **The checklist:** `F.checklist(ctx, t, T, { a, big, lit, dx, dy })` drives itself from `F.CHECKS` phrases (title on 'So test his
+  claim', box n on its verdict phrase), hides in clip windows. Draw it in EVERY frame (c01 does from 'So test his claim'). `big` 0..1 =
+  centred 2.3× (2.01, 10.01, 10.03); `lit` = index to pulse. `F.checkBox(i)` = the box's screen rect (aim things at it).
+- **Wang's X post:** `F.xPost(ctx, t, x, y, w, { u, a, rot, glow })` (the header, unrolls with u) · `F.xQuote(ctx, t, id, x, y, w, { u,
+  hiU, size, rot, a, darkPrint })` → `{ x, y, w, h, full, hi[] }` (unroll u, highlighter sweep hiU; ids alien, homework, lazy, thousand,
+  handover, defaultPath, nextYear, views). `hi[]` = screen rects of the highlighted words (lift HANDOVER out of `hi[0]` at 6.02).
+- **Portrait (ONCE, 1.01):** `F.portrait(ctx, t, x, y, h, { u, rot })` (paper-cut duotone, placeholder silhouette until the PNG exists) +
+  `F.nameplate(ctx, t, x, y, u)` (ALEXANDR WANG · CHIEF AI OFFICER, META · LEADS META SUPERINTELLIGENCE LABS).
+- **Explainers:** `F.paperCard`, `F.dataCard`, `F.quoteCard(ctx, t, T, { text, x, y, w, size, head, credit, spoken: [from, to], after,
+  mode: 'hi' })`, `F.goldText`, `F.goldSpan`, `F.goldLabel`, `F.title`, `F.verdict`, `F.source(ctx, t, t0, t1, F.SOURCES.x)` (22 px,
+  y 880), `F.veil(ctx, a)`, `F.float(ctx, t, k)` (never let a card stand still).
 - **Camera:** `F.camPath(t, K)` with keys `[[t, E.aim(Z, u, v, s, sx, sy)], …]`; `E.camDrift(c, t, amp, …)`.
-- **The clock:** `F.board(ctx, t, T, { a, big, lit })` drives itself from `F.BOARD` phrases and hides in clip windows. Draw it in every frame
-  from 'Six price tags' on (B1 1.10 makes it appear; B3 11.01 makes it big with `big` 0..1).
 - **Clips:** `F.clipPlate(ctx, t, T, 'C2', { from, morph, dark, label })` grows from `from` (a rect or [cx, cy, r]) into `F.CLIP_RECT` and
-  back. Frames are extracted to `/tmp/claude-0/f67/clips/C1…C4/` (`python3 tools/f67_clips.py clips`). Lower third above the plate from
-  `F.CLIPS`; C2/C4 are centre-cropped (logos). C1 14.97 s, C2 9.43 s, C3 13.57 s, C4 12.84 s (<ROOT>clips-geprueft.json).
-- **Strings:** `F.SOURCES` (from text-v3 EINBLENDUNG, fact-checked; MB1–MB3 applied). **The current `<ROOT>text-v3.md` EINBLENDUNG lines
-  win**; if they differ from `F.SOURCES`, use text-v3 and say so in your report.
+  back. Until real clips exist it shows a placeholder plate with the lower third from `F.CLIPS` (names/sources marked TBD: update from
+  `films/67-assets/clips/clips.md` when it lands; tell the lead). Frames: `python3 tools/f67_clips.py clips` → `/tmp/claude-0/f67/clips/`.
+  C0 (Alpöge) has no VO slot yet: if clips.md has it, ask the lead for a slot at 3.08 "So listen to the mathematician himself".
+- **Strings:** `F.SOURCES` (from skript/text-v2.md EINBLENDUNG). Wang quotes are the real X PNGs (wording checked in
+  `films/67-assets/zitate-check.md`). If the current text differs from `F.SOURCES`, use the text and say so in your report.
 
 ## Rules (from the owner; see MOTION.md §3)
-- ONE world (the long land). Camera moves, not world changes. Max 1–2 moving elements. A carrier at every transition. Nothing from nowhere,
-  no ghost fades, nothing frozen. Big area changes ≥ 1.8 s (sineIO), small hits on the word. One ★ per chunk.
-- Every picture illustrates its sentence. Explainer share 60–70 % overall: keep or raise the layers of shots.md.
-- Gold = ONE hero light per frame. No logos, no real faces outside the clips, no AI images, no 3D look, no primitive shapes, no robots as
-  heroes or faces. No QR. Nothing from MOTION.md "Nicht wiederholen" (no clocks, crystals, hourglasses, server racks, bells, stamps …).
+- ONE world (the night of the headline). Camera moves, not world changes. Max 1–2 moving elements. A carrier at every transition.
+  Nothing from nowhere, no ghost fades, nothing frozen. Big area changes ≥ 1.8 s (sineIO), small hits on the word. One ★ per chunk.
+- Every picture illustrates its sentence. Explainer share 60–70 % overall (plan 58 %: lift where you can).
+- Gold = ONE hero light per frame. Box 4 is never red, never crossed: cream + OPEN. CORRECT is always the gold card. No logos, no real
+  faces outside the clips and the portrait print, no AI images, no 3D look, no primitive shapes, no robots as heroes. No QR. Nothing from
+  MOTION.md "Nicht wiederholen" (no clock face, no ladder, no stamps, no price tags/receipts from #66 …).
 - Nothing important below y 880 (burned-in subtitles). Text ≥ 22 px, ≤ 6 words per statement + one number (verbatim quotes may be longer),
   held ≥ 1.5 s.
 - Files: you own ONLY `scenes/scNN.mjs` of your chunks. Kit/world wishes: write a local helper in your scene file, or ask the lead in your
   report. Never edit `lib/f67_*.mjs`, `film.mjs`, `audio/`. No videos or large files in the repo; renders go to `/tmp/claude-0/f67/<you>/`;
-  only small jpgs (< 1 MB) to `<ROOT>bild/` (network mount: never search the whole project folder; re-read a file ~10 s after writing it).
+  only small jpgs (< 1 MB) to `<ROOT>bild/` (network mount: never search the whole project folder, exact paths only).
 
 ## Render and check (per chunk, then for your whole group)
 ```
 node -e "import('./film.mjs').then(async m=>{const k=await import('./lib/kit.mjs');const R=m.chunkRanges(k.timing(m.TIMING));for(const[i,v]of Object.entries(R))console.log(i,v.a.toFixed(2),v.b.toFixed(2))})"
-SECS=c02 node render.mjs --snap 58,60,62 --dir /tmp/claude-0/f67/b1/snap --scale .5        # stills
-SECS=c02 node --expose-gc render.mjs --out /tmp/claude-0/f67/b1/c02.mp4 --from 56.9 --to 129.3 --scale .5 --preset veryfast
+SECS=c02 node render.mjs --snap 72,75,78 --dir /tmp/claude-0/f67/b1/snap --scale .5        # stills
+SECS=c02 node --expose-gc render.mjs --out /tmp/claude-0/f67/b1/c02.mp4 --from 69.47 --to 126.2 --scale .5 --preset veryfast
 python3 tools/calm.py /tmp/claude-0/f67/b1/c02.mp4 --scale 1280:720      # 0 cuts
-python3 tools/smooth.py /tmp/claude-0/f67/b1/c02.mp4 56.9                 # 0 flagged (LURCH > 12, POP)
+python3 tools/smooth.py /tmp/claude-0/f67/b1/c02.mp4 69.47                # 0 flagged (LURCH > 12, POP)
 SECS=c04,c05 node tools/seam.mjs --at <T0>                                 # your seams (and your inner chunk boundaries)
 node tools/anchors67.mjs                                                   # all anchors found
 ```
@@ -88,5 +101,5 @@ node tools/anchors67.mjs                                                   # all
 `python3 tools/f67_clips.py render --only c02,c03` (pieces ≤ 20 s, resumable); assembly with subtitles and the mix: `assemble` (the lead).
 
 ## Report (≤ 200 words)
-Chunks done, check results (calm, smooth, seam, anchors), any string you took from text-v3 that differs from `F.SOURCES`, kit wishes, open
-issues, contact sheet path (`<ROOT>bild/<chunk>_kontakt.jpg`).
+Chunks done, check results (calm, smooth, seam, anchors), any string you took from the text that differs from `F.SOURCES`, kit wishes,
+open issues, contact sheet path (`<ROOT>bild/<chunk>_kontakt.jpg`).

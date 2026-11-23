@@ -222,8 +222,8 @@ export function plateReferee(ctx, t, T) {
 }
 export function plateHandover(ctx, t, T) {
   const k = creep(t, T, 'Not like a coup'), c = TOWN_CAM(k, trk(k) * .3);
-  landWorld(ctx, c, t, { head: { dim: .6 }, hall: 1, windows: .3, you: false,
-    land: (cx) => F.goldText(cx, [['HANDOVER', 1]], HALL.x, GY - 400, 74, 1, { serif: true, align: 'center', glow: true }) });
+  landWorld(ctx, c, t, { head: { dim: .85 }, hall: 1, windows: .3, you: false,
+    land: (cx) => F.goldText(cx, [['HANDOVER', 1]], HALL.x + 60, GY - 330, 74, 1, { serif: true, align: 'center', glow: true }) });
   F.checklist(ctx, t, T);
 }
 

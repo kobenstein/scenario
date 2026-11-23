@@ -60,7 +60,7 @@ function scene(a, T) {
     [a.step + .4, L(SP.x, 500, 2.5)], [a.correct + .9, L(SP.x + 10, 492, 2.7)], [a.but + .6, L(2400, 520, 2.2)],
     [a.pages + .2, L(2040, 520, .95)], [a.notEven + .4, L(2010, 530, .98)],
     [a.alien - .9, L(1500, 640, 1.0)], [a.hwE, L(1470, 640, 1.03)],
-    [a.machine - .1, L(2280, 560, 1.28)], [a.read + .3, L(2320, 566, 1.36)],
+    [a.machine - .1, L(2280, 560, 1.28)], [a.answer, L(2300, 563, 1.33)],
   ];
   const creepCam = (t) => { const k = 1 + S.CREEP * (t - tPlate); return S.WANG_CAM(k, S.trk(k)); };
   const KALL = [...K, [tCreep, creepCam(tCreep)]];
