@@ -1,0 +1,23 @@
+{
+ "film": "Bill Gates Changed His Mind About AI and Jobs (#41)",
+ "stand": "2026-11-23",
+ "hinweise": [
+  "Format wie #66 clips.json. Konfidenz: gruen = Wortlaut/Zeitmarke am Video geprüft · gelb = Inhalt durch Berichte belegt, Zeitmarke/Wortlaut am iMac prüfen · rot = offen.",
+  "Diese Runde keine Untertitel/kein Ton (YouTube aus der Cloud gesperrt, vidIQ ohne Guthaben). Alle Clips gelb.",
+  "Semafor-Zitat ist ein Print-Interview → Zitatkarte, kein Clip.",
+  "Kein Jensen Huang (Jakob 23.11.)."
+ ],
+ "clips": [
+  {"id": "C1", "stelle": "Hook-Wende / Ende Hook", "speaker": "Bill Gates", "source_title": "The turbulent era of artificial intelligence is here", "channel": "Bill Gates", "video_id": "MLeTQWQiOvg", "datum": "2026-08-27", "dauer_video": "1:52", "inhalt": "Kurzfassung des Essays: KI-Ära wird turbulent, Entscheidungen jetzt wichtig", "zeitmarke": "offen", "dauer_s_geschaetzt": 8, "konfidenz": "gelb", "hinweis": "In #25 als K3 vorgesehen – prüfen, ob dort gesendet; falls ja, andere Stelle des Videos nehmen"},
+  {"id": "C2", "stelle": "Station 3 (2–8 Jahre)", "speaker": "Bill Gates", "source_title": "Bill Gates says to prepare for 20 years of tumultuous AI disruption", "channel": "Decoder with Nilay Patel", "video_id": "A0kTUP7fWtk", "datum": "2026-10-22", "dauer_video": "1:11:04", "inhalt": "If we don't choose to massively slow down or stop, then we will have robots that can build houses, grow food, do surgery.", "zeitmarke": "offen", "dauer_s_geschaetzt": 8, "konfidenz": "gelb"},
+  {"id": "C3", "stelle": "Station 5 (20 Jahre)", "speaker": "Bill Gates", "source_title": "Bill Gates says to prepare for 20 years of tumultuous AI disruption", "channel": "Decoder with Nilay Patel", "video_id": "A0kTUP7fWtk", "datum": "2026-10-22", "inhalt": "My big concern is this 20-year transition period where they'll have winners and losers and a lot of disruption.", "zeitmarke": "offen", "dauer_s_geschaetzt": 7, "konfidenz": "gelb"},
+  {"id": "C4", "stelle": "Station 6 (Human Reserved)", "speaker": "Bill Gates", "source_title": "Bill Gates says we must decide which jobs to reserve for humans", "channel": "CNN", "video_id": "cHRCt8YCYPM", "datum": "2026-10-11", "dauer_video": "1:19", "inhalt": "Wir müssen entscheiden, welche Jobs Menschen vorbehalten bleiben", "zeitmarke": "offen", "dauer_s_geschaetzt": 8, "konfidenz": "gelb"}
+ ],
+ "alternativen": [
+  {"id": "A1", "speaker": "Bill Gates", "source_title": "Why Bill Gates Thinks A.I. Will Take Away Jobs", "channel": "The Ezra Klein Show", "video_id": "RADfqPXNkH4", "datum": "2026-09-30", "konfidenz": "gelb"},
+  {"id": "A2", "speaker": "Bill Gates", "source_title": "Bill Gates Warns of AI Risks, Job Losses and US Regulation", "channel": "FT Live", "video_id": "g3wyStng7_M", "datum": "2026-11-04", "konfidenz": "gelb"},
+  {"id": "A3", "speaker": "Bill Gates", "source_title": "Bill Gates says AI is different than past technologies because it exceeds human intelligence", "channel": "CBS Evening News", "video_id": "F2m_NXx-n44", "datum": "2026-11-12", "konfidenz": "gelb", "hinweis": "Short; als neuester Anlass im Hook möglich"},
+  {"id": "A4", "speaker": "Oren Etzioni", "inhalt": "diagnosis right, prescription wrong", "quelle": "ABC News, Aug. 2026 (Telefoninterview) → Zitatkarte", "konfidenz": "gelb"}
+ ],
+ "anteil": {"summe_empfehlung_s": 31, "laufzeit_annahme_s": 600, "prozent": 5.2, "hart_prozent": 10}
+}
