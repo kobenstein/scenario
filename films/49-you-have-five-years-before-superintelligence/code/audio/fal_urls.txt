@@ -1,0 +1,31 @@
+t00 https://v3b.fal.media/files/b/0ab39db9/9PQ1c7QvdgNn-IdwISpTj_output.mp3
+t01 https://v3b.fal.media/files/b/0ab39db8/hmlfyhKX6XGNym56Cp54j_output.mp3
+t02 https://v3b.fal.media/files/b/0ab39dd0/3ayIX-Vaf9bAvuIrkc4LO_output.mp3
+t03 https://v3b.fal.media/files/b/0ab39db8/9aBmd1zW5xPdnEVXk7TIb_output.mp3
+t04 https://v3b.fal.media/files/b/0ab39db9/_ec3eRmLpNtHsTfhMwP1d_output.mp3
+t05 https://v3b.fal.media/files/b/0ab39db9/jyePsCKxLcLHUa49qrU0i_output.mp3
+t06 https://v3b.fal.media/files/b/0ab39db9/oT-670AyHxxrug3zKAhbA_output.mp3
+t07 https://v3b.fal.media/files/b/0ab39db8/yfbOg4NM31KNcOKY9fNf9_output.mp3
+t08 https://v3b.fal.media/files/b/0ab39dbc/fbhfjqjsm3sVRkEYIW-9f_output.mp3
+t09 https://v3b.fal.media/files/b/0ab39dbb/4RO9LhTXqln-XOO-ML-Xn_output.mp3
+t10 https://v3b.fal.media/files/b/0ab39dbb/atHbx5ZmErbCcM7LUIhSX_output.mp3
+t11 https://v3b.fal.media/files/b/0ab39dd0/qAKlVPRHttmmT6ZQ4Ablq_output.mp3
+t12 https://v3b.fal.media/files/b/0ab39dbb/VtMienJMO1tWupqY2Yu7Z_output.mp3
+t13 https://v3b.fal.media/files/b/0ab39dbc/e4I8zVlhhdP_Fw4vLk2aC_output.mp3
+t14 https://v3b.fal.media/files/b/0ab39dbc/ysBFafZromkRz1jyz4JFP_output.mp3
+t15 https://v3b.fal.media/files/b/0ab39dbb/AFsSBTRB-7ufb1slMD3Km_output.mp3
+t16 https://v3b.fal.media/files/b/0ab39dbc/8VMqwgrHkWnfnwdaE5Evy_output.mp3
+t17 https://v3b.fal.media/files/b/0ab39dbc/Tdld_gQrQfQnkuJC6rrlj_output.mp3
+t18 https://v3b.fal.media/files/b/0ab39dbb/ixsMwtDEBaaW5RmFUJ1TN_output.mp3
+t19 https://v3b.fal.media/files/b/0ab39dd0/rpJEf0XuBSPkkNwiZxKo0_output.mp3
+t20 https://v3b.fal.media/files/b/0ab39dbc/yLPbJ89rOi7kmNCvxlwvP_output.mp3
+t21 https://v3b.fal.media/files/b/0ab39dbb/Nmf174Q8AxsxfmRKtYgii_output.mp3
+t22 https://v3b.fal.media/files/b/0ab39dbb/adI03DJTV_pAvVrXourYP_output.mp3
+# first takes replaced 23.11. after the ASR check (fal-ai/wizper): t02 a https://v3b.fal.media/files/b/0ab39db8/jQAFnenMmsuCjCN5kOEc0_output.mp3 ('He's') · t11 a https://v3b.fal.media/files/b/0ab39dbc/khZjoOnwd5Kv1xYv0-j2a_output.mp3 ('But' dropped) · t19 a https://v3b.fal.media/files/b/0ab39dbc/XJvomALWRwA6wcKGerSwj_output.mp3 ('noble-level')
+# music (google/lyria-3.5)
+M0 https://v3b.fal.media/files/b/0ab39dc2/Bygg0dCvKAtyeALLq0XqN_output.mp3
+M1 https://v3b.fal.media/files/b/0ab39dc3/-GEn4bE7UWyiPS_2Q2sRh_output.mp3
+M2 https://v3b.fal.media/files/b/0ab39dc6/feNUQGU5GkaclQk-Zpusy_output.mp3
+M3 https://v3b.fal.media/files/b/0ab39dc6/zyNlkR_RU1yBlWzolnunP_output.mp3
+M4 https://v3b.fal.media/files/b/0ab39dc2/zYdWqGELWgVpy_BOuy5WQ_output.mp3
+M5 https://v3b.fal.media/files/b/0ab39dc4/f69FZKDeXYb3lEosxSJGf_output.mp3

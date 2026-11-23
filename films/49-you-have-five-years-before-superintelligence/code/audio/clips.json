@@ -1,0 +1,221 @@
+{
+ "_comment": "Film 49 clip metadata (clips_json.py). The cut files <ROOT>clips/Cn.mp4 ARE the clips (file_in_s 0). Slot = timing.json slots[] (0.6 s air before/after). cues = [seconds from the slot start, subtitle line <= 34 chars] packed from clips-geprueft.json word times.",
+ "clips": [
+  {
+   "id": "C13",
+   "kind": "clip",
+   "speaker": "Yuval Noah Harari",
+   "role": "Historian, author",
+   "source": "Yuval Noah Harari, 'The end of lifetime careers' (Aug 2026)",
+   "url": "https://www.youtube.com/watch?v=cn9GRAahlLE",
+   "credit": "Yuval Noah Harari (own YouTube channel)",
+   "lower_third": "Historian · own channel · \"The end of lifetime careers\" · 1 Aug 2026",
+   "file": "C13.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 14.3,
+   "dur": 14.3,
+   "slot_start": 75.64,
+   "slot_end": 89.94,
+   "sec": "1",
+   "transcript": "And having to change again and again throughout your life, you cannot rely on just, okay, now I know, now I have the knowledge that will keep me throughout my life, now I have the profession, the job, I will do this until I'm old.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.15,
+     "And having to change again and"
+    ],
+    [
+     1.63,
+     "again throughout your life,"
+    ],
+    [
+     3.01,
+     "you cannot rely on just,"
+    ],
+    [
+     5.23,
+     "okay, now I know,"
+    ],
+    [
+     6.83,
+     "now I have the knowledge that will"
+    ],
+    [
+     8.15,
+     "keep me throughout my life,"
+    ],
+    [
+     9.71,
+     "now I have the profession,"
+    ],
+    [
+     10.87,
+     "the job, I will do this until I'm"
+    ],
+    [
+     13.61,
+     "old."
+    ]
+   ],
+   "cue_end": 14.21
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "speaker": "Erik Brynjolfsson",
+   "role": "Stanford Digital Economy Lab",
+   "source": "Stanford Digital Economy Lab, 'We Must Act Now' (Jul 2026)",
+   "url": "https://www.youtube.com/watch?v=9WZiKkhI6fM",
+   "credit": "Stanford Digital Economy Lab (YouTube)",
+   "lower_third": "Stanford Digital Economy Lab · \"We Must Act Now\" · 14 July 2026",
+   "file": "C5.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 11.867,
+   "dur": 11.87,
+   "slot_start": 258.3,
+   "slot_end": 270.17,
+   "sec": "3",
+   "transcript": "We feel there's a need to do this because what we see is that there's this growing gap between amazing capabilities going faster and faster and relatively slow changes in our economic institutions and understanding.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.09,
+     "We feel there's a need to do this"
+    ],
+    [
+     1.25,
+     "because what we see is that"
+    ],
+    [
+     3.05,
+     "there's this growing gap between"
+    ],
+    [
+     4.65,
+     "amazing capabilities going faster"
+    ],
+    [
+     6.87,
+     "and faster and relatively slow"
+    ],
+    [
+     8.77,
+     "changes in our economic"
+    ],
+    [
+     9.91,
+     "institutions and understanding."
+    ]
+   ],
+   "cue_end": 11.55
+  },
+  {
+   "id": "C16",
+   "kind": "clip",
+   "speaker": "Yuval Noah Harari",
+   "role": "Historian, author",
+   "source": "Yuval Noah Harari, 'Who is raising our children?' (Sep 2026)",
+   "url": "https://www.youtube.com/watch?v=jAdZHBfjLpU",
+   "credit": "Yuval Noah Harari (own YouTube channel)",
+   "lower_third": "Historian · own channel · \"Who is raising our children?\" · 28 Sept 2026",
+   "file": "C16.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 14.067,
+   "dur": 14.07,
+   "slot_start": 321.73,
+   "slot_end": 335.8,
+   "sec": "4",
+   "transcript": "And we already hear about children. You ask them, who is your best friend in the world? And they say, the AI. There are things I don't tell my mother, there are things I don't tell my friends in school, but I tell the AI.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.13,
+     "And we already hear about"
+    ],
+    [
+     1.09,
+     "children. You ask them,"
+    ],
+    [
+     2.61,
+     "who is your best friend in the"
+    ],
+    [
+     4.29,
+     "world? And they say,"
+    ],
+    [
+     5.71,
+     "the AI. There are things I don't"
+    ],
+    [
+     8.51,
+     "tell my mother,"
+    ],
+    [
+     10.31,
+     "there are things I don't tell my"
+    ],
+    [
+     11.79,
+     "friends in school,"
+    ],
+    [
+     12.81,
+     "but I tell the AI."
+    ]
+   ],
+   "cue_end": 13.95
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "speaker": "Bernie Sanders",
+   "role": "U.S. Senator",
+   "source": "Senator Bernie Sanders, 'Who will own and control the future of AI?' (Jun 2026)",
+   "url": "https://www.youtube.com/watch?v=3lU6TSBOBWw",
+   "credit": "Senator Bernie Sanders (official Senate YouTube channel)",
+   "lower_third": "U.S. Senator · Senate office channel · 1 June 2026",
+   "file": "C2.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 7.4,
+   "dur": 7.4,
+   "slot_start": 486.43,
+   "slot_end": 493.83,
+   "sec": "6",
+   "transcript": "When a public resource generates wealth, the public should share in that wealth.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.34,
+     "When a public resource generates"
+    ],
+    [
+     2.32,
+     "wealth, the public should share in"
+    ],
+    [
+     6.17,
+     "that wealth."
+    ]
+   ],
+   "cue_end": 6.97
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+[
+ {"f": "nightsky", "at": "t00", "end": "t01", "v": 0.3, "fade": 3},
+ {"f": "step5", "word": "Five years to go.", "at_end": true, "dt": 0.12, "v": 0.55, "once": true, "fade": 0.8},
+ {"f": "step4", "word": "Four years to go.", "at_end": true, "dt": 0.12, "v": 0.55, "once": true, "fade": 0.8},
+ {"f": "step3", "word": "Three years to go.", "at_end": true, "dt": 0.12, "v": 0.55, "once": true, "fade": 0.8},
+ {"f": "step2", "word": "Two years to go.", "at_end": true, "dt": 0.12, "v": 0.55, "once": true, "fade": 0.8},
+ {"f": "step1", "word": "One year to go.", "at_end": true, "dt": 0.12, "v": 0.6, "once": true, "fade": 0.8}
+]

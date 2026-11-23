@@ -1,0 +1,179 @@
+[
+ {
+  "id": "t00",
+  "sec": "H",
+  "text": "[calm, conversational] You have five years before superintelligence.\nA machine smarter than any human, at almost everything.\nThat means the biggest change in human history, in the shortest time.\nThe plow changed the work of our hands. The engine, our muscles. The computer, our memory.\nBut thinking still needed a person. Until now.\nAnd those changes took generations: the children learned the new work.\nThis time, there is no next generation to wait for. It falls to you.\nSo how do you get ready in five years?",
+  "chars": 511
+ },
+ {
+  "id": "t01",
+  "sec": "H",
+  "text": "The change has already started. Some insiders expect the first superhuman A.I. as early as next year.\nBut you have something almost no generation got before its world changed. A warning.\nThe people building superintelligence named the deadline themselves.\nAnd the first thing to get ready is not your computer.",
+  "chars": 310
+ },
+ {
+  "id": "t02",
+  "sec": "1",
+  "text": "[warm] Picture a wedding. A stranger at your table asks what you do. You have the answer ready. You have given it for decades.\nNow picture giving a different one. At your age.\nThe historian Yuval Noah Harari says you will have to. He is no engineer, and warnings like his sell books. But hear him out:",
+  "chars": 301,
+  "seed": 4302
+ },
+ {
+  "id": "C13",
+  "sec": "1",
+  "clip": true,
+  "dur": 8.0,
+  "placeholder": true
+ },
+ {
+  "id": "t03",
+  "sec": "1",
+  "text": "Again and again. He calls it the end of lifetime careers. And he expects the change to go on for decades.\nSo start the countdown. One step for each year. And the hardest question waits at the top.",
+  "chars": 196
+ },
+ {
+  "id": "t04",
+  "sec": "2",
+  "text": "[calm, conversational] Five years to go. The first step is you. It comes first because it takes the longest. And it pays off even if the builders are wrong and superintelligence arrives much later.\nReinvent yourself. At fifty. It sounds like a young person's game.\nThe data disagrees. Among America's fastest-growing new companies, the average founder was forty-five at the start. Not twenty-five.\n[thoughtful] But it matters who chooses the change.",
+  "chars": 449
+ },
+ {
+  "id": "t05",
+  "sec": "2",
+  "text": "People who switch jobs late in their careers, by their own choice, tend to end up more satisfied. People laid off in their late forties lose, on average, more than a quarter of their pay.\nThat is a comparison, not proof. But the same change is a different thing, chosen or forced.\nWhat the next generation always had was a fresh start. So choose your own, while nothing depends on it.",
+  "chars": 384
+ },
+ {
+  "id": "t06",
+  "sec": "2",
+  "text": "Become a beginner at one thing this year, and stay with the awkward part. At work, take on one new role before anyone asks. Join one group that has never heard your job title. If the title goes, you are still somebody there.\nResilience is partly practice. So when the big change comes, it will not be your first.\nBut starting over is only half of it. If a machine can do your task in a minute, what is your experience still worth?",
+  "chars": 430
+ },
+ {
+  "id": "t07",
+  "sec": "3",
+  "text": "[calm, conversational] Four years to go. This step is your work. And here, there is evidence on your side.\nOne A.I. company studied how people work with its own tool. Experts succeeded more than twice as often as beginners. With the same tool.",
+  "chars": 243,
+  "pause": true
+ },
+ {
+  "id": "t08",
+  "sec": "3",
+  "text": "In that study, the machine did not level the field. It rewarded the people who already knew the work.\n[curious] Does that make you safe? Not quite. The study watched one coding tool, not every trade. And when people in their late fifties and early sixties are out of work, it lasts thirty-four weeks on average.\nSo experience is an edge. Not a guarantee. And an edge only counts if you use it.\nLearn the machine on the job, while you still have one. That is your guard against those weeks outside.",
+  "chars": 497
+ },
+ {
+  "id": "t09",
+  "sec": "3",
+  "text": "But you can only do so much on your own. This summer, more than two hundred economists and A.I. researchers signed one statement. Not to pause. To prepare. One of its organizers, Stanford's Erik Brynjolfsson, makes the case:",
+  "chars": 224,
+  "say": "But you can only do so much on your own. This summer, more than two hundred economists and A.I. researchers signed one statement. Not to pause. To prepare. One of its organizers, Stanford's Erik /ˈbrɪnjoʊlfsən/, makes the case:"
+ },
+ {
+  "id": "C5",
+  "sec": "3",
+  "clip": true,
+  "dur": 10.0,
+  "placeholder": true
+ },
+ {
+  "id": "t10",
+  "sec": "M",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.",
+  "chars": 139,
+  "cta": true
+ },
+ {
+  "id": "t11",
+  "sec": "4",
+  "text": "[calm, conversational] You met this machine as an adult. But what about the next generation, the people growing up with it?\nThree years to go. This step is your family. Your children. Your grandchildren.\nThree in four teenagers use A.I. in their free time. Most have tried an A.I. companion, a chatbot you talk to like a friend.\nCalifornia now has a law for that. A companion chatbot must tell a child, at least every three hours, that it is not a human being.",
+  "chars": 460,
+  "pause": true,
+  "seed": 4302
+ },
+ {
+  "id": "t12",
+  "sec": "4",
+  "text": "Somebody had to write that sentence into law.\nHarari has a name for a generation growing up with machine friends: a psychological experiment on a global scale.",
+  "chars": 159
+ },
+ {
+  "id": "C16",
+  "sec": "4",
+  "clip": true,
+  "dur": 10.0,
+  "placeholder": true
+ },
+ {
+  "id": "t13",
+  "sec": "4",
+  "text": "This time, the next generation can't do the adapting for you. It needs you.\nThe reflex is to forbid the machine friends. But a ban may only hide them from you.\nSo ask instead. Which A.I. do you talk to? What for? Is there one you'd call a friend? Then ask to read one chat together. That protects against a relationship with a machine you know nothing about.\nBut if a machine can already act like a friend, how close is the rest? Are the five years even real?",
+  "chars": 459
+ },
+ {
+  "id": "t14",
+  "sec": "5",
+  "text": "[calm, conversational] Two years to go. This step is the machine itself: what you actually know about it.\n[thoughtful] Five years to full superintelligence is not a fact. A short deadline helps a lab raise money, and many outside experts say much later.\nBut so far, the experts have repeatedly underestimated how fast this moves. The chatbot most people know is not yet old enough for school. By its maker's count, the accounts using it every week have passed a billion.\nAnd even most of their later dates are less than a generation away.",
+  "chars": 538
+ },
+ {
+  "id": "t15",
+  "sec": "5",
+  "text": "So it is the deadline worth preparing for. If it takes longer, you were early. If it takes five, you were ready.\nThat is what the experts know. And you? Among Americans over sixty-five, more people expect A.I. to harm society than have ever tried a chatbot.",
+  "chars": 257,
+  "pause": true
+ },
+ {
+  "id": "t16",
+  "sec": "5",
+  "text": "The fear arrived before the experience.\nSo get the experience. Give the machine one afternoon, and a task you have done for years. There, you see at once where it shines, and where it is wrong.\nThat protects you from both stories: the sales pitch, and the shrug. It turns a vague fear into a judgment.\nThe last step needs that judgment. Because the rules for these machines are being written right now, not a generation from now. And the biggest one is still blank: who gets what the machines earn?",
+  "chars": 498
+ },
+ {
+  "id": "t17",
+  "sec": "6",
+  "text": "[calm, conversational] One year to go. This step is your say.\nVoters have already started to use theirs. This November, limits on new data centers were on local ballots. They won all but one.\nThose votes were about buildings. On the bigger question, one answer comes from both ends of American politics: give the public a stake.\nSenator Bernie Sanders has put it into a bill: a public fund of A.I. shares that pays out to every American. The bill's chances are slim. But here is his argument:",
+  "chars": 492
+ },
+ {
+  "id": "C2",
+  "sec": "6",
+  "clip": true,
+  "dur": 8.0,
+  "placeholder": true
+ },
+ {
+  "id": "t18",
+  "sec": "6",
+  "text": "Donald Trump has floated the idea too: \"the American public essentially becomes a partner with the companies.\"\nNeither version is law. So when this reaches your ballot, show up. And ask everyone who wants your vote one question: who gets a share of the gain? Otherwise, others divide it without you.",
+  "chars": 299
+ },
+ {
+  "id": "t19",
+  "sec": "7",
+  "text": "[warm, amazed] And there may be a great deal to share. Inside one A.I. company, nine in ten of the staff expect A.I. to be capable of a Nobel-level discovery before this decade is out. They have a stake in that. But if even part of it comes true, these years bring discoveries, not only risks.\n[thoughtful] So suppose all of it works: the discoveries, the rules, the shared gain. That leaves the hardest question, the one no ballot can settle.\nFive years from now, at another wedding, a stranger asks what you do.",
+  "chars": 513,
+  "say": "[warm, amazed] And there may be a great deal to share. Inside one A.I. company, nine in ten of the staff expect A.I. to be capable of a /noʊˈbɛl/-level discovery before this decade is out. They have a stake in that. But if even part of it comes true, these years bring discoveries, not only risks.\n[thoughtful] So suppose all of it works: the discoveries, the rules, the shared gain. That leaves the hardest question, the one no ballot can settle.\nFive years from now, at another wedding, a stranger asks what you do.",
+  "pause": true
+ },
+ {
+  "id": "t20",
+  "sec": "7",
+  "text": "Who do you want to be, when nobody needs you for your thinking?\n[warm] It can sound like a loss. But listen again: it is the question we ask children. What do you want to be?\nFor most of history, a change this big was left to the children. This one is yours: the warning, the work, and the wonder.",
+  "chars": 297,
+  "pause": true
+ },
+ {
+  "id": "t21",
+  "sec": "7",
+  "text": "There is no next generation to wait for. This time, the next generation is you.",
+  "chars": 79
+ },
+ {
+  "id": "t22",
+  "sec": "A2",
+  "text": "[warm] This channel exists so that superintelligence goes well for everybody. For this generation, and the next. Want that too? Then subscribe.",
+  "chars": 143,
+  "cta": true
+ }
+]
