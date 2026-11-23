@@ -47,7 +47,7 @@ const L = (u, v, s = 1) => S.landCam(u, v, s);
 const centreU = (c) => c.x * 1700 / S.Z_LAND + W / 2;
 const TAO = { x0: 4520, x: 3930 }, RAD = { x0: 4720, x: 4240 };
 const LENS = [3992, GY + 8], LR = 20;
-const NEQ = [3720, GY - 290];
+const NEQ = [3810, GY - 290];
 const KIT = { x: 1290, y: 610, w: 760 };
 const CROP = { x: 300, y: 330, w: 1180 };
 const BOX4 = { x: 1290, y: 470, s: 360 };
@@ -61,7 +61,7 @@ function scene(a, T) {
   const K = [
     [tA, refCam(tA)], [a.day + 2.4, L(3990, 700, 2.3)], [a.another + .2, L(4020, 700, 2.32)], [a.noOne + .4, L(4090, 700, 2.25)],
     [a.here + .3, L(4060, 700, 2.3)], [C3.start - .25, L(LENS[0], LENS[1], 5.2)], [C3.end + .1, L(LENS[0], LENS[1] + 2, 5.35)],
-    [a.so + 1.9, L(3600, 650, 2.0)], [a.why + .6, L(3610, 652, 2.05)], [a.gap + 1.4, L(3600, 655, 2.08)],
+    [a.so + 1.9, L(3660, 650, 2.0)], [a.why + .6, L(3670, 652, 2.05)], [a.gap + 1.4, L(3660, 655, 2.08)],
     [a.box - .5, L(1850, 770, 2.7)], [a.quarter + .1, L(1858, 760, 2.55)], [a.life + .7, L(2000, 420, .92)],
     [a.some + 1.8, L(3500, 500, .62)], [a.noM + .2, L(3880, 470, .6)],
     [tCreep, creep56(tCreep)],
@@ -76,7 +76,7 @@ function scene(a, T) {
   const lift = (t) => sineIO(span(t, a.check4 + .2, a.check4 + 1.8));
   const boxGrow = (t) => sineIO(span(t, a.check4 - .1, a.check4 + 1.4)) * (1 - sineIO(span(t, a.day - .1, a.day + 1.5)));
   const taoWalk = (t) => span(t, t0 + .4, a.day + .8), radWalk = (t) => span(t, a.day + .5, a.another + .3);
-  const taoQ = (t) => span(t, a.dig - .6, a.dig + .4) * (1 - span(t, a.noOne + .6, a.noOne + 1.4));
+  const taoQ = (t) => span(t, a.dig - .6, a.dig + .4), taoOut = (t) => sineIO(span(t, a.noOne + .5, a.noOne + 1.9));
   const radL = (t) => span(t, a.another + .2, a.another + 1.0) * (1 - span(t, a.here - .1, a.here + .6));
   const lensIn = (t) => span(t, a.day + 1.0, a.day + 2.2);
   const morph = (t) => sineIO(span(t, C3.start - 1.1, C3.start + .1)) * (1 - sineIO(span(t, C3.end - .3, C3.end + .9)));
@@ -183,7 +183,7 @@ function scene(a, T) {
     }
     // 4.02 / 4.03: Tao's quote card, Radziwiłł's name
     const tq = taoQ(t);
-    if (tq > 0) { F.float(ctx, t, .4); F.quoteCard(ctx, t, T, { u: tq, text: F.SOURCES.tao, credit: F.SOURCES.taoSrc, x: 140, y: 120, w: 900, size: 50, spoken: ['the digestion', 'some time'], after: a.day }); ctx.setTransform(1, 0, 0, 1, 0, 0); }
+    if (tq > 0 && taoOut(t) < 1) { F.float(ctx, t, .4); ctx.translate(0, -460 * taoOut(t)); F.quoteCard(ctx, t, T, { u: tq, text: F.SOURCES.tao, credit: F.SOURCES.taoSrc, x: 140, y: 120, w: 900, size: 50, spoken: ['the digestion', 'some time'], after: a.day }); ctx.setTransform(1, 0, 0, 1, 0, 0); }
     const rl = radL(t); if (rl > 0) { const p = E.project(c, S.Z_LAND, RAD.x + 6, GY - 76); if (p) F.goldLabel(ctx, p[0], p[1], F.SOURCES.radz, 'MATHEMATICIAN', rl, { dx: 60, dy: -90, size: 28 }); }
     // 4.04 / 4.05: C3 grows out of the lens and goes back into it
     const m = morph(t); if (m > 0 && lensScreen) F.clipPlate(ctx, t, T, 'C3', { from: [lensScreen[0], lensScreen[1], LR * lensScreen[2]], morph: m });

@@ -71,7 +71,7 @@ function scene(a, T) {
   const roadU = (t) => span(t, a.does, a.maynard + 2.4);
   const mile = (t) => span(t, a.milestone - .1, a.milestone + .7);
   const may = (t) => span(t, a.maynard + .6, a.lecun + 1.2);
-  const mayQ = (t) => span(t, a.milestone - .3, a.milestone + .6) * (1 - span(t, a.lecun - .3, a.lecun + .5));
+  const mayQ = (t) => span(t, a.milestone - .3, a.milestone + .6), mayOut = (t) => sineIO(span(t, a.lecun - .5, a.lecun + 1.0));
   const lecWalk = (t) => span(t, a.lecun + .2, a.left + .8);
   const lecL = (t) => span(t, a.lecun + 1.0, a.lecun + 1.8) * (1 - span(t, a.tech + .4, a.tech + 1.1));
   const morph = (t) => sineIO(span(t, C4.start - 1.1, C4.start + .1)) * (1 - sineIO(span(t, C4.end - .3, C4.end + .9)));
@@ -121,7 +121,7 @@ function scene(a, T) {
       },
     });
     // 5.02: Maynard's quote · 5.03: LeCun's label
-    const mq = mayQ(t); if (mq > 0) { F.quoteCard(ctx, t, T, { u: mq, text: F.SOURCES.maynard, credit: F.SOURCES.maynardSrc, x: 140, y: 120, w: 700, size: 64 }); }
+    const mq = mayQ(t); if (mq > 0 && mayOut(t) < 1) { ctx.save(); ctx.translate(0, -460 * mayOut(t)); F.quoteCard(ctx, t, T, { u: mq, text: F.SOURCES.maynard, credit: F.SOURCES.maynardSrc, x: 140, y: 120, w: 700, size: 64 }); ctx.restore(); }
     const ll = lecL(t);
     if (ll > 0 && lecScreen?.[0]) { const [n1, n2] = F.SOURCES.lecun.split(' · '); F.goldLabel(ctx, lecScreen[0][0] + 20, lecScreen[0][1] - 10, n1, n2, ll, { dx: -90, dy: -110, size: 30 }); }
     // 5.04: C4 grows out of LeCun and back
