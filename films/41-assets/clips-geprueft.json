@@ -1,0 +1,109 @@
+{
+  "film": "Bill Gates Changed His Mind About AI and Jobs (#41)",
+  "stand": "2026-11-24",
+  "methode": "Untertitel per yt-dlp (YouTube-Auto-Captions en-orig, Wort-Zeitmarken) + Pausenanalyse (ffmpeg silencedetect); Schnitt aus 1080p-Quellen, H.264 CRF 18 / AAC 192k, 29,97 fps. Kein Whisper am iMac: Wortlaut aus Auto-Captions, an Pausen/Wortgrenzen geschnitten – beim Bau einmal anhören.",
+  "skandal_check": "Kein neuer Skandal im Nov. 2026; laufend die Epstein-Verbindungen (Akten Jan. 2026, House-Oversight-Anhörung 10.06.2026, Stiftungs-Review 21.07.2026, Axios 26.08. 'Gates confronts the Epstein questions hanging over his AI push'), neu nur eine kleine Debatte um einen privaten Minenbesuch in Chile (Nov. 2026) → Zitieren vertretbar, Film bleibt bei seinen Argumenten, kein Epstein.",
+  "summe_empfehlung_s": 32.4,
+  "clips": [
+    {
+      "id": "C1",
+      "datei": "clips/C1.mp4",
+      "video_id": "g3wyStng7_M",
+      "channel": "FT Live",
+      "source_title": "Bill Gates Warns of AI Risks, Job Losses and US Regulation | #FTFutureofAI",
+      "datum": "2026-11-04",
+      "start": "21:56.00",
+      "end": "22:06.90",
+      "dauer_s": 10.9,
+      "wortlaut": "I say very strongly that past technological advances are no guide to this. That will just mislead you if you look at those.",
+      "ersetzt": "text-v3 0:59 [CLIP C1] (WORTLAUT OFFEN). Einordnung laut Skript für A2: „This is Gates himself, this November.“ Danach passt „What changed is his picture of the machine.“ direkt.",
+      "konfidenz": "gruen",
+      "hinweise": [
+        "Erste Wahl des Skripts (A2 FT Live) – neuester Auftritt, Bild noch nicht gesendet, kein Musikbett.",
+        "Im Bild eingeblendet: FT-LIVE-Logo oben links und ab ca. 3 s FT-Bauchbinde 'Bill Gates' → eigene Bauchbinde nicht darüberlegen bzw. FT-Logo beim Bau abdecken/croppen prüfen.",
+        "Lange Denkpause zwischen 'past' und 'technological' (ca. 2 s) ist im Clip; nicht kürzen, sonst Sprung."
+      ]
+    },
+    {
+      "id": "C2",
+      "datei": "clips/C2.mp4",
+      "video_id": "A0kTUP7fWtk",
+      "channel": "Decoder with Nilay Patel",
+      "source_title": "Bill Gates says to prepare for 20 years of tumultuous AI disruption",
+      "datum": "2026-10-22",
+      "start": "43:08.30",
+      "end": "43:21.25",
+      "dauer_s": 12.95,
+      "wortlaut": "If we don't choose to massively slow down or stop, then we will have robots that can build houses, grow food, do surgery,",
+      "ersetzt": "text-v3 3:12 [CLIP C2]",
+      "konfidenz": "gruen",
+      "hinweise": [
+        "Wortlaut wie im Skript. Der Satz läuft im Original weiter: '… and none of the things that human labor provides to the economy will be necessary for most goods and services.' (bis 43:31, ganzer Satz 23 s – zu lang). Schnitt in der Atempause nach 'surgery' (0,7 s Pause im Original), klingt als Satzende.",
+        "Vor 'If' steht im Original ein 'Uh,' – abgeschnitten.",
+        "Kamera wechselt im Clip zwischen Totale (mit Moderator) und Nahaufnahme Gates."
+      ]
+    },
+    {
+      "id": "C3",
+      "datei": "clips/C3.mp4",
+      "video_id": "A0kTUP7fWtk",
+      "channel": "Decoder with Nilay Patel",
+      "source_title": "Bill Gates says to prepare for 20 years of tumultuous AI disruption",
+      "datum": "2026-10-22",
+      "start": "42:01.42",
+      "end": "42:09.90",
+      "dauer_s": 8.5,
+      "wortlaut": "My big concern is this 20-year transition period, where it'll have winners and losers and a lot of disruption,",
+      "ersetzt": "text-v3 5:20 [CLIP C3]",
+      "konfidenz": "gruen",
+      "hinweise": [
+        "Gesprochen 'it'll have', nicht 'they'll have' (Skript/Untertitel anpassen).",
+        "Im Original geht es weiter: '… and we have to get through that in order to get to that period of abundance.' Schnitt nach 'disruption' vor 'um, and' – vollständige Aussage.",
+        "ACHTUNG Regel 2 Clips / 20 s pro Video: C2 + C3 = 21,5 s (0,5–1,5 s drüber). Entweder so lassen (Jakob) oder C2 bei 'build houses, grow food' enden lassen (–2 s, aber dann fehlt 'surgery' und der Satz wirkt abgebrochen)."
+      ]
+    },
+    {
+      "id": "C4",
+      "datei": null,
+      "video_id": null,
+      "channel": null,
+      "wortlaut": null,
+      "ersetzt": "text-v3 7:48 [CLIP C4]",
+      "konfidenz": "rot",
+      "ergebnis": "In keiner erlaubten Quelle ein ganzer Satz 'we must decide which jobs are reserved for humans' gefunden: Ezra Klein RADfqPXNkH4 ist ein 2:20-Hochkant-Short (1080x1920) ohne Human-Reserved-Stelle; FT Live g3wyStng7_M (31 min, ganze Untertitel durchsucht) spricht nur über Steuern/Jobs, nicht über Human Reserved; CBS F2m_NXx-n44 (64 s) auch nicht. Gates' eigene Fragen ('Who gets to decide …? What criteria …?') stehen nur im Essay (Text).",
+      "empfehlung": "Fallback des Skripts nehmen: Schlagzeilen-Karte CNN (ohne Anführungszeichen) – oder besser eine Zitatkarte aus dem Essay: “Who gets to decide what we reserve for humans? What criteria should we use?” · Bill Gates, Aug 26, 2026. Dann 3 Clips, Summe 32,4 s.",
+      "alternativen": [
+        {
+          "id": "C4-alt-memo",
+          "datei": "clips/C4-alt-memo.mp4",
+          "video_id": "A0kTUP7fWtk",
+          "channel": "Decoder with Nilay Patel",
+          "start": "41:13.10",
+          "end": "41:29.90",
+          "dauer_s": 16.8,
+          "wortlaut": "I proposed in my memo the idea that some professions, you know, child care, food preparation, art, sports, a variety of things might get chosen [to] be human reserved, even though the AI could do those things better, that we would choose to do that.",
+          "passt_zu": "Einordnung 'This fall, Gates named the task himself.' passt sehr gut (er nennt Beispiele + 'we would choose').",
+          "problem": "16,8 s (> 15 s) und dritter Decoder-Clip (Regel max. 2 / 20 s pro Video). Nur wenn Jakob die Regel hier bricht oder C3 dafür als Karte kommt."
+        },
+        {
+          "id": "C4-alt-taste",
+          "datei": "clips/C4-alt-taste.mp4",
+          "video_id": "A0kTUP7fWtk",
+          "channel": "Decoder with Nilay Patel",
+          "start": "69:12.00",
+          "end": "69:17.70",
+          "dauer_s": 5.7,
+          "wortlaut": "We may need to develop the taste to actually not use technology to its maximum.",
+          "passt_zu": "Starker Satz für 8:53/9:32 (Grund statt Preis), weniger für 7:48.",
+          "problem": "5,7 s (knapp unter 6 s) und ebenfalls Decoder."
+        }
+      ]
+    }
+  ],
+  "verworfen": [
+    {"video_id": "MLeTQWQiOvg", "channel": "Bill Gates", "grund": "Durchgehendes Musikbett unter der Stimme ([music] ab 0:23) → laut #25-Faktencheck/Skript rot, nur Karte. Außerdem lief der Turbulent-Satz schon in #25."},
+    {"video_id": "RADfqPXNkH4", "channel": "The Ezra Klein Show", "grund": "Hochkant-Short 1080x1920, kein 16:9-Clip. Inhaltlich stark für 1:27 ('as you cross reliability thresholds … you destroy jobs and you leave no high ground', ab 1:02) – höchstens als Karte."},
+    {"video_id": "F2m_NXx-n44", "channel": "CBS Evening News", "grund": "Großer TV-Sender (rot). Wortlaut für 1:07 bestätigt: 'It's more pervasive. That's right. It does because it exceeds human intelligence.'"},
+    {"video_id": "cHRCt8YCYPM", "channel": "CNN", "grund": "Nicht erlaubt (Vorgabe)."}
+  ]
+}
