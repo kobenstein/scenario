@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""Film 67 'Meta's AI chief says superintelligence is arriving' · lay the VO takes and the clip slots on one timeline -> vo_master.wav (VO + clip audio) + vo_only.wav (VO alone, for mix.py)
-+ timing.json + slots.json (here and, with F69ROOT set or default, copied to <ROOT>audio/). Method as Film 66 / 59 (segments.json from make_segments.py, word times from
+"""Film 69 'Europe Can Still Win the AI Race' · lay the VO takes and the clip slots on one timeline -> vo_master.wav (VO + clip audio) + vo_only.wav (VO alone, for mix.py)
++ timing.json + slots.json (here and, with F69ROOT set or default, copied to <ROOT>audio/). Method as Film 66 / 67 (segments.json from make_segments.py, word times from
 align_ps.py = pocketsphinx forced alignment + energy refinement; ElevenLabs v4 takes, voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, seed 4301).
-Slots (own time on the timeline), kind 'clip', video + audio, 0.6 s of air before and after. Length = segments.json 'dur' (the real cut in <ROOT>clips/Cn.*
-when make_segments.py found it, else the planned placeholder length C1 10 · C2 8 · C3 10 · C4 8 s; placeholder slots are flagged and stay silent).
-Clip sound: <clipwav>/<id>.wav (clips_wav.py) into vo_master.wav at the level of the voice; mix.py takes vo_only.wav + the clip wavs.
+Gaps (voice end -> next voice start): GAP_SUB 0.75 s between takes of one station, GAP_SECTION 1.3 s between stations (= the ~0.6 s station pause of the
+blank lines in vo-v3 on top of the normal take gap), but NO station pause at the hook end (H -> 1 gets GAP_SUB, text-v2: "Keine Pause, direkt weiter in Station 1").
+Slots (own time on the timeline), kind 'clip', video + audio, 0.6 s of air before and after. Length = the whole cut file <ROOT>clips/Cn.mp4 (clips-geprueft.json):
+  C1 8.47 s (Draghi 2025) · C2 9.39 s (Mensch) · C3 10.37 s (von der Leyen) · C4 15.17 s (Koerte) · C1b 12.12 s (Draghi 2026).
+Clip sound: <clipwav>/<id>.wav (clips_wav.py) into vo_master.wav at the level of the voice (speech RMS matched); mix.py takes vo_only.wav + the clip wavs.
 End: the film ends END_TAIL s after the last VO word: ~4 s of air + the 15 s end screen (picture and music run on, no voice).
-Swap in real clips: git pull; python3 make_segments.py; python3 clips_wav.py <wav>/clipwav; python3 build_vo.py . <wav>; python3 mix.py . <wav>; python3 subs.py . untertitel
-(the takes are not regenerated: only the slot lengths change, everything after a slot shifts).
 usage: build_vo.py <audio_dir> <wav_dir> [clipwav_dir]   (vo-<id>.mp3 / vo-<id>.json in <wav_dir>/dl; wavs go to wav_dir; timing.json + slots.json go to audio_dir)"""
 import json, os, re, subprocess, sys
 import numpy as np
@@ -18,13 +18,15 @@ LEAD, END_SCREEN = 0.6, 15.0
 END_TAIL = float(os.environ.get('END_TAIL', 19.0))   # seconds from the last VO word to the end of the film (END_SCREEN of it is the end screen)
 PAUSE, GAP_SUB, GAP_SECTION = 1.2, 0.75, 1.3
 CLIP_IN, CLIP_OUT = 0.6, 0.6
-LEVELS = {'H': 'HOOK: superintelligence is arriving, one file, the Riemann proof, five checks', '1': 'the man: Alexandr Wang, Meta Superintelligence Labs (C1 Wang), his stake',
-          '2': 'CHECK 1 is the evidence real: Lean, the referee, M.I.T. (C2 mathematician), box 1 gold', '3': 'CHECK 2 does the code prove the right thing: box 2 gold with a question mark',
-          '4': 'CHECK 3 was it really the A.I.: "frankly completely outrageous", box 3 gold; the human proof', '5': 'CHECK 4 does any human understand it (C3 Tao), correct vs understood, a quiet arrival',
-          'M': 'subscribe call 1', '6': 'CHECK 5 one proof = superintelligence? Maynard, LeCun (C4), box 5 half; Wang worried, the handover',
-          '7': 'the handover: the town hall, the bridge, a thousand small yeses; trust moved to the check', '8': 'who builds the referees: labs, governments, open referees, the clock',
-          '9': 'verdict: in part; two questions; "correct" has to stay human', 'A2': 'closing call + end screen'}
-QUOTES = {}   # Film 67: no quote cards
+NO_STATION_PAUSE = {('H', '1')}   # the hook runs straight into station 1
+LEVELS = {'H': 'HOOK: Europe can still win, 5 percent of the computing power, the chip machines, 27 pieces, the plan is on the table',
+          '1': 'what is already there: the Dutch chip machines, sold nothing in Europe, Draghi wrote the plan (C1 Draghi 2025), five parts, the test',
+          '2': 'PART 1 the money: ten trillion in bank accounts, start-ups fly to California, the fund, Mistral; halfway', '3': 'why it matters where a company lives (C2 Mensch, client state)',
+          '4': 'PART 2 one set of rules: 27 company laws, the new Europe-wide company, held up; on paper', '5': 'PART 3 the energy: power prices, data centres where the power is, five percent barely moves; halfway; needed',
+          'M': 'subscribe call 1', '6': 'PART 4 one lab: CERN, a CERN for AI, the pilot (C3 von der Leyen, 500 billion); on paper',
+          '7': 'PART 5 the minds: the researcher in Paris, stock options, the flow turns; open', '8': 'the second race: putting AI to work, old companies, their data (C4 Koerte), one voice, who settles it',
+          '9': 'verdict: two halfway, two on paper, one open; most computers no, AI at work yes (C1b Draghi 2026), the budget clock', 'A2': 'closing call + end screen'}
+QUOTES = {}   # Film 69: no quote cards
 nz = lambda w: re.sub(r"[^a-z0-9']", '', w.lower().replace('’', "'"))
 def tail_voiced(mp3):
     """seconds in the take where the voice really starts / ends (10-ms frames above -48 dBFS): the TTS tail is silent"""
@@ -34,7 +36,10 @@ def tail_voiced(mp3):
     return (on[0] * .01, (on[-1] + 1) * .01) if len(on) else (0.0, len(x) / 16000)
 def dec(f, ch=1):
     return np.frombuffer(subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f, '-f', 'f32le', '-ac', str(ch), '-ar', str(SR), '-']), np.float32).copy()
-BREATH = {}   # (take, first word after the breath, seconds of silence) where a take needs a beat; Film 67: none yet
+# breaths cut into a take: (take, first word after the breath, seconds of silence). Film 69: room for the SFX accents, so they never sit under a running sentence
+BREATH = {'t01': [('Twenty-seven', 0.6)],   # 'It's in twenty-seven pieces.' | pieces_scatter | 'Twenty-seven countries, ...'
+          't10': [('One', 0.3)],            # 'So this part is halfway there, too.' | kit_snap | 'One thing is settled'
+          't20': [('This', 0.9)]}           # 'An option. With a clock on it.' | clock_tick | 'This winter, ...'
 def breathe(x, W, ins):
     ins = [(next(i for i, w in enumerate(W) if w[0] == k), g) for k, g in ins]
     for k, g in sorted(ins, reverse=True):
@@ -51,7 +56,8 @@ for s in SEG:
         if prev:
             if prev[1].get('pause'): g = PAUSE
             elif prev[0] == 'slot': g = CLIP_OUT
-            else: g = GAP_SECTION if prev[1]['sec'] != s['sec'] else GAP_SUB
+            elif prev[1]['sec'] != s['sec']: g = GAP_SUB if (prev[1]['sec'], s['sec']) in NO_STATION_PAUSE else GAP_SECTION
+            else: g = GAP_SUB
             t += g
         j = json.load(open(f"{DL}/vo-{s['id']}.json")); mp3 = f"{DL}/vo-{s['id']}.mp3"
         v0, v1 = tail_voiced(mp3)

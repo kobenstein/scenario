@@ -2,13 +2,15 @@
 """timing.json -> subtitles.srt + subtitles.ass (one line, bottom, phrase by phrase).
 usage: subs.py <audio_dir> <out_dir>
 Film 14/16/18/19/24/25/28/54/59: channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters.
-Film 67 (from Film 66 / 59): plain Inter, cream (#F3EFE2); clips C1-C4 from clips.json cues once the real clips are in (placeholder slots: no subtitle); figures as digits."""
+Film 69 (from Film 67 / 66 / 59): plain Inter, cream (#F3EFE2); clips C1 C2 C3 C4 C1b from clips.json cues (clip_cues.py: checked wording, aligned; the 'Nobody.' of another panelist in C4 gets no subtitle); figures as digits."""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']; sys.setrecursionlimit(5000)
 # spoken numbers -> digits (longest patterns first: merge() takes the first pattern that matches at a word)
-NUM = [('seventeen million', '17 million'), ('six weeks', '6 weeks'),
-       ('a\\.i\\.', 'AI'), ('m\\.i\\.t\\.', 'MIT')]   # film 67: spoken figures as digits, spelled 'A.I.' -> AI, 'M.I.T.' -> MIT
+NUM = [('twenty twenty-eight', '2028'), ('five hundred billion', '500 billion'), ('a hundred million', '100 million'), ('ten trillion', '10 trillion'),
+       ('seventy percent', '70%'), ('five percent', '5%'), ('a hundred years', '100 years'), ('a hundred euros', '100 euros'), ('one in six', '1 in 6'),
+       ('December third', 'December 3'), ('up to seven', 'up to 7'), ('three cargo jets', '3 cargo jets'), ('two days', '2 days'), ('two years', '2 years'),
+       ('twenty-seven', '27'), ('a\\.i\\.', 'AI')]   # film 69: spoken figures as digits (the script writes AI, the TTS said A.I.); 'five parts', 'all five', 'one voice' stay words
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
@@ -26,10 +28,36 @@ def split(ws):
         if c < best: best, bi = c, k
     return split(ws[:bi]) + split(ws[bi:])
 # hand-made breaks where the balanced split would cut a phrase: sentence text -> cue texts, same words in order
-BREAKS = {}   # Film 54: none, the balanced split is used (add 'sentence': ['piece', ...] where it cuts a phrase badly)
+BREAKS = {   # Film 69: hand-made breaks where the balanced split cuts a phrase (sentence text after the digit merge -> cue texts)
+    "And yet: the only machines on Earth that can print the most advanced chips are built in Europe.": ["And yet: the only machines", "on Earth that can print", "the most advanced chips", "are built in Europe."],
+    "Many of the people who build AI are trained in Europe.": ["Many of the people who build AI", "are trained in Europe."],
+    "And the European Union has more people than the United States.": ["And the European Union", "has more people", "than the United States."],
+    "The plan to connect them isn't new.": ["The plan to connect them", "isn't new."],
+    "And today, by one count, only about 1 in 6 of his proposals has been fully carried out.": ["And today, by one count,", "only about 1 in 6 of his proposals", "has been fully carried out."],
+    "In the European Union, households keep about 10 trillion euros in bank accounts.": ["In the European Union,", "households keep", "about 10 trillion euros", "in bank accounts."],
+    "It's to make investing them in Europe easier.": ["It's to make investing them", "in Europe easier."],
+    "Critics warn: push savers into markets, and you push them into risk.": ["Critics warn:", "push savers into markets,", "and you push them into risk."],
+    "Because a company that wants to grow across Europe runs into 27 different company laws.": ["Because a company", "that wants to grow across Europe", "runs into 27", "different company laws."],
+    "Unions fear companies could use it to get around workers' rights.": ["Unions fear companies could use it", "to get around workers' rights."],
+    "And for heavy industry, electricity in the European Union costs more than twice as much as in America.": ["And for heavy industry,", "electricity in the European Union", "costs more than twice", "as much as in America."],
+    "But much of the public money has to come from Europe's next budget.": ["But much of the public money", "has to come", "from Europe's next budget."],
+    "And it already builds the one machine the world's most advanced chips depend on.": ["And it already builds", "the one machine the world's", "most advanced chips depend on."],
+    "The one that can't be built: minds.": ["The one that can't be built:", "minds."],
+    "Researchers leaving the European Union for America are down by almost half in 2 years.": ["Researchers leaving", "the European Union for America", "are down by almost half", "in 2 years."],
+    "One satellite maker is using it to cut its development time.": ["One satellite maker is using it", "to cut its development time."],
+    "And more than half of Europe's biggest companies are over 100 years old.": ["And more than half of Europe's", "biggest companies", "are over 100 years old."],
+    "Much of what they know has never been on the internet.": ["Much of what they know", "has never been on the internet."],
+    "The race for the most computers: no.": ["The race for the most computers:", "no."],
+    "A say in which AI sits in on your job interview.": ["A say in which AI", "sits in on your job interview."],
+    "Mario Draghi, who wrote the plan, now says:": ["Mario Draghi,", "who wrote the plan, now says:"],
+    "This winter, Europe's leaders are negotiating the budget that much of this depends on.": ["This winter, Europe's leaders", "are negotiating the budget", "that much of this depends on."],
+    "Europe was never too small for this race.": ["Europe was never too small", "for this race."],
+}
+USED = set()
 def pieces(snt):
     k = ' '.join(x['w'] for x in snt)
     if k not in BREAKS: return split(snt)
+    USED.add(k)
     out, i = [], 0
     for p in BREAKS[k]:   # consume merged words until they spell the piece (a merged number like "$96 billion" is one word with a space)
         j = i + 1
@@ -71,6 +99,7 @@ for c in json.load(open(A + 'timing.json')).get('clips', []):
         ws = line.split(); n = len(ws); a0, a1 = base + t0, base + t1 - .05   # words spread evenly over the cue, then split to <= MAX characters per line
         pw = [{'w': w, 's': a0 + (a1 - a0) * k / n, 'e': a0 + (a1 - a0) * (k + 1) / n} for k, w in enumerate(ws)]
         for piece in split(pw): cues.append([piece[0]['s'], piece[-1]['e'], fix(' '.join(x['w'] for x in piece))])
+assert USED == set(BREAKS), ('BREAKS not found in the VO:', set(BREAKS) - USED)
 cues.sort(key=lambda c: c[0])
 for i, c in enumerate(cues):  # hold each cue a little, never overlapping the next
     nx = cues[i + 1][0] if i + 1 < len(cues) else c[1] + 2

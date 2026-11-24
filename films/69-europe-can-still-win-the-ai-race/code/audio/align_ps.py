@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Film 67 (from Film 66 / 59 / 54) · forced alignment of the ElevenLabs takes with pocketsphinx (offline; fal Whisper results can't be written to disk by the MCP tools).
+"""Film 69 (from Film 67 / 66 / 59 / 54) · forced alignment of the ElevenLabs takes with pocketsphinx (offline; fal Whisper results can't be written to disk by the MCP tools).
 segments.json + <dl>/vo-<id>.mp3 -> <dl>/vo-<id>.json {words:[[w,start,end]]} with the SCRIPT's words (tags removed, hyphenated words stay ONE word, 'robot-built').
 The alignment runs on sub-tokens (split at hyphens); OOV names get ARPAbet pronunciations below. Phones are placed by the Viterbi forced alignment of the
 CMU en-us model (10 ms frames); pocketsphinx drops pauses into <sil> entries: word times are the voiced spans. Word end < next start in a gap.
@@ -8,11 +8,9 @@ import json, re, subprocess, sys
 import numpy as np
 from pocketsphinx import Decoder, Config, get_model_path
 A, DL = sys.argv[1].rstrip('/'), sys.argv[2].rstrip('/'); only = set(sys.argv[3:])
-EXTRA = {'superintelligence': 'S UW P ER IH N T EH L AH JH AH N S', 'a_i': 'EY AY', 'm_i_t': 'EH M AY T IY', "meta's": 'M EH T AH Z',
-         "mathematician's": 'M AE TH AH M AH T IH SH AH N Z', 'checkable': 'CH EH K AH B AH L', 'chatbots': 'CH AE T B AA T S',
-         'yann': 'Y AE N', 'lecun': 'L AH K AH N', 'alexandr': 'AE L AH G Z AE N D ER', 'wang': 'W AA NG', "wang's": 'W AA NG Z',
-         'riemann': 'R IY M AA N', 'tao': 'T AW'}
-SUBST = {'ai': 'a_i', 'mit': 'm_i_t'}   # spelled 'A.I.' (cmudict reads 'ai' as a word)
+EXTRA = {'superintelligence': 'S UW P ER IH N T EH L AH JH AH N S', 'a_i': 'EY AY', 'draghi': 'D R AA G IY', "mistral's": 'M IH S T R AA L Z',
+         'chatbot': 'CH AE T B AA T', 'leyen': 'L AY AH N', 'koerte': 'K ER T AH'}
+SUBST = {'ai': 'a_i'}   # TTS said 'A.I.' (spelled), the script word stays 'AI' (cmudict reads 'ai' as a word)
 norm = lambda w: re.sub(r"[^a-z']", '', w.lower().replace('’', "'"))
 segs = [s for s in json.load(open(f'{A}/segments.json')) if 'text' in s]
 cfg = Config(hmm=get_model_path('en-us/en-us'), dict=get_model_path('en-us/cmudict-en-us.dict'), lm=None, loglevel='FATAL')

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Film 67 (from Film 66 / 59) · mix VO (vo_only.wav) + slot audio (clips C1 Wang, C2 mathematician, C3 Tao, C4 LeCun = original footage; silent while placeholders) + music cues (Lyria 3.5, M0-M5)
+"""Film 69 (from Film 67 / 66 / 59) · mix VO (vo_only.wav) + slot audio (clips C1 Draghi, C2 Mensch, C3 von der Leyen, C4 Koerte, C1b Draghi = original footage) + music cues (Lyria 3.5, M0-M5)
 (ducked under the voice, extra -6 dB under every clip slot) + SFX -> mix.wav (-14 LUFS, TP <= -1 dB), mix.m4a, mix_preview.mp3. No QR windows.
 Method as Film 54 (films/24-animals/audio/mix.py): music cues and SFX are anchored on takes/slots/sections/words, not on seconds:
   music/cues.json  [{"f": "M1", "at": "t09" | "L2" (= section id: start of its first take) | "C2" (slot) | "END", "dt": -0.4, "fin": 2.0, "fout": 4.0, "off": 0, "d": null, "opts": {"repeat": [t1, t2]}}]
@@ -8,6 +8,8 @@ Method as Film 54 (films/24-animals/audio/mix.py): music cues and SFX are anchor
                    one-shot accents on a phrase: {"f": "card", "word": "Many doubt it", "nth": 0, "dt": -0.3, "peak": null, "v": 0.6, "once": true}
                    ("at_end": true = anchor on the END of the phrase; peak = seconds of the transient in the file, null/absent = loudest sample)
 Slot audio: <clipwav>/<id>.wav (the whole Cn.mp4, clips_wav.py) at slot start + offset (clips.json), level = the voice's, music ducked under the slot.
+Film 69: no atmo beds; every accent sits in a gap of the voice (build_vo.py BREATH makes room) and is CHECKED here: its audible span (above -40 dB of its peak)
+must not overlap a spoken word (VO or clip) -> 'SFX OVERLAP' is printed and the run fails. mix_preview.mp3 at 128k, copied to <ROOT>audio/.
 usage: mix.py <audio_dir> [wav_dir]   (vo_only.wav, clipwav/, music/, sfx/, stems, premix and mix.wav live in wav_dir, a scratchpad)"""
 import json, os, subprocess, sys
 import numpy as np
@@ -100,7 +102,7 @@ SLOT_DUCK = float(os.environ.get('SLOT_DUCK', 0.5))   # extra x0.5 (-6 dB) under
 smooth = np.convolve(slotmask, np.ones(SR // 5) / (SR // 5), 'same')
 music *= (1 - DUCK * duck)[:, None]          # -6 dB under the voice
 music *= (1 - SLOT_DUCK * smooth)[:, None]
-sfx = np.zeros((N, 2), np.float32); cache = {}
+sfx = np.zeros((N, 2), np.float32); cache = {}; OVERLAPS = []
 for c in (json.load(open(A + 'sound_plan.json')) if os.path.exists(A + 'sound_plan.json') else []):
     if c['f'] not in cache: cache[c['f']] = load(ASSETS + f"sfx/{c['f']}.mp3")
     x = cache[c['f']]
@@ -109,7 +111,12 @@ for c in (json.load(open(A + 'sound_plan.json')) if os.path.exists(A + 'sound_pl
         t = wordat(c['word'], c.get('nth', 0), c.get('at_end', False)) + c.get('dt', 0) - c.get('peak', 0)
         g = db(float(os.environ.get('ACCENT_DB', -15))) / (np.abs(x).max() + 1e-9) * c['v']   # accents are normalised on their PEAK (short transients)
         place(sfx, x[int(c.get('off', 0) * SR):], t, g, 0.0, c.get('fade', 0.3), c.get('d'), False)
-        print('sfx', c['f'], 'on', repr(c['word']), 'at', round(t, 2)); continue
+        y = x[int(c.get('off', 0) * SR):][:int(c['d'] * SR) if c.get('d') else None]; e = np.abs(y).max(1)
+        k = np.nonzero(e > e.max() * db(-40))[0]; a0, a1 = t + k[0] / SR, t + k[-1] / SR
+        hit = [w['w'] for w in WORDS if w['s'] < a1 and w['e'] > a0] + [s_['id'] for s_ in timing['slots'] if s_['start'] < a1 and s_['end'] > a0]
+        print('sfx', c['f'], 'on', repr(c['word']), 'at', round(t, 2), 'audible', round(a0, 2), '-', round(a1, 2), 'OK' if not hit else f'SFX OVERLAP {hit}')
+        if hit: OVERLAPS.append((c['f'], c['word'], hit))
+        continue
     if c.get('once'):   # one-shot accent anchored on a take / slot / section (at_end = its end), transient at `peak`
         t = at(c['at'], c.get('at_end', False)) + c.get('dt', 0) - c.get('peak', 0)
         g = db(float(os.environ.get('ACCENT_DB', -15))) / (np.abs(x).max() + 1e-9) * c['v']
@@ -124,6 +131,7 @@ for c in (json.load(open(A + 'sound_plan.json')) if os.path.exists(A + 'sound_pl
     g = db(float(os.environ.get('SFX_DB', -30))) / rms(x) * c['v']
     place(sfx, x[int(c.get('off', 0) * SR):], t, g, c.get('fade', 1.5), c.get('fade', 1.5), d, True)
     print('sfx', c['f'], 'from', round(t, 1), 'for', round(d, 1) if d else 'natural')
+assert not OVERLAPS, OVERLAPS
 sfx *= (1 - 0.15 * duck)[:, None]
 sfx *= (1 - 0.5 * smooth)[:, None]      # atmos and accents half as loud under O-Ton and clips
 mix = vo + clipbuf + music + sfx
@@ -142,9 +150,11 @@ af = f"loudnorm=I=-14:TP=-1:LRA=11:measured_I={m['input_i']}:measured_TP={m['inp
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', af, '-ar', '48000', W + 'mix.wav'], check=True)
 if src != W + 'premix.wav': os.remove(src)
 fin = measure(W + 'mix.wav'); print('FINAL mix.wav', fin['input_i'], 'LUFS, true peak', fin['input_tp'], 'dBTP, LRA', fin['input_lra'])
-# delivery copies: mix.m4a (AAC 192k through a 4x-oversampled limiter at -2 dBFS: about -1.5 dBTP after decoding) and mix_preview.mp3 (192k, for listening)
+# delivery copies: mix.m4a (AAC 192k through a 4x-oversampled limiter at -2 dBFS: about -1.5 dBTP after decoding) and mix_preview.mp3 (128k, for listening)
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', W + 'mix.wav', '-af', f'volume=0.3dB,aresample=192000,alimiter=limit={db(-2.0):.4f}:attack=1:release=50:level=false,aresample=48000',
                 '-c:a', 'aac', '-b:a', '192k', W + 'mix.m4a'], check=True)
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', W + 'mix.wav', '-af', f'aresample=192000,alimiter=limit={db(-1.5):.4f}:attack=1:release=50:level=false,aresample=44100',
-                '-c:a', 'libmp3lame', '-b:a', '192k', W + 'mix_preview.mp3'], check=True)
+                '-c:a', 'libmp3lame', '-b:a', '128k', W + 'mix_preview.mp3'], check=True)
 print('-> mix.wav, mix.m4a, mix_preview.mp3')
+if os.environ.get('NO_ROOT_COPY') != '1' and os.path.isdir(ROOT):
+    os.makedirs(f'{ROOT}/audio', exist_ok=True); subprocess.run(['cp', W + 'mix_preview.mp3', f'{ROOT}/audio/mix_preview.mp3'], check=True); print('copied mix_preview.mp3 ->', f'{ROOT}/audio/')

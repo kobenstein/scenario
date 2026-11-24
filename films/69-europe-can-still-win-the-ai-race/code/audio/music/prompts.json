@@ -1,0 +1,37 @@
+{
+ "_comment": "Film 69 Lyria 3.5 prompts (google/lyria-3.5, 0.10 USD per track, 6 tracks, 2026-11-24). Method as Film 66 / 67: one track per chapter; chapters = sections of timing.json (H,1 | 2,3 | 4,5 | M,6 | 7,8 | 9,A2 + end screen). Mystic, not uplifting (brief): drones, pads, piano, glass, distant wordless choir. Files in /tmp/claude-0/f69/audio/music, not in the repo (URLs in music/urls.txt). Prompt sent = style + ' ' + 'A <len> track. ' + mood.",
+ "style": "Instrumental underscore for a calm, thoughtful editorial documentary about whether Europe can still win the race for artificial intelligence. Mystical and quiet, not uplifting: a dark continent at night seen from above, twenty-seven pieces of a construction kit lying apart on a table under a single lamp, a blueprint slowly being unfolded. Deep warm drones, slow shimmering pads, sparse felt piano notes far apart, glassy bell and glass-harmonica textures, a very distant soft wordless choir pad like breath in a cathedral, a little tape warmth. No drums, no percussion, no beat, no vocals with words, no melody hook, not pop, not epic, not triumphant, not kitschy, not cinematic trailer. Very quiet, narrow dynamic range, slow, made to sit under a speaking voice.",
+ "tracks": {
+  "M0": {
+   "chapter": "H, 1 (Europe can still win, five percent, the chip machines, 27 pieces, the plan on the table; the Dutch machines, Draghi C1, five parts, the test)",
+   "len": "2:15",
+   "mood": "curious and expectant: a low warm drone that slowly breathes, single soft glassy piano notes placed gently one by one like pieces on a map, a faint distant choir pad; a sense of wonder and an open question; steady and calm throughout, no build-up",
+   "mood_v1_declined": "mysterious and expectant: a low warm drone that never resolves, single glassy piano notes falling into the dark like pieces being set down one by one, a faint distant choir breath; a question hanging in the air; steady and calm throughout, no build-up  [declined by the Lyria content filter (content_policy), 24.11.; v2 above was sent and is the track in use]"
+  },
+  "M1": {
+   "chapter": "2, 3 (part 1 the money: savings in bank accounts, start-ups leaving, the fund, Mistral; why it matters where a company lives, C2 client state)",
+   "len": "1:35",
+   "mood": "watchful and a little cool: slow pulsing pad chords like quiet machinery in a vault, sparse low piano, faint metallic glass shimmer; money resting unused, waiting; calm, no tension spikes, a hint of unease at the end"
+  },
+  "M2": {
+   "chapter": "4, 5 (part 2 one set of rules, 27 company laws, on paper; part 3 the energy, power prices, data centres in the cold north)",
+   "len": "1:30",
+   "mood": "cold and spacious: a long frozen drone like wind over a northern landscape at night, glass harmonica tones, very sparse piano, slow breathing choir pad far away; patient and contemplative, the hum of power lines in the distance"
+  },
+  "M3": {
+   "chapter": "M, 6 (subscribe call; part 4 one lab: CERN, a CERN for AI, the pilot, C3 500 billion, still on paper)",
+   "len": "1:15",
+   "mood": "hushed and reverent: an old stone hall, a slow sustained organ-like pad, soft bell tones, a quiet wordless choir chord that hovers without resolving; something great that has not been built yet; awe without triumph"
+  },
+  "M4": {
+   "chapter": "7, 8 (part 5 the minds: a researcher in Paris, two offers, the flow turning; the second race: putting AI to work, old companies, C4 Koerte, one voice, who settles it)",
+   "len": "2:25",
+   "mood": "human and inward, still mystical: a gentle felt piano figure of a few notes over a warm low pad, faint glass shimmer, the distant choir returns softly; a person deciding where to live, old workshops full of knowledge; restrained, no swell, no uplift"
+  },
+  "M5": {
+   "chapter": "9, A2 + end screen (verdict: two halfway, two on paper, one open; most computers no, AI at work yes; C1b Draghi: an option with a clock on it; closing call)",
+   "len": "1:45",
+   "mood": "grave and open: the low drone of the opening returns with the falling glassy piano notes, now slower, a faint clock-like soft pulse of muted bell without percussion, a wide still choir pad; unresolved but calm, not hopeful, not triumphant; ends on one long decaying open fifth chord fading into silence"
+  }
+ }
+}
