@@ -1,0 +1,143 @@
+{
+ "_comment": "Film 41 clip metadata (clips_json.py from clips_meta.json). Slot = timing.json slots[] (0.6 s air before/after); cues = [seconds from the slot start, line].",
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "speaker": "Bill Gates",
+   "role": "Co-founder, Microsoft · Chair, Gates Foundation",
+   "source": "FT Live, Future of AI (Nov 4, 2026)",
+   "url": "https://www.youtube.com/watch?v=g3wyStng7_M",
+   "credit": null,
+   "lower_third": "Bill Gates · FT Live, Nov 2026",
+   "transcript": "I say very strongly that past technological advances are no guide to this. That will just mislead you if you look at those.",
+   "file": "C1.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 10.91,
+   "dur": 10.91,
+   "slot_start": 54.89,
+   "slot_end": 65.8,
+   "sec": "1",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.13,
+     "I say very strongly that"
+    ],
+    [
+     1.67,
+     "past technological advances"
+    ],
+    [
+     5.73,
+     "are no guide to this."
+    ],
+    [
+     7.67,
+     "That will just mislead you"
+    ],
+    [
+     9.27,
+     "if you look at those."
+    ]
+   ],
+   "cue_end": 10.85
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "speaker": "Bill Gates",
+   "role": "Co-founder, Microsoft · Chair, Gates Foundation",
+   "source": "Decoder with Nilay Patel (Oct 22, 2026)",
+   "url": "https://www.youtube.com/watch?v=A0kTUP7fWtk",
+   "credit": null,
+   "lower_third": "Bill Gates · Decoder, Oct 2026",
+   "transcript": "If we don't choose to massively slow down or stop, then we will have robots that can build houses, grow food, do surgery,",
+   "file": "C2.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 12.98,
+   "dur": 12.98,
+   "slot_start": 183.72,
+   "slot_end": 196.7,
+   "sec": "3",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.32,
+     "If we don't choose"
+    ],
+    [
+     2.3,
+     "to massively slow down or stop,"
+    ],
+    [
+     5.9,
+     "then we will have robots"
+    ],
+    [
+     9.06,
+     "that can build houses,"
+    ],
+    [
+     10.2,
+     "grow food, do surgery,"
+    ]
+   ],
+   "cue_end": 12.9
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "speaker": "Bill Gates",
+   "role": "Co-founder, Microsoft · Chair, Gates Foundation",
+   "source": "Decoder with Nilay Patel (Oct 22, 2026)",
+   "url": "https://www.youtube.com/watch?v=A0kTUP7fWtk",
+   "credit": null,
+   "lower_third": "Bill Gates · Decoder, Oct 2026",
+   "transcript": "My big concern is this 20-year transition period, where it'll have winners and losers and a lot of disruption,",
+   "file": "C3.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 8.51,
+   "dur": 8.51,
+   "slot_start": 319.64,
+   "slot_end": 328.15,
+   "sec": "5",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.24,
+     "My big concern is this"
+    ],
+    [
+     1.84,
+     "20-year transition period,"
+    ],
+    [
+     3.44,
+     "where it'll have"
+    ],
+    [
+     5.64,
+     "winners and losers"
+    ],
+    [
+     6.76,
+     "and a lot of disruption,"
+    ]
+   ],
+   "cue_end": 8.45
+  }
+ ]
+}
