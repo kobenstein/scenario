@@ -184,6 +184,17 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 **Sicherung immer aus der Originaldatei** (Jakob 20.11.): Direkt nach dem finalen Render, noch vor dem Upload und bevor die Render-Sitzung endet, den Master (1080p30, gleiche Datei wie für YouTube, Prüfsumme gleich) nach Drive „#NN Titel/1 Film“ UND auf „/Volumes/Jakob - 6A/2026_TheGoodTakeoff/#NN_Titel“ kopieren. Nie aus YouTube Studio herunterladen (schlechtere Qualität). Fehlt die Originaldatei, Jakob melden statt Studio-Download.
 **Drive ist Pflicht, 6A nur zusätzlich** (Jakob 20.11.): Ist „Jakob - 6A“ nicht angesteckt, reicht die Drive-Kopie (Prüfsumme gleich); kein Nachkopieren nötig.
 
+## 13. Bau: Bild zeigt, was der Satz sagt (Jakob 24.11.)
+
+**Befund (Jakob 24.11., #63):** In den letzten Filmen ist der Bau wieder in Ein-Bild-Szenen gedriftet (ein Bild steht über mehrere Sätze, während der Text weitererzählt). Die besten Filme waren eine Mischung aus Szenen und Erklärgrafiken, die **genau das zeigen, was im Skript gerade erzählt wird.**
+
+1. **Ein Bild pro Satz.** Jeder Satz mit neuer Information bekommt ein eigenes Motiv, das genau diese Information zeigt (Zahl, Zitat, Vergleich, Ablauf, Person, Ort). Ein Bild bleibt nur stehen, wenn der Satz nichts Neues sagt (Pause, Nachklang). Prüfung in `docs/shots.md`: jede Zeile = ein Satz, Spalte „Bild (eine Idee)“ beschreibt, was der Zuschauer sieht, nicht die Stimmung.
+2. **Mischung messen: Erklärgrafik-Anteil 60–70 %** (gewichtet pro Sekunde Bild: EXPL 1 · MIX 0,5 · WELT/LAND 0,3 · SZENE 0 · CLIP 0). Steht oben in `shots.md`, wird auf dem echten VO-Timing gerechnet, **vor** dem Animieren. Außerhalb 60–70 %: Shots umbauen, nicht weiterbauen.
+3. **Szenen tragen Gefühl, Grafiken tragen Verstehen.** Szenisch: Hook, Wow-Moment pro Abschnitt, menschliche Momente. Erklärgrafik: jede Zahl, jedes Zitat, jeder Mechanismus. Grafik möglichst als MIX in der Welt (schreibt sich auf ein Objekt der Szene), damit der Film nicht zwischen Grafik und Bild springt.
+4. **Skills zuerst laden** (Lead und jeder Builder, erster Satz im Builder-Brief): `scenario-motion` (Kanalstil, gilt bei Widerspruch), `world-class-motion-design`, `fluid-motion-design`, `motion-director-gates`; für Zahlen-Grafiken zusätzlich `dataviz`. Keine Werbe-Skills (`ad-motion`, `performance-video-ad`, `motion-design-director`).
+5. **Im Bau-Plan an Jakob** stehen Skill-Liste und geplanter Erklärgrafik-Anteil immer drin.
+6. **Abnahme pro Abschnitt:** Kontaktbogen (Einzelbilder) gegen die Gates und gegen das Skript lesen: Zeigt jedes Bild den Satz, der gerade gesprochen wird? Wenn nein, umbauen.
+
 ---
 
 ## Änderungslog
@@ -218,3 +229,4 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 - 23.11.2026 (Wochen-Durchsicht): §2.5g Überschneidung mit allen Filmen, Datum nicht Pflicht (Jakob 20./23.11.), §3.3c Klickfrage ehrlich + These trägt ganzen Film (23.11.), §4 größte Fallhöhe, Nachrichten-Einstieg, kein Kürzel (23.11.), §7 echte Clips statt Zitatkarten (16./17.11.), §8.9 „View“ erlaubt, wenn Jakob es wählt (23.11., ersetzt „statt View“), §8.11 kurz, wörtlich, für 45+, kein How-to (16.–20.11.).
 - 23.11.2026: §10 Freigabe-Stellen: vier Stopps, Hörfassung und Thumbnails als ein Stopp, Leitgedanke eigener Stopp (Jakob, #41).
 - 24.11.2026: §10 Hörfassung immer zusätzlich in 1,5-fach an Jakob (Jakob, #41).
+- 24.11.2026: §13 Bau neu: ein Bild pro Satz, Erklärgrafik-Anteil 60–70 % vor dem Animieren gemessen, Skill-Liste für Lead und Builder, beides im Bau-Plan (Jakob, #63: Drift in Ein-Bild-Szenen).
