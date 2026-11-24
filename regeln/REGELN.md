@@ -139,7 +139,7 @@ Treffer-Check → Verpackung (Titel/Thumbnail-Idee, 2–3 Leitgedanken) → Jako
 
 **Freigabe-Stellen (Jakob 23.11.): genau vier Stopps.** 1 Thema + Titel (mit Recherche und Marktcheck), 2 Leitgedanke (eigener Stopp), 3 Hörfassung + Thumbnails ZUSAMMEN (die drei Thumbnails A/B/C sind also schon vor der Hörfassungs-Abnahme fertig und gehen mit ihr in einer Nachricht raus), 4 Vorschau. Das Gerüst läuft ohne eigenen Stopp. Keine weiteren Feedback-Stellen einbauen.
 
-**Hörfassung immer auch in 1,5-fach (Jakob 24.11.):** Jede Kokoro-Hörfassung zusätzlich als `…-1,5x.mp3` erzeugen (`ffmpeg -i in.mp3 -filter:a atempo=1.5 -b:a 128k out-1,5x.mp3`, Tonhöhe bleibt) und diese an Jakob anhängen. Die normale Fassung bleibt daneben liegen.
+**Hörfassung immer auch in 1,5-fach (Jakob 24.11.):** Jede Kokoro-Hörfassung zusätzlich als `…-1,5x.mp3` erzeugen (`ffmpeg -i in.mp3 -filter:a atempo=1.5 -b:a 128k out-1,5x.mp3`, Tonhöhe bleibt) und diese an Jakob anhängen. Die normale Fassung bleibt daneben liegen. **Nur für die Kokoro-Vorschau** (billige Stimme): Film, ElevenLabs-Stimme, Vorschau und Upload laufen immer in normalem Tempo.
 
 **Prüfskript vor jeder Hörfassung** (Regeln werden durchgesetzt, nicht nur gelesen): Bann-Liste, „next … minutes“, Jahreszahlen vor 1:00, Zahlen und Fragen in Minute 1, Ich-Sätze, Clip-Anzahl und Clip-Anteil, Wortzahl.
 
