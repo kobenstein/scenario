@@ -39,13 +39,13 @@ shots.md has **W**. Before every render: snapshots every 0.5–1 s + every carri
 | builder | chunks | from → to (phrase) | time (provisional) | contents (shots.md) |
 |---|---|---|---|---|
 | **B1** | c02 c03 c04 c05 | 'Those chip machines' → 'None of it runs' | 1:13.5 – 4:42.8 (209 s) | 1.01–1.13: out of `plateMachine` the hall · bus-sized · three cargo jets · every advanced chip · ★ nothing sold in Europe · strengths not connected · the Draghi report → **C1** · 1 in 6 · **ANCHOR 2/4** the five parts on the moon · the piece in your hands · the moon shrinks into the HUD · 2.01–2.13 the money (€10 trillion, your window, the string, $285.9 bn vs $20.9 bn, the paths, +62 %, Scaleup fund, Mistral, ★ ASML clicks in, HALFWAY) · 3.01–3.06 (**C2** Mensch out of the block's window, a client state, the desk callback) · 4.01–4.06 rules (27 stacks → EU INC, the hemicycle, the workers' table, not before 2028, ON PAPER) → `plateEnergy` |
-| **B2** | c06 c07 c08 | 'None of it runs' → 'So suppose all five' | 4:42.8 – 7:46.9 (184 s) | 5.01–5.09 energy (push into piece 3, 2× prices, the light map coast lines only, gigafactory bids 3 Dec, the budget bar, ★ the 100 cells return 5.6 %, HALFWAY, NEEDED) · **M.01 subscribe 1** (the town of windows, warm; no QR) · 6.01–6.09 the lab (streams, CERN ring, the Web, CERN FOR AI, €107 m pilot → **C3** von der Leyen, ★ €500 bn dashed outline, ON PAPER) · 7.01–7.09 the minds (the researcher's two letters, +70 %, options inside EU INC, −45 %, a few come back right → left, OPEN) → `plateFour` |
-| **B3** | c09 c10 c11 c12 | 'So suppose all five' → end | 7:46.9 – 11:01.2 (194 s, incl. the 15 s end screen) | 8.01–8.07 second race (two tracks, the satellite engineer, the old works → **C4** Koerte, ★ data boxes together) · 9.01–9.05 the say (the machine at the table, three hands, two boards, four hands + ballot) · **ANCHOR 3/4** the verdict (`F.kitHud` big) · date tags · NO / YES on the tracks · the interview desk with a European screen · **C1b** Draghi out of the report · the budget timeline · harvest · **ANCHOR 4/4** ★ the 27 lights link up · **A.01 subscribe 2** · end screen (`S.endScreen`, refine it) |
+| **B2** | c06 c07 c08 | 'None of it runs' → 'So suppose all five' | 4:42.8 – 7:45.4 (183 s) | 5.01–5.09 energy (push into piece 3, 2× prices, the light map coast lines only, gigafactory bids 3 Dec, the budget bar, ★ the 100 cells return 5.6 %, HALFWAY, NEEDED) · **M.01 subscribe 1** (the town of windows, warm; no QR) · 6.01–6.09 the lab (streams, CERN ring, the Web, CERN FOR AI, €107 m pilot → **C3** von der Leyen, ★ €500 bn dashed outline, ON PAPER) · 7.01–7.09 the minds (the researcher's two letters, +70 %, options inside EU INC, −45 %, a few come back right → left, OPEN) → `plateFour` |
+| **B3** | c09 c10 c11 c12 | 'So suppose all five' → end | 7:45.4 – 10:59.7 (194 s, incl. the 15 s end screen) | 8.01–8.07 second race (two tracks, the satellite engineer, the old works → **C4** Koerte, ★ data boxes together) · 9.01–9.05 the say (the machine at the table, three hands, two boards, four hands + ballot) · **ANCHOR 3/4** the verdict (`F.kitHud` big) · date tags · NO / YES on the tracks · the interview desk with a European screen · **C1b** Draghi out of the report · the budget timeline · harvest · **ANCHOR 4/4** ★ the 27 lights link up · **A.01 subscribe 2** · end screen (`S.endScreen`, refine it) |
 
 **Fonts:** `engine.mjs` / `lib/f10_editorial.mjs` load Instrument Serif + Inter from the repo (`stil/tests/shared/fonts/`, or `$F69FONTS`).
 If a statement renders in a sans face, the fonts did not load: stop and say so.
 
-## 2 · Timing (it WILL move: vo-v3 and the real VO are still to come)
+## 2 · Timing (it WILL move: the real VO is still to come; provisional timing = vo-v3, 24.11.)
 - `film.mjs` loads `<ROOT>audio/timing.json` when it exists, else `data/provisional_timing.json` (`python3 tools/provisional_timing.py`
   from the newest `<ROOT>vo-vN.txt`; clip slots = `<ROOT>clips-geprueft.json` lengths + .3 s).
 - **Anchor only on phrases:** `T.G(phrase, nth, after)` (start), `T.GE(...)` (end), `T.GW(phrase, null, after)` (words), `T.clip('C2')` →
@@ -96,8 +96,11 @@ its own move. The stubs already draw the plates at their ends; keep that when yo
   must stay out). **C3** carries the credit "© European Union, 2026". **C4** source is 720p upscaled (keep the plate at CLIP_RECT, do not
   enlarge it further) and has a quiet "Nobody." from another panellist at ~4.6 s (not a cue for the picture). Every clip grows out of a
   carrier (shots.md: report cover, block window, small ring, works window, report) and goes back into it.
-- **Strings:** `F.SOURCES` (from text-v2 OVERLAY lines). If the fact-checked `<ROOT>text-v3.md` / vo-v3 is there and changes a figure,
-  **v3 wins**; use it and say so in your report.
+- **Strings:** `F.SOURCES` = text-v2 OVERLAY lines with `<ROOT>faktencheck.md` (24.11.) applied and binding: MB1 (Atomico = projection,
+  START-UPS: ON TRACK FOR +62%), MB2 (COMMITTED NOW: €1 BILLION EU; €4 billion more on the next budget), MB3 (CAIRNE leaders: “nothing of
+  the sort”), KB1–KB11 (incl. KB5: CERN FOR AI without quote marks; KB7: the partnership source line until the panel video is checked;
+  KB11: COMMISSION’S OWN ESTIMATE). Use the keys, never retype a figure. Long source lines break into two lines (y 852 / 880) by
+  themselves (`F.source`). Spoken text: `<ROOT>vo-v3.txt`. Upload-day swaps (KB2, KB4 `F.ASOF`, KB6, KB8, `gigaDate`) are marked in the file.
 
 ## 5 · Rules (from the owner; see MOTION.md §3–§6)
 - A motion-design film, not a world: every picture shows its sentence; objects turn into the next object; match cuts over carriers; 1–2

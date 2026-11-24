@@ -66,7 +66,7 @@ SHOTS = [
  ('2.06', "The plan isn't to take", 'make investing at home easier, not taking savings', 'two paths from the vault; one widens towards the start-ups (no taking, the vault stays full)', 'EXPL', 'the wide path', ''),
  ('2.07', "Most of it isn't law yet", 'most of it isn\'t law yet', 'the wide path is only dashed: MOSTLY NOT LAW YET + source', 'EXPL', 'the dashed path', ''),
  ('2.08', 'Critics warn', 'critics: markets mean risk for savers', 'the path tilts over a drop: CRITICS: MORE RISK FOR SAVERS + source', 'EXPL', 'a bar', ''),
- ('2.09', 'But the money going into', 'start-up money up by more than half', 'a bar grows: +62% FOR EUROPEAN START-UPS + source', 'EXPL', 'the bar becomes a vessel', ''),
+ ('2.09', 'But the money going into', 'start-up money up by more than half', 'a bar grows, its last part dashed (a projection): START-UPS: ON TRACK FOR +62% + source (Atomico projection, MB1)', 'EXPL', 'the bar becomes a vessel', ''),
  ('2.10', 'Europe now has its own fund', 'a fund so start-ups can grow without leaving', 'the bar becomes a vessel: SCALEUP EUROPE FUND · €5 BILLION TARGET; a block grows taller in place instead of flying right', 'EXPL', 'a line from the vessel', ''),
  ('2.11', 'One of its first bets', 'one bet: Mistral', 'a line from the vessel to one block: MISTRAL AI · PARIS + source', 'EXPL', 'the machine drawing', ''),
  ('2.12', 'A year earlier, Mistral', 'the machine maker led Mistral\'s round: connected', 'the machine piece from station 1 slides in and clicks into the money piece: ASML LED MISTRAL\'S ROUND · €1.3 BILLION', 'EXPL', 'piece 1', '★'),
@@ -91,7 +91,7 @@ SHOTS = [
  ('5.03', 'But not everywhere', 'Sweden\'s north: hydropower · France: reactors', 'a simple light map (coast lines only, no borders, no flags): the north glows (dam), France glows (reactors): labels + source', 'EXPL', 'the two glows', ''),
  ('5.04', 'So the idea: build', 'build the biggest data centres where the power is', 'data-centre blocks slide onto the two glows', 'EXPL', 'seven slots', ''),
  ('5.05', 'Europe wants up to seven', 'up to seven, bids due 3 December', 'seven slots on the map; a lit window: a bid team uploading at night; UP TO 7 AI GIGAFACTORIES · BIDS DUE 3 DEC 2026', 'MIX', 'a budget bar', ''),
- ('5.06', 'But most of the public money', 'most public money depends on the next budget', 'a budget bar: ≈ €2 BILLION AVAILABLE NOW, the rest a dashed box EU BUDGET 2028–2034', 'EXPL', 'the 100 cells', ''),
+ ('5.06', 'But much of the public money', 'much of the public money depends on the next budget', 'a budget bar UP TO €10 BILLION PUBLIC, half EU / half national; COMMITTED NOW: €1 BILLION EU (matched) lights, €4 BILLION MORE EU MONEY is a dashed box EU BUDGET 2028–2034 (MB2)', 'EXPL', 'the 100 cells', ''),
  ('5.07', 'And even if all of them', 'Europe\'s 5% barely moves', 'the 100 cells from H.10 return: 5 gold cells → 5.6 (barely more): ≈ 5.6% IN 2031 + source', 'EXPL', 'the cells', ''),
  ('5.08', 'So this part is halfway', 'halfway; Europe won\'t have the most computers', 'piece 3 seats halfway: HALFWAY', 'EXPL', 'the machine', ''),
  ('5.09', "It doesn't have to", 'it has to be needed: the one machine', 'the machine lights up in the plan; all chip lines of 1.04 converge on it: NEEDED, NOT BIGGEST + Bruegel', 'EXPL', 'the machine light', '★'),
@@ -100,11 +100,11 @@ SHOTS = [
  ('6.01', 'Europe does need enough', 'enough computers, enough for what?', 'piece 4 opens big: a rack-less outline of compute, a ? beside it', 'EXPL', 'the outline', ''),
  ('6.02', 'For one shared lab', 'one shared lab for the most advanced AI', 'small streams of light from many points flow into one lab building', 'EXPL', 'the streams', ''),
  ('6.03', 'Europe has done this before', 'after the war: one physics lab; the Web was invented there', 'the streams sink into a ring under the ground (CERN, a diagram), a thin line leaves it: THE WORLD WIDE WEB · CERN · 1954', 'EXPL', 'the ring', '★'),
- ('6.04', "It's called CERN", 'a "CERN for AI" was promised', 'a second ring draws beside it: "CERN FOR AI" + source', 'EXPL', 'the small ring', ''),
- ('6.05', 'So far, that promise', 'a pilot of about €100 million', 'the new ring shrinks to a small one: €107 MILLION PILOT + source (CAIRNE line)', 'EXPL', 'the ring', ''),
- ('6.06', 'In November, she named', 'she named the price of catching up', 'the small ring grows into the clip plate', 'MIX', 'the plate', ''),
+ ('6.04', "It's called CERN", 'a "CERN for AI" was promised', 'a second ring draws beside it: A CERN FOR AI (no quote marks, KB5) + source with her 2024 wording', 'EXPL', 'the small ring', ''),
+ ('6.05', 'So far, that promise', 'a pilot of about €100 million', 'the new ring shrinks to a small one: €107 MILLION PILOT + source; then the CAIRNE line (MB3: “NOTHING OF THE SORT”)', 'EXPL', 'the ring', ''),
+ ('6.06', 'In November, she named', 'she named the price of really catching up', 'the small ring grows into the clip plate', 'MIX', 'the plate', ''),
  ('6.07', 'slot:C3', '(von der Leyen: "at least 500 billion")', 'C3 · URSULA VON DER LEYEN · President, European Commission · 2026 · ORIGINAL FOOTAGE · © European Union, 2026', 'CLIP', 'the plate shrinks', ''),
- ('6.08', 'At least five hundred', 'at least €500 billion: an estimate, not a budget', 'a huge dashed outline (the estimate) beside the tiny pilot ring: AT LEAST €500 BILLION · AN ESTIMATE, NOT A BUDGET', 'EXPL', 'piece 4', ''),
+ ('6.08', 'At least five hundred', 'at least €500 billion: an estimate, not a budget', 'a huge dashed outline (the estimate) beside the tiny pilot ring: AT LEAST €500 BILLION · AN ESTIMATE, NOT A BUDGET + source COMMISSION’S OWN ESTIMATE (KB11)', 'EXPL', 'piece 4', ''),
  ('6.09', 'A name and a pilot', 'a name and a pilot: on paper', 'piece 4 turns paper: ON PAPER', 'EXPL', 'the empty lab', ''),
  # ---------------------------------------------------------------- c08 · B2 · part 5, the minds
  ('7.01', 'And a lab is an empty', 'a lab is empty without minds', 'the lab building from 6.02, dark and empty; piece 5 big, the slot empty', 'EXPL', 'a lit window', ''),
@@ -119,7 +119,7 @@ SHOTS = [
  # ---------------------------------------------------------------- c09 · B3 · the second race
  ('8.01', 'So suppose all five', 'suppose all five come together', 'out of plateFour: the four seated parts light, the fifth beside', 'EXPL', 'the rim', ''),
  ('8.02', 'Not the biggest chatbot', 'not the biggest chatbot; a second race: putting AI to work', 'two race tracks draw out of the disc rim: THE MOST COMPUTERS (crowded) · PUTTING AI TO WORK (workshops along it)', 'EXPL', 'a workshop', ''),
- ('8.03', 'One satellite maker', 'design changes from weeks to hours', 'SCENE: an engineer turns a satellite on a screen, calendar sheets behind shrink to hours: WEEKS → HOURS + source', 'MIX', 'the works', 'W'),
+ ('8.03', 'One satellite maker', 'design changes from weeks to hours', 'SCENE: an engineer turns a satellite on a screen, calendar sheets behind shrink to hours: WEEKS → HOURS + source (KB7: partnership line until the panel video is checked)', 'MIX', 'the works', 'W'),
  ('8.04', 'And more than half', 'over-100-year-old companies, knowledge never online', 'the old works: decades of design data light up over the machines; the internet ends at the works wall: OVER 100 YEARS OLD · ONLY 20% USE AI + sources', 'MIX', 'the works window', '★'),
  ('8.05', 'That argument comes from', 'Koerte, Siemens, not neutral', 'the works window grows into the clip plate', 'MIX', 'the plate', ''),
  ('8.06', 'slot:C4', '(Koerte: "none of us can do it alone")', 'C4 · PETER KOERTE · Chief Technology Officer, Siemens · 2026 · ORIGINAL FOOTAGE', 'CLIP', 'the plate shrinks', ''),
@@ -189,7 +189,7 @@ L = []
 L.append('# Film 69 · "Europe Can Still Win the AI Race" (EUROPE CAN STILL WIN AI) · shot list (binding, Film-5 format)\n')
 L.append(f'Generated by `tools/shots69.py` from `{TIMING}` ({"PROVISIONAL" if TM.get("provisional") else "real VO"}, duration {dur:.1f} s). '
          'Edit the table in the script, never this file. Times are for orientation only: **in code, anchor on the phrase** (`T.G(phrase, 0, after)`; clip slots `T.clip(id)`). '
-         'Spoken text: the newest `vo-vN.txt` in ROOT (fact-checked v3 may change lines; anchors are phrases, `T.G` names any phrase that goes missing). Picture ideas follow text-v2.md PICTURE/OVERLAY.\n')
+         'Spoken text: the newest `vo-vN.txt` in ROOT (fact-checked v3 may change lines; anchors are phrases, `T.G` names any phrase that goes missing). Picture ideas follow text-v2.md PICTURE/OVERLAY; on-screen lines follow faktencheck.md (MB1–MB3, KB1–KB11, 24.11.), which wins against text-v2.\n')
 L.append('## 1 · What Jakob said, as rules for every frame (REGELN §13, 24.11.)\n')
 L.append('- "nicht nur eine große szene mit zooms, sondern wie ein richtig schöner motion design film": **every picture shows exactly what its sentence says** (column *zeigt wörtlich*). Typography, diagrams, objects that turn into the next object, match cuts over carrier objects.')
 L.append('- 60–70 % explainer graphics (numbers, comparisons, processes, timelines, simple maps) on THE PLAN SHEET (lib/f69_explain.mjs), the rest scenes and clips. World rides count 0 — there are none.')
@@ -243,7 +243,7 @@ L.append("| B1 → B2 | None of it runs | plateEnergy (the disc big at 960/470 r
 L.append("| B2 → B3 | So suppose all five | plateFour (the same disc, 2 HALFWAY + 2 ON PAPER, the minds piece beside it) | 7.09 settles into it | 8.01 lights the four, 8.02 draws the tracks out of the rim |")
 L.append('\nBoth sides draw the plate for ±0.5 s with the same creep (4 %/s push). Inner chunk boundaries belong to one builder: make them one continuous take. Check: `SECS=c05,c06 node tools/seam.mjs --at <T0>`.\n')
 L.append('## 7 · On-screen strings and sources\n')
-L.append('Wording: text-v2.md OVERLAY lines, as `F.SOURCES` in lib/f69_kit.mjs (statement ≤ 6 words + one number; the long rest goes into the source line, `F.source`, 22 px at y 880). If the fact-checked text-v3 / vo-v3 changes a figure, **v3 wins**. Text ≥ 22 px; nothing important below y 880 (subtitles).')
+L.append('Wording: text-v2.md OVERLAY lines, as `F.SOURCES` in lib/f69_kit.mjs (statement ≤ 6 words + one number; the long rest goes into the source line, `F.source`, 22 px at y 880). faktencheck.md (24.11.) is applied: MB1 (Atomico = projection), MB2 (€1 billion EU committed, €4 billion more on the next budget), MB3 (CAIRNE leaders: “nothing of the sort”), KB1–KB11; vo-v3 is the spoken text. Text ≥ 22 px; nothing important below y 880 (subtitles).')
 L.append('- No QR, no sponsor (none booked: regeln/sponsoren-aktiv.md, 19.11.). No logos, no flags, no political-map hero (the light map in 5.03 has coast lines only). No Jensen Huang anywhere. No AI images. No real faces outside the clips.')
 L.append('- Clips: lower thirds from ROOT clips-geprueft.json (`F.CLIPS`), C3 credit © European Union, 2026; C1b centre crop (interpreter + logo).')
 open(os.path.join(HERE, '..', 'docs', 'shots.md'), 'w').write('\n'.join(L) + '\n')

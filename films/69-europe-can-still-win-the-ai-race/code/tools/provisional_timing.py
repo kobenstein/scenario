@@ -37,7 +37,7 @@ try:
         if _c.get('id') in CLIP_LEN and _d: CLIP_LEN[_c['id']] = round(float(_d) + .3, 3); CLIP_SRC = 'clips-geprueft.json'
 except (OSError, ValueError, KeyError): pass
 # where the slots go (the paragraph that ENDS with this lead-in line is followed by the clip)
-CLIP_AFTER = [('C1', 'his own verdict:'), ('C2', 'his warning:'), ('C3', 'chips and computers included:'), ('C4', 'listen to his point:'), ('C1b', 'now says:')]   # text-v2 lead-in lines
+CLIP_AFTER = [('C1', 'his own verdict:'), ('C2', 'his warning:'), ('C3', 'price of really catching up:'), ('C4', 'listen to his point:'), ('C1b', 'now says:')]   # text-v2 lead-in lines
 SLOT_IN, SLOT_OUT = 0.6, 0.6
 # sections = the stations of the film (text-v2 Fragen-Kette): id, first words of the sentence that opens it
 SECS = [('H', 'Europe can still win'), ('1', 'Those chip machines'), ('2', 'Money first'), ('3', 'But why does it matter'),

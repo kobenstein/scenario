@@ -28,7 +28,18 @@ export const { rise, maskLine, measure, stamp } = K16;
 export const { du, person, cam3, card, camAt, camDrift, aim, project, F0, glowText } = E;
 export { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, quartIO, expoOut, expoIn, halo, rad, lin, prng, drift };
 export const { bracket } = F54;
-export const source = (ctx, t, t0, t1, s, o = {}) => F54.source(ctx, t, t0, t1, s, { size: 22, y: 880, ...o });   // film 66: ≥ 22 px
+// source line: 22 px, baseline y 880. Lines wider than 1700 px (the fact-checked lines are long) break at the ' · ' that balances best:
+// two lines at y 852 / 880 (nothing below 880). Width measured in Inter 600, upper case.
+const SMEAS = createCanvas(8, 8).getContext('2d');
+export function sourceLines(s, size = 22) {
+  SMEAS.font = `600 ${size}px Inter`; const w = (x) => SMEAS.measureText(x.toUpperCase()).width;
+  if (w(s) <= 1700) return [s];
+  const parts = s.split(' · '); let best = null;
+  for (let i = 1; i < parts.length; i++) { const a = parts.slice(0, i).join(' · '), b = parts.slice(i).join(' · '), m = Math.max(w(a), w(b)); if (!best || m < best[0]) best = [m, a, b]; }
+  return best ? [best[1], best[2]] : [s];
+}
+export const source = (ctx, t, t0, t1, s, o = {}) => { const L = sourceLines(s, o.size ?? 22), y = o.y ?? 880;
+  L.forEach((line, i) => F54.source(ctx, t, t0 + i * .06, t1, line, { size: 22, ...o, y: y - (L.length - 1 - i) * 28 })); };   // ≥ 22 px
 // camPath(t, K, ref = 6000): a camera that glides THROUGH its keys [[t, cam], …] (monotone cubic in x, y and log distance to the card
 // at depth ref). Film 66 flies past the rooftop card (F0) down into the land (Z 3600), so the reference is the promise tag's depth (6000), not F0.
 export const REF = 6000;
@@ -250,7 +261,7 @@ try {   // clips-geprueft.json (24.11.): { clips: [{ id, file, speaker, lower_th
   const j = JSON.parse(fs.readFileSync(ROOT + 'clips-geprueft.json', 'utf8'));
   for (const c of j.clips || []) { const k = CLIPS[c.id]; if (!k) continue;
     if (c.speaker) k.name = c.speaker;
-    if (c.lower_third) { const q = c.lower_third.split('·').map((x) => x.trim()); if (q.length >= 3) { k.role = q[1]; k.year = q[2]; } }
+    if (c.lower_third) { const q = c.lower_third.split('·').map((x) => x.trim()); if (q.length >= 3) { k.role = q[1]; k.year = q[2]; } const cq = q.find((x) => x.startsWith('©')); if (cq) k.credit = cq; }
     const cc = /©[^)]*/.exec(c.channel || ''); if (cc) k.credit = cc[0].trim();
     for (const [a, b] of [['rolle', 'role'], ['role', 'role'], ['jahr', 'year'], ['year', 'year'], ['credit', 'credit'], ['crop', 'crop'], ['cropDy', 'cropDy']]) if (c[a] != null) k[b] = c[a]; }
 } catch { /* not there yet */ }
@@ -596,6 +607,8 @@ export function letter(ctx, t, x, y, w, o = {}) {
 // ======================================================================================================================== SOURCES / ON-SCREEN STRINGS
 // From text-v2.md OVERLAY lines (23.11.), split into a STATEMENT (≤ 6 words + one number, big) and a SOURCE line (F.source, 22 px, y 880).
 // "AI" on screen (not "A.I."). If the fact-checked text-v3 / vo-v3 changes one, text-v3 WINS (say so in your report).
+// faktencheck.md §1/§2 (24.11.) applied: MB1 MB2 MB3, KB1–KB11 (they win against text-v2). ASOF: set to the upload date on upload day.
+export const ASOF = '24 NOV 2026';
 export const SOURCES = {
   title: ['EUROPE CAN', 'STILL WIN AI'],
   tiles: ['Too slow', 'Too small', 'Too many rules'],
@@ -608,48 +621,49 @@ export const SOURCES = {
   pieces: '27', piecesWord: 'PIECES', rules27: '27 SETS OF RULES',
   dates: ['EU BUDGET SUMMIT · 26–27 NOV 2026', 'AI GIGAFACTORY BIDS DUE · 3 DEC 2026'],
   asml: 'ASML · VELDHOVEN, NETHERLANDS', euv: 'EUV LITHOGRAPHY', euvSrc: '~40 CONTAINERS, 20 TRUCKS, 3 CARGO JETS PER MACHINE · ASML (STANDARD MODEL)',
-  zeroEurope: '0% SOLD TO EUROPE', zeroSrc: 'SHARE OF ASML SALES TO EUROPE, H1 2026: 0% (2024: 5%) · DATACENTERDYNAMICS, SEPT 2026',
+  zeroEurope: '0% SOLD TO EUROPE', zeroSrc: 'SHARE OF ASML SYSTEM SALES TO EUROPE, H1 2026: 0% (2024: 5%) · Q3: ≤ 1% · DATACENTERDYNAMICS, SEPT 2026 · TECHPOWERUP, OCT 2026',
   draghi: 'THE DRAGHI REPORT · SEPT 2024', draghiSum: '€750–800 BILLION A YEAR', draghiSumSrc: 'EXTRA INVESTMENT NEEDED PER YEAR · THE DRAGHI REPORT, SEPTEMBER 2024',
   oneInSix: '1 IN 6 PROPOSALS DONE', oneInSixSrc: '60 OF 383 MEASURES FULLY IMPLEMENTED = 15.7% · EPIC INDEX, JULY 2026 · AT LEAST STARTED: 41%',
   test: ['REALLY THERE,', 'OR ONLY ON PAPER?'],
   savings: '€10 TRILLION IN BANK DEPOSITS', savingsSrc: '≈ 70% OF EU HOUSEHOLD SAVINGS SIT IN DEPOSITS · EUROPEAN COMMISSION, 2025',
   aiInvest: ['US $285.9 BILLION', 'EUROPE $20.9 BILLION'], aiInvestSrc: 'PRIVATE AI INVESTMENT 2025 (EUROPE INCL. UK) · STANFORD AI INDEX 2026',
-  siu: 'MOSTLY NOT LAW YET', siuSrc: 'SAVINGS AND INVESTMENTS UNION · COUNCIL POSITION 9 OCT 2026 · PARLIAMENT: NO POSITION YET',
-  critics: 'CRITICS: MORE RISK FOR SAVERS', criticsSrc: 'ECB 2026: EFFECT LIKELY “MODEST” · CEPS, FEB 2026: “A BAD START” · FINANCE WATCH 2026',
-  startups: '+62% FOR EUROPEAN START-UPS', startupsSrc: 'EUROPEAN START-UPS 2026: ≈ $81 BILLION RAISED · ATOMICO, NOV 2026',
+  siu: 'MOSTLY NOT LAW YET', siuSrc: 'SAVINGS AND INVESTMENTS UNION · COUNCIL POSITION 9 OCT 2026 · PARLIAMENT: NO POSITION YET'   /* KB2: check on upload day; if no longer true, drop the PARLIAMENT part */,
+  critics: 'CRITICS: MORE RISK FOR SAVERS', criticsSrc: 'ECB, MAY 2026: EFFECT OF SAVINGS ACCOUNTS “MAY BE MODEST” · CEPS, FEB 2026: “A BAD START” · FINANCE WATCH 2026',
+  startups: 'START-UPS: ON TRACK FOR +62%', startupsSrc: 'EUROPEAN START-UPS 2026: ON TRACK FOR ≈ $81 BILLION, +62% · ATOMICO PROJECTION (DATA TO 30 SEPT), NOV 2026',
   fund: 'SCALEUP EUROPE FUND · €5 BILLION TARGET', fundSrc: 'TARGET €5 BILLION · FIRST INVESTMENTS 2026',
   mistral: 'MISTRAL AI · PARIS', mistralSrc: 'VALUED AT MORE THAN €21 BILLION (SEPT 2026) · ROUND LED BY SAMSUNG, CO-LED BY THE FUND',
   asmlMistral: 'ASML LED MISTRAL’S ROUND · €1.3 BILLION', asmlMistralSrc: 'ASML LED MISTRAL’S PREVIOUS ROUND · SEPTEMBER 2025',
   clientState: 'A CLIENT STATE', clientWhat: ['DEFENCE', 'PUBLIC SERVICES'],
   laws27: '27 COMPANY LAWS', euInc: '“EU INC”', euIncFacts: ['ONLINE IN 48 HOURS', 'UNDER €100'], euIncSrc: 'EUROPEAN COMMISSION PROPOSAL, MARCH 2026 · A 28TH OPTION, NOT A REPLACEMENT · NO MINIMUM CAPITAL',
-  heldUp: 'PARLIAMENT: NO POSITION YET', heldUpSrc: 'COUNCIL POSITION 23 OCT 2026 · PARLIAMENT: NO POSITION YET (11 NOV 2026)',
+  heldUp: 'PARLIAMENT: NO POSITION YET', heldUpSrc: `COUNCIL POSITION 23 OCT 2026 · PARLIAMENT: NO POSITION YET (AS OF ${ASOF})`,
   y2028: 'NOT BEFORE 2028', y2028Src: 'FIRST “EU INC” COMPANIES: 2028 AT THE EARLIEST (COUNCIL POSITION)',
   power2x: 'MORE THAN 2× US PRICES', power2xSrc: 'ELECTRICITY FOR ENERGY-INTENSIVE INDUSTRY, 2025 · IEA, ELECTRICITY 2026',
   north: 'SWEDEN’S NORTH · HYDROPOWER', northSrc: 'SWEDEN SPLIT ITS POWER MARKET INTO PRICE ZONES; NEW INDUSTRY MOVED NORTH · BANQUE DE FRANCE, NOV 2026',
   france: 'FRANCE · 68% NUCLEAR', franceSrc: 'FRANCE 2025: 68% NUCLEAR, 95% LOW-CARBON · RTE',
   giga: 'UP TO 7 AI GIGAFACTORIES', gigaSrc: 'MORE THAN €30 BILLION, AT LEAST €20 BILLION PRIVATE · LOT 2 DEADLINE 3 DEC 2026 · LOT 1: 4 FEB 2027 · EUROHPC',
   gigaDate: 'BIDS DUE 3 DEC 2026',   // after 3.12. swap to: 'BIDS CLOSED 3 DEC 2026 · SELECTION EARLY 2027'
-  budget: 'ONLY ≈ €2 BILLION AVAILABLE NOW', budgetSrc: 'OF UP TO €10 BILLION PUBLIC MONEY · THE REST DEPENDS ON THE EU BUDGET 2028–2034',
+  budget: 'COMMITTED NOW: €1 BILLION EU', budgetSrc: 'UP TO €10 BILLION PUBLIC: HALF EU, HALF NATIONAL · COMMITTED NOW: €1 BILLION EU, MATCHED BY THE STATES · €4 BILLION MORE EU MONEY DEPENDS ON THE EU BUDGET 2028–2034 · EUROHPC, JULY 2026',
   five2031: '≈ 5.6% IN 2031', five2031Src: 'EU SHARE OF GLOBAL AI COMPUTE IF EVERYTHING PLANNED IS BUILT · BRUEGEL PB 18/2026',
   needed: 'NEEDED, NOT BIGGEST', neededSrc: 'BRUEGEL: “INDISPENSABILITY, NOT SELF-SUFFICIENCY”',
-  cern: 'CERN · 1954', web: 'THE WORLD WIDE WEB', cernForAi: '“CERN FOR AI”', cernForAiSrc: 'URSULA VON DER LEYEN, PRESIDENT OF THE EUROPEAN COMMISSION · POLITICAL GUIDELINES 2024; AI ACTION SUMMIT, PARIS 2025',
+  cern: 'CERN · 1954', web: 'THE WORLD WIDE WEB', cernForAi: 'A CERN FOR AI', cernForAiSrc: 'AI RESEARCH “SIMILAR TO THE APPROACH TAKEN WITH CERN” · URSULA VON DER LEYEN, POLITICAL GUIDELINES 2024 · AI ACTION SUMMIT, PARIS 2025',
   pilot: '€107 MILLION PILOT', pilotSrc: 'RAISE VIRTUAL INSTITUTE · HORIZON EUROPE · FRONTIER AI INITIATIVE: NEW CALL €44 MILLION',
-  cairne: 'CLAIRE/CAIRNE: “HAS NOT (YET) MATERIALIZED”',
-  b500: 'AT LEAST €500 BILLION', b500Tag: 'AN ESTIMATE, NOT A BUDGET', b500Src: 'ESTIMATE FOR CHIPS, COMPUTE AND FRONTIER AI · EUROPEAN COMMISSION, DUBLIN, 13 NOV 2026',
+  cairne: 'CAIRNE LEADERS, JAN 2026: THE EU’S “CERN FOR AI” IS “NOTHING OF THE SORT” · SCIENCE|BUSINESS',
+  b500: 'AT LEAST €500 BILLION', b500Tag: 'AN ESTIMATE, NOT A BUDGET', b500Src: 'COMMISSION’S OWN ESTIMATE · DUBLIN, 13 NOV 2026 · SAME SPEECH: “WHAT IS MISSING NOW ARE THE LARGE INVESTMENTS IN CHIPS, COMPUTE AND FRONTIER AI”',
   offers: ['EUROPE', 'AMERICA'], pay70: 'UP TO +70%', pay70Src: 'EXPERIENCED AI ENGINEERS: WESTERN/NORTHERN EUROPE $90–150K · US $140–210K BASE · EURONEWS, JAN 2026',
   options: 'STOCK OPTIONS, TAXED ON SALE', optionsSrc: 'EU-WIDE EMPLOYEE STOCK OPTIONS · PART OF THE “EU INC” PROPOSAL · TAX RATES STAY NATIONAL',
   brain45: '−45% IN TWO YEARS', brain45Src: 'EU→US RESEARCHER MOVES 2023→2025 · ALL RESEARCHERS, NOT ONLY AI · EUROPEAN COMMISSION SRIP 2026',
   chooseEurope: '“CHOOSE EUROPE FOR SCIENCE”', chooseEuropeSrc: '€500 MILLION, 2025–27 · EUROPEAN COMMISSION',
   secondRace: 'PUTTING AI TO WORK', firstRace: 'THE MOST COMPUTERS',
-  weeksHours: 'WEEKS → HOURS', weeksHoursSrc: 'OHB (SATELLITE MAKER) AT A SIEMENS PANEL, HANNOVER MESSE 2026: DESIGN CHANGES IN HOURS INSTEAD OF WEEKS',
+  weeksHours: 'WEEKS → HOURS', weeksHoursSrc: 'OHB AND SIEMENS: DEVELOPMENT PARTNERSHIP TO SHORTEN DESIGN CYCLES · APRIL 2026',   // KB7: until someone checks the panel video; verified → 'OHB (SATELLITE MAKER) AT A SIEMENS PANEL, HANNOVER MESSE 2026: DESIGN CHANGES IN HOURS INSTEAD OF WEEKS'
+  weeksHoursVerified: false,
   old100: 'OVER 100 YEARS OLD', old100Src: 'MORE THAN HALF OF FORTUNE 500 EUROPE COMPANIES · PETER KOERTE (SIEMENS) IN FORTUNE, OCT 2026',
-  only20: 'ONLY 20% USE AI', only20Src: 'EU COMPANIES USING AI, 2025 · EUROSTAT',
+  only20: 'ONLY 20% USE AI', only20Src: 'EU COMPANIES (10+ STAFF) USING AI, 2025 · EUROSTAT'   /* KB6: swap in the 2026 figure if Eurostat publishes it before upload (mid-Dec) */,
   together: 'TOGETHER, ENOUGH DATA',
   oneVoice: 'ONE VOICE', exportSrc: 'EXPORT LICENCES FOR EUV MACHINES ARE DECIDED BY THE NETHERLANDS · CHINA IS TESTING AN EUV PROTOTYPE · REUTERS, DEC 2025',
   ways: ['MORE SHARED MONEY', 'FEWER RULES'], deciders: ['GOVERNMENTS', 'PARLIAMENT', 'INVESTORS', 'VOTERS'],
   started: ['FUND FOUNDED AUG 2026', '“EU INC” PROPOSED MAR 2026', 'GIGAFACTORY CALL JUL 2026', 'RAISE PILOT NOV 2025', 'TALENT POOL LAW APR 2026'],
   verdictNo: 'THE MOST COMPUTERS: NO', verdictYes: 'PUTTING AI TO WORK: YES',
-  clock: ['EU BUDGET 2028–2034', 'SPECIAL SUMMIT 26–27 NOV 2026', 'AGREEMENT SOUGHT IN DECEMBER'],
+  clock: ['EU BUDGET 2028–2034', 'SPECIAL SUMMIT 26–27 NOV 2026', 'AGREEMENT SOUGHT BY THE END OF 2026']   /* KB8: no deal on 27.11. → add 'NEXT SUMMIT 17–18 DEC' */,
   clockSrc: 'AI GIGAFACTORY BIDS: 3 DEC 2026 · FIRST “EU INC” COMPANIES: 2028 AT THE EARLIEST',
   harvest: ['THE MACHINES', 'THE SAVINGS', 'THE MINDS'],
   core: ['Europe was never too small for this race.', 'The only question is whether it puts itself together in time.'],
