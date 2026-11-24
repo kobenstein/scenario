@@ -1,0 +1,387 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 384
+PlayResY: 288
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Inter,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.69,0:00:03.00,Sub,,0,0,0,,{\fad(120,160)}Superintelligence is arriving.
+Dialogue: 0,0:00:03.20,0:00:04.75,Sub,,0,0,0,,{\fad(120,160)}That's what Meta's AI chief
+Dialogue: 0,0:00:04.79,0:00:06.10,Sub,,0,0,0,,{\fad(120,160)}announced this weekend.
+Dialogue: 0,0:00:06.36,0:00:07.36,Sub,,0,0,0,,{\fad(120,160)}Is he right?
+Dialogue: 0,0:00:07.40,0:00:08.68,Sub,,0,0,0,,{\fad(120,160)}Because if he is,
+Dialogue: 0,0:00:08.72,0:00:09.59,Sub,,0,0,0,,{\fad(120,160)}the biggest change
+Dialogue: 0,0:00:09.63,0:00:10.46,Sub,,0,0,0,,{\fad(120,160)}of your lifetime
+Dialogue: 0,0:00:10.50,0:00:11.95,Sub,,0,0,0,,{\fad(120,160)}has already begun.
+Dialogue: 0,0:00:12.25,0:00:14.20,Sub,,0,0,0,,{\fad(120,160)}His evidence is a single file,
+Dialogue: 0,0:00:14.24,0:00:15.51,Sub,,0,0,0,,{\fad(120,160)}published days ago.
+Dialogue: 0,0:00:15.71,0:00:17.42,Sub,,0,0,0,,{\fad(120,160)}In it, a mathematician working
+Dialogue: 0,0:00:17.46,0:00:18.58,Sub,,0,0,0,,{\fad(120,160)}with an AI claims
+Dialogue: 0,0:00:18.62,0:00:19.55,Sub,,0,0,0,,{\fad(120,160)}a proof of the most
+Dialogue: 0,0:00:19.59,0:00:20.81,Sub,,0,0,0,,{\fad(120,160)}famous unsolved
+Dialogue: 0,0:00:20.85,0:00:22.31,Sub,,0,0,0,,{\fad(120,160)}problem in mathematics:
+Dialogue: 0,0:00:22.37,0:00:23.91,Sub,,0,0,0,,{\fad(120,160)}the Riemann hypothesis.
+Dialogue: 0,0:00:24.19,0:00:25.05,Sub,,0,0,0,,{\fad(120,160)}A separate program
+Dialogue: 0,0:00:25.09,0:00:26.03,Sub,,0,0,0,,{\fad(120,160)}checked that proof,
+Dialogue: 0,0:00:26.07,0:00:27.25,Sub,,0,0,0,,{\fad(120,160)}step by step.
+Dialogue: 0,0:00:27.39,0:00:29.45,Sub,,0,0,0,,{\fad(120,160)}Its verdict: correct.
+Dialogue: 0,0:00:30.02,0:00:31.98,Sub,,0,0,0,,{\fad(120,160)}But written out in plain language,
+Dialogue: 0,0:00:32.02,0:00:33.54,Sub,,0,0,0,,{\fad(120,160)}it runs to over a quarter
+Dialogue: 0,0:00:33.58,0:00:35.21,Sub,,0,0,0,,{\fad(120,160)}of a million pages.
+Dialogue: 0,0:00:35.48,0:00:37.05,Sub,,0,0,0,,{\fad(120,160)}So far, no human
+Dialogue: 0,0:00:37.09,0:00:38.50,Sub,,0,0,0,,{\fad(120,160)}fully understands it.
+Dialogue: 0,0:00:38.69,0:00:39.89,Sub,,0,0,0,,{\fad(120,160)}Not even the mathematician
+Dialogue: 0,0:00:39.93,0:00:40.96,Sub,,0,0,0,,{\fad(120,160)}who published it.
+Dialogue: 0,0:00:41.36,0:00:42.94,Sub,,0,0,0,,{\fad(120,160)}Meta's AI chief says
+Dialogue: 0,0:00:42.98,0:00:44.66,Sub,,0,0,0,,{\fad(120,160)}it was "completed with the help
+Dialogue: 0,0:00:44.70,0:00:46.04,Sub,,0,0,0,,{\fad(120,160)}of an alien mind
+Dialogue: 0,0:00:46.08,0:00:47.75,Sub,,0,0,0,,{\fad(120,160)}that we don't understand."
+Dialogue: 0,0:00:48.09,0:00:49.96,Sub,,0,0,0,,{\fad(120,160)}Many physicists, he writes,
+Dialogue: 0,0:00:50.00,0:00:51.51,Sub,,0,0,0,,{\fad(120,160)}would call the atomic bomb
+Dialogue: 0,0:00:51.55,0:00:53.56,Sub,,0,0,0,,{\fad(120,160)}a homework problem next to this.
+Dialogue: 0,0:00:53.94,0:00:54.96,Sub,,0,0,0,,{\fad(120,160)}If he's right,
+Dialogue: 0,0:00:55.00,0:00:57.25,Sub,,0,0,0,,{\fad(120,160)}this is what arrival looks like.
+Dialogue: 0,0:00:57.53,0:00:58.38,Sub,,0,0,0,,{\fad(120,160)}It's not arriving
+Dialogue: 0,0:00:58.42,0:01:00.02,Sub,,0,0,0,,{\fad(120,160)}as a machine we fear.
+Dialogue: 0,0:01:00.24,0:01:01.79,Sub,,0,0,0,,{\fad(120,160)}It's arriving as an answer
+Dialogue: 0,0:01:01.83,0:01:03.25,Sub,,0,0,0,,{\fad(120,160)}we can't read.
+Dialogue: 0,0:01:03.79,0:01:05.44,Sub,,0,0,0,,{\fad(120,160)}So test his claim.
+Dialogue: 0,0:01:05.57,0:01:06.72,Sub,,0,0,0,,{\fad(120,160)}Five checks.
+Dialogue: 0,0:01:06.81,0:01:08.40,Sub,,0,0,0,,{\fad(120,160)}He doesn't pass them all.
+Dialogue: 0,0:01:09.47,0:01:11.44,Sub,,0,0,0,,{\fad(120,160)}The man is Alexandr Wang,
+Dialogue: 0,0:01:11.48,0:01:13.40,Sub,,0,0,0,,{\fad(120,160)}Meta's chief AI officer.
+Dialogue: 0,0:01:13.59,0:01:14.26,Sub,,0,0,0,,{\fad(120,160)}He runs a lab
+Dialogue: 0,0:01:14.30,0:01:15.75,Sub,,0,0,0,,{\fad(120,160)}with the goal in its name:
+Dialogue: 0,0:01:15.86,0:01:17.92,Sub,,0,0,0,,{\fad(120,160)}Meta Superintelligence Labs.
+Dialogue: 0,0:01:18.13,0:01:19.52,Sub,,0,0,0,,{\fad(120,160)}That bomb comparison?
+Dialogue: 0,0:01:19.68,0:01:21.00,Sub,,0,0,0,,{\fad(120,160)}He gives no source for it.
+Dialogue: 0,0:01:21.29,0:01:22.47,Sub,,0,0,0,,{\fad(120,160)}And still, his essay
+Dialogue: 0,0:01:22.51,0:01:23.99,Sub,,0,0,0,,{\fad(120,160)}is no victory lap.
+Dialogue: 0,0:01:24.05,0:01:25.13,Sub,,0,0,0,,{\fad(120,160)}He calls it "lazy
+Dialogue: 0,0:01:25.17,0:01:26.12,Sub,,0,0,0,,{\fad(120,160)}thinking" to treat
+Dialogue: 0,0:01:26.16,0:01:28.15,Sub,,0,0,0,,{\fad(120,160)}superintelligence as inevitable.
+Dialogue: 0,0:01:28.40,0:01:30.15,Sub,,0,0,0,,{\fad(120,160)}But look at who is speaking.
+Dialogue: 0,0:01:30.38,0:01:31.58,Sub,,0,0,0,,{\fad(120,160)}Building superintelligence
+Dialogue: 0,0:01:31.62,0:01:32.79,Sub,,0,0,0,,{\fad(120,160)}is Wang's job,
+Dialogue: 0,0:01:32.83,0:01:33.80,Sub,,0,0,0,,{\fad(120,160)}and his essay also
+Dialogue: 0,0:01:33.84,0:01:35.24,Sub,,0,0,0,,{\fad(120,160)}promotes his own lab.
+Dialogue: 0,0:01:35.50,0:01:36.97,Sub,,0,0,0,,{\fad(120,160)}Here he is, months earlier,
+Dialogue: 0,0:01:37.01,0:01:38.52,Sub,,0,0,0,,{\fad(120,160)}describing that project.
+Dialogue: 0,0:01:38.90,0:01:40.30,Sub,,0,0,0,,{\fad(120,160)}A lot of the leading labs,
+Dialogue: 0,0:01:40.34,0:01:42.60,Sub,,0,0,0,,{\fad(120,160)}they build the entire
+Dialogue: 0,0:01:42.64,0:01:44.04,Sub,,0,0,0,,{\fad(120,160)}organizations around the premise
+Dialogue: 0,0:01:44.08,0:01:47.60,Sub,,0,0,0,,{\fad(120,160)}that superintelligence is coming
+Dialogue: 0,0:01:47.64,0:01:49.32,Sub,,0,0,0,,{\fad(120,160)}and it is very close.
+Dialogue: 0,0:01:49.91,0:01:51.06,Sub,,0,0,0,,{\fad(120,160)}And yet this proof
+Dialogue: 0,0:01:51.10,0:01:52.57,Sub,,0,0,0,,{\fad(120,160)}came from a competitor.
+Dialogue: 0,0:01:52.82,0:01:54.67,Sub,,0,0,0,,{\fad(120,160)}Maybe he means every word.
+Dialogue: 0,0:01:54.94,0:01:55.69,Sub,,0,0,0,,{\fad(120,160)}It also helps
+Dialogue: 0,0:01:55.73,0:01:57.29,Sub,,0,0,0,,{\fad(120,160)}him: if superintelligence
+Dialogue: 0,0:01:57.33,0:01:59.86,Sub,,0,0,0,,{\fad(120,160)}is arriving, his lab matters more.
+Dialogue: 0,0:02:00.05,0:02:01.23,Sub,,0,0,0,,{\fad(120,160)}Both can be true.
+Dialogue: 0,0:02:01.52,0:02:03.46,Sub,,0,0,0,,{\fad(120,160)}So his word is not enough.
+Dialogue: 0,0:02:03.77,0:02:05.46,Sub,,0,0,0,,{\fad(120,160)}Check the claim itself.
+Dialogue: 0,0:02:06.63,0:02:09.42,Sub,,0,0,0,,{\fad(120,160)}First check: is his evidence real?
+Dialogue: 0,0:02:09.66,0:02:10.49,Sub,,0,0,0,,{\fad(120,160)}What was published
+Dialogue: 0,0:02:10.53,0:02:11.58,Sub,,0,0,0,,{\fad(120,160)}is a short note,
+Dialogue: 0,0:02:11.62,0:02:13.18,Sub,,0,0,0,,{\fad(120,160)}and about 17 million
+Dialogue: 0,0:02:13.22,0:02:14.30,Sub,,0,0,0,,{\fad(120,160)}lines of code.
+Dialogue: 0,0:02:14.49,0:02:16.01,Sub,,0,0,0,,{\fad(120,160)}No human reads that.
+Dialogue: 0,0:02:16.05,0:02:18.11,Sub,,0,0,0,,{\fad(120,160)}Not you, not the man who wrote it.
+Dialogue: 0,0:02:18.32,0:02:19.89,Sub,,0,0,0,,{\fad(120,160)}It was written for a referee:
+Dialogue: 0,0:02:19.93,0:02:21.26,Sub,,0,0,0,,{\fad(120,160)}a program called Lean,
+Dialogue: 0,0:02:21.30,0:02:23.12,Sub,,0,0,0,,{\fad(120,160)}which checks every logical step
+Dialogue: 0,0:02:23.16,0:02:25.03,Sub,,0,0,0,,{\fad(120,160)}and can't be talked into anything.
+Dialogue: 0,0:02:25.36,0:02:27.42,Sub,,0,0,0,,{\fad(120,160)}The referee's ruling: correct.
+Dialogue: 0,0:02:27.65,0:02:28.90,Sub,,0,0,0,,{\fad(120,160)}Within a day, the people who
+Dialogue: 0,0:02:28.94,0:02:30.86,Sub,,0,0,0,,{\fad(120,160)}build that referee were convinced.
+Dialogue: 0,0:02:31.06,0:02:32.62,Sub,,0,0,0,,{\fad(120,160)}At MIT, an independent
+Dialogue: 0,0:02:32.66,0:02:33.66,Sub,,0,0,0,,{\fad(120,160)}check is running.
+Dialogue: 0,0:02:33.75,0:02:35.05,Sub,,0,0,0,,{\fad(120,160)}Most runs have passed.
+Dialogue: 0,0:02:35.09,0:02:36.50,Sub,,0,0,0,,{\fad(120,160)}A few are still open.
+Dialogue: 0,0:02:37.12,0:02:39.01,Sub,,0,0,0,,{\fad(120,160)}First box: gold.
+Dialogue: 0,0:02:39.38,0:02:41.03,Sub,,0,0,0,,{\fad(120,160)}The evidence is real,
+Dialogue: 0,0:02:41.07,0:02:42.97,Sub,,0,0,0,,{\fad(120,160)}and so far, it holds.
+Dialogue: 0,0:02:43.29,0:02:44.79,Sub,,0,0,0,,{\fad(120,160)}And if it keeps holding?
+Dialogue: 0,0:02:45.17,0:02:47.00,Sub,,0,0,0,,{\fad(120,160)}One mathematician's answer:
+Dialogue: 0,0:02:47.38,0:02:48.48,Sub,,0,0,0,,{\fad(120,160)}So, the Riemann hypothesis
+Dialogue: 0,0:02:48.52,0:02:50.42,Sub,,0,0,0,,{\fad(120,160)}is sometimes dubbed
+Dialogue: 0,0:02:50.46,0:02:52.16,Sub,,0,0,0,,{\fad(120,160)}the most famous and most important
+Dialogue: 0,0:02:52.20,0:02:53.92,Sub,,0,0,0,,{\fad(120,160)}problem in mathematics,
+Dialogue: 0,0:02:53.96,0:02:55.42,Sub,,0,0,0,,{\fad(120,160)}and it's describing
+Dialogue: 0,0:02:55.46,0:02:58.30,Sub,,0,0,0,,{\fad(120,160)}the distribution of prime numbers.
+Dialogue: 0,0:02:59.00,0:03:00.63,Sub,,0,0,0,,{\fad(120,160)}But a referee only rules
+Dialogue: 0,0:03:00.67,0:03:02.13,Sub,,0,0,0,,{\fad(120,160)}on the game it is given.
+Dialogue: 0,0:03:02.53,0:03:04.32,Sub,,0,0,0,,{\fad(120,160)}Check two: does the code
+Dialogue: 0,0:03:04.36,0:03:05.81,Sub,,0,0,0,,{\fad(120,160)}prove the right thing?
+Dialogue: 0,0:03:06.04,0:03:07.43,Sub,,0,0,0,,{\fad(120,160)}One critic's worry:
+Dialogue: 0,0:03:07.66,0:03:08.56,Sub,,0,0,0,,{\fad(120,160)}the code may prove
+Dialogue: 0,0:03:08.60,0:03:09.63,Sub,,0,0,0,,{\fad(120,160)}a sentence that is
+Dialogue: 0,0:03:09.67,0:03:11.10,Sub,,0,0,0,,{\fad(120,160)}true by definition.
+Dialogue: 0,0:03:11.25,0:03:12.19,Sub,,0,0,0,,{\fad(120,160)}Something that sounds
+Dialogue: 0,0:03:12.23,0:03:14.17,Sub,,0,0,0,,{\fad(120,160)}grand and says nothing.
+Dialogue: 0,0:03:14.42,0:03:15.35,Sub,,0,0,0,,{\fad(120,160)}But the author didn't
+Dialogue: 0,0:03:15.39,0:03:16.50,Sub,,0,0,0,,{\fad(120,160)}write the question.
+Dialogue: 0,0:03:16.70,0:03:18.31,Sub,,0,0,0,,{\fad(120,160)}The Riemann hypothesis already
+Dialogue: 0,0:03:18.35,0:03:20.23,Sub,,0,0,0,,{\fad(120,160)}stood in the referee's rule book,
+Dialogue: 0,0:03:20.27,0:03:21.86,Sub,,0,0,0,,{\fad(120,160)}put there by someone else.
+Dialogue: 0,0:03:22.16,0:03:23.04,Sub,,0,0,0,,{\fad(120,160)}The people who build
+Dialogue: 0,0:03:23.08,0:03:24.70,Sub,,0,0,0,,{\fad(120,160)}the referee reject it.
+Dialogue: 0,0:03:24.97,0:03:26.33,Sub,,0,0,0,,{\fad(120,160)}The argument goes on.
+Dialogue: 0,0:03:26.69,0:03:28.65,Sub,,0,0,0,,{\fad(120,160)}Second box: gold,
+Dialogue: 0,0:03:28.81,0:03:30.04,Sub,,0,0,0,,{\fad(120,160)}with a question mark.
+Dialogue: 0,0:03:31.15,0:03:32.87,Sub,,0,0,0,,{\fad(120,160)}But whose work is it?
+Dialogue: 0,0:03:33.52,0:03:36.47,Sub,,0,0,0,,{\fad(120,160)}Check three: was it really the AI?
+Dialogue: 0,0:03:36.88,0:03:37.67,Sub,,0,0,0,,{\fad(120,160)}The proof comes
+Dialogue: 0,0:03:37.71,0:03:38.81,Sub,,0,0,0,,{\fad(120,160)}from a mathematician
+Dialogue: 0,0:03:38.85,0:03:40.29,Sub,,0,0,0,,{\fad(120,160)}at an AI company,
+Dialogue: 0,0:03:40.33,0:03:41.93,Sub,,0,0,0,,{\fad(120,160)}working with its AI.
+Dialogue: 0,0:03:42.15,0:03:43.39,Sub,,0,0,0,,{\fad(120,160)}The problem is older
+Dialogue: 0,0:03:43.43,0:03:44.64,Sub,,0,0,0,,{\fad(120,160)}than the light bulb.
+Dialogue: 0,0:03:44.89,0:03:45.84,Sub,,0,0,0,,{\fad(120,160)}The checkable proof
+Dialogue: 0,0:03:45.88,0:03:47.60,Sub,,0,0,0,,{\fad(120,160)}took about 6 weeks.
+Dialogue: 0,0:03:47.78,0:03:49.12,Sub,,0,0,0,,{\fad(120,160)}That company gains
+Dialogue: 0,0:03:49.16,0:03:51.09,Sub,,0,0,0,,{\fad(120,160)}if its AI gets the credit.
+Dialogue: 0,0:03:51.31,0:03:52.10,Sub,,0,0,0,,{\fad(120,160)}So listen to
+Dialogue: 0,0:03:52.14,0:03:53.76,Sub,,0,0,0,,{\fad(120,160)}the mathematician himself.
+Dialogue: 0,0:03:54.08,0:03:55.43,Sub,,0,0,0,,{\fad(120,160)}He doesn't fully understand
+Dialogue: 0,0:03:55.47,0:03:56.79,Sub,,0,0,0,,{\fad(120,160)}the proof he published.
+Dialogue: 0,0:03:57.10,0:03:59.04,Sub,,0,0,0,,{\fad(120,160)}Publishing it anyway, he said,
+Dialogue: 0,0:03:59.08,0:04:00.88,Sub,,0,0,0,,{\fad(120,160)}is "frankly completely
+Dialogue: 0,0:04:00.92,0:04:01.99,Sub,,0,0,0,,{\fad(120,160)}outrageous."
+Dialogue: 0,0:04:02.20,0:04:03.42,Sub,,0,0,0,,{\fad(120,160)}You don't say that about
+Dialogue: 0,0:04:03.46,0:04:04.66,Sub,,0,0,0,,{\fad(120,160)}your own idea.
+Dialogue: 0,0:04:05.05,0:04:06.94,Sub,,0,0,0,,{\fad(120,160)}Third box: gold,
+Dialogue: 0,0:04:07.10,0:04:08.43,Sub,,0,0,0,,{\fad(120,160)}on his own account.
+Dialogue: 0,0:04:09.13,0:04:11.25,Sub,,0,0,0,,{\fad(120,160)}Compare that with a second proof,
+Dialogue: 0,0:04:11.29,0:04:13.16,Sub,,0,0,0,,{\fad(120,160)}claimed on the very same day.
+Dialogue: 0,0:04:13.30,0:04:14.38,Sub,,0,0,0,,{\fad(120,160)}By a human.
+Dialogue: 0,0:04:14.73,0:04:17.23,Sub,,0,0,0,,{\fad(120,160)}So far, that one is still a claim.
+Dialogue: 0,0:04:17.37,0:04:18.14,Sub,,0,0,0,,{\fad(120,160)}The machine's proof
+Dialogue: 0,0:04:18.18,0:04:19.03,Sub,,0,0,0,,{\fad(120,160)}has been checked,
+Dialogue: 0,0:04:19.07,0:04:20.64,Sub,,0,0,0,,{\fad(120,160)}and nobody can read it.
+Dialogue: 0,0:04:21.81,0:04:24.12,Sub,,0,0,0,,{\fad(120,160)}That leaves Wang's boldest phrase:
+Dialogue: 0,0:04:24.30,0:04:25.82,Sub,,0,0,0,,{\fad(120,160)}the "alien mind".
+Dialogue: 0,0:04:26.41,0:04:27.91,Sub,,0,0,0,,{\fad(120,160)}Check four: does any
+Dialogue: 0,0:04:27.95,0:04:29.45,Sub,,0,0,0,,{\fad(120,160)}human understand it?
+Dialogue: 0,0:04:29.84,0:04:31.10,Sub,,0,0,0,,{\fad(120,160)}On the day it appeared,
+Dialogue: 0,0:04:31.14,0:04:31.94,Sub,,0,0,0,,{\fad(120,160)}the mathematician
+Dialogue: 0,0:04:31.98,0:04:33.58,Sub,,0,0,0,,{\fad(120,160)}Terence Tao wrote:
+Dialogue: 0,0:04:33.79,0:04:35.06,Sub,,0,0,0,,{\fad(120,160)}"the digestion process
+Dialogue: 0,0:04:35.10,0:04:36.48,Sub,,0,0,0,,{\fad(120,160)}will take some time."
+Dialogue: 0,0:04:36.79,0:04:37.76,Sub,,0,0,0,,{\fad(120,160)}Another mathematician
+Dialogue: 0,0:04:37.80,0:04:38.90,Sub,,0,0,0,,{\fad(120,160)}said it bluntly:
+Dialogue: 0,0:04:39.19,0:04:41.15,Sub,,0,0,0,,{\fad(120,160)}no one understands the proof.
+Dialogue: 0,0:04:41.47,0:04:43.42,Sub,,0,0,0,,{\fad(120,160)}Here is Tao, in an earlier talk,
+Dialogue: 0,0:04:43.46,0:04:45.72,Sub,,0,0,0,,{\fad(120,160)}on proofs checked by machines.
+Dialogue: 0,0:04:46.10,0:04:47.14,Sub,,0,0,0,,{\fad(120,160)}It hasn't quite happened yet,
+Dialogue: 0,0:04:47.18,0:04:48.70,Sub,,0,0,0,,{\fad(120,160)}but we are very, very close
+Dialogue: 0,0:04:48.74,0:04:50.10,Sub,,0,0,0,,{\fad(120,160)}to a scenario in which
+Dialogue: 0,0:04:50.14,0:04:51.36,Sub,,0,0,0,,{\fad(120,160)}a major result gets proved
+Dialogue: 0,0:04:51.40,0:04:53.56,Sub,,0,0,0,,{\fad(120,160)}and verified, and no human
+Dialogue: 0,0:04:53.60,0:04:55.27,Sub,,0,0,0,,{\fad(120,160)}can understand, can explain it.
+Dialogue: 0,0:04:55.87,0:04:57.93,Sub,,0,0,0,,{\fad(120,160)}So "correct" is not
+Dialogue: 0,0:04:57.97,0:04:59.64,Sub,,0,0,0,,{\fad(120,160)}the same as understood.
+Dialogue: 0,0:04:59.90,0:05:00.93,Sub,,0,0,0,,{\fad(120,160)}The referee can tell you
+Dialogue: 0,0:05:00.97,0:05:02.61,Sub,,0,0,0,,{\fad(120,160)}every step was legal.
+Dialogue: 0,0:05:02.76,0:05:03.59,Sub,,0,0,0,,{\fad(120,160)}It can't tell you
+Dialogue: 0,0:05:03.63,0:05:05.10,Sub,,0,0,0,,{\fad(120,160)}why the game was won.
+Dialogue: 0,0:05:05.28,0:05:06.75,Sub,,0,0,0,,{\fad(120,160)}And that gap is not a problem
+Dialogue: 0,0:05:06.79,0:05:08.42,Sub,,0,0,0,,{\fad(120,160)}for mathematicians alone.
+Dialogue: 0,0:05:08.52,0:05:10.01,Sub,,0,0,0,,{\fad(120,160)}Sooner or later it arrives
+Dialogue: 0,0:05:10.05,0:05:12.47,Sub,,0,0,0,,{\fad(120,160)}at your table, stamped correct.
+Dialogue: 0,0:05:12.71,0:05:14.80,Sub,,0,0,0,,{\fad(120,160)}This box may never turn gold.
+Dialogue: 0,0:05:14.99,0:05:16.08,Sub,,0,0,0,,{\fad(120,160)}A quarter of a million
+Dialogue: 0,0:05:16.12,0:05:17.11,Sub,,0,0,0,,{\fad(120,160)}pages is more
+Dialogue: 0,0:05:17.15,0:05:18.17,Sub,,0,0,0,,{\fad(120,160)}than one person can
+Dialogue: 0,0:05:18.21,0:05:19.56,Sub,,0,0,0,,{\fad(120,160)}read in a lifetime.
+Dialogue: 0,0:05:20.36,0:05:22.97,Sub,,0,0,0,,{\fad(120,160)}So on this point, Wang is right.
+Dialogue: 0,0:05:23.14,0:05:24.80,Sub,,0,0,0,,{\fad(120,160)}Something has arrived that reasons
+Dialogue: 0,0:05:24.84,0:05:26.52,Sub,,0,0,0,,{\fad(120,160)}further than we can read.
+Dialogue: 0,0:05:27.09,0:05:28.37,Sub,,0,0,0,,{\fad(120,160)}If you pictured the arrival
+Dialogue: 0,0:05:28.41,0:05:29.94,Sub,,0,0,0,,{\fad(120,160)}as a loud moment:
+Dialogue: 0,0:05:30.24,0:05:32.04,Sub,,0,0,0,,{\fad(120,160)}no machine announced itself.
+Dialogue: 0,0:05:32.35,0:05:33.40,Sub,,0,0,0,,{\fad(120,160)}A human did.
+Dialogue: 0,0:05:33.77,0:05:35.66,Sub,,0,0,0,,{\fad(120,160)}What arrived was quiet.
+Dialogue: 0,0:05:35.88,0:05:37.10,Sub,,0,0,0,,{\fad(120,160)}A single file.
+Dialogue: 0,0:05:38.26,0:05:39.29,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:05:39.33,0:05:40.61,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:05:40.79,0:05:41.66,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:05:41.70,0:05:42.83,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:05:42.87,0:05:44.66,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:05:44.72,0:05:45.53,Sub,,0,0,0,,{\fad(120,160)}Not just for the people
+Dialogue: 0,0:05:45.57,0:05:46.57,Sub,,0,0,0,,{\fad(120,160)}who build it.
+Dialogue: 0,0:05:46.77,0:05:47.77,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:05:47.88,0:05:48.89,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:05:50.06,0:05:51.63,Sub,,0,0,0,,{\fad(120,160)}But Wang's headline doesn't
+Dialogue: 0,0:05:51.67,0:05:53.48,Sub,,0,0,0,,{\fad(120,160)}say a proof is arriving.
+Dialogue: 0,0:05:53.52,0:05:55.66,Sub,,0,0,0,,{\fad(120,160)}It says superintelligence.
+Dialogue: 0,0:05:55.72,0:05:57.06,Sub,,0,0,0,,{\fad(120,160)}So, the last check:
+Dialogue: 0,0:05:57.31,0:05:58.46,Sub,,0,0,0,,{\fad(120,160)}does one proof mean
+Dialogue: 0,0:05:58.50,0:05:59.91,Sub,,0,0,0,,{\fad(120,160)}superintelligence?
+Dialogue: 0,0:06:00.46,0:06:02.65,Sub,,0,0,0,,{\fad(120,160)}James Maynard, a Fields medalist,
+Dialogue: 0,0:06:02.69,0:06:03.49,Sub,,0,0,0,,{\fad(120,160)}calls the proof
+Dialogue: 0,0:06:03.53,0:06:05.15,Sub,,0,0,0,,{\fad(120,160)}a "historic milestone",
+Dialogue: 0,0:06:05.19,0:06:06.32,Sub,,0,0,0,,{\fad(120,160)}if it is correct.
+Dialogue: 0,0:06:06.55,0:06:08.48,Sub,,0,0,0,,{\fad(120,160)}But for him, little changes:
+Dialogue: 0,0:06:08.58,0:06:09.42,Sub,,0,0,0,,{\fad(120,160)}he never doubted
+Dialogue: 0,0:06:09.46,0:06:11.11,Sub,,0,0,0,,{\fad(120,160)}the hypothesis was true.
+Dialogue: 0,0:06:11.55,0:06:12.57,Sub,,0,0,0,,{\fad(120,160)}The sharpest doubt
+Dialogue: 0,0:06:12.61,0:06:13.94,Sub,,0,0,0,,{\fad(120,160)}comes from Yann LeCun.
+Dialogue: 0,0:06:14.23,0:06:15.68,Sub,,0,0,0,,{\fad(120,160)}He left Meta a year ago,
+Dialogue: 0,0:06:15.72,0:06:16.83,Sub,,0,0,0,,{\fad(120,160)}and has called Wang
+Dialogue: 0,0:06:16.87,0:06:18.17,Sub,,0,0,0,,{\fad(120,160)}"inexperienced".
+Dialogue: 0,0:06:18.55,0:06:20.10,Sub,,0,0,0,,{\fad(120,160)}No neutral witness, then.
+Dialogue: 0,0:06:20.30,0:06:22.17,Sub,,0,0,0,,{\fad(120,160)}But his objection is technical.
+Dialogue: 0,0:06:22.55,0:06:24.39,Sub,,0,0,0,,{\fad(120,160)}We are not going to get
+Dialogue: 0,0:06:24.43,0:06:24.97,Sub,,0,0,0,,{\fad(120,160)}to human-level AI
+Dialogue: 0,0:06:25.01,0:06:27.23,Sub,,0,0,0,,{\fad(120,160)}by just scaling up LLMs.
+Dialogue: 0,0:06:27.27,0:06:29.32,Sub,,0,0,0,,{\fad(120,160)}This is just not going to happen.
+Dialogue: 0,0:06:29.92,0:06:31.40,Sub,,0,0,0,,{\fad(120,160)}The kind of AI behind
+Dialogue: 0,0:06:31.44,0:06:33.60,Sub,,0,0,0,,{\fad(120,160)}today's chatbots, he argues,
+Dialogue: 0,0:06:33.72,0:06:34.58,Sub,,0,0,0,,{\fad(120,160)}is a dead end
+Dialogue: 0,0:06:34.62,0:06:36.62,Sub,,0,0,0,,{\fad(120,160)}on the way to superintelligence.
+Dialogue: 0,0:06:36.87,0:06:38.20,Sub,,0,0,0,,{\fad(120,160)}So the fifth box
+Dialogue: 0,0:06:38.24,0:06:39.96,Sub,,0,0,0,,{\fad(120,160)}only fills halfway.
+Dialogue: 0,0:06:40.39,0:06:42.15,Sub,,0,0,0,,{\fad(120,160)}"Arriving" is a bet,
+Dialogue: 0,0:06:42.22,0:06:43.02,Sub,,0,0,0,,{\fad(120,160)}placed by a man
+Dialogue: 0,0:06:43.06,0:06:44.23,Sub,,0,0,0,,{\fad(120,160)}with a stake in it.
+Dialogue: 0,0:06:44.52,0:06:46.10,Sub,,0,0,0,,{\fad(120,160)}But the gap between correct
+Dialogue: 0,0:06:46.14,0:06:48.19,Sub,,0,0,0,,{\fad(120,160)}and understood is no bet.
+Dialogue: 0,0:06:48.39,0:06:49.59,Sub,,0,0,0,,{\fad(120,160)}It is already here.
+Dialogue: 0,0:06:49.90,0:06:51.37,Sub,,0,0,0,,{\fad(120,160)}And behind that headline,
+Dialogue: 0,0:06:51.41,0:06:53.41,Sub,,0,0,0,,{\fad(120,160)}Wang's own essay is worried.
+Dialogue: 0,0:06:53.68,0:06:54.51,Sub,,0,0,0,,{\fad(120,160)}He finds it hard
+Dialogue: 0,0:06:54.55,0:06:55.79,Sub,,0,0,0,,{\fad(120,160)}to imagine humanity
+Dialogue: 0,0:06:55.83,0:06:57.55,Sub,,0,0,0,,{\fad(120,160)}keeping control of something "a
+Dialogue: 0,0:06:57.59,0:06:59.61,Sub,,0,0,0,,{\fad(120,160)}thousand times smarter and more
+Dialogue: 0,0:06:59.65,0:07:00.96,Sub,,0,0,0,,{\fad(120,160)}capable than humans
+Dialogue: 0,0:07:01.00,0:07:02.35,Sub,,0,0,0,,{\fad(120,160)}in every field."
+Dialogue: 0,0:07:02.96,0:07:03.99,Sub,,0,0,0,,{\fad(120,160)}And he writes:
+Dialogue: 0,0:07:04.28,0:07:05.58,Sub,,0,0,0,,{\fad(120,160)}"We should not be okay
+Dialogue: 0,0:07:05.62,0:07:08.50,Sub,,0,0,0,,{\fad(120,160)}with a handover of society to AI."
+Dialogue: 0,0:07:08.79,0:07:09.63,Sub,,0,0,0,,{\fad(120,160)}A handover.
+Dialogue: 0,0:07:09.67,0:07:11.89,Sub,,0,0,0,,{\fad(120,160)}What would that look like?
+Dialogue: 0,0:07:13.07,0:07:14.41,Sub,,0,0,0,,{\fad(120,160)}Not like a coup.
+Dialogue: 0,0:07:14.66,0:07:16.46,Sub,,0,0,0,,{\fad(120,160)}More like an ordinary evening,
+Dialogue: 0,0:07:16.50,0:07:17.67,Sub,,0,0,0,,{\fad(120,160)}a few years from now,
+Dialogue: 0,0:07:17.71,0:07:18.76,Sub,,0,0,0,,{\fad(120,160)}in your town hall.
+Dialogue: 0,0:07:19.06,0:07:20.84,Sub,,0,0,0,,{\fad(120,160)}The old bridge, the one you cross
+Dialogue: 0,0:07:20.88,0:07:23.13,Sub,,0,0,0,,{\fad(120,160)}every morning, has to be replaced.
+Dialogue: 0,0:07:23.31,0:07:25.17,Sub,,0,0,0,,{\fad(120,160)}A system has designed the new one,
+Dialogue: 0,0:07:25.21,0:07:26.43,Sub,,0,0,0,,{\fad(120,160)}and marked its own design
+Dialogue: 0,0:07:26.47,0:07:28.65,Sub,,0,0,0,,{\fad(120,160)}with one word: correct.
+Dialogue: 0,0:07:28.91,0:07:29.79,Sub,,0,0,0,,{\fad(120,160)}The reasoning runs
+Dialogue: 0,0:07:29.83,0:07:30.89,Sub,,0,0,0,,{\fad(120,160)}longer than anyone
+Dialogue: 0,0:07:30.93,0:07:32.58,Sub,,0,0,0,,{\fad(120,160)}in the room could ever read.
+Dialogue: 0,0:07:32.75,0:07:34.36,Sub,,0,0,0,,{\fad(120,160)}The engineers can't follow it.
+Dialogue: 0,0:07:34.41,0:07:35.41,Sub,,0,0,0,,{\fad(120,160)}Neither can you.
+Dialogue: 0,0:07:35.53,0:07:36.51,Sub,,0,0,0,,{\fad(120,160)}But the system has
+Dialogue: 0,0:07:36.55,0:07:37.70,Sub,,0,0,0,,{\fad(120,160)}never been wrong.
+Dialogue: 0,0:07:37.99,0:07:39.49,Sub,,0,0,0,,{\fad(120,160)}So the hands go up.
+Dialogue: 0,0:07:39.64,0:07:40.64,Sub,,0,0,0,,{\fad(120,160)}Yours, too.
+Dialogue: 0,0:07:41.10,0:07:42.74,Sub,,0,0,0,,{\fad(120,160)}That is a handover.
+Dialogue: 0,0:07:43.02,0:07:44.65,Sub,,0,0,0,,{\fad(120,160)}No robots in the street.
+Dialogue: 0,0:07:44.69,0:07:46.41,Sub,,0,0,0,,{\fad(120,160)}Nobody seizing power.
+Dialogue: 0,0:07:46.50,0:07:48.70,Sub,,0,0,0,,{\fad(120,160)}Just a thousand small yeses.
+Dialogue: 0,0:07:48.90,0:07:49.71,Sub,,0,0,0,,{\fad(120,160)}Your loan.
+Dialogue: 0,0:07:49.75,0:07:50.73,Sub,,0,0,0,,{\fad(120,160)}Your contract.
+Dialogue: 0,0:07:50.77,0:07:52.01,Sub,,0,0,0,,{\fad(120,160)}Your town's budget.
+Dialogue: 0,0:07:52.27,0:07:53.67,Sub,,0,0,0,,{\fad(120,160)}Each one sensible.
+Dialogue: 0,0:07:53.83,0:07:55.96,Sub,,0,0,0,,{\fad(120,160)}Each one a little less yours.
+Dialogue: 0,0:07:56.21,0:07:56.78,Sub,,0,0,0,,{\fad(120,160)}But look at what
+Dialogue: 0,0:07:56.82,0:07:58.98,Sub,,0,0,0,,{\fad(120,160)}the mathematicians actually did.
+Dialogue: 0,0:07:59.08,0:07:59.77,Sub,,0,0,0,,{\fad(120,160)}They did not take
+Dialogue: 0,0:07:59.81,0:08:00.88,Sub,,0,0,0,,{\fad(120,160)}the machine's word,
+Dialogue: 0,0:08:00.92,0:08:02.11,Sub,,0,0,0,,{\fad(120,160)}or the company's.
+Dialogue: 0,0:08:02.32,0:08:03.48,Sub,,0,0,0,,{\fad(120,160)}They trusted a referee
+Dialogue: 0,0:08:03.52,0:08:04.81,Sub,,0,0,0,,{\fad(120,160)}that humans built.
+Dialogue: 0,0:08:05.00,0:08:06.15,Sub,,0,0,0,,{\fad(120,160)}Its rules are open.
+Dialogue: 0,0:08:06.19,0:08:07.67,Sub,,0,0,0,,{\fad(120,160)}Anyone can run it again.
+Dialogue: 0,0:08:08.29,0:08:09.74,Sub,,0,0,0,,{\fad(120,160)}Their trust moved:
+Dialogue: 0,0:08:09.89,0:08:11.21,Sub,,0,0,0,,{\fad(120,160)}away from the answer,
+Dialogue: 0,0:08:11.31,0:08:12.31,Sub,,0,0,0,,{\fad(120,160)}to the check.
+Dialogue: 0,0:08:12.80,0:08:13.79,Sub,,0,0,0,,{\fad(120,160)}In your town hall,
+Dialogue: 0,0:08:13.83,0:08:16.11,Sub,,0,0,0,,{\fad(120,160)}the system was its own referee.
+Dialogue: 0,0:08:16.38,0:08:18.09,Sub,,0,0,0,,{\fad(120,160)}In mathematics, humans
+Dialogue: 0,0:08:18.13,0:08:19.72,Sub,,0,0,0,,{\fad(120,160)}built the referee first.
+Dialogue: 0,0:08:19.89,0:08:21.74,Sub,,0,0,0,,{\fad(120,160)}So who builds the referees
+Dialogue: 0,0:08:21.78,0:08:23.12,Sub,,0,0,0,,{\fad(120,160)}for everything else?
+Dialogue: 0,0:08:24.28,0:08:25.41,Sub,,0,0,0,,{\fad(120,160)}The labs could.
+Dialogue: 0,0:08:25.86,0:08:27.68,Sub,,0,0,0,,{\fad(120,160)}Wang himself writes that a better
+Dialogue: 0,0:08:27.72,0:08:29.61,Sub,,0,0,0,,{\fad(120,160)}future likely involves the whole
+Dialogue: 0,0:08:29.65,0:08:30.72,Sub,,0,0,0,,{\fad(120,160)}industry taking
+Dialogue: 0,0:08:30.76,0:08:31.82,Sub,,0,0,0,,{\fad(120,160)}"meaningfully different
+Dialogue: 0,0:08:31.86,0:08:33.65,Sub,,0,0,0,,{\fad(120,160)}actions from the default path".
+Dialogue: 0,0:08:34.16,0:08:35.90,Sub,,0,0,0,,{\fad(120,160)}He doesn't say exactly how.
+Dialogue: 0,0:08:36.18,0:08:37.77,Sub,,0,0,0,,{\fad(120,160)}One way: labs agree
+Dialogue: 0,0:08:37.81,0:08:38.62,Sub,,0,0,0,,{\fad(120,160)}that their strongest
+Dialogue: 0,0:08:38.66,0:08:39.91,Sub,,0,0,0,,{\fad(120,160)}systems hand in work
+Dialogue: 0,0:08:39.95,0:08:41.38,Sub,,0,0,0,,{\fad(120,160)}a referee can check.
+Dialogue: 0,0:08:41.51,0:08:43.97,Sub,,0,0,0,,{\fad(120,160)}Then no answer is its own referee.
+Dialogue: 0,0:08:44.22,0:08:45.53,Sub,,0,0,0,,{\fad(120,160)}The objection: whoever
+Dialogue: 0,0:08:45.57,0:08:47.25,Sub,,0,0,0,,{\fad(120,160)}waits falls behind.
+Dialogue: 0,0:08:47.40,0:08:48.45,Sub,,0,0,0,,{\fad(120,160)}So governments could
+Dialogue: 0,0:08:48.49,0:08:49.20,Sub,,0,0,0,,{\fad(120,160)}make it a rule
+Dialogue: 0,0:08:49.24,0:08:50.65,Sub,,0,0,0,,{\fad(120,160)}where the stakes are high.
+Dialogue: 0,0:08:50.72,0:08:52.07,Sub,,0,0,0,,{\fad(120,160)}Then your town can refuse
+Dialogue: 0,0:08:52.11,0:08:54.16,Sub,,0,0,0,,{\fad(120,160)}to vote on what nobody can check.
+Dialogue: 0,0:08:54.42,0:08:56.20,Sub,,0,0,0,,{\fad(120,160)}But who checks the checkers?
+Dialogue: 0,0:08:56.80,0:08:58.80,Sub,,0,0,0,,{\fad(120,160)}Mathematics has one answer:
+Dialogue: 0,0:08:58.95,0:09:00.36,Sub,,0,0,0,,{\fad(120,160)}an open referee,
+Dialogue: 0,0:09:00.40,0:09:01.91,Sub,,0,0,0,,{\fad(120,160)}carried by nonprofits,
+Dialogue: 0,0:09:01.95,0:09:03.53,Sub,,0,0,0,,{\fad(120,160)}not by one company.
+Dialogue: 0,0:09:03.72,0:09:04.77,Sub,,0,0,0,,{\fad(120,160)}The engineer in the back
+Dialogue: 0,0:09:04.81,0:09:06.32,Sub,,0,0,0,,{\fad(120,160)}row can run it herself,
+Dialogue: 0,0:09:06.36,0:09:07.68,Sub,,0,0,0,,{\fad(120,160)}and nobody has to trust
+Dialogue: 0,0:09:07.72,0:09:09.30,Sub,,0,0,0,,{\fad(120,160)}whoever sells the answer.
+Dialogue: 0,0:09:09.67,0:09:10.78,Sub,,0,0,0,,{\fad(120,160)}The hardest objection
+Dialogue: 0,0:09:10.82,0:09:12.08,Sub,,0,0,0,,{\fad(120,160)}is the simplest:
+Dialogue: 0,0:09:12.25,0:09:13.57,Sub,,0,0,0,,{\fad(120,160)}results matter more
+Dialogue: 0,0:09:13.61,0:09:14.82,Sub,,0,0,0,,{\fad(120,160)}than understanding.
+Dialogue: 0,0:09:15.07,0:09:16.44,Sub,,0,0,0,,{\fad(120,160)}You already cross bridges
+Dialogue: 0,0:09:16.48,0:09:18.07,Sub,,0,0,0,,{\fad(120,160)}you could never calculate.
+Dialogue: 0,0:09:18.36,0:09:19.35,Sub,,0,0,0,,{\fad(120,160)}True.
+Dialogue: 0,0:09:19.39,0:09:22.01,Sub,,0,0,0,,{\fad(120,160)}But until now, some human could.
+Dialogue: 0,0:09:22.27,0:09:23.68,Sub,,0,0,0,,{\fad(120,160)}None of this is agreed,
+Dialogue: 0,0:09:23.72,0:09:24.96,Sub,,0,0,0,,{\fad(120,160)}and none of it is tested
+Dialogue: 0,0:09:25.00,0:09:26.07,Sub,,0,0,0,,{\fad(120,160)}at this scale.
+Dialogue: 0,0:09:26.29,0:09:26.99,Sub,,0,0,0,,{\fad(120,160)}Who could change
+Dialogue: 0,0:09:27.03,0:09:29.19,Sub,,0,0,0,,{\fad(120,160)}that: labs, governments,
+Dialogue: 0,0:09:29.23,0:09:31.83,Sub,,0,0,0,,{\fad(120,160)}investors, and voters like you.
+Dialogue: 0,0:09:32.44,0:09:34.40,Sub,,0,0,0,,{\fad(120,160)}And Wang puts a clock on it.
+Dialogue: 0,0:09:34.76,0:09:36.25,Sub,,0,0,0,,{\fad(120,160)}"How humanity acts over
+Dialogue: 0,0:09:36.29,0:09:37.73,Sub,,0,0,0,,{\fad(120,160)}the next year will have
+Dialogue: 0,0:09:37.77,0:09:39.43,Sub,,0,0,0,,{\fad(120,160)}great consequence on what
+Dialogue: 0,0:09:39.47,0:09:41.26,Sub,,0,0,0,,{\fad(120,160)}future world we live in."
+Dialogue: 0,0:09:42.49,0:09:44.77,Sub,,0,0,0,,{\fad(120,160)}Superintelligence is arriving.
+Dialogue: 0,0:09:45.11,0:09:46.67,Sub,,0,0,0,,{\fad(120,160)}So, is he right?
+Dialogue: 0,0:09:47.01,0:09:48.01,Sub,,0,0,0,,{\fad(120,160)}In part.
+Dialogue: 0,0:09:48.13,0:09:49.64,Sub,,0,0,0,,{\fad(120,160)}Something has arrived:
+Dialogue: 0,0:09:49.74,0:09:51.23,Sub,,0,0,0,,{\fad(120,160)}an answer that holds,
+Dialogue: 0,0:09:51.27,0:09:53.64,Sub,,0,0,0,,{\fad(120,160)}so far, and that we can't read.
+Dialogue: 0,0:09:53.94,0:09:55.50,Sub,,0,0,0,,{\fad(120,160)}Whether that is superintelligence
+Dialogue: 0,0:09:55.54,0:09:56.83,Sub,,0,0,0,,{\fad(120,160)}remains his bet.
+Dialogue: 0,0:09:57.11,0:09:58.15,Sub,,0,0,0,,{\fad(120,160)}And the box that is still
+Dialogue: 0,0:09:58.19,0:10:00.19,Sub,,0,0,0,,{\fad(120,160)}open isn't about the machine.
+Dialogue: 0,0:10:00.29,0:10:01.42,Sub,,0,0,0,,{\fad(120,160)}It's about us.
+Dialogue: 0,0:10:01.77,0:10:02.37,Sub,,0,0,0,,{\fad(120,160)}So when the next
+Dialogue: 0,0:10:02.41,0:10:03.90,Sub,,0,0,0,,{\fad(120,160)}headline says an AI
+Dialogue: 0,0:10:03.94,0:10:06.50,Sub,,0,0,0,,{\fad(120,160)}solved something, ask two things.
+Dialogue: 0,0:10:06.69,0:10:08.35,Sub,,0,0,0,,{\fad(120,160)}Can any human follow it?
+Dialogue: 0,0:10:08.53,0:10:10.32,Sub,,0,0,0,,{\fad(120,160)}And who says it's correct?
+Dialogue: 0,0:10:11.21,0:10:12.91,Sub,,0,0,0,,{\fad(120,160)}We may never read every answer.
+Dialogue: 0,0:10:12.95,0:10:14.30,Sub,,0,0,0,,{\fad(120,160)}But who gets to say
+Dialogue: 0,0:10:14.34,0:10:16.82,Sub,,0,0,0,,{\fad(120,160)}"correct" has to stay human.
+Dialogue: 0,0:10:17.99,0:10:19.16,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:10:19.20,0:10:20.04,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:10:20.08,0:10:21.51,Sub,,0,0,0,,{\fad(120,160)}of superintelligence goes
+Dialogue: 0,0:10:21.55,0:10:23.00,Sub,,0,0,0,,{\fad(120,160)}well for everybody.
+Dialogue: 0,0:10:23.27,0:10:24.27,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:10:24.37,0:10:25.37,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
