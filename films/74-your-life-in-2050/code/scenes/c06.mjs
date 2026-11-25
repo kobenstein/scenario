@@ -260,7 +260,7 @@ export default function c06(T, R) {
           else { g.beginPath(); g.moveTo(1210, y - 40); g.lineTo(1176, y + 6); g.lineTo(1204, y + 6); g.lineTo(1190, y + 42); g.lineTo(1230, y - 8); g.lineTo(1204, y - 8); g.closePath(); g.fill(); }
           K.glowText(g, lab, 1320, y + 14, { size: 34, weight: 700, col: P.cream, glow: false }); K.glowText(g, 'FREE', 1580, y + 14, { size: 30, weight: 800, align: 'right', col: '#ffe7a8', glow: false }); g.globalAlpha = 1; }); }
       });
-      K.today(ctx, t, t26 + 1.0, s.b + .2, ['LUXEMBOURG · ALL PUBLIC', 'TRANSPORT FREE'], 'SINCE 1 MARCH 2020', { size: 26, y: 60, head: 'ALREADY IN YOUR DAY' });
+      K.today(ctx, t, t26 + 1.0, s.b + .2, ['LUXEMBOURG · FREE PUBLIC', 'TRANSPORT NATIONWIDE'], 'SINCE 1 MARCH 2020', { size: 26, y: 60, head: 'ALREADY IN YOUR DAY' });
     },
     out: { k: 'sweep', dir: -1, w: 520, lead: .4, dur: 1.0 },
   };

@@ -73,7 +73,7 @@ export default function c09(T, R) {
       ]);
       // the map card: the field grid of 2026 (cornfields to the horizon); on 9.02 the fields draw together round the town, the rest turns to forest
       const mu = clamp(span(t, s.a + .6, s.a + 1.4) - span(t, s.b - .6, s.b - .1));
-      if (mu > 0) K.scr(ctx, (g) => K.paper(g, t, 300, 120, 1320, 740, mu, { head: t < t2 ? '2026 · FIELDS TO THE HORIZON' : '2050 · FOOD CLOSE TO TOWN, THE REST GIVEN BACK', from: [960, 700], draw: (q, x, y, w, h) => {
+      if (mu > 0) K.scr(ctx, (g) => K.paper(g, t, 340, 180, 1240, 690, mu, { head: t < t2 ? '2026 · FIELDS TO THE HORIZON' : '2050 · FOOD CLOSE TO TOWN, THE REST GIVEN BACK', from: [960, 700], draw: (q, x, y, w, h) => {
         const cw = w / MAP.cols, ch = h / MAP.rows, tx = x + w * .5, ty = y + h * .55, p = span(t, t2 + .2, t2 + 3.6), r = prng(11);
         const cells = []; for (let i = 0; i < MAP.cols; i++) for (let j = 0; j < MAP.rows; j++) { const cx = x + (i + .5) * cw, cy = y + (j + .5) * ch; cells.push([cx, cy, Math.hypot((cx - tx) / w, (cy - ty) / h)]); }
         const order = [...cells].sort((a, b) => a[2] - b[2]), keep = new Set(order.slice(0, 14));

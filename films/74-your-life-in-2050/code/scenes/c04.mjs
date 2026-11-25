@@ -1,5 +1,6 @@
 // Film 74 · c04 BUILD · MEND · DRIVE (3.05–3.18): the weeks of waiting (calendar, bill), the house across the road printed in nine days,
-// land vs house, the empty box YOU, the old screen at the garden wall (clip C3), the square far away, the monstrous power bill.
+// land vs house, the empty box YOU, (fallback clip set only: the old screen at the garden wall, clip C3), the square far away, the monstrous power bill.
+// gardenWall + SCREEN are shared with c03 (C6 set: the screen first appears at the kerb in station 2).
 import * as K from '../lib/f74_kit.mjs';
 import * as S from '../lib/f74_street.mjs';
 import { hourAt } from './hud.mjs';
@@ -70,7 +71,7 @@ export default function c04(T, R) {
   };
   // ---------------------------------------------------------------- 3.07–3.13 · THE HOUSE ACROSS THE ROAD: nine days, the couple, land vs house, BUILD MEND DRIVE · YOU
   const camAcross = (t) => camK(t, [[RT('3.07') - 1, aim(2600, 1880, 560, 1.15, W * .55, H * .55)], [RT('3.10'), aim(2600, 1860, 600, 1.25, W * .5, H * .55)], [RT('3.12') - .2, aim(2600, 1820, 620, 1.2, W * .5, H * .56)],
-    [RT('3.12') + 1.4, cam3({ z: -260, y: -80, x: 80 }), 'q'], [RT('3.14') + .5, cam3({ z: -200, y: -60, x: 40 })]]);
+    [RT('3.12') + 1.4, cam3({ z: -260, y: -80, x: 80 }), 'q'], [(RT('3.14') ?? RT('3.16')) + .5, cam3({ z: -200, y: -60, x: 40 })]]);
   const S307 = {
     id: '3.07',
     draw(ctx, t, s) {
@@ -143,5 +144,5 @@ export default function c04(T, R) {
     },
     out: { k: 'iris', c: [960, 700, 120], lead: .35, dur: 1.1 },
   };
-  return [S305, S307, S314, S316, S317];
+  return [S305, S307, ...(T.clip('C3') ? [S314] : []), S316, S317];   // C3 (+ its frame 3.14/3.15) only in the fallback clip set
 }

@@ -2,14 +2,13 @@
 """timing.json -> subtitles.srt + subtitles.ass (one line, bottom, phrase by phrase).
 usage: subs.py <audio_dir> <out_dir>
 Film 14/16/18/19/24/25/28/54/59: channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters.
-Film 63 (from Film 66 / 59): plain Inter, cream (#F3EFE2); clips C1, C3, C4, C5 from clips.json cues (verified wording, wortlaut-verifiziert.md; times are
-estimates until the clips are cut, clips_json.py); figures as digits."""
+Film 74 (from Film 63): plain Inter, cream (#F3EFE2); the clips (C6 · C4 · C1, fallback C3 · C4 · C1) from clips.json cues (wording as heard on the iMac,
+clips-zeiten.txt; cue times from a forced alignment of the cut clip, clips_json.py); figures as digits."""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']; sys.setrecursionlimit(5000)
 # spoken numbers -> digits (longest patterns first: merge() takes the first pattern that matches at a word)
-NUM = [('a hundred and twenty-two billion dollars', '$122 billion'), ('sixty-five billion dollars', '$65 billion'), ('nearly forty thousand words', 'nearly 40,000 words'),
-       ('about fifty-three percent', 'about 53%'), ('Eighty-three percent', '83%'), ('more than a billion', 'more than 1 billion'), ('Three days later', '3 days later')]   # film 63: spoken figures as digits
+NUM = [('twenty fifty', '2050'), ('twelve years', '12 years'), ('nine days', '9 days'), ('three free hours', '3 free hours'), ('A\\.I\\.', 'AI')]   # film 74: spoken figures as digits, 'A.I.' (spelled for the voice) as AI
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s

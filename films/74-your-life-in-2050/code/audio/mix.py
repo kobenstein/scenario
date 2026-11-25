@@ -1,154 +1,92 @@
 #!/usr/bin/env python3
-"""Film 63 (from Film 66 / 59) · mix VO (vo_only.wav) + slot audio (clips C1 / C3 / C5 Pope Leo XIV, C4 Chris Olah = original footage; while a clip is not cut yet its slot is silent)
-+ music cues (Lyria 3.5, M0-M5)
-(ducked under the voice, extra -6 dB under every clip slot) + SFX -> mix.wav (-14 LUFS, TP <= -1 dB), mix.m4a, mix_preview.mp3. No QR windows.
-Method as Film 54 (films/24-animals/audio/mix.py): music cues and SFX are anchored on takes/slots/sections/words, not on seconds:
-  music/cues.json  [{"f": "M1", "at": "t09" | "L2" (= section id: start of its first take) | "C2" (slot) | "END", "dt": -0.4, "fin": 2.0, "fout": 4.0, "off": 0, "d": null, "opts": {"repeat": [t1, t2]}}]
-                   "end": "L2" (optional) = the cue is cut to end at the end of that take/section + "end_dt" s (fade-out inside it)
-  sound_plan.json  beds: {"f": "room", "at": "t00", "end": "END", "v": 0.4, "fade": 3} or {"f": .., "from_word": "..", "to_word": "..", "dt", "end_dt", "v", "fade"} (looped)
-                   one-shot accents on a phrase: {"f": "card", "word": "Many doubt it", "nth": 0, "dt": -0.3, "peak": null, "v": 0.6, "once": true}
-                   ("at_end": true = anchor on the END of the phrase; peak = seconds of the transient in the file, null/absent = loudest sample)
-Slot audio: <clipwav>/<id>.wav (the whole Cn.mp4, clips_wav.py) at slot start + offset (clips.json), level = the voice's, music ducked under the slot.
-usage: mix.py <audio_dir> [wav_dir]   (vo_only.wav, clipwav/, music/, sfx/, stems, premix and mix.wav live in wav_dir, a scratchpad)"""
-import json, os, subprocess, sys
+"""Film 74 'Your Life in 2050 If We Get AI Right' · mix: vo_master.wav (VO + the clip slots C6 Mawakana · C4 · C1 Hassabis, original footage; fallback set C3 · C4 · C1: run on variants/C3 + its wav dir)
++ music (ElevenLabs music, composition_plan, three tracks M1 0:00 · M2 at section M · M3 at section P; prompts in music/prompts.json)
++ beds (atmos, looped) + accents (Mirelo SFX 2.0 and sfx-bibliothek), all anchored on rows of docs/shots.md (rows.json = film.mjs rowTimes) or on words.
+Music and beds duck under the voice (voice envelope of vo_only.wav, attack .12 s, release .6 s): music sits ~19 dB under the voice while it speaks,
+~12 dB under it in the gaps, a further 6 dB down under every clip slot. Then loudnorm to -14 LUFS, true peak <= -1 dB.
+usage: mix.py <audio_dir (timing.json)> <wav_dir (vo_master.wav, vo_only.wav, rows.json, music/, sfx/)>  -> <wav_dir>/mix.wav, mix.m4a"""
+import json, subprocess, sys
 import numpy as np
-A = sys.argv[1].rstrip('/') + '/'; W = (sys.argv[2].rstrip('/') + '/') if len(sys.argv) > 2 else A; SR = 48000
-ROOT = os.environ.get('F63ROOT', '/mnt/project-files/scenario/film-papst').rstrip('/')
-CLIPDIR = os.environ.get('F63CLIPWAV', W + 'clipwav').rstrip('/') + '/'      # C-clip wavs (<id>.wav = the whole cut file clips/<id>.mp4; no file = silent slot)
-def load(f, af=None):
-    raw = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f] + (['-af', af] if af else []) + ['-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'])
+A, D = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
+SR = 48000
+T = json.load(open(A + 'timing.json')); R = json.load(open(D + 'rows.json')); N = int(T['duration'] * SR)
+WORDS = T['words']
+def load(f):
+    raw = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', f, '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'])
     return np.frombuffer(raw, np.float32).reshape(-1, 2).copy()
-def rms(x): return float(np.sqrt(np.mean(x ** 2)) + 1e-9)
 def db(v): return 10 ** (v / 20)
-ASSETS = W if os.path.isdir(W + 'music') else A   # music/<M>.mp3 and sfx/<name>.mp3 are big files: they live in the scratchpad (wav_dir), not in the repo
-timing = json.load(open(A + 'timing.json')); N = int(timing['duration'] * SR)
-SEC, SLOT, LEV = timing['sections'], {c['id']: c for c in timing['slots']}, timing['levels']
-WORDS = timing['words']
-def at(key, end=False):
-    if key == 'END': return timing['duration']
-    if key in SEC: return SEC[key]['end' if end else 'start']
-    if key in SLOT: return SLOT[key]['end' if end else 'start']
-    if key.startswith('L') and key[1:] in LEV: return LEV[key[1:]]['end' if end else 'start']
-    raise KeyError(key)
-def wordat(phrase, nth=0, end=False):
-    q = [w.lower().strip('.,!?:;"“”') for w in phrase.split()]; hit = 0
+def word(ph, after=0.0):   # start of a phrase in the VO
+    q = ph.lower().split()
     for i in range(len(WORDS) - len(q) + 1):
-        if [w['w'].lower().strip('.,!?:;"“”') for w in WORDS[i:i + len(q)]] == q:
-            if hit == nth: return WORDS[i + len(q) - 1]['e'] if end else WORDS[i]['s']
-            hit += 1
-    raise KeyError(phrase)
-vo = load(W + 'vo_only.wav')[:N]   # Film 59/66/63: vo_master.wav already holds the clip sound (Hoerfassung); the mix adds the clips itself; vo = np.pad(vo, ((0, N - len(vo)), (0, 0)))
-VO_BOOST = float(os.environ.get('VO_BOOST', 2))   # voice +2 dB over music/SFX at the same -14 LUFS total (Jakob 31.10.)
-vo *= db(-20 + VO_BOOST) / rms(vo[np.abs(vo).max(1) > 1e-3])
-env = np.abs(vo).max(1); hop = SR // 100
-e = np.array([env[i:i + hop].max() for i in range(0, N, hop)]) > 0.02
-act = np.zeros(len(e)); a = 0.0
-for i, v in enumerate(e): a = min(1, a + .12) if v else max(0, a - .02); act[i] = a   # ~80 ms attack, ~500 ms release
-duck = np.interp(np.arange(N), np.arange(len(act)) * hop, act)
-CLIPS = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
-if isinstance(CLIPS.get('clips'), list): CLIPS = {c['id']: c for c in CLIPS['clips']}
-clipbuf = np.zeros((N, 2), np.float32); slotmask = np.zeros(N); vbuf = np.zeros(N)
-for c in timing['slots']:
-    s0, s1 = int(c['start'] * SR), int(c['end'] * SR)
-    voiced = bool(CLIPS.get(c['id'], {}).get('voice'))   # a narrator take in the slot (quote card K3): behaves like the VO, the music is ducked by -6 dB only while it speaks and is not pushed further down
-    if not voiced: duck[max(0, s0 - SR // 4):s1 + SR // 4] = np.maximum(duck[max(0, s0 - SR // 4):s1 + SR // 4], 1)   # music ducked under every slot, also while it is still silent
-    if not voiced: slotmask[max(0, s0 - SR // 3):s1 + SR // 3] = 1
-    f = CLIPDIR + f"{c['id']}.wav"   # Film 63: slot 'file' is the picture file (Cn.mp4, for the edit); the sound is always clipwav/<id>.wav
-    if os.path.exists(f):
-        k = CLIPS.get(c['id'], {})
-        x = load(f, k.get('af'))
-        if k.get('dur'): x = x[:int(k['dur'] * SR)]
-        x = x.copy(); fi, fo = int(k.get('fade_in', .01) * SR), int(k.get('fade_out', .06) * SR); x[:fi] *= np.linspace(0, 1, fi)[:, None]; x[-fo:] *= np.linspace(1, 0, fo)[:, None]
-        x *= db(-20 + VO_BOOST + k.get('gain_db', 0)) / rms(x[np.abs(x).max(1) > 1e-3])   # same level as the voice, then gain_db
-        o = s0 + int(k.get('offset', 0) * SR); n = min(len(x), s1 - o); clipbuf[o:o + n] += x[:n]
-        if voiced: vbuf[o:o + n] = np.maximum(vbuf[o:o + n], np.abs(x[:n]).max(1))
-        print(c['id'], 'slot audio', round(len(x) / SR, 2), 's at', round(o / SR, 3))
-    else: print(c['id'], 'slot silent (no', f, ')')
-if vbuf.any():   # the voiced slot drives the duck like the VO (same 80 ms attack / 500 ms release)
-    ev = np.array([vbuf[i:i + hop].max() for i in range(0, N, hop)]) > 0.02; av = np.zeros(len(ev)); b = 0.0
-    for i, v in enumerate(ev): b = min(1, b + .12) if v else max(0, b - .02); av[i] = b
-    duck = np.maximum(duck, np.interp(np.arange(N), np.arange(len(av)) * hop, av))
-def place(buf, x, t, gain=1.0, fin=0.0, fout=0.0, d=None, loop=False):
-    s = int(t * SR); n = int(d * SR) if d else len(x)
-    if loop and n > len(x): x = np.tile(x, (n // len(x) + 1, 1))
-    x = x[:n].copy(); n = len(x)
-    if fin: k = min(n, int(fin * SR)); x[:k] *= np.linspace(0, 1, k)[:, None]
-    if fout: k = min(n, int(fout * SR)); x[n - k:] *= np.linspace(1, 0, k)[:, None]
-    if s < 0: x = x[-s:]; s = 0
-    e2 = min(N, s + len(x)); buf[s:e2] += x[:e2 - s] * gain
+        if WORDS[i]['s'] < after: continue
+        if all(WORDS[i + j]['w'].lower().strip('.,!?"“”') .startswith(q[j]) for j in range(len(q))): return WORDS[i]['s']
+    raise SystemExit('phrase not found: ' + ph)
+vo, vonly = load(D + 'vo_master.wav')[:N], load(D + 'vo_only.wav')[:N]
+vo = np.pad(vo, ((0, N - len(vo)), (0, 0))); vonly = np.pad(vonly, ((0, N - len(vonly)), (0, 0)))
+# voice envelope (speaking 0/1), smoothed
+hop = SR // 100; e = np.sqrt(np.mean(vonly[: len(vonly) // hop * hop].reshape(-1, hop, 2) ** 2, axis=(1, 2)))
+speak = (20 * np.log10(e + 1e-9) > -38).astype(float)
+for s in T['slots']: speak[int(s['start'] * 100): int(s['end'] * 100)] = 1   # the clips are speech too
+sm = np.zeros_like(speak); a_up, a_dn = 1 - np.exp(-1 / 12), 1 - np.exp(-1 / 60); v = 0.0
+for i, x in enumerate(speak): v += (x - v) * (a_up if x > v else a_dn); sm[i] = v
+clip = np.zeros_like(speak)
+for s in T['slots']: clip[int((s['start'] - .3) * 100): int((s['end'] + .3) * 100)] = 1
+clip = np.convolve(clip, np.ones(40) / 40, 'same')
+env = lambda x: np.interp(np.arange(N) / SR, np.arange(len(x)) / 100, x)[:, None]
+SPEAK, CLIP = env(sm), env(clip)
+mk = np.repeat(speak, hop) > 0; vrms = float(np.sqrt(np.mean(vonly[:len(mk)][mk] ** 2)))   # the voice's level while it speaks
+def lvl(x): return float(np.sqrt(np.mean(x ** 2)) + 1e-9)
+out = vo.copy()
+# ---------------------------------------------------------------- music: three tracks, each fades in/out at its seams
 music = np.zeros((N, 2), np.float32)
-MUSIC_DB, DUCK = float(os.environ.get('MUSIC_DB', -26)), 0.5   # cue RMS -26 dB, -6 dB under speech -> music ~12 dB under the voice
-def ride(x, strength=0.4, win=3.0, lo=-6, hi=4):
-    """slow gain rider: pulls the cue's 3-s loudness toward its mean so a loud passage in a Lyria cue does not jump out"""
-    hop = SR // 10; e = np.sqrt(np.convolve((x ** 2).mean(1)[::hop], np.ones(int(win * 10)) / int(win * 10), 'same')) + 1e-6
-    g = np.clip(-strength * 20 * np.log10(e / np.sqrt(np.mean(e ** 2))), lo, hi)
-    return x * db(np.interp(np.arange(len(x)), np.arange(len(g)) * hop, g))[:, None]
-def splice(x, t1, t2, xf=2.0):
-    """lengthen a cue by t2-t1: play it to t2, crossfade back to t1 and play on"""
-    a, b, k = int(t2 * SR), int(t1 * SR), int(xf * SR)
-    ramp = np.linspace(0, 1, k)[:, None]
-    return np.concatenate([x[:a - k // 2], x[a - k // 2:a + k - k // 2] * (1 - ramp) + x[b - k // 2:b + k - k // 2] * ramp, x[b + k - k // 2:]])
-for cue in json.load(open(A + 'music/cues.json')):
-    t = at(cue['at']) + cue.get('dt', 0); o = cue.get('opts', {}); off = cue.get('off', 0)
-    d = cue.get('d') or ((at(cue['end'], True) + cue.get('end_dt', 0) - t) if cue.get('end') else None)
-    x = load(ASSETS + f"music/{cue['f']}.mp3")
-    for rp in ([o['repeat']] if o.get('repeat') and not isinstance(o['repeat'][0], list) else o.get('repeat', [])): x = splice(x, *rp, o.get('xf', 2.0))
-    while d and len(x) - int(off * SR) < d * SR:   # Film 63: real clips can make a chapter longer than its cue -> repeat the middle third (crossfade) until it fits
-        L = len(x) / SR; x = splice(x, L / 3, 2 * L / 3, o.get('xf', 3.0)); print('  extended', cue['f'], 'to', round(len(x) / SR, 1), 's')
-    if o.get('align_end') and d: off = max(0.0, len(x) / SR - d)   # Film 63: the cue's own ending lands on the end of its span (M5: the decaying last chord on the end screen)
-    x *= db(MUSIC_DB + o.get('gain_db', 0)) / rms(x)
-    if o.get('ride', 0.4): x = ride(x, o.get('ride', 0.4))
-    place(music, x[int(off * SR):], t, 1, cue.get('fin', 2), cue.get('fout', 4), d)
-    print('music', cue['f'], 'from', round(t, 1), 'length', round(d, 1) if d else 'natural', 'file', round(len(x) / SR, 1), 's')
-SLOT_DUCK = float(os.environ.get('SLOT_DUCK', 0.5))   # extra x0.5 (-6 dB) under O-Ton and interview clips: music ~18 dB under them (total x0.25)
-smooth = np.convolve(slotmask, np.ones(SR // 5) / (SR // 5), 'same')
-music *= (1 - DUCK * duck)[:, None]          # -6 dB under the voice
-music *= (1 - SLOT_DUCK * smooth)[:, None]
-sfx = np.zeros((N, 2), np.float32); cache = {}
-for c in (json.load(open(A + 'sound_plan.json')) if os.path.exists(A + 'sound_plan.json') else []):
-    if c['f'] not in cache: cache[c['f']] = load(ASSETS + f"sfx/{c['f']}.mp3")
-    x = cache[c['f']]
-    if c.get('peak') is None: c['peak'] = float(np.argmax(np.abs(x).max(1)) / SR) - c.get('off', 0)   # Film 59: transient = loudest sample
-    if c.get('word'):   # one-shot accent on a spoken phrase
-        t = wordat(c['word'], c.get('nth', 0), c.get('at_end', False)) + c.get('dt', 0) - c.get('peak', 0)
-        g = db(float(os.environ.get('ACCENT_DB', -15))) / (np.abs(x).max() + 1e-9) * c['v']   # accents are normalised on their PEAK (short transients)
-        place(sfx, x[int(c.get('off', 0) * SR):], t, g, 0.0, c.get('fade', 0.3), c.get('d'), False)
-        print('sfx', c['f'], 'on', repr(c['word']), 'at', round(t, 2)); continue
-    if c.get('once'):   # one-shot accent anchored on a take / slot / section (at_end = its end), transient at `peak`
-        t = at(c['at'], c.get('at_end', False)) + c.get('dt', 0) - c.get('peak', 0)
-        g = db(float(os.environ.get('ACCENT_DB', -15))) / (np.abs(x).max() + 1e-9) * c['v']
-        place(sfx, x[int(c.get('off', 0) * SR):], t, g, 0.0, c.get('fade', 0.3), c.get('d'), False)
-        print('sfx', c['f'], 'at', c['at'], 'from', round(t, 2)); continue
-    if c.get('from_word'):   # bed between two spoken phrases (from_word start .. to_word end)
-        t0 = wordat(c['from_word'], c.get('from_nth', 0)) + c.get('dt', 0); t1 = wordat(c['to_word'], c.get('to_nth', 0), True) + c.get('end_dt', 0)
-        g = db(float(os.environ.get('SFX_DB', -30))) / rms(x) * c['v']
-        place(sfx, x[int(c.get('off', 0) * SR):], t0, g, c.get('fade', 1.5), c.get('fade', 1.5), t1 - t0, True)
-        print('sfx bed', c['f'], 'from', round(t0, 1), 'to', round(t1, 1)); continue
-    t = at(c['at']) + c.get('dt', 0); d = (at(c['end'], True) - t) if c.get('end') else c.get('d')
-    g = db(float(os.environ.get('SFX_DB', -30))) / rms(x) * c['v']
-    place(sfx, x[int(c.get('off', 0) * SR):], t, g, c.get('fade', 1.5), c.get('fade', 1.5), d, True)
-    print('sfx', c['f'], 'from', round(t, 1), 'for', round(d, 1) if d else 'natural')
-sfx *= (1 - 0.15 * duck)[:, None]
-sfx *= (1 - 0.5 * smooth)[:, None]      # atmos and accents half as loud under O-Ton and clips
-mix = vo + clipbuf + music + sfx
-for name, buf in [('stem_music', music), ('stem_sfx', sfx), ('premix', mix)]:
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-i', '-', W + name + '.wav'], input=buf.astype(np.float32).tobytes(), check=True)
-def measure(f):
-    o = subprocess.run(['ffmpeg', '-hide_banner', '-i', f, '-af', 'loudnorm=I=-14:TP=-1:LRA=11:print_format=json', '-f', 'null', '-'], capture_output=True, text=True).stderr
-    return json.loads(o[o.rfind('{'):o.rfind('}') + 1])
-m = measure(W + 'premix.wav'); src = W + 'premix.wav'; print('premix', m['input_i'], 'LUFS', m['input_tp'], 'dBTP')
-gain = -14 - float(m['input_i'])
-if float(m['input_tp']) + gain > -1.5:   # transparent limiter first so linear loudnorm can reach -14 LUFS exactly
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', f'volume={gain + 0.8:.2f}dB,alimiter=limit={db(-2.0):.4f}:attack=3:release=80:level=false',
-                    '-ar', '48000', '-c:a', 'pcm_f32le', W + 'premix_lim.wav'], check=True)
-    src = W + 'premix_lim.wav'; m = measure(src); print('limited', m['input_i'], 'LUFS', m['input_tp'], 'dBTP')
-af = f"loudnorm=I=-14:TP=-1:LRA=11:measured_I={m['input_i']}:measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true"
-subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-af', af, '-ar', '48000', W + 'mix.wav'], check=True)
-if src != W + 'premix.wav': os.remove(src)
-fin = measure(W + 'mix.wav'); print('FINAL mix.wav', fin['input_i'], 'LUFS, true peak', fin['input_tp'], 'dBTP, LRA', fin['input_lra'])
-# delivery copies: mix.m4a (AAC 192k through a 4x-oversampled limiter at -2 dBFS: about -1.5 dBTP after decoding) and mix_preview.mp3 (128k, for listening)
-subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', W + 'mix.wav', '-af', f'volume=0.3dB,aresample=192000,alimiter=limit={db(-2.0):.4f}:attack=1:release=50:level=false,aresample=48000',
-                '-c:a', 'aac', '-b:a', '192k', W + 'mix.m4a'], check=True)
-subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', W + 'mix.wav', '-af', f'aresample=192000,alimiter=limit={db(-1.5):.4f}:attack=1:release=50:level=false,aresample=44100',
-                '-c:a', 'libmp3lame', '-b:a', '128k', W + 'mix_preview.mp3'], check=True)
-print('-> mix.wav, mix.m4a, mix_preview.mp3')
+for f, t0, fin, fout in [('M1', 0.0, 0.0, 3.0), ('M2', R['M.01'] - .4, 1.5, 3.0), ('M3', R['P.01'] - .4, 1.5, 0.0)]:
+    x = load(D + f'music/{f}.mp3'); x *= vrms * db(-12) / lvl(x)
+    i0 = int(t0 * SR); x = x[: N - i0]; n = len(x); g = np.ones(n)
+    if fin: g[: int(fin * SR)] = np.linspace(0, 1, int(fin * SR))
+    if fout: g[-int(fout * SR):] *= np.linspace(1, 0, int(fout * SR))
+    music[i0: i0 + n] += x * g[:, None]
+music *= db(-7) ** SPEAK * db(-6) ** CLIP      # -7 dB more while the voice speaks, -6 dB more under the clips
+end = R['END']; music *= np.clip(1 + (np.arange(N) / SR - end) / 2.0 * db(4) * (np.arange(N) / SR > end), 1, db(4))[:, None]   # the end screen: music rises a little
+out += music
+# ---------------------------------------------------------------- beds (looped atmos), ducked like the music
+def bed(f, t0, t1, rel, fade=1.5):
+    x = load(D + f'sfx/{f}.mp3'); x *= vrms * db(rel) / lvl(x); i0, i1 = int(t0 * SR), min(N, int(t1 * SR)); n = i1 - i0
+    y = np.tile(x, (n // len(x) + 1, 1))[:n]; g = np.ones(n); k = int(fade * SR); g[:k] = np.linspace(0, 1, k); g[-k:] *= np.linspace(1, 0, k)
+    out[i0:i1] += y * g[:, None] * (db(-5) ** SPEAK[i0:i1]) * (db(-6) ** CLIP[i0:i1])
+bed('dawn_birds', R['H.13'], R['1.01'], -27)
+bed('dawn_birds', R['2.01'], R['3.01'], -30)
+bed('city_street', R['3.01'], R['3.05'], -31)
+bed('square', R['5.01'], R['5.04'] + 2, -28)
+bed('dawn_birds', R['6.01'], R['6.04'], -30)
+bed('station', R['8.12'] - .5, R['8.15'], -27)
+bed('station', R['8.16'] - .3, R['8.17'], -28)
+bed('river', R['9.03'] - .4, R['9.04'] + .5, -24)
+bed('square', R['P.03'] - .8, R['P.07'], -25); bed('square', R['P.07'], R['E.05'], -30)
+bed('square', R['E.11'], R['E.12'], -30); bed('square', R['E.17'], T['duration'], -26, fade=3)
+# ---------------------------------------------------------------- accents
+def hit(f, t, rel, d=None, fade=.3):
+    x = load(D + f'sfx/{f}.mp3')
+    if d: x = x[: int(d * SR)]; k = int(fade * SR); x[-k:] *= np.linspace(1, 0, k)[:, None]
+    pk = np.max(np.abs(x)) + 1e-9; x *= vrms * db(rel) * 3 / pk   # peak ~3x the voice rms at rel 0
+    i0 = int(t * SR); n = min(len(x), N - i0); out[i0: i0 + n] += x[:n]
+hit('alarm', R['H.11'] + .1, -12, d=2.2)                               # it screamed at you every morning (on the paper card)
+hit('door', R['H.15'] - .2, -14)
+hit('chime', R['5.03'] - .05, -10); hit('shimmer_rings', R['5.04'], -16)   # noon; the whole street chimes
+hit('coin', R['5.06'] + 1.0, -18)
+for row, nxt in [('8.05', '8.06'), ('8.06', '8.07'), ('8.07', '8.08')]: hit('stamp', min(R[row] + .5, R[nxt] - .25), -10)   # DECADES
+hit('ship', R['8.15'] + .2, -14)
+hit('splash', R['9.03'] + .6, -18)
+hit('wolf', word('wolves', R['9.04']) - .2, -12)
+hit('paper_slide', R['P.07'] + .1, -18); hit('card', R['P.08'] - .1, -18)
+hit('alarm', R['E.19'] + 1.6, -6)                                       # she winds the old clock, and it starts to ring
+hit('alarm', R['E.21'] + .2, -11)
+# ---------------------------------------------------------------- loudness: two-pass loudnorm to -14 LUFS, TP -1
+pre = D + 'premix.wav'
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(SR), '-ac', '2', '-i', '-', '-c:a', 'pcm_f32le', pre], input=out.astype(np.float32).tobytes(), check=True)
+m = subprocess.run(['ffmpeg', '-hide_banner', '-i', pre, '-af', 'loudnorm=I=-14:TP=-1:LRA=11:print_format=json', '-f', 'null', '-'], capture_output=True, text=True).stderr
+j = json.loads(m[m.rindex('{'):])
+af = f"loudnorm=I=-14:TP=-1:LRA=11:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true"
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', pre, '-af', af, '-ar', '48000', '-c:a', 'pcm_s24le', D + 'mix.wav'], check=True)
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', D + 'mix.wav', '-c:a', 'aac', '-b:a', '256k', D + 'mix.m4a'], check=True)
+m = subprocess.run(['ffmpeg', '-hide_banner', '-i', D + 'mix.wav', '-af', 'loudnorm=I=-14:TP=-1:print_format=json', '-f', 'null', '-'], capture_output=True, text=True).stderr
+j = json.loads(m[m.rindex('{'):]); print('mix.wav', T['duration'], 's · integrated', j['input_i'], 'LUFS · true peak', j['input_tp'], 'dBTP · LRA', j['input_lra'])

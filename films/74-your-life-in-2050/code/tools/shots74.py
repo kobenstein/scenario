@@ -66,9 +66,15 @@ ROWS = [
 ('2.05', "You don't own it", 'M', 'an elevator icon beside the car: CALLED · RIDDEN · GONE', 'y', 'the elevator door', ''),
 ('2.06', 'So the parking spaces became', 'M', 'the aerial street: parking bays fold over into garden beds · card TODAY: PARIS VOTED TO TURN 500 MORE STREETS GREEN AND CAR-FREE (2025)', 'y', 'the beds', ''),
 ('2.07', 'And the roads stopped killing', 'M', 'over the aerial street: counter TODAY 1.16 MILLION ROAD DEATHS A YEAR (WHO) runs down · GONE 2 · PARKED CARS · ROAD DEATHS', 'y', 'the counter', ''),
-('2.08', "It didn't come smoothly", 'M', 'paper flashback card: BACK IN THE TWENTIES', 'y', 'the card', ''),
-('2.09', 'Back in the twenties, the first driverless', 'E', 'FREEWAY schema on the card: robotaxis stop at a work zone · TODAY: NOV 2026 · CALIFORNIA\'S REGULATOR ORDERS WAYMO\'S ROBOTAXIS OFF THE FREEWAYS', 'y', 'the freeway', ''),
-('2.10', 'A regulator ordered them off', 'E', 'a stamp OFF THE FREEWAYS hits, the taxis leave the lanes', 'y', 'the stamp', ''),
+# station 2 · the clip set C6 (vo-v3, default): the old screen at the kerb, C6 Mawakana, then the freeway (the DMV card after the clip)
+('2.08', 'Back in the twenties, a woman', 'M', 'the camera swings to the kerb: an old flat screen leans against a garden wall and becomes a frame (carrier for all three clips) · BACK IN THE TWENTIES · A ROBOTAXI COMPANY', 'y', 'the screen frame', '', 'C6'),
+('C6', None, 'C', 'ORIGINAL FOOTAGE · TEKEDRA MAWAKANA · CO-CEO, WAYMO · 2026: "…we want to be the world\'s most trusted driver." Grows out of the old screen and back', 'y', 'the screen', '', 'C6'),
+('2.09', "A pitch isn't proof", 'M', 'the screen tips back against the wall; a paper flashback card A PITCH · PROOF? unfolds out of it', 'y', 'the card', '', 'C6'),
+('2.10', 'When her cars ran into trouble', 'E', 'FREEWAY schema on the card: robotaxis stop at a work zone; on "ordered" the stamp OFF THE FREEWAYS hits, the taxis leave the lanes · TODAY: NOV 2026 · CALIFORNIA\'S REGULATOR ORDERS WAYMO\'S ROBOTAXIS OFF THE FREEWAYS (~2:36)', 'y', 'the stamp', '', 'C6'),
+# station 2 · fallback C3 (vo-v2): no clip here
+('2.08', "It didn't come smoothly", 'M', 'paper flashback card: BACK IN THE TWENTIES', 'y', 'the card', '', 'C3'),
+('2.09', 'Back in the twenties, the first driverless', 'E', 'FREEWAY schema on the card: robotaxis stop at a work zone · TODAY: NOV 2026 · CALIFORNIA\'S REGULATOR ORDERS WAYMO\'S ROBOTAXIS OFF THE FREEWAYS', 'y', 'the freeway', '', 'C3'),
+('2.10', 'A regulator ordered them off', 'E', 'a stamp OFF THE FREEWAYS hits, the taxis leave the lanes', 'y', 'the stamp', '', 'C3'),
 ('2.11', 'They had to earn the road back', 'E', 'section by section the lanes light up again, the taxis return', 'y', 'the lane', ''),
 ('2.12', 'So who keeps a street like this', 'S', 'back on the street: the camera starts to tilt up the house fronts', 'y', 'the roof line', ''),
 ('2.13', 'Look up', 'S', 'tilt up to the roofs', 'n', 'the roof', ''),
@@ -86,9 +92,9 @@ ROWS = [
 ('3.11', 'The house on it barely does', 'M', 'the HOUSE tag shrinks to almost nothing · card TODAY: 3D-PRINTED HOUSE WALLS · ABOUT 40% CHEAPER (COMPANY CLAIM, 2026)', 'n', 'the tags', ''),
 ('3.12', 'So machines build, mend and drive', 'M', 'on the street (roof robot, the new house, the car): BUILD · MEND · DRIVE tick off in a row, a fourth box YOU stays empty', 'y', 'the empty box', ''),
 ('3.13', 'What is left for you', 'M', 'the empty box YOU with a question mark', 'n', 'the empty box', ''),
-('3.14', 'Back in the twenties, even the head', 'M', 'an old flat screen leans against the garden wall and becomes a frame (carrier for all three clips)', 'y', 'the screen frame', ''),
-('C3', None, 'C', 'ORIGINAL FOOTAGE · DEMIS HASSABIS · CEO, GOOGLE DEEPMIND · 2026: "…We don\'t know. Nobody knows." Grows out of the old screen and back', 'y', 'the screen', ''),
-('3.15', 'And he was building the machines', 'M', 'the frame tips back against the wall; the box YOU is still empty on it', 'y', 'the wall', ''),
+('3.14', 'Back in the twenties, even the head', 'M', 'an old flat screen leans against the garden wall and becomes a frame (carrier for all three clips)', 'y', 'the screen frame', '', 'C3'),
+('C3', None, 'C', 'ORIGINAL FOOTAGE · DEMIS HASSABIS · THEN CEO, GOOGLE DEEPMIND · MAY 2026: "…We don\'t know. Nobody knows." Grows out of the old screen and back', 'y', 'the screen', '', 'C3'),
+('3.15', 'And he was building the machines', 'M', 'the frame tips back against the wall; the box YOU is still empty on it', 'y', 'the wall', '', 'C3'),
 ('3.16', 'The answer waits on the town square', 'S', 'far at the end of the street: the town square, a price tag turned away', 'y', 'the square', ''),
 ('3.17', 'But machines like these run day', 'E', 'DAY · NIGHT band, machine rings keep turning through the night', 'y', 'the band', ''),
 ('3.18', 'So somebody must be paying', 'E', 'an old power meter spins up, an envelope POWER BILL swells', 'y', 'the envelope', ''),
@@ -119,9 +125,10 @@ ROWS = [
 ('5.09', 'In your old life, the end of the month', 'E', 'MONTH CALENDAR, left 2026: the account bar drains to the 30th · GONE 5 · FEAR OF THE END OF THE MONTH', 'y', 'the 30th', ''),
 ('5.10', "Here, it's when the money arrives", 'E', 'right 2050: on the same day the bar fills', 'n', 'the bar', ''),
 ('5.11', 'It was never guaranteed', 'M', 'paper flashback card BACK IN THE TWENTIES at the fountain', 'y', 'the card', ''),
-('5.12', 'Back in the twenties, that same lab chief', 'M', 'the old screen again, now at the fountain', 'y', 'the screen', ''),
+('5.12', 'Back in the twenties, the head', 'M', 'the old screen again, now at the fountain (C6 set: the lab chief is introduced here)', 'y', 'the screen', '', 'C6'),
+('5.12', 'Back in the twenties, that same lab chief', 'M', 'the old screen again, now at the fountain', 'y', 'the screen', '', 'C3'),
 ('5.13', 'Listen to how sure he sounds', 'M', 'beat: the screen lights', 'n', 'the screen', ''),
-('C4', None, 'C', 'ORIGINAL FOOTAGE · DEMIS HASSABIS · CEO, GOOGLE DEEPMIND · DAVOS 2026: "…I don\'t know if we have the right institutions…"', 'y', 'the screen', ''),
+('C4', None, 'C', 'ORIGINAL FOOTAGE · DEMIS HASSABIS · THEN CEO, GOOGLE DEEPMIND · DAVOS, JAN 2026: "…I don\'t know if we have the right institutions…"', 'y', 'the screen', ''),
 ('5.14', "He didn't know", 'E', 'I DON\'T KNOW stays as type and tips away', 'y', 'the type', ''),
 ('5.15', 'And it was never his to decide', 'E', 'beat: the type falls', 'n', 'the map', ''),
 ('5.16', 'Countries decided, one vote', 'E', 'WORLD MAP: ballots drop into one country after another', 'y', 'the ballot', ''),
@@ -172,7 +179,7 @@ ROWS = [
 ('8.16', 'She says the Earth looked small', 'S', 'her hand at the window: the Earth fits between thumb and finger', 'y', 'the Earth', ''),
 ('8.17', 'Back in the twenties, the same lab chief put', 'M', 'the old screen a third time, on a bench', 'y', 'the screen', ''),
 ('8.18', 'He had something to sell', 'E', 'a flat curve ECONOMISTS · 2026: EVEN WITH RAPID AI, ECONOMISTS EXPECT ABOUT 4% GROWTH A YEAR', 'y', 'the screen', ''),
-('C1', None, 'C', 'ORIGINAL FOOTAGE · DEMIS HASSABIS · CEO, GOOGLE DEEPMIND · 2026: "…over a decade instead of a century."', 'y', 'the screen', ''),
+('C1', None, 'C', 'ORIGINAL FOOTAGE · DEMIS HASSABIS · THEN CEO, GOOGLE DEEPMIND · MAY 2026: "…over a decade instead of a century."', 'y', 'the screen', ''),
 ('8.19', 'In this version of twenty fifty', 'E', 'two curves LAB CHIEF · ECONOMISTS; the 2050 mark of this story lies near his', 'y', 'the path', ''),
 ('8.20', 'But one thing still takes decades', 'S', 'EVENING PATH: you walk past the last house', 'y', 'the last house', ''),
 ('8.21', 'You can see it past the last house', 'S', 'beat: behind it, young trees', 'n', 'the trees', ''),
@@ -223,8 +230,13 @@ ROWS = [
 ('E.21', "The children think it's music", 'S', 'the children dance to the ringing', 'y', 'the dancing', ''),
 ('END', None, 'S', 'END SCREEN 15 s: the square at dusk, music and picture run on, the clock rings into the music, the children dance; the counter fades; end cards', 'y', '', ''),
 ]
+ROWS_ALL = ROWS
+def clipset(tf):   # C6 (vo-v3) or C3 (fallback vo-v2): which clip the timing file holds
+    return 'C6' if any(c['id'] == 'C6' for c in json.load(open(tf)).get('clips', [])) else 'C3'
+V = clipset(TF)
+ROWS = [r for r in ROWS_ALL if len(r) < 8 or r[7] == V]
 CHUNKS = [('c01', 'H.01', 'Hook: street, timeline, bedroom, kitchen, clock, door, your street'), ('c02', '1.01', 'Work optional: boat shed, motorbikes, your bench, week strip, rent'),
-          ('c03', '2.01', 'Crossing, the car, top view, road deaths, freeway'), ('c04', '3.01', 'Roof robot, printed house, BUILD MEND DRIVE, C3, power bill'),
+          ('c03', '2.01', 'Crossing, the car, top view, road deaths, the old screen + C6 (fallback: no clip), freeway'), ('c04', '3.01', 'Roof robot, printed house, BUILD MEND DRIVE (fallback: + C3), power bill'),
           ('c05', '4.01', 'Solar roofs, batteries, fusion, sea water, oranges, Australia, subscribe 1'), ('c06', '5.01', 'Noon chime, dividend day, C4, countries, co-owner'),
           ('c07', '6.01', 'No school bus, garden teacher, old school = workshop, bakery'), ('c08', '8.01', 'Decades, moon town, orbit, C1, curves'),
           ('c09', '9.01', 'Forest, river, wolves, square in the evening, somebody\'s time'), ('c10', 'E.01', 'Bench, sea monsters, core sentence, who is this for, subscribe 2, the clock rings, end screen')]
@@ -259,7 +271,7 @@ def main():
     new = sum(1 for r in ROWS if r[4] == 'y'); anchors = [r[0] for r in ROWS if r[6] == 'A']
     ft = lambda x: f'{int(x // 60)}:{x % 60:04.1f}'
     o = ['# Film 74 · "Your Life in 2050 If We Get AI Right" · shot list (binding, one row per sentence)', '',
-         f'Generated by `tools/shots74.py` from `{os.path.basename(TF)}`{" (PROVISIONAL timing from vo-v2/v3, the real VO replaces it)" if prov else " (real VO)"}, duration {dur:.1f} s. Edit the table in the script, never this file. **Code anchors on phrases, never on seconds.**', '',
+         f'Clip set **{V}**' + (' (vo-v3: C6 Mawakana in station 2, C4 · C1 Hassabis)' if V == 'C6' else ' (FALLBACK vo-v2: C3 · C4 · C1 Hassabis)') + f'. Generated by `tools/shots74.py` from `{os.path.basename(TF)}`{" (PROVISIONAL timing from vo-v2/v3, the real VO replaces it)" if prov else " (real VO)"}, duration {dur:.1f} s. Edit the table in the script, never this file. **Code anchors on phrases, never on seconds.**', '',
          '## 1 · Numbers (REGELN §13.2, computed before animating)', '',
          f'- **Explainer share (weighted): {share:.1f} %.** #74 deviates from §13.2 (60–70 %) on purpose: Jakob 25.11. "in dem fall viel 2,5 d szenen" + "real diese szenen aus dem ort zeigen um die es im script geht". Numbers, sources and "back in the twenties" ride on the scenes as MIX (paper cards, counter, clock).',
          '- Seconds by type: ' + ' · '.join(f'{NAME[k]} {v:.0f} s ({v / dur * 100:.0f} %)' for k, v in sorted(sec.items(), key=lambda kv: -kv[1])),
@@ -289,5 +301,6 @@ def main():
           '- **Older:** the big clock as a symbol of time (#20 Altern): the alarm clock here is a prop in the girl\'s hand, never a giant clock symbol; hourglass, server rack, brains, matrix code.']
     open(os.path.join(CODE, 'docs', 'shots.md'), 'w').write('\n'.join(o) + '\n')
     print(f'{len(ROWS)} rows · explainer share {share:.1f} % · scene+mix {(sec["S"] + sec["M"]) / dur * 100:.0f} % · S {sec["S"]:.0f}s M {sec["M"]:.0f}s E {sec["E"]:.0f}s C {sec["C"]:.0f}s · new {new} · anchors {anchors}')
-    json.dump([{'id': r[0], 'phrase': r[1], 'type': r[2], 't': st[i]} for i, r in enumerate(ROWS)], open(os.path.join(CODE, 'data', 'rows.json'), 'w'))
+    tm = {r[0]: st[i] for i, r in enumerate(ROWS)}   # rows.json holds BOTH clip sets ('v'); film.mjs picks the rows of the set in its timing file
+    json.dump([{'id': r[0], 'phrase': r[1], 'type': r[2], **({'v': r[7]} if len(r) > 7 else {}), 't': tm.get(r[0]) if len(r) < 8 or r[7] == V else None} for r in ROWS_ALL], open(os.path.join(CODE, 'data', 'rows.json'), 'w'))
 if __name__ == '__main__': main()

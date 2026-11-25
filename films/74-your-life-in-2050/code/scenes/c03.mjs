@@ -1,9 +1,12 @@
 // Film 74 · c03 THE CARS (2.03–3.04): the round car glides past, your street from above (one car, five doors, elevator, beds, road deaths),
+// C6 set: the old screen at the kerb, C6 (Mawakana) grows out of it, then the freeway card (fallback C3 set: the freeway card only),
 // the freeway flashback (stamp, lanes earned back), then the camera tilts up the house fronts to your roof: the robot, the gap, within the hour.
 import * as K from '../lib/f74_kit.mjs';
 import * as S from '../lib/f74_street.mjs';
 import * as PL from '../lib/f74_places.mjs';
 import { hourAt } from './hud.mjs';
+import { clipPlate } from './clips.mjs';
+import { gardenWall, SCREEN } from './c04.mjs';
 const { W, H, P, rgba, mixHex, clamp, lerp, span, cam3, aim, camK, project } = K;
 const look = (R, t) => K.hourLook(hourAt(R, t));
 // the round car seen from above
@@ -81,24 +84,52 @@ export default function c03(T, R) {
     },
     out: { k: 'iris', c: [W / 2, 480, 70], lead: .35, dur: 1.0 },
   };
-  // ---------------------------------------------------------------- 2.08–2.11 · BACK IN THE TWENTIES: the freeway (paper flashback, EXPL)
-  const S208 = {
-    id: '2.08',
+  const hasC6 = !!T.clip('C6');
+  // ---------------------------------------------------------------- the freeway (paper flashback, EXPL): taxis stop at a work zone, the stamp, the lanes earned back
+  // k: { stop, off, back } = row/word times as functions of the shot helpers; today = [from, to] of the DMV card
+  const freewayShot = (id, k) => ({
+    id,
     draw(ctx, t, s) {
-      const t9 = s.r('2.09'), t10 = s.r('2.10'), t11 = s.r('2.11');
+      const tStop = k.stop(s), tOff = k.off(s), tBack = k.back(s), [d0, d1] = k.today(s);
       K.dusk(ctx, t, { glow: [960, 520] });
       K.scr(ctx, (g) => {
         const z = 1 + .03 * span(t, s.a, s.b + 1); g.translate(960, 540); g.scale(z, z); g.translate(-960, -540);
-        K.paper(g, t, 110, 210, 1130, 640, clamp(span(t, s.a - .3, s.a + .6) - span(t, s.b - .2, s.b + .4)), { head: 'BACK IN THE TWENTIES · THE FREEWAY', draw: (q, x, y, w, h) => {
-          freeway(q, t, x, y + 20, w, h - 40, { stopU: span(t, t9 + .6, t9 + 1.2), offU: K.expoOut(span(t, t10 + .3, t10 + 1.2)), backU: span(t, t11 + .1, s.b - .1) });
-          const st = span(t, t10, t10 + .25); if (st > 0) { q.save(); q.translate(x + w * .5, y + h * .5); q.rotate(-.12); const k = lerp(1.8, 1, K.expoOut(st)); q.scale(k, k); q.globalAlpha = Math.min(1, st * 3) * (1 - span(t, t11 + .1, t11 + .6));
+        K.paper(g, t, 110, 210, 1130, 640, clamp(span(t, s.a - .3, s.a + .6) - span(t, s.b - .2, s.b + .4)), { head: k.head, draw: (q, x, y, w, h) => {
+          freeway(q, t, x, y + 20, w, h - 40, { stopU: span(t, tStop, tStop + .6), offU: K.expoOut(span(t, tOff + .3, tOff + 1.2)), backU: span(t, tBack + .1, s.b - .1) });
+          const st = span(t, tOff, tOff + .25); if (st > 0) { q.save(); q.translate(x + w * .5, y + h * .5); q.rotate(-.12); const kk = lerp(1.8, 1, K.expoOut(st)); q.scale(kk, kk); q.globalAlpha = Math.min(1, st * 3) * (1 - span(t, tBack + .1, tBack + .6));
             q.strokeStyle = '#c8473a'; q.lineWidth = 8; q.strokeRect(-280, -60, 560, 120); q.fillStyle = '#c8473a'; q.font = '800 64px Inter'; q.textAlign = 'center'; q.fillText('OFF THE FREEWAYS', 0, 22); q.restore(); }
+          if (k.pitch) { const pu = clamp(span(t, s.a + .2, s.a + .7) - span(t, k.pitch(s), k.pitch(s) + .5)); if (pu > 0) { q.save(); q.globalAlpha = pu; q.fillStyle = rgba('#f6efdc', .92); q.fillRect(x + w * .5 - 330, y + 60, 660, 110);
+            q.fillStyle = K.PAPER.ink; q.font = '800 58px Inter'; q.textAlign = 'center'; q.fillText('A PITCH ≠ PROOF', x + w * .5, y + 136); q.restore(); } }
         } });
       });
-      K.today(ctx, t, t9 + .3, t11 - .1, ['NOV 2026 · CALIFORNIA\'S REGULATOR', 'ORDERS WAYMO\'S ROBOTAXIS', 'OFF THE FREEWAYS'], 'CALIFORNIA DMV ORDER, 11 NOV 2026', { y: 300, x: 1290, size: 28 });
+      K.today(ctx, t, d0, d1, ['NOV 2026 · CALIFORNIA\'S REGULATOR', 'ORDERS WAYMO\'S ROBOTAXIS', 'OFF THE FREEWAYS'], 'CALIFORNIA DMV ORDER, 11 NOV 2026', { y: 300, x: 1290, size: 28 });
     },
     out: { k: 'sweep', dir: -1, w: 600, lead: .4, dur: 1.0 },
+  });
+  // fallback C3 set (vo-v2): "It didn't come smoothly. Back in the twenties, the first driverless taxis … A regulator ordered them off."
+  const S208 = !hasC6 && freewayShot('2.08', { head: 'BACK IN THE TWENTIES · THE FREEWAY', stop: (s) => s.r('2.09') + .6, off: (s) => s.r('2.10'), back: (s) => s.r('2.11'), today: (s) => [s.r('2.09') + .3, s.r('2.11') - .1] });
+  // ---------------------------------------------------------------- C6 set · 2.08 · C6 · the old screen leans against a garden wall at the kerb; the clip grows out of it
+  // "Back in the twenties, a woman running one of the first driverless taxi companies made her pitch." [C6] — then the freeway card unfolds out of the screen
+  const C6 = T.clip('C6');
+  const camKerb = hasC6 && ((t) => camK(t, [[RT('2.08') - 1, cam3({ z: -150, x: 80, y: -20 })], [RT('2.08') + 2.4, aim(1700, 960, 640, 1.25)], [C6.start, aim(1700, 960, 640, 1.32)], [C6.end + 1.2, aim(1700, 960, 650, 1.42)]], .7));
+  const kerbRect = (t) => { const c = camKerb(t), a = project(c, 1700, SCREEN[0], SCREEN[1]), b = project(c, 1700, SCREEN[0] + SCREEN[2], SCREEN[1] + SCREEN[3]); return [a[0], a[1], b[0] - a[0], b[1] - a[1]]; };
+  const S208c6 = hasC6 && {
+    id: '2.08',
+    draw(ctx, t, s) {
+      const L = look(R, t), lit = span(t, s.w('pitch') - .3, s.w('pitch') + .3);
+      gardenWall(ctx, t, camKerb(t), L, { walkers: true, onScreen: (g, x, y, w, h) => {
+        if (lit > 0) { K.halo(g, x + w / 2, y + h / 2, w * .8, .3 * lit * (.85 + .15 * Math.sin(t * 9))); }
+        // a small round taxi in blue ink on the dark screen, gliding (the company's product, before her words)
+        const a = span(t, s.a + .4, s.a + 1.2) * (1 - lit * .6); if (a > 0) { g.save(); g.globalAlpha = a; K.inkCar(g, x + w * (.3 + .4 * ((t * .08) % 1)), y + h * .72, .55, 1, '#8fb4ff'); g.restore(); }
+      } });
+      K.caps(ctx, 'BACK IN THE TWENTIES · A ROBOTAXI COMPANY', W / 2, 200, K.cardU(t, s.a + .3, C6.start - .2), { size: 28, align: 'center', col: '#ffe7a8' });
+      const m = span(t, C6.start - .6, C6.start + .2) - span(t, C6.end - .2, C6.end + .6);
+      if (m > 0) clipPlate(ctx, t, T, 'C6', kerbRect(t), m);
+    },
+    out: { k: 'portal', win: (t) => kerbRect(t), lead: .15, dur: 1.0 },
   };
+  // "A pitch isn't proof. When her cars ran into trouble on the freeways, a regulator ordered them off. They had to earn the road back." (the DMV card ~2:36)
+  const S209c6 = hasC6 && freewayShot('2.09', { head: 'BACK IN THE TWENTIES · THE FREEWAY', pitch: (s) => s.r('2.10') - .2, stop: (s) => s.r('2.10') + .6, off: (s) => T.G('ordered', 0, s.r('2.10')), back: (s) => s.r('2.11'), today: (s) => [s.r('2.10') + .2, s.r('2.11') - .1] });
   // ---------------------------------------------------------------- 2.12–3.04 · back on the street, tilt up to your roof: the robot, the gap, within the hour
   const camRoof = (t) => camK(t, [[RT('2.12') - 1, cam3({ z: 200, y: 80, x: -200 })], [RT('2.13'), cam3({ z: 300, y: -40, x: -420 })], [RT('3.01') - .1, aim(2600, -20, 420, 1.3, W * .5, H * .62), 'q'],
     [RT('3.02') - .1, aim(2600, -20, 420, 1.4, W * .5, H * .6)], [RT('3.02') + 1.2, aim(2600, 40, 520, 2.1, W * .45, H * .5), 'q'], [RT('3.03') + 1, aim(2600, 20, 500, 1.9, W * .4, H * .52)], [RT('3.05') + .5, aim(2600, 0, 480, 1.7, W * .4, H * .52)]]);
@@ -123,5 +154,5 @@ export default function c03(T, R) {
     },
     out: { k: 'portal', win: [980, 620, 700, 230], lead: .35, dur: 1.0 },
   };
-  return [S203, S204, S208, S212];
+  return [S203, S204, ...(hasC6 ? [S208c6, S209c6] : [S208]), S212];
 }

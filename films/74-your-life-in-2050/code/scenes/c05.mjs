@@ -154,7 +154,7 @@ export default function c05(T, R) {
         q.fillStyle = '#5a6080'; q.fillRect(x + 60, y + 60, 180, 30); q.fillRect(x + 210, y + 60, 30, 90); q.fillRect(x + 40, y + 40, 40, 60);
         for (let k = 0; k < 4; k++) { const p = (t * 1.3 + k / 4) % 1; q.fillStyle = rgba('#3a8ad0', 1 - p * .5); q.beginPath(); q.ellipse(x + 225, y + 160 + p * 160, 8, 12, 0, 0, 7); q.fill(); }
         q.fillStyle = rgba('#3a8ad0', .4); q.fillRect(x + 150, y + h - 30, 150, 24); } }));
-      K.today(ctx, t, s.a + 1.2, s.b + .2, ['DUBAI · DRINKING WATER FROM THE SEA', 'UNDER 6 CENTS A BATHTUB'], 'HASSYAN SOLAR DESALINATION · OWN CALCULATION', { size: 28 });
+      K.today(ctx, t, s.a + 1.2, s.b + .2, ['DUBAI · DRINKING WATER FROM THE SEA', 'UNDER 6 CENTS A BATHTUB'], 'CONTRACT PRICE, NEW PLANT FROM 2027 · HASSYAN · OWN CALCULATION', { size: 28 });
     },
     out: { k: 'sweep', dir: -1, w: 520, lead: .4, dur: 1.0 },
   };

@@ -15,12 +15,14 @@ const HERE = new URL('.', import.meta.url).pathname;
 const PROVISIONAL = HERE + 'data/provisional_timing.json';
 export const TIMING = process.env.TIMING || (fs.existsSync(ROOT + 'audio/timing.json') ? ROOT + 'audio/timing.json' : PROVISIONAL);
 export const CHUNKS = ['c01', 'c02', 'c03', 'c04', 'c05', 'c06', 'c07', 'c08', 'c09', 'c10'];
-const ROWS = JSON.parse(fs.readFileSync(HERE + 'data/rows.json', 'utf8'));
+const ROWS_ALL = JSON.parse(fs.readFileSync(HERE + 'data/rows.json', 'utf8'));
+// the clip set lives in the timing file: C6 (vo-v3, Mawakana in station 2) or the fallback C3 (vo-v2, Hassabis in station 3). Rows tagged v belong to one set.
+export const clipSet = (T) => (T.clip('C6') ? 'C6' : 'C3');
 const norm = (s) => s.toLowerCase().replace(/[^a-z0-9]/g, '');
 // row id → start time (sequential search like tools/shots74.py, so repeated phrases resolve in film order)
 export function rowTimes(T) {
-  const ws = T.words, out = {}; let after = -1;
-  for (const r of ROWS) {
+  const ws = T.words, out = {}, V = clipSet(T); let after = -1;
+  for (const r of ROWS_ALL.filter((r) => !r.v || r.v === V)) {
     const c = T.clip(r.id);
     if (c) { out[r.id] = c.start; after = c.end; continue; }
     if (r.id === 'END') { out[r.id] = T.duration - 15; continue; }

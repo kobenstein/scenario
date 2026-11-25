@@ -27,7 +27,7 @@ export default function c02(T, R) {
         focus: (g) => { K.folk(g, t, 4, px * .74 + 260, 1030, 520, { armR: [1.25 + .12 * Math.sin(t * 3.4), 1.45], armL: [-1.1, -1.3], dir: 1, lean: .12, look: .6 }); },
         lampX: 1500, postX: 1840,
       });
-      K.today(ctx, t, s.a + .6, s.b - .1, ['POLAND 2026 · 5,000 WORKERS', 'SAME PAY · ONE DAY LESS'], 'SOURCE: GOV.PL (STATE PILOT)');
+      K.today(ctx, t, s.a + .6, s.b - .1, ['POLAND 2026 · 5,000 WORKERS', 'SAME PAY · 20% FEWER HOURS'], 'SOURCE: GOV.PL (STATE PILOT)');
     },
     out: { k: 'sweep', kind: 'post', dir: -1, lead: .45, dur: .9 },
   };
@@ -98,7 +98,7 @@ export default function c02(T, R) {
             K.glowText(c, name, 0, 78, { size: 24, weight: 700, align: 'center', col: P.cream, glow: false, spacing: .1 }); c.restore(); });
         }
       });
-      K.today(ctx, t, t6 + .4, s.b - .1, ['AI MATCHES TOP EXPERTS', 'ON 7 IN 10 WORK TASKS'], 'OPENAI TEST (GDPVAL) · COMPANY CLAIM', { y: 110 });
+      K.today(ctx, t, t6 + .4, s.b - .1, ['AI MATCHES INDUSTRY EXPERTS', 'ON 8 IN 10 WORK TASKS'], 'OPENAI TEST (GDPVAL), 2026 · COMPANY CLAIM', { y: 110 });
     },
     out: { k: 'iris', c: [1480, 520, 60], lead: .3, dur: 1.0 },
   };

@@ -372,17 +372,17 @@ export default function c08(T, R) {
       ]);
       const [sx, sy, sw, sh] = scrRect(t), from = [sx + sw / 2, sy + sh / 2];
       const pu = K.cardU(t, s.a + .2, t18 - .05);
-      if (pu > 0) K.scr(ctx, (g) => K.paper(g, t, 120, 130, 640, 220, pu, { head: 'BACK IN THE TWENTIES', lines: ['the same AI lab chief', 'put a number on it'], lineSize: 42, from }));
+      if (pu > 0) K.scr(ctx, (g) => K.paper(g, t, 120, 190, 640, 220, pu, { head: 'BACK IN THE TWENTIES', lines: ['the same AI lab chief', 'put a number on it'], lineSize: 42, from }));
       // 8.18 · he had something to sell; most economists expected far less: a flat curve on paper
       const eu = K.cardU(t, t18 + .1, C1.start - .5);
-      if (eu > 0) K.scr(ctx, (g) => K.paper(g, t, 100, 120, 680, 460, eu, { head: 'MOST ECONOMISTS EXPECTED', from, draw: (q, x, y, w, h, u) => {
+      if (eu > 0) K.scr(ctx, (g) => K.paper(g, t, 100, 190, 680, 440, eu, { head: 'MOST ECONOMISTS EXPECTED', from, draw: (q, x, y, w, h, u) => {
         K.ink(q); q.beginPath(); q.moveTo(x + 20, y + 10); q.lineTo(x + 20, y + h - 40); q.lineTo(x + w - 10, y + h - 40); q.stroke();
         q.font = '600 22px Inter'; q.fillStyle = K.PAPER.ink2; q.fillText('2026', x + 20, y + h - 8); q.textAlign = 'right'; q.fillText('2050', x + w - 10, y + h - 8); q.textAlign = 'left';
-        const pts = Array.from({ length: 25 }, (_, i) => [lerp(x + 20, x + w - 10, i / 24), y + h - 40 - (Math.pow(1.04, i) - 1) * 70]);
+        const pts = Array.from({ length: 25 }, (_, i) => [lerp(x + 20, x + w - 10, i / 24), y + h - 40 - (Math.pow(1.035, i) - 1) * 70]);
         q.lineWidth = 4; q.setLineDash([14, 9]); K.strokeIn(q, pts, span(t, t18 + .5, t18 + 2.2)); q.setLineDash([]);
         if (span(t, t18 + 2.0, t18 + 2.4) > 0) { q.globalAlpha = span(t, t18 + 2.0, t18 + 2.4); q.font = '700 26px Inter'; q.fillStyle = K.PAPER.ink; q.fillText('ECONOMISTS', x + w - 220, pts[24][1] - 26); q.globalAlpha = 1; }
       } }));
-      K.today(ctx, t, t18 + 1.6, C1.start - .5, ['EVEN WITH RAPID AI, ECONOMISTS', 'EXPECT ABOUT 4% GROWTH A YEAR'], 'NBER WORKING PAPER 35046 · 2026', { size: 28, x: 1150, y: 110 });
+      K.today(ctx, t, t18 + 1.6, C1.start - .5, ['EVEN WITH RAPID AI, ECONOMISTS EXPECT', 'ABOUT 3.5% GROWTH A YEAR BY 2050'], 'NBER WORKING PAPER 35046 · 2026 (MEDIAN)', { size: 28, x: 1150, y: 110 });
       const m = span(t, C1.start - .6, C1.start + .2) - span(t, C1.end - .2, C1.end + .6);
       if (m > 0) clipPlate(ctx, t, T, 'C1', scrRect(t), m);
     },
@@ -400,7 +400,7 @@ export default function c08(T, R) {
         g.strokeStyle = rgba('#cfd8ff', .35); g.lineWidth = 2; g.beginPath(); g.moveTo(x0, 230); g.lineTo(x0, y0); g.lineTo(x1 + 40, y0); g.stroke();
         K.glowText(g, '2026', x0, y0 + 44, { size: 28, weight: 600, col: P.cream2 ?? '#a49fc4', glow: false }); K.glowText(g, '2050', x1, y0 + 44, { size: 28, weight: 600, align: 'center', col: '#a49fc4', glow: false });
         K.glowText(g, 'HOW MUCH CHANGES', x0 + 16, 250, { size: 24, weight: 600, col: '#a49fc4', glow: false, spacing: .12 });
-        const eco = Array.from({ length: 25 }, (_, i) => [yr(i), y0 - (Math.pow(1.04, i) - 1) * 100]);
+        const eco = Array.from({ length: 25 }, (_, i) => [yr(i), y0 - (Math.pow(1.035, i) - 1) * 100]);
         const lab = Array.from({ length: 25 }, (_, i) => [yr(i), y0 - 520 * (Math.exp(i / 24 * 3.2) - 1) / (Math.exp(3.2) - 1)]);
         g.lineWidth = 5; g.strokeStyle = '#a49fc4'; g.setLineDash([16, 10]); K.strokeIn(g, eco, span(t, s.a - .2, s.a + .6)); g.setLineDash([]);
         g.strokeStyle = K.CYAN.body; g.shadowColor = rgba(K.CYAN.body, .6); g.shadowBlur = 12; K.strokeIn(g, lab, span(t, s.a + .2, s.a + 2.2)); g.shadowBlur = 0;

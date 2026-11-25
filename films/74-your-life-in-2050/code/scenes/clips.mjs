@@ -1,14 +1,14 @@
-// Film 74 clips (ORIGINAL FOOTAGE): C3 · C4 · C1 (Demis Hassabis), C6 (Waymo) if vo-v3 uses it. Frames: /tmp/claude-0/f74/clips/<id>/f00001.jpg …
+// Film 74 clips (ORIGINAL FOOTAGE): C6 (Tekedra Mawakana, Waymo) · C4 · C1 (Demis Hassabis); fallback set C3 · C4 · C1 (the timing file decides). Frames: /tmp/claude-0/f74/clips/<id>/f00001.jpg …
 // (cut with tools/clip_frames.sh from the iMac files in Drive "#74 …/3 Rohmaterial/clips"). Missing frames → a placeholder plate with the wording.
 // The plate grows out of the OLD SCREEN of the scene (o.from = its rect) and shrinks back into it.
 import fs from 'node:fs';
 import { loadImage } from '@napi-rs/canvas';
 import { W, H, P, rgba, mixHex, clamp, lerp, span, sineIO, rad, maskLine, rise, measure, glowText } from '../lib/f74_kit.mjs';
-export const CLIPS = {
-  C3: { name: 'Demis Hassabis', role: 'CEO, Google DeepMind', year: '2026', src: 'Google I/O', quote: '"…the future\'s not written. It\'s very uncertain… We don\'t know. Nobody knows."' },
-  C4: { name: 'Demis Hassabis', role: 'CEO, Google DeepMind', year: 'Davos 2026', src: 'World Economic Forum', quote: '"…distribute this new wealth more fairly. I don\'t know if we have the right institutions…"' },
-  C1: { name: 'Demis Hassabis', role: 'CEO, Google DeepMind', year: '2026', src: 'Google I/O', quote: '"…10 times the impact of the Industrial Revolution, maybe 10 times faster."' },
-  C6: { name: 'Tekedra Mawakana', role: 'Co-CEO, Waymo', year: '2026', src: 'Stanford GSB', quote: '"…the world\'s most trusted driver."' },
+export const CLIPS = {   // lower thirds as text-v3 (25.11.): Hassabis is chairman since 5.8.2026, so role and date are those of the recording
+  C6: { name: 'Tekedra Mawakana', role: 'Co-CEO, Waymo', year: '2026', src: 'Stanford GSB', quote: '"…we want to be the world\'s most trusted driver."' },
+  C4: { name: 'Demis Hassabis', role: 'Then CEO, Google DeepMind', year: 'Davos, Jan 2026', src: 'World Economic Forum', quote: '"…distribute this new wealth more fairly. I don\'t know if we have the right institutions…"' },
+  C1: { name: 'Demis Hassabis', role: 'Then CEO, Google DeepMind', year: 'May 2026', src: 'Google I/O', quote: '"…10 times the impact of the Industrial Revolution, maybe 10 times faster."' },
+  C3: { name: 'Demis Hassabis', role: 'Then CEO, Google DeepMind', year: 'May 2026', src: 'Google I/O', quote: '"The future is not written… We don\'t know. Nobody knows."' },   // fallback set only
 };
 export const CLIP_RECT = { x: 320, y: 132, w: 1280, h: 720 };   // bottom at 852: the subtitle band below stays free; the name sits above the plate
 const DIR = (process.env.F74CLIPS || '/tmp/claude-0/f74/clips/').replace(/\/?$/, '/');
