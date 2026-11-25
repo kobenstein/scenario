@@ -1,0 +1,8 @@
+[
+ {"f": "M0", "at": "LH", "dt": -0.6, "fin": 2.5, "fout": 4.0, "end": "L0", "end_dt": 2.0},
+ {"f": "M1", "at": "L6", "dt": -0.6, "fin": 3.0, "fout": 4.0, "end": "L12", "end_dt": 1.6},
+ {"f": "M0", "at": "LM", "dt": -0.5, "fin": 3.0, "fout": 4.0, "end": "L18", "end_dt": 1.6, "_note": "M2 (Lyria job) was declined by the content filter: the M0 piano figure returns here"},
+ {"f": "M3", "at": "L30", "dt": -0.5, "fin": 3.0, "fout": 4.0, "end": "L30", "end_dt": 0.6},
+ {"f": "M4", "at": "LT", "dt": -1.5, "fin": 3.0, "fout": 4.0, "end": "LT", "end_dt": 1.6},
+ {"f": "M5", "at": "LS", "dt": -0.5, "fin": 3.0, "fout": 12.0, "end": "END", "end_dt": 0}
+]
