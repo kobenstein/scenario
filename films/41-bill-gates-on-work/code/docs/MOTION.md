@@ -100,3 +100,12 @@ No red, anywhere. The solution part (c10, the far end) may warm the palette towa
   - `python3 tools/smooth.py x.mp4 A`, which flags LURCH > 12 and POP.
 - `SECS=c01,c02 node tools/seam.mjs --at <T0>`: BLACK, FROZEN, POP, FAST.
 - Contact sheet (ffmpeg tile) against the script: does every frame show the sentence being spoken?
+
+### Lead check pass (25.11., master f41-master-1080p.mp4)
+
+- anchors41: all anchors found. Explainer share (shots41.py): 67.7 %.
+- The calm check (720p, every chunk) gives mafd median 0.08–0.30 per chunk. Whole film: 4 cuts, 0.39 per minute. All 4 cuts sit inside the original footage: C1 at 57.07, C2 at 186.67 and 194.77, C3 at 324.4.
+- smooth.py: no LURCH outside the clips. c07 shows 4 small POP flags (Δ 2.4–2.5) at 385.1 and 391.7–391.9; these are coin ticks.
+- seam.mjs at all 10 chunk boundaries plus the end screen (602.48): no flags, except marginal FROZEN at c02/c03 108.41 (Δ 0.07–0.118) and c03/c04 164.35 (Δ ≈ 0.10).
+- C1 (FT Live): its first 65 frames are FT's split screen. CLIPS.C1.split shows only Gates's own window (2.1× up, lip-synced). After that comes FT's own cut to the close-up.
+- Bug fixed: E.glowFill had its fill/restore commented out. This leaked canvas state across frames (blurred, fading render after the hand appeared).
