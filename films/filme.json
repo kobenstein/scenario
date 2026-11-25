@@ -387,6 +387,18 @@
   "code_herkunft": "claude/project-thread-4e6iqx:films/59-ai-goes-public@4266ebd"
  },
  {
+  "nr": 63,
+  "ordner": "63-the-pope-says-ai-wont-save-you",
+  "titel": "The Pope Says AI Won't Save You",
+  "video": "aFcLFCuo4WA",
+  "veroeffentlicht": "2026-11-28",
+  "skript_quellen": [
+   "film-papst"
+  ],
+  "thumbnail_quelle": "thumbnails/film-63",
+  "code_herkunft": "claude/project-thread-dz613r:films/63-the-pope-says-ai-wont-save-you"
+ },
+ {
   "nr": 65,
   "ordner": "65-ai-can-now-call-you-in-your-moms-voice",
   "titel": "AI Can Now Call You in Your Mom's Voice",
@@ -447,15 +459,15 @@
   "code_herkunft": "claude/project-thread-m7cc4w:films/69-europe-can-still-win-the-ai-race"
  },
  {
-  "nr": 63,
-  "ordner": "63-the-pope-says-ai-wont-save-you",
-  "titel": "The Pope Says AI Won't Save You",
-  "video": "aFcLFCuo4WA",
-  "veroeffentlicht": "2026-11-28",
+  "nr": 77,
+  "ordner": "77-agi-the-final-human-invention",
+  "titel": "AGI: The Final Human Invention",
+  "video": "9nPYHmqpFk8",
+  "veroeffentlicht": "2026-12-01",
   "skript_quellen": [
-   "film-papst"
+   "film-77-turing"
   ],
-  "thumbnail_quelle": "thumbnails/film-63",
-  "code_herkunft": "claude/project-thread-dz613r:films/63-the-pope-says-ai-wont-save-you"
+  "thumbnail_quelle": "thumbnails/film-77",
+  "code_herkunft": "claude/project-thread-cnq1vn:films/77-agi-the-final-human-invention"
  }
 ]

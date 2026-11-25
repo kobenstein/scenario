@@ -1,0 +1,381 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 384
+PlayResY: 288
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Inter,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.74,0:00:02.37,Sub,,0,0,0,,{\fad(120,160)}Artificial intelligence will
+Dialogue: 0,0:00:02.41,0:00:03.54,Sub,,0,0,0,,{\fad(120,160)}not save you.
+Dialogue: 0,0:00:04.15,0:00:05.04,Sub,,0,0,0,,{\fad(120,160)}That is Pope Leo's
+Dialogue: 0,0:00:05.08,0:00:06.51,Sub,,0,0,0,,{\fad(120,160)}message, in short.
+Dialogue: 0,0:00:06.78,0:00:08.09,Sub,,0,0,0,,{\fad(120,160)}He leads more than 1 billion
+Dialogue: 0,0:00:08.13,0:00:09.13,Sub,,0,0,0,,{\fad(120,160)}Catholics.
+Dialogue: 0,0:00:09.33,0:00:10.03,Sub,,0,0,0,,{\fad(120,160)}Name the thing you
+Dialogue: 0,0:00:10.07,0:00:11.15,Sub,,0,0,0,,{\fad(120,160)}would hand a machine,
+Dialogue: 0,0:00:11.19,0:00:12.19,Sub,,0,0,0,,{\fad(120,160)}if you could.
+Dialogue: 0,0:00:12.35,0:00:13.81,Sub,,0,0,0,,{\fad(120,160)}The illness in your family.
+Dialogue: 0,0:00:13.87,0:00:14.75,Sub,,0,0,0,,{\fad(120,160)}The bills.
+Dialogue: 0,0:00:14.79,0:00:16.25,Sub,,0,0,0,,{\fad(120,160)}The work that wears you out.
+Dialogue: 0,0:00:16.51,0:00:17.99,Sub,,0,0,0,,{\fad(120,160)}That is the promise.
+Dialogue: 0,0:00:18.06,0:00:19.21,Sub,,0,0,0,,{\fad(120,160)}Cure disease.
+Dialogue: 0,0:00:19.25,0:00:20.31,Sub,,0,0,0,,{\fad(120,160)}End poverty.
+Dialogue: 0,0:00:20.35,0:00:21.43,Sub,,0,0,0,,{\fad(120,160)}Take the work.
+Dialogue: 0,0:00:21.65,0:00:22.48,Sub,,0,0,0,,{\fad(120,160)}And the people building
+Dialogue: 0,0:00:22.52,0:00:23.93,Sub,,0,0,0,,{\fad(120,160)}these machines mean it.
+Dialogue: 0,0:00:24.11,0:00:25.07,Sub,,0,0,0,,{\fad(120,160)}The Pope agrees
+Dialogue: 0,0:00:25.11,0:00:26.52,Sub,,0,0,0,,{\fad(120,160)}technology can heal.
+Dialogue: 0,0:00:26.61,0:00:29.02,Sub,,0,0,0,,{\fad(120,160)}Then he refuses a single word.
+Dialogue: 0,0:00:29.22,0:00:29.94,Sub,,0,0,0,,{\fad(120,160)}So if all
+Dialogue: 0,0:00:29.98,0:00:31.69,Sub,,0,0,0,,{\fad(120,160)}of that is not saving you,
+Dialogue: 0,0:00:31.80,0:00:32.80,Sub,,0,0,0,,{\fad(120,160)}what does he mean?
+Dialogue: 0,0:00:33.40,0:00:34.68,Sub,,0,0,0,,{\fad(120,160)}His word for what must
+Dialogue: 0,0:00:34.72,0:00:36.15,Sub,,0,0,0,,{\fad(120,160)}happen to these machines
+Dialogue: 0,0:00:36.19,0:00:37.33,Sub,,0,0,0,,{\fad(120,160)}is the one the Church
+Dialogue: 0,0:00:37.37,0:00:39.42,Sub,,0,0,0,,{\fad(120,160)}uses for nuclear weapons.
+Dialogue: 0,0:00:39.92,0:00:41.94,Sub,,0,0,0,,{\fad(120,160)}Artificial intelligence
+Dialogue: 0,0:00:41.98,0:00:44.07,Sub,,0,0,0,,{\fad(120,160)}needs to be disarmed.
+Dialogue: 0,0:00:44.51,0:00:45.51,Sub,,0,0,0,,{\fad(120,160)}Disarmed.
+Dialogue: 0,0:00:45.66,0:00:46.76,Sub,,0,0,0,,{\fad(120,160)}Not banned.
+Dialogue: 0,0:00:46.91,0:00:48.05,Sub,,0,0,0,,{\fad(120,160)}Not blessed.
+Dialogue: 0,0:00:48.39,0:00:50.37,Sub,,0,0,0,,{\fad(120,160)}The word is strong, he said,
+Dialogue: 0,0:00:50.50,0:00:52.29,Sub,,0,0,0,,{\fad(120,160)}and chosen on purpose.
+Dialogue: 0,0:00:52.90,0:00:54.89,Sub,,0,0,0,,{\fad(120,160)}In May, in Rome,
+Dialogue: 0,0:00:54.97,0:00:55.92,Sub,,0,0,0,,{\fad(120,160)}he put it in a letter
+Dialogue: 0,0:00:55.96,0:00:57.56,Sub,,0,0,0,,{\fad(120,160)}called an encyclical.
+Dialogue: 0,0:00:57.71,0:00:58.71,Sub,,0,0,0,,{\fad(120,160)}His first.
+Dialogue: 0,0:00:58.90,0:01:01.35,Sub,,0,0,0,,{\fad(120,160)}He even chose his own name, Leo,
+Dialogue: 0,0:01:01.40,0:01:02.15,Sub,,0,0,0,,{\fad(120,160)}with artificial
+Dialogue: 0,0:01:02.19,0:01:03.56,Sub,,0,0,0,,{\fad(120,160)}intelligence in mind.
+Dialogue: 0,0:01:03.92,0:01:05.03,Sub,,0,0,0,,{\fad(120,160)}You might expect a man
+Dialogue: 0,0:01:05.07,0:01:06.45,Sub,,0,0,0,,{\fad(120,160)}against the machines.
+Dialogue: 0,0:01:06.64,0:01:07.64,Sub,,0,0,0,,{\fad(120,160)}He is not.
+Dialogue: 0,0:01:07.73,0:01:10.14,Sub,,0,0,0,,{\fad(120,160)}What he refuses is one idea.
+Dialogue: 0,0:01:10.34,0:01:11.41,Sub,,0,0,0,,{\fad(120,160)}His phrase for it:
+Dialogue: 0,0:01:11.65,0:01:12.87,Sub,,0,0,0,,{\fad(120,160)}a purely technical
+Dialogue: 0,0:01:12.91,0:01:14.43,Sub,,0,0,0,,{\fad(120,160)}form of salvation.
+Dialogue: 0,0:01:14.79,0:01:15.87,Sub,,0,0,0,,{\fad(120,160)}The title of this film
+Dialogue: 0,0:01:15.91,0:01:17.19,Sub,,0,0,0,,{\fad(120,160)}is the short version.
+Dialogue: 0,0:01:17.32,0:01:18.74,Sub,,0,0,0,,{\fad(120,160)}Search the whole letter,
+Dialogue: 0,0:01:18.78,0:01:20.85,Sub,,0,0,0,,{\fad(120,160)}nearly 40,000 words.
+Dialogue: 0,0:01:20.98,0:01:21.80,Sub,,0,0,0,,{\fad(120,160)}No company.
+Dialogue: 0,0:01:21.84,0:01:23.20,Sub,,0,0,0,,{\fad(120,160)}No chief executive.
+Dialogue: 0,0:01:23.24,0:01:24.40,Sub,,0,0,0,,{\fad(120,160)}Not once the word
+Dialogue: 0,0:01:24.44,0:01:25.87,Sub,,0,0,0,,{\fad(120,160)}superintelligence.
+Dialogue: 0,0:01:26.18,0:01:27.68,Sub,,0,0,0,,{\fad(120,160)}Then what is he arguing with?
+Dialogue: 0,0:01:28.13,0:01:29.13,Sub,,0,0,0,,{\fad(120,160)}A promise.
+Dialogue: 0,0:01:30.29,0:01:32.34,Sub,,0,0,0,,{\fad(120,160)}That promise is not a slogan.
+Dialogue: 0,0:01:32.42,0:01:34.18,Sub,,0,0,0,,{\fad(120,160)}Hundreds of billions of dollars
+Dialogue: 0,0:01:34.22,0:01:35.65,Sub,,0,0,0,,{\fad(120,160)}are already riding on it.
+Dialogue: 0,0:01:35.95,0:01:37.16,Sub,,0,0,0,,{\fad(120,160)}The head of one lab building
+Dialogue: 0,0:01:37.20,0:01:39.13,Sub,,0,0,0,,{\fad(120,160)}these machines put it in an essay.
+Dialogue: 0,0:01:39.30,0:01:40.72,Sub,,0,0,0,,{\fad(120,160)}Most people, he wrote,
+Dialogue: 0,0:01:40.89,0:01:42.46,Sub,,0,0,0,,{\fad(120,160)}underestimate how radical
+Dialogue: 0,0:01:42.50,0:01:43.79,Sub,,0,0,0,,{\fad(120,160)}the upside could be.
+Dialogue: 0,0:01:43.95,0:01:46.24,Sub,,0,0,0,,{\fad(120,160)}And how bad the risks could be.
+Dialogue: 0,0:01:46.55,0:01:48.27,Sub,,0,0,0,,{\fad(120,160)}He calls these machines a country
+Dialogue: 0,0:01:48.31,0:01:50.38,Sub,,0,0,0,,{\fad(120,160)}of geniuses in a datacenter.
+Dialogue: 0,0:01:50.52,0:01:51.50,Sub,,0,0,0,,{\fad(120,160)}The best minds,
+Dialogue: 0,0:01:51.54,0:01:53.59,Sub,,0,0,0,,{\fad(120,160)}working for you day and night.
+Dialogue: 0,0:01:53.84,0:01:55.56,Sub,,0,0,0,,{\fad(120,160)}Take that at its strongest.
+Dialogue: 0,0:01:55.60,0:01:57.08,Sub,,0,0,0,,{\fad(120,160)}Your illness gets a cure.
+Dialogue: 0,0:01:57.12,0:01:58.39,Sub,,0,0,0,,{\fad(120,160)}Your bills shrink.
+Dialogue: 0,0:01:58.43,0:01:59.86,Sub,,0,0,0,,{\fad(120,160)}Your hours come back.
+Dialogue: 0,0:02:00.04,0:02:00.93,Sub,,0,0,0,,{\fad(120,160)}It would be the best
+Dialogue: 0,0:02:00.97,0:02:02.14,Sub,,0,0,0,,{\fad(120,160)}news in history.
+Dialogue: 0,0:02:02.43,0:02:04.05,Sub,,0,0,0,,{\fad(120,160)}It is still a promise.
+Dialogue: 0,0:02:04.62,0:02:05.97,Sub,,0,0,0,,{\fad(120,160)}Put all of that on one
+Dialogue: 0,0:02:06.01,0:02:07.20,Sub,,0,0,0,,{\fad(120,160)}side of a scale.
+Dialogue: 0,0:02:07.43,0:02:08.42,Sub,,0,0,0,,{\fad(120,160)}Your body.
+Dialogue: 0,0:02:08.46,0:02:09.42,Sub,,0,0,0,,{\fad(120,160)}Your money.
+Dialogue: 0,0:02:09.46,0:02:10.46,Sub,,0,0,0,,{\fad(120,160)}Your time.
+Dialogue: 0,0:02:11.02,0:02:12.42,Sub,,0,0,0,,{\fad(120,160)}Where is the catch?
+Dialogue: 0,0:02:13.66,0:02:14.76,Sub,,0,0,0,,{\fad(120,160)}For the Pope,
+Dialogue: 0,0:02:14.80,0:02:15.85,Sub,,0,0,0,,{\fad(120,160)}the catch is in how
+Dialogue: 0,0:02:15.89,0:02:17.40,Sub,,0,0,0,,{\fad(120,160)}the promise sees you.
+Dialogue: 0,0:02:17.69,0:02:19.21,Sub,,0,0,0,,{\fad(120,160)}A person as a project
+Dialogue: 0,0:02:19.25,0:02:20.46,Sub,,0,0,0,,{\fad(120,160)}to be optimized.
+Dialogue: 0,0:02:20.80,0:02:22.39,Sub,,0,0,0,,{\fad(120,160)}Picture the day everyone around
+Dialogue: 0,0:02:22.43,0:02:24.34,Sub,,0,0,0,,{\fad(120,160)}you works with a machine's help.
+Dialogue: 0,0:02:24.49,0:02:26.05,Sub,,0,0,0,,{\fad(120,160)}You are the same as yesterday.
+Dialogue: 0,0:02:26.26,0:02:28.66,Sub,,0,0,0,,{\fad(120,160)}And suddenly you are the slow one.
+Dialogue: 0,0:02:28.90,0:02:30.64,Sub,,0,0,0,,{\fad(120,160)}That is the trap he sees.
+Dialogue: 0,0:02:30.78,0:02:32.52,Sub,,0,0,0,,{\fad(120,160)}Not that the machine fails you.
+Dialogue: 0,0:02:32.56,0:02:33.38,Sub,,0,0,0,,{\fad(120,160)}That it works,
+Dialogue: 0,0:02:33.42,0:02:34.81,Sub,,0,0,0,,{\fad(120,160)}and the measure moves.
+Dialogue: 0,0:02:35.12,0:02:36.44,Sub,,0,0,0,,{\fad(120,160)}If a human being is something
+Dialogue: 0,0:02:36.48,0:02:38.49,Sub,,0,0,0,,{\fad(120,160)}to be perfected or surpassed,
+Dialogue: 0,0:02:38.53,0:02:40.12,Sub,,0,0,0,,{\fad(120,160)}he writes, it gets easier
+Dialogue: 0,0:02:40.16,0:02:41.79,Sub,,0,0,0,,{\fad(120,160)}to accept something else.
+Dialogue: 0,0:02:41.84,0:02:43.73,Sub,,0,0,0,,{\fad(120,160)}That some lives are less useful,
+Dialogue: 0,0:02:43.77,0:02:46.04,Sub,,0,0,0,,{\fad(120,160)}less desirable, less worthy.
+Dialogue: 0,0:02:46.62,0:02:48.79,Sub,,0,0,0,,{\fad(120,160)}And who gets to decide that?
+Dialogue: 0,0:02:50.00,0:02:51.62,Sub,,0,0,0,,{\fad(120,160)}His picture for that power
+Dialogue: 0,0:02:51.66,0:02:53.37,Sub,,0,0,0,,{\fad(120,160)}is the Tower of Babel.
+Dialogue: 0,0:02:53.73,0:02:54.91,Sub,,0,0,0,,{\fad(120,160)}One language, one
+Dialogue: 0,0:02:54.95,0:02:57.10,Sub,,0,0,0,,{\fad(120,160)}technology, one direction.
+Dialogue: 0,0:02:57.46,0:02:59.34,Sub,,0,0,0,,{\fad(120,160)}Against it he sets a city wall,
+Dialogue: 0,0:02:59.38,0:03:00.02,Sub,,0,0,0,,{\fad(120,160)}rebuilt by a
+Dialogue: 0,0:03:00.06,0:03:01.65,Sub,,0,0,0,,{\fad(120,160)}whole people together.
+Dialogue: 0,0:03:02.05,0:03:04.16,Sub,,0,0,0,,{\fad(120,160)}This is what disarm means to him.
+Dialogue: 0,0:03:04.37,0:03:05.76,Sub,,0,0,0,,{\fad(120,160)}These machines, out
+Dialogue: 0,0:03:05.80,0:03:07.29,Sub,,0,0,0,,{\fad(120,160)}of the race for dominance.
+Dialogue: 0,0:03:07.41,0:03:09.18,Sub,,0,0,0,,{\fad(120,160)}And out of the hands of a few.
+Dialogue: 0,0:03:10.23,0:03:12.07,Sub,,0,0,0,,{\fad(120,160)}Tower or wall.
+Dialogue: 0,0:03:12.19,0:03:13.39,Sub,,0,0,0,,{\fad(120,160)}Which is going up?
+Dialogue: 0,0:03:13.92,0:03:17.29,Sub,,0,0,0,,{\fad(120,160)}One lab raised $122 billion
+Dialogue: 0,0:03:17.33,0:03:18.75,Sub,,0,0,0,,{\fad(120,160)}in a single round.
+Dialogue: 0,0:03:19.09,0:03:21.00,Sub,,0,0,0,,{\fad(120,160)}The main drivers now, he writes,
+Dialogue: 0,0:03:21.04,0:03:23.04,Sub,,0,0,0,,{\fad(120,160)}are private parties with resources
+Dialogue: 0,0:03:23.08,0:03:24.83,Sub,,0,0,0,,{\fad(120,160)}beyond many governments.
+Dialogue: 0,0:03:24.98,0:03:26.50,Sub,,0,0,0,,{\fad(120,160)}The new monopolies.
+Dialogue: 0,0:03:26.88,0:03:28.05,Sub,,0,0,0,,{\fad(120,160)}A more moral machine
+Dialogue: 0,0:03:28.09,0:03:29.11,Sub,,0,0,0,,{\fad(120,160)}is not enough,
+Dialogue: 0,0:03:29.15,0:03:30.31,Sub,,0,0,0,,{\fad(120,160)}he adds, if a few
+Dialogue: 0,0:03:30.35,0:03:31.99,Sub,,0,0,0,,{\fad(120,160)}people pick the morals.
+Dialogue: 0,0:03:32.28,0:03:34.23,Sub,,0,0,0,,{\fad(120,160)}Ask a machine a hard question,
+Dialogue: 0,0:03:34.27,0:03:35.17,Sub,,0,0,0,,{\fad(120,160)}and you get somebody's
+Dialogue: 0,0:03:35.21,0:03:36.64,Sub,,0,0,0,,{\fad(120,160)}values with the answer.
+Dialogue: 0,0:03:37.20,0:03:39.03,Sub,,0,0,0,,{\fad(120,160)}He also counts algorithms,
+Dialogue: 0,0:03:39.07,0:03:40.92,Sub,,0,0,0,,{\fad(120,160)}platforms and data among
+Dialogue: 0,0:03:40.96,0:03:42.55,Sub,,0,0,0,,{\fad(120,160)}the goods meant for everyone.
+Dialogue: 0,0:03:42.74,0:03:45.00,Sub,,0,0,0,,{\fad(120,160)}Shared, not held by a few.
+Dialogue: 0,0:03:45.44,0:03:46.01,Sub,,0,0,0,,{\fad(120,160)}A founder of
+Dialogue: 0,0:03:46.05,0:03:48.18,Sub,,0,0,0,,{\fad(120,160)}Twitter answered: yes.
+Dialogue: 0,0:03:49.28,0:03:50.34,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:03:50.38,0:03:51.68,Sub,,0,0,0,,{\fad(120,160)}for one reason.
+Dialogue: 0,0:03:51.85,0:03:52.77,Sub,,0,0,0,,{\fad(120,160)}So that the arrival
+Dialogue: 0,0:03:52.81,0:03:54.44,Sub,,0,0,0,,{\fad(120,160)}of superintelligence goes well
+Dialogue: 0,0:03:54.48,0:03:56.09,Sub,,0,0,0,,{\fad(120,160)}for everybody, not only
+Dialogue: 0,0:03:56.13,0:03:57.58,Sub,,0,0,0,,{\fad(120,160)}for the few who own it.
+Dialogue: 0,0:03:57.88,0:03:58.88,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:03:58.93,0:03:59.93,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:04:00.13,0:04:01.70,Sub,,0,0,0,,{\fad(120,160)}And what happens to you when
+Dialogue: 0,0:04:01.74,0:04:03.20,Sub,,0,0,0,,{\fad(120,160)}a machine does your work?
+Dialogue: 0,0:04:04.37,0:04:05.46,Sub,,0,0,0,,{\fad(120,160)}The last Pope called
+Dialogue: 0,0:04:05.50,0:04:07.27,Sub,,0,0,0,,{\fad(120,160)}Leo wrote about factory
+Dialogue: 0,0:04:07.31,0:04:08.53,Sub,,0,0,0,,{\fad(120,160)}workers in the industrial
+Dialogue: 0,0:04:08.57,0:04:09.57,Sub,,0,0,0,,{\fad(120,160)}revolution.
+Dialogue: 0,0:04:09.85,0:04:11.23,Sub,,0,0,0,,{\fad(120,160)}Ask this one how big
+Dialogue: 0,0:04:11.27,0:04:12.48,Sub,,0,0,0,,{\fad(120,160)}the new machines are.
+Dialogue: 0,0:04:13.15,0:04:15.30,Sub,,0,0,0,,{\fad(120,160)}Today, we find ourselves facing
+Dialogue: 0,0:04:15.34,0:04:17.21,Sub,,0,0,0,,{\fad(120,160)}a transformation of similar
+Dialogue: 0,0:04:17.25,0:04:18.84,Sub,,0,0,0,,{\fad(120,160)}magnitude, with perhaps
+Dialogue: 0,0:04:18.88,0:04:20.93,Sub,,0,0,0,,{\fad(120,160)}even greater consequences.
+Dialogue: 0,0:04:21.41,0:04:23.03,Sub,,0,0,0,,{\fad(120,160)}Perhaps even greater.
+Dialogue: 0,0:04:23.46,0:04:24.40,Sub,,0,0,0,,{\fad(120,160)}On the size of it,
+Dialogue: 0,0:04:24.44,0:04:26.12,Sub,,0,0,0,,{\fad(120,160)}he and the builders agree.
+Dialogue: 0,0:04:26.34,0:04:27.03,Sub,,0,0,0,,{\fad(120,160)}You would hand over
+Dialogue: 0,0:04:27.07,0:04:28.73,Sub,,0,0,0,,{\fad(120,160)}the work that wears you out.
+Dialogue: 0,0:04:28.87,0:04:30.37,Sub,,0,0,0,,{\fad(120,160)}He asks what goes with it.
+Dialogue: 0,0:04:30.62,0:04:31.73,Sub,,0,0,0,,{\fad(120,160)}Work, he writes,
+Dialogue: 0,0:04:31.77,0:04:33.67,Sub,,0,0,0,,{\fad(120,160)}is not simply an instrument.
+Dialogue: 0,0:04:33.79,0:04:35.53,Sub,,0,0,0,,{\fad(120,160)}It expresses and enhances
+Dialogue: 0,0:04:35.57,0:04:37.21,Sub,,0,0,0,,{\fad(120,160)}the dignity of our lives.
+Dialogue: 0,0:04:37.44,0:04:38.75,Sub,,0,0,0,,{\fad(120,160)}The risk he sees is not
+Dialogue: 0,0:04:38.79,0:04:40.33,Sub,,0,0,0,,{\fad(120,160)}only a thinner paycheck.
+Dialogue: 0,0:04:40.43,0:04:41.40,Sub,,0,0,0,,{\fad(120,160)}It is a society
+Dialogue: 0,0:04:41.44,0:04:42.76,Sub,,0,0,0,,{\fad(120,160)}that keeps a few busy
+Dialogue: 0,0:04:42.80,0:04:43.96,Sub,,0,0,0,,{\fad(120,160)}and gives everybody else
+Dialogue: 0,0:04:44.00,0:04:45.66,Sub,,0,0,0,,{\fad(120,160)}time nobody asked for.
+Dialogue: 0,0:04:45.99,0:04:47.86,Sub,,0,0,0,,{\fad(120,160)}Richer, and smaller.
+Dialogue: 0,0:04:48.11,0:04:49.77,Sub,,0,0,0,,{\fad(120,160)}The share of American output going
+Dialogue: 0,0:04:49.81,0:04:50.93,Sub,,0,0,0,,{\fad(120,160)}to working people has
+Dialogue: 0,0:04:50.97,0:04:53.30,Sub,,0,0,0,,{\fad(120,160)}fallen to about 53%.
+Dialogue: 0,0:04:53.43,0:04:54.83,Sub,,0,0,0,,{\fad(120,160)}The lowest on record.
+Dialogue: 0,0:04:55.39,0:04:57.12,Sub,,0,0,0,,{\fad(120,160)}The cause is disputed.
+Dialogue: 0,0:04:57.38,0:04:59.69,Sub,,0,0,0,,{\fad(120,160)}But capital income replacing wages
+Dialogue: 0,0:04:59.73,0:05:01.91,Sub,,0,0,0,,{\fad(120,160)}is exactly what he warns about.
+Dialogue: 0,0:05:02.30,0:05:03.81,Sub,,0,0,0,,{\fad(120,160)}The day the letter came out,
+Dialogue: 0,0:05:03.85,0:05:05.72,Sub,,0,0,0,,{\fad(120,160)}a tech founder pushed back.
+Dialogue: 0,0:05:05.93,0:05:06.95,Sub,,0,0,0,,{\fad(120,160)}Machines kill some
+Dialogue: 0,0:05:06.99,0:05:08.48,Sub,,0,0,0,,{\fad(120,160)}jobs and make others.
+Dialogue: 0,0:05:08.64,0:05:10.04,Sub,,0,0,0,,{\fad(120,160)}Cling to the old ones and we would
+Dialogue: 0,0:05:10.08,0:05:11.87,Sub,,0,0,0,,{\fad(120,160)}still be ploughing fields.
+Dialogue: 0,0:05:12.17,0:05:14.09,Sub,,0,0,0,,{\fad(120,160)}A fair point about the past.
+Dialogue: 0,0:05:14.21,0:05:15.12,Sub,,0,0,0,,{\fad(120,160)}Whether it holds this
+Dialogue: 0,0:05:15.16,0:05:16.62,Sub,,0,0,0,,{\fad(120,160)}time is unproven.
+Dialogue: 0,0:05:16.88,0:05:18.74,Sub,,0,0,0,,{\fad(120,160)}Do the builders see any of this?
+Dialogue: 0,0:05:19.90,0:05:20.79,Sub,,0,0,0,,{\fad(120,160)}The day the Pope
+Dialogue: 0,0:05:20.83,0:05:22.16,Sub,,0,0,0,,{\fad(120,160)}presented his letter,
+Dialogue: 0,0:05:22.20,0:05:24.28,Sub,,0,0,0,,{\fad(120,160)}the stage was not only cardinals.
+Dialogue: 0,0:05:24.42,0:05:25.19,Sub,,0,0,0,,{\fad(120,160)}One speaker came
+Dialogue: 0,0:05:25.23,0:05:26.19,Sub,,0,0,0,,{\fad(120,160)}from the lab whose
+Dialogue: 0,0:05:26.23,0:05:28.00,Sub,,0,0,0,,{\fad(120,160)}chief wrote down that promise.
+Dialogue: 0,0:05:28.09,0:05:29.70,Sub,,0,0,0,,{\fad(120,160)}A co-founder of Anthropic.
+Dialogue: 0,0:05:29.87,0:05:31.17,Sub,,0,0,0,,{\fad(120,160)}Guess what he asked for.
+Dialogue: 0,0:05:31.76,0:05:33.11,Sub,,0,0,0,,{\fad(120,160)}We need informed critics
+Dialogue: 0,0:05:33.15,0:05:34.37,Sub,,0,0,0,,{\fad(120,160)}who will tell the labs
+Dialogue: 0,0:05:34.41,0:05:35.53,Sub,,0,0,0,,{\fad(120,160)}when we are failing.
+Dialogue: 0,0:05:35.57,0:05:36.68,Sub,,0,0,0,,{\fad(120,160)}We need moral voices
+Dialogue: 0,0:05:36.72,0:05:38.82,Sub,,0,0,0,,{\fad(120,160)}that the incentives cannot bend.
+Dialogue: 0,0:05:39.35,0:05:41.21,Sub,,0,0,0,,{\fad(120,160)}A builder of these machines,
+Dialogue: 0,0:05:41.25,0:05:42.31,Sub,,0,0,0,,{\fad(120,160)}in the Vatican,
+Dialogue: 0,0:05:42.46,0:05:43.88,Sub,,0,0,0,,{\fad(120,160)}asking for critics.
+Dialogue: 0,0:05:44.27,0:05:45.41,Sub,,0,0,0,,{\fad(120,160)}Every leading lab,
+Dialogue: 0,0:05:45.45,0:05:46.98,Sub,,0,0,0,,{\fad(120,160)}his own included, he said,
+Dialogue: 0,0:05:47.02,0:05:48.63,Sub,,0,0,0,,{\fad(120,160)}works inside pressures that can
+Dialogue: 0,0:05:48.67,0:05:49.70,Sub,,0,0,0,,{\fad(120,160)}conflict with doing
+Dialogue: 0,0:05:49.74,0:05:50.74,Sub,,0,0,0,,{\fad(120,160)}the right thing.
+Dialogue: 0,0:05:51.13,0:05:52.13,Sub,,0,0,0,,{\fad(120,160)}And your work?
+Dialogue: 0,0:05:52.22,0:05:53.94,Sub,,0,0,0,,{\fad(120,160)}If these systems displace people
+Dialogue: 0,0:05:53.98,0:05:56.17,Sub,,0,0,0,,{\fad(120,160)}at very large scale, he went on,
+Dialogue: 0,0:05:56.30,0:05:57.83,Sub,,0,0,0,,{\fad(120,160)}supporting them will be a moral
+Dialogue: 0,0:05:57.87,0:05:59.35,Sub,,0,0,0,,{\fad(120,160)}imperative of historic
+Dialogue: 0,0:05:59.39,0:06:00.39,Sub,,0,0,0,,{\fad(120,160)}proportions.
+Dialogue: 0,0:06:00.63,0:06:02.10,Sub,,0,0,0,,{\fad(120,160)}For sharing the gains globally,
+Dialogue: 0,0:06:02.14,0:06:04.67,Sub,,0,0,0,,{\fad(120,160)}he added, no mechanism exists.
+Dialogue: 0,0:06:04.95,0:06:06.64,Sub,,0,0,0,,{\fad(120,160)}He and the Pope even agree
+Dialogue: 0,0:06:06.68,0:06:08.45,Sub,,0,0,0,,{\fad(120,160)}on what these machines are.
+Dialogue: 0,0:06:08.65,0:06:09.92,Sub,,0,0,0,,{\fad(120,160)}Not engineered.
+Dialogue: 0,0:06:10.19,0:06:11.19,Sub,,0,0,0,,{\fad(120,160)}Grown.
+Dialogue: 0,0:06:12.32,0:06:13.80,Sub,,0,0,0,,{\fad(120,160)}3 days later his lab
+Dialogue: 0,0:06:13.84,0:06:16.77,Sub,,0,0,0,,{\fad(120,160)}raised $65 billion.
+Dialogue: 0,0:06:17.01,0:06:18.16,Sub,,0,0,0,,{\fad(120,160)}In November it went
+Dialogue: 0,0:06:18.20,0:06:19.63,Sub,,0,0,0,,{\fad(120,160)}public on the Nasdaq.
+Dialogue: 0,0:06:19.86,0:06:21.20,Sub,,0,0,0,,{\fad(120,160)}The pressures he named did
+Dialogue: 0,0:06:21.24,0:06:23.16,Sub,,0,0,0,,{\fad(120,160)}not pause for the applause.
+Dialogue: 0,0:06:23.49,0:06:24.73,Sub,,0,0,0,,{\fad(120,160)}What is left on the other
+Dialogue: 0,0:06:24.77,0:06:26.00,Sub,,0,0,0,,{\fad(120,160)}side of the scale?
+Dialogue: 0,0:06:27.18,0:06:28.96,Sub,,0,0,0,,{\fad(120,160)}In October the Pope put
+Dialogue: 0,0:06:29.00,0:06:31.10,Sub,,0,0,0,,{\fad(120,160)}the whole matter in one question.
+Dialogue: 0,0:06:31.49,0:06:32.48,Sub,,0,0,0,,{\fad(120,160)}Not only what these
+Dialogue: 0,0:06:32.52,0:06:33.86,Sub,,0,0,0,,{\fad(120,160)}machines can do,
+Dialogue: 0,0:06:33.90,0:06:34.97,Sub,,0,0,0,,{\fad(120,160)}but what purpose
+Dialogue: 0,0:06:35.01,0:06:36.03,Sub,,0,0,0,,{\fad(120,160)}they should serve.
+Dialogue: 0,0:06:36.38,0:06:37.70,Sub,,0,0,0,,{\fad(120,160)}Machines, he says,
+Dialogue: 0,0:06:37.74,0:06:39.79,Sub,,0,0,0,,{\fad(120,160)}are tools, not persons.
+Dialogue: 0,0:06:40.13,0:06:42.03,Sub,,0,0,0,,{\fad(120,160)}Say one turns down your loan.
+Dialogue: 0,0:06:42.20,0:06:42.74,Sub,,0,0,0,,{\fad(120,160)}Give it legal
+Dialogue: 0,0:06:42.78,0:06:44.40,Sub,,0,0,0,,{\fad(120,160)}personhood, he warns,
+Dialogue: 0,0:06:44.46,0:06:45.29,Sub,,0,0,0,,{\fad(120,160)}and you are arguing
+Dialogue: 0,0:06:45.33,0:06:46.91,Sub,,0,0,0,,{\fad(120,160)}with a faceless entity.
+Dialogue: 0,0:06:47.34,0:06:48.92,Sub,,0,0,0,,{\fad(120,160)}Some decisions, he says,
+Dialogue: 0,0:06:48.96,0:06:50.40,Sub,,0,0,0,,{\fad(120,160)}are never handed over.
+Dialogue: 0,0:06:50.61,0:06:51.30,Sub,,0,0,0,,{\fad(120,160)}Life.
+Dialogue: 0,0:06:51.34,0:06:52.17,Sub,,0,0,0,,{\fad(120,160)}Freedom.
+Dialogue: 0,0:06:52.21,0:06:53.47,Sub,,0,0,0,,{\fad(120,160)}The use of force.
+Dialogue: 0,0:06:53.72,0:06:55.23,Sub,,0,0,0,,{\fad(120,160)}That is why he wants weapons
+Dialogue: 0,0:06:55.27,0:06:55.94,Sub,,0,0,0,,{\fad(120,160)}that choose their
+Dialogue: 0,0:06:55.98,0:06:57.57,Sub,,0,0,0,,{\fad(120,160)}own targets banned.
+Dialogue: 0,0:06:58.12,0:07:00.60,Sub,,0,0,0,,{\fad(120,160)}One claim of his is hard to hear.
+Dialogue: 0,0:07:00.90,0:07:02.51,Sub,,0,0,0,,{\fad(120,160)}Humanity flourishes not
+Dialogue: 0,0:07:02.55,0:07:04.10,Sub,,0,0,0,,{\fad(120,160)}despite limitations,
+Dialogue: 0,0:07:04.14,0:07:06.59,Sub,,0,0,0,,{\fad(120,160)}he writes, but often through them.
+Dialogue: 0,0:07:06.82,0:07:08.74,Sub,,0,0,0,,{\fad(120,160)}Easing suffering is right,
+Dialogue: 0,0:07:08.78,0:07:09.65,Sub,,0,0,0,,{\fad(120,160)}he adds.
+Dialogue: 0,0:07:09.69,0:07:11.39,Sub,,0,0,0,,{\fad(120,160)}But erase it completely,
+Dialogue: 0,0:07:11.43,0:07:13.03,Sub,,0,0,0,,{\fad(120,160)}and love goes out with it.
+Dialogue: 0,0:07:13.32,0:07:14.92,Sub,,0,0,0,,{\fad(120,160)}You can test that one yourself.
+Dialogue: 0,0:07:15.26,0:07:17.09,Sub,,0,0,0,,{\fad(120,160)}Think of who you love most,
+Dialogue: 0,0:07:17.13,0:07:18.50,Sub,,0,0,0,,{\fad(120,160)}and what it has cost you.
+Dialogue: 0,0:07:18.83,0:07:20.86,Sub,,0,0,0,,{\fad(120,160)}What can no machine reach?
+Dialogue: 0,0:07:21.09,0:07:22.75,Sub,,0,0,0,,{\fad(120,160)}He needs one sentence.
+Dialogue: 0,0:07:23.49,0:07:25.25,Sub,,0,0,0,,{\fad(120,160)}The person bears within
+Dialogue: 0,0:07:25.29,0:07:27.28,Sub,,0,0,0,,{\fad(120,160)}him- or herself a freedom,
+Dialogue: 0,0:07:27.32,0:07:28.45,Sub,,0,0,0,,{\fad(120,160)}an interiority,
+Dialogue: 0,0:07:28.49,0:07:31.11,Sub,,0,0,0,,{\fad(120,160)}and a vocation to love and worship
+Dialogue: 0,0:07:31.15,0:07:32.28,Sub,,0,0,0,,{\fad(120,160)}that no machine
+Dialogue: 0,0:07:32.32,0:07:34.30,Sub,,0,0,0,,{\fad(120,160)}can replace or block.
+Dialogue: 0,0:07:34.91,0:07:35.91,Sub,,0,0,0,,{\fad(120,160)}Freedom.
+Dialogue: 0,0:07:36.10,0:07:37.16,Sub,,0,0,0,,{\fad(120,160)}An inner life.
+Dialogue: 0,0:07:37.69,0:07:39.25,Sub,,0,0,0,,{\fad(120,160)}A calling to love and,
+Dialogue: 0,0:07:39.29,0:07:41.21,Sub,,0,0,0,,{\fad(120,160)}for him, to worship.
+Dialogue: 0,0:07:41.59,0:07:42.57,Sub,,0,0,0,,{\fad(120,160)}Whether that last word
+Dialogue: 0,0:07:42.61,0:07:44.67,Sub,,0,0,0,,{\fad(120,160)}is yours too is your call.
+Dialogue: 0,0:07:45.02,0:07:46.39,Sub,,0,0,0,,{\fad(120,160)}Is any of it right?
+Dialogue: 0,0:07:47.46,0:07:49.07,Sub,,0,0,0,,{\fad(120,160)}The night the letter came out,
+Dialogue: 0,0:07:49.11,0:07:50.83,Sub,,0,0,0,,{\fad(120,160)}a venture capitalist answered.
+Dialogue: 0,0:07:51.13,0:07:52.50,Sub,,0,0,0,,{\fad(120,160)}Take artificial intelligence
+Dialogue: 0,0:07:52.54,0:07:53.16,Sub,,0,0,0,,{\fad(120,160)}out of it,
+Dialogue: 0,0:07:53.20,0:07:54.23,Sub,,0,0,0,,{\fad(120,160)}he wrote, and not
+Dialogue: 0,0:07:54.27,0:07:55.41,Sub,,0,0,0,,{\fad(120,160)}much would change.
+Dialogue: 0,0:07:55.79,0:07:57.14,Sub,,0,0,0,,{\fad(120,160)}Half of that is true.
+Dialogue: 0,0:07:57.34,0:07:58.33,Sub,,0,0,0,,{\fad(120,160)}The first two chapters are
+Dialogue: 0,0:07:58.37,0:07:59.98,Sub,,0,0,0,,{\fad(120,160)}mostly classic Church teaching.
+Dialogue: 0,0:08:00.02,0:08:01.42,Sub,,0,0,0,,{\fad(120,160)}But the later chapters
+Dialogue: 0,0:08:01.46,0:08:02.64,Sub,,0,0,0,,{\fad(120,160)}are full of passages
+Dialogue: 0,0:08:02.68,0:08:03.53,Sub,,0,0,0,,{\fad(120,160)}that could only be
+Dialogue: 0,0:08:03.57,0:08:04.91,Sub,,0,0,0,,{\fad(120,160)}about these machines.
+Dialogue: 0,0:08:05.15,0:08:06.41,Sub,,0,0,0,,{\fad(120,160)}Two of them we have heard.
+Dialogue: 0,0:08:06.52,0:08:08.44,Sub,,0,0,0,,{\fad(120,160)}That they are grown, not built.
+Dialogue: 0,0:08:08.64,0:08:09.48,Sub,,0,0,0,,{\fad(120,160)}And that a few people
+Dialogue: 0,0:08:09.52,0:08:10.82,Sub,,0,0,0,,{\fad(120,160)}pick their morals.
+Dialogue: 0,0:08:11.02,0:08:11.83,Sub,,0,0,0,,{\fad(120,160)}A reviewer put his
+Dialogue: 0,0:08:11.87,0:08:13.20,Sub,,0,0,0,,{\fad(120,160)}verdict in a headline.
+Dialogue: 0,0:08:13.36,0:08:15.28,Sub,,0,0,0,,{\fad(120,160)}Wise, but frustrating.
+Dialogue: 0,0:08:15.87,0:08:16.83,Sub,,0,0,0,,{\fad(120,160)}Within a week,
+Dialogue: 0,0:08:16.87,0:08:18.22,Sub,,0,0,0,,{\fad(120,160)}Americans were shown one
+Dialogue: 0,0:08:18.26,0:08:19.68,Sub,,0,0,0,,{\fad(120,160)}sentence from the letter,
+Dialogue: 0,0:08:19.77,0:08:20.95,Sub,,0,0,0,,{\fad(120,160)}slightly shortened.
+Dialogue: 0,0:08:21.41,0:08:23.17,Sub,,0,0,0,,{\fad(120,160)}That these machines do not feel
+Dialogue: 0,0:08:23.21,0:08:25.38,Sub,,0,0,0,,{\fad(120,160)}joy or pain, and do not know
+Dialogue: 0,0:08:25.42,0:08:27.68,Sub,,0,0,0,,{\fad(120,160)}from within what love, work,
+Dialogue: 0,0:08:27.72,0:08:30.36,Sub,,0,0,0,,{\fad(120,160)}friendship or responsibility mean.
+Dialogue: 0,0:08:30.78,0:08:32.83,Sub,,0,0,0,,{\fad(120,160)}83% agreed.
+Dialogue: 0,0:08:33.15,0:08:34.50,Sub,,0,0,0,,{\fad(120,160)}A poll proves nothing.
+Dialogue: 0,0:08:34.54,0:08:35.87,Sub,,0,0,0,,{\fad(120,160)}But on how these
+Dialogue: 0,0:08:35.91,0:08:36.89,Sub,,0,0,0,,{\fad(120,160)}machines are made,
+Dialogue: 0,0:08:36.93,0:08:38.39,Sub,,0,0,0,,{\fad(120,160)}and who steers them,
+Dialogue: 0,0:08:38.58,0:08:39.75,Sub,,0,0,0,,{\fad(120,160)}one of their builders came
+Dialogue: 0,0:08:39.79,0:08:40.60,Sub,,0,0,0,,{\fad(120,160)}to the Vatican
+Dialogue: 0,0:08:40.64,0:08:42.21,Sub,,0,0,0,,{\fad(120,160)}and said much the same.
+Dialogue: 0,0:08:42.65,0:08:43.71,Sub,,0,0,0,,{\fad(120,160)}This is not Rome
+Dialogue: 0,0:08:43.75,0:08:45.33,Sub,,0,0,0,,{\fad(120,160)}against Silicon Valley.
+Dialogue: 0,0:08:45.56,0:08:46.53,Sub,,0,0,0,,{\fad(120,160)}On the rest,
+Dialogue: 0,0:08:46.57,0:08:48.31,Sub,,0,0,0,,{\fad(120,160)}the test is your own life.
+Dialogue: 0,0:08:48.91,0:08:49.78,Sub,,0,0,0,,{\fad(120,160)}The letter carries
+Dialogue: 0,0:08:49.82,0:08:51.64,Sub,,0,0,0,,{\fad(120,160)}its own hopeful reading.
+Dialogue: 0,0:08:51.98,0:08:53.36,Sub,,0,0,0,,{\fad(120,160)}Technology turned toward
+Dialogue: 0,0:08:53.40,0:08:54.92,Sub,,0,0,0,,{\fad(120,160)}freeing human time,
+Dialogue: 0,0:08:55.03,0:08:56.69,Sub,,0,0,0,,{\fad(120,160)}not shutting people out.
+Dialogue: 0,0:08:57.88,0:09:00.10,Sub,,0,0,0,,{\fad(120,160)}None of this arrives by itself.
+Dialogue: 0,0:09:00.27,0:09:01.78,Sub,,0,0,0,,{\fad(120,160)}The future of these machines,
+Dialogue: 0,0:09:01.82,0:09:02.82,Sub,,0,0,0,,{\fad(120,160)}the Pope says,
+Dialogue: 0,0:09:02.91,0:09:04.88,Sub,,0,0,0,,{\fad(120,160)}depends on the choices we make.
+Dialogue: 0,0:09:05.14,0:09:06.84,Sub,,0,0,0,,{\fad(120,160)}The labs set the pace.
+Dialogue: 0,0:09:07.06,0:09:08.62,Sub,,0,0,0,,{\fad(120,160)}Governments write the rules,
+Dialogue: 0,0:09:08.66,0:09:09.73,Sub,,0,0,0,,{\fad(120,160)}or fail to.
+Dialogue: 0,0:09:10.01,0:09:12.15,Sub,,0,0,0,,{\fad(120,160)}And governments answer to you.
+Dialogue: 0,0:09:12.80,0:09:13.54,Sub,,0,0,0,,{\fad(120,160)}Now look at both
+Dialogue: 0,0:09:13.58,0:09:14.78,Sub,,0,0,0,,{\fad(120,160)}sides of the scale.
+Dialogue: 0,0:09:15.06,0:09:15.91,Sub,,0,0,0,,{\fad(120,160)}On the left,
+Dialogue: 0,0:09:15.95,0:09:16.89,Sub,,0,0,0,,{\fad(120,160)}everything a machine
+Dialogue: 0,0:09:16.93,0:09:18.43,Sub,,0,0,0,,{\fad(120,160)}can take off your hands.
+Dialogue: 0,0:09:18.55,0:09:19.34,Sub,,0,0,0,,{\fad(120,160)}The illness.
+Dialogue: 0,0:09:19.38,0:09:20.30,Sub,,0,0,0,,{\fad(120,160)}The bills.
+Dialogue: 0,0:09:20.34,0:09:21.96,Sub,,0,0,0,,{\fad(120,160)}The work that wears you out.
+Dialogue: 0,0:09:22.42,0:09:23.36,Sub,,0,0,0,,{\fad(120,160)}On the right,
+Dialogue: 0,0:09:23.40,0:09:25.22,Sub,,0,0,0,,{\fad(120,160)}what cannot be handed over.
+Dialogue: 0,0:09:25.46,0:09:26.47,Sub,,0,0,0,,{\fad(120,160)}Who you sit with.
+Dialogue: 0,0:09:26.59,0:09:27.82,Sub,,0,0,0,,{\fad(120,160)}Who you answer for.
+Dialogue: 0,0:09:27.99,0:09:29.86,Sub,,0,0,0,,{\fad(120,160)}What you do on a Tuesday morning.
+Dialogue: 0,0:09:30.46,0:09:31.73,Sub,,0,0,0,,{\fad(120,160)}The Pope has a sentence
+Dialogue: 0,0:09:31.77,0:09:32.77,Sub,,0,0,0,,{\fad(120,160)}for that side.
+Dialogue: 0,0:09:33.14,0:09:34.52,Sub,,0,0,0,,{\fad(120,160)}What saves humanity
+Dialogue: 0,0:09:34.56,0:09:37.07,Sub,,0,0,0,,{\fad(120,160)}is not enhanced self-sufficiency,
+Dialogue: 0,0:09:37.29,0:09:39.61,Sub,,0,0,0,,{\fad(120,160)}but a relationship that liberates.
+Dialogue: 0,0:09:40.08,0:09:41.08,Sub,,0,0,0,,{\fad(120,160)}Put plainly.
+Dialogue: 0,0:09:41.47,0:09:42.85,Sub,,0,0,0,,{\fad(120,160)}Artificial intelligence can
+Dialogue: 0,0:09:42.89,0:09:44.04,Sub,,0,0,0,,{\fad(120,160)}save your body,
+Dialogue: 0,0:09:44.08,0:09:45.86,Sub,,0,0,0,,{\fad(120,160)}your time and your money.
+Dialogue: 0,0:09:46.30,0:09:47.40,Sub,,0,0,0,,{\fad(120,160)}What you do with them
+Dialogue: 0,0:09:47.44,0:09:49.59,Sub,,0,0,0,,{\fad(120,160)}is the one job it cannot take.
+Dialogue: 0,0:09:50.95,0:09:51.84,Sub,,0,0,0,,{\fad(120,160)}At the start,
+Dialogue: 0,0:09:51.88,0:09:52.64,Sub,,0,0,0,,{\fad(120,160)}you named what you
+Dialogue: 0,0:09:52.68,0:09:54.03,Sub,,0,0,0,,{\fad(120,160)}would hand a machine.
+Dialogue: 0,0:09:54.38,0:09:56.30,Sub,,0,0,0,,{\fad(120,160)}Now name what you would keep.
+Dialogue: 0,0:09:57.44,0:09:58.76,Sub,,0,0,0,,{\fad(120,160)}This channel exists so
+Dialogue: 0,0:09:58.80,0:09:59.52,Sub,,0,0,0,,{\fad(120,160)}that the arrival
+Dialogue: 0,0:09:59.56,0:10:00.63,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:10:00.67,0:10:02.38,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody,
+Dialogue: 0,0:10:02.44,0:10:03.37,Sub,,0,0,0,,{\fad(120,160)}not only for the people
+Dialogue: 0,0:10:03.41,0:10:04.41,Sub,,0,0,0,,{\fad(120,160)}who build it.
+Dialogue: 0,0:10:04.55,0:10:05.55,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:10:05.62,0:10:06.63,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
