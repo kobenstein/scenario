@@ -266,7 +266,7 @@ export function wordRun(ctx, t, items, x, y, size, o = {}) {
   if (o.align === 'center') xx = x - tot / 2;
   for (const [w, t0, warm] of items) { const u = span(t, t0 - .08, t0 + .45); if (u > 0) words(ctx, [[w, warm ?? 0]], xx, y, size, u, { ...o, align: 'left' }); xx += measure(w + ' ', size, o.serif ?? true, o.weight); }
 }
-export function caps(ctx, s, x, y, u, o = {}) { if (u <= 0) return; scr(ctx, (c) => maskLine(c, [[s, 0]], x, y, o.size ?? 26, rise(u), { serif: false, weight: 600, col: o.col ?? P.cream, glow: o.glow ?? false, align: o.align })); }
+export function caps(ctx, s, x, y, u, o = {}) { if (u <= 0) return; scr(ctx, (c) => { if (o.shadow !== false) { c.shadowColor = rgba('#0b1440', .75); c.shadowBlur = 18; c.shadowOffsetY = 2; } maskLine(c, [[s, 0]], x, y, o.size ?? 26, rise(u), { serif: false, weight: 600, col: o.col ?? P.cream, glow: o.glow ?? false, align: o.align }); }); }
 // a dark soft plate behind type that sits on a bright scene (keeps contrast without a box look)
 export function scrim(ctx, x, y, w, h, a = .55) { scr(ctx, (c) => { const r = w * .7; c.translate(x + w / 2, y + h / 2); c.scale(1, Math.min(1, h * 1.5 / w)); c.fillStyle = rad(c, 0, 0, r, [[0, rgba('#0b1440', a)], [.6, rgba('#0b1440', a * .55)], [1, rgba('#0b1440', 0)]]); c.fillRect(-r, -r, 2 * r, 2 * r); }); }
 
