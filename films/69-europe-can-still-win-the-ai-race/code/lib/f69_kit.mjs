@@ -256,14 +256,14 @@ export const CLIPS = {   // text-v2.md §Clips (23.11.): Bauchbinde wording
   C1b: { name: 'Mario Draghi', role: 'Former President, European Central Bank', year: '2026' },
 };
 // C1b (KU Leuven): a sign-language interpreter bottom right + a logo top right → centre crop (crop .76 of the frame, centred).
-CLIPS.C1b.crop = .76;
+CLIPS.C1b.crop = .656; CLIPS.C1b.cropDx = -.094; CLIPS.C1b.cropDy = -.116;   // master check 25.11.: .76 centred still showed the interpreter; now only the stage inset (x 150–1410, y 60–769 of the source)
 try {   // clips-geprueft.json (24.11.): { clips: [{ id, file, speaker, lower_third: 'NAME · Role · Year · ORIGINAL FOOTAGE', channel, duration_s, … }] }
   const j = JSON.parse(fs.readFileSync(ROOT + 'clips-geprueft.json', 'utf8'));
   for (const c of j.clips || []) { const k = CLIPS[c.id]; if (!k) continue;
     if (c.speaker) k.name = c.speaker;
     if (c.lower_third) { const q = c.lower_third.split('·').map((x) => x.trim()); if (q.length >= 3) { k.role = q[1]; k.year = q[2]; } const cq = q.find((x) => x.startsWith('©')); if (cq) k.credit = cq; }
     const cc = /©[^)]*/.exec(c.channel || ''); if (cc) k.credit = cc[0].trim();
-    for (const [a, b] of [['rolle', 'role'], ['role', 'role'], ['jahr', 'year'], ['year', 'year'], ['credit', 'credit'], ['crop', 'crop'], ['cropDy', 'cropDy']]) if (c[a] != null) k[b] = c[a]; }
+    for (const [a, b] of [['rolle', 'role'], ['role', 'role'], ['jahr', 'year'], ['year', 'year'], ['credit', 'credit'], ['crop', 'crop'], ['cropDx', 'cropDx'], ['cropDy', 'cropDy']]) if (c[a] != null) k[b] = c[a]; }
 } catch { /* not there yet */ }
 const CLIPDIR = (process.env.F69CLIPS || '/tmp/claude-0/f69/clips/').replace(/\/?$/, '/');
 const nFrames = new Map();
@@ -296,7 +296,7 @@ export function clipPlate(ctx, t, T, id, o = {}) {
   ctx.fillStyle = mixHex(P.night0, P.ind0, .4); ctx.fillRect(cx - w / 2, cy - h / 2, w, h);
   const k = frameAt(id, t, win), fr = k ? frameCache.get(framePath(id, k)) : null;
   if (fr) {   // the centre crop (info.crop) hides corner logos; then cover the plate
-    const cr = info.crop ?? 1, sw = fr.width * cr, sh = fr.height * cr, sx = (fr.width - sw) / 2, sy = Math.min(fr.height - sh, (fr.height - sh) / 2 + (info.cropDy ?? 0) * fr.height);
+    const cr = info.crop ?? 1, sw = fr.width * cr, sh = fr.height * cr, sx = Math.max(0, Math.min(fr.width - sw, (fr.width - sw) / 2 + (info.cropDx ?? 0) * fr.width)), sy = Math.min(fr.height - sh, (fr.height - sh) / 2 + (info.cropDy ?? 0) * fr.height);
     const s = Math.max(R.w / sw, R.h / sh) * (w / R.w), dw = sw * s, dh = sh * s; ctx.globalAlpha = 1 - dark; ctx.drawImage(fr, sx, sy, sw, sh, cx - dw / 2, cy - dh / 2, dw, dh); ctx.globalAlpha = 1; }
   else {
     const u = clamp((t - win.start) / (win.end - win.start));
