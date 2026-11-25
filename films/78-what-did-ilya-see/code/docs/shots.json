@@ -1,0 +1,1642 @@
+[
+{
+"id": "H.01",
+"chunk": "c01",
+"anchor": "What did Ilya see",
+"t": 0.72,
+"len": 2.47,
+"shows": "THUMBNAIL C as a poster: the night, a tower of gold light (right third), a city low on the horizon; a man (Ilya, plain silhouette, no face) stands at its foot facing the light; the title WHAT DID / ILYA SEE? rises left in heavy cream caps word by word",
+"type": "SZENE",
+"carrier": "the man"
+},
+{
+"id": "H.02",
+"chunk": "c01",
+"anchor": "Ilya Sutskever helped create",
+"t": 2.77,
+"len": 4.52,
+"shows": "a gold label line pins ILYA SUTSKEVER \u00b7 CO-FOUNDER, OPENAI to him; out of the tower's light a chat window unfolds: YOUR question (yellow edge) and the answer writing itself line by line",
+"type": "MIX",
+"carrier": "the chat window"
+},
+{
+"id": "H.03",
+"chunk": "c01",
+"anchor": "Then he walked away",
+"t": 7.29,
+"len": 4.49,
+"shows": "the chat window folds back into the tower (tag CHATGPT on its face), the tower gets its name OPENAI; the man turns and walks toward us, away from the light (thumbnail C pose), long shadow",
+"type": "SZENE",
+"carrier": "the tower windows"
+},
+{
+"id": "H.04",
+"chunk": "c01",
+"anchor": "It began on a Friday",
+"t": 11.78,
+"len": 6.27,
+"shows": "the camera flies into the tower face: its window panes become the tiles of a VIDEO CALL (3 \u00d7 2); date tag FRI \u00b7 NOV 17, 2023; tiles light up: ILYA (speaking ring) and THE BOSS \u00b7 HEAD OF OPENAI",
+"type": "EXPL",
+"carrier": "the boss tile"
+},
+{
+"id": "H.05",
+"chunk": "c01",
+"anchor": "And it was the boss who was fired",
+"t": 18.05,
+"len": 2.12,
+"shows": "the boss tile flickers once (anticipation), goes dark and drops out of the grid; FIRED in cream caps where it was",
+"type": "EXPL",
+"carrier": "the empty slot"
+},
+{
+"id": "H.06",
+"chunk": "c01",
+"anchor": "Soon, the whole internet",
+"t": 20.17,
+"len": 4.07,
+"shows": "out of the empty slot small post cards clone in a spiral until they fill the frame, each with the line \"what did Ilya see?\"; the camera pulls back over hundreds",
+"type": "EXPL",
+"carrier": "the cards"
+},
+{
+"id": "H.07",
+"chunk": "c01",
+"anchor": "The guess",
+"t": 24.24,
+"len": 4.59,
+"shows": "the cards swirl inward and become ONE giant machine ring (cool light, iris rings turning); THE GUESS; the man stands tiny under it and leans back",
+"type": "MIX",
+"carrier": "the ring"
+},
+{
+"id": "H.08",
+"chunk": "c01",
+"anchor": "And if it scared him",
+"t": 28.83,
+"len": 2.77,
+"shows": "pull back: you (the yellow raincoat) stand in the foreground and look up at the same ring",
+"type": "SZENE",
+"carrier": "the ring"
+},
+{
+"id": "H.09",
+"chunk": "c01",
+"anchor": "Now a Hollywood movie",
+"t": 31.6,
+"len": 3.4,
+"shows": "the ring flattens into a cinema screen; under it a marquee in bulbs ARTIFICIAL \u00b7 US RELEASE DEC 25, 2026 (title text only, no stills)",
+"type": "KARTE",
+"carrier": "the screen"
+},
+{
+"id": "H.10",
+"chunk": "c01",
+"anchor": "But the answer wasn't written",
+"t": 35.0,
+"len": 2.76,
+"shows": "the marquee bulbs go out one by one from left to right; the screen dims to a blank page",
+"type": "EXPL",
+"carrier": "the blank page"
+},
+{
+"id": "H.11",
+"chunk": "c01",
+"anchor": "It came out under oath",
+"t": 37.76,
+"len": 1.96,
+"shows": "the page becomes a court transcript: SWORN TESTIMONY \u00b7 OCT 2025, numbered lines Q./A. writing in, a raised right hand icon in the margin",
+"type": "KARTE",
+"carrier": "the page"
+},
+{
+"id": "H.12",
+"chunk": "c01",
+"anchor": "It was never about a machine",
+"t": 39.72,
+"len": 2.21,
+"shows": "the small machine ring left in the corner of the page crumbles into dust and blows off the paper",
+"type": "EXPL",
+"carrier": "the page"
+},
+{
+"id": "H.13",
+"chunk": "c01",
+"anchor": "At the center were",
+"t": 41.93,
+"len": 3.03,
+"shows": "the transcript page drops onto a stack; pages fall onto it while a counter runs 1 \u2192 52; 52 PAGES in gold",
+"type": "EXPL",
+"carrier": "THE 52 PAGES"
+},
+{
+"id": "H.14",
+"chunk": "c01",
+"anchor": "Ilya had written them himself",
+"t": 44.96,
+"len": 2.23,
+"shows": "on the top page a gold pen line writes BY ILYA SUTSKEVER",
+"type": "EXPL",
+"carrier": "the top page"
+},
+{
+"id": "H.15",
+"chunk": "c01",
+"anchor": "And they were about a man",
+"t": 47.19,
+"len": 1.87,
+"shows": "a man's profile silhouette prints itself onto the top page (ink, no face): ABOUT ONE MAN",
+"type": "EXPL",
+"carrier": "the stack"
+},
+{
+"id": "H.16",
+"chunk": "c01",
+"anchor": "But that is only half",
+"t": 49.06,
+"len": 2.58,
+"shows": "the stack slides into the left half; a gold line draws top to bottom down the middle; the right half stays dark and empty (HALF 1 / 2)",
+"type": "EXPL",
+"carrier": "the dividing line"
+},
+{
+"id": "H.17",
+"chunk": "c01",
+"anchor": "The other half is about every job",
+"t": 51.64,
+"len": 3.69,
+"shows": "the right half fills with small working figures (programmer, doctor, driver, cook, teacher \u2026), lighting row by row",
+"type": "EXPL",
+"carrier": "the figures"
+},
+{
+"id": "H.18",
+"chunk": "c01",
+"anchor": "Yours included",
+"t": 55.33,
+"len": 1.41,
+"shows": "one figure in the grid is you (yellow raincoat): it lights up and steps forward",
+"type": "MIX",
+"carrier": "you"
+},
+{
+"id": "H.19",
+"chunk": "c01",
+"anchor": "And he never hid it",
+"t": 56.74,
+"len": 2.87,
+"shows": "the figures dim; on the line the man stands at a lectern in a spotlight, sound rings go out openly into the room \u2192 plateHook (the 52 pages left, the line, the man at the lectern right)",
+"type": "MIX",
+"carrier": "plateHook"
+},
+{
+"id": "1.01",
+"chunk": "c02",
+"anchor": "So what was in those pages",
+"t": 59.31,
+"len": 2.2,
+"shows": "out of plateHook: push into the stack, the top page lifts and turns toward us until it fills the frame (MEMO \u00b7 52 PAGES)",
+"type": "EXPL",
+"carrier": "the page"
+},
+{
+"id": "1.02",
+"chunk": "c02",
+"anchor": "They were about that boss",
+"t": 61.81,
+"len": 2.85,
+"shows": "the man-print on the page gets its name line: SAM ALTMAN \u00b7 CEO, OPENAI (text and a plain silhouette, no photo, no quote)",
+"type": "EXPL",
+"carrier": "the silhouette"
+},
+{
+"id": "1.03",
+"chunk": "c02",
+"anchor": "Their claim",
+"t": 64.66,
+"len": 3.92,
+"shows": "THE CLAIM: the silhouette in the middle, five small figures around it, the threads to them flicker and break; caption NOT STRAIGHT WITH THE PEOPLE AROUND HIM",
+"type": "EXPL",
+"carrier": "the threads"
+},
+{
+"id": "1.04",
+"chunk": "c02",
+"anchor": "Ilya had collected the material",
+"t": 68.58,
+"len": 3.09,
+"shows": "a folder fills with small screenshot cards while a strip of 12 months ticks by: ABOUT A YEAR",
+"type": "EXPL",
+"carrier": "the folder"
+},
+{
+"id": "1.05",
+"chunk": "c02",
+"anchor": "Under oath, he explained why",
+"t": 71.67,
+"len": 5.73,
+"shows": "the transcript page from the hook returns; quote line \"the company would be destroyed\" writes in, tag UNDER OATH \u00b7 OAKLAND, MAY 2026",
+"type": "KARTE",
+"carrier": "the quote"
+},
+{
+"id": "1.06",
+"chunk": "c02",
+"anchor": "But almost all of it came from",
+"t": 77.4,
+"len": 2.99,
+"shows": "every screenshot card in the folder pulls a thread back to ONE small figure: ONE COLLEAGUE (no name)",
+"type": "EXPL",
+"carrier": "the threads"
+},
+{
+"id": "1.07",
+"chunk": "c02",
+"anchor": "He did not check it",
+"t": 80.39,
+"len": 2.4,
+"shows": "the people involved stand in grey beside it; no thread reaches them (dashed lines that never close): NOT CHECKED WITH THEM",
+"type": "EXPL",
+"carrier": "the call grid"
+},
+{
+"id": "1.08",
+"chunk": "c02",
+"anchor": "And the board that fired Altman",
+"t": 82.79,
+"len": 6.39,
+"shows": "the call grid from the hook comes back small, the board tiles hurry (speed lines); quote \"the process was rushed.\" \u00b7 SWORN TESTIMONY, OCT 2025",
+"type": "KARTE",
+"carrier": "the grid"
+},
+{
+"id": "2.01",
+"chunk": "c03",
+"anchor": "Then it fell apart",
+"t": 88.88,
+"len": 1.83,
+"shows": "the call grid comes apart: tiles slide away from each other, the gaps widen",
+"type": "EXPL",
+"carrier": "a tile"
+},
+{
+"id": "2.02",
+"chunk": "c03",
+"anchor": "Ilya himself wrote",
+"t": 91.01,
+"len": 5.83,
+"shows": "his post as a card (ILYA SUTSKEVER \u00b7 NOV 20, 2023, no logo): \"I deeply regret my participation in the board's actions.\"",
+"type": "KARTE",
+"carrier": "the card"
+},
+{
+"id": "2.03",
+"chunk": "c03",
+"anchor": "Five days after that video call",
+"t": 96.84,
+"len": 4.25,
+"shows": "a strip of five days FRI 17 \u2192 TUE 21 lights cell by cell; on day five the boss tile slides back into the grid: BACK IN CHARGE",
+"type": "EXPL",
+"carrier": "the grid"
+},
+{
+"id": "2.04",
+"chunk": "c03",
+"anchor": "A law firm, hired by",
+"t": 101.09,
+"len": 5.06,
+"shows": "a report folder LAW FIRM REVIEW \u00b7 MARCH 2024 (for the new board); finding 1 writes in: A BREAKDOWN OF TRUST",
+"type": "KARTE",
+"carrier": "the report"
+},
+{
+"id": "2.05",
+"chunk": "c03",
+"anchor": "Not a safety problem",
+"t": 106.15,
+"len": 1.45,
+"shows": "finding 2 on the same card: NOT ABOUT SAFETY \u00b7 and (both findings, kritik): OLD BOARD ACTED WITHIN ITS DISCRETION",
+"type": "EXPL",
+"carrier": "the report"
+},
+{
+"id": "2.06",
+"chunk": "c03",
+"anchor": "And nothing that demanded",
+"t": 107.6,
+"len": 2.75,
+"shows": "finding 3: DID NOT MANDATE REMOVAL; the three lines stand as the summary",
+"type": "EXPL",
+"carrier": "the report"
+},
+{
+"id": "2.07",
+"chunk": "c03",
+"anchor": "No court has ever ruled",
+"t": 110.35,
+"len": 3.09,
+"shows": "an empty judge's bench, the verdict line WHO WAS RIGHT: \u2014 stays empty",
+"type": "MIX",
+"carrier": "the bench"
+},
+{
+"id": "2.08",
+"chunk": "c03",
+"anchor": "So that is what Ilya saw",
+"t": 113.44,
+"len": 2.48,
+"shows": "the man (silhouette) looks at the call grid, tiles with threads between them",
+"type": "MIX",
+"carrier": "the threads"
+},
+{
+"id": "2.09",
+"chunk": "c03",
+"anchor": "A problem you know from any workplace",
+"t": 115.92,
+"len": 6.08,
+"shows": "an ordinary office at night: two colleagues turned away from each other, the thread between them snaps; you (yellow) at the next desk",
+"type": "SZENE",
+"carrier": "the office window"
+},
+{
+"id": "3.01",
+"chunk": "c04",
+"anchor": "And yet, something bigger",
+"t": 121.7,
+"len": 3.17,
+"shows": "out of the office window: the man small under a sky that is much bigger than the office; a light far on the horizon",
+"type": "SZENE",
+"carrier": "the horizon light"
+},
+{
+"id": "3.02",
+"chunk": "c04",
+"anchor": "Earlier that year",
+"t": 125.17,
+"len": 6.17,
+"shows": "a heavy door half in the ground, small and plain (the bunker: picture only, NO quote, NO card, #72); beside it a machine ring AS SMART AS US; tag SUMMER 2023",
+"type": "MIX",
+"carrier": "the ring"
+},
+{
+"id": "3.03",
+"chunk": "c04",
+"anchor": "But what worried him was never locked",
+"t": 131.34,
+"len": 3.33,
+"shows": "a lab door with a lock: the lock opens, the room is empty, the light runs out into the open",
+"type": "MIX",
+"carrier": "the light"
+},
+{
+"id": "3.04",
+"chunk": "c04",
+"anchor": "Three weeks before that Friday",
+"t": 134.67,
+"len": 6.1,
+"shows": "a magazine page MIT TECHNOLOGY REVIEW \u00b7 OCT 26, 2023, the quote \"There will be a before and an after.\"; the gap between BEFORE and AFTER pulls out into a gold vertical LINE that stands across the frame",
+"type": "KARTE",
+"carrier": "THE LINE"
+},
+{
+"id": "3.05",
+"chunk": "c04",
+"anchor": "Before and after what",
+"t": 140.77,
+"len": 1.88,
+"shows": "the line alone: BEFORE (left, night) | AFTER (right) with a cream ? on the AFTER side",
+"type": "EXPL",
+"carrier": "the line"
+},
+{
+"id": "3.06",
+"chunk": "c04",
+"anchor": "He later said it out loud",
+"t": 142.65,
+"len": 1.7,
+"shows": "the man at the lectern from the hook, sound rings opening",
+"type": "MIX",
+"carrier": "the rings"
+},
+{
+"id": "3.07",
+"chunk": "c04",
+"anchor": "In Toronto, in the hall",
+"t": 144.35,
+"len": 6.33,
+"shows": "ANCHOR TORONTO: Convocation Hall (round hall, columns, dome) at dusk, rows of mortarboards; tag TORONTO \u00b7 JUNE 2025; small line SAME HALL AS HIS DEGREE",
+"type": "SZENE",
+"carrier": "the hall door"
+},
+{
+"id": "3.08",
+"chunk": "c04",
+"anchor": "slot:C2",
+"t": 150.38,
+"len": 7.76,
+"shows": "C2 grows out of the hall door: ILYA SUTSKEVER \u00b7 UNIVERSITY OF TORONTO, JUNE 2025 \u00b7 ORIGINAL FOOTAGE; back into the door",
+"type": "CLIP",
+"carrier": "the door"
+},
+{
+"id": "3.09",
+"chunk": "c04",
+"anchor": "Not some of what you do",
+"t": 158.14,
+"len": 2.85,
+"shows": "the job figures from the hook: SOME lights three of them \u2026 ALL OF IT lights every one",
+"type": "EXPL",
+"carrier": "the figures"
+},
+{
+"id": "3.10",
+"chunk": "c04",
+"anchor": "Anything you can learn",
+"t": 161.29,
+"len": 4.41,
+"shows": "a figure learns a skill (a page \u2192 a tool lights in its hand); a cool copy beside it does the same: ANYTHING YOU CAN LEARN",
+"type": "MIX",
+"carrier": "the copy"
+},
+{
+"id": "3.11",
+"chunk": "c04",
+"anchor": "How can he be so sure",
+"t": 165.7,
+"len": 1.84,
+"shows": "a cream ? over the two",
+"type": "EXPL",
+"carrier": "the ?"
+},
+{
+"id": "3.12",
+"chunk": "c04",
+"anchor": "His reason: your brain",
+"t": 167.54,
+"len": 3.67,
+"shows": "a head profile with a network of gold nodes inside: BIOLOGICAL COMPUTER (no pink brain)",
+"type": "EXPL",
+"carrier": "the network"
+},
+{
+"id": "3.13",
+"chunk": "c04",
+"anchor": "So why shouldn't a digital one",
+"t": 171.21,
+"len": 3.6,
+"shows": "the same network copies itself into a square chip outline in cool light: DIGITAL",
+"type": "EXPL",
+"carrier": "the chip"
+},
+{
+"id": "3.14",
+"chunk": "c04",
+"anchor": "So that is what Ilya sees coming",
+"t": 174.81,
+"len": 4.98,
+"shows": "the LINE again: on the AFTER side the ring fades (NOT A HIDDEN MACHINE) and ONE DAY rises on the horizon like a sunrise",
+"type": "EXPL",
+"carrier": "the day"
+},
+{
+"id": "3.15",
+"chunk": "c04",
+"anchor": "A big claim",
+"t": 179.79,
+"len": 4.37,
+"shows": "the claim as a card on the line: AI WILL DO ALL THE THINGS WE CAN DO, a ? beside it",
+"type": "EXPL",
+"carrier": "the claim card"
+},
+{
+"id": "4.01",
+"chunk": "c05",
+"anchor": "Not blindly",
+"t": 183.86,
+"len": 1.26,
+"shows": "an eye shape opens on the claim card (not blind)",
+"type": "EXPL",
+"carrier": "the card"
+},
+{
+"id": "4.02",
+"chunk": "c05",
+"anchor": "Today he runs a company",
+"t": 185.42,
+"len": 4.13,
+"shows": "a small building SAFE SUPERINTELLIGENCE, its value bar ($32B, APR 2025) hangs on a thread from IF HE IS RIGHT",
+"type": "MIX",
+"carrier": "the thread"
+},
+{
+"id": "4.03",
+"chunk": "c05",
+"anchor": "But he has a record",
+"t": 189.55,
+"len": 1.44,
+"shows": "HIS LIFE LINE draws left to right (gold), year ticks",
+"type": "EXPL",
+"carrier": "the life line"
+},
+{
+"id": "4.04",
+"chunk": "c05",
+"anchor": "Look at four of his predictions",
+"t": 190.99,
+"len": 1.87,
+"shows": "four markers 1 2 3 4 drop onto the line",
+"type": "EXPL",
+"carrier": "the markers"
+},
+{
+"id": "4.05",
+"chunk": "c05",
+"anchor": "Two have held up",
+"t": 192.86,
+"len": 1.31,
+"shows": "markers 1 and 2 fill gold: HELD",
+"type": "EXPL",
+"carrier": "the markers"
+},
+{
+"id": "4.06",
+"chunk": "c05",
+"anchor": "Two are still open",
+"t": 194.17,
+"len": 1.45,
+"shows": "markers 3 and 4 stay cream rings: OPEN (never red, never a cross)",
+"type": "EXPL",
+"carrier": "marker 4"
+},
+{
+"id": "4.07",
+"chunk": "c05",
+"anchor": "And the last one comes with a number",
+"t": 195.62,
+"len": 2.21,
+"shows": "marker 4 gets an empty number box ? YEARS",
+"type": "EXPL",
+"carrier": "marker 1"
+},
+{
+"id": "4.08",
+"chunk": "c05",
+"anchor": "The first, as he tells it",
+"t": 197.83,
+"len": 3.23,
+"shows": "zoom into marker 1: a teenager at a desk with an old computer; tag AS HE TELLS IT",
+"type": "MIX",
+"carrier": "the screen"
+},
+{
+"id": "4.09",
+"chunk": "c05",
+"anchor": "His question: can a computer learn",
+"t": 201.06,
+"len": 2.77,
+"shows": "the question writes itself on the old screen: CAN A COMPUTER LEARN?",
+"type": "EXPL",
+"carrier": "the question"
+},
+{
+"id": "4.10",
+"chunk": "c05",
+"anchor": "He felt: answer that",
+"t": 203.83,
+"len": 3.78,
+"shows": "quote \"everything else would follow\": arrows branch out of the question in all directions",
+"type": "KARTE",
+"carrier": "the arrows"
+},
+{
+"id": "4.11",
+"chunk": "c05",
+"anchor": "In grad school",
+"t": 207.61,
+"len": 5.57,
+"shows": "three silhouettes at a workstation (he and two colleagues); photos (cat, ship, car) flow into a small network and come out with their names; tag TORONTO \u00b7 2012",
+"type": "MIX",
+"carrier": "the network"
+},
+{
+"id": "4.12",
+"chunk": "c05",
+"anchor": "It beat every rival",
+"t": 213.18,
+"len": 2.3,
+"shows": "bars: ERROR RATE 15.3 % (theirs, gold) vs 26.2 % (next best); marker 1 fills gold HELD",
+"type": "EXPL",
+"carrier": "marker 2"
+},
+{
+"id": "4.13",
+"chunk": "c05",
+"anchor": "His second prediction fits",
+"t": 215.48,
+"len": 3.36,
+"shows": "marker 2 opens into a single slide card, 2014",
+"type": "EXPL",
+"carrier": "the slide"
+},
+{
+"id": "4.14",
+"chunk": "c05",
+"anchor": "A decade after he first showed it",
+"t": 218.84,
+"len": 5.92,
+"shows": "the slide on a big stage screen; tag NEURIPS \u00b7 VANCOUVER \u00b7 DEC 2024; an arc 2014 \u2192 2024",
+"type": "MIX",
+"carrier": "the stage screen"
+},
+{
+"id": "4.15",
+"chunk": "c05",
+"anchor": "slot:C1",
+"t": 224.46,
+"len": 13.55,
+"shows": "C1 grows out of the stage screen: ILYA SUTSKEVER \u00b7 NEURIPS, VANCOUVER, DEC 2024 \u00b7 ORIGINAL FOOTAGE (the real slide)",
+"type": "CLIP",
+"carrier": "the screen"
+},
+{
+"id": "4.16",
+"chunk": "c05",
+"anchor": "Big network, big data",
+"t": 238.01,
+"len": 2.26,
+"shows": "THE RECIPE CARD: BIG NETWORK + BIG DATA, two shapes grow on it",
+"type": "EXPL",
+"carrier": "the recipe card"
+},
+{
+"id": "4.17",
+"chunk": "c05",
+"anchor": "Out of that recipe grew",
+"t": 240.57,
+"len": 4.71,
+"shows": "stems grow out of the card: GPT-1 2018 \u00b7 GPT-2 2019 \u00b7 GPT-3 2020 \u00b7 CHATGPT 2022",
+"type": "EXPL",
+"carrier": "the ChatGPT stem"
+},
+{
+"id": "4.18",
+"chunk": "c05",
+"anchor": "When it came out",
+"t": 245.28,
+"len": 3.8,
+"shows": "tag on the ChatGPT stem: ILYA \u00b7 CHIEF SCIENTIST, OPENAI; marker 2 fills gold HELD",
+"type": "EXPL",
+"carrier": "the chat bubble"
+},
+{
+"id": "4.19",
+"chunk": "c05",
+"anchor": "Every time you ask a chatbot",
+"t": 249.08,
+"len": 4.32,
+"shows": "you (yellow) with a phone, a chat bubble; the recipe card glows behind it",
+"type": "MIX",
+"carrier": "the recipe card"
+},
+{
+"id": "5.01",
+"chunk": "c06",
+"anchor": "But on that same stage",
+"t": 253.1,
+"len": 3.35,
+"shows": "back on the stage, marker 3 lights cream",
+"type": "MIX",
+"carrier": "marker 3"
+},
+{
+"id": "5.02",
+"chunk": "c06",
+"anchor": "And it says his own recipe will run out",
+"t": 256.75,
+"len": 3.18,
+"shows": "on the recipe card the DATA half starts to drain like a gauge",
+"type": "EXPL",
+"carrier": "the gauge"
+},
+{
+"id": "5.03",
+"chunk": "c06",
+"anchor": "The recipe needs text",
+"t": 259.93,
+"len": 3.55,
+"shows": "lines of text pour from one pile into the card; the pile shrinks",
+"type": "EXPL",
+"carrier": "the pile"
+},
+{
+"id": "5.04",
+"chunk": "c06",
+"anchor": "In his words",
+"t": 263.48,
+"len": 3.25,
+"shows": "the pile is ONE globe of text lines: \"we have but one internet.\" \u00b7 NEURIPS, DEC 2024",
+"type": "KARTE",
+"carrier": "the globe"
+},
+{
+"id": "5.05",
+"chunk": "c06",
+"anchor": "So this way of teaching machines",
+"t": 266.73,
+"len": 4.96,
+"shows": "quote \"will unquestionably end\": the gauge reaches empty, the line of the old recipe stops at a wall",
+"type": "KARTE",
+"carrier": "the wall"
+},
+{
+"id": "5.06",
+"chunk": "c06",
+"anchor": "That one is still open",
+"t": 271.69,
+"len": 2.43,
+"shows": "the life line: marker 3 stays a cream ring OPEN",
+"type": "EXPL",
+"carrier": "marker 3"
+},
+{
+"id": "5.07",
+"chunk": "c06",
+"anchor": "Google, he admits",
+"t": 274.12,
+"len": 4.06,
+"shows": "a second recipe card labelled GOOGLE (text only), its bar edges higher: MAY BE GETTING MORE OUT OF IT",
+"type": "EXPL",
+"carrier": "the card"
+},
+{
+"id": "5.08",
+"chunk": "c06",
+"anchor": "But something important",
+"t": 278.18,
+"len": 3.26,
+"shows": "a machine ring with one segment missing",
+"type": "EXPL",
+"carrier": "the gap"
+},
+{
+"id": "5.09",
+"chunk": "c06",
+"anchor": "Today's machines can't learn",
+"t": 281.44,
+"len": 4.72,
+"shows": "two rows: YOU see 3 examples and learn (gold tick of light); THE MACHINE needs a wall of thousands",
+"type": "EXPL",
+"carrier": "the rows"
+},
+{
+"id": "5.10",
+"chunk": "c06",
+"anchor": "His fourth prediction is about",
+"t": 286.16,
+"len": 4.2,
+"shows": "the life line: marker 4 lights",
+"type": "EXPL",
+"carrier": "marker 4"
+},
+{
+"id": "5.11",
+"chunk": "c06",
+"anchor": "He pictures it as",
+"t": 290.36,
+"len": 3.77,
+"shows": "quote \"a superintelligent fifteen-year-old\": a teenage figure made of cool light with a school bag",
+"type": "KARTE",
+"carrier": "the figure"
+},
+{
+"id": "5.12",
+"chunk": "c06",
+"anchor": "It knows very little",
+"t": 294.13,
+"len": 1.61,
+"shows": "its knowledge bar almost empty",
+"type": "EXPL",
+"carrier": "the bar"
+},
+{
+"id": "5.13",
+"chunk": "c06",
+"anchor": "But it is eager to learn any job",
+"t": 295.74,
+"len": 2.43,
+"shows": "doors with job signs around it (programmer, doctor \u2026), it walks to the first one",
+"type": "MIX",
+"carrier": "the doors"
+},
+{
+"id": "5.14",
+"chunk": "c06",
+"anchor": "For the day A.I.",
+"t": 298.17,
+"len": 4.05,
+"shows": "the LINE: on the AFTER side, ALL JOBS \u00b7 NO YEAR GIVEN",
+"type": "EXPL",
+"carrier": "the line"
+},
+{
+"id": "5.15",
+"chunk": "c06",
+"anchor": "For this machine, he has",
+"t": 302.22,
+"len": 2.15,
+"shows": "marker 4: the empty number box ? YEARS glows",
+"type": "EXPL",
+"carrier": "the box"
+},
+{
+"id": "5.16",
+"chunk": "c06",
+"anchor": "A podcaster asked him",
+"t": 304.37,
+"len": 7.24,
+"shows": "question card: HOW LONG UNTIL A MACHINE LEARNS AS WELL AS A PERSON? \u00b7 PODCAST, NOV 2025",
+"type": "KARTE",
+"carrier": "the box"
+},
+{
+"id": "5.17",
+"chunk": "c06",
+"anchor": "slot:C3",
+"t": 311.31,
+"len": 5.34,
+"shows": "C3 grows out of the number box: ILYA SUTSKEVER \u00b7 DWARKESH PODCAST, NOV 2025 \u00b7 ORIGINAL FOOTAGE",
+"type": "CLIP",
+"carrier": "the box"
+},
+{
+"id": "5.18",
+"chunk": "c06",
+"anchor": "Five to twenty years",
+"t": 316.65,
+"len": 1.65,
+"shows": "the box fills: 5\u201320 YEARS, under it A MACHINE THAT LEARNS LIKE A HUMAN (never \"AGI\")",
+"type": "EXPL",
+"carrier": "the span"
+},
+{
+"id": "5.19",
+"chunk": "c06",
+"anchor": "Until a machine learns as well as you do",
+"t": 318.6,
+"len": 2.84,
+"shows": "the span on a time axis: 2030 \u2192 2045",
+"type": "EXPL",
+"carrier": "the axis"
+},
+{
+"id": "5.20",
+"chunk": "c06",
+"anchor": "That is a forecast, not a fact",
+"t": 321.44,
+"len": 3.08,
+"shows": "a tag on the span: FORECAST (cream), not FACT",
+"type": "EXPL",
+"carrier": "the tag"
+},
+{
+"id": "5.21",
+"chunk": "c06",
+"anchor": "He himself calls the future hard",
+"t": 324.52,
+"len": 3.25,
+"shows": "the far end of the span frays into fog",
+"type": "EXPL",
+"carrier": "the fog"
+},
+{
+"id": "5.22",
+"chunk": "c06",
+"anchor": "And some researchers doubt",
+"t": 327.77,
+"len": 2.95,
+"shows": "small grey markers of other forecasts land further right",
+"type": "EXPL",
+"carrier": "the axis"
+},
+{
+"id": "5.23",
+"chunk": "c06",
+"anchor": "But take his longest case",
+"t": 330.72,
+"len": 3.31,
+"shows": "the 20-year end lights: 2045",
+"type": "EXPL",
+"carrier": "the end"
+},
+{
+"id": "5.24",
+"chunk": "c06",
+"anchor": "If you are forty-five today",
+"t": 334.03,
+"len": 4.47,
+"shows": "you (yellow) walk along the axis: AGE 45 \u2192 65 \u00b7 YOUR WORKING LIFE",
+"type": "MIX",
+"carrier": "you"
+},
+{
+"id": "5.25",
+"chunk": "c06",
+"anchor": "And if you have a child",
+"t": 338.5,
+"len": 4.98,
+"shows": "a child walks beside you and reaches STARTS WORK before the span ends",
+"type": "MIX",
+"carrier": "the child"
+},
+{
+"id": "5.26",
+"chunk": "c06",
+"anchor": "And Ilya says he can see it going well",
+"t": 343.48,
+"len": 2.9,
+"shows": "the end of the axis warms like dawn",
+"type": "MIX",
+"carrier": "the dawn"
+},
+{
+"id": "5.27",
+"chunk": "c06",
+"anchor": "On one condition",
+"t": 346.38,
+"len": 2.77,
+"shows": "ONE gold knot ties itself into the line: 1 CONDITION \u2192 plateRecord (the life line with 1 2 gold, 3 4 open, 5\u201320 YEARS, you at its right end, dawn)",
+"type": "EXPL",
+"carrier": "plateRecord"
+},
+{
+"id": "M.01",
+"chunk": "c07",
+"anchor": "That is why this channel exists",
+"t": 348.85,
+"len": 11.07,
+"shows": "subscribe 1 over plateRecord: small lights come on in windows round the horizon, you look along the line (no QR)",
+"type": "SZENE",
+"carrier": "the dawn"
+},
+{
+"id": "6.01",
+"chunk": "c07",
+"anchor": "So what do you do, if you believe",
+"t": 360.22,
+"len": 3.85,
+"shows": "you at the LINE, looking over to the AFTER side",
+"type": "MIX",
+"carrier": "the line"
+},
+{
+"id": "6.02",
+"chunk": "c07",
+"anchor": "Ilya has asked that himself",
+"t": 364.07,
+"len": 5.36,
+"shows": "a university building OPEN UNIVERSITY OF ISRAEL \u00b7 2025; a schoolboy silhouette with books goes in (AS A SCHOOLBOY)",
+"type": "MIX",
+"carrier": "the window"
+},
+{
+"id": "6.03",
+"chunk": "c07",
+"anchor": "Picture an A.I.",
+"t": 369.43,
+"len": 3.51,
+"shows": "a machine ring builds a second ring, which builds a third, bigger each time",
+"type": "EXPL",
+"carrier": "the rings"
+},
+{
+"id": "6.04",
+"chunk": "c07",
+"anchor": "The intelligence explosion",
+"t": 372.94,
+"len": 2.67,
+"shows": "the rings cascade outward; QUOTE CARD C4: \"the idea that an AI can build the next generation of AI, the intelligence explosion, holy moly, what do you do about that?\" \u2014 Ilya Sutskever, Open University of Israel, 2025",
+"type": "KARTE",
+"carrier": "the card"
+},
+{
+"id": "6.05",
+"chunk": "c07",
+"anchor": "What do you do about that",
+"t": 375.61,
+"len": 1.49,
+"shows": "the last words of the card light gold",
+"type": "KARTE",
+"carrier": "the card"
+},
+{
+"id": "6.06",
+"chunk": "c07",
+"anchor": "By then, he had already given",
+"t": 377.1,
+"len": 3.91,
+"shows": "the man turns his back to us, the tower of light ahead",
+"type": "SZENE",
+"carrier": "the tower"
+},
+{
+"id": "7.01",
+"chunk": "c08",
+"anchor": "Six months after that famous Friday",
+"t": 380.71,
+"len": 6.71,
+"shows": "ANCHOR = THUMBNAIL C: the man walks away from the tower of light toward us, long shadow, the city low; date tag MAY 14, 2024",
+"type": "SZENE",
+"carrier": "the man"
+},
+{
+"id": "7.02",
+"chunk": "c08",
+"anchor": "By his own decision",
+"t": 387.72,
+"len": 1.65,
+"shows": "his post as a card (no logo): \"I have made the decision to leave OpenAI.\" \u00b7 MAY 14, 2024",
+"type": "KARTE",
+"carrier": "the card"
+},
+{
+"id": "7.03",
+"chunk": "c08",
+"anchor": "No slammed door",
+"t": 389.37,
+"len": 1.43,
+"shows": "the tower door behind him closes slowly and softly, its light stays on",
+"type": "SZENE",
+"carrier": "the door"
+},
+{
+"id": "7.04",
+"chunk": "c08",
+"anchor": "He was leaving, he wrote",
+"t": 390.8,
+"len": 5.73,
+"shows": "quote card \"a project that is very personally meaningful to me\"",
+"type": "KARTE",
+"carrier": "the card"
+},
+{
+"id": "7.05",
+"chunk": "c08",
+"anchor": "Weeks later, the project had a name",
+"t": 396.53,
+"len": 4.87,
+"shows": "a new small building lights its sign SAFE SUPERINTELLIGENCE \u00b7 JUNE 2024",
+"type": "MIX",
+"carrier": "the sign"
+},
+{
+"id": "7.06",
+"chunk": "c08",
+"anchor": "A machine smarter than any of us",
+"t": 401.4,
+"len": 4.29,
+"shows": "inside: a ring taller than the human silhouettes beside it, held in a gold frame SAFE",
+"type": "EXPL",
+"carrier": "the frame"
+},
+{
+"id": "7.07",
+"chunk": "c08",
+"anchor": "One goal",
+"t": 405.69,
+"len": 2.14,
+"shows": "ONE GOAL \u00b7 ONE PRODUCT, each word on its beat",
+"type": "EXPL",
+"carrier": "the words"
+},
+{
+"id": "7.08",
+"chunk": "c08",
+"anchor": "And until it exists",
+"t": 407.83,
+"len": 3.83,
+"shows": "a row of empty slots until a far end marker: NOTHING ELSE",
+"type": "EXPL",
+"carrier": "the row"
+},
+{
+"id": "7.09",
+"chunk": "c08",
+"anchor": "Investors valued it",
+"t": 411.66,
+"len": 4.06,
+"shows": "a value bar grows to $32 BILLION \u00b7 VALUATION, APR 2025",
+"type": "EXPL",
+"carrier": "the bar"
+},
+{
+"id": "7.10",
+"chunk": "c08",
+"anchor": "Meta offered to buy it",
+"t": 415.72,
+"len": 2.84,
+"shows": "an offer card META \u00b7 OFFER TO BUY slides in; on \"He said no\" it slides back out",
+"type": "EXPL",
+"carrier": "the card"
+},
+{
+"id": "7.11",
+"chunk": "c08",
+"anchor": "And Nvidia invested, too",
+"t": 418.56,
+"len": 4.59,
+"shows": "a chip shape NVIDIA \u00b7 INVESTED \u00b7 JULY 2026 sends computers to the building",
+"type": "EXPL",
+"carrier": "the chip"
+},
+{
+"id": "7.12",
+"chunk": "c08",
+"anchor": "And yet, there is still nothing",
+"t": 423.15,
+"len": 3.54,
+"shows": "an empty shop window: NOTHING TO BUY",
+"type": "MIX",
+"carrier": "the window"
+},
+{
+"id": "7.13",
+"chunk": "c08",
+"anchor": "No product",
+"t": 426.69,
+"len": 4.17,
+"shows": "three empty slots tick by on the beats: PRODUCT \u2014 \u00b7 MODEL \u2014 \u00b7 PAPER \u2014; tag AS OF NOV 2026",
+"type": "EXPL",
+"carrier": "the slots"
+},
+{
+"id": "7.14",
+"chunk": "c08",
+"anchor": "What it does, he says, is research",
+"t": 430.86,
+"len": 2.92,
+"shows": "a closed lab door RESEARCH, light under the door",
+"type": "MIX",
+"carrier": "the door"
+},
+{
+"id": "7.15",
+"chunk": "c08",
+"anchor": "What exactly, it has not shown",
+"t": 433.78,
+"len": 2.5,
+"shows": "the door's window frosted, a cream ?",
+"type": "MIX",
+"carrier": "the ?"
+},
+{
+"id": "7.16",
+"chunk": "c08",
+"anchor": "So all that money is riding",
+"t": 436.28,
+"len": 3.02,
+"shows": "the $32B bar stands on the life line (his record, markers 1\u20134)",
+"type": "EXPL",
+"carrier": "the life line"
+},
+{
+"id": "7.17",
+"chunk": "c08",
+"anchor": "And on his bet",
+"t": 439.3,
+"len": 3.36,
+"shows": "the recipe card with its drained DATA gauge",
+"type": "EXPL",
+"carrier": "the card"
+},
+{
+"id": "7.18",
+"chunk": "c08",
+"anchor": "So what is he trying to build",
+"t": 442.66,
+"len": 4.12,
+"shows": "push toward the light under the lab door",
+"type": "MIX",
+"carrier": "the light"
+},
+{
+"id": "8.01",
+"chunk": "c09",
+"anchor": "He wants more than a machine that obeys",
+"t": 446.48,
+"len": 2.48,
+"shows": "a ring with command arrows pointing at it: OBEYS (cool)",
+"type": "EXPL",
+"carrier": "the ring"
+},
+{
+"id": "8.02",
+"chunk": "c09",
+"anchor": "He wants one that cares",
+"t": 449.26,
+"len": 2.07,
+"shows": "the ring turns warm and bends its light round small figures like a shelter: CARES",
+"type": "MIX",
+"carrier": "the shelter"
+},
+{
+"id": "8.03",
+"chunk": "c09",
+"anchor": "In his words, an A.I.",
+"t": 451.33,
+"len": 4.6,
+"shows": "quote \"care about sentient life\" \u00b7 PODCAST, NOV 2025",
+"type": "KARTE",
+"carrier": "the quote"
+},
+{
+"id": "8.04",
+"chunk": "c09",
+"anchor": "Everything that can feel",
+"t": 455.93,
+"len": 1.67,
+"shows": "a circle of small lights (all that can feel) inside the ring's light",
+"type": "EXPL",
+"carrier": "the circle"
+},
+{
+"id": "8.05",
+"chunk": "c09",
+"anchor": "You",
+"t": 457.6,
+"len": 2.69,
+"shows": "on the beats: you (yellow) \u00b7 a child \u00b7 a dog step into the light",
+"type": "MIX",
+"carrier": "the circle"
+},
+{
+"id": "8.06",
+"chunk": "c09",
+"anchor": "And, he expects, the machine itself",
+"t": 460.29,
+"len": 3.17,
+"shows": "the ring's own small light joins the circle",
+"type": "EXPL",
+"carrier": "the circle"
+},
+{
+"id": "8.07",
+"chunk": "c09",
+"anchor": "His own interviewer pushed back",
+"t": 463.46,
+"len": 5.7,
+"shows": "the machine lights multiply until they fill the frame; the human lights stay few",
+"type": "EXPL",
+"carrier": "the field"
+},
+{
+"id": "8.08",
+"chunk": "c09",
+"anchor": "We would be a small minority",
+"t": 469.16,
+"len": 1.98,
+"shows": "a bar: HUMANS a thin sliver, MACHINES the rest",
+"type": "EXPL",
+"carrier": "the bar"
+},
+{
+"id": "8.09",
+"chunk": "c09",
+"anchor": "Ilya did not dodge",
+"t": 471.14,
+"len": 1.73,
+"shows": "the man in his light, facing us, not turning away",
+"type": "SZENE",
+"carrier": "the man"
+},
+{
+"id": "8.10",
+"chunk": "c09",
+"anchor": "\"It's true,\" he said",
+"t": 472.87,
+"len": 4.85,
+"shows": "quote card \"It's true.\" \"It's possible it's not the best criterion.\" \u00b7 PODCAST, NOV 2025",
+"type": "KARTE",
+"carrier": "the card"
+},
+{
+"id": "8.11",
+"chunk": "c09",
+"anchor": "So this is no finished plan",
+"t": 477.72,
+"len": 2.45,
+"shows": "a blueprint sheet with large empty areas",
+"type": "EXPL",
+"carrier": "the blueprint"
+},
+{
+"id": "8.12",
+"chunk": "c09",
+"anchor": "And he has not said how",
+"t": 480.17,
+"len": 3.17,
+"shows": "on the blueprint: HOW TO BUILD IT: \u2014",
+"type": "EXPL",
+"carrier": "the blueprint"
+},
+{
+"id": "8.13",
+"chunk": "c09",
+"anchor": "But here is his hope",
+"t": 483.34,
+"len": 3.37,
+"shows": "a small warm light and ONE CONDITION (the gold knot from c06)",
+"type": "MIX",
+"carrier": "the knot"
+},
+{
+"id": "8.14",
+"chunk": "c09",
+"anchor": "It is about the first truly powerful",
+"t": 486.71,
+"len": 5.79,
+"shows": "a row of machine rings, the first few lit: THE FIRST ONES",
+"type": "EXPL",
+"carrier": "the first ring"
+},
+{
+"id": "8.15",
+"chunk": "c09",
+"anchor": "slot:C5",
+"t": 492.2,
+"len": 11.56,
+"shows": "C5 grows out of the first ring: ILYA SUTSKEVER \u00b7 DWARKESH PODCAST, NOV 2025 \u00b7 ORIGINAL FOOTAGE",
+"type": "CLIP",
+"carrier": "the ring"
+},
+{
+"id": "8.16",
+"chunk": "c09",
+"anchor": "Not forever",
+"t": 503.76,
+"len": 3.38,
+"shows": "a bar AT LEAST FOR QUITE SOME TIME, its far end soft, not a wall",
+"type": "EXPL",
+"carrier": "the bar"
+},
+{
+"id": "8.17",
+"chunk": "c09",
+"anchor": "An honest hope",
+"t": 507.44,
+"len": 1.65,
+"shows": "the warm light held in a hand",
+"type": "MIX",
+"carrier": "the hand"
+},
+{
+"id": "8.18",
+"chunk": "c09",
+"anchor": "And it hangs on one thing",
+"t": 509.09,
+"len": 5.81,
+"shows": "builders' hands put something into the first ring: WHAT THE BUILDERS PUT IN",
+"type": "EXPL",
+"carrier": "the hands"
+},
+{
+"id": "8.19",
+"chunk": "c09",
+"anchor": "Ilya believes that in the end",
+"t": 514.9,
+"len": 6.54,
+"shows": "several builders' paths converge on one point: A MACHINE THAT CARES",
+"type": "EXPL",
+"carrier": "the point"
+},
+{
+"id": "8.20",
+"chunk": "c09",
+"anchor": "And there is reason for hope",
+"t": 521.44,
+"len": 1.95,
+"shows": "the AFTER side warms, first dawn",
+"type": "SZENE",
+"carrier": "the dawn"
+},
+{
+"id": "8.21",
+"chunk": "c09",
+"anchor": "The question is being asked",
+"t": 523.39,
+"len": 3.48,
+"shows": "a dashed ring outline (the machine does not exist yet) with the question in front of it",
+"type": "EXPL",
+"carrier": "the outline"
+},
+{
+"id": "8.22",
+"chunk": "c09",
+"anchor": "In public, where you can hear it",
+"t": 526.87,
+"len": 2.98,
+"shows": "an open hall, sound reaches you (yellow) in the back row",
+"type": "SZENE",
+"carrier": "you"
+},
+{
+"id": "9.01",
+"chunk": "c10",
+"anchor": "So what do you do His advice",
+"t": 529.55,
+"len": 6.93,
+"shows": "ANCHOR TORONTO again: the hall, the graduates; DON'T LOOK AWAY",
+"type": "MIX",
+"carrier": "the hall"
+},
+{
+"id": "9.02",
+"chunk": "c10",
+"anchor": "Use A.I.",
+"t": 536.78,
+"len": 4.24,
+"shows": "you with the chat window from the hook: TRY THE BEST ONE TODAY",
+"type": "MIX",
+"carrier": "the window"
+},
+{
+"id": "9.03",
+"chunk": "c10",
+"anchor": "That, he told them, gives you",
+"t": 541.02,
+"len": 3.15,
+"shows": "a small light grows in your hand: INTUITION",
+"type": "MIX",
+"carrier": "the light"
+},
+{
+"id": "9.04",
+"chunk": "c10",
+"anchor": "And the energy for the challenge",
+"t": 544.17,
+"len": 2.59,
+"shows": "the path ahead of you lights up",
+"type": "SZENE",
+"carrier": "the path"
+},
+{
+"id": "9.05",
+"chunk": "c10",
+"anchor": "In some sense, he said",
+"t": 546.76,
+"len": 5.43,
+"shows": "quote card \"the greatest challenge humanity has ever faced\" \u00b7 TORONTO, JUNE 2025",
+"type": "KARTE",
+"carrier": "the card"
+},
+{
+"id": "9.06",
+"chunk": "c10",
+"anchor": "And overcoming it",
+"t": 552.19,
+"len": 4.25,
+"shows": "quote \"the greatest reward\" in gold on the dawn line",
+"type": "KARTE",
+"carrier": "the dawn"
+},
+{
+"id": "9.07",
+"chunk": "c10",
+"anchor": "So, what did Ilya see",
+"t": 556.44,
+"len": 2.39,
+"shows": "the title WHAT DID ILYA SEE? again over the tower (thumbnail C echo)",
+"type": "MIX",
+"carrier": "the title"
+},
+{
+"id": "9.08",
+"chunk": "c10",
+"anchor": "In that famous week: people",
+"t": 558.83,
+"len": 2.48,
+"shows": "the call grid: the tiles are people",
+"type": "EXPL",
+"carrier": "the grid"
+},
+{
+"id": "9.09",
+"chunk": "c10",
+"anchor": "A fight over trust",
+"t": 561.31,
+"len": 1.86,
+"shows": "the threads between the tiles snap",
+"type": "EXPL",
+"carrier": "the line"
+},
+{
+"id": "9.10",
+"chunk": "c10",
+"anchor": "And ahead of us: a day",
+"t": 563.17,
+"len": 4.81,
+"shows": "the LINE: the day rises on the AFTER side: AI DOES ALL THE THINGS WE CAN DO",
+"type": "EXPL",
+"carrier": "the day"
+},
+{
+"id": "9.11",
+"chunk": "c10",
+"anchor": "He put no date on that day",
+"t": 567.98,
+"len": 1.82,
+"shows": "its date box stays empty: \u2014",
+"type": "EXPL",
+"carrier": "the box"
+},
+{
+"id": "9.12",
+"chunk": "c10",
+"anchor": "But a machine that learns",
+"t": 569.8,
+"len": 4.52,
+"shows": "5\u201320 YEARS returns beside it: A MACHINE THAT LEARNS LIKE A HUMAN",
+"type": "EXPL",
+"carrier": "the cards"
+},
+{
+"id": "9.13",
+"chunk": "c10",
+"anchor": "He told a magazine",
+"t": 574.32,
+"len": 4.93,
+"shows": "on the beats three cards fly onto the line: MAGAZINE \u00b7 OCT 2023 / GRADUATES \u00b7 JUNE 2025 / PODCAST \u00b7 NOV 2025",
+"type": "EXPL",
+"carrier": "the cards"
+},
+{
+"id": "9.14",
+"chunk": "c10",
+"anchor": "There will be a before and an after",
+"t": 579.25,
+"len": 2.81,
+"shows": "the LINE big across the frame, BEFORE | AFTER",
+"type": "EXPL",
+"carrier": "the line"
+},
+{
+"id": "9.15",
+"chunk": "c10",
+"anchor": "And this is still the before",
+"t": 582.06,
+"len": 2.85,
+"shows": "you stand left of the line, in the BEFORE, a small NOW marker at your feet",
+"type": "MIX",
+"carrier": "you"
+},
+{
+"id": "9.16",
+"chunk": "c10",
+"anchor": "The secret was never hidden",
+"t": 584.91,
+"len": 1.78,
+"shows": "the three cards open wide in the light (all of it was said in public)",
+"type": "MIX",
+"carrier": "the cards"
+},
+{
+"id": "9.17",
+"chunk": "c10",
+"anchor": "We just weren't listening",
+"t": 586.69,
+"len": 1.53,
+"shows": "sound rings travel from the cards toward you",
+"type": "MIX",
+"carrier": "the rings"
+},
+{
+"id": "9.18",
+"chunk": "c10",
+"anchor": "Now you are",
+"t": 588.22,
+"len": 2.31,
+"shows": "you look up and listen; the man far off at the tower",
+"type": "SZENE",
+"carrier": "the final picture"
+},
+{
+"id": "A.01",
+"chunk": "c10",
+"anchor": "This channel exists#1",
+"t": 590.53,
+"len": 11.15,
+"shows": "subscribe 2 over the final picture (the line, you, dawn on the AFTER side), no QR",
+"type": "SZENE",
+"carrier": "the end screen"
+},
+{
+"id": "E.01",
+"chunk": "c10",
+"anchor": "ENDSCREEN",
+"t": 601.68,
+"len": 15.3,
+"shows": "END SCREEN (S.endScreen, 15 s, calm): the tower far off, the man small, the line; left tile BEST FOR VIEWER, right tile LATEST UPLOAD, subscribe circle centre",
+"type": "SZENE",
+"carrier": "\u2014"
+}
+]

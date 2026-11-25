@@ -529,5 +529,17 @@
   ],
   "thumbnail_quelle": "thumbnails/film-71",
   "code_herkunft": "claude/project-thread-pmgo6l:films/71-max-tegmarks-12-endings-for-ai"
+ },
+ {
+  "nr": 78,
+  "ordner": "78-what-did-ilya-see",
+  "titel": "What Did Ilya See?",
+  "video": "e79-Z-pkCRI",
+  "veroeffentlicht": "2026-12-02",
+  "skript_quellen": [
+   "film-78-ilya"
+  ],
+  "thumbnail_quelle": "thumbnails/film-78",
+  "code_herkunft": "claude/project-thread-9834n3:films/78-what-did-ilya-see"
  }
 ]
