@@ -189,7 +189,7 @@ W.17|And the biggest stop is|E|a fork: ALLOWANCE or A SHARE BY RIGHT, a big OPEN
 W.18|Every stop on this street|E|the street with its stations marked|y|the street|
 W.19|The economist who spotted|E|paper card: he has a stake in AI|y|the card|
 W.20|Asked to bet on which|M|card opens to the plate|y|the plate|
-R6||C|CLIP R6 Brynjolfsson (Revelio) on the paper plate|y|the plate folds back|
+C4||C|CLIP C4 Brynjolfsson (Revelio) on the paper plate|y|the plate folds back|
 W.21|There is another twenty fifty|S|the other street: warm, a quote of #74|y|the street|
 W.22|Same street|M|beat: the same houses, warm|n|the machines|
 W.23|Same machines|M|beat: the same cars, carrying people|n|the clock|
@@ -216,7 +216,7 @@ CHUNKS = [('c01', 'H.01', 'Hook: your street, the timeline, bedroom, kitchen + c
           ('c07', 'L.01', 'the grown-ups and the weekly breakthroughs, the farmers, the land behind the fence'),
           ('c08', 'Q.01', 'the empty square, the AI friend, C3, your time'),
           ('c09', 'E.01', 'the bench: why did nobody stop it, the core sentence'),
-          ('c10', 'W.01', 'the way out: leverage, WON / OPEN / LOST, R6, the other 2050, subscribe 2, the clock, end screen')]
+          ('c10', 'W.01', 'the way out: leverage, WON / OPEN / LOST, C4, the other 2050, subscribe 2, the clock, end screen')]
 W = {'E': 1.0, 'M': .5, 'S': 0.0, 'C': 0.0}
 NAME = {'S': 'SZENE-2.5D', 'M': 'MIX', 'E': 'EXPL', 'C': 'CLIP'}
 

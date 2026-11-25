@@ -5,7 +5,7 @@ VO timing `audio/timing.json` replaces it later; code anchors on row ids and phr
 The rows of every chunk are fixed in `tools/shots79.py` / `docs/shots.md` (187 rows, one per sentence, film explainer share **62.6 %**).
 vo-v2 changes against v1: no flashback after the hook (the economist moves to the data centre, C2 there), the second half is
 **the search for the one angry face** (children → grown-ups → farmers → the square: ANGRY FACES 0), the way out goes back through the
-stations with **WON / OPEN / LOST** (fields WON, screen OPEN, kitchen LOST, allowance vs share OPEN), and the last clip is **R6** (5.6 s,
+stations with **WON / OPEN / LOST** (fields WON, screen OPEN, kitchen LOST, allowance vs share OPEN), and the last clip is **C4** (10.5 s, R6 was not available; was R6 5.6 s,
 Brynjolfsson, Revelio; replaces C4).
 
 **First, before any code:** load the skills `scenario-motion`, `world-class-motion-design`, `motion-director-gates`,
@@ -31,7 +31,7 @@ pictures are in `docs/shots.md` §3: build exactly those (a row may be improved,
 | **B2** | c07 | L.01–L.13 | 5:48.1 | 0:40 | 59 % | the grown-ups, DECADES → EVERY WEEK parcels, the farmers' map, the fence at 4 PM, `PL.land`, gates open from the other side, SOLD one offer at a time |
 | **B3** | c08 | Q.01–Q.14 | 6:28.3 | 0:54 | 55 % | the square (anchor Pointe), the friend in every window, it only gives, **C3**, ANGRY FACES 0 · LOOKED AFTER, YOUR TIME |
 | **B3** | c09 | E.01–E.08 | 7:22.5 | 0:32 | 62 % | the bench, the stories out of the clock, "Why didn't anyone stop it?", three empty frames, three gifts, the core sentence (wow, light-out 3) |
-| **B3** | c10 | W.01–END | 7:54.5 | 2:00 | 60 % | 2050 → 2026, blueprint street, WORK · TAXES · VOTE = leverage, the stations: fields WON (Kentucky, $26 million), screen OPEN (Senate committee 22–0, not law), kitchen LOST (PJM plan turned down by FERC in October), allowance vs share OPEN, **R6**, the other 2050 (warm, #74 quote), **subscribe 2**, the clock wound, **end screen 15 s** |
+| **B3** | c10 | W.01–END | 7:54.5 | 2:00 | 60 % | 2050 → 2026, blueprint street, WORK · TAXES · VOTE = leverage, the stations: fields WON (Kentucky, $26 million), screen OPEN (Senate committee 22–0, not law), kitchen LOST (PJM plan turned down by FERC in October), allowance vs share OPEN, **C4**, the other 2050 (warm, #74 quote), **subscribe 2**, the clock wound, **end screen 15 s** |
 
 B1 2:16 of film, B2 3:14, B3 3:26 incl. the 15-s end screen (B3's places square and bench already exist in the kit; c05 is almost all EXPL).
 **Film: 62.6 %** (target 60–70 %). Keep each chunk at or above its share; after any row change run `python3 tools/shots79.py`.
@@ -58,7 +58,7 @@ changes of other chunks; keep your block contiguous. Clip rows have the clip id 
 - One wow per chunk at most; ≤ 2 hard accents per 30 s, ≥ 0.8 s hold after each. Light rules MOTION §5 (carmine never brighter than you; human light goes out only 3× in the film: kitchen c04, school c06, home lamp c09).
 - Numbers exactly from `/mnt/project-files/scenario/film-79-worst-case/faktencheck-imac.md` (wins) and `faktenzettel.md`; ESTIMATE / PRELIMINARY labels; source line on every EXPL with a number; charts follow the dataviz skill (carmine `#e0284f` vs rest `#6a74a8` on `#0b1238`, validated).
 - Nothing important below y 880 (subtitles), text ≥ 22 px, Instrument Serif + Inter only, no faces, no robots, no money props.
-- Clips: frames from `/home/user/scenario/films/79-assets/clips/` (C1–C4, 60 s each; **R6** (source 50:16.1–50:21.7) has no own file: it may lie inside the C4 file (C4 source 49:37.6, file window unknown), else it has to be fetched; the In/Out in `clips.json` refer to the SOURCE video: find the sentence in the 60-s file by ear), cut to `/tmp/claude-0/f79/clips/<id>/`; plate grows out of a paper card and folds back; lower third `NAME · ROLE · YEAR · ORIGINAL FOOTAGE (CHANNEL)`.
+- Clips: CUT POINTS IN docs/CLIPS-infile.md (use those, no searching by ear). Frames from `/home/user/scenario/films/79-assets/clips/` (C1–C4, 60 s each; **R6** (source 50:16.1–50:21.7) has no own file: it may lie inside the C4 file (C4 source 49:37.6, file window unknown), else it has to be fetched; the In/Out in `clips.json` refer to the SOURCE video: find the sentence in the 60-s file by ear), cut to `/tmp/claude-0/f79/clips/<id>/`; plate grows out of a paper card and folds back; lower third `NAME · ROLE · YEAR · ORIGINAL FOOTAGE (CHANNEL)`.
 
 ## 5 · Gates (per chunk, in this order)
 

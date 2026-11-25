@@ -23,7 +23,7 @@ LEAD, TAIL, GAP_SEC, PAUSE = 0.6, 20.0, 1.1, 0.8   # film 67: TAIL = ~5 s quiet 
 PACE = float(os.environ.get('PACE', 1.0))   # film 63: hoerfassung-v2.mp3 = 1450 words in 552 s = 2.63 w/s incl. pauses
 WORD, GAP_LINE, GAP_SENT, GAP_COMMA = 0.288 * PACE, 0.32 * PACE, 0.36 * PACE, 0.15 * PACE
 # clip lengths: PROVISIONAL (orchestrator 20.11.); the real cuts come as <ROOT>clips/Cn.mp4 + <ROOT>clips-geprueft.json
-CLIP_LEN = {'C1': 6.9, 'C2': 8.3, 'C3': 8.3, 'C4': 11.4, 'C5': 7.3, 'R6': 5.9}   # film 79: clips.json dur_s + .3 s handles (PROVISIONAL until the iMac cuts)
+CLIP_LEN = {'C1': 6.9, 'C2': 8.3, 'C3': 8.3, 'C4': 10.8, 'C5': 7.3, 'R6': 5.9}   # #79 final uses C4 (10.5 s in-file 27.90-38.40)   # film 79: clips.json dur_s + .3 s handles (PROVISIONAL until the iMac cuts)
 # where the slots go (the paragraph that ENDS with this lead-in line is followed by the clip)
 CLIP_AFTER = []   # film 79: vo-vN.txt carries [CLIP Cn] tags
 SLOT_IN, SLOT_OUT = 0.6, 0.6
