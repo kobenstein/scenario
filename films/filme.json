@@ -421,5 +421,17 @@
   ],
   "thumbnail_quelle": "thumbnails/film-67",
   "code_herkunft": "claude/project-thread-432v87:films/67-metas-ai-chief-says-superintelligence-is-arriving"
+ },
+ {
+  "nr": 63,
+  "ordner": "63-the-pope-says-ai-wont-save-you",
+  "titel": "The Pope Says AI Won't Save You",
+  "video": "aFcLFCuo4WA",
+  "veroeffentlicht": "2026-11-28",
+  "skript_quellen": [
+   "film-papst"
+  ],
+  "thumbnail_quelle": "thumbnails/film-63",
+  "code_herkunft": "claude/project-thread-dz613r:films/63-the-pope-says-ai-wont-save-you"
  }
 ]
