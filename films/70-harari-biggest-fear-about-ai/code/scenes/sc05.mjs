@@ -1,3 +1,3 @@
-// c05 · STUB (builder replaces this file; see docs/BRIEF-builders.md and docs/shots.md). Keeps the seam plates of lib/f70_world.mjs.
-import { stub70 } from '../lib/stub70.mjs';
-export default async (T, R) => stub70(T, R, { end: 'plateLaw' });
+// c05 · builder B1 · one continuous take with c02–c05 (lib/b1_take.mjs: shots, carriers and timing per sentence are documented there).
+import { b1Entries } from '../lib/b1_take.mjs';
+export default async (T, R) => b1Entries(T, R, 'c05');
