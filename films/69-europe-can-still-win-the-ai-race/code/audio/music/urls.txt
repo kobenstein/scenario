@@ -1,0 +1,6 @@
+M0 https://v3b.fal.media/files/b/0ab3c20a/OXJgDtDISx3GAUBEEdk16_output.mp3   (prompt v2: the first M0 prompt was declined by the Lyria content filter, mood reworded, no charge for the declined one)
+M1 https://v3b.fal.media/files/b/0ab3c202/6kV00AkVVbFQoxaIrTPAR_output.mp3
+M2 https://v3b.fal.media/files/b/0ab3c205/Cp8Fv49wHIOdpobvDkSB-_output.mp3
+M3 https://v3b.fal.media/files/b/0ab3c205/w0UUBWukZdf8HfAE-AdfJ_output.mp3
+M4 https://v3b.fal.media/files/b/0ab3c202/VXJg491prOUEXL-mApoPC_output.mp3
+M5 https://v3b.fal.media/files/b/0ab3c201/xGP9SZSzdfvlAlwzH10J8_output.mp3

@@ -1,0 +1,10 @@
+[
+ {"f": "pieces_scatter", "word": "It's in twenty-seven pieces.", "at_end": true, "dt": 0.12, "v": 0.45, "once": true, "fade": 0.4},
+ {"f": "paper_slide", "word": "or only on paper?", "at_end": true, "dt": 0.15, "v": 0.4, "once": true, "fade": 0.3, "peak": 0.0},
+ {"f": "kit_snap", "word": "the money: halfway there.", "at_end": true, "dt": 0.15, "v": 0.5, "once": true, "fade": 0.3},
+ {"f": "paper_slide", "word": "set of rules is still on paper.", "at_end": true, "dt": 0.15, "v": 0.35, "once": true, "fade": 0.3, "peak": 0.0},
+ {"f": "kit_snap", "word": "this part is halfway there, too.", "at_end": true, "dt": 0.15, "v": 0.45, "once": true, "fade": 0.3},
+ {"f": "shimmer_rings", "word": "the world's most advanced chips depend on.", "at_end": true, "dt": 0.05, "off": 0.3, "v": 0.35, "once": true, "d": 1.0, "fade": 0.5, "peak": 0.0},
+ {"f": "paper_slide", "word": "The lab, too, is still on paper.", "at_end": true, "dt": 0.15, "v": 0.35, "once": true, "fade": 0.3, "peak": 0.0},
+ {"f": "clock_tick", "word": "With a clock on it.", "at_end": true, "dt": 0.1, "peak": 0.0, "v": 0.3, "once": true, "d": 1.15, "fade": 0.35}
+]

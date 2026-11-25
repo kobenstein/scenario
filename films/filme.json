@@ -433,5 +433,17 @@
   ],
   "thumbnail_quelle": "thumbnails/film-68",
   "code_herkunft": "claude/project-thread-zcghn6:films/68-the-ai-race-will-be-decided-by-2027"
+ },
+ {
+  "nr": 69,
+  "ordner": "69-europe-can-still-win-the-ai-race",
+  "titel": "Europe Can Still Win the AI Race",
+  "video": "wkFG5z3R_YM",
+  "veroeffentlicht": "2026-11-25",
+  "skript_quellen": [
+   "film-europa-ki"
+  ],
+  "thumbnail_quelle": "thumbnails/film-69",
+  "code_herkunft": "claude/project-thread-m7cc4w:films/69-europe-can-still-win-the-ai-race"
  }
 ]
