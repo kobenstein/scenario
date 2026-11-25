@@ -457,5 +457,17 @@
   ],
   "thumbnail_quelle": "thumbnails/film-63",
   "code_herkunft": "claude/project-thread-dz613r:films/63-the-pope-says-ai-wont-save-you"
+ },
+ {
+  "nr": 71,
+  "ordner": "71-max-tegmarks-12-endings-for-ai",
+  "titel": "Max Tegmark's 12 Endings for AI",
+  "video": "V3pH9kY6eiI",
+  "veroeffentlicht": "2026-12-04",
+  "skript_quellen": [
+   "film-tegmark"
+  ],
+  "thumbnail_quelle": "thumbnails/film-71",
+  "code_herkunft": "claude/project-thread-pmgo6l:films/71-max-tegmarks-12-endings-for-ai"
  }
 ]
