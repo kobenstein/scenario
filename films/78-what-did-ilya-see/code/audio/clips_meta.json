@@ -1,0 +1,127 @@
+{
+ "_comment": "Film 78 clip metadata. Cut files films/78-assets/clips/Cn.mp4 (cuts in recherche/clips-geschnitten.md). cues = [seconds from the clip start, line <= 34 chars] from Whisper word times on the cuts (25.11.2026).",
+ "C1": {
+  "speaker": "Ilya Sutskever",
+  "role": "Co-founder, Safe Superintelligence · NeurIPS 2024",
+  "source": "NeurIPS 2024 Test of Time Award talk, „Sequence to Sequence Learning with Neural Networks“ (Reupload)",
+  "url": "https://www.youtube.com/watch?v=1yvBqasHLZs&t=346s",
+  "credit": "João Tomé (Reupload des NeurIPS-Vortrags; Original: NeurIPS 2024)",
+  "lower_third": "Ilya Sutskever · NeurIPS, Vancouver, Dec 2024",
+  "transcript": "That if you have a very big data set and you train a very big neural network, then success is guaranteed. And one can argue, if one is charitable, that this indeed has been what's been happening.",
+  "cues": [
+   [
+    0.03,
+    "That if you have a very big"
+   ],
+   [
+    1.05,
+    "data set and you train"
+   ],
+   [
+    2.11,
+    "a very big neural network,"
+   ],
+   [
+    3.71,
+    "then success is guaranteed."
+   ],
+   [
+    5.43,
+    "And one can argue,"
+   ],
+   [
+    6.79,
+    "if one is charitable,"
+   ],
+   [
+    8.79,
+    "that this indeed has been"
+   ],
+   [
+    10.51,
+    "what's been happening."
+   ]
+  ]
+ },
+ "C2": {
+  "speaker": "Ilya Sutskever",
+  "role": "Co-founder, Safe Superintelligence · Honorary degree, University of Toronto, 2025",
+  "source": "Ilya Sutskever, honorary degree address, U of T Convocation, June 2025",
+  "url": "https://www.youtube.com/watch?v=zuZ2zaotrJs&t=356s",
+  "credit": "University of Toronto",
+  "lower_third": "Ilya Sutskever · University of Toronto, June 2025",
+  "transcript": "And the day will come when AI will do all the things that we can do. Not just some of them, but all of them.",
+  "cues": [
+   [
+    0.03,
+    "And the day will come"
+   ],
+   [
+    1.19,
+    "when AI will do all the things"
+   ],
+   [
+    3.37,
+    "that we can do."
+   ],
+   [
+    5.15,
+    "Not just some of them,"
+   ],
+   [
+    6.07,
+    "but all of them."
+   ]
+  ]
+ },
+ "C3": {
+  "speaker": "Ilya Sutskever",
+  "role": "CEO, Safe Superintelligence · Dwarkesh Podcast, 2025",
+  "source": "Ilya Sutskever – We're moving from the age of scaling to the age of research",
+  "url": "https://www.youtube.com/watch?v=aR20FWCCjAs&t=4943s",
+  "credit": "Dwarkesh Patel",
+  "lower_third": "Ilya Sutskever · Dwarkesh Podcast, Nov 2025",
+  "transcript": "I think like 5 to 20. (Dwarkesh Patel: 5 to 20 years?) Mm-hmm.",
+  "cues": [
+   [
+    0.03,
+    "I think like 5 to 20."
+   ],
+   [
+    2.84,
+    "“5 to 20 years?”"
+   ],
+   [
+    3.68,
+    "Mm-hmm."
+   ]
+  ]
+ },
+ "C5": {
+  "speaker": "Ilya Sutskever",
+  "role": "CEO, Safe Superintelligence · Dwarkesh Podcast, 2025",
+  "source": "Ilya Sutskever – We're moving from the age of scaling to the age of research",
+  "url": "https://www.youtube.com/watch?v=aR20FWCCjAs&t=4101s",
+  "credit": "Dwarkesh Patel",
+  "lower_third": "Ilya Sutskever · Dwarkesh Podcast, Nov 2025",
+  "transcript": "So if this is achieved by the first N of those systems, then I can see it go well, at least for quite some time.",
+  "cues": [
+   [
+    0.03,
+    "So if this is achieved by"
+   ],
+   [
+    1.94,
+    "the first N of those systems,"
+   ],
+   [
+    5.93,
+    "then I can see it go well,"
+   ],
+   [
+    7.37,
+    "at least for quite some time."
+   ]
+  ]
+ }
+}

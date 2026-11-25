@@ -1,0 +1,36 @@
+{
+ "_comment": "Film 78 Lyria 3.5 prompts (google/lyria-3.5, 6 tracks, 25.11.2026). One track per chapter: H,1 | 2 | 3,M | 4 | 5 | 9,A2 + end screen. Prompt = style + ' A <len> track. ' + mood.",
+ "style": "Instrumental underscore for a calm, thoughtful editorial documentary about a quiet genius, an empty boardroom at night and a question everyone asked: what did he see? Intimate and mysterious, a little suspense without thriller: soft felt piano, a slow ticking pulse of muted plucked strings, warm low drones, airy glass pads, distant soft bells, a little tape warmth. No drums, no percussion, no beat, no vocals, no choir, no melody hook, not pop, not epic, not kitschy, not cinematic trailer. Very quiet, narrow dynamic range, slow, made to sit under a speaking voice.",
+ "tracks": {
+  "M0": {
+   "chapter": "H, 1 (the firing call, the guess, under oath, the 52 pages, regret, trust not safety, bunker, before and after, Toronto: the day)",
+   "len": "3:10",
+   "mood": "intimate investigative mystery: a patient low piano motif like turning pages, a soft muted pulse, a hovering unresolved chord; something hidden about to be understood; turns warmer and more open in the last 30 seconds as the real answer appears"
+  },
+  "M1": {
+   "chapter": "2 (his record: four predictions, the program that sees photos, the slide, the recipe, one internet)",
+   "len": "1:50",
+   "mood": "curious and clever: light repeating plucked notes building step by step like a staircase, clean soft piano, airy pads; quiet fascination with a mind that was right before"
+  },
+  "M2": {
+   "chapter": "3, M (the superintelligent fifteen-year-old, five to twenty years, your working life, subscribe call)",
+   "len": "1:15",
+   "mood": "personal and thoughtful: slow warm strings and sparse piano notes, a gentle sense of time passing like a slow clock, close and human; ends warm"
+  },
+  "M3": {
+   "chapter": "4 (intelligence explosion, he walks away, Safe Superintelligence, 32 billion, says no to Meta, nothing to buy)",
+   "len": "1:30",
+   "mood": "focused and determined, a little secretive: a steady low pulse without drums, a lone piano line walking forward, cool glass shimmer; someone building quietly behind closed doors"
+  },
+  "M4": {
+   "chapter": "5 (a machine that cares about sentient life, the honest objection, I can see it go well, hope, the greatest challenge)",
+   "len": "1:55",
+   "mood": "deep and tender, slowly hopeful: soft bowed strings, warm felt piano, a gentle rising figure in the second half; care, honesty and a careful hope"
+  },
+  "M5": {
+   "chapter": "9, A2 + end screen (verdict: people and a day; before and after; the secret was never hidden; now you are)",
+   "len": "1:10",
+   "mood": "warm and gently hopeful: the patient page-turning piano motif returns, slower, and resolves upward over soft strings; open and human; ends on one long decaying warm major chord"
+  }
+ }
+}

@@ -1,0 +1,189 @@
+{
+ "_comment": "Film 67 clip metadata (clips_json.py from clips_meta.json). Slot = timing.json slots[] (0.6 s air before/after); cues = [seconds from the slot start, line].",
+ "clips": [
+  {
+   "id": "C2",
+   "kind": "clip",
+   "speaker": "Ilya Sutskever",
+   "role": "Co-founder, Safe Superintelligence · Honorary degree, University of Toronto, 2025",
+   "source": "Ilya Sutskever, honorary degree address, U of T Convocation, June 2025",
+   "url": "https://www.youtube.com/watch?v=zuZ2zaotrJs&t=356s",
+   "credit": "University of Toronto",
+   "lower_third": "Ilya Sutskever · University of Toronto, June 2025",
+   "transcript": "And the day will come when AI will do all the things that we can do. Not just some of them, but all of them.",
+   "file": "C2.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 6.97,
+   "dur": 6.97,
+   "slot_start": 150.38,
+   "slot_end": 157.35,
+   "sec": "1",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.03,
+     "And the day will come"
+    ],
+    [
+     1.19,
+     "when AI will do all the things"
+    ],
+    [
+     3.37,
+     "that we can do."
+    ],
+    [
+     5.15,
+     "Not just some of them,"
+    ],
+    [
+     6.07,
+     "but all of them."
+    ]
+   ],
+   "cue_end": 6.92
+  },
+  {
+   "id": "C1",
+   "kind": "clip",
+   "speaker": "Ilya Sutskever",
+   "role": "Co-founder, Safe Superintelligence · NeurIPS 2024",
+   "source": "NeurIPS 2024 Test of Time Award talk, „Sequence to Sequence Learning with Neural Networks“ (Reupload)",
+   "url": "https://www.youtube.com/watch?v=1yvBqasHLZs&t=346s",
+   "credit": "João Tomé (Reupload des NeurIPS-Vortrags; Original: NeurIPS 2024)",
+   "lower_third": "Ilya Sutskever · NeurIPS, Vancouver, Dec 2024",
+   "transcript": "That if you have a very big data set and you train a very big neural network, then success is guaranteed. And one can argue, if one is charitable, that this indeed has been what's been happening.",
+   "file": "C1.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 12.9,
+   "dur": 12.9,
+   "slot_start": 224.46,
+   "slot_end": 237.36,
+   "sec": "2",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.03,
+     "That if you have a very big"
+    ],
+    [
+     1.05,
+     "data set and you train"
+    ],
+    [
+     2.11,
+     "a very big neural network,"
+    ],
+    [
+     3.71,
+     "then success is guaranteed."
+    ],
+    [
+     5.43,
+     "And one can argue,"
+    ],
+    [
+     6.79,
+     "if one is charitable,"
+    ],
+    [
+     8.79,
+     "that this indeed has been"
+    ],
+    [
+     10.51,
+     "what's been happening."
+    ]
+   ],
+   "cue_end": 12.85
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "speaker": "Ilya Sutskever",
+   "role": "CEO, Safe Superintelligence · Dwarkesh Podcast, 2025",
+   "source": "Ilya Sutskever – We're moving from the age of scaling to the age of research",
+   "url": "https://www.youtube.com/watch?v=aR20FWCCjAs&t=4943s",
+   "credit": "Dwarkesh Patel",
+   "lower_third": "Ilya Sutskever · Dwarkesh Podcast, Nov 2025",
+   "transcript": "I think like 5 to 20. (Dwarkesh Patel: 5 to 20 years?) Mm-hmm.",
+   "file": "C3.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 4.6,
+   "dur": 4.6,
+   "slot_start": 311.31,
+   "slot_end": 315.91,
+   "sec": "3",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.03,
+     "I think like 5 to 20."
+    ],
+    [
+     2.84,
+     "“5 to 20 years?”"
+    ],
+    [
+     3.68,
+     "Mm-hmm."
+    ]
+   ],
+   "cue_end": 4.55
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "speaker": "Ilya Sutskever",
+   "role": "CEO, Safe Superintelligence · Dwarkesh Podcast, 2025",
+   "source": "Ilya Sutskever – We're moving from the age of scaling to the age of research",
+   "url": "https://www.youtube.com/watch?v=aR20FWCCjAs&t=4101s",
+   "credit": "Dwarkesh Patel",
+   "lower_third": "Ilya Sutskever · Dwarkesh Podcast, Nov 2025",
+   "transcript": "So if this is achieved by the first N of those systems, then I can see it go well, at least for quite some time.",
+   "file": "C5.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 10.9,
+   "dur": 10.9,
+   "slot_start": 492.2,
+   "slot_end": 503.1,
+   "sec": "5",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.03,
+     "So if this is achieved by"
+    ],
+    [
+     1.94,
+     "the first N of those systems,"
+    ],
+    [
+     5.93,
+     "then I can see it go well,"
+    ],
+    [
+     7.37,
+     "at least for quite some time."
+    ]
+   ],
+   "cue_end": 10.85
+  }
+ ]
+}
