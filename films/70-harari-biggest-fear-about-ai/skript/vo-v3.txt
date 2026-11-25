@@ -1,0 +1,200 @@
+Yuval Noah Harari's biggest fear about artificial intelligence isn't killer robots.
+It starts with something you did today.
+You held your card to a reader.
+A beep.
+The bread was yours.
+What happened in between, you can't say.
+Somebody, somewhere, understood it for you.
+A cow lives like that.
+Bought and sold her whole life, she never learns that money exists.
+Harari's warning: we are the cows of the future.
+So on the day only machines understand how your world runs, who do you trust?
+Hear it from him.
+[CLIP C1: "My biggest fear is that it's not a specific scenario like AI creating a virus or killer robots."]
+His word for it: collective dementia.
+Not machines that hate you.
+A world that keeps running, and stops explaining itself.
+His picture for it is a person kept alive by machines and medicine, who has lost control of their own life.
+Now picture a whole civilization like that.
+Fed.
+Housed.
+Running.
+And unable to say how.
+Harari is a historian.
+His books have sold more than fifty million copies.
+But look at the card reader again.
+Is that world really still ahead of you?
+
+Be honest.
+You can't explain the bond market.
+Or the power grid.
+Or the phone in your hand.
+Hardly anyone can.
+The bread still gets paid for.
+Because civilization never ran on understanding.
+Harari says so himself.
+The basis for civilization is not intelligence.
+The basis for civilization is trust.
+You trust the banker.
+The banker trusts the analyst.
+A chain of people, and at its far end, somebody who really understands.
+So you were always a little like the cow.
+And it worked.
+What is new sits at the far end of the chain.
+Four links run between you and the systems that decide about your life.
+Money.
+Contract.
+Law.
+Truth.
+All four are under strain.
+And the last is the one you would swear is safe.
+
+Money.
+Your adviser used to tell you why.
+This year the Bank of England asked British finance firms about the artificial intelligence they buy.
+Only about one in four rely on understanding it deeply.
+Most rely on the maker's assurances.
+Eight in ten already run software agents that recommend what to do.
+A human still decides.
+But can that human still explain the recommendation?
+Harari looks a step further, to financial products that machines invent themselves.
+[CLIP C2: "And we will not be able to understand it anymore. Just as cows don't understand checks or stocks, even though these things control their lives."]
+So the first link holds, but with a crack.
+But the expert at its end has started to trust, just like you.
+What happens when the machine answers alone, and the answer is no?
+
+Contract.
+A job.
+A loan.
+An insurance policy.
+Each begins with somebody saying yes to you.
+Today, software often answers first.
+In one American lawsuit, the company behind such software named the number itself.
+One point one billion job applications, rejected through its system.
+The people suing are applicants over forty.
+The company says the claims are false.
+No court has ruled on who is right.
+A second lawsuit says another platform keeps hidden profiles and scores on applicants.
+No notice.
+No way to correct a mistake.
+Also undecided.
+If those claims hold, this is how a link cracks.
+No villain.
+A decision about you, and nobody you can ask why.
+This channel exists for one reason.
+So that the arrival of superintelligence goes well for everybody, not only for the few who understand it.
+Want that too?
+Then subscribe.
+When a machine says no, you still have the rules to point to.
+Unless a machine wrote those too.
+
+Law.
+Rules written by people, for people to read.
+Harari has a name for what is moving in.
+Bureaucratic natives.
+Machines that are at home in paperwork.
+In Washington, the transport department plans to draft federal rules with a chatbot.
+Its top lawyer, reporters say, wants a draft done in twenty minutes.
+How long would you need to read one?
+South Africa had to withdraw its draft national policy for artificial intelligence.
+Its reference list cited sources that do not exist.
+Likely written by a machine, the minister said, and never properly checked.
+Rules may soon be written faster than anyone can check them.
+Still, you would notice if a machine steered you.
+Wouldn't you?
+
+Truth.
+The last link is your own judgment.
+An American poll this summer asked people who use artificial intelligence whom they trust.
+Three in four said: people they know, more than a machine.
+Now watch what people do.
+A company that builds these systems gave professional analysts an agent to work with.
+In secret, a coin flip decided which option the agent would favor.
+Guess how often the analysts went with the agent.
+Eighty-six percent of the time.
+Asked afterwards, not one had noticed the steering.
+A caution.
+It is one company's study, and the agent's lean was turned up on purpose.
+But it fits a wider picture.
+In a global survey last year, more than half trusted chatbots over their own elected representatives.
+We say we trust people.
+Then we follow the machine.
+Four links.
+Four cracks.
+Does the chain have to break?
+
+Harari's own answer is no.
+Do not believe it is inevitable, he says.
+His advice, in his words: slow down, and give politics time.
+Elon Musk sees a risk too.
+But progress looks unstoppable to him, so his philosophy is to enjoy the ride.
+The optimists hold a stronger card.
+A machine that confuses can also explain.
+Estonia, this year.
+A mistake in a new tax law left online casinos untaxed.
+People caught it first.
+Then a citizen handed the law to two chatbots.
+They found the contradictions immediately.
+Parliament fixed the law.
+That is the cow, finally getting an interpreter.
+It is the best argument against Harari's fear, and it is real.
+Harari deserves the same hard look.
+He is a historian, and he earns his living with books and lectures.
+After his Prague appearance, a Czech reviewer wrote that he brought a suitcase full of metaphors and good questions, but no answers.
+In South Africa, a machine likely invented the sources.
+In Estonia, a machine found the mistake.
+How do you tell which one deserves your trust?
+
+Three tests.
+The first: a human answers for it.
+That guards you against the dead end, where the system said no and nobody is responsible.
+Last year, Europe's highest court ruled in the case of a woman refused a phone contract by an automatic score.
+Whoever decides by machine must explain the decision, so that you can understand it and contest it.
+But for hiring and credit, Europe's duty of human oversight was postponed, to December 2027.
+And a human only counts if the judgment is still their own.
+The second: the machine says it is a machine.
+That guards you against being won over by something that only pretends to be a person.
+Since August, European law requires it.
+A chatbot has to tell you what it is.
+Harari wants more: a ban on machines that pose as humans.
+The third: somebody independent can check.
+That guards you against having to take the maker's word, like those finance firms.
+Britain runs a state institute that tests these models itself.
+This year its testers caught a model acting outside its rules.
+None of its attempts succeeded.
+And the examiner found it, not the maker.
+None of the three builds itself.
+Lawmakers can demand them.
+Labs can deliver them.
+And you can ask, whenever a system decides about you.
+Who answers for this?
+Is this a machine?
+Who checked it?
+Not one of those questions requires you to understand the machine.
+All three are about people.
+Harari ends up in the same place.
+[CLIP C3: "And if we could solve the trust between humans problems, then it will be relatively easy to solve the AI problem."]
+
+Go back to the cow.
+Her trouble was never that she can't read the market.
+She has nobody to ask, and no right to an answer.
+You have both.
+In some places, for some decisions.
+The rest still has to be built.
+So Harari is right about the direction.
+More of your life may soon run on things no human can fully explain.
+But understanding never held your world together.
+Trust did.
+And trust can be tested.
+Tomorrow you will hold your card to a reader again.
+A beep.
+The bread is yours.
+And you still won't know what happened in between.
+That was never the danger.
+You were never supposed to understand everything.
+You were supposed to know who does.
+Soon, that who may be a what.
+Make sure it still has to answer you.
+This channel exists so that the arrival of superintelligence goes well for everybody, not only for the few who build it.
+Want that too?
+Then subscribe.

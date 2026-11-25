@@ -1,0 +1,8 @@
+M0 https://v3b.fal.media/files/b/0ab3dfb5/TPj_q4QJcst0kl2WTFcDO_output.mp3
+M1 https://v3b.fal.media/files/b/0ab3dfb5/OOcxnjP3cUGbycrzNiEl9_output.mp3
+M2 https://v3b.fal.media/files/b/0ab3dfb2/82-OnyOsXsYe15EYHzmwE_output.mp3
+M3 https://v3b.fal.media/files/b/0ab3dfb1/zsVkt6ErBUx-SHUXyatHR_output.mp3
+M4 https://v3b.fal.media/files/b/0ab3dfb4/n7_oT8cf9MImZu82dC7XN_output.mp3
+M5 https://v3b.fal.media/files/b/0ab3dfb2/EDZV-lNtQRx4hWov8AR70_output.mp3
+sfx card_beep_1 https://v3b.fal.media/files/b/0ab3dfb0/k7Y0YjVZbJ43Z2XuRN-eM_generated_audio_1.wav
+sfx card_beep_2 https://v3b.fal.media/files/b/0ab3dfb0/q8C1cRrPKwZj5-7-6NUh1_generated_audio_2.wav
