@@ -1,0 +1,76 @@
+{
+ "_comment": "Film 63 clip slots (clip-auftrag-imac.md, 24.11.2026; C2 'We must build' dropped). The iMac cuts <ROOT>clips/Cn.mp4 with ~1 s pre-/post-roll. clips_wav.py trims each file to [in, out] (seconds inside the mp4): null = automatic (first voiced 10-ms frame - 0.15 s, last voiced + 0.25 s, -40 dBFS); cut_pause_after = cut at the first pause >= 0.15 s after that many seconds of speech (C1: only 'Artificial intelligence needs to be disarmed.', not 'The word is strong, I know.'). After the first rebuild LISTEN to clipwav/Cn.wav and set in/out by hand if needed (clips-zeiten.txt from the iMac). placeholder = expected length while the file is missing. cues = subtitle lines (verified wording, wortlaut-verifiziert.md); words are spread over the clip's voiced span. 25.11.: in/out set from clips-zeiten.txt (speech 1.0-x s inside the iMac cut) with 0.2 s handles; real files read from /tmp/claude-0/f63/clips/ (project folder only has .gz copies).",
+ "C1": {
+  "speaker": "Pope Leo XIV",
+  "role": "Pope",
+  "source": "Vatican News, presentation of Magnifica humanitas (25 May 2026)",
+  "url": "https://www.youtube.com/watch?v=JxcXcP6NyRM",
+  "src_start": "01:37:00",
+  "src_end": "01:37:08",
+  "placeholder": 4.0,
+  "in": 0.8,
+  "out": 4.9,
+  "lower_third": "ORIGINAL FOOTAGE · POPE LEO XIV · VATICAN, 25 MAY 2026",
+  "cues": [
+   "Artificial intelligence",
+   "needs to be disarmed."
+  ]
+ },
+ "C3": {
+  "speaker": "Pope Leo XIV",
+  "role": "Pope",
+  "source": "DRM News (reupload of the Vatican presentation, 25 May 2026)",
+  "url": "https://www.youtube.com/watch?v=aaYJ_4QcZfE",
+  "src_start": "00:02:21",
+  "src_end": "00:02:30",
+  "placeholder": 9.0,
+  "in": 0.8,
+  "out": 8.7,
+  "lower_third": "ORIGINAL FOOTAGE · POPE LEO XIV · VATICAN, 25 MAY 2026",
+  "cues": [
+   "Today, we find ourselves facing",
+   "a transformation of similar",
+   "magnitude, with perhaps",
+   "even greater consequences."
+  ]
+ },
+ "C4": {
+  "speaker": "Chris Olah",
+  "role": "Co-founder, Anthropic",
+  "source": "Vatican News, presentation of Magnifica humanitas (25 May 2026)",
+  "url": "https://www.youtube.com/watch?v=JxcXcP6NyRM",
+  "src_start": "00:56:02",
+  "src_end": "00:56:10",
+  "placeholder": 8.0,
+  "in": 0.8,
+  "out": 7.9,
+  "lower_third": "ORIGINAL FOOTAGE · CHRIS OLAH · ANTHROPIC · VATICAN, 25 MAY 2026",
+  "cues": [
+   "We need informed critics",
+   "who will tell the labs",
+   "when we are failing.",
+   "We need moral voices",
+   "that the incentives cannot bend."
+  ]
+ },
+ "C5": {
+  "speaker": "Pope Leo XIV",
+  "role": "Pope",
+  "source": "DRM News (reupload of the Vatican presentation, 25 May 2026)",
+  "url": "https://www.youtube.com/watch?v=aaYJ_4QcZfE",
+  "src_start": "00:08:08",
+  "src_end": "00:08:17",
+  "placeholder": 11.0,
+  "in": 0.8,
+  "out": 11.8,
+  "lower_third": "ORIGINAL FOOTAGE · POPE LEO XIV · VATICAN, 25 MAY 2026",
+  "cues": [
+   "The person bears within",
+   "him- or herself a freedom,",
+   "an interiority,",
+   "and a vocation to love and worship",
+   "that no machine",
+   "can replace or block."
+  ]
+ }
+}
