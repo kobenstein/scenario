@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Film 74 'Your Life in 2050 If We Get AI Right' · vo-v3.txt -> segments.json (takes for ElevenLabs v4 + clip slots). Method as Film 63 / 66 / 59.
 vo-v3 = one paragraph per line, blank lines between, [CLIP Cn] on its own line (final vo-v3: C6 · C4 · C1).
-CLIP SETS (coordinator 25.11.: C6 waits for Jakob's okay under §2.5f, the fallback must stay one switch away):
+CLIP SETS (coordinator 25.11.: C6 waited for Jakob's okay under §2.5f; Jakob CONFIRMED C6 on 25.11., the C3 fallback is kept in the code but not used):
   C6 (default) = vo-v3.txt -> audio/segments.json, takes in /tmp/claude-0/f74/audio/dl, timing in audio/timing.json (+ project folder audio/timing.json)
   C3 (fallback) = vo-v2.txt -> audio/variants/C3/segments.json, takes in /tmp/claude-0/f74/audio_c3/dl, timing in audio/variants/C3/timing.json (+ project folder audio/variant-c3/)
   The scenes read the clip set from the timing file (film.mjs clipSet): render the fallback with TIMING=audio/variants/C3/timing.json,

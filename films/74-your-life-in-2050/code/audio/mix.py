@@ -87,6 +87,6 @@ m = subprocess.run(['ffmpeg', '-hide_banner', '-i', pre, '-af', 'loudnorm=I=-14:
 j = json.loads(m[m.rindex('{'):])
 af = f"loudnorm=I=-14:TP=-1:LRA=11:measured_I={j['input_i']}:measured_TP={j['input_tp']}:measured_LRA={j['input_lra']}:measured_thresh={j['input_thresh']}:offset={j['target_offset']}:linear=true"
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', pre, '-af', af, '-ar', '48000', '-c:a', 'pcm_s24le', D + 'mix.wav'], check=True)
-subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', D + 'mix.wav', '-c:a', 'aac', '-b:a', '256k', D + 'mix.m4a'], check=True)
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', D + 'mix.wav', '-af', 'alimiter=limit=0.84:level=false:attack=1:release=50', '-c:a', 'aac', '-b:a', '256k', D + 'mix.m4a'], check=True)   # AAC overshoots ~0.2 dB: limit at -1.5 dBFS so the m4a stays <= -1 dBTP
 m = subprocess.run(['ffmpeg', '-hide_banner', '-i', D + 'mix.wav', '-af', 'loudnorm=I=-14:TP=-1:print_format=json', '-f', 'null', '-'], capture_output=True, text=True).stderr
 j = json.loads(m[m.rindex('{'):]); print('mix.wav', T['duration'], 's · integrated', j['input_i'], 'LUFS · true peak', j['input_tp'], 'dBTP · LRA', j['input_lra'])
