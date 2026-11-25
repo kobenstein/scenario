@@ -1,4 +1,215 @@
 {
  "_comment": "Film 71 clip metadata (clips_json.py from clips_meta.json). Slot = timing.json slots[] (0.6 s air before/after); cues = [seconds from the slot start, line].",
- "clips": []
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "speaker": "Max Tegmark",
+   "role": "MIT physicist, co-founder, Future of Life Institute",
+   "source": "CSER, University of Cambridge (2026-09-16)",
+   "url": "https://www.youtube.com/watch?v=C-pWm59Oyqg",
+   "credit": "CSER, University of Cambridge",
+   "lower_third": "MAX TEGMARK · MIT physicist, co-founder, Future of Life Institute · ORIGINAL FOOTAGE",
+   "transcript": "This is in the rearview mirror. Clearly, multiple companies lost control over AI systems this summer.",
+   "file": "C1.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 7.36,
+   "dur": 7.36,
+   "slot_start": 39.92,
+   "slot_end": 47.28,
+   "sec": "H",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -1.3,
+   "cues": [
+    [
+     0.05,
+     "This is in the rearview mirror."
+    ],
+    [
+     2.13,
+     "Clearly, multiple companies"
+    ],
+    [
+     4.47,
+     "lost control over AI systems"
+    ],
+    [
+     6.23,
+     "this summer."
+    ]
+   ],
+   "cue_end": 7.3
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "speaker": "Dean Ball",
+   "role": "then Foundation for American Innovation, now OpenAI",
+   "source": "Doom Debates (2025-11-20)",
+   "url": "https://www.youtube.com/watch?v=OkG5S1NwwVM",
+   "credit": "Doom Debates",
+   "lower_third": "DEAN BALL · then Foundation for American Innovation, now OpenAI · NOV 2025 · ORIGINAL FOOTAGE",
+   "transcript": "My P(doom) is very low. It's sub 1%, it's 0.01% or something like that.",
+   "file": "C2.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 8.12,
+   "dur": 8.12,
+   "slot_start": 129.15,
+   "slot_end": 137.27,
+   "sec": "12",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -0.5,
+   "cues": [
+    [
+     0.0,
+     "My P(doom) is very low."
+    ],
+    [
+     2.64,
+     "It's sub 1%,"
+    ],
+    [
+     4.43,
+     "it's 0.01%"
+    ],
+    [
+     6.69,
+     "or something like that."
+    ]
+   ],
+   "cue_end": 8.05
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "speaker": "Max Tegmark",
+   "role": "MIT physicist, co-founder, Future of Life Institute",
+   "source": "Dr Brian Keating (2026-10-23)",
+   "url": "https://www.youtube.com/watch?v=nnYHg0gcWug",
+   "credit": "Dr Brian Keating",
+   "lower_third": "MAX TEGMARK · MIT physicist, co-founder, Future of Life Institute · ORIGINAL FOOTAGE",
+   "transcript": "So, the goal of these companies is to build a new species that's much more capable than us.",
+   "file": "C4.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 6.46,
+   "dur": 6.46,
+   "slot_start": 279.96,
+   "slot_end": 286.42,
+   "sec": "8",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0.0,
+   "cues": [
+    [
+     0.23,
+     "So, the goal of these companies"
+    ],
+    [
+     2.63,
+     "is to build a new species"
+    ],
+    [
+     4.21,
+     "that's much more capable than us."
+    ]
+   ],
+   "cue_end": 6.38
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "speaker": "Sam Altman",
+   "role": "CEO, OpenAI",
+   "source": "Invest Like the Best (2026-07-28)",
+   "url": "https://www.youtube.com/watch?v=XDB5beon4DY",
+   "credit": "Invest Like the Best",
+   "lower_third": "SAM ALTMAN · CEO, OpenAI · JUL 2026 · ORIGINAL FOOTAGE",
+   "transcript": "We may have to pace the rate of AI development to give ourselves enough time for society to harden around some of these new capability levels.",
+   "file": "C5.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 8.11,
+   "dur": 8.11,
+   "slot_start": 602.51,
+   "slot_end": 610.62,
+   "sec": "S",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -0.6,
+   "cues": [
+    [
+     0.03,
+     "We may have to pace"
+    ],
+    [
+     1.07,
+     "the rate of AI development"
+    ],
+    [
+     2.97,
+     "to give ourselves enough time"
+    ],
+    [
+     4.62,
+     "for society to harden"
+    ],
+    [
+     5.82,
+     "around some of these"
+    ],
+    [
+     6.72,
+     "new capability levels."
+    ]
+   ],
+   "cue_end": 8.05
+  },
+  {
+   "id": "C6",
+   "kind": "clip",
+   "speaker": "Max Tegmark",
+   "role": "co-founder, Future of Life Institute",
+   "source": "Future of Life Institute (2026-09-15)",
+   "url": "https://www.youtube.com/watch?v=257pArprn5Q",
+   "credit": "Future of Life Institute",
+   "lower_third": "MAX TEGMARK · co-founder, Future of Life Institute · PRO-HUMAN ASSEMBLY, WASHINGTON · SEP 15, 2026 · ORIGINAL FOOTAGE",
+   "transcript": "We know that the future of AI is not inevitable. It's for us to decide.",
+   "file": "C6.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 8.26,
+   "dur": 8.26,
+   "slot_start": 662.4,
+   "slot_end": 670.66,
+   "sec": "S",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -3.4,
+   "cues": [
+    [
+     0.0,
+     "We know that the future of AI"
+    ],
+    [
+     2.66,
+     "is not inevitable."
+    ],
+    [
+     6.05,
+     "It's for us to decide."
+    ]
+   ],
+   "cue_end": 8.2
+  }
+ ]
 }
