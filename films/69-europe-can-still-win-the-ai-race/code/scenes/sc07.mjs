@@ -34,7 +34,7 @@ export default async (T, R) => {
     lab: G('Europe does need enough'), what: G('Enough for what'), shared: G('For one shared lab'), adv: G('building the most advanced'),
     before: G('Europe has done this before'), war: G('After the war'), pooled: G('pooled their money'), physics: G('one physics lab'), webW: G('The World Wide Web'),
     called: G("It's called CERN"), cernai: G('a CERN for AI'), top: G("Europe's top official"), sofar: G('So far, that promise'), pilot: G('a pilot worth'), hundred: G('a hundred million'),
-    nov: G('In November, she named'), least: G('At least five hundred'), est: G('Her estimate'), notb: G('Not a budget'), name: G('A name and a pilot'),
+    nov: G('In November, she named'), price: G('the price of really'), least: G('At least five hundred'), est: G('Her estimate'), notb: G('Not a budget'), name: G('A name and a pilot'),
     labp: G('The lab, too, is still'), end: R.b,
   };
   const C3 = T.clip('C3'), tP = R.b - S.SEAM_HALF, D = S.PLATE_DISC;
@@ -44,7 +44,7 @@ export default async (T, R) => {
   const LAMP0 = [1060, 700];                                            // your lamp (sheet): it sits where c06's gold machine light was
   const VK = [[A.a, { x: LAMP0[0], y: LAMP0[1] - 164 / 1.6, s: 1.6 }], [A.wherever - .2, { x: 1045, y: 600, s: 1.46 }], [A.wherever + 2.4, { x: 960, y: 430, s: .52 }],
     [A.lab - .3, { x: 955, y: 425, s: .5 }], [A.lab + 2.4, { x: 960, y: 540, s: 1 }]];
-  const view = (t) => { const v = X.viewPath(t, VK); { const q = Math.sin(Math.PI * span(t, A.a, A.wherever - .2)); v.s *= 1 + .09 * q; v.x -= 40 * q; v.y -= 14 * q; }   // the close-up breathes in from the first frame (no dead start after the W)
+  const view = (t) => { const v = X.viewPath(t, VK); { const q = Math.sin(Math.PI * span(t, A.a, A.wherever - .2)); v.s *= 1 + .07 * q; v.x -= 30 * q; v.y -= 10 * q; }   // the close-up breathes in from the first frame (no dead start after the W)
     if (t > A.lab + 2.4) { const f = 1 - span(t, tP - 3, tP); v.x += 7 * Math.sin((t - A.lab) * .19) * f; v.y += 4 * Math.sin((t - A.lab) * .15 + 1) * f; } return v; };
 
   // ---------------------------------------------------------------- M.01 the town of warm windows (sheet units)
@@ -76,7 +76,7 @@ export default async (T, R) => {
     const r = prng(i * 31 + j * 7 + 99), q = r();
     if (you) {
       const lx = LAMP0[0], ly = LAMP0[1];
-      halo(ctx, lx, ly - 40, 380 * pulse * (1 + .04 * Math.sin((t - A.a) * 2.1)), .55 * pulse, LAMP.body, LAMP.core);
+      halo(ctx, lx, ly - 40, 380 * pulse * (1 + .04 * Math.sin((t - A.a) * 2.1) + .05 * (1 - span(t, A.a, A.a + 1.6)) * Math.sin((t - A.a) * 9)), .55 * pulse, LAMP.body, LAMP.core);
       ctx.fillStyle = mixHex(P.night0, P.blue1, .4); ctx.fillRect(lx - 4, ly - 30, 8, 90); ctx.fillRect(lx - 40, ly + 56, 80, 10);
       ctx.fillStyle = mixHex(CREAM, LAMP.body, .4); ctx.beginPath(); ctx.moveTo(lx - 46, ly - 30); ctx.lineTo(lx + 46, ly - 30); ctx.lineTo(lx + 28, ly - 80); ctx.lineTo(lx - 28, ly - 80); ctx.closePath(); ctx.fill();
       E.du(ctx, w.x + 150, w.y + w.h + 120, 330, { dir: 1, light: 1, look: lerp(.15, .9, sineIO(span(t, A.want - .2, A.want + .8))) + .05 * Math.sin(t * .8), armR: [.25, .15] });
@@ -125,7 +125,7 @@ export default async (T, R) => {
       for (let i = 1; i < 8; i++) { ctx.beginPath(); ctx.moveTo(x + i * w / 8, y + 8); ctx.lineTo(x + i * w / 8, y + h - 8); ctx.stroke(); } for (let j = 1; j < 4; j++) { ctx.beginPath(); ctx.moveTo(x + 8, y + j * h / 4); ctx.lineTo(x + w * ou - 8, y + j * h / 4); ctx.stroke(); }
       ctx.restore();
     }
-    X.label(ctx, 'ENOUGH COMPUTERS OF ITS OWN', 960, 250, lab(t, A.lab + 1.2, A.what - .1), { size: 30 });
+    X.label(ctx, 'ENOUGH COMPUTERS OF ITS OWN', 960, 312, lab(t, A.lab + 1.2, A.what - .1), { size: 40 });
     X.big(ctx, 'ENOUGH FOR WHAT?', 960, 300, 72, lab(t, A.what + .2, A.shared + .2), { gold: .3 });
 
     // ---- 6.02 one shared lab, 27 streams pool into it
@@ -133,8 +133,8 @@ export default async (T, R) => {
     if (gl > 0) { X.lightLine(ctx, [[960, GL], [960 - 760, GL]], gl, { a: .45, w: 2.5 }); X.lightLine(ctx, [[960, GL], [960 + 760, GL]], gl, { a: .45, w: 2.5 }); }
     const lr = span(t, A.shared - .1, A.shared + 1.2), ls = span(t, A.before + .1, A.before + 1.5);
     if (lr > 0 && ls < 1) { ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, GL + 1); ctx.clip(); B.labBuilding(ctx, t, 960, GL + expoIn(ls) * 260, 460, { rise: lr, lit: .25 * span(t, A.shared + 1.5, A.shared + 3) }); ctx.restore(); }
-    X.label(ctx, 'ONE SHARED LAB', 960, 250, lab(t, A.shared + .2, A.before), { size: 36, spacing: .14 });
-    X.label(ctx, 'FOR THE MOST ADVANCED AI', 960, 304, lab(t, A.adv, A.before), { size: 28, col: CREAM2 });
+    X.label(ctx, 'ONE SHARED LAB', 960, 300, lab(t, A.shared + .2, A.before), { size: 48, spacing: .14 });
+    X.label(ctx, 'FOR THE MOST ADVANCED AI', 960, 352, lab(t, A.adv, A.before), { size: 38, col: CREAM2 });
     const su = span(t, A.shared + .3, A.shared + 1.6), go = sineIO(span(t, A.pooled - .2, A.pooled + 1.8));
     if (su > 0 && go < 1) {
       const toRing = sineIO(span(t, A.before + .4, A.war + .6)), rg = RING(t);
@@ -154,7 +154,7 @@ export default async (T, R) => {
     if (wu > 0) { B.web(ctx, t, 960, 590, wu, { a: .9 }); X.lightLine(ctx, [[960, 615], [960, 590]], span(t, A.webW, A.webW + .4), { w: 2 }); }
     const rg = RING(t), r1 = span(t, A.war - .1, A.war + 1.6) * (1 - span(t, A.nov + .1, A.nov + 1.1));
     if (r1 > 0) B.ring(ctx, t, rg.x, rg.y, rg.rx, r1, { glow: span(t, A.physics - .3, A.physics + .8), run: span(t, A.physics, A.physics + 1), w: 4 });
-    X.label(ctx, SRC.cern, rg.x, 560, lab(t, A.physics - .1, A.nov + .6), { size: 32, gold: .7, col: GOLD.text });
+    X.label(ctx, SRC.cern, rg.x, 560, lab(t, A.physics - .1, A.nov + .6), { size: 43, gold: .7, col: GOLD.text });
     X.big(ctx, SRC.web, 960, 230, 64, lab(t, A.webW + .3, A.called + .6), { gold: .4 });
     // ---- 6.04 the promise: a dashed twin ring · 6.05 it shrinks to the pilot
     const r2 = sineIO(span(t, A.top - .1, A.cernai + .6)), sh = sineIO(span(t, A.pilot - .3, A.pilot + 1.2)), r2x = lerp(320, 40, sh);
@@ -162,14 +162,27 @@ export default async (T, R) => {
     if (r2 > 0 && plateM <= 0) B.ring(ctx, t, RING2.x, RING2.y, r2x, r2, { col: rgba(CREAM, .9), dash: [12, 9], w: 3, ry: r2x * .3 });
     X.big(ctx, SRC.cernForAi, RING2.x, 520, 56, lab(t, A.cernai, A.sofar + .2), { gold: .1 });
     F.source(ctx, t, A.cernai + .2, A.sofar + .4, SRC.cernForAiSrc);
-    X.label(ctx, SRC.pilot, RING2.x, 620, lab(t, A.pilot + .4, A.nov + .7), { size: 32, gold: .4 });
     F.source(ctx, t, A.pilot + .4, A.hundred + 1.1, SRC.pilotSrc);
     F.source(ctx, t, A.hundred + 1.2, A.nov + 1.4, SRC.cairne);
     // ---- 6.06–6.07 the small ring grows into the clip plate (C3), then the plate shrinks into a gold dot (the pilot)
     if (plateM > 0 && back < 1) {
       const m = t < C3.end ? plateM : 1 - back, from = t < C3.end ? [RING2.x, RING2.y, 40] : [DOT[0], DOT[1], 6];
-      F.clipPlate(ctx, t, T, 'C3', { from, morph: m, dark: 1 - span(t, C3.start - .35, C3.start + .1) + (t > C3.end ? span(t, C3.end - .05, C3.end + .4) : 0) });
+      const b = F.clipPlate(ctx, t, T, 'C3', { from, morph: m, dark: 1 - span(t, C3.start - .35, C3.start + .1) + (t > C3.end ? span(t, C3.end - .05, C3.end + .4) : 0) });
+      const ia = t < C3.end ? 1 - span(t, C3.start - .35, C3.start + .1) : 0;
+      if (ia > 0) {   // inside the growing plate: the pilot ring grows with it, NOVEMBER, the price of catching up (then the footage lights up in it)
+        ctx.save(); ctx.globalAlpha *= ia; ctx.beginPath(); ctx.roundRect(b.cx - b.w / 2, b.cy - b.h / 2, b.w, b.h, 14); ctx.clip();
+        const rx = lerp(40, 300, m); B.ring(ctx, t, b.cx, b.cy + 40 * m, rx, 1, { col: rgba(CREAM, .9), dash: [12, 9], w: 3, ry: rx * .3 });
+        halo(ctx, b.cx, b.cy + 40 * m, 60, .5, GOLD.halo, GOLD.core);
+        const wk = span(b.w, 900, 1300);
+        if (wk > 0) { X.dateTag(ctx, 'NOVEMBER', b.cx, b.cy - b.h * .34, lab(t, A.nov, C3.start + .2) * wk);
+          X.big(ctx, 'THE PRICE OF CATCHING UP', b.cx, b.cy - b.h * .16, 60, lab(t, A.price - .1, C3.start + .2) * wk, { gold: .6 }); }
+        ctx.restore();
+      }
     }
+    { const mm = t < C3.end ? sineIO(plateM) : 0, R0 = F.CLIP_RECT;   // the pilot's label rides the plate (under its ring)
+      const rxN = plateM > 0 ? lerp(40, 300, plateM) : r2x, pcy = lerp(RING2.y, R0.y + R0.h / 2, mm), rb = pcy + 40 * (t < C3.end ? plateM : 0) + rxN * .3 + 50,
+        ly = lerp(Math.max(rb, pcy + lerp(40, R0.h / 2, mm) + 40), rb, span(mm, .2, .5));   // under the small plate, then inside it under the ring
+      X.label(ctx, SRC.pilot, lerp(RING2.x, R0.x + R0.w / 2, mm), ly, lab(t, A.pilot + .4, C3.start - .1), { size: lerp(34, 40, mm), gold: .4 }); }
     // ---- 6.08 the €500 bn estimate: a dashed circle around the pilot dot (area to scale)
     const dotU = back >= 1 ? 1 : 0, eu = span(t, A.least - .1, A.least + 1.8), cK = sineIO(span(t, A.name - .3, A.name + 1.3)), fly = sineIO(span(t, A.name + .5, A.name + 1.7));
     const P4 = F.pieceCentre(PI4, D.x, D.y, D.r);
@@ -182,9 +195,9 @@ export default async (T, R) => {
       const cx = lerp(DOT[0], D.x, cK), cy = lerp(DOT[1], D.y, cK), r = lerp(EST_R, D.r + 4, cK), pts = B.ringPts(cx, cy, r, r, 120, -Math.PI / 2);
       X.lightLine(ctx, pts, eu, { col: rgba(CREAM, .85), w: 3 * ew, dash: [16, 12], blur: 8 });
     }
-    X.big(ctx, SRC.b500, 1110, 450, 58, lab(t, A.least, A.name), { gold: .3, align: 'left' });
-    X.label(ctx, SRC.b500Tag, 1110, 512, lab(t, A.est - .1, A.name), { size: 28, align: 'left', col: CREAM });
-    X.label(ctx, SRC.pilot, DOT[0], DOT[1] + 46, lab(t, A.least + 1.2, A.name + .3) * dotU, { size: 22, col: CREAM2 });
+    X.big(ctx, SRC.b500, 1150, 450, 58, lab(t, A.least, A.name), { gold: .3, align: 'left' });
+    X.label(ctx, SRC.b500Tag, 1150, 516, lab(t, A.est - .1, A.name), { size: 38, align: 'left', col: CREAM });
+    X.label(ctx, SRC.pilot, DOT[0], DOT[1] + 46, lab(t, A.least + 1.2, A.name + .3) * dotU, { size: 34, col: CREAM2 });
     F.source(ctx, t, A.least + .3, A.name + .4, SRC.b500Src);
     // ---- 6.09 a name and a pilot fly into piece 4 → ON PAPER
     const nm = lab(t, A.name - .1, A.name + 1.7), np = B.lerpPt([DOT[0], DOT[1] - 40], P4, fly);

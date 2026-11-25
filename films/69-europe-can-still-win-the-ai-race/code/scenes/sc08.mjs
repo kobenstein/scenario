@@ -94,7 +94,8 @@ export default async (T, R) => {
   // ---------------------------------------------------------------- 7.05–7.06 the certificate and the "EU INC" paper
   const CERT = { x: 960, y: 470, w: 520, h: 330 };
   const zoomK = (t) => sineIO(span(t, A.look - .1, A.look + 1.8));            // 0: the certificate big · 1: inside the EU INC sheet
-  const certBox = (t) => { const z = lerp(1, .42, zoomK(t)); return { x: 960, y: lerp(470, 540, zoomK(t)), w: CERT.w * z, h: CERT.h * z, z }; };
+  const certBox = (t) => { const k = zoomK(t), z = lerp(1, .84, k); return { x: 960, y: lerp(470, 560, k) + 70 * sineIO(span(t, A.inside + .2, A.inside + 1.4)), w: CERT.w * z, h: CERT.h * z, z }; };
+  const FOLD = { x: 960, y: 640, w: 1000, h: 520, top: 690 };   // the EU INC folder: back panel centre, size, the pocket's top edge (screen)
   const COPIES = Array.from({ length: 27 }, (_, i) => [300 + (i % 14) * 101 + (i >= 14 ? 50 : 0), 735 + (i >= 14 ? 58 : 0)]);
 
   // ---------------------------------------------------------------- 7.07–7.08 the lanes (the walk-out right)
@@ -111,7 +112,7 @@ export default async (T, R) => {
       X.lightLine(ctx, [[LABB.x - 340, LABB.y], [LABB.x + 340, LABB.y]], lr * (1 - ls), { a: .45, w: 2.5 });
       ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, LABB.y + 1); ctx.clip(); B.labBuilding(ctx, t, LABB.x, LABB.y + expoIn(ls) * 300, LABB.w, { rise: lr, lit: 0 }); ctx.restore();
     }
-    X.label(ctx, 'AN EMPTY BUILDING', LABB.x, 330, lab(t, A.empty + .3, A.picture), { size: 32 });
+    X.label(ctx, 'AN EMPTY BUILDING', LABB.x, 330, lab(t, A.empty + .3, A.picture), { size: 43 });
 
     // ---- the plan: big (plate) → aside → its minds piece lifts (we fly in) and the disc flies up into the HUD → down again for OPEN
     const hudOut = span(t, A.picture - .2, A.picture + 1.6), kOpen = span(t, A.open - .4, A.open + 1.2);
@@ -123,7 +124,7 @@ export default async (T, R) => {
     if (t < A.picture - .2) plan();
     const ml = lab(t, A.fifth + .2, A.picture - .1), d1 = discAt(t, v), [mx, my] = F.pieceCentre(PI5, d1.x, d1.y, d1.r);
     if (ml > 0) X.lightLine(ctx, [[mx + 40, my + 40], [mx + 120, my + 150]], ml, { a: .6, w: 1.5 });
-    X.label(ctx, 'THE FIFTH PART', mx + 130, my + 180, lab(t, A.fifth + .3, A.minds), { size: 28, align: 'left' });
+    X.label(ctx, 'THE FIFTH PART', mx + 130, my + 180, lab(t, A.fifth + .3, A.minds), { size: 38, align: 'left' });
     X.big(ctx, 'MINDS', mx + 130, my + 196, 64, lab(t, A.minds - .1, A.picture - .1), { gold: .8, align: 'left' });
 
     // ---- 7.02 we fly into the minds piece: a round warm window opens in it on her room
@@ -154,32 +155,36 @@ export default async (T, R) => {
       }
     }
     if (t >= A.picture - .2) plan();   // the HUD stays above her room
-    X.label(ctx, 'PARIS', 490, 120, lab(t, A.paris, A.two) * (sinkY < 1 ? 1 : 0), { size: 30, spacing: .2 });
-    X.label(ctx, 'PHD, JUST FINISHED', 960, 160, lab(t, A.doct, A.two + .2), { size: 28, col: CREAM2 });
+    X.label(ctx, 'PARIS', 490, 120, lab(t, A.paris, A.two) * (sinkY < 1 ? 1 : 0), { size: 40, spacing: .2 });
+    X.label(ctx, 'PHD, JUST FINISHED', 960, 160, lab(t, A.doct, A.two + .2), { size: 38, col: CREAM2 });
     X.big(ctx, SRC.pay70, 1330, 170, 64, lab(t, A.seventy - .1, A.many), { gold: .3 });
-    X.label(ctx, 'BEFORE STOCK OPTIONS', 1450, 290, lab(t, A.before + .2, A.many), { size: 22, align: 'left', col: CREAM2 });
+    { const bu = lab(t, A.before + .2, A.many); X.label(ctx, 'BEFORE', 1400, 292, bu, { size: 32, align: 'left', col: CREAM2 }); X.label(ctx, 'STOCK OPTIONS', 1400, 334, bu, { size: 32, align: 'left', col: CREAM2 }); }
     F.source(ctx, t, A.seventy, A.many + .3, SRC.pay70Src);
 
     // ---- 7.05 the Europe letter flips into the certificate: STOCK OPTIONS, TAXED ON SALE · the same in every country · tax at SELL
     const flip = span(t, A.answer - .1, A.answer + .7), come = sineIO(span(t, A.answer + .2, A.answer + 1.6)), fold = sineIO(span(t, A.shifted - .1, A.shifted + 1.3));
     if (flip > 0 && fold < 1) {
       const L = letterPos(t, 0), cb = certBox(t), x = lerp(L.x, cb.x, come), y = lerp(L.y, cb.y, come), sw = flip < .5 ? Math.cos(Math.PI * flip) : -Math.cos(Math.PI * flip);
-      // 7.06 the EU INC paper around it (revealed by the pull back), it folds down into a ground line on 'something has shifted'
-      const z = zoomK(t);
-      if (z > 0) euInc(ctx, t, z, fold);
-      ctx.save(); ctx.translate(x, y + fold * (LANES[0].y - 540)); ctx.scale(Math.max(.02, Math.abs(sw)), 1 - fold);
+      // 7.06 the EU INC folder slides up under it; the certificate slides down INTO its pocket · on 'something has shifted' all of it folds into a ground line
+      const z = zoomK(t), FY = FOLD.y;
+      ctx.save(); ctx.translate(0, fold * (LANES[0].y - FY) + FY); ctx.scale(1, Math.max(.002, 1 - fold)); ctx.translate(0, -FY);
+      if (z > 0) folder(ctx, t, z, false);
+      ctx.save(); ctx.translate(x, y); ctx.scale(Math.max(.02, Math.abs(sw)), 1);
       if (flip < .5) F.letter(ctx, t, 0, 0, LW, { head: SRC.offers[0], u: 1, rot: -.02 });
       else cert(ctx, t, lerp(LW, cb.w, come), lerp(LH, cb.h, come), cb.z * come + (1 - come) * .4);
       ctx.restore();
+      if (z > 0) folder(ctx, t, z, true);
+      ctx.restore();
+      if (fold > .8) X.lightLine(ctx, [[960 - FOLD.w / 2, LANES[0].y], [960 + FOLD.w / 2, LANES[0].y]], 1, { a: .5, w: 2.5 });
     }
     const cu = span(t, A.same - .2, A.same + 1.1) * (1 - sineIO(span(t, A.look - .2, A.look + .8)));
     if (cu > 0) COPIES.forEach(([cx, cy], i) => { const u = sineIO(clamp(cu * 1.6 - (i % 14) / 14 * .6)), x = lerp(960, cx, u), y = lerp(560, cy, u);
       ctx.save(); ctx.translate(x, y); ctx.fillStyle = mixHex(PAPER.lit, PAPER.body, .3); ctx.fillRect(-26, -17, 52, 34); ctx.strokeStyle = rgba(GOLD.mid, .8); ctx.lineWidth = 1.5; ctx.strokeRect(-22, -13, 44, 26); ctx.restore(); });
     X.big(ctx, SRC.options, 960, 230, 60, lab(t, A.options - .1, A.look), { gold: .5 });
-    X.label(ctx, 'THE SAME IN EVERY COUNTRY', 960, 880 - 40, lab(t, A.same + .4, A.look), { size: 26, col: CREAM2 });
+    X.label(ctx, 'THE SAME IN EVERY COUNTRY', 960, 905, lab(t, A.same + .4, A.look), { size: 35, col: CREAM2 });
     F.source(ctx, t, A.answer + 1.0, A.same + .2, SRC.optionsSrc);
     X.big(ctx, SRC.euInc, 960, 205, 64, lab(t, A.inside - .1, A.shifted), { gold: .1 });
-    X.label(ctx, 'STILL ON PAPER', 960, 860, lab(t, A.still + .3, A.shifted), { size: 30, spacing: .14 });
+    F.verdict(ctx, t, 960, 975, 'ON PAPER', lab(t, A.still + .2, A.shifted), { size: 40 });
     // the minds piece tries to click into the paper and finds only paper (it slides out of the HUD, touches, slides back)
     const tr = span(t, A.still + .2, A.still + 2.4);
     if (tr > 0 && tr < 1) { const hp = F.pieceCentre(PI5, F.HUD.x, F.HUD.y, F.HUD.r), k = Math.sin(Math.PI * tr), e = sineIO(k);
@@ -193,7 +198,7 @@ export default async (T, R) => {
       // a low light band behind the walkers (they read as silhouettes against it)
       if (ll > 0) { ctx.save(); ctx.globalAlpha = ll * (1 - sinkL); ctx.fillStyle = E.lin(ctx, 0, y - 210, 0, y, [[0, rgba(COOL.halo, 0)], [1, rgba(li ? LAMP.body : COOL.halo, .16)]]); const g0 = ctx.globalAlpha; for (let i = 0; i < 42; i++) { const xx = 120 + i * 40; ctx.globalAlpha = g0 * Math.sin(Math.PI * (i + .5) / 42) ** .7; ctx.fillRect(xx, y - 210, 40.5, 210); } ctx.restore(); }
       X.lightLine(ctx, [[960, y], [120, y]], ll, { a: .55, w: 2.5 }); X.lightLine(ctx, [[960, y], [1800, y]], ll, { a: .55, w: 2.5 });
-      X.label(ctx, ln.label, 150, y + 44, lab(t, ln.at + .4, A.open), { size: 28, align: 'left', gold: li ? .6 : 0, col: li ? GOLD.text : CREAM });
+      X.label(ctx, ln.label, 150, y + 44, lab(t, ln.at + .4, A.open), { size: 38, align: 'left', gold: li ? .6 : 0, col: li ? GOLD.text : CREAM });
       ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, y + 1); ctx.clip();
       for (let k = 0; k < 40; k++) { const x = ln.x0 + (t - ln.at) * SPEED - k * ln.sp; if (x < -80 || x > 2000) continue; B.walker(ctx, t, x, y + rise, 150, 1, k * 1.7, { rim: CREAM }); }
       if (li === 1) for (let k = 0; k < 3; k++) { const x = 2000 - (t - A.few + .2) * SPEED * .9 - k * 230; if (x > 2000 || x < -80 || t < A.few - .2) continue;
@@ -201,10 +206,10 @@ export default async (T, R) => {
       ctx.restore();
     });
     const pf = span(t, A.shifted + .2, A.shifted + 1.4) * (1 - sinkL);
-    if (pf > 0) X.label(ctx, 'EU → AMERICA', 1800, 440, lab(t, A.leaving + .3, A.open), { size: 26, align: 'right', col: CREAM2 });
+    if (pf > 0) X.label(ctx, 'EU → AMERICA', 1800, 330, lab(t, A.leaving + .3, A.open), { size: 35, align: 'right', col: CREAM2 });
     X.big(ctx, SRC.brain45, 960, 250, 84, lab(t, A.half + .3, A.open), { gold: .8 });
     F.source(ctx, t, A.leaving + .5, A.few + .1, SRC.brain45Src);
-    X.label(ctx, SRC.chooseEurope, 960, 834, lab(t, A.few + .5, A.open + .2), { size: 30, gold: .5, col: GOLD.text });
+    X.label(ctx, SRC.chooseEurope, 960, 834, lab(t, A.few + .5, A.open + .2), { size: 40, gold: .5, col: GOLD.text });
     F.source(ctx, t, A.few + .5, A.open + .6, SRC.chooseEuropeSrc);
 
     // ---- 7.09 the plan: OPEN · a rule booklet cannot fill the slot · one person walks up to the loose piece
@@ -229,6 +234,7 @@ export default async (T, R) => {
     ctx.strokeStyle = rgba(GOLD.mid, .9); ctx.lineWidth = Math.max(1, w * .006); ctx.strokeRect(-w / 2 + w * .04, -h / 2 + w * .04, w * .92, h - w * .08);
     ctx.strokeRect(-w / 2 + w * .055, -h / 2 + w * .055, w * .89, h - w * .11);
     ctx.fillStyle = rgba(PAPER.faint, .5); for (let j = 0; j < 3; j++) ctx.fillRect(-w * .3, -h * .18 + j * h * .1, w * (.6 - j * .12), Math.max(1, h * .02));
+    if (w > 280) E.glowText(ctx, 'STOCK OPTIONS', 0, -h * .27, { size: w * .068, weight: 700, col: PAPER.ink, glow: false, align: 'center', spacing: .1 });
     if (w > 300) {   // GRANT → SELL, the tax tag drops on SELL ('taxed only when you sell')
       const a = clamp((w - 300) / 120), yl = h * .26, x0 = -w * .3, x1 = w * .3;
       ctx.save(); ctx.globalAlpha *= a;
@@ -242,14 +248,20 @@ export default async (T, R) => {
       ctx.restore();
     }
   }
-  function euInc(ctx, t, z, fold) {   // the "EU INC" paper (cream, ruled, dashed edge = on paper), z 0..1 the pull back, fold 0..1 folds down
-    const cb = certBox(t), s = 1, w = lerp(cb.w, 1000, z), h = lerp(cb.h, 600, z) * (1 - fold), cx = 960, cy = lerp(cb.y, 540, z) + fold * (LANES[0].y - 540);
-    if (h < 1) { X.lightLine(ctx, [[cx - w / 2, cy], [cx + w / 2, cy]], 1, { a: .5, w: 2.5 }); return; }
-    ctx.save(); ctx.translate(cx, cy);
-    ctx.fillStyle = rgba(P.night0, .4); ctx.fillRect(-w / 2 + 10, -h / 2 + 14, w, h);
-    ctx.fillStyle = E.lin(ctx, -w / 2, -h / 2, w / 2, h / 2, [[0, mixHex(P.night1, PAPER.shade, .2)], [1, mixHex(P.night1, PAPER.shade, .1)]]); ctx.fillRect(-w / 2, -h / 2, w, h);
-    ctx.strokeStyle = rgba(PAPER.lit, .14); ctx.lineWidth = 1.2; for (let y = -h / 2 + 40 * s; y < h / 2; y += 34 * s) { ctx.beginPath(); ctx.moveTo(-w / 2 + 30, y); ctx.lineTo(w / 2 - 30, y); ctx.stroke(); }
-    ctx.setLineDash([14, 10]); ctx.lineDashOffset = -t * 10; ctx.strokeStyle = rgba(PAPER.lit, .8); ctx.lineWidth = 3; ctx.strokeRect(-w / 2 + 12, -h / 2 + 12, w - 24, h - 24); ctx.setLineDash([]);
+  function folder(ctx, t, z, front) {   // the "EU INC" folder (paper = cream; dashed edge = still on paper): back panel + tab, or the front pocket
+    const e = expoOut(z), dy = (1 - e) * 760, { x, y, w, h, top } = FOLD, x0 = x - w / 2, y0 = y - h / 2 + dy, y1 = y + h / 2 + dy, py = top + dy;
+    ctx.save();
+    if (!front) {
+      ctx.fillStyle = rgba(P.night0, .45); ctx.fillRect(x0 + 12, y0 + 16, w, h);
+      ctx.fillStyle = mixHex(mixHex(PAPER.shade, GOLD.shade, .4), P.night1, .3); ctx.beginPath(); ctx.roundRect(x0 + 40, y0 - 54, 300, 70, [14, 14, 0, 0]); ctx.fill();   // the tab
+      ctx.fillStyle = E.lin(ctx, 0, y0, 0, y1, [[0, mixHex(mixHex(PAPER.shade, GOLD.shade, .4), P.night1, .3)], [1, mixHex(mixHex(PAPER.edge, GOLD.deep, .3), P.night1, .35)]]); ctx.beginPath(); ctx.roundRect(x0, y0, w, h, 10); ctx.fill();
+    } else {
+      ctx.fillStyle = rgba(P.night0, .35); ctx.fillRect(x0, py, w, 18);   // the pocket's shadow on what sits inside
+      ctx.fillStyle = E.lin(ctx, 0, py, 0, y1, [[0, mixHex(PAPER.body, GOLD.mid, .22)], [1, mixHex(PAPER.shade, GOLD.shade, .3)]]); ctx.beginPath(); ctx.roundRect(x0, py, w, y1 - py, [0, 0, 10, 10]); ctx.fill();
+      ctx.strokeStyle = rgba(PAPER.lit, .5); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x0, py); ctx.lineTo(x0 + w, py); ctx.stroke();
+      E.glowText(ctx, 'A NEW EUROPE-WIDE COMPANY', x, py + 80, { size: 34, weight: 700, col: PAPER.ink, glow: false, align: 'center', spacing: .1 });
+      ctx.setLineDash([16, 11]); ctx.lineDashOffset = -t * 10; ctx.strokeStyle = rgba(PAPER.ink, .55); ctx.lineWidth = 3; ctx.beginPath(); ctx.roundRect(x0 + 14, y0 + 14, w - 28, y1 - y0 - 28, 6); ctx.stroke(); ctx.setLineDash([]);
+    }
     ctx.restore();
   }
 

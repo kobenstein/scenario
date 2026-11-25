@@ -115,8 +115,8 @@ export default async (T, R) => {
       B.cable(ctx, t, [p0, p1, [dc.x + dc.w * .5, dc.y - h * .45]], ru, { w: Math.max(4, dc.w * .022), speed: 220 });
     }
     if (t < A.build + 1.6) dataCentre(ctx, t, dc, { lit, rise: span(t, A.dc - .9, A.dc + .3) });
-    X.label(ctx, 'AI DATA CENTRES', 960, 200, lab(t, A.dc - .1, A.heavy), { size: 36, spacing: .14 });
-    X.label(ctx, 'ENORMOUS AMOUNTS OF ELECTRICITY', 960, 256, lab(t, A.dc + .9, A.heavy), { size: 30, gold: .6, col: GOLD.text });
+    X.label(ctx, 'AI DATA CENTRES', 960, 200, lab(t, A.dc - .1, A.heavy), { size: 48, spacing: .14 });
+    X.label(ctx, 'ENORMOUS AMOUNTS OF ELECTRICITY', 960, 256, lab(t, A.dc + .9, A.heavy), { size: 40, gold: .6, col: GOLD.text });
     // 5.02 the price bars rise out of the ground line (EU out of the cable's foot)
     const sink = expoIn(span(t, A.notEv - .1, A.notEv + .7));
     const euU = sineIO(span(t, A.eu - .2, A.eu + 1.2)) * (1 - sink), usU = sineIO(span(t, A.twice - .2, A.twice + 1.0)) * (1 - sink);
@@ -125,10 +125,10 @@ export default async (T, R) => {
     if (euU > 0) priceBar(ctx, t, EUB.x, BY, EUB.w, 360 * euU, true);
     if (usU > 0) priceBar(ctx, t, USB.x, BY, USB.w, 164 * usU, false);
     const bl = lab(t, A.eu, A.notEv);
-    X.label(ctx, 'EU', EUB.x + EUB.w / 2, BY + 46, bl * (euU > .05 ? 1 : 0), { size: 30, gold: .3 });
-    X.label(ctx, 'US', USB.x + USB.w / 2, BY + 46, lab(t, A.twice, A.notEv), { size: 30, col: CREAM2 });
+    X.label(ctx, 'EU', EUB.x + EUB.w / 2, BY + 46, bl * (euU > .05 ? 1 : 0), { size: 40, gold: .3 });
+    X.label(ctx, 'US', USB.x + USB.w / 2, BY + 46, lab(t, A.twice, A.notEv), { size: 40, col: CREAM2 });
     X.big(ctx, SRC.power2x, 1200, 250, 64, lab(t, A.twice + .2, A.notEv), { gold: .25 });
-    X.label(ctx, 'HEAVY INDUSTRY', 1200, 160, lab(t, A.heavy + .2, A.notEv), { size: 28, col: CREAM2 });
+    X.label(ctx, 'HEAVY INDUSTRY', 1200, 160, lab(t, A.heavy + .2, A.notEv), { size: 38, col: CREAM2 });
     F.source(ctx, t, A.eu, A.notEv + .3, SRC.power2xSrc);
 
     // ---- 5.03 the light map: the bars' ground line unspools into the coast lines; the north and France glow
@@ -139,8 +139,8 @@ export default async (T, R) => {
     if (gN > 0) { halo(ctx, NORTH[0], NORTH[1], 110 * gN, .55 * gN * br(0), GOLD.halo, GOLD.core); B.damGlyph(ctx, t, NORTH[0] + 4, NORTH[1] + 6, 14, gN); }
     if (gF > 0) { halo(ctx, FRA[0], FRA[1], 110 * gF, .55 * gF * br(2), GOLD.halo, GOLD.core); B.reactorGlyph(ctx, t, FRA[0] - 2, FRA[1] + 8, 14, gF); }
     const lN = lab(t, A.sweden + .2, A.seven), lF = lab(t, A.france + .2, A.seven);
-    if (lN > 0) { X.lightLine(ctx, [[NORTH[0] - 22, NORTH[1] - 8], [NORTH[0] - 110, NORTH[1] - 40]], lN, { a: .6, w: 1.5 }); X.label(ctx, SRC.north, NORTH[0] - 120, NORTH[1] - 34, lN, { size: 26, align: 'right' }); }
-    if (lF > 0) { X.lightLine(ctx, [[FRA[0] - 22, FRA[1] + 6], [FRA[0] - 110, FRA[1] + 46]], lF, { a: .6, w: 1.5 }); X.label(ctx, SRC.france, FRA[0] - 120, FRA[1] + 56, lF, { size: 26, align: 'right' }); }
+    if (lN > 0) { X.lightLine(ctx, [[NORTH[0] - 22, NORTH[1] - 8], [NORTH[0] - 110, NORTH[1] - 40]], lN, { a: .6, w: 1.5 }); X.label(ctx, SRC.north, NORTH[0] - 120, NORTH[1] - 34, lN, { size: 35, align: 'right' }); }
+    if (lF > 0) { X.lightLine(ctx, [[FRA[0], FRA[1] + 26], [FRA[0], FRA[1] + 96]], lF, { a: .6, w: 1.5 }); X.label(ctx, SRC.france, FRA[0], FRA[1] + 136, lF, { size: 35 }); }
     F.source(ctx, t, A.sweden + .2, A.france + .1, SRC.northSrc, { y: 880 + dropY });
     F.source(ctx, t, A.france + .2, A.idea + 1.2, SRC.franceSrc, { y: 880 + dropY });
 
@@ -151,7 +151,7 @@ export default async (T, R) => {
       dataCentre(ctx, t, { x: p[0], y: p[1], w: lerp(base.w, SW, k4) }, { lit: 1 });
       if (t >= A.build + 1.6) dataCentre(ctx, t, { x: NORTH[0], y: NORTH[1] + 8, w: SW }, { lit: 1 });
     }
-    X.label(ctx, 'WHERE THE POWER IS', 470, 440, lab(t, A.where - .1, A.seven), { size: 34, gold: .5 });
+    X.label(ctx, 'WHERE THE POWER IS', 470, 440, lab(t, A.where - .1, A.seven), { size: 46, gold: .5 });
     // ---- 5.05 seven slots (five dashed ones clone out of the two blocks); one opens as a lit window: the bid team uploads at night
     const sev = span(t, A.seven + .1, A.seven + 1.4), winU = sineIO(span(t, A.deadline - .1, A.deadline + 1.3));
     for (let i = 2; i < 7; i++) {
@@ -172,13 +172,13 @@ export default async (T, R) => {
       const ub = upBar(); const bx = lerp(ub.x, BAR.x, kb), by = lerp(ub.y + dropY * (1 - kb), BAR.y, kb), bw = lerp(ub.w, BAR.w, kb), bh = lerp(ub.h, BAR.h, kb);
       budgetBar(ctx, t, bx, by, bw, bh, kb, span(t, A.money + 1.3, A.money + 2.2), span(t, A.budget - .3, A.budget + .9));
     }
-    X.label(ctx, TOTAL, 960, 420, lab(t, A.money + 1.0, A.even + .3), { size: 32 });
-    X.label(ctx, HALVES[0], BAR.x + BAR.w / 4, BAR.y + BAR.h + 52, lab(t, A.money + 1.3, A.even + .3), { size: 24, col: CREAM2 });
-    X.label(ctx, HALVES[1], BAR.x + BAR.w * .75, BAR.y + BAR.h + 52, lab(t, A.money + 1.4, A.even + .3), { size: 24, col: CREAM2 });
+    X.label(ctx, TOTAL, 960, 420, lab(t, A.money + 1.0, A.even + .3), { size: 43 });
+    X.label(ctx, HALVES[0], BAR.x + BAR.w / 4, BAR.y + BAR.h + 52, lab(t, A.money + 1.3, A.even + .3), { size: 34, col: CREAM2 });
+    X.label(ctx, HALVES[1], BAR.x + BAR.w * .75, BAR.y + BAR.h + 52, lab(t, A.money + 1.4, A.even + .3), { size: 34, col: CREAM2 });
     X.big(ctx, SRC.budget, 960, 260, 56, lab(t, A.money + 1.6, A.even + .3), { gold: .9 });
     const bud = lab(t, A.budget - .1, A.even + .3);
     X.dateTag(ctx, BUDGET, BAR.x + BAR.w * .3, BAR.y - 44, bud);
-    X.label(ctx, MORE, BAR.x + BAR.w * .3, BAR.y + BAR.h / 2 + 9, bud, { size: 24 });
+    X.label(ctx, MORE, BAR.x + BAR.w * .3, BAR.y + BAR.h / 2 + 9, bud, { size: 34 });
     F.source(ctx, t, A.money + 1.2, A.even + .5, SRC.budgetSrc);
 
     // ---- 5.07 the bar breaks into the 100 cells (THE WORLD'S AI COMPUTING POWER): 5 gold, a sixth fills to .6
@@ -199,7 +199,7 @@ export default async (T, R) => {
         ctx.fillStyle = GOLD.hot; ctx.beginPath(); ctx.roundRect(x - s / 2, y - s / 2, s, s, s * .2); ctx.fill(); });
       halo(ctx, lerp(GRID.x + PITCH * 5.5, P3b[0], fly8), lerp(GRID.y + PITCH * 6.5, P3b[1], fly8), 160, .4 * (1 - fly8 * .5), GOLD.halo, GOLD.core);
     }
-    X.label(ctx, SRC.computeTitle, 960, 186, lab(t, A.even + 1.4, A.half - .9), { size: 28 });
+    X.label(ctx, SRC.computeTitle, 960, 186, lab(t, A.even + 1.4, A.half - .9), { size: 38 });
     X.big(ctx, SRC.five2031, 960, 836, 84, lab(t, A.barely - .2, A.half - .9), { gold: 1 });
     F.source(ctx, t, A.tank, A.half - .6, SRC.five2031Src, { y: 880 });
 
