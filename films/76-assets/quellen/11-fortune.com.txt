@@ -1,0 +1,293 @@
+URL: https://fortune.com/2026/04/19/alex-imas-human-jobs-ai-economy-chicago-economist-substack-doomsday-scenario/
+HTTP: 200
+
+Search
+
+Subscribe
+
+  * Home
+
+  * Latest
+
+  * Fortune 500
+
+  * Finance
+
+  * Tech
+
+  * Leadership
+
+  * Lifestyle
+
+  * Rankings
+
+  * Multimedia
+
+  * For Subscribers
+
+# Trendingnow
+
+# 1
+
+Why is gas suddenly cheaper? Five factors driving the drop to $3.64 a gallon
+
+# 2
+
+Engineer, saleswoman, Elon Musk whisperer: Meet Gwynne Shotwell, the billionaire who really runs SpaceX
+
+# 3
+
+Geoffrey Hinton said to stop training radiologists. A decade later, the Bay Area is 600 imaging techs short
+
+# 1
+
+Why is gas suddenly cheaper? Five factors driving the drop to $3.64 a gallon
+
+# 2
+
+Engineer, saleswoman, Elon Musk whisperer: Meet Gwynne Shotwell, the billionaire who really runs SpaceX
+
+# 3
+
+Geoffrey Hinton said to stop training radiologists. A decade later, the Bay Area is 600 imaging techs short
+
+AIdisruption
+
+# The economist who was terrified of AI just found a rare reason for hope
+
+By
+
+Nick Lichtenberg
+
+Nick Lichtenberg
+
+Business Editor
+
+Down Arrow Button Icon
+
+By
+
+Nick Lichtenberg
+
+Nick Lichtenberg
+
+Business Editor
+
+Down Arrow Button Icon
+
+April 19, 2026, 6:00 AM ET
+
+Alex Imas, University of Chicago economist and Ghosts of Electricity author.courtesy of Alex Imas
+
+Google source logo
+
+Add Fortune on Google for similar content.
+
+Add us on Google
+
+Add us on Google
+
+Alex Imas didn’t arrive at optimism easily. The University of Chicago economist economist occupies an unusual space in being one of the leading researchers on AI’s labor market impact, but also one of its most avid adopters. Unlike many of his peers, he is taking the doomsday scenarios, perhaps best exemplified by Citrini Research’s viral essay on “ghost GDP” and spiraling deflation, very seriously.
+
+Recommended Video
+
+* * *
+
+If automation eliminates most jobs and the wage share collapses, the people with money—capital owners—will be already satiated, while displaced workers can’t afford to buy anything. Demand collapses. The economy shrinks. While Imas has written that he finds actual negative economic growth unlikely, he said the scenario of high unemployment and a drag on the economy as a result of that unemployment is worth taking seriously.
+
+“My first reaction was to be very scared,” Imas told _Fortune_. “I needed to work things out carefully in order to be less scared—not to convince myself not to be scared, just to look at history and look at people’s preferences, bring these things together.”
+
+Wall Street takes Imas’ warnings seriously, too. A Morgan Stanley research note last month recommended that investors follow Imas as a primary resource on AI’s employment impact, saying he was among the valuable third-party resources on the topic. 
+
+Imas is no armchair theorist: his research has appeared in the  _American Economic Review_ , the  _Quarterly Journal of Economics_ , and the  _Proceedings of the National Academy of Sciences_ , and he co-authored a recent update of the behavioral economics classic _The Winner’s Curse_ , with Nobel laureate Richard Thaler. He may be getting most notoriety for his widely read Substack,  _Ghosts of Electricity_. He wasn’t aware of his appearance on Wall Street research desks, when told of Morgan Stanley’s citation, “that’s funny … I didn’t see that.”
+
+The reach of  _Ghosts of Electricity_ has surprised him more broadly. Imas started the newsletter with a specific ambition: to write with the rigor of an academic paper but for an audience far wider than journal editors, reaching economists, AI researchers, technologists, and policymakers at once. He said it has worked beyond what he anticipated, with responses coming in from, for instance, his mother-in-law’s friends. He recently sat down with a neighbor, installed Claude on her computer, and watched her start building apps from scratch within an afternoon. “The ideas need to be out there broadly for a very broad audience,” he said.
+
+And after several months of writing and rewriting, Imas has something for the doomsday crowd to digest: a vision of how the AI economy could work out not so badly. It’s similar to an argument that has been increasingly appearing in the pages of _Fortune_. He opens with the example of Starbucks.
+
+## The Starbucks signal
+
+Starbucks is a $112 billion company selling one of the most standardized products in the modern economy. The technology to remove human labor from its stores has existed for years. And yet, after years of cutting staff and installing automated processes to protect thin margins, CEO Brian Niccol recently reversed course entirely. Handwritten notes on cups, ceramic mugs, comfortable seating—human details—had proven more valuable to customers than efficiency. More baristas are being hired. Automation is being rolled back. (Starbucks is on ChatGPT as a beta in a way that ideally leads to drink discovery, but that is distinct from its in-store strategy.)
+
+For Imas, Starbucks’ shift is telling. As AI makes commodity production cheaper and more abundant, he argued in a recent Substack, “What will be scarce?” certain things just can’t be commodified in the coming AI world. These are things that Starbucks’ Niccol seems to know: human presence, social connection, provenance. They will become more scarce, he argued, and therefore more economically valuable. The question he spent months of writing and revising on is: why, exactly, and how far does that logic extend?
+
+For its part, Starbucks referred _Fortune_ to previous company communication on the subject of AI. The company says its approach to AI is “practical and grounded.” The company said it wants to “use AI where it helps partners deliver exceptional craft, deepen customer connection and improve the rhythm of the coffeehouse. If it does that, we scale it. If not, we move on.” 
+
+## From farms to the ‘relational sector’
+
+The intellectual scaffolding is structural change theory—the economics of what happens when technology makes one sector dramatically more productive. The famous example, also beloved of Fundstrat’s Tom Lee, is that around 1900, 40% of the American workforce farmed. Today, it’s under 2%. People didn’t stop eating; they just stopped spending most of their time making food once it became commoditized and cheap. The economy didn’t collapse—it transformed, reallocating labor toward manufacturing and then services as incomes rose. Imas argues the same dynamic will play out with AI: “The economics of scarcity won’t disappear, it’ll just relocate.” 
+
+Drawing on a landmark 2021  _Econometrica_ paper by Diego Comin, Danial Lashkari, and Martí Mestieri, he noted that income effects—not just price effects—account for over 75% of historical patterns of sectoral reallocation. In other words, when people get richer, they don’t just buy more of the same things, which are now cheaper. They want  _different_ things, namely goods and services with high “income elasticity,” meaning demand for them grows faster than income itself.
+
+The behavioral ingredient Imas adds is rooted in the French philosopher René Girard‘s concept of mimetic desire: we don’t want things purely for their functional value, but because others want them—and because others  _can’t have_ them. In experimental research with colleague Kristof Madarasz, Imas found that willingness to pay for an identical good roughly doubled when subjects learned a random subset of people would be excluded from purchasing it. In follow-up work with Graelin Mandel, AI involvement in creating a product dramatically reduced that premium because people perceived AI-made goods as inherently reproducible, undermining the scarcity that drives desire.
+
+The implication is that as AI commoditizes more of the economy, spending and employment will migrate toward what Imas calls the “relational sector,” which brings his Starbucks analogy back around. People will pay for things that have a distinct human element to them. In other words, middle-class consumption patterns tomorrow will look like wealthy ones today.
+
+Imas told _Fortune_ there is already copious empirical support for this idea hiding in plain sight: today’s billionaires, with no financial constraints whatsoever, spend enormous amounts of time on podcasts, at live performances, and on social platforms, consuming and producing human interaction. 
+
+“You could be alone on an island consuming all the movies, all the video games, all of technology, everything you want,” Imas said. “But most of the time, these billionaires, they’re on podcasts. They’re out there on Twitter, interacting with people, they’re going to performances, they’re consuming relational goods, basically, or trying to provide relational goods, like the need for socialization to be around humans.”
+
+The demand for human connection, he argued, has no natural ceiling because it is fundamentally comparative, never fully satiated. 
+
+## Not artists — nurses, teachers, baristas
+
+Imas is careful to distinguish his argument from a romantic vision of a world full of painters and performers. “A lot of people’s reaction [to the essay] was focusing on performers and art. I think those are kind of red herrings,” he said. “Starbucks workers are not performers. They’re not artists. They’re just people. They’re human beings and people value interacting with human beings—not from a highbrow or artistic or entertainment perspective, but just from a basic desire for socialization perspective.”
+
+The relational sector, in his framework, encompasses nurses, doctors, teachers, therapists, childcare workers, personal chefs, and hospitality workers. These sectors together already employ nearly 50 million people in the United States. Many existing jobs won’t disappear wholesale but will transform: as AI automates the routine tasks within a teacher’s or doctor’s workday, what remains—the emotional support, the attentiveness, the relationship—becomes the core of the job and the core of its economic value. _Fortune_ recently made similar arguments, noting that those jobs with a human factor or relational aspect are already pulling in above-average salaries, particularly in nursing and teaching: Nurse Dana from _The Pitt_ is a salutary example.
+
+Right now, Imas explained, doctor and teachers are doing jobs that are half relational and half vulnerable to automation, and some of those surely will be. Imas said “the thing that’s not being recognized right now” is how those jobs will evolve to be more relational as AI advances. “The widget maker may be gone. The truck driver may be gone, because tasks in that job don’t have a relational component. But there’s a lot of jobs right now that have a relational component, which will become relational jobs.”
+
+## The sports car with no roads
+
+That theory gets a real-world stress test inside a large medical nonprofit, where a senior data scientist—who asked not to be identified by name or employer—told _Fortune_ that he has spent the past six months watching his organization’s newly formed data strategy committee deploy an enterprise ChatGPT account to the entire staff. After weeks of all-hands presentations, the only use cases that management could articulate were: writing emails and summarizing emails. In fact, “they wanted employees to be AI champions to come up with other use cases, but few have been interested.”
+
+The data scientist said that his actual work—running statistical analyses on cancer patient data for one of the country’s largest medical databases—involves protected health information that the tools aren’t even authorized to access.
+
+This doesn’t mean that AI wasn’t capable of essentially doing his job. In fact, he said that after the first release of ChatGPT years ago, he built a cancer survival-risk calculator with that tool in under a month. Because of the relational aspect, though, it’s been sitting in legal review indefinitely. He agreed with _Fortune’s_ metaphor of AI like being a “sports car,” but the problem for most jobs is they are built like New York City, full of traffic lights and gridlock. Have you ever driven in in Manhattan? “What the hell are you doing with a sports car” in that case? In the case of the calculator, he said, it took him about a month to build the prototype and four years to bring to the public, for reasons including legal review, grant submissions and interactions with the NIH. So essentially: paperwork.
+
+He’s no Luddite. He credits AI with helping him translate statistical code across programming languages and build prototypes faster than he could alone. But his most irreplaceable function, he said, isn’t running regressions. It’s managing the human layer: communicating with a consortium of international surgical oncologists, from Yale to MD Anderson to the University of Toronto, specializing in cancers ranging from thoracic to orbital sarcomas, translating between their clinical instincts and the demands of statistical rigor.
+
+“Their lives are such that if I get 15 minutes a day with them, that’s extremely lucky. So I need to make everything as precise and concise as possible.” No AI, he added, could replicate the register that relationship requires. Even the approved use case, writing email, would be missing the key relational aspect. “Actually creating the prototype, and I think you’ve heard this before, create using AI to create a prototype is fantastic. But once you try to get from prototype to scale, it kind of hits all of these roadblocks of red tape and bureaucracy and committees.”
+
+That is exactly the kind of work Imas has in mind—not performance, not artistry, but the irreducibly human judgment that holds complex institutions together.
+
+## The speed problem
+
+Imas hasn’t abandoned his fears. His optimistic scenario depends entirely on the pace of transition. If the shift from commodity economy to relational economy happens gradually, history suggests the labor market can absorb and adapt. But if AI automation accelerates faster than workers and institutions can retrain and reallocate, the demand-collapse scenario he spent years warning about remains entirely on the table. 
+
+“The speed of change really matters,” he said, “whether we get to this hopeful version versus the more worrisome one.”
+
+Imas warned that people who are still skeptical of AI as overblown hype are fooling themselves, likely because they’re using a chatbot model from years ago, not a frontier model. “These two things should not be categorized in the same bucket of technology,” he argued, saying that that AI is still very “jagged,” an increasingly popular term for thinking about AI’s probabilistic nature and tendency to hallucinate. “But it’s going to be jagged in the sense of, at some point, the valleys are going to be very, very high … even the low points are going to be very impressive.”
+
+Morgan Stanley warned in its March research note that AI disruption was “becoming more acute as LLM capabilities increase at a more rapid rate than expected,” flagging the potential for large-scale workforce reductions across industries. The gap between that projection and a cancer statistician quietly waiting for the enterprise ChatGPT enthusiasm to blow over captures exactly the uncertainty Imas, despite his hard-won optimism, still can’t fully resolve.
+
+Imas said he was still “worried about” people who are sticking their heads in the sand about AI: “My primary role right now is to sit people down one on one and get them trained on top-flight technology.” He said he sees his relational aspect theory as both plausible and positive, “but it took me a long time to get to it.”
+
+_**Fortune Daily**_ breaks the traditional barrier between audience and newsroom. The show transforms _Fortune_ ’s trusted reporting into actionable, conversational, and entertaining insights for an emerging class of business leaders. **Watch here.**
+
+About the Author
+
+By Nick LichtenbergBusiness Editor
+
+LinkedIn icon
+
+Nick Lichtenberg is business editor and was formerly _Fortune_ 's executive editor of global news.
+
+See full bioRight Arrow Button Icon
+
+Google source logo
+
+Add Fortune on Google for similar content.
+
+Add us on Google
+
+* * *
+
+Latest in AI
+
+* * *
+
+* * *
+
+* * *
+
+Most Popular
+
+* * *
+
+* * *
+
+Fortune Secondary Logo
+
+Rankings
+
+  * 100 Best Companies
+  * Fortune 500
+  * Global 500
+  * Fortune 500 Europe
+  * Most Powerful Women
+  * World's Most Admired Companies
+  * See All Rankings
+  * Lists Calendar
+
+Sections
+
+  * Finance
+  * Fortune Crypto
+  * Features
+  * Leadership
+  * Health
+  * Commentary
+  * Success
+  * Retail
+  * Mpw
+  * Tech
+  * Lifestyle
+  * CEO Initiative
+  * Asia
+  * Politics
+  * Conferences
+  * Europe
+  * Newsletters
+  * Personal Finance
+  * Environment
+  * Magazine
+  * Education
+
+Customer Support
+
+  * Frequently Asked Questions
+  * Customer Service Portal
+  * Privacy Policy
+  * Terms Of Use
+  * Single Issues For Purchase
+  * International Print
+
+Commercial Services
+
+  * Advertising
+  * Fortune Brand Studio
+  * Fortune Analytics
+  * Fortune Conferences
+  * Business Development
+  * Group Subscriptions
+
+About Us
+
+  * About Us
+  * Press Center
+  * Work At Fortune
+  * Terms And Conditions
+  * Site Map
+
+Rankings
+
+Sections
+
+Customer Support
+
+Commercial Services
+
+  * About Us
+  * Press Center
+  * Work At Fortune
+  * Terms And Conditions
+  * Site Map
+
+  * Facebook icon
+  * Twitter icon
+  * LinkedIn icon
+  * Instagram icon
+  * TikTok icon
+  * YouTube icon
+
+* * *
+
+Recommended For You
+
+* * *
+
+* * *
+
+© 2026 Fortune Media IP Limited. All Rights Reserved. Use of this site constitutes acceptance of our Terms of Use and Privacy Policy | CA Notice at Collection and Privacy Notice | Do Not Sell/Share My Personal Information  
+FORTUNE is a trademark of Fortune Media IP Limited, registered in the U.S. and other countries. FORTUNE may receive compensation for some links to products and services on this website. Offers may be subject to change without notice.
