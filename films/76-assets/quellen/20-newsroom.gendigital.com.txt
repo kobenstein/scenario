@@ -1,0 +1,148 @@
+URL: https://newsroom.gendigital.com/2026-07-28-Norton-Study-Reveals-Emerging-Risks-for-Kids-Online,-Prompting-Parents-to-Have-a-New-Kind-of-The-Talk
+HTTP: 200
+
+* Home
+  * Brands
+
+    * Gen
+    * Norton
+    * Avast
+    * LifeLock
+    * MoneyLion
+    * Avira
+    * AVG
+    * ReputationDefender
+    * CCleaner
+    * GOBankingRates
+
+  * Press Releases
+  * In the News
+  * Media Materials
+
+    * Press Kits
+    * Digital Asset Gallery
+
+  * Media Inquiries
+
+  * Home
+  * Brands
+
+    * Gen
+    * Norton
+    * Avast
+    * LifeLock
+    * MoneyLion
+    * Avira
+    * AVG
+    * ReputationDefender
+    * CCleaner
+    * GOBankingRates
+
+  * Press Releases
+  * In the News
+  * Media Materials
+
+    * Press Kits
+    * Digital Asset Gallery
+
+  * Media Inquiries
+
+* Support
+
+  * Norton Support
+  * Avast Support
+  * Avira Support
+  * Lifelock Support
+
+* EN / CZ
+
+Gen
+
+  1. Newsroom
+  2. Press Releases
+
+# Press Releases
+
+Read the latest news from our family of trusted brands.
+
+Norton Study Reveals Emerging Risks for Kids Online, Prompting Parents to Have a New Kind of "The Talk"
+
+New findings from the Norton Insights Report reveal parents are navigating a world of AI-generated images, digital impersonation, and online relationships as childhood enters a new digital era.
+
+  * All Brands
+  * Norton
+
+  * 
+
+  * View File Download File
+
+Norton-Insights-Report-Connected-Kids 
+
+TEMPE, Ariz., July 28, 2026 /PRNewswire/ -- Parents are entering a new era of digital parenting, and it necessitates a new version of "the talk." According to the Norton Insights Report: Connected Kids, a new study from Norton, a Gen brand, 85% of parents of children under 18 say they feel comfortable talking to their children about online risks, yet 32% are not confident their child can distinguish AI-generated content from real content. And while the majority (58%) have already taken steps to reduce AI-related risks by restricting apps, monitoring online activity, or talking to their children specifically about AI, two-thirds still worry AI could be used to create fake images or conversations involving their child.
+
+"Parents have spent years teaching children how to recognize strangers online, but AI changes the nature of what 'danger' online looks like," said Leyla Bilge, Global Head of Scam Research at Norton. "From the misuse and alteration of posted or shared photos to AI bots acting as cyberbullies or impersonating trusted sources, there are entirely new risks at play, and that means parents need to update how they talk about online safety."
+
+**AI 's Impact on Kids Online Experience**  
+Parents know AI is already impacting the way their kids interact with the world and creating new concerns. Among parents of children under 18:
+
+  * **32%**  are not confident their child can distinguish AI-generated content from real content
+  * Among parents whose child has experienced cyberbullying, 16% say the perpetrator was an AI-generated account or bot, and 29% say the perpetrator was someone using a fake profile or impersonating another person
+  * **67%**  worry AI could be used to create fake images or conversations involving their child
+
+And when it comes to images, the risk is growing. Criminals increasingly use AI-generated photos or fake identities to gain a young person's trust - or manipulate them into sharing real images - which are then used for financial sextortion. Last year, the National Center for Missing & Exploited Children received more than 100 reports every day of financial sextortion targeting children and teens. Victims are overwhelmingly teenage boys, and many cases begin on social media, gaming platforms, or messaging apps.
+
+The concern also extends beyond images. While most AI-generated content is harmless, over 3% of all AI-generated videos are scams, according to research from Gen. The scale of synthetic media means even a small percentage of malicious content can translate into a significant number of attempts to deceive people through fake news clips, celebrity endorsements, testimonials and other convincing videos.
+
+**The Hidden Risks of Gaming**  
+Parents identify TikTok (21%) as their top platform concern, with Facebook second at 13%. Online gaming ranks fourth at 10%, behind YouTube. But the behaviors children report inside gaming environments tell a different story about where risk is accumulating. Among the 64% of parents whose child under 18 plays chat-enabled online games:
+
+  * 64% say their child has chatted with a stranger via voice or text chat
+  * 36% say their child has received inappropriate or offensive messages
+  * 38% say their child has been encouraged to leave the game and continue a conversation on a different platform
+
+"The chat layer on top of gaming is often where the real exposure happens, and it tends to be less visible to parents than social media use," Bilge said. "When a child moves from a game platform to a private messaging app because someone asked them to, that escalation can be hard to detect, and kids may not recognize it as something worth mentioning."
+
+**High Confidence, Real Exposure**  
+The study surfaces a consistent tension between parental confidence and the behaviors children are actually engaging in. Eighty-five percent of parents say they feel comfortable talking to their kids about online risks, but at the same time:
+
+  * 40% report their kids go on their device past their bedtime or certain designated hour
+  * 23% report their children watching explicit content
+  * 22% report their children have accessed a social media platform or website they thought they had blocked them from visiting
+  * 20% report their child sharing private information or personal details with a stranger
+
+The gap between reported parental comfort and these behaviors does not mean conversations aren't happening, but it does suggest that having the talk is only part of the picture.
+
+**Introducing The Bots & The Bees**  
+The research points to a broader shift in parenting. Conversations that once focused on strangers, passwords and screen time are expanding to include AI-generated images, digital impersonation, online relationships and critical thinking in a world where seeing is no longer believing. To help families navigate these conversations, Norton is introducing **The Bots & The Bees**, a new educational resource that provides expert guidance, practical advice and resources.
+
+The Norton Insights Report: Connected Kids includes additional findings on social media age requirements, platform-specific concerns, and guidance for families navigating AI-related risks. Norton 360 provides families with tools to monitor online activity, set screen time limits, filter content, and protect personal information across devices. To read the full report and to access The Bots & The Bees resources, visit http://us.norton.com/blog/research/connected-kids-insights-report-2026 
+
+**About the Norton Insights Report**  
+The study was conducted online within the United States from May 22, 2026 to June 9, 2026, among 1,000 adults ages 18 and older. Data are weighted where necessary by age, gender, and region to be nationally representative. Within this report, mentions of parents refer to parents with children younger than 18 years old.
+
+**About Norton**  
+Norton is a leader in Cyber Safety, and part of Gen (NASDAQ: GEN), a global company dedicated to powering Digital Freedom with a family of trusted consumer brands. Norton empowers millions of individuals and families with award-winning protection for their devices, online privacy, and identity. Norton products and services are certified by independent testing organizations including AV-TEST, AV Comparatives, and SE Labs. Norton is a founding member of the Coalition Against Stalkerware. Learn more at https://us.norton.com.
+
+**Media Contact**  
+Brittany Posey  
+Gen  
+Press@GenDigital.com
+
+SOURCE Norton
+
+Share Release
+
+  *   *   *   * 
+
+  * News 
+  * Investors 
+  * Legal 
+  * License Agreement 
+  * Privacy 
+  * Accessibility Policy 
+
+© 2026 Gen Digital Inc. All rights reserved.
+
+  * Legal 
+
+© 2026 Gen Digital Inc. All rights reserved. Gen, the Gen Logo, the Checkmark Logo, Norton, LifeLock, and the LockMan Logo are trademarks or registered trademarks of Gen Digital Inc. or its affiliates in the United States and other countries. Other names may be trademarks of their respective owners.

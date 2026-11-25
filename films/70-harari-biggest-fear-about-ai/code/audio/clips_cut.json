@@ -1,0 +1,2 @@
+{"_comment": "in/out seconds inside clips/Cn.mp4 (the files carry ~1 s pre/post roll). Chosen from 10-ms level analysis: in = 0.15 s before the first word, out = in the pause after the last word, before the next speaker (C1: 'It's, it's' at 8.57; C2: the interviewer's 'Will it' starts ~9.67; C3: next speech at 9.76).",
+ "C1": {"in": 0.65, "out": 8.45}, "C2": {"in": 1.0, "out": 9.63}, "C3": {"in": 0.82, "out": 9.45}}

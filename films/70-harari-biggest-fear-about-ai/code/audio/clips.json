@@ -1,0 +1,135 @@
+{
+ "_comment": "Film 70 clip metadata (clips_json.py from clips_meta.json). Slot = timing.json slots[] (0.6 s air before/after); cues = [seconds from the slot start, line].",
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "speaker": "Yuval Noah Harari",
+   "role": "Historian and author",
+   "source": "Harari x Suleyman, \"AI, Consciousness and the Future of Humanity\" (2026-11-18)",
+   "url": "https://www.youtube.com/watch?v=H43e72-2aAs",
+   "credit": "YouTube H43e72-2aAs",
+   "lower_third": "YUVAL NOAH HARARI · Historian and author · ORIGINAL FOOTAGE",
+   "transcript": "My biggest fear is that it's not a specific scenario like AI creating a virus or killer robots.",
+   "file": "C1.mp4",
+   "file_in_s": 0.65,
+   "file_out_s": 8.45,
+   "dur": 7.8,
+   "slot_start": 33.67,
+   "slot_end": 41.47,
+   "sec": "H",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -1.0,
+   "cues": [
+    [
+     0.09,
+     "My biggest fear is that it's not"
+    ],
+    [
+     3.13,
+     "a specific scenario like AI"
+    ],
+    [
+     5.17,
+     "creating a virus or killer robots."
+    ]
+   ],
+   "cue_end": 7.75
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "speaker": "Yuval Noah Harari",
+   "role": "Historian and author",
+   "source": "The Economist, \"Yuval Noah Harari on the dangers of an AI future\" (2026-08-22)",
+   "url": "https://www.youtube.com/watch?v=ARdnl2kjmRU",
+   "credit": "The Economist",
+   "lower_third": "YUVAL NOAH HARARI · Historian and author · ORIGINAL FOOTAGE",
+   "transcript": "And we will not be able to understand it anymore. Just as cows don't understand checks or stocks, even though these things control their lives.",
+   "file": "C2.mp4",
+   "file_in_s": 1.0,
+   "file_out_s": 9.63,
+   "dur": 8.63,
+   "slot_start": 158.9,
+   "slot_end": 167.53,
+   "sec": "2",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -1.7,
+   "cues": [
+    [
+     0.11,
+     "And we will not be able"
+    ],
+    [
+     1.39,
+     "to understand it anymore."
+    ],
+    [
+     3.05,
+     "Just as cows don't understand"
+    ],
+    [
+     5.17,
+     "checks or stocks,"
+    ],
+    [
+     6.97,
+     "even though these things"
+    ],
+    [
+     7.89,
+     "control their lives."
+    ]
+   ],
+   "cue_end": 8.58
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "speaker": "Yuval Noah Harari",
+   "role": "Historian and author",
+   "source": "Harari x Suleyman, \"AI, Consciousness and the Future of Humanity\" (2026-11-18)",
+   "url": "https://www.youtube.com/watch?v=H43e72-2aAs",
+   "credit": "YouTube H43e72-2aAs",
+   "lower_third": "YUVAL NOAH HARARI · Historian and author · ORIGINAL FOOTAGE",
+   "transcript": "And if we could solve the trust between humans problems, then it will be relatively easy to solve the AI problem.",
+   "file": "C3.mp4",
+   "file_in_s": 0.82,
+   "file_out_s": 9.45,
+   "dur": 8.63,
+   "slot_start": 531.43,
+   "slot_end": 540.06,
+   "sec": "7",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -2.0,
+   "cues": [
+    [
+     0.0,
+     "And if we could solve the trust"
+    ],
+    [
+     2.14,
+     "between humans problems,"
+    ],
+    [
+     4.23,
+     "then it will be relatively easy"
+    ],
+    [
+     7.05,
+     "to solve the AI problem."
+    ]
+   ],
+   "cue_end": 8.58
+  }
+ ]
+}

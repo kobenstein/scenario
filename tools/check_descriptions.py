@@ -140,8 +140,8 @@ def main():
             if not is_long(v["contentDetails"]["duration"]):
                 continue
             s = v["snippet"]
-            strict = v["status"]["privacyStatus"] != "public"
-            ok = head_ok(s["description"]) and tail_ok(s["description"], strict)
+            # Jakob 25.11.: ALL long films carry the sponsor line under the coffee line
+            ok = head_ok(s["description"]) and tail_ok(s["description"], strict=True)
             state = v["status"]["privacyStatus"] + (" " + v["status"]["publishAt"] if v["status"].get("publishAt") else "")
             print(f"{'OK    ' if ok else 'FEHLT '} {v['id']} [{state}] {s['title']}")
             if not ok:

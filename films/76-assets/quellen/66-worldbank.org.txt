@@ -1,0 +1,281 @@
+URL: https://www.worldbank.org/en/news/press-release/2026/10/26/more-and-better-jobs-key-to-putting-poverty-reduction-back-on-track
+HTTP: 200
+
+false
+
+* * *
+
+Home
+
+https://www.worldbank.org/ext/en/home
+
+* * *
+
+News
+
+https://www.worldbank.org/ext/en/news
+
+* * *
+
+Press Release
+
+https://www.worldbank.org/en/news/all?displayconttype_exact=Press+Release&lang_exact=English
+
+* * *
+
+More and Better Jobs Key to Putting Poverty Reduction Back on Track
+
+https://www.worldbank.org/en/news/press-release/2026/10/26/more-and-better-jobs-key-to-putting-poverty-reduction-back-on-track
+
+* * *
+
+col-xs-12
+
+col-sm-12
+
+col-md-1
+
+col-lg-1
+
+col-xs-12
+
+col-sm-12
+
+col-md-8
+
+col-lg-8
+
+jcrtitle
+
+More and Better Jobs Key to Putting Poverty Reduction Back on Track
+
+jcrpagetitle
+
+More and Better Jobs Key to Putting Poverty Reduction Back on Track
+
+jcrdescription
+
+Global progress on reducing extreme poverty has come to a standstill, and the world is at risk of falling further behind unless more and better jobs are created, according to the World Bank Group’s new Poverty, Prosperity, and Planet Report 2026. Without stronger per capita growth, the number of people in extreme poverty is projected to be higher in 2030 than it is today.
+
+content-type
+
+Press Release
+
+press-release-no
+
+123456
+
+speakers
+
+Speakers
+
+city
+
+City
+
+occasion
+
+Occasion
+
+prepared-transcript
+
+TRANS-SP
+
+date-format
+
+MMM D, YYYY
+
+content-date
+
+October 26, 2026
+
+col-xs-12
+
+col-sm-12
+
+col-md-3
+
+col-lg-3
+
+sec-spacing
+
+section-none
+
+sec-spacing-bottom
+
+section-xlarge
+
+style
+
+default
+
+col-xs-12
+
+col-sm-12
+
+col-md-1
+
+col-lg-1
+
+col-xs-12
+
+col-sm-12
+
+col-md-7
+
+col-lg-7
+
+  * add-style
+  * font-medium
+  * lp-body-content
+
+**WASHINGTON, October 26, 2026** —Global progress on reducing extreme poverty has come to a standstill, and the world is at risk of falling further behind unless more and better jobs are created, according to the World Bank Group’s new _Poverty, Prosperity, and Planet Report 2026_. Without stronger per capita growth, the number of people in extreme poverty is projected to be higher in 2030 than it is today.
+
+In 2026, about 811 million people — one in ten globally — live on less than $3.00 per person per day, a rate that has essentially not changed since the pandemic. To bring extreme poverty down to 3% by 2050, per capita economic growth would need to average around 4% per year — twice the rate achieved over the last 25 years.
+
+_“In countries where poverty is the highest, slow growth has held back job creation and limited opportunities for millions of people,”_ said **Pablo Saavedra, World Bank Group Vice President for Prosperity**. _“We need to accelerate growth and enable the creation of more and better jobs as a key pathway out of poverty.”_
+
+The report notes that extreme poverty remains concentrated: More than half of the world's extremely poor live in just nine economies, and by 2030 an estimated 87% are projected to live in Sub-Saharan Africa or in fragile and conflict-affected situations.
+
+Nearly half the global population — 3.7 billion people — still lives on less than $8.30/day, a number that has remained stagnant since 1990. The World Bank uses international poverty lines to track deprivation across different income contexts. The $3.00/day line measures extreme poverty and is based on the poverty standards used in low-income countries; the $8.30/day poverty line is the standard for upper-middle-income countries.
+
+Poverty reduction requires both more and better jobs. The report identifies two mutually reinforcing priorities:
+
+  * Closing employment gaps: Raising employment rates in poor households to 75% among working-age adults — which could be attained by closing the gender gap in employment rates — would reduce global extreme poverty by roughly one-fifth.
+  * Closing earning gaps: Poor workers are concentrated in low-return activities such as smallholder farming and have lower education levels. Raising their education to the average attained by people above the extreme poverty line would increase predicted earnings by around 40% and cut extreme poverty nearly in half. Moving them into wage work or out of agriculture would cut poverty by about one-fifth.
+
+The priorities differ across countries, but the goal is the same: Help farmers and small businesses earn more, create opportunities for better jobs, and bring more women into the workforce. More and better jobs are not only a path out of poverty. They are the foundation for economic security and a growing middle class.
+
+_“Even under challenging circumstances, progress is possible for improving lives and moving more people out of poverty,”_ said **Michael Kremer** , **World Bank Group Chief Economist and Senior Vice President for Development Economics**. _“This report provides the framework for understanding the challenges and identifying the primary approaches for reducing poverty.”_
+
+### About the Report
+
+The _Poverty, Prosperity, and Planet Report_ is the World Bank Group's flagship biennial publication tracking global progress on ending extreme poverty and boosting shared prosperity on a livable planet. The 2026 edition centers on jobs as the key mechanism linking economic growth to poverty outcomes and draws on new data from more than 130 economies to examine how employment and earnings can help lift people out of poverty.
+
+Contacts
+
+### World Bank Media Relations
+
+press@worldbankgroup.org
+
++1 (202) 473 7660
+
+about-world-bank-i18n-key
+
+about-world-bank
+
+about-world-bank-description-i18n-key
+
+about-world-bank-description
+
+col-xs-12
+
+col-sm-12
+
+col-md-1
+
+col-lg-1
+
+col-xs-12
+
+col-sm-12
+
+col-md-3
+
+col-lg-3
+
+  * add-style
+
+## **Related Content**
+
+https://www.worldbank.org/en/publication/poverty-prosperity-and-planet
+
+Poverty, Prosperity, and Planet Report 2026: Jobs at the Center of Poverty Eradication
+
+https://www.worldbank.org/en/publication/poverty-prosperity-and-planet
+
+Research & Publications
+
+Job creation is a World Bank Group priority
+
+https://www.worldbank.org/ext/en/jobs
+
+Topic
+
+sec-spacing
+
+section-none
+
+sec-spacing-bottom
+
+section-padding-between
+
+style
+
+default
+
+ombc-i18n-key
+
+ombc
+
+ombc-description-i18n-key
+
+ombc-description
+
+signup-i18n-key
+
+signup
+
+register-i18n-key
+
+register
+
+sec-spacing
+
+section-none
+
+sec-spacing-bottom
+
+section-padding-between
+
+sec-swoosh
+
+sec-swoosh-type12
+
+style
+
+default, lp-signup-wrapper, border-radius-medium, bg-primary-blue-80, heading-v1
+
+sec-inside-container
+
+true
+
+everything
+
+https://webapi.worldbank.org/aemsite/everything/search
+
+true
+
+{"facets":[],"orderby":"contentDate desc","select":"*","searchFields":"*","search":"*","filter":"contentType eq 'Press Release'","top":20,"skip":0}
+
+3
+
+no
+
+yes
+
+no
+
+whats_news
+
+sec-spacing
+
+section-none
+
+sec-spacing-bottom
+
+section-padding-between
+
+style
+
+default, bg-neutrals-15-gradient
