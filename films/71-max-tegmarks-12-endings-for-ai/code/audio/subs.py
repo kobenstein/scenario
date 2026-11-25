@@ -8,7 +8,7 @@ A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']; sys.setrecursionlimit(5000)
 # spoken numbers -> digits (longest patterns first: merge() takes the first pattern that matches at a word)
 NUM = [('one in ten thousand', '1 in 10,000'), ('nineteen eighty-four', '1984'), ('eighty-five seconds', '85 seconds'), ('sixty thousand', '60,000'),
-       ('ninety percent', '90%'), ('ten years', '10 years'), ('three years', '3 years'), ('two years', '2 years'), ('thirty-one', '31'), ('twelve', '12'),
+       ('ninety percent', '90%'), ('ten years', '10 years'), ('three years', '3 years'), ('two years', '2 years'), ('thirty countries', '30 countries'), ('twelve', '12'),
        ('a\\.i\\.', 'AI')]   # film 71: spoken figures as digits; small counts ('one task', 'Three endings left', 'five of the twelve' -> 'five of the 12') stay words
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
@@ -63,7 +63,7 @@ BREAKS = {   # Film 71: hand-made breaks where the balanced split cuts a phrase 
     "You wake up, and your first thought is not a bill.": ["You wake up,", "and your first thought", "is not a bill."],
     "Every citizen who completes an AI course gets a paid version of ChatGPT.": ["Every citizen", "who completes an AI course", "gets a paid version of ChatGPT."],
     "No income, just the idea in its smallest form: intelligence for everyone.": ["No income, just the idea", "in its smallest form:", "intelligence for everyone."],
-    "31 countries now call for human control over the most powerful AI.": ["31 countries now call", "for human control", "over the most powerful AI."],
+    "About 30 countries now call for human control over the most powerful AI.": ["About 30 countries now call", "for human control", "over the most powerful AI."],
 }
 USED = set()
 def pieces(snt):

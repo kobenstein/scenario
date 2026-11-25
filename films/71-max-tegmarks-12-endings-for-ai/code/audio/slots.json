@@ -1,12 +1,12 @@
 {
- "duration": 706.01,
+ "duration": 706.65,
  "end_screen": {
-  "start": 691.01,
+  "start": 691.65,
   "dur": 15.0,
-  "end": 706.01,
+  "end": 706.65,
   "call": "t28",
-  "call_start": 678.63,
-  "call_end": 687.01,
+  "call_start": 679.27,
+  "call_end": 687.65,
   "tail_after_vo": 19.0,
   "note": "after the last VO word: a quiet walk, then the 15 s end screen (the music fades out over it)"
  },
@@ -16,8 +16,8 @@
    "end": 347.42
   },
   "t28": {
-   "start": 678.63,
-   "end": 687.01
+   "start": 679.27,
+   "end": 687.65
   }
  },
  "slots": [
@@ -65,8 +65,8 @@
    "id": "C6",
    "kind": "clip",
    "sec": "S",
-   "start": 662.4,
-   "end": 670.66,
+   "start": 663.04,
+   "end": 671.3,
    "dur": 8.26,
    "under": false,
    "file": "C6.mp4"
@@ -109,8 +109,8 @@
    "id": "C6",
    "kind": "clip",
    "sec": "S",
-   "start": 662.4,
-   "end": 670.66,
+   "start": 663.04,
+   "end": 671.3,
    "under": false
   }
  ]

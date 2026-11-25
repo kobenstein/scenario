@@ -18,13 +18,14 @@ Gehört dem Ton-Schritt; der Bild-Code fasst diesen Ordner nicht an. Methode wie
 Neulauf ohne neue Takes: `W=/tmp/claude-0/f71/audio; python3 cut_clips.py && python3 make_segments.py && python3 clips_wav.py $W/clipwav && python3 build_vo.py . $W && python3 clip_cues.py && python3 clips_json.py && python3 mix.py . $W && python3 subs.py . untertitel` (mix.py läuft ≈ 3 min).
 
 ## Ergebnis (25.11.)
-- Länge 706.01 s (11:46.0) · letztes VO-Wort 687.01 s · Endbild 691.01–706.01 s · Kanal-Aufrufe t13 336.86–347.42, t28 678.63–687.01
-- Slots: C1 39.92–47.28 · C2 129.15–137.27 · C4 279.96–286.42 · C5 602.51–610.62 · C6 662.40–670.66 (Clip-Anteil 5.4 %)
-- Clip-Pegel: `gain_db` C1 −1.3, C2 −0.5, C4 0, C5 −0.6, C6 −3.4 → im Mix +0.45 / +0.15 / +0.15 / +0.3 / +0.35 LU gegen die VO davor/danach
-- mix.wav −13.99 LUFS, −1.47 dBTP, LRA 3.8 · 398 Untertitel, längste Zeile 34
+- Länge 706.65 s (11:46.7) · letztes VO-Wort 687.65 s · Endbild 691.65–706.65 s · Kanal-Aufrufe t13 336.86–347.42, t28 679.27–687.65
+- Slots: C1 39.92–47.28 · C2 129.15–137.27 · C4 279.96–286.42 · C5 602.51–610.62 · C6 663.04–671.30 (Clip-Anteil 5.4 %)
+- Clip-Pegel: `gain_db` C1 −1.3, C2 −0.5, C4 0, C5 −0.6, C6 −3.4 → im Mix +0.45 / +0.15 / +0.15 / +0.15 / +0.3 LU gegen die VO davor/danach
+- mix.wav −14.01 LUFS, −1.49 dBTP, LRA 3.7 · 398 Untertitel, längste Zeile 34
 - fal-Kosten ≈ 1.35 USD (TTS ≈ 0.7, Lyria ≈ 0.6, Wizper/Whisper ein paar Cent)
 
 ## Abweichungen vom Skript / zu prüfen
+- Faktenfix 25.11. (Koordinator): „Thirty-one countries now call …“ → „About thirty countries now call …“ in text-v2.md, vo-v2.txt, hoerfassung-v2.txt; nur Take t25 neu (gleiche Stimme, seed 4301, Wizper-Kontrolle ok). Alles vor t25 (bis 611.29 s) unverändert, t25 neu getimt, ab t26 alles +0.64 s (C6, Schluss, Endbild).
 - C1: Tegmark sagt „lost control **over** AI systems“ (text-v2 / iMac-json: „of“). Untertitel = Gesprochenes („over“).
 - C2: Schnitt beginnt mit „My P(doom) is very low.“ (Untertitel mit „My“).
 - C6: In-Punkt 20.10 statt iMac 19.5 (sonst Ende von „road.“ im Clip).
