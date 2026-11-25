@@ -471,6 +471,18 @@
     "code_herkunft": "claude/project-thread-p4vr3z:films/70-harari-biggest-fear-about-ai"
   },
   {
+    "nr": 74,
+    "ordner": "74-your-life-in-2050",
+    "titel": "Your Life in 2050 If We Get AI Right",
+    "video": "j07Zvy5tri4",
+    "veroeffentlicht": "2026-12-03",
+    "skript_quellen": [
+      "film-leben-2050"
+    ],
+    "thumbnail_quelle": "thumbnails/film-74",
+    "code_herkunft": "claude/project-thread-mmddhu:films/74-your-life-in-2050"
+  },
+  {
     "nr": 76,
     "ordner": "76-your-kids-will-grow-up-with-superintelligence",
     "titel": "Your Kids Will Grow Up With Superintelligence",
