@@ -459,6 +459,18 @@
     "code_herkunft": "claude/project-thread-m7cc4w:films/69-europe-can-still-win-the-ai-race"
   },
   {
+    "nr": 70,
+    "ordner": "70-harari-biggest-fear-about-ai",
+    "titel": "Harari's Biggest Fear About AI Isn't Robots",
+    "video": "fmOZpMc3SuU",
+    "veroeffentlicht": "2026-11-30",
+    "skript_quellen": [
+      "film-harari"
+    ],
+    "thumbnail_quelle": "thumbnails/film-70",
+    "code_herkunft": "claude/project-thread-p4vr3z:films/70-harari-biggest-fear-about-ai"
+  },
+  {
     "nr": 73,
     "ordner": "73-the-first-generation-that-wont-die",
     "titel": "The First Generation That Won't Die",
@@ -469,5 +481,29 @@
     ],
     "thumbnail_quelle": "thumbnails/film-73",
     "code_herkunft": "claude/project-thread-i4k2w9:films/73-the-first-generation-that-wont-die"
+  },
+  {
+    "nr": 74,
+    "ordner": "74-your-life-in-2050",
+    "titel": "Your Life in 2050 If We Get AI Right",
+    "video": "j07Zvy5tri4",
+    "veroeffentlicht": "2026-12-03",
+    "skript_quellen": [
+      "film-leben-2050"
+    ],
+    "thumbnail_quelle": "thumbnails/film-74",
+    "code_herkunft": "claude/project-thread-mmddhu:films/74-your-life-in-2050"
+  },
+  {
+    "nr": 76,
+    "ordner": "76-your-kids-will-grow-up-with-superintelligence",
+    "titel": "Your Kids Will Grow Up With Superintelligence",
+    "video": "RJhPXezGSSQ",
+    "veroeffentlicht": "2026-12-05",
+    "skript_quellen": [
+      "film-76-kinder"
+    ],
+    "thumbnail_quelle": "thumbnails/film-76",
+    "code_herkunft": "claude/project-thread-os00fk:films/76-your-kids-will-grow-up-with-superintelligence"
   }
 ]
