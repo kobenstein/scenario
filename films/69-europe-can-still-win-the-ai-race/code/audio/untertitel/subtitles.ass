@@ -1,0 +1,357 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 384
+PlayResY: 288
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Inter,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.73,0:00:02.28,Sub,,0,0,0,,{\fad(120,160)}Europe can still win the race
+Dialogue: 0,0:00:02.32,0:00:03.98,Sub,,0,0,0,,{\fad(120,160)}for artificial intelligence.
+Dialogue: 0,0:00:04.16,0:00:06.17,Sub,,0,0,0,,{\fad(120,160)}Everyone says it has already lost.
+Dialogue: 0,0:00:06.26,0:00:07.19,Sub,,0,0,0,,{\fad(120,160)}Too slow.
+Dialogue: 0,0:00:07.23,0:00:08.21,Sub,,0,0,0,,{\fad(120,160)}Too small.
+Dialogue: 0,0:00:08.25,0:00:09.36,Sub,,0,0,0,,{\fad(120,160)}Too many rules.
+Dialogue: 0,0:00:09.52,0:00:11.04,Sub,,0,0,0,,{\fad(120,160)}And whoever builds this technology
+Dialogue: 0,0:00:11.08,0:00:12.77,Sub,,0,0,0,,{\fad(120,160)}gets a say in how it treats you.
+Dialogue: 0,0:00:12.98,0:00:14.81,Sub,,0,0,0,,{\fad(120,160)}Which AI reads your contracts.
+Dialogue: 0,0:00:14.85,0:00:16.35,Sub,,0,0,0,,{\fad(120,160)}Sits in on your job interview.
+Dialogue: 0,0:00:16.39,0:00:18.32,Sub,,0,0,0,,{\fad(120,160)}Says yes or no to your loan.
+Dialogue: 0,0:00:18.36,0:00:19.36,Sub,,0,0,0,,{\fad(120,160)}Wherever you live.
+Dialogue: 0,0:00:19.99,0:00:21.31,Sub,,0,0,0,,{\fad(120,160)}Right now, almost none
+Dialogue: 0,0:00:21.35,0:00:23.11,Sub,,0,0,0,,{\fad(120,160)}of that AI is European.
+Dialogue: 0,0:00:23.38,0:00:24.20,Sub,,0,0,0,,{\fad(120,160)}So how could Europe
+Dialogue: 0,0:00:24.24,0:00:25.73,Sub,,0,0,0,,{\fad(120,160)}possibly still win?
+Dialogue: 0,0:00:26.42,0:00:26.95,Sub,,0,0,0,,{\fad(120,160)}Guess how much
+Dialogue: 0,0:00:26.99,0:00:27.97,Sub,,0,0,0,,{\fad(120,160)}of the world's computing
+Dialogue: 0,0:00:28.01,0:00:29.23,Sub,,0,0,0,,{\fad(120,160)}power for AI sits
+Dialogue: 0,0:00:29.27,0:00:30.55,Sub,,0,0,0,,{\fad(120,160)}in the European Union.
+Dialogue: 0,0:00:30.89,0:00:32.31,Sub,,0,0,0,,{\fad(120,160)}About 5%.
+Dialogue: 0,0:00:32.92,0:00:34.87,Sub,,0,0,0,,{\fad(120,160)}And yet: the only machines
+Dialogue: 0,0:00:34.91,0:00:36.08,Sub,,0,0,0,,{\fad(120,160)}on Earth that can print
+Dialogue: 0,0:00:36.12,0:00:37.65,Sub,,0,0,0,,{\fad(120,160)}the most advanced chips
+Dialogue: 0,0:00:37.69,0:00:38.92,Sub,,0,0,0,,{\fad(120,160)}are built in Europe.
+Dialogue: 0,0:00:39.05,0:00:40.37,Sub,,0,0,0,,{\fad(120,160)}Then shipped away.
+Dialogue: 0,0:00:40.63,0:00:42.58,Sub,,0,0,0,,{\fad(120,160)}Many of the people who build AI
+Dialogue: 0,0:00:42.62,0:00:43.96,Sub,,0,0,0,,{\fad(120,160)}are trained in Europe.
+Dialogue: 0,0:00:44.02,0:00:45.44,Sub,,0,0,0,,{\fad(120,160)}Then hired away.
+Dialogue: 0,0:00:45.66,0:00:46.83,Sub,,0,0,0,,{\fad(120,160)}And the European Union
+Dialogue: 0,0:00:46.87,0:00:47.86,Sub,,0,0,0,,{\fad(120,160)}has more people
+Dialogue: 0,0:00:47.90,0:00:49.46,Sub,,0,0,0,,{\fad(120,160)}than the United States.
+Dialogue: 0,0:00:49.51,0:00:51.83,Sub,,0,0,0,,{\fad(120,160)}So Europe isn't too small.
+Dialogue: 0,0:00:52.01,0:00:54.02,Sub,,0,0,0,,{\fad(120,160)}It's in 27 pieces.
+Dialogue: 0,0:00:54.82,0:00:58.26,Sub,,0,0,0,,{\fad(120,160)}27 countries, 27 sets of rules.
+Dialogue: 0,0:00:58.43,0:00:59.32,Sub,,0,0,0,,{\fad(120,160)}And the plan to put them
+Dialogue: 0,0:00:59.36,0:01:01.66,Sub,,0,0,0,,{\fad(120,160)}together is already on the table.
+Dialogue: 0,0:01:01.90,0:01:03.34,Sub,,0,0,0,,{\fad(120,160)}This winter, the first
+Dialogue: 0,0:01:03.38,0:01:04.91,Sub,,0,0,0,,{\fad(120,160)}big decisions are due.
+Dialogue: 0,0:01:05.52,0:01:06.91,Sub,,0,0,0,,{\fad(120,160)}Those chip machines come
+Dialogue: 0,0:01:06.95,0:01:08.43,Sub,,0,0,0,,{\fad(120,160)}from a single company,
+Dialogue: 0,0:01:08.47,0:01:09.51,Sub,,0,0,0,,{\fad(120,160)}in a Dutch town.
+Dialogue: 0,0:01:09.80,0:01:11.80,Sub,,0,0,0,,{\fad(120,160)}Each is the size of a bus.
+Dialogue: 0,0:01:11.98,0:01:14.52,Sub,,0,0,0,,{\fad(120,160)}Shipping one fills 3 cargo jets.
+Dialogue: 0,0:01:14.66,0:01:16.62,Sub,,0,0,0,,{\fad(120,160)}And almost every advanced AI chip
+Dialogue: 0,0:01:16.66,0:01:18.67,Sub,,0,0,0,,{\fad(120,160)}in the world was printed by one.
+Dialogue: 0,0:01:18.96,0:01:19.66,Sub,,0,0,0,,{\fad(120,160)}This year,
+Dialogue: 0,0:01:19.70,0:01:21.35,Sub,,0,0,0,,{\fad(120,160)}by its own executive's account,
+Dialogue: 0,0:01:21.39,0:01:22.45,Sub,,0,0,0,,{\fad(120,160)}the company has sold
+Dialogue: 0,0:01:22.49,0:01:24.53,Sub,,0,0,0,,{\fad(120,160)}absolutely nothing in Europe.
+Dialogue: 0,0:01:24.78,0:01:26.20,Sub,,0,0,0,,{\fad(120,160)}So the strengths are real.
+Dialogue: 0,0:01:26.29,0:01:27.59,Sub,,0,0,0,,{\fad(120,160)}They're just not connected.
+Dialogue: 0,0:01:28.02,0:01:29.08,Sub,,0,0,0,,{\fad(120,160)}The plan to connect them
+Dialogue: 0,0:01:29.12,0:01:30.12,Sub,,0,0,0,,{\fad(120,160)}isn't new.
+Dialogue: 0,0:01:30.19,0:01:32.03,Sub,,0,0,0,,{\fad(120,160)}Mario Draghi, the man who once
+Dialogue: 0,0:01:32.07,0:01:34.04,Sub,,0,0,0,,{\fad(120,160)}saved the euro, wrote it down.
+Dialogue: 0,0:01:34.21,0:01:34.96,Sub,,0,0,0,,{\fad(120,160)}A year later,
+Dialogue: 0,0:01:35.00,0:01:36.63,Sub,,0,0,0,,{\fad(120,160)}he gave his own verdict:
+Dialogue: 0,0:01:37.50,0:01:38.77,Sub,,0,0,0,,{\fad(120,160)}One year on,
+Dialogue: 0,0:01:38.81,0:01:40.67,Sub,,0,0,0,,{\fad(120,160)}Europe is therefore
+Dialogue: 0,0:01:40.71,0:01:43.55,Sub,,0,0,0,,{\fad(120,160)}in a harder place.
+Dialogue: 0,0:01:43.59,0:01:45.60,Sub,,0,0,0,,{\fad(120,160)}Our growth model is fading.
+Dialogue: 0,0:01:46.07,0:01:47.46,Sub,,0,0,0,,{\fad(120,160)}A harder place.
+Dialogue: 0,0:01:47.74,0:01:49.66,Sub,,0,0,0,,{\fad(120,160)}And today, by one count,
+Dialogue: 0,0:01:49.70,0:01:52.13,Sub,,0,0,0,,{\fad(120,160)}only about 1 in 6 of his proposals
+Dialogue: 0,0:01:52.17,0:01:53.84,Sub,,0,0,0,,{\fad(120,160)}has been fully carried out.
+Dialogue: 0,0:01:54.21,0:01:55.87,Sub,,0,0,0,,{\fad(120,160)}For AI, five parts
+Dialogue: 0,0:01:55.91,0:01:57.49,Sub,,0,0,0,,{\fad(120,160)}of the plan matter most.
+Dialogue: 0,0:01:57.69,0:01:58.48,Sub,,0,0,0,,{\fad(120,160)}Money.
+Dialogue: 0,0:01:58.52,0:01:59.94,Sub,,0,0,0,,{\fad(120,160)}One set of rules.
+Dialogue: 0,0:02:00.05,0:02:00.92,Sub,,0,0,0,,{\fad(120,160)}Energy.
+Dialogue: 0,0:02:00.96,0:02:01.91,Sub,,0,0,0,,{\fad(120,160)}A lab.
+Dialogue: 0,0:02:01.95,0:02:03.11,Sub,,0,0,0,,{\fad(120,160)}And minds.
+Dialogue: 0,0:02:03.28,0:02:05.21,Sub,,0,0,0,,{\fad(120,160)}That last one can't be built.
+Dialogue: 0,0:02:05.27,0:02:06.55,Sub,,0,0,0,,{\fad(120,160)}It has to be won.
+Dialogue: 0,0:02:06.80,0:02:08.72,Sub,,0,0,0,,{\fad(120,160)}One test for all five:
+Dialogue: 0,0:02:08.91,0:02:10.16,Sub,,0,0,0,,{\fad(120,160)}is it really there,
+Dialogue: 0,0:02:10.20,0:02:11.45,Sub,,0,0,0,,{\fad(120,160)}or only on paper?
+Dialogue: 0,0:02:12.63,0:02:13.76,Sub,,0,0,0,,{\fad(120,160)}Money first.
+Dialogue: 0,0:02:13.99,0:02:15.66,Sub,,0,0,0,,{\fad(120,160)}Europe isn't short of it.
+Dialogue: 0,0:02:15.89,0:02:16.98,Sub,,0,0,0,,{\fad(120,160)}In the European Union,
+Dialogue: 0,0:02:17.02,0:02:17.82,Sub,,0,0,0,,{\fad(120,160)}households keep
+Dialogue: 0,0:02:17.86,0:02:19.65,Sub,,0,0,0,,{\fad(120,160)}about 10 trillion euros
+Dialogue: 0,0:02:19.69,0:02:20.77,Sub,,0,0,0,,{\fad(120,160)}in bank accounts.
+Dialogue: 0,0:02:21.04,0:02:22.01,Sub,,0,0,0,,{\fad(120,160)}If you live there,
+Dialogue: 0,0:02:22.05,0:02:23.35,Sub,,0,0,0,,{\fad(120,160)}part of that is yours.
+Dialogue: 0,0:02:23.55,0:02:25.30,Sub,,0,0,0,,{\fad(120,160)}A young AI company in Paris
+Dialogue: 0,0:02:25.34,0:02:27.49,Sub,,0,0,0,,{\fad(120,160)}or Munich barely sees any of it.
+Dialogue: 0,0:02:27.73,0:02:30.10,Sub,,0,0,0,,{\fad(120,160)}So its founders fly to California.
+Dialogue: 0,0:02:30.39,0:02:31.05,Sub,,0,0,0,,{\fad(120,160)}The plan isn't
+Dialogue: 0,0:02:31.09,0:02:32.71,Sub,,0,0,0,,{\fad(120,160)}to take anyone's savings.
+Dialogue: 0,0:02:32.83,0:02:33.93,Sub,,0,0,0,,{\fad(120,160)}It's to make investing them
+Dialogue: 0,0:02:33.97,0:02:35.31,Sub,,0,0,0,,{\fad(120,160)}in Europe easier.
+Dialogue: 0,0:02:35.63,0:02:37.34,Sub,,0,0,0,,{\fad(120,160)}Most of it isn't law yet.
+Dialogue: 0,0:02:37.52,0:02:38.50,Sub,,0,0,0,,{\fad(120,160)}Critics warn:
+Dialogue: 0,0:02:38.54,0:02:39.95,Sub,,0,0,0,,{\fad(120,160)}push savers into markets,
+Dialogue: 0,0:02:39.99,0:02:41.56,Sub,,0,0,0,,{\fad(120,160)}and you push them into risk.
+Dialogue: 0,0:02:41.82,0:02:42.53,Sub,,0,0,0,,{\fad(120,160)}But the money going
+Dialogue: 0,0:02:42.57,0:02:43.71,Sub,,0,0,0,,{\fad(120,160)}into Europe's start-ups
+Dialogue: 0,0:02:43.75,0:02:45.90,Sub,,0,0,0,,{\fad(120,160)}is up by more than half this year.
+Dialogue: 0,0:02:46.44,0:02:48.40,Sub,,0,0,0,,{\fad(120,160)}Europe now has its own fund,
+Dialogue: 0,0:02:48.44,0:02:49.93,Sub,,0,0,0,,{\fad(120,160)}so its biggest start-ups
+Dialogue: 0,0:02:49.97,0:02:51.49,Sub,,0,0,0,,{\fad(120,160)}can grow without leaving.
+Dialogue: 0,0:02:51.83,0:02:54.29,Sub,,0,0,0,,{\fad(120,160)}One of its first bets: Mistral,
+Dialogue: 0,0:02:54.33,0:02:56.64,Sub,,0,0,0,,{\fad(120,160)}Europe's best-known AI company.
+Dialogue: 0,0:02:56.93,0:02:57.94,Sub,,0,0,0,,{\fad(120,160)}A year earlier,
+Dialogue: 0,0:02:57.98,0:02:59.30,Sub,,0,0,0,,{\fad(120,160)}Mistral's lead investor
+Dialogue: 0,0:02:59.34,0:03:00.70,Sub,,0,0,0,,{\fad(120,160)}was the company that builds
+Dialogue: 0,0:03:00.74,0:03:02.05,Sub,,0,0,0,,{\fad(120,160)}those chip machines.
+Dialogue: 0,0:03:02.20,0:03:04.02,Sub,,0,0,0,,{\fad(120,160)}That's what connected looks like.
+Dialogue: 0,0:03:04.24,0:03:06.65,Sub,,0,0,0,,{\fad(120,160)}So, the money: halfway there.
+Dialogue: 0,0:03:07.83,0:03:09.27,Sub,,0,0,0,,{\fad(120,160)}But why does it matter where
+Dialogue: 0,0:03:09.31,0:03:11.05,Sub,,0,0,0,,{\fad(120,160)}a company like that lives?
+Dialogue: 0,0:03:11.35,0:03:13.25,Sub,,0,0,0,,{\fad(120,160)}Arthur Mensch runs Mistral.
+Dialogue: 0,0:03:13.38,0:03:15.15,Sub,,0,0,0,,{\fad(120,160)}He sells the European alternative,
+Dialogue: 0,0:03:15.19,0:03:17.08,Sub,,0,0,0,,{\fad(120,160)}so he has a stake in this.
+Dialogue: 0,0:03:17.32,0:03:18.48,Sub,,0,0,0,,{\fad(120,160)}Here's his warning:
+Dialogue: 0,0:03:19.04,0:03:20.50,Sub,,0,0,0,,{\fad(120,160)}And if you can't afford
+Dialogue: 0,0:03:20.54,0:03:21.99,Sub,,0,0,0,,{\fad(120,160)}the business continuity,
+Dialogue: 0,0:03:22.03,0:03:23.98,Sub,,0,0,0,,{\fad(120,160)}well, you're going to depend on,
+Dialogue: 0,0:03:24.02,0:03:24.91,Sub,,0,0,0,,{\fad(120,160)}basically you're becoming
+Dialogue: 0,0:03:24.95,0:03:26.68,Sub,,0,0,0,,{\fad(120,160)}a client state to the one
+Dialogue: 0,0:03:26.72,0:03:27.43,Sub,,0,0,0,,{\fad(120,160)}that is providing you
+Dialogue: 0,0:03:27.47,0:03:28.47,Sub,,0,0,0,,{\fad(120,160)}with the technology.
+Dialogue: 0,0:03:28.88,0:03:30.21,Sub,,0,0,0,,{\fad(120,160)}A client state.
+Dialogue: 0,0:03:30.44,0:03:31.52,Sub,,0,0,0,,{\fad(120,160)}He means the systems
+Dialogue: 0,0:03:31.56,0:03:33.54,Sub,,0,0,0,,{\fad(120,160)}a country cannot run without:
+Dialogue: 0,0:03:33.58,0:03:36.05,Sub,,0,0,0,,{\fad(120,160)}its defence, its public services.
+Dialogue: 0,0:03:36.29,0:03:38.42,Sub,,0,0,0,,{\fad(120,160)}And a client doesn't get a say.
+Dialogue: 0,0:03:38.64,0:03:40.22,Sub,,0,0,0,,{\fad(120,160)}So Europe needs companies
+Dialogue: 0,0:03:40.26,0:03:42.05,Sub,,0,0,0,,{\fad(120,160)}that can grow up at home.
+Dialogue: 0,0:03:42.26,0:03:43.98,Sub,,0,0,0,,{\fad(120,160)}Money alone won't do it.
+Dialogue: 0,0:03:45.13,0:03:45.87,Sub,,0,0,0,,{\fad(120,160)}Because a company
+Dialogue: 0,0:03:45.91,0:03:47.49,Sub,,0,0,0,,{\fad(120,160)}that wants to grow across Europe
+Dialogue: 0,0:03:47.53,0:03:49.00,Sub,,0,0,0,,{\fad(120,160)}runs into 27
+Dialogue: 0,0:03:49.04,0:03:50.46,Sub,,0,0,0,,{\fad(120,160)}different company laws.
+Dialogue: 0,0:03:50.75,0:03:51.99,Sub,,0,0,0,,{\fad(120,160)}The plan has a fix:
+Dialogue: 0,0:03:52.04,0:03:53.39,Sub,,0,0,0,,{\fad(120,160)}a new kind of company,
+Dialogue: 0,0:03:53.43,0:03:55.68,Sub,,0,0,0,,{\fad(120,160)}valid in all 27 countries.
+Dialogue: 0,0:03:55.72,0:03:57.27,Sub,,0,0,0,,{\fad(120,160)}Set up online in 2 days,
+Dialogue: 0,0:03:57.31,0:03:58.96,Sub,,0,0,0,,{\fad(120,160)}for under 100 euros.
+Dialogue: 0,0:03:59.15,0:04:00.03,Sub,,0,0,0,,{\fad(120,160)}But it's held up
+Dialogue: 0,0:04:00.07,0:04:01.52,Sub,,0,0,0,,{\fad(120,160)}in the European Parliament.
+Dialogue: 0,0:04:01.66,0:04:03.43,Sub,,0,0,0,,{\fad(120,160)}Unions fear companies could use it
+Dialogue: 0,0:04:03.47,0:04:05.11,Sub,,0,0,0,,{\fad(120,160)}to get around workers' rights.
+Dialogue: 0,0:04:05.15,0:04:06.15,Sub,,0,0,0,,{\fad(120,160)}A fair worry.
+Dialogue: 0,0:04:06.26,0:04:07.64,Sub,,0,0,0,,{\fad(120,160)}And even if it's solved,
+Dialogue: 0,0:04:07.68,0:04:08.76,Sub,,0,0,0,,{\fad(120,160)}the first such company
+Dialogue: 0,0:04:08.80,0:04:11.20,Sub,,0,0,0,,{\fad(120,160)}isn't expected before 2028.
+Dialogue: 0,0:04:11.25,0:04:12.83,Sub,,0,0,0,,{\fad(120,160)}So that one set of rules
+Dialogue: 0,0:04:12.87,0:04:14.02,Sub,,0,0,0,,{\fad(120,160)}is still on paper.
+Dialogue: 0,0:04:15.15,0:04:15.61,Sub,,0,0,0,,{\fad(120,160)}None of it
+Dialogue: 0,0:04:15.65,0:04:17.41,Sub,,0,0,0,,{\fad(120,160)}runs without electricity.
+Dialogue: 0,0:04:17.62,0:04:18.68,Sub,,0,0,0,,{\fad(120,160)}AI data centres
+Dialogue: 0,0:04:18.72,0:04:20.51,Sub,,0,0,0,,{\fad(120,160)}need enormous amounts.
+Dialogue: 0,0:04:20.71,0:04:21.85,Sub,,0,0,0,,{\fad(120,160)}And for heavy industry,
+Dialogue: 0,0:04:21.89,0:04:23.73,Sub,,0,0,0,,{\fad(120,160)}electricity in the European Union
+Dialogue: 0,0:04:23.77,0:04:25.01,Sub,,0,0,0,,{\fad(120,160)}costs more than twice
+Dialogue: 0,0:04:25.05,0:04:26.45,Sub,,0,0,0,,{\fad(120,160)}as much as in America.
+Dialogue: 0,0:04:26.66,0:04:27.88,Sub,,0,0,0,,{\fad(120,160)}But not everywhere.
+Dialogue: 0,0:04:27.95,0:04:29.07,Sub,,0,0,0,,{\fad(120,160)}Sweden's north has
+Dialogue: 0,0:04:29.11,0:04:30.39,Sub,,0,0,0,,{\fad(120,160)}cheap hydropower.
+Dialogue: 0,0:04:30.49,0:04:32.13,Sub,,0,0,0,,{\fad(120,160)}France has its reactors.
+Dialogue: 0,0:04:32.37,0:04:34.47,Sub,,0,0,0,,{\fad(120,160)}So the idea: build the biggest
+Dialogue: 0,0:04:34.51,0:04:36.60,Sub,,0,0,0,,{\fad(120,160)}data centres where the power is.
+Dialogue: 0,0:04:36.73,0:04:38.37,Sub,,0,0,0,,{\fad(120,160)}Europe wants up to 7.
+Dialogue: 0,0:04:38.59,0:04:39.47,Sub,,0,0,0,,{\fad(120,160)}The deadline for bids
+Dialogue: 0,0:04:39.51,0:04:41.58,Sub,,0,0,0,,{\fad(120,160)}on the biggest: December 3.
+Dialogue: 0,0:04:41.80,0:04:43.06,Sub,,0,0,0,,{\fad(120,160)}But much of the public money
+Dialogue: 0,0:04:43.10,0:04:43.66,Sub,,0,0,0,,{\fad(120,160)}has to come
+Dialogue: 0,0:04:43.70,0:04:45.52,Sub,,0,0,0,,{\fad(120,160)}from Europe's next budget.
+Dialogue: 0,0:04:46.10,0:04:48.41,Sub,,0,0,0,,{\fad(120,160)}And even if all of them get built,
+Dialogue: 0,0:04:48.45,0:04:50.21,Sub,,0,0,0,,{\fad(120,160)}one Brussels think tank says,
+Dialogue: 0,0:04:50.34,0:04:53.11,Sub,,0,0,0,,{\fad(120,160)}Europe's 5% barely moves.
+Dialogue: 0,0:04:53.29,0:04:53.93,Sub,,0,0,0,,{\fad(120,160)}So this part
+Dialogue: 0,0:04:53.97,0:04:55.45,Sub,,0,0,0,,{\fad(120,160)}is halfway there, too.
+Dialogue: 0,0:04:56.22,0:04:57.74,Sub,,0,0,0,,{\fad(120,160)}One thing is settled:
+Dialogue: 0,0:04:57.97,0:04:58.98,Sub,,0,0,0,,{\fad(120,160)}Europe won't have
+Dialogue: 0,0:04:59.02,0:05:00.29,Sub,,0,0,0,,{\fad(120,160)}the most computers.
+Dialogue: 0,0:05:00.47,0:05:01.54,Sub,,0,0,0,,{\fad(120,160)}It doesn't have to.
+Dialogue: 0,0:05:01.68,0:05:03.20,Sub,,0,0,0,,{\fad(120,160)}It has to be needed.
+Dialogue: 0,0:05:03.44,0:05:04.67,Sub,,0,0,0,,{\fad(120,160)}And it already builds
+Dialogue: 0,0:05:04.71,0:05:05.95,Sub,,0,0,0,,{\fad(120,160)}the one machine the world's
+Dialogue: 0,0:05:05.99,0:05:08.11,Sub,,0,0,0,,{\fad(120,160)}most advanced chips depend on.
+Dialogue: 0,0:05:09.22,0:05:10.20,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:05:10.24,0:05:11.56,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:05:11.74,0:05:12.56,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:05:12.60,0:05:13.68,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:05:13.72,0:05:15.43,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:05:15.62,0:05:16.65,Sub,,0,0,0,,{\fad(120,160)}Wherever you live.
+Dialogue: 0,0:05:17.00,0:05:18.00,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:05:18.10,0:05:19.13,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:05:20.31,0:05:21.64,Sub,,0,0,0,,{\fad(120,160)}Europe does need enough
+Dialogue: 0,0:05:21.68,0:05:23.13,Sub,,0,0,0,,{\fad(120,160)}computers of its own.
+Dialogue: 0,0:05:23.49,0:05:24.58,Sub,,0,0,0,,{\fad(120,160)}Enough for what?
+Dialogue: 0,0:05:24.86,0:05:26.40,Sub,,0,0,0,,{\fad(120,160)}For one shared lab,
+Dialogue: 0,0:05:26.44,0:05:28.54,Sub,,0,0,0,,{\fad(120,160)}building the most advanced AI.
+Dialogue: 0,0:05:28.80,0:05:30.36,Sub,,0,0,0,,{\fad(120,160)}Europe has done this before.
+Dialogue: 0,0:05:30.56,0:05:31.31,Sub,,0,0,0,,{\fad(120,160)}After the war,
+Dialogue: 0,0:05:31.35,0:05:32.38,Sub,,0,0,0,,{\fad(120,160)}its countries pooled
+Dialogue: 0,0:05:32.42,0:05:34.44,Sub,,0,0,0,,{\fad(120,160)}their money for one physics lab.
+Dialogue: 0,0:05:34.68,0:05:35.55,Sub,,0,0,0,,{\fad(120,160)}The World Wide Web
+Dialogue: 0,0:05:35.59,0:05:36.72,Sub,,0,0,0,,{\fad(120,160)}was invented there.
+Dialogue: 0,0:05:36.77,0:05:38.05,Sub,,0,0,0,,{\fad(120,160)}It's called CERN.
+Dialogue: 0,0:05:38.24,0:05:39.63,Sub,,0,0,0,,{\fad(120,160)}And Europe's top official,
+Dialogue: 0,0:05:39.67,0:05:40.98,Sub,,0,0,0,,{\fad(120,160)}Ursula von der Leyen,
+Dialogue: 0,0:05:41.02,0:05:43.10,Sub,,0,0,0,,{\fad(120,160)}has promised a CERN for AI.
+Dialogue: 0,0:05:43.41,0:05:45.45,Sub,,0,0,0,,{\fad(120,160)}So far, that promise is a pilot
+Dialogue: 0,0:05:45.49,0:05:47.65,Sub,,0,0,0,,{\fad(120,160)}worth about 100 million euros.
+Dialogue: 0,0:05:47.91,0:05:49.10,Sub,,0,0,0,,{\fad(120,160)}In November, she named
+Dialogue: 0,0:05:49.14,0:05:51.14,Sub,,0,0,0,,{\fad(120,160)}the price of really catching up:
+Dialogue: 0,0:05:51.98,0:05:52.48,Sub,,0,0,0,,{\fad(120,160)}All this,
+Dialogue: 0,0:05:52.52,0:05:54.05,Sub,,0,0,0,,{\fad(120,160)}what I've just described,
+Dialogue: 0,0:05:54.09,0:05:56.82,Sub,,0,0,0,,{\fad(120,160)}needs massive investment.
+Dialogue: 0,0:05:56.86,0:05:58.72,Sub,,0,0,0,,{\fad(120,160)}At least 500 billion euros,
+Dialogue: 0,0:05:58.76,0:06:02.01,Sub,,0,0,0,,{\fad(120,160)}according to our own estimates.
+Dialogue: 0,0:06:02.51,0:06:05.32,Sub,,0,0,0,,{\fad(120,160)}At least 500 billion euros.
+Dialogue: 0,0:06:05.49,0:06:06.49,Sub,,0,0,0,,{\fad(120,160)}Her estimate.
+Dialogue: 0,0:06:06.61,0:06:07.61,Sub,,0,0,0,,{\fad(120,160)}Not a budget.
+Dialogue: 0,0:06:07.92,0:06:09.63,Sub,,0,0,0,,{\fad(120,160)}A name and a pilot.
+Dialogue: 0,0:06:09.75,0:06:12.11,Sub,,0,0,0,,{\fad(120,160)}The lab, too, is still on paper.
+Dialogue: 0,0:06:13.27,0:06:15.59,Sub,,0,0,0,,{\fad(120,160)}And a lab is an empty building
+Dialogue: 0,0:06:15.63,0:06:17.23,Sub,,0,0,0,,{\fad(120,160)}without the fifth part.
+Dialogue: 0,0:06:17.40,0:06:18.96,Sub,,0,0,0,,{\fad(120,160)}The one that can't be built:
+Dialogue: 0,0:06:19.28,0:06:20.28,Sub,,0,0,0,,{\fad(120,160)}minds.
+Dialogue: 0,0:06:20.71,0:06:22.62,Sub,,0,0,0,,{\fad(120,160)}Picture a researcher in Paris,
+Dialogue: 0,0:06:22.66,0:06:24.13,Sub,,0,0,0,,{\fad(120,160)}just finished her doctorate.
+Dialogue: 0,0:06:24.39,0:06:25.39,Sub,,0,0,0,,{\fad(120,160)}Two offers.
+Dialogue: 0,0:06:25.48,0:06:27.00,Sub,,0,0,0,,{\fad(120,160)}One keeps her in Europe.
+Dialogue: 0,0:06:27.11,0:06:28.59,Sub,,0,0,0,,{\fad(120,160)}The other, in America,
+Dialogue: 0,0:06:28.63,0:06:30.77,Sub,,0,0,0,,{\fad(120,160)}can pay up to 70% more.
+Dialogue: 0,0:06:30.96,0:06:32.35,Sub,,0,0,0,,{\fad(120,160)}Before stock options.
+Dialogue: 0,0:06:32.58,0:06:33.62,Sub,,0,0,0,,{\fad(120,160)}Many take it.
+Dialogue: 0,0:06:33.93,0:06:35.29,Sub,,0,0,0,,{\fad(120,160)}Part of Europe's answer:
+Dialogue: 0,0:06:35.43,0:06:36.55,Sub,,0,0,0,,{\fad(120,160)}stock options that work
+Dialogue: 0,0:06:36.59,0:06:38.27,Sub,,0,0,0,,{\fad(120,160)}the same in every country,
+Dialogue: 0,0:06:38.31,0:06:40.05,Sub,,0,0,0,,{\fad(120,160)}taxed only when you sell.
+Dialogue: 0,0:06:40.40,0:06:42.33,Sub,,0,0,0,,{\fad(120,160)}But look where that answer sits.
+Dialogue: 0,0:06:42.50,0:06:43.47,Sub,,0,0,0,,{\fad(120,160)}Inside that new
+Dialogue: 0,0:06:43.51,0:06:44.91,Sub,,0,0,0,,{\fad(120,160)}Europe-wide company.
+Dialogue: 0,0:06:45.09,0:06:46.61,Sub,,0,0,0,,{\fad(120,160)}The one that's still on paper.
+Dialogue: 0,0:06:47.17,0:06:49.51,Sub,,0,0,0,,{\fad(120,160)}And yet, something has shifted.
+Dialogue: 0,0:06:49.83,0:06:50.83,Sub,,0,0,0,,{\fad(120,160)}Researchers leaving
+Dialogue: 0,0:06:50.87,0:06:52.64,Sub,,0,0,0,,{\fad(120,160)}the European Union for America
+Dialogue: 0,0:06:52.68,0:06:54.36,Sub,,0,0,0,,{\fad(120,160)}are down by almost half
+Dialogue: 0,0:06:54.40,0:06:55.41,Sub,,0,0,0,,{\fad(120,160)}in 2 years.
+Dialogue: 0,0:06:55.82,0:06:56.67,Sub,,0,0,0,,{\fad(120,160)}A few are even
+Dialogue: 0,0:06:56.71,0:06:57.84,Sub,,0,0,0,,{\fad(120,160)}moving the other way.
+Dialogue: 0,0:06:58.20,0:07:00.32,Sub,,0,0,0,,{\fad(120,160)}So the fifth part stays open.
+Dialogue: 0,0:07:00.48,0:07:02.44,Sub,,0,0,0,,{\fad(120,160)}It can't be passed in Brussels.
+Dialogue: 0,0:07:02.51,0:07:03.86,Sub,,0,0,0,,{\fad(120,160)}It has to be won,
+Dialogue: 0,0:07:04.01,0:07:05.73,Sub,,0,0,0,,{\fad(120,160)}one person at a time.
+Dialogue: 0,0:07:06.90,0:07:09.86,Sub,,0,0,0,,{\fad(120,160)}So suppose all five come together.
+Dialogue: 0,0:07:10.11,0:07:11.42,Sub,,0,0,0,,{\fad(120,160)}What does Europe win?
+Dialogue: 0,0:07:11.80,0:07:13.42,Sub,,0,0,0,,{\fad(120,160)}Not the biggest chatbot.
+Dialogue: 0,0:07:13.55,0:07:15.48,Sub,,0,0,0,,{\fad(120,160)}But a second race is still open:
+Dialogue: 0,0:07:15.64,0:07:17.35,Sub,,0,0,0,,{\fad(120,160)}putting AI to work.
+Dialogue: 0,0:07:17.63,0:07:19.34,Sub,,0,0,0,,{\fad(120,160)}One satellite maker is using it
+Dialogue: 0,0:07:19.38,0:07:21.04,Sub,,0,0,0,,{\fad(120,160)}to cut its development time.
+Dialogue: 0,0:07:21.32,0:07:22.80,Sub,,0,0,0,,{\fad(120,160)}And more than half of Europe's
+Dialogue: 0,0:07:22.84,0:07:23.72,Sub,,0,0,0,,{\fad(120,160)}biggest companies
+Dialogue: 0,0:07:23.76,0:07:25.64,Sub,,0,0,0,,{\fad(120,160)}are over 100 years old.
+Dialogue: 0,0:07:25.84,0:07:26.80,Sub,,0,0,0,,{\fad(120,160)}Much of what they know
+Dialogue: 0,0:07:26.84,0:07:28.63,Sub,,0,0,0,,{\fad(120,160)}has never been on the internet.
+Dialogue: 0,0:07:28.69,0:07:30.39,Sub,,0,0,0,,{\fad(120,160)}No chatbot has read it.
+Dialogue: 0,0:07:30.75,0:07:31.74,Sub,,0,0,0,,{\fad(120,160)}That argument comes
+Dialogue: 0,0:07:31.78,0:07:33.07,Sub,,0,0,0,,{\fad(120,160)}from Peter Koerte,
+Dialogue: 0,0:07:33.12,0:07:34.95,Sub,,0,0,0,,{\fad(120,160)}a senior Siemens executive.
+Dialogue: 0,0:07:35.30,0:07:36.99,Sub,,0,0,0,,{\fad(120,160)}Siemens sells this kind of AI,
+Dialogue: 0,0:07:37.03,0:07:38.66,Sub,,0,0,0,,{\fad(120,160)}so he isn't neutral.
+Dialogue: 0,0:07:38.83,0:07:40.18,Sub,,0,0,0,,{\fad(120,160)}But listen to his point:
+Dialogue: 0,0:07:40.71,0:07:41.52,Sub,,0,0,0,,{\fad(120,160)}And that's the trick,
+Dialogue: 0,0:07:41.56,0:07:43.46,Sub,,0,0,0,,{\fad(120,160)}because none of us
+Dialogue: 0,0:07:43.50,0:07:45.84,Sub,,0,0,0,,{\fad(120,160)}can do it alone.
+Dialogue: 0,0:07:45.88,0:07:46.89,Sub,,0,0,0,,{\fad(120,160)}Siemens can't.
+Dialogue: 0,0:07:46.93,0:07:47.98,Sub,,0,0,0,,{\fad(120,160)}Yes, we do produce.
+Dialogue: 0,0:07:48.02,0:07:49.05,Sub,,0,0,0,,{\fad(120,160)}We produce trains,
+Dialogue: 0,0:07:49.09,0:07:50.76,Sub,,0,0,0,,{\fad(120,160)}substations and so on.
+Dialogue: 0,0:07:50.80,0:07:52.26,Sub,,0,0,0,,{\fad(120,160)}But we don't have enough data.
+Dialogue: 0,0:07:52.30,0:07:54.01,Sub,,0,0,0,,{\fad(120,160)}OHB doesn't have enough data,
+Dialogue: 0,0:07:54.05,0:07:55.06,Sub,,0,0,0,,{\fad(120,160)}and also KION doesn't have
+Dialogue: 0,0:07:55.10,0:07:56.10,Sub,,0,0,0,,{\fad(120,160)}enough data.
+Dialogue: 0,0:07:56.35,0:07:58.76,Sub,,0,0,0,,{\fad(120,160)}No single company has enough data.
+Dialogue: 0,0:07:59.10,0:08:00.75,Sub,,0,0,0,,{\fad(120,160)}Together, they could.
+Dialogue: 0,0:08:01.14,0:08:02.06,Sub,,0,0,0,,{\fad(120,160)}The other prize
+Dialogue: 0,0:08:02.10,0:08:03.89,Sub,,0,0,0,,{\fad(120,160)}is a say in the rules.
+Dialogue: 0,0:08:04.16,0:08:06.02,Sub,,0,0,0,,{\fad(120,160)}A say goes to whoever builds
+Dialogue: 0,0:08:06.06,0:08:08.10,Sub,,0,0,0,,{\fad(120,160)}what others can't do without.
+Dialogue: 0,0:08:08.21,0:08:09.79,Sub,,0,0,0,,{\fad(120,160)}Like those chip machines.
+Dialogue: 0,0:08:09.94,0:08:11.65,Sub,,0,0,0,,{\fad(120,160)}But it only counts if Europe
+Dialogue: 0,0:08:11.69,0:08:13.39,Sub,,0,0,0,,{\fad(120,160)}speaks with one voice.
+Dialogue: 0,0:08:13.58,0:08:15.12,Sub,,0,0,0,,{\fad(120,160)}Today, the Dutch government
+Dialogue: 0,0:08:15.16,0:08:17.08,Sub,,0,0,0,,{\fad(120,160)}decides who gets the machines,
+Dialogue: 0,0:08:17.15,0:08:18.55,Sub,,0,0,0,,{\fad(120,160)}Washington has a say,
+Dialogue: 0,0:08:18.69,0:08:20.56,Sub,,0,0,0,,{\fad(120,160)}and China is building its own.
+Dialogue: 0,0:08:20.84,0:08:22.36,Sub,,0,0,0,,{\fad(120,160)}How to get to one voice
+Dialogue: 0,0:08:22.40,0:08:23.92,Sub,,0,0,0,,{\fad(120,160)}is an open argument:
+Dialogue: 0,0:08:24.12,0:08:26.64,Sub,,0,0,0,,{\fad(120,160)}more shared money, or fewer rules.
+Dialogue: 0,0:08:27.22,0:08:28.30,Sub,,0,0,0,,{\fad(120,160)}Who settles it?
+Dialogue: 0,0:08:28.48,0:08:29.41,Sub,,0,0,0,,{\fad(120,160)}Governments.
+Dialogue: 0,0:08:29.45,0:08:31.05,Sub,,0,0,0,,{\fad(120,160)}The European Parliament.
+Dialogue: 0,0:08:31.12,0:08:32.15,Sub,,0,0,0,,{\fad(120,160)}Investors.
+Dialogue: 0,0:08:32.31,0:08:34.89,Sub,,0,0,0,,{\fad(120,160)}And at the next election, voters.
+Dialogue: 0,0:08:36.06,0:08:38.36,Sub,,0,0,0,,{\fad(120,160)}So that's where the plan stands:
+Dialogue: 0,0:08:38.53,0:08:40.20,Sub,,0,0,0,,{\fad(120,160)}two parts halfway there,
+Dialogue: 0,0:08:40.32,0:08:43.03,Sub,,0,0,0,,{\fad(120,160)}two on paper, one still to be won.
+Dialogue: 0,0:08:43.23,0:08:44.64,Sub,,0,0,0,,{\fad(120,160)}None is finished.
+Dialogue: 0,0:08:44.87,0:08:46.82,Sub,,0,0,0,,{\fad(120,160)}But every one of them has started.
+Dialogue: 0,0:08:47.18,0:08:48.50,Sub,,0,0,0,,{\fad(120,160)}Can Europe still win?
+Dialogue: 0,0:08:48.77,0:08:50.61,Sub,,0,0,0,,{\fad(120,160)}The race for the most computers:
+Dialogue: 0,0:08:50.71,0:08:51.45,Sub,,0,0,0,,{\fad(120,160)}no.
+Dialogue: 0,0:08:51.49,0:08:54.09,Sub,,0,0,0,,{\fad(120,160)}The race to put AI to work: yes.
+Dialogue: 0,0:08:54.25,0:08:56.57,Sub,,0,0,0,,{\fad(120,160)}That one, Europe can still win.
+Dialogue: 0,0:08:56.64,0:08:58.57,Sub,,0,0,0,,{\fad(120,160)}And with it, a voice of its own.
+Dialogue: 0,0:08:58.66,0:08:59.97,Sub,,0,0,0,,{\fad(120,160)}A say in which AI
+Dialogue: 0,0:09:00.01,0:09:01.76,Sub,,0,0,0,,{\fad(120,160)}sits in on your job interview.
+Dialogue: 0,0:09:02.10,0:09:02.93,Sub,,0,0,0,,{\fad(120,160)}Mario Draghi,
+Dialogue: 0,0:09:02.97,0:09:04.97,Sub,,0,0,0,,{\fad(120,160)}who wrote the plan, now says:
+Dialogue: 0,0:09:05.91,0:09:08.36,Sub,,0,0,0,,{\fad(120,160)}Of all those now caught between
+Dialogue: 0,0:09:08.40,0:09:11.02,Sub,,0,0,0,,{\fad(120,160)}the United States and China,
+Dialogue: 0,0:09:11.06,0:09:13.98,Sub,,0,0,0,,{\fad(120,160)}Europeans alone have the option
+Dialogue: 0,0:09:14.02,0:09:16.53,Sub,,0,0,0,,{\fad(120,160)}to become a genuine power
+Dialogue: 0,0:09:16.57,0:09:17.59,Sub,,0,0,0,,{\fad(120,160)}themselves.
+Dialogue: 0,0:09:18.11,0:09:19.11,Sub,,0,0,0,,{\fad(120,160)}An option.
+Dialogue: 0,0:09:19.22,0:09:20.39,Sub,,0,0,0,,{\fad(120,160)}With a clock on it.
+Dialogue: 0,0:09:21.63,0:09:23.47,Sub,,0,0,0,,{\fad(120,160)}This winter, Europe's leaders
+Dialogue: 0,0:09:23.51,0:09:25.08,Sub,,0,0,0,,{\fad(120,160)}are negotiating the budget
+Dialogue: 0,0:09:25.12,0:09:26.96,Sub,,0,0,0,,{\fad(120,160)}that much of this depends on.
+Dialogue: 0,0:09:27.23,0:09:29.07,Sub,,0,0,0,,{\fad(120,160)}Europe builds the machines.
+Dialogue: 0,0:09:29.11,0:09:30.51,Sub,,0,0,0,,{\fad(120,160)}It has the savings.
+Dialogue: 0,0:09:30.59,0:09:32.27,Sub,,0,0,0,,{\fad(120,160)}It trains the minds.
+Dialogue: 0,0:09:32.52,0:09:33.97,Sub,,0,0,0,,{\fad(120,160)}Europe was never too small
+Dialogue: 0,0:09:34.01,0:09:35.07,Sub,,0,0,0,,{\fad(120,160)}for this race.
+Dialogue: 0,0:09:35.23,0:09:36.62,Sub,,0,0,0,,{\fad(120,160)}The only question is whether
+Dialogue: 0,0:09:36.66,0:09:38.89,Sub,,0,0,0,,{\fad(120,160)}it puts itself together in time.
+Dialogue: 0,0:09:40.05,0:09:41.12,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:09:41.16,0:09:42.50,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:09:42.65,0:09:43.53,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:09:43.57,0:09:44.68,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:09:44.72,0:09:46.54,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:09:46.74,0:09:47.91,Sub,,0,0,0,,{\fad(120,160)}That takes more voices
+Dialogue: 0,0:09:47.95,0:09:49.62,Sub,,0,0,0,,{\fad(120,160)}at the table, not fewer.
+Dialogue: 0,0:09:49.81,0:09:50.78,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:09:50.82,0:09:51.91,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
