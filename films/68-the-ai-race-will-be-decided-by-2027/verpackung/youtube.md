@@ -15,6 +15,8 @@ America and China are racing to build superintelligence. Round by round, the sco
 
 ✨ ☕ If you want superintelligence to benefit everyone, you can support this channel here: https://buymeacoffee.com/thegoodtakeoff
 
+✨ 🤝 Want to sponsor a film? Here is how: https://passionfroot.me/the-good-takeoff
+
 ✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: https://aistronauts.at/film-course
 
 Disclosure: This film was made with help from Claude, an AI model by Anthropic. Anthropic is one of the labs in this story: the METR assessment is about Anthropic, and Dario Amodei is its CEO. Anthropic had no editorial input. Figures as of Nov 25, 2026.
@@ -76,8 +78,6 @@ A different race?
 The talks
 • AI incident channel (Al Jazeera): https://www.aljazeera.com/news/2026/9/26/china-us-to-open-ai-communication-channel-after-summit-white-house-says
 • Bessent on military AI (Reuters): https://www.usnews.com/news/world/articles/2026-11-20/trump-xi-agreed-that-military-ai-decisions-should-involve-humans-bessent-says
-
-Want to sponsor a film? passionfroot.me/the-good-takeoff
 ```
 
 ## Tags
