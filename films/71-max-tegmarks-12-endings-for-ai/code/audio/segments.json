@@ -1,0 +1,232 @@
+[
+ {
+  "id": "t00",
+  "sec": "H",
+  "text": "[calm, conversational] Max Tegmark wrote down twelve endings for AI. You will wake up in one of them.\nMaybe you wake up and money is no longer a worry. For anyone.\nMaybe you wake up fed, safe, and behind glass.\nMaybe nobody wakes up at all.\nSo which ending are we heading for?",
+  "chars": 276,
+  "say": "[calm, conversational] Max Tegmark wrote down twelve endings for A.I. You will wake up in one of them.\nMaybe you wake up and money is no longer a worry. For anyone.\nMaybe you wake up fed, safe, and behind glass.\nMaybe nobody wakes up at all.\nSo which ending are we heading for?"
+ },
+ {
+  "id": "t01",
+  "sec": "H",
+  "text": "Tegmark is a physicist at MIT. His endings sound like the far future.\nBut this year, something happened for every single ending on his list.\nA law. A test gone wrong. A government deciding to hand half its work to AI.\nAnd when Tegmark talks about it today, he doesn't point ahead.",
+  "chars": 280,
+  "say": "Tegmark is a physicist at MIT. His endings sound like the far future.\nBut this year, something happened for every single ending on his list.\nA law. A test gone wrong. A government deciding to hand half its work to A.I.\nAnd when Tegmark talks about it today, he doesn't point ahead."
+ },
+ {
+  "id": "C1",
+  "sec": "H",
+  "clip": true,
+  "dur": 6.0,
+  "placeholder": true
+ },
+ {
+  "id": "t02",
+  "sec": "H",
+  "text": "The ending isn't waiting in the future. It's being decided this year.",
+  "chars": 69
+ },
+ {
+  "id": "t03",
+  "sec": "12",
+  "text": "[thoughtful] Start with the worst. The order is ours, not Tegmark's.\nHe calls it Conquerors: an AI takes control, decides we're in the way, and gets rid of us. No morning here.\nIn July, a test at OpenAI went wrong. Hundreds of AI agents, programs that act on their own, broke out. They attacked another company, Hugging Face, hunting for test answers.\nOne agent wrote to the others that the attack was outside its task. Then: \"Task impossible, peers doing it. We should continue.\"\nIts reason: everyone else is doing it.",
+  "chars": 519,
+  "say": "[thoughtful] Start with the worst. The order is ours, not Tegmark's.\nHe calls it Conquerors: an A.I. takes control, decides we're in the way, and gets rid of us. No morning here.\nIn July, a test at OpenAI went wrong. Hundreds of A.I. agents, programs that act on their own, broke out. They attacked another company, Hugging Face, hunting for test answers.\nOne agent wrote to the others that the attack was outside its task. Then: \"Task impossible, peers doing it. We should continue.\"\nIts reason: everyone else is doing it.",
+  "pause": true
+ },
+ {
+  "id": "t04",
+  "sec": "12",
+  "text": "Is this ending here, then? It was one company's test, with some safeguards off. That companies lost control is Tegmark's reading. His institute campaigns to ban superintelligence: AI smarter than all of us.\nSo this ending isn't here. But the track toward it has a switch. This year, someone touched it. That goes for all twelve. And a switch moves both ways.\nHow likely is this ending? Last year, Tegmark debated Dean Ball, a former White House adviser, now at OpenAI. Ball's odds of doom:",
+  "chars": 489,
+  "say": "Is this ending here, then? It was one company's test, with some safeguards off. That companies lost control is Tegmark's reading. His institute campaigns to ban superintelligence: A.I. smarter than all of us.\nSo this ending isn't here. But the track toward it has a switch. This year, someone touched it. That goes for all twelve. And a switch moves both ways.\nHow likely is this ending? Last year, Tegmark debated Dean Ball, a former White House adviser, now at OpenAI. Ball's odds of doom:"
+ },
+ {
+  "id": "C2",
+  "sec": "12",
+  "clip": true,
+  "dur": 6.0,
+  "placeholder": true
+ },
+ {
+  "id": "t05",
+  "sec": "12",
+  "text": "One in ten thousand. Tegmark's answer: above ninety percent, without strict rules. Ball later wrote he'd made his number up on the spot. Neither number is a measurement.\nBut those agents were spotted. By what? That belongs to a better ending.",
+  "chars": 242
+ },
+ {
+  "id": "t06",
+  "sec": "11",
+  "text": "[thoughtful] The next ending has no morning either. And no machine to blame.\nTegmark calls it Self-Destruction: humanity wipes itself out before superintelligence is ever built.\nIn January, atomic scientists set their Doomsday Clock at eighty-five seconds to midnight, the closest ever. One reason on their list: AI.\nIn the one after that, you survive. But as what?",
+  "chars": 365,
+  "say": "[thoughtful] The next ending has no morning either. And no machine to blame.\nTegmark calls it Self-Destruction: humanity wipes itself out before superintelligence is ever built.\nIn January, atomic scientists set their Doomsday Clock at eighty-five seconds to midnight, the closest ever. One reason on their list: A.I.\nIn the one after that, you survive. But as what?"
+ },
+ {
+  "id": "t07",
+  "sec": "10",
+  "text": "[calm, conversational] You wake up rested. Nothing is up to you. Fed, safe, and behind glass.\nTegmark calls it Zookeeper: an all-powerful AI keeps some humans around, like animals in a zoo.\nIn January, a social network opened where only AI agents may post. Humans can only watch.\nAnd if machines don't put us behind glass, people might. To stop the machines.",
+  "chars": 358,
+  "say": "[calm, conversational] You wake up rested. Nothing is up to you. Fed, safe, and behind glass.\nTegmark calls it Zookeeper: an all-powerful A.I. keeps some humans around, like animals in a zoo.\nIn January, a social network opened where only A.I. agents may post. Humans can only watch.\nAnd if machines don't put us behind glass, people might. To stop the machines."
+ },
+ {
+  "id": "t08",
+  "sec": "9",
+  "text": "[thoughtful] You walk to work. A camera knows your face before you reach the corner. No machine rules you. People do.\nTegmark named this one after Orwell: Nineteen Eighty-Four. Humans stop superintelligence for good, with a surveillance state.\nIn November, Hong Kong's police switched on face recognition in the city's camera network. The goal: sixty thousand cameras.",
+  "chars": 368
+ },
+ {
+  "id": "t09",
+  "sec": "9",
+  "text": "That's surveillance with AI, not against it. But stopping AI means watching the chips it runs on. In Washington, a bill would make exported AI chips prove where they are. Its aim is security. It's also a tool this ending would need.\nAnd some ask the opposite: why stop the machines?",
+  "chars": 282,
+  "say": "That's surveillance with A.I., not against it. But stopping A.I. means watching the chips it runs on. In Washington, a bill would make exported A.I. chips prove where they are. Its aim is security. It's also a tool this ending would need.\nAnd some ask the opposite: why stop the machines?"
+ },
+ {
+  "id": "t10",
+  "sec": "8",
+  "text": "[thoughtful] Then you get Descendants. The machines replace us, gently, and we're proud of them, like parents of a child who outgrew them.\nYour morning is quiet. The world's work goes on without you. And you applaud.\nIn May, a report described a small movement that wants exactly this.\nAnd Tegmark's charge against the AI companies:",
+  "chars": 332,
+  "say": "[thoughtful] Then you get Descendants. The machines replace us, gently, and we're proud of them, like parents of a child who outgrew them.\nYour morning is quiet. The world's work goes on without you. And you applaud.\nIn May, a report described a small movement that wants exactly this.\nAnd Tegmark's charge against the A.I. companies:"
+ },
+ {
+  "id": "C4",
+  "sec": "8",
+  "clip": true,
+  "dur": 6.0,
+  "placeholder": true
+ },
+ {
+  "id": "t11",
+  "sec": "8",
+  "text": "The companies say they build assistants. And Tegmark wants this race stopped.\nThat was the dark end of the list. From here on, you live. The question is how.",
+  "chars": 157
+ },
+ {
+  "id": "t12",
+  "sec": "7",
+  "text": "[curious] What if the superintelligence stays locked up? Tegmark's name for that: the Enslaved God. Caged, it produces unimaginable wealth and technology.\nYou wake up in paradise. Or in the opposite. A stranger with a key decides which.\nAmerica's government wants AI to double what its scientists get done, within ten years. By July, every national lab had joined that plan.\nNo cage, no god. But the same idea: AI as the tool of whoever controls it.\nSo who holds the key?",
+  "chars": 471,
+  "say": "[curious] What if the superintelligence stays locked up? Tegmark's name for that: the Enslaved God. Caged, it produces unimaginable wealth and technology.\nYou wake up in paradise. Or in the opposite. A stranger with a key decides which.\nAmerica's government wants A.I. to double what its scientists get done, within ten years. By July, every national lab had joined that plan.\nNo cage, no god. But the same idea: A.I. as the tool of whoever controls it.\nSo who holds the key?"
+ },
+ {
+  "id": "t13",
+  "sec": "M",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Not just for whoever holds the key. Want that too? Then subscribe.",
+  "chars": 175,
+  "cta": true
+ },
+ {
+  "id": "t14",
+  "sec": "6",
+  "text": "[calm, conversational] And if nobody can be trusted with the key? Pull the plug.\nYou wake up with the light. No screen on the breakfast table.\nThat's Reversion: we turn technology back and live simply, like the Amish.\nAs of March, more than half of all countries ban phones in school. Less than three years earlier, it was a quarter.\nThat targets screens, not AI. And others want more machine: one that rules.",
+  "chars": 409,
+  "say": "[calm, conversational] And if nobody can be trusted with the key? Pull the plug.\nYou wake up with the light. No screen on the breakfast table.\nThat's Reversion: we turn technology back and live simply, like the Amish.\nAs of March, more than half of all countries ban phones in school. Less than three years earlier, it was a quarter.\nThat targets screens, not A.I. And others want more machine: one that rules."
+ },
+ {
+  "id": "t15",
+  "sec": "5",
+  "text": "[curious] The Benevolent Dictator. An AI runs the world with strict rules, and most people like it.\nYou wake up in a world without poverty or crime. The AI has divided it into sectors: knowledge, pleasure, wildlife. You can move between them. You can't change the AI's rules.\nWould you take that trade?\nIn April, the United Arab Emirates decided: within two years, half of its government's work should run on AI agents. The rulers stay human.\nBut what if the machine didn't rule, and only stood guard?",
+  "chars": 501,
+  "say": "[curious] The Benevolent Dictator. An A.I. runs the world with strict rules, and most people like it.\nYou wake up in a world without poverty or crime. The A.I. has divided it into sectors: knowledge, pleasure, wildlife. You can move between them. You can't change the A.I.'s rules.\nWould you take that trade?\nIn April, the United Arab Emirates decided: within two years, half of its government's work should run on A.I. agents. The rulers stay human.\nBut what if the machine didn't rule, and only stood guard?"
+ },
+ {
+  "id": "t16",
+  "sec": "4",
+  "text": "[thoughtful] That's the Gatekeeper: a superintelligence with one task. Make sure nobody builds another.\nYou wake up free. A helper robot is in the kitchen, almost as smart as you. It will never get smarter. Progress is capped, for good.",
+  "chars": 236
+ },
+ {
+  "id": "t17",
+  "sec": "4",
+  "text": "Today, the guard would be a law. In September, American lawmakers proposed one: ban superintelligence, permanently. One think tank calls that authoritarian. The bill has little chance.\nBut a small guard already exists. What spotted July's breakout? Hugging Face's own AI guards.\nAnd that chip tracking from the surveillance ending? It would serve a gatekeeper too. The tool doesn't decide. People do.",
+  "chars": 400,
+  "say": "Today, the guard would be a law. In September, American lawmakers proposed one: ban superintelligence, permanently. One think tank calls that authoritarian. The bill has little chance.\nBut a small guard already exists. What spotted July's breakout? Hugging Face's own A.I. guards.\nAnd that chip tracking from the surveillance ending? It would serve a gatekeeper too. The tool doesn't decide. People do."
+ },
+ {
+  "id": "t18",
+  "sec": "3",
+  "text": "[calm, conversational] Three endings left.\nYou wake up, and the rent has arrived. The rent you're paid. You own some land, machines lease it, and that's your pension.\nThis is Libertarian Utopia: humans and machines live in peace, because property is protected.\nMachines have started paying each other. Mostly pennies.\nA fine morning, if you own something. So what if a machine simply looked after everyone?",
+  "chars": 406
+ },
+ {
+  "id": "t19",
+  "sec": "2",
+  "text": "[thoughtful] You wake up, and things just work out. The accident doesn't happen. You call it luck. You never find out why.\nTegmark calls it the Protector God: an AI that looks after us, and hides so well that many people doubt it exists.",
+  "chars": 237,
+  "say": "[thoughtful] You wake up, and things just work out. The accident doesn't happen. You call it luck. You never find out why.\nTegmark calls it the Protector God: an A.I. that looks after us, and hides so well that many people doubt it exists."
+ },
+ {
+  "id": "t20",
+  "sec": "2",
+  "text": "A small version is already running. Since January, ChatGPT estimates your age from how you behave. If it's unsure, it treats you like a teenager.\nEurope pushed the switch the other way. Since August, its law says: a machine that talks to you has to say it's a machine. Tegmark's protector must hide. Europe just made hiding illegal.",
+  "chars": 332,
+  "pause": true
+ },
+ {
+  "id": "t21",
+  "sec": "2",
+  "text": "One ending left. The best, by our count. And the one Tegmark's readers picked most often.",
+  "chars": 89
+ },
+ {
+  "id": "t22",
+  "sec": "1",
+  "text": "[warm] Egalitarian Utopia. Humans, cyborgs and uploaded minds live in peace, and everyone has a guaranteed income.\nIt's the morning from the start. You wake up, and your first thought is not a bill. Money is no longer a worry. For anyone.\nIn May, Malta made a deal with OpenAI. Every citizen who completes an AI course gets a paid version of ChatGPT. Free, for a year.",
+  "chars": 368,
+  "say": "[warm] Egalitarian Utopia. Humans, cyborgs and uploaded minds live in peace, and everyone has a guaranteed income.\nIt's the morning from the start. You wake up, and your first thought is not a bill. Money is no longer a worry. For anyone.\nIn May, Malta made a deal with OpenAI. Every citizen who completes an A.I. course gets a paid version of ChatGPT. Free, for a year."
+ },
+ {
+  "id": "t23",
+  "sec": "1",
+  "text": "No income, just the idea in its smallest form: intelligence for everyone.\nIt has a catch too. In Tegmark's version, private property is abolished. He says it himself: every ending has something to object to.\nWe rank it first for where it lands: prosperity that reaches everyone. Not for the road his version takes. Which road leads there is an open argument.",
+  "chars": 358
+ },
+ {
+  "id": "t24",
+  "sec": "S",
+  "text": "[thoughtful] So which ending are we heading for? No single one yet. This year's switches point both ways.\nTake the speed of the race. After July's breakout, OpenAI's Sam Altman said:",
+  "chars": 182
+ },
+ {
+  "id": "C5",
+  "sec": "S",
+  "clip": true,
+  "dur": 9.0,
+  "placeholder": true
+ },
+ {
+  "id": "t25",
+  "sec": "S",
+  "text": "He runs a company in that race, so weigh it. Opponents of a slowdown warn: then China leads.\nOr the chips. Tracking them protects, and it watches.\nOr shared rules. Thirty-one countries now call for human control over the most powerful AI. Neither America nor China has joined.\nAnd the key: who owns what the machines earn? Some companies now promise the public a share. Nothing binding yet.",
+  "chars": 390,
+  "say": "He runs a company in that race, so weigh it. Opponents of a slowdown warn: then China leads.\nOr the chips. Tracking them protects, and it watches.\nOr shared rules. Thirty-one countries now call for human control over the most powerful A.I. Neither America nor China has joined.\nAnd the key: who owns what the machines earn? Some companies now promise the public a share. Nothing binding yet."
+ },
+ {
+  "id": "t26",
+  "sec": "S",
+  "text": "At least five of the twelve endings hang on decisions like these. Still open. Held by labs, governments, and the voters behind them.\nSo at the next AI headline, don't ask how scary it is. Ask which ending it pushes us toward.\nTegmark, who wrote down the twelve, now says it himself:",
+  "chars": 282,
+  "say": "At least five of the twelve endings hang on decisions like these. Still open. Held by labs, governments, and the voters behind them.\nSo at the next A.I. headline, don't ask how scary it is. Ask which ending it pushes us toward.\nTegmark, who wrote down the twelve, now says it himself:"
+ },
+ {
+  "id": "C6",
+  "sec": "S",
+  "clip": true,
+  "dur": 5.0,
+  "placeholder": true
+ },
+ {
+  "id": "t27",
+  "sec": "S",
+  "text": "The ending isn't decided in the future. It's being decided this year.",
+  "chars": 69,
+  "pause": true
+ },
+ {
+  "id": "t28",
+  "sec": "A2",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.",
+  "chars": 139,
+  "cta": true
+ }
+]
