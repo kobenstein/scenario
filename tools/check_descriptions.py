@@ -5,7 +5,8 @@ Rule (Jakob, 11.11. and 15.11.2026): every long film description starts with
   paragraph 1: hook
   paragraph 2: COFFEE line (Buy Me a Coffee)
   paragraph 3: COURSE line (film course)
-and ends with the SPONSOR line (Passionfroot storefront, Jakob 19.11.2026).
+  paragraph 4: SPONSOR line (Passionfroot storefront; Jakob 25.11.2026: in the head
+               next to the other two links, no longer at the end)
 Also flags the old untrue line "corrections get pinned" (Jakob 16.11.); --fix replaces it with
   "Spotted an error? Mention it in the comments."
 This applies to public, private AND scheduled videos. Run it before every release
@@ -31,7 +32,8 @@ COFFEE = ("✨ ☕ If you want superintelligence to benefit everyone, you can su
           "channel here: https://buymeacoffee.com/thegoodtakeoff")
 COURSE = ("✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: "
           "https://aistronauts.at/film-course")
-SPONSOR = "Want to sponsor a film? passionfroot.me/the-good-takeoff"
+SPONSOR = "✨ 🤝 Want to sponsor a film? Here is how: https://passionfroot.me/the-good-takeoff"
+OLD_SPONSOR = "Want to sponsor a film? passionfroot.me/the-good-takeoff"  # old closing line (19.11.)
 # Jakob 16.11.: the old error line is not true (nothing gets pinned), use the plain one
 OLD_ERROR_LINE = "Spotted an error? Tell us in the comments, corrections get pinned."
 ERROR_LINE = "Spotted an error? Mention it in the comments."
@@ -73,18 +75,16 @@ def head_ok(desc):
             and p[2].startswith("✨ 🎬") and "aistronauts.at/film-course" in p[2])
 
 
-def split_tags(desc):
-    paras = [p for p in desc.rstrip().split("\n\n") if "passionfroot.me/the-good-takeoff" not in p]
-    tags = [paras.pop()] if paras and paras[-1].lstrip().startswith("#") else []
-    return paras, tags
-
-
 def tail_ok(desc):
-    # Jakob 19.11.: sponsor line as the last paragraph (only hashtags may follow)
-    paras = desc.rstrip().split("\n\n")
-    if paras and paras[-1].lstrip().startswith("#"):
-        paras = paras[:-1]
-    return bool(paras) and paras[-1] == SPONSOR
+    # Jakob 25.11.: sponsor line is paragraph 4 of the head (new films and #69).
+    # Films from before 25.11. may keep the old closing line (Jakob: "ab jetzt").
+    p = desc.split("\n\n")
+    if sum("passionfroot.me/the-good-takeoff" in x for x in p) != 1:
+        return False
+    if len(p) >= 4 and p[3].startswith("✨ 🤝") and "passionfroot.me/the-good-takeoff" in p[3]:
+        return True
+    rest = p[:-1] if p and p[-1].lstrip().startswith("#") else p
+    return bool(rest) and rest[-1].strip() == OLD_SPONSOR
 
 
 def repaired(desc):
@@ -95,8 +95,9 @@ def repaired(desc):
 
 
 def with_sponsor(desc):
-    paras, tags = split_tags(desc)
-    return "\n\n".join(paras + [SPONSOR] + tags)
+    # head must already be hook, coffee, course; insert the sponsor line as paragraph 4
+    paras = [p for p in desc.rstrip().split("\n\n") if "passionfroot.me/the-good-takeoff" not in p]
+    return "\n\n".join(paras[:3] + [SPONSOR] + paras[3:])
 
 
 def new_head(desc):
@@ -138,7 +139,7 @@ def main():
             if not ok:
                 bad.append(v)
     if not bad:
-        print("Alle Langfilme haben Kaffee-Zeile + Kurs-Zeile als Absatz 2 und 3 und die Sponsor-Zeile am Schluss.")
+        print("Alle Langfilme haben Kaffee-, Kurs- und Sponsor-Zeile als Absatz 2, 3 und 4.")
         return 0
     if not fix:
         print(f"{len(bad)} Film(e) ohne korrekten Beschreibungskopf oder ohne Sponsor-Zeile. Mit --fix reparieren.")
