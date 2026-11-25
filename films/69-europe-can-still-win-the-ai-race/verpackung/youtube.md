@@ -17,6 +17,8 @@ Everyone says Europe has already lost the race for artificial intelligence. But 
 
 ✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: https://aistronauts.at/film-course
 
+✨ 🤝 Want to sponsor a film? Here is how: https://passionfroot.me/the-good-takeoff
+
 Disclosure: this film was made with the help of Claude, an A.I. model made by Anthropic, which had no editorial input. Facts as of Nov 24, 2026; EU budget talks are ongoing.
 
 Every animation in this film was built from scratch for it, in code. The narration uses a synthetic voice. Clips marked ORIGINAL FOOTAGE are real recordings, credited below. Sources are listed below. Spotted an error? Mention it in the comments.
@@ -83,8 +85,6 @@ ORIGINAL FOOTAGE
 • EU Commission, von der Leyen, Dublin, Nov 13, 2026 (© European Union, 2026, CC BY): https://www.youtube.com/watch?v=pO4Mc8QrbzY
 • Siemens, panel, Hannover Messe 2026: https://www.youtube.com/watch?v=gtXkPgyxKvU
 • KU Leuven, Mario Draghi, Feb 2, 2026: https://www.youtube.com/watch?v=t1iMjvsr7T0
-
-Want to sponsor a film? passionfroot.me/the-good-takeoff
 ```
 
 ## Tags
