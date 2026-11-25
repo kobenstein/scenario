@@ -1,0 +1,8 @@
+[
+ {"f": "M0", "at": "t00", "dt": -0.7, "fin": 0.4, "fout": 4.0, "end": "LH", "end_dt": 2.5},
+ {"f": "M1", "at": "L1", "dt": -0.5, "fin": 3.0, "fout": 5.0, "end": "L1", "end_dt": 2.5, "opts": {"ride": 0.7}},
+ {"f": "M2", "at": "L2", "dt": -0.5, "fin": 3.0, "fout": 5.0, "end": "LM", "end_dt": 2.5, "opts": {"ride": 0.6}},
+ {"f": "M3", "at": "L3", "dt": -0.5, "fin": 3.0, "fout": 5.0, "end": "L3", "end_dt": 2.5, "opts": {"repeat": [60, 80], "ride": 0.7}},
+ {"f": "M4", "at": "L4", "dt": -0.5, "fin": 3.0, "fout": 5.0, "end": "L4", "end_dt": 2.5, "opts": {"ride": 0.6}},
+ {"f": "M5", "at": "L5", "dt": -0.5, "fin": 3.0, "fout": 12.0, "end": "END", "end_dt": 0, "opts": {"ride": 0.5}}
+]

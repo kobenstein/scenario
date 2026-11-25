@@ -1,0 +1,22 @@
+# ElevenLabs v4 takes (voice akQnlreIUIoJxrTrosJj, stability 0.3, similarity 0.75, seed 4301). vo-v4 takes 25.11.; t04 t07 t08 t13 t14 t16 t17 re-recorded for vo-v5 (second fact check, 7 changed lines)
+t00 https://v3b.fal.media/files/b/0ab3e50a/bj9_1iYI96b4mZn4HN1cc_output.mp3
+t01 https://v3b.fal.media/files/b/0ab3e509/dLLvlHrQaD2nw5z_ZzaRN_output.mp3
+t02 https://v3b.fal.media/files/b/0ab3e50a/kl05B-RXhathv3gWhKuWt_output.mp3
+t03 https://v3b.fal.media/files/b/0ab3e509/PMU7MHrXlk9X0-CJ6cooR_output.mp3
+t04 https://v3b.fal.media/files/b/0ab3e52e/UkxQSiXGyFx6wgqyD-5TA_output.mp3   (vo-v5 retake)
+t05 https://v3b.fal.media/files/b/0ab3e50a/LsP21_g1G3TCypFcOJ9Sx_output.mp3
+t06 https://v3b.fal.media/files/b/0ab3e50a/Os5ZIKVPtU2-CRzwi5efz_output.mp3
+t07 https://v3b.fal.media/files/b/0ab3e52e/JbECb2L3hI3oIQzDpM8jO_output.mp3   (vo-v5 retake)
+t08 https://v3b.fal.media/files/b/0ab3e52e/IUUazEQV2S6Pi4_CWTUIN_output.mp3   (vo-v5 retake)
+t09 https://v3b.fal.media/files/b/0ab3e50d/6oMNY51nVOAzeQu9ph3bk_output.mp3
+t10 https://v3b.fal.media/files/b/0ab3e50d/dTursZHKPin1P4tUIpB1Q_output.mp3
+t11 https://v3b.fal.media/files/b/0ab3e50d/7V9Xh1ZQeBgB1U6mo6O0b_output.mp3
+t12 https://v3b.fal.media/files/b/0ab3e50d/Wwqovr43uoJ1LcJZM5ZJR_output.mp3
+t13 https://v3b.fal.media/files/b/0ab3e52e/CfWjPjcwfEfLWAlY9Q884_output.mp3   (vo-v5 retake)
+t14 https://v3b.fal.media/files/b/0ab3e52e/3Sw2mOI7lQpfsm5RQG8Ht_output.mp3   (vo-v5 retake)
+t15 https://v3b.fal.media/files/b/0ab3e50d/uixZLek3s6J23v4A1fpvm_output.mp3
+t16 https://v3b.fal.media/files/b/0ab3e52e/aoJ4u0OdGsyZOECAKOTa0_output.mp3   (vo-v5 retake)
+t17 https://v3b.fal.media/files/b/0ab3e52e/L3N6O0Ri3R2ARnCJWMwEa_output.mp3   (vo-v5 retake)
+t18 https://v3b.fal.media/files/b/0ab3e50d/vkuoB784XWWHb7ibrsclK_output.mp3
+t19 https://v3b.fal.media/files/b/0ab3e50d/EHiN_jnN5SFVH6hrHTxSq_output.mp3
+t20 https://v3b.fal.media/files/b/0ab3e50d/m_Wh2LT5qsnCrFq4FFnKp_output.mp3

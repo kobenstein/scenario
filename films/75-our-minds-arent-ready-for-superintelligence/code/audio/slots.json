@@ -1,0 +1,81 @@
+{
+ "duration": 631.83,
+ "end_screen": {
+  "start": 616.83,
+  "dur": 15.0,
+  "end": 631.83,
+  "call": "t20",
+  "call_start": 602.32,
+  "call_end": 612.83,
+  "tail_after_vo": 19.0,
+  "note": "after the last VO word: a quiet walk, then the 15 s end screen (the music fades out over it)"
+ },
+ "channel_calls": {
+  "t09": {
+   "start": 255.46,
+   "end": 265.73
+  },
+  "t20": {
+   "start": 602.32,
+   "end": 612.83
+  }
+ },
+ "slots": [
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "1",
+   "start": 102.72,
+   "end": 114.14,
+   "dur": 11.42,
+   "under": false,
+   "file": "C2_Bengio_UN.mp4"
+  },
+  {
+   "id": "K1",
+   "kind": "clip",
+   "sec": "1",
+   "start": 170.82,
+   "end": 186.9,
+   "dur": 16.08,
+   "under": false,
+   "file": "K1_Wilson_BigThink.mp4"
+  },
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "3",
+   "start": 290.16,
+   "end": 307.59,
+   "dur": 17.43,
+   "under": false,
+   "file": "C1_Harari.mp4"
+  }
+ ],
+ "clips": [
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "1",
+   "start": 102.72,
+   "end": 114.14,
+   "under": false
+  },
+  {
+   "id": "K1",
+   "kind": "clip",
+   "sec": "1",
+   "start": 170.82,
+   "end": 186.9,
+   "under": false
+  },
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "3",
+   "start": 290.16,
+   "end": 307.59,
+   "under": false
+  }
+ ]
+}

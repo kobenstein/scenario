@@ -1,0 +1,42 @@
+{
+ "_comment": "Film 75 clip cuts (sound step 25.11.): source file in /tmp/claude-0/f75/clips/, in_s / out_s inside it. Start from clips_zeiten.txt (faster-whisper, +-0.2 s), then moved to the quietest 10 ms before the first and after the last word (RMS of 10-ms frames, clips_wav.py checks it): C2 'Citizens' starts 6.16 (6.30 cut its C) -> in 6.08; 'choices' decays to 17.35 -> out 17.50. K1 'modern' starts 13.42 (pocketsphinx; 12.40-12.98 is a breath, faster-whisper put the word at 12.38) -> in 13.02; 'technology' ends 28.90 -> out 29.10. C1 'if' starts 9.40 -> in 9.38; 'on' + breath end 26.80, 'And we don't' follows at 26.83 -> out 26.81 (20 ms fade). Slot length = out_s - in_s; the picture uses the same in/out (tools/f75_clips.py CUTS).",
+ "C2": {
+  "file": "C2_Bengio_UN.mp4",
+  "in_s": 6.08,
+  "out_s": 17.5,
+  "fade_in": 0.01,
+  "fade_out": 0.06,
+  "speaker": "Yoshua Bengio",
+  "role": "Co-chair, UN Independent International Scientific Panel on AI",
+  "source": "United Nations Security Council",
+  "url": "https://www.youtube.com/watch?v=xvAOtdSQUR0",
+  "credit": "United Nations",
+  "transcript": "Citizens and governments should not accept the companies' claim that they are trapped in a race. The race is not a law of nature. It is the product of choices."
+ },
+ "K1": {
+  "file": "K1_Wilson_BigThink.mp4",
+  "in_s": 13.02,
+  "out_s": 29.1,
+  "fade_in": 0.01,
+  "fade_out": 0.06,
+  "speaker": "E. O. Wilson",
+  "role": "Biologist",
+  "source": "Big Think (2017)",
+  "url": "https://www.youtube.com/watch?v=_s30m6Bpj2U",
+  "credit": "Big Think",
+  "transcript": "…modern humanity is distinguished by Paleolithic emotions and medieval institutions like banks and religions and godlike technology."
+ },
+ "C1": {
+  "file": "C1_Harari.mp4",
+  "in_s": 9.38,
+  "out_s": 26.81,
+  "fade_in": 0.01,
+  "fade_out": 0.02,
+  "speaker": "Yuval Noah Harari",
+  "role": "Historian and author",
+  "source": "Yuval Noah Harari (2026-11-18)",
+  "url": "https://www.youtube.com/watch?v=H43e72-2aAs",
+  "credit": "Yuval Noah Harari",
+  "transcript": "…if for every $10 we spend on developing artificial intelligence, we could invest at least $1 in developing our consciousness, I think we'll be okay. But this is not the current trajectory we are on."
+ }
+}

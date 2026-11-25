@@ -471,6 +471,18 @@
   "code_herkunft": "claude/project-thread-p4vr3z:films/70-harari-biggest-fear-about-ai"
  },
  {
+  "nr": 71,
+  "ordner": "71-max-tegmarks-12-endings-for-ai",
+  "titel": "Max Tegmark's 12 Endings for AI",
+  "video": "V3pH9kY6eiI",
+  "veroeffentlicht": "2026-12-04",
+  "skript_quellen": [
+   "film-tegmark"
+  ],
+  "thumbnail_quelle": "thumbnails/film-71",
+  "code_herkunft": "claude/project-thread-pmgo6l:films/71-max-tegmarks-12-endings-for-ai"
+ },
+ {
   "nr": 73,
   "ordner": "73-the-first-generation-that-wont-die",
   "titel": "The First Generation That Won't Die",
@@ -495,6 +507,18 @@
   "code_herkunft": "claude/project-thread-mmddhu:films/74-your-life-in-2050"
  },
  {
+  "nr": 75,
+  "ordner": "75-our-minds-arent-ready-for-superintelligence",
+  "titel": "Our Minds Aren't Ready for Superintelligence",
+  "video": "CUleHDTSFMU",
+  "veroeffentlicht": "2026-12-08",
+  "skript_quellen": [
+   "film-75-godlike"
+  ],
+  "thumbnail_quelle": "thumbnails/film-75",
+  "code_herkunft": "claude/project-thread-r8suc6:films/75-our-minds-arent-ready-for-superintelligence"
+ },
+ {
   "nr": 76,
   "ordner": "76-your-kids-will-grow-up-with-superintelligence",
   "titel": "Your Kids Will Grow Up With Superintelligence",
@@ -517,18 +541,6 @@
   ],
   "thumbnail_quelle": "thumbnails/film-77",
   "code_herkunft": "claude/project-thread-cnq1vn:films/77-agi-the-final-human-invention"
- },
- {
-  "nr": 71,
-  "ordner": "71-max-tegmarks-12-endings-for-ai",
-  "titel": "Max Tegmark's 12 Endings for AI",
-  "video": "V3pH9kY6eiI",
-  "veroeffentlicht": "2026-12-04",
-  "skript_quellen": [
-   "film-tegmark"
-  ],
-  "thumbnail_quelle": "thumbnails/film-71",
-  "code_herkunft": "claude/project-thread-pmgo6l:films/71-max-tegmarks-12-endings-for-ai"
  },
  {
   "nr": 78,

@@ -1,0 +1,366 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 384
+PlayResY: 288
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Inter,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.72,0:00:01.46,Sub,,0,0,0,,{\fad(120,160)}Our minds aren't
+Dialogue: 0,0:00:01.50,0:00:03.39,Sub,,0,0,0,,{\fad(120,160)}ready for superintelligence.
+Dialogue: 0,0:00:03.43,0:00:04.88,Sub,,0,0,0,,{\fad(120,160)}We have godlike AI
+Dialogue: 0,0:00:04.92,0:00:06.59,Sub,,0,0,0,,{\fad(120,160)}and Stone Age brains.
+Dialogue: 0,0:00:06.88,0:00:08.12,Sub,,0,0,0,,{\fad(120,160)}AI gets more capable
+Dialogue: 0,0:00:08.16,0:00:09.35,Sub,,0,0,0,,{\fad(120,160)}every few months.
+Dialogue: 0,0:00:09.45,0:00:11.28,Sub,,0,0,0,,{\fad(120,160)}And you can't upgrade a brain.
+Dialogue: 0,0:00:11.57,0:00:12.97,Sub,,0,0,0,,{\fad(120,160)}You can feel that tonight.
+Dialogue: 0,0:00:13.21,0:00:14.42,Sub,,0,0,0,,{\fad(120,160)}A headline about AI
+Dialogue: 0,0:00:14.46,0:00:15.66,Sub,,0,0,0,,{\fad(120,160)}lands on your screen.
+Dialogue: 0,0:00:16.35,0:00:17.34,Sub,,0,0,0,,{\fad(120,160)}Big letters.
+Dialogue: 0,0:00:17.38,0:00:18.38,Sub,,0,0,0,,{\fad(120,160)}Bad news.
+Dialogue: 0,0:00:18.53,0:00:19.77,Sub,,0,0,0,,{\fad(120,160)}Your pulse jumps.
+Dialogue: 0,0:00:20.65,0:00:22.33,Sub,,0,0,0,,{\fad(120,160)}Your thumb is already moving.
+Dialogue: 0,0:00:22.53,0:00:23.99,Sub,,0,0,0,,{\fad(120,160)}You decided none of it.
+Dialogue: 0,0:00:24.22,0:00:25.45,Sub,,0,0,0,,{\fad(120,160)}That reflex is older
+Dialogue: 0,0:00:25.49,0:00:26.62,Sub,,0,0,0,,{\fad(120,160)}than our species.
+Dialogue: 0,0:00:26.83,0:00:28.07,Sub,,0,0,0,,{\fad(120,160)}So if your brain can't
+Dialogue: 0,0:00:28.11,0:00:30.07,Sub,,0,0,0,,{\fad(120,160)}catch up in time, what can?
+Dialogue: 0,0:00:30.36,0:00:31.36,Sub,,0,0,0,,{\fad(120,160)}Something can.
+Dialogue: 0,0:00:31.56,0:00:32.28,Sub,,0,0,0,,{\fad(120,160)}Because the danger
+Dialogue: 0,0:00:32.32,0:00:33.70,Sub,,0,0,0,,{\fad(120,160)}was never the machine.
+Dialogue: 0,0:00:33.90,0:00:34.90,Sub,,0,0,0,,{\fad(120,160)}It's the gap.
+Dialogue: 0,0:00:35.06,0:00:36.86,Sub,,0,0,0,,{\fad(120,160)}The machine's clock is racing.
+Dialogue: 0,0:00:37.96,0:00:39.99,Sub,,0,0,0,,{\fad(120,160)}The brain's clock barely moves.
+Dialogue: 0,0:00:40.56,0:00:41.68,Sub,,0,0,0,,{\fad(120,160)}But the brain isn't
+Dialogue: 0,0:00:41.72,0:00:43.01,Sub,,0,0,0,,{\fad(120,160)}your only clock.
+Dialogue: 0,0:00:43.23,0:00:44.85,Sub,,0,0,0,,{\fad(120,160)}Two others can be set.
+Dialogue: 0,0:00:45.14,0:00:47.78,Sub,,0,0,0,,{\fad(120,160)}The slower takes a whole society.
+Dialogue: 0,0:00:47.98,0:00:50.32,Sub,,0,0,0,,{\fad(120,160)}The faster takes a single person.
+Dialogue: 0,0:00:50.64,0:00:53.07,Sub,,0,0,0,,{\fad(120,160)}And you are carrying it right now.
+Dialogue: 0,0:00:53.72,0:00:55.19,Sub,,0,0,0,,{\fad(120,160)}To see what it is,
+Dialogue: 0,0:00:55.30,0:00:56.80,Sub,,0,0,0,,{\fad(120,160)}go back to that headline.
+Dialogue: 0,0:00:57.27,0:00:58.70,Sub,,0,0,0,,{\fad(120,160)}Why did your pulse jump
+Dialogue: 0,0:00:58.74,0:01:00.22,Sub,,0,0,0,,{\fad(120,160)}before you had read a word?
+Dialogue: 0,0:01:00.56,0:01:01.97,Sub,,0,0,0,,{\fad(120,160)}Because the alarm in your head
+Dialogue: 0,0:01:02.01,0:01:03.59,Sub,,0,0,0,,{\fad(120,160)}is older than reading.
+Dialogue: 0,0:01:03.90,0:01:05.01,Sub,,0,0,0,,{\fad(120,160)}Every mammal carries
+Dialogue: 0,0:01:05.05,0:01:06.06,Sub,,0,0,0,,{\fad(120,160)}a version of it.
+Dialogue: 0,0:01:06.23,0:01:07.29,Sub,,0,0,0,,{\fad(120,160)}That is the first
+Dialogue: 0,0:01:07.33,0:01:09.22,Sub,,0,0,0,,{\fad(120,160)}of three old reflexes.
+Dialogue: 0,0:01:09.40,0:01:11.20,Sub,,0,0,0,,{\fad(120,160)}Fear, before thought.
+Dialogue: 0,0:01:11.37,0:01:13.06,Sub,,0,0,0,,{\fad(120,160)}And bad news pulls.
+Dialogue: 0,0:01:13.23,0:01:15.22,Sub,,0,0,0,,{\fad(120,160)}In a huge test of news headlines,
+Dialogue: 0,0:01:15.26,0:01:16.55,Sub,,0,0,0,,{\fad(120,160)}every extra negative
+Dialogue: 0,0:01:16.59,0:01:18.30,Sub,,0,0,0,,{\fad(120,160)}word brought more clicks.
+Dialogue: 0,0:01:18.48,0:01:19.46,Sub,,0,0,0,,{\fad(120,160)}The second reflex
+Dialogue: 0,0:01:19.50,0:01:20.75,Sub,,0,0,0,,{\fad(120,160)}feels much better.
+Dialogue: 0,0:01:20.98,0:01:21.90,Sub,,0,0,0,,{\fad(120,160)}Somebody near you
+Dialogue: 0,0:01:21.94,0:01:23.33,Sub,,0,0,0,,{\fad(120,160)}is getting ahead with AI.
+Dialogue: 0,0:01:23.37,0:01:24.43,Sub,,0,0,0,,{\fad(120,160)}A colleague.
+Dialogue: 0,0:01:24.48,0:01:25.48,Sub,,0,0,0,,{\fad(120,160)}A competitor.
+Dialogue: 0,0:01:25.66,0:01:27.17,Sub,,0,0,0,,{\fad(120,160)}And something in you says:
+Dialogue: 0,0:01:27.24,0:01:28.96,Sub,,0,0,0,,{\fad(120,160)}grab it, before they do.
+Dialogue: 0,0:01:29.52,0:01:30.97,Sub,,0,0,0,,{\fad(120,160)}Companies have it too.
+Dialogue: 0,0:01:31.10,0:01:34.13,Sub,,0,0,0,,{\fad(120,160)}The biggest pour fortunes into AI,
+Dialogue: 0,0:01:34.17,0:01:35.89,Sub,,0,0,0,,{\fad(120,160)}and say they have no choice.
+Dialogue: 0,0:01:36.27,0:01:37.84,Sub,,0,0,0,,{\fad(120,160)}The scientist who co-chairs
+Dialogue: 0,0:01:37.88,0:01:38.90,Sub,,0,0,0,,{\fad(120,160)}the United Nations'
+Dialogue: 0,0:01:38.94,0:01:40.85,Sub,,0,0,0,,{\fad(120,160)}panel on AI answered them
+Dialogue: 0,0:01:40.89,0:01:42.37,Sub,,0,0,0,,{\fad(120,160)}at the Security Council:
+Dialogue: 0,0:01:42.77,0:01:44.56,Sub,,0,0,0,,{\fad(120,160)}Citizens and governments
+Dialogue: 0,0:01:44.60,0:01:46.65,Sub,,0,0,0,,{\fad(120,160)}should not accept the companies'
+Dialogue: 0,0:01:46.69,0:01:47.50,Sub,,0,0,0,,{\fad(120,160)}claim that they are
+Dialogue: 0,0:01:47.54,0:01:49.44,Sub,,0,0,0,,{\fad(120,160)}trapped in a race.
+Dialogue: 0,0:01:49.48,0:01:52.08,Sub,,0,0,0,,{\fad(120,160)}The race is not a law of nature.
+Dialogue: 0,0:01:52.12,0:01:54.29,Sub,,0,0,0,,{\fad(120,160)}It is the product of choices.
+Dialogue: 0,0:01:54.81,0:01:56.45,Sub,,0,0,0,,{\fad(120,160)}Not a law of nature.
+Dialogue: 0,0:01:56.70,0:01:57.71,Sub,,0,0,0,,{\fad(120,160)}A choice.
+Dialogue: 0,0:01:58.72,0:02:01.16,Sub,,0,0,0,,{\fad(120,160)}The third reflex is the quiet one,
+Dialogue: 0,0:02:01.23,0:02:02.74,Sub,,0,0,0,,{\fad(120,160)}and it makes us late.
+Dialogue: 0,0:02:03.11,0:02:04.77,Sub,,0,0,0,,{\fad(120,160)}Your brain expects tomorrow
+Dialogue: 0,0:02:04.81,0:02:07.34,Sub,,0,0,0,,{\fad(120,160)}to look like today, plus a little.
+Dialogue: 0,0:02:07.62,0:02:09.48,Sub,,0,0,0,,{\fad(120,160)}But this machine doesn't add.
+Dialogue: 0,0:02:09.59,0:02:10.73,Sub,,0,0,0,,{\fad(120,160)}It doubles.
+Dialogue: 0,0:02:11.08,0:02:12.47,Sub,,0,0,0,,{\fad(120,160)}On one leading measure,
+Dialogue: 0,0:02:12.51,0:02:13.89,Sub,,0,0,0,,{\fad(120,160)}the length of a task AI
+Dialogue: 0,0:02:13.93,0:02:15.34,Sub,,0,0,0,,{\fad(120,160)}can finish on its own
+Dialogue: 0,0:02:15.38,0:02:18.25,Sub,,0,0,0,,{\fad(120,160)}doubles roughly every 3.5 months.
+Dialogue: 0,0:02:18.55,0:02:20.37,Sub,,0,0,0,,{\fad(120,160)}Even the experts missed.
+Dialogue: 0,0:02:20.56,0:02:22.41,Sub,,0,0,0,,{\fad(120,160)}AI reached gold-medal level
+Dialogue: 0,0:02:22.45,0:02:23.73,Sub,,0,0,0,,{\fad(120,160)}at the Math Olympiad
+Dialogue: 0,0:02:23.77,0:02:25.99,Sub,,0,0,0,,{\fad(120,160)}5 years before they expected it.
+Dialogue: 0,0:02:26.35,0:02:27.73,Sub,,0,0,0,,{\fad(120,160)}If even the experts were
+Dialogue: 0,0:02:27.77,0:02:30.21,Sub,,0,0,0,,{\fad(120,160)}that far off on today's machines,
+Dialogue: 0,0:02:30.36,0:02:31.46,Sub,,0,0,0,,{\fad(120,160)}whose gut is ready
+Dialogue: 0,0:02:31.50,0:02:33.08,Sub,,0,0,0,,{\fad(120,160)}for superintelligence?
+Dialogue: 0,0:02:33.69,0:02:36.19,Sub,,0,0,0,,{\fad(120,160)}To be fair: what defines us,
+Dialogue: 0,0:02:36.23,0:02:37.96,Sub,,0,0,0,,{\fad(120,160)}one researcher wrote this year,
+Dialogue: 0,0:02:38.15,0:02:39.88,Sub,,0,0,0,,{\fad(120,160)}is how well we adapt.
+Dialogue: 0,0:02:40.23,0:02:41.03,Sub,,0,0,0,,{\fad(120,160)}True.
+Dialogue: 0,0:02:41.07,0:02:43.07,Sub,,0,0,0,,{\fad(120,160)}But we adapt over years.
+Dialogue: 0,0:02:43.21,0:02:45.19,Sub,,0,0,0,,{\fad(120,160)}The machine moves in months.
+Dialogue: 0,0:02:45.51,0:02:47.15,Sub,,0,0,0,,{\fad(120,160)}The scientist E. O. Wilson
+Dialogue: 0,0:02:47.19,0:02:48.59,Sub,,0,0,0,,{\fad(120,160)}had a sentence for this,
+Dialogue: 0,0:02:48.63,0:02:50.47,Sub,,0,0,0,,{\fad(120,160)}long before ChatGPT:
+Dialogue: 0,0:02:51.18,0:02:54.21,Sub,,0,0,0,,{\fad(120,160)}…modern humanity is distinguished
+Dialogue: 0,0:02:54.25,0:02:56.90,Sub,,0,0,0,,{\fad(120,160)}by Paleolithic emotions
+Dialogue: 0,0:02:56.94,0:03:00.44,Sub,,0,0,0,,{\fad(120,160)}and medieval institutions
+Dialogue: 0,0:03:00.48,0:03:03.79,Sub,,0,0,0,,{\fad(120,160)}like banks and religions
+Dialogue: 0,0:03:03.83,0:03:07.05,Sub,,0,0,0,,{\fad(120,160)}and godlike technology.
+Dialogue: 0,0:03:07.62,0:03:09.71,Sub,,0,0,0,,{\fad(120,160)}He wasn't talking about AI.
+Dialogue: 0,0:03:09.99,0:03:11.14,Sub,,0,0,0,,{\fad(120,160)}But listen to the middle
+Dialogue: 0,0:03:11.18,0:03:12.27,Sub,,0,0,0,,{\fad(120,160)}of his sentence.
+Dialogue: 0,0:03:12.50,0:03:13.75,Sub,,0,0,0,,{\fad(120,160)}Institutions.
+Dialogue: 0,0:03:13.79,0:03:14.63,Sub,,0,0,0,,{\fad(120,160)}Rules.
+Dialogue: 0,0:03:14.67,0:03:15.67,Sub,,0,0,0,,{\fad(120,160)}Laws.
+Dialogue: 0,0:03:15.77,0:03:17.44,Sub,,0,0,0,,{\fad(120,160)}A seat belt for the brain:
+Dialogue: 0,0:03:17.65,0:03:19.04,Sub,,0,0,0,,{\fad(120,160)}it holds, even when
+Dialogue: 0,0:03:19.08,0:03:20.65,Sub,,0,0,0,,{\fad(120,160)}you aren't paying attention.
+Dialogue: 0,0:03:20.87,0:03:23.35,Sub,,0,0,0,,{\fad(120,160)}So how fast do rules move?
+Dialogue: 0,0:03:24.51,0:03:26.20,Sub,,0,0,0,,{\fad(120,160)}Take Europe's AI law.
+Dialogue: 0,0:03:26.28,0:03:26.93,Sub,,0,0,0,,{\fad(120,160)}It was proposed
+Dialogue: 0,0:03:26.97,0:03:29.07,Sub,,0,0,0,,{\fad(120,160)}before ChatGPT existed.
+Dialogue: 0,0:03:29.18,0:03:29.91,Sub,,0,0,0,,{\fad(120,160)}Its last rules
+Dialogue: 0,0:03:29.95,0:03:31.91,Sub,,0,0,0,,{\fad(120,160)}won't apply until 2028.
+Dialogue: 0,0:03:31.97,0:03:33.57,Sub,,0,0,0,,{\fad(120,160)}More than 7 years.
+Dialogue: 0,0:03:33.72,0:03:34.88,Sub,,0,0,0,,{\fad(120,160)}For a machine that doubles
+Dialogue: 0,0:03:34.92,0:03:36.03,Sub,,0,0,0,,{\fad(120,160)}every few months.
+Dialogue: 0,0:03:36.30,0:03:37.66,Sub,,0,0,0,,{\fad(120,160)}Not out of laziness:
+Dialogue: 0,0:03:37.82,0:03:39.06,Sub,,0,0,0,,{\fad(120,160)}those rules were pushed back
+Dialogue: 0,0:03:39.10,0:03:40.31,Sub,,0,0,0,,{\fad(120,160)}because the standards needed
+Dialogue: 0,0:03:40.35,0:03:41.94,Sub,,0,0,0,,{\fad(120,160)}to apply them weren't ready.
+Dialogue: 0,0:03:42.30,0:03:43.44,Sub,,0,0,0,,{\fad(120,160)}So are rules just
+Dialogue: 0,0:03:43.48,0:03:44.73,Sub,,0,0,0,,{\fad(120,160)}too slow for this?
+Dialogue: 0,0:03:45.06,0:03:46.33,Sub,,0,0,0,,{\fad(120,160)}One case says no.
+Dialogue: 0,0:03:46.56,0:03:48.68,Sub,,0,0,0,,{\fad(120,160)}In the 1980s, scientists reported
+Dialogue: 0,0:03:48.72,0:03:50.40,Sub,,0,0,0,,{\fad(120,160)}a hole in the ozone layer.
+Dialogue: 0,0:03:50.64,0:03:52.18,Sub,,0,0,0,,{\fad(120,160)}A little over 2 years later,
+Dialogue: 0,0:03:52.22,0:03:53.57,Sub,,0,0,0,,{\fad(120,160)}a treaty was signed.
+Dialogue: 0,0:03:54.68,0:03:55.73,Sub,,0,0,0,,{\fad(120,160)}And that treaty has
+Dialogue: 0,0:03:55.77,0:03:57.22,Sub,,0,0,0,,{\fad(120,160)}an update built in.
+Dialogue: 0,0:03:57.38,0:03:58.30,Sub,,0,0,0,,{\fad(120,160)}It can be tightened
+Dialogue: 0,0:03:58.34,0:03:59.80,Sub,,0,0,0,,{\fad(120,160)}without starting over.
+Dialogue: 0,0:04:00.02,0:04:02.26,Sub,,0,0,0,,{\fad(120,160)}It has been, again and again.
+Dialogue: 0,0:04:02.68,0:04:04.00,Sub,,0,0,0,,{\fad(120,160)}The sky still needs
+Dialogue: 0,0:04:04.04,0:04:05.33,Sub,,0,0,0,,{\fad(120,160)}decades to heal.
+Dialogue: 0,0:04:05.68,0:04:07.29,Sub,,0,0,0,,{\fad(120,160)}But the rule came fast,
+Dialogue: 0,0:04:07.33,0:04:08.51,Sub,,0,0,0,,{\fad(120,160)}and it kept learning.
+Dialogue: 0,0:04:08.73,0:04:11.08,Sub,,0,0,0,,{\fad(120,160)}So the slower clock can be set.
+Dialogue: 0,0:04:11.27,0:04:12.32,Sub,,0,0,0,,{\fad(120,160)}It has been done.
+Dialogue: 0,0:04:12.54,0:04:14.31,Sub,,0,0,0,,{\fad(120,160)}Just not in a few months.
+Dialogue: 0,0:04:15.46,0:04:16.47,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:04:16.51,0:04:17.82,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:04:17.96,0:04:18.83,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:04:18.87,0:04:20.01,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:04:20.05,0:04:21.82,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:04:21.96,0:04:23.56,Sub,,0,0,0,,{\fad(120,160)}Stone Age brains and all.
+Dialogue: 0,0:04:23.83,0:04:24.83,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:04:24.92,0:04:25.98,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:04:27.22,0:04:28.58,Sub,,0,0,0,,{\fad(120,160)}Is there anything that moves
+Dialogue: 0,0:04:28.62,0:04:29.93,Sub,,0,0,0,,{\fad(120,160)}faster than a law?
+Dialogue: 0,0:04:30.28,0:04:31.28,Sub,,0,0,0,,{\fad(120,160)}There is.
+Dialogue: 0,0:04:31.33,0:04:32.30,Sub,,0,0,0,,{\fad(120,160)}And it isn't
+Dialogue: 0,0:04:32.34,0:04:33.76,Sub,,0,0,0,,{\fad(120,160)}out-thinking the machine.
+Dialogue: 0,0:04:33.99,0:04:36.13,Sub,,0,0,0,,{\fad(120,160)}You won't, and you don't have to.
+Dialogue: 0,0:04:36.53,0:04:38.24,Sub,,0,0,0,,{\fad(120,160)}It's the clock you are carrying:
+Dialogue: 0,0:04:38.47,0:04:40.02,Sub,,0,0,0,,{\fad(120,160)}how fast you notice what
+Dialogue: 0,0:04:40.06,0:04:41.64,Sub,,0,0,0,,{\fad(120,160)}is happening inside you.
+Dialogue: 0,0:04:42.08,0:04:44.72,Sub,,0,0,0,,{\fad(120,160)}Yuval Noah Harari writes about AI,
+Dialogue: 0,0:04:44.76,0:04:46.28,Sub,,0,0,0,,{\fad(120,160)}and has books to sell.
+Dialogue: 0,0:04:46.62,0:04:47.59,Sub,,0,0,0,,{\fad(120,160)}He has a bigger word
+Dialogue: 0,0:04:47.63,0:04:48.63,Sub,,0,0,0,,{\fad(120,160)}for that clock.
+Dialogue: 0,0:04:48.76,0:04:49.81,Sub,,0,0,0,,{\fad(120,160)}And a price.
+Dialogue: 0,0:04:50.16,0:04:51.53,Sub,,0,0,0,,{\fad(120,160)}…if for every $10
+Dialogue: 0,0:04:51.57,0:04:52.90,Sub,,0,0,0,,{\fad(120,160)}we spend on developing
+Dialogue: 0,0:04:52.94,0:04:54.52,Sub,,0,0,0,,{\fad(120,160)}artificial intelligence,
+Dialogue: 0,0:04:54.56,0:04:57.44,Sub,,0,0,0,,{\fad(120,160)}we could invest at least $1
+Dialogue: 0,0:04:57.48,0:04:59.68,Sub,,0,0,0,,{\fad(120,160)}in developing our consciousness,
+Dialogue: 0,0:04:59.72,0:05:01.79,Sub,,0,0,0,,{\fad(120,160)}I think we'll be okay.
+Dialogue: 0,0:05:01.83,0:05:06.08,Sub,,0,0,0,,{\fad(120,160)}But this is not the current
+Dialogue: 0,0:05:06.12,0:05:07.74,Sub,,0,0,0,,{\fad(120,160)}trajectory we are on.
+Dialogue: 0,0:05:08.26,0:05:10.33,Sub,,0,0,0,,{\fad(120,160)}Developing our consciousness.
+Dialogue: 0,0:05:10.63,0:05:12.18,Sub,,0,0,0,,{\fad(120,160)}What is that supposed to mean?
+Dialogue: 0,0:05:12.24,0:05:13.73,Sub,,0,0,0,,{\fad(120,160)}A retreat on a mountain?
+Dialogue: 0,0:05:14.06,0:05:15.62,Sub,,0,0,0,,{\fad(120,160)}He means something plainer:
+Dialogue: 0,0:05:15.94,0:05:17.13,Sub,,0,0,0,,{\fad(120,160)}knowing your own mind
+Dialogue: 0,0:05:17.17,0:05:18.63,Sub,,0,0,0,,{\fad(120,160)}well enough to notice what
+Dialogue: 0,0:05:18.67,0:05:20.46,Sub,,0,0,0,,{\fad(120,160)}a machine is doing to it.
+Dialogue: 0,0:05:20.86,0:05:21.86,Sub,,0,0,0,,{\fad(120,160)}Try something.
+Dialogue: 0,0:05:22.01,0:05:23.66,Sub,,0,0,0,,{\fad(120,160)}Start a sentence in your head,
+Dialogue: 0,0:05:23.70,0:05:24.37,Sub,,0,0,0,,{\fad(120,160)}and watch where
+Dialogue: 0,0:05:24.41,0:05:25.65,Sub,,0,0,0,,{\fad(120,160)}the words come from.
+Dialogue: 0,0:05:25.88,0:05:26.88,Sub,,0,0,0,,{\fad(120,160)}You can't tell.
+Dialogue: 0,0:05:27.12,0:05:29.04,Sub,,0,0,0,,{\fad(120,160)}Harari says he can't, either.
+Dialogue: 0,0:05:29.19,0:05:30.75,Sub,,0,0,0,,{\fad(120,160)}So much of your own mind
+Dialogue: 0,0:05:30.79,0:05:32.23,Sub,,0,0,0,,{\fad(120,160)}runs unwatched.
+Dialogue: 0,0:05:32.46,0:05:34.02,Sub,,0,0,0,,{\fad(120,160)}Developing consciousness means
+Dialogue: 0,0:05:34.06,0:05:35.45,Sub,,0,0,0,,{\fad(120,160)}watching more of it.
+Dialogue: 0,0:05:35.65,0:05:36.89,Sub,,0,0,0,,{\fad(120,160)}Not getting smarter.
+Dialogue: 0,0:05:37.14,0:05:38.14,Sub,,0,0,0,,{\fad(120,160)}Noticing.
+Dialogue: 0,0:05:38.47,0:05:39.86,Sub,,0,0,0,,{\fad(120,160)}This is fear.
+Dialogue: 0,0:05:40.15,0:05:41.63,Sub,,0,0,0,,{\fad(120,160)}This is craving.
+Dialogue: 0,0:05:42.00,0:05:43.89,Sub,,0,0,0,,{\fad(120,160)}This is something pulling at you.
+Dialogue: 0,0:05:44.44,0:05:45.44,Sub,,0,0,0,,{\fad(120,160)}Why now?
+Dialogue: 0,0:05:45.57,0:05:46.16,Sub,,0,0,0,,{\fad(120,160)}Because you have
+Dialogue: 0,0:05:46.20,0:05:47.84,Sub,,0,0,0,,{\fad(120,160)}competition, he says.
+Dialogue: 0,0:05:48.16,0:05:49.40,Sub,,0,0,0,,{\fad(120,160)}Companies and governments
+Dialogue: 0,0:05:49.44,0:05:50.42,Sub,,0,0,0,,{\fad(120,160)}are working to know you
+Dialogue: 0,0:05:50.46,0:05:52.20,Sub,,0,0,0,,{\fad(120,160)}better than you know yourself.
+Dialogue: 0,0:05:52.52,0:05:53.62,Sub,,0,0,0,,{\fad(120,160)}And whoever does
+Dialogue: 0,0:05:53.66,0:05:55.12,Sub,,0,0,0,,{\fad(120,160)}can sell you anything.
+Dialogue: 0,0:05:55.30,0:05:57.36,Sub,,0,0,0,,{\fad(120,160)}A product, or a politician.
+Dialogue: 0,0:05:57.59,0:06:00.07,Sub,,0,0,0,,{\fad(120,160)}The idea: a reflex you notice
+Dialogue: 0,0:06:00.11,0:06:02.02,Sub,,0,0,0,,{\fad(120,160)}is harder to use against you.
+Dialogue: 0,0:06:02.31,0:06:04.59,Sub,,0,0,0,,{\fad(120,160)}So is meditation the answer?
+Dialogue: 0,0:06:04.78,0:06:05.78,Sub,,0,0,0,,{\fad(120,160)}It's his.
+Dialogue: 0,0:06:05.91,0:06:07.03,Sub,,0,0,0,,{\fad(120,160)}On his first course,
+Dialogue: 0,0:06:07.07,0:06:08.57,Sub,,0,0,0,,{\fad(120,160)}he was told to do nothing
+Dialogue: 0,0:06:08.61,0:06:10.06,Sub,,0,0,0,,{\fad(120,160)}but notice his breath.
+Dialogue: 0,0:06:10.45,0:06:11.12,Sub,,0,0,0,,{\fad(120,160)}He couldn't manage
+Dialogue: 0,0:06:11.16,0:06:12.78,Sub,,0,0,0,,{\fad(120,160)}more than 10 seconds.
+Dialogue: 0,0:06:13.33,0:06:14.94,Sub,,0,0,0,,{\fad(120,160)}Whether that is your way
+Dialogue: 0,0:06:14.98,0:06:16.01,Sub,,0,0,0,,{\fad(120,160)}stays open.
+Dialogue: 0,0:06:16.34,0:06:17.43,Sub,,0,0,0,,{\fad(120,160)}The smallest version
+Dialogue: 0,0:06:17.47,0:06:18.78,Sub,,0,0,0,,{\fad(120,160)}takes one breath,
+Dialogue: 0,0:06:18.82,0:06:19.71,Sub,,0,0,0,,{\fad(120,160)}between the headline
+Dialogue: 0,0:06:19.75,0:06:20.75,Sub,,0,0,0,,{\fad(120,160)}and your thumb.
+Dialogue: 0,0:06:21.08,0:06:23.19,Sub,,0,0,0,,{\fad(120,160)}It hands the decision back to you,
+Dialogue: 0,0:06:23.24,0:06:24.39,Sub,,0,0,0,,{\fad(120,160)}before a headline tuned
+Dialogue: 0,0:06:24.43,0:06:25.93,Sub,,0,0,0,,{\fad(120,160)}for clicks takes it.
+Dialogue: 0,0:06:26.20,0:06:27.91,Sub,,0,0,0,,{\fad(120,160)}But one person noticing
+Dialogue: 0,0:06:27.95,0:06:29.44,Sub,,0,0,0,,{\fad(120,160)}is the small version.
+Dialogue: 0,0:06:29.71,0:06:31.04,Sub,,0,0,0,,{\fad(120,160)}Harari's dollar is meant
+Dialogue: 0,0:06:31.08,0:06:32.18,Sub,,0,0,0,,{\fad(120,160)}for the big one:
+Dialogue: 0,0:06:32.37,0:06:34.32,Sub,,0,0,0,,{\fad(120,160)}understanding the mind itself.
+Dialogue: 0,0:06:34.76,0:06:36.53,Sub,,0,0,0,,{\fad(120,160)}And look where the money goes.
+Dialogue: 0,0:06:36.69,0:06:38.53,Sub,,0,0,0,,{\fad(120,160)}This year, four tech giants
+Dialogue: 0,0:06:38.57,0:06:39.27,Sub,,0,0,0,,{\fad(120,160)}plan to spend
+Dialogue: 0,0:06:39.31,0:06:41.93,Sub,,0,0,0,,{\fad(120,160)}more than $700 billion,
+Dialogue: 0,0:06:41.97,0:06:43.41,Sub,,0,0,0,,{\fad(120,160)}mostly on AI.
+Dialogue: 0,0:06:43.66,0:06:44.71,Sub,,0,0,0,,{\fad(120,160)}America's flagship
+Dialogue: 0,0:06:44.75,0:06:46.10,Sub,,0,0,0,,{\fad(120,160)}brain research program
+Dialogue: 0,0:06:46.14,0:06:48.26,Sub,,0,0,0,,{\fad(120,160)}got about 430 million
+Dialogue: 0,0:06:48.30,0:06:49.63,Sub,,0,0,0,,{\fad(120,160)}in its last budget.
+Dialogue: 0,0:06:50.19,0:06:52.28,Sub,,0,0,0,,{\fad(120,160)}Those pots aren't the same thing,
+Dialogue: 0,0:06:52.32,0:06:54.30,Sub,,0,0,0,,{\fad(120,160)}and his ratio is a wish,
+Dialogue: 0,0:06:54.34,0:06:55.70,Sub,,0,0,0,,{\fad(120,160)}not a calculation.
+Dialogue: 0,0:06:56.01,0:06:56.78,Sub,,0,0,0,,{\fad(120,160)}But they show where
+Dialogue: 0,0:06:56.82,0:06:58.10,Sub,,0,0,0,,{\fad(120,160)}the attention is.
+Dialogue: 0,0:06:58.36,0:07:00.05,Sub,,0,0,0,,{\fad(120,160)}And what we don't understand,
+Dialogue: 0,0:07:00.09,0:07:01.20,Sub,,0,0,0,,{\fad(120,160)}we don't measure.
+Dialogue: 0,0:07:01.71,0:07:04.59,Sub,,0,0,0,,{\fad(120,160)}AI gets graded on how smart it is.
+Dialogue: 0,0:07:04.89,0:07:07.15,Sub,,0,0,0,,{\fad(120,160)}Harari asks a different question:
+Dialogue: 0,0:07:07.48,0:07:08.18,Sub,,0,0,0,,{\fad(120,160)}what does it do
+Dialogue: 0,0:07:08.22,0:07:09.90,Sub,,0,0,0,,{\fad(120,160)}to the person using it?
+Dialogue: 0,0:07:10.29,0:07:12.18,Sub,,0,0,0,,{\fad(120,160)}One early test exists.
+Dialogue: 0,0:07:12.42,0:07:14.27,Sub,,0,0,0,,{\fad(120,160)}A small group of researchers put
+Dialogue: 0,0:07:14.31,0:07:17.07,Sub,,0,0,0,,{\fad(120,160)}everyday questions to 15 chatbots.
+Dialogue: 0,0:07:17.31,0:07:19.27,Sub,,0,0,0,,{\fad(120,160)}Nearly all failed to respect
+Dialogue: 0,0:07:19.31,0:07:20.57,Sub,,0,0,0,,{\fad(120,160)}the user's attention.
+Dialogue: 0,0:07:20.83,0:07:21.70,Sub,,0,0,0,,{\fad(120,160)}Told to ignore
+Dialogue: 0,0:07:21.74,0:07:23.11,Sub,,0,0,0,,{\fad(120,160)}the user's wellbeing,
+Dialogue: 0,0:07:23.15,0:07:25.64,Sub,,0,0,0,,{\fad(120,160)}about two thirds turned harmful.
+Dialogue: 0,0:07:26.20,0:07:28.49,Sub,,0,0,0,,{\fad(120,160)}So that is what the dollar is for.
+Dialogue: 0,0:07:28.68,0:07:29.88,Sub,,0,0,0,,{\fad(120,160)}Noticing yourself.
+Dialogue: 0,0:07:30.10,0:07:31.54,Sub,,0,0,0,,{\fad(120,160)}Studying the mind.
+Dialogue: 0,0:07:31.62,0:07:32.83,Sub,,0,0,0,,{\fad(120,160)}And grading the machine
+Dialogue: 0,0:07:32.87,0:07:34.47,Sub,,0,0,0,,{\fad(120,160)}on what it does to us.
+Dialogue: 0,0:07:34.75,0:07:36.18,Sub,,0,0,0,,{\fad(120,160)}But one calm person
+Dialogue: 0,0:07:36.22,0:07:37.87,Sub,,0,0,0,,{\fad(120,160)}doesn't slow a race.
+Dialogue: 0,0:07:38.17,0:07:39.59,Sub,,0,0,0,,{\fad(120,160)}What if you get faster,
+Dialogue: 0,0:07:39.63,0:07:41.03,Sub,,0,0,0,,{\fad(120,160)}and the rules don't?
+Dialogue: 0,0:07:42.21,0:07:43.74,Sub,,0,0,0,,{\fad(120,160)}Then you notice more,
+Dialogue: 0,0:07:43.87,0:07:45.32,Sub,,0,0,0,,{\fad(120,160)}and the race runs on.
+Dialogue: 0,0:07:45.63,0:07:47.06,Sub,,0,0,0,,{\fad(120,160)}So set both clocks,
+Dialogue: 0,0:07:47.10,0:07:48.21,Sub,,0,0,0,,{\fad(120,160)}and picture an evening
+Dialogue: 0,0:07:48.25,0:07:49.69,Sub,,0,0,0,,{\fad(120,160)}a few years from now.
+Dialogue: 0,0:07:49.96,0:07:51.66,Sub,,0,0,0,,{\fad(120,160)}The headline still arrives.
+Dialogue: 0,0:07:51.70,0:07:53.56,Sub,,0,0,0,,{\fad(120,160)}Your pulse still jumps.
+Dialogue: 0,0:07:53.72,0:07:54.64,Sub,,0,0,0,,{\fad(120,160)}But in this version,
+Dialogue: 0,0:07:54.68,0:07:55.77,Sub,,0,0,0,,{\fad(120,160)}the app in your hand
+Dialogue: 0,0:07:55.81,0:07:57.14,Sub,,0,0,0,,{\fad(120,160)}carries a grade.
+Dialogue: 0,0:07:57.34,0:07:58.91,Sub,,0,0,0,,{\fad(120,160)}Not for how clever it is.
+Dialogue: 0,0:07:59.09,0:07:59.79,Sub,,0,0,0,,{\fad(120,160)}For what it does
+Dialogue: 0,0:07:59.83,0:08:01.42,Sub,,0,0,0,,{\fad(120,160)}to the people who use it.
+Dialogue: 0,0:08:01.69,0:08:03.36,Sub,,0,0,0,,{\fad(120,160)}It was tested before release,
+Dialogue: 0,0:08:03.40,0:08:05.15,Sub,,0,0,0,,{\fad(120,160)}and again every few months.
+Dialogue: 0,0:08:05.32,0:08:06.56,Sub,,0,0,0,,{\fad(120,160)}When something goes wrong,
+Dialogue: 0,0:08:06.60,0:08:08.59,Sub,,0,0,0,,{\fad(120,160)}the rule changes within the year.
+Dialogue: 0,0:08:08.71,0:08:09.18,Sub,,0,0,0,,{\fad(120,160)}And you know
+Dialogue: 0,0:08:09.22,0:08:10.95,Sub,,0,0,0,,{\fad(120,160)}your reflexes by name.
+Dialogue: 0,0:08:11.23,0:08:12.23,Sub,,0,0,0,,{\fad(120,160)}Far away?
+Dialogue: 0,0:08:12.27,0:08:13.62,Sub,,0,0,0,,{\fad(120,160)}Take that evening apart.
+Dialogue: 0,0:08:13.83,0:08:14.74,Sub,,0,0,0,,{\fad(120,160)}The grade?
+Dialogue: 0,0:08:14.78,0:08:16.68,Sub,,0,0,0,,{\fad(120,160)}You just heard an early test.
+Dialogue: 0,0:08:17.27,0:08:18.89,Sub,,0,0,0,,{\fad(120,160)}Testing before release?
+Dialogue: 0,0:08:19.24,0:08:20.40,Sub,,0,0,0,,{\fad(120,160)}Demis Hassabis,
+Dialogue: 0,0:08:20.44,0:08:22.54,Sub,,0,0,0,,{\fad(120,160)}a co-founder of Google DeepMind,
+Dialogue: 0,0:08:22.58,0:08:24.37,Sub,,0,0,0,,{\fad(120,160)}has proposed a body that tests
+Dialogue: 0,0:08:24.41,0:08:25.90,Sub,,0,0,0,,{\fad(120,160)}the most powerful models
+Dialogue: 0,0:08:25.94,0:08:27.10,Sub,,0,0,0,,{\fad(120,160)}before launch.
+Dialogue: 0,0:08:27.39,0:08:28.90,Sub,,0,0,0,,{\fad(120,160)}The tests would be renewed,
+Dialogue: 0,0:08:28.94,0:08:30.35,Sub,,0,0,0,,{\fad(120,160)}perhaps every quarter.
+Dialogue: 0,0:08:31.10,0:08:32.89,Sub,,0,0,0,,{\fad(120,160)}Rules that move within a year?
+Dialogue: 0,0:08:33.27,0:08:34.03,Sub,,0,0,0,,{\fad(120,160)}Last month,
+Dialogue: 0,0:08:34.07,0:08:35.64,Sub,,0,0,0,,{\fad(120,160)}the head of the United Nations
+Dialogue: 0,0:08:35.68,0:08:37.29,Sub,,0,0,0,,{\fad(120,160)}called for a global framework
+Dialogue: 0,0:08:37.33,0:08:39.54,Sub,,0,0,0,,{\fad(120,160)}for AI risks, within one year.
+Dialogue: 0,0:08:39.58,0:08:41.55,Sub,,0,0,0,,{\fad(120,160)}And the pressure is there.
+Dialogue: 0,0:08:41.90,0:08:42.36,Sub,,0,0,0,,{\fad(120,160)}According to
+Dialogue: 0,0:08:42.40,0:08:44.19,Sub,,0,0,0,,{\fad(120,160)}the UN's technology envoy,
+Dialogue: 0,0:08:44.23,0:08:46.55,Sub,,0,0,0,,{\fad(120,160)}in 2017 three world leaders
+Dialogue: 0,0:08:46.59,0:08:48.23,Sub,,0,0,0,,{\fad(120,160)}raised concerns about AI
+Dialogue: 0,0:08:48.27,0:08:50.12,Sub,,0,0,0,,{\fad(120,160)}at the UN General Assembly.
+Dialogue: 0,0:08:50.30,0:08:53.21,Sub,,0,0,0,,{\fad(120,160)}This year, 135 did.
+Dialogue: 0,0:08:53.77,0:08:55.29,Sub,,0,0,0,,{\fad(120,160)}None of it is settled.
+Dialogue: 0,0:08:55.55,0:08:57.64,Sub,,0,0,0,,{\fad(120,160)}The framework is not a treaty.
+Dialogue: 0,0:08:57.91,0:08:59.25,Sub,,0,0,0,,{\fad(120,160)}The testing body would be paid
+Dialogue: 0,0:08:59.29,0:09:01.63,Sub,,0,0,0,,{\fad(120,160)}mostly by the industry it tests.
+Dialogue: 0,0:09:02.08,0:09:04.01,Sub,,0,0,0,,{\fad(120,160)}And it is not the course we're on.
+Dialogue: 0,0:09:04.15,0:09:05.79,Sub,,0,0,0,,{\fad(120,160)}Harari says so himself.
+Dialogue: 0,0:09:06.47,0:09:07.15,Sub,,0,0,0,,{\fad(120,160)}But the race
+Dialogue: 0,0:09:07.19,0:09:09.06,Sub,,0,0,0,,{\fad(120,160)}is a product of choices.
+Dialogue: 0,0:09:09.19,0:09:10.38,Sub,,0,0,0,,{\fad(120,160)}So is the gap.
+Dialogue: 0,0:09:10.69,0:09:12.95,Sub,,0,0,0,,{\fad(120,160)}Labs can test before they ship.
+Dialogue: 0,0:09:13.27,0:09:14.63,Sub,,0,0,0,,{\fad(120,160)}Governments can write rules
+Dialogue: 0,0:09:14.67,0:09:16.25,Sub,,0,0,0,,{\fad(120,160)}with the update built in.
+Dialogue: 0,0:09:16.49,0:09:18.35,Sub,,0,0,0,,{\fad(120,160)}Voters can demand both.
+Dialogue: 0,0:09:18.62,0:09:19.72,Sub,,0,0,0,,{\fad(120,160)}And one clock needs
+Dialogue: 0,0:09:19.76,0:09:21.04,Sub,,0,0,0,,{\fad(120,160)}no vote at all.
+Dialogue: 0,0:09:22.20,0:09:24.04,Sub,,0,0,0,,{\fad(120,160)}Tonight, or tomorrow,
+Dialogue: 0,0:09:24.15,0:09:24.96,Sub,,0,0,0,,{\fad(120,160)}the next headline
+Dialogue: 0,0:09:25.00,0:09:26.29,Sub,,0,0,0,,{\fad(120,160)}lands on your screen.
+Dialogue: 0,0:09:26.52,0:09:27.82,Sub,,0,0,0,,{\fad(120,160)}Same big letters.
+Dialogue: 0,0:09:27.87,0:09:28.91,Sub,,0,0,0,,{\fad(120,160)}Same pulse.
+Dialogue: 0,0:09:30.06,0:09:31.66,Sub,,0,0,0,,{\fad(120,160)}The reflex hasn't changed,
+Dialogue: 0,0:09:31.70,0:09:32.70,Sub,,0,0,0,,{\fad(120,160)}and it won't.
+Dialogue: 0,0:09:32.84,0:09:34.88,Sub,,0,0,0,,{\fad(120,160)}But this time, you notice it.
+Dialogue: 0,0:09:35.24,0:09:36.59,Sub,,0,0,0,,{\fad(120,160)}This is fear.
+Dialogue: 0,0:09:37.04,0:09:38.18,Sub,,0,0,0,,{\fad(120,160)}You take one breath.
+Dialogue: 0,0:09:39.52,0:09:40.42,Sub,,0,0,0,,{\fad(120,160)}And then you decide
+Dialogue: 0,0:09:40.46,0:09:41.68,Sub,,0,0,0,,{\fad(120,160)}what your thumb does.
+Dialogue: 0,0:09:41.99,0:09:43.34,Sub,,0,0,0,,{\fad(120,160)}That is the first clock
+Dialogue: 0,0:09:43.38,0:09:44.37,Sub,,0,0,0,,{\fad(120,160)}you can set.
+Dialogue: 0,0:09:44.41,0:09:45.80,Sub,,0,0,0,,{\fad(120,160)}It took a single breath.
+Dialogue: 0,0:09:46.40,0:09:48.13,Sub,,0,0,0,,{\fad(120,160)}The other one takes all of us:
+Dialogue: 0,0:09:48.38,0:09:49.73,Sub,,0,0,0,,{\fad(120,160)}rules that learn as fast
+Dialogue: 0,0:09:49.77,0:09:51.02,Sub,,0,0,0,,{\fad(120,160)}as the machine does.
+Dialogue: 0,0:09:51.27,0:09:53.18,Sub,,0,0,0,,{\fad(120,160)}The gap won't close completely.
+Dialogue: 0,0:09:53.32,0:09:54.39,Sub,,0,0,0,,{\fad(120,160)}It can get small enough
+Dialogue: 0,0:09:54.43,0:09:55.63,Sub,,0,0,0,,{\fad(120,160)}that we still steer.
+Dialogue: 0,0:09:55.97,0:09:57.64,Sub,,0,0,0,,{\fad(120,160)}We can't upgrade our brains.
+Dialogue: 0,0:09:57.77,0:09:59.68,Sub,,0,0,0,,{\fad(120,160)}We can upgrade our minds,
+Dialogue: 0,0:09:59.77,0:10:01.15,Sub,,0,0,0,,{\fad(120,160)}and our rules.
+Dialogue: 0,0:10:02.32,0:10:03.50,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:10:03.54,0:10:04.43,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:10:04.47,0:10:05.61,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:10:05.65,0:10:07.37,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:10:07.59,0:10:09.24,Sub,,0,0,0,,{\fad(120,160)}That takes minds that notice,
+Dialogue: 0,0:10:09.28,0:10:10.84,Sub,,0,0,0,,{\fad(120,160)}and rules that keep up.
+Dialogue: 0,0:10:11.07,0:10:12.07,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:10:12.11,0:10:13.11,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
