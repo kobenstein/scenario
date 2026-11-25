@@ -22,7 +22,7 @@ CUES = {'C1': ['So, by roughly 2032,', 'when you live through a year,', "you'll 
 SPOKEN = {'2032': 'twenty thirty two', '70s': 'seventies'}
 WHO = {'C1': ('Ray Kurzweil', 'inventor and futurist', 'MIT lecture'), 'C3': ('Michael Andregg', 'CEO, Eon Systems', 'podcast'),
        'C4': ('Lynda Gratton', 'London Business School', 'interview')}
-GAIN = {'C1': 0.0, 'C3': 0.0, 'C4': 0.0}
+GAIN = {'C1': -0.9, 'C3': -1.5, 'C4': -1.4}   # ebur128 25.11., first mix with the real clips: +0.9 / +1.55 / +1.45 LU over the VO around them
 EXTRA = {'connectome': 'K AH N EH K T OW M', 'integrate': 'IH N T AH G R EY T'}
 norm = lambda w: re.sub(r"[^a-z_']", '', w.lower().replace('’', "'"))
 cfg = Config(hmm=get_model_path('en-us/en-us'), dict=get_model_path('en-us/cmudict-en-us.dict'), lm=None, loglevel='FATAL')

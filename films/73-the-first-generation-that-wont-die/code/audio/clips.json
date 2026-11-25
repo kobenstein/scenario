@@ -1,4 +1,155 @@
 {
  "_comment": "Film 73 clip metadata (clips_json.py from clips_meta.json). Slot = timing.json slots[] (0.6 s air before/after); cues = [seconds from the slot start, line].",
- "clips": []
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "speaker": "Ray Kurzweil",
+   "role": "inventor and futurist",
+   "source": "MIT SHASS (2025-10-14)",
+   "url": "https://www.youtube.com/watch?v=Q0tKnUoMq-g&t=2430s",
+   "credit": "MIT SHASS",
+   "lower_third": "Ray Kurzweil · inventor and futurist",
+   "transcript": "So, by roughly 2032, when you live through a year, you'll get back an entire year from scientific progress.",
+   "file": "C1.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 7.31,
+   "dur": 7.31,
+   "slot_start": 56.71,
+   "slot_end": 64.02,
+   "sec": "1",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -0.9,
+   "cues": [
+    [
+     0.17,
+     "So, by roughly 2032,"
+    ],
+    [
+     2.17,
+     "when you live through a year,"
+    ],
+    [
+     4.08,
+     "you'll get back an entire year"
+    ],
+    [
+     5.69,
+     "from scientific progress."
+    ]
+   ],
+   "cue_end": 7.26
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "speaker": "Michael Andregg",
+   "role": "CEO, Eon Systems",
+   "source": "Progress by Fifty Years (2026-11-17)",
+   "url": "https://www.youtube.com/watch?v=KWKhecFVhTk&t=406s",
+   "credit": "Progress by Fifty Years",
+   "lower_third": "Michael Andregg · CEO, Eon Systems",
+   "transcript": "Leaky integrate-and-fire is, like, one of the simpler neuron models. So you take kind of, like, an okay connectome. I should say, the connectome scan also not perfect.",
+   "file": "C3.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 6.92,
+   "dur": 6.92,
+   "slot_start": 186.52,
+   "slot_end": 193.44,
+   "sec": "2",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -1.5,
+   "cues": [
+    [
+     0.0,
+     "Leaky integrate-and-fire is, like,"
+    ],
+    [
+     0.88,
+     "one of the simpler neuron models."
+    ],
+    [
+     2.56,
+     "So you take kind of, like,"
+    ],
+    [
+     3.38,
+     "an okay connectome."
+    ],
+    [
+     4.33,
+     "I should say, the connectome"
+    ],
+    [
+     5.37,
+     "scan also not perfect."
+    ]
+   ],
+   "cue_end": 6.87
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "speaker": "Lynda Gratton",
+   "role": "London Business School",
+   "source": "London Business School (2026-01-15)",
+   "url": "https://www.youtube.com/watch?v=kwAOHArf4DE&t=564s",
+   "credit": "London Business School",
+   "lower_third": "Lynda Gratton · London Business School",
+   "transcript": "But of course, when you think about working into your 70s in a three-stage life, a full-time education, full-time work, full-time retirement, that's obviously not going to work.",
+   "file": "C4.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 10.0,
+   "dur": 10.0,
+   "slot_start": 342.91,
+   "slot_end": 352.91,
+   "sec": "4",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -1.4,
+   "cues": [
+    [
+     0.05,
+     "But of course, when you think"
+    ],
+    [
+     1.1,
+     "about working into your 70s"
+    ],
+    [
+     3.13,
+     "in a three-stage life,"
+    ],
+    [
+     4.78,
+     "a full-time education,"
+    ],
+    [
+     6.25,
+     "full-time work,"
+    ],
+    [
+     7.22,
+     "full-time retirement,"
+    ],
+    [
+     8.48,
+     "that's obviously"
+    ],
+    [
+     9.22,
+     "not going to work."
+    ]
+   ],
+   "cue_end": 9.93
+  }
+ ]
 }

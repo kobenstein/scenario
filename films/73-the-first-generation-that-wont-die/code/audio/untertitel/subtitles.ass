@@ -46,312 +46,330 @@ Dialogue: 0,0:00:49.60,0:00:50.94,Sub,,0,0,0,,{\fad(120,160)}2032.
 Dialogue: 0,0:00:51.55,0:00:53.46,Sub,,0,0,0,,{\fad(120,160)}The date comes from Ray Kurzweil,
 Dialogue: 0,0:00:53.50,0:00:54.48,Sub,,0,0,0,,{\fad(120,160)}the inventor
 Dialogue: 0,0:00:54.52,0:00:56.36,Sub,,0,0,0,,{\fad(120,160)}and longtime futurist.
-Dialogue: 0,0:01:04.71,0:01:06.60,Sub,,0,0,0,,{\fad(120,160)}His claim: a year back
-Dialogue: 0,0:01:06.64,0:01:08.29,Sub,,0,0,0,,{\fad(120,160)}for every year you live.
-Dialogue: 0,0:01:08.66,0:01:10.10,Sub,,0,0,0,,{\fad(120,160)}That's what "won't die"
-Dialogue: 0,0:01:10.14,0:01:11.14,Sub,,0,0,0,,{\fad(120,160)}means here.
-Dialogue: 0,0:01:11.25,0:01:12.50,Sub,,0,0,0,,{\fad(120,160)}Not immortal.
-Dialogue: 0,0:01:12.66,0:01:14.57,Sub,,0,0,0,,{\fad(120,160)}An accident could still kill you.
-Dialogue: 0,0:01:14.78,0:01:16.10,Sub,,0,0,0,,{\fad(120,160)}Old age couldn't.
-Dialogue: 0,0:01:16.34,0:01:17.68,Sub,,0,0,0,,{\fad(120,160)}But Kurzweil has moved
-Dialogue: 0,0:01:17.72,0:01:18.92,Sub,,0,0,0,,{\fad(120,160)}his date before,
-Dialogue: 0,0:01:18.96,0:01:19.85,Sub,,0,0,0,,{\fad(120,160)}and he sells books
-Dialogue: 0,0:01:19.89,0:01:21.00,Sub,,0,0,0,,{\fad(120,160)}about this future.
-Dialogue: 0,0:01:21.31,0:01:23.37,Sub,,0,0,0,,{\fad(120,160)}Critics note that no peer-reviewed
-Dialogue: 0,0:01:23.41,0:01:25.23,Sub,,0,0,0,,{\fad(120,160)}study stands behind it.
-Dialogue: 0,0:01:25.29,0:01:27.26,Sub,,0,0,0,,{\fad(120,160)}And at today's pace of progress,
-Dialogue: 0,0:01:27.30,0:01:28.47,Sub,,0,0,0,,{\fad(120,160)}one blogger's analysis
-Dialogue: 0,0:01:28.51,0:01:29.65,Sub,,0,0,0,,{\fad(120,160)}from this summer lands
-Dialogue: 0,0:01:29.69,0:01:31.35,Sub,,0,0,0,,{\fad(120,160)}somewhere else entirely.
-Dialogue: 0,0:01:31.51,0:01:32.49,Sub,,0,0,0,,{\fad(120,160)}A leading aging
-Dialogue: 0,0:01:32.53,0:01:33.89,Sub,,0,0,0,,{\fad(120,160)}researcher shared it.
-Dialogue: 0,0:01:34.06,0:01:36.74,Sub,,0,0,0,,{\fad(120,160)}Its result: not 2032.
-Dialogue: 0,0:01:36.88,0:01:39.02,Sub,,0,0,0,,{\fad(120,160)}Around 2459.
-Dialogue: 0,0:01:39.61,0:01:41.05,Sub,,0,0,0,,{\fad(120,160)}In your lifetime.
-Dialogue: 0,0:01:41.44,0:01:44.06,Sub,,0,0,0,,{\fad(120,160)}Or four centuries too late.
-Dialogue: 0,0:01:44.36,0:01:46.41,Sub,,0,0,0,,{\fad(120,160)}And even that analysis says:
-Dialogue: 0,0:01:46.45,0:01:48.00,Sub,,0,0,0,,{\fad(120,160)}no chance, unless
-Dialogue: 0,0:01:48.04,0:01:49.71,Sub,,0,0,0,,{\fad(120,160)}AI speeds things up.
-Dialogue: 0,0:01:49.97,0:01:51.38,Sub,,0,0,0,,{\fad(120,160)}So the first generation
-Dialogue: 0,0:01:51.42,0:01:54.15,Sub,,0,0,0,,{\fad(120,160)}that won't die is a bet on AI.
-Dialogue: 0,0:01:54.50,0:01:56.00,Sub,,0,0,0,,{\fad(120,160)}Is that bet paying off?
-Dialogue: 0,0:01:56.28,0:01:58.01,Sub,,0,0,0,,{\fad(120,160)}There are early signs.
-Dialogue: 0,0:01:58.21,0:01:59.46,Sub,,0,0,0,,{\fad(120,160)}AI models are learning
-Dialogue: 0,0:01:59.50,0:02:01.15,Sub,,0,0,0,,{\fad(120,160)}to predict how a living cell
-Dialogue: 0,0:02:01.19,0:02:02.48,Sub,,0,0,0,,{\fad(120,160)}reacts to a drug,
-Dialogue: 0,0:02:02.52,0:02:04.81,Sub,,0,0,0,,{\fad(120,160)}before anyone runs the experiment.
-Dialogue: 0,0:02:05.00,0:02:05.77,Sub,,0,0,0,,{\fad(120,160)}And in a study
-Dialogue: 0,0:02:05.81,0:02:07.27,Sub,,0,0,0,,{\fad(120,160)}published this October,
-Dialogue: 0,0:02:07.31,0:02:08.45,Sub,,0,0,0,,{\fad(120,160)}machine learning helped
-Dialogue: 0,0:02:08.49,0:02:09.53,Sub,,0,0,0,,{\fad(120,160)}researchers pick out
-Dialogue: 0,0:02:09.57,0:02:10.91,Sub,,0,0,0,,{\fad(120,160)}a single gene.
-Dialogue: 0,0:02:11.09,0:02:13.11,Sub,,0,0,0,,{\fad(120,160)}They boosted it in old mice.
-Dialogue: 0,0:02:13.29,0:02:16.26,Sub,,0,0,0,,{\fad(120,160)}The mice lived about 14% longer.
-Dialogue: 0,0:02:16.78,0:02:18.06,Sub,,0,0,0,,{\fad(120,160)}A small study.
-Dialogue: 0,0:02:18.33,0:02:19.90,Sub,,0,0,0,,{\fad(120,160)}Female mice only.
-Dialogue: 0,0:02:20.20,0:02:21.51,Sub,,0,0,0,,{\fad(120,160)}Not yet repeated.
-Dialogue: 0,0:02:21.77,0:02:23.50,Sub,,0,0,0,,{\fad(120,160)}And no drug against aging
-Dialogue: 0,0:02:23.54,0:02:25.68,Sub,,0,0,0,,{\fad(120,160)}itself is approved anywhere.
-Dialogue: 0,0:02:25.81,0:02:27.73,Sub,,0,0,0,,{\fad(120,160)}So the date is a guess.
-Dialogue: 0,0:02:27.77,0:02:29.19,Sub,,0,0,0,,{\fad(120,160)}The work is real.
-Dialogue: 0,0:02:29.48,0:02:30.82,Sub,,0,0,0,,{\fad(120,160)}But what if the repairs
-Dialogue: 0,0:02:30.86,0:02:32.25,Sub,,0,0,0,,{\fad(120,160)}come too late for you?
-Dialogue: 0,0:02:33.42,0:02:35.99,Sub,,0,0,0,,{\fad(120,160)}Then the copy is what's left.
-Dialogue: 0,0:02:36.15,0:02:37.38,Sub,,0,0,0,,{\fad(120,160)}Back to that fly.
-Dialogue: 0,0:02:37.61,0:02:38.35,Sub,,0,0,0,,{\fad(120,160)}This March,
-Dialogue: 0,0:02:38.39,0:02:40.05,Sub,,0,0,0,,{\fad(120,160)}a San Francisco startup plugged
-Dialogue: 0,0:02:40.09,0:02:41.48,Sub,,0,0,0,,{\fad(120,160)}that simple brain model
-Dialogue: 0,0:02:41.52,0:02:43.13,Sub,,0,0,0,,{\fad(120,160)}into a virtual body.
-Dialogue: 0,0:02:43.35,0:02:45.35,Sub,,0,0,0,,{\fad(120,160)}And the model began to choose.
-Dialogue: 0,0:02:45.61,0:02:46.30,Sub,,0,0,0,,{\fad(120,160)}Walk.
-Dialogue: 0,0:02:46.34,0:02:47.13,Sub,,0,0,0,,{\fad(120,160)}Groom.
-Dialogue: 0,0:02:47.17,0:02:48.04,Sub,,0,0,0,,{\fad(120,160)}Feed.
-Dialogue: 0,0:02:48.08,0:02:49.31,Sub,,0,0,0,,{\fad(120,160)}The startup's headline:
-Dialogue: 0,0:02:49.42,0:02:51.34,Sub,,0,0,0,,{\fad(120,160)}we've uploaded a fruit fly.
-Dialogue: 0,0:02:51.67,0:02:53.09,Sub,,0,0,0,,{\fad(120,160)}Critics said no.
-Dialogue: 0,0:02:53.25,0:02:54.60,Sub,,0,0,0,,{\fad(120,160)}Even a foundation that works
-Dialogue: 0,0:02:54.64,0:02:56.06,Sub,,0,0,0,,{\fad(120,160)}toward brain uploads.
-Dialogue: 0,0:02:56.15,0:02:58.10,Sub,,0,0,0,,{\fad(120,160)}Their point: the model has none
-Dialogue: 0,0:02:58.14,0:02:59.73,Sub,,0,0,0,,{\fad(120,160)}of the real fly's memories,
-Dialogue: 0,0:02:59.77,0:03:00.93,Sub,,0,0,0,,{\fad(120,160)}and separate software
-Dialogue: 0,0:03:00.97,0:03:01.97,Sub,,0,0,0,,{\fad(120,160)}does the walking.
-Dialogue: 0,0:03:02.27,0:03:03.90,Sub,,0,0,0,,{\fad(120,160)}The company's own chief executive
-Dialogue: 0,0:03:03.94,0:03:06.16,Sub,,0,0,0,,{\fad(120,160)}is frank about how little went in.
-Dialogue: 0,0:03:14.09,0:03:15.09,Sub,,0,0,0,,{\fad(120,160)}And still.
-Dialogue: 0,0:03:15.48,0:03:18.03,Sub,,0,0,0,,{\fad(120,160)}A map of a brain, switched on,
-Dialogue: 0,0:03:18.15,0:03:20.28,Sub,,0,0,0,,{\fad(120,160)}choosing what a body does next.
-Dialogue: 0,0:03:21.33,0:03:22.30,Sub,,0,0,0,,{\fad(120,160)}The same executive
-Dialogue: 0,0:03:22.34,0:03:24.21,Sub,,0,0,0,,{\fad(120,160)}says that, optimistically,
-Dialogue: 0,0:03:24.25,0:03:25.59,Sub,,0,0,0,,{\fad(120,160)}the first human uploads
-Dialogue: 0,0:03:25.63,0:03:28.16,Sub,,0,0,0,,{\fad(120,160)}are a few years away, not decades.
-Dialogue: 0,0:03:28.46,0:03:30.27,Sub,,0,0,0,,{\fad(120,160)}He also has a startup to fund.
-Dialogue: 0,0:03:30.61,0:03:32.32,Sub,,0,0,0,,{\fad(120,160)}Yet of a human brain,
-Dialogue: 0,0:03:32.36,0:03:33.27,Sub,,0,0,0,,{\fad(120,160)}science has mapped
-Dialogue: 0,0:03:33.31,0:03:35.22,Sub,,0,0,0,,{\fad(120,160)}one cubic millimeter.
-Dialogue: 0,0:03:35.47,0:03:36.47,Sub,,0,0,0,,{\fad(120,160)}A crumb.
-Dialogue: 0,0:03:36.71,0:03:37.86,Sub,,0,0,0,,{\fad(120,160)}Its data filled more
-Dialogue: 0,0:03:37.90,0:03:39.55,Sub,,0,0,0,,{\fad(120,160)}than a million gigabytes.
-Dialogue: 0,0:03:39.97,0:03:41.64,Sub,,0,0,0,,{\fad(120,160)}But suppose it worked.
-Dialogue: 0,0:03:41.88,0:03:42.96,Sub,,0,0,0,,{\fad(120,160)}A copy wakes up
-Dialogue: 0,0:03:43.00,0:03:44.45,Sub,,0,0,0,,{\fad(120,160)}with all your memories.
-Dialogue: 0,0:03:44.76,0:03:45.76,Sub,,0,0,0,,{\fad(120,160)}Is that you?
-Dialogue: 0,0:03:45.92,0:03:46.95,Sub,,0,0,0,,{\fad(120,160)}Or did you die,
-Dialogue: 0,0:03:46.99,0:03:47.91,Sub,,0,0,0,,{\fad(120,160)}while something else
-Dialogue: 0,0:03:47.95,0:03:49.44,Sub,,0,0,0,,{\fad(120,160)}remembers being you?
-Dialogue: 0,0:03:50.01,0:03:51.44,Sub,,0,0,0,,{\fad(120,160)}So ask it again.
-Dialogue: 0,0:03:51.78,0:03:53.71,Sub,,0,0,0,,{\fad(120,160)}If the only way to stop dying
-Dialogue: 0,0:03:53.75,0:03:56.18,Sub,,0,0,0,,{\fad(120,160)}were to become a copy, would you?
-Dialogue: 0,0:03:57.38,0:03:58.23,Sub,,0,0,0,,{\fad(120,160)}Which brings back
-Dialogue: 0,0:03:58.27,0:04:00.17,Sub,,0,0,0,,{\fad(120,160)}the answer most people give.
-Dialogue: 0,0:04:00.61,0:04:01.54,Sub,,0,0,0,,{\fad(120,160)}No.
-Dialogue: 0,0:04:01.58,0:04:04.29,Sub,,0,0,0,,{\fad(120,160)}In 2013, a major American survey
-Dialogue: 0,0:04:04.33,0:04:05.46,Sub,,0,0,0,,{\fad(120,160)}asked about treatments
-Dialogue: 0,0:04:05.50,0:04:07.17,Sub,,0,0,0,,{\fad(120,160)}to live to 120.
-Dialogue: 0,0:04:07.51,0:04:09.39,Sub,,0,0,0,,{\fad(120,160)}Most said, "not for me."
-Dialogue: 0,0:04:09.65,0:04:10.68,Sub,,0,0,0,,{\fad(120,160)}Yet most believed
-Dialogue: 0,0:04:10.72,0:04:12.70,Sub,,0,0,0,,{\fad(120,160)}that other people would say yes.
-Dialogue: 0,0:04:12.97,0:04:15.04,Sub,,0,0,0,,{\fad(120,160)}It seems everybody wants this.
-Dialogue: 0,0:04:15.23,0:04:17.23,Sub,,0,0,0,,{\fad(120,160)}Except everybody you ask.
-Dialogue: 0,0:04:17.44,0:04:19.16,Sub,,0,0,0,,{\fad(120,160)}What holds the yes back?
-Dialogue: 0,0:04:19.47,0:04:21.08,Sub,,0,0,0,,{\fad(120,160)}This August, a new survey
-Dialogue: 0,0:04:21.12,0:04:22.69,Sub,,0,0,0,,{\fad(120,160)}turned the question around.
-Dialogue: 0,0:04:22.98,0:04:24.80,Sub,,0,0,0,,{\fad(120,160)}Would you accept a shorter life,
-Dialogue: 0,0:04:24.84,0:04:26.52,Sub,,0,0,0,,{\fad(120,160)}if it came without decline?
-Dialogue: 0,0:04:26.79,0:04:27.98,Sub,,0,0,0,,{\fad(120,160)}No failing body.
-Dialogue: 0,0:04:28.02,0:04:29.37,Sub,,0,0,0,,{\fad(120,160)}No fading mind.
-Dialogue: 0,0:04:29.70,0:04:32.16,Sub,,0,0,0,,{\fad(120,160)}Almost 2 in 3 said yes.
-Dialogue: 0,0:04:32.73,0:04:35.25,Sub,,0,0,0,,{\fad(120,160)}So the fear isn't living forever.
-Dialogue: 0,0:04:35.39,0:04:37.41,Sub,,0,0,0,,{\fad(120,160)}It's being old forever.
-Dialogue: 0,0:04:38.48,0:04:39.65,Sub,,0,0,0,,{\fad(120,160)}This channel exists
-Dialogue: 0,0:04:39.69,0:04:41.02,Sub,,0,0,0,,{\fad(120,160)}for one reason:
-Dialogue: 0,0:04:41.21,0:04:42.07,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
-Dialogue: 0,0:04:42.11,0:04:43.19,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
-Dialogue: 0,0:04:43.23,0:04:45.03,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
-Dialogue: 0,0:04:45.21,0:04:46.61,Sub,,0,0,0,,{\fad(120,160)}Healthy years included.
-Dialogue: 0,0:04:46.84,0:04:47.84,Sub,,0,0,0,,{\fad(120,160)}Want that too?
-Dialogue: 0,0:04:47.92,0:04:48.92,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
-Dialogue: 0,0:04:49.44,0:04:51.34,Sub,,0,0,0,,{\fad(120,160)}So ask it the fair way.
-Dialogue: 0,0:04:51.78,0:04:53.24,Sub,,0,0,0,,{\fad(120,160)}If you could stop dying,
-Dialogue: 0,0:04:53.28,0:04:55.25,Sub,,0,0,0,,{\fad(120,160)}and stay healthy, would you?
-Dialogue: 0,0:04:55.56,0:04:56.69,Sub,,0,0,0,,{\fad(120,160)}Even then, there's
-Dialogue: 0,0:04:56.73,0:04:58.50,Sub,,0,0,0,,{\fad(120,160)}a serious case for no.
-Dialogue: 0,0:04:58.80,0:05:00.05,Sub,,0,0,0,,{\fad(120,160)}One philosopher argued
-Dialogue: 0,0:05:00.09,0:05:01.40,Sub,,0,0,0,,{\fad(120,160)}that an endless life
-Dialogue: 0,0:05:01.44,0:05:02.66,Sub,,0,0,0,,{\fad(120,160)}ends in boredom.
-Dialogue: 0,0:05:02.97,0:05:04.16,Sub,,0,0,0,,{\fad(120,160)}Others answer that some
-Dialogue: 0,0:05:04.20,0:05:05.83,Sub,,0,0,0,,{\fad(120,160)}pleasures never wear out.
-Dialogue: 0,0:05:06.32,0:05:08.79,Sub,,0,0,0,,{\fad(120,160)}But suppose enough people say yes.
-Dialogue: 0,0:05:09.11,0:05:10.21,Sub,,0,0,0,,{\fad(120,160)}What happens to a world
-Dialogue: 0,0:05:10.25,0:05:12.11,Sub,,0,0,0,,{\fad(120,160)}that was built around dying?
-Dialogue: 0,0:05:13.27,0:05:14.45,Sub,,0,0,0,,{\fad(120,160)}Say it works.
-Dialogue: 0,0:05:14.69,0:05:15.74,Sub,,0,0,0,,{\fad(120,160)}In this scenario,
-Dialogue: 0,0:05:15.78,0:05:17.57,Sub,,0,0,0,,{\fad(120,160)}you're older than anyone alive
-Dialogue: 0,0:05:17.61,0:05:19.18,Sub,,0,0,0,,{\fad(120,160)}today, and healthy.
-Dialogue: 0,0:05:19.54,0:05:21.28,Sub,,0,0,0,,{\fad(120,160)}Take a promise you may have made:
-Dialogue: 0,0:05:21.48,0:05:23.16,Sub,,0,0,0,,{\fad(120,160)}till death do us part.
-Dialogue: 0,0:05:23.42,0:05:24.37,Sub,,0,0,0,,{\fad(120,160)}For most of history,
-Dialogue: 0,0:05:24.41,0:05:25.29,Sub,,0,0,0,,{\fad(120,160)}that usually meant
-Dialogue: 0,0:05:25.33,0:05:26.96,Sub,,0,0,0,,{\fad(120,160)}less than 30 years.
-Dialogue: 0,0:05:27.13,0:05:29.11,Sub,,0,0,0,,{\fad(120,160)}Now it has no end date.
-Dialogue: 0,0:05:29.29,0:05:29.82,Sub,,0,0,0,,{\fad(120,160)}More time
-Dialogue: 0,0:05:29.86,0:05:31.21,Sub,,0,0,0,,{\fad(120,160)}with the person you love.
-Dialogue: 0,0:05:31.36,0:05:33.14,Sub,,0,0,0,,{\fad(120,160)}And a much bigger promise.
-Dialogue: 0,0:05:33.31,0:05:34.27,Sub,,0,0,0,,{\fad(120,160)}And a life that long
-Dialogue: 0,0:05:34.31,0:05:35.69,Sub,,0,0,0,,{\fad(120,160)}has to be paid for.
-Dialogue: 0,0:05:35.86,0:05:36.77,Sub,,0,0,0,,{\fad(120,160)}A London professor
-Dialogue: 0,0:05:36.81,0:05:38.47,Sub,,0,0,0,,{\fad(120,160)}who studies long lives says
-Dialogue: 0,0:05:38.51,0:05:41.49,Sub,,0,0,0,,{\fad(120,160)}the old plan, learn, work, retire,
-Dialogue: 0,0:05:41.54,0:05:42.54,Sub,,0,0,0,,{\fad(120,160)}is breaking.
-Dialogue: 0,0:05:53.50,0:05:55.62,Sub,,0,0,0,,{\fad(120,160)}So you could have five careers.
-Dialogue: 0,0:05:55.67,0:05:57.48,Sub,,0,0,0,,{\fad(120,160)}And you might never be done.
-Dialogue: 0,0:05:57.65,0:05:58.75,Sub,,0,0,0,,{\fad(120,160)}And what your parents
-Dialogue: 0,0:05:58.79,0:05:59.79,Sub,,0,0,0,,{\fad(120,160)}would have left you?
-Dialogue: 0,0:05:59.99,0:06:02.39,Sub,,0,0,0,,{\fad(120,160)}In this scenario, it never comes.
-Dialogue: 0,0:06:02.46,0:06:03.71,Sub,,0,0,0,,{\fad(120,160)}Your parents stay.
-Dialogue: 0,0:06:03.99,0:06:04.99,Sub,,0,0,0,,{\fad(120,160)}That's the gain.
-Dialogue: 0,0:06:05.17,0:06:07.08,Sub,,0,0,0,,{\fad(120,160)}What they own stays with them.
-Dialogue: 0,0:06:07.24,0:06:08.29,Sub,,0,0,0,,{\fad(120,160)}That's the price.
-Dialogue: 0,0:06:08.45,0:06:09.45,Sub,,0,0,0,,{\fad(120,160)}Still yes?
-Dialogue: 0,0:06:10.55,0:06:11.66,Sub,,0,0,0,,{\fad(120,160)}And an inheritance
-Dialogue: 0,0:06:11.70,0:06:13.64,Sub,,0,0,0,,{\fad(120,160)}is only the small version.
-Dialogue: 0,0:06:14.06,0:06:15.83,Sub,,0,0,0,,{\fad(120,160)}Power and ideas change hands
-Dialogue: 0,0:06:15.87,0:06:16.87,Sub,,0,0,0,,{\fad(120,160)}the same way:
-Dialogue: 0,0:06:17.13,0:06:18.47,Sub,,0,0,0,,{\fad(120,160)}when someone goes.
-Dialogue: 0,0:06:18.81,0:06:20.55,Sub,,0,0,0,,{\fad(120,160)}Max Planck, the physicist,
-Dialogue: 0,0:06:20.59,0:06:21.94,Sub,,0,0,0,,{\fad(120,160)}saw it in science.
-Dialogue: 0,0:06:22.17,0:06:23.80,Sub,,0,0,0,,{\fad(120,160)}A new truth, he wrote,
-Dialogue: 0,0:06:23.84,0:06:24.55,Sub,,0,0,0,,{\fad(120,160)}doesn't win by
-Dialogue: 0,0:06:24.59,0:06:26.30,Sub,,0,0,0,,{\fad(120,160)}convincing its opponents.
-Dialogue: 0,0:06:26.43,0:06:27.40,Sub,,0,0,0,,{\fad(120,160)}It wins because
-Dialogue: 0,0:06:27.44,0:06:28.90,Sub,,0,0,0,,{\fad(120,160)}they eventually die.
-Dialogue: 0,0:06:29.28,0:06:31.29,Sub,,0,0,0,,{\fad(120,160)}Economists later tested that.
-Dialogue: 0,0:06:31.51,0:06:33.62,Sub,,0,0,0,,{\fad(120,160)}When a star scientist died early,
-Dialogue: 0,0:06:33.66,0:06:34.89,Sub,,0,0,0,,{\fad(120,160)}outsiders moved in,
-Dialogue: 0,0:06:34.93,0:06:36.99,Sub,,0,0,0,,{\fad(120,160)}and did unusually strong work.
-Dialogue: 0,0:06:37.26,0:06:38.78,Sub,,0,0,0,,{\fad(120,160)}That doesn't make death good.
-Dialogue: 0,0:06:38.96,0:06:40.42,Sub,,0,0,0,,{\fad(120,160)}It shows that people at the top
-Dialogue: 0,0:06:40.46,0:06:42.19,Sub,,0,0,0,,{\fad(120,160)}can keep newcomers out,
-Dialogue: 0,0:06:42.23,0:06:43.45,Sub,,0,0,0,,{\fad(120,160)}just by staying.
-Dialogue: 0,0:06:44.02,0:06:45.55,Sub,,0,0,0,,{\fad(120,160)}And at the very top,
-Dialogue: 0,0:06:45.59,0:06:47.79,Sub,,0,0,0,,{\fad(120,160)}this subject has already come up.
-Dialogue: 0,0:06:48.12,0:06:50.99,Sub,,0,0,0,,{\fad(120,160)}Beijing, September 2025.
-Dialogue: 0,0:06:51.26,0:06:52.64,Sub,,0,0,0,,{\fad(120,160)}A military parade,
-Dialogue: 0,0:06:52.74,0:06:54.08,Sub,,0,0,0,,{\fad(120,160)}a live microphone.
-Dialogue: 0,0:06:54.42,0:06:55.39,Sub,,0,0,0,,{\fad(120,160)}China's president
-Dialogue: 0,0:06:55.43,0:06:56.52,Sub,,0,0,0,,{\fad(120,160)}and Russia's president
-Dialogue: 0,0:06:56.56,0:06:58.58,Sub,,0,0,0,,{\fad(120,160)}walk toward the viewing platform.
-Dialogue: 0,0:06:58.84,0:07:00.28,Sub,,0,0,0,,{\fad(120,160)}Through his interpreter,
-Dialogue: 0,0:07:00.32,0:07:02.36,Sub,,0,0,0,,{\fad(120,160)}Russia's president talks of organs
-Dialogue: 0,0:07:02.40,0:07:04.59,Sub,,0,0,0,,{\fad(120,160)}transplanted again and again,
-Dialogue: 0,0:07:04.73,0:07:05.58,Sub,,0,0,0,,{\fad(120,160)}of people growing
-Dialogue: 0,0:07:05.62,0:07:07.58,Sub,,0,0,0,,{\fad(120,160)}younger, even immortal.
-Dialogue: 0,0:07:07.84,0:07:09.33,Sub,,0,0,0,,{\fad(120,160)}China's president answers
-Dialogue: 0,0:07:09.37,0:07:10.28,Sub,,0,0,0,,{\fad(120,160)}that some predict
-Dialogue: 0,0:07:10.32,0:07:11.28,Sub,,0,0,0,,{\fad(120,160)}humans may live
-Dialogue: 0,0:07:11.32,0:07:13.57,Sub,,0,0,0,,{\fad(120,160)}to 150 this century.
-Dialogue: 0,0:07:14.15,0:07:16.28,Sub,,0,0,0,,{\fad(120,160)}This isn't about two countries.
-Dialogue: 0,0:07:16.52,0:07:17.61,Sub,,0,0,0,,{\fad(120,160)}Any president.
-Dialogue: 0,0:07:17.68,0:07:18.70,Sub,,0,0,0,,{\fad(120,160)}Any judge.
-Dialogue: 0,0:07:18.76,0:07:19.80,Sub,,0,0,0,,{\fad(120,160)}Any founder.
-Dialogue: 0,0:07:20.09,0:07:21.09,Sub,,0,0,0,,{\fad(120,160)}Who steps aside,
-Dialogue: 0,0:07:21.13,0:07:22.66,Sub,,0,0,0,,{\fad(120,160)}if they never have to?
-Dialogue: 0,0:07:22.86,0:07:24.41,Sub,,0,0,0,,{\fad(120,160)}And who gets it at all?
-Dialogue: 0,0:07:24.66,0:07:26.85,Sub,,0,0,0,,{\fad(120,160)}In that survey from 2013,
-Dialogue: 0,0:07:26.92,0:07:28.56,Sub,,0,0,0,,{\fad(120,160)}a clear majority expected
-Dialogue: 0,0:07:28.60,0:07:30.34,Sub,,0,0,0,,{\fad(120,160)}that only the wealthy would.
-Dialogue: 0,0:07:30.68,0:07:31.75,Sub,,0,0,0,,{\fad(120,160)}Now ask yourself.
-Dialogue: 0,0:07:32.20,0:07:33.60,Sub,,0,0,0,,{\fad(120,160)}Would you still say yes,
-Dialogue: 0,0:07:33.64,0:07:35.78,Sub,,0,0,0,,{\fad(120,160)}if the powerful said yes first?
-Dialogue: 0,0:07:36.07,0:07:37.28,Sub,,0,0,0,,{\fad(120,160)}If you could afford it,
-Dialogue: 0,0:07:37.32,0:07:38.62,Sub,,0,0,0,,{\fad(120,160)}and your neighbor couldn't?
-Dialogue: 0,0:07:39.80,0:07:41.58,Sub,,0,0,0,,{\fad(120,160)}It doesn't have to go that way.
-Dialogue: 0,0:07:41.77,0:07:42.84,Sub,,0,0,0,,{\fad(120,160)}Start with what people
-Dialogue: 0,0:07:42.88,0:07:44.45,Sub,,0,0,0,,{\fad(120,160)}actually said yes to.
-Dialogue: 0,0:07:44.62,0:07:45.62,Sub,,0,0,0,,{\fad(120,160)}Not forever.
-Dialogue: 0,0:07:45.88,0:07:46.82,Sub,,0,0,0,,{\fad(120,160)}Healthy.
-Dialogue: 0,0:07:46.86,0:07:47.77,Sub,,0,0,0,,{\fad(120,160)}Around the world,
-Dialogue: 0,0:07:47.81,0:07:49.61,Sub,,0,0,0,,{\fad(120,160)}people spend close to 10 years
-Dialogue: 0,0:07:49.65,0:07:51.28,Sub,,0,0,0,,{\fad(120,160)}of their lives in poor health.
-Dialogue: 0,0:07:51.64,0:07:53.21,Sub,,0,0,0,,{\fad(120,160)}Win those years back first,
-Dialogue: 0,0:07:53.25,0:07:53.81,Sub,,0,0,0,,{\fad(120,160)}and you shrink
-Dialogue: 0,0:07:53.85,0:07:55.55,Sub,,0,0,0,,{\fad(120,160)}the very thing people fear:
-Dialogue: 0,0:07:55.70,0:07:57.15,Sub,,0,0,0,,{\fad(120,160)}the long decline.
-Dialogue: 0,0:07:57.72,0:07:59.57,Sub,,0,0,0,,{\fad(120,160)}But healthy years only count
-Dialogue: 0,0:07:59.61,0:08:01.29,Sub,,0,0,0,,{\fad(120,160)}if people can afford them.
-Dialogue: 0,0:08:01.45,0:08:02.72,Sub,,0,0,0,,{\fad(120,160)}Some medical technology
-Dialogue: 0,0:08:02.76,0:08:04.30,Sub,,0,0,0,,{\fad(120,160)}gets cheap fast.
-Dialogue: 0,0:08:04.50,0:08:06.27,Sub,,0,0,0,,{\fad(120,160)}Reading a human genome once
-Dialogue: 0,0:08:06.31,0:08:09.11,Sub,,0,0,0,,{\fad(120,160)}cost about $95 million.
-Dialogue: 0,0:08:09.31,0:08:10.95,Sub,,0,0,0,,{\fad(120,160)}Today, a few hundred.
-Dialogue: 0,0:08:11.36,0:08:13.29,Sub,,0,0,0,,{\fad(120,160)}Yet so far, in America,
-Dialogue: 0,0:08:13.42,0:08:14.60,Sub,,0,0,0,,{\fad(120,160)}new medical technology
-Dialogue: 0,0:08:14.64,0:08:15.95,Sub,,0,0,0,,{\fad(120,160)}has pushed health costs
-Dialogue: 0,0:08:15.99,0:08:17.40,Sub,,0,0,0,,{\fad(120,160)}up, not down.
-Dialogue: 0,0:08:17.75,0:08:19.96,Sub,,0,0,0,,{\fad(120,160)}Which pattern wins is still open.
-Dialogue: 0,0:08:20.23,0:08:22.38,Sub,,0,0,0,,{\fad(120,160)}Part of that comes down to rules.
-Dialogue: 0,0:08:22.58,0:08:24.20,Sub,,0,0,0,,{\fad(120,160)}Labs don't write those.
-Dialogue: 0,0:08:24.32,0:08:26.21,Sub,,0,0,0,,{\fad(120,160)}Voters and lawmakers do.
-Dialogue: 0,0:08:26.54,0:08:28.05,Sub,,0,0,0,,{\fad(120,160)}A few exist already.
-Dialogue: 0,0:08:28.63,0:08:30.05,Sub,,0,0,0,,{\fad(120,160)}Who steps aside?
-Dialogue: 0,0:08:30.27,0:08:32.08,Sub,,0,0,0,,{\fad(120,160)}American presidents must,
-Dialogue: 0,0:08:32.12,0:08:33.50,Sub,,0,0,0,,{\fad(120,160)}after two terms.
-Dialogue: 0,0:08:33.78,0:08:35.68,Sub,,0,0,0,,{\fad(120,160)}Who pays for longer lives?
-Dialogue: 0,0:08:35.81,0:08:36.94,Sub,,0,0,0,,{\fad(120,160)}Denmark has tied
-Dialogue: 0,0:08:36.98,0:08:38.86,Sub,,0,0,0,,{\fad(120,160)}its retirement age by law
-Dialogue: 0,0:08:38.90,0:08:40.61,Sub,,0,0,0,,{\fad(120,160)}to how long people live.
-Dialogue: 0,0:08:40.86,0:08:42.67,Sub,,0,0,0,,{\fad(120,160)}And who can afford it?
-Dialogue: 0,0:08:42.85,0:08:44.40,Sub,,0,0,0,,{\fad(120,160)}A Montana law now lets
-Dialogue: 0,0:08:44.44,0:08:45.69,Sub,,0,0,0,,{\fad(120,160)}licensed clinics sell
-Dialogue: 0,0:08:45.73,0:08:47.09,Sub,,0,0,0,,{\fad(120,160)}treatments after just
-Dialogue: 0,0:08:47.13,0:08:48.84,Sub,,0,0,0,,{\fad(120,160)}a first safety trial.
-Dialogue: 0,0:08:49.11,0:08:50.68,Sub,,0,0,0,,{\fad(120,160)}In return, 2%
-Dialogue: 0,0:08:50.72,0:08:51.99,Sub,,0,0,0,,{\fad(120,160)}of the profit must help
-Dialogue: 0,0:08:52.03,0:08:53.93,Sub,,0,0,0,,{\fad(120,160)}people in the state get treatment.
-Dialogue: 0,0:08:54.22,0:08:56.23,Sub,,0,0,0,,{\fad(120,160)}Supporters call that access.
-Dialogue: 0,0:08:56.34,0:08:58.31,Sub,,0,0,0,,{\fad(120,160)}Critics call it a risk.
-Dialogue: 0,0:08:58.87,0:09:00.83,Sub,,0,0,0,,{\fad(120,160)}Most rules for a world like this
-Dialogue: 0,0:09:00.87,0:09:02.36,Sub,,0,0,0,,{\fad(120,160)}have never been written.
-Dialogue: 0,0:09:02.79,0:09:03.92,Sub,,0,0,0,,{\fad(120,160)}How many children,
-Dialogue: 0,0:09:03.96,0:09:05.66,Sub,,0,0,0,,{\fad(120,160)}if so few of us go?
-Dialogue: 0,0:09:06.05,0:09:07.50,Sub,,0,0,0,,{\fad(120,160)}One projection for Sweden
-Dialogue: 0,0:09:07.54,0:09:08.96,Sub,,0,0,0,,{\fad(120,160)}suggests its population
-Dialogue: 0,0:09:09.00,0:09:10.28,Sub,,0,0,0,,{\fad(120,160)}would grow more slowly
-Dialogue: 0,0:09:10.32,0:09:11.41,Sub,,0,0,0,,{\fad(120,160)}than many fear.
-Dialogue: 0,0:09:11.71,0:09:14.06,Sub,,0,0,0,,{\fad(120,160)}Even so, in this year's survey,
-Dialogue: 0,0:09:14.10,0:09:15.43,Sub,,0,0,0,,{\fad(120,160)}1 in 5 would accept
-Dialogue: 0,0:09:15.47,0:09:16.35,Sub,,0,0,0,,{\fad(120,160)}stricter limits
-Dialogue: 0,0:09:16.39,0:09:17.54,Sub,,0,0,0,,{\fad(120,160)}on having children,
-Dialogue: 0,0:09:17.64,0:09:19.01,Sub,,0,0,0,,{\fad(120,160)}for a much longer life.
-Dialogue: 0,0:09:19.48,0:09:20.48,Sub,,0,0,0,,{\fad(120,160)}Would you?
-Dialogue: 0,0:09:21.39,0:09:23.22,Sub,,0,0,0,,{\fad(120,160)}So is yours the first
-Dialogue: 0,0:09:23.26,0:09:24.71,Sub,,0,0,0,,{\fad(120,160)}generation that won't die?
-Dialogue: 0,0:09:25.04,0:09:27.24,Sub,,0,0,0,,{\fad(120,160)}The honest answer is a range.
-Dialogue: 0,0:09:27.36,0:09:28.25,Sub,,0,0,0,,{\fad(120,160)}The estimates run
-Dialogue: 0,0:09:28.29,0:09:29.45,Sub,,0,0,0,,{\fad(120,160)}from the next decade
-Dialogue: 0,0:09:29.49,0:09:31.45,Sub,,0,0,0,,{\fad(120,160)}to four centuries from now.
-Dialogue: 0,0:09:31.68,0:09:32.81,Sub,,0,0,0,,{\fad(120,160)}And neither the repair
-Dialogue: 0,0:09:32.85,0:09:34.17,Sub,,0,0,0,,{\fad(120,160)}nor the copy has worked
-Dialogue: 0,0:09:34.21,0:09:36.07,Sub,,0,0,0,,{\fad(120,160)}in a single human being yet.
-Dialogue: 0,0:09:36.34,0:09:38.50,Sub,,0,0,0,,{\fad(120,160)}But something has already changed.
-Dialogue: 0,0:09:38.71,0:09:40.11,Sub,,0,0,0,,{\fad(120,160)}With AI, death has
-Dialogue: 0,0:09:40.15,0:09:41.01,Sub,,0,0,0,,{\fad(120,160)}moved from the things
-Dialogue: 0,0:09:41.05,0:09:42.52,Sub,,0,0,0,,{\fad(120,160)}we accept to the things
-Dialogue: 0,0:09:42.56,0:09:43.56,Sub,,0,0,0,,{\fad(120,160)}we work on.
-Dialogue: 0,0:09:43.76,0:09:44.95,Sub,,0,0,0,,{\fad(120,160)}And what we work on,
-Dialogue: 0,0:09:44.99,0:09:46.16,Sub,,0,0,0,,{\fad(120,160)}we have to think through,
-Dialogue: 0,0:09:46.20,0:09:47.37,Sub,,0,0,0,,{\fad(120,160)}before it works.
-Dialogue: 0,0:09:47.61,0:09:48.66,Sub,,0,0,0,,{\fad(120,160)}Do we want this?
-Dialogue: 0,0:09:48.88,0:09:50.38,Sub,,0,0,0,,{\fad(120,160)}What does it do to a life?
-Dialogue: 0,0:09:50.63,0:09:51.63,Sub,,0,0,0,,{\fad(120,160)}Who gets it?
-Dialogue: 0,0:09:51.83,0:09:53.35,Sub,,0,0,0,,{\fad(120,160)}If you could stop dying,
-Dialogue: 0,0:09:53.49,0:09:54.49,Sub,,0,0,0,,{\fad(120,160)}would you?
-Dialogue: 0,0:09:54.71,0:09:56.39,Sub,,0,0,0,,{\fad(120,160)}Every generation before us
-Dialogue: 0,0:09:56.43,0:09:57.87,Sub,,0,0,0,,{\fad(120,160)}was given the answer.
-Dialogue: 0,0:09:58.25,0:09:59.50,Sub,,0,0,0,,{\fad(120,160)}We are the first
-Dialogue: 0,0:09:59.54,0:10:01.12,Sub,,0,0,0,,{\fad(120,160)}to be asked the question.
-Dialogue: 0,0:10:02.30,0:10:04.12,Sub,,0,0,0,,{\fad(120,160)}That's what this channel is for:
-Dialogue: 0,0:10:04.21,0:10:05.91,Sub,,0,0,0,,{\fad(120,160)}making sure superintelligence
-Dialogue: 0,0:10:05.95,0:10:07.62,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody,
-Dialogue: 0,0:10:07.66,0:10:09.64,Sub,,0,0,0,,{\fad(120,160)}and that the answer stays yours.
-Dialogue: 0,0:10:09.83,0:10:10.83,Sub,,0,0,0,,{\fad(120,160)}Want that too?
-Dialogue: 0,0:10:10.89,0:10:11.89,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:00:56.88,0:00:58.84,Sub,,0,0,0,,{\fad(120,160)}So, by roughly 2032,
+Dialogue: 0,0:00:58.88,0:01:00.75,Sub,,0,0,0,,{\fad(120,160)}when you live through a year,
+Dialogue: 0,0:01:00.79,0:01:02.36,Sub,,0,0,0,,{\fad(120,160)}you'll get back an entire year
+Dialogue: 0,0:01:02.40,0:01:04.17,Sub,,0,0,0,,{\fad(120,160)}from scientific progress.
+Dialogue: 0,0:01:04.72,0:01:06.61,Sub,,0,0,0,,{\fad(120,160)}His claim: a year back
+Dialogue: 0,0:01:06.65,0:01:08.30,Sub,,0,0,0,,{\fad(120,160)}for every year you live.
+Dialogue: 0,0:01:08.67,0:01:10.11,Sub,,0,0,0,,{\fad(120,160)}That's what "won't die"
+Dialogue: 0,0:01:10.15,0:01:11.15,Sub,,0,0,0,,{\fad(120,160)}means here.
+Dialogue: 0,0:01:11.26,0:01:12.51,Sub,,0,0,0,,{\fad(120,160)}Not immortal.
+Dialogue: 0,0:01:12.67,0:01:14.58,Sub,,0,0,0,,{\fad(120,160)}An accident could still kill you.
+Dialogue: 0,0:01:14.79,0:01:16.11,Sub,,0,0,0,,{\fad(120,160)}Old age couldn't.
+Dialogue: 0,0:01:16.35,0:01:17.69,Sub,,0,0,0,,{\fad(120,160)}But Kurzweil has moved
+Dialogue: 0,0:01:17.73,0:01:18.93,Sub,,0,0,0,,{\fad(120,160)}his date before,
+Dialogue: 0,0:01:18.97,0:01:19.86,Sub,,0,0,0,,{\fad(120,160)}and he sells books
+Dialogue: 0,0:01:19.90,0:01:21.01,Sub,,0,0,0,,{\fad(120,160)}about this future.
+Dialogue: 0,0:01:21.32,0:01:23.38,Sub,,0,0,0,,{\fad(120,160)}Critics note that no peer-reviewed
+Dialogue: 0,0:01:23.42,0:01:25.24,Sub,,0,0,0,,{\fad(120,160)}study stands behind it.
+Dialogue: 0,0:01:25.30,0:01:27.27,Sub,,0,0,0,,{\fad(120,160)}And at today's pace of progress,
+Dialogue: 0,0:01:27.31,0:01:28.48,Sub,,0,0,0,,{\fad(120,160)}one blogger's analysis
+Dialogue: 0,0:01:28.52,0:01:29.66,Sub,,0,0,0,,{\fad(120,160)}from this summer lands
+Dialogue: 0,0:01:29.70,0:01:31.36,Sub,,0,0,0,,{\fad(120,160)}somewhere else entirely.
+Dialogue: 0,0:01:31.52,0:01:32.50,Sub,,0,0,0,,{\fad(120,160)}A leading aging
+Dialogue: 0,0:01:32.54,0:01:33.90,Sub,,0,0,0,,{\fad(120,160)}researcher shared it.
+Dialogue: 0,0:01:34.07,0:01:36.75,Sub,,0,0,0,,{\fad(120,160)}Its result: not 2032.
+Dialogue: 0,0:01:36.89,0:01:39.03,Sub,,0,0,0,,{\fad(120,160)}Around 2459.
+Dialogue: 0,0:01:39.62,0:01:41.06,Sub,,0,0,0,,{\fad(120,160)}In your lifetime.
+Dialogue: 0,0:01:41.45,0:01:44.07,Sub,,0,0,0,,{\fad(120,160)}Or four centuries too late.
+Dialogue: 0,0:01:44.37,0:01:46.42,Sub,,0,0,0,,{\fad(120,160)}And even that analysis says:
+Dialogue: 0,0:01:46.46,0:01:48.01,Sub,,0,0,0,,{\fad(120,160)}no chance, unless
+Dialogue: 0,0:01:48.05,0:01:49.72,Sub,,0,0,0,,{\fad(120,160)}AI speeds things up.
+Dialogue: 0,0:01:49.98,0:01:51.39,Sub,,0,0,0,,{\fad(120,160)}So the first generation
+Dialogue: 0,0:01:51.43,0:01:54.16,Sub,,0,0,0,,{\fad(120,160)}that won't die is a bet on AI.
+Dialogue: 0,0:01:54.51,0:01:56.01,Sub,,0,0,0,,{\fad(120,160)}Is that bet paying off?
+Dialogue: 0,0:01:56.29,0:01:58.02,Sub,,0,0,0,,{\fad(120,160)}There are early signs.
+Dialogue: 0,0:01:58.22,0:01:59.47,Sub,,0,0,0,,{\fad(120,160)}AI models are learning
+Dialogue: 0,0:01:59.51,0:02:01.16,Sub,,0,0,0,,{\fad(120,160)}to predict how a living cell
+Dialogue: 0,0:02:01.20,0:02:02.49,Sub,,0,0,0,,{\fad(120,160)}reacts to a drug,
+Dialogue: 0,0:02:02.53,0:02:04.82,Sub,,0,0,0,,{\fad(120,160)}before anyone runs the experiment.
+Dialogue: 0,0:02:05.01,0:02:05.78,Sub,,0,0,0,,{\fad(120,160)}And in a study
+Dialogue: 0,0:02:05.82,0:02:07.28,Sub,,0,0,0,,{\fad(120,160)}published this October,
+Dialogue: 0,0:02:07.32,0:02:08.46,Sub,,0,0,0,,{\fad(120,160)}machine learning helped
+Dialogue: 0,0:02:08.50,0:02:09.54,Sub,,0,0,0,,{\fad(120,160)}researchers pick out
+Dialogue: 0,0:02:09.58,0:02:10.92,Sub,,0,0,0,,{\fad(120,160)}a single gene.
+Dialogue: 0,0:02:11.10,0:02:13.12,Sub,,0,0,0,,{\fad(120,160)}They boosted it in old mice.
+Dialogue: 0,0:02:13.30,0:02:16.27,Sub,,0,0,0,,{\fad(120,160)}The mice lived about 14% longer.
+Dialogue: 0,0:02:16.79,0:02:18.07,Sub,,0,0,0,,{\fad(120,160)}A small study.
+Dialogue: 0,0:02:18.34,0:02:19.91,Sub,,0,0,0,,{\fad(120,160)}Female mice only.
+Dialogue: 0,0:02:20.21,0:02:21.52,Sub,,0,0,0,,{\fad(120,160)}Not yet repeated.
+Dialogue: 0,0:02:21.78,0:02:23.51,Sub,,0,0,0,,{\fad(120,160)}And no drug against aging
+Dialogue: 0,0:02:23.55,0:02:25.69,Sub,,0,0,0,,{\fad(120,160)}itself is approved anywhere.
+Dialogue: 0,0:02:25.82,0:02:27.74,Sub,,0,0,0,,{\fad(120,160)}So the date is a guess.
+Dialogue: 0,0:02:27.78,0:02:29.20,Sub,,0,0,0,,{\fad(120,160)}The work is real.
+Dialogue: 0,0:02:29.49,0:02:30.83,Sub,,0,0,0,,{\fad(120,160)}But what if the repairs
+Dialogue: 0,0:02:30.87,0:02:32.26,Sub,,0,0,0,,{\fad(120,160)}come too late for you?
+Dialogue: 0,0:02:33.43,0:02:36.00,Sub,,0,0,0,,{\fad(120,160)}Then the copy is what's left.
+Dialogue: 0,0:02:36.16,0:02:37.39,Sub,,0,0,0,,{\fad(120,160)}Back to that fly.
+Dialogue: 0,0:02:37.62,0:02:38.36,Sub,,0,0,0,,{\fad(120,160)}This March,
+Dialogue: 0,0:02:38.40,0:02:40.06,Sub,,0,0,0,,{\fad(120,160)}a San Francisco startup plugged
+Dialogue: 0,0:02:40.10,0:02:41.49,Sub,,0,0,0,,{\fad(120,160)}that simple brain model
+Dialogue: 0,0:02:41.53,0:02:43.14,Sub,,0,0,0,,{\fad(120,160)}into a virtual body.
+Dialogue: 0,0:02:43.36,0:02:45.36,Sub,,0,0,0,,{\fad(120,160)}And the model began to choose.
+Dialogue: 0,0:02:45.62,0:02:46.31,Sub,,0,0,0,,{\fad(120,160)}Walk.
+Dialogue: 0,0:02:46.35,0:02:47.14,Sub,,0,0,0,,{\fad(120,160)}Groom.
+Dialogue: 0,0:02:47.18,0:02:48.05,Sub,,0,0,0,,{\fad(120,160)}Feed.
+Dialogue: 0,0:02:48.09,0:02:49.32,Sub,,0,0,0,,{\fad(120,160)}The startup's headline:
+Dialogue: 0,0:02:49.43,0:02:51.35,Sub,,0,0,0,,{\fad(120,160)}we've uploaded a fruit fly.
+Dialogue: 0,0:02:51.68,0:02:53.10,Sub,,0,0,0,,{\fad(120,160)}Critics said no.
+Dialogue: 0,0:02:53.26,0:02:54.61,Sub,,0,0,0,,{\fad(120,160)}Even a foundation that works
+Dialogue: 0,0:02:54.65,0:02:56.07,Sub,,0,0,0,,{\fad(120,160)}toward brain uploads.
+Dialogue: 0,0:02:56.16,0:02:58.11,Sub,,0,0,0,,{\fad(120,160)}Their point: the model has none
+Dialogue: 0,0:02:58.15,0:02:59.74,Sub,,0,0,0,,{\fad(120,160)}of the real fly's memories,
+Dialogue: 0,0:02:59.78,0:03:00.94,Sub,,0,0,0,,{\fad(120,160)}and separate software
+Dialogue: 0,0:03:00.98,0:03:01.98,Sub,,0,0,0,,{\fad(120,160)}does the walking.
+Dialogue: 0,0:03:02.28,0:03:03.91,Sub,,0,0,0,,{\fad(120,160)}The company's own chief executive
+Dialogue: 0,0:03:03.95,0:03:06.17,Sub,,0,0,0,,{\fad(120,160)}is frank about how little went in.
+Dialogue: 0,0:03:06.52,0:03:07.36,Sub,,0,0,0,,{\fad(120,160)}Leaky integrate-and-fire is, like,
+Dialogue: 0,0:03:07.40,0:03:09.04,Sub,,0,0,0,,{\fad(120,160)}one of the simpler neuron models.
+Dialogue: 0,0:03:09.08,0:03:09.86,Sub,,0,0,0,,{\fad(120,160)}So you take kind of, like,
+Dialogue: 0,0:03:09.90,0:03:10.81,Sub,,0,0,0,,{\fad(120,160)}an okay connectome.
+Dialogue: 0,0:03:10.85,0:03:11.85,Sub,,0,0,0,,{\fad(120,160)}I should say, the connectome
+Dialogue: 0,0:03:11.89,0:03:13.59,Sub,,0,0,0,,{\fad(120,160)}scan also not perfect.
+Dialogue: 0,0:03:14.12,0:03:15.12,Sub,,0,0,0,,{\fad(120,160)}And still.
+Dialogue: 0,0:03:15.51,0:03:18.06,Sub,,0,0,0,,{\fad(120,160)}A map of a brain, switched on,
+Dialogue: 0,0:03:18.18,0:03:20.31,Sub,,0,0,0,,{\fad(120,160)}choosing what a body does next.
+Dialogue: 0,0:03:21.36,0:03:22.33,Sub,,0,0,0,,{\fad(120,160)}The same executive
+Dialogue: 0,0:03:22.37,0:03:24.24,Sub,,0,0,0,,{\fad(120,160)}says that, optimistically,
+Dialogue: 0,0:03:24.28,0:03:25.62,Sub,,0,0,0,,{\fad(120,160)}the first human uploads
+Dialogue: 0,0:03:25.66,0:03:28.19,Sub,,0,0,0,,{\fad(120,160)}are a few years away, not decades.
+Dialogue: 0,0:03:28.49,0:03:30.30,Sub,,0,0,0,,{\fad(120,160)}He also has a startup to fund.
+Dialogue: 0,0:03:30.64,0:03:32.35,Sub,,0,0,0,,{\fad(120,160)}Yet of a human brain,
+Dialogue: 0,0:03:32.39,0:03:33.30,Sub,,0,0,0,,{\fad(120,160)}science has mapped
+Dialogue: 0,0:03:33.34,0:03:35.25,Sub,,0,0,0,,{\fad(120,160)}one cubic millimeter.
+Dialogue: 0,0:03:35.50,0:03:36.50,Sub,,0,0,0,,{\fad(120,160)}A crumb.
+Dialogue: 0,0:03:36.74,0:03:37.89,Sub,,0,0,0,,{\fad(120,160)}Its data filled more
+Dialogue: 0,0:03:37.93,0:03:39.58,Sub,,0,0,0,,{\fad(120,160)}than a million gigabytes.
+Dialogue: 0,0:03:40.00,0:03:41.67,Sub,,0,0,0,,{\fad(120,160)}But suppose it worked.
+Dialogue: 0,0:03:41.91,0:03:42.99,Sub,,0,0,0,,{\fad(120,160)}A copy wakes up
+Dialogue: 0,0:03:43.03,0:03:44.48,Sub,,0,0,0,,{\fad(120,160)}with all your memories.
+Dialogue: 0,0:03:44.79,0:03:45.79,Sub,,0,0,0,,{\fad(120,160)}Is that you?
+Dialogue: 0,0:03:45.95,0:03:46.98,Sub,,0,0,0,,{\fad(120,160)}Or did you die,
+Dialogue: 0,0:03:47.02,0:03:47.94,Sub,,0,0,0,,{\fad(120,160)}while something else
+Dialogue: 0,0:03:47.98,0:03:49.47,Sub,,0,0,0,,{\fad(120,160)}remembers being you?
+Dialogue: 0,0:03:50.04,0:03:51.47,Sub,,0,0,0,,{\fad(120,160)}So ask it again.
+Dialogue: 0,0:03:51.81,0:03:53.74,Sub,,0,0,0,,{\fad(120,160)}If the only way to stop dying
+Dialogue: 0,0:03:53.78,0:03:56.21,Sub,,0,0,0,,{\fad(120,160)}were to become a copy, would you?
+Dialogue: 0,0:03:57.41,0:03:58.26,Sub,,0,0,0,,{\fad(120,160)}Which brings back
+Dialogue: 0,0:03:58.30,0:04:00.20,Sub,,0,0,0,,{\fad(120,160)}the answer most people give.
+Dialogue: 0,0:04:00.64,0:04:01.57,Sub,,0,0,0,,{\fad(120,160)}No.
+Dialogue: 0,0:04:01.61,0:04:04.32,Sub,,0,0,0,,{\fad(120,160)}In 2013, a major American survey
+Dialogue: 0,0:04:04.36,0:04:05.49,Sub,,0,0,0,,{\fad(120,160)}asked about treatments
+Dialogue: 0,0:04:05.53,0:04:07.20,Sub,,0,0,0,,{\fad(120,160)}to live to 120.
+Dialogue: 0,0:04:07.54,0:04:09.42,Sub,,0,0,0,,{\fad(120,160)}Most said, "not for me."
+Dialogue: 0,0:04:09.68,0:04:10.71,Sub,,0,0,0,,{\fad(120,160)}Yet most believed
+Dialogue: 0,0:04:10.75,0:04:12.73,Sub,,0,0,0,,{\fad(120,160)}that other people would say yes.
+Dialogue: 0,0:04:13.00,0:04:15.07,Sub,,0,0,0,,{\fad(120,160)}It seems everybody wants this.
+Dialogue: 0,0:04:15.26,0:04:17.26,Sub,,0,0,0,,{\fad(120,160)}Except everybody you ask.
+Dialogue: 0,0:04:17.47,0:04:19.19,Sub,,0,0,0,,{\fad(120,160)}What holds the yes back?
+Dialogue: 0,0:04:19.50,0:04:21.11,Sub,,0,0,0,,{\fad(120,160)}This August, a new survey
+Dialogue: 0,0:04:21.15,0:04:22.72,Sub,,0,0,0,,{\fad(120,160)}turned the question around.
+Dialogue: 0,0:04:23.01,0:04:24.83,Sub,,0,0,0,,{\fad(120,160)}Would you accept a shorter life,
+Dialogue: 0,0:04:24.87,0:04:26.55,Sub,,0,0,0,,{\fad(120,160)}if it came without decline?
+Dialogue: 0,0:04:26.82,0:04:28.01,Sub,,0,0,0,,{\fad(120,160)}No failing body.
+Dialogue: 0,0:04:28.05,0:04:29.40,Sub,,0,0,0,,{\fad(120,160)}No fading mind.
+Dialogue: 0,0:04:29.73,0:04:32.19,Sub,,0,0,0,,{\fad(120,160)}Almost 2 in 3 said yes.
+Dialogue: 0,0:04:32.76,0:04:35.28,Sub,,0,0,0,,{\fad(120,160)}So the fear isn't living forever.
+Dialogue: 0,0:04:35.42,0:04:37.44,Sub,,0,0,0,,{\fad(120,160)}It's being old forever.
+Dialogue: 0,0:04:38.51,0:04:39.68,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:04:39.72,0:04:41.05,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:04:41.24,0:04:42.10,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:04:42.14,0:04:43.22,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:04:43.26,0:04:45.06,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:04:45.24,0:04:46.64,Sub,,0,0,0,,{\fad(120,160)}Healthy years included.
+Dialogue: 0,0:04:46.87,0:04:47.87,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:04:47.95,0:04:48.95,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:04:49.47,0:04:51.37,Sub,,0,0,0,,{\fad(120,160)}So ask it the fair way.
+Dialogue: 0,0:04:51.81,0:04:53.27,Sub,,0,0,0,,{\fad(120,160)}If you could stop dying,
+Dialogue: 0,0:04:53.31,0:04:55.28,Sub,,0,0,0,,{\fad(120,160)}and stay healthy, would you?
+Dialogue: 0,0:04:55.59,0:04:56.72,Sub,,0,0,0,,{\fad(120,160)}Even then, there's
+Dialogue: 0,0:04:56.76,0:04:58.53,Sub,,0,0,0,,{\fad(120,160)}a serious case for no.
+Dialogue: 0,0:04:58.83,0:05:00.08,Sub,,0,0,0,,{\fad(120,160)}One philosopher argued
+Dialogue: 0,0:05:00.12,0:05:01.43,Sub,,0,0,0,,{\fad(120,160)}that an endless life
+Dialogue: 0,0:05:01.47,0:05:02.69,Sub,,0,0,0,,{\fad(120,160)}ends in boredom.
+Dialogue: 0,0:05:03.00,0:05:04.19,Sub,,0,0,0,,{\fad(120,160)}Others answer that some
+Dialogue: 0,0:05:04.23,0:05:05.86,Sub,,0,0,0,,{\fad(120,160)}pleasures never wear out.
+Dialogue: 0,0:05:06.35,0:05:08.82,Sub,,0,0,0,,{\fad(120,160)}But suppose enough people say yes.
+Dialogue: 0,0:05:09.14,0:05:10.24,Sub,,0,0,0,,{\fad(120,160)}What happens to a world
+Dialogue: 0,0:05:10.28,0:05:12.14,Sub,,0,0,0,,{\fad(120,160)}that was built around dying?
+Dialogue: 0,0:05:13.30,0:05:14.48,Sub,,0,0,0,,{\fad(120,160)}Say it works.
+Dialogue: 0,0:05:14.72,0:05:15.77,Sub,,0,0,0,,{\fad(120,160)}In this scenario,
+Dialogue: 0,0:05:15.81,0:05:17.60,Sub,,0,0,0,,{\fad(120,160)}you're older than anyone alive
+Dialogue: 0,0:05:17.64,0:05:19.21,Sub,,0,0,0,,{\fad(120,160)}today, and healthy.
+Dialogue: 0,0:05:19.57,0:05:21.31,Sub,,0,0,0,,{\fad(120,160)}Take a promise you may have made:
+Dialogue: 0,0:05:21.51,0:05:23.19,Sub,,0,0,0,,{\fad(120,160)}till death do us part.
+Dialogue: 0,0:05:23.45,0:05:24.40,Sub,,0,0,0,,{\fad(120,160)}For most of history,
+Dialogue: 0,0:05:24.44,0:05:25.32,Sub,,0,0,0,,{\fad(120,160)}that usually meant
+Dialogue: 0,0:05:25.36,0:05:26.99,Sub,,0,0,0,,{\fad(120,160)}less than 30 years.
+Dialogue: 0,0:05:27.16,0:05:29.14,Sub,,0,0,0,,{\fad(120,160)}Now it has no end date.
+Dialogue: 0,0:05:29.32,0:05:29.85,Sub,,0,0,0,,{\fad(120,160)}More time
+Dialogue: 0,0:05:29.89,0:05:31.24,Sub,,0,0,0,,{\fad(120,160)}with the person you love.
+Dialogue: 0,0:05:31.39,0:05:33.17,Sub,,0,0,0,,{\fad(120,160)}And a much bigger promise.
+Dialogue: 0,0:05:33.34,0:05:34.30,Sub,,0,0,0,,{\fad(120,160)}And a life that long
+Dialogue: 0,0:05:34.34,0:05:35.72,Sub,,0,0,0,,{\fad(120,160)}has to be paid for.
+Dialogue: 0,0:05:35.89,0:05:36.80,Sub,,0,0,0,,{\fad(120,160)}A London professor
+Dialogue: 0,0:05:36.84,0:05:38.50,Sub,,0,0,0,,{\fad(120,160)}who studies long lives says
+Dialogue: 0,0:05:38.54,0:05:41.52,Sub,,0,0,0,,{\fad(120,160)}the old plan, learn, work, retire,
+Dialogue: 0,0:05:41.57,0:05:42.57,Sub,,0,0,0,,{\fad(120,160)}is breaking.
+Dialogue: 0,0:05:42.96,0:05:43.97,Sub,,0,0,0,,{\fad(120,160)}But of course, when you think
+Dialogue: 0,0:05:44.01,0:05:46.00,Sub,,0,0,0,,{\fad(120,160)}about working into your 70s
+Dialogue: 0,0:05:46.04,0:05:47.65,Sub,,0,0,0,,{\fad(120,160)}in a three-stage life,
+Dialogue: 0,0:05:47.69,0:05:49.12,Sub,,0,0,0,,{\fad(120,160)}a full-time education,
+Dialogue: 0,0:05:49.16,0:05:50.09,Sub,,0,0,0,,{\fad(120,160)}full-time work,
+Dialogue: 0,0:05:50.13,0:05:51.35,Sub,,0,0,0,,{\fad(120,160)}full-time retirement,
+Dialogue: 0,0:05:51.39,0:05:52.09,Sub,,0,0,0,,{\fad(120,160)}that's obviously
+Dialogue: 0,0:05:52.13,0:05:53.13,Sub,,0,0,0,,{\fad(120,160)}not going to work.
+Dialogue: 0,0:05:53.55,0:05:55.67,Sub,,0,0,0,,{\fad(120,160)}So you could have five careers.
+Dialogue: 0,0:05:55.72,0:05:57.53,Sub,,0,0,0,,{\fad(120,160)}And you might never be done.
+Dialogue: 0,0:05:57.70,0:05:58.80,Sub,,0,0,0,,{\fad(120,160)}And what your parents
+Dialogue: 0,0:05:58.84,0:05:59.84,Sub,,0,0,0,,{\fad(120,160)}would have left you?
+Dialogue: 0,0:06:00.04,0:06:02.44,Sub,,0,0,0,,{\fad(120,160)}In this scenario, it never comes.
+Dialogue: 0,0:06:02.51,0:06:03.76,Sub,,0,0,0,,{\fad(120,160)}Your parents stay.
+Dialogue: 0,0:06:04.04,0:06:05.04,Sub,,0,0,0,,{\fad(120,160)}That's the gain.
+Dialogue: 0,0:06:05.22,0:06:07.13,Sub,,0,0,0,,{\fad(120,160)}What they own stays with them.
+Dialogue: 0,0:06:07.29,0:06:08.34,Sub,,0,0,0,,{\fad(120,160)}That's the price.
+Dialogue: 0,0:06:08.50,0:06:09.50,Sub,,0,0,0,,{\fad(120,160)}Still yes?
+Dialogue: 0,0:06:10.60,0:06:11.71,Sub,,0,0,0,,{\fad(120,160)}And an inheritance
+Dialogue: 0,0:06:11.75,0:06:13.69,Sub,,0,0,0,,{\fad(120,160)}is only the small version.
+Dialogue: 0,0:06:14.11,0:06:15.88,Sub,,0,0,0,,{\fad(120,160)}Power and ideas change hands
+Dialogue: 0,0:06:15.92,0:06:16.92,Sub,,0,0,0,,{\fad(120,160)}the same way:
+Dialogue: 0,0:06:17.18,0:06:18.52,Sub,,0,0,0,,{\fad(120,160)}when someone goes.
+Dialogue: 0,0:06:18.86,0:06:20.60,Sub,,0,0,0,,{\fad(120,160)}Max Planck, the physicist,
+Dialogue: 0,0:06:20.64,0:06:21.99,Sub,,0,0,0,,{\fad(120,160)}saw it in science.
+Dialogue: 0,0:06:22.22,0:06:23.85,Sub,,0,0,0,,{\fad(120,160)}A new truth, he wrote,
+Dialogue: 0,0:06:23.89,0:06:24.60,Sub,,0,0,0,,{\fad(120,160)}doesn't win by
+Dialogue: 0,0:06:24.64,0:06:26.35,Sub,,0,0,0,,{\fad(120,160)}convincing its opponents.
+Dialogue: 0,0:06:26.48,0:06:27.45,Sub,,0,0,0,,{\fad(120,160)}It wins because
+Dialogue: 0,0:06:27.49,0:06:28.95,Sub,,0,0,0,,{\fad(120,160)}they eventually die.
+Dialogue: 0,0:06:29.33,0:06:31.34,Sub,,0,0,0,,{\fad(120,160)}Economists later tested that.
+Dialogue: 0,0:06:31.56,0:06:33.67,Sub,,0,0,0,,{\fad(120,160)}When a star scientist died early,
+Dialogue: 0,0:06:33.71,0:06:34.94,Sub,,0,0,0,,{\fad(120,160)}outsiders moved in,
+Dialogue: 0,0:06:34.98,0:06:37.04,Sub,,0,0,0,,{\fad(120,160)}and did unusually strong work.
+Dialogue: 0,0:06:37.31,0:06:38.83,Sub,,0,0,0,,{\fad(120,160)}That doesn't make death good.
+Dialogue: 0,0:06:39.01,0:06:40.47,Sub,,0,0,0,,{\fad(120,160)}It shows that people at the top
+Dialogue: 0,0:06:40.51,0:06:42.24,Sub,,0,0,0,,{\fad(120,160)}can keep newcomers out,
+Dialogue: 0,0:06:42.28,0:06:43.50,Sub,,0,0,0,,{\fad(120,160)}just by staying.
+Dialogue: 0,0:06:44.07,0:06:45.60,Sub,,0,0,0,,{\fad(120,160)}And at the very top,
+Dialogue: 0,0:06:45.64,0:06:47.84,Sub,,0,0,0,,{\fad(120,160)}this subject has already come up.
+Dialogue: 0,0:06:48.17,0:06:51.04,Sub,,0,0,0,,{\fad(120,160)}Beijing, September 2025.
+Dialogue: 0,0:06:51.31,0:06:52.69,Sub,,0,0,0,,{\fad(120,160)}A military parade,
+Dialogue: 0,0:06:52.79,0:06:54.13,Sub,,0,0,0,,{\fad(120,160)}a live microphone.
+Dialogue: 0,0:06:54.47,0:06:55.44,Sub,,0,0,0,,{\fad(120,160)}China's president
+Dialogue: 0,0:06:55.48,0:06:56.57,Sub,,0,0,0,,{\fad(120,160)}and Russia's president
+Dialogue: 0,0:06:56.61,0:06:58.63,Sub,,0,0,0,,{\fad(120,160)}walk toward the viewing platform.
+Dialogue: 0,0:06:58.89,0:07:00.33,Sub,,0,0,0,,{\fad(120,160)}Through his interpreter,
+Dialogue: 0,0:07:00.37,0:07:02.41,Sub,,0,0,0,,{\fad(120,160)}Russia's president talks of organs
+Dialogue: 0,0:07:02.45,0:07:04.64,Sub,,0,0,0,,{\fad(120,160)}transplanted again and again,
+Dialogue: 0,0:07:04.78,0:07:05.63,Sub,,0,0,0,,{\fad(120,160)}of people growing
+Dialogue: 0,0:07:05.67,0:07:07.63,Sub,,0,0,0,,{\fad(120,160)}younger, even immortal.
+Dialogue: 0,0:07:07.89,0:07:09.38,Sub,,0,0,0,,{\fad(120,160)}China's president answers
+Dialogue: 0,0:07:09.42,0:07:10.33,Sub,,0,0,0,,{\fad(120,160)}that some predict
+Dialogue: 0,0:07:10.37,0:07:11.33,Sub,,0,0,0,,{\fad(120,160)}humans may live
+Dialogue: 0,0:07:11.37,0:07:13.62,Sub,,0,0,0,,{\fad(120,160)}to 150 this century.
+Dialogue: 0,0:07:14.20,0:07:16.33,Sub,,0,0,0,,{\fad(120,160)}This isn't about two countries.
+Dialogue: 0,0:07:16.57,0:07:17.66,Sub,,0,0,0,,{\fad(120,160)}Any president.
+Dialogue: 0,0:07:17.73,0:07:18.75,Sub,,0,0,0,,{\fad(120,160)}Any judge.
+Dialogue: 0,0:07:18.81,0:07:19.85,Sub,,0,0,0,,{\fad(120,160)}Any founder.
+Dialogue: 0,0:07:20.14,0:07:21.14,Sub,,0,0,0,,{\fad(120,160)}Who steps aside,
+Dialogue: 0,0:07:21.18,0:07:22.71,Sub,,0,0,0,,{\fad(120,160)}if they never have to?
+Dialogue: 0,0:07:22.91,0:07:24.46,Sub,,0,0,0,,{\fad(120,160)}And who gets it at all?
+Dialogue: 0,0:07:24.71,0:07:26.90,Sub,,0,0,0,,{\fad(120,160)}In that survey from 2013,
+Dialogue: 0,0:07:26.97,0:07:28.61,Sub,,0,0,0,,{\fad(120,160)}a clear majority expected
+Dialogue: 0,0:07:28.65,0:07:30.39,Sub,,0,0,0,,{\fad(120,160)}that only the wealthy would.
+Dialogue: 0,0:07:30.73,0:07:31.80,Sub,,0,0,0,,{\fad(120,160)}Now ask yourself.
+Dialogue: 0,0:07:32.25,0:07:33.65,Sub,,0,0,0,,{\fad(120,160)}Would you still say yes,
+Dialogue: 0,0:07:33.69,0:07:35.83,Sub,,0,0,0,,{\fad(120,160)}if the powerful said yes first?
+Dialogue: 0,0:07:36.12,0:07:37.33,Sub,,0,0,0,,{\fad(120,160)}If you could afford it,
+Dialogue: 0,0:07:37.37,0:07:38.67,Sub,,0,0,0,,{\fad(120,160)}and your neighbor couldn't?
+Dialogue: 0,0:07:39.85,0:07:41.63,Sub,,0,0,0,,{\fad(120,160)}It doesn't have to go that way.
+Dialogue: 0,0:07:41.82,0:07:42.89,Sub,,0,0,0,,{\fad(120,160)}Start with what people
+Dialogue: 0,0:07:42.93,0:07:44.50,Sub,,0,0,0,,{\fad(120,160)}actually said yes to.
+Dialogue: 0,0:07:44.67,0:07:45.67,Sub,,0,0,0,,{\fad(120,160)}Not forever.
+Dialogue: 0,0:07:45.93,0:07:46.87,Sub,,0,0,0,,{\fad(120,160)}Healthy.
+Dialogue: 0,0:07:46.91,0:07:47.82,Sub,,0,0,0,,{\fad(120,160)}Around the world,
+Dialogue: 0,0:07:47.86,0:07:49.66,Sub,,0,0,0,,{\fad(120,160)}people spend close to 10 years
+Dialogue: 0,0:07:49.70,0:07:51.33,Sub,,0,0,0,,{\fad(120,160)}of their lives in poor health.
+Dialogue: 0,0:07:51.69,0:07:53.26,Sub,,0,0,0,,{\fad(120,160)}Win those years back first,
+Dialogue: 0,0:07:53.30,0:07:53.86,Sub,,0,0,0,,{\fad(120,160)}and you shrink
+Dialogue: 0,0:07:53.90,0:07:55.60,Sub,,0,0,0,,{\fad(120,160)}the very thing people fear:
+Dialogue: 0,0:07:55.75,0:07:57.20,Sub,,0,0,0,,{\fad(120,160)}the long decline.
+Dialogue: 0,0:07:57.77,0:07:59.62,Sub,,0,0,0,,{\fad(120,160)}But healthy years only count
+Dialogue: 0,0:07:59.66,0:08:01.34,Sub,,0,0,0,,{\fad(120,160)}if people can afford them.
+Dialogue: 0,0:08:01.50,0:08:02.77,Sub,,0,0,0,,{\fad(120,160)}Some medical technology
+Dialogue: 0,0:08:02.81,0:08:04.35,Sub,,0,0,0,,{\fad(120,160)}gets cheap fast.
+Dialogue: 0,0:08:04.55,0:08:06.32,Sub,,0,0,0,,{\fad(120,160)}Reading a human genome once
+Dialogue: 0,0:08:06.36,0:08:09.16,Sub,,0,0,0,,{\fad(120,160)}cost about $95 million.
+Dialogue: 0,0:08:09.36,0:08:11.00,Sub,,0,0,0,,{\fad(120,160)}Today, a few hundred.
+Dialogue: 0,0:08:11.41,0:08:13.34,Sub,,0,0,0,,{\fad(120,160)}Yet so far, in America,
+Dialogue: 0,0:08:13.47,0:08:14.65,Sub,,0,0,0,,{\fad(120,160)}new medical technology
+Dialogue: 0,0:08:14.69,0:08:16.00,Sub,,0,0,0,,{\fad(120,160)}has pushed health costs
+Dialogue: 0,0:08:16.04,0:08:17.45,Sub,,0,0,0,,{\fad(120,160)}up, not down.
+Dialogue: 0,0:08:17.80,0:08:20.01,Sub,,0,0,0,,{\fad(120,160)}Which pattern wins is still open.
+Dialogue: 0,0:08:20.28,0:08:22.43,Sub,,0,0,0,,{\fad(120,160)}Part of that comes down to rules.
+Dialogue: 0,0:08:22.63,0:08:24.25,Sub,,0,0,0,,{\fad(120,160)}Labs don't write those.
+Dialogue: 0,0:08:24.37,0:08:26.26,Sub,,0,0,0,,{\fad(120,160)}Voters and lawmakers do.
+Dialogue: 0,0:08:26.59,0:08:28.10,Sub,,0,0,0,,{\fad(120,160)}A few exist already.
+Dialogue: 0,0:08:28.68,0:08:30.10,Sub,,0,0,0,,{\fad(120,160)}Who steps aside?
+Dialogue: 0,0:08:30.32,0:08:32.13,Sub,,0,0,0,,{\fad(120,160)}American presidents must,
+Dialogue: 0,0:08:32.17,0:08:33.55,Sub,,0,0,0,,{\fad(120,160)}after two terms.
+Dialogue: 0,0:08:33.83,0:08:35.73,Sub,,0,0,0,,{\fad(120,160)}Who pays for longer lives?
+Dialogue: 0,0:08:35.86,0:08:36.99,Sub,,0,0,0,,{\fad(120,160)}Denmark has tied
+Dialogue: 0,0:08:37.03,0:08:38.91,Sub,,0,0,0,,{\fad(120,160)}its retirement age by law
+Dialogue: 0,0:08:38.95,0:08:40.66,Sub,,0,0,0,,{\fad(120,160)}to how long people live.
+Dialogue: 0,0:08:40.91,0:08:42.72,Sub,,0,0,0,,{\fad(120,160)}And who can afford it?
+Dialogue: 0,0:08:42.90,0:08:44.45,Sub,,0,0,0,,{\fad(120,160)}A Montana law now lets
+Dialogue: 0,0:08:44.49,0:08:45.74,Sub,,0,0,0,,{\fad(120,160)}licensed clinics sell
+Dialogue: 0,0:08:45.78,0:08:47.14,Sub,,0,0,0,,{\fad(120,160)}treatments after just
+Dialogue: 0,0:08:47.18,0:08:48.89,Sub,,0,0,0,,{\fad(120,160)}a first safety trial.
+Dialogue: 0,0:08:49.16,0:08:50.73,Sub,,0,0,0,,{\fad(120,160)}In return, 2%
+Dialogue: 0,0:08:50.77,0:08:52.04,Sub,,0,0,0,,{\fad(120,160)}of the profit must help
+Dialogue: 0,0:08:52.08,0:08:53.98,Sub,,0,0,0,,{\fad(120,160)}people in the state get treatment.
+Dialogue: 0,0:08:54.27,0:08:56.28,Sub,,0,0,0,,{\fad(120,160)}Supporters call that access.
+Dialogue: 0,0:08:56.39,0:08:58.36,Sub,,0,0,0,,{\fad(120,160)}Critics call it a risk.
+Dialogue: 0,0:08:58.92,0:09:00.88,Sub,,0,0,0,,{\fad(120,160)}Most rules for a world like this
+Dialogue: 0,0:09:00.92,0:09:02.41,Sub,,0,0,0,,{\fad(120,160)}have never been written.
+Dialogue: 0,0:09:02.84,0:09:03.97,Sub,,0,0,0,,{\fad(120,160)}How many children,
+Dialogue: 0,0:09:04.01,0:09:05.71,Sub,,0,0,0,,{\fad(120,160)}if so few of us go?
+Dialogue: 0,0:09:06.10,0:09:07.55,Sub,,0,0,0,,{\fad(120,160)}One projection for Sweden
+Dialogue: 0,0:09:07.59,0:09:09.01,Sub,,0,0,0,,{\fad(120,160)}suggests its population
+Dialogue: 0,0:09:09.05,0:09:10.33,Sub,,0,0,0,,{\fad(120,160)}would grow more slowly
+Dialogue: 0,0:09:10.37,0:09:11.46,Sub,,0,0,0,,{\fad(120,160)}than many fear.
+Dialogue: 0,0:09:11.76,0:09:14.11,Sub,,0,0,0,,{\fad(120,160)}Even so, in this year's survey,
+Dialogue: 0,0:09:14.15,0:09:15.48,Sub,,0,0,0,,{\fad(120,160)}1 in 5 would accept
+Dialogue: 0,0:09:15.52,0:09:16.40,Sub,,0,0,0,,{\fad(120,160)}stricter limits
+Dialogue: 0,0:09:16.44,0:09:17.59,Sub,,0,0,0,,{\fad(120,160)}on having children,
+Dialogue: 0,0:09:17.69,0:09:19.06,Sub,,0,0,0,,{\fad(120,160)}for a much longer life.
+Dialogue: 0,0:09:19.53,0:09:20.53,Sub,,0,0,0,,{\fad(120,160)}Would you?
+Dialogue: 0,0:09:21.44,0:09:23.27,Sub,,0,0,0,,{\fad(120,160)}So is yours the first
+Dialogue: 0,0:09:23.31,0:09:24.76,Sub,,0,0,0,,{\fad(120,160)}generation that won't die?
+Dialogue: 0,0:09:25.09,0:09:27.29,Sub,,0,0,0,,{\fad(120,160)}The honest answer is a range.
+Dialogue: 0,0:09:27.41,0:09:28.30,Sub,,0,0,0,,{\fad(120,160)}The estimates run
+Dialogue: 0,0:09:28.34,0:09:29.50,Sub,,0,0,0,,{\fad(120,160)}from the next decade
+Dialogue: 0,0:09:29.54,0:09:31.50,Sub,,0,0,0,,{\fad(120,160)}to four centuries from now.
+Dialogue: 0,0:09:31.73,0:09:32.86,Sub,,0,0,0,,{\fad(120,160)}And neither the repair
+Dialogue: 0,0:09:32.90,0:09:34.22,Sub,,0,0,0,,{\fad(120,160)}nor the copy has worked
+Dialogue: 0,0:09:34.26,0:09:36.12,Sub,,0,0,0,,{\fad(120,160)}in a single human being yet.
+Dialogue: 0,0:09:36.39,0:09:38.55,Sub,,0,0,0,,{\fad(120,160)}But something has already changed.
+Dialogue: 0,0:09:38.76,0:09:40.16,Sub,,0,0,0,,{\fad(120,160)}With AI, death has
+Dialogue: 0,0:09:40.20,0:09:41.06,Sub,,0,0,0,,{\fad(120,160)}moved from the things
+Dialogue: 0,0:09:41.10,0:09:42.57,Sub,,0,0,0,,{\fad(120,160)}we accept to the things
+Dialogue: 0,0:09:42.61,0:09:43.61,Sub,,0,0,0,,{\fad(120,160)}we work on.
+Dialogue: 0,0:09:43.81,0:09:45.00,Sub,,0,0,0,,{\fad(120,160)}And what we work on,
+Dialogue: 0,0:09:45.04,0:09:46.21,Sub,,0,0,0,,{\fad(120,160)}we have to think through,
+Dialogue: 0,0:09:46.25,0:09:47.42,Sub,,0,0,0,,{\fad(120,160)}before it works.
+Dialogue: 0,0:09:47.66,0:09:48.71,Sub,,0,0,0,,{\fad(120,160)}Do we want this?
+Dialogue: 0,0:09:48.93,0:09:50.43,Sub,,0,0,0,,{\fad(120,160)}What does it do to a life?
+Dialogue: 0,0:09:50.68,0:09:51.68,Sub,,0,0,0,,{\fad(120,160)}Who gets it?
+Dialogue: 0,0:09:51.88,0:09:53.40,Sub,,0,0,0,,{\fad(120,160)}If you could stop dying,
+Dialogue: 0,0:09:53.54,0:09:54.54,Sub,,0,0,0,,{\fad(120,160)}would you?
+Dialogue: 0,0:09:54.76,0:09:56.44,Sub,,0,0,0,,{\fad(120,160)}Every generation before us
+Dialogue: 0,0:09:56.48,0:09:57.92,Sub,,0,0,0,,{\fad(120,160)}was given the answer.
+Dialogue: 0,0:09:58.30,0:09:59.55,Sub,,0,0,0,,{\fad(120,160)}We are the first
+Dialogue: 0,0:09:59.59,0:10:01.17,Sub,,0,0,0,,{\fad(120,160)}to be asked the question.
+Dialogue: 0,0:10:02.35,0:10:04.17,Sub,,0,0,0,,{\fad(120,160)}That's what this channel is for:
+Dialogue: 0,0:10:04.26,0:10:05.96,Sub,,0,0,0,,{\fad(120,160)}making sure superintelligence
+Dialogue: 0,0:10:06.00,0:10:07.67,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody,
+Dialogue: 0,0:10:07.71,0:10:09.69,Sub,,0,0,0,,{\fad(120,160)}and that the answer stays yours.
+Dialogue: 0,0:10:09.88,0:10:10.88,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:10:10.94,0:10:11.94,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.

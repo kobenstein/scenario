@@ -18,3 +18,10 @@ Neulauf ohne neue Takes: `W=/tmp/claude-0/f73/audio; python3 make_segments.py &&
 ## Dateien
 Klein (Netz-Mount `<ROOT>audio/`): `timing.json`, `slots.json`, `untertitel/subtitles.srt`, `untertitel/subtitles.ass`, `mix_preview.mp3`.
 Groß (Scratch `/tmp/claude-0/f73/audio/`): `mix.wav`, `mix.m4a`, `mix_preview.mp3`, `vo_master.wav`, `vo_only.wav`, `stem_music.wav`, `stem_sfx.wav`, `premix.wav`, `music/M0–M5.mp3`, `sfx/`, `clipwav/`, `dl/`.
+
+## Ergebnis (25.11., final mit den echten Clips)
+- Länge 630.67 s (10:30.7) · letztes VO-Wort „subscribe.“ 611.67 s · Endbild 615.67–630.67 s · Kanal-Aufrufe t11 277.78–287.96, t24 601.65–611.67
+- Slots (= ffprobe der Clip-Dateien): C1 56.71–64.02 (7.31 s) · C3 186.52–193.44 (6.92 s) · C4 342.91–352.91 (10.00 s), Clip-Anteil 3.8 %
+- Clip-Pegel: `gain_db` C1 −0.9, C3 −1.5, C4 −1.4 → Clips im Mix +0.35 bis +0.55 LU über der VO davor/danach (ebur128)
+- mix.wav −14.00 LUFS, −1.50 dBTP, LRA 3.5 · 362 Untertitel (davon 18 Clip-Untertitel), längste Zeile 34
+- fal-Kosten ≈ 1.27 USD (TTS ≈ 0.65, Lyria 0.60, Wizper ≈ 0.02; SFX aus der Bibliothek)

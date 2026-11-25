@@ -21,9 +21,8 @@
   "id": "C1",
   "sec": "1",
   "clip": true,
-  "dur": 7.3,
-  "file": "C1.mp4",
-  "placeholder": true
+  "dur": 7.31,
+  "file": "C1.mp4"
  },
  {
   "id": "t03",
@@ -53,9 +52,8 @@
   "id": "C3",
   "sec": "2",
   "clip": true,
-  "dur": 6.9,
-  "file": "C3.mp4",
-  "placeholder": true
+  "dur": 6.92,
+  "file": "C3.mp4"
  },
  {
   "id": "t07",
@@ -104,9 +102,8 @@
   "id": "C4",
   "sec": "4",
   "clip": true,
-  "dur": 9.98,
-  "file": "C4.mp4",
-  "placeholder": true
+  "dur": 10.0,
+  "file": "C4.mp4"
  },
  {
   "id": "t14",
