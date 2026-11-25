@@ -2,7 +2,7 @@
 
 The lead built **c01** (the hook, 0 → `T.G('The date comes from')`) as the quality reference, plus the kit, THE LIFELINE stage, THE STONE
 (Leitbild), the seam plates, the end screen, the shot list and stubs for c02–c13. Three builders now build the rest **at the same time**,
-about 3–3.5 minutes of picture each. The film is built through to the end with no interim review. Release: Mon 30 Nov 2026, 17:00 Vienna.
+about 3–3.5 minutes of picture each. The film is built through to the end with no interim review. Release: Sun 29 Nov 2026, 17:00 Vienna.
 
 **First step, before anything else: load the skills** `scenario-motion` (channel style, wins on conflict), `world-class-motion-design`,
 `fluid-motion-design`, `motion-director-gates`, and `dataviz` for the number graphics. No ad skills. Style: `stil/STIL-editorial-nacht.md`.
