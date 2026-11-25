@@ -1,0 +1,177 @@
+{
+ "_comment": "Film 63 clip metadata (clips_json.py). placeholder true = the clip is not cut yet, its slot is silent. cues = [seconds from the slot start, subtitle line <= 34 chars].",
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "speaker": "Pope Leo XIV",
+   "role": "Pope",
+   "source": "Vatican News, presentation of Magnifica humanitas (25 May 2026)",
+   "url": "https://www.youtube.com/watch?v=JxcXcP6NyRM",
+   "src_start": "01:37:00",
+   "src_end": "01:37:08",
+   "lower_third": "ORIGINAL FOOTAGE · POPE LEO XIV · VATICAN, 25 MAY 2026",
+   "file": "C1.mp4",
+   "placeholder": false,
+   "dur": 4.1,
+   "slot_start": 39.77,
+   "slot_end": 43.87,
+   "sec": "H",
+   "transcript": "Artificial intelligence needs to be disarmed.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.15,
+     "Artificial intelligence"
+    ],
+    [
+     2.21,
+     "needs to be disarmed."
+    ]
+   ],
+   "cue_end": 4.29
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "speaker": "Pope Leo XIV",
+   "role": "Pope",
+   "source": "DRM News (reupload of the Vatican presentation, 25 May 2026)",
+   "url": "https://www.youtube.com/watch?v=aaYJ_4QcZfE",
+   "src_start": "00:02:21",
+   "src_end": "00:02:30",
+   "lower_third": "ORIGINAL FOOTAGE · POPE LEO XIV · VATICAN, 25 MAY 2026",
+   "file": "C3.mp4",
+   "placeholder": false,
+   "dur": 7.9,
+   "slot_start": 252.83,
+   "slot_end": 260.73,
+   "sec": "5",
+   "transcript": "Today, we find ourselves facing a transformation of similar magnitude, with perhaps even greater consequences.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.32,
+     "Today, we find ourselves facing"
+    ],
+    [
+     2.51,
+     "a transformation of similar"
+    ],
+    [
+     4.42,
+     "magnitude, with perhaps"
+    ],
+    [
+     6.05,
+     "even greater consequences."
+    ]
+   ],
+   "cue_end": 8.09
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "speaker": "Chris Olah",
+   "role": "Co-founder, Anthropic",
+   "source": "Vatican News, presentation of Magnifica humanitas (25 May 2026)",
+   "url": "https://www.youtube.com/watch?v=JxcXcP6NyRM",
+   "src_start": "00:56:02",
+   "src_end": "00:56:10",
+   "lower_third": "ORIGINAL FOOTAGE · CHRIS OLAH · ANTHROPIC · VATICAN, 25 MAY 2026",
+   "file": "C4.mp4",
+   "placeholder": false,
+   "dur": 7.1,
+   "slot_start": 331.52,
+   "slot_end": 338.62,
+   "sec": "6",
+   "transcript": "We need informed critics who will tell the labs when we are failing. We need moral voices that the incentives cannot bend.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.24,
+     "We need informed critics"
+    ],
+    [
+     1.63,
+     "who will tell the labs"
+    ],
+    [
+     2.89,
+     "when we are failing."
+    ],
+    [
+     4.05,
+     "We need moral voices"
+    ],
+    [
+     5.2,
+     "that the incentives cannot bend."
+    ]
+   ],
+   "cue_end": 7.25
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "speaker": "Pope Leo XIV",
+   "role": "Pope",
+   "source": "DRM News (reupload of the Vatican presentation, 25 May 2026)",
+   "url": "https://www.youtube.com/watch?v=aaYJ_4QcZfE",
+   "src_start": "00:08:08",
+   "src_end": "00:08:17",
+   "lower_third": "ORIGINAL FOOTAGE · POPE LEO XIV · VATICAN, 25 MAY 2026",
+   "file": "C5.mp4",
+   "placeholder": false,
+   "dur": 11.0,
+   "slot_start": 443.1,
+   "slot_end": 454.1,
+   "sec": "7",
+   "transcript": "The person bears within him- or herself a freedom, an interiority, and a vocation to love and worship that no machine can replace or block.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.39,
+     "The person bears within"
+    ],
+    [
+     2.19,
+     "him- or herself a freedom,"
+    ],
+    [
+     4.22,
+     "an interiority,"
+    ],
+    [
+     5.39,
+     "and a vocation to love and worship"
+    ],
+    [
+     8.05,
+     "that no machine"
+    ],
+    [
+     9.22,
+     "can replace or block."
+    ]
+   ],
+   "cue_end": 11.06
+  }
+ ]
+}
