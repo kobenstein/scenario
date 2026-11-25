@@ -1,6 +1,6 @@
 # #41 · Bill Gates Changed His Mind About AI and Jobs
 
-- Video: (nach Upload)
+- Video: https://youtu.be/GIa1407KO7c (privat, publishAt 2026-11-27T16:00Z, Thumb A gesetzt)
 - Geplant: 2026-11-27 17:00 Wien (16:00Z), privat mit publishAt
 - Länge: 10:17
 - Thumbnail beim Upload: A (f41-a-thumb-1280.jpg); T&C: A/B/C
