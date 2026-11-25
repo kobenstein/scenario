@@ -4,12 +4,15 @@
 // the final wording comes with vo-v2 (the way-out pass marks every line LOST / WON / OPEN, see docs/MOTION.md §6).
 import { span, clamp } from '../lib/f79_kit.mjs';
 export const CLOCK = [['H.08', 'MONDAY · 8:10 AM'],
+  ['N.01', 'MONDAY · 12:00 NOON'], ['G.05', 'MONDAY · 1:00 PM'], ['L.02', 'MONDAY · 2:00 PM'], ['L.08', 'MONDAY · 4:00 PM'],   // B2 c05–c07
   ['Q.02', 'MONDAY · 6:00 PM'], ['E.01', 'MONDAY · 7:30 PM'],   // B3 c08–c10
 ];   // + per station (v2): 9:00 · 9:30 · 10:00 (kitchen) · 12:00 NOON · 1 PM · 2 PM · 4 PM · 6 PM · 7:30 PM
 export const COUNT = [['H.15', 1, 'THE ALARM CLOCK'],
+  ['N.29', 5, 'YOUR TAXES, YOUR VOTE'], ['G.14', 6, 'THE SCHOOL'], ['L.10', 7, 'THE FIELDS'],   // B2 c05–c07
   ['Q.14', 9, 'YOUR TIME'],   // B3 c08 (the ninth box of the hallway counter)
 ];   // + per station (v2)
 const HOURS = [['H.01', 7.6], ['H.08', 8.2], ['H.17', 8.3],
+  ['N.01', 12.0], ['G.03', 12.6], ['G.05', 13.0], ['L.02', 14.0], ['L.08', 16.0],   // B2 c05–c07
   ['Q.01', 17.6], ['Q.02', 18.0], ['Q.11', 18.6], ['Q.14', 19.0], ['E.01', 19.6], ['E.08', 20.6], ['W.28', 21],   // B3 c08–c10
 ];   // the hour drives the sky (K.hourLook); builders append their stations
 export function hourAt(R, t) {
@@ -19,6 +22,7 @@ export function hourAt(R, t) {
   return H[H.length - 1][1];
 }
 export const HIDE = [['H.01', 'H.08', -.6], ['H.15', 'H.16', -.3],
+  ['G.01', 'G.03', -.5],   // B2 c06: the big half-full counter over the street at noon grows out of the HUD and goes back into it
   ['Q.12', 'Q.14', -.4], ['W.01', 'END'],   // B3: the big NOT NEEDED list (c08); the way out is 2026, no 2050 day clock (c10)
 ];   // [from row, to row]: hidden (title, the big counter in the hall); clips + end screen are added below
 let EV = null;
