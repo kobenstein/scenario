@@ -1,0 +1,11 @@
+[
+ {"f": "bloom", "word": "will not save you", "at_end": true, "dt": 0.05, "v": 0.5, "once": true, "fade": 0.6},
+ {"f": "unlock", "at": "C1", "at_end": true, "dt": 0.2, "v": 0.5, "once": true, "d": 1.6, "fade": 0.8},
+ {"f": "pages", "word": "His first", "at_end": true, "dt": 0.1, "off": 2.6, "v": 0.45, "once": true, "d": 1.4, "fade": 0.5},
+ {"f": "brass_click", "word": "money. Your time", "at_end": true, "dt": 0.15, "v": 0.5, "once": true, "fade": 0.5},
+ {"f": "rumble", "word": "the Tower of Babel", "at_end": true, "dt": 0.05, "off": 1.6, "v": 0.35, "once": true, "d": 2.6, "fade": 1.2},
+ {"f": "brick", "word": "a whole people together", "at_end": true, "dt": 0.1, "v": 0.45, "once": true, "fade": 0.5},
+ {"f": "shimmer_rings", "word": "Not engineered. Grown", "at_end": true, "dt": 0.2, "v": 0.45, "once": true, "fade": 0.8},
+ {"f": "brass_click", "word": "both sides of the scale", "at_end": true, "dt": 0.1, "v": 0.5, "once": true, "fade": 0.5},
+ {"f": "candle", "word": "the one job it cannot take", "at_end": true, "dt": 0.15, "v": 0.5, "once": true, "fade": 0.8}
+]
