@@ -1,0 +1,814 @@
+{
+ "film": "AGI: The Final Human Invention (#77)",
+ "stand": "2026-11-25",
+ "hinweise": [
+  "Format wie film-europa-ki/clips.json nach schreibraum/clip-schritt.md. 'clips' = Empfehlung je Stelle (zählt für den Anteil), 'alternativen' = Ersatz oder Zusatz, 'zitatkarten' = nur als Text im Bild, 'vermeiden' = nicht verwenden. Zusatzfelder wie bei #69: 'konfidenz', 'konfidenz_grund', 'dauer_s_geschaetzt', 'content_id_risiko', 'aufnahme'.",
+  "Konfidenz: gruen = Wortlaut und Zeitmarken an Untertiteln geprüft · gelb = Stelle eingegrenzt (offizielles Kapitel, kurzes Video oder Zeitangabe aus zwei Zusammenfassungen) und Inhalt belegt (Beschreibung des Kanals, Transkript Dritter, Presse), Wortlaut und Zeitmarke am iMac prüfen · rot = Stelle oder Inhalt offen, ohne iMac-Prüfung nicht einplanen.",
+  "Diese Runde (24.–25.11.2026) kam ich an keine YouTube-Untertitel und keinen Ton (Bot-Prüfung), vidIQ hat kein Guthaben (bis 19.12.2026). Titel, Kanal, Datum, Länge, Lizenz, Kapitel, Beschreibung und das Feld 'licensedContent' stammen aus der YouTube-Datenschnittstelle (24.–25.11.2026). Wortlaute stammen aus Transkripten Dritter (Singju Post), Beschreibungen der Kanäle oder der Presse. Kein Wortlaut und keine Zeitmarke ist am Video geprüft, darum hat kein Clip Konfidenz grün.",
+  "Ampel: Uni-Kanäle (Stanford GSB, Stanford Online, Berkeley RDI, UW–Madison) sowie Kanäle von Labs und Firmen (Google, Google DeepMind) sind grün. Den ICM-Vortrag auf dem Kanal der Simons Foundation zähle ich wie einen Uni-Vortrag als grün. Podcasts, Konferenzen, Vortragsreihen, Creator und Reportagen sind gelb. TV-Sender, TED/TEDx, Filme und Wiederhochlader nie, nur Zitatkarte.",
+  "Abstände bei der Empfehlung: C1 ~2:15 · C2 ~4:35 · C3 ~6:00 · C4 ~7:35 → überall ≥ 45 s eigener Film. Kein Clip in Hook und Schluss. Turing und Good nur als Zitatkarten.",
+  "Pro Quellvideo ist höchstens ein Clip geplant. C3 und C3d kommen vom selben Kanal (SAIR), sind aber zwei verschiedene Videos.",
+  "Jeder Clip bekommt davor einen Einordnungssatz und die Bauchbinde „ORIGINAL FOOTAGE“, und jeder endet mit einem ganzen Satz. Firmenchefs und Laborgründer (Hassabis, Fedus, Cubuk, Krause) mit ihrem Interesse ankündigen (§1.9a). Kein Clip mit Jensen Huang, auch nicht im Bild (§2.5f). Nichts über Medikamente (§2.5c).",
+  "Keine dieser Quellen wurde in früheren Filmen als Clip genutzt (gesucht in film-*/clips*.json und den Faktenzetteln der ersten Ebene). DsewHeVbL-0 (C1) steht in #66 nur als Suchtipp in einer Prüfliste, nicht als Clip."
+ ],
+ "anteil": {
+  "summe_empfehlung_s": 42,
+  "summe_ist_schaetzung": true,
+  "laufzeit_annahme_s": 615,
+  "prozent": 6.8,
+  "ziel_prozent": 8,
+  "hart_prozent": 10,
+  "mit_c4b_s": 50,
+  "mit_c4b_prozent": 8.1
+ },
+ "clips": [
+  {
+   "id": "C1",
+   "kandidat": "Empfehlung",
+   "speaker": "Demis Hassabis",
+   "role": "Co-founder, Google DeepMind (bei der Aufnahme CEO; seit 5.8.2026 Chair von Google DeepMind und Chief Scientist von Alphabet)",
+   "source_title": "A Conversation with Demis Hassabis, Co-Founder and CEO of Google DeepMind",
+   "channel": "Stanford Graduate School of Business",
+   "url": "https://www.youtube.com/watch?v=DsewHeVbL-0",
+   "date": "2026-06-02",
+   "aufnahme": "AI@GSB, Stanford, etwa 22.5.2026 (Stanford Daily vom 29.5.2026: „last Friday“), moderiert von Stanford-Präsident Jonathan Levin",
+   "in": "ungeprüft (laut zwei Zusammenfassungen, Blumify und Nuggets, etwa 09:20)",
+   "out": "ungeprüft (etwa 09:30)",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 10,
+   "transcript": "„Step one: Solve intelligence. Step two: Use it to solve everything else.“ Wenn es in 12 s passt, auch der nächste Satz: „… by solve intelligence we meant build AGI.“ (Wortlaut laut Transkript bei Singju Post und Stanford GSB Insights, nicht am Video geprüft)",
+   "ampel": "gruen",
+   "content_id_risiko": "niedrig nach heutigem Stand: licensedContent false. Nach Fremdkopien habe ich nicht gesucht. Nach dem privaten Upload in Studio prüfen.",
+   "konfidenz": "gelb",
+   "konfidenz_grund": "Der Wortlaut ist durch zwei Transkripte belegt (Singju Post, GSB Insights), die Stelle über zwei Zusammenfassungen auf etwa 09:20–09:30 eingegrenzt. Das Video hat hochgeladene Untertitel (caption true) und ist am iMac schnell zu prüfen.",
+   "slot": "Station 1 (~2:15), nach Turings und Goods Zitatkarten und dem ehrlichen Moment („within the twentieth century … He was wrong“). Antwort auf „Warum sollten wir ihm jetzt glauben?“: Die Leute, die diese Maschinen bauen, sagen heute fast denselben Satz (Faktenzettel F11).",
+   "einordnung": "Today, the people building these machines describe the plan almost the way Good did. Demis Hassabis co-founded Google DeepMind, so he has a stake in this:",
+   "burned": null,
+   "untertitel": "vorhanden laut Schnittstelle (caption true), aus der Cloud nicht geladen (Bot-Prüfung, vidIQ ohne Guthaben). Transkript: https://singjupost.com/gsb-a-conversation-with-demis-hassabis-ceo-of-google-deepmind-transcript/",
+   "musik": "unbekannt; Gespräch auf der Bühne, unter dem Gespräch ist keine Musik zu erwarten",
+   "kontext_vorher_30s": "ungeprüft. Laut Transkript spricht er über den ursprünglichen Plan von DeepMind. Die Zwei-Schritte-Formel ist der Leitsatz aus der Gründungszeit.",
+   "kontext_nachher_30s": "ungeprüft. Laut Transkript: „by ‚solve intelligence' we meant build AGI“ und „we really meant it“. An anderer Stelle des Gesprächs: „species-level transition“ (Stanford Daily).",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Untertitel laden und nach „solve everything else“ suchen. Einen ganzen Satz nehmen, 1 s Rand.",
+    "Sinn prüfen: Meint er den Plan von damals oder den von heute? Die Einordnung („describe the plan“) passt für beides.",
+    "Bauchbinde: DEMIS HASSABIS · Co-founder, Google DeepMind · 2026 · ORIGINAL FOOTAGE (nicht „CEO“, siehe Faktenzettel 0.4).",
+    "Interesse nennen (§1.9a): Google verkauft KI.",
+    "Rechte: Kanal der Stanford GSB (Uni = grün), Standard-YouTube-Lizenz. Stanford Medicine war Mitveranstalter, die Medizin-Teile des Gesprächs nicht verwenden (§2.5c)."
+   ]
+  },
+  {
+   "id": "C2",
+   "kandidat": "Empfehlung",
+   "speaker": "Liam Fedus oder Ekin Dogus Cubuk (wer an der Stelle spricht, ist offen)",
+   "role": "Co-founders, Periodic Labs. Fedus war bei OpenAI, laut The Generalist „one of the creators of ChatGPT“. Cubuk leitete bei Google DeepMind das Team für Chemie und Materialien (u. a. GNoME).",
+   "source_title": "AI Scientists Are Here: Autonomous Labs & Synthesis Superintelligence — Periodic Labs",
+   "channel": "Latent Space",
+   "url": "https://www.youtube.com/watch?v=YHiqVRxGViM",
+   "date": "2026-10-08",
+   "in": "ungeprüft (Kapitel „01:00:20 Why Frontier AI Still Needs Experiments“, Ersatz „00:30:22 DFT, Simulation, and Experimental Ground Truth“)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 10,
+   "transcript": "Wortlaut offen. Laut Beschreibung erklären beide, „why frontier models will still need experiments“ und wie automatisierte Experimente „could compress decades of scientific trial-and-error into months“. Laut einer Zusammenfassung von Latent Space sagt Fedus, die Daten kämen aus den eigenen Laboren, „this is sort of our ultimate truth“ (sinngemäß). Ziel: ein ganzer Satz, dass auch die klügste KI das Experiment braucht.",
+   "ampel": "gelb",
+   "content_id_risiko": "niedrig nach heutigem Stand: licensedContent false, keine Fremdkopie gesucht.",
+   "konfidenz": "gelb",
+   "konfidenz_grund": "Die Stelle ist über offizielle Kapitel eingegrenzt, der Inhalt durch die Beschreibung des Kanals belegt. Offen sind der Wortlaut und wer spricht. Auf latent.space/p/periodic liegt ein Transkript (aus der Cloud nicht erreichbar).",
+   "slot": "Station 3 (~4:35), nach den gebauten Supraleitern (F23) und vor dem ehrlichen Moment „viele Vorschläge sind Papier“ (F25). Der Clip trägt die Wende selbst: Leute, die KI-Vorhersagen in großem Stil gemacht haben (Cubuk leitete bei DeepMind das Team, aus dem GNoME kam), sagen jetzt, dass nur das Labor zählt. Das Gerüst setzt C2 hinter den ersten Abo-Aufruf, hier passt er besser davor.",
+   "einordnung": "Liam Fedus helped create ChatGPT. Now he builds robot labs, so he has a stake in this. Here's why he thinks even the smartest A.I. still needs a lab: (wenn Cubuk spricht: „Ekin Dogus Cubuk used to lead materials research at Google DeepMind. Now he builds robot labs, so he has a stake in this:“)",
+   "burned": null,
+   "untertitel": "keine hochgeladenen Untertitel laut Schnittstelle (caption false), automatische nicht geladen (Bot-Prüfung). Transkript vermutlich auf https://latent.space/p/periodic",
+   "musik": "unbekannt; Podcast im Studio, unter dem Gespräch ist keine Musik zu erwarten (Intro und Kapitelübergänge prüfen)",
+   "kontext_vorher_30s": "ungeprüft. Das Kapitel davor heißt „00:58:13 Training AI on the Process of Science“.",
+   "kontext_nachher_30s": "ungeprüft. Das Kapitel danach heißt „01:06:06 Scaling Autonomous Labs“.",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Das Transkript auf latent.space/p/periodic nach „experiment“, „ground truth“ und „decades“ durchsuchen, dann die Stelle im Video setzen.",
+    "Wer spricht? Einordnung und Bauchbinde danach wählen.",
+    "Einen Satz nehmen, der für sich steht und mit einem ganzen Satz endet (Ziel 8–10 s).",
+    "Fairness: Periodic hat noch keine Entdeckung angekündigt (IEEE Spectrum). Den Clip als Einschätzung einordnen, nicht als Beleg für einen Erfolg.",
+    "Bauchbinde: LIAM FEDUS (oder EKIN DOGUS CUBUK) · Co-founder, Periodic Labs · 2026 · ORIGINAL FOOTAGE"
+   ]
+  },
+  {
+   "id": "C3",
+   "kandidat": "Empfehlung",
+   "speaker": "Terence Tao",
+   "role": "Fields Medalist, mathematician",
+   "source_title": "Terence Tao: Math 2.0",
+   "channel": "SAIR",
+   "url": "https://www.youtube.com/watch?v=aHpPoNNTOKY",
+   "date": "2026-11-03",
+   "aufnahme": "Science x AI Summit, UCLA, 16.10.2026",
+   "in": "ungeprüft (31:47, keine Kapitel; den Teil über „proof abundance“ nennt die Beschreibung vor den zwei Beispielen, er liegt also eher in der ersten Hälfte)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 10,
+   "transcript": "Wortlaut offen. Laut Beschreibung passt reine Mathematik ungewöhnlich gut zu KI (objektiv prüfbar, ganz digital, gute Daten): „The result is an era of proof abundance. But more proofs do not automatically bring more understanding.“ Das ist Text der Beschreibung und nicht unbedingt sein gesprochener Satz. Ziel: sein Satz dazu im Vortrag.",
+   "ampel": "gelb",
+   "content_id_risiko": "niedrig nach heutigem Stand: licensedContent false.",
+   "konfidenz": "gelb",
+   "konfidenz_grund": "Der Inhalt ist durch die Beschreibung des Kanals belegt, die Stelle nur grob eingegrenzt (Vortrag ohne Kapitel, keine hochgeladenen Untertitel).",
+   "slot": "Station 4 (~6:00), nach den Mathe-Fällen (H1, H3, F28, F30) und vor „Aber genau hier wird Goods zweiter Halbsatz wichtig“. Taos Satz dreht die Station: Beweise im Überfluss, Verstehen nicht. Direkt danach die Fields-Erklärung als Zitatkarte (F32) und die Frage „who decides what this machine works on?“.",
+   "einordnung": "Terence Tao is one of the world's leading mathematicians. He has watched all of this up close:",
+   "burned": null,
+   "untertitel": "keine hochgeladenen (caption false), automatische nicht geladen (Bot-Prüfung, vidIQ ohne Guthaben)",
+   "musik": "unbekannt; Konferenzvortrag, Musik höchstens am Anfang und am Ende",
+   "kontext_vorher_30s": "ungeprüft. Laut Beschreibung erklärt er davor, warum die Mathematik von „Math 1.0“ zu „Math 2.0“ wechselt.",
+   "kontext_nachher_30s": "ungeprüft. Laut Beschreibung folgt: Viele neue KI-Ergebnisse sind schwer nachzuvollziehen, gute Forschungsfragen werden knapp, und in der Anwendung kann ein Modell eine formal gültige Antwort liefern, die das eigentliche Ziel verfehlt. Dann zwei Beispiele (ein Lean-Projekt zur universellen Algebra mit 22 Mio. Fragen und ein Wettbewerb) und das Open Math Model.",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Am iMac automatische Untertitel laden und nach „abundance“ und „understanding“ suchen.",
+    "Kontext: Seine Kritik richtet sich an die Firmen (Massenveröffentlichung, F30), nicht gegen KI an sich. Die Einordnung darf ihn nicht zum KI-Gegner machen.",
+    "Interesse: Tao ist Mitgründer von SAIR (Open Math Model). In der Einordnung nicht nötig, im Faktencheck vermerken.",
+    "Kein Tao-Clip aus #67 (Dwarkesh, Q8Fkpi18QXU) und keiner vom OpenAI-Kanal.",
+    "Bauchbinde: TERENCE TAO · Fields Medalist · 2026 · ORIGINAL FOOTAGE"
+   ]
+  },
+  {
+   "id": "C4",
+   "kandidat": "Empfehlung",
+   "speaker": "Paul Christiano",
+   "role": "Founder and Executive Director, Alignment Research Center; früher Leiter der KI-Sicherheit am US AI Safety Institute; seit 9.9.2026 im Vorstand der OpenAI Foundation",
+   "source_title": "Paul Christiano: AI Alignment - What's Working and What's Not | The Hinton Lectures 2026 (Night 1)",
+   "channel": "The Hinton Lectures™",
+   "url": "https://www.youtube.com/watch?v=-Ef0ocEoBCs",
+   "date": "2026-11-10",
+   "aufnahme": "Hinton Lectures 2026, Toronto (9.–11.11.2026), Abend 1, eingeführt von Geoffrey Hinton",
+   "in": "ungeprüft (1:30:43 mit Einführung und Podium; erst der Vortrag, danach das Podium mit Sínead Bovell)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 12,
+   "transcript": "Wortlaut offen. Laut Fremdtranskript (Singju Post) lautet sein Urteil über die heutigen Ansätze: „all plausible, but none is on a trajectory where it is definitely, or even probably, going to work“ (kann eine Zusammenfassung sein). Laut Beschreibung zeigt er, „where current approaches are working, where they fall short and how researchers are working to make increasingly capable systems safer“. Ziel: ein Satz, der beides trägt, dass Menschen echte Werkzeuge bauen und dass noch keins reicht.",
+   "ampel": "gelb",
+   "content_id_risiko": "niedrig nach heutigem Stand: licensedContent false.",
+   "konfidenz": "gelb",
+   "konfidenz_grund": "Der Inhalt ist durch die Beschreibung und ein Fremdtranskript belegt, die Stelle nicht eingegrenzt (keine Kapitel, keine hochgeladenen Untertitel). Das Fremdtranskript kann gekürzt oder geglättet sein.",
+   "slot": "Station 5 (~7:35), nach „Wer die Macht hat“ (F43) und vor dem Steelman (F42). Das ist der ehrliche Moment über die Lücke: Es wird gearbeitet, aber nichts ist sicher. Danach Steelman und Urteil.",
+   "einordnung": "Paul Christiano led alignment research at OpenAI, and today he runs a research center built around Good's question. He also sits on the board of OpenAI's foundation. This fall, he gave his honest verdict:",
+   "burned": null,
+   "untertitel": "keine hochgeladenen (caption false), automatische nicht geladen. Fremdtranskript: https://singjupost.com/paul-christiano-ai-alignment-whats-working-and-whats-not-the-hinton-lectures-2026-transcript/",
+   "musik": "unbekannt; Vortrag, Musik höchstens bei Einführung und Abspann",
+   "kontext_vorher_30s": "ungeprüft. Laut Fremdtranskript geht er davor die einzelnen Ansätze durch: Bewerter, die sich nicht austricksen lassen, Training ohne Schummeln, Überwachung der Gedankenkette, Interpretierbarkeit und neue Ideen.",
+   "kontext_nachher_30s": "ungeprüft. Laut Fremdtranskript fordert er „brakes“, also die Fähigkeit, ohne großen Schaden anzuhalten. Im selben Vortrag fallen Doom-Sätze („high risk of an AI takeover within the next three years“), die wir nicht nehmen.",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Am iMac automatische Untertitel laden und nach „trajectory“, „working“ und „brakes“ suchen.",
+    "Sinn erhalten: Der Satz darf nicht nach Aufgeben klingen, wenn er im Original „wir müssen schneller werden“ meint. Kontext davor und danach anhören.",
+    "Keine Doom-Sätze schneiden (Takeover in drei Jahren, Todesursache).",
+    "„a research center built around Good's question“ ist unsere Deutung (Alignment = Kontrolle). Wenn das zu frei ist: „runs the Alignment Research Center“.",
+    "Rechte: Kanal der Vortragsreihe, Standard-YouTube-Lizenz, Ampel gelb wie eine Konferenz.",
+    "Bauchbinde: PAUL CHRISTIANO · Founder, Alignment Research Center · 2026 · ORIGINAL FOOTAGE"
+   ]
+  }
+ ],
+ "alternativen": [
+  {
+   "id": "C1b",
+   "kandidat": "Ersatz für C1 (Station 1) oder Zusatz in Station 6",
+   "speaker": "Demis Hassabis",
+   "role": "Co-founder, Google DeepMind (bei der Aufnahme CEO)",
+   "source_title": "Google I/O '26 Keynote",
+   "channel": "Google",
+   "url": "https://www.youtube.com/watch?v=wYSncx9zLIU",
+   "date": "2026-05-19",
+   "in": "ungeprüft (Kapitel „01:44:28 Closing“, laut Westfield etwa 1:50:17)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 7,
+   "transcript": "„When we look back at this time, I think we will realize that we were standing in the foothills of the singularity.“ (Wortlaut laut Westfield; Computerworld: „… we all realise …“; Semafor: „We're at the foothills of the singularity“; nicht am Video geprüft)",
+   "ampel": "gruen",
+   "content_id_risiko": "mittel: licensedContent false, aber die Keynote hat 9,3 Mio. Aufrufe, Kopien von Nachrichtenkanälen sind wahrscheinlich (nicht gesucht).",
+   "konfidenz": "gelb",
+   "konfidenz_grund": "Stelle über das offizielle Kapitel und eine Zeitangabe aus der Presse eingegrenzt, drei Fassungen des Wortlauts im Umlauf. Untertitel vorhanden (caption true).",
+   "slot": "Statt C1 in Station 1, wenn der Film dort das Bild „Ausläufer“ will (Good: Explosion, Hassabis: wir stehen am Fuß). Oder in Station 6 (~8:30), dann aber Abstand zu C4 (≥ 45 s) und Anteil prüfen.",
+   "einordnung": "At Google's biggest event of the year, Demis Hassabis closed with this:",
+   "burned": null,
+   "untertitel": "vorhanden laut Schnittstelle, nicht geladen",
+   "musik": "Risiko: Keynote-Schluss, Musik unter dem letzten Satz möglich → am Ton prüfen, sonst Zitatkarte",
+   "kontext_vorher_30s": "ungeprüft",
+   "kontext_nachher_30s": "ungeprüft",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Bei 1:50:17 hören, welcher der drei Wortlaute stimmt.",
+    "Musik unter dem Satz? Dann nur Zitatkarte.",
+    "„Singularity“ nicht als Prognose des Films verkaufen; es ist seine Einschätzung (Prognose)."
+   ]
+  },
+  {
+   "id": "C1c",
+   "kandidat": "Reserve für Station 1 (Was heißt „everything else“?)",
+   "speaker": "Demis Hassabis",
+   "role": "Co-founder, Google DeepMind (bei der Aufnahme CEO)",
+   "source_title": "Demis Hassabis: Agents, AGI & The Next Big Scientific Breakthrough",
+   "channel": "Y Combinator",
+   "url": "https://www.youtube.com/watch?v=JNyuX1zoOgU",
+   "date": "2026-04-29",
+   "in": "ungeprüft (40:57, Kapitel vorhanden)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 8,
+   "transcript": "Wortlaut offen. Laut Berichten erklärt er „everything else“ als „root node problems in science“.",
+   "ampel": "gelb",
+   "content_id_risiko": "niedrig nach heutigem Stand: licensedContent false.",
+   "konfidenz": "rot",
+   "konfidenz_grund": "Stelle offen, keine hochgeladenen Untertitel.",
+   "slot": "Station 1 nach C1 oder Station 4 (Maßstabswechsel, F33). Nur wenn C1 nicht trägt; pro Film nur ein Hassabis-Clip.",
+   "einordnung": "Asked what ‚everything else' means, Hassabis said:",
+   "burned": null,
+   "untertitel": "keine hochgeladenen (caption false)",
+   "musik": "unbekannt; Live-Folge vor Publikum",
+   "kontext_vorher_30s": "ungeprüft",
+   "kontext_nachher_30s": "ungeprüft",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Stelle mit „root node“ suchen.",
+    "Die Beschreibung nennt den Chemie-Nobelpreis 2024, für die Bauchbinde nicht nötig."
+   ]
+  },
+  {
+   "id": "C2b",
+   "kandidat": "Ersatz für C2 (Gegenstimme oder Laborbild)",
+   "speaker": "William Bailey (Columbia University) oder Joseph Krause (CEO, Radical AI)",
+   "role": "Bailey: Forscher an der Columbia University, unabhängige Stimme. Krause: Mitgründer und CEO von Radical AI.",
+   "source_title": "Inside an AI-powered lab trying to replace scientists",
+   "channel": "Bulletin of the Atomic Scientists",
+   "url": "https://www.youtube.com/watch?v=hA6gGTUcTfU",
+   "date": "2026-09-08",
+   "in": "ungeprüft (Kapitel „7:18 An Independent Scientist's Perspective“ für Bailey, „0:00 Inside Radical AI's Manhattan lab“ und „5:25 Where Humans Still Dominate“ für Krause)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 8,
+   "transcript": "Wortlaut offen. Laut Beschreibung: Krause sagt, ein Forscher könne jetzt 10 Experimente gleichzeitig laufen lassen, und nennt das Labor „one of the most important tools in the world for scientists“. Bailey ist skeptischer: Manche Umwandlungen in Materialien lassen sich nicht beschleunigen, und er bezweifelt, dass KI so weiterdenken kann wie große Forscher.",
+   "ampel": "gelb",
+   "content_id_risiko": "niedrig nach heutigem Stand: licensedContent false.",
+   "konfidenz": "gelb",
+   "konfidenz_grund": "Stelle über offizielle Kapitel eingegrenzt, Inhalt durch die Beschreibung belegt. Wortlaut offen, keine hochgeladenen Untertitel.",
+   "slot": "Station 3: Bailey als ehrlicher Moment (~4:50) statt C2, oder Krause als Staunen über das Labor (~4:20). Liefert zugleich echte Laborbilder (Roboter).",
+   "einordnung": "Bailey: „Not everyone is convinced. William Bailey, a researcher at Columbia, says some things in a lab can't be rushed:“ · Krause: „Joseph Krause runs one of these robot labs, so he has a stake in this:“",
+   "burned": null,
+   "untertitel": "keine hochgeladenen (caption false)",
+   "musik": "Risiko hoch: Reportage, Musik unter den O-Tönen wahrscheinlich → am Ton prüfen. Mit Musik nur Zitatkarte (clip-schritt.md).",
+   "kontext_vorher_30s": "ungeprüft",
+   "kontext_nachher_30s": "ungeprüft. Kapitel danach: „9:01 Conclusion“.",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Musik unter dem O-Ton? Dann nur Zitatkarte.",
+    "Baileys genaue Funktion an der Columbia University prüfen.",
+    "Bauchbinde: WILLIAM BAILEY · Columbia University · 2026 · ORIGINAL FOOTAGE (bzw. JOSEPH KRAUSE · CEO, Radical AI)"
+   ]
+  },
+  {
+   "id": "C2c",
+   "kandidat": "Ersatz für C2 (Wortlaut über veröffentlichtes Transkript prüfbar)",
+   "speaker": "Liam Fedus oder Ekin Dogus Cubuk",
+   "role": "Co-founders and co-CEOs, Periodic Labs",
+   "source_title": "Meet the Ex-OpenAI & DeepMind Leads Creating an AI Scientist",
+   "channel": "The Generalist",
+   "url": "https://www.youtube.com/watch?v=vJVZgeXKlVo",
+   "date": "2026-09-29",
+   "in": "ungeprüft (Kapitel „(09:36) Why synthesizing new materials is so difficult“, Ersatz „(29:50) Inside an experimental loop at Periodic“)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 10,
+   "transcript": "Wortlaut offen. Laut Beschreibung geht es darum, „not just discovering new materials, but making them reliably and at scale“. Transkript: https://www.generalist.com/i/215855083/transcript",
+   "ampel": "gelb",
+   "content_id_risiko": "niedrig nach heutigem Stand: licensedContent false.",
+   "konfidenz": "gelb",
+   "konfidenz_grund": "Stelle über offizielle Kapitel eingegrenzt, Inhalt durch die Beschreibung belegt, Transkript veröffentlicht (aus der Cloud nicht erreichbar).",
+   "slot": "Station 3, ehrlicher Moment (~4:50): Warum Herstellen schwerer ist als Vorhersagen. Gleiche Firma wie C2, also nur einer von beiden.",
+   "einordnung": "Ekin Dogus Cubuk used to lead materials research at Google DeepMind. Now he runs a robot lab, so he has a stake in this:",
+   "burned": null,
+   "untertitel": "keine hochgeladenen (caption false), Transkript auf generalist.com",
+   "musik": "unbekannt; Podcast",
+   "kontext_vorher_30s": "ungeprüft. Kapitel davor: „(07:21) How Heike Kamerlingh Onnes discovered superconductivity“.",
+   "kontext_nachher_30s": "ungeprüft. Kapitel danach: „(16:44) Dogus's path to AI“.",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Transkript nach „synthes“ durchsuchen, Stelle im Video setzen.",
+    "Nur C2 oder C2c verwenden (dieselben Sprecher)."
+   ]
+  },
+  {
+   "id": "C2d",
+   "kandidat": "Reserve (Uni-Kanal, Inhalt offen)",
+   "speaker": "Ekin Dogus Cubuk",
+   "role": "Co-founder, Periodic Labs",
+   "source_title": "Ekin Dogus Cubuk - Combining Experiments, LLMs, and Theory to Discover Quantum Materials",
+   "channel": "Berkeley RDI",
+   "url": "https://www.youtube.com/watch?v=I-OlxZ7h2s0",
+   "date": "2026-08-09",
+   "in": "ungeprüft (8:36, keine Beschreibung, keine Kapitel)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 8,
+   "transcript": "Wortlaut offen, Inhalt nur über den Titel bekannt.",
+   "ampel": "gruen",
+   "content_id_risiko": "niedrig nach heutigem Stand: licensedContent false.",
+   "konfidenz": "rot",
+   "konfidenz_grund": "Kein Inhalt außer dem Titel belegt. Kurzer Vortrag mit hochgeladenen Untertiteln (caption true), am iMac in Minuten zu prüfen.",
+   "slot": "Station 3, falls C2 nicht trägt und ein grüner Kanal gewünscht ist.",
+   "einordnung": "offen",
+   "burned": null,
+   "untertitel": "vorhanden laut Schnittstelle, nicht geladen",
+   "musik": "unbekannt; Vortrag",
+   "kontext_vorher_30s": "ungeprüft",
+   "kontext_nachher_30s": "ungeprüft",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Untertitel laden, nach „experiment“ und „synthesis“ suchen."
+   ]
+  },
+  {
+   "id": "C2e",
+   "kandidat": "nur Bildmaterial für Station 3 (Roboterlabor), kein O-Ton nötig",
+   "speaker": "Vignesh Selvaraj, Sebastian Kube (UW–Madison)",
+   "role": "Department of Materials Science and Engineering, University of Wisconsin–Madison",
+   "source_title": "AlloyBot and the future of autonomous materials discovery",
+   "channel": "UW-Madison College of Engineering",
+   "url": "https://www.youtube.com/watch?v=oeBQqt7x4r4",
+   "date": "2026-06-04",
+   "in": "ungeprüft (5:41)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 5,
+   "transcript": "Laut Beschreibung: eine vollautomatische Anlage zum Wiegen und Lichtbogenschmelzen, „1 alloy per hour (150 alloys per week)“, erster Baustein eines selbstfahrenden Labors, das Legierungen „100× faster“ herstellen und testen soll.",
+   "ampel": "gruen",
+   "content_id_risiko": "niedrig nach heutigem Stand: licensedContent false.",
+   "konfidenz": "gelb",
+   "konfidenz_grund": "Inhalt durch die Beschreibung belegt; als Bildmaterial braucht es keinen Wortlaut.",
+   "slot": "Station 3 (~4:10), unter „Stoffe, von Robotern im Labor gebaut“. Zählt als Fremdmaterial zum Anteil, wenn es länger als ein paar Sekunden läuft.",
+   "einordnung": "keine nötig (Bild mit Quelle: UW–Madison)",
+   "burned": null,
+   "untertitel": "vorhanden laut Schnittstelle (caption true)",
+   "musik": "Risiko: Uni-Video, Musik wahrscheinlich → ohne Originalton verwenden",
+   "kontext_vorher_30s": "entfällt",
+   "kontext_nachher_30s": "entfällt",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Lizenz der Uni prüfen oder kurz um Erlaubnis bitten.",
+    "Bauchbinde: ORIGINAL FOOTAGE · UW–Madison"
+   ]
+  },
+  {
+   "id": "C3b",
+   "kandidat": "Ersatz für C3 (grüner Kanal)",
+   "speaker": "Terence Tao",
+   "role": "Fields Medalist, mathematician",
+   "source_title": "ICM 2026 Public Lectures - Terence Tao (Mathematics in the Age of AI)",
+   "channel": "Simons Foundation",
+   "url": "https://www.youtube.com/watch?v=M0--ZH1lOzg",
+   "date": "2026-08-13",
+   "in": "ungeprüft (51:19, keine Kapitel)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 10,
+   "transcript": "Wortlaut offen. Laut Zusammenfassung des Vortrags ermöglichen die Werkzeuge neue Zusammenarbeit „at scale“, „Yet these tools continue to have only a modest impact on more traditional mathematical objectives, such as making progress on individual highly difficult problems.“",
+   "ampel": "gruen",
+   "content_id_risiko": "niedrig nach heutigem Stand: licensedContent false.",
+   "konfidenz": "gelb",
+   "konfidenz_grund": "Inhalt durch die offizielle Zusammenfassung belegt, Stelle offen, keine hochgeladenen Untertitel.",
+   "slot": "Station 4 (~6:00) statt C3. Nüchterner als C3 (Tempo, nicht Tiefe), dafür vor den großen Ansprüchen vom Okt./Nov. aufgenommen.",
+   "einordnung": "Terence Tao is one of the world's leading mathematicians. This summer he told his colleagues:",
+   "burned": null,
+   "untertitel": "keine hochgeladenen (caption false)",
+   "musik": "unbekannt; öffentlicher Vortrag",
+   "kontext_vorher_30s": "ungeprüft",
+   "kontext_nachher_30s": "ungeprüft",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Stelle mit „modest impact“ suchen. Begleitartikel: https://www.simonsfoundation.org/2026/08/13/fields-medalist-terence-tao-on-artificial-intelligence-and-why-we-do-math/",
+    "Achtung: Stand August 2026, vor der Massenveröffentlichung (6.10.)."
+   ]
+  },
+  {
+   "id": "C3c",
+   "kandidat": "Ersatz für C3 (größte Reichweite, Content-ID-Risiko)",
+   "speaker": "Terence Tao",
+   "role": "Fields Medalist, mathematician",
+   "source_title": "No More Heroes - Terence Tao Talks to Numberphile About AI",
+   "channel": "Numberphile",
+   "url": "https://www.youtube.com/watch?v=bAnwMdfcMVw",
+   "date": "2026-10-15",
+   "in": "ungeprüft (19:45)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 10,
+   "transcript": "Wortlaut offen. Laut Beschreibung spricht er über „the crisis being caused by a massive dump of AI proofs“ (die Massenveröffentlichung von OpenAI, F30).",
+   "ampel": "gelb",
+   "content_id_risiko": "hoch: licensedContent true.",
+   "konfidenz": "gelb",
+   "konfidenz_grund": "Inhalt durch die Beschreibung belegt, Stelle offen, keine hochgeladenen Untertitel.",
+   "slot": "Station 4 (~6:00) statt C3, wenn der Film die Massenveröffentlichung erzählt.",
+   "einordnung": "Terence Tao is one of the world's leading mathematicians. When one company released hundreds of A.I. papers at once, he said:",
+   "burned": null,
+   "untertitel": "keine hochgeladenen (caption false)",
+   "musik": "unbekannt; Numberphile meist ohne Musik unter dem Gespräch",
+   "kontext_vorher_30s": "ungeprüft",
+   "kontext_nachher_30s": "ungeprüft",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Content ID: Nach dem privaten Upload Ansprüche prüfen, sonst Zitatkarte.",
+    "„one company“ statt OpenAI zu nennen ist nur sinnvoll, wenn F30 im Film nicht vorkommt."
+   ]
+  },
+  {
+   "id": "C3d",
+   "kandidat": "Reserve für Station 4 oder 6",
+   "speaker": "Terence Tao, Yu Deng",
+   "role": "Tao: Fields Medalist. Deng: Mathematiker (Funktion am iMac prüfen)",
+   "source_title": "Terence Tao & Yu Deng: Why We Build Open Math Model",
+   "channel": "SAIR",
+   "url": "https://www.youtube.com/watch?v=TjeCcDkuyao",
+   "date": "2026-10-20",
+   "in": "ungeprüft (22:46)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 8,
+   "transcript": "Wortlaut offen. Laut Beschreibung: die Probleme durch „large releases of AI-generated proofs“, die schwierige Rückverfolgung von Ideen und dass man „explanation, insight, and community building alongside problem-solving“ belohnen müsse.",
+   "ampel": "gelb",
+   "content_id_risiko": "niedrig nach heutigem Stand: licensedContent false.",
+   "konfidenz": "rot",
+   "konfidenz_grund": "Inhalt nur über die Beschreibung, Stelle offen.",
+   "slot": "Station 6 (was bleibt für uns: Verstehen, Erklären), nur wenn kein anderer Tao-Clip läuft.",
+   "einordnung": "offen",
+   "burned": null,
+   "untertitel": "keine hochgeladenen (caption false)",
+   "musik": "unbekannt; Interview",
+   "kontext_vorher_30s": "ungeprüft",
+   "kontext_nachher_30s": "ungeprüft",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Kanal der SAIR Foundation, die Tao mitgegründet hat (Interesse)."
+   ]
+  },
+  {
+   "id": "C4b",
+   "kandidat": "Ersatz für C4 (hoffnungsvoller) oder Zusatz in Station 5",
+   "speaker": "Sydney Katz",
+   "role": "Lecturer in Aeronautics & Astronautics, Stanford University",
+   "source_title": "Sydney Katz: What Is Mechanistic Interpretability?",
+   "channel": "Stanford Online",
+   "url": "https://www.youtube.com/watch?v=RxQ3VbuyOzY",
+   "date": "2026-10-21",
+   "in": "ungeprüft (Short, 1:09)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 8,
+   "transcript": "Wortlaut offen. Laut Beschreibung: Wer in ein Modell hineinschaut, findet die Muster hinter seinen Entscheidungen. Ihr Beispiel ist eine Kamera, die ein Flugzeug zur Landebahn führt und auf die richtigen Dinge achten muss, „not a bird or a shadow on the runway“. Mit Interpretierbarkeit lässt sich das prüfen und „justified confidence in safety-critical AI“ aufbauen.",
+   "ampel": "gruen",
+   "content_id_risiko": "niedrig nach heutigem Stand: licensedContent false.",
+   "konfidenz": "gelb",
+   "konfidenz_grund": "Inhalt durch die Beschreibung belegt, die Stelle liegt in 69 s, Untertitel vorhanden (caption true).",
+   "slot": "Station 5, Wendung „Kontrolle ist eine Erfindung, an der Menschen arbeiten“ (F39, ~7:00). Als Zusatz zu C4 nur mit ≥ 45 s Abstand (C4 dann ~7:50) und ~8,1 % Anteil, sonst statt C4.",
+   "einordnung": "Researchers are learning to look inside these systems. Sydney Katz teaches A.I. safety at Stanford:",
+   "burned": null,
+   "untertitel": "vorhanden laut Schnittstelle, nicht geladen",
+   "musik": "Risiko: Short, Musik darunter möglich → am Ton prüfen",
+   "kontext_vorher_30s": "entfällt (Short)",
+   "kontext_nachher_30s": "entfällt (Short)",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Musik? Eingebrannte Untertitel (Short)? Dann 'burned' vermerken.",
+    "Fairness: Sie spricht über sicherheitskritische KI (Flugzeuge), nicht über Superintelligenz. Die Einordnung darf das nicht größer machen.",
+    "„teaches A.I. safety“ prüfen: Laut Beschreibung unterrichtet sie „Validation of Safety Critical Systems“ (AA228V).",
+    "Bauchbinde: SYDNEY KATZ · Stanford University · 2026 · ORIGINAL FOOTAGE"
+   ]
+  },
+  {
+   "id": "C4c",
+   "kandidat": "Reserve für Station 5 (Content-ID-Risiko)",
+   "speaker": "Neel Nanda",
+   "role": "Interpretability researcher, Google DeepMind",
+   "source_title": "Understanding the inner thoughts of AI",
+   "channel": "Google DeepMind",
+   "url": "https://www.youtube.com/watch?v=1DtMiRKg-cs",
+   "date": "2026-07-10",
+   "in": "ungeprüft (53:06, Kapitel u. a. „02:41 Motivation for interpretability research“)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 8,
+   "transcript": "Wortlaut offen. Laut Beschreibung geht es um die „surprising, elegant structures being discovered inside these networks“ und um die Grenzen des Blicks unter die Haube. Ein Satz „We do not fully understand anything.“ steht nur in einer Podwise-Zusammenfassung (unbestätigt).",
+   "ampel": "gruen",
+   "content_id_risiko": "hoch: licensedContent true (trotz Lab-Kanal).",
+   "konfidenz": "rot",
+   "konfidenz_grund": "Stelle und Wortlaut offen; Untertitel vorhanden (caption true).",
+   "slot": "Station 5 (F39) statt C4b.",
+   "einordnung": "offen (Google ist Partei, §1.9a)",
+   "burned": null,
+   "untertitel": "vorhanden laut Schnittstelle, nicht geladen",
+   "musik": "Risiko: Podcast mit Hannah Fry, Musik an Kapitelübergängen möglich",
+   "kontext_vorher_30s": "ungeprüft",
+   "kontext_nachher_30s": "ungeprüft",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Content ID nach dem privaten Upload prüfen.",
+    "Nur Nanda schneiden, nicht die Moderatorin Hannah Fry."
+   ]
+  },
+  {
+   "id": "C4d",
+   "kandidat": "Steelman als O-Ton (besser nur Zitatkarte)",
+   "speaker": "Roman Yampolskiy",
+   "role": "Computer scientist, AI safety researcher",
+   "source_title": "The Man Who Proved We Can't Control AI (And What That Means for Humanity) | Roman Yampolskiy",
+   "channel": "André Duqum",
+   "url": "https://www.youtube.com/watch?v=U9xygNoXnZQ",
+   "date": "2026-04-21",
+   "in": "ungeprüft (1:49:24)",
+   "out": "ungeprüft",
+   "dauer_s": null,
+   "dauer_s_geschaetzt": 8,
+   "transcript": "Wortlaut offen. Laut Beschreibung erklärt er, „why the problem of AI alignment may be fundamentally unsolvable“.",
+   "ampel": "gelb",
+   "content_id_risiko": "hoch: licensedContent true.",
+   "konfidenz": "rot",
+   "konfidenz_grund": "Stelle offen, keine hochgeladenen Untertitel.",
+   "slot": "Station 5, Steelman (F42). Das Gerüst sieht dafür einen Satz im Sprechtext vor, ein Clip ist nicht nötig.",
+   "einordnung": "offen",
+   "burned": null,
+   "untertitel": "keine hochgeladenen (caption false)",
+   "musik": "unbekannt; Podcast",
+   "kontext_vorher_30s": "ungeprüft",
+   "kontext_nachher_30s": "ungeprüft",
+   "fair_use": {
+    "kommentiert": true,
+    "kurz_nicht_kern": true,
+    "ersetzt_original_nicht": true,
+    "sinn_erhalten": null
+   },
+   "pruefen": [
+    "Keine Prozentzahlen zum Aussterben schneiden (Ton, §1.1)."
+   ]
+  }
+ ],
+ "zitatkarten": [
+  {
+   "text": "„… it would not take long to outstrip our feeble powers.“",
+   "speaker": "Alan Turing",
+   "date": "1951",
+   "quelle": "Vortrag „Intelligent Machinery, A Heretical Theory“, Manchester 1951, gedruckt 1959 (Sara Turing, S. 132); Quote Investigator 6.1.2022",
+   "slot": "Station 1",
+   "hinweis": "Faktenzettel F7. Vor 1:00 nicht zeigen."
+  },
+  {
+   "text": "„… the first ultraintelligent machine is the last invention that man need ever make …“",
+   "speaker": "I. J. Good",
+   "date": "1965",
+   "quelle": "„Speculations Concerning the First Ultraintelligent Machine“, Advances in Computers 6, S. 33; Quote Investigator 4.1.2022",
+   "slot": "Station 1",
+   "hinweis": "Kürzung sichtbar mit „…“; der ganze Satz kommt in Station 5 (F6, F34)."
+  },
+  {
+   "text": "„It is more probable than not that, within the twentieth century, an ultraintelligent machine will be built …“",
+   "speaker": "I. J. Good",
+   "date": "1965",
+   "quelle": "ebd., S. 78; Quote Investigator 4.1.2022",
+   "slot": "Station 1, ehrlicher Moment",
+   "hinweis": "Wortlaut am Original prüfen (F8). „more probable than not“ stehen lassen, das ist fair."
+  },
+  {
+   "text": "„Thus the first ultraintelligent machine is the last invention that man need ever make, provided that the machine is docile enough to tell us how to keep it under control.“",
+   "speaker": "I. J. Good",
+   "date": "1965",
+   "quelle": "ebd., S. 33; Quote Investigator 4.1.2022",
+   "slot": "Station 5, Enthüllung",
+   "hinweis": "Der vergessene zweite Halbsatz; „provided that …“ im Bild hervorheben."
+  },
+  {
+   "text": "„At some stage therefore we should have to expect the machines to take control …“",
+   "speaker": "Alan Turing",
+   "date": "1951",
+   "quelle": "wie oben; Quote Investigator 6.1.2022",
+   "slot": "Station 5",
+   "hinweis": "Satzende „in the way that is mentioned in Samuel Butler's Erewhon“ darf wegfallen, mit „…“."
+  },
+  {
+   "text": "„The survival of man depends on the early construction of an ultraintelligent machine.“",
+   "speaker": "I. J. Good",
+   "date": "1965",
+   "quelle": "ebd., S. 31; Quote Investigator 4.1.2022",
+   "slot": "Station 1 (Missverständnis) oder Station 6",
+   "hinweis": "Faktenzettel F9. Keinen Grund dazu erfinden."
+  },
+  {
+   "text": "„a milestone in AI mathematics“ · würde die Arbeit „without hesitation“ für die Annals of Mathematics empfehlen",
+   "speaker": "Timothy Gowers",
+   "date": "2026-05",
+   "quelle": "Quanta 3.8.2026, Scientific American; Begleitarbeit zu OpenAIs Ergebnis (arXiv 2605.20695, Abschnitt 9 prüfen)",
+   "slot": "Hook (H1) oder Station 4",
+   "hinweis": "Seine Stellungnahme war laut einem Blog-Kommentar von OpenAI erbeten (unbestätigt). Fields-Medaille in dieser Runde nicht belegt."
+  },
+  {
+   "text": "„the first result produced autonomously by an AI that I find interesting in itself“",
+   "speaker": "Daniel Litt",
+   "date": "2026-05",
+   "quelle": "Berichte zum Einheitsabstand (The Conversation, Scientific American)",
+   "slot": "Hook (H1) oder Station 4",
+   "hinweis": "Erst verwenden, wenn geklärt ist, ob Litt bei OpenAI forscht (Skandal-Prüfung im Faktenzettel)."
+  },
+  {
+   "text": "„the most spectacular single result“",
+   "speaker": "Noga Alon",
+   "date": "2026-05",
+   "quelle": "TechCrunch 20.5.2026, Quanta 3.8.2026 (laut Papst-Faktenzettel)",
+   "slot": "Hook (H1)",
+   "hinweis": "Alon prüfte den Beweis für OpenAI, so ankündigen."
+  },
+  {
+   "text": "„the goals of the AI companies and the goals of the mathematical community are severely misaligned“",
+   "speaker": "25 Fields-Medaillenträger, darunter Terence Tao",
+   "date": "2026-09-11",
+   "quelle": "„A Severe Misalignment of AI in Mathematics“, mathandai.org; Implicator",
+   "slot": "Station 4, Brücke zu Station 5 (F32)",
+   "hinweis": "„misaligned“ meint die Ziele der Firmen, nicht die der KI. Gegengewicht aus derselben Erklärung: KI könne „enhance and accelerate genuine mathematical study and understanding“."
+  },
+  {
+   "text": "„proof indigestion“",
+   "speaker": "Terence Tao",
+   "date": "2026-10-22",
+   "quelle": "Nature, World View „Can maths survive AI?“",
+   "slot": "Station 4",
+   "hinweis": "Nur das Stichwort; den Satz drumherum am Original prüfen."
+  },
+  {
+   "text": "„all plausible, but none is on a trajectory where it is definitely, or even probably, going to work“",
+   "speaker": "Paul Christiano",
+   "date": "2026-11-10",
+   "quelle": "Hinton Lectures 2026, Abend 1, laut Fremdtranskript (Singju Post)",
+   "slot": "Station 5, nur wenn C4 nicht kommt",
+   "hinweis": "Kann eine Zusammenfassung sein; erst nach Prüfung am Video als Zitat zeigen."
+  },
+  {
+   "text": "„We need to stop building general superintelligence.“",
+   "speaker": "Roman Yampolskiy",
+   "date": "2026-09-17",
+   "quelle": "azfamily, 17.9.2026 (Adresse nicht notiert)",
+   "slot": "Station 5, Steelman (F42)",
+   "hinweis": "Quelle am iMac suchen. Keine Prozentzahlen zum Aussterben."
+  },
+  {
+   "text": "Wortlaut offen (sinngemäß: Ein Notschalter hält auf Dauer nicht, eine Superintelligenz würde ihre Wächter überreden.)",
+   "speaker": "Geoffrey Hinton",
+   "date": "2026-09-17",
+   "quelle": "CNN (YouTube m5yrQMnc_jQ)",
+   "slot": "Station 5, Steelman (Ersatz)",
+   "hinweis": "CNN = rot, also nur Zitatkarte, und erst wenn der Wortlaut geprüft ist."
+  }
+ ],
+ "vermeiden": [
+  {
+   "videos": "Q8Fkpi18QXU",
+   "kanal": "Dwarkesh Patel",
+   "grund": "Quelle des Tao-Clips in #67."
+  },
+  {
+   "videos": "cdflu9ZXZGE",
+   "kanal": "OpenAI",
+   "grund": "Tao auf dem Firmenkanal von OpenAI; Tao liegt mit OpenAI über die Massenveröffentlichung im Streit."
+  },
+  {
+   "videos": "PqVbypvxDto, E5jq64vXoPY, -HzgcbRXUK8, AJf23bIjS8w, GdeY-MrXD74",
+   "kanal": "verschiedene (Hassabis)",
+   "grund": "In früheren Filmen schon als Clip verwendet."
+  },
+  {
+   "videos": "„The Thinking Game“ (Dokumentarfilm über DeepMind)",
+   "kanal": "–",
+   "grund": "Film = rot."
+  },
+  {
+   "videos": "m5yrQMnc_jQ",
+   "kanal": "CNN",
+   "grund": "Hinton bei CNN: großer TV-Sender, nur Zitatkarte."
+  },
+  {
+   "videos": "VQzK3cPWYTQ",
+   "kanal": "TEDx",
+   "grund": "TED/TEDx = rot."
+  },
+  {
+   "videos": "hwHMDqAwubc",
+   "kanal": "Kagan Dunlap",
+   "grund": "Wiederhochlader (Chris Olah im Vatikan), licensedContent. Original suchen, falls gewünscht."
+  },
+  {
+   "videos": "Y39uub4n0LA",
+   "kanal": "NVIDIA",
+   "grund": "Lila Sciences über Medikamente (§2.5c), dazu der Kanal von NVIDIA (§2.5f)."
+  },
+  {
+   "videos": "HfNwB4lPePc, aaR1bJWR6PA, D1cOhPgLXLA",
+   "kanal": "Fox Business, Bloomberg Tech, WION",
+   "grund": "TV-Sender."
+  },
+  {
+   "videos": "EYrlyxuyFbs",
+   "kanal": "New Scientist",
+   "grund": "Tao über das Millionen-Dollar-Problem (Navier-Stokes, schon in #55), licensedContent."
+  },
+  {
+   "videos": "SyHM5hNPAEo",
+   "kanal": "Dwarkesh Patel",
+   "grund": "Christiano mit Doom-Titel („AIs might overthrow the government within a year“), passt nicht zum Ton."
+  },
+  {
+   "videos": "ebWFexw51qM",
+   "kanal": "Danny Jones",
+   "grund": "Yampolskiy mit Doom-Titel („Only 2 Years Left“), licensedContent."
+  },
+  {
+   "videos": "Ausschnitte aus „2001: A Space Odyssey“ und „The Imitation Game“",
+   "kanal": "–",
+   "grund": "Filme = rot. HAL und Bletchley nur als eigene Illustration."
+  },
+  {
+   "videos": "Big-Think-Videos mit Tao oder Hassabis",
+   "kanal": "Big Think",
+   "grund": "Musik unter dem Ton."
+  }
+ ],
+ "offen": [
+  "Kein Clip-Wortlaut und keine Zeitmarke ist geprüft. YouTube-Untertitel und Ton waren aus der Cloud gesperrt (Bot-Prüfung), und vidIQ hat bis 19.12.2026 kein Guthaben. Einen Umweg über die Player-Schnittstelle hat das System in dieser Runde abgelehnt, ich habe ihn nicht weiter versucht.",
+  "Am iMac (Remote Control) Untertitel laden und Stellen setzen: C1 DsewHeVbL-0 (etwa 09:20, Untertitel vorhanden) · C2 YHiqVRxGViM (Kapitel 01:00:20 oder 00:30:22; Transkript auf latent.space/p/periodic) · C3 aHpPoNNTOKY (Abschnitt „proof abundance“) · C4 -Ef0ocEoBCs (Urteil und „brakes“) · optional C4b RxQ3VbuyOzY (69 s), C1b wYSncx9zLIU (etwa 1:50:17), C2b hA6gGTUcTfU (7:18, Musik?), C3b M0--ZH1lOzg.",
+  "Content ID: Nach dem privaten Upload in Studio unter Prüfungen/Urheberrecht nachsehen. Alternativen mit licensedContent true: 1DtMiRKg-cs (C4c), bAnwMdfcMVw (C3c), U9xygNoXnZQ (C4d). Nach Fremdkopien der Empfehlungen habe ich nicht gesucht.",
+  "Wortlaute aus Fremdtranskripten (Hassabis, Christiano) gegen den Ton prüfen. Christianos „definitely, or even probably“ kann eine Zusammenfassung sein.",
+  "Bauchbinden: Hassabis nicht mehr als CEO (seit 5.8.2026 Chair). Gowers' Fields-Medaille ist in dieser Runde nicht belegt."
+ ]
+}

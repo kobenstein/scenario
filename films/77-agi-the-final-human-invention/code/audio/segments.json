@@ -1,0 +1,163 @@
+[
+ {
+  "id": "t00",
+  "sec": "H",
+  "text": "[calm, conversational] A.G.I. may be the final human invention.\nLook around you. The light over your head. The phone in your hand. The screen in front of you.\nEach of them was invented by a person. So was every invention in history.\nA.G.I. would be the last. Artificial general intelligence: a machine that can do what a human mind does. Including invent.\nFrom then on, it invents for us. Faster than we ever could.\nSo what will it invent for you?\nThe inventing has already begun.\nThis year, an A.I. found an answer no human had found.",
+  "chars": 535
+ },
+ {
+  "id": "t01",
+  "sec": "H",
+  "text": "To a puzzle about dots on a page.\nGuess how long it had been waiting.\nEighty years.\nA mathematician who reviewed the answer called it a milestone.\nBut the idea of a final invention goes back to a single sentence. Half promise. Half condition. And the condition is up to us.",
+  "chars": 273
+ },
+ {
+  "id": "t02",
+  "sec": "1",
+  "text": "[thoughtful] Here is the promise.\n\"The first ultra-intelligent machine is the last invention that man need ever make.\"\nIt's more than sixty years old. Jack Good wrote it.\nIn the Second World War, he helped break German naval codes at Bletchley Park. His first boss there was Alan Turing.\nThe logic: a machine smarter than us can design a better machine. And that one, a better one still.\nIt sounds like an ending. But our survival, Good wrote, depends on building this machine.",
+  "chars": 477
+ },
+ {
+  "id": "t03",
+  "sec": "1",
+  "text": "He even guessed when: \"within the twentieth century.\" About the date, he was wrong.\nSo why should you take him seriously today?\nBecause today, people are trying to build that machine. They call it A.G.I. Demis Hassabis co-founded Google DeepMind, so he has a stake in this. His plan:",
+  "chars": 283
+ },
+ {
+  "id": "C1",
+  "sec": "1",
+  "clip": true,
+  "dur": 10.5,
+  "placeholder": true
+ },
+ {
+  "id": "t04",
+  "sec": "1",
+  "text": "Jack Good's promise, in a builder's words. So check it against your own list.\nWhat are you still waiting for? Energy that costs almost nothing. Materials for a battery that lasts a week. Answers to puzzles that have beaten us for generations.\nFor each line, one test: has the inventing begun?\nAnd leave a fourth line empty. It belongs to the second half of Good's sentence.",
+  "chars": 373
+ },
+ {
+  "id": "t05",
+  "sec": "2",
+  "text": "[calm, conversational] Start with the one you pay for every month. Energy.\nImagine heat without watching the meter.\nHas the inventing begun?\nTake clean hydrogen: fuel made from water and electricity. It takes a catalyst, a material that makes the reaction run.\nIn three months, a lab run by A.I. designed, made, and tested almost three thousand catalysts. And it found new ones that work, in a metal experts had written off.\nThat's the company's own account. No outside lab has confirmed it yet.",
+  "chars": 495
+ },
+ {
+  "id": "t06",
+  "sec": "2",
+  "text": "Now imagine the machine Jack Good described. Not one lab like that. Thousands, running day and night.\nSo when does your power bill shrink?\nNot yet. Even a perfect invention has to be built, approved, and plugged in. And that still runs at human speed.\nBut on the first line, the inventing has begun.\nAnd look at what that lab found. Not a power plant. A material.",
+  "chars": 363
+ },
+ {
+  "id": "t07",
+  "sec": "3",
+  "text": "[thoughtful] Because energy is only as good as the stuff we build it with.\nA battery that lasts a week. A home that keeps itself cool. Both are waiting for materials that don't exist yet.\nOne dream material is the superconductor: it carries electricity without losing any.\nThis year, an A.I. system searched more than two million possible crystals, in about a day of computing. It designed a superconductor that had never existed. Then the team behind it made it in a lab. And it worked.",
+  "chars": 487
+ },
+ {
+  "id": "t08",
+  "sec": "3",
+  "text": "So why isn't it in the power lines outside your home?\nBecause it only works in extreme cold, near absolute zero. So far, only its own team has tested it.\nAnd most A.I. designs still exist only on a screen.\nThe man you'll hear next co-founded a company that builds labs where robots run the experiments. Here's why he says even the smartest A.I. still needs a lab:",
+  "chars": 363
+ },
+ {
+  "id": "C2",
+  "sec": "3",
+  "clip": true,
+  "dur": 11.1,
+  "placeholder": true
+ },
+ {
+  "id": "t09",
+  "sec": "3",
+  "text": "Only what gets built counts.\nSo the second line has begun, too. Still small. But real.",
+  "chars": 86
+ },
+ {
+  "id": "t10",
+  "sec": "M",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. So that what it invents reaches all of us. Want that too? Then subscribe.",
+  "chars": 182,
+  "cta": true
+ },
+ {
+  "id": "t11",
+  "sec": "4",
+  "text": "[curious] Why still small? Because matter is slow. But in mathematics, nothing has to be built. So that's where you can watch the inventing at full speed.\nRemember the dots on the page. The A.I. behind that answer is no math specialist. Its maker, OpenAI, calls it a general-purpose model.\nOutside mathematicians checked the result. One would have recommended it, \"without any hesitation,\" for math's top journal.",
+  "chars": 413,
+  "say": "[curious] Why still small? Because matter is slow. But in mathematics, nothing has to be built. So that's where you can watch the inventing at full speed.\nRemember the dots on the page. The A.I. behind that answer is no math specialist. Its maker, Open A.I., calls it a general-purpose model.\nOutside mathematicians checked the result. One would have recommended it, \"without any hesitation,\" for math's top journal."
+ },
+ {
+  "id": "t12",
+  "sec": "4",
+  "text": "And a Google DeepMind system solved dozens of other open problems, each proof checked by computer. Two had waited more than half a century. The cost per solved Erdős problem: a few hundred dollars.\nIt cracked only a small share of what it tried. But this fall: a new claim almost every month. Some so big that mathematicians can't check them fast enough.\nTerence Tao is one of the world's leading mathematicians. He has watched all of this up close:",
+  "chars": 449,
+  "say": "And a Google DeepMind system solved dozens of other open problems, each proof checked by computer. Two had waited more than half a century. The cost per solved Airdush problem: a few hundred dollars.\nIt cracked only a small share of what it tried. But this fall: a new claim almost every month. Some so big that mathematicians can't check them fast enough.\nTerence Dow is one of the world's leading mathematicians. He has watched all of this up close:"
+ },
+ {
+  "id": "C3",
+  "sec": "4",
+  "clip": true,
+  "dur": 10.8,
+  "placeholder": true
+ },
+ {
+  "id": "t13",
+  "sec": "4",
+  "text": "Too many proofs, not too few. Tao calls it \"proof indigestion.\"\nIn September, he and twenty-four other winners of math's highest prize signed a warning. Not against A.I. itself. Their point: the A.I. companies and the mathematicians want different things.\nSo the third line isn't waiting. It's moving faster than people can follow.\nAnd that raises a bigger question: who decides what these machines work on? Your list, or someone else's?",
+  "chars": 437,
+  "say": "Too many proofs, not too few. Dow calls it \"proof indigestion.\"\nIn September, he and twenty-four other winners of math's highest prize signed a warning. Not against A.I. itself. Their point: the A.I. companies and the mathematicians want different things.\nSo the third line isn't waiting. It's moving faster than people can follow.\nAnd that raises a bigger question: who decides what these machines work on? Your list, or someone else's?"
+ },
+ {
+  "id": "t14",
+  "sec": "5",
+  "text": "[thoughtful] This is where the second half of Jack Good's sentence comes in. Here is all of it.\n\"The first ultra-intelligent machine is the last invention that man need ever make, provided that the machine is docile enough to tell us how to keep it under control.\"\nThere's the condition. Docile: willing to be guided.\nYears earlier, his old boss, Alan Turing, had been darker: \"At some stage therefore we should have to expect the machines to take control.\"",
+  "chars": 457
+ },
+ {
+  "id": "t15",
+  "sec": "5",
+  "text": "That's the fourth line: control. In Good's sentence, the machine tells us how. But that only works if it's docile to begin with. Making sure of that is our job.\nAnd people have started.\nFollow a new A.I. model on its way to your phone.\nIn the United States, a government office can test it before launch. Five of the biggest developers have agreed to that. Voluntarily.\nIn Europe, since August, regulators can test it themselves and fine its maker. As a last resort, they can order it off the market.",
+  "chars": 500
+ },
+ {
+  "id": "t16",
+  "sec": "5",
+  "text": "Rules work from the outside. And the machine itself? Paul Christiano once led that research at OpenAI, and now sits on the board of its foundation. This fall, he went through the methods we have:",
+  "chars": 195,
+  "say": "Rules work from the outside. And the machine itself? Paul Christiano once led that research at Open A.I., and now sits on the board of its foundation. This fall, he went through the methods we have:"
+ },
+ {
+  "id": "C4",
+  "sec": "5",
+  "clip": true,
+  "dur": 12.8,
+  "placeholder": true
+ },
+ {
+  "id": "t17",
+  "sec": "5",
+  "text": "All plausible. But none of them, he says, is on track to probably work.\nBut today's researchers have something Jack Good never had: the machines themselves, to study.\nSo who writes the fourth line? The labs, which decide what gets built. Governments, which decide what gets tested. And voters, who choose who writes the rules. That last one is you.",
+  "chars": 348
+ },
+ {
+  "id": "t18",
+  "sec": "6",
+  "text": "[thoughtful] And if the machine does the inventing, what else is left for us?\nThis spring, another of those math problems fell, after about sixty years. Not to a professor. To Liam Price, twenty-three, with no advanced training in mathematics. He typed a single question into ChatGPT, and posted the answer online.\nThen two mathematicians checked the proof and made it shorter. One of them was Terence Tao. Today, Price is his co-author.\nThe machine found the way. A person chose the question. And people checked the answer.",
+  "chars": 524,
+  "say": "[thoughtful] And if the machine does the inventing, what else is left for us?\nThis spring, another of those math problems fell, after about sixty years. Not to a professor. To Liam Price, twenty-three, with no advanced training in mathematics. He typed a single question into Chat G.P.T, and posted the answer online.\nThen two mathematicians checked the proof and made it shorter. One of them was Terence Dow. Today, Price is his co-author.\nThe machine found the way. A person chose the question. And people checked the answer."
+ },
+ {
+  "id": "t19",
+  "sec": "6",
+  "text": "Maybe that is what stays with us. Not the answers. The questions. And the direction.\nSo what will A.G.I. invent for you? Three lines on your list. Not in your home yet. But begun.\nThe fourth line is still empty. And it is ours to write.\nThe final human invention is the one that invents everything else.\nAnd the last thing we have to invent ourselves is how to steer it.",
+  "chars": 370
+ },
+ {
+  "id": "t20",
+  "sec": "A2",
+  "text": "[warm] That line needs many hands. This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.",
+  "chars": 167,
+  "cta": true
+ }
+]

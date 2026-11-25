@@ -1,0 +1,76 @@
+#77 AGI: The Final Human Invention – Interview-Clips
+Stand: 25.11.2026. Alle Clips: 1920x1080, H.264 CRF 18, AAC 192k/48 kHz, mit ca. 1 s Rand vorn/hinten.
+Zeiten = Zeit im YouTube-Original (h:mm:ss.ss), Genauigkeit ca. ±0,2 s.
+"Sprache im Clip" = wo der gesprochene Satz innerhalb der MP4-Datei beginnt/endet (zum Trimmen).
+Wortlaut geprüft: YouTube-Untertitel + zweite unabhängige Spracherkennung (Whisper, lokal). Beide stimmen überein, wenn nicht anders vermerkt.
+
+====================================================================
+C1.mp4  (10,5 s)
+Video:     DsewHeVbL-0 – "A Conversation with Demis Hassabis" (Stanford GSB, 02.06.2026)
+Sprecher:  Demis Hassabis (in YouTube-Untertiteln als [DEMIS HASSABIS] markiert)
+Clip:      9:22.62 – 9:33.10
+Satz:      9:23.62 – 9:32.10   (Sprache im Clip: 1,0 s – 9,5 s)
+Wortlaut:  "It was literally step one, solve intelligence, step two, use it to solve everything else. And people were quite confused. But we really meant it."
+Hinweis:   Ziel-Satz gefunden, wie geplant. Im 1-s-Vorlauf ist das Ende von "...the business plan." hörbar, im Nachlauf "And actually"; vor "But we really meant it" kurzes Lachen im Saal. Allein steht der Kern-Satz nur ca. 5 s, darum mit den zwei kurzen Folgesätzen.
+KONTEXT DAVOR (~30 s, Auto-Untertitel):
+  / How's it going? Well, well, let me expand a little bit. What has gone according to plan and sort of what what has been off plan? / Well, the the broad arcs of it have gone I mean, unbelievably well. Perhaps. Uh uh you know, when we started DeepMind in 2010, that's Can you imagine? We used to go to try to go to VCs in in in the UK, which there weren't very many, and uh with that as the business plan.
+KONTEXT DANACH (~30 s, Auto-Untertitel):
+  actually, um we may go [clears throat] back to exactly uh using that mission statement because um so by sole intelligence we meant build AGI. Ideally also understand the nature of intelligence on the way to building AGI and perhaps using AGI to help that help us understand our own brains and minds better. You know, things like the nature of consciousness, what is creativity, dreaming, all of these deep mysteries of the mind. And one of the reasons I studied neuroscience was try to learn from what we understood about
+
+====================================================================
+C2.mp4  (11,1 s)
+Video:     YHiqVRxGViM – "AI Scientists Are Here: Autonomous Labs & Synthesis Superintelligence — Periodic Labs" (Latent Space, 08.10.2026), Kapitel 01:00:20 "Why Frontier AI Still Needs Experiments"
+Sprecher:  Ekin Dogus Cubuk (NICHT Liam Fedus)
+           Woher: Er ist der Mann im braunen Hemd (links), im Bild deutlich sprechend. Derselbe Mann sagt bei 1:04:43 "from the beginning our hypothesis has been ... automated characterization"; bei 1:05:51 sagt der Mann im schwarzen Polo über ihn "Dogus was saying early on, we identified that characterization was a big bottleneck" – der im Polo ist also Liam Fedus. Keine Bauchbinde im Video; Zuordnung damit sehr wahrscheinlich, aber nicht durch Namenseinblendung belegt.
+Clip:      1:01:40.74 – 1:01:51.88
+Satz:      1:01:41.40 – 1:01:50.88   (Sprache im Clip: 0,7 s – 10,1 s)
+Wortlaut:  "But also we feel like even if, like, Fable 7 gets really good at, like, even better than what it is today, it will still have to run experiments to get results."
+Hinweis:   Trifft das Ziel direkt (auch ein viel besseres Modell muss Experimente machen). Nennt das Modell "Fable 7" und hat zwei "like"-Füllwörter. Vorlauf nur 0,66 s, weil davor das Wort "capabilities." endet.
+
+C2b.mp4 (8,4 s) – zusätzliche Option, direkt anschließend, gleicher Sprecher (Ekin Dogus Cubuk):
+Clip:      1:01:50.94 – 1:01:59.34
+Satz:      1:01:51.90 – 1:01:58.96   (Sprache im Clip: 1,0 s – 8,0 s)
+Wortlaut:  "And the reason for that is, right, like machine learning is really good at what's been trained on, but scientific discovery is almost by definition what you haven't been trained on."
+Hinweis:   Flüssiger und zeitloser (kein Modellname), aber "the reason for that" bezieht sich auf den Satz davor. C2 und C2b direkt hintereinander = ein 18-s-Stück.
+KONTEXT DAVOR (~30 s, Auto-Untertitel):
+  compression of everything into weights is still really valuable. If inference time reasoning was sufficient, all of the frontier labs would have stopped training at like GP4 and like okay from now on out we're going to get really good at inference time improvements. Um and so we think that by you know because of the differences between you know physical sciences and m machine learning getting that compressed into our own weights will lead to like different types of systems and different types of capabilities.
+KONTEXT DANACH (~30 s, Auto-Untertitel):
+  Um, and the reason for that is right like machine learning is really good at what's been trained on. But scientific discovery is almost by definition what you haven't been trained on. And that's why we're building these labs so that um whether open models or closed models can use these labs to tinker with the universe because we don't feel like you can make a big discovery without trying things. / Yeah. There's there's not going to be like no one's going to like zero shot the room temperature super [laughter] think that would be pretty cool. Yeah. Yeah. I mean as as someone who has worked closely with you know wet labs before
+  (Kontext für C2b: siehe C2 – schließt direkt an; danach: "And that's why we're building these labs so that whether open models or closed models can use these labs to tinker with the universe because we don't feel like you can make a big discovery without trying things.")
+
+====================================================================
+C3.mp4  (10,8 s)  – ERSATZ C3c genommen
+Video:     bAnwMdfcMVw – "No More Heroes - Terence Tao Talks to Numberphile About AI" (Numberphile, 15.10.2026)
+Sprecher:  Terence Tao
+Clip:      0:00:46.79 – 0:00:57.63
+Satz:      0:00:47.79 – 0:00:56.61   (Sprache im Clip: 1,0 s – 9,8 s)
+Wortlaut:  "And now we found a [the?] shortcut. We found machines that can get these proofs for us, and now we're drowning in proofs, but we're not getting all the understanding that we used to get."
+Hinweis:   "a" oder "the" shortcut ist nicht eindeutig zu hören (YouTube: "a", Whisper: "the").
+           Warum Ersatz: Im Haupt-Video aHpPoNNTOKY ("Math 2.0", SAIR) gibt es den passenden Gedanken, aber nur in der zweiten Hälfte (29:12) und holprig gesprochen ("Proofs are now, you can, they're abundant, but still the things that keep understanding are still rare"), plus zu lang für 12 s ohne Satzanfang mit "but". In der ersten Hälfte sagt Tao nur "era of proof abundance" ohne den Verstehens-Teil. Die Numberphile-Stelle sagt genau den Zielgedanken in einem sauberen Satz. Sie klingt nicht KI-feindlich ("we found machines that can get these proofs for us"). Im Nachlauf beginnt "It's like we..." (Nahrungs-Vergleich).
+KONTEXT DAVOR (~30 s, Auto-Untertitel):
+  I mean, what what I've been saying this whole year is that we are transitioning from an era of proof scarcity to proof abundance. So, for thousands of years, proofs were hard and and uh people who found proofs were kind of uh you know, it required standing and expertise and a bit of luck uh and talking to people and knowing the literature. And so, it was um it was just universally valued because everyone who who found a proof of a difficult theorem, they did they had to do all this difficult work. And and this helped grow the rest of the field. Um
+KONTEXT DANACH (~30 s, Auto-Untertitel):
+  like we we uh we are we are in an era of food scarcity where we didn't have much food, but but food that uh piece of food we did get was nutritious and healthy. And now we're drowning in this synthetic food, which uh is uh uh technically it's it's it's it's it's edible, but it's uh it's not quite as satisfying as it as as it was before. / Do you consider yourself fortunate now to have lived in the era of proof scarcity and had that chance to to land some big proofs? Do you Do you think you're lucky to have just come in under the line?
+
+C3_alt.mp4 (13,9 s) – Option aus dem Haupt-Video aHpPoNNTOKY ("Terence Tao: Math 2.0", SAIR, 03.11.2026), Sprecher Terence Tao:
+Clip:      0:29:11.10 – 0:29:25.00
+Satz:      0:29:12.1 – 0:29:23.98   (Sprache im Clip: ca. 1,0 s – 12,9 s)
+Wortlaut:  "[but] you [oder: we] should direct AI to find new methods, new ideas, new insights, not just new proofs. Proofs are now, [you can,] they're abundant, but still the things that keep understanding are still rare."
+Hinweis:   Positiver Rahmen (KI richtig einsetzen), aber holprig. "keep understanding" so von beiden Erkennern gehört (gemeint wohl "give"). Im Vorlauf hörbar: "...solutions to problems, but". Länger als 12 s.
+KONTEXT DAVOR (~30 s, Auto-Untertitel):
+  larger scale and work with multi-paper networks um and and um and integrate and have a living network that that updates in real time rather than over years. Um we have to start building really large libraries both formal and informal mathematics. Um so in the in the formal world we're beginning to create these these amazing uh libraries of like hundreds of thousands of theorems all consistently arranged. So so lean math is a good example. Um, we're using AI right now to find solutions to problems,
+KONTEXT DANACH (~30 s, Auto-Untertitel):
+  Um, so I'm running out of time. Um, there are more, but I will advertise the mathon which is um happening next week. It's run by students. Uh, and the idea is uh student teams will take existing results that have have currently have very opaque proofs uh including uh some of the recent um advances AI there are some amazing results for which we don't understand the proofs at all um and they will find better proofs using the various
+
+====================================================================
+C4.mp4  (12,8 s)
+Video:     -Ef0ocEoBCs – "Paul Christiano: AI Alignment - What's Working and What's Not | The Hinton Lectures 2026 (Night 1)" (The Hinton Lectures, 10.11.2026)
+Sprecher:  Paul Christiano (Vortrag)
+Clip:      0:51:19.72 – 0:51:32.52
+Satz:      0:51:20.72 – 0:51:31.52   (Sprache im Clip: 1,0 s – 11,8 s)
+Wortlaut:  "So I'd say all of these approaches are plausible approaches. I don't want to say any of them are doomed, but I definitely do want to say that none of them are on a trajectory where we can say that's definitely going to work, or even that's probably going to work."
+Hinweis:   Ziel-Satz gefunden, Sinn erhalten. Keine Takeover- oder Todes-Sätze im Clip. Das Wort "doomed" steht drin, aber verneint ("I don't want to say any of them are doomed"). Vor- und Nachlauf sind still (Pause davor, danach beginnt "All of these approaches..."). "on a trajectory" oder "in a trajectory" ist nicht eindeutig (Erkenner uneinig); fürs Untertiteln "on" empfohlen.
+KONTEXT DAVOR (~30 s, Auto-Untertitel):
+  We have sort of a similar set of problems. So, a first problem is that it might just not be possible. Right? It's not clear. We have made a lot of progress in understanding how models work, but we are very far from understanding how say GPT-6 works, how it makes the most interesting decisions that it makes. And it's not clear around a trajectory where we are going to get there. The second problem is again, what do we do if we detect an issue? If you are incredibly good at this, maybe you can just go fix the issue, but unless you're incredibly good, that could again just push the problem into the whatever part of the thinking you didn't understand.
+KONTEXT DANACH (~30 s, Auto-Untertitel):
+  All of these approaches have pretty severe problems and is more like they might work. We hope something is going to work. A fifth approach you could take is just search for another approach. Like we maybe don't like any of our solutions, but if we think hard, hopefully we can think of something else. The problems are we don't know if we'll think of something else and we don't know how long it will take to think of something else. So to plug, I run this organization, the Alignment Research Center, we're one of these attempts at

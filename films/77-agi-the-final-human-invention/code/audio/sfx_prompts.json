@@ -1,0 +1,15 @@
+{
+ "_comment": "Film 77 Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 0.01 USD/s, 2 samples each, 2026-11-25; sample 1 used unless noted). Files in /tmp/claude-0/f77/audio/sfx, not in the repo. Everything else from sfx-bibliothek (akzent: bloom, bulb, phone_tap, chime, teletype, shimmer_rings, brass_click, chalk, pages, lever_switch, rumble, gavel, lamp; atmo: lab).",
+ "typing": {
+  "duration": 4,
+  "seed": 7701,
+  "negative_prompt": "music, voices, speech, alarm",
+  "prompt": "A person types one short question on a quiet laptop keyboard in a silent night room: soft steady key taps, a brief pause, then one firm soft press of the enter key. Close and intimate, very clean, no music, no voices."
+ },
+ "cryo_hum": {
+  "duration": 8,
+  "seed": 7702,
+  "negative_prompt": "music, voices, speech, alarm, beeps",
+  "prompt": "A deep low hum of a cryogenic cooling chamber in a quiet laboratory: steady soft electrical drone, faint cold crackle of ice and a slow breath of cold gas venting. Calm, constant and loopable, no music, no voices."
+ }
+}
