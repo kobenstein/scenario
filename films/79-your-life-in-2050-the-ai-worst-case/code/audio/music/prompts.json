@@ -1,0 +1,41 @@
+{
+ "_comment": "Film 79 Lyria 3.5 prompts (google/lyria-3.5 via fal, 0.10 USD per track, 7 tracks, 2026-11-25). Inverted #74: calm, cool, slightly unsettling, never horror, never drums; warm only in M6 ('There is another twenty fifty' to the end). One track per chapter (sections of timing.json). Files in /tmp/claude-0/f79/audio/music, not in the repo. Prompt sent = style + ' A <len> track. ' + mood.",
+ "style": "Instrumental underscore for a calm, cool, slightly unsettling editorial documentary about a near-future street where A.I. made everything work and nobody is needed any more: everything is clean, quiet, tidy and empty. Soft slow analog synth pads in long evolving chords, glassy electric piano notes with long decay, a very quiet low sine-wave drone, faint digital shimmer and airy textures like a server hall humming far away, a little cold reverb. Cool and gently uneasy, but never horror, no scary stingers, no dissonant stabs, no riser, no drop. No drums, no percussion, no beat, no pulse, no kick, no hi-hat, no lyrics, no words, no voices, no choir. Not epic, not cinematic trailer, not triumphant. Very quiet, narrow dynamic range, slow, made to sit under a speaking voice.",
+ "tracks": {
+  "M0": {
+   "chapter": "H, B (your life in 2050 if we get it wrong, the alarm clock, the empty street, the tower, the neighbour who built boats, the cars full of crates)",
+   "len": "1:50",
+   "mood": "calm and cool from the first second, a slightly unsettling stillness: a low drone, a cold glassy piano note every few seconds falling into reverb, wide soft pads; a clean tidy emptiness; steady, no build-up"
+  },
+  "M1": {
+   "chapter": "D, K (the data centre with staff zero, the missing rung of the ladder, the kitchen goes dark, power like air, the grid bill)",
+   "len": "1:45",
+   "mood": "a little colder and more mechanical but still soft: a faint distant server-hall hum made musical, slow pads that sit on one chord for a long time, sparse glassy piano; quiet unease, control, nothing human in it"
+  },
+  "M2": {
+   "chapter": "N (noon, the allowance, who is needed, the menu, a warning not a forecast)",
+   "len": "1:50",
+   "mood": "hollow and patient: slow shifting pads and a thin high glassy tone, low sustained drone, single piano notes with long gaps; polite, friendly-sounding on the surface and slightly wrong underneath; never threatening"
+  },
+  "M3": {
+   "chapter": "G, L (the search for one angry face, the grandson and his patient screen, the locked school, the grown-ups, the weekly breakthroughs, the farmers, the fence)",
+   "len": "1:50",
+   "mood": "soft, numb and content, like a lullaby that has lost its melody: slow wide pads, gentle glassy electric piano, a very quiet drone; soothing and a little too smooth; calm that is not quite right"
+  },
+  "M4": {
+   "chapter": "Q, E (the empty town square, the friend who only gives, your time, the grandson with the clock asks why nobody stopped it)",
+   "len": "1:35",
+   "mood": "the emptiest and most intimate part: almost nothing, a long sustained pad, single distant piano notes with very long silences, a faint cold shimmer; lonely and still, sad without drama"
+  },
+  "M5": {
+   "chapter": "W until C4 (but it isn't 2050 yet: leverage, work, taxes, vote, WON / OPEN / LOST, the economist's bet)",
+   "len": "1:25",
+   "mood": "the same cool world but now with attention and a thread of resolve: the pads open a little, the piano finds a slow steady repeated figure, a faint warmth creeps into one chord; thoughtful, alert, still restrained, not hopeful yet"
+  },
+  "M6": {
+   "chapter": "W from 'There is another 2050' to the end (dividend day, the square full every evening, the subscribe call, the clock is wound again, 15 s end screen)",
+   "len": "1:00",
+   "mood": "warm at last: the cool drone and glassy tones turn into warm sustained strings and a soft felt piano, a gentle major-key open chord progression, light and human, a quiet sense of hope and morning; stays soft and slow; ends on one long, slowly decaying open chord into silence"
+  }
+ }
+}

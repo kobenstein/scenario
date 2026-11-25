@@ -1,0 +1,87 @@
+{
+ "_comment": "Film 79 clip cuts INSIDE the 60-s files in /home/user/scenario/films/79-assets/clips/ (docs/CLIPS-infile.md, iMac 25.11.). in/out = seconds inside the file. cues = subtitle lines <= 34 chars (wording as heard, checked by transcription); align = the same words for the forced alignment (numbers spelled).",
+ "C1": {
+  "file": "C1-duvenaud-80k.mp4",
+  "in": 31.3,
+  "out": 37.25,
+  "speaker": "David Duvenaud",
+  "role": "Computer scientist, University of Toronto; former Anthropic team lead; co-author 'Gradual Disempowerment'",
+  "source": "80,000 Hours, 'Why 'Aligned AI' Would Still Kill Democracy | David Duvenaud, ex-Anthropic team lead', 2026-01-27",
+  "url": "https://www.youtube.com/watch?v=XV3e03yfFW0",
+  "src_start": "01:00:50.990",
+  "src_end": "01:00:57.600",
+  "lower_third": "DAVID DUVENAUD · Computer scientist, University of Toronto · 2026 · ORIGINAL FOOTAGE",
+  "cues": [
+   "Life can only get so bad",
+   "when you're needed.",
+   "That's the real key thing",
+   "that has been keeping",
+   "governments aligned,",
+   "and that's the key thing",
+   "that's going to change."
+  ],
+  "align": "life can only get so bad when you're needed that's the real key thing that has been keeping governments aligned and that's the key thing that's going to change"
+ },
+ "C2": {
+  "file": "C2-brynjolfsson-revelio.mp4",
+  "in": 30.4,
+  "out": 38.3,
+  "speaker": "Erik Brynjolfsson",
+  "role": "Economist, Stanford Digital Economy Lab",
+  "source": "Revelio Labs, 'Erik Brynjolfsson - Escaping the Turing Trap', 2026-11-18",
+  "url": "https://www.youtube.com/watch?v=eDctSfipdDE",
+  "src_start": "00:23:15.430",
+  "src_end": "00:23:23.430",
+  "lower_third": "ERIK BRYNJOLFSSON · Economist, Stanford University · 2026 · ORIGINAL FOOTAGE",
+  "cues": [
+   "What we found was that young",
+   "workers had falling employment,",
+   "not so much because they were",
+   "being laid off, but they just",
+   "weren't being hired as much."
+  ],
+  "align": "what we found was that young workers had falling employment not so much because they were being laid off but they just weren't being hired as much"
+ },
+ "C3": {
+  "file": "C3-duvenaud-srinstitute.mp4",
+  "in": 28.35,
+  "out": 35.1,
+  "speaker": "David Duvenaud",
+  "role": "Computer scientist, University of Toronto",
+  "source": "Schwartz Reisman Institute, 'Gradual disempowerment: Systemic existential risks from incremental AI development | David Duvenaud', 2026-02-11",
+  "url": "https://www.youtube.com/watch?v=bVV91jt56-o",
+  "src_start": "00:08:47.740",
+  "src_end": "00:08:55.750",
+  "lower_third": "DAVID DUVENAUD · Computer scientist, University of Toronto · 2026 · ORIGINAL FOOTAGE",
+  "cues": [
+   "Everybody's going to get more",
+   "into their AI companions,",
+   "and you might not like this,",
+   "but you'll have an amazing",
+   "AI companion who's always",
+   "there for you, too."
+  ],
+  "align": "everybody's going to get more into their ai companions and you might not like this but you'll have an amazing ai companion who's always there for you too"
+ },
+ "C4": {
+  "file": "C4-brynjolfsson-revelio.mp4",
+  "in": 27.9,
+  "out": 38.4,
+  "speaker": "Erik Brynjolfsson",
+  "role": "Economist, Stanford Digital Economy Lab",
+  "source": "Revelio Labs, 'Erik Brynjolfsson - Escaping the Turing Trap', 2026-11-18",
+  "url": "https://www.youtube.com/watch?v=eDctSfipdDE",
+  "src_start": "00:49:37.610",
+  "src_end": "00:49:48.700",
+  "lower_third": "ERIK BRYNJOLFSSON · Economist, Stanford University · 2026 · ORIGINAL FOOTAGE",
+  "cues": [
+   "If we're on the current path",
+   "and we don't change anything,",
+   "it's going to increase inequality.",
+   "But one of my missions is to",
+   "explain to people that it",
+   "doesn't have to be that way."
+  ],
+  "align": "if we're on the current path and we don't change anything it's going to increase inequality but one of my missions is to explain to people that it doesn't have to be that way"
+ }
+}

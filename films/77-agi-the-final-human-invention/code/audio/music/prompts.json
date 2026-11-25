@@ -1,0 +1,31 @@
+{
+ "_comment": "Film 77 Lyria 3.5 prompts (google/lyria-3.5, 0.10 USD per track, 5 tracks, 2026-11-25). Method as Film 63/66: one track per chapter; chapters = sections of timing.json (H,1 | 2,3 | M,4 | 5 | 6,A2 + end screen). Files in /tmp/claude-0/f77/audio/music, not in the repo (small copies zipped to <ROOT>audio/). Prompt sent = style + ' A <len> track. ' + mood. Calm and quietly hopeful (Editorial-Nacht: a small lit window in a deep indigo night, gold light), narrower than the dark #63 church sound; the rising line is HOPE with an open question underneath, not triumph. M3: first prompt (with 'quiet tension of responsibility ... never threatening') was declined by the model's content filter (false positive); resent with the mood above and without 'not sci-fi action, not dark or threatening' in the style line.",
+ "style": "Instrumental underscore for a calm, thoughtful editorial documentary about the last human invention and what artificial general intelligence could invent for us. A deep indigo night with one warm gold light in it: quiet, spacious, patient and quietly hopeful. Soft warm felt piano with long decay and long silences, slow evolving warm pads, a gentle low drone, glassy bowed crystal tones and soft glass harmonica, a tiny music-box-like glint now and then, very soft slow arpeggios that open like a sunrise, a faint warm string pad. Gentle, intimate, curious. No drums, no percussion, no beat, no pulse, no lyrics, no words, no voice, no choir. Not epic, not triumphant, not cinematic trailer, not sci-fi action, not dark or threatening, no synth bass, no electronic dance. Very quiet, narrow dynamic range, slow tempo, made to sit under a speaking voice.",
+ "tracks": {
+  "M0": {
+   "chapter": "H, 1 (A.G.I. may be the final human invention, the dots on a page, Jack Good's promise, Bletchley, Demis Hassabis C1, your list of three lines)",
+   "len": "2:35",
+   "mood": "curious and quietly hopeful from the first second: a single soft piano note falling into a warm low drone, a glassy tone like a lit window in the night, a faint sense of something new being born; slowly a few more notes join, patient and open, no build-up, no resolution"
+  },
+  "M1": {
+   "chapter": "2, 3 (line one, energy: the catalyst lab, power bill; line two, materials: the superconductor, C2 Periodic Labs)",
+   "len": "2:20",
+   "mood": "warm and hopeful, a little brighter: soft piano with gentle rising intervals, shimmering glassy pads, bowed crystal tones like light on a new material, slow warm arpeggios; the feeling of something real being built carefully, small steps forward"
+  },
+  "M2": {
+   "chapter": "M, 4 (subscribe call; line three, mathematics: the dots again, Erdos problems, Terence Tao C3, who decides what these machines work on)",
+   "len": "1:55",
+   "mood": "light and flowing but thoughtful: airy piano figures that move a little faster in the middle, soft glass harmonica, a gentle pad; wonder at speed with an unease underneath, too many answers at once; open, not dark"
+  },
+  "M3": {
+   "chapter": "5 (line four, control: Good's condition 'docile enough', Turing, rules in the United States and Europe, Paul Christiano C4, who writes the fourth line)",
+   "len": "2:00",
+   "mood": "calm, grounded and attentive: a low warm drone and slow sustained strings, sparse piano with long silences, soft glass tones; careful and patient, like someone sitting up late and thinking something through; ends slightly more open and hopeful"
+  },
+  "M4": {
+   "chapter": "6, A2 + end screen (what is left for us: Liam Price and the question, the direction; the final human invention, closing call, 15 s end screen)",
+   "len": "1:45",
+   "mood": "warm, human and quietly hopeful: the first soft piano motif of the beginning returns, now warmer and fuller with a gentle string pad and a golden glassy shimmer, like dawn after a long night; reflective, still, uplifting without triumph; ends on one long, slowly decaying open chord into silence"
+  }
+ }
+}

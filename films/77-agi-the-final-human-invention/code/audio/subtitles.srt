@@ -1,0 +1,1388 @@
+1
+00:00:00,720 --> 00:00:01,960
+A.G.I. may be
+
+2
+00:00:02,000 --> 00:00:03,900
+the final human invention.
+
+3
+00:00:04,570 --> 00:00:05,570
+Look around you.
+
+4
+00:00:05,760 --> 00:00:07,120
+The light over your head.
+
+5
+00:00:07,170 --> 00:00:08,270
+The phone in your hand.
+
+6
+00:00:08,310 --> 00:00:09,930
+The screen in front of you.
+
+7
+00:00:10,240 --> 00:00:10,800
+Each of them
+
+8
+00:00:10,840 --> 00:00:12,450
+was invented by a person.
+
+9
+00:00:12,620 --> 00:00:14,740
+So was every invention in history.
+
+10
+00:00:15,000 --> 00:00:17,000
+A.G.I. would be the last.
+
+11
+00:00:17,400 --> 00:00:19,810
+Artificial general intelligence:
+
+12
+00:00:19,880 --> 00:00:20,990
+a machine that can do
+
+13
+00:00:21,030 --> 00:00:22,600
+what a human mind does.
+
+14
+00:00:22,670 --> 00:00:24,090
+Including invent.
+
+15
+00:00:24,450 --> 00:00:26,530
+From then on, it invents for us.
+
+16
+00:00:26,570 --> 00:00:28,320
+Faster than we ever could.
+
+17
+00:00:28,550 --> 00:00:30,520
+So what will it invent for you?
+
+18
+00:00:30,830 --> 00:00:32,900
+The inventing has already begun.
+
+19
+00:00:33,040 --> 00:00:34,530
+This year, an A.I. found
+
+20
+00:00:34,570 --> 00:00:36,890
+an answer no human had found.
+
+21
+00:00:37,500 --> 00:00:39,830
+To a puzzle about dots on a page.
+
+22
+00:00:40,100 --> 00:00:40,800
+Guess how long
+
+23
+00:00:40,840 --> 00:00:42,000
+it had been waiting.
+
+24
+00:00:42,690 --> 00:00:44,010
+Eighty years.
+
+25
+00:00:44,320 --> 00:00:45,730
+A mathematician who reviewed
+
+26
+00:00:45,770 --> 00:00:48,150
+the answer called it a milestone.
+
+27
+00:00:48,340 --> 00:00:50,340
+But the idea of a final invention
+
+28
+00:00:50,380 --> 00:00:52,590
+goes back to a single sentence.
+
+29
+00:00:52,880 --> 00:00:53,960
+Half promise.
+
+30
+00:00:54,070 --> 00:00:55,180
+Half condition.
+
+31
+00:00:55,480 --> 00:00:57,550
+And the condition is up to us.
+
+32
+00:00:58,720 --> 00:01:00,070
+Here is the promise.
+
+33
+00:01:00,410 --> 00:01:00,990
+"The first
+
+34
+00:01:01,030 --> 00:01:02,560
+ultra-intelligent machine
+
+35
+00:01:02,600 --> 00:01:03,980
+is the last invention
+
+36
+00:01:04,020 --> 00:01:05,800
+that man need ever make."
+
+37
+00:01:06,210 --> 00:01:08,190
+It's more than 60 years old.
+
+38
+00:01:08,340 --> 00:01:09,510
+Jack Good wrote it.
+
+39
+00:01:09,800 --> 00:01:10,920
+In the Second World War,
+
+40
+00:01:10,960 --> 00:01:11,720
+he helped break
+
+41
+00:01:11,760 --> 00:01:12,920
+German naval codes
+
+42
+00:01:12,960 --> 00:01:14,110
+at Bletchley Park.
+
+43
+00:01:14,300 --> 00:01:15,270
+His first boss there
+
+44
+00:01:15,310 --> 00:01:16,610
+was Alan Turing.
+
+45
+00:01:16,900 --> 00:01:18,850
+The logic: a machine smarter
+
+46
+00:01:18,890 --> 00:01:20,180
+than us can design
+
+47
+00:01:20,220 --> 00:01:21,330
+a better machine.
+
+48
+00:01:21,450 --> 00:01:23,570
+And that one, a better one still.
+
+49
+00:01:23,890 --> 00:01:25,250
+It sounds like an ending.
+
+50
+00:01:25,500 --> 00:01:27,540
+But our survival, Good wrote,
+
+51
+00:01:27,580 --> 00:01:29,670
+depends on building this machine.
+
+52
+00:01:30,240 --> 00:01:31,770
+He even guessed when:
+
+53
+00:01:32,080 --> 00:01:34,030
+"within the twentieth century."
+
+54
+00:01:34,180 --> 00:01:36,230
+About the date, he was wrong.
+
+55
+00:01:36,410 --> 00:01:37,730
+So why should you take
+
+56
+00:01:37,770 --> 00:01:39,130
+him seriously today?
+
+57
+00:01:39,330 --> 00:01:40,740
+Because today, people are
+
+58
+00:01:40,780 --> 00:01:42,380
+trying to build that machine.
+
+59
+00:01:42,420 --> 00:01:44,600
+They call it A.G.I.
+
+60
+00:01:44,860 --> 00:01:46,410
+Demis Hassabis co-founded
+
+61
+00:01:46,450 --> 00:01:47,840
+Google DeepMind,
+
+62
+00:01:47,910 --> 00:01:49,790
+so he has a stake in this.
+
+63
+00:01:50,010 --> 00:01:51,010
+His plan:
+
+64
+00:01:51,200 --> 00:01:53,540
+It was literally step one, solve
+
+65
+00:01:53,580 --> 00:01:55,990
+intelligence, step two, use it to
+
+66
+00:01:56,030 --> 00:01:58,440
+solve everything else. And people
+
+67
+00:01:58,480 --> 00:02:00,970
+were quite confused. But we really
+
+68
+00:02:01,010 --> 00:02:02,010
+meant it.
+
+69
+00:02:02,346 --> 00:02:03,886
+Jack Good's promise,
+
+70
+00:02:03,956 --> 00:02:05,296
+in a builder's words.
+
+71
+00:02:05,456 --> 00:02:07,456
+So check it against your own list.
+
+72
+00:02:07,666 --> 00:02:09,136
+What are you still waiting for?
+
+73
+00:02:09,436 --> 00:02:12,076
+Energy that costs almost nothing.
+
+74
+00:02:12,306 --> 00:02:13,666
+Materials for a battery
+
+75
+00:02:13,706 --> 00:02:15,036
+that lasts a week.
+
+76
+00:02:15,316 --> 00:02:16,846
+Answers to puzzles that have
+
+77
+00:02:16,886 --> 00:02:18,786
+beaten us for generations.
+
+78
+00:02:19,056 --> 00:02:20,996
+For each line, one test:
+
+79
+00:02:21,346 --> 00:02:22,976
+has the inventing begun?
+
+80
+00:02:23,196 --> 00:02:25,096
+And leave a fourth line empty.
+
+81
+00:02:25,366 --> 00:02:26,496
+It belongs to the second
+
+82
+00:02:26,536 --> 00:02:28,106
+half of Good's sentence.
+
+83
+00:02:29,296 --> 00:02:30,116
+Start with the one you
+
+84
+00:02:30,156 --> 00:02:31,676
+pay for every month.
+
+85
+00:02:31,956 --> 00:02:32,956
+Energy.
+
+86
+00:02:33,026 --> 00:02:34,166
+Imagine heat without
+
+87
+00:02:34,206 --> 00:02:35,306
+watching the meter.
+
+88
+00:02:35,626 --> 00:02:36,966
+Has the inventing begun?
+
+89
+00:02:37,186 --> 00:02:38,696
+Take clean hydrogen:
+
+90
+00:02:38,736 --> 00:02:39,586
+fuel made from
+
+91
+00:02:39,626 --> 00:02:41,246
+water and electricity.
+
+92
+00:02:41,446 --> 00:02:42,696
+It takes a catalyst,
+
+93
+00:02:42,736 --> 00:02:43,716
+a material that makes
+
+94
+00:02:43,756 --> 00:02:44,896
+the reaction run.
+
+95
+00:02:45,056 --> 00:02:46,056
+In three months,
+
+96
+00:02:46,096 --> 00:02:48,116
+a lab run by A.I. designed,
+
+97
+00:02:48,156 --> 00:02:49,196
+made, and tested
+
+98
+00:02:49,236 --> 00:02:51,596
+almost 3,000 catalysts.
+
+99
+00:02:51,706 --> 00:02:53,386
+And it found new ones that work,
+
+100
+00:02:53,426 --> 00:02:54,306
+in a metal experts
+
+101
+00:02:54,346 --> 00:02:55,346
+had written off.
+
+102
+00:02:55,486 --> 00:02:57,096
+That's the company's own account.
+
+103
+00:02:57,136 --> 00:02:58,236
+No outside lab has
+
+104
+00:02:58,276 --> 00:02:59,466
+confirmed it yet.
+
+105
+00:03:00,026 --> 00:03:01,296
+Now imagine the machine
+
+106
+00:03:01,336 --> 00:03:02,806
+Jack Good described.
+
+107
+00:03:03,016 --> 00:03:04,696
+Not one lab like that.
+
+108
+00:03:04,766 --> 00:03:07,486
+Thousands, running day and night.
+
+109
+00:03:07,836 --> 00:03:08,756
+So when does your
+
+110
+00:03:08,796 --> 00:03:10,136
+power bill shrink?
+
+111
+00:03:10,456 --> 00:03:11,456
+Not yet.
+
+112
+00:03:11,676 --> 00:03:13,086
+Even a perfect invention
+
+113
+00:03:13,126 --> 00:03:14,246
+has to be built,
+
+114
+00:03:14,286 --> 00:03:15,956
+approved, and plugged in.
+
+115
+00:03:16,186 --> 00:03:17,336
+And that still runs
+
+116
+00:03:17,376 --> 00:03:18,516
+at human speed.
+
+117
+00:03:18,966 --> 00:03:20,136
+But on the first line,
+
+118
+00:03:20,176 --> 00:03:21,816
+the inventing has begun.
+
+119
+00:03:22,076 --> 00:03:24,006
+And look at what that lab found.
+
+120
+00:03:24,166 --> 00:03:25,456
+Not a power plant.
+
+121
+00:03:25,586 --> 00:03:26,626
+A material.
+
+122
+00:03:27,796 --> 00:03:29,776
+Because energy is only as good
+
+123
+00:03:29,816 --> 00:03:31,456
+as the stuff we build it with.
+
+124
+00:03:31,996 --> 00:03:33,796
+A battery that lasts a week.
+
+125
+00:03:33,966 --> 00:03:35,966
+A home that keeps itself cool.
+
+126
+00:03:36,176 --> 00:03:37,646
+Both are waiting for materials
+
+127
+00:03:37,686 --> 00:03:39,036
+that don't exist yet.
+
+128
+00:03:39,426 --> 00:03:40,546
+One dream material
+
+129
+00:03:40,586 --> 00:03:42,056
+is the superconductor:
+
+130
+00:03:42,156 --> 00:03:43,226
+it carries electricity
+
+131
+00:03:43,266 --> 00:03:44,706
+without losing any.
+
+132
+00:03:44,996 --> 00:03:46,636
+This year, an A.I. system
+
+133
+00:03:46,676 --> 00:03:48,376
+searched more than 2 million
+
+134
+00:03:48,416 --> 00:03:49,856
+possible crystals, in about
+
+135
+00:03:49,896 --> 00:03:51,216
+a day of computing.
+
+136
+00:03:51,436 --> 00:03:52,856
+It designed a superconductor
+
+137
+00:03:52,896 --> 00:03:54,496
+that had never existed.
+
+138
+00:03:54,706 --> 00:03:55,826
+Then the team behind
+
+139
+00:03:55,866 --> 00:03:57,376
+it made it in a lab.
+
+140
+00:03:57,596 --> 00:03:58,596
+And it worked.
+
+141
+00:03:59,116 --> 00:04:00,876
+So why isn't it in the power
+
+142
+00:04:00,916 --> 00:04:02,446
+lines outside your home?
+
+143
+00:04:02,606 --> 00:04:03,896
+Because it only works
+
+144
+00:04:03,936 --> 00:04:05,516
+in extreme cold,
+
+145
+00:04:05,556 --> 00:04:07,286
+near absolute zero.
+
+146
+00:04:07,566 --> 00:04:09,236
+So far, only its own
+
+147
+00:04:09,276 --> 00:04:10,606
+team has tested it.
+
+148
+00:04:10,856 --> 00:04:12,536
+And most A.I. designs still
+
+149
+00:04:12,576 --> 00:04:14,416
+exist only on a screen.
+
+150
+00:04:14,716 --> 00:04:15,886
+The man you'll hear next
+
+151
+00:04:15,926 --> 00:04:17,106
+co-founded a company
+
+152
+00:04:17,146 --> 00:04:18,486
+that builds labs where
+
+153
+00:04:18,526 --> 00:04:20,476
+robots run the experiments.
+
+154
+00:04:20,666 --> 00:04:21,956
+Here's why he says even
+
+155
+00:04:21,996 --> 00:04:23,256
+the smartest A.I.
+
+156
+00:04:23,296 --> 00:04:24,746
+still needs a lab:
+
+157
+00:04:25,096 --> 00:04:27,196
+But also we feel like even if,
+
+158
+00:04:27,236 --> 00:04:29,626
+like, Fable 7 gets really good at,
+
+159
+00:04:29,666 --> 00:04:31,986
+like, even better than what it is
+
+160
+00:04:32,026 --> 00:04:34,276
+today, it will still have to run
+
+161
+00:04:34,316 --> 00:04:36,453
+experiments to get results.
+
+162
+00:04:36,913 --> 00:04:39,023
+Only what gets built counts.
+
+163
+00:04:39,233 --> 00:04:41,643
+So the second line has begun, too.
+
+164
+00:04:41,923 --> 00:04:42,923
+Still small.
+
+165
+00:04:43,133 --> 00:04:44,133
+But real.
+
+166
+00:04:45,263 --> 00:04:46,343
+This channel exists
+
+167
+00:04:46,383 --> 00:04:47,773
+for one reason:
+
+168
+00:04:47,903 --> 00:04:48,823
+so that the arrival
+
+169
+00:04:48,863 --> 00:04:49,993
+of superintelligence
+
+170
+00:04:50,033 --> 00:04:51,863
+goes well for everybody.
+
+171
+00:04:52,053 --> 00:04:53,143
+So that what it invents
+
+172
+00:04:53,183 --> 00:04:54,683
+reaches all of us.
+
+173
+00:04:54,913 --> 00:04:55,913
+Want that too?
+
+174
+00:04:56,023 --> 00:04:57,093
+Then subscribe.
+
+175
+00:04:58,213 --> 00:04:59,603
+Why still small?
+
+176
+00:04:59,803 --> 00:05:01,673
+Because matter is slow.
+
+177
+00:05:01,953 --> 00:05:03,023
+But in mathematics,
+
+178
+00:05:03,063 --> 00:05:04,743
+nothing has to be built.
+
+179
+00:05:04,893 --> 00:05:06,033
+So that's where you can watch
+
+180
+00:05:06,073 --> 00:05:08,063
+the inventing at full speed.
+
+181
+00:05:08,443 --> 00:05:10,323
+Remember the dots on the page.
+
+182
+00:05:10,703 --> 00:05:12,323
+The A.I. behind that answer
+
+183
+00:05:12,363 --> 00:05:14,163
+is no math specialist.
+
+184
+00:05:14,363 --> 00:05:16,133
+Its maker, OpenAI,
+
+185
+00:05:16,173 --> 00:05:18,443
+calls it a general-purpose model.
+
+186
+00:05:18,863 --> 00:05:20,453
+Outside mathematicians
+
+187
+00:05:20,493 --> 00:05:21,663
+checked the result.
+
+188
+00:05:21,913 --> 00:05:23,173
+One would have recommended it,
+
+189
+00:05:23,213 --> 00:05:24,903
+"without any hesitation,"
+
+190
+00:05:24,943 --> 00:05:26,483
+for math's top journal.
+
+191
+00:05:27,073 --> 00:05:28,683
+And a Google DeepMind system
+
+192
+00:05:28,723 --> 00:05:30,183
+solved dozens of other
+
+193
+00:05:30,223 --> 00:05:31,973
+open problems, each proof
+
+194
+00:05:32,013 --> 00:05:33,503
+checked by computer.
+
+195
+00:05:33,863 --> 00:05:35,043
+Two had waited more
+
+196
+00:05:35,083 --> 00:05:36,563
+than half a century.
+
+197
+00:05:36,873 --> 00:05:39,123
+The cost per solved Erdős problem:
+
+198
+00:05:39,293 --> 00:05:40,633
+a few hundred dollars.
+
+199
+00:05:40,923 --> 00:05:42,243
+It cracked only a small
+
+200
+00:05:42,283 --> 00:05:43,763
+share of what it tried.
+
+201
+00:05:44,043 --> 00:05:45,073
+But this fall:
+
+202
+00:05:45,183 --> 00:05:47,553
+a new claim almost every month.
+
+203
+00:05:47,753 --> 00:05:49,813
+Some so big that mathematicians
+
+204
+00:05:49,853 --> 00:05:51,523
+can't check them fast enough.
+
+205
+00:05:51,953 --> 00:05:53,103
+Terence Tao is one
+
+206
+00:05:53,143 --> 00:05:54,133
+of the world's leading
+
+207
+00:05:54,173 --> 00:05:55,333
+mathematicians.
+
+208
+00:05:55,533 --> 00:05:56,463
+He has watched all
+
+209
+00:05:56,503 --> 00:05:57,923
+of this up close:
+
+210
+00:05:58,423 --> 00:06:00,263
+And now we found a shortcut. We
+
+211
+00:06:00,303 --> 00:06:02,273
+found machines that can get these
+
+212
+00:06:02,313 --> 00:06:03,973
+proofs for us, and now we're
+
+213
+00:06:04,013 --> 00:06:05,983
+drowning in proofs, but we're not
+
+214
+00:06:06,023 --> 00:06:08,053
+getting all the understanding that
+
+215
+00:06:08,093 --> 00:06:09,220
+we used to get.
+
+216
+00:06:09,680 --> 00:06:12,140
+Too many proofs, not too few.
+
+217
+00:06:12,390 --> 00:06:14,910
+Tao calls it "proof indigestion."
+
+218
+00:06:15,250 --> 00:06:16,480
+In September, he
+
+219
+00:06:16,520 --> 00:06:17,910
+and 24 other winners
+
+220
+00:06:17,950 --> 00:06:18,910
+of math's highest
+
+221
+00:06:18,950 --> 00:06:20,790
+prize signed a warning.
+
+222
+00:06:21,090 --> 00:06:22,780
+Not against A.I. itself.
+
+223
+00:06:23,020 --> 00:06:25,120
+Their point: the A.I. companies
+
+224
+00:06:25,160 --> 00:06:26,300
+and the mathematicians
+
+225
+00:06:26,340 --> 00:06:27,890
+want different things.
+
+226
+00:06:28,230 --> 00:06:30,350
+So the third line isn't waiting.
+
+227
+00:06:30,480 --> 00:06:31,410
+It's moving faster
+
+228
+00:06:31,450 --> 00:06:32,810
+than people can follow.
+
+229
+00:06:33,170 --> 00:06:35,040
+And that raises a bigger question:
+
+230
+00:06:35,340 --> 00:06:36,440
+who decides what these
+
+231
+00:06:36,480 --> 00:06:37,720
+machines work on?
+
+232
+00:06:37,900 --> 00:06:39,890
+Your list, or someone else's?
+
+233
+00:06:41,060 --> 00:06:42,670
+This is where the second half
+
+234
+00:06:42,710 --> 00:06:44,580
+of Jack Good's sentence comes in.
+
+235
+00:06:44,880 --> 00:06:45,920
+Here is all of it.
+
+236
+00:06:46,260 --> 00:06:46,890
+"The first
+
+237
+00:06:46,930 --> 00:06:48,350
+ultra-intelligent machine
+
+238
+00:06:48,390 --> 00:06:49,750
+is the last invention
+
+239
+00:06:49,790 --> 00:06:51,530
+that man need ever make,
+
+240
+00:06:51,620 --> 00:06:52,790
+provided that the machine
+
+241
+00:06:52,830 --> 00:06:53,840
+is docile enough
+
+242
+00:06:53,880 --> 00:06:54,820
+to tell us how to keep
+
+243
+00:06:54,860 --> 00:06:56,080
+it under control."
+
+244
+00:06:56,410 --> 00:06:57,690
+There's the condition.
+
+245
+00:06:57,980 --> 00:07:00,530
+Docile: willing to be guided.
+
+246
+00:07:00,890 --> 00:07:02,880
+Years earlier, his old boss,
+
+247
+00:07:02,920 --> 00:07:04,860
+Alan Turing, had been darker:
+
+248
+00:07:05,150 --> 00:07:05,940
+"At some stage
+
+249
+00:07:05,980 --> 00:07:07,190
+therefore we should have
+
+250
+00:07:07,230 --> 00:07:08,500
+to expect the machines
+
+251
+00:07:08,540 --> 00:07:09,890
+to take control."
+
+252
+00:07:10,480 --> 00:07:12,880
+That's the fourth line: control.
+
+253
+00:07:13,260 --> 00:07:14,400
+In Good's sentence,
+
+254
+00:07:14,440 --> 00:07:16,320
+the machine tells us how.
+
+255
+00:07:16,620 --> 00:07:18,060
+But that only works if it's
+
+256
+00:07:18,100 --> 00:07:19,500
+docile to begin with.
+
+257
+00:07:19,840 --> 00:07:22,210
+Making sure of that is our job.
+
+258
+00:07:22,430 --> 00:07:23,950
+And people have started.
+
+259
+00:07:24,240 --> 00:07:25,650
+Follow a new A.I. model
+
+260
+00:07:25,690 --> 00:07:27,280
+on its way to your phone.
+
+261
+00:07:27,480 --> 00:07:28,750
+In the United States,
+
+262
+00:07:28,790 --> 00:07:29,860
+a government office can
+
+263
+00:07:29,900 --> 00:07:31,590
+test it before launch.
+
+264
+00:07:31,800 --> 00:07:33,390
+Five of the biggest developers
+
+265
+00:07:33,430 --> 00:07:34,570
+have agreed to that.
+
+266
+00:07:34,750 --> 00:07:35,840
+Voluntarily.
+
+267
+00:07:36,050 --> 00:07:37,090
+In Europe, since
+
+268
+00:07:37,130 --> 00:07:38,650
+August, regulators can
+
+269
+00:07:38,690 --> 00:07:39,910
+test it themselves
+
+270
+00:07:39,950 --> 00:07:41,410
+and fine its maker.
+
+271
+00:07:41,690 --> 00:07:42,810
+As a last resort,
+
+272
+00:07:42,850 --> 00:07:44,700
+they can order it off the market.
+
+273
+00:07:45,260 --> 00:07:47,290
+Rules work from the outside.
+
+274
+00:07:47,630 --> 00:07:49,020
+And the machine itself?
+
+275
+00:07:49,570 --> 00:07:51,170
+Paul Christiano once led
+
+276
+00:07:51,210 --> 00:07:52,710
+that research at OpenAI,
+
+277
+00:07:52,750 --> 00:07:54,420
+and now sits on the board
+
+278
+00:07:54,460 --> 00:07:55,640
+of its foundation.
+
+279
+00:07:56,070 --> 00:07:57,440
+This fall, he went through
+
+280
+00:07:57,480 --> 00:07:58,880
+the methods we have:
+
+281
+00:07:59,380 --> 00:08:00,750
+So I'd say all of these approaches
+
+282
+00:08:00,790 --> 00:08:02,120
+are plausible approaches. I don't
+
+283
+00:08:02,160 --> 00:08:03,240
+want to say any of them are
+
+284
+00:08:03,280 --> 00:08:04,560
+doomed, but I definitely do want
+
+285
+00:08:04,600 --> 00:08:05,930
+to say that none of them are on a
+
+286
+00:08:05,970 --> 00:08:07,340
+trajectory where we can say that's
+
+287
+00:08:07,380 --> 00:08:08,710
+definitely going to work, or even
+
+288
+00:08:08,750 --> 00:08:10,390
+that's probably going to work.
+
+289
+00:08:10,930 --> 00:08:11,690
+All plausible.
+
+290
+00:08:11,730 --> 00:08:14,010
+But none of them, he says,
+
+291
+00:08:14,050 --> 00:08:16,210
+is on track to probably work.
+
+292
+00:08:16,560 --> 00:08:17,960
+But today's researchers have
+
+293
+00:08:18,000 --> 00:08:20,090
+something Jack Good never had:
+
+294
+00:08:20,370 --> 00:08:22,860
+the machines themselves, to study.
+
+295
+00:08:23,210 --> 00:08:25,370
+So who writes the fourth line?
+
+296
+00:08:25,760 --> 00:08:27,150
+The labs, which decide
+
+297
+00:08:27,190 --> 00:08:28,330
+what gets built.
+
+298
+00:08:28,640 --> 00:08:30,050
+Governments, which decide
+
+299
+00:08:30,090 --> 00:08:31,320
+what gets tested.
+
+300
+00:08:31,530 --> 00:08:33,050
+And voters, who choose
+
+301
+00:08:33,090 --> 00:08:34,460
+who writes the rules.
+
+302
+00:08:34,720 --> 00:08:36,450
+That last one is you.
+
+303
+00:08:37,630 --> 00:08:38,580
+And if the machine
+
+304
+00:08:38,620 --> 00:08:40,030
+does the inventing,
+
+305
+00:08:40,200 --> 00:08:41,860
+what else is left for us?
+
+306
+00:08:42,510 --> 00:08:44,520
+This spring, another of those math
+
+307
+00:08:44,560 --> 00:08:45,860
+problems fell, after
+
+308
+00:08:45,900 --> 00:08:47,470
+about 60 years.
+
+309
+00:08:47,680 --> 00:08:48,940
+Not to a professor.
+
+310
+00:08:49,160 --> 00:08:51,240
+To Liam Price, 23,
+
+311
+00:08:51,280 --> 00:08:52,200
+with no advanced
+
+312
+00:08:52,240 --> 00:08:53,670
+training in mathematics.
+
+313
+00:08:54,000 --> 00:08:54,860
+He typed a single
+
+314
+00:08:54,900 --> 00:08:56,630
+question into ChatGPT,
+
+315
+00:08:56,670 --> 00:08:58,440
+and posted the answer online.
+
+316
+00:08:58,640 --> 00:09:00,460
+Then two mathematicians checked
+
+317
+00:09:00,500 --> 00:09:02,160
+the proof and made it shorter.
+
+318
+00:09:02,490 --> 00:09:04,310
+One of them was Terence Tao.
+
+319
+00:09:04,550 --> 00:09:06,770
+Today, Price is his co-author.
+
+320
+00:09:07,240 --> 00:09:09,020
+The machine found the way.
+
+321
+00:09:09,270 --> 00:09:11,080
+A person chose the question.
+
+322
+00:09:11,200 --> 00:09:12,890
+And people checked the answer.
+
+323
+00:09:13,460 --> 00:09:15,630
+Maybe that is what stays with us.
+
+324
+00:09:15,830 --> 00:09:17,070
+Not the answers.
+
+325
+00:09:17,180 --> 00:09:18,200
+The questions.
+
+326
+00:09:18,460 --> 00:09:19,730
+And the direction.
+
+327
+00:09:20,200 --> 00:09:21,880
+So what will A.G.I.
+
+328
+00:09:21,920 --> 00:09:23,190
+invent for you?
+
+329
+00:09:23,580 --> 00:09:25,270
+Three lines on your list.
+
+330
+00:09:25,410 --> 00:09:26,750
+Not in your home yet.
+
+331
+00:09:26,790 --> 00:09:27,790
+But begun.
+
+332
+00:09:28,000 --> 00:09:30,000
+The fourth line is still empty.
+
+333
+00:09:30,090 --> 00:09:31,750
+And it is ours to write.
+
+334
+00:09:32,070 --> 00:09:32,970
+The final human
+
+335
+00:09:33,010 --> 00:09:34,250
+invention is the one
+
+336
+00:09:34,290 --> 00:09:36,160
+that invents everything else.
+
+337
+00:09:36,400 --> 00:09:37,140
+And the last thing
+
+338
+00:09:37,180 --> 00:09:38,030
+we have to invent
+
+339
+00:09:38,070 --> 00:09:40,470
+ourselves is how to steer it.
+
+340
+00:09:41,660 --> 00:09:43,930
+That line needs many hands.
+
+341
+00:09:44,530 --> 00:09:45,630
+This channel exists
+
+342
+00:09:45,670 --> 00:09:46,970
+for one reason:
+
+343
+00:09:47,120 --> 00:09:48,000
+so that the arrival
+
+344
+00:09:48,040 --> 00:09:49,200
+of superintelligence
+
+345
+00:09:49,240 --> 00:09:50,990
+goes well for everybody.
+
+346
+00:09:51,250 --> 00:09:52,250
+Want that too?
+
+347
+00:09:52,350 --> 00:09:53,580
+Then subscribe.
+

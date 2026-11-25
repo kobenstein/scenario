@@ -1,0 +1,87 @@
+{
+ "_comment": "Film 77 clip slots (clip-auftrag-imac.md, 25.11.2026). THE ONE PLACE for clip lengths: 'placeholder' = slot length in seconds while <ROOT>clips/Cn.mp4 is missing (10 s each). When the iMac files are in: put them in <ROOT>clips/, run clips_wav.py (trims each file to [in, out]; null = automatic: first voiced 10-ms frame - 0.15 s .. last voiced + 0.25 s, -40 dBFS; 'cut_pause_after' = cut at the first pause >= 0.15 s after that many seconds of speech), LISTEN to clipwav/Cn.wav, fix in/out by hand if needed (clips-zeiten.txt from the iMac), then build_vo.py -> mix.py -> subs.py (see rebuild.sh). The real length of clipwav/Cn.wav replaces the placeholder and every later time moves with it; no new TTS. cues = subtitle lines <= 34 chars (verified wording from clips-zeiten.txt; wording from clips-final.md (YouTube subtitles + Whisper checked)).",
+ "C1": {
+  "speaker": "Demis Hassabis",
+  "role": "Co-founder, Google DeepMind",
+  "source": "Stanford GSB, A Conversation with Demis Hassabis (2026)",
+  "url": "https://www.youtube.com/watch?v=DsewHeVbL-0",
+  "src_start": "00:09:22.6",
+  "src_end": "00:09:33.1",
+  "placeholder": 10.5,
+  "in": null,
+  "out": null,
+  "lower_third": "ORIGINAL FOOTAGE · DEMIS HASSABIS · CO-FOUNDER, GOOGLE DEEPMIND · STANFORD GSB, 2026",
+  "cues_verified": true,
+  "cues": [
+   "It was literally step one, solve",
+   "intelligence, step two, use it to",
+   "solve everything else. And people",
+   "were quite confused. But we really",
+   "meant it."
+  ]
+ },
+ "C2": {
+  "speaker": "Ekin Dogus Cubuk",
+  "role": "Co-founder, Periodic Labs",
+  "source": "Latent Space, Periodic Labs interview (2026)",
+  "url": "https://www.youtube.com/watch?v=YHiqVRxGViM",
+  "src_start": "01:01:40.7",
+  "src_end": "01:01:51.9",
+  "placeholder": 11.1,
+  "in": null,
+  "out": null,
+  "lower_third": "ORIGINAL FOOTAGE · EKIN DOGUS CUBUK · CO-FOUNDER, PERIODIC LABS · LATENT SPACE, 2026",
+  "cues_verified": true,
+  "cues": [
+   "But also we feel like even if,",
+   "like, Fable 7 gets really good at,",
+   "like, even better than what it is",
+   "today, it will still have to run",
+   "experiments to get results."
+  ]
+ },
+ "C3": {
+  "speaker": "Terence Tao",
+  "role": "Fields Medalist",
+  "source": "Numberphile, Terence Tao (2026)",
+  "url": "https://www.youtube.com/watch?v=bAnwMdfcMVw",
+  "src_start": "00:00:46.8",
+  "src_end": "00:00:57.6",
+  "placeholder": 10.8,
+  "in": null,
+  "out": null,
+  "lower_third": "ORIGINAL FOOTAGE · TERENCE TAO · FIELDS MEDALIST · NUMBERPHILE, 2026",
+  "cues_verified": true,
+  "cues": [
+   "And now we found a shortcut. We",
+   "found machines that can get these",
+   "proofs for us, and now we're",
+   "drowning in proofs, but we're not",
+   "getting all the understanding that",
+   "we used to get."
+  ]
+ },
+ "C4": {
+  "speaker": "Paul Christiano",
+  "role": "Founder, Alignment Research Center",
+  "source": "The Hinton Lectures (2026)",
+  "url": "https://www.youtube.com/watch?v=-Ef0ocEoBCs",
+  "src_start": "00:51:19.7",
+  "src_end": "00:51:32.5",
+  "placeholder": 12.8,
+  "in": null,
+  "out": null,
+  "lower_third": "ORIGINAL FOOTAGE · PAUL CHRISTIANO · ALIGNMENT RESEARCH CENTER · HINTON LECTURES, 2026",
+  "cues_verified": true,
+  "cues": [
+   "So I'd say all of these approaches",
+   "are plausible approaches. I don't",
+   "want to say any of them are",
+   "doomed, but I definitely do want",
+   "to say that none of them are on a",
+   "trajectory where we can say that's",
+   "definitely going to work, or even",
+   "that's probably going to work."
+  ]
+ }
+}

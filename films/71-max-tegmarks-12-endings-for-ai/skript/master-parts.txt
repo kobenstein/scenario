@@ -1,0 +1,24 @@
+# Film 71 master f71-master-1080p.mp4 (1863906978 bytes), sha256 b7950ac1ac210d3e5ef3927a6fe345118470a51a4f2f9a93a325d625f663c494
+# All parts are .zip (unzip -p gives the raw part f71m.partNN). Join in order with cat -> mp4, then shasum -a 256.
+# Target name: 71-max-tegmarks-12-endings-for-ai-master-1080p.mp4
+00 https://v3b.fal.media/files/b/0ab3e55e/YbD4gcRoJkTPQq8X87yTn_f71m.part00.zip
+01 https://v3b.fal.media/files/b/0ab3e560/wN9cGfaoHtIwDMPAn_WzL_f71m.part01.zip
+02 https://v3b.fal.media/files/b/0ab3e560/Slg5g5g_C5ey_14rdnS1V_f71m.part02.zip
+03 https://v3b.fal.media/files/b/0ab3e560/0vN4vuRwhFeeDojOXJlz5_f71m.part03.zip
+04 https://v3b.fal.media/files/b/0ab3e560/eveVuka25RF6QQ4anZtjc_f71m.part04.zip
+05 https://v3b.fal.media/files/b/0ab3e560/ukXjSffbHjZSSGdsv8Uak_f71m.part05.zip
+06 https://v3b.fal.media/files/b/0ab3e560/w61w__bSP7Ej5BNWsIvd7_f71m.part06.zip
+07 https://v3b.fal.media/files/b/0ab3e561/5fbUyBkzCu5ZvREzBj7aX_f71m.part07.zip
+08 https://v3b.fal.media/files/b/0ab3e561/rmWinLe9SeR9kwJLoHLal_f71m.part08.zip
+09 https://v3b.fal.media/files/b/0ab3e561/XsqFdWCgRHBquQxTa_IRQ_f71m.part09.zip
+10 https://v3b.fal.media/files/b/0ab3e561/lDBIyFygBCAK7a-fg1LON_f71m.part10.zip
+11 https://v3b.fal.media/files/b/0ab3e566/i1PZDKkBdvRGva4Y70e9C_f71m.part11.zip
+12 https://v3b.fal.media/files/b/0ab3e566/Y1oGdAZaTmt0Tv95laZjm_f71m.part12.zip
+13 https://v3b.fal.media/files/b/0ab3e566/mHFtsYY-TqtAJ9MGcLVCx_f71m.part13.zip
+14 https://v3b.fal.media/files/b/0ab3e566/AbZBYi-CP_mTK3KT0Ga_5_f71m.part14.zip
+15 https://v3b.fal.media/files/b/0ab3e566/IASa47Iy-jC0kLgfmIhJv_f71m.part15.zip
+16 https://v3b.fal.media/files/b/0ab3e566/BUWz5VKcePRKmvWiywr-W_f71m.part16.zip
+17 https://v3b.fal.media/files/b/0ab3e567/qOWHPk_x0k5zWXeVlinzk_f71m.part17.zip
+18 https://v3b.fal.media/files/b/0ab3e567/rG3_fvPo5-8XBRUCQP-FX_f71m.part18.zip
+19 https://v3b.fal.media/files/b/0ab3e567/JQlW3SFjeioFc3Tq-KDci_f71m.part19.zip
+20 https://v3b.fal.media/files/b/0ab3e567/exkimI6kwAt4idH3yXUtJ_f71m.part20.zip

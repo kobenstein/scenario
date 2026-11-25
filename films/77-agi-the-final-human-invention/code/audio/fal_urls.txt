@@ -1,0 +1,22 @@
+t00 https://v3b.fal.media/files/b/0ab3e00f/-Fp3ntAmaS0q5KizOyMtv_output.mp3
+t01 https://v3b.fal.media/files/b/0ab3e00e/rAK2FqP9Mr7kfLb9wb6Ii_output.mp3
+t02 https://v3b.fal.media/files/b/0ab3e00f/2zOV9yGW6Rf3E3DlTwm9R_output.mp3
+t03 https://v3b.fal.media/files/b/0ab3e00e/Y8ESYEmPiuTYq8lFwOYSP_output.mp3
+t04 https://v3b.fal.media/files/b/0ab3e00e/CZYX0Z6ITK_mFVUkxXtVP_output.mp3
+t05 https://v3b.fal.media/files/b/0ab3e00f/EazBslApnZxxG2ljlYt9N_output.mp3
+t06 https://v3b.fal.media/files/b/0ab3e00e/gvmOP3TEa8P1WycaZmot3_output.mp3
+t07 https://v3b.fal.media/files/b/0ab3e00f/FGzfnuru3jEjP1hXoabQG_output.mp3
+t08 https://v3b.fal.media/files/b/0ab3e024/IuUyXFR8AhmJeC02QqjMA_output.mp3
+t09 https://v3b.fal.media/files/b/0ab3e00f/REmrlzjuDxj_5syzx7jPW_output.mp3
+t10 https://v3b.fal.media/files/b/0ab3e00f/TVDmrLi8J1BWDStbfCmLJ_output.mp3
+t11 https://v3b.fal.media/files/b/0ab3e010/xaLhq-vPV3R8aE2tN88n2_output.mp3
+t12 https://v3b.fal.media/files/b/0ab3e024/ZMiDIQKbFYvCEG-73G3Zb_output.mp3
+t13 https://v3b.fal.media/files/b/0ab3e010/VhkG2x3CiMBuWo0BjCYTn_output.mp3
+t14 https://v3b.fal.media/files/b/0ab3e010/LsIiPOPs1jVHnKV91cRzq_output.mp3
+t15 https://v3b.fal.media/files/b/0ab3e010/dPa6-4HTmf15uDNR9ND4k_output.mp3
+t16 https://v3b.fal.media/files/b/0ab3e010/_g97W69ZNYkeO2zai9C5o_output.mp3
+t17 https://v3b.fal.media/files/b/0ab3e024/4L5nH9x8LpBWI0IoJXOys_output.mp3
+t18 https://v3b.fal.media/files/b/0ab3e024/wkQIUi5GTYWMMPAZJw8Xr_output.mp3
+t19 https://v3b.fal.media/files/b/0ab3e010/GYOBBCd2LD79trBhZ7WL5_output.mp3
+t20 https://v3b.fal.media/files/b/0ab3e010/na3COrdayPwfIjNaX7KHI_output.mp3
+# alt t12 with literal Erdős (not used): https://v3b.fal.media/files/b/0ab3e024/mcZUxYkC3MoPnAPgVGiW-_output.mp3
