@@ -471,6 +471,18 @@
     "code_herkunft": "claude/project-thread-p4vr3z:films/70-harari-biggest-fear-about-ai"
   },
   {
+    "nr": 73,
+    "ordner": "73-the-first-generation-that-wont-die",
+    "titel": "The First Generation That Won't Die",
+    "video": "oQ2cZnK_H1c",
+    "veroeffentlicht": "2026-11-29",
+    "skript_quellen": [
+      "film-73-wont-die"
+    ],
+    "thumbnail_quelle": "thumbnails/film-73",
+    "code_herkunft": "claude/project-thread-i4k2w9:films/73-the-first-generation-that-wont-die"
+  },
+  {
     "nr": 74,
     "ordner": "74-your-life-in-2050",
     "titel": "Your Life in 2050 If We Get AI Right",
