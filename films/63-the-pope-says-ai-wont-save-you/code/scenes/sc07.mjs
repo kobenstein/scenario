@@ -1,3 +1,4 @@
-// c07 · STUB (builder: see docs/BRIEF-builders.md; shots: docs/shots.md c07). Replace with your chunk; keep the seam plate / end screen.
-import { stub63 } from '../lib/stub63.mjs';
-export default (T, R) => stub63(T, R, { start: 'plateYes' });
+// c07 · builder B2: one shared continuous draw for c07–c09 (lib/f63_b2_film.mjs). Starts on S.plateYes, ends on S.plateStays.
+import * as F from '../lib/f63_kit.mjs';
+import { b2Draw } from '../lib/f63_b2_film.mjs';
+export default async (T, R) => { const B = b2Draw(T); return [{ t: R.a, draw: (ctx, t) => B.draw(ctx, t), print: F.PRINT63 }]; };
