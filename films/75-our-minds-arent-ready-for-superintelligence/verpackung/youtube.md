@@ -1,20 +1,12 @@
 # #75 · Our Minds Aren't Ready for Superintelligence
 
 - Video: https://youtu.be/CUleHDTSFMU
-- Geplant: 2026-12-08 17:00 Wien (publishAt 2026-12-08T16:00:00Z), privat
-- Länge: 10:32 (PT10M32S, 1080p30, 1.627.436.765 B, sha256 970c7c60…7e54)
-- Upload 25.11. per API: Thumbnail A gesetzt; .srt NICHT gesetzt (Token ohne force-ssl, captions.insert 403), in Studio nachladen: code/audio/untertitel/subtitles.srt
-- Master-Sicherungsteile: /mnt/project-files/scenario/film-75-godlike/master-teile.txt
+- Veröffentlicht: 2026-12-08 (private)
+- Länge: 10m32s
 
 ## Titel
 
 Our Minds Aren't Ready for Superintelligence
-
-Test & Compare (Titel, falls Thumbnails getestet werden: Thumbnails A/B/C): 1 „Our Minds Aren't Ready for Superintelligence“ · 2 „We're Not Ready for Superintelligence“ · 3 „We Have Godlike AI and Stone Age Brains“
-
-## Thumbnails
-
-A f75-a-godlike-ai-arrived (Upload-Thumbnail) · B f75-b-brains-cant-keep-up · C f75-c2-not-ready-for-ai (/mnt/project-files/scenario/thumbnails/film-75/)
 
 ## Beschreibung
 
@@ -87,8 +79,6 @@ Grading the machine and setting the rules
 • 135 leaders vs. 3 in 2017, "not a treaty" (UN News, Nov 20, 2026): https://news.un.org/en/story/2026/11/1168854
 ```
 
-Länge: 4827 Zeichen (4886 Bytes).
-
 ## Tags
 
-superintelligence, AI, artificial intelligence, godlike AI, Stone Age brains, E. O. Wilson, Yuval Noah Harari, Yoshua Bengio, AI regulation, EU AI Act, Montreal Protocol, ozone layer, AI safety, consciousness, mindfulness, HumaneBench, Demis Hassabis, future of humanity, AI and the brain, The Good Takeoff
+AI, AI and the brain, AI regulation, AI safety, Demis Hassabis, E. O. Wilson, EU AI Act, HumaneBench, Montreal Protocol, Stone Age brains, The Good Takeoff, Yoshua Bengio, Yuval Noah Harari, artificial intelligence, consciousness, future of humanity, godlike AI, mindfulness, ozone layer, superintelligence
