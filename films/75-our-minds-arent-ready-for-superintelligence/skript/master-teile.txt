@@ -1,0 +1,35 @@
+# #75 Our Minds Aren't Ready for Superintelligence: Master-Sicherungsteile (fal CDN)
+Stand: 2026-11-25. Original: fassung-1-master-1080p.mp4, 1627436765 Bytes, 631,83 s
+Gesamt-sha256: 970c7c607cebaba5e04fdfe787534269c80ab3d019ad83113fa6314b93da7e54
+YouTube: CUleHDTSFMU (privat, publishAt 2026-12-08T16:00:00Z)
+
+18 Teile (split -b 88m -d -a 2, nicht 190m: fal nimmt pro Upload höchstens 90 MB).
+Jede .zip (zip -0) enthält genau einen Rohteil f75-master.partNN.
+Alle 18 URLs am 25.11. heruntergeladen, zip-sha256 stimmt mit dem lokalen Wert überein.
+
+Zusammensetzen (Mac/Linux):
+  while read n url; do curl -fLo f75-master.part$n.zip "$url"; done < <(grep '^[0-9][0-9] ' master-teile.txt | awk '{print $1, $2}')
+  for z in f75-master.part??.zip; do unzip -o "$z"; done
+  cat f75-master.part?? > fassung-1-master-1080p.mp4
+  shasum -a 256 fassung-1-master-1080p.mp4   # muss die Gesamt-sha256 oben ergeben
+
+Spalten: Nr  URL  sha256-zip  sha256-rohteil  zip-bytes
+
+00 https://v3b.fal.media/files/b/0ab3eb2f/oNxAlipCPCYBp2DhZSai5_f75-master.part00.zip 84f9a89697bee86532d58dfede26fea9d3447ee144760d91b8a16cf77b7313b9 0333e040b9a39e561710edffb3e8c0daf81eacead3e6e1d6a2a91f659f194160 92274872
+01 https://v3b.fal.media/files/b/0ab3eb2f/7kcBLwn8_j89JtLnNYKqt_f75-master.part01.zip eb80b4987f41de38f0bee05b8113ed1e277bde06ba729621a15ece28d96fbfa8 91f0d8920dc6163314c628aa8f94f71c71122d5264b8ad2f0a1fca7b2e254e1f 92274872
+02 https://v3b.fal.media/files/b/0ab3eb2f/vO5hGh1WiEGtbzpMsGcPP_f75-master.part02.zip 0ee4d911d9eb66a3d6e28f71f488f2bae6acf9e6c7c8b2aa9ac2182904d820d5 6a856dff0be0c18eb026b4123d8534d88c443e70525daa3ae246f9bc764fee67 92274872
+03 https://v3b.fal.media/files/b/0ab3eb2f/tHoWLc9iZyuiN5VTADo1Y_f75-master.part03.zip e998e0d21bab1686b32ca53e5edbc9f5d67300c7c584644e5b434fa763391357 ad0478f86a16610e62ad62aef8ff300f0a762a554130e8ccd4af5d0d5732cd3d 92274872
+04 https://v3b.fal.media/files/b/0ab3eb2f/tT7Xsf2VkREfwmrrHq8kv_f75-master.part04.zip 440bacf8146ca1d75ba5eeb6dc8f8c69fe763c289df679d9fa33cadae59b3c2e aefe4b3b316070b3d9a7ddae0daac95f41ac8c6e69e41cf88ceead25984adf85 92274872
+05 https://v3b.fal.media/files/b/0ab3eb30/3w7bNawwhKmJ0QG1uP_eW_f75-master.part05.zip 41cde6e774f427e050a139d81721e64c561e32a848ecff8ae1fcfd69d8ce819a 4804beb42f3a0723812866cec53b291fac473379bcc3bd5981cbfaf67689c6c3 92274872
+06 https://v3b.fal.media/files/b/0ab3eb32/pY59KdE5v-uHt9qVpL07B_f75-master.part06.zip 98e71b70de60879d0a9b45664c96c715402a6d66bd1232d2bf6dd645b9f5526e 84817d9a5cf8d1262801c0339a051da5d4090a7ea44eb2ff200689d910103ba0 92274872
+07 https://v3b.fal.media/files/b/0ab3eb33/N1LbZAPUjeZ3_PXVO9wja_f75-master.part07.zip c135fc259d38f1b8b6da9e550c7cf7191202dfa041afdfbf2f2f5945376d2f63 ef82ef2a2858704bbba302d20a2122480a215fd25fe33f6e0628a24e850e9ffe 92274872
+08 https://v3b.fal.media/files/b/0ab3eb33/WkB7YB2qWlmbckWuw2Rq9_f75-master.part08.zip a2489bac58f792adc399514dcc1afa02a1477a6af8e77ac1f80ee73360b66ae8 5f3b33b7ba7fb4e5680904ae6e9ee576c1aaff12bec68ce73bc9c73889548ae1 92274872
+09 https://v3b.fal.media/files/b/0ab3eb33/AmMhZYIu_53eAyhnO4mjU_f75-master.part09.zip dfd4580bbde41921424cd3fdfeeedb520151e9e5d68cf9b67403e71005878ff6 398ae7be27e43bbbe151cef2727d88275fbec9873cf31eb91bc68f72397381a1 92274872
+10 https://v3b.fal.media/files/b/0ab3eb33/_Z7qjWObO80o5yzzaB2qg_f75-master.part10.zip c941109710d5fb2bfb61cbacb5a6a079a6716a18716789d1f0a8c762163b5b6a bb104900032ca4a02b5fea6c0e004897cffefdb46f24746f9242d78855e0ee79 92274872
+11 https://v3b.fal.media/files/b/0ab3eb33/jzftENmw9_RBu_hQOoFKd_f75-master.part11.zip 6c87df387221f9f29a0e533e3f6ab9921d4c3937e96e6d5c695130b988dd0c59 a7456145dd31386540e3b77c8c97917e35a9990a2729c166f412869a2ea25fdd 92274872
+12 https://v3b.fal.media/files/b/0ab3eb35/EuGKxfhpCGKWOEUbna1LW_f75-master.part12.zip 7c4f61fb6baa103ca42cd66026a521c55267ff1234ed2e1e065b30e3b7c0a3fa bb4b7feceafe42602a931fd875dba00490be44ee935a58b5c4c95bb5b5bf5210 92274872
+13 https://v3b.fal.media/files/b/0ab3eb35/EqPqoQF_Tzjr0s8HQCvPb_f75-master.part13.zip 1a40d9939894cbe29f3ae4961615869b4967d0c0c7ff48f987d72e3a87550e3c fe848cc05ed0f70f7caa098204c36aed7f699ce4aabd0ed20fb13239d09ba6b6 92274872
+14 https://v3b.fal.media/files/b/0ab3eb35/Tnb6dAAonKnkTYgygALDF_f75-master.part14.zip 540f98889b1ce23b9ebb17bd1017e893fcc992ded064d9eef753b6381d7467aa 4da0988179145eca5ee5f40e6c248a44cc63a6e63982126a50b2abc3dcd28423 92274872
+15 https://v3b.fal.media/files/b/0ab3eb35/23q-Ou7mJ3tUe0bFW5VQ8_f75-master.part15.zip 6f5c45e6091df1783817d74d55743fc54d5b610575b308966ed2e29a54d0b134 65306b6be19a39b84e84045e34970a71c12e6aecf6d16fdd2684186fef8f9892 92274872
+16 https://v3b.fal.media/files/b/0ab3eb35/-6wU0WupMiRl5iOCz7pov_f75-master.part16.zip 3d94a9e9131128eda1c396f02f358a35c1884ac593bb789634e41d2c58b33fad 18a1c3c08e416fe8db3de70d99a96ac8a6e612b6ffd544ea59721c8e4f047ff3 92274872
+17 https://v3b.fal.media/files/b/0ab3eb35/Xb5buOCGfNMr_LJyGpMP8_f75-master.part17.zip b841c1ca1c0151d696456c39bfe4884a981f0aa346b0f19f4326a88f07bf33fb 8a2058a1807f4cedeeee0dab7cfe2dedb843c67157214d634c28a63f90ec5d07 58767253
