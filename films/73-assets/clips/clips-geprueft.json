@@ -1,0 +1,59 @@
+[
+  {
+    "id": "C1",
+    "video_id": "Q0tKnUoMq-g",
+    "channel": "MIT SHASS",
+    "upload_date": "2025-10-14",
+    "start": "00:40:30.45",
+    "end": "00:40:37.75",
+    "duration_s": 7.3,
+    "wording": "So, by roughly 2032, when you live through a year, you'll get back an entire year from scientific progress.",
+    "speaker": "Ray Kurzweil (2025 Robert A. Muh Award Lecture, MIT)",
+    "music_under": false,
+    "note": "Target sentence found verbatim (chapter 'The singularity and human merger'). 1920x1080 29.97p. Lecture hall, noise floor about -60 dBFS, no music. Speech starts 0.15 s in, about 0.2 s of air at the end. The next sentence ('And beyond that point, you'll get back more than a year for every year you live') was deliberately left out because the next VO line says the same thing. Whisper hears 'look through', the YouTube captions 'live through'. The word is 'live' (same phrase as at 39:55: 'as you live through a year')."
+  },
+  {
+    "id": "C3",
+    "video_id": "KWKhecFVhTk",
+    "channel": "Progress by Fifty Years",
+    "upload_date": "2026-11-17",
+    "start": "00:06:46.20",
+    "end": "00:06:53.10",
+    "duration_s": 6.9,
+    "wording": "Leaky integrate-and-fire is, like, one of the simpler neuron models. So you take kind of, like, an okay connectome. I should say, the connectome scan also not perfect.",
+    "speaker": "Michael Andregg (CEO, Eon Systems), solo close-up",
+    "music_under": false,
+    "note": "IMPORTANT: the line in chapter 07:42 ('So we have a 40% accurate scan of a fly brain and a 5% accurate model of how neurons work... and it flies around and does stuff', 07:42-07:54) is spoken by the HOST Scott Phoenix, not Andregg, so it is not usable. Chosen instead: Andregg's own statement right before it in the same thread, about the crude ingredients (simple neuron model + imperfect scan). Andregg's other relevant lines are interrupted by the host ('Wow. Okay.' at 07:37), so they can't be cut cleanly. 1920x1080 23.976p. Edited podcast, digital silence in the pauses, no music. Small '50Y' logo bug top right. Alternative: see C3b."
+  },
+  {
+    "id": "C3b",
+    "video_id": "KWKhecFVhTk",
+    "channel": "Progress by Fifty Years",
+    "upload_date": "2026-11-17",
+    "start": "00:08:46.66",
+    "end": "00:08:58.66",
+    "duration_s": 12.0,
+    "wording": "But as far as the fruit fly, I do think that this is an incredible demonstration that this might not be all that hard, that just combining a good, an okay map and an okay neural model will yield something that is very high fidelity.",
+    "speaker": "Michael Andregg (CEO, Eon Systems), solo close-up for the whole clip",
+    "music_under": false,
+    "note": "Checked chapter 08:59 'GPT-1': Andregg's own sentence there is only 'I would maybe put the fruit fly at like GPT-1.' (09:08.5-09:12.1, 3.6 s), with the host talking straight over it ('Yeah, okay, that's fair') and the rest ('It kind of demonstrates that scaling might just work', 09:19.4-09:22.5) only after host interjections, so it can't be cut cleanly to 5-12 s. Instead C3b: the complete sentence right before it, about the crude ingredients ('an okay map and an okay neural model'), but with the twist 'still high fidelity'. Good bridge to the next VO line 'And still. A map of a brain, switched on...'. Small slip at 'a good, an okay map'. 1920x1080 23.976p, no music, 0.15 s of air at the start, about 0.3 s before the host starts at the end."
+  },
+  {
+    "id": "C4",
+    "video_id": "kwAOHArf4DE",
+    "channel": "London Business School",
+    "upload_date": "2026-01-15",
+    "start": "00:09:24.60",
+    "end": "00:09:34.58",
+    "duration_s": 9.98,
+    "wording": "But of course, when you think about working into your 70s in a three-stage life, a full-time education, full-time work, full-time retirement, that's obviously not going to work.",
+    "speaker": "Lynda Gratton (London Business School), single shot",
+    "music_under": false,
+    "note": "Speaker visually confirmed as Gratton (the host had asked her the question; Andy Briggs does not speak here). 1920x1080 25p. No music (spectrogram: only room tone in the pauses). End: she continues seamlessly with 'I mean...' after about 0.1 s, so instead of 0.15 s air there is a 60 ms audio fade-out after 'work.'. CAUTION: the source video has BURNED-IN captions in the lower third, for the WHOLE clip (one- and two-line, white text on a semi-transparent grey box, centred). In the edit, crop (e.g. scale to 110 %, crop the bottom) or cover it. Alternative with the same meaning, 09:52.6-10:03.4: 'So really what I'm sort of thinking is that you get this multi-stage life where education comes through in stages and the retirement also goes back in stages.' Measured at 1080p: one-line box y 955-1017, two-line box y 905-1017 (= 63-175 px from the bottom edge); covering the bottom 180 px is enough.",
+    "burned_in_subtitle_band_px_from_bottom": {
+      "from": 63,
+      "to": 175,
+      "cover_recommended": "bottom 180 px (y 900-1080 at 1080p)"
+    }
+  }
+]
