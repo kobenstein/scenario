@@ -158,15 +158,19 @@ export function anvil(ctx, t, x, top, w, o = {}) {
   ctx.beginPath(); ctx.moveTo(x - w * .5, top); ctx.lineTo(x + w * .32, top); ctx.quadraticCurveTo(x + w * .56, top + h * .05, x + w * .62, top + h * .02); ctx.quadraticCurveTo(x + w * .5, top + h * .3, x + w * .3, top + h * .34);
   ctx.lineTo(x + w * .16, top + h * .62); ctx.lineTo(x + w * .3, top + h); ctx.lineTo(x - w * .3, top + h); ctx.lineTo(x - w * .16, top + h * .62); ctx.lineTo(x - w * .34, top + h * .34); ctx.lineTo(x - w * .5, top + h * .3); ctx.closePath(); ctx.fill();
   ctx.fillStyle = rgba(CREAM, .5); ctx.fillRect(x - w * .5, top - 1, w * .82, 3);
+  // a slow glint wanders along the face (light, not motion: keeps every hold on the anvil alive)
+  if (o.glint !== false) halo(ctx, x - w * .5 + w * .82 * (.5 + .45 * Math.sin(t * .8)), top + 1, 90, .4, LAMP.body, LAMP.core);
 }
 export const moldX = (i) => ANVIL.x + (i - 1) * 230 - 40;
+// the moulds' breathing light (also used by c08's finale, so the plate continues it): a slow swell, so the held plate is never frozen
+export const moldGlow = (t, i) => .2 + .09 * Math.sin(t * 2.4 + i * 2.1);
 export function plateAnvil(ctx, t, T) {
   const k = creep(t, T, 'Three tests'), v = { x: W / 2, y: H / 2, s: k };
   X.board(ctx, t, v, { lx: ANVIL.x, ly: ANVIL.top - 80 });
   const s = F.chainState(T, t).links;
   X.inView(ctx, v, () => {
     anvil(ctx, t, ANVIL.x, ANVIL.top, ANVIL.w);
-    for (let i = 0; i < 3; i++) { F.chainLink(ctx, t, moldX(i), ANVIL.top - 52, 170, 0, { mould: 1 }); halo(ctx, moldX(i), ANVIL.top - 52, 150, .18 + .06 * Math.sin(t * 2 + i), LAMP.body, LAMP.core); }
+    for (let i = 0; i < 3; i++) { F.chainLink(ctx, t, moldX(i), ANVIL.top - 52, 170, 0, { mould: 1 }); halo(ctx, moldX(i), ANVIL.top - 52, 150, moldGlow(t, i), LAMP.body, LAMP.core); }
     for (let i = 0; i < 4; i++) { F.chainLink(ctx, t, W / 2 + (i - 1.5) * 120, 250, 90, 0, { crack: s[i].crack }); if (i < 3) F.chainLink(ctx, t, W / 2 + (i - 1) * 120, 250, 50, 0, { edge: true }); }
   });
 }

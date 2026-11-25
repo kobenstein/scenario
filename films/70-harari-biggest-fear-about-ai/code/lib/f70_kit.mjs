@@ -74,6 +74,7 @@ export function goldText(ctx, segs, x, y, size, u, o = {}) {
   const mw = (txt) => measure(txt, size, serif, o.weight) + (o.spacing ? txt.length * size * o.spacing : 0);
   const total = segs.reduce((s, [txt]) => s + mw(txt), 0);
   let xx = o.align === 'center' ? x - total / 2 : o.align === 'right' ? x - total : x; const xs = [];
+  if (!(u > 0)) { for (const [txt] of segs) { xs.push(xx); xx += mw(txt); } return { w: total, xs, x0: xs[0] }; }   // u = 0: invisible, and the glow must not bleed above the clip
   ctx.save(); ctx.beginPath(); ctx.rect(xx - size, y - size * 1.25, total + size * 2, size * 1.25 + size * .32); ctx.clip();
   for (const [txt, m] of segs) {
     xs.push(xx);

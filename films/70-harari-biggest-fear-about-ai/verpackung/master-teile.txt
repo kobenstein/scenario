@@ -1,0 +1,25 @@
+# #70 Harari's Biggest Fear About AI Isn't Robots · Master in Teilen auf fal storage (25.11.2026)
+# Master: f70-master-1080p.mp4 · 1080p30 H.264 + AAC 200k · 619.07 s · 1507187047 Bytes
+# sha256 be95ae1a451c132d95da48a8059615a4c844e36c1d29b97a7f4ff9a1b2a11529
+# 17 Teile à 85 MiB (split -b 85M), letztes 81123687 Bytes. fal lehnt manche rohen Teile ab ("Unsupported file format"),
+# darum: 00–06 roh (.bin), 07–16 als zip (store, ohne Kompression) bzw. 09 als gzip. Zusammensetzen (Mac/Linux):
+#   for u in $(grep -v '^#' master-teile.txt | awk '{print $2}'); do f=$(basename $u); curl -sSL -o $f $u
+#     case $f in *.zip) unzip -p $f;; *.gz) gunzip -c $f;; *) cat $f;; esac >> f70-master-1080p.mp4; rm $f; done
+#   shasum -a 256 f70-master-1080p.mp4   # muss obigen Wert ergeben (Rundlauf hier geprüft: gleich)
+00 https://v3b.fal.media/files/b/0ab3e30b/fNRvmyZPcyXPvrWbr2MtJ_f70-master-part00.bin
+01 https://v3b.fal.media/files/b/0ab3e30c/Rb1zEh0SuJycABfdDri6S_f70-master-part01.bin
+02 https://v3b.fal.media/files/b/0ab3e30c/7FE_wOx62O0jRV_4zG3gX_f70-master-part02.bin
+03 https://v3b.fal.media/files/b/0ab3e30d/iE-6SuVvWNIbqSaE5HDIQ_f70-master-part03.bin
+04 https://v3b.fal.media/files/b/0ab3e30d/LSBRk-YeLi1ZxBx0NCBnx_f70-master-part04.bin
+05 https://v3b.fal.media/files/b/0ab3e30d/O2zTBKCMQsqyHAxmisiKX_f70-master-part05.bin
+06 https://v3b.fal.media/files/b/0ab3e30d/1_fuXne95gEpb1sK1IUL8_f70-master-part06.bin
+07 https://v3b.fal.media/files/b/0ab3e316/6HBoyJFVgD_eHyxxSlIwn_f70-master-part07.zip
+08 https://v3b.fal.media/files/b/0ab3e318/u9asvlQQnVSMawJ_Mt8jG_f70-master-part08.zip
+09 https://v3b.fal.media/files/b/0ab3e313/_HqQ9E5oT5OrpmajiJ7it_f70-master-part09.gz
+10 https://v3b.fal.media/files/b/0ab3e318/kvCi-pygoZNGD4GHOKS19_f70-master-part10.zip
+11 https://v3b.fal.media/files/b/0ab3e318/BzMXenYgRdb1SqXvnTzYm_f70-master-part11.zip
+12 https://v3b.fal.media/files/b/0ab3e318/qL_vrBvbVutSCPuC6QFmV_f70-master-part12.zip
+13 https://v3b.fal.media/files/b/0ab3e31a/KG1gOQHgUhhdnv_CeqbVw_f70-master-part13.zip
+14 https://v3b.fal.media/files/b/0ab3e31a/l-woMCHEEG9A9yJWWclUb_f70-master-part14.zip
+15 https://v3b.fal.media/files/b/0ab3e31a/4ECNjWAwjL24LY58pbWyI_f70-master-part15.zip
+16 https://v3b.fal.media/files/b/0ab3e31a/TG_5fTT4I3K-55vB9SBVv_f70-master-part16.zip

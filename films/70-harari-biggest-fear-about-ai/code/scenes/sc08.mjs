@@ -335,7 +335,7 @@ export default async (T, R) => {
     // the three moulds rise out of the anvil's top; halos as in plateAnvil
     const mu2 = expoOut(span(t, A.how + 2.3, tP - .02));
     if (mu2 > 0) { ctx.save(); ctx.beginPath(); ctx.rect(0, 0, W, a.top - 1); ctx.clip();
-      for (let i = 0; i < 3; i++) { const dy = (1 - mu2) * 130; F.chainLink(ctx, t, S.moldX(i), a.top - 52 + dy, 170, 0, { mould: 1 }); halo(ctx, S.moldX(i), a.top - 52 + dy, 150, (.18 + .06 * Math.sin(t * 2 + i)) * mu2, LAMP.body, LAMP.core); }
+      for (let i = 0; i < 3; i++) { const dy = (1 - mu2) * 130; F.chainLink(ctx, t, S.moldX(i), a.top - 52 + dy, 170, 0, { mould: 1 }); halo(ctx, S.moldX(i), a.top - 52 + dy, 150, S.moldGlow(t, i) * mu2, LAMP.body, LAMP.core); }
       ctx.restore(); }
   }
 
