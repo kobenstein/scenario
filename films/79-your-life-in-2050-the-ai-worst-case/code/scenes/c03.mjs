@@ -35,8 +35,6 @@ import { CLIPS, CLIP_RECT, clipPlate } from './clips.mjs';
 import { INK } from './c01.mjs';
 const { W, H, P, rgba, mixHex, clamp, lerp, span, cam3, aim, camK, project, CARM, AMBER } = K;
 const look = (R, t) => K.hourLook(hourAt(R, t));
-// C2 lower third (clips.mjs carries the #74 set; the Bau-Lead moves this entry there)
-if (!CLIPS.C2) CLIPS.C2 = { name: 'Erik Brynjolfsson', role: 'Economist, Stanford University', year: '2026', src: 'Revelio Labs', quote: '"…young workers had falling employment… they just weren\'t being hired as much."' };
 const DC = { x: 1600, base: 800, w: 600, h: 620 };   // S.street's data centre across the road (card 2600)
 const DOOR = [DC.x + DC.w * .35, DC.base - DC.h * .26, DC.w * .3, DC.h * .26];
 // a car with crates turning in at the loading door (card 2600): u 0..1 along its path; clipped so it disappears into the door

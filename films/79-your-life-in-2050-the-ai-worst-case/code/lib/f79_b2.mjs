@@ -2,6 +2,7 @@
 // NEW functions only (the shared libs stay untouched). Same rules as lib/f79_expl.mjs: night ground, cream type in text inks,
 // AMBER = you / human, COLD CARMINE = the machine, REST #6a74a8 = everything else (dataviz-validated pair on #0b1238).
 // No shadowBlur on low-alpha fills (napi pitfall): glows are expanded low-alpha fills or K.carmGlow.
+import { CLIPS } from '../scenes/clips.mjs';
 import { createCanvas } from '@napi-rs/canvas';
 import { clipPlate } from '../scenes/clips.mjs';
 import * as K from './f79_kit.mjs';
@@ -174,7 +175,7 @@ export function plate(ctx, t, T, id, from, m, info) {
   }
   ctx.restore();
 }
-export const DUVENAUD = { name: 'David Duvenaud', role: 'Computer scientist, University of Toronto', year: '2026', src: '80,000 Hours', quote: '"Life can only get so bad when you\'re needed."' };
+export const DUVENAUD = CLIPS.C1;   // lower third from the shared clip table (scenes/clips.mjs)
 // ---------------------------------------------------------------- the allowance line: months as steps, never an amount
 // pts: levels per month (0..1 of the frame band, lower = less); u draw; o.dashFrom (index from which the line is dotted: the future)
 export function stepLine(c, x0, x1, yTop, yBot, levels, u, o = {}) {

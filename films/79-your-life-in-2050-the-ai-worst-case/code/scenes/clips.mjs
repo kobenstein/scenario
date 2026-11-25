@@ -1,14 +1,14 @@
-// Film 74 clips (ORIGINAL FOOTAGE): C6 (Tekedra Mawakana, Waymo) · C4 · C1 (Demis Hassabis); fallback set C3 · C4 · C1 (the timing file decides). Frames: /tmp/claude-0/f79/clips/<id>/f00001.jpg …
-// (cut with tools/clip_frames.sh from the iMac files in Drive "#74 …/3 Rohmaterial/clips"). Missing frames → a placeholder plate with the wording.
-// The plate grows out of the OLD SCREEN of the scene (o.from = its rect) and shrinks back into it.
+// Film 79 clips (ORIGINAL FOOTAGE, clips.json + docs/CLIPS-infile.md): C2 Brynjolfsson (data centre) · C1 Duvenaud (need) · C3 Duvenaud (square) ·
+// C4 Brynjolfsson (way out). Frames: /tmp/claude-0/f79/clips/<id>/f00001.jpg … (cut from the 60-s files at the in-file points). Missing frames → a placeholder plate.
+// Lower third: NAME · ROLE · YEAR · ORIGINAL FOOTAGE (CHANNEL); role as clips.json, no company names.
 import fs from 'node:fs';
 import { loadImage } from '@napi-rs/canvas';
 import { W, H, P, rgba, mixHex, clamp, lerp, span, sineIO, rad, maskLine, rise, measure, glowText } from '../lib/f79_kit.mjs';
-export const CLIPS = {   // lower thirds as text-v3 (25.11.): Hassabis is chairman since 5.8.2026, so role and date are those of the recording
-  C6: { name: 'Tekedra Mawakana', role: 'Co-CEO, Waymo', year: '2026', src: 'Stanford GSB', quote: '"…we want to be the world\'s most trusted driver."' },
-  C4: { name: 'Demis Hassabis', role: 'Then CEO, Google DeepMind', year: 'Davos, Jan 2026', src: 'World Economic Forum', quote: '"…distribute this new wealth more fairly. I don\'t know if we have the right institutions…"' },
-  C1: { name: 'Demis Hassabis', role: 'Then CEO, Google DeepMind', year: 'May 2026', src: 'Google I/O', quote: '"…10 times the impact of the Industrial Revolution, maybe 10 times faster."' },
-  C3: { name: 'Demis Hassabis', role: 'Then CEO, Google DeepMind', year: 'May 2026', src: 'Google I/O', quote: '"The future is not written… We don\'t know. Nobody knows."' },   // fallback set only
+export const CLIPS = {
+  C1: { name: 'David Duvenaud', role: 'Computer scientist, University of Toronto', year: '2026', src: '80,000 Hours', quote: '"Life can only get so bad when you\'re needed."' },
+  C2: { name: 'Erik Brynjolfsson', role: 'Economist, Stanford Digital Economy Lab', year: '2026', src: 'Revelio Labs', quote: '"…young workers had falling employment… they just weren\'t being hired as much."' },
+  C3: { name: 'David Duvenaud', role: 'Computer scientist, University of Toronto', year: '2026', src: 'Schwartz Reisman Institute', quote: '"…you\'ll have an amazing AI companion who\'s always there for you, too."' },
+  C4: { name: 'Erik Brynjolfsson', role: 'Economist, Stanford Digital Economy Lab', year: '2026', src: 'Revelio Labs', quote: '"If we\'re on the current path … it doesn\'t have to be that way."' },
 };
 export const CLIP_RECT = { x: 320, y: 132, w: 1280, h: 720 };   // bottom at 852: the subtitle band below stays free; the name sits above the plate
 const DIR = (process.env.F79CLIPS || '/tmp/claude-0/f79/clips/').replace(/\/?$/, '/');

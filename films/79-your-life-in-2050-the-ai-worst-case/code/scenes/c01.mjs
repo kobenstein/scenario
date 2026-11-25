@@ -98,7 +98,7 @@ export default function c01(T, R) {
     out: { k: 'iris', c: (t, s) => [x1 + (x1 - lerp(W / 2, x1, .25)) * .05, ty - 250 * 1.05, 56], lead: .4, dur: 1.5, pushA: .8, rim: '#dfe6ff' },
   };
   // ---------------------------------------------------------------- H.08–H.09 · BEDROOM at cold dawn: you wake up, nothing woke you
-  const camBed = (t, s) => camK(t, [[s.a - .6, cam3({ z: -260, x: 80 })], [s.r('H.09') - .2, cam3({ z: -60, x: 40 })], [s.b + .4, aim(1700, 1240, 735, 1.9), 'q']], .8);
+  const camBed = (t, s) => camK(t, [[s.a - .6, cam3({ z: -260, x: 80 })], [s.r('H.09') - .2, cam3({ z: -60, x: 40 })], [s.b + .4, aim(1700, 1240, 735, 1.9), 'q']], .3);
   const H08 = {
     id: 'H.08',
     draw(ctx, t, s) { S.bedroom(ctx, t, camBed(t, s), look(R, t), { up: K.expoOut(span(t, s.a - .2, s.a + 1.2)) * .95 + .05, youLook: .2 + .4 * span(t, s.r('H.09'), s.r('H.09') + 1) }); },
@@ -106,8 +106,8 @@ export default function c01(T, R) {
   };
   // ---------------------------------------------------------------- H.10–H.14 · KITCHEN: the grandson and the clock, two flashback cards
   let clockAt = [960, 600];
-  const camKit = (t, s) => camK(t, [[s.a - .5, cam3({ z: -120, x: 90 })], [s.r('H.11') - .1, cam3({ z: -40, x: 80 })], [s.r('H.11') + 1.6, aim(2400, 930, 600, 1.3, W * .42, H * .52), 's'],
-    [s.r('H.13'), aim(2400, 930, 600, 1.26, W * .42, H * .52)], [s.r('H.14') + .2, aim(2400, 930, 600, 1.29, W * .41, H * .54)], [s.b + .8, cam3({ z: 20, x: -90, y: -10 }), 's']], .5);
+  const camKit = (t, s) => camK(t, [[s.a - .5, cam3({ z: -120, x: 90 })], [s.a + 1.1, cam3({ z: -55, x: 82 }), 's'], [s.r('H.11') - .1, cam3({ z: -40, x: 80 })], [s.r('H.11') + 1.2, aim(2400, 930, 600, 1.18, W * .44, H * .52), 's'],
+    [s.r('H.13'), aim(2400, 930, 600, 1.16, W * .44, H * .52)], [s.r('H.14') + .2, aim(2400, 930, 600, 1.18, W * .43, H * .53)], [s.b + .8, cam3({ z: 0, x: -40, y: -10 }), 's']], .3);
   const H10 = {
     id: 'H.10',
     draw(ctx, t, s) {
@@ -150,7 +150,7 @@ export default function c01(T, R) {
     out: { k: 'sweep', kind: 'post', dir: -1, w: 200, col: '#0b0f2e', lead: .4, dur: .9 },
   };
   // ---------------------------------------------------------------- H.15–H.16 · HALLWAY: the NOT NEEDED counter grows big, the front door opens
-  const camHall = (t, s) => camK(t, [[s.a - .8, cam3({ z: -160, x: -60 })], [s.r('H.16'), cam3({ z: -40 })], [s.b + .6, aim(3000, 960, 570, 1.22), 'q']], .8);
+  const camHall = (t, s) => camK(t, [[s.a - .8, cam3({ z: -160, x: -60 })], [s.a + 1.0, cam3({ z: -60, x: -10 }), 's'], [s.r('H.16'), cam3({ z: -40 })], [s.b + .6, aim(3000, 960, 570, 1.22), 'q']], .3);
   const H15 = {
     id: 'H.15',
     draw(ctx, t, s) {
@@ -183,13 +183,13 @@ export default function c01(T, R) {
   const RT = (id) => R[id];
   const camSt = (t) => camK(t, [
     // one slow glide H.17–H.19, then ONE wide frame for H.20/H.21 (the across house AND your door in view: no whip pan between them)
-    [RT('H.17') - 1, cam3({ z: -200, y: -10 })], [RT('H.19') + .9, cam3({ z: 200, x: 50, y: -10 })],
+    [RT('H.17') - 1, cam3({ z: -120, y: -10 })], [RT('H.17') + 1.2, cam3({ z: 100, x: 30, y: -10 }), 's'], [RT('H.19') + .9, cam3({ z: 140, x: 40, y: -10 })],
     [RT('H.20') + .5, aim(2600, 1240, 600, 1.04, W * .5, H * .5)], [RT('H.20') + 1.1, aim(2600, 1100, 610, 1.05, W * .5, H * .5)],
-    [RT('H.21') + 1.5, cam3({ z: 420, y: 150, x: -300 }), 's'], [RT('H.22') + .4, cam3({ z: 440, y: 140, x: -260 })],
-    [RT('H.23') + 1.4, cam3({ z: 470, y: 120, x: -170 }), 's'], [RT('H.23') + 3.6, cam3({ z: 400, y: 90, x: -120 }), 's'], [RT('H.24') + .1, cam3({ z: 520, y: 40, x: 0 })], [RT('H.24') + 3.9, aim(16000, 960, 520, 1.12, W / 2, H * .62), 's'],
-    [RT('H.25') + .2, aim(16000, 960, 500, 1.14, W / 2, H * .6)], [RT('H.25') + 2.9, aim(16000, 960, 150, 1.3, W / 2, H * .44), 's'], [RT('H.26') + .2, aim(16000, 962, 146, 1.34, W / 2, H * .44)],
-    [RT('H.27') - .2, aim(16000, 960, 260, 1.26, W / 2, H * .5)], [RT('H.27') + 3.2, cam3({ z: -440, y: -70, x: 20 }), 'q'],
-  ], .5);
+    [RT('H.21') + .1, aim(2600, 1080, 612, 1.05, W * .5, H * .5)], [RT('H.21') + 1.5, cam3({ z: 400, y: 140, x: -240 }), 's'], [RT('H.22') + .4, cam3({ z: 420, y: 135, x: -225 })],
+    [RT('H.23') + 1.4, cam3({ z: 440, y: 120, x: -190 }), 's'], [RT('H.23') + 3.6, cam3({ z: 420, y: 90, x: -120 }), 's'], [RT('H.24') + .9, cam3({ z: 500, y: 50, x: -20 }), 's'], [RT('H.24') + 3.1, aim(16000, 960, 520, 1.12, W / 2, H * .62), 's'],
+    [RT('H.25') + .6, aim(16000, 960, 505, 1.13, W / 2, H * .61)], [RT('H.25') + 2.4, aim(16000, 960, 150, 1.3, W / 2, H * .44), 's'], [RT('H.26') + .2, aim(16000, 962, 146, 1.34, W / 2, H * .44)],
+    [RT('H.27') + 1.0, aim(16000, 960, 240, 1.28, W / 2, H * .48), 's'], [RT('B.01'), cam3({ z: -440, y: -70, x: 20 }), 's'],   // ends ON the seam: c02 takes over this exact key (no near-hold)
+  ], .3);
   const H17 = {
     id: 'H.17',
     draw(ctx, t, s) {

@@ -25,7 +25,6 @@ import { hourAt } from './hud.mjs';
 import { clipPlate, CLIPS } from './clips.mjs';
 const { W, H, P, rgba, mixHex, clamp, lerp, span, cam3, aim, camK, project, CARM, AMBER } = K;
 const look = (R, t) => K.hourLook(hourAt(R, t));
-Object.assign(CLIPS.C4, { name: 'Erik Brynjolfsson', role: 'Economist, Stanford', year: '2026', src: 'Revelio Labs', quote: '"If we\'re on the current path … it doesn\'t have to be that way."' });
 
 export default function c10(T, R) {
   const r = (id) => R[id];

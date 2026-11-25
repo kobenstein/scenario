@@ -23,8 +23,6 @@ import { hourAt, COUNT } from './hud.mjs';
 import { clipPlate, CLIPS } from './clips.mjs';
 const { W, H, P, rgba, mixHex, clamp, lerp, span, cam3, aim, camK, project, CARM, AMBER } = K;
 const look = (R, t) => K.hourLook(hourAt(R, t));
-// C3 lower third (clips.mjs still carries #74's entries; patched here at runtime until the Bau-Lead updates the shared file)
-Object.assign(CLIPS.C3, { name: 'David Duvenaud', role: 'Computer scientist', year: '2026', src: 'Schwartz Reisman Institute', quote: '"…you\'ll have an amazing AI companion who\'s always there for you, too."' });
 const FRIEND_WIN = [1426.8, 338.8, 52, 86];   // the friend window we push into (window 24 of PL.square's 5200 card, lit by K.friendWindows)
 
 export default function c08(T, R) {

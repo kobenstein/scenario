@@ -11,7 +11,7 @@ export const CLOCK = [['H.08', 'MONDAY · 8:10 AM'],
 export const COUNT = [['H.15', 1, 'THE ALARM CLOCK'],
   ['B.06', 2, 'YOUR WORK'], ['D.16', 3, 'THE BUILDING SITE'], ['K.11', 4, 'YOUR KITCHEN, FIRST'],   // B1 c02–c04
   ['N.29', 5, 'YOUR TAXES, YOUR VOTE'], ['G.14', 6, 'THE SCHOOL'], ['L.10', 7, 'THE FIELDS'],   // B2 c05–c07
-  ['Q.14', 9, 'YOUR TIME'],   // B3 c08 (the ninth box of the hallway counter)
+  ['Q.10', 8, 'EACH OTHER'], ['Q.14', 9, 'YOUR TIME'],   // B3 c08: the friend who never needs you (8), then the ninth box of the hallway counter
 ];   // + per station (v2)
 const HOURS = [['H.01', 7.6], ['H.08', 8.2], ['H.17', 8.3],
   ['B.01', 8.3], ['B.09', 9.0], ['D.01', 9.5], ['D.17', 9.9], ['K.01', 10.0], ['K.12', 11.9],   // B1 c02–c04

@@ -468,7 +468,7 @@ export const portalFade = (win) => (ctx, u, dA, dB, t) => K.portal(ctx, u, win(t
 export const maskGrow = (rectAt) => (ctx, u, dA, dB, t) => {
   const e = K.quartIO(clamp(u)), [x, y, w, h] = rectAt(t), X0 = lerp(x, -12, e), Y0 = lerp(y, -12, e), X1 = lerp(x + w, W + 12, e), Y1 = lerp(y + h, H + 12, e);
   dA(ctx);
-  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.beginPath(); ctx.roundRect(X0, Y0, X1 - X0, Y1 - Y0, 18 * (1 - e)); ctx.clip(); ctx.globalAlpha = span(u, 0, .3); dB(ctx); ctx.restore();
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.beginPath(); ctx.roundRect(X0, Y0, X1 - X0, Y1 - Y0, 18 * (1 - e)); ctx.clip(); fadeLayer(ctx, span(u, 0, .3), dB); ctx.restore();   // via a layer: shots set their own globalAlpha (a direct alpha popped B in at full strength)
 };
 // irisSoft: a calmer iris for B1's boundaries. B opens inside a circle that starts as a round object of A (c(t) → [cx, cy, r0], screen)
 // and grows with a constant change of area (r² linear in a quart ease: calm tails, the change packed in the middle, no frame jumps);

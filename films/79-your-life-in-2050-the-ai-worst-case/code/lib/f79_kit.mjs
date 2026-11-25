@@ -382,13 +382,13 @@ export function hud(ctx, t, st) {
   }
   if (st.n > 0) {
     const y2 = y + 52, u = st.nU ?? 1;
-    const lab = st.label ?? 'NOT NEEDED', lw = E.measure ? 0 : 0, nx = x + (lab.length * 15.5 + 14);
+    const lab = st.label ?? 'NOT NEEDED'; ctx.font = '600 22px Inter'; const nx = x + ctx.measureText(lab).width + .22 * 22 * lab.length + 22;   // measured (spacing .22em per letter): the digit never touches the label
     E.glowText(ctx, lab, x, y2, { size: 22, weight: 600, col: '#c9b8d6', spacing: .22, glow: false });
     ctx.save(); ctx.beginPath(); ctx.rect(nx - 4, y2 - 44, 70, 54); ctx.clip();
     if (u < 1 && st.n > 1) E.glowText(ctx, String(st.n - 1), nx, y2 + 6 - expoOut(u) * 50, { size: 46, serif: true, col: CARM.hot });
     E.glowText(ctx, String(st.n), nx, y2 + 6 + (1 - expoOut(u)) * 50, { size: 46, serif: true, col: CARM.hot });
     ctx.restore();
-    if (st.line) { const lx = nx + 30 + 14 * String(st.n).length; ctx.save(); ctx.beginPath(); ctx.rect(lx, y2 - 30, 900, 40); ctx.clip(); E.glowText(ctx, '· ' + st.line, lx, y2 + (1 - expoOut(st.lineU ?? 1)) * 34, { size: 22, weight: 600, col: P.cream, spacing: .1, glow: false }); ctx.restore(); }
+    if (st.line) { ctx.font = '46px "Instrument Serif"'; const lx = nx + ctx.measureText(String(st.n)).width + 16; ctx.save(); ctx.beginPath(); ctx.rect(lx, y2 - 30, 900, 40); ctx.clip(); E.glowText(ctx, '· ' + st.line, lx, y2 + (1 - expoOut(st.lineU ?? 1)) * 34, { size: 22, weight: 600, col: P.cream, spacing: .1, glow: false }); ctx.restore(); }
   }
   ctx.restore();
 }
