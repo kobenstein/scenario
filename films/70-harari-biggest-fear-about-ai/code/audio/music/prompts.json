@@ -1,0 +1,36 @@
+{
+ "_comment": "Film 70 Lyria 3.5 prompts (google/lyria-3.5, 0.10 USD per track, 6 tracks, 2026-11-25). Method as Film 69: one track per chapter; chapters = sections of timing.json (H,1 | 2,3 | M,3b,4,5 | 6 | 7 | 8,A2 + end screen). Mystic, not uplifting: drones, pads, felt piano, glass, distant wordless choir; theme: the chain of trust (hands, the card reader, the bread, the cow). Files in /tmp/claude-0/f70/audio/music, not in the repo (URLs in music/urls.txt). Prompt sent = style + ' ' + 'A <len> track. ' + mood.",
+ "style": "Instrumental underscore for a calm, thoughtful editorial documentary about trust in an age of machines: a long chain of hands passing something along from person to person in a quiet night, a card touched to a reader, a loaf of bread on a kitchen table under one warm lamp, a cow in a field at dusk who never learns what money is. Mystical and quiet, not uplifting. Deep warm drones, slow shimmering pads, sparse felt piano notes far apart, glassy bell and glass-harmonica textures, a very distant soft wordless choir pad like breath in a cathedral, a little tape warmth. No drums, no percussion, no beat, no vocals with words, no melody hook, not pop, not epic, not triumphant, not kitschy, not cinematic trailer. Very quiet, narrow dynamic range, slow, made to sit under a speaking voice.",
+ "tracks": {
+  "M0": {
+   "chapter": "H, 1 (Harari's biggest fear is not killer robots; the card reader, the bread, the cow, who do you trust, C1 Harari; be honest, civilization runs on trust, the chain of people, four links)",
+   "len": "2:15",
+   "mood": "curious and expectant: a low warm drone that slowly breathes, single soft glassy piano notes placed gently one by one like stepping stones across a stream, a faint distant choir pad; a sense of wonder and an open question; steady and calm throughout, no build-up"
+  },
+  "M1": {
+   "chapter": "2, 3 (link 1 money: the Bank of England survey, software agents recommend, C2 Harari cows do not understand checks or stocks; link 2 contract: job, loan, insurance, hiring software, no villain)",
+   "len": "1:50",
+   "mood": "watchful and a little cool: slow pulsing pad chords like quiet machinery behind glass, sparse low felt piano, faint metallic shimmer; something that works while nobody quite knows how; calm, no tension spikes, a hint of unease at the end"
+  },
+  "M2": {
+   "chapter": "M, 3b, 4, 5 (subscribe call; when a machine says no; link 3 law: rules written by machines, bureaucratic natives; link 4 truth: the poll, the coin flip, the survey)",
+   "len": "2:10",
+   "mood": "patient and contemplative: a long sustained organ-like pad, glass harmonica tones, very sparse piano, a slow breathing choir pad far away; pages of rules piling up quietly, a faint hum of machinery in the next room; no tension spikes, no build-up"
+  },
+  "M3": {
+   "chapter": "6 (does the chain have to break? Harari says no; Estonia, the citizen and two chatbots; the same hard look at Harari; how do you tell which one deserves your trust)",
+   "len": "1:20",
+   "mood": "a small clearing without triumph: the drone softens and a warm felt piano figure of a few notes appears over a hovering pad, faint bell tones, the distant choir returns softly; a question being weighed with care; restrained, no swell, no uplift"
+  },
+  "M4": {
+   "chapter": "7 (three tests: a human answers for it, the machine says it is a machine, somebody independent can check; C3 Harari: trust between humans)",
+   "len": "1:55",
+   "mood": "clear and deliberate, still mystical: three slow, spaced glassy notes returning like three stones set down one after another over a deep warm drone, a soft pad, a distant choir breath; patient and calm, no beat, no build-up, no uplift"
+  },
+  "M5": {
+   "chapter": "8, A2 + end screen (back to the cow: trust can be tested; the card reader again, A beep, the bread is yours; make sure it still has to answer you; closing call)",
+   "len": "1:40",
+   "mood": "grave and open, a quiet homecoming: the low drone of the opening returns with the falling glassy piano notes, now slower, a wide still choir pad, a single soft tone like a card reader far away; unresolved but calm, not hopeful, not triumphant; ends on one long decaying open fifth chord fading into silence"
+  }
+ }
+}

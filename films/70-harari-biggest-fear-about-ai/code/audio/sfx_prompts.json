@@ -1,0 +1,4 @@
+{
+ "_comment": "Film 70 SFX: card_beep = Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 0.01 USD/s, 2 samples of 2 s, 2026-11-25), sample 2 (seed 7002, clean beep at 0.6-0.8 s) used from 0.5 s for 0.6 s; ice_crack from sfx-bibliothek/akzent (crack at 1.29 s, used from 1.1 s for 0.9 s). Files in /tmp/claude-0/f70/audio/sfx, not in the repo. No atmo beds: SFX only in the gaps, never under a running sentence. Motif: the card reader beep (hook + ending) and the cracking link (two accents).",
+ "card_beep": {"duration": 2, "seed": 7001, "negative_prompt": "music, voices, crowd, wind noise, hiss, alarm", "prompt": "A single short soft electronic beep of a contactless card payment terminal accepting a card: one clean gentle high-pitched beep, then stillness. Close, clean, quiet room, no music, no voices.", "url": "https://v3b.fal.media/files/b/0ab3dfb0/q8C1cRrPKwZj5-7-6NUh1_generated_audio_2.wav"}
+}
