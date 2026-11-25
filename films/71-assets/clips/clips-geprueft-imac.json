@@ -1,0 +1,31 @@
+{
+  "film": 71,
+  "checked": "2026-11-25, iMac",
+  "method": "Line check against YouTube auto subs (en-orig; Whisper is not installed on the iMac); line boundaries refined with ffmpeg silencedetect (-35 dB); speakers checked from frames. Times are seconds inside the downloaded window. All clips are 1080p h264 + original English AAC (dubbed tracks explicitly excluded).",
+  "clips": [
+    {"id": "C1", "video": "C-pWm59Oyqg", "window": "53:25-54:10", "line_start_s": 21.6, "line_end_s": 28.6,
+     "line": "This is in the rearview mirror. Clearly, multiple companies lost control of AI systems this summer.",
+     "speaker_visible": "Max Tegmark (Zoom tile, right) next to Sonja Amadae (left); both tiles always visible, gallery view",
+     "notes": "Zoom recording, two small tiles with big black bars top/bottom: crop to Tegmark's tile (about 480x270 source px, so it will look soft). Burned-in Zoom name labels, no subtitles, no music. Optional lead-in from 15.1 s: 'it's no longer hypothetical to say maybe one day we'll lose control over AI.'"},
+    {"id": "C2", "video": "OkG5S1NwwVM", "window": "1:08:35-1:09:45", "line_start_s": 50.7, "line_end_s": 59.3,
+     "line": "my pdoom is very low. It's sub 1%, it's 0.01% or something like that.",
+     "speaker_visible": "Dean Ball, solo full frame during the line (name label DEAN BALL, bottom right); the rest of the window is a 3-up of Liron Shapira / Max Tegmark / Dean Ball",
+     "notes": "Doom Debates. He stutters 'my my my my' just before 50.7 s; a clean start is 'pdoom is very low' at about 51.4 s. Continues 'It's very low' until about 60.2 s. Burned-in name label, no subtitles, no music."},
+    {"id": "C3", "video": "Z9dAJRKn9EM", "window": "2:40-3:20", "line_start_s": 13.5, "line_end_s": 32.9,
+     "line": "There's some other species on Earth that we've kept around, like horses, because we need them ... But if there's some other species that we find annoying, like ants in your basement ... tough luck for them.",
+     "speaker_visible": "Max Tegmark (right tile, blue shirt, bookshelf) next to the host (left tile); two-up on a purple space background",
+     "notes": "Reserve. Short ants-only cut: 23.5-32.9 s ('But if there's some other species that we find annoying ...'). No subtitles, no music. Podcast logo in the host's background."},
+    {"id": "C4", "video": "nnYHg0gcWug", "window": "23:20-24:00", "line_start_s": 17.8, "line_end_s": 23.9,
+     "line": "So, the goal of these companies is to build a new species that's much more capable than us.",
+     "speaker_visible": "Max Tegmark (right tile) next to the host (left tile); same two-up layout as C3",
+     "notes": "Tegmark says 'the goal of of these' (small stutter). No subtitles, no music. Clean pause before 17.8 s and after 23.9 s."},
+    {"id": "C5", "video": "XDB5beon4DY", "window": "15:05-15:55", "line_start_s": 31.4, "line_end_s": 39.1,
+     "line": "we may have to pace the rate of AI development to give ourselves enough time for society to harden around some of these new capability levels.",
+     "speaker_visible": "Sam Altman, over-the-shoulder shot (interviewer's back in the left foreground)",
+     "notes": "Burned-in sponsor bar: 'presented by ramp' bottom left, Vanta / Ridgeline / WorkOS / rogo logos bottom right; needs cropping or a cover. No subtitles, no music. The video has many auto-dubbed audio tracks; the clip uses the original English track. Context from 26.8 s: 'long-term questions about what do you do if this is going to be the new rate of progress, or ...'"},
+    {"id": "C6", "video": "257pArprn5Q", "window": "6:10-6:50", "line_start_s": 19.7, "line_end_s": 28.0,
+     "line": "We know that the future of AI is not inevitable. It's for us to decide.",
+     "speaker_visible": "Yes, Max Tegmark: on stage, wide shot, navy suit, red tie, presentation clicker, blue/olive curtain",
+     "notes": "Keynote in a hall: heavy room echo, floor in the pauses only about -29 dB (other clips about -57 dB). The spectrum shows no tonal music bed, but please do a quick listen. There is no hard pause before 'We know' (it runs on from '... a fork in the road'); a cut at about 19.5 s is the cleanest. Full sentence from 13.1 s: 'We are here today because we know that what's up next is a fork in the road.' Burned-in subtitles: none. Wide shot only: a 1.5-2x crop is possible."}
+  ]
+}

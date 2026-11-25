@@ -1,0 +1,75 @@
+{
+ "_comment": "Film 71 clip cuts (cut_clips.py). Seconds inside the iMac source window films/71-assets/clips/Cn.mp4. The slot length in timing.json = dur (ffprobe of the cut).",
+ "clips": {
+  "C1": {
+   "source": "films/71-assets/clips/C1.mp4",
+   "video": "C-pWm59Oyqg",
+   "window": "53:25-54:10",
+   "in_s": 21.5,
+   "out_s": 28.85,
+   "dur": 7.35,
+   "imac_line_s": [
+    21.6,
+    28.6
+   ],
+   "audio": "loudnorm I=-20, fade 0.03 / 0.06",
+   "cut_file": "/tmp/claude-0/f71/audio/cut/C1.mp4"
+  },
+  "C2": {
+   "source": "films/71-assets/clips/C2.mp4",
+   "video": "OkG5S1NwwVM",
+   "window": "1:08:35-1:09:45",
+   "in_s": 51.45,
+   "out_s": 59.55,
+   "dur": 8.1,
+   "imac_line_s": [
+    50.7,
+    59.3
+   ],
+   "audio": "loudnorm I=-20, fade 0.03 / 0.06",
+   "cut_file": "/tmp/claude-0/f71/audio/cut/C2.mp4"
+  },
+  "C4": {
+   "source": "films/71-assets/clips/C4.mp4",
+   "video": "nnYHg0gcWug",
+   "window": "23:20-24:00",
+   "in_s": 17.72,
+   "out_s": 24.15,
+   "dur": 6.43,
+   "imac_line_s": [
+    17.8,
+    23.9
+   ],
+   "audio": "loudnorm I=-20, fade 0.03 / 0.06",
+   "cut_file": "/tmp/claude-0/f71/audio/cut/C4.mp4"
+  },
+  "C5": {
+   "source": "films/71-assets/clips/C5.mp4",
+   "video": "XDB5beon4DY",
+   "window": "15:05-15:55",
+   "in_s": 31.3,
+   "out_s": 39.4,
+   "dur": 8.1,
+   "imac_line_s": [
+    31.4,
+    39.1
+   ],
+   "audio": "loudnorm I=-20, fade 0.03 / 0.06",
+   "cut_file": "/tmp/claude-0/f71/audio/cut/C5.mp4"
+  },
+  "C6": {
+   "source": "films/71-assets/clips/C6.mp4",
+   "video": "257pArprn5Q",
+   "window": "6:10-6:50",
+   "in_s": 20.1,
+   "out_s": 28.35,
+   "dur": 8.25,
+   "imac_line_s": [
+    19.7,
+    28.0
+   ],
+   "audio": "agate=threshold=0.03:ratio=2:range=0.316:attack=5:release=180:knee=4,loudnorm I=-20, fade 0.03 / 0.06",
+   "cut_file": "/tmp/claude-0/f71/audio/cut/C6.mp4"
+  }
+ }
+}
