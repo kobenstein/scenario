@@ -126,7 +126,7 @@ function tipPanel(ctx, t, T, o = {}) {
 function counter2(ctx, x, y, size, ageA, ageB, ageU, yearA, yearB, yearU, a = 1) {
   if (a <= 0) return;
   ctx.save(); ctx.globalAlpha *= a;
-  K.cap(ctx, 'AGE', x, y - size * .9, 1, { size: Math.max(22, Math.round(size * .26)), col: CREAM });
+  K.cap(ctx, 'AGE', x, y - size * 1.02, 1, { size: Math.max(22, Math.round(size * .26)), col: CREAM });
   K.rollText(ctx, ageA, ageB, ageU, x, y, size, { col: '#fff6d8' });
   const dw = K.measure('0', size, true) * 1.02, w1 = lerp(dw * ageA.trim().length, dw * ageB.trim().length, sineIO(span(ageU, .1, .8)));   // the year slides along as the age changes width
   E.glowText(ctx, '·', x + w1 + size * .2, y - size * .06, { size: size * .7, serif: true, col: GOLD.text, glow: false });
@@ -321,36 +321,39 @@ function seesawScene(ctx, t, T) {
 }
 
 // ================================================================================================================ s6 / e1: the gate and the end picture
-const END = { x0: 800, w: 150, y0: 560, rise: 46, cx: 1175 };   // centre-right column: the end-screen areas (two tiles left, subscribe far right) stay free
+// the end picture (last 15 s = YouTube end screen): small, calm, top centre. Free and dark (lead 25.11., as #68): the video tile left
+// (x 150–850), the "latest upload" tile right (x 1070–1770), y 380–780, and the subscribe circle — nothing is drawn below y ~372.
+const END = { x0: 700, w: 104, y0: 330, rise: 34, cx: 960, base: 372 };
 const endTop = (i) => [END.x0 + i * END.w, END.y0 - i * END.rise];
 function endPicture(ctx, t, T) {
   const m = TT(T);
-  K.bg(ctx, t, { gx: END.cx, gy: 470, ga: .22, gcol: '#3a3a6a', stars: 70, seed: 11 });
+  K.bg(ctx, t, { gx: END.cx, gy: 250, ga: .12, gcol: '#3a3a6a', stars: 50, seed: 11 });
   ctx.save();
   const pu = sineIO(span(t, m.open0, T.duration)), z = lerp(1.04, 1.0, pu);
-  ctx.translate(END.cx + E.drift(t, 3, 7), 470 + E.drift(t, 2, 9)); ctx.scale(z, z); ctx.translate(-END.cx, -470);
-  // a low horizon glow behind the steps (no city: the end-screen areas stay calm)
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = K.rad(ctx, END.cx, 560, 600, [[0, rgba('#ffd98a', .1)], [1, rgba('#ffd98a', 0)]]); ctx.beginPath(); ctx.arc(END.cx, 560, 600, 0, 6.29); ctx.fill(); ctx.restore();
+  ctx.translate(END.cx + E.drift(t, 2, 7), 260 + E.drift(t, 1.5, 9)); ctx.scale(z, z); ctx.translate(-END.cx, -260);
+  // a low warm glow behind the steps only (the tile areas stay dark)
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = K.rad(ctx, END.cx, 300, 300, [[0, rgba('#ffd98a', .08)], [1, rgba('#ffd98a', 0)]]); ctx.beginPath(); ctx.arc(END.cx, 300, 300, 0, 6.29); ctx.fill(); ctx.restore();
   for (let i = 0; i < 5; i++) {
     const [x, y] = endTop(i), L = .5 + .1 * Math.sin(t * .7 + i);
-    ctx.fillStyle = K.lin(ctx, 0, y, 0, H, [[0, '#1a2560'], [.3, '#121a4a'], [1, '#0a0f30']]); ctx.fillRect(x, y, END.w + 2, H - y + 60);
-    ctx.fillStyle = rgba(mixHex('#3a4a8c', '#ffe2a0', L), .9); ctx.fillRect(x, y, END.w + 2, 4);
-    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = K.lin(ctx, 0, y - 90, 0, y + 3, [[0, rgba('#ffd98a', 0)], [1, rgba('#ffd98a', .18 * L)]]); ctx.fillRect(x, y - 90, END.w, 93); ctx.restore();
-    ctx.save(); ctx.globalAlpha *= .5; E.glowText(ctx, String(K.AGES[i][0]), x + END.w - 14, y + 34, { size: 24, serif: true, align: 'right', col: '#9aa2d8', glow: false }); ctx.restore();
+    // the block fades out into the night before END.base (no hard bottom edge, nothing in the tile band)
+    ctx.fillStyle = K.lin(ctx, 0, y, 0, END.base, [[0, '#1a2560'], [.55, rgba('#121a4a', .8)], [1, rgba('#0a0f30', 0)]]); ctx.fillRect(x, y, END.w + 1, END.base - y);
+    ctx.fillStyle = rgba(mixHex('#3a4a8c', '#ffe2a0', L), .9); ctx.fillRect(x, y, END.w + 1, 3);
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = K.lin(ctx, 0, y - 60, 0, y + 2, [[0, rgba('#ffd98a', 0)], [1, rgba('#ffd98a', .16 * L)]]); ctx.fillRect(x, y - 60, END.w, 62); ctx.restore();
+    ctx.save(); ctx.globalAlpha *= .5; E.glowText(ctx, String(K.AGES[i][0]), x + END.w - 10, y + 26, { size: 22, serif: true, align: 'right', col: '#9aa2d8', glow: false }); ctx.restore();
   }
   // the grown-up on the top step turns round (back view → facing the first step), then looks down at the new baby
   const [tx, ty] = endTop(4), turn = span(t, m.turn, m.turn + .9), sq = Math.abs(Math.cos(Math.PI * turn)), look = lerp(.5, -.25, sineIO(span(t, m.baby, m.baby + 1.2)));
   ctx.save(); ctx.translate(tx + END.w * .55, ty); ctx.scale(lerp(.82, 1, sq), 1);
-  if (turn < .5) K.kid(ctx, 0, 0, 140, { age: 30, view: 'back', look: .6, light: -1, back: .3 });
-  else K.kid(ctx, 0, 0, 140, { age: 30, view: 'side', dir: -1, look, light: -1 });
+  if (turn < .5) K.kid(ctx, 0, 0, 84, { age: 30, view: 'back', look: .6, light: -1, back: .3 });
+  else K.kid(ctx, 0, 0, 84, { age: 30, view: 'side', dir: -1, look, light: -1 });
   ctx.restore();
   // a new baby on the lowest step (born out of a small warm light)
   const [bx, by] = endTop(0), bu = span(t, m.baby, m.baby + 1.1);
-  if (bu > 0) { halo(ctx, bx + END.w * .5, by - 30, 130, .5 * sineIO(bu) * (.9 + .1 * Math.sin(t * 1.3)), GOLD.halo, GOLD.core); ctx.save(); ctx.globalAlpha *= rise(bu); K.kid(ctx, bx + END.w * .5, by + (1 - rise(bu)) * 10, 64, { age: 0, light: 1 }); ctx.restore(); }
+  if (bu > 0) { halo(ctx, bx + END.w * .5, by - 20, 80, .5 * sineIO(bu) * (.9 + .1 * Math.sin(t * 1.3)), GOLD.halo, GOLD.core); ctx.save(); ctx.globalAlpha *= rise(bu); K.kid(ctx, bx + END.w * .5, by + (1 - rise(bu)) * 8, 40, { age: 0, light: 1 }); ctx.restore(); }
   ctx.restore();
-  // AGE 30 · 2056 → AGE 0 · 2056 (top centre; the end-screen tiles stay free)
-  const ru = span(t, m.roll, m.roll + 1.2), size = 84, cw = counterW(size, 2);
-  counter2(ctx, END.cx - cw / 2, 250, size, '30', '0 ', ru, '2056', '2056', 1, clamp(span(t, m.open0 + 1.4, m.open0 + 2.4) * 1));
+  // AGE 30 · 2056 → AGE 0 · 2056, small, above the low steps (left of the grown-up)
+  const ru = span(t, m.roll, m.roll + 1.2), size = 54;
+  counter2(ctx, END.x0, 178, size, '30', '0 ', ru, '2056', '2056', 1, clamp(span(t, m.open0 + 1.4, m.open0 + 2.4) * 1));
 }
 function archPath(cx, base, w, h) { const p = new Path2D(); p.moveTo(cx - w / 2, base); p.lineTo(cx - w / 2, base - h + w / 2); p.arc(cx, base - h + w / 2, w / 2, Math.PI, 0); p.lineTo(cx + w / 2, base); p.closePath(); return p; }
 function closeWorld(ctx, t, T) {
@@ -390,8 +393,8 @@ function closeWorld(ctx, t, T) {
     const arch = archPath(cx, base, w, h);
     // no jump at the start: at op 0 the arch IS the gate, so the end picture and the light veil both fade in from 0 while it grows
     ctx.save(); ctx.clip(arch); ctx.save(); ctx.globalAlpha *= sineIO(span(op, .03, .4)); endPicture(ctx, t, T); ctx.restore();
-    ctx.fillStyle = rgba('#ffe6a2', sineIO(span(op, 0, .1)) * (1 - sineIO(span(op, .12, .62)))); ctx.fillRect(0, 0, W, H); ctx.restore();
-    ctx.save(); const ga = .5 * Math.sin(Math.PI * clamp(op / .3)); if (ga > .005) E.glowFill(ctx, arch, 50, ga, '#f2c46a');   // the gate's rim glow, gone before the arch fills the frame ctx.restore();
+    ctx.fillStyle = rgba('#ffe6a2', .85 * sineIO(span(op, 0, .22)) * (1 - sineIO(span(op, .24, .7)))); ctx.fillRect(0, 0, W, H); ctx.restore();   // lead 25.11.: softer swell (smooth.py LURCH 19)
+    ctx.save(); const ga = .5 * Math.sin(Math.PI * clamp(op / .3)); if (ga > .005) E.glowFill(ctx, arch, 50, ga, '#f2c46a'); ctx.restore();   // the gate's rim glow, gone before the arch fills the frame
   }
 }
 

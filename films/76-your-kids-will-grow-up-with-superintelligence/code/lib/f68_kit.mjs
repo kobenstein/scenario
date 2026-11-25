@@ -388,7 +388,7 @@ export function clipShot(id) {
   return (ctx, t, S, T) => {
     const c = T.clip(id);
     bg(ctx, t, { gx: S.in[0], gy: S.in[1], ga: .2, stars: 40 });
-    const m = sineIO(span(t, S.a, S.a + .6)) * (1 - sineIO(span(t, c.end - .05, c.end + .45)));
+    const m = sineIO(span(t, S.a, S.a + .9)) * (1 - sineIO(span(t, c.end - .05, c.end + .75)));   // f76: .9 s grow / .8 s shrink (smooth.py LURCH 25 at .6 s)
     if (m <= 0) return;
     K.clipPlate(ctx, t, T, id, { from: [S.in[0], S.in[1], 14], morph: m });
   };

@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """Film 76 "Your Kids Will Grow Up With Superintelligence" · clip frames, chunk render (chunks = the packages L/B1/B2/B3 of film.mjs chunkRanges), assembly. Base: film 67/68.
 
-  python3 tools/f76_clips.py clips [--only C1,C2]   the four interview clips: <ROOT>clips/Cn.mp4 (already cut, <ROOT>clips-geprueft.json)
-          -> frames <SCRATCH>/clips/<id>/f00001.jpg ... (1920x1080, 30 fps; frame 1 = the slot start, what F.clipPlate loads). The sound is the
-          sound agent's (mix.m4a already carries the clip audio).
-  python3 tools/f76_clips.py render [--only c05,c06] [-j 4] [--scale 1]     the chunk videos c01..c12 (1920x1080, 30 fps, no sound), pieces of <= 20 s,
+  python3 tools/f76_clips.py clips [--only C1,C2]   the four interview clips: <ROOT>clips/Cn.mp4 (the sound step's frame-exact cuts = slot lengths;
+          fallback films/76-assets/clips/Cn.mp4 from its in-point, CLIP_IN) -> frames <SCRATCH>/clips/<id>/f00001.jpg ... (1920x1080, 30 fps; frame 1 =
+          the slot start, what K.clipPlate loads). The sound is in mix.m4a.
+  python3 tools/f76_clips.py render [--only B1,B2] [-j 4] [--scale 1]     the chunk videos L, B1, B2, B3 (1920x1080, 30 fps, no sound), pieces of <= 20 s,
           resumable, joined to WORK/cNN.mp4.
-  python3 tools/f76_clips.py join [--only c05]
+  python3 tools/f76_clips.py join [--only B1]
   python3 tools/f76_clips.py assemble --name fassung-1 [--chunks DIR] [--calm] [--no-contact] [--preview] [--crf 18]
           checks the chunk videos against the chunk ranges of film.mjs, joins them, burns the subtitles (ASS, <ROOT>audio/untertitel/subtitles.ass) in,
-          puts the mix (<ROOT>audio/mix.m4a) under: master 1080p H.264 CRF 18 + AAC in FINAL/<name>-master-1080p.mp4; LUFS / true peak; contact sheet
+          puts the mix (<SCRATCH>/work/audio/mix.wav|m4a or <ROOT>audio/) under: master 1080p H.264 CRF 18 + AAC in FINAL/<name>-master-1080p.mp4; LUFS / true peak; contact sheet
           -> <ROOT>bild/<name>_kontakt.jpg. NO QR OVERLAY (abolished 16.11.).
   python3 tools/f76_clips.py check                  chunk files against the timing (no media is written)
 
@@ -291,17 +291,22 @@ def envelope(wav, n):
     ref = sorted(e)[int(.97 * (len(e) - 1))] or 1
     return [round(min(1, v / ref), 3) for v in e]
 
+CLIP_IN = {'C1': (0.97, 17.25), 'C2': (0.90, 7.17), 'C4': (0.74, 11.58), 'C5': (0.99, 9.07)}   # in-point and length inside films/76-assets/clips/Cn.mp4 (1 s buffer)
+
 def cmd_clips(a):
-    """frames from the pre-cut clips <ROOT>clips/Cn.mp4 (film 66: already trimmed, clips-geprueft.json), 30 fps, 1920x1080, frame 1 = slot start.
-    The slot is .3 s longer than the clip (provisional_timing CLIP_LEN): the last frame holds. The corner logos (C2, C4) are cropped in F.clipPlate."""
-    meta = {}  # film 67: wording in audio/clips_meta.json + kit CLIPS
-    SRC = os.path.join(os.path.dirname(FILM), '..', '76-assets', 'clips') + '/'
+    """frames of the final cuts, 30 fps, 1920x1080, frame 1 = the slot start (timing.json clips[id].start). Source: <ROOT>clips/Cn.mp4 (the sound step's
+    frame-exact cuts = the slot lengths); fallback films/76-assets/clips/Cn.mp4 cut from its in-point (CLIP_IN). Frame k = source time (k-1)/30 (fps filter
+    picks the nearest source frame; C1 29.97 and C4 24 fps are resampled). The sound is in mix.m4a; the picture only shows the frames."""
+    ASSETS = os.path.join(os.path.dirname(FILM), '..', '76-assets', 'clips') + '/'
     for cid in IDS:
         if a.only and cid not in a.only.split(','): continue
         d = os.path.join(CL, cid); os.makedirs(d, exist_ok=True)
         for f in glob.glob(os.path.join(d, 'f*.jpg')): os.remove(f)
-        sh(['ffmpeg', '-v', 'error', '-y', '-i', SRC + cid + '.mp4', '-vf', 'fps=30,scale=1920:1080', '-q:v', '3', os.path.join(d, 'f%05d.jpg')])
-        print(cid, meta.get(cid, {}).get('bauchbinde', ''), f"{meta.get(cid, {}).get('dauer_s')} s ->", len(glob.glob(os.path.join(d, 'f*.jpg'))), 'frames in', d)
+        cut = ROOT + 'clips/' + cid + '.mp4'
+        if os.path.exists(cut): src = ['-i', cut]
+        else: i0, n = CLIP_IN[cid]; src = ['-ss', f'{i0:.3f}', '-t', f'{n:.3f}', '-i', ASSETS + cid + '.mp4']
+        sh(['ffmpeg', '-v', 'error', '-y'] + src + ['-an', '-vf', 'fps=30,scale=1920:1080', '-q:v', '3', os.path.join(d, 'f%05d.jpg')])
+        print(cid, src[-1], '->', len(glob.glob(os.path.join(d, 'f*.jpg'))), 'frames in', d, f'(slot {CLIP_IN[cid][1]} s = {round(CLIP_IN[cid][1] * FPS)} frames)')
 
 def cmd_check(a):
     tfile = timing_file(); R = chunk_ranges(tfile); print('QR windows (timing', tfile + ')'); qr_check(R); check_chunks(R, None)

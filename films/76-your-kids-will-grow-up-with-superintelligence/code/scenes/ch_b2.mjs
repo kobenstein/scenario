@@ -7,10 +7,11 @@
 // shown without quotation marks · a18f CURRICULUM 2013 · TAUGHT FROM 2014 · AGE 5–16 (never "every schoolchild") · no map (Nicht wiederholen),
 // so ENGLAND is a word, not a coastline · no ribbon (#67): the book wears a paper belly band · RENT is a little house, not a bill/receipt (#66).
 import * as K from '../lib/f76_kit.mjs';
+import { resolve } from './resolve.mjs';
+const PREV = new WeakMap();
+const prevShot = (T, id) => { let m = PREV.get(T); if (!m) { m = Object.fromEntries(resolve(T).map((s) => [s.id, s])); PREV.set(T, m); } return m[id]; };
 const { W, H, P, E, clamp, lerp, span, sineIO, expoOut, expoIn, rise, halo, rgba, mixHex, GOLD, CREAM, MUTED, MACH, PAPER76 } = K;
-// C2 is now the Oxford Martin School book talk (coordinator 25.11.; 76-assets/clips/clips.json): lower third DANIEL SUSSKIND · OXFORD MARTIN
-// SCHOOL · NOV 2026. The kit table (f67_kit CLIPS.C2) still holds the old Gresham entry; this updates only C2's row until the kit catches up.
-Object.assign(K.CLIPS.C2, { name: 'Daniel Susskind', role: 'Oxford Martin School', year: 'Nov 2026', src: 'Oxford Martin School' });
+// C2 = the Oxford Martin School book talk; its lower third lives in the kit (f67_kit CLIPS.C2).
 const TAU = Math.PI * 2;
 const bump = (t, t0, d) => Math.sin(Math.PI * span(t, t0, t0 + d));
 const CYAN = { body: MACH.heart, line: MACH.heartCore, deep: MACH.heartDeep, text: '#c9f4ff' };
@@ -67,7 +68,7 @@ function roll(ctx, a, b, u, x, y, size, col) {
 function ageCounter(ctx, from, to, ua, uy, a = 1) {
   const x = 120, y = 170, size = 92;
   ctx.save(); ctx.globalAlpha *= a;
-  K.cap(ctx, 'AGE', x, y - size * .72, 1, { size: 24, col: CREAM });
+  K.cap(ctx, 'AGE', x, y - size * 1.02, 1, { size: 24, col: CREAM });
   const w1 = K.rollText(ctx, String(from[0]), String(to[0]), ua, x, y, size, { col: '#fff6d8' });
   E.glowText(ctx, '·', x + w1 + size * .22, y - size * .06, { size: size * .7, serif: true, col: GOLD.text, glow: false });
   K.rollText(ctx, String(from[1]), String(to[1]), uy, x + w1 + size * .55, y, size, { col: GOLD.text });
@@ -576,7 +577,7 @@ export default {
   a18b(ctx, t, S, T) {
     const { G } = K.phr(T, S, t);
     const head = [1180, 457], push = sineIO(span(t, G('Twenty forty') + .4, G('kitchen table') - .1)), z = lerp(1, 2.1, push);
-    const kq = G('question from'), rev = expoOut(span(t, kq - .15, kq + .9));
+    const kq = G('question from'), rev = sineIO(span(t, kq - .45, kq + 1.05));   // lead 25.11.: expoOut over 1 s opened the disc in 3 frames (smooth.py LURCH 17)
     if (rev < 1) {
       K.bg(ctx, t, { gx: 1180, gy: 560, ga: .26, stars: 60 });
       ctx.save(); ctx.translate(head[0], head[1]); ctx.scale(z, z); ctx.translate(-head[0], -head[1]);
@@ -584,7 +585,7 @@ export default {
       ctx.restore();
     }
     if (rev > 0) {
-      const R = Math.hypot(W, H) * rev + 2;
+      const R = 1460 * rev + 2;   // the farthest corner from the head is ~1340 px
       ctx.save(); ctx.beginPath(); ctx.arc(head[0], head[1], R, 0, TAU); ctx.clip();
       const zk = lerp(1.08, 1.14, sineIO(span(t, kq, S.b + 1))), fyk = (511 * zk - head[1]) / (zk - 1);
       K.kitchen(ctx, t, { cam: { z: zk, fx: head[0], fy: fyk }, childAge: 18, childH: 430, look: .85, lamp: lerp(1, .72, sineIO(span(t, G('isn') - .3, G('cute') + .6))), notebook: 1 });
@@ -649,7 +650,16 @@ export default {
     ctx.restore();
   },
   // ---------------------------------------------------------------- C2 ORIGINAL FOOTAGE Daniel Susskind (plate grows out of the book)
-  C2: K.clipShot('C2'),
+  // lead 25.11.: a match (no disc over the small book): the book holds where a18e left it, the plate grows out of the book's cover and back
+  C2(ctx, t, S, T) {
+    const pe = prevShot(T, 'a18e'), c = T.clip('C2');
+    K.bg(ctx, t, { gx: 1200, gy: 520, ga: .24, stars: 50 });
+    const m = sineIO(span(t, S.a + .1, S.a + .9)) * (1 - sineIO(span(t, c.end - .05, c.end + .55)));
+    ctx.save(); K.shotCam(ctx, t, pe, { z0: 1.0, z1: 1.03, fx: 1100, fy: 540 });
+    if (m < 1) { ctx.save(); ctx.globalAlpha *= 1 - span(m, .55, .95); bookCover(ctx, t, 960, 560, .9, 1, { band: 1 }); ctx.restore(); }
+    ctx.restore();
+    if (m > 0) { const bw = 270, bh = 378; K.clipPlate(ctx, t, T, 'C2', { from: { x: 960 - bw / 2, y: 560 - bh / 2, w: bw, h: bh }, morph: m }); }
+  },
   // ---------------------------------------------------------------- a18f · a18g England made coding required · today machines do it best
   a18f(ctx, t, S, T) { classroom(ctx, t, T); },
   a18g(ctx, t, S, T) { classroom(ctx, t, T); },
