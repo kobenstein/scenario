@@ -3,10 +3,10 @@
 
 Rule (Jakob, 11.11. and 15.11.2026): every long film description starts with
   paragraph 1: hook
-  paragraph 2: COFFEE line (Buy Me a Coffee)
-  paragraph 3: COURSE line (film course)
-  paragraph 4: SPONSOR line (Passionfroot storefront; Jakob 25.11.2026: in the head
-               next to the other two links, no longer at the end)
+  paragraph 2: COFFEE line (Buy Me a Coffee, "If you want superintelligence to benefit ...")
+  paragraph 3: SPONSOR line (Passionfroot storefront; Jakob 25.11.2026: directly under
+               the coffee line, clickable link, no longer at the end)
+  paragraph 4: COURSE line (film course)
 Also flags the old untrue line "corrections get pinned" (Jakob 16.11.); --fix replaces it with
   "Spotted an error? Mention it in the comments."
 This applies to public, private AND scheduled videos. Run it before every release
@@ -71,18 +71,24 @@ def head_ok(desc):
         return False
     p = desc.split("\n\n")
     # links decide; wording may be shortened where the 5000-character limit forced it
-    return (len(p) >= 3 and p[1].startswith("✨ ☕") and "buymeacoffee.com/thegoodtakeoff" in p[1]
-            and p[2].startswith("✨ 🎬") and "aistronauts.at/film-course" in p[2])
+    # course line is paragraph 3 before the sponsor line is inserted, paragraph 4 after
+    course = [i for i in (2, 3) if len(p) > i and p[i].startswith("✨ 🎬")
+              and "aistronauts.at/film-course" in p[i]]
+    return len(p) >= 3 and p[1].startswith("✨ ☕") and "buymeacoffee.com/thegoodtakeoff" in p[1] and bool(course)
 
 
-def tail_ok(desc):
-    # Jakob 25.11.: sponsor line is paragraph 4 of the head (new films and #69).
-    # Films from before 25.11. may keep the old closing line (Jakob: "ab jetzt").
+def tail_ok(desc, strict=False):
+    # Jakob 25.11.: sponsor line is paragraph 3, directly under the coffee line
+    # (all new and all scheduled films). Films already public before 25.11. may keep
+    # the old closing line (Jakob: "ab jetzt und fuer alle die schon gescheduled sind").
     p = desc.split("\n\n")
     if sum("passionfroot.me/the-good-takeoff" in x for x in p) != 1:
         return False
-    if len(p) >= 4 and p[3].startswith("✨ 🤝") and "passionfroot.me/the-good-takeoff" in p[3]:
+    if (len(p) >= 4 and p[2].startswith("✨ 🤝") and "https://passionfroot.me/the-good-takeoff" in p[2]
+            and p[3].startswith("✨ 🎬")):
         return True
+    if strict:  # private or scheduled: must already have the new placement
+        return False
     rest = p[:-1] if p and p[-1].lstrip().startswith("#") else p
     return bool(rest) and rest[-1].strip() == OLD_SPONSOR
 
@@ -95,9 +101,10 @@ def repaired(desc):
 
 
 def with_sponsor(desc):
-    # head must already be hook, coffee, course; insert the sponsor line as paragraph 4
+    # head must already be hook, coffee, course; insert the sponsor line as paragraph 3,
+    # directly under the coffee line
     paras = [p for p in desc.rstrip().split("\n\n") if "passionfroot.me/the-good-takeoff" not in p]
-    return "\n\n".join(paras[:3] + [SPONSOR] + paras[3:])
+    return "\n\n".join(paras[:2] + [SPONSOR] + paras[2:])
 
 
 def new_head(desc):
@@ -133,13 +140,14 @@ def main():
             if not is_long(v["contentDetails"]["duration"]):
                 continue
             s = v["snippet"]
-            ok = head_ok(s["description"]) and tail_ok(s["description"])
+            strict = v["status"]["privacyStatus"] != "public"
+            ok = head_ok(s["description"]) and tail_ok(s["description"], strict)
             state = v["status"]["privacyStatus"] + (" " + v["status"]["publishAt"] if v["status"].get("publishAt") else "")
             print(f"{'OK    ' if ok else 'FEHLT '} {v['id']} [{state}] {s['title']}")
             if not ok:
                 bad.append(v)
     if not bad:
-        print("Alle Langfilme haben Kaffee-, Kurs- und Sponsor-Zeile als Absatz 2, 3 und 4.")
+        print("Alle Langfilme haben Kaffee-, Sponsor- und Kurs-Zeile als Absatz 2, 3 und 4.")
         return 0
     if not fix:
         print(f"{len(bad)} Film(e) ohne korrekten Beschreibungskopf oder ohne Sponsor-Zeile. Mit --fix reparieren.")
