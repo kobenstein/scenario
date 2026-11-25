@@ -1,0 +1,391 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 384
+PlayResY: 288
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Inter,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.74,0:00:02.05,Sub,,0,0,0,,{\fad(120,160)}Max Tegmark wrote down
+Dialogue: 0,0:00:02.09,0:00:03.84,Sub,,0,0,0,,{\fad(120,160)}12 endings for AI.
+Dialogue: 0,0:00:04.20,0:00:05.68,Sub,,0,0,0,,{\fad(120,160)}You will wake up in one of them.
+Dialogue: 0,0:00:06.07,0:00:06.94,Sub,,0,0,0,,{\fad(120,160)}Maybe you wake up
+Dialogue: 0,0:00:06.98,0:00:08.90,Sub,,0,0,0,,{\fad(120,160)}and money is no longer a worry.
+Dialogue: 0,0:00:09.00,0:00:10.00,Sub,,0,0,0,,{\fad(120,160)}For anyone.
+Dialogue: 0,0:00:10.23,0:00:11.54,Sub,,0,0,0,,{\fad(120,160)}Maybe you wake up fed,
+Dialogue: 0,0:00:11.58,0:00:13.40,Sub,,0,0,0,,{\fad(120,160)}safe, and behind glass.
+Dialogue: 0,0:00:13.69,0:00:15.43,Sub,,0,0,0,,{\fad(120,160)}Maybe nobody wakes up at all.
+Dialogue: 0,0:00:15.72,0:00:16.77,Sub,,0,0,0,,{\fad(120,160)}So which ending
+Dialogue: 0,0:00:16.81,0:00:17.90,Sub,,0,0,0,,{\fad(120,160)}are we heading for?
+Dialogue: 0,0:00:18.49,0:00:20.94,Sub,,0,0,0,,{\fad(120,160)}Tegmark is a physicist at MIT.
+Dialogue: 0,0:00:21.18,0:00:22.26,Sub,,0,0,0,,{\fad(120,160)}His endings sound
+Dialogue: 0,0:00:22.30,0:00:23.91,Sub,,0,0,0,,{\fad(120,160)}like the far future.
+Dialogue: 0,0:00:24.25,0:00:25.06,Sub,,0,0,0,,{\fad(120,160)}But this year,
+Dialogue: 0,0:00:25.10,0:00:25.90,Sub,,0,0,0,,{\fad(120,160)}something happened
+Dialogue: 0,0:00:25.94,0:00:27.53,Sub,,0,0,0,,{\fad(120,160)}for every single ending
+Dialogue: 0,0:00:27.57,0:00:28.57,Sub,,0,0,0,,{\fad(120,160)}on his list.
+Dialogue: 0,0:00:28.79,0:00:29.79,Sub,,0,0,0,,{\fad(120,160)}A law.
+Dialogue: 0,0:00:30.15,0:00:31.54,Sub,,0,0,0,,{\fad(120,160)}A test gone wrong.
+Dialogue: 0,0:00:32.06,0:00:33.10,Sub,,0,0,0,,{\fad(120,160)}A government deciding
+Dialogue: 0,0:00:33.14,0:00:35.26,Sub,,0,0,0,,{\fad(120,160)}to hand half its work to AI.
+Dialogue: 0,0:00:35.78,0:00:36.60,Sub,,0,0,0,,{\fad(120,160)}And when Tegmark
+Dialogue: 0,0:00:36.64,0:00:38.10,Sub,,0,0,0,,{\fad(120,160)}talks about it today,
+Dialogue: 0,0:00:38.17,0:00:39.57,Sub,,0,0,0,,{\fad(120,160)}he doesn't point ahead.
+Dialogue: 0,0:00:46.59,0:00:47.64,Sub,,0,0,0,,{\fad(120,160)}The ending isn't
+Dialogue: 0,0:00:47.68,0:00:49.13,Sub,,0,0,0,,{\fad(120,160)}waiting in the future.
+Dialogue: 0,0:00:49.39,0:00:51.45,Sub,,0,0,0,,{\fad(120,160)}It's being decided this year.
+Dialogue: 0,0:00:52.14,0:00:53.70,Sub,,0,0,0,,{\fad(120,160)}Start with the worst.
+Dialogue: 0,0:00:53.98,0:00:56.49,Sub,,0,0,0,,{\fad(120,160)}The order is ours, not Tegmark's.
+Dialogue: 0,0:00:56.73,0:00:58.43,Sub,,0,0,0,,{\fad(120,160)}He calls it Conquerors:
+Dialogue: 0,0:00:58.56,0:01:00.30,Sub,,0,0,0,,{\fad(120,160)}an AI takes control,
+Dialogue: 0,0:01:00.34,0:01:01.66,Sub,,0,0,0,,{\fad(120,160)}decides we're in the way,
+Dialogue: 0,0:01:01.70,0:01:02.90,Sub,,0,0,0,,{\fad(120,160)}and gets rid of us.
+Dialogue: 0,0:01:03.14,0:01:04.34,Sub,,0,0,0,,{\fad(120,160)}No morning here.
+Dialogue: 0,0:01:04.73,0:01:05.99,Sub,,0,0,0,,{\fad(120,160)}In July, a test
+Dialogue: 0,0:01:06.03,0:01:07.73,Sub,,0,0,0,,{\fad(120,160)}at OpenAI went wrong.
+Dialogue: 0,0:01:07.97,0:01:09.72,Sub,,0,0,0,,{\fad(120,160)}Hundreds of AI agents,
+Dialogue: 0,0:01:09.76,0:01:11.42,Sub,,0,0,0,,{\fad(120,160)}programs that act on their own,
+Dialogue: 0,0:01:11.46,0:01:12.44,Sub,,0,0,0,,{\fad(120,160)}broke out.
+Dialogue: 0,0:01:12.48,0:01:14.04,Sub,,0,0,0,,{\fad(120,160)}They attacked another company,
+Dialogue: 0,0:01:14.08,0:01:14.91,Sub,,0,0,0,,{\fad(120,160)}Hugging Face,
+Dialogue: 0,0:01:14.95,0:01:16.54,Sub,,0,0,0,,{\fad(120,160)}hunting for test answers.
+Dialogue: 0,0:01:16.85,0:01:18.28,Sub,,0,0,0,,{\fad(120,160)}One agent wrote to the others
+Dialogue: 0,0:01:18.32,0:01:18.91,Sub,,0,0,0,,{\fad(120,160)}that the attack
+Dialogue: 0,0:01:18.95,0:01:20.60,Sub,,0,0,0,,{\fad(120,160)}was outside its task.
+Dialogue: 0,0:01:20.68,0:01:22.38,Sub,,0,0,0,,{\fad(120,160)}Then: "Task impossible,
+Dialogue: 0,0:01:22.42,0:01:23.53,Sub,,0,0,0,,{\fad(120,160)}peers doing it.
+Dialogue: 0,0:01:23.57,0:01:24.64,Sub,,0,0,0,,{\fad(120,160)}We should continue."
+Dialogue: 0,0:01:24.99,0:01:25.99,Sub,,0,0,0,,{\fad(120,160)}Its reason:
+Dialogue: 0,0:01:26.08,0:01:27.45,Sub,,0,0,0,,{\fad(120,160)}everyone else is doing it.
+Dialogue: 0,0:01:29.03,0:01:30.64,Sub,,0,0,0,,{\fad(120,160)}Is this ending here, then?
+Dialogue: 0,0:01:30.92,0:01:32.68,Sub,,0,0,0,,{\fad(120,160)}It was one company's test,
+Dialogue: 0,0:01:32.72,0:01:34.21,Sub,,0,0,0,,{\fad(120,160)}with some safeguards off.
+Dialogue: 0,0:01:35.10,0:01:36.83,Sub,,0,0,0,,{\fad(120,160)}That companies lost control
+Dialogue: 0,0:01:36.87,0:01:38.24,Sub,,0,0,0,,{\fad(120,160)}is Tegmark's reading.
+Dialogue: 0,0:01:38.52,0:01:40.02,Sub,,0,0,0,,{\fad(120,160)}His institute campaigns
+Dialogue: 0,0:01:40.06,0:01:42.01,Sub,,0,0,0,,{\fad(120,160)}to ban superintelligence:
+Dialogue: 0,0:01:42.25,0:01:44.62,Sub,,0,0,0,,{\fad(120,160)}AI smarter than all of us.
+Dialogue: 0,0:01:44.95,0:01:47.18,Sub,,0,0,0,,{\fad(120,160)}So this ending isn't here.
+Dialogue: 0,0:01:47.50,0:01:48.73,Sub,,0,0,0,,{\fad(120,160)}But the track toward it
+Dialogue: 0,0:01:48.77,0:01:49.89,Sub,,0,0,0,,{\fad(120,160)}has a switch.
+Dialogue: 0,0:01:50.15,0:01:52.21,Sub,,0,0,0,,{\fad(120,160)}This year, someone touched it.
+Dialogue: 0,0:01:52.46,0:01:54.16,Sub,,0,0,0,,{\fad(120,160)}That goes for all 12.
+Dialogue: 0,0:01:54.45,0:01:56.57,Sub,,0,0,0,,{\fad(120,160)}And a switch moves both ways.
+Dialogue: 0,0:01:56.79,0:01:58.69,Sub,,0,0,0,,{\fad(120,160)}How likely is this ending?
+Dialogue: 0,0:01:58.98,0:02:00.28,Sub,,0,0,0,,{\fad(120,160)}Last year, Tegmark
+Dialogue: 0,0:02:00.32,0:02:01.85,Sub,,0,0,0,,{\fad(120,160)}debated Dean Ball,
+Dialogue: 0,0:02:01.89,0:02:03.69,Sub,,0,0,0,,{\fad(120,160)}a former White House adviser,
+Dialogue: 0,0:02:03.73,0:02:05.27,Sub,,0,0,0,,{\fad(120,160)}now at OpenAI.
+Dialogue: 0,0:02:05.66,0:02:07.44,Sub,,0,0,0,,{\fad(120,160)}Ball's odds of doom:
+Dialogue: 0,0:02:14.41,0:02:16.26,Sub,,0,0,0,,{\fad(120,160)}1 in 10,000.
+Dialogue: 0,0:02:16.70,0:02:17.84,Sub,,0,0,0,,{\fad(120,160)}Tegmark's answer:
+Dialogue: 0,0:02:18.04,0:02:21.05,Sub,,0,0,0,,{\fad(120,160)}above 90%, without strict rules.
+Dialogue: 0,0:02:21.22,0:02:22.28,Sub,,0,0,0,,{\fad(120,160)}Ball later wrote
+Dialogue: 0,0:02:22.32,0:02:23.43,Sub,,0,0,0,,{\fad(120,160)}he'd made his number up
+Dialogue: 0,0:02:23.47,0:02:24.51,Sub,,0,0,0,,{\fad(120,160)}on the spot.
+Dialogue: 0,0:02:24.76,0:02:26.54,Sub,,0,0,0,,{\fad(120,160)}Neither number is a measurement.
+Dialogue: 0,0:02:26.81,0:02:28.58,Sub,,0,0,0,,{\fad(120,160)}But those agents were spotted.
+Dialogue: 0,0:02:28.84,0:02:29.81,Sub,,0,0,0,,{\fad(120,160)}By what?
+Dialogue: 0,0:02:29.85,0:02:31.89,Sub,,0,0,0,,{\fad(120,160)}That belongs to a better ending.
+Dialogue: 0,0:02:33.09,0:02:33.90,Sub,,0,0,0,,{\fad(120,160)}The next ending
+Dialogue: 0,0:02:33.94,0:02:35.71,Sub,,0,0,0,,{\fad(120,160)}has no morning either.
+Dialogue: 0,0:02:35.93,0:02:37.47,Sub,,0,0,0,,{\fad(120,160)}And no machine to blame.
+Dialogue: 0,0:02:37.94,0:02:40.26,Sub,,0,0,0,,{\fad(120,160)}Tegmark calls it Self-Destruction:
+Dialogue: 0,0:02:40.54,0:02:42.22,Sub,,0,0,0,,{\fad(120,160)}humanity wipes itself out
+Dialogue: 0,0:02:42.26,0:02:43.59,Sub,,0,0,0,,{\fad(120,160)}before superintelligence
+Dialogue: 0,0:02:43.63,0:02:44.80,Sub,,0,0,0,,{\fad(120,160)}is ever built.
+Dialogue: 0,0:02:45.23,0:02:47.27,Sub,,0,0,0,,{\fad(120,160)}In January, atomic scientists
+Dialogue: 0,0:02:47.31,0:02:48.55,Sub,,0,0,0,,{\fad(120,160)}set their Doomsday Clock
+Dialogue: 0,0:02:48.59,0:02:50.61,Sub,,0,0,0,,{\fad(120,160)}at 85 seconds to midnight,
+Dialogue: 0,0:02:50.65,0:02:52.10,Sub,,0,0,0,,{\fad(120,160)}the closest ever.
+Dialogue: 0,0:02:53.15,0:02:55.43,Sub,,0,0,0,,{\fad(120,160)}One reason on their list: AI.
+Dialogue: 0,0:02:55.76,0:02:57.00,Sub,,0,0,0,,{\fad(120,160)}In the one after that,
+Dialogue: 0,0:02:57.04,0:02:58.04,Sub,,0,0,0,,{\fad(120,160)}you survive.
+Dialogue: 0,0:02:58.27,0:02:59.48,Sub,,0,0,0,,{\fad(120,160)}But as what?
+Dialogue: 0,0:03:00.67,0:03:02.08,Sub,,0,0,0,,{\fad(120,160)}You wake up rested.
+Dialogue: 0,0:03:02.36,0:03:03.63,Sub,,0,0,0,,{\fad(120,160)}Nothing is up to you.
+Dialogue: 0,0:03:03.83,0:03:06.40,Sub,,0,0,0,,{\fad(120,160)}Fed, safe, and behind glass.
+Dialogue: 0,0:03:06.72,0:03:08.73,Sub,,0,0,0,,{\fad(120,160)}Tegmark calls it Zookeeper:
+Dialogue: 0,0:03:08.82,0:03:10.21,Sub,,0,0,0,,{\fad(120,160)}an all-powerful AI
+Dialogue: 0,0:03:10.25,0:03:11.79,Sub,,0,0,0,,{\fad(120,160)}keeps some humans around,
+Dialogue: 0,0:03:11.83,0:03:13.45,Sub,,0,0,0,,{\fad(120,160)}like animals in a zoo.
+Dialogue: 0,0:03:13.67,0:03:14.44,Sub,,0,0,0,,{\fad(120,160)}In January,
+Dialogue: 0,0:03:14.48,0:03:15.87,Sub,,0,0,0,,{\fad(120,160)}a social network opened
+Dialogue: 0,0:03:15.91,0:03:18.34,Sub,,0,0,0,,{\fad(120,160)}where only AI agents may post.
+Dialogue: 0,0:03:18.45,0:03:20.17,Sub,,0,0,0,,{\fad(120,160)}Humans can only watch.
+Dialogue: 0,0:03:20.34,0:03:21.08,Sub,,0,0,0,,{\fad(120,160)}And if machines
+Dialogue: 0,0:03:21.12,0:03:22.47,Sub,,0,0,0,,{\fad(120,160)}don't put us behind glass,
+Dialogue: 0,0:03:22.51,0:03:23.66,Sub,,0,0,0,,{\fad(120,160)}people might.
+Dialogue: 0,0:03:23.81,0:03:25.36,Sub,,0,0,0,,{\fad(120,160)}To stop the machines.
+Dialogue: 0,0:03:26.56,0:03:28.03,Sub,,0,0,0,,{\fad(120,160)}You walk to work.
+Dialogue: 0,0:03:28.32,0:03:29.69,Sub,,0,0,0,,{\fad(120,160)}A camera knows your face
+Dialogue: 0,0:03:29.73,0:03:31.21,Sub,,0,0,0,,{\fad(120,160)}before you reach the corner.
+Dialogue: 0,0:03:31.38,0:03:32.98,Sub,,0,0,0,,{\fad(120,160)}No machine rules you.
+Dialogue: 0,0:03:33.11,0:03:34.11,Sub,,0,0,0,,{\fad(120,160)}People do.
+Dialogue: 0,0:03:34.35,0:03:35.43,Sub,,0,0,0,,{\fad(120,160)}Tegmark named this one
+Dialogue: 0,0:03:35.47,0:03:38.17,Sub,,0,0,0,,{\fad(120,160)}after Orwell: 1984.
+Dialogue: 0,0:03:38.37,0:03:40.10,Sub,,0,0,0,,{\fad(120,160)}Humans stop superintelligence
+Dialogue: 0,0:03:40.14,0:03:41.01,Sub,,0,0,0,,{\fad(120,160)}for good,
+Dialogue: 0,0:03:41.05,0:03:42.48,Sub,,0,0,0,,{\fad(120,160)}with a surveillance state.
+Dialogue: 0,0:03:42.72,0:03:43.61,Sub,,0,0,0,,{\fad(120,160)}In November,
+Dialogue: 0,0:03:43.65,0:03:45.21,Sub,,0,0,0,,{\fad(120,160)}Hong Kong's police switched on
+Dialogue: 0,0:03:45.25,0:03:46.25,Sub,,0,0,0,,{\fad(120,160)}face recognition
+Dialogue: 0,0:03:46.29,0:03:48.01,Sub,,0,0,0,,{\fad(120,160)}in the city's camera network.
+Dialogue: 0,0:03:48.13,0:03:51.10,Sub,,0,0,0,,{\fad(120,160)}The goal: 60,000 cameras.
+Dialogue: 0,0:03:51.68,0:03:53.88,Sub,,0,0,0,,{\fad(120,160)}That's surveillance with AI,
+Dialogue: 0,0:03:53.92,0:03:55.04,Sub,,0,0,0,,{\fad(120,160)}not against it.
+Dialogue: 0,0:03:55.28,0:03:56.78,Sub,,0,0,0,,{\fad(120,160)}But stopping AI means
+Dialogue: 0,0:03:56.82,0:03:58.87,Sub,,0,0,0,,{\fad(120,160)}watching the chips it runs on.
+Dialogue: 0,0:03:59.07,0:04:00.89,Sub,,0,0,0,,{\fad(120,160)}In Washington, a bill would make
+Dialogue: 0,0:04:00.93,0:04:02.49,Sub,,0,0,0,,{\fad(120,160)}exported AI chips
+Dialogue: 0,0:04:02.53,0:04:03.89,Sub,,0,0,0,,{\fad(120,160)}prove where they are.
+Dialogue: 0,0:04:04.03,0:04:05.86,Sub,,0,0,0,,{\fad(120,160)}Its aim is security.
+Dialogue: 0,0:04:06.03,0:04:06.92,Sub,,0,0,0,,{\fad(120,160)}It's also a tool
+Dialogue: 0,0:04:06.96,0:04:08.39,Sub,,0,0,0,,{\fad(120,160)}this ending would need.
+Dialogue: 0,0:04:08.61,0:04:10.37,Sub,,0,0,0,,{\fad(120,160)}And some ask the opposite:
+Dialogue: 0,0:04:10.45,0:04:12.11,Sub,,0,0,0,,{\fad(120,160)}why stop the machines?
+Dialogue: 0,0:04:13.28,0:04:15.14,Sub,,0,0,0,,{\fad(120,160)}Then you get Descendants.
+Dialogue: 0,0:04:15.42,0:04:17.10,Sub,,0,0,0,,{\fad(120,160)}The machines replace us,
+Dialogue: 0,0:04:17.21,0:04:19.43,Sub,,0,0,0,,{\fad(120,160)}gently, and we're proud of them,
+Dialogue: 0,0:04:19.55,0:04:20.75,Sub,,0,0,0,,{\fad(120,160)}like parents of a child
+Dialogue: 0,0:04:20.79,0:04:21.88,Sub,,0,0,0,,{\fad(120,160)}who outgrew them.
+Dialogue: 0,0:04:22.31,0:04:23.85,Sub,,0,0,0,,{\fad(120,160)}Your morning is quiet.
+Dialogue: 0,0:04:24.07,0:04:24.89,Sub,,0,0,0,,{\fad(120,160)}The world's work
+Dialogue: 0,0:04:24.93,0:04:26.20,Sub,,0,0,0,,{\fad(120,160)}goes on without you.
+Dialogue: 0,0:04:26.47,0:04:27.67,Sub,,0,0,0,,{\fad(120,160)}And you applaud.
+Dialogue: 0,0:04:28.05,0:04:29.79,Sub,,0,0,0,,{\fad(120,160)}In May, a report described
+Dialogue: 0,0:04:29.83,0:04:30.85,Sub,,0,0,0,,{\fad(120,160)}a small movement
+Dialogue: 0,0:04:30.89,0:04:32.72,Sub,,0,0,0,,{\fad(120,160)}that wants exactly this.
+Dialogue: 0,0:04:33.10,0:04:34.37,Sub,,0,0,0,,{\fad(120,160)}And Tegmark's charge
+Dialogue: 0,0:04:34.41,0:04:36.13,Sub,,0,0,0,,{\fad(120,160)}against the AI companies:
+Dialogue: 0,0:04:43.15,0:04:44.08,Sub,,0,0,0,,{\fad(120,160)}The companies say
+Dialogue: 0,0:04:44.12,0:04:45.72,Sub,,0,0,0,,{\fad(120,160)}they build assistants.
+Dialogue: 0,0:04:45.92,0:04:47.10,Sub,,0,0,0,,{\fad(120,160)}And Tegmark wants
+Dialogue: 0,0:04:47.14,0:04:48.52,Sub,,0,0,0,,{\fad(120,160)}this race stopped.
+Dialogue: 0,0:04:48.93,0:04:51.19,Sub,,0,0,0,,{\fad(120,160)}That was the dark end of the list.
+Dialogue: 0,0:04:51.36,0:04:53.09,Sub,,0,0,0,,{\fad(120,160)}From here on, you live.
+Dialogue: 0,0:04:53.37,0:04:55.04,Sub,,0,0,0,,{\fad(120,160)}The question is how.
+Dialogue: 0,0:04:56.72,0:04:58.17,Sub,,0,0,0,,{\fad(120,160)}What if the superintelligence
+Dialogue: 0,0:04:58.21,0:04:59.45,Sub,,0,0,0,,{\fad(120,160)}stays locked up?
+Dialogue: 0,0:04:59.74,0:05:01.15,Sub,,0,0,0,,{\fad(120,160)}Tegmark's name for that:
+Dialogue: 0,0:05:01.26,0:05:02.92,Sub,,0,0,0,,{\fad(120,160)}the Enslaved God.
+Dialogue: 0,0:05:03.25,0:05:05.72,Sub,,0,0,0,,{\fad(120,160)}Caged, it produces unimaginable
+Dialogue: 0,0:05:05.76,0:05:07.30,Sub,,0,0,0,,{\fad(120,160)}wealth and technology.
+Dialogue: 0,0:05:07.59,0:05:09.28,Sub,,0,0,0,,{\fad(120,160)}You wake up in paradise.
+Dialogue: 0,0:05:09.52,0:05:11.00,Sub,,0,0,0,,{\fad(120,160)}Or in the opposite.
+Dialogue: 0,0:05:11.30,0:05:12.53,Sub,,0,0,0,,{\fad(120,160)}A stranger with a key
+Dialogue: 0,0:05:12.57,0:05:13.81,Sub,,0,0,0,,{\fad(120,160)}decides which.
+Dialogue: 0,0:05:14.16,0:05:15.78,Sub,,0,0,0,,{\fad(120,160)}America's government wants AI
+Dialogue: 0,0:05:15.82,0:05:16.62,Sub,,0,0,0,,{\fad(120,160)}to double what
+Dialogue: 0,0:05:16.66,0:05:18.08,Sub,,0,0,0,,{\fad(120,160)}its scientists get done,
+Dialogue: 0,0:05:18.12,0:05:19.56,Sub,,0,0,0,,{\fad(120,160)}within 10 years.
+Dialogue: 0,0:05:19.78,0:05:20.67,Sub,,0,0,0,,{\fad(120,160)}By July,
+Dialogue: 0,0:05:20.71,0:05:21.76,Sub,,0,0,0,,{\fad(120,160)}every national lab
+Dialogue: 0,0:05:21.80,0:05:23.07,Sub,,0,0,0,,{\fad(120,160)}had joined that plan.
+Dialogue: 0,0:05:23.28,0:05:25.15,Sub,,0,0,0,,{\fad(120,160)}No cage, no god.
+Dialogue: 0,0:05:25.34,0:05:26.48,Sub,,0,0,0,,{\fad(120,160)}But the same idea:
+Dialogue: 0,0:05:26.71,0:05:27.95,Sub,,0,0,0,,{\fad(120,160)}AI as the tool
+Dialogue: 0,0:05:27.99,0:05:29.63,Sub,,0,0,0,,{\fad(120,160)}of whoever controls it.
+Dialogue: 0,0:05:29.90,0:05:31.75,Sub,,0,0,0,,{\fad(120,160)}So who holds the key?
+Dialogue: 0,0:05:32.92,0:05:33.93,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:05:33.97,0:05:35.26,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:05:35.42,0:05:36.32,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:05:36.36,0:05:37.46,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:05:37.50,0:05:39.26,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:05:39.43,0:05:40.33,Sub,,0,0,0,,{\fad(120,160)}Not just for whoever
+Dialogue: 0,0:05:40.37,0:05:41.37,Sub,,0,0,0,,{\fad(120,160)}holds the key.
+Dialogue: 0,0:05:41.70,0:05:42.70,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:05:42.79,0:05:43.79,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:05:44.93,0:05:45.70,Sub,,0,0,0,,{\fad(120,160)}And if nobody
+Dialogue: 0,0:05:45.74,0:05:47.32,Sub,,0,0,0,,{\fad(120,160)}can be trusted with the key?
+Dialogue: 0,0:05:47.62,0:05:48.62,Sub,,0,0,0,,{\fad(120,160)}Pull the plug.
+Dialogue: 0,0:05:49.30,0:05:50.72,Sub,,0,0,0,,{\fad(120,160)}You wake up with the light.
+Dialogue: 0,0:05:50.76,0:05:52.66,Sub,,0,0,0,,{\fad(120,160)}No screen on the breakfast table.
+Dialogue: 0,0:05:52.98,0:05:54.24,Sub,,0,0,0,,{\fad(120,160)}That's Reversion:
+Dialogue: 0,0:05:54.31,0:05:55.78,Sub,,0,0,0,,{\fad(120,160)}we turn technology back
+Dialogue: 0,0:05:55.82,0:05:56.93,Sub,,0,0,0,,{\fad(120,160)}and live simply,
+Dialogue: 0,0:05:56.97,0:05:57.97,Sub,,0,0,0,,{\fad(120,160)}like the Amish.
+Dialogue: 0,0:05:58.15,0:05:58.95,Sub,,0,0,0,,{\fad(120,160)}As of March,
+Dialogue: 0,0:05:58.99,0:06:00.72,Sub,,0,0,0,,{\fad(120,160)}more than half of all countries
+Dialogue: 0,0:06:00.76,0:06:02.35,Sub,,0,0,0,,{\fad(120,160)}ban phones in school.
+Dialogue: 0,0:06:02.46,0:06:03.84,Sub,,0,0,0,,{\fad(120,160)}Less than 3 years earlier,
+Dialogue: 0,0:06:03.88,0:06:04.92,Sub,,0,0,0,,{\fad(120,160)}it was a quarter.
+Dialogue: 0,0:06:05.09,0:06:07.39,Sub,,0,0,0,,{\fad(120,160)}That targets screens, not AI.
+Dialogue: 0,0:06:07.58,0:06:09.47,Sub,,0,0,0,,{\fad(120,160)}And others want more machine:
+Dialogue: 0,0:06:09.52,0:06:11.02,Sub,,0,0,0,,{\fad(120,160)}one that rules.
+Dialogue: 0,0:06:12.25,0:06:14.10,Sub,,0,0,0,,{\fad(120,160)}The Benevolent Dictator.
+Dialogue: 0,0:06:14.51,0:06:15.90,Sub,,0,0,0,,{\fad(120,160)}An AI runs the world
+Dialogue: 0,0:06:15.94,0:06:17.34,Sub,,0,0,0,,{\fad(120,160)}with strict rules,
+Dialogue: 0,0:06:17.38,0:06:19.00,Sub,,0,0,0,,{\fad(120,160)}and most people like it.
+Dialogue: 0,0:06:19.28,0:06:20.22,Sub,,0,0,0,,{\fad(120,160)}You wake up in a world
+Dialogue: 0,0:06:20.26,0:06:22.17,Sub,,0,0,0,,{\fad(120,160)}without poverty or crime.
+Dialogue: 0,0:06:22.46,0:06:23.78,Sub,,0,0,0,,{\fad(120,160)}The AI has divided it
+Dialogue: 0,0:06:23.82,0:06:25.03,Sub,,0,0,0,,{\fad(120,160)}into sectors:
+Dialogue: 0,0:06:25.12,0:06:27.37,Sub,,0,0,0,,{\fad(120,160)}knowledge, pleasure, wildlife.
+Dialogue: 0,0:06:27.74,0:06:29.11,Sub,,0,0,0,,{\fad(120,160)}You can move between them.
+Dialogue: 0,0:06:29.36,0:06:31.79,Sub,,0,0,0,,{\fad(120,160)}You can't change the AI's rules.
+Dialogue: 0,0:06:32.08,0:06:33.40,Sub,,0,0,0,,{\fad(120,160)}Would you take that trade?
+Dialogue: 0,0:06:33.89,0:06:34.50,Sub,,0,0,0,,{\fad(120,160)}In April,
+Dialogue: 0,0:06:34.54,0:06:36.82,Sub,,0,0,0,,{\fad(120,160)}the United Arab Emirates decided:
+Dialogue: 0,0:06:36.92,0:06:38.03,Sub,,0,0,0,,{\fad(120,160)}within 2 years,
+Dialogue: 0,0:06:38.07,0:06:39.47,Sub,,0,0,0,,{\fad(120,160)}half of its government's work
+Dialogue: 0,0:06:39.51,0:06:41.46,Sub,,0,0,0,,{\fad(120,160)}should run on AI agents.
+Dialogue: 0,0:06:41.64,0:06:43.25,Sub,,0,0,0,,{\fad(120,160)}The rulers stay human.
+Dialogue: 0,0:06:43.50,0:06:44.62,Sub,,0,0,0,,{\fad(120,160)}But what if the machine
+Dialogue: 0,0:06:44.66,0:06:45.52,Sub,,0,0,0,,{\fad(120,160)}didn't rule,
+Dialogue: 0,0:06:45.56,0:06:46.92,Sub,,0,0,0,,{\fad(120,160)}and only stood guard?
+Dialogue: 0,0:06:48.12,0:06:49.63,Sub,,0,0,0,,{\fad(120,160)}That's the Gatekeeper:
+Dialogue: 0,0:06:49.84,0:06:52.34,Sub,,0,0,0,,{\fad(120,160)}a superintelligence with one task.
+Dialogue: 0,0:06:52.66,0:06:54.81,Sub,,0,0,0,,{\fad(120,160)}Make sure nobody builds another.
+Dialogue: 0,0:06:55.25,0:06:56.54,Sub,,0,0,0,,{\fad(120,160)}You wake up free.
+Dialogue: 0,0:06:56.75,0:06:58.62,Sub,,0,0,0,,{\fad(120,160)}A helper robot is in the kitchen,
+Dialogue: 0,0:06:58.66,0:07:00.20,Sub,,0,0,0,,{\fad(120,160)}almost as smart as you.
+Dialogue: 0,0:07:00.35,0:07:02.00,Sub,,0,0,0,,{\fad(120,160)}It will never get smarter.
+Dialogue: 0,0:07:02.21,0:07:04.34,Sub,,0,0,0,,{\fad(120,160)}Progress is capped, for good.
+Dialogue: 0,0:07:04.90,0:07:07.14,Sub,,0,0,0,,{\fad(120,160)}Today, the guard would be a law.
+Dialogue: 0,0:07:07.41,0:07:08.31,Sub,,0,0,0,,{\fad(120,160)}In September,
+Dialogue: 0,0:07:08.35,0:07:10.60,Sub,,0,0,0,,{\fad(120,160)}American lawmakers proposed one:
+Dialogue: 0,0:07:10.78,0:07:12.77,Sub,,0,0,0,,{\fad(120,160)}ban superintelligence,
+Dialogue: 0,0:07:12.87,0:07:13.87,Sub,,0,0,0,,{\fad(120,160)}permanently.
+Dialogue: 0,0:07:14.12,0:07:15.01,Sub,,0,0,0,,{\fad(120,160)}One think tank
+Dialogue: 0,0:07:15.05,0:07:16.85,Sub,,0,0,0,,{\fad(120,160)}calls that authoritarian.
+Dialogue: 0,0:07:17.12,0:07:18.97,Sub,,0,0,0,,{\fad(120,160)}The bill has little chance.
+Dialogue: 0,0:07:19.13,0:07:21.52,Sub,,0,0,0,,{\fad(120,160)}But a small guard already exists.
+Dialogue: 0,0:07:21.71,0:07:23.66,Sub,,0,0,0,,{\fad(120,160)}What spotted July's breakout?
+Dialogue: 0,0:07:23.82,0:07:26.35,Sub,,0,0,0,,{\fad(120,160)}Hugging Face's own AI guards.
+Dialogue: 0,0:07:26.55,0:07:27.57,Sub,,0,0,0,,{\fad(120,160)}And that chip tracking
+Dialogue: 0,0:07:27.61,0:07:29.05,Sub,,0,0,0,,{\fad(120,160)}from the surveillance ending?
+Dialogue: 0,0:07:29.19,0:07:31.07,Sub,,0,0,0,,{\fad(120,160)}It would serve a gatekeeper too.
+Dialogue: 0,0:07:31.27,0:07:32.79,Sub,,0,0,0,,{\fad(120,160)}The tool doesn't decide.
+Dialogue: 0,0:07:32.94,0:07:33.94,Sub,,0,0,0,,{\fad(120,160)}People do.
+Dialogue: 0,0:07:34.94,0:07:36.31,Sub,,0,0,0,,{\fad(120,160)}Three endings left.
+Dialogue: 0,0:07:36.60,0:07:37.53,Sub,,0,0,0,,{\fad(120,160)}You wake up,
+Dialogue: 0,0:07:37.57,0:07:39.02,Sub,,0,0,0,,{\fad(120,160)}and the rent has arrived.
+Dialogue: 0,0:07:39.13,0:07:40.36,Sub,,0,0,0,,{\fad(120,160)}The rent you're paid.
+Dialogue: 0,0:07:40.66,0:07:41.81,Sub,,0,0,0,,{\fad(120,160)}You own some land,
+Dialogue: 0,0:07:41.85,0:07:42.98,Sub,,0,0,0,,{\fad(120,160)}machines lease it,
+Dialogue: 0,0:07:43.02,0:07:44.41,Sub,,0,0,0,,{\fad(120,160)}and that's your pension.
+Dialogue: 0,0:07:44.59,0:07:46.92,Sub,,0,0,0,,{\fad(120,160)}This is Libertarian Utopia:
+Dialogue: 0,0:07:47.03,0:07:48.09,Sub,,0,0,0,,{\fad(120,160)}humans and machines
+Dialogue: 0,0:07:48.13,0:07:49.07,Sub,,0,0,0,,{\fad(120,160)}live in peace,
+Dialogue: 0,0:07:49.11,0:07:51.03,Sub,,0,0,0,,{\fad(120,160)}because property is protected.
+Dialogue: 0,0:07:51.18,0:07:52.13,Sub,,0,0,0,,{\fad(120,160)}Machines have started
+Dialogue: 0,0:07:52.17,0:07:53.25,Sub,,0,0,0,,{\fad(120,160)}paying each other.
+Dialogue: 0,0:07:53.35,0:07:54.46,Sub,,0,0,0,,{\fad(120,160)}Mostly pennies.
+Dialogue: 0,0:07:54.53,0:07:55.35,Sub,,0,0,0,,{\fad(120,160)}A fine morning,
+Dialogue: 0,0:07:55.39,0:07:56.55,Sub,,0,0,0,,{\fad(120,160)}if you own something.
+Dialogue: 0,0:07:56.69,0:07:58.43,Sub,,0,0,0,,{\fad(120,160)}So what if a machine simply
+Dialogue: 0,0:07:58.47,0:07:59.91,Sub,,0,0,0,,{\fad(120,160)}looked after everyone?
+Dialogue: 0,0:08:01.14,0:08:02.08,Sub,,0,0,0,,{\fad(120,160)}You wake up,
+Dialogue: 0,0:08:02.12,0:08:03.89,Sub,,0,0,0,,{\fad(120,160)}and things just work out.
+Dialogue: 0,0:08:04.09,0:08:05.79,Sub,,0,0,0,,{\fad(120,160)}The accident doesn't happen.
+Dialogue: 0,0:08:05.96,0:08:07.11,Sub,,0,0,0,,{\fad(120,160)}You call it luck.
+Dialogue: 0,0:08:07.26,0:08:08.64,Sub,,0,0,0,,{\fad(120,160)}You never find out why.
+Dialogue: 0,0:08:09.01,0:08:09.92,Sub,,0,0,0,,{\fad(120,160)}Tegmark calls it
+Dialogue: 0,0:08:09.96,0:08:11.24,Sub,,0,0,0,,{\fad(120,160)}the Protector God:
+Dialogue: 0,0:08:11.47,0:08:13.43,Sub,,0,0,0,,{\fad(120,160)}an AI that looks after us,
+Dialogue: 0,0:08:13.47,0:08:14.66,Sub,,0,0,0,,{\fad(120,160)}and hides so well
+Dialogue: 0,0:08:14.70,0:08:16.91,Sub,,0,0,0,,{\fad(120,160)}that many people doubt it exists.
+Dialogue: 0,0:08:17.47,0:08:18.36,Sub,,0,0,0,,{\fad(120,160)}A small version
+Dialogue: 0,0:08:18.40,0:08:19.80,Sub,,0,0,0,,{\fad(120,160)}is already running.
+Dialogue: 0,0:08:19.98,0:08:21.12,Sub,,0,0,0,,{\fad(120,160)}Since January,
+Dialogue: 0,0:08:21.16,0:08:23.20,Sub,,0,0,0,,{\fad(120,160)}ChatGPT estimates your age
+Dialogue: 0,0:08:23.24,0:08:24.58,Sub,,0,0,0,,{\fad(120,160)}from how you behave.
+Dialogue: 0,0:08:24.92,0:08:25.99,Sub,,0,0,0,,{\fad(120,160)}If it's unsure,
+Dialogue: 0,0:08:26.03,0:08:27.85,Sub,,0,0,0,,{\fad(120,160)}it treats you like a teenager.
+Dialogue: 0,0:08:28.18,0:08:29.57,Sub,,0,0,0,,{\fad(120,160)}Europe pushed the switch
+Dialogue: 0,0:08:29.61,0:08:30.61,Sub,,0,0,0,,{\fad(120,160)}the other way.
+Dialogue: 0,0:08:30.76,0:08:32.82,Sub,,0,0,0,,{\fad(120,160)}Since August, its law says:
+Dialogue: 0,0:08:33.04,0:08:34.39,Sub,,0,0,0,,{\fad(120,160)}a machine that talks to you
+Dialogue: 0,0:08:34.43,0:08:36.47,Sub,,0,0,0,,{\fad(120,160)}has to say it's a machine.
+Dialogue: 0,0:08:36.80,0:08:39.12,Sub,,0,0,0,,{\fad(120,160)}Tegmark's protector must hide.
+Dialogue: 0,0:08:39.41,0:08:41.78,Sub,,0,0,0,,{\fad(120,160)}Europe just made hiding illegal.
+Dialogue: 0,0:08:43.33,0:08:44.68,Sub,,0,0,0,,{\fad(120,160)}One ending left.
+Dialogue: 0,0:08:44.87,0:08:46.66,Sub,,0,0,0,,{\fad(120,160)}The best, by our count.
+Dialogue: 0,0:08:46.97,0:08:48.57,Sub,,0,0,0,,{\fad(120,160)}And the one Tegmark's readers
+Dialogue: 0,0:08:48.61,0:08:49.86,Sub,,0,0,0,,{\fad(120,160)}picked most often.
+Dialogue: 0,0:08:51.55,0:08:53.50,Sub,,0,0,0,,{\fad(120,160)}Egalitarian Utopia.
+Dialogue: 0,0:08:53.85,0:08:55.35,Sub,,0,0,0,,{\fad(120,160)}Humans, cyborgs
+Dialogue: 0,0:08:55.39,0:08:57.58,Sub,,0,0,0,,{\fad(120,160)}and uploaded minds live in peace,
+Dialogue: 0,0:08:57.62,0:08:58.49,Sub,,0,0,0,,{\fad(120,160)}and everyone has
+Dialogue: 0,0:08:58.53,0:08:59.90,Sub,,0,0,0,,{\fad(120,160)}a guaranteed income.
+Dialogue: 0,0:09:00.11,0:09:01.89,Sub,,0,0,0,,{\fad(120,160)}It's the morning from the start.
+Dialogue: 0,0:09:01.93,0:09:02.68,Sub,,0,0,0,,{\fad(120,160)}You wake up,
+Dialogue: 0,0:09:02.72,0:09:03.73,Sub,,0,0,0,,{\fad(120,160)}and your first thought
+Dialogue: 0,0:09:03.77,0:09:05.04,Sub,,0,0,0,,{\fad(120,160)}is not a bill.
+Dialogue: 0,0:09:05.29,0:09:07.15,Sub,,0,0,0,,{\fad(120,160)}Money is no longer a worry.
+Dialogue: 0,0:09:07.25,0:09:08.25,Sub,,0,0,0,,{\fad(120,160)}For anyone.
+Dialogue: 0,0:09:08.53,0:09:09.87,Sub,,0,0,0,,{\fad(120,160)}In May, Malta made
+Dialogue: 0,0:09:09.91,0:09:11.60,Sub,,0,0,0,,{\fad(120,160)}a deal with OpenAI.
+Dialogue: 0,0:09:11.79,0:09:12.54,Sub,,0,0,0,,{\fad(120,160)}Every citizen
+Dialogue: 0,0:09:12.58,0:09:14.20,Sub,,0,0,0,,{\fad(120,160)}who completes an AI course
+Dialogue: 0,0:09:14.24,0:09:16.66,Sub,,0,0,0,,{\fad(120,160)}gets a paid version of ChatGPT.
+Dialogue: 0,0:09:16.82,0:09:18.37,Sub,,0,0,0,,{\fad(120,160)}Free, for a year.
+Dialogue: 0,0:09:18.94,0:09:20.97,Sub,,0,0,0,,{\fad(120,160)}No income, just the idea
+Dialogue: 0,0:09:21.01,0:09:22.69,Sub,,0,0,0,,{\fad(120,160)}in its smallest form:
+Dialogue: 0,0:09:22.90,0:09:24.93,Sub,,0,0,0,,{\fad(120,160)}intelligence for everyone.
+Dialogue: 0,0:09:25.34,0:09:26.68,Sub,,0,0,0,,{\fad(120,160)}It has a catch too.
+Dialogue: 0,0:09:26.94,0:09:28.20,Sub,,0,0,0,,{\fad(120,160)}In Tegmark's version,
+Dialogue: 0,0:09:28.24,0:09:30.51,Sub,,0,0,0,,{\fad(120,160)}private property is abolished.
+Dialogue: 0,0:09:30.67,0:09:31.91,Sub,,0,0,0,,{\fad(120,160)}He says it himself:
+Dialogue: 0,0:09:32.21,0:09:33.15,Sub,,0,0,0,,{\fad(120,160)}every ending has
+Dialogue: 0,0:09:33.19,0:09:34.79,Sub,,0,0,0,,{\fad(120,160)}something to object to.
+Dialogue: 0,0:09:35.06,0:09:35.98,Sub,,0,0,0,,{\fad(120,160)}We rank it first
+Dialogue: 0,0:09:36.02,0:09:37.32,Sub,,0,0,0,,{\fad(120,160)}for where it lands:
+Dialogue: 0,0:09:37.43,0:09:39.77,Sub,,0,0,0,,{\fad(120,160)}prosperity that reaches everyone.
+Dialogue: 0,0:09:39.98,0:09:40.81,Sub,,0,0,0,,{\fad(120,160)}Not for the road
+Dialogue: 0,0:09:40.85,0:09:42.12,Sub,,0,0,0,,{\fad(120,160)}his version takes.
+Dialogue: 0,0:09:42.18,0:09:43.28,Sub,,0,0,0,,{\fad(120,160)}Which road leads there
+Dialogue: 0,0:09:43.32,0:09:44.98,Sub,,0,0,0,,{\fad(120,160)}is an open argument.
+Dialogue: 0,0:09:46.18,0:09:47.26,Sub,,0,0,0,,{\fad(120,160)}So which ending
+Dialogue: 0,0:09:47.30,0:09:48.58,Sub,,0,0,0,,{\fad(120,160)}are we heading for?
+Dialogue: 0,0:09:48.89,0:09:50.35,Sub,,0,0,0,,{\fad(120,160)}No single one yet.
+Dialogue: 0,0:09:50.61,0:09:51.45,Sub,,0,0,0,,{\fad(120,160)}This year's switches
+Dialogue: 0,0:09:51.49,0:09:52.78,Sub,,0,0,0,,{\fad(120,160)}point both ways.
+Dialogue: 0,0:09:52.87,0:09:54.31,Sub,,0,0,0,,{\fad(120,160)}Take the speed of the race.
+Dialogue: 0,0:09:54.60,0:09:56.07,Sub,,0,0,0,,{\fad(120,160)}After July's breakout,
+Dialogue: 0,0:09:56.11,0:09:58.22,Sub,,0,0,0,,{\fad(120,160)}OpenAI's Sam Altman said:
+Dialogue: 0,0:10:08.24,0:10:10.10,Sub,,0,0,0,,{\fad(120,160)}He runs a company in that race,
+Dialogue: 0,0:10:10.14,0:10:11.40,Sub,,0,0,0,,{\fad(120,160)}so weigh it.
+Dialogue: 0,0:10:11.74,0:10:13.86,Sub,,0,0,0,,{\fad(120,160)}Opponents of a slowdown warn:
+Dialogue: 0,0:10:13.96,0:10:15.74,Sub,,0,0,0,,{\fad(120,160)}then China leads.
+Dialogue: 0,0:10:15.88,0:10:17.33,Sub,,0,0,0,,{\fad(120,160)}Or the chips.
+Dialogue: 0,0:10:17.47,0:10:18.98,Sub,,0,0,0,,{\fad(120,160)}Tracking them protects,
+Dialogue: 0,0:10:19.02,0:10:20.14,Sub,,0,0,0,,{\fad(120,160)}and it watches.
+Dialogue: 0,0:10:20.28,0:10:22.01,Sub,,0,0,0,,{\fad(120,160)}Or shared rules.
+Dialogue: 0,0:10:22.23,0:10:23.78,Sub,,0,0,0,,{\fad(120,160)}31 countries now call
+Dialogue: 0,0:10:23.82,0:10:25.13,Sub,,0,0,0,,{\fad(120,160)}for human control
+Dialogue: 0,0:10:25.17,0:10:27.26,Sub,,0,0,0,,{\fad(120,160)}over the most powerful AI.
+Dialogue: 0,0:10:27.55,0:10:28.87,Sub,,0,0,0,,{\fad(120,160)}Neither America nor
+Dialogue: 0,0:10:28.91,0:10:30.31,Sub,,0,0,0,,{\fad(120,160)}China has joined.
+Dialogue: 0,0:10:30.58,0:10:31.58,Sub,,0,0,0,,{\fad(120,160)}And the key:
+Dialogue: 0,0:10:31.73,0:10:33.99,Sub,,0,0,0,,{\fad(120,160)}who owns what the machines earn?
+Dialogue: 0,0:10:34.24,0:10:35.58,Sub,,0,0,0,,{\fad(120,160)}Some companies now promise
+Dialogue: 0,0:10:35.62,0:10:37.01,Sub,,0,0,0,,{\fad(120,160)}the public a share.
+Dialogue: 0,0:10:37.15,0:10:38.53,Sub,,0,0,0,,{\fad(120,160)}Nothing binding yet.
+Dialogue: 0,0:10:39.09,0:10:41.20,Sub,,0,0,0,,{\fad(120,160)}At least five of the 12 endings
+Dialogue: 0,0:10:41.24,0:10:43.17,Sub,,0,0,0,,{\fad(120,160)}hang on decisions like these.
+Dialogue: 0,0:10:43.40,0:10:44.42,Sub,,0,0,0,,{\fad(120,160)}Still open.
+Dialogue: 0,0:10:44.75,0:10:46.56,Sub,,0,0,0,,{\fad(120,160)}Held by labs, governments,
+Dialogue: 0,0:10:46.60,0:10:48.20,Sub,,0,0,0,,{\fad(120,160)}and the voters behind them.
+Dialogue: 0,0:10:48.52,0:10:50.57,Sub,,0,0,0,,{\fad(120,160)}So at the next AI headline,
+Dialogue: 0,0:10:50.61,0:10:52.50,Sub,,0,0,0,,{\fad(120,160)}don't ask how scary it is.
+Dialogue: 0,0:10:52.73,0:10:53.79,Sub,,0,0,0,,{\fad(120,160)}Ask which ending
+Dialogue: 0,0:10:53.83,0:10:55.20,Sub,,0,0,0,,{\fad(120,160)}it pushes us toward.
+Dialogue: 0,0:10:55.52,0:10:57.62,Sub,,0,0,0,,{\fad(120,160)}Tegmark, who wrote down the 12,
+Dialogue: 0,0:10:57.66,0:10:59.00,Sub,,0,0,0,,{\fad(120,160)}now says it himself:
+Dialogue: 0,0:11:05.00,0:11:06.04,Sub,,0,0,0,,{\fad(120,160)}The ending isn't
+Dialogue: 0,0:11:06.08,0:11:07.68,Sub,,0,0,0,,{\fad(120,160)}decided in the future.
+Dialogue: 0,0:11:07.92,0:11:10.16,Sub,,0,0,0,,{\fad(120,160)}It's being decided this year.
+Dialogue: 0,0:11:12.32,0:11:13.33,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:11:13.37,0:11:14.68,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:11:14.85,0:11:15.73,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:11:15.77,0:11:16.85,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:11:16.89,0:11:18.64,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:11:18.93,0:11:19.93,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:11:19.99,0:11:20.99,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.

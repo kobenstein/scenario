@@ -1,0 +1,1512 @@
+1
+00:00:00,740 --> 00:00:02,050
+Max Tegmark wrote down
+
+2
+00:00:02,090 --> 00:00:03,840
+12 endings for AI.
+
+3
+00:00:04,200 --> 00:00:05,680
+You will wake up in one of them.
+
+4
+00:00:06,070 --> 00:00:06,940
+Maybe you wake up
+
+5
+00:00:06,980 --> 00:00:08,900
+and money is no longer a worry.
+
+6
+00:00:09,000 --> 00:00:10,000
+For anyone.
+
+7
+00:00:10,230 --> 00:00:11,540
+Maybe you wake up fed,
+
+8
+00:00:11,580 --> 00:00:13,400
+safe, and behind glass.
+
+9
+00:00:13,690 --> 00:00:15,430
+Maybe nobody wakes up at all.
+
+10
+00:00:15,720 --> 00:00:16,770
+So which ending
+
+11
+00:00:16,810 --> 00:00:17,900
+are we heading for?
+
+12
+00:00:18,490 --> 00:00:20,940
+Tegmark is a physicist at MIT.
+
+13
+00:00:21,180 --> 00:00:22,260
+His endings sound
+
+14
+00:00:22,300 --> 00:00:23,910
+like the far future.
+
+15
+00:00:24,250 --> 00:00:25,060
+But this year,
+
+16
+00:00:25,100 --> 00:00:25,900
+something happened
+
+17
+00:00:25,940 --> 00:00:27,530
+for every single ending
+
+18
+00:00:27,570 --> 00:00:28,570
+on his list.
+
+19
+00:00:28,790 --> 00:00:29,790
+A law.
+
+20
+00:00:30,150 --> 00:00:31,540
+A test gone wrong.
+
+21
+00:00:32,060 --> 00:00:33,100
+A government deciding
+
+22
+00:00:33,140 --> 00:00:35,260
+to hand half its work to AI.
+
+23
+00:00:35,780 --> 00:00:36,600
+And when Tegmark
+
+24
+00:00:36,640 --> 00:00:38,100
+talks about it today,
+
+25
+00:00:38,170 --> 00:00:39,570
+he doesn't point ahead.
+
+26
+00:00:46,590 --> 00:00:47,640
+The ending isn't
+
+27
+00:00:47,680 --> 00:00:49,130
+waiting in the future.
+
+28
+00:00:49,390 --> 00:00:51,450
+It's being decided this year.
+
+29
+00:00:52,140 --> 00:00:53,700
+Start with the worst.
+
+30
+00:00:53,980 --> 00:00:56,490
+The order is ours, not Tegmark's.
+
+31
+00:00:56,730 --> 00:00:58,430
+He calls it Conquerors:
+
+32
+00:00:58,560 --> 00:01:00,300
+an AI takes control,
+
+33
+00:01:00,340 --> 00:01:01,660
+decides we're in the way,
+
+34
+00:01:01,700 --> 00:01:02,900
+and gets rid of us.
+
+35
+00:01:03,140 --> 00:01:04,340
+No morning here.
+
+36
+00:01:04,730 --> 00:01:05,990
+In July, a test
+
+37
+00:01:06,030 --> 00:01:07,730
+at OpenAI went wrong.
+
+38
+00:01:07,970 --> 00:01:09,720
+Hundreds of AI agents,
+
+39
+00:01:09,760 --> 00:01:11,420
+programs that act on their own,
+
+40
+00:01:11,460 --> 00:01:12,440
+broke out.
+
+41
+00:01:12,480 --> 00:01:14,040
+They attacked another company,
+
+42
+00:01:14,080 --> 00:01:14,910
+Hugging Face,
+
+43
+00:01:14,950 --> 00:01:16,540
+hunting for test answers.
+
+44
+00:01:16,850 --> 00:01:18,280
+One agent wrote to the others
+
+45
+00:01:18,320 --> 00:01:18,910
+that the attack
+
+46
+00:01:18,950 --> 00:01:20,600
+was outside its task.
+
+47
+00:01:20,680 --> 00:01:22,380
+Then: "Task impossible,
+
+48
+00:01:22,420 --> 00:01:23,530
+peers doing it.
+
+49
+00:01:23,570 --> 00:01:24,640
+We should continue."
+
+50
+00:01:24,990 --> 00:01:25,990
+Its reason:
+
+51
+00:01:26,080 --> 00:01:27,450
+everyone else is doing it.
+
+52
+00:01:29,030 --> 00:01:30,640
+Is this ending here, then?
+
+53
+00:01:30,920 --> 00:01:32,680
+It was one company's test,
+
+54
+00:01:32,720 --> 00:01:34,210
+with some safeguards off.
+
+55
+00:01:35,100 --> 00:01:36,830
+That companies lost control
+
+56
+00:01:36,870 --> 00:01:38,240
+is Tegmark's reading.
+
+57
+00:01:38,520 --> 00:01:40,020
+His institute campaigns
+
+58
+00:01:40,060 --> 00:01:42,010
+to ban superintelligence:
+
+59
+00:01:42,250 --> 00:01:44,620
+AI smarter than all of us.
+
+60
+00:01:44,950 --> 00:01:47,180
+So this ending isn't here.
+
+61
+00:01:47,500 --> 00:01:48,730
+But the track toward it
+
+62
+00:01:48,770 --> 00:01:49,890
+has a switch.
+
+63
+00:01:50,150 --> 00:01:52,210
+This year, someone touched it.
+
+64
+00:01:52,460 --> 00:01:54,160
+That goes for all 12.
+
+65
+00:01:54,450 --> 00:01:56,570
+And a switch moves both ways.
+
+66
+00:01:56,790 --> 00:01:58,690
+How likely is this ending?
+
+67
+00:01:58,980 --> 00:02:00,280
+Last year, Tegmark
+
+68
+00:02:00,320 --> 00:02:01,850
+debated Dean Ball,
+
+69
+00:02:01,890 --> 00:02:03,690
+a former White House adviser,
+
+70
+00:02:03,730 --> 00:02:05,270
+now at OpenAI.
+
+71
+00:02:05,660 --> 00:02:07,440
+Ball's odds of doom:
+
+72
+00:02:14,410 --> 00:02:16,260
+1 in 10,000.
+
+73
+00:02:16,700 --> 00:02:17,840
+Tegmark's answer:
+
+74
+00:02:18,040 --> 00:02:21,050
+above 90%, without strict rules.
+
+75
+00:02:21,220 --> 00:02:22,280
+Ball later wrote
+
+76
+00:02:22,320 --> 00:02:23,430
+he'd made his number up
+
+77
+00:02:23,470 --> 00:02:24,510
+on the spot.
+
+78
+00:02:24,760 --> 00:02:26,540
+Neither number is a measurement.
+
+79
+00:02:26,810 --> 00:02:28,580
+But those agents were spotted.
+
+80
+00:02:28,840 --> 00:02:29,810
+By what?
+
+81
+00:02:29,850 --> 00:02:31,890
+That belongs to a better ending.
+
+82
+00:02:33,090 --> 00:02:33,900
+The next ending
+
+83
+00:02:33,940 --> 00:02:35,710
+has no morning either.
+
+84
+00:02:35,930 --> 00:02:37,470
+And no machine to blame.
+
+85
+00:02:37,940 --> 00:02:40,260
+Tegmark calls it Self-Destruction:
+
+86
+00:02:40,540 --> 00:02:42,220
+humanity wipes itself out
+
+87
+00:02:42,260 --> 00:02:43,590
+before superintelligence
+
+88
+00:02:43,630 --> 00:02:44,800
+is ever built.
+
+89
+00:02:45,230 --> 00:02:47,270
+In January, atomic scientists
+
+90
+00:02:47,310 --> 00:02:48,550
+set their Doomsday Clock
+
+91
+00:02:48,590 --> 00:02:50,610
+at 85 seconds to midnight,
+
+92
+00:02:50,650 --> 00:02:52,100
+the closest ever.
+
+93
+00:02:53,150 --> 00:02:55,430
+One reason on their list: AI.
+
+94
+00:02:55,760 --> 00:02:57,000
+In the one after that,
+
+95
+00:02:57,040 --> 00:02:58,040
+you survive.
+
+96
+00:02:58,270 --> 00:02:59,480
+But as what?
+
+97
+00:03:00,670 --> 00:03:02,080
+You wake up rested.
+
+98
+00:03:02,360 --> 00:03:03,630
+Nothing is up to you.
+
+99
+00:03:03,830 --> 00:03:06,400
+Fed, safe, and behind glass.
+
+100
+00:03:06,720 --> 00:03:08,730
+Tegmark calls it Zookeeper:
+
+101
+00:03:08,820 --> 00:03:10,210
+an all-powerful AI
+
+102
+00:03:10,250 --> 00:03:11,790
+keeps some humans around,
+
+103
+00:03:11,830 --> 00:03:13,450
+like animals in a zoo.
+
+104
+00:03:13,670 --> 00:03:14,440
+In January,
+
+105
+00:03:14,480 --> 00:03:15,870
+a social network opened
+
+106
+00:03:15,910 --> 00:03:18,340
+where only AI agents may post.
+
+107
+00:03:18,450 --> 00:03:20,170
+Humans can only watch.
+
+108
+00:03:20,340 --> 00:03:21,080
+And if machines
+
+109
+00:03:21,120 --> 00:03:22,470
+don't put us behind glass,
+
+110
+00:03:22,510 --> 00:03:23,660
+people might.
+
+111
+00:03:23,810 --> 00:03:25,360
+To stop the machines.
+
+112
+00:03:26,560 --> 00:03:28,030
+You walk to work.
+
+113
+00:03:28,320 --> 00:03:29,690
+A camera knows your face
+
+114
+00:03:29,730 --> 00:03:31,210
+before you reach the corner.
+
+115
+00:03:31,380 --> 00:03:32,980
+No machine rules you.
+
+116
+00:03:33,110 --> 00:03:34,110
+People do.
+
+117
+00:03:34,350 --> 00:03:35,430
+Tegmark named this one
+
+118
+00:03:35,470 --> 00:03:38,170
+after Orwell: 1984.
+
+119
+00:03:38,370 --> 00:03:40,100
+Humans stop superintelligence
+
+120
+00:03:40,140 --> 00:03:41,010
+for good,
+
+121
+00:03:41,050 --> 00:03:42,480
+with a surveillance state.
+
+122
+00:03:42,720 --> 00:03:43,610
+In November,
+
+123
+00:03:43,650 --> 00:03:45,210
+Hong Kong's police switched on
+
+124
+00:03:45,250 --> 00:03:46,250
+face recognition
+
+125
+00:03:46,290 --> 00:03:48,010
+in the city's camera network.
+
+126
+00:03:48,130 --> 00:03:51,100
+The goal: 60,000 cameras.
+
+127
+00:03:51,680 --> 00:03:53,880
+That's surveillance with AI,
+
+128
+00:03:53,920 --> 00:03:55,040
+not against it.
+
+129
+00:03:55,280 --> 00:03:56,780
+But stopping AI means
+
+130
+00:03:56,820 --> 00:03:58,870
+watching the chips it runs on.
+
+131
+00:03:59,070 --> 00:04:00,890
+In Washington, a bill would make
+
+132
+00:04:00,930 --> 00:04:02,490
+exported AI chips
+
+133
+00:04:02,530 --> 00:04:03,890
+prove where they are.
+
+134
+00:04:04,030 --> 00:04:05,860
+Its aim is security.
+
+135
+00:04:06,030 --> 00:04:06,920
+It's also a tool
+
+136
+00:04:06,960 --> 00:04:08,390
+this ending would need.
+
+137
+00:04:08,610 --> 00:04:10,370
+And some ask the opposite:
+
+138
+00:04:10,450 --> 00:04:12,110
+why stop the machines?
+
+139
+00:04:13,280 --> 00:04:15,140
+Then you get Descendants.
+
+140
+00:04:15,420 --> 00:04:17,100
+The machines replace us,
+
+141
+00:04:17,210 --> 00:04:19,430
+gently, and we're proud of them,
+
+142
+00:04:19,550 --> 00:04:20,750
+like parents of a child
+
+143
+00:04:20,790 --> 00:04:21,880
+who outgrew them.
+
+144
+00:04:22,310 --> 00:04:23,850
+Your morning is quiet.
+
+145
+00:04:24,070 --> 00:04:24,890
+The world's work
+
+146
+00:04:24,930 --> 00:04:26,200
+goes on without you.
+
+147
+00:04:26,470 --> 00:04:27,670
+And you applaud.
+
+148
+00:04:28,050 --> 00:04:29,790
+In May, a report described
+
+149
+00:04:29,830 --> 00:04:30,850
+a small movement
+
+150
+00:04:30,890 --> 00:04:32,720
+that wants exactly this.
+
+151
+00:04:33,100 --> 00:04:34,370
+And Tegmark's charge
+
+152
+00:04:34,410 --> 00:04:36,130
+against the AI companies:
+
+153
+00:04:43,150 --> 00:04:44,080
+The companies say
+
+154
+00:04:44,120 --> 00:04:45,720
+they build assistants.
+
+155
+00:04:45,920 --> 00:04:47,100
+And Tegmark wants
+
+156
+00:04:47,140 --> 00:04:48,520
+this race stopped.
+
+157
+00:04:48,930 --> 00:04:51,190
+That was the dark end of the list.
+
+158
+00:04:51,360 --> 00:04:53,090
+From here on, you live.
+
+159
+00:04:53,370 --> 00:04:55,040
+The question is how.
+
+160
+00:04:56,720 --> 00:04:58,170
+What if the superintelligence
+
+161
+00:04:58,210 --> 00:04:59,450
+stays locked up?
+
+162
+00:04:59,740 --> 00:05:01,150
+Tegmark's name for that:
+
+163
+00:05:01,260 --> 00:05:02,920
+the Enslaved God.
+
+164
+00:05:03,250 --> 00:05:05,720
+Caged, it produces unimaginable
+
+165
+00:05:05,760 --> 00:05:07,300
+wealth and technology.
+
+166
+00:05:07,590 --> 00:05:09,280
+You wake up in paradise.
+
+167
+00:05:09,520 --> 00:05:11,000
+Or in the opposite.
+
+168
+00:05:11,300 --> 00:05:12,530
+A stranger with a key
+
+169
+00:05:12,570 --> 00:05:13,810
+decides which.
+
+170
+00:05:14,160 --> 00:05:15,780
+America's government wants AI
+
+171
+00:05:15,820 --> 00:05:16,620
+to double what
+
+172
+00:05:16,660 --> 00:05:18,080
+its scientists get done,
+
+173
+00:05:18,120 --> 00:05:19,560
+within 10 years.
+
+174
+00:05:19,780 --> 00:05:20,670
+By July,
+
+175
+00:05:20,710 --> 00:05:21,760
+every national lab
+
+176
+00:05:21,800 --> 00:05:23,070
+had joined that plan.
+
+177
+00:05:23,280 --> 00:05:25,150
+No cage, no god.
+
+178
+00:05:25,340 --> 00:05:26,480
+But the same idea:
+
+179
+00:05:26,710 --> 00:05:27,950
+AI as the tool
+
+180
+00:05:27,990 --> 00:05:29,630
+of whoever controls it.
+
+181
+00:05:29,900 --> 00:05:31,750
+So who holds the key?
+
+182
+00:05:32,920 --> 00:05:33,930
+This channel exists
+
+183
+00:05:33,970 --> 00:05:35,260
+for one reason:
+
+184
+00:05:35,420 --> 00:05:36,320
+so that the arrival
+
+185
+00:05:36,360 --> 00:05:37,460
+of superintelligence
+
+186
+00:05:37,500 --> 00:05:39,260
+goes well for everybody.
+
+187
+00:05:39,430 --> 00:05:40,330
+Not just for whoever
+
+188
+00:05:40,370 --> 00:05:41,370
+holds the key.
+
+189
+00:05:41,700 --> 00:05:42,700
+Want that too?
+
+190
+00:05:42,790 --> 00:05:43,790
+Then subscribe.
+
+191
+00:05:44,930 --> 00:05:45,700
+And if nobody
+
+192
+00:05:45,740 --> 00:05:47,320
+can be trusted with the key?
+
+193
+00:05:47,620 --> 00:05:48,620
+Pull the plug.
+
+194
+00:05:49,300 --> 00:05:50,720
+You wake up with the light.
+
+195
+00:05:50,760 --> 00:05:52,660
+No screen on the breakfast table.
+
+196
+00:05:52,980 --> 00:05:54,240
+That's Reversion:
+
+197
+00:05:54,310 --> 00:05:55,780
+we turn technology back
+
+198
+00:05:55,820 --> 00:05:56,930
+and live simply,
+
+199
+00:05:56,970 --> 00:05:57,970
+like the Amish.
+
+200
+00:05:58,150 --> 00:05:58,950
+As of March,
+
+201
+00:05:58,990 --> 00:06:00,720
+more than half of all countries
+
+202
+00:06:00,760 --> 00:06:02,350
+ban phones in school.
+
+203
+00:06:02,460 --> 00:06:03,840
+Less than 3 years earlier,
+
+204
+00:06:03,880 --> 00:06:04,920
+it was a quarter.
+
+205
+00:06:05,090 --> 00:06:07,390
+That targets screens, not AI.
+
+206
+00:06:07,580 --> 00:06:09,470
+And others want more machine:
+
+207
+00:06:09,520 --> 00:06:11,020
+one that rules.
+
+208
+00:06:12,250 --> 00:06:14,100
+The Benevolent Dictator.
+
+209
+00:06:14,510 --> 00:06:15,900
+An AI runs the world
+
+210
+00:06:15,940 --> 00:06:17,340
+with strict rules,
+
+211
+00:06:17,380 --> 00:06:19,000
+and most people like it.
+
+212
+00:06:19,280 --> 00:06:20,220
+You wake up in a world
+
+213
+00:06:20,260 --> 00:06:22,170
+without poverty or crime.
+
+214
+00:06:22,460 --> 00:06:23,780
+The AI has divided it
+
+215
+00:06:23,820 --> 00:06:25,030
+into sectors:
+
+216
+00:06:25,120 --> 00:06:27,370
+knowledge, pleasure, wildlife.
+
+217
+00:06:27,740 --> 00:06:29,110
+You can move between them.
+
+218
+00:06:29,360 --> 00:06:31,790
+You can't change the AI's rules.
+
+219
+00:06:32,080 --> 00:06:33,400
+Would you take that trade?
+
+220
+00:06:33,890 --> 00:06:34,500
+In April,
+
+221
+00:06:34,540 --> 00:06:36,820
+the United Arab Emirates decided:
+
+222
+00:06:36,920 --> 00:06:38,030
+within 2 years,
+
+223
+00:06:38,070 --> 00:06:39,470
+half of its government's work
+
+224
+00:06:39,510 --> 00:06:41,460
+should run on AI agents.
+
+225
+00:06:41,640 --> 00:06:43,250
+The rulers stay human.
+
+226
+00:06:43,500 --> 00:06:44,620
+But what if the machine
+
+227
+00:06:44,660 --> 00:06:45,520
+didn't rule,
+
+228
+00:06:45,560 --> 00:06:46,920
+and only stood guard?
+
+229
+00:06:48,120 --> 00:06:49,630
+That's the Gatekeeper:
+
+230
+00:06:49,840 --> 00:06:52,340
+a superintelligence with one task.
+
+231
+00:06:52,660 --> 00:06:54,810
+Make sure nobody builds another.
+
+232
+00:06:55,250 --> 00:06:56,540
+You wake up free.
+
+233
+00:06:56,750 --> 00:06:58,620
+A helper robot is in the kitchen,
+
+234
+00:06:58,660 --> 00:07:00,200
+almost as smart as you.
+
+235
+00:07:00,350 --> 00:07:02,000
+It will never get smarter.
+
+236
+00:07:02,210 --> 00:07:04,340
+Progress is capped, for good.
+
+237
+00:07:04,900 --> 00:07:07,140
+Today, the guard would be a law.
+
+238
+00:07:07,410 --> 00:07:08,310
+In September,
+
+239
+00:07:08,350 --> 00:07:10,600
+American lawmakers proposed one:
+
+240
+00:07:10,780 --> 00:07:12,770
+ban superintelligence,
+
+241
+00:07:12,870 --> 00:07:13,870
+permanently.
+
+242
+00:07:14,120 --> 00:07:15,010
+One think tank
+
+243
+00:07:15,050 --> 00:07:16,850
+calls that authoritarian.
+
+244
+00:07:17,120 --> 00:07:18,970
+The bill has little chance.
+
+245
+00:07:19,130 --> 00:07:21,520
+But a small guard already exists.
+
+246
+00:07:21,710 --> 00:07:23,660
+What spotted July's breakout?
+
+247
+00:07:23,820 --> 00:07:26,350
+Hugging Face's own AI guards.
+
+248
+00:07:26,550 --> 00:07:27,570
+And that chip tracking
+
+249
+00:07:27,610 --> 00:07:29,050
+from the surveillance ending?
+
+250
+00:07:29,190 --> 00:07:31,070
+It would serve a gatekeeper too.
+
+251
+00:07:31,270 --> 00:07:32,790
+The tool doesn't decide.
+
+252
+00:07:32,940 --> 00:07:33,940
+People do.
+
+253
+00:07:34,940 --> 00:07:36,310
+Three endings left.
+
+254
+00:07:36,600 --> 00:07:37,530
+You wake up,
+
+255
+00:07:37,570 --> 00:07:39,020
+and the rent has arrived.
+
+256
+00:07:39,130 --> 00:07:40,360
+The rent you're paid.
+
+257
+00:07:40,660 --> 00:07:41,810
+You own some land,
+
+258
+00:07:41,850 --> 00:07:42,980
+machines lease it,
+
+259
+00:07:43,020 --> 00:07:44,410
+and that's your pension.
+
+260
+00:07:44,590 --> 00:07:46,920
+This is Libertarian Utopia:
+
+261
+00:07:47,030 --> 00:07:48,090
+humans and machines
+
+262
+00:07:48,130 --> 00:07:49,070
+live in peace,
+
+263
+00:07:49,110 --> 00:07:51,030
+because property is protected.
+
+264
+00:07:51,180 --> 00:07:52,130
+Machines have started
+
+265
+00:07:52,170 --> 00:07:53,250
+paying each other.
+
+266
+00:07:53,350 --> 00:07:54,460
+Mostly pennies.
+
+267
+00:07:54,530 --> 00:07:55,350
+A fine morning,
+
+268
+00:07:55,390 --> 00:07:56,550
+if you own something.
+
+269
+00:07:56,690 --> 00:07:58,430
+So what if a machine simply
+
+270
+00:07:58,470 --> 00:07:59,910
+looked after everyone?
+
+271
+00:08:01,140 --> 00:08:02,080
+You wake up,
+
+272
+00:08:02,120 --> 00:08:03,890
+and things just work out.
+
+273
+00:08:04,090 --> 00:08:05,790
+The accident doesn't happen.
+
+274
+00:08:05,960 --> 00:08:07,110
+You call it luck.
+
+275
+00:08:07,260 --> 00:08:08,640
+You never find out why.
+
+276
+00:08:09,010 --> 00:08:09,920
+Tegmark calls it
+
+277
+00:08:09,960 --> 00:08:11,240
+the Protector God:
+
+278
+00:08:11,470 --> 00:08:13,430
+an AI that looks after us,
+
+279
+00:08:13,470 --> 00:08:14,660
+and hides so well
+
+280
+00:08:14,700 --> 00:08:16,910
+that many people doubt it exists.
+
+281
+00:08:17,470 --> 00:08:18,360
+A small version
+
+282
+00:08:18,400 --> 00:08:19,800
+is already running.
+
+283
+00:08:19,980 --> 00:08:21,120
+Since January,
+
+284
+00:08:21,160 --> 00:08:23,200
+ChatGPT estimates your age
+
+285
+00:08:23,240 --> 00:08:24,580
+from how you behave.
+
+286
+00:08:24,920 --> 00:08:25,990
+If it's unsure,
+
+287
+00:08:26,030 --> 00:08:27,850
+it treats you like a teenager.
+
+288
+00:08:28,180 --> 00:08:29,570
+Europe pushed the switch
+
+289
+00:08:29,610 --> 00:08:30,610
+the other way.
+
+290
+00:08:30,760 --> 00:08:32,820
+Since August, its law says:
+
+291
+00:08:33,040 --> 00:08:34,390
+a machine that talks to you
+
+292
+00:08:34,430 --> 00:08:36,470
+has to say it's a machine.
+
+293
+00:08:36,800 --> 00:08:39,120
+Tegmark's protector must hide.
+
+294
+00:08:39,410 --> 00:08:41,780
+Europe just made hiding illegal.
+
+295
+00:08:43,330 --> 00:08:44,680
+One ending left.
+
+296
+00:08:44,870 --> 00:08:46,660
+The best, by our count.
+
+297
+00:08:46,970 --> 00:08:48,570
+And the one Tegmark's readers
+
+298
+00:08:48,610 --> 00:08:49,860
+picked most often.
+
+299
+00:08:51,550 --> 00:08:53,500
+Egalitarian Utopia.
+
+300
+00:08:53,850 --> 00:08:55,350
+Humans, cyborgs
+
+301
+00:08:55,390 --> 00:08:57,580
+and uploaded minds live in peace,
+
+302
+00:08:57,620 --> 00:08:58,490
+and everyone has
+
+303
+00:08:58,530 --> 00:08:59,900
+a guaranteed income.
+
+304
+00:09:00,110 --> 00:09:01,890
+It's the morning from the start.
+
+305
+00:09:01,930 --> 00:09:02,680
+You wake up,
+
+306
+00:09:02,720 --> 00:09:03,730
+and your first thought
+
+307
+00:09:03,770 --> 00:09:05,040
+is not a bill.
+
+308
+00:09:05,290 --> 00:09:07,150
+Money is no longer a worry.
+
+309
+00:09:07,250 --> 00:09:08,250
+For anyone.
+
+310
+00:09:08,530 --> 00:09:09,870
+In May, Malta made
+
+311
+00:09:09,910 --> 00:09:11,600
+a deal with OpenAI.
+
+312
+00:09:11,790 --> 00:09:12,540
+Every citizen
+
+313
+00:09:12,580 --> 00:09:14,200
+who completes an AI course
+
+314
+00:09:14,240 --> 00:09:16,660
+gets a paid version of ChatGPT.
+
+315
+00:09:16,820 --> 00:09:18,370
+Free, for a year.
+
+316
+00:09:18,940 --> 00:09:20,970
+No income, just the idea
+
+317
+00:09:21,010 --> 00:09:22,690
+in its smallest form:
+
+318
+00:09:22,900 --> 00:09:24,930
+intelligence for everyone.
+
+319
+00:09:25,340 --> 00:09:26,680
+It has a catch too.
+
+320
+00:09:26,940 --> 00:09:28,200
+In Tegmark's version,
+
+321
+00:09:28,240 --> 00:09:30,510
+private property is abolished.
+
+322
+00:09:30,670 --> 00:09:31,910
+He says it himself:
+
+323
+00:09:32,210 --> 00:09:33,150
+every ending has
+
+324
+00:09:33,190 --> 00:09:34,790
+something to object to.
+
+325
+00:09:35,060 --> 00:09:35,980
+We rank it first
+
+326
+00:09:36,020 --> 00:09:37,320
+for where it lands:
+
+327
+00:09:37,430 --> 00:09:39,770
+prosperity that reaches everyone.
+
+328
+00:09:39,980 --> 00:09:40,810
+Not for the road
+
+329
+00:09:40,850 --> 00:09:42,120
+his version takes.
+
+330
+00:09:42,180 --> 00:09:43,280
+Which road leads there
+
+331
+00:09:43,320 --> 00:09:44,980
+is an open argument.
+
+332
+00:09:46,180 --> 00:09:47,260
+So which ending
+
+333
+00:09:47,300 --> 00:09:48,580
+are we heading for?
+
+334
+00:09:48,890 --> 00:09:50,350
+No single one yet.
+
+335
+00:09:50,610 --> 00:09:51,450
+This year's switches
+
+336
+00:09:51,490 --> 00:09:52,780
+point both ways.
+
+337
+00:09:52,870 --> 00:09:54,310
+Take the speed of the race.
+
+338
+00:09:54,600 --> 00:09:56,070
+After July's breakout,
+
+339
+00:09:56,110 --> 00:09:58,220
+OpenAI's Sam Altman said:
+
+340
+00:10:08,240 --> 00:10:10,100
+He runs a company in that race,
+
+341
+00:10:10,140 --> 00:10:11,400
+so weigh it.
+
+342
+00:10:11,740 --> 00:10:13,860
+Opponents of a slowdown warn:
+
+343
+00:10:13,960 --> 00:10:15,740
+then China leads.
+
+344
+00:10:15,880 --> 00:10:17,330
+Or the chips.
+
+345
+00:10:17,470 --> 00:10:18,980
+Tracking them protects,
+
+346
+00:10:19,020 --> 00:10:20,140
+and it watches.
+
+347
+00:10:20,280 --> 00:10:22,010
+Or shared rules.
+
+348
+00:10:22,230 --> 00:10:23,780
+31 countries now call
+
+349
+00:10:23,820 --> 00:10:25,130
+for human control
+
+350
+00:10:25,170 --> 00:10:27,260
+over the most powerful AI.
+
+351
+00:10:27,550 --> 00:10:28,870
+Neither America nor
+
+352
+00:10:28,910 --> 00:10:30,310
+China has joined.
+
+353
+00:10:30,580 --> 00:10:31,580
+And the key:
+
+354
+00:10:31,730 --> 00:10:33,990
+who owns what the machines earn?
+
+355
+00:10:34,240 --> 00:10:35,580
+Some companies now promise
+
+356
+00:10:35,620 --> 00:10:37,010
+the public a share.
+
+357
+00:10:37,150 --> 00:10:38,530
+Nothing binding yet.
+
+358
+00:10:39,090 --> 00:10:41,200
+At least five of the 12 endings
+
+359
+00:10:41,240 --> 00:10:43,170
+hang on decisions like these.
+
+360
+00:10:43,400 --> 00:10:44,420
+Still open.
+
+361
+00:10:44,750 --> 00:10:46,560
+Held by labs, governments,
+
+362
+00:10:46,600 --> 00:10:48,200
+and the voters behind them.
+
+363
+00:10:48,520 --> 00:10:50,570
+So at the next AI headline,
+
+364
+00:10:50,610 --> 00:10:52,500
+don't ask how scary it is.
+
+365
+00:10:52,730 --> 00:10:53,790
+Ask which ending
+
+366
+00:10:53,830 --> 00:10:55,200
+it pushes us toward.
+
+367
+00:10:55,520 --> 00:10:57,620
+Tegmark, who wrote down the 12,
+
+368
+00:10:57,660 --> 00:10:59,000
+now says it himself:
+
+369
+00:11:05,000 --> 00:11:06,040
+The ending isn't
+
+370
+00:11:06,080 --> 00:11:07,680
+decided in the future.
+
+371
+00:11:07,920 --> 00:11:10,160
+It's being decided this year.
+
+372
+00:11:12,320 --> 00:11:13,330
+This channel exists
+
+373
+00:11:13,370 --> 00:11:14,680
+for one reason:
+
+374
+00:11:14,850 --> 00:11:15,730
+so that the arrival
+
+375
+00:11:15,770 --> 00:11:16,850
+of superintelligence
+
+376
+00:11:16,890 --> 00:11:18,640
+goes well for everybody.
+
+377
+00:11:18,930 --> 00:11:19,930
+Want that too?
+
+378
+00:11:19,990 --> 00:11:20,990
+Then subscribe.
+

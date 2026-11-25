@@ -1,0 +1,18 @@
+{
+ "_comment": "Film 71 Lyria 3.5 prompts (google/lyria-3.5, 6 tracks, 2026-11-25). Method as Film 69: one track per chapter; chapters = sections of timing.json. Arc (brief): dark endings 12-8, the turn at 7 / subscribe, warmer toward ending 1, calm close + ~15 s end image. Files in /tmp/claude-0/f71/audio/music, not in the repo (URLs in music/urls.txt). Prompt sent = style + ' ' + 'A <len> track. ' + mood.",
+ "style": "Instrumental underscore for a calm, thoughtful editorial documentary that walks through twelve possible futures, shown as twelve doors in an arc on a night-blue field, a small figure walking from door to door. Deep warm drones, slow pads, sparse felt piano notes far apart, soft bowed strings, glassy bell textures, a little tape warmth. No drums, no beat, no vocals, no melody hook, not pop, not epic, not triumphant, not cinematic trailer. Very quiet, narrow dynamic range, slow, made to sit under a speaking voice.",
+ "tracks": {
+  "M0": {"chapter": "H, 12 (twelve endings, three mornings, something happened this year, C1; Conquerors: the test that went wrong, the switch, Dean Ball C2)", "len": "2:50",
+         "mood": "dark and expectant: a low cold drone that never resolves, single muted piano notes in a minor key placed far apart, a faint metallic shimmer like distant machinery, a slow pulse felt more than heard; tension held low and steady, no build-up"},
+  "M1": {"chapter": "11, 10, 9, 8 (Self-Destruction, Zookeeper behind glass, 1984 cameras, Descendants, C4; the dark end of the list)", "len": "2:40",
+         "mood": "cold and uneasy: a hollow glassy pad like looking through thick glass, low sustained cello notes, sparse high piano tones that hang in the air, a faint electronic hum; watchful and restrained, dark but not aggressive, ending on a long unresolved low tone"},
+  "M2": {"chapter": "7, M, 6, 5 (Enslaved God and the key: the turn, from here on you live; subscribe call; Reversion, Benevolent Dictator)", "len": "2:05",
+         "mood": "a slow turn from dark to open: it starts on the same low drone, then a first warmer major chord blooms quietly, soft felt piano begins a gentle figure of a few notes, morning light through a window; curious and cautiously hopeful, still restrained"},
+  "M3": {"chapter": "4, 3, 2 (Gatekeeper, Libertarian Utopia, Protector God; the EU law)", "len": "2:20",
+         "mood": "warmer and steadier: a calm major-key pad, a gentle felt piano figure that repeats softly, light bowed strings, a few soft glass bell notes like early sunlight; thoughtful and open, a quiet sense of things working out, no swell"},
+  "M4": {"chapter": "1 (Egalitarian Utopia: the morning from the start, the golden door, Malta, the catch)", "len": "1:15",
+         "mood": "warm and golden: a soft major chord that glows, gentle piano and warm strings, a sense of a bright calm morning and relief, tender rather than grand; quiet, unhurried, sincere"},
+  "M5": {"chapter": "S, A2 + end image (the open switches, C5 Altman, C6 Tegmark: for us to decide; closing call; 15 s end image)", "len": "2:15",
+         "mood": "calm and resolved but open: the low drone of the opening returns, now warm, slow piano notes in a major key, soft strings holding a long chord, a feeling of standing at a crossroads at dawn; steady and peaceful, ending on one long open chord that slowly fades to silence"}
+ }
+}

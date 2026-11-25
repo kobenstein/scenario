@@ -1,0 +1,3 @@
+{
+ "_comment": "Film 71: no new SFX generated. All accents from /mnt/project-files/scenario/sfx-bibliothek/akzent (copied to /tmp/claude-0/f71/audio/sfx): stamp (SWITCH TOUCHED stamps: hook 'A law. / A test gone wrong. / ... to AI.' and 'someone touched it'), tick (Doomsday Clock), screen_off ('Pull the plug.'), hatch_door (8 -> 7: from here on, you live), door (2 -> 1: the golden door), shimmer_rings (the core sentence at the end). No atmo beds; SFX only in gaps, never under a running sentence (mix.py check)."
+}
