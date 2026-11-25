@@ -30,13 +30,13 @@ export default function (T, R) {
   const A9 = anchors09(T, T.G("That's the Gatekeeper")), A = anchors10(T, R.a), st = street11(T);
   // ---------------------------------------------------------------- 3.01 · the row (row-local coords, continues c09)
   const D3C = [F.rowX(3), F.ROW.y - F.ROW.h * 1.06 / 2];
-  const FLY0 = A.wake - .05, FLY1 = A.wake + 1.0;
-  const CAMROW = [...camKeys910(A9), [FLY0, { x: 1380, y: 574, s: 2.6 }], [FLY1, { x: D3C[0], y: D3C[1], s: 26 }]];
+  const FLY0 = A.wake - .05, FLY1 = A.wake + 1.4;   // final pass: longer fly (was +1.0)
+  const CAMROW = [...camKeys910(A9), [FLY0, { x: 1340, y: 576, s: 1.9 }], [FLY1, { x: D3C[0], y: D3C[1], s: 26 }]];
   const vRow = (t) => F.viewPath(t, CAMROW);
   // ---------------------------------------------------------------- 3.02 – 3.04 · the bedroom (room coords of B.roomBed3)
   const SW = A.lib - .1;
   const RC = [[FLY0, { x: 960, y: 540, s: 1 }], [FLY1, { x: 955, y: 548, s: 1.0 }], [A.rent + .3, { x: 900, y: 610, s: 1.22 }], [A.paidS + .3, { x: 905, y: 612, s: 1.4 }],
-    [A.paid + .6, { x: 912, y: 608, s: 1.45 }], [A.land + .7, { x: 1330, y: 440, s: 1.38 }], [A.lease + .6, { x: 1310, y: 470, s: 1.6 }], [A.pension + .2, { x: 1330, y: 480, s: 1.9 }],
+    [A.paid + .6, { x: 912, y: 608, s: 1.45 }], [A.land + .7, { x: 1330, y: 440, s: 1.38 }], [A.lease + .6, { x: 1310, y: 470, s: 1.6 }], [A.pension - .25, { x: 1330, y: 480, s: 2.1 }],
     [SW, { x: 1380, y: 497, s: 4.5 }]];
   const rcAt = (t) => F.viewPath(t, RC);
   const plotO = (t) => ({ lease: span(t, A.lease - .1, A.lease + .4) });
@@ -52,11 +52,12 @@ export default function (T, R) {
   const GATE = { x: 2250, y: 770, w: 70, h: 120 }, GC = [GATE.x, GATE.y - GATE.h / 2], SF = 29, GATE_COL = F.END[2].col;
   const FLYG0 = A.everyone + .25, FLYG1 = R.b - .1;
   const rcSW = rcAt(SW), vR0 = { x: TX + (rcSW.x - 1080) * K, y: ROWY[0] + (rcSW.y - 170) * K, s: rcSW.s / K };
-  const CAMR = [[SW, vR0], [SW + .9, { x: 960, y: 445, s: 6 }], [A.libW + .9, { x: 960, y: 490, s: 1.0 }], [A.peace + .3, { x: 960, y: 500, s: .98 }],
+  const CAMR = [[SW, vR0], [SW + 1.1, { x: 960, y: 445, s: 5 }], [A.libW + 1.3, { x: 960, y: 490, s: 1.0 }], [A.peace + .3, { x: 960, y: 500, s: .98 }],
     [A.property + .6, { x: 965, y: 495, s: 1.0 }], [A.pay - .1, { x: 1000, y: 490, s: 1.03 }], [A.pay + .9, { x: 1330, y: 555, s: 1.4 }],
     [A.pennies + .25, { x: 1500, y: 570, s: 1.38 }], [A.fine + .1, { x: 1540, y: 560, s: 1.3 }], [A.fine + 1.3, { x: 2140, y: 590, s: 1.05 }],
     [A.sowhat + .2, { x: 2120, y: 585, s: 1.0 }], [A.looked + .1, { x: 1530, y: 470, s: .64 }], [A.everyone - .2, { x: 1600, y: 540, s: .72 }],
-    [A.everyone + .55, { x: 2232, y: 692, s: 2.6 }], [FLYG1, { x: GC[0], y: GC[1], s: SF }]];
+    [A.everyone + .31, { x: GC[0], y: GC[1], s: 1.2 }], // final pass: centre the gate before the zoom (no swing-out lurch)
+    [FLYG1, { x: GC[0], y: GC[1], s: SF }]];
   const vReg = (t) => F.viewPath(t, CAMR);
   const tile = (ctx, t, i, y) => {
     ctx.save(); ctx.beginPath(); ctx.rect(TX, y, TW, TH); ctx.clip(); ctx.translate(TX, y); ctx.scale(K, K); ctx.translate(-1080, -170);

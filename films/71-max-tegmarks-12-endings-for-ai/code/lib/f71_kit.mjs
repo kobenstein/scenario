@@ -38,7 +38,7 @@ const TAU = Math.PI * 2;
 { const proto = Object.getPrototypeOf(createCanvas(1, 1).getContext('2d'));
   if (!proto.__f71alpha) { proto.__f71alpha = true;
     for (const k of ['fill', 'stroke', 'fillText', 'strokeText', 'fillRect', 'strokeRect', 'drawImage']) { const f = proto[k]; proto[k] = function (...a) { if (this.globalAlpha <= 1e-3) return; return f.apply(this, a); }; } } }
-export const PRINT71 = { grain: 14, floor: 4, vig: .5 };
+export const PRINT71 = { grain: process.env.F71GRAIN != null ? Number(process.env.F71GRAIN) : 14, floor: 4, vig: .5 };   // F71GRAIN=0: measuring without grain
 export const CREAM = '#f3efe2', CREAM2 = '#a49fc4';
 export const GOLD = { core: '#fff8dc', hot: '#ffe9a6', body: '#f6c95c', mid: '#e3a63f', shade: '#b8792a', deep: '#6e4416', halo: '#f2b632', line: '#ffd982', text: '#ffe7a8' };
 export const PAPER = { body: '#ece4c8', lit: '#f7f0d8', shade: '#cfc4a2', edge: '#a99d7c', ink: '#141a3c', faint: '#8a8166' };
@@ -61,7 +61,7 @@ export const ENDINGS = [
   { n: 10, id: 'zookeeper', name: 'ZOOKEEPER', at: 'You wake up rested', word: 'calls it Zookeeper', sign: 'In January, a social network', tag: 'JAN 2026', col: '#b0607e' },
   { n: 9, id: '1984', name: '1984', at: 'You walk to work', word: 'Nineteen Eighty-Four', sign: "In November, Hong Kong's police", tag: 'NOV 16, 2026', tag2: 'MAR 2026', col: '#9a6aa8' },
   { n: 8, id: 'descendants', name: 'DESCENDANTS', at: 'Then you get Descendants', word: 'Then you get Descendants', sign: 'In May, a report', tag: 'MAY 2026', col: '#8676c8' },
-  { n: 7, id: 'enslaved', name: 'ENSLAVED GOD', at: 'What if the superintelligence stays', word: 'the Enslaved God', sign: "America's government wants AI", tag: 'JUL 2026', col: '#6a7fd8' },
+  { n: 7, id: 'enslaved', name: 'ENSLAVED GOD', at: 'What if the superintelligence stays', word: 'the Enslaved God', sign: 'By July, every national lab', tag: 'JUL 2026', col: '#6a7fd8' },
   { n: 6, id: 'reversion', name: 'REVERSION', at: 'And if nobody can be trusted', word: "That's Reversion", sign: 'As of March', tag: 'MAR 2026', col: '#5a8fe0' },
   { n: 5, id: 'dictator', name: 'BENEVOLENT DICTATOR', at: 'The Benevolent Dictator', word: 'The Benevolent Dictator', sign: 'In April, the United Arab Emirates', tag: 'APR 23, 2026', col: '#5ea4e6' },
   { n: 4, id: 'gatekeeper', name: 'GATEKEEPER', at: "That's the Gatekeeper", word: "That's the Gatekeeper", sign: 'In September, American lawmakers', tag: 'SEP 23, 2026', col: '#86bfe6' },
@@ -317,7 +317,7 @@ export function miniTag(ctx, x, y, u, n) {
 export function switchTag(ctx, t, x, y, date, u, o = {}) {
   u = clamp(u); if (u <= 0) return null;
   const sz = o.size ?? 24, head = o.kind === 'back' ? 'SWITCH PUSHED BACK: ' : 'SWITCH TOUCHED: ', txt = head + date;
-  const tw = measure(txt, sz, false, 700) + txt.length * sz * .06, w = tw + sz * 3.2, h = sz * 2 + (o.lines ? sz * 1.2 : 0);
+  const tw = Math.max(measure(txt, sz, false, 700) + txt.length * sz * .06, o.lines ? measure(o.lines, 22, false, 600) + o.lines.length * 22 * .05 : 0), w = tw + sz * 3.2, h = sz * 2 + (o.lines ? sz * 1.2 : 0);
   const drop = expoOut(span(u, 0, .45)), settle = span(u, .45, 1), out = clamp(o.out ?? 0);
   const dy = (1 - drop) * -70 + Math.sin(Math.PI * settle) * 4 * (1 - settle) - expoIn(out) * 60;
   ctx.save(); ctx.globalAlpha *= clamp(u * 4) * (1 - out); ctx.translate(x, y + dy);
@@ -798,7 +798,7 @@ export const TXT = {
   e1: { cyborg: 'CYBORG', upload: 'UPLOADED MIND', malta: 'AI COURSE → CHATGPT PLUS · FREE FOR 1 YEAR', src: 'Government of Malta and OpenAI · May 16, 2026', smallest: 'THE SMALLEST VERSION',
     users: 'OPENAI GAINS A COUNTRY OF USERS', property: 'PROPERTY ABOLISHED', objection: '“all involve objectionable elements” · Life 3.0', dest: 'THE DESTINATION: PROSPERITY FOR EVERYONE', road: 'THE ROAD: OPEN' },
   end: { which: 'WHICH ENDING?', none: 'NO SINGLE ONE YET', speed: 'SPEED OF THE RACE', pace: 'PACE IT', china: 'THEN CHINA LEADS', chips: 'CHIPS', rules: 'SHARED RULES',
-    callSrc: 'A Call for Control of Frontier AI Models · launched Sep 21, 2026 with 20 countries and the EU · 31 countries since the follow-up meeting',
-    callFallback: 'MORE THAN TWENTY COUNTRIES', promised: 'PROMISED · NOT BINDING', five: ['CONQUERORS', '1984', 'ENSLAVED GOD', 'GATEKEEPER', 'EGALITARIAN UTOPIA'], who: ['LABS', 'GOVERNMENTS', 'VOTERS'],
+    callSrc: 'A Call for Control of Frontier AI Models · launched Sep 21, 2026 with 20 countries and the EU · about 30 countries since the follow-up meeting',
+    callFallback: 'ABOUT 30 COUNTRIES', promised: 'PROMISED · NOT BINDING', five: ['CONQUERORS', '1984', 'ENSLAVED GOD', 'GATEKEEPER', 'EGALITARIAN UTOPIA'], who: ['LABS', 'GOVERNMENTS', 'VOTERS'],
     decided: 'DECIDED THIS YEAR', runs: 'RUNS A COMPANY IN THE RACE' },
 };

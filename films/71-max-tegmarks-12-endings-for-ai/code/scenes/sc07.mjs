@@ -67,10 +67,10 @@ export default function (T, R) {
   const PL0 = R.a + S.SEAM_HALF;   // the plate ends here (plateRow(6) exactly before)
   // ---------------------------------------------------------------- 6.01 – 6.02 · the row, the cables, the plug
   const D6 = { x: F.rowX(6), w: F.ROW.w * 1.06, h: F.ROW.h * 1.06 }, D6C = [D6.x, F.ROW.y - D6.h / 2];
-  const FLY0 = A.plug + .5, FLY1 = A.wake + .25;
+  const FLY0 = A.plug + .35, FLY1 = A.wake + .65;   // final pass: a longer fly (was plug+.5 → wake+.25: LURCH)
   const BUS = 800, SOCK = 1838, PLUG = 1792;
   const baseV = (t) => { const u = sineIO(span(t, PL0, A.pull + .1)); return { x: lerp(960, 1410, u), y: lerp(560, 640, u), s: B.seamCreep(t, R.a) * lerp(1, 1.37, u) }; };
-  const FLYK = [[FLY0, baseV(FLY0)], [FLY0 + .7, { x: 1060, y: 574, s: 3.4 }], [FLY1, { x: D6C[0], y: D6C[1], s: 26 }]];
+  const FLYK = [[FLY0, baseV(FLY0)], [FLY0 + 1.0, { x: 1060, y: 574, s: 3.0 }], [FLY1, { x: D6C[0], y: D6C[1], s: 26 }]];
   const vAt = (t) => (t <= FLY0 ? baseV(t) : F.viewPath(t, FLYK));
   const SPEED = 1700;   // the dark runs from the socket to the left (yard units / s)
   const outU = (m, t) => (m === 6 ? 0 : span(t, A.plug + .08 + (SOCK - F.rowX(m)) / SPEED, A.plug + .3 + (SOCK - F.rowX(m)) / SPEED));
@@ -82,14 +82,14 @@ export default function (T, R) {
   // the room behind door 6 (room coords of B.roomWood)
   const PUSH = A.march - .3, RC_PUSH = { x: 1260, y: 385, s: 4.0 };
   const RC = [[FLY0, { x: 1000, y: 540, s: 1 }], [A.wake + .5, { x: 1010, y: 532, s: 1.02 }], [A.screen - .25, { x: 1050, y: 522, s: 1.05 }],
-    [A.screen + .75, { x: 610, y: 618, s: 1.3 }], [A.rev - .15, { x: 640, y: 612, s: 1.33 }], [A.rev + 1.6, { x: 1255, y: 470, s: 1.22 }],
-    [A.amish - .65, { x: 1262, y: 444, s: 1.3 }], [PUSH, RC_PUSH]];
+    [A.screen + .75, { x: 610, y: 618, s: 1.3 }], [A.rev - .15, { x: 640, y: 612, s: 1.33 }], [A.rev + 2.2, { x: 1255, y: 470, s: 1.22 }],
+    [PUSH, RC_PUSH]];
   const rcAt = (t) => F.viewPath(t, RC);
   const youRoom = (t) => {
     const u = Math.sin(Math.PI * span(t, A.wake + .05, A.wake + 1.7)), e = sineIO(u);
     return { x: 960, armR: [lerp(.2, 2.9, e), lerp(.1, 3.05, e)], armL: [lerp(-.2, -2.9, e), lerp(-.1, -3.05, e)], look: .15 + .35 * e, dir: 1 };
   };
-  const roomOpts = (t) => ({ you: youRoom(t), casement: sineIO(span(t, A.amish - .95, A.amish + .1)) });
+  const roomOpts = (t) => ({ you: youRoom(t), casement: sineIO(span(t, A.amish - 1.5, A.amish + .2)) });
 
   function cables(ctx, t) {
     const u = span(t, PL0, PL0 + 1.6); if (u <= 0) return;

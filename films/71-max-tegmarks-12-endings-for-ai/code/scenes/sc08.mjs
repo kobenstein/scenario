@@ -61,13 +61,13 @@ export default function (T, R) {
   const HW = { x: B.HWIN5.x, y: B.HWIN5.y + DY, w: B.HWIN5.w, h: B.HWIN5.h }, HWC = [HW.x + HW.w / 2, HW.y + HW.h / 2];
   const IN1 = A.wake + .55, OUT0 = A.divided - .7;
   // ---------------------------------------------------------------- the camera (yard)
-  const CAM = [...camKeys78(A7), [A.strict + .3, { x: 960, y: 405, s: 1.09 }], [A.wake - .75, { x: 1000, y: 440, s: 1.16 }],
-    [A.wake - .1, { x: 1190, y: 586, s: 5 }], [IN1, { x: HWC[0], y: HWC[1], s: 100 }]];
-  const CAM2 = [[OUT0, { x: HWC[0], y: HWC[1], s: 100 }], [OUT0 + .8, { x: 1200, y: 588, s: 5 }], [A.divided + 1.2, { x: 960, y: 540, s: 1.08 }],
+  const CAM = [...camKeys78(A7), [A.strict + .3, { x: 960, y: 405, s: 1.09 }], [A.wake - 1.1, { x: 1000, y: 440, s: 1.16 }],
+    [A.wake - .1, { x: 1190, y: 586, s: 3.6 }], [IN1, { x: HWC[0], y: HWC[1], s: 100 }]];
+  const CAM2 = [[OUT0, { x: HWC[0], y: HWC[1], s: 100 }], [OUT0 + 1.1, { x: 1200, y: 588, s: 4 }], [A.divided + 1.2, { x: 960, y: 540, s: 1.08 }],
     [A.wild + .7, { x: 965, y: 575, s: 1.24 }], [A.move + .7, { x: 1270, y: 575, s: 2.5 }], [A.cant - .15, { x: 1290, y: 568, s: 2.55 }],
-    [A.cant + .9, { x: 1385, y: 505, s: 2.5 }], [A.trade - .25, { x: 1395, y: 500, s: 2.45 }], [A.trade + .75, { x: 1800, y: 445, s: 1.5 }],
-    [A.april - .2, { x: 1830, y: 440, s: 1.48 }], [A.april + 1.1, { x: 2400, y: 455, s: 1.12 }], [A.agents + .5, { x: 2430, y: 455, s: 1.16 }],
-    [A.rulers + .6, { x: 2370, y: 340, s: 1.5 }], [A.what - .05, { x: 2375, y: 332, s: 1.54 }], ...camKeys89(A)];
+    [A.cant + .9, { x: 1385, y: 505, s: 2.5 }], [A.trade - .25, { x: 1395, y: 500, s: 2.45 }], [A.trade + 1.1, { x: 1800, y: 445, s: 1.5 }],
+    [A.april - .2, { x: 1830, y: 440, s: 1.48 }], [A.april + 1.8, { x: 2400, y: 455, s: 1.12 }], [A.agents + .5, { x: 2430, y: 455, s: 1.16 }],
+    [A.rulers + .6, { x: 2370, y: 340, s: 1.5 }], [A.what - .45, { x: 2375, y: 332, s: 1.54 }], ...camKeys89(A)];
   const vAt = (t) => (t < IN1 ? F.viewPath(t, CAM) : F.viewPath(t, CAM2));
   // the room behind the house window
   const RC = [[A.wake - .9, { x: 960, y: 470, s: 1 }], [IN1, { x: 965, y: 468, s: 1.0 }], [OUT0, { x: 1010, y: 448, s: 1.1 }]];

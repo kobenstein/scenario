@@ -163,8 +163,8 @@ export default function (T, R) {
   const yardCam = [[A.worst, VB], [A.oursE + .2, { x: 960, y: 540, s: 1 }], [A.conq + .5, { x: 600, y: 520, s: 1.4 }], [A.rid + .8, { x: 640, y: 530, s: 1.42 }],
     [A.noMorn + .2, { x: 300, y: 600, s: 2.15 }], [A.july + .15, { x: 320, y: 585, s: 2.05 }], [A.july + 1.2, VBOX], [A.attack - .1, { ...VBOX, x: 670 }],
     [A.attack + 1.3, VTWO], [A.wrote - .1, { ...VTWO, x: 955 }], [A.wrote + 1.0, VCARD], [A.here - .35, { ...VCARD, x: 1270 }], [A.here + .9, VSIGN],
-    [A.notHere - .15, { ...VSIGN, x: 700 }], [A.notHere + 1.3, VTRACK], [A.all - .1, { ...VTRACK, x: 660 }], [A.all + 1.1, VROW], [A.likely - .1, { ...VROW, x: 960, y: 590 }],
-    [A.likely + 1.4, VDEB], [A.spotted - .2, { ...VDEB, y: -320 }], [A.spotted + 1.25, VSPOT], [A.better + .15, { ...VSPOT, x: 575 }], [PLATE - .35, VEND], [PLATE, VEND]];
+    [A.notHere - .15, { ...VSIGN, x: 700 }], [A.notHere + 1.3, VTRACK], [A.all - .1, { ...VTRACK, x: 660 }], [A.all + 1.1, VROW], [A.likely - .35, { ...VROW, x: 960, y: 590 }],
+    [A.likely + 1.75, VDEB], [A.spotted - .2, { ...VDEB, y: -320 }], [A.spotted + 1.25, VSPOT], [A.better + .15, { ...VSPOT, x: 575 }], [PLATE - .35, VEND], [PLATE, VEND]];
   const D12 = { x: F.rowX(12), y: F.ROW.y, w: F.ROW.w, h: F.ROW.h }, D12C = [D12.x, D12.y - D12.h / 2];
   const OPEN12 = { x0: D12.x - D12.w / 2, y0: D12.y - D12.h, w: D12.w, h: D12.h };
   const BOX1 = { x: 380, y: 150, w: 520, h: 300 }, BOX2 = { x: 1080, y: 150, w: 420, h: 300 }, BOX3 = { x: 330, y: 215, w: 380, h: 240 };
@@ -318,8 +318,9 @@ export default function (T, R) {
       // HOW LIKELY? the debate, P(DOOM), C2 out of Ball's plate, the 10,000 cells
       const du = span(t, A.likely + .3, A.likely + 1.3) * (1 - span(t, A.spotted, A.spotted + 1));
       let ballBox = null;
+      // final pass: HOW LIKELY? lands in screen space on the word, so the pan up to the table is never an empty sky
+      F.big(ctx, TXT.e12.likely, W / 2, 150, 64, span(t, A.likely + .05, A.likely + .65) * (1 - span(t, C2.start - .6, C2.start)), { gold: 0 });
       if (du > 0) inRef(ctx, v, VDEB, () => {
-        F.big(ctx, TXT.e12.likely, W / 2, 150, 64, span(t, A.likely + .5, A.likely + 1.1) * (1 - span(t, C2.start - .6, C2.start)), { gold: 0 });
         const pu = span(t, A.debated, A.debated + .7), pa = 1 - span(t, C2.start - .2, C2.start + .3);
         ctx.save(); ctx.globalAlpha *= pa;
         ctx.fillStyle = rgba(CREAM, .35 * pu); ctx.fillRect(420, 470, 1080 * expoOut(pu), 2);

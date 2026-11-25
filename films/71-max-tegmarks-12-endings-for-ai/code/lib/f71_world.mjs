@@ -56,7 +56,7 @@ export function leitbild(ctx, t, st = {}) {
     for (let i = 0; i < 12; i++) { const d = ds[i]; if ((d.a ?? 1) > 0) beam(ctx, d.x, d.y, d.w, d.col, bm * (d.beamA ?? (i === GOLD_SLOT ? 1.55 : .9)) * (d.a ?? 1) * d.lit); }
     for (let i = 0; i < 12; i++) {
       const d = ds[i]; if ((d.a ?? 1) <= 0) continue;
-      F.door(ctx, t, d.x, d.y, d.w, d.h, { col: d.col, lit: d.lit, beam: 0, seed: i, a: d.a, open: d.open, inner: d.inner, halo: i === GOLD_SLOT ? 1.3 : .8, frame: 0 });
+      F.door(ctx, t, d.x, d.y, d.w, d.h, { col: d.col, lit: d.lit, beam: 0, seed: i, a: d.a, open: d.open, leafA: d.leafA, inner: d.inner, halo: i === GOLD_SLOT ? 1.3 : .8, frame: 0 });
     }
     const y = st.you; if (y && (y.a ?? 1) > 0) {
       ctx.save(); ctx.globalAlpha *= y.a ?? 1;
@@ -187,10 +187,12 @@ export function plateRow(ctx, t, T, n) { rowScene(ctx, t, T, { n, v: plateView(t
 // thumbnail A again (frame 0 = the last frame's promise): the doors in their thumbnail order high in the frame, the gold door ajar, you in
 // its beam; a slow pull-back. The lower 45 % (y > 600) stays dark and calm for the two tiles (END_TILES) + the subscribe circle.
 export const END_TILES = { left: { x: 80, y: 600, w: 640, h: 360 }, right: { x: 1200, y: 600, w: 640, h: 360 }, sub: { x: 960, y: 900, r: 80 } };
+// the end-screen camera and the gold slot (c13 glides into exactly these: S.endView / S.endGoldSlot; final pass: more drift, a readable slit)
+export const endView = (t, T) => { const q = t - (T.duration - 15); return { x: 900 + 12 * Math.sin(q * .29), y: 600 + 4 * q + 6 * Math.sin(q * .21 + 1), s: (.9 - .004 * q) * (1 + .008 * Math.sin(q * .17)) }; };
+export const endGoldSlot = (t) => ({ open: .5 + .04 * Math.sin(t * .6), leafA: .55, inner: (c, box) => { c.fillStyle = GOLD.core; c.fillRect(box.x0, box.y0, box.w, box.h); } });
 export function endScreen(ctx, t, T) {
-  const t0 = T.duration - 15, q = Math.max(0, t - t0), k = .9 - .004 * q;
-  const v = { x: 900, y: 600 + 4 * q, s: k };
-  leitbild(ctx, t, { v, beams: .75, stars: 1, slots: (i) => (i === GOLD_SLOT ? { open: .22 + .02 * Math.sin(t * .6), inner: (c, box) => { c.fillStyle = GOLD.core; c.fillRect(box.x0, box.y0, box.w, box.h); } } : { lit: .7 }),
+  const v = endView(t, T);
+  leitbild(ctx, t, { v, beams: .75 + .08 * Math.sin(t * .7), stars: 1, slots: (i) => (i === GOLD_SLOT ? endGoldSlot(t) : { lit: .7 + .05 * Math.sin(t * .5 + i) }),
     you: { x: 895, y: 742, h: 92, look: .35 } });
   ctx.fillStyle = lin(ctx, 0, 560, 0, H, [[0, rgba(P.night0, 0)], [.35, rgba(P.night0, .55)], [1, rgba(P.night0, .8)]]); ctx.fillRect(0, 560, W, H - 560);
 }

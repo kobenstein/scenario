@@ -44,15 +44,15 @@ export default function (T, R) {
 
   // ================================================================ A + B + C: the row → the arc → the table → into the gold door
   const ZE = S.ZEND * 1.05;
-  const VA = [[PLATE, { x: W / 2, y: H / 2, s: 1 }], [A.hum - .2, { x: 945, y: 548, s: 1.04 }], [A.hum + 1.6, { x: 892, y: 640, s: 1.6 }], [A.morn - .6, { x: 892, y: 634, s: 1.7 }], [A.morn + 1.25, { x: GDC[0], y: GDC[1], s: ZE }]];
+  const VA = [[PLATE, { x: W / 2, y: H / 2, s: 1 }], [A.hum - .2, { x: 945, y: 548, s: 1.04 }], [A.hum + 1.6, { x: 892, y: 640, s: 1.6 }], [A.morn - 1.0, { x: 892, y: 634, s: 1.7 }], [A.morn + 1.6, { x: GDC[0], y: GDC[1], s: ZE }]];
   const arcView = (t) => F.viewPath(t, VA);
   const morph = (r, t) => { const i = SLOT[r]; return sineIO(span(t, PLATE + .25 + Math.abs(i - 5) * .035, PLATE + 1.85 + Math.abs(i - 5) * .035)); };
   const gOpen = (t) => sineIO(span(t, A.morn - .6, A.morn + .3));
-  const RC = [[A.morn + 1.25, { x: 960, y: 560, s: 1 }], [A.wake + .5, { x: 950, y: 556, s: 1.03 }], [A.bill - .35, { x: 560, y: 470, s: 1.5 }], [A.money - .2, { x: 575, y: 468, s: 1.53 }],
+  const RC = [[A.morn + 1.6, { x: 960, y: 560, s: 1 }], [A.wake + .5, { x: 950, y: 556, s: 1.03 }], [A.bill - .35, { x: 560, y: 470, s: 1.5 }], [A.money - .2, { x: 575, y: 468, s: 1.53 }],
     [A.money + 1.4, { x: 1360, y: 430, s: 1.3 }], [A.anyone - .1, { x: 1345, y: 432, s: 1.38 }], [A.anyone + .9, { x: 1330, y: 440, s: 1.55 }], [A.may + 1, { x: 1332, y: 441, s: 1.6 }]];
   const roomOpts = (t) => ({ anyone: span(t, A.anyone, A.anyone + .95), fed: 0 });
   // the room camera never rests on arrival: a decaying push on top of RC carries the fly-in's momentum into the kitchen
-  const rcv = (t) => { const v = F.viewPath(t, RC), q = Math.max(0, t - (A.morn + 1.25)); return { ...v, s: v.s * (1 + .035 * (1 - Math.exp(-q * .8))) }; };
+  const rcv = (t) => { const v = F.viewPath(t, RC), q = Math.max(0, t - (A.morn + 1.6)); return { ...v, s: v.s * (1 + .035 * (1 - Math.exp(-q * .8))) }; };
   const inner = (v, t) => (c, box) => { const [x0, y0] = F.toScreen(v, box.x0, box.y0); c.setTransform(1, 0, 0, 1, 0, 0); S.roomThroughDoor(c, t, { x0, y0, w: box.w * v.s, h: box.h * v.s }, v.s, rcv(t), roomOpts(t)); };
   const TBL = { cx: 892, y: 722 };
   function drawArc(ctx, t) {

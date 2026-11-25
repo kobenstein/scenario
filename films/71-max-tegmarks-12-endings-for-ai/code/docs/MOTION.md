@@ -60,3 +60,30 @@ See shots.md §3. The spine: the door row (every station opens out of it and fol
 - After rendering: `python3 tools/calm.py <mp4> --scale 1280:720` (cuts/min ≤ 0.9, mafd median ≤ 0.43), `python3 tools/still71.py <mp4>` (still < 5 %, no still run > 2 s; grain-robust), `python3 tools/smooth.py <mp4> <offset>` (no LURCH > 12 except planned cuts, no POP), seams `SECS=c01,c02 node tools/seam.mjs --at <T0>`.
 - **napi canvas note:** @napi-rs/canvas paints shadows even at globalAlpha 0 (blurred smudge bars from glow text). The kit patches the 2D context prototype once (`fill`, `stroke`, `fillText`, `strokeText`, `fillRect`, `strokeRect`, `drawImage` skip at globalAlpha ≤ 0.001). Keep importing `lib/f71_kit.mjs` first; never draw glow text at alpha 0 on another canvas type.
 - **c01 measured** (lead, 0–158 s, scale .5, `/tmp/claude-0/f71/c01.mp4`, 25.11.): calm.py 0 cuts = 0.0/min, mafd median 0.321 (≤ 0.43 OK), p90 1.79 (calm.py's static share 43 % is the grain on threes, see still71); still71.py still 0.0 %, longest still run 0 s, motion per 0.5 s median 2.06 / p5 0.89 (PASS); smooth.py: LURCH clusters only at the planned fly-through into door 4 (5–6 s) and back out (16.6–17.1 s), at the C1 plate grow/shrink (39.8, 47.4 s) and the C2 start (129.1 s); POPs inside the clip footage (C2 130–136 s) and one at 39.3 s (the C1 footage replaces the mirror image as the plate starts to grow). Seam c01|c02 at 156.57: median Δ 0.37, no flags. Contact sheet `/tmp/claude-0/f71/c01_kontakt.jpg` (44 frames, 0–155 s). Known: ~1.5 s of nearly empty sky at 118.5–120 s (the camera pans up to the debate before HOW LIKELY? lands) and a fairly empty upper half on the time-axis / track shots — first fix pass.
+
+## 8 · Final pass (lead, 25.11.) and master
+- **Master:** `/tmp/claude-0/f71/master/f71-master-1080p.mp4`: 1920×1080, 30 fps, 21200 frames, video 706.667 s, audio (`mix.m4a`) 706.650 s, so they match within one frame. sha256 `b7950ac1ac210d3e5ef3927a6fe345118470a51a4f2f9a93a325d625f663c494`, size 1863906978 B (crf 18, tune grain). Contact sheet `/tmp/claude-0/f71/master/f71-master-kontakt.jpg` (142 frames, 1 every 5 s).
+- **Loudness (ebur128 on the master):** I -14.0 LUFS · LRA 3.7 LU · true peak -1.2 dBFS. **clip_check.py** (via an adapter from `code/audio/cut_clips.json`): 5 clips, 38.2 s of 707 s = 5.4 % GRÜN.
+- **still71 (whole master):** still 0.0 %, longest still run 0 s, PASS.
+- **Grain test:** grain on threes adds only about 12 % to mafd (c07 1.603 without grain vs 1.825 with; `F71GRAIN=0` switches it off for measuring). Scale has no effect (c01 0.32 at .5 vs 0.332 at 1080p). So high mafd means real motion: a moving camera and ambient light over bright surfaces.
+- **calm.py mafd median per chunk, builders → master:** c01 0.32 → 0.332 · c02 0.98 → 0.959 · c03 0.87 → 0.854 · c04 0.421 → 0.426 · c05 0.82 → 0.819 · c06 1.05 → 1.048 · c07 1.35 → 1.403 · c08 1.15 → 1.257 · c09 1.04 → 1.034 · c10 1.41 → 1.496 · c11 0.70 → 0.671 · c12 0.49 → 0.53 · c13 → 0.16. There are 0 cuts everywhere except c05: 1 cut at 281.03 s, inside the C4 clip footage. Making the camera moves slower and longer did **not** lower the medians, because a longer move means more frames in motion. Getting under 0.43 would need a per-chunk simplification of the camera (hold views, fewer reframes). That is more than a surgical pass.
+- **LURCH frames (smooth.py on 960×540 proxies), builders → master:**
+  - c07 352.8–353.1: 9 → 0 (longer fly, plug + .35 to wake + .65).
+  - c07 360.2–361.0: 26 → 22, max 17. This is the planned push through the casement into the field (RC → RC_PUSH). The high-contrast grid makes it read high.
+  - c10 460.4–461: 19 → 13.
+  - c10 468–469.5: 10 → 5.
+  - c10 483.7–484.75: 23 → 21, peak 36 → 27.7. A new key centres the gate at s 1.2 before the zoom, so the gate no longer swings out of the frame. What remains is the zoom itself, the fly-through into door 3.
+  - c12 543.6–544.1: 16 → 10.
+- **Kit and scene fixes:**
+  - TXT.end callSrc / callFallback now read "about 30".
+  - The end screen drifts: `S.endView` and the gold-slot breathing replace the frozen view.
+  - The golden slit is lit: `S.endGoldSlot`, inner GOLD.core.
+  - `switchTag` widens its plaque for `o.lines`.
+  - The door 7 HUD sign ("By July, every national lab") now lands with c06's tag.
+  - In c01, HOW LIKELY? moved into screen space and the camera arrives earlier, so there is no empty sky at 118.5–120 s.
+  - In c13 the switch tour is zoomed in (`SWZ`, s 1.2, y 1313), so the levers, the waffle and the tags fill the frame.
+  - The S.12 line in shots.md is updated.
+- **Still open:**
+  - mafd is above 0.43 in c02, c03 and c05–c12.
+  - The S.09 chip comes in from the top right, the old pocket, and does not travel from door 4.
+  - The upper half of the c01 time-axis shots stays fairly empty until the mirror arrives (about 28 s).

@@ -44,12 +44,14 @@ export default function (T, R) {
   const C5 = T.clip('C5'), C6 = T.clip('C6'), T0 = T.duration - 15, K = F.counterTimes(T);
   const SWX = (i) => 700 + i * 800, SWY = 1480, SW = (i) => ({ x: SWX(i), y: 1330, s: 1 }), ROWV = { x: 960, y: 560, s: 1 };
   const SWAP = C6.start + 3.5;   // under the full C6 plate the world changes to the arc (ANCHOR)
-  const cam = [...seamCam(T, R.a), [A.none + 1, { x: 960, y: 495, s: .975 }], [A.speed - .25, { x: 960, y: 492, s: .99 }], [A.speed + .65, { x: 840, y: 930, s: .72 }], [A.speed + 1.65, SW(0)],
-    [A.chips - .35, { ...SW(0), x: SWX(0) + 12 }], [A.chips + 1.3, SW(1)], [A.rules - .45, { ...SW(1), x: SWX(1) + 10 }], [A.rules + 1.2, SW(2)], [A.key - .35, { ...SW(2), x: SWX(2) + 12 }], [A.key + 1.25, SW(3)],
-    [A.nothing + .9, { ...SW(3), x: SWX(3) + 10 }], [A.fiveW - .35, { x: 2050, y: 940, s: .5 }], [A.fiveW + .55, ROWV], [A.held - .2, { x: 960, y: 566, s: 1.01 }], [A.held + 1.2, { x: 960, y: 650, s: .93 }],
+  // final pass (REGELN §13, phone size): the camera sits 1.2× closer on each switch; the inRef overlays (designed at SW(i)) scale with it
+  const SWZ = (i) => ({ x: SWX(i), y: 1313, s: 1.2 });
+  const cam = [...seamCam(T, R.a), [A.none + 1, { x: 960, y: 495, s: .975 }], [A.speed - .25, { x: 960, y: 492, s: .99 }], [A.speed + .65, { x: 840, y: 930, s: .72 }], [A.speed + 1.65, SWZ(0)],
+    [A.chips - .35, { ...SWZ(0), x: SWX(0) + 12 }], [A.chips + 1.3, SWZ(1)], [A.rules - .45, { ...SWZ(1), x: SWX(1) + 10 }], [A.rules + 1.2, SWZ(2)], [A.key - .35, { ...SWZ(2), x: SWX(2) + 12 }], [A.key + 1.25, SWZ(3)],
+    [A.nothing + .9, { ...SWZ(3), x: SWX(3) + 10 }], [A.fiveW - .35, { x: 2050, y: 940, s: .5 }], [A.fiveW + .55, ROWV], [A.held - .2, { x: 960, y: 566, s: 1.01 }], [A.held + 1.2, { x: 960, y: 650, s: .93 }],
     [A.next, { x: 960, y: 646, s: .935 }], [A.next + 1.2, { x: 960, y: 600, s: .96 }], [SWAP, { x: 960, y: 596, s: .965 }]];
   const yv = (t) => F.viewPath(t, cam);
-  const LV = (t) => { const q = t - T0; return { x: 900, y: 600 + 4 * q, s: .9 - .004 * q }; };   // = S.endScreen's view, extended backwards
+  const LV = (t) => S.endView(t, T);   // = S.endScreen's view, extended backwards
 
   // ---------------------------------------------------------------- the four switches
   const KNOB = (ang) => [960 + Math.sin(ang) * 140, 690 - Math.cos(ang) * 140];   // ref px of the knob at its own SW view
@@ -191,10 +193,10 @@ export default function (T, R) {
 
   // ---------------------------------------------------------------- the arc (ANCHOR 4/4) and subscribe 2
   const youAt = (t) => { const u = sineIO(span(t, A.notDec - .2, A.chan + 1.5)); return { x: lerp(870, 895, u), y: lerp(880, 742, u), h: lerp(118, 92, u), walk: u > 0 && u < 1 ? t * 6 : undefined, look: lerp(.15, .35, u) }; };
-  const goldSlot = (t) => ({ open: .22 + .02 * Math.sin(t * .6), inner: (c, box) => { c.fillStyle = GOLD.core; c.fillRect(box.x0, box.y0, box.w, box.h); } });
+  const goldSlot = (t) => S.endGoldSlot(t);
   function arc(ctx, t) {
     const v = LV(t);
-    S.leitbild(ctx, t, { v, beams: .75, stars: 1, slots: (i) => (i === S.GOLD_SLOT ? goldSlot(t) : { lit: .7 }), you: youAt(t) });
+    S.leitbild(ctx, t, { v, beams: .75 + .08 * Math.sin(t * .7), stars: 1, slots: (i) => (i === S.GOLD_SLOT ? goldSlot(t) : { lit: .7 + .05 * Math.sin(t * .5 + i) }), you: youAt(t) });   // = S.endScreen
     // every switch was touched this year: the tags glow over the doors, then settle back into them
     F.inView(ctx, v, () => { for (let i = 0; i < 12; i++) { const d = S.thumbSlot(i), u = span(t, A.notDec + .3 + i * .05, A.notDec + .9 + i * .05) * out(t, A.chan - .6, .8); if (u <= 0) continue;
       F.miniTag(ctx, d.x, d.y - d.h - 24, u, F.THUMB_ORDER[i]); halo(ctx, d.x, d.y - d.h - 24, 44, .45 * u * (.8 + .2 * Math.sin(t * 2 + i)), LAMP.body, LAMP.core); } });

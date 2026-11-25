@@ -234,7 +234,7 @@ SHOTS = [
  ('S.09', 'Or the chips', 'or the chips', 'switch 2: CHIPS; the chip from the HUD with its locator', 'EXPL', 'the chip', ''),
  ('S.10', 'Tracking them protects, and it', 'tracking protects and watches', 'one side of the chip a shield, the other an eye', 'EXPL', 'switch 3', ''),
  ('S.11', 'Or shared rules', 'or shared rules', 'switch 3: SHARED RULES', 'EXPL', 'a waffle', ''),
- ('S.12', 'Thirty-one countries now call for', '31 countries call for human control', 'a waffle of countries, 31 light (fallback: MORE THAN TWENTY) · A Call for Control of Frontier AI Models', 'EXPL', 'two cells', ''),
+ ('S.12', 'About thirty countries now call', 'about 30 countries call for human control', 'a waffle of countries, a loose cluster of about thirty lit: ABOUT 30 COUNTRIES · CALL FOR HUMAN CONTROL · A Call for Control of Frontier AI Models (VO fact fix 25.11.: "About thirty")', 'EXPL', 'two cells', ''),
  ('S.13', 'Neither America nor China has', 'neither America nor China', 'two big cells stay grey: USA · CHINA', 'EXPL', 'switch 4', ''),
  ('S.14', 'And the key: who owns', 'who owns what the machines earn?', 'switch 4: the key from 7 comes out of the HUD', 'EXPL', 'the key', ''),
  ('S.15', 'Some companies now promise the', 'companies promise a share', 'a contract: PROMISED', 'EXPL', 'the contract', ''),
