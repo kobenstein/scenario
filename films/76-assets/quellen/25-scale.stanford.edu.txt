@@ -1,0 +1,207 @@
+URL: https://scale.stanford.edu/ai/repository/access-not-enough-human-support-improves-engagement-ai-tutoring
+HTTP: 200
+
+Skip to main content 
+
+Search SCALE __
+
+## Main navigation
+
+  * About
+    * What is the SCALE Initiative?
+    * Our Team
+    * Affiliates
+    * Career Opportunities
+  * Projects
+    * AI Hub for Education
+    * Getting Down to Facts
+    * National Student Support Accelerator
+    * Tips·by·Text
+  * Research
+  * Partnerships
+  * Mentorship
+    * Graduate & Postdoctoral
+    * Undergraduate
+  * Research in Action
+    * Research in Action
+    * Publications
+    * News
+    * Events
+
+## AI Hub for Education
+
+  * About
+  * Research Agenda
+  * Repository
+  * Research in Action
+  * Tools
+  * People
+  * Newsletter
+
+## Breadcrumb
+
+  1. Home
+  2. AI Hub For Education
+  3. Research Study Repository
+  4. Access Is Not Enough: Human Support Improves Engagement With AI Tutoring 
+
+## Search and Filter
+
+What is the application?
+
+Teaching – Instructional Materials __
+
+Teaching – Assessment and Feedback __
+
+Teaching – Professional Learning __
+
+Learning – Student Support __
+
+Communicating / Social Tools __
+
+Organizing __
+
+Analyzing __
+
+Who is the user?
+
+Student __
+
+Parent/Caregiver __
+
+Educator __
+
+School Leader __
+
+Others __
+
+Which age?
+
+0-3 years
+
+Elementary (PK5)
+
+Middle School (6-8)
+
+High School (9-12)
+
+Post-Secondary
+
+Adult
+
+Why use AI?
+
+Efficiency __
+
+Outcomes – Literacy __
+
+Outcomes – Numeracy __
+
+Outcomes – Other Academic __
+
+Outcomes – Differentiation __
+
+Outcomes – Social Emotional __
+
+Outcomes – Durable Skills __
+
+Reimagined Schooling __
+
+Other __
+
+Study design
+
+Descriptive – Implementation and Use __
+
+Descriptive – Product Development __
+
+Impact – Randomized Controlled Trial __
+
+Impact – Quasi-experimental __
+
+Systematic Review __
+
+Technical – Computational
+
+Quantitative – Others
+
+## The Repository
+
+  * All papers
+  * Authors
+  * Repository Feedback
+  * Submit a research study
+
+# Access is Not Enough: Human Support Improves Engagement with AI Tutoring
+
+Carly D. Robinson, David Gormley, Ana Trindade Ribeiro, Susanna Loeb
+
+Date
+
+06/2026
+
+AI tutoring platforms offer a promising path to scaling personalized instruction, but only if students use them. We report findings from two randomized controlled trials in which elementary students were assigned to use an AI literacy platform independently or with an in-person tutor focused on engagement, not direct instruction. Despite dedicated session time, nearly half of students in the control group never used the platform, and those who did averaged only 2-5 minutes per week. Working with human tutors increased average weekly platform usage by 1 to 4 minutes and engagement by 71-80%. However, usage remained low, and the intervention did not improve reading achievement. Findings suggest that access alone is insufficient; implementation and human support matter for promoting meaningful engagement with AI-based learning tools.
+
+## __Research Categories
+
+What is the application?
+
+Learning – Student Support
+
+Who is the user?
+
+Student
+
+Who age?
+
+Elementary (PK5)
+
+Why use AI?
+
+Outcomes – Literacy, 
+
+Outcomes – Differentiation
+
+Study design
+
+Impact – Randomized Controlled Trial
+
+## __Publication Source
+
+Publisher
+
+EdWorking Papers
+
+Link
+
+https://edworkingpapers.com/sites/default/files/ai26-1451.pdf
+
+**SCALE Initiative**     
+Stanford Graduate School of Education   
+507 Lasuen Mall, Stanford, CA 94305  
+Email: scaleinitiative@stanford.edu
+
+## Footer
+
+  * About
+  * Our Team
+  * News
+  * Events
+  * Contact
+
+## Stay Connected
+
+__  __  __ 
+
+  * Stanford Home
+  * Maps & Directions
+  * Search Stanford
+  * Emergency Info
+
+  * Privacy
+  * Copyright
+  * Trademarks
+  * Non-Discrimination
+  * Accessibility
+
+© Stanford University. Stanford, California 94305.

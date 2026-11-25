@@ -1,0 +1,258 @@
+URL: https://www.nber.org/papers/w35620
+HTTP: 200
+
+Skip to main content 
+
+NBER: National Bureau of Economic Research
+
+  * Subscribe
+  * Media
+  * Open Calls
+
+Search
+
+  * Research
+
+EXPLORE Research
+    * Findings
+      * Working Papers
+      * Books & Chapters
+      * Videos
+    * Periodicals
+      * The Digest
+      * The Reporter
+      * The Bulletin on the Economics of Alzheimer's Disease and Related Dementias
+      * The Bulletin on Health
+      * The Bulletin on Entrepreneurship
+      * The Bulletin on Retirement and Disability Archives
+      * The Bulletin on Aging & Health Archives
+    * Data & Business Cycles
+      * Boston Research Data Center
+      * Business Cycle Dating
+      * Public Use Data Archive
+    * All Topics
+      * Taxation
+      * Unemployment and Immigration
+      * Energy
+      * Entrepreneurship
+      * Trade
+
+  * Programs & Projects
+
+EXPLORE Programs & Projects
+    * Programs
+      * Economics of Aging
+      * Asset Pricing
+      * Children and Families
+      * Corporate Finance
+      * Development Economics
+      * Development of the American Economy
+      * Economic Fluctuations and Growth
+      * Economics of Education
+      * Economics of Health
+      * Environment and Energy Economics
+      * Industrial Organization
+      * International Finance and Macroeconomics
+      * International Trade and Investment
+      * Labor Studies
+      * Law and Economics
+      * Monetary Economics
+      * Political Economy
+      * Productivity, Innovation, and Entrepreneurship
+      * Public Economics
+    * Working Groups
+      * Behavioral Finance
+      * Chinese Economy 
+      * Economics of Crime
+      * Entrepreneurship
+      * Gender in the Economy
+      * Household Finance
+      * Innovation Policy
+      * Insurance
+      * Market Design
+      * Organizational Economics
+      * Personnel Economics
+      * Race and Stratification in the Economy
+      * Urban Economics
+    * All Projects & Centers
+      * Center for Aging and Health Research
+      * Center on Economics of Alzheimer's Disease
+      * Conference on Research in Income and Wealth
+      * Digital Economics and AI
+      * Economic Measurement Research Institute
+      * Economics of Science Initiative
+      * Healthcare Decision-Making and Outcomes for People Living with Alzheimer's Disease
+      * Macroeconomics Annual
+      * Measuring the Clinical and Economic Outcomes Associated with Delivery Systems
+      * New Developments in Long-Term Asset Management
+      * Pop-Up Journal: Estimating the Economic Return to R&D Investment
+      * The Roybal Center for Behavior Change in Health
+      * Training Program in Aging and Health Economics
+      * Transportation Economics in the 21st Century
+
+  * Conferences
+
+EXPLORE Conferences
+    * Summer Institute
+    * Reimbursements
+
+  * Affiliated Scholars
+  * NBER News
+
+EXPLORE NBER News
+    * Research in the News
+    * Nobel Laureates
+    * Featured Working Papers Archive
+
+  * Career Resources
+
+EXPLORE Career Resources
+    * RA Positions – at NBER
+    * RA Positions – not at the NBER
+    * Staff Positions at NBER
+    * Calls for Fellowship Applications
+    * Current Fellowship Recipients
+
+  * About
+
+EXPLORE About
+    * Leadership & Governance
+    * Support & Funding
+    * History
+    * Standards of Conduct
+    * Staff
+
+  * Subscribe
+  * Media
+  * Open Calls
+
+Search
+
+  * Home
+  * Research
+  * Working Papers
+  * One Click Away: AI Tutoring with… 
+
+#  One Click Away: AI Tutoring with Khanmigo in a Two-Year School Experiment
+
+Philip Oreopoulos & Nina Low
+
+Share
+
+X LinkedIn Facebook Bluesky Threads Email Link
+
+Working Paper 35620 
+
+DOI 10.3386/w35620 
+
+Issue Date August 2026
+
+Generative AI has been promoted as the technology that could transform education by providing every student a personal tutor. We provide some of the first large-scale experimental evidence, from a two-year cluster randomized trial in 18 Tennessee middle  
+schools in which randomly assigned students used Khan Academy with its AI tutor, Khanmigo, configured to coach rather than give answers, during existing daily remedial mathematics sessions. Assignment raises math achievement by 1.3 national percentile ranks per term, or about 0.06 to 0.08 standard deviations over a school year; the implied effect of a full year of active participation reaches 0.14 standard deviations. These gains resemble those from Khan Academy practice without AI assistance. One explanation is that students used the tutor infrequently and, when they did, rarely engaged it in substantive mathematical dialogue: 96 percent of students tried Khanmigo at least once, but the median student messaged it on only a third of the days they practiced, and in only 17 percent of the exercise sessions in which they made a mistake. Messages that students did send were mostly bare answers or clicks on suggested prompts. The binding constraint appears to be engagement: realizing the promise of AI tutoring will require getting students to use it, not just giving them access. 
+
+  * Acknowledgements and Disclosures
+
+We are very grateful to Hamilton County Schools, participating teachers, school leaders, and students for making this study possible. We thank John Rice, Kassidy Cunningham, Victoria Hales, and Courtney Lucas, our partners at Hamilton County Schools, for their collaboration and support throughout this project. We thank Keli Hill and colleagues at Khan Academy for guidance on the platform and its features, for facilitating the district partnership that enabled account rostering and dashboard-based monitoring, and for coordinating the data-sharing agreement under which platform data were provided. We thank Oliver Keyes-Krysakowski, Ruochong Dong, and Hiba Jamshedi for excellent research assistance. This research was supported by the Smith Richardson Foundation, the Social Sciences and Humanities Research Council of Canada (SSHRC), the Natural Sciences and Engineering Research Council of Canada (NSERC), and the Abdul Latif Jameel Poverty Action Lab (J-PAL). The study was registered with the AEA RCT Registry under trial number AEARCTR-0013519 and received research ethics approval from the University of Toronto Research Ethics Board. The views expressed herein are those of the authors and do not necessarily reflect the views of the funders or Charles River Associates. The views expressed herein are those of the authors and do not necessarily reflect the views of the National Bureau of Economic Research. 
+
+  
+
+  * Citation and Citation Data
+
+Copy Citation
+
+Philip Oreopoulos and Nina Low, "One Click Away: AI Tutoring with Khanmigo in a Two-Year School Experiment," NBER Working Paper 35620 (2026), https://doi.org/10.3386/w35620. 
+
+Copy to Clipboard 
+
+Download Citation
+
+MARC RIS BibTeΧ
+
+Download Citation Data
+
+  * Associated Links
+
+    * randomized controlled trials registry entry
+
+## Related
+
+### Topics
+
+Health, Education, and Welfare
+
+Education
+
+Labor Economics
+
+Labor Supply and Demand
+
+Development and Growth
+
+Innovation and R&D
+
+### Programs
+
+Children and Families
+
+Economics of Education
+
+Labor Studies
+
+## Mentioned in the News
+
+What healthcare CEO Kate Ryder of Maven is telling her kids every day amid the AI education threat
+
+October 14, 2026
+
+Source:  CNBC
+
+Read the research here. 
+
+## More from the NBER
+
+In addition to **working papers**, the NBER disseminates affiliates’ latest findings through a range of free periodicals—the **NBER Reporter**, the **NBER Digest**, the **Bulletin on Health**, the **Bulletin on the Economics of Alzheimer's**, and the **Bulletin on Entrepreneurship**—as well as **research spotlights, lectures, and panel videos****.**
+
+2026, 18th Annual Feldstein Lecture, Mark Duggan, "Social Security Reform in an Era of Fiscal Deficits"
+
+  * Feldstein Lecture
+
+  * Presenter:  Mark Duggan
+
+Mark Duggan, who is currently the Wayne and Jodi Cooperman Professor of Economics at Stanford University and will soon...
+
+2026, Methods Lecture, Melissa Dell and Ashesh Rambachan, "Estimation and Inference with AI-Generated Data"
+
+  * Methods Lectures
+
+  * Presenters:  Melissa Dell & Ashesh Rambachan
+
+Research Associate Melissa Dell of Harvard University and Ashesh Rambachan of MIT delivered the 2026 Methods...
+
+2026, SI Household Finance, Paul Goldsmith-Pinkham, "Using AI in Household Finance Research: A Practical Guide"
+
+  * Video
+
+  * Presenter:  Paul Goldsmith-Pinkham
+
+Supported by the Vanguard Group
+
+National Bureau of Economic Research
+
+Contact Us  
+1050 Massachusetts Avenue  
+Cambridge, MA 02138  
+617-868-3900  
+info@nber.org  
+webaccessibility@nber.org
+
+  * Homepage
+
+  * Accessibility Policy
+  * Diversity Policy
+  * Privacy Policy
+
+Follow
+
+  *   *   *   *   *   * 
+
+(C) 2026 National Bureau of Economic Research. All Rights Reserved.
