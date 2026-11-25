@@ -1,0 +1,205 @@
+{
+ "_comment": "Film 77 clip metadata (clips_json.py). placeholder true = the clip is not cut yet, its slot is silent. cues = [seconds from the slot start, subtitle line <= 34 chars].",
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "speaker": "Demis Hassabis",
+   "role": "Co-founder, Google DeepMind",
+   "source": "Stanford GSB, A Conversation with Demis Hassabis (2026)",
+   "url": "https://www.youtube.com/watch?v=DsewHeVbL-0",
+   "src_start": "00:09:22.6",
+   "src_end": "00:09:33.1",
+   "lower_third": "ORIGINAL FOOTAGE · DEMIS HASSABIS · CO-FOUNDER, GOOGLE DEEPMIND · STANFORD GSB, 2026",
+   "file": "C1.mp4",
+   "placeholder": false,
+   "dur": 10.496,
+   "slot_start": 111.2,
+   "slot_end": 121.696,
+   "sec": "1",
+   "transcript": "It was literally step one, solve intelligence, step two, use it to solve everything else. And people were quite confused. But we really meant it.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.0,
+     "It was literally step one, solve"
+    ],
+    [
+     2.38,
+     "intelligence, step two, use it to"
+    ],
+    [
+     4.83,
+     "solve everything else. And people"
+    ],
+    [
+     7.28,
+     "were quite confused. But we really"
+    ],
+    [
+     9.81,
+     "meant it."
+    ]
+   ],
+   "cue_end": 10.68
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "speaker": "Ekin Dogus Cubuk",
+   "role": "Co-founder, Periodic Labs",
+   "source": "Latent Space, Periodic Labs interview (2026)",
+   "url": "https://www.youtube.com/watch?v=YHiqVRxGViM",
+   "src_start": "01:01:40.7",
+   "src_end": "01:01:51.9",
+   "lower_third": "ORIGINAL FOOTAGE · EKIN DOGUS CUBUK · CO-FOUNDER, PERIODIC LABS · LATENT SPACE, 2026",
+   "file": "C2.mp4",
+   "placeholder": false,
+   "dur": 11.157,
+   "slot_start": 265.096,
+   "slot_end": 276.253,
+   "sec": "3",
+   "transcript": "But also we feel like even if, like, Fable 7 gets really good at, like, even better than what it is today, it will still have to run experiments to get results.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.0,
+     "But also we feel like even if,"
+    ],
+    [
+     2.14,
+     "like, Fable 7 gets really good at,"
+    ],
+    [
+     4.57,
+     "like, even better than what it is"
+    ],
+    [
+     6.93,
+     "today, it will still have to run"
+    ],
+    [
+     9.22,
+     "experiments to get results."
+    ]
+   ],
+   "cue_end": 11.35
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "speaker": "Terence Tao",
+   "role": "Fields Medalist",
+   "source": "Numberphile, Terence Tao (2026)",
+   "url": "https://www.youtube.com/watch?v=bAnwMdfcMVw",
+   "src_start": "00:00:46.8",
+   "src_end": "00:00:57.6",
+   "lower_third": "ORIGINAL FOOTAGE · TERENCE TAO · FIELDS MEDALIST · NUMBERPHILE, 2026",
+   "file": "C3.mp4",
+   "placeholder": false,
+   "dur": 10.747,
+   "slot_start": 358.273,
+   "slot_end": 369.02,
+   "sec": "4",
+   "transcript": "And now we found a shortcut. We found machines that can get these proofs for us, and now we're drowning in proofs, but we're not getting all the understanding that we used to get.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.15,
+     "And now we found a shortcut. We"
+    ],
+    [
+     2.03,
+     "found machines that can get these"
+    ],
+    [
+     4.04,
+     "proofs for us, and now we're"
+    ],
+    [
+     5.74,
+     "drowning in proofs, but we're not"
+    ],
+    [
+     7.75,
+     "getting all the understanding that"
+    ],
+    [
+     9.82,
+     "we used to get."
+    ]
+   ],
+   "cue_end": 10.93
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "speaker": "Paul Christiano",
+   "role": "Founder, Alignment Research Center",
+   "source": "The Hinton Lectures (2026)",
+   "url": "https://www.youtube.com/watch?v=-Ef0ocEoBCs",
+   "src_start": "00:51:19.7",
+   "src_end": "00:51:32.5",
+   "lower_third": "ORIGINAL FOOTAGE · PAUL CHRISTIANO · ALIGNMENT RESEARCH CENTER · HINTON LECTURES, 2026",
+   "file": "C4.mp4",
+   "placeholder": false,
+   "dur": 11.01,
+   "slot_start": 479.23,
+   "slot_end": 490.24,
+   "sec": "5",
+   "transcript": "So I'd say all of these approaches are plausible approaches. I don't want to say any of them are doomed, but I definitely do want to say that none of them are on a trajectory where we can say that's definitely going to work, or even that's probably going to work.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.15,
+     "So I'd say all of these approaches"
+    ],
+    [
+     1.56,
+     "are plausible approaches. I don't"
+    ],
+    [
+     2.93,
+     "want to say any of them are"
+    ],
+    [
+     4.05,
+     "doomed, but I definitely do want"
+    ],
+    [
+     5.37,
+     "to say that none of them are on a"
+    ],
+    [
+     6.74,
+     "trajectory where we can say that's"
+    ],
+    [
+     8.15,
+     "definitely going to work, or even"
+    ],
+    [
+     9.52,
+     "that's probably going to work."
+    ]
+   ],
+   "cue_end": 10.96
+  }
+ ]
+}

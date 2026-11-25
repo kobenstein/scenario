@@ -1,0 +1,220 @@
+URL: https://blogs.worldbank.org/en/education/From-chalkboards-to-chatbots-Transforming-learning-in-Nigeria
+HTTP: 200
+
+Skip to Main Navigation
+
+worldbank.org
+
+Page navigation
+
+  * Home
+  * All Blogs
+  * Topics
+  * Contact
+  * WB Live Logo
+
+SEARCH
+
+SEARCH SEARCH
+
+SEARCH
+
+SEARCH SEARCH
+
+Published on Education for Global Development
+
+# From chalkboards to chatbots: Transforming learning in Nigeria, one prompt at a time
+
+  * Martín E. De Simone
+  * Federico Tiberti
+  * Wuraola Mosuro
+  * Federico Manolio
+  * Maria Barron
+  * Eliot Dikoru
+
+January 09, 2025
+
+This page in:
+
+  * English
+
+English 
+
+  * English
+
+_Students participate in an AI after-school program in Edo, Nigeria. Copyright: SmartEdge/World Bank_
+
+  
+  
+"AI helps us to learn, it can serve as a tutor, it can be anything you want it to be, depending on the prompt you write," says Omorogbe Uyiosa, known as "Uyi" by his friends, a student from the Edo Boys High School, in Benin City, Nigeria. His school was one of the beneficiaries of a pilot that used generative artificial intelligence (AI) to support learning through an after-school program.
+
+A few months ago, we wrote a blog with some of the lessons from the implementation of this innovative program, including a video with voices from beneficiaries, such as Uyi. Back then, we promised that, if you stayed tuned, we would get back with the results of the pilot, which included an impact evaluation. So here we are with three primary findings from the pilot!
+
+**1.     The program boosted learning across the board**
+
+The results of the randomized evaluation, soon to be published, reveal overwhelmingly positive effects on learning outcomes. After the six-week intervention between June and July 2024, students took a pen-and-paper test to assess their performance in three key areas: English language—the primary focus of the pilot—AI knowledge, and digital skills.
+
+Students who were randomly assigned to participate in the program significantly outperformed their peers who were not in all areas, including English, which was the main goal of the program. These findings provide strong evidence that generative AI, when implemented thoughtfully with teacher support, can function effectively as a virtual tutor.  
+ 
+
+  
+Notably, the benefits extended beyond the scope of the program itself. Students who participated also performed better on their end-of-year curricular exams. These exams, part of the regular school program, covered topics well beyond those addressed in the six-week intervention. This suggests that students who learned to engage effectively with AI may have leveraged these skills to explore and master other topics independently.
+
+Moreover, the program benefited all students, not just the highest achievers. Girls, who were initially lagging boys in performance, seemed to gain even more from the intervention, highlighting its potential to bridge gender gaps in learning.
+
+**2.     Deeper engagement delivered bigger gains**
+
+The more sessions students attended, the greater their gains. As discussed in the first blog, attendance was challenging for many students due to factors like flooding during the rainy season, teacher strikes, and after-school work commitments. Using a robust monitoring system developed for the program, we tracked attendance carefully. Each additional day of attendance resulted in significant improvements in learning outcomes. Importantly, the benefits did not taper off as the program progressed. This suggests that a longer program might lead to even greater gains
+
+ 
+
+ 
+
+3.    **Learning gains were striking**
+
+The learning improvements were striking—about 0.3 standard deviations. To put this into perspective, this is equivalent to nearly two years of typical learning in just six weeks. When we compared these results to a database of education interventions studied through randomized controlled trials in the developing world, our program outperformed 80% of them, including some of the most cost-effective strategies like structured pedagogy and teaching at the right level. This achievement is particularly remarkable given the short duration of the program and the likelihood that our evaluation design underestimated the true impact.
+
+**What’s next?**
+
+Our evaluation demonstrates the transformative potential of generative AI in classrooms, especially in developing contexts.__To our knowledge, this is the first study to assess the impact of generative AI as a virtual tutor in such settings, building on promising evidence from other contexts and formats; for example, onAI in coding classes, AI and learning in one school in Turkey, teaching math with AI (an example through WhatsApp in Ghana), and AI as a homework tutor.
+
+However, this is just the beginning. Several critical questions remain: What are the long-term effects of this intervention? How are students benefiting beyond immediate learning gains? How do their interactions with large language models (LLMs) evolve, and what role do teachers play in supporting these interactions? Are the benefits extending to other subjects? Are there any negative, undesired effects?
+
+Addressing these questions is essential for scaling up similar programs effectively. Stay tuned for the third and final blog in this series, where we’ll explore why the key is to use generative AI as a tutor that empowers learning, rather than a shortcut that circumvents it. In the meantime, you can watch this recent discussion about the potential of AI in education that we had during the recent World Bank Annual Meetings.
+
+ 
+
+**To receive weekly articles,  sign-up here**
+
+ 
+
+* * *
+
+  * Education
+
+## Get updates from Education for Global Development
+
+education en {"hi":"prod-blogs-education-hi-aem-bb02a842a0398ebbd01515280532211f","en":"prod-blogs-education-en-aem-eaa5c423992fc069dc0fe7166d907c70"} https://blogs.worldbank.org/content/dam/sites/blogs/logos/logo-en.png https://blogs.worldbank.org/en/home World Bank Blogs Education for Global Development Education for Global Development (English) Education for Global Development (Hindi) Hi Thank you for subscribing! <p>Thank you for choosing to be part of the [channelTitle] community!</p><p>Your subscription is now active. The latest blog posts and blog-related announcements will be delivered directly to your email inbox. You may unsubscribe at any time.</p> <div><b>Best regards,</b></div><div>The World Bank Blogs team</div> <b>Also subscribed to:</b>
+
+E-mail:
+
+Please enter a valid email address.
+
+Language:
+
+English
+
+Hindi
+
+Language: field is required.
+
+I consent to my personal data being processed according to the WBG Privacy Notice.
+
+Please agree with the terms of the privacy notice.
+
+Subscribe
+
+Thank you for choosing to be part of the **Education for Global Development** community!
+
+Your subscription is now active. The latest blog posts and blog-related announcements will be delivered directly to your email inbox. You may unsubscribe at any time.
+
+Close
+
+The e-mail address: **[email]** is already subscribed for newsletters. Close
+
+Unable to process the request. Close
+
+  * 
+
+###  Martín E. De Simone
+
+Education Specialist
+
+More Blogs By Martín
+
+###  Federico Tiberti
+
+Data Scientist
+
+More Blogs By Federico
+
+###  Wuraola Mosuro
+
+Education Consultant 
+
+More Blogs By Wuraola
+
+###  Federico Manolio
+
+Consultant, Education, World Bank
+
+More Blogs By Federico
+
+  *   * 
+
+###  Maria Barron
+
+Education and Technology Specialist and Co-lead of the EdTech Team
+
+More Blogs By Maria
+
+###  Eliot Dikoru
+
+Consultant, Education Specialist/Economist, World Bank
+
+More Blogs By Eliot
+
+## 
+
+## Join the Conversation
+
+blogs 0a89d3f3632bebb5b34223cb5919e4a7 https://webapi.worldbank.org/comments/api/comment/post https://webapi.worldbank.org/comments/api/comment https://webapi.worldbank.org/comments/api/comment/count 5e099dfc192f44329e4643cfcb86579f en education eaa5c423992fc069dc0fe7166d907c70 Read more Read less Previous Next
+
+  * Reply
+
+Your name
+
+Your name : field is required.
+
+Your Email The content of this field is kept private and will not be shown publicly
+
+Your Email : field is required.
+
+Your Email : is invalid.
+
+Write a response
+
+Remaining characters: **1000**
+
+Write a response : field is required.
+
+Invalid text: HTML is not allowed in the comment.
+
+I have read the Privacy Notice and consent to my personal data being processed, to the extent necessary, to submit my comment for moderation. I also consent to having my name published.
+
+Please agree with the terms of the privacy notice.
+
+Save Close
+
+Your comment has been queued for review by site administrators and will be published after approval. Close
+
+Unable to process the request. Close
+
+  * Share on mail
+  *   *   *   *   * comments added
+
+  * Legal
+  * Privacy Notice
+  * Access to Information
+  * Jobs
+  * Contact
+
+  * File a Complaint
+
+  *   * IBRD
+  * IDA
+  * IFC
+  * MIGA
+  * Contact
+
+© 2026 The World Bank Group, All Rights Reserved.

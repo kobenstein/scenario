@@ -1,0 +1,202 @@
+[
+ {
+  "id": "t00",
+  "sec": "H",
+  "text": "[calm, conversational] Artificial intelligence will not save you.\nThat is Pope Leo's message, in short. He leads more than a billion Catholics.\nName the thing you would hand a machine, if you could.\nThe illness in your family. The bills. The work that wears you out.\nThat is the promise. Cure disease. End poverty. Take the work. And the people building these machines mean it.\nThe Pope agrees technology can heal. Then he refuses a single word.\nSo if all of that is not saving you, what does he mean?",
+  "chars": 501
+ },
+ {
+  "id": "t01",
+  "sec": "H",
+  "text": "His word for what must happen to these machines is the one the Church uses for nuclear weapons.",
+  "chars": 95
+ },
+ {
+  "id": "C1",
+  "sec": "H",
+  "clip": true,
+  "dur": 4.0,
+  "placeholder": true
+ },
+ {
+  "id": "t02",
+  "sec": "H",
+  "text": "Disarmed. Not banned. Not blessed. The word is strong, he said, and chosen on purpose.",
+  "chars": 86
+ },
+ {
+  "id": "t03",
+  "sec": "1",
+  "text": "[thoughtful] In May, in Rome, he put it in a letter called an encyclical. His first.\nHe even chose his own name, Leo, with artificial intelligence in mind.\nYou might expect a man against the machines. He is not.\nWhat he refuses is one idea. His phrase for it: a purely technical form of salvation. The title of this film is the short version.\nSearch the whole letter, nearly forty thousand words. No company. No chief executive. Not once the word superintelligence.\nThen what is he arguing with? A promise.",
+  "chars": 506
+ },
+ {
+  "id": "t04",
+  "sec": "2",
+  "text": "[calm, conversational] That promise is not a slogan. Hundreds of billions of dollars are already riding on it.\nThe head of one lab building these machines put it in an essay.\nMost people, he wrote, underestimate how radical the upside could be. And how bad the risks could be.\nHe calls these machines a country of geniuses in a datacenter. The best minds, working for you day and night.\nTake that at its strongest. Your illness gets a cure. Your bills shrink. Your hours come back.\nIt would be the best news in history. It is still a promise.",
+  "chars": 542,
+  "say": "[calm, conversational] That promise is not a slogan. Hundreds of billions of dollars are already riding on it.\nThe head of one lab building these machines put it in an essay.\nMost people, he wrote, underestimate how radical the upside could be. And how bad the risks could be.\nHe calls these machines a country of geniuses in a data center. The best minds, working for you day and night.\nTake that at its strongest. Your illness gets a cure. Your bills shrink. Your hours come back.\nIt would be the best news in history. It is still a promise."
+ },
+ {
+  "id": "t05",
+  "sec": "2",
+  "text": "Put all of that on one side of a scale. Your body. Your money. Your time.",
+  "chars": 73
+ },
+ {
+  "id": "t05b",
+  "sec": "2",
+  "text": "Where is the catch?",
+  "chars": 19
+ },
+ {
+  "id": "t06",
+  "sec": "3",
+  "text": "[thoughtful] For the Pope, the catch is in how the promise sees you. A person as a project to be optimized.\nPicture the day everyone around you works with a machine's help. You are the same as yesterday. And suddenly you are the slow one.\nThat is the trap he sees. Not that the machine fails you. That it works, and the measure moves.\nIf a human being is something to be perfected or surpassed, he writes, it gets easier to accept something else.\nThat some lives are less useful, less desirable, less worthy.",
+  "chars": 508
+ },
+ {
+  "id": "t07",
+  "sec": "3",
+  "text": "And who gets to decide that?",
+  "chars": 28
+ },
+ {
+  "id": "t08",
+  "sec": "4",
+  "text": "[thoughtful] His picture for that power is the Tower of Babel. One language, one technology, one direction.\nAgainst it he sets a city wall, rebuilt by a whole people together.\nThis is what disarm means to him. These machines, out of the race for dominance. And out of the hands of a few.",
+  "chars": 287,
+  "pause": true
+ },
+ {
+  "id": "t09",
+  "sec": "4",
+  "text": "[curious] Tower or wall. Which is going up? One lab raised a hundred and twenty-two billion dollars in a single round.\nThe main drivers now, he writes, are private parties with resources beyond many governments. The new monopolies.\nA more moral machine is not enough, he adds, if a few people pick the morals. Ask a machine a hard question, and you get somebody's values with the answer.",
+  "chars": 387
+ },
+ {
+  "id": "t10",
+  "sec": "4",
+  "text": "He also counts algorithms, platforms and data among the goods meant for everyone. Shared, not held by a few. A founder of Twitter answered: yes.",
+  "chars": 144
+ },
+ {
+  "id": "t11",
+  "sec": "M",
+  "text": "[warm] This channel exists for one reason. So that the arrival of superintelligence goes well for everybody, not only for the few who own it. Want that too? Then subscribe.\nAnd what happens to you when a machine does your work?",
+  "chars": 227,
+  "cta": true
+ },
+ {
+  "id": "t12",
+  "sec": "5",
+  "text": "[thoughtful] The last Pope called Leo wrote about factory workers in the industrial revolution.\nAsk this one how big the new machines are.",
+  "chars": 138
+ },
+ {
+  "id": "C3",
+  "sec": "5",
+  "clip": true,
+  "dur": 9.0,
+  "placeholder": true
+ },
+ {
+  "id": "t13",
+  "sec": "5",
+  "text": "[calm, conversational] Perhaps even greater. On the size of it, he and the builders agree.\nYou would hand over the work that wears you out. He asks what goes with it.\nWork, he writes, is not simply an instrument. It expresses and enhances the dignity of our lives.\nThe risk he sees is not only a thinner paycheck. It is a society that keeps a few busy and gives everybody else time nobody asked for.\nRicher, and smaller.\nThe share of American output going to working people has fallen to about fifty-three percent. The lowest on record.",
+  "chars": 536
+ },
+ {
+  "id": "t14",
+  "sec": "5",
+  "text": "The cause is disputed. But capital income replacing wages is exactly what he warns about.\nThe day the letter came out, a tech founder pushed back. Machines kill some jobs and make others. Cling to the old ones and we would still be ploughing fields.\nA fair point about the past. Whether it holds this time is unproven.\nDo the builders see any of this?",
+  "chars": 351
+ },
+ {
+  "id": "t15",
+  "sec": "6",
+  "text": "[curious] The day the Pope presented his letter, the stage was not only cardinals.\nOne speaker came from the lab whose chief wrote down that promise. A co-founder of Anthropic. Guess what he asked for.",
+  "chars": 201
+ },
+ {
+  "id": "C4",
+  "sec": "6",
+  "clip": true,
+  "dur": 8.0,
+  "placeholder": true
+ },
+ {
+  "id": "t16",
+  "sec": "6",
+  "text": "[thoughtful] A builder of these machines, in the Vatican, asking for critics.\nEvery leading lab, his own included, he said, works inside pressures that can conflict with doing the right thing.\nAnd your work? If these systems displace people at very large scale, he went on, supporting them will be a moral imperative of historic proportions.\nFor sharing the gains globally, he added, no mechanism exists.\nHe and the Pope even agree on what these machines are. Not engineered. Grown.",
+  "chars": 482
+ },
+ {
+  "id": "t17",
+  "sec": "6",
+  "text": "Three days later his lab raised sixty-five billion dollars. In November it went public on the Nasdaq. The pressures he named did not pause for the applause.\nWhat is left on the other side of the scale?",
+  "chars": 201
+ },
+ {
+  "id": "t18",
+  "sec": "7",
+  "text": "[thoughtful] In October the Pope put the whole matter in one question. Not only what these machines can do, but what purpose they should serve.\nMachines, he says, are tools, not persons. Say one turns down your loan. Give it legal personhood, he warns, and you are arguing with a faceless entity.\nSome decisions, he says, are never handed over. Life. Freedom. The use of force. That is why he wants weapons that choose their own targets banned.",
+  "chars": 444
+ },
+ {
+  "id": "t19",
+  "sec": "7",
+  "text": "One claim of his is hard to hear. Humanity flourishes not despite limitations, he writes, but often through them. Easing suffering is right, he adds. But erase it completely, and love goes out with it.\nYou can test that one yourself. Think of who you love most, and what it has cost you.\nWhat can no machine reach? He needs one sentence.",
+  "chars": 337
+ },
+ {
+  "id": "C5",
+  "sec": "7",
+  "clip": true,
+  "dur": 11.0,
+  "placeholder": true
+ },
+ {
+  "id": "t20",
+  "sec": "7",
+  "text": "[thoughtful] Freedom. An inner life. A calling to love and, for him, to worship. Whether that last word is yours too is your call.\nIs any of it right?",
+  "chars": 150
+ },
+ {
+  "id": "t21",
+  "sec": "8",
+  "text": "[calm, conversational] The night the letter came out, a venture capitalist answered. Take artificial intelligence out of it, he wrote, and not much would change.\nHalf of that is true. The first two chapters are mostly classic Church teaching.\nBut the later chapters are full of passages that could only be about these machines. Two of them we have heard. That they are grown, not built. And that a few people pick their morals.\nA reviewer put his verdict in a headline. Wise, but frustrating.",
+  "chars": 492
+ },
+ {
+  "id": "t22",
+  "sec": "8",
+  "text": "Within a week, Americans were shown one sentence from the letter, slightly shortened. That these machines do not feel joy or pain, and do not know from within what love, work, friendship or responsibility mean. Eighty-three percent agreed.\nA poll proves nothing. But on how these machines are made, and who steers them, one of their builders came to the Vatican and said much the same. This is not Rome against Silicon Valley.\nOn the rest, the test is your own life.",
+  "chars": 466
+ },
+ {
+  "id": "t23",
+  "sec": "8",
+  "text": "The letter carries its own hopeful reading. Technology turned toward freeing human time, not shutting people out.",
+  "chars": 113
+ },
+ {
+  "id": "t24",
+  "sec": "9",
+  "text": "[thoughtful] None of this arrives by itself. The future of these machines, the Pope says, depends on the choices we make.\nThe labs set the pace. Governments write the rules, or fail to. And governments answer to you.\nNow look at both sides of the scale.\nOn the left, everything a machine can take off your hands. The illness. The bills. The work that wears you out.\nOn the right, what cannot be handed over. Who you sit with. Who you answer for. What you do on a Tuesday morning.",
+  "chars": 479
+ },
+ {
+  "id": "t25",
+  "sec": "9",
+  "text": "The Pope has a sentence for that side. What saves humanity is not enhanced self-sufficiency, but a relationship that liberates.\nPut plainly. Artificial intelligence can save your body, your time and your money. What you do with them is the one job it cannot take.\nAt the start, you named what you would hand a machine. Now name what you would keep.",
+  "chars": 348
+ },
+ {
+  "id": "t26",
+  "sec": "A2",
+  "text": "[warm] This channel exists so that the arrival of superintelligence goes well for everybody, not only for the people who build it. Want that too? Then subscribe.",
+  "chars": 161,
+  "cta": true
+ }
+]

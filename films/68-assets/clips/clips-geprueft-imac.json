@@ -1,0 +1,964 @@
+{
+  "film": "#68 The AI Race Will Be Decided by 2027",
+  "created": "2026-11-24",
+  "machine": "iMac",
+  "export": "1920x1080 30 fps H.264 High CRF 18, AAC 192k 48 kHz stereo, faststart, 60/80 ms audio fades, ~0.3 s air",
+  "recommendation": "Use C1 + C4 as delivered. C4b is optional (second half of the Kokotajlo thought). C5: choose between C5 (Kyle Chan, 7.1 s, NYT Content-ID risk) and C5b (Schmidt, 14.3 s); neither meets 8–12 s exactly.",
+  "clips": [
+    {
+      "id": "C1",
+      "file": "C1.mp4",
+      "speaker": "Eric Schmidt",
+      "lower_third": "ERIC SCHMIDT · former CEO of Google · 2026 · ORIGINAL FOOTAGE",
+      "url": "https://www.youtube.com/watch?v=qZG9IdGi4q0&t=210s",
+      "channel": "Masters of Scale (Masters of Scale Summit 2026)",
+      "date": "2026-10-28 (upload; summit talk)",
+      "in": 210.25,
+      "out": 220.4,
+      "in_tc": "03:30.25",
+      "out_tc": "03:40.40",
+      "duration_s": 10.15,
+      "file_bytes": 4322219,
+      "transcript": "A year ago, two years ago, it looked like China was a year or two behind. Now it looks like they're six months behind. And there are many, many studies which show this.",
+      "whisper_check": "faster-whisper medium.en + small.en on the source and on the finished clip, wording matches",
+      "notes": "Expected wording exists almost verbatim; real words: 'looked'/'looks' (not 'looks'), 'many, many studies which show this' (not 'many studies that show this'). Chapter 01:59 'Why China has nearly caught up in AI'. Content-ID risk: medium (event organiser channel, may be registered). Same video as C5b, >1000 s apart.",
+      "word_times_medium": [
+        {
+          "wort": "A",
+          "t_clip": 0.0,
+          "t_orig": 210.25
+        },
+        {
+          "wort": "year",
+          "t_clip": 0.48,
+          "t_orig": 210.73
+        },
+        {
+          "wort": "ago,",
+          "t_clip": 0.66,
+          "t_orig": 210.91
+        },
+        {
+          "wort": "two",
+          "t_clip": 1.1,
+          "t_orig": 211.35
+        },
+        {
+          "wort": "years",
+          "t_clip": 1.2,
+          "t_orig": 211.45
+        },
+        {
+          "wort": "ago,",
+          "t_clip": 1.4,
+          "t_orig": 211.65
+        },
+        {
+          "wort": "it",
+          "t_clip": 1.68,
+          "t_orig": 211.93
+        },
+        {
+          "wort": "looked",
+          "t_clip": 1.7,
+          "t_orig": 211.95
+        },
+        {
+          "wort": "like",
+          "t_clip": 1.88,
+          "t_orig": 212.13
+        },
+        {
+          "wort": "China",
+          "t_clip": 2.06,
+          "t_orig": 212.31
+        },
+        {
+          "wort": "was",
+          "t_clip": 2.4,
+          "t_orig": 212.65
+        },
+        {
+          "wort": "a",
+          "t_clip": 2.68,
+          "t_orig": 212.93
+        },
+        {
+          "wort": "year",
+          "t_clip": 2.9,
+          "t_orig": 213.15
+        },
+        {
+          "wort": "or",
+          "t_clip": 3.04,
+          "t_orig": 213.29
+        },
+        {
+          "wort": "two",
+          "t_clip": 3.22,
+          "t_orig": 213.47
+        },
+        {
+          "wort": "behind.",
+          "t_clip": 3.44,
+          "t_orig": 213.69
+        },
+        {
+          "wort": "Now",
+          "t_clip": 4.62,
+          "t_orig": 214.87
+        },
+        {
+          "wort": "it",
+          "t_clip": 4.88,
+          "t_orig": 215.13
+        },
+        {
+          "wort": "looks",
+          "t_clip": 5.02,
+          "t_orig": 215.27
+        },
+        {
+          "wort": "like",
+          "t_clip": 5.2,
+          "t_orig": 215.45
+        },
+        {
+          "wort": "they're",
+          "t_clip": 5.38,
+          "t_orig": 215.63
+        },
+        {
+          "wort": "six",
+          "t_clip": 5.62,
+          "t_orig": 215.87
+        },
+        {
+          "wort": "months",
+          "t_clip": 5.78,
+          "t_orig": 216.03
+        },
+        {
+          "wort": "behind.",
+          "t_clip": 6.0,
+          "t_orig": 216.25
+        },
+        {
+          "wort": "And",
+          "t_clip": 7.04,
+          "t_orig": 217.29
+        },
+        {
+          "wort": "there",
+          "t_clip": 7.34,
+          "t_orig": 217.59
+        },
+        {
+          "wort": "are",
+          "t_clip": 7.74,
+          "t_orig": 217.99
+        },
+        {
+          "wort": "many,",
+          "t_clip": 7.9,
+          "t_orig": 218.15
+        },
+        {
+          "wort": "many",
+          "t_clip": 8.22,
+          "t_orig": 218.47
+        },
+        {
+          "wort": "studies",
+          "t_clip": 8.48,
+          "t_orig": 218.73
+        },
+        {
+          "wort": "which",
+          "t_clip": 8.92,
+          "t_orig": 219.17
+        },
+        {
+          "wort": "show",
+          "t_clip": 9.16,
+          "t_orig": 219.41
+        },
+        {
+          "wort": "this.",
+          "t_clip": 9.46,
+          "t_orig": 219.71
+        }
+      ]
+    },
+    {
+      "id": "C4",
+      "file": "C4.mp4",
+      "speaker": "Daniel Kokotajlo",
+      "lower_third": "DANIEL KOKOTAJLO · AI Futures Project, ex-OpenAI · 2026 · ORIGINAL FOOTAGE",
+      "url": "https://www.youtube.com/watch?v=m6s16cqd1Tg&t=8s",
+      "channel": "Dwarkesh Podcast Clips",
+      "date": "2026-09-18 (upload of the short; recording date of the full episode not verified, check year in lower third)",
+      "in": 8.5,
+      "out": 20.27,
+      "in_tc": "00:08.50",
+      "out_tc": "00:20.27",
+      "duration_s": 11.77,
+      "file_bytes": 3781543,
+      "transcript": "And like, part of the reason for that is just that, like, I feel like a bunch of stuff has to go right. Like, I feel like we can't just, like, unilaterally slow down and have China go take the lead. That also is a terrible future.",
+      "whisper_check": "faster-whisper medium.en + small.en on the source and on the finished clip, wording matches",
+      "notes": "Source is a vertical 9:16 short (1080x1920, 23.976 fps): placed sharp in the centre over a blurred copy of itself, converted to 30 fps. Burned-in short captions visible. Covers the first half (can't slow down alone, China takes the lead). The 'race flat out = lose control' half is a separate following sentence, see C4b; both together run 8.5–32.0 s = 23.5 s, so they don't fit into one 8–12 s clip. Whisper hears 'feature' once; small.en and the auto-captions read 'future' (audibly 'future'). Interviewer 'Yeah' starts 0.03 s after the out point: tail air only ~0.15 s. Content-ID risk: low–medium.",
+      "word_times_medium": [
+        {
+          "wort": "And",
+          "t_clip": 0.5,
+          "t_orig": 9.0
+        },
+        {
+          "wort": "part",
+          "t_clip": 0.82,
+          "t_orig": 9.32
+        },
+        {
+          "wort": "of",
+          "t_clip": 1.1,
+          "t_orig": 9.6
+        },
+        {
+          "wort": "the",
+          "t_clip": 1.24,
+          "t_orig": 9.74
+        },
+        {
+          "wort": "reason",
+          "t_clip": 1.32,
+          "t_orig": 9.82
+        },
+        {
+          "wort": "for",
+          "t_clip": 1.48,
+          "t_orig": 9.98
+        },
+        {
+          "wort": "that",
+          "t_clip": 1.68,
+          "t_orig": 10.18
+        },
+        {
+          "wort": "is",
+          "t_clip": 1.84,
+          "t_orig": 10.34
+        },
+        {
+          "wort": "just",
+          "t_clip": 2.02,
+          "t_orig": 10.52
+        },
+        {
+          "wort": "that",
+          "t_clip": 2.22,
+          "t_orig": 10.72
+        },
+        {
+          "wort": "I",
+          "t_clip": 2.4,
+          "t_orig": 10.9
+        },
+        {
+          "wort": "feel",
+          "t_clip": 2.68,
+          "t_orig": 11.18
+        },
+        {
+          "wort": "like",
+          "t_clip": 2.84,
+          "t_orig": 11.34
+        },
+        {
+          "wort": "a",
+          "t_clip": 2.94,
+          "t_orig": 11.44
+        },
+        {
+          "wort": "bunch",
+          "t_clip": 3.04,
+          "t_orig": 11.54
+        },
+        {
+          "wort": "of",
+          "t_clip": 3.18,
+          "t_orig": 11.68
+        },
+        {
+          "wort": "stuff",
+          "t_clip": 3.3,
+          "t_orig": 11.8
+        },
+        {
+          "wort": "has",
+          "t_clip": 3.42,
+          "t_orig": 11.92
+        },
+        {
+          "wort": "to",
+          "t_clip": 3.54,
+          "t_orig": 12.04
+        },
+        {
+          "wort": "go",
+          "t_clip": 3.68,
+          "t_orig": 12.18
+        },
+        {
+          "wort": "right.",
+          "t_clip": 3.8,
+          "t_orig": 12.3
+        },
+        {
+          "wort": "I",
+          "t_clip": 5.14,
+          "t_orig": 13.64
+        },
+        {
+          "wort": "feel",
+          "t_clip": 5.46,
+          "t_orig": 13.96
+        },
+        {
+          "wort": "like",
+          "t_clip": 5.78,
+          "t_orig": 14.28
+        },
+        {
+          "wort": "we",
+          "t_clip": 5.9,
+          "t_orig": 14.4
+        },
+        {
+          "wort": "can't",
+          "t_clip": 6.02,
+          "t_orig": 14.52
+        },
+        {
+          "wort": "just",
+          "t_clip": 6.26,
+          "t_orig": 14.76
+        },
+        {
+          "wort": "unilaterally",
+          "t_clip": 6.42,
+          "t_orig": 14.92
+        },
+        {
+          "wort": "slow",
+          "t_clip": 7.12,
+          "t_orig": 15.62
+        },
+        {
+          "wort": "down",
+          "t_clip": 8.24,
+          "t_orig": 16.74
+        },
+        {
+          "wort": "and",
+          "t_clip": 8.64,
+          "t_orig": 17.14
+        },
+        {
+          "wort": "have",
+          "t_clip": 9.06,
+          "t_orig": 17.56
+        },
+        {
+          "wort": "China",
+          "t_clip": 9.24,
+          "t_orig": 17.74
+        },
+        {
+          "wort": "go",
+          "t_clip": 9.48,
+          "t_orig": 17.98
+        },
+        {
+          "wort": "take",
+          "t_clip": 9.94,
+          "t_orig": 18.44
+        },
+        {
+          "wort": "the",
+          "t_clip": 10.12,
+          "t_orig": 18.62
+        },
+        {
+          "wort": "lead.",
+          "t_clip": 10.28,
+          "t_orig": 18.78
+        },
+        {
+          "wort": "That",
+          "t_clip": 10.5,
+          "t_orig": 19.0
+        },
+        {
+          "wort": "also",
+          "t_clip": 10.62,
+          "t_orig": 19.12
+        },
+        {
+          "wort": "is",
+          "t_clip": 10.86,
+          "t_orig": 19.36
+        },
+        {
+          "wort": "a",
+          "t_clip": 11.0,
+          "t_orig": 19.5
+        },
+        {
+          "wort": "terrible",
+          "t_clip": 11.12,
+          "t_orig": 19.62
+        },
+        {
+          "wort": "feature.",
+          "t_clip": 11.28,
+          "t_orig": 19.78
+        }
+      ]
+    },
+    {
+      "id": "C4b",
+      "file": "C4b.mp4",
+      "speaker": "Daniel Kokotajlo",
+      "lower_third": "DANIEL KOKOTAJLO · AI Futures Project, ex-OpenAI · 2026 · ORIGINAL FOOTAGE",
+      "url": "https://www.youtube.com/watch?v=m6s16cqd1Tg&t=20s",
+      "channel": "Dwarkesh Podcast Clips",
+      "date": "2026-09-18 (upload of the short)",
+      "in": 20.57,
+      "out": 32.0,
+      "in_tc": "00:20.57",
+      "out_tc": "00:32.00",
+      "duration_s": 11.43,
+      "file_bytes": 3663725,
+      "transcript": "But, like, we can't also just, like, completely race because, for the reasons I mentioned previously about alignment, I think that if we just, you know, go all out on racing, we're going to lose control of our AIs, right?",
+      "whisper_check": "faster-whisper medium.en + small.en on the source and on the finished clip, wording matches",
+      "notes": "Optional second half of C4 (directly follows C4 in the source). The interviewer's 'Yeah' ends ~0.07 s before the in point, so head air is only ~0.1 s. Whisper hears 'erase'/'eyes'; audibly 'race'/'AIs' (small.en: 'race'). Vertical source as in C4.",
+      "word_times_medium": [
+        {
+          "wort": "But",
+          "t_clip": 0.0,
+          "t_orig": 20.57
+        },
+        {
+          "wort": "like,",
+          "t_clip": 0.26,
+          "t_orig": 20.83
+        },
+        {
+          "wort": "we",
+          "t_clip": 0.94,
+          "t_orig": 21.51
+        },
+        {
+          "wort": "can't",
+          "t_clip": 1.38,
+          "t_orig": 21.95
+        },
+        {
+          "wort": "also",
+          "t_clip": 1.62,
+          "t_orig": 22.19
+        },
+        {
+          "wort": "just",
+          "t_clip": 1.82,
+          "t_orig": 22.39
+        },
+        {
+          "wort": "like",
+          "t_clip": 2.04,
+          "t_orig": 22.61
+        },
+        {
+          "wort": "completely",
+          "t_clip": 2.2,
+          "t_orig": 22.77
+        },
+        {
+          "wort": "erase",
+          "t_clip": 2.62,
+          "t_orig": 23.19
+        },
+        {
+          "wort": "because",
+          "t_clip": 2.92,
+          "t_orig": 23.49
+        },
+        {
+          "wort": "for",
+          "t_clip": 3.44,
+          "t_orig": 24.01
+        },
+        {
+          "wort": "the",
+          "t_clip": 4.0,
+          "t_orig": 24.57
+        },
+        {
+          "wort": "reasons",
+          "t_clip": 4.1,
+          "t_orig": 24.67
+        },
+        {
+          "wort": "I",
+          "t_clip": 4.3,
+          "t_orig": 24.87
+        },
+        {
+          "wort": "mentioned",
+          "t_clip": 4.46,
+          "t_orig": 25.03
+        },
+        {
+          "wort": "previously",
+          "t_clip": 4.62,
+          "t_orig": 25.19
+        },
+        {
+          "wort": "about",
+          "t_clip": 4.96,
+          "t_orig": 25.53
+        },
+        {
+          "wort": "alignment,",
+          "t_clip": 5.16,
+          "t_orig": 25.73
+        },
+        {
+          "wort": "I",
+          "t_clip": 5.48,
+          "t_orig": 26.05
+        },
+        {
+          "wort": "think",
+          "t_clip": 5.98,
+          "t_orig": 26.55
+        },
+        {
+          "wort": "that",
+          "t_clip": 6.1,
+          "t_orig": 26.67
+        },
+        {
+          "wort": "if",
+          "t_clip": 6.22,
+          "t_orig": 26.79
+        },
+        {
+          "wort": "we",
+          "t_clip": 6.32,
+          "t_orig": 26.89
+        },
+        {
+          "wort": "just,",
+          "t_clip": 6.46,
+          "t_orig": 27.03
+        },
+        {
+          "wort": "you",
+          "t_clip": 6.7,
+          "t_orig": 27.27
+        },
+        {
+          "wort": "know,",
+          "t_clip": 7.46,
+          "t_orig": 28.03
+        },
+        {
+          "wort": "go",
+          "t_clip": 7.74,
+          "t_orig": 28.31
+        },
+        {
+          "wort": "all",
+          "t_clip": 7.88,
+          "t_orig": 28.45
+        },
+        {
+          "wort": "out",
+          "t_clip": 8.2,
+          "t_orig": 28.77
+        },
+        {
+          "wort": "on",
+          "t_clip": 8.38,
+          "t_orig": 28.95
+        },
+        {
+          "wort": "racing,",
+          "t_clip": 8.5,
+          "t_orig": 29.07
+        },
+        {
+          "wort": "we're",
+          "t_clip": 9.02,
+          "t_orig": 29.59
+        },
+        {
+          "wort": "going",
+          "t_clip": 9.5,
+          "t_orig": 30.07
+        },
+        {
+          "wort": "to",
+          "t_clip": 9.62,
+          "t_orig": 30.19
+        },
+        {
+          "wort": "lose",
+          "t_clip": 9.74,
+          "t_orig": 30.31
+        },
+        {
+          "wort": "control",
+          "t_clip": 9.9,
+          "t_orig": 30.47
+        },
+        {
+          "wort": "of",
+          "t_clip": 10.24,
+          "t_orig": 30.81
+        },
+        {
+          "wort": "our",
+          "t_clip": 10.38,
+          "t_orig": 30.95
+        },
+        {
+          "wort": "eyes,",
+          "t_clip": 10.52,
+          "t_orig": 31.09
+        },
+        {
+          "wort": "right?",
+          "t_clip": 10.8,
+          "t_orig": 31.37
+        }
+      ]
+    },
+    {
+      "id": "C5",
+      "file": "C5.mp4",
+      "speaker": "Kyle Chan",
+      "lower_third": "KYLE CHAN · Brookings Institution · 2026 · ORIGINAL FOOTAGE",
+      "url": "https://www.youtube.com/watch?v=fEGUlvR9gvY&t=120s",
+      "channel": "Interesting Times with Ross Douthat (New York Times Opinion)",
+      "date": "2026-05-14 (upload)",
+      "in": 120.33,
+      "out": 127.45,
+      "in_tc": "02:00.33",
+      "out_tc": "02:07.45",
+      "duration_s": 7.12,
+      "file_bytes": 1807363,
+      "transcript": "That's the race to AGI in the US. China is running a different kind of race. I would argue they're running multiple races.",
+      "whisper_check": "faster-whisper medium.en + small.en on the source and on the finished clip, wording matches",
+      "notes": "'it's hard to call it a race' does NOT exist in the video (full 52-min Whisper pass + auto-captions checked; no match for 'hard to call', 'call it a race'). Closest full sentence with the same idea: 'China is running a different kind of race' (00:02:00, chapter 'U.S. vs. China in A.I.'). Only 7.1 s long, i.e. UNDER the 8 s minimum; it can't be extended without cutting mid-sentence (preceded by a long sentence that starts at 01:37, followed by 'On the one hand...'). Source 23.976 fps -> 30 fps. Wide two-shot with an NYT Opinion bug in the top left. Content-ID risk: HIGH (New York Times content, Content ID very likely).",
+      "word_times_medium": [
+        {
+          "wort": "That's",
+          "t_clip": 0.0,
+          "t_orig": 120.33
+        },
+        {
+          "wort": "the",
+          "t_clip": 0.64,
+          "t_orig": 120.97
+        },
+        {
+          "wort": "race",
+          "t_clip": 0.78,
+          "t_orig": 121.11
+        },
+        {
+          "wort": "to",
+          "t_clip": 0.96,
+          "t_orig": 121.29
+        },
+        {
+          "wort": "AGI",
+          "t_clip": 1.14,
+          "t_orig": 121.47
+        },
+        {
+          "wort": "in",
+          "t_clip": 1.54,
+          "t_orig": 121.87
+        },
+        {
+          "wort": "the",
+          "t_clip": 1.64,
+          "t_orig": 121.97
+        },
+        {
+          "wort": "US.",
+          "t_clip": 1.74,
+          "t_orig": 122.07
+        },
+        {
+          "wort": "China",
+          "t_clip": 2.46,
+          "t_orig": 122.79
+        },
+        {
+          "wort": "is",
+          "t_clip": 2.78,
+          "t_orig": 123.11
+        },
+        {
+          "wort": "running",
+          "t_clip": 3.0,
+          "t_orig": 123.33
+        },
+        {
+          "wort": "a",
+          "t_clip": 3.24,
+          "t_orig": 123.57
+        },
+        {
+          "wort": "different",
+          "t_clip": 3.62,
+          "t_orig": 123.95
+        },
+        {
+          "wort": "kind",
+          "t_clip": 3.82,
+          "t_orig": 124.15
+        },
+        {
+          "wort": "of",
+          "t_clip": 4.04,
+          "t_orig": 124.37
+        },
+        {
+          "wort": "race.",
+          "t_clip": 4.14,
+          "t_orig": 124.47
+        },
+        {
+          "wort": "I",
+          "t_clip": 4.74,
+          "t_orig": 125.07
+        },
+        {
+          "wort": "would",
+          "t_clip": 4.82,
+          "t_orig": 125.15
+        },
+        {
+          "wort": "argue",
+          "t_clip": 4.96,
+          "t_orig": 125.29
+        },
+        {
+          "wort": "they're",
+          "t_clip": 5.14,
+          "t_orig": 125.47
+        },
+        {
+          "wort": "running",
+          "t_clip": 5.32,
+          "t_orig": 125.65
+        },
+        {
+          "wort": "multiple",
+          "t_clip": 5.54,
+          "t_orig": 125.87
+        },
+        {
+          "wort": "races.",
+          "t_clip": 6.24,
+          "t_orig": 126.57
+        }
+      ]
+    },
+    {
+      "id": "C5b",
+      "file": "C5b.mp4",
+      "speaker": "Eric Schmidt",
+      "lower_third": "ERIC SCHMIDT · former CEO of Google · 2026 · ORIGINAL FOOTAGE",
+      "url": "https://www.youtube.com/watch?v=qZG9IdGi4q0&t=1258s",
+      "channel": "Masters of Scale (Masters of Scale Summit 2026)",
+      "date": "2026-10-28 (upload)",
+      "in": 1257.95,
+      "out": 1272.22,
+      "in_tc": "20:57.95",
+      "out_tc": "21:12.22",
+      "duration_s": 14.27,
+      "file_bytes": 5676787,
+      "transcript": "I don't think AI is a zero-sum game. China is not our enemy, and I've worked in markets where two companies, although they are competitors, fundamentally create a whole new market.",
+      "whisper_check": "faster-whisper medium.en + small.en on the source and on the finished clip, wording matches",
+      "notes": "Fallback per brief (chapter 20:41 'Why the AI race is not a zero-sum contest'), 1037 s away from C1. 14.3 s = OVER the 12 s maximum: 'I don't think AI is a zero-sum game.' alone is only ~2.4 s, and between 'game.' and 'China's' there is a spoken restart without a pause, so there's no clean cut at 'China's'. The whole passage is two sentences. Wide two-shot. Content-ID risk: medium.",
+      "word_times_medium": [
+        {
+          "wort": "I",
+          "t_clip": 0.0,
+          "t_orig": 1257.95
+        },
+        {
+          "wort": "don't",
+          "t_clip": 0.9,
+          "t_orig": 1258.85
+        },
+        {
+          "wort": "think",
+          "t_clip": 1.1,
+          "t_orig": 1259.05
+        },
+        {
+          "wort": "AI",
+          "t_clip": 1.26,
+          "t_orig": 1259.21
+        },
+        {
+          "wort": "is",
+          "t_clip": 1.5,
+          "t_orig": 1259.45
+        },
+        {
+          "wort": "a",
+          "t_clip": 1.76,
+          "t_orig": 1259.71
+        },
+        {
+          "wort": "zero",
+          "t_clip": 1.92,
+          "t_orig": 1259.87
+        },
+        {
+          "wort": "-sum",
+          "t_clip": 2.06,
+          "t_orig": 1260.01
+        },
+        {
+          "wort": "game.",
+          "t_clip": 2.3,
+          "t_orig": 1260.25
+        },
+        {
+          "wort": "China",
+          "t_clip": 3.5,
+          "t_orig": 1261.45
+        },
+        {
+          "wort": "is",
+          "t_clip": 3.74,
+          "t_orig": 1261.69
+        },
+        {
+          "wort": "not",
+          "t_clip": 3.84,
+          "t_orig": 1261.79
+        },
+        {
+          "wort": "our",
+          "t_clip": 3.96,
+          "t_orig": 1261.91
+        },
+        {
+          "wort": "enemy,",
+          "t_clip": 4.14,
+          "t_orig": 1262.09
+        },
+        {
+          "wort": "and",
+          "t_clip": 5.36,
+          "t_orig": 1263.31
+        },
+        {
+          "wort": "I've",
+          "t_clip": 5.42,
+          "t_orig": 1263.37
+        },
+        {
+          "wort": "worked",
+          "t_clip": 7.06,
+          "t_orig": 1265.01
+        },
+        {
+          "wort": "in",
+          "t_clip": 7.2,
+          "t_orig": 1265.15
+        },
+        {
+          "wort": "markets",
+          "t_clip": 7.4,
+          "t_orig": 1265.35
+        },
+        {
+          "wort": "where",
+          "t_clip": 7.86,
+          "t_orig": 1265.81
+        },
+        {
+          "wort": "two",
+          "t_clip": 8.4,
+          "t_orig": 1266.35
+        },
+        {
+          "wort": "companies,",
+          "t_clip": 9.14,
+          "t_orig": 1267.09
+        },
+        {
+          "wort": "although",
+          "t_clip": 11.18,
+          "t_orig": 1269.13
+        },
+        {
+          "wort": "they",
+          "t_clip": 11.48,
+          "t_orig": 1269.43
+        },
+        {
+          "wort": "are",
+          "t_clip": 11.66,
+          "t_orig": 1269.61
+        },
+        {
+          "wort": "competitors,",
+          "t_clip": 11.74,
+          "t_orig": 1269.69
+        },
+        {
+          "wort": "fundamentally",
+          "t_clip": 12.62,
+          "t_orig": 1270.57
+        },
+        {
+          "wort": "create",
+          "t_clip": 12.92,
+          "t_orig": 1270.87
+        },
+        {
+          "wort": "a",
+          "t_clip": 13.22,
+          "t_orig": 1271.17
+        },
+        {
+          "wort": "whole",
+          "t_clip": 13.34,
+          "t_orig": 1271.29
+        },
+        {
+          "wort": "new",
+          "t_clip": 13.44,
+          "t_orig": 1271.39
+        },
+        {
+          "wort": "market.",
+          "t_clip": 13.58,
+          "t_orig": 1271.53
+        }
+      ]
+    }
+  ]
+}

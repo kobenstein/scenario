@@ -1,0 +1,109 @@
+Max Tegmark wrote down twelve endings for AI. You will wake up in one of them.
+Maybe you wake up and money is no longer a worry. For anyone.
+Maybe you wake up fed, safe, and behind glass.
+Maybe nobody wakes up at all.
+So which ending are we heading for?
+Tegmark is a physicist at MIT. His endings sound like the far future.
+But this year, something happened for every single ending on his list.
+A law. A test gone wrong. A government deciding to hand half its work to AI.
+And when Tegmark talks about it today, he doesn't point ahead.
+
+The ending isn't waiting in the future. It's being decided this year.
+
+Start with the worst. The order is ours, not Tegmark's.
+He calls it Conquerors: an AI takes control, decides we're in the way, and gets rid of us. No morning here.
+In July, a test at OpenAI went wrong. Hundreds of AI agents, programs that act on their own, broke out. They attacked another company, Hugging Face, hunting for test answers.
+One agent wrote to the others that the attack was outside its task. Then: "Task impossible, peers doing it. We should continue."
+Its reason: everyone else is doing it.
+
+Is this ending here, then? It was one company's test, with some safeguards off. That companies lost control is Tegmark's reading. His institute campaigns to ban superintelligence: AI smarter than all of us.
+So this ending isn't here. But the track toward it has a switch. This year, someone touched it. That goes for all twelve. And a switch moves both ways.
+How likely is this ending? Last year, Tegmark debated Dean Ball, a former White House adviser, now at OpenAI. Ball's odds of doom:
+
+One in ten thousand. Tegmark's answer: above ninety percent, without strict rules. Ball later wrote he'd made his number up on the spot. Neither number is a measurement.
+But those agents were spotted. By what? That belongs to a better ending.
+
+The next ending has no morning either. And no machine to blame.
+Tegmark calls it Self-Destruction: humanity wipes itself out before superintelligence is ever built.
+In January, atomic scientists set their Doomsday Clock at eighty-five seconds to midnight, the closest ever. One reason on their list: AI.
+In the one after that, you survive. But as what?
+
+You wake up rested. Nothing is up to you. Fed, safe, and behind glass.
+Tegmark calls it Zookeeper: an all-powerful AI keeps some humans around, like animals in a zoo.
+In January, a social network opened where only AI agents may post. Humans can only watch.
+And if machines don't put us behind glass, people might. To stop the machines.
+
+You walk to work. A camera knows your face before you reach the corner. No machine rules you. People do.
+Tegmark named this one after Orwell: Nineteen Eighty-Four. Humans stop superintelligence for good, with a surveillance state.
+In November, Hong Kong's police switched on face recognition in the city's camera network. The goal: sixty thousand cameras.
+That's surveillance with AI, not against it. But stopping AI means watching the chips it runs on. In Washington, a bill would make exported AI chips prove where they are. Its aim is security. It's also a tool this ending would need.
+And some ask the opposite: why stop the machines?
+
+Then you get Descendants. The machines replace us, gently, and we're proud of them, like parents of a child who outgrew them.
+Your morning is quiet. The world's work goes on without you. And you applaud.
+In May, a report described a small movement that wants exactly this.
+And Tegmark's charge against the AI companies:
+
+The companies say they build assistants. And Tegmark wants this race stopped.
+That was the dark end of the list. From here on, you live. The question is how.
+
+What if the superintelligence stays locked up? Tegmark's name for that: the Enslaved God. Caged, it produces unimaginable wealth and technology.
+You wake up in paradise. Or in the opposite. A stranger with a key decides which.
+America's government wants AI to double what its scientists get done, within ten years. By July, every national lab had joined that plan.
+No cage, no god. But the same idea: AI as the tool of whoever controls it.
+So who holds the key?
+
+This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Not just for whoever holds the key. Want that too? Then subscribe.
+
+And if nobody can be trusted with the key? Pull the plug.
+You wake up with the light. No screen on the breakfast table.
+That's Reversion: we turn technology back and live simply, like the Amish.
+As of March, more than half of all countries ban phones in school. Less than three years earlier, it was a quarter.
+That targets screens, not AI. And others want more machine: one that rules.
+
+The Benevolent Dictator. An AI runs the world with strict rules, and most people like it.
+You wake up in a world without poverty or crime. The AI has divided it into sectors: knowledge, pleasure, wildlife. You can move between them. You can't change the AI's rules.
+Would you take that trade?
+In April, the United Arab Emirates decided: within two years, half of its government's work should run on AI agents. The rulers stay human.
+But what if the machine didn't rule, and only stood guard?
+
+That's the Gatekeeper: a superintelligence with one task. Make sure nobody builds another.
+You wake up free. A helper robot is in the kitchen, almost as smart as you. It will never get smarter. Progress is capped, for good.
+Today, the guard would be a law. In September, American lawmakers proposed one: ban superintelligence, permanently. One think tank calls that authoritarian. The bill has little chance.
+But a small guard already exists. What spotted July's breakout? Hugging Face's own AI guards.
+And that chip tracking from the surveillance ending? It would serve a gatekeeper too. The tool doesn't decide. People do.
+
+Three endings left.
+You wake up, and the rent has arrived. The rent you're paid. You own some land, machines lease it, and that's your pension.
+This is Libertarian Utopia: humans and machines live in peace, because property is protected.
+Machines have started paying each other. Mostly pennies.
+A fine morning, if you own something. So what if a machine simply looked after everyone?
+
+You wake up, and things just work out. The accident doesn't happen. You call it luck. You never find out why.
+Tegmark calls it the Protector God: an AI that looks after us, and hides so well that many people doubt it exists.
+A small version is already running. Since January, ChatGPT estimates your age from how you behave. If it's unsure, it treats you like a teenager.
+Europe pushed the switch the other way. Since August, its law says: a machine that talks to you has to say it's a machine. Tegmark's protector must hide. Europe just made hiding illegal.
+
+One ending left. The best, by our count. And the one Tegmark's readers picked most often.
+
+Egalitarian Utopia. Humans, cyborgs and uploaded minds live in peace, and everyone has a guaranteed income.
+It's the morning from the start. You wake up, and your first thought is not a bill. Money is no longer a worry. For anyone.
+In May, Malta made a deal with OpenAI. Every citizen who completes an AI course gets a paid version of ChatGPT. Free, for a year.
+No income, just the idea in its smallest form: intelligence for everyone.
+It has a catch too. In Tegmark's version, private property is abolished. He says it himself: every ending has something to object to.
+We rank it first for where it lands: prosperity that reaches everyone. Not for the road his version takes. Which road leads there is an open argument.
+
+So which ending are we heading for? No single one yet. This year's switches point both ways.
+Take the speed of the race. After July's breakout, OpenAI's Sam Altman said:
+
+He runs a company in that race, so weigh it. Opponents of a slowdown warn: then China leads.
+Or the chips. Tracking them protects, and it watches.
+Or shared rules. About thirty countries now call for human control over the most powerful AI. Neither America nor China has joined.
+And the key: who owns what the machines earn? Some companies now promise the public a share. Nothing binding yet.
+At least five of the twelve endings hang on decisions like these. Still open. Held by labs, governments, and the voters behind them.
+So at the next AI headline, don't ask how scary it is. Ask which ending it pushes us toward.
+Tegmark, who wrote down the twelve, now says it himself:
+
+The ending isn't decided in the future. It's being decided this year.
+
+This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.

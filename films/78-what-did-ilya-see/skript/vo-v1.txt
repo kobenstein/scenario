@@ -1,0 +1,84 @@
+[calm, conversational] What did Ilya see?
+Ilya Sutskever helped create the A.I. that answers your questions today.
+A few years ago, on a Friday, he got on a video call with his own boss. And told him he was fired.
+That boss ran OpenAI, the maker of ChatGPT.
+Soon, the whole internet was asking the question you just heard. He must have seen something. A machine so powerful that it scared the man who built it.
+And if it scared him, it concerns you.
+This Christmas, a Hollywood movie retells that story.
+But the answer wasn't written in Hollywood. It came out under oath.
+It was never about a machine.
+At the center were fifty-two pages. Ilya had written them himself. And they were about a man.
+But that is only half of what Ilya saw. The other half is far bigger. It reaches into the next decade of your life. And he never hid it.
+
+[calm, conversational] So what was in those pages?
+They were about that boss, Sam Altman. Their claim: he was not being straight with the people around him.
+Ilya had collected the material for about a year. If he did nothing, he told a court in Oakland this May, "the company would be destroyed".
+But almost all of it came from a single colleague. He did not check it with the people involved. And the board, he says, moved too fast: "the process was rushed."
+Then it fell apart. Ilya himself wrote: "I deeply regret my participation in the board's actions." Five days after that video call, Altman was back in charge.
+A law firm, hired by the company's new board, found a breakdown of trust. Not a safety problem. And nothing that demanded Altman's removal. No court has ever ruled on who was right.
+[thoughtful] So that is what Ilya saw. A problem you know from any workplace: people who had stopped trusting each other.
+[curious] And yet, something bigger did worry him. Earlier that year, he had even talked about building a bunker.
+But it was never locked in a lab. Three weeks before that Friday, he told a magazine what A.I. would bring: "There will be a before and an after."
+In plain sight, while the world hunted for a hidden machine.
+So what does he see coming? And why should you take his word for it?
+
+[calm, conversational] Because of his record. Look at four of his predictions. The early ones have held up. The latest are still open.
+He made the first one as a teenager. His question: can a computer learn? Answer that, he felt, and "everything else would follow".
+In grad school, he was part of a small team. Their program learned to recognize what is in a photo. It beat every rival in the field's big contest.
+So how far could learning go? His second prediction fits on a single slide. A decade after he first showed it, he read it out again, on a stage in Vancouver.
+[CLIP C1]
+Big network, big data. Out of that recipe grew the GPT models behind ChatGPT. When it came out, he was OpenAI's chief scientist.
+Every time you ask a chatbot, you watch that recipe at work.
+[curious] But on that same stage, he made his third prediction. And it cuts against his own recipe.
+The recipe needs text, and there is only so much of it. In his words: "we have but one internet." So this way of teaching machines, he said, "will unquestionably end".
+[thoughtful] That one is still open. A rival, he admits, may be getting more out of the old recipe.
+But something, he insists, is missing. Today's machines still can't learn the way you do: from just a few examples.
+His fourth prediction is about what happens when that changes. And it is the one about you.
+
+[calm, conversational] One caution first: today he runs a company whose value depends on him being right.
+He made that prediction in the open, in Toronto. In the hall where he once got his own degree, before a new class of graduates.
+[CLIP C2]
+[thoughtful] Not some of what you do. All of it. Anything you can learn, he told them, the A.I. could do as well.
+How can he be so sure? His reason: your brain is a biological computer. So why shouldn't a digital one do the same things?
+[pause] So that is what Ilya sees coming. Not a hidden machine. A day.
+And how does he picture the A.I. of that day? As "a superintelligent fifteen-year-old". It knows very little. But it is eager to learn any job.
+[curious] For that day, he named no year. For a machine that can learn like that, he did. A year ago, a podcaster asked him. How long until a machine learns as well as a person, and then becomes better than us?
+[CLIP C3]
+Five to twenty years. Not until machines do everything. Until one can learn as well as you do.
+[thoughtful] That is a forecast, not a fact. He himself calls the future hard to predict. And some researchers doubt it will come that soon.
+But take the far end. If you are forty-five today, twenty years is the rest of your working life. And if you have a child in school, those are the years when that child starts to work.
+
+[warm] Those years are why this channel exists: so that the arrival of superintelligence goes well for everybody. Not just for the people who build it. Want that too? Then subscribe.
+
+[calm, conversational] So what do you do, if you believe that day is coming?
+Ilya has asked that himself, at the university where he took courses as a schoolboy.
+[CLIP C4]
+By then, he had already given his own answer.
+Six months after that famous Friday, he walked away from OpenAI, the company he had helped to found. By his own decision. No slammed door. He was leaving, he wrote, for "a project that is very personally meaningful to me".
+Weeks later, the project had a name: Safe Superintelligence. One goal. One product. And until it exists, he said, nothing else.
+Investors valued it at thirty-two billion dollars anyway. Meta offered to buy it. He said no. And this summer, Nvidia invested too: the chipmaker that sells him his computers.
+[thoughtful] And yet, there is still nothing you can buy from it. No product. No model. Not even a research paper. What it does, he says, is research.
+So all that money is riding on his record. And on that third prediction, which is still open.
+[curious] So what is he trying to build in there?
+
+[thoughtful] He wants more than a machine that obeys. He wants one that cares.
+In his words, an A.I. that would "care about sentient life". Everything that can feel. You. Your children. Your dog. And, he expects, the machine itself.
+[curious] His own interviewer pushed back. Then most of the minds that feel would one day be machines. People would be a small minority.
+Ilya did not dodge. "It's true," he said. "It's possible it's not the best criterion."
+So this is no finished plan. It is an open question. He has not said how to build such a machine.
+But listen to his hope. It is about the first of those powerful machines. If they do care:
+[CLIP C5]
+Not forever. "At least for quite some time." An honest hope. And it hangs on one thing: what the builders of those first machines put into them.
+That choice lies with a handful of labs, their investors, and the governments that set their rules. And governments answer to voters like you.
+[warm] And there is reason for hope. The question is being asked before the machine exists. In public, where you can hear it. And billions of dollars have already agreed to wait for a safe one.
+His advice to those graduates in Toronto fits you, too: don't look away. Watch what the best A.I. can do today. That, he told them, gives you an intuition. And the energy to face what is coming.
+
+[calm, conversational] So, what did Ilya see?
+In that famous week: people. A fight over trust.
+And ahead of us: a day when A.I. will do all the things that we can do. He put no date on that day. But a machine that learns as well as you do? Five to twenty years, he says.
+He told a magazine. He told a hall full of graduates. He told a podcaster.
+There will be a before and an after, he said. And this is still the before.
+[pause] The secret was never hidden. We just weren't listening.
+Now you are.
+
+[warm] This channel exists so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.

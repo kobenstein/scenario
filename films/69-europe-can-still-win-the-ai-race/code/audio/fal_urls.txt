@@ -1,0 +1,22 @@
+t00 https://v3b.fal.media/files/b/0ab3c1e8/Qwe9LXK_TdhzQ7CPn_IBL_output.mp3
+t01 https://v3b.fal.media/files/b/0ab3c1e8/SMocOM6g21UhgXWKX5MaX_output.mp3
+t02 https://v3b.fal.media/files/b/0ab3c1e8/oD7M6KgBQyhB-yLnKqSf7_output.mp3
+t03 https://v3b.fal.media/files/b/0ab3c1e8/sM1ig0pfHXATdefdSdN9g_output.mp3
+t04 https://v3b.fal.media/files/b/0ab3c1e8/76Xub69N3E4wIn_JArNwt_output.mp3
+t05 https://v3b.fal.media/files/b/0ab3c1e8/Todl6hTGrAoMwyEt14LMC_output.mp3
+t06 https://v3b.fal.media/files/b/0ab3c1e8/03KZsOhLqf8KlhuPtDncE_output.mp3
+t07 https://v3b.fal.media/files/b/0ab3c1e8/ZVUpfscJuru6s5DR6niGN_output.mp3
+t08 https://v3b.fal.media/files/b/0ab3c1e8/NFWBAnMMmJcL6ayBX4el6_output.mp3
+t09 https://v3b.fal.media/files/b/0ab3c1e8/9eV7mAyeTUzAQPoPiBG85_output.mp3
+t10 https://v3b.fal.media/files/b/0ab3c1e8/CaTIgANmvJQHiEL1wXz5t_output.mp3
+t11 https://v3b.fal.media/files/b/0ab3c1e8/tLN65z06wnnY6dM5Xqa8T_output.mp3
+t12 https://v3b.fal.media/files/b/0ab3c1e8/ZlAwx9aXDuz9tGAbQyWQw_output.mp3
+t13 https://v3b.fal.media/files/b/0ab3c1e8/N1XhaIPpn3EvwVOkx2aFB_output.mp3
+t14 https://v3b.fal.media/files/b/0ab3c1f9/Y1l2oQMle6FQUjBvkpbaK_output.mp3   (seed 4302; the seed-4301 take was suspected of a weak "part" in "the fifth part", Whisper snippet check: both takes fine, 4302 kept)
+t15 https://v3b.fal.media/files/b/0ab3c1e8/yHycCllfbaXZUwr5YiGO__output.mp3
+t16 https://v3b.fal.media/files/b/0ab3c1e9/gc9TI3AqeJa9nHO5XzwcP_output.mp3
+t17 https://v3b.fal.media/files/b/0ab3c1e8/V9UmK3BuBUG_iH43gQ8dR_output.mp3
+t18 https://v3b.fal.media/files/b/0ab3c1e8/L-yplkqogfLxALRKpvZzh_output.mp3
+t19 https://v3b.fal.media/files/b/0ab3c1e8/JjUsNJArsB4v_4V07NxPo_output.mp3
+t20 https://v3b.fal.media/files/b/0ab3c1e8/9B8OxIzjLKAoqKo8w2M0g_output.mp3
+t21 https://v3b.fal.media/files/b/0ab3c1e8/bq_uLqqd_FFdkmeHWYLdf_output.mp3

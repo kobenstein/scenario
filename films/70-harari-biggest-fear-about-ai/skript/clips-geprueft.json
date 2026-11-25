@@ -1,0 +1,14 @@
+[
+ {"id":"C1","person":"Yuval Noah Harari","url":"https://www.youtube.com/watch?v=H43e72-2aAs","start":"00:05:12.0","end":"00:05:19.9","dauer_s":7.9,
+  "words":"My biggest fear is that it's not a specific scenario like AI creating a virus or killer robots.","station":1,"source_verified":true,
+  "hinweis":"Originalspur-Untertitel (englische Standardspur ist Rückübersetzung, verfälscht). 'collective dementia' sagt er hier NICHT; Narrator muss 'dementia' ihm über ČT zuschreiben (ČT 11:20–12:30 geprüft: 'something like collective dementia'). Datei Drive #70/3 Rohmaterial/clips/C1.mp4 (1 s Vor/Nachlauf). Harari spricht, keine Musik, nicht burned. Selbst anhören vor Einbau."},
+ {"id":"C2","person":"Yuval Noah Harari","url":"https://www.youtube.com/watch?v=ARdnl2kjmRU","start":"00:03:17.3","end":"00:03:25.7","dauer_s":8.4,
+  "words":"And we will not be able to understand it anymore. Just as cows don't understand checks or stocks, even though these things control their lives.","station":3,"source_verified":true,
+  "hinweis":"The Economist. Nachlauf: Interviewerin setzt mit 'Will it…' ein → vor 03:25.7 hart enden. Economist-'E'-Logo oben links. Keine Musik, nicht burned."},
+ {"id":"C3","person":"Yuval Noah Harari","url":"https://www.youtube.com/watch?v=H43e72-2aAs","start":"00:45:31.5","end":"00:45:39.7","dauer_s":8.2,
+  "words":"And if we could solve the trust between humans problems, then it will be relatively easy to solve the AI problem.","station":8,"source_verified":true,
+  "hinweis":"Erste ~2 s Bild zeigt Suleyman zuhörend, Harari aus dem Off. Zweiter und letzter Clip aus H43e72-2aAs."},
+ {"id":"C1b","person":"Yuval Noah Harari","url":"https://www.youtube.com/watch?v=H43e72-2aAs","start":"00:05:38.4","end":"00:05:44.2","dauer_s":5.8,
+  "words":"…we'll be kind of collectively out of our minds, not understanding what the hell is happening in the world.","empfohlen":false,
+  "hinweis":"Reserve; würde dritten Clip aus H43e72-2aAs bedeuten (§7). Nicht verwenden, außer C3 entfällt."}
+]

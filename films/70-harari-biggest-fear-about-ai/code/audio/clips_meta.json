@@ -1,0 +1,102 @@
+{
+ "C1": {
+  "speaker": "Yuval Noah Harari",
+  "role": "Historian and author",
+  "source": "Harari x Suleyman, \"AI, Consciousness and the Future of Humanity\" (2026-11-18)",
+  "url": "https://www.youtube.com/watch?v=H43e72-2aAs",
+  "credit": "YouTube H43e72-2aAs",
+  "lower_third": "YUVAL NOAH HARARI · Historian and author · ORIGINAL FOOTAGE",
+  "transcript": "My biggest fear is that it's not a specific scenario like AI creating a virus or killer robots.",
+  "cues": [
+   [
+    0.09,
+    "My biggest fear is that it's not"
+   ],
+   [
+    3.13,
+    "a specific scenario like AI"
+   ],
+   [
+    5.17,
+    "creating a virus or killer robots."
+   ]
+  ],
+  "cue_end": 7.75,
+  "word_end": 9.26,
+  "gain_db": -1.0,
+  "file_in_s": 0.65,
+  "file_out_s": 8.45
+ },
+ "C2": {
+  "speaker": "Yuval Noah Harari",
+  "role": "Historian and author",
+  "source": "The Economist, \"Yuval Noah Harari on the dangers of an AI future\" (2026-08-22)",
+  "url": "https://www.youtube.com/watch?v=ARdnl2kjmRU",
+  "credit": "The Economist",
+  "lower_third": "YUVAL NOAH HARARI · Historian and author · ORIGINAL FOOTAGE",
+  "transcript": "And we will not be able to understand it anymore. Just as cows don't understand checks or stocks, even though these things control their lives.",
+  "cues": [
+   [
+    0.11,
+    "And we will not be able"
+   ],
+   [
+    1.39,
+    "to understand it anymore."
+   ],
+   [
+    3.05,
+    "Just as cows don't understand"
+   ],
+   [
+    5.17,
+    "checks or stocks,"
+   ],
+   [
+    6.97,
+    "even though these things"
+   ],
+   [
+    7.89,
+    "control their lives."
+   ]
+  ],
+  "cue_end": 8.58,
+  "word_end": 8.8,
+  "gain_db": -1.7,
+  "file_in_s": 1.0,
+  "file_out_s": 9.63
+ },
+ "C3": {
+  "speaker": "Yuval Noah Harari",
+  "role": "Historian and author",
+  "source": "Harari x Suleyman, \"AI, Consciousness and the Future of Humanity\" (2026-11-18)",
+  "url": "https://www.youtube.com/watch?v=H43e72-2aAs",
+  "credit": "YouTube H43e72-2aAs",
+  "lower_third": "YUVAL NOAH HARARI · Historian and author · ORIGINAL FOOTAGE",
+  "transcript": "And if we could solve the trust between humans problems, then it will be relatively easy to solve the AI problem.",
+  "cues": [
+   [
+    0.0,
+    "And if we could solve the trust"
+   ],
+   [
+    2.14,
+    "between humans problems,"
+   ],
+   [
+    4.23,
+    "then it will be relatively easy"
+   ],
+   [
+    7.05,
+    "to solve the AI problem."
+   ]
+  ],
+  "cue_end": 8.58,
+  "word_end": 8.5,
+  "gain_db": -2.0,
+  "file_in_s": 0.82,
+  "file_out_s": 9.45
+ }
+}

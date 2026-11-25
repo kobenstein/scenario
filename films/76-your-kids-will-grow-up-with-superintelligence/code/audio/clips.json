@@ -1,0 +1,221 @@
+{
+ "_comment": "Film 68 clip metadata (clips_json.py from clips_meta.json). Slot = timing.json slots[] (0.6 s air before/after); cues = [seconds from the slot start, line].",
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "speaker": "Alison Gopnik",
+   "role": "Psychologist, UC Berkeley",
+   "source": "Berkeley Talks (UC Berkeley), CC BY",
+   "url": "https://www.youtube.com/watch?v=zPbBYtwSZaU",
+   "credit": "Alison Gopnik / UC Berkeley, CC BY",
+   "lower_third": null,
+   "transcript": "And I think that picture, the picture of a system that develops, that changes over time, and in particular, as we'll see, a system that's cared for by humans or cared for by other intelligent agents, that's the secret of human intelligence.",
+   "file": "C1.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 17.25,
+   "dur": 17.25,
+   "slot_start": 202.53,
+   "slot_end": 219.78,
+   "sec": "6",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.06,
+     "And I think that picture,"
+    ],
+    [
+     1.5,
+     "the picture of a system"
+    ],
+    [
+     3.32,
+     "that develops,"
+    ],
+    [
+     4.26,
+     "that changes over time,"
+    ],
+    [
+     5.9,
+     "and in particular, as we'll see,"
+    ],
+    [
+     7.8,
+     "a system that's cared for"
+    ],
+    [
+     10.08,
+     "by humans"
+    ],
+    [
+     12.06,
+     "or cared for by other"
+    ],
+    [
+     13.14,
+     "intelligent agents,"
+    ],
+    [
+     14.62,
+     "that's the secret"
+    ],
+    [
+     15.94,
+     "of human intelligence."
+    ]
+   ],
+   "cue_end": 17.2
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "speaker": "Daniel Susskind",
+   "role": "Economist and author",
+   "source": "Oxford Martin School, Book Talk, 24 Nov 2026",
+   "url": "https://www.youtube.com/watch?v=bcf8PqyJaiU",
+   "credit": null,
+   "lower_third": null,
+   "transcript": "And I just think this cannot work any longer. It has reached a dead end.",
+   "file": "C2.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 7.17,
+   "dur": 7.17,
+   "slot_start": 337.54,
+   "slot_end": 344.71,
+   "sec": "18",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.11,
+     "And I just think this"
+    ],
+    [
+     1.89,
+     "cannot work any longer."
+    ],
+    [
+     4.37,
+     "It has reached a dead end."
+    ]
+   ],
+   "cue_end": 7.1
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "speaker": "Daron Acemoglu",
+   "role": "Nobel laureate in economics, MIT",
+   "source": "Sinead Bovell, 3 Sep 2026",
+   "url": "https://www.youtube.com/watch?v=zAvOo4FrZMI",
+   "credit": null,
+   "lower_third": null,
+   "transcript": "The direction of AI is going to be whatever the leading companies decide. But we have huge influence on these companies, which so far we have not exercised.",
+   "file": "C4.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 11.58,
+   "dur": 11.58,
+   "slot_start": 456.77,
+   "slot_end": 468.35,
+   "sec": "30",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.05,
+     "The direction of AI"
+    ],
+    [
+     1.18,
+     "is going to be whatever"
+    ],
+    [
+     2.48,
+     "the leading companies decide."
+    ],
+    [
+     6.46,
+     "But we have huge influence"
+    ],
+    [
+     8.28,
+     "on these companies,"
+    ],
+    [
+     9.38,
+     "which so far"
+    ],
+    [
+     10.14,
+     "we have not exercised."
+    ]
+   ],
+   "cue_end": 11.5
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "speaker": "Daniel Susskind",
+   "role": "Economist and author",
+   "source": "Royal Society of Arts, Lecture",
+   "url": "https://www.youtube.com/watch?v=0kh2F5VrRPk",
+   "credit": null,
+   "lower_third": null,
+   "transcript": "And so I say, you know, ask, you know, what sort of problems you want to spend your life solving, your career solving, rather than what particular job you want to do.",
+   "file": "C5.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 9.07,
+   "dur": 9.07,
+   "slot_start": 564.94,
+   "slot_end": 574.01,
+   "sec": "T",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.06,
+     "And so I say,"
+    ],
+    [
+     2.44,
+     "you know, ask, you know,"
+    ],
+    [
+     3.36,
+     "what sort of problems"
+    ],
+    [
+     4.2,
+     "you want to spend your life"
+    ],
+    [
+     5.46,
+     "solving, your career solving,"
+    ],
+    [
+     7.14,
+     "rather than what particular"
+    ],
+    [
+     8.26,
+     "job you want to do."
+    ]
+   ],
+   "cue_end": 9.0
+  }
+ ]
+}

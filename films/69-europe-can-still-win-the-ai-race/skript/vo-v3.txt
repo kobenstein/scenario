@@ -1,0 +1,109 @@
+Europe can still win the race for artificial intelligence.
+Everyone says it has already lost. Too slow. Too small. Too many rules.
+And whoever builds this technology gets a say in how it treats you. Which AI reads your contracts. Sits in on your job interview. Says yes or no to your loan.
+Wherever you live.
+Right now, almost none of that AI is European.
+So how could Europe possibly still win?
+Guess how much of the world's computing power for AI sits in the European Union.
+About five percent.
+And yet: the only machines on Earth that can print the most advanced chips are built in Europe. Then shipped away.
+Many of the people who build AI are trained in Europe. Then hired away.
+And the European Union has more people than the United States.
+So Europe isn't too small.
+It's in twenty-seven pieces.
+Twenty-seven countries, twenty-seven sets of rules.
+And the plan to put them together is already on the table. This winter, the first big decisions are due.
+
+Those chip machines come from a single company, in a Dutch town.
+Each is the size of a bus. Shipping one fills three cargo jets. And almost every advanced AI chip in the world was printed by one.
+This year, by its own executive's account, the company has sold absolutely nothing in Europe.
+So the strengths are real. They're just not connected.
+The plan to connect them isn't new. Mario Draghi, the man who once saved the euro, wrote it down.
+A year later, he gave his own verdict:
+
+A harder place. And today, by one count, only about one in six of his proposals has been fully carried out.
+For AI, five parts of the plan matter most. Money. One set of rules. Energy. A lab. And minds.
+That last one can't be built. It has to be won.
+One test for all five: is it really there, or only on paper?
+
+Money first. Europe isn't short of it.
+In the European Union, households keep about ten trillion euros in bank accounts. If you live there, part of that is yours.
+A young AI company in Paris or Munich barely sees any of it. So its founders fly to California.
+The plan isn't to take anyone's savings. It's to make investing them in Europe easier.
+Most of it isn't law yet.
+Critics warn: push savers into markets, and you push them into risk.
+But the money going into Europe's start-ups is up by more than half this year.
+Europe now has its own fund, so its biggest start-ups can grow without leaving.
+One of its first bets: Mistral, Europe's best-known AI company.
+A year earlier, Mistral's lead investor was the company that builds those chip machines. That's what connected looks like.
+So, the money: halfway there.
+
+But why does it matter where a company like that lives?
+Arthur Mensch runs Mistral. He sells the European alternative, so he has a stake in this. Here's his warning:
+
+A client state. He means the systems a country cannot run without: its defence, its public services.
+And a client doesn't get a say.
+So Europe needs companies that can grow up at home. Money alone won't do it.
+
+Because a company that wants to grow across Europe runs into twenty-seven different company laws.
+The plan has a fix: a new kind of company, valid in all twenty-seven countries. Set up online in two days, for under a hundred euros.
+But it's held up in the European Parliament. Unions fear companies could use it to get around workers' rights.
+A fair worry. And even if it's solved, the first such company isn't expected before twenty twenty-eight.
+So that one set of rules is still on paper.
+
+None of it runs without electricity. AI data centres need enormous amounts.
+And for heavy industry, electricity in the European Union costs more than twice as much as in America.
+But not everywhere. Sweden's north has cheap hydropower. France has its reactors. So the idea: build the biggest data centres where the power is.
+Europe wants up to seven. The deadline for bids on the biggest: December third.
+But much of the public money has to come from Europe's next budget.
+And even if all of them get built, one Brussels think tank says, Europe's five percent barely moves.
+So this part is halfway there, too. One thing is settled: Europe won't have the most computers.
+It doesn't have to. It has to be needed. And it already builds the one machine the world's most advanced chips depend on.
+
+This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Wherever you live. Want that too? Then subscribe.
+
+Europe does need enough computers of its own. Enough for what?
+For one shared lab, building the most advanced AI.
+Europe has done this before. After the war, its countries pooled their money for one physics lab. The World Wide Web was invented there.
+It's called CERN. And Europe's top official, Ursula von der Leyen, has promised a CERN for AI.
+So far, that promise is a pilot worth about a hundred million euros.
+In November, she named the price of really catching up:
+
+At least five hundred billion euros. Her estimate. Not a budget.
+A name and a pilot. The lab, too, is still on paper.
+
+And a lab is an empty building without the fifth part. The one that can't be built: minds.
+Picture a researcher in Paris, just finished her doctorate. Two offers. One keeps her in Europe. The other, in America, can pay up to seventy percent more. Before stock options.
+Many take it.
+Part of Europe's answer: stock options that work the same in every country, taxed only when you sell.
+But look where that answer sits. Inside that new Europe-wide company. The one that's still on paper.
+And yet, something has shifted. Researchers leaving the European Union for America are down by almost half in two years.
+A few are even moving the other way.
+So the fifth part stays open. It can't be passed in Brussels. It has to be won, one person at a time.
+
+So suppose all five come together. What does Europe win?
+Not the biggest chatbot. But a second race is still open: putting AI to work.
+One satellite maker is using it to cut its development time.
+And more than half of Europe's biggest companies are over a hundred years old. Much of what they know has never been on the internet. No chatbot has read it.
+That argument comes from Peter Koerte, a senior Siemens executive. Siemens sells this kind of AI, so he isn't neutral. But listen to his point:
+
+No single company has enough data. Together, they could.
+The other prize is a say in the rules. A say goes to whoever builds what others can't do without. Like those chip machines.
+But it only counts if Europe speaks with one voice. Today, the Dutch government decides who gets the machines, Washington has a say, and China is building its own.
+How to get to one voice is an open argument: more shared money, or fewer rules.
+Who settles it? Governments. The European Parliament. Investors. And at the next election, voters.
+
+So that's where the plan stands: two parts halfway there, two on paper, one still to be won.
+None is finished. But every one of them has started.
+Can Europe still win?
+The race for the most computers: no.
+The race to put AI to work: yes. That one, Europe can still win.
+And with it, a voice of its own. A say in which AI sits in on your job interview.
+Mario Draghi, who wrote the plan, now says:
+
+An option. With a clock on it. This winter, Europe's leaders are negotiating the budget that much of this depends on.
+Europe builds the machines. It has the savings. It trains the minds.
+Europe was never too small for this race.
+The only question is whether it puts itself together in time.
+
+This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. That takes more voices at the table, not fewer. Want that too? Then subscribe.

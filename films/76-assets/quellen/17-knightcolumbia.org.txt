@@ -1,0 +1,370 @@
+URL: https://knightcolumbia.org/content/what-will-remain-for-people-to-do
+HTTP: 200
+
+Skip to content
+
+Home 
+
+Search Submit
+
+Search Menu \- Toggle primary menu 
+
+Main menu
+
+Home 
+
+Close
+
+Search Submit
+
+  1. Issues Show submenu for Issues
+
+     1. Free Speech
+     2. Privacy
+     3. Transparency
+     4. The Press
+     5. Tech Platforms
+     6. Universities
+
+  2. Work Show submenu for Work
+
+     1. Litigation
+     2. Research
+     3. Policy
+     4. Public Programming
+
+  3. The Institute Show submenu for The Institute
+
+     1. About Us
+     2. Our Projects
+     3. Board
+     4. Staff
+     5. Visiting Scholars
+     6. Careers
+     7. Support Us
+
+  4. More Show submenu for More
+
+     1. News & Commentary
+     2. Video
+     3. Podcast
+     4. Events
+     5. FOIA Library
+     6. For The Press
+
+Essays & Scholarship
+
+# What Will Remain for People to Do?
+
+The future of labor in a world with increasingly productive AI
+
+Daniel Susskind
+
+April 7, 2025
+
+Sébastien A. Krier using Midjourney 6.1
+
+Read time 41 min. 
+
+## Share this page
+
+  *   *   *   *   *   *   * 
+
+Print
+
+Sections
+
+Sections \- Toggle table of contents
+
+Sections
+
+Read more from
+
+## Artificial Intelligence and Democratic Freedoms
+
+A project studying how advanced AI systems may harm, or help strengthen, democratic freedoms
+
+Explore project
+
+Abstract 
+
+What paid work might remain for human beings to do if we approach a world where AI is able to perform all economically useful tasks more productively than human beings? In this paper, I argue that the answer is not ‘none at all.’ In fact, there are good reasons to believe that tasks will still remain for people to do, due to three limits: ‘general equilibrium limits,’ involving tasks in which labor has the comparative advantage over machines (even if it does not have the absolute advantage); ‘preference limits,’ involving tasks where human beings might have a taste or preference for an un-automated process; and ‘moral limits,’ involving tasks with a normative character, where human beings believe they require a ‘human in the loop’ to exercise their moral judgment. In closing, I consider the limits to these limits as AI gradually, but relentlessly, becomes ever-more capable.
+
+##  Introduction 
+
+Every day, we hear accounts of AI taking on tasks that, until very recently, it was assumed that only human beings alone could do: making medical diagnoses and composing amusing jokes, drafting legal arguments and designing beautiful buildings, writing lines of code and forming relationships. The leaders of the largest AI companies now publicly claim that, within a decade, we will build an AI that is capable of outperforming human beings at almost every cognitive task that they do. Demis Hassabis, CEO of DeepMind believes it might be “just a few years, maybe within a decade away”; Sam Altman, CEO of OpenAI, that it might be “a few thousand days”; Dario Amodei, CEO of Anthropic, that it might be “as early as 2026”. (Kruppa 2023; Altman 2024; Amodei 2024). Of course, there are good reasons to discount these claims. But it is important to keep in mind that we have never dedicated as much financial investment and human capital at a single technical problem; according to Stuart Russell, we have now invested ten times the budget of the entire Manhattan Project in pursuit of these technologies (Russell 2024). 
+
+In response, the formal economic literature has begun to explore the implications of AI that is significantly more capable than it is today—variously defined as ‘transformative AI,’ ‘artificial general intelligence’ (or ‘AGI’) and ‘superintelligence’ (see, for instance, Aghion, Jones, and Jones 2018, Korinek and Trammell 2020, Korinek 2023, Korinek and Suh 2024, Trammell and Korinek 2023, Brynjolfsson, Korinek and Agrawal 2024, Jones 2024). And in this paper, I want to build on this literature, exploring what types of paid work might remain for human beings to do if we do approach a world with AGI—where ‘AGI’ is defined as machines that are able to perform all economically useful tasks more productively than human beings. Until now, the most useful question for thinking about the impact of technology on paid work has been ‘what machines can and cannot do.’ But as we approach a world with AGI, that question will fade away, and ‘what will remain for human beings to do, if machines can do everything’ will take its place. 
+
+What paid work, then, will remain for human beings to do? In this paper, I argue that the answer is not ‘none at all.’ In fact, there are good reasons to believe that three sets of tasks would still remain in this world, due to three limits. First, there are ‘general equilibrium limits’—that even if machines have the _absolute_ advantage in performing all tasks, it is more efficient to still leave labor to perform tasks in which it has the _comparative_ advantage. Secondly, there are ‘preference limits’—tasks where human beings might have a taste or preference for goods and services that are produced or provided by a human being, rather than machine. And finally, there are ‘moral limits’—tasks with a normative character, which might require a ‘human in the loop’ to exercise their moral judgment. Identifying these limits is useful for thinking about a world with AGI. But recognizing these limits is also of interest when reflecting on the working world today, and the role of human beings as our machines gradually, but relentlessly, become more capable.
+
+##  I. Task Encroachment and AGI 
+
+How should we think about technological progress? Traditionally, many observers of technology have attempted to identify firm boundaries to the capabilities of machines, explicitly marking out which tasks AI can and cannot do from a technical point of view. In the formal economics literature, there are two distinct approaches to identifying these boundaries. One draws them according to the nature of the tasks; for instance, Autor et al. (2003), an influential early paper in the literature on the impact of technology on the labor market, argued that machines could perform ‘routine’ tasks, that rely on ‘explicit’ knowledge which human beings can readily articulate, but they cannot perform ‘non-routine’ tasks, that rely on tacit knowledge which human beings struggle to articulate. Another approach is to draw these boundaries according to the specific capability that human beings require to perform them; for instance, a popular claim is that machines struggle to perform tasks that require social intelligence (Deming 2017). But what these approaches share is a general inclination to draw strict lines. 
+
+However, this line-drawing has proven to be misguided. A fixed boundary might be reassuringly clear, providing supposedly reliable foundations on which to build arguments about the future of work. But technological progress has shown little respect for the lines that experts have drawn between those tasks that AI can and cannot do. The collapse in applicability of the ‘routine’ v. ‘non-routine’ distinction, for instance, which played such an important role in modern economic thought about the impact of new technologies on the labor market—that machines can perform the former but not the latter—is a good example (see, for instance, Susskind 2016, 2019, 2020a). 
+
+A more useful starting point for thinking about technological progress is the assumption that these technologies will gradually, unpredictably, but relentlessly encroach on more of the tasks that were once performed by human beings. I call this process ‘task encroachment’ (Susskind 2020a, b; 2022). And this process is increasingly reflected in the formal economics literature, where newer models are far more agnostic about the capabilities of new technology. Rather than impose a fixed boundary on machine capabilities from the top-down, based on a theory about how these technologies operate, these instead use data to determine from the bottom-up what machines can currently do—using measures like, for example, the AI Occupational Impact Measure, Suitability for Machine Learning Index, and AI Exposure Score (Acemoglu et al., 2022).
+
+Importantly, in the limit of this process of task encroachment, as machines continue their relentless advance, machines will be able to perform all economically useful tasks more productively than human beings. When I refer to ‘AGI’ in this paper, that is the outcome that I have in mind. Until recently, this sort of prospect was dismissed by many economists as fanciful: “although we all enjoy science fiction, history books are usually a safer guide to the future,” as a group of eminent researchers put it in 2017. But, as noted before, this sort of skepticism has weakened significantly in recent years—there is now a growing formal literature exploring the consequences of this sort of technology. 
+
+##  II. General Equilibrium Limits 
+
+In thinking about a world where machines are able to perform all economically useful tasks more productively than human beings, economic theory provides an important insight: that once ‘general equilibrium’ is reached, machines will not necessarily perform all these tasks—even if they could. This is an important result: in a world with AGI, once prices in different markets are allowed to adjust—i.e., once the owners of the machines are paid a rate of return, and once labor is paid a wage—there are good reasons to believe that demand for labor to perform certain tasks may nevertheless remain. (Though how much demand may remain for labor to perform those tasks, and what the wage for that residual work might be, is highly uncertain—as I will explore.)
+
+The intuition for this result can be shown through the ‘task-based’ approach, now the dominant framework in the formal economic literature for exploring the impact of technology on the labor market. This approach is rooted in a simple distinction between a job and the individual tasks that make up that job; the principle being that the latter, rather than the former, is the right unit of analysis for exploring the impact of technology on work. The idea has a rich intellectual history, stretching back to the preoccupation of the classical social theorists with the division of labor. But in recent years it has been formalized into a powerful set of economic models for studying the impact of technology on the labor market (see, for instance, Zeira 1998, Autor et al. 2003, Acemoglu 2011, Acemoglu and Restrepo 2018). 
+
+One innovative feature of recent task-based models is their response to the challenge of task encroachment, set out in the previous section. Early task-based models relied on a fixed boundary between what machines could and could not do. (For instance, in Autor et al. (2003), the assumption was that machines could perform ‘routine’ tasks but could not perform ‘non-routine’ tasks.) However, recent task-based models are far more agnostic about which tasks can and cannot be automated, based on the recognition that the boundaries to machine capabilities are uncertain and changing. These models instead use a ‘task spectrum,’ ordering all the different types of tasks in an economy in a line. In turn, they use a ‘productivity schedule’ to capture the capability of each factor—machines and labor—at performing each of those tasks. 
+
+A further innovative feature of these newer models is how they determine which tasks will be performed machines and which are performed by labor. This boundary is represented by a cut-off on the task spectrum—on one side of the cut-off, tasks are performed by machines; on the other, they are performed by labor. But, crucially, that cut-off is not fixed, set according to a set of rigid assumptions about what machines can and cannot do, as in the past. Instead, the cut-off can change and is endogenously determined within the model. What determines where the cut-off is positioned? In part, it depends on the relative productivity of machines and labor, i.e., which tasks can machines perform and how productive are they relative to labor at performing those tasks. In part, it is also determined by the relative factor prices of machines and labor, i.e., how much does it cost to use each factor to perform those tasks. (see Acemoglu & Restrepo, 2018; Aghion et al., 2019; Moll et al., 2021).
+
+As an aside, this distinction—between the productivity of factors at performing tasks, and the cost of factors at performing those tasks—is important for thinking more generally about automation. Intuitively, it explains why many powerful technologies exist today that can perform impressive tasks but are nevertheless not used in practice—because they are too expensive relative to the human alternative. For example, there are robots that can fold laundry more productively than human beings, but the cost of these expensive machines relative to the far lower cost of a human cleaner means that it makes economic sense to use the cheaper, albeit less productive, human alternative. Put more tersely, while machines might be more productive than labor at performing specific tasks, it nevertheless may not be efficient to use them given their relative cost. 
+
+In these new task-based models, as machines become more capable and task encroachment unfolds, the endogenously determined cut-off on the task spectrum shifts—machines take on more types of tasks, and labor is left with fewer to perform. Importantly, though, machines do not perform all the tasks that they could perform in equilibrium: machines specialize in certain tasks, labor in others. And what’s more, even in a setting with AGI, where machines can perform every task more productively than labor, they still do not necessarily perform all the tasks that they could perform —some tasks might nevertheless be left for labor. This is an important result. But why might some demand remain for labor, even if machines are more productive than them at every task? The short answer is that it is inefficient to leave labor idle, a waste of a factor that—although it might be less productive than machines at all tasks—could still be put to economic use. The longer answer is subtler.
+
+With AGI, even though machines might have the _absolute_ advantage over labor in performing all tasks—i.e., they are able to perform all tasks more productively than labor—it is nevertheless still more efficient for machines to specialize in performing those tasks in which they have the _comparative_ advantage over labor (i.e., those tasks in which they have the lower opportunity cost) and for labor to specialize in performing those tasks in which they have the _comparative_ advantage over machines. To see the distinction between absolute and comparative advantage in action, think about Lionel Messi (Susskind 2024). He is the best footballer in the world. But imagine he has a secret: he is also the world’s fastest knitter. Should he give up football to knit? Clearly not: if he knits, he gives up an immense income as a footballer; if any knitter takes up football, they will struggle to earn an income at all. Messi has the absolute advantage in both football and knitting but has the comparative advantage at football (i.e., his opportunity cost of playing football rather than knitting is far lower than anyone else’s).
+
+It is not a coincidence that this result—that each factor ought to specialize in performing the tasks in which it has the comparative advantage—is very similar to results in the international trade literature, where efficiency is maximized if each country specializes in producing the goods in which it has the comparative advantage. These task-based models of the labor market are isomorphic to ‘Ricardian’ models of international trade (in particular, Dornbusch et al. 1977): in the trade models, rather than two factors (machines and labor) there are two different countries; rather than a spectrum of tasks there are a spectrum of goods; rather than a cut-off that marks which factors specialize in performing which tasks, there is a cut-off that marks which countries specialize in producing which goods. And so, just as the U.S. might be more productive than Vietnam at producing both robots and rice but ought to specialize in the former, machines might be more productive than labor at all tasks but ought to specialize in the tasks in which it has the comparative advantage.
+
+These task-based models therefore provide an important intuition for why labor might still have tasks to perform, even in a world with AGI, where machines can do everything more productively than human beings—the efficiency gains from factors specializing in their respective comparative advantage. Just as it is more efficient for two different countries to specialize in producing different goods and services, even if one country is more productive than the other at producing everything, so too it is more efficient for two different factors to specialize in performing different tasks, even if one factor is more productive than the other at performing everything. Again, note that this intuition tells us nothing about how much demand there will be for labor to perform these residual tasks, and so what the wages will be for that work: it is one thing to say that there might be tasks for labor, quite another to say that wages will be large enough for them to make a living.
+
+##  III. Process vs. Outcome 
+
+From an economic point of view, the promise of task encroachment is far greater efficiency—the ability to perform a wider range of tasks, at a lower cost. And in many cases, this process will be desirable: an AI-enabled medical diagnostic system, for instance, that provides more affordable access to the sort of medical expertise that, in the past, might have been available only to a privileged and lucky few. However, the obvious consequence of task encroachment is that activities which were once performed by human beings are instead performed by machines. That fact may prompt a variety of worries. But when thinking about what labor might do in a world where machines could perform all economically-useful tasks more productively, there is one particularly important set of worries—namely, those that are concerned something valuable is lost when certain tasks are taken out of the hands of human beings, however efficient the outcomes might be. 
+
+Put slightly differently, these worries focus on a tension: that automation might help us achieve certain ‘outcomes’ more efficiently, but there may also be something undesirable about the ‘process’ through which those efficiency gains are achieved. This tension can be expressed in a variety of ways: that both ‘means’ and ‘ends’ matter, that ‘how’ a task is performed matters as well as ‘how well,’ that certain tasks have ‘intrinsic’ as well as ‘instrumental’ value when performed by human beings and not a machine. But each of these distinctions concern the same underlying observation: that people might have reason to value the process of performing a task, and whether it is done by a human being or a machine, as well as the outcome that the task achieves. 
+
+Why might people value how a task is performed? Broadly, there are two sets of reasons: ‘preference’ reasons, where people _prefer_ that a task is performed by a human being; and ‘moral’ reasons, where people believe a task _ought_ to be performed by a human being. As we shall see, this distinction—between people who want human beings to do things because they prefer it, and people who want human beings to do things because they ought to—can be unclear in practice. But the framing is nevertheless a useful way to think about the nature of the tasks that might remain for human beings, even in a world where machines could do everything more productively. 
+
+##  IV. Preference Limits 
+
+Why might people _prefer_ that a task is performed by a human being, and not a machine? There are several ‘preference’ reasons that this might be so: I call these ‘aesthetic’ reasons, ‘achievement’ reasons, and ‘empathy’ reasons.
+
+To begin with, consider artistic pursuits. When you walk into the Sistine Chapel you not only gawp at the beauty of the ceiling (the outcome) but the fact that it was painted by a human being (the process). When you look at the statue of David you not only marvel at its form (the outcome) but also the fact that it was carved by a human being (the process). When you listen to the fourth movement of Gustav Mahler’s Fifth Symphony you not only think this sounds beautiful (the outcome) but also wonder at the depth of feeling the composer must have had for his wife, Alma Mahler, for whom the piece was written (the process). The consequence of these observations is that, however capable AI might become at generating images, objects, audio, or video, and however astonishing those works might turn out to be, people may nevertheless consider these artistic outputs inferior for the very fact it was created by a machine and not a human being. These are ‘aesthetic’ reasons. 
+
+Closely related are ‘achievement’ reasons. To see this, consider the story of computer chess. In 1997, the then world chess champion Garry Kasparov was beaten by a computer system owned by IBM, Deep Blue. It is a well-known achievement. But for a time, after that game, the view was that this victory did not spell the end for human chess-players. Yes, a chess-playing machine had beaten an outstanding human player acting alone. But, the optimistic argument went, a human player working with a chess-playing machine by its side would still be able to outperform a chess-playing machine working by itself. With that in mind, Kasparov celebrated so-called ‘centaur chess’, making the case that ‘human plus machine’ was better than ‘human alone’—and not only at the chessboard, but in the wider labor market as well (Susskind 2020a). 
+
+However, that optimism turned out to be short-lived. In 2017, DeepMind’s system AlphaZero, after only a day of self-training, was able to beat the best existing chess-playing machine in a hundred-game match without losing a game. Today, it is not clear that human players bring anything at all to a chess-playing team with a machine. Kasparov, after his initial loss to Deep Blue, had wondered about the future of the game: 
+
+> [W]hat would happen if and when a chess machine beat the world champion. Would there still be professional chess tournaments? Would there be sponsorship and media coverage of my world championship matches if people thought the best chess player in the world was a machine? Would people still play chess at all? (Kasparov 2017)
+
+The idea that the game had a future in ‘centaur’ chess was his answer to these questions. But he was doubly wrong—wrong, because centaur chess had no future, as noted, but also wrong because the ordinary game did have a future. Today, even though chess-playing computers are more powerful than ever before, and even though human players look more diminished than ever before, chess appears to be more popular than ever: “chess hasn’t seen popularity like this since the 1972 World Chess Championship,” wrote the _New York Times_ at the end of 2022. (Keener 2022; 1972 was the infamous cold-war match between the American Bobby Fischer and the Soviet Boris Spassky.)
+
+The reason for chess’ enduring popularity, in spite of these technological developments, is important. In the years that followed Deep Blue’s victory, it transpired that what people valued about the game was not simply the outcome—whether the game was won or lost—but also the process—whether it was played by a human being or a machine. Put differently, even though AI had successfully encroached on the task of playing chess, able to outperform even the finest human player, people still valued the game when it was performed by a human being not a machine. 
+
+Why did people prefer to watch a human play? In part, as before, it may be due to aesthetic reasons, that there was beauty in the very fact it was a human mind making the moves at the chess board. But that preference is also likely due to reasons of achievement—that people have a taste for watching human beings push their limits, that they value achievement relativized to some average level of human capability, that they enjoy witnessing someone outperforming other human beings at task in a competition. These achievement reasons apply for other games—a droid race between, for instance, Tesla Optimus and Boston Dynamic’s Atlas is likely to be far less valued than a race between the finest human athletes. 
+
+Reasons of aesthetics and accomplishment also apply when we think of intellectual pursuits. In 2016, I had some private email correspondence with Leonard Susskind, a leading astrophysicist. (Not related to the author.) In a discussion about the limits of AI, he said: 
+
+> Speaking for myself, what makes Einstein’s work so beautiful is not just the results, but also the way he came to them. His thinking always began with the simplest observations about nature, things that a child could understand. An example was his realization that being in an accelerated elevator would have the same effect as a gravitational field. You can feel it on the bottoms of your feet. From that, and that alone, he deduced the general theory of relativity. I find that not only smart, but beautiful, and deeply human.
+
+To him, it was not only the outcome that mattered, the “results” as he put it, but the process as well, “the way that he came to them.” The general observation is that we might have reasons to value the discoveries that a great mind makes, but we might also attach value to the very fact that it was a human being who made them. This is a combination of aesthetic reasons—the beauty of the human mind who created it—but also achievement—that it was something only a special person would be able to do.
+
+Importantly, these reasons of aesthetics and achievement have more prosaic economic consequences. In many markets, consumers value not only the outcome that is achieved by certain economic tasks but the process through which those outcomes are achieved. This might be due to aesthetic reasons: a hand-brewed coffee, a hand-tailored suit, a hand-made piece of furniture. Or it might be due to reasons of achievement: think, for instance, of sports, games, or indeed any type of competition (competition against oneself, or against other human beings). Put differently, even if these sorts of goods and services could be provided more efficiently through an automated process, there may nevertheless be demand for ones provided by human beings because of the very fact that a person produces them.
+
+A quite different set of reasons that people might prefer a task is performed by a human being, and not a machine, are ‘empathy’ reasons. To understand the nature of these reasons, it is useful to explore the broader history of automation in this setting. 
+
+In the early 1990s, a field of research emerged at the Massachusetts Institute of Technology Media Lab know as ‘affective computing,’ dedicated to building machines that are able to detect and respond to human emotions (Picard 1995). In the beginning, the focus was on hardware: Kismet (1990s), one of the first affective robots, with moveable facial parts; Paro (2004), a robotic seal, used to comfort dementia patients; Kaspar (2005), a humanoid bot, used to comfort children with autism; Wakamaru (2005), another humanoid, designed to provide domestic support to the elderly. The must-have toy at the turn of the century was Furby, an application of affective computing that sold 14 million units in 1999. 
+
+However, as time passed, the focus in the field turned to software: systems, for instance, that could outperform human beings in distinguishing a smile of social conformity from one of genuine joy, or a face showing genuine pain from fake pain (Susskind and Susskind 2015); systems that can look at a person’s face and tell whether they are happy, confused, surprised, or delighted, that can tell whether students are bored during class or whether a person is lying during cross-examination in a courtroom (Susskind 2020a). Recent progress in LLMs, and the AI-powered chatbots that have followed—Replika, Character.ai—with each one delicately tuned to detect and respond to their user’s personal tastes, have pushed the field of affective computing further. 
+
+This progress is provocative because many people not only believe that human interaction is a core part of the work that they do but that it is an activity that cannot be readily automated. This is particularly the case among white-collar professionals, who often appeal to this aspect of work to make the case that they are protected from automation: doctors who say the personal touch is critical for making an accurate diagnosis; lawyers who argue they must sit down face-to-face with their clients to understand their difficulties; teachers who claim that the best way to learn is through in-person contact in a traditional classroom setting (Susskind and Susskind 2015). Expert commentators have added their weight to these claims: a Pew Research Center survey, for instance, which found that many believed there are certain “uniquely human characteristics” like empathy that will never be automated (Susskind 2020a). Developments in affective computing, though, increasingly challenge that presumption. 
+
+But I would go further. More consequential than systems that try to ‘copy’ the faculty of empathy—by detecting and responding to emotions in the way that a human being might do—are those that allow people to perform tasks that might require empathy from a human being, but to carry out those tasks in a very different way. This is a consequence of perhaps the most important development in the field of AI in the last forty years, what I call the ‘Pragmatist Revolution’: a shift from building systems that copy some aspect of human beings acting intelligently—their thinking processes, the reasoning they engaged in, even their anatomy—to building systems that perform tasks in fundamentally different ways to human beings (Susskind 2016, 2020a). 
+
+Take a task like making a medical diagnosis. Until recently, it was thought in the formal economic literature that that this task was out of reach of automation because it was a ‘non-routine’ task that involved subtle faculties like judgment that no human doctor could articulate in a set of explicit rules for a machine to follow (Susskind 2016, 2019). However, there are now many systems that can diagnose medical problems as accurately as human doctors. How do they work? Not by copying the ‘judgment’ of a human being, but by using advances in processing-power, data storage capability, and algorithm design to perform the tasks in a fundamentally different way. (In many cases, these systems work by searching for patterns between the particular photo of the troubling ailment in question and a database of many thousands of similar ones—see, for instance, Esteva et al. 2017). 
+
+The same is true of many other tasks that have historically required empathetic interaction from human beings—we now perform them not by trying to replicate the faculty of empathy, but in a different way through new technologies: automated checkouts are replacing friendly-faced cashiers, online tax computation programs are replacing the personal touch of an accountant, robo-advisers are replacing interactions with a human financial expert, and so on (Susskind 2020a). Put in terms of the ‘process’ and ‘outcome’ distinction, those who argue that a particular task cannot be automated because it requires ‘empathy’ are often confusing the traditional process through which we might have solved problems—namely face-to-face interaction with human beings—with the outcome that we are trying to solve: paying for goods, filing our tax returns, managing our financial affairs. Where that confusion prevails, and where it turns out that people value the outcome over the process, then the fact that the outcome was achieved through empathic interactions in the past is not a bottleneck to automation. 
+
+And so, this leads to an important question: are there tasks where the very thing that people value is the empathetic interaction with a human being, where the process is the thing that matters most? Here, a useful distinction is between the ‘cognitive’ and ‘affective’ dimensions of empathy: the former is the ability to understand the emotional state of another; the latter is the ability to feel the emotional state of another (Susskind and Susskind 2015). And while substantial progress has been made in building AIs that can engage with the cognitive dimension of empathy—indeed, in many cases, the systems outperform human beings—there has been no progress with respect to the affective dimension of empathy. Indeed, until AIs are built that are, in some sense ‘conscious’ and capable of ‘feeling’ emotions, then we cannot expect any change. 
+
+The inability of AI to engage with the affective dimension of empathy is important: if, in an interaction, people value the very fact that their emotions are being ‘felt’ by something else—not simply ‘understood’—then this suggests a further limit to automation. If, for instance, what a person wants at the end of their life is not simply to be helped to die well—the outcome—but for someone to understand their suffering—the process—then this is an activity that cannot readily be done by a machine. And this observation generalizes to other domains: perhaps it matters, for these reasons of empathy, that a teacher helps difficult students with their behavior; a parent supports their child through hard life events; a clergyman listens to the travails of their parishioners; a psychologist hears the struggle of their patients; a human leader reflects on big decisions for their company. 
+
+##  V. Moral Limits 
+
+Alongside preference-based reasons to value the process with which a task is performed, are moral reasons—where it is not simply that people have a taste for a human process rather than an automated one, but they believe that human beings _ought_ to perform the task from a moral point of view. 
+
+In thinking about the moral limits to automation, it is useful to distinguish between ‘artificial narrow intelligence’ (ANI) which are systems that can only handle very particular tasks, and ‘artificial general intelligence’ (AGI) which are systems with far more wide-ranging capabilities. (Note, this distinction is different from the distinction between ‘weak’ and ‘strong’ AI: the former is about the breadth of an AI’s capabilities, the latter is about whether the AI’s workings resemble human consciousness.) At present, AIs are ANIs—they are good at performing specific activities. Recent progress in generative AI has perhaps moved us a little closer to AGI—what is noteworthy about systems like ChatGPT, Claude, and Gemini, for instance, is the breadth of their capabilities, that they are as comfortable writing a tight legal argument as they are composing an amusing standup routine. But despite that new and impressive generality, these systems nevertheless remain some distance from what most experts would think of as ‘true’ AGI. 
+
+This distinction between ANI and AGI is useful for thinking about the moral limits to automation, since each type of AI involves a different ‘moral task.’ In the case of ANI, there is a view that certain tasks ought to be performed by a human being—that these tasks must involve what is variously called a ‘human being in the loop,’ ‘meaningful human control,’ and ‘human oversight,’ among other labels. This argument is applied in a vast variety of domains: that weapons ought to have a human pulling the trigger; that cars ought to have a human behind the wheel; that significant sentencing verdicts ought to involve a human judge in the dock; that life-or-death medical judgments ought to involve a human doctor; that a classroom ought to have a human educator. 
+
+Importantly, though, in each of these different cases the claim is not simply that people would _prefer_ a human being perform the task, but that there are moral reasons to think that they _ought_ to perform that task. Those who hold this belief will tend to favor some form of ‘process-based’ moral theory, rather than an ‘outcome-based’ moral theory, which attaches normative significance to how a task is performed, rather than simply how well it is performed. (For, in a world where machines can outperform human beings at every economically useful task, those who hold the latter belief alone would not object to automating the task from a moral point of view.) That said, there is still significant heterogeneity in the sources of the normativity in these process-based moral theories—what gives the ‘ought’ its bite—across domains and among scholars. 
+
+Some who value process-based moral theories, for instance, take a Kantian view that human beings, as rational creatures, have a unique capacity for moral judgment that a machine could only copy but not replicate. Others claim that only a human being can be held morally responsible or accountable for a particular outcome. And yet others point to reasons of solidarity, that for certain tasks, “when a human stands in judgment over another human there is a solidarity in play furnished by the fact that they both possess, and have the opportunity to exercise, their rational natures” (Tasioulas 2023). Doubtless there are other plausible candidate sources of normativity for a process-based moral theory. But what they all share is a belief that it is not simply a case of mere preference that a human being performs a task, but morality.
+
+In the case of AGI, the moral task is different to the ANI case—it involves the more substantial task of providing feedback to an AI that operates across a wide range of different tasks. Today, this is commonly framed as the ‘alignment problem,’ i.e., how to make sure an AGI’s actions across multiple domains best align with human values (see, for instance, Russell 2019, Ngo et al. 2020). Since Norbert Weiner’s original 1960 fear—“If we use, to achieve our purposes, a mechanical agency with whose operation we cannot interfere effectively … we had better be quite sure that the purpose put into the machine is the purpose which we really desire” (Weiner 1960)—an enormous literature has built up on the alignment problem, exploring both how to think about the problem and, in turn, how to solve it. (In spite of all that intellectual effort, it remains unsolved.) Importantly, though, the tacit assumption in this literature is a belief that the task of aligning AGI ought—from a moral point of view—to be done by human beings. There are exceptions—OpenAI’s “approach to alignment research,” for instance, involves three stages, the final one being “training AI systems to do alignment research” (OpenAI, 2022)—but the conventional wisdom is still that this ought to be an important task for human beings. 
+
+For some, this distinction between ANI and AGI is unnecessary when thinking about the moral tasks involved. Consider, for instance, Ruth Chang, who argues that “[t]oday, the leading strategy for attempting to achieve alignment is to ‘put the human in the loop’ of machine processing. By requiring human input at critical junctures of machine processing, we can—so the hope goes—bring machine decision-making in line with human values.” (Chang 2024). On this view, then, keeping a ‘human in the loop’ of each particular moral task is the way to solve the more general moral task of aligning AI. Put more loosely, if we can identify all the ‘loops’ that matter from a moral point of view, and ‘keep human beings in them,’ then the distinction between ANI and AGI is immaterial. Whether or not you subscribe to that view, though, the basic observation remains the same: there are certain moral tasks—‘human being in the loop’ with ANI, ‘AI alignment’ with AGI—where it is believed that a human being _ought_ to perform them. 
+
+It is important to emphasize, again, that the reason for a human being to perform these moral tasks is not that they might deliver a better ‘outcome’ than a machine, but because it matters that the ‘process’ is performed by a human being; those who believe this are appealing to process-based moral theories, not outcome-based moral theories. That said, some scholars do try and appeal to outcomes: that a human being must ‘remain in the loop’ so that, for instance, any given moral decision is more ‘explainable’ (see, for instance, Tasioulas 2023). But the difficulty with claims that appeal to outcomes in this way is that they are hard to maintain as machines become more capable: well before AGI, it is conceivable that “decisions whose rationale we can grasp” might flow more readily in the future from AI, rather than a human being (Tasioulas 2023). To see this, consider the medical setting: ask a doctor, for instance, how they make a diagnosis, and they might begin by appealing to easy-to-articulate explicit knowledge, as you might find on the relevant pages of a medical textbook, but push harder and they are likely to appeal to hard-to-articulate tacit knowledge—‘I used my judgment, creativity, instinct, intuition’ and so on. Indeed, in the economic literature, it was the belief that a doctor relied more on tacit, rather than explicit, knowledge, that made the task particularly difficult to automate (it was what made it ‘non-routine’; see, for instance, Susskind 2016; 2019). 
+
+##  Conclusion: Limits to the Limits? 
+
+What will remain for human beings to do, even in a world where machines can perform all economically useful tasks more productively than human beings? In this paper, I have argued there are three important limits: general equilibrium limits, involving tasks in which labor has the comparative advantage over machines (even if it does not have the absolute advantage); ‘preference limits,’ involving tasks where human beings might have a taste or preference for an un-automated process; and ‘moral limits,’ involving tasks with a normative character, where human beings might believe that it requires a ‘human in the loop’ to exercise their moral judgment. 
+
+But how robust are these limits—general equilibrium, preference, moral—to the process of task encroachment? Put another way, if the leaders of the AI companies are right in their predictions, and we do build AGI in the short- to medium-term, will these limits be able to withstand such remarkable progress? In my view, each limit has an important weakness. In what follows, I want to set what these might be.
+
+In the case of the general equilibrium limits, the critical question is how much demand will exist for labor to perform these residual tasks in which it retains the comparative advantage over machines—it is one thing to say that it is efficient to leave certain tasks for labor to perform, rather than leave the factor idle, but quite another to say that labor will be paid a sufficiently large wage to make a living. The formal literature on this question is inconclusive. In Susskind (2016; 2020b), I show how labor can be immiserated and wages are driven to zero as it is forced to specialized in a shriveling set of residual tasks in which it retains the comparative advantage; Acemoglu and Restrepo (2018) capture a more optimistic path, though one that is very sensitive to the assumption that the economy continues to create ever-more tasks in which labor has the comparative advantage; Korinek and Trammell (2023), and Korinek and Suh (2024) explore more generally the conditions under which wages rise or collapse. The conclusion is that the existence of tasks in which labor retains the comparative advantage does not by itself imply that there will necessarily be sufficient demand for those residual tasks to keep everyone in well-paid employment. Indeed, there is no economic law that says this outcome must be so. 
+
+In the case of the preference limits, the critical question is what happens to peoples’ tastes over time—after all, preferences can change. For instance, it is conceivable that progress in AI leads to improvements in outcomes which are so substantial that they overwhelm any historical taste for a human process. Put formally, it is unlikely that people have ‘lexicographic’ preferences for a human process, i.e., that no matter how good outcomes may become, people will necessarily prefer a task is done a specific way. It is unlikely, for example, that people will always prefer a human doctor to provide a diagnosis, however capable an AI-powered diagnostic system becomes; or that people will always prefer a human judge, however refined an AI-powered adjudicator becomes. It seems more plausible to imagine that our tastes for efficient outcomes and human processes are engaged in a balancing act: at times, our preference for the latter might outweigh our preference for the former, but that can change—and it is important not to suffer from a failure of imagination about how capable AI might become in the future. 
+
+A more dramatic way in which preferences might change to the detriment of the preference limits is that, over time, as AI becomes more capable, we may develop a new taste for automated processes instead. The computer scientist Douglas Hofstadter, in his most famous work _Gödel, Escher, Bach,_ said the following of machine-generated music: 
+
+> A “program” which could produce music as they did would have to wander around the world on its own, fighting its way through the maze of life and feeling every moment of it. It would have to understand the joy and loneliness of a chilly night wind, the longing for a cherished hand, the inaccessibility of a distant town, the heartbreak and regeneration after a human death. It would have to have known resignation and worldweariness, grief and despair, determination and victory, piety and awe. (Hofstadter 1979)
+
+Yet perhaps we will come to value a work of art in the future—like a piece of music—precisely because it is produced by an AI, not a human being, wondering with utterly astonished awe at a system that is able not only to capture the experience of one sensitive human being—which Hofstadter so writes so eloquently about—but the entire universe of all human experience, past and present, something no individual alone could possibly grasp, and perhaps combined with other dimensions of experience that sit completely out of our human reach. 
+
+Finally, how robust are the moral limits to AGI? The answer depends on the nature of the moral reasoning that is used to claim that these tasks ought to be performed by a human being and not a machine: whether it is a pure process-based moral theory or one that is blended with an outcome-based moral theory. If the latter, and the argument involves an appeal to outcomes, allowing the efficiency with which the outcome is achieved to feature in the moral calculus, then the moral limit is not robust—there must exist some level of technological progress at which the automated outcome is so extraordinary it overwhelms any competing reasons to believe that a human being ought to perform the task. However, if the argument is entirely independent of the efficiency of the outcome, if it is a pure process-based moral theory, then it is plausible to believe these moral limits would be robust—however efficient the outcome, the task ought to always be performed by a human being. But for purists who do hold such a view, AGI will surely test their moral intuitions: for as machines become relentlessly more capable, and outcomes continue to improve, eventually they will have to reckon with whether they might care about those outcomes after all. 
+
+##  Acknowledgments 
+
+_Thank you: to attendees at the Knight Institute Workshop on AI & Democratic Freedoms, Columbia University, 18-19 November 2024, particularly Seth Lazar and Katy Glenn Bass; to attendees at the CEPR Paris Symposium 12 December 2024, particularly Anton Korinek; to attendees at the Institute for Ethics in AI Seminar, Oxford University, 10 February 2025, particularly John Tasioulas and Cass Sunstein; and to an anonymous referee._
+
+##  Bibliography 
+
+Acemoglu, Daron, and Autor, David. 2011. Skills, tasks and technologies: Implications for employment and earnings. In David Card and Orley Ashenfelter (Eds.), _Handbook of labour economics_ , volume 4B (pp. 1043–1171). North-Holland.
+
+Acemoglu, Daron, and Restrepo, Pascual. 2018. The race between man and machine: Implications of technology for growth, factor shares, and employment. American Economic Review 108(6), 1488–1542.
+
+Acemoglu, Daron, David Autor, Jonathon Hazell, Pascual Restrepo. 2022. ‘Artificial Intelligence and Jobs: Evidence from Online Vacancies,’ _Journal of Labor Economics._ 40:S1
+
+Aghion, Jones and Jones. 2018. ‘Artificial Intelligence and Economic Growth,’ Chapter 9 in NBER volume on _The Economics of Artificial Intelligence: An Agenda._
+
+Aghion, Philippe, Jones, Benjamin, and Jones, Charles. 2019. Artificial intelligence and economic growth. In A. Agrawal, J. Gans, & A. Goldfarb (Eds.), _The economics of artificial intelligence: An agenda_. University of Chicago Press.
+
+Altman, Sam. ‘The Intelligence Age’, 23 September 2024. < https://ia.samaltman.com/>
+
+Amodei, Dario. ‘Machines of Loving Grace’. October 2024. < https://darioamodei.com/>
+
+Autor, David, Levy, Frank, & Murnane, Richard. 2003. ‘The skill content of recent technological change: An empirical exploration.’ _The Quarterly Journal of Economics_ 118(4), 1279–1333.
+
+Brynjolfsson, Erik, Anton Korinek, and Ajay Agrawal. 2024, forthcoming. ‘The Economics of Transformative AI: A Research Agenda,’ Working Paper.
+
+Chang, Ruth. 2024. ‘Human in the Loop!’ in _AI Morality_ ed. David Edmonds.
+
+Deming, David, 2017. ‘The Growing Importance of Social Skills in the Labor Market,’ _Quarterly Journal of Economics_ 132:4, 1593—640.
+
+R. Dornbusch, S. Fischer and P. A. Samuelson. 1977. ‘Comparative Advantage, Trade, and Payments in a Ricardian Model with a Continuum of Goods.’ _The American Economic Review_ 67:5, 823-839.
+
+Eggert, Linda. 2025. ‘Autonomised harming,’ _Philosophical Studies._ 182\. (2025).
+
+Esteva, Andre, Brett Kuprel, Roberto A. Novoa, et al. 2017. ‘Dermatologist-level Classification of Skin Cancer with Deep Neural Networks,’ Nature 542, 115–18.
+
+Hofstadter, Douglas. 1979. _Gödel, Escher, Bach._
+
+Jones, Charles. 2024. ‘The AI Dilemma: Growth verses Existential Risk’, _AER: Insights,_ 6(4): 575-590.
+
+Kasparov, Garry. 2017. _Deep Thinking._
+
+Keener, Greg. 2022. ‘Chess is booming’, _The New York Times._ 27 Sept.
+
+Korinek, Anton. 2023. ‘Scenario Planning for an A(G)I Future,’ IMF Finance & Development Magazine, Dec.
+
+Korinek, Anton and Donghyun Suh. 2024. ‘Scenarios for the Transition to AGI,’ NBER Working Paper No. 32255.
+
+Korinek, Anton, and Philip Trammell. 2023. ‘Economic growth under transformative AI,’ NBER Working Paper Series No. 31815. October.
+
+Moll, Benjamin, Lukasz, Rachel, and Restrepo, Pascual. 2021. ‘Uneven growth: Automation’s impact on income and wealth inequality.’ NBER Working Paper No. 28440.
+
+Ngo, Richard, Lawrence Chan, and Sören Mindermann. 2022. ‘The Alignment Problem from a Deep Learning Perspective,’ arXiv preprint arXiv:2209.00626.
+
+OpenAI. 2022. ‘Our approach to alignment research,’ 24 August. <https://openai.com/index/our-approach-to-alignment-research/>
+
+Picard, Rosalind. 1995. _Affective Computing._
+
+Russell, Stuart. 2019. _Human Compatible._(Allen Lane: London).
+
+Russell, Stuart. 2024. ‘Human-Compatible Artificial Intelligence,’ presentation at Paris meeting of CEPR network on AI, December.
+
+Susskind, Daniel and Richard Susskind. 2015. _The Future of the Professions._
+
+Susskind, Daniel. 2016. _Technology and employment: tasks, capabilities, and tastes._ DPhil Thesis, Oxford University.
+
+Susskind, Daniel. 2019. ‘Re-thinking the capabilities of technology in economics,’ _Economics Bulletin_ 39 (1), 280-288
+
+Susskind, Daniel. 2020a. _A World Without Work: Technology, Automation, and How to Respond_(Allen Lane: London)
+
+Susskind, Daniel. 2020b. ‘A Model of Task Encroachment in the Labour Market,’ Oxford University Working Paper.
+
+Susskind, Daniel. 2022. “Technological unemployment,” in Bullock, J et al. (eds), _The Oxford Handbook of AI Governance_ , Oxford University Press.
+
+Susskind, Daniel. 2024. _Growth: A Reckoning._(Allen Lane: London).
+
+Tasioulas, John. 2023. ‘Ethics of Artificial Intelligence: What it is and why we need it,’ _The 2023 Elson Ethics Lecture._
+
+Weiner, Norbert. 1960. ‘Some Moral and Technical Consequences of Automation.’ _Science._ 131:3410, pp. 1355-1358.
+
+Zeira, Joseph. 1998. ‘Workers, Machines, and Economic Growth.’ _The Quarterly Journal of Economics._ 113:4 1091-1117.
+
+© 2025, Daniel Susskind
+
+Cite as: Daniel Susskind, _What Will Remain for People to Do?_ , 25-08 Knight First Amend. Inst. (Apr. 7, 2025), https://knightcolumbia.org/content/what-will-remain-for-people-to-do [https://perma.cc/K8LG-B4UA]. 
+
+Daniel Susskind is a research professor in economics at King’s College London, a senior research associate at the Institute for Ethics in AI at the University of Oxford, and an associate member of the economics department at the University of Oxford.
+
+Filed under
+
+  * Essays & Scholarship
+
+Tags
+
+  * Tech Platforms
+  * Artificial Intelligence (AI)
+
+Continue Reading:  Experimental Publics: Democracy and the Role of Publics in GenAI Evaluation
+
+##  Subscribe to our newsletter 
+
+Get the latest news about our events, research, advocacy, litigation, and more in your inbox. 
+
+Email Address 
+
+Subscribe
+
+  * Issues
+    * Free Speech
+    * Privacy
+    * Transparency
+    * The Press
+    * Tech Platforms
+    * Universities
+  * Work
+    * Litigation
+    * Research
+    * Policy
+    * Public Programming
+  * The Institute
+    * About Us
+    * Our Projects
+    * Board
+    * Staff
+    * Visiting Scholars
+    * Careers
+    * Support Us
+  * More
+    * News & Commentary
+    * Video
+    * Podcast
+    * Events
+    * FOIA Library
+    * For The Press
+
+Return to Homepage
+
+Knight First Amendment Institute at Columbia University  
+475 Riverside Drive, Suite 302, New York, NY 10115  
+[email protected]
+
+  * Blue Sky (opens in a new tab)
+  * LinkedIn (opens in a new tab)
+  * Youtube (opens in a new tab)
+  * Instagram (opens in a new tab)
+  * Tik Tok (opens in a new tab)
+  * RSS feed
+
+  * Privacy Policy
+  * Contact
+
+(C) 2026 Copyright Knight First Amendment Institute at Columbia University 
+
+Made by Wide Eye

@@ -1,0 +1,11 @@
+[
+ {"f": "stamp", "word": "A law.", "at_end": true, "dt": 0.06, "peak": 0.0, "v": 0.5, "once": true, "d": 0.45, "fade": 0.25},
+ {"f": "stamp", "word": "A test gone wrong.", "at_end": true, "dt": 0.06, "peak": 0.0, "v": 0.5, "once": true, "d": 0.45, "fade": 0.25},
+ {"f": "stamp", "word": "half its work to AI.", "at_end": true, "dt": 0.06, "peak": 0.0, "v": 0.55, "once": true, "d": 0.45, "fade": 0.25},
+ {"f": "stamp", "word": "This year, someone touched it.", "at_end": true, "dt": 0.08, "peak": 0.0, "v": 0.5, "once": true, "d": 0.45, "fade": 0.25},
+ {"f": "tick", "word": "the closest ever.", "at_end": true, "dt": 0.1, "off": 0.15, "peak": 0.0, "v": 0.3, "once": true, "d": 0.8, "fade": 0.3},
+ {"f": "screen_off", "word": "Pull the plug.", "at_end": true, "dt": 0.1, "off": 0.95, "peak": 0.0, "v": 0.4, "once": true, "d": 0.7, "fade": 0.3},
+ {"f": "hatch_door", "word": "The question is how.", "at_end": true, "dt": 0.15, "off": 0.25, "peak": 0.0, "v": 0.45, "once": true, "d": 1.25, "fade": 0.6},
+ {"f": "door", "word": "readers picked most often.", "at_end": true, "dt": 0.15, "peak": 0.0, "v": 0.3, "once": true, "d": 1.2, "fade": 0.6},
+ {"f": "shimmer_rings", "word": "It's being decided this year.", "nth": 1, "at_end": true, "dt": 0.1, "off": 0.3, "peak": 0.0, "v": 0.35, "once": true, "d": 1.3, "fade": 0.6}
+]

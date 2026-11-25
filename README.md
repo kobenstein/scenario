@@ -25,7 +25,7 @@ tools/      Prüf-, Render-, Upload- und Analyse-Werkzeuge
 | 6 | Faktencheck | Ampelseite mit Zweitprüfer | `skript/faktencheck*.md` |
 | 7 | Animation | Szenen in Code (Hyperframes + three.js), Ton, Untertitel | Skill `scenario-motion`, `stil/`, `tools/clip_check.py` |
 | 8 | Thumbnails | drei Varianten A/B/C für Test & Compare | Skill `good-takeoff-thumbnails` |
-| 9 | Upload | geplant 17:00 Wien, Beschreibung mit Kaffee- und Kurs-Zeile, Endcards | `tools/check_descriptions.py` |
+| 9 | Upload | geplant 17:00 Wien, Beschreibung mit Kaffee-, Kurs- und Sponsor-Zeile (Passionfroot), Endcards | `tools/check_descriptions.py` |
 
 Ab Freigabe des Skripts läuft alles in einem Zug durch bis zum geplanten Upload.
 

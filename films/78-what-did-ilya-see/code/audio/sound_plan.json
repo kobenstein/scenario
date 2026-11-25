@@ -1,0 +1,120 @@
+[
+ {
+  "f": "phone_buzz",
+  "word": "a video call with his own boss",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.35,
+  "once": true,
+  "fade": 0.5
+ },
+ {
+  "f": "pages",
+  "word": "At the center were fifty-two pages",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.4,
+  "once": true,
+  "fade": 0.8
+ },
+ {
+  "f": "gavel",
+  "word": "It came out under oath",
+  "at_end": true,
+  "dt": 0.15,
+  "v": 0.35,
+  "once": true,
+  "fade": 0.5
+ },
+ {
+  "f": "stamp",
+  "word": "Not a safety problem",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.35,
+  "once": true,
+  "fade": 0.4
+ },
+ {
+  "f": "hatch_door",
+  "word": "building a bunker",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.3,
+  "once": true,
+  "fade": 0.8
+ },
+ {
+  "f": "hall",
+  "from_word": "In Toronto, in the hall",
+  "to_word": "new class of graduates",
+  "dt": -0.5,
+  "end_dt": 1.0,
+  "v": 0.3,
+  "fade": 1.5
+ },
+ {
+  "f": "chime",
+  "word": "Two have held up",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.35,
+  "once": true,
+  "fade": 1.0
+ },
+ {
+  "f": "card",
+  "word": "fits on a single slide",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.35,
+  "once": true,
+  "fade": 0.5
+ },
+ {
+  "f": "tick",
+  "word": "Five to twenty years",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.3,
+  "once": true,
+  "d": 3.0,
+  "fade": 1.5
+ },
+ {
+  "f": "door",
+  "word": "No slammed door",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.25,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "coin",
+  "word": "thirty-two billion dollars",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.35,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "shimmer_rings",
+  "word": "care about sentient life",
+  "at_end": true,
+  "dt": 0.2,
+  "v": 0.4,
+  "once": true,
+  "fade": 0.8
+ },
+ {
+  "f": "bloom",
+  "word": "The secret was never hidden",
+  "at_end": true,
+  "dt": 0.2,
+  "v": 0.35,
+  "once": true,
+  "fade": 1.2
+ }
+]

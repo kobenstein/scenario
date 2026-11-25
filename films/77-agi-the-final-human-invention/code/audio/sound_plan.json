@@ -1,0 +1,170 @@
+[
+ {
+  "f": "bloom",
+  "word": "final human invention",
+  "at_end": true,
+  "dt": 0.05,
+  "v": 0.5,
+  "once": true,
+  "fade": 0.6
+ },
+ {
+  "f": "bulb",
+  "word": "over your head",
+  "at_end": true,
+  "dt": 0.0,
+  "v": 0.4,
+  "once": true,
+  "fade": 0.5
+ },
+ {
+  "f": "phone_tap",
+  "word": "in your hand",
+  "at_end": true,
+  "dt": 0.0,
+  "v": 0.4,
+  "once": true,
+  "fade": 0.4
+ },
+ {
+  "f": "chime",
+  "word": "Eighty years",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.4,
+  "once": true,
+  "fade": 0.8
+ },
+ {
+  "f": "teletype",
+  "word": "Bletchley Park",
+  "at_end": true,
+  "dt": 0.1,
+  "off": 0.0,
+  "v": 0.35,
+  "once": true,
+  "d": 2.6,
+  "fade": 0.8
+ },
+ {
+  "f": "shimmer_rings",
+  "word": "has the inventing begun",
+  "at_end": true,
+  "nth": 0,
+  "dt": 0.1,
+  "v": 0.4,
+  "once": true,
+  "fade": 0.8
+ },
+ {
+  "f": "lab",
+  "from_word": "Take clean hydrogen",
+  "to_word": "confirmed it yet",
+  "dt": 0.0,
+  "end_dt": 0.3,
+  "v": 0.35,
+  "fade": 1.5
+ },
+ {
+  "f": "brass_click",
+  "word": "the first line, the inventing has begun",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.5,
+  "once": true,
+  "fade": 0.5
+ },
+ {
+  "f": "cryo_hum",
+  "from_word": "it only works in extreme cold",
+  "to_word": "tested it",
+  "dt": 0.0,
+  "end_dt": 0.3,
+  "v": 0.4,
+  "fade": 1.5
+ },
+ {
+  "f": "shimmer_rings",
+  "word": "And it worked",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.45,
+  "once": true,
+  "fade": 0.8
+ },
+ {
+  "f": "chalk",
+  "word": "Remember the dots",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.4,
+  "once": true,
+  "fade": 0.5
+ },
+ {
+  "f": "pages",
+  "word": "Too many proofs",
+  "at_end": true,
+  "dt": 0.0,
+  "v": 0.4,
+  "once": true,
+  "d": 1.4,
+  "fade": 0.5
+ },
+ {
+  "f": "lever_switch",
+  "word": "keep it under control",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.4,
+  "once": true,
+  "fade": 0.5
+ },
+ {
+  "f": "rumble",
+  "word": "take control",
+  "at_end": true,
+  "dt": 0.05,
+  "off": 1.6,
+  "v": 0.3,
+  "once": true,
+  "d": 2.6,
+  "fade": 1.2
+ },
+ {
+  "f": "gavel",
+  "word": "off the market",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.4,
+  "once": true,
+  "fade": 0.5
+ },
+ {
+  "f": "brass_click",
+  "word": "That last one is you",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.5,
+  "once": true,
+  "fade": 0.5
+ },
+ {
+  "f": "typing",
+  "word": "single question",
+  "at_end": true,
+  "dt": 0.1,
+  "v": 0.4,
+  "once": true,
+  "fade": 0.5
+ },
+ {
+  "f": "lamp",
+  "word": "how to steer it",
+  "at_end": true,
+  "dt": 0.15,
+  "v": 0.5,
+  "once": true,
+  "fade": 0.8
+ }
+]

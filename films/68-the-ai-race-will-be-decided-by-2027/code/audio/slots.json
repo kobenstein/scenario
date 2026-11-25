@@ -1,0 +1,81 @@
+{
+ "duration": 601.58,
+ "end_screen": {
+  "start": 586.58,
+  "dur": 15.0,
+  "end": 601.58,
+  "call": "t21",
+  "call_start": 573.38,
+  "call_end": 582.58,
+  "tail_after_vo": 19.0,
+  "note": "after the last VO word: a quiet walk, then the 15 s end screen (the music fades out over it)"
+ },
+ "channel_calls": {
+  "t12": {
+   "start": 311.87,
+   "end": 324.83
+  },
+  "t21": {
+   "start": 573.38,
+   "end": 582.58
+  }
+ },
+ "slots": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "R1",
+   "start": 110.91,
+   "end": 121.08,
+   "dur": 10.17,
+   "under": false,
+   "file": "C1.mp4"
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "sec": "5",
+   "start": 413.16,
+   "end": 431.56,
+   "dur": 18.4,
+   "under": false,
+   "file": "C4.mp4"
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "sec": "6",
+   "start": 476.95,
+   "end": 484.08,
+   "dur": 7.13,
+   "under": false,
+   "file": "C5.mp4"
+  }
+ ],
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "R1",
+   "start": 110.91,
+   "end": 121.08,
+   "under": false
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "sec": "5",
+   "start": 413.16,
+   "end": 431.56,
+   "under": false
+  },
+  {
+   "id": "C5",
+   "kind": "clip",
+   "sec": "6",
+   "start": 476.95,
+   "end": 484.08,
+   "under": false
+  }
+ ]
+}

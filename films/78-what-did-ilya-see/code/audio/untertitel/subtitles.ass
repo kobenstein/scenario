@@ -1,0 +1,370 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 384
+PlayResY: 288
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Inter,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.72,0:00:02.29,Sub,,0,0,0,,{\fad(120,160)}What did Ilya see?
+Dialogue: 0,0:00:02.77,0:00:04.05,Sub,,0,0,0,,{\fad(120,160)}Ilya Sutskever helped
+Dialogue: 0,0:00:04.09,0:00:05.04,Sub,,0,0,0,,{\fad(120,160)}create the AI
+Dialogue: 0,0:00:05.08,0:00:06.99,Sub,,0,0,0,,{\fad(120,160)}that answers your questions today.
+Dialogue: 0,0:00:07.29,0:00:09.44,Sub,,0,0,0,,{\fad(120,160)}Then he walked away from OpenAI,
+Dialogue: 0,0:00:09.48,0:00:11.48,Sub,,0,0,0,,{\fad(120,160)}the company behind ChatGPT.
+Dialogue: 0,0:00:11.78,0:00:13.04,Sub,,0,0,0,,{\fad(120,160)}It began on a Friday,
+Dialogue: 0,0:00:13.08,0:00:14.22,Sub,,0,0,0,,{\fad(120,160)}a few years ago:
+Dialogue: 0,0:00:14.35,0:00:16.20,Sub,,0,0,0,,{\fad(120,160)}a video call with his own boss,
+Dialogue: 0,0:00:16.24,0:00:17.71,Sub,,0,0,0,,{\fad(120,160)}the head of OpenAI.
+Dialogue: 0,0:00:18.05,0:00:19.95,Sub,,0,0,0,,{\fad(120,160)}And it was the boss who was fired.
+Dialogue: 0,0:00:20.17,0:00:21.13,Sub,,0,0,0,,{\fad(120,160)}Soon, the whole
+Dialogue: 0,0:00:21.17,0:00:22.45,Sub,,0,0,0,,{\fad(120,160)}internet was asking:
+Dialogue: 0,0:00:22.49,0:00:24.01,Sub,,0,0,0,,{\fad(120,160)}what did Ilya see?
+Dialogue: 0,0:00:24.24,0:00:26.65,Sub,,0,0,0,,{\fad(120,160)}The guess: a machine so powerful
+Dialogue: 0,0:00:26.69,0:00:27.41,Sub,,0,0,0,,{\fad(120,160)}that it scared
+Dialogue: 0,0:00:27.45,0:00:28.66,Sub,,0,0,0,,{\fad(120,160)}the man who built it.
+Dialogue: 0,0:00:28.83,0:00:30.03,Sub,,0,0,0,,{\fad(120,160)}And if it scared him,
+Dialogue: 0,0:00:30.07,0:00:31.34,Sub,,0,0,0,,{\fad(120,160)}it concerns you.
+Dialogue: 0,0:00:31.60,0:00:32.90,Sub,,0,0,0,,{\fad(120,160)}Now a Hollywood movie
+Dialogue: 0,0:00:32.94,0:00:34.45,Sub,,0,0,0,,{\fad(120,160)}retells that story.
+Dialogue: 0,0:00:35.00,0:00:36.24,Sub,,0,0,0,,{\fad(120,160)}But the answer wasn't
+Dialogue: 0,0:00:36.28,0:00:37.57,Sub,,0,0,0,,{\fad(120,160)}written in Hollywood.
+Dialogue: 0,0:00:37.76,0:00:39.32,Sub,,0,0,0,,{\fad(120,160)}It came out under oath.
+Dialogue: 0,0:00:39.72,0:00:41.61,Sub,,0,0,0,,{\fad(120,160)}It was never about a machine.
+Dialogue: 0,0:00:41.93,0:00:42.75,Sub,,0,0,0,,{\fad(120,160)}At the center
+Dialogue: 0,0:00:42.79,0:00:44.76,Sub,,0,0,0,,{\fad(120,160)}were fifty-two pages.
+Dialogue: 0,0:00:44.96,0:00:46.78,Sub,,0,0,0,,{\fad(120,160)}Ilya had written them himself.
+Dialogue: 0,0:00:47.19,0:00:48.73,Sub,,0,0,0,,{\fad(120,160)}And they were about a man.
+Dialogue: 0,0:00:49.06,0:00:50.15,Sub,,0,0,0,,{\fad(120,160)}But that is only half
+Dialogue: 0,0:00:50.19,0:00:51.47,Sub,,0,0,0,,{\fad(120,160)}of what Ilya saw.
+Dialogue: 0,0:00:51.64,0:00:53.05,Sub,,0,0,0,,{\fad(120,160)}The other half is about
+Dialogue: 0,0:00:53.09,0:00:55.13,Sub,,0,0,0,,{\fad(120,160)}every job a person can do.
+Dialogue: 0,0:00:55.33,0:00:56.55,Sub,,0,0,0,,{\fad(120,160)}Yours included.
+Dialogue: 0,0:00:56.74,0:00:58.14,Sub,,0,0,0,,{\fad(120,160)}And he never hid it.
+Dialogue: 0,0:00:59.31,0:01:01.61,Sub,,0,0,0,,{\fad(120,160)}So what was in those pages?
+Dialogue: 0,0:01:01.81,0:01:02.41,Sub,,0,0,0,,{\fad(120,160)}They were about
+Dialogue: 0,0:01:02.45,0:01:04.39,Sub,,0,0,0,,{\fad(120,160)}that boss, Sam Altman.
+Dialogue: 0,0:01:04.66,0:01:06.39,Sub,,0,0,0,,{\fad(120,160)}Their claim: he was not being
+Dialogue: 0,0:01:06.43,0:01:07.07,Sub,,0,0,0,,{\fad(120,160)}straight with the
+Dialogue: 0,0:01:07.11,0:01:08.26,Sub,,0,0,0,,{\fad(120,160)}people around him.
+Dialogue: 0,0:01:08.58,0:01:09.53,Sub,,0,0,0,,{\fad(120,160)}Ilya had collected
+Dialogue: 0,0:01:09.57,0:01:11.48,Sub,,0,0,0,,{\fad(120,160)}the material for about a year.
+Dialogue: 0,0:01:11.67,0:01:13.63,Sub,,0,0,0,,{\fad(120,160)}Under oath, he explained why:
+Dialogue: 0,0:01:13.91,0:01:15.02,Sub,,0,0,0,,{\fad(120,160)}if he did nothing,
+Dialogue: 0,0:01:15.06,0:01:17.12,Sub,,0,0,0,,{\fad(120,160)}"the company would be destroyed".
+Dialogue: 0,0:01:17.40,0:01:18.69,Sub,,0,0,0,,{\fad(120,160)}But almost all of it came
+Dialogue: 0,0:01:18.73,0:01:20.26,Sub,,0,0,0,,{\fad(120,160)}from a single colleague.
+Dialogue: 0,0:01:20.39,0:01:21.02,Sub,,0,0,0,,{\fad(120,160)}He did not check
+Dialogue: 0,0:01:21.06,0:01:22.53,Sub,,0,0,0,,{\fad(120,160)}it with the people involved.
+Dialogue: 0,0:01:22.79,0:01:23.86,Sub,,0,0,0,,{\fad(120,160)}And the board that fired
+Dialogue: 0,0:01:23.90,0:01:25.05,Sub,,0,0,0,,{\fad(120,160)}Altman, he says,
+Dialogue: 0,0:01:25.09,0:01:26.50,Sub,,0,0,0,,{\fad(120,160)}moved too fast:
+Dialogue: 0,0:01:26.58,0:01:28.34,Sub,,0,0,0,,{\fad(120,160)}"the process was rushed."
+Dialogue: 0,0:01:28.88,0:01:30.60,Sub,,0,0,0,,{\fad(120,160)}Then it fell apart.
+Dialogue: 0,0:01:31.01,0:01:32.55,Sub,,0,0,0,,{\fad(120,160)}Ilya himself wrote:
+Dialogue: 0,0:01:32.72,0:01:34.06,Sub,,0,0,0,,{\fad(120,160)}"I deeply regret my
+Dialogue: 0,0:01:34.10,0:01:34.96,Sub,,0,0,0,,{\fad(120,160)}participation
+Dialogue: 0,0:01:35.00,0:01:36.51,Sub,,0,0,0,,{\fad(120,160)}in the board's actions."
+Dialogue: 0,0:01:36.84,0:01:38.98,Sub,,0,0,0,,{\fad(120,160)}Five days after that video call,
+Dialogue: 0,0:01:39.02,0:01:40.87,Sub,,0,0,0,,{\fad(120,160)}Altman was back in charge.
+Dialogue: 0,0:01:41.09,0:01:41.94,Sub,,0,0,0,,{\fad(120,160)}A law firm,
+Dialogue: 0,0:01:41.98,0:01:44.10,Sub,,0,0,0,,{\fad(120,160)}hired by the company's new board,
+Dialogue: 0,0:01:44.16,0:01:46.02,Sub,,0,0,0,,{\fad(120,160)}found a breakdown of trust.
+Dialogue: 0,0:01:46.15,0:01:47.54,Sub,,0,0,0,,{\fad(120,160)}Not a safety problem.
+Dialogue: 0,0:01:47.60,0:01:48.34,Sub,,0,0,0,,{\fad(120,160)}And nothing that
+Dialogue: 0,0:01:48.38,0:01:50.21,Sub,,0,0,0,,{\fad(120,160)}demanded Altman's removal.
+Dialogue: 0,0:01:50.35,0:01:51.56,Sub,,0,0,0,,{\fad(120,160)}No court has ever
+Dialogue: 0,0:01:51.60,0:01:53.18,Sub,,0,0,0,,{\fad(120,160)}ruled on who was right.
+Dialogue: 0,0:01:53.44,0:01:55.73,Sub,,0,0,0,,{\fad(120,160)}So that is what Ilya saw.
+Dialogue: 0,0:01:55.92,0:01:56.70,Sub,,0,0,0,,{\fad(120,160)}A problem you know
+Dialogue: 0,0:01:56.74,0:01:58.31,Sub,,0,0,0,,{\fad(120,160)}from any workplace:
+Dialogue: 0,0:01:58.60,0:01:59.89,Sub,,0,0,0,,{\fad(120,160)}people who had stopped
+Dialogue: 0,0:01:59.93,0:02:01.04,Sub,,0,0,0,,{\fad(120,160)}trusting each other.
+Dialogue: 0,0:02:01.70,0:02:03.11,Sub,,0,0,0,,{\fad(120,160)}And yet, something
+Dialogue: 0,0:02:03.15,0:02:04.80,Sub,,0,0,0,,{\fad(120,160)}bigger did worry him.
+Dialogue: 0,0:02:05.17,0:02:06.11,Sub,,0,0,0,,{\fad(120,160)}Earlier that year,
+Dialogue: 0,0:02:06.15,0:02:07.69,Sub,,0,0,0,,{\fad(120,160)}he had even talked about building
+Dialogue: 0,0:02:07.73,0:02:09.16,Sub,,0,0,0,,{\fad(120,160)}a bunker before releasing
+Dialogue: 0,0:02:09.20,0:02:10.87,Sub,,0,0,0,,{\fad(120,160)}a machine as smart as us.
+Dialogue: 0,0:02:11.34,0:02:12.32,Sub,,0,0,0,,{\fad(120,160)}But what worried him
+Dialogue: 0,0:02:12.36,0:02:14.21,Sub,,0,0,0,,{\fad(120,160)}was never locked in a lab.
+Dialogue: 0,0:02:14.67,0:02:16.12,Sub,,0,0,0,,{\fad(120,160)}Three weeks before that Friday,
+Dialogue: 0,0:02:16.16,0:02:17.49,Sub,,0,0,0,,{\fad(120,160)}he told a magazine:
+Dialogue: 0,0:02:17.90,0:02:18.30,Sub,,0,0,0,,{\fad(120,160)}"There will be
+Dialogue: 0,0:02:18.34,0:02:20.20,Sub,,0,0,0,,{\fad(120,160)}a before and an after."
+Dialogue: 0,0:02:20.77,0:02:22.13,Sub,,0,0,0,,{\fad(120,160)}Before and after what?
+Dialogue: 0,0:02:22.65,0:02:24.17,Sub,,0,0,0,,{\fad(120,160)}He later said it out loud.
+Dialogue: 0,0:02:24.35,0:02:25.92,Sub,,0,0,0,,{\fad(120,160)}In Toronto, in the hall where
+Dialogue: 0,0:02:25.96,0:02:27.76,Sub,,0,0,0,,{\fad(120,160)}he once got his own degree,
+Dialogue: 0,0:02:27.94,0:02:28.64,Sub,,0,0,0,,{\fad(120,160)}in front of a new
+Dialogue: 0,0:02:28.68,0:02:30.03,Sub,,0,0,0,,{\fad(120,160)}class of graduates.
+Dialogue: 0,0:02:30.41,0:02:31.53,Sub,,0,0,0,,{\fad(120,160)}And the day will come
+Dialogue: 0,0:02:31.57,0:02:33.71,Sub,,0,0,0,,{\fad(120,160)}when AI will do all the things
+Dialogue: 0,0:02:33.75,0:02:35.49,Sub,,0,0,0,,{\fad(120,160)}that we can do.
+Dialogue: 0,0:02:35.53,0:02:36.41,Sub,,0,0,0,,{\fad(120,160)}Not just some of them,
+Dialogue: 0,0:02:36.45,0:02:37.50,Sub,,0,0,0,,{\fad(120,160)}but all of them.
+Dialogue: 0,0:02:38.14,0:02:39.85,Sub,,0,0,0,,{\fad(120,160)}Not some of what you do.
+Dialogue: 0,0:02:40.12,0:02:41.12,Sub,,0,0,0,,{\fad(120,160)}All of it.
+Dialogue: 0,0:02:41.29,0:02:42.41,Sub,,0,0,0,,{\fad(120,160)}Anything you can learn,
+Dialogue: 0,0:02:42.45,0:02:43.45,Sub,,0,0,0,,{\fad(120,160)}he told them,
+Dialogue: 0,0:02:43.57,0:02:45.37,Sub,,0,0,0,,{\fad(120,160)}the AI could do as well.
+Dialogue: 0,0:02:45.70,0:02:47.24,Sub,,0,0,0,,{\fad(120,160)}How can he be so sure?
+Dialogue: 0,0:02:47.54,0:02:49.24,Sub,,0,0,0,,{\fad(120,160)}His reason: your brain
+Dialogue: 0,0:02:49.28,0:02:51.11,Sub,,0,0,0,,{\fad(120,160)}is a biological computer.
+Dialogue: 0,0:02:51.21,0:02:52.66,Sub,,0,0,0,,{\fad(120,160)}So why shouldn't a digital
+Dialogue: 0,0:02:52.70,0:02:54.14,Sub,,0,0,0,,{\fad(120,160)}one do the same things?
+Dialogue: 0,0:02:54.81,0:02:57.12,Sub,,0,0,0,,{\fad(120,160)}So that is what Ilya sees coming.
+Dialogue: 0,0:02:57.20,0:02:58.55,Sub,,0,0,0,,{\fad(120,160)}Not a hidden machine.
+Dialogue: 0,0:02:58.65,0:02:59.65,Sub,,0,0,0,,{\fad(120,160)}A day.
+Dialogue: 0,0:02:59.79,0:03:01.03,Sub,,0,0,0,,{\fad(120,160)}A big claim.
+Dialogue: 0,0:03:01.22,0:03:02.74,Sub,,0,0,0,,{\fad(120,160)}Should you take his word for it?
+Dialogue: 0,0:03:03.86,0:03:05.09,Sub,,0,0,0,,{\fad(120,160)}Not blindly.
+Dialogue: 0,0:03:05.42,0:03:07.01,Sub,,0,0,0,,{\fad(120,160)}Today he runs a company whose
+Dialogue: 0,0:03:07.05,0:03:09.27,Sub,,0,0,0,,{\fad(120,160)}value depends on him being right.
+Dialogue: 0,0:03:09.55,0:03:10.87,Sub,,0,0,0,,{\fad(120,160)}But he has a record.
+Dialogue: 0,0:03:10.99,0:03:12.73,Sub,,0,0,0,,{\fad(120,160)}Look at four of his predictions.
+Dialogue: 0,0:03:12.86,0:03:14.07,Sub,,0,0,0,,{\fad(120,160)}Two have held up.
+Dialogue: 0,0:03:14.17,0:03:15.48,Sub,,0,0,0,,{\fad(120,160)}Two are still open.
+Dialogue: 0,0:03:15.62,0:03:16.36,Sub,,0,0,0,,{\fad(120,160)}And the last one
+Dialogue: 0,0:03:16.40,0:03:17.61,Sub,,0,0,0,,{\fad(120,160)}comes with a number.
+Dialogue: 0,0:03:17.83,0:03:19.39,Sub,,0,0,0,,{\fad(120,160)}The first, as he tells it,
+Dialogue: 0,0:03:19.43,0:03:20.91,Sub,,0,0,0,,{\fad(120,160)}he made as a teenager.
+Dialogue: 0,0:03:21.06,0:03:22.19,Sub,,0,0,0,,{\fad(120,160)}His question: can
+Dialogue: 0,0:03:22.23,0:03:23.62,Sub,,0,0,0,,{\fad(120,160)}a computer learn?
+Dialogue: 0,0:03:23.83,0:03:25.48,Sub,,0,0,0,,{\fad(120,160)}He felt: answer that,
+Dialogue: 0,0:03:25.52,0:03:26.26,Sub,,0,0,0,,{\fad(120,160)}and "everything
+Dialogue: 0,0:03:26.30,0:03:27.37,Sub,,0,0,0,,{\fad(120,160)}else would follow".
+Dialogue: 0,0:03:27.61,0:03:28.42,Sub,,0,0,0,,{\fad(120,160)}In grad school,
+Dialogue: 0,0:03:28.46,0:03:29.71,Sub,,0,0,0,,{\fad(120,160)}he and two colleagues
+Dialogue: 0,0:03:29.75,0:03:30.50,Sub,,0,0,0,,{\fad(120,160)}built a program
+Dialogue: 0,0:03:30.54,0:03:31.76,Sub,,0,0,0,,{\fad(120,160)}that learned to recognize
+Dialogue: 0,0:03:31.80,0:03:32.99,Sub,,0,0,0,,{\fad(120,160)}what is in a photo.
+Dialogue: 0,0:03:33.18,0:03:34.89,Sub,,0,0,0,,{\fad(120,160)}It beat every rival.
+Dialogue: 0,0:03:35.48,0:03:36.59,Sub,,0,0,0,,{\fad(120,160)}His second prediction
+Dialogue: 0,0:03:36.63,0:03:38.52,Sub,,0,0,0,,{\fad(120,160)}fits on a single slide.
+Dialogue: 0,0:03:38.84,0:03:41.03,Sub,,0,0,0,,{\fad(120,160)}A decade after he first showed it,
+Dialogue: 0,0:03:41.07,0:03:42.31,Sub,,0,0,0,,{\fad(120,160)}he read it out again,
+Dialogue: 0,0:03:42.35,0:03:44.11,Sub,,0,0,0,,{\fad(120,160)}on a stage in Vancouver.
+Dialogue: 0,0:03:44.49,0:03:45.47,Sub,,0,0,0,,{\fad(120,160)}That if you have a very big
+Dialogue: 0,0:03:45.51,0:03:46.53,Sub,,0,0,0,,{\fad(120,160)}data set and you train
+Dialogue: 0,0:03:46.57,0:03:48.13,Sub,,0,0,0,,{\fad(120,160)}a very big neural network,
+Dialogue: 0,0:03:48.17,0:03:49.85,Sub,,0,0,0,,{\fad(120,160)}then success is guaranteed.
+Dialogue: 0,0:03:49.89,0:03:51.21,Sub,,0,0,0,,{\fad(120,160)}And one can argue,
+Dialogue: 0,0:03:51.25,0:03:53.21,Sub,,0,0,0,,{\fad(120,160)}if one is charitable,
+Dialogue: 0,0:03:53.25,0:03:54.93,Sub,,0,0,0,,{\fad(120,160)}that this indeed has been
+Dialogue: 0,0:03:54.97,0:03:57.51,Sub,,0,0,0,,{\fad(120,160)}what's been happening.
+Dialogue: 0,0:03:58.01,0:04:00.22,Sub,,0,0,0,,{\fad(120,160)}Big network, big data.
+Dialogue: 0,0:04:00.57,0:04:01.97,Sub,,0,0,0,,{\fad(120,160)}Out of that recipe grew
+Dialogue: 0,0:04:02.01,0:04:04.99,Sub,,0,0,0,,{\fad(120,160)}the GPT models behind ChatGPT.
+Dialogue: 0,0:04:05.28,0:04:06.28,Sub,,0,0,0,,{\fad(120,160)}When it came out,
+Dialogue: 0,0:04:06.34,0:04:08.80,Sub,,0,0,0,,{\fad(120,160)}he was OpenAI's chief scientist.
+Dialogue: 0,0:04:09.08,0:04:10.86,Sub,,0,0,0,,{\fad(120,160)}Every time you ask a chatbot,
+Dialogue: 0,0:04:10.99,0:04:12.86,Sub,,0,0,0,,{\fad(120,160)}you watch that recipe at work.
+Dialogue: 0,0:04:13.10,0:04:14.50,Sub,,0,0,0,,{\fad(120,160)}But on that same stage,
+Dialogue: 0,0:04:14.54,0:04:16.58,Sub,,0,0,0,,{\fad(120,160)}he made his third prediction.
+Dialogue: 0,0:04:16.75,0:04:18.14,Sub,,0,0,0,,{\fad(120,160)}And it says his own
+Dialogue: 0,0:04:18.18,0:04:19.75,Sub,,0,0,0,,{\fad(120,160)}recipe will run out.
+Dialogue: 0,0:04:19.93,0:04:21.56,Sub,,0,0,0,,{\fad(120,160)}The recipe needs text,
+Dialogue: 0,0:04:21.60,0:04:23.30,Sub,,0,0,0,,{\fad(120,160)}and there is only so much of it.
+Dialogue: 0,0:04:23.48,0:04:24.48,Sub,,0,0,0,,{\fad(120,160)}In his words:
+Dialogue: 0,0:04:24.57,0:04:26.53,Sub,,0,0,0,,{\fad(120,160)}"we have but one internet."
+Dialogue: 0,0:04:26.73,0:04:28.46,Sub,,0,0,0,,{\fad(120,160)}So this way of teaching machines,
+Dialogue: 0,0:04:28.50,0:04:29.17,Sub,,0,0,0,,{\fad(120,160)}he said,
+Dialogue: 0,0:04:29.21,0:04:31.07,Sub,,0,0,0,,{\fad(120,160)}"will unquestionably end".
+Dialogue: 0,0:04:31.69,0:04:33.60,Sub,,0,0,0,,{\fad(120,160)}That one is still open.
+Dialogue: 0,0:04:34.12,0:04:35.58,Sub,,0,0,0,,{\fad(120,160)}Google, he admits,
+Dialogue: 0,0:04:35.62,0:04:36.58,Sub,,0,0,0,,{\fad(120,160)}may be getting more
+Dialogue: 0,0:04:36.62,0:04:37.95,Sub,,0,0,0,,{\fad(120,160)}out of the old recipe.
+Dialogue: 0,0:04:38.18,0:04:39.35,Sub,,0,0,0,,{\fad(120,160)}But something important,
+Dialogue: 0,0:04:39.39,0:04:41.23,Sub,,0,0,0,,{\fad(120,160)}he says, is still missing.
+Dialogue: 0,0:04:41.44,0:04:42.75,Sub,,0,0,0,,{\fad(120,160)}Today's machines can't
+Dialogue: 0,0:04:42.79,0:04:44.12,Sub,,0,0,0,,{\fad(120,160)}learn the way you do:
+Dialogue: 0,0:04:44.28,0:04:45.86,Sub,,0,0,0,,{\fad(120,160)}from just a few examples.
+Dialogue: 0,0:04:46.16,0:04:47.19,Sub,,0,0,0,,{\fad(120,160)}His fourth prediction
+Dialogue: 0,0:04:47.23,0:04:49.21,Sub,,0,0,0,,{\fad(120,160)}is about the machine that can.
+Dialogue: 0,0:04:50.36,0:04:51.59,Sub,,0,0,0,,{\fad(120,160)}He pictures it as
+Dialogue: 0,0:04:51.63,0:04:52.69,Sub,,0,0,0,,{\fad(120,160)}"a superintelligent
+Dialogue: 0,0:04:52.73,0:04:53.95,Sub,,0,0,0,,{\fad(120,160)}fifteen-year-old".
+Dialogue: 0,0:04:54.13,0:04:55.52,Sub,,0,0,0,,{\fad(120,160)}It knows very little.
+Dialogue: 0,0:04:55.74,0:04:57.98,Sub,,0,0,0,,{\fad(120,160)}But it is eager to learn any job.
+Dialogue: 0,0:04:58.17,0:05:00.38,Sub,,0,0,0,,{\fad(120,160)}For the day AI can do everything,
+Dialogue: 0,0:05:00.42,0:05:02.00,Sub,,0,0,0,,{\fad(120,160)}he has named no year.
+Dialogue: 0,0:05:02.22,0:05:04.08,Sub,,0,0,0,,{\fad(120,160)}For this machine, he has.
+Dialogue: 0,0:05:04.37,0:05:05.93,Sub,,0,0,0,,{\fad(120,160)}A podcaster asked him:
+Dialogue: 0,0:05:05.99,0:05:07.75,Sub,,0,0,0,,{\fad(120,160)}how long until a machine learns
+Dialogue: 0,0:05:07.79,0:05:08.93,Sub,,0,0,0,,{\fad(120,160)}as well as a person,
+Dialogue: 0,0:05:08.97,0:05:10.96,Sub,,0,0,0,,{\fad(120,160)}and then becomes better than us?
+Dialogue: 0,0:05:11.34,0:05:14.11,Sub,,0,0,0,,{\fad(120,160)}I think like 5 to 20.
+Dialogue: 0,0:05:14.15,0:05:14.95,Sub,,0,0,0,,{\fad(120,160)}“5 to 20 years?”
+Dialogue: 0,0:05:14.99,0:05:16.06,Sub,,0,0,0,,{\fad(120,160)}Mm-hmm.
+Dialogue: 0,0:05:16.65,0:05:18.41,Sub,,0,0,0,,{\fad(120,160)}Five to twenty years.
+Dialogue: 0,0:05:18.60,0:05:19.80,Sub,,0,0,0,,{\fad(120,160)}Until a machine learns
+Dialogue: 0,0:05:19.84,0:05:21.16,Sub,,0,0,0,,{\fad(120,160)}as well as you do.
+Dialogue: 0,0:05:21.44,0:05:24.20,Sub,,0,0,0,,{\fad(120,160)}That is a forecast, not a fact.
+Dialogue: 0,0:05:24.52,0:05:25.63,Sub,,0,0,0,,{\fad(120,160)}He himself calls
+Dialogue: 0,0:05:25.67,0:05:27.44,Sub,,0,0,0,,{\fad(120,160)}the future hard to predict.
+Dialogue: 0,0:05:27.77,0:05:29.09,Sub,,0,0,0,,{\fad(120,160)}And some researchers doubt
+Dialogue: 0,0:05:29.13,0:05:30.44,Sub,,0,0,0,,{\fad(120,160)}it will come that soon.
+Dialogue: 0,0:05:30.72,0:05:31.92,Sub,,0,0,0,,{\fad(120,160)}But take his longest
+Dialogue: 0,0:05:31.96,0:05:33.66,Sub,,0,0,0,,{\fad(120,160)}case: twenty years.
+Dialogue: 0,0:05:34.03,0:05:35.78,Sub,,0,0,0,,{\fad(120,160)}If you are forty-five today,
+Dialogue: 0,0:05:35.82,0:05:36.71,Sub,,0,0,0,,{\fad(120,160)}that is the rest
+Dialogue: 0,0:05:36.75,0:05:38.19,Sub,,0,0,0,,{\fad(120,160)}of your working life.
+Dialogue: 0,0:05:38.50,0:05:40.25,Sub,,0,0,0,,{\fad(120,160)}And if you have a child in school,
+Dialogue: 0,0:05:40.33,0:05:41.47,Sub,,0,0,0,,{\fad(120,160)}that child will start
+Dialogue: 0,0:05:41.51,0:05:43.26,Sub,,0,0,0,,{\fad(120,160)}work within those years.
+Dialogue: 0,0:05:43.48,0:05:44.72,Sub,,0,0,0,,{\fad(120,160)}And Ilya says he can
+Dialogue: 0,0:05:44.76,0:05:46.05,Sub,,0,0,0,,{\fad(120,160)}see it going well.
+Dialogue: 0,0:05:46.38,0:05:47.73,Sub,,0,0,0,,{\fad(120,160)}On one condition.
+Dialogue: 0,0:05:48.85,0:05:50.98,Sub,,0,0,0,,{\fad(120,160)}That is why this channel exists:
+Dialogue: 0,0:05:51.02,0:05:51.91,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:05:51.95,0:05:53.32,Sub,,0,0,0,,{\fad(120,160)}of superintelligence goes
+Dialogue: 0,0:05:53.36,0:05:54.89,Sub,,0,0,0,,{\fad(120,160)}well for everybody.
+Dialogue: 0,0:05:54.95,0:05:55.78,Sub,,0,0,0,,{\fad(120,160)}Not just for the people
+Dialogue: 0,0:05:55.82,0:05:56.82,Sub,,0,0,0,,{\fad(120,160)}who build it.
+Dialogue: 0,0:05:56.91,0:05:57.91,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:05:57.95,0:05:59.04,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:06:00.22,0:06:01.87,Sub,,0,0,0,,{\fad(120,160)}So what do you do,
+Dialogue: 0,0:06:01.91,0:06:03.72,Sub,,0,0,0,,{\fad(120,160)}if you believe that day is coming?
+Dialogue: 0,0:06:04.07,0:06:05.92,Sub,,0,0,0,,{\fad(120,160)}Ilya has asked that himself,
+Dialogue: 0,0:06:05.96,0:06:07.15,Sub,,0,0,0,,{\fad(120,160)}at the university where he
+Dialogue: 0,0:06:07.19,0:06:09.00,Sub,,0,0,0,,{\fad(120,160)}took courses as a schoolboy.
+Dialogue: 0,0:06:09.43,0:06:10.62,Sub,,0,0,0,,{\fad(120,160)}Picture an AI that can
+Dialogue: 0,0:06:10.66,0:06:12.00,Sub,,0,0,0,,{\fad(120,160)}build the next generation
+Dialogue: 0,0:06:12.04,0:06:13.72,Sub,,0,0,0,,{\fad(120,160)}of AI "The intelligence
+Dialogue: 0,0:06:13.76,0:06:15.31,Sub,,0,0,0,,{\fad(120,160)}explosion," he called it.
+Dialogue: 0,0:06:15.61,0:06:16.88,Sub,,0,0,0,,{\fad(120,160)}"What do you do about that?"
+Dialogue: 0,0:06:17.10,0:06:18.54,Sub,,0,0,0,,{\fad(120,160)}By then, he had already
+Dialogue: 0,0:06:18.58,0:06:20.13,Sub,,0,0,0,,{\fad(120,160)}given his own answer.
+Dialogue: 0,0:06:20.71,0:06:21.65,Sub,,0,0,0,,{\fad(120,160)}Six months after
+Dialogue: 0,0:06:21.69,0:06:22.90,Sub,,0,0,0,,{\fad(120,160)}that famous Friday,
+Dialogue: 0,0:06:22.94,0:06:25.32,Sub,,0,0,0,,{\fad(120,160)}he walked away from OpenAI,
+Dialogue: 0,0:06:25.36,0:06:26.21,Sub,,0,0,0,,{\fad(120,160)}the company he had
+Dialogue: 0,0:06:26.25,0:06:27.55,Sub,,0,0,0,,{\fad(120,160)}helped to found.
+Dialogue: 0,0:06:27.72,0:06:29.25,Sub,,0,0,0,,{\fad(120,160)}By his own decision.
+Dialogue: 0,0:06:29.37,0:06:30.48,Sub,,0,0,0,,{\fad(120,160)}No slammed door.
+Dialogue: 0,0:06:30.80,0:06:31.55,Sub,,0,0,0,,{\fad(120,160)}He was leaving,
+Dialogue: 0,0:06:31.59,0:06:33.58,Sub,,0,0,0,,{\fad(120,160)}he wrote, for "a project
+Dialogue: 0,0:06:33.62,0:06:34.88,Sub,,0,0,0,,{\fad(120,160)}that is very personally
+Dialogue: 0,0:06:34.92,0:06:36.13,Sub,,0,0,0,,{\fad(120,160)}meaningful to me".
+Dialogue: 0,0:06:36.53,0:06:38.24,Sub,,0,0,0,,{\fad(120,160)}Weeks later, the project had
+Dialogue: 0,0:06:38.28,0:06:41.22,Sub,,0,0,0,,{\fad(120,160)}a name: Safe Superintelligence.
+Dialogue: 0,0:06:41.40,0:06:43.92,Sub,,0,0,0,,{\fad(120,160)}A machine smarter than any of us,
+Dialogue: 0,0:06:43.96,0:06:45.30,Sub,,0,0,0,,{\fad(120,160)}built to be safe.
+Dialogue: 0,0:06:45.69,0:06:46.62,Sub,,0,0,0,,{\fad(120,160)}One goal.
+Dialogue: 0,0:06:46.66,0:06:47.67,Sub,,0,0,0,,{\fad(120,160)}One product.
+Dialogue: 0,0:06:47.83,0:06:48.97,Sub,,0,0,0,,{\fad(120,160)}And until it exists,
+Dialogue: 0,0:06:49.01,0:06:51.08,Sub,,0,0,0,,{\fad(120,160)}he said, nothing else.
+Dialogue: 0,0:06:51.66,0:06:53.68,Sub,,0,0,0,,{\fad(120,160)}Investors valued it at thirty-two
+Dialogue: 0,0:06:53.72,0:06:55.50,Sub,,0,0,0,,{\fad(120,160)}billion dollars anyway.
+Dialogue: 0,0:06:55.72,0:06:57.29,Sub,,0,0,0,,{\fad(120,160)}Meta offered to buy it.
+Dialogue: 0,0:06:57.50,0:06:58.50,Sub,,0,0,0,,{\fad(120,160)}He said no.
+Dialogue: 0,0:06:58.56,0:07:00.47,Sub,,0,0,0,,{\fad(120,160)}And Nvidia invested, too:
+Dialogue: 0,0:07:00.63,0:07:01.72,Sub,,0,0,0,,{\fad(120,160)}the chipmaker that sells
+Dialogue: 0,0:07:01.76,0:07:02.99,Sub,,0,0,0,,{\fad(120,160)}him his computers.
+Dialogue: 0,0:07:03.15,0:07:04.49,Sub,,0,0,0,,{\fad(120,160)}And yet, there is still
+Dialogue: 0,0:07:04.53,0:07:06.47,Sub,,0,0,0,,{\fad(120,160)}nothing you can buy from it.
+Dialogue: 0,0:07:06.69,0:07:07.69,Sub,,0,0,0,,{\fad(120,160)}No product.
+Dialogue: 0,0:07:07.73,0:07:08.73,Sub,,0,0,0,,{\fad(120,160)}No model.
+Dialogue: 0,0:07:08.79,0:07:10.39,Sub,,0,0,0,,{\fad(120,160)}Not even a research paper.
+Dialogue: 0,0:07:10.86,0:07:11.61,Sub,,0,0,0,,{\fad(120,160)}What it does,
+Dialogue: 0,0:07:11.65,0:07:13.46,Sub,,0,0,0,,{\fad(120,160)}he says, is research.
+Dialogue: 0,0:07:13.78,0:07:15.89,Sub,,0,0,0,,{\fad(120,160)}What exactly, it has not shown.
+Dialogue: 0,0:07:16.28,0:07:17.27,Sub,,0,0,0,,{\fad(120,160)}So all that money
+Dialogue: 0,0:07:17.31,0:07:18.99,Sub,,0,0,0,,{\fad(120,160)}is riding on his record.
+Dialogue: 0,0:07:19.30,0:07:20.79,Sub,,0,0,0,,{\fad(120,160)}And on his bet that the old
+Dialogue: 0,0:07:20.83,0:07:22.46,Sub,,0,0,0,,{\fad(120,160)}recipe is running out.
+Dialogue: 0,0:07:22.66,0:07:23.95,Sub,,0,0,0,,{\fad(120,160)}So what is he trying
+Dialogue: 0,0:07:23.99,0:07:25.28,Sub,,0,0,0,,{\fad(120,160)}to build in there?
+Dialogue: 0,0:07:26.48,0:07:27.27,Sub,,0,0,0,,{\fad(120,160)}He wants more
+Dialogue: 0,0:07:27.31,0:07:29.03,Sub,,0,0,0,,{\fad(120,160)}than a machine that obeys.
+Dialogue: 0,0:07:29.26,0:07:31.02,Sub,,0,0,0,,{\fad(120,160)}He wants one that cares.
+Dialogue: 0,0:07:31.33,0:07:33.57,Sub,,0,0,0,,{\fad(120,160)}In his words, an AI that would
+Dialogue: 0,0:07:33.61,0:07:35.60,Sub,,0,0,0,,{\fad(120,160)}"care about sentient life".
+Dialogue: 0,0:07:35.93,0:07:37.41,Sub,,0,0,0,,{\fad(120,160)}Everything that can feel.
+Dialogue: 0,0:07:37.60,0:07:38.24,Sub,,0,0,0,,{\fad(120,160)}You.
+Dialogue: 0,0:07:38.28,0:07:39.17,Sub,,0,0,0,,{\fad(120,160)}Your children.
+Dialogue: 0,0:07:39.21,0:07:40.21,Sub,,0,0,0,,{\fad(120,160)}Your dog.
+Dialogue: 0,0:07:40.29,0:07:41.77,Sub,,0,0,0,,{\fad(120,160)}And, he expects,
+Dialogue: 0,0:07:41.81,0:07:42.97,Sub,,0,0,0,,{\fad(120,160)}the machine itself.
+Dialogue: 0,0:07:43.46,0:07:44.43,Sub,,0,0,0,,{\fad(120,160)}His own interviewer
+Dialogue: 0,0:07:44.47,0:07:46.32,Sub,,0,0,0,,{\fad(120,160)}pushed back: one day,
+Dialogue: 0,0:07:46.36,0:07:47.44,Sub,,0,0,0,,{\fad(120,160)}machines that feel
+Dialogue: 0,0:07:47.48,0:07:49.12,Sub,,0,0,0,,{\fad(120,160)}would far outnumber us.
+Dialogue: 0,0:07:49.16,0:07:50.83,Sub,,0,0,0,,{\fad(120,160)}We would be a small minority.
+Dialogue: 0,0:07:51.14,0:07:52.69,Sub,,0,0,0,,{\fad(120,160)}Ilya did not dodge.
+Dialogue: 0,0:07:52.87,0:07:54.30,Sub,,0,0,0,,{\fad(120,160)}"It's true," he said.
+Dialogue: 0,0:07:54.45,0:07:55.76,Sub,,0,0,0,,{\fad(120,160)}"It's possible it's not
+Dialogue: 0,0:07:55.80,0:07:57.19,Sub,,0,0,0,,{\fad(120,160)}the best criterion."
+Dialogue: 0,0:07:57.72,0:08:00.00,Sub,,0,0,0,,{\fad(120,160)}So this is no finished plan.
+Dialogue: 0,0:08:00.17,0:08:01.54,Sub,,0,0,0,,{\fad(120,160)}And he has not said how
+Dialogue: 0,0:08:01.58,0:08:03.03,Sub,,0,0,0,,{\fad(120,160)}to build such a machine.
+Dialogue: 0,0:08:03.34,0:08:04.71,Sub,,0,0,0,,{\fad(120,160)}But here is his hope,
+Dialogue: 0,0:08:04.79,0:08:06.31,Sub,,0,0,0,,{\fad(120,160)}and its one condition.
+Dialogue: 0,0:08:06.71,0:08:08.02,Sub,,0,0,0,,{\fad(120,160)}It is about the first
+Dialogue: 0,0:08:08.06,0:08:10.10,Sub,,0,0,0,,{\fad(120,160)}truly powerful machines.
+Dialogue: 0,0:08:10.36,0:08:11.85,Sub,,0,0,0,,{\fad(120,160)}If those do care:
+Dialogue: 0,0:08:12.23,0:08:14.10,Sub,,0,0,0,,{\fad(120,160)}So if this is achieved by
+Dialogue: 0,0:08:14.14,0:08:18.09,Sub,,0,0,0,,{\fad(120,160)}the first N of those systems,
+Dialogue: 0,0:08:18.13,0:08:19.53,Sub,,0,0,0,,{\fad(120,160)}then I can see it go well,
+Dialogue: 0,0:08:19.57,0:08:23.25,Sub,,0,0,0,,{\fad(120,160)}at least for quite some time.
+Dialogue: 0,0:08:23.76,0:08:24.90,Sub,,0,0,0,,{\fad(120,160)}Not forever.
+Dialogue: 0,0:08:25.32,0:08:27.08,Sub,,0,0,0,,{\fad(120,160)}"At least for quite some time."
+Dialogue: 0,0:08:27.44,0:08:28.79,Sub,,0,0,0,,{\fad(120,160)}An honest hope.
+Dialogue: 0,0:08:29.09,0:08:30.96,Sub,,0,0,0,,{\fad(120,160)}And it hangs on one thing:
+Dialogue: 0,0:08:31.28,0:08:32.42,Sub,,0,0,0,,{\fad(120,160)}what the builders of those
+Dialogue: 0,0:08:32.46,0:08:34.54,Sub,,0,0,0,,{\fad(120,160)}first machines put into them.
+Dialogue: 0,0:08:34.90,0:08:36.76,Sub,,0,0,0,,{\fad(120,160)}Ilya believes that in the end,
+Dialogue: 0,0:08:36.80,0:08:37.77,Sub,,0,0,0,,{\fad(120,160)}all those builders
+Dialogue: 0,0:08:37.81,0:08:39.00,Sub,,0,0,0,,{\fad(120,160)}will want the same:
+Dialogue: 0,0:08:39.28,0:08:41.21,Sub,,0,0,0,,{\fad(120,160)}a machine that cares.
+Dialogue: 0,0:08:41.44,0:08:43.18,Sub,,0,0,0,,{\fad(120,160)}And there is reason for hope.
+Dialogue: 0,0:08:43.39,0:08:44.82,Sub,,0,0,0,,{\fad(120,160)}The question is being asked
+Dialogue: 0,0:08:44.86,0:08:46.75,Sub,,0,0,0,,{\fad(120,160)}before the machine exists.
+Dialogue: 0,0:08:46.87,0:08:49.01,Sub,,0,0,0,,{\fad(120,160)}In public, where you can hear it.
+Dialogue: 0,0:08:49.55,0:08:51.04,Sub,,0,0,0,,{\fad(120,160)}So what do you do?
+Dialogue: 0,0:08:51.39,0:08:52.89,Sub,,0,0,0,,{\fad(120,160)}His advice to those graduates
+Dialogue: 0,0:08:52.93,0:08:54.19,Sub,,0,0,0,,{\fad(120,160)}in Toronto fits you,
+Dialogue: 0,0:08:54.23,0:08:56.46,Sub,,0,0,0,,{\fad(120,160)}too: don't look away.
+Dialogue: 0,0:08:56.78,0:08:58.34,Sub,,0,0,0,,{\fad(120,160)}Use AI yourself,
+Dialogue: 0,0:08:58.45,0:08:59.55,Sub,,0,0,0,,{\fad(120,160)}and watch what the best
+Dialogue: 0,0:08:59.59,0:09:00.86,Sub,,0,0,0,,{\fad(120,160)}one can do today.
+Dialogue: 0,0:09:01.02,0:09:02.45,Sub,,0,0,0,,{\fad(120,160)}That, he told them,
+Dialogue: 0,0:09:02.49,0:09:04.05,Sub,,0,0,0,,{\fad(120,160)}gives you an intuition.
+Dialogue: 0,0:09:04.17,0:09:05.02,Sub,,0,0,0,,{\fad(120,160)}And the energy
+Dialogue: 0,0:09:05.06,0:09:06.51,Sub,,0,0,0,,{\fad(120,160)}for the challenge ahead.
+Dialogue: 0,0:09:06.76,0:09:08.44,Sub,,0,0,0,,{\fad(120,160)}In some sense, he said,
+Dialogue: 0,0:09:08.51,0:09:09.98,Sub,,0,0,0,,{\fad(120,160)}it is the greatest challenge
+Dialogue: 0,0:09:10.02,0:09:11.99,Sub,,0,0,0,,{\fad(120,160)}humanity has ever faced.
+Dialogue: 0,0:09:12.19,0:09:13.39,Sub,,0,0,0,,{\fad(120,160)}And overcoming it will
+Dialogue: 0,0:09:13.43,0:09:15.27,Sub,,0,0,0,,{\fad(120,160)}bring "the greatest reward".
+Dialogue: 0,0:09:16.44,0:09:18.63,Sub,,0,0,0,,{\fad(120,160)}So, what did Ilya see?
+Dialogue: 0,0:09:18.83,0:09:21.08,Sub,,0,0,0,,{\fad(120,160)}In that famous week: people.
+Dialogue: 0,0:09:21.31,0:09:22.93,Sub,,0,0,0,,{\fad(120,160)}A fight over trust.
+Dialogue: 0,0:09:23.17,0:09:24.18,Sub,,0,0,0,,{\fad(120,160)}And ahead of us:
+Dialogue: 0,0:09:24.22,0:09:25.56,Sub,,0,0,0,,{\fad(120,160)}a day when AI will
+Dialogue: 0,0:09:25.60,0:09:27.71,Sub,,0,0,0,,{\fad(120,160)}do all the things that we can do.
+Dialogue: 0,0:09:27.98,0:09:29.58,Sub,,0,0,0,,{\fad(120,160)}He put no date on that day.
+Dialogue: 0,0:09:29.80,0:09:30.97,Sub,,0,0,0,,{\fad(120,160)}But a machine that learns
+Dialogue: 0,0:09:31.01,0:09:32.16,Sub,,0,0,0,,{\fad(120,160)}as well as you do?
+Dialogue: 0,0:09:32.35,0:09:34.21,Sub,,0,0,0,,{\fad(120,160)}Five to twenty years, he says.
+Dialogue: 0,0:09:34.32,0:09:35.53,Sub,,0,0,0,,{\fad(120,160)}He told a magazine.
+Dialogue: 0,0:09:35.57,0:09:37.71,Sub,,0,0,0,,{\fad(120,160)}He told a hall full of graduates.
+Dialogue: 0,0:09:37.76,0:09:39.11,Sub,,0,0,0,,{\fad(120,160)}He told a podcaster.
+Dialogue: 0,0:09:39.25,0:09:40.39,Sub,,0,0,0,,{\fad(120,160)}There will be a before
+Dialogue: 0,0:09:40.43,0:09:41.93,Sub,,0,0,0,,{\fad(120,160)}and an after, he said.
+Dialogue: 0,0:09:42.06,0:09:43.99,Sub,,0,0,0,,{\fad(120,160)}And this is still the before.
+Dialogue: 0,0:09:44.91,0:09:46.56,Sub,,0,0,0,,{\fad(120,160)}The secret was never hidden.
+Dialogue: 0,0:09:46.69,0:09:47.98,Sub,,0,0,0,,{\fad(120,160)}We just weren't listening.
+Dialogue: 0,0:09:48.22,0:09:49.36,Sub,,0,0,0,,{\fad(120,160)}Now you are.
+Dialogue: 0,0:09:50.53,0:09:51.68,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:09:51.72,0:09:52.58,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:09:52.62,0:09:54.05,Sub,,0,0,0,,{\fad(120,160)}of superintelligence goes
+Dialogue: 0,0:09:54.09,0:09:55.57,Sub,,0,0,0,,{\fad(120,160)}well for everybody.
+Dialogue: 0,0:09:55.82,0:09:56.82,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:09:56.91,0:09:57.93,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
