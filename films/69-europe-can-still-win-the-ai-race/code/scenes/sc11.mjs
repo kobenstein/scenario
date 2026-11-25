@@ -69,7 +69,7 @@ export function makeDraw11(T) {
   const DL = { x: 250, y: 570, r: 100 }; // the disc at the lanes' start (sheet units)
   const DESK_X = 2700, VDESK = { x: DESK_X, y: 600, s: 1.12 }, LY = 560;
   const T_UP = [A.race1 - .9, A.race1 + .7], T_GO = [A.race1 + .2, A.race1 + 1.5], T_HUD = [A.race1 + 3.0, A.race1 + 4.4];
-  const uAof = (t) => span(t, A.race1 + .9, A.race1 + 2.0), uBof = (t) => span(t, A.race1 + 1.1, A.race1 + 2.2);
+  const uAof = (t) => span(t, A.race1 + .45, A.race1 + 1.5), uBof = (t) => span(t, A.race1 + .7, A.race1 + 1.8);
   // the disc between the moon place (VD) and the lanes' start, in sheet units of VS
   const discSheet = (t) => { const go = sineIO(span(t, ...T_GO)); return { x: lerp(B.VD.x, DL.x, go), y: lerp(B.VD.y + 20, DL.y, go), r: Math.exp(lerp(Math.log(B.VD.r), Math.log(DL.r), go)), go }; };
   // the runner on lane B: in from the left edge, slows down, stops at the lane's end
@@ -88,7 +88,6 @@ export function makeDraw11(T) {
     S.seaWorld(ctx, cam, t, { moon: false, lit: .85, away: .2, you: { o: { look: .9 } } });
     const ps = parts(t), fall = sineIO(span(t, A.a, A.a + 1.6)), dy = fall * (H + 160), up = sineIO(span(t, ...T_UP));
     B.moonPath(ctx, t, B.VD.x, B.VD.r, B.goldOf(ps), span(t, A.a + .4, A.a + 1.6) * (1 - up));
-    X.big(ctx, 'CAN EUROPE STILL WIN?', W / 2, 752, 62, span(t, A.can - .05, A.can + .7), { gold: .45 });   // on the sea; the sheet covers it
     if (fall < 1) planLayer(ctx, t, planView(t, T), dy);
     if (up > 0) B.sheetFrom(ctx, t, VS, (1 - up) * (H + 120), { lx: 960, ly: LY });
     const lab = [span(t, A.two + .1, A.two + .9), span(t, A.paper + .5, A.paper + 1.3), span(t, A.two + .5, A.two + 1.3), span(t, A.paper + .8, A.paper + 1.6), span(t, A.one + .1, A.one + .9)];
@@ -108,10 +107,10 @@ export function makeDraw11(T) {
       B.lane(ctx, t, B.TR.yB, uB, {});
       const deskLine = span(t, A.voice - .3, A.voice + 1.0);   // lane B runs on and becomes the desk top
       if (deskLine > 0) X.lightLine(ctx, [[B.TR.x1, B.TR.yB], [DESK_X - X.DESK.w / 2, X.DESK.y]], deskLine, { a: .62, w: 2.2 });
-      B.chatBubble(ctx, t, 600, B.TR.yA - B.TR.half - 96, 200, { u: span(t, A.race1 + 1.2, A.race1 + 2.2), a: 1 - .6 * dimA, glow: 1 - .7 * dimA });
-      B.computeStacks(ctx, t, span(t, A.race1 + 1.2, A.race1 + 2.5), { dim: dimA });
+      B.chatBubble(ctx, t, 600, B.TR.yA - B.TR.half - 96, 200, { u: span(t, A.race1 + .8, A.race1 + 1.8), a: 1 - .6 * dimA, glow: 1 - .7 * dimA });
+      B.computeStacks(ctx, t, span(t, A.race1 + .8, A.race1 + 2.1), { dim: dimA });
       const rx = runX(t);
-      for (let i = 0; i < 10; i++) B.workshop(ctx, t, i, { u: span(t, A.race1 + 1.4 + i * .06, A.race1 + 2.4 + i * .06), lit: .7, ai: span(rx, B.shopX(i) - 40, B.shopX(i) + 10) });
+      for (let i = 0; i < 10; i++) B.workshop(ctx, t, i, { u: span(t, A.race1 + 1.0 + i * .06, A.race1 + 2.0 + i * .06), lit: .7, ai: span(rx, B.shopX(i) - 40, B.shopX(i) + 10) });
       if (t > A.race2 - .4) {   // the runner (indigo, a gold rim): Europe in the second race
         const sp = 1 - span(t, A.voice - .7, A.voice + .4);
         E.person(ctx, rx, B.TR.yB + 12, 118, { dir: 1, light: .9, view: 'side', walk: sp > .02 ? t * 12 * (.4 + .6 * sp) : undefined, lean: .14 * sp, rim: GOLD.line, look: .2 });
@@ -142,18 +141,18 @@ export function makeDraw11(T) {
   function reportStage(ctx, t) {
     const lift = span(t, A.draghi + .5, A.draghi + 2.2), fall = span(t, A.builds - .6, A.builds + .4); if (lift <= 0 || fall >= 1) return;
     const r = reportAt(t), box = { x: r.x - r.w / 2, y: r.y - r.h / 2, w: r.w, h: r.h };
-    const f1 = span(t, C.start - 1.25, C.start - .85), f2 = span(t, C.end + 1.0, C.end + 1.4);   // report → dark card, dark card → report
-    const morph = Math.min(span(t, C.start - .85, C.start + .9), 1 - span(t, C.end - .1, C.end + 1.0));
-    const dark = 1 - Math.min(span(t, C.start - .3, C.start + .6), 1 - span(t, C.end - .2, C.end + .6));
-    const inCard = t >= C.start - 1.05 && t < C.end + 1.2;
+    const f1 = span(t, C.start - .5, C.start - .2), f2 = span(t, C.end + 1.0, C.end + 1.4);   // report → dark card, dark card → report
+    const morph = Math.min(span(t, C.start - .2, C.start + 1.0), 1 - span(t, C.end - .1, C.end + 1.0));
+    const dark = 1 - Math.min(span(t, C.start + .2, C.start + .9), 1 - span(t, C.end - .2, C.end + .6));
+    const inCard = t >= C.start - .35 && t < C.end + 1.2;
     if (!inCard) {
       const k = t < C.start ? Math.abs(Math.cos(Math.PI * f1)) : Math.abs(Math.cos(Math.PI * f2));
       ctx.save(); ctx.translate(0, expoIn(fall) * 700); ctx.translate(r.x, r.y); ctx.rotate(fall * .5 + .03 * Math.sin(t * .6)); ctx.scale(Math.max(.02, k), 1); ctx.translate(-r.x, -r.y);
       B.report(ctx, t, r.x, r.y, r.w); ctx.restore();
     } else if (morph <= 0) B.darkCard(ctx, box, t < C.start ? Math.cos(Math.PI * f1) : Math.cos(Math.PI * f2));
     if (morph > 0) F.clipPlate(ctx, t, T, 'C1b', { from: box, morph, dark });
-    const lab = span(t, A.draghi + 1.4, A.draghi + 2.0) * (1 - span(t, C.start - 1.6, C.start - 1.1));
-    X.label(ctx, SRC.draghi, W / 2, RPT.y + RPT.w * .66 + 56, lab, { size: 26, spacing: .14 });
+    const lab = span(t, A.draghi + 1.2, A.draghi + 1.8) * (1 - span(t, C.start - .6, C.start - .2));
+    X.label(ctx, SRC.draghi, W / 2, RPT.y + RPT.w * .66 + 56, lab, { size: 30, spacing: .14 });
   }
   // the budget timeline (10.08) and the harvest (10.09); screen space (the view is the plain sheet here)
   const TL = { y: 560, x0: 300, x1: 1760, now: 380, summit: 440, agree: 1000, brk: 1070, b0: 1150, b1: 1720 };
@@ -178,7 +177,7 @@ export function makeDraw11(T) {
       halo(ctx, xr, TL.y, 46, .55 * nowU * (.85 + .15 * Math.sin(t * 2.4)), GOLD.halo, GOLD.core); ctx.fillStyle = rgba(GOLD.hot, nowU); ctx.beginPath(); ctx.arc(xr, TL.y, 8, 0, TAU); ctx.fill();
     }
     const out = 1 - span(t, A.builds - .9, A.builds - .3);
-    X.label(ctx, 'NOW', TL.now, TL.y + 54, span(t, A.clock + .8, A.clock + 1.4) * out, { size: 24, gold: .8, col: GOLD.text });
+    X.label(ctx, 'NOW', TL.now, TL.y + 54, span(t, A.clock + .8, A.clock + 1.4) * out, { size: 30, gold: .8, col: GOLD.text });
     X.dateTag(ctx, SRC.clock[1], TL.summit + 150, TL.y - 62, span(t, A.winter + .3, A.winter + 1.0) * out);
     X.dateTag(ctx, SRC.clock[2], TL.agree, TL.y + 64, span(t, A.winter + 1.0, A.winter + 1.7) * out);
     X.dateTag(ctx, SRC.clock[0], (TL.b0 + TL.b1) / 2, TL.y - 62, span(t, A.budget + .3, A.budget + 1.0) * out);
@@ -189,21 +188,28 @@ export function makeDraw11(T) {
       if (hu[1] > 0) B.kitchenWindow(ctx, t, 960, TL.y - 150, 250, { u: hu[1], clipY: 150 });
       if (hu[2] > 0) { F.letter(ctx, t, 1390, TL.y - 128 + (1 - expoOut(hu[2])) * 300, 118, { head: SRC.offers[0], rot: -.08 }); F.letter(ctx, t, 1495, TL.y - 118 + (1 - expoOut(clamp(hu[2] * 1.3 - .3))) * 300, 118, { head: SRC.offers[1], rot: .07 }); }
       ctx.restore();
-      SRC.harvest.forEach((s, i) => X.label(ctx, s, [500, 960, 1442][i], TL.y + 62, hu[i], { size: 28, spacing: .14 }));
+      SRC.harvest.forEach((s, i) => X.label(ctx, s, [500, 960, 1442][i], TL.y + 62, hu[i], { size: 32, spacing: .14 }));
     }
     ctx.restore();
   }
 
+  // the question rides up with the sheet and stays as the heading over the two races, until 'That one, Europe can still win'
+  function question(ctx, t) {
+    const up = sineIO(span(t, ...T_UP)), u0 = span(t, A.can - .05, A.can + .7) * (1 - span(t, A.race1 + .4, A.race1 + .9));
+    const u1 = span(t, A.race1 + .9, A.race1 + 1.5) * (1 - span(t, A.that - .2, A.that + .4));   // it sinks at the sea's edge and rises again as the heading
+    if (u0 > 0) X.big(ctx, 'CAN EUROPE STILL WIN?', W / 2, lerp(752, 800, up), 62, u0, { gold: .45 });
+    if (u1 > 0) X.big(ctx, 'CAN EUROPE STILL WIN?', W / 2, 150, 54, u1, { gold: .45 });
+  }
   function draw(ctx, t) {
     if (t >= A.never - .4) {   // the finale take (sc12): the sheet with the harvest falls away into thumbnail A
       B.finale(ctx, t, T, { sheet: (c, tt, dy) => { B.sheetFrom(c, tt, B.shiftView({ x: 960, y: 540, s: 1 }, dy), dy, { lx: 960, ly: LY }); timelineStage(c, tt, dy); F.kitHud(c, tt, T, { dy }); } });
       return;
     }
-    if (t < T_UP[1] + .05) { verdictStage(ctx, t); if (t < T_UP[0] + .6) return; }
+    if (t < T_UP[1] + .05) { verdictStage(ctx, t); if (t < T_UP[0] + .6) { question(ctx, t); return; } }
     const v = viewAt(t);
     if (t >= T_UP[1] + .05) X.sheet(ctx, t, v, { lx: 960, ly: LY });
     if (t < C.start + .95) racesStage(ctx, t, v);
-    if (t < T_UP[1] + .05) return;
+    if (t < T_UP[1] + .05) { question(ctx, t); return; }
     // the disc rides up into the HUD (and stays the HUD)
     const d = discSheet(t), hud = span(t, ...T_HUD), [dx, dy] = X.toScreen(v, d.x, d.y);
     if (d.go < 1) B.verdictDisc(ctx, t, parts(t), dx, dy, d.r * v.s, { glow: lerp(1, .8, d.go), loose: B.LOOSE(dx, dy, d.r * v.s) });
@@ -220,6 +226,7 @@ export function makeDraw11(T) {
       F.source(ctx, t, A.winter + .4, A.builds - .3, SRC.clockSrc);
     }
     reportStage(ctx, t);
+    question(ctx, t);
   }
   return { draw, A };
 }

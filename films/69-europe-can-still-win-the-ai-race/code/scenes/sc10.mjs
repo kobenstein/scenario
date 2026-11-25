@@ -74,7 +74,7 @@ export function makeDraw10(T) {
     if (lineU > 0 && out > 0) {   // ENOUGH: a dashed line high above every single box
       const col = mixHex(CREAM, GOLD.line, cross);
       X.lightLine(ctx, [[260, B.DB.enough], [1660, B.DB.enough]], lineU, { a: .6 * out, w: 2, dash: [12, 10], col: rgba(col, .7 * out) });
-      X.label(ctx, 'ENOUGH', 1660, B.DB.enough - 18, span(t, enough + .4, enough + 1.0) * out, { size: 24, align: 'right', col: cross > .5 ? GOLD.text : CREAM2, gold: .5 * cross });
+      X.label(ctx, 'ENOUGH', 1660, B.DB.enough - 20, span(t, enough + .4, enough + 1.0) * out, { size: 32, align: 'right', col: cross > .5 ? GOLD.text : CREAM2, gold: .5 * cross });
     }
     for (let k = 0; k < B.DB.n; k++) {
       if (fly >= 1) break;
@@ -90,10 +90,11 @@ export function makeDraw10(T) {
       if (k === B.DB_PLATE && morph > 0) continue;   // the plate is still on its way down into this box
       B.dataBox(ctx, t, b, { gold: cross > .5, seed: k, a: rise < 1 ? clamp(rise * 3) : 1 });
     }
-    if (cross > 0 && fly < 1) halo(ctx, blk.x + blk.w / 2, blk.y + blk.h / 2, 300, .3 * cross * (1 - fly), GOLD.halo, GOLD.core);
+    if (cross > 0 && fly < 1) halo(ctx, blk.x + blk.w / 2, blk.y + blk.h / 2, 380, (.3 + .45 * F.bump(t, together + .55, 1.4)) * cross * (1 - fly), GOLD.halo, GOLD.core);   // ★ the block crosses ENOUGH
+    X.label(ctx, 'EACH ALONE: TOO LITTLE', 960, B.DB.base + 64, span(t, noSingle + .2, noSingle + .8) * (1 - span(t, together - .1, together + .4)), { size: 32, spacing: .1, col: CREAM2 });
     // the baseline under the boxes (it becomes the table)
     X.lightLine(ctx, [[B.DB.x0 - 60, B.DB.base], [B.DB.x0 + 11 * B.DB.step + 60, B.DB.base]], span(t, C4.end + .1, C4.end + .9), { a: .5 * (1 - span(t, A.a + .4, A.a + 1.2)), w: 2 });
-    X.label(ctx, SRC.together, 960, B.DB.enough - 74, span(t, together + .5, together + 1.2) * (1 - span(t, A.a - .1, A.a + .4)), { size: 32, gold: .6, col: GOLD.text });
+    X.label(ctx, SRC.together, 960, B.DB.enough - 90, span(t, together + .5, together + 1.2) * (1 - span(t, A.a - .1, A.a + .4)), { size: 44, gold: .6, col: GOLD.text });
     if (morph > 0) F.clipPlate(ctx, t, T, 'C4', { from: B.dbBox(B.DB_PLATE), morph: sineIO(morph), dark });
   }
 
@@ -106,7 +107,7 @@ export function makeDraw10(T) {
     B.table(ctx, t, TBL.x0, TBL.x1, TBL.y, tb);
     // the people at the table ends (indigo silhouettes; only you wear yellow, and you are not here)
     const pu = span(t, A.sayR - .2, A.sayR + .6);
-    if (pu > 0) { ctx.save(); ctx.globalAlpha *= clamp(pu * 2); E.person(ctx, TBL.x0 - 40 - (1 - expoOut(pu)) * 60, TBL.y + 172, 260, { dir: 1, light: .7, look: .2 + .05 * Math.sin(t * .6) }); E.person(ctx, TBL.x1 + 40 + (1 - expoOut(pu)) * 60, TBL.y + 172, 250, { dir: -1, light: .7, look: .15 + .05 * Math.sin(t * .5 + 1) }); ctx.restore(); }
+    if (pu > 0) { ctx.save(); ctx.globalAlpha *= clamp(pu * 2); E.person(ctx, TBL.x0 - 40 - (1 - expoOut(pu)) * 60, TBL.y + 150, 230, { dir: 1, light: .7, look: .2 + .05 * Math.sin(t * .6) }); E.person(ctx, TBL.x1 + 40 + (1 - expoOut(pu)) * 60, TBL.y + 150, 222, { dir: -1, light: .7, look: .15 + .05 * Math.sin(t * .5 + 1) }); ctx.restore(); }
     // the machine rises out of the table line (clipped at it)
     const conv = span(t, A.whoever + .2, A.whoever + 2.0), beam = span(t, A.chip + .1, A.chip + .8);
     ctx.save(); ctx.beginPath(); ctx.rect(0, -400, W, TBL.y + 400); ctx.clip();
@@ -150,9 +151,9 @@ export function makeDraw10(T) {
     if (dr > 0) X.lightLine(ctx, [[PROTO.x - PROTO.L / 2 - 30, PROTO.y], [PROTO.x + PROTO.L / 2 + 30, PROTO.y]], dr, { a: .35 * r, w: 1.6, dash: [6, 8] });
     // the CHINA hand traces the outline (its fingertip rides the drawing front)
     if (ch > 0) { const h = PROTO.L * .3, k = sineIO(dr), px = lerp(PROTO.x + PROTO.L / 2 + 40, PROTO.x - PROTO.L * .2, k), py = PROTO.y - h * (1.1 + .5 * Math.sin(Math.PI * k)); B.handIn(ctx, t, px + 46, py - 26, Math.PI - .5, 66, ch, { reach: 600, seed: 3, pose: 'point' }); }
-    X.label(ctx, 'THE NETHERLANDS', 120, 220, span(t, A.dutch + .2, A.dutch + .8) * r, { size: 26, align: 'left' });
-    X.label(ctx, 'WASHINGTON', MC.x + 160, 150, span(t, A.wash, A.wash + .6) * r, { size: 26, align: 'left' });
-    X.label(ctx, 'CHINA', PROTO.x, PROTO.y + 50, span(t, A.china + .1, A.china + .7) * r, { size: 26 });
+    X.label(ctx, 'THE NETHERLANDS', 120, 220, span(t, A.dutch + .2, A.dutch + .8) * r, { size: 30, align: 'left' });
+    X.label(ctx, 'WASHINGTON', MC.x + 160, 150, span(t, A.wash, A.wash + .6) * r, { size: 30, align: 'left' });
+    X.label(ctx, 'CHINA', PROTO.x, PROTO.y + 56, span(t, A.china + .1, A.china + .7) * r, { size: 30 });
   }
 
   // ---------------------------------------------------------------- 9.04–9.05 the two half boards → the plan board
@@ -180,8 +181,8 @@ export function makeDraw10(T) {
         F.ruleBook(ctx, t, rx - 156 + k * 52 + (keep ? 0 : go * 320), cy - (keep ? 0 : go * 80), 58, { u: 1, a: cu * (keep ? 1 : 1 - go), rot: (k % 2 ? .05 : -.05) + (keep ? 0 : go * .6), seed: k });
       }
       const lu = cu * up;
-      X.label(ctx, SRC.ways[0], P0.x - HALF.w / 2 - g, y0 - 34, span(t, A.money - .1, A.money + .5) * lu, { size: 28 });
-      X.label(ctx, SRC.ways[1], P0.x + HALF.w / 2 + g, y0 - 34, span(t, A.fewer - .1, A.fewer + .5) * lu, { size: 28 });
+      X.label(ctx, SRC.ways[0], P0.x - HALF.w / 2 - g, y0 - 34, span(t, A.money - .1, A.money + .5) * lu, { size: 32 });
+      X.label(ctx, SRC.ways[1], P0.x + HALF.w / 2 + g, y0 - 34, span(t, A.fewer - .1, A.fewer + .5) * lu, { size: 32 });
     }
   }
   // the four deciders' hands on the plan (9.05), and their labels
@@ -199,7 +200,7 @@ export function makeDraw10(T) {
       let hx = h.x, hy = h.y;
       if (h.k === 'voters') { const bl = expoOut(span(t, A.voters - .25, A.voters + .55)); hx += (1 - bl) * 160; hy -= (1 - bl) * 60; }
       B.handIn(ctx, t, hx, hy, h.ang, 70, u, { reach: 900, seed: 4 + i, pose: h.k === 'voters' ? 'point' : 'open', curl: h.k === 'voters' ? .3 : 0 });
-      X.label(ctx, SRC.deciders[i], h.lab[0], h.lab[1], span(t, at[h.k], at[h.k] + .6) * (1 - span(t, A.end - 1.0, A.end - .5)), { size: 26, align: h.lab[2] });
+      X.label(ctx, SRC.deciders[i], h.lab[0], h.lab[1], span(t, at[h.k], at[h.k] + .6) * (1 - span(t, A.end - 1.0, A.end - .5)), { size: 30, align: h.lab[2] });
     });
   }
 
@@ -222,7 +223,7 @@ export function makeDraw10(T) {
       const L1 = span(t, A.sayR, A.sayR + .7) * (1 - span(t, A.whoever + .2, A.whoever + .7));
       X.label(ctx, 'A SAY IN THE RULES', 960, 200, L1, { size: 34, spacing: .14, gold: .5, col: GOLD.text });
       X.label(ctx, "WHAT OTHERS CAN'T DO WITHOUT", 960, 200, span(t, A.others, A.others + .7) * (1 - span(t, A.counts - .1, A.counts + .4)), { size: 34, spacing: .12 });
-      X.big(ctx, SRC.oneVoice, 1290, 470, 64, span(t, A.oneV + .2, A.oneV + .9) * (1 - span(t, A.dutch - .3, A.dutch + .2)), { gold: .5 });
+      X.big(ctx, SRC.oneVoice, 1290, TBL.y - 160, 72, span(t, A.oneV + .2, A.oneV + .9) * (1 - span(t, A.dutch - .3, A.dutch + .2)), { gold: .5 });
       }); ctx.restore();
     } else C11.planLayer(ctx, t, v, 0, { board: 1, ballot: span(t, A.voters - .25, A.voters + .55) });
     // the disc: the HUD flies down into the plan's disc (reverse of discToHud) and stays there; at A.end it is c11's verdict moon

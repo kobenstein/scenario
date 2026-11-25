@@ -52,7 +52,7 @@ export const STAR_SHOP = 5;              // the old works we push into (★ 8.04
 export const SAT_SHOP = 1;               // the satellite maker's workshop (8.03)
 export const shopWin = (i) => ({ x: shopX(i) - 12, y: shopBase() - 40, w: 24, h: 13.5 });
 export function lane(ctx, t, y, u, o = {}) {
-  if (u <= 0) return;
+  if (u <= 0 || (o.a ?? 1) <= .005) return;   // (a transparent stroke still casts its glow shadow)
   const x0 = o.x0 ?? TR.x0, x1 = lerp(x0, o.x1 ?? TR.x1, sineIO(u)), a = o.a ?? 1, hf = TR.half;
   ctx.save(); ctx.globalAlpha *= a; ctx.fillStyle = rgba(o.fill ?? CREAM, .045); ctx.fillRect(x0, y - hf, x1 - x0, hf * 2); ctx.restore();
   for (const dy of [-hf, hf]) X.lightLine(ctx, [[x0, y + dy], [x1, y + dy]], 1, { a: .62 * a, w: 2.2, col: o.col, blur: 6 });
@@ -236,8 +236,8 @@ export function worksOpen(ctx, t, o = {}) {
 }
 
 // ------------------------------------------------------------------------------------------------ data boxes (8.07)
-export const DB = { n: 12, base: 640, x0: 328, step: 115, w: 86, enough: 470, cols: 4, rows: 3, bh: 62 };
-const DBH = [52, 64, 42, 70, 58, 46, 66, 54, 60, 48, 72, 40];
+export const DB = { n: 12, base: 700, x0: 256, step: 128, w: 100, enough: 380, cols: 4, rows: 3, bh: 120 };
+const DBH = [96, 120, 80, 132, 108, 88, 124, 100, 112, 92, 140, 76];
 export const DB_PLATE = 5;   // the clip plate shrinks into this box
 export const dbBox = (k) => ({ x: DB.x0 + k * DB.step - DB.w / 2, y: DB.base - DBH[k], w: DB.w, h: DBH[k] });
 export const dbSlot = (k) => { const c = k % DB.cols, r = Math.floor(k / DB.cols), bx = 960 - DB.cols * DB.w / 2; return { x: bx + c * DB.w, y: DB.base - (r + 1) * DB.bh, w: DB.w, h: DB.bh }; };
@@ -352,8 +352,8 @@ export function verdictDisc(ctx, t, parts, cx, cy, r, o = {}) {
     const q = F.PIECE_ANG[i], lx = cx + Math.cos(q) * r * 1.42, ly = cy + Math.sin(q) * r * 1.42 + (i === 2 ? -6 : 0), al = Math.abs(Math.cos(q)) < .3 ? 'center' : Math.cos(q) > 0 ? 'left' : 'right';
     const st = parts[i], li = clamp(labs[i]), lo = clamp(o.out ?? 0);
     const sink = (u) => F.rise(u) * (1 - expoIn(clamp(lo * 1.4 - i * .08)));
-    F.goldText(ctx, [[p.name, 0]], lx, ly, 26, sink(li), { serif: false, weight: 700, spacing: .06, align: al, col: CREAM });
-    if (st.kind !== 'blank') F.goldText(ctx, [[p.verdict, st.kind === 'half' ? 1 : 0]], lx, ly + 34, 24, sink(clamp(li - .15)), { serif: false, weight: 700, spacing: .1, align: al, col: st.kind === 'half' ? GOLD.text : CREAM2 });
+    F.goldText(ctx, [[p.name, 0]], lx, ly, 30, sink(li), { serif: false, weight: 700, spacing: .06, align: al, col: CREAM });
+    if (st.kind !== 'blank') F.goldText(ctx, [[p.verdict, st.kind === 'half' ? 1 : 0]], lx, ly + 38, 26, sink(clamp(li - .15)), { serif: false, weight: 700, spacing: .1, align: al, col: st.kind === 'half' ? GOLD.text : CREAM2 });
     const tu = clamp(tag[i] ?? 0) * (1 - clamp(lo * 1.6)); if (tu > 0) {
       const txt = SRC.started[i], tw = F.measure(txt, 22, false, 600) * 1.08 + 44 + txt.length * 22 * .06, tx = al === 'center' ? lx : al === 'left' ? lx + tw / 2 : lx - tw / 2;
       X.dateTag(ctx, txt, tx, i === 2 ? ly - 52 : ly + 74, tu);

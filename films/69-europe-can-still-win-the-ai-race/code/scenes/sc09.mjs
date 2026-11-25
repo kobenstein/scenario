@@ -21,7 +21,7 @@ import * as X from '../lib/f69_explain.mjs';
 import * as B from './sc12.mjs';
 import * as C10 from './sc10.mjs';
 const { W, H, rgba, clamp, lerp, span, sineIO, expoOut, halo } = E;
-const { GOLD, CREAM, CREAM2, SOURCES: SRC } = F;
+const { GOLD, COOL, PAPER, CREAM, CREAM2, SOURCES: SRC } = F;
 const PR = F.PRINT69;
 
 const memo = new WeakMap();
@@ -40,6 +40,7 @@ const VS = { x: 960, y: 560, s: 1 };       // the races (as in c11)
 const VW = { x: 1180, y: 600, s: 1.15 };   // the workshops (8.04)
 const VST1 = { x: 1270, y: 636, s: 7 };    // ★ inside the old works
 const VST2 = { x: 1292, y: 628, s: 6 };    //   … with the chatbot outside its wall
+const VK = { x: 1640, y: 630, s: 1.75 }, VK2 = { x: 1660, y: 640, s: 1.9 };   // 8.05: the row and the seller
 const DL = { x: 250, y: 570, r: 100 };     // the disc at the tracks' start (as in c11)
 const PD = S.PLATE_DISC;
 const WIN = (() => { const w = B.shopWin(B.SAT_SHOP); return [w.x + w.w / 2, w.y + w.h / 2]; })();
@@ -58,26 +59,69 @@ function makeDraw09(T) {
     const s1 = sineIO(span(t, A.much - .3, A.much + 1.1)), s2 = sineIO(span(t, A.noBot - 1.5, A.noBot + .6));
     if (s1 > 0) v = B.mixView(v, VST1, s1);
     if (s2 > 0) v = B.mixView(v, VST2, s2);
-    const bk = sineIO(span(t, A.arg + 1.7, A.arg + 2.8)); if (bk > 0) v = B.mixView(v, C10.V9, bk);
+    const k1 = sineIO(span(t, A.arg - .6, A.arg + 1.8)), k2 = sineIO(span(t, A.arg + 1.8, A.listen + .2));   // 8.05: back out to the seller
+    if (k1 > 0) v = B.mixView(v, B.mixView(VK, VK2, k2), k1);
+    const bk = sineIO(span(t, C4.start + .2, C4.start + 1.2)); if (bk > 0) v = B.mixView(v, C10.V9, bk);
     return v;
   };
-  const poolAt = (t) => ({ lx: 960, ly: lerp(lerp(470, 560, go(t)), 520, span(t, A.arg + 1.7, A.arg + 2.8)) });
+  const poolAt = (t) => ({ lx: lerp(960, 1700, span(t, A.arg, A.arg + 1.5)) * (1 - span(t, C4.start + .2, C4.start + 1.2)) + 960 * span(t, C4.start + .2, C4.start + 1.2), ly: lerp(lerp(470, 560, go(t)), 520, span(t, C4.start + .2, C4.start + 1.2)) });
   // the disc in sheet units: from the plate's disc to the tracks' start
   const discAt = (t) => { const g = sineIO(span(t, A.not - .2, A.not + 1.2)); return { x: lerp(PD.x, DL.x, g), y: lerp(PD.y, DL.y, g), r: Math.exp(lerp(Math.log(PD.r), Math.log(DL.r), g)), g }; };
 
+  // 8.05 (sheet units): the seller next to the old works. Peter Koerte (an indigo silhouette, no face) stands at the end of the row; the
+  // argument runs as a line from the works' gold drawings to him; beside him the box of AI that Siemens sells, a price tag on it; its
+  // lines go out to the old works (sells); a hairline ties him to the box: NOT NEUTRAL.
+  const KX = 1900, GY = B.TR.yB + B.TR.half, BOX = { x: 1990, y: GY - 70, w: 100, h: 70 };
+  const ART = [B.shopX(B.STAR_SHOP), B.shopBase() - 40];
+  function seller(ctx, t) {
+    const g = span(t, A.arg - .2, A.arg + .8), out = 1 - span(t, C4.start - .2, C4.start + .2); if (g <= 0 || out <= 0) return;
+    X.lightLine(ctx, [[B.TR.x1 + 20, GY], [2200, GY]], g, { a: .5, w: 2.2 });   // the ground runs on past the row
+    const arg = span(t, A.arg + .2, A.koerte + .3);
+    if (arg > 0) X.lightLine(ctx, E.catmull([ART, [1620, 520], [KX - 10, GY - 150]], 12).map((p) => [p[0], p[1]]), arg, { a: .7 * out, w: 2.4, col: rgba(GOLD.line, .7 * out) });
+    const pu = span(t, A.arg + .3, A.koerte + .2);
+    if (pu > 0) { ctx.save(); ctx.globalAlpha *= clamp(pu * 2); const walk = 1 - pu; E.person(ctx, KX + walk * 120, GY, 126, { dir: -1, light: .75, view: walk > .02 ? 'side' : undefined, walk: walk > .02 ? t * 10 : undefined, look: .1 + .05 * Math.sin(t * .7), rim: CREAM }); ctx.restore(); }
+    // the box of AI (cool), with a price tag (no figure on it)
+    const bu = span(t, A.sells - .1, A.sells + .7);
+    if (bu > 0) {
+      const k = expoOut(bu), b = { x: BOX.x, y: BOX.y + (1 - k) * 60, w: BOX.w, h: BOX.h };
+      ctx.save(); ctx.beginPath(); ctx.rect(b.x - 60, GY - 220, b.w + 140, 220); ctx.clip();
+      halo(ctx, b.x + b.w / 2, b.y + b.h / 2, 130, .35 * k, COOL.halo, COOL.core);
+      ctx.fillStyle = E.mixHex(E.P.night1, COOL.deep, .7); ctx.beginPath(); ctx.roundRect(b.x, b.y, b.w, b.h, 6); ctx.fill();
+      ctx.strokeStyle = rgba(COOL.line, .85); ctx.lineWidth = 2; ctx.stroke();
+      E.glowText(ctx, 'AI', b.x + b.w / 2, b.y + b.h * .64, { size: 30, weight: 700, align: 'center', col: COOL.core, glow: false, spacing: .1 });
+      const sw = Math.sin(t * 1.6) * .12, tx = b.x + b.w + 4, ty = b.y + 6;   // the price tag on a string
+      ctx.strokeStyle = rgba(CREAM, .7); ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(b.x + b.w - 8, b.y + 4); ctx.lineTo(tx + 10, ty + 12); ctx.stroke();
+      ctx.save(); ctx.translate(tx + 10, ty + 12); ctx.rotate(.5 + sw); ctx.fillStyle = PAPER.lit;
+      ctx.beginPath(); ctx.moveTo(0, -9); ctx.lineTo(30, -9); ctx.lineTo(30, 9); ctx.lineTo(0, 9); ctx.lineTo(-9, 0); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = E.P.night1; ctx.beginPath(); ctx.arc(-1, 0, 2.4, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = rgba(PAPER.faint, .8); ctx.fillRect(8, -3, 16, 2); ctx.fillRect(8, 2, 11, 2);
+      ctx.restore(); ctx.restore();
+    }
+    // sells: lines from the box out to the old works (arrow heads at the roofs)
+    [B.STAR_SHOP, 6, 8].forEach((i, n) => {
+      const u = span(t, A.sells + .5 + n * .2, A.sells + 1.5 + n * .2) * out; if (u <= 0) return;
+      const p0 = [BOX.x + BOX.w / 2, BOX.y - 6], p1 = [B.shopX(i), B.shopBase() - B.SHOP.h - 30], mid = [lerp(p0[0], p1[0], .5), Math.min(p0[1], p1[1]) - 110 + n * 20];
+      const pts = E.catmull([p0, mid, p1], 14).map((p) => [p[0], p[1]]);
+      X.lightLine(ctx, pts, u, { a: .75, w: 2.2, dash: [9, 7], col: rgba(COOL.line, .8 * out), glowCol: COOL.halo });
+      if (u >= 1) { const a = pts[pts.length - 2], z = pts[pts.length - 1], ang = Math.atan2(z[1] - a[1], z[0] - a[0]); ctx.save(); ctx.translate(z[0], z[1]); ctx.rotate(ang); ctx.fillStyle = rgba(COOL.core, .9 * out); ctx.beginPath(); ctx.moveTo(4, 0); ctx.lineTo(-10, -6); ctx.lineTo(-10, 6); ctx.closePath(); ctx.fill(); ctx.restore(); }
+    });
+    // he is on the seller's side: a hairline from him to the box
+    const tie = span(t, A.so - .1, A.so + .6) * out;
+    if (tie > 0) X.lightLine(ctx, [[KX + 18, GY - 90], [BOX.x - 4, BOX.y + 20]], tie, { a: .8, w: 2, col: rgba(CREAM, .8) });
+  }
+
   function races(ctx, t, v) {
     const d = discAt(t), hud = span(t, ...T_HUD), uA = span(t, A.not + .1, A.not + 1.0), uB = span(t, A.second + .1, A.second + 1.0);
-    const dimA = span(t, A.chatE - .1, A.chatE + .8), fadeA = span(t, A.half + .2, A.half + 1.2);
+    const dimA = span(t, A.chatE - .1, A.chatE + .8), fadeA = span(t, A.half + .2, A.half + 1.2), goneA = 1 - span(t, A.arg - .5, A.arg + .8);
     X.inView(ctx, v, () => {
       B.leadIns(ctx, t, d.x, d.y, d.r, uA, uB, hud);
-      B.lane(ctx, t, B.TR.yA, uA, { a: (1 - .5 * dimA) * (1 - .6 * fadeA) });
+      B.lane(ctx, t, B.TR.yA, uA, { a: (1 - .5 * dimA) * (1 - .6 * fadeA) * goneA });
       B.lane(ctx, t, B.TR.yB, uB, {});
-      B.chatBubble(ctx, t, 600, B.TR.yA - B.TR.half - 96, 200, { u: span(t, A.not + .3, A.not + 1.1), a: (1 - .6 * dimA) * (1 - .6 * fadeA), glow: 1 - .7 * dimA });
-      B.computeStacks(ctx, t, span(t, A.not + .4, A.not + 1.5), { dim: Math.max(dimA, fadeA) });
+      B.chatBubble(ctx, t, 600, B.TR.yA - B.TR.half - 96, 200, { u: span(t, A.not + .3, A.not + 1.1), a: (1 - .6 * dimA) * (1 - .6 * fadeA) * goneA, glow: 1 - .7 * dimA });
+      if (goneA > 0) { ctx.save(); ctx.globalAlpha *= goneA; B.computeStacks(ctx, t, span(t, A.not + .4, A.not + 1.5), { dim: Math.max(dimA, fadeA) }); ctx.restore(); }
       const satOn = t > A.sat - .6 && t < A.half + 2;
       for (let i = 0; i < 10; i++) {
         const j = B.OLD.indexOf(i), old = j < 0 ? 0 : span(t, A.half + .6 + j * .16, A.half + 1.5 + j * .16);
-        const nb = i === B.STAR_SHOP + 1 ? 1 - .7 * span(t, A.much - .2, A.much + .8) : 1;   // ★: the neighbour steps back (the net lies there)
+        const nb = i === B.STAR_SHOP + 1 ? 1 - .7 * span(t, A.much - .2, A.much + .8) * (1 - span(t, A.arg, A.arg + 1.2)) : 1;   // ★: the neighbour steps back (the net lies there)
         ctx.save(); ctx.globalAlpha *= nb;
         B.workshop(ctx, t, i, { u: span(t, A.second + .4 + i * .06, A.second + 1.4 + i * .06), lit: .7, old, ai: span(t, A.putting + i * .08, A.putting + .45 + i * .08) * (1 - .7 * old),
           win: i === B.SAT_SHOP && satOn ? (c) => B.satelliteScene(c, t, { shrink: span(t, A.cut, A.cut + 1.3), cyc: span(t, A.sat + .5, A.sat + 1.1), turn: t * .35 }) : undefined });
@@ -85,12 +129,13 @@ function makeDraw09(T) {
       }
       // ★ the old works opened
       if (t > A.much - .4) B.worksOpen(ctx, t, { cut: span(t, A.much + .3, A.much + 1.0), data: span(t, A.never - .1, A.never + 1.4), net: span(t, A.internet - .5, A.internet + .7), bot: span(t, A.noBot, A.noBot + .9) });
+      if (t > A.arg - .3) seller(ctx, t);
     });
   }
 
   function draw(ctx, t) {
     if (t >= C4.end - .2) { D10.draw(ctx, t); return; }
-    const v = viewAt(t), morph = sineIO(span(t, A.arg - .05, A.arg + 1.5));
+    const v = viewAt(t), morph = sineIO(span(t, A.listen + .2, C4.start + .15));
     X.sheet(ctx, t, v, poolAt(t));
     if (morph < 1) races(ctx, t, v);
     // the disc (8.01–8.02): "suppose": the four turn gold and the minds piece flies into its slot; then the disc shrinks left; → HUD
@@ -117,24 +162,19 @@ function makeDraw09(T) {
     F.source(ctx, t, A.over + .2, A.noBot - .2, SRC.old100Src);
     X.label(ctx, SRC.only20, 120, 170, span(t, A.noBot + .3, A.noBot + .9) * (1 - span(t, A.arg - .1, A.arg + .4)), { size: 40, spacing: .1, align: 'left' });
     F.source(ctx, t, A.noBot + .4, A.arg + .6, SRC.only20Src);
-    // 8.05: the works interior grows into the C4 plate (dark), the name card on it; the dark lifts at the clip
+    // 8.05 labels (screen, at the seller): his name small, the seller, NOT NEUTRAL
+    const lo5 = 1 - span(t, A.listen + .3, A.listen + .8);
+    const [kx, ky] = X.toScreen(v, KX, GY - 126 - 34), [bx, by] = X.toScreen(v, BOX.x + BOX.w / 2, BOX.y - 44), [, gy] = X.toScreen(v, KX, GY);
+    X.label(ctx, 'PETER KOERTE', kx + 30, gy + 52, span(t, A.koerte - .1, A.koerte + .5) * lo5, { size: 30, spacing: .1, align: 'right' });
+    X.label(ctx, 'SENIOR EXECUTIVE, SIEMENS', kx + 30, gy + 88, span(t, A.senior - .1, A.senior + .5) * lo5, { size: 28, spacing: .1, col: CREAM2, align: 'right' });
+    X.label(ctx, 'SIEMENS SELLS THIS AI', W - 40, gy + 52, span(t, A.sells, A.sells + .6) * lo5, { size: 30, spacing: .1, col: COOL.text, align: 'right' });
+    X.dateTag(ctx, 'NOT NEUTRAL', kx - 110, gy + 140, span(t, A.so + .2, A.so + .8) * lo5);
+    X.label(ctx, 'OLD WORKS', X.toScreen(v, B.shopX(B.STAR_SHOP), 0)[0], gy + 64, span(t, A.arg + .4, A.arg + 1.0) * lo5, { size: 28, spacing: .14, col: CREAM2 });
+    // 'But listen to his point': the plate grows out of him (dark), the dark lifts at the clip
     if (morph > 0) {
-      const ins = { x: B.shopX(B.STAR_SHOP) - B.SHOP.w / 2 + 5, y: B.shopBase() - B.SHOP.h - 6 + 6, w: B.SHOP.w - 10, h: B.SHOP.h + 6 - 8 };
-      const p0 = X.toScreen(v, ins.x, ins.y), from = { x: p0[0], y: p0[1], w: ins.w * v.s, h: ins.h * v.s };
-      const dark = 1 - span(t, C4.start - .2, C4.start + .6);
-      ctx.save(); ctx.globalAlpha *= span(t, A.arg - .05, A.arg + .45); F.clipPlate(ctx, t, T, 'C4', { from, morph, dark }); ctx.restore();   // the dark card fades in over the interior
-      if (morph > .5 && dark > 0) {   // a slow light drifts across the dark plate behind the name card (the plate waits for the voice)
-        const R = F.CLIP_RECT, k = span(t, A.arg + .8, C4.start + .4);
-        ctx.save(); ctx.beginPath(); ctx.roundRect(R.x, R.y, R.w, R.h, 14); ctx.clip();
-        halo(ctx, lerp(R.x + 200, R.x + R.w - 200, sineIO(k)), R.y + R.h * (.42 + .1 * Math.sin(t * .4)), 760, .16 * dark * span(morph, .5, 1), E.P.blue0, E.P.blue1);
-        ctx.restore();
-      }
-      const o1 = 1 - span(t, A.sells - .4, A.sells);
-      X.big(ctx, 'Peter Koerte', W / 2, 500, 96, span(t, A.koerte - .1, A.koerte + .5) * o1, { gold: .3 });
-      X.label(ctx, 'A SENIOR SIEMENS EXECUTIVE', W / 2, 580, span(t, A.senior, A.senior + .6) * o1, { size: 30, spacing: .14 });
-      const o2 = 1 - span(t, A.listen - .1, A.listen + .5);
-      X.label(ctx, 'SIEMENS SELLS THIS KIND OF AI', W / 2, 500, span(t, A.sells, A.sells + .6) * o2, { size: 36, spacing: .12 });
-      X.label(ctx, "SO HE ISN'T NEUTRAL", W / 2, 566, span(t, A.so, A.so + .6) * o2, { size: 30, spacing: .14, col: CREAM2 });
+      const p0 = X.toScreen(v, KX - 45, GY - 140), from = { x: p0[0], y: p0[1], w: 90 * v.s, h: 140 * v.s };
+      const dark = 1 - span(t, C4.start - 1.0, C4.start);
+      F.clipPlate(ctx, t, T, 'C4', { from, morph, dark });
     }
     if (t >= T_HUD[1]) F.kitHud(ctx, t, T);   // the HUD over everything (also over the plate's corner)
   }
