@@ -67,3 +67,13 @@ Lead → B1 `plateSofa` at 'To see what it is' · B1 → B2 `plateClocks` at 'Th
   POP 4.4 at 12.6 (the sofa enters from the bottom edge on the camera move) and 6.1 at 29.13 (a label onset), both below every visible
   threshold; seam c01|c02 at 53.72: median Δ 0.10, no POP at the seam (the POP at 54.23 is the c02 stub card; the plate is calm, the counter and
   the grain keep it alive); anchors75.mjs: all anchors found. Contact sheets `<ROOT>bild/c01_kontakt.jpg`, `<ROOT>bild/kit75_kontakt.jpg`.
+- **Fassung 1, whole film** (lead, 25.11., `/tmp/claude-0/f75/final/fassung-1-master-1080p.mp4`, 1080p30, mix.wav from the sound step, subtitles burned in):
+  631.830 s (timing 631.83 OK), 18954 frames, −14.00 LUFS, LRA 3.8, true peak −1.30 dBTP; calm.py 6 cuts = 0.57/min (4 inside the clips:
+  K1 176.23, C1 300.83 / 302.63 / 306.97 = the sources' own edits; 2 planned W: 4.25 at 546.5, 5.09 at 596.0), mafd median 0.303; still75.py
+  still 0.0 %, longest run 0 s (PASS); smooth.py: no flag within ±0.6 s of any of the 11 chunk seams, the one POP 11.7 at 467.33 = the
+  planned W 4.02 (the scenario evening); clip_check.py: 3 clips, 44.9 s = 7.1 %, GELB (K1 16.1 s, C1 17.4 s over 15 s, under 20 s).
+  Lead fixes in the integration: `F.SOURCES.early5` (was a shadowed second `early`), `F.ringClock` fill ≤ 0.9995 (napi draws nothing at
+  exactly 2π), `F.clipPlate` alpha relative, C1 lower third out at the speaker change (`speakerEnd` 16.8 s: from 306.96 the source shows
+  Suleyman), C2/K1 credit in the lower third, K1 cropped (`crop .72`) so the Big Think logo stays out, the "~5,000 YEARS" figure removed from
+  1.03 (not in the fact check, not spoken), Harari's own words under "NOT THE COURSE WE'RE ON", the HUD steps back while THE GAP is big in c11.
+  Contact sheet `<ROOT>bild/fassung-1_kontakt.jpg`.

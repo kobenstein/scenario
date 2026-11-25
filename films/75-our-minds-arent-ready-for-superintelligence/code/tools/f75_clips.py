@@ -252,7 +252,7 @@ def cmd_assemble(a):
     name = a.name; ass = subs_in(); mix = audio_in(); gf = os.path.join(WORK, 'picture.filtergraph'); open(gf, 'w').write(picture_graph(st['segments'], f'subtitles=filename={ass}'))  # no QR overlay in film 59
     m = os.path.join(FINAL, f'{name}-master-1080p.mp4'); t0 = time.time()
     print('master:', m, '| audio', mix, '| subtitles', ass)
-    afl = [] if mix.endswith('.m4a') else ['-af', AFILTER]
+    afl = []   # film 75: the sound step's mix.wav is the master already (-14.0 LUFS, -1.6 dBTP, 25.11.): no second gain or limiter (AFILTER unused)
     sh(['ffmpeg', '-v', 'error', '-y', '-i', mix, '-filter_complex_script', gf, '-map', '[pic]', '-map', '0:a'] + afl + [
         '-c:v', 'libx264', '-crf', str(a.crf), '-preset', 'medium', '-tune', 'grain', '-pix_fmt', 'yuv420p', '-r', str(FPS), '-c:a', 'aac', '-b:a', '320k', '-ar', '48000',
         '-movflags', '+faststart', '-shortest', m])

@@ -237,9 +237,10 @@ export const float = (ctx, t, k = 1) => { ctx.setTransform(1, 0, 0, 1, 0, 0); co
 // Until the frames exist a marked placeholder shows (never ship it).
 export const CLIP_RECT = { x: 120, y: 112, w: 1680, h: 945 };
 export const CLIPS = {   // text-v2.md §Clips + vo-v3 (25.11.): Bauchbinde wording; clips-geprueft.json (when it lands) overrides
-  C2: { name: 'Yoshua Bengio', role: 'Co-chair, UN Scientific Panel on AI', year: '2026' },          // UN Security Council, 23 Sep 2026 (UN channel)
-  K1: { name: 'E. O. Wilson', role: 'Biologist', year: '2017' },                                     // Big Think 2017
-  C1: { name: 'Yuval Noah Harari', role: 'Author', year: '2026' },                                   // 'Historian' only once faktenzettel #70 line is in
+  C2: { name: 'Yoshua Bengio', role: 'Co-chair, UN Scientific Panel on AI', year: '2026', credit: 'United Nations' },          // UN Security Council, 23 Sep 2026 (UN channel)
+  K1: { name: 'E. O. Wilson', role: 'Biologist', year: '2017', credit: 'Big Think', crop: .72, cropDx: -.14, cropDy: -.14 },   // crop: the Big Think logo top right stays out (the credit names it)                                     // Big Think 2017
+  C1: { name: 'Yuval Noah Harari', role: 'Author', year: '2026', speakerEnd: 16.8 },   // speakerEnd: s from the slot start where the source cuts to
+  // the other speaker (C1 frame 505 = Mustafa Suleyman listening while Harari's last word runs on): the lower third is gone by then                                   // 'Historian' only once faktenzettel #70 line is in
 };
 try {   // clips-geprueft.json (24.11.): { clips: [{ id, file, speaker, lower_third: 'NAME · Role · Year · ORIGINAL FOOTAGE', channel, duration_s, … }] }
   const j = JSON.parse(fs.readFileSync(ROOT + 'clips-geprueft.json', 'utf8'));
@@ -281,17 +282,18 @@ export function clipPlate(ctx, t, T, id, o = {}) {
   const k = frameAt(id, t, win), fr = k ? frameCache.get(framePath(id, k)) : null;
   if (fr) {   // the centre crop (info.crop) hides corner logos; then cover the plate
     const cr = info.crop ?? 1, sw = fr.width * cr, sh = fr.height * cr, sx = Math.max(0, Math.min(fr.width - sw, (fr.width - sw) / 2 + (info.cropDx ?? 0) * fr.width)), sy = Math.min(fr.height - sh, (fr.height - sh) / 2 + (info.cropDy ?? 0) * fr.height);
-    const s = Math.max(R.w / sw, R.h / sh) * (w / R.w), dw = sw * s, dh = sh * s; ctx.globalAlpha = 1 - dark; ctx.drawImage(fr, sx, sy, sw, sh, cx - dw / 2, cy - dh / 2, dw, dh); ctx.globalAlpha = 1; }
+    const s = Math.max(R.w / sw, R.h / sh) * (w / R.w), dw = sw * s, dh = sh * s; const ga = ctx.globalAlpha; ctx.globalAlpha = ga * (1 - dark); ctx.drawImage(fr, sx, sy, sw, sh, cx - dw / 2, cy - dh / 2, dw, dh); ctx.globalAlpha = ga; }
   else {
     const u = clamp((t - win.start) / (win.end - win.start));
     ctx.fillStyle = rad(ctx, cx, cy - h * .05, w * .7, [[0, rgba(P.blue0, .5 * (1 - dark))], [1, rgba(P.night0, 0)]]); ctx.fillRect(cx - w / 2, cy - h / 2, w, h);
-    if (m > .6) { ctx.globalAlpha = (1 - dark) * .8 * span(m, .6, 1); E.glowText(ctx, `${id} · ${info.name.toUpperCase()} · FOOTAGE GOES HERE`, cx, cy + 10, { size: 26, align: 'center', col: P.halo2, glow: false, spacing: .16 });
-      ctx.fillStyle = rgba(P.halo2, .6); ctx.fillRect(cx - w * .4, cy + h * .12, w * .8 * u, 3); ctx.globalAlpha = 1; }
+    if (m > .6) { const ga = ctx.globalAlpha; ctx.globalAlpha = ga * (1 - dark) * .8 * span(m, .6, 1); E.glowText(ctx, `${id} · ${info.name.toUpperCase()} · FOOTAGE GOES HERE`, cx, cy + 10, { size: 26, align: 'center', col: P.halo2, glow: false, spacing: .16 });
+      ctx.fillStyle = rgba(P.halo2, .6); ctx.fillRect(cx - w * .4, cy + h * .12, w * .8 * u, 3); ctx.globalAlpha = ga; }
   }
   if (dark > 0) { ctx.fillStyle = rgba(mixHex(P.night0, P.ind0, .4), dark); ctx.fillRect(cx - w / 2, cy - h / 2, w, h); }
   ctx.restore();
   ctx.strokeStyle = P.cream; ctx.lineWidth = lerp(2, 3, m); shape(); ctx.stroke();
-  const lu = (o.credits === false ? 0 : 1) * (o.label ?? (span(t, win.start + .2, win.start + 1.1) * (1 - span(t, win.end - .5, win.end + .1)))) * span(m, .85, 1);
+  const lend = info.speakerEnd != null ? Math.min(win.end + .1, win.start + info.speakerEnd) : win.end + .1;   // never name a face that is not on screen
+  const lu = (o.credits === false ? 0 : 1) * Math.min(o.label ?? 1, span(t, win.start + .2, win.start + 1.1) * (1 - span(t, lend - .6, lend))) * span(m, .85, 1);
   if (lu > 0) {   // the lower third ABOVE the plate (≥ 22 px): NAME · ROLE · YEAR … ORIGINAL FOOTAGE (· credit)
     const by = R.y - 40, nw = measure(info.name, 44, true);
     maskLine(ctx, [[info.name, 0]], R.x, by, 44, rise(lu), { glow: true });
@@ -492,7 +494,7 @@ export function cogClock(ctx, t, x, y, r, o = {}) {
 // o.spin (rad/s of a small bright mark running round: faster = you notice faster), o.a, o.glow.
 export function ringClock(ctx, t, x, y, r, o = {}) {
   const a = o.a ?? 1; if (a <= 0) return;
-  const d = clamp(o.dashed ?? 0), fill = clamp(o.fill ?? 0), w = Math.max(1.5, r * .16);
+  const d = clamp(o.dashed ?? 0), fill = Math.min(.9995, clamp(o.fill ?? 0)), w = Math.max(1.5, r * .16);   // @napi-rs/canvas draws nothing for an arc of exactly 2π
   ctx.save(); ctx.globalAlpha *= a; ctx.translate(x, y);
   if (o.glow) halo(ctx, 0, 0, r * 2.4, .3 * o.glow, COAT.base, COAT.lit);
   ctx.lineCap = 'round';
@@ -691,6 +693,10 @@ export function crowd(ctx, t, x0, x1, y, n, h, o = {}) {
 // the lead updates this table (builders: use the keys, never retype a figure; report any string you need that is not here).
 export const ASOF = '25 NOV 2026';
 export const SOURCES = {
+  // builder strings taken over by the lead (25.11., checked against vo-v5 / faktencheck.md / faktenzettel.md):
+  pulse: 'PULSE', reading: 'READING', subscribe: 'SUBSCRIBE', release: 'RELEASE',
+  notCourse: 'NOT THE COURSE WE’RE ON',                                              // narration (vo-v5 l. 81), not a quote: no quote marks
+  notCourseSrc: '“THIS IS NOT THE CURRENT TRAJECTORY WE ARE ON” · HARARI, 2026',      // his words, C1 source (faktenzettel C1, A)
   title: ["OUR MINDS AREN'T", 'READY'],
   godlike: 'GODLIKE AI', stoneAge: 'STONE AGE BRAINS',
   capable: 'MORE CAPABLE · EVERY FEW MONTHS', upgrade: 'BRAIN UPGRADE', upgradeNo: '0%',
@@ -704,7 +710,7 @@ export const SOURCES = {
   lawOfNature: 'NOT A LAW OF NATURE', choice: 'A CHOICE',
   late: 'IT MAKES US LATE', plusLittle: 'TODAY + A LITTLE', doubles: 'IT DOUBLES',
   metr: 'DOUBLES ROUGHLY EVERY 3.5 MONTHS', metrSrc: 'ONE LEADING MEASURE: LENGTH OF TASKS AI COMPLETES ON ITS OWN (50 % SUCCESS) · METR, 20 NOV 2026: “ROUGHLY EVERY 3.6 MONTHS”',
-  olympiad: ['MATH OLYMPIAD GOLD LEVEL · JULY 2025', 'MEDIAN EXPERT FORECAST · 2030'], olympiadSrc: 'FORECASTING RESEARCH INSTITUTE, 2026', early: '5 YEARS EARLY',
+  olympiad: ['MATH OLYMPIAD GOLD LEVEL · JULY 2025', 'MEDIAN EXPERT FORECAST · 2030'], olympiadSrc: 'FORECASTING RESEARCH INSTITUTE, 2026', early5: '5 YEARS EARLY',   // was a second `early` (shadowed by AN EARLY TEST)
   gut: 'WHOSE GUT IS READY?',
   adapt: '“OUR EXTRAORDINARY CAPACITY FOR ADAPTATION”', adaptSrc: 'HÖGBERG, FRONTIERS IN PSYCHOLOGY, JAN 2026 · PERSPECTIVE ARTICLE',
   years: 'YEARS', months: 'MONTHS',
