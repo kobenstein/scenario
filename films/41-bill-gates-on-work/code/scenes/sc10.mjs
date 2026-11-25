@@ -186,6 +186,8 @@ export default (T, R) => {
     const u = listU(t); if (u <= 0) return;
     const b = listBox(t);
     F.list(ctx, t, b.x, b.y, b.w, b.h, { n: 6, u, lit: 2, head: 1, fill: fillU(t), a: 1 });
+    S.cardGlint(ctx, t, b.x, b.y, b.w, b.h, span(t, k.q + 2.5, k.q + 3.5));
+    if (t < T0E) S.plateSpark(ctx, t, T0E, 620, 1300, 140, F.GOLD, 1.4);   // lead: the end hold breathes (same light as the end screen)
     // 9.08 every line glows (it fades out before the end screen's own lit line takes over)
     const g = span(t, k.lineW - .1, k.lineW + .5) * (1 - span(t, k.q + 1, k.q + 2.5));
     if (g > 0) for (let i = 0; i < 6; i++) { const L = { x0: b.x + b.w * .11, x1: b.x + b.w * .89, y: b.y + b.h * .25 + b.h * .7 * (i + .5) / 6 }, p = .6 + .4 * Math.sin(t * 2.4 + i * .9);
@@ -253,7 +255,7 @@ export default (T, R) => {
     CORE.forEach((c, i) => F.say(ctx, t, c.words.map((w, j) => [w, c.at[j]]), 110, 330 + i * 84, { size: 50, gold: c.gold, out: k.chan - .4 + i * .08 }));
   }
 
-  const hold = (t) => 1 + .025 * sineIO(span(t, k.sub + .6, T.duration));   // one slow push from after the call through the end screen (moving hold)
+  const hold = (t) => 1 + .025 * sineIO(span(t, k.sub + .6, T.duration)) + .035 * sineIO(span(t, T0E - 1.4, T0E + 2.6));   // lead: + one breath of push through the hand-over   // one slow push from after the call through the end screen (moving hold)
   const draw = (ctx, t) => {
     F.stage(ctx, t, { n: 90 });
     ctx.save(); ctx.translate(960, 400); ctx.scale(hold(t), hold(t)); ctx.translate(-960, -400);

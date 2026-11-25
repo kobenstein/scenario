@@ -21,7 +21,19 @@ const lerpP = (a, b, u) => [lerp(a[0], b[0], u), lerp(a[1], b[1], u)];
 const lerpR = (a, b, u) => ({ x: lerp(a.x, b.x, u), y: lerp(a.y, b.y, u), w: lerp(a.w, b.w, u), h: lerp(a.h, b.h, u) });
 const settle = (u) => { u = clamp(u); return 1 - (1 - u) ** 3 + .16 * Math.sin(Math.PI * u) * (1 - u); };   // a landing with a little give
 // the big cyan tile c07 starts from (both files draw it with the same breath)
-export const MTILE = (t) => ({ x: 960, y: 470 + 3 * Math.sin(t * .9), s: 220 * (1 + .01 * Math.sin(t * .7)) });
+export const MTILE = (t) => ({ x: 960, y: 470 + 6 * Math.sin(t * 1.1), s: 220 * (1 + .018 * Math.sin(t * .8)) });
+// lead (check pass): the held tile lives: a slow glint crosses its face every 3.2 s (pure function of t: identical in both files at the
+// seam) and a cold halo under it breathes; k 0..1 scales both (0 while it is still a crate / once it has split)
+export function mtileLight(ctx, t, x, y, s, k = 1) {
+  if (k <= 0) return;
+  halo(ctx, x, y + s * .15, s * 1.25, k * (.12 + .08 * Math.sin(t * 1.3)), MACH.halo, MACH.core);
+  const ph = ((t + 1.75) % 3.2) / 1.5; if (ph >= 1) return;
+  const e = Math.sin(Math.PI * ph) ** 2, gx = lerp(-s * .9, s * .9, sineIO(ph));
+  ctx.save(); ctx.translate(x, y); ctx.beginPath(); ctx.roundRect(-s / 2, -s / 2, s, s, s * .16); ctx.clip(); ctx.rotate(-.5);
+  const g = ctx.createLinearGradient(gx - s * .22, 0, gx + s * .22, 0);
+  g.addColorStop(0, rgba(MACH.core, 0)); g.addColorStop(.5, rgba(MACH.core, .42 * e * k)); g.addColorStop(1, rgba(MACH.core, 0));
+  ctx.fillStyle = g; ctx.fillRect(-s * 1.2, -s * 1.2, s * 2.4, s * 2.4); ctx.restore();
+}
 
 function lab(ctx, s, x, y, u, o = {}) {   // spaced caps that rise behind their mask (width counts the letter spacing)
   u = clamp(u); const out = clamp(o.out ?? 0); if (u <= 0 || out >= 1) return null;
@@ -89,7 +101,7 @@ export default (T, R) => {
   k.buy = G('Buy a robot instead'); k.robot = G('robot', k.buy); k.usually = G('usually', k.buy); k.written = G('written off', k.usually); k.away = G('right away', k.written);
 
   // ------------------------------------------------------------------ the timeline, big (5.01–5.03)
-  const bigU = (t) => (t < C3.start ? quartIO(span(t, R.a, R.a + 1.3)) : 0);
+  const bigU = (t) => (t < C3.start ? sineIO(span(t, R.a, R.a + 1.4)) : 0);   // lead: sine, not quart: it starts moving at once after the pause
   const tlDx = (t) => -190 * sineIO(span(t, k.stretch, k.stretch + 1.9));
   const tlO = (t) => { const b = bigU(t); return { big: b, dy: 300 * b, dx: tlDx(t) * b, lit: t > k.worries - .4 && t < k.isnt + .2 ? 2 : undefined }; };
   const tlGeom = (t) => { const o = tlO(t), sc = lerp(1, 1.9, sineIO(o.big)), x0 = lerp(W - 720, W / 2 - 640 / 2 * 1.9, sineIO(o.big)) + o.dx, y = lerp(92, 150, sineIO(o.big)) + o.dy; return { sc, x0, y }; };
@@ -220,6 +232,8 @@ export default (T, R) => {
     const c = crateAt(t), fl = panPos(t, 1);
     if (c.lift < .05) { ctx.save(); ctx.strokeStyle = rgba(CREAM2, .5 * c.a * (1 - span(t, crateLand() + .3, crateLand() + .9))); ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(c.x, -10); ctx.lineTo(c.x, c.y - c.s / 2); ctx.stroke(); ctx.restore(); }
     F.tile(ctx, t, c.x, c.y, c.s, { cold: 1, lift: .3 + .3 * c.lift, a: c.a, v: 1 });
+    mtileLight(ctx, t, c.x, c.y, c.s, c.lift);
+    if (t > R.b - 1) S.plateSpark(ctx, t, R.b, c.x - c.s * 1.6, c.x + c.s * 1.6, c.y - c.s / 2, MACH, 1.3);   // lead: a cold light runs over the tile's top edge through the seam
     if (c.lift < 1) {   // slats: a crate, not a tile, until it lifts off
       ctx.save(); ctx.globalAlpha *= c.a * (1 - c.lift); ctx.strokeStyle = rgba(MACH.deep, .55); ctx.lineWidth = 3;
       for (let i = 1; i < 4; i++) { const yy = c.y - c.s / 2 + c.s * i / 4; ctx.beginPath(); ctx.moveTo(c.x - c.s * .42, yy); ctx.lineTo(c.x + c.s * .42, yy); ctx.stroke(); }
@@ -332,6 +346,7 @@ export default (T, R) => {
     F.say(ctx, t, [['NOT', k.notT], ['A', k.notT + .2], ['TRANSITION', k.transition]], W / 2, 330, { size: 70, align: 'center', out: k.rest0 - .1 });
     F.say(ctx, t, [['THE', k.rest - .2], ['REST', k.rest], ['OF', k.it - .1], ['IT', k.it]], W / 2, 330, { size: 70, align: 'center', gold: [1, 2, 3], out: k.plan0 - .2 });
     if (!tlUnder) F.timeline(ctx, t, T, tlO(t));
+    if (t < R.a + .8) { const g = tlGeom(t); S.seamRing(ctx, t, R.a, g.x0 + g.sc * 270, g.y - 20 * g.sc); }   // lead: the ripple's tail from sc05
   };
   return [{ t: R.a, draw, print: F.PRINT41 }];
 };

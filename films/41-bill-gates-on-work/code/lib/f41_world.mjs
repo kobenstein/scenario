@@ -28,6 +28,13 @@ export const CREEP = .04;
 export const creep = (t, T, phrase, nth = 0) => 1 + CREEP * Math.max(0, t - (T.G(phrase, nth) - SEAM_HALF));
 // scale the whole frame about (cx, cy) by k (a plate's creep; the receiving side keeps calling it until its own move takes over)
 export function zoomAbout(ctx, k, cx = W / 2, cy = H / 2) { ctx.translate(cx, cy); ctx.scale(k, k); ctx.translate(-cx, -cy); }
+// a plate's life: a soft light that travels along (x0, y) → (x1, y) through the plate's second [T0 − .5, T0 + .5]; its envelope is 0 at
+// both ends, so the handing and the receiving side meet the plate unchanged (clears FROZEN on the dark plates without a new element)
+export function plateSpark(ctx, t, T0, x0, x1, y, col = GOLD, k = 1) {
+  const u = span(t, T0 - SEAM_HALF - .3, T0 + SEAM_HALF + .3), e = Math.sin(Math.PI * u) ** .6; if (e <= 0) return;
+  const x = lerp(x0, x1, sineIO(u));
+  halo(ctx, x, y, 120 * k, .55 * e * Math.min(1.3, k), col.halo, col.core); halo(ctx, x, y, 34 * k, .8 * e, col.halo, col.core);
+}
 
 // ======================================================================================================================== THE SKY
 // sky(ctx, t, o): the stage + the hand of light + you at your desk. o: { turn 0..1 (0 thumb up, 1 down), lum (hand light, 1 = hero),
@@ -75,6 +82,7 @@ export function plateMachine(ctx, t, T) {
   ctx.fillStyle = mixHex(P.night0, P.ind0, .4); ctx.beginPath(); ctx.roundRect(B.x, B.y, B.w, B.h, 8); ctx.fill();
   ctx.strokeStyle = P.cream; ctx.lineWidth = 2; ctx.stroke();
   machinePic(ctx, t, B);
+  plateSpark(ctx, t, T.G('What changed is his picture'), B.x + B.w * .14, B.x + B.w * .86, B.y + B.h * .66, { halo: P.halo2, core: CREAM });
   ctx.restore();
 }
 // the −19 % gap chart (small): two lines from the left, peers flat, young in exposed jobs falling; the gap in gold. box = { x, y, w, h }
@@ -98,6 +106,7 @@ export function plateNumbers(ctx, t, T) {
   ctx.save(); zoomAbout(ctx, k, NUM_CHART.x + NUM_CHART.w / 2, NUM_CHART.y + NUM_CHART.h / 2);
   gapChart(ctx, t, NUM_CHART);
   F.goldSpan(ctx, [[NUM_CHART.x + NUM_CHART.w + 60, NUM_CHART.y + NUM_CHART.h], [W - 140, NUM_CHART.y + NUM_CHART.h]], 0, 1, { w: 2, spark: false, a: .8 });
+  plateSpark(ctx, t, T.G('Then the numbers'), W - 140, NUM_CHART.x + NUM_CHART.w + 60, NUM_CHART.y + NUM_CHART.h);
   ctx.restore();
   F.timeline(ctx, t, T);
 }
@@ -120,13 +129,37 @@ export function plateJury(ctx, t, T) {
 // The last 15 s: the list stands in the night, you at your desk at its foot, small lights in windows around; two calm free areas left
 // and right for the YouTube video tiles; the subscribe pill below the centre. Nothing important in the tiles' areas or the bottom 15 %.
 export const END_TILES = { left: { x: 80, y: 300, w: 640, h: 360 }, right: { x: 1200, y: 300, w: 640, h: 360 }, sub: { x: 960, y: 830 } };
+// a ripple that receives something at a seam: a ring expanding from (x, y) through T0 (drawn by both sides with the same x, y)
+export function seamRing(ctx, t, T0, x, y, col = AMBER) {
+  const u = span(t, T0 - .62, T0 + .7); if (u <= 0 || u >= 1) return;
+  const r = 10 + 260 * u, a = (1 - u) ** 1.4 * Math.min(1, u * 6);
+  ctx.save(); ctx.strokeStyle = rgba(col.core, .9 * a); ctx.lineWidth = 3.5; ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.stroke();
+  ctx.strokeStyle = rgba(col.body, .35 * a); ctx.lineWidth = 10; ctx.beginPath(); ctx.arc(x, y, r * .82, 0, TAU); ctx.stroke(); ctx.restore();
+  halo(ctx, x, y, 80 + 110 * u, .8 * a, col.body, col.core);
+}
+// a slow soft light crossing a card (x, y = top left), every 4.6 s (sweep 2 s): a pure function of t, so sc10 and the end screen
+// draw the same light at the hand-over; k 0..1 scales it
+export function cardGlint(ctx, t, x, y, w, h, k = 1) {
+  const ph = ((t + 1.0) % 4.6) / 2; if (k <= 0 || ph >= 1) return;
+  const e = Math.sin(Math.PI * ph) ** 2, gx = lerp(-w * .3, w * 1.3, sineIO(ph));
+  ctx.save(); ctx.beginPath(); ctx.roundRect(x, y, w, h, 10); ctx.clip(); ctx.translate(x, y);
+  const g = ctx.createLinearGradient(gx - w * .35, -h * .2, gx + w * .1, h * .3);
+  g.addColorStop(0, rgba(CREAM, 0)); g.addColorStop(.5, rgba(CREAM, .2 * e * k)); g.addColorStop(1, rgba(CREAM, 0));
+  ctx.fillStyle = g; ctx.fillRect(0, 0, w, h); ctx.restore();
+  halo(ctx, x + clamp(gx / w, 0, 1) * w, y + h * .35, w * .55, .14 * e * k, GOLD.halo, GOLD.core);
+}
 export function endScreen(ctx, t, T) {
-  const t0 = T.duration - 15, u = span(t, t0, t0 + 1.2);
+  const t0 = T.duration - 15, u = span(t, t0, t0 + 1.2), br = span(t, t0, t0 + 2);   // br: the breath eases in from 0 (frame-identical hand-over)
   F.stage(ctx, t, { n: 90 });
+  // a calm breath: the list's glow swells, the far lights fade in and out slowly, the list floats a few px (never in the tile areas)
+  const by = br * 5 * Math.sin((t - t0) * .9);
+  halo(ctx, 960, 380 + by, 420, .1 * br * (.5 - .5 * Math.cos((t - t0) * .9)), GOLD.halo, GOLD.core);
   const r = E.prng(4242);
   for (let i = 0; i < 40; i++) { const x = r() * W, y = 700 + r() * 120, s = 4 + r() * 4; if (x > 760 && x < 1160) continue;
     ctx.fillStyle = rgba(AMBER.body, (.25 + .2 * Math.sin(t * (.3 + r() * .3) + i)) * u); ctx.fillRect(x, y, s, s * 1.2); }
-  F.list(ctx, t, 810, 140, 300, 470, { n: 6, lit: 2, a: 1, head: 1 });
+  F.list(ctx, t, 810, 140 + by, 300, 470, { n: 6, lit: 2, a: 1, head: 1 });
+  cardGlint(ctx, t, 810, 140 + by, 300, 470);
+  plateSpark(ctx, t, t0, 620, 1300, 140 + by, GOLD, 1.4);   // a light runs once along the card's top edge through the hand-over (sc10 draws its first half)
   F.desk(ctx, t, 960, 790, 70, { look: .6 });
   F.subscribe(ctx, t, END_TILES.sub.x, END_TILES.sub.y, span(t, t0 + .4, t0 + 1.4), { size: .9 });
 }

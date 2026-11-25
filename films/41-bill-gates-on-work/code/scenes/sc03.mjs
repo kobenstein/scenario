@@ -112,10 +112,11 @@ export function buildC03(T) {
     ctx.restore();
   }
   function dropLine(ctx, t) {   // the gold line from NOW down to the front desks, then along them
-    const d = span(t, k.from - .4, k.start + .06) ** 2, sp = expoOut(span(t, k.start + .06, k.start + .9)), fade = 1 - span(t, k.start + .9, k.start + 1.8);
+    const d = span(t, k.from - .4, k.start + .06) ** 1.5, sp = expoOut(span(t, k.start + .06, k.start + .9)), fade = 1 - span(t, k.start + .9, k.start + 1.8);
     if (d <= 0 || fade <= 0) return;
     const y = lerp(DROP[1] + 20, IMP[1], d);
     gs(ctx, [[DROP[0], DROP[1] + 20], [DROP[0], y]], 0, 1, { w: 2.4, a: fade * (1 - sp * .7), spark: d < 1 });
+    if (d < 1) halo(ctx, DROP[0], y, 70, .5 * Math.min(1, d * 8) * (1 - d * d), GOLD.halo, GOLD.core);   // lead: the falling head glows (the drop reads as moving through the seam)
     if (sp > 0) { gs(ctx, [[IMP[0], IMP[1]], [lerp(IMP[0], 110, sp), IMP[1]]], 0, 1, { w: 2.4, a: fade, spark: false }); gs(ctx, [[IMP[0], IMP[1]], [lerp(IMP[0], W - 110, sp), IMP[1]]], 0, 1, { w: 2.4, a: fade, spark: false });
       halo(ctx, IMP[0], IMP[1], 120, .7 * bumpT(t, k.start + .04, .5), GOLD.halo, GOLD.core); }
   }

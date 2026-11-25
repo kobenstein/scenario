@@ -349,7 +349,7 @@ export default (T, R) => {
     }
     return out;
   })();
-  const winFly = (t) => quartIO(span(t, R.b - 1.25, R.b - .2));
+  const winFly = (t) => sineIO(span(t, R.b - 1.25, R.b - .12));   // lead: sine, so the window is still travelling into the seam
   function building(ctx, t) {
     if (t < k.chan - .1) return;
     const grow = (t - k.chan) * 900, sink = sineIO(span(t, R.b - 2, R.b - .45)), every = (t - k.every + .3) * 1100;
@@ -377,6 +377,7 @@ export default (T, R) => {
     const tl = F.timelineState(T, t);
     const dotX = F.timelinePt(0)[0] + lerp(0, 270, sineIO(tl.lit[1]));
     const tgt = { x: dotX - 5, y: dot[1] - 5, w: 10, h: 10 }, b = lerpR(WIN, tgt, f);
+    S.seamRing(ctx, t, R.b, dotX, dot[1]);   // lead: the dot receives the window with a ripple that runs on through the seam (sc06 draws its tail)
     if (f >= 1) { halo(ctx, dotX, dot[1], 40, .6 * (1 - span(t, R.b - .2, R.b)), AMBER.body, AMBER.core); return; }
     F.yourWindow(ctx, t, b, { u: sineIO(span(t, k.chan - .05, k.chan + 1.1)) * (1 - span(f, 0, .5)), look: span(t, k.wherever, k.wherever + .8) * (1 - span(t, k.want, k.want + .8)) });
   }
@@ -422,7 +423,7 @@ export default (T, R) => {
     const su = span(t, k.want - .15, k.want + .65) * (1 - span(t, R.b - 1.45, R.b - .85));
     if (su > 0) F.subscribe(ctx, t, 960, WIN.y + WIN.h + 118, su, { ring: span(t, k.sub - .15, k.sub + .55) });
     words(ctx, t);
-    F.timeline(ctx, t, T, { lit: t > k.tl - .2 && t < k.want + .8 ? 1 : undefined });
+    F.timeline(ctx, t, T, { lit: 1, litA: span(t, k.tl - .2, k.tl + .4) * (1 - span(t, k.want + .2, k.want + .8)) });   // lead: the pulse eases in and out
   };
   return [
     { t: R.a, draw: (ctx, t) => { S.plateNumbers(ctx, t, T); glint(ctx, t); }, print: F.PRINT41 },

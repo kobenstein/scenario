@@ -87,7 +87,7 @@ export default (T, R) => {
     lum = lerp(lum, .22, span(t, k.words, k.words + .8));
     const m5 = expoIn(span(t, k.shocked - .4, k.shocked + .5));
     fist = [fist[0] + 520 * m5, fist[1] - 520 * m5];
-    const arm = L > 160 ? 3.8 : 1.1;   // the small icon has a short cuff; the arm grows back while it grows into the sky
+    const arm = lerp(1.1, 3.8, smooth(clamp((L - 90) / 160)));   // the small icon has a short cuff; the arm grows back (continuously) while it grows into the sky
     return { fist, L, turn, lum, arm, gone: m5 >= 1 };
   }
   function drawHand(ctx, t) {
@@ -264,7 +264,7 @@ export default (T, R) => {
   function drawList(ctx, t) {
     const u = sineIO(span(t, k.list + .75, k.list + 1.45)), fade = 1 - span(t, k.ft + .15, k.ft + .9); if (u <= 0 || fade <= 0) return;
     const yt = yourTile(t);
-    F.list(ctx, t, LIST.x, LIST.y, LIST.w, LIST.h, { n: LIST.n, u, a: fade, head: span(t, k.human - .15, k.reserved + .7), lit: t > k.notW - .2 ? 3 : undefined, glow: 1 });
+    F.list(ctx, t, LIST.x, LIST.y, LIST.w, LIST.h, { n: LIST.n, u, a: fade, head: span(t, k.human - .15, k.reserved + .7), lit: 3, litA: span(t, k.notW - .2, k.notW + .6), glow: 1 });
     if (yt.on > 0) F.goldSpan(ctx, [[LX[0], lineY(2)], [LX[1], lineY(2)]], 0, yt.on, { w: 4, spark: yt.on < 1 });
   }
 

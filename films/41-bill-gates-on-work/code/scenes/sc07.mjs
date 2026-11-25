@@ -12,7 +12,7 @@
 import * as E from '../lib/f10_editorial.mjs';
 import * as F from '../lib/f41_kit.mjs';
 import * as S from '../lib/f41_world.mjs';
-import { MTILE, coin } from './sc06.mjs';
+import { MTILE, coin, mtileLight } from './sc06.mjs';
 const { W, H, P, rgba, mixHex, clamp, lerp, span, smooth, sineIO, quartIO, expoOut, expoIn, halo, lin } = E;
 const { GOLD, CREAM, CREAM2, MACH, AMBER, PAPER, SOURCES: SRC } = F;
 const TAU = Math.PI * 2;
@@ -128,6 +128,8 @@ export default (T, R) => {
     for (const side of u > 0 ? [-1, 1] : [-1]) {
       const p = tileAt(t, side);
       F.tile(ctx, t, p.x, p.y, p.s, { cold: 1, lift: .6, v: 1, glyph: side < 0 ? 'screen' : null, ga: span(t, k.taxAI + .2, k.taxAI + .8) });
+      if (side < 0) mtileLight(ctx, t, p.x, p.y, p.s, 1 - u);
+      if (side < 0 && t < R.a + 1) S.plateSpark(ctx, t, R.a, p.x - p.s * 1.6, p.x + p.s * 1.6, p.y - p.s / 2, MACH, 1.3);
       if (side > 0 && u > .5) { ctx.save(); ctx.beginPath(); ctx.roundRect(p.x - p.s / 2, p.y - p.s / 2, p.s, p.s, p.s * .16); ctx.clip(); E.robot(ctx, p.x, p.y + p.s * .42, p.s * .62, { rim: MACH.hot, body: MACH.deep, alpha: span(u, .5, 1) * .9 }); ctx.restore(); }
       if (su > 0) {   // the coin slot
         const sw = p.s * .5 * su, sy = p.y - p.s * .5 + p.s * .14;
@@ -378,7 +380,7 @@ export default (T, R) => {
   function theList(ctx, t) {
     const lu = listU(t); if (lu <= 0) return;
     const lines = S.JURY_LINES.map((s, i) => ({ text: s, gold: .8, u: span(t, LINE_T[i][0], LINE_T[i][1]) }));
-    F.list(ctx, t, L.x, L.y, L.w, L.h, { n: 7, u: lu, head: span(t, k.hr - .15, k.reserved + .6), lines, lit: t > k.jury - .1 ? 1 : undefined });
+    F.list(ctx, t, L.x, L.y, L.w, L.h, { n: 7, u: lu, head: span(t, k.hr - .15, k.reserved + .6), lines, lit: 1, litA: span(t, k.jury - .1, k.jury + .5) });   // lead: the JURY line's glow eases in (plateJury holds litA 1)
     // 6.12: a small cyan tool grows out of the teaching line's end ("uses the machine as a tool"), goes back into it before the seam
     const ln = F.list(ctx, t, L.x, L.y, L.w, L.h, { n: 7, u: 0 }).line(3), tu = expoOut(span(t, k.machine - .1, k.tool + .2)) * (1 - expoIn(span(t, SEAM - .75, SEAM - .2)));
     if (tu > 0) { const x = lerp(ln.x1, ln.x1 + 64, tu); F.tile(ctx, t, x, ln.y - 14, 40 * tu, { cold: 1, glyph: 'screen', ga: 1, lift: .4 }); }

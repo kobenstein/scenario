@@ -80,7 +80,7 @@ export function halo(ctx, x, y, r, a = 1, col = P.halo0, core = P.core0) {
 }
 // blurred copy of a shape, added (glow that follows the silhouette of the light form)
 export function glowFill(ctx, path, blur, a, col = P.halo0) {
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.filter = `blur(${blur}px)`; ctx.globalAlpha = clamp(a); ctx.fillStyle = col; ctx.fill(path); ctx.restore();
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.filter = `blur(${blur}px)`; ctx.globalAlpha *= clamp(a);   // film 41: respects the parent alpha ctx.fillStyle = col; ctx.fill(path); ctx.restore();
 }
 // stipple dust: seeded gaussian specks around a light form (the "gold dust" of the thumbnails)
 const DUST = new Map();

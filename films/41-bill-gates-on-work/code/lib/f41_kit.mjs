@@ -84,7 +84,7 @@ export function goldSpan(ctx, pts, u0, u1, o = {}) {
   sub.push([ex, ey]);
   const w = o.w ?? 3, a = o.a ?? 1;
   for (const [k, al, c, op] of [[4.5, .2, GOLD.halo, 'lighter'], [2.1, .8, GOLD.body, 'source-over'], [.9, 1, GOLD.core, 'source-over']]) {
-    ctx.save(); ctx.globalCompositeOperation = op; ctx.strokeStyle = c; ctx.globalAlpha = al * a; ctx.lineWidth = w * k; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.save(); ctx.globalCompositeOperation = op; ctx.strokeStyle = c; ctx.globalAlpha *= al * a; ctx.lineWidth = w * k; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
     ctx.beginPath(); sub.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1]))); ctx.stroke(); ctx.restore();
   }
   if (o.spark !== false && u1 < 1) halo(ctx, ex, ey, w * 10, .6 * a, GOLD.halo, GOLD.core);
@@ -238,7 +238,10 @@ export const CLIP_RECT = { x: 120, y: 112, w: 1680, h: 945 };
 export const CLIPS = {   // film 41: the real cuts (films/41-assets/clips/, wording films/41-assets/clips-geprueft.json, 24.11.)
   // C1 carries the FT LIVE logo top left and its own FT lower third bottom right: crop .82 anchored bottom right hides the logo and keeps
   // their lower third; our label sits ABOVE the plate (no own lower third over theirs: info.lower = false)
-  C1: { name: 'Bill Gates', role: 'Gates Foundation', year: 'Nov 4, 2026', src: 'FT Live', crop: .82, anchor: 'br', lower: false },
+  C1: { name: 'Bill Gates', role: 'Gates Foundation', year: 'Nov 4, 2026', src: 'FT Live', crop: .82, anchor: 'br', lower: false,
+    // its first 65 frames are FT's split screen (moderator + Gates, logos, circuit art): show only Gates's own window from it
+    // (inside the white frame, 2.1× up, still lip-synced), then the cut to the close-up (frame 66) is a plain camera cut
+    split: { until: 65, rect: [1034, 320, 786, 442] } },
   C2: { name: 'Bill Gates', role: 'Co-founder, Microsoft', year: 'Oct 22, 2026', src: 'Decoder with Nilay Patel' },
   C3: { name: 'Bill Gates', role: 'Co-founder, Microsoft', year: 'Oct 22, 2026', src: 'Decoder with Nilay Patel' },
 };   // C4 is no longer a clip: a quote card (F.SOURCES.k1), read by the narrator (T.clip('C4') = the card's spoken window, kind 'card')
@@ -273,7 +276,9 @@ export function clipPlate(ctx, t, T, id, o = {}) {
   ctx.fillStyle = mixHex(P.night0, P.ind0, .4); ctx.fillRect(cx - w / 2, cy - h / 2, w, h);
   const k = frameAt(id, t, win), fr = k ? frameCache.get(framePath(id, k)) : null;
   if (fr) {   // the centre crop (info.crop) hides corner logos; then cover the plate
-    const cr = info.crop ?? 1, sw = fr.width * cr, sh = fr.height * cr, br = info.anchor === 'br', sx = br ? fr.width - sw : (fr.width - sw) / 2, sy = br ? fr.height - sh : Math.min(fr.height - sh, (fr.height - sh) / 2 + (info.cropDy ?? 0) * fr.height);
+    const cr = info.crop ?? 1, br = info.anchor === 'br', sp = info.split && k <= info.split.until ? info.split.rect : null;
+    let sw = fr.width * cr, sh = fr.height * cr, sx = br ? fr.width - sw : (fr.width - sw) / 2, sy = br ? fr.height - sh : Math.min(fr.height - sh, (fr.height - sh) / 2 + (info.cropDy ?? 0) * fr.height);
+    if (sp) [sx, sy, sw, sh] = sp;
     const s = Math.max(R.w / sw, R.h / sh) * (w / R.w), dw = sw * s, dh = sh * s; ctx.globalAlpha = 1 - dark; ctx.drawImage(fr, sx, sy, sw, sh, cx - dw / 2, cy - dh / 2, dw, dh); ctx.globalAlpha = 1; }
   else {
     const u = clamp((t - win.start) / (win.end - win.start));
@@ -329,10 +334,12 @@ const HANDP = new Map();
 function cap(p, a, b, w) { const q = new Path2D(); q.moveTo(a[0], a[1]); q.lineTo(b[0], b[1]); return p.op(q.stroke({ width: w, cap: 1, join: 1 }), PathOp.Union); }
 const thumbBase = (e, sq) => [.42, lerp(-.27, .27, e) * sq];
 function fistPath(th, e, sq, A = 3.8) {
-  const key = th.toFixed(3) + ':' + sq.toFixed(3) + ':' + A.toFixed(2); if (HANDP.has(key)) return HANDP.get(key);
+  const key = th.toFixed(3) + ':' + sq.toFixed(3) + ':' + A.toFixed(3); if (HANDP.has(key)) return HANDP.get(key);
   let p = new Path2D();   // the forearm (a soft sleeve of light, tapering into the wrist); A < 3.8 = a short rounded cuff (the small icon)
-  if (A >= 3.8) { p.moveTo(-3.8, -.62); p.bezierCurveTo(-2.3, -.55, -.8, -.47, -.04, -.4); p.lineTo(-.04, .42); p.bezierCurveTo(-.8, .5, -2.3, .62, -3.8, .78); p.closePath(); }
-  else { p.moveTo(-A, -.5); p.bezierCurveTo(-A * .6, -.47, -A * .25, -.44, -.04, -.4); p.lineTo(-.04, .42); p.bezierCurveTo(-A * .25, .46, -A * .6, .52, -A, .56); p.quadraticCurveTo(-A - .55, .03, -A, -.5); p.closePath(); }
+  { // one formula for every arm length (no pose switch): k 0 = the icon's short rounded cuff (A 1.1), 1 = the long sleeve (A 3.8)
+    const k = clamp((A - 1.1) / 2.7), y0 = lerp(-.5, -.62, k), y1 = lerp(.56, .78, k), c2 = lerp(.25, .21, k);
+    p.moveTo(-A, y0); p.bezierCurveTo(-A * .6, lerp(-.47, -.55, k), -A * c2, lerp(-.44, -.47, k), -.04, -.4); p.lineTo(-.04, .42);
+    p.bezierCurveTo(-A * c2, lerp(.46, .5, k), -A * .6, lerp(.52, .62, k), -A, y1); p.quadraticCurveTo(-A - .55 * (1 - k), (y0 + y1) / 2, -A, y0); p.closePath(); }
   p = cap(p, [.12, 0], [.62, 0], .9 * sq);                                    // the fist block
   const fy = [-.3, -.09, .12, .32];
   fy.forEach((y, i) => { p = cap(p, [.55, y * sq], [i === 3 ? 1.02 : 1.12 - i * .02, y * sq + .02], (i === 3 ? .2 : .235) * sq); });   // the curled fingers
@@ -411,7 +418,7 @@ export function list(ctx, t, x, y, w, h, o = {}) {
   const fill = clamp(o.fill ?? 0) * n;
   for (let i = 0; i < n; i++) {
     const L = line(i), it = o.lines?.[i] ?? {}, cold = clamp(it.cold ?? clamp(fill - (n - 1 - i)));
-    const lit = o.lit === i ? .5 + .5 * Math.sin(t * 2.4) : 0;
+    const lit = o.lit === i ? clamp(o.litA ?? 1) * (.5 - .5 * Math.cos(t * 2.4)) : 0;   // o.litA: ease the waiting line in/out
     if (cold > 0) { ctx.fillStyle = rgba(MACH.body, .32 * cold); ctx.fillRect(L.x0, L.y - h * .045, (L.x1 - L.x0) * sineIO(cold), h * .04); }
     ctx.globalAlpha = a * (it.faint ? .45 : 1);
     goldSpan(ctx, [[L.x0, L.y], [L.x1, L.y]], 0, sineIO(span(u, .3 + i * .05, .7 + i * .05)), { w: Math.max(1, w * (.0035 + .004 * lit)), spark: false, a: .55 + .45 * lit });
@@ -462,7 +469,7 @@ export function timeline(ctx, t, T, o = {}) {
   goldSpan(ctx, [[-10, 0], [xEnd, 0]], 0, S.draw, { w: 1.4, spark: S.draw < 1, a: .7 });
   for (let i = 0; i < 3; i++) {
     const st = TIMELINE.stops[i], l = S.lit[i], u = span(S.draw, xs[i] / xEnd - .05, xs[i] / xEnd + .05); if (u <= 0) continue;
-    const pul = i === 2 ? S.pulse : 0, lit2 = o.lit === i ? .5 + .5 * Math.sin(t * 2.4) : 0;
+    const pul = i === 2 ? S.pulse : 0, lit2 = o.lit === i ? clamp(o.litA ?? 1) * (.5 - .5 * Math.cos(t * 2.4)) : 0;   // o.litA: ease the pulse in/out (the caller's span)
     if (st.band && S.band > 0) {   // the third stop stretches into a band (a stretch of time, not a date)
       const bw = (xEnd - xs[i]) * S.band; ctx.fillStyle = lin(ctx, xs[i], 0, xs[i] + bw, 0, [[0, rgba(GOLD.body, .9)], [1, rgba(GOLD.mid, .35)]]);
       ctx.beginPath(); ctx.roundRect(xs[i] - 7, -7, bw + 14, 14, 7); ctx.fill(); halo(ctx, xs[i] + bw / 2, 0, 40 + bw * .4, .25 * S.band, GOLD.halo, GOLD.core);
@@ -581,11 +588,11 @@ export const SOURCES = {
   ftTag: 'FT LIVE · NOV 4, 2026', yale: '“AI Is Probably Not (Yet) the Reason for Labor Market Weakening”', yaleSrc: 'YALE BUDGET LAB · SPRING 2026',
   forecast: ['FORECAST', 'FINDING'], verdicts: ['DIRECTION: PLAUSIBLE', 'ENTRY LEVEL: MEASURABLE', 'SPEED AND SIZE: OPEN'],
   twenty: '20 YEARS', plans: ['PLAN 1', 'PLAN 2'], policies: 'WITHOUT THE RIGHT POLICIES', tax: 'TAX', taxUses: ['RETRAINING', 'STRONGER SAFETY NET'],
-  etzioni: '“I think he has the diagnosis right, but the prescription wrong, at least in some places.”', etzioniSrc: 'OREN ETZIONI, AI RESEARCHER · ABC NEWS · AUG 2026',
+  etzioni: '“I think he has the diagnosis right, but the prescription wrong, at least in some places.”', etzioniSrc: 'OREN ETZIONI · FOUNDING CEO, ALLEN INSTITUTE FOR AI · ABC NEWS · AUG 2026',
   keystrokes: '“taxing tokens is like taxing keystrokes on a typewriter”',
   hrQuote: '“…as AI and robots improve, we’ll set aside certain things for only people to do. I’ve started calling this domain Human Reserved.”', hrSrc: 'BILL GATES · GATESNOTES · AUG 26, 2026',
   candidates: ['CHILD CARE', 'JURY', 'ART', 'TEACHING · A PERSON IN CHARGE'],
-  guesses: ['10%?', '50%?', '90%?'], forty: '“In a very extreme form of it … 40% of jobs could initially be reserved for humans. But that’s as high as I can get.”', fortySrc: 'BILL GATES · AXIOS · AUG 26, 2026',
+  guesses: ['10%?', '50%?', '90%?'], forty: '“In a very extreme form of it,” 40 % of jobs could at first be reserved for humans. “But that’s as high as I can get.”', fortySrc: 'BILL GATES · AXIOS · AUG 26, 2026',
   k1: ['“Who gets to decide what we reserve', 'for humans? What criteria should we use?”'], k1Src: 'BILL GATES · GATESNOTES · AUG 26, 2026',
   open3: ['WHO DECIDES?', 'WHICH CRITERIA?', 'HOW IS IT ENFORCED?'], weak3: ['UNWRITTEN', 'HARD TO DRAW', 'TOO SHORT'], whyMatter: 'WHY DOES IT MATTER?',
   whoNow: 'WHO DECIDES RIGHT NOW?', leftOver: 'WHATEVER IS LEFT OVER', soFar: 'SO FAR', cost: 'WHAT DOES IT COST?', why: 'WHY SHOULD A PERSON DO THIS?',
@@ -616,7 +623,14 @@ export function stage(ctx, t, o = {}) {
 // (Instrument Serif; default heavy caps = Inter Black condensed), align, col, out (t: the words sink out, 40 ms stagger), a, glow }.
 // Returns { x0, x1, y, size, xs } (screen px) so a line or a carrier can start where a word ends.
 const nfont = (o, size) => (o.serif ? `${size}px "Instrument Serif"` : o.weight ? `${o.weight} ${size}px Inter` : `${size}px "Inter Black"`);
-export function textW(ctx, s, size, o = {}) { ctx.save(); ctx.font = nfont(o, size); const w = ctx.measureText(s).width * (o.serif || o.weight ? 1 : (o.cond ?? .86)); ctx.restore(); return w; }
+export function textW(ctx, s, size, o = {}) {   // counts letterSpacing (o.spacing, em) like the drawing does
+  ctx.save(); ctx.font = nfont(o, size); const w = (ctx.measureText(s).width + (o.spacing ? s.length * size * o.spacing : 0)) * (o.serif || o.weight ? 1 : (o.cond ?? .86)); ctx.restore(); return w; }
+// the type's rise: soft start (no first-frame jump on 100 px+ words), long settle; opacity comes up in the first third; exits accelerate
+// gently and fade in their last third (no pop when a word leaves its mask)
+export const riseIn = (u) => { u = clamp(u); return 1 - (1 - u ** 1.6) ** 3; };
+export const riseA = (u) => smooth(clamp(u / .35));
+export const sinkOut = (u) => { u = clamp(u); return u * u * (3 - 2 * u) * .4 + u * u * .6; };
+export const sinkA = (u) => 1 - smooth(clamp((u - .55) / .45));
 export function say(ctx, t, words, x, y, o = {}) {
   const size = o.size ?? 64, cond = o.serif || o.weight ? 1 : (o.cond ?? .86), gap = size * (o.serif ? .26 : .24), a = o.a ?? 1;
   const ws = words.map(([w]) => textW(ctx, w, size, o)), total = ws.reduce((s, v) => s + v, 0) + gap * (words.length - 1);
@@ -625,13 +639,13 @@ export function say(ctx, t, words, x, y, o = {}) {
   if (o.spacing) ctx.letterSpacing = `${o.spacing}em`;
   words.forEach(([w, ts], i) => {
     xs.push(xx);
-    const u = expoOut(span(t, ts - .25, ts + .3)), out = o.out != null ? expoIn(span(t, o.out + i * .04, o.out + i * .04 + .38)) : 0;
-    if (u > 0 && out < 1) {
+    const ru = span(t, ts - .28 - size / 1200, ts + .32 + size / 500), u = riseIn(ru), ou = o.out != null ? span(t, o.out + i * .04, o.out + i * .04 + .4 + size / 1000) : 0, out = sinkOut(ou);
+    if (ru > 0 && ou < 1) {
       const dy = (1 - u) * size * 1.1 + out * size * 1.1, flash = Math.max(0, 1 - Math.abs(t - ts - .12) / .5), keep = o.gold?.includes(i) ? 1 : 0;
       const col = mixHex(o.col ?? P.cream, GOLD.body, clamp(Math.max(keep * span(t, ts, ts + .4), flash * .85)));
       ctx.save(); ctx.beginPath(); ctx.rect(xx - size * .2, y - size * 1.3, ws[i] + size * .4, size * 1.3 + size * .34); ctx.clip();
       if ((keep || flash > 0) && o.glow !== false) { ctx.shadowColor = rgba(GOLD.halo, .7); ctx.shadowBlur = size * .35 * Math.max(keep, flash); }
-      ctx.fillStyle = col; ctx.translate(xx, y + dy); ctx.scale(cond, 1); ctx.fillText(w, 0, 0);
+      ctx.globalAlpha *= riseA(ru) * sinkA(ou); ctx.fillStyle = col; ctx.translate(xx, y + dy); ctx.scale(cond, 1); ctx.fillText(w, 0, 0);
       ctx.restore();
     }
     xx += ws[i] + gap;
@@ -643,11 +657,11 @@ export function say(ctx, t, words, x, y, o = {}) {
 export function heavy(ctx, s, x, y, size, u, o = {}) {
   u = clamp(u); const out = clamp(o.out ?? 0); if (u <= 0 || out >= 1) return null;
   const cond = o.serif || o.weight ? 1 : (o.cond ?? .86), w = textW(ctx, s, size, o), x0 = o.align === 'center' ? x - w / 2 : o.align === 'right' ? x - w : x;
-  ctx.save(); ctx.globalAlpha *= (o.a ?? 1); ctx.beginPath(); ctx.rect(x0 - size * .3, y - size * 1.3, w + size * .6, size * 1.3 + size * .34); ctx.clip();
+  ctx.save(); ctx.globalAlpha *= (o.a ?? 1) * riseA(u) * sinkA(out); ctx.beginPath(); ctx.rect(x0 - size * .3, y - size * 1.3, w + size * .6, size * 1.3 + size * .34); ctx.clip();
   ctx.font = nfont(o, size); if (o.spacing) ctx.letterSpacing = `${o.spacing}em`;
   const g = clamp(o.gold ?? 0); if (g > 0 && o.glow !== false) { ctx.shadowColor = rgba(GOLD.halo, .6 * g); ctx.shadowBlur = size * .3; }
   ctx.fillStyle = mixHex(o.col ?? P.cream, GOLD.body, g);
-  ctx.translate(x0, y + (1 - expoOut(u)) * size * 1.1 + expoIn(out) * size * 1.1); ctx.scale(cond, 1); ctx.fillText(s, 0, 0);
+  ctx.translate(x0, y + (1 - riseIn(u)) * size * 1.1 + sinkOut(out) * size * 1.1); ctx.scale(cond, 1); ctx.fillText(s, 0, 0);
   ctx.restore();
   return { x0, x1: x0 + w, y, w };
 }
