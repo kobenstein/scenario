@@ -207,7 +207,7 @@ SHOTS = [
  ('6.20', 'Denmark has tied', 'Denmark ties retirement age to life expectancy', 'the RETIRE tick slides with the line\'s end: DENMARK · RETIREMENT AGE 70 FROM 2040 + source', 'EXPL', 'card 3', ''),
  ('6.21', 'And who can afford it', 'who can afford it?', 'card 3 comes forward', 'EXPL', 'the trial line', ''),
  ('6.22', 'A Montana law', 'Montana: sale after a first safety trial', 'a clinic door on a trial timeline PHASE 1 · 2 · 3 opens after phase 1, a patient walks in + source', 'MIX', 'the door', '★'),
- ('6.23', 'In return, a share', 'a share of profit to low-income patients', 'a thin gold stream (2%) flows from the clinic to people waiting outside', 'MIX', 'the stream', ''),
+ ('6.23', 'In return, two percent', 'two percent of the profit for treatment in the state', 'a thin gold stream (2%) flows from the clinic to people waiting outside', 'MIX', 'the stream', ''),
  ('6.24', 'Supporters call that access', 'supporters: access', 'a balance: ACCESS', 'EXPL', 'the balance', ''),
  ('6.25', 'Critics call it a risk', 'critics: risk', 'the other pan: RISK', 'EXPL', 'the cards', ''),
  ('6.26', 'Most rules for a world', 'most rules were never written', 'a long row of blank cards stretches along the line', 'EXPL', 'a blank card', ''),
