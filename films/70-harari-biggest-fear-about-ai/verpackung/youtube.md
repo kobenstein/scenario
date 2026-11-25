@@ -17,9 +17,9 @@ Yuval Noah Harari's biggest fear about artificial intelligence isn't killer robo
 
 ✨ ☕ If you want superintelligence to benefit everyone, you can support this channel here: https://buymeacoffee.com/thegoodtakeoff
 
-✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: https://aistronauts.at/film-course
-
 ✨ 🤝 Want to sponsor a film? Here is how: https://passionfroot.me/the-good-takeoff
+
+✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: https://aistronauts.at/film-course
 
 Disclosure: this film was made with the help of Claude, an A.I. model made by Anthropic, which had no editorial input. Two of the sources below are from Anthropic. Facts as of Nov 25, 2026; the Workday and Eightfold lawsuits are ongoing.
 
