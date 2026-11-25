@@ -9,7 +9,7 @@ import numpy as np
 from pocketsphinx import Decoder, Config, get_model_path
 A, DL = sys.argv[1].rstrip('/'), sys.argv[2].rstrip('/'); only = set(sys.argv[3:])
 EXTRA = {'flinches': 'F L IH N CH IH Z', 'superintelligence': 'S UW P ER IH N T EH L AH JH AH N S', 'a_i': 'EY AY', 'datacenter': 'D EY T AH S EH N T ER',
-         'anthropic': 'AE N TH R AA P IH K', 'ploughing': 'P L AW IH NG', 'personhood': 'P ER S AH N HH UH D', 'liberates': 'L IH B ER EY T S'}
+         'anthropic': 'AE N TH R AA P IH K', 'ploughing': 'P L AW IH NG', 'personhood': 'P ER S AH N HH UH D', 'liberates': 'L IH B ER EY T S', "watchdog's": 'W AA CH D AO G Z'}
 SUBST = {'ai': 'a_i'}   # spelled 'A.I.' (cmudict reads 'ai' as a word)
 norm = lambda w: re.sub(r"[^a-z']", '', w.lower().replace('’', "'"))
 segs = [s for s in json.load(open(f'{A}/segments.json')) if 'text' in s]

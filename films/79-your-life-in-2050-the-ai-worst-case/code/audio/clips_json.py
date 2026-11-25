@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Film 74 (from Film 63) · clips_cfg.json + timing.json + <clipwav>/<id>.wav -> clips.json (read by subs.py). Only the clips of the timing's clip set (C6 or C3 fallback).
+"""Film 79 (from Film 74 / 63) · clips_cfg.json + timing.json + <clipwav>/<id>.wav -> clips.json (read by subs.py). 
 Subtitle cues for the clips: [seconds from the slot start, line <= 34 chars]. Each line starts on its first word, found by a pocketsphinx forced alignment of the
 cut clip against 'align' (the heard wording); if the alignment fails, each line starts at its share of the characters across the voiced span (-40 dBFS).
 usage: clips_json.py [audio_dir] [clipwav_dir]"""
@@ -35,8 +35,8 @@ for cid, c in CFG.items():
         v1 = max(v1, st[-1] + .3)
     assert all(len(l) <= 34 for _, l in cues), cid
     out.append({'id': cid, 'kind': 'clip', 'speaker': c['speaker'], 'role': c['role'], 'source': c['source'], 'url': c['url'], 'src_start': c['src_start'], 'src_end': c['src_end'],
-                'lower_third': c['lower_third'], 'file': f'{cid}.mp4', 'placeholder': s.get('placeholder', False), 'fallback': c.get('fallback', False), 'dur': s['dur'], 'slot_start': s['start'], 'slot_end': s['end'], 'sec': s['sec'],
+                'lower_third': c['lower_third'], 'file': c['file'], 'placeholder': s.get('placeholder', False), 'fallback': c.get('fallback', False), 'dur': s['dur'], 'slot_start': s['start'], 'slot_end': s['end'], 'sec': s['sec'],
                 'transcript': ' '.join(c['cues']), 'burned': False, 'offset': 0, 'fade_in': 0.01, 'fade_out': 0.06, 'gain_db': 0, 'cues': cues, 'cue_end': round(v1 + .2, 2)})
-json.dump({'_comment': 'Film 74 clip metadata (clips_json.py). placeholder true = the clip is not cut yet, its slot is silent. cues = [seconds from the slot start, subtitle line <= 34 chars].',
+json.dump({'_comment': 'Film 79 clip metadata (clips_json.py). placeholder true = the clip is not cut yet, its slot is silent. cues = [seconds from the slot start, subtitle line <= 34 chars].',
            'clips': out}, open(A + 'clips.json', 'w'), indent=1, ensure_ascii=False)
 print('clips.json:', [(c['id'], c['slot_start'], c['dur'], 'PLACEHOLDER' if c['placeholder'] else 'real') for c in out])

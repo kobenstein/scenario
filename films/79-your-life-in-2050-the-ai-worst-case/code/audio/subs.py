@@ -2,13 +2,13 @@
 """timing.json -> subtitles.srt + subtitles.ass (one line, bottom, phrase by phrase).
 usage: subs.py <audio_dir> <out_dir>
 Film 14/16/18/19/24/25/28/54/59: channel burn-in standard (FontSize 19 on 384x288, Outline 1.4, MarginV 20), one line of max 34 characters.
-Film 74 (from Film 63): plain Inter, cream (#F3EFE2); the clips (C6 · C4 · C1, fallback C3 · C4 · C1) from clips.json cues (wording as heard on the iMac,
-clips-zeiten.txt; cue times from a forced alignment of the cut clip, clips_json.py); figures as digits."""
+Film 79 (from Film 74 / 63): plain Inter, cream (#F3EFE2); the clips (C2 · C1 · C3 · C4) from clips.json cues (wording checked by transcription of the cut,
+cue times from a forced alignment of the cut clip, clips_json.py); figures as digits. Every cue is ONE line of <= 34 characters (longer sentences are split into consecutive cues), so never more than 2 lines on screen."""
 import json, re, sys
 A, OUT = sys.argv[1].rstrip('/') + '/', sys.argv[2].rstrip('/') + '/'
 W = json.load(open(A + 'timing.json'))['words']; sys.setrecursionlimit(5000)
 # spoken numbers -> digits (longest patterns first: merge() takes the first pattern that matches at a word)
-NUM = [('twenty fifty', '2050'), ('twelve years', '12 years'), ('nine days', '9 days'), ('three free hours', '3 free hours'), ('A\\.I\\.', 'AI')]   # film 74: spoken figures as digits, 'A.I.' (spelled for the voice) as AI
+NUM = [('twenty-six million dollars', '$26 million'), ('twenty-two to nothing', '22 to nothing'), ('twenty fifty', '2050'), ('nine days', '9 days'), ('A\\.I\\.', 'AI')]   # film 79: spoken figures as digits, 'A.I.' (spelled for the voice) as AI
 def fix(s):
     for a, b in NUM: s = re.sub(r'\b' + a + r'\b', b, s, flags=re.I)
     return s
@@ -57,7 +57,7 @@ for i, w in enumerate(W):
     cur.append(w); nxt = W[i + 1] if i + 1 < len(W) else None
     if not nxt or re.search(r'[.?!]["”]?$', w['w']) or nxt['s'] - w['e'] > .6 or nxt['sec'] != w['sec']: sents.append(cur); cur = []
 cues = [[c[0]['s'], c[-1]['e'], fix(' '.join(x['w'] for x in c))] for snt in sents for c in pieces(snt)]
-# clip slots C3, C5 (audio only), C2: real wording (clips/schnitt.json, checked with Whisper) with phrase times (clips.json "cues", seconds from the slot start). C1 / C1b are read by the narrator: they come from the VO words.
+# clip slots C2 · C1 · C3 · C4: real wording (clips_cfg.json cues, checked with Whisper) with phrase times (clips.json "cues", seconds from the slot start).
 import os
 CL = json.load(open(A + 'clips.json')) if os.path.exists(A + 'clips.json') else {}
 if isinstance(CL.get('clips'), list): CL = {c['id']: c for c in CL['clips']}   # clip-schritt.md list form

@@ -1,35 +1,87 @@
 {
- "_comment": "Film 74 clip slots (clips-zeiten.txt, iMac 25.11.2026; files in Drive '#74 …/3 Rohmaterial/clips/', ~1 s pre-/post-roll). Cut to the spoken sentence + ~.3 s handles into /tmp/claude-0/f79/clips/<id>.wav + <id>/f%05d.jpg (30 fps, 1280x720); in/out = seconds inside the iMac file. Clip set C6 (vo-v3, default): C6 · C4 · C1. Fallback set C3 (vo-v2, if Jakob says no to C6 under §2.5f): C3 · C4 · C1. cues = subtitle lines <= 34 chars (wording as heard on the iMac); align = the same words for the forced alignment (numbers spelled).",
- "C6": {
-  "speaker": "Tekedra Mawakana", "role": "Co-CEO, Waymo",
-  "source": "Stanford GSB, View From The Top, 'Tekedra Mawakana, Co-CEO of Waymo: Building a Safer Way Home' (recorded May 2026, published 5 Jun 2026)",
-  "url": "https://www.youtube.com/watch?v=j_7X7WZcCx8", "src_start": "00:25:06.16", "src_end": "00:25:15.14", "in": 1.03, "out": 10.55,
-  "lower_third": "ORIGINAL FOOTAGE · TEKEDRA MAWAKANA · CO-CEO, WAYMO · 2026",
-  "cues": ["So, we are building the driver.", "We are not building vehicles.", "And this is why we want to be", "the world's most trusted driver."],
-  "align": "so we are building the driver we are not building vehicles and this is why we want to be the world's most trusted driver"
- },
- "C4": {
-  "speaker": "Demis Hassabis", "role": "then CEO, Google DeepMind (chairman since 5 Aug 2026)",
-  "source": "World Economic Forum, 'The Day After AGI', Davos, Jan 2026",
-  "url": "https://www.youtube.com/watch?v=NnVW9epLlTM", "src_start": "00:18:16.84", "src_end": "00:18:24.66", "in": null, "out": null,
-  "lower_third": "ORIGINAL FOOTAGE · DEMIS HASSABIS · THEN CEO, GOOGLE DEEPMIND · DAVOS, JAN 2026",
-  "cues": ["Maybe there are ways to distribute", "this new productivity,", "this new wealth, more fairly.", "I don't know if we have", "the right institutions to do that,", "but that's what should happen."],
-  "align": "maybe there are ways to distribute this new productivity this new wealth more fairly i don't know if we have the right institutions to do that but that's what should happen"
- },
+ "_comment": "Film 79 clip cuts INSIDE the 60-s files in /home/user/scenario/films/79-assets/clips/ (docs/CLIPS-infile.md, iMac 25.11.). in/out = seconds inside the file. cues = subtitle lines <= 34 chars (wording as heard, checked by transcription); align = the same words for the forced alignment (numbers spelled).",
  "C1": {
-  "speaker": "Demis Hassabis", "role": "then CEO, Google DeepMind",
-  "source": "Google for Developers, 'A new era of discovery: AI and the frontiers of science with Demis Hassabis', Google I/O, May 2026",
-  "url": "https://www.youtube.com/watch?v=dgBLVm2L1P4", "src_start": "00:11:38.57", "src_end": "00:11:44.62", "in": null, "out": null,
-  "lower_third": "ORIGINAL FOOTAGE · DEMIS HASSABIS · THEN CEO, GOOGLE DEEPMIND · MAY 2026",
-  "cues": ["It's going to be 10 times", "the impact of the Industrial", "Revolution, maybe 10 times faster.", "So, over a decade", "instead of a century."],
-  "align": "it's going to be ten times the impact of the industrial revolution maybe ten times faster so over a decade instead of a century"
+  "file": "C1-duvenaud-80k.mp4",
+  "in": 31.3,
+  "out": 37.25,
+  "speaker": "David Duvenaud",
+  "role": "Computer scientist, University of Toronto; former Anthropic team lead; co-author 'Gradual Disempowerment'",
+  "source": "80,000 Hours, 'Why 'Aligned AI' Would Still Kill Democracy | David Duvenaud, ex-Anthropic team lead', 2026-01-27",
+  "url": "https://www.youtube.com/watch?v=XV3e03yfFW0",
+  "src_start": "01:00:50.990",
+  "src_end": "01:00:57.600",
+  "lower_third": "DAVID DUVENAUD · Computer scientist, University of Toronto · 2026 · ORIGINAL FOOTAGE",
+  "cues": [
+   "Life can only get so bad",
+   "when you're needed.",
+   "That's the real key thing",
+   "that has been keeping",
+   "governments aligned,",
+   "and that's the key thing",
+   "that's going to change."
+  ],
+  "align": "life can only get so bad when you're needed that's the real key thing that has been keeping governments aligned and that's the key thing that's going to change"
+ },
+ "C2": {
+  "file": "C2-brynjolfsson-revelio.mp4",
+  "in": 30.4,
+  "out": 38.3,
+  "speaker": "Erik Brynjolfsson",
+  "role": "Economist, Stanford Digital Economy Lab",
+  "source": "Revelio Labs, 'Erik Brynjolfsson - Escaping the Turing Trap', 2026-11-18",
+  "url": "https://www.youtube.com/watch?v=eDctSfipdDE",
+  "src_start": "00:23:15.430",
+  "src_end": "00:23:23.430",
+  "lower_third": "ERIK BRYNJOLFSSON · Economist, Stanford University · 2026 · ORIGINAL FOOTAGE",
+  "cues": [
+   "What we found was that young",
+   "workers had falling employment,",
+   "not so much because they were",
+   "being laid off, but they just",
+   "weren't being hired as much."
+  ],
+  "align": "what we found was that young workers had falling employment not so much because they were being laid off but they just weren't being hired as much"
  },
  "C3": {
-  "speaker": "Demis Hassabis", "role": "then CEO, Google DeepMind", "fallback": true,
-  "source": "Google for Developers, Google I/O, May 2026",
-  "url": "https://www.youtube.com/watch?v=dgBLVm2L1P4", "src_start": "00:11:56.33", "src_end": "00:12:03.03", "in": null, "out": null,
-  "lower_third": "ORIGINAL FOOTAGE · DEMIS HASSABIS · THEN CEO, GOOGLE DEEPMIND · MAY 2026",
-  "cues": ["The future is not written.", "It's very uncertain.", "Are there more jobs", "going to be created?", "Are there different ones?", "We don't know. Nobody knows."],
-  "align": "the future is not written it's very uncertain are there more jobs going to be created are there different ones we don't know nobody knows"
+  "file": "C3-duvenaud-srinstitute.mp4",
+  "in": 28.35,
+  "out": 35.1,
+  "speaker": "David Duvenaud",
+  "role": "Computer scientist, University of Toronto",
+  "source": "Schwartz Reisman Institute, 'Gradual disempowerment: Systemic existential risks from incremental AI development | David Duvenaud', 2026-02-11",
+  "url": "https://www.youtube.com/watch?v=bVV91jt56-o",
+  "src_start": "00:08:47.740",
+  "src_end": "00:08:55.750",
+  "lower_third": "DAVID DUVENAUD · Computer scientist, University of Toronto · 2026 · ORIGINAL FOOTAGE",
+  "cues": [
+   "Everybody's going to get more",
+   "into their AI companions,",
+   "and you might not like this,",
+   "but you'll have an amazing",
+   "AI companion who's always",
+   "there for you, too."
+  ],
+  "align": "everybody's going to get more into their ai companions and you might not like this but you'll have an amazing ai companion who's always there for you too"
+ },
+ "C4": {
+  "file": "C4-brynjolfsson-revelio.mp4",
+  "in": 27.9,
+  "out": 38.4,
+  "speaker": "Erik Brynjolfsson",
+  "role": "Economist, Stanford Digital Economy Lab",
+  "source": "Revelio Labs, 'Erik Brynjolfsson - Escaping the Turing Trap', 2026-11-18",
+  "url": "https://www.youtube.com/watch?v=eDctSfipdDE",
+  "src_start": "00:49:37.610",
+  "src_end": "00:49:48.700",
+  "lower_third": "ERIK BRYNJOLFSSON · Economist, Stanford University · 2026 · ORIGINAL FOOTAGE",
+  "cues": [
+   "If we're on the current path",
+   "and we don't change anything,",
+   "it's going to increase inequality.",
+   "But one of my missions is to",
+   "explain to people that it",
+   "doesn't have to be that way."
+  ],
+  "align": "if we're on the current path and we don't change anything it's going to increase inequality but one of my missions is to explain to people that it doesn't have to be that way"
  }
 }

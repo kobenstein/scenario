@@ -1,5 +1,27 @@
 {
- "_comment": "Film 63 Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 0.01 USD/s, 2 samples each, 2026-11-24; sample 1 used unless noted). Files in /tmp/claude-0/f63/audio/sfx, not in the repo. Everything else from sfx-bibliothek (akzent: bloom, pages, rumble, brick, shimmer_rings, brass_click; atmo: hall).",
- "candle": {"duration": 3, "seed": 6301, "negative_prompt": "music, voices, choir, bells", "prompt": "A single match is struck and lights a candle in a vast empty stone basilica at night: a soft scratch, a gentle flare and hiss, then a long quiet reverberation of the large stone space. Close and intimate, very clean, no music, no voices."},
- "unlock": {"duration": 3, "seed": 6302, "negative_prompt": "music, voices, gunshot, explosion, beeps", "prompt": "A heavy old metal mechanism is slowly unlocked and set down on a stone floor in a large cathedral: one deep soft metallic clunk, a short low resonance, then the long reverberation of the hall. Calm, weighty, no music, no voices."}
+ "_comment": "Film 79 Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 0.01 USD/s, 2 samples each, 2026-11-25). Used: relay_a (cut), phones_a, cars_a, cars_b, clock_a. Files in /tmp/claude-0/f79/audio/sfx, not in the repo.",
+ "relay": {
+  "duration": 3,
+  "seed": 7901,
+  "negative_prompt": "music, voices, explosion, alarm",
+  "prompt": "A single heavy electromechanical relay clicks in a dark kitchen: one short dry clack, a lamp hum dies away with the low hum of a refrigerator, then complete silence. Close, clean, very quiet, no music, no voices."
+ },
+ "phones": {
+  "duration": 4,
+  "seed": 7902,
+  "negative_prompt": "music, voices, ringtone melody, alarm",
+  "prompt": "Dozens of phones on a quiet street all chime with the same soft notification tone at the very same moment: a layered glassy ding from windows and pockets, then a gentle decaying shimmer. Calm, slightly eerie, no music, no voices."
+ },
+ "cars": {
+  "duration": 10,
+  "seed": 7903,
+  "negative_prompt": "music, voices, horn, engine roar, siren",
+  "prompt": "A few driverless electric cars glide slowly past on an empty tidy street: soft tyre hiss on asphalt, a faint electric whine, gentle passing whooshes, then quiet again. Even and loopable, no horns, no engine roar, no voices, no music."
+ },
+ "clock": {
+  "duration": 8,
+  "seed": 7904,
+  "negative_prompt": "music, voices, loud alarm, siren",
+  "prompt": "An old brass alarm clock is wound in a quiet room: slow ratcheting key turns and spring tension clicks, then it ticks steadily and a short soft bell rings gently. Warm, close, intimate, no music, no voices."
+ }
 }

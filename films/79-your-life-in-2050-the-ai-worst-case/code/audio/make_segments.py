@@ -1,58 +1,58 @@
 #!/usr/bin/env python3
-"""Film 74 'Your Life in 2050 If We Get AI Right' · vo-v3.txt -> segments.json (takes for ElevenLabs v4 + clip slots). Method as Film 63 / 66 / 59.
-vo-v3 = one paragraph per line, blank lines between, [CLIP Cn] on its own line (final vo-v3: C6 · C4 · C1).
-CLIP SETS (coordinator 25.11.: C6 waited for Jakob's okay under §2.5f; Jakob CONFIRMED C6 on 25.11., the C3 fallback is kept in the code but not used):
-  C6 (default) = vo-v3.txt -> audio/segments.json, takes in /tmp/claude-0/f79/audio/dl, timing in audio/timing.json (+ project folder audio/timing.json)
-  C3 (fallback) = vo-v2.txt -> audio/variants/C3/segments.json, takes in /tmp/claude-0/f79/audio_c3/dl, timing in audio/variants/C3/timing.json (+ project folder audio/variant-c3/)
-  The scenes read the clip set from the timing file (film.mjs clipSet): render the fallback with TIMING=audio/variants/C3/timing.json,
-  mix it with mix.py variants/C3 /tmp/claude-0/f79/audio_c3, subtitles with subs.py variants/C3 <out>.
-Sections = the stations of text-v2 (same list as tools/provisional_timing.py SECS), found by the first words of the paragraph that opens them.
-A take = consecutive paragraphs of ONE section, up to ~MAXC characters, split at clip slots. Paragraphs inside a take are joined with a blank line
-(Eleven v4 breathes there); build_vo.py puts GAP_SUB between takes of a section and GAP_SECTION between sections.
-Voice text: one tag at the start of each section's first take (TAGS) and of a take that opens on a PTAGS paragraph; never [softly]/[whispers]/[quietly]/[hushed].
-'twenty fifty' / 'A.I.' are already spelled for the voice in vo-v3. 'text' = the script words (alignment, subtitles).
-usage: make_segments.py [vo-v3.txt] [out segments.json]"""
+"""Film 79 'Your Life in 2050: The AI Worst Case' · vo-v2.txt -> segments.json (takes for ElevenLabs v4 + clip slots). Method as Film 74 / 63 / 66 / 59.
+vo-v2 = one paragraph per line, [CLIP Cn] on its own line (order in the film: C2 · C1 · C3 · C4), director tags in [..] at the start of a paragraph.
+Voice text = script text: 'twenty fifty' and 'A.I.' are already spelled for the voice in vo-v2. The script's own director tags are used as ElevenLabs v4 audio tags
+([calm, conversational] / [thoughtful] / [curious]); a section's first take without a script tag gets [calm, conversational]. NEVER [softly]/[whispers]/[quietly]/[hushed].
+Sections = the chunk letters of data/rows.json (H B D K N G L Q E W), found by the first words of the paragraph that opens them.
+A take = consecutive paragraphs of ONE section, up to ~MAXC characters, split at clip slots, at a paragraph that carries its own script tag, and around the grandson's lines
+(own short take: her/his line gets air on both sides). Paragraphs inside a take are joined with a blank line (Eleven v4 breathes there);
+build_vo.py puts GAP_SUB between takes of a section and GAP_SECTION between sections.
+'text' = the script words incl. the tag in brackets (align_ps / check_takes strip it); subs.py turns 'twenty fifty' -> 2050 and 'A.I.' -> AI.
+usage: make_segments.py [vo-v2.txt] [out segments.json]"""
 import json, os, re, sys
 ROOT = os.environ.get('F79ROOT', '/mnt/project-files/scenario/film-79-worst-case/').rstrip('/') + '/'
-SRC = sys.argv[1] if len(sys.argv) > 1 else ROOT + 'vo-v3.txt'
+SRC = sys.argv[1] if len(sys.argv) > 1 else ROOT + 'vo-v2.txt'
 OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(os.path.dirname(os.path.abspath(__file__)), 'segments.json')
-SECS = [('H', 'This is your life'), ('1', 'Your neighbor builds'), ('2', 'Now you step off'), ('3', "There's a robot on your roof"),
-        ('4', 'Nobody is.'), ('M', 'This channel exists for one reason'), ('5', 'But nobody lives on free power'), ('6', 'Nobody does.'),
-        ('7', "Next door, the doctor's"), ('8', 'But the biggest thing missing'), ('9', 'Where the cornfields'), ('P', 'The path loops back'),
-        ('E', 'Your granddaughter sits down'), ('A2', 'This channel exists so that')]
-CLIP_LEN = {'C1': 6.65, 'C3': 7.18, 'C4': 8.42, 'C6': 9.52}   # the cuts in /tmp/claude-0/f79/clips (spoken sentence + .3 s handles; C3 starts .12 s after 'that'; C6 = file 1.03-10.55 s, starts on 'So,')
-TAGS = {'H': 'calm, conversational', '1': 'warm', '2': 'calm, conversational', '3': 'curious', '4': 'calm, conversational', 'M': 'warm',
-        '5': 'calm, conversational', '6': 'thoughtful', '7': 'warm', '8': 'curious', '9': 'thoughtful', 'P': 'thoughtful', 'E': 'warm', 'A2': 'warm'}
-PTAGS = {'"What was this for?"': 'curious', '"What else did you worry about?"': 'curious', 'It was never guaranteed.': 'thoughtful',
-         'In twenty fifty, the hardest thing': 'thoughtful', 'She winds the old clock': 'warm'}
-OWN = {'"What was this for?"', '"What else did you worry about?"'}   # the granddaughter's lines: own short take (her question gets air on both sides)
+SECS = [('H', 'This is your life'), ('B', 'Your neighbor used to build'), ('D', 'Most of those crates'), ('K', 'You get home just as'),
+        ('N', 'Noon. The whole street'), ('G', 'This channel exists for one reason'), ('L', 'So the children are content'), ('Q', 'That leaves one place'),
+        ('E', 'Then your grandson sits down'), ('W', "But it isn't twenty fifty")]
+CLIP_LEN = {'C1': 5.95, 'C2': 7.90, 'C3': 6.75, 'C4': 10.50}   # in/out of docs/CLIPS-infile.md (placeholder length only; build_vo.py reads the real clip wavs)
+DEFAULT_TAG = 'calm, conversational'
+OWN = {'"What was this for?"', '"Why didn\'t anyone stop it?"'}   # the grandson's lines: own short take
 MAXC = 430
+VOICE_FIX = {'has a stake in A.I. Asked': ('has a stake in A. I. Asked', 4302)}   # t27: v4 read 'A.I. Asked' as 'it. I asked' with seed 4301 AND 4302; spelled 'A. I.' + seed 4302 it is right (wizper-checked). 'text' (alignment, subtitles) keeps the script words.
+SPLIT_BEFORE = ('Tonight, your alarm clock',)   # the clock coda is its own take (a long beat before it, build_vo GAP_AFTER)
 SLOT = re.compile(r'\[CLIP\s+(C\d+[a-z]?)\]')
+TAG = re.compile(r'^\[([^\]]+)\]\s*')
 paras = [l.strip() for l in open(SRC, encoding='utf8').read().splitlines() if l.strip()]
-seg, n, si, sec, cur = [], 0, 0, None, []
+seg, n, si, sec, cur, curtag = [], 0, 0, None, [], None
 def flush():
-    global n, cur
+    global n, cur, curtag
     if not cur: return
-    text = '\n\n'.join(cur); tag = None
-    if not any(s.get('sec') == sec and 'text' in s for s in seg): tag = TAGS[sec]
-    else: tag = next((v for k, v in PTAGS.items() if cur[0].startswith(k)), None)
+    text = '\n\n'.join(cur); first = not any(s.get('sec') == sec and 'text' in s for s in seg)
+    tag = curtag or (DEFAULT_TAG if first else None)
     s = {'id': f't{n:02d}', 'sec': sec, 'text': (f'[{tag}] ' if tag else '') + text, 'chars': len(text)}
-    seg.append(s); n += 1; cur = []
+    for k, (v, sd) in VOICE_FIX.items():
+        if k in text: s['voice'] = s['text'].replace(k, v); s['seed'] = sd
+    seg.append(s); n += 1; cur = []; curtag = None
 for l in paras:
     m = SLOT.fullmatch(l)
     if m:
         flush(); c = m.group(1); seg.append({'id': c, 'sec': sec, 'clip': True, 'dur': CLIP_LEN[c]}); continue
-    if si < len(SECS) and l.startswith(SECS[si][1]):
+    tm = TAG.match(l); tag = tm.group(1) if tm else None; body = TAG.sub('', l)
+    if si < len(SECS) and body.startswith(SECS[si][1]):
         flush(); sec = SECS[si][0]; si += 1
-    elif cur and (l in OWN or cur[-1] in OWN or any(l.startswith(k) for k in PTAGS)): flush()
-    elif cur and sum(len(x) + 2 for x in cur) + len(l) > MAXC: flush()
-    cur.append(l)
+    elif cur and (body in OWN or cur[-1] in OWN or tag or body.startswith(SPLIT_BEFORE)): flush()
+    elif cur and sum(len(x) + 2 for x in cur) + len(body) > MAXC: flush()
+    if not cur: curtag = tag
+    cur.append(body)
 flush()
 assert si == len(SECS), (si, SECS[si])
 tk = [s for s in seg if 'text' in s]
-tk[-2]['cta'] = True   # 'This channel exists so that ... subscribe.' (the last take is the clock coda)
-next(s for s in tk if s['sec'] == 'M')['cta'] = True
+for s in tk:
+    if 'This channel exists' in s['text']: s['cta'] = True
+assert sum(1 for s in tk if s.get('cta')) == 2
 assert not re.search(r'\[(softly|whispers?|quietly|hushed)', json.dumps(seg)), 'forbidden tag'
 json.dump(seg, open(OUT, 'w'), indent=1, ensure_ascii=False)
 print(len(seg), 'entries;', sum(s.get('chars', 0) for s in seg), 'chars')
-for s in seg: print(s['id'], s['sec'], s.get('chars', s.get('dur')), 'CTA' if s.get('cta') else '', (s.get('text') or '')[:80].replace('\n', ' / '))
+for s in seg: print(s['id'], s['sec'], s.get('chars', s.get('dur')), 'CTA' if s.get('cta') else '', (s.get('text') or '')[:90].replace('\n', ' / '))
