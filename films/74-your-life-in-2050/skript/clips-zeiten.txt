@@ -1,0 +1,8 @@
+#74 Clip-Zeiten (iMac, 25.11.2026) – Dateien: 6A …/#74_Your_Life_in_2050/clips/ und Drive „#74 …/3 Rohmaterial/clips/“
+Format 1920x1080 H.264 CRF18 AAC192k 48k, je ~1 s Vor-/Nachlauf. Zeiten = Position im YouTube-Original.
+C1 dgBLVm2L1P4 Clip 11:37.57–11:45.57 | Satz 11:38.57–11:44.62: "It's going to be 10 times the impact of the Industrial Revolution, maybe 10 times faster. So, over a decade instead of a century."
+C3 dgBLVm2L1P4 Clip 11:55.25–12:04.03 | Satz 11:56.33–12:03.03: "The future is not written. It's very uncertain. Are there more jobs going to be created? Are there different ones? We don't know. Nobody knows."  (ACHTUNG "different ones", nicht "new ones")
+C4 NnVW9epLlTM Clip 18:15.84–18:25.66 | Satz 18:16.84–18:24.66: "Maybe there are ways to distribute this new productivity, this new wealth, more fairly. I don't know if we have the right institutions to do that, but that's what should happen"
+C6 j_7X7WZcCx8 (Mawakana, Waymo) Clip 25:04.90–25:16.20 | Satz 25:06.16–25:15.14: "So, we are building the driver. We are not building vehicles. And this is why we want to be the world's most trusted driver."
+   Kontext davor: Moderator fragt nach Tesla-Abo-Modell vs. Waymo-eigene Flotte (Autos >100.000 $) und Weg zur Profitabilität. Danach: "That Waymo driver has already seen a life across multiple vehicle platforms…"
+C6b (Alternative) Clip 21:25.76–21:38.63 | Satz 21:26.78–21:37.58: "Because this isn't a 'Waymo's gonna save society' mission. This is a – we're gonna build – you know, we're on a mission to build the world's most trusted driver."

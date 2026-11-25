@@ -1,0 +1,360 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 384
+PlayResY: 288
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Inter,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.72,0:00:01.96,Sub,,0,0,0,,{\fad(120,160)}A.G.I. may be
+Dialogue: 0,0:00:02.00,0:00:03.90,Sub,,0,0,0,,{\fad(120,160)}the final human invention.
+Dialogue: 0,0:00:04.57,0:00:05.57,Sub,,0,0,0,,{\fad(120,160)}Look around you.
+Dialogue: 0,0:00:05.76,0:00:07.12,Sub,,0,0,0,,{\fad(120,160)}The light over your head.
+Dialogue: 0,0:00:07.17,0:00:08.27,Sub,,0,0,0,,{\fad(120,160)}The phone in your hand.
+Dialogue: 0,0:00:08.31,0:00:09.93,Sub,,0,0,0,,{\fad(120,160)}The screen in front of you.
+Dialogue: 0,0:00:10.24,0:00:10.80,Sub,,0,0,0,,{\fad(120,160)}Each of them
+Dialogue: 0,0:00:10.84,0:00:12.45,Sub,,0,0,0,,{\fad(120,160)}was invented by a person.
+Dialogue: 0,0:00:12.62,0:00:14.74,Sub,,0,0,0,,{\fad(120,160)}So was every invention in history.
+Dialogue: 0,0:00:15.00,0:00:17.00,Sub,,0,0,0,,{\fad(120,160)}A.G.I. would be the last.
+Dialogue: 0,0:00:17.40,0:00:19.81,Sub,,0,0,0,,{\fad(120,160)}Artificial general intelligence:
+Dialogue: 0,0:00:19.88,0:00:20.99,Sub,,0,0,0,,{\fad(120,160)}a machine that can do
+Dialogue: 0,0:00:21.03,0:00:22.60,Sub,,0,0,0,,{\fad(120,160)}what a human mind does.
+Dialogue: 0,0:00:22.67,0:00:24.09,Sub,,0,0,0,,{\fad(120,160)}Including invent.
+Dialogue: 0,0:00:24.45,0:00:26.53,Sub,,0,0,0,,{\fad(120,160)}From then on, it invents for us.
+Dialogue: 0,0:00:26.57,0:00:28.32,Sub,,0,0,0,,{\fad(120,160)}Faster than we ever could.
+Dialogue: 0,0:00:28.55,0:00:30.52,Sub,,0,0,0,,{\fad(120,160)}So what will it invent for you?
+Dialogue: 0,0:00:30.83,0:00:32.90,Sub,,0,0,0,,{\fad(120,160)}The inventing has already begun.
+Dialogue: 0,0:00:33.04,0:00:34.53,Sub,,0,0,0,,{\fad(120,160)}This year, an A.I. found
+Dialogue: 0,0:00:34.57,0:00:36.89,Sub,,0,0,0,,{\fad(120,160)}an answer no human had found.
+Dialogue: 0,0:00:37.50,0:00:39.83,Sub,,0,0,0,,{\fad(120,160)}To a puzzle about dots on a page.
+Dialogue: 0,0:00:40.10,0:00:40.80,Sub,,0,0,0,,{\fad(120,160)}Guess how long
+Dialogue: 0,0:00:40.84,0:00:42.00,Sub,,0,0,0,,{\fad(120,160)}it had been waiting.
+Dialogue: 0,0:00:42.69,0:00:44.01,Sub,,0,0,0,,{\fad(120,160)}Eighty years.
+Dialogue: 0,0:00:44.32,0:00:45.73,Sub,,0,0,0,,{\fad(120,160)}A mathematician who reviewed
+Dialogue: 0,0:00:45.77,0:00:48.15,Sub,,0,0,0,,{\fad(120,160)}the answer called it a milestone.
+Dialogue: 0,0:00:48.34,0:00:50.34,Sub,,0,0,0,,{\fad(120,160)}But the idea of a final invention
+Dialogue: 0,0:00:50.38,0:00:52.59,Sub,,0,0,0,,{\fad(120,160)}goes back to a single sentence.
+Dialogue: 0,0:00:52.88,0:00:53.96,Sub,,0,0,0,,{\fad(120,160)}Half promise.
+Dialogue: 0,0:00:54.07,0:00:55.18,Sub,,0,0,0,,{\fad(120,160)}Half condition.
+Dialogue: 0,0:00:55.48,0:00:57.55,Sub,,0,0,0,,{\fad(120,160)}And the condition is up to us.
+Dialogue: 0,0:00:58.72,0:01:00.07,Sub,,0,0,0,,{\fad(120,160)}Here is the promise.
+Dialogue: 0,0:01:00.41,0:01:00.99,Sub,,0,0,0,,{\fad(120,160)}"The first
+Dialogue: 0,0:01:01.03,0:01:02.56,Sub,,0,0,0,,{\fad(120,160)}ultra-intelligent machine
+Dialogue: 0,0:01:02.60,0:01:03.98,Sub,,0,0,0,,{\fad(120,160)}is the last invention
+Dialogue: 0,0:01:04.02,0:01:05.80,Sub,,0,0,0,,{\fad(120,160)}that man need ever make."
+Dialogue: 0,0:01:06.21,0:01:08.19,Sub,,0,0,0,,{\fad(120,160)}It's more than 60 years old.
+Dialogue: 0,0:01:08.34,0:01:09.51,Sub,,0,0,0,,{\fad(120,160)}Jack Good wrote it.
+Dialogue: 0,0:01:09.80,0:01:10.92,Sub,,0,0,0,,{\fad(120,160)}In the Second World War,
+Dialogue: 0,0:01:10.96,0:01:11.72,Sub,,0,0,0,,{\fad(120,160)}he helped break
+Dialogue: 0,0:01:11.76,0:01:12.92,Sub,,0,0,0,,{\fad(120,160)}German naval codes
+Dialogue: 0,0:01:12.96,0:01:14.11,Sub,,0,0,0,,{\fad(120,160)}at Bletchley Park.
+Dialogue: 0,0:01:14.30,0:01:15.27,Sub,,0,0,0,,{\fad(120,160)}His first boss there
+Dialogue: 0,0:01:15.31,0:01:16.61,Sub,,0,0,0,,{\fad(120,160)}was Alan Turing.
+Dialogue: 0,0:01:16.90,0:01:18.85,Sub,,0,0,0,,{\fad(120,160)}The logic: a machine smarter
+Dialogue: 0,0:01:18.89,0:01:20.18,Sub,,0,0,0,,{\fad(120,160)}than us can design
+Dialogue: 0,0:01:20.22,0:01:21.33,Sub,,0,0,0,,{\fad(120,160)}a better machine.
+Dialogue: 0,0:01:21.45,0:01:23.57,Sub,,0,0,0,,{\fad(120,160)}And that one, a better one still.
+Dialogue: 0,0:01:23.89,0:01:25.25,Sub,,0,0,0,,{\fad(120,160)}It sounds like an ending.
+Dialogue: 0,0:01:25.50,0:01:27.54,Sub,,0,0,0,,{\fad(120,160)}But our survival, Good wrote,
+Dialogue: 0,0:01:27.58,0:01:29.67,Sub,,0,0,0,,{\fad(120,160)}depends on building this machine.
+Dialogue: 0,0:01:30.24,0:01:31.77,Sub,,0,0,0,,{\fad(120,160)}He even guessed when:
+Dialogue: 0,0:01:32.08,0:01:34.03,Sub,,0,0,0,,{\fad(120,160)}"within the twentieth century."
+Dialogue: 0,0:01:34.18,0:01:36.23,Sub,,0,0,0,,{\fad(120,160)}About the date, he was wrong.
+Dialogue: 0,0:01:36.41,0:01:37.73,Sub,,0,0,0,,{\fad(120,160)}So why should you take
+Dialogue: 0,0:01:37.77,0:01:39.13,Sub,,0,0,0,,{\fad(120,160)}him seriously today?
+Dialogue: 0,0:01:39.33,0:01:40.74,Sub,,0,0,0,,{\fad(120,160)}Because today, people are
+Dialogue: 0,0:01:40.78,0:01:42.38,Sub,,0,0,0,,{\fad(120,160)}trying to build that machine.
+Dialogue: 0,0:01:42.42,0:01:44.60,Sub,,0,0,0,,{\fad(120,160)}They call it A.G.I.
+Dialogue: 0,0:01:44.86,0:01:46.41,Sub,,0,0,0,,{\fad(120,160)}Demis Hassabis co-founded
+Dialogue: 0,0:01:46.45,0:01:47.84,Sub,,0,0,0,,{\fad(120,160)}Google DeepMind,
+Dialogue: 0,0:01:47.91,0:01:49.79,Sub,,0,0,0,,{\fad(120,160)}so he has a stake in this.
+Dialogue: 0,0:01:50.01,0:01:51.01,Sub,,0,0,0,,{\fad(120,160)}His plan:
+Dialogue: 0,0:01:51.20,0:01:53.54,Sub,,0,0,0,,{\fad(120,160)}It was literally step one, solve
+Dialogue: 0,0:01:53.58,0:01:55.99,Sub,,0,0,0,,{\fad(120,160)}intelligence, step two, use it to
+Dialogue: 0,0:01:56.03,0:01:58.44,Sub,,0,0,0,,{\fad(120,160)}solve everything else. And people
+Dialogue: 0,0:01:58.48,0:02:00.97,Sub,,0,0,0,,{\fad(120,160)}were quite confused. But we really
+Dialogue: 0,0:02:01.01,0:02:02.01,Sub,,0,0,0,,{\fad(120,160)}meant it.
+Dialogue: 0,0:02:02.35,0:02:03.89,Sub,,0,0,0,,{\fad(120,160)}Jack Good's promise,
+Dialogue: 0,0:02:03.96,0:02:05.30,Sub,,0,0,0,,{\fad(120,160)}in a builder's words.
+Dialogue: 0,0:02:05.46,0:02:07.46,Sub,,0,0,0,,{\fad(120,160)}So check it against your own list.
+Dialogue: 0,0:02:07.67,0:02:09.14,Sub,,0,0,0,,{\fad(120,160)}What are you still waiting for?
+Dialogue: 0,0:02:09.44,0:02:12.08,Sub,,0,0,0,,{\fad(120,160)}Energy that costs almost nothing.
+Dialogue: 0,0:02:12.31,0:02:13.67,Sub,,0,0,0,,{\fad(120,160)}Materials for a battery
+Dialogue: 0,0:02:13.71,0:02:15.04,Sub,,0,0,0,,{\fad(120,160)}that lasts a week.
+Dialogue: 0,0:02:15.32,0:02:16.85,Sub,,0,0,0,,{\fad(120,160)}Answers to puzzles that have
+Dialogue: 0,0:02:16.89,0:02:18.79,Sub,,0,0,0,,{\fad(120,160)}beaten us for generations.
+Dialogue: 0,0:02:19.06,0:02:21.00,Sub,,0,0,0,,{\fad(120,160)}For each line, one test:
+Dialogue: 0,0:02:21.35,0:02:22.98,Sub,,0,0,0,,{\fad(120,160)}has the inventing begun?
+Dialogue: 0,0:02:23.20,0:02:25.10,Sub,,0,0,0,,{\fad(120,160)}And leave a fourth line empty.
+Dialogue: 0,0:02:25.37,0:02:26.50,Sub,,0,0,0,,{\fad(120,160)}It belongs to the second
+Dialogue: 0,0:02:26.54,0:02:28.11,Sub,,0,0,0,,{\fad(120,160)}half of Good's sentence.
+Dialogue: 0,0:02:29.30,0:02:30.12,Sub,,0,0,0,,{\fad(120,160)}Start with the one you
+Dialogue: 0,0:02:30.16,0:02:31.68,Sub,,0,0,0,,{\fad(120,160)}pay for every month.
+Dialogue: 0,0:02:31.96,0:02:32.96,Sub,,0,0,0,,{\fad(120,160)}Energy.
+Dialogue: 0,0:02:33.03,0:02:34.17,Sub,,0,0,0,,{\fad(120,160)}Imagine heat without
+Dialogue: 0,0:02:34.21,0:02:35.31,Sub,,0,0,0,,{\fad(120,160)}watching the meter.
+Dialogue: 0,0:02:35.63,0:02:36.97,Sub,,0,0,0,,{\fad(120,160)}Has the inventing begun?
+Dialogue: 0,0:02:37.19,0:02:38.70,Sub,,0,0,0,,{\fad(120,160)}Take clean hydrogen:
+Dialogue: 0,0:02:38.74,0:02:39.59,Sub,,0,0,0,,{\fad(120,160)}fuel made from
+Dialogue: 0,0:02:39.63,0:02:41.25,Sub,,0,0,0,,{\fad(120,160)}water and electricity.
+Dialogue: 0,0:02:41.45,0:02:42.70,Sub,,0,0,0,,{\fad(120,160)}It takes a catalyst,
+Dialogue: 0,0:02:42.74,0:02:43.72,Sub,,0,0,0,,{\fad(120,160)}a material that makes
+Dialogue: 0,0:02:43.76,0:02:44.90,Sub,,0,0,0,,{\fad(120,160)}the reaction run.
+Dialogue: 0,0:02:45.06,0:02:46.06,Sub,,0,0,0,,{\fad(120,160)}In three months,
+Dialogue: 0,0:02:46.10,0:02:48.12,Sub,,0,0,0,,{\fad(120,160)}a lab run by A.I. designed,
+Dialogue: 0,0:02:48.16,0:02:49.20,Sub,,0,0,0,,{\fad(120,160)}made, and tested
+Dialogue: 0,0:02:49.24,0:02:51.60,Sub,,0,0,0,,{\fad(120,160)}almost 3,000 catalysts.
+Dialogue: 0,0:02:51.71,0:02:53.39,Sub,,0,0,0,,{\fad(120,160)}And it found new ones that work,
+Dialogue: 0,0:02:53.43,0:02:54.31,Sub,,0,0,0,,{\fad(120,160)}in a metal experts
+Dialogue: 0,0:02:54.35,0:02:55.35,Sub,,0,0,0,,{\fad(120,160)}had written off.
+Dialogue: 0,0:02:55.49,0:02:57.10,Sub,,0,0,0,,{\fad(120,160)}That's the company's own account.
+Dialogue: 0,0:02:57.14,0:02:58.24,Sub,,0,0,0,,{\fad(120,160)}No outside lab has
+Dialogue: 0,0:02:58.28,0:02:59.47,Sub,,0,0,0,,{\fad(120,160)}confirmed it yet.
+Dialogue: 0,0:03:00.03,0:03:01.30,Sub,,0,0,0,,{\fad(120,160)}Now imagine the machine
+Dialogue: 0,0:03:01.34,0:03:02.81,Sub,,0,0,0,,{\fad(120,160)}Jack Good described.
+Dialogue: 0,0:03:03.02,0:03:04.70,Sub,,0,0,0,,{\fad(120,160)}Not one lab like that.
+Dialogue: 0,0:03:04.77,0:03:07.49,Sub,,0,0,0,,{\fad(120,160)}Thousands, running day and night.
+Dialogue: 0,0:03:07.84,0:03:08.76,Sub,,0,0,0,,{\fad(120,160)}So when does your
+Dialogue: 0,0:03:08.80,0:03:10.14,Sub,,0,0,0,,{\fad(120,160)}power bill shrink?
+Dialogue: 0,0:03:10.46,0:03:11.46,Sub,,0,0,0,,{\fad(120,160)}Not yet.
+Dialogue: 0,0:03:11.68,0:03:13.09,Sub,,0,0,0,,{\fad(120,160)}Even a perfect invention
+Dialogue: 0,0:03:13.13,0:03:14.25,Sub,,0,0,0,,{\fad(120,160)}has to be built,
+Dialogue: 0,0:03:14.29,0:03:15.96,Sub,,0,0,0,,{\fad(120,160)}approved, and plugged in.
+Dialogue: 0,0:03:16.19,0:03:17.34,Sub,,0,0,0,,{\fad(120,160)}And that still runs
+Dialogue: 0,0:03:17.38,0:03:18.52,Sub,,0,0,0,,{\fad(120,160)}at human speed.
+Dialogue: 0,0:03:18.97,0:03:20.14,Sub,,0,0,0,,{\fad(120,160)}But on the first line,
+Dialogue: 0,0:03:20.18,0:03:21.82,Sub,,0,0,0,,{\fad(120,160)}the inventing has begun.
+Dialogue: 0,0:03:22.08,0:03:24.01,Sub,,0,0,0,,{\fad(120,160)}And look at what that lab found.
+Dialogue: 0,0:03:24.17,0:03:25.46,Sub,,0,0,0,,{\fad(120,160)}Not a power plant.
+Dialogue: 0,0:03:25.59,0:03:26.63,Sub,,0,0,0,,{\fad(120,160)}A material.
+Dialogue: 0,0:03:27.80,0:03:29.78,Sub,,0,0,0,,{\fad(120,160)}Because energy is only as good
+Dialogue: 0,0:03:29.82,0:03:31.46,Sub,,0,0,0,,{\fad(120,160)}as the stuff we build it with.
+Dialogue: 0,0:03:32.00,0:03:33.80,Sub,,0,0,0,,{\fad(120,160)}A battery that lasts a week.
+Dialogue: 0,0:03:33.97,0:03:35.97,Sub,,0,0,0,,{\fad(120,160)}A home that keeps itself cool.
+Dialogue: 0,0:03:36.18,0:03:37.65,Sub,,0,0,0,,{\fad(120,160)}Both are waiting for materials
+Dialogue: 0,0:03:37.69,0:03:39.04,Sub,,0,0,0,,{\fad(120,160)}that don't exist yet.
+Dialogue: 0,0:03:39.43,0:03:40.55,Sub,,0,0,0,,{\fad(120,160)}One dream material
+Dialogue: 0,0:03:40.59,0:03:42.06,Sub,,0,0,0,,{\fad(120,160)}is the superconductor:
+Dialogue: 0,0:03:42.16,0:03:43.23,Sub,,0,0,0,,{\fad(120,160)}it carries electricity
+Dialogue: 0,0:03:43.27,0:03:44.71,Sub,,0,0,0,,{\fad(120,160)}without losing any.
+Dialogue: 0,0:03:45.00,0:03:46.64,Sub,,0,0,0,,{\fad(120,160)}This year, an A.I. system
+Dialogue: 0,0:03:46.68,0:03:48.38,Sub,,0,0,0,,{\fad(120,160)}searched more than 2 million
+Dialogue: 0,0:03:48.42,0:03:49.86,Sub,,0,0,0,,{\fad(120,160)}possible crystals, in about
+Dialogue: 0,0:03:49.90,0:03:51.22,Sub,,0,0,0,,{\fad(120,160)}a day of computing.
+Dialogue: 0,0:03:51.44,0:03:52.86,Sub,,0,0,0,,{\fad(120,160)}It designed a superconductor
+Dialogue: 0,0:03:52.90,0:03:54.50,Sub,,0,0,0,,{\fad(120,160)}that had never existed.
+Dialogue: 0,0:03:54.71,0:03:55.83,Sub,,0,0,0,,{\fad(120,160)}Then the team behind
+Dialogue: 0,0:03:55.87,0:03:57.38,Sub,,0,0,0,,{\fad(120,160)}it made it in a lab.
+Dialogue: 0,0:03:57.60,0:03:58.60,Sub,,0,0,0,,{\fad(120,160)}And it worked.
+Dialogue: 0,0:03:59.12,0:04:00.88,Sub,,0,0,0,,{\fad(120,160)}So why isn't it in the power
+Dialogue: 0,0:04:00.92,0:04:02.45,Sub,,0,0,0,,{\fad(120,160)}lines outside your home?
+Dialogue: 0,0:04:02.61,0:04:03.90,Sub,,0,0,0,,{\fad(120,160)}Because it only works
+Dialogue: 0,0:04:03.94,0:04:05.52,Sub,,0,0,0,,{\fad(120,160)}in extreme cold,
+Dialogue: 0,0:04:05.56,0:04:07.29,Sub,,0,0,0,,{\fad(120,160)}near absolute zero.
+Dialogue: 0,0:04:07.57,0:04:09.24,Sub,,0,0,0,,{\fad(120,160)}So far, only its own
+Dialogue: 0,0:04:09.28,0:04:10.61,Sub,,0,0,0,,{\fad(120,160)}team has tested it.
+Dialogue: 0,0:04:10.86,0:04:12.54,Sub,,0,0,0,,{\fad(120,160)}And most A.I. designs still
+Dialogue: 0,0:04:12.58,0:04:14.42,Sub,,0,0,0,,{\fad(120,160)}exist only on a screen.
+Dialogue: 0,0:04:14.72,0:04:15.89,Sub,,0,0,0,,{\fad(120,160)}The man you'll hear next
+Dialogue: 0,0:04:15.93,0:04:17.11,Sub,,0,0,0,,{\fad(120,160)}co-founded a company
+Dialogue: 0,0:04:17.15,0:04:18.49,Sub,,0,0,0,,{\fad(120,160)}that builds labs where
+Dialogue: 0,0:04:18.53,0:04:20.48,Sub,,0,0,0,,{\fad(120,160)}robots run the experiments.
+Dialogue: 0,0:04:20.67,0:04:21.96,Sub,,0,0,0,,{\fad(120,160)}Here's why he says even
+Dialogue: 0,0:04:22.00,0:04:23.26,Sub,,0,0,0,,{\fad(120,160)}the smartest A.I.
+Dialogue: 0,0:04:23.30,0:04:24.75,Sub,,0,0,0,,{\fad(120,160)}still needs a lab:
+Dialogue: 0,0:04:25.10,0:04:27.20,Sub,,0,0,0,,{\fad(120,160)}But also we feel like even if,
+Dialogue: 0,0:04:27.24,0:04:29.63,Sub,,0,0,0,,{\fad(120,160)}like, Fable 7 gets really good at,
+Dialogue: 0,0:04:29.67,0:04:31.99,Sub,,0,0,0,,{\fad(120,160)}like, even better than what it is
+Dialogue: 0,0:04:32.03,0:04:34.28,Sub,,0,0,0,,{\fad(120,160)}today, it will still have to run
+Dialogue: 0,0:04:34.32,0:04:36.45,Sub,,0,0,0,,{\fad(120,160)}experiments to get results.
+Dialogue: 0,0:04:36.91,0:04:39.02,Sub,,0,0,0,,{\fad(120,160)}Only what gets built counts.
+Dialogue: 0,0:04:39.23,0:04:41.64,Sub,,0,0,0,,{\fad(120,160)}So the second line has begun, too.
+Dialogue: 0,0:04:41.92,0:04:42.92,Sub,,0,0,0,,{\fad(120,160)}Still small.
+Dialogue: 0,0:04:43.13,0:04:44.13,Sub,,0,0,0,,{\fad(120,160)}But real.
+Dialogue: 0,0:04:45.26,0:04:46.34,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:04:46.38,0:04:47.77,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:04:47.90,0:04:48.82,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:04:48.86,0:04:49.99,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:04:50.03,0:04:51.86,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:04:52.05,0:04:53.14,Sub,,0,0,0,,{\fad(120,160)}So that what it invents
+Dialogue: 0,0:04:53.18,0:04:54.68,Sub,,0,0,0,,{\fad(120,160)}reaches all of us.
+Dialogue: 0,0:04:54.91,0:04:55.91,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:04:56.02,0:04:57.09,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:04:58.21,0:04:59.60,Sub,,0,0,0,,{\fad(120,160)}Why still small?
+Dialogue: 0,0:04:59.80,0:05:01.67,Sub,,0,0,0,,{\fad(120,160)}Because matter is slow.
+Dialogue: 0,0:05:01.95,0:05:03.02,Sub,,0,0,0,,{\fad(120,160)}But in mathematics,
+Dialogue: 0,0:05:03.06,0:05:04.74,Sub,,0,0,0,,{\fad(120,160)}nothing has to be built.
+Dialogue: 0,0:05:04.89,0:05:06.03,Sub,,0,0,0,,{\fad(120,160)}So that's where you can watch
+Dialogue: 0,0:05:06.07,0:05:08.06,Sub,,0,0,0,,{\fad(120,160)}the inventing at full speed.
+Dialogue: 0,0:05:08.44,0:05:10.32,Sub,,0,0,0,,{\fad(120,160)}Remember the dots on the page.
+Dialogue: 0,0:05:10.70,0:05:12.32,Sub,,0,0,0,,{\fad(120,160)}The A.I. behind that answer
+Dialogue: 0,0:05:12.36,0:05:14.16,Sub,,0,0,0,,{\fad(120,160)}is no math specialist.
+Dialogue: 0,0:05:14.36,0:05:16.13,Sub,,0,0,0,,{\fad(120,160)}Its maker, OpenAI,
+Dialogue: 0,0:05:16.17,0:05:18.44,Sub,,0,0,0,,{\fad(120,160)}calls it a general-purpose model.
+Dialogue: 0,0:05:18.86,0:05:20.45,Sub,,0,0,0,,{\fad(120,160)}Outside mathematicians
+Dialogue: 0,0:05:20.49,0:05:21.66,Sub,,0,0,0,,{\fad(120,160)}checked the result.
+Dialogue: 0,0:05:21.91,0:05:23.17,Sub,,0,0,0,,{\fad(120,160)}One would have recommended it,
+Dialogue: 0,0:05:23.21,0:05:24.90,Sub,,0,0,0,,{\fad(120,160)}"without any hesitation,"
+Dialogue: 0,0:05:24.94,0:05:26.48,Sub,,0,0,0,,{\fad(120,160)}for math's top journal.
+Dialogue: 0,0:05:27.07,0:05:28.68,Sub,,0,0,0,,{\fad(120,160)}And a Google DeepMind system
+Dialogue: 0,0:05:28.72,0:05:30.18,Sub,,0,0,0,,{\fad(120,160)}solved dozens of other
+Dialogue: 0,0:05:30.22,0:05:31.97,Sub,,0,0,0,,{\fad(120,160)}open problems, each proof
+Dialogue: 0,0:05:32.01,0:05:33.50,Sub,,0,0,0,,{\fad(120,160)}checked by computer.
+Dialogue: 0,0:05:33.86,0:05:35.04,Sub,,0,0,0,,{\fad(120,160)}Two had waited more
+Dialogue: 0,0:05:35.08,0:05:36.56,Sub,,0,0,0,,{\fad(120,160)}than half a century.
+Dialogue: 0,0:05:36.87,0:05:39.12,Sub,,0,0,0,,{\fad(120,160)}The cost per solved Erdős problem:
+Dialogue: 0,0:05:39.29,0:05:40.63,Sub,,0,0,0,,{\fad(120,160)}a few hundred dollars.
+Dialogue: 0,0:05:40.92,0:05:42.24,Sub,,0,0,0,,{\fad(120,160)}It cracked only a small
+Dialogue: 0,0:05:42.28,0:05:43.76,Sub,,0,0,0,,{\fad(120,160)}share of what it tried.
+Dialogue: 0,0:05:44.04,0:05:45.07,Sub,,0,0,0,,{\fad(120,160)}But this fall:
+Dialogue: 0,0:05:45.18,0:05:47.55,Sub,,0,0,0,,{\fad(120,160)}a new claim almost every month.
+Dialogue: 0,0:05:47.75,0:05:49.81,Sub,,0,0,0,,{\fad(120,160)}Some so big that mathematicians
+Dialogue: 0,0:05:49.85,0:05:51.52,Sub,,0,0,0,,{\fad(120,160)}can't check them fast enough.
+Dialogue: 0,0:05:51.95,0:05:53.10,Sub,,0,0,0,,{\fad(120,160)}Terence Tao is one
+Dialogue: 0,0:05:53.14,0:05:54.13,Sub,,0,0,0,,{\fad(120,160)}of the world's leading
+Dialogue: 0,0:05:54.17,0:05:55.33,Sub,,0,0,0,,{\fad(120,160)}mathematicians.
+Dialogue: 0,0:05:55.53,0:05:56.46,Sub,,0,0,0,,{\fad(120,160)}He has watched all
+Dialogue: 0,0:05:56.50,0:05:57.92,Sub,,0,0,0,,{\fad(120,160)}of this up close:
+Dialogue: 0,0:05:58.42,0:06:00.26,Sub,,0,0,0,,{\fad(120,160)}And now we found a shortcut. We
+Dialogue: 0,0:06:00.30,0:06:02.27,Sub,,0,0,0,,{\fad(120,160)}found machines that can get these
+Dialogue: 0,0:06:02.31,0:06:03.97,Sub,,0,0,0,,{\fad(120,160)}proofs for us, and now we're
+Dialogue: 0,0:06:04.01,0:06:05.98,Sub,,0,0,0,,{\fad(120,160)}drowning in proofs, but we're not
+Dialogue: 0,0:06:06.02,0:06:08.05,Sub,,0,0,0,,{\fad(120,160)}getting all the understanding that
+Dialogue: 0,0:06:08.09,0:06:09.22,Sub,,0,0,0,,{\fad(120,160)}we used to get.
+Dialogue: 0,0:06:09.68,0:06:12.14,Sub,,0,0,0,,{\fad(120,160)}Too many proofs, not too few.
+Dialogue: 0,0:06:12.39,0:06:14.91,Sub,,0,0,0,,{\fad(120,160)}Tao calls it "proof indigestion."
+Dialogue: 0,0:06:15.25,0:06:16.48,Sub,,0,0,0,,{\fad(120,160)}In September, he
+Dialogue: 0,0:06:16.52,0:06:17.91,Sub,,0,0,0,,{\fad(120,160)}and 24 other winners
+Dialogue: 0,0:06:17.95,0:06:18.91,Sub,,0,0,0,,{\fad(120,160)}of math's highest
+Dialogue: 0,0:06:18.95,0:06:20.79,Sub,,0,0,0,,{\fad(120,160)}prize signed a warning.
+Dialogue: 0,0:06:21.09,0:06:22.78,Sub,,0,0,0,,{\fad(120,160)}Not against A.I. itself.
+Dialogue: 0,0:06:23.02,0:06:25.12,Sub,,0,0,0,,{\fad(120,160)}Their point: the A.I. companies
+Dialogue: 0,0:06:25.16,0:06:26.30,Sub,,0,0,0,,{\fad(120,160)}and the mathematicians
+Dialogue: 0,0:06:26.34,0:06:27.89,Sub,,0,0,0,,{\fad(120,160)}want different things.
+Dialogue: 0,0:06:28.23,0:06:30.35,Sub,,0,0,0,,{\fad(120,160)}So the third line isn't waiting.
+Dialogue: 0,0:06:30.48,0:06:31.41,Sub,,0,0,0,,{\fad(120,160)}It's moving faster
+Dialogue: 0,0:06:31.45,0:06:32.81,Sub,,0,0,0,,{\fad(120,160)}than people can follow.
+Dialogue: 0,0:06:33.17,0:06:35.04,Sub,,0,0,0,,{\fad(120,160)}And that raises a bigger question:
+Dialogue: 0,0:06:35.34,0:06:36.44,Sub,,0,0,0,,{\fad(120,160)}who decides what these
+Dialogue: 0,0:06:36.48,0:06:37.72,Sub,,0,0,0,,{\fad(120,160)}machines work on?
+Dialogue: 0,0:06:37.90,0:06:39.89,Sub,,0,0,0,,{\fad(120,160)}Your list, or someone else's?
+Dialogue: 0,0:06:41.06,0:06:42.67,Sub,,0,0,0,,{\fad(120,160)}This is where the second half
+Dialogue: 0,0:06:42.71,0:06:44.58,Sub,,0,0,0,,{\fad(120,160)}of Jack Good's sentence comes in.
+Dialogue: 0,0:06:44.88,0:06:45.92,Sub,,0,0,0,,{\fad(120,160)}Here is all of it.
+Dialogue: 0,0:06:46.26,0:06:46.89,Sub,,0,0,0,,{\fad(120,160)}"The first
+Dialogue: 0,0:06:46.93,0:06:48.35,Sub,,0,0,0,,{\fad(120,160)}ultra-intelligent machine
+Dialogue: 0,0:06:48.39,0:06:49.75,Sub,,0,0,0,,{\fad(120,160)}is the last invention
+Dialogue: 0,0:06:49.79,0:06:51.53,Sub,,0,0,0,,{\fad(120,160)}that man need ever make,
+Dialogue: 0,0:06:51.62,0:06:52.79,Sub,,0,0,0,,{\fad(120,160)}provided that the machine
+Dialogue: 0,0:06:52.83,0:06:53.84,Sub,,0,0,0,,{\fad(120,160)}is docile enough
+Dialogue: 0,0:06:53.88,0:06:54.82,Sub,,0,0,0,,{\fad(120,160)}to tell us how to keep
+Dialogue: 0,0:06:54.86,0:06:56.08,Sub,,0,0,0,,{\fad(120,160)}it under control."
+Dialogue: 0,0:06:56.41,0:06:57.69,Sub,,0,0,0,,{\fad(120,160)}There's the condition.
+Dialogue: 0,0:06:57.98,0:07:00.53,Sub,,0,0,0,,{\fad(120,160)}Docile: willing to be guided.
+Dialogue: 0,0:07:00.89,0:07:02.88,Sub,,0,0,0,,{\fad(120,160)}Years earlier, his old boss,
+Dialogue: 0,0:07:02.92,0:07:04.86,Sub,,0,0,0,,{\fad(120,160)}Alan Turing, had been darker:
+Dialogue: 0,0:07:05.15,0:07:05.94,Sub,,0,0,0,,{\fad(120,160)}"At some stage
+Dialogue: 0,0:07:05.98,0:07:07.19,Sub,,0,0,0,,{\fad(120,160)}therefore we should have
+Dialogue: 0,0:07:07.23,0:07:08.50,Sub,,0,0,0,,{\fad(120,160)}to expect the machines
+Dialogue: 0,0:07:08.54,0:07:09.89,Sub,,0,0,0,,{\fad(120,160)}to take control."
+Dialogue: 0,0:07:10.48,0:07:12.88,Sub,,0,0,0,,{\fad(120,160)}That's the fourth line: control.
+Dialogue: 0,0:07:13.26,0:07:14.40,Sub,,0,0,0,,{\fad(120,160)}In Good's sentence,
+Dialogue: 0,0:07:14.44,0:07:16.32,Sub,,0,0,0,,{\fad(120,160)}the machine tells us how.
+Dialogue: 0,0:07:16.62,0:07:18.06,Sub,,0,0,0,,{\fad(120,160)}But that only works if it's
+Dialogue: 0,0:07:18.10,0:07:19.50,Sub,,0,0,0,,{\fad(120,160)}docile to begin with.
+Dialogue: 0,0:07:19.84,0:07:22.21,Sub,,0,0,0,,{\fad(120,160)}Making sure of that is our job.
+Dialogue: 0,0:07:22.43,0:07:23.95,Sub,,0,0,0,,{\fad(120,160)}And people have started.
+Dialogue: 0,0:07:24.24,0:07:25.65,Sub,,0,0,0,,{\fad(120,160)}Follow a new A.I. model
+Dialogue: 0,0:07:25.69,0:07:27.28,Sub,,0,0,0,,{\fad(120,160)}on its way to your phone.
+Dialogue: 0,0:07:27.48,0:07:28.75,Sub,,0,0,0,,{\fad(120,160)}In the United States,
+Dialogue: 0,0:07:28.79,0:07:29.86,Sub,,0,0,0,,{\fad(120,160)}a government office can
+Dialogue: 0,0:07:29.90,0:07:31.59,Sub,,0,0,0,,{\fad(120,160)}test it before launch.
+Dialogue: 0,0:07:31.80,0:07:33.39,Sub,,0,0,0,,{\fad(120,160)}Five of the biggest developers
+Dialogue: 0,0:07:33.43,0:07:34.57,Sub,,0,0,0,,{\fad(120,160)}have agreed to that.
+Dialogue: 0,0:07:34.75,0:07:35.84,Sub,,0,0,0,,{\fad(120,160)}Voluntarily.
+Dialogue: 0,0:07:36.05,0:07:37.09,Sub,,0,0,0,,{\fad(120,160)}In Europe, since
+Dialogue: 0,0:07:37.13,0:07:38.65,Sub,,0,0,0,,{\fad(120,160)}August, regulators can
+Dialogue: 0,0:07:38.69,0:07:39.91,Sub,,0,0,0,,{\fad(120,160)}test it themselves
+Dialogue: 0,0:07:39.95,0:07:41.41,Sub,,0,0,0,,{\fad(120,160)}and fine its maker.
+Dialogue: 0,0:07:41.69,0:07:42.81,Sub,,0,0,0,,{\fad(120,160)}As a last resort,
+Dialogue: 0,0:07:42.85,0:07:44.70,Sub,,0,0,0,,{\fad(120,160)}they can order it off the market.
+Dialogue: 0,0:07:45.26,0:07:47.29,Sub,,0,0,0,,{\fad(120,160)}Rules work from the outside.
+Dialogue: 0,0:07:47.63,0:07:49.02,Sub,,0,0,0,,{\fad(120,160)}And the machine itself?
+Dialogue: 0,0:07:49.57,0:07:51.17,Sub,,0,0,0,,{\fad(120,160)}Paul Christiano once led
+Dialogue: 0,0:07:51.21,0:07:52.71,Sub,,0,0,0,,{\fad(120,160)}that research at OpenAI,
+Dialogue: 0,0:07:52.75,0:07:54.42,Sub,,0,0,0,,{\fad(120,160)}and now sits on the board
+Dialogue: 0,0:07:54.46,0:07:55.64,Sub,,0,0,0,,{\fad(120,160)}of its foundation.
+Dialogue: 0,0:07:56.07,0:07:57.44,Sub,,0,0,0,,{\fad(120,160)}This fall, he went through
+Dialogue: 0,0:07:57.48,0:07:58.88,Sub,,0,0,0,,{\fad(120,160)}the methods we have:
+Dialogue: 0,0:07:59.38,0:08:00.75,Sub,,0,0,0,,{\fad(120,160)}So I'd say all of these approaches
+Dialogue: 0,0:08:00.79,0:08:02.12,Sub,,0,0,0,,{\fad(120,160)}are plausible approaches. I don't
+Dialogue: 0,0:08:02.16,0:08:03.24,Sub,,0,0,0,,{\fad(120,160)}want to say any of them are
+Dialogue: 0,0:08:03.28,0:08:04.56,Sub,,0,0,0,,{\fad(120,160)}doomed, but I definitely do want
+Dialogue: 0,0:08:04.60,0:08:05.93,Sub,,0,0,0,,{\fad(120,160)}to say that none of them are on a
+Dialogue: 0,0:08:05.97,0:08:07.34,Sub,,0,0,0,,{\fad(120,160)}trajectory where we can say that's
+Dialogue: 0,0:08:07.38,0:08:08.71,Sub,,0,0,0,,{\fad(120,160)}definitely going to work, or even
+Dialogue: 0,0:08:08.75,0:08:10.39,Sub,,0,0,0,,{\fad(120,160)}that's probably going to work.
+Dialogue: 0,0:08:10.93,0:08:11.69,Sub,,0,0,0,,{\fad(120,160)}All plausible.
+Dialogue: 0,0:08:11.73,0:08:14.01,Sub,,0,0,0,,{\fad(120,160)}But none of them, he says,
+Dialogue: 0,0:08:14.05,0:08:16.21,Sub,,0,0,0,,{\fad(120,160)}is on track to probably work.
+Dialogue: 0,0:08:16.56,0:08:17.96,Sub,,0,0,0,,{\fad(120,160)}But today's researchers have
+Dialogue: 0,0:08:18.00,0:08:20.09,Sub,,0,0,0,,{\fad(120,160)}something Jack Good never had:
+Dialogue: 0,0:08:20.37,0:08:22.86,Sub,,0,0,0,,{\fad(120,160)}the machines themselves, to study.
+Dialogue: 0,0:08:23.21,0:08:25.37,Sub,,0,0,0,,{\fad(120,160)}So who writes the fourth line?
+Dialogue: 0,0:08:25.76,0:08:27.15,Sub,,0,0,0,,{\fad(120,160)}The labs, which decide
+Dialogue: 0,0:08:27.19,0:08:28.33,Sub,,0,0,0,,{\fad(120,160)}what gets built.
+Dialogue: 0,0:08:28.64,0:08:30.05,Sub,,0,0,0,,{\fad(120,160)}Governments, which decide
+Dialogue: 0,0:08:30.09,0:08:31.32,Sub,,0,0,0,,{\fad(120,160)}what gets tested.
+Dialogue: 0,0:08:31.53,0:08:33.05,Sub,,0,0,0,,{\fad(120,160)}And voters, who choose
+Dialogue: 0,0:08:33.09,0:08:34.46,Sub,,0,0,0,,{\fad(120,160)}who writes the rules.
+Dialogue: 0,0:08:34.72,0:08:36.45,Sub,,0,0,0,,{\fad(120,160)}That last one is you.
+Dialogue: 0,0:08:37.63,0:08:38.58,Sub,,0,0,0,,{\fad(120,160)}And if the machine
+Dialogue: 0,0:08:38.62,0:08:40.03,Sub,,0,0,0,,{\fad(120,160)}does the inventing,
+Dialogue: 0,0:08:40.20,0:08:41.86,Sub,,0,0,0,,{\fad(120,160)}what else is left for us?
+Dialogue: 0,0:08:42.51,0:08:44.52,Sub,,0,0,0,,{\fad(120,160)}This spring, another of those math
+Dialogue: 0,0:08:44.56,0:08:45.86,Sub,,0,0,0,,{\fad(120,160)}problems fell, after
+Dialogue: 0,0:08:45.90,0:08:47.47,Sub,,0,0,0,,{\fad(120,160)}about 60 years.
+Dialogue: 0,0:08:47.68,0:08:48.94,Sub,,0,0,0,,{\fad(120,160)}Not to a professor.
+Dialogue: 0,0:08:49.16,0:08:51.24,Sub,,0,0,0,,{\fad(120,160)}To Liam Price, 23,
+Dialogue: 0,0:08:51.28,0:08:52.20,Sub,,0,0,0,,{\fad(120,160)}with no advanced
+Dialogue: 0,0:08:52.24,0:08:53.67,Sub,,0,0,0,,{\fad(120,160)}training in mathematics.
+Dialogue: 0,0:08:54.00,0:08:54.86,Sub,,0,0,0,,{\fad(120,160)}He typed a single
+Dialogue: 0,0:08:54.90,0:08:56.63,Sub,,0,0,0,,{\fad(120,160)}question into ChatGPT,
+Dialogue: 0,0:08:56.67,0:08:58.44,Sub,,0,0,0,,{\fad(120,160)}and posted the answer online.
+Dialogue: 0,0:08:58.64,0:09:00.46,Sub,,0,0,0,,{\fad(120,160)}Then two mathematicians checked
+Dialogue: 0,0:09:00.50,0:09:02.16,Sub,,0,0,0,,{\fad(120,160)}the proof and made it shorter.
+Dialogue: 0,0:09:02.49,0:09:04.31,Sub,,0,0,0,,{\fad(120,160)}One of them was Terence Tao.
+Dialogue: 0,0:09:04.55,0:09:06.77,Sub,,0,0,0,,{\fad(120,160)}Today, Price is his co-author.
+Dialogue: 0,0:09:07.24,0:09:09.02,Sub,,0,0,0,,{\fad(120,160)}The machine found the way.
+Dialogue: 0,0:09:09.27,0:09:11.08,Sub,,0,0,0,,{\fad(120,160)}A person chose the question.
+Dialogue: 0,0:09:11.20,0:09:12.89,Sub,,0,0,0,,{\fad(120,160)}And people checked the answer.
+Dialogue: 0,0:09:13.46,0:09:15.63,Sub,,0,0,0,,{\fad(120,160)}Maybe that is what stays with us.
+Dialogue: 0,0:09:15.83,0:09:17.07,Sub,,0,0,0,,{\fad(120,160)}Not the answers.
+Dialogue: 0,0:09:17.18,0:09:18.20,Sub,,0,0,0,,{\fad(120,160)}The questions.
+Dialogue: 0,0:09:18.46,0:09:19.73,Sub,,0,0,0,,{\fad(120,160)}And the direction.
+Dialogue: 0,0:09:20.20,0:09:21.88,Sub,,0,0,0,,{\fad(120,160)}So what will A.G.I.
+Dialogue: 0,0:09:21.92,0:09:23.19,Sub,,0,0,0,,{\fad(120,160)}invent for you?
+Dialogue: 0,0:09:23.58,0:09:25.27,Sub,,0,0,0,,{\fad(120,160)}Three lines on your list.
+Dialogue: 0,0:09:25.41,0:09:26.75,Sub,,0,0,0,,{\fad(120,160)}Not in your home yet.
+Dialogue: 0,0:09:26.79,0:09:27.79,Sub,,0,0,0,,{\fad(120,160)}But begun.
+Dialogue: 0,0:09:28.00,0:09:30.00,Sub,,0,0,0,,{\fad(120,160)}The fourth line is still empty.
+Dialogue: 0,0:09:30.09,0:09:31.75,Sub,,0,0,0,,{\fad(120,160)}And it is ours to write.
+Dialogue: 0,0:09:32.07,0:09:32.97,Sub,,0,0,0,,{\fad(120,160)}The final human
+Dialogue: 0,0:09:33.01,0:09:34.25,Sub,,0,0,0,,{\fad(120,160)}invention is the one
+Dialogue: 0,0:09:34.29,0:09:36.16,Sub,,0,0,0,,{\fad(120,160)}that invents everything else.
+Dialogue: 0,0:09:36.40,0:09:37.14,Sub,,0,0,0,,{\fad(120,160)}And the last thing
+Dialogue: 0,0:09:37.18,0:09:38.03,Sub,,0,0,0,,{\fad(120,160)}we have to invent
+Dialogue: 0,0:09:38.07,0:09:40.47,Sub,,0,0,0,,{\fad(120,160)}ourselves is how to steer it.
+Dialogue: 0,0:09:41.66,0:09:43.93,Sub,,0,0,0,,{\fad(120,160)}That line needs many hands.
+Dialogue: 0,0:09:44.53,0:09:45.63,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:09:45.67,0:09:46.97,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:09:47.12,0:09:48.00,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:09:48.04,0:09:49.20,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:09:49.24,0:09:50.99,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:09:51.25,0:09:52.25,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:09:52.35,0:09:53.58,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.

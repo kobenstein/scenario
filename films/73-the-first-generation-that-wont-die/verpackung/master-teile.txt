@@ -1,0 +1,21 @@
+# Master #73 als fal-Teile (cat part00..part18 > f73-master-1080p.mp4)
+sha256 a5aa030a0bcca8cc506701e7c1ddb6623b592d8c2479d46cf09535faa0d4b854  1620973176 Bytes
+https://v3b.fal.media/files/b/0ab3e413/icDk8m1ZycQU_fSAsMRjb_f73-master.part00.bin
+https://v3b.fal.media/files/b/0ab3e413/j8NsdNDP4d8YAJemFRBWx_f73-master.part01.bin
+https://v3b.fal.media/files/b/0ab3e413/qD1QRZ9QM1lYwpmqoBdK0_f73-master.part02.bin
+https://v3b.fal.media/files/b/0ab3e413/oGz3WKt0RsRLXsakjcUTB_f73-master.part03.bin
+https://v3b.fal.media/files/b/0ab3e413/ZH1DCVi6sf1fnqK6Pe56t_f73-master.part04.bin
+https://v3b.fal.media/files/b/0ab3e413/Qkm9fhIMYC0smozEyc-xl_f73-master.part05.bin
+https://v3b.fal.media/files/b/0ab3e413/68P5v8_TIpOiOSSWDVqBg_f73-master.part06.bin
+https://v3b.fal.media/files/b/0ab3e414/z35DUceShh-gJzsLnDcii_f73-master.part07.bin
+https://v3b.fal.media/files/b/0ab3e414/ZJWxu0fj8jbgim2Rv2GZ7_f73-master.part08.bin
+https://v3b.fal.media/files/b/0ab3e414/eazf6FWIEJgfoxGhkceyl_f73-master.part09.bin
+https://v3b.fal.media/files/b/0ab3e414/a2YDYCX6ECzBtBkmHreza_f73-master.part10.bin
+https://v3b.fal.media/files/b/0ab3e414/m9c0N5SCpufsSe74Y8MGs_f73-master.part11.bin
+https://v3b.fal.media/files/b/0ab3e414/msiNAs9yEwRMZnUjJ6LQQ_f73-master.part12.bin
+https://v3b.fal.media/files/b/0ab3e414/Z28nuBrMMz5IPPQWiLHTM_f73-master.part13.bin
+https://v3b.fal.media/files/b/0ab3e414/nSIyijRDPCyholAlUBUKj_f73-master.part14.bin
+https://v3b.fal.media/files/b/0ab3e414/IiU1SxLieOZd-E1XBCPcr_f73-master.part15.bin
+https://v3b.fal.media/files/b/0ab3e414/FGhARa1oIt5-44iTTu_O7_f73-master.part16.bin
+https://v3b.fal.media/files/b/0ab3e414/Rx8OEPIwobNVD81bu1fwp_f73-master.part17.bin
+https://v3b.fal.media/files/b/0ab3e415/v-_U5skU3lj276U47x5UO_f73-master.part18.bin

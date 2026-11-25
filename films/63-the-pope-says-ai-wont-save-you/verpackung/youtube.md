@@ -15,6 +15,8 @@ Artificial intelligence will not save you. That is the Pope's message in short, 
 
 ✨ ☕ If you want superintelligence to benefit everyone, you can support this channel here: https://buymeacoffee.com/thegoodtakeoff
 
+✨ 🤝 Want to sponsor a film? Here is how: https://passionfroot.me/the-good-takeoff
+
 ✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: https://aistronauts.at/film-course
 
 Disclosure: this film was made with the help of Claude, an A.I. model made by Anthropic. Anthropic's Chris Olah appears in the film, and Anthropic had no editorial input. Nothing here is financial advice. Figures as of Nov 25, 2026.
@@ -68,8 +70,6 @@ The replies
 • NBC News, tech leaders and the encyclical: https://www.nbcnews.com/tech/innovation/tech-titans-mostly-silent-pope-leos-warning-risks-ai-rcna346903
 • Yuval Levin, Idols of the Valley, The New Atlantis: https://www.thenewatlantis.com/publications/idols-of-the-valley
 • YouGov poll, May 29 to Jun 1, 2026: https://yougov.com/en-us/articles/54888-more-expect-artificial-intelligence-ai-affect-economy-negatively-than-positively-americans-split-how-ai-will-impact-their-lives-may-29-june-1-2026-economist-yougov-poll
-
-Want to sponsor a film? passionfroot.me/the-good-takeoff
 ```
 
 ## Tags

@@ -1,0 +1,12 @@
+[
+ {"f": "kitchen", "at": "t00", "dt": -0.6, "end": "t01", "v": 0.28, "fade": 2.5},
+ {"f": "chime", "word": "no safe answer", "at_end": true, "dt": 0.05, "v": 0.3, "once": true, "fade": 0.8},
+ {"f": "heartbeat", "word": "Age zero", "at_end": true, "dt": 0.05, "v": 0.3, "once": true, "fade": 0.5},
+ {"f": "chime", "word": "Twenty thirty-two", "nth": 1, "at_end": true, "dt": 0.05, "v": 0.26, "once": true, "fade": 0.8},
+ {"f": "chime", "word": "Twenty thirty-eight", "at_end": true, "dt": 0.05, "v": 0.26, "once": true, "fade": 0.8},
+ {"f": "bloom", "word": "Then subscribe", "at_end": true, "dt": 0.1, "v": 0.28, "once": true, "fade": 1.0},
+ {"f": "chime", "word": "Twenty forty-four", "nth": 1, "at_end": true, "dt": 0.05, "v": 0.26, "once": true, "fade": 0.8},
+ {"f": "chime", "word": "Twenty fifty-six", "at_end": true, "dt": 0.05, "v": 0.26, "once": true, "fade": 0.8},
+ {"f": "kitchen", "at": "LS", "dt": -0.5, "end": "t26", "v": 0.28, "fade": 2.5},
+ {"f": "bloom", "word": "Then subscribe", "nth": 1, "at_end": true, "dt": 0.15, "v": 0.3, "once": true, "fade": 2.0}
+]
