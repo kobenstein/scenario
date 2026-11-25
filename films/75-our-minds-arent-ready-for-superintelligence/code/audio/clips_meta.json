@@ -1,0 +1,135 @@
+{
+ "C2": {
+  "speaker": "Yoshua Bengio",
+  "role": "Co-chair, UN Independent International Scientific Panel on AI",
+  "source": "United Nations Security Council",
+  "url": "https://www.youtube.com/watch?v=xvAOtdSQUR0",
+  "credit": "United Nations",
+  "transcript": "Citizens and governments should not accept the companies' claim that they are trapped in a race. The race is not a law of nature. It is the product of choices.",
+  "file": "C2_Bengio_UN.mp4",
+  "file_in_s": 6.08,
+  "file_out_s": 17.5,
+  "fade_in": 0.01,
+  "fade_out": 0.06,
+  "cues": [
+   [
+    0.05,
+    "Citizens and governments"
+   ],
+   [
+    1.88,
+    "should not accept the companies'"
+   ],
+   [
+    3.97,
+    "claim that they are"
+   ],
+   [
+    4.82,
+    "trapped in a race."
+   ],
+   [
+    6.76,
+    "The race is not a law of nature."
+   ],
+   [
+    9.4,
+    "It is the product of choices."
+   ]
+  ],
+  "cue_end": 11.37,
+  "word_start": 0.06,
+  "word_end": 11.27,
+  "gain_db": 0.0
+ },
+ "K1": {
+  "speaker": "E. O. Wilson",
+  "role": "Biologist",
+  "source": "Big Think (2017)",
+  "url": "https://www.youtube.com/watch?v=_s30m6Bpj2U",
+  "credit": "Big Think",
+  "transcript": "…modern humanity is distinguished by Paleolithic emotions and medieval institutions like banks and religions and godlike technology.",
+  "file": "K1_Wilson_BigThink.mp4",
+  "file_in_s": 13.02,
+  "file_out_s": 29.1,
+  "fade_in": 0.01,
+  "fade_out": 0.06,
+  "cues": [
+   [
+    0.36,
+    "…modern humanity is distinguished"
+   ],
+   [
+    3.43,
+    "by Paleolithic emotions"
+   ],
+   [
+    6.12,
+    "and medieval institutions"
+   ],
+   [
+    9.66,
+    "like banks and religions"
+   ],
+   [
+    13.01,
+    "and godlike technology."
+   ]
+  ],
+  "cue_end": 16.03,
+  "word_start": 0.4,
+  "word_end": 15.85,
+  "gain_db": 0.0
+ },
+ "C1": {
+  "speaker": "Yuval Noah Harari",
+  "role": "Historian and author",
+  "source": "Yuval Noah Harari (2026-11-18)",
+  "url": "https://www.youtube.com/watch?v=H43e72-2aAs",
+  "credit": "Yuval Noah Harari",
+  "transcript": "…if for every $10 we spend on developing artificial intelligence, we could invest at least $1 in developing our consciousness, I think we'll be okay. But this is not the current trajectory we are on.",
+  "file": "C1_Harari.mp4",
+  "file_in_s": 9.38,
+  "file_out_s": 26.81,
+  "fade_in": 0.01,
+  "fade_out": 0.02,
+  "cues": [
+   [
+    0.0,
+    "…if for every $10"
+   ],
+   [
+    1.41,
+    "we spend on developing"
+   ],
+   [
+    2.78,
+    "artificial intelligence,"
+   ],
+   [
+    4.4,
+    "we could invest at least $1"
+   ],
+   [
+    7.32,
+    "in developing our consciousness,"
+   ],
+   [
+    9.56,
+    "I think we'll be okay."
+   ],
+   [
+    11.67,
+    "But this is not the current"
+   ],
+   [
+    15.96,
+    "trajectory we are on."
+   ]
+  ],
+  "cue_end": 17.38,
+  "word_start": 0.0,
+  "word_end": 17.43,
+  "gain_db": 0.0
+ }
+}

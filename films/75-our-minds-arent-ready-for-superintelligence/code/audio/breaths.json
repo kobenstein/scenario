@@ -1,0 +1,7 @@
+{
+ "_comment": "Film 75 · breaths cut into a take (build_vo.py): take -> [[phrase that follows the breath, seconds of silence]]; '^' = extra air before the take. Room for the SFX accents of sound_plan.json, so they never sit under a running sentence.",
+ "t00": [["Big letters.", 0.5], ["Your thumb is already moving.", 0.9], ["The brain's clock barely moves.", 0.9]],
+ "t04": [["The third reflex is", 0.6]],
+ "t08": [["^", 0.5]],
+ "t19": [["The reflex hasn't changed,", 0.8], ["And then you decide", 0.9]]
+}

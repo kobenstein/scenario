@@ -1,0 +1,4 @@
+{
+ "_comment": "Film 75 Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 0.01 USD/s, 2 samples, 2026-11-25). Files in /tmp/claude-0/f75/audio/sfx, not in the repo. racing_ticks = sample 1 (seed 7501), first 1.0 s. Everything else from sfx-bibliothek/akzent (phone_buzz, heartbeat, stone_click, stamp, tick, shimmer_rings). No atmo beds: SFX only in the gaps, never under a running sentence.",
+ "racing_ticks": {"duration": 2, "seed": 7501, "negative_prompt": "music, voices, crowd, wind noise, hiss, alarm bell", "prompt": "A small old mechanical pocket watch ticking very fast and speeding up for one second, crisp dry metallic ticks, then it stops. Close, clean, quiet room, no music, no voices.", "url": "https://v3b.fal.media/files/b/0ab3e52e/ZI32mNO_FwAppiQdEY1nb_generated_audio_1.mp3", "url_sample2": "https://v3b.fal.media/files/b/0ab3e52e/CA4j8yMTDap84vG3-2zds_generated_audio_2.mp3"}
+}
