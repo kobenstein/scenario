@@ -7,7 +7,7 @@
 Then read: `docs/MOTION.md` (stages, carrier, colour code, Nicht wiederholen), `docs/shots.md` (your rows: *Satz*, *zeigt wörtlich*,
 *Art*, *Träger*), `scenes/plan.mjs` (your shot entries: `in`, `out`, `tr`), `scenes/ch_hook.mjs` (the quality reference: how a shot is
 built), and look at `/tmp/claude-0/f76/sheets/hook1.jpg` + `hook2.jpg` (or render them: §6).
-Jakob approved the whole film; it is built through to the end **without interim review**, upload Sun 6.12. Measurements come **before**
+Jakob approved the whole film; it is built through to the end **without interim review**, upload Sat 5.12. Measurements come **before**
 the render, the contact sheet is the acceptance (§6).
 
 Code: `/home/user/scenario/films/76-your-kids-will-grow-up-with-superintelligence/code/` (branch `claude/project-thread-os00fk`).
