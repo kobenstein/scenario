@@ -223,7 +223,7 @@ export const CLIP_RECT = { x: 120, y: 112, w: 1680, h: 945 };
 // falls outside the centred 1600 px width.)
 export const CLIP_CROP = 900 / 1080;
 export const CLIPS = {
-  C1: { name: 'Ray Kurzweil', role: 'Futurist, Google', year: '2025', credit: 'MIT SHASS' },                       // MIT lecture "Reimagining Intelligence", 14 Oct 2025
+  C1: { name: 'Ray Kurzweil', role: 'Inventor and futurist', year: '2025', credit: 'MIT SHASS' },                       // MIT lecture "Reimagining Intelligence", 14 Oct 2025
   C3: { name: 'Michael Andregg', role: 'CEO, Eon Systems', year: '2026', credit: 'Progress by Fifty Years' },                     // "Progress by Fifty Years", 17 Nov 2026
   C4: { name: 'Lynda Gratton', role: 'Professor, London Business School', year: '2026', credit: 'London Business School' },      // "Think Ahead", 15 Jan 2026
 };
@@ -627,7 +627,7 @@ export const SOURCES = {
   flyModel: 'A SIMPLE MODEL STEERS A VIRTUAL BODY', flyModelSrc: 'COMPUTER MODEL IN A VIRTUAL BODY · EON SYSTEMS, MARCH 2026',
   copy: 'COPY', repair: 'REPAIR', y2032: '2032',
   // B1
-  kurzweil: ['RAY KURZWEIL', 'FUTURIST, GOOGLE'], claim: '+1 YEAR FOR EVERY YEAR', wontDie: ['“WON’T DIE”', 'OLD AGE STOPS BEING THE CAUSE'], notImmortal: 'NOT IMMORTALITY',
+  kurzweil: ['RAY KURZWEIL', 'INVENTOR AND FUTURIST'], claim: '+1 YEAR FOR EVERY YEAR', wontDie: ['“WON’T DIE”', 'OLD AGE STOPS BEING THE CAUSE'], notImmortal: 'NOT IMMORTALITY',
   accident: 'AN ACCIDENT: STILL POSSIBLE', oldAge: 'OLD AGE: NO LONGER', kDates: ['2029', 'AROUND 2030', '2032'], kDatesTag: 'KURZWEIL’S DATE',
   critics: 'CRITICS: NO PEER-REVIEWED BASIS FOR THE DATE',
   z3: { text: 'bleak, but slightly better than I expected', credit: 'João Pedro de Magalhães · University of Birmingham · on X, 3 Aug 2026', src: 'ABOUT THE BLOG ANALYSIS “ARE WE ON TRACK FOR LONGEVITY ESCAPE VELOCITY?” · ALEXEY STRYGIN, 2026' },
@@ -661,7 +661,7 @@ export const SOURCES = {
   genome: ['$95 MILLION', 'A FEW HUNDRED $'], genomeSrc: 'READING ONE HUMAN GENOME · 2001 VS TODAY · NHGRI (AS OF 2022)', costsUp: 'NEW MEDICAL TECHNOLOGY: 27–48% OF US HEALTH-SPENDING GROWTH SINCE 1960 · HEALTH AFFAIRS, 2009',
   rules3: ['WHO STEPS ASIDE', 'WHO PAYS', 'WHO CAN AFFORD IT'], us22: 'USA · 22ND AMENDMENT, 1951 · TWO TERMS',
   denmark: 'DENMARK · LAW OF 22 MAY 2025 · RETIREMENT AGE 70 FROM 2040 · LINKED TO LIFE EXPECTANCY',
-  montana: 'MONTANA · SENATE BILL 535, SIGNED MAY 2025 · SALE AFTER A PHASE 1 TRIAL · 2% OF ANNUAL PROFIT FOR LOW-INCOME PATIENTS', access: 'ACCESS', risk: 'RISK',
+  montana: 'MONTANA · SENATE BILL 535, SIGNED MAY 2025 · SALE AFTER A PHASE 1 TRIAL · 2% OF ANNUAL PROFIT FOR TREATMENT ACCESS IN THE STATE', access: 'ACCESS', risk: 'RISK',
   gavrilov: 'POPULATION PROJECTION FOR SWEDEN WITHOUT AGING · GAVRILOV & GAVRILOVA, REJUVENATION RESEARCH, 2010',
   kids20: '1 IN 5', kids20Src: 'NATIONAL GEOGRAPHIC SURVEY, 2026: 20% WOULD ACCEPT STRICTER LIMITS ON HAVING CHILDREN, FOR A LIFE BEYOND 120',
   tags: ['HEALTHY', 'FOR EVERYONE', 'WITH RULES'], range: ['THE NEXT DECADE', 'FOUR CENTURIES'], notYet: 'IN A HUMAN: NOT YET', accept: 'WE ACCEPT', workOn: 'WE WORK ON',
