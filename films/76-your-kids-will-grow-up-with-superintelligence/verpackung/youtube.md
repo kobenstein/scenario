@@ -1,6 +1,6 @@
 # #76 · Your Kids Will Grow Up With Superintelligence
 
-- Video: (folgt)
+- Video: https://youtu.be/RJhPXezGSSQ (privat, publishAt 2026-12-05T16:00Z)
 - Geplant: 2026-12-05 17:00 Wien (publishAt 2026-12-05T16:00:00Z)
 - Thumbnail beim Upload: C „YOUR KIDS AND AI“ (Test & Compare: A, B, C)
 - Test-&-Compare-Titel: 1 Your Kids Will Grow Up With Superintelligence · 2 Should You Still Have Kids in the Age of AI? · 3 Your Grandkids Will Live With Superintelligence
