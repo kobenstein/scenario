@@ -1,0 +1,167 @@
+{
+ "C1": {
+  "speaker": "Max Tegmark",
+  "role": "MIT physicist, co-founder, Future of Life Institute",
+  "source": "CSER, University of Cambridge (2026-09-16)",
+  "url": "https://www.youtube.com/watch?v=C-pWm59Oyqg",
+  "credit": "CSER, University of Cambridge",
+  "lower_third": "MAX TEGMARK · MIT physicist, co-founder, Future of Life Institute · ORIGINAL FOOTAGE",
+  "transcript": "This is in the rearview mirror. Clearly, multiple companies lost control over AI systems this summer.",
+  "cues": [
+   [
+    0.05,
+    "This is in the rearview mirror."
+   ],
+   [
+    2.13,
+    "Clearly, multiple companies"
+   ],
+   [
+    4.47,
+    "lost control over AI systems"
+   ],
+   [
+    6.23,
+    "this summer."
+   ]
+  ],
+  "cue_end": 7.3,
+  "word_end": 7.06,
+  "gain_db": -1.3,
+  "source_file": "films/71-assets/clips/C1.mp4",
+  "source_in_s": 21.5,
+  "source_out_s": 28.85
+ },
+ "C2": {
+  "speaker": "Dean Ball",
+  "role": "then Foundation for American Innovation, now OpenAI",
+  "source": "Doom Debates (2025-11-20)",
+  "url": "https://www.youtube.com/watch?v=OkG5S1NwwVM",
+  "credit": "Doom Debates",
+  "lower_third": "DEAN BALL · then Foundation for American Innovation, now OpenAI · NOV 2025 · ORIGINAL FOOTAGE",
+  "transcript": "My P(doom) is very low. It's sub 1%, it's 0.01% or something like that.",
+  "cues": [
+   [
+    0.0,
+    "My P(doom) is very low."
+   ],
+   [
+    2.64,
+    "It's sub 1%,"
+   ],
+   [
+    4.43,
+    "it's 0.01%"
+   ],
+   [
+    6.69,
+    "or something like that."
+   ]
+  ],
+  "cue_end": 8.05,
+  "word_end": 8.11,
+  "gain_db": -0.5,
+  "source_file": "films/71-assets/clips/C2.mp4",
+  "source_in_s": 51.45,
+  "source_out_s": 59.55
+ },
+ "C4": {
+  "speaker": "Max Tegmark",
+  "role": "MIT physicist, co-founder, Future of Life Institute",
+  "source": "Dr Brian Keating (2026-10-23)",
+  "url": "https://www.youtube.com/watch?v=nnYHg0gcWug",
+  "credit": "Dr Brian Keating",
+  "lower_third": "MAX TEGMARK · MIT physicist, co-founder, Future of Life Institute · ORIGINAL FOOTAGE",
+  "transcript": "So, the goal of these companies is to build a new species that's much more capable than us.",
+  "cues": [
+   [
+    0.23,
+    "So, the goal of these companies"
+   ],
+   [
+    2.63,
+    "is to build a new species"
+   ],
+   [
+    4.21,
+    "that's much more capable than us."
+   ]
+  ],
+  "cue_end": 6.38,
+  "word_end": 6.22,
+  "gain_db": 0.0,
+  "source_file": "films/71-assets/clips/C4.mp4",
+  "source_in_s": 17.72,
+  "source_out_s": 24.15
+ },
+ "C5": {
+  "speaker": "Sam Altman",
+  "role": "CEO, OpenAI",
+  "source": "Invest Like the Best (2026-07-28)",
+  "url": "https://www.youtube.com/watch?v=XDB5beon4DY",
+  "credit": "Invest Like the Best",
+  "lower_third": "SAM ALTMAN · CEO, OpenAI · JUL 2026 · ORIGINAL FOOTAGE",
+  "transcript": "We may have to pace the rate of AI development to give ourselves enough time for society to harden around some of these new capability levels.",
+  "cues": [
+   [
+    0.03,
+    "We may have to pace"
+   ],
+   [
+    1.07,
+    "the rate of AI development"
+   ],
+   [
+    2.97,
+    "to give ourselves enough time"
+   ],
+   [
+    4.62,
+    "for society to harden"
+   ],
+   [
+    5.82,
+    "around some of these"
+   ],
+   [
+    6.72,
+    "new capability levels."
+   ]
+  ],
+  "cue_end": 8.05,
+  "word_end": 7.87,
+  "gain_db": -0.6,
+  "source_file": "films/71-assets/clips/C5.mp4",
+  "source_in_s": 31.3,
+  "source_out_s": 39.4
+ },
+ "C6": {
+  "speaker": "Max Tegmark",
+  "role": "co-founder, Future of Life Institute",
+  "source": "Future of Life Institute (2026-09-15)",
+  "url": "https://www.youtube.com/watch?v=257pArprn5Q",
+  "credit": "Future of Life Institute",
+  "lower_third": "MAX TEGMARK · co-founder, Future of Life Institute · PRO-HUMAN ASSEMBLY, WASHINGTON · SEP 15, 2026 · ORIGINAL FOOTAGE",
+  "transcript": "We know that the future of AI is not inevitable. It's for us to decide.",
+  "cues": [
+   [
+    0.0,
+    "We know that the future of AI"
+   ],
+   [
+    2.66,
+    "is not inevitable."
+   ],
+   [
+    6.05,
+    "It's for us to decide."
+   ]
+  ],
+  "cue_end": 8.2,
+  "word_end": 7.9,
+  "gain_db": -3.4,
+  "source_file": "films/71-assets/clips/C6.mp4",
+  "source_in_s": 20.1,
+  "source_out_s": 28.35
+ }
+}

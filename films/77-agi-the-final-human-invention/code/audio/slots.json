@@ -1,0 +1,111 @@
+{
+ "duration": 612.33,
+ "end_screen": {
+  "start": 597.33,
+  "dur": 15.0,
+  "end": 612.33,
+  "call": "t20",
+  "call_start": 581.66,
+  "call_end": 593.33,
+  "tail_after_vo": 19.0,
+  "note": "after the last VO word: a quiet walk, then the 15 s end screen (the music fades out over it)"
+ },
+ "channel_calls": {
+  "t10": {
+   "start": 285.263,
+   "end": 296.843
+  },
+  "t20": {
+   "start": 581.66,
+   "end": 593.33
+  }
+ },
+ "slots": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "1",
+   "start": 111.2,
+   "end": 121.696,
+   "dur": 10.496,
+   "under": false,
+   "placeholder": false,
+   "file": "C1.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 10.496
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "3",
+   "start": 265.096,
+   "end": 276.253,
+   "dur": 11.157,
+   "under": false,
+   "placeholder": false,
+   "file": "C2.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 11.157
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "sec": "4",
+   "start": 358.273,
+   "end": 369.02,
+   "dur": 10.747,
+   "under": false,
+   "placeholder": false,
+   "file": "C3.mp4",
+   "file_in_s": 0.09,
+   "file_out_s": 10.837
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "sec": "5",
+   "start": 479.23,
+   "end": 490.24,
+   "dur": 11.01,
+   "under": false,
+   "placeholder": false,
+   "file": "C4.mp4",
+   "file_in_s": 1.09,
+   "file_out_s": 12.1
+  }
+ ],
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "1",
+   "start": 111.2,
+   "end": 121.696,
+   "under": false
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "3",
+   "start": 265.096,
+   "end": 276.253,
+   "under": false
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "sec": "4",
+   "start": 358.273,
+   "end": 369.02,
+   "under": false
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "sec": "5",
+   "start": 479.23,
+   "end": 490.24,
+   "under": false
+  }
+ ]
+}
