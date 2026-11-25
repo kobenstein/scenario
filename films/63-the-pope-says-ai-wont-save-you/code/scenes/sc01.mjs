@@ -77,13 +77,13 @@ function scene(a, T) {
       const bx = BLK.x + expoIn(span(t, a.leads - .15, a.leads + 1.2)) * 900;
       if (bx < 2800) F.block(ctx, t, bx, GY, BLK.w, BLK.h, { lit: 1, seed: 3 });
       // the faithful roll out behind him (unit chart), sink back on 'Name the thing'
-      const cu = span(t, a.leads + .1, a.billion + .9), sink = span(t, a.name - .6, a.name + .2);
+      const cu = span(t, a.leads + .1, a.billion + .9), sink = span(t, a.name - .15, a.name + .6);   // the crowd stays until the iris swallows it
       if (cu > 0 && sink < 1) F.crowd(ctx, t, { x: 1060, y0: GY - 26, y1: 560, w: 2300, u: cu, sink, ox: POPE.x, oy: GY });
       // you (yellow, small) and the Pope (white): breathing, the hand rises to its stop on "not"
       const br = 1 + .006 * Math.sin(t * 2.1);
-      const youOut = expoIn(span(t, a.name - .6, a.name + .1));
+      const youOut = expoIn(span(t, a.name - .1, a.name + .55));
       if (youOut < 1) { ctx.save(); ctx.translate(YOU0.x, GY); ctx.scale(1, br); ctx.translate(-YOU0.x, -GY); ctx.beginPath(); ctx.rect(0, 0, W * 2, GY + 2); ctx.clip(); F.du(ctx, YOU0.x, GY + youOut * YOU0.h * 1.1, YOU0.h, { look: .55 + .1 * Math.sin(t * .4), light: 1, back: .3 }); ctx.restore(); }
-      const popeOut = expoIn(span(t, a.name - .55, a.name + .15));
+      const popeOut = expoIn(span(t, a.name - .05, a.name + .6));
       if (popeOut < 1) {
         const raise = lerp(.6, 1, expoOut(span(t, a.ai + .3, a.not + .1))) - .06 * F.bump(t, a.ai + .1, .5) * 0;   // anticipation is in the ease
         ctx.save(); ctx.translate(POPE.x, GY); ctx.scale(1, 1 + .005 * Math.sin(t * 1.9 + 1)); ctx.translate(-POPE.x, -GY);
@@ -96,7 +96,7 @@ function scene(a, T) {
     const out = span(t, a.leads - .3, a.leads + .6);
     if (out < 1) {
       // THE POPE: rolls up and out, POPE LEO XIV rolls up into its place (a slot-machine roll inside the line's own mask)
-      const roll = sineIO(span(t, a.leo - .15, a.leo + .45)), LH = TTL.size * .86;
+      const roll = sineIO(span(t, a.leo - .15, a.leo + .45)), LH = TTL.size * 1.08;   // travel > cap height + glow: the old line is fully gone
       ctx.save(); ctx.beginPath(); ctx.rect(TTL.x - 60, TTL.y1 - TTL.size * .8, W * 2, TTL.size * .84); ctx.clip();
       if (roll < 1) { ctx.save(); ctx.translate(0, -roll * LH); F.titleWords(ctx, [[{ w: 'THE POPE:', u: 1 }]], TTL.x, TTL.y1, { size: TTL.size, cond: TTL.cond, out }); ctx.restore(); }
       if (roll > 0) { ctx.save(); ctx.translate(0, (1 - roll) * LH); F.titleWords(ctx, [[{ w: 'POPE LEO XIV', u: 1 }]], TTL.x, TTL.y1, { size: TTL.size, cond: TTL.cond, out }); ctx.restore(); }

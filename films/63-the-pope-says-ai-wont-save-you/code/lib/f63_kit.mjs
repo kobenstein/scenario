@@ -382,9 +382,11 @@ export function question(ctx, t, text, x, y, size, o = {}) {
   words.forEach((wd, i) => {
     const ui = ts ? span(t, ts[i] - .08, ts[i] + .42) : span(u, i / words.length * .7, i / words.length * .7 + .3);
     const q = wd.endsWith('?'), base = q ? wd.slice(0, -1) : wd;
-    if (ui > 0) {
-      maskLine(ctx, [[base, 0]], xx, y + sineIO(out) * size * 1.2, size, rise(ui), { glow: false, col: o.col ?? CREAM });
-      if (q) maskLine(ctx, [['?', 1]], xx + measure(base, size, true), y + sineIO(out) * size * 1.2, size, rise(ui), { glow: true, col: GOLD.body });
+    // o.out sinks each word behind its own (fixed) line mask, word by word left → right (the mask never moves with the words)
+    const uo = out > 0 ? Math.min(ui, 1 - span(out, i / words.length * .5, i / words.length * .5 + .5)) : ui;
+    if (uo > 0) {
+      maskLine(ctx, [[base, 0]], xx, y, size, rise(uo), { glow: false, col: o.col ?? CREAM });
+      if (q) maskLine(ctx, [['?', 1]], xx + measure(base, size, true), y, size, rise(uo), { glow: true, col: GOLD.body });
     }
     xx += measure(wd + ' ', size, true);
   });
