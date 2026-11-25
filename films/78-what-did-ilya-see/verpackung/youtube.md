@@ -1,6 +1,6 @@
 # Film 78 (#78) · What Did Ilya See? · YouTube-Upload (Stand 2026-11-25)
 
-Video-ID: (folgt) · privat, publishAt 2026-12-02T16:00:00Z (Mi 17:00 Wien) · Upload per API, Thumbnail C2 (f78-c2-genius-quit, Koordinator 25.11. nach Thumbnail-Check).
+Video-ID: e79-Z-pkCRI · privat, publishAt 2026-12-02T16:00:00Z (Mi 17:00 Wien) · Upload per API, Thumbnail C2 (f78-c2-genius-quit, Koordinator 25.11. nach Thumbnail-Check).
 
 Kategorie 28, Sprache en, nicht für Kinder, containsSyntheticMedia = true. Kapitel aus film-78-ilya/audio/timing.json (gesamt 616,7 s, Endscreen ab 601,7 s). Clips C1 NeurIPS, C2 Toronto, C3 + C5 Dwarkesh (Original-Ton); C4 Open University nur als Zitatkarte (Musikbett). Keine Sponsoren (regeln/sponsoren-aktiv.md Stand 19.11.: keine Buchungen).
 
