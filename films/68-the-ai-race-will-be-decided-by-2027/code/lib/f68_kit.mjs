@@ -361,14 +361,14 @@ export function stadium(ctx, t, o = {}) {
   if (o.third) {
     const lit3 = clamp(o.thirdLit ?? 0), yy = by + bh + 44, a3 = clamp(o.third);
     ctx.save(); ctx.globalAlpha *= a3; ctx.fillStyle = mixHex(P.night0, AI.deep, lit3 * .7); ctx.beginPath(); ctx.roundRect(bx + 60, yy - 22, bw - 120, 44, 8); ctx.fill(); ctx.strokeStyle = rgba(mixHex(MUTED, AI.line, lit3), .5); ctx.lineWidth = 2; ctx.stroke();
-    if (lit3 > 0) { halo(ctx, bx + bw / 2, yy, bw * .45, .45 * lit3, AI.halo, AI.core); ctx.fillStyle = rgba(AI.line, .9 * lit3); ctx.fillRect(bx + 60, yy - 2, (bw - 120) * expoOut(lit3), 4); }
-    cap(ctx, o.thirdLabel ?? '', bx + bw / 2, yy + 9, a3, { size: 22, align: 'center', col: mixHex(MUTED, AI.text, lit3) });
+    if (lit3 > 0) { halo(ctx, bx + bw / 2, yy, bw * .45, .45 * lit3, AI.halo, AI.core); ctx.fillStyle = rgba(AI.line, .9 * lit3); ctx.fillRect(bx + 68, yy + 17, (bw - 136) * expoOut(lit3), 3); }
+    cap(ctx, o.thirdLabel ?? '', bx + bw / 2, yy + 9, a3, { size: 24, align: 'center', col: mixHex(MUTED, '#ffffff', lit3), glow: lit3 > .3 });
     ctx.restore();
   }
   // the infield + track edge, light pool where you stand
   ctx.fillStyle = mixHex(P.night0, P.ind0, .4); ctx.beginPath(); ctx.moveTo(0, 860); ctx.quadraticCurveTo(W / 2, 800, W, 860); ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fill();
   const dx = o.duX ?? W / 2;
-  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = rad(ctx, dx, 960, 260, [[0, rgba(GOLD.hot, .3 * lit)], [1, rgba(GOLD.hot, 0)]]); ctx.fillRect(dx - 300, 820, 600, 260); ctx.restore();
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = rad(ctx, dx, 960, 260, [[0, rgba(GOLD.hot, .3 * lit)], [1, rgba(GOLD.hot, 0)]]); ctx.fillRect(dx - 300, 700, 600, 560); ctx.restore();
   if (o.du !== false) E.du(ctx, dx, o.duY ?? 958, o.duH ?? 150, { pose: o.duPose ?? 'look', look: o.look ?? 1 });
 }
 

@@ -138,7 +138,7 @@ export default {
     const endT = S.b - 15, pull = sineIO(span(t, endT - 2.5, endT + .5));
     ctx.save(); ctx.translate(960, 0); ctx.scale(lerp(1.06, .8, pull) - .06 * (1 - sineIO(IN(6))) * 0, lerp(1.06, .8, pull)); ctx.translate(-960, 0);
     ctx.translate(drift(t, 3, 5), drift(t, 2, 9));
-    K.stadium(ctx, t, { title: 'AI RACE', score: false, u: 1, third: 1, thirdLit: .55 + .05 * Math.sin(t * .8), thirdLabel: '', duX: 960, duPose: 'look', floods: .9,
+    K.stadium(ctx, t, { title: 'AI RACE', score: false, u: 1, third: 1, thirdLit: .55 + .05 * Math.sin(t * .8), thirdLabel: '', duX: 960, duY: 905, duH: 140, duPose: 'look', floods: .9,
       mid(ctx, bx, by, bw, bh) {
         const sw = U('goes well for everybody', 1.0, -.7);
         K.cap(ctx, 'ONE WAY TO WIN', bx + bw / 2, by + 300, IN(1.2) * (1 - sw), { size: 34, align: 'center', col: GOLD.text });
@@ -146,6 +146,12 @@ export default {
         K.serif(ctx, 'for everybody', bx + bw / 2, by + 390, 96, sw, { align: 'center' });
         K.cap(ctx, 'NOT JUST FOR WHOEVER RUNS FASTEST', bx + bw / 2, by + 460, U('whoever runs fastest', .8, -.3), { size: 26, align: 'center', col: MUTED });
       } });
+    // widen the world for the pulled-back end screen: stands and infield continue past the frame edges
+    for (const [x0, x1] of [[-360, 0], [W, W + 360]]) {
+      ctx.fillStyle = mixHex(P.ind0, P.night1, .4); ctx.fillRect(x0, 520, x1 - x0, H - 520);
+      ctx.fillStyle = P.night1; ctx.fillRect(x0, 600, x1 - x0, H - 600);
+      ctx.fillStyle = mixHex(P.night0, P.ind0, .4); ctx.fillRect(x0, 860, x1 - x0, H - 860); }
+    ctx.fillStyle = mixHex(P.night0, P.ind0, .4); ctx.fillRect(-360, H - 2, W + 720, 400);
     // the disc rests in the lit lane, calm
     K.orb(ctx, t, 960, 654, 26, { rings: 2, pulse: .25 });
     ctx.restore();

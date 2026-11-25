@@ -1,0 +1,129 @@
+The A.I. race will be decided by twenty twenty-seven.
+
+That's a new forecast. Next year.
+
+And the prize isn't a medal. It's a machine that out-thinks every one of us.
+
+You will live with the winner. In your phone. In your bank. In your hospital.
+
+So who wins? America, or China?
+
+Look at the scoreboard. America has the best chips and most of the computing power. And still, it's not a blowout. Score it round by round, and it's a tie. Dead even.
+
+A tie gets settled at the finish line.
+
+And this scoreboard has another lane. No flag. No country. And it could beat them both.
+
+So who says twenty twenty-seven?
+
+The authors of the best-known forecast in this field. They don't sell A.I. They're a nonprofit research group.
+
+Their forecast is about one moment. The moment A.I. starts doing A.I. research by itself. This November, they moved that moment. To twenty twenty-seven.
+
+That's their forecast. Calling it the moment the race is decided is this film's reading. In the race story, whoever leads at that moment keeps a lead that stops melting and starts feeding itself.
+
+Is it certain? No. They've moved this date before, and many other forecasts say the twenty thirties. It also assumes that the labs don't slow down on purpose.
+
+But some of the people closest to the finish line now say: next year.
+
+So who's in front? Start with the machines themselves.
+
+Right now, America leads. But not by a generation. What America's best machine could do in May, China's best can do by November. And several of those Chinese models are free to download.
+
+This man used to run Google.
+
+[CLIP C1: Eric Schmidt, Masters of Scale Summit, 28 Oct 2026, Kapitel 01:59, ca.: “A year or two ago, it looked like China was a year or two behind. Now it looks like they're six months behind, and there are many studies that show this.” · ~10 s · ORIGINAL FOOTAGE · Wortlaut am Video prüfen]
+
+Other trackers say much the same. According to U.S. government testers, America's lead is widest where A.I. has to work through long tasks by itself. The Chinese lab's own numbers show a smaller gap. And on common coding tests, the two sides are nearly even.
+
+Point: America.
+
+But a model can be copied. The chips it runs on are another story.
+
+A.I. runs on chips. And here, it isn't close.
+
+Take all the A.I. computing power delivered around the world in the last few years. About seven tenths of it went to America. China got a small slice. And Europe, by one count, got even less. Europe has a lane on this board. But no runner in it.
+
+China's own chip champion ships only a few percent of the computing power that America's leading chipmaker does.
+
+And America bans sales of its very best chips to China. An older generation, it now allows, case by case. And this fall, about six hundred thousand of those sat in Hong Kong. Not blocked by Washington. Blocked by Beijing.
+
+Point: America. Two–nothing.
+
+So how does this end in a tie?
+
+Because a chip can be banned. Electricity can't.
+
+Every one of those chips needs power. And in America, towns are fighting over new data centers, and over rising power bills.
+
+In China, they mostly just get built.
+
+China already generates more than twice as much electricity as America. And one forecast has it adding about six times as much new power capacity as America over the coming years.
+
+By the same forecasters, data centers drive more than a third of America's growing demand for power. In China, a sliver.
+
+Point: China.
+
+But power is only muscle. The last round asks where A.I. goes next: into the hands of builders, and into the physical world.
+
+One thing first, to be fair. Count the visits to American and Chinese A.I. websites, and more than nine in ten go to the American ones.
+
+But this round isn't about visits. It's about what the world builds on. China gives many of its models away for free. And builders take them. By one count, Chinese open models were downloaded more often over a recent year than American ones. And in one recent week, on a big platform for developers, more than half of all requests went to Chinese models.
+
+And China is putting A.I. into bodies. This August in Beijing, humanoid robots ran a hundred meters faster than Usain Bolt's world-record time.
+
+It's not an official record. And by one report, one of them left the track on a stretcher. But they ran.
+
+Free models and robots. Point: China.
+
+So the board is level. America is ahead today. China is catching up where it may count tomorrow. And the third lane is still dark.
+
+However this tie breaks, it lands on all of us, not just on two countries. This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.
+
+So the finish line decides it. And one new report says a runner may already be close.
+
+This November, an independent evaluator reported back from inside one leading lab. Its estimate: progress there now runs about twice as fast as before. And about four fifths of that speed-up comes from the A.I. itself.
+
+It's one lab, with most of the key evidence blacked out. But this is the report that moved the forecast.
+
+So the runners' logic is simple. Cross that line first, and your lead grows by itself, in the economy and in the military. One famous essay made it a rule: the free world must prevail.
+
+Its author wrote that in twenty twenty-four. Today he runs an A.I. investment fund.
+
+And the argument has weight. Whoever leads gets to write the rules.
+
+But this finish line has a catch. Whoever crosses it first is holding a machine that is smarter than they are.
+
+The third lane just lit up. The third runner is the A.I. itself.
+
+And the race makes that runner faster. If your lead is half a year, every safety check feels like time you don't have. This November, the United Nations' technology envoy warned of exactly that: a race where corners get cut.
+
+One of the forecast's own authors describes the trap. Neither side can slow down alone. And neither can safely run flat out.
+
+[CLIP C4: Daniel Kokotajlo, Dwarkesh Podcast Clips, 18 Sep 2026, ca.: Amerika kann nicht allein bremsen, ohne China den Vorsprung zu geben, und nicht voll rennen, ohne die Kontrolle über die eigenen Modelle zu verlieren · ~9 s, vollständiger Satz · ORIGINAL FOOTAGE · Wortlaut am Video prüfen]
+
+So is there a way out of that trap?
+
+One of the runners has asked for one. In September, the head of a leading American A.I. lab wrote that the labs should slow down on purpose. And try for a speed limit, together with China. He admits it may not work. And by several reports, neither capital welcomed the idea.
+
+The counter-argument is fair. Stop running, and your rival writes the rules.
+
+But is the rival even running the same race? Researchers who study China say it's in a different event. Less one giant super-mind. More roads at once, like those robots.
+
+[CLIP C5: Kyle Chan (Brookings) bei Ross Douthat, Interesting Times, 14 May 2026, Kapitel 00:00:13 oder 00:26:00, ca.: “…it's hard to call it a race”, den GANZEN Satz ab Satzanfang schneiden · ~9 s · ORIGINAL FOOTAGE · Ersatz: Eric Schmidt, Masters of Scale, Kapitel 20:41]
+
+And the two rivals have started to talk. In September, their governments agreed to set up a channel for A.I. incidents. In November, their presidents met in Shenzhen. They signed no A.I. treaty, and not much else was agreed. But according to Washington, they did agree on one line. Humans stay involved when military A.I. makes decisions. Two rivals who agree on very little, agreeing that a human stays in the loop.
+
+So who wins the A.I. race?
+
+Today, America is ahead. But if either country gets there first with a machine it can't control, that's not a win. And if the third runner gets there first, everybody loses.
+
+The roads to a real win are still open. Agreements, like that channel. Deterrence, where each side can stop the other from sprinting. Or a lead that comes with rules and a speed limit. Serious people disagree about which one holds. None is decided.
+
+The decision sits with a handful of labs, two governments, and the people they answer to. That includes you. So far, they have one agreed channel and one sentence. A start. Not a finish.
+
+And if those forecasters are right, we'll know before twenty twenty-seven is over.
+
+In this race, there's only one way to win. Everyone crosses the line together. Or the third runner crosses it alone.
+
+That's what this channel is for: making sure superintelligence goes well for everybody, not just for whoever runs fastest. Want that too? Then subscribe.
