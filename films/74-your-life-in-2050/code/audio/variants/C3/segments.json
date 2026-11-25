@@ -1,0 +1,226 @@
+[
+ {
+  "id": "t00",
+  "sec": "H",
+  "text": "[calm, conversational] This is your life in twenty fifty. If we get A.I. right.\n\nOdds are, you'll live to see it. Superintelligence came. And it went right.\n\nYou wake up. Nothing woke you. Your granddaughter is holding your old alarm clock.",
+  "chars": 217
+ },
+ {
+  "id": "t01",
+  "sec": "H",
+  "text": "[curious] \"What was this for?\"",
+  "chars": 20
+ },
+ {
+  "id": "t02",
+  "sec": "H",
+  "text": "You try to explain. It screamed at you every morning, so you wouldn't be late for work. She thinks you're joking. She has never met anyone who was late for work.\n\nSo what else about your life today will she refuse to believe?",
+  "chars": 225
+ },
+ {
+  "id": "t03",
+  "sec": "H",
+  "text": "You open the front door. It's your street. Same houses. Same corner. But there isn't a single parked car on it. Where they stood: apple trees. Children drawing on the road. A robot on a ladder picks the high apples for them.\n\nAnd it's Monday morning. On this street, work is optional. Almost everybody does it anyway.",
+  "chars": 317
+ },
+ {
+  "id": "t04",
+  "sec": "1",
+  "text": "[warm] Your neighbor builds wooden boats, a few mornings a week. The man two doors down restores old motorbikes and shows teenagers how. And you still do the thing you were always good at. As much as you like. Not one hour more.\n\nThe paperwork, the night shifts, the heavy lifting: the machines took those.",
+  "chars": 299
+ },
+ {
+  "id": "t05",
+  "sec": "1",
+  "text": "Most economists of your day expected people would still be working in twenty fifty. They were right. People still work. Just not for the rent.\n\nSo what does everybody live on? On what the machines earn. But who gets it? Fair question. This street answers it at noon. First you have to cross it. And in your old life, crossing a street could kill you.",
+  "chars": 350
+ },
+ {
+  "id": "t06",
+  "sec": "2",
+  "text": "[calm, conversational] Now you step off the curb without looking. No parent here has ever shouted \"Watch out, car!\"\n\nThe cars still exist. You say where you're going, one glides up, drops you off, and leaves for the next person. You don't own it, for the same reason you don't own an elevator.\n\nSo the parking spaces became gardens. And the roads stopped killing more than a million people a year.",
+  "chars": 374
+ },
+ {
+  "id": "t07",
+  "sec": "2",
+  "text": "It didn't come smoothly. Back in the twenties, the first driverless taxis ran into trouble on the freeways. A regulator ordered them off. They had to earn the road back.\n\nSo who keeps a street like this running? Look up.",
+  "chars": 220
+ },
+ {
+  "id": "t08",
+  "sec": "3",
+  "text": "[curious] There's a robot on your roof. Last night's storm took a few tiles. You reported it at breakfast. The robot arrived within the hour.\n\nIn your old life, you waited weeks for a roofer. Then you waited for the bill.",
+  "chars": 211
+ },
+ {
+  "id": "t09",
+  "sec": "3",
+  "text": "And the house across the road wasn't there at the start of the month. Machines printed the walls, robots fitted the rest, and it took nine days. A young couple moved in on the tenth. Land still costs. The house on it barely does.\n\nSo machines build, mend and drive. What is left for you?\n\nBack in the twenties, even the head of one of the biggest A.I. labs couldn't say.",
+  "chars": 370
+ },
+ {
+  "id": "C3",
+  "sec": "3",
+  "clip": true,
+  "dur": 7.18
+ },
+ {
+  "id": "t10",
+  "sec": "3",
+  "text": "And he was building the machines. The answer waits on the town square: the one thing that got more expensive.\n\nBut machines like these run day and night. So somebody must be paying a monstrous power bill.",
+  "chars": 204
+ },
+ {
+  "id": "t11",
+  "sec": "4",
+  "text": "[calm, conversational] Nobody is. Your granddaughter has never seen a power bill. Every roof on the street makes electricity, more than the town can use. Batteries carry it through the night. And beyond the hills, a fusion plant feeds the machines.\n\nPower is like air now. You use it. You don't count it.",
+  "chars": 281
+ },
+ {
+  "id": "t12",
+  "sec": "4",
+  "text": "And when power costs almost nothing, so does everything power can make. Drinking water, straight from the sea. The oranges in your kitchen grew where your old atlas shows a desert.\n\nThe first sign came in your day: parts of Australia already made power companies offer three free hours a day.",
+  "chars": 292
+ },
+ {
+  "id": "t13",
+  "sec": "M",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody, not just for a few. Want that too? Then subscribe.",
+  "chars": 152,
+  "cta": true
+ },
+ {
+  "id": "t14",
+  "sec": "5",
+  "text": "[calm, conversational] But nobody lives on free power alone. So who gets what the machines earn? Noon. The whole street chimes at once.\n\nDividend day. Everyone here just received a share of what the machines earned this month. You too. The same share, in the biggest house and the smallest apartment.\n\nIn your old life, the end of the month was when the money ran out. Here, it's when the money arrives.",
+  "chars": 380
+ },
+ {
+  "id": "t15",
+  "sec": "5",
+  "text": "[thoughtful] It was never guaranteed. Back in the twenties, that same lab chief talked about sharing the wealth. Listen to how sure he sounds.",
+  "chars": 129
+ },
+ {
+  "id": "C4",
+  "sec": "5",
+  "clip": true,
+  "dur": 8.42
+ },
+ {
+  "id": "t16",
+  "sec": "5",
+  "text": "He didn't know. And it was never his to decide. Countries decided, one vote at a time, starting in your day. Taiwan planned an A.I. dividend for every citizen.\n\nDid the companies just hand it over? No. Nobody counted on kindness. In South Korea, the mere suggestion of a dividend sent the stock market down. And the investors had a point: take too much, too early, and nobody builds the machines at all.",
+  "chars": 403
+ },
+ {
+  "id": "t17",
+  "sec": "5",
+  "text": "So nothing was seized. Countries took a share, the way any co-owner does. Some pay it out, like here. Others just made the basics free.\n\nThat's why you no longer lie awake doing the math. And if nobody has to earn a living, why spend twelve years in a classroom?",
+  "chars": 262
+ },
+ {
+  "id": "t18",
+  "sec": "6",
+  "text": "[thoughtful] Nobody does. There's no school bus on this street. No bell. No rows of desks facing a board. In the mornings, your granddaughter learns with a teacher of her own: a machine, endlessly patient, moving at exactly her speed.\n\nThe richest child on Earth doesn't have a better one. Even in your day, the free A.I. models were only months behind the best ones.",
+  "chars": 354
+ },
+ {
+  "id": "t19",
+  "sec": "6",
+  "text": "Every afternoon, the children pile into the old school building. It's a workshop now. Your neighbor, the boat builder, is showing them how to make one that floats.\n\nA machine can teach her fractions. Only other children can teach her how to lose an argument.",
+  "chars": 258
+ },
+ {
+  "id": "t20",
+  "sec": "7",
+  "text": "[warm] Next door, the doctor's waiting room is a bakery now. People are rarely ill for long. And health insurance is one more thing you'd have to explain to her.",
+  "chars": 154
+ },
+ {
+  "id": "t21",
+  "sec": "8",
+  "text": "[curious] But the biggest thing missing isn't a place. It's a sentence. \"That will take decades.\" Every big hope came with it. Fusion power. A cure. A town on the Moon. Decades.\n\nYour granddaughter has never heard a grown-up say it. A year of research now does what a decade used to. The town on the Moon is older than she is.",
+  "chars": 316
+ },
+ {
+  "id": "t22",
+  "sec": "8",
+  "text": "Last weekend, she was in orbit. Not as an astronaut. With you, for her birthday. Ships come home to their towers the way planes pull up to a gate. She says the Earth looked small enough to look after.\n\nBack in the twenties, the same lab chief put a number on what was coming. He had something to sell, and most economists expected far less.",
+  "chars": 340
+ },
+ {
+  "id": "C1",
+  "sec": "8",
+  "clip": true,
+  "dur": 6.65
+ },
+ {
+  "id": "t23",
+  "sec": "8",
+  "text": "In this version of twenty fifty, he turned out closer than they did.\n\nBut one thing still takes decades. You can see it past the last house.",
+  "chars": 140
+ },
+ {
+  "id": "t24",
+  "sec": "9",
+  "text": "[thoughtful] Where the cornfields ran to the horizon, there is young forest. Food grows closer to town now, on far less land, so the rest was given back. The river is clean enough to swim in. And some evenings, from the hill, you hear wolves.",
+  "chars": 229
+ },
+ {
+  "id": "t25",
+  "sec": "P",
+  "text": "[thoughtful] The path loops back to the town square. So what is left for you? Look around. It's full, like every evening. The man with the motorbikes is sanding a chair the town doesn't strictly need. Somebody's grandmother is teaching children to fold dumplings.",
+  "chars": 250
+ },
+ {
+  "id": "t26",
+  "sec": "P",
+  "text": "You expected a world like this to have no use for people. It went the other way. Machines can make almost anything now. They can't make another person's time. So that is the one thing that got more expensive.\n\nA meal cooked for you. A chair with a person's mistakes in it. Someone who shows up.",
+  "chars": 294
+ },
+ {
+  "id": "t27",
+  "sec": "P",
+  "text": "Is that enough to fill a life? Nobody on this square claims to know. They argue about it most evenings. It may be the one question the machines handed back.",
+  "chars": 156
+ },
+ {
+  "id": "t28",
+  "sec": "E",
+  "text": "[warm] Your granddaughter sits down beside you, the clock still in her hand. She has never heard it ring. But she has worked something out: you were afraid of being late.",
+  "chars": 163
+ },
+ {
+  "id": "t29",
+  "sec": "E",
+  "text": "[curious] \"What else did you worry about?\"",
+  "chars": 32
+ },
+ {
+  "id": "t30",
+  "sec": "E",
+  "text": "You try to explain. Losing the job. The bill you couldn't pay. A car you never saw coming. Whether there'd still be a place for you. She listens the way you'd listen to a story about sea monsters.",
+  "chars": 196
+ },
+ {
+  "id": "t31",
+  "sec": "E",
+  "text": "[thoughtful] In twenty fifty, the hardest thing to explain is what we used to worry about.\n\nNone of it was a gift from the machines. Back in the twenties, every time a new machine arrived, ordinary people asked: who is this for? And labs, governments and voters had to answer. That question is being asked right now. It isn't settled.",
+  "chars": 321
+ },
+ {
+  "id": "t32",
+  "sec": "A2",
+  "text": "[warm] This channel exists so that the answer is: everybody. Want superintelligence to go well for all of us? Then subscribe.",
+  "chars": 118,
+  "cta": true
+ },
+ {
+  "id": "t33",
+  "sec": "A2",
+  "text": "[warm] She winds the old clock, and it starts to ring. Nobody flinches. The children think it's music.",
+  "chars": 95
+ }
+]

@@ -1,0 +1,154 @@
+{
+ "_comment": "Film 74 clip metadata (clips_json.py). placeholder true = the clip is not cut yet, its slot is silent. cues = [seconds from the slot start, subtitle line <= 34 chars].",
+ "clips": [
+  {
+   "id": "C4",
+   "kind": "clip",
+   "speaker": "Demis Hassabis",
+   "role": "then CEO, Google DeepMind (chairman since 5 Aug 2026)",
+   "source": "World Economic Forum, 'The Day After AGI', Davos, Jan 2026",
+   "url": "https://www.youtube.com/watch?v=NnVW9epLlTM",
+   "src_start": "00:18:16.84",
+   "src_end": "00:18:24.66",
+   "lower_third": "ORIGINAL FOOTAGE · DEMIS HASSABIS · THEN CEO, GOOGLE DEEPMIND · DAVOS, JAN 2026",
+   "file": "C4.mp4",
+   "placeholder": false,
+   "fallback": false,
+   "dur": 8.42,
+   "slot_start": 293.12,
+   "slot_end": 301.54,
+   "sec": "5",
+   "transcript": "Maybe there are ways to distribute this new productivity, this new wealth, more fairly. I don't know if we have the right institutions to do that, but that's what should happen.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.14,
+     "Maybe there are ways to distribute"
+    ],
+    [
+     1.68,
+     "this new productivity,"
+    ],
+    [
+     3.16,
+     "this new wealth, more fairly."
+    ],
+    [
+     5.09,
+     "I don't know if we have"
+    ],
+    [
+     5.58,
+     "the right institutions to do that,"
+    ],
+    [
+     6.88,
+     "but that's what should happen."
+    ]
+   ],
+   "cue_end": 8.59
+  },
+  {
+   "id": "C1",
+   "kind": "clip",
+   "speaker": "Demis Hassabis",
+   "role": "then CEO, Google DeepMind",
+   "source": "Google for Developers, 'A new era of discovery: AI and the frontiers of science with Demis Hassabis', Google I/O, May 2026",
+   "url": "https://www.youtube.com/watch?v=dgBLVm2L1P4",
+   "src_start": "00:11:38.57",
+   "src_end": "00:11:44.62",
+   "lower_third": "ORIGINAL FOOTAGE · DEMIS HASSABIS · THEN CEO, GOOGLE DEEPMIND · MAY 2026",
+   "file": "C1.mp4",
+   "placeholder": false,
+   "fallback": false,
+   "dur": 6.65,
+   "slot_start": 450.64,
+   "slot_end": 457.29,
+   "sec": "8",
+   "transcript": "It's going to be 10 times the impact of the Industrial Revolution, maybe 10 times faster. So, over a decade instead of a century.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.0,
+     "It's going to be 10 times"
+    ],
+    [
+     1.26,
+     "the impact of the Industrial"
+    ],
+    [
+     2.39,
+     "Revolution, maybe 10 times faster."
+    ],
+    [
+     4.6,
+     "So, over a decade"
+    ],
+    [
+     5.53,
+     "instead of a century."
+    ]
+   ],
+   "cue_end": 6.7
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "speaker": "Demis Hassabis",
+   "role": "then CEO, Google DeepMind",
+   "source": "Google for Developers, Google I/O, May 2026",
+   "url": "https://www.youtube.com/watch?v=dgBLVm2L1P4",
+   "src_start": "00:11:56.33",
+   "src_end": "00:12:03.03",
+   "lower_third": "ORIGINAL FOOTAGE · DEMIS HASSABIS · THEN CEO, GOOGLE DEEPMIND · MAY 2026",
+   "file": "C3.mp4",
+   "placeholder": false,
+   "fallback": true,
+   "dur": 7.18,
+   "slot_start": 184.19,
+   "slot_end": 191.37,
+   "sec": "3",
+   "transcript": "The future is not written. It's very uncertain. Are there more jobs going to be created? Are there different ones? We don't know. Nobody knows.",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": 0,
+   "cues": [
+    [
+     0.0,
+     "The future is not written."
+    ],
+    [
+     1.33,
+     "It's very uncertain."
+    ],
+    [
+     2.35,
+     "Are there more jobs"
+    ],
+    [
+     3.33,
+     "going to be created?"
+    ],
+    [
+     4.35,
+     "Are there different ones?"
+    ],
+    [
+     5.63,
+     "We don't know. Nobody knows."
+    ]
+   ],
+   "cue_end": 7.26
+  }
+ ]
+}
