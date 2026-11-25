@@ -1,5 +1,4 @@
-// c09 · B2 · STUB (replace with the built chunk) · from 'And an inheritance is only'
-// Still yes? · the inheritance never arrives (FEDEA) · the gain / the price · Planck · ★ outsiders after a star dies (Azoulay +8.6%) → plateTop
-// Plan: docs/shots.md (rows of c09) · rules: docs/BRIEF-builders.md · seams: plates in lib/f73_world.mjs (never edit them).
-import { stub73 } from '../lib/stub73.mjs';
-export default async (T, R) => stub73(T, R, { end: 'plateTop' });
+// c09 · B2 · built as part of ONE continuous take with c06–c09 (lib/b2_take.mjs); this file cuts the take at its phrase range.
+// Shot table: docs/shots.md (rows of c09); layers and the ★ as there. See lib/b2_take.mjs for every picture, sentence by sentence.
+import { chunk } from '../lib/b2_take.mjs';
+export default async (T, R) => chunk(T, R);
