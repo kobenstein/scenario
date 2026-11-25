@@ -1,0 +1,36 @@
+{
+ "_comment": "Film 72 Lyria 3.5 prompts (google/lyria-3.5, 0.10 USD per track, 6 tracks, 2026-11-25). Method as Film 73: one track per chapter; chapters = M0 H,1 | M1 2,3 | M2 4 (to 'built against people') | M3 the turn ('They're hiding from us.' to the subscribe call) | M4 5 | M5 E,A2 + end screen. Style: one shared palette, the mood per track. Mood: night, a calm detective mystery (low pulse, muted piano, soft pads) in the first half; the turn quiet and serious; warm cautious hope from 'Remember the answer ...' to the end; no vocals, no horror, no alarm drama. Files in /tmp/claude-0/f72/audio/music, not in the repo (URLs in music/urls.txt). Prompt sent = style + ' ' + 'A <len> track. ' + mood.",
+ "style": "Instrumental underscore for a calm, reflective editorial documentary about why the people building artificial intelligence are building bunkers, and what would make a bunker unnecessary. Night, a calm mystery: a low slow pulse, muted felt piano with long sustain, soft analog pads, a faint low string drone, airy textures like a cold draught under a door, a little tape warmth. No drums, no big percussion, no beat, no vocals, no lyrics, no choir with words, no horror, no red-alert drama, no sirens, no trailer risers, not epic, not triumphant, not sentimental, not pop. Very quiet, narrow dynamic range, slow, made to sit under a speaking voice.",
+ "tracks": {
+  "M0": {
+   "chapter": "H, 1 (the people building AI are building bunkers; a door that only opens for a few; what are they hiding from; the scientist; the three suspects, the bomb, Zuckerberg's shelter, Altman C1)",
+   "len": "2:20",
+   "mood": "a calm detective mystery at night: a low pulse like a slow clock, muted felt piano notes far apart, a soft pad, a faint low drone; a lit lamp over a desk with a file open, a question hanging in the dark; steady, patient, inward, no build-up"
+  },
+  "M1": {
+   "chapter": "2, 3 (the machine: a bunker is built for things that pass, optional, cross it off the list; the chaos: Harris C2, every bunker is a clock, the router, a bunker cannot run itself)",
+   "len": "2:40",
+   "mood": "the investigation goes on: the same low pulse a little more present, muted piano figure of two or three notes repeating softly, cool glassy pad, a distant metallic shimmer now and then; a detective crossing names off a list in a quiet room; a gentle unease, never tense"
+  },
+  "M2": {
+   "chapter": "4 until 'It's built against people.' (Rushkoff C3, the five investors, the Event, guards, locks, collars, anti-mutiny, detention areas, the day after an AI disaster)",
+   "len": "2:20",
+   "mood": "darker and more focused: the low pulse slower, dark pad chords, sparse deep piano notes, a low string drone, a hint of a minor-key clue unfolding; a long corridor behind a heavy door at night; serious and watchful, restrained, no drama, no horror"
+  },
+  "M3": {
+   "chapter": "'They're hiding from us.' to the subscribe call (the turn: not the machine, the fear of everyone left outside; so what would make the bunker unnecessary?)",
+   "len": "1:00",
+   "mood": "the turn, quiet and serious: almost everything drops away, one sustained soft pad, a single low piano note now and then with a long decay, no pulse; a moment of understanding in a silent room; still, honest, a little sad"
+  },
+  "M4": {
+   "chapter": "5 (Remember the answer those five men rolled their eyes at; treat your guards like friends; Switzerland and Helsinki shelters for everyone; a bunker for everyone is a society; Harris C2b, laws; the world is not built yet)",
+   "len": "2:00",
+   "mood": "warm, cautious hope: the pad opens and warms, felt piano notes rise slowly in small steps, a soft warm string line enters, light celesta glints, a gentle first-light feeling; patient and constructive, never uplifting pop, no swell"
+  },
+  "M5": {
+   "chapter": "E, A2 + end screen (go back to that door; the safe future leaves no one outside; you cannot build a bunker for eight billion people; closing call; end screen)",
+   "len": "1:15",
+   "mood": "quiet warmth and open hope: a wide warm pad, slow piano notes with long sustain, a soft string chord, faint airy glints; unresolved but peaceful and kind; ends on one long softly decaying open chord fading into silence"
+  }
+ }
+}

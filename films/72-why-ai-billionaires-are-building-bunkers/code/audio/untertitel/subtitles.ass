@@ -1,0 +1,337 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 384
+PlayResY: 288
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Inter,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.71,0:00:02.09,Sub,,0,0,0,,{\fad(120,160)}The people building artificial
+Dialogue: 0,0:00:02.13,0:00:04.43,Sub,,0,0,0,,{\fad(120,160)}intelligence are building bunkers.
+Dialogue: 0,0:00:04.74,0:00:06.05,Sub,,0,0,0,,{\fad(120,160)}Think about who they are.
+Dialogue: 0,0:00:06.29,0:00:08.26,Sub,,0,0,0,,{\fad(120,160)}They see this technology up close,
+Dialogue: 0,0:00:08.30,0:00:09.61,Sub,,0,0,0,,{\fad(120,160)}before the rest of us.
+Dialogue: 0,0:00:09.79,0:00:10.91,Sub,,0,0,0,,{\fad(120,160)}The same technology that's
+Dialogue: 0,0:00:10.95,0:00:12.65,Sub,,0,0,0,,{\fad(120,160)}about to reshape your job,
+Dialogue: 0,0:00:12.69,0:00:13.58,Sub,,0,0,0,,{\fad(120,160)}your daily life,
+Dialogue: 0,0:00:13.62,0:00:14.39,Sub,,0,0,0,,{\fad(120,160)}and the world your
+Dialogue: 0,0:00:14.43,0:00:15.82,Sub,,0,0,0,,{\fad(120,160)}children grow up in.
+Dialogue: 0,0:00:16.14,0:00:17.08,Sub,,0,0,0,,{\fad(120,160)}And some of them have
+Dialogue: 0,0:00:17.12,0:00:18.55,Sub,,0,0,0,,{\fad(120,160)}built a place to hide.
+Dialogue: 0,0:00:18.75,0:00:19.72,Sub,,0,0,0,,{\fad(120,160)}Underground.
+Dialogue: 0,0:00:19.76,0:00:20.37,Sub,,0,0,0,,{\fad(120,160)}Behind a door
+Dialogue: 0,0:00:20.41,0:00:21.89,Sub,,0,0,0,,{\fad(120,160)}filled with concrete.
+Dialogue: 0,0:00:22.05,0:00:24.15,Sub,,0,0,0,,{\fad(120,160)}A door that only opens for a few.
+Dialogue: 0,0:00:24.49,0:00:26.13,Sub,,0,0,0,,{\fad(120,160)}So what are they hiding from?
+Dialogue: 0,0:00:26.71,0:00:28.49,Sub,,0,0,0,,{\fad(120,160)}One of them said it out loud.
+Dialogue: 0,0:00:28.84,0:00:30.45,Sub,,0,0,0,,{\fad(120,160)}OpenAI's chief scientist
+Dialogue: 0,0:00:30.49,0:00:31.07,Sub,,0,0,0,,{\fad(120,160)}at the time
+Dialogue: 0,0:00:31.11,0:00:33.18,Sub,,0,0,0,,{\fad(120,160)}told a room of new researchers:
+Dialogue: 0,0:00:33.51,0:00:34.92,Sub,,0,0,0,,{\fad(120,160)}"We're definitely going to build
+Dialogue: 0,0:00:34.96,0:00:37.60,Sub,,0,0,0,,{\fad(120,160)}a bunker before we release AGI."
+Dialogue: 0,0:00:37.75,0:00:38.89,Sub,,0,0,0,,{\fad(120,160)}AGI.
+Dialogue: 0,0:00:39.12,0:00:41.26,Sub,,0,0,0,,{\fad(120,160)}A machine as smart as us.
+Dialogue: 0,0:00:41.56,0:00:43.67,Sub,,0,0,0,,{\fad(120,160)}So the answer seems obvious.
+Dialogue: 0,0:00:43.71,0:00:45.51,Sub,,0,0,0,,{\fad(120,160)}They're afraid of the machine.
+Dialogue: 0,0:00:45.88,0:00:47.76,Sub,,0,0,0,,{\fad(120,160)}But no door stops a machine
+Dialogue: 0,0:00:47.80,0:00:49.18,Sub,,0,0,0,,{\fad(120,160)}that's smarter than you.
+Dialogue: 0,0:00:49.43,0:00:50.43,Sub,,0,0,0,,{\fad(120,160)}And they know it.
+Dialogue: 0,0:00:50.65,0:00:51.65,Sub,,0,0,0,,{\fad(120,160)}They're building bunkers
+Dialogue: 0,0:00:51.69,0:00:52.72,Sub,,0,0,0,,{\fad(120,160)}for a reason.
+Dialogue: 0,0:00:53.05,0:00:54.18,Sub,,0,0,0,,{\fad(120,160)}But the reason might
+Dialogue: 0,0:00:54.22,0:00:55.73,Sub,,0,0,0,,{\fad(120,160)}not be the machine.
+Dialogue: 0,0:00:56.36,0:00:58.79,Sub,,0,0,0,,{\fad(120,160)}There are three obvious suspects.
+Dialogue: 0,0:00:59.00,0:00:59.97,Sub,,0,0,0,,{\fad(120,160)}The bomb.
+Dialogue: 0,0:01:00.01,0:01:01.01,Sub,,0,0,0,,{\fad(120,160)}The machine.
+Dialogue: 0,0:01:01.27,0:01:02.96,Sub,,0,0,0,,{\fad(120,160)}And the chaos along the way.
+Dialogue: 0,0:01:03.30,0:01:04.52,Sub,,0,0,0,,{\fad(120,160)}The fourth is written into
+Dialogue: 0,0:01:04.56,0:01:06.53,Sub,,0,0,0,,{\fad(120,160)}the floor plans of new bunkers.
+Dialogue: 0,0:01:06.79,0:01:08.02,Sub,,0,0,0,,{\fad(120,160)}The bomb first.
+Dialogue: 0,0:01:08.24,0:01:09.17,Sub,,0,0,0,,{\fad(120,160)}That door filled
+Dialogue: 0,0:01:09.21,0:01:10.79,Sub,,0,0,0,,{\fad(120,160)}with concrete is real.
+Dialogue: 0,0:01:10.85,0:01:11.87,Sub,,0,0,0,,{\fad(120,160)}It's in Hawaii.
+Dialogue: 0,0:01:12.14,0:01:13.79,Sub,,0,0,0,,{\fad(120,160)}Under Mark Zuckerberg's ranch,
+Dialogue: 0,0:01:13.83,0:01:15.13,Sub,,0,0,0,,{\fad(120,160)}there's an underground shelter
+Dialogue: 0,0:01:15.17,0:01:16.88,Sub,,0,0,0,,{\fad(120,160)}bigger than most houses.
+Dialogue: 0,0:01:17.08,0:01:18.68,Sub,,0,0,0,,{\fad(120,160)}He says it's for storms.
+Dialogue: 0,0:01:18.77,0:01:20.86,Sub,,0,0,0,,{\fad(120,160)}In his words: "a little shelter.
+Dialogue: 0,0:01:20.90,0:01:22.06,Sub,,0,0,0,,{\fad(120,160)}It's like a basement."
+Dialogue: 0,0:01:22.39,0:01:23.39,Sub,,0,0,0,,{\fad(120,160)}Fair enough.
+Dialogue: 0,0:01:23.54,0:01:24.55,Sub,,0,0,0,,{\fad(120,160)}The owners don't love
+Dialogue: 0,0:01:24.59,0:01:26.03,Sub,,0,0,0,,{\fad(120,160)}the word bunker.
+Dialogue: 0,0:01:26.59,0:01:28.93,Sub,,0,0,0,,{\fad(120,160)}Last year, the comedian Theo Von
+Dialogue: 0,0:01:28.97,0:01:30.49,Sub,,0,0,0,,{\fad(120,160)}asked the head of OpenAI
+Dialogue: 0,0:01:30.53,0:01:31.87,Sub,,0,0,0,,{\fad(120,160)}whether he has one.
+Dialogue: 0,0:01:32.26,0:01:33.42,Sub,,0,0,0,,{\fad(120,160)}Here's Sam Altman:
+Dialogue: 0,0:01:42.03,0:01:43.03,Sub,,0,0,0,,{\fad(120,160)}Bombs.
+Dialogue: 0,0:01:43.16,0:01:44.56,Sub,,0,0,0,,{\fad(120,160)}Not AI.
+Dialogue: 0,0:01:44.95,0:01:46.43,Sub,,0,0,0,,{\fad(120,160)}The people who sell bunkers
+Dialogue: 0,0:01:46.47,0:01:48.19,Sub,,0,0,0,,{\fad(120,160)}name old reasons, too.
+Dialogue: 0,0:01:48.44,0:01:49.18,Sub,,0,0,0,,{\fad(120,160)}War.
+Dialogue: 0,0:01:49.22,0:01:50.22,Sub,,0,0,0,,{\fad(120,160)}Pandemics.
+Dialogue: 0,0:01:50.44,0:01:52.29,Sub,,0,0,0,,{\fad(120,160)}So the bomb is real.
+Dialogue: 0,0:01:52.51,0:01:53.70,Sub,,0,0,0,,{\fad(120,160)}But it's the oldest reason
+Dialogue: 0,0:01:53.74,0:01:54.74,Sub,,0,0,0,,{\fad(120,160)}in the book.
+Dialogue: 0,0:01:55.69,0:01:57.71,Sub,,0,0,0,,{\fad(120,160)}And something here is new.
+Dialogue: 0,0:01:58.04,0:01:59.92,Sub,,0,0,0,,{\fad(120,160)}This year, bunker makers began
+Dialogue: 0,0:01:59.96,0:02:01.75,Sub,,0,0,0,,{\fad(120,160)}adding a reason to their list.
+Dialogue: 0,0:02:02.14,0:02:03.94,Sub,,0,0,0,,{\fad(120,160)}Artificial intelligence.
+Dialogue: 0,0:02:04.36,0:02:05.20,Sub,,0,0,0,,{\fad(120,160)}Is it the machine
+Dialogue: 0,0:02:05.24,0:02:06.43,Sub,,0,0,0,,{\fad(120,160)}they're afraid of?
+Dialogue: 0,0:02:07.63,0:02:09.19,Sub,,0,0,0,,{\fad(120,160)}It would make sense.
+Dialogue: 0,0:02:09.41,0:02:11.03,Sub,,0,0,0,,{\fad(120,160)}A panel of more than 100
+Dialogue: 0,0:02:11.07,0:02:13.23,Sub,,0,0,0,,{\fad(120,160)}experts says AI is already
+Dialogue: 0,0:02:13.27,0:02:15.63,Sub,,0,0,0,,{\fad(120,160)}being used in real cyberattacks.
+Dialogue: 0,0:02:15.93,0:02:17.10,Sub,,0,0,0,,{\fad(120,160)}That's today's AI.
+Dialogue: 0,0:02:17.14,0:02:18.85,Sub,,0,0,0,,{\fad(120,160)}Now picture the one these
+Dialogue: 0,0:02:18.89,0:02:20.84,Sub,,0,0,0,,{\fad(120,160)}companies are racing to build.
+Dialogue: 0,0:02:20.96,0:02:22.61,Sub,,0,0,0,,{\fad(120,160)}Smarter than any of us,
+Dialogue: 0,0:02:22.65,0:02:23.69,Sub,,0,0,0,,{\fad(120,160)}at everything.
+Dialogue: 0,0:02:24.08,0:02:26.28,Sub,,0,0,0,,{\fad(120,160)}Say that machine turns against us.
+Dialogue: 0,0:02:26.47,0:02:27.44,Sub,,0,0,0,,{\fad(120,160)}A bunker is built
+Dialogue: 0,0:02:27.48,0:02:28.85,Sub,,0,0,0,,{\fad(120,160)}for things that pass.
+Dialogue: 0,0:02:28.89,0:02:29.75,Sub,,0,0,0,,{\fad(120,160)}A storm.
+Dialogue: 0,0:02:29.79,0:02:30.44,Sub,,0,0,0,,{\fad(120,160)}Fallout.
+Dialogue: 0,0:02:30.48,0:02:31.51,Sub,,0,0,0,,{\fad(120,160)}A war.
+Dialogue: 0,0:02:31.79,0:02:33.80,Sub,,0,0,0,,{\fad(120,160)}That machine doesn't pass.
+Dialogue: 0,0:02:33.95,0:02:36.11,Sub,,0,0,0,,{\fad(120,160)}One day the door has to open.
+Dialogue: 0,0:02:36.21,0:02:37.44,Sub,,0,0,0,,{\fad(120,160)}And it's still out there.
+Dialogue: 0,0:02:37.81,0:02:39.69,Sub,,0,0,0,,{\fad(120,160)}And if the machine turns out well,
+Dialogue: 0,0:02:39.79,0:02:41.68,Sub,,0,0,0,,{\fad(120,160)}nobody needs a bunker at all.
+Dialogue: 0,0:02:42.23,0:02:43.24,Sub,,0,0,0,,{\fad(120,160)}The head of OpenAI
+Dialogue: 0,0:02:43.28,0:02:44.57,Sub,,0,0,0,,{\fad(120,160)}has said it himself:
+Dialogue: 0,0:02:44.99,0:02:45.98,Sub,,0,0,0,,{\fad(120,160)}"None of this is gonna
+Dialogue: 0,0:02:46.02,0:02:48.33,Sub,,0,0,0,,{\fad(120,160)}help if AGI goes wrong."
+Dialogue: 0,0:02:48.63,0:02:49.51,Sub,,0,0,0,,{\fad(120,160)}And that bunker
+Dialogue: 0,0:02:49.55,0:02:50.55,Sub,,0,0,0,,{\fad(120,160)}from the beginning?
+Dialogue: 0,0:02:50.80,0:02:52.03,Sub,,0,0,0,,{\fad(120,160)}The scientist who announced
+Dialogue: 0,0:02:52.07,0:02:53.57,Sub,,0,0,0,,{\fad(120,160)}it added one detail:
+Dialogue: 0,0:02:53.99,0:02:55.36,Sub,,0,0,0,,{\fad(120,160)}"Of course, it's going to be
+Dialogue: 0,0:02:55.40,0:02:56.57,Sub,,0,0,0,,{\fad(120,160)}optional whether you want
+Dialogue: 0,0:02:56.61,0:02:58.00,Sub,,0,0,0,,{\fad(120,160)}to get into the bunker."
+Dialogue: 0,0:02:59.00,0:02:59.94,Sub,,0,0,0,,{\fad(120,160)}Optional.
+Dialogue: 0,0:02:59.98,0:03:01.40,Sub,,0,0,0,,{\fad(120,160)}Some scientists doubt
+Dialogue: 0,0:03:01.44,0:03:03.41,Sub,,0,0,0,,{\fad(120,160)}that machine is anywhere close.
+Dialogue: 0,0:03:03.65,0:03:06.19,Sub,,0,0,0,,{\fad(120,160)}Near or far, the logic holds.
+Dialogue: 0,0:03:06.35,0:03:07.71,Sub,,0,0,0,,{\fad(120,160)}The only protection against
+Dialogue: 0,0:03:07.75,0:03:09.95,Sub,,0,0,0,,{\fad(120,160)}that machine is to build it right.
+Dialogue: 0,0:03:10.15,0:03:11.05,Sub,,0,0,0,,{\fad(120,160)}Out here.
+Dialogue: 0,0:03:11.09,0:03:12.28,Sub,,0,0,0,,{\fad(120,160)}Not down there.
+Dialogue: 0,0:03:12.49,0:03:14.08,Sub,,0,0,0,,{\fad(120,160)}Cross the machine off the list.
+Dialogue: 0,0:03:15.37,0:03:16.23,Sub,,0,0,0,,{\fad(120,160)}But then why are
+Dialogue: 0,0:03:16.27,0:03:17.58,Sub,,0,0,0,,{\fad(120,160)}they still building?
+Dialogue: 0,0:03:18.74,0:03:20.00,Sub,,0,0,0,,{\fad(120,160)}Tristan Harris used to
+Dialogue: 0,0:03:20.04,0:03:21.21,Sub,,0,0,0,,{\fad(120,160)}work at Google.
+Dialogue: 0,0:03:21.37,0:03:22.28,Sub,,0,0,0,,{\fad(120,160)}Today he's one of
+Dialogue: 0,0:03:22.32,0:03:24.50,Sub,,0,0,0,,{\fad(120,160)}the industry's sharpest critics.
+Dialogue: 0,0:03:24.72,0:03:26.16,Sub,,0,0,0,,{\fad(120,160)}This spring he said:
+Dialogue: 0,0:03:32.78,0:03:33.82,Sub,,0,0,0,,{\fad(120,160)}Right now.
+Dialogue: 0,0:03:34.01,0:03:35.52,Sub,,0,0,0,,{\fad(120,160)}He names no names.
+Dialogue: 0,0:03:35.57,0:03:36.84,Sub,,0,0,0,,{\fad(120,160)}But if he's right,
+Dialogue: 0,0:03:36.88,0:03:37.72,Sub,,0,0,0,,{\fad(120,160)}a bunker must be
+Dialogue: 0,0:03:37.76,0:03:38.94,Sub,,0,0,0,,{\fad(120,160)}good for something.
+Dialogue: 0,0:03:39.18,0:03:40.74,Sub,,0,0,0,,{\fad(120,160)}Ask the people who sell them.
+Dialogue: 0,0:03:40.89,0:03:42.09,Sub,,0,0,0,,{\fad(120,160)}Most shelters are stocked
+Dialogue: 0,0:03:42.13,0:03:43.82,Sub,,0,0,0,,{\fad(120,160)}for weeks or months.
+Dialogue: 0,0:03:43.98,0:03:44.68,Sub,,0,0,0,,{\fad(120,160)}The biggest ones
+Dialogue: 0,0:03:44.72,0:03:46.22,Sub,,0,0,0,,{\fad(120,160)}promise a few years.
+Dialogue: 0,0:03:46.35,0:03:48.52,Sub,,0,0,0,,{\fad(120,160)}Sales promises, all of them.
+Dialogue: 0,0:03:48.78,0:03:50.83,Sub,,0,0,0,,{\fad(120,160)}But every bunker is a clock.
+Dialogue: 0,0:03:50.95,0:03:51.64,Sub,,0,0,0,,{\fad(120,160)}So what are they
+Dialogue: 0,0:03:51.68,0:03:53.23,Sub,,0,0,0,,{\fad(120,160)}expecting to wait out?
+Dialogue: 0,0:03:53.58,0:03:55.25,Sub,,0,0,0,,{\fad(120,160)}Inside the AI industry,
+Dialogue: 0,0:03:55.29,0:03:58.05,Sub,,0,0,0,,{\fad(120,160)}many expect a major AI incident.
+Dialogue: 0,0:03:58.26,0:03:59.66,Sub,,0,0,0,,{\fad(120,160)}Not killer robots.
+Dialogue: 0,0:03:59.86,0:04:01.33,Sub,,0,0,0,,{\fad(120,160)}More like a cyberattack
+Dialogue: 0,0:04:01.37,0:04:02.66,Sub,,0,0,0,,{\fad(120,160)}that takes down banks,
+Dialogue: 0,0:04:02.70,0:04:04.67,Sub,,0,0,0,,{\fad(120,160)}the internet, maybe the power.
+Dialogue: 0,0:04:05.19,0:04:06.23,Sub,,0,0,0,,{\fad(120,160)}And you've already seen
+Dialogue: 0,0:04:06.27,0:04:07.86,Sub,,0,0,0,,{\fad(120,160)}how fragile that is.
+Dialogue: 0,0:04:08.05,0:04:09.97,Sub,,0,0,0,,{\fad(120,160)}In November, one faulty router
+Dialogue: 0,0:04:10.01,0:04:12.35,Sub,,0,0,0,,{\fad(120,160)}stopped takeoffs across America.
+Dialogue: 0,0:04:12.62,0:04:13.75,Sub,,0,0,0,,{\fad(120,160)}For hours.
+Dialogue: 0,0:04:13.99,0:04:15.44,Sub,,0,0,0,,{\fad(120,160)}No AI involved.
+Dialogue: 0,0:04:15.72,0:04:17.40,Sub,,0,0,0,,{\fad(120,160)}Then the planes flew again.
+Dialogue: 0,0:04:17.68,0:04:19.76,Sub,,0,0,0,,{\fad(120,160)}The chaos stays on the list.
+Dialogue: 0,0:04:19.90,0:04:21.90,Sub,,0,0,0,,{\fad(120,160)}A bunker can carry you through it.
+Dialogue: 0,0:04:22.05,0:04:23.05,Sub,,0,0,0,,{\fad(120,160)}For a while.
+Dialogue: 0,0:04:23.29,0:04:24.72,Sub,,0,0,0,,{\fad(120,160)}But it can't run itself.
+Dialogue: 0,0:04:25.03,0:04:26.18,Sub,,0,0,0,,{\fad(120,160)}It needs fuel.
+Dialogue: 0,0:04:26.22,0:04:27.12,Sub,,0,0,0,,{\fad(120,160)}Filters.
+Dialogue: 0,0:04:27.16,0:04:28.16,Sub,,0,0,0,,{\fad(120,160)}And people.
+Dialogue: 0,0:04:28.45,0:04:29.02,Sub,,0,0,0,,{\fad(120,160)}And when the world
+Dialogue: 0,0:04:29.06,0:04:30.68,Sub,,0,0,0,,{\fad(120,160)}outside stops working,
+Dialogue: 0,0:04:30.83,0:04:32.51,Sub,,0,0,0,,{\fad(120,160)}who do those people answer to?
+Dialogue: 0,0:04:33.69,0:04:34.84,Sub,,0,0,0,,{\fad(120,160)}Some years ago,
+Dialogue: 0,0:04:34.88,0:04:36.82,Sub,,0,0,0,,{\fad(120,160)}the writer Douglas Rushkoff
+Dialogue: 0,0:04:36.86,0:04:38.52,Sub,,0,0,0,,{\fad(120,160)}was brought to a luxury resort
+Dialogue: 0,0:04:38.56,0:04:40.42,Sub,,0,0,0,,{\fad(120,160)}to give a talk about the future.
+Dialogue: 0,0:04:40.67,0:04:41.97,Sub,,0,0,0,,{\fad(120,160)}Instead of an audience,
+Dialogue: 0,0:04:42.01,0:04:43.22,Sub,,0,0,0,,{\fad(120,160)}five very rich
+Dialogue: 0,0:04:43.26,0:04:44.62,Sub,,0,0,0,,{\fad(120,160)}investors walked in.
+Dialogue: 0,0:04:44.88,0:04:45.76,Sub,,0,0,0,,{\fad(120,160)}Here's what they really
+Dialogue: 0,0:04:45.80,0:04:47.75,Sub,,0,0,0,,{\fad(120,160)}wanted to know, as he tells it:
+Dialogue: 0,0:04:59.02,0:05:00.98,Sub,,0,0,0,,{\fad(120,160)}Once money is worthless.
+Dialogue: 0,0:05:01.34,0:05:03.68,Sub,,0,0,0,,{\fad(120,160)}They called that day "the Event."
+Dialogue: 0,0:05:03.94,0:05:05.92,Sub,,0,0,0,,{\fad(120,160)}The day everything breaks down.
+Dialogue: 0,0:05:06.28,0:05:07.26,Sub,,0,0,0,,{\fad(120,160)}They knew they'd need
+Dialogue: 0,0:05:07.30,0:05:08.76,Sub,,0,0,0,,{\fad(120,160)}armed guards against what they
+Dialogue: 0,0:05:08.80,0:05:10.89,Sub,,0,0,0,,{\fad(120,160)}called "the angry mobs."
+Dialogue: 0,0:05:11.09,0:05:12.35,Sub,,0,0,0,,{\fad(120,160)}But after the Event,
+Dialogue: 0,0:05:12.39,0:05:14.22,Sub,,0,0,0,,{\fad(120,160)}why would the guards still obey?
+Dialogue: 0,0:05:14.62,0:05:15.82,Sub,,0,0,0,,{\fad(120,160)}They had ideas.
+Dialogue: 0,0:05:15.89,0:05:18.00,Sub,,0,0,0,,{\fad(120,160)}Special locks on the food supply.
+Dialogue: 0,0:05:18.20,0:05:19.70,Sub,,0,0,0,,{\fad(120,160)}Disciplinary collars.
+Dialogue: 0,0:05:19.80,0:05:21.33,Sub,,0,0,0,,{\fad(120,160)}Robots as guards.
+Dialogue: 0,0:05:22.31,0:05:23.29,Sub,,0,0,0,,{\fad(120,160)}Rushkoff offered
+Dialogue: 0,0:05:23.33,0:05:24.59,Sub,,0,0,0,,{\fad(120,160)}a different answer.
+Dialogue: 0,0:05:24.83,0:05:26.17,Sub,,0,0,0,,{\fad(120,160)}They rolled their eyes.
+Dialogue: 0,0:05:26.42,0:05:27.65,Sub,,0,0,0,,{\fad(120,160)}That's his account.
+Dialogue: 0,0:05:27.80,0:05:29.35,Sub,,0,0,0,,{\fad(120,160)}The men were never named.
+Dialogue: 0,0:05:29.47,0:05:30.73,Sub,,0,0,0,,{\fad(120,160)}And they were investors,
+Dialogue: 0,0:05:30.77,0:05:32.57,Sub,,0,0,0,,{\fad(120,160)}not the people who build AI.
+Dialogue: 0,0:05:32.79,0:05:33.41,Sub,,0,0,0,,{\fad(120,160)}But look at what
+Dialogue: 0,0:05:33.45,0:05:34.72,Sub,,0,0,0,,{\fad(120,160)}gets planned today.
+Dialogue: 0,0:05:35.29,0:05:37.01,Sub,,0,0,0,,{\fad(120,160)}Some new bunker projects come
+Dialogue: 0,0:05:37.05,0:05:39.24,Sub,,0,0,0,,{\fad(120,160)}with "anti-mutiny" procedures,
+Dialogue: 0,0:05:39.28,0:05:40.16,Sub,,0,0,0,,{\fad(120,160)}so that guards,
+Dialogue: 0,0:05:40.20,0:05:41.75,Sub,,0,0,0,,{\fad(120,160)}or anyone else inside,
+Dialogue: 0,0:05:41.79,0:05:43.01,Sub,,0,0,0,,{\fad(120,160)}can't take over.
+Dialogue: 0,0:05:43.42,0:05:44.34,Sub,,0,0,0,,{\fad(120,160)}Others are designed
+Dialogue: 0,0:05:44.38,0:05:46.15,Sub,,0,0,0,,{\fad(120,160)}with "detention areas."
+Dialogue: 0,0:05:46.53,0:05:47.82,Sub,,0,0,0,,{\fad(120,160)}The question from that room
+Dialogue: 0,0:05:47.86,0:05:49.54,Sub,,0,0,0,,{\fad(120,160)}is now in the floor plans.
+Dialogue: 0,0:05:49.98,0:05:51.53,Sub,,0,0,0,,{\fad(120,160)}The companies that build AI
+Dialogue: 0,0:05:51.57,0:05:52.87,Sub,,0,0,0,,{\fad(120,160)}are preparing, too.
+Dialogue: 0,0:05:53.18,0:05:54.68,Sub,,0,0,0,,{\fad(120,160)}This fall, they were reported
+Dialogue: 0,0:05:54.72,0:05:55.89,Sub,,0,0,0,,{\fad(120,160)}to be rehearsing a day
+Dialogue: 0,0:05:55.93,0:05:56.93,Sub,,0,0,0,,{\fad(120,160)}of their own.
+Dialogue: 0,0:05:57.10,0:05:59.47,Sub,,0,0,0,,{\fad(120,160)}The day after an AI disaster.
+Dialogue: 0,0:05:59.74,0:06:00.74,Sub,,0,0,0,,{\fad(120,160)}The day the public
+Dialogue: 0,0:06:00.78,0:06:02.01,Sub,,0,0,0,,{\fad(120,160)}and the politicians
+Dialogue: 0,0:06:02.05,0:06:03.13,Sub,,0,0,0,,{\fad(120,160)}turn against them.
+Dialogue: 0,0:06:03.51,0:06:05.01,Sub,,0,0,0,,{\fad(120,160)}Already, more Americans
+Dialogue: 0,0:06:05.05,0:06:06.64,Sub,,0,0,0,,{\fad(120,160)}oppose an AI data center
+Dialogue: 0,0:06:06.68,0:06:07.59,Sub,,0,0,0,,{\fad(120,160)}near their home
+Dialogue: 0,0:06:07.63,0:06:09.48,Sub,,0,0,0,,{\fad(120,160)}than a nuclear power plant.
+Dialogue: 0,0:06:10.09,0:06:12.39,Sub,,0,0,0,,{\fad(120,160)}To be fair: for some owners,
+Dialogue: 0,0:06:12.43,0:06:14.54,Sub,,0,0,0,,{\fad(120,160)}a bunker is just insurance.
+Dialogue: 0,0:06:14.72,0:06:16.92,Sub,,0,0,0,,{\fad(120,160)}Or a very expensive hobby.
+Dialogue: 0,0:06:17.18,0:06:18.27,Sub,,0,0,0,,{\fad(120,160)}The two owners you heard
+Dialogue: 0,0:06:18.31,0:06:20.76,Sub,,0,0,0,,{\fad(120,160)}from say storms and bombs.
+Dialogue: 0,0:06:20.85,0:06:21.85,Sub,,0,0,0,,{\fad(120,160)}Not people.
+Dialogue: 0,0:06:22.02,0:06:24.33,Sub,,0,0,0,,{\fad(120,160)}And one AI company says its drills
+Dialogue: 0,0:06:24.37,0:06:26.57,Sub,,0,0,0,,{\fad(120,160)}are practice, not a prediction.
+Dialogue: 0,0:06:26.80,0:06:28.20,Sub,,0,0,0,,{\fad(120,160)}But follow the trail.
+Dialogue: 0,0:06:28.49,0:06:29.25,Sub,,0,0,0,,{\fad(120,160)}Guards.
+Dialogue: 0,0:06:29.29,0:06:30.07,Sub,,0,0,0,,{\fad(120,160)}Locks.
+Dialogue: 0,0:06:30.11,0:06:31.37,Sub,,0,0,0,,{\fad(120,160)}Mutiny plans.
+Dialogue: 0,0:06:31.52,0:06:33.35,Sub,,0,0,0,,{\fad(120,160)}None of that stops a storm.
+Dialogue: 0,0:06:33.53,0:06:34.53,Sub,,0,0,0,,{\fad(120,160)}Or a bomb.
+Dialogue: 0,0:06:34.62,0:06:35.68,Sub,,0,0,0,,{\fad(120,160)}Or a machine.
+Dialogue: 0,0:06:35.92,0:06:37.78,Sub,,0,0,0,,{\fad(120,160)}It's built against people.
+Dialogue: 0,0:06:38.79,0:06:40.82,Sub,,0,0,0,,{\fad(120,160)}They're not hiding from the AI.
+Dialogue: 0,0:06:40.88,0:06:42.47,Sub,,0,0,0,,{\fad(120,160)}They're hiding from us.
+Dialogue: 0,0:06:42.59,0:06:43.53,Sub,,0,0,0,,{\fad(120,160)}From a world where
+Dialogue: 0,0:06:43.57,0:06:45.05,Sub,,0,0,0,,{\fad(120,160)}the gains of this technology
+Dialogue: 0,0:06:45.09,0:06:46.35,Sub,,0,0,0,,{\fad(120,160)}go to a few,
+Dialogue: 0,0:06:46.39,0:06:48.51,Sub,,0,0,0,,{\fad(120,160)}and everyone else gets angry.
+Dialogue: 0,0:06:48.87,0:06:49.75,Sub,,0,0,0,,{\fad(120,160)}You probably don't
+Dialogue: 0,0:06:49.79,0:06:51.15,Sub,,0,0,0,,{\fad(120,160)}feel like a threat.
+Dialogue: 0,0:06:51.41,0:06:52.97,Sub,,0,0,0,,{\fad(120,160)}But from behind that door,
+Dialogue: 0,0:06:53.04,0:06:54.60,Sub,,0,0,0,,{\fad(120,160)}the fear makes sense.
+Dialogue: 0,0:06:54.95,0:06:56.05,Sub,,0,0,0,,{\fad(120,160)}So what would make
+Dialogue: 0,0:06:56.09,0:06:57.79,Sub,,0,0,0,,{\fad(120,160)}the bunker unnecessary?
+Dialogue: 0,0:06:58.96,0:07:00.03,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:07:00.07,0:07:01.86,Sub,,0,0,0,,{\fad(120,160)}for one reason: so that
+Dialogue: 0,0:07:01.90,0:07:03.61,Sub,,0,0,0,,{\fad(120,160)}the arrival of superintelligence
+Dialogue: 0,0:07:03.65,0:07:05.40,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:07:05.58,0:07:07.18,Sub,,0,0,0,,{\fad(120,160)}On both sides of that door.
+Dialogue: 0,0:07:07.48,0:07:08.48,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:07:08.54,0:07:09.59,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:07:10.80,0:07:12.50,Sub,,0,0,0,,{\fad(120,160)}Remember the answer those five
+Dialogue: 0,0:07:12.54,0:07:13.97,Sub,,0,0,0,,{\fad(120,160)}men rolled their eyes at?
+Dialogue: 0,0:07:14.42,0:07:16.41,Sub,,0,0,0,,{\fad(120,160)}Treat your guards like friends.
+Dialogue: 0,0:07:16.53,0:07:17.53,Sub,,0,0,0,,{\fad(120,160)}Right now.
+Dialogue: 0,0:07:17.77,0:07:19.83,Sub,,0,0,0,,{\fad(120,160)}Invest, Rushkoff told them,
+Dialogue: 0,0:07:20.00,0:07:21.99,Sub,,0,0,0,,{\fad(120,160)}"in people and relationships."
+Dialogue: 0,0:07:22.17,0:07:23.05,Sub,,0,0,0,,{\fad(120,160)}Scale that up,
+Dialogue: 0,0:07:23.09,0:07:24.92,Sub,,0,0,0,,{\fad(120,160)}and it stops sounding soft.
+Dialogue: 0,0:07:25.25,0:07:26.21,Sub,,0,0,0,,{\fad(120,160)}The best protection
+Dialogue: 0,0:07:26.25,0:07:27.79,Sub,,0,0,0,,{\fad(120,160)}isn't a thicker door.
+Dialogue: 0,0:07:27.89,0:07:28.93,Sub,,0,0,0,,{\fad(120,160)}It's a world nobody
+Dialogue: 0,0:07:28.97,0:07:30.15,Sub,,0,0,0,,{\fad(120,160)}wants to storm.
+Dialogue: 0,0:07:30.50,0:07:31.58,Sub,,0,0,0,,{\fad(120,160)}One country has built
+Dialogue: 0,0:07:31.62,0:07:33.15,Sub,,0,0,0,,{\fad(120,160)}safety for everyone.
+Dialogue: 0,0:07:33.30,0:07:34.34,Sub,,0,0,0,,{\fad(120,160)}In concrete.
+Dialogue: 0,0:07:34.57,0:07:35.91,Sub,,0,0,0,,{\fad(120,160)}Switzerland made it a rule
+Dialogue: 0,0:07:35.95,0:07:38.23,Sub,,0,0,0,,{\fad(120,160)}decades ago: a protected place
+Dialogue: 0,0:07:38.27,0:07:39.77,Sub,,0,0,0,,{\fad(120,160)}for every resident.
+Dialogue: 0,0:07:40.33,0:07:41.87,Sub,,0,0,0,,{\fad(120,160)}Today it has more shelter
+Dialogue: 0,0:07:41.91,0:07:43.30,Sub,,0,0,0,,{\fad(120,160)}places than people.
+Dialogue: 0,0:07:43.60,0:07:44.93,Sub,,0,0,0,,{\fad(120,160)}Some are wine cellars
+Dialogue: 0,0:07:44.97,0:07:46.90,Sub,,0,0,0,,{\fad(120,160)}or party rooms in the meantime.
+Dialogue: 0,0:07:47.37,0:07:49.72,Sub,,0,0,0,,{\fad(120,160)}In Helsinki, Finland, the shelters
+Dialogue: 0,0:07:49.76,0:07:51.11,Sub,,0,0,0,,{\fad(120,160)}double as playgrounds
+Dialogue: 0,0:07:51.15,0:07:52.39,Sub,,0,0,0,,{\fad(120,160)}and swimming pools.
+Dialogue: 0,0:07:53.40,0:07:54.69,Sub,,0,0,0,,{\fad(120,160)}A bunker for a few
+Dialogue: 0,0:07:54.73,0:07:56.14,Sub,,0,0,0,,{\fad(120,160)}is a hiding place.
+Dialogue: 0,0:07:56.33,0:07:57.73,Sub,,0,0,0,,{\fad(120,160)}A bunker for everyone
+Dialogue: 0,0:07:57.77,0:07:58.91,Sub,,0,0,0,,{\fad(120,160)}is a society.
+Dialogue: 0,0:07:59.20,0:08:00.16,Sub,,0,0,0,,{\fad(120,160)}But those shelters are
+Dialogue: 0,0:08:00.20,0:08:01.75,Sub,,0,0,0,,{\fad(120,160)}built against bombs.
+Dialogue: 0,0:08:01.90,0:08:03.38,Sub,,0,0,0,,{\fad(120,160)}A bunker against people
+Dialogue: 0,0:08:03.42,0:08:05.29,Sub,,0,0,0,,{\fad(120,160)}never has room for everyone.
+Dialogue: 0,0:08:05.45,0:08:07.38,Sub,,0,0,0,,{\fad(120,160)}Someone has to stay outside.
+Dialogue: 0,0:08:07.60,0:08:09.90,Sub,,0,0,0,,{\fad(120,160)}So a world nobody wants to storm
+Dialogue: 0,0:08:09.94,0:08:11.83,Sub,,0,0,0,,{\fad(120,160)}can't be poured in concrete.
+Dialogue: 0,0:08:11.99,0:08:12.95,Sub,,0,0,0,,{\fad(120,160)}And how to build it
+Dialogue: 0,0:08:12.99,0:08:14.27,Sub,,0,0,0,,{\fad(120,160)}is an open argument.
+Dialogue: 0,0:08:14.55,0:08:15.56,Sub,,0,0,0,,{\fad(120,160)}Tristan Harris has
+Dialogue: 0,0:08:15.60,0:08:16.83,Sub,,0,0,0,,{\fad(120,160)}the shortest answer:
+Dialogue: 0,0:08:23.63,0:08:25.70,Sub,,0,0,0,,{\fad(120,160)}One has already been written.
+Dialogue: 0,0:08:26.08,0:08:28.07,Sub,,0,0,0,,{\fad(120,160)}If AI shakes up the job market
+Dialogue: 0,0:08:28.11,0:08:30.37,Sub,,0,0,0,,{\fad(120,160)}in America, a bill in the Senate
+Dialogue: 0,0:08:30.41,0:08:31.98,Sub,,0,0,0,,{\fad(120,160)}would pay people who lose their
+Dialogue: 0,0:08:32.02,0:08:33.79,Sub,,0,0,0,,{\fad(120,160)}jobs at least three quarters
+Dialogue: 0,0:08:33.83,0:08:35.86,Sub,,0,0,0,,{\fad(120,160)}of their wage, for half a year.
+Dialogue: 0,0:08:36.34,0:08:38.09,Sub,,0,0,0,,{\fad(120,160)}Others bet on the companies.
+Dialogue: 0,0:08:38.45,0:08:39.74,Sub,,0,0,0,,{\fad(120,160)}Microsoft has promised
+Dialogue: 0,0:08:39.78,0:08:41.00,Sub,,0,0,0,,{\fad(120,160)}its new data centers
+Dialogue: 0,0:08:41.04,0:08:42.42,Sub,,0,0,0,,{\fad(120,160)}will pay their own way,
+Dialogue: 0,0:08:42.49,0:08:43.88,Sub,,0,0,0,,{\fad(120,160)}so the neighbors don't.
+Dialogue: 0,0:08:44.43,0:08:45.80,Sub,,0,0,0,,{\fad(120,160)}Neither is done.
+Dialogue: 0,0:08:46.04,0:08:47.77,Sub,,0,0,0,,{\fad(120,160)}The bill hasn't passed.
+Dialogue: 0,0:08:47.90,0:08:49.58,Sub,,0,0,0,,{\fad(120,160)}The promise isn't a law.
+Dialogue: 0,0:08:49.87,0:08:51.69,Sub,,0,0,0,,{\fad(120,160)}That world isn't built yet.
+Dialogue: 0,0:08:51.94,0:08:52.99,Sub,,0,0,0,,{\fad(120,160)}Whether it will be
+Dialogue: 0,0:08:53.03,0:08:54.79,Sub,,0,0,0,,{\fad(120,160)}is decided by lawmakers,
+Dialogue: 0,0:08:54.83,0:08:56.91,Sub,,0,0,0,,{\fad(120,160)}by companies, and by voters.
+Dialogue: 0,0:08:58.08,0:08:59.91,Sub,,0,0,0,,{\fad(120,160)}So go back to that door.
+Dialogue: 0,0:09:00.04,0:09:01.93,Sub,,0,0,0,,{\fad(120,160)}The one that only opens for a few.
+Dialogue: 0,0:09:02.24,0:09:03.51,Sub,,0,0,0,,{\fad(120,160)}Now you know the reason.
+Dialogue: 0,0:09:03.69,0:09:04.73,Sub,,0,0,0,,{\fad(120,160)}Not the machine.
+Dialogue: 0,0:09:04.93,0:09:07.30,Sub,,0,0,0,,{\fad(120,160)}The fear of everyone left outside.
+Dialogue: 0,0:09:07.48,0:09:08.48,Sub,,0,0,0,,{\fad(120,160)}And that fear points
+Dialogue: 0,0:09:08.52,0:09:09.70,Sub,,0,0,0,,{\fad(120,160)}at something true.
+Dialogue: 0,0:09:09.94,0:09:11.25,Sub,,0,0,0,,{\fad(120,160)}A future where a few win
+Dialogue: 0,0:09:11.29,0:09:12.93,Sub,,0,0,0,,{\fad(120,160)}everything isn't safe.
+Dialogue: 0,0:09:13.14,0:09:14.41,Sub,,0,0,0,,{\fad(120,160)}Not even for the few.
+Dialogue: 0,0:09:14.75,0:09:15.71,Sub,,0,0,0,,{\fad(120,160)}The safe one leaves
+Dialogue: 0,0:09:15.75,0:09:17.03,Sub,,0,0,0,,{\fad(120,160)}no one outside.
+Dialogue: 0,0:09:18.06,0:09:19.30,Sub,,0,0,0,,{\fad(120,160)}You can't build a bunker
+Dialogue: 0,0:09:19.34,0:09:21.17,Sub,,0,0,0,,{\fad(120,160)}for 8 billion people.
+Dialogue: 0,0:09:21.48,0:09:22.86,Sub,,0,0,0,,{\fad(120,160)}You can only build a world
+Dialogue: 0,0:09:22.90,0:09:24.56,Sub,,0,0,0,,{\fad(120,160)}where nobody needs one.
+Dialogue: 0,0:09:25.66,0:09:26.72,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:09:26.76,0:09:28.50,Sub,,0,0,0,,{\fad(120,160)}for one reason: so that
+Dialogue: 0,0:09:28.54,0:09:30.25,Sub,,0,0,0,,{\fad(120,160)}the arrival of superintelligence
+Dialogue: 0,0:09:30.29,0:09:32.05,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:09:32.23,0:09:33.96,Sub,,0,0,0,,{\fad(120,160)}All 8 billion of us.
+Dialogue: 0,0:09:34.18,0:09:35.18,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:09:35.27,0:09:36.27,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.

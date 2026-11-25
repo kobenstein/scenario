@@ -1,0 +1,7 @@
+[
+ {"f": "pencil", "word": "oldest reason in the book.", "at_end": true, "dt": 0.12, "off": 0.65, "peak": 0.07, "d": 0.95, "v": 0.45, "once": true, "fade": 0.25},
+ {"f": "pencil", "word": "Cross the machine off the list.", "at_end": true, "dt": 0.12, "off": 0.65, "peak": 0.07, "d": 0.95, "v": 0.45, "once": true, "fade": 0.25},
+ {"f": "lever_switch", "word": "Robots as guards.", "at_end": true, "dt": 0.2, "off": 2.2, "peak": 0.13, "d": 0.5, "v": 0.3, "once": true, "fade": 0.3},
+ {"f": "key", "word": "It's built against people.", "at_end": true, "dt": 0.2, "off": 0.4, "peak": 0.18, "d": 0.9, "v": 0.3, "once": true, "fade": 0.3},
+ {"f": "shimmer_rings", "word": "Then subscribe.", "nth": 1, "at_end": true, "dt": 0.6, "off": 0.5, "peak": 0.28, "d": 2.2, "v": 0.3, "once": true, "fade": 0.8}
+]
