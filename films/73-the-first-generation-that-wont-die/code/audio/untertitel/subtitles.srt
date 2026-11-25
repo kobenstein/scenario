@@ -1,0 +1,1376 @@
+1
+00:00:00,680 --> 00:00:02,090
+Every generation before
+
+2
+00:00:02,130 --> 00:00:03,450
+yours had to die.
+
+3
+00:00:03,900 --> 00:00:05,870
+Yours may be the first that won't.
+
+4
+00:00:06,170 --> 00:00:07,660
+Because labs now treat death
+
+5
+00:00:07,700 --> 00:00:09,340
+as an engineering problem.
+
+6
+00:00:09,550 --> 00:00:11,280
+And they've pointed AI at it.
+
+7
+00:00:11,770 --> 00:00:13,540
+So picture the day it works.
+
+8
+00:00:13,680 --> 00:00:15,170
+The offer is in front of you.
+
+9
+00:00:15,330 --> 00:00:16,450
+No more aging.
+
+10
+00:00:16,490 --> 00:00:17,570
+No end date.
+
+11
+00:00:17,750 --> 00:00:19,050
+Yes, or no.
+
+12
+00:00:19,620 --> 00:00:21,050
+If you could stop dying,
+
+13
+00:00:21,160 --> 00:00:22,160
+would you?
+
+14
+00:00:22,300 --> 00:00:23,680
+Most people say no.
+
+15
+00:00:23,980 --> 00:00:24,720
+But the labs aren't
+
+16
+00:00:24,760 --> 00:00:26,120
+waiting for an answer.
+
+17
+00:00:26,330 --> 00:00:27,250
+Some want to copy
+
+18
+00:00:27,290 --> 00:00:28,910
+a mind into a computer.
+
+19
+00:00:29,070 --> 00:00:30,100
+And they've started.
+
+20
+00:00:30,330 --> 00:00:31,330
+With a fly.
+
+21
+00:00:31,850 --> 00:00:34,030
+A real fly's brain was mapped,
+
+22
+00:00:34,070 --> 00:00:35,590
+wire by wire.
+
+23
+00:00:35,890 --> 00:00:36,640
+This year,
+
+24
+00:00:36,680 --> 00:00:38,000
+a simple computer model
+
+25
+00:00:38,040 --> 00:00:39,260
+built from that map
+
+26
+00:00:39,300 --> 00:00:41,650
+began to steer a virtual body.
+
+27
+00:00:42,000 --> 00:00:42,850
+There's a second way
+
+28
+00:00:42,890 --> 00:00:44,000
+to stop dying.
+
+29
+00:00:44,330 --> 00:00:45,300
+Closer.
+
+30
+00:00:45,340 --> 00:00:47,660
+Repair the body you already have.
+
+31
+00:00:47,960 --> 00:00:49,350
+And it comes with a date.
+
+32
+00:00:49,600 --> 00:00:50,940
+2032.
+
+33
+00:00:51,550 --> 00:00:53,460
+The date comes from Ray Kurzweil,
+
+34
+00:00:53,500 --> 00:00:54,480
+the inventor
+
+35
+00:00:54,520 --> 00:00:56,360
+and longtime futurist.
+
+36
+00:01:04,710 --> 00:01:06,600
+His claim: a year back
+
+37
+00:01:06,640 --> 00:01:08,290
+for every year you live.
+
+38
+00:01:08,660 --> 00:01:10,100
+That's what "won't die"
+
+39
+00:01:10,140 --> 00:01:11,140
+means here.
+
+40
+00:01:11,250 --> 00:01:12,500
+Not immortal.
+
+41
+00:01:12,660 --> 00:01:14,570
+An accident could still kill you.
+
+42
+00:01:14,780 --> 00:01:16,100
+Old age couldn't.
+
+43
+00:01:16,340 --> 00:01:17,680
+But Kurzweil has moved
+
+44
+00:01:17,720 --> 00:01:18,920
+his date before,
+
+45
+00:01:18,960 --> 00:01:19,850
+and he sells books
+
+46
+00:01:19,890 --> 00:01:21,000
+about this future.
+
+47
+00:01:21,310 --> 00:01:23,370
+Critics note that no peer-reviewed
+
+48
+00:01:23,410 --> 00:01:25,230
+study stands behind it.
+
+49
+00:01:25,290 --> 00:01:27,260
+And at today's pace of progress,
+
+50
+00:01:27,300 --> 00:01:28,470
+one blogger's analysis
+
+51
+00:01:28,510 --> 00:01:29,650
+from this summer lands
+
+52
+00:01:29,690 --> 00:01:31,350
+somewhere else entirely.
+
+53
+00:01:31,510 --> 00:01:32,490
+A leading aging
+
+54
+00:01:32,530 --> 00:01:33,890
+researcher shared it.
+
+55
+00:01:34,060 --> 00:01:36,740
+Its result: not 2032.
+
+56
+00:01:36,880 --> 00:01:39,020
+Around 2459.
+
+57
+00:01:39,610 --> 00:01:41,050
+In your lifetime.
+
+58
+00:01:41,440 --> 00:01:44,060
+Or four centuries too late.
+
+59
+00:01:44,360 --> 00:01:46,410
+And even that analysis says:
+
+60
+00:01:46,450 --> 00:01:48,000
+no chance, unless
+
+61
+00:01:48,040 --> 00:01:49,710
+AI speeds things up.
+
+62
+00:01:49,970 --> 00:01:51,380
+So the first generation
+
+63
+00:01:51,420 --> 00:01:54,150
+that won't die is a bet on AI.
+
+64
+00:01:54,500 --> 00:01:56,000
+Is that bet paying off?
+
+65
+00:01:56,280 --> 00:01:58,010
+There are early signs.
+
+66
+00:01:58,210 --> 00:01:59,460
+AI models are learning
+
+67
+00:01:59,500 --> 00:02:01,150
+to predict how a living cell
+
+68
+00:02:01,190 --> 00:02:02,480
+reacts to a drug,
+
+69
+00:02:02,520 --> 00:02:04,810
+before anyone runs the experiment.
+
+70
+00:02:05,000 --> 00:02:05,770
+And in a study
+
+71
+00:02:05,810 --> 00:02:07,270
+published this October,
+
+72
+00:02:07,310 --> 00:02:08,450
+machine learning helped
+
+73
+00:02:08,490 --> 00:02:09,530
+researchers pick out
+
+74
+00:02:09,570 --> 00:02:10,910
+a single gene.
+
+75
+00:02:11,090 --> 00:02:13,110
+They boosted it in old mice.
+
+76
+00:02:13,290 --> 00:02:16,260
+The mice lived about 14% longer.
+
+77
+00:02:16,780 --> 00:02:18,060
+A small study.
+
+78
+00:02:18,330 --> 00:02:19,900
+Female mice only.
+
+79
+00:02:20,200 --> 00:02:21,510
+Not yet repeated.
+
+80
+00:02:21,770 --> 00:02:23,500
+And no drug against aging
+
+81
+00:02:23,540 --> 00:02:25,680
+itself is approved anywhere.
+
+82
+00:02:25,810 --> 00:02:27,730
+So the date is a guess.
+
+83
+00:02:27,770 --> 00:02:29,190
+The work is real.
+
+84
+00:02:29,480 --> 00:02:30,820
+But what if the repairs
+
+85
+00:02:30,860 --> 00:02:32,250
+come too late for you?
+
+86
+00:02:33,420 --> 00:02:35,990
+Then the copy is what's left.
+
+87
+00:02:36,150 --> 00:02:37,380
+Back to that fly.
+
+88
+00:02:37,610 --> 00:02:38,350
+This March,
+
+89
+00:02:38,390 --> 00:02:40,050
+a San Francisco startup plugged
+
+90
+00:02:40,090 --> 00:02:41,480
+that simple brain model
+
+91
+00:02:41,520 --> 00:02:43,130
+into a virtual body.
+
+92
+00:02:43,350 --> 00:02:45,350
+And the model began to choose.
+
+93
+00:02:45,610 --> 00:02:46,300
+Walk.
+
+94
+00:02:46,340 --> 00:02:47,130
+Groom.
+
+95
+00:02:47,170 --> 00:02:48,040
+Feed.
+
+96
+00:02:48,080 --> 00:02:49,310
+The startup's headline:
+
+97
+00:02:49,420 --> 00:02:51,340
+we've uploaded a fruit fly.
+
+98
+00:02:51,670 --> 00:02:53,090
+Critics said no.
+
+99
+00:02:53,250 --> 00:02:54,600
+Even a foundation that works
+
+100
+00:02:54,640 --> 00:02:56,060
+toward brain uploads.
+
+101
+00:02:56,150 --> 00:02:58,100
+Their point: the model has none
+
+102
+00:02:58,140 --> 00:02:59,730
+of the real fly's memories,
+
+103
+00:02:59,770 --> 00:03:00,930
+and separate software
+
+104
+00:03:00,970 --> 00:03:01,970
+does the walking.
+
+105
+00:03:02,270 --> 00:03:03,900
+The company's own chief executive
+
+106
+00:03:03,940 --> 00:03:06,160
+is frank about how little went in.
+
+107
+00:03:14,090 --> 00:03:15,090
+And still.
+
+108
+00:03:15,480 --> 00:03:18,030
+A map of a brain, switched on,
+
+109
+00:03:18,150 --> 00:03:20,280
+choosing what a body does next.
+
+110
+00:03:21,330 --> 00:03:22,300
+The same executive
+
+111
+00:03:22,340 --> 00:03:24,210
+says that, optimistically,
+
+112
+00:03:24,250 --> 00:03:25,590
+the first human uploads
+
+113
+00:03:25,630 --> 00:03:28,160
+are a few years away, not decades.
+
+114
+00:03:28,460 --> 00:03:30,270
+He also has a startup to fund.
+
+115
+00:03:30,610 --> 00:03:32,320
+Yet of a human brain,
+
+116
+00:03:32,360 --> 00:03:33,270
+science has mapped
+
+117
+00:03:33,310 --> 00:03:35,220
+one cubic millimeter.
+
+118
+00:03:35,470 --> 00:03:36,470
+A crumb.
+
+119
+00:03:36,710 --> 00:03:37,860
+Its data filled more
+
+120
+00:03:37,900 --> 00:03:39,550
+than a million gigabytes.
+
+121
+00:03:39,970 --> 00:03:41,640
+But suppose it worked.
+
+122
+00:03:41,880 --> 00:03:42,960
+A copy wakes up
+
+123
+00:03:43,000 --> 00:03:44,450
+with all your memories.
+
+124
+00:03:44,760 --> 00:03:45,760
+Is that you?
+
+125
+00:03:45,920 --> 00:03:46,950
+Or did you die,
+
+126
+00:03:46,990 --> 00:03:47,910
+while something else
+
+127
+00:03:47,950 --> 00:03:49,440
+remembers being you?
+
+128
+00:03:50,010 --> 00:03:51,440
+So ask it again.
+
+129
+00:03:51,780 --> 00:03:53,710
+If the only way to stop dying
+
+130
+00:03:53,750 --> 00:03:56,180
+were to become a copy, would you?
+
+131
+00:03:57,380 --> 00:03:58,230
+Which brings back
+
+132
+00:03:58,270 --> 00:04:00,170
+the answer most people give.
+
+133
+00:04:00,610 --> 00:04:01,540
+No.
+
+134
+00:04:01,580 --> 00:04:04,290
+In 2013, a major American survey
+
+135
+00:04:04,330 --> 00:04:05,460
+asked about treatments
+
+136
+00:04:05,500 --> 00:04:07,170
+to live to 120.
+
+137
+00:04:07,510 --> 00:04:09,390
+Most said, "not for me."
+
+138
+00:04:09,650 --> 00:04:10,680
+Yet most believed
+
+139
+00:04:10,720 --> 00:04:12,700
+that other people would say yes.
+
+140
+00:04:12,970 --> 00:04:15,040
+It seems everybody wants this.
+
+141
+00:04:15,230 --> 00:04:17,230
+Except everybody you ask.
+
+142
+00:04:17,440 --> 00:04:19,160
+What holds the yes back?
+
+143
+00:04:19,470 --> 00:04:21,080
+This August, a new survey
+
+144
+00:04:21,120 --> 00:04:22,690
+turned the question around.
+
+145
+00:04:22,980 --> 00:04:24,800
+Would you accept a shorter life,
+
+146
+00:04:24,840 --> 00:04:26,520
+if it came without decline?
+
+147
+00:04:26,790 --> 00:04:27,980
+No failing body.
+
+148
+00:04:28,020 --> 00:04:29,370
+No fading mind.
+
+149
+00:04:29,700 --> 00:04:32,160
+Almost 2 in 3 said yes.
+
+150
+00:04:32,730 --> 00:04:35,250
+So the fear isn't living forever.
+
+151
+00:04:35,390 --> 00:04:37,410
+It's being old forever.
+
+152
+00:04:38,480 --> 00:04:39,650
+This channel exists
+
+153
+00:04:39,690 --> 00:04:41,020
+for one reason:
+
+154
+00:04:41,210 --> 00:04:42,070
+so that the arrival
+
+155
+00:04:42,110 --> 00:04:43,190
+of superintelligence
+
+156
+00:04:43,230 --> 00:04:45,030
+goes well for everybody.
+
+157
+00:04:45,210 --> 00:04:46,610
+Healthy years included.
+
+158
+00:04:46,840 --> 00:04:47,840
+Want that too?
+
+159
+00:04:47,920 --> 00:04:48,920
+Then subscribe.
+
+160
+00:04:49,440 --> 00:04:51,340
+So ask it the fair way.
+
+161
+00:04:51,780 --> 00:04:53,240
+If you could stop dying,
+
+162
+00:04:53,280 --> 00:04:55,250
+and stay healthy, would you?
+
+163
+00:04:55,560 --> 00:04:56,690
+Even then, there's
+
+164
+00:04:56,730 --> 00:04:58,500
+a serious case for no.
+
+165
+00:04:58,800 --> 00:05:00,050
+One philosopher argued
+
+166
+00:05:00,090 --> 00:05:01,400
+that an endless life
+
+167
+00:05:01,440 --> 00:05:02,660
+ends in boredom.
+
+168
+00:05:02,970 --> 00:05:04,160
+Others answer that some
+
+169
+00:05:04,200 --> 00:05:05,830
+pleasures never wear out.
+
+170
+00:05:06,320 --> 00:05:08,790
+But suppose enough people say yes.
+
+171
+00:05:09,110 --> 00:05:10,210
+What happens to a world
+
+172
+00:05:10,250 --> 00:05:12,110
+that was built around dying?
+
+173
+00:05:13,270 --> 00:05:14,450
+Say it works.
+
+174
+00:05:14,690 --> 00:05:15,740
+In this scenario,
+
+175
+00:05:15,780 --> 00:05:17,570
+you're older than anyone alive
+
+176
+00:05:17,610 --> 00:05:19,180
+today, and healthy.
+
+177
+00:05:19,540 --> 00:05:21,280
+Take a promise you may have made:
+
+178
+00:05:21,480 --> 00:05:23,160
+till death do us part.
+
+179
+00:05:23,420 --> 00:05:24,370
+For most of history,
+
+180
+00:05:24,410 --> 00:05:25,290
+that usually meant
+
+181
+00:05:25,330 --> 00:05:26,960
+less than 30 years.
+
+182
+00:05:27,130 --> 00:05:29,110
+Now it has no end date.
+
+183
+00:05:29,290 --> 00:05:29,820
+More time
+
+184
+00:05:29,860 --> 00:05:31,210
+with the person you love.
+
+185
+00:05:31,360 --> 00:05:33,140
+And a much bigger promise.
+
+186
+00:05:33,310 --> 00:05:34,270
+And a life that long
+
+187
+00:05:34,310 --> 00:05:35,690
+has to be paid for.
+
+188
+00:05:35,860 --> 00:05:36,770
+A London professor
+
+189
+00:05:36,810 --> 00:05:38,470
+who studies long lives says
+
+190
+00:05:38,510 --> 00:05:41,490
+the old plan, learn, work, retire,
+
+191
+00:05:41,540 --> 00:05:42,540
+is breaking.
+
+192
+00:05:53,500 --> 00:05:55,620
+So you could have five careers.
+
+193
+00:05:55,670 --> 00:05:57,480
+And you might never be done.
+
+194
+00:05:57,650 --> 00:05:58,750
+And what your parents
+
+195
+00:05:58,790 --> 00:05:59,790
+would have left you?
+
+196
+00:05:59,990 --> 00:06:02,390
+In this scenario, it never comes.
+
+197
+00:06:02,460 --> 00:06:03,710
+Your parents stay.
+
+198
+00:06:03,990 --> 00:06:04,990
+That's the gain.
+
+199
+00:06:05,170 --> 00:06:07,080
+What they own stays with them.
+
+200
+00:06:07,240 --> 00:06:08,290
+That's the price.
+
+201
+00:06:08,450 --> 00:06:09,450
+Still yes?
+
+202
+00:06:10,550 --> 00:06:11,660
+And an inheritance
+
+203
+00:06:11,700 --> 00:06:13,640
+is only the small version.
+
+204
+00:06:14,060 --> 00:06:15,830
+Power and ideas change hands
+
+205
+00:06:15,870 --> 00:06:16,870
+the same way:
+
+206
+00:06:17,130 --> 00:06:18,470
+when someone goes.
+
+207
+00:06:18,810 --> 00:06:20,550
+Max Planck, the physicist,
+
+208
+00:06:20,590 --> 00:06:21,940
+saw it in science.
+
+209
+00:06:22,170 --> 00:06:23,800
+A new truth, he wrote,
+
+210
+00:06:23,840 --> 00:06:24,550
+doesn't win by
+
+211
+00:06:24,590 --> 00:06:26,300
+convincing its opponents.
+
+212
+00:06:26,430 --> 00:06:27,400
+It wins because
+
+213
+00:06:27,440 --> 00:06:28,900
+they eventually die.
+
+214
+00:06:29,280 --> 00:06:31,290
+Economists later tested that.
+
+215
+00:06:31,510 --> 00:06:33,620
+When a star scientist died early,
+
+216
+00:06:33,660 --> 00:06:34,890
+outsiders moved in,
+
+217
+00:06:34,930 --> 00:06:36,990
+and did unusually strong work.
+
+218
+00:06:37,260 --> 00:06:38,780
+That doesn't make death good.
+
+219
+00:06:38,960 --> 00:06:40,420
+It shows that people at the top
+
+220
+00:06:40,460 --> 00:06:42,190
+can keep newcomers out,
+
+221
+00:06:42,230 --> 00:06:43,450
+just by staying.
+
+222
+00:06:44,020 --> 00:06:45,550
+And at the very top,
+
+223
+00:06:45,590 --> 00:06:47,790
+this subject has already come up.
+
+224
+00:06:48,120 --> 00:06:50,990
+Beijing, September 2025.
+
+225
+00:06:51,260 --> 00:06:52,640
+A military parade,
+
+226
+00:06:52,740 --> 00:06:54,080
+a live microphone.
+
+227
+00:06:54,420 --> 00:06:55,390
+China's president
+
+228
+00:06:55,430 --> 00:06:56,520
+and Russia's president
+
+229
+00:06:56,560 --> 00:06:58,580
+walk toward the viewing platform.
+
+230
+00:06:58,840 --> 00:07:00,280
+Through his interpreter,
+
+231
+00:07:00,320 --> 00:07:02,360
+Russia's president talks of organs
+
+232
+00:07:02,400 --> 00:07:04,590
+transplanted again and again,
+
+233
+00:07:04,730 --> 00:07:05,580
+of people growing
+
+234
+00:07:05,620 --> 00:07:07,580
+younger, even immortal.
+
+235
+00:07:07,840 --> 00:07:09,330
+China's president answers
+
+236
+00:07:09,370 --> 00:07:10,280
+that some predict
+
+237
+00:07:10,320 --> 00:07:11,280
+humans may live
+
+238
+00:07:11,320 --> 00:07:13,570
+to 150 this century.
+
+239
+00:07:14,150 --> 00:07:16,280
+This isn't about two countries.
+
+240
+00:07:16,520 --> 00:07:17,610
+Any president.
+
+241
+00:07:17,680 --> 00:07:18,700
+Any judge.
+
+242
+00:07:18,760 --> 00:07:19,800
+Any founder.
+
+243
+00:07:20,090 --> 00:07:21,090
+Who steps aside,
+
+244
+00:07:21,130 --> 00:07:22,660
+if they never have to?
+
+245
+00:07:22,860 --> 00:07:24,410
+And who gets it at all?
+
+246
+00:07:24,660 --> 00:07:26,850
+In that survey from 2013,
+
+247
+00:07:26,920 --> 00:07:28,560
+a clear majority expected
+
+248
+00:07:28,600 --> 00:07:30,340
+that only the wealthy would.
+
+249
+00:07:30,680 --> 00:07:31,750
+Now ask yourself.
+
+250
+00:07:32,200 --> 00:07:33,600
+Would you still say yes,
+
+251
+00:07:33,640 --> 00:07:35,780
+if the powerful said yes first?
+
+252
+00:07:36,070 --> 00:07:37,280
+If you could afford it,
+
+253
+00:07:37,320 --> 00:07:38,620
+and your neighbor couldn't?
+
+254
+00:07:39,800 --> 00:07:41,580
+It doesn't have to go that way.
+
+255
+00:07:41,770 --> 00:07:42,840
+Start with what people
+
+256
+00:07:42,880 --> 00:07:44,450
+actually said yes to.
+
+257
+00:07:44,620 --> 00:07:45,620
+Not forever.
+
+258
+00:07:45,880 --> 00:07:46,820
+Healthy.
+
+259
+00:07:46,860 --> 00:07:47,770
+Around the world,
+
+260
+00:07:47,810 --> 00:07:49,610
+people spend close to 10 years
+
+261
+00:07:49,650 --> 00:07:51,280
+of their lives in poor health.
+
+262
+00:07:51,640 --> 00:07:53,210
+Win those years back first,
+
+263
+00:07:53,250 --> 00:07:53,810
+and you shrink
+
+264
+00:07:53,850 --> 00:07:55,550
+the very thing people fear:
+
+265
+00:07:55,700 --> 00:07:57,150
+the long decline.
+
+266
+00:07:57,720 --> 00:07:59,570
+But healthy years only count
+
+267
+00:07:59,610 --> 00:08:01,290
+if people can afford them.
+
+268
+00:08:01,450 --> 00:08:02,720
+Some medical technology
+
+269
+00:08:02,760 --> 00:08:04,300
+gets cheap fast.
+
+270
+00:08:04,500 --> 00:08:06,270
+Reading a human genome once
+
+271
+00:08:06,310 --> 00:08:09,110
+cost about $95 million.
+
+272
+00:08:09,310 --> 00:08:10,950
+Today, a few hundred.
+
+273
+00:08:11,360 --> 00:08:13,290
+Yet so far, in America,
+
+274
+00:08:13,420 --> 00:08:14,600
+new medical technology
+
+275
+00:08:14,640 --> 00:08:15,950
+has pushed health costs
+
+276
+00:08:15,990 --> 00:08:17,400
+up, not down.
+
+277
+00:08:17,750 --> 00:08:19,960
+Which pattern wins is still open.
+
+278
+00:08:20,230 --> 00:08:22,380
+Part of that comes down to rules.
+
+279
+00:08:22,580 --> 00:08:24,200
+Labs don't write those.
+
+280
+00:08:24,320 --> 00:08:26,210
+Voters and lawmakers do.
+
+281
+00:08:26,540 --> 00:08:28,050
+A few exist already.
+
+282
+00:08:28,630 --> 00:08:30,050
+Who steps aside?
+
+283
+00:08:30,270 --> 00:08:32,080
+American presidents must,
+
+284
+00:08:32,120 --> 00:08:33,500
+after two terms.
+
+285
+00:08:33,780 --> 00:08:35,680
+Who pays for longer lives?
+
+286
+00:08:35,810 --> 00:08:36,940
+Denmark has tied
+
+287
+00:08:36,980 --> 00:08:38,860
+its retirement age by law
+
+288
+00:08:38,900 --> 00:08:40,610
+to how long people live.
+
+289
+00:08:40,860 --> 00:08:42,670
+And who can afford it?
+
+290
+00:08:42,850 --> 00:08:44,400
+A Montana law now lets
+
+291
+00:08:44,440 --> 00:08:45,690
+licensed clinics sell
+
+292
+00:08:45,730 --> 00:08:47,090
+treatments after just
+
+293
+00:08:47,130 --> 00:08:48,840
+a first safety trial.
+
+294
+00:08:49,110 --> 00:08:50,680
+In return, 2%
+
+295
+00:08:50,720 --> 00:08:51,990
+of the profit must help
+
+296
+00:08:52,030 --> 00:08:53,930
+people in the state get treatment.
+
+297
+00:08:54,220 --> 00:08:56,230
+Supporters call that access.
+
+298
+00:08:56,340 --> 00:08:58,310
+Critics call it a risk.
+
+299
+00:08:58,870 --> 00:09:00,830
+Most rules for a world like this
+
+300
+00:09:00,870 --> 00:09:02,360
+have never been written.
+
+301
+00:09:02,790 --> 00:09:03,920
+How many children,
+
+302
+00:09:03,960 --> 00:09:05,660
+if so few of us go?
+
+303
+00:09:06,050 --> 00:09:07,500
+One projection for Sweden
+
+304
+00:09:07,540 --> 00:09:08,960
+suggests its population
+
+305
+00:09:09,000 --> 00:09:10,280
+would grow more slowly
+
+306
+00:09:10,320 --> 00:09:11,410
+than many fear.
+
+307
+00:09:11,710 --> 00:09:14,060
+Even so, in this year's survey,
+
+308
+00:09:14,100 --> 00:09:15,430
+1 in 5 would accept
+
+309
+00:09:15,470 --> 00:09:16,350
+stricter limits
+
+310
+00:09:16,390 --> 00:09:17,540
+on having children,
+
+311
+00:09:17,640 --> 00:09:19,010
+for a much longer life.
+
+312
+00:09:19,480 --> 00:09:20,480
+Would you?
+
+313
+00:09:21,390 --> 00:09:23,220
+So is yours the first
+
+314
+00:09:23,260 --> 00:09:24,710
+generation that won't die?
+
+315
+00:09:25,040 --> 00:09:27,240
+The honest answer is a range.
+
+316
+00:09:27,360 --> 00:09:28,250
+The estimates run
+
+317
+00:09:28,290 --> 00:09:29,450
+from the next decade
+
+318
+00:09:29,490 --> 00:09:31,450
+to four centuries from now.
+
+319
+00:09:31,680 --> 00:09:32,810
+And neither the repair
+
+320
+00:09:32,850 --> 00:09:34,170
+nor the copy has worked
+
+321
+00:09:34,210 --> 00:09:36,070
+in a single human being yet.
+
+322
+00:09:36,340 --> 00:09:38,500
+But something has already changed.
+
+323
+00:09:38,710 --> 00:09:40,110
+With AI, death has
+
+324
+00:09:40,150 --> 00:09:41,010
+moved from the things
+
+325
+00:09:41,050 --> 00:09:42,520
+we accept to the things
+
+326
+00:09:42,560 --> 00:09:43,560
+we work on.
+
+327
+00:09:43,760 --> 00:09:44,950
+And what we work on,
+
+328
+00:09:44,990 --> 00:09:46,160
+we have to think through,
+
+329
+00:09:46,200 --> 00:09:47,370
+before it works.
+
+330
+00:09:47,610 --> 00:09:48,660
+Do we want this?
+
+331
+00:09:48,880 --> 00:09:50,380
+What does it do to a life?
+
+332
+00:09:50,630 --> 00:09:51,630
+Who gets it?
+
+333
+00:09:51,830 --> 00:09:53,350
+If you could stop dying,
+
+334
+00:09:53,490 --> 00:09:54,490
+would you?
+
+335
+00:09:54,710 --> 00:09:56,390
+Every generation before us
+
+336
+00:09:56,430 --> 00:09:57,870
+was given the answer.
+
+337
+00:09:58,250 --> 00:09:59,500
+We are the first
+
+338
+00:09:59,540 --> 00:10:01,120
+to be asked the question.
+
+339
+00:10:02,300 --> 00:10:04,120
+That's what this channel is for:
+
+340
+00:10:04,210 --> 00:10:05,910
+making sure superintelligence
+
+341
+00:10:05,950 --> 00:10:07,620
+goes well for everybody,
+
+342
+00:10:07,660 --> 00:10:09,640
+and that the answer stays yours.
+
+343
+00:10:09,830 --> 00:10:10,830
+Want that too?
+
+344
+00:10:10,890 --> 00:10:11,890
+Then subscribe.
+

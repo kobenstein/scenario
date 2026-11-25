@@ -1,0 +1,3 @@
+{
+ "_comment": "Film 73: no Mirelo sounds generated. All six accents come from sfx-bibliothek/akzent (tick 0.2-0.6 s, lever_switch 2.2-2.7 s, heartbeat 0.9-1.45 s, bloom 0-1.0 s, shimmer_rings 0.3-1.3 s, chime 0-1.05 s), copied to /tmp/claude-0/f73/audio/sfx. No atmo beds: SFX only in the gaps of the voice, never under a running sentence (mix.py checks it)."
+}

@@ -1,0 +1,4 @@
+{
+ "_comment": "Film 73 clip metadata (clips_json.py from clips_meta.json). Slot = timing.json slots[] (0.6 s air before/after); cues = [seconds from the slot start, line].",
+ "clips": []
+}
