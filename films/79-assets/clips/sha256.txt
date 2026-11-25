@@ -1,0 +1,4 @@
+e9d3aaeafb8647584016dbdfec27ba054e4646d0264aa99db1e47a94f88da759  C1-duvenaud-80k.mp4
+7dd876197bd6b22250e8e194af32a5c36535b74ad89d55232b59b03800e3d73a  C2-brynjolfsson-revelio.mp4
+224380faeb28b32e81aa1b4f00d37bcde99cefe11b6346e68533b16f0b148af0  C3-duvenaud-srinstitute.mp4
+05508cffc17372a2d1be866c8da8ca3c4759baedc8678fd385a875159c4247ff  C4-brynjolfsson-revelio.mp4

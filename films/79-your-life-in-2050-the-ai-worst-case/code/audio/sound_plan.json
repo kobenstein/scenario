@@ -1,0 +1,122 @@
+{
+ "_comment": "Film 79 sound plan, read by mix.py. Sparse on purpose: the voice and the clips carry the film. Anchors = script phrases (words of timing.json), dt in seconds from the word's start (at='end': from its end). rel = dB against the voice's speaking level; beds are looped, faded and ducked like the music; hits are peak-matched. File sources: sfx-bibliothek (dc, chime) and Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 2 samples each, 2026-11-25, seeds in sfx_prompts.json), trims in 'trim'.",
+ "beds": [
+  {
+   "f": "dc",
+   "what": "hum of the data centre (tower behind the fence, hook)",
+   "from": "Behind it, a tower",
+   "dt": -0.3,
+   "to": "expected anywhere",
+   "to_at": "end",
+   "to_dt": 0.6,
+   "rel": -27,
+   "fade": 1.5
+  },
+  {
+   "f": "cars_a",
+   "what": "the gliding empty cars (the road full of crates)",
+   "from": "You step into the road",
+   "dt": -0.3,
+   "to": "from one machine to the next",
+   "to_at": "end",
+   "to_dt": 0.4,
+   "rel": -25,
+   "fade": 1.5
+  },
+  {
+   "f": "dc",
+   "what": "the data centre: no windows, staff of zero",
+   "from": "Most of those crates",
+   "dt": -0.5,
+   "to": "Listen to where he found it",
+   "to_at": "end",
+   "to_dt": 0.2,
+   "rel": -27,
+   "fade": 1.5
+  },
+  {
+   "f": "dc",
+   "what": "the tower shines on while the kitchen is dark",
+   "from": "Behind the fence, the tower shines",
+   "dt": 0.0,
+   "after": 160,
+   "to": "they can always use more",
+   "to_at": "end",
+   "to_dt": 0.4,
+   "rel": -28,
+   "fade": 1.2
+  }
+ ],
+ "hits": [
+  {
+   "f": "cars_b",
+   "what": "an empty car slows down and drives on",
+   "word": "An empty car slows down",
+   "dt": -0.4,
+   "rel": -13,
+   "d": 7.0,
+   "fade": 1.2
+  },
+  {
+   "f": "relay",
+   "what": "the kitchen goes dark: one relay click",
+   "word": "goes dark",
+   "after": 150,
+   "dt": 0.05,
+   "rel": -12,
+   "fade": 0.2
+  },
+  {
+   "f": "phones",
+   "what": "noon: every phone chimes at once",
+   "word": "chimes at once",
+   "after": 150,
+   "dt": -0.1,
+   "rel": -10,
+   "d": 3.0,
+   "fade": 0.8
+  },
+  {
+   "f": "chime",
+   "what": "noon: a soft glass chime under it",
+   "word": "chimes at once",
+   "after": 150,
+   "dt": 0.0,
+   "rel": -17,
+   "d": 3.0,
+   "fade": 0.8
+  },
+  {
+   "f": "clock",
+   "what": "the clock is wound again (after the last word)",
+   "word": "Somebody still has to show up",
+   "dt": 0.6,
+   "at": "end",
+   "rel": -8,
+   "d": 8.0,
+   "fade": 2.0
+  }
+ ],
+ "mutes": [
+  {
+   "what": "the kitchen goes dark: music and beds drop out, then slowly return",
+   "word": "goes dark",
+   "after": 150,
+   "dt": 0.0,
+   "hold": 1.3,
+   "fade_in": 1.5
+  }
+ ],
+ "files": {
+  "dc": "sfx/dc.mp3",
+  "cars_a": "sfx/cars_a.mp3",
+  "cars_b": "sfx/cars_b.mp3",
+  "relay": "sfx/relay_click.wav",
+  "phones": "sfx/phones_a.mp3",
+  "chime": "sfx/chime.mp3",
+  "clock": "sfx/clock_a.mp3"
+ },
+ "trim": {
+  "relay": "relay_a.mp3 cut 1.25-2.35 s (one click at ~0.15 s, the 2nd click of the sample is cut off)"
+ }
+}

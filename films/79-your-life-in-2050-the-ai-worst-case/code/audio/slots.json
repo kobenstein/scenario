@@ -1,0 +1,111 @@
+{
+ "duration": 617.92,
+ "end_screen": {
+  "start": 602.92,
+  "dur": 15.0,
+  "end": 617.92,
+  "call": "t28",
+  "call_start": 570.87,
+  "call_end": 591.14,
+  "tail_after_vo": 19.0,
+  "note": "after the last VO word: a quiet walk, then the 15 s end screen (the music fades out over it)"
+ },
+ "channel_calls": {
+  "t14": {
+   "start": 298.7,
+   "end": 308.27
+  },
+  "t28": {
+   "start": 570.87,
+   "end": 591.14
+  }
+ },
+ "slots": [
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "D",
+   "start": 126.1,
+   "end": 134.0,
+   "dur": 7.9,
+   "under": false,
+   "placeholder": false,
+   "file": "C2-brynjolfsson-revelio.mp4",
+   "file_in_s": 30.4,
+   "file_out_s": 38.3
+  },
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "N",
+   "start": 272.43,
+   "end": 278.38,
+   "dur": 5.95,
+   "under": false,
+   "placeholder": false,
+   "file": "C1-duvenaud-80k.mp4",
+   "file_in_s": 31.3,
+   "file_out_s": 37.25
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "sec": "Q",
+   "start": 424.04,
+   "end": 430.79,
+   "dur": 6.75,
+   "under": false,
+   "placeholder": false,
+   "file": "C3-duvenaud-srinstitute.mp4",
+   "file_in_s": 28.35,
+   "file_out_s": 35.1
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "sec": "W",
+   "start": 559.75,
+   "end": 570.25,
+   "dur": 10.5,
+   "under": false,
+   "placeholder": false,
+   "file": "C4-brynjolfsson-revelio.mp4",
+   "file_in_s": 27.9,
+   "file_out_s": 38.4
+  }
+ ],
+ "clips": [
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "D",
+   "start": 126.1,
+   "end": 134.0,
+   "under": false
+  },
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "N",
+   "start": 272.43,
+   "end": 278.38,
+   "under": false
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "sec": "Q",
+   "start": 424.04,
+   "end": 430.79,
+   "under": false
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "sec": "W",
+   "start": 559.75,
+   "end": 570.25,
+   "under": false
+  }
+ ]
+}

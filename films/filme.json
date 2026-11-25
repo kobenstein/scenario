@@ -541,5 +541,17 @@
   ],
   "thumbnail_quelle": "thumbnails/film-78",
   "code_herkunft": "claude/project-thread-9834n3:films/78-what-did-ilya-see"
+ },
+ {
+  "nr": 79,
+  "ordner": "79-your-life-in-2050-the-ai-worst-case",
+  "titel": "Your Life in 2050: The AI Worst Case",
+  "video": "M516TSgrKC8",
+  "veroeffentlicht": "2026-12-06",
+  "skript_quellen": [
+   "film-79-worst-case"
+  ],
+  "thumbnail_quelle": "thumbnails/film-79",
+  "code_herkunft": "claude/project-thread-zyz59c:films/79-your-life-in-2050-the-ai-worst-case"
  }
 ]
