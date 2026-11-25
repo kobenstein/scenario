@@ -139,6 +139,8 @@ Treffer-Check → Verpackung (Titel/Thumbnail-Idee, 2–3 Leitgedanken) → Jako
 
 **Freigabe-Stellen (Jakob 23.11.): genau vier Stopps.** 1 Thema + Titel (mit Recherche und Marktcheck), 2 Leitgedanke (eigener Stopp), 3 Hörfassung + Thumbnails ZUSAMMEN (die drei Thumbnails A/B/C sind also schon vor der Hörfassungs-Abnahme fertig und gehen mit ihr in einer Nachricht raus), 4 Vorschau. Das Gerüst läuft ohne eigenen Stopp. Keine weiteren Feedback-Stellen einbauen.
 
+**Hörfassung immer auch in 1,5-fach (Jakob 24.11.):** Jede Kokoro-Hörfassung zusätzlich als `…-1,5x.mp3` erzeugen (`ffmpeg -i in.mp3 -filter:a atempo=1.5 -b:a 128k out-1,5x.mp3`, Tonhöhe bleibt) und diese an Jakob anhängen. Die normale Fassung bleibt daneben liegen. **Nur für die Kokoro-Vorschau** (billige Stimme): Film, ElevenLabs-Stimme, Vorschau und Upload laufen immer in normalem Tempo.
+
 **Prüfskript vor jeder Hörfassung** (Regeln werden durchgesetzt, nicht nur gelesen): Bann-Liste, „next … minutes“, Jahreszahlen vor 1:00, Zahlen und Fragen in Minute 1, Ich-Sätze, Clip-Anzahl und Clip-Anteil, Wortzahl.
 
 ## 11. Handwerk (übernommen aus dem alten Skill `scenario-script`, 9.11.)
@@ -215,3 +217,4 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 - 23.11.2026: §2.5e Marktcheck + Viral-Grund bei jedem Schritt, §2.5f Personen auf aktuelle Skandale prüfen (Jakob, #41/China-Film).
 - 23.11.2026 (Wochen-Durchsicht): §2.5g Überschneidung mit allen Filmen, Datum nicht Pflicht (Jakob 20./23.11.), §3.3c Klickfrage ehrlich + These trägt ganzen Film (23.11.), §4 größte Fallhöhe, Nachrichten-Einstieg, kein Kürzel (23.11.), §7 echte Clips statt Zitatkarten (16./17.11.), §8.9 „View“ erlaubt, wenn Jakob es wählt (23.11., ersetzt „statt View“), §8.11 kurz, wörtlich, für 45+, kein How-to (16.–20.11.).
 - 23.11.2026: §10 Freigabe-Stellen: vier Stopps, Hörfassung und Thumbnails als ein Stopp, Leitgedanke eigener Stopp (Jakob, #41).
+- 24.11.2026: §10 Hörfassung immer zusätzlich in 1,5-fach an Jakob (Jakob, #41).

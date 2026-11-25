@@ -421,5 +421,17 @@
   ],
   "thumbnail_quelle": "thumbnails/film-67",
   "code_herkunft": "claude/project-thread-432v87:films/67-metas-ai-chief-says-superintelligence-is-arriving"
+ },
+ {
+  "nr": 68,
+  "ordner": "68-the-ai-race-will-be-decided-by-2027",
+  "titel": "The AI Race Will Be Decided by 2027",
+  "video": "cFUJC__Wyqs",
+  "veroeffentlicht": "2026-11-29",
+  "skript_quellen": [
+   "film-ai-race"
+  ],
+  "thumbnail_quelle": "thumbnails/film-68",
+  "code_herkunft": "claude/project-thread-zcghn6:films/68-the-ai-race-will-be-decided-by-2027"
  }
 ]
