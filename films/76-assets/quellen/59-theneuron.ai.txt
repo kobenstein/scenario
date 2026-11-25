@@ -1,0 +1,483 @@
+URL: https://www.theneuron.ai/explainer-articles/when-ai-takes-over-the-economy-who-owns-the-human-element/
+HTTP: 200
+
+* Academy 
+  * Podcast 
+  * Top Tools 
+  * Blog 
+  * Free AI Courses 
+  * Partner 
+  * Events 
+  * Resources 
+
+Newsletter 
+
+Back to Menu 
+
+Related Topics
+
+Digest  Explainer Articles  Guides  News  Robotics Insider 
+
+Articles
+
+View All
+
+Hover to load posts
+
+Resource Hubs 
+
+What Makes GTM AI Scale
+
+Featured Resources 
+
+Link to What Makes GTM AI Scale
+
+What Makes GTM AI Scale 
+
+Scalable go-to-market AI takes more than connected tools. See how context, agents, and a shared workspace turn scattered workflows into a system that can act on live revenue data. 
+
+linkedin
+
+Instagram
+
+instagram
+
+X
+
+x
+
+Facebook
+
+facebook
+
+YouTube
+
+youtube
+
+RSS
+
+rss
+
+Newsletter 
+
+  * Academy  Academy 
+  * Podcast  Podcast 
+  * Top Tools  Top Tools 
+  * Blog
+
+Blog 
+
+Related Topics
+
+Digest  Explainer Articles  Guides  News  Robotics Insider 
+
+Top Articles
+
+View All
+
+Hover to load posts
+
+  * Free AI Courses  Free AI Courses 
+  * Partner  Partner 
+  * Events  Events 
+  * Resources 
+
+Resources 
+
+Resource Hubs 
+
+What Makes GTM AI Scale
+
+Featured Resources 
+
+Link to What Makes GTM AI Scale
+
+What Makes GTM AI Scale 
+
+Scalable go-to-market AI takes more than connected tools. See how context, agents, and a shared workspace turn scattered workflows into a system that can act on live revenue data. 
+
+  1. Home 
+  2. Explainer Articles 
+
+SHARE 
+
+Facebook X Pinterest WhatsApp
+
+Add The Neuron as a preferred source
+
+# When AI Takes Over the Economy, Who Owns the Human Element?
+
+Alex Imas thinks the AI economy will look like the Industrial Revolution in reverse. The history says he's probably right. The harder question is who keeps the money.
+
+Written By
+
+Grant Harvey 
+
+May 3, 2026 
+
+·  16 minute read
+
+Alex Imas writes that in 1900, roughly 40% of US workers tilled fields for a living. Today, fewer than 2% do. The shift moved more of the American workforce than any war, depression, or migration in our history, and yet nobody starved. People moved into factories. Then manufacturing peaked, shed labor, and people moved into services. Each transition felt apocalyptic to the workers caught inside it. None of them ended the way they were supposed to.
+
+That history is the most important single fact about the AI economy, and almost no one talking about AI is using it.
+
+But University of Chicago economist Alex Imas is. In his must-read essay on Substack (good explainer at AI Summer if you want the cliff notes), Imas goes back to the question economics was invented to answer. Economics is the study of scarcity. When AI makes everything cheap to make, the question stops being "what jobs disappear?" and starts being "what becomes scarce?"
+
+Advertisement
+
+His answer is the human element. And it's a more specific claim than it sounds.
+
+But before we get to why he's probably right, it's worth understanding why so many smart people currently believe the opposite.
+
+## The Ghost GDP Argument
+
+In February, the most-read finance Substack on the internet, Citrini Research, dropped a 22-million-view post called "The 2028 Global Intelligence Crisis." Its argument was elegant and terrifying.
+
+Human intelligence, Citrini wrote, has been the scarcest input in modern economic history. Every desk job, every consultancy hour, every legal opinion, every analyst report (basically every white-collar paycheck) was payment for the one thing capital couldn't replicate: a human brain. AI changes that. Once machines can analyze, decide, create, persuade, and coordinate, the "intelligence premium" that anchored the global middle class evaporates.
+
+Then the doom loop kicks in: 
+
+  1. Companies use AI to slash payroll. Margins explode. 
+  2. Stock prices rip. 
+  3. The laid-off workers stop spending. 
+  4. Demand softens. 
+  5. Companies double down on AI to protect margins. 
+  6. More layoffs. 
+  7. By June 2028, in Citrini's scenario, unemployment hits 10.2%, the S&P drops 38% from its 2026 highs, and the residential mortgage market follows it down.
+
+Advertisement
+
+The phrase Citrini coined to describe the dynamic is "Ghost GDP": output that shows up in national accounts and corporate balance sheets but never circulates back through the consumer economy because, as the report puts it, machines spend zero dollars on discretionary goods. A GPU cluster in North Dakota doing the work of 10,000 Manhattan office workers, with none of the rent payments, restaurant tabs, or Saturday brunches that used to follow.
+
+The post resonated because we've already seen previews of this. Tax prep. Travel booking. Insurance renewal. Anywhere the human service was, in Citrini's brutal phrase, "friction with a friendly face," AI agents are quietly eating the lunch.
+
+So Imas isn't arguing with a strawman. He's arguing with the most sophisticated bear case AI has produced thus far.
+
+### How Imas Flips the Script
+
+Imas's counter starts where Citrini ends. Yes, AI commoditizes intelligence. Yes, the marginal cost of cognition trends toward zero. But that's where the doomers stop. Imas keeps walking, in five steps:
+
+  1. AI drives the commodity sector (anything mass-producible, including a lot of cognitive work) toward zero marginal cost.
+  2. That makes everyone richer in real terms. Their dollars buy more stuff, even as nominal wages compress.
+  3. As people get richer, they spend on things money can't easily replicate. These include: 
+  4.      1. Relationships. 
+     2. Status. 
+     3. Exclusivity. 
+     4. Provenance. 
+  5. Economists call this "**high income elasticity**": the more you earn, the bigger a share of your spending shifts toward goods and services where the human element matters.
+  6. Imas backs this with his own experiments: 
+  7.      1. In one study, people paid roughly DOUBLE for an identical item once they knew others were excluded from owning it. 
+     2. In another, AI-generated art commanded less than half the exclusivity premium of human-made art (21% vs 44%). 
+     3. The willingness to pay for "made by a person" is not a vibe. It's a measurable price differential.
+  8. A new economic sector emerges where the human IS part of the product. Imas calls it the "**relational sector** ": teachers, nurses, therapists, craft brewers, bespoke tailors, hospitality, care work, live performance. Anywhere the customer is paying for who made it, not what was made.
+
+Advertisement
+
+That's the model of where values accrues in the future. The next question is whether the evidence supports it.
+
+### Two Reasons to Think Imas Is Right
+
+The strongest evidence is the historical record I started with, and we have rigorous data on why it played out the way it did.
+
+  1. A 2021 Econometrica paper by Comin, Lashkari, and Mestieri, which Imas builds on, modeled sectoral change across 39 countries since World War II. 
+  2.      1. Their result: the dominant force driving labor reallocation was not technology shocks or trade, but income. 
+     2. As people get richer, they buy different things. Their consumption shifts from agricultural goods to manufactured ones, then from manufactured ones to services. 
+     3. The model parsimoniously accounts for the entire shape of modern economic history: agriculture's decline, manufacturing's hump-shaped rise and fall, services' long ascent. 
+     4. **TL;DR:** We didn't theorize our way into a service economy. We bought our way in.
+  3. The second piece comes from Imas's MIT colleagues. David Autor and Neil Thompson's recent paper "Expertise" digs into why the same automation can replace experts in one job and augment expertise in another. 
+  4.      1. Their framework: when automation removes the simpler tasks (as accounting software did to bookkeeping clerks), the remaining work gets more specialized, fewer workers qualify, and wages rise. 
+     2. When automation removes the harder tasks (as inventory software did to warehouse workers), the job becomes more accessible, employment expands, and wages fall.
+
+Advertisement
+
+**For the relational sector, the implication is clear:** Jobs whose hardest-to-automate tasks involve presence, judgment, or care are exactly the jobs where the remaining human work appreciates in value as everything around it gets cheaper. 
+
+_Your barista's actual job, if you watch them closely, was never milk-steaming. It was reading the room. AI never had a chance at that.__At least, until...___
+
+**Put the two papers together and you get something stronger than either alone.** Comin et al. tell us _that_ people will reallocate spending toward the human element when AI makes everything else cheap. Autor and Thompson tell us _which_ jobs catch that money: the ones where the remaining human tasks are the hard ones, the ones where presence and judgment do the heavy lifting. The mechanism and the destination, both grounded in published research, both pointing the same direction.
+
+That's the case for Imas. It's a good case. But it has a hole he doesn't quite address...
+
+### Where Imas Is Right but Not Enough
+
+Suppose the relational sector emerges as Imas predicts. Suppose teachers, nurses, therapists, craft brewers, and care workers do become the gravity wells for spending and employment. Suppose the human element wins.
+
+Advertisement
+
+What does the wage distribution inside that sector actually look like?
+
+_Probably Spotify._
+
+When streaming "democratized" music distribution, it did not democratize music income. Spotify's own 2026 Loud & Clear data shows 80 top artists each earn over $10M/year from the platform. The 100,000th-ranked artist made about $7,300 in 2025. In 2024, Spotify demonetized roughly 86% of all music on its platform by requiring tracks to clear 1,000 streams a year to earn anything at all.
+
+That's basic power-law problem stuff, and it shows up everywhere creative or relational work meets a digital platform.
+
+Across YouTube, Twitch, and (lol, yes, the data does cite this one) OnlyFans, the top 1% of creators capture 60–80% of total platform payouts. On Substack, more than 50 creators earn over $1M/year, while the long tail of paid writers earns whatever's left. A recent analysis of Patreon earnings found a power law exponent of α≈2 across major platforms, which is a distribution that looks closer to capital income than to labor income. The algorithmic flywheel rewards visibility, visibility compounds, and the middle class of creators gets squeezed flat.
+
+#### The bigger problem: AI doesn't just route around the middle class. It evaporates it.
+
+Advertisement
+
+Here's the dynamic I think actually plays out:
+
+  1. **AGI shrinks aggregate labor demand at firms.** Big companies will need fewer individual contributors per dollar of output. We're already seeing it; in February 2026, Block laid off nearly half its 10,000-person workforce, with CEO Jack Dorsey stating that AI had made many of those roles unnecessary. Anthropic's 2026 labor market report found that since ChatGPT launched, hiring of 22-25 year olds into high-exposure occupations dropped by approximately 14%. The front door is narrowing.
+  2. **The displaced individual contributors get pushed into freelance/gig work.** This has already happened, too. Ramp's Economics Lab tracked firm spending from 2021 to 2025 and found that the share of total business spend going to freelance marketplaces (Upwork, Fiverr) fell from 0.66% in Q4 2021 to 0.14% in Q3 2025. AI provider spend at the same companies rose from zero to nearly 3%. Firms most exposed to AI substituted at a rate of about $1 in reduced freelance spend for $0.03 in AI spend. More than half the businesses that used freelancers in 2022 had stopped entirely by 2025.
+  3. **The freelance market becomes a who-you-know exclusivity game.** The top tier wins through reputation, network, and proximity to the richest clientele; call it the _LeBron tier_ of relational work. A high-end therapist with concierge clients. A consultant whose phone is in the right CEO's contacts. A craft maker with a six-month waitlist of collectors. Specialists with rare combinations of skills, particularly those who blend AI fluency with deep human judgment, are commanding wage premiums of up to 50% and getting 22% rate premiums on platforms like Upwork.
+  4. **The middle class demand drying up.** This is where my thesis in particular gets really uncomfortable. The buyers who used to sustain a middle tier of relational workers, the upper-middle-class family that hires a regular tutor, the small business that retains a freelance graphic designer... those buyers are themselves the displaced individual contributors from step 1. Their household balance sheets are shrinking even as their nominal AI-augmented productivity rises. So the demand that used to pay middle-tier providers evaporates from below at the same time the supply of would-be providers swells from above. _More people competing for fewer golden opportunities, dressed up as a "creator economy."_
+
+Advertisement
+
+It's the inverse mirror of Hollywood, basically. There, a few stars at the top capture most of the money while a long tail of working actors hustles for scraps (interesting stat I just heard; _50% of the SAG actors union has worked as background talent; what happens when all background actors are generated?)_. Now imagine that structure applied to _every_ relational profession at once.
+
+#### What the latest papers actually say about this
+
+Turns out this thesis is more than plausible; it's been published.
+
+  1. **First: Falk and Tsoukalas, "****The AI Layoff Trap****" (March 2026).** University of Pennsylvania and Boston University economists formalize exactly this dynamic. They call it the "demand externality trap." 
+  2.      1. An externality, in econ-speak, is when one party's actions impose a cost on others that the original party doesn't have to pay for; pollution is the classic example. 
+     2. Here, each firm benefits individually from automating because labor savings drop straight to its bottom line. 
+     3. But the demand loss from those laid-off workers (their lost spending power) is spread across every firm in the sector, not concentrated at the firm that fired them. 
+     4. So no single firm internalizes the damage it's doing to the customer base, and even rational, forward-looking firms are forced to keep automating because if they don't, competitors will. 
+     5. They model this as a Nash equilibrium (a stable state where no individual player can improve their outcome by changing strategy unilaterally, even if everyone collectively would be better off doing something else; the prisoner's dilemma is the classic version) that sits well above the cooperative optimum (the better outcome that would emerge if all the firms could coordinate, but won't, because they can't trust each other). 
+     6. Their conclusion is sharp: "if AI displaces human workers faster than the economy can reabsorb them, it risks eroding the very consumer demand firms depend on." 
+     7. Worse, more competition and better AI _amplify_ the over-automation. Wage adjustments, free entry, capital income taxes, worker equity participation, UBI, and upskilling can't eliminate it. 
+     8. Only a Pigouvian tax (a tax on an activity calibrated to match the harm it causes others, named after economist Arthur Pigou; cigarette and carbon taxes work this way) on each automated task can.
+  3. **Second up: Hui, Reshef, and Zhou, "****Winners and losers of generative AI: Evidence from the Upwork freelance market****" (Cornell, analyzed by Brookings 2025).** The gut punch finding from this one: high-skill freelancers were _disproportionately_ hit by ChatGPT, not protected from it. 
+  4.      1. Among workers within the same occupation, those with stronger past performance (better client feedback, more contracts, better platform reputation) saw _larger_ declines in both new contracts and monthly earnings. 
+     2. Writing job posts on Upwork dropped 30.37% in the eight months after ChatGPT's release. 
+     3. Software and web development fell 20.62%. Engineering fell 10.42%. 
+     4. Image-generating AI cut graphic design posts 17.01% and 3D modeling 15.57%. 
+     5. According to this paper, the "AI floods the market with adequate work and the top of the pyramid keeps winning" assumption is wrong; the top of the pyramid gets hit too, just in a different way.
+  5. **And third: Tufts University Digital Planet, "****American AI Jobs Risk Index****" (March 2026).** Approximately 9.3 million US jobs are at risk of displacement in the next 2-5 years, with associated household income spanning $200 billion to $1.5 trillion annually. 
+  6.      1. Those most at risk? Writers, computer programmers, and web designers face the highest displacement rates among high-earning knowledge workers (_basically all the things I like to do lol RIP my career)._
+
+#### The case for _cautious_ optimism
+
+Advertisement
+
+A direct response paper from Jeremy McEntire (April 2026) replicated the Falk-Tsoukalas model and verified all ten of its propositions are internally valid. But, McEntire shows, the catastrophic conclusion depends entirely on parameter choices the original authors present as innocuous: 
+
+Under their baseline...
+
+  * **Low** reabsorption rate, meaning few displaced workers find new jobs... 
+  * **Zero** owner spending, meaning AI profits aren't recycled into the economy... 
+  * **Homogeneous** goods, meaning no new product categories... 
+  * **No** reinstatement feedback, meaning new jobs aren't created... 
+
+...the model produces catastrophe. 
+
+Under equally defensible parameters...
+
+  * Modest reabsorption... 
+  * Modest owner spending... 
+  * Product differentiation... 
+  * Endogenous reinstatement (which is just econ-speak for "the system creates new jobs in response to displacement")... 
+
+...The same model produces stability or even _under_ -automation.
+
+**Translation:** the "demand externality trap" is real as a mechanism, but whether it _actually_ destroys the economy depends on whether displaced workers find new jobs reasonably quickly (_possible!_), whether the rich actually spend their AI-driven gains (_likely!)_ , and whether new product categories emerge to absorb labor (_we sure hope so!)_. Three big "ifs," but not a foregone conclusion.
+
+#### Labor union carveouts: the one mechanism that's actually working
+
+Advertisement
+
+There is one group of relational workers who didn't wait for a Pigouvian tax: the ones with a union. SAG-AFTRA's 2023 contract established the first major collective bargaining agreement (a contract negotiated between a union and employers that covers all workers in a category, rather than each worker negotiating individually) governing AI in the entertainment industry. 
+
+Under it: 
+
+  1. Studios cannot create or reuse a digital replica of a performer (face swap, voice clone, full-body double) without explicit informed consent. 
+  2. Performers must be paid for each specific use of their digital replica. 
+  3. The contract distinguishes "Employment-Based Digital Replicas" (created with the performer's participation) from "Independently Created Digital Replicas" and "Synthetic Performers" (digitally generated assets trained on combinations of human actors), and all three categories require notice, bargaining, and compensation.
+
+The union didn't stop there. The 2024-2025 video game strike (the longest in SAG-AFTRA history) ended in July 2025 with consent and disclosure requirements for AI digital replica use, plus the ability for performers to suspend consent during strikes. 
+
+Tennessee also passed the ELVIS Act in March 2024, the first state law preserving voice and likeness against AI deepfakes. California followed with AB 1836. The federal NO FAKES Act would extend digital likeness protections up to 70 years after death. SAG-AFTRA even partnered with Ethovox (a voice-AI company owned and managed by voice actors themselves) to build a foundational voice model with revenue sharing for participating performers. _Co-op-style ownership of the AI training data, basically. Mondragón energy; we'll explain that shortly._
+
+Advertisement
+
+Here's the catch. SAG-AFTRA represents 160,000 members. The relational sector Imas is describing is hundreds of millions of workers worldwide. Teachers, nurses, therapists, baristas, care workers, craft brewers; almost none of them have a union with the leverage of an industry-wide strike threat. 
+
+The SAG-AFTRA model is the proof of concept that organized labor can carve out protections faster than legislation. It's also the proof that the protections are extraordinarily uneven. Without sectoral bargaining (a system, common in much of Europe, where unions negotiate one contract that covers an entire industry or occupation rather than just one company at a time), which the US has largely lacked since the 1980s, most of the relational sector has no mechanism to convert its category-level pricing power into individual paychecks.
+
+### What this means for Imas's thesis
+
+The relational sector emerging is not a guarantee of mass employment. It's a guarantee of competition for it. Imas is right that AI will redirect spending toward human-anchored work. He's underspecified on who gets to keep the money once it's redirected, and the latest economic literature suggests three possible answers:
+
+  1. **The Spotify-Hollywood future.** Default outcome if nothing changes. A few stars at the top, a long tail at the bottom, demand from a hollowed-out middle class evaporating just as supply of would-be providers swells. The Hui paper suggests this is already happening on freelance platforms.
+  2. **The Falk-Tsoukalas spiral.** Worse outcome if reabsorption fails. The demand externality trap closes on the entire economy and the relational sector contracts before it ever fully emerges. McEntire shows this is parameter-dependent, not destiny.
+  3. **The SAG-AFTRA-plus-Mondragón future.** Best outcome if labor organizes and capital ownership distributes. Sectoral bargaining for relational workers, maybe something akin to data cooperatives that share AI training revenue, and platform co-ops that route surplus back to workers instead of platforms (_within reason, of course; basically, a system that is sustainable, i.e. continues to work for people so we can all live and buy things)_.
+
+Imas's frame is correct that the human element will keep its category-level value. The question of who within that category gets paid, and how much, is now the central political fight of the AI economy. And it's a fight that's barely begun.
+
+### The Question Imas Doesn't Quite Answer
+
+The doomers ask: what jobs survive AGI?
+
+Imas reframes: what does the customer pay for when production is free?
+
+The question that actually follows from his answer is harder, and more interesting: who owns the value the relational sector creates?
+
+That's a political question, not an economic one. And it has at least two plausible futures.
+
+**The Spotify future.** As discussed: the relational sector emerges and most of its value gets captured by the platforms that intermediate it. Therapy apps. Tutoring marketplaces. Care coordination platforms. The therapist gets fifteen dollars; the platform gets fifteen dollars; the surplus from automating everything else accrues to whoever owns the compute. Workers stay in the same hand-to-mouth dynamic, dressed up as "creators."
+
+**The Mondragón future.** This is what I hinted at earlier. The relational sector emerges and its workers own a meaningful share of what they create.
+
+Mondragón is the Basque cooperative federation that started in 1956 with a handful of workers in a disused factory making heating stoves. Today it employs 83,800 people across 81 worker-owned cooperatives, with $20+ billion in annual sales and its own bank. Over 60 years, fewer than 5% of its co-ops have failed. Unemployment in the Basque region runs about ten points below the Spanish national average. It isn't some socialist paradise (Chomsky has pointed out it still operates inside a global market system), but it is a working proof that workers can democratically own their tools and still compete.
+
+You don't have to invent this for AI from scratch. Data cooperatives already exist: 
+
+  1. Driver's Seat was a worker cooperative where rideshare drivers pooled their journey data and collectively monetized insights from it. 
+  2. CitizenMe lets users get paid for the data they share with companies, with millions of transactions completed. 
+  3. Salus and Midata operate in health data; Superset negotiates data deals on behalf of its members. 
+  4. Cohere's Aya project collected multilingual training data from thousands of contributors and released the dataset and model under open licenses. 
+  5. Trebor Scholz at The New School has spent a decade developing the framework of platform cooperatives, worker-owned digital platforms that distribute upside instead of extracting it.
+
+The infrastructure for a worker-owned AI economy is small, scattered, and underfunded. It exist. _One could argue the only fair outcome for the big labs is if the pending lawsuits over their alleged use of illegally pirated training data leads to an outcome where their large language models eventually get distributed in this same way, or if future models are based on a royalty-based contribution system, where individual contributors are compensated for their contributions to the overall training data. Either that, or everyone gets to use the models for free, given the fact that everyone contributed to them in the first place. IDK what'll happen, but there are interesting outcomes that many people aren't considering beyond just "the labs go public and the public can invest now so everyone can own a piece!"_
+
+For my part, I proposed a more ambitious version of this a few months back: industrial-scale campuses I called "Data Foundries," where you study what you want, your activity trains the AI and robots automating the commodity sector, and you collectively own the data through co-ops that pay dividends as automation creates value. Eventually, with enough automation, universal goods and services replace UBI. And even more eventually after that, "information" replaces capital as the main economic driver. It's a maximalist version of what Mondragón and the data co-ops already prove at smaller scale: you can route the surplus back to the people generating it, if you're willing to design for it.
+
+What's missing is scale. And scale, when it comes, will come from the same political fight that always settles questions like this: who gets to write the rules.
+
+### The Uncertainty
+
+I started this essay thinking the question worth asking was "will AI take our jobs?" The more I read, the more that question started looking like Citrini's mistake. It assumes the economy is one thing, and that one thing either survives or dies.
+
+Imas convinced me it's three things. There's the commodity sector AI eats. There's the relational sector AI feeds. And there's the expert work AI looks like it's doing but actually isn't yet, where human judgment shows up as the binding constraint even in domains that are supposed to be pure cognition.
+
+Two of those three sectors expand in an AI economy. The third one (commodity) shrinks but produces a flood of cheap goods that makes everyone richer.
+
+That sounds like good news, and maybe it is. But "the relational sector grows" and "most people get a raise" are different claims. Imas is on much firmer ground with the first than the second. If we sleepwalk into a Spotify-shaped relational economy, the human element wins as a category and most humans inside that category lose anyway.
+
+So the political fight worth watching isn't whether AI takes jobs. It's whether the relational sector, when it emerges, gets organized like Spotify, like SAG-AFTRA, or like Mondragón.
+
+History tells us the human element will keep its value. It doesn't tell us who gets to keep the money.
+
+That part is up to us.
+
+Advertisement
+
+Advertisement
+
+### Grant Harvey
+
+Grant Harvey is the Lead Writer of The Neuron, where he continues to lead the publication's daily coverage of AI news, tools, and trends.
+
+### Learn the AI news and tools that actually matter for your career (without doomscrolling all day).
+
+A free 5-min daily email with the top AI news, tools, and tips. Written so you'll actually get it.
+
+ENTER YOUR EMAILJoin For Free
+
+By subscribing, you agree to receive emails from The Neuron. You can unsubscribe at any time. View our Terms and Privacy Policy. 
+
+###  More From Grant Harvey
+
+  * 😸 DEEP DIVE: The 32-language workplace is closer than you think
+  * Everything That Happened in AI Today (Tuesday, October 13, 2026)
+  * How to Learn AI in 2026: The Neuron’s Beginner Livestream Roadmap
+  * The Future of Coding Agents, According to Microsoft Research: How to Actually Trust AI-Written Code
+
+### Recommended for you...
+
+Explainer Articles
+
+The AI Jobs Reality Check: What's ACTUALLY Happening 
+
+Everyone's freaking out about AI taking jobs. But the real story? It's way more complicated (and interesting) than anyone's telling you.
+
+Grant Harvey 
+
+May 29, 2025
+
+Explainer Articles
+
+The Real AI Threat to Your Career Isn't Job Losses. It's What Happens to Your Paycheck. 
+
+Software job postings are up 11%. Block just cut 40% of its workforce. Both are true. The real story is what happens to wages when AI makes every task cheaper.
+
+Grant Harvey 
+
+Mar 8, 2026
+
+News
+
+The AI demand bubble will be decided by who pays 
+
+Existing users can consume dramatically more AI by running agents, delegating longer jobs, and replacing labor with compute. The buildout survives only when outside customer cash replaces capital cycling among labs, hyperscalers, and investors.
+
+Grant Harvey 
+
+Aug 5, 2026
+
+Explainer Articles
+
+An Ex-OpenAI researcher predicts AGI by 2027—here’s the wild roadmap. 
+
+You think the pace of AI development is going fast now? You ain't seen nothing yet. 
+
+Grant Harvey 
+
+Apr 6, 2025
+
+Loading more content…
+
+The Neuron Academy
+
+##  You don’t need to be an AI expert. 
+
+Build the skills and confidence to use AI in your work, one practical lesson at a time. 
+
+No coding or technical background required 
+
+Explore the Academy 
+
+7-day free trial. Cancel anytime. 
+
+Put AI to work in your everyday work. 
+
+Start Your 7-Day Free Trial 
+
+Don't fall behind on AI. Get the AI trends & tools you need to know. Join 700,000+ professionals from top companies like Microsoft, Apple, Salesforce and more. 
+
+linkedin
+
+Instagram
+
+instagram
+
+X
+
+x
+
+Facebook
+
+facebook
+
+YouTube
+
+youtube
+
+RSS
+
+rss
+
+### Company
+
+Contact us  Advertise with us  Newsletter  AI Courses  Write Anything (with AI) 
+
+### Categories
+
+Blog  Resources 
+
+Property of TechnologyAdvice. © 2026 TechnologyAdvice. All Rights Reserved 
+
+Advertiser Disclosure: Some of the products that appear on this site are from companies from which TechnologyAdvice receives compensation. This compensation may impact how and where products appear on this site including, for example, the order in which they appear. TechnologyAdvice does not include all companies or all types of products available in the marketplace. 
+
+Terms of Service  Privacy Policy  California - Do Not Sell My Information 
+
+Stay in the loop 
+
+Get notified when we publish new articles. 
+
+Enable  Later

@@ -1,0 +1,426 @@
+URL: https://news.berkeley.edu/2026/04/17/berkeley-talks-alison-gopnik/
+HTTP: 200
+
+Skip to Content
+
+Toggle Main Menu Sections
+
+____ Toggle Search Form
+
+Search for: __ Search 
+
+  * ##  Berkeley.edu 
+
+  * ##  All news 
+
+  * ##  Media inquiries 
+
+  * ##  Research 
+
+    * Technology & engineering
+    * Business & economics
+    * Humanities
+    * Mind & body
+    * Politics & society
+    * Science & environment
+  * ##  People 
+
+    * Profiles
+    * Awards
+    * Milestones
+  * ##  Campus & community 
+
+    * Work life
+    * Campus news
+    * Events at Berkeley
+  * ##  Arts & culture 
+
+    * Performing arts
+    * Literature
+    * Film
+    * Visual arts
+    * Events calendar
+  * ##  Podcasts & series 
+
+    * Berkeley Talks
+    * Berkeley Voices
+    * Changemakers
+    * Climate Change
+    * Democracy in Distress
+  * ##  Resources 
+
+    * Find an expert
+    * Media training
+    * Berkeleyan newsletter
+
+  * __ Instagram 
+  * __ LinkedIn 
+  * __ Facebook 
+  * __ YouTube 
+  * __ X 
+  * __ Reddit 
+
+Mind & body
+
+# Berkeley Talks: Alison Gopnik on why AI is no match for a 4-year-old 
+
+_AI may be advancing rapidly, but as the UC Berkeley developmental psychologist explains, the next leap in technology depends on replicating the unique forms of human intelligence cultivated during childhood._
+
+By Strategic Communications
+
+April 17, 2026 
+
+**Follow _Berkeley Talks_, a  _Berkeley News_ podcast that features lectures and conversations at UC Berkeley. See all  _Berkeley Talks_.**
+
+Over her decadeslong career as a developmental psychologist, Alison Gopnik has observed a striking phenomenon: When children are given a new toy without an obvious use, they often outperform high‑achieving college students in figuring out how it works. While adults tend to test the most likely possibilities and quickly get stuck, children respond with playful experimentation. 
+
+"What children are doing is exactly the kind of open-ended, non-utilitarian, exploratory learning that allows you to find out things about the world that you would never find out any other way,” says Gopnik, a UC Berkeley professor of psychology.  
+
+In this _Berkeley Talks_ episode, Gopnik argues that human intelligence is not a single, general capacity, but a collection of distinct cognitive modes — exploration, exploitation and care — that are distributed across different stages of a person’s life. Childhood, she says, is evolution’s way of creating a dedicated “explorer” phase, made possible by a specialized care system provided by adults.
+
+"The reason why we can have these big brains," she explains, "is because we have this period of childhood where we're protected … and we have those older people who are there to provide the resources.” 
+
+Gopnik contrasts this biological model with current artificial intelligence, noting that while large language models excel at using existing data to predict patterns, it lacks the embodied, curiosity‑driven learning of a child. To create truly intelligent systems, she suggests that we need to focus on the “intelligence of care.”
+
+“A system that develops, that changes over time, and in particular, a system that's cared for by humans or cared for by other intelligent agents — that's the secret of human intelligence,” she says. “That's the kind of system you'd need if you wanted a system that had the same kind of intelligence as humans.”
+
+This lecture took place on Nov. 5, 2025, as part of the Berkeley Distinguished Faculty Lectures in the Social Sciences.
+
+Read the transcript. Collapse the transcript.
+
+(Music: “No One Is Perfect” by HoliznaCC0)
+
+**Anne Brice (intro):** This is _Berkeley Talks,_ a _UC Berkeley News_ podcast from Strategic Communications at Berkeley. You can follow _Berkeley Talks_ wherever you listen to your podcasts. We’re also on YouTube @BerkeleyNews. New episodes come out every other Friday. You can find all of our podcast episodes, with transcripts and photos, on _UC Berkeley News_ at news.berkeley.edu/podcasts.
+
+(Music fades out)
+
+**Marion Fourcade:** Hello. Good evening everyone. My name is Marion Fourcade. I am a professor of sociology and the director of social science matrix. And this year, I had the great pleasure of chairing the Berkeley Distinguished Faculty Lectureship Committee for the lecture in social science. And so we're very pleased along with the graduate division to present Alison Gopnik, this year's speaker in the series. The series used to be called the Moses Lecture Theory, and it's been renamed the Distinguished Faculty Lecturers in the Social Sciences.
+
+But as a condition of the bequest, we are obligated to tell you how the endowment supporting the lectures came to UC Berkeley. So for a little history, in 1937, University of California President Robert Gordon Sproul and the UC Board of Regent established Bernard Moses memorial lectureship in the social sciences. This lectureship honored the memory of the late Bernard Moses, a professor of history and political science at the University of California from 1875 to 1911, and an emeritus professor from 1911 until his death in 1930.
+
+The Berkeley Distinguished Faculty Lecturers in the Social Sciences are an annual event that honors a selected Berkeley faculty member from this division, the social sciences. The chosen scholar is invited to present a research to a diverse audience of colleagues, students, and community members. So now this new renamed series succeed the Berkeley Moses Memorial Lecture. And it featured over the years, a long line of distinguished speakers from Berkeley's top social scientists. Past lectures have included Herma Hill Kay, Nicholas Yasonovsky, George Lakoff, Kenneth Stampp, Carolyn Merchant, Jean Lave, Yuri Slezkine, Marianne Mason, and Arlie Hochschild. Last year was Ted Miguel. And now I'd like to say a few words about our lecturer, Alison Gopnik.
+
+Alison Gopnik is professor of psychology and affiliate professor of philosophy here at the University of California Berkeley and a member of the Berkeley AI research group. She received her B.A. from McGill University and her Ph.D. from Oxford University. She's a leader in cognitive science, particularly the study of learning and child development. She was a founder of the field of theory of mind, an originator of the, quote, "Theory-theory," unquote, of cognitive development, and the first to apply Bayesian models to children's learning.
+
+She has received unbelievably long list of awards. I'll just mention a few. The APS Lifetime Achievement Cattell and William James Awards, the SRCD Lifetime Achievement Award, the APA, American Psychological Association's Distinguished Scientific Contributions Award, the Bradford Washburn and Carl Sagan Awards for Science Communication and the Rumelhart Prize for Theoretical Foundation of Cognitive Science.
+
+She's, of course, a member of the National Academy of Sciences and the American Academy of Arts and Sciences and of Cognitive Science Society, American Association for the Advancement of Science and Guggenheim Fellow. In 2022, '23, she was a president of the Association for Psychological Science, and she has six grandchildren, which is probably the greatest achievements of all.
+
+Alison is the author of 160 journal articles and several books, including the bestselling and critically acclaimed popular books, _The Scientists in the Crib_ in 1999, _The Philosophical Baby_(2009) and _The Gardener and the Carpenter_(2016). She has written widely about cognitive science and psychology for the _Wall Street Journal,_ the _New York Times_ , the _Economist_ and the _Atlantic_ among others. Her TED Talk has been viewed more than 5.6 million times, including by me. And she has frequently appeared on TV, radio, and podcasts, including the _Charlie Rose Show_ , the _Colbert Report_ , and the _Ezra Klein Show_.
+
+In short, she is Berkeley's finest, and we are very proud to have her give this lecture today. So without further ado, Alison.
+
+(Applause)
+
+**Alison Gopnik:** Thank you so much, Marion. And thank you all so much for coming out on this rainy California day. What I'm going to do today is talk about how children manage to learn as much as they do, what that can tell us about how artificial intelligence works and functions, and how thinking about artificial intelligence can let us know something about human development. But I'm not just going to talk about children. I'm also going to talk about elders, which is a new development for me.
+
+So let me start out with this quote, which is actually a quote from Alan Turing, and this is a nice summary of what I and my colleagues have been trying to do over the past 20 years or so. So in the famous paper in which Turing first described the Turing Test, the idea that you'd want to try and tell whether you were talking to a person or a computer as a test for artificial intelligence, people don't notice it about halfway through that paper, he suddenly changes gears and says, "Look, maybe that's the wrong test." Maybe instead of trying to produce a program that simulates the adult mind, we should instead try to simulate the child's mind.
+
+Why does Turing think that? Well, because the distinctive thing about children is that they actually learn to be intelligent from their experience. They learn to have the adult program from the things that happen around them, and that's a more profound kind of intelligence than just being able to execute an adult program. And in the past 10 years or so, the big spring of AI, the great advances in machine learning, have emphasized just how important learning is to intelligence, both natural and artificial.
+
+So what we've been doing is actually looking at children, seeing how they managed to learn as much as they do, trying to think what kinds of computations could be going on in those little fuzzy heads that would let them learn as much as they do, and then applying that in AI and vice versa. So that's been the big project.
+
+What are some of the morals of doing that? What do we learn by thinking about AI in the context of childhood? Well, what I'm going to start out doing is talking about three different stories we might have about AI, and in particular about the large models, the large language models, the large multimodal models that have been the focus of so much attention, not to mention money, in recent AI. And what I'm going to do is tell three different stories.
+
+I think often stories and narratives are a way that we convey information most effectively, three different stories that might be told about how these systems work and then indeed have been told about how these systems work.
+
+So here's the first story, which is the story of the golem. Most of you may know about this as the Rabbi of Prague's story. And I had a wonderful rabbit hole. I guess Tim Tangherlini, who's actually here in our Department of Folklore, consulted with me about these stories. And it turns out these stories, the story of the golem, the idea that there's an artificial thing made out of clay that a magician comes and magically comes to life, that story is found across cultures, across time. It predates the industrial revolution, let alone the computational revolution. It even has its own number in the folklore of encyclopedia. It is incredibly fun to go and look at the encyclopedia of folklore.
+
+So the story is the rabbi has this non-living thing. He does some magic. It turns into a living agent. And as I say, there's many, many variants of this story, but the TLDR, as we would say in Silicon Valley, is that it never ends well. It's always a bad idea. The stories always end badly.
+
+And that kind of picture, the picture that what AI does is to produce this artificial agent analogous to the kind of agents that people are, animals are, is extremely pervasive. I think it's probably the most common picture people have when they hear the word AI or when they think about artificial intelligence, including many of the people who are actually making these systems themselves. But as you'll see, I think this is a profoundly wrong way of thinking about how at least the current systems work. It might be the way some system in the future will work, but it's not the way that the large models work.
+
+Here's the second story, which I think is a much better description, a much better story about how the current models work. This is the story of Stone Soup. I don't know if one of the great things, many great things about being a grandmother is that you get to read all these great stories to your grandchildren. Stone Soup is also an ancient story found around the world. Sometimes it's ax soup or nail soup. It also has its own number in the encyclopedia folklore. And I'll just give you the quick version, since not everyone here may know it, of the original Stone Soup story.
+
+So the story is, there's a bunch of visitors, also magicians feature largely in these stories. They go to visit a village, they ask if they can have some food. The villagers say, "No, we have no food." And they said, "That's OK. We're going to make stone soup." So they get a big cauldron, they start boiling the cauldron, they take out their magic stones and put them in the cauldron and they say, "This is going to be great soup. It would be even better if we had an onion and a carrot, but we don't have it, we don't have it."
+
+So of course, one of the villagers says, "I think I might have an onion and a carrot somewhere." Goes and puts it in the soup and they say, "Oh, that's great. This is doing really well." It would be even better if we had some, when we made it for the rich people, they put buttermilk and barley in and that was even better." And someone else says, "I think I have some buttermilk somewhere." And they put that in and they say, "You know when we made it for the king, the king insisted that we put a chicken into the soup, and that was really great. That really made great stone soup." So someone says, "I think there's a chicken in the backyard or in there. Go get the chicken."
+
+And anyway, you can figure out how the story goes. Each of the villagers contribute something to the soup and in the end there's this marvelous, wonderful soup that everybody gets to eat. I should actually put this in the slides in the children's version of it that I took this from, there's a beautiful double page spread at the very end where the villagers are saying, "Men such as that don't grow on every bush." And the visitors are saying, "It's all in knowing how." OK, you can probably already guess how this applies to the current models, but here's the AI version of the Stone Soup story.
+
+A bunch of tech wizards went to the village of computer users and they said, "We've invented artificial general intelligence just from next-token prediction and transformers and deep learning." And the villagers all said, "That sounds great. That's wonderful. That's very impressive." And they said, "Yeah, but it would be even better if we had more data. We really need more data to put into this to make it really intelligent." And all the users said, "Well, we have all this data, all the texts that we've ever written, every picture we've ever photographed, we put it all out on the web, every book I should add for the authors in the audience that's ever been written, why don't we just use that data?"
+
+And the tech magicians say, "Oh, that's great. Yeah, we'll add all that data. That makes it even more intelligent. But it's still saying really stupid and obnoxious things sometimes. Do you think you could do reinforcement learning from human feedback and just tell it when it's saying something stupid and tell it when it's saying something that's OK?" And the villager said, "There's whole villages in Kenya that would be happy to just do reinforcement learning from human feedback all day long." And the tech magician said, "See, it's getting more and more intelligent." But a lot of times when you ask it something, it just says something stupid in response. So could you do some prompt engineering? Could you use your brains to figure out exactly how to ask it the questions the right way so that you can get a good answer?" And the villager said," Oh yeah, we'd be happy to spend our time doing prompt engineering."
+
+And then of course the end of the story is that the villagers say, "It's amazing. We've got artificial general intelligence and it was just made with a few algorithms." When I gave this talk at NeurIPS, which is the big AI conference, Ted Chang, who I'm going to talk about in a minute, the great science fiction writer rather mordantly said at the end, "Yeah, but at least they don't sell the soup back to the villagers at an exorbitant price."
+
+OK, so that's the second story. And I think that that's actually, as we'll see later on, an accurate story about the way that the large models work. They're not independent golems that have developed intelligence. What they've done, and as we'll see, this sounds like, Stone Soup in both versions is a kind of debunking story, but it also has a positive moral. And the positive moral is that by combining in both the old version and the new version, by combining all the individual villagers' food, you can end up with something that's more important, that's much better than any of them could do individually. And the same thing as we'll see is true about the large models. By combining the data and intelligence of many, many people around the world, you can end up with something that provides you with real advantages. That's a really useful technology, even if it isn't a golem.
+
+So that's the way I think the current systems work. We could also ask, what would a system be like that actually was intelligent? If we wanted to design an artificial system that had the same kind of intelligence that we see in humans, what would the design of that have to be like? And here, rather than turning to the encyclopedia of folklore again, I'll turn to a contemporary story. This is by the great speculative fiction writer, Ted Chang, and he has this lovely story called The Life Cycle of Software Objects. It's one of the best stories about being a parent that I've ever read. And what happens in this story is that these digiants are little artificial intelligence babies, basically. And humans adopt them, train them, teach them, and then eventually have to give them up, eventually have to let them go off on their own.
+
+It's an absolutely beautiful story that I highly recommend. And I think that picture, the picture of a system that develops, that changes over time, and in particular, as we'll see, a system that's cared for by humans or cared for by other intelligent agents, that's the secret of human intelligence, and that's the kind of system you'd need if you wanted a system that had the same kind of intelligence as humans. So that's the big picture of what I'm going to talk about.  
+So what can children teach us about AI? The first thing they can teach us is that there's no such thing as general intelligence, artificial or natural. I put this slide up in big letters when I'm going and talking in the Valley and there's a hushed intake of breath and you hear this whisper, "Don't tell the VCs, don't tell the VCs."
+
+For various reasons, there's a kind of intuitive, what psychologists think of as a kind of folk concept of intelligence, which is like many other intuitive folk concepts. It's a concept of this kind of mysterious essence that some people have more of, some people have less of, some animals have more of, some animals have less of. And if you have more of it, then you're more powerful and there's an implication that you should be more powerful. That's the kind of picture. It's a lot like pictures of things like our intuitive theory of life or energy that there's a kind of energy force that gives us power and lets us get out into the world.
+
+And it's incredibly prevalent. I'm not quite sure why, although I have some ideas that we could talk about later. It's hard to dislodge this picture. But if you do cognitive science, you don't see anything that looks like this picture. Instead of seeing this magical force of intelligence, what you see is many, many different kinds of cognitive capacities that are suited to different kinds of goals. And again, it's a little surprising to me that engineers, for instance, who do this, who go out and try and design systems know that you need to have different kinds of systems for different purposes, and yet they sometimes seem to buy into this mystical intelligence picture. And in particular, not only are there different kinds of intelligence for different domains, but computer science itself tells us that there are intrinsic trade-offs between different kinds of intelligence.
+
+So being very intelligent and effective in one way means that you can't be equivalently effective and intelligent in another way. And the classic example of this in computer science is what's called the explore-exploit trade-off, and I'll talk about that a bit more later on. And what I want to suggest is I'm going to talk about, there's many such cognitive capacities. The ones I'm going to talk about today, I'm going to describe first as the exploitation versus exploration.
+
+Exploitation sounds a little mean, but that's the kind of intelligence that actually enables you to go out into the world, to have a goal, to plan, to achieve that goal, to implement actions that will achieve that goal. And that's a really important kind of intelligence, but it's an intrinsic tension with some of these other kinds of intelligence, in particular, exploration.
+
+Exploration is not about trying to accomplish any goal, it's about trying to figure out what the environment around you is like. And if you do that in the long run, you'll be better at accomplishing your goals. But in the short run, as we'll see, that can often take you away from accomplishing your goals. It can be dangerous or it can lead you away from things that are actually useful for you. And that contrast between exploration and exploitation is very deep.  
+But I'm also going to talk about two other kinds of intelligence that are less discussed. One of them is the intelligence of care. Now, this is one where people sometimes act as if this is just an oxymoron. They look really puzzled when you talk about the intelligence of care, but we'll see that the very distinctively human capacity to have one agent who actually helps another agent to accomplish their goals requires a really specialized set of cognitive capacities, which have been much less studied than other cognitive capacities. I'll talk about that a bit later on, too.
+
+And the third kind of intelligence is transmission. So one of the things that's distinctive about human beings is that we can get information from each other and we can accumulate information over many generations and transmit information from one person or one generation to another. And again, you can see how the transmission and exploitation and exploration can all be in tension with one another, because what you want for transmission is to adopt the information or the characteristics of the people around you, particularly previous generations, but that can be in real tension with the things that are most useful for you or the things that are most true, which is the sort of objective function of exploration. So trying to match, trying to extract information from others, trying to find the truth about the world, and trying to act effectively in the world, and indeed trying to act to care for other people, those all require distinctive cognitive capacities that are intention with one another.
+
+How do we resolve these trade-offs between these different kinds of intelligence? Well, what I've argued is that a way of thinking about the way that we resolve these trade-offs is thinking about a different idea, an idea that comes from evolutionary biology. In fact, that's very central to evolutionary biology, and this is the idea of life history.
+
+So what's life history? Life history is the way that an organism develops, how long a period of childhood it has, how often it reproduces, how long it lives overall, its sort of developmental profile. And it turns out that in evolution, very often what's being selected for is one of these life history characteristics rather than just, "OK, now this adult form is going to have a particular characteristic or morphology." And if an Alpha Centaurian biologist came down to Earth in the Pleistocene, she wouldn't see big differences between the humans who were stamping around on the veldt and all the other primates that sort of looked fairly similar, maybe with the exception of language, but she would immediately notice the extremely bizarre human life history, which really looks different from any other life history.
+
+And this picture is a really nice illustration of this. You can see in this picture that there are three children, all from the same family who are under 4, and these children are immature. They need to be taken care of until really late. So even in forager cultures, children are going to be … Sorry, chimps are producing as much food as they're consuming by the time they're 7. Even in forager cultures, they aren't doing that until they're 15. And my son is 37, and we support our children for a really long, really long time. And certainly, as you can see in this picture, the 4-year-old oldest child is still requires a great deal of care and needs to be taken care of.
+
+The other thing is that humans have shorter interbirth intervals than other primates. So that means that every two years or so in a situation where we're not using birth control, we have another baby. So not only do we have these immature babies, but we stack up these immature babies. We have a lot of these immature helpless creatures who need taken care of all the time. And if you look lurking behind those three beautiful grandchildren, there's a postmenopausal grandmother. And the postmenopausal grandmother is another weird part of human life history. So human women, as long as we've evolved, have lived past their fertilities. So menopause comes in around 50 and women have always lived until 70 or so, if not necessarily as long as we live now. And that's true even in forager cultures. And although it's not as dramatic for men because we don't have the equivalent of menopause, men also are living for that extra 20 years. So we have this extended period of elderhood at the end of our developmental period.
+
+So both of these things seem sort of paradoxical from an evolutionary perspective. Why do you have these children who are so needy, who require so much investment for so long? Why do you have these postmenopausal grandmothers who aren't reproducing anymore, but are still living and consuming for another 20 years? And what I'm going to suggest is that this life history is actually how evolution solves this problem of trading off these multiple intelligences.
+
+So all creatures are going to exercise these intelligences at some point or other in different kinds of ways at different … Sorry, everyone at every stage of development is going to exercise these capacities. But I'm going to argue that children in particular seem to be very well-designed as it were to be explorers, and that's what they do. That's what they do best. Your ordinary 35-year-old adult seems to be really well-designed to actually go out into the world and do things. And the elders, those post 50-year-olds seem to be particularly involved in care and in cultural transmission. So the argument I'm going to make is that these different intelligences trade-off against each other in the context of this extended human life history.
+
+Now, to go back to the folk theory about intelligence, one piece of that folk theory that you hear a lot from 35-year-old philosophers and psychologists and AI guys is that this mysterious intelligence has its peak around 35 and development is just kind of getting to the point of the 35-year-old intelligence is just trying to reach that point, and then aging is just falling off from that peak of intelligence. But that doesn't make very much sense from an evolutionary perspective. Instead, this picture about trading off different intelligences, I think is a better picture.
+
+As you can probably already tell from that sentence, I used to be a bit snarky about the 35-year-olds and their belief in their superior intelligence. But now that I have three children in their 30s who all have children that they're raising themselves, I basically feel like, "Oh my God, those poor 35-year- olds, they're just cursed." They have to go out and do all these things. They have to find mates, they have to find their way in the pecking order, they have to get resources, and the children and the grandmas are having all the fun. We get to tell the stories, figure out the narratives. I can testify, my sister is here. We spent all day playing with a 2-year-old. The way I put it sometimes is that basically we're human up till puberty and after menopause. And in between, we're sort of glorified primates doing all the things that, doing all the things that primates do. So if the 35-year-olds want to think they're smart, that's fine. I'm willing to give them that while the grandchildren and the kids are having all the fun.
+
+OK. So let me try and justify this argument and let me start out, I'm going to start out by talking about exploration. And this comes back to work that we've been doing for my whole career for 50 years, looking at the way that children are very much like scientists. My first book was called The Scientist in the Crib. And in particular, what we've done is look at how children learn about the causal structure of the world. How do children develop intuitive theories of the world around them? And we use this as our little box, the blicket detector. It's a little machine that lights up, and we can show children different kinds of patterns of data on this machine, and then we can see what conclusions they draw about how the machine works just by getting them to do things like make the machine go.
+
+And to a remarkable degree, it turns out that even very young children, 4-year-olds and younger, can rationally perform this kind of causal learning and causal inference. And they seem to do it implicitly using a lot of the same kinds of formalisms that are used in AI, for example, in computation, which is kind of impressive, and in philosophy of science to characterize scientists. So I won't go through this whole list. This is a review paper that's in Nature Reviews, but they're really, really, really good at solving these kinds of problems and can do much more than we ever would have thought was possible. How do they manage to do all of this? So as I said, we get some hints from formalisms like Judea Pearl's causal inference work or thinking about this as Bayesian hypothesis testing, but none of those accounts really seem to give you a satisfying story about how all this learning is possible.
+
+And what we've been doing most recently is looking at something that we probably should have looked at in the first place. When we first started doing the work with the blicket detector, the biggest problem with the blicket detector was keeping the kids away from it. Because as soon as you put it in front of them, what they wanted to do was play with it themselves, try things out, experiment, figure out what was going on. And literally we had to tell them, "OK, when we finish showing you all the data, then you can get to play with it yourself." And that should have been a clue that the children were experimenting and they were exploring. They were actively learning. They were playing. When adult, we know that for scientists, this kind of active intervention in the world in order to get new data is absolutely crucial.
+
+It's the crucial thing to science. It's experimentation. When 2-year-olds do it, we call it getting into everything, but we have a lot of evidence that in fact, the 2-year-olds are doing things that have the same kind of character as scientific experiments. And the question is, could we design exploratory AI agents that are using similar kinds of techniques to the children?
+
+As I mentioned, part of the reason for wanting to do this is this explore and exploit trade-off where in order to be able to exploit in the long run, you have to be able to explore in the short run. You have to be able to go out and do things that might not look very useful, but that will enable you to learn more. And as I mentioned before, thinking about this life history, there's quite a lot of … Sorry, so let me backtrack for a minute.
+
+The way that this trade-off is resolved in computer science, for example, and across a wide range of different kinds of theories, optimality theory, other things, is by starting out with a period of exploration where you can look very widely across a high dimensional space, figure out how the space works, and then narrow in, cool off in something that's called simulated annealing to just narrow in on a particular hypothesis and then use that to actually act. And if you look across many, many different species, you see this striking relationship between how long a period of immaturity, how long a period of childhood an animal has, and anthropomorphically how smart the animal is, how good the animal is at learning, how good it is at figuring out new environments and adjusting to them. And the poster animals for this are actually birds.
+
+So if you compare a friend, the domestic chicken is mature in two weeks, and it's basically really good at pecking for grain, not much good at doing anything else. In contrast, this is a New caledonian crow and crows, corvids in general, and especially these New caledonian crows are as smart as primates in lots of ways. This is one using a stick, remember that stick. And they are fledglings for as long as two years, which is really long in the life of a bird. And as you can see, this is a very general relationship.
+
+Why would that be? Why would you see this relationship between immaturity in the young and intelligence learning in the old? Well, the thought is that a lot of the things that are features from the explore perspective are bugs from the exploit perspective and vice versa. So things like being noisy, both literally and metaphorically, doing a lot of random things, those are things that are really good if what you're trying to do is to explore the world around you, not so good if you're actually trying to act in an effective way. And that's true about a lot of other properties like risk taking, being impulsive, playing, being insatiably curious.
+
+And you can probably already see these are all things that are characteristic of children and things that have often been taken to mean that children are not as intelligent as grownups. They've often been taken to be deficits that children have rather than strengths that children have compared to adults. So my hypothesis is that childhood is really evolution's way of resolving explore-exploit trade-offs, doing what computer scientists call simulated annealing. Starting out with this protected space in which you can do lots of exploration and then later on using the output of that exploration to actually make things happen in the world.
+
+And in fact, empirically, and again, I won't go through all the details here, there are lots of cases we can point to where younger learners are indeed more exploratory than adults both in my own lab and in other labs. And the secret seems to be that, usually if you just have a task, the older people will be better at it than children will, adults will be better than children, but not if the task involves discovering something new, figuring out some idea that isn't obvious, being outside the box. And that's the kind of context in which children actually do better than adults do.
+
+All right, how is all this exploration happening? What's the kind of underlying mechanisms behind it? And this is some new work that we've been doing very recently. To answer that question, I've been turning to a very different kind of tradition, the tradition of what's called reinforcement learning, both in psychology and in artificial intelligence. When I first heard that our reinforcement learning was kind of making a comeback, I was, as a boomer cognitive scientist, I was sort of horrified, like, "My God, are we going to have to wear bell-bottoms next?" Which it turns out we probably are, but this is back to the '50s, didn't we get rid of all that in the cognitive revolution? But there's a new kind of approach and version of reinforcement learning, which has been extremely influential, both in neuroscience and in AI. It's responsible for the success of AlphaGo and the chess playing programs, for example.
+
+How does reinforcement learning work? Well, imagine there's a rat and a maze. This comes from psychology originally. It will move away from a shock and it will move towards cheese. So it goes down one arm of the maze, there's a shock, it won't ever go there. Another arm of the maze, there's cheese, it will go there and it will learn to do this. But the problem is that the way that reinforcement learning works in the classical sense is trying to get utilities, trying to get cheese and stay away from shocks. And that turns out to be not a very good way of learning about the structure of the environment. So it's very good for exploit learning. It's terrible for explore learning, not to mention care or transmission.
+
+So an idea that a lot of people have had is how about if we did reinforcement learning, but we did it with intrinsic rewards rather than these external rewards. So instead of being rewarded for cheese, you could be rewarded for novelty. You could be rewarded for getting new information. And there've been a number of attempts within AI to try and design systems that are rewarded in this way for finding out something new about the world rather than just having utilities about the world.
+
+And the problem is if you just have this reward be something like novelty or information, you have another boomer example, the noisy TV problem. If you're sitting in front of a staticy TV, TVs used to have static in the olden days. You're getting lots of new information, you're getting lots of novelty, but it's not doing you any good. You shouldn't just be sitting there trying to pursue novelty. So how could you have an intrinsic reward that lets you explore, but actually lets you explore in an intelligent way that will teach you about the environment around you? And an idea that we've been thinking about and using a lot is something that, again, comes out of the AI literature called empowerment.
+
+So what's empowerment? In empowerment, what you're trying to do is maximize the mutual information between your actions and the outcomes of those actions. At the same time, you maximize the diversity of those actions. What does that mean? What that means is you want things that you can control. You want to find things out there in the world such that if you change your actions, if you do something new, something new will happen in the world and where there's a really consistent relationship between what you do and what follows from what you do.
+
+And you don't want to just have that, just one of them would be like being in a casino where you do the same thing over and over again. You want to try and find new ones. You want to find new ways of acting in the world that will give you predictable outcomes in the world. And I won't go into this in detail, but what I've argued is that this is really causal learning, the thing that I mentioned in the first place. So if you think about what it means to learn about cause and effect, what it means is, now I can intervene on the cause, I can do something to the cause, and I can predict something about the effect.
+
+So what that means is when you learn a new causal relationship, automatically you're going to gain empowerment. You're going to be better at controlling the world. And vice versa. When you get to be more better at controlling the world, you're going to understand more about the causal structure of the world. That's a longer argument that I won't go into here. And I think it's interesting that this approach, this idea of empowerment comes out of the evolutionary biology literature. So it came originally from people who were trying to characterize what would make an animal intelligent at all in the first place.
+
+And as you may know, we first start seeing brains and a kind of intelligence in animals during the Cambrian explosion. So what happened was that in the Ediacaran, which went on for millions of years, under the sea, there were very large complicated organisms. They lived a happy life filtering out little food from the ocean and reproducing and doing all the things that living creatures do. Unfortunately, they don't seem to have known that they were having such a happy life because it was only when there was this change in the Cambrian, you started suddenly having animals that had eyes and claws, that had actuators and sensors, that could see things in the world and do things in the world.
+
+And part of the reason for the Cambrian explosion is that there was this kind of arms race about who could predate and who could avoid the predators. How could you use your eyes, your perceptual system, and your motor system to either find food or avoid being food? And a number of philosophers, Peter Godfrey-Smith, who was here giving one of these lectures recently, have argued that this is really the beginning of consciousness. And it definitely is the beginning of when you start to see a brain, because the brain is coordinating the actions and the perceptions. It's a kind of sad thought that when things were nice and tranquil, we didn't experience it, and it's only when we get hunger and fear that we are conscious. But so it goes.
+
+And when you start thinking about development from the perspective of empowerment, you see empowerment all over the place, especially in very young children. This is work that was actually done back in the '70s by Carolyn Rovee-Collier. And interestingly, she was trying to show whether babies could be operantly conditioned or not. And what she did was tie the baby's leg to a mobile. And what happens is when you do this, a 3-month-old starts kicking wildly to see if the mobile will work. But it's not just a kind of reinforcement learning where she just wants the mobile. If you just do the mobile yourself, then the baby's not really interested in it. And what she'll do is kick for a while and then stop kicking, which is not what you'd expect from reinforcement learning. Look up at the mobile, then start kicking again to see what's happening with the mobile, then start waving her arm to see if that will make the mobile go.
+
+And perhaps the most significant thing is, giggle and laugh all the time that she's doing this. Babies just love this. And Carolyn Rovee-Collier in this paper said, "It looks like the reward is the contingency itself. It's not the outcome. It's the very fact that you can control." And what that means is that these babies are seeking empowerment. They want to be able to go out in the world and do things that will lead to particular kinds of outcomes.
+
+Now, one of the things that's wonderful about being a grandmother in 2025 is that you get cute videos of your grandchildren every morning. And this is Kit, and in this video was just a year old. And his grandfather is a really accomplished musician, he's playing the piano, and he's given Kit this xylophone to play with. And here's what happens.
+
+First, Kit takes the mallet and bangs it against the bars, and then he decides to try using the stick end to see the sound that the stick end makes, and then he tries the mallet again, and then he tries his fat little hand, which of course doesn't make any noise at all. And then he goes back to trying the mallet, and he tries it on the long bars, he tries it on the short bars. And just in the course of doing this kind of exploration and play, which is exactly what you expect a 1-year-old to do, he's figured out this causal relationship between what you do with your hands and pure tones that are produced as a result. And it's worth pointing out, this is not a causal relationship that could have existed in the Pleistocene. This isn't just something that you would have evolved to understand or detect. This is something that you actually have to learn about and that you learn about through this kind of exploration.
+
+Now, notice at the same time, of course, his grandfather is demonstrating the fact that this kind of general relationship exists, even though what the grandfather's doing is completely different in some ways from what Kit is doing, but he's giving him information about the fact that you can make sounds happen by doing something with your hands. But he's just doing that by demonstrating, and this speaks to the transmission point that I'm going to get to in a minute. The only explicit thing that he says to Kit is, "Don't put it in your mouth, Kit." And when I give this talk, especially if there are sort of young parents in the audience, people will sort of say, "Oh, he looks like he's going to poke himself in the eye with that stick," a point that we'll get to in a minute.
+
+So this is a paper that we recently have in press in Philosophical Transactions of the Royal Society, videos of your grandchildren are all very well, but we wanted to see whether we could systematically show that children were indeed seeking empowerment and that this was leading to their causal learning and causal information. And indeed it turns out that it does. And these are lovely experiments by my brilliant graduate student, Eunice U, who's shown this. So if you want more detail, you can look here.
+
+Now, as the example of Kit and the xylophone shows, one of the dangers of this kind of exploration is that you might hurt yourself. And I think the stick is a really nice example of this because the stick is the world's best empowerment tool. Evidently, Wired Magazine at one point did a list of the best toys ever, and the stick is the number one best toy ever. And it is, it's amazing. It lets you move things that are far away. You can move things back and forth, you can poke things, you can have much more control over the world if you have stick, but you may also end up in the ER as my grandchildren at various points have done as a result of playing with sticks.
+
+So how do you keep that? How do you deal with that problem? How do you deal with the problem that when you're exploring, you're impulsively risk taking, you can actually do damage to yourself, not have your high utilities. And to think about this, here's another study that's one of my favorite studies of all time. This is a study from Nim Tottenham, and it's based on a study originally by Regina Sullivan looking at rats. Remember that rat in the maze who won't go down the arm that has the shock? Well, that's really smart. That's like psych 101 learning, but it also is kind of an anxiety disorder right now because the rat's never going to find out that actually maybe this time there's cheese at the end of the maze. They're just going to avoid it for the rest of their rat lives.
+
+Well, it turns out that that is true, that psych 101 phenomenon is true for adult rats, but it's not true for juveniles. So if you put juveniles in the maze, they prefer to go down the arm that leads to the shock. And anyone who has a 2-year-old or a teenager will testify that this is also true for humans. But Nim Tottenham actually went in and systematically showed that it was also true for 3- and 4-year-old children with an unpleasant sound rather than a shock. We don't shock 3-year-olds.
+
+But there's a twist and the twist is that the juveniles will only do this if the mother is present. In fact, if they can smell the mother. So if the smell of the mother is there, then the juvenile will explore the shock arm of the maze, but not if it's not there. And again, Nim showed that this was true for 3 and 4-year-old children as well. So it's something about the signal of caregiving as it were telling the rat, "Look, it's OK. Nothing really terrible is going to happen to you. I know how to get to the ER. You're going to be fine if you do this kind of exploration."
+
+And that leads me to the next part of the talk about intelligence, which is that, so it looks as if this exploration depends on having adults around who are willing to put the investment of caring for you. And this leads me to the last part of the talk, I think, which will be about caregiving. I love this. I really like this picture. It's from the Rijksmuseum in Amsterdam. We used it for the cover of the special issue of Daedalus on caregiving, I'll tell you about it in a minute. And I think it's so moving because that is a sick child. That does not look like a happy, cheerful, healthy baby. But when you see it, at least when I see it, and I think when most people see it, you feel this really strong urge to take care of that baby, the way the mom in the picture is taking care of that baby. And I think this picture is even more moving when you know that it was painted during a plague epidemic in Amsterdam in the 1660s.
+
+So the child is likely to die. The mom by taking care of the child is likely to die, and the painter is exposing himself to the plague. So I think this captures the fact that for most of us, caring for others, caring for children, but as we'll see, caring more generally is one of the most deep, profound things that we do. It's the thing that has the greatest sort of moral significance. It's one of the things that makes our life have meaning. It's something that we talk about in religious context, for example. And yet in spite of that, that care has been pretty much invisible in the social sciences.
+
+So in economics, for example, it doesn't show up in the GDP. So it doesn't count as being productive labor. In political science, nobody talks about the way that you're caregiving. The unit is the family, and the thought is that caregiving is happening within that unit. In moral philosophy for Christ's sake, which is supposed to be about our moral intuitions, it's almost impossible to find something about moral intuitions about care. In moral psychology, they talk about hierarchy and justice, nothing about caregiving.
+
+Margaret Levy, who's a political scientist, and I have been involved in this project together. And at one point we sort of said, "Is there anything that all the people who've done this work have in common that could explain why there's nothing about caregiving?" And we finally said, "They're tall. That's it. They're really tall, so they don't see the children who are around at their feet."
+
+So what we've been doing, and this just came out for the last three years, actually funded by Templeton, is to try to advance the idea of a social science and a cognitive science of caregiving. And by the way, in the '70s, there was some feminist work about ethics of care, but it basically just said the same thing that I just said, which is why hasn't anyone thought about this But in mainstream social science, there hasn't been very much work kind of doing the job of working out how caregiving works, and that's essentially what we're doing now.
+
+And again, that's particularly puzzling. So this is a special issue with contributions from sociologists and political scientists and economists and philosophers thinking about caregiving. And this is especially puzzling because we go back to that life history, as you might expect, that life history of extended childhood goes with a more parental investment. So if you look across very different animals, these are marsupials. On the one hand, this is the quokka, the world's cutest little animal, both in its name and looks. On the other is the Virginia opossum. The quokka has one baby at a time that lives in the quokka's pouch and both the mother and the father take care of the baby and the baby stays in the pouch for a year. The possum has big litters of babies all at once. The biological mom is the only one who takes care of them and they're mature within a month or so.
+
+So I think we may often feel a little more like the opossum than like the quokka. We could all use more backlighting in our lives. But in fact, of course, humans are much further out on that distribution of high levels of investment. So we have what I think of as the investment triple threat. We have pair bonding, which is very unusual among mammals. We have fathers who are involved in taking care of babies and indeed taking care of their spouses at the same time that they're, as well as mothers. We have what the great anthropologist, Sarah Hrdy calls alloparents, people who are not biological kin, but are still involved in taking care of children. And that's been true since we were in forager cultures. In fact, it's more true in forager cultures than it is in our contemporary culture. And we have my personal favorite, grandmothers. Those postmenopausal grandmothers, and there's really beautiful work showing that especially the survival of the toddlers really depends on the grandmother's contributions.
+
+And of course, we also extend these care relations beyond just children to our partners, to elders, to … An interesting example that I try to use when I talk about this with tall people is students, your graduate students are in a care relationship to you, patients. Those are all examples of context in which we extend this kind of idea of care. And arguably, too, we can extend it to non-human animals, to the planet, to, as the Buddhists say, all sentient beings. But caregiving, I mean, there's a reason why caregiving hasn't shown up in the social sciences, and it's because it's got some really paradoxical characteristics. It's very different. Its fundamental structure is very different from the fundamental structure of the social relations that we're used to studying in the social sciences.
+
+So a way that I've tried to conceptualize this as sort of analytic philosophy/computational way is think about two different agents. One agent has more resources and goals than the other agent, than agent B. What happens? They've got different resources, they've got different goals. What's going to happen in their social relationships? And the idea that central to economics and political science goes back to hubs or even further back, is that what will happen is that they'll have a social contract. They'll exchange resources in order to accomplish each other's goals, and this is really good. It gets them out of prisoner's dilemmas. It lets them thrive. And you could argue that democracy, markets, all sorts of institutions implicitly or explicitly involve this kind of social contract.
+
+Another thing that could happen is that they just pool all their resources and goals. So they just become a single unit, as it were, a single community. Another thing is that the one who has more resources could just get the one who has fewer resources to accomplish their goals. So though the golden rule is that he who has the gold makes the rules. That's that kind of power relationship. And again, people in the social sciences have talked at great length about how these power relationships play out.
+
+But here's the thing that's so weird about caregiving. In a caregiving situation, the agent who has more resources actually donates those resources to trying to pursue the goals of the agent who has less, and they do that just because that agent has fewer resources. So just because the baby is helpless and needy, we try to accomplish the baby's goals, which makes it really different from these other kinds of relationships. And I would argue that even if you think about something like caring for the dead or caring for the planet, what makes it care is that it has this kind of structure.
+
+But you could also ask, when you say that the carer is trying to pursue the recipient's goals, what are those goals? Well, sometimes they might be objective utilities as the economists say. You make peanut butter sandwiches. Again, my sister and I spent a lot of time making toast and jam for the 2-year-old today. Sometimes it's actually subjective utilities. So it's not what you think would be best, but what the other agent thinks would be best. We did end up giving more ice cream to our 2-year-old today than probably would be in her objective interests, but which very clearly indicated as a strong subjective utility for her.
+
+But I think the thing that we do most of all is that we maximize their empowerment, to go back to the empowerment idea for exploration. So what we really want to do is make the person that we care for have enough resources so they can determine their own goals and then be be able to go out and accomplish their goals. Not necessarily the ones we have for them, not the ones we have, not even the ones that we have for them, the ones that they actually develop themselves. So going back to that idea of empowerment, agency control, I think what care fundamentally does is give agency to another person, to someone who's actually being cared for. Give them this kind of empowerment.
+
+I'm almost through here. The last thing to say is that very often … So what I want to suggest is that even though all of us can do this, and there's some evidence to support this, that this is very much something that elders do, whether they're taking care of children themselves or whether they're just taking care of the next generation, passing information onto the next generation. It's something that faculty do, as I said, for students or for junior faculty. And the elders also seem to have this niche of cultural transmission of passing on information from one generation to another.
+
+I mentioned that we're the only primate that has postmenopausal grandmothers. There's one other mammal that we know of that has postmenopausal grandmothers, and that's the killer whale, the orca. And what's distinctive about killer whales is that they have cultural traditions and they pass on information about food types, for example, from one generation to another. And especially when food gets scarce, the grandmothers, they have postmenopausal grandmothers, and the grandmothers are the ones who lead the pod to here's where there was food 30 years ago.
+
+So it seems as if the role that these postmenopausal grandmothers are playing as well as being the care role, and you can show that the pod is more likely to survive if there's a grandmother there, is also this cultural transmission role. And if you look at that grandmother in that picture, I didn't realize this, I just love this picture. But when I started thinking about cultural transmission in elders, what that grandmother is actually doing is reading 100-year-old copy of Winnie the Pooh to her grandchildren, because this is a grandmother who likes to collect old children's books. But I think in general, what the kinds of songs and stories and recipes for us and for the killer whales are the kinds of things that grandmothers and grandfathers are passing on culturally.
+
+So I think I'm going to skip over the AI part, but the general argument that I've made, like I can show you the, let me show you the paper, is that the best way of thinking about those large models, the stone soup models, is that they're another method that we've invented for passing on information. So they're kind of a weapon of the grandmothers. The same way that things like language itself, pictures, writing, print, libraries, those are all technologies that we've developed that enable this process of cultural transmission to take place. That grandmother is reading a book, and reading a book is a really distinctive kind of cultural transmission.
+
+And what we've argued in this paper in science is that we should think about large models as being the latest example of those kinds of cultural technologies. So I won't go into detail about this, but again, as in the Stone Soup example, that's for good or for ill. New cultural technologies like print or Wikipedia can have wonderful consequences like the enlightenment. They can also have terrible consequences like the French Revolution. And I can talk about that a bit more if people want to later on. And I think the right way of thinking about the large models is they're the latest iteration of this kind of cultural technology.
+
+OK, last thing. So I've been talking about care and how fundamental care is for human intelligence. How about artificial intelligence? Go back to that beautiful Ted Chang novella. One of the things that people talk about with artificial intelligence is what's called the alignment problem. How is it that we can coordinate the goals of an artificial system and our own goals? Make sure that they have good goals, not bad goals. The paperclip apocalypses, you tell them to make paperclips and they turn the entire earth into paperclips. How can we solve that problem? And one way that people have solved it is what I think of, again, this is a boomer reference, as the Stepford wife way of solving it, where you get the system to figure out what you want and just do exactly what you want.
+
+But of course, every time we have a child, we face an alignment problem. Every time we have a new generation, we face this problem of they're going to have goals that are different from ours. We want them to have goals that are different from ours, but we want them to be good instead of bad. And what I've argued is that it's that care relationship with humans that enables that alignment to take place, that enables us to pass on our knowledge and our goals in a way that's positive rather than negative. And if we do ever end up with an AI that's an autonomous agent in the way that humans are, those AIs are going to need mothers. They're going to need humans to be in a care relationship with them. And hopefully, if we have them assisting us, they'll be in a care relationship with us.
+
+So let me stop there and then take some questions.
+
+**Marion Fourcade:** Thank you so much, Alison. That was delightful, incredibly substantive, and also wonderfully entertaining. So the best.
+
+**Alison Gopnik:** That's grandmoms. That's what grandmoms have to do.  
+Marion Fourcade: We have a microphone. If you have a question, please come up to the microphone. And then in about 10, 12 minutes, 15 minutes, we can go out and have some food. So please come and ask your questions directly here.
+
+**Audience 01:** Well, what does it mean to have an AI goal? I mean, how can we instantiate goal seeking in AI? I'm just wondering how that would work. I mean, because goal implies will, and will implies intention.
+
+**Alison Gopnik:** Well, I think the thought when people talk about things like, there's a literature about agentic AI, that's something that people have talked about a lot. If you think about that reinforcement learning agent, like the rat in the maze, even though that's a very simple system, it's a system that has goals. So the sensible way of describing the route is to say it wants the cheese and it wants to stay away from the shock. And you can certainly design systems, including robots, for example, that have goals in that sense at least, that there's some state out in the world that they want to bring about or they want to avoid, and they act in a way that will bring it about or avoid it. So that's the sense in which the …
+
+**Audience 01:** Lower probability outcome. Having the space of actuation being a lower probability outcome of that space, I think is what …
+
+**Alison Gopnik:** Certainly, it's something about that relationship between the actuators and the sensors. So if you think about those Cambrian creatures, those little Cambrian shrimp, they're going out and trying to predate and trying to avoid predators. And both of those you could think of as being a goal in a way that contrasts, again, with the Ediacaran sponges that are not going out and acting in the world to accomplish things.
+
+**Audience 02:** I enjoyed your talk very much. It struck me when you said the beginning of consciousness happened when everything was going fine, and then there was some fear or danger or threat. It kind of reminded me of the biblical story, which I think is the story of the Garden of Eden.
+
+**Alison Gopnik:** Yeah.
+
+**Audience 02:** Have you looked into that as anything to go beyond the scientific and say that there's some religious parallels and all that? And also how this applies maybe to artificial intelligence. There has to be some kind of a threat to make it become maybe morally conscious.
+
+**Alison Gopnik:** Well, I think one of the things that is quite clear from the current AI systems is that if you wanted to look at a place in current AI that looks more like the Cambrian, robotics is the place to look. So the thing that when you look at robotics, you have to have a system that's actually out there, that's in the real world, that's trying to accomplish things, avoid things, that has sensors and has actuators. That's kind of the beginnings of thinking about a genuinely intelligent system. And that's very different from the sort of, I will hopefully not offend anyone in the audience about this, the sort of Derrida machines, which is what we have now that are living in text, that are predicting text, that are putting text together, but never have any relationship to the external reality. And that's what the large models are like.
+
+So I think getting out into the world and interacting with the world in a real way is the thing that was what led to intelligence and consciousness in us back in the Cambrian. And that's the sort of a path that would do something like now. Consciousness is always a fraught question, but certainly that would lead to our kind of intelligence in an artificial system.
+
+But it has to be said, BAIR is up on the 8th floor of our building. And one of the other things about being a grandma is I get to be cool because I can take them up to see the robots when they come to visit grandma. But they're really disappointed about the robots. The robots have not made nearly as much progress as other aspects of AI. They're still very, very bad at doing even simple things that 3-month-olds are really good at doing.
+
+**Audience 02:** Like following directions?
+
+**Alison Gopnik:** Yeah.
+
+**Audience 02:** I mean, are they rebellious?
+
+**Alison Gopnik:** No, that's the problem, right?
+
+**Audience 02:** They're not rebellious.
+
+**Alison Gopnik:** That's exactly the problem. They don't explore in the right kind of ways. Although a friend of mine who works in robotics has actually … People in robotics have been trying to do things like give robotics something like empowerment as a goal. And of course, one of the good things about robots is that they don't have to sleep so they can stay up all night. And this friend had a wonderful video of the robot at 4 a.m. doing this kind of empowerment and actually smashing the window and just destroying its arm because it was trying to see what its arm could do. So that's another reason why it'd be good to have a robot mom who could take you to the ER when you were doing your exploration.
+
+But I did want to say one thing about religion, which is that I was saying that it's amazing how little work there is about caregiving and social science, but religion is one area where there is a lot of thinking about caregiving. And you could make the argument that a lot of religious traditions, the sort of Bodhisattva is defined in terms of the care that they have for all sentient beings. There's a reason why God is God, the Father, and we're his children in the Christian tradition. It's because it's a kind of model for how, it's a model for care. And even Caritas. I mean, Caritas is care, charity is care.
+
+And one of the things that's very odd, I could give a whole other lecture about the policy issues about care, is that even though we think that the greatest of these is charity, that's the greatest virtue, we also think, "But I don't want any charity." There's a strange tension in our culture between really valuing care and charity and wanting to resist care and charity. So that, for example, if you look at Medicare or social security, it's very important to us that we think of those as insurance programs, not as programs by which many people go and provide resources for people who are sick or who are old. But anyway, that's a whole other story. But I do think it's interesting to turn to the religious traditions thinking about … I mean, as an atheist, I think it's really interesting to see the way the religious traditions speak and think about care.
+
+**Audience 03:** Thank you so much for the talk. Thank you for the work that you've done. Early on in the talk, you mentioned the sort of myth of general intelligence and that you might come back to it. I don't think you did, or maybe I just missed it if you did. I was wondering if you could return to that and expand upon that point.
+
+**Alison Gopnik:** Here's a completely … I have no evidence for this. I can ask the sociologists in the audience how plausible this sounds. I think it's a lot like nobility was in the feudal period. So when you've got an economy that depends a lot on kind of mysterious reasons why the aristocracy should have more power, a way of doing that is to say, there's this thing called nobility, and aristocrats have more nobility than just ordinary people. And indeed, you could have ranks of where you are in the hierarchy of nobility. And of course, now we look and say, "That's kind of weird. There isn't anything that's nobility."
+
+And my suspicion is that in an meritocratic information economy, intelligence kind of serves the same function. It's something that you use as an indicator of how and where you should be in the economy or in the pecking order. And again, it's very strange because if you think about an evolutionary perspective, for example, intelligence is all about homeostasis. Intelligence is about how an organism maintains itself through environmental variation. It is not about going out and dominating the world or dominating other organisms. Again, this is completely amateur sociology and history, but I think there's something like that that's going on.
+
+The other thing that's going on is, as developmental psychologists can tell you, this picture of there's an essence, there's some force, is very natural to people. And again, when kids are about 4 or 5, they get the idea that there's this kind of life force. And if you have a lot of it, your arms will grow longer. And if you don't have a lot of it, you'll get sick. And that's a very natural way of thinking about life, even though we know that, and was true up until the 19th century. We had people thinking about Elan vital and worrying about it the same way people think about consciousness now. So I think it's a combination of this very kind of natural folk tendency to think in terms of essences that we have more or less of, and then this particular feature of our economy.
+
+Now, there are IQ tests, there is this psychometric literature, but I think people don't realize how completely detached that is from what cognitive scientists actually do. So people want to have tests that will predict things like how people do in school, but it's just a totally different or totally orthogonal to the question about how it is that we can manage to do the things that we do in the world.
+
+**Audience 04:** Hello. Thank you so much for your talk. I was really interested in the idea you presented about empowerment because it strikes me as a value that comes from a very individualistic or Western point of view. And I'm just wondering, to what extent do you believe empowerment is a Western value? And if so, are there other ways for children to learn causal inference in perhaps, like if they're raised in a home that does not value empowerment as much as the average Western home?
+
+**Alison Gopnik:** Yeah. So empowerment is an unfortunate word. I mean, that's the word that is used in the technical descriptions, in the technical reinforcement learning literature, but it's kind of a weird woo-woo Berkeley word at the same time. But it's interesting. I was just at a conference in Santa Fe about effects of early life adversity on later development, and people pointed out, and I think quite rightly, that when I was thinking about caregiving, my first thought was it's to get autonomy. So what you want is for the people you care for to have autonomy. And they were pointing out, "No, you don't want autonomy." You want to be competent to be able to have other people who you're involved with and who help you.
+
+And I think that's right in our culture, too. What you want is, you don't want to have to depend on your mom for your whole life or your dad or your other caregivers. What you want is to be able to transfer that caring to your peers or your spouse or your siblings or other people who you're on and even heal with. And in fact, I think a lot of what happens with school-aged children, the crucial thing that happens with school-aged children is this transition from the babies, the infants who really are just completely dependent on their carers to being able to accomplish your ends by interacting with people who are your peers rather than people who are taking care of you.
+
+So it's not meant to imply at all that you're just this autonomous individual. It's this difference between a situation where you're helpless and you have to depend on a particular person who's caring for you versus thinking that you can actually influence not just the physical world, but the social world in a way that will enable goals to be achieved. And those goals might be trying to, in fact, for humans, they will always be goals that people are trying to accomplish together. But an example I like is, think about all those 10-year-olds going out and building a clubhouse together. And the clubhouse never actually gets built, but they go out and they decide that they're going to build a clubhouse together. That's a kind of social empowerment, but it's really different from having daddy or mommy build you the clubhouse.
+
+**Audience 04:** Thank you so much.
+
+**Marion Fourcade:** So we are almost out of time. We are out of time in effect, so if you can ask your questions very quickly, like short questions and you'll take both of them at the same time.
+
+**Audience 05:** Well, I may skip the question completely because I'm a career early childhood teacher and I worked in the lab school at Mills College, sadly now closed for 10 years, and people like you get out, improve what we are seeing in our experience and our thoughtful, careful practice in the field. And so I can skip the question and just thank you for your work.
+
+**Alison Gopnik:** I can skip the answer to say thank you as well.
+
+**Audience 06:** Hi, Alison. Thank you so much for your talk. I really enjoyed it and your work has been really inspirational for my research. My question is this. So you mentioned a few examples about learning and intelligence such as like the mouse with the cheese and the shocks and the Cambrian explosion, et cetera. All of those involve organisms that have bodies, they have mortality and they have like this drive to survive. How might you speculate that AI might develop an actual intelligence when it lacks both a body and mortality?
+
+**Alison Gopnik:** Yeah. I think that's a very good question. My impulse, I'm not sure … There's this kind of embodied and active idea about those are the things that you need for AI. And that's what I was saying about robotics. It's hard to imagine how you could have an agent operating in the world, finding out about the world, acting on the world that wasn't embodied in some sense. But I have thought about if you could have a large model that could ask questions, for example, and it wasn't just asking questions because someone had told it to ask questions, but really wanted to know the answers and could change its representations based on the information that it got out in the world. So you could have a kind of Derridean textual creature that was curious about an external reality that wasn't just the reality of its own texts.
+
+And something like that might be an example of something that wasn't embodied in the way that we typically think that wasn't mortal, but that was tracking what was going on in the external world. And you might think that in that paper that I mentioned, Henry Farrell, who's a political scientist, uses the example of things like markets and bureaucracies. And they're really interesting examples because markets aren't embodied. They don't have bodies, but they definitely track what's going on in the external world in some important way and influence what's happening in the external world in some important way, even though we don't think of them as being intelligences in the same way that we think of human agents as being intelligent. So I think there's a really interesting kind of in between about what would it mean to be active, be figuring out something about an external reality that wasn't just that you had a biological frame.
+
+And I don't think, as some people do, that there's any principled reason why you couldn't end up with an artificial system that had agency and consciousness and intelligence and all the things that we do. I mean, we know, as I sometimes say, we can point to biological material systems that … We can point to material systems that have all those characteristics, and we even know how to create them, and it's a lot more fun than coding. Because every time we have a baby, we have a new system that's a physical system that can do all of these things. But I think there's a long and interesting question about what the relationship between those are.
+
+**Marion Fourcade:** Well, thank you very much. Please join me in thanking Alison.
+
+(Applause)
+
+(Music: “No One Is Perfect” by HoliznaCC0)
+
+**Anne Brice (outro):** You’ve been listening to  _Berkeley Talks_ , a  _UC Berkeley News_ podcast from Strategic Communications at Berkeley. Follow us wherever you listen to your podcasts. You can find all of our podcast episodes, with transcripts and photos, on  _UC Berkeley News_ at news.berkeley.edu/podcasts.
+
+(Music fades out)
+
+* * *
+
+## Listen to other episodes of  _Berkeley Talks:_
+
+  * ## About
+
+    * About Berkeley News
+    * Find an expert
+    * Media training
+    * Contact Berkeley News
+  * ## Browse News
+
+    * Changemakers
+    * Climate Change
+    * Democracy in Distress
+  * ## Connect
+
+    * Berkeleyan newsletter
+    * Media inquiries
+  * ## Campus resources
+
+    * Libraries
+    * Equity, Inclusion & Diversity
+    * Communications & Public Affairs
+    * Berkeley Brand
+
+  * __ Instagram 
+  * __ LinkedIn 
+  * __ Facebook 
+  * __ YouTube 
+  * __ X 
+  * __ Reddit 
+
+Copyright © 2026 UC Regents; all rights reserved 
+
+  * Visit
+  * Events
+  * Jobs
+  * Give
+  * Accreditation
+  * HEERF Report
+  * Contact Us
+  * Websites A-Z
+  * Directory
+  * Map
+  * Accessibility
+  * Nondiscrimination
+  * Privacy
+
+  * __ Instagram 
+  * __ LinkedIn 
+  * __ Facebook 
+  * __ YouTube 
+  * __ X 
+  * __ Reddit 
+
+Copyright © 2026 UC Regents; all rights reserved 
+
+__Back to Top

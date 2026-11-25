@@ -1,0 +1,68 @@
+nr	url	http-status	datei	hinweis
+01	https://aiweekly.co/alerts/susskind-to-parents-teach-kids-ai-and-how-to-work-without-it	200	01-aiweekly.co.txt	
+02	https://aldodepape.substack.com/p/a-reflection-on-what-should-my-children	200	02-aldodepape.substack.com.txt	
+03	https://aleximas.substack.com/p/what-will-be-scarce	200	03-aleximas.substack.com.txt	
+04	https://arxiv.org/pdf/2512.23633	200	04-arxiv.org.pdf	
+05	https://blockchain.news/ainews/google-deepmind-hires-agi-economics-director	200	05-blockchain.news.txt	
+06	https://blogs.worldbank.org/en/education/From-chalkboards-to-chatbots-Transforming-learning-in-Nigeria	200	06-blogs.worldbank.org.txt	
+07	https://data.unicef.org/topic/child-survival/under-five-mortality/	403		FEHLER: 403 (Bot-Sperre), nicht geladen
+08	https://digitaleconomy.stanford.edu/news/canariesaug26/	200	08-digitaleconomy.stanford.edu.txt	
+09	https://docs.iza.org/dp19025.pdf	200	09-docs.iza.org.pdf	
+10	https://en.wikipedia.org/wiki/List_of_The_Daily_Show_episodes_(2026	404	10-en.wikipedia.org.txt	URL in Liste abgeschnitten (404); mit ')' ergaenzt -> 200 geladen
+11	https://fortune.com/2026/04/19/alex-imas-human-jobs-ai-economy-chicago-economist-substack-doomsday-scenario/	200	11-fortune.com.txt	
+12	https://goalkeepers.gatesfoundation.org/wp-content/uploads/2026/09/2026_Goalkeepers_Report_EN.pdf	200	12-goalkeepers.gatesfoundation.org.pdf	
+13	https://ideas.repec.org/p/nbr/nberwo/35620.html	200	13-ideas.repec.org.txt	
+14	https://ifstudies.org/ifs-admin/resources/reports/ifs-report-ai-and-the-future-of-k-12-education-november2026.pdf	200	14-ifstudies.org.pdf	
+15	https://ifstudies.org/report-brief/artificial-intelligence-and-the-future-of-k-12-education-what-do-parents-want	200	15-ifstudies.org.txt	
+16	https://institute.commonsensemedia.org/tween-teen-census-2026	200	16-institute.commonsensemedia.org.txt	
+17	https://knightcolumbia.org/content/what-will-remain-for-people-to-do	200	17-knightcolumbia.org.txt	
+18	https://news.berkeley.edu/2026/04/17/berkeley-talks-alison-gopnik/	200	18-news.berkeley.edu.txt	
+19	https://news.un.org/en/story/2026/07/1167885	200	19-news.un.org.txt	
+20	https://newsroom.gendigital.com/2026-07-28-Norton-Study-Reveals-Emerging-Risks-for-Kids-Online,-Prompting-Parents-to-Have-a-New-Kind-of-The-Talk	200	20-newsroom.gendigital.com.txt	
+21	https://openknowledge.worldbank.org/entities/publication/15e1ff08-15ae-4f7a-b2a8-d146e6c113ee/full	200		FEHLER: Seite laedt Inhalt per JavaScript, nur leere Huelle erhalten
+22	https://ourworldindata.org/grapher/life-expectancy-unwpp	200	22-ourworldindata.org.txt	
+23	https://podcast.gresham.ac.uk/1904814/episodes/19562508-education-and-its-limits-daniel-susskind	200	23-podcast.gresham.ac.uk.txt	
+24	https://scale.stanford.edu/ai/evidence-base-review/evidence-base-ai-k12-november-review	200	24-scale.stanford.edu.txt	
+25	https://scale.stanford.edu/ai/repository/access-not-enough-human-support-improves-engagement-ai-tutoring	200	25-scale.stanford.edu.txt	
+26	https://theboardroomfuturist.substack.com/p/what-should-my-children-do-how-to	200	26-theboardroomfuturist.substack.com.txt	
+27	https://tmwcenter.uchicago.edu/resources/human-raised-nurturing-connection-curiosity-and-lifelong-learning-in-the-age-of-ai/	200	27-tmwcenter.uchicago.edu.txt	
+28	https://us.norton.com/blog/research/connected-kids-insights-report-2026	200	28-us.norton.com.txt	
+29	https://wtop.com/local/2026/08/ai-can-help-with-tutoring-but-it-cant-replace-your-tutor-study-says/	200	29-wtop.com.txt	
+30	https://www.amazon.co.uk/What-Should-My-Children-Do/dp/0241791170	200	30-amazon.co.uk.txt	
+31	https://www.amazon.com/What-Should-My-Children-Do-ebook/dp/B0G1X82DS2	200	31-amazon.com.txt	
+32	https://www.axios.com/2026/08/28/job-growth-aging-health-care	403		FEHLER: 403 (Bot-Sperre), nicht geladen
+33	https://www.bls.gov/ooh/education-training-and-library/kindergarten-and-elementary-school-teachers.htm	403		FEHLER: 403 (Bot-Sperre), nicht geladen
+34	https://www.bls.gov/opub/ted/2026/total-employment-projected-to-grow-3-5-percent-between-2025-and-2035.htm	403		FEHLER: 403 (Bot-Sperre), nicht geladen
+35	https://www.cnn.com/2026/11/20/health/what-should-children-study-ai-wellness	200	35-cnn.com.txt	
+36	https://www.commonsensemedia.org/press-releases/nearly-3-in-4-teens-have-used-ai-companions-new-national-survey-finds	200	36-commonsensemedia.org.txt	
+37	https://www.educationnext.org/guiding-kids-to-adapt-to-a-future-with-ai-book-review-what-should-my-children-do-susskind/	200	37-educationnext.org.txt	
+38	https://www.educationnext.org/wp-content/uploads/2026/11/ednext_26_4_review_murnane.pdf	200	38-educationnext.org.pdf	
+39	https://www.eedi.com/news/eedi-publishes-full-findings-from-its-most-recent-ai-tutor-trial	200	39-eedi.com.txt	
+40	https://www.gatesfoundation.org/ideas/media-center/press-releases/2025/12/goalkeepers-child-deaths-rising-high-impact-solutions	200	40-gatesfoundation.org.txt	
+41	https://www.goodreads.com/book/show/243856522-what-should-my-children-do	200	41-goodreads.com.txt	
+42	https://www.gresham.ac.uk/sites/default/files/transcript/R_2026_05_23_1331_Susskind_T_0.pdf	403		FEHLER: 403 (Bot-Sperre), nicht geladen
+43	https://www.irishtimes.com/culture/books/review/2026/10/10/what-should-my-children-do-by-daniel-susskind-an-optimistic-book-about-ai/	200	43-irishtimes.com.txt	
+44	https://www.leighbureau.com/books/what-should-my-children-do	404		FEHLER: 404, Seite existiert nicht mehr
+45	https://www.nber.org/papers/w34854	200	45-nber.org.txt	
+46	https://www.nber.org/papers/w35620	200	46-nber.org.txt	
+47	https://www.nber.org/papers/w35621	200	47-nber.org.txt	
+48	https://www.netgalley.com/catalog/book/873828	200	48-netgalley.com.txt	
+49	https://www.npr.org/2025/07/20/nx-s1-5471268/teens-ai-friends-chat-risks	200	49-npr.org.txt	
+50	https://www.oxfordmartin.ox.ac.uk/events/what-should-my-children-do	200	50-oxfordmartin.ox.ac.uk.txt	
+51	https://www.parentherald.com/articles/237358/20261118/survey-82-parents-want-ai-fully-blocked-sharply-restricted-their-kids-schools.htm	200	51-parentherald.com.txt	
+52	https://www.penguinrandomhouse.com/books/812111/what-should-my-children-do-by-daniel-susskind/	200	52-penguinrandomhouse.com.txt	
+53	https://www.pewresearch.org/internet/2026/02/24/how-teens-use-and-view-ai/	200	53-pewresearch.org.txt	
+54	https://www.pewresearch.org/internet/2026/02/24/what-parents-say-about-their-teens-ai-use/	200	54-pewresearch.org.txt	
+55	https://www.pewresearch.org/social-trends/2024/07/25/reasons-adults-give-for-not-having-children/	200	55-pewresearch.org.txt	
+56	https://www.rand.org/news/press/2026/11/higher-income-parents-more-likely-to-use-ai-encourage.html	200	56-rand.org.txt	
+57	https://www.rand.org/pubs/research_reports/RRA4742-5.html	200	57-rand.org.txt	
+58	https://www.semafor.com/article/04/06/2026/new-yorker-investigation-raises-questions-over-sam-altmans-trustworthiness	200	58-semafor.com.txt	
+59	https://www.theneuron.ai/explainer-articles/when-ai-takes-over-the-economy-who-owns-the-human-element/	200	59-theneuron.ai.txt	
+60	https://www.unfpa.org/press/young-adults-want-relationships-children-and-hopeful-futures-financial-and-job-insecurity	200	60-unfpa.org.txt	
+61	https://www.unfpa.org/sites/default/files/pub-pdf/Lives-choices-and-futures.pdf	200	61-unfpa.org.pdf	
+62	https://www.unicef.org/press-releases/progress-reducing-child-deaths-slows-49-million-children-under-five-die-2024	200	62-unicef.org.txt	
+63	https://www.waterstones.com/book/what-should-my-children-do/daniel-susskind/9780241791172	403		FEHLER: 403 (Bot-Sperre), nicht geladen
+64	https://www.weforum.org/press/2025/01/future-of-jobs-report-2025-78-million-new-job-opportunities-by-2030-but-urgent-upskilling-needed-to-prepare-workforces/	403		FEHLER: 403 (Bot-Sperre), nicht geladen
+65	https://www.who.int/news/item/18-03-2026-progress-in-reducing-child-deaths-slows-as-4.9-million-children-die-before-age-five	200	65-who.int.txt	
+66	https://www.worldbank.org/en/news/press-release/2026/10/26/more-and-better-jobs-key-to-putting-poverty-reduction-back-on-track	200	66-worldbank.org.txt	
+67	https://yougov.com/en-us/daily-results/20260220-902fa-3	200	67-yougov.com.txt	

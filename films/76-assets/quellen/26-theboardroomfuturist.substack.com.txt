@@ -1,0 +1,124 @@
+URL: https://theboardroomfuturist.substack.com/p/what-should-my-children-do-how-to
+HTTP: 200
+
+# 
+
+SubscribeSign in
+
+# What Should My Children Do? How to Flourish in the Age of AI, by Daniel Susskind (2026)
+
+### What to tell our children and young people about what to study in the AI era? I was stumped recently at a Women in Tech event when a young woman asked me if her “BSc in Comp Sci was a mistake?”
+
+Melissa Clark-Reynolds
+
+Oct 06, 2026
+
+7
+
+Share
+
+## The Book Pitch
+
+ _What Should My Children Do? How to Flourish in the Age of AI_ , by Daniel Susskind (2026). For parents and educators trying to work out what the next generation should learn (and a bit of the how), and what to stop worrying about, when nobody, including the economist writing the book, can predict which jobs will still exist in fifteen years. 
+
+## The Verdict
+
+**Read it** if you want **a parental AI enthusiast view of how to play with your kids using AI** and you’re the kind of reader who can take the good ideas and forgive a rushed manuscript. His overall stance seems to be _**“**_ the future is bright, stay curious, get good at learning, and it will all be okay.” **Skip it** if you’re after a **rigorous treatment of how education should lead/adapt/respond to an AI present, AI ethics, big tech’s incentives, or what flourishing looks like outside a labour market** , because none of that is really here. _**I finished it more energised by what I wished it had addressed, than what the book actually contained.**_
+
+## What the Book Covers
+
+Thanks for reading The BoardRoom Futurist! Subscribe for free to receive new posts and suggest books I should read and review.
+
+Subscribe
+
+Where the book is good, it’s very good. Susskind’s strongest thesis is to stop asking “what should children learn” and start asking “what is education actually for?” _**Education being about preparing children for work, he points out, is a 20th century invention. Before that, for most of human history, it was about helping raise great adults.**_
+
+_**Character was key in education for a long time, and now we seem to prioritise competence.**_
+
+Susskind is an ex-Downing Street policy wonk turned Oxford AI-ethics researcher, and he opens with an insightful and useful historical moment: in 1978 the UK government asked a maths lecturer called Wilfred Cockcroft what to do about calculators turning up in classrooms, and rather than banning them, Cockcroft’s 1982 report told schools to teach both with and without one, and to test both ways. 
+
+In NZ in 1976, I had been required to find the money to buy a calculator to take to Maths class. We had already purchased slide rules and the Ministry of Education approved Mathematical Tables book (see image below - a book-hoarder, I no longer own this book). My family really struggled to afford the calculator, and I hate to think what my mother had to trade for it (I remember it costing ~$50 which is nearer to $400 in today’s money). We had to learn trigonometry and statistics with the book, slide rule and calculator in parallel. Our teacher was learning how to use the calculator at the same time, and there didn’t appear to be any useful curriculum. I don’t remember being allowed to take the calculator into my final year Maths exams in 1979, but we were certainly allowed to use them at University in 1980 and beyond. By 1979 (ie 3 years into calculators in NZ schools) I didn’t see any slide rules in the classroom, though I did still encounter them being used by lecturers at University through much of the 80s.
+
+Susskind casts himself as “the Cockcroft of the 2020s.” In other words, he is suggesting we teach children with and without AI, and test both. 
+
+I don’t know that he has thought about what it is like to be a teacher. He is having fun at home making up silly poems and podcasts with his child - with no thought at all to how the AI “learnt” what it did, and whether just because he can make up learning materials at home if they are any good. We do know that children who are read to, and who see their parents read are more enthusiastic readers, than those who don’t. I suspect the same will be true of AI - parents who play with their children using LLMs and who encourage their children to create and play with the tools will have more AI skills than those who don’t.
+
+In the book, he distinguishes between today’s AI - Artificial **Narrow** intelligence - and AGI Artificial **General** Intelligence (which he sees as imminent and inevitable, but I am not so sure). The current LLMs (narrow intelligence) are good at specific tasks and can already outperform humans at a lot of jobs. I felt much less satisfied with his musings on AGI, and wished he had spent more time elaborating on what parents and educators could get on with today that would be preparing children for an AI present.
+
+I also felt quite uncomfortable that the author really didn’t seem to be interested in digital divides, assuming that every child/family has the same access he has to the hardware and software available. We already have digital divides regarding access to equipment, internet and software - will access and learning with AI create another divide?
+
+## Best Takeaways (I Read It So You Don’t Have To)
+
+**Memory was the first educational basic, and we outsourced that once writing and reading were mainstream.** For something like 150,000 years, the ability to hold and transmit knowledge, whether that was genealogy, law, navigation, medicine, cultural knowledge, natural landmarks, astronomical and geological features was foundational. Then writing arrived, and that extraordinary human capacity for memorisation stopped being the mark of education. It didn’t vanish, it became specialised: the Quran preserved through hāfiz who hold the entire text by heart, the Bible’s oral traditions before canonisation, epic poems composed and performed from memory long before they were written down, purākau and whakapapa carried across generations through recitation rather than record. _**These weren’t backups for a written culture that hadn’t arrived yet. They were the culture’s memory, embodied in people, handed down through specialist training and muscle building. The technology of writing and reading changed that very basic skill to a nice to have, rather than a must have mark of education and role.**_
+
+**Train for the problem, not the career.** This is the idea I liked the most from the book: don’t train your child to be a radiologist, train them to get better at diagnosing disease. **The career is a wrapper around a problem, and wrappers date fast while the problem underneath stays real for much longer.** A radiologist trained purely on reading a scan is training for a task AI is already better at. Someone oriented around the actual problem, catching disease earlier and more accurately, has somewhere to go when the tool changes underneath them, because the goal hasn’t moved, just the tech.
+
+**Stop telling children they need a unique calling.** That advice assumes a stable world where committing early to the right lane pays off. Susskind’s case is that it would be better for our children _**to set out with genuine curiosity and no fixed destination, because the experimentation itself is the transferable skill.**_ We’ve built an entire education-to-career pipeline around training once and then retraining when the world changes, _as if retraining were the exception rather than the norm._ He’s arguing to flip that: build curiosity and the capacity to keep learning in as the default, not bolt it on later as an expensive correction.
+
+**The future is unknowable, so invest in the equipment, not the destination.** Nobody can tell you which jobs will exist in fifteen years, so stop trying to predict them, and invest instead in literacy, numeracy and critical thinking, not as dutiful old-fashioned basics, but as the general-purpose equipment that lets someone pick up a new specialism fast when the current one stops paying.
+
+**Specialisation isn’t dead, it just moves down a level.** Deep expertise still matters, it’s the thing worth specialising in that shifts: **the problem, not the job title** currently sitting on top of it. Specialise in improving early cancer detection, not in being a radiologist. Specialise in getting people justice faster and cheaper, not in being a litigator. _The job title is what’s up for grabs. The problem underneath it usually isn’t._
+
+**AI should be a scaffold, not a crutch.** Schools shouldn’t ban the tools or chase “future proofing” on a horizon this foggy (he cites the UK’s rushed push to teach every child to code, a few years before coding became one of the things AI does best, as a waste of time). Note: I don’t entirely agree with him here._**I’d teach the new basics first and the old ones as history.**_ I have not used my slide rule or Castle’s tables in 40+ years. I studied advanced Mathematics and Epidemiology and used a mainframe and then SAS, SPSS, R and other tools. I can do a heap of mental maths, but I can do a lot more using advanced technology._**Teaching me the old way at the same time as the new way just left me with less time to learn the new basics.**_
+
+**I loved thinking about character vs competence. Currently we test whether children know “facts”, what if instead we tested their ability to frame great questions, to use AI to advance learning, rather than “competence”.**
+
+## What I am Learning From Using This Thinking
+
+This maps directly onto something I’ve been arguing on this Substack already: AI Didn’t Take the Jobs. Boards Did. Stanford’s Canaries Dashboard shows aggregate employment in AI-exposed occupations barely moving, but employment for 22 to 25 year olds in those same occupations down 13 to 16% relative to older colleagues. It’s not the job that’s disappearing in aggregate. It’s the _first_ job, the entry-level version of the career wrapper Susskind is telling parents not to bet on. Boards making workforce decisions right now are still hiring, training and promoting against job titles, not against problems, made me wonder _**are we building a pipeline of people who can solve our hardest problems, or a pipeline of people qualified for a job description that may not exist in the shape we wrote it?**_
+
+It also should reframe how we think about talent and succession conversations in the boardroom. _**“Train for the problem, not the career” is a hiring and development philosophy, not just a parenting one.**_ A remuneration or people committee asking “what capability are we building for the next five years” is often answering in job titles and org charts. _**The more useful question, straight out of this book, is which problems the organisation and client base most needs solved, and whether the people we are developing are oriented around solving those problems?**_
+
+## Futurist Insight
+
+Here’s the pattern I’m seeing: “the basics” is not a fixed list, it’s a rolling one, and every era’s basics look obvious and permanent right up until they don’t. Memory was a basic for 150,000 years. Mental arithmetic was a basic for a generation or two. The ability to grow and raise your own food was a basic for most of human history. Reading, handwriting (some of you may remember UK and US “pen licences”), times tables: all felt permanent to the generation that fought to install them in every child, and all are being renegotiated in front of us right now.
+
+So the futurist’s question isn’t “which of the old basics survive AI.” It’s “what’s joining the list that wouldn’t have made it a generation ago.” My own candidates, none of which Susskind’s book gets to: **food preparation** , as the supply chains and delivery apps that currently do it for us get more fragile, not less. **Physical literacy** \- embodied experiences, physical fitness, what it is to be in a body at this time, the joy of movement (dance, swimming, playing sport) . **Relational skill** , the capacity to authentically be with ourselves and other people and hold a disagreement without it becoming a rupture, in a world that makes avoiding that friction easier every year. **Collective problem-solving** , a genuinely different competence from being right on your own. And **BS detection** , which Susskind gestures at through AI literacy but which I think is about to become as foundational as reading was.
+
+None of these fit a school timetable built around subjects you can test with a pen and paper, which is exactly why boards, curriculum designers and parents keep defaulting back to the old list. The old basics are measurable. The new ones aren’t yet, and “we can’t measure it easily” has never once been evidence that something doesn’t matter.
+
+## Last Thoughts
+
+Two things nagged at me the whole way through, and neither gets properly addressed. The first is trust: Susskind is asking parents to reorganise how they raise and educate their children around tools built and controlled by a small number of companies, and the book has almost nothing to say about whether those companies deserve that trust, or what happens to a generation raised to lean on AI if the labs building it turn out to be badly misaligned with the interests of the children using it. For a book this focused on the next fifteen years, the near-silence on AI ethics and big tech’s track record is a real gap, not a footnote.
+
+The second is narrower but colours the whole book: Susskind is an economist, and it reads like one. Value, in his account, sits very close to economic value, and flourishing sits very close to being well positioned in a labour market. He’s honest that this is his lens, but people and purpose aren’t only economic. Relationships, meaning, contribution and care don’t show up on a productivity chart, and **a book asking how to help children flourish owes at least a chapter to the parts of flourishing that have nothing to do with what they’ll be paid to do.**
+
+Which is also where I’d push the book further than it goes. Susskind treats AI mostly as a tool to master without eroding other skills. I think there’s a bigger version of the argument sitting right next to his: AI is the first tool that makes it plausible for a person, or a classroom, to hold a genuinely large, complex system in view at once, climate, food, water, health, all interacting, all modelled, all able to be interrogated. Systems thinking has always been hard to teach because holding that much complexity in your head is close to impossible without help. It might not be impossible any more. Maybe the honest answer to “what should my children do” isn’t a list of skills at all. Maybe it’s: _**spend real school time learning to harness AI in service of the planet and other people.**_
+
+I’m hearing Susskind discuss the book in person at King’s College London on 9 October, with the Policy Institute and King’s Institute for Artificial Intelligence. You can register in person or register for the livestream if either of the two gaps above is the question you’d want put to him. I’ll report back.
+
+## Ask your Board
+
+Are we building a talent pipeline for job titles, or for the problems those job titles currently sit on top of? What happens to our succession planning if the titles change faster than the problems do?
+
+If nobody on this board can confidently predict what our industry’s entry-level roles look like in ten years, are we still hiring and training as if we could?
+
+Have we ever asked, whether the AI tools we’re standardising on deserve the trust we’re extending them, or have we treated “it’s the market leader” or “it is available” as the whole of that conversation?
+
+Where in our organisation could AI widen someone’s view of the whole system and amplify our impact?
+
+Thanks for reading The BoardRoom Futurist! Subscribe for free to join the conversation.
+
+Subscribe
+
+7
+
+Share
+
+#### Discussion about this post
+
+CommentsRestacks
+
+TopLatestDiscussions
+
+### Ready for more?
+
+Subscribe
+
+© 2026 Mj Clark-Reynolds · Privacy ∙ Terms ∙ Collection notice
+
+Start your SubstackGet the app
+
+Substack is the home for writing, podcasting, and media founders.
+
+This site requires JavaScript to run correctly. Please turn on JavaScript or unblock scripts
