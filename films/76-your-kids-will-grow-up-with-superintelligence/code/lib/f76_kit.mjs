@@ -280,7 +280,7 @@ export function counterAge(ctx, t, c) {
   const x = c.x ?? 120, y = c.y ?? 170, size = c.size ?? 92, u = clamp(c.u ?? 1); if (u <= 0) return;
   const f = c.from ?? { age: c.age, year: c.year };
   ctx.save(); ctx.globalAlpha *= clamp(u * 3);
-  K.cap(ctx, 'AGE', x, y - size * .72, K.rise(u), { size: 24, col: K.CREAM });
+  K.cap(ctx, 'AGE', x, y - size * 1.02, K.rise(u), { size: 24, col: K.CREAM });   // above the digits' cap height (builders 25.11.: it overlapped)
   const w1 = rollText(ctx, String(f.age), String(c.age), u, x, y, size, { col: '#fff6d8' });
   E.glowText(ctx, '·', x + w1 + size * .22, y - size * .06, { size: size * .7, serif: true, col: K.GOLD.text, glow: false });
   rollText(ctx, String(f.year), String(c.year), u, x + w1 + size * .55, y, size, { col: K.GOLD.text });
@@ -293,8 +293,9 @@ export function rollText(ctx, a, b, u, x, y, size, o = {}) {
   ctx.save(); ctx.beginPath(); ctx.rect(x - 10, y - size * .95, dw * n + 20, size * 1.18); ctx.clip();
   for (let i = 0; i < n; i++) {
     const ca = a[i], cb = b[i], k = expoOut(span(u, i * .08, .55 + i * .08));
-    if (ca === cb) { if (cb !== ' ') E.glowText(ctx, cb, xx, y, { size, serif: true, col: o.col }); }
-    else { if (ca !== ' ') E.glowText(ctx, ca, xx, y - k * size * 1.1, { size, serif: true, col: o.col, a: 1 - k }); if (cb !== ' ') E.glowText(ctx, cb, xx, y + (1 - k) * size * 1.1, { size, serif: true, col: o.col, a: k }); }
+    // no glow inside the clip mask (the glow pass was cut by the mask rect and showed as a dark box)
+    if (ca === cb) { if (cb !== ' ') E.glowText(ctx, cb, xx, y, { size, serif: true, col: o.col, glow: false }); }
+    else { if (ca !== ' ') E.glowText(ctx, ca, xx, y - k * size * 1.1, { size, serif: true, col: o.col, a: 1 - k, glow: false }); if (cb !== ' ') E.glowText(ctx, cb, xx, y + (1 - k) * size * 1.1, { size, serif: true, col: o.col, a: k, glow: false }); }
     xx += dw;
   }
   ctx.restore();

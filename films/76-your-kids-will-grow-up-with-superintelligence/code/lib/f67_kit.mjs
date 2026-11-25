@@ -235,11 +235,11 @@ export const float = (ctx, t, k = 1) => { ctx.setTransform(1, 0, 0, 1, 0, 0); co
 // Frames: <F76CLIPS or /tmp/claude-0/f76/clips/>/<id>/f00001.jpg… (30 fps, 1920×1080, from <ROOT>clips/Cn.mp4 trimmed to in/out of
 // <ROOT>clips-geprueft.json; written by tools/f67_clips.py clips). Until the frames exist a placeholder shows (never ship it).
 export const CLIP_RECT = { x: 120, y: 112, w: 1680, h: 945 };
-export const CLIPS = {   // Film 76 (text-v2 / clips.md, 25.11.; wording + dates from <ROOT>clips-geprueft*.json once the iMac cuts land): NAME · ROLE · YEAR · ORIGINAL FOOTAGE (SOURCE)
-  C1: { name: 'Alison Gopnik', role: 'Psychologist, UC Berkeley', year: 'Nov 2025', src: 'Berkeley Talks' },
-  C2: { name: 'Daniel Susskind', role: 'Economist', year: 'May 2026', src: 'Gresham College' },
-  C4: { name: 'Daron Acemoglu', role: 'MIT · Nobel Prize in Economics 2024', year: 'Sep 2026', src: 'Sinead Bovell' },
-  C5: { name: 'Daniel Susskind', role: 'Economist', year: 'Sep 2026', src: 'RSA' },
+export const CLIPS = {   // Film 76 (coordinator 25.11., final cuts <ROOT>clips/Cn.mp4): lower third NAME · ROLE · YEAR · ORIGINAL FOOTAGE|AUDIO (SOURCE); empty src = no bracket
+  C1: { name: 'Alison Gopnik', role: 'UC Berkeley', year: '', src: 'Berkeley Talks · CC BY', kind: 'ORIGINAL AUDIO' },   // a still photo over the talk's sound
+  C2: { name: 'Daniel Susskind', role: 'Oxford Martin School', year: 'Nov 2026', src: '' },
+  C4: { name: 'Daron Acemoglu', role: 'with Sinead Bovell', year: 'Sep 2026', src: '' },
+  C5: { name: 'Daniel Susskind', role: 'Royal Society of Arts', year: 'Sep 2026', src: '' },
 };
 const CLIPDIR = (process.env.F76CLIPS || '/tmp/claude-0/f76/clips/').replace(/\/?$/, '/');
 const nFrames = new Map();
@@ -287,7 +287,7 @@ export function clipPlate(ctx, t, T, id, o = {}) {
   if (lu > 0) {   // the lower third ABOVE the plate (≥ 22 px): NAME · ROLE · YEAR · ORIGINAL FOOTAGE (SOURCE)
     const by = R.y - 40, nw = maskLine(ctx, [[info.name, 0]], R.x, by, 44, rise(lu), { glow: true });
     maskLine(ctx, [[[info.role, info.year].filter(Boolean).join(' · ').toUpperCase(), 0]], R.x + Math.max(nw?.w ?? 0, measure(info.name, 44, true)) + 26, by - 4, 22, rise(lu), { serif: false, weight: 600, col: P.halo2, glow: false });
-    goldText(ctx, [[`ORIGINAL FOOTAGE (${info.src.toUpperCase()})`, .45]], R.x + R.w, by - 4, 22, rise(span(lu, .15, 1)), { serif: false, weight: 600, align: 'right' });
+    goldText(ctx, [[`${info.kind ?? 'ORIGINAL FOOTAGE'}${info.src ? ` (${info.src.toUpperCase()})` : ''}`, .45]], R.x + R.w, by - 4, 22, rise(span(lu, .15, 1)), { serif: false, weight: 600, align: 'right' });
   }
   ctx.restore();
   return { cx, cy, w, h };

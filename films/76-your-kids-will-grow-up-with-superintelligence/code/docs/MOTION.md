@@ -8,10 +8,10 @@ Spoken text: `<ROOT>vo-v3.txt` (25.11., fact fixes of v2; same structure). ROOT 
 - **§13.1 Ein Bild pro Satz:** shots.md hat 97 Zeilen (Satz bzw. Satzpaar mit einer Information), Spalte *zeigt wörtlich* (Zahl, Zitat, Vergleich, Ablauf).
 - **§13.1a Zoom ist kein neues Bild:** Spalte *Motiv neu?*: 16 „match“-Shots setzen das Bild davor fort und bringen trotzdem ein neues Element (eigene Grafik auf demselben Objekt); bewusst gleiche Motive nur als Rückkehr (Küchentisch h4 → a18b → a30h/t0 → s2, Tor h1 → h11 → s4 → s6).
 - **§13.1b Maßstab Motion-Design-Film:** jede Grenze ist eine gestaltete Verwandlung über den Papierflieger (Abflug an S.out, Bogen, Landung an S.in, das nächste Bild entfaltet sich dort) oder ein Match; Zahlen und Wörter landen auf dem gesprochenen Wort.
-- **§13.2 Erklärgrafik-Anteil (gewichtet EXPL 1 · MIX .5 · SZENE/WELT 0 · CLIP 0):** **67,3 %** auf vorläufigem Timing (vo-v3, 607 s), ohne Clip-Sekunden 72,1 %. Pakete: L 68,9 % · B1 72,8 % · B2 73,4 % · B3 57,7 % (B3 trägt Pointe, Schluss und Abspann). Nach dem echten VO `node tools/shots76.mjs` neu laufen lassen.
+- **§13.2 Erklärgrafik-Anteil (gewichtet EXPL 1 · MIX .5 · SZENE/WELT 0 · CLIP 0):** **auf echtem VO-Timing 67,6 %** (`<ROOT>audio/timing.json`, 650,97 s; ohne Clip-Sekunden 73,1 %). Pakete: L 71,8 % · B1 70,9 % · B2 75,2 % · B3 57,8 % (B3 trägt Pointe, Schluss und Endbild). Vorher vorläufig (vo-v3, 607 s): 67,3 %.
 - **§13.3 Szenen tragen Gefühl, Grafiken Verstehen:** Szenen = Tor, Küchentisch, Kinderzimmer, Dienstag auf der Straße, Abschluss; jede Zahl, jede Studie, jedes Zitat ist EXPL (oder CLIP).
 - **§13.4 Leitbild nur als Anker:** das Lichttor (Thumbnail C) 4×: **Hook** h1 · **Wende** h11 (Strom → Superintelligenz) · **Pointe** s4 (NOT WHAT. WHO.) · **Schluss** s6 (+ e1 als Fortsetzung). Keine Fahrt durch eine Welt.
-- **§13.5 Übergänge:** 80× Papierflieger, 16× Match, **0 harte Schnitte** (0,0/min); 1–2 Bewegungen gleichzeitig.
+- **§13.5 Übergänge:** 78× Papierflieger, 18× Match (echtes Timing; C2 wächst aus dem Buch), **0 harte Schnitte** (0,0/min); 1–2 Bewegungen gleichzeitig.
 - **§13.6 Skills zuerst:** scenario-motion (gilt bei Widerspruch), world-class-motion-design, fluid-motion-design, motion-director-gates, dataviz. Stil `stil/STIL-editorial-nacht.md`.
 - **§13.7 MOTION.md + shots.md im Film-5-Format,** „Nicht wiederholen“ = §7 unten und am Ende von shots.md.
 - **§13.8 Bau-Plan an Jakob:** Skill-Liste und Anteil stehen hier und oben in shots.md.
@@ -70,3 +70,12 @@ paper, questions, the plane · indigo/MUTED = other people, the night · the yel
 - After rendering: `python3 tools/calm.py <mp4> --scale 1280:720` (cuts/min, mafd median ≤ 0.43) · `python3 tools/still.py <mp4> <offset>` (still < 5 %, no run > 2 s; grain-robust) · `python3 tools/smooth.py <mp4> <offset>` (no LURCH > 12 except reveal bright ↔ dark, no POP).
 - **Hook measured** (lead, 0–54.1 s, scale .5, `/tmp/claude-0/f76/hook.mp4`, provisional timing vo-v2 ≈ v3 for the hook): calm.py 0 cuts (0.0/min), mafd median 0.093 (≤ 0.43 OK); still.py still 0.0 %, longest run 0 s, motion per 0.5 s p10 1.02 / median 1.66; smooth.py max 13.4 at 3.23 s and 43.57 s = the disc reveals from the bright gate into the dark nursery and back into the gate (planned brightness change, not a pop).
 - Contact sheets: `/tmp/claude-0/f76/sheets/hook1.jpg`, `hook2.jpg`, `seams.jpg`.
+- **Whole film, master** (lead, 25.11., real VO timing 650.97 s, `/tmp/claude-0/f76/final/f76-master-1080p.mp4`, 1920×1080 30 fps, 19529 frames,
+  AAC 48 kHz, −13.90 LUFS, true peak −1.30 dBTP, subtitles burned in from `<ROOT>audio/untertitel/subtitles.ass`): calm.py (720p, `--sub 170`)
+  2 "cuts" = 0.18/min, both inside the original footage (C4 Acemoglu → Bovell at 467.6 s, C5 wide → close at 566.5 s), 0 cuts in our picture;
+  mafd median 0.111 (≤ 0.43 OK) · still.py still 0.1 %, longest run 0 s · red "not built" frame scan 0 frames · clip sync: clip audio sits in the
+  mix at the slot start ±0 ms (cross-correlation 0.93–0.99), picture frame 1 = slot start from the same cut file · smooth.py: no POP above 4.5
+  (C2 cover → plate); LURCH 12–18 only at planned brightness changes (clip plates growing/shrinking with bright footage, the gate's light
+  swell at 633.9 s, the bright ↔ dark disc reveals). Fixed during the check: a18b kitchen reveal (opened in 3 frames → 1.5 s sineIO), C2 now
+  grows out of the book as a match (no disc over the small book), clip plates grow .9 s / shrink .8 s, e1 light swell softer, end picture
+  small at the top centre with the YouTube end-screen areas free (x 150–850 / 1070–1770, y 380–780).

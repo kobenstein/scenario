@@ -188,7 +188,7 @@ export const PLAN = [
   { id: 'a18e', pk: 'B2', from: 'And yes, he has a book', kind: 'MIX', in: [1300, 600], out: [960, 540],
     says: 'And yes, he has a book to sell.',
     shows: 'a small disclosure ribbon wraps the book: HE HAS A BOOK TO SELL' },
-  { id: 'C2', pk: 'B2', clip: 'C2', kind: 'CLIP', in: [960, 540], out: [960, 540], says: 'C2 Susskind: no future-proof skills to pick.', shows: 'ORIGINAL FOOTAGE Daniel Susskind, lower third' },
+  { id: 'C2', pk: 'B2', clip: 'C2', kind: 'CLIP', in: [960, 540], out: [960, 540], tr: 'match', says: 'C2 Susskind: no future-proof skills to pick.', shows: 'ORIGINAL FOOTAGE Daniel Susskind, lower third' },
   { id: 'a18f', pk: 'B2', from: 'His warning comes from', kind: 'EXPL', in: [960, 540], out: [1300, 480],
     says: 'His warning comes from his own country. More than ten years ago, England made coding, the skill of the future, a required school subject from age five.',
     shows: 'a classroom in ENGLAND (a simple coastline tag); lines of code on every pupil\'s screen; tag CODING · REQUIRED FROM AGE 5 · 2014 · "THE SKILL OF THE FUTURE"' },
