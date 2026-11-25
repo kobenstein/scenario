@@ -17,7 +17,7 @@ let EV = null;
 export function hudState(T, R, t) {
   if (!EV) EV = { clock: CLOCK.filter(([id]) => R[id] != null).map(([id, s]) => [R[id], s]), count: COUNT.filter(([id]) => R[id] != null).map(([id, n, s]) => [R[id], n, s]).sort((a, b) => a[0] - b[0]) };
   const hide = [...HIDE.filter(([a, b]) => R[a] != null && R[b] != null).map(([a, b, d]) => [a === 'H.01' ? -1 : R[a] - .1, R[b] + (d ?? 0)]),
-    ...['C1', 'C2', 'C3', 'C4', 'C5'].filter((c) => T.clip(c)).map((c) => [T.clip(c).start - .4, T.clip(c).end + .2]), ...(R.END != null ? [[R.END - 1, 1e9]] : [])];
+    ...['C1', 'C2', 'C3', 'C4', 'C5', 'R6'].filter((c) => T.clip(c)).map((c) => [T.clip(c).start - .4, T.clip(c).end + .2]), ...(R.END != null ? [[R.END - 1, 1e9]] : [])];
   let a = 1; for (const [x, y] of hide) a = Math.min(a, 1 - clamp(span(t, x, x + .5) - span(t, y, y + .6)));
   if (a <= 0) return null;
   let clock = null, clockU = 1; for (const [t0, s] of EV.clock) if (t >= t0 - .2) { clock = s; clockU = span(t, t0 - .2, t0 + .5); }

@@ -1,9 +1,12 @@
 # Film 79 · Brief for the builders B1 / B2 / B3
 
-**Status: PROVISIONAL (built on vo-v1, 25.11.).** Final chunk starts, row ids and per-chunk shares are written here after
-`vo-v2.txt` lands (expected: flashback after the hook removed, C2 moves to the data centre, the second half becomes
-"the search for the one angry face", the way out goes through the stations WON / LOST / OPEN). Until then: build the KIT
-pieces your chunk needs and block your scenes, but anchor on phrases that survive v2, never on seconds.
+**Status: FINAL on vo-v2 (25.11.), timing still provisional** (`data/provisional_timing.json` from `vo-v2.txt`, 594 s; the real
+VO timing `audio/timing.json` replaces it later; code anchors on row ids and phrases, so nothing has to move when it lands).
+The rows of every chunk are fixed in `tools/shots79.py` / `docs/shots.md` (187 rows, one per sentence, film explainer share **62.6 %**).
+vo-v2 changes against v1: no flashback after the hook (the economist moves to the data centre, C2 there), the second half is
+**the search for the one angry face** (children → grown-ups → farmers → the square: ANGRY FACES 0), the way out goes back through the
+stations with **WON / OPEN / LOST** (fields WON, screen OPEN, kitchen LOST, allowance vs share OPEN), and the last clip is **R6** (5.6 s,
+Brynjolfsson, Revelio; replaces C4).
 
 **First, before any code:** load the skills `scenario-motion`, `world-class-motion-design`, `motion-director-gates`,
 `fluid-motion-design` (and `dataviz` for any chart). Then read, in this order: `docs/MOTION.md` (the whole plan, bindend),
@@ -14,32 +17,30 @@ the kit (`lib/f79_kit.mjs`, `lib/f79_street.mjs`, `lib/f79_places.mjs`, `lib/f79
 
 ## 1 · Split
 
-Times = provisional vo-v1 timing (`data/provisional_timing.json`, 608 s). Sections from `tools/provisional_timing.py`.
+Times = provisional vo-v2 timing. Shares = `tools/shots79.py` per chunk (weights E 1 · M .5 · S 0 · C 0). Each chunk's rows, types and
+pictures are in `docs/shots.md` §3: build exactly those (a row may be improved, never dropped; changes of type go through the Bau-Lead).
 
-| builder | chunk | from (v1) | content (v1) | explainer target |
-|---|---|---|---|---|
-| — (Bau-Lead) | c01 | 0:00 | hook: title, timeline, bedroom, kitchen + clock, hallway counter, your street, fence + tower (wow) | 36 % (built) |
-| **B1** | c02 | 0:56.6 | the neighbour who built boats (orders stopped), your skill done by a machine for almost nothing; the Stanford economist + **C2**; "the first rung goes missing" (EXPL: ladder, no wave of unemployment, entry hiring); "the whole ladder is gone" | 70 % |
-| **B1** | c03 | 1:46.7 | the kerb: robotaxi reads your balance and drives on; crates through the glass; the busiest street, not one errand yours; the **data centre** across the road (9 days, no windows); EXPL: more spent on data centres than offices, thousands build, ~100 stay | 65 % |
-| **B1** | c04 | 2:53.5 | 10:00 the kitchen goes dark on schedule (one ≤ 3-frame accent), the tower does not flicker; power like air, machines breathe first; EXPL `X.pjm` (46 % of $63.6 bn, ESTIMATE); "who decided…? It's almost noon" | 70 % |
-| **B2** | c05 | 3:26.8 | NOON: the street chimes, `PL.phoneNoon`; the allowance (company, algorithm, a little lower, nobody to appeal to; dividend vs allowance); "There is your answer": EXPL `X.need` (work + taxes = your seat at the table → the machines do both); `X.laborShare` if v2 keeps it; the computer scientist + **C1**; "a warning, not a forecast"; **subscribe 1** (anchor Wende: the street at noon) | 70 % |
-| **B2** | c06 | 5:01.5 | why is the street calm: the grandson with his screen (`PL.boyScreen`), no bus, no bell; the locked school (`PL.school`, the second light-out); EXPL survey (≈ half of 9–12-year-olds used a chatbot, wording per faktencheck); the waiting room gone, a human costs extra | 65 % |
-| **B2** | c07 | 5:52.0 | "That will take decades": EXPL the proof no human could read, breakthroughs as parcels nobody ordered; afternoon at the fence: `PL.land` (solar rows, grey halls to the hills, no gate on your side), "sold, one good offer at a time" (MIX: offers as paper slips) | 70 % |
-| **B3** | c08 | 6:32.9 | the empty square in the evening (anchor Pointe, `PL.square({people:0,friends})`), the friend who never disagrees in every window; **C3**; "they feel looked after"; "your time, and nobody is waiting for it" | 60 % |
-| **B3** | c09 | 7:24.3 | the bench (`PL.bench`): the grandson with the clock, "Why didn't anyone stop it?"; looking for a ruin / a villain / a day (EXPL: three empty frames); every step looked like a gift (car, screen, friend); the core sentence "Nothing in this street was destroyed. We just stopped being needed." (third light-out, the hold of the film) | 60 % |
-| **B3** | c10 | 7:57.3 | the way out: "it isn't 2050"; your work, taxes, vote = leverage; the stations again with WON / LOST / OPEN marks (Kentucky farm said no, the news-agency strike vote, PJM proposal, California 15-minute human, Senate committee 22–0; "a proposal isn't a rule…"); **C4**; the other 2050 (the square full, a quote of #74's warm picture, `K.ring({cyan:true})` only here); **subscribe 2**; the clock wound and set; **end screen 15 s** `PL.endWind` | 55 % |
+| builder | chunk | rows | from | length | share | content |
+|---|---|---|---|---|---|---|
+| — (Bau-Lead) | c01 | H.01–H.27 | 0:00 | 0:58 | 37 % | hook (built, quality bar) |
+| **B1** | c02 | B.01–B.13 | 0:58.8 | 0:38 | 64 % | the neighbour's boat, orders stop, your work to a machine, NOT NEEDED · YOUR WORK, BALANCE 0, the road, cars full of crates, YOUR ERRANDS 0 |
+| **B1** | c03 | D.01–D.17 | 1:37.1 | 1:03 | 63 % | the data centre (9 days, no windows, STAFF 0), the economist card + **C2**, the young line and the missing rung (wow: the rung drops), the whole ladder gone, DRIVE · BUILD · RUN, to 10:00 |
+| **B1** | c04 | K.01–K.12 | 2:40.2 | 0:35 | 73 % | the kitchen goes dark (light-out 1), the schedule ring, power like air, machines breathe first, `X.pjm` (63.6 bn, 46 %, ESTIMATE), to noon |
+| **B2** | c05 | N.01–N.31 | 3:14.8 | 1:37 | 79 % | NOON (anchor Wende, `PL.phoneNoon`), the allowance (company not government, algorithm, no reason, a human costs extra, dividend vs allowance), `X.need` then/now, vote, the menu, **C1**, warning not forecast, the allowance steps down |
+| **B2** | c06 | G.01–G.17 | 4:51.3 | 0:57 | 68 % | **subscribe 1** (anchor), the search ring ANGRY FACES 0, the grandson at his screen, bus stop, bell, the loop, the locked school (light-out 2), ARGUMENTS LOST 0, survey (> 1/3 of US kids …), STILL BEING DECIDED |
+| **B2** | c07 | L.01–L.13 | 5:48.1 | 0:40 | 59 % | the grown-ups, DECADES → EVERY WEEK parcels, the farmers' map, the fence at 4 PM, `PL.land`, gates open from the other side, SOLD one offer at a time |
+| **B3** | c08 | Q.01–Q.14 | 6:28.3 | 0:54 | 55 % | the square (anchor Pointe), the friend in every window, it only gives, **C3**, ANGRY FACES 0 · LOOKED AFTER, YOUR TIME |
+| **B3** | c09 | E.01–E.08 | 7:22.5 | 0:32 | 62 % | the bench, the stories out of the clock, "Why didn't anyone stop it?", three empty frames, three gifts, the core sentence (wow, light-out 3) |
+| **B3** | c10 | W.01–END | 7:54.5 | 2:00 | 60 % | 2050 → 2026, blueprint street, WORK · TAXES · VOTE = leverage, the stations: fields WON (Kentucky, $26 million), screen OPEN (Senate committee 22–0, not law), kitchen LOST (PJM plan turned down by FERC in October), allowance vs share OPEN, **R6**, the other 2050 (warm, #74 quote), **subscribe 2**, the clock wound, **end screen 15 s** |
 
-B1 ≈ 2:30 film, B2 ≈ 3:06, B3 ≈ 3:35 incl. the 15-s end screen (B3 has the fewest new places: square and bench exist in the kit).
-**Film target: explainer share 60–70 %** (REGELN §13: weights E 1 · M .5 · S 0 · C 0, one picture per sentence). The hook carries
-feeling at 36 %, so c02–c10 together must reach ~ 65–72 %. `python3 tools/shots79.py` prints the share per chunk; outside the band →
-rebuild your rows, do not keep building.
+B1 2:16 of film, B2 3:14, B3 3:26 incl. the 15-s end screen (B3's places square and bench already exist in the kit; c05 is almost all EXPL).
+**Film: 62.6 %** (target 60–70 %). Keep each chunk at or above its share; after any row change run `python3 tools/shots79.py`.
 
-## 2 · Rows (how to add yours)
+## 2 · Rows
 
-1. In `tools/shots79.py` append your rows after the hook: `('B.01', 'first words of the sentence', 'E'|'M'|'S'|'C', '' | '*' (wow) | 'A' (anchor), 'what we see · carrier')`. One row per spoken sentence; long sentences may get two rows on a phrase inside them. Clip rows use the clip id (`C2`) as phrase.
-2. Add your chunk to `CHUNKS` (`('c02', 'B.01', '…')`). Prefixes: c02 `B`, c03 `D`, c04 `K`, c05 `N`, c06 `G`, c07 `L`, c08 `Q`, c09 `E`, c10 `W`; the last row of c10 is `('END', None, 'S', 'A', 'end screen')`.
-3. `python3 tools/shots79.py` → `docs/shots.md` + `data/rows.json`. Phrases must be unique after the previous row (sequential search).
-4. Only the Bau-Lead edits rows of other chunks. Merge conflicts in `shots79.py`: keep your block contiguous.
+Rows are fixed (see above). If a sentence needs a second picture, add a row on a phrase INSIDE it (`('B.05b', 'for pennies', …)`) and
+run `python3 tools/shots79.py`; phrases must be unique after the previous row (sequential search). Only the Bau-Lead merges row
+changes of other chunks; keep your block contiguous. Clip rows have the clip id as id and no phrase.
 
 ## 3 · Your scene file
 
@@ -47,7 +48,7 @@ rebuild your rows, do not keep building.
 - a shot = `{ id: '<first row>', draw(ctx, t, s), out: { k: 'portal'|'iris'|'sweep'|'cut'|fn, …, lead, dur } }`; `s.a/s.b` = shot start/end, `s.r('ROW')` = row time, `s.w('word')` = a word's time inside the shot.
 - camera: `camK(t, [[time, cam3({…}) | aim(Z,u,v,zoom,sx,sy), ease]], drift)`; times from rows/words only. `'s'` sine for glides, `'q'` quart for moves into a carrier.
 - the HUD (`scenes/hud.mjs`): add your `CLOCK`, `HOURS`, `COUNT` (NOT NEEDED line) and `HIDE` entries; rows missing in the file are skipped.
-- the first shot of your chunk must take over the last carrier of the previous chunk (c01 ends on `cut` from the pulled-back street at 8:10 with every door shut and the MONDAY leaf; c02 starts in that same street → the neighbour's boat shed). Agree carriers at the chunk seams with your neighbour builder through the Bau-Lead.
+- the first shot of your chunk must take over the last carrier of the previous chunk (c01 ends on `cut` from the pulled-back street at 8:10, every door shut, the neighbour's garage door in view; c02 starts on that garage door rolling up → the boat hull). Agree carriers at the chunk seams with your neighbour builder through the Bau-Lead.
 - new kit pieces go into the shared libs only as **new exported functions** (no edits to existing signatures); name them in your hand-off.
 
 ## 4 · Rules that fail a chunk
@@ -57,7 +58,7 @@ rebuild your rows, do not keep building.
 - One wow per chunk at most; ≤ 2 hard accents per 30 s, ≥ 0.8 s hold after each. Light rules MOTION §5 (carmine never brighter than you; human light goes out only 3× in the film: kitchen c04, school c06, home lamp c09).
 - Numbers exactly from `/mnt/project-files/scenario/film-79-worst-case/faktencheck-imac.md` (wins) and `faktenzettel.md`; ESTIMATE / PRELIMINARY labels; source line on every EXPL with a number; charts follow the dataviz skill (carmine `#e0284f` vs rest `#6a74a8` on `#0b1238`, validated).
 - Nothing important below y 880 (subtitles), text ≥ 22 px, Instrument Serif + Inter only, no faces, no robots, no money props.
-- Clips: frames from `/home/user/scenario/films/79-assets/clips/` (C1–C4, 60 s each; the In/Out in `clips.json` refer to the SOURCE video: find the sentence in the 60-s file by ear), cut to `/tmp/claude-0/f79/clips/<id>/`; plate grows out of a paper card and folds back; lower third `NAME · ROLE · YEAR · ORIGINAL FOOTAGE (CHANNEL)`.
+- Clips: frames from `/home/user/scenario/films/79-assets/clips/` (C1–C4, 60 s each; **R6** (source 50:16.1–50:21.7) has no own file: it may lie inside the C4 file (C4 source 49:37.6, file window unknown), else it has to be fetched; the In/Out in `clips.json` refer to the SOURCE video: find the sentence in the 60-s file by ear), cut to `/tmp/claude-0/f79/clips/<id>/`; plate grows out of a paper card and folds back; lower third `NAME · ROLE · YEAR · ORIGINAL FOOTAGE (CHANNEL)`.
 
 ## 5 · Gates (per chunk, in this order)
 
@@ -74,7 +75,8 @@ rebuild your rows, do not keep building.
 Paths of the chunk render + contact sheet, measured calm/smooth/freeze numbers, explainer share of your chunk, new kit functions,
 the carrier at each of your two seams, and open points (facts you could not verify, rows you would change).
 
-## 7 · c01 reference numbers (25.11., vo-v1)
+## 7 · c01 reference numbers (25.11., vo-v2) and one pitfall
 
 5-s test `/tmp/claude-0/f79/test/c01_5s.mp4`: 0 cuts, mafd median 0.21, 0 smooth flags, 0 freezes.
-Full hook `/tmp/claude-0/f79/test/c01_hook.mp4` (57 s): see `docs/MOTION.md` §11 for the measured values after the calm pass.
+Full hook `/tmp/claude-0/f79/test/c01_hook.mp4` (58.8 s): 0 cuts, mafd median 0.58 (above .43: build calmer than the hook), 8 smooth flags at the iris/sweep seams, 0 freezes.
+**Pitfall (@napi-rs/canvas):** `shadowBlur` on a fill at a very low `globalAlpha` renders nearly opaque (it caused a one-frame white pop in the hook). Fade glows with expanded low-alpha fills or `K.carmGlow`, never with shadowBlur at alpha < ~.2.

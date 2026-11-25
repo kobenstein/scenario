@@ -1,7 +1,7 @@
-// Film 79 · c01 HOOK (H.01–H.27, vo-v1 provisional): your street at cold dawn (title A WARNING · IF WE GET IT WRONG), the timeline with
+// Film 79 · c01 HOOK (H.01–H.27, vo-v2): your street at cold dawn (title A WARNING · IF WE GET IT WRONG), the timeline with
 // the two things the worst case is NOT (no war, no robot army, both struck out) and the ring that makes everything work, just not for you;
 // bedroom, kitchen + the brass clock + two flashback cards (to work at 6:15 · who needed you), the hallway with the NOT NEEDED counter,
-// the door → YOUR STREET (nothing broken, nothing stolen, hedges trimmed, an empty car), the push to the fence and the tower that never
+// the door → YOUR STREET (nothing broken, hedges trimmed, you raise your hand, the car reads BALANCE 0 and drives on), the push to the fence and the tower that never
 // goes dark (the wow moment), the MONDAY leaf, every door shut. Quality bar for c02–c10 (docs/BRIEF-builders.md).
 // Anchors: row ids (docs/shots.md) and phrases (s.w('wrong')), never seconds.
 import * as K from '../lib/f79_kit.mjs';
@@ -112,7 +112,7 @@ export default function c01(T, R) {
     id: 'H.10',
     draw(ctx, t, s) {
       const L = look(R, t), t11 = s.r('H.11'), t12 = s.r('H.12'), t13 = s.r('H.13'), t14 = s.r('H.14'), c = camKit(t, s);
-      const up = K.expoOut(span(t, s.a + .2, s.a + 1.8)), out = K.sineIO(span(t, t11 - .2, t11 + .8)), turn = K.sineIO(span(t, t13, t13 + 1.2)) * (1 - span(t, t14 + .4, t14 + 1.2));
+      const up = K.expoOut(span(t, s.a + .2, s.a + 1.8)), out = K.sineIO(span(t, t11 - .2, t11 + .8)), turn = K.sineIO(span(t, t14 + .3, t14 + 1.5));
       const a1 = lerp(lerp(1.25, 2.25, up), 1.62, out) - .35 * turn, a2 = lerp(lerp(1.45, 2.55, up), 1.52, out) - .2 * turn;
       S.kitchen(ctx, t, c, L, {
         boyX: 690, boyH: 330, boyPose: 'stand', armR: [a1, a2], armL: [-a1 + .15, -a2 + .1], boyLook: lerp(.6, .1, out) + .5 * turn, boyLean: .03 * turn,
@@ -120,23 +120,23 @@ export default function c01(T, R) {
         clock: (cx, tt, hd) => { const [hx, hy] = hd.R; clockAt = [hx + 20, hy - 30]; S.alarmClock(cx, tt, hx + 20, hy - 30, .62, { ring: 0, rot: -.1 + .05 * Math.sin(tt * .9) + .5 * turn }); },
       });
       const p = project(c, 2400, ...clockAt);
-      // card 1 · BACK IN THE TWENTIES: the bells shake at 6:15, a figure hurries out of the door TO WORK; folds back into the clock on H.13
-      const u1 = K.cardU(t, t12 - .25, t13 + .45);
+      // card 1 · BACK IN THE TWENTIES: the bells shake at 6:15, a figure hurries out of the door TO WORK; folds back into the clock as H.13 begins
+      const u1 = K.cardU(t, t12 - .25, t13 + .05);
       if (u1 > 0) K.scr(ctx, (cx) => K.paper(cx, t, 1010, 120, 800, 600, u1, { from: [p[0], p[1]], head: 'BACK IN THE TWENTIES', draw: (g, x, y, w, h) => {
         const ring = span(t, t12, t12 + .25) * (1 - span(t, t12 + 1.6, t12 + 2.1));
         inkClock(g, t, x + w * .24, y + h * .42, 92, ring);
         K.ink(g, K.PAPER.ink2, 3); g.strokeRect(x + w * .54, y + h * .12, w * .16, h * .66); g.fillStyle = rgba(K.PAPER.ink2, .25); g.fillRect(x + w * .54, y + h * .12, w * .16 * (1 - .7 * span(t, t12 + .5, t12 + .9)), h * .66);
-        const run = span(t, t12 + .6, t13 + .2), fx = lerp(x + w * .62, x + w * .98, K.sineIO(run));
+        const run = span(t, t12 + .6, t13 - .2), fx = lerp(x + w * .62, x + w * .98, K.sineIO(run));
         if (run > 0) { K.figureRaw(g, fx, y + h * .8, h * .5, { walk: t * 11, dir: 1, lean: .16, look: .1 }, INK, false);
           K.ink(g, K.PAPER.ink2, 2.2); for (let k = 0; k < 3; k++) { const yy = y + h * (.45 + k * .1); g.beginPath(); g.moveTo(fx - 70 - k * 12, yy); g.lineTo(fx - 30 - k * 12, yy); g.stroke(); } }
         g.fillStyle = K.PAPER.ink; g.font = '600 24px Inter'; g.textAlign = 'center'; g.fillText('6:15 · TO WORK', x + w * .76, y + h * .96);
       } }));
-      // card 2 · WHO NEEDED YOU: you in the middle, lines to the people who waited for you; the lines go slack one by one
-      const u2 = K.cardU(t, t14 - .2, s.b + .2);
+      // card 2 · WHO NEEDED YOU (H.13): you in the middle, lines to the people who waited for you; the lines go slack one by one
+      const tc = t13 + .35, u2 = K.cardU(t, t13 + .15, t14 + .45);
       if (u2 > 0) K.scr(ctx, (cx) => K.paper(cx, t, 980, 110, 840, 620, u2, { from: [p[0], p[1]], head: 'BACK IN THE TWENTIES', draw: (g, x, y, w, h) => {
         const mx = x + w * .5, my = y + h * .56, who = [[x + w * .14, y + h * .34, 'BOSS', 'desk'], [x + w * .86, y + h * .3, 'CUSTOMERS', 'counter'], [x + w * .2, y + h * .9, 'COLLEAGUES', 'pair'], [x + w * .82, y + h * .9, 'YOUR KIDS', 'gate']];
         who.forEach(([px, py, lab, kind], i) => {
-          const on = span(t, t14 + .15 + i * .12, t14 + .45 + i * .12), slack = K.sineIO(span(t, t14 + 1.2 + i * .25, t14 + 1.8 + i * .25));
+          const on = span(t, tc + .1 + i * .1, tc + .35 + i * .1), slack = K.sineIO(span(t, tc + .7 + i * .2, tc + 1.2 + i * .2));
           if (on <= 0) return;
           K.ink(g, K.PAPER.ink2, 2.4); g.globalAlpha = on * (1 - .55 * slack);
           const sag = 10 + 90 * slack; g.beginPath(); g.moveTo(mx, my - 40); g.quadraticCurveTo((mx + px) / 2, (my - 40 + py) / 2 + sag, px, py - 30); g.stroke();
@@ -156,6 +156,10 @@ export default function c01(T, R) {
     draw(ctx, t, s) {
       const L = look(R, t), t16 = s.r('H.16');
       S.hallway(ctx, t, camHall(t, s), L, K.quartIO(span(t, t16 - .1, t16 + 1.4)), { boy: true });
+      // the open door floods with cold light just before the push (the street of H.17 resolves out of that light: no content pop)
+      const bl = .94 * K.sineIO(span(t, RT('H.17') - .75, RT('H.17') - .2));
+      if (bl > 0) { const c = camHall(t, s), a = project(c, 3000, 760, 190), b = project(c, 3000, 1160, 950);
+        K.scr(ctx, (g) => { g.globalAlpha = bl; g.fillStyle = '#e4eaff'; g.fillRect(a[0], a[1], b[0] - a[0], b[1] - a[1]); g.globalAlpha = bl * .25; for (const e of [18, 40]) g.fillRect(a[0] - e, a[1] - e, b[0] - a[0] + 2 * e, b[1] - a[1] + 2 * e); }); }
       const g = K.expoOut(span(t, s.a + .1, s.a + 1.1)) * (1 - K.quartIO(span(t, t16 - .7, t16 + .1)));
       if (g > .01) K.scr(ctx, (c) => {
         const cx = lerp(150, W / 2, g), cy = lerp(150, 250, g), k = lerp(.32, 1, g);
@@ -180,9 +184,9 @@ export default function c01(T, R) {
   const camSt = (t) => camK(t, [
     // one slow glide H.17–H.19, then ONE wide frame for H.20/H.21 (the across house AND your door in view: no whip pan between them)
     [RT('H.17') - 1, cam3({ z: -200, y: -10 })], [RT('H.19') + .9, cam3({ z: 200, x: 50, y: -10 })],
-    [RT('H.20') + .5, aim(2600, 1240, 600, 1.04, W * .5, H * .5)], [RT('H.21') + .6, aim(2600, 760, 630, 1.07, W * .5, H * .51), 's'],
-    [RT('H.22') + 1.6, cam3({ z: 420, y: 150, x: -300 }), 's'], [RT('H.23') + .1, cam3({ z: 440, y: 140, x: -260 })],
-    [RT('H.23') + 1.6, cam3({ z: 400, y: 90, x: -120 }), 's'], [RT('H.24') + .1, cam3({ z: 520, y: 40, x: 0 })], [RT('H.24') + 3.9, aim(16000, 960, 520, 1.12, W / 2, H * .62), 's'],
+    [RT('H.20') + .5, aim(2600, 1240, 600, 1.04, W * .5, H * .5)], [RT('H.20') + 1.1, aim(2600, 1100, 610, 1.05, W * .5, H * .5)],
+    [RT('H.21') + 1.5, cam3({ z: 420, y: 150, x: -300 }), 's'], [RT('H.22') + .4, cam3({ z: 440, y: 140, x: -260 })],
+    [RT('H.23') + 1.4, cam3({ z: 470, y: 120, x: -170 }), 's'], [RT('H.23') + 3.6, cam3({ z: 400, y: 90, x: -120 }), 's'], [RT('H.24') + .1, cam3({ z: 520, y: 40, x: 0 })], [RT('H.24') + 3.9, aim(16000, 960, 520, 1.12, W / 2, H * .62), 's'],
     [RT('H.25') + .2, aim(16000, 960, 500, 1.14, W / 2, H * .6)], [RT('H.25') + 2.9, aim(16000, 960, 150, 1.3, W / 2, H * .44), 's'], [RT('H.26') + .2, aim(16000, 962, 146, 1.34, W / 2, H * .44)],
     [RT('H.27') - .2, aim(16000, 960, 260, 1.26, W / 2, H * .5)], [RT('H.27') + 3.2, cam3({ z: -440, y: -70, x: 20 }), 'q'],
   ], .5);
@@ -191,19 +195,20 @@ export default function c01(T, R) {
     draw(ctx, t, s) {
       const L = look(R, t), c = camSt(t), t18 = RT('H.18'), t19 = RT('H.19'), t20 = RT('H.20'), t21 = RT('H.21'), t22 = RT('H.22'), t23 = RT('H.23'), t24 = RT('H.24'), t25 = RT('H.25'), t26 = RT('H.26'), t27 = RT('H.27');
       const hl = (i) => (i < 4 ? K.bump(t, t19 + .1 + (i % 2) * .15, 1.1) : 0) + (i >= 4 ? K.bump(t, t18 + (i % 2) * .35 + (i < 6 ? .3 : 0), 1.0) : 0);
-      const podX = lerp(2300, -700, (t - t23 + .3) / 3.6);   // constant speed: it does not slow down for you
+      // v2: the car comes down the street, slows for your raised hand, reads you (BALANCE 0) and drives on
+      const pa = span(t, t22 + .2, t23 + 1.0), pb = span(t, t23 + 1.0, t23 + 2.4), pc = span(t, t23 + 2.4, t23 + 4.6);
+      const podX = pc > 0 ? lerp(640, -2400, pc * pc) : pb > 0 ? lerp(700, 640, pb) : lerp(2600, 700, 1 - (1 - pa) * (1 - pa));
+      const yw = span(t, t21 + .3, t22 + .1), youX = lerp(170, 440, K.sineIO(yw));
+      const hand = K.sineIO(span(t, t22 + .1, t22 + .8)) * (1 - K.sineIO(span(t, t23 + 2.6, t23 + 3.4)));
       const o = {
-        hl, hedges: 1, towerWake: K.bump(t, t25 - .35, .3) + K.bump(t, t25 - .1, .15), youNear: t < t22 - .2 ? [95, 800, 200] : null, lit: .45 * span(t, t27 + .8, t27 + 2.4),
-        you: t > t22 - .2 && t < t24 + 2 ? [-160 + 40 * span(t, t22, t23), 1012, 300] : null, youLook: t > t23 ? .55 * K.bump(t, t23 + 1.2, 2.2) : -.2, youDir: 1,
-        pods: t > t23 - 1 && t < t24 + 1.5 ? [{ x: podX, y: 1000, s: 1.05, dir: -1 }] : [],
+        hl, hedges: 1, towerWake: K.bump(t, t25 - .35, .3) + K.bump(t, t25 - .1, .15), youNear: t < t21 + .3 ? [95, 800, 200] : null, lit: .45 * span(t, t27 + .8, t27 + 2.4),
+        you: t > t21 + .3 && t < t24 + 2 ? [youX, 1012, 300] : null, youWalk: yw > 0 && yw < 1 ? t * 6 : undefined, youArmR: [lerp(.15, 2.6, hand), lerp(.1, 2.9, hand)], youLook: t > t23 ? .55 * K.bump(t, t23 + 1.2, 2.2) : -.2, youDir: 1,
+        pods: t > t22 && t < t24 + 1.5 ? [{ x: podX, y: 1000, s: 1.05, dir: -1 }] : [],
         ghostFields: span(t, t24 + 1.6, t24 + 2.1) * (1 - span(t, t24 + 3.1, t24 + 3.8)), farPod: t > t24 + 2 ? lerp(700, 920, span(t, t24 + 2, t25 + 2.4)) : null,
-        near: (g, tt, out) => {   // the parcel and the bicycle at your door; the ink ghosts of what did NOT happen
+        near: (g, tt, out) => {   // the parcel and the bicycle at your door (untouched); the ink ghost of what did NOT happen (H.20)
           const y0 = out.yours; if (!y0 || !y0.door) return; const [dx, dy, dw, dh] = y0.door;
           g.fillStyle = mixHex('#8a7058', L.shade, .3); g.fillRect(dx + dw + 20, dy + dh - 60, 78, 60); g.fillStyle = rgba('#e8eefc', .25); g.fillRect(dx + dw + 20, dy + dh - 60, 78, 6); g.fillRect(dx + dw + 55, dy + dh - 60, 6, 60);
           g.strokeStyle = mixHex('#2a3270', L.light, .1); g.lineWidth = 6; for (const wx of [dx - 330, dx - 200]) { g.beginPath(); g.arc(wx, dy + dh - 44, 42, 0, 7); g.stroke(); } g.beginPath(); g.moveTo(dx - 330, dy + dh - 44); g.lineTo(dx - 270, dy + dh - 110); g.lineTo(dx - 200, dy + dh - 44); g.lineTo(dx - 280, dy + dh - 44); g.closePath(); g.stroke();
-          const gd = span(t, t21 + .1, t21 + .45) * (1 - span(t, t21 + .9, t21 + 1.3));
-          if (gd > 0) { g.save(); g.globalAlpha = gd; g.beginPath(); g.rect(dx - 60 + (dw + 120) * span(t, t21 + .9, t21 + 1.3), dy - 40, dw + 160, dh + 60); g.clip(); K.ink(g, '#eef2ff', 3);
-            g.beginPath(); g.moveTo(dx, dy + dh); g.lineTo(dx + dw * .3, dy - 6); g.lineTo(dx + dw * 1.25, dy + 10); g.lineTo(dx + dw * 1.1, dy + dh); g.stroke(); g.beginPath(); g.moveTo(dx + dw * 1.3, dy + dh * .4); g.lineTo(dx + dw * 1.6, dy + dh * .2); g.stroke(); g.restore(); }
           const across = out.across; const gb = span(t, t20 + .1, t20 + .45) * (1 - span(t, t20 + 1.0, t20 + 1.25));
           if (gb > 0 && across && across.win) { g.save(); g.globalAlpha = gb; g.beginPath(); g.rect(across.x - 40 + (across.w + 80) * span(t, t20 + .95, t20 + 1.25), across.base - across.h - 220, across.w + 120, across.h + 240); g.clip(); K.ink(g, '#eef2ff', 3);
             for (const [wx, wy, ww, wh] of across.win) { const cx0 = wx + ww * .45, cy0 = wy + wh * .4; for (let k = 0; k < 6; k++) { const a = k * 1.05 + .3; g.beginPath(); g.moveTo(cx0, cy0); g.lineTo(cx0 + Math.cos(a) * ww * .7, cy0 + Math.sin(a) * wh * .7); g.stroke(); } }
@@ -214,10 +219,18 @@ export default function c01(T, R) {
         },
       };
       S.street(ctx, t, c, L, o);
+      const fl = .94 * (1 - K.sineIO(span(t, RT('H.17') - .2, RT('H.17') + .6)));   // out of the door's cold light
+      if (fl > 0) K.scr(ctx, (g) => { g.globalAlpha = fl; g.fillStyle = '#e4eaff'; g.fillRect(0, 0, W, H); });
+      const sc = span(t, t23 + 1.0, t23 + 2.3);
+      if (sc > 0 && sc < 1 && o.you) { const py = project(c, 1700, o.you[0], o.you[1]), pp = project(c, 1700, podX, 1000);
+        if (py && pp) K.scr(ctx, (g) => { const h = 300 * py[2], yy = py[1] - h * K.sineIO(sc); g.globalAlpha = Math.sin(Math.PI * sc) * .9;
+          g.strokeStyle = CARM.hot; g.lineWidth = 3; g.shadowColor = CARM.hot; g.shadowBlur = 12; g.beginPath(); g.moveTo(py[0] - 70 * py[2], yy); g.lineTo(py[0] + 70 * py[2], yy); g.stroke(); }); }
+      const bz = K.cardU(t, t23 + 1.7, t23 + 3.2);
+      if (bz > 0) { const pp = project(c, 1700, podX, 1000); if (pp) K.caps(ctx, 'BALANCE 0', pp[0], pp[1] - 150 * pp[2], bz, { size: 24, align: 'center', col: '#ffd6de' }); }
       const tg = K.cardU(t, s.a + .3, t18 + .1);
       K.caps(ctx, 'YOUR STREET · 2050', W / 2, 190, tg, { size: 26, align: 'center', col: '#dfe6ff' });
       const tf = K.cardU(t, t24 + 2.0, t25 + .2); if (tf > 0) K.caps(ctx, 'WHERE THE FIELDS BEGAN', W / 2, 870, tf, { size: 24, align: 'center', col: '#dfe6ff' });
-      const tt = K.cardU(t, t25 + 1.4, t26 - .1); if (tt > 0) K.caps(ctx, 'NEVER DARK', W / 2 + 330, 300, tt, { size: 24, col: '#ffd6de' });
+      const tt = K.cardU(t, t25 + 1.4, t26 - .1); if (tt > 0) K.caps(ctx, 'LIT DAY AND NIGHT', W / 2 + 330, 300, tt, { size: 24, col: '#ffd6de' });
       // the MONDAY leaf of a tear-off calendar drops into the street
       const lf = span(t, t26 - .1, t26 + 1.6), lfOut = span(t, t27 + .2, t27 + .8);
       if (lf > 0 && lfOut < 1) K.scr(ctx, (cx) => {

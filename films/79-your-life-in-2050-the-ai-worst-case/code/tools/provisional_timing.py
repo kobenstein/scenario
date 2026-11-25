@@ -23,18 +23,18 @@ LEAD, TAIL, GAP_SEC, PAUSE = 0.6, 20.0, 1.1, 0.8   # film 67: TAIL = ~5 s quiet 
 PACE = float(os.environ.get('PACE', 1.0))   # film 63: hoerfassung-v2.mp3 = 1450 words in 552 s = 2.63 w/s incl. pauses
 WORD, GAP_LINE, GAP_SENT, GAP_COMMA = 0.288 * PACE, 0.32 * PACE, 0.36 * PACE, 0.15 * PACE
 # clip lengths: PROVISIONAL (orchestrator 20.11.); the real cuts come as <ROOT>clips/Cn.mp4 + <ROOT>clips-geprueft.json
-CLIP_LEN = {'C1': 6.9, 'C2': 8.3, 'C3': 8.3, 'C4': 11.4, 'C5': 7.3}   # film 79: clips.json dur_s + .3 s handles (PROVISIONAL until the iMac cuts)
+CLIP_LEN = {'C1': 6.9, 'C2': 8.3, 'C3': 8.3, 'C4': 11.4, 'C5': 7.3, 'R6': 5.9}   # film 79: clips.json dur_s + .3 s handles (PROVISIONAL until the iMac cuts)
 # where the slots go (the paragraph that ENDS with this lead-in line is followed by the clip)
 CLIP_AFTER = []   # film 79: vo-vN.txt carries [CLIP Cn] tags
 SLOT_IN, SLOT_OUT = 0.6, 0.6
 # sections = the stations of the film (text-v2 Fragen-Kette): id, first words of the sentence that opens it
 # film 79: openers of vo-v1 (all optional: a section whose opener is missing in v2 is skipped, see SECS_OPT); edit for v2
-SECS = [('H', 'This is your life'), ('1', 'Your neighbor used to build'), ('2', 'You step into the road'), ('3', 'Most of it is headed'),
-        ('4', 'Your kitchen goes dark'), ('5', 'Noon'), ('6', 'There is your answer'), ('M', 'This channel exists for one reason'),
-        ('7', 'But people who get pushed aside'), ('8', 'One sentence has vanished'), ('9', 'By afternoon, you reach'), ('P', 'The path loops back'),
-        ('E', 'Then your grandson sits down'), ('A', "But it isn't twenty fifty"), ('A2', 'This channel exists so that')]
+SECS = [('H', 'This is your life'), ('1', 'Your neighbor used to build'), ('2', 'You step into the road'), ('3', 'Most of those crates are headed'),
+        ('4', 'You get home just as'), ('5', 'Noon'), ('6', 'So who decided that the machines come first?'), ('M', 'This channel exists for one reason'),
+        ('7', 'But people who lose their place'), ('8', 'So the children are content'), ('9', 'And the farmers?'), ('P', 'That leaves one place'),
+        ('E', 'Then your grandson sits down'), ('A', "But it isn't twenty fifty"), ('A2', 'This channel exists so that')]   # vo-v2 openers (v1: see git history)
 SECS = [x for x in SECS if x[1] in open(SRC, encoding='utf8').read()]   # v2 may rename stations: only openers that exist
-SLOT = re.compile(r'\[CLIP\s+(C\d+[a-z]?)\b[^\]]*\]')
+SLOT = re.compile(r'\[CLIP\s+([CR]\d+[a-z]?)\b[^\]]*\]')
 CARD = re.compile(r'\[ZITATKARTE\s+([CZ]\d+[a-z]?)\b[^\]]*\]')
 PAUSE_T = re.compile(r'\[pause[^\]]*\]', re.I)
 paras = [l.strip() for l in open(SRC, encoding='utf8').read().splitlines() if l.strip()]
