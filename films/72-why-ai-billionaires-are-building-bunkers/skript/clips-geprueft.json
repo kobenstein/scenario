@@ -1,0 +1,54 @@
+[
+ {
+  "id": "C1",
+  "video_id": "aYn8VKW6vXA",
+  "channel": "Theo Von (This Past Weekend #599)",
+  "upload_date": "2025-07-23",
+  "start": "01:26:16.05",
+  "end": "01:26:23.66",
+  "duration_s": 7.61,
+  "wording": "I don't have what I would call a bunker, but it has been on my mind. Not because of AI, but just because of like, people are dropping bombs in the world again,",
+  "speaker": "Sam Altman, solo medium shot",
+  "music_under": false,
+  "note": "Second answer after Theo's interruption. Out point 80 ms fade (Altman runs on). No music, no burned-in subs, no bug. Lower third: SAM ALTMAN · CEO, OpenAI · 2025 · ORIGINAL FOOTAGE. Optional C1-long 16.1 s (01:25:48.85–01:26:04.95) with 'Sam, that's a bunker.' not used."
+ },
+ {
+  "id": "C2",
+  "video_id": "NufB1LL_rCU",
+  "channel": "Chris Williamson (Modern Wisdom)",
+  "upload_date": "2026-04-02",
+  "start": "01:08:31.03",
+  "end": "01:08:36.65",
+  "duration_s": 5.62,
+  "wording": "Right now, the AI company leaders are building bunkers. A lot of people who are wealthy are building bunkers.",
+  "speaker": "Tristan Harris, solo medium shot",
+  "music_under": false,
+  "note": "MODERN | WISDOM bug bottom left (300x40) from ~1 s. No music, no burned-in subs."
+ },
+ {
+  "id": "C3",
+  "video_id": "Cx-nW3PcsrA",
+  "channel": "The Smart Cookies Podcast",
+  "upload_date": "2026-11-09",
+  "start": "00:23:46.62",
+  "end": "00:23:56.88",
+  "duration_s": 10.26,
+  "wording": "And they're like, they hadn't even really considered that before. Like, how do I maintain control of my security force once my money is worthless?",
+  "speaker": "Douglas Rushkoff; 0.13–5.13 s split screen with silent host, then solo",
+  "music_under": false,
+  "note": "Webcam recording. Out point 80 ms fade. No music, no subs, no bug. His answer to the men is in no video → VO only."
+ },
+ {
+  "id": "C2b",
+  "video_id": "NufB1LL_rCU",
+  "channel": "Chris Williamson (Modern Wisdom)",
+  "upload_date": "2026-04-02",
+  "start": "01:08:41.95",
+  "end": "01:08:47.75",
+  "duration_s": 5.8,
+  "wording": "Don't build bunkers, write laws. Be invested in the future. Don't defect on the future. Be invested in the future.",
+  "speaker": "Tristan Harris, solo medium shot",
+  "music_under": false,
+  "note": "Same episode as C2 (together 11.4 s ≤ 20 s). Bug bottom left whole clip."
+ }
+]
