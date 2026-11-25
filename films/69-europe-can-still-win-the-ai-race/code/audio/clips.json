@@ -1,0 +1,263 @@
+{
+ "_comment": "Film 69 clip metadata (clips_json.py from clips_meta.json). Slot = timing.json slots[] (0.6 s air before/after); cues = [seconds from the slot start, line].",
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "speaker": "Mario Draghi",
+   "role": "Former President, European Central Bank",
+   "source": "European Commission (2025-09-16)",
+   "url": "https://www.youtube.com/watch?v=WLpNjgs4TFQ",
+   "credit": "European Commission",
+   "lower_third": "MARIO DRAGHI · Former President, European Central Bank · 2025 · ORIGINAL FOOTAGE",
+   "transcript": "One year on, Europe is therefore in a harder place. Our growth model is fading.",
+   "file": "C1.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 8.47,
+   "dur": 8.47,
+   "slot_start": 96.98,
+   "slot_end": 105.45,
+   "sec": "1",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -1.4,
+   "cues": [
+    [
+     0.52,
+     "One year on,"
+    ],
+    [
+     1.83,
+     "Europe is therefore"
+    ],
+    [
+     3.73,
+     "in a harder place."
+    ],
+    [
+     6.61,
+     "Our growth model is fading."
+    ]
+   ],
+   "cue_end": 8.42
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "speaker": "Arthur Mensch",
+   "role": "CEO, Mistral AI",
+   "source": "Lisa Burke (EIB Group Forum 2026) (2026-04-20)",
+   "url": "https://www.youtube.com/watch?v=wBuvZpf-Ato",
+   "credit": "Lisa Burke (EIB Group Forum 2026)",
+   "lower_third": "ARTHUR MENSCH · CEO, Mistral AI · 2026 · ORIGINAL FOOTAGE",
+   "transcript": "And if you can't afford the business continuity, well, you're going to depend on, basically you're becoming a client state to the one that is providing you with the technology.",
+   "file": "C2.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 9.39,
+   "dur": 9.39,
+   "slot_start": 198.83,
+   "slot_end": 208.22,
+   "sec": "3",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -0.9,
+   "cues": [
+    [
+     0.21,
+     "And if you can't afford"
+    ],
+    [
+     1.71,
+     "the business continuity,"
+    ],
+    [
+     3.2,
+     "well, you're going to depend on,"
+    ],
+    [
+     5.19,
+     "basically you're becoming"
+    ],
+    [
+     6.12,
+     "a client state to the one"
+    ],
+    [
+     7.89,
+     "that is providing you"
+    ],
+    [
+     8.64,
+     "with the technology."
+    ]
+   ],
+   "cue_end": 9.34
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "speaker": "Ursula von der Leyen",
+   "role": "President, European Commission",
+   "source": "European Commission (CC BY, © European Union, 2026) (2026-11-13)",
+   "url": "https://www.youtube.com/watch?v=pO4Mc8QrbzY",
+   "credit": "European Commission (CC BY, © European Union, 2026)",
+   "lower_third": "URSULA VON DER LEYEN · President, European Commission · 2026 · ORIGINAL FOOTAGE · © European Union, 2026",
+   "transcript": "All this, what I've just described, needs massive investment. At least 500 billion euros, according to our own estimates.",
+   "file": "C3.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 10.37,
+   "dur": 10.37,
+   "slot_start": 351.49,
+   "slot_end": 361.86,
+   "sec": "6",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -0.7,
+   "cues": [
+    [
+     0.49,
+     "All this,"
+    ],
+    [
+     1.03,
+     "what I've just described,"
+    ],
+    [
+     2.6,
+     "needs massive investment."
+    ],
+    [
+     5.37,
+     "At least 500 billion euros,"
+    ],
+    [
+     7.27,
+     "according to our own estimates."
+    ]
+   ],
+   "cue_end": 10.32
+  },
+  {
+   "id": "C4",
+   "kind": "clip",
+   "speaker": "Peter Koerte",
+   "role": "Chief Technology Officer, Siemens (title at the time of recording)",
+   "source": "Siemens (2026-07-18)",
+   "url": "https://www.youtube.com/watch?v=gtXkPgyxKvU",
+   "credit": "Siemens",
+   "lower_third": "PETER KOERTE · Chief Technology Officer, Siemens (title at the time of recording) · 2026 · ORIGINAL FOOTAGE",
+   "transcript": "And that's the trick, because none of us can do it alone. Siemens can't. Yes, we do produce. We produce trains, substations and so on. But we don't have enough data. OHB doesn't have enough data, and also KION doesn't have enough data.",
+   "file": "C4.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 15.17,
+   "dur": 15.17,
+   "slot_start": 460.53,
+   "slot_end": 475.7,
+   "sec": "8",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -0.9,
+   "cues": [
+    [
+     0.18,
+     "And that's the trick,"
+    ],
+    [
+     1.03,
+     "because none of us"
+    ],
+    [
+     2.97,
+     "can do it alone."
+    ],
+    [
+     5.35,
+     "Siemens can't."
+    ],
+    [
+     6.4,
+     "Yes, we do produce."
+    ],
+    [
+     7.49,
+     "We produce trains,"
+    ],
+    [
+     8.56,
+     "substations and so on."
+    ],
+    [
+     10.27,
+     "But we don't have enough data."
+    ],
+    [
+     11.77,
+     "OHB doesn't have enough data,"
+    ],
+    [
+     13.52,
+     "and also KION doesn't have"
+    ],
+    [
+     14.57,
+     "enough data."
+    ]
+   ],
+   "cue_end": 15.12
+  },
+  {
+   "id": "C1b",
+   "kind": "clip",
+   "speaker": "Mario Draghi",
+   "role": "Former President, European Central Bank",
+   "source": "KU Leuven (2026-02-02)",
+   "url": "https://www.youtube.com/watch?v=t1iMjvsr7T0",
+   "credit": "KU Leuven",
+   "lower_third": "MARIO DRAGHI · Former President, European Central Bank · 2026 · ORIGINAL FOOTAGE",
+   "transcript": "Of all those now caught between the United States and China, Europeans alone have the option to become a genuine power themselves.",
+   "file": "C1b.mp4",
+   "file_in_s": 0.0,
+   "file_out_s": 12.12,
+   "dur": 12.12,
+   "slot_start": 545.32,
+   "slot_end": 557.44,
+   "sec": "9",
+   "burned": false,
+   "offset": 0,
+   "fade_in": 0.01,
+   "fade_out": 0.06,
+   "gain_db": -2.0,
+   "cues": [
+    [
+     0.59,
+     "Of all those now caught between"
+    ],
+    [
+     3.08,
+     "the United States and China,"
+    ],
+    [
+     5.74,
+     "Europeans alone have the option"
+    ],
+    [
+     8.7,
+     "to become a genuine power"
+    ],
+    [
+     11.25,
+     "themselves."
+    ]
+   ],
+   "cue_end": 12.07
+  }
+ ]
+}

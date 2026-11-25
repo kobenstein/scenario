@@ -139,6 +139,8 @@ Treffer-Check → Verpackung (Titel/Thumbnail-Idee, 2–3 Leitgedanken) → Jako
 
 **Freigabe-Stellen (Jakob 23.11.): genau vier Stopps.** 1 Thema + Titel (mit Recherche und Marktcheck), 2 Leitgedanke (eigener Stopp), 3 Hörfassung + Thumbnails ZUSAMMEN (die drei Thumbnails A/B/C sind also schon vor der Hörfassungs-Abnahme fertig und gehen mit ihr in einer Nachricht raus), 4 Vorschau. Das Gerüst läuft ohne eigenen Stopp. Keine weiteren Feedback-Stellen einbauen.
 
+**Hörfassung immer auch in 1,5-fach (Jakob 24.11.):** Jede Kokoro-Hörfassung zusätzlich als `…-1,5x.mp3` erzeugen (`ffmpeg -i in.mp3 -filter:a atempo=1.5 -b:a 128k out-1,5x.mp3`, Tonhöhe bleibt) und diese an Jakob anhängen. Die normale Fassung bleibt daneben liegen. **Nur für die Kokoro-Vorschau** (billige Stimme): Film, ElevenLabs-Stimme, Vorschau und Upload laufen immer in normalem Tempo.
+
 **Prüfskript vor jeder Hörfassung** (Regeln werden durchgesetzt, nicht nur gelesen): Bann-Liste, „next … minutes“, Jahreszahlen vor 1:00, Zahlen und Fragen in Minute 1, Ich-Sätze, Clip-Anzahl und Clip-Anteil, Wortzahl.
 
 ## 11. Handwerk (übernommen aus dem alten Skill `scenario-script`, 9.11.)
@@ -175,9 +177,9 @@ Gilt zusätzlich zu §1–10; bei Widerspruch gelten §1–10.
 
 ## 12. Beschreibung und Release-Check (Jakob 11.11. und 15.11.)
 
-Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you want superintelligence to benefit everyone, you can support this channel here: https://buymeacoffee.com/thegoodtakeoff“ · Absatz 3 „✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: https://aistronauts.at/film-course“ · dann Rest. **Letzter Absatz (nur Hashtags dürfen danach kommen): „Want to sponsor a film? passionfroot.me/the-good-takeoff“** (Jakob 19.11.). Gesamt ≤ ~4.850 Zeichen (Grenze 5.000). **Nie „Spotted an error? Corrections get pinned“** (stimmt nicht), stattdessen „Spotted an error? Mention it in the comments.“ (Jakob 16.11.). Gilt auch für Neu-Uploads/Fassung 2 eines Films (bei #27 Fassung 2 fehlte die Kaffee-Zeile, 15.11.).
+Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you want superintelligence to benefit everyone, you can support this channel here: https://buymeacoffee.com/thegoodtakeoff“ · **Absatz 3, direkt unter der Kaffee-Zeile: „✨ 🤝 Want to sponsor a film? Here is how: https://passionfroot.me/the-good-takeoff“** (Jakob 25.11.: Sponsoring-Hinweis mit anklickbarem Link immer gleich nach „If you want superintelligence to benefit …“ als zweite Link-Zeile; die alte Schlusszeile entfällt) · Absatz 4 „✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: https://aistronauts.at/film-course“ · dann Rest. Gesamt ≤ ~4.850 Zeichen (Grenze 5.000). **Nie „Spotted an error? Corrections get pinned“** (stimmt nicht), stattdessen „Spotted an error? Mention it in the comments.“ (Jakob 16.11.). Gilt auch für Neu-Uploads/Fassung 2 eines Films (bei #27 Fassung 2 fehlte die Kaffee-Zeile, 15.11.).
 
-**Pflicht-Check** nach jedem Upload UND vor jedem Release (am Release-Tag vor 17:00): im Repo `python3 tools/check_descriptions.py` laufen lassen. Prüft alle Langfilme inkl. privater und geplanter; `--fix` sichert die alte Beschreibung unter `buymeacoffee/backup/` und setzt Kaffee- und Kurs-Zeile als Absatz 2 und 3 sowie die Sponsor-Zeile am Schluss. Meldet das Skript „ZU LANG“, von Hand kürzen (zuerst die Kommentar-Frage, dann Quellen-Beschriftungen, nie Links).
+**Pflicht-Check** nach jedem Upload UND vor jedem Release (private und geplante Videos müssen die neue Reihenfolge haben; öffentliche Filme von vor dem 25.11. dürfen die alte Schlusszeile behalten) (am Release-Tag vor 17:00): im Repo `python3 tools/check_descriptions.py` laufen lassen. Prüft alle Langfilme inkl. privater und geplanter; `--fix` sichert die alte Beschreibung unter `buymeacoffee/backup/` und setzt Kaffee-, Sponsor- und Kurs-Zeile als Absatz 2, 3 und 4 (eine alte Sponsor-Schlusszeile wird dabei entfernt). Meldet das Skript „ZU LANG“, von Hand kürzen (zuerst die Kommentar-Frage, dann Quellen-Beschriftungen, nie Links).
 
 **Sicherung immer aus der Originaldatei** (Jakob 20.11.): Direkt nach dem finalen Render, noch vor dem Upload und bevor die Render-Sitzung endet, den Master (1080p30, gleiche Datei wie für YouTube, Prüfsumme gleich) nach Drive „#NN Titel/1 Film“ UND auf „/Volumes/Jakob - 6A/2026_TheGoodTakeoff/#NN_Titel“ kopieren. Nie aus YouTube Studio herunterladen (schlechtere Qualität). Fehlt die Originaldatei, Jakob melden statt Studio-Download.
 **Drive ist Pflicht, 6A nur zusätzlich** (Jakob 20.11.): Ist „Jakob - 6A“ nicht angesteckt, reicht die Drive-Kopie (Prüfsumme gleich); kein Nachkopieren nötig.
@@ -207,6 +209,8 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 - 16.11.2026: §3.8 Support-QR gestrichen, kein QR-Overlay mehr (Jakob, lenkt vom Abo ab).
 - 16.11.2026: §12 Fehler-Zeile „Spotted an error? Mention it in the comments.“ statt „Corrections get pinned“ (Jakob).
 - 16.11.2026: §2.5c keine Diagnose-/Medizin-Beispiele mehr (Jakob, Film #49).
+- 25.11.2026 (später): §12 Sponsor-Zeile jetzt Absatz 3, direkt unter der Kaffee-Zeile, Kurs-Zeile rückt auf Absatz 4; alle geplanten Videos (#69, #41, #63, #68) per API umgestellt (Jakob 25.11.).
+- 25.11.2026: §12 Sponsor-Zeile (Passionfroot) wandert in den Kopf als Absatz 4 neben Kaffee- und Kurs-Link (Jakob 25.11.), `check_descriptions.py` angepasst.
 - 20.11.2026: §12 Sponsor-Zeile (Passionfroot) als letzter Absatz jeder Langfilm-Beschreibung, `check_descriptions.py` prüft und ergänzt sie (Jakob 19.11.).
 - 20.11.2026: §4 erst das Warum, dann die Szene; Einzelfall nicht vor die Hauptfrage (Jakob, #49).
 - 20.11.2026 (Kanal-Tiefenanalyse): §2.5d hartes Treffer-Tor (Du-Einsatz oder Datum, 3 Wochen Abstand), §8.9 Person + Haltung und Verlierer-Formen, §8.10 24-h-Klickraten-Check. Neuer Skill `good-takeoff-thema-titel` (Ablauf Thema + Titel).
@@ -215,3 +219,4 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 - 23.11.2026: §2.5e Marktcheck + Viral-Grund bei jedem Schritt, §2.5f Personen auf aktuelle Skandale prüfen (Jakob, #41/China-Film).
 - 23.11.2026 (Wochen-Durchsicht): §2.5g Überschneidung mit allen Filmen, Datum nicht Pflicht (Jakob 20./23.11.), §3.3c Klickfrage ehrlich + These trägt ganzen Film (23.11.), §4 größte Fallhöhe, Nachrichten-Einstieg, kein Kürzel (23.11.), §7 echte Clips statt Zitatkarten (16./17.11.), §8.9 „View“ erlaubt, wenn Jakob es wählt (23.11., ersetzt „statt View“), §8.11 kurz, wörtlich, für 45+, kein How-to (16.–20.11.).
 - 23.11.2026: §10 Freigabe-Stellen: vier Stopps, Hörfassung und Thumbnails als ein Stopp, Leitgedanke eigener Stopp (Jakob, #41).
+- 24.11.2026: §10 Hörfassung immer zusätzlich in 1,5-fach an Jakob (Jakob, #41).

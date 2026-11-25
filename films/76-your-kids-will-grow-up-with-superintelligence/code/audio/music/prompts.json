@@ -1,0 +1,36 @@
+{
+ "_comment": "Film 76 Lyria 3.5 prompts (google/lyria-3.5, 6 tracks, 2026-11-25). One track per chapter group: M0 = H,0 | M1 = 6,12 | M2 = M,18 | M3 = 30 | M4 = T | M5 = S,A2 + end screen. Prompt sent = style + ' A <len> track. ' + mood. Files in /tmp/claude-0/f76/audio/music, not in the repo.",
+ "style": "Instrumental underscore for a calm, warm, hopeful editorial documentary about children growing up alongside superintelligent machines. The mood of an ordinary evening at the kitchen table: a lamp on, tea cooling, homework spread out, a parent and a child talking quietly. Soft felt piano, gentle nylon-string guitar, warm Rhodes, airy strings, a soft glockenspiel or music box now and then, gentle sustained pads, unhurried and tender. Hopeful and human, never sentimental, never epic. No drums, no percussion kit, no beat, no vocals, no choir, no melody hook, not pop, not sad, not tense, not cinematic trailer, not sci-fi. Very quiet, narrow dynamic range, slow, made to sit under a speaking voice.",
+ "tracks": {
+  "M0": {
+   "chapter": "H, 0 (the kitchen-table question, no safe answer, the clock starts at age zero, the first fear)",
+   "len": "2:20",
+   "mood": "intimate and curious: a slow broken-chord felt piano figure like a question asked softly, warm low pad, a little glow in the strings; honest, a touch of worry that lifts toward calm; steady, no build-up"
+  },
+  "M1": {
+   "chapter": "6, 12 (age six: the tutor in a tablet, a person who cares; age twelve: the machine friend, real friends)",
+   "len": "2:40",
+   "mood": "tender and a little playful: nylon guitar and soft piano trading small patient phrases, a music-box glint, light airy strings, a feeling of watching a child learn; warm, then more thoughtful in the second half"
+  },
+  "M2": {
+   "chapter": "M, 18 (trust becomes valuable; age eighteen: the question is back, no skill is future-proof, jobs of care)",
+   "len": "2:20",
+   "mood": "reflective and grounded: warm Rhodes and low felt piano, slow sustained strings, a soft questioning phrase that never quite resolves, gentle and sober, a quiet sense of respect for the people who care for others"
+  },
+  "M3": {
+   "chapter": "30 (age thirty: an ordinary Tuesday with room in the day; the direction is a choice, decided now)",
+   "len": "1:20",
+   "mood": "open and spacious: slowly rising warm strings over soft piano, a feeling of daylight coming into a room, hopeful and calm, unforced"
+  },
+  "M4": {
+   "chapter": "T (what a parent does at the kitchen table starting tonight: practical, human, steady)",
+   "len": "1:50",
+   "mood": "warm, steady and encouraging: unhurried felt piano chords with a fingerpicked nylon guitar, soft strings underneath, gently resolving harmonies, like a good conversation at home"
+  },
+  "M5": {
+   "chapter": "S, A2 + end screen (the child is still waiting; you can help with who; closing call)",
+   "len": "1:15",
+   "mood": "calm and gently hopeful, resolved: the opening piano figure returns slower and warmer over soft strings, open and human, not triumphant; ends on one long decaying warm chord"
+  }
+ }
+}

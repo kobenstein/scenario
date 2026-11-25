@@ -1,0 +1,138 @@
+URL: https://www.eedi.com/news/eedi-publishes-full-findings-from-its-most-recent-ai-tutor-trial
+HTTP: 200
+
+* Products
+
+  * Research
+
+  * News
+
+For**Teachers**
+
+## Eedi Publishes Full Findings from Its Most Recent AI Tutor Trial
+
+Press Release
+
+**Eedi Publishes Full Findings from Its Most Recent AI Tutor Trial**
+
+ _In a 10-week trial with Google DeepMind across 1,179 students, AI Tutoring matched human tutoring in the lesson and no harmful content reached students, while the deeper data raises new questions about gender, engagement and how AI Tutoring should be studied._
+
+LONDON — 29 October 2026 — Eedi today published the full findings of its second randomised controlled trial of AI Tutoring, run with Google DeepMind across 1,179 students in 10 UK state schools over a 12-week term, with 10 weeks of lessons. Alongside the headline results, Eedi and Google DeepMind are publishing their subgroup results and conversation-level analysis: the detail that evaluations of educational technology rarely share.
+
+Putting this trial into context, Eedi CEO Ben Caulfield said: “Our goal is an AI Tutor that delivers real impact at scale for students and teachers. This research moves Eedi one step closer, giving us robust, repeatable evidence to guide further and larger trials.” AI Tutoring is a brand new area of learning design, and Eedi is leading the work of finding out what works for all students, what doesn’t, and why.
+
+This latest trial builds on Eedi’s 2025 exploratory study, in conjunction with Google DeepMind, of 165 students in five schools. In this new research, each student was randomly assigned to one of four kinds of support for the whole term. Whenever they got a question wrong, they received support from Eedi’s standard static content, a human tutor, or one of two versions of an AI Tutor. Every message the AI Tutor drafted was reviewed by a human tutor before it reached a student.
+
+Eedi’s AI Tutor is not an off-the-shelf chatbot. It uses Gemini, which Google DeepMind fine-tunes for teaching, inside a strict Eedi architecture that diagnoses each student’s misconceptions. Eedi led the trial design, school recruitment and implementation, and built the constrained AI Tutor. The RCT findings were analysed and published jointly with Google DeepMind.
+
+**Safety held at scale.** Tutors approved 94.7% of AI draft messages without changes: they rewrote or regenerated only 1 in 20. No harmful content reached any student, and two drafts with a winking emoji that could be read as overly familiar were never sent. Our checks found 11 AI Tutor messages containing a false maths statement: tutors stopped 4 before they were sent, and 7 reached students (0.01% of full corpus). The same checks found 7 genuine maths errors in human tutors’ messages (0.02% of full corpus), along with many more typing slips. Errors that only show up in the context of a conversation, such as praising a wrong answer, were also rare, at about 2 in every 1,000 messages for both AI and human tutors. For Eedi’s next AI Tutor trial, the company has moved from a human-in-the-loop approach, where a tutor approves every message, to human-on-the-loop, where tutors oversee conversations and step in where they make the most difference.
+
+**In the lesson, AI Tutoring matched human tutoring.** After tutoring, students answered a similar question correctly 56 to 58% of the time, against 43% after static content, with no clear difference in benefit from AI and human tutoring. On a short quiz, partway through the trial, tutored students were slightly ahead, though the difference was only clear for the personalised-context AI Tutor, which also drew on each student’s learning history. On Star Maths, the broad standardised test students took before and after the trial, those who had AI tutoring scored similarly to those who had static content. Students with a human tutor scored slightly lower than both groups, but the gap could be due to chance. (The Star Maths analysis covers the 916 students who sat both tests.)
+
+**Broad tests take time to move.** In Eedi’s earlier two-year trial, Star Maths results at the 10-week mark looked much like these, and clear gains only emerged after a year or more. Tutored students also covered less material, in more depth. Eedi’s year-long trial, which started in September, will test whether these gains build up in the same way.
+
+**The averages hide important differences.** Exploratory analysis suggests that tutoring, from both AI and human tutors, worked better for girls than for boys, based on their test results on Star Maths. Girls tutored by AI or a human tended to do slightly better than girls who received static content. Tutored boys tended to do worse than boys who had static content, particularly when working with human tutors. These results are tentative, and need to be validated in a larger trial. If this is a consistent pattern, however, it might be driven by some students feeling that being pulled into a conversation after every mistake is a signal of failure, or that typed conversations favour more confident readers and writers. Exploratory analyses found no clear differences in the effect of tutoring on Star Maths results by family income or year group.
+
+**Prior attainment mattered too.** Unlike some prior AI tutoring studies, we found no credible evidence that AI tutoring effects on Star Maths differed by baseline attainment, though the intervals were wide. With expert human tutors, lower-attaining students scored lower than similar students on standard practice, possibly because they covered the least material.
+
+**Tutors found the AI useful, but supervising it was less rewarding than teaching directly.** Tutors rated the AI’s drafts as helpful, and most said it saved them time and mental effort. But on days spent supervising AI drafts, tutors felt slightly more confident, but less positive than on days they spent writing every message themselves, and less excited and proud. Tutors approved 19 in 20 drafts unchanged, but most found careful review harder when supervising several students at once. Tutors stepped in more as conversations went on, and late in a conversation the reason was often a student wanting to stop. Eedi reads these findings as a case for changing the tutor’s role. In Eedi’s new trial, which started in September, tutors oversee conversations and step in where they are needed, rather than approving every message.
+
+**Both AI arms were rich in context.** Unlike a chatbot, the AI Tutor in both AI arms was context-rich and constrained by Eedi: it knew the misconception behind each student’s wrong answer and the question in front of them. The personalised context arm also received a summary of each student’s past performance and misconceptions. In comparison to the AI tutor arm which received current question context only, extra context did not clearly improve outcomes. 
+
+“We set out to learn what AI Tutoring actually does in real classrooms,” says Bibi Groot, Chief Impact Officer at Eedi, whose Evidence team oversaw the trial. “What we saw was that in the lesson, the AI Tutor performed as well as a human tutor, and did so safely. But, averages hide a lot, and ten weeks is not long enough to know whether these gains add up to broader learning. We’re publishing everything, including the results we didn’t expect, so that we can discuss them more openly and continue to learn from them. It’s also why our next AI Tutor trial runs for a full academic year.”
+
+Short trials like this one do not give the full picture. Each term of the school year has its own dynamics, and a 10-week trial captures only one of them. For accurate, informative results, Eedi believes it and the wider edtech community need trials that run for at least a full academic year before findings like these are used to guide AI tutoring at scale in schools, or policy on how AI is used for learning.
+
+In September 2026 Eedi launched a new, year-long AI Tutor RCT, as part of a multiyear piece of research with the Learning Engineering Virtual Institute (LEVI), a programme of Renaissance Philanthropy. The study, which employs a supervised human-on-the-loop approach, involves over 15,000 students from 26 state schools across the UK.
+
+Eedi is calling on every company building AI tools for classrooms to publish the safety benchmarks and error rates from their own studies, so that the sector can learn together and from each other.
+
+The full technical report can be accessed here.
+
+‍
+
+**About Eedi**
+
+Founded in 2015 by a teacher, a data scientist, and an entrepreneur, Eedi helps students build real mathematical understanding by finding and resolving the specific misconceptions behind their mistakes. Its diagnostic questions, AI Tutor, and teacher insights are used in schools across the world, and its Diagnostic Engine powers assessment inside partner platforms. Learn more at https://eedi.com.
+
+‍
+
+‍
+
+‍
+
+### 
+
+### Two winking emojis and a lot of babysitting: A dive into the safety findings of our recent AI Tutor study 
+
+On October 29th, Eedi and Google DeepMind published the results of our second AI tutor trial. Since then, we've been doing deep dives into some of the key findings. In this blog, Bibi Groot, Eedi's Chief Impact Officer, shares our safety-related insights and learnings.
+
+Research
+
+Blog
+
+### Eedi Raises Significant Funding to Build Diagnostic Intelligence as a Global Public-Purpose Utility
+
+Eedi is delighted to announce that it is expanding its work in identifying misconceptions as critical public infrastructure for learning, thanks to support and funding from LearnerStudio and the Gates Foundation.
+
+Press Release
+
+### How Eedi Anonymises Data
+
+Eedi shares real student learning data with researchers worldwide — and does it without exposing a single student. Here's how pseudonymisation and our PIIvot framework let us open up genuine tutoring conversations, and why locking that data away would cost students more.
+
+Blog
+
+  * Products
+
+  * Diagnostic Engine
+
+  * DQR
+
+  * Eedi Tutor
+
+  * Sign in to Eedi School
+
+  * Research
+
+  * Evidence
+
+  * Data Science
+
+  * Learning Design
+
+  * Papers
+
+  * Data & Competitions
+
+  * Safety
+
+  * Latest
+
+  * News
+
+  * Podcasts
+
+  * LinkedIn
+
+  * Eedi Newsletter
+
+  * Eedi
+
+  * About Us
+
+  * Careers
+
+  * Contact
+
+  * 
+
+© 2025 Eedi. All rights reserved.
+
+  * Privacy policy
+
+  * Terms of Service
+
+  * Cookies
+
+  * GDPR

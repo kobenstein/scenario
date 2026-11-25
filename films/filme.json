@@ -1,425 +1,485 @@
 [
- {
-  "nr": 1,
-  "ordner": "01-the-arrival-of-superintelligence",
-  "titel": "The Arrival of Superintelligence",
-  "video": "f7gCA_dk_g0",
-  "veroeffentlicht": "2026-10-19",
-  "skript_quellen": [],
-  "thumbnail_quelle": "final:folge-01",
-  "code_herkunft": "claude/project-thread-yj91c5:episodes/01-superintelligence-rising@08673f3"
- },
- {
-  "nr": 2,
-  "ordner": "02-a-share-of-ai-for-everyone",
-  "titel": "The Plan to Give Everyone a Share of AI",
-  "video": "q6CGAq-mTNE",
-  "veroeffentlicht": "2026-10-20",
-  "skript_quellen": [
-   "schreibraum/film-05",
-   "film-05-share",
-   "schreibraum/faktenzettel-film-05.md"
-  ],
-  "thumbnail_quelle": "film-05",
-  "code_herkunft": "claude/project-thread-whfhr9:films/05-share@7d26449"
- },
- {
-  "nr": 3,
-  "ordner": "03-ai-progress-is-going-vertical",
-  "titel": "AI Progress Is Going Vertical",
-  "video": "x_lfHqJwyBw",
-  "veroeffentlicht": "2026-10-21",
-  "skript_quellen": [
-   "film-02-exponential"
-  ],
-  "thumbnail_quelle": "final:film-02",
-  "code_herkunft": "claude/project-thread-feyj7f:films/02-exponential@4553213"
- },
- {
-  "nr": 4,
-  "ordner": "04-a-million-geniuses",
-  "titel": "1,000,000 Geniuses are joining the workforce very soon",
-  "video": "DFMHW2tnPoA",
-  "veroeffentlicht": "2026-10-22",
-  "skript_quellen": [
-   "film-03-geniuses"
-  ],
-  "thumbnail_quelle": "film-03",
-  "code_herkunft": "claude/project-thread-p4c9r3:films/03-geniuses@bdbf534"
- },
- {
-  "nr": 5,
-  "ordner": "05-you-dont-have-to-work-anymore",
-  "titel": "You Don't Have to Work Anymore",
-  "video": "5mc-SfxErnU",
-  "veroeffentlicht": "2026-10-23",
-  "skript_quellen": [
-   "schreibraum:film-04",
-   "schreibraum/faktenzettel-film-04.md",
-   "schreibraum/leitgedanken-film-04.md",
-   "schreibraum/vertiefung-film-04.md"
-  ],
-  "thumbnail_quelle": "film-04",
-  "code_herkunft": "claude/project-thread-p4c9r3:films/04-work@bdbf534"
- },
- {
-  "nr": 6,
-  "ordner": "06-ai-that-feels-nothing",
-  "titel": "We're Falling for AI That Feels Nothing",
-  "video": "RKkNmDgTd7s",
-  "veroeffentlicht": "2026-10-24",
-  "skript_quellen": [
-   "schreibraum/film-07"
-  ],
-  "thumbnail_quelle": "film-06",
-  "code_herkunft": "claude/project-thread-qp15bo:films/06-mind@b20ae4a"
- },
- {
-  "nr": 7,
-  "ordner": "07-the-limits-of-physics",
-  "titel": "AI Is About to Hit the Limits of Physics",
-  "video": "xfK7wvBdXsw",
-  "veroeffentlicht": "2026-10-25",
-  "skript_quellen": [
-   "film-ueberfluss"
-  ],
-  "thumbnail_quelle": "film-07",
-  "code_herkunft": "claude/project-thread-h99ovx:films/07-forever@e07a42c"
- },
- {
-  "nr": 8,
-  "ordner": "08-how-to-survive-the-singularity",
-  "titel": "How to Survive the Singularity",
-  "video": "yLhJuJEDuB0",
-  "veroeffentlicht": "2026-10-26",
-  "skript_quellen": [
-   "film-singularitaet"
-  ],
-  "thumbnail_quelle": "film-08",
-  "code_herkunft": "claude/project-thread-44n6e4:films/08-singularity@424e272"
- },
- {
-  "nr": 9,
-  "ordner": "09-one-person-with-ai",
-  "titel": "One Person With AI Now Does the Work of a Company",
-  "video": "bbrROdt6SUE",
-  "veroeffentlicht": "2026-10-27",
-  "skript_quellen": [
-   "film-ein-person"
-  ],
-  "thumbnail_quelle": "film-09",
-  "code_herkunft": "claude/project-thread-nio76k:films/08-native@27067c2"
- },
- {
-  "nr": 10,
-  "ordner": "10-superintelligence-is-getting-a-body",
-  "titel": "Superintelligence Is Getting a Body",
-  "video": "CjxjwTG2a7s",
-  "veroeffentlicht": "2026-10-29",
-  "skript_quellen": [
-   "film-roboter"
-  ],
-  "thumbnail_quelle": "film-10",
-  "code_herkunft": "claude/project-thread-butzw2:films/10-robots@43fdd85"
- },
- {
-  "nr": 11,
-  "ordner": "11-ai-is-making-us-dumber",
-  "titel": "AI Is Making Us Dumber. It Doesn't Have to.",
-  "video": "XvRIEZTw2oA",
-  "veroeffentlicht": "2026-10-28",
-  "skript_quellen": [
-   "film-klueger"
-  ],
-  "thumbnail_quelle": "film-11",
-  "code_herkunft": "claude/project-thread-2rbgo2:films/11-klueger@b4125ec"
- },
- {
-  "nr": 13,
-  "ordner": "13-the-ai-bubble-could-pop",
-  "titel": "The AI Bubble Could Pop. Superintelligence Won't Stop.",
-  "video": "ZZzg5VLMj1w",
-  "veroeffentlicht": "2026-10-31",
-  "skript_quellen": [
-   "film-blase"
-  ],
-  "thumbnail_quelle": "film-13",
-  "code_herkunft": "claude/project-thread-croqxe:films/13-bubble@940776b"
- },
- {
-  "nr": 14,
-  "ordner": "14-a-few-people-control-superintelligence",
-  "titel": "A Few People Control Superintelligence",
-  "video": "pELUtjWTwwU",
-  "veroeffentlicht": "2026-11-01",
-  "skript_quellen": [
-   "film-kontrolle"
-  ],
-  "thumbnail_quelle": "film-kontrolle",
-  "code_herkunft": "claude/project-thread-5zx6o0:films/14-keys@e4e353c"
- },
- {
-  "nr": 15,
-  "ordner": "15-ai-isnt-giving-us-free-time",
-  "titel": "AI Isn't Giving Us Free Time",
-  "video": "_AG3q_63RUU",
-  "veroeffentlicht": "2026-11-02",
-  "skript_quellen": [
-   "film-zeit"
-  ],
-  "thumbnail_quelle": "film-zeit",
-  "code_herkunft": "claude/project-thread-1c0d5l:films/13-freetime@e50a022"
- },
- {
-  "nr": 16,
-  "ordner": "16-ai-is-speeding-up-science",
-  "titel": "AI Is Speeding Up Science",
-  "video": "6echbi3VZcA",
-  "veroeffentlicht": "2026-11-03",
-  "skript_quellen": [
-   "film-jahrhundert"
-  ],
-  "thumbnail_quelle": "film-jahrhundert",
-  "code_herkunft": "claude/project-thread-r616tu:films/15-century@c6ec0f5"
- },
- {
-  "nr": 17,
-  "ordner": "17-the-rules-written-for-an-ais-mind",
-  "titel": "The Rules Written for an AI's Mind",
-  "video": "CIIivE-85yw",
-  "veroeffentlicht": "2026-11-04",
-  "skript_quellen": [
-   "film-verfassung"
-  ],
-  "thumbnail_quelle": "film-verfassung",
-  "code_herkunft": "claude/project-thread-3tcjlu:films/16-constitution@8c7baa8"
- },
- {
-  "nr": 18,
-  "ordner": "18-ai-will-end-capitalism",
-  "titel": "AI Will End Capitalism",
-  "video": "i9rTcXGJkpc",
-  "veroeffentlicht": "2026-11-06",
-  "skript_quellen": [
-   "film-kapitalismus"
-  ],
-  "thumbnail_quelle": "film-18",
-  "code_herkunft": "claude/project-thread-2t1pxf:films/18-capitalism@8cf2bf6"
- },
- {
-  "nr": 19,
-  "ordner": "19-how-to-survive-the-ai-crash",
-  "titel": "How to Survive the AI Crash",
-  "video": "M-drqvpF33g",
-  "veroeffentlicht": "2026-11-07",
-  "skript_quellen": [
-   "film-ai-crash"
-  ],
-  "thumbnail_quelle": "pf:film-ai-crash/thumbnails",
-  "code_herkunft": "claude/project-thread-td3jfw:films/19-ai-crash@266f5f6"
- },
- {
-  "nr": 20,
-  "ordner": "20-the-first-generation-that-wont-grow-old",
-  "titel": "The First Generation That Won't Grow Old",
-  "video": "V_AtD5Z8vCc",
-  "veroeffentlicht": "2026-11-08",
-  "skript_quellen": [
-   "film-altern"
-  ],
-  "thumbnail_quelle": "film-altern",
-  "code_herkunft": "claude/project-thread-s9cg8w:films/20-aging@74fdcc5"
- },
- {
-  "nr": 21,
-  "ordner": "21-the-rise-of-biocomputers",
-  "titel": "The Rise of Biocomputers",
-  "video": "gTWNBnMhpdc",
-  "veroeffentlicht": "2026-11-09",
-  "skript_quellen": [
-   "film-biocomputer"
-  ],
-  "thumbnail_quelle": "film-biocomputer",
-  "code_herkunft": "claude/project-thread-hat32h:films/19-biocomputer@aec8fb4"
- },
- {
-  "nr": 22,
-  "ordner": "22-the-singularity-was-predicted-for-this-friday",
-  "titel": "The Singularity Was Predicted for This Friday",
-  "video": "05AvM4DjAlg",
-  "veroeffentlicht": "2026-11-10",
-  "skript_quellen": [
-   "film-singularity-friday"
-  ],
-  "thumbnail_quelle": "film-singularity-friday/v2",
-  "code_herkunft": "claude/project-thread-q1czjk:films/19-friday@ef0d579"
- },
- {
-  "nr": 23,
-  "ordner": "23-a-day-in-2037-with-superintelligence",
-  "titel": "A Day in 2037 With Superintelligence",
-  "video": "jkDBk8QFcyY",
-  "veroeffentlicht": "2026-11-11",
-  "skript_quellen": [
-   "film-erster-tag/2037"
-  ],
-  "thumbnail_quelle": "film-2037",
-  "code_herkunft": "claude/project-thread-rk34en:films/23-2037@f3a4dd5"
- },
- {
-  "nr": 24,
-  "ordner": "24-ai-is-starting-to-understand-animals",
-  "titel": "AI Is Starting to Understand Animals",
-  "video": "xSXiEu--jzg",
-  "veroeffentlicht": "2026-11-12",
-  "skript_quellen": [
-   "film-tiersprache"
-  ],
-  "thumbnail_quelle": "film-tiersprache",
-  "code_herkunft": "claude/project-thread-hat32h:films/24-animals@aec8fb4"
- },
- {
-  "nr": 25,
-  "ordner": "25-ai-is-taking-jobs-in-this-order",
-  "titel": "AI Is Taking Jobs in This Order",
-  "video": "zbcbdu2TGjo",
-  "veroeffentlicht": "2026-11-13",
-  "skript_quellen": [
-   "film-last-human-job"
-  ],
-  "thumbnail_quelle": "film-last-human-job",
-  "code_herkunft": "claude/project-thread-i9u7e3:films/25-last-job@c1ad1c6"
- },
- {
-  "nr": 27,
-  "ordner": "27-why-elon-says-saving-money-is-pointless",
-  "titel": "Why Elon Says Saving Money Is Pointless",
-  "video": "KTnlD992PaA",
-  "veroeffentlicht": "2026-11-15",
-  "skript_quellen": [
-   "film-sparen"
-  ],
-  "thumbnail_quelle": "film-sparen",
-  "code_herkunft": "claude/project-thread-i9u7e3:films/26-saving@c1ad1c6"
- },
- {
-  "nr": 28,
-  "ordner": "28-theyre-using-ai-to-save-the-world",
-  "titel": "They're Using AI to Save the World",
-  "video": "rG4SWSRea7I",
-  "veroeffentlicht": "2026-11-14",
-  "skript_quellen": [
-   "film-gute-ki"
-  ],
-  "thumbnail_quelle": "film-gute-ki",
-  "code_herkunft": "claude/project-thread-e0nwej:films/28-ai-for-good@6b84321"
- },
- {
-  "nr": 29,
-  "ordner": "29-ai-is-bringing-back-the-mammoth",
-  "titel": "AI Is Bringing Back the Mammoth",
-  "video": "BuuPBlSb6R4",
-  "veroeffentlicht": null,
-  "skript_quellen": [
-   "film-mammut"
-  ],
-  "thumbnail_quelle": "film-29",
-  "code_herkunft": "claude/project-thread-1djp9d:films/29-mammoth@1291f68"
- },
- {
-  "nr": 31,
-  "ordner": "31-superhuman-ai-is-coming-next-year",
-  "titel": "Superhuman AI Is Coming Next Year",
-  "video": "IO6-9l56jSg",
-  "veroeffentlicht": "2026-11-18",
-  "skript_quellen": [
-   "film-ai-2027"
-  ],
-  "thumbnail_quelle": "film-31",
-  "code_herkunft": "claude/project-thread-4e6iqx:films/31-ai-builds-ai@4266ebd"
- },
- {
-  "nr": 49,
-  "ordner": "49-you-have-five-years-before-superintelligence",
-  "titel": "You Have Five Years Before Superintelligence",
-  "video": "C331gMzZwrw",
-  "veroeffentlicht": "2026-11-24",
-  "skript_quellen": [
-   "film-vorbereiten"
-  ],
-  "thumbnail_quelle": "thumbnails/film-49",
-  "code_herkunft": "claude/project-thread-wlkig5:films/49-you-have-five-years-before-superintelligence"
- },
- {
-  "nr": 54,
-  "ordner": "54-ai-just-gave-disease-a-10-year-deadline",
-  "titel": "AI Just Gave Disease a 10-Year Deadline",
-  "video": "Tzttxz97Lxc",
-  "veroeffentlicht": "2026-11-16",
-  "skript_quellen": [
-   "film-heilung"
-  ],
-  "thumbnail_quelle": "film-heilung",
-  "code_herkunft": "claude/project-thread-7mlu3t:films/54-cures@829b4fb"
- },
- {
-  "nr": 55,
-  "ordner": "55-the-ai-youre-not-allowed-to-use",
-  "titel": "The AI You're Not Allowed to Use",
-  "video": "-VWTQPoo8Y8",
-  "veroeffentlicht": "2026-11-19",
-  "skript_quellen": [
-   "film-geheim-ki"
-  ],
-  "thumbnail_quelle": "film-55",
-  "code_herkunft": "claude/project-thread-1djp9d:films/55-locked@1291f68"
- },
- {
-  "nr": 59,
-  "ordner": "59-a-superintelligence-lab-goes-public",
-  "titel": "A Superintelligence Lab Goes Public",
-  "video": "6eC7pLUo4eM",
-  "veroeffentlicht": "2026-11-17",
-  "skript_quellen": [
-   "film-ai-goes-public"
-  ],
-  "thumbnail_quelle": "film-59",
-  "code_herkunft": "claude/project-thread-4e6iqx:films/59-ai-goes-public@4266ebd"
- },
- {
-  "nr": 65,
-  "ordner": "65-ai-can-now-call-you-in-your-moms-voice",
-  "titel": "AI Can Now Call You in Your Mom's Voice",
-  "video": "3LGRxckPbyY",
-  "veroeffentlicht": "2026-11-21",
-  "skript_quellen": [
-   "film-ki-betrug"
-  ],
-  "thumbnail_quelle": "film-65",
-  "code_herkunft": "claude/project-thread-crayfo:films/65-ai-can-now-call-you-in-your-moms-voice/code"
- },
- {
-  "nr": 66,
-  "ordner": "66-sam-altman-says-everything-will-get-cheap",
-  "titel": "Sam Altman Says Everything Will Get Cheap",
-  "video": "FgI_80-ny8k",
-  "veroeffentlicht": "2026-11-22",
-  "skript_quellen": [
-   "film-geld-nach-si"
-  ],
-  "thumbnail_quelle": "film-geld-nach-si",
-  "code_herkunft": "claude/project-thread-kq9unm:films/66-sam-altman-says-everything-will-get-cheap"
- },
- {
-  "nr": 67,
-  "ordner": "67-metas-ai-chief-says-superintelligence-is-arriving",
-  "titel": "Meta's AI Chief Says Superintelligence Is Arriving",
-  "video": "_OUo4xvQyMQ",
-  "veroeffentlicht": "2026-11-23",
-  "skript_quellen": [
-   "film-si-arriving"
-  ],
-  "thumbnail_quelle": "thumbnails/film-67",
-  "code_herkunft": "claude/project-thread-432v87:films/67-metas-ai-chief-says-superintelligence-is-arriving"
- }
+  {
+    "nr": 1,
+    "ordner": "01-the-arrival-of-superintelligence",
+    "titel": "The Arrival of Superintelligence",
+    "video": "f7gCA_dk_g0",
+    "veroeffentlicht": "2026-10-19",
+    "skript_quellen": [],
+    "thumbnail_quelle": "final:folge-01",
+    "code_herkunft": "claude/project-thread-yj91c5:episodes/01-superintelligence-rising@08673f3"
+  },
+  {
+    "nr": 2,
+    "ordner": "02-a-share-of-ai-for-everyone",
+    "titel": "The Plan to Give Everyone a Share of AI",
+    "video": "q6CGAq-mTNE",
+    "veroeffentlicht": "2026-10-20",
+    "skript_quellen": [
+      "schreibraum/film-05",
+      "film-05-share",
+      "schreibraum/faktenzettel-film-05.md"
+    ],
+    "thumbnail_quelle": "film-05",
+    "code_herkunft": "claude/project-thread-whfhr9:films/05-share@7d26449"
+  },
+  {
+    "nr": 3,
+    "ordner": "03-ai-progress-is-going-vertical",
+    "titel": "AI Progress Is Going Vertical",
+    "video": "x_lfHqJwyBw",
+    "veroeffentlicht": "2026-10-21",
+    "skript_quellen": [
+      "film-02-exponential"
+    ],
+    "thumbnail_quelle": "final:film-02",
+    "code_herkunft": "claude/project-thread-feyj7f:films/02-exponential@4553213"
+  },
+  {
+    "nr": 4,
+    "ordner": "04-a-million-geniuses",
+    "titel": "1,000,000 Geniuses are joining the workforce very soon",
+    "video": "DFMHW2tnPoA",
+    "veroeffentlicht": "2026-10-22",
+    "skript_quellen": [
+      "film-03-geniuses"
+    ],
+    "thumbnail_quelle": "film-03",
+    "code_herkunft": "claude/project-thread-p4c9r3:films/03-geniuses@bdbf534"
+  },
+  {
+    "nr": 5,
+    "ordner": "05-you-dont-have-to-work-anymore",
+    "titel": "You Don't Have to Work Anymore",
+    "video": "5mc-SfxErnU",
+    "veroeffentlicht": "2026-10-23",
+    "skript_quellen": [
+      "schreibraum:film-04",
+      "schreibraum/faktenzettel-film-04.md",
+      "schreibraum/leitgedanken-film-04.md",
+      "schreibraum/vertiefung-film-04.md"
+    ],
+    "thumbnail_quelle": "film-04",
+    "code_herkunft": "claude/project-thread-p4c9r3:films/04-work@bdbf534"
+  },
+  {
+    "nr": 6,
+    "ordner": "06-ai-that-feels-nothing",
+    "titel": "We're Falling for AI That Feels Nothing",
+    "video": "RKkNmDgTd7s",
+    "veroeffentlicht": "2026-10-24",
+    "skript_quellen": [
+      "schreibraum/film-07"
+    ],
+    "thumbnail_quelle": "film-06",
+    "code_herkunft": "claude/project-thread-qp15bo:films/06-mind@b20ae4a"
+  },
+  {
+    "nr": 7,
+    "ordner": "07-the-limits-of-physics",
+    "titel": "AI Is About to Hit the Limits of Physics",
+    "video": "xfK7wvBdXsw",
+    "veroeffentlicht": "2026-10-25",
+    "skript_quellen": [
+      "film-ueberfluss"
+    ],
+    "thumbnail_quelle": "film-07",
+    "code_herkunft": "claude/project-thread-h99ovx:films/07-forever@e07a42c"
+  },
+  {
+    "nr": 8,
+    "ordner": "08-how-to-survive-the-singularity",
+    "titel": "How to Survive the Singularity",
+    "video": "yLhJuJEDuB0",
+    "veroeffentlicht": "2026-10-26",
+    "skript_quellen": [
+      "film-singularitaet"
+    ],
+    "thumbnail_quelle": "film-08",
+    "code_herkunft": "claude/project-thread-44n6e4:films/08-singularity@424e272"
+  },
+  {
+    "nr": 9,
+    "ordner": "09-one-person-with-ai",
+    "titel": "One Person With AI Now Does the Work of a Company",
+    "video": "bbrROdt6SUE",
+    "veroeffentlicht": "2026-10-27",
+    "skript_quellen": [
+      "film-ein-person"
+    ],
+    "thumbnail_quelle": "film-09",
+    "code_herkunft": "claude/project-thread-nio76k:films/08-native@27067c2"
+  },
+  {
+    "nr": 10,
+    "ordner": "10-superintelligence-is-getting-a-body",
+    "titel": "Superintelligence Is Getting a Body",
+    "video": "CjxjwTG2a7s",
+    "veroeffentlicht": "2026-10-29",
+    "skript_quellen": [
+      "film-roboter"
+    ],
+    "thumbnail_quelle": "film-10",
+    "code_herkunft": "claude/project-thread-butzw2:films/10-robots@43fdd85"
+  },
+  {
+    "nr": 11,
+    "ordner": "11-ai-is-making-us-dumber",
+    "titel": "AI Is Making Us Dumber. It Doesn't Have to.",
+    "video": "XvRIEZTw2oA",
+    "veroeffentlicht": "2026-10-28",
+    "skript_quellen": [
+      "film-klueger"
+    ],
+    "thumbnail_quelle": "film-11",
+    "code_herkunft": "claude/project-thread-2rbgo2:films/11-klueger@b4125ec"
+  },
+  {
+    "nr": 13,
+    "ordner": "13-the-ai-bubble-could-pop",
+    "titel": "The AI Bubble Could Pop. Superintelligence Won't Stop.",
+    "video": "ZZzg5VLMj1w",
+    "veroeffentlicht": "2026-10-31",
+    "skript_quellen": [
+      "film-blase"
+    ],
+    "thumbnail_quelle": "film-13",
+    "code_herkunft": "claude/project-thread-croqxe:films/13-bubble@940776b"
+  },
+  {
+    "nr": 14,
+    "ordner": "14-a-few-people-control-superintelligence",
+    "titel": "A Few People Control Superintelligence",
+    "video": "pELUtjWTwwU",
+    "veroeffentlicht": "2026-11-01",
+    "skript_quellen": [
+      "film-kontrolle"
+    ],
+    "thumbnail_quelle": "film-kontrolle",
+    "code_herkunft": "claude/project-thread-5zx6o0:films/14-keys@e4e353c"
+  },
+  {
+    "nr": 15,
+    "ordner": "15-ai-isnt-giving-us-free-time",
+    "titel": "AI Isn't Giving Us Free Time",
+    "video": "_AG3q_63RUU",
+    "veroeffentlicht": "2026-11-02",
+    "skript_quellen": [
+      "film-zeit"
+    ],
+    "thumbnail_quelle": "film-zeit",
+    "code_herkunft": "claude/project-thread-1c0d5l:films/13-freetime@e50a022"
+  },
+  {
+    "nr": 16,
+    "ordner": "16-ai-is-speeding-up-science",
+    "titel": "AI Is Speeding Up Science",
+    "video": "6echbi3VZcA",
+    "veroeffentlicht": "2026-11-03",
+    "skript_quellen": [
+      "film-jahrhundert"
+    ],
+    "thumbnail_quelle": "film-jahrhundert",
+    "code_herkunft": "claude/project-thread-r616tu:films/15-century@c6ec0f5"
+  },
+  {
+    "nr": 17,
+    "ordner": "17-the-rules-written-for-an-ais-mind",
+    "titel": "The Rules Written for an AI's Mind",
+    "video": "CIIivE-85yw",
+    "veroeffentlicht": "2026-11-04",
+    "skript_quellen": [
+      "film-verfassung"
+    ],
+    "thumbnail_quelle": "film-verfassung",
+    "code_herkunft": "claude/project-thread-3tcjlu:films/16-constitution@8c7baa8"
+  },
+  {
+    "nr": 18,
+    "ordner": "18-ai-will-end-capitalism",
+    "titel": "AI Will End Capitalism",
+    "video": "i9rTcXGJkpc",
+    "veroeffentlicht": "2026-11-06",
+    "skript_quellen": [
+      "film-kapitalismus"
+    ],
+    "thumbnail_quelle": "film-18",
+    "code_herkunft": "claude/project-thread-2t1pxf:films/18-capitalism@8cf2bf6"
+  },
+  {
+    "nr": 19,
+    "ordner": "19-how-to-survive-the-ai-crash",
+    "titel": "How to Survive the AI Crash",
+    "video": "M-drqvpF33g",
+    "veroeffentlicht": "2026-11-07",
+    "skript_quellen": [
+      "film-ai-crash"
+    ],
+    "thumbnail_quelle": "pf:film-ai-crash/thumbnails",
+    "code_herkunft": "claude/project-thread-td3jfw:films/19-ai-crash@266f5f6"
+  },
+  {
+    "nr": 20,
+    "ordner": "20-the-first-generation-that-wont-grow-old",
+    "titel": "The First Generation That Won't Grow Old",
+    "video": "V_AtD5Z8vCc",
+    "veroeffentlicht": "2026-11-08",
+    "skript_quellen": [
+      "film-altern"
+    ],
+    "thumbnail_quelle": "film-altern",
+    "code_herkunft": "claude/project-thread-s9cg8w:films/20-aging@74fdcc5"
+  },
+  {
+    "nr": 21,
+    "ordner": "21-the-rise-of-biocomputers",
+    "titel": "The Rise of Biocomputers",
+    "video": "gTWNBnMhpdc",
+    "veroeffentlicht": "2026-11-09",
+    "skript_quellen": [
+      "film-biocomputer"
+    ],
+    "thumbnail_quelle": "film-biocomputer",
+    "code_herkunft": "claude/project-thread-hat32h:films/19-biocomputer@aec8fb4"
+  },
+  {
+    "nr": 22,
+    "ordner": "22-the-singularity-was-predicted-for-this-friday",
+    "titel": "The Singularity Was Predicted for This Friday",
+    "video": "05AvM4DjAlg",
+    "veroeffentlicht": "2026-11-10",
+    "skript_quellen": [
+      "film-singularity-friday"
+    ],
+    "thumbnail_quelle": "film-singularity-friday/v2",
+    "code_herkunft": "claude/project-thread-q1czjk:films/19-friday@ef0d579"
+  },
+  {
+    "nr": 23,
+    "ordner": "23-a-day-in-2037-with-superintelligence",
+    "titel": "A Day in 2037 With Superintelligence",
+    "video": "jkDBk8QFcyY",
+    "veroeffentlicht": "2026-11-11",
+    "skript_quellen": [
+      "film-erster-tag/2037"
+    ],
+    "thumbnail_quelle": "film-2037",
+    "code_herkunft": "claude/project-thread-rk34en:films/23-2037@f3a4dd5"
+  },
+  {
+    "nr": 24,
+    "ordner": "24-ai-is-starting-to-understand-animals",
+    "titel": "AI Is Starting to Understand Animals",
+    "video": "xSXiEu--jzg",
+    "veroeffentlicht": "2026-11-12",
+    "skript_quellen": [
+      "film-tiersprache"
+    ],
+    "thumbnail_quelle": "film-tiersprache",
+    "code_herkunft": "claude/project-thread-hat32h:films/24-animals@aec8fb4"
+  },
+  {
+    "nr": 25,
+    "ordner": "25-ai-is-taking-jobs-in-this-order",
+    "titel": "AI Is Taking Jobs in This Order",
+    "video": "zbcbdu2TGjo",
+    "veroeffentlicht": "2026-11-13",
+    "skript_quellen": [
+      "film-last-human-job"
+    ],
+    "thumbnail_quelle": "film-last-human-job",
+    "code_herkunft": "claude/project-thread-i9u7e3:films/25-last-job@c1ad1c6"
+  },
+  {
+    "nr": 27,
+    "ordner": "27-why-elon-says-saving-money-is-pointless",
+    "titel": "Why Elon Says Saving Money Is Pointless",
+    "video": "KTnlD992PaA",
+    "veroeffentlicht": "2026-11-15",
+    "skript_quellen": [
+      "film-sparen"
+    ],
+    "thumbnail_quelle": "film-sparen",
+    "code_herkunft": "claude/project-thread-i9u7e3:films/26-saving@c1ad1c6"
+  },
+  {
+    "nr": 28,
+    "ordner": "28-theyre-using-ai-to-save-the-world",
+    "titel": "They're Using AI to Save the World",
+    "video": "rG4SWSRea7I",
+    "veroeffentlicht": "2026-11-14",
+    "skript_quellen": [
+      "film-gute-ki"
+    ],
+    "thumbnail_quelle": "film-gute-ki",
+    "code_herkunft": "claude/project-thread-e0nwej:films/28-ai-for-good@6b84321"
+  },
+  {
+    "nr": 29,
+    "ordner": "29-ai-is-bringing-back-the-mammoth",
+    "titel": "AI Is Bringing Back the Mammoth",
+    "video": "BuuPBlSb6R4",
+    "veroeffentlicht": null,
+    "skript_quellen": [
+      "film-mammut"
+    ],
+    "thumbnail_quelle": "film-29",
+    "code_herkunft": "claude/project-thread-1djp9d:films/29-mammoth@1291f68"
+  },
+  {
+    "nr": 31,
+    "ordner": "31-superhuman-ai-is-coming-next-year",
+    "titel": "Superhuman AI Is Coming Next Year",
+    "video": "IO6-9l56jSg",
+    "veroeffentlicht": "2026-11-18",
+    "skript_quellen": [
+      "film-ai-2027"
+    ],
+    "thumbnail_quelle": "film-31",
+    "code_herkunft": "claude/project-thread-4e6iqx:films/31-ai-builds-ai@4266ebd"
+  },
+  {
+    "nr": 49,
+    "ordner": "49-you-have-five-years-before-superintelligence",
+    "titel": "You Have Five Years Before Superintelligence",
+    "video": "C331gMzZwrw",
+    "veroeffentlicht": "2026-11-24",
+    "skript_quellen": [
+      "film-vorbereiten"
+    ],
+    "thumbnail_quelle": "thumbnails/film-49",
+    "code_herkunft": "claude/project-thread-wlkig5:films/49-you-have-five-years-before-superintelligence"
+  },
+  {
+    "nr": 54,
+    "ordner": "54-ai-just-gave-disease-a-10-year-deadline",
+    "titel": "AI Just Gave Disease a 10-Year Deadline",
+    "video": "Tzttxz97Lxc",
+    "veroeffentlicht": "2026-11-16",
+    "skript_quellen": [
+      "film-heilung"
+    ],
+    "thumbnail_quelle": "film-heilung",
+    "code_herkunft": "claude/project-thread-7mlu3t:films/54-cures@829b4fb"
+  },
+  {
+    "nr": 55,
+    "ordner": "55-the-ai-youre-not-allowed-to-use",
+    "titel": "The AI You're Not Allowed to Use",
+    "video": "-VWTQPoo8Y8",
+    "veroeffentlicht": "2026-11-19",
+    "skript_quellen": [
+      "film-geheim-ki"
+    ],
+    "thumbnail_quelle": "film-55",
+    "code_herkunft": "claude/project-thread-1djp9d:films/55-locked@1291f68"
+  },
+  {
+    "nr": 59,
+    "ordner": "59-a-superintelligence-lab-goes-public",
+    "titel": "A Superintelligence Lab Goes Public",
+    "video": "6eC7pLUo4eM",
+    "veroeffentlicht": "2026-11-17",
+    "skript_quellen": [
+      "film-ai-goes-public"
+    ],
+    "thumbnail_quelle": "film-59",
+    "code_herkunft": "claude/project-thread-4e6iqx:films/59-ai-goes-public@4266ebd"
+  },
+  {
+    "nr": 63,
+    "ordner": "63-the-pope-says-ai-wont-save-you",
+    "titel": "The Pope Says AI Won't Save You",
+    "video": "aFcLFCuo4WA",
+    "veroeffentlicht": "2026-11-28",
+    "skript_quellen": [
+      "film-papst"
+    ],
+    "thumbnail_quelle": "thumbnails/film-63",
+    "code_herkunft": "claude/project-thread-dz613r:films/63-the-pope-says-ai-wont-save-you"
+  },
+  {
+    "nr": 65,
+    "ordner": "65-ai-can-now-call-you-in-your-moms-voice",
+    "titel": "AI Can Now Call You in Your Mom's Voice",
+    "video": "3LGRxckPbyY",
+    "veroeffentlicht": "2026-11-21",
+    "skript_quellen": [
+      "film-ki-betrug"
+    ],
+    "thumbnail_quelle": "film-65",
+    "code_herkunft": "claude/project-thread-crayfo:films/65-ai-can-now-call-you-in-your-moms-voice/code"
+  },
+  {
+    "nr": 66,
+    "ordner": "66-sam-altman-says-everything-will-get-cheap",
+    "titel": "Sam Altman Says Everything Will Get Cheap",
+    "video": "FgI_80-ny8k",
+    "veroeffentlicht": "2026-11-22",
+    "skript_quellen": [
+      "film-geld-nach-si"
+    ],
+    "thumbnail_quelle": "film-geld-nach-si",
+    "code_herkunft": "claude/project-thread-kq9unm:films/66-sam-altman-says-everything-will-get-cheap"
+  },
+  {
+    "nr": 67,
+    "ordner": "67-metas-ai-chief-says-superintelligence-is-arriving",
+    "titel": "Meta's AI Chief Says Superintelligence Is Arriving",
+    "video": "_OUo4xvQyMQ",
+    "veroeffentlicht": "2026-11-23",
+    "skript_quellen": [
+      "film-si-arriving"
+    ],
+    "thumbnail_quelle": "thumbnails/film-67",
+    "code_herkunft": "claude/project-thread-432v87:films/67-metas-ai-chief-says-superintelligence-is-arriving"
+  },
+  {
+    "nr": 68,
+    "ordner": "68-the-ai-race-will-be-decided-by-2027",
+    "titel": "The AI Race Will Be Decided by 2027",
+    "video": "cFUJC__Wyqs",
+    "veroeffentlicht": "2026-11-29",
+    "skript_quellen": [
+      "film-ai-race"
+    ],
+    "thumbnail_quelle": "thumbnails/film-68",
+    "code_herkunft": "claude/project-thread-zcghn6:films/68-the-ai-race-will-be-decided-by-2027"
+  },
+  {
+    "nr": 69,
+    "ordner": "69-europe-can-still-win-the-ai-race",
+    "titel": "Europe Can Still Win the AI Race",
+    "video": "wkFG5z3R_YM",
+    "veroeffentlicht": "2026-11-25",
+    "skript_quellen": [
+      "film-europa-ki"
+    ],
+    "thumbnail_quelle": "thumbnails/film-69",
+    "code_herkunft": "claude/project-thread-m7cc4w:films/69-europe-can-still-win-the-ai-race"
+  },
+  {
+    "nr": 70,
+    "ordner": "70-harari-biggest-fear-about-ai",
+    "titel": "Harari's Biggest Fear About AI Isn't Robots",
+    "video": "fmOZpMc3SuU",
+    "veroeffentlicht": "2026-11-30",
+    "skript_quellen": [
+      "film-harari"
+    ],
+    "thumbnail_quelle": "thumbnails/film-70",
+    "code_herkunft": "claude/project-thread-p4vr3z:films/70-harari-biggest-fear-about-ai"
+  },
+  {
+    "nr": 76,
+    "ordner": "76-your-kids-will-grow-up-with-superintelligence",
+    "titel": "Your Kids Will Grow Up With Superintelligence",
+    "video": "RJhPXezGSSQ",
+    "veroeffentlicht": "2026-12-05",
+    "skript_quellen": [
+      "film-76-kinder"
+    ],
+    "thumbnail_quelle": "thumbnails/film-76",
+    "code_herkunft": "claude/project-thread-os00fk:films/76-your-kids-will-grow-up-with-superintelligence"
+  }
 ]

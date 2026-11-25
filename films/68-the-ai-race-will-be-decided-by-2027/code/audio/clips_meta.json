@@ -1,0 +1,128 @@
+{
+ "C1": {
+  "speaker": "Eric Schmidt",
+  "role": "Former CEO of Google",
+  "source": "Masters of Scale Summit, Oct 2026",
+  "url": "https://www.youtube.com/watch?v=qZG9IdGi4q0",
+  "transcript": "A year ago, two years ago, it looked like China was a year or two behind. Now it looks like they're six months behind. And there are many, many studies which show this.",
+  "cues": [
+   [
+    0.05,
+    "A year ago, two years ago,"
+   ],
+   [
+    1.66,
+    "it looked like China"
+   ],
+   [
+    2.91,
+    "was a year or two behind."
+   ],
+   [
+    4.46,
+    "Now it looks like they're"
+   ],
+   [
+    6.01,
+    "six months behind."
+   ],
+   [
+    7.13,
+    "And there are many, many"
+   ],
+   [
+    8.62,
+    "studies which show this."
+   ]
+  ],
+  "cue_end": 10.3
+ },
+ "C4": {
+  "speaker": "Daniel Kokotajlo",
+  "role": "AI Futures Project, ex-OpenAI",
+  "source": "Dwarkesh Podcast Clips",
+  "url": "https://www.youtube.com/watch?v=m6s16cqd1Tg",
+  "transcript": "I feel like we can't just, like, unilaterally slow down and have China go take the lead. That also is a terrible future. But, like, we can't also just, like, completely race, because, for the reasons I mentioned previously about alignment, I think that if we just go all out on racing, we're going to lose control of our AIs, right?",
+  "cues": [
+   [
+    0.05,
+    "I feel like we can't just,"
+   ],
+   [
+    1.53,
+    "like, unilaterally slow down"
+   ],
+   [
+    3.13,
+    "and have China go take the lead."
+   ],
+   [
+    4.96,
+    "That also is a terrible future."
+   ],
+   [
+    6.72,
+    "But, like, we can't also just,"
+   ],
+   [
+    8.44,
+    "like, completely race,"
+   ],
+   [
+    9.69,
+    "because, for the reasons"
+   ],
+   [
+    11.06,
+    "I mentioned previously"
+   ],
+   [
+    12.31,
+    "about alignment, I think"
+   ],
+   [
+    13.68,
+    "that if we just go all out"
+   ],
+   [
+    15.17,
+    "on racing, we're going to"
+   ],
+   [
+    16.59,
+    "lose control of our AIs, right?"
+   ]
+  ],
+  "cue_end": 18.56
+ },
+ "C5": {
+  "speaker": "Kyle Chan",
+  "role": "Brookings Institution",
+  "source": "Interesting Times with Ross Douthat, 14 May 2026",
+  "url": "https://www.youtube.com/watch?v=fEGUlvR9gvY",
+  "transcript": "That's the race to AGI in the US. China is running a different kind of race. I would argue they're running multiple races.",
+  "cues": [
+   [
+    0.33,
+    "That's the race to AGI in the US."
+   ],
+   [
+    2.22,
+    "China is running"
+   ],
+   [
+    3.13,
+    "a different kind of race."
+   ],
+   [
+    4.56,
+    "I would argue they're"
+   ],
+   [
+    5.76,
+    "running multiple races."
+   ]
+  ],
+  "cue_end": 7.28
+ }
+}

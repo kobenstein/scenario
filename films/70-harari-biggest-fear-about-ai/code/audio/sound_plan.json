@@ -1,0 +1,6 @@
+[
+ {"f": "card_beep", "word": "A beep.", "nth": 0, "at_end": true, "dt": 0.3, "off": 0.5, "d": 0.6, "v": 0.5, "once": true, "fade": 0.12, "peak": 0.28},
+ {"f": "ice_crack", "word": "but with a crack.", "at_end": true, "dt": 0.3, "off": 1.1, "d": 0.9, "v": 0.4, "once": true, "fade": 0.4, "peak": 0.19},
+ {"f": "ice_crack", "word": "Four cracks.", "at_end": true, "dt": 0.2, "off": 1.1, "d": 0.9, "v": 0.35, "once": true, "fade": 0.4, "peak": 0.19},
+ {"f": "card_beep", "word": "A beep.", "nth": 1, "at_end": true, "dt": 0.3, "off": 0.5, "d": 0.6, "v": 0.5, "once": true, "fade": 0.12, "peak": 0.28}
+]

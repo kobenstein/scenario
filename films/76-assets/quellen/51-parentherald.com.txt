@@ -1,0 +1,72 @@
+URL: https://www.parentherald.com/articles/237358/20261118/survey-82-parents-want-ai-fully-blocked-sharply-restricted-their-kids-schools.htm
+HTTP: 200
+
+Skip to main content
+
+  * Parenting
+  * Moms
+  * Dads
+  * Children
+  * Issues
+
+  * Parenting
+  * Moms
+  * Dads
+  * Children
+  * Issues
+
+Close
+
+Parent Herald
+
+Parenting School
+
+# Survey: 82% of Parents Want AI Fully Blocked or Sharply Restricted in Their Kids’ Schools
+
+By Terry Holmes  , Parent Herald  Published: Nov 18 2026, 11:02 AM EST
+
+Share
+
+Parents talk teacher LIONEL BONAVENTURE/AFP via Getty Images
+
+Eight in ten American parents want artificial intelligence either eliminated from their children's classrooms or allowed far less than it currently is -- a level of pushback that cuts across party lines and arrives just as AI companies are racing to deepen their foothold in K-12 schools.
+
+That's the central finding of a new report from the Institute for Family Studies, which surveyed 2,000 parents of school-age children through YouGov in July 2026. Fifty-six percent said they want AI fully blocked in schools; another 26 percent said schools should allow less AI than is currently permitted. Together, 82 percent of parents are pushing back on the direction classroom technology has taken -- a number that holds whether the parent is a Republican (75 percent support pausing AI) or a Democrat (72 percent).
+
+The timing is pointed. The report lands just eight days after Anthropic -- maker of the Claude for Teachers platform -- signed a legally binding safety and privacy agreement with the American Federation of Teachers and the United Federation of Teachers on November 10. That agreement bars Anthropic from using student or educator data to train or improve its AI models, requires schools to control how long data is retained, and gives districts legal remedies if the company violates those terms. It is the most concrete set of contractual protections any AI company has yet offered K-12 schools -- and it arrived before most parents had been asked what they wanted.
+
+The IFS report, titled "Artificial Intelligence and the Future of K-12 Education: What Do Parents Want?" and authored by Jared Hayden, Ken Burchfiel, and Michael Toscano, describes an environment in which school AI policy is effectively being made without families. Roughly 45 percent of American students attend schools where AI is neither explicitly allowed nor blocked -- a gray zone in which tools may already be in use, but where parents have had little formal say.
+
+Parents' concerns run deep and are specific. Seventy-seven percent of those surveyed said they believe AI will undermine learning. Seventy-nine percent said it will enable malicious behavior by students -- a category that includes cheating, harassment, and the creation of synthetic media. Seventy-three percent said it will expose children to serious risks. These are not marginal worries: on each measure, roughly three out of four parents in a nationally representative sample reached the same conclusion.
+
+There is real nuance in the data, though, and it complicates any simple reading of parents as anti-technology. The same respondents who want AI out of elementary and middle school classrooms are not uniformly hostile to the technology in every context: 51 percent said AI will help prepare children for the workforce, and 46 percent agreed it can personalize learning. More than two in three parents want AI introduced in high school or later -- or not at all -- suggesting the central question for many families is not whether but when and under what conditions. A separate September 2026 survey by the National Parents Union, drawing on 1,528 respondents, found that 77 percent of parents want public schools teaching children how to use AI tools effectively, and 85 percent support teaching AI safety in the curriculum. The two surveys are not in conflict: parents want their children to be AI-literate and they want guardrails established before that happens, in that order.
+
+That sequence -- guardrails first, broad deployment second -- is precisely what teachers' unions have been pressing AI companies to commit to. The Anthropic agreement with the AFT and UFT is the most concrete signal yet that at least one major AI developer has heard the message. The pact was drafted with the involvement of the National Academy for AI Instruction, a New York City-based teacher-training organization whose founding partners include the AFT, the UFT, Anthropic, Microsoft, and OpenAI, and it automatically extends to new school districts that sign agreements with Anthropic going forward.
+
+Whether the agreement reaches far enough is a separate and open question. Josh Golin, executive director of the online safety nonprofit Fairplay, noted in coverage of a similar agreement Microsoft signed in September that such protections carry weight only if the full range of AI vendors agrees to them. Google, which holds the largest footprint in K-12 education technology through its Chromebook and Google Workspace platforms, has not signed on to the standard. According to Education Week, Google has moved in the opposite direction this fall, demanding that schools accept student AI use as a condition of continued access to Google Search and document tools -- a pressure campaign that illustrates exactly the dynamic the IFS report documents: schools caught between vendor push and parent pull, without the policy infrastructure to mediate between them.
+
+For parents who want to know whether AI tools are active in their child's classroom -- and under what rules -- the most direct step is contacting the school's principal or technology coordinator and asking for a copy of the district's current AI use policy. If no formal policy exists, that answer is itself informative: it places the school among the roughly 45 percent of districts the IFS survey found operating in the gray zone. Parents who want to push for change can do so through school board meetings, parent-teacher organizations, or by contacting the district's superintendent in writing, citing specific privacy or academic-integrity concerns.
+
+New York City Public Schools moved to address the issue at scale this fall, announcing a ban on AI and limits on daily screen time in grades K-8 across the district for the 2026-2027 school year -- a policy shaped in part by direct family and educator input, and the most sweeping restriction any large American district has enacted. Los Angeles has enacted similar limitations. Whether other large districts follow will depend in part on whether the parental consensus the IFS survey documents translates into the kind of organized, sustained pressure that made phone bans a mainstream policy conversation only a few years ago.
+
+The IFS is a Charlottesville-based nonprofit whose stated mission centers on strengthening marriage and family life, and its research often reflects a traditional-values orientation -- context worth noting when evaluating the report's framing. But the survey's core finding, bipartisan resistance at the 82 percent level, is consistent with the broader direction of parent sentiment documented by researchers across the ideological spectrum. The gap between where parental consent stands and where technology deployment stands is real, and new industry safety agreements -- however meaningful as accountability mechanisms -- close it only partially. For parents who have never been told what AI tools are running in their children's schools, the more immediate need is information: what's in use, by whom, and under what policy terms.
+
+**Tags** Education Technology
+
+(C) 2026 ParentHerald.com All rights reserved. Do not reproduce without permission.
+
+Join the Discussion
+
+## Subscribe
+
+Submit
+
+## Follow Us
+
+ParentingMomsDadsChildrenIssuesArchives
+
+  * About Us
+  * Contact Us
+
+© 2026 Parent Herald.com. All rights reserved.   
+Terms of Service | Privacy Policy

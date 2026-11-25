@@ -1,0 +1,169 @@
+[
+ {
+  "id": "t00",
+  "sec": "H",
+  "text": "The A.I. race will be decided by twenty twenty-seven.\nThat's a new forecast. Next year.\nAnd the prize isn't a medal. It's a machine that out-thinks every one of us.\nYou will live with the winner. In your phone. In your bank. In your hospital.\nSo who wins? America, or China?\nLook at the scoreboard. America has the best chips and most of the computing power. And still, it's not a blowout. Score it round by round, and it's a tie. Dead even.\nA tie gets settled at the finish line.",
+  "chars": 480,
+  "say": "[calm, conversational] The A.I. race will be decided by twenty twenty-seven.\nThat's a new forecast. Next year.\nAnd the prize isn't a medal. It's a machine that out-thinks every one of us.\nYou will live with the winner. In your phone. In your bank. In your hospital.\n[curious] So who wins? America, or China?\nLook at the scoreboard. America has the best chips and most of the computing power. And still, it's not a blowout. Score it round by round, and it's a tie. Dead even.\nA tie gets settled at the finish line."
+ },
+ {
+  "id": "t01",
+  "sec": "H",
+  "text": "And this scoreboard has another lane. No flag. No country. And it could beat them both.",
+  "chars": 87,
+  "pause": true
+ },
+ {
+  "id": "t02",
+  "sec": "1",
+  "text": "So who says twenty twenty-seven?\nThe authors of the best-known forecast in this field. They don't sell A.I. They're a nonprofit research group.\nTheir forecast is about one moment. The moment A.I. starts doing A.I. research by itself. This November, they moved that moment. To twenty twenty-seven.\nThat's their forecast. Calling it the moment the race is decided is this film's reading. In the race story, whoever leads at that moment keeps a lead that stops melting and starts feeding itself.",
+  "chars": 492,
+  "say": "So who says twenty twenty-seven?\nThe authors of the best-known forecast in this field. They don't sell A.I. They're a nonprofit research group.\nTheir forecast is about one moment. The moment A.I. starts doing A.I. research by itself. This November, they moved that moment. To twenty twenty-seven.\n[thoughtful] That's their forecast. Calling it the moment the race is decided is this film's reading. In the race story, whoever leads at that moment keeps a lead that stops melting and starts feeding itself."
+ },
+ {
+  "id": "t03",
+  "sec": "1",
+  "text": "Is it certain? No. They've moved this date before, and many other forecasts say the twenty thirties. It also assumes that the labs don't slow down on purpose.\nBut some of the people closest to the finish line now say: next year.",
+  "chars": 228
+ },
+ {
+  "id": "t04",
+  "sec": "R1",
+  "text": "So who's in front? Start with the machines themselves.\nRight now, America leads. But not by a generation. What America's best machine could do in May, China's best can do by November. And several of those Chinese models are free to download.\nThis man used to run Google.",
+  "chars": 270
+ },
+ {
+  "id": "C1",
+  "sec": "R1",
+  "clip": true,
+  "dur": 10.17,
+  "file": "C1.mp4"
+ },
+ {
+  "id": "t05",
+  "sec": "R1",
+  "text": "Other trackers say much the same. According to U.S. government testers, America's lead is widest where A.I. has to work through long tasks by itself. The Chinese lab's own numbers show a smaller gap. And on common coding tests, the two sides are close.\nPoint: America.\nBut a model can be copied. The chips it runs on are another story.",
+  "chars": 335
+ },
+ {
+  "id": "t06",
+  "sec": "R2",
+  "text": "A.I. runs on chips. And here, it isn't close.\nTake all the A.I. computing power delivered around the world in the last few years. About seven tenths of it went to America. China got a small slice. And Europe, by one count, got even less. Europe has a lane on this board. But no runner in it.\nChina's own chip champion ships only a few percent of the computing power that America's leading chipmaker does.",
+  "chars": 404
+ },
+ {
+  "id": "t07",
+  "sec": "R2",
+  "text": "And America bans sales of its very best chips to China. An older generation, it now allows, case by case. And this fall, by one report, about six hundred thousand of those sat in Hong Kong. Not held up by Washington. Held up by Beijing.\nPoint: America. Two–nothing.",
+  "chars": 265,
+  "say": "And America bans sales of its very best chips to China. An older generation, it now allows, case by case. And this fall, by one report, about six hundred thousand of those sat in Hong Kong. Not held up by Washington. Held up by Beijing.\nPoint: America. Two-nothing."
+ },
+ {
+  "id": "t08",
+  "sec": "R3",
+  "text": "So how does this end in a tie?\nBecause a chip can be banned. Electricity can't.\nEvery one of those chips needs power. And in America, towns are fighting over new data centers, and over rising power bills.\nIn China, they mostly just get built.\nChina already generates more than twice as much electricity as America. And one forecast has it adding about six times as much new power capacity as America over the coming years.",
+  "chars": 422
+ },
+ {
+  "id": "t09",
+  "sec": "R3",
+  "text": "By the same forecasters, data centers will drive more than a third of America's growing demand for power. In China, a sliver.\nPoint: China.\nBut power is only muscle. The last round asks where A.I. goes next: into the hands of builders, and into the physical world.",
+  "chars": 264
+ },
+ {
+  "id": "t10",
+  "sec": "R4",
+  "text": "One thing first, to be fair. Count the visits to American and Chinese A.I. websites, and more than nine in ten go to the American ones.\nBut this round isn't about visits. It's about what the world builds on. China gives many of its models away for free. And builders take them. By one count, Chinese open models were downloaded more often over a recent year than American ones. And in one recent week, on a big platform for developers, more than half of all requests went to Chinese models.",
+  "chars": 490
+ },
+ {
+  "id": "t11",
+  "sec": "R4",
+  "text": "And China is putting A.I. into bodies. This August in Beijing, humanoid robots ran a hundred meters faster than Usain Bolt's world-record time.\nIt's not an official record. And by one report, one of them left the track on a stretcher. But they ran.\nFree models and robots. Point: China.\nSo the board is level. America is ahead today. China is catching up where it may count tomorrow. And the third lane is still dark.",
+  "chars": 417,
+  "pause": true,
+  "say": "And China is putting A.I. into bodies. This August in Beijing, humanoid robots ran a hundred meters faster than Usain Bolt's world-record time.\n[wry] It's not an official record. And by one report, one of them left the track on a stretcher. But they ran.\nFree models and robots. Point: China.\nSo the board is level. America is ahead today. China is catching up where it may count tomorrow. And the third lane is still dark."
+ },
+ {
+  "id": "t12",
+  "sec": "M",
+  "text": "However this tie breaks, it lands on all of us, not just on two countries. This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.",
+  "chars": 207,
+  "say": "[calm, conversational] However this tie breaks, it lands on all of us, not just on two countries. This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.",
+  "cta": true
+ },
+ {
+  "id": "t13",
+  "sec": "5",
+  "text": "So the finish line decides it. And one new report says a runner may already be close.\nThis November, an independent evaluator reported back from inside one leading lab. Its estimate: progress there now runs about twice as fast as before. And about four fifths of that speed-up comes from the lab using its own A.I.\nIt's one lab, with most of the key evidence blacked out. But this is the report that moved the forecast.",
+  "chars": 419
+ },
+ {
+  "id": "t14",
+  "sec": "5",
+  "text": "So the runners' logic is simple. Cross that line first, and your lead grows by itself, in the economy and in the military. One famous essay made it a rule: the free world must prevail.\nIts author wrote that in twenty twenty-four. Today he runs an A.I. investment fund.\nAnd the argument has weight. Whoever leads gets to write the rules.\nBut this finish line has a catch. Whoever crosses it first is holding a machine that is smarter than they are.",
+  "chars": 447,
+  "pause": true,
+  "say": "So the runners' logic is simple. Cross that line first, and your lead grows by itself, in the economy and in the military. One famous essay made it a rule: the free world must prevail.\nIts author wrote that in twenty twenty-four. Today he runs an A.I. investment fund.\nAnd the argument has weight. Whoever leads gets to write the rules.\n[thoughtful] But this finish line has a catch. Whoever crosses it first is holding a machine that is smarter than they are."
+ },
+ {
+  "id": "t15",
+  "sec": "5",
+  "text": "The third lane just lit up. The third runner is the A.I. itself.\nAnd the race makes that runner faster. If your lead is half a year, every safety check feels like time you don't have. This November, the United Nations' technology envoy warned of exactly that: a race where corners get cut.\nOne of the forecast's own authors describes the trap.",
+  "chars": 343
+ },
+ {
+  "id": "C4",
+  "sec": "5",
+  "clip": true,
+  "dur": 18.4,
+  "file": "C4.mp4"
+ },
+ {
+  "id": "t16",
+  "sec": "6",
+  "text": "So is there a way out of that trap?\nOne of the runners has asked for one. In September, the head of a leading American A.I. lab wrote that the labs should slow down on purpose. And try for a speed limit, together with China. He admits it may not work. And by several reports, neither capital welcomed the idea.\nThe counter-argument is fair. Stop running, and your rival writes the rules.",
+  "chars": 387,
+  "pause": true
+ },
+ {
+  "id": "t17",
+  "sec": "6",
+  "text": "But is the rival even running the same race? Researchers who study China say it's in a different event. Less one giant super-mind. More roads at once, like those robots.",
+  "chars": 169
+ },
+ {
+  "id": "C5",
+  "sec": "6",
+  "clip": true,
+  "dur": 7.13,
+  "file": "C5.mp4"
+ },
+ {
+  "id": "t18",
+  "sec": "6",
+  "text": "And the two rivals have started to talk. In September, their governments agreed to set up a channel for A.I. incidents. In November, their presidents met in Shenzhen. They signed no A.I. treaty, and not much else was agreed. But according to Washington, they did agree on one line. Humans stay involved when military A.I. makes decisions. Two rivals who agree on very little, agreeing that a human stays in the loop.",
+  "chars": 416
+ },
+ {
+  "id": "t19",
+  "sec": "9",
+  "text": "So who wins the A.I. race?\nToday, America is ahead. But if either country gets there first with a machine it can't control, that's not a win. And if the third runner gets there first, everybody loses.\nThe roads to a real win are still open. Agreements, like that channel. Deterrence, where each side can stop the other from sprinting. Or a lead that comes with rules and a speed limit. Serious people disagree about which one holds. None is decided.",
+  "chars": 449,
+  "say": "[thoughtful] So who wins the A.I. race?\nToday, America is ahead. But if either country gets there first with a machine it can't control, that's not a win. And if the third runner gets there first, everybody loses.\nThe roads to a real win are still open. Agreements, like that channel. Deterrence, where each side can stop the other from sprinting. Or a lead that comes with rules and a speed limit. Serious people disagree about which one holds. None is decided."
+ },
+ {
+  "id": "t20",
+  "sec": "9",
+  "text": "The decision sits with a handful of labs, two governments, and the people they answer to. That includes you. So far, they have one agreed channel and one sentence. A start. Not a finish.\nAnd if those forecasters are right, we'll know before twenty twenty-seven is over.\nIn this race, there's only one way to win. Everyone crosses the line together. Or the third runner crosses it alone.",
+  "chars": 386
+ },
+ {
+  "id": "t21",
+  "sec": "A2",
+  "text": "That's what this channel is for: making sure superintelligence goes well for everybody, not just for whoever runs fastest. Want that too? Then subscribe.",
+  "chars": 153,
+  "say": "[calm, conversational] That's what this channel is for: making sure superintelligence goes well for everybody, not just for whoever runs fastest. Want that too? Then subscribe.",
+  "cta": true
+ }
+]

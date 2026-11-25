@@ -1,0 +1,66 @@
+URL: https://aldodepape.substack.com/p/a-reflection-on-what-should-my-children
+HTTP: 200
+
+# Aldo de Pape
+
+SubscribeSign in
+
+# A Reflection on ‘What Should my Children Do’ by Daniel Susskind
+
+### A short review by Fern Wallis of The Bright Star Bazaar 
+
+Aldo de Pape
+
+Sep 15, 2026
+
+2
+
+Share
+
+ _“The question should never have been ‘should we let our children grow up alongside technology?’ They almost certainly will. The question is whether, alongside teaching children how to use technology, we also teach them when not to use it”_
+
+Daniel Susskind, a research professor at King’s College London and senior research associate at the Institute for Ethics in AI at Oxford University, has recently published a book about AI and its uses within childhood learning and development. The book, _What Should My Children Do?_ has caused much discussion across platforms, including from The Guardian and The Times, as it aims to address some of the concerns and questions about where AI is going and how to use it towards its full potential for the present and future generations.
+
+It remains one of the more optimistic views of AI usage. Comparing AI to the invention of the calculator, it explains how instead of dismissing it, we should be expanding our way of working to move forward with AI integration. AI is coming whether we like it or not, Susskind argues, and it is our responsibility to adapt and give children the tools they need to use AI intelligently. He also raises an argument that it is almost impossible to future-proof jobs and skills in the modern age, and so giving children as many skills as possible is the key to an adaptable workforce. Susskind is now focussing much of his attention towards the future of more powerful, capable AI, such as Artificial General Intelligence (AGI) that could surpass human abilities and intellect. With this kind of technology at the heart of debates, it is no wonder that the likes of Susskind are talking about the ways forward for future generations.
+
+I do have to agree with him on most of his stance. It is true that, at this point in time, AI appears to be a moving train with no evidence of slowing or stopping anytime soon. It will continue to advance and evolve, and it is all of our responsibilities to ensure that its place within the world is a safe and useful one. The current education system as it is will not be fit for purpose in an AI, technological driven world and urgent reform is needed. AI is not the devil and its use within active learning environments have shown promising hopes for the future of a more personalised, streamlined education system. Looking even further ahead, many jobs within the job market are facing changes or even possible extinction. With such rapid changes, it can seem counter-intuitive to future-proof children or their education. By the time children today become working adults, the jobs they have been preparing for may well not exist.
+
+However, whilst I do agree with Susskind in terms of his direction, I am not convinced of his overall destination.
+
+Just because we embrace technology, it does not mean that we have to embrace every angle of it. There is a careful line to be drawn between using AI and then using AI to replace human critical thinking. Whilst I appreciate Susskind’s optimistic view of AI, I do feel it lacks a few key considerations.
+
+A lot of ethical issues surround the use of AI. All educational data would have to be stored on databases, with risks of data breaches, hacks or misuse of data being key concerns. However, much more nuanced arguments surface when it comes to AI use as an educational tool. As AI progresses, algorithms can learn and adapt to children’s needs, but they can also integrate biases which could be detrimental to learning. AI companies may have ulterior commercial interests that may not be best placed in the classroom, and how much of our child’s education are we happy to pass over to large corporations and tech giants?
+
+There are also the environmental concerns of AI. Despite many thinking of AI as an abstract concept, it has physical infrastructure that uses vast amounts of land, water and resources. Each prompt you make on assistants like Gemini or ChapGPT requires data centres, cooling systems, computer chips, as well as the resources to manufacture these in the first place. The means to develop and grow AI is far larger than most people realise, and is easily forgotten when staring at a computer screen asking it to rewrite our emails or for easy midweek dinner ideas. However, in the bid to solve one issue, we need to limit its damage and not create even more problems.
+
+AI is supposedly more efficient than standard learning, but efficiency doesn’t equal progress. Sometimes, a child making mistakes, finding something difficult and then working through it is the learning in and of itself. Not every hurdle that we face is something that needs to be overcome using technology.
+
+I agree that we should not be obsessed with future-proofing children, but I also believe that we should not be entirely AI-proofing them either. Whilst ensuring that children are digitally literate, what is far more important and long-lasting is that they have the agency, independence and autonomy to be able to know and understand when it is best to use AI and when it is better to put the phone down instead. Just like we know to use a calculator for vast equations and not to add 2 and 2 together, the same needs to be done and taught with AI and further technology.
+
+The question should never have been ‘should we let our children grow up alongside technology?’ They almost certainly will. The question is whether, alongside teaching children how to use technology, we also teach them when not to use it.
+
+_Fern works with the team at The Bright Star Bazaar to help parents make confident digital decisions for their children. Follow our journey on https://brightstarbazaar.com_
+
+ _Our prize draw to receive a copy of our first book ‘The Magical Manacles’ ends tomorrow (Sep. 16th) - until then you sign up here to join! _
+
+2
+
+Share
+
+#### Discussion about this post
+
+CommentsRestacks
+
+TopLatestDiscussions
+
+### Ready for more?
+
+Subscribe
+
+© 2026 Aldo de Pape · Privacy ∙ Terms ∙ Collection notice
+
+Start your SubstackGet the app
+
+Substack is the home for writing, podcasting, and media founders.
+
+This site requires JavaScript to run correctly. Please turn on JavaScript or unblock scripts

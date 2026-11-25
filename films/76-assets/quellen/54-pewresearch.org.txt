@@ -1,0 +1,429 @@
+URL: https://www.pewresearch.org/internet/2026/02/24/what-parents-say-about-their-teens-ai-use/
+HTTP: 200
+
+Numbers, Facts and Trends Shaping Your World
+
+  * Newsletters
+  * Press
+  * My Account
+  * Donate
+  * Contacted By Us?
+
+Read our research on:
+
+  * Artificial Intelligence
+  * Donald Trump
+  * Middle East
+
+Search
+
+  * Research Topics  _ _
+
+_ _
+
+##### Topics
+
+Politics & Policy
+
+International Affairs
+
+Immigration & Migration
+
+Race & Ethnicity
+
+Religion
+
+Age & Generations
+
+Gender & LGBTQ
+
+Family & Relationships
+
+Economy & Work
+
+Science
+
+Internet & Technology
+
+News Habits & Media
+
+Methodological Research
+
+Full Topic List
+
+##### Regions & Countries
+
+Asia & the Pacific
+
+Europe & Russia
+
+Latin America
+
+Middle East & North Africa
+
+North America
+
+Sub-Saharan Africa
+
+Multiple Regions / Worldwide
+
+##### Formats
+
+Feature
+
+Fact Sheet
+
+Video
+
+Data Essay
+
+  * Publications
+  * Our Methods
+  * Short Reads
+  * Tools & Datasets
+  * Experts
+  * About Us
+
+  * _ _
+
+_ _
+
+    * Research Topics
+    * Publications
+    * Short Reads
+    * Tools & Datasets
+    * About Pew Research Center
+    * Newsletters
+    * Press
+    * My Account
+    * Contacted By Us?
+
+  * _ _
+
+_ _
+
+Search
+
+Read Our Research On:
+
+    * Artificial Intelligence
+    * Donald Trump
+    * Middle East
+
+Home
+
+>
+
+Research Topics
+
+>
+
+Internet & Technology
+
+>
+
+User Demographics
+
+>
+
+Age, Generations & Tech
+
+>
+
+Teens & Tech
+
+  * Report
+
+|
+
+February 24, 2026
+
+#### How Teens Use and View AI
+
+# What parents say about their teen’s AI use
+
+_ _
+  * X
+  * Facebook
+  * Threads
+  * LinkedIn
+  * WhatsApp
+
+  * Mail
+
+Add Us On Google
+
+By Colleen McClain, Monica Anderson, Olivia Sidoti and William Bishop
+
+Table of Contents
+
+  1.      *   2. How Teens Use and View AI
+     *   3. Demographic differences in how teens use and view AI
+     *   4. What parents say about their teen’s AI use
+     *   5. Appendix: Detailed table
+     *   6. Acknowledgments
+     *   7. Methodology
+     * 
+
+About this research
+
+This study is Pew Research Center’s latest effort to explore the landscape of teens and technology today. It focuses on artificial intelligence – from how teens use chatbots to how they think about AI’s future impact. The study also dives deeply into how teens use AI chatbots for schoolwork and explores teens’ confidence in and awareness of AI. And it unpacks their parents’ views, too.
+
+#### Why did we do this?
+
+The Center conducts research to inform the public, journalists and decision-makers. Tracking the rise of AI in society and understanding the experiences of teens and their parents today have been key priorities for us over the years. This study brings those two things together.
+
+Teens are often at the forefront of new technology, and AI is no different: Our December report showed that a majority of teens use AI chatbots. It’s important to understand how AI’s rise plays out in teens’ daily lives, at home and in school – as well as how their parents feel about these issues.
+
+Learn more about Pew Research Center.
+
+#### **How did we do this**?
+
+We surveyed 1,458 U.S. teens and their parents online from Sept. 25 to Oct. 9, 2025. Our data collection partner Ipsos recruited the teens via their parents, who were part of its KnowledgePanel.
+
+Findings about **teens’** views and experiences represent the views of all U.S. teens ages 13 to 17 who live with their parents.
+
+Findings about **parents’** views and experiences represent the views of all U.S. parents of teens ages 13 to 17.
+
+For both teens and parents, the overall margin of error is plus or minus 3.3 percentage points.
+
+This research was reviewed and approved by an external institutional review board (IRB), Advarra. An IRB is an independent committee of experts that helps to protect the rights of research participants.
+
+Here are the questions used for this report, along with responses, and the survey methodology.
+
+For years, parents have been raising teenagers in an era of smartphones and social media. Now, artificial intelligence (AI) chatbots introduce a new layer to modern parenting.
+
+With a majority of teens now using these tools, Pew Research Center asked 1,458 U.S. parents of 13- to 17-year-olds the following questions:
+
+  * **As far as you know, does your teen ever use AI chatbots?**
+  * **Do you ever talk with your teen about using them?**
+  * **Would you be OK with your teen using chatbots for certain things?**
+
+These questions are part of a larger study on teens and AI. For teens’ own experiences and views, check out the main report.
+
+### Parents’ perceptions of their teens’ chatbot use
+
+While it can be hard for parents to keep up with the latest tech trends, they’re already quite familiar with chatbots. In fact, more than nine-in-ten say they’ve heard of these tools, according to the fall 2025 survey.
+
+When asked about their own teen, 51% of parents say their teen uses chatbots, while 18% say they do not. Still, about three-in-ten parents are not sure if their teen uses these tools.
+
+**There is also a gap between parents’ perceptions and what teens are actually doing.** When we asked teens themselves, 64% of U.S. teens reported using chatbots. This is 13 percentage points higher than what their parents say.
+
+### Talking about chatbots with teens
+
+As new technology emerges, parents may have to consider how to discuss these tools with their teens. 
+
+In our survey, **just over half of parents say they ever talk to their teen about chatbots.** But some parents – roughly four-in-ten – say they have not had these discussions.
+
+### Parents weigh in on acceptable uses of chatbots
+
+Teens turn to chatbots for everything from entertainment to schoolwork. But what uses do parents find appropriate? And where do they draw the line?
+
+**Searching for information** tops the list of acceptable uses we asked about. About eight-in-ten parents say they would be OK with their teen using chatbots for this purpose.
+
+Smaller shares – though still roughly two-thirds – are comfortable with their teen using chatbots for **fun or entertainment,** to **create or edit** images or videos, or to **summarize** articles, books or videos.
+
+Roughly six-in-ten parents would be OK with their teen using these tools to **help with schoolwork.** And half say the same about **getting news.**
+
+But parents are less accepting of their child using chatbots for more personal uses. Fewer than a third are OK with their teen **having casual conversations** with a chatbot.
+
+Even fewer (18%) say they’d be comfortable with their teen **getting emotional support or advice** from a chatbot. In fact, this is the only use we asked about that a majority of parents are not OK with.
+
+Still, some don’t know where they stand. The shares saying “not sure” range from 11% to 23% across these uses.
+
+### How parents’ views differ by household income, race and ethnicity
+
+In some cases, parents’ comfort levels with their teen using chatbots differ by household income. For example:
+
+**Searching for information:** 83% of parents in households earning $75,000 or more a year say they would be comfortable with their teen using chatbots to do this. This drops to about seven-in-ten among parents with annual incomes less than $75,000.
+
+**For fun, entertainment:** Parents in upper-income households are also more open to their teen using chatbots for fun or entertainment than those with lower or middle incomes.
+
+But the pattern is reversed for**getting emotional support or advice.** Three-in-ten parents in lower-income households say they’d be comfortable with their teen doing this. Fewer parents in middle- and upper-income households say the same.
+
+At the same time, **a larger share of parents in higher-income households report that their teen uses chatbots.** They’re also more likely than those in households earning less than $30,000 to say they have talked to their teen about chatbots (56% vs. 43%).
+
+**Beyond income, there are some differences by race and ethnicity.** For example, 65% of Black parents would be OK with their teen getting news through chatbots, compared with about half of Hispanic or White parents.2
+
+**Black parents are also more comfortable with their teen using chatbots for emotional support or advice** or for summarizing materials than Hispanic or White parents. To read more about how parents’ experiences and views differ across demographic groups, refer to the appendix.
+
+Next: Appendix: Detailed table 
+
+← Prev Page
+
+123456
+
+Next Page →
+
+  2. There were not enough Asian parents in the sample to be broken out into a separate analysis. As always, their responses are incorporated into the general population figures throughout the report.↩
+
+  * _ _Report PDF
+  *  _ _Topline
+
+### Sign up for our weekly newsletter
+
+Fresh data delivered Saturday mornings
+
+Go back to previous question Reset
+
+Thank you for subscribing!
+
+Processing…
+
+Topics
+
+  * Artificial Intelligence
+  * Education & Learning Online
+  * Teens & Tech
+  * Teens & Youth
+
+Share This Link:
+
+_ _
+  * X
+  * Facebook
+  * Threads
+  * LinkedIn
+  * WhatsApp
+
+### Related
+
+short readsJul 29, 2026
+
+## More Americans now support than oppose all-day school cellphone bans
+
+short readsJul 1, 2026
+
+## Majority of Americans support banning social media for kids under 16
+
+reportApr 15, 2026
+
+## Teens’ Experiences on TikTok, Instagram and Snapchat
+
+reportDec 9, 2025
+
+## Teens, Social Media and AI Chatbots 2025
+
+reportApr 22, 2025
+
+## Teens, Social Media and Mental Health
+
+### Most Popular
+
+1
+
+Quiz: What Is Your Civic Personality?
+
+2
+
+Americans' Use of Social Media in 2026
+
+3
+
+Where Americans Get News Relates to How They Engage in Public Life
+
+4
+
+What We Know – and Don’t Know – About Flock’s License Plate Cameras
+
+5
+
+Key Facts About U.S. Data Centers
+
+## Report Materials
+
+  *  _ _Report PDF
+  *  _ _Topline
+
+## Table of Contents
+
+  1.      *   2. How Teens Use and View AI
+     *   3. Demographic differences in how teens use and view AI
+     *   4. What parents say about their teen’s AI use
+     *   5. Appendix: Detailed table
+     *   6. Acknowledgments
+     *   7. Methodology
+     * 
+
+901 E St. NW, Suite 300  
+Washington, DC 20004  
+USA  
+(+1) 202-419-4300
+
+## Research Topics
+
+Politics & Policy
+
+International Affairs
+
+Immigration & Migration
+
+Race & Ethnicity
+
+Religion
+
+Age & Generations
+
+Gender & LGBTQ
+
+Family & Relationships
+
+Economy & Work
+
+Science
+
+Internet & Technology
+
+News Habits & Media
+
+Methodological Research
+
+## Follow Us
+
+  * Email Newsletters
+  * YouTube
+  * Instagram
+  * Facebook
+  * LinkedIn
+  * X
+  * Bluesky
+  * Threads
+  * RSS Feed
+
+**ABOUT PEW RESEARCH CENTER**  Pew Research Center is a nonpartisan, nonadvocacy fact tank that informs the public about the issues, attitudes and trends shaping the world. It does not take policy positions. The Center conducts public opinion polling, demographic research, computational social science research and other data-driven research. Pew Research Center is a subsidiary of The Pew Charitable Trusts, its primary funder.
+
+© 2026 Pew Research Center
+
+  * About
+  * Terms & Conditions
+  * Privacy Policy
+  * Cookie Policy
+  * Feedback
+  * Careers
+  * Contact Us
+
+_ __ _
+
+### Privacy Notice
+
+We use cookies and other technologies to help improve your experience; some are necessary for the site to work, and some are optional. Learn more in our privacy policy.
+
+Essential Cookies
+
+These cookies are required for the website to function and cannot be switched off.
+
+Analytics Cookies
+
+These cookies are used to collect information about how you use our website.
+
+Marketing Cookies
+
+These cookies are used to track your activity and show you personalized content.
+
+Meta (Facebook) PixelPinterest TagLinkedIn Insight TagReddit Pixel
+
+Preferences
+
+These cookies allow the website to remember choices you make.
+
+Accept All CookiesAccept only necessary cookiesCookie SettingsSave Preferences

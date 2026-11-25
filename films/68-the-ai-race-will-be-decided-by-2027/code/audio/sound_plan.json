@@ -1,0 +1,17 @@
+[
+ {"f": "hall", "at": "t00", "dt": -0.6, "end": "t01", "v": 0.25, "fade": 2.5},
+ {"f": "boom_soft", "word": "Dead even", "at_end": true, "dt": 0.08, "v": 0.4, "once": true, "fade": 0.5},
+ {"f": "chime", "word": "Point: America", "at_end": true, "dt": 0.05, "v": 0.38, "once": true, "fade": 0.6},
+ {"f": "stamp", "word": "Held up by Beijing", "at_end": true, "dt": 0.06, "v": 0.32, "once": true, "fade": 0.4},
+ {"f": "chime", "word": "Point: America", "nth": 1, "at_end": true, "dt": 0.05, "v": 0.38, "once": true, "fade": 0.5},
+ {"f": "chime", "word": "Point: China", "at_end": true, "dt": 0.05, "v": 0.38, "once": true, "fade": 0.6},
+ {"f": "robot", "from_word": "This August", "to_word": "But they ran", "dt": -0.3, "end_dt": 0.5, "v": 0.22, "fade": 1.2},
+ {"f": "chime", "word": "Point: China", "nth": 1, "at_end": true, "dt": 0.05, "v": 0.4, "once": true, "fade": 1.0},
+ {"f": "bloom", "word": "Then subscribe", "at_end": true, "dt": 0.1, "v": 0.32, "once": true, "fade": 1.0},
+ {"f": "paper_slide", "word": "moved the forecast", "at_end": true, "dt": 0.05, "v": 0.32, "once": true, "fade": 0.6},
+ {"f": "shimmer_rings", "word": "the third lane just lit up", "at_end": true, "dt": 0.05, "v": 0.45, "once": true, "fade": 0.8},
+ {"f": "powerdown", "word": "everybody loses", "at_end": true, "dt": 0.05, "v": 0.35, "once": true, "fade": 0.5},
+ {"f": "chime", "word": "stays in the loop", "at_end": true, "dt": 0.1, "v": 0.3, "once": true, "fade": 1.0},
+ {"f": "nightsky", "at": "LA2", "dt": -0.8, "end": "END", "v": 0.3, "fade": 3.0},
+ {"f": "bloom", "word": "Then subscribe", "nth": 1, "at_end": true, "dt": 0.15, "v": 0.3, "once": true, "fade": 2.0}
+]

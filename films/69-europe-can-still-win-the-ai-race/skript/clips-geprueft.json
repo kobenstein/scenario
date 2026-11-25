@@ -1,0 +1,81 @@
+{
+ "stand": "2026-11-24, am iMac geschnitten, Wortlaut zweimal per Whisper geprüft (Quelle + fertiger Clip). In/Out = Zeit in der Quelle. Dateien: clips/Cn.mp4 (1920x1080, 30 fps, AAC 48 kHz).",
+ "clips": [
+  {
+   "id": "C1",
+   "file": "C1.mp4",
+   "speaker": "Mario Draghi",
+   "lower_third": "MARIO DRAGHI · Former President, European Central Bank · 2025 · ORIGINAL FOOTAGE",
+   "url": "https://www.youtube.com/watch?v=WLpNjgs4TFQ",
+   "channel": "European Commission",
+   "date": "2025-09-16",
+   "in": "0:31:57.84",
+   "out": "0:32:06.28",
+   "duration_s": 8.47,
+   "transcript": "One year on, Europe is therefore in a harder place. Our growth model is fading.",
+   "notes": "Content-ID-Risiko hoch",
+   "einordnung": "The plan to connect them isn't new. Mario Draghi, the man who once saved the euro, wrote it down. A year later, he gave his own verdict:"
+  },
+  {
+   "id": "C2",
+   "file": "C2.mp4",
+   "speaker": "Arthur Mensch",
+   "lower_third": "ARTHUR MENSCH · CEO, Mistral AI · 2026 · ORIGINAL FOOTAGE",
+   "url": "https://www.youtube.com/watch?v=wBuvZpf-Ato",
+   "channel": "Lisa Burke (EIB Group Forum 2026)",
+   "date": "2026-04-20",
+   "in": "0:04:52.16",
+   "out": "0:05:01.55",
+   "duration_s": 9.39,
+   "transcript": "And if you can't afford the business continuity, well, you're going to depend on, basically you're becoming a client state to the one that is providing you with the technology.",
+   "notes": "zweite Satzhälfte; nur 0,18 s Luft am Ende; Regie schneidet bei ~8 s auf Totale",
+   "einordnung": "Arthur Mensch runs Mistral. He sells the European alternative, so he has a stake in this. Here's his warning:"
+  },
+  {
+   "id": "C3",
+   "file": "C3.mp4",
+   "speaker": "Ursula von der Leyen",
+   "lower_third": "URSULA VON DER LEYEN · President, European Commission · 2026 · ORIGINAL FOOTAGE · © European Union, 2026",
+   "url": "https://www.youtube.com/watch?v=pO4Mc8QrbzY",
+   "channel": "European Commission (CC BY, © European Union, 2026)",
+   "date": "2026-11-13",
+   "in": "0:03:12.98",
+   "out": "0:03:23.32",
+   "duration_s": 10.37,
+   "transcript": "All this, what I've just described, needs massive investment. At least 500 billion euros, according to our own estimates.",
+   "notes": "„What is missing now…“ erst 26 s später (C3b, nicht verwendet)",
+   "einordnung": "So far, that promise is a pilot worth about a hundred million euros. In November, she named the price of really catching up:"
+  },
+  {
+   "id": "C4",
+   "file": "C4.mp4",
+   "speaker": "Peter Koerte",
+   "lower_third": "PETER KOERTE · Chief Technology Officer, Siemens (title at the time of recording) · 2026 · ORIGINAL FOOTAGE",
+   "url": "https://www.youtube.com/watch?v=gtXkPgyxKvU",
+   "channel": "Siemens",
+   "date": "2026-07-18",
+   "in": "0:11:32.48",
+   "out": "0:11:47.65",
+   "duration_s": 15.17,
+   "transcript": "And that's the trick, because none of us can do it alone. Siemens can't. Yes, we do produce. We produce trains, substations and so on. But we don't have enough data. OHB doesn't have enough data, and also KION doesn't have enough data.",
+   "notes": "Quelle nur 720p, hochskaliert; C4c + C4 zusammen",
+   "einordnung": "That argument comes from Peter Koerte, a senior Siemens executive. Siemens sells this kind of AI, so he isn't neutral. But listen to his point:"
+  },
+  {
+   "id": "C1b",
+   "file": "C1b.mp4",
+   "speaker": "Mario Draghi",
+   "lower_third": "MARIO DRAGHI · Former President, European Central Bank · 2026 · ORIGINAL FOOTAGE",
+   "url": "https://www.youtube.com/watch?v=t1iMjvsr7T0",
+   "channel": "KU Leuven",
+   "date": "2026-02-02",
+   "in": "0:16:29.52",
+   "out": "0:16:41.64",
+   "duration_s": 12.12,
+   "transcript": "Of all those now caught between the United States and China, Europeans alone have the option to become a genuine power themselves.",
+   "notes": "Gebärdendolmetscherin unten rechts + KU-LEUVEN-Logo oben rechts: mittig croppen",
+   "einordnung": "Mario Draghi, who wrote the plan, now says:"
+  }
+ ],
+ "summe_s": 55.52
+}
