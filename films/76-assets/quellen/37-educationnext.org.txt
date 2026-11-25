@@ -1,0 +1,158 @@
+URL: https://www.educationnext.org/guiding-kids-to-adapt-to-a-future-with-ai-book-review-what-should-my-children-do-susskind/
+HTTP: 200
+
+Skip to content
+
+  * News
+  * Research
+  * Podcasts
+  * The Journal
+  * EdNext Blog
+  * Book Reviews
+
+__
+
+SUBSCRIBE
+
+  *   *   *   * 
+
+  * Book Reviews
+  * Technology
+
+# Guiding Kids to Adapt to a Future With AI
+
+The technology can be wielded as a companion, collaborator, or competitor. Students need help to discern the difference.
+
+Richard J. Murnane
+
+As an economist, I have many questions about how the rapid development of artificial intelligence will change the workplace and the next generation’s career and employment prospects. Daniel Susskind, a prominent British economist, addresses some of these questions in his broadly accessible book, _What Should My Children Do?_
+
+**Question 1: How will the impact of AI on labor markets differ from the effects of prior waves of technological changes?**
+
+Susskind argues that the main distinction will lie in AI’s prodigious capacity to enable machines to carry out a broad range of tasks. Driving this rapid change will be “artificial general intelligence,” or AGI, a ramped-up form of AI that the major labs are competing to pioneer. While most AI systems are built to do one job, such as recognizing faces or answering customers’ questions, AGI systems will have the power to learn, reason, and adapt to new situations—and thus be able to supplant humans in a wide range of occupations, including those now dominated by the college educated. This sea change could spell a broad and significant decline in employment opportunities—a theme that Susskind explored in his 2020 book, _A World Without Work_.
+
+Will Susskind’s dramatic predictions play out? The evidence so far is mixed. AI has already reduced demand for human workers in a significant number of occupations, including customer service, data entry, and bookkeeping. However, it has increased demand in other areas, such as engineering and data science, construction, and heating and cooling. Susskind agrees with many other economists that one cannot predict how future advances in AI will affect the demand for human workers in particular occupations. David Autor and James Manyoti aver that the answers will depend on the extent to which AI systems are designed to enhance the skills of human workers or to replace them. In an article in _The Atlantic_, they argue that the former application of AI—“leveraging human and rapidly-evolving machine capabilities”—will produce the best results in many types of work.
+
+**What Should My Children Do?: A Human 's Guide to the Age of AI**  
+By Daniel Susskind  
+ _Penguin Random House, 2026, $30; 240 pages_
+
+**Question 2: Which human skills will AI make more important and which less important?**
+
+Susskind warns against trying to predict the answer to this one. In his words, there are no “future-proof skills.” For that reason, he advises parents not to urge their children to prepare for particular careers they hope will remain in high demand and pay well even as AI advances. This is sensible advice. Advising children to follow their interests is likely to produce happier adults. Less compelling is Susskind’s argument that Daron Acemoglu, a winner of the Nobel Prize in Economics, is mistaken in arguing that advances in AI will make human “soft skills” more important. The development of AI-powered digital companions and other AI-based applications that convincingly mimic empathy has made impressive progress. However, Ben Weidmann and David Deming have demonstrated that soft skills, including the ability to communicate well and work effectively in teams, have continued to serve us well as AI has developed. In fact, these soft skills may well prove useful in debating the appropriate uses of AI.
+
+In an interesting extension of Susskind’s predictions about jobs and skills, he makes the provocative argument that advances in AI will increase opportunities in jobs that employers in most societies currently undervalue and pay poorly. In his words, “Ironically, many of these are jobs—from care work to teaching, nursing to the arts—that, today, we tend not to value as highly as others from an economic point of view. . . . But if AGI were achieved, there are good reasons to imagine that would change, for they involve something that we value—the involvement of a human being—which AI, however capable it may be, will never be able to do.”
+
+**Question 3: How should parents prepare children to thrive in a world in which AI is everywhere?**
+
+Susskind argues that children should develop traditional basic skills as well as skills needed to make constructive use of AI. Importantly, Susskind’s definition of basic skills includes not only literacy and numeracy, but also critical thinking. He points out that basic skills have declined in many countries, including the United States, which he sees as a major concern.
+
+Daniel Susskind
+
+Susskind provides two examples of how he used AI to enhance the skills of his children. In one case, his six-year-old daughter became bored with Susskind’s efforts to test her mastery of multiplication tables. He asked her to think of a computer game that would accomplish the same objective but be more interesting. The daughter responded with a creative idea: “There is a giant rainbow in the sky, Daddy, and each time I get an answer right a nugget of gold falls from the rainbow, on the back of a flying unicorn, into my hands.” Susskind asked ChatGPT to write the code for such a game and the software responded with appropriate code in 30 seconds.
+
+In the second case, Susskind’s four-year-old son asked him: “Daddy, where did the first human come from?” Susskind and his son asked ChatGPT to explain evolution and natural selection in the context of a short story. Within five seconds, the AI software responded with a story that began: “A very, very long time ago, there were no people––only animals that looked a bit like today’s monkeys. One day, a monkey-mom and monkey-dad had a baby who was almost the same as them, but tiny, tiny things about him were different––maybe he could walk a little straighter or make a new kind of sound.” A common element of these examples is that Susskind used AI to enhance his problem-solving skills.
+
+As to the skills needed for using AI constructively, Susskind argues that learning how to “prompt” an AI system sits high on the list: “[P]rompting is a more subtle interaction [than] simply making a one-off request of an AI. . . . [It is] a new and underappreciated skill—the art of preparing AI systems, priming them with the right preliminary questions and warming them up, building the right ‘scaffolding’ before they can answer the questions that we might really care about.” In Susskind’s view, students also need to learn how to judge the validity of the results that AI software generates. This includes the ability to spot AI presentations of “non-facts” as if they were true.
+
+**Improving Education**
+
+Susskind’s book offers limited responses to other important questions surrounding the use of AI in education, issuing calls to action but not explaining how to implement requisite changes. He sees two uses of AI as particularly valuable for improving education at all levels: AI-driven personal tutors and “simulated learning worlds.” The latter include computer-based games such as _Mission US_ , which invites students to play roles at particular junctures in U.S. history. In one scenario, students assume the role of a teenager on a farm at the start of the Great Depression, charged with acting to save the farm from foreclosure. A growing number of parents will likely search for schools that provide their children with the type of education Susskind advocates. But will they find them? Parents with significant financial resources probably will. But realization of Susskind’s vision of using AI constructively to improve education for all children would require massive changes in most U.S. schools.
+
+Research on how prior public policy reforms have affected schools illustrates how difficult it will be to make the changes Susskind advocates. He recommends not only that schools teach both basic skills and competence in using AI, but also that they test students’ mastery of both. However, as Daniel Koretz has explained, testing creates a demand for using the results to hold schools accountable. While this practice has led to performance improvements in some settings, Koretz pointed out in his book _The Testing Charade: Pretending to Make Schools Better_ , it has resulted in unexpected and dysfunctional responses in others. For example, holding schools accountable by means of testing has led some schools to focus attention disproportionately on students who are “on the bubble”—those who would likely earn a passing score on tests if they received extra help. It has also led some districts, including Atlanta, to change students’ answers in order to improve their scores.
+
+* * *
+
+# EdNext in your inbox
+
+Sign up for the EdNext Weekly newsletter, and stay up to date with the Daily Digest, delivered straight to your inbox.
+
+Email 
+
+Name 
+
+Opt in to another list
+
+EdNext Daily Digest
+
+Subscribe
+
+* * *
+
+Susskind’s recommendations for improving schooling by using AI-based tutors and simulated learning worlds to enhance student learning have potential. Of course, these are not the first technologies marketed as a way to improve education at all levels. As historian Larry Cuban has shown in his book _Teachers and Machines: The Classroom Use of Technology Since 1920_ , the promise of previous technologies, including radio and television, to enhance student learning was not fulfilled. Will the AI-driven tools Susskind advocates prove to be more effective? The results of a 2025 research study by Greg Kestin and co-authors supports the promise of AI-based personal tutors. However, another recent study finds that student use of AI in doing homework allowed them to complete assignments more quickly but resulted in a decline in their performance on tests of their skills. The explanation for the difference in findings may lie in the design of the relevant software. Well-designed AI-driven tutorials collaborate with students and push them to think more carefully. The AI systems students use for doing homework tend to substitute for their thinking and thereby reduce learning. Education leaders will need to make thoughtful decisions about which AI-based tools to purchase when so many competing vendors pitch their products as designed for collaboration and enhancing students’ mastery of the curriculum.
+
+**And one more critical question: Which public policies will promote the benefits of AI and minimize its threats?**
+
+Susskind holds complex views on this one. Near the end of the book, he writes: “The reality, however, is that no individual or institution acting alone can adequately respond to the magnitude of the changes that AGI is likely to bring about. It is inevitable that the state will have to act alongside them, stepping in to play a far larger role in shaping how we live together in society.” Susskind sees two especially critical areas for government intervention. The first lies in providing income support for the growing number of people who will lose their livelihoods as AGI takes over more jobs. In _A World Without Work_ , Susskind described several ways of meeting this challenge. Susskind identifies government’s second critical role as helping people who cannot find well-paying work to find purpose in life. Addressing this second challenge may prove much more difficult.
+
+While Susskind calls for an expanded government role in helping people deal with these two challenges, he criticizes the increase in government regulations that could hamper the development of new beneficial technologies. This suggests a more limited role for government in the development of AI and its uses. In a prior book, Susskind summed up his view as, “[T]he role for the Big State is not in production but in distribution.” Yet, as AI increasingly powers weapons of war and deceptive political ads, it seems more problematic for government to stay out of decisions about appropriate uses of AI. I hope that Susskind’s next books will deliver more detailed advice for addressing these challenges that threaten our democracy.
+
+In sum, Susskind expresses cautious optimism about the consequences of AI’s rapid advances. His book provides detailed, thoughtful advice for parents about the education their children will need to thrive in an AI-driven world. Susskind also issues a compelling call for education leaders to make significant changes in both the design and content of schooling at all levels. Education leaders will find this a complex undertaking, especially since the breathtaking speed at which AI is developing makes it difficult for them to know how to respond. Nonetheless, the degree to which they succeed will largely determine whether advances in AI result in better education for all or a widening of the gaps in education quality that have plagued America for decades.
+
+_Richard J. Murnane is the Juliana W. and William Foss Thompson Research Professor of Education and Society at the Harvard Graduate School of Education._
+
+Suggested citation format:
+
+_Murnane, R. J. (2026). “Guiding Kids to Adapt to a Future With AI: The technology can be wielded as a companion, collaborator, or competitor. Students need help to discern the difference.” _Education Next _, 26(4), 18 November 2026._
+
+Last Updated
+
+November 18, 2026
+
+License this Content
+
+Richard J. Murnane
+
+Author Bio
+
+## Latest Issue
+
+### 
+
+Vol. 26, No. 3
+
+## The Journal
+
+Vol. 26, No. 3
+
+Subscribe to the web content of Education Next and begin receiving the latest education news, opinion, research, reviews, and podcasts delivered weekly to your inbox. Click below and join the education conversation at Education Next.
+
+Subscribe Today
+
+## NEWSLETTER
+
+Notify Me When Education Next
+
+Posts a Big Story
+
+Subscribe
+
+## Business + Editorial Office
+
+Program on Education Policy and Governance  
+Harvard Kennedy School  
+79 JFK Street, Cambridge, MA 02138  
+**Phone**  (617) 496-5488  
+**Email** Education_Next@hks.harvard.edu
+
+## Discover
+
+  * About Us
+  * The Journal
+  * EdFacts
+  * Education Next Survey
+  * Press
+  * Interactive Graphics
+  * Contact Us
+
+## More Information
+
+  * Advertise
+  * User-Agreement
+  * Privacy Policy
+  * Reporting Copyright Infringement
+  * Guidelines For Submissions
+  * Permissions
+  * FAQ
+
+Copyright © 2026 President & Fellows of Harvard College

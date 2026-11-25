@@ -1,0 +1,94 @@
+URL: https://aiweekly.co/alerts/susskind-to-parents-teach-kids-ai-and-how-to-work-without-it
+HTTP: 200
+
+AI News Archives Learning AI Newsletters AI Index AI News Today Who's Who Use Cases Advertise Login
+
+Join free with your email
+
+With your email
+
+We send you a confirmation link to click.
+
+Email SUBSCRIBE
+
+Also get daily AI alerts — breaking stories only Critical ones only, about 2 a week
+
+Free. No spam, ever — we'll never share your email address and you can opt out at any time. Already a subscriber? Log in
+
+theguardian.com web signal 
+
+#  Susskind to parents: teach kids AI, and how to work without it
+
+By Alexis Dufresne · Published September 7, 2026 at 06:12 UTC · Updated September 7, 2026 at 06:23 UTC
+
+AI Weekly Pro
+
+Want only the AI that hits your stack?
+
+Build an agent that tracks your companies and topics, and skips everything else.
+
+Build your agent →
+
+## TL;DR
+
+  * Susskind cites Anthropic's January 2026 figure that 90% of the code for Claude Code was itself written by AI, undercutting 2013-era coding curricula.
+  * He borrows Wilfred Halliday Cockcroft's 1982 maths-and-calculators framework for schools: teach children to use AI, teach them to work without it, test both.
+  * OECD PISA scores show literacy and numeracy falling among young people since 2009, which Susskind argues matter more in a world of hallucinating models.
+
+On a car trip to Suffolk, Daniel Susskind's family put on a children's history podcast called History's Not Boring, narrated by two young hosts. His wife, a podcast and documentary maker, later worked out that the children did not exist. The show was AI-generated end to end.
+
+"It was a strange moment, learning that people we had grown fond of were not actually people at all," Susskind writes in the Guardian, in an extract from his new book *What Should My Children Do?: A Human's Guide to the Age of AI* (Penguin, £20). Two experts in our Who's Who directory shared the piece.
+
+Susskind, a father of three aged 8, 5 and 2, has spent 15 years studying AI's impact on work. His argument to parents is that the last round of "future-proofing" has already been overtaken. He points at 2013, when David Cameron pushed coding into UK primary and secondary schools; in January 2026, Anthropic reported that "90% of the code for Claude Code was itself written by AI." The skill picked to protect that cohort was, on his reading, "largely redundant before they had even left school."
+
+He wants a return to basics. Since 2009, OECD PISA assessments show literacy and numeracy falling among young people, and Susskind argues these matter more, not less, in a world of models that hallucinate. His model for schools borrows from Wilfred Halliday Cockcroft's 1982 mathematics report on calculators: teach both, test both. As he puts it: "A teacher cannot monitor whether or not a student uses AI in the quiet solitude of their bedroom."
+
+On careers, his line to parents is to "choose a profession because the problem interests you, not the job." Roles change, he argues, but the underlying problems (improving health outcomes, providing legal counsel) persist. He points to a Stanford system in 2017 that diagnosed skin cancer as accurately as dermatologists, and to DeepMind's AlphaFold2 creators winning the Nobel Prize in Chemistry in late 2024.
+
+His closing frame: "We are letting children down if we prepare them for the world that we grew up in, not the one they will actually inhabit."
+
+Editor's note
+
+The near-term policy question for schools and edtech vendors is which side of Susskind's 'teach both, test both' split gets funded first; the risk is repeating the 2013 coding-curriculum bet on prompt-engineering courses instead of shoring up the OECD-tracked declines in literacy and numeracy.
+
+AI Weekly Pro
+
+We scan all of AI. You track a slice of it.
+
+Build an agent that watches only the companies, topics and people you choose. It reads everything our scanners pull and sends you an edition made of just your matches.
+
+Build your agent →
+
+$7/month for the first 2,000 members. 
+
+##  Shared on Bluesky by 2 AI experts
+
+  * S Spiros Margaris: In https://t.co/2lLlz4AQWQ →
+
+  * C Chris Moran @chrismoranuk.bsky.social: I am so pleased we have Daniel Susskind writing for us today about LLMs, parenting and learning (and not just because he mentions my little … →
+
+Originally reported by **theguardian.com**
+
+Read the original article → 
+
+Original headline: I’m a father of three who studies the impact of artificial intelligence: this is what parents need to know about AI
+
+AI Weekly Pro
+
+This one found you. The next one might not.
+
+Name the companies, topics and people you follow. Your agent watches them across every source we scan and sends you an edition when something lands.
+
+Build your agent →
+
+$7/month for the first 2,000 members. 
+
+Track only the AI that matters to you Your own agent, watching your companies and topics. Build your agent → ×
+
+(C)2015-2026 AI News Weekly | AI News | Archives | Learning AI
+
+Log in | Unsubscribe
+
+We use essential cookies to keep the site working (login, form security). With your permission, we also use analytics cookies to understand how you use the site. Privacy policy
+
+Accept All Essential Only Reject Non-Essential

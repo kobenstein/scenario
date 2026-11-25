@@ -15,9 +15,9 @@ Everyone says Europe has already lost the race for artificial intelligence. But 
 
 ✨ ☕ If you want superintelligence to benefit everyone, you can support this channel here: https://buymeacoffee.com/thegoodtakeoff
 
-✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: https://aistronauts.at/film-course
-
 ✨ 🤝 Want to sponsor a film? Here is how: https://passionfroot.me/the-good-takeoff
+
+✨ 🎬 Want to learn how these films are made? I'll share everything I know soon: https://aistronauts.at/film-course
 
 Disclosure: this film was made with the help of Claude, an A.I. model made by Anthropic, which had no editorial input. Facts as of Nov 24, 2026; EU budget talks are ongoing.
 

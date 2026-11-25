@@ -1,0 +1,217 @@
+[
+ {
+  "id": "t00",
+  "sec": "H",
+  "text": "Your kids will grow up with superintelligence.\nIt will simply be there, like the light switch. A machine smarter than every adult they know.\nAnd on an ordinary evening, at your kitchen table, your child, or your grandchild, will look up and ask what every child asks.\n\"What should I be when I grow up?\"",
+  "chars": 302,
+  "pause": true,
+  "say": "[calm, conversational] Your kids will grow up with superintelligence.\nIt will simply be there, like the light switch. A machine smarter than every adult they know.\nAnd on an ordinary evening, at your kitchen table, your child, or your grandchild, will look up and ask what every child asks.\n\"What should I be when I grow up?\""
+ },
+ {
+  "id": "t01",
+  "sec": "H",
+  "text": "You'll reach for the safe answer. A good degree. A solid profession. Something a machine can't do.\nThere is no safe answer.",
+  "chars": 123,
+  "pause": true
+ },
+ {
+  "id": "t02",
+  "sec": "H",
+  "text": "And parents can feel it. In a new survey, six in ten American parents called their child's future with artificial intelligence bleak or frightening.\nBut that fear gets something wrong.\nYour kids won't compete with superintelligence. They'll grow up with it, the way you grew up with electricity.\nAnd the more that machine can do, the more a few human things are worth.",
+  "chars": 368,
+  "say": "And parents can feel it. In a new survey, six in ten American parents called their child's future with artificial intelligence bleak or frightening.\n[thoughtful] But that fear gets something wrong.\nYour kids won't compete with superintelligence. They'll grow up with it, the way you grew up with electricity.\nAnd the more that machine can do, the more a few human things are worth."
+ },
+ {
+  "id": "t03",
+  "sec": "0",
+  "text": "To see which ones, start the clock. A child is born this year. Age zero.\nThis child starts school in twenty thirty-two and turns eighteen in twenty forty-four. Somewhere on that road, in this film's scenario, machines become smarter than all of us.\nIf your kids are older, every stop on this clock just comes sooner.\nThe first fear arrives before the first birthday. Is it even fair to bring a child into this? Maybe your own grown kids are asking it.\nBut a fear is not a forecast.",
+  "chars": 481
+ },
+ {
+  "id": "t04",
+  "sec": "0",
+  "text": "The United Nations asked young adults around the world what keeps them from having children. The answer? Money. And housing. Plenty of them do worry about artificial intelligence. But on that survey's list of worries, it came last. And most of them still want children.\nAnd this child starts life safer than almost any child before. In a single generation, the number of children who die before their fifth birthday has more than halved. That progress has slowed. But it's real.",
+  "chars": 478
+ },
+ {
+  "id": "t05",
+  "sec": "0",
+  "text": "Safe, though, is not the same as ready. Electricity never did anyone's homework. This machine will.\nSo what does a child learn when a machine already knows everything?",
+  "chars": 167,
+  "say": "Safe, though, is not the same as ready. Electricity never did anyone's homework. This machine will.\n[curious] So what does a child learn when a machine already knows everything?"
+ },
+ {
+  "id": "t06",
+  "sec": "6",
+  "text": "Six years later. Twenty thirty-two. First grade.\nYour child has a tutor in a tablet. It knows every subject, and it never loses patience.\nThe fear? If the machine does the thinking, your child never learns to.\nBut schools have already tried an early version. And something else went wrong.",
+  "chars": 289
+ },
+ {
+  "id": "t07",
+  "sec": "6",
+  "text": "Stanford researchers gave elementary school children in two districts a reading tutor built on today's artificial intelligence. Among the kids left to use it on their own, four in ten never logged on in one district. In the other, nearly half. Not once.\nThe tutor was ready. Those children never asked.\nOther big trials this year point the same way. On its own, a machine tutor helps only a little. The best results came when a person stayed involved.",
+  "chars": 451,
+  "say": "Stanford researchers gave elementary school children in two districts a reading tutor built on today's artificial intelligence. Among the kids left to use it on their own, four in ten never logged on in one district. In the other, nearly half. Not once.\n[wry] The tutor was ready. Those children never asked.\nOther big trials this year point the same way. On its own, a machine tutor helps only a little. The best results came when a person stayed involved."
+ },
+ {
+  "id": "t08",
+  "sec": "6",
+  "text": "Alison Gopnik studies how small children really learn. Hand a four-year-old a strange new toy, she says, and the child often beats top college students at figuring out how it works.",
+  "chars": 181
+ },
+ {
+  "id": "C1",
+  "sec": "6",
+  "clip": true,
+  "dur": 17.25,
+  "file": "C1.mp4"
+ },
+ {
+  "id": "t09",
+  "sec": "6",
+  "text": "So a machine can hold every answer. A child still has to find things out. And for that, a child needs a person who cares.\nBut children also learn from each other. And what if, by twelve, your child's best friend is the machine?",
+  "chars": 227
+ },
+ {
+  "id": "t10",
+  "sec": "12",
+  "text": "Twelve. Twenty thirty-eight.\nThis friend is always awake, never in a bad mood, and never needs anything back. Next to that, why would a child bother with people?\nAsk the teenagers who already use chatbots as companions. In a survey last year, a third had talked about something serious with the machine instead of a person. And still, four in five said they spend more time with real friends.",
+  "chars": 392
+ },
+ {
+  "id": "t11",
+  "sec": "12",
+  "text": "A real friend disagrees, gets hurt, and expects you to show up. That friction is where a child learns to wait, to say sorry, to be counted on.\nA superintelligence can do your child's homework. It can't do any of that for them.\nSome economists expect a shift. When machines make answers cheap, what stays scarce is a person you can trust.",
+  "chars": 337
+ },
+ {
+  "id": "t12",
+  "sec": "M",
+  "text": "But a shift like that should lift every child, not just a lucky few. This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Want that too? Then subscribe.",
+  "chars": 201,
+  "pause": true,
+  "cta": true
+ },
+ {
+  "id": "t13",
+  "sec": "M",
+  "text": "So trust becomes more valuable. But can trust pay the rent?",
+  "chars": 59,
+  "say": "[wry] So trust becomes more valuable. But can trust pay the rent?"
+ },
+ {
+  "id": "t14",
+  "sec": "18",
+  "text": "Eighteen. Twenty forty-four. And the question from the kitchen table is back. This time it isn't cute.\n\"What should I be?\"",
+  "chars": 122,
+  "pause": true
+ },
+ {
+  "id": "t15",
+  "sec": "18",
+  "text": "Daniel Susskind is an economist who advises the British government on artificial intelligence and work. He just wrote a whole book on this exact question. His verdict? No skill is future-proof.\nAnd yes, he has a book to sell.",
+  "chars": 225,
+  "say": "Daniel Susskind is an economist who advises the British government on artificial intelligence and work. He just wrote a whole book on this exact question. His verdict? No skill is future-proof.\n[wry] And yes, he has a book to sell."
+ },
+ {
+  "id": "C2",
+  "sec": "18",
+  "clip": true,
+  "dur": 7.17,
+  "file": "C2.mp4"
+ },
+ {
+  "id": "t16",
+  "sec": "18",
+  "text": "His warning comes from his own country. More than ten years ago, England made coding, the skill of the future, a required school subject from age five. Today, writing code is one of the things these machines do best.\nSo betting on one job has a catch. You only find out if you won when childhood is over.\nBut there is a clue. Take a guess. Which job is America expected to add the most of by twenty thirty-five?",
+  "chars": 411,
+  "say": "His warning comes from his own country. More than ten years ago, England made coding, the skill of the future, a required school subject from age five. Today, writing code is one of the things these machines do best.\nSo betting on one job has a catch. You only find out if you won when childhood is over.\n[curious] But there is a clue. Take a guess. Which job is America expected to add the most of by twenty thirty-five?"
+ },
+ {
+  "id": "t17",
+  "sec": "18",
+  "text": "Not programmer... Home care aide. The person who helps your father out of his chair. Almost eight hundred and fifty thousand new jobs, mostly because the country is getting older.\nThat's where Susskind tells parents to look. Whatever machines can do, he argues, there is work where we'll still want a person. At a bedside. In a classroom.\nHonestly, though? Home care pays about thirty-six thousand dollars a year, and nothing guarantees more.",
+  "chars": 442,
+  "say": "Not programmer... Home care aide. The person who helps your father out of his chair. Almost eight hundred and fifty thousand new jobs, mostly because the country is getting older.\nThat's where Susskind tells parents to look. Whatever machines can do, he argues, there is work where we'll still want a person. At a bedside. In a classroom.\n[thoughtful] Honestly, though? Home care pays about thirty-six thousand dollars a year, and nothing guarantees more."
+ },
+ {
+  "id": "t18",
+  "sec": "18",
+  "text": "So here's what the evidence supports. The biggest job growth is in care, where a human is the point. Whether we pay it what it's worth is up to us.\nBut if machines carry more and more of the work, a job stops being the center of a life. So what takes its place?",
+  "chars": 261
+ },
+ {
+  "id": "t19",
+  "sec": "30",
+  "text": "Thirty. Twenty fifty-six. Your child is a grown-up.\nPicture an ordinary Tuesday on their street. The machines carry most of the work. And the day has room in it. For their kids. For something they always wanted to build.\nThat Tuesday isn't guaranteed. Who the machines work for, and under what rules, is not written into the technology.\nDaron Acemoglu won the Nobel Prize in economics two years ago. He's one of the sharpest critics of how these machines are built today.",
+  "chars": 471
+ },
+ {
+  "id": "C4",
+  "sec": "30",
+  "clip": true,
+  "dur": 11.58,
+  "file": "C4.mp4"
+ },
+ {
+  "id": "t20",
+  "sec": "30",
+  "text": "So that Tuesday is being decided now. In the labs that build these machines. In governments. At the ballot box. By us.\nAnd what is your child for, in a world that doesn't need their labor? That one stays open.\nBut the person who answers it is being raised right now. And that part isn't decided in a lab. It's decided at your kitchen table.",
+  "chars": 340,
+  "say": "So that Tuesday is being decided now. In the labs that build these machines. In governments. At the ballot box. By us.\n[thoughtful] And what is your child for, in a world that doesn't need their labor? That one stays open.\nBut the person who answers it is being raised right now. And that part isn't decided in a lab. It's decided at your kitchen table."
+ },
+ {
+  "id": "t21",
+  "sec": "T",
+  "text": "So what does a parent do there, starting tonight?\nStart with the six-year-old. Use these machines together. Ask where the answer could be wrong. Susskind borrows a rule from the old fight over calculators in school. Teach both. Test both. With the machine, and without it. Most schools aren't there yet. Your kitchen table can be.",
+  "chars": 330,
+  "say": "So what does a parent do there, starting tonight?\n[calm, conversational] Start with the six-year-old. Use these machines together. Ask where the answer could be wrong. Susskind borrows a rule from the old fight over calculators in school. Teach both. Test both. With the machine, and without it. Most schools aren't there yet. Your kitchen table can be."
+ },
+ {
+  "id": "t22",
+  "sec": "T",
+  "text": "Doing both guards against a child who can't think without the machine, and a child who uses it alone, in secret. Most American teenagers already use chatbots. Only about half of their parents think their own kid does.\nWhen your child asks you something, don't always hand over the answer. Ask back. It protects against a quiet kind of failure. Every answer in reach, and no questions.",
+  "chars": 384
+ },
+ {
+  "id": "t23",
+  "sec": "T",
+  "text": "For the twelve-year-old, protect the slow, human things. Real friends. Real arguments. A chore that somebody is counting on. That's the counterweight to a companion that is always there and never needs anything back.\nAnd for the eighteen-year-old, stop steering toward one job. Susskind has a different question for the dinner table.",
+  "chars": 333
+ },
+ {
+  "id": "C5",
+  "sec": "T",
+  "clip": true,
+  "dur": 9.07,
+  "file": "C5.mp4"
+ },
+ {
+  "id": "t24",
+  "sec": "T",
+  "text": "Problems, not job titles. That saves a child from years spent chasing a job that's gone by graduation.\nNone of it is guaranteed. But look at that list. There isn't a job on it. Every line describes a kind of person. One who asks. One who shows up. One with a problem to solve.",
+  "chars": 276
+ },
+ {
+  "id": "t25",
+  "sec": "S",
+  "text": "And at your kitchen table, your child is still waiting.\n\"What should I be when I grow up?\"",
+  "chars": 90,
+  "pause": true
+ },
+ {
+  "id": "t26",
+  "sec": "S",
+  "text": "You don't have to know what. You can help with who.\nYour parents didn't raise you to compete with electricity. They tried to raise a good person.\nYour kids won't compete with superintelligence. They'll grow up with it. What matters is who they grow up to be.",
+  "chars": 258,
+  "say": "You don't have to know what. You can help with who.\nYour parents didn't raise you to compete with electricity. They tried to raise a good person.\n[thoughtful] Your kids won't compete with superintelligence. They'll grow up with it. What matters is who they grow up to be."
+ },
+ {
+  "id": "t27",
+  "sec": "A2",
+  "text": "That's what this channel is for: making sure superintelligence goes well for everybody. And first of all for the children born into it. Want that too? Then subscribe.",
+  "chars": 166,
+  "pause": true,
+  "cta": true
+ }
+]

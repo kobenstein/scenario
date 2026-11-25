@@ -1,0 +1,311 @@
+URL: https://ourworldindata.org/grapher/life-expectancy-unwpp
+HTTP: 200
+
+Our World  
+in Data
+
+  * Browse by topic
+
+  * Data
+  * Latest
+  * Resources
+
+  * About
+
+Subscribe
+
+Donate
+
+## What you should know about this indicator
+
+  * This is period life expectancy — a snapshot of mortality rates in a single year. It does _not_ follow a real generation of people; it tells you how long someone would live if the year's age-specific death rates stayed the same for the rest of their life.
+  * Future values are the mean of thousands of trajectories simulated by the UN. When fitting its projection model, the UN excluded observed life expectancies for 2020 to 2023 so COVID-19's temporary impact wouldn't distort the long-run trend.
+
+Life expectancy at birth
+
+UN WPP
+
+Period life expectancy at birth.
+
+Source
+
+UN, World Population Prospects (2024) – processed by Our World in Data
+
+Last updated
+
+July 12, 2024
+
+Next expected update
+
+July 2027
+
+Date range
+
+1950–2023
+
+Unit
+
+years
+
+## Related research and writing
+
+### Happiness and Life Satisfaction
+
+Esteban Ortiz-Ospina, Tuna Acisu, and Max Roser
+
+### Healthcare Spending
+
+Esteban Ortiz-Ospina, Pablo Arriagada, and Max Roser
+
+### Global Health
+
+Esteban Ortiz-Ospina and Max Roser
+
+### Bonheur et satisfaction
+
+Esteban Ortiz-Ospina and Max Roser
+
+## Explore charts that include this data
+
+  * Food supply vs. life expectancy
+  * Life expectancy at birth1950-2100, with UN projections
+  * Life expectancy at birth vs. CO₂ emissions per capita
+  * Life expectancy versus lifespan inequality
+  * Life expectancy vs. GDP per capitaWorld Bank
+  * Life expectancy vs. health spendingWorld Bank
+  * Life expectancy vs. health spendingOECD
+  * Life satisfaction vs. life expectancy
+  * Share in extreme poverty vs. life expectancy
+  * Share in poverty vs. life expectancy
+  * Life expectancy, source comparison
+
+Chart 1 of 11
+
+## Sources and processing
+
+### This data is based on the following sources
+
+#### United Nations – World Population Prospects
+
+World Population Prospects 2024 is the 28th edition of the official estimates and projections of the global population that have been published by the United Nations since 1951. The estimates are based on all available sources of data on population size and levels of fertility, mortality and international migration for 237 countries or areas. If you have questions about this dataset, please refer to their FAQ. You can also explore data sources for each country or visit their main page for more details.
+
+Retrieved on
+
+July 11, 2024
+
+Retrieved from
+
+https://population.un.org/wpp/downloads/
+
+Citation
+
+This is the citation of the original data obtained from the source, prior to any processing or adaptation by Our World in Data. To cite data downloaded from this page, please use the suggested citation given in Reuse This Work below.
+    
+    
+    United Nations, Department of Economic and Social Affairs, Population Division (2024). World Population Prospects 2024, Online Edition.
+
+World Population Prospects 2024 is the 28th edition of the official estimates and projections of the global population that have been published by the United Nations since 1951. The estimates are based on all available sources of data on population size and levels of fertility, mortality and international migration for 237 countries or areas. If you have questions about this dataset, please refer to their FAQ. You can also explore data sources for each country or visit their main page for more details.
+
+Retrieved on
+
+July 11, 2024
+
+Retrieved from
+
+https://population.un.org/wpp/downloads/
+
+Citation
+
+This is the citation of the original data obtained from the source, prior to any processing or adaptation by Our World in Data. To cite data downloaded from this page, please use the suggested citation given in Reuse This Work below.
+    
+    
+    United Nations, Department of Economic and Social Affairs, Population Division (2024). World Population Prospects 2024, Online Edition.
+
+#### United Nations – World Population Prospects – Interim Update
+
+World Population Prospects 2024 is the 28th edition of the official estimates and projections of the global population that have been published by the United Nations since 1951. The estimates are based on all available sources of data on population size and levels of fertility, mortality and international migration for 237 countries or areas. If you have questions about this dataset, please refer to their FAQ. You can also explore data sources for each country or visit their main page for more details.
+
+This is an interim update containing revised medium-variant estimates and projections for Togo.
+
+Retrieved on
+
+March 31, 2026
+
+Retrieved from
+
+https://population.un.org/wpp/downloads/
+
+Citation
+
+This is the citation of the original data obtained from the source, prior to any processing or adaptation by Our World in Data. To cite data downloaded from this page, please use the suggested citation given in Reuse This Work below.
+    
+    
+    United Nations, Department of Economic and Social Affairs, Population Division (2024). World Population Prospects 2024, Online Edition.
+
+World Population Prospects 2024 is the 28th edition of the official estimates and projections of the global population that have been published by the United Nations since 1951. The estimates are based on all available sources of data on population size and levels of fertility, mortality and international migration for 237 countries or areas. If you have questions about this dataset, please refer to their FAQ. You can also explore data sources for each country or visit their main page for more details.
+
+This is an interim update containing revised medium-variant estimates and projections for Togo.
+
+Retrieved on
+
+March 31, 2026
+
+Retrieved from
+
+https://population.un.org/wpp/downloads/
+
+Citation
+
+This is the citation of the original data obtained from the source, prior to any processing or adaptation by Our World in Data. To cite data downloaded from this page, please use the suggested citation given in Reuse This Work below.
+    
+    
+    United Nations, Department of Economic and Social Affairs, Population Division (2024). World Population Prospects 2024, Online Edition.
+
+### How we process data at Our World in Data
+
+All data and visualizations on Our World in Data rely on data sourced from one or several original data providers. Preparing this original data involves several processing steps. Depending on the data, this can include standardizing country names and world region definitions, converting units, calculating derived indicators such as per capita measures, as well as adding or adapting metadata such as the name or the description given to an indicator.
+
+At the link below you can find a detailed description of the structure of our data pipeline, including links to all the code used to prepare data across Our World in Data.
+
+Read about our data pipeline
+
+##### Notes on our processing step for this indicator
+
+For ages above 0, the UN reports life expectancy as the years a person at that age has left to live. We add the starting age back so the chart shows the _expected age at death_ — for example, a 65-year-old with 17 years remaining is shown as 82.
+
+## Reuse this work
+
+  * All data produced by third-party providers and made available by Our World in Data are subject to the license terms from the original providers. Our work would not be possible without the data providers we rely on, so we ask you to always cite them appropriately (see below). This is crucial to allow data providers to continue doing their work, enhancing, maintaining and updating valuable data.
+  * All data, visualizations, and code produced by Our World in Data are completely open access under the Creative Commons BY license. You have the permission to use, distribute, and reproduce these in any medium, provided the source and authors are credited.
+
+### Citations
+
+#### How to cite this page
+
+To cite this page overall, including any descriptions, FAQs or explanations of the data authored by Our World in Data, please use the following citation:
+    
+    
+    “Data Page: Life expectancy at birth”. Our World in Data (2026). Data adapted from United Nations. Retrieved from https://archive.ourworldindata.org/20261102-112946/grapher/life-expectancy-unwpp.html [online resource] (archived on November 2, 2026).
+
+#### How to cite this data
+
+In-line citationIf you have limited space (e.g. in data visualizations), you can use this abbreviated in-line citation:
+    
+    
+    UN, World Population Prospects (2024) – processed by Our World in Data
+
+Full citation
+    
+    
+    UN, World Population Prospects (2024) – processed by Our World in Data. “Life expectancy at birth – UN WPP” [dataset]. United Nations, “World Population Prospects”; United Nations, “World Population Prospects – Interim Update” [original data]. Retrieved November 25, 2026 from https://archive.ourworldindata.org/20261102-112946/grapher/life-expectancy-unwpp.html (archived on November 2, 2026).
+
+### Download
+
+#### Quick download
+
+Download the data shown in this chart as a ZIP file containing a CSV file, metadata in JSON format, and a README. The CSV file can be opened in Excel, Google Sheets, and other data analysis tools.
+
+#### Download full data
+
+Includes all entities and time points
+
+#### Download displayed data
+
+Includes only the entities and time points currently visible in the chart
+
+#### Data API
+
+Use these URLs to programmatically access this chart's data and configure your requests with the options below. Our documentation provides more information on how to use the API, and you can find a few code examples below.
+
+Download full data, including all entities and time points
+
+Download only the currently selected data visible in the chart
+
+##### Data URL (CSV format)
+    
+    
+    https://ourworldindata.org/grapher/life-expectancy-unwpp.csv?v=1&csvType=full&useColumnShortNames=false
+
+##### Metadata URL (JSON format)
+    
+    
+    https://ourworldindata.org/grapher/life-expectancy-unwpp.metadata.json?v=1&csvType=full&useColumnShortNames=false
+
+#### Code examples
+
+Examples of how to load this data into different data analysis tools.
+
+##### Excel / Google Sheets
+    
+    
+    =IMPORTDATA("https://ourworldindata.org/grapher/life-expectancy-unwpp.csv?v=1&csvType=full&useColumnShortNames=false")
+
+##### Python with Pandas
+    
+    
+    import pandas as pd
+    import requests
+    
+    # Fetch the data.
+    df = pd.read_csv("https://ourworldindata.org/grapher/life-expectancy-unwpp.csv?v=1&csvType=full&useColumnShortNames=false", storage_options = {'User-Agent': 'Our World In Data data fetch/1.0'})
+    
+    # Fetch the metadata
+    metadata = requests.get("https://ourworldindata.org/grapher/life-expectancy-unwpp.metadata.json?v=1&csvType=full&useColumnShortNames=false").json()
+
+##### R
+    
+    
+    library(jsonlite)
+    
+    # Fetch the data
+    df <- read.csv("https://ourworldindata.org/grapher/life-expectancy-unwpp.csv?v=1&csvType=full&useColumnShortNames=false")
+    
+    # Fetch the metadata
+    metadata <- fromJSON("https://ourworldindata.org/grapher/life-expectancy-unwpp.metadata.json?v=1&csvType=full&useColumnShortNames=false")
+
+##### Stata
+    
+    
+    import delimited "https://ourworldindata.org/grapher/life-expectancy-unwpp.csv?v=1&csvType=full&useColumnShortNames=false", encoding("utf-8") clear
+
+#### Our World in Data is free and accessible for everyone.
+
+Help us do this work by making a donation.
+
+Donate now
+
+Our World in Data is a project of Global Change Data Lab, a nonprofit based in the UK (Reg. Charity No. 1186433). Our charts, articles, and data are licensed under CC BY, unless stated otherwise. The source code for our tools and software is made publicly available for transparency and educational reference under a custom license. Re-use requires permission. Third-party materials, including some charts and data, are subject to third-party licenses. See our FAQs for more details.
+
+##### Explore
+
+  * Topics
+  * Data
+  * Data Insights
+
+##### Resources
+
+  * Latest
+  * SDG Tracker
+  * Teaching with OWID
+
+##### About
+
+  * About us
+  * Organization
+  * Funding
+  * Team
+  * Jobs
+  * FAQs
+
+##### RSS Feeds
+
+  * Research & Writing
+  * Data Insights
+
+##### Follow us
+
+  * Privacy policy
+  * Cookie notice
+  * Legal disclaimer
+  * Grapher license
+  * Send feedback
