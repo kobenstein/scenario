@@ -186,12 +186,12 @@ export default async (T, R) => {
   // the quote cards grow out of the microphone; ★ 150 rises over the tribune
   function cards(ctx, t, v) {
     const [mx, my] = X.toScreen(X.layerView(v, 1.12), MIC.x, MIC.y);
-    const card = (u, o) => { if (u <= 0) return; const g = quartIO(span(u, 0, .8)), cx = 110 + 450, cy = 200;
+    const card = (u, o) => { if (u <= 0) return; const g = quartIO(span(u, 0, 1)), cx = 110 + 450, cy = 200;
       ctx.save(); ctx.translate(lerp(mx, cx, g), lerp(my, cy, g)); ctx.scale(lerp(.08, 1, g), lerp(.08, 1, g)); ctx.translate(-cx, -cy);
       F.quoteCard(ctx, t, T, { x: 110, y: 84, w: 900, size: 40, u, mode: 'hi', ...o }); ctx.restore(); };
-    const pu = span(t, A.through + .25, A.through + 1.3) * (1 - span(t, A.answers - .3, A.answers + .4));
+    const pu = span(t, A.through + .25, A.through + 1.3) * (1 - span(t, A.answers - .7, A.answers + .9));
     card(pu, { text: SRC.z1.putin, credit: SRC.z1.putinCredit, spoken: ['organs', 'immortal'], after: A.through - .1 });
-    const xu = span(t, A.answers + .2, A.answers + 1.2) * (1 - span(t, A.notAbout + .1, A.notAbout + .8));
+    const xu = span(t, A.answers + .2, A.answers + 1.2) * (1 - span(t, A.notAbout - .3, A.notAbout + 1.1));
     card(xu, { text: SRC.z1.xi, credit: SRC.z1.xiCredit, spoken: ['some predict', 'this century'], after: A.answers - .1 });
     const nu = span(t, A.h150 - .1, A.h150 + .9) * (1 - span(t, A.notAbout + .2, A.notAbout + .9));
     if (nu > 0) { const b = F.bump(t, A.h150 + .15, 1.6); halo(ctx, 1320, 360, 460, .3 * nu + .35 * b, GOLD.halo, GOLD.core); X.big(ctx, N150, 1320, 462, 290, nu, { gold: 1 }); }
@@ -228,7 +228,15 @@ export default async (T, R) => {
     const duW = span(t, A.afford + .9, A.neighbor + .3);
     B.drawHouses(ctx, t, vi, { line: false, h1, h2, lit1: span(t, land - .1, land + .3), lit2: 0, du: duW >= 1 ? 1 : 0, duX: lerp(PH.x0 - 60, PH.du, sineIO(duW)),
       mid: (c, s) => {
-        X.lifeline(c, t, 960 + xa, 960 + xb, y, s, { u: 1, spark: false });
+        // main()'s full-width base line closes in to the houses' line (no pop at the switch)
+        const ba = 1 - span(f, .75, 1); if (ba > 0) F.goldSpan(c, [[lerp(-400 - OX, PH.x0, f), BASE], [lerp(2900 - OX, PH.x1, f), BASE]], 0, 1, { w: 3.2 / s, spark: false, a: ba });
+        // the answer's bar look (F.answer: glow, body, end ticks) hands over to the lifeline
+        const ka = 1 - span(f, 0, .4);
+        c.save(); c.globalAlpha *= 1 - ka; X.lifeline(c, t, 960 + xa, 960 + xb, y, s, { u: 1, spark: false }); c.restore();
+        if (ka > 0) { c.save(); c.globalAlpha *= ka; c.lineCap = 'round';
+          c.save(); c.globalCompositeOperation = 'lighter'; c.strokeStyle = rgba(GOLD.halo, .25); c.lineWidth = 14; c.beginPath(); c.moveTo(960 + xa, y); c.lineTo(960 + xb, y); c.stroke(); c.restore();
+          c.strokeStyle = GOLD.body; c.lineWidth = 4; c.beginPath(); c.moveTo(960 + xa, y); c.lineTo(960 + xb, y); c.stroke();
+          c.fillStyle = GOLD.body; for (const xx of [960 + xa, 960 + xb]) c.fillRect(xx - 1.5, y - 12, 3, 24); c.restore(); }
         // the answer's ends and words sink, the bead falls into your window
         const wo = 1 - span(t, A.afford - .2, A.afford + .5);
         if (wo > 0) { F.goldText(c, [['NO', .28]], 960 - AW / 2 - 26, AY + 11, 30, F.rise(wo), { serif: false, weight: 700, spacing: .12, align: 'right' }); F.goldText(c, [['YES', 0]], 960 + AW / 2 + 26, AY + 11, 30, F.rise(wo), { serif: false, weight: 700, spacing: .12, align: 'left' }); }
