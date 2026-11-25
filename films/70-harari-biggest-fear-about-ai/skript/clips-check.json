@@ -1,0 +1,66 @@
+{
+ "film": "Harari's Biggest Fear About AI Isn't Robots (#70)",
+ "stand": "2026-11-25",
+ "hinweise": [
+  "Format für tools/clip_check.py (regeln/clip-schritt.md), aus dem fertigen Schnitt. in/out = ungefähre Zeit im Quellvideo (clips-geprueft.json Start − ~1 s Dateivorlauf + in/out aus code/audio/clips_cut.json); maßgeblich sind clips_cut.json (Sekunden in <ROOT>clips/Cn.mp4) und die Slots in code/audio/timing.json. C2 endet vor dem 'Will it' der Interviewerin (Datei 9.67 s). C1b (Reserve) nicht verwendet. Zitatkarten Q1–Q3 (Věda 24/ČT ECVqUU4uCY8) sind keine Clips und zählen nicht."
+ ],
+ "clips": [
+  {
+   "id": "C1",
+   "speaker": "Yuval Noah Harari",
+   "url": "https://www.youtube.com/watch?v=H43e72-2aAs",
+   "credit": "YouTube H43e72-2aAs",
+   "source": "Harari x Suleyman, \"AI, Consciousness and the Future of Humanity\" (2026-11-18)",
+   "in": "00:05:11.65",
+   "out": "00:05:19.45",
+   "dauer_s": 7.8,
+   "slot": [
+    33.67,
+    41.47
+   ],
+   "transcript": "My biggest fear is that it's not a specific scenario like AI creating a virus or killer robots.",
+   "einordnung": "So on the day only machines understand how your world runs, who do you trust? Hear it from him.",
+   "ampel": "gruen",
+   "burned": false,
+   "source_verified": true
+  },
+  {
+   "id": "C2",
+   "speaker": "Yuval Noah Harari",
+   "url": "https://www.youtube.com/watch?v=ARdnl2kjmRU",
+   "credit": "The Economist",
+   "source": "The Economist, \"Yuval Noah Harari on the dangers of an AI future\" (2026-08-22)",
+   "in": "00:03:17.30",
+   "out": "00:03:25.93",
+   "dauer_s": 8.63,
+   "slot": [
+    158.9,
+    167.53
+   ],
+   "transcript": "And we will not be able to understand it anymore. Just as cows don't understand checks or stocks, even though these things control their lives.",
+   "einordnung": "Harari looks a step further, to financial products that machines invent themselves.",
+   "ampel": "gruen",
+   "burned": false,
+   "source_verified": true
+  },
+  {
+   "id": "C3",
+   "speaker": "Yuval Noah Harari",
+   "url": "https://www.youtube.com/watch?v=H43e72-2aAs",
+   "credit": "YouTube H43e72-2aAs",
+   "source": "Harari x Suleyman, \"AI, Consciousness and the Future of Humanity\" (2026-11-18)",
+   "in": "00:45:31.32",
+   "out": "00:45:39.95",
+   "dauer_s": 8.63,
+   "slot": [
+    531.43,
+    540.06
+   ],
+   "transcript": "And if we could solve the trust between humans problems, then it will be relatively easy to solve the AI problem.",
+   "einordnung": "All three are about people. Harari ends up in the same place.",
+   "ampel": "gruen",
+   "burned": false,
+   "source_verified": true
+  }
+ ]
+}

@@ -1,0 +1,260 @@
+URL: https://www.rand.org/pubs/research_reports/RRA4742-5.html
+HTTP: 200
+
+* Skip to page content
+
+Toggle Menu
+
+## Site-wide navigation
+
+  * ### Topics
+
+#### Trending
+
+    * Warfare and Military Operations
+    * International Trade
+    * Military Technology
+    * Artificial Intelligence
+    * Ukraine
+
+#### Topics
+
+    * Children, Families, and Communities
+    * Cyber and Data Sciences
+    * Education and Literacy
+    * Energy and Environment
+    * Health, Health Care, and Aging
+    * Homeland Security and Public Safety
+    * Infrastructure and Transportation
+    * International Affairs
+    * Law and Business
+    * National Security
+    * Science and Technology
+    * Workers and the Workplace
+All Topics
+
+  * Research & Commentary
+  * Experts
+  * About
+
+  * ### Research Divisions
+
+RAND's divisions conduct research on a uniquely broad front for clients around the globe.
+
+    * #### U.S. research divisions
+
+      * RAND Army Research Division
+      * RAND Education, Employment, and Infrastructure
+      * RAND Global and Emerging Risks
+      * RAND Health
+      * RAND Homeland Security Research Division
+      * RAND National Security Research Division
+      * RAND Project AIR FORCE
+    * #### International research divisions
+
+      * RAND Australia
+      * RAND Europe
+
+  * Services & Impact
+  * Careers
+  * Graduate School
+  * Subscribe
+  * Give
+  * Cart
+
+Toggle Search
+
+Search termsSubmit
+
+  1. RAND
+  2. Research & Commentary
+  3. Research Reports
+  4. RR-A4742-5
+
+Analyzing survey data from nationally representative samples of about 1,000 parents and approximately 1,800 teens (youth ages 12 to 18) through the RAND American Life Panel, the authors describe what parents and teens say about their artificial intelligence (AI) use, their perspectives concerning such use, and what parents tell their children about AI use for school or homework.
+
+# Higher-Income Parents Use AI More and Encourage Their Children to Do the Same
+
+Heather L. Schwartz, Melissa Kay Diliberti
+
+ResearchPublished Nov 12, 2026
+
+This research was sponsored by the Gates Foundation.
+
+Download PDF
+
+  * Share on LinkedIn
+  * Share on X
+  * Share on Facebook
+  * Email
+
+## Topline
+
+Parental AI habits and encouragement are contributing to an income-based gap in teens’ AI use for school or homework.
+
+Artificial intelligence (AI) use is rising fast among U.S. parents and teens—but not equally. RAND researchers surveyed nationally representative samples of roughly 1,000 parents and 1,800 teens, tracking how their AI use and attitudes have changed from 2025 to 2026. They examine what parents tell their children about using AI for schoolwork and how teens perceive that guidance.
+
+The findings reveal a widening divide: Higher-income parents are using AI more than lower-income parents and encouraging their teens to use it more, too. This disparate AI use potentially places at risk the academic performance of teens in higher-income families.
+
+## Key Takeaways
+
+### AI use grew fastest among parents earning $150,000 or more.
+
+Over 15 months, the gap in AI use between the highest- and lowest-income families widened from 15 to 21 percentage points, driven by surging use among highest-income parents.
+
+### Higher-income parents encouraged teens to use AI the most.
+
+Although most parents encouraged teens to use AI for schoolwork with restraint, 17 percent of the highest-income parents reported encouraging their children to use AI wherever possible within school rules.
+
+### Teens’ perceptions of parental encouragement predicted teens’ AI use.
+
+Perceived parental support for AI use correlated more strongly with teens’ AI use than any other factor examined—including sex, family income, and parents’ perceptions of AI harms—except age.
+
+## Recommendations
+
+### States and districts:
+
+  * Help schools send specific, evidence-based talking points to students and families about why unrestricted AI use on first attempts at schoolwork can harm learning.
+  * Implement policy-layer tools on school-issued devices to prevent students from using general-purpose AI chatbots during initial work attempts.
+
+### Parents:
+
+  * Have explicit conversations with teens about the difference between AI doing their work for them and AI helping them refine their own thinking.
+  * Seek technological guardrails for personal devices, such as phones and tablets, to limit teens’ unrestricted AI use.
+
+### AI developers and companies:
+
+  * Pursue guardrail features—not outright blocks—that distinguish harmful cognitive offloading from beneficial, supplemental AI engagement for students.
+
+## Methodology
+
+RAND researchers drew on four surveys administered through the RAND American Parents Panel and the RAND American Youth Panel, both subsets of the larger RAND American Life Panel, a nationally representative survey panel. Parent surveys were fielded in February 2025 and May 2026; teen surveys (of youth ages 12–18, enrolled in grades 5–12) were fielded in May 2025 and May 2026. Samples included approximately 1,000 parents and 1,800 teens. A subset of 533 teens was matched to 427 parents in the same household, enabling a dyadic analysis of within-family AI attitudes and behavior.
+
+## Subscribe to the  Policy Currents newsletter
+
+Email Subscribe
+
+## Related Content
+
+  * Press
+
+### Higher-Income Parents More Likely to Use AI, Encourage Teens to Do the Same
+
+Nov 12, 2026
+
+  * Research
+
+### Students Lose Interest in Math: Findings from the American Youth Panel
+
+Jun 17, 2025
+
+  * Research
+
+### More Students Use AI for Homework, and More Believe It Harms Critical Thinking: Selected Findings from the American Youth Panel
+
+Mar 17, 2026
+
+  * Project
+
+### American Life Panel
+
+Feb 23, 2024
+
+  * Project
+
+### RAND Survey Panels
+
+Feb 28, 2024
+
+## Topics
+
+  * Artificial Intelligence
+  * Educational Technology
+  * Parenting
+  * Students
+  * Survey Research Methodology
+  * United States
+
+## Document Details
+
+  * **Copyright:** RAND Corporation
+  * **Availability:** Web-Only
+  * **Year:** 2026
+  * **DOI:** https://doi.org/10.7249/RRA4742-5
+  * **Document Number:** RR-A4742-5
+
+## Citation
+
+### RAND Style Manual
+
+Schwartz, Heather L. and Melissa Kay Diliberti, _Higher-Income Parents Use AI More and Encourage Their Children to Do the Same,_ RAND Corporation, RR-A4742-5, 2026. As of November 24, 2026: https://www.rand.org/pubs/research_reports/RRA4742-5.html
+
+Copy Text
+
+### Chicago Manual of Style
+
+Schwartz, Heather L. and Melissa Kay Diliberti, Higher-Income Parents Use AI More and Encourage Their Children to Do the Same. Santa Monica, CA: RAND Corporation, 2026. https://www.rand.org/pubs/research_reports/RRA4742-5.html.
+
+Copy Text BibTeX RIS
+
+## Research conducted by
+
+  * RAND Education, Employment, and Infrastructure
+
+This publication is part of the RAND research report series. Research reports present research findings and objective analysis that address the challenges facing the public and private sectors. All RAND research reports undergo rigorous peer review to ensure high standards for research quality and objectivity.
+
+This work is licensed under a Creative Commons Attribution 4.0 International License. All users of the publication are permitted to copy and redistribute the material in any medium or format and transform and build upon the material, including for any purpose (including commercial) without further permission or fees being required.
+
+RAND is a nonprofit institution that helps improve policy and decisionmaking through research and analysis. RAND's publications do not necessarily reflect the opinions of its research clients and sponsors.
+
+Objective Analysis. Effective Solutions.
+
+RAND is a research organization that develops solutions to public policy challenges to help make communities throughout the world safer and more secure, healthier and more prosperous. RAND is nonprofit, nonpartisan, and committed to the public interest.
+
+## RAND Headquarters
+
+P.O. Box 2138   
+1776 Main Street  
+Santa Monica, CA 90401-2138
+
+RAND has offices across the U.S., in Europe, and in Australia
+
+See all RAND locations
+
+  * About
+  * Leadership
+  * Research Integrity
+  * Graduate School
+  * Support RAND
+  * Careers
+  * Contact
+  * Work with Us
+  * For Media
+  * For Congress
+
+## Subscribe to the Policy Currents Newsletter
+
+And stay on top of the issues that matter most.
+
+Email Subscribe
+
+View all newsletters
+
+  * RAND on LinkedIn
+  * RAND on X
+  * RAND on Instagram
+  * RAND on Facebook
+  * RAND on YouTube
+  * RAND on Bluesky
+  * RAND on Threads
+  * Policy Minded: RAND's Flagship Podcast
+
+RAND® is a registered trademark. © 2026 RAND Corporation.
+
+Privacy PolicyTerms and Conditions
+
+International Websites:
+    中文
+    العربية
+
+This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
