@@ -11,3 +11,4 @@ films/*-assets/clips/*.mp4
 films/*-assets/quellen/*.pdf
 *.mp3
 *.wav
+.env
