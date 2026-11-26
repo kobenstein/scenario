@@ -1,0 +1,91 @@
+{
+ "duration": 617.48,
+ "end_screen": {
+  "start": 602.48,
+  "dur": 15.0,
+  "end": 617.48,
+  "call": "t24",
+  "call_start": 586.32,
+  "call_end": 598.48,
+  "tail_after_vo": 19.0,
+  "note": "after the last VO word: a quiet walk, then the 15 s end screen (the music fades out over it)"
+ },
+ "channel_calls": {
+  "t12": {
+   "start": 296.37,
+   "end": 307.26
+  },
+  "t24": {
+   "start": 586.32,
+   "end": 598.48
+  }
+ },
+ "slots": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "1",
+   "start": 54.89,
+   "end": 65.8,
+   "dur": 10.91,
+   "under": false,
+   "file": "C1.mp4"
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "3",
+   "start": 183.72,
+   "end": 196.7,
+   "dur": 12.98,
+   "under": false,
+   "file": "C2.mp4"
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "sec": "5",
+   "start": 319.64,
+   "end": 328.15,
+   "dur": 8.51,
+   "under": false,
+   "file": "C3.mp4"
+  }
+ ],
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "1",
+   "start": 54.89,
+   "end": 65.8,
+   "under": false
+  },
+  {
+   "id": "C2",
+   "kind": "clip",
+   "sec": "3",
+   "start": 183.72,
+   "end": 196.7,
+   "under": false
+  },
+  {
+   "id": "C3",
+   "kind": "clip",
+   "sec": "5",
+   "start": 319.64,
+   "end": 328.15,
+   "under": false
+  },
+  {
+   "id": "C4",
+   "kind": "card",
+   "sec": "6",
+   "start": 465.78,
+   "end": 470.52,
+   "under": true,
+   "text": "Who gets to decide what we reserve for humans? What criteria should we use?",
+   "source": "Bill Gates, GatesNotes (Aug 26, 2026)"
+  }
+ ]
+}

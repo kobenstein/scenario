@@ -1,0 +1,9 @@
+[
+ {"f": "paper_slide", "word": "The list hasn't been written yet", "at_end": true, "dt": 0.6, "v": 0.4, "once": true, "d": 1.0, "fade": 0.3},
+ {"f": "rail_ping", "word": "The first is now", "at_end": true, "dt": 0.4, "v": 0.35, "once": true, "d": 1.25, "fade": 0.8},
+ {"f": "bloom", "word": "If we don't choose", "at_end": true, "dt": 0.3, "v": 0.4, "once": true, "d": 1.05, "fade": 0.7},
+ {"f": "stamp", "word": "Not a date in your calendar", "at_end": true, "dt": 0.25, "v": 0.35, "once": true, "d": 1.0, "fade": 0.4},
+ {"f": "paper_pop", "word": "idea comes in. The list", "at_end": true, "dt": 0.9, "v": 0.35, "once": true, "d": 1.2, "fade": 0.4},
+ {"f": "shimmer_rings", "word": "the list is still missing", "at_end": true, "dt": 0.75, "v": 0.4, "once": true, "d": 1.4, "fade": 1.0},
+ {"f": "chime", "word": "who gets to write it", "at_end": true, "dt": 0.1, "v": 0.4, "once": true, "d": 1.4, "fade": 1.0}
+]

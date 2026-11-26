@@ -1,0 +1,365 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 384
+PlayResY: 288
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Sub,Inter,19,&H00E2EFF3,&H00E2EFF3,&H80000000,&H00000000,0,0,0,0,100,100,0,0,1,1.4,0,2,20,20,20,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.65,0:00:02.52,Sub,,0,0,0,,{\fad(120,160)}Bill Gates changed his mind about
+Dialogue: 0,0:00:02.56,0:00:04.72,Sub,,0,0,0,,{\fad(120,160)}artificial intelligence and jobs.
+Dialogue: 0,0:00:04.96,0:00:06.22,Sub,,0,0,0,,{\fad(120,160)}3 years ago, he called
+Dialogue: 0,0:00:06.26,0:00:08.51,Sub,,0,0,0,,{\fad(120,160)}the risks real, but manageable.
+Dialogue: 0,0:00:08.83,0:00:10.47,Sub,,0,0,0,,{\fad(120,160)}Now he warns of far fewer
+Dialogue: 0,0:00:10.51,0:00:12.04,Sub,,0,0,0,,{\fad(120,160)}jobs than exist today.
+Dialogue: 0,0:00:12.35,0:00:13.49,Sub,,0,0,0,,{\fad(120,160)}No job, he says,
+Dialogue: 0,0:00:13.53,0:00:15.05,Sub,,0,0,0,,{\fad(120,160)}will be left untouched.
+Dialogue: 0,0:00:15.23,0:00:16.36,Sub,,0,0,0,,{\fad(120,160)}Jobs at a screen.
+Dialogue: 0,0:00:16.40,0:00:17.69,Sub,,0,0,0,,{\fad(120,160)}Jobs done by hand.
+Dialogue: 0,0:00:17.80,0:00:19.05,Sub,,0,0,0,,{\fad(120,160)}Whatever your job is,
+Dialogue: 0,0:00:19.09,0:00:20.34,Sub,,0,0,0,,{\fad(120,160)}he means yours too.
+Dialogue: 0,0:00:20.80,0:00:22.62,Sub,,0,0,0,,{\fad(120,160)}So what did Bill Gates see?
+Dialogue: 0,0:00:22.92,0:00:25.32,Sub,,0,0,0,,{\fad(120,160)}His own words: "This is crazy.
+Dialogue: 0,0:00:25.36,0:00:26.55,Sub,,0,0,0,,{\fad(120,160)}This is insane."
+Dialogue: 0,0:00:26.83,0:00:28.12,Sub,,0,0,0,,{\fad(120,160)}He's shocked, he says,
+Dialogue: 0,0:00:28.16,0:00:30.08,Sub,,0,0,0,,{\fad(120,160)}to be one of the first saying it.
+Dialogue: 0,0:00:30.31,0:00:32.28,Sub,,0,0,0,,{\fad(120,160)}And deafened by the silence.
+Dialogue: 0,0:00:32.89,0:00:34.02,Sub,,0,0,0,,{\fad(120,160)}But he doesn't want
+Dialogue: 0,0:00:34.06,0:00:35.67,Sub,,0,0,0,,{\fad(120,160)}to stop the machines.
+Dialogue: 0,0:00:35.89,0:00:37.88,Sub,,0,0,0,,{\fad(120,160)}He wants certain work set aside.
+Dialogue: 0,0:00:38.02,0:00:39.04,Sub,,0,0,0,,{\fad(120,160)}For people only.
+Dialogue: 0,0:00:39.37,0:00:41.08,Sub,,0,0,0,,{\fad(120,160)}Even where a machine could do it.
+Dialogue: 0,0:00:41.36,0:00:42.73,Sub,,0,0,0,,{\fad(120,160)}Think of it as a list.
+Dialogue: 0,0:00:42.92,0:00:45.00,Sub,,0,0,0,,{\fad(120,160)}He calls it Human Reserved.
+Dialogue: 0,0:00:45.19,0:00:46.48,Sub,,0,0,0,,{\fad(120,160)}Your job could be on it.
+Dialogue: 0,0:00:46.57,0:00:47.69,Sub,,0,0,0,,{\fad(120,160)}Or left off.
+Dialogue: 0,0:00:48.02,0:00:49.51,Sub,,0,0,0,,{\fad(120,160)}The list hasn't been written yet.
+Dialogue: 0,0:00:50.61,0:00:51.37,Sub,,0,0,0,,{\fad(120,160)}This month,
+Dialogue: 0,0:00:51.41,0:00:53.14,Sub,,0,0,0,,{\fad(120,160)}at a Financial Times event,
+Dialogue: 0,0:00:53.18,0:00:54.54,Sub,,0,0,0,,{\fad(120,160)}he put it plainly.
+Dialogue: 0,0:00:55.02,0:00:56.52,Sub,,0,0,0,,{\fad(120,160)}I say very strongly that
+Dialogue: 0,0:00:56.56,0:01:00.58,Sub,,0,0,0,,{\fad(120,160)}past technological advances
+Dialogue: 0,0:01:00.62,0:01:02.52,Sub,,0,0,0,,{\fad(120,160)}are no guide to this.
+Dialogue: 0,0:01:02.56,0:01:04.12,Sub,,0,0,0,,{\fad(120,160)}That will just mislead you
+Dialogue: 0,0:01:04.16,0:01:05.94,Sub,,0,0,0,,{\fad(120,160)}if you look at those.
+Dialogue: 0,0:01:06.54,0:01:07.98,Sub,,0,0,0,,{\fad(120,160)}What changed is his
+Dialogue: 0,0:01:08.02,0:01:09.46,Sub,,0,0,0,,{\fad(120,160)}picture of the machine.
+Dialogue: 0,0:01:09.67,0:01:11.48,Sub,,0,0,0,,{\fad(120,160)}Just weeks ago, he said why this
+Dialogue: 0,0:01:11.52,0:01:12.74,Sub,,0,0,0,,{\fad(120,160)}technology is different
+Dialogue: 0,0:01:12.78,0:01:13.90,Sub,,0,0,0,,{\fad(120,160)}from past ones.
+Dialogue: 0,0:01:14.16,0:01:16.22,Sub,,0,0,0,,{\fad(120,160)}It exceeds human intelligence.
+Dialogue: 0,0:01:16.60,0:01:18.47,Sub,,0,0,0,,{\fad(120,160)}Earlier machines took over tasks,
+Dialogue: 0,0:01:18.51,0:01:19.82,Sub,,0,0,0,,{\fad(120,160)}and people moved on to work
+Dialogue: 0,0:01:19.86,0:01:21.26,Sub,,0,0,0,,{\fad(120,160)}the machines couldn't do.
+Dialogue: 0,0:01:21.62,0:01:22.36,Sub,,0,0,0,,{\fad(120,160)}That's why he called
+Dialogue: 0,0:01:22.40,0:01:23.74,Sub,,0,0,0,,{\fad(120,160)}the risks manageable.
+Dialogue: 0,0:01:24.07,0:01:26.04,Sub,,0,0,0,,{\fad(120,160)}This time, wherever people move,
+Dialogue: 0,0:01:26.08,0:01:27.51,Sub,,0,0,0,,{\fad(120,160)}the machine can follow.
+Dialogue: 0,0:01:27.85,0:01:29.33,Sub,,0,0,0,,{\fad(120,160)}That's what Bill Gates saw.
+Dialogue: 0,0:01:29.66,0:01:31.25,Sub,,0,0,0,,{\fad(120,160)}He says he'd love to be convinced
+Dialogue: 0,0:01:31.29,0:01:32.99,Sub,,0,0,0,,{\fad(120,160)}he's wrong about the job market.
+Dialogue: 0,0:01:33.24,0:01:34.53,Sub,,0,0,0,,{\fad(120,160)}But he's not convinced.
+Dialogue: 0,0:01:34.62,0:01:36.44,Sub,,0,0,0,,{\fad(120,160)}He has put his reputation on it.
+Dialogue: 0,0:01:36.98,0:01:38.78,Sub,,0,0,0,,{\fad(120,160)}So where does it begin?
+Dialogue: 0,0:01:39.05,0:01:41.26,Sub,,0,0,0,,{\fad(120,160)}His warning comes with a timeline.
+Dialogue: 0,0:01:41.37,0:01:42.51,Sub,,0,0,0,,{\fad(120,160)}3 stops.
+Dialogue: 0,0:01:42.70,0:01:43.81,Sub,,0,0,0,,{\fad(120,160)}The last is the one
+Dialogue: 0,0:01:43.85,0:01:45.25,Sub,,0,0,0,,{\fad(120,160)}that worries him most.
+Dialogue: 0,0:01:45.52,0:01:47.21,Sub,,0,0,0,,{\fad(120,160)}The first is now.
+Dialogue: 0,0:01:48.41,0:01:49.98,Sub,,0,0,0,,{\fad(120,160)}For Gates, the first work
+Dialogue: 0,0:01:50.02,0:01:51.93,Sub,,0,0,0,,{\fad(120,160)}to go is work at a screen.
+Dialogue: 0,0:01:52.07,0:01:53.05,Sub,,0,0,0,,{\fad(120,160)}He names it.
+Dialogue: 0,0:01:53.09,0:01:54.05,Sub,,0,0,0,,{\fad(120,160)}Phone sales.
+Dialogue: 0,0:01:54.09,0:01:55.16,Sub,,0,0,0,,{\fad(120,160)}Phone support.
+Dialogue: 0,0:01:55.20,0:01:56.20,Sub,,0,0,0,,{\fad(120,160)}Accounting.
+Dialogue: 0,0:01:56.35,0:01:58.43,Sub,,0,0,0,,{\fad(120,160)}Artificial intelligence, he says,
+Dialogue: 0,0:01:58.47,0:01:59.52,Sub,,0,0,0,,{\fad(120,160)}does that work cheaper,
+Dialogue: 0,0:01:59.56,0:02:01.53,Sub,,0,0,0,,{\fad(120,160)}faster and more accurately.
+Dialogue: 0,0:02:01.94,0:02:02.65,Sub,,0,0,0,,{\fad(120,160)}For one group,
+Dialogue: 0,0:02:02.69,0:02:04.87,Sub,,0,0,0,,{\fad(120,160)}this stop is already in the data.
+Dialogue: 0,0:02:05.07,0:02:06.15,Sub,,0,0,0,,{\fad(120,160)}Young people, looking
+Dialogue: 0,0:02:06.19,0:02:07.45,Sub,,0,0,0,,{\fad(120,160)}for their first job.
+Dialogue: 0,0:02:07.75,0:02:08.65,Sub,,0,0,0,,{\fad(120,160)}In the jobs most
+Dialogue: 0,0:02:08.69,0:02:09.76,Sub,,0,0,0,,{\fad(120,160)}exposed to artificial
+Dialogue: 0,0:02:09.80,0:02:11.60,Sub,,0,0,0,,{\fad(120,160)}intelligence, their employment has
+Dialogue: 0,0:02:11.64,0:02:13.50,Sub,,0,0,0,,{\fad(120,160)}fallen about 19 percent
+Dialogue: 0,0:02:13.54,0:02:14.17,Sub,,0,0,0,,{\fad(120,160)}behind people
+Dialogue: 0,0:02:14.21,0:02:16.56,Sub,,0,0,0,,{\fad(120,160)}the same age in less exposed jobs.
+Dialogue: 0,0:02:16.77,0:02:18.69,Sub,,0,0,0,,{\fad(120,160)}And the gap is still growing.
+Dialogue: 0,0:02:19.32,0:02:20.60,Sub,,0,0,0,,{\fad(120,160)}If that's you,
+Dialogue: 0,0:02:20.67,0:02:22.55,Sub,,0,0,0,,{\fad(120,160)}this stop isn't ahead of you.
+Dialogue: 0,0:02:22.63,0:02:23.98,Sub,,0,0,0,,{\fad(120,160)}You're standing in it.
+Dialogue: 0,0:02:24.31,0:02:25.12,Sub,,0,0,0,,{\fad(120,160)}But the same data
+Dialogue: 0,0:02:25.16,0:02:26.53,Sub,,0,0,0,,{\fad(120,160)}shows something else.
+Dialogue: 0,0:02:26.73,0:02:27.48,Sub,,0,0,0,,{\fad(120,160)}Where the technology
+Dialogue: 0,0:02:27.52,0:02:29.08,Sub,,0,0,0,,{\fad(120,160)}works alongside people,
+Dialogue: 0,0:02:29.12,0:02:30.58,Sub,,0,0,0,,{\fad(120,160)}instead of replacing them,
+Dialogue: 0,0:02:30.62,0:02:33.17,Sub,,0,0,0,,{\fad(120,160)}employment holds steady, or grows.
+Dialogue: 0,0:02:33.36,0:02:33.90,Sub,,0,0,0,,{\fad(120,160)}So the machine
+Dialogue: 0,0:02:33.94,0:02:35.62,Sub,,0,0,0,,{\fad(120,160)}alone doesn't decide.
+Dialogue: 0,0:02:35.71,0:02:37.40,Sub,,0,0,0,,{\fad(120,160)}How it's used does.
+Dialogue: 0,0:02:37.62,0:02:39.63,Sub,,0,0,0,,{\fad(120,160)}So the first stop is the screen.
+Dialogue: 0,0:02:39.80,0:02:40.85,Sub,,0,0,0,,{\fad(120,160)}Which sounds like good news
+Dialogue: 0,0:02:40.89,0:02:41.80,Sub,,0,0,0,,{\fad(120,160)}for anyone who works
+Dialogue: 0,0:02:41.84,0:02:42.90,Sub,,0,0,0,,{\fad(120,160)}with their hands.
+Dialogue: 0,0:02:44.35,0:02:46.23,Sub,,0,0,0,,{\fad(120,160)}That's the usual comfort.
+Dialogue: 0,0:02:46.50,0:02:48.39,Sub,,0,0,0,,{\fad(120,160)}A machine can answer a phone.
+Dialogue: 0,0:02:48.58,0:02:49.67,Sub,,0,0,0,,{\fad(120,160)}It can't lay bricks,
+Dialogue: 0,0:02:49.71,0:02:51.27,Sub,,0,0,0,,{\fad(120,160)}or bring in a harvest.
+Dialogue: 0,0:02:51.59,0:02:52.93,Sub,,0,0,0,,{\fad(120,160)}Gates gives that comfort
+Dialogue: 0,0:02:52.97,0:02:54.39,Sub,,0,0,0,,{\fad(120,160)}2 to 8 years.
+Dialogue: 0,0:02:54.55,0:02:55.92,Sub,,0,0,0,,{\fad(120,160)}That's the second stop:
+Dialogue: 0,0:02:56.05,0:02:57.81,Sub,,0,0,0,,{\fad(120,160)}his window for humanoid robots
+Dialogue: 0,0:02:57.85,0:02:59.83,Sub,,0,0,0,,{\fad(120,160)}on building sites and farms.
+Dialogue: 0,0:03:00.10,0:03:01.73,Sub,,0,0,0,,{\fad(120,160)}This fall, on a podcast,
+Dialogue: 0,0:03:01.77,0:03:03.37,Sub,,0,0,0,,{\fad(120,160)}he said where that leads.
+Dialogue: 0,0:03:04.04,0:03:05.98,Sub,,0,0,0,,{\fad(120,160)}If we don't choose
+Dialogue: 0,0:03:06.02,0:03:09.58,Sub,,0,0,0,,{\fad(120,160)}to massively slow down or stop,
+Dialogue: 0,0:03:09.62,0:03:12.74,Sub,,0,0,0,,{\fad(120,160)}then we will have robots
+Dialogue: 0,0:03:12.78,0:03:13.88,Sub,,0,0,0,,{\fad(120,160)}that can build houses,
+Dialogue: 0,0:03:13.92,0:03:16.82,Sub,,0,0,0,,{\fad(120,160)}grow food, do surgery,
+Dialogue: 0,0:03:17.39,0:03:18.39,Sub,,0,0,0,,{\fad(120,160)}Houses.
+Dialogue: 0,0:03:18.49,0:03:19.46,Sub,,0,0,0,,{\fad(120,160)}Food.
+Dialogue: 0,0:03:19.50,0:03:20.99,Sub,,0,0,0,,{\fad(120,160)}Work done with hands.
+Dialogue: 0,0:03:21.33,0:03:22.37,Sub,,0,0,0,,{\fad(120,160)}But go back to how
+Dialogue: 0,0:03:22.41,0:03:23.99,Sub,,0,0,0,,{\fad(120,160)}his sentence begins.
+Dialogue: 0,0:03:24.23,0:03:25.91,Sub,,0,0,0,,{\fad(120,160)}If we don't choose.
+Dialogue: 0,0:03:26.86,0:03:28.82,Sub,,0,0,0,,{\fad(120,160)}He isn't describing the weather.
+Dialogue: 0,0:03:29.02,0:03:30.87,Sub,,0,0,0,,{\fad(120,160)}He's describing a decision.
+Dialogue: 0,0:03:31.17,0:03:33.00,Sub,,0,0,0,,{\fad(120,160)}Machines like these are built,
+Dialogue: 0,0:03:33.04,0:03:35.30,Sub,,0,0,0,,{\fad(120,160)}bought and switched on by people.
+Dialogue: 0,0:03:35.59,0:03:37.56,Sub,,0,0,0,,{\fad(120,160)}Gates doesn't expect a halt.
+Dialogue: 0,0:03:37.73,0:03:39.30,Sub,,0,0,0,,{\fad(120,160)}But how fast they come,
+Dialogue: 0,0:03:39.34,0:03:41.17,Sub,,0,0,0,,{\fad(120,160)}and where, is a choice.
+Dialogue: 0,0:03:41.56,0:03:42.51,Sub,,0,0,0,,{\fad(120,160)}Before the last stop
+Dialogue: 0,0:03:42.55,0:03:43.38,Sub,,0,0,0,,{\fad(120,160)}on his timeline,
+Dialogue: 0,0:03:43.42,0:03:45.21,Sub,,0,0,0,,{\fad(120,160)}though, a fair question.
+Dialogue: 0,0:03:45.45,0:03:46.88,Sub,,0,0,0,,{\fad(120,160)}Is he even right?
+Dialogue: 0,0:03:48.03,0:03:49.94,Sub,,0,0,0,,{\fad(120,160)}Start with who's talking.
+Dialogue: 0,0:03:50.23,0:03:52.49,Sub,,0,0,0,,{\fad(120,160)}Bill Gates co-founded Microsoft,
+Dialogue: 0,0:03:52.53,0:03:54.01,Sub,,0,0,0,,{\fad(120,160)}one of the biggest shareholders
+Dialogue: 0,0:03:54.05,0:03:56.20,Sub,,0,0,0,,{\fad(120,160)}in the company behind ChatGPT.
+Dialogue: 0,0:03:56.47,0:03:57.58,Sub,,0,0,0,,{\fad(120,160)}So he is warning
+Dialogue: 0,0:03:57.62,0:03:58.49,Sub,,0,0,0,,{\fad(120,160)}about a technology
+Dialogue: 0,0:03:58.53,0:04:00.64,Sub,,0,0,0,,{\fad(120,160)}his old company profits from.
+Dialogue: 0,0:04:00.78,0:04:01.52,Sub,,0,0,0,,{\fad(120,160)}That makes the warning
+Dialogue: 0,0:04:01.56,0:04:03.02,Sub,,0,0,0,,{\fad(120,160)}harder to wave away.
+Dialogue: 0,0:04:03.33,0:04:04.89,Sub,,0,0,0,,{\fad(120,160)}Though a skeptic would add:
+Dialogue: 0,0:04:05.01,0:04:06.40,Sub,,0,0,0,,{\fad(120,160)}strict rules often suit
+Dialogue: 0,0:04:06.44,0:04:07.78,Sub,,0,0,0,,{\fad(120,160)}the biggest players.
+Dialogue: 0,0:04:08.32,0:04:09.83,Sub,,0,0,0,,{\fad(120,160)}Then the numbers.
+Dialogue: 0,0:04:10.20,0:04:12.29,Sub,,0,0,0,,{\fad(120,160)}That 19 percent gap is about
+Dialogue: 0,0:04:12.33,0:04:13.66,Sub,,0,0,0,,{\fad(120,160)}the youngest workers,
+Dialogue: 0,0:04:13.70,0:04:15.61,Sub,,0,0,0,,{\fad(120,160)}in the most exposed jobs.
+Dialogue: 0,0:04:15.91,0:04:16.71,Sub,,0,0,0,,{\fad(120,160)}Across the whole
+Dialogue: 0,0:04:16.75,0:04:18.17,Sub,,0,0,0,,{\fad(120,160)}American job market,
+Dialogue: 0,0:04:18.22,0:04:19.35,Sub,,0,0,0,,{\fad(120,160)}researchers at Yale
+Dialogue: 0,0:04:19.39,0:04:20.63,Sub,,0,0,0,,{\fad(120,160)}see something else.
+Dialogue: 0,0:04:20.91,0:04:23.04,Sub,,0,0,0,,{\fad(120,160)}As of this spring, their verdict:
+Dialogue: 0,0:04:23.30,0:04:25.17,Sub,,0,0,0,,{\fad(120,160)}where the job market is weakening,
+Dialogue: 0,0:04:25.24,0:04:26.37,Sub,,0,0,0,,{\fad(120,160)}artificial intelligence
+Dialogue: 0,0:04:26.41,0:04:27.15,Sub,,0,0,0,,{\fad(120,160)}is probably
+Dialogue: 0,0:04:27.19,0:04:28.39,Sub,,0,0,0,,{\fad(120,160)}not the reason.
+Dialogue: 0,0:04:28.54,0:04:29.54,Sub,,0,0,0,,{\fad(120,160)}Not yet.
+Dialogue: 0,0:04:29.71,0:04:31.57,Sub,,0,0,0,,{\fad(120,160)}And Gates doesn't claim otherwise.
+Dialogue: 0,0:04:31.77,0:04:32.83,Sub,,0,0,0,,{\fad(120,160)}By his own account,
+Dialogue: 0,0:04:32.87,0:04:34.80,Sub,,0,0,0,,{\fad(120,160)}his warning is a forecast.
+Dialogue: 0,0:04:34.87,0:04:36.91,Sub,,0,0,0,,{\fad(120,160)}Not a finding in today's numbers.
+Dialogue: 0,0:04:37.54,0:04:38.73,Sub,,0,0,0,,{\fad(120,160)}So here is what
+Dialogue: 0,0:04:38.77,0:04:40.00,Sub,,0,0,0,,{\fad(120,160)}the evidence supports.
+Dialogue: 0,0:04:40.04,0:04:42.37,Sub,,0,0,0,,{\fad(120,160)}The direction: plausible.
+Dialogue: 0,0:04:42.58,0:04:43.10,Sub,,0,0,0,,{\fad(120,160)}At the start
+Dialogue: 0,0:04:43.14,0:04:45.54,Sub,,0,0,0,,{\fad(120,160)}of careers: already measurable.
+Dialogue: 0,0:04:45.78,0:04:48.21,Sub,,0,0,0,,{\fad(120,160)}The speed and the size: open.
+Dialogue: 0,0:04:48.49,0:04:49.41,Sub,,0,0,0,,{\fad(120,160)}A forecast from
+Dialogue: 0,0:04:49.45,0:04:51.00,Sub,,0,0,0,,{\fad(120,160)}a well-informed man.
+Dialogue: 0,0:04:51.18,0:04:51.98,Sub,,0,0,0,,{\fad(120,160)}One who changed
+Dialogue: 0,0:04:52.02,0:04:53.39,Sub,,0,0,0,,{\fad(120,160)}his mind in public.
+Dialogue: 0,0:04:53.68,0:04:55.21,Sub,,0,0,0,,{\fad(120,160)}Not a date in your calendar.
+Dialogue: 0,0:04:56.37,0:04:57.40,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:04:57.44,0:04:58.74,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:04:58.90,0:04:59.78,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:04:59.82,0:05:00.94,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:05:00.98,0:05:02.78,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:05:02.91,0:05:03.66,Sub,,0,0,0,,{\fad(120,160)}Wherever your job
+Dialogue: 0,0:05:03.70,0:05:05.08,Sub,,0,0,0,,{\fad(120,160)}sits on that timeline.
+Dialogue: 0,0:05:05.36,0:05:06.36,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:05:06.48,0:05:07.51,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
+Dialogue: 0,0:05:08.70,0:05:09.85,Sub,,0,0,0,,{\fad(120,160)}That leaves the last
+Dialogue: 0,0:05:09.89,0:05:11.29,Sub,,0,0,0,,{\fad(120,160)}stop on his timeline.
+Dialogue: 0,0:05:11.66,0:05:13.49,Sub,,0,0,0,,{\fad(120,160)}The one that worries him most.
+Dialogue: 0,0:05:13.82,0:05:14.95,Sub,,0,0,0,,{\fad(120,160)}It isn't a date.
+Dialogue: 0,0:05:15.03,0:05:16.49,Sub,,0,0,0,,{\fad(120,160)}It's a stretch of time.
+Dialogue: 0,0:05:16.72,0:05:18.07,Sub,,0,0,0,,{\fad(120,160)}On that same podcast,
+Dialogue: 0,0:05:18.11,0:05:19.29,Sub,,0,0,0,,{\fad(120,160)}he said how long.
+Dialogue: 0,0:05:19.88,0:05:21.44,Sub,,0,0,0,,{\fad(120,160)}My big concern is this
+Dialogue: 0,0:05:21.48,0:05:23.04,Sub,,0,0,0,,{\fad(120,160)}20-year transition period,
+Dialogue: 0,0:05:23.08,0:05:25.24,Sub,,0,0,0,,{\fad(120,160)}where it'll have
+Dialogue: 0,0:05:25.28,0:05:26.36,Sub,,0,0,0,,{\fad(120,160)}winners and losers
+Dialogue: 0,0:05:26.40,0:05:28.29,Sub,,0,0,0,,{\fad(120,160)}and a lot of disruption,
+Dialogue: 0,0:05:28.80,0:05:31.56,Sub,,0,0,0,,{\fad(120,160)}20 years of winners and losers.
+Dialogue: 0,0:05:31.81,0:05:32.62,Sub,,0,0,0,,{\fad(120,160)}If you're in the middle
+Dialogue: 0,0:05:32.66,0:05:33.96,Sub,,0,0,0,,{\fad(120,160)}of your working life,
+Dialogue: 0,0:05:34.00,0:05:35.63,Sub,,0,0,0,,{\fad(120,160)}that's not a transition.
+Dialogue: 0,0:05:35.73,0:05:37.02,Sub,,0,0,0,,{\fad(120,160)}That's the rest of it.
+Dialogue: 0,0:05:37.28,0:05:38.54,Sub,,0,0,0,,{\fad(120,160)}That stretch is what
+Dialogue: 0,0:05:38.58,0:05:39.78,Sub,,0,0,0,,{\fad(120,160)}his plan is for.
+Dialogue: 0,0:05:39.98,0:05:40.73,Sub,,0,0,0,,{\fad(120,160)}Remember the warning
+Dialogue: 0,0:05:40.77,0:05:41.77,Sub,,0,0,0,,{\fad(120,160)}from the start?
+Dialogue: 0,0:05:41.98,0:05:43.68,Sub,,0,0,0,,{\fad(120,160)}Far fewer jobs.
+Dialogue: 0,0:05:43.83,0:05:45.68,Sub,,0,0,0,,{\fad(120,160)}His essay adds a condition:
+Dialogue: 0,0:05:45.83,0:05:47.68,Sub,,0,0,0,,{\fad(120,160)}without the right policies.
+Dialogue: 0,0:05:47.85,0:05:49.39,Sub,,0,0,0,,{\fad(120,160)}The list is one of them.
+Dialogue: 0,0:05:49.56,0:05:51.18,Sub,,0,0,0,,{\fad(120,160)}Another is about money.
+Dialogue: 0,0:05:51.35,0:05:52.75,Sub,,0,0,0,,{\fad(120,160)}Today, he argues,
+Dialogue: 0,0:05:52.79,0:05:53.73,Sub,,0,0,0,,{\fad(120,160)}the tax system
+Dialogue: 0,0:05:53.77,0:05:55.18,Sub,,0,0,0,,{\fad(120,160)}pushes the wrong way.
+Dialogue: 0,0:05:55.41,0:05:56.42,Sub,,0,0,0,,{\fad(120,160)}Hire a person,
+Dialogue: 0,0:05:56.46,0:05:57.46,Sub,,0,0,0,,{\fad(120,160)}and the company pays
+Dialogue: 0,0:05:57.50,0:05:58.89,Sub,,0,0,0,,{\fad(120,160)}taxes on the wage.
+Dialogue: 0,0:05:59.03,0:06:00.43,Sub,,0,0,0,,{\fad(120,160)}Buy a robot instead,
+Dialogue: 0,0:06:00.47,0:06:01.35,Sub,,0,0,0,,{\fad(120,160)}and it can usually be
+Dialogue: 0,0:06:01.39,0:06:02.98,Sub,,0,0,0,,{\fad(120,160)}written off right away.
+Dialogue: 0,0:06:03.57,0:06:06.38,Sub,,0,0,0,,{\fad(120,160)}His fix: tax the machine's work.
+Dialogue: 0,0:06:06.71,0:06:08.21,Sub,,0,0,0,,{\fad(120,160)}Tax artificial intelligence
+Dialogue: 0,0:06:08.25,0:06:09.38,Sub,,0,0,0,,{\fad(120,160)}and robots by how
+Dialogue: 0,0:06:09.42,0:06:10.62,Sub,,0,0,0,,{\fad(120,160)}much they're used.
+Dialogue: 0,0:06:10.88,0:06:12.45,Sub,,0,0,0,,{\fad(120,160)}The money goes into retraining
+Dialogue: 0,0:06:12.49,0:06:14.20,Sub,,0,0,0,,{\fad(120,160)}and a stronger safety net.
+Dialogue: 0,0:06:14.58,0:06:15.79,Sub,,0,0,0,,{\fad(120,160)}The artificial intelligence
+Dialogue: 0,0:06:15.83,0:06:17.62,Sub,,0,0,0,,{\fad(120,160)}researcher Oren Etzioni
+Dialogue: 0,0:06:17.66,0:06:18.71,Sub,,0,0,0,,{\fad(120,160)}says Gates has
+Dialogue: 0,0:06:18.75,0:06:20.22,Sub,,0,0,0,,{\fad(120,160)}the diagnosis right,
+Dialogue: 0,0:06:20.26,0:06:21.90,Sub,,0,0,0,,{\fad(120,160)}but the prescription wrong,
+Dialogue: 0,0:06:22.11,0:06:23.59,Sub,,0,0,0,,{\fad(120,160)}at least in some places.
+Dialogue: 0,0:06:24.07,0:06:24.93,Sub,,0,0,0,,{\fad(120,160)}Taxing the machine's
+Dialogue: 0,0:06:24.97,0:06:26.17,Sub,,0,0,0,,{\fad(120,160)}work, he says,
+Dialogue: 0,0:06:26.21,0:06:27.73,Sub,,0,0,0,,{\fad(120,160)}is like taxing keystrokes
+Dialogue: 0,0:06:27.77,0:06:28.85,Sub,,0,0,0,,{\fad(120,160)}on a typewriter.
+Dialogue: 0,0:06:29.08,0:06:30.24,Sub,,0,0,0,,{\fad(120,160)}It counts how hard
+Dialogue: 0,0:06:30.28,0:06:31.37,Sub,,0,0,0,,{\fad(120,160)}the machine works.
+Dialogue: 0,0:06:31.50,0:06:33.45,Sub,,0,0,0,,{\fad(120,160)}Not whether anyone lost a job.
+Dialogue: 0,0:06:34.07,0:06:35.44,Sub,,0,0,0,,{\fad(120,160)}And even a perfect
+Dialogue: 0,0:06:35.48,0:06:36.90,Sub,,0,0,0,,{\fad(120,160)}tax leaves a gap.
+Dialogue: 0,0:06:37.25,0:06:39.12,Sub,,0,0,0,,{\fad(120,160)}Money can replace a paycheck.
+Dialogue: 0,0:06:39.30,0:06:41.24,Sub,,0,0,0,,{\fad(120,160)}It can't replace being needed.
+Dialogue: 0,0:06:41.75,0:06:42.23,Sub,,0,0,0,,{\fad(120,160)}That's where his
+Dialogue: 0,0:06:42.27,0:06:43.81,Sub,,0,0,0,,{\fad(120,160)}second idea comes in.
+Dialogue: 0,0:06:44.06,0:06:45.06,Sub,,0,0,0,,{\fad(120,160)}The list.
+Dialogue: 0,0:06:46.03,0:06:47.32,Sub,,0,0,0,,{\fad(120,160)}Human Reserved.
+Dialogue: 0,0:06:47.66,0:06:49.67,Sub,,0,0,0,,{\fad(120,160)}In his words: as artificial
+Dialogue: 0,0:06:49.71,0:06:52.12,Sub,,0,0,0,,{\fad(120,160)}intelligence and robots improve,
+Dialogue: 0,0:06:52.16,0:06:53.31,Sub,,0,0,0,,{\fad(120,160)}we'll set aside certain
+Dialogue: 0,0:06:53.35,0:06:55.50,Sub,,0,0,0,,{\fad(120,160)}things for only people to do.
+Dialogue: 0,0:06:55.94,0:06:57.73,Sub,,0,0,0,,{\fad(120,160)}The candidates named so far:
+Dialogue: 0,0:06:58.08,0:06:59.52,Sub,,0,0,0,,{\fad(120,160)}looking after children.
+Dialogue: 0,0:06:59.76,0:07:01.08,Sub,,0,0,0,,{\fad(120,160)}Sitting on a jury.
+Dialogue: 0,0:07:01.37,0:07:02.49,Sub,,0,0,0,,{\fad(120,160)}Making art.
+Dialogue: 0,0:07:02.86,0:07:04.86,Sub,,0,0,0,,{\fad(120,160)}And in teaching, a mix:
+Dialogue: 0,0:07:05.00,0:07:06.59,Sub,,0,0,0,,{\fad(120,160)}a person stays in charge,
+Dialogue: 0,0:07:06.63,0:07:08.68,Sub,,0,0,0,,{\fad(120,160)}and uses the machine as a tool.
+Dialogue: 0,0:07:08.96,0:07:10.02,Sub,,0,0,0,,{\fad(120,160)}Take the jury.
+Dialogue: 0,0:07:10.23,0:07:12.26,Sub,,0,0,0,,{\fad(120,160)}Imagine the verdict is about you.
+Dialogue: 0,0:07:12.55,0:07:13.51,Sub,,0,0,0,,{\fad(120,160)}A machine might weigh
+Dialogue: 0,0:07:13.55,0:07:14.96,Sub,,0,0,0,,{\fad(120,160)}the evidence faster.
+Dialogue: 0,0:07:15.23,0:07:16.08,Sub,,0,0,0,,{\fad(120,160)}Would you still want
+Dialogue: 0,0:07:16.12,0:07:17.32,Sub,,0,0,0,,{\fad(120,160)}people to decide?
+Dialogue: 0,0:07:17.60,0:07:18.94,Sub,,0,0,0,,{\fad(120,160)}Human Reserved would turn
+Dialogue: 0,0:07:18.98,0:07:21.19,Sub,,0,0,0,,{\fad(120,160)}an answer like that into a rule.
+Dialogue: 0,0:07:21.85,0:07:23.86,Sub,,0,0,0,,{\fad(120,160)}How long could such a list get?
+Dialogue: 0,0:07:23.98,0:07:24.98,Sub,,0,0,0,,{\fad(120,160)}Take a guess.
+Dialogue: 0,0:07:25.24,0:07:26.68,Sub,,0,0,0,,{\fad(120,160)}His own ceiling:
+Dialogue: 0,0:07:26.87,0:07:28.74,Sub,,0,0,0,,{\fad(120,160)}in a very extreme form,
+Dialogue: 0,0:07:28.78,0:07:30.27,Sub,,0,0,0,,{\fad(120,160)}40 percent of jobs could be
+Dialogue: 0,0:07:30.31,0:07:32.53,Sub,,0,0,0,,{\fad(120,160)}reserved for humans, at first.
+Dialogue: 0,0:07:32.70,0:07:33.83,Sub,,0,0,0,,{\fad(120,160)}And that, he says,
+Dialogue: 0,0:07:33.87,0:07:35.66,Sub,,0,0,0,,{\fad(120,160)}is as high as he can get.
+Dialogue: 0,0:07:35.75,0:07:37.86,Sub,,0,0,0,,{\fad(120,160)}So even at its most generous,
+Dialogue: 0,0:07:37.90,0:07:39.94,Sub,,0,0,0,,{\fad(120,160)}the list leaves most jobs off.
+Dialogue: 0,0:07:40.08,0:07:41.08,Sub,,0,0,0,,{\fad(120,160)}Maybe yours.
+Dialogue: 0,0:07:41.28,0:07:42.52,Sub,,0,0,0,,{\fad(120,160)}Which ones make it?
+Dialogue: 0,0:07:42.75,0:07:43.72,Sub,,0,0,0,,{\fad(120,160)}In his essay,
+Dialogue: 0,0:07:43.76,0:07:45.46,Sub,,0,0,0,,{\fad(120,160)}Gates asks that himself.
+Dialogue: 0,0:07:45.78,0:07:47.14,Sub,,0,0,0,,{\fad(120,160)}Who gets to decide what
+Dialogue: 0,0:07:47.18,0:07:48.78,Sub,,0,0,0,,{\fad(120,160)}we reserve for humans?
+Dialogue: 0,0:07:48.87,0:07:50.77,Sub,,0,0,0,,{\fad(120,160)}What criteria should we use?
+Dialogue: 0,0:07:51.33,0:07:52.63,Sub,,0,0,0,,{\fad(120,160)}By his own account,
+Dialogue: 0,0:07:52.67,0:07:54.65,Sub,,0,0,0,,{\fad(120,160)}those questions are still open.
+Dialogue: 0,0:07:54.85,0:07:56.06,Sub,,0,0,0,,{\fad(120,160)}And so is a third:
+Dialogue: 0,0:07:56.37,0:07:57.46,Sub,,0,0,0,,{\fad(120,160)}how to keep companies
+Dialogue: 0,0:07:57.50,0:07:59.50,Sub,,0,0,0,,{\fad(120,160)}from replacing people anyway.
+Dialogue: 0,0:07:59.80,0:08:01.69,Sub,,0,0,0,,{\fad(120,160)}Critics add: a line like
+Dialogue: 0,0:08:01.73,0:08:03.27,Sub,,0,0,0,,{\fad(120,160)}this is hard to draw,
+Dialogue: 0,0:08:03.31,0:08:04.90,Sub,,0,0,0,,{\fad(120,160)}and open to lobbying.
+Dialogue: 0,0:08:05.16,0:08:06.53,Sub,,0,0,0,,{\fad(120,160)}And reserved doesn't
+Dialogue: 0,0:08:06.57,0:08:07.87,Sub,,0,0,0,,{\fad(120,160)}mean well paid.
+Dialogue: 0,0:08:08.16,0:08:08.88,Sub,,0,0,0,,{\fad(120,160)}Care work and
+Dialogue: 0,0:08:08.92,0:08:10.47,Sub,,0,0,0,,{\fad(120,160)}teaching often aren't.
+Dialogue: 0,0:08:10.76,0:08:12.85,Sub,,0,0,0,,{\fad(120,160)}So the list is unwritten.
+Dialogue: 0,0:08:13.09,0:08:14.29,Sub,,0,0,0,,{\fad(120,160)}Hard to draw.
+Dialogue: 0,0:08:14.53,0:08:16.52,Sub,,0,0,0,,{\fad(120,160)}And too short for most jobs.
+Dialogue: 0,0:08:16.79,0:08:18.14,Sub,,0,0,0,,{\fad(120,160)}Why does it matter, then?
+Dialogue: 0,0:08:18.75,0:08:21.22,Sub,,0,0,0,,{\fad(120,160)}Ask who decides, right now,
+Dialogue: 0,0:08:21.26,0:08:23.02,Sub,,0,0,0,,{\fad(120,160)}which work stays human.
+Dialogue: 0,0:08:23.33,0:08:25.10,Sub,,0,0,0,,{\fad(120,160)}Mostly, nobody does.
+Dialogue: 0,0:08:25.23,0:08:26.32,Sub,,0,0,0,,{\fad(120,160)}The price does.
+Dialogue: 0,0:08:26.52,0:08:27.44,Sub,,0,0,0,,{\fad(120,160)}If a machine can do
+Dialogue: 0,0:08:27.48,0:08:28.66,Sub,,0,0,0,,{\fad(120,160)}the work for less,
+Dialogue: 0,0:08:28.70,0:08:29.82,Sub,,0,0,0,,{\fad(120,160)}the machine gets it.
+Dialogue: 0,0:08:30.07,0:08:31.45,Sub,,0,0,0,,{\fad(120,160)}A human job is whatever
+Dialogue: 0,0:08:31.49,0:08:32.49,Sub,,0,0,0,,{\fad(120,160)}is left over.
+Dialogue: 0,0:08:32.64,0:08:34.68,Sub,,0,0,0,,{\fad(120,160)}Chances are, that includes yours.
+Dialogue: 0,0:08:34.93,0:08:36.09,Sub,,0,0,0,,{\fad(120,160)}No rule ever said
+Dialogue: 0,0:08:36.13,0:08:37.59,Sub,,0,0,0,,{\fad(120,160)}a person has to do it.
+Dialogue: 0,0:08:37.71,0:08:38.67,Sub,,0,0,0,,{\fad(120,160)}A person has simply
+Dialogue: 0,0:08:38.71,0:08:39.78,Sub,,0,0,0,,{\fad(120,160)}been the best deal.
+Dialogue: 0,0:08:39.94,0:08:40.94,Sub,,0,0,0,,{\fad(120,160)}So far.
+Dialogue: 0,0:08:41.32,0:08:43.02,Sub,,0,0,0,,{\fad(120,160)}Human Reserved asks something
+Dialogue: 0,0:08:43.06,0:08:44.41,Sub,,0,0,0,,{\fad(120,160)}no price can answer.
+Dialogue: 0,0:08:44.56,0:08:46.40,Sub,,0,0,0,,{\fad(120,160)}Not: what does it cost?
+Dialogue: 0,0:08:46.45,0:08:48.69,Sub,,0,0,0,,{\fad(120,160)}But: why should a person do this?
+Dialogue: 0,0:08:49.30,0:08:50.83,Sub,,0,0,0,,{\fad(120,160)}Try a line yourself.
+Dialogue: 0,0:08:50.95,0:08:52.52,Sub,,0,0,0,,{\fad(120,160)}Which work would you put on it?
+Dialogue: 0,0:08:52.88,0:08:55.60,Sub,,0,0,0,,{\fad(120,160)}And, harder: what's your reason?
+Dialogue: 0,0:08:55.70,0:08:57.43,Sub,,0,0,0,,{\fad(120,160)}That reason is exactly what
+Dialogue: 0,0:08:57.47,0:08:59.05,Sub,,0,0,0,,{\fad(120,160)}the list is still missing.
+Dialogue: 0,0:09:00.24,0:09:02.39,Sub,,0,0,0,,{\fad(120,160)}Now look past those 20 years.
+Dialogue: 0,0:09:02.65,0:09:03.68,Sub,,0,0,0,,{\fad(120,160)}At the far end,
+Dialogue: 0,0:09:03.72,0:09:05.63,Sub,,0,0,0,,{\fad(120,160)}Gates sees abundance.
+Dialogue: 0,0:09:05.75,0:09:07.81,Sub,,0,0,0,,{\fad(120,160)}Cheaper homes, cheaper food,
+Dialogue: 0,0:09:07.86,0:09:08.66,Sub,,0,0,0,,{\fad(120,160)}because most goods
+Dialogue: 0,0:09:08.70,0:09:10.01,Sub,,0,0,0,,{\fad(120,160)}and services would no longer
+Dialogue: 0,0:09:10.05,0:09:11.55,Sub,,0,0,0,,{\fad(120,160)}depend on human labor.
+Dialogue: 0,0:09:11.79,0:09:13.89,Sub,,0,0,0,,{\fad(120,160)}And one task stays with people.
+Dialogue: 0,0:09:14.13,0:09:15.57,Sub,,0,0,0,,{\fad(120,160)}Humanity, he says,
+Dialogue: 0,0:09:15.67,0:09:16.29,Sub,,0,0,0,,{\fad(120,160)}will have to find
+Dialogue: 0,0:09:16.33,0:09:17.68,Sub,,0,0,0,,{\fad(120,160)}a way to organize,
+Dialogue: 0,0:09:17.72,0:09:19.09,Sub,,0,0,0,,{\fad(120,160)}and to have purpose.
+Dialogue: 0,0:09:19.40,0:09:20.78,Sub,,0,0,0,,{\fad(120,160)}A list like Human Reserved
+Dialogue: 0,0:09:20.82,0:09:22.19,Sub,,0,0,0,,{\fad(120,160)}is one way to begin.
+Dialogue: 0,0:09:22.50,0:09:23.87,Sub,,0,0,0,,{\fad(120,160)}But a list nobody writes
+Dialogue: 0,0:09:23.91,0:09:25.29,Sub,,0,0,0,,{\fad(120,160)}still gets filled in.
+Dialogue: 0,0:09:25.50,0:09:26.49,Sub,,0,0,0,,{\fad(120,160)}By price.
+Dialogue: 0,0:09:26.53,0:09:28.58,Sub,,0,0,0,,{\fad(120,160)}One cheaper machine at a time.
+Dialogue: 0,0:09:29.19,0:09:31.25,Sub,,0,0,0,,{\fad(120,160)}And so far, Gates says,
+Dialogue: 0,0:09:31.31,0:09:33.48,Sub,,0,0,0,,{\fad(120,160)}what he hears is silence.
+Dialogue: 0,0:09:33.67,0:09:34.74,Sub,,0,0,0,,{\fad(120,160)}Which means every
+Dialogue: 0,0:09:34.78,0:09:36.43,Sub,,0,0,0,,{\fad(120,160)}line is still open.
+Dialogue: 0,0:09:37.38,0:09:39.17,Sub,,0,0,0,,{\fad(120,160)}The question is no longer what
+Dialogue: 0,0:09:39.21,0:09:41.34,Sub,,0,0,0,,{\fad(120,160)}artificial intelligence can do.
+Dialogue: 0,0:09:41.65,0:09:43.31,Sub,,0,0,0,,{\fad(120,160)}It's what goes on the list.
+Dialogue: 0,0:09:43.46,0:09:45.14,Sub,,0,0,0,,{\fad(120,160)}And who gets to write it.
+Dialogue: 0,0:09:46.32,0:09:47.39,Sub,,0,0,0,,{\fad(120,160)}This channel exists
+Dialogue: 0,0:09:47.43,0:09:48.75,Sub,,0,0,0,,{\fad(120,160)}for one reason:
+Dialogue: 0,0:09:48.86,0:09:49.71,Sub,,0,0,0,,{\fad(120,160)}so that the arrival
+Dialogue: 0,0:09:49.75,0:09:50.85,Sub,,0,0,0,,{\fad(120,160)}of superintelligence
+Dialogue: 0,0:09:50.89,0:09:52.69,Sub,,0,0,0,,{\fad(120,160)}goes well for everybody.
+Dialogue: 0,0:09:52.92,0:09:54.45,Sub,,0,0,0,,{\fad(120,160)}And so that everybody gets
+Dialogue: 0,0:09:54.49,0:09:56.49,Sub,,0,0,0,,{\fad(120,160)}a say in what stays human.
+Dialogue: 0,0:09:56.66,0:09:57.66,Sub,,0,0,0,,{\fad(120,160)}Want that too?
+Dialogue: 0,0:09:57.75,0:09:58.75,Sub,,0,0,0,,{\fad(120,160)}Then subscribe.
