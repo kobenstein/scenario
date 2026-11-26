@@ -30,8 +30,15 @@ Das ganze Board liegt unter `/mnt/project-files/scenario/referenzen/pinterest-st
 
 Hochladen: Rufe `mcp__fal__upload_file` mit `prepare_upload: true`, `file_name` und `file_size` auf. Dann `curl -X PUT -H "Content-Type: image/png" --upload-file <datei> "<upload_url>"`. Erst nach einem 2xx die `file_url` verwenden.
 
+## Pflicht: Das Thumbnail funktioniert ALLEIN (Jakob 23.11.2026)
+Jedes Thumbnail (A, B UND C) muss ohne den Texttitel daneben komplett alles sagen: worum es im Film geht und warum man jetzt klicken will. Umgekehrt muss auch der Texttitel ohne Bild allein klar sein (REGELN §8.6, §9.6).
+- **Test vor dem Bauen und nach jedem Bild:** Ein Fremder ohne Vorwissen sieht nur das Thumbnail im Feed, ohne Titel. Kann er in einem Satz sagen, worum es geht? Wenn nicht, ist das Thumbnail durchgefallen und wird neu gebaut, egal wie schön es ist.
+- Kein „it/they“ ohne Bezug, kein Wortspiel oder Rätsel, das erst der Titel erklärt. Das Subjekt steht im Bild oder im Bildtext, KI ist erkennbar.
+- Nicht an einem früheren Thumbnail-Aufbau festhalten (Jakob 23.11. zu #68: „orientiere dich nicht an Aging“), sondern das Motiv finden, das dieses Thema allein erklärt.
+- An Jakob pro Variante einen Satz mitschicken: „Ohne Titel versteht man: …“.
+
 ## Text auf dem Bild
-- Eine starke Behauptung, nah am Titel. Die erste Variante ist das Titel-Versprechen.
+- Eine starke Behauptung, nah am Titel, die aber auch ohne Titel verständlich ist. Die erste Variante ist das Titel-Versprechen.
 - Höchstens 4–5 Wörter, keine Fachwörter.
 - Der Text muss klar sagen, was im Film ist. Zusatz-Slogans sind verboten.
 - Die drei Varianten unterscheiden sich in Bild UND Text:
@@ -51,6 +58,8 @@ Create a NEW 16:9 YouTube thumbnail. COLORS and HEADLINE TYPOGRAPHY exactly as i
 ```
 Die Schrift rendert GPT direkt. Prüfe jede Schreibweise. Für eine Textkorrektur machst du einen Edit mit der fal-URL des Bildes als einziger Referenz: „Change ONLY the text to …, keep the same font size“. Ohne Angabe der Schriftgröße schrumpft die Schrift.
 
+**Nie Edit auf Edit (Jakob 20.11.2026):** Jeder Edit rechnet das ganze Bild neu, und es wird bei jeder Generation sichtbar unschärfer. Bei #65 war die 4. Generation deutlich schlechter. Darum machst du jeden Text-Edit IMMER vom ersten generierten Original (`…-2560.png` der ersten Runde, nicht von einer Textvariante). Lade dieses Original bei Bedarf neu zu fal hoch. In `titel.md` schreibst du zu jeder Variante, von welchem Original sie stammt.
+
 Kosten: GPT Image 2.5 high, 3 Bilder, nur ein paar Cent bis wenige Dollar pro Runde. Neu erzeugen nur, wenn ein Bild nicht passt.
 
 ## Nachbearbeiten und ablegen
@@ -60,11 +69,12 @@ Ordner: `/mnt/project-files/scenario/thumbnails/film-NN/`.
 - `vergleich.jpg`: alle drei nebeneinander (`hstack=3,scale=1920:-1`).
 - `titel.md`: Texte, Motive, welche Variante gesetzt wird.
 - Ältere Runden verschiebst du nach `alt-vN/`, nie löschen.
+- **Sofort nach Drive (Pflicht, jede Runde):** Gleich nach dem Erstellen alle A/B/C (2560er Original + 1280er PNG/JPG) in den Drive-Ordner „#NN Titel/2 Thumbnails“ in „The Good Takeoff“ (1cCNjwOJ47DdDtPU2hb2JkyVLpp96r8Eg) hochladen, ältere Runden dort in „alt-vN“. Fehlt der Filmordner, mit 1 Film / 2 Thumbnails / 3 Rohmaterial / 4 Texte & Recherche anlegen. Upload per Drive-Tool mit Dateireferenz aus einer echten Kopie im Scratchpad, `disableConversionToGoogleType: true`. Erst danach an Jakob schicken.
 
 Das Projektverzeichnis ist ein Netz-Mount. Lies die Dateien etwa 10 s nach dem Schreiben noch einmal.
 
 ## An Jakob
-- Die drei PNGs (1280) als Anhang schicken.
+- Die drei PNGs (1280) als Anhang schicken und den Drive-Link zu „2 Thumbnails“ dazuschreiben.
 - Pro Variante eine Zeile: Text und Motiv.
 - Eine Empfehlung, welche per Upload gesetzt wird. Meist ist das A, das Titel-Versprechen.
 - Zapier kann kein Test & Compare. Eine Variante wird beim Upload gesetzt, die anderen zwei fügt Jakob in YouTube Studio hinzu. Sag ihm, wo die Dateien liegen.
