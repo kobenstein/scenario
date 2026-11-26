@@ -1,0 +1,90 @@
+{
+ "duration": 622.4,
+ "source": "vo-v4.txt",
+ "hook": {
+  "start": 0.71,
+  "end": 55.31
+ },
+ "end_screen": {
+  "start": 607.4,
+  "dur": 15.0,
+  "end": 622.4,
+  "call": "t22",
+  "call_start": 590.36,
+  "call_end": 599.4,
+  "tail_after_vo": 23.0,
+  "note": "after the last VO word: ~8 s quiet walk, then the 15 s end screen (music only, no voice; the music fades out over it)"
+ },
+ "channel_calls": {
+  "t09": {
+   "start": 258.78,
+   "end": 272.58
+  },
+  "t22": {
+   "start": 590.36,
+   "end": 599.4
+  }
+ },
+ "slots": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "2",
+   "start": 169.81,
+   "end": 178.81,
+   "dur": 9.0,
+   "under": false,
+   "quote": "The foundation models and AI models aren't quite looking at the entire tree of life, and they're not going to magically overnight give us a genome and give us an answer.",
+   "speaker": "Ben Lamm",
+   "voice": null,
+   "note": "silent slot for now: quote card on screen over the music bed; a real clip (<= dur s) may replace it: keep the slot length"
+  }
+ ],
+ "clips": [
+  {
+   "id": "C1",
+   "kind": "clip",
+   "sec": "2",
+   "start": 169.81,
+   "end": 178.81,
+   "under": false,
+   "quote": "The foundation models and AI models aren't quite looking at the entire tree of life, and they're not going to magically overnight give us a genome and give us an answer.",
+   "speaker": "Ben Lamm"
+  },
+  {
+   "id": "Q1",
+   "kind": "card",
+   "sec": "4",
+   "start": 330.085,
+   "end": 342.19,
+   "under": true,
+   "text": "The three animals produced by Colossal are not dire wolves.",
+   "credit": "IUCN SSC Canid Specialist Group, April 18, 2025",
+   "spoken": false,
+   "read_alone": 2.735
+  },
+  {
+   "id": "Q2",
+   "kind": "card",
+   "sec": "4",
+   "start": 342.88,
+   "end": 346.53,
+   "under": true,
+   "text": "Our animals are grey wolves with 20 edits that are cloned.",
+   "credit": "Beth Shapiro, Chief Science Officer, Colossal · to New Scientist, May 2025",
+   "spoken": true
+  },
+  {
+   "id": "Q3",
+   "kind": "card",
+   "sec": "4",
+   "start": 376.015,
+   "end": 390.23,
+   "under": true,
+   "text": "Not 2036, but not 2030 either.",
+   "credit": "Ben Lamm, TIME, Aug 24, 2026",
+   "spoken": false,
+   "read_alone": 2.905
+  }
+ ]
+}

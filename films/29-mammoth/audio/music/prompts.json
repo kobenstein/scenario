@@ -1,0 +1,42 @@
+{
+ "_comment": "Film 29 Lyria 3.5 prompts (google/lyria-3.5 via fal, 6 tracks, 2026-11-19). One track per chapter; chapters = levels of timing.json (H | 1,2 | 3,M | 3b,4 | 5 | 6,A2 + end screen). Files in <scratch>/f29/work/audio/music, not in the repo.",
+ "style": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence and bringing back the woolly mammoth. No drums, no percussion, no vocals with words, no melody hook, not epic, not uplifting. Very quiet, even dynamics, slow tempo 60-66 BPM, no sudden swells or loud hits.",
+ "tracks": {
+  "M0": {
+   "chapter": "H (hook)",
+   "len": "1 minute",
+   "mood": "a frozen night, a fence in deep snow, a huge shaggy animal lifting its head, breath steaming in the dark; a low warm drone, bowed glass, one felt-piano note repeating softly, a distant airy wordless choir; wonder with a hint of unease",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence and bringing back the woolly mammoth. No drums, no percussion, no vocals with words, no melody hook, not epic, not uplifting. Very quiet, even dynamics, slow tempo 60-66 BPM, no sudden swells or loud hits. Length: 1 minute. Mood: a frozen night, a fence in deep snow, a huge shaggy animal lifting its head, breath steaming in the dark; a low warm drone, bowed glass, one felt-piano note repeating softly, a distant airy wordless choir; wonder with a hint of unease."
+  },
+  "M1": {
+   "chapter": "1, 2 (Colossal, the machine writes the list, 1.4 million -> 150 genes, the mice, C1 Ben Lamm)",
+   "len": "2 minutes 40 seconds",
+   "mood": "a quiet laboratory at night, a machine reading an endless string of DNA letters; slowly pulsing warm pads, sparse felt piano, delicate glass tones like quiet counting, low strings; a patient, questioning tension in the second half, never resolving into a melody",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence and bringing back the woolly mammoth. No drums, no percussion, no vocals with words, no melody hook, not epic, not uplifting. Very quiet, even dynamics, slow tempo 60-66 BPM, no sudden swells or loud hits. Length: 2 minutes 40 seconds. Mood: a quiet laboratory at night, a machine reading an endless string of DNA letters; slowly pulsing warm pads, sparse felt piano, delicate glass tones like quiet counting, low strings; a patient, questioning tension in the second half, never resolving into a melody."
+  },
+  "M2": {
+   "chapter": "3, M (the dodo, GenoMorph, 2,300 candidates, subscribe call 1)",
+   "len": "1 minute 30 seconds",
+   "mood": "a single skull of an extinct bird under glass, seventy living birds' skulls in a dim museum; curious and mysterious: bowed glass, soft bell-like harmonics, a warm low drone, sparse felt piano; the last thirty seconds warm and sincere",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence and bringing back the woolly mammoth. No drums, no percussion, no vocals with words, no melody hook, not epic, not uplifting. Very quiet, even dynamics, slow tempo 60-66 BPM, no sudden swells or loud hits. Length: 1 minute 30 seconds. Mood: a single skull of an extinct bird under glass, seventy living birds' skulls in a dim museum; curious and mysterious: bowed glass, soft bell-like harmonics, a warm low drone, sparse felt piano; the last thirty seconds warm and sincere."
+  },
+  "M3": {
+   "chapter": "3b, 4 (the glass egg, the dire wolves, Q1 / Q2 / Q3, an elephant built for the cold)",
+   "len": "2 minutes 10 seconds",
+   "mood": "an egg of clear glass glowing, wolves moving through snow, an elephant in the cold; cool, restrained, slightly suspenseful: low cello drone, a muted slow piano ostinato, shimmering glass, a distant wordless choir, a slow pulse without drums",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence and bringing back the woolly mammoth. No drums, no percussion, no vocals with words, no melody hook, not epic, not uplifting. Very quiet, even dynamics, slow tempo 60-66 BPM, no sudden swells or loud hits. Length: 2 minutes 10 seconds. Mood: an egg of clear glass glowing, wolves moving through snow, an elephant in the cold; cool, restrained, slightly suspenseful: low cello drone, a muted slow piano ostinato, shimmering glass, a distant wordless choir, a slow pulse without drums."
+  },
+  "M4": {
+   "chapter": "5 (the bigger prize: the living; Willa the ferret, the freezer, the elephant vaccine, the Red List)",
+   "len": "2 minutes 10 seconds",
+   "mood": "a freezer of frozen living cells breathing cold mist, a small ferret, elephant calves; tender and grounded, quietly hopeful but not uplifting: felt piano, warm string pads, soft glass harmonics, a low drone",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence and bringing back the woolly mammoth. No drums, no percussion, no vocals with words, no melody hook, not epic, not uplifting. Very quiet, even dynamics, slow tempo 60-66 BPM, no sudden swells or loud hits. Length: 2 minutes 10 seconds. Mood: a freezer of frozen living cells breathing cold mist, a small ferret, elephant calves; tender and grounded, quietly hopeful but not uplifting: felt piano, warm string pads, soft glass harmonics, a low drone."
+  },
+  "M5": {
+   "chapter": "6, A2 + quiet walk + end screen",
+   "len": "1 minute 50 seconds",
+   "mood": "standing at the snowy fence again at dusk, a child's hand, an ark; mystical, warm, contemplative: a last slow felt-piano figure, a faint wordless choir swell, fades out on one long decaying tone",
+   "prompt": "Instrumental underscore for a calm, thoughtful, mystical documentary about artificial intelligence and bringing back the woolly mammoth. No drums, no percussion, no vocals with words, no melody hook, not epic, not uplifting. Very quiet, even dynamics, slow tempo 60-66 BPM, no sudden swells or loud hits. Length: 1 minute 50 seconds. Mood: standing at the snowy fence again at dusk, a child's hand, an ark; mystical, warm, contemplative: a last slow felt-piano figure, a faint wordless choir swell, fades out on one long decaying tone."
+  }
+ }
+}

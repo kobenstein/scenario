@@ -1,0 +1,41 @@
+{
+ "_comment": "Film 28 Lyria 3.5 prompts (google/lyria-3.5, 0.10 USD each, 7 tracks, 2026-11-11). Chapters = countdown stations.",
+ "style": "Instrumental underscore for a thoughtful documentary about people using artificial intelligence to protect life on Earth. Mystical, awestruck and contemplative: slow evolving drones, soft warm pads, sparse felt piano, glass harmonica and bowed glass, faint choir texture. No drums, no percussion, no vocals, no melody hook, not uplifting or kitschy. Very quiet dynamic range.",
+ "tracks": {
+  "M0": {
+   "chapter": "H (hook)",
+   "len": 74,
+   "mood": "single fragile piano note, low drone building, curiosity and wonder"
+  },
+  "M1": {
+   "chapter": "12,11,10 (Maori, scammers, eagles)",
+   "len": 178,
+   "mood": "cool, wondering, slightly uneasy; pulsing pads, sparse piano, glass tones, listening and patience"
+  },
+  "M2": {
+   "chapter": "9,8 (Nazca, methane)",
+   "len": 179,
+   "mood": "steady and searching, deep low strings, looking at the earth from far above, quiet awe"
+  },
+  "M3": {
+   "chapter": "7,6,5 (Casey, ships, tsunami)",
+   "len": 181,
+   "mood": "deep ocean and night, water-like glass tones, slow low drone, gentle tension and wonder"
+  },
+  "M4": {
+   "chapter": "4,3 (train, snake)",
+   "len": 173,
+   "mood": "grounded, tactile, living things; warm low strings, slow piano, curious, a little hopeful, still mysterious"
+  },
+  "M5": {
+   "chapter": "2,1 (conspiracy, floods)",
+   "len": 116,
+   "mood": "questioning and clear, reflective turn, pads lift slightly, restrained"
+  },
+  "M6": {
+   "chapter": "E + end screen",
+   "len": 75,
+   "mood": "mystical, turns warmer and gently hopeful at the end; felt piano last figure, faint choir swell; fades on a long decaying tone"
+  }
+ }
+}

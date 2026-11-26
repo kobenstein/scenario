@@ -1,0 +1,178 @@
+[
+ {
+  "id": "t00",
+  "sec": "H",
+  "text": "[calm, conversational] The best A.I. in the world is locked away.\nTonight, you'll ask the A.I. on your phone about a letter from the bank, or a strange noise in your car.\nIt answers in seconds, like the smartest machine on Earth.\nIt isn't. The best never sits in your pocket. It sits behind a door you can't open.\nAnd it has already found a flaw that had been hiding in computer code for twenty-seven years.\nSo how much stronger is the A.I. you're not allowed to use?",
+  "chars": 467
+ },
+ {
+  "id": "t01",
+  "sec": "H",
+  "text": "And it doesn't stop at code. Behind that door, the machines have started doing mathematics. Not sums. Proofs.\nThere's a line for that door. And you're not at the front. You're fifth.",
+  "chars": 182
+ },
+ {
+  "id": "t02",
+  "sec": "1",
+  "text": "[curious] At the very front stand the people who built it.\nThere, machines have written out the famous proof of Fermat's Last Theorem, so strictly that a computer can check every step.\nThat work was expected to take years. It took eleven days. Then, this fall, thirty hours.\nThe lab is Anthropic, and the numbers are its own. But the first proof is public, and anyone can run the check.\nAnd the machine that wrote it? You can't use it. The lab calls it an internal research model.",
+  "chars": 480
+ },
+ {
+  "id": "t03",
+  "sec": "1",
+  "text": "A second lab, OpenAI, goes further. Its strongest public A.I. is called Astra, and anyone can pay to use it. On stage, its chief executive, Sam Altman, described the one after it:",
+  "chars": 179
+ },
+ {
+  "id": "A1",
+  "sec": "1",
+  "clip": true,
+  "dur": 5.0,
+  "quote": "And this internal model after Astra can do things that even the world's best mathematicians cannot."
+ },
+ {
+  "id": "t04",
+  "sec": "1",
+  "text": "[thoughtful] So ask what an inspector would ask. Who checked it from outside? Some mathematicians, in part. The machine itself stays locked.\nAnd both labs are worth more, the further ahead they look. Anthropic reported its thirty-hour run one day before it began pitching its shares to investors.\nStill, two things hold up. Machines are doing real mathematics. And OpenAI is holding one back. Its finance chief said so on CNBC in November.",
+  "chars": 439
+ },
+ {
+  "id": "t05",
+  "sec": "1",
+  "text": "So the best A.I. is not hidden. It is announced, out loud. What's locked away is the access. And some of the evidence.\n[thoughtful] But a lab lives from selling access. So why keep its best product off the shelf?",
+  "chars": 212,
+  "pause": true
+ },
+ {
+  "id": "t06",
+  "sec": "2",
+  "text": "Ask either lab, and the first answer is safety. The clearest case came this spring, with that decades-old flaw.\nIt let a stranger crash a computer from across the world, just by connecting to it.\nThe A.I. that found it is called Mythos. Its maker, Anthropic, said it had no plan to release it to the public. Instead, it chose who goes in.\nSecond in line? The government. It may test a new A.I. before release, if the lab volunteers.",
+  "chars": 432
+ },
+ {
+  "id": "t07",
+  "sec": "2",
+  "text": "Third come the giants. Apple. Google. Microsoft. The bank JPMorgan Chase. Not you. Not yet.\nBut safety is not all a closed door protects. Leaked files suggest Mythos was also costly to run. And Sam Altman has named OpenAI's biggest advantage himself:",
+  "chars": 250
+ },
+ {
+  "id": "C1",
+  "sec": "2",
+  "clip": true,
+  "dur": 8.0,
+  "quote": "…we get the next generation of models before anybody else."
+ },
+ {
+  "id": "t08",
+  "sec": "2",
+  "text": "A head start is worth money. So is the computing power a lab keeps for itself.\nSo a closed door buys a lab time. Who else gets to use that time?",
+  "chars": 144
+ },
+ {
+  "id": "t09",
+  "sec": "3",
+  "text": "Fourth in line stand the defenders. Security teams, let in to point the locked machine at the software the world runs on.\n[curious] The lab gives an example. In a program that handles video, a flaw sat in a single line of code. Automated tests had run across that exact line five million times, and never caught it.\nAnd that was one. By the lab's own count, its partners found well over a hundred thousand within months.",
+  "chars": 420
+ },
+ {
+  "id": "t10",
+  "sec": "3",
+  "text": "Critics called it marketing. And caution is this company's brand. But it can be marketing, and the flaws can still be real. In July, Microsoft, one of the partners, fixed more security flaws in a single month than ever before. Its own explanation? A.I. helps defenders find more.\nFound is not yet fixed. Often, months passed in between. Still, the time behind the door was a head start for the people who repair things.",
+  "chars": 419
+ },
+ {
+  "id": "t11",
+  "sec": "M",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. Not only for whoever stands first in line. Want that too? Then subscribe.",
+  "chars": 182,
+  "cta": true
+ },
+ {
+  "id": "t12",
+  "sec": "4",
+  "text": "[calm, conversational] Fifth in line? You. By June, the door opened. Partly. What came through?\nIt's called Fable. Its maker says it is the same machine as Mythos. So if Fable is the A.I. on your phone, your bank letter goes to that machine. Mainly high-risk hacking requests, and most research biology, get passed to older ones.\nAnd by its maker's account, the newest version just completed a black-hole calculation that had sat unfinished for over twenty years. Too much work.",
+  "chars": 478
+ },
+ {
+  "id": "t13",
+  "sec": "4",
+  "text": "Three personal subscriptions, the lab reports, were enough to write out the proof of a serious theorem in three days.\nYet one limit is built in. In training, the lab says, the machine was held back in the skills that could most directly speed up A.I. development itself. In the locked version, and in yours.",
+  "chars": 307
+ },
+ {
+  "id": "t14",
+  "sec": "5",
+  "text": "But the line doesn't end with you. Behind you stands everyone else. Attackers included.\nWithin months of the Mythos announcement, a rival that came close in the lab's own hacking test was free for anyone to download. Stripping out its safeguards cost a few thousand dollars.\nSo a locked door never keeps anyone safe for good. It buys time. Use yours.",
+  "chars": 350
+ },
+ {
+  "id": "t15",
+  "sec": "5",
+  "text": "Switch on automatic updates, on your phone, your laptop, your router, and don't put off the restart. That protects you from attacks on flaws that are already found and fixed. And a device too old for updates? Replace it, or take it offline. Otherwise, a flaw in it never gets closed.\nThat part is in your hands.",
+  "chars": 311
+ },
+ {
+  "id": "t16",
+  "sec": "6",
+  "text": "The rest is decided behind the door. And sometimes, that protects you.\nThis fall, OpenAI planned to release an update to Astra. Then it called the launch off. The reported reason? It was more deceptive than the one before.\nThat call was made inside. And no rule forces a lab to tell you everything it sees in there. Marius Hobbhahn runs a research group that tests these machines for deception. He told the U.S. Senate:",
+  "chars": 419
+ },
+ {
+  "id": "C4",
+  "sec": "6",
+  "clip": true,
+  "dur": 7.0,
+  "quote": "The most concerning threats posed by rogue AI agents precede their external release."
+ },
+ {
+  "id": "t17",
+  "sec": "6",
+  "text": "Before release means inside the room. So who gets to look in?\nA few outsiders do. Independent testers examined the newest Mythos before it went out. But the lab decides who gets in.\nSo keep asking like an inspector. Who checked it from outside? What are you not being shown? That protects you from hype, and from false comfort.\n[thoughtful] So what is in that room?",
+  "chars": 365
+ },
+ {
+  "id": "t18",
+  "sec": "7",
+  "text": "One clue was in plain sight all along. Remember Fermat? Eleven days, then thirty hours. No locked machine did that thirty-hour run. By the lab's account, it was Fable, the one anyone can buy. A thousand copies, starting from parts of the first proof.\nAnd the first machine, the one you can't use? The lab itself calls it roughly comparable to a public one. What it had was dozens of copies, and eleven days. It was simply there two months earlier.",
+  "chars": 447
+ },
+ {
+  "id": "t19",
+  "sec": "7",
+  "text": "So if the machines are already doing mathematics, how much stronger is the A.I. you're not allowed to use? Stronger in two ways.\nThe first is newer. Labs work with each new version for weeks or months before you get it. And OpenAI is still holding its math machine. How far ahead? Nobody outside can measure that.",
+  "chars": 313,
+  "pause": true
+ },
+ {
+  "id": "t20",
+  "sec": "7",
+  "text": "The second is bigger. OpenAI says it ran about ten thousand copies of its math machine, for a result mathematicians still dispute. Fermat shows the method. One copy answers your bank letter. A thousand write out a famous proof. That is not a smarter machine. It is more of the same machine than any single subscription is built to give you.\nSo between you and the best A.I. stand two things. Permission. And power.",
+  "chars": 414
+ },
+ {
+  "id": "t21",
+  "sec": "7",
+  "text": "And both are moving your way. Permission moves in months. Locked away in April, in your hands by June. Power moves, too. Since April, the price of running Mythos has fallen by two thirds.\nSo what a lab shows off today is a preview of your own tools. A few months is a fair estimate. Time enough to plan your work around it, instead of being surprised.",
+  "chars": 351
+ },
+ {
+  "id": "t22",
+  "sec": "8",
+  "text": "One evening, a few months from now, you'll ask your phone another question. And the answer will come from a machine that today only the front of the line has met. Behind the door, something newer will already be at work.",
+  "chars": 220
+ },
+ {
+  "id": "t23",
+  "sec": "8",
+  "text": "The best A.I. in the world is never the one in your pocket. It's the one you'll have next.",
+  "chars": 90,
+  "pause": true
+ },
+ {
+  "id": "t24",
+  "sec": "A2",
+  "text": "[warm] This channel exists for one reason: so that the arrival of superintelligence goes well for everybody. From the front of the line to the very back. Want that too? Then subscribe.",
+  "chars": 184,
+  "cta": true
+ }
+]
