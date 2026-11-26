@@ -1,0 +1,3 @@
+{
+ "_comment": "Film 72: no Mirelo sounds generated. All five accents come from sfx-bibliothek/akzent (/mnt/project-files/scenario/sfx-bibliothek/akzent): pencil 0.65-1.6 s (strike-through scratch, once for the bomb, once for the machine), lever_switch 2.2-2.7 s (guards), key 0.4-1.3 s (lock), shimmer_rings 0.5-2.7 s (end). Copy them to /tmp/claude-0/f72/audio/sfx. No atmo beds: SFX only in the gaps of the voice, never under a running sentence (mix.py checks it)."
+}

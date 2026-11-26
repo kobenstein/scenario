@@ -1,0 +1,645 @@
+{
+  "film": "Why AI Billionaires Are Building Bunkers (#72)",
+  "stand": "2026-11-24",
+  "hinweise": [
+    "Format wie film-europa-ki/clips.json nach schreibraum/clip-schritt.md. Zusatzfelder: 'kandidat', 'konfidenz', 'konfidenz_grund', 'dauer_s_geschaetzt' (wo Zeitmarken fehlen), 'content_id_risiko', 'aufnahme' (wenn Aufnahme und Upload auseinanderliegen), neu 'personen_check' (§2.5f). 'clips' = Empfehlung je Stelle (zählt für den Anteil), 'alternativen' = Ersatz oder Zusatz, 'zitatkarten' = nur als Text im Bild, 'vermeiden' = nicht verwenden.",
+    "Konfidenz: gruen = Wortlaut und Zeitmarken an Untertiteln geprüft · gelb = Stelle eingegrenzt (offizielles Kapitel, offizieller Kurzclip oder Zeitangabe in einem Bericht) und Inhalt belegt (Berichte, Buch, Transkript, Beschreibung), Wortlaut und Zeitmarke am iMac prüfen · rot = Stelle oder Inhalt offen, ohne iMac-Prüfung nicht einplanen.",
+    "Diese Runde (24.11.2026) kam ich an keine YouTube-Untertitel und keinen Ton (Bot-Prüfung), vidIQ hat kein Guthaben (bis 19.12.2026). Titel, Kanal, Länge, Datum, Lizenz, Beschreibung, Kapitel und 'licensedContent' stammen aus der YouTube-Datenschnittstelle (24.11.2026, ~630 Einheiten). Wortlaute kommen aus Presseberichten (UNILAD), inoffiziellen Transkripten (Singju Post) und Rushkoffs Essay und Buch. Kein Wortlaut und keine Zeitmarke ist am Video geprüft, darum hat kein Clip Konfidenz grün.",
+    "Ampel: Podcasts und Creator-Kanäle (Theo Von, Chris Williamson/Modern Wisdom, Nate Hagens, Smart Cookies, Danny Jones) und Konferenzen (SXSW): gelb. Firmenkanal eines Bunkerverkäufers (Atlas): gelb, weil Werbung mit Eigeninteresse und oft Musik. Bloomberg (The Circuit), Hawaii News Now, SRF, CBS, BBC: TV-Sender → nur Zitatkarte. Reuploads und Kommentar-Kanäle nur zum Wiederfinden von Stellen.",
+    "Abstände bei Empfehlung: C1 ~2:10 · C5 ~4:05 · C2 ~5:00 · C3 ~5:55 · (C2b ~8:00, optional) → überall ≥ 45 s eigener Film. Kein Clip im Hook und im Schluss. Entfällt C5, kann C2 früher kommen (~4:30). Kommt C5 wie im Gerüst in Station 1 (~1:20), bleibt C1 bei ≥ 2:10.",
+    "Quellen: C2 und C2b stammen aus derselben Folge (NufB1LL_rCU) und zählen als eine Quelle: zusammen höchstens 20 s (geplant ~13 s). tools/clip_check.py zählt nach URL. Kommt Rushkoffs Antwort als zweiter Clip aus dem C3-Video dazu, gilt dasselbe.",
+    "Jeder Clip hat einen Einordnungssatz davor. Altman und Hubbard mit ihrem Interesse ankündigen (§1.9a). Personen-Check (§2.5f): Altman gelb (Jakob informieren), Ron Hubbard gelb (Glaubwürdigkeit), Harris grün, Rushkoff grün mit Hinweis. Thiel und Hoffman (rot) weder als Clip noch als Karte ohne Jakobs Okay. Jensen Huang nicht, auch nicht im Bild.",
+    "Abweichungen vom Gerüst: C1 Zuckerberg (Bloomberg = TV-Sender) wird Zitatkarte, an seiner Stelle Altman bei Theo Von. C4 Karen Hao wird Zitatkarte (kein Video gefunden, in dem sie die Bunker-Szene erzählt). Siehe faktenzettel.md, Abschnitt 0.",
+    "Keine dieser Quellen wurde in früheren Filmen als Clip genutzt (32 clips.json der Filme gezielt nach IDs und Namen durchsucht, 24.11.2026). #78 (Ilya) überlässt den Bunker-Satz diesem Film."
+  ],
+  "anteil": {
+    "summe_empfehlung_s": 40,
+    "summe_ist_schaetzung": true,
+    "laufzeit_annahme_s": 615,
+    "prozent": 6.5,
+    "ziel_prozent": 8,
+    "hart_prozent": 10,
+    "ohne_c5_s": 32,
+    "ohne_c5_prozent": 5.2,
+    "mit_c2b_s": 45,
+    "mit_c2b_prozent": 7.3
+  },
+  "clips": [
+    {
+      "id": "C1",
+      "kandidat": "Empfehlung (statt Zuckerberg, der nur Zitatkarte sein darf)",
+      "speaker": "Sam Altman",
+      "role": "CEO, OpenAI",
+      "source_title": "Sam Altman | This Past Weekend w/ Theo Von #599",
+      "channel": "Theo Von",
+      "url": "https://www.youtube.com/watch?v=aYn8VKW6vXA",
+      "date": "2025-07-23",
+      "in": "ungeprüft (~01:25:40 laut UNILAD; Folge 1:33:22, keine Kapitel)",
+      "out": "ungeprüft",
+      "dauer_s": null,
+      "dauer_s_geschaetzt": 10,
+      "transcript": "„… underground concrete, heavy reinforcement basements, but I don't have something I would call a bunker.“ Theo Von: „Sam, that's a bunker.“ (Wortlaut laut UNILAD Tech 31.07.2025, nicht am Video geprüft.) Laut UNILAD im selben Gespräch: Das Thema beschäftige ihn „not because of AI but because people are dropping bombs in the world again“. Folgt dieser Satz direkt und bleibt der Clip ≤ 15 s, mitnehmen; sonst im VO sagen.",
+      "ampel": "gelb",
+      "content_id_risiko": "mittel: licensedContent (Kanal selbst). Die Stelle kursiert als Short bei Fremdkanälen (z. B. 4kVYLArmg8A, The Inside View). Intro-Musik nur am Folgenanfang erwartet.",
+      "konfidenz": "gelb",
+      "konfidenz_grund": "Inhalt durch UNILAD mit Zeitangabe belegt. Der offizielle Kurzclip des Kanals kvSK6hUecVI („Even tech has its trenches“, 1:17, 23.07.2025) zeigt vermutlich dieselbe Stelle (Inhalt nicht gesehen). Zeitmarken und Wortlaut am Ton offen.",
+      "slot": "Station 1 THE BOMB (~2:10), nach der Branche (F8, F9) und vor der Wendung „But the people who build these bunkers say a new reason has joined the list“. Belegt: Die Gründe sind alt (Bomben, Krieg), nicht die Maschine (F7).",
+      "einordnung": "Last year, the comedian Theo Von asked the head of OpenAI whether he has a bunker. Here's what Sam Altman said.",
+      "burned": null,
+      "untertitel": "nicht geladen (YouTube-Bot-Prüfung, vidIQ ohne Guthaben); keine hochgeladenen Untertitel laut Schnittstelle",
+      "musik": "unbekannt; Gespräch, an der Stelle keine Musik erwartet (die Folge beginnt mit Intro-Musik)",
+      "kontext_vorher_30s": "ungeprüft. Laut UNILAD: Gespräch über Kriegsangst und Weltlage; Theo fragt, ob Altman einen Bunker hat.",
+      "kontext_nachher_30s": "ungeprüft. Laut UNILAD: die Begründung „people are dropping bombs in the world again“. Prüfen, ob er danach KI doch als Grund nennt.",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": null
+      },
+      "personen_check": "gelb: „RAM Altman“-Streit und Kritik an „society must accept bad things“ (Nov. 2026); Opfer eines Brandanschlags auf sein Haus (10.04.2026). Jakob informieren.",
+      "pruefen": [
+        "Stelle finden: offiziellen Short kvSK6hUecVI ansehen, dann im Original bei ~1:25:40 suchen. Nur aus aYn8VKW6vXA schneiden, 1 s Rand.",
+        "Sinn erhalten: Nennt er an der Stelle doch KI als Grund, Einordnung anpassen. Der Clip darf nicht so wirken, als fürchte er die Maschine, wenn er Bomben meint, und umgekehrt.",
+        "Clip endet mit einem vollständigen Satz (§7). Theo Vons Einwurf („Sam, that's a bunker.“) mitnehmen, wenn er den Moment trägt.",
+        "Altman nicht dreimal im Film: dieser Clip plus höchstens eine Zitatkarte (ZK Altman 2016 oder ZK Altman 2023).",
+        "Content ID nach dem privaten Upload prüfen.",
+        "Bauchbinde: SAM ALTMAN · CEO, OpenAI · 2025 · ORIGINAL FOOTAGE"
+      ]
+    },
+    {
+      "id": "C2",
+      "kandidat": "Empfehlung",
+      "speaker": "Tristan Harris",
+      "role": "Co-founder, Center for Humane Technology; former design ethicist, Google",
+      "source_title": "AI Insider: “They’re Building Bunkers for a Reason” - Tristan Harris (Modern Wisdom #1079; bei Veröffentlichung: AI Expert Warns: “This Is The Last Mistake We’ll Ever Make”)",
+      "channel": "Chris Williamson",
+      "url": "https://www.youtube.com/watch?v=NufB1LL_rCU",
+      "date": "2026-04-02",
+      "in": "ungeprüft (2:07:49; vermutlich in den letzten Kapiteln 01:59:18 „Every Second Counts Now“ oder 02:03:58 „How Do We Accelerate Meaningful Change in AI?“)",
+      "out": "ungeprüft",
+      "dauer_s": null,
+      "dauer_s_geschaetzt": 8,
+      "transcript": "„… right now the AI company leaders are building bunkers.“ (Wortlaut laut inoffiziellem Transkript der Singju Post, nicht am Ton geprüft. Im selben Transkript: „a lot of people who are wealthy are building bunkers“.)",
+      "ampel": "gelb",
+      "content_id_risiko": "mittel: licensedContent (Kanal mit 4,5 Mio. Abos). Fremdkopien mit vielen Aufrufen (Neural Nutshell xT3Pmw4f-Y8, 2,35 Mio.; AI Unloaded), ebenfalls licensedContent.",
+      "konfidenz": "gelb",
+      "konfidenz_grund": "Dass er es sagt, belegen der Videotitel des Kanals, der offizielle TikTok-Ausschnitt @chriswillx 7631307626973990146 („The Dark Side Of AI Why AI CEOs Are Building Bunkers“), eine Podcast-Zusammenfassung vom 02.04.2026 (Bunker statt Regeln) und zwei inoffizielle Transkripte. Die Stelle ist über den TikTok-Ausschnitt oder den 15-min-Reupload wiederzufinden; Zeitmarke offen.",
+      "slot": "Station 3 THE CHAOS (~5:00), Ende der Station: Ein Insider sagt, die Chefs bauen Bunker, weil das Rennen schneller ist als jede Regel (F25). Danach die Wendung „But in the chaos, who opens the door?“. Alternative: Hook (~0:50) als Beleg für das Titelversprechen.",
+      "einordnung": "Tristan Harris used to work at Google. Today he warns that the race to build A.I. is moving faster than anyone can steer it. This spring he said:",
+      "burned": null,
+      "untertitel": "nicht geladen (Bot-Prüfung, vidIQ ohne Guthaben); keine hochgeladenen Untertitel laut Schnittstelle, automatische vermutlich vorhanden",
+      "musik": "keine erwartet (Studio-Gespräch); Kapitelübergänge prüfen",
+      "kontext_vorher_30s": "ungeprüft. Laut Transkript-Zusammenfassung: Der Wettlauf („race to the bottom“) schafft Technik, die schneller ist als unsere Fähigkeit, sie zu lenken.",
+      "kontext_nachher_30s": "ungeprüft. Laut Transkript: Regeln wie Haftung und Rechenschaft, „Don't build bunkers. Write laws.“ (C2b). Danach Norwegens Staatsfonds als Vorbild einer „intelligence dividend“ → nicht mitnehmen (Volksfonds ausgereizt, §2.5).",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": null,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": null
+      },
+      "personen_check": "gruen. Hinweis: aktiver Kritiker der Labore, unterzeichnete am 18.11.2026 die Petition gegen den Börsengang von Anthropic. Im Film als Mahner einordnen; Anthropic nicht erwähnen (§1.10).",
+      "pruefen": [
+        "Stelle finden: TikTok-Ausschnitt 7631307626973990146 oder Reupload xT3Pmw4f-Y8 (15:01) anhören, den Satz im Original NufB1LL_rCU suchen, zuerst in den Kapiteln ab 01:59:18. Nur aus dem Original schneiden.",
+        "Fair Use, Frage 2: Der heutige Videotitel stellt die Bunker-Stelle in den Mittelpunkt. Kurz halten (≤ 8 s) und einordnen, darum steht kurz_nicht_kern auf null. Bei Zweifel Zitatkarte.",
+        "Wortlaut am Ton gegen das Transkript prüfen; Clip endet mit vollem Satz.",
+        "Nennt er Namen oder konkrete Pläne? Laut Faktencheck-Beiträgen nein → der VO darf nichts Konkretes unterstellen.",
+        "Bauchbinde: TRISTAN HARRIS · Co-founder, Center for Humane Technology · 2026 · ORIGINAL FOOTAGE"
+      ]
+    },
+    {
+      "id": "C3",
+      "kandidat": "Empfehlung",
+      "speaker": "Douglas Rushkoff",
+      "role": "Media theorist, Professor at City University of New York (Queens College); author of “Survival of the Richest”",
+      "source_title": "Douglas Rushkoff: \"The Ultimate Exit Strategy\" | The Great Simplification #36",
+      "channel": "Nate Hagens",
+      "url": "https://www.youtube.com/watch?v=q7grRir4KPQ",
+      "date": "2022-09-15",
+      "in": "ungeprüft (Kapitel 01:52 „Survival of the Richest: Escape Fantasies of the Tech Billionaires“ bis 04:48; Folge 1:23:21)",
+      "out": "ungeprüft",
+      "dauer_s": null,
+      "dauer_s_geschaetzt": 14,
+      "transcript": "ungeprüft; er erzählt frei. Im Essay (2018) und im Buch (2022) lautet die Frage: „How do I maintain authority over my security force after the Event?“ Danach die Ideen: „special combination locks on the food supply“, „disciplinary collars“, „robots to serve as guards and workers“. Wortlaut am Ton nehmen.",
+      "ampel": "gelb",
+      "content_id_risiko": "niedrig: nicht licensedContent; keine Fremdkopie gefunden.",
+      "konfidenz": "gelb",
+      "konfidenz_grund": "Stelle über ein offizielles Kapitel eingegrenzt (Einstieg ins Buch, ~3 min); laut Beschreibung „Douglas unpacks parts of his new book“. Der Inhalt der Szene ist durch Essay und Buch belegt; dass er die Wachleute-Frage genau hier erzählt, ist wahrscheinlich, aber nicht geprüft. Hochgeladene Untertitel vorhanden (caption: true), am iMac schnell zu prüfen.",
+      "slot": "Station 4 US (~5:55), Höhepunkt der Rushkoff-Szene: die eine Frage der fünf Männer (F26). Direkt danach die Belege von heute (F28 „anti-mutiny“, F29 Axios).",
+      "einordnung": "In 2017, the writer Douglas Rushkoff was brought to a luxury resort to give a talk about the future. Instead of an audience, five very rich men walked in. Here's what they really wanted to know.",
+      "burned": null,
+      "untertitel": "laut Schnittstelle vorhanden (caption: true), nicht geladen (Bot-Prüfung)",
+      "musik": "unbekannt; Podcast, Intro mit Musik möglich, ab 01:52 keine erwartet",
+      "kontext_vorher_30s": "ungeprüft. Kapitel 00:36: Hagens stellt Rushkoff und seine Bücher vor.",
+      "kontext_nachher_30s": "ungeprüft. Nächstes Kapitel 04:48 „Derivative of a stock“ (Inhalt nicht bekannt).",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": null
+      },
+      "personen_check": "gruen (Hinweis): Rushkoffs Name stand in Epstein-Mails, weil sein früherer Agent ihn in Gruppen-Mails setzte; er hat das offen erklärt (Boing Boing 25.02.2026).",
+      "pruefen": [
+        "Untertitel am iMac laden (yt-dlp), Kapitel 01:52–04:48 lesen, die Frage plus eine Idee (Halsbänder oder Roboter) als 10–15-s-Clip setzen.",
+        "Erzählt er die Szene hier nicht: C3c (Modern Wisdom 2022, Kapitel 08:26) oder C3b (Smart Cookies 2026, Kapitel 0:00).",
+        "Sinn erhalten: seine Erinnerung, Teilnehmer ungenannt. Keine Häme im Schnitt (§1.7): Die Frage ist ernst gemeint und aus ihrer Sicht vernünftig.",
+        "Kommt seine Antwort („treat them like friends right now“) im selben Atemzug: als zweiter Clip aus demselben Video für Station 5 (zusammen ≤ 20 s).",
+        "Stand 2022 in der Bauchbinde; die Szene ist von 2017.",
+        "Bauchbinde: DOUGLAS RUSHKOFF · Media theorist, author of “Survival of the Richest” · 2022 · ORIGINAL FOOTAGE"
+      ]
+    },
+    {
+      "id": "C5",
+      "kandidat": "Empfehlung, optional (Gerüst: Bunkerbauer)",
+      "speaker": "Ron Hubbard",
+      "role": "Founder and CEO, Atlas Survival Shelters (bunker maker)",
+      "source_title": "Detailed tour of a 30 MILLION dollar bunker",
+      "channel": "Atlas Survival Shelters",
+      "url": "https://www.youtube.com/watch?v=w8FO9cMKyOU",
+      "date": "2024-10-03",
+      "in": "ungeprüft (57:26, keine Kapitel; laut Beschreibung Rundgang durch den Survival Condo in Kansas mit Generatorraum und Luftanlagen)",
+      "out": "ungeprüft",
+      "dauer_s": null,
+      "dauer_s_geschaetzt": 8,
+      "transcript": "ungeprüft. Gesucht: ein Satz im Technikraum, wie lange die Anlage ohne Nachschub läuft (der Survival Condo wirbt mit bis zu 5 Jahren für 75 Menschen, F20), oder was passiert, wenn der Generator ausfällt.",
+      "ampel": "gelb",
+      "content_id_risiko": "mittel: licensedContent (Kanal selbst); Tour-Videos des Kanals haben teils Musik unterlegt.",
+      "konfidenz": "rot",
+      "konfidenz_grund": "Nur Titel und Beschreibung bekannt („the generator room, the air systems, the things that make this bunker work“). Ob und wo ein passender Satz fällt, ist offen.",
+      "slot": "Station 3 THE CHAOS (~4:05), bei „Wie lange hält ein Bunker durch?“ (F20). Alternative laut Gerüst: Station 1 (~1:20) bei der Branche.",
+      "einordnung": "This is the machine room of a luxury bunker inside an old missile silo in Kansas. The man showing it around sells bunkers for a living.",
+      "burned": null,
+      "untertitel": "nicht geladen; keine hochgeladenen Untertitel laut Schnittstelle",
+      "musik": "unbekannt; prüfen (Atlas-Videos oft mit Musikbett)",
+      "kontext_vorher_30s": "ungeprüft",
+      "kontext_nachher_30s": "ungeprüft",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": null
+      },
+      "personen_check": "gelb (Glaubwürdigkeit): Hubbard sagte der Telegraph (08.03.2026), zwei Kabinettsmitglieder hätten Bunker bestellt; Snopes fand keine Bestätigung, das Justizministerium nannte das „completely false“. Langer Streit mit dem Konkurrenten Rising S (Business Insider). Seine Zahlen immer als Eigenangabe.",
+      "pruefen": [
+        "Video am iMac durchsehen: Technikraum finden, ein Satz ohne Musik, 6–10 s.",
+        "Der Survival Condo ist das Projekt von Larry Hall, nicht von Atlas: Atlas in der Einordnung nicht als Erbauer nennen.",
+        "Ist Musik unterlegt: kein Clip, stattdessen eigenes Bild plus Herstellerangabe aus F20 als Text.",
+        "Stand 2024 in der Bauchbinde.",
+        "Bauchbinde: RON HUBBARD · Bunker maker, Atlas Survival Shelters · 2024 · ORIGINAL FOOTAGE"
+      ]
+    }
+  ],
+  "alternativen": [
+    {
+      "id": "C2b",
+      "kandidat": "Zusatz, optional (Station 5, Weg 2)",
+      "speaker": "Tristan Harris",
+      "role": "Co-founder, Center for Humane Technology; former design ethicist, Google",
+      "source_title": "AI Insider: “They’re Building Bunkers for a Reason” - Tristan Harris (Modern Wisdom #1079)",
+      "channel": "Chris Williamson",
+      "url": "https://www.youtube.com/watch?v=NufB1LL_rCU",
+      "date": "2026-04-02",
+      "in": "ungeprüft (vermutlich Kapitel 02:03:58 „How Do We Accelerate Meaningful Change in AI?“)",
+      "out": "ungeprüft",
+      "dauer_s": null,
+      "dauer_s_geschaetzt": 5,
+      "transcript": "„Don't build bunkers. Write laws.“ (laut inoffiziellem Transkript der Singju Post als Punkt 3 seiner Schritte zum Gegensteuern; laut Suchauszug auf beiden Singju-Seiten zu diesem Gespräch; nicht am Ton geprüft)",
+      "ampel": "gelb",
+      "content_id_risiko": "mittel (wie C2)",
+      "konfidenz": "rot",
+      "konfidenz_grund": "Wortlaut nur aus inoffiziellem Transkript; nicht sicher, ob er aus diesem Gespräch stammt (zweite Singju-Seite „They're Building an AI God They Can't Control“). Stelle nicht eingegrenzt.",
+      "slot": "Station 5 THE DOOR (~8:00), Weg 2 „Was Staaten vorbereiten“, als eine Stimme; der Weg bleibt offene Frage, Gegenposition direkt danach (F38).",
+      "einordnung": "Tristan Harris has a simpler answer to the bunker question:",
+      "burned": null,
+      "untertitel": "nicht geladen",
+      "musik": "keine erwartet",
+      "kontext_vorher_30s": "ungeprüft. Laut Transkript seine Schritte 1 und 2 (Inhalt nicht belegt).",
+      "kontext_nachher_30s": "ungeprüft. Laut Transkript: Er wolle keine Entscheidung von oben, die USA sollten demokratisch Leitplanken setzen; danach Staatsfonds-Gedanke → nicht mitnehmen (§2.5).",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": null
+      },
+      "personen_check": "gruen (wie C2)",
+      "pruefen": [
+        "Prüfen, ob der Satz in NufB1LL_rCU fällt; sonst Zitatkarte mit Quelle des richtigen Gesprächs.",
+        "C2 + C2b zusammen ≤ 20 s.",
+        "Bauchbinde: TRISTAN HARRIS · Co-founder, Center for Humane Technology · 2026 · ORIGINAL FOOTAGE"
+      ]
+    },
+    {
+      "id": "C3b",
+      "kandidat": "Alternative C3 (frischste Aufnahme)",
+      "speaker": "Douglas Rushkoff",
+      "role": "Media theorist; author of “Survival of the Richest”",
+      "source_title": "Big Tech CEOs Are Betting On Our Demise | Douglas Rushkoff",
+      "channel": "The Smart Cookies Podcast",
+      "url": "https://www.youtube.com/watch?v=Cx-nW3PcsrA",
+      "date": "2026-11-09",
+      "in": "ungeprüft (Kapitel 0:00 „The billionaire bunker mystery“ bis 2:08; dazu 21:42 „The failures of billionaire preparedness“; Folge 1:00:47)",
+      "out": "ungeprüft",
+      "dauer_s": null,
+      "dauer_s_geschaetzt": 14,
+      "transcript": "ungeprüft. Laut Beschreibung: Fünf Milliardäre wollten von ihm wissen, wie man einen Bunker baut, der die Apokalypse übersteht (die Beschreibung nennt 2018, laut Essay war es 2017).",
+      "ampel": "gelb",
+      "content_id_risiko": "mittel: licensedContent",
+      "konfidenz": "gelb",
+      "konfidenz_grund": "Stelle über offizielle Kapitel eingegrenzt, Inhalt durch die Beschreibung belegt. Kapitel 0:00 kann ein Teaser mit Musik sein.",
+      "slot": "Station 4 (~5:55) statt C3; Kapitel 50:50 „Facing collapse through local action“ evtl. für Station 5.",
+      "einordnung": "wie C3",
+      "burned": null,
+      "untertitel": "nicht geladen; keine hochgeladenen Untertitel laut Schnittstelle",
+      "musik": "unbekannt; Teaser am Anfang möglich",
+      "kontext_vorher_30s": "ungeprüft",
+      "kontext_nachher_30s": "ungeprüft. Nächstes Kapitel 2:08 „AI, small models, and decentralization“.",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": null
+      },
+      "personen_check": "gruen (Hinweis wie C3)",
+      "pruefen": [
+        "Titel des Quellvideos klingt nach „Reiche gegen uns“ (§1.7): nur seine Erzählung nehmen, Kapitel zu „Eugenics“ und „Sociopathy“ meiden.",
+        "Teaser oder echtes Gespräch? Nur aus dem Gesprächsteil schneiden.",
+        "Bauchbinde: DOUGLAS RUSHKOFF · Media theorist, author of “Survival of the Richest” · 2026 · ORIGINAL FOOTAGE"
+      ]
+    },
+    {
+      "id": "C3c",
+      "kandidat": "Alternative C3 (Stelle am besten eingegrenzt)",
+      "speaker": "Douglas Rushkoff",
+      "role": "Media theorist; author of “Survival of the Richest”",
+      "source_title": "How Billionaires Are Preparing For Doomsday - Douglas Rushkoff",
+      "channel": "Chris Williamson",
+      "url": "https://www.youtube.com/watch?v=lfpe4qCk6V0",
+      "date": "2022-11-26",
+      "in": "ungeprüft (Kapitel 08:26 „What Introduced Douglas to this Subject?“; dazu 31:46 „The Parts of Preparation that Billionaires Struggle with“ und 51:28 „How Individuals & Society Can Improve“; Folge 1:02:16)",
+      "out": "ungeprüft",
+      "dauer_s": null,
+      "dauer_s_geschaetzt": 14,
+      "transcript": "ungeprüft. Laut Beschreibung: „what happens when you're invited to brief billionaires on the future downfall of the earth“.",
+      "ampel": "gelb",
+      "content_id_risiko": "mittel: licensedContent (Kanal mit 4,5 Mio. Abos)",
+      "konfidenz": "gelb",
+      "konfidenz_grund": "Kapitel 08:26 ist laut Titel die Entstehungsgeschichte, also das Treffen; die Beschreibung nennt es ausdrücklich. Wortlaut offen.",
+      "slot": "Station 4 (~5:55) statt C3; Kapitel 51:28 für seine Antwort in Station 5.",
+      "einordnung": "wie C3",
+      "burned": null,
+      "untertitel": "nicht geladen; keine hochgeladenen Untertitel laut Schnittstelle",
+      "musik": "keine erwartet (Studio-Gespräch)",
+      "kontext_vorher_30s": "ungeprüft. Kapitel 00:56 „How Billionaires Are Preparing Now for Doomsday“.",
+      "kontext_nachher_30s": "ungeprüft. Kapitel 16:31 „The Possibilities of Seasteading“.",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": null
+      },
+      "personen_check": "gruen (Hinweis wie C3)",
+      "pruefen": [
+        "Gleicher Kanal wie C2 (andere Folge, zählt als eigene Quelle).",
+        "Bauchbinde: DOUGLAS RUSHKOFF · Media theorist, author of “Survival of the Richest” · 2022 · ORIGINAL FOOTAGE"
+      ]
+    },
+    {
+      "id": "C3d",
+      "kandidat": "Alternative C3 (Bühne, mit Publikum)",
+      "speaker": "Douglas Rushkoff",
+      "role": "Media theorist; author of “Survival of the Richest”",
+      "source_title": "The End of the Billionaire Mindset: A Celebration with Douglas Rushkoff | SXSW 2023",
+      "channel": "SXSW",
+      "url": "https://www.youtube.com/watch?v=3ryB_gjz0us",
+      "date": "2023-04-17",
+      "in": "ungeprüft (1:01:00, keine Kapitel)",
+      "out": "ungeprüft",
+      "dauer_s": null,
+      "dauer_s_geschaetzt": 12,
+      "transcript": "ungeprüft. Laut Beschreibung „stand-up philosophy“: Geschichten seiner Begegnungen mit Milliardären, die die Menschheit hinter sich lassen wollen.",
+      "ampel": "gelb",
+      "content_id_risiko": "mittel: licensedContent; Festival-Intro mit Musik möglich",
+      "konfidenz": "rot",
+      "konfidenz_grund": "Stelle offen.",
+      "slot": "Station 4 (~5:55) statt C3, wenn eine lebendige Bühnenfassung mit Lachern besser trägt.",
+      "einordnung": "wie C3",
+      "burned": null,
+      "untertitel": "nicht geladen",
+      "musik": "unbekannt",
+      "kontext_vorher_30s": "ungeprüft",
+      "kontext_nachher_30s": "ungeprüft",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": null
+      },
+      "personen_check": "gruen (Hinweis wie C3)",
+      "pruefen": [
+        "Lacher des Publikums dürfen nicht nach Spott über die Männer klingen (§1.7).",
+        "Bauchbinde: DOUGLAS RUSHKOFF · Media theorist · SXSW 2023 · ORIGINAL FOOTAGE"
+      ]
+    },
+    {
+      "id": "C3e",
+      "kandidat": "Alternative C3 (Buchvorstellung)",
+      "speaker": "Douglas Rushkoff",
+      "role": "Media theorist; author of “Survival of the Richest”",
+      "source_title": "Douglas Rushkoff | Survival of the Richest: Escape Fantasies of the Tech Billionaires (im Gespräch mit Kevin Werbach)",
+      "channel": "Author Events",
+      "url": "https://www.youtube.com/watch?v=5Gec4TXdSwM",
+      "date": "2022-09-26",
+      "aufnahme": "2022-09-20",
+      "in": "ungeprüft (56:18, keine Kapitel)",
+      "out": "ungeprüft",
+      "dauer_s": null,
+      "dauer_s_geschaetzt": 12,
+      "transcript": "ungeprüft",
+      "ampel": "gelb",
+      "content_id_risiko": "mittel: licensedContent",
+      "konfidenz": "rot",
+      "konfidenz_grund": "Stelle offen; bei Buchvorstellungen kommt die Szene meist am Anfang.",
+      "slot": "Station 4 statt C3",
+      "einordnung": "wie C3",
+      "burned": null,
+      "untertitel": "nicht geladen",
+      "musik": "unbekannt",
+      "kontext_vorher_30s": "ungeprüft",
+      "kontext_nachher_30s": "ungeprüft",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": null
+      },
+      "personen_check": "gruen (Hinweis wie C3)",
+      "pruefen": [
+        "Veranstalter und Rechte am Video prüfen (Kanal „Author Events“).",
+        "Bauchbinde: DOUGLAS RUSHKOFF · Media theorist · 2022 · ORIGINAL FOOTAGE"
+      ]
+    },
+    {
+      "id": "C3f",
+      "kandidat": "Alternative C3, nicht empfohlen (Rahmung)",
+      "speaker": "Douglas Rushkoff",
+      "role": "Media theorist; author of “Survival of the Richest”",
+      "source_title": "“Elites Are Planning A Secret Breakaway Civilization. I Was Invited to Help.” | Douglas Rushkoff",
+      "channel": "Danny Jones",
+      "url": "https://www.youtube.com/watch?v=FgOClu_ack4",
+      "date": "2026-05-08",
+      "in": "ungeprüft (Kapitel 00:00 „Escape fantasies of tech billionaires“ bis 07:39; Folge 2:04:53)",
+      "out": "ungeprüft",
+      "dauer_s": null,
+      "dauer_s_geschaetzt": 14,
+      "transcript": "ungeprüft. Laut Beschreibung: wie fünf Milliardäre Rushkoff zu einem privaten Gespräch in die Wüste holten.",
+      "ampel": "gelb",
+      "content_id_risiko": "mittel: licensedContent; Zusammenschnitt bei Best of Danny Jones (AMxMLPT6L68)",
+      "konfidenz": "gelb",
+      "konfidenz_grund": "Stelle über das erste Kapitel eingegrenzt, Inhalt durch die Beschreibung belegt.",
+      "slot": "nur als Notlösung für Station 4",
+      "einordnung": "wie C3",
+      "burned": null,
+      "untertitel": "nicht geladen",
+      "musik": "unbekannt; Teaser am Anfang möglich",
+      "kontext_vorher_30s": "ungeprüft",
+      "kontext_nachher_30s": "ungeprüft. Kapitel 07:39 „Peter Thiel's model of reality“.",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": null
+      },
+      "personen_check": "gruen (Hinweis wie C3); die Folge hat eigene Kapitel zu Epstein und Thiel",
+      "pruefen": [
+        "Titel und Kapitel (Geheimzivilisation, Epstein, Thiel) passen nicht zum Ton (§1.7); nur nehmen, wenn C3 bis C3e nicht gehen."
+      ]
+    },
+    {
+      "id": "C6",
+      "kandidat": "Alternative Station 4, nur nach Personen-Check",
+      "speaker": "Scott Galloway",
+      "role": "Podcaster und Wirtschaftsprofessor (Rolle am Video prüfen)",
+      "source_title": "Scott Galloway: The Rich Are Quietly Preparing For The AI Collapse",
+      "channel": "The Diary Of A CEO",
+      "url": "https://www.youtube.com/watch?v=NdU6UdUKaYc",
+      "date": "2026-05-04",
+      "in": "ungeprüft (Kapitel 00:44:50 „Are Tech Leaders Quietly Preparing For The End?“ bis 00:52:00; Folge 1:58:11)",
+      "out": "ungeprüft",
+      "dauer_s": null,
+      "dauer_s_geschaetzt": 10,
+      "transcript": "ungeprüft",
+      "ampel": "gelb",
+      "content_id_risiko": "mittel bis hoch: licensedContent, 4,1 Mio. Aufrufe, eigener Clip-Kanal",
+      "konfidenz": "gelb",
+      "konfidenz_grund": "Stelle über ein offizielles Kapitel eingegrenzt; was er sagt, ist offen.",
+      "slot": "Station 4 (~6:30) als zweite Stimme zu „sie fürchten die Menschen“, nur mit ≥ 45 s Abstand zu C3.",
+      "einordnung": "erst nach Sichtung und Personen-Check",
+      "burned": null,
+      "untertitel": "nicht geladen",
+      "musik": "unbekannt; DOAC-Folgen beginnen mit Teaser",
+      "kontext_vorher_30s": "ungeprüft. Kapitel 00:39:55 „Can You Trust The People Building AI?“.",
+      "kontext_nachher_30s": "ungeprüft. Kapitel 00:52:00 „Do Some AI Leaders Believe The Risk Is Worth It?“.",
+      "fair_use": {
+        "kommentiert": true,
+        "kurz_nicht_kern": true,
+        "ersetzt_original_nicht": true,
+        "sinn_erhalten": null
+      },
+      "personen_check": "offen (nicht geprüft)",
+      "pruefen": [
+        "Personen-Check Galloway (§2.5f) vor jedem Einbau.",
+        "Titel klingt nach „Reiche gegen uns“ (§1.7): nur einen sachlichen Satz nehmen.",
+        "Abgrenzung #66/#64: nichts über Vermögensverteilung."
+      ]
+    }
+  ],
+  "zitatkarten": [
+    {
+      "text": "„We're definitely going to build a bunker before we release AGI.“",
+      "speaker": "Ilya Sutskever, co-founder and then chief scientist, OpenAI",
+      "date": "2023 (Sommer; veröffentlicht Mai 2025)",
+      "quelle": "Karen Hao, Empire of AI (Penguin Press, 2025); Fortune 20.05.2025",
+      "slot": "Hook (~0:35), F1",
+      "hinweis": "Ersetzt Clip C4 (Karen Hao): kein Video gefunden, in dem sie die Szene erzählt (DOAC 26.03.2026, Democracy Now 04.07.2025, Downstream 29.06.2025 per Auszug geprüft). Auf der Karte: „as recalled by researchers present, reported by Karen Hao“. Personen-Check gruen."
+    },
+    {
+      "text": "„Of course, it's going to be optional whether you want to get into the bunker.“",
+      "speaker": "Ilya Sutskever",
+      "date": "2023 (Sommer)",
+      "quelle": "Karen Hao, Empire of AI (2025); Fortune 20.05.2025",
+      "slot": "Station 2 (~3:30), F16",
+      "hinweis": "Rückgriff auf den Hook. Mehr über Ilya nicht (gehört #78)."
+    },
+    {
+      "text": "„… just like a little shelter. It's like a basement.“",
+      "speaker": "Mark Zuckerberg, CEO, Meta",
+      "date": "2024-12-19",
+      "quelle": "Bloomberg Originals, The Circuit with Emily Chang (Bonus-Clip, YouTube R91_oQ4smys); Fortune 27.12.2024",
+      "slot": "Station 1 (~1:30), F5",
+      "hinweis": "Ersetzt Clip C1: Bloomberg = TV-Sender → nur Zitatkarte. Wortlaut je Bericht leicht anders; Video hat Untertitel (caption: true), am iMac prüfen. Personen-Check gelb (Jakob informieren)."
+    },
+    {
+      "text": "„None of this is gonna help if AGI goes wrong.“",
+      "speaker": "Sam Altman, CEO, OpenAI",
+      "date": "2023-10 (WSJ Tech Live)",
+      "quelle": "Business Insider (über Yahoo Finance)",
+      "slot": "Station 2 (~3:10), F15",
+      "hinweis": "Video nicht gesucht (WSJ, großes Medienhaus). Wortlaut je Bericht leicht anders; am Original prüfen. Altman höchstens eine Karte neben Clip C1. Personen-Check gelb."
+    },
+    {
+      "text": "„… a big patch of land in Big Sur I can fly to.“",
+      "speaker": "Sam Altman (2016, damals Chef von Y Combinator)",
+      "date": "2016-10-10",
+      "quelle": "Tad Friend, The New Yorker, zitiert von CNN 31.10.2023",
+      "slot": "Station 1 (~1:45), F6",
+      "hinweis": "Stand 2016, Original gesperrt. Statt ZK Altman 2023, nicht beide."
+    },
+    {
+      "text": "„How do I maintain authority over my security force after the Event?“",
+      "speaker": "Chef eines Brokerhauses, nach Douglas Rushkoff",
+      "date": "2017 (Essay 05.07.2018; Buch 2022)",
+      "quelle": "Rushkoff, „Survival of the Richest“, Medium/OneZero 05.07.2018; Buch W. W. Norton 2022",
+      "slot": "Station 4 (~5:55), F26",
+      "hinweis": "Nur, wenn C3 und die Alternativen nicht gehen."
+    },
+    {
+      "text": "„Don't just invest in ammo and electric fences, invest in people and relationships.“",
+      "speaker": "Douglas Rushkoff",
+      "date": "2018-07-05",
+      "quelle": "Rushkoff, „Survival of the Richest“, Medium/OneZero",
+      "slot": "Station 5 (~7:05), F27/F34",
+      "hinweis": "Oder als zweiter Clip aus dem C3-Video, wenn er es dort sagt."
+    },
+    {
+      "text": "„The scientific community says AI technology is amazing, but it's nowhere near human intelligence.“",
+      "speaker": "Dame Wendy Hall, Professor of Computer Science, University of Southampton",
+      "date": "2025-10 (~10.10.)",
+      "quelle": "BBC (Zoe Kleinman), über AOL und Yahoo",
+      "slot": "Station 2, Gegenstimme, F18",
+      "hinweis": "BBC → nur Zitatkarte. Ihr zweiter Satz in zwei Fassungen („They move the goalposts all the time“ / „They constantly change the expectations“). Nebenstimme, Personen-Check nicht eigens gemacht."
+    },
+    {
+      "text": "„The chaotic atmosphere that may result from emergent AI technology in the next five years may fuel large-scale protests that devolve into civil unrest …“",
+      "speaker": "New York Intelligence and Counterterrorism Bureau (interner Bericht, laut WIRED)",
+      "date": "2026-05",
+      "quelle": "WIRED ~26.05.2026, über Android Authority, Reason, Fast Company",
+      "slot": "Station 4, F30",
+      "hinweis": "unbestätigt (wired.com gesperrt). Kürzung kennzeichnen. Kritik dazu nennen (NAACP LDF: „incredibly unreliable“)."
+    },
+    {
+      "text": "„… a common concern among our customers.“ (über einen Bürgerkrieg)",
+      "speaker": "Cory Hubbard, co-owner, DEFCON Underground (bunker maker)",
+      "date": "2026-10-04",
+      "quelle": "Newsweek 04.10.2026 (Text laut Vorlauf KI-gestützt erstellt)",
+      "slot": "Station 4, F32",
+      "hinweis": "Nicht Ron Hubbard. Nur zusammen mit WaPo/Axios-Belegen."
+    },
+    {
+      "text": "„The risks posed by powerful, out-of-control AIs are not overblown.“",
+      "speaker": "Andrew Yoon, Head of Research, CivAI",
+      "date": "2026-10-04",
+      "quelle": "Newsweek 04.10.2026 (KI-gestützt)",
+      "slot": "Station 2, Gegen-Gegenstimme, optional, F18",
+      "hinweis": "Nebenstimme, Personen-Check nicht eigens gemacht."
+    },
+    {
+      "text": "„… you built a tomb.“ (über Bunker ohne Fluchtweg)",
+      "speaker": "Brian Camden, engineer, Hardened Structures",
+      "date": "2026-10-09",
+      "quelle": "Washington Post 09.10.2026, über Moneywise und Yahoo 13.10.2026",
+      "slot": "Station 3, F22",
+      "hinweis": "Wortlaut nur über Zusammenfassungen; am WaPo-Original prüfen."
+    },
+    {
+      "text": "„Don't build bunkers. Write laws.“",
+      "speaker": "Tristan Harris, Center for Humane Technology",
+      "date": "2026-04-02",
+      "quelle": "Modern Wisdom #1079, inoffizielles Transkript (Singju Post)",
+      "slot": "Station 5, F39",
+      "hinweis": "Nur, wenn C2b nicht als Clip geht."
+    },
+    {
+      "text": "„I would guess fifty-plus percent.“ (Milliardäre im Silicon Valley mit „apocalypse insurance“)",
+      "speaker": "Reid Hoffman, co-founder, LinkedIn",
+      "date": "2017-01-30",
+      "quelle": "Evan Osnos, The New Yorker, zitiert von NZ Herald und Vice",
+      "slot": "Station 1, F11",
+      "hinweis": "Personen-Check rot → nur mit Jakobs Okay. Schätzung, keine Erhebung. Stand 2017."
+    }
+  ],
+  "vermeiden": [
+    {
+      "videos": "xT3Pmw4f-Y8, NbY0qW5RbWc, T25PQowvCvs, XnqNCejTN1k",
+      "kanal": "Neural Nutshell, AI Unloaded",
+      "grund": "Reuploads und Kommentar-Videos mit Harris-Material (licensedContent). Nur zum Wiederfinden der Stelle (xT3Pmw4f-Y8 = 15-min-Auszug der Bunker-Folge)."
+    },
+    {
+      "videos": "R91_oQ4smys, YuIc4mq7zMU",
+      "kanal": "Bloomberg Originals",
+      "grund": "TV-Sender (The Circuit) → nur Zitatkarte."
+    },
+    {
+      "videos": "zAoEf7tsMjU",
+      "kanal": "Hawaii News Now",
+      "grund": "TV-Sender, enthält Bloomberg-Material."
+    },
+    {
+      "videos": "ltLLz5w3Cfc, hoQUEraF_Hw, 3Mcnl3DDs9g, WI5egfnmIwc",
+      "kanal": "The Thought Line, InfoSage Bibek, MindShift Clips, luxells",
+      "grund": "Reuploads und Shorts zum Zuckerberg-Bunker."
+    },
+    {
+      "videos": "4kVYLArmg8A, i1a24vlk-j0, HOh_inbIkoE, febmsC8znKs",
+      "kanal": "The Inside View, The House of Comedy, Unintelligent, Unfiltered collective",
+      "grund": "Reuploads aus Theo Von #599. Nur aus dem Original aYn8VKW6vXA schneiden."
+    },
+    {
+      "videos": "kvSK6hUecVI, Dtdue31z-X8",
+      "kanal": "Theo Von, Theo Von Clips",
+      "grund": "Offizielle Ausschnitte aus #599. Nur zum Finden der Stelle; geschnitten wird aus dem Original."
+    },
+    {
+      "videos": "AMxMLPT6L68",
+      "kanal": "Best of Danny Jones",
+      "grund": "Zusammenschnitt aus FgOClu_ack4."
+    },
+    {
+      "videos": "5FvEAeAHmUY, nS3-dQen-YM, v0WzWaIGwUk",
+      "kanal": "Julian Dorey, The Majority Report, David Pakman",
+      "grund": "Rahmung und Kapitel passen nicht zum Ton (§1.7, bei Dorey auch Krebs-Heilung, §2.5c); politische Sendungen."
+    },
+    {
+      "videos": "Hgdplv8Mde8, PU0eQ4mjXK4",
+      "kanal": "SRF Kultur Sternstunden",
+      "grund": "TV-Sender (Schweizer Fernsehen) → rot."
+    },
+    {
+      "videos": "3krTQksXRvk",
+      "kanal": "CBS News",
+      "grund": "TV-Sender; alt (2016, Zuckerbergs Mauer)."
+    },
+    {
+      "videos": "GGlK3nQ0ado, 2Gcb_b1Yg-U, k9YRELsBoic, DIN3pFuJPUA",
+      "kanal": "Atlas Survival Shelters (Shorts)",
+      "grund": "Shorts mit Musik bzw. TV-Bezug (Kimmel); 8 s wären ein großer Teil des Originals (Fair Use)."
+    },
+    {
+      "videos": "sKTHJg7GsZ4, gNXbCZLAX04, JiCsl4q9SEw, 5Ih9v9kPVW8, 7g3DCbS_jWQ, fdgSioBZ7zI, Ylt_ncbV_Qo, qjytmaYTrZA, uzuCQCzSpew, G_KRDN2DROA, R8QA0-l7AbI",
+      "kanal": "Erklär-, Reupload- und Kommentar-Kanäle",
+      "grund": "Keine Originalaufnahmen; teils Mitbewerber zum Thema (Marktcheck)."
+    },
+    {
+      "videos": "glWvwvhZkQ8",
+      "kanal": "Run The Numbers",
+      "grund": "„What Did Ilya See?“, fremder Film zum Thema von #78."
+    }
+  ],
+  "offen": [
+    "Kein Clip-Wortlaut und keine Zeitmarke ist geprüft. YouTube-Untertitel und Ton waren aus der Cloud gesperrt (Bot-Prüfung), vidIQ hat kein Guthaben bis 19.12.2026.",
+    "Am iMac (Remote Control) Untertitel laden und Stellen setzen: C1 aYn8VKW6vXA (~1:25:40, über den Short kvSK6hUecVI) · C2/C2b NufB1LL_rCU (über TikTok 7631307626973990146 oder xT3Pmw4f-Y8; Kapitel ab 01:59:18) · C3 q7grRir4KPQ (Kapitel 01:52, Untertitel vorhanden; sonst C3c lfpe4qCk6V0 Kapitel 08:26) · C5 w8FO9cMKyOU (Technikraum, Musik?).",
+    "Karen Hao: kein Video gefunden, in dem sie die Sutskever-Szene erzählt. Mit neuem Suchkontingent suchen (Buchvorstellungen und Podcasts Mai/Juni 2025, z. B. Hard Fork, Big Technology, Galaxy Brain, Tech Won't Save Us). Ein Fund wäre ein gelber Clip statt der Hook-Karte.",
+    "Zuckerberg: Das Interview gab es nur bei Bloomberg; bleibt Zitatkarte.",
+    "Altman bei WSJ Tech Live 2023: Video nicht gesucht (großes Medienhaus, ohnehin Zitatkarte).",
+    "C6 Galloway nur nach Personen-Check (§2.5f).",
+    "Faktencheck der Zitatkarten: axios.com, newsweek.com, wired.com, wsj.com, newyorker.com und washingtonpost.com in den Netzwerkeinstellungen der Sitzung freischalten lassen oder am iMac öffnen."
+  ]
+}

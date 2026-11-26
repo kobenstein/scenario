@@ -1,0 +1,1296 @@
+1
+00:00:00,710 --> 00:00:02,090
+The people building artificial
+
+2
+00:00:02,130 --> 00:00:04,430
+intelligence are building bunkers.
+
+3
+00:00:04,740 --> 00:00:06,050
+Think about who they are.
+
+4
+00:00:06,290 --> 00:00:08,260
+They see this technology up close,
+
+5
+00:00:08,300 --> 00:00:09,610
+before the rest of us.
+
+6
+00:00:09,790 --> 00:00:10,910
+The same technology that's
+
+7
+00:00:10,950 --> 00:00:12,650
+about to reshape your job,
+
+8
+00:00:12,690 --> 00:00:13,580
+your daily life,
+
+9
+00:00:13,620 --> 00:00:14,390
+and the world your
+
+10
+00:00:14,430 --> 00:00:15,820
+children grow up in.
+
+11
+00:00:16,140 --> 00:00:17,080
+And some of them have
+
+12
+00:00:17,120 --> 00:00:18,550
+built a place to hide.
+
+13
+00:00:18,750 --> 00:00:19,720
+Underground.
+
+14
+00:00:19,760 --> 00:00:20,370
+Behind a door
+
+15
+00:00:20,410 --> 00:00:21,890
+filled with concrete.
+
+16
+00:00:22,050 --> 00:00:24,150
+A door that only opens for a few.
+
+17
+00:00:24,490 --> 00:00:26,130
+So what are they hiding from?
+
+18
+00:00:26,710 --> 00:00:28,490
+One of them said it out loud.
+
+19
+00:00:28,840 --> 00:00:30,450
+OpenAI's chief scientist
+
+20
+00:00:30,490 --> 00:00:31,070
+at the time
+
+21
+00:00:31,110 --> 00:00:33,180
+told a room of new researchers:
+
+22
+00:00:33,510 --> 00:00:34,920
+"We're definitely going to build
+
+23
+00:00:34,960 --> 00:00:37,600
+a bunker before we release AGI."
+
+24
+00:00:37,750 --> 00:00:38,890
+AGI.
+
+25
+00:00:39,120 --> 00:00:41,260
+A machine as smart as us.
+
+26
+00:00:41,560 --> 00:00:43,670
+So the answer seems obvious.
+
+27
+00:00:43,710 --> 00:00:45,510
+They're afraid of the machine.
+
+28
+00:00:45,880 --> 00:00:47,760
+But no door stops a machine
+
+29
+00:00:47,800 --> 00:00:49,180
+that's smarter than you.
+
+30
+00:00:49,430 --> 00:00:50,430
+And they know it.
+
+31
+00:00:50,650 --> 00:00:51,650
+They're building bunkers
+
+32
+00:00:51,690 --> 00:00:52,720
+for a reason.
+
+33
+00:00:53,050 --> 00:00:54,180
+But the reason might
+
+34
+00:00:54,220 --> 00:00:55,730
+not be the machine.
+
+35
+00:00:56,360 --> 00:00:58,790
+There are three obvious suspects.
+
+36
+00:00:59,000 --> 00:00:59,970
+The bomb.
+
+37
+00:01:00,010 --> 00:01:01,010
+The machine.
+
+38
+00:01:01,270 --> 00:01:02,960
+And the chaos along the way.
+
+39
+00:01:03,300 --> 00:01:04,520
+The fourth is written into
+
+40
+00:01:04,560 --> 00:01:06,530
+the floor plans of new bunkers.
+
+41
+00:01:06,790 --> 00:01:08,020
+The bomb first.
+
+42
+00:01:08,240 --> 00:01:09,170
+That door filled
+
+43
+00:01:09,210 --> 00:01:10,790
+with concrete is real.
+
+44
+00:01:10,850 --> 00:01:11,870
+It's in Hawaii.
+
+45
+00:01:12,140 --> 00:01:13,790
+Under Mark Zuckerberg's ranch,
+
+46
+00:01:13,830 --> 00:01:15,130
+there's an underground shelter
+
+47
+00:01:15,170 --> 00:01:16,880
+bigger than most houses.
+
+48
+00:01:17,080 --> 00:01:18,680
+He says it's for storms.
+
+49
+00:01:18,770 --> 00:01:20,860
+In his words: "a little shelter.
+
+50
+00:01:20,900 --> 00:01:22,060
+It's like a basement."
+
+51
+00:01:22,390 --> 00:01:23,390
+Fair enough.
+
+52
+00:01:23,540 --> 00:01:24,550
+The owners don't love
+
+53
+00:01:24,590 --> 00:01:26,030
+the word bunker.
+
+54
+00:01:26,590 --> 00:01:28,930
+Last year, the comedian Theo Von
+
+55
+00:01:28,970 --> 00:01:30,490
+asked the head of OpenAI
+
+56
+00:01:30,530 --> 00:01:31,870
+whether he has one.
+
+57
+00:01:32,260 --> 00:01:33,420
+Here's Sam Altman:
+
+58
+00:01:42,030 --> 00:01:43,030
+Bombs.
+
+59
+00:01:43,160 --> 00:01:44,560
+Not AI.
+
+60
+00:01:44,950 --> 00:01:46,430
+The people who sell bunkers
+
+61
+00:01:46,470 --> 00:01:48,190
+name old reasons, too.
+
+62
+00:01:48,440 --> 00:01:49,180
+War.
+
+63
+00:01:49,220 --> 00:01:50,220
+Pandemics.
+
+64
+00:01:50,440 --> 00:01:52,290
+So the bomb is real.
+
+65
+00:01:52,510 --> 00:01:53,700
+But it's the oldest reason
+
+66
+00:01:53,740 --> 00:01:54,740
+in the book.
+
+67
+00:01:55,690 --> 00:01:57,710
+And something here is new.
+
+68
+00:01:58,040 --> 00:01:59,920
+This year, bunker makers began
+
+69
+00:01:59,960 --> 00:02:01,750
+adding a reason to their list.
+
+70
+00:02:02,140 --> 00:02:03,940
+Artificial intelligence.
+
+71
+00:02:04,360 --> 00:02:05,200
+Is it the machine
+
+72
+00:02:05,240 --> 00:02:06,430
+they're afraid of?
+
+73
+00:02:07,630 --> 00:02:09,190
+It would make sense.
+
+74
+00:02:09,410 --> 00:02:11,030
+A panel of more than 100
+
+75
+00:02:11,070 --> 00:02:13,230
+experts says AI is already
+
+76
+00:02:13,270 --> 00:02:15,630
+being used in real cyberattacks.
+
+77
+00:02:15,930 --> 00:02:17,100
+That's today's AI.
+
+78
+00:02:17,140 --> 00:02:18,850
+Now picture the one these
+
+79
+00:02:18,890 --> 00:02:20,840
+companies are racing to build.
+
+80
+00:02:20,960 --> 00:02:22,610
+Smarter than any of us,
+
+81
+00:02:22,650 --> 00:02:23,690
+at everything.
+
+82
+00:02:24,080 --> 00:02:26,280
+Say that machine turns against us.
+
+83
+00:02:26,470 --> 00:02:27,440
+A bunker is built
+
+84
+00:02:27,480 --> 00:02:28,850
+for things that pass.
+
+85
+00:02:28,890 --> 00:02:29,750
+A storm.
+
+86
+00:02:29,790 --> 00:02:30,440
+Fallout.
+
+87
+00:02:30,480 --> 00:02:31,510
+A war.
+
+88
+00:02:31,790 --> 00:02:33,800
+That machine doesn't pass.
+
+89
+00:02:33,950 --> 00:02:36,110
+One day the door has to open.
+
+90
+00:02:36,210 --> 00:02:37,440
+And it's still out there.
+
+91
+00:02:37,810 --> 00:02:39,690
+And if the machine turns out well,
+
+92
+00:02:39,790 --> 00:02:41,680
+nobody needs a bunker at all.
+
+93
+00:02:42,230 --> 00:02:43,240
+The head of OpenAI
+
+94
+00:02:43,280 --> 00:02:44,570
+has said it himself:
+
+95
+00:02:44,990 --> 00:02:45,980
+"None of this is gonna
+
+96
+00:02:46,020 --> 00:02:48,330
+help if AGI goes wrong."
+
+97
+00:02:48,630 --> 00:02:49,510
+And that bunker
+
+98
+00:02:49,550 --> 00:02:50,550
+from the beginning?
+
+99
+00:02:50,800 --> 00:02:52,030
+The scientist who announced
+
+100
+00:02:52,070 --> 00:02:53,570
+it added one detail:
+
+101
+00:02:53,990 --> 00:02:55,360
+"Of course, it's going to be
+
+102
+00:02:55,400 --> 00:02:56,570
+optional whether you want
+
+103
+00:02:56,610 --> 00:02:58,000
+to get into the bunker."
+
+104
+00:02:59,000 --> 00:02:59,940
+Optional.
+
+105
+00:02:59,980 --> 00:03:01,400
+Some scientists doubt
+
+106
+00:03:01,440 --> 00:03:03,410
+that machine is anywhere close.
+
+107
+00:03:03,650 --> 00:03:06,190
+Near or far, the logic holds.
+
+108
+00:03:06,350 --> 00:03:07,710
+The only protection against
+
+109
+00:03:07,750 --> 00:03:09,950
+that machine is to build it right.
+
+110
+00:03:10,150 --> 00:03:11,050
+Out here.
+
+111
+00:03:11,090 --> 00:03:12,280
+Not down there.
+
+112
+00:03:12,490 --> 00:03:14,080
+Cross the machine off the list.
+
+113
+00:03:15,370 --> 00:03:16,230
+But then why are
+
+114
+00:03:16,270 --> 00:03:17,580
+they still building?
+
+115
+00:03:18,740 --> 00:03:20,000
+Tristan Harris used to
+
+116
+00:03:20,040 --> 00:03:21,210
+work at Google.
+
+117
+00:03:21,370 --> 00:03:22,280
+Today he's one of
+
+118
+00:03:22,320 --> 00:03:24,500
+the industry's sharpest critics.
+
+119
+00:03:24,720 --> 00:03:26,160
+This spring he said:
+
+120
+00:03:32,780 --> 00:03:33,820
+Right now.
+
+121
+00:03:34,010 --> 00:03:35,520
+He names no names.
+
+122
+00:03:35,570 --> 00:03:36,840
+But if he's right,
+
+123
+00:03:36,880 --> 00:03:37,720
+a bunker must be
+
+124
+00:03:37,760 --> 00:03:38,940
+good for something.
+
+125
+00:03:39,180 --> 00:03:40,740
+Ask the people who sell them.
+
+126
+00:03:40,890 --> 00:03:42,090
+Most shelters are stocked
+
+127
+00:03:42,130 --> 00:03:43,820
+for weeks or months.
+
+128
+00:03:43,980 --> 00:03:44,680
+The biggest ones
+
+129
+00:03:44,720 --> 00:03:46,220
+promise a few years.
+
+130
+00:03:46,350 --> 00:03:48,520
+Sales promises, all of them.
+
+131
+00:03:48,780 --> 00:03:50,830
+But every bunker is a clock.
+
+132
+00:03:50,950 --> 00:03:51,640
+So what are they
+
+133
+00:03:51,680 --> 00:03:53,230
+expecting to wait out?
+
+134
+00:03:53,580 --> 00:03:55,250
+Inside the AI industry,
+
+135
+00:03:55,290 --> 00:03:58,050
+many expect a major AI incident.
+
+136
+00:03:58,260 --> 00:03:59,660
+Not killer robots.
+
+137
+00:03:59,860 --> 00:04:01,330
+More like a cyberattack
+
+138
+00:04:01,370 --> 00:04:02,660
+that takes down banks,
+
+139
+00:04:02,700 --> 00:04:04,670
+the internet, maybe the power.
+
+140
+00:04:05,190 --> 00:04:06,230
+And you've already seen
+
+141
+00:04:06,270 --> 00:04:07,860
+how fragile that is.
+
+142
+00:04:08,050 --> 00:04:09,970
+In November, one faulty router
+
+143
+00:04:10,010 --> 00:04:12,350
+stopped takeoffs across America.
+
+144
+00:04:12,620 --> 00:04:13,750
+For hours.
+
+145
+00:04:13,990 --> 00:04:15,440
+No AI involved.
+
+146
+00:04:15,720 --> 00:04:17,400
+Then the planes flew again.
+
+147
+00:04:17,680 --> 00:04:19,760
+The chaos stays on the list.
+
+148
+00:04:19,900 --> 00:04:21,900
+A bunker can carry you through it.
+
+149
+00:04:22,050 --> 00:04:23,050
+For a while.
+
+150
+00:04:23,290 --> 00:04:24,720
+But it can't run itself.
+
+151
+00:04:25,030 --> 00:04:26,180
+It needs fuel.
+
+152
+00:04:26,220 --> 00:04:27,120
+Filters.
+
+153
+00:04:27,160 --> 00:04:28,160
+And people.
+
+154
+00:04:28,450 --> 00:04:29,020
+And when the world
+
+155
+00:04:29,060 --> 00:04:30,680
+outside stops working,
+
+156
+00:04:30,830 --> 00:04:32,510
+who do those people answer to?
+
+157
+00:04:33,690 --> 00:04:34,840
+Some years ago,
+
+158
+00:04:34,880 --> 00:04:36,820
+the writer Douglas Rushkoff
+
+159
+00:04:36,860 --> 00:04:38,520
+was brought to a luxury resort
+
+160
+00:04:38,560 --> 00:04:40,420
+to give a talk about the future.
+
+161
+00:04:40,670 --> 00:04:41,970
+Instead of an audience,
+
+162
+00:04:42,010 --> 00:04:43,220
+five very rich
+
+163
+00:04:43,260 --> 00:04:44,620
+investors walked in.
+
+164
+00:04:44,880 --> 00:04:45,760
+Here's what they really
+
+165
+00:04:45,800 --> 00:04:47,750
+wanted to know, as he tells it:
+
+166
+00:04:59,020 --> 00:05:00,980
+Once money is worthless.
+
+167
+00:05:01,340 --> 00:05:03,680
+They called that day "the Event."
+
+168
+00:05:03,940 --> 00:05:05,920
+The day everything breaks down.
+
+169
+00:05:06,280 --> 00:05:07,260
+They knew they'd need
+
+170
+00:05:07,300 --> 00:05:08,760
+armed guards against what they
+
+171
+00:05:08,800 --> 00:05:10,890
+called "the angry mobs."
+
+172
+00:05:11,090 --> 00:05:12,350
+But after the Event,
+
+173
+00:05:12,390 --> 00:05:14,220
+why would the guards still obey?
+
+174
+00:05:14,620 --> 00:05:15,820
+They had ideas.
+
+175
+00:05:15,890 --> 00:05:18,000
+Special locks on the food supply.
+
+176
+00:05:18,200 --> 00:05:19,700
+Disciplinary collars.
+
+177
+00:05:19,800 --> 00:05:21,330
+Robots as guards.
+
+178
+00:05:22,310 --> 00:05:23,290
+Rushkoff offered
+
+179
+00:05:23,330 --> 00:05:24,590
+a different answer.
+
+180
+00:05:24,830 --> 00:05:26,170
+They rolled their eyes.
+
+181
+00:05:26,420 --> 00:05:27,650
+That's his account.
+
+182
+00:05:27,800 --> 00:05:29,350
+The men were never named.
+
+183
+00:05:29,470 --> 00:05:30,730
+And they were investors,
+
+184
+00:05:30,770 --> 00:05:32,570
+not the people who build AI.
+
+185
+00:05:32,790 --> 00:05:33,410
+But look at what
+
+186
+00:05:33,450 --> 00:05:34,720
+gets planned today.
+
+187
+00:05:35,290 --> 00:05:37,010
+Some new bunker projects come
+
+188
+00:05:37,050 --> 00:05:39,240
+with "anti-mutiny" procedures,
+
+189
+00:05:39,280 --> 00:05:40,160
+so that guards,
+
+190
+00:05:40,200 --> 00:05:41,750
+or anyone else inside,
+
+191
+00:05:41,790 --> 00:05:43,010
+can't take over.
+
+192
+00:05:43,420 --> 00:05:44,340
+Others are designed
+
+193
+00:05:44,380 --> 00:05:46,150
+with "detention areas."
+
+194
+00:05:46,530 --> 00:05:47,820
+The question from that room
+
+195
+00:05:47,860 --> 00:05:49,540
+is now in the floor plans.
+
+196
+00:05:49,980 --> 00:05:51,530
+The companies that build AI
+
+197
+00:05:51,570 --> 00:05:52,870
+are preparing, too.
+
+198
+00:05:53,180 --> 00:05:54,680
+This fall, they were reported
+
+199
+00:05:54,720 --> 00:05:55,890
+to be rehearsing a day
+
+200
+00:05:55,930 --> 00:05:56,930
+of their own.
+
+201
+00:05:57,100 --> 00:05:59,470
+The day after an AI disaster.
+
+202
+00:05:59,740 --> 00:06:00,740
+The day the public
+
+203
+00:06:00,780 --> 00:06:02,010
+and the politicians
+
+204
+00:06:02,050 --> 00:06:03,130
+turn against them.
+
+205
+00:06:03,510 --> 00:06:05,010
+Already, more Americans
+
+206
+00:06:05,050 --> 00:06:06,640
+oppose an AI data center
+
+207
+00:06:06,680 --> 00:06:07,590
+near their home
+
+208
+00:06:07,630 --> 00:06:09,480
+than a nuclear power plant.
+
+209
+00:06:10,090 --> 00:06:12,390
+To be fair: for some owners,
+
+210
+00:06:12,430 --> 00:06:14,540
+a bunker is just insurance.
+
+211
+00:06:14,720 --> 00:06:16,920
+Or a very expensive hobby.
+
+212
+00:06:17,180 --> 00:06:18,270
+The two owners you heard
+
+213
+00:06:18,310 --> 00:06:20,760
+from say storms and bombs.
+
+214
+00:06:20,850 --> 00:06:21,850
+Not people.
+
+215
+00:06:22,020 --> 00:06:24,330
+And one AI company says its drills
+
+216
+00:06:24,370 --> 00:06:26,570
+are practice, not a prediction.
+
+217
+00:06:26,800 --> 00:06:28,200
+But follow the trail.
+
+218
+00:06:28,490 --> 00:06:29,250
+Guards.
+
+219
+00:06:29,290 --> 00:06:30,070
+Locks.
+
+220
+00:06:30,110 --> 00:06:31,370
+Mutiny plans.
+
+221
+00:06:31,520 --> 00:06:33,350
+None of that stops a storm.
+
+222
+00:06:33,530 --> 00:06:34,530
+Or a bomb.
+
+223
+00:06:34,620 --> 00:06:35,680
+Or a machine.
+
+224
+00:06:35,920 --> 00:06:37,780
+It's built against people.
+
+225
+00:06:38,790 --> 00:06:40,820
+They're not hiding from the AI.
+
+226
+00:06:40,880 --> 00:06:42,470
+They're hiding from us.
+
+227
+00:06:42,590 --> 00:06:43,530
+From a world where
+
+228
+00:06:43,570 --> 00:06:45,050
+the gains of this technology
+
+229
+00:06:45,090 --> 00:06:46,350
+go to a few,
+
+230
+00:06:46,390 --> 00:06:48,510
+and everyone else gets angry.
+
+231
+00:06:48,870 --> 00:06:49,750
+You probably don't
+
+232
+00:06:49,790 --> 00:06:51,150
+feel like a threat.
+
+233
+00:06:51,410 --> 00:06:52,970
+But from behind that door,
+
+234
+00:06:53,040 --> 00:06:54,600
+the fear makes sense.
+
+235
+00:06:54,950 --> 00:06:56,050
+So what would make
+
+236
+00:06:56,090 --> 00:06:57,790
+the bunker unnecessary?
+
+237
+00:06:58,960 --> 00:07:00,030
+This channel exists
+
+238
+00:07:00,070 --> 00:07:01,860
+for one reason: so that
+
+239
+00:07:01,900 --> 00:07:03,610
+the arrival of superintelligence
+
+240
+00:07:03,650 --> 00:07:05,400
+goes well for everybody.
+
+241
+00:07:05,580 --> 00:07:07,180
+On both sides of that door.
+
+242
+00:07:07,480 --> 00:07:08,480
+Want that too?
+
+243
+00:07:08,540 --> 00:07:09,590
+Then subscribe.
+
+244
+00:07:10,800 --> 00:07:12,500
+Remember the answer those five
+
+245
+00:07:12,540 --> 00:07:13,970
+men rolled their eyes at?
+
+246
+00:07:14,420 --> 00:07:16,410
+Treat your guards like friends.
+
+247
+00:07:16,530 --> 00:07:17,530
+Right now.
+
+248
+00:07:17,770 --> 00:07:19,830
+Invest, Rushkoff told them,
+
+249
+00:07:20,000 --> 00:07:21,990
+"in people and relationships."
+
+250
+00:07:22,170 --> 00:07:23,050
+Scale that up,
+
+251
+00:07:23,090 --> 00:07:24,920
+and it stops sounding soft.
+
+252
+00:07:25,250 --> 00:07:26,210
+The best protection
+
+253
+00:07:26,250 --> 00:07:27,790
+isn't a thicker door.
+
+254
+00:07:27,890 --> 00:07:28,930
+It's a world nobody
+
+255
+00:07:28,970 --> 00:07:30,150
+wants to storm.
+
+256
+00:07:30,500 --> 00:07:31,580
+One country has built
+
+257
+00:07:31,620 --> 00:07:33,150
+safety for everyone.
+
+258
+00:07:33,300 --> 00:07:34,340
+In concrete.
+
+259
+00:07:34,570 --> 00:07:35,910
+Switzerland made it a rule
+
+260
+00:07:35,950 --> 00:07:38,230
+decades ago: a protected place
+
+261
+00:07:38,270 --> 00:07:39,770
+for every resident.
+
+262
+00:07:40,330 --> 00:07:41,870
+Today it has more shelter
+
+263
+00:07:41,910 --> 00:07:43,300
+places than people.
+
+264
+00:07:43,600 --> 00:07:44,930
+Some are wine cellars
+
+265
+00:07:44,970 --> 00:07:46,900
+or party rooms in the meantime.
+
+266
+00:07:47,370 --> 00:07:49,720
+In Helsinki, Finland, the shelters
+
+267
+00:07:49,760 --> 00:07:51,110
+double as playgrounds
+
+268
+00:07:51,150 --> 00:07:52,390
+and swimming pools.
+
+269
+00:07:53,400 --> 00:07:54,690
+A bunker for a few
+
+270
+00:07:54,730 --> 00:07:56,140
+is a hiding place.
+
+271
+00:07:56,330 --> 00:07:57,730
+A bunker for everyone
+
+272
+00:07:57,770 --> 00:07:58,910
+is a society.
+
+273
+00:07:59,200 --> 00:08:00,160
+But those shelters are
+
+274
+00:08:00,200 --> 00:08:01,750
+built against bombs.
+
+275
+00:08:01,900 --> 00:08:03,380
+A bunker against people
+
+276
+00:08:03,420 --> 00:08:05,290
+never has room for everyone.
+
+277
+00:08:05,450 --> 00:08:07,380
+Someone has to stay outside.
+
+278
+00:08:07,600 --> 00:08:09,900
+So a world nobody wants to storm
+
+279
+00:08:09,940 --> 00:08:11,830
+can't be poured in concrete.
+
+280
+00:08:11,990 --> 00:08:12,950
+And how to build it
+
+281
+00:08:12,990 --> 00:08:14,270
+is an open argument.
+
+282
+00:08:14,550 --> 00:08:15,560
+Tristan Harris has
+
+283
+00:08:15,600 --> 00:08:16,830
+the shortest answer:
+
+284
+00:08:23,630 --> 00:08:25,700
+One has already been written.
+
+285
+00:08:26,080 --> 00:08:28,070
+If AI shakes up the job market
+
+286
+00:08:28,110 --> 00:08:30,370
+in America, a bill in the Senate
+
+287
+00:08:30,410 --> 00:08:31,980
+would pay people who lose their
+
+288
+00:08:32,020 --> 00:08:33,790
+jobs at least three quarters
+
+289
+00:08:33,830 --> 00:08:35,860
+of their wage, for half a year.
+
+290
+00:08:36,340 --> 00:08:38,090
+Others bet on the companies.
+
+291
+00:08:38,450 --> 00:08:39,740
+Microsoft has promised
+
+292
+00:08:39,780 --> 00:08:41,000
+its new data centers
+
+293
+00:08:41,040 --> 00:08:42,420
+will pay their own way,
+
+294
+00:08:42,490 --> 00:08:43,880
+so the neighbors don't.
+
+295
+00:08:44,430 --> 00:08:45,800
+Neither is done.
+
+296
+00:08:46,040 --> 00:08:47,770
+The bill hasn't passed.
+
+297
+00:08:47,900 --> 00:08:49,580
+The promise isn't a law.
+
+298
+00:08:49,870 --> 00:08:51,690
+That world isn't built yet.
+
+299
+00:08:51,940 --> 00:08:52,990
+Whether it will be
+
+300
+00:08:53,030 --> 00:08:54,790
+is decided by lawmakers,
+
+301
+00:08:54,830 --> 00:08:56,910
+by companies, and by voters.
+
+302
+00:08:58,080 --> 00:08:59,910
+So go back to that door.
+
+303
+00:09:00,040 --> 00:09:01,930
+The one that only opens for a few.
+
+304
+00:09:02,240 --> 00:09:03,510
+Now you know the reason.
+
+305
+00:09:03,690 --> 00:09:04,730
+Not the machine.
+
+306
+00:09:04,930 --> 00:09:07,300
+The fear of everyone left outside.
+
+307
+00:09:07,480 --> 00:09:08,480
+And that fear points
+
+308
+00:09:08,520 --> 00:09:09,700
+at something true.
+
+309
+00:09:09,940 --> 00:09:11,250
+A future where a few win
+
+310
+00:09:11,290 --> 00:09:12,930
+everything isn't safe.
+
+311
+00:09:13,140 --> 00:09:14,410
+Not even for the few.
+
+312
+00:09:14,750 --> 00:09:15,710
+The safe one leaves
+
+313
+00:09:15,750 --> 00:09:17,030
+no one outside.
+
+314
+00:09:18,060 --> 00:09:19,300
+You can't build a bunker
+
+315
+00:09:19,340 --> 00:09:21,170
+for 8 billion people.
+
+316
+00:09:21,480 --> 00:09:22,860
+You can only build a world
+
+317
+00:09:22,900 --> 00:09:24,560
+where nobody needs one.
+
+318
+00:09:25,660 --> 00:09:26,720
+This channel exists
+
+319
+00:09:26,760 --> 00:09:28,500
+for one reason: so that
+
+320
+00:09:28,540 --> 00:09:30,250
+the arrival of superintelligence
+
+321
+00:09:30,290 --> 00:09:32,050
+goes well for everybody.
+
+322
+00:09:32,230 --> 00:09:33,960
+All 8 billion of us.
+
+323
+00:09:34,180 --> 00:09:35,180
+Want that too?
+
+324
+00:09:35,270 --> 00:09:36,270
+Then subscribe.
+
