@@ -1,4 +1,4 @@
-# #49 · You Have Five Years Before Superintelligence
+# #49 · You Have 5 Years to Get Ready for AI
 
 - Video: https://youtu.be/C331gMzZwrw (privat hochgeladen 23.11.2026, publishAt 2026-11-24T16:00:00Z = Di 17:00 Wien)
 - Veröffentlichung: geplant 2026-11-24
@@ -7,13 +7,15 @@
 
 ## Titel
 
-You Have Five Years Before Superintelligence
+You Have 5 Years to Get Ready for AI
+
+(Bis 23.11. 21:00: „You Have Five Years Before Superintelligence“; umbenannt auf Jakobs Wunsch, weil es neben #67 „Superintelligence Is Arriving“ widersprüchlich wirkte.)
 
 ## Test & Compare
 
 - Upload-Thumbnail: B f49-b-treppe-1280.jpg („5 YEARS TO GET READY FOR AI“)
 - A f49-a-sonnenaufgang-1280.jpg und C f49-c-tuer-1280.jpg in Test & Compare
-- Test-Titel: How to Prepare for Superintelligence · Superintelligence Is Five Years Away
+- Test-Titel: How to Prepare for Superintelligence · Reinvent Yourself Before AI Changes Everything
 - Freigabe Jakob 20.11. 13:47 (thumbnails/film-49/titel.md)
 
 ## Beschreibung
@@ -83,7 +85,7 @@ Want to sponsor a film? passionfroot.me/the-good-takeoff
 Aus audio/timing.json v9 (23.11., echte Clips: C13 14,3 s, C5 11,87 s, C16 14,07 s, C2 7,4 s). Jeder Kapitelstart ist der Beginn des Sprecher-Abschnitts der Station (t02, t04, t07, t11, t14, t17, t19).
 
 ```
-0:00 Five years before superintelligence
+0:00 Five years to get ready
 0:54 The stranger's question
 1:46 5 years to go: You
 3:11 4 years to go: Your work

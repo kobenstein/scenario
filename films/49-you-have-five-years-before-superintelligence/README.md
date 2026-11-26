@@ -1,4 +1,4 @@
-# #49 · You Have Five Years Before Superintelligence
+# #49 · You Have 5 Years to Get Ready for AI (Ordnername alter Titel)
 
 [Auf YouTube ansehen](https://youtu.be/C331gMzZwrw) · geplant 2026-11-24 17:00 Wien
 
