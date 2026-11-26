@@ -94,7 +94,7 @@ Jeder Filmordner hat eine `README.md` mit Link, Herkunft und der Liste der groß
 | Was | Wo |
 |---|---|
 | Skripte, Regeln, Code, Titel, Beschreibungen, Thumbnail-Vorschauen | **hier im Repo** |
-| Film-Master, Audio, Musik, große Bilder | Google Drive, Ordner „#NN Titel“ (1 Film · 2 Thumbnails · 3 Rohmaterial · 4 Texte) |
+| Film-Master, Audio, Musik, große Bilder, Interview-Clips, Quellen-PDFs (alles über 1 MB) | Google Drive, Ordner „#NN Titel“ (1 Film · 2 Thumbnails · 3 Rohmaterial · 4 Texte) |
 | Arbeitsstand laufender Filme | Projektordner `/mnt/project-files/scenario/`, mit `tools/sync_projektordner.py` ins Repo holen |
 
 ## Werkzeuge

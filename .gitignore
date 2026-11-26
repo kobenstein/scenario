@@ -6,3 +6,8 @@ films/67-assets/clips/*.mp4
 films/79-assets/clips/*.mp4
 films/79-assets/master/
 __pycache__/
+# Fremdes Material und große Dateien (> 1 MB) gehören nicht ins öffentliche Repo, sondern auf Drive / „Jakob - 6A“
+films/*-assets/clips/*.mp4
+films/*-assets/quellen/*.pdf
+*.mp3
+*.wav
