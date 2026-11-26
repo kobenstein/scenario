@@ -318,8 +318,8 @@
   "nr": 29,
   "ordner": "29-ai-is-bringing-back-the-mammoth",
   "titel": "AI Is Bringing Back the Mammoth",
-  "video": "BuuPBlSb6R4",
-  "veroeffentlicht": null,
+  "video": "X_ZFORcbVgA",
+  "veroeffentlicht": "2026-11-20",
   "skript_quellen": [
    "film-mammut"
   ],
@@ -339,9 +339,21 @@
   "code_herkunft": "claude/project-thread-4e6iqx:films/31-ai-builds-ai@4266ebd"
  },
  {
+  "nr": 41,
+  "ordner": "41-bill-gates-on-work",
+  "titel": "Bill Gates Changed His Mind About AI and Jobs",
+  "video": "GIa1407KO7c",
+  "veroeffentlicht": "2026-11-26",
+  "skript_quellen": [
+   "film-bill-gates"
+  ],
+  "thumbnail_quelle": "thumbnails/film-41",
+  "code_herkunft": "claude/project-thread-lqqd9i:films/41-bill-gates-on-work"
+ },
+ {
   "nr": 49,
   "ordner": "49-you-have-five-years-before-superintelligence",
-  "titel": "You Have Five Years Before Superintelligence",
+  "titel": "You Have 5 Years to Get Ready for AI",
   "video": "C331gMzZwrw",
   "veroeffentlicht": "2026-11-24",
   "skript_quellen": [
@@ -391,7 +403,7 @@
   "ordner": "63-the-pope-says-ai-wont-save-you",
   "titel": "The Pope Says AI Won't Save You",
   "video": "aFcLFCuo4WA",
-  "veroeffentlicht": "2026-11-28",
+  "veroeffentlicht": "2026-11-27",
   "skript_quellen": [
    "film-papst"
   ],
@@ -439,7 +451,7 @@
   "ordner": "68-the-ai-race-will-be-decided-by-2027",
   "titel": "The AI Race Will Be Decided by 2027",
   "video": "cFUJC__Wyqs",
-  "veroeffentlicht": "2026-11-29",
+  "veroeffentlicht": "2026-11-28",
   "skript_quellen": [
    "film-ai-race"
   ],
@@ -449,7 +461,7 @@
  {
   "nr": 69,
   "ordner": "69-europe-can-still-win-the-ai-race",
-  "titel": "Europe Can Still Win the AI Race",
+  "titel": "Europe Can Win the AI Race",
   "video": "wkFG5z3R_YM",
   "veroeffentlicht": "2026-11-25",
   "skript_quellen": [
@@ -481,6 +493,18 @@
   ],
   "thumbnail_quelle": "thumbnails/film-71",
   "code_herkunft": "claude/project-thread-pmgo6l:films/71-max-tegmarks-12-endings-for-ai"
+ },
+ {
+  "nr": 72,
+  "ordner": "72-why-ai-billionaires-are-building-bunkers",
+  "titel": "Why AI Billionaires Are Building Bunkers",
+  "video": null,
+  "veroeffentlicht": "2026-12-07",
+  "skript_quellen": [
+   "film-72-bunker"
+  ],
+  "thumbnail_quelle": "thumbnails/film-72",
+  "code_herkunft": "claude/project-thread-xh9kl4:films/72-why-ai-billionaires-are-building-bunkers"
  },
  {
   "nr": 73,

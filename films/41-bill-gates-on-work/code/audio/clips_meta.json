@@ -1,0 +1,12 @@
+{
+ "_comment": "Film 41 clip metadata for clips_json.py. Cut files films/41-assets/clips/Cn.mp4 (clip step, clips-geprueft.json 24.11.2026). transcript = verbatim wording of clips-geprueft.json (C3 'it'll have', not 'they'll'); cues = [seconds from the clip start, line <= 34 chars], times = ElevenLabs Scribe word times on the cut file (24.11.2026), wording checked against the cut audio.",
+ "C1": {"speaker": "Bill Gates", "role": "Co-founder, Microsoft · Chair, Gates Foundation", "source": "FT Live, Future of AI (Nov 4, 2026)", "url": "https://www.youtube.com/watch?v=g3wyStng7_M", "lower_third": "Bill Gates · FT Live, Nov 2026",
+        "transcript": "I say very strongly that past technological advances are no guide to this. That will just mislead you if you look at those.",
+        "cues": [[0.13, "I say very strongly that"], [1.67, "past technological advances"], [5.73, "are no guide to this."], [7.67, "That will just mislead you"], [9.27, "if you look at those."]], "cue_end": 10.85},
+ "C2": {"speaker": "Bill Gates", "role": "Co-founder, Microsoft · Chair, Gates Foundation", "source": "Decoder with Nilay Patel (Oct 22, 2026)", "url": "https://www.youtube.com/watch?v=A0kTUP7fWtk", "lower_third": "Bill Gates · Decoder, Oct 2026",
+        "transcript": "If we don't choose to massively slow down or stop, then we will have robots that can build houses, grow food, do surgery,",
+        "cues": [[0.32, "If we don't choose"], [2.3, "to massively slow down or stop,"], [5.9, "then we will have robots"], [9.06, "that can build houses,"], [10.2, "grow food, do surgery,"]], "cue_end": 12.9},
+ "C3": {"speaker": "Bill Gates", "role": "Co-founder, Microsoft · Chair, Gates Foundation", "source": "Decoder with Nilay Patel (Oct 22, 2026)", "url": "https://www.youtube.com/watch?v=A0kTUP7fWtk", "lower_third": "Bill Gates · Decoder, Oct 2026",
+        "transcript": "My big concern is this 20-year transition period, where it'll have winners and losers and a lot of disruption,",
+        "cues": [[0.24, "My big concern is this"], [1.84, "20-year transition period,"], [3.44, "where it'll have"], [5.64, "winners and losers"], [6.76, "and a lot of disruption,"]], "cue_end": 8.45}
+}
