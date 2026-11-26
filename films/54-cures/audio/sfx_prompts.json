@@ -1,6 +1,0 @@
-{
- "_comment": "Film 54 Mirelo SFX 2.0 (mirelo-ai/sfx2.0/text-to-audio, 0.01 USD/s, 1 sample each, mp3, 2026-11-12). Files in <scratch>/f54/audio/sfx, not in the repo. Everything else comes from sfx-bibliothek (akzent: stamp, card, paper_slide, brass_click, whoosh_up, whoosh_airy, brick, shimmer_rings, tone, chime, bulb, screen_off, heartbeat, rumble; atmo: clinic, lab).",
- "museum_hall": {"duration": 15, "seed": 5401, "prompt": "Very quiet room tone of a large empty museum hall at night, faint air conditioning hum, soft distant reverberant space, almost silent, loopable, no music, no voices."},
- "stadium": {"duration": 10, "seed": 5402, "prompt": "Soft distant murmur of a huge stadium crowd far away, low airy roar with faint seasonal wind, no shouting, no cheering, no music, loopable."},
- "glass_push": {"duration": 3, "seed": 5403, "prompt": "Slowly passing through a large glass pane: a soft glassy shimmer and a gentle push of air, delicate glass resonance fading out, cinematic, no music, no voices."}
-}
