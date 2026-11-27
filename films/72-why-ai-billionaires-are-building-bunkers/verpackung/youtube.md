@@ -1,7 +1,7 @@
 # #72 · Why AI Billionaires Are Building Bunkers
 
 - Video: (folgt)
-- Geplant: 2026-12-07 17:00 Wien (publishAt 2026-12-07T16:00:00Z), privat
+- Geplant: 2026-12-08 17:00 Wien (publishAt 2026-12-08T16:00:00Z), privat
 - Länge: 9:55
 
 ## Titel
