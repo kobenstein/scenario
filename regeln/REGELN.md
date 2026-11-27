@@ -1,6 +1,6 @@
 # REGELN für Text, Story, Hook, Titel und Thumbnail
 
-**Stand 23.11.2026 (Grundfassung von Jakob freigegeben 6.11. 16:24).** Jeder Film-Thread und jeder Texter-, Kritiker-, Hook- und Thumbnail-Agent liest diese Datei, bevor er schreibt. Sie gilt vor allen älteren Quellen (Kanal-Bibel vom 17.10., installierter Skill `scenario-script`, `scenario-script-SKILL-neu.md`/`-v3.md`, Vibe-Brief). Bei Widerspruch gilt: Jakobs neueste Aussage im Film-Thread > diese Datei > alles andere. Neue Regeln von Jakob werden HIER eingetragen (mit Datum), nicht nur in der Projekt-Erinnerung.
+**Stand 27.11.2026 (Grundfassung von Jakob freigegeben 6.11. 16:24).** Maßgeblich ist diese Datei im Repo (`regeln/REGELN.md`); `schreibraum/REGELN.md` im Projektordner ist nur ein Spiegel und wird nach jeder Änderung überschrieben. Jeder Film-Thread und jeder Texter-, Kritiker-, Hook- und Thumbnail-Agent liest diese Datei, bevor er schreibt. Sie gilt vor allen älteren Quellen (Kanal-Bibel vom 17.10., installierter Skill `scenario-script`, `scenario-script-SKILL-neu.md`/`-v3.md`, Vibe-Brief). Bei Widerspruch gilt: Jakobs neueste Aussage im Film-Thread > diese Datei > alles andere. Neue Regeln von Jakob werden HIER eingetragen (mit Datum), nicht nur in der Projekt-Erinnerung.
 
 Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/retention-hooks-2026-11-05.md`, `analysen/ausstiegsstellen-2026-10-28.md`, `analysen/nothing-burger-geniuses-2026-10-24.md`, `analysen/kanal-analyse-2026-11-02.md`, `treffer-check.md`, `clip-schritt.md`. Was sich widersprach und wie es hier aufgelöst ist: `regeln-befund-2026-11-06.md`.
 
@@ -133,11 +133,15 @@ Herleitung, Daten und Belege: `hook-bauplan.md`, `feedback-log.md`, `analysen/re
 
 7. **Thumbnails sofort nach Drive** (Jakob 20.11.: „nicht dass die über die Zeit verschwinden“): Jede Runde A/B/C gleich nach dem Erstellen in den Drive-Ordner „#NN Titel/2 Thumbnails“ hochladen (2560er Original + 1280er PNG/JPG; spätere Runden in Unterordner „alt-vN“), nicht erst beim Upload. Fehlt der Filmordner, anlegen (1 Film / 2 Thumbnails / 3 Rohmaterial / 4 Texte & Recherche). Nie Thumbnails löschen.
 
+8. **Personen-Thumbnail (Jakob 26.11.):** Name klein in Gelb mit Doppelpunkt (z. B. „GATES:“), darunter 2–4 große Wörter, die allein sagen, worum es geht.
+
 ## 10. Ablauf eines Skripts (Stand 5.11.)
 
 Treffer-Check → Verpackung (Titel/Thumbnail-Idee, 2–3 Leitgedanken) → Jakob wählt → Gerüst mit Fragen-Kette, Uhr/Rätsel, Clip-Stellen → Jakob gibt frei → Recherche (max) → Faktenzettel + Staunen-Fakten → **1 Texter (max)** sieht nur Gerüst, diese Datei, Faktenzettel, Staunen-Fakten, Vorbild-Ausschnitte, nie die Rohrecherche → Hook als eigener Schritt (3 Varianten) → **1 Kritiker (max)** als normaler Zuschauer (leicht zu folgen, keine Sprünge, relevant) + Payoff-Check + Bann-Liste + Prüfskript → Einarbeitung → **Kokoro-Hörfassung** an Jakob → nach Freigabe Faktencheck + Ampelseite → erst dann Stimme und Bau. Kein Ultracode-Workflow fürs Skript (Jakob 5.11. 17:43). **Modell (Jakob 16.11.): Texter und Kritiker laufen auf Fable 5.2** (höchste Stufe), Recherche vorerst auf Opus 5.5.
 
 **Freigabe-Stellen (Jakob 23.11.): genau vier Stopps.** 1 Thema + Titel (mit Recherche und Marktcheck), 2 Leitgedanke (eigener Stopp), 3 Hörfassung + Thumbnails ZUSAMMEN (die drei Thumbnails A/B/C sind also schon vor der Hörfassungs-Abnahme fertig und gehen mit ihr in einer Nachricht raus), 4 Vorschau. Das Gerüst läuft ohne eigenen Stopp. Keine weiteren Feedback-Stellen einbauen.
+
+**Autonom-Modus (Jakob 27.11.):** Schreibt Jakob „stelle alles autonom fertig“, „autonom“ oder Ähnliches, entfallen alle vier Stopps für diesen Film. Der Thread nimmt an jeder Stelle die eigene Empfehlung (Thema + Titel, Leitgedanke, Hörfassung + Thumbnails, Vorschau), lässt alle Prüfungen laufen (Marktcheck, Regel-Check, Faktencheck, Clip-Check, Beschreibungs-Check) und plant den Film am nächsten freien Slot 17:00 Wien ein, inkl. Studio-Schritten und Archiv. An Jakob nur das Ergebnis mit je einem Satz Begründung pro Entscheidung. Anhalten nur bei: Faktencheck rot, Urheberrechtsanspruch, nicht freigegebenem Sponsor-Block, falschem YouTube-Kanal oder fehlendem Master. Ablauf: Skill `good-takeoff-pipeline`.
 
 **Hörfassung immer auch in 1,5-fach (Jakob 24.11.):** Jede Kokoro-Hörfassung zusätzlich als `…-1,5x.mp3` erzeugen (`ffmpeg -i in.mp3 -filter:a atempo=1.5 -b:a 128k out-1,5x.mp3`, Tonhöhe bleibt) und diese an Jakob anhängen. Die normale Fassung bleibt daneben liegen. **Nur für die Kokoro-Vorschau** (billige Stimme): Film, ElevenLabs-Stimme, Vorschau und Upload laufen immer in normalem Tempo.
 
@@ -186,20 +190,37 @@ Beschreibungskopf in JEDEM Langfilm: Absatz 1 Hook · Absatz 2 „✨ ☕ If you
 
 ## 13. Bau: Bild zeigt, was der Satz sagt (Jakob 24.11.)
 
-**Befund (Jakob 24.11., #63):** In den letzten Filmen ist der Bau wieder in Ein-Bild-Szenen gedriftet (ein Bild steht über mehrere Sätze, während der Text weitererzählt). Die besten Filme waren eine Mischung aus Szenen und Erklärgrafiken, die **genau das zeigen, was im Skript gerade erzählt wird.**
+**Befund (Jakob 24.11., #63):** In den letzten Filmen ist der Bau wieder in Ein-Bild-Szenen gedriftet. Die besten Filme waren eine Mischung aus Szenen und Erklärgrafiken, die **genau das zeigen, was im Skript erzählt wird**. Ziel: „nicht nur eine große Szene mit Zooms, sondern wie ein richtig schöner Motion-Design-Film“.
 
-1. **Ein Bild pro Satz.** Jeder Satz mit neuer Information bekommt ein eigenes Motiv, das genau diese Information zeigt (Zahl, Zitat, Vergleich, Ablauf, Person, Ort). Ein Bild bleibt nur stehen, wenn der Satz nichts Neues sagt (Pause, Nachklang). Prüfung in `docs/shots.md`: jede Zeile = ein Satz, Spalte „Bild (eine Idee)“ beschreibt, was der Zuschauer sieht, nicht die Stimmung.
-2. **Mischung messen: Erklärgrafik-Anteil 60–70 %** (gewichtet pro Sekunde Bild: EXPL 1 · MIX 0,5 · WELT/LAND 0,3 · SZENE 0 · CLIP 0). Steht oben in `shots.md`, wird auf dem echten VO-Timing gerechnet, **vor** dem Animieren. Außerhalb 60–70 %: Shots umbauen, nicht weiterbauen.
-2a. **Keine eine große Szene mit Zooms** (Jakob 24.11.). Ein Film ist nicht EINE große Welt, durch die die Kamera fährt und zoomt. Ein Zoom, Schwenk oder eine Kamerafahrt in dasselbe Bild zählt **nicht** als neues Bild. Gebraucht werden viele eigene Motive: neue Szenen (anderer Ort, andere Person, anderer Moment) und eigene Erklärgrafiken, verbunden über Träger-Elemente (`scenario-motion`). Prüfung in `shots.md`: Spalte „Motiv neu?“; Shots, die nur denselben Hintergrund näher/weiter zeigen, sind keine neuen Motive. Die alte Kennzahl „harte Weltwechsel: 1“ ist kein Ziel mehr.
-2b. **Maßstab: ein richtig schöner Motion-Design-Film** (Jakob 24.11.), keine animierte Illustration. Jedes Motiv ist eigens komponiert; Übergänge sind gestaltete Verwandlungen (Form wird Form, Grafik baut sich aus der Szene auf und zerfällt in die nächste), Typo und Zahlen bewegen sich kinetisch und im Takt der Stimme, Rhythmus wechselt zwischen schnellen Folgen und ruhigen Bildern. Vergleich vor jeder Abnahme: Würde dieser Abschnitt als eigenständiges Motion-Design-Stück bestehen? Wenn nicht, umbauen.
-3. **Szenen tragen Gefühl, Grafiken tragen Verstehen.** Szenisch: Hook, Wow-Moment pro Abschnitt, menschliche Momente. Erklärgrafik: jede Zahl, jedes Zitat, jeder Mechanismus. Grafik möglichst als MIX in der Welt (schreibt sich auf ein Objekt der Szene), damit der Film nicht zwischen Grafik und Bild springt.
-4. **Skills zuerst laden** (Lead und jeder Builder, erster Satz im Builder-Brief): `scenario-motion` (Kanalstil, gilt bei Widerspruch), `world-class-motion-design`, `fluid-motion-design`, `motion-director-gates`; für Zahlen-Grafiken zusätzlich `dataviz`. Keine Werbe-Skills (`ad-motion`, `performance-video-ad`, `motion-design-director`).
-5. **Im Bau-Plan an Jakob** stehen Skill-Liste und geplanter Erklärgrafik-Anteil immer drin.
-6. **Abnahme pro Abschnitt:** Kontaktbogen (Einzelbilder) gegen die Gates und gegen das Skript lesen: Zeigt jedes Bild den Satz, der gerade gesprochen wird? Wenn nein, umbauen.
+1. **Ein Bild pro Satz.** Jeder Satz mit neuer Information bekommt ein eigenes Motiv, das genau diese Information zeigt (Zahl, Zitat, Vergleich, Ablauf, Person, Ort). Ein Bild bleibt nur stehen, wenn der Satz nichts Neues sagt. In `shots.md`: jede Zeile = ein Satz, Spalte „zeigt wörtlich“ beschreibt, was der Zuschauer sieht, nicht die Stimmung.
+1a. **Zoom ist kein neues Bild.** Zoom, Schwenk oder Fahrt in dasselbe Bild zählt nicht als neues Motiv. Gebraucht werden viele eigene Motive (anderer Ort, andere Person, anderer Moment, eigene Grafik), verbunden durch ein Träger-Element. In `shots.md` Spalte „Motiv neu?“.
+1b. **Maßstab Motion-Design-Film, keine animierte Illustration.** Jedes Motiv eigens komponiert; Übergänge als gestaltete Verwandlung (Form wird zur nächsten, Grafik baut sich aus der Szene auf); Typo und Zahlen kinetisch im Takt der Stimme; Rhythmus wechselt zwischen schnellen Folgen und ruhigen Bildern. Abnahme-Frage pro Abschnitt: Würde er als eigenes Motion-Design-Stück bestehen?
+2. **Erklärgrafik-Anteil 60–70 %**, gewichtet pro Sekunde Bild: EXPL 1 · MIX 0,5 · WELT/LAND **0** (Kamerafahrt durch die Welt ist keine Erklärung, vorher 0,3) · SZENE 0 · CLIP 0. Steht oben in `shots.md`, auf echtem VO-Timing gerechnet, **vor** dem Animieren. Außerhalb: Shots umbauen.
+3. **Szenen tragen Gefühl, Grafiken tragen Verstehen.** Szenisch: Hook, ein Wow-Moment pro Abschnitt, menschliche Momente. Erklärgrafik: jede Zahl, jedes Zitat, jeder Mechanismus. Grafik gern als MIX auf einem Objekt der Szene.
+4. **Leitbild nur als Anker** an 3–4 Stellen (Hook, Wende, Pointe, Schluss). Kein „eine Welt“-Film, keine Dauerfahrt durch eine Leitbild-Welt.
+5. **Übergänge** über ein Träger-Objekt, keine Blenden; max. ~1 harter Schnitt/min (Obergrenze gegen Hektik, KEIN Ziel „eine Welt“); 1–2 Bewegungen gleichzeitig.
+6. **Skills zuerst laden** (Lead und jeder Builder, erster Satz im Brief): `scenario-motion` (Kanalstil, gilt bei Widerspruch), `world-class-motion-design`, `fluid-motion-design`, `motion-director-gates`; für Zahlen-Grafiken `dataviz`. Keine Werbe-Skills (`ad-motion`, `performance-video-ad`, `motion-design-director`). Stil: `stil/STIL-editorial-nacht.md`.
+7. **MOTION.md + shots.md** im Film-5-Format, Abschnitt „Nicht wiederholen“ (Welten früherer Filme).
+8. **Im Bau-Plan an Jakob** stehen Skill-Liste und geplanter Anteil immer drin.
+9. **Abnahme pro Abschnitt:** Kontaktbogen gegen Gates UND Skript: Zeigt jedes Bild den Satz, der gerade gesprochen wird? Vor dem Render messen: Schnitte/min, Bewegungsmaß (calm.py), stille Stellen (<5 %, keine >2 s).
+
+## 14. Ton, Render, Master (aus der Projekt-Erinnerung übernommen 27.11.)
+
+1. **Stimme Film:** ElevenLabs v4 über fal (`elevenlabs/tts/eleven-v4`), Stimme `akQnlreIUIoJxrTrosJj`, stability 0.3, similarity 0.75, seed 4301, Regie-Tags sparsam; volle Vorgabe `stimme/STANDARD-STIMME.md`. Kein Flüstern (§5.4). Hörfassung zur Abnahme: Kokoro (§10).
+2. **Ton:** Mirelo-SFX präsent, nie unter laufende Sätze (Bibliothek `sfx-bibliothek/`). Musik mystisch (Drones, Pads, Klavier, Glas/Chor, nicht uplifting), ein Track pro Kapitel; Werkzeug laut Projekt-Erinnerung Google Lyria 3.5, `scenario-motion` nennt ElevenLabs Music (offen, Jakob 27.11. gefragt). Ton-Master −14 LUFS. fal-Budget ~2 €, max. 5 € pro Film; fal nur für Audio und Thumbnails.
+3. **Bild:** keine KI-Bilder und kein Image-to-Video im Film, alles aus Code (Ausnahme Kanalgrafik, Thumbnails). Keine primitiven 3D-Formen, kein 3D-Spiel-Look; Figuren bewegen sich natürlich. Zukunftstage zeigen mehr Straße, Stadt, Roboter (8.11.). Keine Leitbilder/Welten früherer Filme wiederholen (9.11.).
+4. **Untertitel:** englisch eingebrannt, ~72 px (ASS FontSize 19, Outline 1.4, MarginV 20), max. 34 Zeichen/Zeile, dazu `.srt`; Wort-Markierung nur in Shorts.
+5. **Master:** 1080p30 (Ausnahme Film 10: 720p), Abspann ~15 s ruhiges Schlussbild mit Platz für Endscreen. Sicherung nach §12.
+6. **Wo gebaut wird:** bevorzugt in der Cloud. Am iMac nur auf „/Volumes/Jakob - 6A“ (interne Platte voll, Jakob 24.11.), nie Desktop, Downloads, ~/Projects oder /tmp; ist 6A nicht angesteckt, nichts Großes am iMac. Projektordner: Dateien über ~500 MB verschwinden still, nur Finale + kleine Quellen ablegen.
+7. **Kontingent:** pro Thread höchstens 3–4 Bau-Agenten, Standard „high“, max nur für Kernaufgaben; keine zwei Filme parallel voll bauen; kein Workflow/Ultracode für Builds (20.10./23.10.).
+8. **Originale nie löschen** ohne Qualitätsvergleich mit der Sicherung (11.11.).
 
 ---
 
 ## Änderungslog
+- 27.11.2026: Zwei auseinandergelaufene Fassungen (Repo und Projektordner) zusammengeführt: §13 aus der Ordner-Fassung (WELT zählt 0, Leitbild nur Anker, Messwerte vor Render), Rest aus dem Repo. Repo ist ab jetzt maßgeblich. Neu: §9.8 Personen-Thumbnail (Jakob 26.11.), §10 Autonom-Modus (Jakob 27.11.), §14 Ton/Render/Master aus der Projekt-Erinnerung.
+- 24.11.2026: §13 mit iMac-Fassung (PR #28) zusammengeführt; WELT zählt 0.
+- 24.11.2026: Jakob wählt für #77 „AGI: The Final Human Invention“ (Titel eines Fremdkanals, Miden Tech 91k bei 960 Abos). Bewusste Ausnahme von „keine Abkürzungen im Titel“ (AGI) und §8.9a; keine neue Regel. Lehre: bekannte Abkürzung AGI ist für Jakob okay, wenn der Begriff im Markt zieht.
 - 20.11.2026: §9.7 Thumbnails jeder Runde sofort nach Drive „2 Thumbnails“ (Jakob).
 - 20.11.2026: §12 Sicherung immer aus der Originaldatei direkt nach dem Render, nie Studio-Download (Jakob).
 - 20.11.2026: §11 Rest aus `scenario-script` nachgetragen (Verantwortung, Nähe, Gesicht pro Zahl, eine Person, viele Stimmen); Skill kann gelöscht werden.
