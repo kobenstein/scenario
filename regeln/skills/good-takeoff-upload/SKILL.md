@@ -36,8 +36,9 @@ Per Remote Control auf dem iMac, nur über die Claude-in-Chrome-Erweiterung. Im 
 - **~17:20:** öffentlich? Beschreibung ok? Test & Compare läuft? Monetarisierung an? Jakob eine Zeile.
 - **Wecker für +24 h anlegen (Pflicht):** Klickrate im Studio lesen. Unter 6 % neuen Titel oder Bildtext aus der Titel-Werkstatt setzen (Skill `good-takeoff-thema-titel`, Schritt 8), Jakob eine Zeile.
 - **Kommentare:** in den ersten 48 h die 5–10 meistgelikten in das Freigabe-Sheet „Kommentar-Antworten – zur Freigabe“ eintragen (Ich-Form als Jakob, Stil `jakob-schreibstil`); nur Zeilen mit „ok“/„eigene“ per Chrome posten. Anpinnen nur auf Jakobs Auftrag.
-## 5. Archiv (Pflicht, am Release-Tag, gilt erst als erledigt, wenn alle drei Haken stehen)
+## 5. Archiv (Pflicht, am Release-Tag, gilt erst als erledigt, wenn alle vier Haken stehen)
 1. **Drive:** Filmordner „#NN Titel“ in „The Good Takeoff“ (1cCNjwOJ47DdDtPU2hb2JkyVLpp96r8Eg) mit 1 Film / 2 Thumbnails / 3 Rohmaterial / 4 Texte & Recherche; fehlt er, anlegen. Prüfen, dass der Master aus Schritt 2 (Originaldatei, nie Studio-Download) in „1 Film“ und auf „Jakob - 6A“ liegt; Thumbnails A/B/C in „2 Thumbnails“. Nie löschen ohne Qualitätsvergleich.
 2. **Repo:** Eintrag in `films/filme.json` (nr, ordner, titel, video, veroeffentlicht, skript_quellen, thumbnail_quelle, code_herkunft), Code nach `films/NN-titel/code/` (ohne Audio/Video/Dateien > 1 MB, die in der README listen), dann `python3 tools/sync_projektordner.py NN --youtube`.
 3. **Merge:** PR auf main öffnen und ohne Konflikt selbst mergen.
-Jakob in der Release-Zeile melden: „Archiv: Drive ✓ Repo ✓ main ✓“ (oder was fehlt).
+4. **Filmliste (Jakobs Sheet):** „The Good Takeoff – Filme und Ideen“ (Google Sheets, ID `12yIldvXemnQQF1fD_COAev4Xy6W9XZfVI8VWpUIEKZ8`, Tab „Filme“) in place bearbeiten, nie neue Datei: Zeile #NN mit Status (geplant/online), Titel, Datum TT.MM.JJJJ, YouTube-Link, Notiz. Fehlt die Zeile, anhängen. Zwischen 10.11. und 27.11. wurde das vergessen, weil der Schritt nur in Abschnitt 2 stand.
+Jakob in der Release-Zeile melden: „Archiv: Drive ✓ Repo ✓ main ✓ Liste ✓“ (oder was fehlt).
